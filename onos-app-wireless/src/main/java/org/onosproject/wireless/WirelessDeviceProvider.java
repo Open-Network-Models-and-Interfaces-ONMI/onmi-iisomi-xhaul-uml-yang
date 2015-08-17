@@ -29,6 +29,7 @@ import org.onosproject.net.DeviceId;
 import org.onosproject.net.MastershipRole;
 import org.onosproject.net.Port;
 import org.onosproject.net.PortNumber;
+import org.onosproject.net.Link;
 import org.onosproject.net.device.DefaultDeviceDescription;
 import org.onosproject.net.device.DefaultPortDescription;
 import org.onosproject.net.device.DeviceAdminService;
@@ -54,6 +55,7 @@ import org.onosproject.net.PortNumber;
 import org.onosproject.net.device.PortStatistics;
 import org.onosproject.net.AnnotationKeys;
 import org.onosproject.net.DefaultAnnotations;
+import org.onosproject.net.link.LinkService;
 import org.onosproject.net.flow.DefaultFlowRule;
 import org.onosproject.net.flow.DefaultTrafficSelector;
 import org.onosproject.net.flow.DefaultTrafficTreatment;
@@ -126,15 +128,18 @@ import org.projectfloodlight.openflow.types.U64;
 
 @Component(immediate = true)
 public class WirelessDeviceProvider extends AbstractProvider implements DeviceProvider {
-    private static final String DEVICE_IS_WIRELESS = "device-is-wireless";
+    // Device Annotations
     private static final String WIRELESS_PORT_PRIM = "wireless-port-prim";
     private static final String WIRELESS_PORT_SEC = "wireless-port-sec";
     private static final String ETH_PORT = "eth-port";
-    private static final String WIRELESS_UTILIZED_CAPACITY = "wireless-utilized-tx-capacity";
     private static final String WIRELESS_TX_CURR_CAPACITY = "wireless-tx-curr-capacity";
-    private static final String FLOW_OPERATION = "flow-op";
-    private static long portCapacityMbps = 100;
-    private static final long wirelessExperimenterType = 0xff000005l;
+    private static final String WIRELESS_DEBUG = "wireless-debug";
+    // Constants
+    private static final long WIRELESS_EXPERIMENTER_TYPE = 0xff000005l;
+    private static final long WIRELESS_DEBUG_ALWAYS_SEND_PORT_MOD = 1;
+    private static final long WIRELESS_DEBUG_CALCULATE_ONLY = 2;
+    private static final long LOW_UTILIZATION_THRESHOLD = 20;
+    private static final long HIGH_UTILIZATION_THRESHOLD = 80;
 
     public WirelessDeviceProvider() {
         super(new ProviderId("wireless-app", "org.onosproject.wireless"));
@@ -150,6 +155,9 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
 
     @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
     protected DeviceService deviceService;
+
+    @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
+    protected LinkService linkService;
 
     @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
     protected FlowRuleService flowRuleService;
@@ -175,7 +183,6 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
 
     private long statsReportCounter = 0;
     private long prevUtilization = 0;
-    private boolean portMute = false;
 
     private boolean flowsInstalled = false;
     private final AtomicLong xidAtomic = new AtomicLong(1);
@@ -253,6 +260,11 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
                 if (portInternalData == null) {
                     continue;
                 }
+                if (port.isEnabled() == false)
+                {
+                    log.error("analyzeDevicePortStats(): MW port {}/{} is disabled", deviceId, port.number());
+                    return;
+                }
                 // The flow init is done for each device once:
                 // flow 1 is set on the primary port, flow 2 - on the secondary
                 if (portInternalData.flowsFirstCreated() == false) {
@@ -274,6 +286,8 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
     private void analyzePortsUtilization(Device device) {
         ProviderId devProviderId = device.providerId();
         DeviceId deviceId = device.id();
+        long wirelessDebug = (device.annotations().value(WIRELESS_DEBUG) == null) ?
+            0 : Integer.valueOf(device.annotations().value(WIRELESS_DEBUG)).longValue();
 
         List<Port> ports = store.getPorts(deviceId);
         for (Port port : ports) {
@@ -281,23 +295,58 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
             if (portInternalData == null) {
                 continue;
             }
+            Port matePort = portInternalData.mateMwPort();
+            InternalData matePortInternalData = getInternalData(device, matePort);
+            if (matePortInternalData == null) {
+                continue;
+            }
+            // Get peer data here. If it does not exist, escape with error
+            InternalData peerPortInternalData = getPeerInternalData(device, port);
+            if (peerPortInternalData == null) {
+                continue;
+            }
+            Device peerDevice = peerPortInternalData.device();
+            Port peerPort = peerPortInternalData.port();
+            Port peerMatePort = peerPortInternalData.mateMwPort();
+            InternalData peerMatePortInternalData = getInternalData(peerDevice, peerMatePort);
+            if (peerMatePortInternalData == null) {
+                continue;
+            }
 
-            long utilized_capacity = portInternalData.txUtilizedCapacity();
-            long curr_capacity = getTxCurrCapacityFromPortAnnotation(port);
-            if (curr_capacity > 0) {
-                long utilization = utilized_capacity * 100 / curr_capacity;
-                log.info("analyzePortsUtilization(): ----- {}/{}: utilized_capacity {}, curr_capacity {} utilization {}",
-                    deviceId, port.number(), utilized_capacity, curr_capacity, utilization);
-                // wait until the calculations become steady
-                    if (   utilization > 0
-                        && utilization < 20
-                        && portInternalData.prevUtilization() > 0) {
-//                        if (device.annotations().value("mw-start") != null)
-                            muteMwPort(portInternalData);
+            // calculate utilization: current port
+            long utilizedCapacity = portInternalData.txUtilizedCapacity();
+            long currCapacity = getTxCurrCapacityFromPortAnnotation(port);
+            long mateUtilizedCapacity = matePortInternalData.txUtilizedCapacity();
+            long mateCurrCapacity = getTxCurrCapacityFromPortAnnotation(matePort);
+            // peer
+            long peerUtilizedCapacity = peerPortInternalData.txUtilizedCapacity();
+            long peerCurrCapacity = getTxCurrCapacityFromPortAnnotation(peerPort);
+            long peerMateUtilizedCapacity = peerMatePortInternalData.txUtilizedCapacity();
+            long peerMateCurrCapacity = getTxCurrCapacityFromPortAnnotation(peerMatePort);
+            if (currCapacity > 0 && mateCurrCapacity > 0 && peerCurrCapacity > 0 && peerMateCurrCapacity > 0) {
+                long utilization = utilizedCapacity * 100 / currCapacity;
+                long mateUtilization = mateUtilizedCapacity * 100 / peerMateCurrCapacity;
+                long peerUtilization = peerUtilizedCapacity * 100 / peerCurrCapacity;
+                long peerMateUtilization = peerMateUtilizedCapacity * 100 / peerMateCurrCapacity;
+                log.info("analyzePortsUtilization(): ----- {}/{}: utilization {}, mateUtilization {}, peerUtilization {}, peerMateUtilization {}",
+                    deviceId, port.number(), utilization, mateUtilization, peerUtilization, peerMateUtilization);
+
+                    // Debug: always send ExperimanterPortMod if a flag is set on
+                    if (utilization == 0 && wirelessDebug == WIRELESS_DEBUG_ALWAYS_SEND_PORT_MOD) {
+                        sendWirelessPortMod(device.id(), port, false); // always unmute
                     }
-                    if (utilization > 80) {
-//                        if (device.annotations().value("mw-start") != null)
-                            unmuteMwPort(portInternalData);
+                    else if (  utilization >= 0
+                            && utilization < LOW_UTILIZATION_THRESHOLD
+                            && utilization + mateUtilization < HIGH_UTILIZATION_THRESHOLD
+                            && peerUtilization + peerMateUtilization < HIGH_UTILIZATION_THRESHOLD
+                            && portInternalData.prevUtilization() >= 0
+                            && wirelessDebug != WIRELESS_DEBUG_CALCULATE_ONLY) {
+                        muteMwPort(portInternalData);
+                    }
+                    else if (   utilization > HIGH_UTILIZATION_THRESHOLD
+                            && matePortInternalData.portMute() == true
+                            && wirelessDebug != WIRELESS_DEBUG_CALCULATE_ONLY) {
+                        unmuteMwPort(matePortInternalData);
                     }
                 portInternalData.setPrevUtilization(utilization);
             }
@@ -308,11 +357,29 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
     private void muteMwPort(InternalData portInternalData) {
         Device device = portInternalData.device();
         Port port = portInternalData.port();
-        Port mateMwPort = portInternalData.mateMwPort();
-        InternalData matePortInternalData = getInternalData(device, mateMwPort);
+        log.debug("muteMwPort(): start for port {}/{}", device.id(), port.number());
+
+        Port matePort = portInternalData.mateMwPort();
+        InternalData matePortInternalData = getInternalData(device, matePort);
         if (matePortInternalData == null) {
             log.error("muteMwPort(): No internal data record for port {}/{}",
-                device.id(), mateMwPort.number());
+                device.id(), matePort.number());
+            return;
+        }
+        // Get peer data here. If it does not exist, escape with error
+        InternalData peerPortInternalData = getPeerInternalData(device, port);
+        if (peerPortInternalData == null) {
+            log.error("muteMwPort(): No internal data record for peer port of {}/{}",
+                device.id(), matePort.number());
+            return;
+        }
+        Device peerDevice = peerPortInternalData.device();
+        Port peerPort = peerPortInternalData.port();
+        Port peerMatePort = peerPortInternalData.mateMwPort();
+        InternalData peerMatePortInternalData = getInternalData(peerDevice, peerMatePort);
+        if (peerMatePortInternalData == null) {
+            log.error("muteMwPort(): Port {}/{} - No internal data record for mate of the peer port {}/{}",
+                device.id(), matePort.number());
             return;
         }
 
@@ -327,25 +394,60 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
                 device.id(), port.number());
             return;
         }
-        // move _all_ flows from the given port to mate
+
+        printInternalDb();
+        // move _all_ flows from the given port to mate on both sides
         if (portInternalData.flow1Created()) {
+            log.debug("muteMwPort() moving flow1 from port {}/{} to {}/{}",
+                device.id(), port.number(), device, matePort.number());
             operateFlow(device, port.number().toLong(), false, true); // remove, flow1
             portInternalData.setFlow1Created(false);
 
-            operateFlow(device, mateMwPort.number().toLong(), true, true); // add, flow1
-            matePortInternalData.setFlow2Created(true);
+            operateFlow(device, matePort.number().toLong(), true, true); // add, flow1
+            matePortInternalData.setFlow1Created(true);
+
+            // move the flow on the other side of the link
+            if (peerPortInternalData.flow1Created()) {
+                operateFlow(peerDevice, peerPort.number().toLong(), false, true); // remove, flow1
+                peerPortInternalData.setFlow1Created(false);
+                operateFlow(peerDevice, peerMatePort.number().toLong(), true, true); // add, flow1
+                peerMatePortInternalData.setFlow1Created(true);
+            }
+            else {
+                log.debug("muteMwPort() port {} flow1: peer port {}/{} has no flow1",
+                    device.id(), port.number());
+            }
         }
+
         if (portInternalData.flow2Created()) {
+            log.debug("muteMwPort() moving flow2 from port {}/{} to {}/{}",
+                device.id(), port.number(), device.id(), matePort.number());
             operateFlow(device, port.number().toLong(), false, false); // remove, flow2
             portInternalData.setFlow2Created(false);
 
-            operateFlow(device, mateMwPort.number().toLong(), true, false); // add, flow2
+            operateFlow(device, matePort.number().toLong(), true, false); // add, flow2
             matePortInternalData.setFlow2Created(true);
+
+            // move the flow on the other side of the link
+            if (peerPortInternalData.flow2Created()) {
+                operateFlow(peerDevice, peerPort.number().toLong(), false, false); // remove, flow2
+                peerPortInternalData.setFlow2Created(false);
+                operateFlow(peerDevice, peerMatePort.number().toLong(), true, false); // add, flow2
+                peerMatePortInternalData.setFlow2Created(true);
+            }
+            else {
+                log.debug("muteMwPort() port {}/{} flow2: peer port {}/{} has no flow2",
+                    device.id(), port.number());
+            }
         }
 
-        // Mute the port
+        // Mute the ports on both sides
         sendWirelessPortMod(device.id(), port, true);
         portInternalData.setPortMute(true);
+        sendWirelessPortMod(peerDevice.id(), peerPort, true);
+        peerPortInternalData.setPortMute(true);
+
+        printInternalDb();
     }
 
     // sends ExperimenterPortMod msg;
@@ -353,38 +455,84 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
     private void unmuteMwPort(InternalData portInternalData) {
         Device device = portInternalData.device();
         Port port = portInternalData.port();
-        Port mateMwPort = portInternalData.mateMwPort();
-        InternalData matePortInternalData = getInternalData(device, mateMwPort);
+        log.debug("unmuteMwPort(): start for port {}/{}", device.id(), port.number());
+
+        Port matePort = portInternalData.mateMwPort();
+        InternalData matePortInternalData = getInternalData(device, matePort);
         if (matePortInternalData == null) {
-            log.error("muteMwPort(): No internal data record for port {}/{}",
-                device.id(), mateMwPort.number());
+            log.error("unmuteMwPort(): No internal data record for port {}/{}",
+                device.id(), matePort.number());
+            return;
+        }
+        // Get peer data here. If it does not exist, escape with error
+        InternalData peerPortInternalData = getPeerInternalData(device, port);
+        if (peerPortInternalData == null) {
+            log.error("unmuteMwPort(): No internal data record for peer port of {}/{}",
+                device.id(), matePort.number());
+            return;
+        }
+        Device peerDevice = peerPortInternalData.device();
+        Port peerPort = peerPortInternalData.port();
+        Port peerMatePort = peerPortInternalData.mateMwPort();
+        InternalData peerMatePortInternalData = getInternalData(peerDevice, peerMatePort);
+        if (peerMatePortInternalData == null) {
+            log.error("unmuteMwPort(): Port {}/{} - No internal data record for mate of the peer port {}/{}",
+                device.id(), matePort.number());
             return;
         }
 
+        printInternalDb();
         if (getMwPortPrim(device) == port.number().toLong()) {
             // move flow1 from the mate
             if (matePortInternalData.flow1Created()) {
-                operateFlow(device, mateMwPort.number().toLong(), false, true); // remove, flow1
+                operateFlow(device, matePort.number().toLong(), false, true); // remove, flow1
                 matePortInternalData.setFlow1Created(false);
 
                 operateFlow(device, port.number().toLong(), true, true); // add, flow1
                 portInternalData.setFlow1Created(true);
+                // move the flow on the other side of the link
+                if (peerMatePortInternalData.flow1Created()) {
+                    operateFlow(peerDevice, peerMatePort.number().toLong(), false, true); // remove, flow1
+                    peerMatePortInternalData.setFlow1Created(false);
+
+                    operateFlow(peerDevice, peerPort.number().toLong(), true, true); // add, flow1
+                    peerPortInternalData.setFlow1Created(true);
+                }
+                else {
+                    log.debug("unmuteMwPort() port {}/{} flow1: peer port {}/{} has no flow1",
+                        device.id(), port.number(), peerDevice.id(), peerPort.number());
+                }
             }
         }
         else {
             // move flow2 from the mate
             if (matePortInternalData.flow2Created()) {
-                operateFlow(device, mateMwPort.number().toLong(), false, false); // remove, flow2
+                operateFlow(device, matePort.number().toLong(), false, false); // remove, flow2
                 matePortInternalData.setFlow2Created(false);
 
                 operateFlow(device, port.number().toLong(), true, false); // add, flow2
                 portInternalData.setFlow2Created(true);
+                // move the flow on the other side of the link
+                if (peerMatePortInternalData.flow2Created()) {
+                    operateFlow(peerDevice, peerMatePort.number().toLong(), false, false); // remove, flow2
+                    peerMatePortInternalData.setFlow2Created(false);
+
+                    operateFlow(peerDevice, peerPort.number().toLong(), true, false); // add, flow2
+                    peerPortInternalData.setFlow2Created(true);
+                }
+                else {
+                    log.debug("unmuteMwPort() port {}/{} flow2: peer port {}/{} has no flow2",
+                        device.id(), port.number(), peerDevice.id(), peerPort.number());
+                }
             }
         }
 
-        // Unmute the port
+        // Unmute the ports on both sides
         sendWirelessPortMod(device.id(), port, false);
         portInternalData.setPortMute(false);
+        sendWirelessPortMod(peerDevice.id(), peerPort, false);
+        peerPortInternalData.setPortMute(false);
+        printInternalDb();
     }
 
     private long calculatePortUtilizedCapacityFromStats(PortStatistics stat, InternalData portInternalData) {
@@ -427,16 +575,6 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
     }
 
     private void sendWirelessPortMod(DeviceId deviceId, Port port, boolean mute) {
-/*
-        // Check if the  action is needed
-        if (portMute == mute) {
-            log.info(" xxxxxxxxxxxx Port {}/{} already {}",
-                deviceId, port, (mute==true) ? "Mute" : "Unmute");
-            return;
-        }
-*/
-        log.debug("sendWirelessPortMod(): Sending Experimenter Port Modify for {}/{}", deviceId, port.number());
-
         final Dpid dpid = dpid(deviceId.uri());
         OpenFlowSwitch sw = openFlowController.getSwitch(dpid(deviceId.uri()));
         if (sw == null || !sw.isConnected()) {
@@ -444,6 +582,7 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
             return;
         }
 
+        log.debug("sendWirelessPortMod(): Sending Experimenter Port Modify for {}/{}", deviceId, port.number());
         // Send OF Port Modify message towards the Network Element
         OFWirelessExperimenterPortMod portMod;
         List<OFWirelessTransportInterfaceProp> properties = new ArrayList<OFWirelessTransportInterfaceProp>();
@@ -512,7 +651,6 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
 
                 log.info("sendWirelessPortMod(): Port {} is {}",
                         portDesc.getPortNo(), (mute==true) ? "Mute" : "Unmute");
-                portMute = mute;
             }
         }
     }
@@ -709,7 +847,7 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
             switch (msg.getType()) {
                 case STATS_REPLY:
                     if (   ((OFStatsReply) msg).getStatsType() == OFStatsType.EXPERIMENTER
-                        && ((OFExperimenterStatsReply) msg).getExperimenter() == wirelessExperimenterType ) {
+                        && ((OFExperimenterStatsReply) msg).getExperimenter() == WIRELESS_EXPERIMENTER_TYPE ) {
                         annotatePortByMwParams(dpid, (OFWirelessMultipartPortsReply) msg);
                     }
                     break;
@@ -943,6 +1081,28 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
             device.id(), port.number(), mateP.number(), ethP.number());
 
         return newData;
+    }
+
+    // Check if the given port belongs to any link and if yes get the peer port's Internal data
+    private InternalData getPeerInternalData(Device device, Port port) {
+        for (Link link : linkService.getDeviceEgressLinks(device.id())) {
+//            if (link.type() == DIRECT /* && link.isDurable() */ ) {
+                DeviceId peerDeviceId = link.dst().deviceId();
+                Device peerDevice = deviceService.getDevice(peerDeviceId);
+                Port peerPort = deviceService.getPort(peerDeviceId, link.dst().port());
+                log.debug("getPeerInternalData(): Port for {}/{}: check link {}/{} -> {}/{}",
+                    device.id(), port.number(), link.src().deviceId(), link.src().port(),
+                    peerDeviceId, peerPort.number());
+                if (   device.id().equals(link.src().deviceId())
+                    && port.number().equals(peerPort.number())) {
+                    log.info("getPeerInternalData(): get InternalData for {}/{}: link {}/{} -> {}/{}",
+                        device.id(), port.number(), link.src().deviceId(), link.src().port(),
+                        peerDeviceId, peerPort.number());
+                    return getInternalData(peerDevice, peerPort);
+                }
+//            }
+        }
+        return null;
     }
 
     private boolean isDeviceWireless(Device device) {
