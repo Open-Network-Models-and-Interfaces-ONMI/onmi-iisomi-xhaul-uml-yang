@@ -95,11 +95,11 @@ import static org.slf4j.LoggerFactory.getLogger;
 import static org.onosproject.security.AppGuard.checkPermission;
 import static org.onosproject.openflow.controller.Dpid.dpid;
 import static org.onosproject.openflow.controller.Dpid.uri;
-import org.projectfloodlight.openflow.protocol.OFPortMod;
 import org.projectfloodlight.openflow.protocol.OFPortDesc;
-import org.projectfloodlight.openflow.protocol.OFWirelessTransportInterface;
-import org.projectfloodlight.openflow.protocol.OFWirelessTransportInterfaceProp;
-import org.projectfloodlight.openflow.protocol.OFWirelessTransportInterfacePropParam;
+import org.projectfloodlight.openflow.protocol.OFExperimenterPortWireless;
+import org.projectfloodlight.openflow.protocol.OFPortDescPropWirelessTransport;
+import org.projectfloodlight.openflow.protocol.OFPortModPropWirelessTransport;
+import org.projectfloodlight.openflow.protocol.OFWirelessTransportPortFeatureHeader;
 import org.projectfloodlight.openflow.protocol.OFWirelessTransportInterfacePropParamTypes;
 import org.projectfloodlight.openflow.protocol.OFWirelessTxCurrentCapacity;
 import org.projectfloodlight.openflow.protocol.OFWirelessExperimenterPortMod;
@@ -446,8 +446,9 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
 
         // Send OF Port Modify message towards the Network Element
         OFWirelessExperimenterPortMod portMod;
-        List<OFWirelessTransportInterfaceProp> properties = new ArrayList<OFWirelessTransportInterfaceProp>();
-        List<OFWirelessTransportInterfacePropParam> paramList = new ArrayList<OFWirelessTransportInterfacePropParam>();
+        List<OFPortModPropWirelessTransport> properties = new ArrayList<OFPortModPropWirelessTransport>();
+//        List<OFPortDescPropWirelessTransport> properties = new ArrayList<OFPortDescPropWirelessTransport>();
+        List<OFWirelessTransportPortFeatureHeader> featureList = new ArrayList<OFWirelessTransportPortFeatureHeader>();
 
         final List<OFPortDesc> portDescs = sw.getPorts();
         for (OFPortDesc portDesc : portDescs) {
@@ -458,53 +459,52 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
                 U64 txMaxCapacity = U64.of(0x123456);
                 int txPower = 0x123;
                 // TX_MAX_CAPACITY
-                paramList.add((OFWirelessTransportInterfacePropParam)sw.factory().buildWirelessTxMaxCapacity()
+                featureList.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessTxMaxCapacity()
                         .setTxMaxCapacity(txMaxCapacity)
                         .build());
                 // TX_CURRENT_CAPACITY
-                paramList.add((OFWirelessTransportInterfacePropParam)sw.factory().buildWirelessTxCurrentCapacity()
+                featureList.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessTxCurrentCapacity()
                         .setTxCurrentCapacity(U64.of(0))
                         .build());
                 // RX_CURRENT_CAPACITY
-                paramList.add((OFWirelessTransportInterfacePropParam)sw.factory().buildWirelessRxCurrentCapacity()
+                featureList.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessRxCurrentCapacity()
                         .setRxCurrentCapacity(U64.of(0))
                         .build());
                 // TX_POWER
-                paramList.add((OFWirelessTransportInterfacePropParam)sw.factory().buildWirelessTxPower()
+                featureList.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessTxPower()
                         .setTxPower(txPower)
                         .build());
                 // TX_MAX_POWER
-                paramList.add((OFWirelessTransportInterfacePropParam)sw.factory().buildWirelessTxMaxPower()
+                featureList.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessTxMaxPower()
                         .setTxMaxPower(2*txPower)
                         .build());
                 // TX_MUTE
-                paramList.add((OFWirelessTransportInterfacePropParam)sw.factory().buildWirelessTxMute()
+                featureList.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessTxMute()
                         .setTxMute(mute == true ? (short)0x1 : (short)0x0)
                         .build());
                 // RSL
-                paramList.add((OFWirelessTransportInterfacePropParam)sw.factory().buildWirelessRsl()
+                featureList.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessRsl()
                         .setRsl(0)
                         .build());
                 // SINR
-                paramList.add((OFWirelessTransportInterfacePropParam)sw.factory().buildWirelessSinr()
+                featureList.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessSinr()
                         .setSinr(0)
                         .build());
                 // OPERATION_MODE
-                paramList.add((OFWirelessTransportInterfacePropParam)sw.factory().buildWirelessOperationMode()
+                featureList.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessOperationMode()
                         .setOperationMode((short)0)
                         .build());
                 // Build the message
-                properties.add(sw.factory().buildWirelessTransportInterfaceProp()
-                        .setParamList(paramList)
+                properties.add(sw.factory().buildPortModPropWirelessTransport()
+                        .setFeatures(featureList)
                         .build());
 
                 portMod = sw.factory().buildWirelessExperimenterPortMod()
                         .setXid(statsXid)
                         .setPortNo(portDesc.getPortNo())
-                        .setLengths(96)
                         .setHwAddr(portDesc.getHwAddr())
                         .setConfig(0)
-                        .setState(0)
+                        .setMask(0)
                         .setProperties(properties)
                         .build();
 
@@ -732,18 +732,18 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
             // The experimenter stats message contains MW ports only
             // Updating the port descriptions of the device requires running over all the device's ports
             List<Port> ports = store.getPorts(deviceId);
-            List<OFWirelessTransportInterface> ifcs = msg.getInterfaces();
+            List<OFExperimenterPortWireless> msgPorts = msg.getPorts();
             for (Port port : ports) {
                 DefaultAnnotations annotations = DefaultAnnotations.builder()
                     .set(AnnotationKeys.PORT_NAME, port.annotations().value(AnnotationKeys.PORT_NAME))
                     .build();
                 // Search if the current port is presented in the received multipart reply
-                for (OFWirelessTransportInterface ifc : ifcs) {
-                    PortNumber portNo = PortNumber.portNumber(ifc.getPortNo().getPortNumber());
+                for (OFExperimenterPortWireless msgPort : msgPorts) {
+                    PortNumber portNo = PortNumber.portNumber(msgPort.getPortNo().getPortNumber());
                     if (port.number().equals(portNo)) {
-                        long txCurrCapacity = getTxCurrCapacityFromReplyIfc(ifc);
+                        long txCurrCapacity = getTxCurrCapacityFromReplyPort(msgPort);
                         annotations = DefaultAnnotations.builder()
-                            .set(AnnotationKeys.PORT_NAME, ifc.getName())
+                            .set(AnnotationKeys.PORT_NAME, msgPort.getName())
                             .set(WIRELESS_TX_CURR_CAPACITY, Long.toString(txCurrCapacity))
                             .build();
                         log.debug("annotatePortByMwParams(): port {}, TX_CURR_CAPACITY {}",
@@ -763,14 +763,14 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
                 dpid);
         } // annotatePortByMwParams
 
-        private long getTxCurrCapacityFromReplyIfc(OFWirelessTransportInterface ifc) {
+        private long getTxCurrCapacityFromReplyPort(OFExperimenterPortWireless msgPort) {
             long value = 0;
-            List<OFWirelessTransportInterfaceProp> props = ifc.getProperties();
-            for (OFWirelessTransportInterfaceProp prop : props) {
-                List<OFWirelessTransportInterfacePropParam> params = prop.getParamList();
-                for (OFWirelessTransportInterfacePropParam param : params) {
-                    if (param.getType() == 2) { // (OFWirelessTransportInterfacePropParamTypes.TX_CURRENT_CAPACITY)
-                        value = ((OFWirelessTxCurrentCapacity)param).getTxCurrentCapacity().getValue();
+            List<OFPortDescPropWirelessTransport> props = msgPort.getProperties();
+            for (OFPortDescPropWirelessTransport prop : props) {
+                List<OFWirelessTransportPortFeatureHeader> features = prop.getFeatures();
+                for (OFWirelessTransportPortFeatureHeader feature : features) {
+                    if (feature.getType() == 2) { // (OFWirelessTransportInterfacePropParamTypes.TX_CURRENT_CAPACITY)
+                        value = ((OFWirelessTxCurrentCapacity)feature).getTxCurrentCapacity().getValue();
                         log.debug("getTxCurrCapacityFromReplyIfc(): TxCurrCapacity {}", value);
                         return value;
                     }

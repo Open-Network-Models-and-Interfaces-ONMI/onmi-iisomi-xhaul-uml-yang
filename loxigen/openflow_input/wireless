@@ -30,14 +30,6 @@
 
 #version 4
 
-enum ofp_wireless_transport_port_features {
-    OFPWTPF_INTERFACE = 1,	/* Interface */
-};
-
-enum ofp_wireless_transport_interface_prop_param_flags {
-    OFPWTIPPT_FLAG_CONFIG = 1, /* Set if the parameter is configurable */
-};
-
 /* Wireless Transport Interface Property Parameter Types. */
 enum ofp_wireless_transport_interface_prop_param_types (wire_type=uint16_t) {
     OFPWTIPPT_TX_MAX_CAPACITY       = 1,    /* Tx maximum capacity*/
@@ -75,92 +67,109 @@ enum ofp_wireless_transport_interface_state(wire_type=uint32_t, bitmask=True) {
     OFPWTIC_PROPRIETARY           = 0x10000000,
 };
 
+
+enum ofp_wireless_transport_interface_prop_param_flags {
+    OFPWTIPPT_FLAG_CONFIG = 1, /* Set if the parameter is configurable */
+};
 enum ofp_experimenter_multipart_type_exp {
     OFPEMPTE_PORT_DESC = 1, /* Extended port description. */
 };
 
 /* Port description property types.*/
 enum ofp_port_desc_prop_type {
-    OFPPDPT_WIRELESS_TRANSPORT = 2,	/* Wireless Transport port property. */
+    OFPPDPT_WIRELESS_TRANSPORT = 5,	/* Wireless Transport port property. */
+};
+/* Types of wireless transport feature available in switch. */
+enum ofp_wireless_transport_port_features {
+    OFPWTPF_INTERFACE = 1,	/* Interface */
+};
+/* Port modification property types.*/
+enum ofp_port_mod_prop_type {
+    OFPPMPT_WIRELESS_TRANSPORT = 2,	/* Wireless Transport port property. */
 };
 
 
-
-struct of_wireless_tx_max_capacity(align=8,length_includes_align=True) : of_wireless_transport_port_feature_header {
+struct of_wireless_tx_max_capacity : of_wireless_transport_port_feature_header {
     uint16_t type == 1;
-    uint8_t length;         /* Length of feature excluding padding */
+    uint16_t length;
     uint8_t flags;          /* OFPWTIPPT_FLAG_* */
-    pad(4);
+    pad(3);
     uint64_t tx_max_capacity;
 };
 
-struct of_wireless_tx_current_capacity(align=8,length_includes_align=True) : of_wireless_transport_port_feature_header {
+struct of_wireless_tx_current_capacity : of_wireless_transport_port_feature_header {
     uint16_t type == 2;
-    uint8_t length;         /* Length of feature excluding padding */
+    uint16_t length;
     uint8_t flags;          /* OFPWTIPPT_FLAG_* */
-    pad(4);
+    pad(3);
     uint64_t tx_current_capacity;
 };
 
-struct of_wireless_rx_current_capacity(align=8,length_includes_align=True) : of_wireless_transport_port_feature_header {
+struct of_wireless_rx_current_capacity : of_wireless_transport_port_feature_header {
     uint16_t type == 3;
-    uint8_t length;         /* Length of feature excluding padding */
+    uint16_t length;
     uint8_t flags;          /* OFPWTIPPT_FLAG_* */
-    pad(4);
+    pad(3);
     uint64_t rx_current_capacity;
 };
 
-struct of_wireless_tx_power(align=8,length_includes_align=True) : of_wireless_transport_port_feature_header {
+struct of_wireless_tx_power : of_wireless_transport_port_feature_header {
     uint16_t type == 4;
-    uint8_t length;         /* Length of feature excluding padding */
+    uint16_t length;
     uint8_t flags;          /* OFPWTIPPT_FLAG_* */
+    pad(1);
     uint16_t tx_power;
 };
 
-struct of_wireless_tx_max_power(align=8,length_includes_align=True) : of_wireless_transport_port_feature_header {
+struct of_wireless_tx_max_power : of_wireless_transport_port_feature_header {
     uint16_t type == 5;
-    uint8_t length;         /* Length of feature excluding padding */
+    uint16_t length;
     uint8_t flags;          /* OFPWTIPPT_FLAG_* */
+    pad(1);
     uint16_t tx_max_power;
 };
 
-struct of_wireless_tx_mute(align=8,length_includes_align=True) : of_wireless_transport_port_feature_header {
+struct of_wireless_tx_mute : of_wireless_transport_port_feature_header {
     uint16_t type == 6;
-    uint8_t length;         /* Length of feature excluding padding */
+    uint16_t length;
     uint8_t flags;          /* OFPWTIPPT_FLAG_* */
     uint8_t tx_mute;
+    pad(2);
 };
 
-struct of_wireless_rsl(align=8,length_includes_align=True) : of_wireless_transport_port_feature_header {
+struct of_wireless_rsl : of_wireless_transport_port_feature_header {
     uint16_t type == 7;
-    uint8_t length;         /* Length of feature excluding padding */
+    uint16_t length;
     uint8_t flags;          /* OFPWTIPPT_FLAG_* */
+    pad(1);
     uint16_t rsl;
 };
 
-struct of_wireless_sinr(align=8,length_includes_align=True) : of_wireless_transport_port_feature_header {
+struct of_wireless_sinr : of_wireless_transport_port_feature_header {
     uint16_t type == 8;
-    uint8_t length;         /* Length of feature excluding padding */
+    uint16_t length;
     uint8_t flags;          /* OFPWTIPPT_FLAG_* */
+    pad(1);
     uint16_t sinr;
 };
 
-struct of_wireless_operation_mode(align=8,length_includes_align=True) : of_wireless_transport_port_feature_header {
+struct of_wireless_operation_mode : of_wireless_transport_port_feature_header {
     uint16_t type == 9;
-    uint8_t length;         /* Length of feature excluding padding */
+    uint16_t length;
     uint8_t flags;          /* OFPWTIPPT_FLAG_* */
     uint8_t operation_mode;
+    pad(2);
 };
 
 struct of_wireless_transport_port_feature_header {
     uint16_t type == ?;     /* Set to OFPWTIPPT_... */
-    uint8_t length;         /* Length of feature excluding padding */
+    uint16_t length;
     uint8_t flags; 	        /* OFPWTIPPT_FLAG_* */
 };
 
 
 struct of_port_desc_prop_wireless_transport {
-    uint16_t type == 2; /* OFPPDPT_WIRELESS_TRANSPORT */
+    uint16_t type == 5; /* OFPPDPT_WIRELESS_TRANSPORT */
     uint16_t length; 	/* Length of feature excluding padding*/
     pad(4);	            /* Align to 64 bits */
     list(of_wireless_transport_port_feature_header_t) features;
@@ -198,18 +207,6 @@ struct of_port_mod_prop_wireless_transport {
     list(of_wireless_transport_port_feature_header_t) features;
 };
 
-struct of_wireless_port_status_exp_desc {
-    of_port_no_t port_no;
-    uint16_t length;
-    pad(2);
-    of_mac_addr_t hw_addr;
-    pad(2);
-    of_port_name_t name;
-    uint32_t config;
-    uint32_t state;
-    list(of_port_mod_prop_wireless_transport_t) properties;
-};
-
 struct of_wireless_experimenter_port : of_experimenter {
     uint8_t version;
     uint8_t type == 4;
@@ -245,10 +242,15 @@ struct of_wireless_experimenter_port_status : of_wireless_experimenter_port {
     uint32_t exp_type == 12; /* OFPT_PORT_STATUS */
     enum ofp_port_reason reason;
     pad(7);
-    list(of_wireless_port_status_exp_desc_t) desc; /* should be only one element,
-                                 but failed parsing without "list".
-                                 Structure of_port_status_exp_desc was introduced
-                                 to avoid double field "length" */
+    of_port_no_t port_no;
+    uint16_t lengths;
+    pad(2);
+    of_mac_addr_t hw_addr;
+    pad(2);
+    of_port_name_t name;
+    uint32_t config;
+    uint32_t state;
+    list(of_port_desc_prop_wireless_transport_t) properties;
 };
 
 
