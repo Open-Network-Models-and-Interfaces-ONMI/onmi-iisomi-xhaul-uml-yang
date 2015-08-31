@@ -68,7 +68,7 @@ OFReader.new = function(buf, offset)
     return self
 end
 
-p_of = Proto ("of", "OpenFlow")
+p_of = Proto ("of", "_OpenFlow_")
 ethernet_dissector = Dissector.get("eth")
 
 current_pkt = nil
@@ -1241,6 +1241,10 @@ enum_v4_ofp_switch_config_failed_code = {
     [2] = "OFPSCFC_EPERM",
 }
 
+enum_v4_ofp_port_mod_prop_type = {
+    [2] = "OFPPMPT_WIRELESS_TRANSPORT",
+}
+
 enum_v4_ofp_bad_match_code = {
     [0] = "OFPBMC_BAD_TYPE",
     [1] = "OFPBMC_BAD_LEN",
@@ -1738,7 +1742,7 @@ enum_v4_ofp_action_type = {
 }
 
 enum_v4_ofp_port_desc_prop_type = {
-    [2] = "OFPPDPT_WIRELESS_TRANSPORT",
+    [5] = "OFPPDPT_WIRELESS_TRANSPORT",
 }
 
 enum_v4_ofp_queue_op_failed_code = {
@@ -8638,7 +8642,13 @@ fields['of13.wireless_experimenter_port_status.xid'] = ProtoField.uint32("of13.w
 fields['of13.wireless_experimenter_port_status.experimenter'] = ProtoField.uint32("of13.wireless_experimenter_port_status.experimenter", "experimenter", base.DEC, nil)
 fields['of13.wireless_experimenter_port_status.exp_type'] = ProtoField.uint32("of13.wireless_experimenter_port_status.exp_type", "exp_type", base.DEC, nil)
 fields['of13.wireless_experimenter_port_status.reason'] = ProtoField.uint32("of13.wireless_experimenter_port_status.reason", "reason", base.DEC, enum_v4_ofp_port_reason)
-fields['of13.wireless_experimenter_port_status.desc'] = ProtoField.bytes("of13.wireless_experimenter_port_status.desc", "desc")
+fields['of13.wireless_experimenter_port_status.port_no'] = ProtoField.uint32("of13.wireless_experimenter_port_status.port_no", "port_no", base.DEC, nil)
+fields['of13.wireless_experimenter_port_status.lengths'] = ProtoField.uint16("of13.wireless_experimenter_port_status.lengths", "lengths", base.DEC, nil)
+fields['of13.wireless_experimenter_port_status.hw_addr'] = ProtoField.ether("of13.wireless_experimenter_port_status.hw_addr", "hw_addr")
+fields['of13.wireless_experimenter_port_status.name'] = ProtoField.stringz("of13.wireless_experimenter_port_status.name", "name")
+fields['of13.wireless_experimenter_port_status.config'] = ProtoField.uint32("of13.wireless_experimenter_port_status.config", "config", base.DEC, nil)
+fields['of13.wireless_experimenter_port_status.state'] = ProtoField.uint32("of13.wireless_experimenter_port_status.state", "state", base.DEC, nil)
+fields['of13.wireless_experimenter_port_status.properties'] = ProtoField.bytes("of13.wireless_experimenter_port_status.properties", "properties")
 fields['of13.wireless_multipart_ports_reply.version'] = ProtoField.uint8("of13.wireless_multipart_ports_reply.version", "version", base.DEC, nil)
 fields['of13.wireless_multipart_ports_reply.type'] = ProtoField.uint8("of13.wireless_multipart_ports_reply.type", "type", base.DEC, nil)
 fields['of13.wireless_multipart_ports_reply.length'] = ProtoField.uint16("of13.wireless_multipart_ports_reply.length", "length", base.DEC, nil)
@@ -8657,52 +8667,45 @@ fields['of13.wireless_multipart_ports_request.flags'] = ProtoField.uint32("of13.
 fields['of13.wireless_multipart_ports_request.experimenter'] = ProtoField.uint32("of13.wireless_multipart_ports_request.experimenter", "experimenter", base.DEC, nil)
 fields['of13.wireless_multipart_ports_request.subtype'] = ProtoField.uint32("of13.wireless_multipart_ports_request.subtype", "subtype", base.DEC, nil)
 fields['of13.wireless_transport_port_feature_header.type'] = ProtoField.uint16("of13.wireless_transport_port_feature_header.type", "type", base.DEC, nil)
-fields['of13.wireless_transport_port_feature_header.length'] = ProtoField.uint8("of13.wireless_transport_port_feature_header.length", "length", base.DEC, nil)
+fields['of13.wireless_transport_port_feature_header.length'] = ProtoField.uint16("of13.wireless_transport_port_feature_header.length", "length", base.DEC, nil)
 fields['of13.wireless_transport_port_feature_header.flags'] = ProtoField.uint8("of13.wireless_transport_port_feature_header.flags", "flags", base.DEC, nil)
 fields['of13.wireless_operation_mode.type'] = ProtoField.uint16("of13.wireless_operation_mode.type", "type", base.DEC, nil)
-fields['of13.wireless_operation_mode.length'] = ProtoField.uint8("of13.wireless_operation_mode.length", "length", base.DEC, nil)
+fields['of13.wireless_operation_mode.length'] = ProtoField.uint16("of13.wireless_operation_mode.length", "length", base.DEC, nil)
 fields['of13.wireless_operation_mode.flags'] = ProtoField.uint8("of13.wireless_operation_mode.flags", "flags", base.DEC, nil)
 fields['of13.wireless_operation_mode.operation_mode'] = ProtoField.uint8("of13.wireless_operation_mode.operation_mode", "operation_mode", base.DEC, nil)
-fields['of13.wireless_port_status_exp_desc.port_no'] = ProtoField.uint32("of13.wireless_port_status_exp_desc.port_no", "port_no", base.DEC, nil)
-fields['of13.wireless_port_status_exp_desc.length'] = ProtoField.uint16("of13.wireless_port_status_exp_desc.length", "length", base.DEC, nil)
-fields['of13.wireless_port_status_exp_desc.hw_addr'] = ProtoField.ether("of13.wireless_port_status_exp_desc.hw_addr", "hw_addr")
-fields['of13.wireless_port_status_exp_desc.name'] = ProtoField.stringz("of13.wireless_port_status_exp_desc.name", "name")
-fields['of13.wireless_port_status_exp_desc.config'] = ProtoField.uint32("of13.wireless_port_status_exp_desc.config", "config", base.DEC, nil)
-fields['of13.wireless_port_status_exp_desc.state'] = ProtoField.uint32("of13.wireless_port_status_exp_desc.state", "state", base.DEC, nil)
-fields['of13.wireless_port_status_exp_desc.properties'] = ProtoField.bytes("of13.wireless_port_status_exp_desc.properties", "properties")
 fields['of13.wireless_rsl.type'] = ProtoField.uint16("of13.wireless_rsl.type", "type", base.DEC, nil)
-fields['of13.wireless_rsl.length'] = ProtoField.uint8("of13.wireless_rsl.length", "length", base.DEC, nil)
+fields['of13.wireless_rsl.length'] = ProtoField.uint16("of13.wireless_rsl.length", "length", base.DEC, nil)
 fields['of13.wireless_rsl.flags'] = ProtoField.uint8("of13.wireless_rsl.flags", "flags", base.DEC, nil)
 fields['of13.wireless_rsl.rsl'] = ProtoField.uint16("of13.wireless_rsl.rsl", "rsl", base.DEC, nil)
 fields['of13.wireless_rx_current_capacity.type'] = ProtoField.uint16("of13.wireless_rx_current_capacity.type", "type", base.DEC, nil)
-fields['of13.wireless_rx_current_capacity.length'] = ProtoField.uint8("of13.wireless_rx_current_capacity.length", "length", base.DEC, nil)
+fields['of13.wireless_rx_current_capacity.length'] = ProtoField.uint16("of13.wireless_rx_current_capacity.length", "length", base.DEC, nil)
 fields['of13.wireless_rx_current_capacity.flags'] = ProtoField.uint8("of13.wireless_rx_current_capacity.flags", "flags", base.DEC, nil)
 fields['of13.wireless_rx_current_capacity.rx_current_capacity'] = ProtoField.uint64("of13.wireless_rx_current_capacity.rx_current_capacity", "rx_current_capacity", base.DEC, nil)
 fields['of13.wireless_sinr.type'] = ProtoField.uint16("of13.wireless_sinr.type", "type", base.DEC, nil)
-fields['of13.wireless_sinr.length'] = ProtoField.uint8("of13.wireless_sinr.length", "length", base.DEC, nil)
+fields['of13.wireless_sinr.length'] = ProtoField.uint16("of13.wireless_sinr.length", "length", base.DEC, nil)
 fields['of13.wireless_sinr.flags'] = ProtoField.uint8("of13.wireless_sinr.flags", "flags", base.DEC, nil)
 fields['of13.wireless_sinr.sinr'] = ProtoField.uint16("of13.wireless_sinr.sinr", "sinr", base.DEC, nil)
 fields['of13.wireless_transport_interface.type'] = ProtoField.uint16("of13.wireless_transport_interface.type", "type", base.DEC, nil)
 fields['of13.wireless_transport_interface.length'] = ProtoField.uint16("of13.wireless_transport_interface.length", "length", base.DEC, nil)
 fields['of13.wireless_transport_interface.params'] = ProtoField.bytes("of13.wireless_transport_interface.params", "params")
 fields['of13.wireless_tx_current_capacity.type'] = ProtoField.uint16("of13.wireless_tx_current_capacity.type", "type", base.DEC, nil)
-fields['of13.wireless_tx_current_capacity.length'] = ProtoField.uint8("of13.wireless_tx_current_capacity.length", "length", base.DEC, nil)
+fields['of13.wireless_tx_current_capacity.length'] = ProtoField.uint16("of13.wireless_tx_current_capacity.length", "length", base.DEC, nil)
 fields['of13.wireless_tx_current_capacity.flags'] = ProtoField.uint8("of13.wireless_tx_current_capacity.flags", "flags", base.DEC, nil)
 fields['of13.wireless_tx_current_capacity.tx_current_capacity'] = ProtoField.uint64("of13.wireless_tx_current_capacity.tx_current_capacity", "tx_current_capacity", base.DEC, nil)
 fields['of13.wireless_tx_max_capacity.type'] = ProtoField.uint16("of13.wireless_tx_max_capacity.type", "type", base.DEC, nil)
-fields['of13.wireless_tx_max_capacity.length'] = ProtoField.uint8("of13.wireless_tx_max_capacity.length", "length", base.DEC, nil)
+fields['of13.wireless_tx_max_capacity.length'] = ProtoField.uint16("of13.wireless_tx_max_capacity.length", "length", base.DEC, nil)
 fields['of13.wireless_tx_max_capacity.flags'] = ProtoField.uint8("of13.wireless_tx_max_capacity.flags", "flags", base.DEC, nil)
 fields['of13.wireless_tx_max_capacity.tx_max_capacity'] = ProtoField.uint64("of13.wireless_tx_max_capacity.tx_max_capacity", "tx_max_capacity", base.DEC, nil)
 fields['of13.wireless_tx_max_power.type'] = ProtoField.uint16("of13.wireless_tx_max_power.type", "type", base.DEC, nil)
-fields['of13.wireless_tx_max_power.length'] = ProtoField.uint8("of13.wireless_tx_max_power.length", "length", base.DEC, nil)
+fields['of13.wireless_tx_max_power.length'] = ProtoField.uint16("of13.wireless_tx_max_power.length", "length", base.DEC, nil)
 fields['of13.wireless_tx_max_power.flags'] = ProtoField.uint8("of13.wireless_tx_max_power.flags", "flags", base.DEC, nil)
 fields['of13.wireless_tx_max_power.tx_max_power'] = ProtoField.uint16("of13.wireless_tx_max_power.tx_max_power", "tx_max_power", base.DEC, nil)
 fields['of13.wireless_tx_mute.type'] = ProtoField.uint16("of13.wireless_tx_mute.type", "type", base.DEC, nil)
-fields['of13.wireless_tx_mute.length'] = ProtoField.uint8("of13.wireless_tx_mute.length", "length", base.DEC, nil)
+fields['of13.wireless_tx_mute.length'] = ProtoField.uint16("of13.wireless_tx_mute.length", "length", base.DEC, nil)
 fields['of13.wireless_tx_mute.flags'] = ProtoField.uint8("of13.wireless_tx_mute.flags", "flags", base.DEC, nil)
 fields['of13.wireless_tx_mute.tx_mute'] = ProtoField.uint8("of13.wireless_tx_mute.tx_mute", "tx_mute", base.DEC, nil)
 fields['of13.wireless_tx_power.type'] = ProtoField.uint16("of13.wireless_tx_power.type", "type", base.DEC, nil)
-fields['of13.wireless_tx_power.length'] = ProtoField.uint8("of13.wireless_tx_power.length", "length", base.DEC, nil)
+fields['of13.wireless_tx_power.length'] = ProtoField.uint16("of13.wireless_tx_power.length", "length", base.DEC, nil)
 fields['of13.wireless_tx_power.flags'] = ProtoField.uint8("of13.wireless_tx_power.flags", "flags", base.DEC, nil)
 fields['of13.wireless_tx_power.tx_power'] = ProtoField.uint16("of13.wireless_tx_power.tx_power", "tx_power", base.DEC, nil)
 fields['of13._och_signal_id.grid'] = ProtoField.uint8("of13._och_signal_id.grid", "grid", base.DEC, nil)
@@ -17312,7 +17315,13 @@ p_of.fields = {
     fields['of13.wireless_experimenter_port_status.experimenter'],
     fields['of13.wireless_experimenter_port_status.exp_type'],
     fields['of13.wireless_experimenter_port_status.reason'],
-    fields['of13.wireless_experimenter_port_status.desc'],
+    fields['of13.wireless_experimenter_port_status.port_no'],
+    fields['of13.wireless_experimenter_port_status.lengths'],
+    fields['of13.wireless_experimenter_port_status.hw_addr'],
+    fields['of13.wireless_experimenter_port_status.name'],
+    fields['of13.wireless_experimenter_port_status.config'],
+    fields['of13.wireless_experimenter_port_status.state'],
+    fields['of13.wireless_experimenter_port_status.properties'],
     fields['of13.wireless_multipart_ports_reply.version'],
     fields['of13.wireless_multipart_ports_reply.type'],
     fields['of13.wireless_multipart_ports_reply.length'],
@@ -17337,13 +17346,6 @@ p_of.fields = {
     fields['of13.wireless_operation_mode.length'],
     fields['of13.wireless_operation_mode.flags'],
     fields['of13.wireless_operation_mode.operation_mode'],
-    fields['of13.wireless_port_status_exp_desc.port_no'],
-    fields['of13.wireless_port_status_exp_desc.length'],
-    fields['of13.wireless_port_status_exp_desc.hw_addr'],
-    fields['of13.wireless_port_status_exp_desc.name'],
-    fields['of13.wireless_port_status_exp_desc.config'],
-    fields['of13.wireless_port_status_exp_desc.state'],
-    fields['of13.wireless_port_status_exp_desc.properties'],
     fields['of13.wireless_rsl.type'],
     fields['of13.wireless_rsl.length'],
     fields['of13.wireless_rsl.flags'],
@@ -34313,7 +34315,15 @@ function dissect_of_wireless_experimenter_port_status_v4(reader, subtree)
     read_uint32_t(reader, 4, subtree, 'of13.wireless_experimenter_port_status.exp_type')
     read_uint8_t(reader, 4, subtree, 'of13.wireless_experimenter_port_status.reason')
     reader.skip(7)
-    read_list(reader, dissect_of_wireless_port_status_exp_desc_v4, subtree, 'of_wireless_port_status_exp_desc')
+    read_of_port_no_t(reader, 4, subtree, 'of13.wireless_experimenter_port_status.port_no')
+    read_uint16_t(reader, 4, subtree, 'of13.wireless_experimenter_port_status.lengths')
+    reader.skip(2)
+    read_of_mac_addr_t(reader, 4, subtree, 'of13.wireless_experimenter_port_status.hw_addr')
+    reader.skip(2)
+    read_of_port_name_t(reader, 4, subtree, 'of13.wireless_experimenter_port_status.name')
+    read_uint32_t(reader, 4, subtree, 'of13.wireless_experimenter_port_status.config')
+    read_uint32_t(reader, 4, subtree, 'of13.wireless_experimenter_port_status.state')
+    read_list(reader, dissect_of_port_desc_prop_wireless_transport_v4, subtree, 'of_port_desc_prop_wireless_transport')
     return 'of_wireless_experimenter_port_status'
 end
 of_wireless_experimenter_port_v4_dissectors[12] = dissect_of_wireless_experimenter_port_status_v4
@@ -34363,35 +34373,21 @@ end
 -- Child of of_wireless_transport_port_feature_header
 function dissect_of_wireless_operation_mode_v4(reader, subtree)
     read_uint16_t(reader, 4, subtree, 'of13.wireless_operation_mode.type')
-    read_uint8_t(reader, 4, subtree, 'of13.wireless_operation_mode.length')
+    read_uint16_t(reader, 4, subtree, 'of13.wireless_operation_mode.length')
     read_uint8_t(reader, 4, subtree, 'of13.wireless_operation_mode.flags')
     read_uint8_t(reader, 4, subtree, 'of13.wireless_operation_mode.operation_mode')
+    reader.skip(2)
     return 'of_wireless_operation_mode'
 end
 of_wireless_transport_port_feature_header_v4_dissectors[9] = dissect_of_wireless_operation_mode_v4
 
--- top-level class of_wireless_port_status_exp_desc
-function dissect_of_wireless_port_status_exp_desc_v4(reader, subtree)
-    local _length = reader.peek(4, 2):uint()
-    local orig_reader = reader
-    reader = orig_reader.slice(_length)
-    read_of_port_no_t(reader, 4, subtree, 'of13.wireless_port_status_exp_desc.port_no')
-    read_uint16_t(reader, 4, subtree, 'of13.wireless_port_status_exp_desc.length')
-    reader.skip(2)
-    read_of_mac_addr_t(reader, 4, subtree, 'of13.wireless_port_status_exp_desc.hw_addr')
-    reader.skip(2)
-    read_of_port_name_t(reader, 4, subtree, 'of13.wireless_port_status_exp_desc.name')
-    read_uint32_t(reader, 4, subtree, 'of13.wireless_port_status_exp_desc.config')
-    read_uint32_t(reader, 4, subtree, 'of13.wireless_port_status_exp_desc.state')
-    read_list(reader, dissect_of_port_mod_prop_wireless_transport_v4, subtree, 'of_port_mod_prop_wireless_transport')
-    return 'of_wireless_port_status_exp_desc'
-end
 -- child class of_wireless_rsl
 -- Child of of_wireless_transport_port_feature_header
 function dissect_of_wireless_rsl_v4(reader, subtree)
     read_uint16_t(reader, 4, subtree, 'of13.wireless_rsl.type')
-    read_uint8_t(reader, 4, subtree, 'of13.wireless_rsl.length')
+    read_uint16_t(reader, 4, subtree, 'of13.wireless_rsl.length')
     read_uint8_t(reader, 4, subtree, 'of13.wireless_rsl.flags')
+    reader.skip(1)
     read_uint16_t(reader, 4, subtree, 'of13.wireless_rsl.rsl')
     return 'of_wireless_rsl'
 end
@@ -34401,9 +34397,9 @@ of_wireless_transport_port_feature_header_v4_dissectors[7] = dissect_of_wireless
 -- Child of of_wireless_transport_port_feature_header
 function dissect_of_wireless_rx_current_capacity_v4(reader, subtree)
     read_uint16_t(reader, 4, subtree, 'of13.wireless_rx_current_capacity.type')
-    read_uint8_t(reader, 4, subtree, 'of13.wireless_rx_current_capacity.length')
+    read_uint16_t(reader, 4, subtree, 'of13.wireless_rx_current_capacity.length')
     read_uint8_t(reader, 4, subtree, 'of13.wireless_rx_current_capacity.flags')
-    reader.skip(4)
+    reader.skip(3)
     read_uint64_t(reader, 4, subtree, 'of13.wireless_rx_current_capacity.rx_current_capacity')
     return 'of_wireless_rx_current_capacity'
 end
@@ -34413,8 +34409,9 @@ of_wireless_transport_port_feature_header_v4_dissectors[3] = dissect_of_wireless
 -- Child of of_wireless_transport_port_feature_header
 function dissect_of_wireless_sinr_v4(reader, subtree)
     read_uint16_t(reader, 4, subtree, 'of13.wireless_sinr.type')
-    read_uint8_t(reader, 4, subtree, 'of13.wireless_sinr.length')
+    read_uint16_t(reader, 4, subtree, 'of13.wireless_sinr.length')
     read_uint8_t(reader, 4, subtree, 'of13.wireless_sinr.flags')
+    reader.skip(1)
     read_uint16_t(reader, 4, subtree, 'of13.wireless_sinr.sinr')
     return 'of_wireless_sinr'
 end
@@ -34435,9 +34432,9 @@ end
 -- Child of of_wireless_transport_port_feature_header
 function dissect_of_wireless_tx_current_capacity_v4(reader, subtree)
     read_uint16_t(reader, 4, subtree, 'of13.wireless_tx_current_capacity.type')
-    read_uint8_t(reader, 4, subtree, 'of13.wireless_tx_current_capacity.length')
+    read_uint16_t(reader, 4, subtree, 'of13.wireless_tx_current_capacity.length')
     read_uint8_t(reader, 4, subtree, 'of13.wireless_tx_current_capacity.flags')
-    reader.skip(4)
+    reader.skip(3)
     read_uint64_t(reader, 4, subtree, 'of13.wireless_tx_current_capacity.tx_current_capacity')
     return 'of_wireless_tx_current_capacity'
 end
@@ -34447,9 +34444,9 @@ of_wireless_transport_port_feature_header_v4_dissectors[2] = dissect_of_wireless
 -- Child of of_wireless_transport_port_feature_header
 function dissect_of_wireless_tx_max_capacity_v4(reader, subtree)
     read_uint16_t(reader, 4, subtree, 'of13.wireless_tx_max_capacity.type')
-    read_uint8_t(reader, 4, subtree, 'of13.wireless_tx_max_capacity.length')
+    read_uint16_t(reader, 4, subtree, 'of13.wireless_tx_max_capacity.length')
     read_uint8_t(reader, 4, subtree, 'of13.wireless_tx_max_capacity.flags')
-    reader.skip(4)
+    reader.skip(3)
     read_uint64_t(reader, 4, subtree, 'of13.wireless_tx_max_capacity.tx_max_capacity')
     return 'of_wireless_tx_max_capacity'
 end
@@ -34459,8 +34456,9 @@ of_wireless_transport_port_feature_header_v4_dissectors[1] = dissect_of_wireless
 -- Child of of_wireless_transport_port_feature_header
 function dissect_of_wireless_tx_max_power_v4(reader, subtree)
     read_uint16_t(reader, 4, subtree, 'of13.wireless_tx_max_power.type')
-    read_uint8_t(reader, 4, subtree, 'of13.wireless_tx_max_power.length')
+    read_uint16_t(reader, 4, subtree, 'of13.wireless_tx_max_power.length')
     read_uint8_t(reader, 4, subtree, 'of13.wireless_tx_max_power.flags')
+    reader.skip(1)
     read_uint16_t(reader, 4, subtree, 'of13.wireless_tx_max_power.tx_max_power')
     return 'of_wireless_tx_max_power'
 end
@@ -34470,9 +34468,10 @@ of_wireless_transport_port_feature_header_v4_dissectors[5] = dissect_of_wireless
 -- Child of of_wireless_transport_port_feature_header
 function dissect_of_wireless_tx_mute_v4(reader, subtree)
     read_uint16_t(reader, 4, subtree, 'of13.wireless_tx_mute.type')
-    read_uint8_t(reader, 4, subtree, 'of13.wireless_tx_mute.length')
+    read_uint16_t(reader, 4, subtree, 'of13.wireless_tx_mute.length')
     read_uint8_t(reader, 4, subtree, 'of13.wireless_tx_mute.flags')
     read_uint8_t(reader, 4, subtree, 'of13.wireless_tx_mute.tx_mute')
+    reader.skip(2)
     return 'of_wireless_tx_mute'
 end
 of_wireless_transport_port_feature_header_v4_dissectors[6] = dissect_of_wireless_tx_mute_v4
@@ -34481,8 +34480,9 @@ of_wireless_transport_port_feature_header_v4_dissectors[6] = dissect_of_wireless
 -- Child of of_wireless_transport_port_feature_header
 function dissect_of_wireless_tx_power_v4(reader, subtree)
     read_uint16_t(reader, 4, subtree, 'of13.wireless_tx_power.type')
-    read_uint8_t(reader, 4, subtree, 'of13.wireless_tx_power.length')
+    read_uint16_t(reader, 4, subtree, 'of13.wireless_tx_power.length')
     read_uint8_t(reader, 4, subtree, 'of13.wireless_tx_power.flags')
+    reader.skip(1)
     read_uint16_t(reader, 4, subtree, 'of13.wireless_tx_power.tx_power')
     return 'of_wireless_tx_power'
 end
