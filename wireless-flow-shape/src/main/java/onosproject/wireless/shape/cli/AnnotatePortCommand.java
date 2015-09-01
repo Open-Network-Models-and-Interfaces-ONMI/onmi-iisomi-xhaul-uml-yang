@@ -5,8 +5,17 @@ import com.google.common.collect.Lists;
 import org.apache.karaf.shell.commands.Argument;
 import org.apache.karaf.shell.commands.Command;
 import org.onosproject.cli.AbstractShellCommand;
-import org.onosproject.net.*;
-import org.onosproject.net.device.*;
+import org.onosproject.net.DefaultAnnotations;
+import org.onosproject.net.Device;
+import org.onosproject.net.DeviceId;
+import org.onosproject.net.MastershipRole;
+import org.onosproject.net.Port;
+import org.onosproject.net.device.DefaultPortDescription;
+import org.onosproject.net.device.DeviceProvider;
+import org.onosproject.net.device.DeviceProviderRegistry;
+import org.onosproject.net.device.DeviceProviderService;
+import org.onosproject.net.device.DeviceService;
+import org.onosproject.net.device.PortDescription;
 import org.onosproject.net.provider.AbstractProvider;
 import org.onosproject.net.provider.ProviderId;
 
@@ -19,11 +28,7 @@ import java.util.List;
 public class AnnotatePortCommand extends AbstractShellCommand {
 
 
-
     static final ProviderId PID = new ProviderId("cli", "org.onosproject.cli", true);
-
-
-
 
 
     @Argument(index = 0, name = "uri", description = "Device ID",
@@ -33,13 +38,11 @@ public class AnnotatePortCommand extends AbstractShellCommand {
     String uri = null;
 
 
-
     @Argument(index = 1, name = "key", description = "Annotation key",
 
             required = true, multiValued = false)
 
     String key = null;
-
 
 
     @Argument(index = 2, name = "value",
@@ -49,7 +52,6 @@ public class AnnotatePortCommand extends AbstractShellCommand {
             required = false, multiValued = false)
 
     String value = null;
-
 
 
     @Override
@@ -76,7 +78,7 @@ public class AnnotatePortCommand extends AbstractShellCommand {
 
             descs.add(new DefaultPortDescription(port.number(),
 
-                    port.isEnabled(), port.type(), port.portSpeed(), annotations));
+                                                 port.isEnabled(), port.type(), port.portSpeed(), annotations));
 
         }
 
@@ -93,9 +95,7 @@ public class AnnotatePortCommand extends AbstractShellCommand {
         }
 
 
-
     }
-
 
 
     private static final class AnnotationProvider
@@ -107,7 +107,6 @@ public class AnnotatePortCommand extends AbstractShellCommand {
             super(PID);
 
         }
-
 
 
         @Override
