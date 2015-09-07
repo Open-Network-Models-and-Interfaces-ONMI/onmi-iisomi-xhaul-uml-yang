@@ -16,15 +16,39 @@
 package onosproject.wireless.shape;
 
 import com.google.common.collect.Lists;
-import org.apache.felix.scr.annotations.*;
-import org.onosproject.net.*;
-import org.onosproject.net.device.*;
+import org.apache.felix.scr.annotations.Activate;
+import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Deactivate;
+import org.apache.felix.scr.annotations.Reference;
+import org.apache.felix.scr.annotations.ReferenceCardinality;
+import org.apache.felix.scr.annotations.Service;
+import org.onosproject.net.AnnotationKeys;
+import org.onosproject.net.DefaultAnnotations;
+import org.onosproject.net.Device;
+import org.onosproject.net.DeviceId;
+import org.onosproject.net.MastershipRole;
+import org.onosproject.net.Port;
+import org.onosproject.net.PortNumber;
+import org.onosproject.net.device.DefaultPortDescription;
+import org.onosproject.net.device.DeviceProvider;
+import org.onosproject.net.device.DeviceProviderRegistry;
+import org.onosproject.net.device.DeviceProviderService;
+import org.onosproject.net.device.DeviceService;
+import org.onosproject.net.device.PortDescription;
 import org.onosproject.net.provider.AbstractProvider;
 import org.onosproject.net.provider.ProviderId;
 import org.onosproject.openflow.controller.Dpid;
 import org.onosproject.openflow.controller.OpenFlowController;
 import org.onosproject.openflow.controller.OpenFlowEventListener;
-import org.projectfloodlight.openflow.protocol.*;
+import org.projectfloodlight.openflow.protocol.OFExperimenterPortWireless;
+import org.projectfloodlight.openflow.protocol.OFExperimenterStatsReply;
+import org.projectfloodlight.openflow.protocol.OFMessage;
+import org.projectfloodlight.openflow.protocol.OFPortDescPropWirelessTransport;
+import org.projectfloodlight.openflow.protocol.OFStatsReply;
+import org.projectfloodlight.openflow.protocol.OFStatsType;
+import org.projectfloodlight.openflow.protocol.OFWirelessMultipartPortsReply;
+import org.projectfloodlight.openflow.protocol.OFWirelessTransportPortFeatureHeader;
+import org.projectfloodlight.openflow.protocol.OFWirelessTxCurrentCapacity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -148,7 +172,7 @@ public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements
                                 .build();
                     }
                     descs.add(new DefaultPortDescription(port.number(),
-                            port.isEnabled(), port.type(), port.portSpeed(), annotations));
+                                                         port.isEnabled(), port.type(), port.portSpeed(), annotations));
                     log.info("Annotate Port By TxCurrCapacity: port {}", portNo);
                     break;
                 }
@@ -157,10 +181,10 @@ public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements
             }
 
             log.info(" xxxxxxxxxxxx OF Message {}, type {}, experimenter {}, subtype {}, received from {} - proceeded",
-                    msg.getType(), ((OFStatsReply) msg).getStatsType(),
-                    ((OFExperimenterStatsReply) msg).getExperimenter(),
-                    ((OFWirelessMultipartPortsReply) msg).getSubtype(),
-                    dpid);
+                     msg.getType(), ((OFStatsReply) msg).getStatsType(),
+                     ((OFExperimenterStatsReply) msg).getExperimenter(),
+                     ((OFWirelessMultipartPortsReply) msg).getSubtype(),
+                     dpid);
         }
 
         private long getTxCurrCapacityFromReplyIfc(OFExperimenterPortWireless ifc) {

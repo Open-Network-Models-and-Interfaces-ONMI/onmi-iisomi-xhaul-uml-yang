@@ -39,7 +39,6 @@ import org.onosproject.net.meter.Band;
 import org.onosproject.net.meter.DefaultBand;
 import org.onosproject.net.meter.DefaultMeterRequest;
 import org.onosproject.net.meter.Meter;
-import org.onosproject.net.meter.MeterId;
 import org.onosproject.net.meter.MeterOperation;
 import org.onosproject.net.meter.MeterRequest;
 import org.onosproject.net.meter.MeterService;
@@ -188,7 +187,7 @@ public class WirelessFlowShape {
         collectors.put(sw.getId(), collector);
     }
 
-    private void anaysisCapacity(long txCurrCapacity) {
+    private void analysisCapacity(long txCurrCapacity) {
         if (txCurrCapacity > (shapeMaxThreshold)) {
             curMaxNumber++;
             if (curMaxNumber < shakeNumber) {
@@ -258,7 +257,7 @@ public class WirelessFlowShape {
                     String txCurrCapacity = port.annotations().value("WIRELESS_TX_CURR_CAPACITY");
                     log.info("txCurrCapacity----->" + txCurrCapacity);
                     if (!isNullOrEmpty(txCurrCapacity)) {
-                        anaysisCapacity(Long.parseLong(txCurrCapacity));
+                        analysisCapacity(Long.parseLong(txCurrCapacity));
                     }
 
                 });
