@@ -61,10 +61,9 @@ import static org.onosproject.openflow.controller.Dpid.uri;
 @Component(immediate = true)
 @Service
 public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements DeviceProvider {
-    private static final int DEFAULT_MAX_THRESHOLD = 100;
-    private static final int DEFAULT_MIN_THRESHOLD = 10;
-    static final int POLL_INTERVAL = 10;
-    private static final String DEVICE_IS_WIRELESS = "device-is-wireless";
+
+    private static final String WIRELESS_PORT_PRIM = "wireless-port-prim";
+    private static final String ETH_PORT = "eth-port";
     private static final String WIRELESS_TX_CURR_CAPACITY = "wireless-tx-curr-capacity";
     private static final long WIRELESS_EXPERIMENTER_TYPE = 0xff000005L;
     Logger log = LoggerFactory.getLogger(WirelessFlowShapeDeviceProvider.class);
@@ -144,14 +143,16 @@ public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements
             List<Port> ports = deviceService.getPorts(deviceId);
             log.info(String.valueOf(ports));
 
-            if (isNullOrEmpty(device.annotations().value(DEVICE_IS_WIRELESS))) {
+            if (isNullOrEmpty(device.annotations().value(WIRELESS_PORT_PRIM))
+                    || isNullOrEmpty(device.annotations().value(ETH_PORT))) {
+                log.info("the device {} is not MW device.", device.id());
                 return;
             }
 
             // The experimenter stats message contains MW ports only
             // Updating the port descriptions of the device requires running over all the device's ports
             List<OFExperimenterPortWireless> ifcs = msg.getPorts();
-            log.info(String.valueOf(ifcs));
+//            log.info(String.valueOf(ifcs));
             for (Port port : ports) {
                 DefaultAnnotations annotations = null;
                 // Search if the current port is presented in the received multipart reply
