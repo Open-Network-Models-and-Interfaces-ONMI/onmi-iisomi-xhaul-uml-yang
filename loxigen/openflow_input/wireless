@@ -77,111 +77,125 @@ enum ofp_experimenter_multipart_type_exp {
 
 /* Port description property types.*/
 enum ofp_port_desc_prop_type {
-    OFPPDPT_WIRELESS_TRANSPORT = 5,	/* Wireless Transport port property. */
+    OFPPDPT_WIRELESS_TRANSPORT = 5, /* Wireless Transport port property. */
 };
 /* Types of wireless transport feature available in switch. */
 enum ofp_wireless_transport_port_features {
-    OFPWTPF_INTERFACE = 1,	/* Interface */
+    OFPWTPF_INTERFACE = 1, /* Interface */
 };
 /* Port modification property types.*/
 enum ofp_port_mod_prop_type {
-    OFPPMPT_WIRELESS_TRANSPORT = 2,	/* Wireless Transport port property. */
+    OFPPMPT_WIRELESS_TRANSPORT = 2, /* Wireless Transport port property. */
 };
 
 
-struct of_wireless_tx_max_capacity : of_wireless_transport_port_feature_header {
+struct of_wireless_tx_max_capacity : of_wireless_transport_interface_prop_param_header {
     uint16_t type == 1;
     uint16_t length;
-    uint8_t flags;          /* OFPWTIPPT_FLAG_* */
-    pad(3);
-    uint64_t tx_max_capacity;
+    uint16_t flags;         /* OFPWTIPPT_FLAG_* */
+    pad(2);
+    uint32_t tx_max_capacity;
+    pad(4);
 };
 
-struct of_wireless_tx_current_capacity : of_wireless_transport_port_feature_header {
+struct of_wireless_tx_current_capacity : of_wireless_transport_interface_prop_param_header {
     uint16_t type == 2;
     uint16_t length;
-    uint8_t flags;          /* OFPWTIPPT_FLAG_* */
-    pad(3);
-    uint64_t tx_current_capacity;
+    uint16_t flags;         /* OFPWTIPPT_FLAG_* */
+    pad(2);
+    uint32_t tx_current_capacity;
+    pad(4);
 };
 
-struct of_wireless_rx_current_capacity : of_wireless_transport_port_feature_header {
+struct of_wireless_rx_current_capacity : of_wireless_transport_interface_prop_param_header {
     uint16_t type == 3;
     uint16_t length;
-    uint8_t flags;          /* OFPWTIPPT_FLAG_* */
-    pad(3);
-    uint64_t rx_current_capacity;
+    uint16_t flags;         /* OFPWTIPPT_FLAG_* */
+    pad(2);
+    uint32_t rx_current_capacity;
+    pad(4);
 };
 
-struct of_wireless_tx_power : of_wireless_transport_port_feature_header {
+struct of_wireless_tx_power : of_wireless_transport_interface_prop_param_header {
     uint16_t type == 4;
     uint16_t length;
-    uint8_t flags;          /* OFPWTIPPT_FLAG_* */
-    pad(1);
+    uint16_t flags;         /* OFPWTIPPT_FLAG_* */
+    pad(2);
     uint16_t tx_power;
+    pad(6);
 };
 
-struct of_wireless_tx_max_power : of_wireless_transport_port_feature_header {
+struct of_wireless_tx_max_power : of_wireless_transport_interface_prop_param_header {
     uint16_t type == 5;
     uint16_t length;
-    uint8_t flags;          /* OFPWTIPPT_FLAG_* */
-    pad(1);
+    uint16_t flags;         /* OFPWTIPPT_FLAG_* */
+    pad(2);
     uint16_t tx_max_power;
+    pad(6);
 };
 
-struct of_wireless_tx_mute : of_wireless_transport_port_feature_header {
+struct of_wireless_tx_mute : of_wireless_transport_interface_prop_param_header {
     uint16_t type == 6;
     uint16_t length;
-    uint8_t flags;          /* OFPWTIPPT_FLAG_* */
-    uint8_t tx_mute;
+    uint16_t flags;         /* OFPWTIPPT_FLAG_* */
     pad(2);
+    uint8_t tx_mute;
+    pad(7);
 };
 
-struct of_wireless_rsl : of_wireless_transport_port_feature_header {
+struct of_wireless_rsl : of_wireless_transport_interface_prop_param_header {
     uint16_t type == 7;
     uint16_t length;
-    uint8_t flags;          /* OFPWTIPPT_FLAG_* */
-    pad(1);
+    uint16_t flags;         /* OFPWTIPPT_FLAG_* */
+    pad(2);
     uint16_t rsl;
+    pad(6);
 };
 
-struct of_wireless_sinr : of_wireless_transport_port_feature_header {
+struct of_wireless_sinr : of_wireless_transport_interface_prop_param_header {
     uint16_t type == 8;
     uint16_t length;
-    uint8_t flags;          /* OFPWTIPPT_FLAG_* */
-    pad(1);
+    uint16_t flags;         /* OFPWTIPPT_FLAG_* */
+    pad(2);
     uint16_t sinr;
+    pad(6);
 };
 
-struct of_wireless_operation_mode : of_wireless_transport_port_feature_header {
+struct of_wireless_operation_mode : of_wireless_transport_interface_prop_param_header {
     uint16_t type == 9;
     uint16_t length;
-    uint8_t flags;          /* OFPWTIPPT_FLAG_* */
-    uint8_t operation_mode;
+    uint16_t flags;         /* OFPWTIPPT_FLAG_* */
     pad(2);
+    uint8_t operation_mode;
+    pad(7);
 };
 
-struct of_wireless_transport_port_feature_header {
+struct of_wireless_transport_interface_prop_param_header {
     uint16_t type == ?;     /* Set to OFPWTIPPT_... */
     uint16_t length;
-    uint8_t flags; 	        /* OFPWTIPPT_FLAG_* */
+    uint16_t flags;         /* OFPWTIPPT_FLAG_* */
+    pad(2);
 };
-
 
 struct of_port_desc_prop_wireless_transport {
     uint16_t type == 5; /* OFPPDPT_WIRELESS_TRANSPORT */
-    uint16_t length; 	/* Length of feature excluding padding*/
-    pad(4);	            /* Align to 64 bits */
+    uint16_t length;    /* Length of feature excluding padding*/
+    pad(4);             /* Align to 64 bits */
     list(of_wireless_transport_port_feature_header_t) features;
+};
+
+struct of_wireless_transport_port_feature_header {
+    uint16_t type == ?;      /* Set to OFPWTPF... */
+    uint16_t length;
 };
 
 
 /* Wireless Transport Interface Feature */
-struct of_wireless_transport_interface {
-    uint16_t type == 1;   	/* Set to OFPWTPF_INTERFACE*/
-    uint16_t length;	/* Length of feature excluding padding*/
+struct of_wireless_transport_interface : of_wireless_transport_port_feature_header {
+    uint16_t type == 1;  /* Set to OFPWTPF_INTERFACE*/
+    uint16_t length;     /* Length of feature excluding padding*/
     pad(4);
-    list(of_port_desc_prop_wireless_transport_t) params; /* List of parameters */
+    list(of_wireless_transport_interface_prop_param_header_t) params; /* List of parameters */
 };
 
 
