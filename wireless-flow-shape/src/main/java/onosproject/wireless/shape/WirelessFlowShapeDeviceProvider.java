@@ -194,7 +194,7 @@ public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements
                 List<OFWirelessTransportPortFeatureHeader> params = prop.getFeatures();
                 for (OFWirelessTransportPortFeatureHeader param : params) {
                     if (param.getType() == 2) { // (OFWirelessTransportInterfacePropParamTypes.TX_CURRENT_CAPACITY)
-                        long value = ((OFWirelessTxCurrentCapacity) param).getTxCurrentCapacity().getValue();
+                        long value = ((OFWirelessTxCurrentCapacity) param).getTxCurrentCapacity();
                         log.info(" Get TxCurrentCapacity value {}", value);
                         return value;
                     }

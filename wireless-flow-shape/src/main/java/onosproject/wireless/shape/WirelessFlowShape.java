@@ -122,21 +122,18 @@ public class WirelessFlowShape {
 
     @Activate
     public void activate(ComponentContext context) {
-        modified(context);
         cfgService.registerProperties(getClass());
         appId = coreService.registerApplication("org.onosproject.wireless.shape");
         deviceService.addListener(listener);
-        log.info(String.valueOf(controller.getSwitches()));
         controller.getSwitches().forEach((this::createPortStatsCollection));
-        log.info(String.valueOf(controller.getSwitches()));
-        log.info("Started" + appId.id());
+        log.info("Started " + appId.id());
     }
 
     @Deactivate
     public void deactivate(ComponentContext context) {
         deviceService.removeListener(listener);
         collectors.values().forEach(PortCapacityCollector::stop);
-        log.info("Stopped");
+        log.info("Stopped ");
     }
 
     @Modified
@@ -154,7 +151,7 @@ public class WirelessFlowShape {
         Integer shapeMaxThresholdConfig = getIntegerProperty(properties, "shapeMaxThreshold");
         Integer shapeMinThresholdConfig = getIntegerProperty(properties, "shapeMinThreshold");
         Integer shakeNumberConfig = getIntegerProperty(properties, "shakeNumber");
-        Integer bufferValueConfig = getIntegerProperty(properties, "bufferNumber");
+        Integer bufferValueConfig = getIntegerProperty(properties, "bufferValue");
 
 
         if (shapeMaxThresholdConfig == null) {
