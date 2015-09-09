@@ -181,10 +181,6 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
 
     private List<InternalData> internalDb = Lists.newArrayList();
 
-    private long statsReportCounter = 0;
-    private long prevUtilization = 0;
-
-    private boolean flowsInstalled = false;
     private final AtomicLong xidAtomic = new AtomicLong(1);
 
     @Activate
@@ -226,17 +222,7 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
                         break;
                     }
 
-                    ++statsReportCounter;
-
                     analyzeDevicePortStats(device);
-                    if (statsReportCounter % 5 == 2) {
-                        sendExperimenterMultipartPortRequest(device);
-                    }
-                    if (statsReportCounter % 5 == 4) {
-                        printInternalDb();
-                        analyzePortsUtilization(device);
-                    }
-
                     break;
 
                 default:
@@ -258,7 +244,7 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
                 // stat is the port stats for the current port
                 InternalData portInternalData = getInternalData(device, port);
                 if (portInternalData == null) {
-                    continue;
+                    continue; // internal data may exist only for wireless ports 
                 }
                 if (port.isEnabled() == false)
                 {
@@ -268,15 +254,34 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
                 // The flow init is done for each device once:
                 // flow 1 is set on the primary port, flow 2 - on the secondary
                 if (portInternalData.flowsFirstCreated() == false) {
-                    if (portInternalData.port().number().toLong() != getMwPortPrim(device)) {
-                        continue;
+                    if (portInternalData.port().number().toLong() == getMwPortPrim(device)) {
+                        // Unmute the primary port to clean any leftover from previous running
+                        sendWirelessPortMod(device.id(), port, false);
+                        // Unmute the mate port to clean any leftover from previous running
+                        Port matePort = portInternalData.mateMwPort();
+                        InternalData matePortInternalData = getInternalData(device, matePort);
+                        if (matePortInternalData != null) {
+                            sendWirelessPortMod(device.id(), matePort, false);
+                        }
+                        initFlows(portInternalData);
                     }
-                    initFlows(portInternalData);
                 }
                 else {
                     // stat is the port stats for the current MW port
                     calculatePortUtilizedCapacityFromStats(stat, portInternalData);
-                break;
+
+                    // Asynchronous actions performed per device (on the primary port only)
+                    if (portInternalData.port().number().toLong() == getMwPortPrim(device)) {
+                        long statsReportCounter = portInternalData.statsReportCounter();
+                        if (statsReportCounter % 5 == 2) {
+                            sendExperimenterMultipartPortRequest(device);
+                        }
+                        if (statsReportCounter % 5 == 4) {
+                            printInternalDb();
+                            analyzePortsUtilization(device);
+                        }
+                        portInternalData.setStatsReportCounter(++statsReportCounter);
+                    }
                 }
             }
         }
@@ -298,11 +303,13 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
             Port matePort = portInternalData.mateMwPort();
             InternalData matePortInternalData = getInternalData(device, matePort);
             if (matePortInternalData == null) {
+                log.warn("analyzePortsUtilization(): {}/{}, matePortInternalData == null",deviceId, matePort.number());
                 continue;
             }
             // Get peer data here. If it does not exist, escape with error
             InternalData peerPortInternalData = getPeerInternalData(device, port);
             if (peerPortInternalData == null) {
+                log.warn("analyzePortsUtilization(): {}/{}, peerPortInternalData == null",deviceId, port.number());
                 continue;
             }
             Device peerDevice = peerPortInternalData.device();
@@ -310,6 +317,7 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
             Port peerMatePort = peerPortInternalData.mateMwPort();
             InternalData peerMatePortInternalData = getInternalData(peerDevice, peerMatePort);
             if (peerMatePortInternalData == null) {
+                log.warn("analyzePortsUtilization(): {}/{}, peerMateortInternalData == null",deviceId, peerMatePort.number());
                 continue;
             }
 
@@ -324,12 +332,14 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
             long peerMateUtilizedCapacity = peerMatePortInternalData.txUtilizedCapacity();
             long peerMateCurrCapacity = getTxCurrCapacityFromPortAnnotation(peerMatePort);
             if (currCapacity > 0 && mateCurrCapacity > 0 && peerCurrCapacity > 0 && peerMateCurrCapacity > 0) {
-                long utilization = utilizedCapacity * 100 / currCapacity;
-                long mateUtilization = mateUtilizedCapacity * 100 / peerMateCurrCapacity;
-                long peerUtilization = peerUtilizedCapacity * 100 / peerCurrCapacity;
-                long peerMateUtilization = peerMateUtilizedCapacity * 100 / peerMateCurrCapacity;
-                log.info("analyzePortsUtilization(): ----- {}/{}: utilization {}, mateUtilization {}, peerUtilization {}, peerMateUtilization {}",
-                    deviceId, port.number(), utilization, mateUtilization, peerUtilization, peerMateUtilization);
+                long utilization = utilizedCapacity * 100L / currCapacity;
+                long mateUtilization = mateUtilizedCapacity * 100L / peerMateCurrCapacity;
+                long peerUtilization = peerUtilizedCapacity * 100L / peerCurrCapacity;
+                long peerMateUtilization = peerMateUtilizedCapacity * 100L / peerMateCurrCapacity;
+                log.info("analyzePortsUtilization(): ----- {}/{}: utilization {}, mateUtilization {},"
+                          + "peerUtilization {}, peerMateUtilization {}, portMute {}, matePortMute {}",
+                    deviceId, port.number(), utilization, mateUtilization, peerUtilization, peerMateUtilization,
+                    portInternalData.portMute() ? "true" : "false", matePortInternalData.portMute() ? "true" : "false");
 
                     // Debug: always send ExperimanterPortMod if a flag is set on
                     if (utilization == 0 && wirelessDebug == WIRELESS_DEBUG_ALWAYS_SEND_PORT_MOD) {
@@ -349,6 +359,11 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
                         unmuteMwPort(matePortInternalData);
                     }
                 portInternalData.setPrevUtilization(utilization);
+            }
+            else {
+                log.warn("analyzePortsUtilization(): {}/{}: currCapacity {}, mateCurrCapacity {}, peerCurrCapacity {}, peerMateCurrCapacity {}",
+                    deviceId, port.number(), currCapacity, mateCurrCapacity, peerCurrCapacity, peerMateCurrCapacity);
+
             }
         }
     }
@@ -532,6 +547,7 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
         portInternalData.setPortMute(false);
         sendWirelessPortMod(peerDevice.id(), peerPort, false);
         peerPortInternalData.setPortMute(false);
+
         printInternalDb();
     }
 
@@ -543,8 +559,11 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
         long prevRxBytes = portInternalData.prevRxBytes();
         long prevTxUtilizedCapacity = portInternalData.txUtilizedCapacity();
 
-        timeMs = stat.durationSec()*1000 + stat.durationNano()/1000;
-        duration = (timeMs > prevTimeMs) ? (timeMs - prevTimeMs) : (Integer.MAX_VALUE - prevTimeMs + timeMs);
+        // There seems to be an issue with durationNano():
+        // its range is always 0..999,999 but it is not mucroseconds: when used as such, the values do not match to log printing time
+        // Hence, it is used as milliseconds in the calculations below.
+        timeMs = stat.durationSec()*1000L + stat.durationNano()/1000L; 
+        duration = (timeMs > prevTimeMs) ? (timeMs - prevTimeMs) : (Long.MAX_VALUE - prevTimeMs + timeMs);
 
         rxBytes = stat.bytesReceived();
         txBytes = stat.bytesSent();
@@ -552,7 +571,7 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
         txDelta = (txBytes >= prevTxBytes) ? (txBytes - prevTxBytes) : (Integer.MAX_VALUE - prevTxBytes + txBytes);
         rxDelta = (rxBytes >= prevRxBytes) ? (rxBytes - prevRxBytes) : (Integer.MAX_VALUE - prevRxBytes + rxBytes);
 
-        capacity = txDelta * 8 / duration;  // Kbps = Bytes*8/ms
+        capacity = txDelta * 8L / duration;  // Kbps = Bytes*8 / ~5ms
 
         log.debug("calculatePortUtilizedCapacityFromStats(): Calc for port {}/{}: port={}, rx={}, rxDelta={}, tx={}, txDelta={}, duration={}, timeMs={}, prevTimeMs={}, stat.durationSec()={}, stat.durationNano()={}, capacity={}",
             portInternalData.device().id(), portInternalData.port().number(), stat.port(), rxBytes, rxDelta, txBytes, txDelta, duration, timeMs, prevTimeMs, stat.durationSec(), stat.durationNano(), capacity);
@@ -767,6 +786,12 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
         if (matePortInternalData == null) {
             return;
         }
+        // remove of possible leftovers from previous running
+        operateFlow(device, portInternalData.port().number().toLong(), false, true); // del, flow1
+        operateFlow(device, portInternalData.port().number().toLong(), false, false); // del, flow2
+        operateFlow(device, matePortInternalData.port().number().toLong(), false, true); // del, flow1
+        operateFlow(device, matePortInternalData.port().number().toLong(), false, false); // del, flow2
+
         // create flow1 on the given MW port
         operateFlow(device, portInternalData.port().number().toLong(), true, true); // add, flow1
         portInternalData.setFlow1Created(true);
@@ -934,6 +959,7 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
         private boolean flowsFirstCreated;
         private boolean flow1Created;
         private boolean flow2Created;
+        private long statsReportCounter;
 
         public InternalData(Device device, Port port, Port mateMwPort, Port ethPort ) {
             this.device = device;
@@ -949,6 +975,7 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
             this.flowsFirstCreated = false;
             this.flow1Created = false;
             this.flow2Created = false;
+            this.statsReportCounter = 0;
         }
 
         public InternalData(InternalData data) {
@@ -965,6 +992,7 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
             flowsFirstCreated = data.flowsFirstCreated;
             flow1Created = data.flow1Created;
             flow2Created = data.flow2Created;
+            statsReportCounter = data.statsReportCounter;
         }
 
         public Device device() {
@@ -1006,6 +1034,9 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
         public boolean flow2Created() {
             return flow2Created;
         }
+        public long statsReportCounter() {
+            return statsReportCounter;
+        }
 
         // Set functions
         public void setTxUtilizedCapacity(long txUtilizedCapacity) {
@@ -1034,6 +1065,10 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
         }
         public void setFlow2Created(boolean flow2Created) {
             this.flow2Created = flow2Created;
+        }
+        
+        public void setStatsReportCounter(long statsReportCounter) {
+            this.statsReportCounter = statsReportCounter;
         }
     }
 
@@ -1095,7 +1130,7 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
                     peerDeviceId, peerPort.number());
                 if (   device.id().equals(link.src().deviceId())
                     && port.number().equals(peerPort.number())) {
-                    log.info("getPeerInternalData(): get InternalData for {}/{}: link {}/{} -> {}/{}",
+                    log.debug("getPeerInternalData(): get InternalData for {}/{}: link {}/{} -> {}/{}",
                         device.id(), port.number(), link.src().deviceId(), link.src().port(),
                         peerDeviceId, peerPort.number());
                     return getInternalData(peerDevice, peerPort);
@@ -1119,7 +1154,10 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
     private void printInternalDb() {
         if (internalDb.size() != 0) {
             for (InternalData data : internalDb) {
-                log.debug("printInternalDb(): ----- Internal data: device={}, port={}, mateMwPort={}, ethPort={}, txUtilizedCapacity={}, prevUtilization={}, portMute={}, flowsFirstCreated={}, flow1Created={}, flow2Created={} ",                    data.device().id(),
+                log.debug("printInternalDb(): ----- Internal data: device={}, port={}, mateMwPort={}, ethPort={}, "
+                        + "txUtilizedCapacity={}, prevUtilization={}, portMute={}, flowsFirstCreated={}, "
+                        + "flow1Created={}, flow2Created={}, statsReportCounter={}",
+                    data.device().id(),
                     data.port().number(),
                     data.mateMwPort().number(),
                     data.ethPort().number(),
@@ -1128,7 +1166,8 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
                     data.portMute() ? "true" : "false",
                     data.flowsFirstCreated() ? "true" : "false",
                     data.flow1Created() ? "true" : "false",
-                    data.flow2Created() ? "true" : "false");
+                    data.flow2Created() ? "true" : "false",
+                    data.statsReportCounter());
             }
         }
     }
