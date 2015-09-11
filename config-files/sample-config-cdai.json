@@ -1,13 +1,15 @@
 {
    "devices": [ 
        { "alias":  "switch1", "uri": "of:0000000000000001", "annotations": { 
-           "wireless-port-prim" : "33619968", "wireless-port-sec" : "42008576", "wireless-port-lag" : "4259840" }, 
+           "wireless-port-prim" : "33619968", "wireless-port-sec" : "42008576", "wireless-port-lag" : "4259840",
+           "wireless-high-utilization-th" : "70", "wireless-low-utilization-th" : "20"  },
            "mfr": "NEC Corporation", "hw": "iPASOLINK", 
            "sw": "Ver. V0.0.0.0", "serial": "1", "protocol": "OF_13"
        },
 
        { "alias":  "switch2", "uri": "of:0000000000000002", "annotations": { 
-           "wireless-port-prim" : "33619968", "wireless-port-sec" : "42008576", "wireless-port-lag" : "4259840" }, 
+           "wireless-port-prim" : "33619968", "wireless-port-sec" : "42008576", "wireless-port-lag" : "4259840",
+           "wireless-high-utilization-th" : "70", "wireless-low-utilization-th" : "20"  },
            "mfr": "NEC Corporation", "hw": "iPASOLINK", 
            "sw": "Ver. V0.0.0.0", "serial": "1", "protocol": "OF_13"
        }

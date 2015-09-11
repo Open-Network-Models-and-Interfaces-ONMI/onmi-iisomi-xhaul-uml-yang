@@ -21,9 +21,6 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Deactivate;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.ReferenceCardinality;
-import org.apache.felix.scr.annotations.Service;
-import org.onosproject.event.ListenerRegistry;
-import org.onosproject.event.EventDeliveryService;
 import org.onosproject.net.Device;
 import org.onosproject.net.DeviceId;
 import org.onosproject.net.MastershipRole;
@@ -32,7 +29,6 @@ import org.onosproject.net.PortNumber;
 import org.onosproject.net.Link;
 import org.onosproject.net.device.DefaultDeviceDescription;
 import org.onosproject.net.device.DefaultPortDescription;
-import org.onosproject.net.device.DeviceAdminService;
 import org.onosproject.net.device.DeviceDescription;
 import org.onosproject.net.device.DeviceEvent;
 import org.onosproject.net.device.DeviceListener;
@@ -41,18 +37,12 @@ import org.onosproject.net.device.DeviceProviderRegistry;
 import org.onosproject.net.device.DeviceProviderService;
 import org.onosproject.net.device.DeviceService;
 import org.onosproject.net.device.DeviceStore;
-import org.onosproject.net.device.DeviceStoreDelegate;
-import org.onosproject.net.device.PortDescription;
 import org.onosproject.net.device.PortStatistics;
-import org.onosproject.net.provider.AbstractProviderRegistry;
-import org.onosproject.net.provider.AbstractProviderService;
+import org.onosproject.net.device.PortDescription;
 //
-import org.onosproject.net.device.DeviceProvider;
 import static org.onosproject.net.DeviceId.deviceId;
 import org.onosproject.net.provider.AbstractProvider;
 import org.onosproject.net.provider.ProviderId;
-import org.onosproject.net.PortNumber;
-import org.onosproject.net.device.PortStatistics;
 import org.onosproject.net.AnnotationKeys;
 import org.onosproject.net.DefaultAnnotations;
 import org.onosproject.net.link.LinkService;
@@ -61,8 +51,6 @@ import org.onosproject.openflow.controller.OpenFlowController;
 import org.onosproject.openflow.controller.OpenFlowEventListener;
 import org.onosproject.openflow.controller.OpenFlowSwitch;
 //
-import org.onosproject.net.intent.Intent;
-import org.onosproject.net.intent.IntentService;
 import org.onosproject.core.ApplicationId;
 import org.onosproject.core.CoreService;
 import org.slf4j.Logger;
@@ -70,27 +58,16 @@ import org.slf4j.LoggerFactory;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 //
 import java.util.concurrent.atomic.AtomicLong;
 //
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static java.util.concurrent.Executors.newSingleThreadScheduledExecutor;
-import static org.onlab.util.Tools.groupedThreads;
 import static org.onosproject.net.MastershipRole.*;
-import static org.slf4j.LoggerFactory.getLogger;
-import static org.onosproject.security.AppGuard.checkPermission;
 import static org.onosproject.openflow.controller.Dpid.dpid;
 import static org.onosproject.openflow.controller.Dpid.uri;
 import org.projectfloodlight.openflow.protocol.OFPortDesc;
@@ -100,7 +77,6 @@ import org.projectfloodlight.openflow.protocol.OFPortModPropWirelessTransport;
 import org.projectfloodlight.openflow.protocol.OFWirelessTransportInterface;
 import org.projectfloodlight.openflow.protocol.OFWirelessTransportPortFeatureHeader;
 import org.projectfloodlight.openflow.protocol.OFWirelessTransportInterfacePropParamHeader;
-import org.projectfloodlight.openflow.protocol.OFWirelessTransportInterfacePropParamTypes;
 import org.projectfloodlight.openflow.protocol.OFWirelessTxCurrentCapacity;
 import org.projectfloodlight.openflow.protocol.OFWirelessExperimenterPortMod;
 import org.projectfloodlight.openflow.protocol.OFWirelessMultipartPortsRequest;
@@ -110,18 +86,12 @@ import org.projectfloodlight.openflow.protocol.OFExperimenterStatsReply;
 import org.projectfloodlight.openflow.protocol.OFWirelessMultipartPortsReply;
 
 import org.projectfloodlight.openflow.protocol.OFMessage;
-import org.projectfloodlight.openflow.protocol.OFPortState;
-import org.projectfloodlight.openflow.protocol.OFPortStatsEntry;
-import org.projectfloodlight.openflow.protocol.OFPortStatsReply;
-import org.projectfloodlight.openflow.protocol.OFPortStatus;
-import org.projectfloodlight.openflow.protocol.OFVersion;
 
 import org.projectfloodlight.openflow.types.OFPort;
-import org.projectfloodlight.openflow.types.U64;
 
 
 /**
- * ONOS Wireless use case application for capacity driven air interface
+ * ONOS Wireless use case application for capacity driven air interface.
  */
 @Component(immediate = true)
 public class WirelessCdaiProvider extends AbstractProvider implements DeviceProvider {
@@ -131,6 +101,8 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
     private static final String WIRELESS_PORT_SEC = "wireless-port-sec";
     private static final String WIRELESS_TX_CURR_CAPACITY = "wireless-tx-curr-capacity";
     private static final String WIRELESS_DEBUG = "wireless-debug";
+    private static final String WIRELESS_LOW_UTILIZATION_THRESHOLD = "wireless-low-utilization-th";
+    private static final String WIRELESS_HIGH_UTILIZATION_THRESHOLD = "wireless-high-utilization-th";
     // Constants
     private static final long WIRELESS_EXPERIMENTER_TYPE = 0xff000005l;
     private static final long WIRELESS_DEBUG_ALWAYS_SEND_PORT_MOD = 1;
@@ -246,7 +218,12 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
                     TimerTask task = new InternalTimerTask(device);
                     timer.schedule(task, TIMER_TASK_DELAY);
 
-                    analyzeDevicePortStats(device);
+                    boolean result = analyzeDevicePortStats(device);
+
+                    if (result == false) {
+                        log.debug("event(): Skip Port Utilization Analyze.");
+                        break;
+                    }
 
                     printInternalDb();
                     analyzePortsUtilization(device);
@@ -281,8 +258,9 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
      * Obtains port stats for given device.
      *
      * @param device Statistics acquisition target.
+     * @return ports utilization analyze decision result.
      */
-    private void analyzeDevicePortStats(Device device) {
+    private boolean analyzeDevicePortStats(Device device) {
         DeviceId deviceId = device.id();
 
         List<Port> ports = store.getPorts(deviceId);
@@ -296,20 +274,33 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
                 if (portInternalData == null) {
                     continue;
                 }
-                if (port.isEnabled() == false) {
-                    log.error("analyzeDevicePortStats(): MW Lag port {}/{} is disabled", deviceId, port.number());
-                    return;
-                }
 
                 // Stat is the port stats for the lag MW port.
                 calculatePortUtilizedCapacityFromStats(stat, portInternalData);
-                break;
+
+                InternalData peerPortInternalData = getPeerInternalData(device, port);
+                if (peerPortInternalData == null) {
+                    return false;
+                }
+
+                if (peerPortInternalData.capacityUpdate() == true) {
+                    portInternalData.setCapacityUpdate(false);
+                    peerPortInternalData.setCapacityUpdate(false);
+                    return true;
+                }
+
+                log.debug("analyzeDevicePortStats(): set Capacity Updated flag.");
+                portInternalData.setCapacityUpdate(true);
+                peerPortInternalData.setCapacityUpdate(true);
+
+                return false;
             }
         }
+        return false;
     }
 
     /**
-     * Checks the utilization and disables/enables the relevant ports.
+     * Checks the utilization annotation and disables/enables the relevant ports.
      *
      * @param device Check target.
      */
@@ -326,31 +317,68 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
                 continue;
             }
 
+            InternalData peerPortInternalData = getPeerInternalData(device, port);
+            if (peerPortInternalData == null) {
+                return;
+            }
+            Device peerDevice = peerPortInternalData.device();
+            Port peerPort = peerPortInternalData.port();
+
             // Calculate utilization: current lag port.
             long utilizedCapacity = portInternalData.txUtilizedCapacity();
             long currCapacity =  portInternalData.txCurrentCapacity();
-            log.info("analyzePortsUtilization(): ----- {}/{}: Capacity {}", deviceId, port.number(), currCapacity);
+            log.info("analyzePortsUtilization(): ----- {}/{}: Capacity {}",
+                deviceId, port.number(), currCapacity);
+
+            long peerUtilizedCapacity = peerPortInternalData.txUtilizedCapacity();
+            long peerCurrCapacity =  peerPortInternalData.txCurrentCapacity();
+            log.info("analyzePortsUtilization(): ----- {}/{}: peerCapacity {}",
+                peerDevice.id(), peerPort.number(), peerCurrCapacity);
 
             if (currCapacity > 0) {
                 long utilization = utilizedCapacity * 100 / currCapacity;
-                log.info("analyzePortsUtilization(): ----- {}/{}: utilization {}", deviceId, port.number(), utilization);
+                log.info("analyzePortsUtilization(): ----- {}/{}: utilization {}",
+                    deviceId, port.number(), utilization);
 
-                    // Debug: always send ExperimanterPortMod if a flag is set on.
-                    if (utilization == 0 && wirelessDebug == WIRELESS_DEBUG_ALWAYS_SEND_PORT_MOD) {
-                        sendWirelessPortMod(device.id(), port, false); // Always unmute.
-                    }
-                    else if (  utilization >= 0
-                            && utilization < LOW_UTILIZATION_THRESHOLD
-                            && portInternalData.portMute() == false
-                            && portInternalData.prevUtilization() >= 0
-                            && wirelessDebug != WIRELESS_DEBUG_CALCULATE_ONLY) {
-                        muteMwPort(portInternalData);
-                    }
-                    else if (  utilization > HIGH_UTILIZATION_THRESHOLD
-                            && portInternalData.portMute() == true
-                            && wirelessDebug != WIRELESS_DEBUG_CALCULATE_ONLY) {
-                        unmuteMwPort(portInternalData);
-                    }
+                long peerUtilization = peerUtilizedCapacity * 100 / peerCurrCapacity;
+                log.info("analyzePortsUtilization(): ----- {}/{}: peerUtilization {}",
+                    peerDevice.id(), peerPort.number(), peerUtilization);
+
+                long lowThreshold = getUtilizationThresholdLow(device);
+                long highThreshold = getUtilizationThresholdHigh(device);
+                log.info("analyzePortsUtilization(): ----- {}/{}: High th {} Low th {}",
+                    deviceId, port.number(), highThreshold, lowThreshold);
+
+                long peerLowThreshold = getUtilizationThresholdLow(peerDevice);
+                long peerHighThreshold = getUtilizationThresholdHigh(peerDevice);
+                log.info("analyzePortsUtilization(): ----- {}/{}: peerHigh th {} peerLow th {}",
+                    peerDevice.id(), peerPort.number(), peerHighThreshold, peerLowThreshold);
+
+                // Debug: always send ExperimanterPortMod if a flag is set on.
+                if (utilization == 0
+                 && peerUtilization == 0
+                 && wirelessDebug == WIRELESS_DEBUG_ALWAYS_SEND_PORT_MOD) {
+                    sendWirelessPortMod(device.id(), port, false); // Always unmute.
+                }
+                else if (utilization >= 0
+                      && utilization < lowThreshold
+                      && portInternalData.portMute() == false
+                      && portInternalData.prevUtilization() >= 0
+                      && peerUtilization >= 0
+                      && peerUtilization < peerLowThreshold
+                      && peerPortInternalData.portMute() == false
+                      && peerPortInternalData.prevUtilization() >= 0
+                      && wirelessDebug != WIRELESS_DEBUG_CALCULATE_ONLY) {
+                    muteMwPort(portInternalData);
+                }
+                else if (utilization > highThreshold
+                      && portInternalData.portMute() == true
+                      && wirelessDebug != WIRELESS_DEBUG_CALCULATE_ONLY
+                      || peerUtilization > peerHighThreshold
+                      && peerPortInternalData.portMute() == true
+                      && wirelessDebug != WIRELESS_DEBUG_CALCULATE_ONLY) {
+                   unmuteMwPort(portInternalData);
+                }
                 portInternalData.setPrevUtilization(utilization);
             }
         }
@@ -367,11 +395,18 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
         Port muteP = portInternalData.mutePort();
         log.debug("muteMwPort(): start for port {}/{}", device.id(), port.number());
 
+        // Get peer data here. If it does not exist, escape with error.
+        InternalData peerPortInternalData = getPeerInternalData(device, port);
+        Device peerDevice = peerPortInternalData.device();
+        Port peerMuteP = peerPortInternalData.mutePort();
+
         printInternalDb();
 
         // Mute the ports on both sides.
         sendWirelessPortMod(device.id(), muteP, true);
         portInternalData.setPortMute(true);
+        sendWirelessPortMod(peerDevice.id(), peerMuteP, true);
+        peerPortInternalData.setPortMute(true);
 
         printInternalDb();
     }
@@ -387,11 +422,23 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
         Port muteP = portInternalData.mutePort();
         log.debug("unmuteMwPort(): start for port {}/{}", device.id(), port.number());
 
+        // Get peer data here. If it does not exist, escape with error.
+        InternalData peerPortInternalData = getPeerInternalData(device, port);
+        if (peerPortInternalData == null) {
+            log.error("unmuteMwPort(): No internal data record for port of {}/{}",
+                device.id(), port.number());
+            return;
+        }
+        Device peerDevice = peerPortInternalData.device();
+        Port peerMuteP = peerPortInternalData.mutePort();
+
         printInternalDb();
 
         // Unmute the ports on both sides.
         sendWirelessPortMod(device.id(), muteP, false);
         portInternalData.setPortMute(false);
+        sendWirelessPortMod(peerDevice.id(), peerMuteP, false);
+        peerPortInternalData.setPortMute(false);
         printInternalDb();
     }
 
@@ -411,7 +458,7 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
         long prevRxBytes = portInternalData.prevRxBytes();
         long prevTxUtilizedCapacity = portInternalData.txUtilizedCapacity();
 
-        timeMs = stat.durationSec()*1000 + stat.durationNano()/1000000;
+        timeMs = stat.durationSec() * 1000 + stat.durationNano() / 1000000;
         duration = (timeMs > prevTimeMs) ? (timeMs - prevTimeMs) : (Integer.MAX_VALUE - prevTimeMs + timeMs);
 
         rxBytes = stat.bytesReceived();
@@ -422,7 +469,7 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
 
         capacity = txDelta * 8 / duration;  // Kbps = Bytes*8/ms
 
-        log.debug("calculatePortUtilizedCapacityFromStats(): Calc for port {}/{}: port={}, rx={}, rxDelta={}, tx={}, txDelta={}, duration={}, timeMs={}, prevTimeMs={}, stat.durationSec()={}, stat.durationNano()={}, capacity={}",
+        log.info("calculatePortUtilizedCapacityFromStats(): Calc for port {}/{}: port={}, rx={}, rxDelta={}, tx={}, txDelta={}, duration={}, timeMs={}, prevTimeMs={}, stat.durationSec()={}, stat.durationNano()={}, capacity={}",
             portInternalData.device().id(), portInternalData.port().number(), stat.port(), rxBytes, rxDelta, txBytes, txDelta, duration, timeMs, prevTimeMs, stat.durationSec(), stat.durationNano(), capacity);
 
         portInternalData.setPrevRxBytes(rxBytes);
@@ -485,7 +532,7 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
                 sw.sendMsg(portMod);
 
                 log.info("sendWirelessPortMod(): Port {} is {}",
-                        portDesc.getPortNo(), (mute==true) ? "Mute" : "Unmute");
+                        portDesc.getPortNo(), (mute == true) ? "Mute" : "Unmute");
             }
         }
     }
@@ -555,6 +602,40 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
             port = Integer.valueOf(device.annotations().value(WIRELESS_LAG_PORT)).longValue();
         }
         return port;
+    }
+
+    /**
+     * Get annotation of low utilization threshold.
+     *
+     * @param device Get target device.
+     * @return low utilization threshold.
+     */
+    public long getUtilizationThresholdLow(Device device) {
+        long low_threshold = LOW_UTILIZATION_THRESHOLD;
+        if (device.annotations().value(WIRELESS_LOW_UTILIZATION_THRESHOLD) != null) {
+            long threshold = Integer.valueOf(device.annotations().value(WIRELESS_LOW_UTILIZATION_THRESHOLD)).longValue();
+            if (threshold >= 0L && threshold <= 100L) {
+                low_threshold = threshold;
+            }
+        }
+        return low_threshold;
+    }
+
+    /**
+     * Get annotation of high utilization threshold.
+     *
+     * @param device Get target device.
+     * @return high utilization threshold.
+     */
+    public long getUtilizationThresholdHigh(Device device) {
+        long high_threshold = HIGH_UTILIZATION_THRESHOLD;
+        if (device.annotations().value(WIRELESS_HIGH_UTILIZATION_THRESHOLD) != null) {
+            long threshold = Integer.valueOf(device.annotations().value(WIRELESS_HIGH_UTILIZATION_THRESHOLD)).longValue();
+            if (threshold >= 0L && threshold <= 100L) {
+                high_threshold = threshold;
+            }
+        }
+        return high_threshold;
     }
 
     @Override
@@ -704,6 +785,7 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
         private long prevTimeMs;
         private long prevUtilization;
         private boolean portMute;
+        private boolean capacityUpdate;
 
         public InternalData(Device device, Port port, Port mutePort) {
             this.device = device;
@@ -716,6 +798,7 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
             this.prevTimeMs = 0;
             this.prevUtilization = 0;
             this.portMute = false;
+            this.capacityUpdate = false;
         }
 
         public InternalData(InternalData data) {
@@ -729,6 +812,7 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
             prevTimeMs = data.prevTimeMs;
             prevUtilization = data.prevUtilization;
             portMute = data.portMute;
+            capacityUpdate = data.capacityUpdate;
         }
 
         public Device device() {
@@ -761,6 +845,9 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
         public boolean portMute() {
             return portMute;
         }
+        public boolean capacityUpdate() {
+            return capacityUpdate;
+        }
 
         // Set functions
         public void setTxUtilizedCapacity(long txUtilizedCapacity) {
@@ -784,6 +871,9 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
         public void setPortMute(boolean portMute) {
             this.portMute = portMute;
         }
+        public void setCapacityUpdate(boolean capacityUpdate) {
+            this.capacityUpdate = capacityUpdate;
+        }
     }
 
     /**
@@ -803,6 +893,11 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
         }
         if (mwLag != port.number().toLong()) {
             // Not wireless lag port
+            return null;
+        }
+
+        if (port.isEnabled() == false) {
+            log.error("getInternalData(): MW Lag port {}/{} is disabled", device.id(), port.number());
             return null;
         }
 
@@ -834,6 +929,32 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
             device.id(), port.number());
 
         return newData;
+    }
+
+    /**
+     * Check if the given port belongs to any link and if yes get the peer port's Internal data.
+     *
+     * @param device Device including search target deviceid.
+     * @param port Search target port.
+     * @return Search peer InternalData.
+     */
+    private InternalData getPeerInternalData(Device device, Port port) {
+        for (Link link : linkService.getDeviceEgressLinks(device.id())) {
+            DeviceId peerDeviceId = link.dst().deviceId();
+            Device peerDevice = deviceService.getDevice(peerDeviceId);
+            Port peerPort = deviceService.getPort(peerDeviceId, link.dst().port());
+            log.debug("getPeerInternalData(): Port for {}/{}: check link {}/{} -> {}/{}",
+                device.id(), port.number(), link.src().deviceId(), link.src().port(),
+                peerDeviceId, peerPort.number());
+            if (   device.id().equals(link.src().deviceId())
+                && port.number().equals(peerPort.number())) {
+                log.info("getPeerInternalData(): get InternalData for {}/{}: link {}/{} -> {}/{}",
+                    device.id(), port.number(), link.src().deviceId(), link.src().port(),
+                    peerDeviceId, peerPort.number());
+                return getInternalData(peerDevice, peerPort);
+            }
+        }
+        return null;
     }
 
     /**
