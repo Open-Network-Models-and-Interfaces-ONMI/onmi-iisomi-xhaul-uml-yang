@@ -16,7 +16,7 @@
  *
  */
 
-package onosproject.wireless.shape;
+package org.onosproject.wireless.shape;
 
 import com.google.common.collect.Maps;
 import org.apache.felix.scr.annotations.Activate;
@@ -33,13 +33,15 @@ import org.onosproject.net.ConnectPoint;
 import org.onosproject.net.Device;
 import org.onosproject.net.DeviceId;
 import org.onosproject.net.Link;
-import org.onosproject.net.Port;
 import org.onosproject.net.PortNumber;
 import org.onosproject.net.device.DeviceEvent;
 import org.onosproject.net.device.DeviceListener;
 import org.onosproject.net.device.DeviceService;
+import org.onosproject.net.flow.DefaultFlowRule;
+import org.onosproject.net.flow.DefaultTrafficTreatment;
 import org.onosproject.net.flow.FlowRule;
 import org.onosproject.net.flow.FlowRuleService;
+import org.onosproject.net.flow.TrafficTreatment;
 import org.onosproject.net.flow.instructions.Instruction;
 import org.onosproject.net.flow.instructions.Instructions;
 import org.onosproject.net.link.LinkService;
@@ -92,6 +94,8 @@ public class WirelessFlowShape {
 
     private int curMinNumber = 0;
 
+    private static final String WIRELESS_PORT_LAG = "wireless-port-lag";
+    private static final String WIRELESS_PORT_SEC = "wireless-port-sec";
     private static final String WIRELESS_PORT_PRIM = "wireless-port-prim";
     private static final String WIRELESS_TX_CURR_CAPACITY = "wireless-tx-curr-capacity";
     private static final String ETH_PORT = "eth-port";
@@ -113,6 +117,8 @@ public class WirelessFlowShape {
 
     @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
     protected LinkService linkService;
+//    @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
+    //   protected OpenflowController14 controller14;
 
     private Map<Long, PortCapacityCollector> collectors = Maps.newHashMap();
     private final DeviceListener listener = new InternalDeviceListener();
@@ -122,14 +128,11 @@ public class WirelessFlowShape {
 
     @Activate
     public void activate(ComponentContext context) {
-        modified(context);
         cfgService.registerProperties(getClass());
         appId = coreService.registerApplication("org.onosproject.wireless.shape");
         deviceService.addListener(listener);
-        log.info(String.valueOf(controller.getSwitches()));
         controller.getSwitches().forEach((this::createPortStatsCollection));
-        log.info(String.valueOf(controller.getSwitches()));
-        log.info("Started" + appId.id());
+        log.info("Started");
     }
 
     @Deactivate
@@ -137,6 +140,14 @@ public class WirelessFlowShape {
         deviceService.removeListener(listener);
         collectors.values().forEach(PortCapacityCollector::stop);
         log.info("Stopped");
+    }
+
+    private int switchNum(Iterable<OpenFlowSwitch> it) {
+        int i = 0;
+        for (OpenFlowSwitch o : it) {
+            i++;
+        }
+        return i;
     }
 
     @Modified
@@ -221,8 +232,8 @@ public class WirelessFlowShape {
 
     /**
      * analysis the capacity of the device,
-     * if the txCurrCapacity is less than shapeMinThreshold after shakeNumber times, than apply meter add policy；
-     * if the txCurrCapacity is larger than shapeMaxThreshold after shakeNumber times，than apply meter delete policy.
+     * if the txCurrCapacity is less than shapeMinThreshold after shakeNumber times, than apply meter add policy?
+     * if the txCurrCapacity is larger than shapeMaxThreshold after shakeNumber times apply meter delete policy.
      *
      * @param id             device id of a MW device
      * @param txCurrCapacity tx current capacity of a MW device port
@@ -252,15 +263,20 @@ public class WirelessFlowShape {
             case ADD:
                 MeterRequest request = buildMeter(routerFlowRule.deviceId(), capacity);
                 Meter meterAdd = meterService.submit(request);
+                if (meterAdd == null) {
+                    log.info("Add meter {} for device {} failed", meterAdd.id(), meterAdd.deviceId());
+                }
+                log.info("add meter successfully, modify router flow started.");
                 modifyRouterFlow(routerFlowRule, meterAdd.id(), opType);
-
                 break;
+
             case REMOVE:
                 modifyRouterFlow(routerFlowRule, null, opType);
-
                 break;
+
             case MODIFY:
                 break;
+
             default:
                 log.warn("Unknown Meter command {}; not sending anything", opType);
         }
@@ -281,25 +297,52 @@ public class WirelessFlowShape {
 
     private void modifyRouterFlow(FlowRule routerFlowRule, MeterId meterId, Type operation) {
 
-        if (Type.ADD == operation) {
-            routerFlowRule.treatment().allInstructions().add(Instructions.meterTraffic(meterId));
-        } else if (Type.REMOVE == operation) {
-            routerFlowRule.treatment().allInstructions().forEach(i -> {
-                if (i.type() == Instruction.Type.METER) {
-                    routerFlowRule.treatment().allInstructions().remove(i);
-                }
-
-            });
+        FlowRule.Builder ruleBuilder = buildFlowRule(routerFlowRule, meterId, operation);
+        if (ruleBuilder == null) {
+            log.info("Build flow failed.");
+            return;
         }
-        flowService.applyFlowRules(routerFlowRule);
+        FlowRule newRule = ruleBuilder.build();
+        flowService.applyFlowRules(newRule);
+        log.info("Apply flow successfully, flow id is {}.", Long.toHexString(newRule.id().value()));
         //update the flow rule map
         flowRuleMap.put(routerFlowRule.deviceId(), routerFlowRule);
+    }
+
+    private FlowRule.Builder buildFlowRule(FlowRule routerFlowRule, MeterId meterId, Type operation) {
+        FlowRule.Builder ruleBuilder;
+        TrafficTreatment.Builder treatmentBuilder = DefaultTrafficTreatment
+                .builder();
+        if (routerFlowRule.treatment() != null) {
+            for (Instruction i : routerFlowRule.treatment().allInstructions()) {
+                if ((i.type() == Instruction.Type.METER) && (operation == Type.ADD)) {
+                    log.info("Policy has already be set to the router {}, and meter id is {}",
+                             routerFlowRule.deviceId(), meterId);
+                    return null;
+                } else if ((i.type() == Instruction.Type.METER) && (operation == Type.REMOVE)) {
+                    continue;
+                }
+                treatmentBuilder.add(i);
+            }
+        }
+        if (operation == Type.ADD) {
+            treatmentBuilder.add(Instructions.meterTraffic(meterId));
+        }
+
+        ruleBuilder = DefaultFlowRule.builder()
+                .fromApp(appId).withPriority(routerFlowRule.priority())
+                .forDevice(routerFlowRule.deviceId())
+                .forTable(routerFlowRule.tableId())
+                .withSelector(routerFlowRule.selector())
+                .makePermanent()
+                .withTreatment(treatmentBuilder.build());
+        return ruleBuilder;
     }
 
     public long getPortFromAnnotation(Device device, String key) {
         long port = 0;
         String value = device.annotations().value(key);
-        if (!isNullOrEmpty(key)) {
+        if (!isNullOrEmpty(value)) {
             port = Integer.valueOf(value).longValue();
         }
         return port;
@@ -308,78 +351,53 @@ public class WirelessFlowShape {
     private boolean isDeviceWireless(Device device) {
         boolean isWireless = true;
         long mwPrim = getPortFromAnnotation(device, WIRELESS_PORT_PRIM);
-        long ethPort = getPortFromAnnotation(device, ETH_PORT);
-        if (mwPrim == 0 || ethPort == 0) {
+        long lagPort = getPortFromAnnotation(device, WIRELESS_PORT_LAG);
+        if (mwPrim == 0 || lagPort == 0) {
             isWireless = false;
         }
         return isWireless;
     }
 
 
-    /**
-     * find peer connection point according to MW NE and its port.
-     *
-     * @param deviceId MW device
-     * @param port     MW port
-     * @return peer connection point connected to MW device
-     */
-    public ConnectPoint findPeerConnectPoint(DeviceId deviceId, long port) {
-
+    private FlowRule findPeerRouterRule(DeviceId deviceId, long port) {
         ConnectPoint routerPoint = null;
+        ConnectPoint peerPoint = null;
+        FlowRule routerFlowRule;
         ConnectPoint connectPoint = new ConnectPoint(deviceId, PortNumber.portNumber(port));
         Set<Link> links = linkService.getDeviceLinks(deviceId);
-
-        //there is only one link with eth port of mw NE.
-        if (links.size() == 1) {
-            for (Link link : links) {
-                if (link.src().equals(connectPoint)) {
-                    routerPoint = link.dst();
-                } else {
-                    routerPoint = link.src();
+        for (Link link : links) {
+            peerPoint = link.src().deviceId().equals(deviceId) ? link.dst() : link.src();
+            //search for the flow in router
+            if (!isDeviceWireless(deviceService.getDevice(peerPoint.deviceId()))) {
+                routerFlowRule = findRuleByOutPort(peerPoint.deviceId(), peerPoint.port().toLong());
+                if (routerFlowRule != null) {
+                    return routerFlowRule;
                 }
-            }
-        }
-        return routerPoint;
-    }
-
-    //find flow rule of the packet_in router for a device
-    private FlowRule findInRouterRule(Device device, Port port) {
-        ConnectPoint routerCp = null;
-        //there is only one flow in a MW device
-        for (FlowRule flow : flowService.getFlowEntries(device.id())) {
-            for (Instruction i : flow.treatment().allInstructions()) {
-                //get the direction through the flow rule
-                if (i.type() == Instruction.Type.OUTPUT) {
-                    long outPort = ((Instructions.OutputInstruction) i).port().toLong();
-                    //if the out port of flow is mwPort, then the ethPort of the device is
-                    //connected to router, then we can findPeerConnectPoint that.
-                    //else, we should find the peer MW device, and than find the router.
-                    if (outPort == getPortFromAnnotation(device, WIRELESS_PORT_PRIM)) {
-                        routerCp = findPeerConnectPoint(device.id(), getPortFromAnnotation(device, ETH_PORT));
-
-                    } else if (outPort == getPortFromAnnotation(device, ETH_PORT)) {
-                        ConnectPoint mwPeerCp = findPeerConnectPoint(device.id(), port.number().toLong());
-                        long ethPort = getPortFromAnnotation(deviceService.getDevice(mwPeerCp.deviceId()), ETH_PORT);
-                        routerCp = findPeerConnectPoint(mwPeerCp.deviceId(), ethPort);
-
-                    } else {
-                        log.info("Unknown flowRule {}", flow.id());
-                        return null;
+            } else {
+//                return findPeerConnectPoint(peerPoint.deviceId(),peerPoint.port().toLong());
+                for (Link anotherLinks : linkService.getDeviceLinks(peerPoint.deviceId())) {
+                    peerPoint = anotherLinks.src().equals(connectPoint) ? anotherLinks.dst() : anotherLinks.src();
+                    if (!isDeviceWireless(deviceService.getDevice(peerPoint.deviceId()))) {
+//                        return peerPoint;
+                        routerFlowRule = findRuleByOutPort(peerPoint.deviceId(), peerPoint.port().toLong());
+                        if (routerFlowRule != null) {
+                            return routerFlowRule;
+                        }
                     }
                 }
             }
         }
-        if (routerCp == null) {
-            log.info("Can not find router connect point for device {}.", device.id());
-            return null;
-        }
-        //get the flow rule of the router with specific device id and output port
-        for (FlowRule flowRule : flowService.getFlowEntries(routerCp.deviceId())) {
-            for (Instruction i : flowRule.treatment().allInstructions()) {
+        return null;
+    }
+
+    private FlowRule findRuleByOutPort(DeviceId deviceId, long port) {
+        for (FlowRule flow : flowService.getFlowEntries(deviceId)) {
+            for (Instruction i : flow.treatment().allInstructions()) {
+                //get the direction through the flow rule
                 if (i.type() == Instruction.Type.OUTPUT) {
                     long outPort = ((Instructions.OutputInstruction) i).port().toLong();
-                    if (outPort == routerCp.port().toLong()) {
-                        return flowRule;
+                    if (port == outPort) {
+                        return flow;
                     }
                 }
             }
@@ -399,14 +417,18 @@ public class WirelessFlowShape {
                     return;
                 }
                 deviceService.getPorts(device.id()).forEach(port -> {
+
+                    if (getPortFromAnnotation(device, WIRELESS_PORT_LAG) != port.number().toLong()) {
+                        return;
+                    }
                     String txCurrCapacity = port.annotations().value(WIRELESS_TX_CURR_CAPACITY);
-                    log.info("txCurrCapacity----->" + txCurrCapacity);
+                    log.info("txCurrCapacity-----> {}, and port number is {}", txCurrCapacity, port.number().toLong());
                     if (isNullOrEmpty(txCurrCapacity)) {
                         log.info("port {} has no annotation of WIRELESS_TX_CURR_CAPACITY", port.number().toLong());
                         return;
                     }
                     if (!flowRuleMap.keySet().contains(device.id())) {
-                        FlowRule inRouterRule = findInRouterRule(device, port);
+                        FlowRule inRouterRule = findPeerRouterRule(device.id(), port.number().toLong());
                         if (inRouterRule == null) {
                             log.info("Can not find router flow for device {}", device.id());
                             return;

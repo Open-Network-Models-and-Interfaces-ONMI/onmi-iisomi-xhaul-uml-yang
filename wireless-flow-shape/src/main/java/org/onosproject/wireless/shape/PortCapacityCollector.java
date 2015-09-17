@@ -16,7 +16,7 @@
  *
  */
 
-package onosproject.wireless.shape;
+package org.onosproject.wireless.shape;
 
 import org.jboss.netty.util.HashedWheelTimer;
 import org.jboss.netty.util.Timeout;

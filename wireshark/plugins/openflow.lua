@@ -68,7 +68,7 @@ OFReader.new = function(buf, offset)
     return self
 end
 
-p_of = Proto ("of", "OpenFlow")
+p_of = Proto ("of", "_OpenFlow_")
 ethernet_dissector = Dissector.get("eth")
 
 current_pkt = nil

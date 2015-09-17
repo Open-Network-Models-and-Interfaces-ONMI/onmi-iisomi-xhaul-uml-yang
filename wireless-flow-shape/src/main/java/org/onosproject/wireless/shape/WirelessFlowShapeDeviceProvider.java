@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package onosproject.wireless.shape;
+package org.onosproject.wireless.shape;
 
 import com.google.common.collect.Lists;
 import org.apache.felix.scr.annotations.Activate;
@@ -47,6 +47,8 @@ import org.projectfloodlight.openflow.protocol.OFPortDescPropWirelessTransport;
 import org.projectfloodlight.openflow.protocol.OFStatsReply;
 import org.projectfloodlight.openflow.protocol.OFStatsType;
 import org.projectfloodlight.openflow.protocol.OFWirelessMultipartPortsReply;
+import org.projectfloodlight.openflow.protocol.OFWirelessTransportInterface;
+import org.projectfloodlight.openflow.protocol.OFWirelessTransportInterfacePropParamHeader;
 import org.projectfloodlight.openflow.protocol.OFWirelessTransportPortFeatureHeader;
 import org.projectfloodlight.openflow.protocol.OFWirelessTxCurrentCapacity;
 import org.slf4j.Logger;
@@ -173,7 +175,7 @@ public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements
                                 .build();
                     }
                     descs.add(new DefaultPortDescription(port.number(),
-                                                         port.isEnabled(), port.type(), port.portSpeed(), annotations));
+                            port.isEnabled(), port.type(), port.portSpeed(), annotations));
                     log.info("Annotate Port By TxCurrCapacity: port {}", portNo);
                     break;
                 }
@@ -182,10 +184,10 @@ public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements
             }
 
             log.info(" xxxxxxxxxxxx OF Message {}, type {}, experimenter {}, subtype {}, received from {} - proceeded",
-                     msg.getType(), ((OFStatsReply) msg).getStatsType(),
-                     ((OFExperimenterStatsReply) msg).getExperimenter(),
-                     ((OFWirelessMultipartPortsReply) msg).getSubtype(),
-                     dpid);
+                    msg.getType(), ((OFStatsReply) msg).getStatsType(),
+                    ((OFExperimenterStatsReply) msg).getExperimenter(),
+                    ((OFWirelessMultipartPortsReply) msg).getSubtype(),
+                    dpid);
         }
 
         private long getTxCurrCapacityFromReplyIfc(OFExperimenterPortWireless ifc) {
@@ -193,10 +195,19 @@ public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements
             for (OFPortDescPropWirelessTransport prop : props) {
                 List<OFWirelessTransportPortFeatureHeader> params = prop.getFeatures();
                 for (OFWirelessTransportPortFeatureHeader param : params) {
-                    if (param.getType() == 2) { // (OFWirelessTransportInterfacePropParamTypes.TX_CURRENT_CAPACITY)
-                        long value = ((OFWirelessTxCurrentCapacity) param).getTxCurrentCapacity().getValue();
-                        log.info(" Get TxCurrentCapacity value {}", value);
-                        return value;
+//                    if (param.getType() == 1) { // (OFWirelessTransportInterfacePropParamTypes.TX_CURRENT_CAPACITY)
+////                        long value = ((OFWirelessTxCurrentCapacity) param).getTxCurrentCapacity().getValue();
+////                        log.info(" Get TxCurrentCapacity value {}", value);
+////                        return value;
+                        List<OFWirelessTransportInterfacePropParamHeader> ifcs =
+                                ((OFWirelessTransportInterface) param).getParams();
+                        for (OFWirelessTransportInterfacePropParamHeader ifp : ifcs) {
+                            if (ifp.getType() == 2) {
+                                long value = ((OFWirelessTxCurrentCapacity) ifp).getTxCurrentCapacity();
+                                log.info(" Get TxCurrentCapacity value {}", value);
+                                return value;
+                            }
+
                     }
                 }
                 break;
