@@ -67,7 +67,6 @@ import org.onosproject.openflow.controller.Dpid;
 import org.onosproject.openflow.controller.OpenFlowController;
 import org.onosproject.openflow.controller.OpenFlowEventListener;
 import org.onosproject.openflow.controller.OpenFlowSwitch;
-import org.onlab.util.HexString;
 import org.onlab.packet.VlanId;
 //
 import org.onosproject.net.intent.Intent;
@@ -101,7 +100,9 @@ import org.projectfloodlight.openflow.protocol.OFPortDesc;
 import org.projectfloodlight.openflow.protocol.OFExperimenterPortWireless;
 import org.projectfloodlight.openflow.protocol.OFPortDescPropWirelessTransport;
 import org.projectfloodlight.openflow.protocol.OFPortModPropWirelessTransport;
+import org.projectfloodlight.openflow.protocol.OFWirelessTransportInterface;
 import org.projectfloodlight.openflow.protocol.OFWirelessTransportPortFeatureHeader;
+import org.projectfloodlight.openflow.protocol.OFWirelessTransportInterfacePropParamHeader;
 import org.projectfloodlight.openflow.protocol.OFWirelessTransportInterfacePropParamTypes;
 import org.projectfloodlight.openflow.protocol.OFWirelessTxCurrentCapacity;
 import org.projectfloodlight.openflow.protocol.OFWirelessExperimenterPortMod;
@@ -119,7 +120,6 @@ import org.projectfloodlight.openflow.protocol.OFPortStatus;
 import org.projectfloodlight.openflow.protocol.OFVersion;
 
 import org.projectfloodlight.openflow.types.OFPort;
-import org.projectfloodlight.openflow.types.U64;
 
 
 /**
@@ -605,56 +605,60 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
         // Send OF Port Modify message towards the Network Element
         OFWirelessExperimenterPortMod portMod;
         List<OFPortModPropWirelessTransport> properties = new ArrayList<OFPortModPropWirelessTransport>();
-//        List<OFPortDescPropWirelessTransport> properties = new ArrayList<OFPortDescPropWirelessTransport>();
-        List<OFWirelessTransportPortFeatureHeader> featureList = new ArrayList<OFWirelessTransportPortFeatureHeader>();
+        List<OFWirelessTransportPortFeatureHeader> features = new ArrayList<OFWirelessTransportPortFeatureHeader>();
+        List<OFWirelessTransportInterfacePropParamHeader> paramList = new ArrayList<OFWirelessTransportInterfacePropParamHeader>();
 
         final List<OFPortDesc> portDescs = sw.getPorts();
         for (OFPortDesc portDesc : portDescs) {
 
-            if (portDesc.getPortNo().equals(OFPort.of((int)port.number().toLong()))) { // == portNum.toLong()) {
+            if (portDesc.getPortNo().equals(OFPort.of((int)port.number().toLong()))) {
                 Long statsXid = xidAtomic.getAndIncrement();
                 // Temporary values. To be obtained from the port's annotations */
-                U64 txMaxCapacity = U64.of(0x123456);
-                int txPower = 0x123;
+                long txMaxCapacity = 57005L;
+                int txPower = 48879;
                 // TX_MAX_CAPACITY
-                featureList.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessTxMaxCapacity()
+                paramList.add((OFWirelessTransportInterfacePropParamHeader)sw.factory().buildWirelessTxMaxCapacity()
                         .setTxMaxCapacity(txMaxCapacity)
                         .build());
                 // TX_CURRENT_CAPACITY
-                featureList.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessTxCurrentCapacity()
-                        .setTxCurrentCapacity(U64.of(0))
+                paramList.add((OFWirelessTransportInterfacePropParamHeader)sw.factory().buildWirelessTxCurrentCapacity()
+                        .setTxCurrentCapacity(0)
                         .build());
                 // RX_CURRENT_CAPACITY
-                featureList.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessRxCurrentCapacity()
-                        .setRxCurrentCapacity(U64.of(0))
+                paramList.add((OFWirelessTransportInterfacePropParamHeader)sw.factory().buildWirelessRxCurrentCapacity()
+                        .setRxCurrentCapacity(0)
                         .build());
                 // TX_POWER
-                featureList.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessTxPower()
+                paramList.add((OFWirelessTransportInterfacePropParamHeader)sw.factory().buildWirelessTxPower()
                         .setTxPower(txPower)
                         .build());
                 // TX_MAX_POWER
-                featureList.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessTxMaxPower()
+                paramList.add((OFWirelessTransportInterfacePropParamHeader)sw.factory().buildWirelessTxMaxPower()
                         .setTxMaxPower(2*txPower)
                         .build());
                 // TX_MUTE
-                featureList.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessTxMute()
+                paramList.add((OFWirelessTransportInterfacePropParamHeader)sw.factory().buildWirelessTxMute()
                         .setTxMute(mute == true ? (short)0x1 : (short)0x0)
                         .build());
                 // RSL
-                featureList.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessRsl()
+                paramList.add((OFWirelessTransportInterfacePropParamHeader)sw.factory().buildWirelessRsl()
                         .setRsl(0)
                         .build());
                 // SINR
-                featureList.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessSinr()
+                paramList.add((OFWirelessTransportInterfacePropParamHeader)sw.factory().buildWirelessSinr()
                         .setSinr(0)
                         .build());
                 // OPERATION_MODE
-                featureList.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessOperationMode()
+                paramList.add((OFWirelessTransportInterfacePropParamHeader)sw.factory().buildWirelessOperationMode()
                         .setOperationMode((short)0)
                         .build());
+
                 // Build the message
+                features.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessTransportInterface()
+                        .setParams(paramList)
+                        .build());
                 properties.add(sw.factory().buildPortModPropWirelessTransport()
-                        .setFeatures(featureList)
+                        .setFeatures(features)
                         .build());
 
                 portMod = sw.factory().buildWirelessExperimenterPortMod()
@@ -670,6 +674,7 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
 
                 log.info("sendWirelessPortMod(): Port {} is {}",
                         portDesc.getPortNo(), (mute==true) ? "Mute" : "Unmute");
+                break;
             }
         }
     }
@@ -932,10 +937,14 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
             for (OFPortDescPropWirelessTransport prop : props) {
                 List<OFWirelessTransportPortFeatureHeader> features = prop.getFeatures();
                 for (OFWirelessTransportPortFeatureHeader feature : features) {
-                    if (feature.getType() == 2) { // (OFWirelessTransportInterfacePropParamTypes.TX_CURRENT_CAPACITY)
-                        value = ((OFWirelessTxCurrentCapacity)feature).getTxCurrentCapacity().getValue();
+                    OFWirelessTransportInterface tranceportInterface  = (OFWirelessTransportInterface)feature;
+                    List<OFWirelessTransportInterfacePropParamHeader> params = tranceportInterface.getParams();
+                    for (OFWirelessTransportInterfacePropParamHeader param : params) {
+                        if (param.getType() == 2) { // (OFWirelessTransportInterfacePropParamTypes.TX_CURRENT_CAPACITY)
+                            value = ((OFWirelessTxCurrentCapacity)param).getTxCurrentCapacity();
                         log.debug("getTxCurrCapacityFromReplyIfc(): TxCurrCapacity {}", value);
                         return value;
+                        }
                     }
                 }
             }
