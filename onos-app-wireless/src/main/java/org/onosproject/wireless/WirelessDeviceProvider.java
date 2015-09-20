@@ -244,7 +244,7 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
                 // stat is the port stats for the current port
                 InternalData portInternalData = getInternalData(device, port);
                 if (portInternalData == null) {
-                    continue; // internal data may exist only for wireless ports 
+                    continue; // internal data may exist only for wireless ports
                 }
                 if (port.isEnabled() == false)
                 {
@@ -562,7 +562,7 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
         // There seems to be an issue with durationNano():
         // its range is always 0..999,999 but it is not mucroseconds: when used as such, the values do not match to log printing time
         // Hence, it is used as milliseconds in the calculations below.
-        timeMs = stat.durationSec()*1000L + stat.durationNano()/1000L; 
+        timeMs = stat.durationSec()*1000L + stat.durationNano()/1000L;
         duration = (timeMs > prevTimeMs) ? (timeMs - prevTimeMs) : (Long.MAX_VALUE - prevTimeMs + timeMs);
 
         rxBytes = stat.bytesReceived();
@@ -614,45 +614,44 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
             if (portDesc.getPortNo().equals(OFPort.of((int)port.number().toLong()))) {
                 Long statsXid = xidAtomic.getAndIncrement();
                 // Temporary values. To be obtained from the port's annotations */
-                long txMaxCapacity = 57005L;
-                int txPower = 48879;
                 // TX_MAX_CAPACITY
                 paramList.add((OFWirelessTransportInterfacePropParamHeader)sw.factory().buildWirelessTxMaxCapacity()
-                        .setTxMaxCapacity(txMaxCapacity)
+                        .setTxMaxCapacity(0xdead)
                         .build());
                 // TX_CURRENT_CAPACITY
                 paramList.add((OFWirelessTransportInterfacePropParamHeader)sw.factory().buildWirelessTxCurrentCapacity()
-                        .setTxCurrentCapacity(0)
+                        .setTxCurrentCapacity(0xbeef)
                         .build());
                 // RX_CURRENT_CAPACITY
                 paramList.add((OFWirelessTransportInterfacePropParamHeader)sw.factory().buildWirelessRxCurrentCapacity()
-                        .setRxCurrentCapacity(0)
+                        .setRxCurrentCapacity(0xcafe)
                         .build());
                 // TX_POWER
                 paramList.add((OFWirelessTransportInterfacePropParamHeader)sw.factory().buildWirelessTxPower()
-                        .setTxPower(txPower)
+                        .setTxPower(0xbead)
                         .build());
                 // TX_MAX_POWER
                 paramList.add((OFWirelessTransportInterfacePropParamHeader)sw.factory().buildWirelessTxMaxPower()
-                        .setTxMaxPower(2*txPower)
+                        .setTxMaxPower(0xdeaf)
                         .build());
                 // TX_MUTE
                 paramList.add((OFWirelessTransportInterfacePropParamHeader)sw.factory().buildWirelessTxMute()
                         .setTxMute(mute == true ? (short)0x1 : (short)0x0)
                         .build());
+/*
                 // RSL
                 paramList.add((OFWirelessTransportInterfacePropParamHeader)sw.factory().buildWirelessRsl()
-                        .setRsl(0)
+                        .setRsl(0xfeed)
                         .build());
                 // SINR
                 paramList.add((OFWirelessTransportInterfacePropParamHeader)sw.factory().buildWirelessSinr()
-                        .setSinr(0)
+                        .setSinr(0xbaed)
                         .build());
                 // OPERATION_MODE
                 paramList.add((OFWirelessTransportInterfacePropParamHeader)sw.factory().buildWirelessOperationMode()
-                        .setOperationMode((short)0)
+                        .setOperationMode((short)0xfe)
                         .build());
-
+*/
                 // Build the message
                 features.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessTransportInterface()
                         .setParams(paramList)
@@ -1075,7 +1074,7 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
         public void setFlow2Created(boolean flow2Created) {
             this.flow2Created = flow2Created;
         }
-        
+
         public void setStatsReportCounter(long statsReportCounter) {
             this.statsReportCounter = statsReportCounter;
         }
