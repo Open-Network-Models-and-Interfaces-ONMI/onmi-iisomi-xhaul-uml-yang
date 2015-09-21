@@ -133,13 +133,15 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
     private static final String WIRELESS_PORT_SEC = "wireless-port-sec";
     private static final String ETH_PORT = "eth-port";
     private static final String WIRELESS_TX_CURR_CAPACITY = "wireless-tx-curr-capacity";
+    private static final String WIRELESS_HIGH_UTILIZATION_THRESHOLD = "wireless-high-utilization-th";
+    private static final String WIRELESS_LOW_UTILIZATION_THRESHOLD = "wireless-low-utilization-th";
     private static final String WIRELESS_DEBUG = "wireless-debug";
     // Constants
     private static final long WIRELESS_EXPERIMENTER_TYPE = 0xff000005l;
     private static final long WIRELESS_DEBUG_ALWAYS_SEND_PORT_MOD = 1;
     private static final long WIRELESS_DEBUG_CALCULATE_ONLY = 2;
-    private static final long LOW_UTILIZATION_THRESHOLD = 20;
-    private static final long HIGH_UTILIZATION_THRESHOLD = 80;
+    private static final long LOW_UTILIZATION_THRESHOLD = 30;
+    private static final long HIGH_UTILIZATION_THRESHOLD = 60;
 
     public WirelessDeviceProvider() {
         super(new ProviderId("wireless-app", "org.onosproject.wireless"));
@@ -326,11 +328,16 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
             long currCapacity = getTxCurrCapacityFromPortAnnotation(port);
             long mateUtilizedCapacity = matePortInternalData.txUtilizedCapacity();
             long mateCurrCapacity = getTxCurrCapacityFromPortAnnotation(matePort);
+            long lowThreshold = getUtilizationThresholdLow(device);
+            long highThreshold = getUtilizationThresholdHigh(device);
+
             // peer
             long peerUtilizedCapacity = peerPortInternalData.txUtilizedCapacity();
             long peerCurrCapacity = getTxCurrCapacityFromPortAnnotation(peerPort);
             long peerMateUtilizedCapacity = peerMatePortInternalData.txUtilizedCapacity();
             long peerMateCurrCapacity = getTxCurrCapacityFromPortAnnotation(peerMatePort);
+            long peerLowThreshold = getUtilizationThresholdLow(peerDevice);
+            long peerHighThreshold = getUtilizationThresholdHigh(peerDevice);
             if (currCapacity > 0 && mateCurrCapacity > 0 && peerCurrCapacity > 0 && peerMateCurrCapacity > 0) {
                 long utilization = utilizedCapacity * 100L / currCapacity;
                 long mateUtilization = mateUtilizedCapacity * 100L / peerMateCurrCapacity;
@@ -346,14 +353,14 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
                         sendWirelessPortMod(device.id(), port, false); // always unmute
                     }
                     else if (  utilization >= 0
-                            && utilization < LOW_UTILIZATION_THRESHOLD
-                            && utilization + mateUtilization < HIGH_UTILIZATION_THRESHOLD
-                            && peerUtilization + peerMateUtilization < HIGH_UTILIZATION_THRESHOLD
+                            && utilization < lowThreshold
+                            && utilization + mateUtilization < highThreshold
+                            && peerUtilization + peerMateUtilization < peerHighThreshold
                             && portInternalData.prevUtilization() >= 0
                             && wirelessDebug != WIRELESS_DEBUG_CALCULATE_ONLY) {
                         muteMwPort(portInternalData);
                     }
-                    else if (   utilization > HIGH_UTILIZATION_THRESHOLD
+                    else if (   utilization > highThreshold
                             && matePortInternalData.portMute() == true
                             && wirelessDebug != WIRELESS_DEBUG_CALCULATE_ONLY) {
                         unmuteMwPort(matePortInternalData);
@@ -845,6 +852,40 @@ public class WirelessDeviceProvider extends AbstractProvider implements DevicePr
             port = Integer.valueOf(device.annotations().value(ETH_PORT)).longValue();
         }
         return port;
+    }
+
+    /**
+     * Get annotation of low utilization threshold.
+     *
+     * @param device Get target device.
+     * @return low utilization threshold.
+     */
+    public long getUtilizationThresholdLow(Device device) {
+        long low_threshold = LOW_UTILIZATION_THRESHOLD;
+        if (device.annotations().value(WIRELESS_LOW_UTILIZATION_THRESHOLD) != null) {
+            long threshold = Integer.valueOf(device.annotations().value(WIRELESS_LOW_UTILIZATION_THRESHOLD)).longValue();
+            if (threshold >= 0L && threshold <= 100L) {
+                low_threshold = threshold;
+            }
+        }
+        return low_threshold;
+    }
+
+    /**
+     * Get annotation of high utilization threshold.
+     *
+     * @param device Get target device.
+     * @return high utilization threshold.
+     */
+    public long getUtilizationThresholdHigh(Device device) {
+        long high_threshold = HIGH_UTILIZATION_THRESHOLD;
+        if (device.annotations().value(WIRELESS_HIGH_UTILIZATION_THRESHOLD) != null) {
+            long threshold = Integer.valueOf(device.annotations().value(WIRELESS_HIGH_UTILIZATION_THRESHOLD)).longValue();
+            if (threshold >= 0L && threshold <= 100L) {
+                high_threshold = threshold;
+            }
+        }
+        return high_threshold;
     }
 
     @Override
