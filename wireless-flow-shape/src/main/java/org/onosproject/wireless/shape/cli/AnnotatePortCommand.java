@@ -15,6 +15,7 @@ import org.onosproject.net.device.DeviceProvider;
 import org.onosproject.net.device.DeviceProviderRegistry;
 import org.onosproject.net.device.DeviceProviderService;
 import org.onosproject.net.device.DeviceService;
+import org.onosproject.net.device.DeviceStore;
 import org.onosproject.net.device.PortDescription;
 import org.onosproject.net.provider.AbstractProvider;
 import org.onosproject.net.provider.ProviderId;
@@ -25,8 +26,7 @@ import java.util.List;
         description = "Annotates network model entities")
 public class AnnotatePortCommand extends AbstractShellCommand {
 
-    static final ProviderId PID = new ProviderId("cfg", "org.onosproject.rest", false);
-
+    static final ProviderId PID = new ProviderId("cfg", "org.onosproject.openflow14.provider");
 
     @Argument(index = 0, name = "uri", description = "Device ID",
             required = true, multiValued = false)
@@ -44,6 +44,7 @@ public class AnnotatePortCommand extends AbstractShellCommand {
     @Override
     protected void execute() {
         DeviceService service = get(DeviceService.class);
+        DeviceStore deviceStore = get(DeviceStore.class);
         Device device = service.getDevice(DeviceId.deviceId(uri));
         log.info(String.valueOf(device));
         List<Port> ports = service.getPorts(DeviceId.deviceId(uri));
@@ -55,12 +56,12 @@ public class AnnotatePortCommand extends AbstractShellCommand {
             DefaultAnnotations annotations = DefaultAnnotations.builder()
                     .set(key, value).build();
             descs.add(new DefaultPortDescription(port.number(),
-                    port.isEnabled(), port.type(), port.portSpeed(), annotations));
+                                                 port.isEnabled(), port.type(), port.portSpeed(), annotations));
         }
         try {
             DeviceProviderService providerService = registry.register(provider);
             log.info("update port");
-            providerService.updatePorts(device.id(), descs);
+            deviceStore.updatePorts(device.providerId(), device.id(), descs);
         } finally {
             registry.unregister(provider);
         }

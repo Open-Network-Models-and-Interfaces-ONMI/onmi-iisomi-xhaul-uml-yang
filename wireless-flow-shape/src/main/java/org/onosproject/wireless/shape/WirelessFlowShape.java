@@ -52,6 +52,7 @@ import org.onosproject.net.meter.Meter;
 import org.onosproject.net.meter.MeterId;
 import org.onosproject.net.meter.MeterRequest;
 import org.onosproject.net.meter.MeterService;
+import org.onosproject.openflow.api.OpenflowController14;
 import org.onosproject.openflow.controller.OpenFlowController;
 import org.onosproject.openflow.controller.OpenFlowSwitch;
 import org.osgi.service.component.ComponentContext;
@@ -117,8 +118,8 @@ public class WirelessFlowShape {
 
     @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
     protected LinkService linkService;
-//    @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
-    //   protected OpenflowController14 controller14;
+    @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
+    protected OpenflowController14 controller14;
 
     private Map<Long, PortCapacityCollector> collectors = Maps.newHashMap();
     private final DeviceListener listener = new InternalDeviceListener();
@@ -132,6 +133,7 @@ public class WirelessFlowShape {
         appId = coreService.registerApplication("org.onosproject.wireless.shape");
         deviceService.addListener(listener);
         controller.getSwitches().forEach((this::createPortStatsCollection));
+        controller14.getSwitches().forEach(this::createPortStatsCollection);
         log.info("Started");
     }
 
@@ -142,14 +144,7 @@ public class WirelessFlowShape {
         log.info("Stopped");
     }
 
-    private int switchNum(Iterable<OpenFlowSwitch> it) {
-        int i = 0;
-        for (OpenFlowSwitch o : it) {
-            i++;
-        }
-        return i;
-    }
-
+  
     @Modified
     public void modified(ComponentContext context) {
         readComponentConfiguration(context);
