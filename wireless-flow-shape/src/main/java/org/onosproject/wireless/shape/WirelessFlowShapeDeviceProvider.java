@@ -148,9 +148,7 @@ public class WirelessFlowShapeDeviceProvider extends AbstractProvider /*implemen
                         long txCurrCapacity = getTxCurrCapacityFromReplyIfc(ifc);
                         log.info("annotatePortByMwParams(): port {}, TX_CURR_CAPACITY {}",
                                   portNo, txCurrCapacity);
-                        if (txCurrCapacity == 0) {
-                            break;
-                        }
+
                         annotations = DefaultAnnotations.builder()
                                 .set(AnnotationKeys.PORT_NAME, ifc.getName())
                                 .set(WIRELESS_TX_CURR_CAPACITY, String.valueOf(txCurrCapacity))
@@ -162,7 +160,6 @@ public class WirelessFlowShapeDeviceProvider extends AbstractProvider /*implemen
                                                      port.isEnabled(), port.type(), port.portSpeed(), annotations));
             }
             deviceStore.updatePorts(device.providerId(), deviceId, descs);
-//            List<OFExperimenterPortWireless> ifcs = msg.getPorts();
 
 
             log.info(" xxxxxxxxxxxx OF Message {}, type {}, experimenter {}, subtype {}, received from {} - proceeded",
