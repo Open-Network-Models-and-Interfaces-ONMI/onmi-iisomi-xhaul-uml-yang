@@ -26,14 +26,12 @@ import org.onosproject.net.AnnotationKeys;
 import org.onosproject.net.DefaultAnnotations;
 import org.onosproject.net.Device;
 import org.onosproject.net.DeviceId;
-import org.onosproject.net.MastershipRole;
 import org.onosproject.net.Port;
 import org.onosproject.net.PortNumber;
 import org.onosproject.net.device.DefaultPortDescription;
-import org.onosproject.net.device.DeviceProvider;
 import org.onosproject.net.device.DeviceProviderRegistry;
-import org.onosproject.net.device.DeviceProviderService;
 import org.onosproject.net.device.DeviceService;
+import org.onosproject.net.device.DeviceStore;
 import org.onosproject.net.device.PortDescription;
 import org.onosproject.net.provider.AbstractProvider;
 import org.onosproject.net.provider.ProviderId;
@@ -51,6 +49,7 @@ import org.projectfloodlight.openflow.protocol.OFWirelessTransportInterface;
 import org.projectfloodlight.openflow.protocol.OFWirelessTransportInterfacePropParamHeader;
 import org.projectfloodlight.openflow.protocol.OFWirelessTransportPortFeatureHeader;
 import org.projectfloodlight.openflow.protocol.OFWirelessTxCurrentCapacity;
+import org.projectfloodlight.openflow.protocol.OFWirelessTxMaxCapacity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,9 +61,10 @@ import static org.onosproject.openflow.controller.Dpid.uri;
 
 @Component(immediate = true)
 @Service
-public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements DeviceProvider {
+public class WirelessFlowShapeDeviceProvider extends AbstractProvider /*implements DeviceProvider */ {
 
     private static final String WIRELESS_PORT_PRIM = "wireless-port-prim";
+    private static final String WIRELESS_PORT_LAG = "wireless-port-lag";
     private static final String ETH_PORT = "eth-port";
     private static final String WIRELESS_TX_CURR_CAPACITY = "wireless-tx-curr-capacity";
     private static final long WIRELESS_EXPERIMENTER_TYPE = 0xff000005L;
@@ -78,8 +78,11 @@ public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements
     @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
     protected OpenFlowController controller;
 
+    @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
+    protected DeviceStore deviceStore;
 
-    private DeviceProviderService deviceProviderService;
+
+//    private DeviceProviderService deviceProviderService;
 
     private final OpenFlowEventListener listener = new InternalOpenFlowListener();
 
@@ -92,40 +95,22 @@ public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements
 
     @Activate
     public void activate() {
-        deviceProviderService = deviceProviderRegistry.register(this);
         controller.addEventListener(listener);
+        log.info("started");
     }
 
     @Deactivate
     public void deactivate() {
-        deviceProviderRegistry.unregister(this);
-        deviceProviderService = null;
+        log.info("stopped");
     }
-
-    @Override
-    public void triggerProbe(DeviceId deviceId) {
-
-    }
-
-    @Override
-    public void roleChanged(DeviceId deviceId, MastershipRole newRole) {
-
-    }
-
-    @Override
-    public boolean isReachable(DeviceId deviceId) {
-        return false;
-    }
-
 
     private class InternalOpenFlowListener implements OpenFlowEventListener {
 
         @Override
         public void handleMessage(Dpid dpid, OFMessage msg) {
-            log.info("handle message");
             switch (msg.getType()) {
                 case STATS_REPLY:
-                    log.info("STATS_REPLY");
+                    log.info("handle openflow STATS_REPLY message");
                     if (((OFStatsReply) msg).getStatsType() == OFStatsType.EXPERIMENTER
                             && ((OFExperimenterStatsReply) msg).getExperimenter() == WIRELESS_EXPERIMENTER_TYPE) {
                         log.info("annotate");
@@ -140,12 +125,10 @@ public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements
             DeviceId deviceId = deviceId(uri(dpid));
             List<PortDescription> descs = Lists.newArrayList();
             Device device = deviceService.getDevice(deviceId);
-            log.info(String.valueOf(device));
-
             List<Port> ports = deviceService.getPorts(deviceId);
-            log.info(String.valueOf(ports));
 
-            if (isNullOrEmpty(device.annotations().value(WIRELESS_PORT_PRIM))
+
+            if (isNullOrEmpty(device.annotations().value(WIRELESS_PORT_LAG))
                     || isNullOrEmpty(device.annotations().value(ETH_PORT))) {
                 log.info("the device {} is not MW device.", device.id());
                 return;
@@ -154,15 +137,11 @@ public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements
             // The experimenter stats message contains MW ports only
             // Updating the port descriptions of the device requires running over all the device's ports
             List<OFExperimenterPortWireless> ifcs = msg.getPorts();
-//            log.info(String.valueOf(ifcs));
             for (Port port : ports) {
                 DefaultAnnotations annotations = null;
                 // Search if the current port is presented in the received multipart reply
                 for (OFExperimenterPortWireless ifc : ifcs) {
                     PortNumber portNo = PortNumber.portNumber(ifc.getPortNo().getPortNumber());
-                    log.info(String.valueOf(portNo));
-                    log.info(String.valueOf(port.number()));
-
                     if (port.number().equals(portNo)) {
                         long txCurrCapacity = getTxCurrCapacityFromReplyIfc(ifc);
                         log.info("txCurrCapacity -----" + txCurrCapacity);
@@ -171,23 +150,23 @@ public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements
                         }
                         annotations = DefaultAnnotations.builder()
                                 .set(AnnotationKeys.PORT_NAME, ifc.getName())
-                                .set(WIRELESS_TX_CURR_CAPACITY, Long.toString(txCurrCapacity))
+                                .set(WIRELESS_TX_CURR_CAPACITY, String.valueOf(txCurrCapacity))
                                 .build();
                     }
                     descs.add(new DefaultPortDescription(port.number(),
-                            port.isEnabled(), port.type(), port.portSpeed(), annotations));
+                                                         port.isEnabled(), port.type(), port.portSpeed(), annotations));
                     log.info("Annotate Port By TxCurrCapacity: port {}", portNo);
                     break;
                 }
-                deviceProviderService.updatePorts(deviceId, descs);
+                deviceStore.updatePorts(device.providerId(), deviceId, descs);
 
             }
 
             log.info(" xxxxxxxxxxxx OF Message {}, type {}, experimenter {}, subtype {}, received from {} - proceeded",
-                    msg.getType(), ((OFStatsReply) msg).getStatsType(),
-                    ((OFExperimenterStatsReply) msg).getExperimenter(),
-                    ((OFWirelessMultipartPortsReply) msg).getSubtype(),
-                    dpid);
+                     msg.getType(), ((OFStatsReply) msg).getStatsType(),
+                     ((OFExperimenterStatsReply) msg).getExperimenter(),
+                     ((OFWirelessMultipartPortsReply) msg).getSubtype(),
+                     dpid);
         }
 
         private long getTxCurrCapacityFromReplyIfc(OFExperimenterPortWireless ifc) {
@@ -195,18 +174,21 @@ public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements
             for (OFPortDescPropWirelessTransport prop : props) {
                 List<OFWirelessTransportPortFeatureHeader> params = prop.getFeatures();
                 for (OFWirelessTransportPortFeatureHeader param : params) {
-//                    if (param.getType() == 1) { // (OFWirelessTransportInterfacePropParamTypes.TX_CURRENT_CAPACITY)
-////                        long value = ((OFWirelessTxCurrentCapacity) param).getTxCurrentCapacity().getValue();
-////                        log.info(" Get TxCurrentCapacity value {}", value);
-////                        return value;
+                    if (param.getType() == 1) { // (OFWirelessTransportInterfacePropParamTypes.TX_CURRENT_CAPACITY)
                         List<OFWirelessTransportInterfacePropParamHeader> ifcs =
                                 ((OFWirelessTransportInterface) param).getParams();
                         for (OFWirelessTransportInterfacePropParamHeader ifp : ifcs) {
                             if (ifp.getType() == 2) {
-                                long value = ((OFWirelessTxCurrentCapacity) ifp).getTxCurrentCapacity();
-                                log.info(" Get TxCurrentCapacity value {}", value);
-                                return value;
+                                long txCurrentCapacity = ((OFWirelessTxCurrentCapacity) ifp).getTxCurrentCapacity();
+
+                                log.info(" Get TxCurrentCapacity value {}", txCurrentCapacity);
+                                return txCurrentCapacity;
+                            } else if (ifp.getType() == 1) {
+                                long txMaxCapacity = ((OFWirelessTxMaxCapacity) ifp).getTxMaxCapacity();
+                                log.info(" Get txMaxCapacity value {}", txMaxCapacity);
                             }
+
+                        }
 
                     }
                 }
