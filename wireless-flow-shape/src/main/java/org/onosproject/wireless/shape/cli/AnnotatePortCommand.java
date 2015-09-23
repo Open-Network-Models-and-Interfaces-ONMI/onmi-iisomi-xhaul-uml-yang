@@ -61,7 +61,7 @@ public class AnnotatePortCommand extends AbstractShellCommand {
         try {
             DeviceProviderService providerService = registry.register(provider);
             log.info("update port");
-            deviceStore.updatePorts(device.providerId(), device.id(), descs);
+            providerService.updatePorts(device.id(), descs);
         } finally {
             registry.unregister(provider);
         }
