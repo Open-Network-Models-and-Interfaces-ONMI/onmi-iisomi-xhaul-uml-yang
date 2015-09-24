@@ -26,7 +26,7 @@ import java.util.List;
         description = "Annotates network model entities")
 public class AnnotatePortCommand extends AbstractShellCommand {
 
-    static final ProviderId PID = new ProviderId("cfg", "org.onosproject.openflow14.provider");
+    static final ProviderId PID = new ProviderId("cfg", "org.onosproject.rest");
 
     @Argument(index = 0, name = "uri", description = "Device ID",
             required = true, multiValued = false)
@@ -44,7 +44,7 @@ public class AnnotatePortCommand extends AbstractShellCommand {
     @Override
     protected void execute() {
         DeviceService service = get(DeviceService.class);
-        DeviceStore deviceStore = get(DeviceStore.class);
+//        DeviceStore deviceStore = get(DeviceStore.class);
         Device device = service.getDevice(DeviceId.deviceId(uri));
         log.info(String.valueOf(device));
         List<Port> ports = service.getPorts(DeviceId.deviceId(uri));
