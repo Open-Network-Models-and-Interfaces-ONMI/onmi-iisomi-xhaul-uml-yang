@@ -160,7 +160,7 @@ public class WirelessFlowShape {
         Integer shapeMaxThresholdConfig = getIntegerProperty(properties, "shapeMaxThreshold");
         Integer shapeMinThresholdConfig = getIntegerProperty(properties, "shapeMinThreshold");
         Integer shakeNumberConfig = getIntegerProperty(properties, "shakeNumber");
-        Integer bufferValueConfig = getIntegerProperty(properties, "bufferNumber");
+        Integer bufferValueConfig = getIntegerProperty(properties, "bufferValue");
 
 
         if (shapeMaxThresholdConfig == null) {
