@@ -56,7 +56,6 @@ import org.onosproject.core.CoreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -89,6 +88,8 @@ import org.projectfloodlight.openflow.protocol.OFMessage;
 
 import org.projectfloodlight.openflow.types.OFPort;
 
+import org.onosproject.event.EventDeliveryService;
+
 
 /**
  * ONOS Wireless use case application for capacity driven air interface.
@@ -104,7 +105,7 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
     private static final String WIRELESS_LOW_UTILIZATION_THRESHOLD = "wireless-low-utilization-th";
     private static final String WIRELESS_HIGH_UTILIZATION_THRESHOLD = "wireless-high-utilization-th";
     // Constants
-    private static final long WIRELESS_EXPERIMENTER_TYPE = 0xff000005l;
+    private static final long WIRELESS_EXPERIMENTER_TYPE = 0xff000005L;
     private static final long WIRELESS_DEBUG_ALWAYS_SEND_PORT_MOD = 1;
     private static final long WIRELESS_DEBUG_CALCULATE_ONLY = 2;
     private static final long LOW_UTILIZATION_THRESHOLD = 30;
@@ -132,6 +133,9 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
     @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
     protected OpenFlowController openFlowController;
 
+    @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
+    protected EventDeliveryService eventDispatcher;
+
     private ApplicationId appId;
     private final DeviceListener deviceListener = new InternalDeviceListener();
     private final OpenFlowEventListener openFlowlistener = new InternalOpenFlowListener();
@@ -157,7 +161,7 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
 
     @Activate
     protected void activate() {
-        appId = coreService.registerApplication("org.onosproject.capacityDrivenAirInterface");
+        appId = coreService.registerApplication("org.onosproject.wireless.cdai");
         deviceProviderService = deviceProviderRegistry.register(this);
 
         deviceService.addListener(deviceListener);
@@ -195,16 +199,16 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
             switch (event.type()) {
                 case PORT_STATS_UPDATED:
                     log.debug("event(): Recv PORT_STATS_UPDATED");
-                    if (isDeviceWireless(device) == false) {
+                    if (!isDeviceWireless(device)) {
                         break;
                     }
-                    if (deviceService.isAvailable(deviceId) == false) {
+                    if (!deviceService.isAvailable(deviceId)) {
                         break;
                     }
 
-                    if (multiPartSendDecisionMap.containsKey(deviceId) == true) {
+                    if (multiPartSendDecisionMap.containsKey(deviceId)) {
                         Boolean isMultiPartSend = multiPartSendDecisionMap.get(deviceId);
-                        if (isMultiPartSend.booleanValue() == false) {
+                        if (!isMultiPartSend.booleanValue()) {
                             break;
                         }
                     }
@@ -220,12 +224,13 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
 
                     boolean result = analyzeDevicePortStats(device);
 
-                    if (result == false) {
+                    printInternalDb();
+
+                    if (!result) {
                         log.debug("event(): Skip Port Utilization Analyze.");
                         break;
                     }
 
-                    printInternalDb();
                     analyzePortsUtilization(device);
 
                     break;
@@ -239,7 +244,7 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
     /**
      * Transmission timing control of ExperimenterMultipartPortRequest.
      */
-    private class InternalTimerTask extends TimerTask {
+    private final class InternalTimerTask extends TimerTask {
         DeviceId deviceId;
 
         private InternalTimerTask(Device device) {
@@ -283,7 +288,7 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
                     return false;
                 }
 
-                if (peerPortInternalData.capacityUpdate() == true) {
+                if (peerPortInternalData.capacityUpdate()) {
                     portInternalData.setCapacityUpdate(false);
                     peerPortInternalData.setCapacityUpdate(false);
                     return true;
@@ -356,26 +361,24 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
 
                 // Debug: always send ExperimanterPortMod if a flag is set on.
                 if (utilization == 0
-                 && peerUtilization == 0
-                 && wirelessDebug == WIRELESS_DEBUG_ALWAYS_SEND_PORT_MOD) {
+                      && peerUtilization == 0
+                      && wirelessDebug == WIRELESS_DEBUG_ALWAYS_SEND_PORT_MOD) {
                     sendWirelessPortMod(device.id(), port, false); // Always unmute.
-                }
-                else if (utilization >= 0
+                } else if (utilization >= 0
                       && utilization < lowThreshold
-                      && portInternalData.portMute() == false
+                      && !portInternalData.portMute()
                       && portInternalData.prevUtilization() >= 0
                       && peerUtilization >= 0
                       && peerUtilization < peerLowThreshold
-                      && peerPortInternalData.portMute() == false
+                      && !peerPortInternalData.portMute()
                       && peerPortInternalData.prevUtilization() >= 0
                       && wirelessDebug != WIRELESS_DEBUG_CALCULATE_ONLY) {
                     muteMwPort(portInternalData);
-                }
-                else if (utilization > highThreshold
-                      && portInternalData.portMute() == true
+                } else if (utilization > highThreshold
+                      && portInternalData.portMute()
                       && wirelessDebug != WIRELESS_DEBUG_CALCULATE_ONLY
                       || peerUtilization > peerHighThreshold
-                      && peerPortInternalData.portMute() == true
+                      && peerPortInternalData.portMute()
                       && wirelessDebug != WIRELESS_DEBUG_CALCULATE_ONLY) {
                    unmuteMwPort(portInternalData);
                 }
@@ -399,8 +402,6 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
         InternalData peerPortInternalData = getPeerInternalData(device, port);
         Device peerDevice = peerPortInternalData.device();
         Port peerMuteP = peerPortInternalData.mutePort();
-
-        printInternalDb();
 
         // Mute the ports on both sides.
         sendWirelessPortMod(device.id(), muteP, true);
@@ -431,8 +432,6 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
         }
         Device peerDevice = peerPortInternalData.device();
         Port peerMuteP = peerPortInternalData.mutePort();
-
-        printInternalDb();
 
         // Unmute the ports on both sides.
         sendWirelessPortMod(device.id(), muteP, false);
@@ -469,8 +468,15 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
 
         capacity = txDelta * 8 / duration;  // Kbps = Bytes*8/ms
 
-        log.info("calculatePortUtilizedCapacityFromStats(): Calc for port {}/{}: port={}, rx={}, rxDelta={}, tx={}, txDelta={}, duration={}, timeMs={}, prevTimeMs={}, stat.durationSec()={}, stat.durationNano()={}, capacity={}",
-            portInternalData.device().id(), portInternalData.port().number(), stat.port(), rxBytes, rxDelta, txBytes, txDelta, duration, timeMs, prevTimeMs, stat.durationSec(), stat.durationNano(), capacity);
+        StringBuffer strBuf = new StringBuffer();
+        strBuf.append("calculatePortUtilizedCapacityFromStats(): Calc for port {}/{}: port={}");
+        strBuf.append(", rx={}, rxDelta={}, tx={}, txDelta={}, duration={}, timeMs={}, prevTimeMs={}");
+        strBuf.append(", stat.durationSec()={}, stat.durationNano()={}, capacity={}");
+
+        log.info(strBuf.toString(),
+                 portInternalData.device().id(), portInternalData.port().number(), stat.port(),
+                 rxBytes, rxDelta, txBytes, txDelta, duration, timeMs, prevTimeMs,
+                 stat.durationSec(), stat.durationNano(), capacity);
 
         portInternalData.setPrevRxBytes(rxBytes);
         portInternalData.setPrevTxBytes(txBytes);
@@ -500,20 +506,21 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
         OFWirelessExperimenterPortMod portMod;
         List<OFPortModPropWirelessTransport> properties = new ArrayList<OFPortModPropWirelessTransport>();
         List<OFWirelessTransportPortFeatureHeader> features = new ArrayList<OFWirelessTransportPortFeatureHeader>();
-        List<OFWirelessTransportInterfacePropParamHeader> paramList = new ArrayList<OFWirelessTransportInterfacePropParamHeader>();
+        List<OFWirelessTransportInterfacePropParamHeader> paramList
+                                                      = new ArrayList<OFWirelessTransportInterfacePropParamHeader>();
 
         final List<OFPortDesc> portDescs = sw.getPorts();
         for (OFPortDesc portDesc : portDescs) {
 
-            if (portDesc.getPortNo().equals(OFPort.of((int)port.number().toLong()))) {
+            if (portDesc.getPortNo().equals(OFPort.of((int) port.number().toLong()))) {
                 Long statsXid = xidAtomic.getAndIncrement();
                 // TX_MUTE
-                paramList.add((OFWirelessTransportInterfacePropParamHeader)sw.factory().buildWirelessTxMute()
-                        .setTxMute(mute == true ? (short)0x1 : (short)0x0)
-                        .setFlags((short)0x1)
+                paramList.add((OFWirelessTransportInterfacePropParamHeader) sw.factory().buildWirelessTxMute()
+                        .setTxMute(mute ? (short) 0x1 : (short) 0x0)
+                        .setFlags((short) 0x1)
                         .build());
                 // Build the message
-                features.add((OFWirelessTransportPortFeatureHeader)sw.factory().buildWirelessTransportInterface()
+                features.add((OFWirelessTransportPortFeatureHeader) sw.factory().buildWirelessTransportInterface()
                         .setParams(paramList)
                         .build());
                 properties.add(sw.factory().buildPortModPropWirelessTransport()
@@ -532,7 +539,7 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
                 sw.sendMsg(portMod);
 
                 log.info("sendWirelessPortMod(): Port {} is {}",
-                        portDesc.getPortNo(), (mute == true) ? "Mute" : "Unmute");
+                        portDesc.getPortNo(), mute ? "Mute" : "Unmute");
             }
         }
     }
@@ -611,14 +618,15 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
      * @return low utilization threshold.
      */
     public long getUtilizationThresholdLow(Device device) {
-        long low_threshold = LOW_UTILIZATION_THRESHOLD;
+        long lowThreshold = LOW_UTILIZATION_THRESHOLD;
         if (device.annotations().value(WIRELESS_LOW_UTILIZATION_THRESHOLD) != null) {
-            long threshold = Integer.valueOf(device.annotations().value(WIRELESS_LOW_UTILIZATION_THRESHOLD)).longValue();
+            long threshold = Integer.valueOf(device.annotations()
+                                    .value(WIRELESS_LOW_UTILIZATION_THRESHOLD)).longValue();
             if (threshold >= 0L && threshold <= 100L) {
-                low_threshold = threshold;
+                lowThreshold = threshold;
             }
         }
-        return low_threshold;
+        return lowThreshold;
     }
 
     /**
@@ -628,14 +636,15 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
      * @return high utilization threshold.
      */
     public long getUtilizationThresholdHigh(Device device) {
-        long high_threshold = HIGH_UTILIZATION_THRESHOLD;
+        long highThreshold = HIGH_UTILIZATION_THRESHOLD;
         if (device.annotations().value(WIRELESS_HIGH_UTILIZATION_THRESHOLD) != null) {
-            long threshold = Integer.valueOf(device.annotations().value(WIRELESS_HIGH_UTILIZATION_THRESHOLD)).longValue();
+            long threshold = Integer.valueOf(device.annotations()
+                                    .value(WIRELESS_HIGH_UTILIZATION_THRESHOLD)).longValue();
             if (threshold >= 0L && threshold <= 100L) {
-                high_threshold = threshold;
+                highThreshold = threshold;
             }
         }
-        return high_threshold;
+        return highThreshold;
     }
 
     @Override
@@ -666,6 +675,20 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
                                             device.serialNumber(), device.chassisId());
     }
 
+
+    /**
+     * Safely posts the specified event to the local event dispatcher.
+     * If there is no event dispatcher or if the event is null, this method
+     * is a noop.
+     *
+     * @param event event to be posted; may be null
+     */
+    protected void post(DeviceEvent event) {
+        if (event != null && eventDispatcher != null) {
+            eventDispatcher.post(event);
+        }
+    }
+
     /**
      * Listener of OpenFlow msg recv.
      */
@@ -676,10 +699,13 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
             switch (msg.getType()) {
                 case STATS_REPLY:
                     log.debug("handleMessage() : Recv OpenFlow Msg StatsType {}", ((OFStatsReply) msg).getStatsType());
-                    if (   ((OFStatsReply) msg).getStatsType() == OFStatsType.EXPERIMENTER
-                        && ((OFExperimenterStatsReply) msg).getExperimenter() == WIRELESS_EXPERIMENTER_TYPE ) {
+                    if (((OFStatsReply) msg).getStatsType() == OFStatsType.EXPERIMENTER
+                     && ((OFExperimenterStatsReply) msg).getExperimenter() == WIRELESS_EXPERIMENTER_TYPE) {
                         annotatePortByMwParams(dpid, (OFWirelessMultipartPortsReply) msg);
                     }
+                    break;
+                default :
+                    log.debug("handleMessage() : Recv OpenFlow Msg StatsType {}", ((OFStatsReply) msg).getStatsType());
                     break;
             }
         }
@@ -697,7 +723,7 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
             // Obtain the Device related to the received message
             DeviceId deviceId = deviceId(uri(dpid));
             Device device = store.getDevice(deviceId);
-            if (isDeviceWireless(device) == false) {
+            if (!isDeviceWireless(device)) {
                 log.error("annotatePortByMwParams(): Wireless Experimeter stats received on non annotated device {}",
                     device.id());
                 return;
@@ -706,15 +732,25 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
             // The experimenter stats message contains MW ports only
             // Updating the port descriptions of the device requires running over all the device's ports
             List<Port> ports = store.getPorts(deviceId);
+            log.debug("annotatePortByMwParams(): deviceid {} port list size {}", deviceId, ports.size());
             List<OFExperimenterPortWireless> msgPorts = msg.getPorts();
             for (Port port : ports) {
                 DefaultAnnotations annotations = DefaultAnnotations.builder()
                     .set(AnnotationKeys.PORT_NAME, port.annotations().value(AnnotationKeys.PORT_NAME))
                     .build();
+                boolean isEnabled = port.isEnabled();
                 // Search if the current port is presented in the received multipart reply
                 for (OFExperimenterPortWireless msgPort : msgPorts) {
                     PortNumber portNo = PortNumber.portNumber(msgPort.getPortNo().getPortNumber());
+                    log.debug("annotatePortByMwParams(): msgPort {} port {}", portNo, port.number());
                     if (port.number().equals(portNo)) {
+                        isEnabled = getPortStatusFromReplyPort(msgPort);
+
+                        InternalData portInternalData = getInternalData(device, port);
+                        if (portInternalData == null) {
+                            break;
+                        }
+
                         long txCurrCapacity = getTxCurrCapacityFromReplyPort(msgPort);
                         annotations = DefaultAnnotations.builder()
                             .set(AnnotationKeys.PORT_NAME, msgPort.getName())
@@ -722,31 +758,35 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
                             .build();
                         log.debug("annotatePortByMwParams(): port {}, TX_CURR_CAPACITY {}",
                             portNo, txCurrCapacity);
-                        InternalData portInternalData = getInternalData(device, port);
-                        if (portInternalData == null) {
-                            break;
-                        }
                         portInternalData.setTxCurrentCapacity(txCurrCapacity);
                         break;
                     }
                 }
-                descs.add(new DefaultPortDescription(port.number(),
-                    port.isEnabled(), port.type(), port.portSpeed(), annotations));
+                PortDescription pDesc = new DefaultPortDescription(port.number(),
+                    isEnabled, port.type(), port.portSpeed(), annotations);
+                descs.add(pDesc);
             }
-            store.updatePorts(device.providerId(), deviceId, descs);
+            List<DeviceEvent> events = store.updatePorts(device.providerId(), deviceId, descs);
 
-            log.debug("annotatePortByMwParams(): OF Message {}, type {}, experimenter {}, subtype {}, received from {} - proceeded",
-                msg.getType(), ((OFStatsReply) msg).getStatsType(),
-                ((OFExperimenterStatsReply) msg).getExperimenter(),
-                ((OFWirelessMultipartPortsReply) msg).getSubtype(),
-                dpid);
+            for (DeviceEvent event : events) {
+                post(event);
+            }
+
+            StringBuffer strBuf = new StringBuffer();
+            strBuf.append("annotatePortByMwParams(): OF Message {}, type {}, experimenter {}");
+            strBuf.append(", subtype {}, received from {} - proceeded");
+            log.debug(strBuf.toString(),
+                     msg.getType(), ((OFStatsReply) msg).getStatsType(),
+                     ((OFExperimenterStatsReply) msg).getExperimenter(),
+                     ((OFWirelessMultipartPortsReply) msg).getSubtype(),
+                     dpid);
         }
 
         /**
          * Extraction of Tx capacity.
          *
          * @param msgPort Extraction source the msg.
-         * @retrun Extraction data.
+         * @return Extraction data.
          */
         private long getTxCurrCapacityFromReplyPort(OFExperimenterPortWireless msgPort) {
             long value = 0;
@@ -754,19 +794,54 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
             for (OFPortDescPropWirelessTransport prop : props) {
                 List<OFWirelessTransportPortFeatureHeader> features = prop.getFeatures();
                 for (OFWirelessTransportPortFeatureHeader feature : features) {
-                    OFWirelessTransportInterface tranceportInterface  = (OFWirelessTransportInterface)feature;
+                    OFWirelessTransportInterface tranceportInterface  = (OFWirelessTransportInterface) feature;
                     List<OFWirelessTransportInterfacePropParamHeader> params = tranceportInterface.getParams();
                     for (OFWirelessTransportInterfacePropParamHeader param : params) {
                         if (param.getType() == 2) { // (OFWirelessTransportInterfacePropParamTypes.TX_CURRENT_CAPACITY)
-                            value = ((OFWirelessTxCurrentCapacity)param).getTxCurrentCapacity();
+                            value = ((OFWirelessTxCurrentCapacity) param).getTxCurrentCapacity();
                             log.debug("getTxCurrCapacityFromReplyIfc(): TxCurrCapacity {}", value);
                             return value;
                         }
                     }
                 }
             }
-            log.info("getTxCurrCapacityFromReplyIfc(): TxMaxCapacity not found. port {}", msgPort.getPortNo().getPortNumber());
+            log.info("getTxCurrCapacityFromReplyIfc(): TxMaxCapacity not found. port {}"
+                    , msgPort.getPortNo().getPortNumber());
             return value;
+        }
+
+        /**
+         * Extraction of Port Status.
+         *
+         * @param msgPort Extraction source the msg.
+         * @return Port Staus.
+         */
+        private boolean getPortStatusFromReplyPort(OFExperimenterPortWireless msgPort) {
+            boolean isEnabled = false;
+
+            long config = msgPort.getConfig();
+            boolean isPortDown = true;
+            if ((config & (long) 0x1) == 0) {
+                isPortDown = false;
+            }
+
+            long state = msgPort.getState();
+            boolean isLinkDown = true;
+            if ((state & (long) 0x1) == 0) {
+                isLinkDown = false;
+            }
+
+            if (!isPortDown && !isLinkDown) {
+                isEnabled = true;
+            }
+
+            log.info("getPortStatusFromReplyPort(): port:{} config:{} state:{} isEnable:{}",
+                     msgPort.getPortNo().getPortNumber(),
+                     msgPort.getConfig(),
+                     state,
+                     isEnabled ? "true" : "false");
+
+            return isEnabled;
         }
 
     }
@@ -896,7 +971,7 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
             return null;
         }
 
-        if (port.isEnabled() == false) {
+        if (!port.isEnabled()) {
             log.error("getInternalData(): MW Lag port {}/{} is disabled", device.id(), port.number());
             return null;
         }
@@ -911,8 +986,8 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
         // Search the list for the given device/port
         if (internalDb.size() != 0) {
             for (InternalData data : internalDb) {
-                if (   data.device().id().equals(device.id())
-                    && data.port().number().equals(port.number())) {
+                if (data.device().id().equals(device.id())
+                 && data.port().number().equals(port.number())) {
                     return data;
                 }
             }
@@ -946,8 +1021,8 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
             log.debug("getPeerInternalData(): Port for {}/{}: check link {}/{} -> {}/{}",
                 device.id(), port.number(), link.src().deviceId(), link.src().port(),
                 peerDeviceId, peerPort.number());
-            if (   device.id().equals(link.src().deviceId())
-                && port.number().equals(peerPort.number())) {
+            if (device.id().equals(link.src().deviceId())
+             && port.number().equals(peerPort.number())) {
                 log.info("getPeerInternalData(): get InternalData for {}/{}: link {}/{} -> {}/{}",
                     device.id(), port.number(), link.src().deviceId(), link.src().port(),
                     peerDeviceId, peerPort.number());
@@ -980,7 +1055,11 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
     private void printInternalDb() {
         if (internalDb.size() != 0) {
             for (InternalData data : internalDb) {
-                log.debug("printInternalDb(): ----- Internal data: device={}, port={}, lagPort={}, txUtilizedCapacity={}, prevUtilization={}, portMute={} ",    data.device().id(),
+                StringBuffer strBuf = new StringBuffer();
+                strBuf.append("printInternalDb(): ----- Internal data: device={}, port={}, lagPort={},");
+                strBuf.append("txUtilizedCapacity={}, prevUtilization={}, portMute={} ");
+                log.info(strBuf.toString(),
+                    data.device().id(),
                     data.port().number(),
                     data.mutePort().number(),
                     data.txUtilizedCapacity(),
