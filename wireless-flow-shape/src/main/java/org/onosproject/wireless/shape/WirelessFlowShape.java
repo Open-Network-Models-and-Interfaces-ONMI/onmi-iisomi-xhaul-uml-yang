@@ -52,13 +52,18 @@ import org.onosproject.net.meter.Meter;
 import org.onosproject.net.meter.MeterId;
 import org.onosproject.net.meter.MeterRequest;
 import org.onosproject.net.meter.MeterService;
+import org.onosproject.openflow.api.Dpid14;
 import org.onosproject.openflow.api.OpenflowController14;
 import org.onosproject.openflow.controller.OpenFlowController;
 import org.onosproject.openflow.controller.OpenFlowSwitch;
 import org.osgi.service.component.ComponentContext;
+import org.projectfloodlight.openflow.protocol.OFFactories;
+import org.projectfloodlight.openflow.protocol.OFHello;
+import org.projectfloodlight.openflow.protocol.OFVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.URI;
 import java.util.Collections;
 import java.util.Dictionary;
 import java.util.Map;
@@ -70,8 +75,8 @@ import static org.onosproject.net.meter.MeterOperation.Type;
 @Component(immediate = true)
 public class WirelessFlowShape {
     Logger log = LoggerFactory.getLogger(getClass());
-    private static final int DEFAULT_MAX_THRESHOLD = 100;
-    private static final int DEFAULT_MIN_THRESHOLD = 10;
+    private static final int DEFAULT_MAX_THRESHOLD = 400000;
+    private static final int DEFAULT_MIN_THRESHOLD = 370000;
     private static final int DEFAULT_NUMBER = 1;
     private static final int DEFAULT_BUFFER = 0;
     static final int POLL_INTERVAL = 10;
@@ -134,7 +139,20 @@ public class WirelessFlowShape {
         deviceService.addListener(listener);
         controller.getSwitches().forEach((this::createPortStatsCollection));
         controller14.getSwitches().forEach(this::createPortStatsCollection);
+//        test();
         log.info("Started");
+    }
+
+    private void test() {
+        deviceService.getDevices().forEach(device -> {
+            URI uri = device.id().uri();
+            Dpid14 dpid = Dpid14.dpid(uri);
+            OpenFlowSwitch aSwitch = controller14.getSwitch(dpid);
+            OFHello hi =
+                    OFFactories.getFactory(OFVersion.OF_13).buildHello()
+                            .build();
+            aSwitch.sendMsg(hi);
+        });
     }
 
     @Deactivate
@@ -144,7 +162,6 @@ public class WirelessFlowShape {
         log.info("Stopped");
     }
 
-  
     @Modified
     public void modified(ComponentContext context) {
         readComponentConfiguration(context);
@@ -353,7 +370,6 @@ public class WirelessFlowShape {
         return isWireless;
     }
 
-
     private FlowRule findPeerRouterRule(DeviceId deviceId, long port) {
         ConnectPoint routerPoint = null;
         ConnectPoint peerPoint = null;
@@ -362,25 +378,29 @@ public class WirelessFlowShape {
         Set<Link> links = linkService.getDeviceLinks(deviceId);
         for (Link link : links) {
             peerPoint = link.src().deviceId().equals(deviceId) ? link.dst() : link.src();
-            //search for the flow in router
+            //find the router connect to the mw device
             if (!isDeviceWireless(deviceService.getDevice(peerPoint.deviceId()))) {
-                routerFlowRule = findRuleByOutPort(peerPoint.deviceId(), peerPoint.port().toLong());
-                if (routerFlowRule != null) {
-                    return routerFlowRule;
-                }
-            } else {
-//                return findPeerConnectPoint(peerPoint.deviceId(),peerPoint.port().toLong());
-                for (Link anotherLinks : linkService.getDeviceLinks(peerPoint.deviceId())) {
-                    peerPoint = anotherLinks.src().equals(connectPoint) ? anotherLinks.dst() : anotherLinks.src();
-                    if (!isDeviceWireless(deviceService.getDevice(peerPoint.deviceId()))) {
-//                        return peerPoint;
-                        routerFlowRule = findRuleByOutPort(peerPoint.deviceId(), peerPoint.port().toLong());
-                        if (routerFlowRule != null) {
-                            return routerFlowRule;
-                        }
-                    }
-                }
+                return findRuleByOutPort(peerPoint.deviceId(), peerPoint.port().toLong());
+//                return routerFlowRule;
             }
+//            if (!isDeviceWireless(deviceService.getDevice(peerPoint.deviceId()))) {
+//                routerFlowRule = findRuleByOutPort(peerPoint.deviceId(), peerPoint.port().toLong());
+//                if (routerFlowRule != null) {
+//                    return routerFlowRule;
+//                }
+//            } else {
+////                return findPeerConnectPoint(peerPoint.deviceId(),peerPoint.port().toLong());
+//                for (Link anotherLinks : linkService.getDeviceLinks(peerPoint.deviceId())) {
+//                    peerPoint = anotherLinks.src().equals(connectPoint) ? anotherLinks.dst() : anotherLinks.src();
+//                    if (!isDeviceWireless(deviceService.getDevice(peerPoint.deviceId()))) {
+////                        return peerPoint;
+//                        routerFlowRule = findRuleByOutPort(peerPoint.deviceId(), peerPoint.port().toLong());
+//                        if (routerFlowRule != null) {
+//                            return routerFlowRule;
+//                        }
+//                    }
+//                }
+//            }
         }
         return null;
     }
@@ -404,7 +424,6 @@ public class WirelessFlowShape {
 
         @Override
         public void event(DeviceEvent event) {
-            log.info("Device Event");
             final Device device = event.subject();
             if (event.type() == DeviceEvent.Type.PORT_UPDATED) {
                 if (!isDeviceWireless(device)) {

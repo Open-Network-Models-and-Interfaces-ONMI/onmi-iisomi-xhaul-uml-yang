@@ -10,7 +10,9 @@ import org.onosproject.net.Device;
 import org.onosproject.net.DeviceId;
 import org.onosproject.net.MastershipRole;
 import org.onosproject.net.Port;
+import org.onosproject.net.device.DefaultDeviceDescription;
 import org.onosproject.net.device.DefaultPortDescription;
+import org.onosproject.net.device.DeviceDescription;
 import org.onosproject.net.device.DeviceProvider;
 import org.onosproject.net.device.DeviceProviderRegistry;
 import org.onosproject.net.device.DeviceProviderService;
@@ -44,7 +46,7 @@ public class AnnotatePortCommand extends AbstractShellCommand {
     @Override
     protected void execute() {
         DeviceService service = get(DeviceService.class);
-//        DeviceStore deviceStore = get(DeviceStore.class);
+        DeviceStore deviceStore = get(DeviceStore.class);
         Device device = service.getDevice(DeviceId.deviceId(uri));
         log.info(String.valueOf(device));
         List<Port> ports = service.getPorts(DeviceId.deviceId(uri));
@@ -61,6 +63,7 @@ public class AnnotatePortCommand extends AbstractShellCommand {
         try {
             DeviceProviderService providerService = registry.register(provider);
             log.info("update port");
+            providerService.deviceConnected(device.id(), description(device, key, value));
             providerService.updatePorts(device.id(), descs);
         } finally {
             registry.unregister(provider);
@@ -68,6 +71,18 @@ public class AnnotatePortCommand extends AbstractShellCommand {
 
     }
 
+    private DeviceDescription description(Device device, String key, String value) {
+        DefaultAnnotations.Builder builder = DefaultAnnotations.builder();
+        if (value != null) {
+            builder.set(key, value);
+        } else {
+            builder.remove(key);
+        }
+        return new DefaultDeviceDescription(device.id().uri(), device.type(),
+                                            device.manufacturer(), device.hwVersion(),
+                                            device.swVersion(), device.serialNumber(),
+                                            device.chassisId(), builder.build());
+    }
     private static final class AnnotationProvider
             extends AbstractProvider implements DeviceProvider {
         private AnnotationProvider() {
