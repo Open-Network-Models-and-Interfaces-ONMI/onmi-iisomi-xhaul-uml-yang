@@ -42,6 +42,8 @@ import org.onosproject.net.flow.DefaultTrafficTreatment;
 import org.onosproject.net.flow.FlowRule;
 import org.onosproject.net.flow.FlowRuleService;
 import org.onosproject.net.flow.TrafficTreatment;
+import org.onosproject.net.flow.criteria.Criterion;
+import org.onosproject.net.flow.criteria.VlanIdCriterion;
 import org.onosproject.net.flow.instructions.Instruction;
 import org.onosproject.net.flow.instructions.Instructions;
 import org.onosproject.net.link.LinkService;
@@ -64,8 +66,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Dictionary;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -331,6 +335,7 @@ public class WirelessFlowShape {
                              routerFlowRule.deviceId(), meterId);
                     return null;
                 } else if ((i.type() == Instruction.Type.METER) && (operation == Type.REMOVE)) {
+                    removeMeter((Instructions.MeterInstruction) i);
                     continue;
                 }
                 treatmentBuilder.add(i);
@@ -348,6 +353,13 @@ public class WirelessFlowShape {
                 .makePermanent()
                 .withTreatment(treatmentBuilder.build());
         return ruleBuilder;
+    }
+
+    public void removeMeter(Instructions.MeterInstruction meterIn) {
+        MeterId removeMeterId = meterIn.meterId();
+        Meter meter = meterService.getMeter(removeMeterId);
+        buildMeter(meter.deviceId(), shapeMinThreshold);
+        meterService.withdraw(buildMeter(meter.deviceId(), shapeMinThreshold), removeMeterId);
     }
 
     public long getPortFromAnnotation(Device device, String key) {
@@ -386,18 +398,46 @@ public class WirelessFlowShape {
     }
 
     private FlowRule findRuleByOutPort(DeviceId deviceId, long port) {
+        List<FlowRule> flowRuleList = new ArrayList<>();
         for (FlowRule flow : flowService.getFlowEntries(deviceId)) {
             for (Instruction i : flow.treatment().allInstructions()) {
                 //get the direction through the flow rule
                 if (i.type() == Instruction.Type.OUTPUT) {
                     long outPort = ((Instructions.OutputInstruction) i).port().toLong();
                     if (port == outPort) {
-                        return flow;
+                        flowRuleList.add(flow);
                     }
                 }
             }
         }
+        int size = flowRuleList.size();
+        if (size < 1) {
+            return null;
+        } else if (size == 1) {
+            return flowRuleList.get(0);
+
+        } else if (size == 2) {
+            FlowRule flowRule1 = flowRuleList.get(0);
+            FlowRule flowRule2 = flowRuleList.get(1);
+            short vlanId1 = getVlanId(flowRule1);
+            short vlanId2 = getVlanId(flowRule2);
+            if(vlanId1 == -1 || vlanId2 == -1) {
+                return null;
+            }
+
+            return vlanId1 > vlanId2 ? flowRule2 : flowRule1;
+        }
         return null;
+    }
+
+    private short getVlanId(FlowRule flowRule) {
+        for (Criterion c : flowRule.selector().criteria()) {
+            if (c != null && c instanceof VlanIdCriterion) {
+                return ((VlanIdCriterion) c).vlanId().toShort();
+            }
+        }
+        log.error("Cannot find vanId in flow {}", flowRule.toString());
+        return -1;
     }
 
     private class InternalDeviceListener implements DeviceListener {
