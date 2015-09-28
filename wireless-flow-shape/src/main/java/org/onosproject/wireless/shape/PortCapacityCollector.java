@@ -23,7 +23,6 @@ import org.jboss.netty.util.Timeout;
 import org.jboss.netty.util.TimerTask;
 import org.onlab.util.Timer;
 import org.onosproject.openflow.controller.OpenFlowSwitch;
-import org.projectfloodlight.openflow.protocol.OFType;
 import org.projectfloodlight.openflow.protocol.OFVersion;
 import org.projectfloodlight.openflow.protocol.OFWirelessMultipartPortsRequest;
 import org.slf4j.Logger;
@@ -70,7 +69,6 @@ public class PortCapacityCollector implements TimerTask {
 
     private void sendExperimenterMultiPortRequest() {
         if (!checkVersion(sw.factory().getVersion())) {
-            //log.info("unsupport OF version {}", sw.factory().getVersion());
             return;
         }
         if (sw == null || !sw.isConnected()) {
@@ -85,8 +83,6 @@ public class PortCapacityCollector implements TimerTask {
         portsRequest = sw.factory().buildWirelessMultipartPortsRequest()
                 .setXid(statsXid)
                 .build();
-//        log.info(String.valueOf(sw.getRole()));
-//        log.info(String.valueOf(sw.isConnected()));
         sw.sendMsg(portsRequest);
         log.info("Multipart Port Request sent to switch {}", sw.getStringId());
     }

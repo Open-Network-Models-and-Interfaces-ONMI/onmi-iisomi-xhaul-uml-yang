@@ -76,7 +76,7 @@ import static org.onosproject.net.meter.MeterOperation.Type;
 public class WirelessFlowShape {
     Logger log = LoggerFactory.getLogger(getClass());
     private static final int DEFAULT_MAX_THRESHOLD = 400000;
-    private static final int DEFAULT_MIN_THRESHOLD = 370000;
+    private static final int DEFAULT_MIN_THRESHOLD = 64;
     private static final int DEFAULT_NUMBER = 1;
     private static final int DEFAULT_BUFFER = 0;
     static final int POLL_INTERVAL = 10;
@@ -104,7 +104,6 @@ public class WirelessFlowShape {
     private static final String WIRELESS_PORT_SEC = "wireless-port-sec";
     private static final String WIRELESS_PORT_PRIM = "wireless-port-prim";
     private static final String WIRELESS_TX_CURR_CAPACITY = "wireless-tx-curr-capacity";
-    private static final String ETH_PORT = "eth-port";
 
     @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
     protected DeviceService deviceService;
@@ -381,26 +380,7 @@ public class WirelessFlowShape {
             //find the router connect to the mw device
             if (!isDeviceWireless(deviceService.getDevice(peerPoint.deviceId()))) {
                 return findRuleByOutPort(peerPoint.deviceId(), peerPoint.port().toLong());
-//                return routerFlowRule;
             }
-//            if (!isDeviceWireless(deviceService.getDevice(peerPoint.deviceId()))) {
-//                routerFlowRule = findRuleByOutPort(peerPoint.deviceId(), peerPoint.port().toLong());
-//                if (routerFlowRule != null) {
-//                    return routerFlowRule;
-//                }
-//            } else {
-////                return findPeerConnectPoint(peerPoint.deviceId(),peerPoint.port().toLong());
-//                for (Link anotherLinks : linkService.getDeviceLinks(peerPoint.deviceId())) {
-//                    peerPoint = anotherLinks.src().equals(connectPoint) ? anotherLinks.dst() : anotherLinks.src();
-//                    if (!isDeviceWireless(deviceService.getDevice(peerPoint.deviceId()))) {
-////                        return peerPoint;
-//                        routerFlowRule = findRuleByOutPort(peerPoint.deviceId(), peerPoint.port().toLong());
-//                        if (routerFlowRule != null) {
-//                            return routerFlowRule;
-//                        }
-//                    }
-//                }
-//            }
         }
         return null;
     }

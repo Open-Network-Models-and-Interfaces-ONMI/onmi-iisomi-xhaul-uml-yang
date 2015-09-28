@@ -5,21 +5,16 @@ import com.google.common.collect.Lists;
 import org.apache.karaf.shell.commands.Argument;
 import org.apache.karaf.shell.commands.Command;
 import org.onosproject.cli.AbstractShellCommand;
+import org.onosproject.event.EventDeliveryService;
 import org.onosproject.net.DefaultAnnotations;
 import org.onosproject.net.Device;
 import org.onosproject.net.DeviceId;
-import org.onosproject.net.MastershipRole;
 import org.onosproject.net.Port;
-import org.onosproject.net.device.DefaultDeviceDescription;
 import org.onosproject.net.device.DefaultPortDescription;
-import org.onosproject.net.device.DeviceDescription;
-import org.onosproject.net.device.DeviceProvider;
-import org.onosproject.net.device.DeviceProviderRegistry;
-import org.onosproject.net.device.DeviceProviderService;
+import org.onosproject.net.device.DeviceEvent;
 import org.onosproject.net.device.DeviceService;
 import org.onosproject.net.device.DeviceStore;
 import org.onosproject.net.device.PortDescription;
-import org.onosproject.net.provider.AbstractProvider;
 import org.onosproject.net.provider.ProviderId;
 
 import java.util.List;
@@ -52,55 +47,23 @@ public class AnnotatePortCommand extends AbstractShellCommand {
         List<Port> ports = service.getPorts(DeviceId.deviceId(uri));
         log.info(String.valueOf(ports));
         List<PortDescription> descs = Lists.newArrayList();
-        DeviceProviderRegistry registry = get(DeviceProviderRegistry.class);
-        DeviceProvider provider = new AnnotationProvider();
         for (Port port : ports) {
             DefaultAnnotations annotations = DefaultAnnotations.builder()
                     .set(key, value).build();
             descs.add(new DefaultPortDescription(port.number(),
                                                  port.isEnabled(), port.type(), port.portSpeed(), annotations));
         }
-        try {
-            DeviceProviderService providerService = registry.register(provider);
-            log.info("update port");
-            providerService.deviceConnected(device.id(), description(device, key, value));
-            providerService.updatePorts(device.id(), descs);
-        } finally {
-            registry.unregister(provider);
-        }
+        List<DeviceEvent> deviceEvents = deviceStore.updatePorts(device.providerId(), device.id(), descs);
+        deviceEvents.forEach(this::post);
+
 
     }
 
-    private DeviceDescription description(Device device, String key, String value) {
-        DefaultAnnotations.Builder builder = DefaultAnnotations.builder();
-        if (value != null) {
-            builder.set(key, value);
-        } else {
-            builder.remove(key);
-        }
-        return new DefaultDeviceDescription(device.id().uri(), device.type(),
-                                            device.manufacturer(), device.hwVersion(),
-                                            device.swVersion(), device.serialNumber(),
-                                            device.chassisId(), builder.build());
-    }
-    private static final class AnnotationProvider
-            extends AbstractProvider implements DeviceProvider {
-        private AnnotationProvider() {
-            super(PID);
-        }
-
-        @Override
-        public void triggerProbe(DeviceId deviceId) {
-        }
-
-        @Override
-        public void roleChanged(DeviceId deviceId, MastershipRole newRole) {
-
-        }
-
-        @Override
-        public boolean isReachable(DeviceId deviceId) {
-            return false;
+    protected void post(DeviceEvent event) {
+        EventDeliveryService eventDispatcher = get(EventDeliveryService.class);
+        if (event != null && eventDispatcher != null) {
+            eventDispatcher.post(event);
         }
     }
+
 }

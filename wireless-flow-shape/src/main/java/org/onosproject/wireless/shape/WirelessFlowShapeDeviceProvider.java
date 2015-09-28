@@ -21,25 +21,18 @@ import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Deactivate;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.ReferenceCardinality;
-import org.apache.felix.scr.annotations.Service;
+import org.onosproject.event.EventDeliveryService;
 import org.onosproject.net.AnnotationKeys;
 import org.onosproject.net.DefaultAnnotations;
 import org.onosproject.net.Device;
 import org.onosproject.net.DeviceId;
-import org.onosproject.net.MastershipRole;
 import org.onosproject.net.Port;
 import org.onosproject.net.PortNumber;
-import org.onosproject.net.device.DefaultDeviceDescription;
 import org.onosproject.net.device.DefaultPortDescription;
-import org.onosproject.net.device.DeviceDescription;
-import org.onosproject.net.device.DeviceProvider;
-import org.onosproject.net.device.DeviceProviderRegistry;
-import org.onosproject.net.device.DeviceProviderService;
+import org.onosproject.net.device.DeviceEvent;
 import org.onosproject.net.device.DeviceService;
 import org.onosproject.net.device.DeviceStore;
 import org.onosproject.net.device.PortDescription;
-import org.onosproject.net.provider.AbstractProvider;
-import org.onosproject.net.provider.ProviderId;
 import org.onosproject.openflow.controller.Dpid;
 import org.onosproject.openflow.controller.OpenFlowController;
 import org.onosproject.openflow.controller.OpenFlowEventListener;
@@ -59,28 +52,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static org.onosproject.net.DeviceId.deviceId;
 import static org.onosproject.openflow.controller.Dpid.uri;
 
 @Component(immediate = true)
-@Service
-public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements DeviceProvider {
+public class WirelessFlowShapeDeviceProvider {
 
-    private static final String WIRELESS_PORT_PRIM = "wireless-port-prim";
     private static final String WIRELESS_PORT_LAG = "wireless-port-lag";
-    private static final String ETH_PORT = "eth-port";
     private static final String WIRELESS_TX_CURR_CAPACITY = "wireless-tx-curr-capacity";
-    private static final String WIRELESS_UPDATE_COUNT = "wireless-update-count";
     private static final long WIRELESS_EXPERIMENTER_TYPE = 0xff000005L;
     Logger log = LoggerFactory.getLogger(WirelessFlowShapeDeviceProvider.class);
     @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
     protected DeviceService deviceService;
 
-    @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
-    protected DeviceProviderRegistry deviceProviderRegistry;
 
     @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
     protected OpenFlowController controller;
@@ -88,58 +74,21 @@ public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements
     @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
     protected DeviceStore deviceStore;
 
-    private final AtomicInteger xidCounter = new AtomicInteger(1);
-    private DeviceProviderService deviceProviderService;
+    @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
+    EventDeliveryService eventDispatcher;
 
     private final OpenFlowEventListener listener = new InternalOpenFlowListener();
 
-    /**
-     * Creates a provider with the supplier identifier.
-     */
-    public WirelessFlowShapeDeviceProvider() {
-        super(new ProviderId("wireless-shape-app", "org.onosproject.wireless.shape"));
-    }
 
     @Activate
     public void activate() {
-        deviceProviderService = deviceProviderRegistry.register(this);
         controller.addEventListener(listener);
         log.info("started");
     }
 
     @Deactivate
     public void deactivate() {
-        deviceProviderRegistry.unregister(this);
-        deviceProviderService = null;
         log.info("stopped");
-    }
-
-    @Override
-    public void triggerProbe(DeviceId deviceId) {
-
-    }
-
-    @Override
-    public void roleChanged(DeviceId deviceId, MastershipRole newRole) {
-
-    }
-
-    @Override
-    public boolean isReachable(DeviceId deviceId) {
-        return false;
-    }
-
-    private DeviceDescription description(Device device, String key, String value) {
-        DefaultAnnotations.Builder builder = DefaultAnnotations.builder();
-        if (value != null) {
-            builder.set(key, value);
-        } else {
-            builder.remove(key);
-        }
-        return new DefaultDeviceDescription(device.id().uri(), device.type(),
-                                            device.manufacturer(), device.hwVersion(),
-                                            device.swVersion(), device.serialNumber(),
-                                            device.chassisId(), builder.build());
     }
 
     private class InternalOpenFlowListener implements OpenFlowEventListener {
@@ -148,10 +97,8 @@ public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements
         public void handleMessage(Dpid dpid, OFMessage msg) {
             switch (msg.getType()) {
                 case STATS_REPLY:
-//                    log.info("handle openflow STATS_REPLY message");
                     if (((OFStatsReply) msg).getStatsType() == OFStatsType.EXPERIMENTER
                             && ((OFExperimenterStatsReply) msg).getExperimenter() == WIRELESS_EXPERIMENTER_TYPE) {
-                        log.info("annotate");
                         annotatePortByTxCurrCapacity(dpid, (OFWirelessMultipartPortsReply) msg);
                     }
                     break;
@@ -166,8 +113,7 @@ public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements
             List<Port> ports = deviceService.getPorts(deviceId);
 
 
-            if (isNullOrEmpty(device.annotations().value(WIRELESS_PORT_LAG))
-                    || isNullOrEmpty(device.annotations().value(ETH_PORT))) {
+            if (isNullOrEmpty(device.annotations().value(WIRELESS_PORT_LAG))) {
                 log.info("the device {} is not MW device.", device.id());
                 return;
             }
@@ -197,20 +143,15 @@ public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements
                 descs.add(new DefaultPortDescription(port.number(),
                                                      port.isEnabled(), port.type(), port.portSpeed(), annotations));
             }
-            //this is for update the provider id to wireless-shape-app, so that we can update the ports
-            deviceProviderService.deviceConnected(device.id(),
-                                                  description(device,
-                                                              WIRELESS_UPDATE_COUNT,
-                                                              String.valueOf(xidCounter.getAndIncrement())));
-            deviceProviderService.updatePorts(deviceId, descs);
-
-
+            List<DeviceEvent> deviceEvents = deviceStore.updatePorts(device.providerId(), deviceId, descs);
+            deviceEvents.forEach(this::post);
             log.info(" xxxxxxxxxxxx OF Message {}, type {}, experimenter {}, subtype {}, received from {} - proceeded",
                      msg.getType(), ((OFStatsReply) msg).getStatsType(),
                      ((OFExperimenterStatsReply) msg).getExperimenter(),
                      ((OFWirelessMultipartPortsReply) msg).getSubtype(),
                      dpid);
         }
+
 
         private long getTxCurrCapacityFromReplyIfc(OFExperimenterPortWireless ifc) {
             List<OFPortDescPropWirelessTransport> props = ifc.getProperties();
@@ -241,5 +182,10 @@ public class WirelessFlowShapeDeviceProvider extends AbstractProvider implements
             return 0;
         }
 
+        protected void post(DeviceEvent event) {
+            if (event != null && eventDispatcher != null) {
+                eventDispatcher.post(event);
+            }
+        }
     }
 }
