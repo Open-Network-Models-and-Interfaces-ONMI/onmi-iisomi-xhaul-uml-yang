@@ -33,7 +33,6 @@ import org.onosproject.net.ConnectPoint;
 import org.onosproject.net.Device;
 import org.onosproject.net.DeviceId;
 import org.onosproject.net.Link;
-import org.onosproject.net.PortNumber;
 import org.onosproject.net.device.DeviceEvent;
 import org.onosproject.net.device.DeviceListener;
 import org.onosproject.net.device.DeviceService;
@@ -54,18 +53,13 @@ import org.onosproject.net.meter.Meter;
 import org.onosproject.net.meter.MeterId;
 import org.onosproject.net.meter.MeterRequest;
 import org.onosproject.net.meter.MeterService;
-import org.onosproject.openflow.api.Dpid14;
 import org.onosproject.openflow.api.OpenflowController14;
 import org.onosproject.openflow.controller.OpenFlowController;
 import org.onosproject.openflow.controller.OpenFlowSwitch;
 import org.osgi.service.component.ComponentContext;
-import org.projectfloodlight.openflow.protocol.OFFactories;
-import org.projectfloodlight.openflow.protocol.OFHello;
-import org.projectfloodlight.openflow.protocol.OFVersion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Dictionary;
@@ -80,7 +74,7 @@ import static org.onosproject.net.meter.MeterOperation.Type;
 public class WirelessFlowShape {
     Logger log = LoggerFactory.getLogger(getClass());
     private static final int DEFAULT_MAX_THRESHOLD = 400000;
-    private static final int DEFAULT_MIN_THRESHOLD = 64;
+    private static final int DEFAULT_MIN_THRESHOLD = 100000;
     private static final int DEFAULT_NUMBER = 1;
     private static final int DEFAULT_BUFFER = 0;
     static final int POLL_INTERVAL = 10;
@@ -142,20 +136,7 @@ public class WirelessFlowShape {
         deviceService.addListener(listener);
         controller.getSwitches().forEach((this::createPortStatsCollection));
         controller14.getSwitches().forEach(this::createPortStatsCollection);
-//        test();
         log.info("Started");
-    }
-
-    private void test() {
-        deviceService.getDevices().forEach(device -> {
-            URI uri = device.id().uri();
-            Dpid14 dpid = Dpid14.dpid(uri);
-            OpenFlowSwitch aSwitch = controller14.getSwitch(dpid);
-            OFHello hi =
-                    OFFactories.getFactory(OFVersion.OF_13).buildHello()
-                            .build();
-            aSwitch.sendMsg(hi);
-        });
     }
 
     @Deactivate
@@ -302,12 +283,11 @@ public class WirelessFlowShape {
                 .ofType(Band.Type.DROP)
                 .withRate(capacity)
                 .build();
-        MeterRequest request = DefaultMeterRequest.builder()
+        return DefaultMeterRequest.builder()
                 .forDevice(deviceId)
                 .fromApp(coreService.registerApplication(appId.name()))
                 .withUnit(Meter.Unit.KB_PER_SEC)
                 .withBands(Collections.singleton(band));
-        return request;
     }
 
     private void modifyRouterFlow(FlowRule routerFlowRule, MeterId meterId, Type operation) {
@@ -358,8 +338,8 @@ public class WirelessFlowShape {
     public void removeMeter(Instructions.MeterInstruction meterIn) {
         MeterId removeMeterId = meterIn.meterId();
         Meter meter = meterService.getMeter(removeMeterId);
-        MeterRequest.Builder request = buildMeter(meter.deviceId(), getRate(meter));
-        meterService.withdraw(request.remove(), removeMeterId);
+        MeterRequest.Builder buildMeter = buildMeter(meter.deviceId(), getRate(meter));
+        meterService.withdraw(buildMeter.remove(), removeMeterId);
     }
 
     private long getRate(Meter meter) {
@@ -389,10 +369,7 @@ public class WirelessFlowShape {
     }
 
     private FlowRule findPeerRouterRule(DeviceId deviceId, long port) {
-        ConnectPoint routerPoint = null;
-        ConnectPoint peerPoint = null;
-        FlowRule routerFlowRule;
-        ConnectPoint connectPoint = new ConnectPoint(deviceId, PortNumber.portNumber(port));
+        ConnectPoint peerPoint;
         Set<Link> links = linkService.getDeviceLinks(deviceId);
         for (Link link : links) {
             peerPoint = link.src().deviceId().equals(deviceId) ? link.dst() : link.src();
