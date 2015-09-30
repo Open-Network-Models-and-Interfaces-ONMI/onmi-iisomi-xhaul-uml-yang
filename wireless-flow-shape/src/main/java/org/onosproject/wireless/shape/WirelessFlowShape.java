@@ -276,8 +276,8 @@ public class WirelessFlowShape {
         FlowRule routerFlowRule = flowRuleMap.get(deviceId);
         switch (opType) {
             case ADD:
-                MeterRequest request = buildMeter(routerFlowRule.deviceId(), capacity);
-                Meter meterAdd = meterService.submit(request);
+                MeterRequest.Builder request = buildMeter(routerFlowRule.deviceId(), capacity);
+                Meter meterAdd = meterService.submit(request.add());
                 if (meterAdd == null) {
                     log.info("Add meter {} for device {} failed", meterAdd.id(), meterAdd.deviceId());
                 }
@@ -297,7 +297,7 @@ public class WirelessFlowShape {
         }
     }
 
-    private MeterRequest buildMeter(DeviceId deviceId, long capacity) {
+    private MeterRequest.Builder buildMeter(DeviceId deviceId, long capacity) {
         Band band = DefaultBand.builder()
                 .ofType(Band.Type.DROP)
                 .withRate(capacity)
@@ -306,7 +306,7 @@ public class WirelessFlowShape {
                 .forDevice(deviceId)
                 .fromApp(coreService.registerApplication(appId.name()))
                 .withUnit(Meter.Unit.KB_PER_SEC)
-                .withBands(Collections.singleton(band)).add();
+                .withBands(Collections.singleton(band));
         return request;
     }
 
@@ -358,8 +358,15 @@ public class WirelessFlowShape {
     public void removeMeter(Instructions.MeterInstruction meterIn) {
         MeterId removeMeterId = meterIn.meterId();
         Meter meter = meterService.getMeter(removeMeterId);
-        buildMeter(meter.deviceId(), shapeMinThreshold);
-        meterService.withdraw(buildMeter(meter.deviceId(), shapeMinThreshold), removeMeterId);
+        MeterRequest.Builder request = buildMeter(meter.deviceId(), getRate(meter);
+        meterService.withdraw(request.remove()), removeMeterId);
+    }
+
+    private long getRate(Meter meter) {
+        for (Band band : meter.bands()) {
+            return band.rate();
+        }
+        return shapeMinThreshold;
     }
 
     public long getPortFromAnnotation(Device device, String key) {
@@ -421,7 +428,7 @@ public class WirelessFlowShape {
             FlowRule flowRule2 = flowRuleList.get(1);
             short vlanId1 = getVlanId(flowRule1);
             short vlanId2 = getVlanId(flowRule2);
-            if(vlanId1 == -1 || vlanId2 == -1) {
+            if (vlanId1 == -1 || vlanId2 == -1) {
                 return null;
             }
 
