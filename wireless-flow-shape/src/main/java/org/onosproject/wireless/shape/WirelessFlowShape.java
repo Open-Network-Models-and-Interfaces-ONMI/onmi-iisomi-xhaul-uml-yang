@@ -358,8 +358,8 @@ public class WirelessFlowShape {
     public void removeMeter(Instructions.MeterInstruction meterIn) {
         MeterId removeMeterId = meterIn.meterId();
         Meter meter = meterService.getMeter(removeMeterId);
-        MeterRequest.Builder request = buildMeter(meter.deviceId(), getRate(meter);
-        meterService.withdraw(request.remove()), removeMeterId);
+        MeterRequest.Builder request = buildMeter(meter.deviceId(), getRate(meter));
+        meterService.withdraw(request.remove(), removeMeterId);
     }
 
     private long getRate(Meter meter) {
