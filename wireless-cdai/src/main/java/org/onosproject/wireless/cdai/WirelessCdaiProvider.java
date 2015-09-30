@@ -46,6 +46,7 @@ import org.onosproject.net.provider.ProviderId;
 import org.onosproject.net.AnnotationKeys;
 import org.onosproject.net.DefaultAnnotations;
 import org.onosproject.net.link.LinkService;
+import org.onosproject.openflow.api.Dpid14;
 import org.onosproject.openflow.controller.Dpid;
 import org.onosproject.openflow.controller.OpenFlowController;
 import org.onosproject.openflow.controller.OpenFlowEventListener;
@@ -83,7 +84,7 @@ import org.projectfloodlight.openflow.protocol.OFStatsReply;
 import org.projectfloodlight.openflow.protocol.OFStatsType;
 import org.projectfloodlight.openflow.protocol.OFExperimenterStatsReply;
 import org.projectfloodlight.openflow.protocol.OFWirelessMultipartPortsReply;
-
+import org.onosproject.openflow.api.OpenflowController14;
 import org.projectfloodlight.openflow.protocol.OFMessage;
 
 import org.projectfloodlight.openflow.types.OFPort;
@@ -105,6 +106,7 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
     private static final String WIRELESS_LOW_UTILIZATION_THRESHOLD = "wireless-low-utilization-th";
     private static final String WIRELESS_HIGH_UTILIZATION_THRESHOLD = "wireless-high-utilization-th";
     // Constants
+    private static final String SCHEME = "of";
     private static final long WIRELESS_EXPERIMENTER_TYPE = 0xff000005L;
     private static final long WIRELESS_DEBUG_ALWAYS_SEND_PORT_MOD = 1;
     private static final long WIRELESS_DEBUG_CALCULATE_ONLY = 2;
@@ -135,6 +137,9 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
 
     @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
     protected EventDeliveryService eventDispatcher;
+
+    @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
+    protected OpenflowController14 openFlowController14;
 
     private ApplicationId appId;
     private final DeviceListener deviceListener = new InternalDeviceListener();
@@ -174,6 +179,18 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
 
     @Deactivate
     protected void deactivate() {
+        // Unmute microwave secondary port forcibly to always start ONOS app without muted ports.
+        if (internalDb.size() != 0) {
+            for (InternalData data : internalDb) {
+                data.setPortMute(true);
+            }
+            for (InternalData data : internalDb) {
+                if (data.portMute()) {
+                    unmuteMwPort(data);
+                }
+            }
+        }
+
         openFlowController.removeEventListener(openFlowlistener);
         deviceService.removeListener(deviceListener);
         deviceProviderRegistry.unregister(this);
@@ -331,14 +348,16 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
 
             // Calculate utilization: current lag port.
             long utilizedCapacity = portInternalData.txUtilizedCapacity();
-            long currCapacity =  portInternalData.txCurrentCapacity();
-            log.info("analyzePortsUtilization(): ----- {}/{}: Capacity {}",
-                deviceId, port.number(), currCapacity);
+//            long currCapacity = portInternalData.txCurrentCapacity();
+            long currCapacity = getCurrentCapacity(portInternalData);
+            log.info("analyzePortsUtilization(): ----- {}/{}: utilizedCapacity {},Capacity {}",
+                     deviceId, port.number(), utilizedCapacity, currCapacity);
 
             long peerUtilizedCapacity = peerPortInternalData.txUtilizedCapacity();
-            long peerCurrCapacity =  peerPortInternalData.txCurrentCapacity();
-            log.info("analyzePortsUtilization(): ----- {}/{}: peerCapacity {}",
-                peerDevice.id(), peerPort.number(), peerCurrCapacity);
+//            long peerCurrCapacity = peerPortInternalData.txCurrentCapacity();
+            long peerCurrCapacity = getCurrentCapacity(peerPortInternalData);
+            log.info("analyzePortsUtilization(): ----- {}/{}:peerUtilizedCapacity {}, peerCapacity {}",
+                     peerDevice.id(), peerPort.number(), peerUtilizedCapacity, peerCurrCapacity);
 
             if (currCapacity > 0) {
                 long utilization = utilizedCapacity * 100 / currCapacity;
@@ -385,6 +404,22 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
                 portInternalData.setPrevUtilization(utilization);
             }
         }
+    }
+
+    private long getCurrentCapacity(InternalData portInternalData) {
+        if (portInternalData.txCurrentCapacity() != 0) {
+            return portInternalData.txCurrentCapacity();
+        }
+        deviceService.getDevice(portInternalData.device.id());
+        for (Port port : deviceService.getPorts(portInternalData.device.id())) {
+            if (port.number().toLong() == portInternalData.port().number().toLong()) {
+                String txCurrentCapacity = port.annotations().value(WIRELESS_TX_CURR_CAPACITY);
+                if (txCurrentCapacity != null) {
+                    return Long.parseLong(txCurrentCapacity);
+                }
+            }
+        }
+        return 0;
     }
 
     /**
@@ -494,8 +529,12 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
      * @param mute Mute/Unmute flag.
      */
     private void sendWirelessPortMod(DeviceId deviceId, Port port, boolean mute) {
-        final Dpid dpid = dpid(deviceId.uri());
-        OpenFlowSwitch sw = openFlowController.getSwitch(dpid(deviceId.uri()));
+        OpenFlowSwitch sw;
+        if (deviceId.uri().getScheme().equals(SCHEME)) {
+            sw = openFlowController.getSwitch(dpid(deviceId.uri()));
+        } else {
+            sw = openFlowController14.getSwitch(Dpid14.dpid(deviceId.uri()));
+        }
         if (sw == null || !sw.isConnected()) {
             log.error("sendWirelessPortMod(): OF Switch not obtained for device {}", deviceId);
             return;
@@ -551,8 +590,12 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
      */
     private void sendExperimenterMultipartPortRequest(Device device) {
         DeviceId deviceId = device.id();
-        final Dpid dpid = dpid(deviceId.uri());
-        OpenFlowSwitch sw = openFlowController.getSwitch(dpid);
+        OpenFlowSwitch sw;
+        if (deviceId.uri().getScheme().equals(SCHEME)) {
+            sw = openFlowController.getSwitch(dpid(deviceId.uri()));
+        } else {
+            sw = openFlowController14.getSwitch(Dpid14.dpid(deviceId.uri()));
+        }
         if (sw == null || !sw.isConnected()) {
             log.error("sendExperimenterMultipartPortRequest(): OF Switch not obtained for device {}", deviceId);
             return;

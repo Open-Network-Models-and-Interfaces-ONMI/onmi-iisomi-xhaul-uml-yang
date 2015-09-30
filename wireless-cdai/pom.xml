@@ -30,7 +30,7 @@
     <url>http://onosproject.org</url>
 
     <properties>
-        <onos.version>1.3.0-SNAPSHOT</onos.version>
+        <onos.version>1.3.0</onos.version>
         <onos.app.name>org.onosproject.wireless.cdai</onos.app.name>
         <onos.app.origin>NEC Corporation</onos.app.origin>
         <openflowj.version>0.9.0.onos</openflowj.version>
@@ -40,6 +40,11 @@
         <dependency>
             <groupId>org.onosproject</groupId>
             <artifactId>onos-api</artifactId>
+            <version>${onos.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onosproject</groupId>
+            <artifactId>onos-of14-api</artifactId>
             <version>${project.version}</version>
         </dependency>
 
