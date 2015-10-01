@@ -322,6 +322,7 @@ public class WirelessFlowShape {
                              routerFlowRule.deviceId(), meterId);
                     return null;
                 } else if ((i.type() == Instruction.Type.METER) && (operation == Type.REMOVE)) {
+                    log.info("there is meter {} instruction in flow {}", meterId, routerFlowRule.id());
                     removeMeter((Instructions.MeterInstruction) i);
                     continue;
                 }
@@ -348,6 +349,7 @@ public class WirelessFlowShape {
         Meter meter = meterService.getMeter(removeMeterId);
         MeterRequest.Builder buildMeter = buildMeter(meter.deviceId(), getRate(meter));
         meterService.withdraw(buildMeter.remove(), removeMeterId);
+        log.info("Remove meter successfully!");
     }
 
     private long getRate(Meter meter) {
