@@ -264,6 +264,11 @@ public class WirelessFlowShape {
                     log.info("Add meter  for device {} failed", routerFlowRule.deviceId());
                     break;
                 }
+                try {
+                    wait(1_000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 log.info("add meter successfully, modify router flow started.");
                 modifyRouterFlow(routerFlowRule, meterAdd.id(), opType);
                 break;
@@ -308,7 +313,7 @@ public class WirelessFlowShape {
         flowService.applyFlowRules(newRule);
         log.info("Apply flow successfully, flow id is {}.", Long.toHexString(newRule.id().value()));
         //update the flow rule map
-        flowRuleMap.put(routerFlowRule.deviceId(), routerFlowRule);
+        flowRuleMap.put(routerFlowRule.deviceId(), newRule);
     }
 
     private FlowRule.Builder buildFlowRule(FlowRule routerFlowRule, MeterId meterId, Type operation) {
