@@ -271,10 +271,10 @@ public class WirelessFlowShape {
             case REMOVE:
                 //TODO FOR TEST
                 modifyRouterFlow(routerFlowRule, null, opType);
-//                for (Meter meter : meterService.getAllMeters()) {
-//                    MeterRequest.Builder buildMeter = buildMeter(meter.deviceId(), getRate(meter));
-//                    meterService.withdraw(buildMeter.remove(), meter.id());
-//                }
+                for (Meter meter : meterService.getAllMeters()) {
+                    MeterRequest.Builder buildMeter = buildMeter(meter.deviceId(), getRate(meter));
+                    meterService.withdraw(buildMeter.remove(), meter.id());
+                }
                 break;
 
             case MODIFY:
