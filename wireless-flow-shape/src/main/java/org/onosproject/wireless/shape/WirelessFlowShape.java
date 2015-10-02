@@ -126,7 +126,8 @@ public class WirelessFlowShape {
 
     private Map<Long, PortCapacityCollector> collectors = Maps.newHashMap();
     private final DeviceListener listener = new InternalDeviceListener();
-    private final Map<DeviceId, FlowRule> flowRuleMap = Maps.newHashMap();
+    private Map<DeviceId, FlowRule> flowRuleMap = Maps.newHashMap();
+    private Map<DeviceId, MeterId> meterIdMapMap = Maps.newHashMap();
     private ApplicationId appId;
 
 
@@ -137,6 +138,7 @@ public class WirelessFlowShape {
         deviceService.addListener(listener);
         controller.getSwitches().forEach((this::createPortStatsCollection));
         controller14.getSwitches().forEach(this::createPortStatsCollection);
+        initMeterTable();
         log.info("Started");
     }
 
@@ -144,7 +146,33 @@ public class WirelessFlowShape {
     public void deactivate(ComponentContext context) {
         deviceService.removeListener(listener);
         collectors.values().forEach(PortCapacityCollector::stop);
+        removeMeters();
         log.info("Stopped");
+    }
+
+    //add meters to routers
+    //one meter in one router
+    private void initMeterTable() {
+        deviceService.getAvailableDevices().forEach(device -> {
+            if (!isDeviceWireless(device)) {
+                MeterRequest.Builder request = buildMeter(device.id(), shapeMinThreshold);
+                Meter meterAdd = meterService.submit(request.add());
+                if (meterAdd != null) {
+                    log.info("init meter {} for device {} successfully.", meterAdd.toString(), device.id());
+                    meterIdMapMap.put(device.id(), meterAdd.id());
+                }
+
+            }
+        });
+
+    }
+
+    private void removeMeters() {
+        for (Meter meter : meterService.getAllMeters()) {
+            MeterRequest.Builder buildMeter = buildMeter(meter.deviceId(), getRate(meter));
+            meterService.withdraw(buildMeter.remove(), meter.id());
+        }
+
     }
 
     @Modified
@@ -258,28 +286,30 @@ public class WirelessFlowShape {
         FlowRule routerFlowRule = flowRuleMap.get(deviceId);
         switch (opType) {
             case ADD:
-                MeterRequest.Builder request = buildMeter(routerFlowRule.deviceId(), capacity);
-                Meter meterAdd = meterService.submit(request.add());
-                if (meterAdd == null) {
-                    log.info("Add meter  for device {} failed", routerFlowRule.deviceId());
-                    break;
-                }
-                try {
-                    wait(1_000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                log.info("add meter successfully, modify router flow started.");
-                modifyRouterFlow(routerFlowRule, meterAdd.id(), opType);
+//                MeterRequest.Builder request = buildMeter(routerFlowRule.deviceId(), capacity);
+//                Meter meterAdd = meterService.submit(request.add());
+//                if (meterAdd == null) {
+//                    log.info("Add meter  for device {} failed", routerFlowRule.deviceId());
+//                    break;
+//                }
+//                try {
+//                    wait(1_000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                log.info("add meter successfully, modify router flow started.");
+                //get meter id from map
+                MeterId meterId = meterIdMapMap.get(routerFlowRule.deviceId());
+                modifyRouterFlow(routerFlowRule, meterId, opType);
                 break;
 
             case REMOVE:
                 //TODO FOR TEST
                 modifyRouterFlow(routerFlowRule, null, opType);
-                for (Meter meter : meterService.getAllMeters()) {
-                    MeterRequest.Builder buildMeter = buildMeter(meter.deviceId(), getRate(meter));
-                    meterService.withdraw(buildMeter.remove(), meter.id());
-                }
+//                for (Meter meter : meterService.getAllMeters()) {
+//                    MeterRequest.Builder buildMeter = buildMeter(meter.deviceId(), getRate(meter));
+//                    meterService.withdraw(buildMeter.remove(), meter.id());
+//                }
                 break;
 
             case MODIFY:
@@ -328,7 +358,7 @@ public class WirelessFlowShape {
                     return null;
                 } else if ((i.type() == Instruction.Type.METER) && (operation == Type.REMOVE)) {
                     log.info("there is meter {} instruction in flow {}", meterId, routerFlowRule.id());
-                    removeMeter((Instructions.MeterInstruction) i);
+//                    removeMeter((Instructions.MeterInstruction) i);
                     continue;
                 }
                 tBuilder.add(i);
