@@ -179,7 +179,6 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
 
     @Deactivate
     protected void deactivate() {
-        // Unmute microwave secondary port forcibly to always start ONOS app without muted ports.
         if (internalDb.size() != 0) {
             for (InternalData data : internalDb) {
                 data.setPortMute(true);
@@ -215,7 +214,7 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
 
             switch (event.type()) {
                 case PORT_STATS_UPDATED:
-                    log.debug("event(): Recv PORT_STATS_UPDATED");
+                    log.debug("event(): Recv PORT_STATS_UPDATED for device {}", deviceId);
                     if (!isDeviceWireless(device)) {
                         break;
                     }
@@ -231,7 +230,7 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
                     }
 
                     sendExperimenterMultipartPortRequest(device);
-                    log.debug("event(): Send ExperimenterMultipartPortRequest");
+                    log.debug("event(): Send ExperimenterMultipartPortRequest for device {}", deviceId);
 
                     Boolean isSendFlg = Boolean.valueOf(false);
                     multiPartSendDecisionMap.put(deviceId, isSendFlg);
@@ -244,7 +243,7 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
                     printInternalDb();
 
                     if (!result) {
-                        log.debug("event(): Skip Port Utilization Analyze.");
+                        log.debug("event(): Skip Port Utilization Analyze for device {}", deviceId);
                         break;
                     }
 
@@ -311,7 +310,7 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
                     return true;
                 }
 
-                log.debug("analyzeDevicePortStats(): set Capacity Updated flag.");
+                log.debug("analyzeDevicePortStats(): set Capacity Updated flag for device {}", deviceId);
                 portInternalData.setCapacityUpdate(true);
                 peerPortInternalData.setCapacityUpdate(true);
 
@@ -577,8 +576,8 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
 
                 sw.sendMsg(portMod);
 
-                log.info("sendWirelessPortMod(): Port {} is {}",
-                        portDesc.getPortNo(), mute ? "Mute" : "Unmute");
+                log.info("sendWirelessPortMod() for device {} : Port {} is {}",
+                        deviceId, portDesc.getPortNo(), mute ? "Mute" : "Unmute");
             }
         }
     }
@@ -739,16 +738,19 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
 
         @Override
         public void handleMessage(Dpid dpid, OFMessage msg) {
+            DeviceId deviceId = deviceId(uri(dpid));
             switch (msg.getType()) {
                 case STATS_REPLY:
-                    log.debug("handleMessage() : Recv OpenFlow Msg StatsType {}", ((OFStatsReply) msg).getStatsType());
+                    log.debug("handleMessage() : Recv OpenFlow Msg StatsType {} for device {}",
+                        ((OFStatsReply) msg).getStatsType(), deviceId);
                     if (((OFStatsReply) msg).getStatsType() == OFStatsType.EXPERIMENTER
                      && ((OFExperimenterStatsReply) msg).getExperimenter() == WIRELESS_EXPERIMENTER_TYPE) {
                         annotatePortByMwParams(dpid, (OFWirelessMultipartPortsReply) msg);
                     }
                     break;
                 default :
-                    log.debug("handleMessage() : Recv OpenFlow Msg StatsType {}", ((OFStatsReply) msg).getStatsType());
+                    log.debug("handleMessage() : Recv OpenFlow Msg StatsType {} for device {}",
+                        ((OFStatsReply) msg).getStatsType(), deviceId);
                     break;
             }
         }
@@ -785,22 +787,23 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
                 // Search if the current port is presented in the received multipart reply
                 for (OFExperimenterPortWireless msgPort : msgPorts) {
                     PortNumber portNo = PortNumber.portNumber(msgPort.getPortNo().getPortNumber());
-                    log.debug("annotatePortByMwParams(): msgPort {} port {}", portNo, port.number());
+                    log.debug("annotatePortByMwParams(): deviceid {} msgPort {} port {}",
+                        deviceId, portNo, port.number());
                     if (port.number().equals(portNo)) {
-                        isEnabled = getPortStatusFromReplyPort(msgPort);
+                        isEnabled = getPortStatusFromReplyPort(deviceId, msgPort);
 
                         InternalData portInternalData = getInternalData(device, port);
                         if (portInternalData == null) {
                             break;
                         }
 
-                        long txCurrCapacity = getTxCurrCapacityFromReplyPort(msgPort);
+                        long txCurrCapacity = getTxCurrCapacityFromReplyPort(deviceId, msgPort);
                         annotations = DefaultAnnotations.builder()
                             .set(AnnotationKeys.PORT_NAME, msgPort.getName())
                             .set(WIRELESS_TX_CURR_CAPACITY, Long.toString(txCurrCapacity))
                             .build();
-                        log.debug("annotatePortByMwParams(): port {}, TX_CURR_CAPACITY {}",
-                            portNo, txCurrCapacity);
+                        log.debug("annotatePortByMwParams(): deviceid {}, port {}, TX_CURR_CAPACITY {}",
+                            deviceId, portNo, txCurrCapacity);
                         portInternalData.setTxCurrentCapacity(txCurrCapacity);
                         break;
                     }
@@ -831,7 +834,7 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
          * @param msgPort Extraction source the msg.
          * @return Extraction data.
          */
-        private long getTxCurrCapacityFromReplyPort(OFExperimenterPortWireless msgPort) {
+        private long getTxCurrCapacityFromReplyPort(DeviceId deviceId, OFExperimenterPortWireless msgPort) {
             long value = 0;
             List<OFPortDescPropWirelessTransport> props = msgPort.getProperties();
             for (OFPortDescPropWirelessTransport prop : props) {
@@ -848,8 +851,8 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
                     }
                 }
             }
-            log.info("getTxCurrCapacityFromReplyIfc(): TxMaxCapacity not found. port {}"
-                    , msgPort.getPortNo().getPortNumber());
+            log.info("getTxCurrCapacityFromReplyIfc(): TxMaxCapacity not found. deviceId {}, port {}"
+                    , deviceId, msgPort.getPortNo().getPortNumber());
             return value;
         }
 
@@ -859,7 +862,7 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
          * @param msgPort Extraction source the msg.
          * @return Port Staus.
          */
-        private boolean getPortStatusFromReplyPort(OFExperimenterPortWireless msgPort) {
+        private boolean getPortStatusFromReplyPort(DeviceId deviceId, OFExperimenterPortWireless msgPort) {
             boolean isEnabled = false;
 
             long config = msgPort.getConfig();
@@ -878,7 +881,8 @@ public class WirelessCdaiProvider extends AbstractProvider implements DeviceProv
                 isEnabled = true;
             }
 
-            log.info("getPortStatusFromReplyPort(): port:{} config:{} state:{} isEnable:{}",
+            log.info("getPortStatusFromReplyPort(): deviceId:{} port:{} config:{} state:{} isEnable:{}",
+                     deviceId,
                      msgPort.getPortNo().getPortNumber(),
                      msgPort.getConfig(),
                      state,
