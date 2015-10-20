@@ -47,7 +47,6 @@ import org.projectfloodlight.openflow.protocol.OFWirelessTransportInterface;
 import org.projectfloodlight.openflow.protocol.OFWirelessTransportInterfacePropParamHeader;
 import org.projectfloodlight.openflow.protocol.OFWirelessTransportPortFeatureHeader;
 import org.projectfloodlight.openflow.protocol.OFWirelessTxCurrentCapacity;
-import org.projectfloodlight.openflow.protocol.OFWirelessTxMaxCapacity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -88,6 +87,7 @@ public class WirelessFlowShapeDeviceProvider {
 
     @Deactivate
     public void deactivate() {
+        controller.removeEventListener(listener);
         log.info("stopped");
     }
 
@@ -158,23 +158,17 @@ public class WirelessFlowShapeDeviceProvider {
             for (OFPortDescPropWirelessTransport prop : props) {
                 List<OFWirelessTransportPortFeatureHeader> params = prop.getFeatures();
                 for (OFWirelessTransportPortFeatureHeader param : params) {
-                    if (param.getType() == 1) { // (OFWirelessTransportInterfacePropParamTypes.TX_CURRENT_CAPACITY)
-                        List<OFWirelessTransportInterfacePropParamHeader> ifcs =
-                                ((OFWirelessTransportInterface) param).getParams();
-                        for (OFWirelessTransportInterfacePropParamHeader ifp : ifcs) {
-                            if (ifp.getType() == 2) {
-                                long txCurrentCapacity = ((OFWirelessTxCurrentCapacity) ifp).getTxCurrentCapacity();
+                    List<OFWirelessTransportInterfacePropParamHeader> ifcs =
+                            ((OFWirelessTransportInterface) param).getParams();
+                    for (OFWirelessTransportInterfacePropParamHeader ifp : ifcs) {
+                        if (ifp.getType() == 2) {
+                            long txCurrentCapacity = ((OFWirelessTxCurrentCapacity) ifp).getTxCurrentCapacity();
 
-                                log.info(" Get TxCurrentCapacity value {}", txCurrentCapacity);
-                                return txCurrentCapacity;
-                            } else if (ifp.getType() == 1) {
-                                long txMaxCapacity = ((OFWirelessTxMaxCapacity) ifp).getTxMaxCapacity();
-                                log.info(" Get txMaxCapacity value {}", txMaxCapacity);
-                            }
-
+                            log.info(" Get TxCurrentCapacity value {}", txCurrentCapacity);
+                            return txCurrentCapacity;
                         }
-
                     }
+
                 }
                 break;
             }

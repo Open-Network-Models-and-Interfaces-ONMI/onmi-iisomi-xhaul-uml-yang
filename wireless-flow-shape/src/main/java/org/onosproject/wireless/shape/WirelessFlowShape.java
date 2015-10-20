@@ -74,8 +74,10 @@ import static org.onosproject.net.meter.MeterOperation.Type;
 @Component(immediate = true)
 public class WirelessFlowShape {
     Logger log = LoggerFactory.getLogger(getClass());
-    private static final int DEFAULT_MAX_THRESHOLD = 400000;
-    private static final int DEFAULT_MIN_THRESHOLD = 300000;
+    private static final int DEFAULT_MAX_THRESHOLD = 600000;
+    private static final int DEFAULT_MIN_THRESHOLD = 400000;
+    private static final int DEFAULT_METER_RATE = 50000;
+
     private static final int DEFAULT_NUMBER = 1;
     private static final int DEFAULT_BUFFER = 0;
     static final int POLL_INTERVAL = 10;
@@ -127,7 +129,7 @@ public class WirelessFlowShape {
     private Map<Long, PortCapacityCollector> collectors = Maps.newHashMap();
     private final DeviceListener listener = new InternalDeviceListener();
     private Map<DeviceId, FlowRule> flowRuleMap = Maps.newHashMap();
-    private Map<DeviceId, MeterId> meterIdMapMap = Maps.newHashMap();
+    private Map<DeviceId, Meter> meterIdMapMap = Maps.newHashMap();
     private ApplicationId appId;
 
 
@@ -153,23 +155,26 @@ public class WirelessFlowShape {
     //add meters to routers
     //one meter in one router
     private void initMeterTable() {
-        deviceService.getAvailableDevices().forEach(device -> {
+        for (Device device : deviceService.getDevices()) {
+            Meter meter = meterIdMapMap.get(device.id());
+            if (meter != null) {
+                continue;
+            }
             if (!isDeviceWireless(device)) {
-                MeterRequest.Builder request = buildMeter(device.id(), shapeMinThreshold);
+                MeterRequest.Builder request = buildMeter(device.id(), DEFAULT_METER_RATE);
                 Meter meterAdd = meterService.submit(request.add());
                 if (meterAdd != null) {
                     log.info("init meter {} for device {} successfully.", meterAdd.toString(), device.id());
-                    meterIdMapMap.put(device.id(), meterAdd.id());
+                    meterIdMapMap.put(device.id(), meterAdd);
                 }
-
             }
-        });
-
+        }
     }
 
     private void removeMeters() {
-        for (Meter meter : meterService.getAllMeters()) {
+        for (Meter meter : meterIdMapMap.values()) {
             MeterRequest.Builder buildMeter = buildMeter(meter.deviceId(), getRate(meter));
+            log.info("delete meter {} for device {} successfully.", meter.id().id(), meter.deviceId());
             meterService.withdraw(buildMeter.remove(), meter.id());
         }
 
@@ -264,20 +269,15 @@ public class WirelessFlowShape {
      * @param txCurrCapacity tx current capacity of a MW device port
      */
     private void analysisCapacity(DeviceId id, long txCurrCapacity) {
+        if (txCurrCapacity == 0) {
+            return;
+        }
         if (txCurrCapacity > (shapeMaxThreshold)) {
-            curMaxNumber++;
-            if (curMaxNumber < shakeNumber) {
-                return;
-            }
+            log.info("remove policy for devicd{}", id);
             applyPolicyToRouters(id, shapeMaxThreshold, Type.REMOVE);
-            curMaxNumber = 0;
         } else if (txCurrCapacity < (shapeMinThreshold)) {
-            curMinNumber++;
-            if (curMinNumber < shakeNumber) {
-                return;
-            }
-            applyPolicyToRouters(id, (shapeMinThreshold - bufferValue), Type.ADD);
-            curMinNumber = 0;
+            log.info("apply policy for devicd{}", id);
+            applyPolicyToRouters(id, DEFAULT_METER_RATE, Type.ADD);
         }
     }
 
@@ -286,30 +286,13 @@ public class WirelessFlowShape {
         FlowRule routerFlowRule = flowRuleMap.get(deviceId);
         switch (opType) {
             case ADD:
-//                MeterRequest.Builder request = buildMeter(routerFlowRule.deviceId(), capacity);
-//                Meter meterAdd = meterService.submit(request.add());
-//                if (meterAdd == null) {
-//                    log.info("Add meter  for device {} failed", routerFlowRule.deviceId());
-//                    break;
-//                }
-//                try {
-//                    wait(1_000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                log.info("add meter successfully, modify router flow started.");
                 //get meter id from map
-                MeterId meterId = meterIdMapMap.get(routerFlowRule.deviceId());
+                MeterId meterId = meterIdMapMap.get(routerFlowRule.deviceId()).id();
                 modifyRouterFlow(routerFlowRule, meterId, opType);
                 break;
 
             case REMOVE:
-                //TODO FOR TEST
                 modifyRouterFlow(routerFlowRule, null, opType);
-//                for (Meter meter : meterService.getAllMeters()) {
-//                    MeterRequest.Builder buildMeter = buildMeter(meter.deviceId(), getRate(meter));
-//                    meterService.withdraw(buildMeter.remove(), meter.id());
-//                }
                 break;
 
             case MODIFY:
@@ -358,7 +341,6 @@ public class WirelessFlowShape {
                     return null;
                 } else if ((i.type() == Instruction.Type.METER) && (operation == Type.REMOVE)) {
                     log.info("there is meter {} instruction in flow {}", meterId, routerFlowRule.id());
-//                    removeMeter((Instructions.MeterInstruction) i);
                     continue;
                 }
                 tBuilder.add(i);
@@ -450,11 +432,9 @@ public class WirelessFlowShape {
             FlowRule flowRule2 = flowRuleList.get(1);
             short vlanId1 = getVlanId(flowRule1);
             short vlanId2 = getVlanId(flowRule2);
-            if (vlanId1 == -1 || vlanId2 == -1) {
-                return null;
-            }
-
             return vlanId1 > vlanId2 ? flowRule2 : flowRule1;
+        } else if (size > 2) {
+            return flowRuleList.stream().min((f1, f2) -> Short.compare(getVlanId(f1), getVlanId(f2))).get();
         }
         return null;
     }
@@ -485,7 +465,8 @@ public class WirelessFlowShape {
                         return;
                     }
                     String txCurrCapacity = port.annotations().value(WIRELESS_TX_CURR_CAPACITY);
-                    log.info("txCurrCapacity-----> {}, and port number is {}", txCurrCapacity, port.number().toLong());
+                    log.info("txCurrCapacity-----> {}, and the deviceId is {}, port number is {}", txCurrCapacity,
+                             device.id(), port.number().toLong());
                     if (isNullOrEmpty(txCurrCapacity)) {
                         log.info("port {} has no annotation of WIRELESS_TX_CURR_CAPACITY", port.number().toLong());
                         return;
@@ -496,6 +477,8 @@ public class WirelessFlowShape {
                             log.info("Can not find router flow for device {}", device.id());
                             return;
                         }
+                        log.info("find flow{} in router{} for device {}", inRouterRule.id(), inRouterRule.deviceId(),
+                                 device.id());
                         flowRuleMap.put(device.id(), inRouterRule);
                     }
                     analysisCapacity(device.id(), Long.parseLong(txCurrCapacity));
