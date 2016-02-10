@@ -8,7 +8,7 @@ module MicrowaveModel-TypeDefinitions {
             description "Names to be chosen from the following list: 'ETHERNET','E1','T1','J1','E3','DS3','STM1','CPRI1','CPRI2','CPRI3','CPRI4','CPRI5','CPRI6' or 'CPRI7'";
         }
         leaf numberOfTimeSlots {
-            type string;
+            type uint16;
             config false;
             description "Number of time slots required to transport this type of container.";
         }

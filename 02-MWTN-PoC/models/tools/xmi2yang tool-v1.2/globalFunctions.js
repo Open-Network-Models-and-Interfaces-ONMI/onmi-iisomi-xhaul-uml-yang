@@ -7,9 +7,23 @@ if (!String.prototype.toYangDescription) {
   }
 }
 
-var eCore2YangPrimitivTypeMapping = {
-  eBoolean: 'boolean',
-  eInt: 'integer',
-  eByte : 'uint8',
-  eShort : 'uint16'
+var globalFunctions = {};
+
+globalFunctions.eCorePrimitiveTypes = {
+    mappingToYangTypes: {
+      eboolean: 'boolean',
+      eint: 'integer',
+      ebyte : 'uint8',
+      eshort : 'uint16',
+      estring : 'string',
+      edate : 'date-and-time'
+    },
+    mapToYangType: function(type) {
+      var output = this.mappingToYangTypes[type];
+      if (!output) {
+        output = type;
+      }
+      return output;
+    }
 };
+module.exports = globalFunctions;

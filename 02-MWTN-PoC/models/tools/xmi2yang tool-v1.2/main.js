@@ -1086,7 +1086,8 @@ function obj2yang(ele){
                     //did't find the "class"
                     if(k==Class.length){
                         ele[i].attribute[j].nodeType=="list"?ele[i].attribute[j].nodeType="leaf-list":ele[i].attribute[j].nodeType="leaf";
-                        ele[i].attribute[j].type="string";
+                        // check ECore primitive types
+                        ele[i].attribute[j].type = gf.eCorePrimitiveTypes.mapToYangType(ele[i].attribute[j].type);
                     }
                 }
                 if(ele[i].attribute[j].type.split("+")[0] == "leafref"){
