@@ -1,3 +1,4 @@
+# Just a copy
 This folder is a fork of https://github.com/OpenNetworkingFoundation/EAGLE-Open-Model-Profile-and-Tools/tree/UmlYangTools.
 Every modification made here, is necessary for the 2. ONF MWTN PoC and will be reported to the original project.
 
