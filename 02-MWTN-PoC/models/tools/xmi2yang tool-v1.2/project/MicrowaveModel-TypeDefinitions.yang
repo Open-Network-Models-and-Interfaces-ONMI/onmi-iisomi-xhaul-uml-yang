@@ -5,7 +5,7 @@ module MicrowaveModel-TypeDefinitions {
         leaf containerName {
             type string;
             config false;
-            description "Names to be chosen from the following list: "ETHERNET","E1","T1","J1","E3","DS3","STM1","CPRI1","CPRI2","CPRI3","CPRI4","CPRI5","CPRI6" or "CPRI7"";
+            description "Names to be chosen from the following list: 'ETHERNET','E1','T1','J1','E3','DS3','STM1','CPRI1','CPRI2','CPRI3','CPRI4','CPRI5','CPRI6' or 'CPRI7'";
         }
         leaf numberOfTimeSlots {
             type string;
@@ -15,7 +15,7 @@ module MicrowaveModel-TypeDefinitions {
         leaf bundlingIsAvail {
             type boolean;
             config false;
-            description "Shall be set to "1", if this container type can be transported by timeslots distrubuted over several structures/air interfaces.";
+            description "Shall be set to '1', if this container type can be transported by timeslots distrubuted over several structures/air interfaces.";
         }
     }
     typedef severityType {

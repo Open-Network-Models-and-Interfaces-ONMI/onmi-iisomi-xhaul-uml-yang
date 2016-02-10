@@ -21,6 +21,7 @@ var xmlreader=require('xmlreader'),
     Module=require('./model/yang/module.js'),
     Type = require('./model/yang/type.js'),
     RPC=require('./model/yang/rpc.js');
+var gf = require('./globalFunctions.js');
 
 var Typedef=[];//The array of basic DataType and PrimitiveType
 var Class=[];//The array of objcet class

@@ -14,7 +14,11 @@ var leaf = require('./leaf.js');
 var leaf_list = require('./leaf-list.js');
 var Type = require('./type.js');
 
-function Node(name, descrip, type, maxEle, minEle, id, config,isOrdered,feature,status) {
+function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, feature, status) {
+
+  if (descrip && typeof descrip === 'string') {
+    descrip = descrip.toYangDescription();
+  }
     this.id = id;
     this.name = name;
     this.nodeType = type;

@@ -101,7 +101,7 @@ This value is only relevant, if the channel plan, which is referenced in channel
         leaf duplexDistanceVariable {
             type string;
             config false;
-            description ""1" in case the distance between transmitted and received frequency is variable.";
+            description "'1' in case the distance between transmitted and received frequency is variable.";
         }
         leaf adaptiveModulationIsAvail {
             type string;
@@ -172,7 +172,7 @@ A value range shall be expressed by two values separated by a minus._unit:second
             }
             config false;
             description "Available alarms to be listed.
-Mandatory:"aiConfigurationIsFaulty","signalIsLost","rslIsExceeded","temperatureIsExceeded","modemIsFaulty","radioIsFaulty" and "modulationIsDownShifted".
+Mandatory:'aiConfigurationIsFaulty','signalIsLost','rslIsExceeded','temperatureIsExceeded','modemIsFaulty','radioIsFaulty' and 'modulationIsDownShifted'.
 Names are to be separated by commas.
 Further alarms might be added by the device.";
         }
@@ -197,7 +197,7 @@ The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.50
             }
             config false;
             description "Modulation scheme, which is base to the other characteristics described in the same instance of Script.
-The modulation scheme shall be described by the number of symbols (e.g. BPSK->"2" or 256QAM->"256")._unit:symbols";
+The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256')._unit:symbols";
         }
         leaf informationRate {
             type string {
@@ -322,7 +322,7 @@ The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.50
                 range 1..4;
             }
             description "Minimum modulation to be configured (in case adaptive modulation is not used, this value represents also the fixed modulation).
-The modulation scheme shall be described by the number of symbols (e.g. BPSK->"2" or 256QAM->"256").
+The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256').
 Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device)._unit:symbols";
         }
         leaf modulationMax {
@@ -330,7 +330,7 @@ Allowed values are defined in AirInterface::Script::modulationScheme (all instan
                 range 1..4;
             }
             description "Maximum modulation to be configured. The value of this field is only relevant, if Adaptive Modulation has been activated.
-The modulation scheme shall be described by the number of symbols (e.g. BPSK->"2" or 256QAM->"256").
+The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256').
 Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device)._unit:symbols";
         }
         leaf xpicIsOn {
@@ -406,7 +406,7 @@ Allowed values are defined in AirInterface::Script::modulationScheme (all instan
             type string {
                 range 1..4;
             }
-            description "Maintenance FeatureIf this attribute is set to "1", the received IF signal is transmitted back to the remote end.";
+            description "Maintenance FeatureIf this attribute is set to '1', the received IF signal is transmitted back to the remote end.";
         }
         leaf maintenanceTimer {
             type uint64;
