@@ -1,0 +1,13 @@
+module Simple-ObjectClasses {
+    namespace 'urn:onf:Simple-ObjectClasses';
+    prefix Simple-ObjectClasses;
+    container TestObject {
+        config true;
+        leaf uuid {
+            type string;
+        }
+        leaf TestAttribute1 {
+            type string;
+        }
+    }
+}
