@@ -1,5 +1,5 @@
 module MicrowaveModel-ObjectClasses-MwConnection {
-    namespace 'urn:onf:MicrowaveModel-ObjectClasses-MwConnection';
+    namespace "urn:onf:MicrowaveModel-ObjectClasses-MwConnection";
     prefix MicrowaveModel-ObjectClasses-MwConnection;
     import CoreModel-CoreNetworkModule-ObjectClasses {
         prefix CoreModel-CoreNetworkModule-ObjectClasses;
@@ -47,12 +47,12 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         }
         leaf layerprotocol {
             type leafref {
-                path '/CoreModel-CoreNetworkModule-ObjectClasses:LogicalTerminationPoint/lpList/layerProtocolName';
+                path '/CoreModel-CoreNetworkModule-ObjectClasses:NetworkControlDomain/networkElementRefList/ltpRefList/lpList/layerProtocolName';
             }
         }
         leaf layerProtocol {
             type leafref {
-                path '/CoreModel-CoreNetworkModule-ObjectClasses:LogicalTerminationPoint/lpList/layerProtocolName';
+                path '/CoreModel-CoreNetworkModule-ObjectClasses:NetworkControlDomain/networkElementRefList/ltpRefList/lpList/layerProtocolName';
             }
         }
     }
