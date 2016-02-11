@@ -1,5 +1,5 @@
 module CoreModel-CoreNetworkModule-ObjectClasses {
-    namespace 'urn:onf:CoreModel-CoreNetworkModule-ObjectClasses';
+    namespace "urn:onf:CoreModel-CoreNetworkModule-ObjectClasses";
     prefix CoreModel-CoreNetworkModule-ObjectClasses;
     import CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages {
         prefix CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages;
@@ -22,7 +22,7 @@ Note that the model actually represents aggregation of lower level FDs into high
 Aggregation allow reallocation of capacity from lower level FDs to different higher level FDs as if the network is reorganized  (as the association is aggregation not composition).";
             ordered-by system;
             type leafref {
-                path '/NetworkElement/fdRefList/uuid';
+                path '/NetworkControlDomain/networkElementRefList/fdRefList/uuid';
             }
         }
         leaf-list ltpRefList {
@@ -30,7 +30,7 @@ Aggregation allow reallocation of capacity from lower level FDs to different hig
 The LTPs that bound the FD provide capacity for forwarding.";
             ordered-by system;
             type leafref {
-                path '/NetworkElement/ltpRefList/uuid';
+                path '/NetworkControlDomain/networkElementRefList/ltpRefList/uuid';
             }
         }
         leaf-list linkRefList {
@@ -52,7 +52,7 @@ See also _lowerLevelFdRefList.";
             description "The FDs accessible via the NCD.";
             ordered-by system;
             type leafref {
-                path '/NetworkElement/fdRefList/uuid';
+                path '/NetworkControlDomain/networkElementRefList/fdRefList/uuid';
             }
         }
         leaf-list linkRefList {
@@ -94,7 +94,7 @@ A link may support different layer protocols at each Port when it is a transitio
 This association provides a direct summarization of the association via LinkPort and LTP.";
             ordered-by system;
             type leafref {
-                path '/NetworkElement/fdRefList/uuid';
+                path '/NetworkControlDomain/networkElementRefList/fdRefList/uuid';
             }
             min-elements 2;
         }
@@ -170,14 +170,14 @@ Note the cleint LTP association should provide all necessary detail hence this a
             description "References contained LTPs representing servers of this LTP in an inverse multiplexing configuration (e.g. VCAT).";
             ordered-by system;
             type leafref {
-                path '/NetworkElement/ltpRefList/uuid';
+                path '/NetworkControlDomain/networkElementRefList/ltpRefList/uuid';
             }
         }
         leaf-list clientLtpRefList {
             description "References contained LTPs representing client traffic of this LTP for normal cases of multiplexing.";
             ordered-by system;
             type leafref {
-                path '/NetworkElement/ltpRefList/uuid';
+                path '/NetworkControlDomain/networkElementRefList/ltpRefList/uuid';
             }
         }
         list lpList {
@@ -190,14 +190,14 @@ Note the cleint LTP association should provide all necessary detail hence this a
         }
         leaf connectedLtpRef {
             type leafref {
-                path '/NetworkElement/ltpRefList/uuid';
+                path '/NetworkControlDomain/networkElementRefList/ltpRefList/uuid';
             }
             description "Applicable in a simple context where two LTPs are associated via a non-adjustable enabled forwarding.
 Reduces clutter removing the need for two additional LTPs and an FC with a pair of FcPorts.";
         }
         leaf peerLtpRef {
             type leafref {
-                path '/NetworkElement/ltpRefList/uuid';
+                path '/NetworkControlDomain/networkElementRefList/ltpRefList/uuid';
             }
             description "References contained LTPs representing the reversal of orientation of flow where two LTPs are associated via a non-adjustable enabled forwarding and where the referenced LTP is fully dependent on the this LTP.";
         }
@@ -212,7 +212,7 @@ In many cases there is no associated physical port";
 The referencing LTP is the rovider of capability.";
             ordered-by system;
             type leafref {
-                path '/NetworkElement/ltpRefList/uuid';
+                path '/NetworkControlDomain/networkElementRefList/ltpRefList/uuid';
             }
         }
         leaf ltpDirection {
@@ -235,7 +235,7 @@ Zero Ltp
 - Off-network LTP referenced through other mechanism";
             ordered-by system;
             type leafref {
-                path '/NetworkElement/ltpRefList/uuid';
+                path '/NetworkControlDomain/networkElementRefList/ltpRefList/uuid';
             }
         }
         leaf role {

@@ -12,6 +12,10 @@
  ****************************************************************************************************/
 var Type = require('./type.js');
 function leaf(name, id, config, value, descrip, type,feature,status) {
+
+  if (descrip && typeof descrip === 'string') {
+    descrip = descrip.toYangDescription();
+  }
     this.name = name;
     this.id = id;
     this.config = config;

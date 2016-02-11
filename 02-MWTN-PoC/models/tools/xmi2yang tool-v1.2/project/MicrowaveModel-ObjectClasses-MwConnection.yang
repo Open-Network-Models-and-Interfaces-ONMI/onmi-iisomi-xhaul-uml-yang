@@ -1,5 +1,5 @@
 module MicrowaveModel-ObjectClasses-MwConnection {
-    namespace 'urn:onf:MicrowaveModel-ObjectClasses-MwConnection';
+    namespace "urn:onf:MicrowaveModel-ObjectClasses-MwConnection";
     prefix MicrowaveModel-ObjectClasses-MwConnection;
     import CoreModel-CoreNetworkModule-ObjectClasses {
         prefix CoreModel-CoreNetworkModule-ObjectClasses;
@@ -47,12 +47,12 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         }
         leaf layerprotocol {
             type leafref {
-                path '/CoreModel-CoreNetworkModule-ObjectClasses:LogicalTerminationPoint/lpList/layerProtocolName';
+                path '/CoreModel-CoreNetworkModule-ObjectClasses:NetworkControlDomain/networkElementRefList/ltpRefList/lpList/layerProtocolName';
             }
         }
         leaf layerProtocol {
             type leafref {
-                path '/CoreModel-CoreNetworkModule-ObjectClasses:LogicalTerminationPoint/lpList/layerProtocolName';
+                path '/CoreModel-CoreNetworkModule-ObjectClasses:NetworkControlDomain/networkElementRefList/ltpRefList/lpList/layerProtocolName';
             }
         }
     }
@@ -64,7 +64,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
 Instead of uploading the complete set of capabilities, capabilities of the same equipment type could be reused.";
         }
         leaf channelPlanId {
-            type string;
+            type _S76W8Hf2EeW-h9gN8LYm4Q;
             config false;
             description "Unique identifier of the international agreement that describes the allocating of frequency channels, to which this Air Interface Port complies. The Microwave Extension shall define the exact names of the references as an enum.
 Applying this field for reducing the number of sub-messages requires a corresponding channel plan to be stored in the controller.";
@@ -99,43 +99,43 @@ This value is only relevant, if the channel plan, which is referenced in channel
             description "Distance between transmitted and received frequency. The value shall be expressed in kHz.";
         }
         leaf duplexDistanceVariable {
-            type string;
+            type boolean;
             config false;
-            description ""1" in case the distance between transmitted and received frequency is variable.";
+            description "'1' in case the distance between transmitted and received frequency is variable.";
         }
         leaf adaptiveModulationIsAvail {
-            type string;
+            type boolean;
             config false;
             description "In case the Air Interface Port is capable of adaptive modulation, this field shall contain an “1”.";
         }
         leaf mimoIsAvail {
-            type string;
+            type boolean;
             config false;
             description "In case the device is capable of MIMO, this field shall contain an “1”.";
         }
         leaf mimoChannels {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Maximum number (n) of Air Interfaces that can be combined to a n x n MIMO configuration.";
         }
         leaf afrIsAvail {
-            type string {
+            type boolean {
                 range 1..4;
             }
             config false;
             description "In case the microwave radio is capable of Advanced Frequency Reuse (canceling of interference cause by transmitters located at the same site), this field shall contain an “1”.";
         }
         leaf atpcIsAvail {
-            type string {
+            type boolean {
                 range 1..4;
             }
             config false;
             description "In case the microwave radio is capable of ATPC, this field shall contain an “1”.";
         }
         leaf atpcRange {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
@@ -144,14 +144,14 @@ The value should be set to 0 in case ATPC feature bit is 0.
 ";
         }
         leaf autoFreqSelectIsAvail {
-            type string {
+            type boolean {
                 range 1..4;
             }
             config false;
             description "In case the microwave radio is capable of automatically selecting the transmit frequency in unlicensed bands, this field shall contain an “1”.";
         }
         leaf loopBackIsAvail {
-            type string {
+            type boolean {
                 range 1..4;
             }
             config false;
@@ -172,7 +172,7 @@ A value range shall be expressed by two values separated by a minus._unit:second
             }
             config false;
             description "Available alarms to be listed.
-Mandatory:"aiConfigurationIsFaulty","signalIsLost","rslIsExceeded","temperatureIsExceeded","modemIsFaulty","radioIsFaulty" and "modulationIsDownShifted".
+Mandatory:'aiConfigurationIsFaulty','signalIsLost','rslIsExceeded','temperatureIsExceeded','modemIsFaulty','radioIsFaulty' and 'modulationIsDownShifted'.
 Names are to be separated by commas.
 Further alarms might be added by the device.";
         }
@@ -192,57 +192,57 @@ The value shall be expressed explicitly (means in kHz) not as a reference to an 
 The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;_unit:kHz";
         }
         leaf modulationScheme {
-            type string {
+            type uint16 {
                 range 1..4;
             }
             config false;
             description "Modulation scheme, which is base to the other characteristics described in the same instance of Script.
-The modulation scheme shall be described by the number of symbols (e.g. BPSK->"2" or 256QAM->"256")._unit:symbols";
+The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256')._unit:symbols";
         }
         leaf informationRate {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Information rate of the coding scheme in %._unit:%";
         }
         leaf txPowerMin {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Value of the minimum transmit power the modem can operate in dBm._unit:dBm";
         }
         leaf txPowerMax {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Value of the maximum transmit power the modem can operate in dBm._unit:dBm";
         }
         leaf rxThreshold {
-            type string {
+            type uint16 {
                 range 1..4;
             }
             config false;
             description "Value of the receive level (in dBm) required to decode the received signal with a Bit Error Rate of 1e-6 or less._unit:dBm";
         }
         leaf amUpshiftLevel {
-            type string {
+            type uint16 {
                 range 1..4;
             }
             config false;
             description "Value of the receive level (in dBm) that has to be exceeded to shift into a higher modulation scheme.";
         }
         leaf amDownshiftLevel {
-            type string {
+            type uint16 {
                 range 1..4;
             }
             config false;
             description "Value of the receive level (in dBm) that has to be exceeded for not shifting into a lower modulation scheme.";
         }
         leaf xpicIsAvail {
-            type string {
+            type boolean {
                 range 1..4;
             }
             config false;
@@ -257,7 +257,7 @@ The modulation scheme shall be described by the number of symbols (e.g. BPSK->"2
             description "Operator specific microwave link ID (often used for coding area, type of element and sequential number).";
         }
         leaf radioSignalId {
-            type string {
+            type uint16 {
                 range 1..4;
             }
             description "The radioSignalId is transmitted on the air interface so the remote site of the link synchronizes on the correct transmitter.
@@ -287,54 +287,54 @@ The value shall be expressed explicitly (means in kHz) not as a reference to an 
 The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;_unit:kHz";
         }
         leaf polarization {
-            type string {
+            type _e85NsI99EeWFluv9KLLl5A {
                 range 1..4;
             }
             description "Allows to document the polarization of the air interface.";
         }
         leaf powerIsOn {
-            type string {
+            type boolean {
                 range 1..4;
             }
             description "Power ON. Activation of the entire radio in a split mount configuration shall be expressed as an “1”.";
         }
         leaf transmitterIsOn {
-            type string {
+            type boolean {
                 range 1..4;
             }
             description "Transmit Power. Activation of the transmitter inside the radio shall be expressed as an “1”.";
         }
         leaf txPower {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             description "Transmit power to be configured on the microwave link. The value shall be explicitly expressed in dBm (not relative to some upper or lower end of the power range). Signed integers are required.
 (The actually operated transmit power might be lower depending on adaptive modulation and ATPC.)_unit:dBm";
         }
         leaf adaptiveModulationIsOn {
-            type string {
+            type boolean {
                 range 1..4;
             }
             description "Adaptive Modulation. Activation of adaptive modulation shall be expressed as an “1”.";
         }
         leaf modulationMin {
-            type string {
+            type uint16 {
                 range 1..4;
             }
             description "Minimum modulation to be configured (in case adaptive modulation is not used, this value represents also the fixed modulation).
-The modulation scheme shall be described by the number of symbols (e.g. BPSK->"2" or 256QAM->"256").
+The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256').
 Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device)._unit:symbols";
         }
         leaf modulationMax {
-            type string {
+            type uint16 {
                 range 1..4;
             }
             description "Maximum modulation to be configured. The value of this field is only relevant, if Adaptive Modulation has been activated.
-The modulation scheme shall be described by the number of symbols (e.g. BPSK->"2" or 256QAM->"256").
+The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256').
 Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device)._unit:symbols";
         }
         leaf xpicIsOn {
-            type string {
+            type boolean {
                 range 1..4;
             }
             description "XPIC. Activation of Cross Polarization Interference Cancellation shall be expressed as an “1”.";
@@ -347,7 +347,7 @@ Allowed values are defined in AirInterface::Script::modulationScheme (all instan
             description "Second Air Interface of the XPIC configuration.";
         }
         leaf mimoIsOn {
-            type string {
+            type boolean {
                 range 1..4;
             }
             description "Activation of Multiple Input Multiple Output shall be expressed as an “1”.";
@@ -361,52 +361,52 @@ Allowed values are defined in AirInterface::Script::modulationScheme (all instan
             }
         }
         leaf afrIsOn {
-            type string {
+            type boolean {
                 range 1..4;
             }
             description "Activation of Advanced Frequency Reuse shall be expressed as an “1”.";
         }
         leaf atpcIsOn {
-            type string {
+            type boolean {
                 range 1..4;
             }
             description "ATPC. Activation of Automated Transmit Power Control shall be expressed as an “1”.";
         }
         leaf atpcThreshUpper {
-            type string {
+            type uint16 {
                 range 1..4;
             }
             description "If the receive level is higher than the upper threshold value, the transmitter is notified to decrease transmit power. The value shall be explicitly expressed (means in dBm). Value of this field is only relevant, if ATPC has been activated.";
         }
         leaf atpcThreshLower {
-            type string {
+            type uint16 {
                 range 1..4;
             }
             description "If the receive level is lower than the lower threshold value, the transmitter is notified to increase transmit power. The value shall be explicitly expressed (means in dBm). Value of this field is only relevant, if ATPC has been activated.";
         }
         leaf autoFreqSelectIsOn {
-            type string {
+            type boolean {
                 range 1..4;
             }
             description "Activation of automatically selecting the transmit frequency in unlicensed bands shall be expressed as an “1”.";
         }
         leaf autoFreqSelectRange {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             description "Number of transmit channels (starting at the center frequency defined in txFrequency and with channel bandwidth according to txChannelBandwidth) that define the range within the transmit frequency can automatically been chosen. ";
         }
         leaf modulationIsOn {
-            type string {
+            type boolean {
                 range 1..4;
             }
             description "Maintenance FeatureDe-activation of the modulation of the carrier signal for fault management shall be expressed as an “0”.";
         }
         leaf loopBackIsOn {
-            type string {
+            type boolean {
                 range 1..4;
             }
-            description "Maintenance FeatureIf this attribute is set to "1", the received IF signal is transmitted back to the remote end.";
+            description "Maintenance FeatureIf this attribute is set to '1', the received IF signal is transmitted back to the remote end.";
         }
         leaf maintenanceTimer {
             type uint64;
@@ -433,98 +433,98 @@ _unit:s";
             description "Center frequency of the currently operated receive channel in kHz. (Especially required in case of automated frequency selection in unlicensed bands.)";
         }
         leaf txLevelCur {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Current transmit level in dBm. Signed integers are required.";
         }
         leaf rxLevelCur {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Current receive level in dBm. Signed integers are required.";
         }
         leaf modulationCur {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Currently operated modulation. An enum shall define a set of modulation schemes distinguished by the number of states in their phase diagram.";
         }
         leaf informationRateCur {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Information rate of the currently operated coding scheme in %.";
         }
         leaf snrCur {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Currently measured signal to noise ratio in dB.";
         }
         leaf xpdCur {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Currently measured cross polarization discrimination in dB.";
         }
         leaf rxTempCur {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Current temperature of the radio frequency power amplifier in the receiver in °Celsius. (If the temperature of the power amplifier in the receiver is not measured, the temperature inside the radio is also fine.)";
         }
         leaf operationalStatus {
-            type string {
+            type ../OnfModel-CoreModel/CoreModel.uml#_oGqjalLNEeO75dO39GbF8Q {
                 range 1..4;
             }
             config false;
             description "Current operational state of the Air Interface.";
         }
         leaf lastStatusChange {
-            type string {
+            type date-and-time {
                 range 1..4;
             }
             config false;
             description "Time the Air Interface entered its current operational status. ";
         }
         leaf radioPowerIsUp {
-            type string {
+            type boolean {
                 range 1..4;
             }
             config false;
             description "If the radio unit has power and is switched on, this shall be expressed as an “1”.";
         }
         leaf linkIsUp {
-            type string {
+            type boolean {
                 range 1..4;
             }
             config false;
             description "If connection is established to the remote site with the same linkID, this shall be expressed as an “1”.";
         }
         leaf xpicIsUp {
-            type string {
+            type boolean {
                 range 1..4;
             }
             config false;
             description "If XPIC is currently actually working (not just configured), this shall be expressed as an “1”.";
         }
         leaf mimoIsUp {
-            type string {
+            type boolean {
                 range 1..4;
             }
             config false;
             description "If MIMO is currently actually working (not just configured), this shall be expressed as an “1”.";
         }
         leaf afrIsUp {
-            type string {
+            type boolean {
                 range 1..4;
             }
             config false;
@@ -538,14 +538,14 @@ _unit:s";
             description "If ATPC is currently actually working (not just configured), this shall be expressed as an “1”.";
         }
         leaf autoFreqSelectIsUp {
-            type string {
+            type boolean {
                 range 1..4;
             }
             config false;
             description "If automated frequency selection is currently actually working (not just configured), this shall be expressed as an “1”.";
         }
         leaf loopBackIsUp {
-            type string {
+            type boolean {
                 range 1..4;
             }
             config false;
@@ -596,42 +596,42 @@ _unit:s";
             description "Total time of unavailability in seconds.";
         }
         leaf txLevelMin {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Minimum transmit power in dBm. Signed integers are required.";
         }
         leaf txLevelMax {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Maximum transmit power in dBm. Signed integers are required.";
         }
         leaf txLevelAvg {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Average transmit power in dBm. Signed integers are required.";
         }
         leaf rxLevelMin {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Minimum receive level in dBm. Signed integers are required.";
         }
         leaf rxLevelMax {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Maximum receive level in dBm. Signed integers are required.";
         }
         leaf rxLevelAvg {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
@@ -738,70 +738,70 @@ _unit:s";
             description "Sum of all seconds the transmitter operated in e.g. 8192QAM light.";
         }
         leaf snrMin {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Minimum signal to noise ratio in dB.";
         }
         leaf snrMax {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Maximum signal to noise ratio in dB.";
         }
         leaf snrAvg {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Average signal to noise ratio in dB.";
         }
         leaf xpdMin {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Minimum cross polarization discrimination in dB.";
         }
         leaf xpdMax {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Maximum cross polarization discrimination in dB.";
         }
         leaf xpdAvg {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Average cross polarization discrimination in dB.";
         }
         leaf rxTempMin {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Minimum temperature of RF power amplifier.";
         }
         leaf rxTempMax {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Maximum temperature of RF power amplifier.";
         }
         leaf rxTempAvg {
-            type string {
+            type uint8 {
                 range 1..4;
             }
             config false;
             description "Average temperature of RF power amplifier.";
         }
         leaf defectBlocksSum {
-            type string {
+            type uint16 {
                 range 1..4;
             }
             config false;
