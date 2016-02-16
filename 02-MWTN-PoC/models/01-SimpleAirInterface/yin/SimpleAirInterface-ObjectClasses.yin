@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="SimpleAirInterface-ObjectClasses"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:SimpleAirInterface-ObjectClasses="urn:onf:SimpleAirInterface-ObjectClasses">
+  <namespace uri="urn:onf:SimpleAirInterface-ObjectClasses"/>
+  <prefix value="SimpleAirInterface-ObjectClasses"/>
+  <container name="AirInterface">
+    <config value="true"/>
+    <leaf name="capAdaptiveModulationIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+    </leaf>
+    <leaf name="configAdaptiveModulationIsOn">
+      <type name="boolean"/>
+    </leaf>
+    <leaf name="statusAdaptiveModulationIsOn">
+      <type name="boolean"/>
+      <config value="false"/>
+    </leaf>
+  </container>
+</module>
