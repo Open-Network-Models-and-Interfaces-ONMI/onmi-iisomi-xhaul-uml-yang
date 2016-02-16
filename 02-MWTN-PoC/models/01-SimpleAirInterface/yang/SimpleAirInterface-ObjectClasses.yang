@@ -1,0 +1,18 @@
+module SimpleAirInterface-ObjectClasses {
+    namespace "urn:onf:SimpleAirInterface-ObjectClasses";
+    prefix SimpleAirInterface-ObjectClasses;
+    container AirInterface {
+        config true;
+        leaf capAdaptiveModulationIsAvail {
+            type boolean;
+            config false;
+        }
+        leaf configAdaptiveModulationIsOn {
+            type boolean;
+        }
+        leaf statusAdaptiveModulationIsOn {
+            type boolean;
+            config false;
+        }
+    }
+}
