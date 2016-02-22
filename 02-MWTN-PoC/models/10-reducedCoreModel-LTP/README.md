@@ -3,7 +3,7 @@ For the 2. ONF MWTN PoC the ONF Core Model 1.1 is reduced to focus on the import
 The focus is on the Object Classes: LogicalTerminaionPoint and LayerProtocol (in short LTP).
 
 ## Status
-Ok: Generated YANG files are valid according to pyang 1.6.
+Ok: Generated YANG files are valid according to pyang (1.6) and ODL yang-validation-tool (Lithium-SR3).
 
 ## Changes made on ONF Core Model 1.1
 - remove package CoreModel::ExplanatoryFiguresUsedIndDocumentsAndSlides
@@ -23,3 +23,5 @@ Ok: Generated YANG files are valid according to pyang 1.6.
 - remove object class CoreModel::CoreNetworkModule::ObjectClasses::FcPort
 - define type for CoreModel::CoreNetworkModule::ObjectClasses::LayerProtocol::terminationState - set to Boolean
 - define type for CoreModel::CoreNetworkModule::ObjectClasses::LayerProtocol::configuredClientCapacity - set to String
+- remove object class CoreModel::CoreNetworkModule::ObjectClasses::SdnController
+- remove object class CoreModel::CoreNetworkModule::ObjectClasses::NetworkControlDomain
