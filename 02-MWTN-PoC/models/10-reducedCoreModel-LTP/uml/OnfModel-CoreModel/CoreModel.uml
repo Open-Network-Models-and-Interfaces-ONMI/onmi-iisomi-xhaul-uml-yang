@@ -184,21 +184,6 @@ Indicates to what degree the LayerTermination is terminated.</body>
         </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_oGqltlLNEeO75dO39GbF8Q" name="ObjectClasses">
-        <packagedElement xmi:type="uml:Class" xmi:id="_oGqneFLNEeO75dO39GbF8Q" name="NetworkControlDomain">
-          <ownedComment xmi:type="uml:Comment" xmi:id="_fZoe8FlsEeSUSuWjwt7kSQ">
-            <body>The Network Control Domain (NCD) object class represents the scope of control that a particular SDN controller has with respect to a particular network, (i.e., encompassing a designated set of interconnected network elements).&#xD;
-In the interfaces between SDN controllers where virtualization is necessary, e.g., in client/server SDN controller relationship, the NCD object defines the scope of control of the client SDN controller on the virtual network that has been provided by the server SDN controller (i.e., the scope of control relates to the partitioned provider resources allocated to that particular client). &#xD;
-The NCD provides the scope of naming space for identifying objects representing the virtual resources within the virtual network.</body>
-          </ownedComment>
-          <generalization xmi:type="uml:Generalization" xmi:id="_yl3LUI2tEeO38ZmbECnvbg" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_oGqnfFLNEeO75dO39GbF8Q" name="_networkElementRefList" visibility="public" type="_oGqnr1LNEeO75dO39GbF8Q" aggregation="composite" association="_oGqnx1LNEeO75dO39GbF8Q">
-            <ownedComment xmi:type="uml:Comment" xmi:id="_GpVj8GaQEeWrX_JIGzXlSg" annotatedElement="_oGqnfFLNEeO75dO39GbF8Q">
-              <body>The network elements within the scope of the NCD where each NE is within one and only one domain.</body>
-            </ownedComment>
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_oGqnflLNEeO75dO39GbF8Q"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_oGqnfVLNEeO75dO39GbF8Q" value="*"/>
-          </ownedAttribute>
-        </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_oGqnr1LNEeO75dO39GbF8Q" name="NetworkElement">
           <ownedComment xmi:type="uml:Comment" xmi:id="_oGqnsFLNEeO75dO39GbF8Q" annotatedElement="_oGqnr1LNEeO75dO39GbF8Q">
             <body>The Network Element (NE) object class represents a network element (traditional NE) in the data plane.&#xD;
@@ -220,12 +205,6 @@ An LTP can be independent of an NE.</body>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DyAG8VYmEeOVGaP4lO41SQ"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DyAG8lYmEeOVGaP4lO41SQ" value="*"/>
           </ownedAttribute>
-        </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_oGqoB1LNEeO75dO39GbF8Q" name="SdnController" isAbstract="true">
-          <ownedComment xmi:type="uml:Comment" xmi:id="_Zm4WkGaREeWrX_JIGzXlSg" annotatedElement="_oGqoB1LNEeO75dO39GbF8Q">
-            <body>Represents the SDN controller.</body>
-          </ownedComment>
-          <generalization xmi:type="uml:Generalization" xmi:id="_KLgm8I2uEeO38ZmbECnvbg" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_gROecFYXEeOVGaP4lO41SQ" name="LayerProtocol">
           <ownedComment xmi:type="uml:Comment" xmi:id="_IX_aMFlqEeSUSuWjwt7kSQ" annotatedElement="_gROecFYXEeOVGaP4lO41SQ">
@@ -367,15 +346,6 @@ Suggest adding CONTRA_DIRECTION_SINK and CONTRA_DIRECTION_SOURCE to TerminationD
         </ownedComment>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_tyBQYBirEeSh8KVgZCMyDw" name="Associations">
-        <packagedElement xmi:type="uml:Association" xmi:id="_oGqnx1LNEeO75dO39GbF8Q" name="NcdControlsNes" memberEnd="_oGqnfFLNEeO75dO39GbF8Q _oGqnylLNEeO75dO39GbF8Q">
-          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_oGqnyFLNEeO75dO39GbF8Q" source="http://www.eclipse.org/uml2/2.0.0/UML">
-            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_oGqnyVLNEeO75dO39GbF8Q" key="Kam: naming?"/>
-          </eAnnotations>
-          <ownedEnd xmi:type="uml:Property" xmi:id="_oGqnylLNEeO75dO39GbF8Q" name="" visibility="private" type="_oGqneFLNEeO75dO39GbF8Q" association="_oGqnx1LNEeO75dO39GbF8Q">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_oGqnzFLNEeO75dO39GbF8Q" value="1"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_oGqny1LNEeO75dO39GbF8Q" value="1"/>
-          </ownedEnd>
-        </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_DyIp0FYmEeOVGaP4lO41SQ" name="NeIncludesLtps" memberEnd="_DyIp0VYmEeOVGaP4lO41SQ _DyAG8FYmEeOVGaP4lO41SQ">
           <ownedEnd xmi:type="uml:Property" xmi:id="_DyIp0VYmEeOVGaP4lO41SQ" name="_neList" type="_oGqnr1LNEeO75dO39GbF8Q" association="_DyIp0FYmEeOVGaP4lO41SQ">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DyIp0lYmEeOVGaP4lO41SQ"/>
@@ -410,16 +380,6 @@ Suggest adding CONTRA_DIRECTION_SINK and CONTRA_DIRECTION_SOURCE to TerminationD
           <ownedEnd xmi:type="uml:Property" xmi:id="_lvO_QVYXEeOVGaP4lO41SQ" name="_logicalTerminationPoint" type="_eEpDMFX4EeOVGaP4lO41SQ" association="_lvO_QFYXEeOVGaP4lO41SQ">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lvO_QlYXEeOVGaP4lO41SQ" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lvO_Q1YXEeOVGaP4lO41SQ" value="1"/>
-          </ownedEnd>
-        </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_oGqoCFLNEeO75dO39GbF8Q" name="SdnControlerHasNcds" memberEnd="_oGqoDFLNEeO75dO39GbF8Q _oGqoCVLNEeO75dO39GbF8Q">
-          <ownedEnd xmi:type="uml:Property" xmi:id="_oGqoCVLNEeO75dO39GbF8Q" name="" visibility="private" type="_oGqoB1LNEeO75dO39GbF8Q" association="_oGqoCFLNEeO75dO39GbF8Q">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_oGqoC1LNEeO75dO39GbF8Q"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_oGqoClLNEeO75dO39GbF8Q" value="*"/>
-          </ownedEnd>
-          <ownedEnd xmi:type="uml:Property" xmi:id="_oGqoDFLNEeO75dO39GbF8Q" name="" visibility="private" type="_oGqneFLNEeO75dO39GbF8Q" association="_oGqoCFLNEeO75dO39GbF8Q">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_oGqoDlLNEeO75dO39GbF8Q"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_oGqoDVLNEeO75dO39GbF8Q" value="*"/>
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_vrCogBigEeSh8KVgZCMyDw" name="LtpRelatestToLtpInOtherView" memberEnd="_vrCogRigEeSh8KVgZCMyDw _vq1NIBigEeSh8KVgZCMyDw">
@@ -897,18 +857,10 @@ http://www.itu.int/rec/T-REC-X.731/en&#xD;
       <appliedProfile xmi:type="uml:Profile" href="../OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
     </profileApplication>
   </uml:Package>
-  <OpenModel_Profile:OpenModelClass xmi:id="_ajFBwFg5EeOGT-4_Vdnb5w" base_Class="_oGqneFLNEeO75dO39GbF8Q"/>
-  <OpenModel_Profile:OpenModelClass xmi:id="_n_EUADK6EeS9t_pD0-sMng" base_Class="_oGqneFLNEeO75dO39GbF8Q"/>
-  <OpenModel_Profile:Preliminary xmi:id="_BUybgNIvEeS3iYmhnGQeUQ" base_Class="_oGqneFLNEeO75dO39GbF8Q" base_Element="_oGqneFLNEeO75dO39GbF8Q"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_ajiUwFg5EeOGT-4_Vdnb5w" base_StructuralFeature="_oGqnfFLNEeO75dO39GbF8Q"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_oBeu0DK6EeS9t_pD0-sMng" base_StructuralFeature="_oGqnfFLNEeO75dO39GbF8Q"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_aldAUFg5EeOGT-4_Vdnb5w" base_Class="_oGqnr1LNEeO75dO39GbF8Q"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_n0Nu4DK6EeS9t_pD0-sMng" base_Class="_oGqnr1LNEeO75dO39GbF8Q"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_amW_QFg5EeOGT-4_Vdnb5w" base_StructuralFeature="_DyAG8FYmEeOVGaP4lO41SQ"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_n1-CYDK6EeS9t_pD0-sMng" base_StructuralFeature="_DyAG8FYmEeOVGaP4lO41SQ"/>
-  <OpenModel_Profile:OpenModelClass xmi:id="_aocC4Fg5EeOGT-4_Vdnb5w" base_Class="_oGqoB1LNEeO75dO39GbF8Q"/>
-  <OpenModel_Profile:OpenModelClass xmi:id="_nzgkQDK6EeS9t_pD0-sMng" base_Class="_oGqoB1LNEeO75dO39GbF8Q"/>
-  <OpenModel_Profile:Preliminary xmi:id="_8_77INIuEeS3iYmhnGQeUQ" base_Class="_oGqoB1LNEeO75dO39GbF8Q" base_Element="_oGqoB1LNEeO75dO39GbF8Q"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_aq6IEFg5EeOGT-4_Vdnb5w" base_Class="_gROecFYXEeOVGaP4lO41SQ"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_nq1JYDK6EeS9t_pD0-sMng" base_Class="_gROecFYXEeOVGaP4lO41SQ"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_arrkIFg5EeOGT-4_Vdnb5w" base_StructuralFeature="_OwauQFeEEeOVGaP4lO41SQ"/>
@@ -939,16 +891,12 @@ http://www.itu.int/rec/T-REC-X.731/en&#xD;
   <OpenModel_Profile:OpenModelAttribute xmi:id="_pAQWEBihEeSh8KVgZCMyDw" base_StructuralFeature="_vq1NIBigEeSh8KVgZCMyDw"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_miEKgDK6EeS9t_pD0-sMng" base_StructuralFeature="_vq1NIBigEeSh8KVgZCMyDw"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_S811EUDBEeWQeOKbNUpP9A" base_StructuralFeature="_S811EEDBEeWQeOKbNUpP9A"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_amrIUFg5EeOGT-4_Vdnb5w" base_StructuralFeature="_oGqnylLNEeO75dO39GbF8Q"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_aqZKsFg5EeOGT-4_Vdnb5w" base_StructuralFeature="_DyIp0VYmEeOVGaP4lO41SQ"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_ar4_gFg5EeOGT-4_Vdnb5w" base_StructuralFeature="_CHToEVYYEeOVGaP4lO41SQ"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_ar_tMFg5EeOGT-4_Vdnb5w" base_StructuralFeature="_3ZB88VYWEeOVGaP4lO41SQ"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_asGa4Fg5EeOGT-4_Vdnb5w" base_StructuralFeature="_Tk5gUVYYEeOVGaP4lO41SQ"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_asNIkFg5EeOGT-4_Vdnb5w" base_StructuralFeature="_D4V48VX5EeOVGaP4lO41SQ"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_mu5soDK6EeS9t_pD0-sMng" base_StructuralFeature="_lvO_QVYXEeOVGaP4lO41SQ"/>
-  <OpenModel_Profile:Preliminary xmi:id="_D-CVsNIvEeS3iYmhnGQeUQ" base_Association="_oGqoCFLNEeO75dO39GbF8Q" base_Element="_oGqoCFLNEeO75dO39GbF8Q"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_n-mZ8DK6EeS9t_pD0-sMng" base_StructuralFeature="_oGqoCVLNEeO75dO39GbF8Q"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_aopeQFg5EeOGT-4_Vdnb5w" base_StructuralFeature="_oGqoDFLNEeO75dO39GbF8Q"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_vrCohBigEeSh8KVgZCMyDw" base_StructuralFeature="_vrCogRigEeSh8KVgZCMyDw"/>
   <OpenModel_Profile:Preliminary xmi:id="_7odKAL7WEeSdssyZX-p90g" base_Constraint="_gsh30K37EeSXJ6XI-2nsRw" base_Element="_gsh30K37EeSXJ6XI-2nsRw"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_BUweII2tEeO38ZmbECnvbg" base_Class="_BUcVEI2tEeO38ZmbECnvbg"/>
@@ -999,8 +947,6 @@ http://www.itu.int/rec/T-REC-X.731/en&#xD;
   <OpenModel_Profile:Preliminary xmi:id="_yaxOYGXKEeWWhJGy6csBUQ" base_DataType="_P-Hp8MD4EeSoNOrYOfaryg" base_Element="_P-Hp8MD4EeSoNOrYOfaryg"/>
   <OpenModel_Profile:Preliminary xmi:id="_UJXxMGYyEeWrX_JIGzXlSg" base_StructuralFeature="_vq1NIBigEeSh8KVgZCMyDw" base_Element="_vq1NIBigEeSh8KVgZCMyDw"/>
   <OpenModel_Profile:Preliminary xmi:id="_Ty8uQGZ_EeWrX_JIGzXlSg" base_DataType="_DUU_sGZ_EeWrX_JIGzXlSg" base_Element="_DUU_sGZ_EeWrX_JIGzXlSg"/>
-  <OpenModel_Profile:Preliminary xmi:id="_6JnecGaQEeWrX_JIGzXlSg" base_Association="_oGqnx1LNEeO75dO39GbF8Q" base_Element="_oGqnx1LNEeO75dO39GbF8Q"/>
-  <OpenModel_Profile:Preliminary xmi:id="_FpsPYGaREeWrX_JIGzXlSg" base_StructuralFeature="_oGqnfFLNEeO75dO39GbF8Q" base_Element="_oGqnfFLNEeO75dO39GbF8Q"/>
   <OpenModel_Profile:Experimental xmi:id="_jBcjMGb3EeWrX_JIGzXlSg" base_DataType="_c3Hu8Gb3EeWrX_JIGzXlSg" base_Element="_c3Hu8Gb3EeWrX_JIGzXlSg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_p2ZGsGeEEeWmgIwAIZlYKQ" base_StructuralFeature="_p2YfoGeEEeWmgIwAIZlYKQ"/>
   <OpenModel_Profile:Experimental xmi:id="_u1EAIGeEEeWmgIwAIZlYKQ" base_StructuralFeature="_p2YfoGeEEeWmgIwAIZlYKQ" base_Element="_p2YfoGeEEeWmgIwAIZlYKQ"/>
