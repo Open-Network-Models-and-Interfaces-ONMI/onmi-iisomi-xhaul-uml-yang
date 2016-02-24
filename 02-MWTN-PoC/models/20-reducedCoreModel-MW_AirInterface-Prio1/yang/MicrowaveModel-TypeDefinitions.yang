@@ -23,7 +23,7 @@ module MicrowaveModel-TypeDefinitions {
         leaf bundlingIsAvail {
             type boolean;
             config false;
-            description "Shall be set to '1', if this container type can be transported by timeslots distributed over several structures/air interfaces.";
+            description "Shall be set to '1', if this container type can be transported by timeslots distrubuted over several structures/air interfaces.";
         }
     }
     typedef severityType {
