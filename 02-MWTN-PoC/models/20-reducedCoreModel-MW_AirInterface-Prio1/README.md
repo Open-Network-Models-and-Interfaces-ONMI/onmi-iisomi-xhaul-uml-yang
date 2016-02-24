@@ -20,3 +20,6 @@ Ok: Generated YANG files are valid according to pyang 1.6.
 - remove object class CoreModel::CoreNetworkModule::ObjectClasses::FcPort
 - define type for CoreModel::CoreNetworkModule::ObjectClasses::LayerProtocol::terminationState - set to Boolean
 - define type for CoreModel::CoreNetworkModule::ObjectClasses::LayerProtocol::configuredClientCapacity - set to String
+- remove object class CoreModel::CoreNetworkModule::ObjectClasses::SdnController
+- remove object class CoreModel::CoreNetworkModule::ObjectClasses::NetworkControlDomain
+- add conditional package MicrowaveModel::ObjectClasses::MwConnection::AirInterface::MW_AirInterface_Pac (Prio1 only)
