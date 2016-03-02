@@ -904,7 +904,8 @@ function obj2yang(ele){
         else if(ele[i].nodeType=="notification"){
             var obj=new Node(ele[i].name,ele[i].description,"notification",undefined,undefined,ele[i].id,undefined,undefined,ele[i].support,ele[i].status);
         }else{
-            var obj=new Node(ele[i].name,ele[i].description,"grouping",ele[i]["max-elements"],ele[i]["max-elements"],ele[i].id,ele[i].config,ele[i].isOrdered,ele[i].support,ele[i].status);
+            var obj=new Node(ele[i].name,ele[i].description,"grouping",ele[i]["max-elements"],ele[i]["max-elements"],ele[i].id,ele[i].config,ele[i].isOrdered,ele[i].support,ele[i].status, ele[i].key, keylist);
+            // var obj=new Node(ele[i].name,ele[i].description,"grouping",ele[i]["max-elements"],ele[i]["max-elements"],ele[i].id,ele[i].config,ele[i].isOrdered,ele[i].support,ele[i].status);
             obj.key=ele[i].key;
             obj.isAbstract=ele[i].isAbstract;
             // decide whether the "nodeType" of "ele" is grouping
@@ -914,8 +915,11 @@ function obj2yang(ele){
                         break;
                     }
                 }
+                // TODO Why is 'MW_Container_Pac' a container.
                 if (j == Grouping.length && ele[i].type !== "DataType") {
+                  console.info('sss', Grouping.length, ele[i].type, ele[i].name);
                     //if the ele is grouping ,"obj.nodeType" is  "container"
+                  
                     obj.nodeType = "container";
                 }
             }
@@ -1093,6 +1097,7 @@ function obj2yang(ele){
                 if(ele[i].attribute[j].type.split("+")[0] == "leafref"){
                     ele[i].attribute[j].type=new Type("leafref",ele[i].attribute[j].id,ele[i].attribute[j].type.split("+")[1],vr)
                 }else if(ele[i].attribute[j].nodeType=="leaf"||ele[i].attribute[j].nodeType=="leaf-list"){
+// console.info('111', ele[i].attribute[j].type,ele[i].attribute[j].id,undefined,vr);
                     ele[i].attribute[j].type=new Type(ele[i].attribute[j].type,ele[i].attribute[j].id,undefined,vr);
                 }
                 obj.buildChild(ele[i].attribute[j], ele[i].attribute[j].nodeType);//create the subnode to obj

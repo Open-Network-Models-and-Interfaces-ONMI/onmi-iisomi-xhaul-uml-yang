@@ -42,9 +42,10 @@ type.prototype.writeNode = function (layer) {
             s += PRE + "\t";
             s += this.path + ";\r\n";
         }
-        if(this.range){
+        // console.log('aaa', this.name, this.range);
+        if(this.range && !['boolean', 'date-and-time', 'string', 'severityType', 'leafref',  'ml#', 'MicrowaveModel-TypeDefinitions:severityType'].contains(this.name)){
             s += PRE + "\trange ";
-            s += this.range + ";\r\n";
+            s += this.range.replace(/\*/, 'max') + ";\r\n";
         }
         s=s+PRE + "}";
     }
@@ -52,6 +53,14 @@ type.prototype.writeNode = function (layer) {
         s=";";
     }
     var s = PRE + name + s + "\r\n";
+    
+    // TODO sko hack
+    if (this.path) {
+      if (this.path.contains('layerProtocolName')) {
+        console.info('INFO', this.path, 'changed to string');
+        var s = PRE + 'type string;' + "\r\n";
+      }
+    }
     return s;
 
 };

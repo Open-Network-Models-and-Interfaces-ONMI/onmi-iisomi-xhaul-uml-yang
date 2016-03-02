@@ -40,6 +40,14 @@ Class.prototype.isEnum=function(){
 Class.prototype.buildEnum=function(obj){
     var node=new Type("enumeration");
     var literal=obj["ownedLiteral"];
+if (!literal) {
+   console.error(this.name, 'no enum defined');
+   return;
+}
+if (!literal.array) {
+   console.error(this.name, 'no enum defined (empty array)');
+   return;
+}
     for(var i=0;i<literal.array.length;i++){
         node.children.push("enum "+literal.array[i].attributes().name);
     }

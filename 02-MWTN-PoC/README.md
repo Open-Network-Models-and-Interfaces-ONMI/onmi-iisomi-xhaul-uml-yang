@@ -9,10 +9,5 @@ Such extension shall be implemented by an open source SDN Controller and microwa
 
 The PoC will support the creation of an ONF Technical Recommendation (TR).
 
-## Members
-(Please add your Name, email, subject of contribution and time zone.)
-
-* Martin Skorupski
-  > martin.skorupski@highstreet-technlogies.com
-  > YANG models
-  > UTC+1 (CET)
+## SharePoint
+More documents are available in the project sharepoint: https://share.o2.com/CookieAuth.dll?GetLogon?curl=Z2FsitesZ2Fas_deZ2FSharedZ2520DocumentsZ2FFormsZ2FAllItems.aspxZ3FRootFolderZ3DZ252FsitesZ252FasZ255FdeZ252FSharedZ2520DocumentsZ252FProjekteZ252F2ndZ2520ONFZ2520MWZ2520PoC&reason=0&formdir=15
