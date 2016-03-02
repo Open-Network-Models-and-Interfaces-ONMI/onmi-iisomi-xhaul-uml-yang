@@ -7,8 +7,11 @@ In addition the microwave transport network specific coditional packages and its
 ## Status [2016-03-02]
 - Generated YANG files are valid according to pyang 1.6.
 - Generated YANG files are valid according to OpenDaylight yang-validation-tool-0.7.3-Lithium-SR3
-- Final confirmation for usage with "Netopeer" and "OpenYuma" is open...
-- The YANG statements "feature" and "if-feature" should be removed, because they must not have any function in the 2. ONF MWTN PoC.
+- Final confirmation for usage with "Netopeer" is open...
+- OpenYuma compiler generates C code, however there are the following warnings:
+  - Warning: no get-CB generated for top-level operational list 'scriptList'
+  - Warning: no get-CB generated for top-level operational list 'airInterfaceCapabilityList'
+  - Warning: no get-CB generated for top-level operational list 'availableKindsOfContainerList'
 - The following types will moved to "TypeDefinitions"
   - polarizationType
   - roleType
