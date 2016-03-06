@@ -2,9 +2,13 @@
 <module name="MicrowaveModel-ObjectClasses-MwConnection"
         xmlns="urn:ietf:params:xml:ns:yang:yin:1"
         xmlns:MicrowaveModel-ObjectClasses-MwConnection="uri:onf:MicrowaveModel-ObjectClasses-MwConnection"
+        xmlns:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages="uri:onf:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"
         xmlns:MicrowaveModel-TypeDefinitions="uri:onf:MicrowaveModel-TypeDefinitions">
   <namespace uri="uri:onf:MicrowaveModel-ObjectClasses-MwConnection"/>
   <prefix value="MicrowaveModel-ObjectClasses-MwConnection"/>
+  <import module="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages">
+    <prefix value="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"/>
+  </import>
   <import module="MicrowaveModel-TypeDefinitions">
     <prefix value="MicrowaveModel-TypeDefinitions"/>
   </import>
@@ -13,7 +17,7 @@
     <key value="layerProtocol"/>
     <config value="true"/>
     <leaf name="layerProtocol">
-      <type name="string"/>
+      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
       <description>
         <text>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</text>
       </description>
@@ -301,7 +305,7 @@ Allowed values are defined in AirInterface::Script::modulationScheme (all instan
     <key value="layerProtocol"/>
     <config value="true"/>
     <leaf name="layerProtocol">
-      <type name="string"/>
+      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
       <description>
         <text>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</text>
       </description>
@@ -360,7 +364,7 @@ Can be filled with either an airInterfaceID, an airInterfaceHsbID or an airInter
     <config value="true"/>
     <ordered-by value="system"/>
     <leaf name="layerProtocol">
-      <type name="string"/>
+      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
       <description>
         <text>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</text>
       </description>
@@ -373,10 +377,10 @@ Can be filled with either an airInterfaceID, an airInterfaceHsbID or an airInter
       <config value="true"/>
       <uses name="ContainerConfiguration"/>
     </container>
-    <container name="containerStatus">
+    <leaf name="containerStatus">
+      <type name="string"/>
       <config value="false"/>
-      <uses name="ContainerStatus"/>
-    </container>
+    </leaf>
   </list>
   <grouping name="ContainerCapability">
     <status value="current"/>
@@ -410,12 +414,11 @@ Can be filled with either an airInterfaceID, an airInterfaceHsbID or an airInter
         <text>Lists the time slots used for transporting this container.
 In case ThisContainer::ContainerConfiguration::container::containerType::bundlingIsAvail==0, structureId must be equal for all aiTimeSlots in the list._multiplicity:ThisContainer::ContainerConfiguration::container::containerType::numberOfTimeSlotsRequired</text>
       </description>
-      <key value="timeSlotID"/>
+      <key value="structureID timeSlotID"/>
       <config value="true"/>
       <ordered-by value="system"/>
       <uses name="MicrowaveModel-TypeDefinitions:timeSlotIDType"/>
       <min-elements value="1"/>
     </list>
   </grouping>
-  <grouping name="ContainerStatus"/>
 </module>

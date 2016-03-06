@@ -41,10 +41,10 @@ module MicrowaveModel-Notifications {
             type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
         }
         leaf attributeName {
-            type string;            
+            type string;
         }
         leaf newValue {
-            type string;            
+            type string;
             description "Attribute value converted to a sring (xml, json, ...)";
         }
     }

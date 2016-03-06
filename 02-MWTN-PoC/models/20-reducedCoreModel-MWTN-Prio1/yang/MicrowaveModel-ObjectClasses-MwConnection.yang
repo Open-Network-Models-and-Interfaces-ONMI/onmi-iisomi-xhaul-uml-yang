@@ -1,6 +1,9 @@
 module MicrowaveModel-ObjectClasses-MwConnection {
     namespace "uri:onf:MicrowaveModel-ObjectClasses-MwConnection";
     prefix MicrowaveModel-ObjectClasses-MwConnection;
+    import CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages {
+        prefix CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages;
+    }
     import MicrowaveModel-TypeDefinitions {
         prefix MicrowaveModel-TypeDefinitions;
     }
@@ -9,7 +12,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         key 'layerProtocol';
         config true;
         leaf layerProtocol {
-            type string;
+            type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
             // type leafref {
             //    path "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
             // }
@@ -230,7 +233,7 @@ Allowed values are defined in AirInterface::Script::modulationScheme (all instan
         key 'layerProtocol';
         config true;
         leaf layerProtocol {
-            type string;
+            type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
             // type leafref {
             //    path "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
             // }
@@ -282,7 +285,7 @@ Can be filled with either an airInterfaceID, an airInterfaceHsbID or an airInter
         config true;
         ordered-by system;
         leaf layerProtocol {
-            type string;
+            type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
             // type leafref {
             //    path "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
             // }
@@ -296,9 +299,9 @@ Can be filled with either an airInterfaceID, an airInterfaceHsbID or an airInter
             config true;
             uses ContainerConfiguration;
         }
-        container containerStatus {
+        leaf containerStatus {
+            type string;
             config false;
-            uses ContainerStatus;
         }
     }
     grouping ContainerCapability {
@@ -325,13 +328,11 @@ Can be filled with either an airInterfaceID, an airInterfaceHsbID or an airInter
         list timeSlotIDList {
             description "Lists the time slots used for transporting this container.
 In case ThisContainer::ContainerConfiguration::container::containerType::bundlingIsAvail==0, structureId must be equal for all aiTimeSlots in the list._multiplicity:ThisContainer::ContainerConfiguration::container::containerType::numberOfTimeSlotsRequired";
-            key 'timeSlotID';
+            key 'structureID timeSlotID';
             config true;
             ordered-by system;
             uses MicrowaveModel-TypeDefinitions:timeSlotIDType;
             min-elements 1;
         }
-    }
-    grouping ContainerStatus {
     }
 }
