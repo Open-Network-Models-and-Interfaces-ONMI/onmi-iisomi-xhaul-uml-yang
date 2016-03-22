@@ -12,7 +12,7 @@
   <import module="MicrowaveModel-TypeDefinitions">
     <prefix value="MicrowaveModel-TypeDefinitions"/>
   </import>
-  <revision date="2016-03-20"/>
+  <revision date="2016-03-21"/>
   <list name="MW_AirInterface_Pac">
     <key value="layerProtocol"/>
     <config value="true"/>
@@ -23,6 +23,7 @@
       </description>
     </leaf>
     <list name="airInterfaceCapabilityList">
+      <key value="airInterfaceID"/>
       <config value="false"/>
       <ordered-by value="system"/>
       <uses name="AirInterfaceCapability"/>
@@ -111,6 +112,7 @@ This value is only relevant, if the channel plan, which is referenced in channel
       </description>
     </leaf>
     <list name="scriptList">
+      <key value="scriptID"/>
       <config value="false"/>
       <ordered-by value="system"/>
       <uses name="Script"/>
@@ -146,9 +148,7 @@ The modulation scheme shall be described by the number of symbols (e.g. BPSK-&gt
       </description>
     </leaf>
     <leaf name="txPowerMin">
-      <type name="decimal64">
-        <fraction-digits value="1"/>
-      </type>
+      <type name="int64"/>
       <units name="dBm"/>
       <config value="false"/>
       <description>
@@ -156,9 +156,7 @@ The modulation scheme shall be described by the number of symbols (e.g. BPSK-&gt
       </description>
     </leaf>
     <leaf name="txPowerMax">
-      <type name="decimal64">
-        <fraction-digits value="1"/>
-      </type>
+      <type name="int64"/>
       <units name="dBm"/>
       <config value="false"/>
       <description>
@@ -235,9 +233,7 @@ The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.50
       </description>
     </leaf>
     <leaf name="txPower">
-      <type name="decimal64">
-        <fraction-digits value="1"/>
-      </type>
+      <type name="int64"/>
       <units name="dBm"/>
       <description>
         <text>Transmit power to be configured on the microwave link. Signed Byte is required.
@@ -293,9 +289,7 @@ Allowed values are defined in AirInterface::Script::modulationScheme (all instan
       </description>
     </leaf>
     <leaf name="txLevelCur">
-      <type name="decimal64">
-        <fraction-digits value="1"/>
-      </type>
+      <type name="int64"/>
       <units name="dBm"/>
       <config value="false"/>
       <description>
@@ -303,9 +297,7 @@ Allowed values are defined in AirInterface::Script::modulationScheme (all instan
       </description>
     </leaf>
     <leaf name="rxLevelCur">
-      <type name="decimal64">
-        <fraction-digits value="1"/>
-      </type>
+      <type name="int64"/>
       <units name="dBm"/>
       <config value="false"/>
       <description>
@@ -313,9 +305,7 @@ Allowed values are defined in AirInterface::Script::modulationScheme (all instan
       </description>
     </leaf>
     <leaf name="snrCur">
-      <type name="decimal64">
-        <fraction-digits value="1"/>
-      </type>
+      <type name="int64"/>
       <units name="dBm"/>
       <config value="false"/>
       <description>
@@ -382,6 +372,15 @@ Allowed values are defined in AirInterface::Script::modulationScheme (all instan
         <text>Maximum number of time slots available with the current configuration of the air interface (means e.g. that AirInterface::AirInterfaceStatus::modulationCur is equal to AirInterface::AirInterfaceConfiguration::modulationMax).</text>
       </description>
     </leaf>
+    <leaf name="timeSlotCapacity">
+      <type name="uint64"/>
+      <config value="false"/>
+      <units name="kbit/s"/>
+      <default value="2048"/>
+      <description>
+        <text>The value of the size or width of one time slot. The value should be identical for all stuctures of the device.</text>
+      </description>
+    </leaf>
   </grouping>
   <grouping name="StructureConfiguration">
     <leaf name="serverID">
@@ -394,12 +393,13 @@ Can be filled with either an airInterfaceID, an airInterfaceHsbID or an airInter
   </grouping>
   <grouping name="StructureStatus">
     <list name="timeSlotStatusList">
-      <description>
-        <text>Condition of each time slot._multiplicity:Structure::StructureCapability::totalNumberOfTimeSlots</text>
-      </description>
+      <key value="uuid"/>
       <config value="false"/>
       <ordered-by value="system"/>
       <uses name="MicrowaveModel-TypeDefinitions:timeSlotStatusType"/>
+      <description>
+        <text>Condition of each timeslot._multiplicity:Structure::StructureCapability::totalNumberOfTimeSlots</text>
+      </description>
     </list>
   </grouping>
   <list name="MW_Container_Pac">
@@ -435,13 +435,14 @@ Can be filled with either an airInterfaceID, an airInterfaceHsbID or an airInter
       </description>
     </leaf>
     <list name="availableKindsOfContainerList">
-      <description>
-        <text>Available container types to be listed.</text>
-      </description>
+      <key value="uuid"/>
       <config value="false"/>
       <ordered-by value="system"/>
       <uses name="MicrowaveModel-TypeDefinitions:containerType"/>
       <min-elements value="1"/>
+      <description>
+        <text>Available container types to be listed.</text>
+      </description>
     </list>
   </grouping>
   <grouping name="ContainerConfiguration">
@@ -453,15 +454,15 @@ Can be filled with either an airInterfaceID, an airInterfaceHsbID or an airInter
       <uses name="MicrowaveModel-TypeDefinitions:containerType"/>
     </container>
     <list name="timeSlotIDList">
-      <description>
-        <text>Lists the time slots used for transporting this container.
-In case ThisContainer::ContainerConfiguration::container::containerType::bundlingIsAvail==0, structureId must be equal for all aiTimeSlots in the list._multiplicity:ThisContainer::ContainerConfiguration::container::containerType::numberOfTimeSlotsRequired</text>
-      </description>
       <key value="structureID timeSlotID"/>
       <config value="true"/>
       <ordered-by value="system"/>
       <uses name="MicrowaveModel-TypeDefinitions:timeSlotIDType"/>
       <min-elements value="1"/>
+      <description>
+        <text>Lists the time slots used for transporting this container.
+In case ThisContainer::ContainerConfiguration::container::containerType::bundlingIsAvail==0, structureId must be equal for all aiTimeSlots in the list._multiplicity:ThisContainer::ContainerConfiguration::container::containerType::numberOfTimeSlotsRequired</text>
+      </description>
     </list>
   </grouping>
 </module>
