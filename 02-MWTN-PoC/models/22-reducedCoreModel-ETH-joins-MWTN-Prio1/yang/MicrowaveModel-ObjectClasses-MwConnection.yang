@@ -19,6 +19,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
         }
         list airInterfaceCapabilityList {
+            key 'airInterfaceID';
             config false;
             ordered-by system;
             uses AirInterfaceCapability;
@@ -91,6 +92,7 @@ This value is only relevant, if the channel plan, which is referenced in channel
             description "In case the Air Interface Port is capable of adaptive modulation, this field shall contain an '1'.";
         }
         list scriptList {
+            key 'scriptID';
             config false;
             ordered-by system;
             uses Script;
@@ -312,10 +314,11 @@ Can be filled with either an airInterfaceID, an airInterfaceHsbID or an airInter
     }
     grouping StructureStatus {
         list timeSlotStatusList {
-            description "Condition of each time slot._multiplicity:Structure::StructureCapability::totalNumberOfTimeSlots";
+            key 'uuid';
             config false;
             ordered-by system;
             uses MicrowaveModel-TypeDefinitions:timeSlotStatusType;
+            description "Condition of each timeslot._multiplicity:Structure::StructureCapability::totalNumberOfTimeSlots";
         }
     }
     list MW_Container_Pac {
@@ -350,11 +353,12 @@ Can be filled with either an airInterfaceID, an airInterfaceHsbID or an airInter
             description "ContainterID in Netconf must be the same as EthernetPortID in OpenFlow so a connection can be made between the two items, which are existing separately in the controller.";
         }
         list availableKindsOfContainerList {
-            description "Available container types to be listed.";
+            key 'uuid';
             config false;
             ordered-by system;
             uses MicrowaveModel-TypeDefinitions:containerType;
             min-elements 1;
+            description "Available container types to be listed.";
         }
     }
     grouping ContainerConfiguration {
@@ -364,13 +368,13 @@ Can be filled with either an airInterfaceID, an airInterfaceHsbID or an airInter
             uses MicrowaveModel-TypeDefinitions:containerType;
         }
         list timeSlotIDList {
-            description "Lists the time slots used for transporting this container.
-In case ThisContainer::ContainerConfiguration::container::containerType::bundlingIsAvail==0, structureId must be equal for all aiTimeSlots in the list._multiplicity:ThisContainer::ContainerConfiguration::container::containerType::numberOfTimeSlotsRequired";
             key 'structureID timeSlotID';
             config true;
             ordered-by system;
             uses MicrowaveModel-TypeDefinitions:timeSlotIDType;
             min-elements 1;
+           description "Lists the time slots used for transporting this container.
+In case ThisContainer::ContainerConfiguration::container::containerType::bundlingIsAvail==0, structureId must be equal for all aiTimeSlots in the list._multiplicity:ThisContainer::ContainerConfiguration::container::containerType::numberOfTimeSlotsRequired";
         }
     }
 }
