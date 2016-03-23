@@ -12,7 +12,7 @@
   <import module="CoreModel-CoreFoundationModule-StateModel">
     <prefix value="CoreModel-CoreFoundationModule-StateModel"/>
   </import>
-  <revision date="2016-03-20"/>
+  <revision date="2016-03-23"/>
   <typedef name="severityType">
     <type name="enumeration">
       <enum name="non-alarmed"/>
@@ -34,7 +34,7 @@
       </description>
     </leaf>
     <leaf name="numberOfTimeSlotsRequired">
-      <type name="string"/>
+      <type name="uint64"/>
       <config value="false"/>
       <description>
         <text>Number of time slots required to transport this type of container.</text>
@@ -55,11 +55,12 @@
     <leaf name="timeSlotID">
       <type name="string"/>
     </leaf>
+    <description>
+      <text>Defines the key or identifier of a timeSlot.</text>
+    </description>
   </grouping>
   <grouping name="timeSlotStatusType">
-    <leaf name="uuid">
-      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
-    </leaf>
+    <uses name="timeSlotIDType"/>
     <leaf name="operationalStatus">
       <type name="CoreModel-CoreFoundationModule-StateModel:OperationalState"/>
       <config value="false"/>

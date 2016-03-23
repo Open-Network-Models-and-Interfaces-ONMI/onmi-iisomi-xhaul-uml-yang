@@ -12,7 +12,7 @@
   <import module="MicrowaveModel-TypeDefinitions">
     <prefix value="MicrowaveModel-TypeDefinitions"/>
   </import>
-  <revision date="2016-03-21"/>
+  <revision date="2016-03-23"/>
   <list name="MW_AirInterface_Pac">
     <key value="layerProtocol"/>
     <config value="true"/>
@@ -393,7 +393,7 @@ Can be filled with either an airInterfaceID, an airInterfaceHsbID or an airInter
   </grouping>
   <grouping name="StructureStatus">
     <list name="timeSlotStatusList">
-      <key value="uuid"/>
+      <key value="structureID timeSlotID"/>
       <config value="false"/>
       <ordered-by value="system"/>
       <uses name="MicrowaveModel-TypeDefinitions:timeSlotStatusType"/>
