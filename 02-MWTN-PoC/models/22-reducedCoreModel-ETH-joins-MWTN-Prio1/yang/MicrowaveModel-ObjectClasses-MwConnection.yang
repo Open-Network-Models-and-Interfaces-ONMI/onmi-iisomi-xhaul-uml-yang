@@ -7,7 +7,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
     import MicrowaveModel-TypeDefinitions {
         prefix MicrowaveModel-TypeDefinitions;
     }
-    revision 2016-03-21 {}
+    revision 2016-03-23 {}
     list MW_AirInterface_Pac {
         key 'layerProtocol';
         config true;
@@ -314,7 +314,7 @@ Can be filled with either an airInterfaceID, an airInterfaceHsbID or an airInter
     }
     grouping StructureStatus {
         list timeSlotStatusList {
-            key 'uuid';
+            key 'structureID timeSlotID';
             config false;
             ordered-by system;
             uses MicrowaveModel-TypeDefinitions:timeSlotStatusType;
