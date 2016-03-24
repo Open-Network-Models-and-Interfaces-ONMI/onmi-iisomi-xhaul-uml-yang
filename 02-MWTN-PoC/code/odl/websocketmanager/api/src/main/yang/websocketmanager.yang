@@ -1,0 +1,31 @@
+module websocketmanager {
+    yang-version 1;
+    namespace "urn:opendaylight:params:xml:ns:yang:websocketmanager";
+    prefix "websocketmanager";
+
+    revision "2015-01-05" {
+        description "Initial revision of websocketmanager model";
+    }
+    
+     rpc websocket {
+        input {
+            leaf objectCreationNotification {
+                type string;
+            }
+            leaf objectDeletionNotification {
+                type string;
+            }
+            leaf attributeValueChangeNotification {
+                type string;
+            }
+            leaf problemNotification {
+                type string;
+            }
+        }
+        output {
+            leaf response {
+                type string;
+            }
+        }
+    }
+}
