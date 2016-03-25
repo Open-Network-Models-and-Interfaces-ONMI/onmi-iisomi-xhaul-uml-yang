@@ -1,5 +1,5 @@
 Steps to compile 
-----------------
+================
 
 Pre-requisites : 
 * maven 3.3.3
@@ -7,7 +7,7 @@ Pre-requisites :
 * JDK 1.8.0
 
 Compilation Steps :
-------------------
+-------------------
 
 * Clone the repository from https://github.com/OpenNetworkingFoundation/CENTENNIAL.git
 
@@ -41,9 +41,9 @@ Running Opendaylight:
 * All the required features will be installed automatically 
 
 * Wait for karaf to install features (about 30 seconds) . Monitor the log by typing log:tail and verify odl-mwt-models is installed 
-
-Wait for a message as shown below , which indicates netconfconnector feature is started and ready for connection from mediator
-2016-03-25 16:45:01,668 | WARN  | NioProcessor-2   | AcceptAllServerKeyVerifier       | 116 - org.apache.sshd.core - 0.14.0 | Server at /127.0.0.1:1830 presented unverified RSA key: 57:b0:0d:87:4e:88:d4:05:3c:25:b1:af:57:5d:3a:cb
+~~~~
+2016-03-25 18:11:07,426 | INFO  | oupCloseable-6-1 | NetconfDevice                    | 229 - org.opendaylight.controller.sal-netconf-connector - 1.2.4.Lithium-SR4 | RemoteDevice{controller-config}: Netconf connector initialized successfully
+~~~~
 
 By this time all the 22-MWTG models will be copied to cache/schema directory 
 
