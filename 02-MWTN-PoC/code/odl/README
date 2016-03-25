@@ -7,6 +7,7 @@ Pre-requisites :
 * JDK 1.8.0
 
 Compilation Steps :
+------------------
 
 * Clone the repository from https://github.com/OpenNetworkingFoundation/CENTENNIAL.git
 
@@ -22,10 +23,14 @@ https://wiki.opendaylight.org/view/GettingStarted:Development_Environment_Setup
 
 mvn clean install -DskipTests=true
 
+(Note 1: mvn will download all the required dependency jar files from Opendaylight nexus repository. So internet connectivity is mandatory)
+(Note 2: If you are behind proxy, mvn settings - ~/.m2/settings.xml - should be updated with proxy details ) 
+
 * Opendaylight distribution will be created in karaf folder 
 
 
 Running Opendaylight: 
+---------------------
 
 * Go to folder karaf/target/assembly/bin
 
