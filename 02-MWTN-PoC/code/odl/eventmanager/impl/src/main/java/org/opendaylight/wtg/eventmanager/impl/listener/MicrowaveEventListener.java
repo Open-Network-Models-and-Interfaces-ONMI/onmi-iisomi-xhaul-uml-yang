@@ -38,20 +38,6 @@ public class MicrowaveEventListener implements MicrowaveModelNotificationsListen
 		this.xmlMapper = xmlMapper;
 	}
 
-	public static void main(String[] args) {
-		ProblemNotificationBuilder builder = new ProblemNotificationBuilder();
-
-		builder.setCounter(new BigInteger("21"));
-		builder.setTimeStamp(new DateAndTime("sda"));
-		builder.setObjectID(new UniversalId("sad"));
-		builder.setProblem("213");
-		builder.setSeverity(SeverityType.Critical);
-
-		ProblemNotificationXml notificationXml = new ProblemNotificationXml("node225", builder.build());
-		XmlMapper xmlMapper = new XmlMapper();
-		System.out.println(xmlMapper.getXmlString(notificationXml));
-	}
-
 	@Override
 	public void onAttributeValueChangedNotification(AttributeValueChangedNotification notification) {
 		LOG.info("Got event of type :: {}", AttributeValueChangedNotification.class.getSimpleName());
