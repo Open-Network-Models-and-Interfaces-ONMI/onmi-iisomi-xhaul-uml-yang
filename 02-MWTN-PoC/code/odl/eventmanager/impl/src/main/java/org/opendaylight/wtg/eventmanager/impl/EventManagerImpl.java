@@ -21,8 +21,8 @@ import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.ProviderCo
 import org.opendaylight.controller.sal.binding.api.BindingAwareProvider;
 import org.opendaylight.controller.sal.binding.api.RpcConsumerRegistry;
 import org.opendaylight.wtg.eventmanager.api.EventManagerService;
-import org.opendaylight.wtg.eventmanager.forward.EventForwarder;
-import org.opendaylight.wtg.eventmanager.impl.listener.LinkFailureListener;
+import org.opendaylight.wtg.eventmanager.impl.listener.MicrowaveEventListener;
+import org.opendaylight.wtg.eventmanager.impl.xml.XmlMapper;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.netconf.notification._1._0.rev080714.CreateSubscriptionInputBuilder;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.netconf.notification._1._0.rev080714.NotificationsService;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.netconf.notification._1._0.rev080714.StreamNameType;
@@ -50,14 +50,16 @@ public class EventManagerImpl implements EventManagerService, BindingAwareProvid
 			.create(NetworkTopology.class)
 			.child(Topology.class, new TopologyKey(new TopologyId(TopologyNetconf.QNAME.getLocalName())));
 	private ProviderContext session;
-	private EventForwarder eventForwarder;
+
+	private WebsocketmanagerService websocketmanagerService;
+	private XmlMapper xmlMapper;
 
 	@Override
 	public void onSessionInitiated(ProviderContext session) {
 		LOG.info("EventManagerImpl Session Initiated");
 		this.session = session;
-		WebsocketmanagerService websocketmanagerService = session.getRpcService(WebsocketmanagerService.class);
-		eventForwarder = new EventForwarder(websocketmanagerService);
+		websocketmanagerService = session.getRpcService(WebsocketmanagerService.class);
+		xmlMapper = new XmlMapper();
 	}
 
 	@Override
@@ -92,8 +94,10 @@ public class EventManagerImpl implements EventManagerService, BindingAwareProvid
 		}
 
 		Optional<NotificationService> service1 = mountPoint.get().getService(NotificationService.class);
-		LinkFailureListener linkFailureListener = new LinkFailureListener(nodeName, eventForwarder);
-		service1.get().registerNotificationListener(linkFailureListener);
+
+		MicrowaveEventListener microwaveEventListener = new MicrowaveEventListener(nodeName, websocketmanagerService,
+				xmlMapper);
+		service1.get().registerNotificationListener(microwaveEventListener);
 
 		final String streamName = "NETCONF";
 		final Optional<RpcConsumerRegistry> service = mountPoint.get().getService(RpcConsumerRegistry.class);
@@ -107,7 +111,6 @@ public class EventManagerImpl implements EventManagerService, BindingAwareProvid
 	@Override
 	public void removeListenerOnNode(String nodeName) {
 		LOG.info("Removing Event listener on Netconf device :: Name : {}", nodeName);
-		// TODO
-		// Remove
+		// ODL automatically removes
 	}
 }

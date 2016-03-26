@@ -15,12 +15,10 @@ import static io.netty.handler.codec.http.HttpResponseStatus.BAD_REQUEST;
 import static io.netty.handler.codec.http.HttpResponseStatus.FORBIDDEN;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 import static org.opendaylight.wtg.impl.utils.Utils.hmChannelContexts;
-import static org.opendaylight.wtg.impl.utils.Utils.hmClientScopes;
 
 import java.util.Map;
 
 import org.json.JSONObject;
-import org.opendaylight.wtg.impl.dto.UserDto;
 import org.opendaylight.wtg.impl.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +50,6 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 
 	@Override
 	public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-		// TODO Auto-generated method stub
 		super.channelRegistered(ctx);
 		hmChannelContexts.put(String.valueOf(ctx.hashCode()), ctx);
 		LOG.info("Channel registered " + ctx.channel().toString());
@@ -60,12 +57,10 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 
 	@Override
 	public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
-		// TODO Auto-generated method stub
 		super.channelUnregistered(ctx);
 		if (ctx != null) {
 			String channelHashCode = String.valueOf(ctx.hashCode());
 			hmChannelContexts.remove(channelHashCode);
-			hmClientScopes.remove(channelHashCode);
 			LOG.info("Channel unregistered " + ctx.channel().toString());
 		}
 	}
@@ -79,33 +74,14 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 		}
 	}
 
-	public static void sendMessage(String objectCreationNotification, String objectDeletionNotification,
-			String attrValueChangeNotification, String problemNotification) {
+	public static void sendMessage(String nodeName, String eventType, String xmlEvent) {
 		if (hmChannelContexts != null && hmChannelContexts.size() > 0) {
-			// JSONObject jsonMessage = new JSONObject(message);
 			for (Map.Entry<String, ChannelHandlerContext> entry : Utils.hmChannelContexts.entrySet()) {
 				ChannelHandlerContext ctx = entry.getValue();
-				try {
-					UserDto clientDto = hmClientScopes.get(String.valueOf(ctx.hashCode()));
-					if (objectCreationNotification != null
-							&& clientDto.getScopes().get(Utils.SCOPE.ObjectCreationNotification.toString()) != null) {
-						sendBroadcast(ctx, objectCreationNotification);
-					}
-					if (objectDeletionNotification != null
-							&& clientDto.getScopes().get(Utils.SCOPE.ObjectDeletionNotification.toString()) != null) {
-						sendBroadcast(ctx, objectDeletionNotification);
-					}
-					if (attrValueChangeNotification != null && clientDto.getScopes()
-							.get(Utils.SCOPE.AttributeValueChangeNotification.toString()) != null) {
-						sendBroadcast(ctx, attrValueChangeNotification);
-					}
-					if (problemNotification != null
-							&& clientDto.getScopes().get(Utils.SCOPE.ProblemNotification.toString()) != null) {
-						sendBroadcast(ctx, problemNotification);
-					}
-				} catch (Exception ioe) {
-					System.out.println(ioe.getMessage());
-				}
+				// TODO
+				// Send only to interested candidates depending on
+				// nodeName/eventType
+				sendBroadcast(ctx, xmlEvent);
 			}
 		}
 	}
@@ -114,7 +90,6 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 		try {
 			ctx.channel().write(new TextWebSocketFrame(message));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		ctx.channel().flush();
@@ -176,10 +151,6 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 			String data = jsonMessage.getString(Utils.MSG_KEY_DATA);
 			if (data.equals(Utils.MSG_KEY_SCOPES)) {
 				String sessionId = String.valueOf(ctx.hashCode());
-				UserDto clientDto = new UserDto();
-				clientDto.setScopes(jsonMessage.getJSONArray(Utils.MSG_KEY_SCOPES));
-				clientDto.setUserId(sessionId);
-				hmClientScopes.put(sessionId, clientDto);
 				ctx.channel().write(new TextWebSocketFrame(
 						"You are connected to the Opendaylight Websocket server and scopes are : " + request + ""));
 			}
