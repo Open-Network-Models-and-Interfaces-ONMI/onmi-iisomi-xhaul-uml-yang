@@ -1,0 +1,150 @@
+<!-- This is the landing page of you application, Update the content as per your requirements -->
+
+<div class="container">
+
+<div class="row main yangUIwrapper">
+<section class="tabs mainTabsWrapper">
+
+<ul class="nav nav-tabs">
+  <li ng-repeat="tab in tabs" class="btn-like-tab" ng-class="{ 'btn-selected': currentTab === tab.id }" ng-click="showTab(tab.id)">
+    <a href="#/mwtnTopology">
+       <span>{{tab.label | translate}}</span>
+    </a>
+  </li>
+</ul>
+</section>
+
+<sigma-topology drag-nodes="true" topology-data="topologyData" trigger-resize-sigma="triggerResizeSigma" panel="panel" topology-custfunc="topologyCustfunc"></sigma-toppology>
+</div>
+
+<div class="row">
+<hr class="mwtn" />
+<h4 ng-repeat="tab in tabs" ng-show="currentTab === tab.id">{{tab.links}}</h4>
+<table class="footable table table-hover">
+<thead>
+<tr ng-show="currentTab === 'site'">
+<th>Identifer</th>
+<th>Name</th>
+<th>Site A</th>
+<th>Site B</th>
+<th>Length [km]</th>
+<th>Azimuth [°]</th>
+</tr>
+<tr ng-show="currentTab === 'antenna'">
+<th>Identifer</th>
+<th>Name</th>
+<th>Antenna A</th>
+<th>Antenna B</th>
+</tr>
+<tr ng-show="currentTab === 'mwps'">
+<th>Identifer</th>
+<th>Name</th>
+<th>LTP(MWPS-TTP) A</th>
+<th>LTP(MWPS-TTP) B</th>
+</tr>
+<tr ng-show="currentTab === 'mws'">
+<th>Identifer</th>
+<th>Name</th>
+<th>LTP(MWS-TTP) A</th>
+<th>LTP(MWS-TTP) B</th>
+</tr>
+<tr ng-show="currentTab === 'eth'">
+<th>Identifer</th>
+<th>Name</th>
+<th>LTP(ETH) A</th>
+<th>LTP(ETH) B</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="item in site.edges" ng-show="currentTab === 'site'">
+<td>{{item.id}}</td>
+<td>{{item.label}}</td>
+<td>{{item.source}}</td>
+<td>{{item.target}}</td>
+<td>{{item.length | number:3}}</td>
+<td>{{item.azimuth | number:1}}</td>
+</tr>
+<tr ng-repeat="item in antenna.edges" ng-show="currentTab === 'antenna'">
+<td>{{item.id}}</td>
+<td>{{item.label}}</td>
+<td>{{item.source}}</td>
+<td>{{item.target}}</td>
+</tr>
+<tr ng-repeat="item in mwps.edges" ng-show="currentTab === 'mwps'">
+<td>{{item.id}}</td>
+<td>{{item.label}}</td>
+<td>{{item.source}}</td>
+<td>{{item.target}}</td>
+</tr>
+<tr ng-repeat="item in mws.edges" ng-show="currentTab === 'mws'">
+<td>{{item.id}}</td>
+<td>{{item.label}}</td>
+<td>{{item.source}}</td>
+<td>{{item.target}}</td>
+</tr>
+<tr ng-repeat="item in eth.edges" ng-show="currentTab === 'eth'">
+<td>{{item.id}}</td>
+<td>{{item.label}}</td>
+<td>{{item.source}}</td>
+<td>{{item.target}}</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="row">
+<hr class="mwtn" />
+<h4 ng-repeat="tab in tabs" ng-show="currentTab === tab.id">{{tab.label}}s</h4>
+<table class="footable table table-hover">
+<thead>
+<tr ng-show="currentTab === 'site'">
+<th>Identifer</th>
+<th>Name</th>
+<th>Latitude [°]</th>
+<th>Longitude [°]</th>
+</tr>
+<tr ng-show="currentTab === 'antenna'">
+<th>Identifer</th>
+<th>Name</th>
+</tr>
+<tr ng-show="currentTab === 'mwps'">
+<th>Identifer</th>
+<th>Name</th>
+</tr>
+<tr ng-show="currentTab === 'mws'">
+<th>Identifer</th>
+<th>Name</th>
+</tr>
+<tr ng-show="currentTab === 'eth'">
+<th>Identifer</th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="item in site.nodes" ng-show="currentTab === 'site'">
+<td>{{item.id}}</td>
+<td>{{item.label}}</td>
+<td>{{item.y | number:6}}</td>
+<td>{{item.x | number:6}}</td>
+</tr>
+<tr ng-repeat="item in antenna.nodes" ng-show="currentTab === 'antenna' && item.id.startsWith('a')">
+<td>{{item.id}}</td>
+<td>{{item.label}}</td>
+</tr>
+<tr ng-repeat="item in mwps.nodes" ng-show="currentTab === 'mwps' && item.id.startsWith('mwps')">
+<td>{{item.id}}</td>
+<td>{{item.label}}</td>
+</tr>
+<tr ng-repeat="item in mws.nodes" ng-show="currentTab === 'mws' && item.id.startsWith('mws')">
+<td>{{item.id}}</td>
+<td>{{item.label}}</td>
+</tr>
+<tr ng-repeat="item in eth.nodes" ng-show="currentTab === 'eth' && item.id.startsWith('eth')">
+<td>{{item.id}}</td>
+<td>{{item.label}}</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>

@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>odlChat</artifactId>
-        <groupId>com.highstreet-technologies.odl.dlux</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <artifactId>mwtnTopology</artifactId>
+        <groupId>com.highstreet.technologies.odl.dlux.mwtnTopology</groupId>
+        <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>odlChat-bundle</artifactId>
+    <artifactId>mwtnTopology-bundle</artifactId>
     <packaging>bundle</packaging>
     <dependencies>
         <dependency>
@@ -30,9 +30,9 @@
             <version>${dlux.loader.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.highstreet-technologies.odl.dlux</groupId>
-            <artifactId>odlChat-module</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>com.highstreet.technologies.odl.dlux.mwtnTopology</groupId>
+            <artifactId>mwtnTopology-module</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <build>
@@ -59,8 +59,8 @@
                         <phase>generate-resources</phase>
                         <configuration>
                             <outputDirectory>${project.build.directory}/generated-resources</outputDirectory>
-                            <groupId>com.highstreet-technologies.odl.dlux</groupId>
-                            <includeArtifactIds>odlChat-module</includeArtifactIds>
+                            <groupId>com.highstreet.technologies.odl.dlux.mwtnTopology</groupId>
+                            <includeArtifactIds>mwtnTopology-module</includeArtifactIds>
                             <excludes>META-INF\/**</excludes>
                             <excludeTransitive>true</excludeTransitive>
                             <ignorePermissions>false</ignorePermissions>

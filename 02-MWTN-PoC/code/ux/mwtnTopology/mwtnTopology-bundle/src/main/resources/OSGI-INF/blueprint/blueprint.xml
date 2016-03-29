@@ -5,14 +5,14 @@
     <bean id="bundle" init-method="initialize" destroy-method="clean" class="org.opendaylight.dlux.loader.DluxModule">
         <property name="httpService" ref="httpService"/>
         <property name="loader" ref="loader"/>
-        <property name="moduleName" value="odlChat"/>
-        <property name="url" value="/src/app/odlChat"/>
-        <property name="directory" value="/odlChat"/>
-        <property name="requireJs" value="app/odlChat/odlChat.module"/>
-        <property name="angularJs" value="app.odlChat"/>
+        <property name="moduleName" value="mwtnTopology"/>
+        <property name="url" value="/src/app/mwtnTopology"/>
+        <property name="directory" value="/mwtnTopology"/>
+        <property name="requireJs" value="app/mwtnTopology/mwtnTopology.module"/>
+        <property name="angularJs" value="app.mwtnTopology"/>
         <property name="cssDependencies">
             <list>
-                <value>src/app/odlChat/odlChat-custom.css</value>
+                <value>src/app/mwtnTopology/mwtnTopology-custom.css</value>
             </list>
         </property>
     </bean>

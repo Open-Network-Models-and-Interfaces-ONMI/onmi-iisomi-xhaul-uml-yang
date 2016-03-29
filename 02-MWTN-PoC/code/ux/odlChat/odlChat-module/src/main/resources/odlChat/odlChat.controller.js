@@ -19,7 +19,7 @@ define(
                   '$odlChat',
                   function($scope, $rootScope, $odlChat) {
 
-                    $rootScope['section_logo'] = 'assets/images/logo_chat.gif'; 
+                    $rootScope['section_logo'] = 'src/app/odlChat/logo_chat.gif'; 
 
                     $scope.collection = [];
                     $scope.chat = {

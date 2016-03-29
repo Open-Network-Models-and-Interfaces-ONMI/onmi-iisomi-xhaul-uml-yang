@@ -26,7 +26,7 @@ define([ 'angularAMD', 'app/routingConfig', 'app/core/core.services',
       "link" : "#/odlChat",
       "active" : "main.odlChat",
       "title" : "Chat",
-      "icon" : "icon-twitter", // Add navigation icon css class here
+      "icon" : "icon-comments", // Add navigation icon css class here
       "page" : {
         "title" : "Chat",
         "description" : "odlChat"
