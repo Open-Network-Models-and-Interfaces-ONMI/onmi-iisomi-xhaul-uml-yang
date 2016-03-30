@@ -1,10 +1,11 @@
 /*
- * Copyright Â© 2016 Wipro technologies and others.  All rights reserved.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v1.0 which accompanies this distribution,
- * and is available at http://www.eclipse.org/legal/epl-v10.html
- */
+* Copyright (c) 2016 Wipro Ltd. and others. All rights reserved.
+*
+* This program and the accompanying materials are made available under the
+* terms of the Eclipse Public License v1.0 which accompanies this distribution,
+* and is available at http://www.eclipse.org/legal/epl-v10.html
+*/
+
 package org.opendaylight.wtg.impl.websocket;
 
 import static io.netty.handler.codec.http.HttpHeaders.isKeepAlive;
@@ -15,10 +16,12 @@ import static io.netty.handler.codec.http.HttpResponseStatus.BAD_REQUEST;
 import static io.netty.handler.codec.http.HttpResponseStatus.FORBIDDEN;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 import static org.opendaylight.wtg.impl.utils.Utils.hmChannelContexts;
+import static org.opendaylight.wtg.impl.utils.Utils.hmClientScopes;
 
 import java.util.Map;
 
 import org.json.JSONObject;
+import org.opendaylight.wtg.impl.dto.UserDto;
 import org.opendaylight.wtg.impl.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,12 +79,17 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 
 	public static void sendMessage(String nodeName, String eventType, String xmlEvent) {
 		if (hmChannelContexts != null && hmChannelContexts.size() > 0) {
-			for (Map.Entry<String, ChannelHandlerContext> entry : Utils.hmChannelContexts.entrySet()) {
+			for (Map.Entry<String, ChannelHandlerContext> entry : hmChannelContexts.entrySet()) {
 				ChannelHandlerContext ctx = entry.getValue();
-				// TODO
-				// Send only to interested candidates depending on
-				// nodeName/eventType
-				sendBroadcast(ctx, xmlEvent);
+
+				try {
+					UserDto clientDto = hmClientScopes.get(String.valueOf(ctx.hashCode()));
+					if (clientDto.getScopes().get(eventType) != null) {
+						sendBroadcast(ctx, xmlEvent);
+					}
+				} catch (Exception ioe) {
+					System.out.println(ioe.getMessage());
+				}
 			}
 		}
 	}
@@ -151,6 +159,10 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 			String data = jsonMessage.getString(Utils.MSG_KEY_DATA);
 			if (data.equals(Utils.MSG_KEY_SCOPES)) {
 				String sessionId = String.valueOf(ctx.hashCode());
+				UserDto clientDto = new UserDto();
+				clientDto.setScopes(jsonMessage.getJSONArray(Utils.MSG_KEY_SCOPES));
+				clientDto.setUserId(sessionId);
+				hmClientScopes.put(sessionId, clientDto);
 				ctx.channel().write(new TextWebSocketFrame(
 						"You are connected to the Opendaylight Websocket server and scopes are : " + request + ""));
 			}

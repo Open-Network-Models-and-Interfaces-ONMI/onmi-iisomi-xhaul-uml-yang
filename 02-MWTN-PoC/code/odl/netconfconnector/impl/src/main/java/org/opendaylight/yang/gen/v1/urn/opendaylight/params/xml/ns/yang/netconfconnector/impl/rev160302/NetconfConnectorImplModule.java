@@ -1,20 +1,13 @@
 /*
-	
 * Copyright (c) 2016 Wipro Ltd. and others. All rights reserved.
-	
 *
-	
 * This program and the accompanying materials are made available under the
-	
 * terms of the Eclipse Public License v1.0 which accompanies this distribution,
-	
 * and is available at http://www.eclipse.org/legal/epl-v10.html
-	
 */
 
 package org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.netconfconnector.impl.rev160302;
 
-import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.wtg.eventmanager.api.EventManagerService;
 import org.opendaylight.wtg.netconfconnector.impl.NetconfConnectorImpl;
 
@@ -39,7 +32,6 @@ public class NetconfConnectorImplModule extends
 
 	@Override
 	public java.lang.AutoCloseable createInstance() {
-		DataBroker dataBroker = getDataBrokerDependency();
 		EventManagerService eventmanagerService = getEventmanagerServiceDependency();
 		NetconfConnectorImpl netconfConnectorImpl = new NetconfConnectorImpl(eventmanagerService);
 		getBrokerDependency().registerProvider(netconfConnectorImpl);

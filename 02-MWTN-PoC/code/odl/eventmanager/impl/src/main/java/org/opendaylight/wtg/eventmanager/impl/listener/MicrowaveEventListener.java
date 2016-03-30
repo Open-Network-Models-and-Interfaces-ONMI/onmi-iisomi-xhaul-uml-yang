@@ -1,22 +1,23 @@
-package org.opendaylight.wtg.eventmanager.impl.listener;
+/*
+* Copyright (c) 2016 Wipro Ltd. and others. All rights reserved.
+*
+* This program and the accompanying materials are made available under the
+* terms of the Eclipse Public License v1.0 which accompanies this distribution,
+* and is available at http://www.eclipse.org/legal/epl-v10.html
+*/
 
-import java.math.BigInteger;
+package org.opendaylight.wtg.eventmanager.impl.listener;
 
 import org.opendaylight.wtg.eventmanager.impl.xml.AttributeValueChangedNotificationXml;
 import org.opendaylight.wtg.eventmanager.impl.xml.ObjectCreationNotificationXml;
 import org.opendaylight.wtg.eventmanager.impl.xml.ObjectDeletionNotificationXml;
 import org.opendaylight.wtg.eventmanager.impl.xml.ProblemNotificationXml;
 import org.opendaylight.wtg.eventmanager.impl.xml.XmlMapper;
-import org.opendaylight.yang.gen.v1.uri.onf.coremodel.corefoundationmodule.superclassesandcommonpackages.rev160305.UniversalId;
-import org.opendaylight.yang.gen.v1.uri.onf.coremodel.corefoundationmodule.typedefinitions.rev160305.DateAndTime;
 import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.notifications.rev160320.AttributeValueChangedNotification;
 import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.notifications.rev160320.MicrowaveModelNotificationsListener;
 import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.notifications.rev160320.ObjectCreationNotification;
 import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.notifications.rev160320.ObjectDeletionNotification;
-import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.notifications.rev160320.ObjectDeletionNotificationBuilder;
 import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.notifications.rev160320.ProblemNotification;
-import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.notifications.rev160320.ProblemNotificationBuilder;
-import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.typedefinitions.rev160320.SeverityType;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.websocketmanager.rev150105.WebsocketEventInputBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.websocketmanager.rev150105.WebsocketmanagerService;
 import org.slf4j.Logger;
@@ -60,7 +61,7 @@ public class MicrowaveEventListener implements MicrowaveModelNotificationsListen
 		ObjectCreationNotificationXml notificationXml = new ObjectCreationNotificationXml(nodeName, notification);
 
 		builder.setNodeName(nodeName);
-		builder.setEventType(AttributeValueChangedNotification.class.getSimpleName());
+		builder.setEventType(ObjectCreationNotification.class.getSimpleName());
 		builder.setXmlEvent(xmlMapper.getXmlString(notificationXml));
 		websocketmanagerService.websocketEvent(builder.build());
 	}
@@ -73,7 +74,7 @@ public class MicrowaveEventListener implements MicrowaveModelNotificationsListen
 		ObjectDeletionNotificationXml notificationXml = new ObjectDeletionNotificationXml(nodeName, notification);
 
 		builder.setNodeName(nodeName);
-		builder.setEventType(AttributeValueChangedNotification.class.getSimpleName());
+		builder.setEventType(ObjectDeletionNotification.class.getSimpleName());
 		builder.setXmlEvent(xmlMapper.getXmlString(notificationXml));
 		websocketmanagerService.websocketEvent(builder.build());
 	}
@@ -86,7 +87,7 @@ public class MicrowaveEventListener implements MicrowaveModelNotificationsListen
 		ProblemNotificationXml notificationXml = new ProblemNotificationXml(nodeName, notification);
 
 		builder.setNodeName(nodeName);
-		builder.setEventType(AttributeValueChangedNotification.class.getSimpleName());
+		builder.setEventType(ProblemNotification.class.getSimpleName());
 		builder.setXmlEvent(xmlMapper.getXmlString(notificationXml));
 		websocketmanagerService.websocketEvent(builder.build());
 	}
