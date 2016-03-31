@@ -89,7 +89,7 @@ Similarly change the revisions in ietf-inet-types.yang available in
 
 * Instrument  OpenYuma code for discovery initiation 
 A reference implementation using curl library is already shared in the mailing list. In case any clarification is required, pls revert back. High level steps are as follows 
-**1. Create configuration file with following contents (for e.g /etc/yuma/mediator-config.xml)
+..1. Create configuration file with following contents (for e.g /etc/yuma/mediator-config.xml)
 ~~~~~~~~
 <mediator-config>
     <!--ODL controller details  -->
@@ -110,15 +110,15 @@ A reference implementation using curl library is already shared in the mailing l
     </netconf-server>
 </mediator-config>
 ~~~~~~~~
-**2. Create a folder mwt under $OPENYUMA_HOME/netconf/src/
-**3. Create a file C file (say odl-conn.c)
-**4. Include headers for utilities  (Note that this will require libcurl library to compile
+..2. Create a folder mwt under $OPENYUMA_HOME/netconf/src/
+..3. Create a file C file (say odl-conn.c)
+..4. Include headers for utilities  (Note that this will require libcurl library to compile
 ~~~~~~
 #include <curl/curl.h>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 ~~~~~~
-**5. Create Payload for REST call 
+..5. Create Payload for REST call 
 ~~~~~~
 static char *create_payload(void){
     xmlDocPtr doc = NULL;
@@ -143,7 +143,7 @@ static char *create_payload(void){
     return out;
 }
 ~~~~~~
-**6. Setup HTTP headers 
+..6. Setup HTTP headers 
 ~~~~~~
         struct curl_slist *headers = NULL;
         headers = curl_slist_append(headers, "Accept: application/xml");
@@ -152,7 +152,7 @@ static char *create_payload(void){
         curl_easy_setopt(curl, CURLOPT_USERAGENT,  "Linux C  libcurl");
         curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10);
 ~~~~~~
-**7. Set URL + Basic Authentication and Send Request 
+..7. Set URL + Basic Authentication and Send Request 
 ~~~~~~
 char *rest_call = NULL;
         if(type == 0)
@@ -170,15 +170,15 @@ char *rest_call = NULL;
         long http_code = 0;
         curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
 ~~~~~~
-**8. Include mwt folder in the yuma/netconf Makefile (netconf/src/Makefile) (line num 151) 
+..8. Include mwt folder in the yuma/netconf Makefile (netconf/src/Makefile) (line num 151) 
 ~~~~~~
 	-o $@ $(OBJS) -L/usr/local/lib -L$(PREFIX)/lib $(LC) -L../../target/lib -lmwt  -lxml2
 ~~~~~~
-**9. Modify netconf/src/agt/Makefile to include libmwt (line num 154) 
+..9. Modify netconf/src/agt/Makefile to include libmwt (line num 154) 
 ~~~~~~
 	-o $@ $(OBJS) -L/usr/local/lib -L$(PREFIX)/lib $(LC) -L../../target/lib -lmwt  -lxml2
 ~~~~~~
-**10. Instrument netconf/src/agt/agt_ncxserver.c (at line num 342) to invoke the odl connection code implemented above
+..10. Instrument netconf/src/agt/agt_ncxserver.c (at line num 342) to invoke the odl connection code implemented above
 ~~~~~~
     /* MWT CODE START*/
     const char *file = MEDIATOR_CONFIG_XML;
