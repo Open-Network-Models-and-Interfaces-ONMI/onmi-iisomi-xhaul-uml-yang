@@ -9,14 +9,12 @@ Pre-requisites :
 Compilation Steps :
 -------------------
 
-* Clone the repository from https://github.com/OpenNetworkingFoundation/CENTENNIAL.git
+* Clone the repository from [here](https://github.com/OpenNetworkingFoundation/CENTENNIAL.git)
 ~~~~~~~
 git clone https://github.com/OpenNetworkingFoundation/CENTENNIAL.git
 ~~~~~~~
 
-* Setup Opendaylight profiles in the mvn settings as explained in the link below 
-
-https://wiki.opendaylight.org/view/GettingStarted:Development_Environment_Setup
+* Setup Opendaylight profiles in the mvn settings as explained in the link [here](https://wiki.opendaylight.org/view/GettingStarted:Development_Environment_Setup)
 
 * Go to folder CENTENNIAL/02-MWTN-PoC/code/odl
 
@@ -56,7 +54,7 @@ feature:list -i | grep 'odl-mwt'
 
 Integration with OpenYuma Mediator
 ----------------------------------
-* Clone OpenYuma repository from https://github.com/OpenClovis/OpenYuma.git
+* Clone OpenYuma repository from [here](https://github.com/OpenClovis/OpenYuma.git)
 ~~~~~~
 git clone https://github.com/OpenClovis/OpenYuma.git
 ~~~~~~
@@ -197,5 +195,5 @@ sudo make clean
 sudo make 
 sudo make install 
 ~~~~~~~~
-* Start netconf 
+* Start Openyuma netconfd 
 
