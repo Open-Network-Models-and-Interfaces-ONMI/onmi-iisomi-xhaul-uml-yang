@@ -61,10 +61,136 @@ Integration with OpenYuma Mediator
 git clone https://github.com/OpenClovis/OpenYuma.git
 ~~~~~~
 * Modify the yang models 
-This step is necessary as there is yang model revision compatibility between Opendaylight and OpenYuma. While majority of these are resolved, there are still more to be rectified. 
-** comment out yang revisions xxx from ietf-yang-types.yang in OpenYuma/netconf/modules/ietf folder 
+This step is necessary as there is yang model revision compatibility between Opendaylight and OpenYuma. While majority of these are resolved, there are still more to be rectified. Comment out yang revision 2013-07-15 from ietf-yang-types.yang in OpenYuma/netconf/modules/ietf folder as follows (ensure that you retain the revision declaration 2010-09-24 just below ) 
+~~~~~
+/* MWT : Commented to make compatible with ODL
+   revision 2013-07-15 {
+     description
+      "This revision adds the following new data types:
+     reference
+      "RFC 6991: Common YANG Data Types";
+ }
+*/
+revision 2010-09-24 {
+.......
+~~~~~
+Similarly change the revisions in ietf-inet-types.yang available in 
+~~~~~
+/* MWT : Commented to make compatible with ODL
+   revision 2013-07-15 {
+     description
+      "This revision adds the following new data types:
+     reference
+      "RFC 6991: Common YANG Data Types";
+   }
+*/
+   revision 2010-09-24 {
+~~~~~
+
 * Instrument  OpenYuma code for discovery initiation 
-A reference implementation using curl library is already shared in the mailing list. In case any clarification is required, pls revert back. 
+A reference implementation using curl library is already shared in the mailing list. In case any clarification is required, pls revert back. High level steps are as follows 
+**1. Create configuration file with following contents (for e.g /etc/yuma/mediator-config.xml)
+~~~~~~~~
+<mediator-config>
+    <!--ODL controller details  -->
+    <controller>
+        <ip>x.x.x.x</ip>
+        <port>xxxx</port>
+        <username>admin</username>
+        <password>admin</password>
+    </controller>
+
+    <!--Netconf server details  -->
+    <netconf-server>
+        <name>NEC80</name>
+        <ip>y.y.y.y</ip>
+        <port>yyyy</port>
+        <username>nec</username>
+        <password>nec123</password>
+    </netconf-server>
+</mediator-config>
+~~~~~~~~
+**2. Create a folder mwt under $OPENYUMA_HOME/netconf/src/
+**3. Create a file C file (say odl-conn.c)
+**4. Include headers for utilities  (Note that this will require libcurl library to compile
+~~~~~~
+#include <curl/curl.h>
+#include <libxml/parser.h>
+#include <libxml/tree.h>
+~~~~~~
+**5. Create Payload for REST call 
+~~~~~~
+static char *create_payload(void){
+    xmlDocPtr doc = NULL;
+    xmlNodePtr root_node = NULL;
+    xmlChar *xmlbuff;
+    int buffersize;
+
+    doc = xmlNewDoc((const xmlChar *) "1.0");
+    root_node = xmlNewNode(NULL, (const xmlChar *) "input");
+    xmlNewNs (root_node, (const xmlChar *) "urn:opendaylight:params:xml:ns:yang:nediscovery:api", NULL);
+    xmlNewChild(root_node, NULL, (const xmlChar *) "name", (const xmlChar *) ns->name);
+    xmlNewChild(root_node, NULL, (const xmlChar *) "ip", (const xmlChar *) ns->ip);
+    xmlNewChild(root_node, NULL, (const xmlChar *) "port", (const xmlChar *) ns->port);
+    xmlNewChild(root_node, NULL, (const xmlChar *) "username", (const xmlChar *) ns->username);
+    xmlNewChild(root_node, NULL, (const xmlChar *) "password", (const xmlChar *) ns->password);
+    xmlDocSetRootElement(doc, root_node);
+
+    xmlDocDumpFormatMemory(doc, &xmlbuff, &buffersize, 1);
+    char *out = strdup((char*)xmlbuff);
+    xmlFree(xmlbuff);
+    xmlFreeDoc(doc);
+    return out;
+}
+~~~~~~
+**6. Setup HTTP headers 
+~~~~~~
+        struct curl_slist *headers = NULL;
+        headers = curl_slist_append(headers, "Accept: application/xml");
+        headers = curl_slist_append(headers, "Content-Type: application/xml");
+        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+        curl_easy_setopt(curl, CURLOPT_USERAGENT,  "Linux C  libcurl");
+        curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10);
+~~~~~~
+**7. Set URL + Basic Authentication and Send Request 
+~~~~~~
+char *rest_call = NULL;
+        if(type == 0)
+            asprintf(&rest_call, "http://%s:%s/restconf/operations/nediscovery-api:connect", cl->ip, cl->port);
+        else if(type == 1)
+            asprintf(&rest_call, "http://%s:%s/restconf/operations/nediscovery-api:disconnect", cl->ip, cl->port);
+        curl_easy_setopt(curl, CURLOPT_URL, rest_call);
+
+        char *userPass;
+        asprintf(&userPass, "%s:%s", cl->username, cl->password);
+        curl_easy_setopt(curl, CURLOPT_USERPWD, userPass);
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, payload);
+
+        res = curl_easy_perform(curl);
+        long http_code = 0;
+        curl_easy_getinfo (curl, CURLINFO_RESPONSE_CODE, &http_code);
+~~~~~~
+**8. Include mwt folder in the yuma/netconf Makefile (netconf/src/Makefile) (line num 151) 
+~~~~~~
+	-o $@ $(OBJS) -L/usr/local/lib -L$(PREFIX)/lib $(LC) -L../../target/lib -lmwt  -lxml2
+~~~~~~
+**9. Modify netconf/src/agt/Makefile to include libmwt (line num 154) 
+~~~~~~
+	-o $@ $(OBJS) -L/usr/local/lib -L$(PREFIX)/lib $(LC) -L../../target/lib -lmwt  -lxml2
+~~~~~~
+**10. Instrument netconf/src/agt/agt_ncxserver.c (at line num 342) to invoke the odl connection code implemented above
+~~~~~~
+    /* MWT CODE START*/
+    const char *file = MEDIATOR_CONFIG_XML;
+    const char *error = mwt_connect(file);
+    if(error){
+        log_info("\nConnect request to ODL failed (%s)----------", error);
+    }else{
+        log_info("\nConnect request to ODL successful------------");
+    }
+    /* MWT CODE END*/
+~~~~~~
+
 * Compile the source code 
 ~~~~~~~~
 sudo make clean 
