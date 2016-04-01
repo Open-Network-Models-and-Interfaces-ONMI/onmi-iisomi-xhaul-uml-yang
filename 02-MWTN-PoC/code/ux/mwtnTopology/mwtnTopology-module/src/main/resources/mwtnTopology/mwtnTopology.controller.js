@@ -24,6 +24,7 @@ define(['app/mwtnTopology/mwtnTopology.module','app/mwtnTopology/mwtnTopology.se
     ];
     $scope.currentTab = 'site';
     $scope.points = {};
+$scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
 
     $scope.showTab = function(layer) {
         console.log(layer);
@@ -58,6 +59,7 @@ define(['app/mwtnTopology/mwtnTopology.module','app/mwtnTopology/mwtnTopology.se
 	        }
                 $scope.sigma.graph.addEdge(edge);
             });
+            $scope.sigma.refresh();
         });
     };
 
@@ -78,6 +80,7 @@ define(['app/mwtnTopology/mwtnTopology.module','app/mwtnTopology/mwtnTopology.se
 	    topology.edges.map(function(edge){
                 $scope.sigma.graph.addEdge(edge);
             });
+            $scope.sigma.refresh();
         });
     };
 
