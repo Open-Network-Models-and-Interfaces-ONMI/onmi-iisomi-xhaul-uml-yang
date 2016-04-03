@@ -6,6 +6,8 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
+
+
 define(['angularAMD', 'app/routingConfig', 'app/core/core.services', 'common/config/env.module',   'ui-bootstrap', 'Restangular', 'angular-translate'], function(ng) {
   var mwtnTopologyApp = angular.module('app.mwtnTopology', ['app.core', 'ui.router.state','config', 'ui.bootstrap', 'restangular', 'pascalprecht.translate']);
 
