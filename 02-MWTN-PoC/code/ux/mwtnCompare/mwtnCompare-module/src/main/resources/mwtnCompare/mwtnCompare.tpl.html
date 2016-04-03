@@ -1,0 +1,271 @@
+<!-- This is the landing page of you application, Update the content as per your requirements -->
+
+<h4>Network: {{networkElements.network.name}}</h4>
+
+<accordion close-others="oneAtATime">
+    <accordion-group  panel-class="panel-odl" is-open="requiredNetworkElements.open">
+      <accordion-heading>
+        <i class="pull-left" ng-class="{'icon-angle-down': requiredNetworkElements.open, 'icon-angle-right': !requiredNetworkElements.open}"></i>
+        <span>{{ 'Required NetworkElements' | translate}}<span>
+      </accordion-heading>      
+
+<table class="footable table table-hover">
+<thead>
+<tr>
+<th>{{ 'Id' | translate }}</th>
+<th>{{ 'Name' | translate }}</th>
+<th>{{ 'IP address' | translate }}</th>
+<th>{{ 'NetConf port' | translate }}</th>
+<th>{{ 'User name' | translate }}</th>
+<th>{{ 'Passwort' | translate }}</th>
+<th>{{ 'Radio signals' | translate }}</th>
+<th>{{ 'Connection status' | translate }}</th>
+<th>{{ 'Action' | translate }}</th>
+</tr>
+</thead>
+</tbody>
+<tr ng-repeat="ne in networkElements.network.networkElement">
+<td>{{ne.uuid}}</td>
+<td>{{ne.name}}</td>
+<td>{{ne.ip}}</td>
+<td>{{ne.port}}</td>
+<td>{{ne.userName}}</td>
+<td>********</td>
+<td><ul><li ng-repeat="port in ne.pyhsicalConnector">{{port.radioSignalId}}</li></ul></td>
+<td>{{ne.connectionStatus}}</td>
+<td>
+  <button class="btn btn-default" ng-click="message('connect')">{{ 'Connect' | translate }}</button>
+  <span> </span>
+  <button class="btn btn-default" ng-click="message('disconnect')">{{ 'Disconnect' | translate }}</button>
+</td>
+</tr>
+</tbody>
+</table>
+
+    </accordion-group>
+    <accordion-group  panel-class="panel-odl" is-open="unknownNetworkElements.open">
+      <accordion-heading>
+        <i class="pull-left" ng-class="{'icon-angle-down': unknownNetworkElements.open, 'icon-angle-right': !unknownNetworkElements.open}"></i>
+        <span>{{ 'Unknown NetworkElements' | translate}}<span>
+      </accordion-heading>      
+      <p>none</p>
+    </accordion-group>
+    <accordion-group  panel-class="panel-odl" ng-repeat="ne in referenceValues.network.networkElement" is-open="ne.open">
+      <accordion-heading>
+        <i class="pull-left" ng-class="{'icon-angle-down': ne.open, 'icon-angle-right': !ne.open}"></i>
+        <span>NetworkElement: </span><b>"{{ne.name}}"</b>
+
+      </accordion-heading>      
+ 
+
+    <accordion close-others="oneAtATime">
+      <accordion-group  panel-class="panel-odl" is-open="ne.NetworkElement.open">
+        <accordion-heading>
+          <i class="pull-left" ng-class="{'icon-angle-down': ne.NetworkElement.open, 'icon-angle-right': !ne.NetworkElement.open}"></i>
+          <span>{{ 'NetworkElement' | translate}}<span>
+        </accordion-heading> 
+
+<table class="table">
+<tr>
+<td>
+
+<table class="footable table table-hover">
+<thead>
+<tr>
+<th class="nowrap">{{ 'Label' | translate }}</th>
+<th class="nowrap">{{ 'Required value' | translate }}</th>
+<th class="nowrap">{{ 'Actual value' | translate }}</th>
+</tr>
+</thead>
+</tbody>
+<tr>
+<td style="text-align: right;">{{ 'Name' | translate }}</td>
+<td><b class="nowrap">{{ ne.NetworkElement.nameList.value }}</b></td>
+<td><span style="color: red"><b class="nowrap"> not connected </b></span></td>
+</tr>
+<tr>
+<td style="text-align: right;" class="nowrap">{{ 'Number of LTPs' | translate }}</td>
+<td><b class="nowrap">{{ ne.NetworkElement._ltpRefList.length }}</b></td>
+<td><span style="color: red"><b class="nowrap"> not connected </b></span></td>
+</tr>
+</tbody>
+</table>
+
+</td>
+<td>
+  <h4 style="color: #444444;"><b>NetworkElement</b></h4>
+  <p ng-repeat="p in getDescription('NetworkElement')">{{ p }}</p>
+</td>
+
+</tr>
+</table>
+
+
+
+      </accordion-group>
+      <accordion-group  panel-class="panel-odl" ng-repeat="mwps in ne.MW_AirInterface_Pac" is-open="mwps.open">
+        <accordion-heading>
+          <i class="pull-left" ng-class="{'icon-angle-down': mwps.open, 'icon-angle-right': !mwps.open}"></i>
+          <span>LTP ({{mwps.layerProtocol}})<span>
+        </accordion-heading>      
+
+<table class="table">
+<tr>
+
+<td style="width:50%">
+<div ng-repeat="item in ['LogicalTerminationPoint', 'LayerProtocol', 'MW_AirInterface_Pac']">
+  <h4 style="color: #444444;"><b>{{item}}</b></h4>
+  <p ng-repeat="p in getDescription(item)">{{ p }}</p>
+</div>
+</td>
+<td style="width:50%">
+<h4 style="color: #444444;"><b>AirInterfaceConfiguration</b></h4>
+<p ng-repeat="p in getDescription('AirInterfaceConfiguration')">{{ p }}</p>
+</td>
+
+</tr>
+<table>
+
+
+<table class="footable table table-hover">
+<thead>
+<tr>
+<th>{{ 'Label' | translate }}</th>
+<th>{{ 'Required value' | translate }}</th>
+<th>{{ 'Actions' | translate }}</th>
+<th>{{ 'Actual value' | translate }}</th>
+<th>{{ 'Unit' | translate }}</th>
+<th>{{ 'Description' | translate }}</th>
+</tr>
+</thead>
+</tbody>
+<tr ng-repeat="(key, value) in mwps.airInterfaceConfiguration">
+<td  style="text-align: right;">{{ key | translate }}</td>
+<td><b class="nowrap">{{value}}</b></td>
+<td ng-if="$index === 0" rowspan="{{ getKeys(mwps.airInterfaceConfiguration).length }}" ng-class="text-center">  
+  <button class="btn btn-default" title="Operation to planning" ng-click="message('operation2Planning', mwps)"> <i class="icon-forward"></i> </button>
+  <br/>
+  <button class="btn btn-default" title="Planning to operation" ng-click="message('planning2Operation', mwps)"> <i class="icon-backward"></i> </button>
+</td>
+<td><span style="color: red"><b class="nowrap"> not connected </b></span></td>
+<td>{{ getUnit(key) }}</td>
+<td style="max-width: 300px;"><p ng-repeat="p in getDescription(key)">{{ p }}</p></td>
+</tr>
+</tbody>
+</table>
+
+      </accordion-group>
+      <accordion-group  panel-class="panel-odl" ng-repeat="mws in ne.MW_Structure_Pac" is-open="mws.open">
+        <accordion-heading>
+          <i class="pull-left" ng-class="{'icon-angle-down': mws.open, 'icon-angle-right': !mws.open}"></i>
+          <span>LTP ({{mws.layerProtocol}})<span>
+        </accordion-heading>      
+
+<table class="table">
+<tr>
+
+<td style="width:50%">
+<div ng-repeat="item in ['LogicalTerminationPoint', 'LayerProtocol', 'MW_Structure_Pac']">
+  <h4 style="color: #444444;"><b>{{item}}</b></h4>
+  <p ng-repeat="p in getDescription(item)">{{ p }}</p>
+</div>
+</td>
+<td style="width:50%">
+<h4 style="color: #444444;"><b>StructureConfiguration</b></h4>
+<p ng-repeat="p in getDescription('StructureConfiguration')">{{ p }}</p>
+</td>
+
+</tr>
+<table>
+
+<table class="footable table table-hover">
+<thead>
+<tr>
+<th>{{ 'Label' | translate }}</th>
+<th>{{ 'Required value' | translate }}</th>
+<th>{{ 'Actions' | translate }}</th>
+<th>{{ 'Actual value' | translate }}</th>
+<th>{{ 'Unit' | translate }}</th>
+<th>{{ 'Description' | translate }}</th>
+</tr>
+</thead>
+</tbody>
+<tr ng-repeat="(key, value) in mws.structureConfiguration">
+<td  style="text-align: right;">{{ key | translate }}</td>
+<td><b class="nowrap">{{value}}</b></td>
+<td ng-if="$index === 0" rowspan="{{ getKeys(mws.structureConfiguration).length }}" style="text-align: center;">  
+  <button class="btn btn-default" title="Operation to planning" ng-click="message('operation2Planning', mws)"> <i class="icon-forward"></i> </button>
+  <br/>
+  <button class="btn btn-default" title="Planning to operation" ng-click="message('planning2Operation', mws)"> <i class="icon-backward"></i> </button>
+</td>
+<td><span style="color: red"><b class="nowrap"> not connected </b></span></td>
+<td>{{ getUnit(key) }}</td>
+<td style="max-width: 300px;"><p ng-repeat="p in getDescription(key)">{{ p }}</p></td>
+</tr>
+</tbody>
+</table>
+
+
+      </accordion-group>
+      <accordion-group  panel-class="panel-odl" ng-repeat="mwClient in ne.MW_Container_Pac" is-open="mwClient.open">
+        <accordion-heading>
+          <i class="pull-left" ng-class="{'icon-angle-down': mwClient.open, 'icon-angle-right': !mwClient.open}"></i>
+          <span>LTP ({{mwClient.layerProtocol}})<span>
+
+        </accordion-heading>      
+
+<table class="table">
+<tr>
+
+<td style="width:50%">
+<div ng-repeat="item in ['LogicalTerminationPoint', 'LayerProtocol', 'MW_Container_Pac']">
+  <h4 style="color: #444444;"><b>{{item}}</b></h4>
+  <p ng-repeat="p in getDescription(item)">{{ p }}</p>
+</div>
+
+</td>
+<td style="width:50%">
+<div ng-repeat="item in ['ContainerConfiguration', 'container']">
+  <h4 style="color: #444444;"><b>{{item}}</b></h4>
+  <p ng-repeat="p in getDescription(item)">{{ p }}</p>
+</div>
+
+</td>
+
+</tr>
+<table>
+
+<table class="footable table table-hover">
+<thead>
+<tr>
+<th>{{ 'Label' | translate }}</th>
+<th>{{ 'Required value' | translate }}</th>
+<th>{{ 'Actions' | translate }}</th>
+<th>{{ 'Actual value' | translate }}</th>
+<th>{{ 'Unit' | translate }}</th>
+<th>{{ 'Description' | translate }}</th>
+</tr>
+</thead>
+</tbody>
+<tr ng-repeat="(key, value) in mwClient.containerConfiguration.container">
+<td  style="text-align: right;">{{ key | translate }}</td>
+<td><b class="nowrap">{{value}}</b></td>
+<td ng-if="$index === 0" rowspan="{{ getKeys(mwClient.containerConfiguration.container).length }}" style="text-align: center;">  
+  <button class="btn btn-default" title="Operation to planning" ng-click="message('operation2Planning', mwClient)"> <i class="icon-forward"></i> </button>
+  <br/>
+  <button class="btn btn-default" title="Planning to operation" ng-click="message('planning2Operation', mwClient)"> <i class="icon-backward"></i> </button>
+</td>
+<td><span style="color: red"><b class="nowrap"> not connected </b></span></td>
+<td>{{ getUnit(key) }}</td>
+<td><p ng-repeat="p in getDescription(key)">{{ p }}</p></td>
+</tr>
+</tbody>
+</table>
+
+
+      </accordion-group>
+    </accordion>
+
+    </accordion-group>
+  </accordion>
+
