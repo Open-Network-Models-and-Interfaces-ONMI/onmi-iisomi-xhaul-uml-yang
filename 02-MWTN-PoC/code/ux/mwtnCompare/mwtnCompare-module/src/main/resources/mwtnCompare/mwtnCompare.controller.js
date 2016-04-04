@@ -43,6 +43,20 @@ define(['app/mwtnCompare/mwtnCompare.module','app/mwtnCompare/mwtnCompare.servic
     });
     $mwtnCompare.getReferenceValues(function(referenceValues){
         $scope.referenceValues = referenceValues;
+        //console.log(JSON.stringify($scope.referenceValues.network.networkElement));
+        $scope.referenceValues.network.networkElement.map(function(ne){
+            var mwsCount = ne.MW_Structure_Pac.length;
+	    ne.MW_Container_Pac.map(function(pac) {
+                var length = pac.containerConfiguration.container.numberOfTimeSlotsRequired;
+                pac.containerConfiguration.timeSlotIDList = [];
+                for (var mws = 0; mws < mwsCount; mws++) {
+                    var serverId = ne.MW_Structure_Pac[mws].structureConfiguration.serverID;
+                    for (var timeSlot = 0; timeSlot < length/mwsCount; timeSlot++) {
+                        pac.containerConfiguration.timeSlotIDList.push([serverId, timeSlot+1].join('.'));
+                    }
+                }
+            });
+        });
     });
     $mwtnCompare.getDescriptions(function(descriptions){
         $scope.descriptions = descriptions;

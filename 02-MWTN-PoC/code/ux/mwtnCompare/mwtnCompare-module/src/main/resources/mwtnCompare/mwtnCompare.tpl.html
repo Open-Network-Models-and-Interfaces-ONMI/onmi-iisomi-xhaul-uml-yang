@@ -108,8 +108,14 @@
           <i class="pull-left" ng-class="{'icon-angle-down': mwps.open, 'icon-angle-right': !mwps.open}"></i>
           <span>LTP ({{mwps.layerProtocol}})<span>
         </accordion-heading>      
+<div class="text-right">
+<a style="cursor: pointer;" ng-click="mwps.showDescriptions = !mwps.showDescriptions">
+  <span ng-show="mwps.showDescriptions" style="color: #444444">Hide </span>
+  <span ng-show="!mwps.showDescriptions"  style="color: #444444">Show </span>
+  <span  style="color: #444444"> descriptions</span></a>
+</div>
 
-<table class="table">
+<table class="table" ng-show="mwps.showDescriptions">
 <tr>
 
 <td style="width:50%">
@@ -135,7 +141,7 @@
 <th>{{ 'Actions' | translate }}</th>
 <th>{{ 'Actual value' | translate }}</th>
 <th>{{ 'Unit' | translate }}</th>
-<th>{{ 'Description' | translate }}</th>
+<th ng-show="mwps.showDescriptions">{{ 'Description' | translate }}</th>
 </tr>
 </thead>
 </tbody>
@@ -149,7 +155,7 @@
 </td>
 <td><span style="color: red"><b class="nowrap"> not connected </b></span></td>
 <td>{{ getUnit(key) }}</td>
-<td style="max-width: 300px;"><p ng-repeat="p in getDescription(key)">{{ p }}</p></td>
+<td style="max-width: 300px;" ng-show="mwps.showDescriptions"><p ng-repeat="p in getDescription(key)">{{ p }}</p></td>
 </tr>
 </tbody>
 </table>
@@ -161,7 +167,14 @@
           <span>LTP ({{mws.layerProtocol}})<span>
         </accordion-heading>      
 
-<table class="table">
+<div class="text-right">
+<a style="cursor: pointer;" ng-click="mws.showDescriptions = !mws.showDescriptions">
+  <span ng-show="mws.showDescriptions" style="color: #444444">Hide </span>
+  <span ng-show="!mws.showDescriptions"  style="color: #444444">Show </span>
+  <span  style="color: #444444"> descriptions</span></a>
+</div>
+
+<table class="table"  ng-show="mws.showDescriptions" >
 <tr>
 
 <td style="width:50%">
@@ -186,7 +199,7 @@
 <th>{{ 'Actions' | translate }}</th>
 <th>{{ 'Actual value' | translate }}</th>
 <th>{{ 'Unit' | translate }}</th>
-<th>{{ 'Description' | translate }}</th>
+<th ng-show="mws.showDescriptions" >{{ 'Description' | translate }}</th>
 </tr>
 </thead>
 </tbody>
@@ -200,7 +213,7 @@
 </td>
 <td><span style="color: red"><b class="nowrap"> not connected </b></span></td>
 <td>{{ getUnit(key) }}</td>
-<td style="max-width: 300px;"><p ng-repeat="p in getDescription(key)">{{ p }}</p></td>
+<td style="max-width: 300px;"  ng-show="mws.showDescriptions" ><p ng-repeat="p in getDescription(key)">{{ p }}</p></td>
 </tr>
 </tbody>
 </table>
@@ -214,7 +227,13 @@
 
         </accordion-heading>      
 
-<table class="table">
+<div class="text-right">
+<a style="cursor: pointer;" ng-click="mwClient.showDescriptions = !mwClient.showDescriptions">
+  <span ng-show="mwClient.showDescriptions" style="color: #444444">Hide </span>
+  <span ng-show="!mwClient.showDescriptions"  style="color: #444444">Show </span>
+  <span  style="color: #444444"> descriptions</span></a>
+</div>
+<table class="table"  ng-show="mwClient.showDescriptions">
 <tr>
 
 <td style="width:50%">
@@ -243,21 +262,28 @@
 <th>{{ 'Actions' | translate }}</th>
 <th>{{ 'Actual value' | translate }}</th>
 <th>{{ 'Unit' | translate }}</th>
-<th>{{ 'Description' | translate }}</th>
+<th  ng-show="mwClient.showDescriptions">{{ 'Description' | translate }}</th>
 </tr>
 </thead>
 </tbody>
 <tr ng-repeat="(key, value) in mwClient.containerConfiguration.container">
 <td  style="text-align: right;">{{ key | translate }}</td>
 <td><b class="nowrap">{{value}}</b></td>
-<td ng-if="$index === 0" rowspan="{{ getKeys(mwClient.containerConfiguration.container).length }}" style="text-align: center;">  
+<td ng-if="$index === 0" rowspan="{{ getKeys(mwClient.containerConfiguration.container).length + 1 }}" style="text-align: center;">  
   <button class="btn btn-default" title="Operation to planning" ng-click="message('operation2Planning', mwClient)"> <i class="icon-forward"></i> </button>
   <br/>
   <button class="btn btn-default" title="Planning to operation" ng-click="message('planning2Operation', mwClient)"> <i class="icon-backward"></i> </button>
 </td>
 <td><span style="color: red"><b class="nowrap"> not connected </b></span></td>
 <td>{{ getUnit(key) }}</td>
-<td><p ng-repeat="p in getDescription(key)">{{ p }}</p></td>
+<td  ng-show="mwClient.showDescriptions"><p ng-repeat="p in getDescription(key)">{{ p }}</p></td>
+</tr>
+<tr>
+<td  style="text-align: right;">{{ 'timeSlotIDList' | translate }}</td>
+<td><b>{{mwClient.containerConfiguration.timeSlotIDList.join(' ')}}</b></td>
+<td><span style="color: red"><b class="nowrap"> not connected </b></span></td>
+<td>{{ getUnit('timeSlotIDList') }}</td>
+<td  ng-show="mwClient.showDescriptions"><p ng-repeat="p in getDescription('timeSlotIDList')">{{ p }}</p></td>
 </tr>
 </tbody>
 </table>
