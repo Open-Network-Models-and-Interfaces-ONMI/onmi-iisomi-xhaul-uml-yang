@@ -1,6 +1,6 @@
 ControllerType = {
     ODL : 0,
-    SELF : 1
+    STATIC : 1
 }
 
 // Class Network Element
@@ -53,15 +53,26 @@ function MwLink(id, mwAirInterface1, mwAirInterface2){
 	}
 }
 
-//TODO run this every 1 second and update global the global structures
-function getNetworkElements(controllerIP, controllerPort, type){
-	// Array will be later extracted from ODL REST API
-	var mwNetworkElementArr = [];
+// Controller class
+function ControllerData(controllerIP, controllerPort, controllerType){
+	this.controllerIP = controllerIP;
+	this.controllerPort = controllerPort;
+	this.controllerType = controllerType;
+}
 
-	if (type == ControllerType.ODL){
-		baseUrl = "http://" + controllerIP + ":" + controllerPort + "/restconf/operational/network-topology:network-topology/topology/topology-netconf";
+//TODO run this every 1 second and update global the global structures
+function getNetworkElements(controllerData, neNameArr, mwNetworkElementArr){
+	// Array will be later extracted from ODL REST API
+	// var mwNetworkElementArr = [];
+
+
+	if (controllerData.controllerType == ControllerType.ODL){
+		baseUrl = "http://" + controllerData.controllerIP + ":" + controllerData.controllerPort + "/restconf/operational/network-topology:network-topology/topology/topology-netconf";
+		console.log(baseUrl);
 		$.ajax({
 			url: baseUrl,
+			dataType: 'JSON',
+			timeout: 1000, // sets timeout to 3 seconds
 			async: false,
 			beforeSend: function (xhr) {
 			    xhr.setRequestHeader ("Authorization", "Basic " + btoa("admin:admin"));
@@ -72,14 +83,38 @@ function getNetworkElements(controllerIP, controllerPort, type){
 			    	console.log("Index: " + index + "\nValue: " + value["node-id"]);
 		    		nodeName = value["node-id"];
 		    		if (nodeName != "controller-config"){
+		    			var layerProtocoalArr = [];
 				    	var mwNetworkElement = new MwNetworkElement(nodeName);
 				    	// 1. Get all layer protocols from Core model
+				    	$.ajax({
+								url: baseUrl + "/node/" + nodeName + "/yang-ext:mount/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/" + nodeName,
+								dataType: 'JSON',
+								timeout: 1000, // sets timeout to 3 seconds
+								async: false,
+								cache:false,
+								beforeSend: function (xhr) {
+								    xhr.setRequestHeader ("Authorization", "Basic " + btoa("admin:admin"));
+								},
+								success: function(data, status){
+							    	console.log("Data Core: " + data + "\nStatus: " + status);
+							    	$.each(data.NetworkElement[0]._ltpRefList, function(index, value){
+							    		if (value._lpList[0].uuid.indexOf('LP-MWPS-TTP') >= 0){
+											layerProtocoalArr.push(value._lpList[0].uuid);
+							    			console.log("UUID: " + value._lpList[0].uuid);
+							    		}
+							    	});
+							    },
+							    error: function(jqXHR, textStatus, errorThrown) {
+							    	console.log(jqXHR, textStatus, errorThrown);
+							    }
+							});
+
 				    	// 2. For each layer protocol add, create new MwAirInterface and add it to mwNetworkElement
-				    	layerProtocoalArr = ["268451969", "268451970"];
 				    	for (var i = 0;i < layerProtocoalArr.length; i++){
 							$.ajax({
 								url: baseUrl + "/node/" + nodeName + "/yang-ext:mount/MicrowaveModel-ObjectClasses-MwConnection:MW_AirInterface_Pac/" + layerProtocoalArr[i],
 								async: false,
+								cache:false,
 								beforeSend: function (xhr) {
 								    xhr.setRequestHeader ("Authorization", "Basic " + btoa("admin:admin"));
 								},
@@ -94,34 +129,34 @@ function getNetworkElements(controllerIP, controllerPort, type){
 						mwNetworkElementArr.push(mwNetworkElement);
 					}
 		    	});
+		    },
+		    error: function(jqXHR, textStatus, errorThrown) {
+		    	console.log(jqXHR, textStatus, errorThrown);
 		    }
 		});
 	}
 	else{
-		var neNameArr = ["Ceragon-1", "Ceragon-2", "SIAE-1", "SIAE-2"];
-		
 		for (var i = 0; i < neNameArr.length; i++){
-
 			$.ajax({
-				url: "http://" + controllerIP + ":" + controllerPort + "/network-elements/" + neNameArr[i] + ".json",
-				dataype: 'json',
-				async: false,
+				url: "http://" + controllerData.controllerIP + ":" + controllerData.controllerPort + "/network-elements/" + neNameArr[i] + ".json",
+    			async:false,
+				cache:false,
 				success: function(data, status){
 			    	console.log("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+			    	console.log(data);
 			    	var mwNetworkElement = new MwNetworkElement(neNameArr[i]);
 			    	for (var j = 0; j < data.MW_AirInterface_Pac.length; j++){
 			    		mwAirInterface = new MwAirInterface(mwNetworkElement, data.MW_AirInterface_Pac[j]);
 						mwNetworkElement.mwAirInterfaceArr.push(mwAirInterface);
 					}
 					mwNetworkElementArr.push(mwNetworkElement);
-	    		}
+	    		},
+			    error: function(jqXHR, textStatus, errorThrown) {
+			    	console.log(jqXHR, textStatus, errorThrown);
+			    }
 	    	});
 		}
 	}
-
-	// console.log(JSON.stringify(mwNetworkElementArr));
-
-	return mwNetworkElementArr;
 }
 
 
@@ -140,8 +175,6 @@ function extractMwLinks(networkElementArr){
 				targetNetworkElement = networkElementArr[targetNetworkElementIndex];
 				for(var targetAirInterfaceIndex = 0; targetAirInterfaceIndex < targetNetworkElement.mwAirInterfaceArr.length; targetAirInterfaceIndex++){
 					var targetAirInterface = targetNetworkElement.mwAirInterfaceArr[targetAirInterfaceIndex];
-					console.log("Current: " + currentAirInterface.data.airInterfaceConfiguration.radioSignalId);
-					console.log("Target: " + targetAirInterface.data.airInterfaceConfiguration.radioSignalId);
 					if (currentAirInterface.data.airInterfaceConfiguration.radioSignalId == targetAirInterface.data.airInterfaceConfiguration.radioSignalId){
 						mwLink = new MwLink(currentAirInterface.data.airInterfaceConfiguration.radioSignalId, currentAirInterface, targetAirInterface);
 						mwLinkArr.push(mwLink);

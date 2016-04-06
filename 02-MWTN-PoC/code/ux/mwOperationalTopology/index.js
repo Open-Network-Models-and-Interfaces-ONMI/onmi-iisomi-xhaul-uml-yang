@@ -21,31 +21,130 @@ function SigmaEdge(id, label, source, target, color){
 
 var AIR_INTERFACE_NODE_SIZE = 3;
 var DISTANCE_BETWEEN_AIR_INTERFACE_NODES = 7;
-// var NE_NODE_SIZE = 15;
-// var SITE_RADIUS_COEFFICIENT = NE_RADIUS_COEFFICIENT*6;
 
-var siteArr = 	[
-					{
-						"siteName": "Hamburg",
-						"x": 100,
-						"y": 100,
-						// "neworkElementArr":["mw-111"]
-						"neworkElementArr":["Ceragon-1", "SIAE-1"]
-					},
-					{
-						"siteName": "Berlin",
-						"x": 160,
-						"y": 140,
-						// "neworkElementArr":["mw-112"]
-						"neworkElementArr":["Ceragon-2"]
-					},
-					{
-						"siteName": "Munich",
-						"x": 130,
-						"y": 200,
-						"neworkElementArr":["SIAE-2"]
-					}
-				];
+var sigmaObj;
+var controllerData;
+var siteArr;
+
+$(document).ready(function() {
+
+	$("#layer-protocol").hide();
+	
+  	setInterval(function(){ 
+  		updateNetwrokElementArr();
+	}, 1000);
+	
+  	setInterval(function(){ 
+  		updateGraph();
+	}, 1000);
+
+
+});
+
+var networkElementArr = []; // MwNetworkElement
+$("#update-button").click(function() {
+	controllerData = extractControllerData();
+	updateGraph();
+	
+});
+
+var mwNetworkElementArr = [];
+var networkElementNameArr = [];
+function updateNetwrokElementArr(){
+	if  (typeof controllerData === 'undefined'){
+		controllerData = extractControllerData();
+	}
+
+	mwNetworkElementArr.length = 0;
+	getNetworkElements(controllerData, networkElementNameArr, mwNetworkElementArr);
+}
+
+function updateGraph(){
+	var mwLinkArr = []; // MwLink
+
+	console.log(mwNetworkElementArr);
+    mwLinkArr = extractMwLinks(mwNetworkElementArr);
+
+    topologyData = mwToSigma(mwNetworkElementArr, mwLinkArr);
+
+	console.log(topologyData);
+
+	if (typeof sigmaObj === 'undefined'){
+	    sigmaObj = new sigma({
+			                    	graph: topologyData,
+			                    	container: 'graph-container',
+			                    	renderer: {
+	        							container: document.getElementById('graph-container'),
+	        							type: 'canvas'
+	    							},
+			                    	settings: {
+										defaultLabelColor: '#ec5148',
+										doubleClickEnabled: false,
+										labelThreshold: 8,
+										minNodeSize: 0,
+										maxNodeSize: 0,
+									    enableEdgeHovering: true,
+									    edgeHoverColor: 'edge',
+									    defaultEdgeHoverColor: '#000',
+									    edgeHoverSizeRatio: 2,
+									    edgeHoverExtremities: true
+	        						}
+			                	});
+	    // Doesn't work well because it refereshes every second
+		// var dragListener = sigma.plugins.dragNodes(sigmaObj, sigmaObj.renderers[0]);
+	}
+	else{
+		
+		sigmaObj.graph.clear();
+		sigmaObj.graph.read(topologyData);
+	}
+	sigmaObj.refresh();
+
+}
+
+$('input[type=radio][name=controller-type]').change(function() {
+	if ($(this).attr('id') == "odl") {
+    	$("#layer-protocol").show( "drop");
+    }
+    else{
+    	$("#layer-protocol").hide( "drop");
+    }
+});
+
+function extractControllerData(){
+	var controllerIP = $("#controller-ip").val();
+	var controllerPort = $("#controller-port").val();
+	var controllerTypeStr = $('input[type=radio][name="controller-type"]:checked').val();
+	var controllerTypeEnum;
+
+	console.log(controllerIP);
+	console.log(controllerPort);
+	console.log(controllerTypeStr);
+
+	switch(controllerTypeStr) {
+	    case "odl":
+	        controllerTypeEnum = ControllerType.ODL;
+	        break;
+	    case "static":
+	        controllerTypeEnum = ControllerType.STATIC;
+	        break;
+	    default:
+	        controllerTypeEnum = ControllerType.STATIC;
+	}
+
+	siteArr = $.parseJSON($("#site-json").val());
+	
+	networkElementNameArr = [];
+	for (var i = 0; i < siteArr.length; i++){
+		var siteNetworkElementArr = siteArr[i].neworkElementArr;
+		for (var j = 0; j < siteNetworkElementArr.length; j++){
+			networkElementNameArr.push(siteNetworkElementArr[j]);
+		}
+	}
+	console.log(networkElementNameArr);
+
+	return new ControllerData(controllerIP, controllerPort, controllerTypeEnum);
+}
 
 function getSiteByNetowrkElementId(id){
 	for (var i = 0; i < siteArr.length; i++){
@@ -74,7 +173,7 @@ function mwToSigma(networkElementArr, mwLinkArr){
 
 		var siteInfo = getSiteByNetowrkElementId(currentNetworkElement.getId()); // NetworkElementSiteInfo
 		if (siteInfo == "error"){
-			alert("Network element(" + currentNetworkElement.getId() + ") doesn't exist in any of sites");
+			console.log("Network element(" + currentNetworkElement.getId() + ") doesn't exist in any of sites");
 			continue;
 		}
 
@@ -85,6 +184,7 @@ function mwToSigma(networkElementArr, mwLinkArr){
 
 		var networkElementSize = AIR_INTERFACE_NODE_SIZE + (DISTANCE_BETWEEN_AIR_INTERFACE_NODES * (currentNetworkElement.mwAirInterfaceArr.length - 1));
 
+		// Place NEs in a square shape on it's edges
 		switch(siteInfo.indexInSite) {
 		    case 0:
 		        networkElementX += networkElementSize / 2;	//EAST
@@ -93,6 +193,16 @@ function mwToSigma(networkElementArr, mwLinkArr){
 		        break;
 		    case 1:
 		        networkElementY += networkElementSize / 2;
+		        airInterfaceInitialY = networkElementY;
+		        airInterfaceInitialX = networkElementX - (networkElementSize / 2) + (AIR_INTERFACE_NODE_SIZE / 2);
+		        break;
+		    case 2:
+		        networkElementX -= networkElementSize / 2;	//EAST
+		        airInterfaceInitialX = networkElementX;
+		        airInterfaceInitialY = networkElementY - (networkElementSize / 2) + (AIR_INTERFACE_NODE_SIZE / 2);
+		        break;
+		    case 3:
+		        networkElementY -= networkElementSize / 2;
 		        airInterfaceInitialY = networkElementY;
 		        airInterfaceInitialX = networkElementX - (networkElementSize / 2) + (AIR_INTERFACE_NODE_SIZE / 2);
 		        break;
@@ -122,6 +232,12 @@ function mwToSigma(networkElementArr, mwLinkArr){
 			    case 1:
 			        airInterfaceInitialX += DISTANCE_BETWEEN_AIR_INTERFACE_NODES;	//SOUTH
 			        break;
+			    case 2:
+			        airInterfaceInitialY += DISTANCE_BETWEEN_AIR_INTERFACE_NODES;	//EAST
+			        break;
+			    case 3:
+			        airInterfaceInitialX += DISTANCE_BETWEEN_AIR_INTERFACE_NODES;	//SOUTH
+			        break;
 			}
 		}
 	}
@@ -148,69 +264,5 @@ function mwToSigma(networkElementArr, mwLinkArr){
 
 	topologyData = { nodes: sigmaNodeArr, edges: sigmaEdgeArr};
 
-	console.log(topologyData);
-
     return topologyData;
 }
-
-var topologyData;
-var sigmaObj;
-$(document).ready(function() {
-	var networkElementArr = []; // MwNetworkElement
-	var mwLinkArr = []; // MwLink
-
-	networkElementArr = getNetworkElements("127.0.0.1", "80", ControllerType.SELF);
-    mwLinkArr = extractMwLinks(networkElementArr);
-
-    topologyData = mwToSigma(networkElementArr, mwLinkArr);
-
-	console.log(topologyData);
-
-    sigmaObj = new sigma({
-		                    	graph: topologyData,
-		                    	container: 'graph-container',
-		                    	renderer: {
-        							container: document.getElementById('graph-container'),
-        							type: 'canvas'
-    							},
-		                    	settings: {
-									defaultLabelColor: '#ec5148',
-									doubleClickEnabled: false,
-									labelThreshold: 8,
-									minNodeSize: 0,
-									maxNodeSize: 0,
-								    enableEdgeHovering: true,
-								    edgeHoverColor: 'edge',
-								    defaultEdgeHoverColor: '#000',
-								    edgeHoverSizeRatio: 2,
-								    edgeHoverExtremities: true
-									// defaultLabelAlignment: 'bottom'
-        						}
-		                	});
-
-	var dragListener = sigma.plugins.dragNodes(sigmaObj, sigmaObj.renderers[0]);
-
-	sigmaObj.refresh();
-
-  	setInterval(function(){ 
-  		updateGraph();
-	}, 1000);
-});
-
-
-
-	function updateGraph(){
-		// var networkElementArr = []; // MwNetworkElement
-		// var mwLinkArr = []; // MwLink
-		// networkElementArr = getNetworkElements("127.0.0.1", "80");
-	 //    mwLinkArr = extractMwLinks(networkElementArr);
-
-	 //    topologyData = mwToSigma(networkElementArr, mwLinkArr);
-
-	 //    sigmaObj.graph = topologyData;
-
-	 	topologyData.edges[0].color = "#000";
-
-
-  		sigmaObj.refresh();
-	}
