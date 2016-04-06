@@ -1,7 +1,7 @@
 Steps to compile the default values mediator:
 
 	0.1. Make sure you have the latest git YANG module files from git(you can do a "git pull" command in /home/compila/app/CENTENNIAL and then copy the files from /home/compila/app/CENTENNIAL/02-MWTN-PoC/models/24-reducedCoreModel-MWTN-Prio1/yang into /usr/share/yuma/modules/CENTENNIAL
-	0.2. Copy yang-modules folder from the archive to: /home/compila/app/poc2-md/ (replace the previous yang-modules folder).
+	0.2. Delete existing folder  /home/compila/app/poc2-md/yang-modules and copy yang-modules folder from this repository to: /home/compila/app/poc2-md/ (replace the previous yang-modules folder).
 	0.3. Overwrite /home/compila/app/poc2-md/open-yuma/netconf/src/agt/agt_val.c with the agt_val.c file that is enclosed in the archive.
 	0.4. Recompile OpenYuma project: 
 		0.4.1. cd /home/compila/app/poc2-md/open-yuma
@@ -38,4 +38,4 @@ Its format is simple, and something like:
 	NeName: <whatever-ne-name-you-would-like-here>
 	eventFrequency: <amount-in-seconds-between-dummy-notifications>
 	
-### Keep in mind that if you modify this file containing the configurable parameters, you would still need to restart the NETCONF server, if it was already running, in order to see the new values. You will just not need to rebuild id. ###l
+### Keep in mind that if you modify this file containing the configurable parameters, you would still need to restart the NETCONF server, if it was already running, in order to see the new values. You will just not need to rebuild it ###l
