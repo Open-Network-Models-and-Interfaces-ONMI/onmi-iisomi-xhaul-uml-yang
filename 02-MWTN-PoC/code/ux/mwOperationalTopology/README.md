@@ -2,7 +2,7 @@
 
 ### Overview:
 This application displays the Microwave topology operational status in a graph view using Sigma.js.
-![Alt text](/Example.JPG "Example")
+![Alt text](Example.JPG "Example")
 
 ### How it works:
 #### The application devided into 2 part:
