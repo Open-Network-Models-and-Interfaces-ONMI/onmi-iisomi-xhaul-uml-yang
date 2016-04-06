@@ -1,0 +1,64 @@
+{
+    "MW_AirInterface_Pac": [
+      {
+        "-xmlns": "uri:onf:MicrowaveModel-ObjectClasses-MwConnection",
+        "airInterfaceCapability": {
+          "airInterfaceID": "Radio: Slot 2 Port 1",
+          "typeOfEquipment": "RFU-N-DC",
+          "txFrequencyMin": "14732000",
+          "txFrequencyMax": "14844000",
+          "rxFrequencyMin": "15047000",
+          "rxFrequencyMax": "15159000",
+          "adaptiveModulationIsAvail": "true"
+        },
+        "airInterfaceStatus": {
+          "txFrequencyCur": "14830000",
+          "rxFrequencyCur": "15100000",
+          "txLevelCur": "3",
+          "rxLevelCur": "-27",
+          "snrCur": "-40.26",
+          "linkIsUp": "false",
+          "xpicIsUp": "true"
+        },
+        "layerProtocol": "268451969",
+        "airInterfaceConfiguration": {
+          "txFrequency": "14830000",
+          "rxFrequency": "15100000",
+          "transmitterIsOn": "true",
+          "radioSignalId": "21",
+          "txPower": "3",
+          "adaptiveModulationIsOn": "false"
+        }
+      },
+      {
+        "-xmlns": "uri:onf:MicrowaveModel-ObjectClasses-MwConnection",
+        "airInterfaceCapability": {
+          "airInterfaceID": "Radio: Slot 2 Port 2",
+          "typeOfEquipment": "RFU-N-DC",
+          "txFrequencyMin": "14732000",
+          "txFrequencyMax": "14844000",
+          "rxFrequencyMin": "15047000",
+          "rxFrequencyMax": "15159000",
+          "adaptiveModulationIsAvail": "true"
+        },
+        "airInterfaceStatus": {
+          "txFrequencyCur": "14800000",
+          "rxFrequencyCur": "15100000",
+          "txLevelCur": "2",
+          "rxLevelCur": "-26",
+          "snrCur": "-40.55",
+          "linkIsUp": "true",
+          "xpicIsUp": "true"
+        },
+        "layerProtocol": "268451970",
+        "airInterfaceConfiguration": {
+          "txFrequency": "14800000",
+          "rxFrequency": "15100000",
+          "transmitterIsOn": "true",
+          "radioSignalId": "22",
+          "txPower": "2",
+          "adaptiveModulationIsOn": "false"
+        }
+      }
+    ]
+}
