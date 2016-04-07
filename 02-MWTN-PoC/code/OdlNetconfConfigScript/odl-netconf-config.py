@@ -12,8 +12,8 @@ configDir=currentPath + "/netconf-servers"
 operation=""
 
 if len(sys.argv) <= 1:
-	print "Usage:"
-	print "python " + __file__ +" [add/delete]"
+	print("Usage:")
+	print("python " + __file__ +" [add/delete]")
 	sys.exit(1)
 else:
 	operation = sys.argv[1]
@@ -43,7 +43,7 @@ for configFile in os.listdir(configDir):
 			if response.status_code == 204:
 				status = 0
 			else:
-				print json.dumps(json.loads(response.text), indent=4)
+				print(json.dumps(json.loads(response.text), indent=4))
 				status = 1
 
 		elif operation == "delete":
@@ -57,16 +57,16 @@ for configFile in os.listdir(configDir):
 			if response.status_code == 200:
 				status = 0
 			else:
-				print json.dumps(json.loads(response.text), indent=4)
+				print(json.dumps(json.loads(response.text), indent=4))
 				status = 1
 
 		else:
-			print "Unknown option " + operation
+			print("Unknown option " + operation)
 			sys.exit(1)
 
 
 		if status ==  0:
-			print "Succeeded to " + operation + " " + name
+			print("Succeeded to " + operation + " " + name)
 
 			# if operation == 'add':
 			# 	time.sleep(1)
@@ -76,7 +76,8 @@ for configFile in os.listdir(configDir):
 			# 	print json.dumps(json.loads(response.text), indent=4)
 
 		else:
-			print "Faild to " + operation + " " + name
+			print("Faild to " + operation + " " + name)
 
-	except:
-		print "Failed for " + configFile
+	except Exception as e:
+		print("OS error: {0}".format(err))
+		print("Failed for " + configFile)
