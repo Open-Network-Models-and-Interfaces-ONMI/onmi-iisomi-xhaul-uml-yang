@@ -1,0 +1,74 @@
+{
+    "controller": { 
+        "ip": "localhost",
+        "port": "8181",
+        "user": "admin",
+        "passwd": "admin",
+        "image": "distribution-karaf",
+        "version": "0.3.4-Lithium-SR4",
+        "url": "https://nexus.opendaylight.org/content/groups/public/org/opendaylight/integration"
+    },
+    "controller-wipro": { 
+        "ip": "localhost",
+        "port": "8181",
+        "user": "admin",
+        "passwd": "admin",
+        "image": "distribution-wipro",
+        "version": "master",
+        "url": "http://github.com/OpenNetworkingFoundation/CENTENNIAL"
+    },
+    "mediator-hcl": {
+        "ip": "",
+        "port": "830",
+        "user": "root",
+        "passwd": "root",
+        "image": "mediator-hcl",
+        "version": "",
+        "url": ""
+    },
+    "mediator-ceragon": {
+        "ip": "",
+        "port": "830",
+        "user": "compila",
+        "passwd": "compila+",
+        "image": "mediator-ceragon",
+        "version": "master",
+        "url": "http://github.com/OpenNetworkingFoundation/CENTENNIAL"
+    },
+    "model": {
+        "path": "./models/24-reducedCoreModel-MWTN-Prio1"
+    },
+    "topology": [
+        {
+            "type": "controller",
+            "ip": "localhost",
+            "name": "controller"
+        },
+        {
+            "type": "mediator-hcl",
+            "ip": "dhcp",
+            "name": "ne1"
+        },
+        {
+            "type": "mediator-hcl",
+            "ip": "dhcp",
+            "name": "ne2"
+        },
+        {
+            "type": "mediator-hcl",
+            "ip": "dhcp",
+            "name": "ne3"
+        },
+        {
+            "type": "mediator-ceragon",
+            "ip": "dhcp",
+            "name": "ne4"
+        },
+        {
+            "type": "mediator-ceragon",
+            "ip": "dhcp",
+            "name": "ne5"
+        }
+    ]
+}
+

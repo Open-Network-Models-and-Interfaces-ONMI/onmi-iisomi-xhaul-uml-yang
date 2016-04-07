@@ -7,6 +7,7 @@
 # make all targets
 DIRS = SimpleAirInterface-ObjectClasses \
        MicrowaveModel-ObjectClasses-MwConnection \
+       MicrowaveModel-Notifications \
        CoreModel-CoreNetworkModule-ObjectClasses
 
 #################### PLATFORM DEFINITIONS ############

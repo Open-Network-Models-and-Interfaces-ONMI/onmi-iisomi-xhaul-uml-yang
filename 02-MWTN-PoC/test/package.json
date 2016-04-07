@@ -1,0 +1,30 @@
+{
+    "name": "ONF-Microwave-Transport-Network-Test-Framework",
+    "description": "ONF microwave transport network test framework",
+    "version": "0.0.5",
+    "author": "Paolo Rovelli <paolo.rovelli@hcl.com>",
+    "repository": {
+      "type": "git",
+      "url": "http://github.com/epalrov/onf-mwt-test.git"
+    },
+    "license": "Copyright (C) 2016 HCL Technologies",
+    "private": true,
+    "dependencies": {},
+    "devDependencies": {
+        "async": "latest",
+        "chai": "latest",
+        "chai-things": "latest",
+        "grunt": "latest",
+        "grunt-contrib-jshint": "latest",
+        "grunt-jscs": "latest",
+        "grunt-mocha-test": "latest",
+        "grunt-newer": "latest",
+        "grunt-shell": "latest",
+        "jit-grunt": "latest",
+        "jshint-stylish": "latest",
+        "mocha": "latest",
+        "supertest": "latest",
+        "time-grunt": "latest"
+    }
+}
+
