@@ -79,5 +79,5 @@ for configFile in os.listdir(configDir):
 			print("Faild to " + operation + " " + name)
 
 	except Exception as e:
-		print("OS error: {0}".format(err))
+		print("OS error: {0}".format(e))
 		print("Failed for " + configFile)
