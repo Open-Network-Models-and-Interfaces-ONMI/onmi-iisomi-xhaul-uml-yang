@@ -275,7 +275,7 @@ function mwToSigma(networkElementArr, mwLinkArr){
 		else if (effectiveCapacity == configuredCapacity){
 			color = "#3399ff";
 		}
-		else{
+		else if (effectiveCapacity > 0 && effectiveCapacity < configuredCapacity){
 			color = "#ffcc66";
 		}
 

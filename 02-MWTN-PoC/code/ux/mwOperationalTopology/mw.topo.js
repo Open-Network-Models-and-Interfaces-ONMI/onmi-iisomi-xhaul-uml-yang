@@ -196,7 +196,6 @@ function getNetworkElements(controllerData, neNameArr, mwNetworkElementArr){
 
 			    	// For each physical interface(MwConnection) get MW_AirInterface_Pac and MW_Structure_Pac,
 			    	// create an MwConnection Object and add it the mwNetworkElement data
-			    	console.log(data.MW_AirInterface_Pac);
 			    	for (var j = 0; j < data.MW_AirInterface_Pac.length; j++){
 			    		var mwAirInterface = new MwAirInterface(data.MW_AirInterface_Pac[j]);
 			    		var mwStructure = new MwStructure(data.MW_Structure_Pac[j]);
