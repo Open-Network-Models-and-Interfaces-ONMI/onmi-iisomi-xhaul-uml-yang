@@ -27,17 +27,20 @@ RUN mv agt_val.c OpenYuma/netconf/src/agt/
 WORKDIR /root/OpenYuma
 RUN set -x -e; \
     make; \
-    make install; \
-    printf 'Port 830\nSubsystem netconf "/usr/sbin/netconf-subsystem --ncxserver-sockname=830@/tmp/ncxserver.sock"\n' >> /etc/ssh/sshd_config; \ 
-    printf '#!/bin/bash\nset -e\n/usr/sbin/netconfd --no-startup --superuser=compila --log=/dev/null --module=CoreModel-CoreNetworkModule-ObjectClasses --module=MicrowaveModel-ObjectClasses-MwConnection &\nsleep 1\n/usr/sbin/sshd -D &\nwait\nkill %%\n' > /root/start.sh; \
-    chmod 0755 /root/start.sh
+    make install
 
 
 # build mediator
 WORKDIR /root/yang-modules
 RUN set -x -e; \
     make; \
-    make install;
+    make install
+
+
+# configure sshd to use netconf
+RUN set -x -e; \
+    echo 'Port 830' >> /etc/ssh/sshd_config; \
+    echo 'Subsystem netconf "/usr/sbin/netconf-subsystem --ncxserver-sockname=830@/tmp/ncxserver.sock"' >> /etc/ssh/sshd_config
 
 
 # finishing touches

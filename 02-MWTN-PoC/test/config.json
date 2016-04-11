@@ -36,11 +36,39 @@
         "url": "http://github.com/OpenNetworkingFoundation/CENTENNIAL"
     },
     "model": {
-        "path": "./models/24-reducedCoreModel-MWTN-Prio1"
+        "path": "./models/24-reducedCoreModel-MWTN-Prio1",
+        "list" : [{
+            "main" : "MicrowaveModel-ObjectClasses-MwConnection",
+            "rev" : "2016-03-23",
+            "deps" : [
+                "MicrowaveModel-TypeDefinitions",
+                "CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages",
+                "CoreModel-CoreFoundationModule-StateModel"
+            ]
+        },
+        {
+            "main" : "MicrowaveModel-Notifications",
+            "rev" : "2016-03-20",
+            "deps" : [
+                "MicrowaveModel-TypeDefinitions",
+                "CoreModel-CoreFoundationModule-TypeDefinitions",
+                "CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages",
+                "CoreModel-CoreFoundationModule-StateModel"
+            ]
+        },
+        {
+            "main" : "CoreModel-CoreNetworkModule-ObjectClasses",
+            "rev" : "2016-03-27",
+            "deps" : [
+                "CoreModel-CoreNetworkModule-TypeDefinitions",
+                "CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages",
+                "CoreModel-CoreFoundationModule-StateModel"
+            ]
+        }]
     },
     "topology": [
         {
-            "type": "controller",
+            "type": "controller-wipro",
             "ip": "localhost",
             "name": "controller"
         },
@@ -62,12 +90,28 @@
         {
             "type": "mediator-ceragon",
             "ip": "dhcp",
-            "name": "ne4"
+            "name": "ne4", 
+            "config" : {
+                "ne" : "ne4",
+                "ifaces" : [
+                    { "iface" : "LP-MWPS-TTP-ifIndex1", "radio" : "1" },
+                    { "iface" : "LP-MWPS-TTP-ifIndex2", "radio" : "2" }
+                ],
+                "event" : "10"
+            }
         },
         {
             "type": "mediator-ceragon",
             "ip": "dhcp",
-            "name": "ne5"
+            "name": "ne5",
+            "config" : {
+                "ne" : "ne5",
+                "ifaces" : [
+                    { "iface" : "LP-MWPS-TTP-ifIndex1", "radio" : "1" },
+                    { "iface" : "LP-MWPS-TTP-ifIndex2", "radio" : "2" }
+                ],
+                "event" : "10"
+            }
         }
     ]
 }

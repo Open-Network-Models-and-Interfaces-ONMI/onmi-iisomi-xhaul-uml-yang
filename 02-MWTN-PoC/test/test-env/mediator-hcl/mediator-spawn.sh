@@ -43,17 +43,18 @@ while [ ${MEDIATOR_IDX} -lt ${MEDIATOR_NUM} ]; do
         /bin/bash > /dev/null 2>&1
     docker inspect --format '{{ .NetworkSettings.IPAddress }}' ${MEDIATOR_NAME}
 
-    # Copy the MEDIATOR models and datastores to the target
-    for x in ${MODEL_PATH}/*.{yang,xml}
-    do
+    # Copy the MEDIATOR models and start-up datastores to the target
+    for x in ${MODEL_PATH}/*.{yang,xml}; do
         docker exec ${MEDIATOR_NAME} cp \
             ${MEDIATOR_SHM}/${x##*/} \
             ${MEDIATOR_CFG}/${x##*/}
     done
 
     # Translate the MEDIATOR models to YIN format
-    for x in $(<${MODEL_PATH}/modules)
-    do
+    MODEL_MAIN=$(jq -r .model.list[].main ${1})
+    MODEL_DEPS=$(jq -r .model.list[].deps[] ${1})
+    MODEL_DEPS=$(awk 'BEGIN{RS=ORS=" "}!a[$0]++' <<< ${MODEL_DEPS})
+    for x in ${MODEL_MAIN} ${MODEL_DEPS}; do
         docker exec ${MEDIATOR_NAME} pyang \
             -f yin \
             -p ${MEDIATOR_CFG} \
@@ -62,19 +63,19 @@ while [ ${MEDIATOR_IDX} -lt ${MEDIATOR_NUM} ]; do
     done
 
     # Register the MEDIATOR main models and their imported modules
-    for x in $(<${MODEL_PATH}/models)
-    do
-        echo " - install '${x}'"
+    MODEL_MAIN=($(jq -r .model.list[].main ${1}))
+    for i in ${!MODEL_MAIN[@]}; do 
+        echo " - install '${MODEL_MAIN[${i}]}'"
         docker exec ${MEDIATOR_NAME} netopeer-manager add \
-            --name ${x} \
-            --model ${MEDIATOR_CFG}/${x}.yin \
-            --datastore ${MEDIATOR_CFG}/${x}.xml
-        for y in $(<${MODEL_PATH}/imports)
-        do
-            echo "    - import '${y}'"
+            --name ${MODEL_MAIN[${i}]} \
+            --model ${MEDIATOR_CFG}/${MODEL_MAIN[${i}]}.yin \
+            --datastore ${MEDIATOR_CFG}/${MODEL_MAIN[${i}]}.xml
+        MODEL_DEPS=($(jq -r .model.list[${i}].deps[] ${1}))
+        for j in ${!MODEL_DEPS[@]}; do 
+            echo "    - import '${MODEL_DEPS[${j}]}'"
             docker exec ${MEDIATOR_NAME} netopeer-manager add \
-                --name ${x} \
-                --import ${MEDIATOR_CFG}/${y}.yin
+                --name ${MODEL_MAIN[${i}]} \
+                --import ${MEDIATOR_CFG}/${MODEL_DEPS[${j}]}.yin
         done
     done
 
