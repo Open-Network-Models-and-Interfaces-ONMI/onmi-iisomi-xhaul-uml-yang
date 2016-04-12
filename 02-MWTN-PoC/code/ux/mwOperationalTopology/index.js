@@ -24,21 +24,20 @@ var DISTANCE_BETWEEN_AIR_INTERFACE_NODES = 7;
 
 var sigmaObj;
 var controllerData;
-var siteArr;
+var siteArr; 							// Hold ths "site" json that specify the site coordinates and NE that it contains
+
+var mwNetworkElementArr = [];
+var networkElementNameArr = [];
+var plannedTimeSlotsArr = [];			// Hold an array that specifies how many timeslots are planned for every link
 
 $(document).ready(function() {
-
-	$("#layer-protocol").hide();
-	
   	setInterval(function(){ 
   		updateNetwrokElementArr();
-	}, 1000);
+	}, 2000);
 	
   	setInterval(function(){ 
   		updateGraph();
-	}, 1000);
-
-
+	}, 2000);
 });
 
 var networkElementArr = []; // MwNetworkElement
@@ -48,8 +47,6 @@ $("#update-button").click(function() {
 	
 });
 
-var mwNetworkElementArr = [];
-var networkElementNameArr = [];
 function updateNetwrokElementArr(){
 	if  (typeof controllerData === 'undefined'){
 		controllerData = extractControllerData();
@@ -62,7 +59,6 @@ function updateNetwrokElementArr(){
 function updateGraph(){
 	var mwLinkArr = []; // MwLink
 
-	console.log(mwNetworkElementArr);
     mwLinkArr = extractMwLinks(mwNetworkElementArr);
 
     topologyData = mwToSigma(mwNetworkElementArr, mwLinkArr);
@@ -71,25 +67,25 @@ function updateGraph(){
 
 	if (typeof sigmaObj === 'undefined'){
 	    sigmaObj = new sigma({
-			                    	graph: topologyData,
-			                    	container: 'graph-container',
-			                    	renderer: {
-	        							container: document.getElementById('graph-container'),
-	        							type: 'canvas'
-	    							},
-			                    	settings: {
-										defaultLabelColor: '#ec5148',
-										doubleClickEnabled: false,
-										labelThreshold: 8,
-										minNodeSize: 0,
-										maxNodeSize: 0,
-									    enableEdgeHovering: true,
-									    edgeHoverColor: 'edge',
-									    defaultEdgeHoverColor: '#000',
-									    edgeHoverSizeRatio: 2,
-									    edgeHoverExtremities: true
-	        						}
-			                	});
+		                    	graph: topologyData,
+		                    	container: 'graph-container',
+		                    	renderer: {
+        							container: document.getElementById('graph-container'),
+        							type: 'canvas'
+    							},
+		                    	settings: {
+									defaultLabelColor: '#ec5148',
+									doubleClickEnabled: false,
+									labelThreshold: 8,
+									minNodeSize: 0,
+									maxNodeSize: 0,
+								    enableEdgeHovering: true,
+								    edgeHoverColor: 'edge',
+								    defaultEdgeHoverColor: '#000',
+								    edgeHoverSizeRatio: 2,
+								    edgeHoverExtremities: true
+        						}
+		                	});
 	    // Doesn't work well because it refereshes every second
 		// var dragListener = sigma.plugins.dragNodes(sigmaObj, sigmaObj.renderers[0]);
 	}
@@ -117,10 +113,6 @@ function extractControllerData(){
 	var controllerTypeStr = $('input[type=radio][name="controller-type"]:checked').val();
 	var controllerTypeEnum;
 
-	console.log(controllerIP);
-	console.log(controllerPort);
-	console.log(controllerTypeStr);
-
 	switch(controllerTypeStr) {
 	    case "odl":
 	        controllerTypeEnum = ControllerType.ODL;
@@ -142,6 +134,9 @@ function extractControllerData(){
 		}
 	}
 	console.log(networkElementNameArr);
+
+	plannedTimeSlotsArr = $.parseJSON($("#planned-json").val());
+	console.log(plannedTimeSlotsArr);
 
 	return new ControllerData(controllerIP, controllerPort, controllerTypeEnum);
 }
@@ -173,38 +168,38 @@ function mwToSigma(networkElementArr, mwLinkArr){
 
 		var siteInfo = getSiteByNetowrkElementId(currentNetworkElement.getId()); // NetworkElementSiteInfo
 		if (siteInfo == "error"){
-			console.log("Network element(" + currentNetworkElement.getId() + ") doesn't exist in any of sites");
+			console.log("Network element(" + currentNetworkElement.getId() + ") doesn't exist in any of the sites");
 			continue;
 		}
 
 		var networkElementX = siteInfo.site.x;
 		var networkElementY = siteInfo.site.y;
-		var airInterfaceInitialX;
-		var airInterfaceInitialY;
+		var mwConnectionInitialX;
+		var mwConnectionInitialY;
 
-		var networkElementSize = AIR_INTERFACE_NODE_SIZE + (DISTANCE_BETWEEN_AIR_INTERFACE_NODES * (currentNetworkElement.mwAirInterfaceArr.length - 1));
+		var networkElementSize = AIR_INTERFACE_NODE_SIZE + (DISTANCE_BETWEEN_AIR_INTERFACE_NODES * (currentNetworkElement.mwConnectionArr.length - 1));
 
 		// Place NEs in a square shape on it's edges
 		switch(siteInfo.indexInSite) {
 		    case 0:
 		        networkElementX += networkElementSize / 2;	//EAST
-		        airInterfaceInitialX = networkElementX;
-		        airInterfaceInitialY = networkElementY - (networkElementSize / 2) + (AIR_INTERFACE_NODE_SIZE / 2);
+		        mwConnectionInitialX = networkElementX;
+		        mwConnectionInitialY = networkElementY - (networkElementSize / 2) + (AIR_INTERFACE_NODE_SIZE / 2);
 		        break;
 		    case 1:
 		        networkElementY += networkElementSize / 2;
-		        airInterfaceInitialY = networkElementY;
-		        airInterfaceInitialX = networkElementX - (networkElementSize / 2) + (AIR_INTERFACE_NODE_SIZE / 2);
+		        mwConnectionInitialY = networkElementY;
+		        mwConnectionInitialX = networkElementX - (networkElementSize / 2) + (AIR_INTERFACE_NODE_SIZE / 2);
 		        break;
 		    case 2:
 		        networkElementX -= networkElementSize / 2;	//EAST
-		        airInterfaceInitialX = networkElementX;
-		        airInterfaceInitialY = networkElementY - (networkElementSize / 2) + (AIR_INTERFACE_NODE_SIZE / 2);
+		        mwConnectionInitialX = networkElementX;
+		        mwConnectionInitialY = networkElementY - (networkElementSize / 2) + (AIR_INTERFACE_NODE_SIZE / 2);
 		        break;
 		    case 3:
 		        networkElementY -= networkElementSize / 2;
-		        airInterfaceInitialY = networkElementY;
-		        airInterfaceInitialX = networkElementX - (networkElementSize / 2) + (AIR_INTERFACE_NODE_SIZE / 2);
+		        mwConnectionInitialY = networkElementY;
+		        mwConnectionInitialX = networkElementX - (networkElementSize / 2) + (AIR_INTERFACE_NODE_SIZE / 2);
 		        break;
 		}
 
@@ -218,25 +213,25 @@ function mwToSigma(networkElementArr, mwLinkArr){
 		sigmaNodeArr.push(networkElementNode);
 
 		// Add MW nodes(LTP)
-		for (var currentAirInterfaceIndex = 0; currentAirInterfaceIndex < currentNetworkElement.mwAirInterfaceArr.length; currentAirInterfaceIndex++){
-			var currentAirInterface = currentNetworkElement.mwAirInterfaceArr[currentAirInterfaceIndex];
-			var nodeName = currentAirInterface.getId();
+		for (var currentMwConnectionIndex = 0; currentMwConnectionIndex < currentNetworkElement.mwConnectionArr.length; currentMwConnectionIndex++){
+			var currentMwConnection = currentNetworkElement.mwConnectionArr[currentMwConnectionIndex];
+			var nodeName = currentMwConnection.getId();
 
-			var airInterfaceNode = new SigmaNode(nodeName, nodeName, airInterfaceInitialX, airInterfaceInitialY,"#000", AIR_INTERFACE_NODE_SIZE);
-			sigmaNodeArr.push(airInterfaceNode);
+			var mwConnectionNode = new SigmaNode(nodeName, nodeName, mwConnectionInitialX, mwConnectionInitialY,"#000", AIR_INTERFACE_NODE_SIZE);
+			sigmaNodeArr.push(mwConnectionNode);
 
 			switch(siteInfo.indexInSite) {
 			    case 0:
-			        airInterfaceInitialY += DISTANCE_BETWEEN_AIR_INTERFACE_NODES;	//EAST
+			        mwConnectionInitialY += DISTANCE_BETWEEN_AIR_INTERFACE_NODES;	//EAST
 			        break;
 			    case 1:
-			        airInterfaceInitialX += DISTANCE_BETWEEN_AIR_INTERFACE_NODES;	//SOUTH
+			        mwConnectionInitialX += DISTANCE_BETWEEN_AIR_INTERFACE_NODES;	//SOUTH
 			        break;
 			    case 2:
-			        airInterfaceInitialY += DISTANCE_BETWEEN_AIR_INTERFACE_NODES;	//EAST
+			        mwConnectionInitialY += DISTANCE_BETWEEN_AIR_INTERFACE_NODES;	//EAST
 			        break;
 			    case 3:
-			        airInterfaceInitialX += DISTANCE_BETWEEN_AIR_INTERFACE_NODES;	//SOUTH
+			        mwConnectionInitialX += DISTANCE_BETWEEN_AIR_INTERFACE_NODES;	//SOUTH
 			        break;
 			}
 		}
@@ -254,15 +249,55 @@ function mwToSigma(networkElementArr, mwLinkArr){
 	}
 
 	for (var i = 0; i < mwLinkArr.length; i++){
-		color = "#666666";
-		console.log(mwLinkArr[i]);
-		if (mwLinkArr[i].isUp() == true){
-			color = "#3399ff"
+		var effectiveCapacity = Math.round(mwLinkArr[i].getEffectiveCapacity() / 1000);
+		var configuredCapacity = Math.round(mwLinkArr[i].getConfiguredCapacity() / 1000);
+		try{
+			var plannedCapacityAvailable = true;
+			var plannedCapacity = Math.round((getPlannedTimeSlotValueByRadioSignalId(mwLinkArr[i].id) * mwLinkArr[i].getTimeSlotCapacity(1)) /1000);
+			
 		}
-		sigmaEdgeArr.push(new SigmaEdge(mwLinkArr[i].id, mwLinkArr[i].id, mwLinkArr[i].mwAirInterface1.getId(), mwLinkArr[i].mwAirInterface2.getId(), color));
+		catch(err){
+			// If planned capacity not found, don't display it in the label by marking plannedCapacity as -1
+			console.log(err);
+			plannedCapacityAvailable = false;
+		}
+		console.log(mwLinkArr[i]);
+
+		// Determine edge color
+		// If effective capacity is 0 -> Grey
+		// If configured < planned -> Red
+		// If effective = configured -> blue
+		// If effective < configured -> orange
+		color = "#666666"; //Grey
+		if (plannedCapacityAvailable == true && configuredCapacity != plannedCapacity){
+			color = "#990000";
+		}
+		else if (effectiveCapacity == configuredCapacity){
+			color = "#3399ff";
+		}
+		else if (effectiveCapacity > 0 && effectiveCapacity < configuredCapacity){
+			color = "#ffcc66";
+		}
+
+		if (plannedCapacityAvailable == true){
+			label = mwLinkArr[i].id + ":[" + effectiveCapacity + "," +  configuredCapacity + "," + plannedCapacity + "]";
+		}
+		else{
+			label = mwLinkArr[i].id + ":[" + effectiveCapacity + "," +  configuredCapacity + "]";
+		}
+		sigmaEdgeArr.push(new SigmaEdge(mwLinkArr[i].id, label, mwLinkArr[i].mwConnection1.getId(), mwLinkArr[i].mwConnection2.getId(), color));
 	}
 
 	topologyData = { nodes: sigmaNodeArr, edges: sigmaEdgeArr};
 
     return topologyData;
+}
+
+function getPlannedTimeSlotValueByRadioSignalId(id){
+	for (var i = 0 ;i < plannedTimeSlotsArr.length; i++){
+		if (plannedTimeSlotsArr[i].radioSignalId == id){
+			return plannedTimeSlotsArr[i].numberOfTimeSlots;
+		}
+	}
+	throw "RadioslotId(" + id + ") not found in planned time slots";
 }
