@@ -120,6 +120,7 @@ define(
                 };
 
                 service.connect = function(ne, callback) {
+                  console.info('Connect', ne.name, ne.ip, ne.port);
                   var url = [service.base,
                       'config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules'].join('');
                   var request = {
@@ -132,10 +133,10 @@ define(
                     }
                   };
                   $http(request).then(function successCallback(response) {
-                    callback(response.data);
+                    callback('ok', response.data);
                   }, function errorCallback(response) {
                     console.error(JSON.stringify(response));
-                    callback();
+                    callback('nok');
                   });
                 };
 
@@ -178,9 +179,11 @@ define(
                     url : url
                   };
                   $http(request).then(function successCallback(response) {
+                    console.info('Got data from', neId);
                     callback(response.data);
                   }, function errorCallback(response) {
-                    console.error(JSON.stringify(response));
+                    console.info('Could not get data from', neId);
+                    // console.error(JSON.stringify(response));
                     callback();
                   });
                 };

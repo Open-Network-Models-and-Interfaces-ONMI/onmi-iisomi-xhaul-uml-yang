@@ -71,6 +71,7 @@ var mwtnCompareCtrl = function($scope, $rootScope, $modal, $mwtnCompare) {
             return ne['node-id'];
           });
           console.log('ane', aneHash);
+          // console.log(JSON.stringify(topology.node));
           $scope.actualNetworkElements = topology.node;
         }
       });
@@ -144,14 +145,20 @@ var mwtnCompareCtrl = function($scope, $rootScope, $modal, $mwtnCompare) {
         $mwtnCompare.getActualNetworkElement(neId, function(ne) {
           // console.log(JSON.stringify(ne.NetworkElement[0]._ltpRefList));
           ne.NetworkElement[0]._ltpRefList.map(function(ltp) {
-            // console.log(JSON.stringify(ltp._lpList));
+            
+//            console.log(JSON.stringify(ltp.uuid));
+//            
+//            console.log(' - clients', JSON.stringify(ltp._clientLtpRefList));
+//            console.log(' - servers', JSON.stringify(ltp._serverLtpRefList));
             ltp._lpList.map(function(lp) {
               switch (lp.layerProtocolName) {
               case 'MWPS':
                 getActualMW_AirInterface_Pac(neId, lp.uuid, function(aMwps){});
                 break;
               case 'MWS':
-                getActualMW_Structure_Pac(neId, lp.uuid, function(aMws){});
+                getActualMW_Structure_Pac(neId, lp.uuid, function(aMws){
+                  // some magic must happen here
+                });
                 break;
               case 'ETH-CTP':
                 getActualMW_Container_Pac(neId, lp.uuid, function(aMwConfig){});
@@ -203,17 +210,17 @@ var mwtnCompareCtrl = function($scope, $rootScope, $modal, $mwtnCompare) {
     $scope.$watch(function() {
       return $scope.requiredNetworkElements[index].connectionStatus;
     }, function(newValue, oldValue) {
-      if (newValue !== oldValue) {
         if (newValue === 'connected') {
-          $mwtnCompare.getActualNetworkElement(rne.name, function(data) {
-            rne.actualNetworkElementData = data;           
-          });
-        } else {
+          // setTimeout(function() {
+            $mwtnCompare.getActualNetworkElement(rne.name, function(data) {
+              rne.actualNetworkElementData = data;           
+            });
+          // ImpI}, 10);
+        } else if (newValue === 'disconnected') {
           rne.actualNetworkElementData = undefined;
           clearDatabase(rne.name);
-        }
-      }
-    });
+        }     
+    }); 
   };
 
   var getCompares = function(obj, actualData) {
@@ -221,6 +228,9 @@ var mwtnCompareCtrl = function($scope, $rootScope, $modal, $mwtnCompare) {
     var labelIds = Object.keys(obj);
     labelIds.map(function(labelId) {
       var missingActualValueLabelId = 'not connected';
+      if (labelId === 'installedCapacity') {
+        missingActualValueLabelId = '<pure planning value>';
+      }
       if (actualData && !actualData[labelId]) {
         missingActualValueLabelId = 'not delivered';
       }
@@ -290,6 +300,44 @@ var mwtnCompareCtrl = function($scope, $rootScope, $modal, $mwtnCompare) {
       }
     });
   };
+  
+  var getLP = function(ne, search) {
+    var result = 'notFound!';
+    ne._ltpRefList.map(function(ltp){
+      if (ltp.uuid === search) {
+        result = ltp._lpList.uuid;
+        var hash = [ne.uuid, result].join('-');
+        $scope.requiredLayerProtocols[hash] = 'null';
+      }
+    });
+    return result;
+  };
+
+  var buildRequiredAssociations = function(ne, callback) {
+
+    var tree = {};
+    // find MWPS
+    ne._ltpRefList.map(function(ltp){
+      // console.log(ltp._lpList.uuid, ltp._lpList.layerProtocolName);
+      if (ltp._lpList.layerProtocolName === 'MWS') {
+        tree[ltp._serverLtpRefList] = {
+            lp: getLP(ne, ltp._serverLtpRefList),
+            clients : {}
+        };
+        tree[ltp._serverLtpRefList].clients[ltp.uuid] = {
+            lp: getLP(ne, ltp.uuid),
+            clients : {}
+        };
+        tree[ltp._serverLtpRefList].clients[ltp.uuid].clients[ltp._clientLtpRefList] = {
+            lp:getLP(ne, ltp._clientLtpRefList)
+        };
+        
+        
+      }
+    });
+    console.log('tree', JSON.stringify(tree));
+    callback();
+  };
 
   var buildRadioSignalIds = function(referenceValues, callback) {
     referenceValues.network.networkElement.map(function(ne){
@@ -336,13 +384,16 @@ var mwtnCompareCtrl = function($scope, $rootScope, $modal, $mwtnCompare) {
               });
 
               ne.MW_Structure_Pac.map(function(mws){
-                
+                // registerMwpsForAccordionEvents(ne, mwps);
+                // registerMwpsForConnectionStatusChangedEvents(ne, mwps);
               });
               
               ne.MW_Container_Pac.map(function(mwClient){
                 
               });
-              
+
+              buildRequiredAssociations(ne.NetworkElement, function(){});
+
               // add timeSlotIdList
               var mwsCount = ne.MW_Structure_Pac.length;
               ne.MW_Container_Pac
@@ -377,8 +428,10 @@ var mwtnCompareCtrl = function($scope, $rootScope, $modal, $mwtnCompare) {
   $scope.connect = function(ne) {
     var index = rneHash.indexOf(ne.name);
     $scope.requiredNetworkElements[index].connectionStatus = 'connecting...';
-    $mwtnCompare.connect(ne, function(response) {
-      $scope.requiredNetworkElements[index].connectionStatus = 'connected';
+    $mwtnCompare.connect(ne, function(status, response) {
+      // IMPORTANT: Do noting and wait until the connectionStatus changes, there will be an event.;
+      if (status === 'ok')
+      $scope.requiredNetworkElements[index].connectionStatus = 'connected';      
     });
   };
 
@@ -429,7 +482,10 @@ var mwtnCompareCtrl = function($scope, $rootScope, $modal, $mwtnCompare) {
       resolve : {
         model : function() {
           var msg = messages[messageId];
-          msg.info = info;
+          var msgInfo = JSON.parse(JSON.stringify(info));
+          if (msgInfo.open) {msgInfo.open = undefined;}
+          if (msgInfo.compares) {msgInfo.compares = undefined;}
+          msg.info = msgInfo;
           return msg;
         }
       }

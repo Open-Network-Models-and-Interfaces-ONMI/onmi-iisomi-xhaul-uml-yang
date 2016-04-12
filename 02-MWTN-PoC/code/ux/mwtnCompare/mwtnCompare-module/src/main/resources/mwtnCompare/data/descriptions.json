@@ -2,6 +2,12 @@
   "descriptions":{
     "description":[
       {
+        "id":"installedCapacity",
+        "p":[
+          "The max capacity of the structure (MWS) supported by the devices and allowed by the national regulation agency. [sko] issue: MWS vs. PWPS in case of diversity."
+        ]
+      },
+      {
         "id":"uuid",
         "count":3,
         "p":[
@@ -10,7 +16,6 @@
           "The UUID for the UUID authority.",
           "The UUID for the NameValueAuthority."
         ]
-        
       },
       {
         "id":"LayerProtocol",
@@ -20,7 +25,6 @@
           "It can also be used for controlling the adaptation (i.e. encapsulation and/or multiplexing of client signal), tandem connection monitoring, traffic conditioning and/or shaping functionality at an intermediate point along a connection. ",
           "Where the client – server relationship is fixed 1:1 and immutable, the layers can be encapsulated in a single LTP instance. Where the is a n:1 relationship between client and server, the layers must be split over two separate instances of LTP. "
         ]
-        
       },
       {
         "id":"LogicalTerminationPoint",
@@ -29,7 +33,6 @@
           "The LogicalTerminationPoint (LTP) object class encapsulates the termination and adaptation functions of one or more transport layers. ",
           "The structure of LTP supports all transport protocols including circuit and packet forms."
         ]
-        
       },
       {
         "id":"NetworkElement",
@@ -43,7 +46,6 @@
           "NE is really a product bundling or some view of management scope, management access, session. ",
           "The NE is not directly part of topology but brings meaning to the FD context and the LTP context (and hence the links). "
         ]
-        
       },
       {
         "id":"totalNumberOfTimeSlots",
@@ -51,7 +53,6 @@
         "p":[
           "Maximum number of time slots available with the current configuration of the air interface (means e.g. that AirInterface::AirInterfaceStatus::modulationCur is equal to AirInterface::AirInterfaceConfiguration::modulationMax)."
         ]
-        
       },
       {
         "id":"tdmTimeSlotsIsSupported",
@@ -59,7 +60,6 @@
         "p":[
           "In case the microwave radio is capable of transporting TDM, this field shall contain an '1'."
         ]
-        
       },
       {
         "id":"StructureConfiguration",
@@ -73,7 +73,6 @@
           "- Unless there is a value, which the attribute always has right after starting the device.",
           "Configuration messages provided by the device shall contain the current configuration."
         ]
-        
       },
       {
         "id":"tdmReservedNumberOfTimeSlots",
@@ -81,7 +80,6 @@
         "p":[
           "Allows to configure the number of time slots reserved for TDM traffic."
         ]
-        
       },
       {
         "id":"serverID",
@@ -90,7 +88,6 @@
           "Identifies the physical resource, on which the structure is imprinted on.",
           "Can be filled with either an airInterfaceID, an airInterfaceHsbID or an airInterfaceDiversityID."
         ]
-        
       },
       {
         "id":"StructureStatus",
@@ -103,7 +100,6 @@
           "- Unless there is a value, which the attribute always has right after starting the device.",
           "Status messages provided by the device shall either contain actual status information or if not possible these default values."
         ]
-        
       },
       {
         "id":"timeSlotStatusList",
@@ -112,7 +108,6 @@
           "Condition of each time slot.",
           "_multiplicity:Structure::StructureCapability::totalNumberOfTimeSlots"
         ]
-        
       },
       {
         "id":"StructureHistoricalPerformance",
@@ -123,7 +118,6 @@
           "- The Default value shall be inside the value range of the data type of the attribute.",
           "- The Default value shall be outside the range of reasonable values of the attribute."
         ]
-        
       },
       {
         "id":"MW_Container_Pac",
@@ -131,7 +125,6 @@
         "p":[
           "LTP(Client)"
         ]
-        
       },
       {
         "id":"ContainerCapability",
@@ -143,7 +136,6 @@
           "- The Default value shall be inside the value range of the data type of the attribute.",
           "- The Default value shall be outside the range of reasonable values of the attribute."
         ]
-        
       },
       {
         "id":"containerID",
@@ -151,7 +143,6 @@
         "p":[
           "ContainterID in Netconf must be the same as EthernetPortID in OpenFlow so a connection can be made between the two items, which are existing separately in the controller."
         ]
-        
       },
       {
         "id":"availableKindsOfContainerList",
@@ -159,7 +150,6 @@
         "p":[
           "Available container types to be listed."
         ]
-        
       },
       {
         "id":"priorityClassesIsAvail",
@@ -167,7 +157,6 @@
         "p":[
           "Shall be marked '1', if the device is capable of assigning different priorities to containers and adapting the sequence, in which time slots are being dropped in case of decreasing capacity of the air interface."
         ]
-        
       },
       {
         "id":"encryptionIsAvail",
@@ -175,7 +164,6 @@
         "p":[
           "Shall be marked '1', if payload encryption is available."
         ]
-        
       },
       {
         "id":"packetCompressionIsAvail",
@@ -183,7 +171,6 @@
         "p":[
           "In case packet compression can be activated, but not configured to a certain type, packetCompressionAvail shall be set to \"1\", but none of the type specific booleans."
         ]
-        
       },
       {
         "id":"layer2CompressionIsAvail",
@@ -191,7 +178,6 @@
         "p":[
           "Packet compression on layer 2 available at the device."
         ]
-        
       },
       {
         "id":"vlanCompressionIsAvail",
@@ -199,7 +185,6 @@
         "p":[
           "Packet compression on VLAN layer available at the device."
         ]
-        
       },
       {
         "id":"qInQCompressionIsAvail",
@@ -207,7 +192,6 @@
         "p":[
           "Packet compression on layer of a second VLAN available at the device."
         ]
-        
       },
       {
         "id":"mplsCompressionIsAvail",
@@ -215,7 +199,6 @@
         "p":[
           "Packet compression on mpls layer available at the device."
         ]
-        
       },
       {
         "id":"l2vpnCompressionIsAvail",
@@ -223,7 +206,6 @@
         "p":[
           "Packet compression on level of layer 2 VPN available at the device."
         ]
-        
       },
       {
         "id":"ipv4CompressionIsAvail",
@@ -231,7 +213,6 @@
         "p":[
           "Packet compression on layer 3 for IPv4 available at the device."
         ]
-        
       },
       {
         "id":"ipv6CompressionIsAvail",
@@ -239,7 +220,6 @@
         "p":[
           "Packet compression on layer 3 for IPv6 available at the device."
         ]
-        
       },
       {
         "id":"l3vpnCompressionIsAvail",
@@ -247,7 +227,6 @@
         "p":[
           "Packet compression on level of layer 3 VPN available at the device."
         ]
-        
       },
       {
         "id":"layer4CompressionIsAvail",
@@ -255,7 +234,6 @@
         "p":[
           "Packet compression on layer 4 (TCP and UDP header) available at the device."
         ]
-        
       },
       {
         "id":"ContainerConfiguration",
@@ -269,7 +247,6 @@
           "- Unless there is a value, which the attribute always has right after starting the device.",
           "Configuration messages provided by the device shall contain the current configuration."
         ]
-        
       },
       {
         "id":"container",
@@ -277,7 +254,6 @@
         "p":[
           "Defines the data type of the container offered to client layers."
         ]
-        
       },
       {
         "id":"timeSlotIDList",
@@ -287,7 +263,6 @@
           "In case ThisContainer::ContainerConfiguration::container::containerType::bundlingIsAvail==0, structureId must be equal for all aiTimeSlots in the list.",
           "_multiplicity:ThisContainer::ContainerConfiguration::container::containerType::numberOfTimeSlotsRequired"
         ]
-        
       },
       {
         "id":"encryptionIsOn",
@@ -295,7 +270,6 @@
         "p":[
           "Activates encryption of the payload."
         ]
-        
       },
       {
         "id":"packetCompressionIsOn",
@@ -303,7 +277,6 @@
         "p":[
           "In case packet compression is activated, but no type is activated, it is assumed that the device choses an optimum."
         ]
-        
       },
       {
         "id":"time8192Symbols",
@@ -312,7 +285,6 @@
         "p":[
           "Sum of all seconds the transmitter operated in e.g. 8192QAM."
         ]
-        
       },
       {
         "id":"vlanCompressionIsOn",
@@ -320,7 +292,6 @@
         "p":[
           "Packet compression on VLAN layer configured at the device."
         ]
-        
       },
       {
         "id":"snrMin",
@@ -329,7 +300,6 @@
         "p":[
           "Minimum signal to noise ratio."
         ]
-        
       },
       {
         "id":"snrMax",
@@ -338,7 +308,6 @@
         "p":[
           "Maximum signal to noise ratio."
         ]
-        
       },
       {
         "id":"snrAvg",
@@ -347,7 +316,6 @@
         "p":[
           "Average signal to noise ratio."
         ]
-        
       },
       {
         "id":"xpdMin",
@@ -356,7 +324,6 @@
         "p":[
           "Minimum cross polarization discrimination."
         ]
-        
       },
       {
         "id":"xpdMax",
@@ -365,7 +332,6 @@
         "p":[
           "Maximum cross polarization discrimination."
         ]
-        
       },
       {
         "id":"xpdAvg",
@@ -374,7 +340,6 @@
         "p":[
           "Average cross polarization discrimination."
         ]
-        
       },
       {
         "id":"rxTempMin",
@@ -383,7 +348,6 @@
         "p":[
           "Minimum temperature of RF power amplifier."
         ]
-        
       },
       {
         "id":"rxTempMax",
@@ -392,7 +356,6 @@
         "p":[
           "Maximum temperature of RF power amplifier."
         ]
-        
       },
       {
         "id":"rxTempAvg",
@@ -401,7 +364,6 @@
         "p":[
           "Average temperature of RF power amplifier."
         ]
-        
       },
       {
         "id":"defectBlocksSum",
@@ -409,7 +371,6 @@
         "p":[
           "Total number of blocks that were defect after receiving and could not be corrected by the FEC."
         ]
-        
       },
       {
         "id":"timePeriod",
@@ -422,7 +383,6 @@
           "Total length of the measurement period in seconds.",
           "Required data volume = 17bit"
         ]
-        
       },
       {
         "id":"airInterfacePacList",
@@ -430,7 +390,6 @@
         "p":[
           "List of air interfaces, which are part of the co-channel (XPIC, MIMO, AFR) group."
         ]
-        
       },
       {
         "id":"MW_AirInterfaceHsbEndPoint_Pac",
@@ -444,7 +403,6 @@
           "The EP replaces the Protection Unit of a traditional protection model. ",
           "It represents a protected (resilient\/reliable) point or a protecting (unreliable working or protection) point."
         ]
-        
       },
       {
         "id":"MW_AirInterfaceHsbForwardingConstruct_Pac",
@@ -453,7 +411,6 @@
           "The ForwardingConstruct (FC) object class models enabled potential for forwarding between two or more LTPs and like the LTP supports any transport protocol including all circuit and packet forms.",
           "At the lowest level of recursion, a FC represents a cross-connection within an NE."
         ]
-        
       },
       {
         "id":"MW_AirInterfaceHsbFcSwitch_Pac",
@@ -467,7 +424,6 @@
           "May be lockout (prevented from switching), force switched or manual switched.",
           "Will indicate switch state and change of state."
         ]
-        
       },
       {
         "id":"protType",
@@ -475,7 +431,6 @@
         "p":[
           "Indicates the protection scheme that is used for the ProtectionGroup."
         ]
-        
       },
       {
         "id":"airInterfaceHsbConfigurationIsFaultySeverity",
@@ -483,7 +438,6 @@
         "p":[
           "The level of severity of an airInterfaceHsbConfigurationIsFaulty alarm shall be chosen from an enum."
         ]
-        
       },
       {
         "id":"airInterfaceHsbIsPartlyDownSeverity",
@@ -491,7 +445,6 @@
         "p":[
           "The level of severity for one link out of the HSB configuration being down shall be chosen from an enum."
         ]
-        
       },
       {
         "id":"airInterfaceHsbIsDownSeverity",
@@ -499,7 +452,6 @@
         "p":[
           "The level of severity of the total HSB configuration being down shall be chosen from an enum."
         ]
-        
       },
       {
         "id":"MW_AirInterfaceDiversity_Pac",
@@ -507,7 +459,6 @@
         "p":[
           "LTP(MWS-CTP-xD)"
         ]
-        
       },
       {
         "id":"AirInterfaceDiversityCapability",
@@ -520,7 +471,6 @@
           "- The Default value shall be inside the value range of the data type of the attribute.",
           "- The Default value shall be outside the range of reasonable values of the attribute."
         ]
-        
       },
       {
         "id":"airInterfaceDiversityID",
@@ -528,7 +478,6 @@
         "p":[
           "Identifies the air interface diversity group for connecting with Structure."
         ]
-        
       },
       {
         "id":"availableKindsOfDiversity",
@@ -536,7 +485,6 @@
         "p":[
           "Available types of diversity to be listed."
         ]
-        
       },
       {
         "id":"AirInterfaceDiversityConfiguration",
@@ -550,7 +498,6 @@
           "- Unless there is a value, which the attribute always has right after starting the device.",
           "Configuration messages provided by the device shall contain the current configuration."
         ]
-        
       },
       {
         "id":"airInterfaceDiversity",
@@ -558,7 +505,6 @@
         "p":[
           "Type of air interface diversity configured at the link."
         ]
-        
       },
       {
         "id":"airInterfaceIDList",
@@ -566,7 +512,6 @@
         "p":[
           "_multiplicity:2-ThisAirInterfaceDiversity::AirInterfaceDiversityConfiguration::airInterfaceDiversity::diversityType::numberOfAirInterfacesMax"
         ]
-        
       },
       {
         "id":"AirInterfaceDiversityStatus",
@@ -579,7 +524,6 @@
           "- Unless there is a value, which the attribute always has right after starting the device.",
           "Status messages provided by the device shall either contain actual status information or if not possible these default values."
         ]
-        
       },
       {
         "id":"airInterfaceDiversityStatus",
@@ -587,7 +531,6 @@
         "p":[
           "Status of the air interface bundle. "
         ]
-        
       },
       {
         "id":"MW_Structure_Pac",
@@ -595,7 +538,6 @@
         "p":[
           "LTP(MWS-TTP)"
         ]
-        
       },
       {
         "id":"StructureCapability",
@@ -608,7 +550,6 @@
           "- The Default value shall be inside the value range of the data type of the attribute.",
           "- The Default value shall be outside the range of reasonable values of the attribute."
         ]
-        
       },
       {
         "id":"structureID",
@@ -616,7 +557,6 @@
         "p":[
           "Identifies the Structure for bundling and container."
         ]
-        
       },
       {
         "id":"timeSlotCapacity",
@@ -625,7 +565,6 @@
         "p":[
           "Transport capacity of each time slot."
         ]
-        
       },
       {
         "id":"e1IsAvail",
@@ -633,7 +572,6 @@
         "p":[
           "The 2Mbit\/s transport capacity provided by the structureGroup is used for providing an E1 container to the client layer. "
         ]
-        
       },
       {
         "id":"t1IsAvail",
@@ -641,7 +579,6 @@
         "p":[
           "The 1,5Mbit\/s transport capacity provided by the structureGroup is used for providing a T1 container to the client layer. "
         ]
-        
       },
       {
         "id":"j1IsAvail",
@@ -649,7 +586,6 @@
         "p":[
           "The 1,5Mbit\/s transport capacity provided by the structureGroup is used for providing a J1 container to the client layer."
         ]
-        
       },
       {
         "id":"stm1IsAvail",
@@ -657,7 +593,6 @@
         "p":[
           "The 155Mbit\/s transport capacity provided by the structureGroup is used for providing an STM-1 container to the client layer. "
         ]
-        
       },
       {
         "id":"cpri1IsAvail",
@@ -665,7 +600,6 @@
         "p":[
           "The 614.4Mbit\/s of transport capacity provided by the structureGroup is used for providing a CPRI1 container. "
         ]
-        
       },
       {
         "id":"cpri2IsAvail",
@@ -673,7 +607,6 @@
         "p":[
           "The 1228.8Mbit\/s of transport capacity provided by the structureGroup is used for providing a CPRI2 container."
         ]
-        
       },
       {
         "id":"cpri3IsAvail",
@@ -681,7 +614,6 @@
         "p":[
           "The 2457.6Mbit\/s of transport capacity provided by the structureGroup is used for providing a CPRI3 container. "
         ]
-        
       },
       {
         "id":"cpri4IsAvail",
@@ -689,7 +621,6 @@
         "p":[
           "The 3072.0Mbit\/s of transport capacity provided by the structureGroup is used for providing a CPRI4 container."
         ]
-        
       },
       {
         "id":"cpri5IsAvail",
@@ -697,7 +628,6 @@
         "p":[
           "The 4915.2Mbit\/s of transport capacity provided by the structureGroup is used for providing a CPRI5 container."
         ]
-        
       },
       {
         "id":"cpri6IsAvail",
@@ -705,7 +635,6 @@
         "p":[
           "The 6144.0Mbit\/s of transport capacity provided by the structureGroup is used for providing a CPRI6 container."
         ]
-        
       },
       {
         "id":"cpri7IsAvail",
@@ -713,7 +642,6 @@
         "p":[
           "The 9830.4Mbit\/s of transport capacity provided by the structureGroup is used for providing a CPRI7 container."
         ]
-        
       },
       {
         "id":"hsbCoordinationIsAvail",
@@ -722,7 +650,6 @@
           "At pure outdoor microwave systems, it is required to be able to configure ports for solely coordinating hot standby protection behaviour with the second ODU of the protection configuration.",
           "In case a port can be used for this purpose, this attribute shall be set to '1'."
         ]
-        
       },
       {
         "id":"portIsForHsbCoordination",
@@ -731,7 +658,6 @@
           "At pure outdoor microwave systems, it is required to be able to configure ports for solely coordinating hot standby protection behaviour with the second ODU of the protection configuration.",
           "In case a port shall be used for this purpose, this attribute shall be set to '1'."
         ]
-        
       },
       {
         "id":"SuperClasses",
@@ -739,7 +665,6 @@
         "p":[
           "SuperClasses provided by the ONF equipment model."
         ]
-        
       },
       {
         "id":"Equipment",
@@ -748,7 +673,6 @@
           "ONF Equipment Model (ONF 2015.499), Draft Version 0.1, September 25th of 2015",
           "Equipment is a Field Replaceable Unit (FRU), the pieces that an Enterprise or Service Provider would normally work with. Typical types of Equipment include Chassis, Module, Power supply module, Fan unit, Server, Blade Server, Disk Drive, Wi-Fi Access Point unit."
         ]
-        
       },
       {
         "id":"EquipmentHolder",
@@ -757,7 +681,6 @@
           "ONF Equipment Model (ONF 2015.499), Draft Version 0.1, September 25th of 2015",
           "EquipmentHolder is the part of Equipment used to house other pieces of Equipment. An EquipmentHolder may be empty or occupied. Typical types of Equipment Holders include Slot, PluggableUnitHolder (GBIC, SFP), Fan slot and Power supply slot."
         ]
-        
       },
       {
         "id":"PhysicalConnector",
@@ -766,7 +689,6 @@
           "ONF Equipment Model (ONF 2015.499), Draft Version 0.1, September 25th of 2015",
           "PhysicalConnector is the part of Equipment used for attaching cable connectors. Typical types of connector are Ethernet RJ45, Optic Fibre, and Power connector."
         ]
-        
       },
       {
         "id":"ObjectCreationNotification",
@@ -774,7 +696,6 @@
         "p":[
           "To be sent when a new MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac or MW_Container_Pac has to be instancieted in the controller."
         ]
-        
       },
       {
         "id":"counter",
@@ -785,7 +706,6 @@
           "Counts attribute value changed notifications.",
           "Counts problem notifications"
         ]
-        
       },
       {
         "id":"objectID",
@@ -796,7 +716,6 @@
           "ID of the affected MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac or MW_Container_Pac",
           "ID of the affected MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac or MW_Container_Pac"
         ]
-        
       },
       {
         "id":"objectType",
@@ -804,7 +723,6 @@
         "p":[
           "Type of Object to be chosen from the following list of values: 'MW_AirInterface_Pac', 'MW_AirInterfaceDiversity_Pac', 'MW_Structure_Pac', 'MW_Container_Pac'"
         ]
-        
       },
       {
         "id":"ObjectDeletionNotification",
@@ -812,7 +730,6 @@
         "p":[
           "To be sent when a MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac or MW_Container_Pac instance has to be deleted in the controller."
         ]
-        
       },
       {
         "id":"AttributeValueChangedNotification",
@@ -820,7 +737,6 @@
         "p":[
           "To be sent when an attribute has changed and one or more controllers have to update their data."
         ]
-        
       },
       {
         "id":"attributeName",
@@ -828,7 +744,6 @@
         "p":[
           "Name of the attribute that has been changed."
         ]
-        
       },
       {
         "id":"newValue",
@@ -836,7 +751,6 @@
         "p":[
           "Attribute value converted to a sring (xml, json, ...)"
         ]
-        
       },
       {
         "id":"ProblemNotification",
@@ -844,7 +758,6 @@
         "p":[
           "To be sent when a problem occurs at a MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac or a MW_Container_Pac."
         ]
-        
       },
       {
         "id":"problem",
@@ -852,7 +765,6 @@
         "p":[
           "Name of the problem according to AirInterface::AirInterfaceCapability::supportedAlarms or AirInterfaceDiversity::AirInterfaceDiversityCapability::supportedAlarms or Structure::StructureCapability::supportedAlarms or Container::ContainerCapability::supportedAlarms"
         ]
-        
       },
       {
         "id":"severity",
@@ -860,7 +772,6 @@
         "p":[
           "Severity of the problem according to AirInterface::AirInterfaceConfiguration::problemSeverityList, AirInterfaceDiversity::AirInterfaceDiversityConfiguration::problemSeverityList, Structure::StructureConfiguration::problemSeverityList and Container::ContainerConfiguration::problemSeverityList"
         ]
-        
       },
       {
         "id":"AirInterfaceIsPartOfHsbGroup",
@@ -870,7 +781,6 @@
           "Association is actually between ",
           "LogicalTerminationPoint and EndPoint "
         ]
-        
       },
       {
         "id":"StructureLtpIsProtected",
@@ -880,7 +790,6 @@
           "Association is actually between ",
           "LogicalTerminationPoint and EndPoint "
         ]
-        
       },
       {
         "id":"layer2CompressionIsOn",
@@ -888,7 +797,6 @@
         "p":[
           "Packet compression on layer 2 configured at the device."
         ]
-        
       },
       {
         "id":"qInQCompressionIsOn",
@@ -896,7 +804,6 @@
         "p":[
           "Packet compression on layer of a second VLAN configured at the device."
         ]
-        
       },
       {
         "id":"mplsCompressionIsOn",
@@ -904,7 +811,6 @@
         "p":[
           "Packet compression on MPLS layer configured at the device."
         ]
-        
       },
       {
         "id":"l2vpnCompressionIsOn",
@@ -912,7 +818,6 @@
         "p":[
           "Packet compression on level of layer 2 VPN configured at the device."
         ]
-        
       },
       {
         "id":"ipv4CompressionIsOn",
@@ -920,7 +825,6 @@
         "p":[
           "Packet compression on layer 3 for IPv4 configured at the device."
         ]
-        
       },
       {
         "id":"ipv6CompressionIsOn",
@@ -928,7 +832,6 @@
         "p":[
           "Packet compression on layer 3 for IPv6 configured at the device."
         ]
-        
       },
       {
         "id":"l3vpnCompressionIsOn",
@@ -936,7 +839,6 @@
         "p":[
           "Packet compression on level of layer 3 VPN configured at the device."
         ]
-        
       },
       {
         "id":"layer4CompressionIsOn",
@@ -944,7 +846,6 @@
         "p":[
           "Packet compression on layer 4 (TCP and UDP header) configured at the device."
         ]
-        
       },
       {
         "id":"ContainerStatus",
@@ -957,7 +858,6 @@
           "- Unless there is a value, which the attribute always has right after starting the device.",
           "Status messages provided by the device shall either contain actual status information or if not possible these default values."
         ]
-        
       },
       {
         "id":"getContainerCapacity",
@@ -966,7 +866,6 @@
           "Provides the current capacity of the Container (only reasonable for Ethernet containers) in Mbit\/s.",
           "The number of time slots, which have operational state = \"up\" but are not reserved for TDM, has to be multiplied with the capacity of a single time slot calculated by Structure::StructureCapability::getTimeSlotCapacity()."
         ]
-        
       },
       {
         "id":"ContainerHistoricalPerformance",
@@ -977,7 +876,6 @@
           "- The Default value shall be inside the value range of the data type of the attribute.",
           "- The Default value shall be outside the range of reasonable values of the attribute."
         ]
-        
       },
       {
         "id":"txEthernetBytesMaxS",
@@ -988,7 +886,6 @@
           "Field to be left blank for all types of TDM containers.",
           "Required data volume = 31bit"
         ]
-        
       },
       {
         "id":"txEthernetBytesMaxM",
@@ -999,7 +896,6 @@
           "Field to be left blank for all types of TDM containers.",
           "Required data volume = 37bit"
         ]
-        
       },
       {
         "id":"txEthernetBytesSum",
@@ -1010,7 +906,6 @@
           "Field to be left blank for all types of TDM containers.",
           "Required data volume = 47bit"
         ]
-        
       },
       {
         "id":"MwCurrentProblem",
@@ -1018,7 +913,6 @@
         "p":[
           "According to ITU-T G.874.1?"
         ]
-        
       },
       {
         "id":"HistoryData",
@@ -1026,7 +920,6 @@
         "p":[
           "ITU-T G.822"
         ]
-        
       },
       {
         "id":"hsbNumberMax",
@@ -1034,7 +927,6 @@
         "p":[
           "Maximum number of hot stand-by groups configurable."
         ]
-        
       },
       {
         "id":"sdNumberMax",
@@ -1042,7 +934,6 @@
         "p":[
           "Maximum number of space diversity groups configurable."
         ]
-        
       },
       {
         "id":"fdNumberMax",
@@ -1050,7 +941,6 @@
         "p":[
           "Maximum number of frequency diversity groups configurable."
         ]
-        
       },
       {
         "id":"l1BNumberMax",
@@ -1058,7 +948,6 @@
         "p":[
           "Maximum number of layer 1 bundling groups."
         ]
-        
       },
       {
         "id":"cpriBNumberMax",
@@ -1066,7 +955,6 @@
         "p":[
           "Maximum number of CPRI bundling groups."
         ]
-        
       },
       {
         "id":"e1SncpNumberMax",
@@ -1074,7 +962,6 @@
         "p":[
           "Maximum number of E1 protections."
         ]
-        
       },
       {
         "id":"t1j1SncpNumberMax",
@@ -1082,7 +969,6 @@
         "p":[
           "Maximum number of T1 or J1 protections."
         ]
-        
       },
       {
         "id":"stm1MspNumberMax",
@@ -1090,7 +976,6 @@
         "p":[
           "Maximum number of STM-1 protections."
         ]
-        
       },
       {
         "id":"mwChassisId",
@@ -1098,7 +983,6 @@
         "p":[
           "Operator specific network element ID (often used for coding area, type of element and sequential number)."
         ]
-        
       },
       {
         "id":"timeAndDate",
@@ -1106,7 +990,6 @@
         "p":[
           "This attribute set the time for the microwave device."
         ]
-        
       },
       {
         "id":"ntpServerIpAddress",
@@ -1114,7 +997,6 @@
         "p":[
           "This parameter sets the IP address of the remote NTP server."
         ]
-        
       },
       {
         "id":"ftpServerAddressAndLogin",
@@ -1122,7 +1004,6 @@
         "p":[
           "ftp server name <NAME> address <ADDRESS> [port <PORT>] [user <USER> [password <PASS>] ] [servertype <PROTOCOL>]"
         ]
-        
       },
       {
         "id":"chassisTempCur",
@@ -1130,7 +1011,6 @@
         "p":[
           "Current temperature inside the indoor unit (chassis) in Celsius. (In case of pure outdoor implementation of the microwave, the temperature inside the outdoor unit is to be filled-in.)"
         ]
-        
       },
       {
         "id":"MW_AirInterfacePort",
@@ -1138,7 +1018,6 @@
         "p":[
           "Intermediate Frequency Port."
         ]
-        
       },
       {
         "id":"ifPortID",
@@ -1146,7 +1025,6 @@
         "p":[
           "Vendor defined identifier of the IF port."
         ]
-        
       },
       {
         "id":"MW_AirInterface_Pac",
@@ -1154,7 +1032,6 @@
         "p":[
           "LTP(MWPS-TTP)"
         ]
-        
       },
       {
         "id":"ethernetIsAvail",
@@ -1162,7 +1039,6 @@
         "p":[
           "The pure packet transport capacity of the structureGroup is used for providing a container for Ethernet traffic."
         ]
-        
       },
       {
         "id":"AirInterfaceCapability",
@@ -1177,7 +1053,6 @@
           "- The Default value shall be inside the value range of the data type of the attribute.",
           "- The Default value shall be outside the range of reasonable values of the attribute."
         ]
-        
       },
       {
         "id":"airInterfaceID",
@@ -1185,7 +1060,6 @@
         "p":[
           "Identifies the air interface for connecting with structure or diversity."
         ]
-        
       },
       {
         "id":"typeOfEquipment",
@@ -1194,7 +1068,6 @@
           "This parameter indicates the equipment type.",
           "Instead of uploading the complete set of capabilities, capabilities of the same equipment type could be reused."
         ]
-        
       },
       {
         "id":"txFrequencyMin",
@@ -1204,7 +1077,6 @@
           "Value of the minimum transmit frequency tunable at the air interface.",
           "This value is only relevant, if the channel plan, which is referenced in channelPlanID is stored in the controller."
         ]
-        
       },
       {
         "id":"txFrequencyMax",
@@ -1214,7 +1086,6 @@
           "Value of the maximum transmit frequency tunable at the air interface.",
           "This value is only relevant, if the channel plan, which is referenced in channelPlanID is stored in the controller."
         ]
-        
       },
       {
         "id":"rxFrequencyMin",
@@ -1224,7 +1095,6 @@
           "Value of the minimum receive frequency tunable at the air interface.",
           "This value is only relevant, if the channel plan, which is referenced in channelPlanID is stored in the controller."
         ]
-        
       },
       {
         "id":"rxFrequencyMax",
@@ -1234,7 +1104,6 @@
           "Value of the maximum receive frequency tunable at the air interface.",
           "This value is only relevant, if the channel plan, which is referenced in channelPlanID is stored in the controller."
         ]
-        
       },
       {
         "id":"adaptiveModulationIsAvail",
@@ -1242,7 +1111,6 @@
         "p":[
           "In case the Air Interface Port is capable of adaptive modulation, this field shall contain an '1'."
         ]
-        
       },
       {
         "id":"mimoIsAvail",
@@ -1250,7 +1118,6 @@
         "p":[
           "In case the device is capable of MIMO, this field shall contain an '1'."
         ]
-        
       },
       {
         "id":"mimoChannels",
@@ -1258,7 +1125,6 @@
         "p":[
           "Maximum number (n) of Air Interfaces that can be combined to a n x n MIMO configuration."
         ]
-        
       },
       {
         "id":"afrIsAvail",
@@ -1266,7 +1132,6 @@
         "p":[
           "In case the microwave radio is capable of Advanced Frequency Reuse (canceling of interference cause by transmitters located at the same site), this field shall contain an '1'."
         ]
-        
       },
       {
         "id":"atpcIsAvail",
@@ -1274,7 +1139,6 @@
         "p":[
           "In case the microwave radio is capable of ATPC, this field shall contain an '1'."
         ]
-        
       },
       {
         "id":"atpcRange",
@@ -1284,7 +1148,6 @@
           "Extent of the ATPC range. ",
           "The value should be set to '0' in case ATPC feature bit is '0'."
         ]
-        
       },
       {
         "id":"loopBackIsAvail",
@@ -1292,7 +1155,6 @@
         "p":[
           "In case the radio is capable of looping back header information of the air interface, this field shall contain an '1'."
         ]
-        
       },
       {
         "id":"maintenanceTimerRange",
@@ -1303,7 +1165,6 @@
           "A list of values shall be separated by commas.",
           "A value range shall be expressed by two values separated by a minus."
         ]
-        
       },
       {
         "id":"supportedAlarms",
@@ -1326,7 +1187,6 @@
           "Names are to be separated by commas.",
           "Further alarms might be added by the device."
         ]
-        
       },
       {
         "id":"supportedChannelPlanList",
@@ -1334,7 +1194,6 @@
         "p":[
           "List of channel spacing that are supported by the device."
         ]
-        
       },
       {
         "id":"AirInterfaceConfiguration",
@@ -1349,7 +1208,6 @@
           "- Unless there is a value, which the attribute always has right after starting the device.",
           "Configuration messages provided by the device shall contain the current configuration."
         ]
-        
       },
       {
         "id":"airInterfaceName",
@@ -1357,7 +1215,6 @@
         "p":[
           "Operator specific microwave link ID (often used for coding area, type of element and sequential number)."
         ]
-        
       },
       {
         "id":"radioSignalId",
@@ -1368,7 +1225,6 @@
           "The link ID is neither an ID necessary to span the model nor an ID referencing external data. It is just some sort of name of the link transmitted so the correct remote site can be identified in an interference situation.",
           "The value zero might be used to make the microwave to disable the link ID check."
         ]
-        
       },
       {
         "id":"txFrequency",
@@ -1379,7 +1235,6 @@
           "The values to be configured have to exactly match the values listed in the international agreement referenced in channelPlanID.",
           "In case of automated selection of the transmit frequency this field shall describe the lowest center frequency selectable."
         ]
-        
       },
       {
         "id":"rxFrequency",
@@ -1388,7 +1243,6 @@
         "p":[
           "Center frequency of the receive channel."
         ]
-        
       },
       {
         "id":"txChannelBandwidth",
@@ -1399,7 +1253,6 @@
           "The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. ",
           "The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;"
         ]
-        
       },
       {
         "id":"rxChannelBandwidth",
@@ -1410,7 +1263,6 @@
           "The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. ",
           "The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;"
         ]
-        
       },
       {
         "id":"polarization",
@@ -1418,7 +1270,6 @@
         "p":[
           "Allows to document the polarization of the air interface."
         ]
-        
       },
       {
         "id":"powerIsOn",
@@ -1426,7 +1277,6 @@
         "p":[
           "Power ON. Activation of the entire radio in a split mount configuration shall be expressed as an '1'."
         ]
-        
       },
       {
         "id":"transmitterIsOn",
@@ -1434,7 +1284,6 @@
         "p":[
           "Transmit Power. Activation of the transmitter inside the radio shall be expressed as an '1'."
         ]
-        
       },
       {
         "id":"txPower",
@@ -1444,7 +1293,6 @@
           "Transmit power to be configured on the microwave link. Signed Byte is required.",
           "The actually operated transmit power might be lower depending on adaptive modulation and ATPC."
         ]
-        
       },
       {
         "id":"adaptiveModulationIsOn",
@@ -1452,7 +1300,6 @@
         "p":[
           "Adaptive Modulation. Activation of adaptive modulation shall be expressed as an '1'."
         ]
-        
       },
       {
         "id":"severityType",
@@ -1460,7 +1307,6 @@
         "p":[
           "According to ITU-T M.3160"
         ]
-        
       },
       {
         "id":"supportedChannelPlans",
@@ -1469,7 +1315,6 @@
           "Unique identifier of an international agreement that describe allocations of frequency channels, to which this air interface complies, to be listed.",
           "Corresponding channel plans to be delivered by the hardware vendor and to be stored by the operator in the controller\/application\/attached database."
         ]
-        
       },
       {
         "id":"duplexDistanceIsVariable",
@@ -1477,7 +1322,6 @@
         "p":[
           "'1' in case the distance between transmitted and received frequency is variable."
         ]
-        
       },
       {
         "id":"duplexDistance",
@@ -1486,7 +1330,6 @@
         "p":[
           "Distance between transmitted and received frequency."
         ]
-        
       },
       {
         "id":"autoFreqSelectIsAvail",
@@ -1494,7 +1337,6 @@
         "p":[
           "In case the microwave radio is capable of automatically selecting the transmit frequency in unlicensed bands, this field shall contain an '1'."
         ]
-        
       },
       {
         "id":"transmissionModeType",
@@ -1506,7 +1348,6 @@
           "- The Default value shall be inside the value range of the data type of the attribute.",
           "- The Default value shall be outside the range of reasonable values of the attribute."
         ]
-        
       },
       {
         "id":"transmissionModeID",
@@ -1514,7 +1355,6 @@
         "p":[
           "Indentifies the transmissionMode for internal reference."
         ]
-        
       },
       {
         "id":"channelBandwidth",
@@ -1525,7 +1365,6 @@
           "The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. ",
           "The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;"
         ]
-        
       },
       {
         "id":"modulationScheme",
@@ -1535,7 +1374,6 @@
           "Modulation scheme, which is base to the other characteristics described in the same instance of Script.",
           "The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256')."
         ]
-        
       },
       {
         "id":"informationRate",
@@ -1544,7 +1382,6 @@
         "p":[
           "Information rate of the coding scheme in %."
         ]
-        
       },
       {
         "id":"txPowerMin",
@@ -1553,7 +1390,6 @@
         "p":[
           "Value of the minimum transmit power the modem can operate in dBm."
         ]
-        
       },
       {
         "id":"txPowerMax",
@@ -1562,7 +1398,6 @@
         "p":[
           "Value of the maximum transmit power the modem can operate in dBm."
         ]
-        
       },
       {
         "id":"rxThreshold",
@@ -1571,7 +1406,6 @@
         "p":[
           "Value of the receive level required to decode the received signal with a Bit Error Rate of 1e-6 or less."
         ]
-        
       },
       {
         "id":"amUpshiftLevel",
@@ -1580,7 +1414,6 @@
         "p":[
           "Value of the receive level that has to be exceeded to shift into a higher modulation scheme."
         ]
-        
       },
       {
         "id":"amDownshiftLevel",
@@ -1589,7 +1422,6 @@
         "p":[
           "Value of the receive level that has to be exceeded for not shifting into a lower modulation scheme."
         ]
-        
       },
       {
         "id":"xpicIsAvail",
@@ -1597,7 +1429,6 @@
         "p":[
           "In case the Air Interface Port is capable of XPIC, this field shall contain an '1'."
         ]
-        
       },
       {
         "id":"problemName",
@@ -1608,7 +1439,6 @@
           "Name of the alarm according to Structure::StructureCapability::supportedAlarms",
           "Name of the alarm according to Container::ContainerCapability::supportedAlarms"
         ]
-        
       },
       {
         "id":"problemSeverity",
@@ -1619,7 +1449,6 @@
           "Severity of the alarm.",
           "Severity of the alarm."
         ]
-        
       },
       {
         "id":"diversityName",
@@ -1627,7 +1456,6 @@
         "p":[
           "Names to be chosen from the following list: 'spaceDiversity', 'frequencyDiversity'"
         ]
-        
       },
       {
         "id":"numberOfAirInterfacesMax",
@@ -1635,7 +1463,6 @@
         "p":[
           "Maximum number of air interfaces that could be part of this kind of diversity."
         ]
-        
       },
       {
         "id":"allAiActive",
@@ -1643,7 +1470,6 @@
         "p":[
           "All air interfaces that are part of the diversity configuration are working."
         ]
-        
       },
       {
         "id":"notAllAiActive",
@@ -1651,7 +1477,6 @@
         "p":[
           "At least one, but not all of the air interfaces that are part of the diversity configuration is not working."
         ]
-        
       },
       {
         "id":"groupDown",
@@ -1659,7 +1484,6 @@
         "p":[
           "All air interfaces that are members of the diversity configuration are down."
         ]
-        
       },
       {
         "id":"containerName",
@@ -1667,7 +1491,6 @@
         "p":[
           "Names to be chosen from the following list: 'ethernet','e1','t1','j1','e3','ds3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'"
         ]
-        
       },
       {
         "id":"numberOfTimeSlotsRequired",
@@ -1675,7 +1498,6 @@
         "p":[
           "Number of time slots required for transporting this type of container. Value must be calculated by the vendor after defining the timeSlotCapacity. For containers of fixed size: numberOfTimeSlotsRequired = required bandwidth of the container divided by timeSlotCapacity. For containers of variable size the minimum (most probably 1) is to be stated."
         ]
-        
       },
       {
         "id":"tdmTimeSlotsIsRequired",
@@ -1683,7 +1505,6 @@
         "p":[
           "Shall be set to '1', if this container type requires bandwidth (times slots) reserved for TDM transport."
         ]
-        
       },
       {
         "id":"bundlingIsAvail",
@@ -1691,7 +1512,6 @@
         "p":[
           "If it is possible to combine transport resources of several radio links to transport this container type, this attribute shall be set to '1'."
         ]
-        
       },
       {
         "id":"timeSlotIDType",
@@ -1700,7 +1520,6 @@
           "Identifies the time slots, which are used to transport the container.",
           "Combinations of structureID and timeSlotID must be unique inside the device to assure that every resource is used just once."
         ]
-        
       },
       {
         "id":"timeSlotIsReservedForTdm",
@@ -1709,7 +1528,6 @@
           "The number of time slots, which is configured by Structure::StructureConfiguration::tdmReservedNumberOfTimeSlots, has to be reserved for TDM.",
           "Starting from the lowest index value, these time slots have to be marked with an '1' in timeSlotIsReservedForTdm."
         ]
-        
       },
       {
         "id":"priorityClass",
@@ -1720,7 +1538,6 @@
           "0 = lowest and 7 = highest Priority.",
           "Any value apart the Default is only effective if the device is capable of adapting the sequence, in which time slots are being dropped in case of decreasing capacity of the air interface."
         ]
-        
       },
       {
         "id":"dropOrderRank",
@@ -1732,7 +1549,6 @@
           "dropOrderRank as inherited from the associated Structure::StructureStatus::timeSlotStatusType::dropOrderRank. ",
           "If several time slots are associated, the lowest value shall be taken."
         ]
-        
       },
       {
         "id":"operationalStatus",
@@ -1740,7 +1556,6 @@
         "p":[
           "Current operational status of each time slot."
         ]
-        
       },
       {
         "id":"autoFreqSelectIsUp",
@@ -1748,7 +1563,6 @@
         "p":[
           "If automated frequency selection is currently actually working (not just configured), this shall be expressed as an '1'."
         ]
-        
       },
       {
         "id":"layerProtocol",
@@ -1759,7 +1573,6 @@
           "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement\/_ltpRefList\/_lpList\/uuid",
           "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement\/_ltpRefList\/_lpList\/uuid"
         ]
-        
       },
       {
         "id":"getAirInterfaceCapacity",
@@ -1767,7 +1580,6 @@
         "p":[
           "Provides the current Capacity of the Air Interface in Mbit\/s based on channel bandwidth, modulation, coding and so on."
         ]
-        
       },
       {
         "id":"AirInterfaceHistoricalPerformance",
@@ -1779,7 +1591,6 @@
           "- The Default value shall be inside the value range of the data type of the attribute.",
           "- The Default value shall be outside the range of reasonable values of the attribute."
         ]
-        
       },
       {
         "id":"es",
@@ -1788,7 +1599,6 @@
         "p":[
           "Number of errored seconds."
         ]
-        
       },
       {
         "id":"ses",
@@ -1797,7 +1607,6 @@
         "p":[
           "Number of severely errored seconds."
         ]
-        
       },
       {
         "id":"cses",
@@ -1806,7 +1615,6 @@
         "p":[
           "Number of consecutive severely errored seconds."
         ]
-        
       },
       {
         "id":"unavailability",
@@ -1815,7 +1623,6 @@
         "p":[
           "Total time of unavailability in seconds."
         ]
-        
       },
       {
         "id":"txLevelMin",
@@ -1824,7 +1631,6 @@
         "p":[
           "Minimum transmit power. Signed integers are required."
         ]
-        
       },
       {
         "id":"txLevelMax",
@@ -1833,7 +1639,6 @@
         "p":[
           "Maximum transmit power. Signed integers are required."
         ]
-        
       },
       {
         "id":"txLevelAvg",
@@ -1842,7 +1647,6 @@
         "p":[
           "Average transmit power. Signed integers are required."
         ]
-        
       },
       {
         "id":"rxLevelMin",
@@ -1851,7 +1655,6 @@
         "p":[
           "Minimum receive level. Signed integers are required."
         ]
-        
       },
       {
         "id":"rxLevelMax",
@@ -1860,7 +1663,6 @@
         "p":[
           "Maximum receive level. Signed integers are required."
         ]
-        
       },
       {
         "id":"rxLevelAvg",
@@ -1869,7 +1671,6 @@
         "p":[
           "Average receive level. Signed integers are required."
         ]
-        
       },
       {
         "id":"time2Symbols",
@@ -1878,7 +1679,6 @@
         "p":[
           "Sum of all seconds the transmitter operated in e.g. BPSC."
         ]
-        
       },
       {
         "id":"time4SymbolsS",
@@ -1887,7 +1687,6 @@
         "p":[
           "Sum of all seconds the transmitter operated in e.g. 4QAM strong."
         ]
-        
       },
       {
         "id":"time4Symbols",
@@ -1896,7 +1695,6 @@
         "p":[
           "Sum of all seconds the transmitter operated in e.g. 4QAM."
         ]
-        
       },
       {
         "id":"time8Symbols",
@@ -1905,7 +1703,6 @@
         "p":[
           "Sum of all seconds the transmitter operated in e.g. 8QAM."
         ]
-        
       },
       {
         "id":"time16SymbolsS",
@@ -1914,7 +1711,6 @@
         "p":[
           "Sum of all seconds the transmitter operated in e.g. 16QAM strong."
         ]
-        
       },
       {
         "id":"time16Symbols",
@@ -1923,7 +1719,6 @@
         "p":[
           "Sum of all seconds the transmitter operated in e.g. 16QAM."
         ]
-        
       },
       {
         "id":"time32Symbols",
@@ -1932,7 +1727,6 @@
         "p":[
           "Sum of all seconds the transmitter operated in e.g. 32QAM."
         ]
-        
       },
       {
         "id":"time64Symbols",
@@ -1941,7 +1735,6 @@
         "p":[
           "Sum of all seconds the transmitter operated in e.g. 64QAM."
         ]
-        
       },
       {
         "id":"time128Symbols",
@@ -1950,7 +1743,6 @@
         "p":[
           "Sum of all seconds the transmitter operated in e.g. 128QAM."
         ]
-        
       },
       {
         "id":"time256Symbols",
@@ -1959,7 +1751,6 @@
         "p":[
           "Sum of all seconds the transmitter operated in e.g. 256QAM."
         ]
-        
       },
       {
         "id":"time512Symbols",
@@ -1968,7 +1759,6 @@
         "p":[
           "Sum of all seconds the transmitter operated in e.g. 512QAM."
         ]
-        
       },
       {
         "id":"time512SymbolsL",
@@ -1977,7 +1767,6 @@
         "p":[
           "Sum of all seconds the transmitter operated in e.g. 512QAM light."
         ]
-        
       },
       {
         "id":"time1024Symbols",
@@ -1986,7 +1775,6 @@
         "p":[
           "Sum of all seconds the transmitter operated in e.g. 1024QAM."
         ]
-        
       },
       {
         "id":"time1024SymbolsL",
@@ -1995,7 +1783,6 @@
         "p":[
           "Sum of all seconds the transmitter operated in e.g. 1024QAM light."
         ]
-        
       },
       {
         "id":"time2048Symbols",
@@ -2004,7 +1791,6 @@
         "p":[
           "Sum of all seconds the transmitter operated in e.g. 2048QAM."
         ]
-        
       },
       {
         "id":"time2048SymbolsL",
@@ -2013,7 +1799,6 @@
         "p":[
           "Sum of all seconds the transmitter operated in e.g. 2048QAM light."
         ]
-        
       },
       {
         "id":"time4096Symbols",
@@ -2022,7 +1807,6 @@
         "p":[
           "Sum of all seconds the transmitter operated in e.g. 4096QAM."
         ]
-        
       },
       {
         "id":"time4096SymbolsL",
@@ -2031,7 +1815,6 @@
         "p":[
           "Sum of all seconds the transmitter operated in e.g.  4096QAM light."
         ]
-        
       },
       {
         "id":"modulationMin",
@@ -2042,7 +1825,6 @@
           "The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256').",
           "Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device)."
         ]
-        
       },
       {
         "id":"time8192SymbolsL",
@@ -2051,7 +1833,6 @@
         "p":[
           "Sum of all seconds the transmitter operated in e.g. 8192QAM light."
         ]
-        
       },
       {
         "id":"modulationMax",
@@ -2062,7 +1843,6 @@
           "The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256').",
           "Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device)."
         ]
-        
       },
       {
         "id":"xpicIsOn",
@@ -2070,7 +1850,6 @@
         "p":[
           "XPIC. Activation of Cross Polarization Interference Cancellation shall be expressed as an '1'."
         ]
-        
       },
       {
         "id":"mimoIsOn",
@@ -2078,7 +1857,6 @@
         "p":[
           "Activation of Multiple Input Multiple Output shall be expressed as an '1'."
         ]
-        
       },
       {
         "id":"afrIsOn",
@@ -2086,7 +1864,6 @@
         "p":[
           "Activation of Advanced Frequency Reuse shall be expressed as an '1'."
         ]
-        
       },
       {
         "id":"coChannelGroup",
@@ -2096,7 +1873,6 @@
           "Type of group of air interfaces with the same transmit and receive frequency.",
           "The values shall be chosen from the following _list:'XPIC', 'MIMO', 'AFR';"
         ]
-        
       },
       {
         "id":"atpcIsOn",
@@ -2104,7 +1880,6 @@
         "p":[
           "ATPC. Activation of Automated Transmit Power Control shall be expressed as an '1'."
         ]
-        
       },
       {
         "id":"atpcThreshUpper",
@@ -2113,7 +1888,6 @@
         "p":[
           "If the receive level is higher than the upper threshold value, the transmitter is notified to decrease transmit power."
         ]
-        
       },
       {
         "id":"atpcThreshLower",
@@ -2122,7 +1896,6 @@
         "p":[
           "If the receive level is lower than the lower threshold value, the transmitter is notified to increase transmit power."
         ]
-        
       },
       {
         "id":"autoFreqSelectIsOn",
@@ -2130,7 +1903,6 @@
         "p":[
           "Activation of automatically selecting the transmit frequency in unlicensed bands shall be expressed as an '1'."
         ]
-        
       },
       {
         "id":"autoFreqSelectRange",
@@ -2138,7 +1910,6 @@
         "p":[
           "Number of transmit channels (starting at the center frequency defined in txFrequency and with channel bandwidth according to txChannelBandwidth) that define the range within the transmit frequency can automatically been chosen. "
         ]
-        
       },
       {
         "id":"modulationIsOn",
@@ -2147,7 +1918,6 @@
           "Maintenance Feature",
           "De-activation of the modulation of the carrier signal for fault management shall be expressed as an '0'."
         ]
-        
       },
       {
         "id":"loopBackIsOn",
@@ -2156,7 +1926,6 @@
           "Maintenance Feature",
           "If this attribute is set to '1', the received IF signal is transmitted back to the remote end."
         ]
-        
       },
       {
         "id":"maintenanceTimer",
@@ -2166,7 +1935,6 @@
           "Time of existence of any maintenance configuration (e.g. the loop back of microwave header information).",
           "Allowed values are defined in AirInterface::AirInterfaceCapability::maintenanceTimerRange."
         ]
-        
       },
       {
         "id":"problemSeverityList",
@@ -2177,7 +1945,6 @@
           "Severity of the type of problem to be configured.",
           "Severity of the problem to be configured."
         ]
-        
       },
       {
         "id":"AirInterfaceStatus",
@@ -2191,7 +1958,6 @@
           "- Unless there is a value, which the attribute always has right after starting the device.",
           "Status messages provided by the device shall either contain actual status information or if not possible these default values."
         ]
-        
       },
       {
         "id":"txFrequencyCur",
@@ -2200,7 +1966,6 @@
         "p":[
           "Center frequency of the currently operated transmit channel."
         ]
-        
       },
       {
         "id":"rxFrequencyCur",
@@ -2209,7 +1974,6 @@
         "p":[
           "Center frequency of the currently operated receive channel."
         ]
-        
       },
       {
         "id":"txLevelCur",
@@ -2218,7 +1982,6 @@
         "p":[
           "Current transmit level. Signed Byte is required."
         ]
-        
       },
       {
         "id":"rxLevelCur",
@@ -2227,7 +1990,6 @@
         "p":[
           "Current receive level. Signed Byte is required."
         ]
-        
       },
       {
         "id":"modulationCur",
@@ -2238,7 +2000,6 @@
           "The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256').",
           "Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device)."
         ]
-        
       },
       {
         "id":"informationRateCur",
@@ -2247,7 +2008,6 @@
         "p":[
           "Information rate of the currently operated coding scheme."
         ]
-        
       },
       {
         "id":"snrCur",
@@ -2256,7 +2016,6 @@
         "p":[
           "Currently measured signal to noise ratio."
         ]
-        
       },
       {
         "id":"xpdCur",
@@ -2265,7 +2024,6 @@
         "p":[
           "Currently measured cross polarization discrimination."
         ]
-        
       },
       {
         "id":"rxTempCur",
@@ -2274,7 +2032,6 @@
         "p":[
           "Current temperature of the radio frequency power amplifier in the receiver. (If the temperature of the power amplifier in the receiver is not measured, the temperature inside the radio is also fine.)"
         ]
-        
       },
       {
         "id":"lastStatusChange",
@@ -2333,7 +2090,6 @@
           "HH\t\t\"00\"..\"23\"\t\t\ttime zone difference in hours",
           "Mm\t\t\"00\"..\"59\"\t\t\ttime zone difference in minutes."
         ]
-        
       },
       {
         "id":"radioPowerIsUp",
@@ -2341,7 +2097,6 @@
         "p":[
           "If the radio unit has power and is switched on, this shall be expressed as an '1'."
         ]
-        
       },
       {
         "id":"linkIsUp",
@@ -2349,7 +2104,6 @@
         "p":[
           "If connection is established to the remote site with the same linkID, this shall be expressed as an '1'."
         ]
-        
       },
       {
         "id":"xpicIsUp",
@@ -2357,7 +2111,6 @@
         "p":[
           "If XPIC is currently actually working (not just configured), this shall be expressed as an '1'."
         ]
-        
       },
       {
         "id":"mimoIsUp",
@@ -2365,7 +2118,6 @@
         "p":[
           "If MIMO is currently actually working (not just configured), this shall be expressed as an '1'."
         ]
-        
       },
       {
         "id":"afrIsUp",
@@ -2373,7 +2125,6 @@
         "p":[
           "If AFR is currently actually working (not just configured), this shall be expressed as an '1'."
         ]
-        
       },
       {
         "id":"atpcIsUp",
@@ -2381,7 +2132,6 @@
         "p":[
           "If ATPC is currently actually working (not just configured), this shall be expressed as an '1'."
         ]
-        
       },
       {
         "id":"loopBackIsUp",
@@ -2389,9 +2139,7 @@
         "p":[
           "If loop back of the air interface header is currently active (not just configured), this shall be expressed as an '1'."
         ]
-        
       }
     ]
-    
   }
 }
