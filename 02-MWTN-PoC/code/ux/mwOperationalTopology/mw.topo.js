@@ -20,7 +20,7 @@ function log(level, message){
 // Will include a list of all the MW interfaces inside this element	                                    
 function MwNetworkElement(id){
 	this.id = id
-	this.mwConnectionArr = [];
+	this.mwStructureEndpointArr = [];
 
 	this.getId = function(){
 		return this.id;
@@ -28,13 +28,13 @@ function MwNetworkElement(id){
 }
 
 /**
- * MwConnection object class
+ * MwStructureEndpoint object class - containes the structure and AirInterface atched to it
  * @param {1} mwNetworkElement - reference to the containing MW NE 
  * @param {2} mwAirInterfaceJson - represent the Air Interface(physical radio port) data
  * @param {3} mwStructureJson - represent the Structure(radio link) data
  * @param {4} mwContainerJson - represent the Container(multi radio group) data - TBD
  */
-function MwConnection(mwNetworkElement, mwAirInterface, mwStructure, mwContainer){
+function MwStructureEndpoint(mwNetworkElement, mwAirInterface, mwStructure, mwContainer){
 	this.containingMwNetworkElement = mwNetworkElement;// MwNetworkElement
 	this.airInterfaceData = mwAirInterface;
 	this.structureData = mwStructure;
@@ -116,14 +116,14 @@ function MwStructure(mwStructureJson){
 }
 
 // Class Link
-// source and target should point to mwConnection object
-function MwLink(id, mwConnection1, mwConnection2){
+// source and target should point to MwStructureEndpoint object
+function MwLink(id, mwStructureEndpoint1, mwStructureEndpoint2){
 	this.id = id;
-	this.mwConnection1 = mwConnection1;
-	this.mwConnection2 = mwConnection2;
+	this.mwStructureEndpoint1 = mwStructureEndpoint1;
+	this.mwStructureEndpoint2 = mwStructureEndpoint2;
 
 	this.isUp = function(){
-		if (mwConnection1.isLinkUp() == "false" || mwConnection2.isLinkUp() == "false"){
+		if (this.mwStructureEndpoint1.isLinkUp() == "false" || this.mwStructureEndpoint2.isLinkUp() == "false"){
 			return false;
 		}
 		else{
@@ -135,24 +135,24 @@ function MwLink(id, mwConnection1, mwConnection2){
 	 * Read effective Capacity from According to the requirement, take the minimum of the two
 	 */
 	this.getEffectiveCapacity = function(){
-		return Math.min(this.mwConnection1.getEffectiveCapacity(), this.mwConnection2.getEffectiveCapacity());
+		return Math.min(this.mwStructureEndpoint1.getEffectiveCapacity(), this.mwStructureEndpoint2.getEffectiveCapacity());
 	}
 
 	// According to the requirement, take the minimum of the two
 	this.getConfiguredCapacity = function(){
-		return Math.min(this.mwConnection1.getConfiguredCapacity(), this.mwConnection2.getConfiguredCapacity());
+		return Math.min(this.mwStructureEndpoint1.getConfiguredCapacity(), this.mwStructureEndpoint2.getConfiguredCapacity());
 	}
 
 	/**
-	 * Get Time slot according to the mwConnection ID
-	 * @param {1} id - 1 for mwConnection1 or 2 for mwConnection2
+	 * Get Time slot according to the MwStructureEndpoint ID
+	 * @param {1} id - 1 for mwStructureEndpoint1 or 2 for mwStructureEndpoint2
 	 */
 	this.getTimeSlotCapacity = function(id){
 		switch(id) {
 		    case 1:
-		    	return this.mwConnection1.getTimeSlotCapacity();
+		    	return this.mwStructureEndpoint1.getTimeSlotCapacity();
 		    case 2:
-		    	return this.mwConnection2.getTimeSlotCapacity();
+		    	return this.mwStructureEndpoint2.getTimeSlotCapacity();
 		    default:
 		    	return undefined;
 		}
@@ -194,15 +194,15 @@ function getNetworkElements(controllerData, neNameArr, mwNetworkElementArr){
 			    	log(LogLevelEnum.DEBUG, "Data: " + JSON.stringify(data) + "\nStatus: " + status);
 			    	var mwNetworkElement = new MwNetworkElement(neNameArr[i]);
 
-			    	// For each physical interface(MwConnection) get MW_AirInterface_Pac and MW_Structure_Pac,
-			    	// create an MwConnection Object and add it the mwNetworkElement data
+			    	// For each physical interface(MwStructureEndpoint) get MW_AirInterface_Pac and MW_Structure_Pac,
+			    	// create an MwStructureEndpoint Object and add it the mwNetworkElement data
 			    	for (var j = 0; j < data.MW_AirInterface_Pac.length; j++){
 			    		var mwAirInterface = new MwAirInterface(data.MW_AirInterface_Pac[j]);
 			    		var mwStructure = new MwStructure(data.MW_Structure_Pac[j]);
 
-			    		var mwConnection = new MwConnection(mwNetworkElement, mwAirInterface, mwStructure);
+			    		var mwStructureEndpoint = new MwStructureEndpoint(mwNetworkElement, mwAirInterface, mwStructure);
 
-						mwNetworkElement.mwConnectionArr.push(mwConnection);
+						mwNetworkElement.mwStructureEndpointArr.push(mwStructureEndpoint);
 					}
 					mwNetworkElementArr.push(mwNetworkElement);
 	    		},
@@ -217,36 +217,39 @@ function odlExtractMwNetworkElements(data){
 	baseUrl = arguments[1][0];
 	mwNetworkElementArr = arguments[1][1];
 
-	// For each ODL node (network element) extract it's MwConnection and append to relevant data structures
+	// For each ODL node (network element) extract it's MwStructureEndpoint and append to relevant data structures
 	$.each(data.topology[0].node, function(index ,value){
 		nodeName = value["node-id"];
 		if (nodeName != "controller-config"){
-			var layerProtocolArr = [];
+			// var layerProtocolArr = [];
+			var ltpAssociationMap = {};
 	    	var mwNetworkElement = new MwNetworkElement(nodeName);
 
 	    	// 1. Get all layer protocols from Core model
     		coreModelUrl = baseUrl + "/node/" + nodeName + "/yang-ext:mount/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/" + nodeName;
-    		odlSendAjax(coreModelUrl, extractLayerProtocolArr, ajaxErrorCallback, layerProtocolArr);
+    		odlSendAjax(coreModelUrl, extractAssociations, ajaxErrorCallback, function(){}, ltpAssociationMap);
 
-    		log(LogLevelEnum.DEBUG, layerProtocolArr);
+    		console.log("LTP association map for " + nodeName + ": " + JSON.stringify(ltpAssociationMap));
 
 	    	// 2. For each layer protocol add, create new MwAirInterface and add it to mwNetworkElement
-	    	for (var i = 0;i < layerProtocolArr.length; i++){
+	    	for (var key in ltpAssociationMap){
+	    		mwStructureLayerProtocol = ltpAssociationMap[key].lp;
+	    		mwAirInterfaceLP = ltpAssociationMap[key].clients[Object.keys(ltpAssociationMap[key].clients)[0]].lp; // Get MW physical section(AirInterface) layer protocol ID
 	    		var mwAirInterface;
 	    		var mwStructure;
 	    		var mwContainer;
-	    		var mwConnection;
+	    		var mwStructureEndpoint;
 
-	    		airInterfacePacUrl = baseUrl + "/node/" + nodeName + "/yang-ext:mount/MicrowaveModel-ObjectClasses-MwConnection:MW_AirInterface_Pac/" + layerProtocolArr[i];
-	    		structurePacUrl = baseUrl + "/node/" + nodeName + "/yang-ext:mount/MicrowaveModel-ObjectClasses-MwConnection:MW_Structure_Pac/" + layerProtocolArr[i].replace("MWPS", "MWS");
-	    		// structurePacUrl = baseUrl + "/node/" + nodeName + "/yang-ext:mount/MicrowaveModel-ObjectClasses-MwConnection:MW_Container_Pac/" + layerProtocolArr[i].replace("MWPS", "MWS");
+	    		airInterfacePacUrl = baseUrl + "/node/" + nodeName + "/yang-ext:mount/MicrowaveModel-ObjectClasses-MwConnection:MW_AirInterface_Pac/" + mwStructureLayerProtocol;
+	    		structurePacUrl = baseUrl + "/node/" + nodeName + "/yang-ext:mount/MicrowaveModel-ObjectClasses-MwConnection:MW_Structure_Pac/" + mwAirInterfaceLP;
+	    		// containerPacUrl = baseUrl + "/node/" + nodeName + "/yang-ext:mount/MicrowaveModel-ObjectClasses-MwConnection:MW_Container_Pac/" + layerProtocolArr[i].replace("MWPS", "MWS");
 
 	    		mwAirInterface = odlSendAjax(airInterfacePacUrl, getMwAirInterface, ajaxErrorCallback);
 	    		mwStructure = odlSendAjax(structurePacUrl, getStructure, ajaxErrorCallback);
 
-	    		mwConnection = new MwConnection(mwNetworkElement, mwAirInterface, mwStructure, mwContainer);
+	    		mwStructureEndpoint = new MwStructureEndpoint(mwNetworkElement, mwAirInterface, mwStructure, mwContainer);
 
-	    		mwNetworkElement.mwConnectionArr.push(mwConnection);
+	    		mwNetworkElement.mwStructureEndpointArr.push(mwStructureEndpoint);
 			}
 			try{
 				mwNetworkElementArr.push(mwNetworkElement);
@@ -258,18 +261,59 @@ function odlExtractMwNetworkElements(data){
 	});
 }
 
-function extractLayerProtocolArr(data){
-	layerProtocolArr = arguments[1][0];
-	if (layerProtocolArr != undefined){
-		$.each(data.NetworkElement[0]._ltpRefList, function(index, value){
-			if (value._lpList[0].uuid.indexOf('LP-MWPS-TTP') >= 0){
-				layerProtocolArr.push(value._lpList[0].uuid);
-				log(LogLevelEnum.DEBUG, "UUID: " + value._lpList[0].uuid);
+function extractAssociations(ne) {
+    // TODO merge buildActualAssociations and buildRequiredAssociations
+    //console.info(JSON.stringify(ne._ltpRefList)); 
+	ne = ne.NetworkElement[0];
+
+    var callback = arguments[1][0];
+    var ltpAssociationMap = arguments[1][1];
+
+    // for each MW Structure UUID find associated MW Physical Section UUID
+	ne._ltpRefList.map(function(ltp){
+    	try{
+			//console.log(ltp._lpList[0].uuid, ltp._lpList[0].layerProtocolName);
+			if (ltp._lpList[0].layerProtocolName === 'MWS') {
+			ltpAssociationMap[ltp._serverLtpRefList[0]] = {
+			    lp: getActualLP(ne, ltp._serverLtpRefList[0]),
+			    clients : {}
+			};
+			ltpAssociationMap[ltp._serverLtpRefList[0]].clients[ltp.uuid] = {
+			    lp: getActualLP(ne, ltp.uuid),
+			    clients : {}
+			};
+			ltpAssociationMap[ltp._serverLtpRefList[0]].clients[ltp.uuid].clients[ltp._clientLtpRefList[0]] = {
+			    lp:getActualLP(ne, ltp._clientLtpRefList[0])
+			};
 			}
+		}
+		catch (e){
+			console.log(e);
+		}
+	});
+	// console.log('treeA', JSON.stringify(ltpAssociationMap));
+	callback();
+};
+
+function getActualLP(ne, search) {
+	var result = 'notFound!';
+	try{
+		ne._ltpRefList.map(function(ltp){
+		  if (ltp.uuid === search) {
+		    result = ltp._lpList[0].uuid;
+		    var hash = [ne.uuid, result].join('-');
+		    return result;
+		  }
 		});
 	}
-}
-
+	catch (e){
+		console.log(e);
+	}
+	if (result == 'notFound!'){
+		throw "uuid(" + search + ") not found";
+	}
+	return result;
+};
 
 function getMwAirInterface(data){
 	return new MwAirInterface(data.MW_AirInterface_Pac[0]);
@@ -286,16 +330,16 @@ function extractMwLinks(networkElementArr){
 	for (var currentNetworkElementIndex = 0; currentNetworkElementIndex < networkElementArr.length; currentNetworkElementIndex++){
 		currentNetworkElement = networkElementArr[currentNetworkElementIndex];
 		
-		for (var currentMwConntectionIndex = 0; currentMwConntectionIndex < currentNetworkElement.mwConnectionArr.length; currentMwConntectionIndex++){
-			currentMwConnection = currentNetworkElement.mwConnectionArr[currentMwConntectionIndex];
+		for (var currentMwConntectionIndex = 0; currentMwConntectionIndex < currentNetworkElement.mwStructureEndpointArr.length; currentMwConntectionIndex++){
+			currentMwStructureEndpoint = currentNetworkElement.mwStructureEndpointArr[currentMwConntectionIndex];
 
 			// Find the target node to add an edge
 			for (var targetNetworkElementIndex = currentNetworkElementIndex + 1; targetNetworkElementIndex < networkElementArr.length; targetNetworkElementIndex++){
 				targetNetworkElement = networkElementArr[targetNetworkElementIndex];
-				for(var targetMwConnectionIndex = 0; targetMwConnectionIndex < targetNetworkElement.mwConnectionArr.length; targetMwConnectionIndex++){
-					var targetMwConnection = targetNetworkElement.mwConnectionArr[targetMwConnectionIndex];
-					if (currentMwConnection.getRadioSignalId() == targetMwConnection.getRadioSignalId()){
-						mwLink = new MwLink(currentMwConnection.getRadioSignalId(), currentMwConnection, targetMwConnection);
+				for(var targetMwStructureEndpointIndex = 0; targetMwStructureEndpointIndex < targetNetworkElement.mwStructureEndpointArr.length; targetMwStructureEndpointIndex++){
+					var targetMwStructureEndpoint = targetNetworkElement.mwStructureEndpointArr[targetMwStructureEndpointIndex];
+					if (currentMwStructureEndpoint.getRadioSignalId() == targetMwStructureEndpoint.getRadioSignalId()){
+						mwLink = new MwLink(currentMwStructureEndpoint.getRadioSignalId(), currentMwStructureEndpoint, targetMwStructureEndpoint);
 						mwLinkArr.push(mwLink);
 					}
 				}
@@ -305,6 +349,7 @@ function extractMwLinks(networkElementArr){
 
 	return mwLinkArr;
 }
+
 
 // AJAX utilities 
 function odlSendAjax(url, successFunc, errorFunc){

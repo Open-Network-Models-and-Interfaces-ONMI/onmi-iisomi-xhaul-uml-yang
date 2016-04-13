@@ -174,32 +174,32 @@ function mwToSigma(networkElementArr, mwLinkArr){
 
 		var networkElementX = siteInfo.site.x;
 		var networkElementY = siteInfo.site.y;
-		var mwConnectionInitialX;
-		var mwConnectionInitialY;
+		var mwStructureEndpointInitialX;
+		var mwStructureEndpointInitialY;
 
-		var networkElementSize = AIR_INTERFACE_NODE_SIZE + (DISTANCE_BETWEEN_AIR_INTERFACE_NODES * (currentNetworkElement.mwConnectionArr.length - 1));
+		var networkElementSize = AIR_INTERFACE_NODE_SIZE + (DISTANCE_BETWEEN_AIR_INTERFACE_NODES * (currentNetworkElement.mwStructureEndpointArr.length - 1));
 
 		// Place NEs in a square shape on it's edges
 		switch(siteInfo.indexInSite) {
 		    case 0:
 		        networkElementX += networkElementSize / 2;	//EAST
-		        mwConnectionInitialX = networkElementX;
-		        mwConnectionInitialY = networkElementY - (networkElementSize / 2) + (AIR_INTERFACE_NODE_SIZE / 2);
+		        mwStructureEndpointInitialX = networkElementX;
+		        mwStructureEndpointInitialY = networkElementY - (networkElementSize / 2) + (AIR_INTERFACE_NODE_SIZE / 2);
 		        break;
 		    case 1:
 		        networkElementY += networkElementSize / 2;
-		        mwConnectionInitialY = networkElementY;
-		        mwConnectionInitialX = networkElementX - (networkElementSize / 2) + (AIR_INTERFACE_NODE_SIZE / 2);
+		        mwStructureEndpointInitialY = networkElementY;
+		        mwStructureEndpointInitialX = networkElementX - (networkElementSize / 2) + (AIR_INTERFACE_NODE_SIZE / 2);
 		        break;
 		    case 2:
 		        networkElementX -= networkElementSize / 2;	//EAST
-		        mwConnectionInitialX = networkElementX;
-		        mwConnectionInitialY = networkElementY - (networkElementSize / 2) + (AIR_INTERFACE_NODE_SIZE / 2);
+		        mwStructureEndpointInitialX = networkElementX;
+		        mwStructureEndpointInitialY = networkElementY - (networkElementSize / 2) + (AIR_INTERFACE_NODE_SIZE / 2);
 		        break;
 		    case 3:
 		        networkElementY -= networkElementSize / 2;
-		        mwConnectionInitialY = networkElementY;
-		        mwConnectionInitialX = networkElementX - (networkElementSize / 2) + (AIR_INTERFACE_NODE_SIZE / 2);
+		        mwStructureEndpointInitialY = networkElementY;
+		        mwStructureEndpointInitialX = networkElementX - (networkElementSize / 2) + (AIR_INTERFACE_NODE_SIZE / 2);
 		        break;
 		}
 
@@ -213,25 +213,25 @@ function mwToSigma(networkElementArr, mwLinkArr){
 		sigmaNodeArr.push(networkElementNode);
 
 		// Add MW nodes(LTP)
-		for (var currentMwConnectionIndex = 0; currentMwConnectionIndex < currentNetworkElement.mwConnectionArr.length; currentMwConnectionIndex++){
-			var currentMwConnection = currentNetworkElement.mwConnectionArr[currentMwConnectionIndex];
-			var nodeName = currentMwConnection.getId();
+		for (var currentMwStructureEndpointIndex = 0; currentMwStructureEndpointIndex < currentNetworkElement.mwStructureEndpointArr.length; currentMwStructureEndpointIndex++){
+			var currentMwStructureEndpoint = currentNetworkElement.mwStructureEndpointArr[currentMwStructureEndpointIndex];
+			var nodeName = currentMwStructureEndpoint.getId();
 
-			var mwConnectionNode = new SigmaNode(nodeName, nodeName, mwConnectionInitialX, mwConnectionInitialY,"#000", AIR_INTERFACE_NODE_SIZE);
-			sigmaNodeArr.push(mwConnectionNode);
+			var mwStructureEndpointNode = new SigmaNode(nodeName, nodeName, mwStructureEndpointInitialX, mwStructureEndpointInitialY,"#000", AIR_INTERFACE_NODE_SIZE);
+			sigmaNodeArr.push(mwStructureEndpointNode);
 
 			switch(siteInfo.indexInSite) {
 			    case 0:
-			        mwConnectionInitialY += DISTANCE_BETWEEN_AIR_INTERFACE_NODES;	//EAST
+			        mwStructureEndpointInitialY += DISTANCE_BETWEEN_AIR_INTERFACE_NODES;	//EAST
 			        break;
 			    case 1:
-			        mwConnectionInitialX += DISTANCE_BETWEEN_AIR_INTERFACE_NODES;	//SOUTH
+			        mwStructureEndpointInitialX += DISTANCE_BETWEEN_AIR_INTERFACE_NODES;	//SOUTH
 			        break;
 			    case 2:
-			        mwConnectionInitialY += DISTANCE_BETWEEN_AIR_INTERFACE_NODES;	//EAST
+			        mwStructureEndpointInitialY += DISTANCE_BETWEEN_AIR_INTERFACE_NODES;	//EAST
 			        break;
 			    case 3:
-			        mwConnectionInitialX += DISTANCE_BETWEEN_AIR_INTERFACE_NODES;	//SOUTH
+			        mwStructureEndpointInitialX += DISTANCE_BETWEEN_AIR_INTERFACE_NODES;	//SOUTH
 			        break;
 			}
 		}
@@ -285,7 +285,7 @@ function mwToSigma(networkElementArr, mwLinkArr){
 		else{
 			label = mwLinkArr[i].id + ":[" + effectiveCapacity + "," +  configuredCapacity + "]";
 		}
-		sigmaEdgeArr.push(new SigmaEdge(mwLinkArr[i].id, label, mwLinkArr[i].mwConnection1.getId(), mwLinkArr[i].mwConnection2.getId(), color));
+		sigmaEdgeArr.push(new SigmaEdge(mwLinkArr[i].id, label, mwLinkArr[i].mwStructureEndpoint1.getId(), mwLinkArr[i].mwStructureEndpoint2.getId(), color));
 	}
 
 	topologyData = { nodes: sigmaNodeArr, edges: sigmaEdgeArr};
