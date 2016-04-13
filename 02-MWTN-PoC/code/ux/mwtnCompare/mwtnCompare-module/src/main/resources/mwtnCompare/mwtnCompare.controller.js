@@ -81,7 +81,6 @@ var mwtnCompareCtrl = function($scope, $rootScope, $modal, $mwtnCompare) {
 
   $scope.requiredLayerProtocols = {};
   var getActualMW_AirInterface_Pac = function(neId, lpId, callback) {
-    // console.log('1', neId, lpId);
     $mwtnCompare.getActualMW_AirInterface_Pac(neId, lpId, function(pac) {
       var rs = pac.MW_AirInterface_Pac[0].airInterfaceConfiguration.radioSignalId;
       if (!$scope.radioSignalsIds[rs]) {
@@ -196,6 +195,8 @@ var mwtnCompareCtrl = function($scope, $rootScope, $modal, $mwtnCompare) {
         if (status === 'connected') {
           $mwtnCompare.getActualNetworkElement(rne.name, function(data) {
             rne.actualNetworkElementData = data;
+            rne.actualAssociations = buildActualAssociations(data.NetworkElement[0], function(){});
+            //console.log('#######\n', JSON.stringify(rne));
           });
         } else {
           rne.actualNetworkElementData = undefined;
@@ -257,11 +258,12 @@ var mwtnCompareCtrl = function($scope, $rootScope, $modal, $mwtnCompare) {
       if (newValue && newValue !== oldValue && $scope.requiredNetworkElements[index].connectionStatus === 'connected') {
         var hash = [ rne.name, mwps.layerProtocol ].join('-');
         var lpId = $scope.requiredLayerProtocols[hash];
-        // console.log(hash, lpId);
-        getActualMW_AirInterface_Pac(rne.name, lpId, function(aMwps) {
-          var actualData = aMwps.MW_AirInterface_Pac[0].airInterfaceConfiguration;
-          mwps.compares = getCompares(mwps.airInterfaceConfiguration, actualData);
-        });
+        if (lpId) {
+          getActualMW_AirInterface_Pac(rne.name, lpId, function(aMwps) {
+            var actualData = aMwps.MW_AirInterface_Pac[0].airInterfaceConfiguration;
+            mwps.compares = getCompares(mwps.airInterfaceConfiguration, actualData);
+          });
+        }
       } else {
         mwps.compares = getCompares(mwps.airInterfaceConfiguration);
       }
@@ -287,7 +289,7 @@ var mwtnCompareCtrl = function($scope, $rootScope, $modal, $mwtnCompare) {
           //console.log(JSON.stringify(mwps));
           var hash = [rne.name, mwps.layerProtocol].join('-');
           var lpId = $scope.requiredLayerProtocols[hash];
-          // console.log(hash, lpId);
+          // console.log(hash, lpId); 
           if (lpId) {
             getActualMW_AirInterface_Pac(rne.name, lpId, function(aMwps){
               var actualData = aMwps.MW_AirInterface_Pac[0].airInterfaceConfiguration;
@@ -301,22 +303,144 @@ var mwtnCompareCtrl = function($scope, $rootScope, $modal, $mwtnCompare) {
     });
   };
   
+  var registerMwsForAccordionEvents = function(rne, mws) {
+    var index = rneHash.indexOf(rne.name);
+    $scope.$watch(function() {
+      return mws.open;
+    }, function(newValue, oldValue) {
+      // console.log(rne.name, 'registerMwsForAccordionEvents', newValue);
+      
+      if (newValue && newValue !== oldValue && $scope.requiredNetworkElements[index].connectionStatus === 'connected') {
+        var hash = [ rne.name, mws.layerProtocol ].join('-');
+        var lpId = $scope.requiredLayerProtocols[hash];
+        // console.log(hash, lpId);
+        getActualMW_Structure_Pac(rne.name, lpId, function(aMws) {
+          var actualData = aMws.MW_Structure_Pac[0].structureConfiguration;
+          mws.compares = getCompares(mws.structureConfiguration, actualData);
+        });
+      } else {
+        mws.compares = getCompares(mws.structureConfiguration);
+      }
+    });
+    $scope.$watch(function() {
+      return mws.showDescriptions;
+    }, function(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        mws.compares.map(function(compare){
+          compare.showDescriptions = newValue; 
+        });
+      }
+    });
+  };
+
+  var registerMwsForConnectionStatusChangedEvents = function(rne, mws) {
+    var index = rneHash.indexOf(rne.name);
+    $scope.$watch(function() {
+      return $scope.requiredNetworkElements[index].connectionStatus;
+    }, function(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        if (newValue === 'connected') {
+          //console.log(JSON.stringify(mws));
+          var hash = [rne.name, mws.layerProtocol].join('-');
+          var lpId = $scope.requiredLayerProtocols[hash];
+          // console.log(hash, lpId);
+          if (lpId && lpId !== null) {
+            getActualMW_Structure_Pac(rne.name, lpId, function(aMws){
+              var actualData = aMws.MW_Structure_Pac[0].structureConfiguration;
+              mws.compares = getCompares(mws.structureConfiguration, actualData);
+            });
+          }
+        } else {
+          mws.compares = getCompares(mws.structureConfiguration);
+        }
+      }
+    });
+  };
+  
+  var registerMwClientForAccordionEvents = function(rne, mwClient) {
+    var index = rneHash.indexOf(rne.name);
+    $scope.$watch(function() {
+      return mwClient.open;
+    }, function(newValue, oldValue) {
+      // console.log(rne.name, 'registerMwsForAccordionEvents', newValue);
+      
+      if (newValue && newValue !== oldValue && $scope.requiredNetworkElements[index].connectionStatus === 'connected') {
+        var hash = [ rne.name, mwClient.layerProtocol ].join('-');
+        var lpId = $scope.requiredLayerProtocols[hash];
+        // console.log(hash, lpId);
+        getActualMW_Container_Pac(rne.name, lpId, function(aMwClient) {
+          var actualData = aMwClient.MW_Container_Pac[0].containerConfiguration;
+          mwClient.compares = getCompares(mwClient.containerConfiguration, actualData);
+        });
+      } else {
+        mwClient.compares = getCompares(mwClient.containerConfiguration);
+      }
+    });
+    $scope.$watch(function() {
+      return mwClient.showDescriptions;
+    }, function(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        mwClient.compares.map(function(compare){
+          compare.showDescriptions = newValue;
+        });
+      }
+    });
+  };
+
+  var registerMwClientForConnectionStatusChangedEvents = function(rne, mwClient) {
+    var index = rneHash.indexOf(rne.name);
+    $scope.$watch(function() {
+      return $scope.requiredNetworkElements[index].connectionStatus;
+    }, function(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        if (newValue === 'connected') {
+          //console.log(JSON.stringify(mws));
+          var hash = [rne.name, mwClient.layerProtocol].join('-');
+          var lpId = $scope.requiredLayerProtocols[hash];
+          // console.log(hash, lpId);
+          if (lpId && lpId !== null) {
+            getActualMW_Container_Pac(rne.name, lpId, function(aMwClient){
+              var actualData = aMwClient.MW_Container_Pac[0].structureConfiguration;
+              mwClient.compares = getCompares(mwClient.structureConfiguration, actualData);
+            });
+          }
+        } else {
+          mwClient.compares = getCompares(mwClient.structureConfiguration);
+        }
+      }
+    });
+  };
+  
   var getLP = function(ne, search) {
     var result = 'notFound!';
     ne._ltpRefList.map(function(ltp){
       if (ltp.uuid === search) {
         result = ltp._lpList.uuid;
         var hash = [ne.uuid, result].join('-');
-        $scope.requiredLayerProtocols[hash] = 'null';
+        // TODO look for actualLP $scope.requiredLayerProtocols[hash] = 'null';
       }
     });
     return result;
   };
 
+  var getActualLP = function(ne, search) {
+    var result = 'notFound!';
+    ne._ltpRefList.map(function(ltp){
+      if (ltp.uuid === search) {
+        result = ltp._lpList[0].uuid;
+        var hash = [ne.uuid, result].join('-');
+        // TODO look for actualLP $scope.requiredLayerProtocols[hash] = 'null';
+      }
+    });
+    return result;
+  };
+
+  var associations = {};
+  
   var buildRequiredAssociations = function(ne, callback) {
 
     var tree = {};
-    // find MWPS
+    // find MWS
     ne._ltpRefList.map(function(ltp){
       // console.log(ltp._lpList.uuid, ltp._lpList.layerProtocolName);
       if (ltp._lpList.layerProtocolName === 'MWS') {
@@ -331,11 +455,35 @@ var mwtnCompareCtrl = function($scope, $rootScope, $modal, $mwtnCompare) {
         tree[ltp._serverLtpRefList].clients[ltp.uuid].clients[ltp._clientLtpRefList] = {
             lp:getLP(ne, ltp._clientLtpRefList)
         };
-        
-        
-      }
+       }
     });
-    console.log('tree', JSON.stringify(tree));
+    associations[ne.name] = {required: tree};
+    callback();
+  };
+
+  var buildActualAssociations = function(ne, callback) {
+    // TODO merge buildActualAssociations and buildRequiredAssociations
+    //console.info(JSON.stringify(ne._ltpRefList)); 
+    var tree = {};
+    // find MWS
+    ne._ltpRefList.map(function(ltp){
+      //console.log(ltp._lpList[0].uuid, ltp._lpList[0].layerProtocolName);
+      if (ltp._lpList[0].layerProtocolName === 'MWS') {
+        tree[ltp._serverLtpRefList[0]] = {
+            lp: getActualLP(ne, ltp._serverLtpRefList[0]),
+            clients : {}
+        };
+        tree[ltp._serverLtpRefList[0]].clients[ltp.uuid] = {
+            lp: getActualLP(ne, ltp.uuid),
+            clients : {}
+        };
+        tree[ltp._serverLtpRefList[0]].clients[ltp.uuid].clients[ltp._clientLtpRefList[0]] = {
+            lp:getActualLP(ne, ltp._clientLtpRefList[0])
+        };
+       }
+    });
+    associations[ne.name].actual = tree;
+    console.log('treeA', JSON.stringify(associations[ne.name]));
     callback();
   };
 
@@ -384,15 +532,16 @@ var mwtnCompareCtrl = function($scope, $rootScope, $modal, $mwtnCompare) {
               });
 
               ne.MW_Structure_Pac.map(function(mws){
-                // registerMwpsForAccordionEvents(ne, mwps);
-                // registerMwpsForConnectionStatusChangedEvents(ne, mwps);
+                registerMwsForAccordionEvents(ne, mws);
+                registerMwsForConnectionStatusChangedEvents(ne, mws);
               });
               
               ne.MW_Container_Pac.map(function(mwClient){
-                
+                registerMwClientForAccordionEvents(ne, mwClient);
+                registerMwClientForConnectionStatusChangedEvents(ne, mwClient);
               });
-
-              buildRequiredAssociations(ne.NetworkElement, function(){});
+console.info('ne.requiredAssociations');
+              ne.requiredAssociations = buildRequiredAssociations(ne.NetworkElement, function(){});
 
               // add timeSlotIdList
               var mwsCount = ne.MW_Structure_Pac.length;

@@ -10,7 +10,7 @@
 
 <h4>Network: {{networkName}}</h4>
 <accordion close-others="oneAtATime"> 
-<!-- 
+
 <accordion-group panel-class="panel-odl" is-open="debugInformation"> <accordion-heading>
 <i class="pull-left" ng-class="{'icon-angle-down': debugInformation.open, 'icon-angle-right': !debugInformation.open}"></i> <span>
  {{ 'Debug information' | translate}}
@@ -20,7 +20,7 @@
 <pre>{{ radioSignalsIds | json }}</pre>
 
 </accordion-group>
- --> 
+
 <accordion-group panel-class="panel-odl" is-open="requiredNetworkElements.open"> <accordion-heading>
 <i class="pull-left" ng-class="{'icon-angle-down': requiredNetworkElements.open, 'icon-angle-right': !requiredNetworkElements.open}"></i> <span>
  {{ 'Required network elements' | translate}}
@@ -250,27 +250,8 @@
      <tbody>
 
     <tr ng-repeat="compare in mws.compares" compare="compare"></tr>
-
-
-     <tr ng-repeat="(key, value) in mws.structureConfiguration">
-      <td style="text-align: right;">{{ key | translate }}</td>
-      <td>
-       <b class="nowrap">{{value}}</b>
-      </td>
-      <td>
-       <span style="color: red">
-        <b class="nowrap"> not connected </b>
-       </span>
-      </td>
-      <td>{{ getUnit(key) }}</td>
-      <td style="max-width: 300px;" ng-show="mws.showDescriptions">
-       <p ng-repeat="p in getDescription(key)">{{ p }}</p>
-      </td>
-     </tr>
-
-
      <tr
-      compare="{labelId:'installedCapacity', requiredValue:mws.structurePlanning.installedCapacity, actualValue:'', missingActualValueLabelId: '<pure planning>', unit:'', description: getDescription('installedCapacity')}"></tr>
+      compare="{labelId:'installedCapacity', requiredValue:mws.structurePlanning.installedCapacity, actualValue:'', missingActualValueLabelId: '<pure planning>', unit:'kbit/s', description: getDescription('installedCapacity')}"></tr>
 
      </tbody>
      <tfoot>
@@ -284,7 +265,7 @@
         </button>
        </td>
       </tr>
-     </tfoot>
+     </tfoot> 
     </table>
 
     </accordion-group>
