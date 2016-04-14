@@ -8,7 +8,6 @@
 
 package org.opendaylight.wtg.netconfconnector.impl.connect;
 
-import org.opendaylight.wtg.eventmanager.api.EventManagerService;
 import org.opendaylight.wtg.netconfconnector.api.connect.NetconfConnectionModel;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.networkelement.api.rev160203.networkelements.NetworkElement;
 import org.slf4j.Logger;
@@ -27,12 +26,13 @@ public class NetconfConnectionManager {
 	private static final String REST_SERVER_PORT = "8181";
 	private static final String REST_USERNAME = "admin";
 	private static final String REST_PASSWORD = "admin";
+
 	private static final String REST_REGISTER_NODE = "http://" + REST_SERVER_IP + ":" + REST_SERVER_PORT
 			+ "/restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules";
 	private static final String REST_DELETE_NODE = "http://" + REST_SERVER_IP + ":" + REST_SERVER_PORT
 			+ "/restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector";
 
-	public static boolean initiateConnection(NetworkElement networkElement, EventManagerService eventmanagerService) {
+	public static boolean initiateConnection(NetworkElement networkElement) {
 		boolean isConnected = false;
 
 		NetconfConnectionModel connectionModel = new NetconfConnectionModel();
@@ -51,12 +51,6 @@ public class NetconfConnectionManager {
 		ClientResponse response = webResource.type("application/xml").post(ClientResponse.class, input);
 		int code = response.getStatus();
 		if (code == 204) {
-			new Thread() {
-				public void run() {
-					eventmanagerService.startListenerOnNode(networkElement.getName());
-				};
-			}.start();
-
 			// TODO
 			// isConnected to be verified from the mount point.
 			isConnected = true;
@@ -69,7 +63,7 @@ public class NetconfConnectionManager {
 		return isConnected;
 	}
 
-	public static boolean terminateConnection(NetworkElement networkElement, EventManagerService eventmanagerService) {
+	public static boolean terminateConnection(NetworkElement networkElement) {
 		boolean isTerminated = false;
 		String name = networkElement.getName();
 
@@ -82,7 +76,6 @@ public class NetconfConnectionManager {
 
 		if (code == 200) {
 			isTerminated = true;
-			eventmanagerService.removeListenerOnNode(networkElement.getName());
 		} else {
 			LOG.warn(
 					"Terminate connection failed with Netconf device Netconf device :: Name : {}, IP : {} :: Response Code : {}",
