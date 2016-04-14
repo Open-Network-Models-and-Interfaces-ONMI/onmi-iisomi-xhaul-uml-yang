@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+## Version 0.0.6
+
+_2016-04-12_
+
+ * Support Netconf notifications
+
 ## Version 0.0.5
 
 _2016-04-06_

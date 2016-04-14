@@ -73,29 +73,14 @@
             "name": "controller"
         },
         {
-            "type": "mediator-hcl",
-            "ip": "dhcp",
-            "name": "ne1"
-        },
-        {
-            "type": "mediator-hcl",
-            "ip": "dhcp",
-            "name": "ne2"
-        },
-        {
-            "type": "mediator-hcl",
-            "ip": "dhcp",
-            "name": "ne3"
-        },
-        {
             "type": "mediator-ceragon",
             "ip": "dhcp",
             "name": "Ceragon-11", 
             "config" : {
                 "ne" : "Ceragon-11",
                 "ifaces" : [
-                    { "iface" : "LP-MWPS-TTP-ifIndex1", "radio" : "1" },
-                    { "iface" : "LP-MWPS-TTP-ifIndex2", "radio" : "2" }
+                    { "iface" : "LP-MWPS-TTP-ifIndex1", "radio" : "11" },
+                    { "iface" : "LP-MWPS-TTP-ifIndex2", "radio" : "12" }
                 ],
                 "event" : "10"
             }
@@ -103,15 +88,25 @@
         {
             "type": "mediator-ceragon",
             "ip": "dhcp",
-            "name": "Ceragon-12",
+            "name": "Ceragon-12", 
             "config" : {
                 "ne" : "Ceragon-12",
                 "ifaces" : [
-                    { "iface" : "LP-MWPS-TTP-ifIndex1", "radio" : "1" },
-                    { "iface" : "LP-MWPS-TTP-ifIndex2", "radio" : "2" }
+                    { "iface" : "LP-MWPS-TTP-ifIndex1", "radio" : "11" },
+                    { "iface" : "LP-MWPS-TTP-ifIndex2", "radio" : "12" }
                 ],
                 "event" : "10"
             }
+        },
+        {
+            "type": "mediator-hcl",
+            "ip": "dhcp",
+            "name": "HCL-31" 
+        },
+        {
+            "type": "mediator-hcl",
+            "ip": "dhcp",
+            "name": "HCL-32" 
         }
     ]
 }

@@ -75,6 +75,7 @@ module.exports = function(grunt) {
                     var path = './test-env/mediator-ceragon/';
                     var cmd = path + 'mediator-spawn.sh config.json && ' +
                               path + 'mediator-mount.sh config.json && ' +
+                              path + 'mediator-subscr.sh config.json && ' +
                               path + 'mediator-attach.sh config.json ';
                     return 'gnome-terminal -x sh -c "' + cmd + ' ; sh"';
                 }

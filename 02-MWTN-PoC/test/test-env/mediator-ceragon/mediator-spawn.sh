@@ -89,7 +89,8 @@ while [ ${MEDIATOR_IDX} -lt ${MEDIATOR_NUM} ]; do
     echo -n "Start '${MEDIATOR_NAME}' NETCONF server ..."
     docker exec ${MEDIATOR_NAME} /usr/sbin/netconfd \
         --no-startup \
-        --log=/dev/null \
+        --log=/root/netconf.log \
+        --log-level=debug \
         --superuser=${MEDIATOR_USER} \
         ${MODEL_MODULES} &
     docker exec ${MEDIATOR_NAME} sleep 1
