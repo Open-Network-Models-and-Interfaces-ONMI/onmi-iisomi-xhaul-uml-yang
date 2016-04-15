@@ -1,5 +1,5 @@
 {
-    "controller": { 
+    "controller-odl": { 
         "ip": "localhost",
         "port": "8181",
         "user": "admin",
@@ -70,7 +70,7 @@
         {
             "type": "controller-wipro",
             "ip": "localhost",
-            "name": "controller"
+            "name": "controller-config"
         },
         {
             "type": "mediator-ceragon",
@@ -99,14 +99,30 @@
             }
         },
         {
-            "type": "mediator-hcl",
+            "type": "mediator-ceragon",
             "ip": "dhcp",
-            "name": "HCL-31" 
+            "name": "Ericsson-21", 
+            "config" : {
+                "ne" : "Ericsson-21",
+                "ifaces" : [
+                    { "iface" : "LP-MWPS-TTP-ifIndex1", "radio" : "21" },
+                    { "iface" : "LP-MWPS-TTP-ifIndex2", "radio" : "22" }
+                ],
+                "event" : "10"
+            }
         },
         {
-            "type": "mediator-hcl",
+            "type": "mediator-ceragon",
             "ip": "dhcp",
-            "name": "HCL-32" 
+            "name": "Ericsson-22", 
+            "config" : {
+                "ne" : "Ericsson-22",
+                "ifaces" : [
+                    { "iface" : "LP-MWPS-TTP-ifIndex1", "radio" : "21" },
+                    { "iface" : "LP-MWPS-TTP-ifIndex2", "radio" : "22" }
+                ],
+                "event" : "10"
+            }
         }
     ]
 }

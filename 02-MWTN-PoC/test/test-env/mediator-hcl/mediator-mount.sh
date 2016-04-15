@@ -18,10 +18,11 @@ MEDIATOR_NUM=$(jq -r '.topology | length' ${1})
 MEDIATOR_PORT=$(jq -r '.["mediator-hcl"]'.port ${1})
 MEDIATOR_USER=$(jq -r '.["mediator-hcl"]'.user ${1})
 MEDIATOR_PASSWD=$(jq -r '.["mediator-hcl"]'.passwd ${1})
-CONTROLLER_IP=$(jq -r '.["controller"]'.ip ${1})
-CONTROLLER_PORT=$(jq -r '.["controller"]'.port ${1})
-CONTROLLER_USER=$(jq -r '.["controller"]'.user ${1})
-CONTROLLER_PASSWD=$(jq -r '.["controller"]'.passwd ${1})
+
+CONTROLLER_IP=$(jq -r '.["controller-odl"]'.ip ${1})
+CONTROLLER_PORT=$(jq -r '.["controller-odl"]'.port ${1})
+CONTROLLER_USER=$(jq -r '.["controller-odl"]'.user ${1})
+CONTROLLER_PASSWD=$(jq -r '.["controller-odl"]'.passwd ${1})
 
 while [ ${MEDIATOR_IDX} -lt ${MEDIATOR_NUM} ]; do
 

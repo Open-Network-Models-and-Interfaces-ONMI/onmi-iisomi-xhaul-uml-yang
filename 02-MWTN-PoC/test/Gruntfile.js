@@ -21,16 +21,16 @@ module.exports = function(grunt) {
 
         /* config shell task */
         shell: {           
-            'controller': {
+            'controller-odl': {
                 command: function() {
-                    var path = './test-env/controller/';
+                    var path = './test-env/controller-odl/';
                     var cmd = path + 'controller-spawn.sh config.json';
                     return 'gnome-terminal -x sh -c "' + cmd + ' ; sh"';
                 }
             },
-            'controller-build': {
+            'controller-odl-build': {
                 command: function() {
-                    var path = './test-env/controller/';
+                    var path = './test-env/controller-odl/';
                     var cmd = path + 'controller-build.sh config.json';
                     return cmd;
                 }
@@ -75,7 +75,6 @@ module.exports = function(grunt) {
                     var path = './test-env/mediator-ceragon/';
                     var cmd = path + 'mediator-spawn.sh config.json && ' +
                               path + 'mediator-mount.sh config.json && ' +
-                              path + 'mediator-subscr.sh config.json && ' +
                               path + 'mediator-attach.sh config.json ';
                     return 'gnome-terminal -x sh -c "' + cmd + ' ; sh"';
                 }
@@ -133,15 +132,15 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('build-test-env', [
-        'shell:controller-build',
+        'shell:controller-odl-build',
         'shell:controller-wipro-build',
         'shell:mediator-hcl-build',
         'shell:mediator-ceragon-build'
     ]);
     grunt.registerTask('test-env', [
-    //  'shell:controller',
+    //  'shell:controller-odl',
         'shell:controller-wipro',
-        'shell:mediator-hcl',
+    //  'shell:mediator-hcl',
         'shell:mediator-ceragon'
     ]);
     grunt.registerTask('build-test', [

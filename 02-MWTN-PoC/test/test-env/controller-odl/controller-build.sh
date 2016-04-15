@@ -13,9 +13,10 @@ then
     exit 0
 fi
 
-CONTROLLER_URL=$(jq -r .controller.url ${1})
-CONTROLLER_IMAGE=$(jq -r .controller.image ${1})
-CONTROLLER_VERSION=$(jq -r .controller.version ${1})
+
+CONTROLLER_URL=$(jq -r '.["controller-odl"]'.url ${1})
+CONTROLLER_IMAGE=$(jq -r '.["controller-odl"]'.image ${1})
+CONTROLLER_VERSION=$(jq -r '.["controller-odl"]'.version ${1})
 CONTROLLER_REPO=${CONTROLLER_URL}/${CONTROLLER_IMAGE}
 CONTROLLER_DIR=${CONTROLLER_IMAGE}-${CONTROLLER_VERSION}
 CONTROLLER_FILE=${CONTROLLER_IMAGE}-${CONTROLLER_VERSION}.tar.gz
