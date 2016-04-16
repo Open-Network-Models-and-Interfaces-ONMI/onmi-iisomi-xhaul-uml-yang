@@ -7,7 +7,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
     import MicrowaveModel-TypeDefinitions {
         prefix MicrowaveModel-TypeDefinitions;
     }
-    revision 2016-03-20 {}
+    revision 2016-03-23 {}
     list MW_AirInterface_Pac {
         key 'layerProtocol';
         config true;
@@ -16,9 +16,10 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             // type leafref {
             //    path "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
             // }
-            //description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
+            // description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
         }
         list airInterfaceCapabilityList {
+            key 'airInterfaceID';
             config false;
             ordered-by system;
             uses AirInterfaceCapability;
@@ -91,6 +92,7 @@ This value is only relevant, if the channel plan, which is referenced in channel
             description "In case the Air Interface Port is capable of adaptive modulation, this field shall contain an '1'.";
         }
         list scriptList {
+            key 'scriptID';
             config false;
             ordered-by system;
             uses Script;
@@ -120,17 +122,13 @@ The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.50
 The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256').";
         }
         leaf txPowerMin {
-            type decimal64 {
-                fraction-digits 1;
-            }
+            type int64;
             units "dBm";
             config false;
             description "Value of the minimum transmit power the modem can operate in dBm.";
         }
         leaf txPowerMax {
-            type decimal64 {
-                fraction-digits 1;
-            }
+            type int64;
             units "dBm";
             config false;
             description "Value of the maximum transmit power the modem can operate in dBm.";
@@ -187,9 +185,7 @@ The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.50
             description "Transmit Power. Activation of the transmitter inside the radio shall be expressed as an '1'.";
         }
         leaf txPower {
-            type decimal64 {
-                fraction-digits 1;
-            }
+            type int64;
             units "dBm";
             description "Transmit power to be configured on the microwave link. Signed Byte is required.
 The actually operated transmit power might be lower depending on adaptive modulation and ATPC.";
@@ -231,25 +227,19 @@ Allowed values are defined in AirInterface::Script::modulationScheme (all instan
             description "Center frequency of the currently operated receive channel.";
         }
         leaf txLevelCur {
-            type decimal64 {
-                fraction-digits 1;
-            }
+            type int64;
             units "dBm";
             config false;
             description "Current transmit level. Signed Byte is required.";
         }
         leaf rxLevelCur {
-            type decimal64 {
-                fraction-digits 1;
-            }
+            type int64;
             units "dBm";
             config false;
             description "Current receive level. Signed Byte is required.";
         }
         leaf snrCur {
-            type decimal64 {
-                fraction-digits 1;
-            }
+            type int64;
             units "dBm";
             config false;
             description "Currently measured signal to noise ratio.";
@@ -280,7 +270,7 @@ Allowed values are defined in AirInterface::Script::modulationScheme (all instan
             // type leafref {
             //    path "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
             // }
-            //description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
+            // description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
         }
         container structureCapability {
             config false;
@@ -307,6 +297,13 @@ Allowed values are defined in AirInterface::Script::modulationScheme (all instan
             config false;
             description "Maximum number of time slots available with the current configuration of the air interface (means e.g. that AirInterface::AirInterfaceStatus::modulationCur is equal to AirInterface::AirInterfaceConfiguration::modulationMax).";
         }
+        leaf timeSlotCapacity {
+            type uint64;
+            config false;
+            units "kbit/s";
+            default 2048;
+            description "The value of the size or width of one time slot. The value should be identical for all stuctures of the device.";
+        }
     }
     grouping StructureConfiguration {
         leaf serverID {
@@ -317,10 +314,11 @@ Can be filled with either an airInterfaceID, an airInterfaceHsbID or an airInter
     }
     grouping StructureStatus {
         list timeSlotStatusList {
-            description "Condition of each time slot._multiplicity:Structure::StructureCapability::totalNumberOfTimeSlots";
+            key 'structureID timeSlotID';
             config false;
             ordered-by system;
             uses MicrowaveModel-TypeDefinitions:timeSlotStatusType;
+            // description "Condition of each timeslot._multiplicity:Structure::StructureCapability::totalNumberOfTimeSlots";
         }
     }
     list MW_Container_Pac {
@@ -355,11 +353,12 @@ Can be filled with either an airInterfaceID, an airInterfaceHsbID or an airInter
             description "ContainterID in Netconf must be the same as EthernetPortID in OpenFlow so a connection can be made between the two items, which are existing separately in the controller.";
         }
         list availableKindsOfContainerList {
-            description "Available container types to be listed.";
+            key 'uuid';
             config false;
             ordered-by system;
             uses MicrowaveModel-TypeDefinitions:containerType;
             min-elements 1;
+            description "Available container types to be listed.";
         }
     }
     grouping ContainerConfiguration {
@@ -369,13 +368,12 @@ Can be filled with either an airInterfaceID, an airInterfaceHsbID or an airInter
             uses MicrowaveModel-TypeDefinitions:containerType;
         }
         list timeSlotIDList {
-            description "Lists the time slots used for transporting this container.
-In case ThisContainer::ContainerConfiguration::container::containerType::bundlingIsAvail==0, structureId must be equal for all aiTimeSlots in the list._multiplicity:ThisContainer::ContainerConfiguration::container::containerType::numberOfTimeSlotsRequired";
             key 'structureID timeSlotID';
             config true;
             ordered-by system;
             uses MicrowaveModel-TypeDefinitions:timeSlotIDType;
             min-elements 1;
+           // description "Lists the time slots used for transporting this container. In case ThisContainer::ContainerConfiguration::container::containerType::bundlingIsAvail==0, structureId must be equal for all aiTimeSlots in the list._multiplicity:ThisContainer::ContainerConfiguration::container::containerType::numberOfTimeSlotsRequired";
         }
     }
 }
