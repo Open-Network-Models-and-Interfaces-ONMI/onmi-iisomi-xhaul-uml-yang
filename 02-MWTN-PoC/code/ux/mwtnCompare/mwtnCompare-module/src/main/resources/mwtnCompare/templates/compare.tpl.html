@@ -1,10 +1,11 @@
-<td style="text-align: right;">{{ item.labelId | translate }}</td>
+<td style="text-align: right;" ng-class="{ 'red': !item.match }">{{ item.labelId | translate }}</td>
 <td>
- <b class="nowrap">{{ item.requiredValue }}</b>
+ <b ng-class="{ 'red': !item.match }">{{ item.requiredValue }}</b>
 </td>
 <td>
- <b class="nowrap red" ng-show="!item.actualValue">{{ item.missingActualValueLabelId | translate }}</b>
- <b class="nowrap" ng-class="{ 'red': item.requiredValue !== item.actualValue }" ng-show="item.actualValue">{{ item.actualValue }}</b>
+<!-- [sko]: Bug reported by Amy: Of cause item.actualValue === false does not mean "missing"
+ <b ng-show="!item.actualValue">{{ item.missingActualValueLabelId | translate }}</b>  -->
+ <b ng-class="{ 'red': !item.match }">{{ item.actualValue }}</b>
 </td>
 <td>{{ item.unit }}</td>
 <td style="max-width: 300px;" ng-show="item.showDescriptions">

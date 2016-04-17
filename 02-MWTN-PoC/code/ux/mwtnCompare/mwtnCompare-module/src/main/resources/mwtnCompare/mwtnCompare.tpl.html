@@ -1,6 +1,6 @@
 <!-- 
 /*
- * Copyright (c) 2016 highstreet technologies GmbH and others.  All rights reserved.
+ * Copyright (c) 2016 highstreet technologies GmbH and others. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -9,19 +9,7 @@
  -->
 
 <h4>Network: {{networkName}}</h4>
-<accordion close-others="oneAtATime"> 
-
-<accordion-group panel-class="panel-odl" is-open="debugInformation"> <accordion-heading>
-<i class="pull-left" ng-class="{'icon-angle-down': debugInformation.open, 'icon-angle-right': !debugInformation.open}"></i> <span>
- {{ 'Debug information' | translate}}
- <span></accordion-heading>
-
-<pre>{{ requiredLayerProtocols | json }}</pre>
-<pre>{{ radioSignalsIds | json }}</pre>
-
-</accordion-group>
-
-<accordion-group panel-class="panel-odl" is-open="requiredNetworkElements.open"> <accordion-heading>
+<accordion close-others="oneAtATime"> <accordion-group panel-class="panel-odl" is-open="requiredNetworkElements.open"> <accordion-heading>
 <i class="pull-left" ng-class="{'icon-angle-down': requiredNetworkElements.open, 'icon-angle-right': !requiredNetworkElements.open}"></i> <span>
  {{ 'Required network elements' | translate}}
  <span></accordion-heading>
@@ -34,7 +22,7 @@
    <th>{{ 'IP address' | translate }}</th>
    <th>{{ 'NetConf port' | translate }}</th>
    <th>{{ 'User name' | translate }}</th>
-   <th>{{ 'Passwort' | translate }}</th>
+   <th>{{ 'Password' | translate }}</th>
    <th>{{ 'Radio signals' | translate }}</th>
    <th>{{ 'Connection status' | translate }}</th>
    <th>{{ 'Action' | translate }}</th>
@@ -71,7 +59,7 @@
 <table class="footable table table-hover">
  <thead>
   <tr>
-   <th>{{ 'Name' | translate }}</th>
+   <th>{{ 'Node-Id' | translate }}</th>
    <th>{{ 'IP address' | translate }}</th>
    <th>{{ 'NetConf port' | translate }}</th>
    <th>{{ 'Connection status' | translate }}</th>
@@ -85,11 +73,8 @@
   <td>{{ane['netconf-node-topology:port']}}</td>
   <td>{{ane['netconf-node-topology:connection-status']}}</td>
   <td>
-   <button class="btn btn-default" ng-click="message('changeNetworkElementName')">{{ 'Change network element name' | translate }}</button>
-   <span> </span>
-   <button class="btn btn-default" ng-click="message('connect')">{{ 'Connect' | translate }}</button>
-   <span> </span>
-   <button class="btn btn-default" ng-click="message('disconnect')">{{ 'Disconnect' | translate }}</button>
+   <button class="btn btn-default" ng-click="disconnect(ane['node-id'])" ng-hide="ane['node-id'] === 'controller-config'">{{ 'Disconnect' |
+    translate }}</button>
   </td>
  </tr>
  </tbody>
@@ -97,8 +82,8 @@
 
 </accordion-group> <accordion-group panel-class="panel-odl" ng-repeat="ne in referenceValues.network.networkElement" is-open="ne.open"> <accordion-heading>
 <i class="pull-left" ng-class="{'icon-angle-down': ne.open, 'icon-angle-right': !ne.open}"></i> <span>Network element: </span> <b>"{{ne.name}}"</b> </accordion-heading> <accordion
- close-others="oneAtATime"> <accordion-group panel-class="panel-odl" is-open="ne.NetworkElement.open"> <accordion-heading>
-<i class="pull-left" ng-class="{'icon-angle-down': ne.NetworkElement.open, 'icon-angle-right': !ne.NetworkElement.open}"></i> <span>
+ close-others="oneAtATime"> <accordion-group panel-class="panel-odl" is-open="ne.NetworkElement[0].open"> <accordion-heading>
+<i class="pull-left" ng-class="{'icon-angle-down': ne.NetworkElement[0].open, 'icon-angle-right': !ne.NetworkElement[0].open}"></i> <span>
  {{ 'Network element' | translate}}
  <span></accordion-heading>
 
@@ -117,14 +102,7 @@
      </tr>
     </thead>
     <tbody>
-     <tr
-      compare="{labelId:'Id', requiredValue:ne.NetworkElement.uuid, actualValue:ne.actualNetworkElementData.NetworkElement[0].uuid, missingActualValueLabelId: 'not connected', unit:''}"></tr>
-     <tr
-      compare="{labelId:'Name', requiredValue:ne.NetworkElement.nameList.value, actualValue:ne.actualNetworkElementData.NetworkElement[0].nameList[0].value, missingActualValueLabelId: 'not connected', unit:''}"></tr>
-     <tr
-      compare="{labelId:'Operational state', requiredValue:ne.NetworkElement.operationalState, actualValue:ne.actualNetworkElementData.NetworkElement[0].operationalState, missingActualValueLabelId: 'not connected', unit:''}"></tr>
-     <tr
-      compare="{labelId:'Number of LTPs', requiredValue:ne.NetworkElement._ltpRefList.length, actualValue:ne.actualNetworkElementData.NetworkElement[0]._ltpRefList.length, missingActualValueLabelId: 'not connected', unit:''}"></tr>
+     <tr ng-repeat="compare in ne.NetworkElement[0].compares" compare="compare"></tr>
     </tbody>
    </table>
   </td>
@@ -235,6 +213,70 @@
     </td>
 
    </tr>
+  </table>
+  <table class="footable table table-hover">
+   <thead>
+    <tr>
+     <th>{{ 'Label' | translate }}</th>
+     <th>{{ 'Required value' | translate }}</th>
+     <th>{{ 'Actual value' | translate }}</th>
+     <th>{{ 'Unit' | translate }}</th>
+     <th ng-show="mws.showDescriptions">{{ 'Description' | translate }}</th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr ng-repeat="compare in mws.compares" compare="compare"></tr>
+   </tbody>
+   <tfoot>
+    <tr>
+     <td colspan="99" ng-class="text-center">
+      <button class="btn btn-default" title="Operation to planning" ng-click="message('operation2Planning', mws)">
+       <i class="icon-forward"></i>
+      </button>
+      <button class="btn btn-default" title="Planning to operation" ng-click="message('planning2Operation', mws)">
+       <i class="icon-backward"></i>
+      </button>
+     </td>
+    </tr>
+   </tfoot>
+  </table>
+
+  </accordion-group>
+  <accordion-group panel-class="panel-odl" ng-repeat="mwClient in ne.MW_Container_Pac" is-open="mwClient.open"> <accordion-heading>
+  <i class="pull-left" ng-class="{'icon-angle-down': mwClient.open, 'icon-angle-right': !mwClient.open}"></i> <span>
+   LTP ({{mwClient.layerProtocol}})
+   <span></accordion-heading>
+
+  <div class="text-right">
+   <a style="cursor: pointer;" ng-click="mwClient.showDescriptions = !mwClient.showDescriptions">
+    <span ng-show="mwClient.showDescriptions" style="color: #444444">Hide </span>
+    <span ng-show="!mwClient.showDescriptions" style="color: #444444">Show </span>
+    <span style="color: #444444"> descriptions</span>
+   </a>
+  </div>
+  <table class="table" ng-show="mwClient.showDescriptions">
+   <tr>
+
+    <td style="width: 50%">
+     <div ng-repeat="item in ['LogicalTerminationPoint', 'LayerProtocol', 'MW_Container_Pac']">
+      <h4 style="color: #444444;">
+       <b>{{item}}</b>
+      </h4>
+      <p ng-repeat="p in getDescription(item)">{{ p }}</p>
+     </div>
+
+    </td>
+    <td style="width: 50%">
+     <div ng-repeat="item in ['ContainerConfiguration', 'container']">
+      <h4 style="color: #444444;">
+       <b>{{item}}</b>
+      </h4>
+      <p ng-repeat="p in getDescription(item)">{{ p }}</p>
+     </div>
+
+    </td>
+
+   </tr>
    <table>
 
     <table class="footable table table-hover">
@@ -244,127 +286,32 @@
        <th>{{ 'Required value' | translate }}</th>
        <th>{{ 'Actual value' | translate }}</th>
        <th>{{ 'Unit' | translate }}</th>
-       <th ng-show="mws.showDescriptions">{{ 'Description' | translate }}</th>
+       <th ng-show="mwClient.showDescriptions">{{ 'Description' | translate }}</th>
       </tr>
      </thead>
-     <tbody>
-
-    <tr ng-repeat="compare in mws.compares" compare="compare"></tr>
-     <tr
-      compare="{labelId:'installedCapacity', requiredValue:mws.structurePlanning.installedCapacity, actualValue:'', missingActualValueLabelId: '<pure planning>', unit:'kbit/s', description: getDescription('installedCapacity')}"></tr>
-
+     </tbody>
+     <tr ng-repeat="compare in mwClient.compares" compare="compare"></tr>
      </tbody>
      <tfoot>
       <tr>
        <td colspan="99" ng-class="text-center">
-        <button class="btn btn-default" title="Operation to planning" ng-click="message('operation2Planning', mws)">
+        <button class="btn btn-default" title="Operation to planning" ng-click="message('operation2Planning', mwClient)">
          <i class="icon-forward"></i>
         </button>
-        <button class="btn btn-default" title="Planning to operation" ng-click="message('planning2Operation', mws)">
+        <button class="btn btn-default" title="Planning to operation" ng-click="message('planning2Operation', mwClient)">
          <i class="icon-backward"></i>
         </button>
        </td>
       </tr>
-     </tfoot> 
+     </tfoot>
     </table>
 
+
     </accordion-group>
-    <accordion-group panel-class="panel-odl" ng-repeat="mwClient in ne.MW_Container_Pac" is-open="mwClient.open"> <accordion-heading>
-    <i class="pull-left" ng-class="{'icon-angle-down': mwClient.open, 'icon-angle-right': !mwClient.open}"></i> <span>
-     LTP ({{mwClient.layerProtocol}})
-     <span></accordion-heading>
+    </accordion>
 
-    <div class="text-right">
-     <a style="cursor: pointer;" ng-click="mwClient.showDescriptions = !mwClient.showDescriptions">
-      <span ng-show="mwClient.showDescriptions" style="color: #444444">Hide </span>
-      <span ng-show="!mwClient.showDescriptions" style="color: #444444">Show </span>
-      <span style="color: #444444"> descriptions</span>
-     </a>
-    </div>
-    <table class="table" ng-show="mwClient.showDescriptions">
-     <tr>
-
-      <td style="width: 50%">
-       <div ng-repeat="item in ['LogicalTerminationPoint', 'LayerProtocol', 'MW_Container_Pac']">
-        <h4 style="color: #444444;">
-         <b>{{item}}</b>
-        </h4>
-        <p ng-repeat="p in getDescription(item)">{{ p }}</p>
-       </div>
-
-      </td>
-      <td style="width: 50%">
-       <div ng-repeat="item in ['ContainerConfiguration', 'container']">
-        <h4 style="color: #444444;">
-         <b>{{item}}</b>
-        </h4>
-        <p ng-repeat="p in getDescription(item)">{{ p }}</p>
-       </div>
-
-      </td>
-
-     </tr>
-     <table>
-
-      <table class="footable table table-hover">
-       <thead>
-        <tr>
-         <th>{{ 'Label' | translate }}</th>
-         <th>{{ 'Required value' | translate }}</th>
-         <th>{{ 'Actual value' | translate }}</th>
-         <th>{{ 'Unit' | translate }}</th>
-         <th ng-show="mwClient.showDescriptions">{{ 'Description' | translate }}</th>
-        </tr>
-       </thead>
-       </tbody>
-       <tr ng-repeat="(key, value) in mwClient.containerConfiguration.container">
-        <td style="text-align: right;">{{ key | translate }}</td>
-        <td>
-         <b class="nowrap">{{value}}</b>
-        </td>
-        <td>
-         <span style="color: red">
-          <b class="nowrap"> not connected </b>
-         </span>
-        </td>
-        <td>{{ getUnit(key) }}</td>
-        <td ng-show="mwClient.showDescriptions">
-         <p ng-repeat="p in getDescription(key)">{{ p }}</p>
-        </td>
-       </tr>
-       <tr>
-        <td style="text-align: right;">{{ 'timeSlotIDList' | translate }}</td>
-        <td>
-         <b>{{mwClient.containerConfiguration.timeSlotIDList.join(' ')}}</b>
-        </td>
-        <td>
-         <span style="color: red">
-          <b class="nowrap"> not connected </b>
-         </span>
-        </td>
-        <td>{{ getUnit('timeSlotIDList') }}</td>
-        <td ng-show="mwClient.showDescriptions">
-         <p ng-repeat="p in getDescription('timeSlotIDList')">{{ p }}</p>
-        </td>
-       </tr>
-       </tbody>
-       <tfoot>
-        <tr>
-         <td colspan="99" ng-class="text-center">
-          <button class="btn btn-default" title="Operation to planning" ng-click="message('operation2Planning', mwClient)">
-           <i class="icon-forward"></i>
-          </button>
-          <button class="btn btn-default" title="Planning to operation" ng-click="message('planning2Operation', mwClient)">
-           <i class="icon-backward"></i>
-          </button>
-         </td>
-        </tr>
-       </tfoot>
-      </table>
-
-
-      </accordion-group>
-      </accordion>
-
-      </accordion-group>
-      </accordion>
+    </accordion-group>
+    </accordion>
+    <hr />
+    <p>
+     <span>2. ONF MWTN PoC - Use case 4.2 - Version 2016-04-17</span>
