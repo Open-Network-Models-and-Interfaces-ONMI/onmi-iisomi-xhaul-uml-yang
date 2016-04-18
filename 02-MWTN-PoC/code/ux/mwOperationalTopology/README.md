@@ -43,8 +43,11 @@ Choose the "Static" option to retrieve the data from the files located at <path/
 The big grey cirecles represent a site, the inner big grey circles represent network elements and the small black circles represent an AirInterface LP.
 
 The edges represent a matching radioSignalId between 2 AirInterface nodes.
+
 colors meaning:
+~~~
 Effective capacity = 0 -> Grey
 Configured < Planned -> Red
 Effective = Configured -> blue
 Effective < Configured -> orange
+~~~
