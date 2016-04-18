@@ -32,7 +32,18 @@ sudo apt-get install nginx
 ~~~~
 cp -r <path/to/mwOperationalTopology>/* /usr/share/nginx/html/
 ~~~~
-Limitation: mwOperationalTopology application MUST run on the same machine as the Opendaylight controller and access it via 127.0.0.1/localhost due to Access-Control-Allow-Origin policy.
+To overcome Access-Control-Allow-Origin policy for the static mode:
+~~~
+sudo gedit /etc/nginx/sites-available/default
+~~~
+Append the following into the location tag:
+~~~
+add_header Access-Control-Allow-Origin *;
+~~~
+And restart Nginx:
+~~~
+sudo service nginx restart
+~~~
 
 ### How to use:
 To access the GUI simply go to http://127.0.0.1
