@@ -7,11 +7,11 @@
 # Author: Paolo Rovelli <paolo.rovelli@hcl.com>  
 #
 
-if [ $# -ne 1 ]
-then
+if [ $# -ne 1 ]; then
     echo "Usage: controller-spawn <config.json>"
     exit 0
 fi
+. $(dirname $(readlink -f ${0}))/../utils/spinner-utils.sh
 
 CONTROLLER_IDX=-1
 CONTROLLER_NUM=$(jq -r '.topology | length' ${1})
@@ -36,32 +36,33 @@ while [ ${CONTROLLER_IDX} -lt ${CONTROLLER_NUM} ]; do
     fi
     CONTROLLER_NAME=$(jq -r '.topology['${CONTROLLER_IDX}'].name' ${1})
 
-    # Check the CONTROLLER
-    echo -n "Check the SDN controller ..."
-    if [ -x ${CONTROLLER_PATH}/${CONTROLLER_DIR}/bin/karaf ]; then
-        echo " ok."
-    else
-        echo " fail: '${CONTROLLER_PATH}/${CONTROLLER_DIR}/bin/karaf' not found!"
-        exit 1
+    # Check the SDN controller
+    spinner_exec "Check the SDN controller: " \
+        test -x ${CONTROLLER_PATH}/${CONTROLLER_DIR}/bin/karaf
+    if [ $? -ne 0 ]; then
+        echo "cannot stat '${CONTROLLER_PATH}/${CONTROLLER_DIR}/bin/karaf'"
+        return $?
     fi
 
-    # Importing MEDIATOR modules
-    echo "Import MEDIATOR modules into the SDN controller ..."
-    MODULES=($(grep -rl --exclude=${MODEL_SRC}/*@*.yang revision ${MODEL_SRC}/*.yang | awk '{print $1}'))
-    REVISIONS=($(grep -rh --exclude=${MODEL_SRC}/*@*.yang revision ${MODEL_SRC}/*.yang | awk '{print $2}'))
+    # Import SDN mediator modules
+    echo "Import SDN mediator modules ... "
+    MODULES=($(grep -rl --exclude=${MODEL_SRC}/*@*.yang revision \
+        ${MODEL_SRC}/*.yang | awk '{print $1}'))
+    REVISIONS=($(grep -rh --exclude=${MODEL_SRC}/*@*.yang revision \
+        ${MODEL_SRC}/*.yang | awk '{print $2}'))
     if [ ${#MODULES[@]} -gt 0 ]; then
         mkdir -p ${MODEL_DST}
     fi
     for x in ${!MODULES[@]}; do
         y=${MODULES[$x]##*/}
         z=${y%%.*}
-        echo " - import '${z}@${REVISIONS[$x]}'"
-        cp -f ${MODEL_SRC}/${z}.yang ${MODEL_DST}/${z}@${REVISIONS[$x]}.yang
+        spinner_exec " - import '${z}': " \
+            cp -f ${MODEL_SRC}/${z}.yang ${MODEL_DST}/${z}@${REVISIONS[$x]}.yang
     done
 
-    # Start the CONTROLLER console
-    echo "Start the SDN controller ..."
-    echo ""
+    # Start the SDN controller console
+    echo -e "Start the SDN controller ... \n"
     ${CONTROLLER_PATH}/${CONTROLLER_DIR}/bin/karaf clean
 
 done
+

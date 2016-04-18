@@ -7,12 +7,11 @@
 # Author: Paolo Rovelli <paolo.rovelli@hcl.com>
 #
 
-if [ $# -ne 1 ]
-then
+if [ $# -ne 1 ]; then
     echo "Usage: controller-build <config.json>"
     exit 0
 fi
-
+. $(dirname $(readlink -f ${0}))/../utils/spinner-utils.sh
 
 CONTROLLER_URL=$(jq -r '.["controller-odl"]'.url ${1})
 CONTROLLER_IMAGE=$(jq -r '.["controller-odl"]'.image ${1})
@@ -22,29 +21,26 @@ CONTROLLER_DIR=${CONTROLLER_IMAGE}-${CONTROLLER_VERSION}
 CONTROLLER_FILE=${CONTROLLER_IMAGE}-${CONTROLLER_VERSION}.tar.gz
 CONTROLLER_PATH=$(pwd)/.controllers
 
-# Download the CONTROLLER distribution
-echo -n "Download the SDN controller ..."
+# Download the SDN controller distribution
 mkdir -p ${CONTROLLER_PATH}
 if [ ! -e ${CONTROLLER_PATH}/${CONTROLLER_FILE} ]; then
-    wget -q -O - ${CONTROLLER_REPO}/${CONTROLLER_VERSION}/${CONTROLLER_FILE} > ${CONTROLLER_PATH}/${CONTROLLER_FILE}
-    echo " ok."
-else
-    echo " already ok."
+    spinner_exec "Download the SDN controller: " \
+        curl -L -o ${CONTROLLER_PATH}/${CONTROLLER_FILE} \
+            ${CONTROLLER_REPO}/${CONTROLLER_VERSION}/${CONTROLLER_FILE}
+    if [ $? -ne 0 ]; then
+        return $?
+    fi
 fi
 
-# Install the CONTROLLER distribution
-echo -n "Extract the SDN controller ..."
+# Install the SDN controller distribution
 rm -fr ${CONTROLLER_PATH}/${CONTROLLER_DIR}
-tar zxf ${CONTROLLER_PATH}/${CONTROLLER_FILE} -C ${CONTROLLER_PATH}
-if [ -x ${CONTROLLER_PATH}/${CONTROLLER_DIR}/bin/karaf ]; then
-    echo " ok."
-else
-    echo " fail: '${CONTROLLER_PATH}/${CONTROLLER_DIR}/bin/karaf' not found!"
-    exit 1
+spinner_exec "Extract the SDN controller: " \
+    tar zxf ${CONTROLLER_PATH}/${CONTROLLER_FILE} -C ${CONTROLLER_PATH}
+if [ $? -ne 0 ]; then
+    return $?
 fi
 
-# Fix the CONTROLLER boot features
-echo -n "Fix the SDN controller boot features ..."
-sed -i 's/featuresBoot=config,standard,region,package,kar,ssh,management/featuresBoot=config,standard,region,package,kar,ssh,management,odl-netconf-connector-all,odl-restconf,odl-mdsal-apidocs,odl-dlux-all/g' ${CONTROLLER_PATH}/${CONTROLLER_DIR}/etc/org.apache.karaf.features.cfg
-echo " ok."
+# Fix the SDN controller boot features
+spinner_exec "Fix the SDN controller: " \
+    sed -i 's/featuresBoot=config,standard,region,package,kar,ssh,management/featuresBoot=config,standard,region,package,kar,ssh,management,odl-netconf-connector-all,odl-restconf,odl-mdsal-apidocs,odl-dlux-all/g' ${CONTROLLER_PATH}/${CONTROLLER_DIR}/etc/org.apache.karaf.features.cfg
 

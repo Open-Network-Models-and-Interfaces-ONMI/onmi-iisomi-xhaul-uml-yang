@@ -14,7 +14,7 @@ To install all the required dependencies, please read [INSTALL.md].
 Install Node.js packages
 ------------------------
 
-To install all the required Node.js packages (Mocha, ... ):
+To install all the required Node.js packages (Mocha, Chai, SuperTest, ... ):
 
 ```
 npm install
@@ -50,7 +50,6 @@ Build and run the Test Suite
 To build and start the ONF Microwave Transport Test Suite:
 
 ```
-grunt build-test
 grunt test
 ```
 
@@ -61,4 +60,6 @@ Contact
 -------
 
 paolo.rovelli@hcl.com
+
+[INSTALL.md]:INSTALL.md
 
