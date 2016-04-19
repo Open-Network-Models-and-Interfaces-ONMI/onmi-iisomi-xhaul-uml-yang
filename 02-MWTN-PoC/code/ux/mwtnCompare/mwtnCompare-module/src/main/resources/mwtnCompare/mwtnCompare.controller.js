@@ -428,9 +428,11 @@ var mwtnCompareCtrl = function($scope, $rootScope, $modal, $mwtnCompare) {
       var match = false;
 
       switch (labelId) {
-        case 'compares':
-          break;
-        case 'nameList':
+      case 'compares':
+        break;
+      case 'open':
+        break;
+      case 'nameList':
           var requiredName = obj[labelId][0].value;
           var actualName = '';
           if (actualData) {
