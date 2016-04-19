@@ -150,7 +150,7 @@ module.exports = function(grunt) {
     grunt.registerTask('test-env', [
     //  'shell:controller-odl',
         'shell:controller-wipro',
-        'shell:mediator-hcl',
+    //  'shell:mediator-hcl',
         'shell:mediator-ceragon'
     ]);
     grunt.registerTask('build-test', [

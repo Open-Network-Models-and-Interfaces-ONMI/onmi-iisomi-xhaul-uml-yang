@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+## Version 0.0.7
+
+_2016-04-19_
+
+ * Support event management unit test
+ * Use an awesome spinner for the Test Environment setup
+
 ## Version 0.0.6
 
 _2016-04-12_
