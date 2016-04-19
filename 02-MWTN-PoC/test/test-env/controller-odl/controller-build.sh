@@ -40,7 +40,8 @@ if [ $? -ne 0 ]; then
     return $?
 fi
 
-# Fix the SDN controller boot features
-spinner_exec "Fix the SDN controller: " \
-    sed -i 's/featuresBoot=config,standard,region,package,kar,ssh,management/featuresBoot=config,standard,region,package,kar,ssh,management,odl-netconf-connector-all,odl-restconf,odl-mdsal-apidocs,odl-dlux-all/g' ${CONTROLLER_PATH}/${CONTROLLER_DIR}/etc/org.apache.karaf.features.cfg
+# Install SDN boot features
+spinner_exec "Install default SDN features: " \
+    sed -i 's/config,standard,region,package,kar,ssh,management/config,standard,region,package,kar,ssh,management,odl-netconf-connector-all,odl-restconf,odl-mdsal-apidocs,odl-dlux-all/g' \
+    ${CONTROLLER_PATH}/${CONTROLLER_DIR}/etc/org.apache.karaf.features.cfg
 

@@ -58,3 +58,13 @@ spinner_exec "Build the SDN controller: " \
     mvn clean install -DskipTests=true
 cd - > /dev/null
 
+# Install SDN boot features
+spinner_exec "Install default SDN features: " \
+    sed -i 's/config,standard,region,package,kar,ssh,management/config,standard,region,package,kar,ssh,management,odl-dlux-all/g' \
+        ${CONTROLLER_PATH}/${CONTROLLER_DIR}/02-MWTN-PoC/code/odl/karaf/target/assembly/etc/org.apache.karaf.features.cfg
+
+# Install UX SDN applications
+spinner_exec "Install delivered SDN applications: " \
+    cp  ${CONTROLLER_PATH}/${CONTROLLER_DIR}/02-MWTN-PoC/code/ux/deploy/*.jar \
+        ${CONTROLLER_PATH}/${CONTROLLER_DIR}/02-MWTN-PoC/code/odl/karaf/target/assembly/deploy
+

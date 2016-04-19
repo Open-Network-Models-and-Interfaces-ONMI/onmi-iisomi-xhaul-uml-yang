@@ -117,7 +117,7 @@ describe('SDN Controller', function() {
         };
     });
 
-    it('should send notification events via WebSocket', function(done) {
+    it('should send notification events over WebSocket', function(done) {
         this.timeout(10000 * 1.25);
 
         var socket = new WebSock(endpoint);
