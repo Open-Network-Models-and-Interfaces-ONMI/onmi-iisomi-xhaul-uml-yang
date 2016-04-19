@@ -19,7 +19,7 @@ chai.use(things);
 
 var config = require('../config.json');
 
-/* SDN Controller */
+/* SDN Controller - RESTconf */
 var controller = supertest.agent('http://' +
     config[config.topology[0].type].user + ':' +
     config[config.topology[0].type].passwd + '@' +
@@ -27,6 +27,21 @@ var controller = supertest.agent('http://' +
     config[config.topology[0].type].port);
 var restconf = '/restconf/config/network-topology:network-topology';
 var restoper = '/restconf/operational/network-topology:network-topology';
+
+/* SDN Controller - Websocket */
+var endpoint = 'ws://' +
+    config[config.topology[0].type].user + ':' +
+    config[config.topology[0].type].passwd + '@' +
+    config[config.topology[0].type].ip + ':' + '8085' + '/websocket';
+var events = {
+    'data' : 'scopes',
+    'scopes' : [
+        'ObjectCreationNotification',
+        'ObjectDeletionNotification',
+        'AttributeValueChangedNotification',
+        'ProblemNotification'
+     ]
+};
 
 /* Main Model */
 var model = 'MicrowaveModel-Notifications';
@@ -71,7 +86,7 @@ describe('Each Network Element:', function() {
                             'revision=' + revision + ')' + model);
 
                     /* save node-id, to be used in further tests */
-                    nodes.push({ 'node-id' : node['node-id'] });
+                    nodes.push({ 'node-id' : node['node-id'], 'event-count' : 0 });
                 }
             });
 
@@ -83,28 +98,60 @@ describe('Each Network Element:', function() {
 /* check the event management */
 describe('SDN Controller', function() {
 
-    it('should support websocket for notifications', function(done) {
+    it('should expose the WebSocket notification EndPoint', function(done) {
  
-        var socket = new WebSock('ws://admin:admin@localhost:8085/websocket');
+        var socket = new WebSock(endpoint);
 
         socket.onopen = function() {
             if (socket.readyState === socket.OPEN) {
-                var data = {
-                    'data' : 'scopes',
-                    'scopes' : [ 
-                        "ObjectCreationNotification",
-                        "ObjectDeletionNotification",
-                        "AttributeValueChangedNotification",
-                        "ProblemNotification"
-                    ]
-                };
-                socket.send(JSON.stringify(data));
+                socket.send(JSON.stringify(events));
             }
         };
         
         socket.onmessage = function(e) {
-            if (typeof e.data === 'string') {
+            if (typeof e.data === 'string' &&
+                       e.data.indexOf('connected') >= 0 &&
+                       e.data.indexOf(JSON.stringify(events)) >= 0) {
                 done();
+            }
+        };
+    });
+
+    it('should send notification events via WebSocket', function(done) {
+        this.timeout(10000 * 1.25);
+
+        var socket = new WebSock(endpoint);
+        var state = 'closed';
+
+        socket.onopen = function() {
+            if (socket.readyState === socket.OPEN) {
+                state = 'open';
+                socket.send(JSON.stringify(events));
+            }
+        };
+
+        socket.onmessage = function(e) {
+            if (state === 'open' &&
+                    e.data.indexOf('connected') >= 0 &&
+                    e.data.indexOf(JSON.stringify(events)) >= 0) {
+                state = 'connected';
+            } else if (state === 'connected') {
+                /* update event count */
+                nodes.forEach(function(node) {
+                    var attr = '<nodeName>' + node['node-id'] + '</nodeName>';
+                    if (e.data.indexOf(attr) >= 0) {
+                        node['event-count']++;
+                    }
+                });
+                /* check at least one event for each network element */
+                if (nodes.filter(function(node) { 
+                    if (node['event-count'] > 0) {
+                        return false; 
+                    }
+                    return true;
+                }).length === 0) {
+                    done();
+                }
             }
         };
     });

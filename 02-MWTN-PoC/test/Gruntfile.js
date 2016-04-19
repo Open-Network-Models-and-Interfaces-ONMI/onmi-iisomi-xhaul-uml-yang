@@ -68,6 +68,11 @@ module.exports = function(grunt) {
                     var path = './test-env/mediator-hcl/';
                     var cmd = path + 'mediator-build.sh config.json';
                     return cmd;
+                },
+                options: {
+                    execOptions: {
+                        maxBuffer: Infinity
+                    }
                 }
             },
             'mediator-ceragon': {
@@ -84,6 +89,11 @@ module.exports = function(grunt) {
                     var path = './test-env/mediator-ceragon/';
                     var cmd = path + 'mediator-build.sh config.json';
                     return cmd;
+                },
+                options: {
+                    execOptions: {
+                        maxBuffer: Infinity
+                    }
                 }
             }
         },
@@ -140,7 +150,7 @@ module.exports = function(grunt) {
     grunt.registerTask('test-env', [
     //  'shell:controller-odl',
         'shell:controller-wipro',
-    //  'shell:mediator-hcl',
+        'shell:mediator-hcl',
         'shell:mediator-ceragon'
     ]);
     grunt.registerTask('build-test', [
