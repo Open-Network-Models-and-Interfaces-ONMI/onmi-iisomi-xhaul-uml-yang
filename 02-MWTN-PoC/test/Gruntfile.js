@@ -153,6 +153,14 @@ module.exports = function(grunt) {
     //  'shell:mediator-hcl',
         'shell:mediator-ceragon'
     ]);
+    grunt.registerTask('test-env-controller', [
+    //  'shell:controller-odl',
+        'shell:controller-wipro'
+    ]);
+    grunt.registerTask('test-env-mediator', [
+    //  'shell:mediator-hcl',
+        'shell:mediator-ceragon'
+    ]);
     grunt.registerTask('build-test', [
         'newer:jshint',
         'newer:jscs'
