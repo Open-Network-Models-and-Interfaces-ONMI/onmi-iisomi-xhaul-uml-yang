@@ -44,10 +44,17 @@ define([ 'app/odlChat/odlChat.module' ], function(odlChatApp) {
       $http(request).then(function successCallback(response) {
         // this callback will be called asynchronously
         // when the response is available
-
+        var x2js = new X2JS();
+        var jsonObj = x2js.xml_str2json( event.data);
+        jsonObj.AttributeValueChangedNotification.nodeName;
+        var objId =  jsonObj.AttributeValueChangedNotification.objectId;
+        var attrName =  jsonObj.AttributeValueChangedNotification.attributeName;
+        var modValue =  jsonObj.AttributeValueChangedNotification.newValue;
+        var notifMsg = "Object Modified: " + objId + " --- For Attribute: " + attrName + " --- With New Value As: " + modValue ;
         tweet = {
-          nickname : response.data.node[0]['flow-node-inventory:manufacturer'],
-          message : response.data.node[0]['flow-node-inventory:description'],
+          nodeName : jsonObj.AttributeValueChangedNotification.nodeName,
+          message: event.data,
+          msgStr: notifMsg,
           time : JSON.stringify(new Date()).split('T')[1].substring(0, 5)
         };
         callback('', tweet);
