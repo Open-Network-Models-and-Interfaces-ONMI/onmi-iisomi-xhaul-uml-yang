@@ -46,7 +46,7 @@ sudo service nginx restart
 ~~~
 
 ### How to use:
-To access the GUI simply go to http://127.0.0.1
+To access the GUI simply go to http://127.0.0.1 (Nginx server IP)
 
 Modify the "Site JSON" section to contain the netowrk elements by specifing the uuid of the element in the networkElementArr, **note**: the number of elements per site is limited to 4.
 
