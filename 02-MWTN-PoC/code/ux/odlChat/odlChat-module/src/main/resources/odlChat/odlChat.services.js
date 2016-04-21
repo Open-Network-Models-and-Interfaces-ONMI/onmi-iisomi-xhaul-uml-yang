@@ -42,21 +42,75 @@ define([ 'app/odlChat/odlChat.module' ], function(odlChatApp) {
             'config/opendaylight-inventory:nodes/node/odlChat/' ].join('')
       };
       $http(request).then(function successCallback(response) {
+
+
         // this callback will be called asynchronously
         // when the response is available
+        if (event.data.indexOf("AttributeValueChangedNotification") != -1){
         var x2js = new X2JS();
         var jsonObj = x2js.xml_str2json( event.data);
-        jsonObj.AttributeValueChangedNotification.nodeName;
         var objId =  jsonObj.AttributeValueChangedNotification.objectId;
         var attrName =  jsonObj.AttributeValueChangedNotification.attributeName;
         var modValue =  jsonObj.AttributeValueChangedNotification.newValue;
         var notifMsg = "Object Modified: " + objId + " --- For Attribute: " + attrName + " --- With New Value As: " + modValue ;
+      
         tweet = {
+          notifType : "AttributeValueChangedNotification",
           nodeName : jsonObj.AttributeValueChangedNotification.nodeName,
           message: event.data,
           msgStr: notifMsg,
           time : JSON.stringify(new Date()).split('T')[1].substring(0, 5)
         };
+      };
+
+  if (event.data.indexOf("ProblemNotification") != -1){
+        var x2js = new X2JS();
+        var jsonObj = x2js.xml_str2json( event.data);
+        var objId =  jsonObj.ProblemNotification.objectID;
+        var problem =  jsonObj.ProblemNotification.problem;
+        var severity =  jsonObj.ProblemNotification.severity;
+        var notifMsg = "Object Affected: " + objId + " --- Having Problem: " + problem + " --- With Severity As: " + severity ;
+      
+        tweet = {
+          notifType : "ProblemNotification",
+          nodeName : jsonObj.ProblemNotification.nodeName,
+          message: event.data,
+          msgStr: notifMsg,
+          time : JSON.stringify(new Date()).split('T')[1].substring(0, 5)
+        };
+      };
+
+  if (event.data.indexOf("ObjectCreationNotification") != -1){
+        var x2js = new X2JS();
+        var jsonObj = x2js.xml_str2json( event.data);
+        var objId =  jsonObj.ObjectCreationNotification.objectId;
+        var notifMsg = "Object Created: " + objId ;
+      
+        tweet = {
+          notifType : "ObjectCreationNotification",
+          nodeName : jsonObj.ObjectCreationNotification.nodeName,
+          message: event.data,
+          msgStr: notifMsg,
+          time : JSON.stringify(new Date()).split('T')[1].substring(0, 5)
+        };
+      };
+
+
+  if (event.data.indexOf("ObjectDeletionNotification") != -1){
+        var x2js = new X2JS();
+        var jsonObj = x2js.xml_str2json( event.data);
+        var objId =  jsonObj.ObjectDeletionNotification.objectId;
+        var notifMsg = "Object Deletion: " + objId ;
+      
+        tweet = {
+          notifType : "ObjectDeletionNotification",
+          nodeName : jsonObj.ObjectDeletionNotification.nodeName,
+          message: event.data,
+          msgStr: notifMsg,
+          time : JSON.stringify(new Date()).split('T')[1].substring(0, 5)
+        };
+      };
+
         callback('', tweet);
       }, function errorCallback(response) {
         // called asynchronously if an error occurs

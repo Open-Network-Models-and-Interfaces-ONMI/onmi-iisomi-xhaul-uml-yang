@@ -14,7 +14,8 @@
         <th data-sort-ignore="false">SI No</th>
         <th data-sort-ignore="false">Time</th>
         <th data-sort-ignore="false">MW Device</th>
-         <th data-sort-ignore="false">Notifications</th>
+        <th data-sort-ignore="false">Event Type</th>
+        <th data-sort-ignore="false">Event Details</th>
       </tr>
   </thead>
   <tbody>
@@ -28,7 +29,10 @@
          </td>
         <td>
           {{tweet.nodeName}}
-         </td>        
+         </td>  
+        <td>
+          {{tweet.notifType}}
+         </td>                
         </div>
         <div class="col-md-1">
         <td>
