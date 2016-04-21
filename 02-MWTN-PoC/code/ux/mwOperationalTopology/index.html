@@ -22,7 +22,7 @@
       </div>
       <div class="form-group">
         <label for="port">Controller Port:</label>
-        <input type="text" class="form-control" id="controller-port" value="80">
+        <input type="text" class="form-control" id="controller-port" value="8181">
       </div>
       <div "form-group">
         <label for="comment">Site JSON:</label>
@@ -91,8 +91,18 @@
 ]</textarea>
       </div>
       <div class="radio" id="controller-type-radio">
-        <label><input type="radio" name="controller-type" id="static" value="SELF" checked>Static</label>
-        <label><input type="radio" name="controller-type" id="odl" value="odl">OpenDaylight</label>
+        <label><input type="radio" name="controller-type" id="static" value="SELF">Static</label>
+        <label><input type="radio" name="controller-type" id="odl" value="odl" checked>OpenDaylight</label>
+      </div>
+      <div id="controller-cred" class="col-sm-10 col-md-offset-2" style="display: none">
+        <div class="form-group" >
+          <label for="username">Username:</label>
+          <input type="text" class="form-control" id="controller-username" value="admin">
+        <div class="form-group" >
+        </div>
+          <label for="password">Controller Password:</label>
+          <input type="text" class="form-control" id="controller-password" value="admin">
+        </div>
       </div>
       <button id="update-button" class="btn btn-primary">Update</button>
     </div>
