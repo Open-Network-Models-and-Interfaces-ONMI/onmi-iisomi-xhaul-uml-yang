@@ -65,6 +65,6 @@ spinner_exec "Install default SDN features: " \
 
 # Install UX SDN applications
 spinner_exec "Install delivered SDN applications: " \
-    cp  ${CONTROLLER_PATH}/${CONTROLLER_DIR}/02-MWTN-PoC/code/ux/deploy/*.jar \
-        ${CONTROLLER_PATH}/${CONTROLLER_DIR}/02-MWTN-PoC/code/odl/karaf/target/assembly/deploy
+    cp ${CONTROLLER_PATH}/${CONTROLLER_DIR}/02-MWTN-PoC/code/ux/deploy/*.jar \
+       ${CONTROLLER_PATH}/${CONTROLLER_DIR}/02-MWTN-PoC/code/odl/karaf/target/assembly/deploy
 

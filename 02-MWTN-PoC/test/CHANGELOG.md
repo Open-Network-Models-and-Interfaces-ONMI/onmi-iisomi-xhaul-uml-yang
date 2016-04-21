@@ -42,7 +42,7 @@ _2016-03-24_
  * Support all 'airInterfaceConfiguration' attributes
  * Workaround for nested 'uses' statements in YANG models
  * Support augmented YANG models
- * Support more YANG models delivery
+ * Support more YANG models
 
 ## Version 0.0.1
 

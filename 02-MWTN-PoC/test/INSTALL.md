@@ -8,7 +8,7 @@ derivative distributions.
 Requirements
 ------------
 
-To run the test framework you will need the following software:
+To run the Test Framework you will need the following software:
 
   - node.js: the JavaScript runtime environment.
 
