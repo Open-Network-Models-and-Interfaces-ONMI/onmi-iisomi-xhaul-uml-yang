@@ -5,19 +5,19 @@ This application displays the Microwave topology operational status in a graph v
 ![Alt text](Example.JPG "Example")
 
 ### How it works:
-#### The application devided into 2 part:
+#### The application code is devided into 2 parts:
 
-1) Topology library - issue AJAX calls to OpenDaylight/static resources to retreive operational information about the Microware network topology
+1) MW Topology library - Provides APIs for managing Microwave data and retreiving operational information about the Microware network topology by using AJAX calls to OpenDaylight/static resources to retreive 
 
-2) Topolgy GUI application - uses the toplogy library to retreive the network topology and diplay it in the GUI useing Sigma.js
+2) Topolgy GUI application - uses the toplogy library to retreive the network topology and display it in the GUI useing Sigma.js
 
-#### The application works in 2 modes to retrieve information about the topology:
+####  modes to retrieve information about the topology:
 
 1) Use static JSON files that represent the network elements
 
 2) Use the OpenDaylight REST API to retrieve information about the topology
 
-The application provides a simple configuration GUI to modify the controller IP/Port, site information and application mode.
+The application provides a simple configuration GUI(panel) to modify the controller IP/Port, site information, planned configuration and application mode.
 
 Note: This is a client-side application only, thus the configuration is not persistent, in order to change the defaults, change the index.html configuration fields and refresh the browser.
 
@@ -47,10 +47,6 @@ sudo service nginx restart
 
 ### How to use:
 To access the GUI simply go to http://127.0.0.1
-
-The web interface is devided into 2 parts:
-  1. Configuration panel
-  2. Graph
 
 Modify the "Site JSON" section to contain the netowrk elements by specifing the uuid of the element in the networkElementArr, **note**: the number of elements per site is limited to 4.
 
