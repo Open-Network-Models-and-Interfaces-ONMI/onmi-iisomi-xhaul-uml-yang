@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# mediator-attach - Attach to CERAGON-MEDIATORS
+# mediator-attach - Attach to Ceragon SDN mediators
 #
 # Copyright (C) 2016 HCL Technologies 
 #
@@ -14,7 +14,8 @@ then
 fi
 
 # Attach to the MEDIATOR container
-echo -n "Enter the mediator name (e.g. 'ne1') to connect: "
+echo ""
+echo -n "Enter the mediator name (e.g. 'Ceragon-11') to connect: "
 read MEDIATOR_NAME
 docker attach ${MEDIATOR_NAME}
 

@@ -133,7 +133,7 @@ define(
                     }
                   };
                   $http(request).then(function successCallback(response) {
-                    console.log(neName, 'Mounting Point added');
+                    console.log(ne.name, 'Mounting Point added');
                     callback('ok', response.data);
                   }, function errorCallback(response) {
                     console.error(JSON.stringify(response));

@@ -1,17 +1,17 @@
 #!/bin/bash
 #
-# controller-build - Build the SDN controller
+# controller-build - Build the Wipro SDN controller
 #
 # Copyright (C) 2016 HCL Technologies
 #
 # Author: Paolo Rovelli <paolo.rovelli@hcl.com>
 #
 
-if [ $# -ne 1 ]
-then
+if [ $# -ne 1 ]; then
     echo "Usage: controller-build <config.json>"
     exit 0
 fi
+. $(dirname $(readlink -f ${0}))/../utils/spinner-utils.sh
 
 CONTROLLER_URL=$(jq -r '.["controller-wipro"]'.url ${1})
 CONTROLLER_IMAGE=$(jq -r '.["controller-wipro"]'.image ${1})
@@ -21,44 +21,50 @@ CONTROLLER_DIR=${CONTROLLER_IMAGE}-${CONTROLLER_VERSION}
 CONTROLLER_FILE=${CONTROLLER_IMAGE}-${CONTROLLER_VERSION}.tar.gz
 CONTROLLER_PATH=$(pwd)/.controllers
 
-# Download the CONTROLLER distribution
-echo -n "Download the SDN controller ..."
+# Download the SDN controller distribution
 mkdir -p ${CONTROLLER_PATH}
 if [ ! -e ${CONTROLLER_PATH}/${CONTROLLER_FILE} ]; then
-    curl -L -o ${CONTROLLER_PATH}/${CONTROLLER_FILE} ${CONTROLLER_REPO}/tarball/${CONTROLLER_VERSION} > /dev/null 2>&1
-    echo " ok."
-else
-    echo " already ok."
+    spinner_exec "Download the SDN controller: " \
+        curl -L -o ${CONTROLLER_PATH}/${CONTROLLER_FILE} \
+            ${CONTROLLER_REPO}/tarball/${CONTROLLER_VERSION}
+    if [ $? -ne 0 ]; then
+        return $?
+    fi
 fi
 
-# Extract the CONTROLLER distribution
-echo -n "Extract the SDN controller ..."
+# Extract the SDN controller distribution
 rm -fr ${CONTROLLER_PATH}/${CONTROLLER_DIR}
 mkdir -p ${CONTROLLER_PATH}/${CONTROLLER_DIR}
-tar zxf ${CONTROLLER_PATH}/${CONTROLLER_FILE} --strip-components=1 -C ${CONTROLLER_PATH}/${CONTROLLER_DIR}
-if [ -e ${CONTROLLER_PATH}/${CONTROLLER_DIR}/02-MWTN-PoC/code/odl/pom.xml ]; then
-    echo " ok."
-else
-    echo " fail: '${CONTROLLER_PATH}/${CONTROLLER_DIR}/02-MWTN-PoC/code/odl/pom.xml' not found!"
-    exit 1
+spinner_exec "Extract the SDN controller: " \
+    tar zxf ${CONTROLLER_PATH}/${CONTROLLER_FILE} \
+        -C ${CONTROLLER_PATH}/${CONTROLLER_DIR} \
+        --strip-components=1
+if [ $? -ne 0 ]; then
+    return $?
 fi
 
-# Build the CONTROLLER distribution
-echo -n "Build the SDN controller ..."
+# Fix the SDN controller build settings
 mkdir -p ~/.m2
 cp -n ~/.m2/settings.xml{,.orig}
-wget -q -O - https://raw.githubusercontent.com/opendaylight/odlparent/master/settings.xml > ~/.m2/settings.xml
+curl -L -s -o ~/.m2/settings.xml \
+    https://raw.githubusercontent.com/opendaylight/odlparent/master/settings.xml
 if [ $? -ne 0 ]; then
     mv ~/.m2/settings.xml{.orig,}
 fi
 
+# Build the SDN controller distribution
 cd ${CONTROLLER_PATH}/${CONTROLLER_DIR}/02-MWTN-PoC/code/odl/ > /dev/null
-mvn clean install -DskipTests=true > /dev/null
-if [ $? -eq 0 ]; then
-    cd - > /dev/null
-    echo " ok."
-else
-    echo " fail!"
-    exit 1
-fi
+spinner_exec "Build the SDN controller: " \
+    mvn clean install -DskipTests=true
+cd - > /dev/null
+
+# Install SDN boot features
+spinner_exec "Install default SDN features: " \
+    sed -i 's/config,standard,region,package,kar,ssh,management/config,standard,region,package,kar,ssh,management,odl-dlux-all/g' \
+        ${CONTROLLER_PATH}/${CONTROLLER_DIR}/02-MWTN-PoC/code/odl/karaf/target/assembly/etc/org.apache.karaf.features.cfg
+
+# Install UX SDN applications
+spinner_exec "Install delivered SDN applications: " \
+    cp ${CONTROLLER_PATH}/${CONTROLLER_DIR}/02-MWTN-PoC/code/ux/deploy/*.jar \
+       ${CONTROLLER_PATH}/${CONTROLLER_DIR}/02-MWTN-PoC/code/odl/karaf/target/assembly/deploy
 

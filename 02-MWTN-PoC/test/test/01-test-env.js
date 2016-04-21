@@ -19,10 +19,10 @@ var config = require('../config.json');
 
 /* SDN Controller */
 var controller = supertest.agent('http://' +
-    config.controller.user + ':' +
-    config.controller.passwd + '@' +
-    config.controller.ip + ':' +
-    config.controller.port);
+    config[config.topology[0].type].user + ':' +
+    config[config.topology[0].type].passwd + '@' +
+    config[config.topology[0].type].ip + ':' +
+    config[config.topology[0].type].port);
 var restconf = '/restconf/config/network-topology:network-topology';
 var restoper = '/restconf/operational/network-topology:network-topology';
 
@@ -101,4 +101,3 @@ describe('Environment:', function() {
     });
 
 });
-

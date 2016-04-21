@@ -32,6 +32,14 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.opendaylight.controller</groupId>
+			<artifactId>sal-netconf-connector</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.opendaylight.controller.model</groupId>
+			<artifactId>model-inventory</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-client</artifactId>
 		</dependency>

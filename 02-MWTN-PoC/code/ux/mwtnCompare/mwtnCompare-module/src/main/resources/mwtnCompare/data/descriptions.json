@@ -3,8 +3,30 @@
     "description":[
       {
         "id":"installedCapacity",
+        "unit":"kbit/s",
         "p":[
-          "The max capacity of the structure (MWS) supported by the devices and allowed by the national regulation agency. [sko] issue: MWS vs. PWPS in case of diversity."
+          "The max capacity of the structure (MWS) supported by the devices and allowed by the national regulation agency. [sko] issue: MWS vs. MWPS in case of diversity."
+        ]
+      },
+      {
+        "id":"configuredCapacity",
+        "unit":"kbit/s",
+        "p":[
+          "Number of TimeSlots multipied with timeSlotCapacity."
+        ]
+      },
+      {
+        "id":"effectiveCapacity",
+        "unit":"kbit/s",
+        "p":[
+          "Number of TimeSlots with operationalState enabled multipied with timeSlotCapacity."
+        ]
+      },
+      {
+        "id":"radioSignalIds",
+        "unit":"kbit/s",
+        "p":[
+          "RadioSingnalIds asscociated with the microwave section (MWS, Structure)."
         ]
       },
       {

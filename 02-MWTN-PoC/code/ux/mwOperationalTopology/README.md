@@ -32,7 +32,18 @@ sudo apt-get install nginx
 ~~~~
 cp -r <path/to/mwOperationalTopology>/* /usr/share/nginx/html/
 ~~~~
-Limitation: mwOperationalTopology application MUST run on the same machine as the Opendaylight controller and access it via 127.0.0.1/localhost due to Access-Control-Allow-Origin policy.
+To overcome Access-Control-Allow-Origin policy for the static mode:
+~~~
+sudo gedit /etc/nginx/sites-available/default
+~~~
+Append the following into the location tag:
+~~~
+add_header Access-Control-Allow-Origin *;
+~~~
+And restart Nginx:
+~~~
+sudo service nginx restart
+~~~
 
 ### How to use:
 To access the GUI simply go to http://127.0.0.1
@@ -42,4 +53,12 @@ Modify the "Site JSON" section to hold the netowrk elements by specifing the uui
 Choose the "Static" option to retrieve the data from the files located at <path/to/application/>/network-elements
 The big grey cirecles represent a site, the inner big grey circles represent network elements and the small black circles represent an AirInterface LP.
 
-The edges represent a matching radioSignalId between 2 AirInterface nodes, a grey color edge means the link is down and blue means up.
+The edges represent a matching radioSignalId between 2 AirInterface nodes.
+
+colors meaning:
+~~~
+Effective capacity = 0 -> Grey
+Configured < Planned -> Red
+Effective = Configured -> blue
+Effective < Configured -> orange
+~~~

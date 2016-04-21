@@ -25,11 +25,11 @@ define([ 'angularAMD', 'app/routingConfig', 'app/core/core.services',
     NavHelperProvider.addToMenu('odlChat', {
       "link" : "#/odlChat",
       "active" : "main.odlChat",
-      "title" : "Chat",
+      "title" : "MWTN Events",
       "icon" : "icon-comments", // Add navigation icon css class here
       "page" : {
-        "title" : "Chat",
-        "description" : "odlChat"
+        "title" : "MWTN Events",
+        "description" : "MWTN Events"
       }
     });
 

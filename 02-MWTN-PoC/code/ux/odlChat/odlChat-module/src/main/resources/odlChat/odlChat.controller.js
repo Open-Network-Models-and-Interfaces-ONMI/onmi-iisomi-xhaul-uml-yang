@@ -19,7 +19,7 @@ define(
                   '$odlChat',
                   function($scope, $rootScope, $odlChat) {
 
-                    $rootScope['section_logo'] = 'src/app/odlChat/logo_chat.gif'; 
+                    $rootScope['section_logo'] = 'src/app/odlChat/mwEvent.png'; 
 
                     $scope.collection = [];
                     $scope.chat = {
@@ -29,26 +29,51 @@ define(
 
                     var listenToNotifications = function(socketLocation) {
                       try {
-                        var notificatinSocket = new WebSocket(socketLocation);
+                        var notificatinSocket = new WebSocket('ws://admin:admin@localhost:8085/websocket');
 
                         notificatinSocket.onmessage = function(event) {
                           // we process our received event here
-                          $odlChat.getData(event, function(info, tweet) {
-                            $scope.collection.push(tweet);
-                            if ($scope.collection.length > 20) {
-                              $scope.collection.shift();
-                            }
-                            ;
-                            $scope.chat.message = info;
-                          });
-                        }
+						 if (typeof event.data === 'string') {
+						  console.log("Client Received:\n" + event.data);
+						  console.log("---------------------------");
+			                          $odlChat.getData(event, function(info, tweet) {
+			                            $scope.collection.push(tweet);
+			                            if ($scope.collection.length > 20) {
+			                              $scope.collection.shift();
+			                            }
+			                            ;			                            
+			                          });
+				                    }
+	                        }
+                        
                         notificatinSocket.onerror = function(error) {
                           console.log("Socket error: " + error);
                         }
+                        
                         notificatinSocket.onopen = function(event) {
                           console.log("Socket connection opened.");
-                        }
-                        notificatinSocket.onclose = function(event) {
+                          console.log("---------------------------");
+			  
+						function subscribe() {
+						if (notificatinSocket.readyState === notificatinSocket.OPEN) {
+					    var data = {
+						'data' : 'scopes',
+						'scopes' : [
+						    "ObjectCreationNotification",
+						    "ObjectDeletionNotification",
+						    "AttributeValueChangedNotification",
+						    "ProblemNotification"
+						]
+					  };
+				      notificatinSocket.send(JSON.stringify(data));
+				      }
+			        }
+
+	    			  subscribe();
+
+                    }
+                        
+                    notificatinSocket.onclose = function(event) {
                           console.log("Socket connection closed.");
                         }
                         // if there is a problem on socket creation we get

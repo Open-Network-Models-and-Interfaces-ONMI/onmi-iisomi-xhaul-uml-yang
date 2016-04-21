@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# controller-spawn - Spawn the Wipro SDN controller
+# controller-spawn - Spawn the SDN controller
 #
 # Copyright (C) 2016 HCL Technologies 
 #
@@ -15,13 +15,13 @@ fi
 
 CONTROLLER_IDX=-1
 CONTROLLER_NUM=$(jq -r '.topology | length' ${1})
-CONTROLLER_URL=$(jq -r '.["controller-wipro"]'.url ${1})
-CONTROLLER_IMAGE=$(jq -r '.["controller-wipro"]'.image ${1})
-CONTROLLER_VERSION=$(jq -r '.["controller-wipro"]'.version ${1})
+CONTROLLER_URL=$(jq -r '.["controller-odl"]'.url ${1})
+CONTROLLER_IMAGE=$(jq -r '.["controller-odl"]'.image ${1})
+CONTROLLER_VERSION=$(jq -r '.["controller-odl"]'.version ${1})
 
-CONTROLLER_REPO=${CONTROLLER_URL}
-CONTROLLER_DIR=${CONTROLLER_IMAGE}-${CONTROLLER_VERSION}/02-MWTN-PoC/code/odl/karaf/target/assembly
+CONTROLLER_REPO=${CONTROLLER_URL}/${CONTROLLER_IMAGE}
 CONTROLLER_FILE=${CONTROLLER_IMAGE}-${CONTROLLER_VERSION}.tar.gz
+CONTROLLER_DIR=${CONTROLLER_IMAGE}-${CONTROLLER_VERSION}
 CONTROLLER_PATH=$(pwd)/.controllers
 
 MODEL_SRC=$(dirname $(readlink -f ${1}))/$(jq -r .model.path ${1})
@@ -31,7 +31,7 @@ while [ ${CONTROLLER_IDX} -lt ${CONTROLLER_NUM} ]; do
 
     CONTROLLER_IDX=$[${CONTROLLER_IDX}+1]
     CONTROLLER_TYPE=$(jq -r '.topology['${CONTROLLER_IDX}'].type' ${1})
-    if [ "${CONTROLLER_TYPE}" != "controller-wipro" ]; then
+    if [ "${CONTROLLER_TYPE}" != "controller-odl" ]; then
         continue
     fi
     CONTROLLER_NAME=$(jq -r '.topology['${CONTROLLER_IDX}'].name' ${1})

@@ -8,11 +8,13 @@
 
 package org.opendaylight.wtg.netconfconnector.impl;
 
+import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.ProviderContext;
 import org.opendaylight.controller.sal.binding.api.BindingAwareProvider;
 import org.opendaylight.wtg.eventmanager.api.EventManagerService;
 import org.opendaylight.wtg.netconfconnector.api.NetconfConnectorService;
 import org.opendaylight.wtg.netconfconnector.impl.connect.NetconfConnectionManager;
+import org.opendaylight.wtg.netconfconnector.impl.connect.NetconfSubscriptionManager;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.networkelement.api.rev160203.networkelements.NetworkElement;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.networkelement.api.rev160203.networkelements.NetworkElementBuilder;
 import org.slf4j.Logger;
@@ -25,6 +27,7 @@ public class NetconfConnectorImpl implements NetconfConnectorService, BindingAwa
 	private static final Logger LOG = LoggerFactory.getLogger(NetconfConnectorImpl.class);
 
 	private EventManagerService eventmanagerService;
+	private NetconfSubscriptionManager netconfSubscriptionManager;
 
 	public NetconfConnectorImpl(EventManagerService eventmanagerService) {
 		this.eventmanagerService = eventmanagerService;
@@ -33,11 +36,14 @@ public class NetconfConnectorImpl implements NetconfConnectorService, BindingAwa
 	@Override
 	public void onSessionInitiated(ProviderContext session) {
 		LOG.info("NetconfConnectorImpl Session Initiated");
+		DataBroker dataBroker = session.getSALService(DataBroker.class);
+		netconfSubscriptionManager = new NetconfSubscriptionManager(eventmanagerService, dataBroker);
+		netconfSubscriptionManager.register();
 	}
 
 	@Override
 	public void nodeConnected(NetworkElement networkElement) {
-		boolean isConnected = NetconfConnectionManager.initiateConnection(networkElement, eventmanagerService);
+		boolean isConnected = NetconfConnectionManager.initiateConnection(networkElement);
 		if (isConnected) {
 			LOG.info("Netconf Session establisted with Netconf device :: Name : {}, IP : {} ", networkElement.getName(),
 					networkElement.getIp());
@@ -49,7 +55,7 @@ public class NetconfConnectorImpl implements NetconfConnectorService, BindingAwa
 	@Override
 	public void nodeDisconnected(NetworkElement networkElement) {
 		if (networkElement.isConnected()) {
-			boolean isTerminated = NetconfConnectionManager.terminateConnection(networkElement, eventmanagerService);
+			boolean isTerminated = NetconfConnectionManager.terminateConnection(networkElement);
 			if (isTerminated) {
 				LOG.info("Netconf Session terminated with Netconf device :: Name : {}, IP : {} ",
 						networkElement.getName(), networkElement.getIp());
@@ -62,5 +68,6 @@ public class NetconfConnectorImpl implements NetconfConnectorService, BindingAwa
 	@Override
 	public void close() throws Exception {
 		LOG.info("NetconfConnectorImpl closing");
+		netconfSubscriptionManager.close();
 	}
 }

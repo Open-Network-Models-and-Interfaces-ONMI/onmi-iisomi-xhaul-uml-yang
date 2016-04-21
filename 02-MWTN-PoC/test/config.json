@@ -1,5 +1,5 @@
 {
-    "controller": { 
+    "controller-odl": { 
         "ip": "localhost",
         "port": "8181",
         "user": "admin",
@@ -36,7 +36,7 @@
         "url": "http://github.com/OpenNetworkingFoundation/CENTENNIAL"
     },
     "model": {
-        "path": "./models/24-reducedCoreModel-MWTN-Prio1",
+        "path": "../models/24-reducedCoreModel-MWTN-Prio1/yang",
         "list" : [{
             "main" : "MicrowaveModel-ObjectClasses-MwConnection",
             "rev" : "2016-03-23",
@@ -70,22 +70,7 @@
         {
             "type": "controller-wipro",
             "ip": "localhost",
-            "name": "controller"
-        },
-        {
-            "type": "mediator-hcl",
-            "ip": "dhcp",
-            "name": "ne1"
-        },
-        {
-            "type": "mediator-hcl",
-            "ip": "dhcp",
-            "name": "ne2"
-        },
-        {
-            "type": "mediator-hcl",
-            "ip": "dhcp",
-            "name": "ne3"
+            "name": "controller-config"
         },
         {
             "type": "mediator-ceragon",
@@ -94,8 +79,8 @@
             "config" : {
                 "ne" : "Ceragon-11",
                 "ifaces" : [
-                    { "iface" : "LP-MWPS-TTP-ifIndex1", "radio" : "1" },
-                    { "iface" : "LP-MWPS-TTP-ifIndex2", "radio" : "2" }
+                    { "iface" : "LP-MWPS-TTP-ifIndex1", "radio" : "11" },
+                    { "iface" : "LP-MWPS-TTP-ifIndex2", "radio" : "12" }
                 ],
                 "event" : "10"
             }
@@ -103,12 +88,38 @@
         {
             "type": "mediator-ceragon",
             "ip": "dhcp",
-            "name": "Ceragon-12",
+            "name": "Ceragon-12", 
             "config" : {
                 "ne" : "Ceragon-12",
                 "ifaces" : [
-                    { "iface" : "LP-MWPS-TTP-ifIndex1", "radio" : "1" },
-                    { "iface" : "LP-MWPS-TTP-ifIndex2", "radio" : "2" }
+                    { "iface" : "LP-MWPS-TTP-ifIndex1", "radio" : "11" },
+                    { "iface" : "LP-MWPS-TTP-ifIndex2", "radio" : "12" }
+                ],
+                "event" : "10"
+            }
+        },
+        {
+            "type": "mediator-ceragon",
+            "ip": "dhcp",
+            "name": "Ericsson-21", 
+            "config" : {
+                "ne" : "Ericsson-21",
+                "ifaces" : [
+                    { "iface" : "LP-MWPS-TTP-ifIndex1", "radio" : "21" },
+                    { "iface" : "LP-MWPS-TTP-ifIndex2", "radio" : "22" }
+                ],
+                "event" : "10"
+            }
+        },
+        {
+            "type": "mediator-ceragon",
+            "ip": "dhcp",
+            "name": "Ericsson-22", 
+            "config" : {
+                "ne" : "Ericsson-22",
+                "ifaces" : [
+                    { "iface" : "LP-MWPS-TTP-ifIndex1", "radio" : "21" },
+                    { "iface" : "LP-MWPS-TTP-ifIndex2", "radio" : "22" }
                 ],
                 "event" : "10"
             }

@@ -1,17 +1,17 @@
 #!/bin/bash
 #
-# mediator-spawn - Spawn CERAGON-MEDIATORS
+# mediator-spawn - Spawn Ceragon SDN mediators
 #
 # Copyright (C) 2016 HCL Technologies
 #
 # Author: Paolo Rovelli <paolo.rovelli@hcl.com>  
 #
 
-if [ $# -ne 1 ]
-then
+if [ $# -ne 1 ]; then
     echo "Usage: mediator-spawn <config.json>"
     exit 0
 fi
+. $(dirname $(readlink -f ${0}))/../utils/spinner-utils.sh
 
 MEDIATOR_IDX=-1
 MEDIATOR_NUM=$(jq -r '.topology | length' ${1})
@@ -21,8 +21,8 @@ MEDIATOR_VERSION=
 
 MEDIATOR_SRC=/mnt/mediator
 MEDIATOR_DST=/home/compila/app/poc2-md/yang-modules
-MEDIATOR_PATH=$(dirname $(readlink -f ${0}))
 MEDIATOR_CFG=${MEDIATOR_DST}/mediatorConfig.txt
+MEDIATOR_PATH=$(dirname $(readlink -f ${0}))
 
 MODEL_SRC=/mnt/model
 MODEL_DST=/usr/share/yuma/modules/ietf
@@ -41,16 +41,17 @@ while [ ${MEDIATOR_IDX} -lt ${MEDIATOR_NUM} ]; do
     docker rm -f ${MEDIATOR_NAME} > /dev/null 2>&1
 
     # Spin up the MEDIATOR container
-    echo -n "Spawn '${MEDIATOR_NAME}' ... "
-    docker run --name ${MEDIATOR_NAME} \
-        -v ${MODEL_PATH}:${MODEL_SRC} \
-        -v ${MEDIATOR_PATH}:${MEDIATOR_SRC} \
-        -dit ${MEDIATOR_IMAGE}${MEDIATOR_VERSION} \
-        /bin/bash > /dev/null 2>&1
+    spinner_exec "Spawn '${MEDIATOR_NAME}': " \
+        docker run --name ${MEDIATOR_NAME} \
+           -v ${MODEL_PATH}:${MODEL_SRC} \
+           -v ${MEDIATOR_PATH}:${MEDIATOR_SRC} \
+           -dit ${MEDIATOR_IMAGE}${MEDIATOR_VERSION} \
+           /bin/bash
+    echo -n "Address '${MEDIATOR_NAME}': "
     docker inspect --format '{{ .NetworkSettings.IPAddress }}' ${MEDIATOR_NAME}
 
-    # Copy the MEDIATOR models and start-up datastores to the target
-    for x in ${MODEL_PATH}/*.{yang,xml}; do
+    # Copy the MEDIATOR models to the target
+    for x in ${MODEL_PATH}/*.yang; do
         docker exec ${MEDIATOR_NAME} cp \
             ${MODEL_SRC}/${x##*/} \
             ${MODEL_DST}/${x##*/}
@@ -60,7 +61,8 @@ while [ ${MEDIATOR_IDX} -lt ${MEDIATOR_NUM} ]; do
     CONFIG_NAME=$(jq -r '.topology['${MEDIATOR_IDX}'].config.ne' ${1})
     CONFIG_EVENT=$(jq -r '.topology['${MEDIATOR_IDX}'].config.event' ${1})
     docker exec ${MEDIATOR_NAME} /bin/sh -c " \
-        mkdir -p $(dirname ${MEDIATOR_CFG}) && touch ${MEDIATOR_CFG} && \
+        mkdir -p $(dirname ${MEDIATOR_CFG}) && touch ${MEDIATOR_CFG}"
+    docker exec ${MEDIATOR_NAME} /bin/sh -c " \
         echo 'NeName: ${CONFIG_NAME}' >> ${MEDIATOR_CFG} && \
         echo 'eventFrequency: ${CONFIG_EVENT}' >> ${MEDIATOR_CFG}"
     CONFIG_IDX=0
@@ -74,27 +76,28 @@ while [ ${MEDIATOR_IDX} -lt ${MEDIATOR_NUM} ]; do
     done
 
     # Register the MEDIATOR main models and their imported modules
+    echo "Install '${MEDIATOR_NAME}' mediator models ... "
     MODEL_MODULES=""
     MODEL_MAIN=($(jq -r .model.list[].main ${1}))
     for i in ${!MODEL_MAIN[@]}; do
-        echo " - install '${MODEL_MAIN[${i}]}'"
+        spinner_exec " - install '${MODEL_MAIN[${i}]}': " :
         MODEL_MODULES="${MODEL_MODULES} --module=${MODEL_MAIN[${i}]}"
         MODEL_DEPS=($(jq -r .model.list[${i}].deps[] ${1}))
         for j in ${!MODEL_DEPS[@]}; do
-            echo "    - import '${MODEL_DEPS[${j}]}'"
+            spinner_exec "    - import '${MODEL_DEPS[${j}]}': " :
         done
     done
 
     # Start the MEDIATOR
-    echo -n "Start '${MEDIATOR_NAME}' NETCONF server ..."
+    spinner_exec "Start '${MEDIATOR_NAME}' netconf server: " :
     docker exec ${MEDIATOR_NAME} /usr/sbin/netconfd \
         --no-startup \
-        --log=/dev/null \
+        --log=/root/netconf.log \
+        --log-level=debug \
         --superuser=${MEDIATOR_USER} \
         ${MODEL_MODULES} &
     docker exec ${MEDIATOR_NAME} sleep 1
     docker exec ${MEDIATOR_NAME} /usr/sbin/sshd
-    echo " ok."
     echo ""
 
 done

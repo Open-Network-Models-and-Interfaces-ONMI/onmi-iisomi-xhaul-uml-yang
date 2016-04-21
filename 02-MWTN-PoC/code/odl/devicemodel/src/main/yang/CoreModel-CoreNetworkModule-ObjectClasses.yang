@@ -7,7 +7,7 @@ module CoreModel-CoreNetworkModule-ObjectClasses {
     import CoreModel-CoreNetworkModule-TypeDefinitions {
         prefix CoreModel-CoreNetworkModule-TypeDefinitions;
     }
-    revision 2016-03-20 {}
+    revision 2016-03-27 {}
     list NetworkElement {
         key 'uuid';
         status current;
@@ -92,11 +92,6 @@ The referencing LTP is the rovider of capability.";
 - A BIDIRECTIONAL LTP must have at least some LPs that are BIDIRECTIONAL but may also have some SINK and/or SOURCE LPs.
 - A SINK LTP can only contain SINK LPs
 - A SOURCE LTP can only contain SOURCE LPs";
-        }
-        leaf _connectedLtpRef {
-            type leafref {
-                path '/NetworkElement/_ltpRefList/uuid';
-            }
         }
     }
 }

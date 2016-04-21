@@ -1,6 +1,19 @@
 Change Log
 ==========
 
+## Version 0.0.7
+
+_2016-04-19_
+
+ * Support event management unit test
+ * Use an awesome spinner for the Test Environment setup
+
+## Version 0.0.6
+
+_2016-04-12_
+
+ * Support Netconf notifications
+
 ## Version 0.0.5
 
 _2016-04-06_
@@ -29,7 +42,7 @@ _2016-03-24_
  * Support all 'airInterfaceConfiguration' attributes
  * Workaround for nested 'uses' statements in YANG models
  * Support augmented YANG models
- * Support more YANG models delivery
+ * Support more YANG models
 
 ## Version 0.0.1
 
