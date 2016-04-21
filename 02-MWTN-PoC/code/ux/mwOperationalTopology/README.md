@@ -48,17 +48,25 @@ sudo service nginx restart
 ### How to use:
 To access the GUI simply go to http://127.0.0.1
 
-Modify the "Site JSON" section to hold the netowrk elements by specifing the uuid of the element in the networkElementArr, the number of elements per site is limited to 4.
+The web interface is devided into 2 parts:
+  1. Configuration panel
+  2. Graph
+
+Modify the "Site JSON" section to contain the netowrk elements by specifing the uuid of the element in the networkElementArr, **note**: the number of elements per site is limited to 4.
 
 Choose the "Static" option to retrieve the data from the files located at <path/to/application/>/network-elements
 The big grey cirecles represent a site, the inner big grey circles represent network elements and the small black circles represent an AirInterface LP.
 
-The edges represent a matching radioSignalId between 2 AirInterface nodes.
+Edges represent a matching radioSignalId between 2 AirInterface nodes. The edge label format:
 
-colors meaning:
+    <link-id>:[<effective-capacity>,<configured-capacity>,<planned-capacity>]
+
+Capacities are specified in time slots format and are being transformed into Mbps. Effective and configured capacities are read from the elements, while planned capacity is taken from the "Planned time slots JSON" which is located at the configuration panel on the left of the screen.
+
+color meaning:
 ~~~
 Effective capacity = 0 -> Grey
-Configured < Planned -> Red
+Configured != Planned -> Red
 Effective = Configured -> blue
 Effective < Configured -> orange
 ~~~
