@@ -11,12 +11,12 @@ define(['app/mwtnTopology/mwtnTopology.module','app/mwtnTopology/mwtnTopology.se
   mwtnTopologyApp.register.controller('mwtnTopologyCtrl', ['$scope', '$rootScope', 
                                                            '$mwtnTopology', '$mwtnUtilities', 
                                                            'ActualNetworkElement', 'Edge', 'Node', 
-                                                           'OnfNetworkElement', 'MicrowavePhysicalSection',
+                                                           'OnfNetworkElement', 'MicrowavePhysicalSection', 'MicrowaveSection',
                                                            'Topology', 
                                                            function($scope, $rootScope, 
                                                                $mwtnTopology, $mwtnUtilities, 
                                                                ActualNetworkElement, Edge, Node, 
-                                                               OnfNetworkElement, MicrowavePhysicalSection,
+                                                               OnfNetworkElement, MicrowavePhysicalSection, MicrowaveSection,
                                                                Topology) {
 
     var active = 'orange';
@@ -99,9 +99,9 @@ define(['app/mwtnTopology/mwtnTopology.module','app/mwtnTopology/mwtnTopology.se
             var onfNe = new OnfNetworkElement(data.NetworkElement[0]);
             actualNe.setOnfNetworkElement(onfNe);
             
-            var onfData = onfNe.getData();
+            // var onfData = onfNe.getData();
             
-            if (layer === 'mwps') {
+            if (layer === 'mwps' || layer === 'mws') {
               var mwpsList = onfNe.getLTPMwpsList();
               mwpsList.map(function(mwpsItem){
                 if (mwpsItem) {
@@ -110,11 +110,29 @@ define(['app/mwtnTopology/mwtnTopology.module','app/mwtnTopology/mwtnTopology.se
                     var mwps = new MicrowavePhysicalSection(data.MW_AirInterface_Pac[0]);                 
                     actualNe.setLP(mwps);
                     drawTopology(layer);
-                    console.log('LP', neId, lpId, JSON.stringify(mwps.getRadioSignalId()));
+                    // console.log('LP', neId, lpId, JSON.stringify(mwps.getRadioSignalId()));
                   });
                 }
               });         
             }
+
+            if (layer === 'mws') {
+              var mwsList = onfNe.getLTPMwsList();
+              mwsList.map(function(mwsItem){
+                if (mwsItem) {
+                  var lpId = mwsItem._lpList[0].uuid;
+                  $mwtnUtilities.getActualMW_Structure_Pac(neId, lpId, function(data){
+                    var mws = new MicrowaveSection(data.MW_Structure_Pac[0]);                 
+                    actualNe.setLP(mws);
+                    drawTopology(layer);
+//                    console.log('LP', neId, lpId, JSON.stringify(mws.getRadioSignalIds(actualNe)));
+//                    console.log('LP', neId, lpId, JSON.stringify(mws.getConfiguredCapacity()));
+//                    console.log('LP', neId, lpId, JSON.stringify(mws.getEffectiveCapacity()));
+                  });
+                }
+              });         
+            }
+
           } else {
             $scope.ActualNetworkElements[neId] = undefined;
           }
@@ -141,18 +159,31 @@ define(['app/mwtnTopology/mwtnTopology.module','app/mwtnTopology/mwtnTopology.se
             }
 
             if (node.getData().id.startsWith('mwps') || node.getData().id.startsWith('mws')) {
-              // MWPS
-              if (node.getData().radioSignalId) {
-                var rsId = node.getData().radioSignalId;
-                var neId = node.getNetworkElementId();
-                var neItem = $scope.ActualNetworkElements[neId];
-                if (neItem && 'connected' === neItem.getConnectionStatus()) {
-                  var layerProtocol = neItem.getLP(rsId); 
+              var neId = node.getNetworkElementId();
+              var neItem = $scope.ActualNetworkElements[neId];
+              var layerProtocol;
+              if (neItem && 'connected' === neItem.getConnectionStatus()) {
+                // MWPS
+                if (node.getData().radioSignalId) {
+                  var rsId = node.getData().radioSignalId;
+                    layerProtocol = neItem.getLpByRadioSignalId(rsId); 
+                    if (layerProtocol) {
+                      node.data.linkStatus = layerProtocol.isLinkUp() ? 'up': 'down';
+                      node.data.powerStatus = layerProtocol.isPowerOn() ? 'on': 'off';
+                      if(layerProtocol.isActive()){
+                        // console.log('active?',layerProtocol.isActive(), neId, layerProtocol.data.layerProtocol);
+                        node.setColor(active);                      
+                      }
+                    }
+                } else {
+                  // MWS
+                  var rsIds  = node.getData().radioSignalIds;
+                  layerProtocol = neItem.getLpByRadioSignalIds(rsIds); 
                   if (layerProtocol) {
-                    node.data.linkStatus = layerProtocol.isLinkUp() ? 'up': 'down';
-                    node.data.powerStatus = layerProtocol.isPowerOn() ? 'on': 'off';
+                    node.data.effectiveCapacity = layerProtocol.getEffectiveCapacity();
+                    node.data.configuredCapacity = layerProtocol.getConfiguredCapacity();
                     if(layerProtocol.isActive()){
-                      console.log('active?',layerProtocol.isActive(), neId,  layerProtocol.data.layerProtocol);
+                      // console.log('active?',layerProtocol.isActive(), neId, layerProtocol.data.layerProtocol);
                       node.setColor(active);                      
                     }
                   }
@@ -176,18 +207,32 @@ define(['app/mwtnTopology/mwtnTopology.module','app/mwtnTopology/mwtnTopology.se
               if ('connected' === neItemA.getConnectionStatus() && 'connected' === neItemB.getConnectionStatus()) {
                 var nodeDataA = topo.getNodeById(edge.getSourceId());
                 var nodeA = new Node(nodeDataA);
-                var layerProtocolA = neItemA.getLP(nodeA.getData().radioSignalId);
+                var layerProtocolA = neItemA.getLpByRadioSignalId(nodeA.getData().radioSignalId);
                 
                 var nodeDataB = topo.getNodeById(edge.getTargetId());
                 var nodeB = new Node(nodeDataB);
-                var layerProtocolB = neItemB.getLP(nodeB.getData().radioSignalId);
+                var layerProtocolB = neItemB.getLpByRadioSignalId(nodeB.getData().radioSignalId);
                 
+                // MWPS
                 if (layerProtocolA && layerProtocolB) {
                   if (layerProtocolA.isActive() && layerProtocolB.isActive()) {
                     edge.setSize(3); 
                     edge.setColor(active);
                   }
                 }
+                
+                // MWS
+                layerProtocolA = neItemA.getLpByRadioSignalIds(nodeA.getData().radioSignalIds);
+                layerProtocolB = neItemB.getLpByRadioSignalIds(nodeB.getData().radioSignalIds);
+                if (layerProtocolA && layerProtocolB) {
+                  if (layerProtocolA.isActive() && layerProtocolB.isActive()) {
+                    edge.setSize(3); 
+                    edge.setColor(active);
+                    edge.data.effectiveCapacity = Math.min(layerProtocolA.getEffectiveCapacity(), layerProtocolB.getEffectiveCapacity());
+                    edge.data.configuredCapacity = Math.min(layerProtocolA.getConfiguredCapacity(), layerProtocolA.getConfiguredCapacity());
+                  }
+                }
+                
               }
             }
             $scope.sigma.graph.addEdge(edge.getData());

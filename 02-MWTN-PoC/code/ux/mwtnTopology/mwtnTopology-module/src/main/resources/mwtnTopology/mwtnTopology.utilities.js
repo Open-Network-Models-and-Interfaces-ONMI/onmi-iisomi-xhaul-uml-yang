@@ -224,18 +224,34 @@ define(
           this.setOnfNetworkElement = function(onfNe) {
             this.data.onfNetworkElement = onfNe;
           };          
-          this.getLP = function(radioSignalId) {
+          this.getLpByRadioSignalId = function(radioSignalId) {
             //console.log('getLP', JSON.stringify(this.data.ltp));
             var layerProtocol;
             for (var layerProtocolKey in this.data.layerProtocols){
-              if (radioSignalId === parseInt(this.data.layerProtocols[layerProtocolKey].getRadioSignalId())) {
+              if (this.data.layerProtocols[layerProtocolKey].getRadioSignalId && 
+                  radioSignalId === parseInt(this.data.layerProtocols[layerProtocolKey].getRadioSignalId())) {
                 layerProtocol = this.data.layerProtocols[layerProtocolKey];
               }
             }
             return layerProtocol;
           };
+          this.getLpByRadioSignalIds = function(radioSignalIds) {
+            //console.log('getLP', JSON.stringify(this.data.ltp));
+            var layerProtocol;
+            if (radioSignalIds !== undefined) {
+            for (var layerProtocolKey in this.data.layerProtocols){
+              if (this.data.layerProtocols[layerProtocolKey].getRadioSignalIds && 
+                  radioSignalIds.toString() === this.data.layerProtocols[layerProtocolKey].getRadioSignalIds(this).toString()) {
+                layerProtocol = this.data.layerProtocols[layerProtocolKey];
+              }
+            }}
+            return layerProtocol;
+          };
           this.setLP = function(onfPac) {
             this.data.layerProtocols[onfPac.data.layerProtocol] = onfPac;
+          };
+          this.getLpPac = function(lpRef) {
+            return this.data.layerProtocols[lpRef];
           };
           this.getName = function() {
             return this.data.name;
@@ -261,14 +277,37 @@ define(
           this.getData = function() {
            return this.data;
           };
-          this.getLTPMwpsList = function() {
-            var layerProtocolName = 'MWPS';
-            var mwpsList = this.data._ltpRefList.map(function(ltp){
+          this.getServerLtps = function(layerProtocolRef) {
+            var result = [];
+            var ltpList = this.data._ltpRefList.map(function(ltp){
+              if (ltp._lpList[0].uuid === layerProtocolRef) {
+                result =  ltp._serverLtpRefList;
+              }
+            });
+            return result;
+          };
+          this.getLpByLtpRef = function(ltpRef) {
+            var result;
+            var ltpList = this.data._ltpRefList.map(function(ltp){
+              if (ltp.uuid === ltpRef) {
+                result =  ltp._lpList[0];
+              }
+            });
+            return result;
+          };
+          this.getLtpsByLayer = function(layerProtocolName) {
+            var ltpList = this.data._ltpRefList.map(function(ltp){
               if (ltp._lpList[0].layerProtocolName === layerProtocolName) {
                 return ltp;
               }
             });
-            return mwpsList;
+            return ltpList;
+          };
+          this.getLTPMwpsList = function() {
+            return this.getLtpsByLayer('MWPS');
+          };
+          this.getLTPMwsList = function() {
+            return this.getLtpsByLayer('MWS');
           };
         };
         return OnfNetworkElement;
@@ -296,5 +335,68 @@ define(
           };
         };
         return MicrowavePhysicalSection;
+      });
+
+      mwtnTopologyApp.register.factory('MicrowaveSection', function() {
+        // Classes
+        // Class OnfNetworkElement
+        var MicrowaveSection = function(data) {
+          this.data = data;
+          this.getData = function() {
+            return this.data;
+          };
+          this.getId = function() {
+             return this.data.layerProtocol;
+          };
+          this.getRadioSignalIds = function(actualNe) {
+            this.data.parent = actualNe;
+            var result = [];
+            var onfNe = actualNe.data.onfNetworkElement;
+            var lpId = this.getId();
+            onfNe.getServerLtps(lpId).map(function(mwpsLtpRef){
+              var lpRef = onfNe.getLpByLtpRef(mwpsLtpRef).uuid;
+              var mwps = actualNe.getLpPac(lpRef);
+              result.push(mwps.getRadioSignalId());
+            });
+            return result;
+          };
+          this.getTimeSlotCapacity = function() {
+            return this.data.structureCapability.timeSlotCapacity;
+          };
+          this.getTotalNumberOfTimeSlots = function() {
+            return this.data.structureCapability.totalNumberOfTimeSlots;
+          };
+          this.getNumberOfEffectiveTimeSlots = function() {
+            var count = 0;
+            this.data.structureStatus.timeSlotStatusList.map(function(ts){
+              if (ts.operationalStatus === 'ENABLED') {
+                count = count + 1;
+              }
+            });
+            return count;
+          };
+          this.getConfiguredCapacity = function() {
+            return this.getTotalNumberOfTimeSlots() * this.getTimeSlotCapacity();
+          };
+          this.getEffectiveCapacity = function() {
+            return this.getNumberOfEffectiveTimeSlots() * this.getTimeSlotCapacity();
+          };
+          this.isActive = function() {
+            if (this.data.parent === undefined) {
+              return false;
+            }
+            var actualNe = this.data.parent;
+            var result = true;
+            var onfNe = actualNe.data.onfNetworkElement;
+            var lpId = this.getId();
+            onfNe.getServerLtps(lpId).map(function(mwpsLtpRef){
+              var lpRef = onfNe.getLpByLtpRef(mwpsLtpRef).uuid;
+              var mwps = actualNe.getLpPac(lpRef);
+              result = result && mwps.isActive();
+            });
+            return result;
+          };
+        };
+        return MicrowaveSection;
       });
 });
