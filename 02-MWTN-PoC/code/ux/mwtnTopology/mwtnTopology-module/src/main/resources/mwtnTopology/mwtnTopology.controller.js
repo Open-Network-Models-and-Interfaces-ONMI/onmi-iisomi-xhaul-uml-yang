@@ -19,8 +19,8 @@ define(['app/mwtnTopology/mwtnTopology.module','app/mwtnTopology/mwtnTopology.se
                                                                OnfNetworkElement, MicrowavePhysicalSection, MicrowaveSection,
                                                                Topology) {
 
-    var active = 'orange';
-    var inactive = '#dddddd';
+    var active = '#00aaff'; // 'orange';
+    var inactive = '#cccccc';
     
     $rootScope.section_logo = 'src/app/mwtnTopology/images/logo_mwtn_topology.png';
 
@@ -177,6 +177,8 @@ define(['app/mwtnTopology/mwtnTopology.module','app/mwtnTopology/mwtnTopology.se
                     }
                 } else {
                   // MWS
+                  node.data.effectiveCapacity = '';
+                  node.data.configuredCapacity = '';
                   var rsIds  = node.getData().radioSignalIds;
                   layerProtocol = neItem.getLpByRadioSignalIds(rsIds); 
                   if (layerProtocol) {
@@ -184,7 +186,11 @@ define(['app/mwtnTopology/mwtnTopology.module','app/mwtnTopology/mwtnTopology.se
                     node.data.configuredCapacity = layerProtocol.getConfiguredCapacity();
                     if(layerProtocol.isActive()){
                       // console.log('active?',layerProtocol.isActive(), neId, layerProtocol.data.layerProtocol);
-                      node.setColor(active);                      
+                      if (node.data.effectiveCapacity < node.data.configuredCapacity) {
+                        node.setColor('red');
+                      } else {
+                        node.setColor(active);
+                      }
                     }
                   }
                 }
@@ -227,9 +233,13 @@ define(['app/mwtnTopology/mwtnTopology.module','app/mwtnTopology/mwtnTopology.se
                 if (layerProtocolA && layerProtocolB) {
                   if (layerProtocolA.isActive() && layerProtocolB.isActive()) {
                     edge.setSize(3); 
-                    edge.setColor(active);
                     edge.data.effectiveCapacity = Math.min(layerProtocolA.getEffectiveCapacity(), layerProtocolB.getEffectiveCapacity());
                     edge.data.configuredCapacity = Math.min(layerProtocolA.getConfiguredCapacity(), layerProtocolA.getConfiguredCapacity());
+                    if (edge.data.effectiveCapacity < edge.data.configuredCapacity) {
+                      edge.setColor('red');
+                    } else {
+                      edge.setColor(active);
+                    }
                   }
                 }
                 

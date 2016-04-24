@@ -97,8 +97,10 @@
      <td>{{item.sourceLabel}}</td>
      <td>{{item.targetLabel}}</td>
      <td>{{item.radioSignalIds}}</td>
-     <td>{{item.effectiveCapacity}}</td>
-     <td>{{item.configuredCapacity}}</td>
+     <td >
+       <i class="icon-circle"  ng-class="{'topoRed': (item.effectiveCapacity &lt; item.configuredCapacity), 'topoBlue': (item.effectiveCapacity &gt;= item.configuredCapacity) }" ng-show="item.effectiveCapacity"></i> {{item.effectiveCapacity}}</td>
+     <td>
+       <i class="icon-circle topoBlue" ng-show="item.configuredCapacity"></i> {{item.configuredCapacity}}</td>
      <td>{{item.installedCapacity}}</td>
     </tr>
     <tr ng-repeat="item in eth.edges" ng-show="currentTab === 'eth'">
@@ -144,7 +146,7 @@
      <th>Name</th>
     </tr>
    </thead>
-   <tbody>
+   <tbody> 
     <tr ng-repeat="item in site.nodes" ng-show="currentTab === 'site'">
      <td>{{item.id}}</td>
      <td>{{item.label}}</td>
@@ -164,8 +166,10 @@
     <tr ng-repeat="item in mws.nodes" ng-show="currentTab === 'mws' && item.id.startsWith('mws')">
      <td>{{item.guilabel}}</td>
      <td>{{item.radioSignalIds}}</td>
-     <td>{{item.effectiveCapacity}}</td>
-     <td>{{item.configuredCapacity}}</td>
+     <td >
+       <i class="icon-circle"  ng-class="{'topoRed': (item.effectiveCapacity &lt; item.configuredCapacity), 'topoBlue': (item.effectiveCapacity &gt;= item.configuredCapacity) }" ng-show="item.effectiveCapacity"></i> {{item.effectiveCapacity}}</td>
+     <td>
+       <i class="icon-circle topoBlue" ng-show="item.configuredCapacity"></i> {{item.configuredCapacity}}</td>
      <td>{{item.installedCapacity}}</td>
     </tr>
     <tr ng-repeat="item in eth.nodes" ng-show="currentTab === 'eth' && item.id.startsWith('eth')">
