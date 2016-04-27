@@ -47,7 +47,7 @@ describe('Each Network Element:', function() {
                 return done(err);
             }
 
-            /* expect at least two nodes (the controller and one device) */
+            /* expect at least two nodes (one controller and one device) */
             expect(res.body['topology'][0])
                 .to.exist
                 .to.be.an('object')
@@ -60,7 +60,12 @@ describe('Each Network Element:', function() {
                 expect(node)
                     .to.be.an('object')
                     .to.have.property('node-id');
-                if (node['node-id'] !== 'controller-config') {
+                expect(node)
+                    .to.be.an('object')
+                    .to.have.property('netconf-node-topology:connection-status');
+
+                if (node['node-id'] !== 'controller-config' &&
+                    node['netconf-node-topology:connection-status'] === 'connected') {
                     expect(node)
                         .to.have.property('netconf-node-topology:' +
                             'available-capabilities')

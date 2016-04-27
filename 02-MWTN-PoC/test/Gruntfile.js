@@ -104,6 +104,7 @@ module.exports = function(grunt) {
                 options: {
                     reporter: 'spec',
                     captureFile: './test-result/results.txt', 
+                    bail: false,
                     quiet: false,
                     clearRequireCache: false
                 },
