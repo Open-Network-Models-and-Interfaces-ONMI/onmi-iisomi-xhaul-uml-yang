@@ -33,7 +33,17 @@ define([ 'app/odlChat/odlChat.module' ], function(odlChatApp) {
       base : ENV.getBaseURL("MD_SAL") + "/restconf/",
 
     };
-
+    
+    service.getMwtnWebSocketUrl = function() {
+      var user = 'admin'; // TODO avoid hardcoded user/pw
+      var pw = 'admin';
+      var url = ENV.getBaseURL('MD_SAL'); // http://192.168.2.114:8181/
+      url = url.replace('http://', 'ws://' + user + ':' + pw + '@');   
+      url = url.replace(':8181', ':8085/websocket');   // 'ws://admin:admin@localhost:8085/websocket'
+      console.info(url);
+      return url;
+    };
+    
     service.getData = function(event, callback) {
 
       var request = {

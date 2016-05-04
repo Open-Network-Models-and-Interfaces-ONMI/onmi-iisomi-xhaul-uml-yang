@@ -29,9 +29,10 @@ define(
 
                     var listenToNotifications = function(socketLocation) {
                       try {
-                        var notificatinSocket = new WebSocket('ws://admin:admin@localhost:8085/websocket');
+                        var url = $odlChat.getMwtnWebSocketUrl();
+                        var notificationSocket  = new WebSocket(url);
 
-                        notificatinSocket.onmessage = function(event) {
+                        notificationSocket.onmessage = function(event) {
                           // we process our received event here
 						 if (typeof event.data === 'string') {
 						  console.log("Client Received:\n" + event.data);
@@ -46,16 +47,16 @@ define(
 				                    }
 	                        }
                         
-                        notificatinSocket.onerror = function(error) {
+                        notificationSocket.onerror = function(error) {
                           console.log("Socket error: " + error);
                         }
                         
-                        notificatinSocket.onopen = function(event) {
+                        notificationSocket.onopen = function(event) {
                           console.log("Socket connection opened.");
                           console.log("---------------------------");
 			  
 						function subscribe() {
-						if (notificatinSocket.readyState === notificatinSocket.OPEN) {
+						if (notificationSocket.readyState === notificationSocket.OPEN) {
 					    var data = {
 						'data' : 'scopes',
 						'scopes' : [
@@ -65,7 +66,7 @@ define(
 						    "ProblemNotification"
 						]
 					  };
-				      notificatinSocket.send(JSON.stringify(data));
+				      notificationSocket.send(JSON.stringify(data));
 				      }
 			        }
 
@@ -73,7 +74,7 @@ define(
 
                     }
                         
-                    notificatinSocket.onclose = function(event) {
+                    notificationSocket.onclose = function(event) {
                           console.log("Socket connection closed.");
                         }
                         // if there is a problem on socket creation we get
