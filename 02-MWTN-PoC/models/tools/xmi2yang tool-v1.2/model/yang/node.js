@@ -14,11 +14,19 @@ var leaf = require('./leaf.js');
 var leaf_list = require('./leaf-list.js');
 var Type = require('./type.js');
 
-function Node(name, descrip, type, maxEle, minEle, id, config,isOrdered,feature,status) {
+function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, feature, status, key, keys) {
+
+  if (descrip && typeof descrip === 'string') {
+    descrip = descrip.toYangDescription();
+  }
+  if (status === 'deprecated') {
+    console.info('INFO:', 'status', status, 'changed to current for ', name);
+    status = 'current';
+  }
     this.id = id;
     this.name = name;
     this.nodeType = type;
-    this.key;
+    this.key = key;
     this.description = descrip;
     this.uses = [];
     this.status=status;
@@ -31,6 +39,7 @@ function Node(name, descrip, type, maxEle, minEle, id, config,isOrdered,feature,
     this.isAbstract=false;
     this.isGrouping=false;
     this.children = [];
+    this.keys = keys;
 }
 
 Node.prototype.buildChild = function (att, type) {
@@ -71,6 +80,16 @@ Node.prototype.buildChild = function (att, type) {
                     } else {
                         //obj.key="localId";
                     }
+                } else {
+                  if (obj.nodeType === 'list') {
+                    obj.key = att.key;
+                    console.info('###', att.name, obj.name, att.key, obj.key, att.config, obj.config);
+//                    this.keys.map(function(key1) {
+//                      if (key1.id === att.isUses) {
+//                        obj.key = key1.name;
+//                      }
+//                    });
+                  }
                 }
             }
             obj.isGrouping=att.isGrouping;
@@ -127,14 +146,21 @@ Node.prototype.writeNode = function (layer) {
     } else {
         conf = "";
     }
+    // TODO current workaround: always expose config:
+    // conf = PRE + "\tconfig " + this.config + ";\r\n";
+    if (this.nodeType == "container") {
+      conf = PRE + "\tconfig " + this.config + ";\r\n";
+    }
+    
     if (this.nodeType == "list") {
         this["max-elements"] ? maxele = PRE + "\tmax-elements " + this["max-elements"] + ";\r\n" : maxele = "";
         this["min-elements"] ? minele = PRE + "\tmin-elements " + this["min-elements"] + ";\r\n" : minele = "";
         if (this["max-elements"] == "*") {
             maxele = "";
         }
+        // if (this.key) {
         if (this.key && this.config) {
-            Key = PRE + "\tkey '" + this.key + "';\r\n";
+                Key = PRE + "\tkey '" + this.key + "';\r\n";
         }
         //else{
         //    Key = PRE + "\tkey '" + "undefined';\r\n";

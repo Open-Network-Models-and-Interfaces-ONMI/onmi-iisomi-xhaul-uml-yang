@@ -21,6 +21,7 @@ var xmlreader=require('xmlreader'),
     Module=require('./model/yang/module.js'),
     Type = require('./model/yang/type.js'),
     RPC=require('./model/yang/rpc.js');
+var gf = require('./globalFunctions.js');
 
 var Typedef=[];//The array of basic DataType and PrimitiveType
 var Class=[];//The array of objcet class
@@ -68,27 +69,13 @@ function main_Entrance(){
                         addKey();//deal with the key for every class
                         //if the class's value of aggregation is omposite,the class don't need to be instantiated individually
                         for(var i=0;i<Class.length;i++){
-                            for(var j=0;j<isInstantiated.length;j++){
-                                if(Class[i].id==isInstantiated[j].id){
-                                    Class[i].isGrouping=true;
-                                    var path=isInstantiated[j].path+"/"+Class[i].key;//add path
-                                    Class[i].instancePath=path;
-                                    break;
-                                }
-                            }
-                            if(j==isInstantiated.length){
+                            pflag=Class[i].id;
+                            var path=addPath(Class[i].id);
+                            if(path==undefined){
                                 Class[i].instancePath=Class[i].path+":"+Class[i].name+"/"+Class[i].key;
-                            }
-                            for(var j=0;j<openModelclass.length;j++) {
-                                if(openModelclass[j].id==Class[i].id){
-                                    if(openModelclass[j].condition){
-                                        Class[i].support=openModelclass[j].support;
-                                    }
-                                    if(openModelclass[j].status){
-                                        Class[i].status=openModelclass[j].status;
-                                    }
-                                    break;
-                                }
+                            }else{
+                                Class[i].isGrouping=true;
+                                Class[i].instancePath=path+"/"+Class[i].key;
                             }
                         }
                         for(var i=0;i<Class.length;i++){
@@ -130,6 +117,17 @@ function main_Entrance(){
                                 }
 
                             }
+                            for(var j=0;j<openModelclass.length;j++) {
+                                if(openModelclass[j].id==Class[i].id){
+                                    if(openModelclass[j].condition){
+                                        Class[i].support=openModelclass[j].support;
+                                    }
+                                    if(openModelclass[j].status){
+                                        Class[i].status=openModelclass[j].status;
+                                    }
+                                    break;
+                                }
+                            }
                         }
                         obj2yang(Class);//the function is used to mapping to yang
                         // print every yangModules whose children attribute is not empty to yang files.
@@ -162,6 +160,37 @@ function main_Entrance(){
     }catch(e){
         console.log(e.stack);
         throw e.message;
+    }
+}
+
+var pflag;
+function addPath(id){
+    var path,temp;
+    for(var i=0;i<isInstantiated.length;i++){
+        if(id==isInstantiated[i].id){
+            if(isInstantiated[i].tpath){
+                path=isInstantiated[i].tpath;
+                return path;
+            }else{
+                if(isInstantiated[i].pnode==pflag){
+                    console.log("ERROR:xmi:id="+pflag+" and xmi:id="+isInstantiated[i].id+" have been found cross composite!");
+                    return path;
+                }
+                path=isInstantiated[i].path;
+                temp=addPath(isInstantiated[i].pnode);
+                if(temp!==undefined){
+                    path=path.split("/")[1];
+                    path=temp+'/'+path;
+                    return path;
+                }else{
+                    isInstantiated[i].tpath=path;
+                    return path;
+                }
+            }
+        }
+    }
+    if(i==isInstantiated.length){
+        return path;
     }
 }
 
@@ -219,7 +248,7 @@ function crossRefer(mod){
                 if(mod[k].name==mod[i].import[j]){
                     for(var q=0;q<mod[k].import.length;q++){
                         if(mod[k].import[q]==mod[i].name){
-                            console.log("ERROR:module "+mod[i].name+" and module "+mod[k].name+" has been found cross reference!");
+                            console.log("ERROR:module "+mod[i].name+" and module "+mod[k].name+" have been found cross reference!");
                             flag=1;
                             break;
                         }
@@ -597,7 +626,7 @@ function createElement(xmi){
                          break;
                          }
                          }*/
-                    var namespace="'urn:onf:"+modName.join("-")+"'";
+                    var namespace="\"urn:onf:"+modName.join("-")+"\"";
                     var m=new Module(modName.join("-"),namespace,"",modName.join("-"));//create a new module by recursion
                     yangModule.push(m);
                     createElement(obj);
@@ -727,7 +756,12 @@ function createClass(obj,nodeType) {
                     if( !node.attribute[i].isleafRef&&node.type == "Class"){
                         var instance={};
                         instance.id=r;
+                        instance.pnode=node.id;
                         instance.path=node.path+":"+node.name+"/"+node.attribute[i].name;
+                        if(r==node.id){
+                            instance.tpath=instance.path;
+                            console.log("ERROR:xmi:id="+r+" can not be compositeed by itself!");
+                        }
                         isInstantiated.push(instance);
                     }
                 }
@@ -870,7 +904,8 @@ function obj2yang(ele){
         else if(ele[i].nodeType=="notification"){
             var obj=new Node(ele[i].name,ele[i].description,"notification",undefined,undefined,ele[i].id,undefined,undefined,ele[i].support,ele[i].status);
         }else{
-            var obj=new Node(ele[i].name,ele[i].description,"grouping",ele[i]["max-elements"],ele[i]["max-elements"],ele[i].id,ele[i].config,ele[i].isOrdered,ele[i].support,ele[i].status);
+            var obj=new Node(ele[i].name,ele[i].description,"grouping",ele[i]["max-elements"],ele[i]["max-elements"],ele[i].id,ele[i].config,ele[i].isOrdered,ele[i].support,ele[i].status, ele[i].key, keylist);
+            // var obj=new Node(ele[i].name,ele[i].description,"grouping",ele[i]["max-elements"],ele[i]["max-elements"],ele[i].id,ele[i].config,ele[i].isOrdered,ele[i].support,ele[i].status);
             obj.key=ele[i].key;
             obj.isAbstract=ele[i].isAbstract;
             // decide whether the "nodeType" of "ele" is grouping
@@ -880,8 +915,11 @@ function obj2yang(ele){
                         break;
                     }
                 }
+                // TODO Why is 'MW_Container_Pac' a container.
                 if (j == Grouping.length && ele[i].type !== "DataType") {
+                  console.info('sss', Grouping.length, ele[i].type, ele[i].name);
                     //if the ele is grouping ,"obj.nodeType" is  "container"
+                  
                     obj.nodeType = "container";
                 }
             }
@@ -1052,12 +1090,14 @@ function obj2yang(ele){
                     //did't find the "class"
                     if(k==Class.length){
                         ele[i].attribute[j].nodeType=="list"?ele[i].attribute[j].nodeType="leaf-list":ele[i].attribute[j].nodeType="leaf";
-                        ele[i].attribute[j].type="string";
+                        // check ECore primitive types
+                        ele[i].attribute[j].type = gf.eCorePrimitiveTypes.mapToYangType(ele[i].attribute[j].type);
                     }
                 }
                 if(ele[i].attribute[j].type.split("+")[0] == "leafref"){
                     ele[i].attribute[j].type=new Type("leafref",ele[i].attribute[j].id,ele[i].attribute[j].type.split("+")[1],vr)
                 }else if(ele[i].attribute[j].nodeType=="leaf"||ele[i].attribute[j].nodeType=="leaf-list"){
+// console.info('111', ele[i].attribute[j].type,ele[i].attribute[j].id,undefined,vr);
                     ele[i].attribute[j].type=new Type(ele[i].attribute[j].type,ele[i].attribute[j].id,undefined,vr);
                 }
                 obj.buildChild(ele[i].attribute[j], ele[i].attribute[j].nodeType);//create the subnode to obj
@@ -1199,7 +1239,7 @@ function obj2yang(ele){
             if(k==association.length){
                 obj["ordered-by"]=undefined;
             }
-            obj.nodeType = "list";//
+            // obj.nodeType = "list";//
         }
         //add the "obj" to module by attribute "path"
         for(var t=0;t<yangModule.length;t++){
