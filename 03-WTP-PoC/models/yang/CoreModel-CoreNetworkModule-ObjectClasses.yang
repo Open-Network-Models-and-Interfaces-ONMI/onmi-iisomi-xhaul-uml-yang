@@ -1,0 +1,117 @@
+module CoreModel-CoreNetworkModule-ObjectClasses {
+    namespace "uri:onf:CoreModel-CoreNetworkModule-ObjectClasses";
+    prefix CoreModel-CoreNetworkModule-ObjectClasses;
+    import CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages {
+        prefix CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages;
+    }
+    import CoreModel-CoreNetworkModule-TypeDefinitions {
+        prefix CoreModel-CoreNetworkModule-TypeDefinitions;
+    }
+    revision 2016-06-01{}
+    container NetworkElement {
+        description "The Network Element (NE) object class represents a network element (traditional NE) in the data plane.
+            A data plane network element is essentially a consolidation of capabilities that can be viewed and controlled through a 'single' management-control port.
+            In the direct interface from an SDN controller to a network element in the data plane, the NetworkElement object defines the scope of control for the resources within the network element
+            For example internal transfer of user information between the external terminations (ports of the NE), encapsulation, multiplexing/demultiplexing, and OAM functions, etc. 
+            The NetworkElement provides the scope of the naming space for identifying objects representing the resources within the data plane network element.
+            NE is really a product bundling or some view of management scope, management access, session. 
+            The NE is not directly part of topology but brings meaning to the FD context and the LTP context (and hence the links). 
+            lifecycle:LikelyToChange";
+        config true;
+        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:GlobalClass;
+        list _ltpRefList {
+            description "An NE has associated LTPs that are at its boundary.
+                The NeEncompassesFd association occurs for FDs that are within the bounds of the NetworkElement definition such that the FD is bounded by LTPs, all of which are on the boundary of the NetworkElement or are within the NetworkElement. 
+                An LTP can be independent of an NE.";
+            key 'uuid';
+            config true;
+            ordered-by system;
+            uses LogicalTerminationPoint;
+        }
+    }
+    grouping LayerProtocol {
+        description "Each transport layer is represented by a LayerProtocol (LP) instance. The LayerProtocol instances it can be used for controlling termination and monitoring functionality. 
+            It can also be used for controlling the adaptation (i.e. encapsulation and/or multiplexing of client signal), tandem connection monitoring, traffic conditioning and/or shaping functionality at an intermediate point along a connection. 
+            Where the client ? server relationship is fixed 1:1 and immutable, the layers can be encapsulated in a single LTP instance. Where the is a n:1 relationship between client and server, the layers must be split over two separate instances of LTP. ";
+        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
+        leaf layerProtocolName {
+            type CoreModel-CoreNetworkModule-TypeDefinitions:LayerProtocolName;
+            description "Indicate the specific layer-protocol described by the LayerProtocol entity.";
+        }
+        leaf configuredClientCapacity {
+            type int64;
+            description "Provides a summarized view of the client capacity that is configurable for use.
+                Note the cleint LTP association should provide all necessary detail hence this attribute is questionable.";
+            units  kbit/s;
+        }
+        leaf lpDirection {
+            type CoreModel-CoreNetworkModule-TypeDefinitions:TerminationDirection;
+            description "The overall directionality of the LP. 
+                - A BIDIRECTIONAL LP will have some SINK and/or SOURCE flowss.
+                - A SINK LP can only contain elements with SINK flows or CONTRA_DIRECTION_SOURCE flows
+                - A SOURCE LP can only contain SOURCE flows or CONTRA_DIRECTION_SINK flows";
+        }
+        leaf terminationState {
+            type boolean;
+            description "Indicates whether the layer is terminated and if so how.";
+        }
+    }
+    grouping LogicalTerminationPoint {
+        description "The LogicalTerminationPoint (LTP) object class encapsulates the termination and adaptation functions of one or more transport layers. 
+            The structure of LTP supports all transport protocols including circuit and packet forms.";
+        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:GlobalClass;
+        leaf-list _serverLtpRefList {
+            description "References contained LTPs representing servers of this LTP in an inverse multiplexing configuration (e.g. VCAT).";
+            ordered-by system;
+            type leafref {
+                path '/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid';
+            }
+        }
+        leaf-list _clientLtpRefList {
+            description "References contained LTPs representing client traffic of this LTP for normal cases of multiplexing.";
+            ordered-by system;
+            type leafref {
+                path '/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid';
+            }
+        }
+        list _lpList {
+            description "Ordered list of LayerProtocols that this LTP is comprised of where the first entry in the list is the lowest server layer (e.g. physical)";
+            key 'uuid';
+            config true;
+            ordered-by system;
+            uses LayerProtocol;
+            min-elements 1;
+        }
+        leaf-list physicalPortReference {
+            description "One or more text labels for the unmodelled physical port associated with the LTP.
+In many cases there is no associated physical port";
+            ordered-by system;
+            type string;
+        }
+        leaf-list _ltpRefList {
+            description "References one or more LTPs in other views that represent this LTP. 
+The referencing LTP is the rovider of capability.";
+            ordered-by system;
+            type leafref {
+                path '/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid';
+            }
+        }
+        leaf ltpDirection {
+            type CoreModel-CoreNetworkModule-TypeDefinitions:TerminationDirection;
+            description "The overall directionality of the LTP. 
+                - A BIDIRECTIONAL LTP must have at least some LPs that are BIDIRECTIONAL but may also have some SINK and/or SOURCE LPs.
+                - A SINK LTP can only contain SINK LPs
+                - A SOURCE LTP can only contain SOURCE LPs";
+        }
+        leaf logicalterminationpoint {
+            type leafref {
+                path '/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid';
+            }
+        }
+        leaf _connectingLtp {
+            type leafref {
+                path '/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid';
+            }
+        }
+    }
+}

@@ -1,0 +1,302 @@
+module MicrowaveModel-TypeDefinitions {
+    namespace "uri:onf:MicrowaveModel-TypeDefinitions";
+    prefix MicrowaveModel-TypeDefinitions;
+    import CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages {
+        prefix CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages;
+    }
+    import CoreModel-CoreFoundationModule-StateModel {
+        prefix CoreModel-CoreFoundationModule-StateModel;
+    }
+    revision 2016-06-01{}
+    typedef severityType {
+        description "According to ITU-T M.3160";
+        type enumeration {
+            enum non-alarmed;
+            enum warning;
+            enum minor;
+            enum major;
+            enum critical;
+        }
+    }
+    feature feature1 {
+        description "AirInterface::AirInterfaceCapability::duplexDistanceIsVariable==0";
+    }
+    grouping channelPlanType {
+        leaf channelPlanTypeId {
+            type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
+        }
+        leaf supportedChannelPlans {
+            type string;
+            config false;
+            description "Unique identifier of an international agreement that describe allocations of frequency channels, to which this air interface complies, to be listed. Corresponding channel plans to be delivered by the hardware vendor and to be stored by the operator in the controller/application/attached database.";
+        }
+        leaf duplexDistanceIsVariable {
+            type boolean;
+            config false;
+            description "'1' in case the distance between transmitted and received frequency is variable.";
+        }
+        leaf duplexDistance {
+            type int64;
+            config false;
+            description "Distance between transmitted and received frequency.";
+            if-feature feature1;
+            units kHz;
+            default 1;
+        }
+        leaf autoFreqSelectIsAvail {
+            type boolean;
+            config false;
+            description "In case the microwave radio is capable of automatically selecting the transmit frequency in unlicensed bands, this field shall contain an '1'.";
+        }
+        list transmissionModeList {
+            key 'transmissionModeId';
+            ordered-by system;
+            uses transmissionModeType;
+            min-elements 1;
+        }
+    }
+    feature feature2 {
+        description "AirInterface::AirInterfaceCapability::adaptiveModulationIsAvail==1";
+    }
+    feature feature3 {
+        description "AirInterface::AirInterfaceCapability::adaptiveModulationIsAvail==1";
+    }
+    grouping transmissionModeType {
+        description "Basic principles for defining the Default values of Capability/transmissionMode attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.";
+        leaf transmissionModeId {
+            type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
+            description "Indentifies the transmissionMode for internal reference.";
+        }
+        leaf channelBandwidth {
+            type int64;
+            config false;
+            description "Bandwidth of the transmit channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;";
+            units kHz;
+        }
+        leaf modulationScheme {
+            type int32;
+            config false;
+            description "Modulation scheme, which is base to the other characteristics described in the same instance of Script. The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256').";
+            units symbols;
+        }
+        leaf informationRate {
+            type int32;
+            config false;
+            description "Information rate of the coding scheme in %.";
+            units %;
+        }
+        leaf txPowerMin {
+            type int32;
+            config false;
+            description "Value of the minimum transmit power the modem can operate in dBm.";
+            units dBm;
+        }
+        leaf txPowerMax {
+            type int32;
+            config false;
+            description "Value of the maximum transmit power the modem can operate in dBm.";
+            units dBm;
+        }
+        leaf rxThreshold {
+            type int32;
+            config false;
+            description "Value of the receive level required to decode the received signal with a Bit Error Rate of 1e-6 or less.";
+            units dBm;
+        }
+        leaf amUpshiftLevel {
+            type int32;
+            config false;
+            description "Value of the receive level that has to be exceeded to shift into a higher modulation scheme.";
+            if-feature feature2;
+            units dBm;
+            default 99;
+        }
+        leaf amDownshiftLevel {
+            type int32;
+            config false;
+            description "Value of the receive level that has to be exceeded for not shifting into a lower modulation scheme.";
+            if-feature feature3;
+            units dBm;
+            default 99;
+        }
+        leaf xpicIsAvail {
+            type boolean;
+            config false;
+            description "In case the Air Interface Port is capable of XPIC, this field shall contain an '1'.";
+        }
+    }
+    typedef polarizationType {
+        type enumeration {
+            enum horizontal;
+            enum vertical;
+            enum not-specified;
+        }
+    }
+    grouping airInterfaceProblemType {
+        leaf problemId {
+            type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
+        }
+        leaf problemName {
+            type string;
+            config false;
+            description "Name of the alarm according to AirInterface::AirInterfaceCapability::supportedAlarms";
+        }
+        leaf problemSeverity {
+            type severityType;
+            description "Severity of the alarm.";
+            default "warning";
+        }
+    }
+    typedef roleType {
+        type enumeration {
+            enum working;
+            enum protection;
+            enum protected;
+        }
+    }
+    grouping diversityType {
+        leaf diversityTypeId {
+            type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
+        }
+        leaf diversityName {
+            type string;
+            config false;
+            description "Names to be chosen from the following list: 'spaceDiversity', 'frequencyDiversity'";
+        }
+        leaf numberOfAirInterfacesMax {
+            type int32 {
+                range "2..max";
+            }
+            config false;
+            description "Maximum number of air interfaces that could be part of this kind of diversity.";
+        }
+    }
+    typedef airInterfaceDiversityStatusType {
+        type enumeration {
+            enum allAiActive;
+            enum notAllAiActive;
+            enum groupDown;
+        }
+    }
+    grouping airInterfaceDiversityProblemType {
+        leaf problemId {
+            type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
+        }
+        leaf problemName {
+            type string;
+            config false;
+            description "Name of the alarm according to AirInterfaceDiversity::AirInterfaceDiversityCapability::supportedAlarms";
+        }
+        leaf problemSeverity {
+            type severityType;
+            description "Severity of the alarm.";
+            default "warning";
+        }
+    }
+    typedef protectionType {
+        type enumeration {
+            enum hsb;
+        }
+    }
+    grouping structureProblemType {
+        leaf problemId {
+            type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
+        }
+        leaf problemName {
+            type string;
+            config false;
+            description "Name of the alarm according to Structure::StructureCapability::supportedAlarms";
+        }
+        leaf problemSeverity {
+            type severityType;
+            description "Severity of the alarm.";
+            default "warning";
+        }
+    }
+    grouping containerType {
+        leaf containerTypeId {
+            type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
+        }
+        leaf containerName {
+            type string;
+            config false;
+            description "Names to be chosen from the following list: 'ethernet','e1','t1','j1','e3','ds3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'";
+        }
+        leaf numberOfTimeSlotsRequired {
+            type int32;
+            config false;
+            description "Number of time slots required for transporting this type of container. Value must be calculated by the vendor after defining the timeSlotCapacity. For containers of fixed size: numberOfTimeSlotsRequired = required bandwidth of the container divided by timeSlotCapacity. For containers of variable size the minimum (most probably 1) is to be stated.";
+        }
+        leaf tdmTimeSlotsIsRequired {
+            type boolean;
+            config false;
+            description "Shall be set to '1', if this container type requires bandwidth (times slots) reserved for TDM transport.";
+        }
+        leaf bundlingIsAvail {
+            type boolean;
+            config false;
+            description "If it is possible to combine transport resources of several radio links to transport this container type, this attribute shall be set to '1'.";
+        }
+    }
+    grouping timeSlotIdType {
+        description "Identifies the time slots, which are used to transport the container.
+            Combinations of structureID and timeSlotID must be unique inside the device to assure that every resource is used just once.";
+        leaf structureId {
+            type string;
+        }
+        leaf timeSlotId {
+            type int32;
+        }
+    }
+    feature feature4 {
+        description "Structure::StructureCapability::tdmTimeSlotsIsSupported==1 AND Structure::StructureConfiguration::tdmReservedNumberOfTimeSlots>0";
+    }
+    feature feature5 {
+        description "Container::ContainerCapability::priorityClassesIsAvail==1 AND This::timeSlotStatusType::timeSlotIsReservedForTdm==0";
+    }
+    grouping timeSlotStatusType {
+        leaf timeSlotStatusTypeId {
+            type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
+        }
+        leaf timeSlotIsReservedForTdm {
+            type boolean;
+            config false;
+            description "The number of time slots, which is configured by Structure::StructureConfiguration::tdmReservedNumberOfTimeSlots, has to be reserved for TDM. Starting from the lowest index value, these time slots have to be marked with an '1' in timeSlotIsReservedForTdm.
+                ";
+            if-feature feature4;
+        }
+        leaf priorityClass {
+            type int32;
+            config false;
+            description "PriorityClass as inherited from the associated Container::ContainerConfiguration::priorityClass. In case the device is capable of adapting the sequence, in which time slots are being dropped in case of decreasing capacity of the air interface, priorityClass shall be considered, while calculating the dropOrderRank.";
+            if-feature feature5;
+        }
+        leaf dropOrderRank {
+            type int32;
+            config false;
+            description "In case the device is NOT capable of adapting the sequence, in which time slots are being dropped in case of decreasing capacity of the air interface, dropOrderRank is number of time slots minus sequence number of the time slot. In case the device is capable of adapting the sequence, dropOrderRank has to be calculated by the device in dependency to the assigned priorityClass.
+                _unique: within Structure::StructureStatus::timeSlotStatusList";
+        }
+        leaf operationalStatus {
+            type CoreModel-CoreFoundationModule-StateModel:OperationalState;
+            config false;
+            description "Current operational status of each time slot.";
+            default "DISABLED";
+        }
+    }
+    grouping containerProblemType {
+        leaf problemId {
+            type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
+        }
+        leaf problemName {
+            type string;
+            config false;
+            description "Name of the alarm according to Container::ContainerCapability::supportedAlarms";
+        }
+        leaf problemSeverity {
+            type severityType;
+            description "Severity of the alarm.";
+            default "warning";
+        }
+    }
+}
