@@ -1,7 +1,30 @@
 module CoreModel-CoreFoundationModule-TypeDefinitions {
     namespace "uri:onf:CoreModel-CoreFoundationModule-TypeDefinitions";
     prefix CoreModel-CoreFoundationModule-TypeDefinitions;
-    revision 2016-06-01{}
+
+
+    organization 
+        'ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project';
+
+    contact 
+        'WG Web:   <https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport>
+         WG List:  <mailto:wireless-transport@login.opennetworking.org >
+         WG Chair: Lyndon Ong
+                   <mailto:lyong@ciena.com>
+         WG Chair: Giorgio Cazzaniga
+                   <mailto:giorgio.cazzaniga@sm-optics.com>';
+
+    description 
+        'This module contains a collection of YANG definitions for 
+         managing microwave transport networks.';
+
+    revision 2016-07-01 {
+        description 
+            "Initial revision."; 
+        reference 
+            "ONF TR xyz: A YANG Data Model for Microwave Transport Networks."; 
+    }
+
     typedef DateAndTime {
         description "This primitive type defines the date and time according to the following structure:
             'yyyyMMddhhmmss.s[Z|{+|-}HHMm]' where:

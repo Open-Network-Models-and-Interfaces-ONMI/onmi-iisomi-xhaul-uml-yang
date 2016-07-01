@@ -1,13 +1,36 @@
 module CoreModel-CoreNetworkModule-ObjectClasses {
     namespace "uri:onf:CoreModel-CoreNetworkModule-ObjectClasses";
     prefix CoreModel-CoreNetworkModule-ObjectClasses;
+
     import CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages {
         prefix CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages;
     }
     import CoreModel-CoreNetworkModule-TypeDefinitions {
         prefix CoreModel-CoreNetworkModule-TypeDefinitions;
     }
-    revision 2016-06-01{}
+
+    organization 
+        'ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project';
+
+    contact 
+        'WG Web:   <https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport>
+         WG List:  <mailto:wireless-transport@login.opennetworking.org >
+         WG Chair: Lyndon Ong
+                   <mailto:lyong@ciena.com>
+         WG Chair: Giorgio Cazzaniga
+                   <mailto:giorgio.cazzaniga@sm-optics.com>';
+
+    description 
+        'This module contains a collection of YANG definitions for 
+         managing microwave transport networks.';
+
+    revision 2016-07-01 {
+        description 
+            "Initial revision."; 
+        reference 
+            "ONF TR xyz: A YANG Data Model for Microwave Transport Networks."; 
+    }
+
     container NetworkElement {
         description "The Network Element (NE) object class represents a network element (traditional NE) in the data plane.
             A data plane network element is essentially a consolidation of capabilities that can be viewed and controlled through a 'single' management-control port.
@@ -42,7 +65,7 @@ module CoreModel-CoreNetworkModule-ObjectClasses {
             type int64;
             description "Provides a summarized view of the client capacity that is configurable for use.
                 Note the cleint LTP association should provide all necessary detail hence this attribute is questionable.";
-            units  kbit/s;
+            units "kbit/s";
         }
         leaf lpDirection {
             type CoreModel-CoreNetworkModule-TypeDefinitions:TerminationDirection;
