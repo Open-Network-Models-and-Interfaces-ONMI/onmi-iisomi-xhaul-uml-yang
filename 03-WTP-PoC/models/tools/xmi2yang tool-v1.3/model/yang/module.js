@@ -10,6 +10,8 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
+var defaultOrganization = 'ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project';
+
 function Module(name, namespace, imp, pref, org, contact, revis, descrp) {
     this.name = name;
     this.namespace = namespace;
@@ -20,7 +22,6 @@ function Module(name, namespace, imp, pref, org, contact, revis, descrp) {
     this.revision = revis;
     if (descrp) this.description = descrp.toYangDescription();
     this.children = [];
-
 }
 Module.prototype.writeNode = function (layer) {
     var PRE = '';
@@ -39,37 +40,38 @@ Module.prototype.writeNode = function (layer) {
             imp += PRE + "\timport " + this.import[i] + " {\r\n" + PRE + "\t\tprefix " + this.import[i] + ";\r\n" + PRE + "\t}\r\n";
         }
     }
+    
     var pref;
-    this.prefix == "" || this.prefix == undefined ? pref = PRE + "\tprefix ;\r\n" : pref = PRE + "\tprefix " + this.prefix + ";\r\n";
+    this.prefix == "" || this.prefix == undefined ? pref = PRE + "\tprefix ;\r\n" : pref = PRE + "\tprefix " + this.prefix + ";\r\n\r\n";
+    
     var org;
-    this.organization == "" || this.organization == undefined ? org = "" : org = PRE + "\torganization " + this.organization + ";\r\n";
-    var contact;
-    this.contact == "" || this.contact == undefined ? contact = "" : contact = PRE + "\tcontact " + this.contact + ";\r\n";
-    var revis;
-    //var date=new Date();
-    Date.prototype.Format = function (fmt) { //author: meizz 
-        var o = {
-            "M+": this.getMonth() + 1, 
-            "d+": this.getDate(), 
-            "h+": this.getHours(), 
-            "m+": this.getMinutes(), 
-            "s+": this.getSeconds(), 
-            "q+": Math.floor((this.getMonth() + 3) / 3), 
-            "S": this.getMilliseconds()
-        };
-        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
+    if (this.organization === '' || this.organization === undefined) {
+      this.organization = defaultOrganization;
     }
-    revis = new Date().Format("yyyy-MM-dd");
+    org = '\r\n    organization \r\n        \'' + this.organization + '\';\r\n\r\n';
+    // this.organization == "" || this.organization == undefined ? org = "" : org = PRE + "\torganization " + this.organization + ";\r\n";
+
+    var contact;
+    this.contact == "" || this.contact == undefined ? contact = "" : contact = PRE + "\tcontact \r\n        '" + this.contact + "';\r\n\r\n";
+
+
+    var revis = new Date().toISOString().split('T')[0];
     //revis=date.toLocaleDateString();
-    this.revision !== "" && this.revision !== undefined ?  revis = PRE + "\trevision " + this.revision + "{}\r\n":revis =  PRE + "\trevision " + revis + "{}\r\n" ;
+    if (this.revision === '' || this.revision === undefined) {
+      revis = PRE + "\trevision " + revis + " {}\r\n\r\n" ;
+    } else {
+      revis = '';
+      this.revision.map(function(rev){
+        revis += '    revision ' + rev.date + ' {\r\n\        description \r\n            "' + rev.description + '"; \r\n        reference \r\n            "' + rev.reference + '"; \r\n    }\r\n\r\n';
+      });
+    }
+    
     var descrp;
     if (typeof this.description == 'string') {
         this.description = this.description.replace(/\r\r\n\s*/g, '\r\n' + PRE + '\t\t');
     }
-    this.description == "" || this.description == undefined ? descrp = "" : descrp = PRE + "\tdescription \"" + this.description + "\";\r\n";
+    this.description == "" || this.description == undefined ? descrp = "" : descrp = "    description \r\n        \'" + this.description + "\';\r\n\r\n";
+    
     var st = "";
     if (this.children) {
         for (var i = 0; i < this.children.length; i++) {
@@ -81,8 +83,8 @@ Module.prototype.writeNode = function (layer) {
     pref +
     imp +
     org +
-    descrp +
     contact +
+    descrp +
     revis +
     st + "}\r\n";
     return st;

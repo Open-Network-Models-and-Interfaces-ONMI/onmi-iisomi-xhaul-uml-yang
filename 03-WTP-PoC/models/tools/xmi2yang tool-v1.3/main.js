@@ -10,6 +10,23 @@
 * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
 *
 ****************************************************************************************************/
+
+var defaults = {
+    organization: 'ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project',
+    contact: ['WG Web:   <https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport>',
+              'WG List:  <mailto:wireless-transport@login.opennetworking.org >',
+              'WG Chair: Lyndon Ong', 
+              '          <mailto:lyong@ciena.com>',
+              'WG Chair: Giorgio Cazzaniga',
+              '          <mailto:giorgio.cazzaniga@sm-optics.com>'].join('\r\n         '),
+    revision:     [{
+      date: new Date().toISOString().split('T')[0],
+      description: 'Initial revision.',
+      reference: 'ONF TR xyz: A YANG Data Model for Microwave Transport Networks.'
+    }],
+    description: 'This module contains a collection of YANG definitions for \r\n         managing microwave transport networks.'
+};
+
 var xmlreader=require('xmlreader'),
     fs=require('fs'),
     CLASS=require('./model/ObjectClass.js'),
@@ -40,6 +57,9 @@ var isInstantiated=[];//The array of case that the class is composited by the ot
     this.id=id;//localIdList and uuid 's xmi:id value
     this.name=name;//localIdList and uuid 's name value
 }*/
+
+var org = "ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project";
+
 
 var result=main_Entrance();
 
@@ -453,7 +473,7 @@ function parseUmlModel(xmi){                    //parse umlmodel
         mainmod=mainmod.replace(/^[^A-Za-z]+|[^A-Za-z\d]+$/g,"");   //remove the special character in the end
         mainmod=mainmod.replace(/[^\w]+/g,'_');                     //not "A-Za-z0-9"->"_"
         modName.push(mainmod);
-        var m=new Module(modName.join("-"),"","",modName.join("-"));
+        var m=new Module(modName.join("-"),"","",modName.join("-"), defaults.organization, defaults.contact, defaults.revision, defaults.description);
         yangModule.push(m);
         createElement(xmi);//create object class
 }
@@ -669,7 +689,7 @@ function createElement(xmi){
                          }*/
                     var namespace="\"uri:onf:"+modName.join("-")+"\"";
 
-                    var comment = "";
+                    var comment = defaults.description;
                     if (xmi["ownedComment"]) {
                         var len;
                         var comment = "";
@@ -688,7 +708,7 @@ function createElement(xmi){
                     }
 
                     //var m=new Module(modName.join("-"),namespace,"",modName.join("-"));//create a new module by recursion
-                    var m=new Module(modName.join("-"),namespace,"",modName.join("-"),"","","",comment);//create a new module by recursion
+                    var m=new Module(modName.join("-"),namespace,"",modName.join("-"),defaults.organization,defaults.contact,defaults.revision,comment);//create a new module by recursion
                     yangModule.push(m);
                     createElement(obj);
                    // return;
@@ -991,7 +1011,7 @@ function obj2yang(ele){
         for(var j=0;j<openModelclass.length;j++) {
             if(openModelclass[j].id==ele[i].id){
                 if(openModelclass[j].condition){
-                    feat.push(createFeature(openModelclass[j]));
+                    // [sko] no features at this time: feat.push(createFeature(openModelclass[j]));
                 }
                 break;
             }
@@ -1087,15 +1107,16 @@ function obj2yang(ele){
                 }
                 var vr,inv,avcNot,dNot,cNot;
                 for(var k=0;k<openModelAtt.length;k++){
-                    if(openModelAtt[k].id==ele[i].attribute[j].id){
+                    if(openModelAtt[k].id === ele[i].attribute[j].id){
                         vr=openModelAtt[k].valueRange;
                         if(openModelAtt[k].condition){
-                            feat.push(createFeature(openModelAtt[k]));
-                            ele[i].attribute[j].support=feat[feat.length-1].name;
+                            // [sko] no features at this time:   
+                            // feat.push(createFeature(openModelAtt[k]));
+                            // ele[i].attribute[j].support=feat[feat.length-1].name;
                         }
                         if(openModelAtt[k].unit){
-                          console.info('sko5', openModelAtt[k].unit);
-                          //ele[i].attribute[j].status=openModelAtt[k].status;
+                          console.info('unit from profile', openModelAtt[k].unit, ele[i].attribute[j].name, JSON.stringify(openModelAtt[k]));
+                          ele[i].attribute[j].units=openModelAtt[k].unit;
                         }
                         if(openModelAtt[k].status){
                           ele[i].attribute[j].status=openModelAtt[k].status;
@@ -1241,8 +1262,9 @@ function obj2yang(ele){
                     if(openModelAtt[k].id==ele[i].attribute[j].id){
                         vr=openModelAtt[k].valueRange;
                         if(openModelAtt[k].condition){
-                            feat.push(createFeature(openModelAtt[k]));
-                            ele[i].attribute[j].support=feat[feat.length-1].name;
+                            // [sko] no features at this time: 
+                            // feat.push(createFeature(openModelAtt[k]));
+                            // ele[i].attribute[j].support=feat[feat.length-1].name;
                         }
                         if(openModelAtt[k].status){
                             ele[i].attribute[j].status=openModelAtt[k].status;

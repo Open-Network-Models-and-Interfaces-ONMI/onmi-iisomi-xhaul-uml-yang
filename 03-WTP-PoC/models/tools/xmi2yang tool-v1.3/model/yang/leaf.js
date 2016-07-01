@@ -44,7 +44,7 @@ leaf.prototype.writeNode = function (layer) {
     var status="";
     this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
     var units="";
-    this.units ? units = PRE + "\tunits " + this.units + ";\r\n" : units = "";
+    this.units ? units = PRE + "\tunits \"" + this.units + "\";\r\n" : units = "";
     var defvalue;
     this.defaultValue ? defvalue = PRE + "\tdefault " + this.defaultValue + ";\r\n" : defvalue = "";
     var type = "";
