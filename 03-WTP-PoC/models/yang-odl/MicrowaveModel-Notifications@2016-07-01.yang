@@ -1,6 +1,7 @@
 module MicrowaveModel-Notifications {
     namespace "uri:onf:MicrowaveModel-Notifications";
     prefix MicrowaveModel-Notifications;
+
     import CoreModel-CoreFoundationModule-TypeDefinitions {
         prefix CoreModel-CoreFoundationModule-TypeDefinitions;
     }
@@ -10,7 +11,29 @@ module MicrowaveModel-Notifications {
     import MicrowaveModel-TypeDefinitions {
         prefix MicrowaveModel-TypeDefinitions;
     }
-    revision 2016-06-01{}
+
+    organization 
+        'ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project';
+
+    contact 
+        'WG Web:   <https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport>
+         WG List:  <mailto:wireless-transport@login.opennetworking.org >
+         WG Chair: Lyndon Ong
+                   <mailto:lyong@ciena.com>
+         WG Chair: Giorgio Cazzaniga
+                   <mailto:giorgio.cazzaniga@sm-optics.com>';
+
+    description 
+        'This module contains a collection of YANG definitions for 
+         managing microwave transport networks.';
+
+    revision 2016-07-01 {
+        description 
+            "Initial revision."; 
+        reference 
+            "ONF TR xyz: A YANG Data Model for Microwave Transport Networks."; 
+    }
+
     notification ObjectCreationNotification {
         description "To be sent when a new MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac or MW_Container_Pac has to be instancieted in the controller.";
         leaf counter {

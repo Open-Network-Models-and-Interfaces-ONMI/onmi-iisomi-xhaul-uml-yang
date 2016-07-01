@@ -1,10 +1,33 @@
 module CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages {
     namespace "uri:onf:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages";
     prefix CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages;
+
     import CoreModel-CoreFoundationModule-StateModel {
         prefix CoreModel-CoreFoundationModule-StateModel;
     }
-    revision 2016-06-01{}
+
+    organization 
+        'ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project';
+
+    contact 
+        'WG Web:   <https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport>
+         WG List:  <mailto:wireless-transport@login.opennetworking.org >
+         WG Chair: Lyndon Ong
+                   <mailto:lyong@ciena.com>
+         WG Chair: Giorgio Cazzaniga
+                   <mailto:giorgio.cazzaniga@sm-optics.com>';
+
+    description 
+        'This module contains a collection of YANG definitions for 
+         managing microwave transport networks.';
+
+    revision 2016-07-01 {
+        description 
+            "Initial revision."; 
+        reference 
+            "ONF TR xyz: A YANG Data Model for Microwave Transport Networks."; 
+    }
+
     grouping Name {
         description "Name: A property of an entity with a value that is unique in some namespace but may change during the life of the entity. A name carries no semantics with respect to the purpose of the entity.";
         list nameList {
