@@ -1,6 +1,7 @@
 module MicrowaveModel-ObjectClasses-MwConnection {
     namespace "uri:onf:MicrowaveModel-ObjectClasses-MwConnection";
     prefix MicrowaveModel-ObjectClasses-MwConnection;
+
     import CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages {
         prefix CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages;
     }
@@ -16,7 +17,29 @@ module MicrowaveModel-ObjectClasses-MwConnection {
     import CoreModel-CoreNetworkModule-TypeDefinitions {
         prefix CoreModel-CoreNetworkModule-TypeDefinitions;
     }
-    revision 2016-06-01{}
+
+    organization 
+        'ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project';
+
+    contact 
+        'WG Web:   <https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport>
+         WG List:  <mailto:wireless-transport@login.opennetworking.org >
+         WG Chair: Lyndon Ong
+                   <mailto:lyong@ciena.com>
+         WG Chair: Giorgio Cazzaniga
+                   <mailto:giorgio.cazzaniga@sm-optics.com>';
+
+    description 
+        'This module contains a collection of YANG definitions for 
+         managing microwave transport networks.';
+
+    revision 2016-07-01 {
+        description 
+            "Initial revision."; 
+        reference 
+            "ONF TR xyz: A YANG Data Model for Microwave Transport Networks."; 
+    }
+
     grouping MW_AirInterface_Pac {
         description "LTP(MWPS-TTP)";
         uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
@@ -54,12 +77,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             }
         }
     }
-    feature feature6 {
-        description "AirInterface::AirInterfaceCapability::mimoIsAvail==1";
-    }
-    feature feature7 {
-        description "AirInterface::AirInterfaceCapability::atpcIsAvail==1";
-    }
     grouping AirInterfaceCapability {
         description "Describes the 'analog' capabilities of modem and transmitter of the microwave device. Value ranges of attributes are not independently (e.g. min. and max. transmit power depends on modulation). Legal combinations of values are expressed in scripts.
             Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.";
@@ -73,25 +90,25 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             type int64;
             config false;
             description "Value of the minimum transmit frequency tunable at the air interface. This value is only relevant, if the channel plan, which is referenced in channelPlanID is stored in the controller.";
-            units kHz;
+            units "kHz";
         }
         leaf txFrequencyMax {
             type int64;
             config false;
             description "Value of the maximum transmit frequency tunable at the air interface. This value is only relevant, if the channel plan, which is referenced in channelPlanID is stored in the controller.";
-            units kHz;
+            units "kHz";
         }
         leaf rxFrequencyMin {
             type int64;
             config false;
             description "Value of the minimum receive frequency tunable at the air interface. This value is only relevant, if the channel plan, which is referenced in channelPlanID is stored in the controller.";
-            units kHz;
+            units "kHz";
         }
         leaf rxFrequencyMax {
             type int64;
             config false;
             description "Value of the maximum receive frequency tunable at the air interface. This value is only relevant, if the channel plan, which is referenced in channelPlanID is stored in the controller.";
-            units kHz;
+            units "kHz";
         }
         leaf adaptiveModulationIsAvail {
             type boolean;
@@ -109,13 +126,12 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             }
             config false;
             description "Maximum number (n) of Air Interfaces that can be combined to a n x n MIMO configuration.";
-            if-feature feature6;
             default 1;
         }
-        leaf afrIsAvail {
+        leaf alicIsAvail {
             type boolean;
             config false;
-            description "In case the microwave radio is capable of Advanced Frequency Reuse (canceling of interference cause by transmitters located at the same site), this field shall contain an '1'.";
+            description "In case the microwave radio is capable of Adjacent Link Interference Cancelation (canceling of interference cause by transmitters located at the same site), this field shall contain an '1'.";
         }
         leaf atpcIsAvail {
             type boolean;
@@ -126,8 +142,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             type int32;
             config false;
             description "Extent of the ATPC range. The value should be set to '0' in case ATPC feature bit is '0'.";
-            if-feature feature7;
-            units dB;
+            units "dB";
             default 1;
         }
         leaf loopBackIsAvail {
@@ -139,15 +154,12 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             type string;
             config false;
             description "The device shall describe the range of the configurable time of existence of any maintenance configuration (e.g. the loop back of microwave header information). A list of values shall be separated by commas. A value range shall be expressed by two values separated by a minus.";
-            units seconds;
+            units "s";
         }
         leaf supportedAlarms {
             type string;
             config false;
-            description "Available alarms to be listed.
-                Mandatory:'aiConfigurationIsFaulty','signalIsLost','rslIsExceeded','temperatureIsExceeded','modemIsFaulty','radioIsFaulty' and 'modulationIsDownShifted'.
-                Names are to be separated by commas.
-                Further alarms might be added by the device.";
+            description "Available alarms to be listed. Mandatory:'aiConfigurationIsFaulty','signalIsLost','rslIsExceeded','temperatureIsExceeded','modemIsFaulty','radioIsFaulty' and 'modulationIsDownShifted'. Further alarms might be added by the device. Names are to be separated by commas.";
         }
         list supportedChannelPlanList {
             description "List of channel spacing that are supported by the device.";
@@ -156,39 +168,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             uses MicrowaveModel-TypeDefinitions:channelPlanType;
             min-elements 1;
         }
-    }
-    feature feature8 {
-        description "AirInterface::AirInterfaceCapability::adaptiveModulationIsAvail==1";
-    }
-    feature feature9 {
-        description "AirInterface::AirInterfaceCapability::adaptiveModulationIsAvail==1 AND AirInterface::AirInterfaceConfiguration::adaptiveModulationIsOn==1";
-    }
-    feature feature10 {
-        description "AirInterface::AirInterfaceCapability::mimoIsAvail==1";
-    }
-    feature feature11 {
-        description "AirInterface::AirInterfaceCapability::afrIsAvail==1";
-    }
-    feature feature12 {
-        description "AirInterface::AirInterfaceConfiguration::xpicIsOn==1 OR AirInterface::AirInterfaceConfiguration::mimoIsOn==1 OR AirInterface::AirInterfaceConfiguration::afrIsOn==1";
-    }
-    feature feature13 {
-        description "AirInterface::AirInterfaceCapability::atpcIsAvail==1";
-    }
-    feature feature14 {
-        description "AirInterface::AirInterfaceCapability::atpcIsAvail==1 AND AirInterface::AirInterfaceConfiguration::atpcIsOn==1";
-    }
-    feature feature15 {
-        description "AirInterface::AirInterfaceCapability::atpcIsAvail==1 AND AirInterface::AirInterfaceConfiguration::atpcIsOn==1";
-    }
-    feature feature16 {
-        description "AirInterface::AirInterfaceCapability::autoFreqSelectIsAvail==1";
-    }
-    feature feature17 {
-        description "AirInterface::AirInterfaceCapability::autoFreqSelectIsAvail==1 AND AirInterface::AirInterfaceConfiguration::autoFreqSelectIsOn==1";
-    }
-    feature feature18 {
-        description "AirInterface::AirInterfaceCapability::loopBackIsAvail==1";
     }
     grouping AirInterfaceConfiguration {
         description "Configuration of the device.
@@ -207,22 +186,22 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         leaf txFrequency {
             type int64;
             description "Center frequency of the transmit channel. The values to be configured have to exactly match the values listed in the international agreement referenced in channelPlanID. In case of automated selection of the transmit frequency this field shall describe the lowest center frequency selectable.";
-            units kHz;
+            units "kHz";
         }
         leaf rxFrequency {
             type int64;
             description "Center frequency of the receive channel.";
-            units kHz;
+            units "kHz";
         }
         leaf txChannelBandwidth {
             type int64;
             description "Bandwidth of the transmit channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;";
-            units kHz;
+            units "kHz";
         }
         leaf rxChannelBandwidth {
             type int64;
             description "Bandwidth of the receive channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;";
-            units kHz;
+            units "kHz";
         }
         leaf polarization {
             type MicrowaveModel-TypeDefinitions:polarizationType;
@@ -239,74 +218,64 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         leaf txPower {
             type int32;
             description "Transmit power to be configured on the microwave link. Signed Byte is required. The actually operated transmit power might be lower depending on adaptive modulation and ATPC.";
-            units dBm;
+            units "dBm";
         }
         leaf adaptiveModulationIsOn {
             type boolean;
             description "Adaptive Modulation. Activation of adaptive modulation shall be expressed as an '1'.";
-            if-feature feature8;
         }
         leaf modulationMin {
             type int32;
             description "Minimum modulation to be configured (in case adaptive modulation is not used, this value represents also the fixed modulation). The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device).";
-            units symbols;
+            units "symbols";
         }
         leaf modulationMax {
             type int32;
             description "Maximum modulation to be configured. The value of this field is only relevant, if Adaptive Modulation has been activated. The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device).";
-            if-feature feature9;
-            units symbols;
+            units "symbols";
             default 1;
         }
         leaf xpicIsOn {
             type boolean;
-            description "XPIC. Activation of Cross Polarization Interference Cancellation shall be expressed as an '1'.";
+            description "Activation of Cross Polarization Interference Cancellation shall be expressed as a 'true'. In case XPIC is not available for the current combination of channel bandwidth and modulation or the hardware in general, this parameter shall always be set to 'false'.";
         }
         leaf mimoIsOn {
             type boolean;
             description "Activation of Multiple Input Multiple Output shall be expressed as an '1'.";
-            if-feature feature10;
         }
-        leaf afrIsOn {
+        leaf alicIsOn {
             type boolean;
-            description "Activation of Advanced Frequency Reuse shall be expressed as an '1'.";
-            if-feature feature11;
+            description "Activation of Adjacent Link Interference Cancelation (ALIC) shall be expressed as an '1'.";
         }
         leaf coChannelGroup {
             type leafref {
                 path '/MicrowaveModel-ObjectClasses-MwConnection:CoChannelGroup/MicrowaveModel-ObjectClasses-MwConnection:uuid';
             }
-            description "Points to group of co-channel (XPIC, MIMO, AFR) air interfaces.";
-            if-feature feature12;
+            description "Points to group of co-channel (XPIC, MIMO, AFR) air interfaces. The list of CoChannelGroups would always be empty for devices not capable of any sort of co-channel group.";
         }
         leaf atpcIsOn {
             type boolean;
             description "ATPC. Activation of Automated Transmit Power Control shall be expressed as an '1'.";
-            if-feature feature13;
         }
         leaf atpcThreshUpper {
             type int32;
             description "If the receive level is higher than the upper threshold value, the transmitter is notified to decrease transmit power.";
-            if-feature feature14;
-            units dBm;
+            units "dBm";
             default 99;
         }
         leaf atpcThreshLower {
             type int32;
             description "If the receive level is lower than the lower threshold value, the transmitter is notified to increase transmit power.";
-            if-feature feature15;
-            units dBm;
+            units "dBm";
             default 99;
         }
         leaf autoFreqSelectIsOn {
             type boolean;
             description "Activation of automatically selecting the transmit frequency in unlicensed bands shall be expressed as an '1'.";
-            if-feature feature16;
         }
         leaf autoFreqSelectRange {
             type int32;
             description "Number of transmit channels (starting at the center frequency defined in txFrequency and with channel bandwidth according to txChannelBandwidth) that define the range within the transmit frequency can automatically been chosen. ";
-            if-feature feature17;
             default -1;
         }
         leaf modulationIsOn {
@@ -318,12 +287,11 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             type boolean;
             description "Maintenance Feature
                 If this attribute is set to '1', the received IF signal is transmitted back to the remote end.";
-            if-feature feature18;
         }
         leaf maintenanceTimer {
             type int64;
             description "Time of existence of any maintenance configuration (e.g. the loop back of microwave header information). Allowed values are defined in AirInterface::AirInterfaceCapability::maintenanceTimerRange.";
-            units s;
+            units "s";
             default -1;
         }
         list problemSeverityList {
@@ -335,36 +303,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             min-elements 7;
         }
     }
-    feature feature19 {
-        description "(AirInterface::AirInterfaceCapability::autoFreqSelectIsAvail==1 AND AirInterface::AirInterfaceConfiguration::autoFreqSelectIsOn==1 )";
-    }
-    feature feature20 {
-        description "(AirInterface::AirInterfaceCapability::autoFreqSelectIsAvail==1 AND AirInterface::AirInterfaceConfiguration::autoFreqSelectIsOn==1 )";
-    }
-    feature feature21 {
-        description "(AirInterface::AirInterfaceCapability::adaptiveModulationIsAvail AND AirInterface::AirInterfaceConfiguration::adaptiveModulationIsOn) OR (AirInterface::AirInterfaceCapability::atpcIsAvail AND AirInterface::AirInterfaceConfiguration::atpcIsOn)";
-    }
-    feature feature22 {
-        description "AirInterface::AirInterfaceCapability::adaptiveModulationIsAvail AND AirInterface::AirInterfaceConfiguration::adaptiveModulationIsOn";
-    }
-    feature feature23 {
-        description "AirInterface::AirInterfaceCapability::adaptiveModulationIsAvail AND AirInterface::AirInterfaceConfiguration::adaptiveModulationIsOn";
-    }
-    feature feature24 {
-        description "AirInterface::AirInterfaceCapability::mimoIsAvail==1 AND AirInterface::AirInterfaceConfiguration::mimoIsOn==1";
-    }
-    feature feature25 {
-        description "AirInterface::AirInterfaceCapability::afrIsAvail==1 AND AirInterface::AirInterfaceConfiguration::afrIsOn==1";
-    }
-    feature feature26 {
-        description "AirInterface::AirInterfaceCapability::atpcIsAvail==1 AND AirInterface::AirInterfaceConfiguration::atpcIsOn==1";
-    }
-    feature feature27 {
-        description "AirInterface::AirInterfaceCapability::autoFreqSelectIsAvail==1 AND AirInterface::AirInterfaceConfiguration::autoFreqSelectIsOn==1";
-    }
-    feature feature28 {
-        description "AirInterface::AirInterfaceCapability::loopBackIsAvail==1 AND AirInterface::AirInterfaceConfiguration::loopBackIsOn==1";
-    }
     grouping AirInterfaceStatus {
         description "Measurements of current values on the air interface and operational status of the device.
             Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.";
@@ -373,68 +311,63 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             type int64;
             config false;
             description "Center frequency of the currently operated transmit channel.";
-            if-feature feature19;
-            units kHz;
+            units "kHz";
             default 1;
         }
         leaf rxFrequencyCur {
             type int64;
             config false;
             description "Center frequency of the currently operated receive channel.";
-            if-feature feature20;
-            units kHz;
+            units "kHz";
             default 1;
         }
         leaf txLevelCur {
             type int32;
             config false;
             description "Current transmit level. Signed Byte is required.";
-            if-feature feature21;
-            units dBm;
+            units "dBm";
             default -99;
         }
         leaf rxLevelCur {
             type int32;
             config false;
             description "Current receive level. Signed Byte is required.";
-            units dBm;
+            units "dBm";
             default 99;
         }
         leaf modulationCur {
             type int32;
             config false;
             description "Currently operated modulation on transmit path. The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device).";
-            if-feature feature22;
-            units symbols;
+            units "symbols";
             default 1;
         }
         leaf informationRateCur {
             type int32;
             config false;
             description "Information rate of the currently operated coding scheme.";
-            if-feature feature23;
-            units %;
+            units "%";
             default 101;
         }
         leaf snrCur {
             type int32;
             config false;
             description "Currently measured signal to noise ratio.";
-            units dB;
+            units "dB";
             default -99;
         }
         leaf xpdCur {
             type int32;
             config false;
             description "Currently measured cross polarization discrimination.";
-            units dB;
+            units "dB";
             default -99;
         }
         leaf rxTempCur {
             type int32;
             config false;
             description "Current temperature of the radio frequency power amplifier in the receiver. (If the temperature of the power amplifier in the receiver is not measured, the temperature inside the radio is also fine.)";
-            units C;
+            units "C";
             default -99;
         }
         leaf lastStatusChange {
@@ -463,31 +396,26 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             type boolean;
             config false;
             description "If MIMO is currently actually working (not just configured), this shall be expressed as an '1'.";
-            if-feature feature24;
         }
-        leaf afrIsUp {
+        leaf alicIsUp {
             type boolean;
             config false;
-            description "If AFR is currently actually working (not just configured), this shall be expressed as an '1'.";
-            if-feature feature25;
+            description "If Adjacent Link Interference Cancelation (ALIC) is currently actually working (not just configured), this shall be expressed as an '1'.";
         }
         leaf atpcIsUp {
             type boolean;
             config false;
             description "If ATPC is currently actually working (not just configured), this shall be expressed as an '1'.";
-            if-feature feature26;
         }
         leaf autoFreqSelectIsUp {
             type boolean;
             config false;
             description "If automated frequency selection is currently actually working (not just configured), this shall be expressed as an '1'.";
-            if-feature feature27;
         }
         leaf loopBackIsUp {
             type boolean;
             config false;
             description "If loop back of the air interface header is currently active (not just configured), this shall be expressed as an '1'.";
-            if-feature feature28;
         }
     }
     list AirInterfaceCurrentProblem {
@@ -526,235 +454,254 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             type int64;
             config false;
             description "Number of errored seconds.";
-            units s;
+            units "s";
             default -1;
         }
         leaf ses {
             type int64;
             config false;
             description "Number of severely errored seconds.";
-            units s;
+            units "s";
             default -1;
         }
         leaf cses {
             type int64;
             config false;
             description "Number of consecutive severely errored seconds.";
-            units s;
+            units "s";
             default -1;
         }
         leaf unavailability {
             type int64;
             config false;
             description "Total time of unavailability in seconds.";
-            units s;
+            units "s";
             default -1;
         }
         leaf txLevelMin {
             type int32;
             config false;
             description "Minimum transmit power. Signed integers are required.";
-            units dBm;
+            units "dBm";
             default -99;
         }
         leaf txLevelMax {
             type int32;
             config false;
             description "Maximum transmit power. Signed integers are required.";
-            units dBm;
+            units "dBm";
             default -99;
         }
         leaf txLevelAvg {
             type int32;
             config false;
             description "Average transmit power. Signed integers are required.";
-            units dBm;
+            units "dBm";
             default -99;
         }
         leaf rxLevelMin {
             type int32;
             config false;
             description "Minimum receive level. Signed integers are required.";
-            units dBm;
+            units "dBm";
             default 99;
         }
         leaf rxLevelMax {
             type int32;
             config false;
             description "Maximum receive level. Signed integers are required.";
-            units dBm;
+            units "dBm";
             default 99;
         }
         leaf rxLevelAvg {
             type int32;
             config false;
             description "Average receive level. Signed integers are required.";
-            units dBm;
+            units "dBm";
             default 99;
         }
         leaf time2Symbols {
             type int64;
             config false;
+            units "s";
             default -1;
         }
         leaf time4SymbolsS {
             type int64;
             config false;
             description "Sum of all seconds the transmitter operated in e.g. 4QAM strong.";
-            units s;
+            units "s";
             default -1;
         }
         leaf time4Symbols {
             type int64;
             config false;
+            units "s";
             default -1;
         }
         leaf time8Symbols {
             type int64;
             config false;
+            units "s";
             default -1;
         }
         leaf time16SymbolsS {
             type int64;
             config false;
+            units "s";
             default -1;
         }
         leaf time16Symbols {
             type int64;
             config false;
+            units "s";
             default -1;
         }
         leaf time32Symbols {
             type int64;
             config false;
+            units "s";
             default -1;
         }
         leaf time64Symbols {
             type int64;
             config false;
+            units "s";
             default -1;
         }
         leaf time128Symbols {
             type int64;
             config false;
+            units "s";
             default -1;
         }
         leaf time256Symbols {
             type int64;
             config false;
+            units "s";
             default -1;
         }
         leaf time512Symbols {
             type int64;
             config false;
+            units "s";
             default -1;
         }
         leaf time512SymbolsL {
             type int64;
             config false;
+            units "s";
             default -1;
         }
         leaf time1024Symbols {
             type int64;
             config false;
+            units "s";
             default -1;
         }
         leaf time1024SymbolsL {
             type int64;
             config false;
+            units "s";
             default -1;
         }
         leaf time2048Symbols {
             type int64;
             config false;
+            units "s";
             default -1;
         }
         leaf time2048SymbolsL {
             type int64;
             config false;
+            units "s";
             default -1;
         }
         leaf time4096Symbols {
             type int64;
             config false;
+            units "s";
             default -1;
         }
         leaf time4096SymbolsL {
             type int64;
             config false;
+            units "s";
             default -1;
         }
         leaf time8192Symbols {
             type int64;
             config false;
+            units "s";
             default -1;
         }
         leaf time8192SymbolsL {
             type int64;
             config false;
+            units "s";
             default -1;
         }
         leaf snrMin {
             type int32;
             config false;
             description "Minimum signal to noise ratio.";
-            units dB;
+            units "dB";
             default -99;
         }
         leaf snrMax {
             type int32;
             config false;
             description "Maximum signal to noise ratio.";
-            units dB;
+            units "dB";
             default -99;
         }
         leaf snrAvg {
             type int32;
             config false;
             description "Average signal to noise ratio.";
-            units dB;
+            units "dB";
             default -99;
         }
         leaf xpdMin {
             type int32;
             config false;
             description "Minimum cross polarization discrimination.";
-            units dB;
+            units "dB";
             default -99;
         }
         leaf xpdMax {
             type int32;
             config false;
             description "Maximum cross polarization discrimination.";
-            units dB;
+            units "dB";
             default -99;
         }
         leaf xpdAvg {
             type int32;
             config false;
             description "Average cross polarization discrimination.";
-            units dB;
+            units "dB";
             default -99;
         }
         leaf rxTempMin {
             type int32;
             config false;
-            description "Minimum temperature of RF power amplifier.";
-            units C;
+            description "Lowest temperature of the radio frequency power amplifier in the receiver during the measurement interval.";
+            units "C";
             default -99;
         }
         leaf rxTempMax {
             type int32;
             config false;
-            description "Maximum temperature of RF power amplifier.";
-            units C;
+            description "Highest temperature of the radio frequency power amplifier in the receiver during the measurement interval.";
+            units "C";
             default -99;
         }
         leaf rxTempAvg {
             type int32;
             config false;
-            description "Average temperature of RF power amplifier.";
-            units C;
+            description "Average temperature of the radio frequency power amplifier in the receiver during the measurement interval.";
+            units "C";
             default -99;
         }
         leaf defectBlocksSum {
@@ -767,7 +714,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             type int64;
             config false;
             description "Total length of the measurement period.";
-            units s;
+            units "s";
             default -1;
         }
     }
@@ -779,7 +726,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
     }
     grouping CoChannelGroup {
         uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:GlobalClass;
-        leaf coChannelGroup {
+        leaf coSortOfChannelGroup {
             type string;
             description "Type of group of air interfaces with the same transmit and receive frequency. The values shall be chosen from the following _list:'XPIC', 'MIMO', 'AFR';";
         }
@@ -795,6 +742,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         description "LTP(MWS-CTP-xD)";
         key 'layerProtocol';
         config true;
+        ordered-by system;
         uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf layerProtocol {
             type leafref {
@@ -978,7 +926,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             type int32;
             config false;
             description "Transport capacity of each time slot.";
-            units kbit/s;
+            units "kbit/s";
             default 2048;
         }
         leaf totalNumberOfTimeSlots {
@@ -1000,16 +948,12 @@ module MicrowaveModel-ObjectClasses-MwConnection {
                 Further alarms might be added by the device.";
         }
     }
-    feature feature29 {
-        description "Structure::StructureCapability::tdmTimeSlotsIsSupported==1";
-    }
     grouping StructureConfiguration {
         description "Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.";
         uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf tdmReservedNumberOfTimeSlots {
             type int32;
             description "Allows to configure the number of time slots reserved for TDM traffic.";
-            if-feature feature29;
             default -1;
         }
         list problemSeverityList {
@@ -1077,7 +1021,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             config false;
             description "Total length of the measurement period in seconds.
                 Required data volume = 17bit";
-            units s;
+            units "s";
             default -1;
         }
     }
@@ -1205,42 +1149,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
                 Further alarms might be added by the device.";
         }
     }
-    feature feature30 {
-        description "Container::ContainerCapability::priorityClassesIsAvail==1";
-    }
-    feature feature31 {
-        description "Container::ContainerCapability::encryptionIsAvail==1";
-    }
-    feature feature32 {
-        description "Container::ContainerCapability::packetCompressionIsAvail==1";
-    }
-    feature feature33 {
-        description "Container::ContainerCapability::layer2CompressionIsAvail==1";
-    }
-    feature feature34 {
-        description "Container::ContainerCapability::vlanCompressionIsAvail==1";
-    }
-    feature feature35 {
-        description "Container::ContainerCapability::qInQCompressionIsAvail==1";
-    }
-    feature feature36 {
-        description "Container::ContainerCapability::mplsCompressionIsAvail==1";
-    }
-    feature feature37 {
-        description "Container::ContainerCapability::l2vpnCompressionIsAvail==1";
-    }
-    feature feature38 {
-        description "Container::ContainerCapability::ipv4CompressionIsAvail==1";
-    }
-    feature feature39 {
-        description "Container::ContainerCapability::ipv6CompressionIsAvail==1";
-    }
-    feature feature40 {
-        description "Container::ContainerCapability::l3vpnCompressionIsAvail==1";
-    }
-    feature feature41 {
-        description "Container::ContainerCapability::layer4CompressionIsAvail==1";
-    }
     grouping ContainerConfiguration {
         description "Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.";
         uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
@@ -1252,12 +1160,11 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         leaf priorityClass {
             type int32;
             description "0 = lowest and 7 = highest Priority. Any value apart the Default is only effective if the device is capable of adapting the sequence, in which time slots are being dropped in case of decreasing capacity of the air interface.";
-            if-feature feature30;
         }
         list timeSlotIDList {
             description "Lists the time slots used for transporting this container. In case ThisContainer::ContainerConfiguration::container::containerType::bundlingIsAvail==0, structureId must be equal for all aiTimeSlots in the list.
                 _multiplicity:ThisContainer::ContainerConfiguration::container::containerType::numberOfTimeSlotsRequired";
-            key 'timeSlotId';
+            key 'structureId timeSlotId';
             config true;
             ordered-by system;
             uses MicrowaveModel-TypeDefinitions:timeSlotIdType;
@@ -1266,67 +1173,56 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         leaf encryptionIsOn {
             type boolean;
             description "Activates encryption of the payload.";
-            if-feature feature31;
         }
         leaf packetCompressionIsOn {
             type boolean;
             config false;
             description "In case packet compression is activated, but no type is activated, it is assumed that the device choses an optimum.";
-            if-feature feature32;
         }
         leaf layer2CompressionIsOn {
             type boolean;
             config false;
             description "Packet compression on layer 2 configured at the device.";
-            if-feature feature33;
         }
         leaf vlanCompressionIsOn {
             type boolean;
             config false;
             description "Packet compression on VLAN layer configured at the device.";
-            if-feature feature34;
         }
         leaf qInQCompressionIsOn {
             type boolean;
             config false;
             description "Packet compression on layer of a second VLAN configured at the device.";
-            if-feature feature35;
         }
         leaf mplsCompressionIsOn {
             type boolean;
             config false;
             description "Packet compression on MPLS layer configured at the device.";
-            if-feature feature36;
         }
         leaf l2vpnCompressionIsOn {
             type boolean;
             config false;
             description "Packet compression on level of layer 2 VPN configured at the device.";
-            if-feature feature37;
         }
         leaf ipv4CompressionIsOn {
             type boolean;
             config false;
             description "Packet compression on layer 3 for IPv4 configured at the device.";
-            if-feature feature38;
         }
         leaf ipv6CompressionIsOn {
             type boolean;
             config false;
             description "Packet compression on layer 3 for IPv6 configured at the device.";
-            if-feature feature39;
         }
         leaf l3vpnCompressionIsOn {
             type boolean;
             config false;
             description "Packet compression on level of layer 3 VPN configured at the device.";
-            if-feature feature40;
         }
         leaf layer4CompressionIsOn {
             type boolean;
             config false;
             description "Packet compression on layer 4 (TCP and UDP header) configured at the device.";
-            if-feature feature41;
         }
         list problemSeverityList {
             description "Severity of the problem to be configured.";
@@ -1382,15 +1278,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         ordered-by system;
         uses ContainerHistoricalPerformance;
     }
-    feature feature42 {
-        description "ThisContainer::ContainerConfiguration::container::containerType::tdmTimeSlotsIsRequired==0";
-    }
-    feature feature43 {
-        description "ThisContainer::ContainerConfiguration::container::containerType::tdmTimeSlotsIsRequired==0";
-    }
-    feature feature44 {
-        description "ThisContainer::ContainerConfiguration::container::containerType::tdmTimeSlotsIsRequired==0";
-    }
     grouping ContainerHistoricalPerformance {
         description "Basic principles for defining the Defaults values of Performance attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute.";
         uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
@@ -1399,8 +1286,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             config false;
             description "Counts the number of Bytes of Ethernet traffic (before header compression) transmitted within a second and keeps the highest value within the measurement period. Field to be left blank for all types of TDM containers.
                 Required data volume = 31bit";
-            if-feature feature42;
-            units Bytes/s;
+            units "Bytes/s";
             default 1;
         }
         leaf txEthernetBytesMaxM {
@@ -1408,8 +1294,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             config false;
             description "Counts the number of Bytes of Ethernet traffic (before header compression) transmitted within a minute and keeps the highest value with in the measurement period. Field to be left blank for all types of TDM containers.
                 Required data volume = 37bit";
-            if-feature feature43;
-            units Bytes/min;
+            units "Bytes/min";
             default 1;
         }
         leaf txEthernetBytesSum {
@@ -1417,8 +1302,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             config false;
             description "Total number of Bytes of Ethernet traffic (before header compression) transmitted (in direction out of the device) during the measurement period. Field to be left blank for all types of TDM containers.
                 Required data volume = 47bit";
-            if-feature feature44;
-            units Bytes;
+            units "Bytes";
             default 1;
         }
         leaf timePeriod {
@@ -1426,7 +1310,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             config false;
             description "Total length of the measurement period in seconds.
                 Required data volume = 17bit";
-            units s;
+            units "s";
             default -1;
         }
     }
