@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="MicrowaveModel-TypeDefinitions"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:MicrowaveModel-TypeDefinitions="uri:onf:MicrowaveModel-TypeDefinitions"
+        xmlns:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages="uri:onf:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"
+        xmlns:CoreModel-CoreFoundationModule-StateModel="uri:onf:CoreModel-CoreFoundationModule-StateModel">
+  <namespace uri="uri:onf:MicrowaveModel-TypeDefinitions"/>
+  <prefix value="MicrowaveModel-TypeDefinitions"/>
+  <import module="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages">
+    <prefix value="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"/>
+  </import>
+  <import module="CoreModel-CoreFoundationModule-StateModel">
+    <prefix value="CoreModel-CoreFoundationModule-StateModel"/>
+  </import>
+  <organization>
+    <text>ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project</text>
+  </organization>
+  <contact>
+    <text>WG Web:   &lt;https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport&gt;
+         WG List:  &lt;mailto:wireless-transport@login.opennetworking.org &gt;
+         WG Chair: Lyndon Ong
+                   &lt;mailto:lyong@ciena.com&gt;
+         WG Chair: Giorgio Cazzaniga
+                   &lt;mailto:giorgio.cazzaniga@sm-optics.com&gt;</text>
+  </contact>
+  <description>
+    <text>This module contains a collection of YANG definitions for 
+         managing microwave transport networks.</text>
+  </description>
+  <revision date="2016-07-01">
+    <description>
+      <text>Initial revision.</text>
+    </description>
+    <reference>
+      <text>ONF TR xyz: A YANG Data Model for Microwave Transport Networks.</text>
+    </reference>
+  </revision>
+  <typedef name="severityType">
+    <description>
+      <text>According to ITU-T M.3160</text>
+    </description>
+    <type name="enumeration">
+      <enum name="non-alarmed"/>
+      <enum name="warning"/>
+      <enum name="minor"/>
+      <enum name="major"/>
+      <enum name="critical"/>
+    </type>
+  </typedef>
+  <grouping name="channelPlanType">
+    <leaf name="channelPlanTypeId">
+      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
+    </leaf>
+    <leaf name="supportedChannelPlan">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>Unique name of an international agreement that describe allocations of frequency channels, to which this air interface complies, to be listed. Corresponding channel plans to be delivered by the hardware vendor and to be stored by the operator in the controller/application/attached database.</text>
+      </description>
+    </leaf>
+    <leaf name="duplexDistanceIsVariable">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>'1' in case the distance between transmitted and received frequency is variable.</text>
+      </description>
+    </leaf>
+    <leaf name="duplexDistance">
+      <type name="int64"/>
+      <config value="false"/>
+      <description>
+        <text>Distance between transmitted and received frequency.</text>
+      </description>
+      <units name="kHz"/>
+      <default value="1"/>
+    </leaf>
+    <leaf name="autoFreqSelectIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>In case the microwave radio is capable of automatically selecting the transmit frequency in unlicensed bands, this field shall contain an '1'.</text>
+      </description>
+    </leaf>
+    <list name="transmissionModeList">
+      <key value="transmissionModeId"/>
+      <ordered-by value="system"/>
+      <uses name="transmissionModeType"/>
+      <min-elements value="1"/>
+    </list>
+  </grouping>
+  <grouping name="transmissionModeType">
+    <description>
+      <text>Basic principles for defining the Default values of Capability/transmissionMode attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.</text>
+    </description>
+    <leaf name="transmissionModeId">
+      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
+      <description>
+        <text>Indentifies the transmissionMode for internal reference.</text>
+      </description>
+    </leaf>
+    <leaf name="channelBandwidth">
+      <type name="int64"/>
+      <config value="false"/>
+      <description>
+        <text>Bandwidth of the transmit channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;</text>
+      </description>
+      <units name="kHz"/>
+    </leaf>
+    <leaf name="modulationScheme">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Modulation scheme, which is base to the other characteristics described in the same instance of Script. The modulation scheme shall be described by the number of symbols (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256').</text>
+      </description>
+      <units name="symbols"/>
+    </leaf>
+    <leaf name="informationRate">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Information rate of the coding scheme in %.</text>
+      </description>
+      <units name="%"/>
+    </leaf>
+    <leaf name="txPowerMin">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Value of the minimum transmit power the modem can operate in dBm.</text>
+      </description>
+      <units name="dBm"/>
+    </leaf>
+    <leaf name="txPowerMax">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Value of the maximum transmit power the modem can operate in dBm.</text>
+      </description>
+      <units name="dBm"/>
+    </leaf>
+    <leaf name="rxThreshold">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Value of the receive level required to decode the received signal with a Bit Error Rate of 1e-6 or less.</text>
+      </description>
+      <units name="dBm"/>
+    </leaf>
+    <leaf name="amUpshiftLevel">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Value of the receive level that has to be exceeded to shift into a higher modulation scheme.</text>
+      </description>
+      <units name="dBm"/>
+      <default value="99"/>
+    </leaf>
+    <leaf name="amDownshiftLevel">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Value of the receive level that has to be exceeded for not shifting into a lower modulation scheme.</text>
+      </description>
+      <units name="dBm"/>
+      <default value="99"/>
+    </leaf>
+    <leaf name="xpicIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>In case the Air Interface Port is capable of XPIC, this field shall contain an '1'.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <typedef name="polarizationType">
+    <type name="enumeration">
+      <enum name="horizontal"/>
+      <enum name="vertical"/>
+      <enum name="not-specified"/>
+    </type>
+  </typedef>
+  <grouping name="airInterfaceProblemType">
+    <leaf name="problemId">
+      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
+    </leaf>
+    <leaf name="problemName">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>Name of the alarm according to AirInterface::AirInterfaceCapability::supportedAlarms</text>
+      </description>
+    </leaf>
+    <leaf name="problemSeverity">
+      <type name="severityType"/>
+      <description>
+        <text>Severity of the alarm.</text>
+      </description>
+      <default value="warning"/>
+    </leaf>
+  </grouping>
+  <typedef name="roleType">
+    <type name="enumeration">
+      <enum name="working"/>
+      <enum name="protection"/>
+      <enum name="protected"/>
+    </type>
+  </typedef>
+  <grouping name="diversityType">
+    <leaf name="diversityTypeId">
+      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
+    </leaf>
+    <leaf name="diversityName">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>Names to be chosen from the following list: 'spaceDiversity', 'frequencyDiversity'</text>
+      </description>
+    </leaf>
+    <leaf name="numberOfAirInterfacesMax">
+      <type name="int32">
+        <range value="2..max"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Maximum number of air interfaces that could be part of this kind of diversity.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <typedef name="airInterfaceDiversityStatusType">
+    <type name="enumeration">
+      <enum name="allAiActive"/>
+      <enum name="notAllAiActive"/>
+      <enum name="groupDown"/>
+    </type>
+  </typedef>
+  <grouping name="airInterfaceDiversityProblemType">
+    <leaf name="problemId">
+      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
+    </leaf>
+    <leaf name="problemName">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>Name of the alarm according to AirInterfaceDiversity::AirInterfaceDiversityCapability::supportedAlarms</text>
+      </description>
+    </leaf>
+    <leaf name="problemSeverity">
+      <type name="severityType"/>
+      <description>
+        <text>Severity of the alarm.</text>
+      </description>
+      <default value="warning"/>
+    </leaf>
+  </grouping>
+  <typedef name="protectionType">
+    <type name="enumeration">
+      <enum name="hsb"/>
+    </type>
+  </typedef>
+  <grouping name="structureProblemType">
+    <leaf name="problemId">
+      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
+    </leaf>
+    <leaf name="problemName">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>Name of the alarm according to Structure::StructureCapability::supportedAlarms</text>
+      </description>
+    </leaf>
+    <leaf name="problemSeverity">
+      <type name="severityType"/>
+      <description>
+        <text>Severity of the alarm.</text>
+      </description>
+      <default value="warning"/>
+    </leaf>
+  </grouping>
+  <grouping name="containerType">
+    <leaf name="containerTypeId">
+      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
+    </leaf>
+    <leaf name="containerName">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>Names to be chosen from the following list: 'ethernet','e1','t1','j1','e3','ds3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'</text>
+      </description>
+    </leaf>
+    <leaf name="numberOfTimeSlotsRequired">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Number of time slots required for transporting this type of container. Value must be calculated by the vendor after defining the timeSlotCapacity. For containers of fixed size: numberOfTimeSlotsRequired = required bandwidth of the container divided by timeSlotCapacity. For containers of variable size the minimum (most probably 1) is to be stated.</text>
+      </description>
+    </leaf>
+    <leaf name="tdmTimeSlotsIsRequired">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Shall be set to '1', if this container type requires bandwidth (times slots) reserved for TDM transport.</text>
+      </description>
+    </leaf>
+    <leaf name="bundlingIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>If it is possible to combine transport resources of several radio links to transport this container type, this attribute shall be set to '1'.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="timeSlotIdType">
+    <description>
+      <text>Identifies the time slots, which are used to transport the container.
+Combinations of structureID and timeSlotID must be unique inside the device to assure that every resource is used just once.</text>
+    </description>
+    <leaf name="structureId">
+      <type name="string"/>
+    </leaf>
+    <leaf name="timeSlotId">
+      <type name="int32"/>
+    </leaf>
+  </grouping>
+  <grouping name="timeSlotStatusType">
+    <leaf name="timeSlotStatusTypeId">
+      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
+    </leaf>
+    <leaf name="timeSlotIsReservedForTdm">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>The number of time slots, which is configured by Structure::StructureConfiguration::tdmReservedNumberOfTimeSlots, has to be reserved for TDM. Starting from the lowest index value, these time slots have to be marked with an '1' in timeSlotIsReservedForTdm.
+</text>
+      </description>
+    </leaf>
+    <leaf name="priorityClass">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>PriorityClass as inherited from the associated Container::ContainerConfiguration::priorityClass. In case the device is capable of adapting the sequence, in which time slots are being dropped in case of decreasing capacity of the air interface, priorityClass shall be considered, while calculating the dropOrderRank.</text>
+      </description>
+    </leaf>
+    <leaf name="dropOrderRank">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>In case the device is NOT capable of adapting the sequence, in which time slots are being dropped in case of decreasing capacity of the air interface, dropOrderRank is number of time slots minus sequence number of the time slot. In case the device is capable of adapting the sequence, dropOrderRank has to be calculated by the device in dependency to the assigned priorityClass.
+_unique: within Structure::StructureStatus::timeSlotStatusList</text>
+      </description>
+    </leaf>
+    <leaf name="operationalStatus">
+      <type name="CoreModel-CoreFoundationModule-StateModel:OperationalState"/>
+      <config value="false"/>
+      <description>
+        <text>Current operational status of each time slot.</text>
+      </description>
+      <default value="DISABLED"/>
+    </leaf>
+  </grouping>
+  <grouping name="containerProblemType">
+    <leaf name="problemId">
+      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
+    </leaf>
+    <leaf name="problemName">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>Name of the alarm according to Container::ContainerCapability::supportedAlarms</text>
+      </description>
+    </leaf>
+    <leaf name="problemSeverity">
+      <type name="severityType"/>
+      <description>
+        <text>Severity of the alarm.</text>
+      </description>
+      <default value="warning"/>
+    </leaf>
+  </grouping>
+</module>
