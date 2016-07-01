@@ -23,7 +23,7 @@ if [ $# -gt 1 ]; then
 fi
 
 MODELS=($(grep -rl --exclude=${SRC}/*@*.yang revision ${SRC}/*.yang | awk '{print $1}'))
-REVISIONS=($(grep -rh --exclude=${SRC}/*@*.yang revision ${SRC}/*.yang | awk '{print $2}'))
+REVISIONS=($(grep -rh --exclude=${SRC}/*@*.yang "revision 2" ${SRC}/*.yang | awk '{print $2}'))
 if [ ${#MODELS[@]} -gt 0 ]; then
     mkdir -p ${DST}
 fi
