@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="CoreModel-CoreNetworkModule-ObjectClasses"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:CoreModel-CoreNetworkModule-ObjectClasses="uri:onf:CoreModel-CoreNetworkModule-ObjectClasses"
+        xmlns:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages="uri:onf:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"
+        xmlns:CoreModel-CoreNetworkModule-TypeDefinitions="uri:onf:CoreModel-CoreNetworkModule-TypeDefinitions">
+  <namespace uri="uri:onf:CoreModel-CoreNetworkModule-ObjectClasses"/>
+  <prefix value="CoreModel-CoreNetworkModule-ObjectClasses"/>
+  <import module="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages">
+    <prefix value="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"/>
+  </import>
+  <import module="CoreModel-CoreNetworkModule-TypeDefinitions">
+    <prefix value="CoreModel-CoreNetworkModule-TypeDefinitions"/>
+  </import>
+  <organization>
+    <text>ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project</text>
+  </organization>
+  <contact>
+    <text>WG Web:   &lt;https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport&gt;
+         WG List:  &lt;mailto:wireless-transport@login.opennetworking.org &gt;
+         WG Chair: Lyndon Ong
+                   &lt;mailto:lyong@ciena.com&gt;
+         WG Chair: Giorgio Cazzaniga
+                   &lt;mailto:giorgio.cazzaniga@sm-optics.com&gt;</text>
+  </contact>
+  <description>
+    <text>This module contains a collection of YANG definitions for 
+         managing microwave transport networks.</text>
+  </description>
+  <revision date="2016-07-01">
+    <description>
+      <text>Initial revision.</text>
+    </description>
+    <reference>
+      <text>ONF TR xyz: A YANG Data Model for Microwave Transport Networks.</text>
+    </reference>
+  </revision>
+  <container name="NetworkElement">
+    <description>
+      <text>The Network Element (NE) object class represents a network element (traditional NE) in the data plane.
+A data plane network element is essentially a consolidation of capabilities that can be viewed and controlled through a 'single' management-control port.
+In the direct interface from an SDN controller to a network element in the data plane, the NetworkElement object defines the scope of control for the resources within the network element
+For example internal transfer of user information between the external terminations (ports of the NE), encapsulation, multiplexing/demultiplexing, and OAM functions, etc. 
+The NetworkElement provides the scope of the naming space for identifying objects representing the resources within the data plane network element.
+NE is really a product bundling or some view of management scope, management access, session. 
+The NE is not directly part of topology but brings meaning to the FD context and the LTP context (and hence the links). 
+lifecycle:LikelyToChange</text>
+    </description>
+    <config value="true"/>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:GlobalClass"/>
+    <list name="_ltpRefList">
+      <description>
+        <text>An NE has associated LTPs that are at its boundary.
+The NeEncompassesFd association occurs for FDs that are within the bounds of the NetworkElement definition such that the FD is bounded by LTPs, all of which are on the boundary of the NetworkElement or are within the NetworkElement. 
+An LTP can be independent of an NE.</text>
+      </description>
+      <key value="uuid"/>
+      <config value="true"/>
+      <ordered-by value="system"/>
+      <uses name="LogicalTerminationPoint"/>
+    </list>
+  </container>
+  <grouping name="LayerProtocol">
+    <description>
+      <text>Each transport layer is represented by a LayerProtocol (LP) instance. The LayerProtocol instances it can be used for controlling termination and monitoring functionality. 
+It can also be used for controlling the adaptation (i.e. encapsulation and/or multiplexing of client signal), tandem connection monitoring, traffic conditioning and/or shaping functionality at an intermediate point along a connection. 
+Where the client ? server relationship is fixed 1:1 and immutable, the layers can be encapsulated in a single LTP instance. Where the is a n:1 relationship between client and server, the layers must be split over two separate instances of LTP. </text>
+    </description>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <leaf name="layerProtocolName">
+      <type name="CoreModel-CoreNetworkModule-TypeDefinitions:LayerProtocolName"/>
+      <description>
+        <text>Indicate the specific layer-protocol described by the LayerProtocol entity.</text>
+      </description>
+    </leaf>
+    <leaf name="configuredClientCapacity">
+      <type name="int64"/>
+      <description>
+        <text>Provides a summarized view of the client capacity that is configurable for use.
+Note the cleint LTP association should provide all necessary detail hence this attribute is questionable.</text>
+      </description>
+      <units name="kbit/s"/>
+    </leaf>
+    <leaf name="lpDirection">
+      <type name="CoreModel-CoreNetworkModule-TypeDefinitions:TerminationDirection"/>
+      <description>
+        <text>The overall directionality of the LP. 
+- A BIDIRECTIONAL LP will have some SINK and/or SOURCE flowss.
+- A SINK LP can only contain elements with SINK flows or CONTRA_DIRECTION_SOURCE flows
+- A SOURCE LP can only contain SOURCE flows or CONTRA_DIRECTION_SINK flows</text>
+      </description>
+    </leaf>
+    <leaf name="terminationState">
+      <type name="boolean"/>
+      <description>
+        <text>Indicates whether the layer is terminated and if so how.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="LogicalTerminationPoint">
+    <description>
+      <text>The LogicalTerminationPoint (LTP) object class encapsulates the termination and adaptation functions of one or more transport layers. 
+The structure of LTP supports all transport protocols including circuit and packet forms.</text>
+    </description>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:GlobalClass"/>
+    <leaf-list name="_serverLtpRefList">
+      <description>
+        <text>References contained LTPs representing servers of this LTP in an inverse multiplexing configuration (e.g. VCAT).</text>
+      </description>
+      <ordered-by value="system"/>
+      <type name="leafref">
+        <path value="/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid"/>
+      </type>
+    </leaf-list>
+    <leaf-list name="_clientLtpRefList">
+      <description>
+        <text>References contained LTPs representing client traffic of this LTP for normal cases of multiplexing.</text>
+      </description>
+      <ordered-by value="system"/>
+      <type name="leafref">
+        <path value="/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid"/>
+      </type>
+    </leaf-list>
+    <list name="_lpList">
+      <description>
+        <text>Ordered list of LayerProtocols that this LTP is comprised of where the first entry in the list is the lowest server layer (e.g. physical)</text>
+      </description>
+      <key value="uuid"/>
+      <config value="true"/>
+      <ordered-by value="system"/>
+      <uses name="LayerProtocol"/>
+      <min-elements value="1"/>
+    </list>
+    <leaf-list name="physicalPortReference">
+      <description>
+        <text>One or more text labels for the unmodelled physical port associated with the LTP.
+In many cases there is no associated physical port</text>
+      </description>
+      <ordered-by value="system"/>
+      <type name="string"/>
+    </leaf-list>
+    <leaf-list name="_ltpRefList">
+      <description>
+        <text>References one or more LTPs in other views that represent this LTP. 
+The referencing LTP is the rovider of capability.</text>
+      </description>
+      <ordered-by value="system"/>
+      <type name="leafref">
+        <path value="/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid"/>
+      </type>
+    </leaf-list>
+    <leaf name="ltpDirection">
+      <type name="CoreModel-CoreNetworkModule-TypeDefinitions:TerminationDirection"/>
+      <description>
+        <text>The overall directionality of the LTP. 
+- A BIDIRECTIONAL LTP must have at least some LPs that are BIDIRECTIONAL but may also have some SINK and/or SOURCE LPs.
+- A SINK LTP can only contain SINK LPs
+- A SOURCE LTP can only contain SOURCE LPs</text>
+      </description>
+    </leaf>
+    <leaf name="logicalterminationpoint">
+      <type name="leafref">
+        <path value="/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid"/>
+      </type>
+    </leaf>
+    <leaf name="_connectingLtp">
+      <type name="leafref">
+        <path value="/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid"/>
+      </type>
+    </leaf>
+  </grouping>
+</module>

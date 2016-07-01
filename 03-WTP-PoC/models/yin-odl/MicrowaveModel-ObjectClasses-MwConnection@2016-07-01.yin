@@ -1,0 +1,1712 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="MicrowaveModel-ObjectClasses-MwConnection"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:MicrowaveModel-ObjectClasses-MwConnection="uri:onf:MicrowaveModel-ObjectClasses-MwConnection"
+        xmlns:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages="uri:onf:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"
+        xmlns:CoreModel-CoreNetworkModule-ObjectClasses="uri:onf:CoreModel-CoreNetworkModule-ObjectClasses"
+        xmlns:MicrowaveModel-TypeDefinitions="uri:onf:MicrowaveModel-TypeDefinitions"
+        xmlns:CoreModel-CoreFoundationModule-TypeDefinitions="uri:onf:CoreModel-CoreFoundationModule-TypeDefinitions"
+        xmlns:CoreModel-CoreNetworkModule-TypeDefinitions="uri:onf:CoreModel-CoreNetworkModule-TypeDefinitions">
+  <namespace uri="uri:onf:MicrowaveModel-ObjectClasses-MwConnection"/>
+  <prefix value="MicrowaveModel-ObjectClasses-MwConnection"/>
+  <import module="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages">
+    <prefix value="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"/>
+  </import>
+  <import module="CoreModel-CoreNetworkModule-ObjectClasses">
+    <prefix value="CoreModel-CoreNetworkModule-ObjectClasses"/>
+  </import>
+  <import module="MicrowaveModel-TypeDefinitions">
+    <prefix value="MicrowaveModel-TypeDefinitions"/>
+  </import>
+  <import module="CoreModel-CoreFoundationModule-TypeDefinitions">
+    <prefix value="CoreModel-CoreFoundationModule-TypeDefinitions"/>
+  </import>
+  <import module="CoreModel-CoreNetworkModule-TypeDefinitions">
+    <prefix value="CoreModel-CoreNetworkModule-TypeDefinitions"/>
+  </import>
+  <organization>
+    <text>ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project</text>
+  </organization>
+  <contact>
+    <text>WG Web:   &lt;https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport&gt;
+         WG List:  &lt;mailto:wireless-transport@login.opennetworking.org &gt;
+         WG Chair: Lyndon Ong
+                   &lt;mailto:lyong@ciena.com&gt;
+         WG Chair: Giorgio Cazzaniga
+                   &lt;mailto:giorgio.cazzaniga@sm-optics.com&gt;</text>
+  </contact>
+  <description>
+    <text>This module contains a collection of YANG definitions for 
+         managing microwave transport networks.</text>
+  </description>
+  <revision date="2016-07-01">
+    <description>
+      <text>Initial revision.</text>
+    </description>
+    <reference>
+      <text>ONF TR xyz: A YANG Data Model for Microwave Transport Networks.</text>
+    </reference>
+  </revision>
+  <grouping name="MW_AirInterface_Pac">
+    <description>
+      <text>LTP(MWPS-TTP)</text>
+    </description>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <leaf name="layerProtocol">
+      <type name="leafref">
+        <path value="/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:_lpList/CoreModel-CoreNetworkModule-ObjectClasses:uuid"/>
+      </type>
+      <description>
+        <text>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</text>
+      </description>
+    </leaf>
+    <container name="airInterfaceCapability">
+      <uses name="AirInterfaceCapability"/>
+    </container>
+    <container name="airInterfaceConfiguration">
+      <config value="true"/>
+      <uses name="AirInterfaceConfiguration"/>
+    </container>
+    <container name="airInterfaceStatus">
+      <uses name="AirInterfaceStatus"/>
+    </container>
+    <leaf-list name="airInterfaceCurrentProblemList">
+      <ordered-by value="system"/>
+      <type name="leafref">
+        <path value="/MicrowaveModel-ObjectClasses-MwConnection:AirInterfaceCurrentProblem/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
+      </type>
+    </leaf-list>
+    <leaf name="airInterfaceCurrentPerformance">
+      <type name="leafref">
+        <path value="/MicrowaveModel-ObjectClasses-MwConnection:AirInterfaceCurrentPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
+      </type>
+    </leaf>
+    <leaf-list name="airInterfaceHistoricalPerformanceList">
+      <ordered-by value="system"/>
+      <type name="leafref">
+        <path value="/MicrowaveModel-ObjectClasses-MwConnection:AirInterfaceHistoricalPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
+      </type>
+    </leaf-list>
+  </grouping>
+  <grouping name="AirInterfaceCapability">
+    <description>
+      <text>Describes the 'analog' capabilities of modem and transmitter of the microwave device. Value ranges of attributes are not independently (e.g. min. and max. transmit power depends on modulation). Legal combinations of values are expressed in scripts.
+Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.</text>
+    </description>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <leaf name="typeOfEquipment">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>This parameter indicates the equipment type. Instead of uploading the complete set of capabilities, capabilities of the same equipment type could be reused.</text>
+      </description>
+    </leaf>
+    <leaf name="txFrequencyMin">
+      <type name="int64"/>
+      <config value="false"/>
+      <description>
+        <text>Value of the minimum transmit frequency tunable at the air interface. This value is only relevant, if the channel plan, which is referenced in channelPlanID is stored in the controller.</text>
+      </description>
+      <units name="kHz"/>
+    </leaf>
+    <leaf name="txFrequencyMax">
+      <type name="int64"/>
+      <config value="false"/>
+      <description>
+        <text>Value of the maximum transmit frequency tunable at the air interface. This value is only relevant, if the channel plan, which is referenced in channelPlanID is stored in the controller.</text>
+      </description>
+      <units name="kHz"/>
+    </leaf>
+    <leaf name="rxFrequencyMin">
+      <type name="int64"/>
+      <config value="false"/>
+      <description>
+        <text>Value of the minimum receive frequency tunable at the air interface. This value is only relevant, if the channel plan, which is referenced in channelPlanID is stored in the controller.</text>
+      </description>
+      <units name="kHz"/>
+    </leaf>
+    <leaf name="rxFrequencyMax">
+      <type name="int64"/>
+      <config value="false"/>
+      <description>
+        <text>Value of the maximum receive frequency tunable at the air interface. This value is only relevant, if the channel plan, which is referenced in channelPlanID is stored in the controller.</text>
+      </description>
+      <units name="kHz"/>
+    </leaf>
+    <leaf name="adaptiveModulationIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>In case the Air Interface Port is capable of adaptive modulation, this field shall contain an '1'.</text>
+      </description>
+    </leaf>
+    <leaf name="mimoIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>In case the device is capable of MIMO, this field shall contain an '1'.</text>
+      </description>
+    </leaf>
+    <leaf name="mimoChannels">
+      <type name="int32">
+        <range value="1..4"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Maximum number (n) of Air Interfaces that can be combined to a n x n MIMO configuration.</text>
+      </description>
+      <default value="1"/>
+    </leaf>
+    <leaf name="alicIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>In case the microwave radio is capable of Adjacent Link Interference Cancelation (canceling of interference cause by transmitters located at the same site), this field shall contain an '1'.</text>
+      </description>
+    </leaf>
+    <leaf name="atpcIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>In case the microwave radio is capable of ATPC, this field shall contain an '1'.</text>
+      </description>
+    </leaf>
+    <leaf name="atpcRange">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Extent of the ATPC range. The value should be set to '0' in case ATPC feature bit is '0'.</text>
+      </description>
+      <units name="dB"/>
+      <default value="1"/>
+    </leaf>
+    <leaf name="loopBackIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>In case the radio is capable of looping back header information of the air interface, this field shall contain an '1'.</text>
+      </description>
+    </leaf>
+    <leaf name="maintenanceTimerRange">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>The device shall describe the range of the configurable time of existence of any maintenance configuration (e.g. the loop back of microwave header information). A list of values shall be separated by commas. A value range shall be expressed by two values separated by a minus.</text>
+      </description>
+      <units name="s"/>
+    </leaf>
+    <leaf name="supportedAlarms">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>Available alarms to be listed. Mandatory:'aiConfigurationIsFaulty','signalIsLost','rslIsExceeded','temperatureIsExceeded','modemIsFaulty','radioIsFaulty' and 'modulationIsDownShifted'. Further alarms might be added by the device. Names are to be separated by commas.</text>
+      </description>
+    </leaf>
+    <list name="supportedChannelPlanList">
+      <description>
+        <text>List of channel spacing that are supported by the device.</text>
+      </description>
+      <key value="channelPlanTypeId"/>
+      <ordered-by value="system"/>
+      <uses name="MicrowaveModel-TypeDefinitions:channelPlanType"/>
+      <min-elements value="1"/>
+    </list>
+  </grouping>
+  <grouping name="AirInterfaceConfiguration">
+    <description>
+      <text>Configuration of the device.
+Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device.           Configuration messages provided by the device shall contain the current configuration.</text>
+    </description>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <leaf name="airInterfaceName">
+      <type name="string"/>
+      <description>
+        <text>Operator specific microwave link ID (often used for coding area, type of element and sequential number).</text>
+      </description>
+      <default value="Air interface ID to be defined"/>
+    </leaf>
+    <leaf name="radioSignalId">
+      <type name="string"/>
+      <description>
+        <text>The radioSignalId is transmitted on the air interface so the remote site of the link synchronizes on the correct transmitter. The local radio MUST NOT synchronize on a radio signal with a different radioSignalId. The link ID is neither an ID necessary to span the model nor an ID referencing external data. It is just some sort of name of the link transmitted so the correct remote site can be identified in an interference situation.
+The value zero might be used to make the microwave to disable the link ID check.</text>
+      </description>
+    </leaf>
+    <leaf name="txFrequency">
+      <type name="int64"/>
+      <description>
+        <text>Center frequency of the transmit channel. The values to be configured have to exactly match the values listed in the international agreement referenced in channelPlanID. In case of automated selection of the transmit frequency this field shall describe the lowest center frequency selectable.</text>
+      </description>
+      <units name="kHz"/>
+    </leaf>
+    <leaf name="rxFrequency">
+      <type name="int64"/>
+      <description>
+        <text>Center frequency of the receive channel.</text>
+      </description>
+      <units name="kHz"/>
+    </leaf>
+    <leaf name="txChannelBandwidth">
+      <type name="int64"/>
+      <description>
+        <text>Bandwidth of the transmit channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;</text>
+      </description>
+      <units name="kHz"/>
+    </leaf>
+    <leaf name="rxChannelBandwidth">
+      <type name="int64"/>
+      <description>
+        <text>Bandwidth of the receive channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;</text>
+      </description>
+      <units name="kHz"/>
+    </leaf>
+    <leaf name="polarization">
+      <type name="MicrowaveModel-TypeDefinitions:polarizationType"/>
+      <description>
+        <text>Allows to document the polarization of the air interface.</text>
+      </description>
+    </leaf>
+    <leaf name="powerIsOn">
+      <type name="boolean"/>
+      <description>
+        <text>Power ON. Activation of the entire radio in a split mount configuration shall be expressed as an '1'.</text>
+      </description>
+    </leaf>
+    <leaf name="transmitterIsOn">
+      <type name="boolean"/>
+      <description>
+        <text>Transmit Power. Activation of the transmitter inside the radio shall be expressed as an '1'.</text>
+      </description>
+    </leaf>
+    <leaf name="txPower">
+      <type name="int32"/>
+      <description>
+        <text>Transmit power to be configured on the microwave link. Signed Byte is required. The actually operated transmit power might be lower depending on adaptive modulation and ATPC.</text>
+      </description>
+      <units name="dBm"/>
+    </leaf>
+    <leaf name="adaptiveModulationIsOn">
+      <type name="boolean"/>
+      <description>
+        <text>Adaptive Modulation. Activation of adaptive modulation shall be expressed as an '1'.</text>
+      </description>
+    </leaf>
+    <leaf name="modulationMin">
+      <type name="int32"/>
+      <description>
+        <text>Minimum modulation to be configured (in case adaptive modulation is not used, this value represents also the fixed modulation). The modulation scheme shall be described by the number of symbols (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256'). Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device).</text>
+      </description>
+      <units name="symbols"/>
+    </leaf>
+    <leaf name="modulationMax">
+      <type name="int32"/>
+      <description>
+        <text>Maximum modulation to be configured. The value of this field is only relevant, if Adaptive Modulation has been activated. The modulation scheme shall be described by the number of symbols (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256'). Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device).</text>
+      </description>
+      <units name="symbols"/>
+      <default value="1"/>
+    </leaf>
+    <leaf name="xpicIsOn">
+      <type name="boolean"/>
+      <description>
+        <text>Activation of Cross Polarization Interference Cancellation shall be expressed as a 'true'. In case XPIC is not available for the current combination of channel bandwidth and modulation or the hardware in general, this parameter shall always be set to 'false'.</text>
+      </description>
+    </leaf>
+    <leaf name="mimoIsOn">
+      <type name="boolean"/>
+      <description>
+        <text>Activation of Multiple Input Multiple Output shall be expressed as an '1'.</text>
+      </description>
+    </leaf>
+    <leaf name="alicIsOn">
+      <type name="boolean"/>
+      <description>
+        <text>Activation of Adjacent Link Interference Cancelation (ALIC) shall be expressed as an '1'.</text>
+      </description>
+    </leaf>
+    <leaf name="coChannelGroup">
+      <type name="leafref">
+        <path value="/MicrowaveModel-ObjectClasses-MwConnection:CoChannelGroup/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
+      </type>
+      <description>
+        <text>Points to group of co-channel (XPIC, MIMO, AFR) air interfaces. The list of CoChannelGroups would always be empty for devices not capable of any sort of co-channel group.</text>
+      </description>
+    </leaf>
+    <leaf name="atpcIsOn">
+      <type name="boolean"/>
+      <description>
+        <text>ATPC. Activation of Automated Transmit Power Control shall be expressed as an '1'.</text>
+      </description>
+    </leaf>
+    <leaf name="atpcThreshUpper">
+      <type name="int32"/>
+      <description>
+        <text>If the receive level is higher than the upper threshold value, the transmitter is notified to decrease transmit power.</text>
+      </description>
+      <units name="dBm"/>
+      <default value="99"/>
+    </leaf>
+    <leaf name="atpcThreshLower">
+      <type name="int32"/>
+      <description>
+        <text>If the receive level is lower than the lower threshold value, the transmitter is notified to increase transmit power.</text>
+      </description>
+      <units name="dBm"/>
+      <default value="99"/>
+    </leaf>
+    <leaf name="autoFreqSelectIsOn">
+      <type name="boolean"/>
+      <description>
+        <text>Activation of automatically selecting the transmit frequency in unlicensed bands shall be expressed as an '1'.</text>
+      </description>
+    </leaf>
+    <leaf name="autoFreqSelectRange">
+      <type name="int32"/>
+      <description>
+        <text>Number of transmit channels (starting at the center frequency defined in txFrequency and with channel bandwidth according to txChannelBandwidth) that define the range within the transmit frequency can automatically been chosen. </text>
+      </description>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="modulationIsOn">
+      <type name="boolean"/>
+      <description>
+        <text>Maintenance Feature
+De-activation of the modulation of the carrier signal for fault management shall be expressed as an '0'.</text>
+      </description>
+    </leaf>
+    <leaf name="loopBackIsOn">
+      <type name="boolean"/>
+      <description>
+        <text>Maintenance Feature
+If this attribute is set to '1', the received IF signal is transmitted back to the remote end.</text>
+      </description>
+    </leaf>
+    <leaf name="maintenanceTimer">
+      <type name="int64"/>
+      <description>
+        <text>Time of existence of any maintenance configuration (e.g. the loop back of microwave header information). Allowed values are defined in AirInterface::AirInterfaceCapability::maintenanceTimerRange.</text>
+      </description>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <list name="problemSeverityList">
+      <description>
+        <text>Severity of the problem to be configured.</text>
+      </description>
+      <key value="problemId"/>
+      <config value="true"/>
+      <ordered-by value="system"/>
+      <uses name="MicrowaveModel-TypeDefinitions:airInterfaceProblemType"/>
+      <min-elements value="7"/>
+    </list>
+  </grouping>
+  <grouping name="AirInterfaceStatus">
+    <description>
+      <text>Measurements of current values on the air interface and operational status of the device.
+Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.</text>
+    </description>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <leaf name="txFrequencyCur">
+      <type name="int64"/>
+      <config value="false"/>
+      <description>
+        <text>Center frequency of the currently operated transmit channel.</text>
+      </description>
+      <units name="kHz"/>
+      <default value="1"/>
+    </leaf>
+    <leaf name="rxFrequencyCur">
+      <type name="int64"/>
+      <config value="false"/>
+      <description>
+        <text>Center frequency of the currently operated receive channel.</text>
+      </description>
+      <units name="kHz"/>
+      <default value="1"/>
+    </leaf>
+    <leaf name="txLevelCur">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Current transmit level. Signed Byte is required.</text>
+      </description>
+      <units name="dBm"/>
+      <default value="-99"/>
+    </leaf>
+    <leaf name="rxLevelCur">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Current receive level. Signed Byte is required.</text>
+      </description>
+      <units name="dBm"/>
+      <default value="99"/>
+    </leaf>
+    <leaf name="modulationCur">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Currently operated modulation on transmit path. The modulation scheme shall be described by the number of symbols (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256'). Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device).</text>
+      </description>
+      <units name="symbols"/>
+      <default value="1"/>
+    </leaf>
+    <leaf name="informationRateCur">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Information rate of the currently operated coding scheme.</text>
+      </description>
+      <units name="%"/>
+      <default value="101"/>
+    </leaf>
+    <leaf name="snrCur">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Currently measured signal to noise ratio.</text>
+      </description>
+      <units name="dB"/>
+      <default value="-99"/>
+    </leaf>
+    <leaf name="xpdCur">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Currently measured cross polarization discrimination.</text>
+      </description>
+      <units name="dB"/>
+      <default value="-99"/>
+    </leaf>
+    <leaf name="rxTempCur">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Current temperature of the radio frequency power amplifier in the receiver. (If the temperature of the power amplifier in the receiver is not measured, the temperature inside the radio is also fine.)</text>
+      </description>
+      <units name="C"/>
+      <default value="-99"/>
+    </leaf>
+    <leaf name="lastStatusChange">
+      <type name="CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime"/>
+      <config value="false"/>
+      <description>
+        <text>Time the Air Interface entered its current operational status. 
+_format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' month; dd='01'..'31' day; hh='00'..'23' hour; mm='00'..'59' minute; ss='00'..'59' second; s='.0'..'.9'tenth of second (set to '.0' if EMS or NE cannot support this granularity); Z='Z' indicates UTC (rather than local time); {+|-}='+' or '-' delta from UTC; HH='00'..'23' time zone difference in hours; Mm='00'..'59' time zone difference in minutes.</text>
+      </description>
+      <default value="20101120140000.0Z+1"/>
+    </leaf>
+    <leaf name="radioPowerIsUp">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>If the radio unit has power and is switched on, this shall be expressed as an '1'.</text>
+      </description>
+    </leaf>
+    <leaf name="linkIsUp">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>If connection is established to the remote site with the same linkID, this shall be expressed as an '1'.</text>
+      </description>
+    </leaf>
+    <leaf name="xpicIsUp">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>If XPIC is currently actually working (not just configured), this shall be expressed as an '1'.</text>
+      </description>
+    </leaf>
+    <leaf name="mimoIsUp">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>If MIMO is currently actually working (not just configured), this shall be expressed as an '1'.</text>
+      </description>
+    </leaf>
+    <leaf name="alicIsUp">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>If Adjacent Link Interference Cancelation (ALIC) is currently actually working (not just configured), this shall be expressed as an '1'.</text>
+      </description>
+    </leaf>
+    <leaf name="atpcIsUp">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>If ATPC is currently actually working (not just configured), this shall be expressed as an '1'.</text>
+      </description>
+    </leaf>
+    <leaf name="autoFreqSelectIsUp">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>If automated frequency selection is currently actually working (not just configured), this shall be expressed as an '1'.</text>
+      </description>
+    </leaf>
+    <leaf name="loopBackIsUp">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>If loop back of the air interface header is currently active (not just configured), this shall be expressed as an '1'.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <list name="AirInterfaceCurrentProblem">
+    <key value="uuid"/>
+    <config value="true"/>
+    <ordered-by value="system"/>
+    <uses name="AirInterfaceCurrentProblem"/>
+  </list>
+  <grouping name="AirInterfaceCurrentProblem">
+    <uses name="MwCurrentProblem"/>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <container name="problem">
+      <uses name="MicrowaveModel-TypeDefinitions:airInterfaceProblemType"/>
+    </container>
+  </grouping>
+  <list name="AirInterfaceCurrentPerformance">
+    <key value="uuid"/>
+    <config value="true"/>
+    <ordered-by value="system"/>
+    <uses name="AirInterfaceCurrentPerformance"/>
+  </list>
+  <grouping name="AirInterfaceCurrentPerformance">
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+  </grouping>
+  <list name="AirInterfaceHistoricalPerformance">
+    <key value="uuid"/>
+    <config value="true"/>
+    <ordered-by value="system"/>
+    <uses name="AirInterfaceHistoricalPerformance"/>
+  </list>
+  <grouping name="AirInterfaceHistoricalPerformance">
+    <description>
+      <text>Consolidated performance informantion of the air interface.
+Basic principles for defining the Defaults values of Performance attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute.</text>
+    </description>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <leaf name="es">
+      <type name="int64"/>
+      <config value="false"/>
+      <description>
+        <text>Number of errored seconds.</text>
+      </description>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="ses">
+      <type name="int64"/>
+      <config value="false"/>
+      <description>
+        <text>Number of severely errored seconds.</text>
+      </description>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="cses">
+      <type name="int64"/>
+      <config value="false"/>
+      <description>
+        <text>Number of consecutive severely errored seconds.</text>
+      </description>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="unavailability">
+      <type name="int64"/>
+      <config value="false"/>
+      <description>
+        <text>Total time of unavailability in seconds.</text>
+      </description>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="txLevelMin">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Minimum transmit power. Signed integers are required.</text>
+      </description>
+      <units name="dBm"/>
+      <default value="-99"/>
+    </leaf>
+    <leaf name="txLevelMax">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Maximum transmit power. Signed integers are required.</text>
+      </description>
+      <units name="dBm"/>
+      <default value="-99"/>
+    </leaf>
+    <leaf name="txLevelAvg">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Average transmit power. Signed integers are required.</text>
+      </description>
+      <units name="dBm"/>
+      <default value="-99"/>
+    </leaf>
+    <leaf name="rxLevelMin">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Minimum receive level. Signed integers are required.</text>
+      </description>
+      <units name="dBm"/>
+      <default value="99"/>
+    </leaf>
+    <leaf name="rxLevelMax">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Maximum receive level. Signed integers are required.</text>
+      </description>
+      <units name="dBm"/>
+      <default value="99"/>
+    </leaf>
+    <leaf name="rxLevelAvg">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Average receive level. Signed integers are required.</text>
+      </description>
+      <units name="dBm"/>
+      <default value="99"/>
+    </leaf>
+    <leaf name="time2Symbols">
+      <type name="int64"/>
+      <config value="false"/>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="time4SymbolsS">
+      <type name="int64"/>
+      <config value="false"/>
+      <description>
+        <text>Sum of all seconds the transmitter operated in e.g. 4QAM strong.</text>
+      </description>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="time4Symbols">
+      <type name="int64"/>
+      <config value="false"/>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="time8Symbols">
+      <type name="int64"/>
+      <config value="false"/>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="time16SymbolsS">
+      <type name="int64"/>
+      <config value="false"/>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="time16Symbols">
+      <type name="int64"/>
+      <config value="false"/>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="time32Symbols">
+      <type name="int64"/>
+      <config value="false"/>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="time64Symbols">
+      <type name="int64"/>
+      <config value="false"/>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="time128Symbols">
+      <type name="int64"/>
+      <config value="false"/>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="time256Symbols">
+      <type name="int64"/>
+      <config value="false"/>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="time512Symbols">
+      <type name="int64"/>
+      <config value="false"/>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="time512SymbolsL">
+      <type name="int64"/>
+      <config value="false"/>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="time1024Symbols">
+      <type name="int64"/>
+      <config value="false"/>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="time1024SymbolsL">
+      <type name="int64"/>
+      <config value="false"/>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="time2048Symbols">
+      <type name="int64"/>
+      <config value="false"/>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="time2048SymbolsL">
+      <type name="int64"/>
+      <config value="false"/>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="time4096Symbols">
+      <type name="int64"/>
+      <config value="false"/>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="time4096SymbolsL">
+      <type name="int64"/>
+      <config value="false"/>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="time8192Symbols">
+      <type name="int64"/>
+      <config value="false"/>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="time8192SymbolsL">
+      <type name="int64"/>
+      <config value="false"/>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="snrMin">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Minimum signal to noise ratio.</text>
+      </description>
+      <units name="dB"/>
+      <default value="-99"/>
+    </leaf>
+    <leaf name="snrMax">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Maximum signal to noise ratio.</text>
+      </description>
+      <units name="dB"/>
+      <default value="-99"/>
+    </leaf>
+    <leaf name="snrAvg">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Average signal to noise ratio.</text>
+      </description>
+      <units name="dB"/>
+      <default value="-99"/>
+    </leaf>
+    <leaf name="xpdMin">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Minimum cross polarization discrimination.</text>
+      </description>
+      <units name="dB"/>
+      <default value="-99"/>
+    </leaf>
+    <leaf name="xpdMax">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Maximum cross polarization discrimination.</text>
+      </description>
+      <units name="dB"/>
+      <default value="-99"/>
+    </leaf>
+    <leaf name="xpdAvg">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Average cross polarization discrimination.</text>
+      </description>
+      <units name="dB"/>
+      <default value="-99"/>
+    </leaf>
+    <leaf name="rxTempMin">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Lowest temperature of the radio frequency power amplifier in the receiver during the measurement interval.</text>
+      </description>
+      <units name="C"/>
+      <default value="-99"/>
+    </leaf>
+    <leaf name="rxTempMax">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Highest temperature of the radio frequency power amplifier in the receiver during the measurement interval.</text>
+      </description>
+      <units name="C"/>
+      <default value="-99"/>
+    </leaf>
+    <leaf name="rxTempAvg">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Average temperature of the radio frequency power amplifier in the receiver during the measurement interval.</text>
+      </description>
+      <units name="C"/>
+      <default value="-99"/>
+    </leaf>
+    <leaf name="defectBlocksSum">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Total number of blocks that were defect after receiving and could not be corrected by the FEC.</text>
+      </description>
+      <default value="-1"/>
+    </leaf>
+    <leaf name="timePeriod">
+      <type name="int64"/>
+      <config value="false"/>
+      <description>
+        <text>Total length of the measurement period.</text>
+      </description>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+  </grouping>
+  <list name="CoChannelGroup">
+    <key value="uuid"/>
+    <config value="true"/>
+    <ordered-by value="system"/>
+    <uses name="CoChannelGroup"/>
+  </list>
+  <grouping name="CoChannelGroup">
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:GlobalClass"/>
+    <leaf name="coSortOfChannelGroup">
+      <type name="string"/>
+      <description>
+        <text>Type of group of air interfaces with the same transmit and receive frequency. The values shall be chosen from the following _list:'XPIC', 'MIMO', 'AFR';</text>
+      </description>
+    </leaf>
+    <leaf-list name="airInterfaceList">
+      <description>
+        <text>List of air interfaces, which are part of the co-channel (XPIC, MIMO, AFR) group.</text>
+      </description>
+      <ordered-by value="system"/>
+      <type name="leafref">
+        <path value="/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid"/>
+      </type>
+    </leaf-list>
+  </grouping>
+  <list name="MW_AirInterfaceDiversity_Pac">
+    <description>
+      <text>LTP(MWS-CTP-xD)</text>
+    </description>
+    <key value="layerProtocol"/>
+    <config value="true"/>
+    <ordered-by value="system"/>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <leaf name="layerProtocol">
+      <type name="leafref">
+        <path value="/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:_lpList/CoreModel-CoreNetworkModule-ObjectClasses:uuid"/>
+      </type>
+      <description>
+        <text>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</text>
+      </description>
+    </leaf>
+    <container name="airInterfaceDiversityCapability">
+      <uses name="AirInterfaceDiversityCapability"/>
+    </container>
+    <container name="airInterfaceDiversityConfiguration">
+      <config value="true"/>
+      <uses name="AirInterfaceDiversityConfiguration"/>
+    </container>
+    <container name="airInterfaceDiversityStatus">
+      <uses name="AirInterfaceDiversityStatus"/>
+    </container>
+    <leaf-list name="airInterfaceDiversityCurrentProblemList">
+      <ordered-by value="system"/>
+      <type name="leafref">
+        <path value="/MicrowaveModel-ObjectClasses-MwConnection:AirInterfaceDiversityCurrentProblem/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
+      </type>
+    </leaf-list>
+    <leaf name="airInterfaceDiversityCurrentPerformance">
+      <type name="leafref">
+        <path value="/MicrowaveModel-ObjectClasses-MwConnection:AirInterfaceDiversityCurrentPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
+      </type>
+    </leaf>
+    <leaf-list name="airInterfaceDiversityHistoricalPerformanceList">
+      <ordered-by value="system"/>
+      <type name="leafref">
+        <path value="/MicrowaveModel-ObjectClasses-MwConnection:AirInterfaceDiversityHistoricalPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
+      </type>
+    </leaf-list>
+  </list>
+  <grouping name="AirInterfaceDiversityCapability">
+    <description>
+      <text>Describes the capabilities in implementing different types of air interface diversity.
+Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.</text>
+    </description>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <list name="availableKindsOfDiversity">
+      <description>
+        <text>Available types of diversity to be listed.</text>
+      </description>
+      <key value="diversityTypeId"/>
+      <ordered-by value="system"/>
+      <uses name="MicrowaveModel-TypeDefinitions:diversityType"/>
+    </list>
+    <leaf name="supportedAlarms">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>Available alarms to be listed.
+Mandatory:'airInterfaceDiversityConfigurationIsFaulty','airInterfaceDiversityConfigurationIsPartlyDown' and 'airInterfaceDiversityConfigurationIsDown'.
+Names are to be separated by commas.
+Further alarms might be added by the device.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="AirInterfaceDiversityConfiguration">
+    <description>
+      <text>Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.</text>
+    </description>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <container name="airInterfaceDiversity">
+      <description>
+        <text>Type of air interface diversity configured at the link.</text>
+      </description>
+      <config value="true"/>
+      <uses name="MicrowaveModel-TypeDefinitions:diversityType"/>
+    </container>
+    <leaf-list name="airInterfaceLtpList">
+      <description>
+        <text>_multiplicity:2-ThisAirInterfaceDiversity::AirInterfaceDiversityConfiguration::airInterfaceDiversity::diversityType::numberOfAirInterfacesMax</text>
+      </description>
+      <ordered-by value="system"/>
+      <type name="leafref">
+        <path value="/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid"/>
+      </type>
+      <min-elements value="2"/>
+    </leaf-list>
+    <list name="problemSeverityList">
+      <description>
+        <text>Severity of the problem to be configured.</text>
+      </description>
+      <key value="problemId"/>
+      <config value="true"/>
+      <ordered-by value="system"/>
+      <uses name="MicrowaveModel-TypeDefinitions:airInterfaceDiversityProblemType"/>
+      <min-elements value="3"/>
+    </list>
+  </grouping>
+  <grouping name="AirInterfaceDiversityStatus">
+    <description>
+      <text>Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.</text>
+    </description>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <leaf name="lastStatusChange">
+      <type name="CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime"/>
+      <config value="false"/>
+      <description>
+        <text>Time the Diversity Group entered its current operational status. 
+_format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' month; dd='01'..'31' day; hh='00'..'23' hour; mm='00'..'59' minute; ss='00'..'59' second; s='.0'..'.9'tenth of second (set to '.0' if EMS or NE cannot support this granularity); Z='Z' indicates UTC (rather than local time); {+|-}='+' or '-' delta from UTC; HH='00'..'23' time zone difference in hours; Mm='00'..'59' time zone difference in minutes.</text>
+      </description>
+      <default value="20101120140000.0Z+1"/>
+    </leaf>
+    <leaf name="airInterfaceDiversityStatus">
+      <type name="MicrowaveModel-TypeDefinitions:airInterfaceDiversityStatusType"/>
+      <config value="false"/>
+      <description>
+        <text>Status of the air interface bundle. </text>
+      </description>
+      <default value="groupDown"/>
+    </leaf>
+  </grouping>
+  <list name="AirInterfaceDiversityCurrentProblem">
+    <key value="uuid"/>
+    <config value="true"/>
+    <ordered-by value="system"/>
+    <uses name="AirInterfaceDiversityCurrentProblem"/>
+  </list>
+  <grouping name="AirInterfaceDiversityCurrentProblem">
+    <uses name="MwCurrentProblem"/>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <container name="problem">
+      <uses name="MicrowaveModel-TypeDefinitions:airInterfaceDiversityProblemType"/>
+    </container>
+  </grouping>
+  <list name="AirInterfaceDiversityCurrentPerformance">
+    <key value="uuid"/>
+    <config value="true"/>
+    <ordered-by value="system"/>
+    <uses name="AirInterfaceDiversityCurrentPerformance"/>
+  </list>
+  <grouping name="AirInterfaceDiversityCurrentPerformance">
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+  </grouping>
+  <list name="AirInterfaceDiversityHistoricalPerformance">
+    <key value="uuid"/>
+    <config value="true"/>
+    <ordered-by value="system"/>
+    <uses name="AirInterfaceDiversityHistoricalPerformance"/>
+  </list>
+  <grouping name="AirInterfaceDiversityHistoricalPerformance">
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+  </grouping>
+  <list name="MW_Structure_Pac">
+    <description>
+      <text>LTP(MWS-TTP)</text>
+    </description>
+    <key value="layerProtocol"/>
+    <config value="true"/>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <leaf name="layerProtocol">
+      <type name="leafref">
+        <path value="/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:_lpList/CoreModel-CoreNetworkModule-ObjectClasses:uuid"/>
+      </type>
+      <description>
+        <text>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</text>
+      </description>
+    </leaf>
+    <container name="structureCapability">
+      <uses name="StructureCapability"/>
+    </container>
+    <container name="structureConfiguration">
+      <config value="true"/>
+      <uses name="StructureConfiguration"/>
+    </container>
+    <container name="structureStatus">
+      <uses name="StructureStatus"/>
+    </container>
+    <leaf-list name="structureCurrentProblemList">
+      <ordered-by value="system"/>
+      <type name="leafref">
+        <path value="/MicrowaveModel-ObjectClasses-MwConnection:StructureCurrentProblem/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
+      </type>
+    </leaf-list>
+    <leaf name="structureCurrentPerformance">
+      <type name="leafref">
+        <path value="/MicrowaveModel-ObjectClasses-MwConnection:StructureCurrentPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
+      </type>
+    </leaf>
+    <leaf-list name="structureHistoricalPerformanceList">
+      <ordered-by value="system"/>
+      <type name="leafref">
+        <path value="/MicrowaveModel-ObjectClasses-MwConnection:StructureHistoricalPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
+      </type>
+    </leaf-list>
+    <container name="mw_airInterface_pac">
+      <config value="true"/>
+      <uses name="MW_AirInterface_Pac"/>
+    </container>
+  </list>
+  <grouping name="StructureCapability">
+    <description>
+      <text>Describes the logical structuring of the physical capacity provided by the microwave device.
+Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.</text>
+    </description>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <leaf name="structureID">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>Identifies the Structure for bundling and container.</text>
+      </description>
+    </leaf>
+    <leaf name="timeSlotCapacity">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Transport capacity of each time slot.</text>
+      </description>
+      <units name="kbit/s"/>
+      <default value="2048"/>
+    </leaf>
+    <leaf name="totalNumberOfTimeSlots">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Maximum number of time slots available with the current configuration of the air interface (means e.g. that AirInterface::AirInterfaceStatus::modulationCur is equal to AirInterface::AirInterfaceConfiguration::modulationMax).</text>
+      </description>
+    </leaf>
+    <leaf name="tdmTimeSlotsIsSupported">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>In case the microwave radio is capable of transporting TDM, this field shall contain an '1'.</text>
+      </description>
+    </leaf>
+    <leaf name="supportedAlarms">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>Available alarms to be listed.
+Mandatory:'structureConfigurationIsFaulty'.
+Names are to be separated by commas.
+Further alarms might be added by the device.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="StructureConfiguration">
+    <description>
+      <text>Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.</text>
+    </description>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <leaf name="tdmReservedNumberOfTimeSlots">
+      <type name="int32"/>
+      <description>
+        <text>Allows to configure the number of time slots reserved for TDM traffic.</text>
+      </description>
+      <default value="-1"/>
+    </leaf>
+    <list name="problemSeverityList">
+      <description>
+        <text>Severity of the type of problem to be configured.</text>
+      </description>
+      <key value="problemId"/>
+      <config value="true"/>
+      <ordered-by value="system"/>
+      <uses name="MicrowaveModel-TypeDefinitions:structureProblemType"/>
+      <min-elements value="1"/>
+    </list>
+  </grouping>
+  <grouping name="StructureStatus">
+    <description>
+      <text>Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.</text>
+    </description>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <list name="timeSlotStatusList">
+      <description>
+        <text>Condition of each time slot.
+_multiplicity:Structure::StructureCapability::totalNumberOfTimeSlots</text>
+      </description>
+      <key value="timeSlotStatusTypeId"/>
+      <ordered-by value="system"/>
+      <uses name="MicrowaveModel-TypeDefinitions:timeSlotStatusType"/>
+    </list>
+    <leaf name="lastStatusChange">
+      <type name="CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime"/>
+      <config value="false"/>
+      <description>
+        <text>Time and date of the last update of the status information.
+_format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' month; dd='01'..'31' day; hh='00'..'23' hour; mm='00'..'59' minute; ss='00'..'59' second; s='.0'..'.9'tenth of second (set to '.0' if EMS or NE cannot support this granularity); Z='Z' indicates UTC (rather than local time); {+|-}='+' or '-' delta from UTC; HH='00'..'23' time zone difference in hours; Mm='00'..'59' time zone difference in minutes.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <list name="StructureCurrentProblem">
+    <key value="uuid"/>
+    <config value="true"/>
+    <ordered-by value="system"/>
+    <uses name="StructureCurrentProblem"/>
+  </list>
+  <grouping name="StructureCurrentProblem">
+    <uses name="MwCurrentProblem"/>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <container name="problem">
+      <uses name="MicrowaveModel-TypeDefinitions:structureProblemType"/>
+    </container>
+  </grouping>
+  <list name="StructureCurrentPerformance">
+    <key value="uuid"/>
+    <config value="true"/>
+    <ordered-by value="system"/>
+    <uses name="StructureCurrentPerformance"/>
+  </list>
+  <grouping name="StructureCurrentPerformance">
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+  </grouping>
+  <list name="StructureHistoricalPerformance">
+    <key value="uuid"/>
+    <config value="true"/>
+    <ordered-by value="system"/>
+    <uses name="StructureHistoricalPerformance"/>
+  </list>
+  <grouping name="StructureHistoricalPerformance">
+    <description>
+      <text>Basic principles for defining the Defaults values of Performance attributes:
+- Every attribute shall have a Default value.
+- The Default value shall be inside the value range of the data type of the attribute.
+- The Default value shall be outside the range of reasonable values of the attribute.</text>
+    </description>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <leaf name="timePeriod">
+      <type name="int64"/>
+      <config value="false"/>
+      <description>
+        <text>Total length of the measurement period in seconds.
+Required data volume = 17bit</text>
+      </description>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+  </grouping>
+  <list name="MW_Container_Pac">
+    <description>
+      <text>LTP(Client)</text>
+    </description>
+    <key value="layerProtocol"/>
+    <config value="true"/>
+    <ordered-by value="system"/>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <leaf name="layerProtocol">
+      <type name="leafref">
+        <path value="/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:_lpList/CoreModel-CoreNetworkModule-ObjectClasses:uuid"/>
+      </type>
+      <description>
+        <text>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</text>
+      </description>
+    </leaf>
+    <container name="containerCapability">
+      <uses name="ContainerCapability"/>
+    </container>
+    <container name="containerConfiguration">
+      <config value="true"/>
+      <uses name="ContainerConfiguration"/>
+    </container>
+    <container name="containerStatus">
+      <uses name="ContainerStatus"/>
+    </container>
+    <leaf-list name="containerCurrentProblemList">
+      <ordered-by value="system"/>
+      <type name="leafref">
+        <path value="/MicrowaveModel-ObjectClasses-MwConnection:ContainerCurrentProblem/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
+      </type>
+    </leaf-list>
+    <leaf name="containerCurrentPerformance">
+      <type name="leafref">
+        <path value="/MicrowaveModel-ObjectClasses-MwConnection:ContainerCurrentPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
+      </type>
+    </leaf>
+    <leaf-list name="containerHistoricalPerformanceList">
+      <ordered-by value="system"/>
+      <type name="leafref">
+        <path value="/MicrowaveModel-ObjectClasses-MwConnection:ContainerHistoricalPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
+      </type>
+    </leaf-list>
+  </list>
+  <grouping name="ContainerCapability">
+    <description>
+      <text>Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.</text>
+    </description>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <leaf name="containerID">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>ContainterID in Netconf must be the same as EthernetPortID in OpenFlow so a connection can be made between the two items, which are existing separately in the controller.</text>
+      </description>
+    </leaf>
+    <list name="availableKindsOfContainerList">
+      <description>
+        <text>Available container types to be listed.</text>
+      </description>
+      <key value="containerTypeId"/>
+      <ordered-by value="system"/>
+      <uses name="MicrowaveModel-TypeDefinitions:containerType"/>
+      <min-elements value="1"/>
+    </list>
+    <leaf name="priorityClassesIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Shall be marked '1', if the device is capable of assigning different priorities to containers and adapting the sequence, in which time slots are being dropped in case of decreasing capacity of the air interface.</text>
+      </description>
+    </leaf>
+    <leaf name="encryptionIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Shall be marked '1', if payload encryption is available.</text>
+      </description>
+    </leaf>
+    <leaf name="packetCompressionIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>In case packet compression can be activated, but not configured to a certain type, packetCompressionAvail shall be set to '1', but none of the type specific booleans.</text>
+      </description>
+    </leaf>
+    <leaf name="layer2CompressionIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Packet compression on layer 2 available at the device.</text>
+      </description>
+    </leaf>
+    <leaf name="vlanCompressionIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Packet compression on VLAN layer available at the device.</text>
+      </description>
+    </leaf>
+    <leaf name="qInQCompressionIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Packet compression on layer of a second VLAN available at the device.</text>
+      </description>
+    </leaf>
+    <leaf name="mplsCompressionIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Packet compression on mpls layer available at the device.</text>
+      </description>
+    </leaf>
+    <leaf name="l2vpnCompressionIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Packet compression on level of layer 2 VPN available at the device.</text>
+      </description>
+    </leaf>
+    <leaf name="ipv4CompressionIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Packet compression on layer 3 for IPv4 available at the device.</text>
+      </description>
+    </leaf>
+    <leaf name="ipv6CompressionIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Packet compression on layer 3 for IPv6 available at the device.</text>
+      </description>
+    </leaf>
+    <leaf name="l3vpnCompressionIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Packet compression on level of layer 3 VPN available at the device.</text>
+      </description>
+    </leaf>
+    <leaf name="layer4CompressionIsAvail">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Packet compression on layer 4 (TCP and UDP header) available at the device.</text>
+      </description>
+    </leaf>
+    <leaf name="supportedAlarms">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>Available alarms to be listed.
+Mandatory:'containerConfigurationIsFaulty','framingIsFaulty' and 'containerIsDown'.
+Names are to be separated by commas.
+Further alarms might be added by the device.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="ContainerConfiguration">
+    <description>
+      <text>Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.</text>
+    </description>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <container name="container">
+      <description>
+        <text>Defines the data type of the container offered to client layers.</text>
+      </description>
+      <config value="true"/>
+      <uses name="MicrowaveModel-TypeDefinitions:containerType"/>
+    </container>
+    <leaf name="priorityClass">
+      <type name="int32"/>
+      <description>
+        <text>0 = lowest and 7 = highest Priority. Any value apart the Default is only effective if the device is capable of adapting the sequence, in which time slots are being dropped in case of decreasing capacity of the air interface.</text>
+      </description>
+    </leaf>
+    <list name="timeSlotIDList">
+      <description>
+        <text>Lists the time slots used for transporting this container. In case ThisContainer::ContainerConfiguration::container::containerType::bundlingIsAvail==0, structureId must be equal for all aiTimeSlots in the list.
+_multiplicity:ThisContainer::ContainerConfiguration::container::containerType::numberOfTimeSlotsRequired</text>
+      </description>
+      <key value="structureId timeSlotId"/>
+      <config value="true"/>
+      <ordered-by value="system"/>
+      <uses name="MicrowaveModel-TypeDefinitions:timeSlotIdType"/>
+      <min-elements value="1"/>
+    </list>
+    <leaf name="encryptionIsOn">
+      <type name="boolean"/>
+      <description>
+        <text>Activates encryption of the payload.</text>
+      </description>
+    </leaf>
+    <leaf name="packetCompressionIsOn">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>In case packet compression is activated, but no type is activated, it is assumed that the device choses an optimum.</text>
+      </description>
+    </leaf>
+    <leaf name="layer2CompressionIsOn">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Packet compression on layer 2 configured at the device.</text>
+      </description>
+    </leaf>
+    <leaf name="vlanCompressionIsOn">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Packet compression on VLAN layer configured at the device.</text>
+      </description>
+    </leaf>
+    <leaf name="qInQCompressionIsOn">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Packet compression on layer of a second VLAN configured at the device.</text>
+      </description>
+    </leaf>
+    <leaf name="mplsCompressionIsOn">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Packet compression on MPLS layer configured at the device.</text>
+      </description>
+    </leaf>
+    <leaf name="l2vpnCompressionIsOn">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Packet compression on level of layer 2 VPN configured at the device.</text>
+      </description>
+    </leaf>
+    <leaf name="ipv4CompressionIsOn">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Packet compression on layer 3 for IPv4 configured at the device.</text>
+      </description>
+    </leaf>
+    <leaf name="ipv6CompressionIsOn">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Packet compression on layer 3 for IPv6 configured at the device.</text>
+      </description>
+    </leaf>
+    <leaf name="l3vpnCompressionIsOn">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Packet compression on level of layer 3 VPN configured at the device.</text>
+      </description>
+    </leaf>
+    <leaf name="layer4CompressionIsOn">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Packet compression on layer 4 (TCP and UDP header) configured at the device.</text>
+      </description>
+    </leaf>
+    <list name="problemSeverityList">
+      <description>
+        <text>Severity of the problem to be configured.</text>
+      </description>
+      <key value="problemId"/>
+      <config value="true"/>
+      <ordered-by value="system"/>
+      <uses name="MicrowaveModel-TypeDefinitions:containerProblemType"/>
+      <min-elements value="3"/>
+    </list>
+  </grouping>
+  <grouping name="ContainerStatus">
+    <description>
+      <text>Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.</text>
+    </description>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <leaf name="lastStatusChange">
+      <type name="CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime"/>
+      <config value="false"/>
+      <description>
+        <text>Time the Container entered its current operational status. 
+_format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' month; dd='01'..'31' day; hh='00'..'23' hour; mm='00'..'59' minute; ss='00'..'59' second; s='.0'..'.9'tenth of second (set to '.0' if EMS or NE cannot support this granularity); Z='Z' indicates UTC (rather than local time); {+|-}='+' or '-' delta from UTC; HH='00'..'23' time zone difference in hours; Mm='00'..'59' time zone difference in minutes.</text>
+      </description>
+      <default value="20101120140000.0Z+1"/>
+    </leaf>
+    <leaf name="dropOrderRank">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>dropOrderRank as inherited from the associated Structure::StructureStatus::timeSlotStatusType::dropOrderRank. If several time slots are associated, the lowest value shall be taken.</text>
+      </description>
+      <default value="-1"/>
+    </leaf>
+  </grouping>
+  <list name="ContainerCurrentProblem">
+    <key value="uuid"/>
+    <config value="true"/>
+    <ordered-by value="system"/>
+    <uses name="ContainerCurrentProblem"/>
+  </list>
+  <grouping name="ContainerCurrentProblem">
+    <uses name="MwCurrentProblem"/>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <container name="problem">
+      <uses name="MicrowaveModel-TypeDefinitions:containerProblemType"/>
+    </container>
+  </grouping>
+  <list name="ContainerCurrentPerformance">
+    <key value="uuid"/>
+    <config value="true"/>
+    <ordered-by value="system"/>
+    <uses name="ContainerCurrentPerformance"/>
+  </list>
+  <grouping name="ContainerCurrentPerformance">
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+  </grouping>
+  <list name="ContainerHistoricalPerformance">
+    <key value="uuid"/>
+    <config value="true"/>
+    <ordered-by value="system"/>
+    <uses name="ContainerHistoricalPerformance"/>
+  </list>
+  <grouping name="ContainerHistoricalPerformance">
+    <description>
+      <text>Basic principles for defining the Defaults values of Performance attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute.</text>
+    </description>
+    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
+    <leaf name="txEthernetBytesMaxS">
+      <type name="int64"/>
+      <config value="false"/>
+      <description>
+        <text>Counts the number of Bytes of Ethernet traffic (before header compression) transmitted within a second and keeps the highest value within the measurement period. Field to be left blank for all types of TDM containers.
+Required data volume = 31bit</text>
+      </description>
+      <units name="Bytes/s"/>
+      <default value="1"/>
+    </leaf>
+    <leaf name="txEthernetBytesMaxM">
+      <type name="int64"/>
+      <config value="false"/>
+      <description>
+        <text>Counts the number of Bytes of Ethernet traffic (before header compression) transmitted within a minute and keeps the highest value with in the measurement period. Field to be left blank for all types of TDM containers.
+Required data volume = 37bit</text>
+      </description>
+      <units name="Bytes/min"/>
+      <default value="1"/>
+    </leaf>
+    <leaf name="txEthernetBytesSum">
+      <type name="int64"/>
+      <config value="false"/>
+      <description>
+        <text>Total number of Bytes of Ethernet traffic (before header compression) transmitted (in direction out of the device) during the measurement period. Field to be left blank for all types of TDM containers.
+Required data volume = 47bit</text>
+      </description>
+      <units name="Bytes"/>
+      <default value="1"/>
+    </leaf>
+    <leaf name="timePeriod">
+      <type name="int64"/>
+      <config value="false"/>
+      <description>
+        <text>Total length of the measurement period in seconds.
+Required data volume = 17bit</text>
+      </description>
+      <units name="s"/>
+      <default value="-1"/>
+    </leaf>
+  </grouping>
+  <list name="MwCurrentProblem">
+    <key value="sequenceNumber"/>
+    <config value="true"/>
+    <ordered-by value="system"/>
+    <uses name="MwCurrentProblem"/>
+  </list>
+  <grouping name="MwCurrentProblem">
+    <description>
+      <text>According to ITU-T G.874.1?</text>
+    </description>
+    <leaf name="sequenceNumber">
+      <type name="int64"/>
+      <description>
+        <text>Unique sequence number of the current problem object.</text>
+      </description>
+    </leaf>
+    <leaf name="timeStamp">
+      <type name="CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime"/>
+    </leaf>
+    <leaf name="severity">
+      <type name="MicrowaveModel-TypeDefinitions:severityType"/>
+      <config value="false"/>
+    </leaf>
+  </grouping>
+  <container name="HistoryData">
+    <description>
+      <text>ITU-T G.822
+</text>
+    </description>
+    <config value="true"/>
+    <leaf name="historyDataId">
+      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
+    </leaf>
+    <leaf name="periodEndTime">
+      <type name="CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime"/>
+    </leaf>
+    <leaf name="granularityPeriod">
+      <type name="int64"/>
+    </leaf>
+    <list name="q_822_numsuppressedintervalspkg">
+      <key value="numSuppressedIntervals"/>
+      <config value="true"/>
+      <ordered-by value="system"/>
+      <uses name="CoreModel-CoreNetworkModule-TypeDefinitions:Q_822_numSuppressedIntervalsPkg"/>
+    </list>
+    <list name="q_822_historydatameasurementlistpkg">
+      <key value="cTPId"/>
+      <config value="true"/>
+      <ordered-by value="system"/>
+      <uses name="CoreModel-CoreNetworkModule-TypeDefinitions:Q_822_historyDataMeasurementListPkg"/>
+    </list>
+    <list name="q_822_historydatasuspectintervalflagpkg">
+      <key value="cTPId"/>
+      <config value="true"/>
+      <ordered-by value="system"/>
+      <uses name="CoreModel-CoreNetworkModule-TypeDefinitions:Q_822_historyDataSuspectIntervalFlagPkg"/>
+    </list>
+    <list name="q_822_observedmanagedobjectpkg">
+      <key value="observedObjectClass"/>
+      <config value="true"/>
+      <ordered-by value="system"/>
+      <uses name="CoreModel-CoreNetworkModule-TypeDefinitions:Q_822_observedManagedObjectPkg"/>
+    </list>
+    <list name="q_822_objectdeletenotificationpkg">
+      <key value="cTPId"/>
+      <config value="true"/>
+      <ordered-by value="system"/>
+      <uses name="CoreModel-CoreNetworkModule-TypeDefinitions:Q_822_objectDeleteNotificationPkg"/>
+    </list>
+  </container>
+</module>
