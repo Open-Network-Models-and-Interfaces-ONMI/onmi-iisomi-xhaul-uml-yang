@@ -908,10 +908,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
                 path '/MicrowaveModel-ObjectClasses-MwConnection:StructureHistoricalPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid';
             }
         }
-        container mw_airInterface_pac {
-            config true;
-            uses MW_AirInterface_Pac;
-        }
     }
     grouping StructureCapability {
         description "Describes the logical structuring of the physical capacity provided by the microwave device.
