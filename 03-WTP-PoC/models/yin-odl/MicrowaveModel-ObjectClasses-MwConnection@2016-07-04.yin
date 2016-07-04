@@ -39,7 +39,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-07-01">
+  <revision date="2016-07-04">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -47,10 +47,12 @@
       <text>ONF TR xyz: A YANG Data Model for Microwave Transport Networks.</text>
     </reference>
   </revision>
-  <grouping name="MW_AirInterface_Pac">
+  <list name="MW_AirInterface_Pac">
     <description>
       <text>LTP(MWPS-TTP)</text>
     </description>
+    <key value="layerProtocol"/>
+    <config value="true"/>
     <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <leaf name="layerProtocol">
       <type name="leafref">
@@ -87,10 +89,10 @@
         <path value="/MicrowaveModel-ObjectClasses-MwConnection:AirInterfaceHistoricalPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
       </type>
     </leaf-list>
-  </grouping>
+  </list>
   <grouping name="AirInterfaceCapability">
     <description>
-      <text>Describes the 'analog' capabilities of modem and transmitter of the microwave device. Value ranges of attributes are not independently (e.g. min. and max. transmit power depends on modulation). Legal combinations of values are expressed in scripts.
+      <text>Describes the 'analog' capabilities of modem and transmitter of the microwave device. Value ranges of attributes are not independently (e.g. min. and max. transmit power depends on modulation). Legal combinations of values are expressed in transmissionModeTypes.
 Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.</text>
     </description>
     <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
@@ -175,10 +177,9 @@ Basic principles for defining the Default values of Capability attributes: 1)NO 
       <type name="int32"/>
       <config value="false"/>
       <description>
-        <text>Extent of the ATPC range. The value should be set to '0' in case ATPC feature bit is '0'.</text>
+        <text>Extent of the ATPC range.</text>
       </description>
       <units name="dB"/>
-      <default value="1"/>
     </leaf>
     <leaf name="loopBackIsAvail">
       <type name="boolean"/>
@@ -322,14 +323,6 @@ The value zero might be used to make the microwave to disable the link ID check.
       <type name="boolean"/>
       <description>
         <text>Activation of Adjacent Link Interference Cancelation (ALIC) shall be expressed as an '1'.</text>
-      </description>
-    </leaf>
-    <leaf name="coChannelGroup">
-      <type name="leafref">
-        <path value="/MicrowaveModel-ObjectClasses-MwConnection:CoChannelGroup/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
-      </type>
-      <description>
-        <text>Points to group of co-channel (XPIC, MIMO, AFR) air interfaces. The list of CoChannelGroups would always be empty for devices not capable of any sort of co-channel group.</text>
       </description>
     </leaf>
     <leaf name="atpcIsOn">
@@ -478,11 +471,11 @@ Basic principles for defining the Defaults values of Status attributes: 1)Every 
       <units name="dB"/>
       <default value="-99"/>
     </leaf>
-    <leaf name="rxTempCur">
+    <leaf name="rfTempCur">
       <type name="int32"/>
       <config value="false"/>
       <description>
-        <text>Current temperature of the radio frequency power amplifier in the receiver. (If the temperature of the power amplifier in the receiver is not measured, the temperature inside the radio is also fine.)</text>
+        <text>Current temperature of the radio module inside the outdoor unit.</text>
       </description>
       <units name="C"/>
       <default value="-99"/>
@@ -854,29 +847,29 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <units name="dB"/>
       <default value="-99"/>
     </leaf>
-    <leaf name="rxTempMin">
+    <leaf name="rfTempMin">
       <type name="int32"/>
       <config value="false"/>
       <description>
-        <text>Lowest temperature of the radio frequency power amplifier in the receiver during the measurement interval.</text>
+        <text>Lowest temperature of the radio module inside the outdoor unit.</text>
       </description>
       <units name="C"/>
       <default value="-99"/>
     </leaf>
-    <leaf name="rxTempMax">
+    <leaf name="rfTempMax">
       <type name="int32"/>
       <config value="false"/>
       <description>
-        <text>Highest temperature of the radio frequency power amplifier in the receiver during the measurement interval.</text>
+        <text>Highest temperature of the radio module inside the outdoor unit.</text>
       </description>
       <units name="C"/>
       <default value="-99"/>
     </leaf>
-    <leaf name="rxTempAvg">
+    <leaf name="rfTempAvg">
       <type name="int32"/>
       <config value="false"/>
       <description>
-        <text>Average temperature of the radio frequency power amplifier in the receiver during the measurement interval.</text>
+        <text>Average temperature of the radio module inside the outdoor unit.</text>
       </description>
       <units name="C"/>
       <default value="-99"/>
@@ -902,17 +895,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
   <list name="CoChannelGroup">
     <key value="uuid"/>
     <config value="true"/>
-    <ordered-by value="system"/>
-    <uses name="CoChannelGroup"/>
-  </list>
-  <grouping name="CoChannelGroup">
     <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:GlobalClass"/>
-    <leaf name="coSortOfChannelGroup">
-      <type name="string"/>
-      <description>
-        <text>Type of group of air interfaces with the same transmit and receive frequency. The values shall be chosen from the following _list:'XPIC', 'MIMO', 'AFR';</text>
-      </description>
-    </leaf>
     <leaf-list name="airInterfaceList">
       <description>
         <text>List of air interfaces, which are part of the co-channel (XPIC, MIMO, AFR) group.</text>
@@ -922,7 +905,13 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
         <path value="/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid"/>
       </type>
     </leaf-list>
-  </grouping>
+    <leaf name="coSortOfChannelGroup">
+      <type name="string"/>
+      <description>
+        <text>Type of group of air interfaces with the same transmit and receive frequency. The values shall be chosen from the following _list:'XPIC', 'MIMO', 'AFR';</text>
+      </description>
+    </leaf>
+  </list>
   <list name="MW_AirInterfaceDiversity_Pac">
     <description>
       <text>LTP(MWS-CTP-xD)</text>
@@ -1121,10 +1110,6 @@ _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' m
         <path value="/MicrowaveModel-ObjectClasses-MwConnection:StructureHistoricalPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
       </type>
     </leaf-list>
-    <container name="mw_airInterface_pac">
-      <config value="true"/>
-      <uses name="MW_AirInterface_Pac"/>
-    </container>
   </list>
   <grouping name="StructureCapability">
     <description>

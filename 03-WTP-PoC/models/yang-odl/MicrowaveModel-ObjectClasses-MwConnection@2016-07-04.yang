@@ -33,15 +33,17 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-01 {
+    revision 2016-07-04 {
         description 
             "Initial revision."; 
         reference 
             "ONF TR xyz: A YANG Data Model for Microwave Transport Networks."; 
     }
 
-    grouping MW_AirInterface_Pac {
+    list MW_AirInterface_Pac {
         description "LTP(MWPS-TTP)";
+        key 'layerProtocol';
+        config true;
         uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf layerProtocol {
             type leafref {
@@ -78,7 +80,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         }
     }
     grouping AirInterfaceCapability {
-        description "Describes the 'analog' capabilities of modem and transmitter of the microwave device. Value ranges of attributes are not independently (e.g. min. and max. transmit power depends on modulation). Legal combinations of values are expressed in scripts.
+        description "Describes the 'analog' capabilities of modem and transmitter of the microwave device. Value ranges of attributes are not independently (e.g. min. and max. transmit power depends on modulation). Legal combinations of values are expressed in transmissionModeTypes.
             Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.";
         uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf typeOfEquipment {
@@ -141,9 +143,8 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         leaf atpcRange {
             type int32;
             config false;
-            description "Extent of the ATPC range. The value should be set to '0' in case ATPC feature bit is '0'.";
+            description "Extent of the ATPC range.";
             units "dB";
-            default 1;
         }
         leaf loopBackIsAvail {
             type boolean;
@@ -246,12 +247,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         leaf alicIsOn {
             type boolean;
             description "Activation of Adjacent Link Interference Cancelation (ALIC) shall be expressed as an '1'.";
-        }
-        leaf coChannelGroup {
-            type leafref {
-                path '/MicrowaveModel-ObjectClasses-MwConnection:CoChannelGroup/MicrowaveModel-ObjectClasses-MwConnection:uuid';
-            }
-            description "Points to group of co-channel (XPIC, MIMO, AFR) air interfaces. The list of CoChannelGroups would always be empty for devices not capable of any sort of co-channel group.";
         }
         leaf atpcIsOn {
             type boolean;
@@ -363,10 +358,10 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             units "dB";
             default -99;
         }
-        leaf rxTempCur {
+        leaf rfTempCur {
             type int32;
             config false;
-            description "Current temperature of the radio frequency power amplifier in the receiver. (If the temperature of the power amplifier in the receiver is not measured, the temperature inside the radio is also fine.)";
+            description "Current temperature of the radio module inside the outdoor unit.";
             units "C";
             default -99;
         }
@@ -683,24 +678,24 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             units "dB";
             default -99;
         }
-        leaf rxTempMin {
+        leaf rfTempMin {
             type int32;
             config false;
-            description "Lowest temperature of the radio frequency power amplifier in the receiver during the measurement interval.";
+            description "Lowest temperature of the radio module inside the outdoor unit.";
             units "C";
             default -99;
         }
-        leaf rxTempMax {
+        leaf rfTempMax {
             type int32;
             config false;
-            description "Highest temperature of the radio frequency power amplifier in the receiver during the measurement interval.";
+            description "Highest temperature of the radio module inside the outdoor unit.";
             units "C";
             default -99;
         }
-        leaf rxTempAvg {
+        leaf rfTempAvg {
             type int32;
             config false;
-            description "Average temperature of the radio frequency power amplifier in the receiver during the measurement interval.";
+            description "Average temperature of the radio module inside the outdoor unit.";
             units "C";
             default -99;
         }
@@ -721,21 +716,17 @@ module MicrowaveModel-ObjectClasses-MwConnection {
     list CoChannelGroup {
         key 'uuid';
         config true;
-        ordered-by system;
-        uses CoChannelGroup;
-    }
-    grouping CoChannelGroup {
         uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:GlobalClass;
-        leaf coSortOfChannelGroup {
-            type string;
-            description "Type of group of air interfaces with the same transmit and receive frequency. The values shall be chosen from the following _list:'XPIC', 'MIMO', 'AFR';";
-        }
         leaf-list airInterfaceList {
             description "List of air interfaces, which are part of the co-channel (XPIC, MIMO, AFR) group.";
             ordered-by system;
             type leafref {
                 path '/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid';
             }
+        }
+        leaf coSortOfChannelGroup {
+            type string;
+            description "Type of group of air interfaces with the same transmit and receive frequency. The values shall be chosen from the following _list:'XPIC', 'MIMO', 'AFR';";
         }
     }
     list MW_AirInterfaceDiversity_Pac {
@@ -907,10 +898,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             type leafref {
                 path '/MicrowaveModel-ObjectClasses-MwConnection:StructureHistoricalPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid';
             }
-        }
-        container mw_airInterface_pac {
-            config true;
-            uses MW_AirInterface_Pac;
         }
     }
     grouping StructureCapability {
