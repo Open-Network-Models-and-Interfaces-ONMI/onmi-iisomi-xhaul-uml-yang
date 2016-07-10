@@ -18,41 +18,13 @@ module CoreModel-CoreNetworkModule-TypeDefinitions {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-01 {
+    revision 2016-07-10 {
         description 
             "Initial revision."; 
         reference 
             "ONF TR xyz: A YANG Data Model for Microwave Transport Networks."; 
     }
 
-    grouping Q_822_numSuppressedIntervalsPkg {
-        leaf numSuppressedIntervals {
-            type int64;
-        }
-    }
-    grouping Q_822_historyDataMeasurementListPkg {
-        leaf cTPId {
-            type string;
-        }
-    }
-    grouping Q_822_historyDataSuspectIntervalFlagPkg {
-        leaf cTPId {
-            type string;
-        }
-    }
-    grouping Q_822_observedManagedObjectPkg {
-        leaf observedObjectClass {
-            type string;
-        }
-        leaf observedObjectInstance {
-            type string;
-        }
-    }
-    grouping Q_822_objectDeleteNotificationPkg {
-        leaf cTPId {
-            type string;
-        }
-    }
     typedef OperType {
         description "The operation type associated with the protection mechanism (either non-revertive or revertive).";
         type enumeration {
@@ -61,11 +33,7 @@ module CoreModel-CoreNetworkModule-TypeDefinitions {
         }
     }
     typedef LayerProtocolName {
-        description "Provides a controlled list of layer protocol names and indicates the naming authority.
-            Note that it is expected that attributes will be added to this structure to convey the naming authority name, the name of the layer protocol using a human readable string and any particular standard reference.
-            Layer protocol names include:
-            -    Layer 1 (L1): OTU, ODU
-            -    Layer 2 (L2): Carrier Grade Ethernet (ETY, ETH), MPLS-TP (MT)
+        description "Provides a controlled list of layer protocol names and indicates the naming authority.Note that it is expected that attributes will be added to this structure to convey the naming authority name, the name of the layer protocol using a human readable string and any particular standard reference.Layer protocol names include:-    Layer 1 (L1): OTU, ODU-    Layer 2 (L2): Carrier Grade Ethernet (ETY, ETH), MPLS-TP (MT)
             lifecycle:Preliminary";
         type string;
     }
@@ -118,8 +86,7 @@ module CoreModel-CoreNetworkModule-TypeDefinitions {
         type string;
     }
     typedef TerminationState {
-        description "Provides support for the range of behaviours and specific states that an LP can take with respect to termination of the signal.
-            Indicates to what degree the LayerTermination is terminated.
+        description "Provides support for the range of behaviours and specific states that an LP can take with respect to termination of the signal.Indicates to what degree the LayerTermination is terminated.
             lifecycle:Experimental";
         type enumeration {
             enum LP_CAN_NEVER_TERMINATE;

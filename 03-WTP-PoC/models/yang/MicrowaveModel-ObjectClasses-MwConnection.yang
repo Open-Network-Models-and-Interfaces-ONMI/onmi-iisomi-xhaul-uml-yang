@@ -14,8 +14,8 @@ module MicrowaveModel-ObjectClasses-MwConnection {
     import CoreModel-CoreFoundationModule-TypeDefinitions {
         prefix CoreModel-CoreFoundationModule-TypeDefinitions;
     }
-    import CoreModel-CoreNetworkModule-TypeDefinitions {
-        prefix CoreModel-CoreNetworkModule-TypeDefinitions;
+    import G_874_1_model-Object_Classes {
+        prefix G_874_1_model-Object_Classes;
     }
 
     organization 
@@ -33,7 +33,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-04 {
+    revision 2016-07-10 {
         description 
             "Initial revision."; 
         reference 
@@ -433,6 +433,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         uses AirInterfaceCurrentPerformance;
     }
     grouping AirInterfaceCurrentPerformance {
+        uses G_874_1_model-Object_Classes:OTN_CurrentData;
         uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
     }
     list AirInterfaceHistoricalPerformance {
@@ -444,6 +445,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
     grouping AirInterfaceHistoricalPerformance {
         description "Consolidated performance informantion of the air interface.
             Basic principles for defining the Defaults values of Performance attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute.";
+        uses G_874_1_model-Object_Classes:OTN_HistoryData;
         uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf es {
             type int64;
@@ -850,6 +852,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         uses AirInterfaceDiversityCurrentPerformance;
     }
     grouping AirInterfaceDiversityCurrentPerformance {
+        uses G_874_1_model-Object_Classes:OTN_CurrentData;
         uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
     }
     list AirInterfaceDiversityHistoricalPerformance {
@@ -859,6 +862,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         uses AirInterfaceDiversityHistoricalPerformance;
     }
     grouping AirInterfaceDiversityHistoricalPerformance {
+        uses G_874_1_model-Object_Classes:OTN_HistoryData;
         uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
     }
     list MW_Structure_Pac {
@@ -989,6 +993,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         uses StructureCurrentPerformance;
     }
     grouping StructureCurrentPerformance {
+        uses G_874_1_model-Object_Classes:OTN_CurrentData;
         uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
     }
     list StructureHistoricalPerformance {
@@ -1002,6 +1007,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             - Every attribute shall have a Default value.
             - The Default value shall be inside the value range of the data type of the attribute.
             - The Default value shall be outside the range of reasonable values of the attribute.";
+        uses G_874_1_model-Object_Classes:OTN_HistoryData;
         uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf timePeriod {
             type int64;
@@ -1257,6 +1263,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         uses ContainerCurrentPerformance;
     }
     grouping ContainerCurrentPerformance {
+        uses G_874_1_model-Object_Classes:OTN_CurrentData;
         uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
     }
     list ContainerHistoricalPerformance {
@@ -1267,6 +1274,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
     }
     grouping ContainerHistoricalPerformance {
         description "Basic principles for defining the Defaults values of Performance attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute.";
+        uses G_874_1_model-Object_Classes:OTN_HistoryData;
         uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf txEthernetBytesMaxS {
             type int64;
@@ -1319,50 +1327,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         leaf severity {
             type MicrowaveModel-TypeDefinitions:severityType;
             config false;
-        }
-    }
-    container HistoryData {
-        description "ITU-T G.822
-            ";
-        config true;
-        leaf historyDataId {
-            type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
-        }
-        leaf periodEndTime {
-            type CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime;
-        }
-        leaf granularityPeriod {
-            type int64;
-        }
-        list q_822_numsuppressedintervalspkg {
-            key 'numSuppressedIntervals';
-            config true;
-            ordered-by system;
-            uses CoreModel-CoreNetworkModule-TypeDefinitions:Q_822_numSuppressedIntervalsPkg;
-        }
-        list q_822_historydatameasurementlistpkg {
-            key 'cTPId';
-            config true;
-            ordered-by system;
-            uses CoreModel-CoreNetworkModule-TypeDefinitions:Q_822_historyDataMeasurementListPkg;
-        }
-        list q_822_historydatasuspectintervalflagpkg {
-            key 'cTPId';
-            config true;
-            ordered-by system;
-            uses CoreModel-CoreNetworkModule-TypeDefinitions:Q_822_historyDataSuspectIntervalFlagPkg;
-        }
-        list q_822_observedmanagedobjectpkg {
-            key 'observedObjectClass';
-            config true;
-            ordered-by system;
-            uses CoreModel-CoreNetworkModule-TypeDefinitions:Q_822_observedManagedObjectPkg;
-        }
-        list q_822_objectdeletenotificationpkg {
-            key 'cTPId';
-            config true;
-            ordered-by system;
-            uses CoreModel-CoreNetworkModule-TypeDefinitions:Q_822_objectDeleteNotificationPkg;
         }
     }
 }
