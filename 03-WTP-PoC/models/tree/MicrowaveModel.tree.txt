@@ -1,0 +1,985 @@
+module: CoreModel-CoreNetworkModule-ObjectClasses
+   +--rw ForwardingConstruct* [uuid]
+   |  +--rw nameList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw labelList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw extensionList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--ro operationalState?        OperationalState
+   |  +--rw administrativeControl?   AdministrativeControl
+   |  +--ro adminsatratveState?      AdministrativeState
+   |  +--rw lifecycleState?          LifecycleState
+   |  +--rw localIdList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw uuid                     UniversalId
+   |  +--rw layerProtocolName?       CoreModel-CoreNetworkModule-TypeDefinitions:LayerProtocolName
+   |  +--rw _lowerLevelFcRefList*    -> /ForwardingConstruct/uuid
+   |  +--rw _fcPortList* [uuid]
+   |  |  +--rw nameList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw labelList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw extensionList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--ro operationalState?        OperationalState
+   |  |  +--rw administrativeControl?   AdministrativeControl
+   |  |  +--ro adminsatratveState?      AdministrativeState
+   |  |  +--rw lifecycleState?          LifecycleState
+   |  |  +--rw localIdList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw uuid                     UniversalId
+   |  |  +--rw _ltpRefList*             -> /NetworkElement/_ltpRefList/uuid
+   |  |  +--rw role?                    CoreModel-CoreNetworkModule-TypeDefinitions:PortRole
+   |  |  +--rw fcPortDirection?         CoreModel-CoreNetworkModule-TypeDefinitions:PortDirection
+   |  +--rw _fcSwitchList* [uuid]
+   |  |  +--rw nameList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw labelList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw extensionList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--ro operationalState?         OperationalState
+   |  |  +--rw administrativeControl?    AdministrativeControl
+   |  |  +--ro adminsatratveState?       AdministrativeState
+   |  |  +--rw lifecycleState?           LifecycleState
+   |  |  +--rw localIdList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw uuid                      UniversalId
+   |  |  +--rw holdOffTime?              int64
+   |  |  +--rw waitToRestoreTime?        int64
+   |  |  +--rw protType?                 CoreModel-CoreNetworkModule-TypeDefinitions:ProtectionType
+   |  |  +--rw operType?                 CoreModel-CoreNetworkModule-TypeDefinitions:OperType
+   |  |  +--rw _selectedFcPortRefList*   -> /ForwardingConstruct/_fcPortList/uuid
+   |  +--rw forwardingDirection?     CoreModel-CoreNetworkModule-TypeDefinitions:ForwardingDirection
+   +--rw NetworkElement
+      +--rw nameList* [valueName]
+      |  +--rw valueName    string
+      |  +--rw value?       string
+      +--rw labelList* [valueName]
+      |  +--rw valueName    string
+      |  +--rw value?       string
+      +--rw extensionList* [valueName]
+      |  +--rw valueName    string
+      |  +--rw value?       string
+      +--ro operationalState?        OperationalState
+      +--rw administrativeControl?   AdministrativeControl
+      +--ro adminsatratveState?      AdministrativeState
+      +--rw lifecycleState?          LifecycleState
+      +--rw localIdList* [valueName]
+      |  +--rw valueName    string
+      |  +--rw value?       string
+      +--rw uuid?                    UniversalId
+      +--rw _fdRefList* [uuid]
+      |  +--rw nameList* [valueName]
+      |  |  +--rw valueName    string
+      |  |  +--rw value?       string
+      |  +--rw labelList* [valueName]
+      |  |  +--rw valueName    string
+      |  |  +--rw value?       string
+      |  +--rw extensionList* [valueName]
+      |  |  +--rw valueName    string
+      |  |  +--rw value?       string
+      |  +--ro operationalState?        OperationalState
+      |  +--rw administrativeControl?   AdministrativeControl
+      |  +--ro adminsatratveState?      AdministrativeState
+      |  +--rw lifecycleState?          LifecycleState
+      |  +--rw localIdList* [valueName]
+      |  |  +--rw valueName    string
+      |  |  +--rw value?       string
+      |  +--rw uuid                     UniversalId
+      |  +--rw layerProtocolNameList*   CoreModel-CoreNetworkModule-TypeDefinitions:LayerProtocolName
+      |  +--rw _lowerLevelFdRefList*    -> /NetworkElement/_fdRefList/uuid
+      |  +--rw _fcRefList*              -> /ForwardingConstruct/uuid
+      |  +--rw _ltpRefList*             -> /NetworkElement/_ltpRefList/uuid
+      +--rw _ltpRefList* [uuid]
+         +--rw nameList* [valueName]
+         |  +--rw valueName    string
+         |  +--rw value?       string
+         +--rw labelList* [valueName]
+         |  +--rw valueName    string
+         |  +--rw value?       string
+         +--rw extensionList* [valueName]
+         |  +--rw valueName    string
+         |  +--rw value?       string
+         +--ro operationalState?        OperationalState
+         +--rw administrativeControl?   AdministrativeControl
+         +--ro adminsatratveState?      AdministrativeState
+         +--rw lifecycleState?          LifecycleState
+         +--rw localIdList* [valueName]
+         |  +--rw valueName    string
+         |  +--rw value?       string
+         +--rw uuid                     UniversalId
+         +--rw _serverLtpRefList*       -> /NetworkElement/_ltpRefList/uuid
+         +--rw _clientLtpRefList*       -> /NetworkElement/_ltpRefList/uuid
+         +--rw _lpList* [uuid]
+         |  +--rw nameList* [valueName]
+         |  |  +--rw valueName    string
+         |  |  +--rw value?       string
+         |  +--rw labelList* [valueName]
+         |  |  +--rw valueName    string
+         |  |  +--rw value?       string
+         |  +--rw extensionList* [valueName]
+         |  |  +--rw valueName    string
+         |  |  +--rw value?       string
+         |  +--ro operationalState?           OperationalState
+         |  +--rw administrativeControl?      AdministrativeControl
+         |  +--ro adminsatratveState?         AdministrativeState
+         |  +--rw lifecycleState?             LifecycleState
+         |  +--rw localIdList* [valueName]
+         |  |  +--rw valueName    string
+         |  |  +--rw value?       string
+         |  +--rw uuid                        UniversalId
+         |  +--rw layerProtocolName?          CoreModel-CoreNetworkModule-TypeDefinitions:LayerProtocolName
+         |  +--rw configuredClientCapacity?   string
+         |  +--rw lpDirection?                CoreModel-CoreNetworkModule-TypeDefinitions:TerminationDirection
+         |  +--rw terminationState?           boolean
+         +--rw _connectedLtpRef?        -> /NetworkElement/_ltpRefList/uuid
+         +--rw _peerLtpRef?             -> /NetworkElement/_ltpRefList/uuid
+         +--rw physicalPortReference*   string
+         +--rw _ltpRefList*             -> /NetworkElement/_ltpRefList/uuid
+         +--rw ltpDirection?            CoreModel-CoreNetworkModule-TypeDefinitions:TerminationDirection
+module: MicrowaveModel-ObjectClasses-MwConnection
+   +--rw MW_AirInterface_Pac* [layerProtocol]
+   |  +--rw nameList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw labelList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw extensionList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--ro operationalState?                        OperationalState
+   |  +--rw administrativeControl?                   AdministrativeControl
+   |  +--ro adminsatratveState?                      AdministrativeState
+   |  +--rw lifecycleState?                          LifecycleState
+   |  +--rw localIdList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw uuid?                                    UniversalId
+   |  +--rw layerProtocol                            -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid
+   |  +--rw airInterfaceCapability
+   |  |  +--rw nameList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw labelList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw extensionList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--ro operationalState?            OperationalState
+   |  |  +--rw administrativeControl?       AdministrativeControl
+   |  |  +--ro adminsatratveState?          AdministrativeState
+   |  |  +--rw lifecycleState?              LifecycleState
+   |  |  +--rw localIdList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw uuid?                        UniversalId
+   |  |  +--ro typeOfEquipment?             string
+   |  |  +--ro txFrequencyMin?              int64
+   |  |  +--ro txFrequencyMax?              int64
+   |  |  +--ro rxFrequencyMin?              int64
+   |  |  +--ro rxFrequencyMax?              int64
+   |  |  +--ro adaptiveModulationIsAvail?   boolean
+   |  |  +--ro mimoIsAvail?                 boolean
+   |  |  +--ro mimoChannels?                int32
+   |  |  +--ro alicIsAvail?                 boolean
+   |  |  +--ro atpcIsAvail?                 boolean
+   |  |  +--ro atpcRange?                   int32
+   |  |  +--ro loopBackIsAvail?             boolean
+   |  |  +--ro maintenanceTimerRange?       string
+   |  |  +--ro supportedAlarms?             string
+   |  |  +--rw supportedChannelPlanList* [channelPlanTypeId]
+   |  |     +--rw channelPlanTypeId           CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
+   |  |     +--ro supportedChannelPlan?       string
+   |  |     +--ro duplexDistanceIsVariable?   boolean
+   |  |     +--ro duplexDistance?             int64
+   |  |     +--ro autoFreqSelectIsAvail?      boolean
+   |  |     +--rw transmissionModeList* [transmissionModeId]
+   |  |        +--rw transmissionModeId    CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
+   |  |        +--ro channelBandwidth?     int64
+   |  |        +--ro modulationScheme?     int32
+   |  |        +--ro informationRate?      int32
+   |  |        +--ro txPowerMin?           int32
+   |  |        +--ro txPowerMax?           int32
+   |  |        +--ro rxThreshold?          int32
+   |  |        +--ro amUpshiftLevel?       int32
+   |  |        +--ro amDownshiftLevel?     int32
+   |  |        +--ro xpicIsAvail?          boolean
+   |  +--rw airInterfaceConfiguration
+   |  |  +--rw nameList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw labelList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw extensionList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--ro operationalState?         OperationalState
+   |  |  +--rw administrativeControl?    AdministrativeControl
+   |  |  +--ro adminsatratveState?       AdministrativeState
+   |  |  +--rw lifecycleState?           LifecycleState
+   |  |  +--rw localIdList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw uuid?                     UniversalId
+   |  |  +--rw airInterfaceName?         string
+   |  |  +--rw radioSignalId?            string
+   |  |  +--rw txFrequency?              int64
+   |  |  +--rw rxFrequency?              int64
+   |  |  +--rw txChannelBandwidth?       int64
+   |  |  +--rw rxChannelBandwidth?       int64
+   |  |  +--rw polarization?             MicrowaveModel-TypeDefinitions:polarizationType
+   |  |  +--rw powerIsOn?                boolean
+   |  |  +--rw transmitterIsOn?          boolean
+   |  |  +--rw txPower?                  int32
+   |  |  +--rw adaptiveModulationIsOn?   boolean
+   |  |  +--rw modulationMin?            int32
+   |  |  +--rw modulationMax?            int32
+   |  |  +--rw xpicIsOn?                 boolean
+   |  |  +--rw mimoIsOn?                 boolean
+   |  |  +--rw alicIsOn?                 boolean
+   |  |  +--rw atpcIsOn?                 boolean
+   |  |  +--rw atpcThreshUpper?          int32
+   |  |  +--rw atpcThreshLower?          int32
+   |  |  +--rw autoFreqSelectIsOn?       boolean
+   |  |  +--rw autoFreqSelectRange?      int32
+   |  |  +--rw modulationIsOn?           boolean
+   |  |  +--rw loopBackIsOn?             boolean
+   |  |  +--rw maintenanceTimer?         int64
+   |  |  +--rw problemSeverityList* [problemId]
+   |  |     +--rw problemId          CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
+   |  |     +--ro problemName?       string
+   |  |     +--rw problemSeverity?   severityType
+   |  +--rw airInterfaceStatus
+   |  |  +--rw nameList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw labelList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw extensionList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--ro operationalState?        OperationalState
+   |  |  +--rw administrativeControl?   AdministrativeControl
+   |  |  +--ro adminsatratveState?      AdministrativeState
+   |  |  +--rw lifecycleState?          LifecycleState
+   |  |  +--rw localIdList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw uuid?                    UniversalId
+   |  |  +--ro txFrequencyCur?          int64
+   |  |  +--ro rxFrequencyCur?          int64
+   |  |  +--ro txLevelCur?              int32
+   |  |  +--ro rxLevelCur?              int32
+   |  |  +--ro modulationCur?           int32
+   |  |  +--ro informationRateCur?      int32
+   |  |  +--ro snrCur?                  int32
+   |  |  +--ro xpdCur?                  int32
+   |  |  +--ro rfTempCur?               int32
+   |  |  +--ro lastStatusChange?        CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
+   |  |  +--ro radioPowerIsUp?          boolean
+   |  |  +--ro linkIsUp?                boolean
+   |  |  +--ro xpicIsUp?                boolean
+   |  |  +--ro mimoIsUp?                boolean
+   |  |  +--ro alicIsUp?                boolean
+   |  |  +--ro atpcIsUp?                boolean
+   |  |  +--ro autoFreqSelectIsUp?      boolean
+   |  |  +--ro loopBackIsUp?            boolean
+   |  +--rw airInterfaceCurrentProblemList*          -> /AirInterfaceCurrentProblem/uuid
+   |  +--rw airInterfaceCurrentPerformance?          -> /AirInterfaceCurrentPerformance/uuid
+   |  +--rw airInterfaceHistoricalPerformanceList*   -> /AirInterfaceHistoricalPerformance/uuid
+   +--rw AirInterfaceCurrentProblem* [uuid]
+   |  +--rw sequenceNumber?          int64
+   |  +--rw timeStamp?               CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
+   |  +--ro severity?                MicrowaveModel-TypeDefinitions:severityType
+   |  +--rw nameList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw labelList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw extensionList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--ro operationalState?        OperationalState
+   |  +--rw administrativeControl?   AdministrativeControl
+   |  +--ro adminsatratveState?      AdministrativeState
+   |  +--rw lifecycleState?          LifecycleState
+   |  +--rw localIdList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw uuid                     UniversalId
+   |  +--rw problem
+   |     +--rw problemId?         CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
+   |     +--ro problemName?       string
+   |     +--rw problemSeverity?   severityType
+   +--rw AirInterfaceCurrentPerformance* [uuid]
+   |  +--rw objectClass?             G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |  +--rw nameBinding?             G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |  +--rw scannerId?               string
+   |  +--rw granularityPeriod?       G_874_1_model-Type_Definitions:GranularityPeriodType
+   |  +--rw administrativeState?     CoreModel-CoreFoundationModule-StateModel:AdministrativeState
+   |  +--rw suspectIntervalFlag?     boolean
+   |  +--rw elapsedTime?             int64
+   |  +--rw timestamp?               G_874_1_model-Type_Definitions:DateAndTime
+   |  +--rw nameList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw labelList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw extensionList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--ro operationalState?        OperationalState
+   |  +--rw administrativeControl?   AdministrativeControl
+   |  +--ro adminsatratveState?      AdministrativeState
+   |  +--rw lifecycleState?          LifecycleState
+   |  +--rw localIdList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw uuid                     UniversalId
+   +--rw AirInterfaceHistoricalPerformance* [uuid]
+   |  +--rw objectClass?             G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |  +--rw nameBinding?             G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |  +--rw historyDataId?           string
+   |  +--rw periodEndTime?           CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
+   |  +--rw granularityPeriod?       G_874_1_model-Type_Definitions:GranularityPeriodType
+   |  +--rw suspectIntervalFlag?     boolean
+   |  +--rw nameList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw labelList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw extensionList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--ro operationalState?        OperationalState
+   |  +--rw administrativeControl?   AdministrativeControl
+   |  +--ro adminsatratveState?      AdministrativeState
+   |  +--rw lifecycleState?          LifecycleState
+   |  +--rw localIdList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw uuid                     UniversalId
+   |  +--ro es?                      int64
+   |  +--ro ses?                     int64
+   |  +--ro cses?                    int64
+   |  +--ro unavailability?          int64
+   |  +--ro txLevelMin?              int32
+   |  +--ro txLevelMax?              int32
+   |  +--ro txLevelAvg?              int32
+   |  +--ro rxLevelMin?              int32
+   |  +--ro rxLevelMax?              int32
+   |  +--ro rxLevelAvg?              int32
+   |  +--ro time2Symbols?            int64
+   |  +--ro time4SymbolsS?           int64
+   |  +--ro time4Symbols?            int64
+   |  +--ro time8Symbols?            int64
+   |  +--ro time16SymbolsS?          int64
+   |  +--ro time16Symbols?           int64
+   |  +--ro time32Symbols?           int64
+   |  +--ro time64Symbols?           int64
+   |  +--ro time128Symbols?          int64
+   |  +--ro time256Symbols?          int64
+   |  +--ro time512Symbols?          int64
+   |  +--ro time512SymbolsL?         int64
+   |  +--ro time1024Symbols?         int64
+   |  +--ro time1024SymbolsL?        int64
+   |  +--ro time2048Symbols?         int64
+   |  +--ro time2048SymbolsL?        int64
+   |  +--ro time4096Symbols?         int64
+   |  +--ro time4096SymbolsL?        int64
+   |  +--ro time8192Symbols?         int64
+   |  +--ro time8192SymbolsL?        int64
+   |  +--ro snrMin?                  int32
+   |  +--ro snrMax?                  int32
+   |  +--ro snrAvg?                  int32
+   |  +--ro xpdMin?                  int32
+   |  +--ro xpdMax?                  int32
+   |  +--ro xpdAvg?                  int32
+   |  +--ro rfTempMin?               int32
+   |  +--ro rfTempMax?               int32
+   |  +--ro rfTempAvg?               int32
+   |  +--ro defectBlocksSum?         int32
+   |  +--ro timePeriod?              int64
+   +--rw CoChannelGroup* [uuid]
+   |  +--rw nameList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw labelList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw extensionList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--ro operationalState?        OperationalState
+   |  +--rw administrativeControl?   AdministrativeControl
+   |  +--ro adminsatratveState?      AdministrativeState
+   |  +--rw lifecycleState?          LifecycleState
+   |  +--rw localIdList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw uuid                     UniversalId
+   |  +--rw airInterfaceList*        -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/uuid
+   |  +--rw coSortOfChannelGroup?    string
+   +--rw MW_AirInterfaceDiversity_Pac* [layerProtocol]
+   |  +--rw nameList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw labelList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw extensionList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--ro operationalState?                                 OperationalState
+   |  +--rw administrativeControl?                            AdministrativeControl
+   |  +--ro adminsatratveState?                               AdministrativeState
+   |  +--rw lifecycleState?                                   LifecycleState
+   |  +--rw localIdList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw uuid?                                             UniversalId
+   |  +--rw layerProtocol                                     -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid
+   |  +--rw airInterfaceDiversityCapability
+   |  |  +--rw nameList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw labelList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw extensionList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--ro operationalState?            OperationalState
+   |  |  +--rw administrativeControl?       AdministrativeControl
+   |  |  +--ro adminsatratveState?          AdministrativeState
+   |  |  +--rw lifecycleState?              LifecycleState
+   |  |  +--rw localIdList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw uuid?                        UniversalId
+   |  |  +--rw availableKindsOfDiversity* [diversityTypeId]
+   |  |  |  +--rw diversityTypeId             CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
+   |  |  |  +--ro diversityName?              string
+   |  |  |  +--ro numberOfAirInterfacesMax?   int32
+   |  |  +--ro supportedAlarms?             string
+   |  +--rw airInterfaceDiversityConfiguration
+   |  |  +--rw nameList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw labelList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw extensionList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--ro operationalState?        OperationalState
+   |  |  +--rw administrativeControl?   AdministrativeControl
+   |  |  +--ro adminsatratveState?      AdministrativeState
+   |  |  +--rw lifecycleState?          LifecycleState
+   |  |  +--rw localIdList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw uuid?                    UniversalId
+   |  |  +--rw airInterfaceDiversity
+   |  |  |  +--rw diversityTypeId?            CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
+   |  |  |  +--ro diversityName?              string
+   |  |  |  +--ro numberOfAirInterfacesMax?   int32
+   |  |  +--rw airInterfaceLtpList*     -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/uuid
+   |  |  +--rw problemSeverityList* [problemId]
+   |  |     +--rw problemId          CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
+   |  |     +--ro problemName?       string
+   |  |     +--rw problemSeverity?   severityType
+   |  +--rw airInterfaceDiversityStatus
+   |  |  +--rw nameList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw labelList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw extensionList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--ro operationalState?              OperationalState
+   |  |  +--rw administrativeControl?         AdministrativeControl
+   |  |  +--ro adminsatratveState?            AdministrativeState
+   |  |  +--rw lifecycleState?                LifecycleState
+   |  |  +--rw localIdList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw uuid?                          UniversalId
+   |  |  +--ro lastStatusChange?              CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
+   |  |  +--ro airInterfaceDiversityStatus?   MicrowaveModel-TypeDefinitions:airInterfaceDiversityStatusType
+   |  +--rw airInterfaceDiversityCurrentProblemList*          -> /AirInterfaceDiversityCurrentProblem/uuid
+   |  +--rw airInterfaceDiversityCurrentPerformance?          -> /AirInterfaceDiversityCurrentPerformance/uuid
+   |  +--rw airInterfaceDiversityHistoricalPerformanceList*   -> /AirInterfaceDiversityHistoricalPerformance/uuid
+   +--rw AirInterfaceDiversityCurrentProblem* [uuid]
+   |  +--rw sequenceNumber?          int64
+   |  +--rw timeStamp?               CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
+   |  +--ro severity?                MicrowaveModel-TypeDefinitions:severityType
+   |  +--rw nameList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw labelList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw extensionList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--ro operationalState?        OperationalState
+   |  +--rw administrativeControl?   AdministrativeControl
+   |  +--ro adminsatratveState?      AdministrativeState
+   |  +--rw lifecycleState?          LifecycleState
+   |  +--rw localIdList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw uuid                     UniversalId
+   |  +--rw problem
+   |     +--rw problemId?         CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
+   |     +--ro problemName?       string
+   |     +--rw problemSeverity?   severityType
+   +--rw AirInterfaceDiversityCurrentPerformance* [uuid]
+   |  +--rw objectClass?             G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |  +--rw nameBinding?             G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |  +--rw scannerId?               string
+   |  +--rw granularityPeriod?       G_874_1_model-Type_Definitions:GranularityPeriodType
+   |  +--rw administrativeState?     CoreModel-CoreFoundationModule-StateModel:AdministrativeState
+   |  +--rw suspectIntervalFlag?     boolean
+   |  +--rw elapsedTime?             int64
+   |  +--rw timestamp?               G_874_1_model-Type_Definitions:DateAndTime
+   |  +--rw nameList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw labelList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw extensionList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--ro operationalState?        OperationalState
+   |  +--rw administrativeControl?   AdministrativeControl
+   |  +--ro adminsatratveState?      AdministrativeState
+   |  +--rw lifecycleState?          LifecycleState
+   |  +--rw localIdList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw uuid                     UniversalId
+   +--rw AirInterfaceDiversityHistoricalPerformance* [uuid]
+   |  +--rw objectClass?             G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |  +--rw nameBinding?             G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |  +--rw historyDataId?           string
+   |  +--rw periodEndTime?           CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
+   |  +--rw granularityPeriod?       G_874_1_model-Type_Definitions:GranularityPeriodType
+   |  +--rw suspectIntervalFlag?     boolean
+   |  +--rw nameList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw labelList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw extensionList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--ro operationalState?        OperationalState
+   |  +--rw administrativeControl?   AdministrativeControl
+   |  +--ro adminsatratveState?      AdministrativeState
+   |  +--rw lifecycleState?          LifecycleState
+   |  +--rw localIdList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw uuid                     UniversalId
+   +--rw MW_Structure_Pac* [layerProtocol]
+   |  +--rw nameList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw labelList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw extensionList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--ro operationalState?                     OperationalState
+   |  +--rw administrativeControl?                AdministrativeControl
+   |  +--ro adminsatratveState?                   AdministrativeState
+   |  +--rw lifecycleState?                       LifecycleState
+   |  +--rw localIdList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw uuid?                                 UniversalId
+   |  +--rw layerProtocol                         -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid
+   |  +--rw structureCapability
+   |  |  +--rw nameList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw labelList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw extensionList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--ro operationalState?          OperationalState
+   |  |  +--rw administrativeControl?     AdministrativeControl
+   |  |  +--ro adminsatratveState?        AdministrativeState
+   |  |  +--rw lifecycleState?            LifecycleState
+   |  |  +--rw localIdList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw uuid?                      UniversalId
+   |  |  +--ro structureID?               string
+   |  |  +--ro timeSlotCapacity?          int32
+   |  |  +--ro totalNumberOfTimeSlots?    int32
+   |  |  +--ro tdmTimeSlotsIsSupported?   boolean
+   |  |  +--ro supportedAlarms?           string
+   |  +--rw structureConfiguration
+   |  |  +--rw nameList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw labelList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw extensionList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--ro operationalState?               OperationalState
+   |  |  +--rw administrativeControl?          AdministrativeControl
+   |  |  +--ro adminsatratveState?             AdministrativeState
+   |  |  +--rw lifecycleState?                 LifecycleState
+   |  |  +--rw localIdList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw uuid?                           UniversalId
+   |  |  +--rw tdmReservedNumberOfTimeSlots?   int32
+   |  |  +--rw problemSeverityList* [problemId]
+   |  |     +--rw problemId          CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
+   |  |     +--ro problemName?       string
+   |  |     +--rw problemSeverity?   severityType
+   |  +--rw structureStatus
+   |  |  +--rw nameList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw labelList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw extensionList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--ro operationalState?        OperationalState
+   |  |  +--rw administrativeControl?   AdministrativeControl
+   |  |  +--ro adminsatratveState?      AdministrativeState
+   |  |  +--rw lifecycleState?          LifecycleState
+   |  |  +--rw localIdList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw uuid?                    UniversalId
+   |  |  +--rw timeSlotStatusList* [timeSlotStatusTypeId]
+   |  |  |  +--rw timeSlotStatusTypeId        CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
+   |  |  |  +--ro timeSlotIsReservedForTdm?   boolean
+   |  |  |  +--ro priorityClass?              int32
+   |  |  |  +--ro dropOrderRank?              int32
+   |  |  |  +--ro operationalStatus?          CoreModel-CoreFoundationModule-StateModel:OperationalState
+   |  |  +--ro lastStatusChange?        CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
+   |  +--rw structureCurrentProblemList*          -> /StructureCurrentProblem/uuid
+   |  +--rw structureCurrentPerformance?          -> /StructureCurrentPerformance/uuid
+   |  +--rw structureHistoricalPerformanceList*   -> /StructureHistoricalPerformance/uuid
+   +--rw StructureCurrentProblem* [uuid]
+   |  +--rw sequenceNumber?          int64
+   |  +--rw timeStamp?               CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
+   |  +--ro severity?                MicrowaveModel-TypeDefinitions:severityType
+   |  +--rw nameList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw labelList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw extensionList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--ro operationalState?        OperationalState
+   |  +--rw administrativeControl?   AdministrativeControl
+   |  +--ro adminsatratveState?      AdministrativeState
+   |  +--rw lifecycleState?          LifecycleState
+   |  +--rw localIdList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw uuid                     UniversalId
+   |  +--rw problem
+   |     +--rw problemId?         CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
+   |     +--ro problemName?       string
+   |     +--rw problemSeverity?   severityType
+   +--rw StructureCurrentPerformance* [uuid]
+   |  +--rw objectClass?             G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |  +--rw nameBinding?             G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |  +--rw scannerId?               string
+   |  +--rw granularityPeriod?       G_874_1_model-Type_Definitions:GranularityPeriodType
+   |  +--rw administrativeState?     CoreModel-CoreFoundationModule-StateModel:AdministrativeState
+   |  +--rw suspectIntervalFlag?     boolean
+   |  +--rw elapsedTime?             int64
+   |  +--rw timestamp?               G_874_1_model-Type_Definitions:DateAndTime
+   |  +--rw nameList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw labelList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw extensionList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--ro operationalState?        OperationalState
+   |  +--rw administrativeControl?   AdministrativeControl
+   |  +--ro adminsatratveState?      AdministrativeState
+   |  +--rw lifecycleState?          LifecycleState
+   |  +--rw localIdList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw uuid                     UniversalId
+   +--rw StructureHistoricalPerformance* [uuid]
+   |  +--rw objectClass?             G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |  +--rw nameBinding?             G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |  +--rw historyDataId?           string
+   |  +--rw periodEndTime?           CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
+   |  +--rw granularityPeriod?       G_874_1_model-Type_Definitions:GranularityPeriodType
+   |  +--rw suspectIntervalFlag?     boolean
+   |  +--rw nameList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw labelList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw extensionList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--ro operationalState?        OperationalState
+   |  +--rw administrativeControl?   AdministrativeControl
+   |  +--ro adminsatratveState?      AdministrativeState
+   |  +--rw lifecycleState?          LifecycleState
+   |  +--rw localIdList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw uuid                     UniversalId
+   |  +--ro timePeriod?              int64
+   +--rw MW_Container_Pac* [layerProtocol]
+   |  +--rw nameList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw labelList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw extensionList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--ro operationalState?                     OperationalState
+   |  +--rw administrativeControl?                AdministrativeControl
+   |  +--ro adminsatratveState?                   AdministrativeState
+   |  +--rw lifecycleState?                       LifecycleState
+   |  +--rw localIdList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw uuid?                                 UniversalId
+   |  +--rw layerProtocol                         -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid
+   |  +--rw containerCapability
+   |  |  +--rw nameList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw labelList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw extensionList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--ro operationalState?                OperationalState
+   |  |  +--rw administrativeControl?           AdministrativeControl
+   |  |  +--ro adminsatratveState?              AdministrativeState
+   |  |  +--rw lifecycleState?                  LifecycleState
+   |  |  +--rw localIdList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw uuid?                            UniversalId
+   |  |  +--ro containerID?                     string
+   |  |  +--rw availableKindsOfContainerList* [containerTypeId]
+   |  |  |  +--rw containerTypeId              CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
+   |  |  |  +--ro containerName?               string
+   |  |  |  +--ro numberOfTimeSlotsRequired?   int32
+   |  |  |  +--ro tdmTimeSlotsIsRequired?      boolean
+   |  |  |  +--ro bundlingIsAvail?             boolean
+   |  |  +--ro priorityClassesIsAvail?          boolean
+   |  |  +--ro encryptionIsAvail?               boolean
+   |  |  +--ro packetCompressionIsAvail?        boolean
+   |  |  +--ro layer2CompressionIsAvail?        boolean
+   |  |  +--ro vlanCompressionIsAvail?          boolean
+   |  |  +--ro qInQCompressionIsAvail?          boolean
+   |  |  +--ro mplsCompressionIsAvail?          boolean
+   |  |  +--ro l2vpnCompressionIsAvail?         boolean
+   |  |  +--ro ipv4CompressionIsAvail?          boolean
+   |  |  +--ro ipv6CompressionIsAvail?          boolean
+   |  |  +--ro l3vpnCompressionIsAvail?         boolean
+   |  |  +--ro layer4CompressionIsAvail?        boolean
+   |  |  +--ro supportedAlarms?                 string
+   |  +--rw containerConfiguration
+   |  |  +--rw nameList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw labelList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw extensionList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--ro operationalState?        OperationalState
+   |  |  +--rw administrativeControl?   AdministrativeControl
+   |  |  +--ro adminsatratveState?      AdministrativeState
+   |  |  +--rw lifecycleState?          LifecycleState
+   |  |  +--rw localIdList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw uuid?                    UniversalId
+   |  |  +--rw container
+   |  |  |  +--rw containerTypeId?             CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
+   |  |  |  +--ro containerName?               string
+   |  |  |  +--ro numberOfTimeSlotsRequired?   int32
+   |  |  |  +--ro tdmTimeSlotsIsRequired?      boolean
+   |  |  |  +--ro bundlingIsAvail?             boolean
+   |  |  +--rw priorityClass?           int32
+   |  |  +--rw timeSlotIDList* [structureId timeSlotId]
+   |  |  |  +--rw structureId    string
+   |  |  |  +--rw timeSlotId     int32
+   |  |  +--rw encryptionIsOn?          boolean
+   |  |  +--ro packetCompressionIsOn?   boolean
+   |  |  +--ro layer2CompressionIsOn?   boolean
+   |  |  +--ro vlanCompressionIsOn?     boolean
+   |  |  +--ro qInQCompressionIsOn?     boolean
+   |  |  +--ro mplsCompressionIsOn?     boolean
+   |  |  +--ro l2vpnCompressionIsOn?    boolean
+   |  |  +--ro ipv4CompressionIsOn?     boolean
+   |  |  +--ro ipv6CompressionIsOn?     boolean
+   |  |  +--ro l3vpnCompressionIsOn?    boolean
+   |  |  +--ro layer4CompressionIsOn?   boolean
+   |  |  +--rw problemSeverityList* [problemId]
+   |  |     +--rw problemId          CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
+   |  |     +--ro problemName?       string
+   |  |     +--rw problemSeverity?   severityType
+   |  +--rw containerStatus
+   |  |  +--rw nameList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw labelList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw extensionList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--ro operationalState?        OperationalState
+   |  |  +--rw administrativeControl?   AdministrativeControl
+   |  |  +--ro adminsatratveState?      AdministrativeState
+   |  |  +--rw lifecycleState?          LifecycleState
+   |  |  +--rw localIdList* [valueName]
+   |  |  |  +--rw valueName    string
+   |  |  |  +--rw value?       string
+   |  |  +--rw uuid?                    UniversalId
+   |  |  +--ro lastStatusChange?        CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
+   |  |  +--ro dropOrderRank?           int32
+   |  +--rw containerCurrentProblemList*          -> /ContainerCurrentProblem/uuid
+   |  +--rw containerCurrentPerformance?          -> /ContainerCurrentPerformance/uuid
+   |  +--rw containerHistoricalPerformanceList*   -> /ContainerHistoricalPerformance/uuid
+   +--rw ContainerCurrentProblem* [uuid]
+   |  +--rw sequenceNumber?          int64
+   |  +--rw timeStamp?               CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
+   |  +--ro severity?                MicrowaveModel-TypeDefinitions:severityType
+   |  +--rw nameList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw labelList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw extensionList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--ro operationalState?        OperationalState
+   |  +--rw administrativeControl?   AdministrativeControl
+   |  +--ro adminsatratveState?      AdministrativeState
+   |  +--rw lifecycleState?          LifecycleState
+   |  +--rw localIdList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw uuid                     UniversalId
+   |  +--rw problem
+   |     +--rw problemId?         CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
+   |     +--ro problemName?       string
+   |     +--rw problemSeverity?   severityType
+   +--rw ContainerCurrentPerformance* [uuid]
+   |  +--rw objectClass?             G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |  +--rw nameBinding?             G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |  +--rw scannerId?               string
+   |  +--rw granularityPeriod?       G_874_1_model-Type_Definitions:GranularityPeriodType
+   |  +--rw administrativeState?     CoreModel-CoreFoundationModule-StateModel:AdministrativeState
+   |  +--rw suspectIntervalFlag?     boolean
+   |  +--rw elapsedTime?             int64
+   |  +--rw timestamp?               G_874_1_model-Type_Definitions:DateAndTime
+   |  +--rw nameList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw labelList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw extensionList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--ro operationalState?        OperationalState
+   |  +--rw administrativeControl?   AdministrativeControl
+   |  +--ro adminsatratveState?      AdministrativeState
+   |  +--rw lifecycleState?          LifecycleState
+   |  +--rw localIdList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw uuid                     UniversalId
+   +--rw ContainerHistoricalPerformance* [uuid]
+   |  +--rw objectClass?             G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |  +--rw nameBinding?             G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |  +--rw historyDataId?           string
+   |  +--rw periodEndTime?           CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
+   |  +--rw granularityPeriod?       G_874_1_model-Type_Definitions:GranularityPeriodType
+   |  +--rw suspectIntervalFlag?     boolean
+   |  +--rw nameList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw labelList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw extensionList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--ro operationalState?        OperationalState
+   |  +--rw administrativeControl?   AdministrativeControl
+   |  +--ro adminsatratveState?      AdministrativeState
+   |  +--rw lifecycleState?          LifecycleState
+   |  +--rw localIdList* [valueName]
+   |  |  +--rw valueName    string
+   |  |  +--rw value?       string
+   |  +--rw uuid                     UniversalId
+   |  +--ro txEthernetBytesMaxS?     int64
+   |  +--ro txEthernetBytesMaxM?     int64
+   |  +--ro txEthernetBytesSum?      int64
+   |  +--ro timePeriod?              int64
+   +--rw MwCurrentProblem* [sequenceNumber]
+      +--rw sequenceNumber    int64
+      +--rw timeStamp?        CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
+      +--ro severity?         MicrowaveModel-TypeDefinitions:severityType

@@ -63,8 +63,10 @@ do
   log "  $item";
   pyang "$item"; 
 done
-# pyang "MicrowaveModel-ObjectClasses-MwConnection.yang";
 log "Yang modules checked!";
+
+pyang -f tree CoreModel-CoreNetworkModule-ObjectClasses.yang MicrowaveModel-ObjectClasses-MwConnection.yang >> MicrowaveModel.tree.txt
+log "Tree view generated!";
 
 # End
 log "End";
