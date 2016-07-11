@@ -168,6 +168,13 @@ Node.prototype.writeNode = function (layer) {
         if (this["max-elements"] == "*") {
             maxele = "";
         }
+        // [sko] TODO hack, situation needs to be analysed... ;(
+        if (this.name === 'Q_822_CurrentData') {
+          this.key = 'scannerId';
+        }
+        if (this.name === 'timeSlotIDList') {
+          this.key = 'structureId timeSlotId';
+        }
         if (typeof this.key=="string") {
             Key = PRE + "\tkey '" + this.key + "';\r\n";
         }

@@ -46,6 +46,9 @@ leaf.prototype.writeNode = function (layer) {
     var units="";
     this.units ? units = PRE + "\tunits \"" + this.units + "\";\r\n" : units = "";
     var defvalue;
+    if (this.defaultValue === '"FALSE"' || this.defaultValue === '"TRUE"') {
+      this.defaultValue = this.defaultValue.toLowerCase();
+    }
     this.defaultValue ? defvalue = PRE + "\tdefault " + this.defaultValue + ";\r\n" : defvalue = "";
     var type = "";
     if (this.type instanceof Type) {

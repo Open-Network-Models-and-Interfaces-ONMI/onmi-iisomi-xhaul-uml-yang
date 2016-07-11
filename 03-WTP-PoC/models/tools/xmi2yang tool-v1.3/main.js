@@ -60,6 +60,14 @@ var isInstantiated=[];//The array of case that the class is composited by the ot
 
 var org = "ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project";
 
+var tool = (new Array(11).join(' ') + 'uml2yang').slice(-10);
+var log = function(level, message) {
+  var time = new Date().toISOString();
+  var out = [time, tool, level, message].join(' | ');
+  console.log(out);
+};
+
+log('INFO ', 'Start');
 
 var result=main_Entrance();
 
@@ -67,11 +75,11 @@ function main_Entrance(){
     try{
         createKey(function(flag){
             if(!flag){
-                console.log("There is no 'key.cfg' file,please config 'key' first!");
+                log('INFO ', "There is no 'key.cfg' file,please config 'key' first!");
             }
             fs.readdir("./project/",function(err,files){
                 if(err){
-                    console.log(err.stack);
+                    log('ERROR', err.stack);
                     throw err.message;
                 } else{
                     var num=0;
@@ -84,7 +92,7 @@ function main_Entrance(){
                         }
                     }
                     if(!num){
-                        console.log("There is no .xml file in 'project' directory! Please check your files path")
+                      log('INFO ', "There is no .xml file in 'project' directory! Please check your files path")
                     }else{
                         addKey();//deal with the key for every class
                         //if the class's value of aggregation is omposite,the class don't need to be instantiated individually
@@ -167,7 +175,7 @@ function main_Entrance(){
                                         console.log(e.stack);
                                         throw(e.message);
                                     }
-                                    console.log("write "+yangModule[i].name);
+                                    log('INFO ', "write "+yangModule[i].name);
                                 })();
                             }
                         }
@@ -191,7 +199,7 @@ function addPath(id){
                 return path;
             }else{
                 if(isInstantiated[i].pnode==pflag){
-                    console.warn("Warning:xmi:id="+pflag+" and xmi:id="+isInstantiated[i].id+" have been found cross composite!");
+                    log('WARN ', "xmi:id="+pflag+" and xmi:id="+isInstantiated[i].id+" have been found cross composite!");
                     return path;
                 }
                 path=isInstantiated[i].path;
@@ -264,7 +272,7 @@ function crossRefer(mod){
                 if(mod[k].name==mod[i].import[j]){
                     for(var q=0;q<mod[k].import.length;q++){
                         if(mod[k].import[q]==mod[i].name){
-                            console.warn("Warning:module "+mod[i].name+" and module "+mod[k].name+" have been found cross reference!");
+                            log('WARN ', "module "+mod[i].name+" and module "+mod[k].name+" have been found cross reference!");
                             flag=1;
                             break;
                         }
@@ -310,9 +318,9 @@ function parseModule(filename){                     //XMLREADER read xml files
     var xml = fs.readFileSync("./project/" + filename, {encoding: 'utf8'});
     xmlreader.read(xml,function(error,model) {
         if (error) {
-            console.log('There was a problem reading data from '+filename+'. Please check your xmlreader module and nodejs!\t\n'+error.stack);
+            log('ERROR', 'There was a problem reading data from '+filename+'. Please check your xmlreader module and nodejs!\t\n'+error.stack);
         } else {
-            console.log(filename+" read success!");
+            log('INFO ', filename+" read success!");
             var xmi;
             var flag=0;
             var newxmi;
@@ -438,7 +446,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                     }
                 }
                 if(flag==0){
-                    console.log("Can not find the tag 'uml:Package' or 'uml:Model' of"+filename+"! Please check out the xml file")
+                  log('INFO ', "Can not find the tag 'uml:Package' or 'uml:Model' of"+filename+"! Please check out the xml file")
                 }
             }
             else{
@@ -453,7 +461,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                     parseUmlModel(newxmi)
                 }
                 else{
-                    console.log("empty file!");
+                  log('INFO ', "empty file!");
                 }
             }
             return;
@@ -544,7 +552,7 @@ function parseOpenModelatt(xmi){
             }
         }
         if(i==openModelAtt.length){
-          if (unit !== undefined) console.info('sko66', id, unit);
+            // if (unit !== undefined) console.info('sko66', id, unit);
             var att=new OpenModelObject(id,"attribute",vr,cond,sup,inv,avcNot,undefined,undefined,passBR,undefined,undefined,undefined,key, unit);
             openModelAtt.push(att);
         }
@@ -674,7 +682,9 @@ function createElement(xmi){
             var obj;
             xmi[key].array?len=xmi[key].array.length:len=1;
             for (var i = 0; i < len; i++) {
+              
                 len==1?obj=ele:obj=ele.array[i];
+                
                 if (obj.attributes()["xmi:type"] == "uml:Package"||obj.attributes()["xmi:type"]=="uml:Interface") {
                     var name;
                     obj.attributes().name?name=obj.attributes().name:console.error("ERROR:The attribute 'name' of tag 'xmi:id="+obj.attributes()["xmi:id"]+"' in this file is empty!");
@@ -693,7 +703,7 @@ function createElement(xmi){
                     if (xmi["ownedComment"]) {
                         var len;
                         var comment = "";
-                        xmi["ownedComment"].array ? len = xmi["ownedComment"].array.length : len = 1;
+// [sko] why??                        xmi["ownedComment"].array ? len = xmi["ownedComment"].array.length : len = 1;
                         if(xmi['ownedComment'].array){
                             comment="";
                             comment+=xmi['ownedComment'].array[0].body.text();
@@ -716,6 +726,7 @@ function createElement(xmi){
                 else {
                     var a=obj.attributes()["xmi:type"];
                     //parse xmi:type
+                    
                     switch(a){
                         case "uml:Enumeration":createClass(obj,"enumeration");
                             break;
@@ -723,7 +734,7 @@ function createElement(xmi){
                             break;
                         case "uml:PrimitiveType":createClass(obj,"typedef");
                             break;
-                        case "uml:Class":createClass(obj,"grouping");
+                        case "uml:Class":createClass(obj,"grouping"); 
                             break;
                         case "uml:Operation":createClass(obj,"rpc");
                             break;
@@ -743,6 +754,7 @@ function createElement(xmi){
 }
 
 function createClass(obj,nodeType) {
+
     try {
         var name;
         obj.attributes().name?name=obj.attributes().name:console.error("ERROR:The attribute 'name' of tag 'xmi:id="+obj.attributes()["xmi:id"]+"' in this file is empty!");
@@ -852,7 +864,7 @@ function createClass(obj,nodeType) {
                         instance.path=node.path+":"+node.name+"/"+node.attribute[i].name;
                         if(r==node.id){
                             instance.tpath=instance.path;
-                            console.warn("Warning:xmi:id="+r+" can not be compositeed by itself!");
+                            log('DEBUG', 'xmi:id=' + r + ' is compositeed by itself!');
                         }
                         isInstantiated.push(instance);
                     }
@@ -1115,7 +1127,7 @@ function obj2yang(ele){
                             // ele[i].attribute[j].support=feat[feat.length-1].name;
                         }
                         if(openModelAtt[k].unit){
-                          console.info('unit from profile', openModelAtt[k].unit, ele[i].attribute[j].name, JSON.stringify(openModelAtt[k]));
+                          // console.info('[sko] unit from profile', openModelAtt[k].unit, ele[i].attribute[j].name, JSON.stringify(openModelAtt[k]));
                           ele[i].attribute[j].units=openModelAtt[k].unit;
                         }
                         if(openModelAtt[k].status){
@@ -1416,7 +1428,7 @@ function obj2yang(ele){
         }
         yang.push(obj);
     }
-    console.log("xmi translate to yang successfully!")
+    log('INFO ', "xmi translate to yang successfully!")
 }
 
 var m=1;

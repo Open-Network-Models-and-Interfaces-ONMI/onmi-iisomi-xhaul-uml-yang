@@ -13,6 +13,13 @@
 var Type=require("./yang/type.js");
 var Attribute=require("./OwnedAttribute.js");
 
+var tool = (new Array(11).join(' ') + 'uml2yang').slice(-10);
+var log = function(level, message) {
+  var time = new Date().toISOString();
+  var out = [time, tool, level, message].join(' | ');
+  console.log(out);
+};
+
 function Class(name,id,type,comment,nodeType,path,config,isOrdered){
     this.name=name;
     this.id=id;
@@ -71,7 +78,7 @@ Class.prototype.buildAttribute=function(att){
         }else if(att['ownedComment'].body){
             comment = att['ownedComment'].body.text();
         }else{
-            console.log("The comment of Class "+att.attributes().name+" is undefined!")
+            log('INFO ', "The comment of Class "+att.attributes().name+" is undefined!")
         }
     }
     var association;
@@ -100,7 +107,7 @@ Class.prototype.buildAttribute=function(att){
         }
     }
     else{
-        console.warn("Warning:The type of attribute 'xmi:id="+id+"' is undefined!");
+        log('WARN ', "The type of attribute 'xmi:id="+id+"' is undefined!");
         type="string";
         isLeaf=true;
     }

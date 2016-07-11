@@ -63,7 +63,7 @@ ownedAttribute.prototype.giveValue=function(obj){
           } else if (obj.defaultValue.attributes()['xmi:type'] === 'uml:LiteralInteger') {
             value = 0;
           } else {
-            console.info('sko?', obj.defaultValue.attributes());
+            // console.info('sko?', obj.defaultValue.attributes());
           }
         }
         if (obj.defaultValue.attributes()['xmi:type'] === 'uml:LiteralString') {

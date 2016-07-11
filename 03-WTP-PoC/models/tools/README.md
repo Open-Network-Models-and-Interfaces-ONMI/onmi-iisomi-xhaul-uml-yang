@@ -1,7 +1,6 @@
-# UML to YANG Mapping Tool
-This UML to YANG Mapping Tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.04 by OpenNetworkFoundation(ONF) IMP group. 
+# Tools
+he folder contains a couple of scripts and tools, needed to generate YANG files from UML for Microwave.
 
-Please read "UML-Yang Mapping Tool User Guide" for instructions to run the tool.
+The build-yang.sh takes the UML files from the ./input folder and modifies (prune and refactor) them, according to the defintions made  by xslt in pruneAndRefactor folder. The results are converted to yang modules.
 
-Introduction video to version 1.3 is uploaded to Youtube https://www.youtube.com/watch?v=6At3YFrE8Ag&feature=youtu.be.
-Youku link http://v.youku.com/v_show/id_XMTQ4NDc2NDg0OA==.html
+The yang modules are validated using pyang.

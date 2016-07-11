@@ -11,17 +11,28 @@
  *
  ****************************************************************************************************/
 
+var tool = (new Array(11).join(' ') + 'uml2yang').slice(-10);
+var log = function(level, message) {
+  var time = new Date().toISOString();
+  var out = [time, tool, level, message].join(' | ');
+  console.log(out);
+};
+
 var correctPath = function(path) {
   var out = '';
   switch (path) {
   case "'/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid'": 
     out = "'/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:_lpList/CoreModel-CoreNetworkModule-ObjectClasses:uuid'";
     break;
-  case "'/NetworkElement/_ltpRefList/uuid'": 
-    out = "'/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid'";
-    break;
   case "'/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/uuid'":
     out = "'/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid'";
+    break;
+  case "'/NetworkElement/_ltpRefList/uuid'": 
+  case "'/NetworkElement/_fdRefList/uuid'": 
+  case "'/ForwardingConstruct/uuid'": 
+  case "'/ForwardingConstruct/_fcPortList/uuid'": 
+    out = path.replace(new RegExp('/', 'g'), '/CoreModel-CoreNetworkModule-ObjectClasses:');
+    // out = "'/CoreModel-CoreNetworkModule-ObjectClasses:ForwardingConstruct/CoreModel-CoreNetworkModule-ObjectClasses:uuid'";
     break;
   case "'/AirInterfaceCurrentProblem/uuid'":
   case "'/AirInterfaceCurrentPerformance/uuid'":
@@ -38,11 +49,11 @@ var correctPath = function(path) {
   case "'/ContainerHistoricalPerformance/uuid'":
     out = path.replace(new RegExp('/', 'g'), '/MicrowaveModel-ObjectClasses-MwConnection:');
     break;
-  case "'/AirInterfaceCurrentPerformance/uuid":
-    out = path.replace(new RegExp('/', 'g'), '/MicrowaveModel-ObjectClasses-MwConnection:') + '\'';
-    break;
+//  case "'/AirInterfaceCurrentPerformance/uuid":
+//    out = path.replace(new RegExp('/', 'g'), '/MicrowaveModel-ObjectClasses-MwConnection:') + '\'';
+//    break;
   default:
-    console.log('check path:', path);
+    log('TODO?', 'Check path: ' + path);
     out = path;
   }
   return out;
