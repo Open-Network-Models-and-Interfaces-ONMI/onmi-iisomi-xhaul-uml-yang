@@ -2,16 +2,13 @@
 <module name="MicrowaveModel-ObjectClasses-MwConnection"
         xmlns="urn:ietf:params:xml:ns:yang:yin:1"
         xmlns:MicrowaveModel-ObjectClasses-MwConnection="uri:onf:MicrowaveModel-ObjectClasses-MwConnection"
-        xmlns:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages="uri:onf:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"
         xmlns:CoreModel-CoreNetworkModule-ObjectClasses="uri:onf:CoreModel-CoreNetworkModule-ObjectClasses"
         xmlns:MicrowaveModel-TypeDefinitions="uri:onf:MicrowaveModel-TypeDefinitions"
         xmlns:CoreModel-CoreFoundationModule-TypeDefinitions="uri:onf:CoreModel-CoreFoundationModule-TypeDefinitions"
-        xmlns:G_874_1_model-Object_Classes="uri:onf:G_874_1_model-Object_Classes">
+        xmlns:G_874_1_model-Object_Classes="uri:onf:G_874_1_model-Object_Classes"
+        xmlns:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages="uri:onf:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages">
   <namespace uri="uri:onf:MicrowaveModel-ObjectClasses-MwConnection"/>
   <prefix value="MicrowaveModel-ObjectClasses-MwConnection"/>
-  <import module="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages">
-    <prefix value="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"/>
-  </import>
   <import module="CoreModel-CoreNetworkModule-ObjectClasses">
     <prefix value="CoreModel-CoreNetworkModule-ObjectClasses"/>
   </import>
@@ -23,6 +20,9 @@
   </import>
   <import module="G_874_1_model-Object_Classes">
     <prefix value="G_874_1_model-Object_Classes"/>
+  </import>
+  <import module="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages">
+    <prefix value="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"/>
   </import>
   <organization>
     <text>ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project</text>
@@ -39,7 +39,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-07-10">
+  <revision date="2016-07-16">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -53,7 +53,6 @@
     </description>
     <key value="layerProtocol"/>
     <config value="true"/>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <leaf name="layerProtocol">
       <type name="leafref">
         <path value="/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:_lpList/CoreModel-CoreNetworkModule-ObjectClasses:uuid"/>
@@ -63,6 +62,7 @@
       </description>
     </leaf>
     <container name="airInterfaceCapability">
+      <config value="false"/>
       <uses name="AirInterfaceCapability"/>
     </container>
     <container name="airInterfaceConfiguration">
@@ -70,32 +70,29 @@
       <uses name="AirInterfaceConfiguration"/>
     </container>
     <container name="airInterfaceStatus">
+      <config value="false"/>
       <uses name="AirInterfaceStatus"/>
     </container>
-    <leaf-list name="airInterfaceCurrentProblemList">
+    <list name="airInterfaceCurrentProblemList">
+      <config value="false"/>
       <ordered-by value="system"/>
-      <type name="leafref">
-        <path value="/MicrowaveModel-ObjectClasses-MwConnection:AirInterfaceCurrentProblem/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
-      </type>
-    </leaf-list>
-    <leaf name="airInterfaceCurrentPerformance">
-      <type name="leafref">
-        <path value="/MicrowaveModel-ObjectClasses-MwConnection:AirInterfaceCurrentPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
-      </type>
-    </leaf>
-    <leaf-list name="airInterfaceHistoricalPerformanceList">
+      <uses name="AirInterfaceCurrentProblem"/>
+    </list>
+    <container name="airInterfaceCurrentPerformance">
+      <config value="false"/>
+      <uses name="AirInterfaceCurrentPerformance"/>
+    </container>
+    <list name="airInterfaceHistoricalPerformanceList">
+      <config value="false"/>
       <ordered-by value="system"/>
-      <type name="leafref">
-        <path value="/MicrowaveModel-ObjectClasses-MwConnection:AirInterfaceHistoricalPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
-      </type>
-    </leaf-list>
+      <uses name="AirInterfaceHistoricalPerformance"/>
+    </list>
   </list>
   <grouping name="AirInterfaceCapability">
     <description>
       <text>Describes the 'analog' capabilities of modem and transmitter of the microwave device. Value ranges of attributes are not independently (e.g. min. and max. transmit power depends on modulation). Legal combinations of values are expressed in transmissionModeTypes.
 Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.</text>
     </description>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <leaf name="typeOfEquipment">
       <type name="string"/>
       <config value="false"/>
@@ -218,7 +215,6 @@ Basic principles for defining the Default values of Capability attributes: 1)NO 
       <text>Configuration of the device.
 Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device.           Configuration messages provided by the device shall contain the current configuration.</text>
     </description>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <leaf name="airInterfaceName">
       <type name="string"/>
       <description>
@@ -398,7 +394,6 @@ If this attribute is set to '1', the received IF signal is transmitted back to t
       <text>Measurements of current values on the air interface and operational status of the device.
 Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.</text>
     </description>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <leaf name="txFrequencyCur">
       <type name="int64"/>
       <config value="false"/>
@@ -546,42 +541,21 @@ _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' m
       </description>
     </leaf>
   </grouping>
-  <list name="AirInterfaceCurrentProblem">
-    <key value="uuid"/>
-    <config value="true"/>
-    <ordered-by value="system"/>
-    <uses name="AirInterfaceCurrentProblem"/>
-  </list>
   <grouping name="AirInterfaceCurrentProblem">
     <uses name="MwCurrentProblem"/>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <container name="problem">
       <uses name="MicrowaveModel-TypeDefinitions:airInterfaceProblemType"/>
     </container>
   </grouping>
-  <list name="AirInterfaceCurrentPerformance">
-    <key value="uuid"/>
-    <config value="true"/>
-    <ordered-by value="system"/>
-    <uses name="AirInterfaceCurrentPerformance"/>
-  </list>
   <grouping name="AirInterfaceCurrentPerformance">
     <uses name="G_874_1_model-Object_Classes:OTN_CurrentData"/>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
   </grouping>
-  <list name="AirInterfaceHistoricalPerformance">
-    <key value="uuid"/>
-    <config value="true"/>
-    <ordered-by value="system"/>
-    <uses name="AirInterfaceHistoricalPerformance"/>
-  </list>
   <grouping name="AirInterfaceHistoricalPerformance">
     <description>
       <text>Consolidated performance informantion of the air interface.
 Basic principles for defining the Defaults values of Performance attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute.</text>
     </description>
     <uses name="G_874_1_model-Object_Classes:OTN_HistoryData"/>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <leaf name="es">
       <type name="int64"/>
       <config value="false"/>
@@ -897,7 +871,9 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
   <list name="CoChannelGroup">
     <key value="uuid"/>
     <config value="true"/>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:GlobalClass"/>
+    <leaf name="uuid">
+      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
+    </leaf>
     <leaf-list name="airInterfaceList">
       <description>
         <text>List of air interfaces, which are part of the co-channel (XPIC, MIMO, AFR) group.</text>
@@ -921,7 +897,6 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
     <key value="layerProtocol"/>
     <config value="true"/>
     <ordered-by value="system"/>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <leaf name="layerProtocol">
       <type name="leafref">
         <path value="/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:_lpList/CoreModel-CoreNetworkModule-ObjectClasses:uuid"/>
@@ -931,6 +906,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       </description>
     </leaf>
     <container name="airInterfaceDiversityCapability">
+      <config value="false"/>
       <uses name="AirInterfaceDiversityCapability"/>
     </container>
     <container name="airInterfaceDiversityConfiguration">
@@ -938,32 +914,29 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <uses name="AirInterfaceDiversityConfiguration"/>
     </container>
     <container name="airInterfaceDiversityStatus">
+      <config value="false"/>
       <uses name="AirInterfaceDiversityStatus"/>
     </container>
-    <leaf-list name="airInterfaceDiversityCurrentProblemList">
+    <list name="airInterfaceDiversityCurrentProblemList">
+      <config value="false"/>
       <ordered-by value="system"/>
-      <type name="leafref">
-        <path value="/MicrowaveModel-ObjectClasses-MwConnection:AirInterfaceDiversityCurrentProblem/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
-      </type>
-    </leaf-list>
-    <leaf name="airInterfaceDiversityCurrentPerformance">
-      <type name="leafref">
-        <path value="/MicrowaveModel-ObjectClasses-MwConnection:AirInterfaceDiversityCurrentPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
-      </type>
-    </leaf>
-    <leaf-list name="airInterfaceDiversityHistoricalPerformanceList">
+      <uses name="AirInterfaceDiversityCurrentProblem"/>
+    </list>
+    <container name="airInterfaceDiversityCurrentPerformance">
+      <config value="false"/>
+      <uses name="AirInterfaceDiversityCurrentPerformance"/>
+    </container>
+    <list name="airInterfaceDiversityHistoricalPerformanceList">
+      <config value="false"/>
       <ordered-by value="system"/>
-      <type name="leafref">
-        <path value="/MicrowaveModel-ObjectClasses-MwConnection:AirInterfaceDiversityHistoricalPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
-      </type>
-    </leaf-list>
+      <uses name="AirInterfaceDiversityHistoricalPerformance"/>
+    </list>
   </list>
   <grouping name="AirInterfaceDiversityCapability">
     <description>
       <text>Describes the capabilities in implementing different types of air interface diversity.
 Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.</text>
     </description>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <list name="availableKindsOfDiversity">
       <description>
         <text>Available types of diversity to be listed.</text>
@@ -987,7 +960,6 @@ Further alarms might be added by the device.</text>
     <description>
       <text>Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.</text>
     </description>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <container name="airInterfaceDiversity">
       <description>
         <text>Type of air interface diversity configured at the link.</text>
@@ -1020,7 +992,6 @@ Further alarms might be added by the device.</text>
     <description>
       <text>Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.</text>
     </description>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <leaf name="lastStatusChange">
       <type name="CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime"/>
       <config value="false"/>
@@ -1039,38 +1010,17 @@ _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' m
       <default value="groupDown"/>
     </leaf>
   </grouping>
-  <list name="AirInterfaceDiversityCurrentProblem">
-    <key value="uuid"/>
-    <config value="true"/>
-    <ordered-by value="system"/>
-    <uses name="AirInterfaceDiversityCurrentProblem"/>
-  </list>
   <grouping name="AirInterfaceDiversityCurrentProblem">
     <uses name="MwCurrentProblem"/>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <container name="problem">
       <uses name="MicrowaveModel-TypeDefinitions:airInterfaceDiversityProblemType"/>
     </container>
   </grouping>
-  <list name="AirInterfaceDiversityCurrentPerformance">
-    <key value="uuid"/>
-    <config value="true"/>
-    <ordered-by value="system"/>
-    <uses name="AirInterfaceDiversityCurrentPerformance"/>
-  </list>
   <grouping name="AirInterfaceDiversityCurrentPerformance">
     <uses name="G_874_1_model-Object_Classes:OTN_CurrentData"/>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
   </grouping>
-  <list name="AirInterfaceDiversityHistoricalPerformance">
-    <key value="uuid"/>
-    <config value="true"/>
-    <ordered-by value="system"/>
-    <uses name="AirInterfaceDiversityHistoricalPerformance"/>
-  </list>
   <grouping name="AirInterfaceDiversityHistoricalPerformance">
     <uses name="G_874_1_model-Object_Classes:OTN_HistoryData"/>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
   </grouping>
   <list name="MW_Structure_Pac">
     <description>
@@ -1078,7 +1028,6 @@ _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' m
     </description>
     <key value="layerProtocol"/>
     <config value="true"/>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <leaf name="layerProtocol">
       <type name="leafref">
         <path value="/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:_lpList/CoreModel-CoreNetworkModule-ObjectClasses:uuid"/>
@@ -1088,6 +1037,7 @@ _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' m
       </description>
     </leaf>
     <container name="structureCapability">
+      <config value="false"/>
       <uses name="StructureCapability"/>
     </container>
     <container name="structureConfiguration">
@@ -1095,32 +1045,29 @@ _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' m
       <uses name="StructureConfiguration"/>
     </container>
     <container name="structureStatus">
+      <config value="false"/>
       <uses name="StructureStatus"/>
     </container>
-    <leaf-list name="structureCurrentProblemList">
+    <list name="structureCurrentProblemList">
+      <config value="false"/>
       <ordered-by value="system"/>
-      <type name="leafref">
-        <path value="/MicrowaveModel-ObjectClasses-MwConnection:StructureCurrentProblem/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
-      </type>
-    </leaf-list>
-    <leaf name="structureCurrentPerformance">
-      <type name="leafref">
-        <path value="/MicrowaveModel-ObjectClasses-MwConnection:StructureCurrentPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
-      </type>
-    </leaf>
-    <leaf-list name="structureHistoricalPerformanceList">
+      <uses name="StructureCurrentProblem"/>
+    </list>
+    <container name="structureCurrentPerformance">
+      <config value="false"/>
+      <uses name="StructureCurrentPerformance"/>
+    </container>
+    <list name="structureHistoricalPerformanceList">
+      <config value="false"/>
       <ordered-by value="system"/>
-      <type name="leafref">
-        <path value="/MicrowaveModel-ObjectClasses-MwConnection:StructureHistoricalPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
-      </type>
-    </leaf-list>
+      <uses name="StructureHistoricalPerformance"/>
+    </list>
   </list>
   <grouping name="StructureCapability">
     <description>
       <text>Describes the logical structuring of the physical capacity provided by the microwave device.
 Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.</text>
     </description>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <leaf name="structureID">
       <type name="string"/>
       <config value="false"/>
@@ -1166,7 +1113,6 @@ Further alarms might be added by the device.</text>
     <description>
       <text>Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.</text>
     </description>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <leaf name="tdmReservedNumberOfTimeSlots">
       <type name="int32"/>
       <description>
@@ -1189,7 +1135,6 @@ Further alarms might be added by the device.</text>
     <description>
       <text>Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.</text>
     </description>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <list name="timeSlotStatusList">
       <description>
         <text>Condition of each time slot.
@@ -1208,35 +1153,15 @@ _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' m
       </description>
     </leaf>
   </grouping>
-  <list name="StructureCurrentProblem">
-    <key value="uuid"/>
-    <config value="true"/>
-    <ordered-by value="system"/>
-    <uses name="StructureCurrentProblem"/>
-  </list>
   <grouping name="StructureCurrentProblem">
     <uses name="MwCurrentProblem"/>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <container name="problem">
       <uses name="MicrowaveModel-TypeDefinitions:structureProblemType"/>
     </container>
   </grouping>
-  <list name="StructureCurrentPerformance">
-    <key value="uuid"/>
-    <config value="true"/>
-    <ordered-by value="system"/>
-    <uses name="StructureCurrentPerformance"/>
-  </list>
   <grouping name="StructureCurrentPerformance">
     <uses name="G_874_1_model-Object_Classes:OTN_CurrentData"/>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
   </grouping>
-  <list name="StructureHistoricalPerformance">
-    <key value="uuid"/>
-    <config value="true"/>
-    <ordered-by value="system"/>
-    <uses name="StructureHistoricalPerformance"/>
-  </list>
   <grouping name="StructureHistoricalPerformance">
     <description>
       <text>Basic principles for defining the Defaults values of Performance attributes:
@@ -1245,7 +1170,6 @@ _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' m
 - The Default value shall be outside the range of reasonable values of the attribute.</text>
     </description>
     <uses name="G_874_1_model-Object_Classes:OTN_HistoryData"/>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <leaf name="timePeriod">
       <type name="int64"/>
       <config value="false"/>
@@ -1264,7 +1188,6 @@ Required data volume = 17bit</text>
     <key value="layerProtocol"/>
     <config value="true"/>
     <ordered-by value="system"/>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <leaf name="layerProtocol">
       <type name="leafref">
         <path value="/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:_lpList/CoreModel-CoreNetworkModule-ObjectClasses:uuid"/>
@@ -1274,6 +1197,7 @@ Required data volume = 17bit</text>
       </description>
     </leaf>
     <container name="containerCapability">
+      <config value="false"/>
       <uses name="ContainerCapability"/>
     </container>
     <container name="containerConfiguration">
@@ -1281,31 +1205,28 @@ Required data volume = 17bit</text>
       <uses name="ContainerConfiguration"/>
     </container>
     <container name="containerStatus">
+      <config value="false"/>
       <uses name="ContainerStatus"/>
     </container>
-    <leaf-list name="containerCurrentProblemList">
+    <list name="containerCurrentProblemList">
+      <config value="false"/>
       <ordered-by value="system"/>
-      <type name="leafref">
-        <path value="/MicrowaveModel-ObjectClasses-MwConnection:ContainerCurrentProblem/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
-      </type>
-    </leaf-list>
-    <leaf name="containerCurrentPerformance">
-      <type name="leafref">
-        <path value="/MicrowaveModel-ObjectClasses-MwConnection:ContainerCurrentPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
-      </type>
-    </leaf>
-    <leaf-list name="containerHistoricalPerformanceList">
+      <uses name="ContainerCurrentProblem"/>
+    </list>
+    <container name="containerCurrentPerformance">
+      <config value="false"/>
+      <uses name="ContainerCurrentPerformance"/>
+    </container>
+    <list name="containerHistoricalPerformanceList">
+      <config value="false"/>
       <ordered-by value="system"/>
-      <type name="leafref">
-        <path value="/MicrowaveModel-ObjectClasses-MwConnection:ContainerHistoricalPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid"/>
-      </type>
-    </leaf-list>
+      <uses name="ContainerHistoricalPerformance"/>
+    </list>
   </list>
   <grouping name="ContainerCapability">
     <description>
       <text>Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.</text>
     </description>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <leaf name="containerID">
       <type name="string"/>
       <config value="false"/>
@@ -1421,7 +1342,6 @@ Further alarms might be added by the device.</text>
     <description>
       <text>Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.</text>
     </description>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <container name="container">
       <description>
         <text>Defines the data type of the container offered to client layers.</text>
@@ -1537,7 +1457,6 @@ _multiplicity:ThisContainer::ContainerConfiguration::container::containerType::n
     <description>
       <text>Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.</text>
     </description>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <leaf name="lastStatusChange">
       <type name="CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime"/>
       <config value="false"/>
@@ -1556,41 +1475,20 @@ _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' m
       <default value="-1"/>
     </leaf>
   </grouping>
-  <list name="ContainerCurrentProblem">
-    <key value="uuid"/>
-    <config value="true"/>
-    <ordered-by value="system"/>
-    <uses name="ContainerCurrentProblem"/>
-  </list>
   <grouping name="ContainerCurrentProblem">
     <uses name="MwCurrentProblem"/>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <container name="problem">
       <uses name="MicrowaveModel-TypeDefinitions:containerProblemType"/>
     </container>
   </grouping>
-  <list name="ContainerCurrentPerformance">
-    <key value="uuid"/>
-    <config value="true"/>
-    <ordered-by value="system"/>
-    <uses name="ContainerCurrentPerformance"/>
-  </list>
   <grouping name="ContainerCurrentPerformance">
     <uses name="G_874_1_model-Object_Classes:OTN_CurrentData"/>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
   </grouping>
-  <list name="ContainerHistoricalPerformance">
-    <key value="uuid"/>
-    <config value="true"/>
-    <ordered-by value="system"/>
-    <uses name="ContainerHistoricalPerformance"/>
-  </list>
   <grouping name="ContainerHistoricalPerformance">
     <description>
       <text>Basic principles for defining the Defaults values of Performance attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute.</text>
     </description>
     <uses name="G_874_1_model-Object_Classes:OTN_HistoryData"/>
-    <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <leaf name="txEthernetBytesMaxS">
       <type name="int64"/>
       <config value="false"/>
