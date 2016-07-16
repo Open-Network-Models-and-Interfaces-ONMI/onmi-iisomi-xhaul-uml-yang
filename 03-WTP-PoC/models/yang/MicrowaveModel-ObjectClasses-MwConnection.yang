@@ -2,9 +2,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
     namespace "uri:onf:MicrowaveModel-ObjectClasses-MwConnection";
     prefix MicrowaveModel-ObjectClasses-MwConnection;
 
-    import CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages {
-        prefix CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages;
-    }
     import CoreModel-CoreNetworkModule-ObjectClasses {
         prefix CoreModel-CoreNetworkModule-ObjectClasses;
     }
@@ -16,6 +13,9 @@ module MicrowaveModel-ObjectClasses-MwConnection {
     }
     import G_874_1_model-Object_Classes {
         prefix G_874_1_model-Object_Classes;
+    }
+    import CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages {
+        prefix CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages;
     }
 
     organization 
@@ -33,7 +33,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-10 {
+    revision 2016-07-16 {
         description 
             "Initial revision."; 
         reference 
@@ -44,7 +44,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         description "LTP(MWPS-TTP)";
         key 'layerProtocol';
         config true;
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf layerProtocol {
             type leafref {
                 path '/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:_lpList/CoreModel-CoreNetworkModule-ObjectClasses:uuid';
@@ -52,6 +51,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
         }
         container airInterfaceCapability {
+            config false;
             uses AirInterfaceCapability;
         }
         container airInterfaceConfiguration {
@@ -59,30 +59,27 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             uses AirInterfaceConfiguration;
         }
         container airInterfaceStatus {
+            config false;
             uses AirInterfaceStatus;
         }
-        leaf-list airInterfaceCurrentProblemList {
+        list airInterfaceCurrentProblemList {
+            config false;
             ordered-by system;
-            type leafref {
-                path '/MicrowaveModel-ObjectClasses-MwConnection:AirInterfaceCurrentProblem/MicrowaveModel-ObjectClasses-MwConnection:uuid';
-            }
+            uses AirInterfaceCurrentProblem;
         }
-        leaf airInterfaceCurrentPerformance {
-            type leafref {
-                path '/MicrowaveModel-ObjectClasses-MwConnection:AirInterfaceCurrentPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid';
-            }
+        container airInterfaceCurrentPerformance {
+            config false;
+            uses AirInterfaceCurrentPerformance;
         }
-        leaf-list airInterfaceHistoricalPerformanceList {
+        list airInterfaceHistoricalPerformanceList {
+            config false;
             ordered-by system;
-            type leafref {
-                path '/MicrowaveModel-ObjectClasses-MwConnection:AirInterfaceHistoricalPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid';
-            }
+            uses AirInterfaceHistoricalPerformance;
         }
     }
     grouping AirInterfaceCapability {
         description "Describes the 'analog' capabilities of modem and transmitter of the microwave device. Value ranges of attributes are not independently (e.g. min. and max. transmit power depends on modulation). Legal combinations of values are expressed in transmissionModeTypes.
             Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.";
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf typeOfEquipment {
             type string;
             config false;
@@ -173,7 +170,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
     grouping AirInterfaceConfiguration {
         description "Configuration of the device.
             Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device.           Configuration messages provided by the device shall contain the current configuration.";
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf airInterfaceName {
             type string;
             description "Operator specific microwave link ID (often used for coding area, type of element and sequential number).";
@@ -301,7 +297,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
     grouping AirInterfaceStatus {
         description "Measurements of current values on the air interface and operational status of the device.
             Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.";
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf txFrequencyCur {
             type int64;
             config false;
@@ -413,40 +408,19 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             description "If loop back of the air interface header is currently active (not just configured), this shall be expressed as an '1'.";
         }
     }
-    list AirInterfaceCurrentProblem {
-        key 'uuid';
-        config true;
-        ordered-by system;
-        uses AirInterfaceCurrentProblem;
-    }
     grouping AirInterfaceCurrentProblem {
         uses MwCurrentProblem;
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         container problem {
             uses MicrowaveModel-TypeDefinitions:airInterfaceProblemType;
         }
     }
-    list AirInterfaceCurrentPerformance {
-        key 'uuid';
-        config true;
-        ordered-by system;
-        uses AirInterfaceCurrentPerformance;
-    }
     grouping AirInterfaceCurrentPerformance {
         uses G_874_1_model-Object_Classes:OTN_CurrentData;
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
-    }
-    list AirInterfaceHistoricalPerformance {
-        key 'uuid';
-        config true;
-        ordered-by system;
-        uses AirInterfaceHistoricalPerformance;
     }
     grouping AirInterfaceHistoricalPerformance {
         description "Consolidated performance informantion of the air interface.
             Basic principles for defining the Defaults values of Performance attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute.";
         uses G_874_1_model-Object_Classes:OTN_HistoryData;
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf es {
             type int64;
             config false;
@@ -718,7 +692,9 @@ module MicrowaveModel-ObjectClasses-MwConnection {
     list CoChannelGroup {
         key 'uuid';
         config true;
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:GlobalClass;
+        leaf uuid {
+            type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
+        }
         leaf-list airInterfaceList {
             description "List of air interfaces, which are part of the co-channel (XPIC, MIMO, AFR) group.";
             ordered-by system;
@@ -736,7 +712,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         key 'layerProtocol';
         config true;
         ordered-by system;
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf layerProtocol {
             type leafref {
                 path '/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:_lpList/CoreModel-CoreNetworkModule-ObjectClasses:uuid';
@@ -744,6 +719,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
         }
         container airInterfaceDiversityCapability {
+            config false;
             uses AirInterfaceDiversityCapability;
         }
         container airInterfaceDiversityConfiguration {
@@ -751,30 +727,27 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             uses AirInterfaceDiversityConfiguration;
         }
         container airInterfaceDiversityStatus {
+            config false;
             uses AirInterfaceDiversityStatus;
         }
-        leaf-list airInterfaceDiversityCurrentProblemList {
+        list airInterfaceDiversityCurrentProblemList {
+            config false;
             ordered-by system;
-            type leafref {
-                path '/MicrowaveModel-ObjectClasses-MwConnection:AirInterfaceDiversityCurrentProblem/MicrowaveModel-ObjectClasses-MwConnection:uuid';
-            }
+            uses AirInterfaceDiversityCurrentProblem;
         }
-        leaf airInterfaceDiversityCurrentPerformance {
-            type leafref {
-                path '/MicrowaveModel-ObjectClasses-MwConnection:AirInterfaceDiversityCurrentPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid';
-            }
+        container airInterfaceDiversityCurrentPerformance {
+            config false;
+            uses AirInterfaceDiversityCurrentPerformance;
         }
-        leaf-list airInterfaceDiversityHistoricalPerformanceList {
+        list airInterfaceDiversityHistoricalPerformanceList {
+            config false;
             ordered-by system;
-            type leafref {
-                path '/MicrowaveModel-ObjectClasses-MwConnection:AirInterfaceDiversityHistoricalPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid';
-            }
+            uses AirInterfaceDiversityHistoricalPerformance;
         }
     }
     grouping AirInterfaceDiversityCapability {
         description "Describes the capabilities in implementing different types of air interface diversity.
             Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.";
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         list availableKindsOfDiversity {
             description "Available types of diversity to be listed.";
             key 'diversityTypeId';
@@ -792,7 +765,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
     }
     grouping AirInterfaceDiversityConfiguration {
         description "Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.";
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         container airInterfaceDiversity {
             description "Type of air interface diversity configured at the link.";
             config true;
@@ -817,7 +789,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
     }
     grouping AirInterfaceDiversityStatus {
         description "Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.";
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf lastStatusChange {
             type CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime;
             config false;
@@ -832,44 +803,22 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             default "groupDown";
         }
     }
-    list AirInterfaceDiversityCurrentProblem {
-        key 'uuid';
-        config true;
-        ordered-by system;
-        uses AirInterfaceDiversityCurrentProblem;
-    }
     grouping AirInterfaceDiversityCurrentProblem {
         uses MwCurrentProblem;
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         container problem {
             uses MicrowaveModel-TypeDefinitions:airInterfaceDiversityProblemType;
         }
     }
-    list AirInterfaceDiversityCurrentPerformance {
-        key 'uuid';
-        config true;
-        ordered-by system;
-        uses AirInterfaceDiversityCurrentPerformance;
-    }
     grouping AirInterfaceDiversityCurrentPerformance {
         uses G_874_1_model-Object_Classes:OTN_CurrentData;
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
-    }
-    list AirInterfaceDiversityHistoricalPerformance {
-        key 'uuid';
-        config true;
-        ordered-by system;
-        uses AirInterfaceDiversityHistoricalPerformance;
     }
     grouping AirInterfaceDiversityHistoricalPerformance {
         uses G_874_1_model-Object_Classes:OTN_HistoryData;
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
     }
     list MW_Structure_Pac {
         description "LTP(MWS-TTP)";
         key 'layerProtocol';
         config true;
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf layerProtocol {
             type leafref {
                 path '/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:_lpList/CoreModel-CoreNetworkModule-ObjectClasses:uuid';
@@ -877,6 +826,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
         }
         container structureCapability {
+            config false;
             uses StructureCapability;
         }
         container structureConfiguration {
@@ -884,30 +834,27 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             uses StructureConfiguration;
         }
         container structureStatus {
+            config false;
             uses StructureStatus;
         }
-        leaf-list structureCurrentProblemList {
+        list structureCurrentProblemList {
+            config false;
             ordered-by system;
-            type leafref {
-                path '/MicrowaveModel-ObjectClasses-MwConnection:StructureCurrentProblem/MicrowaveModel-ObjectClasses-MwConnection:uuid';
-            }
+            uses StructureCurrentProblem;
         }
-        leaf structureCurrentPerformance {
-            type leafref {
-                path '/MicrowaveModel-ObjectClasses-MwConnection:StructureCurrentPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid';
-            }
+        container structureCurrentPerformance {
+            config false;
+            uses StructureCurrentPerformance;
         }
-        leaf-list structureHistoricalPerformanceList {
+        list structureHistoricalPerformanceList {
+            config false;
             ordered-by system;
-            type leafref {
-                path '/MicrowaveModel-ObjectClasses-MwConnection:StructureHistoricalPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid';
-            }
+            uses StructureHistoricalPerformance;
         }
     }
     grouping StructureCapability {
         description "Describes the logical structuring of the physical capacity provided by the microwave device.
             Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.";
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf structureID {
             type string;
             config false;
@@ -941,7 +888,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
     }
     grouping StructureConfiguration {
         description "Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.";
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf tdmReservedNumberOfTimeSlots {
             type int32;
             description "Allows to configure the number of time slots reserved for TDM traffic.";
@@ -958,7 +904,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
     }
     grouping StructureStatus {
         description "Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.";
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         list timeSlotStatusList {
             description "Condition of each time slot.
                 _multiplicity:Structure::StructureCapability::totalNumberOfTimeSlots";
@@ -973,34 +918,14 @@ module MicrowaveModel-ObjectClasses-MwConnection {
                 _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' month; dd='01'..'31' day; hh='00'..'23' hour; mm='00'..'59' minute; ss='00'..'59' second; s='.0'..'.9'tenth of second (set to '.0' if EMS or NE cannot support this granularity); Z='Z' indicates UTC (rather than local time); {+|-}='+' or '-' delta from UTC; HH='00'..'23' time zone difference in hours; Mm='00'..'59' time zone difference in minutes.";
         }
     }
-    list StructureCurrentProblem {
-        key 'uuid';
-        config true;
-        ordered-by system;
-        uses StructureCurrentProblem;
-    }
     grouping StructureCurrentProblem {
         uses MwCurrentProblem;
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         container problem {
             uses MicrowaveModel-TypeDefinitions:structureProblemType;
         }
     }
-    list StructureCurrentPerformance {
-        key 'uuid';
-        config true;
-        ordered-by system;
-        uses StructureCurrentPerformance;
-    }
     grouping StructureCurrentPerformance {
         uses G_874_1_model-Object_Classes:OTN_CurrentData;
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
-    }
-    list StructureHistoricalPerformance {
-        key 'uuid';
-        config true;
-        ordered-by system;
-        uses StructureHistoricalPerformance;
     }
     grouping StructureHistoricalPerformance {
         description "Basic principles for defining the Defaults values of Performance attributes:
@@ -1008,7 +933,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             - The Default value shall be inside the value range of the data type of the attribute.
             - The Default value shall be outside the range of reasonable values of the attribute.";
         uses G_874_1_model-Object_Classes:OTN_HistoryData;
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf timePeriod {
             type int64;
             config false;
@@ -1023,7 +947,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
         key 'layerProtocol';
         config true;
         ordered-by system;
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf layerProtocol {
             type leafref {
                 path '/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:_lpList/CoreModel-CoreNetworkModule-ObjectClasses:uuid';
@@ -1031,6 +954,7 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
         }
         container containerCapability {
+            config false;
             uses ContainerCapability;
         }
         container containerConfiguration {
@@ -1038,29 +962,26 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             uses ContainerConfiguration;
         }
         container containerStatus {
+            config false;
             uses ContainerStatus;
         }
-        leaf-list containerCurrentProblemList {
+        list containerCurrentProblemList {
+            config false;
             ordered-by system;
-            type leafref {
-                path '/MicrowaveModel-ObjectClasses-MwConnection:ContainerCurrentProblem/MicrowaveModel-ObjectClasses-MwConnection:uuid';
-            }
+            uses ContainerCurrentProblem;
         }
-        leaf containerCurrentPerformance {
-            type leafref {
-                path '/MicrowaveModel-ObjectClasses-MwConnection:ContainerCurrentPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid';
-            }
+        container containerCurrentPerformance {
+            config false;
+            uses ContainerCurrentPerformance;
         }
-        leaf-list containerHistoricalPerformanceList {
+        list containerHistoricalPerformanceList {
+            config false;
             ordered-by system;
-            type leafref {
-                path '/MicrowaveModel-ObjectClasses-MwConnection:ContainerHistoricalPerformance/MicrowaveModel-ObjectClasses-MwConnection:uuid';
-            }
+            uses ContainerHistoricalPerformance;
         }
     }
     grouping ContainerCapability {
         description "Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.";
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf containerID {
             type string;
             config false;
@@ -1144,7 +1065,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
     }
     grouping ContainerConfiguration {
         description "Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.";
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         container container {
             description "Defines the data type of the container offered to client layers.";
             config true;
@@ -1228,7 +1148,6 @@ module MicrowaveModel-ObjectClasses-MwConnection {
     }
     grouping ContainerStatus {
         description "Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.";
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf lastStatusChange {
             type CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime;
             config false;
@@ -1243,39 +1162,18 @@ module MicrowaveModel-ObjectClasses-MwConnection {
             default -1;
         }
     }
-    list ContainerCurrentProblem {
-        key 'uuid';
-        config true;
-        ordered-by system;
-        uses ContainerCurrentProblem;
-    }
     grouping ContainerCurrentProblem {
         uses MwCurrentProblem;
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         container problem {
             uses MicrowaveModel-TypeDefinitions:containerProblemType;
         }
     }
-    list ContainerCurrentPerformance {
-        key 'uuid';
-        config true;
-        ordered-by system;
-        uses ContainerCurrentPerformance;
-    }
     grouping ContainerCurrentPerformance {
         uses G_874_1_model-Object_Classes:OTN_CurrentData;
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
-    }
-    list ContainerHistoricalPerformance {
-        key 'uuid';
-        config true;
-        ordered-by system;
-        uses ContainerHistoricalPerformance;
     }
     grouping ContainerHistoricalPerformance {
         description "Basic principles for defining the Defaults values of Performance attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute.";
         uses G_874_1_model-Object_Classes:OTN_HistoryData;
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf txEthernetBytesMaxS {
             type int64;
             config false;
