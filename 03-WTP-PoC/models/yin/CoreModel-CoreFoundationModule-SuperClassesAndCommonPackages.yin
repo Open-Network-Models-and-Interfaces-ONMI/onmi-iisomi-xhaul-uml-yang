@@ -48,7 +48,9 @@
   </grouping>
   <grouping name="GlobalClass">
     <description>
-      <text>Represents a type of thing (an Entity) that has instances which can exist in their own right (independently of any others).Entity: Has identity, defined boundary, properties, functionality and lifecycle in a global context.(consider in the context of an Object Class: (usage) The representation of a thing that may be an entity or an inseparable Entity Feature)</text>
+      <text>Represents a type of thing (an Entity) that has instances which can exist in their own right (independently of any others).
+Entity: Has identity, defined boundary, properties, functionality and lifecycle in a global context.
+(consider in the context of an Object Class: (usage) The representation of a thing that may be an entity or an inseparable Entity Feature)</text>
     </description>
     <uses name="Name"/>
     <uses name="Label"/>
@@ -56,7 +58,8 @@
     <uses name="CoreModel-CoreFoundationModule-StateModel:State_Pac"/>
     <list name="localIdList">
       <description>
-        <text>An identifier that is unique in the context of some scope that is less than the global scope.(consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)</text>
+        <text>An identifier that is unique in the context of some scope that is less than the global scope.
+(consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)</text>
       </description>
       <key value="valueName"/>
       <config value="true"/>
@@ -66,13 +69,18 @@
     <leaf name="uuid">
       <type name="UniversalId"/>
       <description>
-        <text>UUID: An identifier that is universally unique(consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself globally unique, and immutable. An identifier carries no semantics with respect to the purpose or state of the entity)</text>
+        <text>UUID: An identifier that is universally unique
+(consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself globally unique, and immutable. An identifier carries no semantics with respect to the purpose or state of the entity)</text>
       </description>
     </leaf>
   </grouping>
   <grouping name="LocalClass">
     <description>
-      <text>A LocalClass represents a Feature of an Entity. It is inseparable from a GlobalClass but is a distinct feature of that GlobalClass such that the instances of LocalClass are able to have associations to other instances..Feature of an Entity: An inseparable, externally distinguishable part of an entity.The mandatory LocalId of the LocalClass instance is unique in the context of the GlobalClass from which it is inseparable.(consider in the context of an Object Class: (usage) The representation of a thing that may be an entity or an inseparable feature of an entity)</text>
+      <text>A LocalClass represents a Feature of an Entity. It is inseparable from a GlobalClass but is a distinct feature of that GlobalClass such that the instances of LocalClass are able to have associations to other instances..
+Feature of an Entity: An inseparable, externally distinguishable part of an entity.
+The mandatory LocalId of the LocalClass instance is unique in the context of the GlobalClass from which it is inseparable.
+(consider in the context of an Object Class: (usage) The representation of a thing that may be an entity or an inseparable feature of an entity)
+</text>
     </description>
     <uses name="Name"/>
     <uses name="Label"/>
@@ -80,7 +88,8 @@
     <uses name="CoreModel-CoreFoundationModule-StateModel:State_Pac"/>
     <list name="localIdList">
       <description>
-        <text>An identifier that is unique in the context of some scope that is less than the global scope.(consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)</text>
+        <text>An identifier that is unique in the context of some scope that is less than the global scope.
+(consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)</text>
       </description>
       <key value="valueName"/>
       <config value="true"/>

@@ -40,13 +40,16 @@ module CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages {
         }
     }
     grouping GlobalClass {
-        description "Represents a type of thing (an Entity) that has instances which can exist in their own right (independently of any others).Entity: Has identity, defined boundary, properties, functionality and lifecycle in a global context.(consider in the context of an Object Class: (usage) The representation of a thing that may be an entity or an inseparable Entity Feature)";
+        description "Represents a type of thing (an Entity) that has instances which can exist in their own right (independently of any others).
+            Entity: Has identity, defined boundary, properties, functionality and lifecycle in a global context.
+            (consider in the context of an Object Class: (usage) The representation of a thing that may be an entity or an inseparable Entity Feature)";
         uses Name;
         uses Label;
         uses Extension;
         uses CoreModel-CoreFoundationModule-StateModel:State_Pac;
         list localIdList {
-            description "An identifier that is unique in the context of some scope that is less than the global scope.(consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)";
+            description "An identifier that is unique in the context of some scope that is less than the global scope.
+                (consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)";
             key 'valueName';
             config true;
             ordered-by system;
@@ -54,17 +57,23 @@ module CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages {
         }
         leaf uuid {
             type UniversalId;
-            description "UUID: An identifier that is universally unique(consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself globally unique, and immutable. An identifier carries no semantics with respect to the purpose or state of the entity)";
+            description "UUID: An identifier that is universally unique
+                (consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself globally unique, and immutable. An identifier carries no semantics with respect to the purpose or state of the entity)";
         }
     }
     grouping LocalClass {
-        description "A LocalClass represents a Feature of an Entity. It is inseparable from a GlobalClass but is a distinct feature of that GlobalClass such that the instances of LocalClass are able to have associations to other instances..Feature of an Entity: An inseparable, externally distinguishable part of an entity.The mandatory LocalId of the LocalClass instance is unique in the context of the GlobalClass from which it is inseparable.(consider in the context of an Object Class: (usage) The representation of a thing that may be an entity or an inseparable feature of an entity)";
+        description "A LocalClass represents a Feature of an Entity. It is inseparable from a GlobalClass but is a distinct feature of that GlobalClass such that the instances of LocalClass are able to have associations to other instances..
+            Feature of an Entity: An inseparable, externally distinguishable part of an entity.
+            The mandatory LocalId of the LocalClass instance is unique in the context of the GlobalClass from which it is inseparable.
+            (consider in the context of an Object Class: (usage) The representation of a thing that may be an entity or an inseparable feature of an entity)
+            ";
         uses Name;
         uses Label;
         uses Extension;
         uses CoreModel-CoreFoundationModule-StateModel:State_Pac;
         list localIdList {
-            description "An identifier that is unique in the context of some scope that is less than the global scope.(consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)";
+            description "An identifier that is unique in the context of some scope that is less than the global scope.
+                (consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)";
             key 'valueName';
             config true;
             ordered-by system;
