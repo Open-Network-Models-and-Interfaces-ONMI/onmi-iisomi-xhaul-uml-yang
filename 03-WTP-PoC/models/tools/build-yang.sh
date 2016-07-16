@@ -23,6 +23,7 @@ log "Start";
 # clean project folder
 rm "$project"/*.yang;
 rm "$project"/*.xml;
+rm "$project"/*.txt;
 log "Folder $project cleaned!";
 
 # G.874.1

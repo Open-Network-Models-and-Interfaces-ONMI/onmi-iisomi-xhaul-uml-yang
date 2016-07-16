@@ -355,9 +355,7 @@
             <ownedComment xmi:type="uml:Comment" xmi:id="_vqo9YJHuEeWhSKF7pUEwxA" annotatedElement="__1kQ0Hf4EeW-M8kopGJqEA">
               <body>LTP(MWPS-TTP)</body>
             </ownedComment>
-            <generalization xmi:type="uml:Generalization" xmi:id="_blgKEB6WEeao7rZ1SuldWA">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_d_2VoKfyEeWe259zHUSOsw" name="layerProtocol" visibility="private" isUnique="false" association="_d_0gcKfyEeWe259zHUSOsw">
               <ownedComment xmi:type="uml:Comment" xmi:id="_MYW44OLqEeWM2vUDE3Xqhw">
                 <body>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</body>
@@ -372,15 +370,15 @@
             </ownedAttribute>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_AEmSAIe1EeWnUdmvl3PBkw" name="airInterfaceConfiguration" visibility="private" type="_KOcsUIe0EeWnUdmvl3PBkw" isUnique="false" aggregation="composite" association="_AElD4Ie1EeWnUdmvl3PBkw"/>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_Vp35cnmgEeWsUsDOj_Trdg" name="airInterfaceStatus" visibility="private" type="_iCTioHmIEeWRAfnL3fvovg" isUnique="false" isReadOnly="true" aggregation="composite" association="_Vp3SYHmgEeWsUsDOj_Trdg"/>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_ZeRYInmgEeWsUsDOj_Trdg" name="airInterfaceCurrentProblemList" visibility="private" type="_UF8VcHmIEeWRAfnL3fvovg" isUnique="false" aggregation="shared" association="_ZeQxEHmgEeWsUsDOj_Trdg">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_ZeRYInmgEeWsUsDOj_Trdg" name="airInterfaceCurrentProblemList" visibility="private" type="_UF8VcHmIEeWRAfnL3fvovg" isUnique="false" isReadOnly="true" aggregation="composite" association="_ZeQxEHmgEeWsUsDOj_Trdg">
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jduXwJHyEeWhSKF7pUEwxA"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jdvl4JHyEeWhSKF7pUEwxA" value="*"/>
             </ownedAttribute>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_65_4M6S6EeWyu_jasKgNwA" name="airInterfaceCurrentPerformance" visibility="private" type="_CX-iIKS6EeWyu_jasKgNwA" aggregation="shared" association="_65_4MKS6EeWyu_jasKgNwA">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_65_4M6S6EeWyu_jasKgNwA" name="airInterfaceCurrentPerformance" visibility="private" type="_CX-iIKS6EeWyu_jasKgNwA" isUnique="false" isReadOnly="true" aggregation="composite" association="_65_4MKS6EeWyu_jasKgNwA">
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_pwMrQKjDEeWlgMiFXLmCIQ" value="1"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_pwV1MKjDEeWlgMiFXLmCIQ" value="1"/>
             </ownedAttribute>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="__8icYJHfEeWKxoYCXp1XkQ" name="airInterfaceHistoricalPerformanceList" visibility="private" type="_fChNMHmHEeWRAfnL3fvovg" isUnique="false" aggregation="shared" association="__8eK8JHfEeWKxoYCXp1XkQ">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="__8icYJHfEeWKxoYCXp1XkQ" name="airInterfaceHistoricalPerformanceList" visibility="private" type="_fChNMHmHEeWRAfnL3fvovg" isUnique="false" isReadOnly="true" aggregation="composite" association="__8eK8JHfEeWKxoYCXp1XkQ">
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_GJkmYJHgEeWKxoYCXp1XkQ"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_GJpe4JHgEeWKxoYCXp1XkQ" value="*"/>
             </ownedAttribute>
@@ -392,9 +390,7 @@
             <ownedComment xmi:type="uml:Comment" xmi:id="_KvRYgNpVEeWvuIR3H1ItUQ" annotatedElement="_-LlKoIejEeWaZYk7gpuOtw">
               <body>Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.</body>
             </ownedComment>
-            <generalization xmi:type="uml:Generalization" xmi:id="_dwuEcB6WEeao7rZ1SuldWA">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_gK4jMJUBEeWIaZzoaYJ6_A" name="typeOfEquipment" visibility="private" isUnique="false" isReadOnly="true">
               <ownedComment xmi:type="uml:Comment" xmi:id="_gK4jMZUBEeWIaZzoaYJ6_A" annotatedElement="_gK4jMJUBEeWIaZzoaYJ6_A">
                 <body>This parameter indicates the equipment type. Instead of uploading the complete set of capabilities, capabilities of the same equipment type could be reused.</body>
@@ -523,9 +519,7 @@
             <ownedComment xmi:type="uml:Comment" xmi:id="_mb6U8NokEeWvuIR3H1ItUQ" annotatedElement="_iCTioHmIEeWRAfnL3fvovg">
               <body>Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device.           Configuration messages provided by the device shall contain the current configuration.</body>
             </ownedComment>
-            <generalization xmi:type="uml:Generalization" xmi:id="_eJvBYB6WEeao7rZ1SuldWA">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_XMDggIL5EeWMcJAvkeTn2w" name="airInterfaceName" visibility="private" isUnique="false">
               <ownedComment xmi:type="uml:Comment" xmi:id="_XMDggYL5EeWMcJAvkeTn2w" annotatedElement="_XMDggIL5EeWMcJAvkeTn2w">
                 <body>Operator specific microwave link ID (often used for coding area, type of element and sequential number).</body>
@@ -787,9 +781,7 @@
             <ownedComment xmi:type="uml:Comment" xmi:id="_KZthYNoXEeWvuIR3H1ItUQ" annotatedElement="_iCTioHmIEeWRAfnL3fvovg">
               <body>Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.</body>
             </ownedComment>
-            <generalization xmi:type="uml:Generalization" xmi:id="_etqN0B6WEeao7rZ1SuldWA">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_YZq7gK4tEeWXs6m-9H3KvA" name="txFrequencyCur" visibility="private" isUnique="false" isReadOnly="true">
               <ownedComment xmi:type="uml:Comment" xmi:id="_YZq7ga4tEeWXs6m-9H3KvA" annotatedElement="_YZq7gK4tEeWXs6m-9H3KvA">
                 <body>Center frequency of the currently operated transmit channel.</body>
@@ -974,9 +966,7 @@
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_UF8VcHmIEeWRAfnL3fvovg" name="AirInterfaceCurrentProblem">
             <generalization xmi:type="uml:Generalization" xmi:id="_CxXy0JNREeWuAeXkr703BA" general="_LKRM4JNQEeWuAeXkr703BA"/>
-            <generalization xmi:type="uml:Generalization" xmi:id="_fNLbYB6WEeao7rZ1SuldWA">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_wNTMQJHzEeWhSKF7pUEwxA" name="problem" visibility="private" type="_umuZUMXjEeW3xsRKtpCLuA" isUnique="false" isReadOnly="true">
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-oFsMOSEEeWRxovIOV0tKQ" value="1"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-rOfwOSEEeWRxovIOV0tKQ" value="1"/>
@@ -986,9 +976,7 @@
             <generalization xmi:type="uml:Generalization" xmi:id="_XLZXEK4YEeW9GLoM-IJ6YA">
               <general xmi:type="uml:Class" href="../G.874_1_v2.08-PAP/g874.1-model.uml#_OxyHAOGJEeGhaeLtr7IxXg"/>
             </generalization>
-            <generalization xmi:type="uml:Generalization" xmi:id="_ftvx0B6WEeao7rZ1SuldWA">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_fChNMHmHEeWRAfnL3fvovg" name="AirInterfaceHistoricalPerformance">
             <ownedComment xmi:type="uml:Comment" xmi:id="_qOoW8HmgEeWsUsDOj_Trdg" annotatedElement="_fChNMHmHEeWRAfnL3fvovg">
@@ -1000,9 +988,7 @@
             <generalization xmi:type="uml:Generalization" xmi:id="_D9Y_MK4aEeW9GLoM-IJ6YA">
               <general xmi:type="uml:Class" href="../G.874_1_v2.08-PAP/g874.1-model.uml#_dQ2mYOGOEeGhaeLtr7IxXg"/>
             </generalization>
-            <generalization xmi:type="uml:Generalization" xmi:id="_hhx7QB6WEeao7rZ1SuldWA">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_3S_nMHjGEeWfutScSwFT9A" name="es" visibility="private" isUnique="false" isReadOnly="true">
               <ownedComment xmi:type="uml:Comment" xmi:id="_3S_nMXjGEeWfutScSwFT9A" annotatedElement="_3S_nMHjGEeWfutScSwFT9A">
                 <body>Number of errored seconds.</body>
@@ -1395,9 +1381,9 @@
             </ownedAttribute>
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_XBs2YJQrEeWOu_cDl8dd7w" name="CoChannelGroup">
-            <generalization xmi:type="uml:Generalization" xmi:id="_iMMxQB6WEeao7rZ1SuldWA">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_iVJ1kI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_yYx3EEtYEeamGd0rGSakRw" name="uuid" visibility="private">
+              <type xmi:type="uml:DataType" href="../OnfModel-CoreModel/CoreModel.uml#_SU3Q4I30EeO38ZmbECnvbg"/>
+            </ownedAttribute>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_tIadUCJeEeaCUo1MUtSuEg" name="airInterfaceList" visibility="private" isUnique="false">
               <ownedComment xmi:type="uml:Comment" xmi:id="_8ChFICJeEeaCUo1MUtSuEg" annotatedElement="_tIadUCJeEeaCUo1MUtSuEg">
                 <body>List of air interfaces, which are part of the co-channel (XPIC, MIMO, AFR) group.</body>
@@ -1421,9 +1407,7 @@
             <ownedComment xmi:type="uml:Comment" xmi:id="_Q7ta0JICEeWUdbnmmNiTAA" annotatedElement="_WbgFcHgFEeWfutScSwFT9A">
               <body>LTP(MWS-CTP-xD)</body>
             </ownedComment>
-            <generalization xmi:type="uml:Generalization" xmi:id="_4Ye7UB6YEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_o_jkcqfyEeWe259zHUSOsw" name="layerProtocol" visibility="private" isUnique="false" association="_o_i9YKfyEeWe259zHUSOsw">
               <ownedComment xmi:type="uml:Comment" xmi:id="_GNbAoOLqEeWM2vUDE3Xqhw">
                 <body>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</body>
@@ -1433,15 +1417,15 @@
             <ownedAttribute xmi:type="uml:Property" xmi:id="_mQ_9YJICEeWUdbnmmNiTAA" name="airInterfaceDiversityCapability" visibility="private" type="_vxH2wIekEeWaZYk7gpuOtw" isUnique="false" isReadOnly="true" aggregation="composite" association="_mQ2zcJICEeWUdbnmmNiTAA"/>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_wXazw5ICEeWUdbnmmNiTAA" name="airInterfaceDiversityConfiguration" visibility="private" type="_43RTMIe1EeWnUdmvl3PBkw" isUnique="false" aggregation="composite" association="_wXazwJICEeWUdbnmmNiTAA"/>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_xWNXQ5ICEeWUdbnmmNiTAA" name="airInterfaceDiversityStatus" visibility="private" type="_-O9RgHvsEeWzooKF5kx0aw" isUnique="false" isReadOnly="true" aggregation="composite" association="_xWNXQJICEeWUdbnmmNiTAA"/>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_zA4JU5ICEeWUdbnmmNiTAA" name="airInterfaceDiversityCurrentProblemList" visibility="private" type="_CAvhEHvtEeWzooKF5kx0aw" isUnique="false" aggregation="shared" association="_zA4JUJICEeWUdbnmmNiTAA">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_zA4JU5ICEeWUdbnmmNiTAA" name="airInterfaceDiversityCurrentProblemList" visibility="private" type="_CAvhEHvtEeWzooKF5kx0aw" isUnique="false" isReadOnly="true" aggregation="composite" association="_zA4JUJICEeWUdbnmmNiTAA">
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D4tMoJIEEeWUdbnmmNiTAA"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D4tMoZIEEeWUdbnmmNiTAA" value="*"/>
             </ownedAttribute>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_XpGjA6jDEeWlgMiFXLmCIQ" name="airInterfaceDiversityCurrentPerformance" visibility="private" type="_GIsAQKjDEeWlgMiFXLmCIQ" isUnique="false" aggregation="shared" association="_XpGjAKjDEeWlgMiFXLmCIQ">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_XpGjA6jDEeWlgMiFXLmCIQ" name="airInterfaceDiversityCurrentPerformance" visibility="private" type="_GIsAQKjDEeWlgMiFXLmCIQ" isUnique="false" isReadOnly="true" aggregation="composite" association="_XpGjAKjDEeWlgMiFXLmCIQ">
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_bzjxQKjDEeWlgMiFXLmCIQ" value="1"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_bzs7MKjDEeWlgMiFXLmCIQ" value="1"/>
             </ownedAttribute>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_z8F0Y5ICEeWUdbnmmNiTAA" name="airInterfaceDiversityHistoricalPerformanceList" visibility="private" type="_8IIu8HvsEeWzooKF5kx0aw" isUnique="false" aggregation="shared" association="_z8F0YJICEeWUdbnmmNiTAA">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_z8F0Y5ICEeWUdbnmmNiTAA" name="airInterfaceDiversityHistoricalPerformanceList" visibility="private" type="_8IIu8HvsEeWzooKF5kx0aw" isUnique="false" isReadOnly="true" aggregation="composite" association="_z8F0YJICEeWUdbnmmNiTAA">
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_FDPGEJIEEeWUdbnmmNiTAA"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_FDPGEZIEEeWUdbnmmNiTAA" value="*"/>
             </ownedAttribute>
@@ -1454,9 +1438,7 @@
             <ownedComment xmi:type="uml:Comment" xmi:id="_WxmwgNybEeW-SfXlFFFI0Q" annotatedElement="_-LlKoIejEeWaZYk7gpuOtw">
               <body>Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.</body>
             </ownedComment>
-            <generalization xmi:type="uml:Generalization" xmi:id="_3hBu4B6YEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_luAGENyVEeW-SfXlFFFI0Q" name="availableKindsOfDiversity" visibility="private" type="_pTliINyUEeW-SfXlFFFI0Q" isUnique="false" isReadOnly="true">
               <ownedComment xmi:type="uml:Comment" xmi:id="_luAGEdyVEeW-SfXlFFFI0Q" annotatedElement="_luAGENyVEeW-SfXlFFFI0Q">
                 <body>Available types of diversity to be listed.</body>
@@ -1484,9 +1466,7 @@
             <ownedComment xmi:type="uml:Comment" xmi:id="_aY3LENybEeW-SfXlFFFI0Q" annotatedElement="_iCTioHmIEeWRAfnL3fvovg">
               <body>Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.</body>
             </ownedComment>
-            <generalization xmi:type="uml:Generalization" xmi:id="_20KB0B6YEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_hynTIHi_EeWfutScSwFT9A" name="airInterfaceDiversity" visibility="private" type="_pTliINyUEeW-SfXlFFFI0Q" isUnique="false">
               <ownedComment xmi:type="uml:Comment" xmi:id="_hynTIXi_EeWfutScSwFT9A" annotatedElement="_hynTIHi_EeWfutScSwFT9A">
                 <body>Type of air interface diversity configured at the link.</body>
@@ -1512,9 +1492,7 @@
             <ownedComment xmi:type="uml:Comment" xmi:id="_f81xANybEeW-SfXlFFFI0Q" annotatedElement="_iCTioHmIEeWRAfnL3fvovg">
               <body>Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.</body>
             </ownedComment>
-            <generalization xmi:type="uml:Generalization" xmi:id="_2LCMUB6YEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_VcK2UK4yEeWxIavXll_b0A" name="lastStatusChange" visibility="private" isUnique="false" isReadOnly="true">
               <ownedComment xmi:type="uml:Comment" xmi:id="_VcK2Ua4yEeWxIavXll_b0A" annotatedElement="_VcK2UK4yEeWxIavXll_b0A">
                 <body>Time the Diversity Group entered its current operational status. </body>
@@ -1534,9 +1512,7 @@
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_CAvhEHvtEeWzooKF5kx0aw" name="AirInterfaceDiversityCurrentProblem">
             <generalization xmi:type="uml:Generalization" xmi:id="_Lg7rgJNzEeWuAeXkr703BA" general="_LKRM4JNQEeWuAeXkr703BA"/>
-            <generalization xmi:type="uml:Generalization" xmi:id="_1b4AQB6YEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_zDUucJIEEeWUdbnmmNiTAA" name="problem" visibility="private" type="_z1XWgMXlEeWJ6KZuc0h_vw" isUnique="false" isReadOnly="true">
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Dau70OSFEeWRxovIOV0tKQ" value="1"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DawxAOSFEeWRxovIOV0tKQ" value="1"/>
@@ -1546,17 +1522,13 @@
             <generalization xmi:type="uml:Generalization" xmi:id="_Xup1IK4YEeW9GLoM-IJ6YA">
               <general xmi:type="uml:Class" href="../G.874_1_v2.08-PAP/g874.1-model.uml#_OxyHAOGJEeGhaeLtr7IxXg"/>
             </generalization>
-            <generalization xmi:type="uml:Generalization" xmi:id="_01DQ0B6YEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_8IIu8HvsEeWzooKF5kx0aw" name="AirInterfaceDiversityHistoricalPerformance">
             <generalization xmi:type="uml:Generalization" xmi:id="_EcyQ8K4aEeW9GLoM-IJ6YA">
               <general xmi:type="uml:Class" href="../G.874_1_v2.08-PAP/g874.1-model.uml#_dQ2mYOGOEeGhaeLtr7IxXg"/>
             </generalization>
-            <generalization xmi:type="uml:Generalization" xmi:id="_th-r0B6YEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
           </packagedElement>
         </packagedElement>
         <packagedElement xmi:type="uml:Package" xmi:id="_olpfcJOVEeWz-6sqLzUedw" name="Structure">
@@ -1564,9 +1536,7 @@
             <ownedComment xmi:type="uml:Comment" xmi:id="_DtwcQJKFEeWUdbnmmNiTAA" annotatedElement="_Ddc8cHjIEeWfutScSwFT9A">
               <body>LTP(MWS-TTP)</body>
             </ownedComment>
-            <generalization xmi:type="uml:Generalization" xmi:id="_PD148B6ZEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_vfNIcafyEeWe259zHUSOsw" name="layerProtocol" visibility="private" isUnique="false" association="_vfL6UKfyEeWe259zHUSOsw">
               <ownedComment xmi:type="uml:Comment" xmi:id="_EhrQgOLqEeWM2vUDE3Xqhw">
                 <body>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</body>
@@ -1576,12 +1546,12 @@
             <ownedAttribute xmi:type="uml:Property" xmi:id="_im-UMoelEeWaZYk7gpuOtw" name="structureCapability" visibility="private" type="_16fZkHvvEeWzooKF5kx0aw" isUnique="false" isReadOnly="true" aggregation="composite" association="_im9tIIelEeWaZYk7gpuOtw"/>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_JKdi8Ie4EeWnUdmvl3PBkw" name="structureConfiguration" visibility="private" type="_qVs1QIe3EeWnUdmvl3PBkw" isUnique="false" aggregation="composite" association="_JKcU0Ie4EeWnUdmvl3PBkw"/>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_A_vFIXvvEeWzooKF5kx0aw" name="structureStatus" visibility="private" type="_qGmKMHvuEeWzooKF5kx0aw" isUnique="false" isReadOnly="true" aggregation="composite" association="_A_ueEHvvEeWzooKF5kx0aw"/>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_-AnooHvuEeWzooKF5kx0aw" name="structureCurrentProblemList" visibility="private" type="_sYq6gHvuEeWzooKF5kx0aw" isUnique="false" aggregation="shared" association="_-AmagHvuEeWzooKF5kx0aw">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_-AnooHvuEeWzooKF5kx0aw" name="structureCurrentProblemList" visibility="private" type="_sYq6gHvuEeWzooKF5kx0aw" isUnique="false" isReadOnly="true" aggregation="composite" association="_-AmagHvuEeWzooKF5kx0aw">
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MzGiEJKDEeWUdbnmmNiTAA"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MzGiEZKDEeWUdbnmmNiTAA" value="*"/>
             </ownedAttribute>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_wxf446jFEeWlgMiFXLmCIQ" name="structureCurrentPerformance" visibility="private" type="_oisrcKjFEeWlgMiFXLmCIQ" isUnique="false" aggregation="shared" association="_wxf44KjFEeWlgMiFXLmCIQ"/>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_CbDzonvvEeWzooKF5kx0aw" name="structureHistoricalPerformanceList" visibility="private" type="_lg7moHvuEeWzooKF5kx0aw" isUnique="false" aggregation="shared" association="_CbDMkHvvEeWzooKF5kx0aw">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_wxf446jFEeWlgMiFXLmCIQ" name="structureCurrentPerformance" visibility="private" type="_oisrcKjFEeWlgMiFXLmCIQ" isUnique="false" isReadOnly="true" aggregation="composite" association="_wxf44KjFEeWlgMiFXLmCIQ"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_CbDzonvvEeWzooKF5kx0aw" name="structureHistoricalPerformanceList" visibility="private" type="_lg7moHvuEeWzooKF5kx0aw" isUnique="false" isReadOnly="true" aggregation="composite" association="_CbDMkHvvEeWzooKF5kx0aw">
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_NWp7EJKDEeWUdbnmmNiTAA"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_NWp7EZKDEeWUdbnmmNiTAA" value="*"/>
             </ownedAttribute>
@@ -1595,9 +1565,7 @@
             <ownedComment xmi:type="uml:Comment" xmi:id="_UKgmoNrTEeWcA7plcJPZ7A" annotatedElement="_-LlKoIejEeWaZYk7gpuOtw">
               <body>Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.</body>
             </ownedComment>
-            <generalization xmi:type="uml:Generalization" xmi:id="_OlQfgB6ZEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_UnaVEMf7EeWe1qsdRneZFA" name="structureID" visibility="private" isReadOnly="true">
               <ownedComment xmi:type="uml:Comment" xmi:id="_UnaVEcf7EeWe1qsdRneZFA" annotatedElement="_UnaVEMf7EeWe1qsdRneZFA">
                 <body>Identifies the Structure for bundling and container.</body>
@@ -1647,9 +1615,7 @@
             <ownedComment xmi:type="uml:Comment" xmi:id="_WrCCoNrTEeWcA7plcJPZ7A" annotatedElement="_iCTioHmIEeWRAfnL3fvovg">
               <body>Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.</body>
             </ownedComment>
-            <generalization xmi:type="uml:Generalization" xmi:id="_OIaygB6ZEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_rLSI4MUBEeW3xsRKtpCLuA" name="tdmReservedNumberOfTimeSlots" visibility="private" isUnique="false">
               <ownedComment xmi:type="uml:Comment" xmi:id="_rLSI4cUBEeW3xsRKtpCLuA" annotatedElement="_rLSI4MUBEeW3xsRKtpCLuA">
                 <body>Allows to configure the number of time slots reserved for TDM traffic.</body>
@@ -1671,9 +1637,7 @@
             <ownedComment xmi:type="uml:Comment" xmi:id="_YjL3ENrTEeWcA7plcJPZ7A" annotatedElement="_iCTioHmIEeWRAfnL3fvovg">
               <body>Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.</body>
             </ownedComment>
-            <generalization xmi:type="uml:Generalization" xmi:id="_NmApAB6ZEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_QNMscMTuEeW3xsRKtpCLuA" name="timeSlotStatusList" visibility="private" type="_KwZVcMUCEeW3xsRKtpCLuA" isUnique="false" isReadOnly="true">
               <ownedComment xmi:type="uml:Comment" xmi:id="_XW9kcMTuEeW3xsRKtpCLuA" annotatedElement="_QNMscMTuEeW3xsRKtpCLuA">
                 <body>Condition of each time slot.</body>
@@ -1697,9 +1661,7 @@
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_sYq6gHvuEeWzooKF5kx0aw" name="StructureCurrentProblem">
             <generalization xmi:type="uml:Generalization" xmi:id="_MM8c8JNzEeWuAeXkr703BA" general="_LKRM4JNQEeWuAeXkr703BA"/>
-            <generalization xmi:type="uml:Generalization" xmi:id="_NDEUAB6ZEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_khuaEJKwEeWUdbnmmNiTAA" name="problem" visibility="private" type="_UC0gAMXnEeWJ6KZuc0h_vw" isUnique="false" isReadOnly="true">
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_GSCgIOSFEeWRxovIOV0tKQ" value="1"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_GSE8YOSFEeWRxovIOV0tKQ" value="1"/>
@@ -1709,9 +1671,7 @@
             <generalization xmi:type="uml:Generalization" xmi:id="_YIFo0K4YEeW9GLoM-IJ6YA">
               <general xmi:type="uml:Class" href="../G.874_1_v2.08-PAP/g874.1-model.uml#_OxyHAOGJEeGhaeLtr7IxXg"/>
             </generalization>
-            <generalization xmi:type="uml:Generalization" xmi:id="_Mnub0B6ZEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_lg7moHvuEeWzooKF5kx0aw" name="StructureHistoricalPerformance">
             <ownedComment xmi:type="uml:Comment" xmi:id="_c-ioENrTEeWcA7plcJPZ7A" annotatedElement="_iCTioHmIEeWRAfnL3fvovg">
@@ -1723,9 +1683,7 @@
             <generalization xmi:type="uml:Generalization" xmi:id="_FD6iYK4aEeW9GLoM-IJ6YA">
               <general xmi:type="uml:Class" href="../G.874_1_v2.08-PAP/g874.1-model.uml#_dQ2mYOGOEeGhaeLtr7IxXg"/>
             </generalization>
-            <generalization xmi:type="uml:Generalization" xmi:id="_L5mKgB6ZEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_fM6c8Nr7EeWcA7plcJPZ7A" name="timePeriod" visibility="private" isUnique="false" isReadOnly="true">
               <ownedComment xmi:type="uml:Comment" xmi:id="_fM6c8dr7EeWcA7plcJPZ7A" annotatedElement="_fM6c8Nr7EeWcA7plcJPZ7A">
                 <body>Total length of the measurement period in seconds.</body>
@@ -1746,9 +1704,7 @@
             <ownedComment xmi:type="uml:Comment" xmi:id="_N10fIJKKEeWUdbnmmNiTAA" annotatedElement="_nOt7wHlJEeW1-cr9O9dzWA">
               <body>LTP(Client)</body>
             </ownedComment>
-            <generalization xmi:type="uml:Generalization" xmi:id="__40gQB6YEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_ADTz8qfzEeWe259zHUSOsw" name="layerProtocol" visibility="private" isUnique="false" association="_ADTM4KfzEeWe259zHUSOsw">
               <ownedComment xmi:type="uml:Comment" xmi:id="__EvGsOLpEeWM2vUDE3Xqhw">
                 <body>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</body>
@@ -1758,12 +1714,12 @@
             <ownedAttribute xmi:type="uml:Property" xmi:id="_j6-xYoezEeWaZYk7gpuOtw" name="containerCapability" visibility="private" type="_f_PJgHy7EeWHjMaYlqnBcw" isReadOnly="true" aggregation="composite" association="_j6-KUIezEeWaZYk7gpuOtw"/>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_DJXw8Ie9EeWegcZ1XBfTUg" name="containerConfiguration" visibility="private" type="_2k7Y8Ie8EeWegcZ1XBfTUg" aggregation="composite" association="_DJTfgIe9EeWegcZ1XBfTUg"/>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_1LJRoYezEeWnUdmvl3PBkw" name="containerStatus" visibility="private" type="_dS3kQH1HEeWHjMaYlqnBcw" isReadOnly="true" aggregation="composite" association="_1LHccIezEeWnUdmvl3PBkw"/>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_1j2skoezEeWnUdmvl3PBkw" name="containerCurrentProblemList" visibility="private" type="_huv5sH1HEeWHjMaYlqnBcw" isUnique="false" aggregation="shared" association="_1j1ecIezEeWnUdmvl3PBkw">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_1j2skoezEeWnUdmvl3PBkw" name="containerCurrentProblemList" visibility="private" type="_huv5sH1HEeWHjMaYlqnBcw" isUnique="false" isReadOnly="true" aggregation="composite" association="_1j1ecIezEeWnUdmvl3PBkw">
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_v4Xe0JKHEeWUdbnmmNiTAA"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_v4Xe0ZKHEeWUdbnmmNiTAA" value="*"/>
             </ownedAttribute>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_fSqgg64VEeW9GLoM-IJ6YA" name="containerCurrentPerformance" visibility="private" type="_cGZ_4K4VEeW9GLoM-IJ6YA" isUnique="false" aggregation="shared" association="_fSqggK4VEeW9GLoM-IJ6YA"/>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_0zPH8IezEeWnUdmvl3PBkw" name="containerHistoricalPerformanceList" visibility="private" type="_OP8XoH1HEeWHjMaYlqnBcw" aggregation="shared" association="_0zJBUIezEeWnUdmvl3PBkw">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_fSqgg64VEeW9GLoM-IJ6YA" name="containerCurrentPerformance" visibility="private" type="_cGZ_4K4VEeW9GLoM-IJ6YA" isUnique="false" isReadOnly="true" aggregation="composite" association="_fSqggK4VEeW9GLoM-IJ6YA"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_0zPH8IezEeWnUdmvl3PBkw" name="containerHistoricalPerformanceList" visibility="private" type="_OP8XoH1HEeWHjMaYlqnBcw" isUnique="false" isReadOnly="true" aggregation="composite" association="_0zJBUIezEeWnUdmvl3PBkw">
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xoZSAJKHEeWUdbnmmNiTAA"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xoZSAZKHEeWUdbnmmNiTAA" value="*"/>
             </ownedAttribute>
@@ -1775,9 +1731,7 @@
             <ownedComment xmi:type="uml:Comment" xmi:id="_oB7eMNrtEeWcA7plcJPZ7A" annotatedElement="_-LlKoIejEeWaZYk7gpuOtw">
               <body>Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.</body>
             </ownedComment>
-            <generalization xmi:type="uml:Generalization" xmi:id="_AfSDUB6ZEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_iHGCAMT1EeW3xsRKtpCLuA" name="containerID" visibility="private" isReadOnly="true">
               <ownedComment xmi:type="uml:Comment" xmi:id="_iHGCAcT1EeW3xsRKtpCLuA" annotatedElement="_iHGCAMT1EeW3xsRKtpCLuA">
                 <body>ContainterID in Netconf must be the same as EthernetPortID in OpenFlow so a connection can be made between the two items, which are existing separately in the controller.</body>
@@ -1895,9 +1849,7 @@
             <ownedComment xmi:type="uml:Comment" xmi:id="_l_UGMNrtEeWcA7plcJPZ7A" annotatedElement="_iCTioHmIEeWRAfnL3fvovg">
               <body>Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.</body>
             </ownedComment>
-            <generalization xmi:type="uml:Generalization" xmi:id="_BDNPwB6ZEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_ecHEUHyDEeWzu8zLh1nOCg" name="container" visibility="private" type="_be7AoMWkEeW3xsRKtpCLuA" isUnique="false">
               <ownedComment xmi:type="uml:Comment" xmi:id="_ecHEUXyDEeWzu8zLh1nOCg" annotatedElement="_ecHEUHyDEeWzu8zLh1nOCg">
                 <body>Defines the data type of the container offered to client layers.</body>
@@ -2033,9 +1985,7 @@
             <ownedComment xmi:type="uml:Comment" xmi:id="_k2hSINrtEeWcA7plcJPZ7A" annotatedElement="_iCTioHmIEeWRAfnL3fvovg">
               <body>Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.</body>
             </ownedComment>
-            <generalization xmi:type="uml:Generalization" xmi:id="_BiMR0B6ZEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_31t5YK4yEeWxIavXll_b0A" name="lastStatusChange" visibility="private" isUnique="false" isReadOnly="true">
               <ownedComment xmi:type="uml:Comment" xmi:id="_31t5Ya4yEeWxIavXll_b0A" annotatedElement="_31t5YK4yEeWxIavXll_b0A">
                 <body>Time the Container entered its current operational status. </body>
@@ -2061,9 +2011,7 @@
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_huv5sH1HEeWHjMaYlqnBcw" name="ContainerCurrentProblem">
             <generalization xmi:type="uml:Generalization" xmi:id="_P0aS4JNzEeWuAeXkr703BA" general="_LKRM4JNQEeWuAeXkr703BA"/>
-            <generalization xmi:type="uml:Generalization" xmi:id="_Ci4SwB6ZEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_Rdgs0JKxEeWUdbnmmNiTAA" name="problem" visibility="private" type="__h1n4MXpEeWJ6KZuc0h_vw" isUnique="false" isReadOnly="true">
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_IRM7gOSFEeWRxovIOV0tKQ" value="1"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_IRPXwOSFEeWRxovIOV0tKQ" value="1"/>
@@ -2073,9 +2021,7 @@
             <generalization xmi:type="uml:Generalization" xmi:id="_ZHURMK4YEeW9GLoM-IJ6YA">
               <general xmi:type="uml:Class" href="../G.874_1_v2.08-PAP/g874.1-model.uml#_OxyHAOGJEeGhaeLtr7IxXg"/>
             </generalization>
-            <generalization xmi:type="uml:Generalization" xmi:id="_C5teYB6ZEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_OP8XoH1HEeWHjMaYlqnBcw" name="ContainerHistoricalPerformance">
             <ownedComment xmi:type="uml:Comment" xmi:id="_i9c3sNrtEeWcA7plcJPZ7A" annotatedElement="_iCTioHmIEeWRAfnL3fvovg">
@@ -2084,9 +2030,7 @@
             <generalization xmi:type="uml:Generalization" xmi:id="_F8l20K4aEeW9GLoM-IJ6YA">
               <general xmi:type="uml:Class" href="../G.874_1_v2.08-PAP/g874.1-model.uml#_dQ2mYOGOEeGhaeLtr7IxXg"/>
             </generalization>
-            <generalization xmi:type="uml:Generalization" xmi:id="__LqfUB6YEeayo9F0xCg1BQ">
-              <general xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg"/>
-            </generalization>
+            
             <ownedAttribute xmi:type="uml:Property" xmi:id="_MaHB8H1IEeWHjMaYlqnBcw" name="txEthernetBytesMaxS" visibility="private" isUnique="false" isReadOnly="true">
               <ownedComment xmi:type="uml:Comment" xmi:id="_lXxZYH1IEeWHjMaYlqnBcw" annotatedElement="_MaHB8H1IEeWHjMaYlqnBcw">
                 <body>Counts the number of Bytes of Ethernet traffic (before header compression) transmitted within a second and keeps the highest value within the measurement period. Field to be left blank for all types of TDM containers.</body>
@@ -2163,7 +2107,6 @@
             </ownedAttribute>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_xws4sJHzEeWhSKF7pUEwxA" name="severity" visibility="private" type="_eIml0JH1EeWUdbnmmNiTAA" isUnique="false" isReadOnly="true"/>
           </packagedElement>
-          
         </packagedElement>
       </packagedElement>
       
@@ -3067,15 +3010,6 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="__re0cZUHEeWIaZzoaYJ6_A" base_StructuralFeature="__re0cJUHEeWIaZzoaYJ6_A"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_h5bXJJgLEeWh89kB7Pk1sA" base_StructuralFeature="_h5bXI5gLEeWh89kB7Pk1sA" attributeValueChangeNotification="YES"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_h5bXJpgLEeWh89kB7Pk1sA" base_StructuralFeature="_h5bXJZgLEeWh89kB7Pk1sA"/>
-  <OpenModel_Profile:OpenModelClass xmi:id="_R8f3BpjoEeWh89kB7Pk1sA" base_Class="_R8f28JjoEeWh89kB7Pk1sA"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_R8pA4JjoEeWh89kB7Pk1sA" base_StructuralFeature="_R8f29JjoEeWh89kB7Pk1sA" isInvariant="true"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_R8pA4ZjoEeWh89kB7Pk1sA" base_StructuralFeature="_R8f29ZjoEeWh89kB7Pk1sA"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_R8pA4pjoEeWh89kB7Pk1sA" base_StructuralFeature="_R8f29pjoEeWh89kB7Pk1sA"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_R8pA45joEeWh89kB7Pk1sA" base_StructuralFeature="_R8f295joEeWh89kB7Pk1sA"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_R8pA5JjoEeWh89kB7Pk1sA" base_StructuralFeature="_R8f2-pjoEeWh89kB7Pk1sA"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_R8pA5ZjoEeWh89kB7Pk1sA" base_StructuralFeature="_R8f2_ZjoEeWh89kB7Pk1sA"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_R8pA5pjoEeWh89kB7Pk1sA" base_StructuralFeature="_R8f3AJjoEeWh89kB7Pk1sA"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_R8pA55joEeWh89kB7Pk1sA" base_StructuralFeature="_R8f3A5joEeWh89kB7Pk1sA"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_KY5B8ZjwEeWh89kB7Pk1sA" base_StructuralFeature="_KY5B8JjwEeWh89kB7Pk1sA"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_brUMAZjwEeWh89kB7Pk1sA" base_StructuralFeature="_brUMAJjwEeWh89kB7Pk1sA"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_gpPekZjwEeWh89kB7Pk1sA" base_StructuralFeature="_gpPekJjwEeWh89kB7Pk1sA"/>
@@ -3279,5 +3213,5 @@
   <OpenModel_Profile:Obsolete xmi:id="_sWZPkEEgEea6hPRzwvT1qw" base_StructuralFeature="_EDZNMEEdEea6hPRzwvT1qw" base_Element="_EDZNMEEdEea6hPRzwvT1qw"/>
   <OpenModel_Profile:Obsolete xmi:id="_SS5CsEEmEea6hPRzwvT1qw" base_StructuralFeature="_X4K1Y5KsEeWUdbnmmNiTAA" base_Element="_X4K1Y5KsEeWUdbnmmNiTAA"/>
   <OpenModel_Profile:Obsolete xmi:id="_TMY2gEEmEea6hPRzwvT1qw" base_StructuralFeature="_rsUVU5KsEeWUdbnmmNiTAA" base_Element="_rsUVU5KsEeWUdbnmmNiTAA"/>
-  <OpenModel_Profile:Obsolete xmi:id="_g2ul8EYQEeabNPX3o7rjtw" base_Class="_R8f28JjoEeWh89kB7Pk1sA" base_Element="_R8f28JjoEeWh89kB7Pk1sA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_yYyeIEtYEeamGd0rGSakRw" base_StructuralFeature="_yYx3EEtYEeamGd0rGSakRw" partOfObjectKey="1"/>
 </xmi:XMI>

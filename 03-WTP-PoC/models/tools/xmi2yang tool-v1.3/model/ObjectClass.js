@@ -26,6 +26,7 @@ function Class(name,id,type,comment,nodeType,path,config,isOrdered){
     this.type=type;
     this.path=path;
     this.nodeType=nodeType;
+    // if (this.name.indexOf('MW_') !== -1) console.log('[sko]', 'Class', this.name, this.type, this.nodeType);
     if (comment) this.description=comment.toYangDescription();
     this.Gname;
     this.support;
@@ -112,9 +113,15 @@ Class.prototype.buildAttribute=function(att){
         isLeaf=true;
     }
     var attribute=new Attribute(id, name,type, comment, association, isReadOnly,isOrdered);//build a attribute
+    // console.log('[sko]', '>>attribute', id, name, type, attribute.isleafRef);
     if(att.attributes().aggregation&&att.attributes().aggregation=="composite"){
         attribute.isleafRef=false;
     }
+    // [sko] hack, better make aggregation in UML composite
+//    if (attribute.name === 'airInterfaceCurrentProblemList') {
+//      attribute.isleafRef=false;
+//    }
+    // console.log('[sko]', '<<attribute', id, name, type, attribute.isleafRef);
     attribute.giveValue(att);
     attribute.giveUnits(att);
     attribute.giveNodeType(isLeaf);

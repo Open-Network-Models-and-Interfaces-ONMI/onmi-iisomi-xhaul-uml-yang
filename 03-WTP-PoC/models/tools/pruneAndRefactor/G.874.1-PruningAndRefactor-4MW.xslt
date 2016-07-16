@@ -117,7 +117,7 @@
     check for wrong charset  -->
 	<xsl:template match="body">
 		<xsl:variable name="data" select="."/>
-		<body>
+		<xsl:variable name="analyse">
 			<xsl:analyze-string select="." regex=".">
 				<xsl:matching-substring>
 					<xsl:choose>
@@ -139,13 +139,48 @@
 								<xsl:value-of select="$data"/>
 							</xsl:message>
 						</xsl:when>
-						<xsl:otherwise>
-							<xsl:value-of select="."/>
-						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:matching-substring>
 			</xsl:analyze-string>
-		</body>
+		</xsl:variable>
+		<xsl:choose>
+			<xsl:when test="$analyse = ''">
+				<xsl:copy>
+					<xsl:apply-templates select="* | @* | text() "/>
+				</xsl:copy>
+			</xsl:when>
+			<xsl:otherwise>
+				<body>
+					<xsl:analyze-string select="." regex=".">
+						<xsl:matching-substring>
+							<xsl:choose>
+								<xsl:when test="fn:string-to-codepoints(.) = 8220">
+									<xsl:text>'</xsl:text>
+								</xsl:when>
+								<xsl:when test="fn:string-to-codepoints(.) = 8221">
+									<xsl:text>'</xsl:text>
+								</xsl:when>
+								<xsl:when test="fn:string-to-codepoints(.) = 8211">
+									<xsl:text>-</xsl:text>
+								</xsl:when>
+								<xsl:when test="fn:string-to-codepoints(.) > 128">
+									<xsl:text>?</xsl:text>
+									<xsl:message>
+										<xsl:text>Char of code:  </xsl:text>
+										<xsl:value-of select="fn:string-to-codepoints(.)"/>
+										<xsl:text> not supported. Replaced by '?'. </xsl:text>
+										<xsl:value-of select="$data"/>
+									</xsl:message>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="."/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:matching-substring>
+					</xsl:analyze-string>
+				</body>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	<!-- 
     If not stated differently above, copy elements, as they are -->

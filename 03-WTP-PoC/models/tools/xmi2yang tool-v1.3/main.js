@@ -845,6 +845,7 @@ function createClass(obj,nodeType) {
                     for(var k=0;k<openModelAtt.length;k++){
                         if(openModelAtt[k].id==node.attribute[i].id){
                             if(openModelAtt[k].passedByReference){
+                                // console.log('[sko]', 'node.attribute[i].isleafRef', node.attribute[i].name, node.attribute[i].isleafRef);
                                 node.attribute[i].isleafRef=true;
                                 break;
                             }
@@ -864,7 +865,7 @@ function createClass(obj,nodeType) {
                         instance.path=node.path+":"+node.name+"/"+node.attribute[i].name;
                         if(r==node.id){
                             instance.tpath=instance.path;
-                            log('DEBUG', 'xmi:id=' + r + ' is compositeed by itself!');
+                            log('DEBUG', 'xmi:id=' + r + ' is composited by itself!');
                         }
                         isInstantiated.push(instance);
                     }
@@ -948,6 +949,7 @@ function createClass(obj,nodeType) {
                         if(openModelAtt[k].id==node.attribute[i].id){
                             if(openModelAtt[k].passedByReference){
                                 node.attribute[i].isleafRef=true;
+                                // console.log('[sko]', 'node.attribute[i].isleafRef', node.attribute[i].name, node.attribute[i].isleafRef);
                                 break;
                             }
                             else if(openModelAtt[k].passedByReference==false){
@@ -1135,17 +1137,20 @@ function obj2yang(ele){
                         }
                         if(openModelAtt[k].passedByReference){
                             ele[i].attribute[j].isleafRef=true;
+                            // console.log('[sko]', 'ele[i].attribute[j].isleafRef', ele[i].attribute[j].name, ele[i].attribute[j].isleafRef);
                         }
                         break;
                     }
                 }
                 //deal with the subnode whose type is neither "Derived Types" nor "Build-in Type".
+                // console.log('[sko]', '>>', ele[i].name, ele[i].attribute[j].name, ele[i].attribute[j].type, ele[i].attribute[j].nodeType);
                 if(ele[i].attribute[j].isUses){
                     var name=ele[i].attribute[j].type;
                     //find the "class" whose value of "id" is value of "type"
                     for(var k=0;k<Class.length;k++){
                         if(Class[k].id==name){
                             ele[i].attribute[j].isAbstract=Class[k].isAbstract;
+                            // console.log('[sko]', 'Class[k].type', Class[k].type, 'isleafRef', ele[i].attribute[j].isleafRef);
                             if(Class[k].type!=="Class"){
                                 ele[i].attribute[j].isleafRef=false;
                                 ele[i].attribute[j].isGrouping=true;
@@ -1166,6 +1171,7 @@ function obj2yang(ele){
                                 break;
                             }
                             else {
+                                // console.log('[sko]', 'isleafRef', ele[i].attribute[j].isleafRef);
                                 if(ele[i].attribute[j].isleafRef){
                                     var p=Class[k].instancePath.split(":")[0];
                                     if(ele[i].path == p){
@@ -1229,6 +1235,7 @@ function obj2yang(ele){
                         ele[i].attribute[j].type = gf.eCorePrimitiveTypes.mapToYangType(ele[i].attribute[j].type);
                     }
                 }
+                // console.log('[sko]', '<<', ele[i].name, ele[i].attribute[j].name, ele[i].attribute[j].type, ele[i].attribute[j].nodeType);
                 if(ele[i].attribute[j].type.split("+")[0] == "leafref"){
                     // console.info('sko', ele[i].attribute[j].type);
                     ele[i].attribute[j].type=new Type("leafref",ele[i].attribute[j].id,ele[i].attribute[j].type.split("+")[1],vr)
@@ -1282,6 +1289,7 @@ function obj2yang(ele){
                             ele[i].attribute[j].status=openModelAtt[k].status;
                         }
                         if(openModelAtt[k].passedByReference){
+                            // console.log('[sko]', 'ele[i].attribute[j].isleafRef', ele[i].attribute[j].name, ele[i].attribute[j].isleafRef);
                             ele[i].attribute[j].isleafRef=true;
                         }
                         break;

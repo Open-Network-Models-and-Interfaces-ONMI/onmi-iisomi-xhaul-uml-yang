@@ -19,6 +19,7 @@ function Node(name, descrip, type, maxEle, minEle, id, config,isOrdered,feature,
     this.name = name;
     this.nodeType = type;
     this.key;
+    // if (this.name.indexOf('MW_') !== -1) console.log('[sko]', 'Node', this.name, this.nodeType, this.key);
     if (descrip) this.description = descrip.toYangDescription();
     this.uses = [];
     this.status=status;
@@ -133,8 +134,20 @@ Node.prototype.writeNode = function (layer) {
             if(this.children[temp].nodeType=="list")
                 break;
         }
-        if(temp<this.children.length)
+        if(temp<this.children.length) {
             this.nodeType="container";
+            // [sko] Sorry, I do not agree ;)
+            var flag = this.nodeType;
+            var checkByName = this.name;
+            var forceList = ['MW_AirInterface_Pac', 'MW_AirInterfaceDiversity_Pac', 'MW_Structure_Pac', 'MW_Container_Pac'];
+            forceList.map(function(item){
+              if (checkByName === item) {
+                flag="list";
+              }
+            });
+            this.nodeType = flag;
+            // console.log('[sko]', 'container', this.name, this.nodeType );
+        }
     }
     
     var name = this.nodeType + " " + this.name;
@@ -157,11 +170,26 @@ Node.prototype.writeNode = function (layer) {
     var conf;
     var Key = "";
     this.defaultValue ? defvalue = PRE + "\tdefault " + this.defaultValue + ";\r\n" : defvalue = "";
+    // [sko] hack: Why only if config is true? Aren't there cases where the parent node is true and the child is false?
     if (this.nodeType == "container" && this.config || this.nodeType == "list" && this.config) {
         conf = PRE + "\tconfig " + this.config + ";\r\n";
     } else {
         conf = "";
     }
+    // [sko] hack start
+    var checkName = this.name;
+    var forceConfigFalse = ['airInterfaceCapability', 'airInterfaceStatus', 'airInterfaceCurrentProblemList', 'airInterfaceCurrentPerformance', 'airInterfaceHistoricalPerformanceList',
+                            'airInterfaceDiversityCapability', 'airInterfaceDiversityStatus', 'airInterfaceDiversityCurrentProblemList', 'airInterfaceDiversityCurrentPerformance', 'airInterfaceDiversityHistoricalPerformanceList',
+                            'structureCapability', 'structureStatus', 'structureCurrentProblemList', 'structureCurrentPerformance', 'structureHistoricalPerformanceList',
+                            'containerCapability', 'containerStatus', 'containerCurrentProblemList', 'containerCurrentPerformance', 'containerHistoricalPerformanceList'];
+    forceConfigFalse.map(function(item){
+      if (checkName === item) {
+        conf = PRE + "\tconfig false;\r\n";
+      }
+    });
+    // if (this.name.indexOf('MW_') !== -1) console.log('[sko]', 'Node', this.name, this.nodeType, this.key);
+    // [sko] hack end
+    
     if (this.nodeType == "list") {
         this["max-elements"] ? maxele = PRE + "\tmax-elements " + this["max-elements"] + ";\r\n" : maxele = "";
         this["min-elements"] ? minele = PRE + "\tmin-elements " + this["min-elements"] + ";\r\n" : minele = "";

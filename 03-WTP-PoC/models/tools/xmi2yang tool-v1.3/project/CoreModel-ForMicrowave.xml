@@ -8,16 +8,16 @@
         
         <packagedElement xmi:type="uml:Enumeration" xmi:id="_oGqjf1LNEeO75dO39GbF8Q" name="OperType">
           <ownedComment xmi:type="uml:Comment" xmi:id="_oGqjgFLNEeO75dO39GbF8Q" annotatedElement="_oGqjf1LNEeO75dO39GbF8Q">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The operation type associated with the protection mechanism (either non-revertive or revertive).</body>
+            <body>The operation type associated with the protection mechanism (either non-revertive or revertive).</body>
           </ownedComment>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_oGqjgVLNEeO75dO39GbF8Q" name="REVERTIVE">
             <ownedComment xmi:type="uml:Comment" xmi:id="_EZCboGaYEeWrX_JIGzXlSg" annotatedElement="_oGqjgVLNEeO75dO39GbF8Q">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Traffic will return to a preferred route on recovery of that route (potentiall after some hold-off time)</body>
+              <body>Traffic will return to a preferred route on recovery of that route (potentiall after some hold-off time)</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_oGqjglLNEeO75dO39GbF8Q" name="NON-REVERTIVE">
             <ownedComment xmi:type="uml:Comment" xmi:id="_MvUxIGaYEeWrX_JIGzXlSg" annotatedElement="_oGqjglLNEeO75dO39GbF8Q">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Traffic will be rerouted on failure and not on recovery of any particular route.</body>
+              <body>Traffic will be rerouted on failure and not on recovery of any particular route.</body>
             </ownedComment>
           </ownedLiteral>
         </packagedElement>
@@ -25,142 +25,162 @@
         
         <packagedElement xmi:type="uml:DataType" xmi:id="_P-Hp8MD4EeSoNOrYOfaryg" name="LayerProtocolName">
           <ownedComment xmi:type="uml:Comment" xmi:id="_cS4UwGXLEeWWhJGy6csBUQ" annotatedElement="_P-Hp8MD4EeSoNOrYOfaryg">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Provides a controlled list of layer protocol names and indicates the naming authority.Note that it is expected that attributes will be added to this structure to convey the naming authority name, the name of the layer protocol using a human readable string and any particular standard reference.Layer protocol names include:-	Layer 1 (L1): OTU, ODU-	Layer 2 (L2): Carrier Grade Ethernet (ETY, ETH), MPLS-TP (MT)</body>
+            <body>Provides a controlled list of layer protocol names and indicates the naming authority.&#xD;
+&#xD;
+Note that it is expected that attributes will be added to this structure to convey the naming authority name, the name of the layer protocol using a human readable string and any particular standard reference.&#xD;
+&#xD;
+Layer protocol names include:&#xD;
+-	Layer 1 (L1): OTU, ODU&#xD;
+-	Layer 2 (L2): Carrier Grade Ethernet (ETY, ETH), MPLS-TP (MT)&#xD;
+</body>
           </ownedComment>
         </packagedElement>
         <packagedElement xmi:type="uml:DataType" xmi:id="_DUU_sGZ_EeWrX_JIGzXlSg" name="PortRole">
           <ownedComment xmi:type="uml:Comment" xmi:id="_SLFYkGZ_EeWrX_JIGzXlSg" annotatedElement="_DUU_sGZ_EeWrX_JIGzXlSg">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The role of a port in the context of the function of the forwarding entity that it bounds</body>
+            <body>The role of a port in the context of the function of the forwarding entity that it bounds</body>
           </ownedComment>
         </packagedElement>
         <packagedElement xmi:type="uml:Enumeration" xmi:id="_2WpC8EC7EeWxhL2B6Peg6A" name="PortDirection">
           <ownedComment xmi:type="uml:Comment" xmi:id="_Gw-MQGasEeWrX_JIGzXlSg" annotatedElement="_2WpC8EC7EeWxhL2B6Peg6A">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The orientation of flow at the Port of a Forwarding entity</body>
+            <body>The orientation of flow at the Port of a Forwarding entity</body>
           </ownedComment>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_6A9_oEC7EeWxhL2B6Peg6A" name="BIDIRECTIONAL">
             <ownedComment xmi:type="uml:Comment" xmi:id="_KcZ8MGasEeWrX_JIGzXlSg" annotatedElement="_6A9_oEC7EeWxhL2B6Peg6A">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The Port has both an INPUT flow and an OUTPUT flow defined.</body>
+              <body>The Port has both an INPUT flow and an OUTPUT flow defined.</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_7K6DMEC7EeWxhL2B6Peg6A" name="INPUT">
             <ownedComment xmi:type="uml:Comment" xmi:id="_ReamYGasEeWrX_JIGzXlSg" annotatedElement="_7K6DMEC7EeWxhL2B6Peg6A">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The Port only has definition for a flow into the Forwarding entity (i.e. an ingress flow).</body>
+              <body>The Port only has definition for a flow into the Forwarding entity (i.e. an ingress flow).</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_8qSLQEC7EeWxhL2B6Peg6A" name="OUTPUT">
             <ownedComment xmi:type="uml:Comment" xmi:id="_VjvdAGasEeWrX_JIGzXlSg" annotatedElement="_8qSLQEC7EeWxhL2B6Peg6A">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The Port only has definition for a flow out of the Forwarding entity (i.e. an egress flow).</body>
+              <body>The Port only has definition for a flow out of the Forwarding entity (i.e. an egress flow).</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_-ixW4EC7EeWxhL2B6Peg6A" name="UNIDENTIFIED_OR_UNKNOWN">
             <ownedComment xmi:type="uml:Comment" xmi:id="_ZvYXAGasEeWrX_JIGzXlSg" annotatedElement="_-ixW4EC7EeWxhL2B6Peg6A">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Not a normal state. The system is unable to determine the correct value.</body>
+              <body>Not a normal state. The system is unable to determine the correct value.</body>
             </ownedComment>
           </ownedLiteral>
         </packagedElement>
         <packagedElement xmi:type="uml:Enumeration" xmi:id="_dV67AEC8EeWxhL2B6Peg6A" name="ForwardingDirection">
           <ownedComment xmi:type="uml:Comment" xmi:id="_oigQQGawEeWrX_JIGzXlSg" annotatedElement="_dV67AEC8EeWxhL2B6Peg6A">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The directionality of a Forwarding entity.</body>
+            <body>The directionality of a Forwarding entity.</body>
           </ownedComment>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_fg49wEC8EeWxhL2B6Peg6A" name="BIDIRECTIONAL">
             <ownedComment xmi:type="uml:Comment" xmi:id="_tv_BwGawEeWrX_JIGzXlSg" annotatedElement="_fg49wEC8EeWxhL2B6Peg6A">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The Fowarding entity supports both BIDIRECTIONAL flows at all Ports (i.e. all Ports have both an INPUT flow and an OUTPUT flow defined)</body>
+              <body>The Fowarding entity supports both BIDIRECTIONAL flows at all Ports (i.e. all Ports have both an INPUT flow and an OUTPUT flow defined)</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_gq9kMEC8EeWxhL2B6Peg6A" name="UNIDIRECTIONAL">
             <ownedComment xmi:type="uml:Comment" xmi:id="_y0VFYGawEeWrX_JIGzXlSg" annotatedElement="_gq9kMEC8EeWxhL2B6Peg6A">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The Forwarding entity has Ports that are either INPUT or OUTPUT. It has no BIDIRECTIONAL Ports.</body>
+              <body>The Forwarding entity has Ports that are either INPUT or OUTPUT. It has no BIDIRECTIONAL Ports.</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_i4cvcEC8EeWxhL2B6Peg6A" name="UNDEFINED_OR_UNKNOWN">
             <ownedComment xmi:type="uml:Comment" xmi:id="_3pKtYGawEeWrX_JIGzXlSg" annotatedElement="_i4cvcEC8EeWxhL2B6Peg6A">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Not a normal state. The system is unable to determine the correct value.</body>
+              <body>Not a normal state. The system is unable to determine the correct value.</body>
             </ownedComment>
           </ownedLiteral>
         </packagedElement>
         <packagedElement xmi:type="uml:Enumeration" xmi:id="_RWILYEDAEeWQeOKbNUpP9A" name="TerminationDirection">
           <ownedComment xmi:type="uml:Comment" xmi:id="__8enYGawEeWrX_JIGzXlSg" annotatedElement="_RWILYEDAEeWQeOKbNUpP9A">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The directionality of a termination entity</body>
+            <body>The directionality of a termination entity</body>
           </ownedComment>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_VOHwoEDAEeWQeOKbNUpP9A" name="BIDIRECTIONAL">
             <ownedComment xmi:type="uml:Comment" xmi:id="_DgyboGaxEeWrX_JIGzXlSg" annotatedElement="_VOHwoEDAEeWQeOKbNUpP9A">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">A Termination with both SINK and SOURCE flows.</body>
+              <body>A Termination with both SINK and SOURCE flows.</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_W4avQEDAEeWQeOKbNUpP9A" name="SINK">
             <ownedComment xmi:type="uml:Comment" xmi:id="_HbsK8GaxEeWrX_JIGzXlSg" annotatedElement="_W4avQEDAEeWQeOKbNUpP9A">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The flow is up the layer stack from the server side to the client side. Considering an example of a Termination function within the termination entity, a SINK flow:- will arrive at at the base of the termination function (the server side) where it is essentially at an INPUT to the termination component- then will be decoded and deconstructed - then relevant parts of the flow will be sent out of the termination function (the client side) where it is essentially at an OUTPUT from the termination componentA SINK termination is one that only supports a SINK flow.A SINK termiation can be bound to an OUTPUT Port of a Forwarding entity</body>
+              <body>The flow is up the layer stack from the server side to the client side. &#xD;
+Considering an example of a Termination function within the termination entity, a SINK flow:&#xD;
+- will arrive at at the base of the termination function (the server side) where it is essentially at an INPUT to the termination component&#xD;
+- then will be decoded and deconstructed &#xD;
+- then relevant parts of the flow will be sent out of the termination function (the client side) where it is essentially at an OUTPUT from the termination component&#xD;
+A SINK termination is one that only supports a SINK flow.&#xD;
+A SINK termiation can be bound to an OUTPUT Port of a Forwarding entity</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_XrdVwEDAEeWQeOKbNUpP9A" name="SOURCE">
             <ownedComment xmi:type="uml:Comment" xmi:id="_K-pUUGaxEeWrX_JIGzXlSg" annotatedElement="_XrdVwEDAEeWQeOKbNUpP9A">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The flow is down the layer stack from the server side to the client side. Considering an example of a Termination function within the termination entity, a SOURCE flow:- will arrive at at the top of the termination function (the client side) where it is essentially at an INPUT to the termination component- then will be assembled with various overheads etc and will be coded - then coded form of the assembly of flow will be sent out of the termination function (the server side) where it is essentially at an OUTPUT from the termination componentA SOURCE termination is one that only supports a SOURCE flow.A SOURCE termiation can be bound to an INPUT Port of a Forwarding entity</body>
+              <body>The flow is down the layer stack from the server side to the client side. &#xD;
+Considering an example of a Termination function within the termination entity, a SOURCE flow:&#xD;
+- will arrive at at the top of the termination function (the client side) where it is essentially at an INPUT to the termination component&#xD;
+- then will be assembled with various overheads etc and will be coded &#xD;
+- then coded form of the assembly of flow will be sent out of the termination function (the server side) where it is essentially at an OUTPUT from the termination component&#xD;
+A SOURCE termination is one that only supports a SOURCE flow.&#xD;
+A SOURCE termiation can be bound to an INPUT Port of a Forwarding entity</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_YcGIgEDAEeWQeOKbNUpP9A" name="UNDEFINED_OR_UNKNOWN">
             <ownedComment xmi:type="uml:Comment" xmi:id="_OV488GaxEeWrX_JIGzXlSg" annotatedElement="_YcGIgEDAEeWQeOKbNUpP9A">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Not a normal state. The system is unable to determine the correct value.</body>
+              <body>Not a normal state. The system is unable to determine the correct value.</body>
             </ownedComment>
           </ownedLiteral>
         </packagedElement>
         <packagedElement xmi:type="uml:Enumeration" xmi:id="_T5GykEDNEeWQeOKbNUpP9A" name="ExtendedTerminationDirection">
           <ownedComment xmi:type="uml:Comment" xmi:id="_UhgxsGaxEeWrX_JIGzXlSg" annotatedElement="_T5GykEDNEeWQeOKbNUpP9A">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Extended to include contra-direction considerations. Only applies to LP and elements of LP not to LTP??</body>
+            <body>Extended to include contra-direction considerations. Only applies to LP and elements of LP not to LTP??</body>
           </ownedComment>
           <generalization xmi:type="uml:Generalization" xmi:id="_YHthAEDNEeWQeOKbNUpP9A" general="_RWILYEDAEeWQeOKbNUpP9A"/>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_aeRIsEDNEeWQeOKbNUpP9A" name="CONTRA_DIRECTION_SINK">
             <ownedComment xmi:type="uml:Comment" xmi:id="_g2JzIGaxEeWrX_JIGzXlSg" annotatedElement="_aeRIsEDNEeWQeOKbNUpP9A">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The essential flow of the Termination entity is SINK (i.e. up the layer stack) but the INPUT flow of the Termination entity was provided by a SOURCE OUTPUT or taken from a SOURCE INPUT (duplicating the input signal) hence reversing the flow orientation from down the layer stack to up the layer stack.</body>
+              <body>The essential flow of the Termination entity is SINK (i.e. up the layer stack) but the INPUT flow of the Termination entity was provided by a SOURCE OUTPUT or taken from a SOURCE INPUT (duplicating the input signal) hence reversing the flow orientation from down the layer stack to up the layer stack.</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_cw_ZQEDNEeWQeOKbNUpP9A" name="CONTRA_DIRECTION_SOURCE">
             <ownedComment xmi:type="uml:Comment" xmi:id="_nTpbAGaxEeWrX_JIGzXlSg" annotatedElement="_cw_ZQEDNEeWQeOKbNUpP9A">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The essential flow of the Termination entity is SOURCE (i.e. down the layer stack) but the OUTPUT flow of the Termination entity was fed to (and replaces) a SINK OUTPUT or was fed to a SINK INPUT (replacing the normal flow) hence reversing the flow orientation from down the layer stack to up the layer stack.</body>
+              <body>The essential flow of the Termination entity is SOURCE (i.e. down the layer stack) but the OUTPUT flow of the Termination entity was fed to (and replaces) a SINK OUTPUT or was fed to a SINK INPUT (replacing the normal flow) hence reversing the flow orientation from down the layer stack to up the layer stack.</body>
             </ownedComment>
           </ownedLiteral>
         </packagedElement>
         <packagedElement xmi:type="uml:DataType" xmi:id="_c3Hu8Gb3EeWrX_JIGzXlSg" name="ProtectionType">
           <ownedComment xmi:type="uml:Comment" xmi:id="_mmORgGb3EeWrX_JIGzXlSg" annotatedElement="_c3Hu8Gb3EeWrX_JIGzXlSg">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Identifies the type of rotection of an FcSwitch.</body>
+            <body>Identifies the type of rotection of an FcSwitch.</body>
           </ownedComment>
         </packagedElement>
         <packagedElement xmi:type="uml:Enumeration" xmi:id="_6anG8GeEEeWmgIwAIZlYKQ" name="TerminationState">
           <ownedComment xmi:type="uml:Comment" xmi:id="_LNz-YGeFEeWmgIwAIZlYKQ" annotatedElement="_6anG8GeEEeWmgIwAIZlYKQ">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Provides support for the range of behaviours and specific states that an LP can take with respect to termination of the signal.Indicates to what degree the LayerTermination is terminated.</body>
+            <body>Provides support for the range of behaviours and specific states that an LP can take with respect to termination of the signal.&#xD;
+Indicates to what degree the LayerTermination is terminated.</body>
           </ownedComment>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_fQ-KsGeFEeWmgIwAIZlYKQ" name="LP_CAN_NEVER_TERMINATE">
             <ownedComment xmi:type="uml:Comment" xmi:id="_wToacGeFEeWmgIwAIZlYKQ" annotatedElement="_fQ-KsGeFEeWmgIwAIZlYKQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">A non-flexible case that can never be terminated.</body>
+              <body>A non-flexible case that can never be terminated.</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_z8-fsGeFEeWmgIwAIZlYKQ" name="LT_NOT_TERMINATED">
             <ownedComment xmi:type="uml:Comment" xmi:id="_3q5i8GeFEeWmgIwAIZlYKQ" annotatedElement="_z8-fsGeFEeWmgIwAIZlYKQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">A flexible termination that can terminate but is currently not terminated.</body>
+              <body>A flexible termination that can terminate but is currently not terminated.</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_CYFeYGeGEeWmgIwAIZlYKQ" name="TERMINATED_SERVER_TO_CLIENT_FLOW">
             <ownedComment xmi:type="uml:Comment" xmi:id="_Ifb3IGeGEeWmgIwAIZlYKQ" annotatedElement="_CYFeYGeGEeWmgIwAIZlYKQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">A flexible termination that is currently terminated for server to client flow only.</body>
+              <body>A flexible termination that is currently terminated for server to client flow only.</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_LtQeAGeGEeWmgIwAIZlYKQ" name="TERMINATED_CLIENT_TO_SERVER_FLOW">
             <ownedComment xmi:type="uml:Comment" xmi:id="_UKGHcGeGEeWmgIwAIZlYKQ" annotatedElement="_LtQeAGeGEeWmgIwAIZlYKQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">A flexible termination that is currently terminated for client to server flow only.</body>
+              <body>A flexible termination that is currently terminated for client to server flow only.</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_YWtR0GeGEeWmgIwAIZlYKQ" name="TERMINATED_BIDIRECTIONAL">
             <ownedComment xmi:type="uml:Comment" xmi:id="_cxqaMGeGEeWmgIwAIZlYKQ" annotatedElement="_YWtR0GeGEeWmgIwAIZlYKQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">A flexible termination that is currently terminated in both directions of flow.</body>
+              <body>A flexible termination that is currently terminated in both directions of flow.</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_gjpeEGeGEeWmgIwAIZlYKQ" name="LT_PERMENANTLY_TERMINATED">
             <ownedComment xmi:type="uml:Comment" xmi:id="_nkZkAGeGEeWmgIwAIZlYKQ" annotatedElement="_gjpeEGeGEeWmgIwAIZlYKQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">A non-flexible termination that is always terminated (in both directions of flow for a bidirectional case and in the one direction of flow for both unidirectional cases).</body>
+              <body>A non-flexible termination that is always terminated (in both directions of flow for a bidirectional case and in the one direction of flow for both unidirectional cases).</body>
             </ownedComment>
           </ownedLiteral>
           <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_ueUCIGeGEeWmgIwAIZlYKQ" name="TERMINATION_STATE_UNKNOWN">
             <ownedComment xmi:type="uml:Comment" xmi:id="_OseLsGeHEeWmgIwAIZlYKQ" annotatedElement="_ueUCIGeGEeWmgIwAIZlYKQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">There TerminationState cannot be determined.</body>
+              <body>There TerminationState cannot be determined.</body>
             </ownedComment>
           </ownedLiteral>
         </packagedElement>
@@ -168,34 +188,43 @@
       <packagedElement xmi:type="uml:Package" xmi:id="_oGqltlLNEeO75dO39GbF8Q" name="ObjectClasses">
         <packagedElement xmi:type="uml:Class" xmi:id="_oGql-FLNEeO75dO39GbF8Q" name="ForwardingDomain">
           <ownedComment xmi:type="uml:Comment" xmi:id="_nATnUFlqEeSUSuWjwt7kSQ" annotatedElement="_oGql-FLNEeO75dO39GbF8Q">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The ForwardingDomain (FD) object class models the topological component which represents the opportunity to enable forwarding (of specific transport characteristic information at one or more protocol layers) between points represented by the LTP in the model.The FD object provides the context for instructing the formation, adjustment and removal of FCs and hence offers the potential to enable forwarding. The LTPs available are those defined at the boundary of the FD.At a lowere level of recursion, an FD (within a network element (NE)) represents a switch matrix (i.e., a fabric). Note that an NE can encompass multiple switch matrices (FDs) and the FD representing the switch matrix can be further partitioned.</body>
+            <body>The ForwardingDomain (FD) object class models the topological component which represents the opportunity to enable forwarding (of specific transport characteristic information at one or more protocol layers) between points represented by the LTP in the model.&#xD;
+The FD object provides the context for instructing the formation, adjustment and removal of FCs and hence offers the potential to enable forwarding. &#xD;
+The LTPs available are those defined at the boundary of the FD.&#xD;
+At a lowere level of recursion, an FD (within a network element (NE)) represents a switch matrix (i.e., a fabric). &#xD;
+Note that an NE can encompass multiple switch matrices (FDs) and the FD representing the switch matrix can be further partitioned.&#xD;
+</body>
           </ownedComment>
           <generalization xmi:type="uml:Generalization" xmi:id="_GmUo8I2uEeO38ZmbECnvbg" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
           <generalization xmi:type="uml:Generalization" xmi:id="_QTidoJ2IEeSQBuaNnP_LbA" general="_MROewJ2IEeSQBuaNnP_LbA"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_oGqmAlLNEeO75dO39GbF8Q" name="layerProtocolNameList" visibility="public" type="_P-Hp8MD4EeSoNOrYOfaryg">
             <ownedComment xmi:type="uml:Comment" xmi:id="_MgmPsGY3EeWrX_JIGzXlSg" annotatedElement="_oGqmAlLNEeO75dO39GbF8Q">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">One or more protocol layers at which the FD represents the opportunity to enable forwarding between LTP that bound it.</body>
+              <body>One or more protocol layers at which the FD represents the opportunity to enable forwarding between LTP that bound it.</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_oGqmBFLNEeO75dO39GbF8Q" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_oGqmA1LNEeO75dO39GbF8Q" value="*"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_oGqmBVLNEeO75dO39GbF8Q" name="_lowerLevelFdRefList" visibility="public" type="_oGql-FLNEeO75dO39GbF8Q" aggregation="shared" association="_oGqoD1LNEeO75dO39GbF8Q">
             <ownedComment xmi:type="uml:Comment" xmi:id="_pTYPQGXOEeWWhJGy6csBUQ" annotatedElement="_oGqmBVLNEeO75dO39GbF8Q">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The FD object class supports a recursive aggregation relationship (HigherLevelFdEncompassesLowerLevelFds) such that the internal construction of an FD can be exposed as multiple lower level FDs and associated Links (partitioning).The aggregated FDs and Links form an interconnected topology that provides and describes the capability of the aggregating FD.Note that the model actually represents aggregation of lower level FDs into higher level FDs as views rather than FD partition, and supports multiple views. Aggregation allow reallocation of capacity from lower level FDs to different higher level FDs as if the network is reorganized  (as the association is aggregation not composition).</body>
+              <body>The FD object class supports a recursive aggregation relationship (HigherLevelFdEncompassesLowerLevelFds) such that the internal construction of an FD can be exposed as multiple lower level FDs and associated Links (partitioning).&#xD;
+The aggregated FDs and Links form an interconnected topology that provides and describes the capability of the aggregating FD.&#xD;
+Note that the model actually represents aggregation of lower level FDs into higher level FDs as views rather than FD partition, and supports multiple views. &#xD;
+Aggregation allow reallocation of capacity from lower level FDs to different higher level FDs as if the network is reorganized  (as the association is aggregation not composition).</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_oGqmB1LNEeO75dO39GbF8Q"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_oGqmBlLNEeO75dO39GbF8Q" value="*"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_oGql_1LNEeO75dO39GbF8Q" name="_fcRefList" visibility="public" type="_oGqmC1LNEeO75dO39GbF8Q" aggregation="shared" association="_oGqm3FLNEeO75dO39GbF8Q">
             <ownedComment xmi:type="uml:Comment" xmi:id="_uqwoYGY2EeWrX_JIGzXlSg" annotatedElement="_oGql_1LNEeO75dO39GbF8Q">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">An FD contains one or more FCs. A contained FC connects LTPs that bound the FD.</body>
+              <body>An FD contains one or more FCs. A contained FC connects LTPs that bound the FD.</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_oGqmAVLNEeO75dO39GbF8Q"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_oGqmAFLNEeO75dO39GbF8Q" value="*"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_2ES2QFYkEeOVGaP4lO41SQ" name="_ltpRefList" type="_eEpDMFX4EeOVGaP4lO41SQ" aggregation="shared" association="_2EZj8FYkEeOVGaP4lO41SQ">
             <ownedComment xmi:type="uml:Comment" xmi:id="_XeBh0GXPEeWWhJGy6csBUQ" annotatedElement="_2ES2QFYkEeOVGaP4lO41SQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">An instance of FD is associated with zero or more LTP objects. The LTPs that bound the FD provide capacity for forwarding.</body>
+              <body>An instance of FD is associated with zero or more LTP objects. &#xD;
+The LTPs that bound the FD provide capacity for forwarding.</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2ES2QVYkEeOVGaP4lO41SQ"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2ES2QlYkEeOVGaP4lO41SQ" value="*"/>
@@ -204,19 +233,27 @@
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_oGqmC1LNEeO75dO39GbF8Q" name="ForwardingConstruct">
           <ownedComment xmi:type="uml:Comment" xmi:id="_oGql6lLNEeO75dO39GbF8Q" annotatedElement="_oGqmC1LNEeO75dO39GbF8Q">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The ForwardingConstruct (FC) object class models enabled potential for forwarding between two or more LTPs at a particular specific layerProtocol.Like the LTP the FC supports any transport protocol including all circuit and packet forms.It is used to effect forwarding of transport characteristic (layer protocol) information.An FC can be in only one FD.The ForwardingConstruct is a Forwarding entity.At a low level of the recursion, a FC represents a cross-connection within an NE. It may also represent a fragment of a cross-connection under certain circumstances.The FC object can be used to represent many different structures including point-to-point (P2P), point-to-multipoint (P2MP), rooted-multipoint (RMP) and multipoint-to-multipoint (MP2MP) bridge and selector structure for linear, ring or mesh protection schemes.</body>
+            <body>The ForwardingConstruct (FC) object class models enabled potential for forwarding between two or more LTPs at a particular specific layerProtocol.&#xD;
+Like the LTP the FC supports any transport protocol including all circuit and packet forms.&#xD;
+It is used to effect forwarding of transport characteristic (layer protocol) information.&#xD;
+An FC can be in only one FD.&#xD;
+The ForwardingConstruct is a Forwarding entity.&#xD;
+At a low level of the recursion, a FC represents a cross-connection within an NE. It may also represent a fragment of a cross-connection under certain circumstances.&#xD;
+The FC object can be used to represent many different structures including point-to-point (P2P), point-to-multipoint (P2MP), rooted-multipoint (RMP) and multipoint-to-multipoint (MP2MP) bridge and selector structure for linear, ring or mesh protection schemes.</body>
           </ownedComment>
           <generalization xmi:type="uml:Generalization" xmi:id="_IneoYI2uEeO38ZmbECnvbg" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_oGqmFVLNEeO75dO39GbF8Q" name="layerProtocolName" visibility="public" type="_P-Hp8MD4EeSoNOrYOfaryg">
             <ownedComment xmi:type="uml:Comment" xmi:id="_wGzdsGY4EeWrX_JIGzXlSg" annotatedElement="_oGqmFVLNEeO75dO39GbF8Q">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The layerProtocol at which the FC enables potential for forwarding.</body>
+              <body>The layerProtocol at which the FC enables potential for forwarding.</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_oGqmF1LNEeO75dO39GbF8Q" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_oGqmFlLNEeO75dO39GbF8Q" value="1"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_i7UzkFYfEeOVGaP4lO41SQ" name="_lowerLevelFcRefList" type="_oGqmC1LNEeO75dO39GbF8Q" aggregation="shared" association="_i7cIUFYfEeOVGaP4lO41SQ">
             <ownedComment xmi:type="uml:Comment" xmi:id="_lXFJEGXfEeWrX_JIGzXlSg" annotatedElement="_i7UzkFYfEeOVGaP4lO41SQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">An FC object supports a recursive aggregation relationship such that the internal construction of an FC can be exposed as multiple lower level FC objects (partitioning).Aggregation is used as for the FD to allow changes in hierarchy.</body>
+              <body>An FC object supports a recursive aggregation relationship such that the internal construction of an FC can be exposed as multiple lower level FC objects (partitioning).&#xD;
+Aggregation is used as for the FD to allow changes in hierarchy.&#xD;
+</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_i7UzkVYfEeOVGaP4lO41SQ"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_i7UzklYfEeOVGaP4lO41SQ" value="*"/>
@@ -224,14 +261,15 @@
           
           <ownedAttribute xmi:type="uml:Property" xmi:id="_gqUk0FYgEeOVGaP4lO41SQ" name="_fcPortList" type="_b_lUAFYgEeOVGaP4lO41SQ" aggregation="composite" association="_gqbSgFYgEeOVGaP4lO41SQ">
             <ownedComment xmi:type="uml:Comment" xmi:id="_xC7hoGXeEeWrX_JIGzXlSg" annotatedElement="_gqUk0FYgEeOVGaP4lO41SQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The association of the FC to LTPs is made via FcPorts (essentially the ports of the FC).</body>
+              <body>The association of the FC to LTPs is made via FcPorts (essentially the ports of the FC).</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_gqUk0VYgEeOVGaP4lO41SQ" value="2"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_gqUk0lYgEeOVGaP4lO41SQ" value="*"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_d_droFYhEeOVGaP4lO41SQ" name="_fcSwitchList" type="_a97NQFYhEeOVGaP4lO41SQ" aggregation="composite" association="_d_lncFYhEeOVGaP4lO41SQ">
             <ownedComment xmi:type="uml:Comment" xmi:id="_zfUkMGXhEeWrX_JIGzXlSg" annotatedElement="_d_droFYhEeOVGaP4lO41SQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">If an FC exposes protection (having two FcPorts that provide alternative identical inputs/outputs), the FC will have one or more associated FcSwitch objects.The arrangement of switches for a particular instance is described by a referenced FcSpec</body>
+              <body>If an FC exposes protection (having two FcPorts that provide alternative identical inputs/outputs), the FC will have one or more associated FcSwitch objects.&#xD;
+The arrangement of switches for a particular instance is described by a referenced FcSpec</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_d_droVYhEeOVGaP4lO41SQ"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_d_drolYhEeOVGaP4lO41SQ" value="*"/>
@@ -240,7 +278,9 @@
           
           <ownedAttribute xmi:type="uml:Property" xmi:id="_9_yMUEDAEeWQeOKbNUpP9A" name="forwardingDirection" visibility="public" type="_dV67AEC8EeWxhL2B6Peg6A">
             <ownedComment xmi:type="uml:Comment" xmi:id="_VWLLwGdUEeWmgIwAIZlYKQ" annotatedElement="_9_yMUEDAEeWQeOKbNUpP9A">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The directionality of the ForwardingConstruct. Is applicable to simple ForwardingConstructs where all FcPorts are BIDIRECTIONAL (the ForwardingConstruct will be BIDIRECTIONAL) or UNIDIRECTIONAL (the ForwardingConstruct will be UNIDIRECTIONAL). Is not present in more complex cases.</body>
+              <body>The directionality of the ForwardingConstruct. &#xD;
+Is applicable to simple ForwardingConstructs where all FcPorts are BIDIRECTIONAL (the ForwardingConstruct will be BIDIRECTIONAL) or UNIDIRECTIONAL (the ForwardingConstruct will be UNIDIRECTIONAL). &#xD;
+Is not present in more complex cases.</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-XpSsEDAEeWQeOKbNUpP9A"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-X6YcEDAEeWQeOKbNUpP9A" value="1"/>
@@ -250,12 +290,23 @@
         
         <packagedElement xmi:type="uml:Class" xmi:id="_oGqnr1LNEeO75dO39GbF8Q" name="NetworkElement">
           <ownedComment xmi:type="uml:Comment" xmi:id="_oGqnsFLNEeO75dO39GbF8Q" annotatedElement="_oGqnr1LNEeO75dO39GbF8Q">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The Network Element (NE) object class represents a network element (traditional NE) in the data plane.A data plane network element is essentially a consolidation of capabilities that can be viewed and controlled through a "single" management-control port.In the direct interface from an SDN controller to a network element in the data plane, the NetworkElement object defines the scope of control for the resources within the network elementFor example internal transfer of user information between the external terminations (ports of the NE), encapsulation, multiplexing/demultiplexing, and OAM functions, etc. The NetworkElement provides the scope of the naming space for identifying objects representing the resources within the data plane network element.NE is really a product bundling or some view of management scope, management access, session. The NE is not directly part of topology but brings meaning to the FD context and the LTP context (and hence the links). </body>
+            <body>The Network Element (NE) object class represents a network element (traditional NE) in the data plane.&#xD;
+A data plane network element is essentially a consolidation of capabilities that can be viewed and controlled through a "single" management-control port.&#xD;
+In the direct interface from an SDN controller to a network element in the data plane, the NetworkElement object defines the scope of control for the resources within the network element&#xD;
+For example internal transfer of user information between the external terminations (ports of the NE), encapsulation, multiplexing/demultiplexing, and OAM functions, etc. &#xD;
+The NetworkElement provides the scope of the naming space for identifying objects representing the resources within the data plane network element.&#xD;
+&#xD;
+NE is really a product bundling or some view of management scope, management access, session. &#xD;
+The NE is not directly part of topology but brings meaning to the FD context and the LTP context (and hence the links). </body>
           </ownedComment>
           <generalization xmi:type="uml:Generalization" xmi:id="_1AQxMI2tEeO38ZmbECnvbg" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_oGqnslLNEeO75dO39GbF8Q" name="_fdRefList" visibility="public" type="_oGql-FLNEeO75dO39GbF8Q" aggregation="composite" association="_oGqn01LNEeO75dO39GbF8Q">
             <ownedComment xmi:type="uml:Comment" xmi:id="_j4rTUGaNEeWrX_JIGzXlSg" annotatedElement="_oGqnslLNEeO75dO39GbF8Q">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Represents the FD that is completely within the boundary of the NE.At a low level of recursion, an FD (within a network element (NE)) represents a switch matrix (i.e., a fabric). Note that an NE can encompass multiple switch matrices (FDs) and the FD representing the switch matrix can be further partitioned.Where an FD is referenced by the NeEncompassesFd association, any FDs that it encompasses (i.e., that are associated with it by HigherLevelFdEncompassesLowerLevelFds), must also be encompassed by the NE and hence must have the NeEncompassesFd association.</body>
+              <body>Represents the FD that is completely within the boundary of the NE.&#xD;
+At a low level of recursion, an FD (within a network element (NE)) represents a switch matrix (i.e., a fabric). &#xD;
+Note that an NE can encompass multiple switch matrices (FDs) and the FD representing the switch matrix can be further partitioned.&#xD;
+Where an FD is referenced by the NeEncompassesFd association, any FDs that it encompasses (i.e., that are associated with it by HigherLevelFdEncompassesLowerLevelFds), must also be encompassed by the NE and hence must have the NeEncompassesFd association.&#xD;
+</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_oGqntFLNEeO75dO39GbF8Q"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_oGqns1LNEeO75dO39GbF8Q" value="*"/>
@@ -263,7 +314,9 @@
           
           <ownedAttribute xmi:type="uml:Property" xmi:id="_DyAG8FYmEeOVGaP4lO41SQ" name="_ltpRefList" type="_eEpDMFX4EeOVGaP4lO41SQ" aggregation="composite" association="_DyIp0FYmEeOVGaP4lO41SQ">
             <ownedComment xmi:type="uml:Comment" xmi:id="_2O5nQGaOEeWrX_JIGzXlSg" annotatedElement="_DyAG8FYmEeOVGaP4lO41SQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">An NE has associated LTPs that are at its boundary.The NeEncompassesFd association occurs for FDs that are within the bounds of the NetworkElement definition such that the FD is bounded by LTPs, all of which are on the boundary of the NetworkElement or are within the NetworkElement. An LTP can be independent of an NE.</body>
+              <body>An NE has associated LTPs that are at its boundary.&#xD;
+The NeEncompassesFd association occurs for FDs that are within the bounds of the NetworkElement definition such that the FD is bounded by LTPs, all of which are on the boundary of the NetworkElement or are within the NetworkElement. &#xD;
+An LTP can be independent of an NE.</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DyAG8VYmEeOVGaP4lO41SQ"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DyAG8lYmEeOVGaP4lO41SQ" value="*"/>
@@ -272,26 +325,38 @@
         
         <packagedElement xmi:type="uml:Class" xmi:id="_b_lUAFYgEeOVGaP4lO41SQ" name="FcPort">
           <ownedComment xmi:type="uml:Comment" xmi:id="_1C1FsGXeEeWrX_JIGzXlSg" annotatedElement="_b_lUAFYgEeOVGaP4lO41SQ">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The association of the FC to LTPs is made via FcPorts.The FcPort object class models the access to the FC function. The traffic forwarding between the associated FcPorts of the FC depends upon the type of FC and may be associated with FcSwitch object instances.  In cases where there is resilience the FcPort may convey the resilience role of the access to the FC. It can represent a protected (resilient/reliable) point or a protecting (unreliable working or protection) point.The FcPort replaces the Protection Unit of a traditional protection model. The ForwadingConstruct can be considered as a component and the FcPort as a Port on that component</body>
+            <body>The association of the FC to LTPs is made via FcPorts.&#xD;
+The FcPort object class models the access to the FC function. &#xD;
+The traffic forwarding between the associated FcPorts of the FC depends upon the type of FC and may be associated with FcSwitch object instances.  &#xD;
+In cases where there is resilience the FcPort may convey the resilience role of the access to the FC. &#xD;
+It can represent a protected (resilient/reliable) point or a protecting (unreliable working or protection) point.&#xD;
+The FcPort replaces the Protection Unit of a traditional protection model. &#xD;
+The ForwadingConstruct can be considered as a component and the FcPort as a Port on that component</body>
           </ownedComment>
           <generalization xmi:type="uml:Generalization" xmi:id="_YKPO0I2yEeO38ZmbECnvbg" general="_k5nWYI2wEeO38ZmbECnvbg"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_IxS2AFYnEeOVGaP4lO41SQ" name="_ltpRefList" type="_eEpDMFX4EeOVGaP4lO41SQ" association="_Ixb_8FYnEeOVGaP4lO41SQ">
             <ownedComment xmi:type="uml:Comment" xmi:id="_bMP-cGZ8EeWrX_JIGzXlSg" annotatedElement="_IxS2AFYnEeOVGaP4lO41SQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The FcPort may be associated with more than one LTP when the FcPort is bidirectional and the LTPs are unidirectional.Multiple Ltp- Bidirectional FcPort to two Uni LtpsZero Ltp- BreakBeforeMake transition- Planned Ltp not yet in place- Off-network LTP referenced through other mechanism</body>
+              <body>The FcPort may be associated with more than one LTP when the FcPort is bidirectional and the LTPs are unidirectional.&#xD;
+Multiple Ltp&#xD;
+- Bidirectional FcPort to two Uni Ltps&#xD;
+Zero Ltp&#xD;
+- BreakBeforeMake transition&#xD;
+- Planned Ltp not yet in place&#xD;
+- Off-network LTP referenced through other mechanism</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_IxS2AVYnEeOVGaP4lO41SQ"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_IxS2AlYnEeOVGaP4lO41SQ" value="2"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_Ykm6QFeGEeOVGaP4lO41SQ" name="role" visibility="public" type="_DUU_sGZ_EeWrX_JIGzXlSg">
             <ownedComment xmi:type="uml:Comment" xmi:id="_y3OwkGZ9EeWrX_JIGzXlSg" annotatedElement="_Ykm6QFeGEeOVGaP4lO41SQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Each FcPort of the FC has a role (e.g., working, protection, protected, symmetric, hub, spoke, leaf, root)  in the context of the FC with respect to the FC function. </body>
+              <body>Each FcPort of the FC has a role (e.g., working, protection, protected, symmetric, hub, spoke, leaf, root)  in the context of the FC with respect to the FC function. </body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Y9kz4FeGEeOVGaP4lO41SQ" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Y915oFeGEeOVGaP4lO41SQ" value="1"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_1HbEgEDAEeWQeOKbNUpP9A" name="fcPortDirection" visibility="public" type="_2WpC8EC7EeWxhL2B6Peg6A">
             <ownedComment xmi:type="uml:Comment" xmi:id="_diIzMGY5EeWrX_JIGzXlSg" annotatedElement="_1HbEgEDAEeWQeOKbNUpP9A">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The orientation of defined flow at the FcPort.</body>
+              <body>The orientation of defined flow at the FcPort.</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Dd7akEDCEeWQeOKbNUpP9A" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DeNHYEDCEeWQeOKbNUpP9A" value="1"/>
@@ -304,7 +369,7 @@
           <generalization xmi:type="uml:Generalization" xmi:id="_XUDNsI2yEeO38ZmbECnvbg" general="_k5nWYI2wEeO38ZmbECnvbg"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_OwauQFeEEeOVGaP4lO41SQ" name="layerProtocolName" visibility="public" type="_P-Hp8MD4EeSoNOrYOfaryg">
             <ownedComment xmi:type="uml:Comment" xmi:id="_hDARUGXKEeWWhJGy6csBUQ" annotatedElement="_OwauQFeEEeOVGaP4lO41SQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Indicate the specific layer-protocol described by the LayerProtocol entity.</body>
+              <body>Indicate the specific layer-protocol described by the LayerProtocol entity.</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_OwauQVeEEeOVGaP4lO41SQ" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OwauQleEEeOVGaP4lO41SQ" value="1"/>
@@ -312,60 +377,66 @@
           
           <ownedAttribute xmi:type="uml:Property" xmi:id="_CUJD4BicEeSh8KVgZCMyDw" name="configuredClientCapacity" visibility="public">
             <ownedComment xmi:type="uml:Comment" xmi:id="_pSv2sGaKEeWrX_JIGzXlSg" annotatedElement="_CUJD4BicEeSh8KVgZCMyDw">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Provides a summarized view of the client capacity that is configurable for use.Note the cleint LTP association should provide all necessary detail hence this attribute is questionable.</body>
+              <body>Provides a summarized view of the client capacity that is configurable for use.&#xD;
+Note the cleint LTP association should provide all necessary detail hence this attribute is questionable.</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_C4-PQBicEeSh8KVgZCMyDw"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C5X34BicEeSh8KVgZCMyDw" value="1"/>
           <type xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/></ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_GuuSYEDBEeWQeOKbNUpP9A" name="lpDirection" visibility="public" type="_RWILYEDAEeWQeOKbNUpP9A">
             <ownedComment xmi:type="uml:Comment" xmi:id="_kuahEGdUEeWmgIwAIZlYKQ" annotatedElement="_GuuSYEDBEeWQeOKbNUpP9A">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The overall directionality of the LP. - A BIDIRECTIONAL LP will have some SINK and/or SOURCE flowss.- A SINK LP can only contain elements with SINK flows or CONTRA_DIRECTION_SOURCE flows- A SOURCE LP can only contain SOURCE flows or CONTRA_DIRECTION_SINK flows</body>
+              <body>The overall directionality of the LP. &#xD;
+- A BIDIRECTIONAL LP will have some SINK and/or SOURCE flowss.&#xD;
+- A SINK LP can only contain elements with SINK flows or CONTRA_DIRECTION_SOURCE flows&#xD;
+- A SOURCE LP can only contain SOURCE flows or CONTRA_DIRECTION_SINK flows</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HFnvcEDBEeWQeOKbNUpP9A" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_HF-UwEDBEeWQeOKbNUpP9A" value="1"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_p2YfoGeEEeWmgIwAIZlYKQ" name="terminationState">
             <ownedComment xmi:type="uml:Comment" xmi:id="_3UayEGeEEeWmgIwAIZlYKQ" annotatedElement="_p2YfoGeEEeWmgIwAIZlYKQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Indicates whether the layer is terminated and if so how.</body>
+              <body>Indicates whether the layer is terminated and if so how.</body>
             </ownedComment>
           <type xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/></ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_eEpDMFX4EeOVGaP4lO41SQ" name="LogicalTerminationPoint">
           <ownedComment xmi:type="uml:Comment" xmi:id="_O_KOIHR-EeO4pZvobs-yIg" annotatedElement="_eEpDMFX4EeOVGaP4lO41SQ">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The LogicalTerminationPoint (LTP) object class encapsulates the termination and adaptation functions of one or more transport layers. The structure of LTP supports all transport protocols including circuit and packet forms.</body>
+            <body>The LogicalTerminationPoint (LTP) object class encapsulates the termination and adaptation functions of one or more transport layers. &#xD;
+The structure of LTP supports all transport protocols including circuit and packet forms.</body>
           </ownedComment>
           <generalization xmi:type="uml:Generalization" xmi:id="_4XUzoI2tEeO38ZmbECnvbg" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_D4N9IFX5EeOVGaP4lO41SQ" name="_serverLtpRefList" type="_eEpDMFX4EeOVGaP4lO41SQ" aggregation="composite" association="_D4V48FX5EeOVGaP4lO41SQ">
             <ownedComment xmi:type="uml:Comment" xmi:id="_otFNMGYvEeWrX_JIGzXlSg" annotatedElement="_D4N9IFX5EeOVGaP4lO41SQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">References contained LTPs representing servers of this LTP in an inverse multiplexing configuration (e.g. VCAT).</body>
+              <body>References contained LTPs representing servers of this LTP in an inverse multiplexing configuration (e.g. VCAT).</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_D4OkMFX5EeOVGaP4lO41SQ"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_D4OkMVX5EeOVGaP4lO41SQ" value="*"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_3Y4zAFYWEeOVGaP4lO41SQ" name="_clientLtpRefList" type="_eEpDMFX4EeOVGaP4lO41SQ" aggregation="shared" association="_3ZB88FYWEeOVGaP4lO41SQ">
             <ownedComment xmi:type="uml:Comment" xmi:id="_9A4dkGYvEeWrX_JIGzXlSg" annotatedElement="_3Y4zAFYWEeOVGaP4lO41SQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">References contained LTPs representing client traffic of this LTP for normal cases of multiplexing.</body>
+              <body>References contained LTPs representing client traffic of this LTP for normal cases of multiplexing.</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3Y4zAVYWEeOVGaP4lO41SQ"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3Y4zAlYWEeOVGaP4lO41SQ" value="*"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_lvFOQFYXEeOVGaP4lO41SQ" name="_lpList" type="_gROecFYXEeOVGaP4lO41SQ" isOrdered="true" aggregation="composite" association="_lvO_QFYXEeOVGaP4lO41SQ">
             <ownedComment xmi:type="uml:Comment" xmi:id="_cEQPAGYwEeWrX_JIGzXlSg" annotatedElement="_lvFOQFYXEeOVGaP4lO41SQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Ordered list of LayerProtocols that this LTP is comprised of where the first entry in the list is the lowest server layer (e.g. physical)</body>
+              <body>Ordered list of LayerProtocols that this LTP is comprised of where the first entry in the list is the lowest server layer (e.g. physical)</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lvFOQVYXEeOVGaP4lO41SQ" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lvFOQlYXEeOVGaP4lO41SQ" value="*"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_CHM6YFYYEeOVGaP4lO41SQ" name="_connectedLtpRef" type="_eEpDMFX4EeOVGaP4lO41SQ" association="_CHToEFYYEeOVGaP4lO41SQ">
             <ownedComment xmi:type="uml:Comment" xmi:id="_qRR48GYxEeWrX_JIGzXlSg" annotatedElement="_CHM6YFYYEeOVGaP4lO41SQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Applicable in a simple context where two LTPs are associated via a non-adjustable enabled forwarding.Reduces clutter removing the need for two additional LTPs and an FC with a pair of FcPorts.</body>
+              <body>Applicable in a simple context where two LTPs are associated via a non-adjustable enabled forwarding.&#xD;
+Reduces clutter removing the need for two additional LTPs and an FC with a pair of FcPorts.</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CHM6YVYYEeOVGaP4lO41SQ"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CHM6YlYYEeOVGaP4lO41SQ" value="1"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_TkuhMFYYEeOVGaP4lO41SQ" name="_peerLtpRef" type="_eEpDMFX4EeOVGaP4lO41SQ" aggregation="composite" association="_Tk5gUFYYEeOVGaP4lO41SQ">
             <ownedComment xmi:type="uml:Comment" xmi:id="_-sn7wGYxEeWrX_JIGzXlSg" annotatedElement="_TkuhMFYYEeOVGaP4lO41SQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">References contained LTPs representing the reversal of orientation of flow where two LTPs are associated via a non-adjustable enabled forwarding and where the referenced LTP is fully dependent on the this LTP.</body>
+              <body>References contained LTPs representing the reversal of orientation of flow where two LTPs are associated via a non-adjustable enabled forwarding and where the referenced LTP is fully dependent on the this LTP.</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_TkuhMVYYEeOVGaP4lO41SQ"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TkuhMlYYEeOVGaP4lO41SQ" value="1"/>
@@ -373,7 +444,8 @@
           
           <ownedAttribute xmi:type="uml:Property" xmi:id="_RLDi4BieEeSh8KVgZCMyDw" name="physicalPortReference" visibility="public">
             <ownedComment xmi:type="uml:Comment" xmi:id="_88FkIGXiEeWrX_JIGzXlSg" annotatedElement="_RLDi4BieEeSh8KVgZCMyDw">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">One or more text labels for the unmodelled physical port associated with the LTP.In many cases there is no associated physical port</body>
+              <body>One or more text labels for the unmodelled physical port associated with the LTP.&#xD;
+In many cases there is no associated physical port</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_R6bxYBieEeSh8KVgZCMyDw"/>
@@ -381,14 +453,18 @@
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_vq1NIBigEeSh8KVgZCMyDw" name="_ltpRefList" type="_eEpDMFX4EeOVGaP4lO41SQ" association="_vrCogBigEeSh8KVgZCMyDw">
             <ownedComment xmi:type="uml:Comment" xmi:id="_qvPK0GYyEeWrX_JIGzXlSg" annotatedElement="_vq1NIBigEeSh8KVgZCMyDw">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">References one or more LTPs in other views that represent this LTP. The referencing LTP is the rovider of capability.</body>
+              <body>References one or more LTPs in other views that represent this LTP. &#xD;
+The referencing LTP is the rovider of capability.</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_vq1NIRigEeSh8KVgZCMyDw"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vq1NIhigEeSh8KVgZCMyDw" value="*"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_S811EEDBEeWQeOKbNUpP9A" name="ltpDirection" visibility="public" type="_RWILYEDAEeWQeOKbNUpP9A">
             <ownedComment xmi:type="uml:Comment" xmi:id="_g606sGdUEeWmgIwAIZlYKQ" annotatedElement="_S811EEDBEeWQeOKbNUpP9A">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The overall directionality of the LTP. - A BIDIRECTIONAL LTP must have at least some LPs that are BIDIRECTIONAL but may also have some SINK and/or SOURCE LPs.- A SINK LTP can only contain SINK LPs- A SOURCE LTP can only contain SOURCE LPs</body>
+              <body>The overall directionality of the LTP. &#xD;
+- A BIDIRECTIONAL LTP must have at least some LPs that are BIDIRECTIONAL but may also have some SINK and/or SOURCE LPs.&#xD;
+- A SINK LTP can only contain SINK LPs&#xD;
+- A SOURCE LTP can only contain SOURCE LPs</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_TbSEkEDBEeWQeOKbNUpP9A" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TbijQEDBEeWQeOKbNUpP9A" value="1"/>
@@ -397,35 +473,45 @@
         
         <packagedElement xmi:type="uml:Class" xmi:id="_a97NQFYhEeOVGaP4lO41SQ" name="FcSwitch">
           <ownedComment xmi:type="uml:Comment" xmi:id="_TOCGsHcNEeO5z_IJj67BhQ" annotatedElement="_a97NQFYhEeOVGaP4lO41SQ">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The FcSwitch object class models the switched forwarding of traffic (traffic flow) between FcPorts and is present where there is protection functionality in the FC. If an FC exposes protection (having two FcPorts that provide alternative identical inputs/outputs), the FC will have one or more associated FcSwitch objects to represent the alternative flow choices visible at the edge of the FC.The FC switch represents and defines a protection switch structure encapsulated in the FC. Essentially performs the functoion of the Protection Group in a traditional model. Associates to 2 or more FcPorts each playing the role of a Protection Unit. One or more protection FcPorts (standby/backup) provide protection for one or more working (i.e. regular/main/preferred) FcPorts where eith protection or working can feed one or more protected FcPort.May be used in revertive or non-revertive (symmetric) mode. When in revertive mode may define waitToRestore time.May be used in one of several modes including source switch, destination switched, source and destination switched etc (covering cases such as  1+1 ane 1:1).. May be lockout (prevented from switching), force switched or manual switched.Will indicate switch state and change of state.</body>
+            <body>The FcSwitch object class models the switched forwarding of traffic (traffic flow) between FcPorts and is present where there is protection functionality in the FC. &#xD;
+If an FC exposes protection (having two FcPorts that provide alternative identical inputs/outputs), the FC will have one or more associated FcSwitch objects to represent the alternative flow choices visible at the edge of the FC.&#xD;
+The FC switch represents and defines a protection switch structure encapsulated in the FC. &#xD;
+Essentially performs the functoion of the Protection Group in a traditional model. &#xD;
+Associates to 2 or more FcPorts each playing the role of a Protection Unit. &#xD;
+One or more protection FcPorts (standby/backup) provide protection for one or more working (i.e. regular/main/preferred) FcPorts where eith protection or working can feed one or more protected FcPort.&#xD;
+May be used in revertive or non-revertive (symmetric) mode. &#xD;
+When in revertive mode may define waitToRestore time.&#xD;
+May be used in one of several modes including source switch, destination switched, source and destination switched etc (covering cases such as  1+1 ane 1:1).. &#xD;
+May be lockout (prevented from switching), force switched or manual switched.&#xD;
+Will indicate switch state and change of state.</body>
           </ownedComment>
           <generalization xmi:type="uml:Generalization" xmi:id="_ZiVDII2yEeO38ZmbECnvbg" general="_k5nWYI2wEeO38ZmbECnvbg"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_oGqn6FLNEeO75dO39GbF8Q" name="holdOffTime" visibility="public">
             <ownedComment xmi:type="uml:Comment" xmi:id="_oGqn6VLNEeO75dO39GbF8Q" annotatedElement="_oGqn6FLNEeO75dO39GbF8Q">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">This attribute indicates the time, in seconds, between declaration of unacceptable quality of signal on the currently selected FcPort, and the initialization of the protection switching algorithm. </body>
+              <body>This attribute indicates the time, in seconds, between declaration of unacceptable quality of signal on the currently selected FcPort, and the initialization of the protection switching algorithm. </body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_oGqn5lLNEeO75dO39GbF8Q" name="waitToRestoreTime" visibility="public">
             <ownedComment xmi:type="uml:Comment" xmi:id="_oGqn51LNEeO75dO39GbF8Q" annotatedElement="_oGqn5lLNEeO75dO39GbF8Q">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">If the protection system is revertive, this attribute specifies the amount of time, in seconds, to wait after the preferred FcPort returns to an acceptable state of operaion (e.g a fault has cleared) before restoring traffic to that preferred FcPort. </body>
+              <body>If the protection system is revertive, this attribute specifies the amount of time, in seconds, to wait after the preferred FcPort returns to an acceptable state of operaion (e.g a fault has cleared) before restoring traffic to that preferred FcPort. </body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_oGqn6lLNEeO75dO39GbF8Q" name="protType" visibility="public" type="_c3Hu8Gb3EeWrX_JIGzXlSg">
             <ownedComment xmi:type="uml:Comment" xmi:id="_oGqn61LNEeO75dO39GbF8Q" annotatedElement="_oGqn6lLNEeO75dO39GbF8Q">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Indicates the protection scheme that is used for the ProtectionGroup.</body>
+              <body>Indicates the protection scheme that is used for the ProtectionGroup.</body>
             </ownedComment>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_oGqn41LNEeO75dO39GbF8Q" name="operType" visibility="public" type="_oGqjf1LNEeO75dO39GbF8Q">
             <ownedComment xmi:type="uml:Comment" xmi:id="_oGqn5FLNEeO75dO39GbF8Q" annotatedElement="_oGqn41LNEeO75dO39GbF8Q">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">This attribute whether or not the protection scheme is revertive or non-revertive. </body>
+              <body>This attribute whether or not the protection scheme is revertive or non-revertive. </body>
             </ownedComment>
             <defaultValue xmi:type="uml:InstanceValue" xmi:id="_oGqn5VLNEeO75dO39GbF8Q" name="REVERTIVE" type="_oGqjf1LNEeO75dO39GbF8Q" instance="_oGqjgVLNEeO75dO39GbF8Q"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_2PdiYI8lEeOw_ste-s6RrA" name="_selectedFcPortRefList" type="_b_lUAFYgEeOVGaP4lO41SQ" association="_2QhSUI8lEeOw_ste-s6RrA">
             <ownedComment xmi:type="uml:Comment" xmi:id="_nSVYYGYtEeWrX_JIGzXlSg" annotatedElement="_2PdiYI8lEeOw_ste-s6RrA">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Indicates which points are selected by the switch.</body>
+              <body>Indicates which points are selected by the switch.</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2PdiYY8lEeOw_ste-s6RrA" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2PdiYo8lEeOw_ste-s6RrA" value="*"/>
@@ -439,22 +525,24 @@
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_oGqwB1LNEeO75dO39GbF8Q" name="Diagrams">
         <ownedComment xmi:type="uml:Comment" xmi:id="_OdhAUJozEeOyHKqw-cQ_eg">
-          <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Suggest adding profile to the base class for all to inherit and then inheriting from all classes so this picks up all attributes.</body>
+          <body>Suggest adding profile to the base class for all to inherit and then inheriting from all classes so this picks up all attributes.</body>
         </ownedComment>
         <ownedComment xmi:type="uml:Comment" xmi:id="_Gck6kCOtEeSoB4Ln_aUF6w" annotatedElement="_8SDrEHk5EeO5z_IJj67BhQ">
-          <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Fc may be part of a route or a member of a ForwardingDomain. Note that there may be efficiencies where a single representation covers both</body>
+          <body>Fc may be part of a route or a member of a ForwardingDomain. Note that there may be efficiencies where a single representation covers both</body>
         </ownedComment>
         <ownedComment xmi:type="uml:Comment" xmi:id="_ceQCACOtEeSoB4Ln_aUF6w" annotatedElement="_jEQe8COoEeSoB4Ln_aUF6w">
-          <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">There may be ForwardingDomains below the one contained in the NE .</body>
+          <body>There may be ForwardingDomains below the one contained in the NE .</body>
         </ownedComment>
         <ownedComment xmi:type="uml:Comment" xmi:id="_ZSaakEDCEeWQeOKbNUpP9A">
-          <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">All additions covering directionality shown in red</body>
+          <body>All additions covering directionality shown in red</body>
         </ownedComment>
         <ownedComment xmi:type="uml:Comment" xmi:id="_iyGBEEDCEeWQeOKbNUpP9A">
-          <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Need to cover contradirectionality.Suggest coDirectional Boolean set to false with a default of true allowing absensce.Suggest adding CONTRA_DIRECTION_SINK and CONTRA_DIRECTION_SOURCE to TerminationDirection for use only in LP internal stuff or having an ExtendedTerminationDirection that includes CONTRA_.</body>
+          <body>Need to cover contradirectionality.&#xD;
+Suggest coDirectional Boolean set to false with a default of true allowing absensce.&#xD;
+Suggest adding CONTRA_DIRECTION_SINK and CONTRA_DIRECTION_SOURCE to TerminationDirection for use only in LP internal stuff or having an ExtendedTerminationDirection that includes CONTRA_.</body>
         </ownedComment>
         <ownedComment xmi:type="uml:Comment" xmi:id="_WhF3kEDEEeWQeOKbNUpP9A">
-          <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Note that an alternative to linkDirectio being 0..1 would be to have a ForwardingDirection of COMPLEX.</body>
+          <body>Note that an alternative to linkDirectio being 0..1 would be to have a ForwardingDirection of COMPLEX.</body>
         </ownedComment>
         
       </packagedElement>
@@ -691,26 +779,40 @@
     <packagedElement xmi:type="uml:Package" xmi:id="_SQqTgBizEeSh8KVgZCMyDw" name="CoreFoundationModule">
       <packagedElement xmi:type="uml:Package" xmi:id="_oGqi1FLNEeO75dO39GbF8Q" name="TypeDefinitions">
         <ownedComment xmi:type="uml:Comment" xmi:id="_oGqi1VLNEeO75dO39GbF8Q" annotatedElement="_oGqi1FLNEeO75dO39GbF8Q">
-          <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">This package contains all type definitions that are common to all UML interface specifications in SG 15.</body>
+          <body>This package contains all type definitions that are common to all UML interface specifications in SG 15.</body>
         </ownedComment>
         <packagedElement xmi:type="uml:DataType" xmi:id="_oGqi1lLNEeO75dO39GbF8Q" name="DateAndTime">
           <ownedComment xmi:type="uml:Comment" xmi:id="_oGqi11LNEeO75dO39GbF8Q" annotatedElement="_oGqi1lLNEeO75dO39GbF8Q">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">This primitive type defines the date and time according to the following structure:"yyyyMMddhhmmss.s[Z|{+|-}HHMm]" where:yyyy	"0000".."9999"	yearMM		"01".."12"			monthdd		"01".."31"			dayhh		"00".."23"			hourmm		"00".."59"			minutess		"00".."59"			seconds		".0"..".9"			tenth of second (set to ".0" if EMS or NE cannot support this granularity)Z		"Z"					indicates UTC (rather than local time){+|-}	"+" or "-"			delta from UTCHH		"00".."23"			time zone difference in hoursMm		"00".."59"			time zone difference in minutes.</body>
+            <body>This primitive type defines the date and time according to the following structure:&#xD;
+"yyyyMMddhhmmss.s[Z|{+|-}HHMm]" where:&#xD;
+yyyy	"0000".."9999"	year&#xD;
+MM		"01".."12"			month&#xD;
+dd		"01".."31"			day&#xD;
+hh		"00".."23"			hour&#xD;
+mm		"00".."59"			minute&#xD;
+ss		"00".."59"			second&#xD;
+s		".0"..".9"			tenth of second (set to ".0" if EMS or NE cannot support this granularity)&#xD;
+Z		"Z"					indicates UTC (rather than local time)&#xD;
+{+|-}	"+" or "-"			delta from UTC&#xD;
+HH		"00".."23"			time zone difference in hours&#xD;
+Mm		"00".."59"			time zone difference in minutes.</body>
           </ownedComment>
         </packagedElement>
         <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_oGqi2FLNEeO75dO39GbF8Q" name="BitString">
           <ownedComment xmi:type="uml:Comment" xmi:id="_oGqi2VLNEeO75dO39GbF8Q" annotatedElement="_oGqi2FLNEeO75dO39GbF8Q">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">This primitive type defines a bit oriented string.The size of the BitString will be defined in the valueRange property of the attribute; according to ASN.1 (X.680).The semantic of each bit position will be defined in the Documentation field of the attribute.</body>
+            <body>This primitive type defines a bit oriented string.&#xD;
+The size of the BitString will be defined in the valueRange property of the attribute; according to ASN.1 (X.680).&#xD;
+The semantic of each bit position will be defined in the Documentation field of the attribute.</body>
           </ownedComment>
         </packagedElement>
         <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_oGqi2lLNEeO75dO39GbF8Q" name="Real">
           <ownedComment xmi:type="uml:Comment" xmi:id="_oGqi21LNEeO75dO39GbF8Q" annotatedElement="_oGqi2lLNEeO75dO39GbF8Q">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">This primitive type maps to the "realnumber" defined in Recommendation X.680.</body>
+            <body>This primitive type maps to the "realnumber" defined in Recommendation X.680.</body>
           </ownedComment>
         </packagedElement>
         <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_oGqlf1LNEeO75dO39GbF8Q" name="PrintableString">
           <ownedComment xmi:type="uml:Comment" xmi:id="_eGOsEGgYEeWmgIwAIZlYKQ" annotatedElement="_oGqlf1LNEeO75dO39GbF8Q">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">A string that only includes printable characters</body>
+            <body>A string that only includes printable characters</body>
           </ownedComment>
         </packagedElement>
       </packagedElement>
@@ -718,11 +820,11 @@
         <packagedElement xmi:type="uml:Package" xmi:id="_oDOn8BizEeSh8KVgZCMyDw" name="ObjectClasses">
           <packagedElement xmi:type="uml:Class" xmi:id="_BUcVEI2tEeO38ZmbECnvbg" name="Name" isAbstract="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_e18ZIGgVEeWmgIwAIZlYKQ" annotatedElement="_BUcVEI2tEeO38ZmbECnvbg">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Name: A property of an entity with a value that is unique in some namespace but may change during the life of the entity. A name carries no semantics with respect to the purpose of the entity.</body>
+              <body>Name: A property of an entity with a value that is unique in some namespace but may change during the life of the entity. A name carries no semantics with respect to the purpose of the entity.</body>
             </ownedComment>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_ajjMYI2uEeO38ZmbECnvbg" name="nameList" visibility="public" type="_y7oy8I3tEeO38ZmbECnvbg">
               <ownedComment xmi:type="uml:Comment" xmi:id="_jHCa4GgVEeWmgIwAIZlYKQ" annotatedElement="_ajjMYI2uEeO38ZmbECnvbg">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">List of names.</body>
+                <body>List of names.</body>
               </ownedComment>
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_csyJwI2uEeO38ZmbECnvbg" value="1"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ctHg8I2uEeO38ZmbECnvbg" value="*"/>
@@ -730,7 +832,11 @@
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_iVJ1kI2wEeO38ZmbECnvbg" name="GlobalClass" isAbstract="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_MTeuEGgWEeWmgIwAIZlYKQ" annotatedElement="_iVJ1kI2wEeO38ZmbECnvbg">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Represents a type of thing (an Entity) that has instances which can exist in their own right (independently of any others).Entity: Has identity, defined boundary, properties, functionality and lifecycle in a global context.(consider in the context of an Object Class: (usage) The representation of a thing that may be an entity or an inseparable Entity Feature)</body>
+              <body>Represents a type of thing (an Entity) that has instances which can exist in their own right (independently of any others).&#xD;
+&#xD;
+Entity: Has identity, defined boundary, properties, functionality and lifecycle in a global context.&#xD;
+&#xD;
+(consider in the context of an Object Class: (usage) The representation of a thing that may be an entity or an inseparable Entity Feature)</body>
             </ownedComment>
             <generalization xmi:type="uml:Generalization" xmi:id="_d4GJgI2yEeO38ZmbECnvbg" general="_BUcVEI2tEeO38ZmbECnvbg"/>
             <generalization xmi:type="uml:Generalization" xmi:id="_ekZ14I2yEeO38ZmbECnvbg" general="_u0HQoI2wEeO38ZmbECnvbg"/>
@@ -738,14 +844,18 @@
             <generalization xmi:type="uml:Generalization" xmi:id="_hNiEULE2EeSZUdYfPSdgew" general="_RG6VILEtEeSZUdYfPSdgew"/>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_w39joI3wEeO38ZmbECnvbg" name="localIdList" visibility="public" type="_y7oy8I3tEeO38ZmbECnvbg">
               <ownedComment xmi:type="uml:Comment" xmi:id="_TzLZ0GgWEeWmgIwAIZlYKQ" annotatedElement="_w39joI3wEeO38ZmbECnvbg">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">An identifier that is unique in the context of some scope that is less than the global scope.(consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)</body>
+                <body>An identifier that is unique in the context of some scope that is less than the global scope.&#xD;
+&#xD;
+(consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)</body>
               </ownedComment>
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xTUC4I3wEeO38ZmbECnvbg"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xT__YI3wEeO38ZmbECnvbg" value="*"/>
             </ownedAttribute>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_IEiZwI22EeO38ZmbECnvbg" name="uuid" visibility="public" type="_SU3Q4I30EeO38ZmbECnvbg">
               <ownedComment xmi:type="uml:Comment" xmi:id="_ZiNZMGgWEeWmgIwAIZlYKQ" annotatedElement="_IEiZwI22EeO38ZmbECnvbg">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">UUID: An identifier that is universally unique(consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself globally unique, and immutable. An identifier carries no semantics with respect to the purpose or state of the entity)</body>
+                <body>UUID: An identifier that is universally unique&#xD;
+&#xD;
+(consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself globally unique, and immutable. An identifier carries no semantics with respect to the purpose or state of the entity)</body>
               </ownedComment>
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_IpxNwI22EeO38ZmbECnvbg" value="1"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_IqKPUI22EeO38ZmbECnvbg" value="1"/>
@@ -753,7 +863,11 @@
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_k5nWYI2wEeO38ZmbECnvbg" name="LocalClass" isAbstract="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_fGPCcGgWEeWmgIwAIZlYKQ" annotatedElement="_k5nWYI2wEeO38ZmbECnvbg">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">A LocalClass represents a Feature of an Entity. It is inseparable from a GlobalClass but is a distinct feature of that GlobalClass such that the instances of LocalClass are able to have associations to other instances..Feature of an Entity: An inseparable, externally distinguishable part of an entity.The mandatory LocalId of the LocalClass instance is unique in the context of the GlobalClass from which it is inseparable.(consider in the context of an Object Class: (usage) The representation of a thing that may be an entity or an inseparable feature of an entity)</body>
+              <body>A LocalClass represents a Feature of an Entity. It is inseparable from a GlobalClass but is a distinct feature of that GlobalClass such that the instances of LocalClass are able to have associations to other instances..&#xD;
+Feature of an Entity: An inseparable, externally distinguishable part of an entity.&#xD;
+The mandatory LocalId of the LocalClass instance is unique in the context of the GlobalClass from which it is inseparable.&#xD;
+(consider in the context of an Object Class: (usage) The representation of a thing that may be an entity or an inseparable feature of an entity)&#xD;
+</body>
             </ownedComment>
             <generalization xmi:type="uml:Generalization" xmi:id="_fcvzII2yEeO38ZmbECnvbg" general="_BUcVEI2tEeO38ZmbECnvbg"/>
             <generalization xmi:type="uml:Generalization" xmi:id="_gKRAcI2yEeO38ZmbECnvbg" general="_u0HQoI2wEeO38ZmbECnvbg"/>
@@ -761,7 +875,9 @@
             <generalization xmi:type="uml:Generalization" xmi:id="_gigKULE2EeSZUdYfPSdgew" general="_RG6VILEtEeSZUdYfPSdgew"/>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_RMJegI22EeO38ZmbECnvbg" name="localIdList" visibility="public" type="_y7oy8I3tEeO38ZmbECnvbg">
               <ownedComment xmi:type="uml:Comment" xmi:id="_kBhQsGgWEeWmgIwAIZlYKQ" annotatedElement="_RMJegI22EeO38ZmbECnvbg">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">An identifier that is unique in the context of some scope that is less than the global scope.(consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)</body>
+                <body>An identifier that is unique in the context of some scope that is less than the global scope.&#xD;
+&#xD;
+(consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)</body>
               </ownedComment>
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_GzHo0I3wEeO38ZmbECnvbg" value="1"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_GzfcQI3wEeO38ZmbECnvbg" value="*"/>
@@ -769,11 +885,11 @@
           <ownedAttribute xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmi:type="uml:Property" xmi:id="_dCWWgOLVEeWM2vUDE3Xqhw" name="uuid" type="_SU3Q4I30EeO38ZmbECnvbg"><ownedComment xmi:type="uml:Comment" xmi:id="_qn2i4OLVEeWM2vUDE3Xqhw" annotatedElement="_dCWWgOLVEeWM2vUDE3Xqhw"><body>A global identifier for the LocalClass, which is used as reference.</body></ownedComment></ownedAttribute></packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_u0HQoI2wEeO38ZmbECnvbg" name="Label" isAbstract="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_pz--kGgWEeWmgIwAIZlYKQ" annotatedElement="_u0HQoI2wEeO38ZmbECnvbg">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">A property of an entity with a value that is not expected to be unique and is allowed to change. A label carries no semantics with respect to the purpose of the entity and has no effect on the entity behavior or state.</body>
+              <body>A property of an entity with a value that is not expected to be unique and is allowed to change. A label carries no semantics with respect to the purpose of the entity and has no effect on the entity behavior or state.</body>
             </ownedComment>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_olrqYI2uEeO38ZmbECnvbg" name="labelList" visibility="public" type="_y7oy8I3tEeO38ZmbECnvbg">
               <ownedComment xmi:type="uml:Comment" xmi:id="_wQE4QGgWEeWmgIwAIZlYKQ" annotatedElement="_olrqYI2uEeO38ZmbECnvbg">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">List of labels.</body>
+                <body>List of labels.</body>
               </ownedComment>
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_pEqFYI2uEeO38ZmbECnvbg"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_pFBRwI2uEeO38ZmbECnvbg" value="*"/>
@@ -781,11 +897,11 @@
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_bCi74I22EeO38ZmbECnvbg" name="Extension" isAbstract="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_1fwpMGgWEeWmgIwAIZlYKQ" annotatedElement="_bCi74I22EeO38ZmbECnvbg">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Extension provides an opportunity to define properties not declared in the class that extend the class enabling a realization with simple ad-hoc extension of standard classes to be conformant.</body>
+              <body>Extension provides an opportunity to define properties not declared in the class that extend the class enabling a realization with simple ad-hoc extension of standard classes to be conformant.</body>
             </ownedComment>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_uQqu4I28EeO38ZmbECnvbg" name="extensionList" visibility="public" type="_y7oy8I3tEeO38ZmbECnvbg">
               <ownedComment xmi:type="uml:Comment" xmi:id="_8h5PMGgWEeWmgIwAIZlYKQ" annotatedElement="_uQqu4I28EeO38ZmbECnvbg">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">List of simple name-value extentions</body>
+                <body>List of simple name-value extentions</body>
               </ownedComment>
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uskAsI28EeO38ZmbECnvbg"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_us2UkI28EeO38ZmbECnvbg" value="*"/>
@@ -793,11 +909,11 @@
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_StA-4I23EeO38ZmbECnvbg" name="UniversalIdAuthority" isAbstract="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_CdttYGgXEeWmgIwAIZlYKQ" annotatedElement="_StA-4I23EeO38ZmbECnvbg">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Represents the authority that controls the allocation of UUIDs.</body>
+              <body>Represents the authority that controls the allocation of UUIDs.</body>
             </ownedComment>
             <ownedAttribute xmi:type="uml:Property" xmi:id="__JGxMI30EeO38ZmbECnvbg" name="uuid" visibility="public" type="_SU3Q4I30EeO38ZmbECnvbg">
               <ownedComment xmi:type="uml:Comment" xmi:id="_FzsxwGgXEeWmgIwAIZlYKQ" annotatedElement="__JGxMI30EeO38ZmbECnvbg">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The UUID for the UUID authority.</body>
+                <body>The UUID for the UUID authority.</body>
               </ownedComment>
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="__JGxMY30EeO38ZmbECnvbg"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="__JGxMo30EeO38ZmbECnvbg" value="1"/>
@@ -805,11 +921,11 @@
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_ulDtsI3AEeO38ZmbECnvbg" name="NameAndValueAuthority" isAbstract="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_J5sWwGgXEeWmgIwAIZlYKQ" annotatedElement="_ulDtsI3AEeO38ZmbECnvbg">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Represents the authority that controls the legal valuse for the names and values of a name/value attribute.</body>
+              <body>Represents the authority that controls the legal valuse for the names and values of a name/value attribute.</body>
             </ownedComment>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_U1tnkI31EeO38ZmbECnvbg" name="uuid" visibility="public" type="_SU3Q4I30EeO38ZmbECnvbg">
               <ownedComment xmi:type="uml:Comment" xmi:id="_PBXbMGgXEeWmgIwAIZlYKQ" annotatedElement="_U1tnkI31EeO38ZmbECnvbg">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The UUID for the NameValueAuthority.</body>
+                <body>The UUID for the NameValueAuthority.</body>
               </ownedComment>
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VM-4EI31EeO38ZmbECnvbg" value="1"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VNUPQI31EeO38ZmbECnvbg" value="1"/>
@@ -817,7 +933,7 @@
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_-ZWVQJP0EeOqfpp-ZJSmaA" name="ConditionalPackage" isAbstract="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_UmfQoGgXEeWmgIwAIZlYKQ" annotatedElement="_-ZWVQJP0EeOqfpp-ZJSmaA">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The base class for conditional packages.</body>
+              <body>The base class for conditional packages.</body>
             </ownedComment>
             <generalization xmi:type="uml:Generalization" xmi:id="_JIYq0JP1EeOqfpp-ZJSmaA" general="_bCi74I22EeO38ZmbECnvbg"/>
             <generalization xmi:type="uml:Generalization" xmi:id="_5Zv80JP2EeOqfpp-ZJSmaA" general="_u0HQoI2wEeO38ZmbECnvbg"/>
@@ -826,11 +942,11 @@
         <packagedElement xmi:type="uml:Package" xmi:id="_5hoYgBizEeSh8KVgZCMyDw" name="TypeDefinitions">
           <packagedElement xmi:type="uml:DataType" xmi:id="_y7oy8I3tEeO38ZmbECnvbg" name="NameAndValue">
             <ownedComment xmi:type="uml:Comment" xmi:id="_d6mgUGgXEeWmgIwAIZlYKQ" annotatedElement="_y7oy8I3tEeO38ZmbECnvbg">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">A scoped name-value pair</body>
+              <body>A scoped name-value pair</body>
             </ownedComment>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_77PyQI3tEeO38ZmbECnvbg" name="valueName" visibility="public">
               <ownedComment xmi:type="uml:Comment" xmi:id="_kloN4GgXEeWmgIwAIZlYKQ" annotatedElement="_77PyQI3tEeO38ZmbECnvbg">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The name of the value. The value need not have a name.</body>
+                <body>The name of the value. The value need not have a name.</body>
               </ownedComment>
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_8XjTwI3tEeO38ZmbECnvbg"/>
@@ -838,7 +954,7 @@
             </ownedAttribute>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_ZUyfII3uEeO38ZmbECnvbg" name="value" visibility="public">
               <ownedComment xmi:type="uml:Comment" xmi:id="_oJBcIGgXEeWmgIwAIZlYKQ" annotatedElement="_ZUyfII3uEeO38ZmbECnvbg">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The value</body>
+                <body>The value</body>
               </ownedComment>
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Z3im4I3uEeO38ZmbECnvbg" value="1"/>
@@ -850,11 +966,11 @@
           </packagedElement>
           <packagedElement xmi:type="uml:DataType" xmi:id="_SU3Q4I30EeO38ZmbECnvbg" name="UniversalId">
             <ownedComment xmi:type="uml:Comment" xmi:id="_PZfK0GgYEeWmgIwAIZlYKQ" annotatedElement="_SU3Q4I30EeO38ZmbECnvbg">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The univeral ID value where the mechanism for generation is defned by some authority not directly referenced in the structure.</body>
+              <body>The univeral ID value where the mechanism for generation is defned by some authority not directly referenced in the structure.</body>
             </ownedComment>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_cbx2gI30EeO38ZmbECnvbg" name="value" visibility="public">
               <ownedComment xmi:type="uml:Comment" xmi:id="_TIgaQGgYEeWmgIwAIZlYKQ" annotatedElement="_cbx2gI30EeO38ZmbECnvbg">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The specific value of the universal id</body>
+                <body>The specific value of the universal id</body>
               </ownedComment>
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_c3s9gI30EeO38ZmbECnvbg" value="1"/>
@@ -904,19 +1020,19 @@
         </packagedElement>
         <packagedElement xmi:type="uml:Package" xmi:id="_K2aTABi0EeSh8KVgZCMyDw" name="Diagrams">
           <ownedComment xmi:type="uml:Comment" xmi:id="_VhoiwJJxEeO03KWNhYntEQ">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Need to define mechanism to move from extension to standard.</body>
+            <body>Need to define mechanism to move from extension to standard.</body>
           </ownedComment>
           <ownedComment xmi:type="uml:Comment" xmi:id="_g6GT4JPyEeOqfpp-ZJSmaA">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Does not need an identifier as there is always 0..1 and hence the package instance is unique in the context of the instance of the class that it is a package of.</body>
+            <body>Does not need an identifier as there is always 0..1 and hence the package instance is unique in the context of the instance of the class that it is a package of.</body>
           </ownedComment>
           <ownedComment xmi:type="uml:Comment" xmi:id="_6Xh-QJP3EeOqfpp-ZJSmaA">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Showing example of results of inheritence</body>
+            <body>Showing example of results of inheritence</body>
           </ownedComment>
           <ownedComment xmi:type="uml:Comment" xmi:id="_y6YawJP4EeOqfpp-ZJSmaA">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Need to add the actual conditional packages</body>
+            <body>Need to add the actual conditional packages</body>
           </ownedComment>
           <ownedComment xmi:type="uml:Comment" xmi:id="_nBHw8JP8EeOqfpp-ZJSmaA">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Need to add local classes such as OTUk_NonIntrusiveMonitiring</body>
+            <body>Need to add local classes such as OTUk_NonIntrusiveMonitiring</body>
           </ownedComment>
         </packagedElement>
       </packagedElement>
@@ -924,32 +1040,34 @@
         <packagedElement xmi:type="uml:Package" xmi:id="_rmrNwGgiEeWmgIwAIZlYKQ" name="ObjectClasses">
           <packagedElement xmi:type="uml:Class" xmi:id="_RG6VILEtEeSZUdYfPSdgew" name="State_Pac" isAbstract="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_ZvtTkGgfEeWmgIwAIZlYKQ" annotatedElement="_RG6VILEtEeSZUdYfPSdgew">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Provides general state attributes.</body>
+              <body>Provides general state attributes.</body>
             </ownedComment>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_dO6owLEtEeSZUdYfPSdgew" name="operationalState" visibility="public" type="_lNclkLEtEeSZUdYfPSdgew" isReadOnly="true">
               <ownedComment xmi:type="uml:Comment" xmi:id="_vNL24GghEeWmgIwAIZlYKQ" annotatedElement="_dO6owLEtEeSZUdYfPSdgew">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The operational state is used to indicate whether or not the resource is installed and working</body>
+                <body>The operational state is used to indicate whether or not the resource is installed and working</body>
               </ownedComment>
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dzbrELEtEeSZUdYfPSdgew"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dz1TsLEtEeSZUdYfPSdgew" value="1"/>
             </ownedAttribute>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_7gqwALEtEeSZUdYfPSdgew" name="administrativeControl" visibility="public" type="_-xPeALEvEeSZUdYfPSdgew">
               <ownedComment xmi:type="uml:Comment" xmi:id="_CTlx8GggEeWmgIwAIZlYKQ" annotatedElement="_7gqwALEtEeSZUdYfPSdgew">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The administrativeControl state provides control of the availability of specific resources without modification to the provisioning of those resources.The value is the current control target. The actual administrativeState may or may not be at target.</body>
+                <body>The administrativeControl state provides control of the availability of specific resources without modification to the provisioning of those resources.&#xD;
+The value is the current control target. The actual administrativeState may or may not be at target.</body>
               </ownedComment>
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9PLgQLEtEeSZUdYfPSdgew" value="1"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9PmXALEtEeSZUdYfPSdgew" value="1"/>
             </ownedAttribute>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_AjGvILEuEeSZUdYfPSdgew" name="adminsatratveState" visibility="public" type="_KSKOYLEuEeSZUdYfPSdgew" isReadOnly="true">
               <ownedComment xmi:type="uml:Comment" xmi:id="_58sKsGgaEeWmgIwAIZlYKQ" annotatedElement="_AjGvILEuEeSZUdYfPSdgew">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Shows whether or not the client has permission to use or has a prohibition against using the resource.The administrative state expresses usage permissions for specific resources without modification to the provisioning of those resources.</body>
+                <body>Shows whether or not the client has permission to use or has a prohibition against using the resource.&#xD;
+The administrative state expresses usage permissions for specific resources without modification to the provisioning of those resources.</body>
               </ownedComment>
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DWakQLEuEeSZUdYfPSdgew" value="1"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DWzl0LEuEeSZUdYfPSdgew" value="1"/>
             </ownedAttribute>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_PzqZ0GgiEeWmgIwAIZlYKQ" name="lifecycleState" type="_YSsboGgiEeWmgIwAIZlYKQ">
               <ownedComment xmi:type="uml:Comment" xmi:id="_mbN1gGgiEeWmgIwAIZlYKQ" annotatedElement="_PzqZ0GgiEeWmgIwAIZlYKQ">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Used to track the planned deployment, allocation to clients and withdrawal of resources. </body>
+                <body>Used to track the planned deployment, allocation to clients and withdrawal of resources. </body>
               </ownedComment>
             </ownedAttribute>
           </packagedElement>
@@ -957,85 +1075,89 @@
         <packagedElement xmi:type="uml:Package" xmi:id="_ynb6wGgiEeWmgIwAIZlYKQ" name="TypeDefinitions">
           <packagedElement xmi:type="uml:Enumeration" xmi:id="_lNclkLEtEeSZUdYfPSdgew" name="OperationalState">
             <ownedComment xmi:type="uml:Comment" xmi:id="_EAMLwGgiEeWmgIwAIZlYKQ" annotatedElement="_lNclkLEtEeSZUdYfPSdgew">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The possible values of the operationalState.</body>
+              <body>The possible values of the operationalState.</body>
             </ownedComment>
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_oVoegLEtEeSZUdYfPSdgew" name="DISABLED">
               <ownedComment xmi:type="uml:Comment" xmi:id="_71BhIGghEeWmgIwAIZlYKQ" annotatedElement="_oVoegLEtEeSZUdYfPSdgew">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The resource is unable to meet the SLA of the user of the resource. If no (explicit) SLA is defined the resource is disabled if it is totally inoperable and unable to provide service to the user.</body>
+                <body>The resource is unable to meet the SLA of the user of the resource. If no (explicit) SLA is defined the resource is disabled if it is totally inoperable and unable to provide service to the user.</body>
               </ownedComment>
             </ownedLiteral>
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_p90kULEtEeSZUdYfPSdgew" name="ENABLED">
               <ownedComment xmi:type="uml:Comment" xmi:id="_14MWUGghEeWmgIwAIZlYKQ" annotatedElement="_p90kULEtEeSZUdYfPSdgew">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The resource is partially or fully operable and available for use</body>
+                <body>The resource is partially or fully operable and available for use</body>
               </ownedComment>
             </ownedLiteral>
           </packagedElement>
           <packagedElement xmi:type="uml:Enumeration" xmi:id="_KSKOYLEuEeSZUdYfPSdgew" name="AdministrativeState">
             <ownedComment xmi:type="uml:Comment" xmi:id="_Rfe34GghEeWmgIwAIZlYKQ" annotatedElement="_KSKOYLEuEeSZUdYfPSdgew">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The possible values of the administrativeState.</body>
+              <body>The possible values of the administrativeState.</body>
             </ownedComment>
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_OLEZoLEuEeSZUdYfPSdgew" name="LOCKED">
               <ownedComment xmi:type="uml:Comment" xmi:id="_VYOEAGghEeWmgIwAIZlYKQ" annotatedElement="_OLEZoLEuEeSZUdYfPSdgew">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Users are administratively prohibited from making use of the resource.</body>
+                <body>Users are administratively prohibited from making use of the resource.</body>
               </ownedComment>
             </ownedLiteral>
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_PIgSQLEuEeSZUdYfPSdgew" name="UNLOCKED">
               <ownedComment xmi:type="uml:Comment" xmi:id="_fZqTwGghEeWmgIwAIZlYKQ" annotatedElement="_PIgSQLEuEeSZUdYfPSdgew">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Users are allowed to use the resource</body>
+                <body>Users are allowed to use the resource</body>
               </ownedComment>
             </ownedLiteral>
           </packagedElement>
           <packagedElement xmi:type="uml:Enumeration" xmi:id="_-xPeALEvEeSZUdYfPSdgew" name="AdministrativeControl">
             <ownedComment xmi:type="uml:Comment" xmi:id="_5_rJUMPvEeSkD7NQ5om7rQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Reflects the current control action when the entity is not in the desired state.</body>
+              <body>Reflects the current control action when the entity is not in the desired state.</body>
             </ownedComment>
             <ownedComment xmi:type="uml:Comment" xmi:id="_Q_HyQGggEeWmgIwAIZlYKQ" annotatedElement="_-xPeALEvEeSZUdYfPSdgew">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The possible values of the current target administrative state.</body>
+              <body>The possible values of the current target administrative state.</body>
             </ownedComment>
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_vaxN0LEwEeSZUdYfPSdgew" name="UNLOCK">
               <ownedComment xmi:type="uml:Comment" xmi:id="_mb7SEGggEeWmgIwAIZlYKQ" annotatedElement="_vaxN0LEwEeSZUdYfPSdgew">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The intention is for the entity to become unlocked.The entity may already be UNLOCKED.</body>
+                <body>The intention is for the entity to become unlocked.&#xD;
+The entity may already be UNLOCKED.</body>
               </ownedComment>
             </ownedLiteral>
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_NTzvkLEwEeSZUdYfPSdgew" name="LOCK_PASSIVE">
               <ownedComment xmi:type="uml:Comment" xmi:id="_tzVkgGggEeWmgIwAIZlYKQ" annotatedElement="_NTzvkLEwEeSZUdYfPSdgew">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The intention is for the entity to become locked but no effort is expected to move to the Locked state (the state will be achieved once all users stop using the resource). The entity may be LOCKED</body>
+                <body>The intention is for the entity to become locked but no effort is expected to move to the Locked state (the state will be achieved once all users stop using the resource). &#xD;
+The entity may be LOCKED</body>
               </ownedComment>
             </ownedLiteral>
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_uWUxcLE0EeSZUdYfPSdgew" name="LOCK_ACTIVE">
               <ownedComment xmi:type="uml:Comment" xmi:id="_7F8qEGggEeWmgIwAIZlYKQ" annotatedElement="_uWUxcLE0EeSZUdYfPSdgew">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The intention is for the entity to become locked and it is expected that effort will be made to move to the Locked state (users will be actively removed). The entity may already be LOCKED.</body>
+                <body>The intention is for the entity to become locked and it is expected that effort will be made to move to the Locked state (users will be actively removed). &#xD;
+The entity may already be LOCKED.</body>
               </ownedComment>
             </ownedLiteral>
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_a69wUGggEeWmgIwAIZlYKQ" name="LOCK_IMMEDIATE">
               <ownedComment xmi:type="uml:Comment" xmi:id="_HKL4AGghEeWmgIwAIZlYKQ" annotatedElement="_a69wUGggEeWmgIwAIZlYKQ">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The intention is for the entity to become locked and it is expected to move to the Locked state immediately (users will be force removed). The entity may already be LOCKED.</body>
+                <body>The intention is for the entity to become locked and it is expected to move to the Locked state immediately (users will be force removed). &#xD;
+The entity may already be LOCKED.</body>
               </ownedComment>
             </ownedLiteral>
           </packagedElement>
           <packagedElement xmi:type="uml:Enumeration" xmi:id="_McyhcGgeEeWmgIwAIZlYKQ" name="ExtendedAdminState">
             <ownedComment xmi:type="uml:Comment" xmi:id="_vc_ikGgjEeWmgIwAIZlYKQ" annotatedElement="_McyhcGgeEeWmgIwAIZlYKQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">Possible extentions to AdministrativeState</body>
+              <body>Possible extentions to AdministrativeState</body>
             </ownedComment>
             <generalization xmi:type="uml:Generalization" xmi:id="_TWEtcGgeEeWmgIwAIZlYKQ" general="_KSKOYLEuEeSZUdYfPSdgew"/>
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_QAuTsLEuEeSZUdYfPSdgew" name="SHUTTING_DOWN_ACTIVE">
               <ownedComment xmi:type="uml:Comment" xmi:id="_oW5poGgjEeWmgIwAIZlYKQ" annotatedElement="_QAuTsLEuEeSZUdYfPSdgew">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The entity is administratively restricted to existing instances of use only. There are specific actions to remove existing uses. There may be no new instances of use enabled. This corresponds to a control of LOCK_ACTIVE.</body>
+                <body>The entity is administratively restricted to existing instances of use only. There are specific actions to remove existing uses. There may be no new instances of use enabled. This corresponds to a control of LOCK_ACTIVE.</body>
               </ownedComment>
             </ownedLiteral>
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_iIYN4LE0EeSZUdYfPSdgew" name="SHUTTING_DOWN_PASSIVE">
               <ownedComment xmi:type="uml:Comment" xmi:id="_rWXEYGgjEeWmgIwAIZlYKQ" annotatedElement="_iIYN4LE0EeSZUdYfPSdgew">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The entity is administratively restricted to existing instances of use only. There may be no new instances of use enabled. This corresponds to a control of LOCK_PASSIVE.</body>
+                <body>The entity is administratively restricted to existing instances of use only. There may be no new instances of use enabled. This corresponds to a control of LOCK_PASSIVE.</body>
               </ownedComment>
             </ownedLiteral>
           </packagedElement>
           <packagedElement xmi:type="uml:Enumeration" xmi:id="_YSsboGgiEeWmgIwAIZlYKQ" name="LifecycleState">
             <ownedComment xmi:type="uml:Comment" xmi:id="_kD5jYGgjEeWmgIwAIZlYKQ" annotatedElement="_YSsboGgiEeWmgIwAIZlYKQ">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The possible values of the lifecycleState.</body>
+              <body>The possible values of the lifecycleState.</body>
             </ownedComment>
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_9FvssGgiEeWmgIwAIZlYKQ" name="PLANNED">
               <ownedComment xmi:type="uml:Comment" xmi:id="_C8MisGgjEeWmgIwAIZlYKQ" annotatedElement="_9FvssGgiEeWmgIwAIZlYKQ">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The resource is planned but is not present in the network.</body>
+                <body>The resource is planned but is not present in the network.</body>
               </ownedComment>
             </ownedLiteral>
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_DuF5sGgjEeWmgIwAIZlYKQ" name="POTENTIAL">
@@ -1045,12 +1167,12 @@
             </ownedLiteral>
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_Ql5SkGgjEeWmgIwAIZlYKQ" name="INSTALLED">
               <ownedComment xmi:type="uml:Comment" xmi:id="_UmEjcGgjEeWmgIwAIZlYKQ" annotatedElement="_Ql5SkGgjEeWmgIwAIZlYKQ">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The resource is present in the network and is capable of providing the service expected.</body>
+                <body>The resource is present in the network and is capable of providing the service expected.</body>
               </ownedComment>
             </ownedLiteral>
             <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_XbZx0GgjEeWmgIwAIZlYKQ" name="PENDING_REMOVAL">
               <ownedComment xmi:type="uml:Comment" xmi:id="_cnmJ4GgjEeWmgIwAIZlYKQ" annotatedElement="_XbZx0GgjEeWmgIwAIZlYKQ">
-                <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions">The resource has been marked for removal</body>
+                <body>The resource has been marked for removal</body>
               </ownedComment>
             </ownedLiteral>
           </packagedElement>

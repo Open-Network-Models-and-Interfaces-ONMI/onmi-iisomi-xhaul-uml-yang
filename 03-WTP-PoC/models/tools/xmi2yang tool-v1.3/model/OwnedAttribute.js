@@ -27,7 +27,7 @@ function ownedAttribute(id,name,type,comment,assoc,isReadOnly,isOrdered){
     this.key;
     this.path;
     this.support;
-    this.isleafRef=true;
+    this.isleafRef=true; // [sko] TODO was true before
     this.isOrdered=isOrdered;
     this['min-elements'];
     this['max-elements'];

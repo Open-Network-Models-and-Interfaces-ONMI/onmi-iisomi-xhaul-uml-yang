@@ -17,7 +17,7 @@ module G_874_1_model-Type_Definitions {
     description 
         '<p>Version 2.02; outcome of the 10/2013 Nuremberg meeting.<br>Version 2.03; updates for Geneva 03-2014<br>Version 2.04; updates for Shanghai 09-2014<br>Version 2.05; input to Geneva 11-2014<br>Version 2.06; output from Geneva 11-2014<br>Version 2.07; using OpenProfile 3-2015<br>Version 2.08; output from Geneva 06-2015</p>';
 
-    revision 2016-07-11 {
+    revision 2016-07-16 {
         description 
             "Initial revision."; 
         reference 
@@ -250,7 +250,19 @@ module G_874_1_model-Type_Definitions {
         type string;
     }
     typedef DateAndTime {
-        description "This primitive type defines the date and time according to the following structure:'yyyyMMddhhmmss.s[Z|{+|-}HHMm]' where:yyyy    '0000'..'9999'    yearMM        '01'..'12'            monthdd        '01'..'31'            dayhh        '00'..'23'            hourmm        '00'..'59'            minutess        '00'..'59'            seconds        '.0'..'.9'            tenth of second (set to '.0' if EMS or NE cannot support this granularity)Z        'Z'                    indicates UTC (rather than local time){+|-}    '+' or '-'            delta from UTCHH        '00'..'23'            time zone difference in hoursMm        '00'..'59'            time zone difference in minutes.";
+        description "This primitive type defines the date and time according to the following structure:
+            'yyyyMMddhhmmss.s[Z|{+|-}HHMm]' where:
+            yyyy    '0000'..'9999'    year
+            MM        '01'..'12'            month
+            dd        '01'..'31'            day
+            hh        '00'..'23'            hour
+            mm        '00'..'59'            minute
+            ss        '00'..'59'            second
+            s        '.0'..'.9'            tenth of second (set to '.0' if EMS or NE cannot support this granularity)
+            Z        'Z'                    indicates UTC (rather than local time)
+            {+|-}    '+' or '-'            delta from UTC
+            HH        '00'..'23'            time zone difference in hours
+            Mm        '00'..'59'            time zone difference in minutes.";
         type string;
     }
     typedef ApsChannel {
@@ -266,7 +278,9 @@ module G_874_1_model-Type_Definitions {
         }
     }
     typedef BitString {
-        description "This primitive type defines a bit oriented string.The size of the BitString will be defined in the valueRange property of the attribute; according to ASN.1 (X.680).The semantic of each bit position will be defined in the Documentation field of the attribute.";
+        description "This primitive type defines a bit oriented string.
+            The size of the BitString will be defined in the valueRange property of the attribute; according to ASN.1 (X.680).
+            The semantic of each bit position will be defined in the Documentation field of the attribute.";
         type string;
     }
     typedef DelayMeasurementRole {
