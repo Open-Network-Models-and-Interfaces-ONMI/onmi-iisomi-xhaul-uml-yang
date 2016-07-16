@@ -1,4 +1,4 @@
-# Scipts
+# Scripts
 yang2odl.sh
 - a script which adds the revision to the yang file name of a source directory and stores the result in destination directory. Usage: yang2odl.sh <src-path> <dst-path>
 
