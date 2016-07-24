@@ -18,6 +18,7 @@ function feature(id,name,description){
     this.reference;
 }
 feature.prototype.writeNode=function(layer){
+    // console.log('[sko]', this.name, this);
     var PRE = '';
     var k = layer;
     while (k-- > 0) {
@@ -31,6 +32,7 @@ feature.prototype.writeNode=function(layer){
     }
     var s = PRE + name + " {\r\n" +
         descript + PRE + "}\r\n";
+    // console.log('[sko]', this.name, s);
     return s;
 }
 module.exports=feature;

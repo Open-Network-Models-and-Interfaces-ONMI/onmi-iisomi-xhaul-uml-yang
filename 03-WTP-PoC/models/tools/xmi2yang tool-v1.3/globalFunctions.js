@@ -36,6 +36,7 @@ globalFunctions.eCorePrimitiveTypes = {
       eboolean: 'boolean',
       eint: 'int32',
       int: 'int32',
+      integer: 'int32',
       ebyte : 'int32',
       byte : 'int32',
       elong : 'int64',

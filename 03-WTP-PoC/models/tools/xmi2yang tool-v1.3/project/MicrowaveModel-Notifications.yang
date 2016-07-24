@@ -27,7 +27,7 @@ module MicrowaveModel-Notifications {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-16 {
+    revision 2016-07-24 {
         description 
             "Initial revision."; 
         reference 
@@ -37,7 +37,7 @@ module MicrowaveModel-Notifications {
     notification ObjectCreationNotification {
         description "To be sent when a new MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac or MW_Container_Pac has to be instancieted in the controller.";
         leaf counter {
-            type int64;
+            type int32;
             description "Counts object creation notifications.";
         }
         leaf timeStamp {
@@ -55,7 +55,7 @@ module MicrowaveModel-Notifications {
     notification ObjectDeletionNotification {
         description "To be sent when a MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac or MW_Container_Pac instance has to be deleted in the controller.";
         leaf counter {
-            type int64;
+            type int32;
             description "Counts object deletion notifications.";
         }
         leaf timeStamp {
@@ -69,7 +69,7 @@ module MicrowaveModel-Notifications {
     notification AttributeValueChangedNotification {
         description "To be sent when an attribute has changed and one or more controllers have to update their data.";
         leaf counter {
-            type int64;
+            type int32;
             description "Counts attribute value changed notifications.";
         }
         leaf timeStamp {
@@ -91,7 +91,7 @@ module MicrowaveModel-Notifications {
     notification ProblemNotification {
         description "To be sent when a problem occurs at a MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac or a MW_Container_Pac.";
         leaf counter {
-            type int64;
+            type int32;
             description "Counts problem notifications";
         }
         leaf timeStamp {

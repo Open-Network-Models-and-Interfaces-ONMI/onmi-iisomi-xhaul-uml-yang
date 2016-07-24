@@ -10,6 +10,7 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
+var gf = require('./../../globalFunctions.js');
 
 var tool = (new Array(11).join(' ') + 'uml2yang').slice(-10);
 var log = function(level, message) {
@@ -26,6 +27,12 @@ var correctPath = function(path) {
     break;
   case "'/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/uuid'":
     out = "'/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid'";
+    break;
+  case "'/CoreModel-CoreNetworkModule-ObjectClasses:ForwardingConstruct/_fcPortList/uuid'":
+    out = "'/CoreModel-CoreNetworkModule-ObjectClasses:ForwardingConstruct/CoreModel-CoreNetworkModule-ObjectClasses:_fcPortList/CoreModel-CoreNetworkModule-ObjectClasses:uuid'";
+    break;
+  case "'/CoreModel-CoreNetworkModule-ObjectClasses:ForwardingConstruct/_fcSwitchList/uuid'":
+    out = "'/CoreModel-CoreNetworkModule-ObjectClasses:ForwardingConstruct/CoreModel-CoreNetworkModule-ObjectClasses:_fcSwitchList/CoreModel-CoreNetworkModule-ObjectClasses:uuid'";
     break;
   case "'/NetworkElement/_ltpRefList/uuid'": 
   case "'/NetworkElement/_fdRefList/uuid'": 
@@ -61,7 +68,7 @@ var correctPath = function(path) {
 
 
 function type(name, id,path,range,length) {
-    this.name = name;
+    this.name = gf.eCorePrimitiveTypes.mapToYangType(name);
     this.id = id;
     this.path=path;
     this.range=range;

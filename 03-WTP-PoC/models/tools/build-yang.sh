@@ -66,7 +66,7 @@ do
 done
 log "Yang modules checked!";
 
-pyang -f tree CoreModel-CoreNetworkModule-ObjectClasses.yang MicrowaveModel-ObjectClasses-MwConnection.yang >> MicrowaveModel.tree.txt
+pyang -f tree CoreModel-CoreNetworkModule-ObjectClasses.yang MicrowaveModel-ObjectClasses-*.yang >> MicrowaveModel.tree.txt
 log "Tree view generated!";
 
 # End

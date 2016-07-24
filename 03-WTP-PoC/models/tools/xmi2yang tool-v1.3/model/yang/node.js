@@ -51,6 +51,7 @@ Node.prototype.buildChild = function (att, type) {
     }
     var obj;
     //create a subnode by "type"
+    if (att.support) console.log('[sko]', att.support);
     switch (type) {
         case "leaf":
             // if (att.units) console.info('sko', att.name, att.units);
@@ -85,6 +86,7 @@ Node.prototype.buildChild = function (att, type) {
             break;
         case "typedef":
 //            obj = new Type(att.type, att.id, att.description);
+            // console.log('[sko]', 'typedef', att.type, att.id);
             obj = new Type(att.type, att.id);
 
         default :
@@ -181,7 +183,8 @@ Node.prototype.writeNode = function (layer) {
     var forceConfigFalse = ['airInterfaceCapability', 'airInterfaceStatus', 'airInterfaceCurrentProblemList', 'airInterfaceCurrentPerformance', 'airInterfaceHistoricalPerformanceList',
                             'airInterfaceDiversityCapability', 'airInterfaceDiversityStatus', 'airInterfaceDiversityCurrentProblemList', 'airInterfaceDiversityCurrentPerformance', 'airInterfaceDiversityHistoricalPerformanceList',
                             'structureCapability', 'structureStatus', 'structureCurrentProblemList', 'structureCurrentPerformance', 'structureHistoricalPerformanceList',
-                            'containerCapability', 'containerStatus', 'containerCurrentProblemList', 'containerCurrentPerformance', 'containerHistoricalPerformanceList'];
+                            'containerCapability', 'containerStatus', 'containerCurrentProblemList', 'containerCurrentPerformance', 'containerHistoricalPerformanceList',
+                            'problemSeverityList'];
     forceConfigFalse.map(function(item){
       if (checkName === item) {
         conf = PRE + "\tconfig false;\r\n";
@@ -202,6 +205,9 @@ Node.prototype.writeNode = function (layer) {
         }
         if (this.name === 'timeSlotIDList') {
           this.key = 'structureId timeSlotId';
+        }
+        if (this.name === 'segmentsIDList') {
+          this.key = 'structureIdRef segmentIdRef';
         }
         if (typeof this.key=="string") {
             Key = PRE + "\tkey '" + this.key + "';\r\n";
@@ -229,6 +235,7 @@ Node.prototype.writeNode = function (layer) {
     }
     var feature="";
     if(this["if-feature"]&&this.nodeType!=="grouping"){
+        // console.log('[sko]', this);
         feature = PRE + "\tif-feature " + this["if-feature"] + ";\r\n";
     }
     var child = "";

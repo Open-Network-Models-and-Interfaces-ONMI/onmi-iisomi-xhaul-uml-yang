@@ -24,7 +24,7 @@ module CoreModel-CoreNetworkModule-ObjectClasses {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-16 {
+    revision 2016-07-24 {
         description 
             "Initial revision."; 
         reference 
@@ -285,11 +285,11 @@ The referencing LTP is the rovider of capability.";
             Will indicate switch state and change of state.";
         uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass;
         leaf holdOffTime {
-            type int64;
+            type int32;
             description "This attribute indicates the time, in seconds, between declaration of unacceptable quality of signal on the currently selected FcPort, and the initialization of the protection switching algorithm. ";
         }
         leaf waitToRestoreTime {
-            type int64;
+            type int32;
             description "If the protection system is revertive, this attribute specifies the amount of time, in seconds, to wait after the preferred FcPort returns to an acceptable state of operaion (e.g a fault has cleared) before restoring traffic to that preferred FcPort. ";
         }
         leaf protType {

@@ -146,7 +146,8 @@ function main_Entrance(){
                             for(var j=0;j<openModelclass.length;j++) {
                                 if(openModelclass[j].id==Class[i].id){
                                     if(openModelclass[j].condition){
-                                        Class[i].support=openModelclass[j].support;
+                                      Class[i].support=openModelclass[j].support;
+                                      Class[i].condition=openModelclass[j].condition;
                                     }
                                     if(openModelclass[j].status){
                                         Class[i].status=openModelclass[j].status;
@@ -1019,24 +1020,58 @@ function createAssociation(obj) {
 }
 
 function obj2yang(ele){
+
     for(var i=0;i<ele.length;i++){
         var obj;
+        var m=1;
         var feat=[];
+
+        var featureExists = function(obj) {
+          console.log('[sko]', 'feature', feat.length, obj.name);
+          var exists = false;
+          feat.map(function(item){
+            if (obj.name === item.name) {
+              // console.log('[sko]', 'feature', item.name);
+              exists = true;
+            }
+          });
+          return exists;
+        };
+        var createFeature = function(obj) {
+            var name = 'feature'+(m++);
+            if (obj.condition.split("'")[1]) {
+              name = obj.condition.split("'")[1];
+            }
+            return new Feature(obj.id,name,obj.condition);
+        };
+
         for(var j=0;j<openModelclass.length;j++) {
             if(openModelclass[j].id==ele[i].id){
                 if(openModelclass[j].condition){
-                    // [sko] no features at this time: feat.push(createFeature(openModelclass[j]));
+                    var feature = createFeature(openModelclass[j]); 
+                    if (!featureExists(feature)) {
+                      feat.push(feature);
+                    }
                 }
                 break;
             }
         }
-        if(ele[i].nodeType=="rpc"){
-            obj=new RPC(ele[i].name,ele[i].description,ele[i].support,ele[i].status);
+        
+        // [sko] get feature name from condition
+        var ifFeature;
+        if (ele[i].condition && ele[i].condition.split("'")[1]) {
+          // console.log('[sko]', ele[i].name, ele[i].support, ele[i].condition);
+          ifFeature = ele[i].condition.split("'")[1];
         }
-        else if(ele[i].nodeType=="notification"){
-            var obj=new Node(ele[i].name,ele[i].description,"notification",undefined,undefined,ele[i].id,undefined,undefined,ele[i].support,ele[i].status);
+        if(ele[i].nodeType=="rpc"){
+            ifFeature = undefined;// [sko] hack 
+            obj=new RPC(ele[i].name,ele[i].description,ifFeature,ele[i].status);
+        }else if(ele[i].nodeType=="notification"){
+            ifFeature = undefined;// [sko] hack 
+            var obj=new Node(ele[i].name,ele[i].description,"notification",undefined,undefined,ele[i].id,undefined,undefined,ifFeature,ele[i].status);
         }else{
-            var obj=new Node(ele[i].name,ele[i].description,"grouping",ele[i]["max-elements"],ele[i]["max-elements"],ele[i].id,ele[i].config,ele[i].isOrdered,ele[i].support,ele[i].status);
+            ifFeature = undefined;// [sko] hack 
+            var obj=new Node(ele[i].name,ele[i].description,"grouping",ele[i]["max-elements"],ele[i]["max-elements"],ele[i].id,ele[i].config,ele[i].isOrdered,ifFeature,ele[i].status);
             obj.isAbstract=ele[i].isAbstract;
             obj.key=ele[i].key;
             // decide whether the "nodeType" of "ele" is grouping
@@ -1079,8 +1114,9 @@ function obj2yang(ele){
                         Class[k].Gname!==undefined?Gname=Class[k].Gname:Gname=Class[k].name;
                         if(ele[i].path== Class[k].path){
                             if(Class[k].support){
-                                obj.uses=new Uses(Gname,Class[k].support)
-                            }else{
+//                                obj.uses=new Uses(Gname,Class[k].support)
+                              obj.uses=new Uses(Gname,undefined)
+                             }else{
                                 obj.uses.push(Gname);
                             }
                         }
@@ -1124,9 +1160,13 @@ function obj2yang(ele){
                     if(openModelAtt[k].id === ele[i].attribute[j].id){
                         vr=openModelAtt[k].valueRange;
                         if(openModelAtt[k].condition){
-                            // [sko] no features at this time:   
-                            // feat.push(createFeature(openModelAtt[k]));
-                            // ele[i].attribute[j].support=feat[feat.length-1].name;
+                          var feature = createFeature(openModelAtt[k]); 
+                          if (!featureExists(feature)) {
+                            feat.push(feature);
+                            ele[i].attribute[j].support=feature.name;
+                          } else {
+                            openModelAtt[k].condition = undefined;
+                          }
                         }
                         if(openModelAtt[k].unit){
                           // console.info('[sko] unit from profile', openModelAtt[k].unit, ele[i].attribute[j].name, JSON.stringify(openModelAtt[k]));
@@ -1281,9 +1321,13 @@ function obj2yang(ele){
                     if(openModelAtt[k].id==ele[i].attribute[j].id){
                         vr=openModelAtt[k].valueRange;
                         if(openModelAtt[k].condition){
-                            // [sko] no features at this time: 
-                            // feat.push(createFeature(openModelAtt[k]));
-                            // ele[i].attribute[j].support=feat[feat.length-1].name;
+                          var feature = createFeature(openModelAtt[k]); 
+                          if (!featureExists(feature)) {
+                            feat.push(feature);
+                            ele[i].attribute[j].support=feature.name;
+                          } else {
+                            openModelAtt[k].condition = undefined;
+                          }
                         }
                         if(openModelAtt[k].status){
                             ele[i].attribute[j].status=openModelAtt[k].status;
@@ -1437,12 +1481,6 @@ function obj2yang(ele){
         yang.push(obj);
     }
     log('INFO ', "xmi translate to yang successfully!")
-}
-
-var m=1;
-function createFeature(obj){
-    var feat=new Feature(obj.id,"feature"+(m++),obj.condition);
-    return feat;
 }
 
 function datatypeExe(id){
