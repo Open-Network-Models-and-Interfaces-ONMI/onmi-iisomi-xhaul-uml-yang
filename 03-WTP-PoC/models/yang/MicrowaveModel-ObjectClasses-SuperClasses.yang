@@ -1,0 +1,51 @@
+module MicrowaveModel-ObjectClasses-SuperClasses {
+    namespace "uri:onf:MicrowaveModel-ObjectClasses-SuperClasses";
+    prefix MicrowaveModel-ObjectClasses-SuperClasses;
+
+    import CoreModel-CoreFoundationModule-TypeDefinitions {
+        prefix CoreModel-CoreFoundationModule-TypeDefinitions;
+    }
+    import MicrowaveModel-TypeDefinitions {
+        prefix MicrowaveModel-TypeDefinitions;
+    }
+
+    organization 
+        'ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project';
+
+    contact 
+        'WG Web:   <https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport>
+         WG List:  <mailto:wireless-transport@login.opennetworking.org >
+         WG Chair: Lyndon Ong
+                   <mailto:lyong@ciena.com>
+         WG Chair: Giorgio Cazzaniga
+                   <mailto:giorgio.cazzaniga@sm-optics.com>';
+
+    description 
+        'This module contains a collection of YANG definitions for 
+         managing microwave transport networks.';
+
+    revision 2016-07-24 {
+        description 
+            "Initial revision."; 
+        reference 
+            "ONF TR xyz: A YANG Data Model for Microwave Transport Networks."; 
+    }
+
+    grouping MwCurrentProblem {
+        description "According to ITU-T G.874.1?";
+        leaf sequenceNumber {
+            type int32;
+            config false;
+            description "Unique sequence number of the current problem object.";
+        }
+        leaf timeStamp {
+            type CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime;
+            config false;
+        }
+        leaf severity {
+            type MicrowaveModel-TypeDefinitions:severityType;
+            config false;
+            default "warning";
+        }
+    }
+}
