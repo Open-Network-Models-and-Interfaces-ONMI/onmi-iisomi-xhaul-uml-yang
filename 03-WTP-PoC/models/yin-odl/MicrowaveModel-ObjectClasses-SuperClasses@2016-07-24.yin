@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="MicrowaveModel-ObjectClasses-SuperClasses"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:MicrowaveModel-ObjectClasses-SuperClasses="uri:onf:MicrowaveModel-ObjectClasses-SuperClasses"
+        xmlns:CoreModel-CoreFoundationModule-TypeDefinitions="uri:onf:CoreModel-CoreFoundationModule-TypeDefinitions"
+        xmlns:MicrowaveModel-TypeDefinitions="uri:onf:MicrowaveModel-TypeDefinitions">
+  <namespace uri="uri:onf:MicrowaveModel-ObjectClasses-SuperClasses"/>
+  <prefix value="MicrowaveModel-ObjectClasses-SuperClasses"/>
+  <import module="CoreModel-CoreFoundationModule-TypeDefinitions">
+    <prefix value="CoreModel-CoreFoundationModule-TypeDefinitions"/>
+  </import>
+  <import module="MicrowaveModel-TypeDefinitions">
+    <prefix value="MicrowaveModel-TypeDefinitions"/>
+  </import>
+  <organization>
+    <text>ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project</text>
+  </organization>
+  <contact>
+    <text>WG Web:   &lt;https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport&gt;
+         WG List:  &lt;mailto:wireless-transport@login.opennetworking.org &gt;
+         WG Chair: Lyndon Ong
+                   &lt;mailto:lyong@ciena.com&gt;
+         WG Chair: Giorgio Cazzaniga
+                   &lt;mailto:giorgio.cazzaniga@sm-optics.com&gt;</text>
+  </contact>
+  <description>
+    <text>This module contains a collection of YANG definitions for 
+         managing microwave transport networks.</text>
+  </description>
+  <revision date="2016-07-24">
+    <description>
+      <text>Initial revision.</text>
+    </description>
+    <reference>
+      <text>ONF TR xyz: A YANG Data Model for Microwave Transport Networks.</text>
+    </reference>
+  </revision>
+  <grouping name="MwCurrentProblem">
+    <description>
+      <text>According to ITU-T G.874.1?</text>
+    </description>
+    <leaf name="sequenceNumber">
+      <type name="int32"/>
+      <config value="false"/>
+      <description>
+        <text>Unique sequence number of the current problem object.</text>
+      </description>
+    </leaf>
+    <leaf name="timeStamp">
+      <type name="CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime"/>
+      <config value="false"/>
+    </leaf>
+    <leaf name="severity">
+      <type name="MicrowaveModel-TypeDefinitions:severityType"/>
+      <config value="false"/>
+      <default value="warning"/>
+    </leaf>
+  </grouping>
+</module>

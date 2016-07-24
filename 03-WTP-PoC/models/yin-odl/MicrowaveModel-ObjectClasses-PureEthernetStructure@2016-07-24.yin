@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="MicrowaveModel-ObjectClasses-PureEthernetStructure"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:MicrowaveModel-ObjectClasses-PureEthernetStructure="uri:onf:MicrowaveModel-ObjectClasses-PureEthernetStructure"
+        xmlns:CoreModel-CoreNetworkModule-ObjectClasses="uri:onf:CoreModel-CoreNetworkModule-ObjectClasses"
+        xmlns:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages="uri:onf:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"
+        xmlns:MicrowaveModel-TypeDefinitions="uri:onf:MicrowaveModel-TypeDefinitions"
+        xmlns:CoreModel-CoreFoundationModule-TypeDefinitions="uri:onf:CoreModel-CoreFoundationModule-TypeDefinitions"
+        xmlns:MicrowaveModel-ObjectClasses-SuperClasses="uri:onf:MicrowaveModel-ObjectClasses-SuperClasses"
+        xmlns:G_874_1_model-Object_Classes="uri:onf:G_874_1_model-Object_Classes">
+  <namespace uri="uri:onf:MicrowaveModel-ObjectClasses-PureEthernetStructure"/>
+  <prefix value="MicrowaveModel-ObjectClasses-PureEthernetStructure"/>
+  <import module="CoreModel-CoreNetworkModule-ObjectClasses">
+    <prefix value="CoreModel-CoreNetworkModule-ObjectClasses"/>
+  </import>
+  <import module="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages">
+    <prefix value="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"/>
+  </import>
+  <import module="MicrowaveModel-TypeDefinitions">
+    <prefix value="MicrowaveModel-TypeDefinitions"/>
+  </import>
+  <import module="CoreModel-CoreFoundationModule-TypeDefinitions">
+    <prefix value="CoreModel-CoreFoundationModule-TypeDefinitions"/>
+  </import>
+  <import module="MicrowaveModel-ObjectClasses-SuperClasses">
+    <prefix value="MicrowaveModel-ObjectClasses-SuperClasses"/>
+  </import>
+  <import module="G_874_1_model-Object_Classes">
+    <prefix value="G_874_1_model-Object_Classes"/>
+  </import>
+  <organization>
+    <text>ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project</text>
+  </organization>
+  <contact>
+    <text>WG Web:   &lt;https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport&gt;
+         WG List:  &lt;mailto:wireless-transport@login.opennetworking.org &gt;
+         WG Chair: Lyndon Ong
+                   &lt;mailto:lyong@ciena.com&gt;
+         WG Chair: Giorgio Cazzaniga
+                   &lt;mailto:giorgio.cazzaniga@sm-optics.com&gt;</text>
+  </contact>
+  <description>
+    <text>This module contains a collection of YANG definitions for 
+         managing microwave transport networks.</text>
+  </description>
+  <revision date="2016-07-24">
+    <description>
+      <text>Initial revision.</text>
+    </description>
+    <reference>
+      <text>ONF TR xyz: A YANG Data Model for Microwave Transport Networks.</text>
+    </reference>
+  </revision>
+  <feature name="pure-ethernet">
+    <description>
+      <text>Feature 'pure-ethernet' is mandatory for device types transporting pure Ethernet.</text>
+    </description>
+  </feature>
+  <container name="MW_PureEthernetStructure_Pac">
+    <description>
+      <text>LTP(MWS-TTP)</text>
+    </description>
+    <config value="true"/>
+    <leaf name="layerProtocol">
+      <type name="leafref">
+        <path value="/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:_lpList/CoreModel-CoreNetworkModule-ObjectClasses:uuid"/>
+      </type>
+      <description>
+        <text>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</text>
+      </description>
+    </leaf>
+    <container name="structureCapability">
+      <config value="false"/>
+      <uses name="PureEthernetStructureCapability"/>
+    </container>
+    <container name="structureConfiguration">
+      <config value="true"/>
+      <uses name="PureEthernetStructureConfiguration"/>
+    </container>
+    <container name="structureStatus">
+      <config value="false"/>
+      <uses name="PureEthernetStructureStatus"/>
+    </container>
+    <list name="structureCurrentProblemList">
+      <key value="sequenceNumber"/>
+      <config value="false"/>
+      <ordered-by value="system"/>
+      <uses name="PureEthernetStructureCurrentProblem"/>
+    </list>
+    <container name="structureCurrentPerformance">
+      <config value="false"/>
+      <uses name="PureEthernetStructureCurrentPerformance"/>
+    </container>
+    <list name="structureHistoricalPerformanceList">
+      <config value="false"/>
+      <ordered-by value="system"/>
+      <uses name="StructureHistoricalPerformance"/>
+    </list>
+  </container>
+  <grouping name="PureEthernetStructureCapability">
+    <description>
+      <text>Describes the logical structuring of the physical capacity provided by a pure Ethernet microwave device.
+Segmentation is not available.
+No fixed segment size.
+No TDM transport.
+Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.</text>
+    </description>
+    <leaf name="structureId">
+      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
+      <config value="false"/>
+      <description>
+        <text>Identifies the Structure for bundling and container.</text>
+      </description>
+    </leaf>
+    <leaf name="supportedAlarms">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>Available alarms to be listed. Mandatory:non. Names are to be separated by commas. Further alarms might be added by the device.</text>
+      </description>
+      <default value="Supported alarms not yet defined."/>
+    </leaf>
+  </grouping>
+  <grouping name="PureEthernetStructureConfiguration">
+    <description>
+      <text>Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.</text>
+    </description>
+    <list name="problemSeverityList">
+      <description>
+        <text>Severity of the type of problem to be configured.</text>
+      </description>
+      <key value="problemId"/>
+      <config value="false"/>
+      <ordered-by value="system"/>
+      <uses name="MicrowaveModel-TypeDefinitions:structureProblemType"/>
+    </list>
+  </grouping>
+  <grouping name="PureEthernetStructureStatus">
+    <description>
+      <text>Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.</text>
+    </description>
+    <container name="segmentStatusList">
+      <description>
+        <text>Status of the Ethernet transport segment.
+Always just one segment.</text>
+      </description>
+      <uses name="MicrowaveModel-TypeDefinitions:segmentStatusType"/>
+    </container>
+    <leaf name="lastStatusChange">
+      <type name="CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime"/>
+      <config value="false"/>
+      <description>
+        <text>Time and date of the last update of the status information.
+_format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' month; dd='01'..'31' day; hh='00'..'23' hour; mm='00'..'59' minute; ss='00'..'59' second; s='.0'..'.9'tenth of second (set to '.0' if EMS or NE cannot support this granularity); Z='Z' indicates UTC (rather than local time); {+|-}='+' or '-' delta from UTC; HH='00'..'23' time zone difference in hours; Mm='00'..'59' time zone difference in minutes.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="PureEthernetStructureCurrentProblem">
+    <uses name="MicrowaveModel-ObjectClasses-SuperClasses:MwCurrentProblem"/>
+    <container name="problem">
+      <uses name="MicrowaveModel-TypeDefinitions:structureProblemType"/>
+    </container>
+  </grouping>
+  <grouping name="PureEthernetStructureCurrentPerformance">
+    <uses name="G_874_1_model-Object_Classes:OTN_CurrentData"/>
+    <leaf name="performanceData">
+      <type name="MicrowaveModel-TypeDefinitions:structurePerformanceType"/>
+      <config value="false"/>
+    </leaf>
+  </grouping>
+  <grouping name="StructureHistoricalPerformance">
+    <uses name="G_874_1_model-Object_Classes:OTN_HistoryData"/>
+    <leaf name="performanceData">
+      <type name="MicrowaveModel-TypeDefinitions:structurePerformanceType"/>
+      <config value="false"/>
+    </leaf>
+  </grouping>
+</module>

@@ -31,7 +31,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-07-01">
+  <revision date="2016-07-24">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -44,7 +44,7 @@
       <text>To be sent when a new MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac or MW_Container_Pac has to be instancieted in the controller.</text>
     </description>
     <leaf name="counter">
-      <type name="int64"/>
+      <type name="int32"/>
       <description>
         <text>Counts object creation notifications.</text>
       </description>
@@ -70,7 +70,7 @@
       <text>To be sent when a MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac or MW_Container_Pac instance has to be deleted in the controller.</text>
     </description>
     <leaf name="counter">
-      <type name="int64"/>
+      <type name="int32"/>
       <description>
         <text>Counts object deletion notifications.</text>
       </description>
@@ -90,7 +90,7 @@
       <text>To be sent when an attribute has changed and one or more controllers have to update their data.</text>
     </description>
     <leaf name="counter">
-      <type name="int64"/>
+      <type name="int32"/>
       <description>
         <text>Counts attribute value changed notifications.</text>
       </description>
@@ -122,7 +122,7 @@
       <text>To be sent when a problem occurs at a MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac or a MW_Container_Pac.</text>
     </description>
     <leaf name="counter">
-      <type name="int64"/>
+      <type name="int32"/>
       <description>
         <text>Counts problem notifications</text>
       </description>
