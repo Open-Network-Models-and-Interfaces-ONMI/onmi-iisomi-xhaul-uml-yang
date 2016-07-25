@@ -36,7 +36,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-24 {
+    revision 2016-07-25 {
         description 
             "Initial revision."; 
         reference 
@@ -129,9 +129,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             description "In case the device is capable of MIMO, this field shall contain an '1'.";
         }
         leaf mimoChannels {
-            type int32 {
-                range "1..4";
-            }
+            type int32;
             config false;
             description "Maximum number (n) of spatial multiplexing streams that can be conveyed by an n x n MIMO configuration.";
             units "channels";
@@ -192,11 +190,10 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             description "Operator specific microwave link ID (often used for coding area, type of element and sequential number).";
             default "Air interface ID not yet defined.";
         }
-        leaf radioSignalId {
+        leaf radioSignalID {
             type string;
             description "The radioSignalId is transmitted on the air interface so the remote site of the link synchronizes on the correct transmitter. The local radio MUST NOT synchronize on a radio signal with a different radioSignalId. The link ID is neither an ID necessary to span the model nor an ID referencing external data. It is just some sort of name of the link transmitted so the correct remote site can be identified in an interference situation.
                 The value zero might be used to make the microwave to disable the link ID check.";
-            units "kHz";
             default "Radio signal ID not yet defined.";
         }
         leaf txFrequency {
@@ -490,11 +487,9 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             type leafref {
                 path '/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid';
             }
-            config false;
         }
         leaf sortOfCoChannelGroup {
             type string;
-            config false;
             description "Type of group of air interfaces with the same transmit and receive frequency. The values shall be chosen from the following _list:'XPIC', 'MIMO', 'AFR';";
         }
     }

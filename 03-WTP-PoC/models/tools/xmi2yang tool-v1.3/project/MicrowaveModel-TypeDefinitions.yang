@@ -21,7 +21,7 @@ module MicrowaveModel-TypeDefinitions {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-24 {
+    revision 2016-07-25 {
         description 
             "Initial revision."; 
         reference 
@@ -483,9 +483,7 @@ module MicrowaveModel-TypeDefinitions {
             default "Diversity name not yet defined.";
         }
         leaf numberOfAirInterfacesMax {
-            type int32 {
-                range "1..max";
-            }
+            type int32;
             config false;
             description "Maximum number of air interfaces that could be part of this kind of diversity.";
             units "air interfaces";

@@ -36,7 +36,7 @@ module MicrowaveModel-ObjectClasses-PureEthernetStructure {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-24 {
+    revision 2016-07-25 {
         description 
             "Initial revision."; 
         reference 
@@ -46,8 +46,9 @@ module MicrowaveModel-ObjectClasses-PureEthernetStructure {
     feature pure-ethernet {
         description "Feature 'pure-ethernet' is mandatory for device types transporting pure Ethernet.";
     }
-    container MW_PureEthernetStructure_Pac {
+    list MW_PureEthernetStructure_Pac {
         description "LTP(MWS-TTP)";
+        key 'layerProtocol';
         config true;
         leaf layerProtocol {
             type leafref {
@@ -55,32 +56,32 @@ module MicrowaveModel-ObjectClasses-PureEthernetStructure {
             }
             description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
         }
-        container structureCapability {
+        container pureEthernetStructureCapability {
             config false;
             uses PureEthernetStructureCapability;
         }
-        container structureConfiguration {
+        container pureEthernetStructureConfiguration {
             config true;
             uses PureEthernetStructureConfiguration;
         }
-        container structureStatus {
+        container pureEthernetStructureStatus {
             config false;
             uses PureEthernetStructureStatus;
         }
-        list structureCurrentProblemList {
+        list pureEthernetStructureCurrentProblemList {
             key 'sequenceNumber';
             config false;
             ordered-by system;
             uses PureEthernetStructureCurrentProblem;
         }
-        container structureCurrentPerformance {
+        container pureEthernetStructureCurrentPerformance {
             config false;
             uses PureEthernetStructureCurrentPerformance;
         }
-        list structureHistoricalPerformanceList {
+        list pureEthernetStructureHistoricalPerformanceList {
             config false;
             ordered-by system;
-            uses StructureHistoricalPerformance;
+            uses PureEthernetStructureHistoricalPerformance;
         }
     }
     grouping PureEthernetStructureCapability {
@@ -138,7 +139,7 @@ module MicrowaveModel-ObjectClasses-PureEthernetStructure {
             config false;
         }
     }
-    grouping StructureHistoricalPerformance {
+    grouping PureEthernetStructureHistoricalPerformance {
         uses G_874_1_model-Object_Classes:OTN_HistoryData;
         leaf performanceData {
             type MicrowaveModel-TypeDefinitions:structurePerformanceType;

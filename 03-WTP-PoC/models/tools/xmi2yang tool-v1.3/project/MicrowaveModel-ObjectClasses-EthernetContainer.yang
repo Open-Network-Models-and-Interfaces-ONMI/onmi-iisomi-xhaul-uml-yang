@@ -33,15 +33,16 @@ module MicrowaveModel-ObjectClasses-EthernetContainer {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-24 {
+    revision 2016-07-25 {
         description 
             "Initial revision."; 
         reference 
             "ONF TR xyz: A YANG Data Model for Microwave Transport Networks."; 
     }
 
-    container MW_EthernetContainer_Pac {
+    list MW_EthernetContainer_Pac {
         description "LTP(Client)";
+        key 'layerProtocol';
         config true;
         leaf layerProtocol {
             type leafref {
@@ -49,29 +50,29 @@ module MicrowaveModel-ObjectClasses-EthernetContainer {
             }
             description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
         }
-        container containerCapability {
+        container ethernetContainerCapability {
             config false;
             uses EthernetContainerCapability;
         }
-        container containerConfiguration {
+        container ethernetContainerConfiguration {
             config true;
             uses EthernetContainerConfiguration;
         }
-        container containerStatus {
+        container ethernetContainerStatus {
             config false;
             uses EthernetContainerStatus;
         }
-        list containerCurrentProblemList {
+        list ethernetContainerCurrentProblemList {
             key 'sequenceNumber';
             config false;
             ordered-by system;
             uses EthernetContainerCurrentProblem;
         }
-        container containerCurrentPerformance {
+        container ethernetContainerCurrentPerformance {
             config false;
             uses EthernetContainerCurrentPerformance;
         }
-        list containerHistoricalPerformanceList {
+        list ethernetContainerHistoricalPerformanceList {
             config false;
             ordered-by system;
             uses EthernetContainerHistoricalPerformance;
@@ -79,11 +80,6 @@ module MicrowaveModel-ObjectClasses-EthernetContainer {
     }
     grouping EthernetContainerCapability {
         description "Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.";
-        leaf containerID {
-            type string;
-            config false;
-            description "ContainterID in Netconf must be the same as EthernetPortID in OpenFlow so a connection can be made between the two items, which are existing separately in the controller.";
-        }
         leaf bundlingIsAvail {
             type boolean;
             config false;
@@ -143,6 +139,10 @@ module MicrowaveModel-ObjectClasses-EthernetContainer {
     }
     grouping EthernetContainerConfiguration {
         description "Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.";
+        leaf containerID {
+            type string;
+            description "ContainterID in Netconf must be the same as EthernetPortID in OpenFlow so a connection can be made between the two items, which are existing separately in the controller.";
+        }
         list segmentsIDList {
             description "Lists the segments used for transporting this Ethernet container. In case EthernetContainer::ContainerCapability::bundlingIsAvail==0, all TypeDefinitions::segmentIdType::structureId must be identical in the list.";
             key 'structureIdRef segmentIdRef';

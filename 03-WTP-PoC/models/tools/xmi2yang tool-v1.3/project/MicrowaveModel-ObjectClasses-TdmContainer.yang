@@ -33,7 +33,7 @@ module MicrowaveModel-ObjectClasses-TdmContainer {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-24 {
+    revision 2016-07-25 {
         description 
             "Initial revision."; 
         reference 
@@ -43,8 +43,9 @@ module MicrowaveModel-ObjectClasses-TdmContainer {
     feature hybrid-microwave {
         description "Feature 'hybrid-microwave' is mandatory for device types transporting Ethernet + TDM.";
     }
-    container MW_TdmContainer_Pac {
+    list MW_TdmContainer_Pac {
         description "LTP(Client)";
+        key 'layerProtocol';
         config true;
         leaf layerProtocol {
             type leafref {
@@ -52,29 +53,29 @@ module MicrowaveModel-ObjectClasses-TdmContainer {
             }
             description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
         }
-        container containerCapability {
+        container tdmContainerCapability {
             config false;
             uses TdmContainerCapability;
         }
-        container containerConfiguration {
+        container tdmContainerConfiguration {
             config true;
             uses TdmContainerConfiguration;
         }
-        container containerStatus {
+        container tdmContainerStatus {
             config false;
             uses TdmContainerStatus;
         }
-        list containerCurrentProblemList {
+        list tdmContainerCurrentProblemList {
             key 'sequenceNumber';
             config false;
             ordered-by system;
             uses TdmContainerCurrentProblem;
         }
-        container containerCurrentPerformance {
+        container tdmContainerCurrentPerformance {
             config false;
             uses TdmContainerCurrentPerformance;
         }
-        list containerHistoricalPerformanceList {
+        list tdmContainerHistoricalPerformanceList {
             config false;
             ordered-by system;
             uses TdmContainerHistoricalPerformance;
@@ -83,11 +84,6 @@ module MicrowaveModel-ObjectClasses-TdmContainer {
     grouping TdmContainerCapability {
         description "Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.
             Bundling is not available.";
-        leaf containerID {
-            type string;
-            config false;
-            description "ContainterID in Netconf must be the same as EthernetPortID in OpenFlow so a connection can be made between the two items, which are existing separately in the controller.";
-        }
         list supportedTdmContainerTypesList {
             description "Lists the TDM containers that are supported.";
             key 'tdmContainerTypeId';
@@ -104,6 +100,10 @@ module MicrowaveModel-ObjectClasses-TdmContainer {
     }
     grouping TdmContainerConfiguration {
         description "Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.";
+        leaf containerID {
+            type string;
+            description "ContainterID in Netconf must be the same as EthernetPortID in OpenFlow so a connection can be made between the two items, which are existing separately in the controller.";
+        }
         container containerType {
             description "Type of TDM container.";
             config true;

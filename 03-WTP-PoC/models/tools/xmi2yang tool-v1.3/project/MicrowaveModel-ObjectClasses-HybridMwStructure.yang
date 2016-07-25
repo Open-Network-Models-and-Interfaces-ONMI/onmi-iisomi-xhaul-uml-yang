@@ -36,7 +36,7 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-24 {
+    revision 2016-07-25 {
         description 
             "Initial revision."; 
         reference 
@@ -46,8 +46,9 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
     feature hybrid-microwave {
         description "Feature 'hybrid-microwave' is mandatory for device types transporting Ethernet + TDM.";
     }
-    container MW_HybridMwStructure_Pac {
+    list MW_HybridMwStructure_Pac {
         description "LTP(MWS-TTP)";
+        key 'layerProtocol';
         config true;
         leaf layerProtocol {
             type leafref {
@@ -55,29 +56,29 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
             }
             description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
         }
-        container structureCapability {
+        container hybridMwStructureCapability {
             config false;
             uses HybridMwStructureCapability;
         }
-        container structureConfiguration {
+        container hybridMwStructureConfiguration {
             config true;
             uses HybridMwStructureConfiguration;
         }
-        container structureStatus {
+        container hybridMwStructureStatus {
             config false;
             uses HybridMwStructureStatus;
         }
-        list structureCurrentProblemList {
+        list hybridMwStructureCurrentProblemList {
             key 'sequenceNumber';
             config false;
             ordered-by system;
             uses HybridMwStructureCurrentProblem;
         }
-        container structureCurrentPerformance {
+        container hybridMwStructureCurrentPerformance {
             config false;
             uses HybridMwStructureCurrentPerformance;
         }
-        list structureHistoricalPerformanceList {
+        list hybridMwStructureHistoricalPerformanceList {
             config false;
             ordered-by system;
             uses HybridMwStructureHistoricalPerformance;

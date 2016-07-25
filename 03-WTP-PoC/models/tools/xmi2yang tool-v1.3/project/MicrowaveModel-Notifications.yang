@@ -27,7 +27,7 @@ module MicrowaveModel-Notifications {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-24 {
+    revision 2016-07-25 {
         description 
             "Initial revision."; 
         reference 
@@ -43,7 +43,7 @@ module MicrowaveModel-Notifications {
         leaf timeStamp {
             type CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime;
         }
-        leaf objectID {
+        leaf objectIdRef {
             type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
             description "ID of the affected MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac or MW_Container_Pac";
         }
@@ -61,7 +61,7 @@ module MicrowaveModel-Notifications {
         leaf timeStamp {
             type CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime;
         }
-        leaf objectID {
+        leaf objectIdRef {
             type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
             description "ID of the affected MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac or MW_Container_Pac";
         }
@@ -75,7 +75,7 @@ module MicrowaveModel-Notifications {
         leaf timeStamp {
             type CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime;
         }
-        leaf objectID {
+        leaf objectIdRef {
             type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
             description "ID of the affected MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac or MW_Container_Pac";
         }
@@ -97,7 +97,7 @@ module MicrowaveModel-Notifications {
         leaf timeStamp {
             type CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime;
         }
-        leaf objectID {
+        leaf objectIdRef {
             type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
             description "ID of the affected MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac or MW_Container_Pac";
         }

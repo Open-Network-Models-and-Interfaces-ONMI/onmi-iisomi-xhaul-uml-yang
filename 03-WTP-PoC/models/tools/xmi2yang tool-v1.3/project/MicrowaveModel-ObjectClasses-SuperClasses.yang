@@ -5,9 +5,6 @@ module MicrowaveModel-ObjectClasses-SuperClasses {
     import CoreModel-CoreFoundationModule-TypeDefinitions {
         prefix CoreModel-CoreFoundationModule-TypeDefinitions;
     }
-    import MicrowaveModel-TypeDefinitions {
-        prefix MicrowaveModel-TypeDefinitions;
-    }
 
     organization 
         'ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project';
@@ -24,7 +21,7 @@ module MicrowaveModel-ObjectClasses-SuperClasses {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-24 {
+    revision 2016-07-25 {
         description 
             "Initial revision."; 
         reference 
@@ -41,11 +38,6 @@ module MicrowaveModel-ObjectClasses-SuperClasses {
         leaf timeStamp {
             type CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime;
             config false;
-        }
-        leaf severity {
-            type MicrowaveModel-TypeDefinitions:severityType;
-            config false;
-            default "warning";
         }
     }
 }

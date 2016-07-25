@@ -141,7 +141,9 @@ Node.prototype.writeNode = function (layer) {
             // [sko] Sorry, I do not agree ;)
             var flag = this.nodeType;
             var checkByName = this.name;
-            var forceList = ['MW_AirInterface_Pac', 'MW_AirInterfaceDiversity_Pac', 'MW_Structure_Pac', 'MW_Container_Pac'];
+            var forceList = ['MW_AirInterface_Pac', 'MW_AirInterfaceDiversity_Pac', 
+                             'MW_Structure_Pac', 'MW_PureEthernetStructure_Pac', 'MW_HybridMwStructure_Pac', 
+                             'MW_Container_Pac', 'MW_EthernetContainer_Pac', 'MW_TdmContainer_Pac'];
             forceList.map(function(item){
               if (checkByName === item) {
                 flag="list";
@@ -182,8 +184,15 @@ Node.prototype.writeNode = function (layer) {
     var checkName = this.name;
     var forceConfigFalse = ['airInterfaceCapability', 'airInterfaceStatus', 'airInterfaceCurrentProblemList', 'airInterfaceCurrentPerformance', 'airInterfaceHistoricalPerformanceList',
                             'airInterfaceDiversityCapability', 'airInterfaceDiversityStatus', 'airInterfaceDiversityCurrentProblemList', 'airInterfaceDiversityCurrentPerformance', 'airInterfaceDiversityHistoricalPerformanceList',
+
                             'structureCapability', 'structureStatus', 'structureCurrentProblemList', 'structureCurrentPerformance', 'structureHistoricalPerformanceList',
+                            'pureEthernetStructureCapability', 'pureEthernetStructureStatus', 'pureEthernetStructureCurrentProblemList', 'pureEthernetStructureCurrentPerformance', 'pureEthernetStructureHistoricalPerformanceList',
+                            'hybridMwStructureCapability', 'hybridMwStructureStatus', 'hybridMwStructureCurrentProblemList', 'hybridMwStructureCurrentPerformance', 'hybridMwStructureHistoricalPerformanceList',
+                            
                             'containerCapability', 'containerStatus', 'containerCurrentProblemList', 'containerCurrentPerformance', 'containerHistoricalPerformanceList',
+                            'ethernetContainerCapability', 'ethernetContainerStatus', 'ethernetContainerCurrentProblemList', 'ethernetContainerCurrentPerformance', 'ethernetContainerHistoricalPerformanceList',
+                            'tdmContainerCapability', 'tdmContainerStatus', 'tdmContainerCurrentProblemList', 'tdmContainerCurrentPerformance', 'tdmContainerHistoricalPerformanceList',
+                            
                             'problemSeverityList'];
     forceConfigFalse.map(function(item){
       if (checkName === item) {

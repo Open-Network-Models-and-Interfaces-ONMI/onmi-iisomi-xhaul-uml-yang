@@ -178,7 +178,6 @@ module: MicrowaveModel-ObjectClasses-AirInterfaceDiversity
       +--ro airInterfaceDiversityCurrentProblemList* [sequenceNumber]
       |  +--ro sequenceNumber    int32
       |  +--ro timeStamp?        CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
-      |  +--ro severity?         MicrowaveModel-TypeDefinitions:severityType
       |  +--ro problem
       |     +--ro problemId?         CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |     +--ro problemName?       string
@@ -261,7 +260,7 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |  |        +--ro xpicIsAvail?          boolean
    |  +--rw airInterfaceConfiguration
    |  |  +--rw airInterfaceName?         string
-   |  |  +--rw radioSignalId?            string
+   |  |  +--rw radioSignalID?            string
    |  |  +--rw txFrequency?              int32
    |  |  +--rw rxFrequency?              int32
    |  |  +--rw txChannelBandwidth?       int32
@@ -314,7 +313,6 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |  +--ro airInterfaceCurrentProblemList* [sequenceNumber]
    |  |  +--ro sequenceNumber    int32
    |  |  +--ro timeStamp?        CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
-   |  |  +--ro severity?         MicrowaveModel-TypeDefinitions:severityType
    |  |  +--ro problem
    |  |     +--ro problemId?         CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
    |  |     +--ro problemName?       string
@@ -427,13 +425,12 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |        +--ro timePeriod?         int32
    +--rw CoChannelGroup* [coChannelGroupId]
       +--rw coChannelGroupId        CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
-      +--ro airInterfaceList*       -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/uuid
-      +--ro sortOfCoChannelGroup?   string
+      +--rw airInterfaceList*       -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/uuid
+      +--rw sortOfCoChannelGroup?   string
 module: MicrowaveModel-ObjectClasses-EthernetContainer
-   +--rw MW_EthernetContainer_Pac
-      +--rw layerProtocol?                        -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid
-      +--ro containerCapability
-      |  +--ro containerID?                string
+   +--rw MW_EthernetContainer_Pac* [layerProtocol]
+      +--rw layerProtocol                                 -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid
+      +--ro ethernetContainerCapability
       |  +--ro bundlingIsAvail?            boolean
       |  +--ro packetCompressionIsAvail?   boolean
       |  +--ro layer2CompressionIsAvail?   boolean
@@ -445,7 +442,8 @@ module: MicrowaveModel-ObjectClasses-EthernetContainer
       |  +--ro layer4CompressionIsAvail?   boolean
       |  +--ro encryptionIsAvail?          boolean
       |  +--ro supportedAlarms?            string
-      +--rw containerConfiguration
+      +--rw ethernetContainerConfiguration
+      |  +--rw containerID?             string
       |  +--rw segmentsIDList* [structureIdRef segmentIdRef]
       |  |  +--rw structureIdRef    CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |  |  +--rw segmentIdRef      int32
@@ -463,17 +461,16 @@ module: MicrowaveModel-ObjectClasses-EthernetContainer
       |     +--ro problemId          CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |     +--ro problemName?       string
       |     +--ro problemSeverity?   severityType
-      +--ro containerStatus
+      +--ro ethernetContainerStatus
       |  +--ro lastStatusChange?   CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
-      +--ro containerCurrentProblemList* [sequenceNumber]
+      +--ro ethernetContainerCurrentProblemList* [sequenceNumber]
       |  +--ro sequenceNumber    int32
       |  +--ro timeStamp?        CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
-      |  +--ro severity?         MicrowaveModel-TypeDefinitions:severityType
       |  +--ro problem
       |     +--ro problemId?         CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |     +--ro problemName?       string
       |     +--ro problemSeverity?   severityType
-      +--ro containerCurrentPerformance
+      +--ro ethernetContainerCurrentPerformance
       |  +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
       |  +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
       |  +--ro scannerId?             string
@@ -487,7 +484,7 @@ module: MicrowaveModel-ObjectClasses-EthernetContainer
       |     +--ro txEthernetBytesMaxM?   int64
       |     +--ro txEthernetBytesSum?    int64
       |     +--ro timePeriod?            int32
-      +--ro containerHistoricalPerformanceList*
+      +--ro ethernetContainerHistoricalPerformanceList*
          +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
          +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
          +--ro historyDataId?         string
@@ -500,9 +497,9 @@ module: MicrowaveModel-ObjectClasses-EthernetContainer
             +--ro txEthernetBytesSum?    int64
             +--ro timePeriod?            int32
 module: MicrowaveModel-ObjectClasses-HybridMwStructure
-   +--rw MW_HybridMwStructure_Pac
-      +--rw layerProtocol?                        -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid
-      +--ro structureCapability
+   +--rw MW_HybridMwStructure_Pac* [layerProtocol]
+      +--rw layerProtocol                                 -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid
+      +--ro hybridMwStructureCapability
       |  +--ro structureId?                      CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |  +--ro supportedTdmStructureTypesList* [tdmStructureTypeId]
       |  |  +--ro tdmStructureTypeId               CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
@@ -510,7 +507,7 @@ module: MicrowaveModel-ObjectClasses-HybridMwStructure
       |  |  +--ro tdmSegmentSize?                  int32
       |  |  +--ro maxNumberOfSegmentsReservable?   int32
       |  +--ro supportedAlarms?                  string
-      +--rw structureConfiguration
+      +--rw hybridMwStructureConfiguration
       |  +--rw structureType
       |  |  +--ro tdmStructureTypeId?              CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |  |  +--ro tdmStructureName?                string
@@ -521,20 +518,19 @@ module: MicrowaveModel-ObjectClasses-HybridMwStructure
       |     +--ro problemId          CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |     +--ro problemName?       string
       |     +--ro problemSeverity?   severityType
-      +--ro structureStatus
+      +--ro hybridMwStructureStatus
       |  +--ro segmentStatusList* [segmentStatusTypeId]
       |  |  +--ro segmentStatusTypeId        CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |  |  +--ro segmentIsReservedForTdm?   boolean
       |  +--ro lastStatusChange?    CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
-      +--ro structureCurrentProblemList* [sequenceNumber]
+      +--ro hybridMwStructureCurrentProblemList* [sequenceNumber]
       |  +--ro sequenceNumber    int32
       |  +--ro timeStamp?        CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
-      |  +--ro severity?         MicrowaveModel-TypeDefinitions:severityType
       |  +--ro problem
       |     +--ro problemId?         CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |     +--ro problemName?       string
       |     +--ro problemSeverity?   severityType
-      +--ro structureCurrentPerformance
+      +--ro hybridMwStructureCurrentPerformance
       |  +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
       |  +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
       |  +--ro scannerId?             string
@@ -544,7 +540,7 @@ module: MicrowaveModel-ObjectClasses-HybridMwStructure
       |  +--ro elapsedTime?           int32
       |  +--ro timestamp?             G_874_1_model-Type_Definitions:DateAndTime
       |  +--ro performanceData?       MicrowaveModel-TypeDefinitions:structurePerformanceType
-      +--ro structureHistoricalPerformanceList*
+      +--ro hybridMwStructureHistoricalPerformanceList*
          +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
          +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
          +--ro historyDataId?         string
@@ -553,30 +549,29 @@ module: MicrowaveModel-ObjectClasses-HybridMwStructure
          +--ro suspectIntervalFlag?   boolean
          +--ro performanceData?       MicrowaveModel-TypeDefinitions:structurePerformanceType
 module: MicrowaveModel-ObjectClasses-PureEthernetStructure
-   +--rw MW_PureEthernetStructure_Pac
-      +--rw layerProtocol?                        -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid
-      +--ro structureCapability
+   +--rw MW_PureEthernetStructure_Pac* [layerProtocol]
+      +--rw layerProtocol                                     -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid
+      +--ro pureEthernetStructureCapability
       |  +--ro structureId?       CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |  +--ro supportedAlarms?   string
-      +--rw structureConfiguration
+      +--rw pureEthernetStructureConfiguration
       |  +--ro problemSeverityList* [problemId]
       |     +--ro problemId          CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |     +--ro problemName?       string
       |     +--ro problemSeverity?   severityType
-      +--ro structureStatus
+      +--ro pureEthernetStructureStatus
       |  +--ro segmentStatusList
       |  |  +--ro segmentStatusTypeId?       CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |  |  +--ro segmentIsReservedForTdm?   boolean
       |  +--ro lastStatusChange?    CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
-      +--ro structureCurrentProblemList* [sequenceNumber]
+      +--ro pureEthernetStructureCurrentProblemList* [sequenceNumber]
       |  +--ro sequenceNumber    int32
       |  +--ro timeStamp?        CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
-      |  +--ro severity?         MicrowaveModel-TypeDefinitions:severityType
       |  +--ro problem
       |     +--ro problemId?         CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |     +--ro problemName?       string
       |     +--ro problemSeverity?   severityType
-      +--ro structureCurrentPerformance
+      +--ro pureEthernetStructureCurrentPerformance
       |  +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
       |  +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
       |  +--ro scannerId?             string
@@ -586,7 +581,7 @@ module: MicrowaveModel-ObjectClasses-PureEthernetStructure
       |  +--ro elapsedTime?           int32
       |  +--ro timestamp?             G_874_1_model-Type_Definitions:DateAndTime
       |  +--ro performanceData?       MicrowaveModel-TypeDefinitions:structurePerformanceType
-      +--ro structureHistoricalPerformanceList*
+      +--ro pureEthernetStructureHistoricalPerformanceList*
          +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
          +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
          +--ro historyDataId?         string
@@ -595,16 +590,16 @@ module: MicrowaveModel-ObjectClasses-PureEthernetStructure
          +--ro suspectIntervalFlag?   boolean
          +--ro performanceData?       MicrowaveModel-TypeDefinitions:structurePerformanceType
 module: MicrowaveModel-ObjectClasses-TdmContainer
-   +--rw MW_TdmContainer_Pac
-      +--rw layerProtocol?                        -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid
-      +--ro containerCapability
-      |  +--ro containerID?                      string
+   +--rw MW_TdmContainer_Pac* [layerProtocol]
+      +--rw layerProtocol                            -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid
+      +--ro tdmContainerCapability
       |  +--ro supportedTdmContainerTypesList* [tdmContainerTypeId]
       |  |  +--ro tdmContainerTypeId    CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |  |  +--ro tdmContainerName?     string
       |  |  +--ro tdmContainerSize?     int32
       |  +--ro supportedAlarms?                  string
-      +--rw containerConfiguration
+      +--rw tdmContainerConfiguration
+      |  +--rw containerID?           string
       |  +--rw containerType
       |  |  +--ro tdmContainerTypeId?   CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |  |  +--ro tdmContainerName?     string
@@ -616,17 +611,16 @@ module: MicrowaveModel-ObjectClasses-TdmContainer
       |     +--ro problemId          CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |     +--ro problemName?       string
       |     +--ro problemSeverity?   severityType
-      +--ro containerStatus
+      +--ro tdmContainerStatus
       |  +--ro lastStatusChange?   CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
-      +--ro containerCurrentProblemList* [sequenceNumber]
+      +--ro tdmContainerCurrentProblemList* [sequenceNumber]
       |  +--ro sequenceNumber    int32
       |  +--ro timeStamp?        CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
-      |  +--ro severity?         MicrowaveModel-TypeDefinitions:severityType
       |  +--ro problem
       |     +--ro problemId?         CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |     +--ro problemName?       string
       |     +--ro problemSeverity?   severityType
-      +--ro containerCurrentPerformance
+      +--ro tdmContainerCurrentPerformance
       |  +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
       |  +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
       |  +--ro scannerId?             string
@@ -640,7 +634,7 @@ module: MicrowaveModel-ObjectClasses-TdmContainer
       |     +--ro txEthernetBytesMaxM?   int64
       |     +--ro txEthernetBytesSum?    int64
       |     +--ro timePeriod?            int32
-      +--ro containerHistoricalPerformanceList*
+      +--ro tdmContainerHistoricalPerformanceList*
          +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
          +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
          +--ro historyDataId?         string
