@@ -33,20 +33,21 @@ var globalFunctions = {};
 
 globalFunctions.eCorePrimitiveTypes = {
     mappingToYangTypes: {
-      eboolean: 'boolean',
-      eint: 'int32',
-      int: 'int32',
+//      eboolean: 'boolean',
+//      eint: 'int32',
+//      int: 'int32',
       integer: 'int32',
-      ebyte : 'int32',
-      byte : 'int32',
+      ebyte : 'int8',
+//      byte : 'int8',
+      eshort : 'int16',
       elong : 'int64',
-      eshort : 'int32',
-      estring : 'string',
-      edate : 'date-and-time',
-      _ogqi1llneeo75do39gbf8q : 'CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime',
-      _YbA4MHfbEeWiOPc9pTMjTg : 'string', // airInterfacePort
-      "_Ewcf0HlAEeW1-cr9O9dzWA" : 'string', // port
-      _h9yzUIewEeWaZYk7gpuOtw : 'string' // ethernetSwitch
+//      estring : 'string',
+//      edate : 'date-and-time',
+//      _ogqi1llneeo75do39gbf8q : 'CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime',
+//      _ogqi1llneeo75do39gbf8q : 'date-and-time',
+//      _YbA4MHfbEeWiOPc9pTMjTg : 'string', // airInterfacePort
+//      "_Ewcf0HlAEeW1-cr9O9dzWA" : 'string', // port
+//      _h9yzUIewEeWaZYk7gpuOtw : 'string' // ethernetSwitch
     },
     mapToYangType: function(type) {
       var output = this.mappingToYangTypes[type];
