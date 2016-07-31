@@ -21,7 +21,7 @@ module MicrowaveModel-TypeDefinitions {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-25 {
+    revision 2016-07-31 {
         description 
             "Initial revision."; 
         reference 
@@ -88,49 +88,49 @@ module MicrowaveModel-TypeDefinitions {
             default -1;
         }
         leaf modulationScheme {
-            type int32;
+            type int16;
             config false;
             description "Modulation scheme, which is base to the other characteristics described in the same instance of Script. The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256').";
             units "symbols";
             default -1;
         }
         leaf informationRate {
-            type int32;
+            type int8;
             config false;
             description "Information rate of the coding scheme in %.";
             units "%";
             default -1;
         }
         leaf txPowerMin {
-            type int32;
+            type int8;
             config false;
             description "Value of the minimum transmit power the modem can operate in dBm.";
             units "dBm";
             default 99;
         }
         leaf txPowerMax {
-            type int32;
+            type int8;
             config false;
             description "Value of the maximum transmit power the modem can operate in dBm.";
             units "dBm";
             default 99;
         }
         leaf rxThreshold {
-            type int32;
+            type int16;
             config false;
             description "Value of the receive level required to decode the received signal with a Bit Error Rate of 1e-6 or less.";
             units "dBm";
             default 99;
         }
         leaf amUpshiftLevel {
-            type int32;
+            type int8;
             config false;
             description "Value of the receive level that has to be exceeded to shift into a higher modulation scheme.";
             units "dBm";
             default 99;
         }
         leaf amDownshiftLevel {
-            type int32;
+            type int8;
             config false;
             description "Value of the receive level that has to be exceeded for not shifting into a lower modulation scheme.";
             units "dBm";
@@ -198,42 +198,42 @@ module MicrowaveModel-TypeDefinitions {
             default -1;
         }
         leaf txLevelMin {
-            type int32;
+            type int8;
             config false;
             description "Minimum transmit power. Signed integers are required.";
             units "dBm";
             default 99;
         }
         leaf txLevelMax {
-            type int32;
+            type int8;
             config false;
             description "Maximum transmit power. Signed integers are required.";
             units "dBm";
             default 99;
         }
         leaf txLevelAvg {
-            type int32;
+            type int8;
             config false;
             description "Average transmit power. Signed integers are required.";
             units "dBm";
             default 99;
         }
         leaf rxLevelMin {
-            type int32;
+            type int8;
             config false;
             description "Minimum receive level. Signed integers are required.";
             units "dBm";
             default 99;
         }
         leaf rxLevelMax {
-            type int32;
+            type int8;
             config false;
             description "Maximum receive level. Signed integers are required.";
             units "dBm";
             default 99;
         }
         leaf rxLevelAvg {
-            type int32;
+            type int8;
             config false;
             description "Average receive level. Signed integers are required.";
             units "dBm";
@@ -361,91 +361,91 @@ module MicrowaveModel-TypeDefinitions {
             default -1;
         }
         leaf snrMin {
-            type int32;
+            type int8;
             config false;
             description "Minimum signal to noise ratio.";
             units "dB";
             default -99;
         }
         leaf snrMax {
-            type int32;
+            type int8;
             config false;
             description "Maximum signal to noise ratio.";
             units "dB";
             default -99;
         }
         leaf snrAvg {
-            type int32;
+            type int8;
             config false;
             description "Average signal to noise ratio.";
             units "dB";
             default -99;
         }
         leaf mseMin {
-            type int32;
+            type int8;
             config false;
             description "Minimum mean squared error.";
             units "dB";
             default -99;
         }
         leaf mseMax {
-            type int32;
+            type int8;
             config false;
             description "Maximum mean squared error.";
             units "dB";
             default -99;
         }
         leaf mseAvg {
-            type int32;
+            type int8;
             config false;
             description "Average mean squared error.";
             units "dB";
             default -99;
         }
         leaf xpdMin {
-            type int32;
+            type int8;
             config false;
             description "Minimum cross polarization discrimination.";
             units "dB";
             default -99;
         }
         leaf xpdMax {
-            type int32;
+            type int8;
             config false;
             description "Maximum cross polarization discrimination.";
             units "dB";
             default -99;
         }
         leaf xpdAvg {
-            type int32;
+            type int8;
             config false;
             description "Average cross polarization discrimination.";
             units "dB";
             default -99;
         }
         leaf rfTempMin {
-            type int32;
+            type int8;
             config false;
             description "Lowest temperature (in degree Celsius) of the radio module inside the outdoor unit.";
             units "C";
             default -99;
         }
         leaf rfTempMax {
-            type int32;
+            type int8;
             config false;
             description "Highest temperature (in degree Celsius) of the radio module inside the outdoor unit.";
             units "C";
             default -99;
         }
         leaf rfTempAvg {
-            type int32;
+            type int8;
             config false;
             description "Average temperature (in degree Celsius) of the radio module inside the outdoor unit.";
             units "C";
             default -99;
         }
         leaf defectBlocksSum {
-            type int32;
+            type int16;
             config false;
             description "Total number of blocks that were defect after receiving and could not be corrected by the FEC.";
             units "blocks";
@@ -483,7 +483,7 @@ module MicrowaveModel-TypeDefinitions {
             default "Diversity name not yet defined.";
         }
         leaf numberOfAirInterfacesMax {
-            type int32;
+            type int8;
             config false;
             description "Maximum number of air interfaces that could be part of this kind of diversity.";
             units "air interfaces";
@@ -518,42 +518,42 @@ module MicrowaveModel-TypeDefinitions {
         description "Consolidated performance information of the air interface diversity group.
             Basic principles for defining the Default values of Performance attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute.";
         leaf snrMin {
-            type int32;
+            type int8;
             config false;
             description "Minimum signal to noise ratio of the combined signals.";
             units "dB";
             default -99;
         }
         leaf snrMax {
-            type int32;
+            type int8;
             config false;
             description "Maximum signal to noise ratio of the combined signals.";
             units "dB";
             default -99;
         }
         leaf snrAvg {
-            type int32;
+            type int8;
             config false;
             description "Average signal to noise ratio of the combined signals.";
             units "dB";
             default -99;
         }
         leaf mseMin {
-            type int32;
+            type int8;
             config false;
             description "Minimum mean squared error of the combined signals.";
             units "dB";
             default -99;
         }
         leaf mseMax {
-            type int32;
+            type int8;
             config false;
             description "Maximum mean squared error of the combined signals.";
             units "dB";
             default -99;
         }
         leaf mseAvg {
-            type int32;
+            type int8;
             config false;
             description "Average mean squared error of the combined signals.";
             units "dB";
@@ -579,7 +579,7 @@ module MicrowaveModel-TypeDefinitions {
             default -1;
         }
         leaf maxNumberOfSegmentsReservable {
-            type int32;
+            type int8;
             config false;
             description "Device specific maximum number of segments (not depending on current air interface configuration) that can be reserved for this type of segment on a single air interface.";
             units "segments";
@@ -634,7 +634,7 @@ module MicrowaveModel-TypeDefinitions {
             type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
         }
         leaf segmentIdRef {
-            type int32;
+            type int16;
         }
     }
     grouping segmentStatusType {
