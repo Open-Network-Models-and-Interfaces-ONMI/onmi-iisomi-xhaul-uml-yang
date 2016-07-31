@@ -158,21 +158,21 @@ module: MicrowaveModel-ObjectClasses-AirInterfaceDiversity
       |  +--ro availableKindsOfDiversity* [diversityTypeId]
       |  |  +--ro diversityTypeId             CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |  |  +--ro diversityName?              string
-      |  |  +--ro numberOfAirInterfacesMax?   int32
+      |  |  +--ro numberOfAirInterfacesMax?   int8
       |  +--ro supportedAlarms?             string
       +--rw airInterfaceDiversityConfiguration
       |  +--rw airInterfaceDiversity
       |  |  +--ro diversityTypeId?            CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |  |  +--ro diversityName?              string
-      |  |  +--ro numberOfAirInterfacesMax?   int32
+      |  |  +--ro numberOfAirInterfacesMax?   int8
       |  +--rw airInterfaceLtpList*     -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/uuid
       |  +--ro problemSeverityList* [problemId]
       |     +--ro problemId          CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |     +--ro problemName?       string
       |     +--ro problemSeverity?   severityType
       +--ro airInterfaceDiversityStatus
-      |  +--ro snrCur?                        int32
-      |  +--ro mseCur?                        int32
+      |  +--ro snrCur?                        int8
+      |  +--ro mseCur?                        int8
       |  +--ro airInterfaceDiversityStatus?   MicrowaveModel-TypeDefinitions:airInterfaceDiversityStatusType
       |  +--ro lastStatusChange?              CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
       +--ro airInterfaceDiversityCurrentProblemList* [sequenceNumber]
@@ -192,12 +192,12 @@ module: MicrowaveModel-ObjectClasses-AirInterfaceDiversity
       |  +--ro elapsedTime?           int32
       |  +--ro timestamp?             G_874_1_model-Type_Definitions:DateAndTime
       |  +--ro performanceData
-      |     +--ro snrMin?   int32
-      |     +--ro snrMax?   int32
-      |     +--ro snrAvg?   int32
-      |     +--ro mseMin?   int32
-      |     +--ro mseMax?   int32
-      |     +--ro mseAvg?   int32
+      |     +--ro snrMin?   int8
+      |     +--ro snrMax?   int8
+      |     +--ro snrAvg?   int8
+      |     +--ro mseMin?   int8
+      |     +--ro mseMax?   int8
+      |     +--ro mseAvg?   int8
       +--ro airInterfaceDiversityHistoricalPerformanceList*
          +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
          +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
@@ -206,12 +206,12 @@ module: MicrowaveModel-ObjectClasses-AirInterfaceDiversity
          +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
          +--ro suspectIntervalFlag?   boolean
          +--ro performanceData
-            +--ro snrMin?   int32
-            +--ro snrMax?   int32
-            +--ro snrAvg?   int32
-            +--ro mseMin?   int32
-            +--ro mseMax?   int32
-            +--ro mseAvg?   int32
+            +--ro snrMin?   int8
+            +--ro snrMax?   int8
+            +--ro snrAvg?   int8
+            +--ro mseMin?   int8
+            +--ro mseMax?   int8
+            +--ro mseAvg?   int8
 module: MicrowaveModel-ObjectClasses-AirInterfaceHsb
    +--rw MW_AirInterfaceHsbEndPoint_Pac* [endpoint]
    |  +--rw role?       MicrowaveModel-TypeDefinitions:roleType
@@ -233,10 +233,10 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |  |  +--ro rxFrequencyMax?              int32
    |  |  +--ro adaptiveModulationIsAvail?   boolean
    |  |  +--ro mimoIsAvail?                 boolean
-   |  |  +--ro mimoChannels?                int32
+   |  |  +--ro mimoChannels?                int8
    |  |  +--ro alicIsAvail?                 boolean
    |  |  +--ro atpcIsAvail?                 boolean
-   |  |  +--ro atpcRange?                   int32
+   |  |  +--ro atpcRange?                   int8
    |  |  +--ro encryptionIsAvail?           boolean
    |  |  +--ro loopBackIsAvail?             boolean
    |  |  +--ro maintenanceTimerRange?       string
@@ -250,13 +250,13 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |  |     +--ro transmissionModeList* [transmissionModeId]
    |  |        +--ro transmissionModeId    CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
    |  |        +--ro channelBandwidth?     int32
-   |  |        +--ro modulationScheme?     int32
-   |  |        +--ro informationRate?      int32
-   |  |        +--ro txPowerMin?           int32
-   |  |        +--ro txPowerMax?           int32
-   |  |        +--ro rxThreshold?          int32
-   |  |        +--ro amUpshiftLevel?       int32
-   |  |        +--ro amDownshiftLevel?     int32
+   |  |        +--ro modulationScheme?     int16
+   |  |        +--ro informationRate?      int8
+   |  |        +--ro txPowerMin?           int8
+   |  |        +--ro txPowerMax?           int8
+   |  |        +--ro rxThreshold?          int16
+   |  |        +--ro amUpshiftLevel?       int8
+   |  |        +--ro amDownshiftLevel?     int8
    |  |        +--ro xpicIsAvail?          boolean
    |  +--rw airInterfaceConfiguration
    |  |  +--rw airInterfaceName?         string
@@ -269,18 +269,18 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |  |  +--rw powerIsOn?                boolean
    |  |  +--rw transmitterIsOn?          boolean
    |  |  +--rw receiverIsOn?             boolean
-   |  |  +--rw txPower?                  int32
+   |  |  +--rw txPower?                  int8
    |  |  +--rw adaptiveModulationIsOn?   boolean
-   |  |  +--rw modulationMin?            int32
-   |  |  +--rw modulationMax?            int32
+   |  |  +--rw modulationMin?            int16
+   |  |  +--rw modulationMax?            int16
    |  |  +--rw xpicIsOn?                 boolean
    |  |  +--rw mimoIsOn?                 boolean
    |  |  +--rw alicIsOn?                 boolean
    |  |  +--rw atpcIsOn?                 boolean
-   |  |  +--rw atpcThreshUpper?          int32
-   |  |  +--rw atpcThreshLower?          int32
+   |  |  +--rw atpcThreshUpper?          int16
+   |  |  +--rw atpcThreshLower?          int16
    |  |  +--rw autoFreqSelectIsOn?       boolean
-   |  |  +--rw autoFreqSelectRange?      int32
+   |  |  +--rw autoFreqSelectRange?      int8
    |  |  +--rw modulationIsOn?           boolean
    |  |  +--rw encryptionIsOn?           boolean
    |  |  +--rw cryptographicKey?         string
@@ -293,14 +293,14 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |  +--ro airInterfaceStatus
    |  |  +--ro txFrequencyCur?       int32
    |  |  +--ro rxFrequencyCur?       int32
-   |  |  +--ro txLevelCur?           int32
-   |  |  +--ro rxLevelCur?           int32
-   |  |  +--ro modulationCur?        int32
-   |  |  +--ro informationRateCur?   int32
-   |  |  +--ro snrCur?               int32
-   |  |  +--ro mseCur?               int32
-   |  |  +--ro xpdCur?               int32
-   |  |  +--ro rfTempCur?            int32
+   |  |  +--ro txLevelCur?           int8
+   |  |  +--ro rxLevelCur?           int8
+   |  |  +--ro modulationCur?        int16
+   |  |  +--ro informationRateCur?   int8
+   |  |  +--ro snrCur?               int8
+   |  |  +--ro mseCur?               int8
+   |  |  +--ro xpdCur?               int8
+   |  |  +--ro rfTempCur?            int8
    |  |  +--ro lastStatusChange?     CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
    |  |  +--ro radioPowerIsUp?       boolean
    |  |  +--ro linkIsUp?             boolean
@@ -331,12 +331,12 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |  |     +--ro ses?                int32
    |  |     +--ro cses?               int32
    |  |     +--ro unavailability?     int32
-   |  |     +--ro txLevelMin?         int32
-   |  |     +--ro txLevelMax?         int32
-   |  |     +--ro txLevelAvg?         int32
-   |  |     +--ro rxLevelMin?         int32
-   |  |     +--ro rxLevelMax?         int32
-   |  |     +--ro rxLevelAvg?         int32
+   |  |     +--ro txLevelMin?         int8
+   |  |     +--ro txLevelMax?         int8
+   |  |     +--ro txLevelAvg?         int8
+   |  |     +--ro rxLevelMin?         int8
+   |  |     +--ro rxLevelMax?         int8
+   |  |     +--ro rxLevelAvg?         int8
    |  |     +--ro time2Symbols?       int32
    |  |     +--ro time4SymbolsS?      int32
    |  |     +--ro time4Symbols?       int32
@@ -357,19 +357,19 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |  |     +--ro time4096SymbolsL?   int32
    |  |     +--ro time8192Symbols?    int32
    |  |     +--ro time8192SymbolsL?   int32
-   |  |     +--ro snrMin?             int32
-   |  |     +--ro snrMax?             int32
-   |  |     +--ro snrAvg?             int32
-   |  |     +--ro mseMin?             int32
-   |  |     +--ro mseMax?             int32
-   |  |     +--ro mseAvg?             int32
-   |  |     +--ro xpdMin?             int32
-   |  |     +--ro xpdMax?             int32
-   |  |     +--ro xpdAvg?             int32
-   |  |     +--ro rfTempMin?          int32
-   |  |     +--ro rfTempMax?          int32
-   |  |     +--ro rfTempAvg?          int32
-   |  |     +--ro defectBlocksSum?    int32
+   |  |     +--ro snrMin?             int8
+   |  |     +--ro snrMax?             int8
+   |  |     +--ro snrAvg?             int8
+   |  |     +--ro mseMin?             int8
+   |  |     +--ro mseMax?             int8
+   |  |     +--ro mseAvg?             int8
+   |  |     +--ro xpdMin?             int8
+   |  |     +--ro xpdMax?             int8
+   |  |     +--ro xpdAvg?             int8
+   |  |     +--ro rfTempMin?          int8
+   |  |     +--ro rfTempMax?          int8
+   |  |     +--ro rfTempAvg?          int8
+   |  |     +--ro defectBlocksSum?    int16
    |  |     +--ro timePeriod?         int32
    |  +--ro airInterfaceHistoricalPerformanceList*
    |     +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
@@ -383,12 +383,12 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |        +--ro ses?                int32
    |        +--ro cses?               int32
    |        +--ro unavailability?     int32
-   |        +--ro txLevelMin?         int32
-   |        +--ro txLevelMax?         int32
-   |        +--ro txLevelAvg?         int32
-   |        +--ro rxLevelMin?         int32
-   |        +--ro rxLevelMax?         int32
-   |        +--ro rxLevelAvg?         int32
+   |        +--ro txLevelMin?         int8
+   |        +--ro txLevelMax?         int8
+   |        +--ro txLevelAvg?         int8
+   |        +--ro rxLevelMin?         int8
+   |        +--ro rxLevelMax?         int8
+   |        +--ro rxLevelAvg?         int8
    |        +--ro time2Symbols?       int32
    |        +--ro time4SymbolsS?      int32
    |        +--ro time4Symbols?       int32
@@ -409,19 +409,19 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |        +--ro time4096SymbolsL?   int32
    |        +--ro time8192Symbols?    int32
    |        +--ro time8192SymbolsL?   int32
-   |        +--ro snrMin?             int32
-   |        +--ro snrMax?             int32
-   |        +--ro snrAvg?             int32
-   |        +--ro mseMin?             int32
-   |        +--ro mseMax?             int32
-   |        +--ro mseAvg?             int32
-   |        +--ro xpdMin?             int32
-   |        +--ro xpdMax?             int32
-   |        +--ro xpdAvg?             int32
-   |        +--ro rfTempMin?          int32
-   |        +--ro rfTempMax?          int32
-   |        +--ro rfTempAvg?          int32
-   |        +--ro defectBlocksSum?    int32
+   |        +--ro snrMin?             int8
+   |        +--ro snrMax?             int8
+   |        +--ro snrAvg?             int8
+   |        +--ro mseMin?             int8
+   |        +--ro mseMax?             int8
+   |        +--ro mseAvg?             int8
+   |        +--ro xpdMin?             int8
+   |        +--ro xpdMax?             int8
+   |        +--ro xpdAvg?             int8
+   |        +--ro rfTempMin?          int8
+   |        +--ro rfTempMax?          int8
+   |        +--ro rfTempAvg?          int8
+   |        +--ro defectBlocksSum?    int16
    |        +--ro timePeriod?         int32
    +--rw CoChannelGroup* [coChannelGroupId]
       +--rw coChannelGroupId        CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
@@ -446,7 +446,7 @@ module: MicrowaveModel-ObjectClasses-EthernetContainer
       |  +--rw containerID?             string
       |  +--rw segmentsIDList* [structureIdRef segmentIdRef]
       |  |  +--rw structureIdRef    CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
-      |  |  +--rw segmentIdRef      int32
+      |  |  +--rw segmentIdRef      int16
       |  +--rw packetCompressionIsOn?   boolean
       |  +--rw layer2CompressionIsOn?   boolean
       |  +--rw vlanCompressionIsOn?     boolean
@@ -505,15 +505,15 @@ module: MicrowaveModel-ObjectClasses-HybridMwStructure
       |  |  +--ro tdmStructureTypeId               CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |  |  +--ro tdmStructureName?                string
       |  |  +--ro tdmSegmentSize?                  int32
-      |  |  +--ro maxNumberOfSegmentsReservable?   int32
+      |  |  +--ro maxNumberOfSegmentsReservable?   int8
       |  +--ro supportedAlarms?                  string
       +--rw hybridMwStructureConfiguration
       |  +--rw structureType
       |  |  +--ro tdmStructureTypeId?              CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |  |  +--ro tdmStructureName?                string
       |  |  +--ro tdmSegmentSize?                  int32
-      |  |  +--ro maxNumberOfSegmentsReservable?   int32
-      |  +--rw numberOfTdmSegmentsToBeReserved?   int32
+      |  |  +--ro maxNumberOfSegmentsReservable?   int8
+      |  +--rw numberOfTdmSegmentsToBeReserved?   int16
       |  +--ro problemSeverityList* [problemId]
       |     +--ro problemId          CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |     +--ro problemName?       string
@@ -606,7 +606,7 @@ module: MicrowaveModel-ObjectClasses-TdmContainer
       |  |  +--ro tdmContainerSize?     int32
       |  +--rw segmentID
       |  |  +--rw structureIdRef?   CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
-      |  |  +--rw segmentIdRef?     int32
+      |  |  +--rw segmentIdRef?     int16
       |  +--ro problemSeverityList* [problemId]
       |     +--ro problemId          CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |     +--ro problemName?       string
