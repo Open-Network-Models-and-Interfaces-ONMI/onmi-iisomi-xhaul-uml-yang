@@ -43,7 +43,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-07-25">
+  <revision date="2016-07-31">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -142,7 +142,7 @@ TDM transport is available.</text>
       <uses name="MicrowaveModel-TypeDefinitions:tdmStructureType"/>
     </container>
     <leaf name="numberOfTdmSegmentsToBeReserved">
-      <type name="int32"/>
+      <type name="int16"/>
       <description>
         <text>Allows to configure the number of segments reserved for TDM frames of the type specified in HybridMwStructure::HybridMwStructureConfiguration::structureType</text>
       </description>

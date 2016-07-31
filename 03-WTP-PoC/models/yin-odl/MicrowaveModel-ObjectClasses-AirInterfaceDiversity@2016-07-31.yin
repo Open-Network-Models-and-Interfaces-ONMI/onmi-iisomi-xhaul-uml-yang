@@ -39,7 +39,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-07-24">
+  <revision date="2016-07-31">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -148,7 +148,7 @@ Basic principles for defining the Default values of Capability attributes: 1)NO 
       <text>Basic principles for defining the Default values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.</text>
     </description>
     <leaf name="snrCur">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Currently measured signal to noise ratio of the combined signals.</text>
@@ -157,7 +157,7 @@ Basic principles for defining the Default values of Capability attributes: 1)NO 
       <default value="-99"/>
     </leaf>
     <leaf name="mseCur">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Currently measured mean squared error of the combined signals.</text>

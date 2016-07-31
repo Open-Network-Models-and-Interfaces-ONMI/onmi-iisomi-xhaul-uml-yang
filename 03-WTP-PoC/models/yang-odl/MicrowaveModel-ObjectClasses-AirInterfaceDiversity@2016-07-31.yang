@@ -33,7 +33,7 @@ module MicrowaveModel-ObjectClasses-AirInterfaceDiversity {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-24 {
+    revision 2016-07-31 {
         description 
             "Initial revision."; 
         reference 
@@ -121,14 +121,14 @@ module MicrowaveModel-ObjectClasses-AirInterfaceDiversity {
     grouping AirInterfaceDiversityStatus {
         description "Basic principles for defining the Default values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.";
         leaf snrCur {
-            type int32;
+            type int8;
             config false;
             description "Currently measured signal to noise ratio of the combined signals.";
             units "dB";
             default -99;
         }
         leaf mseCur {
-            type int32;
+            type int8;
             config false;
             description "Currently measured mean squared error of the combined signals.";
             units "dB";

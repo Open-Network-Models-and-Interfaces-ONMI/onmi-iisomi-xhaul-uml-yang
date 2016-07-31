@@ -43,7 +43,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-07-25">
+  <revision date="2016-07-31">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -157,7 +157,7 @@ Basic principles for defining the Default values of Capability attributes: 1)NO 
       </description>
     </leaf>
     <leaf name="mimoChannels">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Maximum number (n) of spatial multiplexing streams that can be conveyed by an n x n MIMO configuration.</text>
@@ -180,7 +180,7 @@ Basic principles for defining the Default values of Capability attributes: 1)NO 
       </description>
     </leaf>
     <leaf name="atpcRange">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Extent of the ATPC range.</text>
@@ -308,7 +308,7 @@ The value zero might be used to make the microwave to disable the link ID check.
       <default value="true"/>
     </leaf>
     <leaf name="txPower">
-      <type name="int32"/>
+      <type name="int8"/>
       <description>
         <text>Transmit power to be configured on the microwave link. Signed Byte is required. The actually operated transmit power might be lower depending on adaptive modulation and ATPC.</text>
       </description>
@@ -322,7 +322,7 @@ The value zero might be used to make the microwave to disable the link ID check.
       </description>
     </leaf>
     <leaf name="modulationMin">
-      <type name="int32"/>
+      <type name="int16"/>
       <description>
         <text>Minimum modulation to be configured (in case adaptive modulation is not used, this value represents also the fixed modulation). The modulation scheme shall be described by the number of symbols (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256'). Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device).</text>
       </description>
@@ -330,7 +330,7 @@ The value zero might be used to make the microwave to disable the link ID check.
       <default value="-1"/>
     </leaf>
     <leaf name="modulationMax">
-      <type name="int32"/>
+      <type name="int16"/>
       <description>
         <text>Maximum modulation to be configured. The value of this field is only relevant, if Adaptive Modulation has been activated. The modulation scheme shall be described by the number of symbols (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256'). Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device).</text>
       </description>
@@ -362,7 +362,7 @@ The value zero might be used to make the microwave to disable the link ID check.
       </description>
     </leaf>
     <leaf name="atpcThreshUpper">
-      <type name="int32"/>
+      <type name="int16"/>
       <description>
         <text>If the receive level is higher than the upper threshold value, the transmitter is notified to decrease transmit power.</text>
       </description>
@@ -370,7 +370,7 @@ The value zero might be used to make the microwave to disable the link ID check.
       <default value="99"/>
     </leaf>
     <leaf name="atpcThreshLower">
-      <type name="int32"/>
+      <type name="int16"/>
       <description>
         <text>If the receive level is lower than the lower threshold value, the transmitter is notified to increase transmit power.</text>
       </description>
@@ -384,7 +384,7 @@ The value zero might be used to make the microwave to disable the link ID check.
       </description>
     </leaf>
     <leaf name="autoFreqSelectRange">
-      <type name="int32"/>
+      <type name="int8"/>
       <description>
         <text>Number of transmit channels (starting at the center frequency defined in txFrequency and with channel bandwidth according to txChannelBandwidth) that define the range within the transmit frequency can automatically been chosen. </text>
       </description>
@@ -462,7 +462,7 @@ Basic principles for defining the Default values of Status attributes: 1)Every a
       <default value="-1"/>
     </leaf>
     <leaf name="txLevelCur">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Current transmit level. Signed Byte is required.</text>
@@ -471,7 +471,7 @@ Basic principles for defining the Default values of Status attributes: 1)Every a
       <default value="99"/>
     </leaf>
     <leaf name="rxLevelCur">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Current receive level. Signed Byte is required.</text>
@@ -480,7 +480,7 @@ Basic principles for defining the Default values of Status attributes: 1)Every a
       <default value="99"/>
     </leaf>
     <leaf name="modulationCur">
-      <type name="int32"/>
+      <type name="int16"/>
       <config value="false"/>
       <description>
         <text>Currently operated modulation on transmit path. The modulation scheme shall be described by the number of symbols (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256'). Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device).</text>
@@ -489,7 +489,7 @@ Basic principles for defining the Default values of Status attributes: 1)Every a
       <default value="-1"/>
     </leaf>
     <leaf name="informationRateCur">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Information rate of the currently operated coding scheme.</text>
@@ -498,7 +498,7 @@ Basic principles for defining the Default values of Status attributes: 1)Every a
       <default value="-1"/>
     </leaf>
     <leaf name="snrCur">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Currently measured signal to noise ratio.</text>
@@ -507,7 +507,7 @@ Basic principles for defining the Default values of Status attributes: 1)Every a
       <default value="-99"/>
     </leaf>
     <leaf name="mseCur">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Currently measured mean squared error.</text>
@@ -516,7 +516,7 @@ Basic principles for defining the Default values of Status attributes: 1)Every a
       <default value="-99"/>
     </leaf>
     <leaf name="xpdCur">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Currently measured cross polarization discrimination.</text>
@@ -525,7 +525,7 @@ Basic principles for defining the Default values of Status attributes: 1)Every a
       <default value="-99"/>
     </leaf>
     <leaf name="rfTempCur">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Current temperature (in degree Celsius) of the radio module inside the outdoor unit.</text>

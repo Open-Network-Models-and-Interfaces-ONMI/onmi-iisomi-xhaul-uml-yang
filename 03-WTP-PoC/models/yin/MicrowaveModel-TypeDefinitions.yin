@@ -23,7 +23,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-07-25">
+  <revision date="2016-07-31">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -107,7 +107,7 @@
       <default value="-1"/>
     </leaf>
     <leaf name="modulationScheme">
-      <type name="int32"/>
+      <type name="int16"/>
       <config value="false"/>
       <description>
         <text>Modulation scheme, which is base to the other characteristics described in the same instance of Script. The modulation scheme shall be described by the number of symbols (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256').</text>
@@ -116,7 +116,7 @@
       <default value="-1"/>
     </leaf>
     <leaf name="informationRate">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Information rate of the coding scheme in %.</text>
@@ -125,7 +125,7 @@
       <default value="-1"/>
     </leaf>
     <leaf name="txPowerMin">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Value of the minimum transmit power the modem can operate in dBm.</text>
@@ -134,7 +134,7 @@
       <default value="99"/>
     </leaf>
     <leaf name="txPowerMax">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Value of the maximum transmit power the modem can operate in dBm.</text>
@@ -143,7 +143,7 @@
       <default value="99"/>
     </leaf>
     <leaf name="rxThreshold">
-      <type name="int32"/>
+      <type name="int16"/>
       <config value="false"/>
       <description>
         <text>Value of the receive level required to decode the received signal with a Bit Error Rate of 1e-6 or less.</text>
@@ -152,7 +152,7 @@
       <default value="99"/>
     </leaf>
     <leaf name="amUpshiftLevel">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Value of the receive level that has to be exceeded to shift into a higher modulation scheme.</text>
@@ -161,7 +161,7 @@
       <default value="99"/>
     </leaf>
     <leaf name="amDownshiftLevel">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Value of the receive level that has to be exceeded for not shifting into a lower modulation scheme.</text>
@@ -247,7 +247,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <default value="-1"/>
     </leaf>
     <leaf name="txLevelMin">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Minimum transmit power. Signed integers are required.</text>
@@ -256,7 +256,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <default value="99"/>
     </leaf>
     <leaf name="txLevelMax">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Maximum transmit power. Signed integers are required.</text>
@@ -265,7 +265,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <default value="99"/>
     </leaf>
     <leaf name="txLevelAvg">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Average transmit power. Signed integers are required.</text>
@@ -274,7 +274,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <default value="99"/>
     </leaf>
     <leaf name="rxLevelMin">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Minimum receive level. Signed integers are required.</text>
@@ -283,7 +283,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <default value="99"/>
     </leaf>
     <leaf name="rxLevelMax">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Maximum receive level. Signed integers are required.</text>
@@ -292,7 +292,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <default value="99"/>
     </leaf>
     <leaf name="rxLevelAvg">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Average receive level. Signed integers are required.</text>
@@ -424,7 +424,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <default value="-1"/>
     </leaf>
     <leaf name="snrMin">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Minimum signal to noise ratio.</text>
@@ -433,7 +433,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <default value="-99"/>
     </leaf>
     <leaf name="snrMax">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Maximum signal to noise ratio.</text>
@@ -442,7 +442,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <default value="-99"/>
     </leaf>
     <leaf name="snrAvg">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Average signal to noise ratio.</text>
@@ -451,7 +451,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <default value="-99"/>
     </leaf>
     <leaf name="mseMin">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Minimum mean squared error.</text>
@@ -460,7 +460,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <default value="-99"/>
     </leaf>
     <leaf name="mseMax">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Maximum mean squared error.</text>
@@ -469,7 +469,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <default value="-99"/>
     </leaf>
     <leaf name="mseAvg">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Average mean squared error.</text>
@@ -478,7 +478,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <default value="-99"/>
     </leaf>
     <leaf name="xpdMin">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Minimum cross polarization discrimination.</text>
@@ -487,7 +487,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <default value="-99"/>
     </leaf>
     <leaf name="xpdMax">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Maximum cross polarization discrimination.</text>
@@ -496,7 +496,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <default value="-99"/>
     </leaf>
     <leaf name="xpdAvg">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Average cross polarization discrimination.</text>
@@ -505,7 +505,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <default value="-99"/>
     </leaf>
     <leaf name="rfTempMin">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Lowest temperature (in degree Celsius) of the radio module inside the outdoor unit.</text>
@@ -514,7 +514,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <default value="-99"/>
     </leaf>
     <leaf name="rfTempMax">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Highest temperature (in degree Celsius) of the radio module inside the outdoor unit.</text>
@@ -523,7 +523,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <default value="-99"/>
     </leaf>
     <leaf name="rfTempAvg">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Average temperature (in degree Celsius) of the radio module inside the outdoor unit.</text>
@@ -532,7 +532,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <default value="-99"/>
     </leaf>
     <leaf name="defectBlocksSum">
-      <type name="int32"/>
+      <type name="int16"/>
       <config value="false"/>
       <description>
         <text>Total number of blocks that were defect after receiving and could not be corrected by the FEC.</text>
@@ -576,7 +576,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <default value="Diversity name not yet defined."/>
     </leaf>
     <leaf name="numberOfAirInterfacesMax">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Maximum number of air interfaces that could be part of this kind of diversity.</text>
@@ -619,7 +619,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
 Basic principles for defining the Default values of Performance attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute.</text>
     </description>
     <leaf name="snrMin">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Minimum signal to noise ratio of the combined signals.</text>
@@ -628,7 +628,7 @@ Basic principles for defining the Default values of Performance attributes: 1)Ev
       <default value="-99"/>
     </leaf>
     <leaf name="snrMax">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Maximum signal to noise ratio of the combined signals.</text>
@@ -637,7 +637,7 @@ Basic principles for defining the Default values of Performance attributes: 1)Ev
       <default value="-99"/>
     </leaf>
     <leaf name="snrAvg">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Average signal to noise ratio of the combined signals.</text>
@@ -646,7 +646,7 @@ Basic principles for defining the Default values of Performance attributes: 1)Ev
       <default value="-99"/>
     </leaf>
     <leaf name="mseMin">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Minimum mean squared error of the combined signals.</text>
@@ -655,7 +655,7 @@ Basic principles for defining the Default values of Performance attributes: 1)Ev
       <default value="-99"/>
     </leaf>
     <leaf name="mseMax">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Maximum mean squared error of the combined signals.</text>
@@ -664,7 +664,7 @@ Basic principles for defining the Default values of Performance attributes: 1)Ev
       <default value="-99"/>
     </leaf>
     <leaf name="mseAvg">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Average mean squared error of the combined signals.</text>
@@ -696,7 +696,7 @@ Basic principles for defining the Default values of Performance attributes: 1)Ev
       <default value="-1"/>
     </leaf>
     <leaf name="maxNumberOfSegmentsReservable">
-      <type name="int32"/>
+      <type name="int8"/>
       <config value="false"/>
       <description>
         <text>Device specific maximum number of segments (not depending on current air interface configuration) that can be reserved for this type of segment on a single air interface.</text>
@@ -765,7 +765,7 @@ Combinations of structureId and segmentId must be unique inside the device to as
       <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
     </leaf>
     <leaf name="segmentIdRef">
-      <type name="int32"/>
+      <type name="int16"/>
     </leaf>
   </grouping>
   <grouping name="segmentStatusType">

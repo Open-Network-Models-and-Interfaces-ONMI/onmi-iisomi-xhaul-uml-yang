@@ -36,7 +36,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-25 {
+    revision 2016-07-31 {
         description 
             "Initial revision."; 
         reference 
@@ -129,7 +129,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             description "In case the device is capable of MIMO, this field shall contain an '1'.";
         }
         leaf mimoChannels {
-            type int32;
+            type int8;
             config false;
             description "Maximum number (n) of spatial multiplexing streams that can be conveyed by an n x n MIMO configuration.";
             units "channels";
@@ -146,7 +146,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             description "In case the microwave radio is capable of ATPC, this field shall contain an '1'.";
         }
         leaf atpcRange {
-            type int32;
+            type int8;
             config false;
             description "Extent of the ATPC range.";
             units "dB";
@@ -240,7 +240,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             default true;
         }
         leaf txPower {
-            type int32;
+            type int8;
             description "Transmit power to be configured on the microwave link. Signed Byte is required. The actually operated transmit power might be lower depending on adaptive modulation and ATPC.";
             units "dBm";
             default 99;
@@ -250,13 +250,13 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             description "Adaptive Modulation. Activation of adaptive modulation shall be expressed as an '1'.";
         }
         leaf modulationMin {
-            type int32;
+            type int16;
             description "Minimum modulation to be configured (in case adaptive modulation is not used, this value represents also the fixed modulation). The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device).";
             units "symbols";
             default -1;
         }
         leaf modulationMax {
-            type int32;
+            type int16;
             description "Maximum modulation to be configured. The value of this field is only relevant, if Adaptive Modulation has been activated. The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device).";
             units "symbols";
             default -1;
@@ -278,13 +278,13 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             description "ATPC. Activation of Automated Transmit Power Control shall be expressed as an '1'.";
         }
         leaf atpcThreshUpper {
-            type int32;
+            type int16;
             description "If the receive level is higher than the upper threshold value, the transmitter is notified to decrease transmit power.";
             units "dBm";
             default 99;
         }
         leaf atpcThreshLower {
-            type int32;
+            type int16;
             description "If the receive level is lower than the lower threshold value, the transmitter is notified to increase transmit power.";
             units "dBm";
             default 99;
@@ -294,7 +294,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             description "Activation of automatically selecting the transmit frequency in unlicensed bands shall be expressed as an '1'.";
         }
         leaf autoFreqSelectRange {
-            type int32;
+            type int8;
             description "Number of transmit channels (starting at the center frequency defined in txFrequency and with channel bandwidth according to txChannelBandwidth) that define the range within the transmit frequency can automatically been chosen. ";
             units "channels";
             default -1;
@@ -352,56 +352,56 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             default -1;
         }
         leaf txLevelCur {
-            type int32;
+            type int8;
             config false;
             description "Current transmit level. Signed Byte is required.";
             units "dBm";
             default 99;
         }
         leaf rxLevelCur {
-            type int32;
+            type int8;
             config false;
             description "Current receive level. Signed Byte is required.";
             units "dBm";
             default 99;
         }
         leaf modulationCur {
-            type int32;
+            type int16;
             config false;
             description "Currently operated modulation on transmit path. The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device).";
             units "symbols";
             default -1;
         }
         leaf informationRateCur {
-            type int32;
+            type int8;
             config false;
             description "Information rate of the currently operated coding scheme.";
             units "%";
             default -1;
         }
         leaf snrCur {
-            type int32;
+            type int8;
             config false;
             description "Currently measured signal to noise ratio.";
             units "dB";
             default -99;
         }
         leaf mseCur {
-            type int32;
+            type int8;
             config false;
             description "Currently measured mean squared error.";
             units "dB";
             default -99;
         }
         leaf xpdCur {
-            type int32;
+            type int8;
             config false;
             description "Currently measured cross polarization discrimination.";
             units "dB";
             default -99;
         }
         leaf rfTempCur {
-            type int32;
+            type int8;
             config false;
             description "Current temperature (in degree Celsius) of the radio module inside the outdoor unit.";
             units "C";
