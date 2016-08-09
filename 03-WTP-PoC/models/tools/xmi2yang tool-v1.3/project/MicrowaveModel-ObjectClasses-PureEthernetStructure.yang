@@ -36,7 +36,7 @@ module MicrowaveModel-ObjectClasses-PureEthernetStructure {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-25 {
+    revision 2016-08-09 {
         description 
             "Initial revision."; 
         reference 
@@ -47,7 +47,8 @@ module MicrowaveModel-ObjectClasses-PureEthernetStructure {
         description "Feature 'pure-ethernet' is mandatory for device types transporting pure Ethernet.";
     }
     list MW_PureEthernetStructure_Pac {
-        description "LTP(MWS-TTP)";
+        description "LTP(MWS-TTP)
+            The pureEthernetStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting Ethernet traffic only.";
         key 'layerProtocol';
         config true;
         leaf layerProtocol {
@@ -88,8 +89,7 @@ module MicrowaveModel-ObjectClasses-PureEthernetStructure {
         description "Describes the logical structuring of the physical capacity provided by a pure Ethernet microwave device.
             Segmentation is not available.
             No fixed segment size.
-            No TDM transport.
-            Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.";
+            No TDM transport.";
         leaf structureId {
             type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
             config false;
@@ -103,7 +103,6 @@ module MicrowaveModel-ObjectClasses-PureEthernetStructure {
         }
     }
     grouping PureEthernetStructureConfiguration {
-        description "Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.";
         list problemSeverityList {
             description "Severity of the type of problem to be configured.";
             key 'problemId';
@@ -113,7 +112,6 @@ module MicrowaveModel-ObjectClasses-PureEthernetStructure {
         }
     }
     grouping PureEthernetStructureStatus {
-        description "Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.";
         container segmentStatusList {
             description "Status of the Ethernet transport segment.
                 Always just one segment.";

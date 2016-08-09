@@ -24,7 +24,7 @@ module MicrowaveModel-ObjectClasses-AirInterfaceHsb {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-24 {
+    revision 2016-08-09 {
         description 
             "Initial revision."; 
         reference 
@@ -45,7 +45,7 @@ module MicrowaveModel-ObjectClasses-AirInterfaceHsb {
         }
     }
     list MW_AirInterfaceHsbFcSwitch_Pac {
-        description "Represents and defines a protection switch structure encapsulated in the forwarding construct. Essentially performs the functoion of Protection Group. Associates to 2 or more Endpoints each playing the role of a Protection Unit. One or more protection EndPoints (standby/backup) provide protection for one or more working (i.e. regular/main/preferred) Endpoints where either protection or working can feed one or more protected Endpoint. May be used in revertive or non-revertive (symmetric) mode. When in revertive mode may define waitToRestore time. May be used in one of several modes including source switch, destination switched, source and destination switched etc (covering cases such as  1+1 ane 1:1).  May be lockout (prevented from switching), force switched or manual switched. Will indicate switch state and change of state.";
+        description "Represents and defines a protection switch structure encapsulated in the forwarding construct. Essentially performs the function of Protection Group. Associates to 2 or more Endpoints each playing the role of a Protection Unit. One or more protection EndPoints (standby/backup) provide protection for one or more working (i.e. regular/main/preferred) Endpoints where either protection or working can feed one or more protected Endpoint. May be used in revertive or non-revertive (symmetric) mode. When in revertive mode may define waitToRestore time. May be used in one of several modes including source switch, destination switched, source and destination switched etc (covering cases such as  1+1 ane 1:1).  May be lockout (prevented from switching), force switched or manual switched. Will indicate switch state and change of state.";
         key 'fcswitch';
         config true;
         leaf protType {
@@ -54,15 +54,15 @@ module MicrowaveModel-ObjectClasses-AirInterfaceHsb {
         }
         leaf airInterfaceHsbConfigurationIsFaultySeverity {
             type MicrowaveModel-TypeDefinitions:severityType;
-            description "The level of severity of an airInterfaceHsbConfigurationIsFaulty alarm shall be chosen from an enum.";
+            description "The level of severity of an airInterfaceHsbConfigurationIsFaulty alarm shall be chosen from an enumeration.";
         }
         leaf airInterfaceHsbIsPartlyDownSeverity {
             type MicrowaveModel-TypeDefinitions:severityType;
-            description "The level of severity for one link out of the HSB configuration being down shall be chosen from an enum.";
+            description "The level of severity for one link out of the HSB configuration being down shall be chosen from an enumeration.";
         }
         leaf airInterfaceHsbIsDownSeverity {
             type MicrowaveModel-TypeDefinitions:severityType;
-            description "The level of severity of the total HSB configuration being down shall be chosen from an enum.";
+            description "The level of severity of the total HSB configuration being down shall be chosen from an enumeration.";
         }
         leaf fcswitch {
             type leafref {
