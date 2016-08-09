@@ -38,6 +38,7 @@ CM-PruningAndRefactor-4MW.xslt implements the following changes:
 - define type for CoreModel::CoreNetworkModule::ObjectClasses::LayerProtocol::configuredClientCapacity - set to String
 - add Q.822 to  CoreModel::CoreNetworkModule::TypeDefinitions
 - add attribute uuid to CoreModel::CoreFoundationModule::SuperClassesAndCommonPackages::ObjectClasses::LocalClass used at yang key
+- correct CoreModel::CoreFoundationModel::StateModel::ObjectClasses::State_Pac::adminsatratveState -> administrativeState
 - add yang key definitions
 
 ## G.847.1

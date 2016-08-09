@@ -18,7 +18,7 @@ module CoreModel-CoreFoundationModule-StateModel {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-24 {
+    revision 2016-08-09 {
         description 
             "Initial revision."; 
         reference 
@@ -38,7 +38,7 @@ module CoreModel-CoreFoundationModule-StateModel {
             description "The administrativeControl state provides control of the availability of specific resources without modification to the provisioning of those resources.
                 The value is the current control target. The actual administrativeState may or may not be at target.";
         }
-        leaf adminsatratveState {
+        leaf administrativeState {
             type AdministrativeState;
             config false;
             description "Shows whether or not the client has permission to use or has a prohibition against using the resource.
