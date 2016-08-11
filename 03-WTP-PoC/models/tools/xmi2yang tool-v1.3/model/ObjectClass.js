@@ -26,7 +26,7 @@ function Class(name,id,type,comment,nodeType,path,config,isOrdered){
     this.type=type;
     this.path=path;
     this.nodeType=nodeType;
-    // if (this.name.indexOf('MW_') !== -1) console.log('[sko]', 'Class', this.name, this.type, this.nodeType);
+    // if (this.name.indexOf('MW_') !== -1) console.info('[sko]', 'Class', this.name, this.type, this.nodeType);
     if (comment) this.description=comment.toYangDescription();
     this.Gname;
     this.support;
@@ -49,6 +49,8 @@ Class.prototype.isEnum=function(){
 Class.prototype.buildEnum=function(obj){
     var node=new Type("enumeration");
     var literal=obj["ownedLiteral"];
+    // console.info('[sko]', obj);
+    if (literal) {
     if(literal.array){
         // More than one enumerated value
         for(var i=0;i<literal.array.length;i++){
@@ -57,6 +59,11 @@ Class.prototype.buildEnum=function(obj){
     }else{
         // Single enumerated value
         node.children.push("enum " + literal.attributes().name);
+    }
+    } else {
+      // console.info('[sko]', obj);
+      node.children.push("enum " + '[sko] currenly generalization for enums not implemented!');
+      
     }
     this.attribute.push(node);
 };
@@ -113,7 +120,7 @@ Class.prototype.buildAttribute=function(att){
         isLeaf=true;
     }
     var attribute=new Attribute(id, name,type, comment, association, isReadOnly,isOrdered);//build a attribute
-    // console.log('[sko]', '>>attribute', id, name, type, attribute.isleafRef);
+    // console.info('[sko]', '>>attribute', id, name, type, attribute.isleafRef);
     if(att.attributes().aggregation&&att.attributes().aggregation=="composite"){
         attribute.isleafRef=false;
     }
@@ -121,7 +128,7 @@ Class.prototype.buildAttribute=function(att){
 //    if (attribute.name === 'airInterfaceCurrentProblemList') {
 //      attribute.isleafRef=false;
 //    }
-    // console.log('[sko]', '<<attribute', id, name, type, attribute.isleafRef);
+    // console.info('[sko]', '<<attribute', id, name, type, attribute.isleafRef);
     attribute.giveValue(att);
     attribute.giveUnits(att);
     attribute.giveNodeType(isLeaf);
@@ -134,6 +141,7 @@ Class.prototype.buildGeneral=function(gen){
     if(gen.attributes().general){
         obj = gen.attributes().general;
     }else{
+        // console.info('[sko]', gen);
         obj = gen.general.attributes().href.split("#")[1];
     }
     this.generalization.push(obj);

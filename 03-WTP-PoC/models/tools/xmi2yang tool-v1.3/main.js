@@ -800,6 +800,7 @@ function createClass(obj,nodeType) {
             for (var i = 0; i < len; i++) {
                 var gen;
                 len == 1 ? gen = obj['generalization'] : gen = obj['generalization'].array[i];
+                // console.info('[sko]', 'generalization', node.name);
                 node.buildGeneral(gen);
                 //将uses的type值添加到grouping数组中
                 for (var j = 0; j < Grouping.length; j++) {
@@ -846,7 +847,7 @@ function createClass(obj,nodeType) {
                     for(var k=0;k<openModelAtt.length;k++){
                         if(openModelAtt[k].id==node.attribute[i].id){
                             if(openModelAtt[k].passedByReference){
-                                // console.log('[sko]', 'node.attribute[i].isleafRef', node.attribute[i].name, node.attribute[i].isleafRef);
+                                // console.info('[sko]', 'node.attribute[i].isleafRef', node.attribute[i].name, node.attribute[i].isleafRef);
                                 node.attribute[i].isleafRef=true;
                                 break;
                             }
@@ -893,6 +894,7 @@ function createClass(obj,nodeType) {
             }
         }
         if (node.isEnum()) {
+            // console.log(node.name);
             node.buildEnum(obj);
             Typedef.push(node);
         }
@@ -950,7 +952,7 @@ function createClass(obj,nodeType) {
                         if(openModelAtt[k].id==node.attribute[i].id){
                             if(openModelAtt[k].passedByReference){
                                 node.attribute[i].isleafRef=true;
-                                // console.log('[sko]', 'node.attribute[i].isleafRef', node.attribute[i].name, node.attribute[i].isleafRef);
+                                // console.info('[sko]', 'node.attribute[i].isleafRef', node.attribute[i].name, node.attribute[i].isleafRef);
                                 break;
                             }
                             else if(openModelAtt[k].passedByReference==false){
@@ -1027,11 +1029,11 @@ function obj2yang(ele){
         var feat=[];
 
         var featureExists = function(obj) {
-          console.log('[sko]', 'feature', feat.length, obj.name);
+          // console.info('[sko]', 'feature', feat.length, obj.name);
           var exists = false;
           feat.map(function(item){
             if (obj.name === item.name) {
-              // console.log('[sko]', 'feature', item.name);
+              // console.info('[sko]', 'feature', item.name);
               exists = true;
             }
           });
@@ -1060,7 +1062,7 @@ function obj2yang(ele){
         // [sko] get feature name from condition
         var ifFeature;
         if (ele[i].condition && ele[i].condition.split("'")[1]) {
-          // console.log('[sko]', ele[i].name, ele[i].support, ele[i].condition);
+          // console.info('[sko]', ele[i].name, ele[i].support, ele[i].condition);
           ifFeature = ele[i].condition.split("'")[1];
         }
         if(ele[i].nodeType=="rpc"){
@@ -1177,20 +1179,20 @@ function obj2yang(ele){
                         }
                         if(openModelAtt[k].passedByReference){
                             ele[i].attribute[j].isleafRef=true;
-                            // console.log('[sko]', 'ele[i].attribute[j].isleafRef', ele[i].attribute[j].name, ele[i].attribute[j].isleafRef);
+                            // console.info('[sko]', 'ele[i].attribute[j].isleafRef', ele[i].attribute[j].name, ele[i].attribute[j].isleafRef);
                         }
                         break;
                     }
                 }
                 //deal with the subnode whose type is neither "Derived Types" nor "Build-in Type".
-                // console.log('[sko]', '>>', ele[i].name, ele[i].attribute[j].name, ele[i].attribute[j].type, ele[i].attribute[j].nodeType);
+                // console.info('[sko]', '>>', ele[i].name, ele[i].attribute[j].name, ele[i].attribute[j].type, ele[i].attribute[j].nodeType);
                 if(ele[i].attribute[j].isUses){
                     var name=ele[i].attribute[j].type;
                     //find the "class" whose value of "id" is value of "type"
                     for(var k=0;k<Class.length;k++){
                         if(Class[k].id==name){
                             ele[i].attribute[j].isAbstract=Class[k].isAbstract;
-                            // console.log('[sko]', 'Class[k].type', Class[k].type, 'isleafRef', ele[i].attribute[j].isleafRef);
+                            // console.info('[sko]', 'Class[k].type', Class[k].type, 'isleafRef', ele[i].attribute[j].isleafRef);
                             if(Class[k].type!=="Class"){
                                 ele[i].attribute[j].isleafRef=false;
                                 ele[i].attribute[j].isGrouping=true;
@@ -1211,7 +1213,7 @@ function obj2yang(ele){
                                 break;
                             }
                             else {
-                                // console.log('[sko]', 'isleafRef', ele[i].attribute[j].isleafRef);
+                                // console.info('[sko]', 'isleafRef', ele[i].attribute[j].isleafRef);
                                 if(ele[i].attribute[j].isleafRef){
                                     var p=Class[k].instancePath.split(":")[0];
                                     if(ele[i].path == p){
@@ -1275,7 +1277,7 @@ function obj2yang(ele){
                         ele[i].attribute[j].type = gf.eCorePrimitiveTypes.mapToYangType(ele[i].attribute[j].type);
                     }
                 }
-                // console.log('[sko]', '<<', ele[i].name, ele[i].attribute[j].name, ele[i].attribute[j].type, ele[i].attribute[j].nodeType);
+                // console.info('[sko]', '<<', ele[i].name, ele[i].attribute[j].name, ele[i].attribute[j].type, ele[i].attribute[j].nodeType);
                 if(ele[i].attribute[j].type.split("+")[0] == "leafref"){
                     // console.info('sko', ele[i].attribute[j].type);
                     ele[i].attribute[j].type=new Type("leafref",ele[i].attribute[j].id,ele[i].attribute[j].type.split("+")[1],vr)
@@ -1333,7 +1335,7 @@ function obj2yang(ele){
                             ele[i].attribute[j].status=openModelAtt[k].status;
                         }
                         if(openModelAtt[k].passedByReference){
-                            // console.log('[sko]', 'ele[i].attribute[j].isleafRef', ele[i].attribute[j].name, ele[i].attribute[j].isleafRef);
+                            // console.info('[sko]', 'ele[i].attribute[j].isleafRef', ele[i].attribute[j].name, ele[i].attribute[j].isleafRef);
                             ele[i].attribute[j].isleafRef=true;
                         }
                         break;

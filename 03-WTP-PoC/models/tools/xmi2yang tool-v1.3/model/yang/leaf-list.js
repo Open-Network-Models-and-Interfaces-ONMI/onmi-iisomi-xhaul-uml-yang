@@ -65,7 +65,7 @@ leaf_list.prototype.writeNode = function (layer) {
         type = this.type.writeNode(layer + 1);
     } else if (typeof this.type == "string"){
         if (type.split("+")[0] == "leafref") {
-            console.log('htLog:', this.type);
+            // console.info('[sko]', this.type);
             type = PRE + "\ttype leafref {\r\n" + PRE + "\t\t" + type.split("+")[1] + ";\r\n" + PRE + "\t}\r\n";
         }
         else if(this.type==undefined){
