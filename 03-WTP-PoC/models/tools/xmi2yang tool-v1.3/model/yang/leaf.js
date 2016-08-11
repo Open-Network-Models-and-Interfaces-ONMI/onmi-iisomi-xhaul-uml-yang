@@ -49,13 +49,13 @@ leaf.prototype.writeNode = function (layer) {
     if (this.defaultValue === '"FALSE"' || this.defaultValue === '"TRUE"') {
       this.defaultValue = this.defaultValue.toLowerCase();
     }
-    this.defaultValue ? defvalue = PRE + "\tdefault " + this.defaultValue + ";\r\n" : defvalue = "";
+    (this.defaultValue !== undefined && this.defaultValue !== null) ? defvalue = PRE + "\tdefault " + this.defaultValue + ";\r\n" : defvalue = "";
     var type = "";
     if (this.type instanceof Type) {
         type = this.type.writeNode(layer + 1);
     } else if (typeof this.type == "string") {
         if (this.type.split("+")[0] == "leafref") {
-            console.log('htLog:', this.type);
+            // console.info('[sko]', this.type);
             type = PRE + "\ttype leafref {\r\n" + PRE + "\t\t" + this.type.split("+")[1] + ";\r\n" + PRE + "\t}\r\n";
         } else {
             type = PRE + "\ttype " + this.type + ";\r\n";
@@ -67,6 +67,11 @@ leaf.prototype.writeNode = function (layer) {
     if(this.type==undefined){
         type="";
     }
+    
+    if (defvalue === '') {
+      console.log('nodef ' + name);
+    }
+
     var s = PRE + name + " {\r\n" +
         type +
         config +
