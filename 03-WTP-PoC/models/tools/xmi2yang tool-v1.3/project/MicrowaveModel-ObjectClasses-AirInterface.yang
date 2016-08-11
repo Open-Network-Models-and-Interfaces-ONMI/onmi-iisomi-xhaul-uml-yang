@@ -36,7 +36,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-08-09 {
+    revision 2016-08-11 {
         description 
             "Initial revision."; 
         reference 
@@ -121,11 +121,13 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             type boolean;
             config false;
             description "In case the device is capable of adaptive modulation, this field shall contain a 'true'.";
+            default false;
         }
         leaf mimoIsAvail {
             type boolean;
             config false;
             description "In case the device is capable of MIMO, this field shall contain a 'true'.";
+            default false;
         }
         leaf mimoChannels {
             type int8;
@@ -138,27 +140,32 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             type boolean;
             config false;
             description "In case the microwave radio is capable of Adjacent Link Interference Cancelation (canceling of interference cause by transmitters located at the same site), this field shall contain a 'true'.";
+            default false;
         }
         leaf atpcIsAvail {
             type boolean;
             config false;
             description "In case the microwave radio is capable of ATPC, this field shall contain a 'true'.";
+            default false;
         }
         leaf atpcRange {
             type int8;
             config false;
             description "Extent of the ATPC range.";
             units "dB";
+            default 0;
         }
         leaf encryptionIsAvail {
             type boolean;
             config false;
             description "Shall be marked 'true', if payload encryption is available.";
+            default false;
         }
         leaf loopBackIsAvail {
             type boolean;
             config false;
             description "In case the radio is capable of looping back header information of the air interface, this field shall contain a 'true'.";
+            default false;
         }
         leaf maintenanceTimerRange {
             type string;
@@ -231,6 +238,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         leaf transmitterIsOn {
             type boolean;
             description "Activation of the transmitter inside the radio shall be expressed as a 'true'.";
+            default false;
         }
         leaf receiverIsOn {
             type boolean;
@@ -247,6 +255,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         leaf adaptiveModulationIsOn {
             type boolean;
             description "Adaptive Modulation. Activation of adaptive modulation shall be expressed as a 'true'.";
+            default false;
         }
         leaf modulationMin {
             type int16;
@@ -263,18 +272,22 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         leaf xpicIsOn {
             type boolean;
             description "Activation of Cross Polarization Interference Cancelation shall be expressed as a 'true'. In case XPIC is not available for the current combination of channel bandwidth and modulation or the hardware in general, this parameter shall always be set to 'false'.";
+            default false;
         }
         leaf mimoIsOn {
             type boolean;
             description "Activation of Multiple Input Multiple Output (MIMO) shall be expressed as a 'true'.";
+            default false;
         }
         leaf alicIsOn {
             type boolean;
             description "Activation of Adjacent Link Interference Cancelation (ALIC) shall be expressed as a 'true'.";
+            default false;
         }
         leaf atpcIsOn {
             type boolean;
             description "ATPC. Activation of Automated Transmit Power Control shall be expressed as a 'true'.";
+            default false;
         }
         leaf atpcThreshUpper {
             type int16;
@@ -291,6 +304,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         leaf autoFreqSelectIsOn {
             type boolean;
             description "Activation of automatically selecting the transmit frequency in unlicensed bands shall be expressed as a 'true'.";
+            default false;
         }
         leaf autoFreqSelectRange {
             type int8;
@@ -307,6 +321,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         leaf encryptionIsOn {
             type boolean;
             description "Activates encryption of the payload.";
+            default false;
         }
         leaf cryptographicKey {
             type string;
@@ -317,6 +332,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             type boolean;
             description "If this attribute is set to 'true', the received IF signal is transmitted back to the remote end.
                 Maintenance Feature";
+            default false;
         }
         leaf maintenanceTimer {
             type int32;
@@ -409,41 +425,49 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             type boolean;
             config false;
             description "If the radio unit has power and is switched on, this shall be expressed as a 'true'.";
+            default false;
         }
         leaf linkIsUp {
             type boolean;
             config false;
             description "If connection is established to the remote site with the same linkID, this shall be expressed as a 'true'.";
+            default false;
         }
         leaf xpicIsUp {
             type boolean;
             config false;
             description "If XPIC is currently actually working (not just configured), this shall be expressed as a 'true'.";
+            default false;
         }
         leaf mimoIsUp {
             type boolean;
             config false;
             description "If MIMO is currently actually working (not just configured), this shall be expressed as a 'true'.";
+            default false;
         }
         leaf alicIsUp {
             type boolean;
             config false;
             description "If Adjacent Link Interference Cancelation (ALIC) is currently actually working (not just configured), this shall be expressed as a 'true'.";
+            default false;
         }
         leaf atpcIsUp {
             type boolean;
             config false;
             description "If ATPC is currently actually working (not just configured), this shall be expressed as a 'true'.";
+            default false;
         }
         leaf autoFreqSelectIsUp {
             type boolean;
             config false;
             description "If automated frequency selection is currently actually working (not just configured), this shall be expressed as a 'true'.";
+            default false;
         }
         leaf loopBackIsUp {
             type boolean;
             config false;
             description "If loop back of the air interface header is currently active (not just configured), this shall be expressed as a 'true'.";
+            default false;
         }
         leaf localEndPointId {
             type string;
