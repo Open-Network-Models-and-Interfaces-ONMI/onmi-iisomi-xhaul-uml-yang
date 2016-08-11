@@ -64,7 +64,7 @@ module: CoreModel-CoreNetworkModule-ObjectClasses
    |  |  +--rw operType?                 CoreModel-CoreNetworkModule-TypeDefinitions:OperType
    |  |  +--rw _selectedFcPortRefList*   -> /ForwardingConstruct/_fcPortList/uuid
    |  +--rw forwardingDirection?     CoreModel-CoreNetworkModule-TypeDefinitions:ForwardingDirection
-   +--rw NetworkElement
+   +--rw NetworkElement!
       +--rw nameList* [valueName]
       |  +--rw valueName    string
       |  +--rw value?       string
