@@ -19,7 +19,7 @@ function Node(name, descrip, type, maxEle, minEle, id, config,isOrdered,feature,
     this.name = name;
     this.nodeType = type;
     this.key;
-    // if (this.name.indexOf('MW_') !== -1) console.log('[sko]', 'Node', this.name, this.nodeType, this.key);
+    // if (this.name.indexOf('MW_') !== -1) console.info('[sko]', 'Node', this.name, this.nodeType, this.key);
     if (descrip) this.description = descrip.toYangDescription();
     this.uses = [];
     this.status=status;
@@ -51,7 +51,7 @@ Node.prototype.buildChild = function (att, type) {
     }
     var obj;
     //create a subnode by "type"
-    if (att.support) console.log('[sko]', att.support);
+    // if (att.support) console.info('[sko]', att.support);
     switch (type) {
         case "leaf":
             // if (att.units) console.info('sko', att.name, att.units);
@@ -86,7 +86,7 @@ Node.prototype.buildChild = function (att, type) {
             break;
         case "typedef":
 //            obj = new Type(att.type, att.id, att.description);
-            // console.log('[sko]', 'typedef', att.type, att.id);
+            // console.info('[sko]', 'typedef', att.type, att.id);
             obj = new Type(att.type, att.id);
 
         default :
@@ -150,7 +150,7 @@ Node.prototype.writeNode = function (layer) {
               }
             });
             this.nodeType = flag;
-            // console.log('[sko]', 'container', this.name, this.nodeType );
+            // console.info('[sko]', 'container', this.name, this.nodeType );
         }
     }
     
@@ -199,7 +199,7 @@ Node.prototype.writeNode = function (layer) {
         conf = PRE + "\tconfig false;\r\n";
       }
     });
-    // if (this.name.indexOf('MW_') !== -1) console.log('[sko]', 'Node', this.name, this.nodeType, this.key);
+    // if (this.name.indexOf('MW_') !== -1) console.info('[sko]', 'Node', this.name, this.nodeType, this.key);
     // [sko] hack end
     
     if (this.nodeType == "list") {
@@ -244,7 +244,7 @@ Node.prototype.writeNode = function (layer) {
     }
     var feature="";
     if(this["if-feature"]&&this.nodeType!=="grouping"){
-        // console.log('[sko]', this);
+        // console.info('[sko]', this);
         feature = PRE + "\tif-feature " + this["if-feature"] + ";\r\n";
     }
     var child = "";
@@ -253,7 +253,14 @@ Node.prototype.writeNode = function (layer) {
             child += this.children[i].writeNode(layer + 1);
         }
     }
+    
+    // [sko] hack - top-level objects must not be mandatory
+    var presence = '';
+    if (name === 'container NetworkElement'){
+      presence = PRE + 'presence "Enables ONF CoreModel support";';
+    }
     var s = PRE + name + " {\r\n" +
+        presence +
         descript +
         Key +
         status+
