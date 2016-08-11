@@ -67,11 +67,6 @@ leaf.prototype.writeNode = function (layer) {
     if(this.type==undefined){
         type="";
     }
-    
-    if (defvalue === '') {
-      console.log('nodef ' + name);
-    }
-
     var s = PRE + name + " {\r\n" +
         type +
         config +
