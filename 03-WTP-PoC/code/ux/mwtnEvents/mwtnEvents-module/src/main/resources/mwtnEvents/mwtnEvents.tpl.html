@@ -1,0 +1,38 @@
+<script src="src/app/mwtnEvents/xml2json.js"></script>
+<div class="container" style="width: 800px">
+ <div class="mwtnError">{{error}}</div>
+ <table class="footable table">
+  <thead>
+   <tr>
+    <th data-sort-ignore="false">SI No</th>
+    <th data-sort-ignore="false">Time</th>
+    <th data-sort-ignore="false">MW Device</th>
+    <th data-sort-ignore="false">Event Type</th>
+    <th data-sort-ignore="false">Event Details</th>
+   </tr>
+  </thead>
+  <tbody>
+   <tr ng-repeat="tweet in collection track by $index" node-table>
+
+    <td>{{$index+1}}</td>
+      <td>{{tweet.time}}</td>
+      <td>{{tweet.nodeName}}</td>
+      <td>{{tweet.notifType}}</td>
+      <td>{{tweet.msgStr}}</td>
+    </td>
+
+   </tr>
+  </tbody>
+  <tfoot class="hide-if-no-paging">
+   <tr>
+    <td colspan="4">
+     <div class="pagination pagination-centered"></div>
+    </td>
+   </tr>
+  </tfoot>
+ </table>
+
+ <hr />
+ <p>
+  <span>Build: @buildtime@</span>
+ </p>
