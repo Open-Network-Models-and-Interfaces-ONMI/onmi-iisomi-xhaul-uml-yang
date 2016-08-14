@@ -36,7 +36,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-31 {
+    revision 2016-08-11 {
         description 
             "Initial revision."; 
         reference 
@@ -82,8 +82,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         }
     }
     grouping AirInterfaceCapability {
-        description "Describes the 'analog' capabilities of modem and transmitter of the microwave device. Value ranges of attributes are not independently (e.g. min. and max. transmit power depends on modulation). Legal combinations of values are expressed in transmissionModeTypes.
-            Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.";
+        description "Describes the 'analog' capabilities of modem and transmitter of the microwave device. Value ranges of attributes are not independently (e.g. min. and max. transmit power depends on modulation). Legal combinations of values are expressed in transmissionModeTypes.";
         leaf typeOfEquipment {
             type string;
             config false;
@@ -93,40 +92,42 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         leaf txFrequencyMin {
             type int32;
             config false;
-            description "Value of the minimum transmit frequency tunable at the air interface. This value is only relevant, if the channel plan, which is referenced in channelPlanID is stored in the controller.";
+            description "Value of the minimum transmit frequency tunable at the air interface.";
             units "kHz";
             default -1;
         }
         leaf txFrequencyMax {
             type int32;
             config false;
-            description "Value of the maximum transmit frequency tunable at the air interface. This value is only relevant, if the channel plan, which is referenced in channelPlanID is stored in the controller.";
+            description "Value of the maximum transmit frequency tunable at the air interface.";
             units "kHz";
             default -1;
         }
         leaf rxFrequencyMin {
             type int32;
             config false;
-            description "Value of the minimum receive frequency tunable at the air interface. This value is only relevant, if the channel plan, which is referenced in channelPlanID is stored in the controller.";
+            description "Value of the minimum receive frequency tunable at the air interface.";
             units "kHz";
             default -1;
         }
         leaf rxFrequencyMax {
             type int32;
             config false;
-            description "Value of the maximum receive frequency tunable at the air interface. This value is only relevant, if the channel plan, which is referenced in channelPlanID is stored in the controller.";
+            description "Value of the maximum receive frequency tunable at the air interface.";
             units "kHz";
             default -1;
         }
         leaf adaptiveModulationIsAvail {
             type boolean;
             config false;
-            description "In case the Air Interface Port is capable of adaptive modulation, this field shall contain an '1'.";
+            description "In case the device is capable of adaptive modulation, this field shall contain a 'true'.";
+            default false;
         }
         leaf mimoIsAvail {
             type boolean;
             config false;
-            description "In case the device is capable of MIMO, this field shall contain an '1'.";
+            description "In case the device is capable of MIMO, this field shall contain a 'true'.";
+            default false;
         }
         leaf mimoChannels {
             type int8;
@@ -138,28 +139,33 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         leaf alicIsAvail {
             type boolean;
             config false;
-            description "In case the microwave radio is capable of Adjacent Link Interference Cancelation (canceling of interference cause by transmitters located at the same site), this field shall contain an '1'.";
+            description "In case the microwave radio is capable of Adjacent Link Interference Cancelation (canceling of interference cause by transmitters located at the same site), this field shall contain a 'true'.";
+            default false;
         }
         leaf atpcIsAvail {
             type boolean;
             config false;
-            description "In case the microwave radio is capable of ATPC, this field shall contain an '1'.";
+            description "In case the microwave radio is capable of ATPC, this field shall contain a 'true'.";
+            default false;
         }
         leaf atpcRange {
             type int8;
             config false;
             description "Extent of the ATPC range.";
             units "dB";
+            default 0;
         }
         leaf encryptionIsAvail {
             type boolean;
             config false;
             description "Shall be marked 'true', if payload encryption is available.";
+            default false;
         }
         leaf loopBackIsAvail {
             type boolean;
             config false;
-            description "In case the radio is capable of looping back header information of the air interface, this field shall contain an '1'.";
+            description "In case the radio is capable of looping back header information of the air interface, this field shall contain a 'true'.";
+            default false;
         }
         leaf maintenanceTimerRange {
             type string;
@@ -183,8 +189,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         }
     }
     grouping AirInterfaceConfiguration {
-        description "Configuration of the device.
-            Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device.           Configuration messages provided by the device shall contain the current configuration.";
+        description "Configuration of the radio link.";
         leaf airInterfaceName {
             type string;
             description "Operator specific microwave link ID (often used for coding area, type of element and sequential number).";
@@ -222,21 +227,23 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         }
         leaf polarization {
             type MicrowaveModel-TypeDefinitions:polarizationType;
-            description "Allows to document the polarization of the air interface.";
+            description "Allows documenting the polarization of the air interface.";
             default "not-specified";
         }
         leaf powerIsOn {
             type boolean;
-            description "Power ON. Activation of the entire radio in a split mount configuration shall be expressed as an '1'.";
+            description "Power ON. Activation of the entire radio in a split mount configuration shall be expressed as a 'true'.";
             default true;
         }
         leaf transmitterIsOn {
             type boolean;
-            description "Activation of the transmitter inside the radio shall be expressed as an '1'.";
+            description "Activation of the transmitter inside the radio shall be expressed as a 'true'.";
+            default false;
         }
         leaf receiverIsOn {
             type boolean;
-            description "Activation of the receiver inside the radio shall be expressed as an '1'. Attribute shall also be used for RX main and RX diversity squelch in case of diversity configurations.";
+            description "Activation of the receiver inside the radio shall be expressed as a 'true'. Attribute shall also be used for RX main and RX diversity squelches in case of diversity configurations.
+                Maintenance Feature";
             default true;
         }
         leaf txPower {
@@ -247,35 +254,40 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         }
         leaf adaptiveModulationIsOn {
             type boolean;
-            description "Adaptive Modulation. Activation of adaptive modulation shall be expressed as an '1'.";
+            description "Adaptive Modulation. Activation of adaptive modulation shall be expressed as a 'true'.";
+            default false;
         }
         leaf modulationMin {
             type int16;
-            description "Minimum modulation to be configured (in case adaptive modulation is not used, this value represents also the fixed modulation). The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device).";
+            description "Minimum modulation to be configured (in case adaptive modulation is not used, this value represents also the fixed modulation). The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.";
             units "symbols";
             default -1;
         }
         leaf modulationMax {
             type int16;
-            description "Maximum modulation to be configured. The value of this field is only relevant, if Adaptive Modulation has been activated. The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device).";
+            description "Maximum modulation to be configured. The value of this field is only relevant, if Adaptive Modulation has been activated. The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.";
             units "symbols";
             default -1;
         }
         leaf xpicIsOn {
             type boolean;
             description "Activation of Cross Polarization Interference Cancelation shall be expressed as a 'true'. In case XPIC is not available for the current combination of channel bandwidth and modulation or the hardware in general, this parameter shall always be set to 'false'.";
+            default false;
         }
         leaf mimoIsOn {
             type boolean;
-            description "Activation of Multiple Input Multiple Output (MIMO) shall be expressed as an '1'.";
+            description "Activation of Multiple Input Multiple Output (MIMO) shall be expressed as a 'true'.";
+            default false;
         }
         leaf alicIsOn {
             type boolean;
-            description "Activation of Adjacent Link Interference Cancelation (ALIC) shall be expressed as an '1'.";
+            description "Activation of Adjacent Link Interference Cancelation (ALIC) shall be expressed as a 'true'.";
+            default false;
         }
         leaf atpcIsOn {
             type boolean;
-            description "ATPC. Activation of Automated Transmit Power Control shall be expressed as an '1'.";
+            description "ATPC. Activation of Automated Transmit Power Control shall be expressed as a 'true'.";
+            default false;
         }
         leaf atpcThreshUpper {
             type int16;
@@ -291,7 +303,8 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         }
         leaf autoFreqSelectIsOn {
             type boolean;
-            description "Activation of automatically selecting the transmit frequency in unlicensed bands shall be expressed as an '1'.";
+            description "Activation of automatically selecting the transmit frequency in unlicensed bands shall be expressed as a 'true'.";
+            default false;
         }
         leaf autoFreqSelectRange {
             type int8;
@@ -301,13 +314,14 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         }
         leaf modulationIsOn {
             type boolean;
-            description "Maintenance Feature
-                De-activation of the modulation of the carrier signal for fault management shall be expressed as an '0'.";
+            description "De-activation of the modulation of the carrier signal for fault management shall be expressed as a 'false'.
+                Maintenance Feature";
             default true;
         }
         leaf encryptionIsOn {
             type boolean;
             description "Activates encryption of the payload.";
+            default false;
         }
         leaf cryptographicKey {
             type string;
@@ -316,8 +330,9 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         }
         leaf loopBackIsOn {
             type boolean;
-            description "Maintenance Feature
-                If this attribute is set to 'true', the received IF signal is transmitted back to the remote end.";
+            description "If this attribute is set to 'true', the received IF signal is transmitted back to the remote end.
+                Maintenance Feature";
+            default false;
         }
         leaf maintenanceTimer {
             type int32;
@@ -335,8 +350,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         }
     }
     grouping AirInterfaceStatus {
-        description "Measurements of current values on the air interface and operational status of the device.
-            Basic principles for defining the Default values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.";
+        description "Measurements of current values on the air interface and operational status of the device.";
         leaf txFrequencyCur {
             type int32;
             config false;
@@ -354,21 +368,21 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         leaf txLevelCur {
             type int8;
             config false;
-            description "Current transmit level. Signed Byte is required.";
+            description "Current transmit level.";
             units "dBm";
             default 99;
         }
         leaf rxLevelCur {
             type int8;
             config false;
-            description "Current receive level. Signed Byte is required.";
+            description "Current receive level.";
             units "dBm";
             default 99;
         }
         leaf modulationCur {
             type int16;
             config false;
-            description "Currently operated modulation on transmit path. The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device).";
+            description "Currently operated modulation on transmit path. The modulation scheme shall be described by the number of symbols (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.";
             units "symbols";
             default -1;
         }
@@ -379,17 +393,10 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             units "%";
             default -1;
         }
-        leaf snrCur {
+        leaf snirCur {
             type int8;
             config false;
-            description "Currently measured signal to noise ratio.";
-            units "dB";
-            default -99;
-        }
-        leaf mseCur {
-            type int8;
-            config false;
-            description "Currently measured mean squared error.";
+            description "Currently measured signal to (noise+interference) ratio.";
             units "dB";
             default -99;
         }
@@ -404,7 +411,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             type int8;
             config false;
             description "Current temperature (in degree Celsius) of the radio module inside the outdoor unit.";
-            units "C";
+            units "Celsius";
             default -99;
         }
         leaf lastStatusChange {
@@ -417,42 +424,62 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         leaf radioPowerIsUp {
             type boolean;
             config false;
-            description "If the radio unit has power and is switched on, this shall be expressed as an '1'.";
+            description "If the radio unit has power and is switched on, this shall be expressed as a 'true'.";
+            default false;
         }
         leaf linkIsUp {
             type boolean;
             config false;
-            description "If connection is established to the remote site with the same linkID, this shall be expressed as an '1'.";
+            description "If connection is established to the remote site with the same linkID, this shall be expressed as a 'true'.";
+            default false;
         }
         leaf xpicIsUp {
             type boolean;
             config false;
-            description "If XPIC is currently actually working (not just configured), this shall be expressed as an '1'.";
+            description "If XPIC is currently actually working (not just configured), this shall be expressed as a 'true'.";
+            default false;
         }
         leaf mimoIsUp {
             type boolean;
             config false;
-            description "If MIMO is currently actually working (not just configured), this shall be expressed as an '1'.";
+            description "If MIMO is currently actually working (not just configured), this shall be expressed as a 'true'.";
+            default false;
         }
         leaf alicIsUp {
             type boolean;
             config false;
-            description "If Adjacent Link Interference Cancelation (ALIC) is currently actually working (not just configured), this shall be expressed as an '1'.";
+            description "If Adjacent Link Interference Cancelation (ALIC) is currently actually working (not just configured), this shall be expressed as a 'true'.";
+            default false;
         }
         leaf atpcIsUp {
             type boolean;
             config false;
-            description "If ATPC is currently actually working (not just configured), this shall be expressed as an '1'.";
+            description "If ATPC is currently actually working (not just configured), this shall be expressed as a 'true'.";
+            default false;
         }
         leaf autoFreqSelectIsUp {
             type boolean;
             config false;
-            description "If automated frequency selection is currently actually working (not just configured), this shall be expressed as an '1'.";
+            description "If automated frequency selection is currently actually working (not just configured), this shall be expressed as a 'true'.";
+            default false;
         }
         leaf loopBackIsUp {
             type boolean;
             config false;
-            description "If loop back of the air interface header is currently active (not just configured), this shall be expressed as an '1'.";
+            description "If loop back of the air interface header is currently active (not just configured), this shall be expressed as a 'true'.";
+            default false;
+        }
+        leaf localEndPointId {
+            type string;
+            config false;
+            description "The value of the localEndPointId is a vendor specific identifier of the air interface, used by the node to discover a microwave radio link.";
+            default "not-supported";
+        }
+        leaf remoteEndPointId {
+            type string;
+            config false;
+            description "The value of the remoteEndPointId is a vendor specific identifier or the airinterface at the remote side, used to by the node to discover a microwave radio link.";
+            default "not-supported";
         }
     }
     grouping AirInterfaceCurrentProblem {
@@ -476,13 +503,14 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         }
     }
     list CoChannelGroup {
+        description "Required for configuring XPIC, MIMO and ALIC.";
         key 'coChannelGroupId';
         config true;
         leaf coChannelGroupId {
             type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
         }
         leaf-list airInterfaceList {
-            description "List of air interfaces, which are part of the co-channel (XPIC, MIMO, AFR) group.";
+            description "List of air interfaces, which are part of the co-channel (XPIC, MIMO, ALIC) group.";
             ordered-by system;
             type leafref {
                 path '/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid';
@@ -490,7 +518,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         }
         leaf sortOfCoChannelGroup {
             type string;
-            description "Type of group of air interfaces with the same transmit and receive frequency. The values shall be chosen from the following _list:'XPIC', 'MIMO', 'AFR';";
+            description "Type of group of air interfaces with the same transmit and receive frequency. The values shall be chosen from the following _list:'XPIC', 'MIMO', 'ALIC';";
         }
     }
 }

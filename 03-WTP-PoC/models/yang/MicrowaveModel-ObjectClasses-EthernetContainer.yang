@@ -33,7 +33,7 @@ module MicrowaveModel-ObjectClasses-EthernetContainer {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-25 {
+    revision 2016-08-11 {
         description 
             "Initial revision."; 
         reference 
@@ -79,56 +79,65 @@ module MicrowaveModel-ObjectClasses-EthernetContainer {
         }
     }
     grouping EthernetContainerCapability {
-        description "Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.";
         leaf bundlingIsAvail {
             type boolean;
             config false;
-            description "This attribute will have to be set 'true', if the device allows combining resources from several air interfaces for transporting this Ethernet container.";
+            description "This attribute has to be set on 'true', if the device allows combining resources from several air interfaces for transporting this Ethernet container.";
+            default false;
         }
         leaf packetCompressionIsAvail {
             type boolean;
             config false;
-            description "In case packet compression can be activated, but not configured to a certain type, packetCompressionAvail shall be set to '1', but none of the type specific booleans.";
+            description "In case packet compression can be activated, but not configured to a certain type, packetCompressionAvail shall be set on 'true', but none of the compression level specific booleans.";
+            default false;
         }
         leaf layer2CompressionIsAvail {
             type boolean;
             config false;
             description "Packet compression on layer 2 available at the device.";
+            default false;
         }
         leaf vlanCompressionIsAvail {
             type boolean;
             config false;
             description "Packet compression on VLAN layer available at the device.";
+            default false;
         }
         leaf qInQCompressionIsAvail {
             type boolean;
             config false;
             description "Packet compression on layer of a second VLAN available at the device.";
+            default false;
         }
         leaf mplsCompressionIsAvail {
             type boolean;
             config false;
             description "Packet compression on mpls layer available at the device.";
+            default false;
         }
         leaf ipv4CompressionIsAvail {
             type boolean;
             config false;
             description "Packet compression on layer 3 for IPv4 available at the device.";
+            default false;
         }
         leaf ipv6CompressionIsAvail {
             type boolean;
             config false;
             description "Packet compression on layer 3 for IPv6 available at the device.";
+            default false;
         }
         leaf layer4CompressionIsAvail {
             type boolean;
             config false;
             description "Packet compression on layer 4 (TCP and UDP header) available at the device.";
+            default false;
         }
         leaf encryptionIsAvail {
             type boolean;
             config false;
             description "Shall be marked 'true', if Ethernet payload encryption is available.";
+            default false;
         }
         leaf supportedAlarms {
             type string;
@@ -138,10 +147,9 @@ module MicrowaveModel-ObjectClasses-EthernetContainer {
         }
     }
     grouping EthernetContainerConfiguration {
-        description "Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.";
         leaf containerID {
             type string;
-            description "ContainterID in Netconf must be the same as EthernetPortID in OpenFlow so a connection can be made between the two items, which are existing separately in the controller.";
+            description "ContainterID in Netconf must be the same as EthernetPortID in OpenFlow so a connection can be made between the two items, which separately exist in the controller.";
         }
         list segmentsIDList {
             description "Lists the segments used for transporting this Ethernet container. In case EthernetContainer::ContainerCapability::bundlingIsAvail==0, all TypeDefinitions::segmentIdType::structureId must be identical in the list.";
@@ -153,43 +161,52 @@ module MicrowaveModel-ObjectClasses-EthernetContainer {
         }
         leaf packetCompressionIsOn {
             type boolean;
-            description "In case packet compression is activated, but no type is activated, it is assumed that the device choses an optimum.";
+            description "In case packet compression is activated, but no type is activated, it is assumed that the device chooses the optimum.";
+            default false;
         }
         leaf layer2CompressionIsOn {
             type boolean;
             description "Packet compression on layer 2 configured at the device.";
+            default false;
         }
         leaf vlanCompressionIsOn {
             type boolean;
             description "Packet compression on VLAN layer configured at the device.";
+            default false;
         }
         leaf qInQCompressionIsOn {
             type boolean;
             description "Packet compression on layer of a second VLAN configured at the device.";
+            default false;
         }
         leaf mplsCompressionIsOn {
             type boolean;
             description "Packet compression on MPLS layer configured at the device.";
+            default false;
         }
         leaf ipv4CompressionIsOn {
             type boolean;
             description "Packet compression on layer 3 for IPv4 configured at the device.";
+            default false;
         }
         leaf ipv6CompressionIsOn {
             type boolean;
             description "Packet compression on layer 3 for IPv6 configured at the device.";
+            default false;
         }
         leaf layer4CompressionIsOn {
             type boolean;
             description "Packet compression on layer 4 (TCP and UDP header) configured at the device.";
+            default false;
         }
         leaf encryptionIsOn {
             type boolean;
             description "Activates encryption of the Ethernet payload.";
+            default false;
         }
         leaf cryptographicKey {
             type string;
-            description "Key for transforming plaintext into ciphertext data.";
+            description "Key for transforming plaintext into cipher text data.";
             default "Cryptographic key not yet defined.";
         }
         list problemSeverityList {
@@ -202,7 +219,6 @@ module MicrowaveModel-ObjectClasses-EthernetContainer {
         }
     }
     grouping EthernetContainerStatus {
-        description "Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.";
         leaf lastStatusChange {
             type CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime;
             config false;

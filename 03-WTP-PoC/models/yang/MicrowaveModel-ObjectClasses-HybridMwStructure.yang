@@ -36,7 +36,7 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-31 {
+    revision 2016-08-09 {
         description 
             "Initial revision."; 
         reference 
@@ -47,7 +47,8 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
         description "Feature 'hybrid-microwave' is mandatory for device types transporting Ethernet + TDM.";
     }
     list MW_HybridMwStructure_Pac {
-        description "LTP(MWS-TTP)";
+        description "LTP(MWS-TTP)
+            The HybridMwStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting TDM and Ethernet traffic.";
         key 'layerProtocol';
         config true;
         leaf layerProtocol {
@@ -86,7 +87,6 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
     }
     grouping HybridMwStructureCapability {
         description "Describes the logical structuring of the physical capacity provided by a hybrid microwave device (TDM + Ethernet).
-            Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.
             Segmentation is available.
             TDM transport is available.";
         leaf structureId {
@@ -95,7 +95,7 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
             description "Identifies the Structure for bundling and container.";
         }
         list supportedTdmStructureTypesList {
-            description "Lists the TDM frames that are supported.";
+            description "Lists the TDM frame types that are supported.";
             key 'tdmStructureTypeId';
             ordered-by system;
             uses MicrowaveModel-TypeDefinitions:tdmStructureType;
@@ -109,7 +109,6 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
         }
     }
     grouping HybridMwStructureConfiguration {
-        description "Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.";
         container structureType {
             description "TDM frame to be applied.";
             config true;
@@ -129,7 +128,6 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
         }
     }
     grouping HybridMwStructureStatus {
-        description "Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.";
         list segmentStatusList {
             description "Status of each segment (all TDM and one Ethernet).
                 Multiplicity = HybridMwStructure::StructureConfiguration::tdmReservedNumberOfSegments + 1";
