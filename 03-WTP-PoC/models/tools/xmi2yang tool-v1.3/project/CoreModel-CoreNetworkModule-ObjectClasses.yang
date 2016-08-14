@@ -123,7 +123,8 @@ Aggregation is used as for the FD to allow changes in hierarchy.
         }
     }
     container NetworkElement {
-    presence "Enables ONF CoreModel support";        description "The Network Element (NE) object class represents a network element (traditional NE) in the data plane.
+        presence "Enables ONF CoreModel support";
+        description "The Network Element (NE) object class represents a network element (traditional NE) in the data plane.
             A data plane network element is essentially a consolidation of capabilities that can be viewed and controlled through a 'single' management-control port.
             In the direct interface from an SDN controller to a network element in the data plane, the NetworkElement object defines the scope of control for the resources within the network element
             For example internal transfer of user information between the external terminations (ports of the NE), encapsulation, multiplexing/demultiplexing, and OAM functions, etc. 

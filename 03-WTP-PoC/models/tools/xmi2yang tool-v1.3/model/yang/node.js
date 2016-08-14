@@ -257,7 +257,7 @@ Node.prototype.writeNode = function (layer) {
     // [sko] hack - top-level objects must not be mandatory
     var presence = '';
     if (name === 'container NetworkElement'){
-      presence = PRE + 'presence "Enables ONF CoreModel support";';
+      presence = PRE + PRE + 'presence "Enables ONF CoreModel support";\r\n';
     }
     var s = PRE + name + " {\r\n" +
         presence +
