@@ -5,6 +5,6 @@ According to the software architecture ODL internal applications are stored in f
 
 ## Software Architecture
 The following figure shows the proposed software arichtecture. 
-Please consider it as a "working document" or guideline.
+Please consider it as a "working document" or guidelines.
 
 ![Alt text](software_architecture.png?raw=true "Software architecture")
