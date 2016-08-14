@@ -43,7 +43,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-07-25">
+  <revision date="2016-08-09">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -58,7 +58,8 @@
   </feature>
   <list name="MW_PureEthernetStructure_Pac">
     <description>
-      <text>LTP(MWS-TTP)</text>
+      <text>LTP(MWS-TTP)
+The pureEthernetStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting Ethernet traffic only.</text>
     </description>
     <key value="layerProtocol"/>
     <config value="true"/>
@@ -103,8 +104,7 @@
       <text>Describes the logical structuring of the physical capacity provided by a pure Ethernet microwave device.
 Segmentation is not available.
 No fixed segment size.
-No TDM transport.
-Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.</text>
+No TDM transport.</text>
     </description>
     <leaf name="structureId">
       <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
@@ -123,9 +123,6 @@ Basic principles for defining the Default values of Capability attributes: 1)NO 
     </leaf>
   </grouping>
   <grouping name="PureEthernetStructureConfiguration">
-    <description>
-      <text>Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.</text>
-    </description>
     <list name="problemSeverityList">
       <description>
         <text>Severity of the type of problem to be configured.</text>
@@ -137,9 +134,6 @@ Basic principles for defining the Default values of Capability attributes: 1)NO 
     </list>
   </grouping>
   <grouping name="PureEthernetStructureStatus">
-    <description>
-      <text>Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.</text>
-    </description>
     <container name="segmentStatusList">
       <description>
         <text>Status of the Ethernet transport segment.

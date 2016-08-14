@@ -43,7 +43,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-07-31">
+  <revision date="2016-08-09">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -58,7 +58,8 @@
   </feature>
   <list name="MW_HybridMwStructure_Pac">
     <description>
-      <text>LTP(MWS-TTP)</text>
+      <text>LTP(MWS-TTP)
+The HybridMwStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting TDM and Ethernet traffic.</text>
     </description>
     <key value="layerProtocol"/>
     <config value="true"/>
@@ -101,7 +102,6 @@
   <grouping name="HybridMwStructureCapability">
     <description>
       <text>Describes the logical structuring of the physical capacity provided by a hybrid microwave device (TDM + Ethernet).
-Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.
 Segmentation is available.
 TDM transport is available.</text>
     </description>
@@ -114,7 +114,7 @@ TDM transport is available.</text>
     </leaf>
     <list name="supportedTdmStructureTypesList">
       <description>
-        <text>Lists the TDM frames that are supported.</text>
+        <text>Lists the TDM frame types that are supported.</text>
       </description>
       <key value="tdmStructureTypeId"/>
       <ordered-by value="system"/>
@@ -131,9 +131,6 @@ TDM transport is available.</text>
     </leaf>
   </grouping>
   <grouping name="HybridMwStructureConfiguration">
-    <description>
-      <text>Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.</text>
-    </description>
     <container name="structureType">
       <description>
         <text>TDM frame to be applied.</text>
@@ -159,9 +156,6 @@ TDM transport is available.</text>
     </list>
   </grouping>
   <grouping name="HybridMwStructureStatus">
-    <description>
-      <text>Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.</text>
-    </description>
     <list name="segmentStatusList">
       <description>
         <text>Status of each segment (all TDM and one Ethernet).

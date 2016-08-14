@@ -27,7 +27,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-07-10">
+  <revision date="2016-08-11">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -149,6 +149,7 @@ Is not present in more complex cases.</text>
     </leaf>
   </grouping>
   <container name="NetworkElement">
+    <presence value="Enables ONF CoreModel support"/>
     <description>
       <text>The Network Element (NE) object class represents a network element (traditional NE) in the data plane.
 A data plane network element is essentially a consolidation of capabilities that can be viewed and controlled through a 'single' management-control port.
@@ -355,13 +356,13 @@ Will indicate switch state and change of state.</text>
     </description>
     <uses name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:LocalClass"/>
     <leaf name="holdOffTime">
-      <type name="int64"/>
+      <type name="int32"/>
       <description>
         <text>This attribute indicates the time, in seconds, between declaration of unacceptable quality of signal on the currently selected FcPort, and the initialization of the protection switching algorithm. </text>
       </description>
     </leaf>
     <leaf name="waitToRestoreTime">
-      <type name="int64"/>
+      <type name="int32"/>
       <description>
         <text>If the protection system is revertive, this attribute specifies the amount of time, in seconds, to wait after the preferred FcPort returns to an acceptable state of operaion (e.g a fault has cleared) before restoring traffic to that preferred FcPort. </text>
       </description>

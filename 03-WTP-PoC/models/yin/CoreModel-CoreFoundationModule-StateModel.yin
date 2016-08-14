@@ -19,7 +19,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-07-01">
+  <revision date="2016-08-09">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -46,7 +46,7 @@ lifecycle:Preliminary</text>
 The value is the current control target. The actual administrativeState may or may not be at target.</text>
       </description>
     </leaf>
-    <leaf name="adminsatratveState">
+    <leaf name="administrativeState">
       <type name="AdministrativeState"/>
       <config value="false"/>
       <description>

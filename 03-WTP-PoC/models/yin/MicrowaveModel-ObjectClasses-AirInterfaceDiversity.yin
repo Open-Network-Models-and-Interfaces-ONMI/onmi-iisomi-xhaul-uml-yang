@@ -39,7 +39,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-07-31">
+  <revision date="2016-08-09">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -91,8 +91,7 @@
   </list>
   <grouping name="AirInterfaceDiversityCapability">
     <description>
-      <text>Describes the capabilities in implementing different types of air interface diversity.
-Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.</text>
+      <text>Describes the capabilities in implementing different types of air interface diversity.</text>
     </description>
     <list name="availableKindsOfDiversity">
       <description>
@@ -112,9 +111,6 @@ Basic principles for defining the Default values of Capability attributes: 1)NO 
     </leaf>
   </grouping>
   <grouping name="AirInterfaceDiversityConfiguration">
-    <description>
-      <text>Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.</text>
-    </description>
     <container name="airInterfaceDiversity">
       <description>
         <text>Type of air interface diversity configured at the link.</text>
@@ -144,23 +140,11 @@ Basic principles for defining the Default values of Capability attributes: 1)NO 
     </list>
   </grouping>
   <grouping name="AirInterfaceDiversityStatus">
-    <description>
-      <text>Basic principles for defining the Default values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.</text>
-    </description>
-    <leaf name="snrCur">
+    <leaf name="snirCur">
       <type name="int8"/>
       <config value="false"/>
       <description>
-        <text>Currently measured signal to noise ratio of the combined signals.</text>
-      </description>
-      <units name="dB"/>
-      <default value="-99"/>
-    </leaf>
-    <leaf name="mseCur">
-      <type name="int8"/>
-      <config value="false"/>
-      <description>
-        <text>Currently measured mean squared error of the combined signals.</text>
+        <text>Currently measured signal to (noise+interference) ratio of the combined signals.</text>
       </description>
       <units name="dB"/>
       <default value="-99"/>

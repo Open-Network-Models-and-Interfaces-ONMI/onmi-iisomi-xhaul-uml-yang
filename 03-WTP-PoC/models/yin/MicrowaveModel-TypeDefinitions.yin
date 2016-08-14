@@ -2,11 +2,15 @@
 <module name="MicrowaveModel-TypeDefinitions"
         xmlns="urn:ietf:params:xml:ns:yang:yin:1"
         xmlns:MicrowaveModel-TypeDefinitions="uri:onf:MicrowaveModel-TypeDefinitions"
-        xmlns:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages="uri:onf:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages">
+        xmlns:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages="uri:onf:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"
+        xmlns:CoreModel-CoreFoundationModule-StateModel="uri:onf:CoreModel-CoreFoundationModule-StateModel">
   <namespace uri="uri:onf:MicrowaveModel-TypeDefinitions"/>
   <prefix value="MicrowaveModel-TypeDefinitions"/>
   <import module="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages">
     <prefix value="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"/>
+  </import>
+  <import module="CoreModel-CoreFoundationModule-StateModel">
+    <prefix value="CoreModel-CoreFoundationModule-StateModel"/>
   </import>
   <organization>
     <text>ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project</text>
@@ -23,7 +27,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-07-31">
+  <revision date="2016-08-11">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -52,7 +56,7 @@
       <type name="string"/>
       <config value="false"/>
       <description>
-        <text>Unique name of an international agreement that describe allocations of frequency channels, to which this air interface complies, to be listed. Corresponding channel plans to be delivered by the hardware vendor and to be stored by the operator in the controller/application/attached database.</text>
+        <text>Unique name (e.g. CEPT/ERC/REC (01) 04 Annex 5) of an international agreement that describe allocations of frequency channels, to which this air interface complies. Corresponding channel plans to be delivered by the hardware vendor and to be stored by the operator in the controller/application attached database.</text>
       </description>
       <default value="Supported Channel Plan not yet defined."/>
     </leaf>
@@ -60,8 +64,9 @@
       <type name="boolean"/>
       <config value="false"/>
       <description>
-        <text>'1' in case the distance between transmitted and received frequency is variable.</text>
+        <text>To be set on  'true', if the distance between transmitted and received frequency is variable.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="duplexDistance">
       <type name="int32"/>
@@ -76,8 +81,9 @@
       <type name="boolean"/>
       <config value="false"/>
       <description>
-        <text>In case the microwave radio is capable of automatically selecting the transmit frequency in unlicensed bands, this field shall contain an '1'.</text>
+        <text>In case the microwave radio is capable of automatically selecting the transmit frequency in unlicensed bands, this field shall contain a 'true'.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <list name="transmissionModeList">
       <key value="transmissionModeId"/>
@@ -87,9 +93,6 @@
     </list>
   </grouping>
   <grouping name="transmissionModeType">
-    <description>
-      <text>Basic principles for defining the Default values of Capability/transmissionMode attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.</text>
-    </description>
     <leaf name="transmissionModeId">
       <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
       <config value="false"/>
@@ -110,7 +113,7 @@
       <type name="int16"/>
       <config value="false"/>
       <description>
-        <text>Modulation scheme, which is base to the other characteristics described in the same instance of Script. The modulation scheme shall be described by the number of symbols (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256').</text>
+        <text>Modulation scheme, which is base to the other characteristics described in the same transmissionModeType data type. The modulation scheme shall be described by the number of symbols (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256').</text>
       </description>
       <units name="symbols"/>
       <default value="-1"/>
@@ -173,15 +176,16 @@
       <type name="boolean"/>
       <config value="false"/>
       <description>
-        <text>In case the Air Interface Port is capable of XPIC, this field shall contain an '1'.</text>
+        <text>In case the Air Interface Port is capable of XPIC, this field shall contain a 'true'.</text>
       </description>
+      <default value="false"/>
     </leaf>
   </grouping>
   <typedef name="polarizationType">
     <type name="enumeration">
+      <enum name="not-specified"/>
       <enum name="horizontal"/>
       <enum name="vertical"/>
-      <enum name="not-specified"/>
     </type>
   </typedef>
   <grouping name="airInterfaceProblemType">
@@ -207,8 +211,7 @@
   </grouping>
   <grouping name="airInterfacePerformanceType">
     <description>
-      <text>Consolidated performance information of the air interface.
-Basic principles for defining the Defaults values of Performance attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute.</text>
+      <text>Consolidated performance information of the air interface.</text>
     </description>
     <leaf name="es">
       <type name="int32"/>
@@ -268,7 +271,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <type name="int8"/>
       <config value="false"/>
       <description>
-        <text>Average transmit power. Signed integers are required.</text>
+        <text>Averaged transmit power. Signed integers are required.</text>
       </description>
       <units name="dBm"/>
       <default value="99"/>
@@ -295,7 +298,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <type name="int8"/>
       <config value="false"/>
       <description>
-        <text>Average receive level. Signed integers are required.</text>
+        <text>Averaged receive level. Signed integers are required.</text>
       </description>
       <units name="dBm"/>
       <default value="99"/>
@@ -423,56 +426,29 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <units name="s"/>
       <default value="-1"/>
     </leaf>
-    <leaf name="snrMin">
+    <leaf name="snirMin">
       <type name="int8"/>
       <config value="false"/>
       <description>
-        <text>Minimum signal to noise ratio.</text>
+        <text>Minimum signal to (noise+interference) ratio.</text>
       </description>
       <units name="dB"/>
       <default value="-99"/>
     </leaf>
-    <leaf name="snrMax">
+    <leaf name="snirMax">
       <type name="int8"/>
       <config value="false"/>
       <description>
-        <text>Maximum signal to noise ratio.</text>
+        <text>Maximum signal to (noise+interference) ratio.</text>
       </description>
       <units name="dB"/>
       <default value="-99"/>
     </leaf>
-    <leaf name="snrAvg">
+    <leaf name="snirAvg">
       <type name="int8"/>
       <config value="false"/>
       <description>
-        <text>Average signal to noise ratio.</text>
-      </description>
-      <units name="dB"/>
-      <default value="-99"/>
-    </leaf>
-    <leaf name="mseMin">
-      <type name="int8"/>
-      <config value="false"/>
-      <description>
-        <text>Minimum mean squared error.</text>
-      </description>
-      <units name="dB"/>
-      <default value="-99"/>
-    </leaf>
-    <leaf name="mseMax">
-      <type name="int8"/>
-      <config value="false"/>
-      <description>
-        <text>Maximum mean squared error.</text>
-      </description>
-      <units name="dB"/>
-      <default value="-99"/>
-    </leaf>
-    <leaf name="mseAvg">
-      <type name="int8"/>
-      <config value="false"/>
-      <description>
-        <text>Average mean squared error.</text>
+        <text>Averaged signal to (noise+interference) ratio.</text>
       </description>
       <units name="dB"/>
       <default value="-99"/>
@@ -499,7 +475,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <type name="int8"/>
       <config value="false"/>
       <description>
-        <text>Average cross polarization discrimination.</text>
+        <text>Averaged cross polarization discrimination.</text>
       </description>
       <units name="dB"/>
       <default value="-99"/>
@@ -526,7 +502,7 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
       <type name="int8"/>
       <config value="false"/>
       <description>
-        <text>Average temperature (in degree Celsius) of the radio module inside the outdoor unit.</text>
+        <text>Averaged temperature (in degree Celsius) of the radio module inside the outdoor unit.</text>
       </description>
       <units name="C"/>
       <default value="-99"/>
@@ -587,9 +563,9 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
   </grouping>
   <typedef name="airInterfaceDiversityStatusType">
     <type name="enumeration">
-      <enum name="allAiActive"/>
-      <enum name="notAllAiActive"/>
       <enum name="groupDown"/>
+      <enum name="notAllAiActive"/>
+      <enum name="allAiActive"/>
     </type>
   </typedef>
   <grouping name="airInterfaceDiversityProblemType">
@@ -615,59 +591,31 @@ Basic principles for defining the Defaults values of Performance attributes: 1)E
   </grouping>
   <grouping name="airInterfaceDiversityPerformanceType">
     <description>
-      <text>Consolidated performance information of the air interface diversity group.
-Basic principles for defining the Default values of Performance attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute.</text>
+      <text>Consolidated performance information of the air interface diversity group.</text>
     </description>
-    <leaf name="snrMin">
+    <leaf name="snirMin">
       <type name="int8"/>
       <config value="false"/>
       <description>
-        <text>Minimum signal to noise ratio of the combined signals.</text>
+        <text>Minimum signal to (noise+interference) ratio of the combined signals.</text>
       </description>
       <units name="dB"/>
       <default value="-99"/>
     </leaf>
-    <leaf name="snrMax">
+    <leaf name="snirMax">
       <type name="int8"/>
       <config value="false"/>
       <description>
-        <text>Maximum signal to noise ratio of the combined signals.</text>
+        <text>Maximum signal to (noise+interference) ratio of the combined signals.</text>
       </description>
       <units name="dB"/>
       <default value="-99"/>
     </leaf>
-    <leaf name="snrAvg">
+    <leaf name="snirAvg">
       <type name="int8"/>
       <config value="false"/>
       <description>
-        <text>Average signal to noise ratio of the combined signals.</text>
-      </description>
-      <units name="dB"/>
-      <default value="-99"/>
-    </leaf>
-    <leaf name="mseMin">
-      <type name="int8"/>
-      <config value="false"/>
-      <description>
-        <text>Minimum mean squared error of the combined signals.</text>
-      </description>
-      <units name="dB"/>
-      <default value="-99"/>
-    </leaf>
-    <leaf name="mseMax">
-      <type name="int8"/>
-      <config value="false"/>
-      <description>
-        <text>Maximum mean squared error of the combined signals.</text>
-      </description>
-      <units name="dB"/>
-      <default value="-99"/>
-    </leaf>
-    <leaf name="mseAvg">
-      <type name="int8"/>
-      <config value="false"/>
-      <description>
-        <text>Average mean squared error of the combined signals.</text>
+        <text>Average signal to (noise+interference) ratio of the combined signals.</text>
       </description>
       <units name="dB"/>
       <default value="-99"/>
@@ -728,8 +676,7 @@ Basic principles for defining the Default values of Performance attributes: 1)Ev
   </grouping>
   <typedef name="structurePerformanceType">
     <description>
-      <text>Consolidated performance information of the Structure.
-Basic principles for defining the Defaults values of Performance attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute.</text>
+      <text>Consolidated performance information of the Structure.</text>
     </description>
     <type name="int32"/>
   </typedef>
@@ -777,9 +724,18 @@ Combinations of structureId and segmentId must be unique inside the device to as
       <type name="boolean"/>
       <config value="false"/>
       <description>
-        <text>The number of segments, which is configured by Structure::StructureConfiguration::tdmReservedNumberOfSegements, has to be reserved for TDM. Starting from the lowest index value, these segments have to be marked with an '1' in segmentIsReservedForTdm.
+        <text>The number of segments, which is configured by Structure::StructureConfiguration::tdmReservedNumberOfSegements, has to be reserved for TDM. Starting from the lowest index value, these segments have to be marked with a 'true' in segmentIsReservedForTdm.
 </text>
       </description>
+      <default value="false"/>
+    </leaf>
+    <leaf name="operationalStatus">
+      <type name="CoreModel-CoreFoundationModule-StateModel:OperationalState"/>
+      <config value="false"/>
+      <description>
+        <text>Current operational status of each segment.</text>
+      </description>
+      <default value="DISABLED"/>
     </leaf>
   </grouping>
   <grouping name="containerProblemType">
@@ -805,8 +761,7 @@ Combinations of structureId and segmentId must be unique inside the device to as
   </grouping>
   <grouping name="containerPerformanceType">
     <description>
-      <text>Consolidated performance information of the Container.
-Basic principles for defining the Defaults values of Performance attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute.</text>
+      <text>Consolidated performance information of the Container.</text>
     </description>
     <leaf name="txEthernetBytesMaxS">
       <type name="int32"/>

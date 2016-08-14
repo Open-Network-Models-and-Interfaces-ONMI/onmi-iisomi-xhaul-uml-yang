@@ -39,7 +39,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-07-25">
+  <revision date="2016-08-11">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -90,22 +90,21 @@
     </list>
   </list>
   <grouping name="EthernetContainerCapability">
-    <description>
-      <text>Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.</text>
-    </description>
     <leaf name="bundlingIsAvail">
       <type name="boolean"/>
       <config value="false"/>
       <description>
-        <text>This attribute will have to be set 'true', if the device allows combining resources from several air interfaces for transporting this Ethernet container.</text>
+        <text>This attribute has to be set on 'true', if the device allows combining resources from several air interfaces for transporting this Ethernet container.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="packetCompressionIsAvail">
       <type name="boolean"/>
       <config value="false"/>
       <description>
-        <text>In case packet compression can be activated, but not configured to a certain type, packetCompressionAvail shall be set to '1', but none of the type specific booleans.</text>
+        <text>In case packet compression can be activated, but not configured to a certain type, packetCompressionAvail shall be set on 'true', but none of the compression level specific booleans.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="layer2CompressionIsAvail">
       <type name="boolean"/>
@@ -113,6 +112,7 @@
       <description>
         <text>Packet compression on layer 2 available at the device.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="vlanCompressionIsAvail">
       <type name="boolean"/>
@@ -120,6 +120,7 @@
       <description>
         <text>Packet compression on VLAN layer available at the device.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="qInQCompressionIsAvail">
       <type name="boolean"/>
@@ -127,6 +128,7 @@
       <description>
         <text>Packet compression on layer of a second VLAN available at the device.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="mplsCompressionIsAvail">
       <type name="boolean"/>
@@ -134,6 +136,7 @@
       <description>
         <text>Packet compression on mpls layer available at the device.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="ipv4CompressionIsAvail">
       <type name="boolean"/>
@@ -141,6 +144,7 @@
       <description>
         <text>Packet compression on layer 3 for IPv4 available at the device.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="ipv6CompressionIsAvail">
       <type name="boolean"/>
@@ -148,6 +152,7 @@
       <description>
         <text>Packet compression on layer 3 for IPv6 available at the device.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="layer4CompressionIsAvail">
       <type name="boolean"/>
@@ -155,6 +160,7 @@
       <description>
         <text>Packet compression on layer 4 (TCP and UDP header) available at the device.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="encryptionIsAvail">
       <type name="boolean"/>
@@ -162,6 +168,7 @@
       <description>
         <text>Shall be marked 'true', if Ethernet payload encryption is available.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="supportedAlarms">
       <type name="string"/>
@@ -173,13 +180,10 @@
     </leaf>
   </grouping>
   <grouping name="EthernetContainerConfiguration">
-    <description>
-      <text>Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device. 6)Configuration messages provided by the device shall contain the current configuration.</text>
-    </description>
     <leaf name="containerID">
       <type name="string"/>
       <description>
-        <text>ContainterID in Netconf must be the same as EthernetPortID in OpenFlow so a connection can be made between the two items, which are existing separately in the controller.</text>
+        <text>ContainterID in Netconf must be the same as EthernetPortID in OpenFlow so a connection can be made between the two items, which separately exist in the controller.</text>
       </description>
     </leaf>
     <list name="segmentsIDList">
@@ -195,61 +199,70 @@
     <leaf name="packetCompressionIsOn">
       <type name="boolean"/>
       <description>
-        <text>In case packet compression is activated, but no type is activated, it is assumed that the device choses an optimum.</text>
+        <text>In case packet compression is activated, but no type is activated, it is assumed that the device chooses the optimum.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="layer2CompressionIsOn">
       <type name="boolean"/>
       <description>
         <text>Packet compression on layer 2 configured at the device.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="vlanCompressionIsOn">
       <type name="boolean"/>
       <description>
         <text>Packet compression on VLAN layer configured at the device.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="qInQCompressionIsOn">
       <type name="boolean"/>
       <description>
         <text>Packet compression on layer of a second VLAN configured at the device.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="mplsCompressionIsOn">
       <type name="boolean"/>
       <description>
         <text>Packet compression on MPLS layer configured at the device.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="ipv4CompressionIsOn">
       <type name="boolean"/>
       <description>
         <text>Packet compression on layer 3 for IPv4 configured at the device.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="ipv6CompressionIsOn">
       <type name="boolean"/>
       <description>
         <text>Packet compression on layer 3 for IPv6 configured at the device.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="layer4CompressionIsOn">
       <type name="boolean"/>
       <description>
         <text>Packet compression on layer 4 (TCP and UDP header) configured at the device.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="encryptionIsOn">
       <type name="boolean"/>
       <description>
         <text>Activates encryption of the Ethernet payload.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="cryptographicKey">
       <type name="string"/>
       <description>
-        <text>Key for transforming plaintext into ciphertext data.</text>
+        <text>Key for transforming plaintext into cipher text data.</text>
       </description>
       <default value="Cryptographic key not yet defined."/>
     </leaf>
@@ -265,9 +278,6 @@
     </list>
   </grouping>
   <grouping name="EthernetContainerStatus">
-    <description>
-      <text>Basic principles for defining the Defaults values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.</text>
-    </description>
     <leaf name="lastStatusChange">
       <type name="CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime"/>
       <config value="false"/>

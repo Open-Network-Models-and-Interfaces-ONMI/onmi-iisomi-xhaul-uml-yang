@@ -35,7 +35,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-07-10">
+  <revision date="2016-08-11">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -56,9 +56,10 @@
       <description>
         <text>This attribute is used to indicate that the performance data for the current period may not be reliable. Some reasons for this to occur are:- Suspect data were detected by the actual resource doing data collection.- Transition of the administrativeState attribute to/from the 'lock' state.- Transition of the operationalState to/from the 'disabled' state.- Scheduler setting that inhibits the collection function.- The performance counters were reset during the interval.- The currentData (or subclass) object instance was created during the monitoring period.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="elapsedTime">
-      <type name="int64"/>
+      <type name="int32"/>
     </leaf>
   </grouping>
   <list name="Q_822_HistoryData">

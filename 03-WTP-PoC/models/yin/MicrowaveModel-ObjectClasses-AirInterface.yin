@@ -43,7 +43,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-07-31">
+  <revision date="2016-08-11">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -95,8 +95,7 @@
   </list>
   <grouping name="AirInterfaceCapability">
     <description>
-      <text>Describes the 'analog' capabilities of modem and transmitter of the microwave device. Value ranges of attributes are not independently (e.g. min. and max. transmit power depends on modulation). Legal combinations of values are expressed in transmissionModeTypes.
-Basic principles for defining the Default values of Capability attributes: 1)NO Default values for attributes that MUST be delivered from the device. 2)Default values for every attribute that might be delivered. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute.</text>
+      <text>Describes the 'analog' capabilities of modem and transmitter of the microwave device. Value ranges of attributes are not independently (e.g. min. and max. transmit power depends on modulation). Legal combinations of values are expressed in transmissionModeTypes.</text>
     </description>
     <leaf name="typeOfEquipment">
       <type name="string"/>
@@ -110,7 +109,7 @@ Basic principles for defining the Default values of Capability attributes: 1)NO 
       <type name="int32"/>
       <config value="false"/>
       <description>
-        <text>Value of the minimum transmit frequency tunable at the air interface. This value is only relevant, if the channel plan, which is referenced in channelPlanID is stored in the controller.</text>
+        <text>Value of the minimum transmit frequency tunable at the air interface.</text>
       </description>
       <units name="kHz"/>
       <default value="-1"/>
@@ -119,7 +118,7 @@ Basic principles for defining the Default values of Capability attributes: 1)NO 
       <type name="int32"/>
       <config value="false"/>
       <description>
-        <text>Value of the maximum transmit frequency tunable at the air interface. This value is only relevant, if the channel plan, which is referenced in channelPlanID is stored in the controller.</text>
+        <text>Value of the maximum transmit frequency tunable at the air interface.</text>
       </description>
       <units name="kHz"/>
       <default value="-1"/>
@@ -128,7 +127,7 @@ Basic principles for defining the Default values of Capability attributes: 1)NO 
       <type name="int32"/>
       <config value="false"/>
       <description>
-        <text>Value of the minimum receive frequency tunable at the air interface. This value is only relevant, if the channel plan, which is referenced in channelPlanID is stored in the controller.</text>
+        <text>Value of the minimum receive frequency tunable at the air interface.</text>
       </description>
       <units name="kHz"/>
       <default value="-1"/>
@@ -137,7 +136,7 @@ Basic principles for defining the Default values of Capability attributes: 1)NO 
       <type name="int32"/>
       <config value="false"/>
       <description>
-        <text>Value of the maximum receive frequency tunable at the air interface. This value is only relevant, if the channel plan, which is referenced in channelPlanID is stored in the controller.</text>
+        <text>Value of the maximum receive frequency tunable at the air interface.</text>
       </description>
       <units name="kHz"/>
       <default value="-1"/>
@@ -146,15 +145,17 @@ Basic principles for defining the Default values of Capability attributes: 1)NO 
       <type name="boolean"/>
       <config value="false"/>
       <description>
-        <text>In case the Air Interface Port is capable of adaptive modulation, this field shall contain an '1'.</text>
+        <text>In case the device is capable of adaptive modulation, this field shall contain a 'true'.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="mimoIsAvail">
       <type name="boolean"/>
       <config value="false"/>
       <description>
-        <text>In case the device is capable of MIMO, this field shall contain an '1'.</text>
+        <text>In case the device is capable of MIMO, this field shall contain a 'true'.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="mimoChannels">
       <type name="int8"/>
@@ -169,15 +170,17 @@ Basic principles for defining the Default values of Capability attributes: 1)NO 
       <type name="boolean"/>
       <config value="false"/>
       <description>
-        <text>In case the microwave radio is capable of Adjacent Link Interference Cancelation (canceling of interference cause by transmitters located at the same site), this field shall contain an '1'.</text>
+        <text>In case the microwave radio is capable of Adjacent Link Interference Cancelation (canceling of interference cause by transmitters located at the same site), this field shall contain a 'true'.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="atpcIsAvail">
       <type name="boolean"/>
       <config value="false"/>
       <description>
-        <text>In case the microwave radio is capable of ATPC, this field shall contain an '1'.</text>
+        <text>In case the microwave radio is capable of ATPC, this field shall contain a 'true'.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="atpcRange">
       <type name="int8"/>
@@ -186,6 +189,7 @@ Basic principles for defining the Default values of Capability attributes: 1)NO 
         <text>Extent of the ATPC range.</text>
       </description>
       <units name="dB"/>
+      <default value="0"/>
     </leaf>
     <leaf name="encryptionIsAvail">
       <type name="boolean"/>
@@ -193,13 +197,15 @@ Basic principles for defining the Default values of Capability attributes: 1)NO 
       <description>
         <text>Shall be marked 'true', if payload encryption is available.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="loopBackIsAvail">
       <type name="boolean"/>
       <config value="false"/>
       <description>
-        <text>In case the radio is capable of looping back header information of the air interface, this field shall contain an '1'.</text>
+        <text>In case the radio is capable of looping back header information of the air interface, this field shall contain a 'true'.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="maintenanceTimerRange">
       <type name="string"/>
@@ -230,8 +236,7 @@ Basic principles for defining the Default values of Capability attributes: 1)NO 
   </grouping>
   <grouping name="AirInterfaceConfiguration">
     <description>
-      <text>Configuration of the device.
-Basic principles for defining the Default values of Configuration attributes: 1)NO Default values for attributes that MUST be configured by the controller/operator while starting the device. 2)Default values for every attribute that might be configured also at a later stage. 3)The Default value shall be inside the value range of the data type of the attribute. 4)The Default value shall be outside the range of reasonable values of the attribute. 5)Unless there is a value, which the attribute always has right after starting the device.           Configuration messages provided by the device shall contain the current configuration.</text>
+      <text>Configuration of the radio link.</text>
     </description>
     <leaf name="airInterfaceName">
       <type name="string"/>
@@ -283,27 +288,29 @@ The value zero might be used to make the microwave to disable the link ID check.
     <leaf name="polarization">
       <type name="MicrowaveModel-TypeDefinitions:polarizationType"/>
       <description>
-        <text>Allows to document the polarization of the air interface.</text>
+        <text>Allows documenting the polarization of the air interface.</text>
       </description>
       <default value="not-specified"/>
     </leaf>
     <leaf name="powerIsOn">
       <type name="boolean"/>
       <description>
-        <text>Power ON. Activation of the entire radio in a split mount configuration shall be expressed as an '1'.</text>
+        <text>Power ON. Activation of the entire radio in a split mount configuration shall be expressed as a 'true'.</text>
       </description>
       <default value="true"/>
     </leaf>
     <leaf name="transmitterIsOn">
       <type name="boolean"/>
       <description>
-        <text>Activation of the transmitter inside the radio shall be expressed as an '1'.</text>
+        <text>Activation of the transmitter inside the radio shall be expressed as a 'true'.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="receiverIsOn">
       <type name="boolean"/>
       <description>
-        <text>Activation of the receiver inside the radio shall be expressed as an '1'. Attribute shall also be used for RX main and RX diversity squelch in case of diversity configurations.</text>
+        <text>Activation of the receiver inside the radio shall be expressed as a 'true'. Attribute shall also be used for RX main and RX diversity squelches in case of diversity configurations.
+Maintenance Feature</text>
       </description>
       <default value="true"/>
     </leaf>
@@ -318,13 +325,14 @@ The value zero might be used to make the microwave to disable the link ID check.
     <leaf name="adaptiveModulationIsOn">
       <type name="boolean"/>
       <description>
-        <text>Adaptive Modulation. Activation of adaptive modulation shall be expressed as an '1'.</text>
+        <text>Adaptive Modulation. Activation of adaptive modulation shall be expressed as a 'true'.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="modulationMin">
       <type name="int16"/>
       <description>
-        <text>Minimum modulation to be configured (in case adaptive modulation is not used, this value represents also the fixed modulation). The modulation scheme shall be described by the number of symbols (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256'). Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device).</text>
+        <text>Minimum modulation to be configured (in case adaptive modulation is not used, this value represents also the fixed modulation). The modulation scheme shall be described by the number of symbols (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.</text>
       </description>
       <units name="symbols"/>
       <default value="-1"/>
@@ -332,7 +340,7 @@ The value zero might be used to make the microwave to disable the link ID check.
     <leaf name="modulationMax">
       <type name="int16"/>
       <description>
-        <text>Maximum modulation to be configured. The value of this field is only relevant, if Adaptive Modulation has been activated. The modulation scheme shall be described by the number of symbols (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256'). Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device).</text>
+        <text>Maximum modulation to be configured. The value of this field is only relevant, if Adaptive Modulation has been activated. The modulation scheme shall be described by the number of symbols (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.</text>
       </description>
       <units name="symbols"/>
       <default value="-1"/>
@@ -342,24 +350,28 @@ The value zero might be used to make the microwave to disable the link ID check.
       <description>
         <text>Activation of Cross Polarization Interference Cancelation shall be expressed as a 'true'. In case XPIC is not available for the current combination of channel bandwidth and modulation or the hardware in general, this parameter shall always be set to 'false'.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="mimoIsOn">
       <type name="boolean"/>
       <description>
-        <text>Activation of Multiple Input Multiple Output (MIMO) shall be expressed as an '1'.</text>
+        <text>Activation of Multiple Input Multiple Output (MIMO) shall be expressed as a 'true'.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="alicIsOn">
       <type name="boolean"/>
       <description>
-        <text>Activation of Adjacent Link Interference Cancelation (ALIC) shall be expressed as an '1'.</text>
+        <text>Activation of Adjacent Link Interference Cancelation (ALIC) shall be expressed as a 'true'.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="atpcIsOn">
       <type name="boolean"/>
       <description>
-        <text>ATPC. Activation of Automated Transmit Power Control shall be expressed as an '1'.</text>
+        <text>ATPC. Activation of Automated Transmit Power Control shall be expressed as a 'true'.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="atpcThreshUpper">
       <type name="int16"/>
@@ -380,8 +392,9 @@ The value zero might be used to make the microwave to disable the link ID check.
     <leaf name="autoFreqSelectIsOn">
       <type name="boolean"/>
       <description>
-        <text>Activation of automatically selecting the transmit frequency in unlicensed bands shall be expressed as an '1'.</text>
+        <text>Activation of automatically selecting the transmit frequency in unlicensed bands shall be expressed as a 'true'.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="autoFreqSelectRange">
       <type name="int8"/>
@@ -394,8 +407,8 @@ The value zero might be used to make the microwave to disable the link ID check.
     <leaf name="modulationIsOn">
       <type name="boolean"/>
       <description>
-        <text>Maintenance Feature
-De-activation of the modulation of the carrier signal for fault management shall be expressed as an '0'.</text>
+        <text>De-activation of the modulation of the carrier signal for fault management shall be expressed as a 'false'.
+Maintenance Feature</text>
       </description>
       <default value="true"/>
     </leaf>
@@ -404,6 +417,7 @@ De-activation of the modulation of the carrier signal for fault management shall
       <description>
         <text>Activates encryption of the payload.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="cryptographicKey">
       <type name="string"/>
@@ -415,9 +429,10 @@ De-activation of the modulation of the carrier signal for fault management shall
     <leaf name="loopBackIsOn">
       <type name="boolean"/>
       <description>
-        <text>Maintenance Feature
-If this attribute is set to 'true', the received IF signal is transmitted back to the remote end.</text>
+        <text>If this attribute is set to 'true', the received IF signal is transmitted back to the remote end.
+Maintenance Feature</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="maintenanceTimer">
       <type name="int32"/>
@@ -440,8 +455,7 @@ If this attribute is set to 'true', the received IF signal is transmitted back t
   </grouping>
   <grouping name="AirInterfaceStatus">
     <description>
-      <text>Measurements of current values on the air interface and operational status of the device.
-Basic principles for defining the Default values of Status attributes: 1)Every attribute shall have a Default value. 2)The Default value shall be inside the value range of the data type of the attribute. 3)The Default value shall be outside the range of reasonable values of the attribute. 4)Unless there is a value, which the attribute always has right after starting the device. 5)Status messages provided by the device shall either contain actual status information or if not possible these default values.</text>
+      <text>Measurements of current values on the air interface and operational status of the device.</text>
     </description>
     <leaf name="txFrequencyCur">
       <type name="int32"/>
@@ -465,7 +479,7 @@ Basic principles for defining the Default values of Status attributes: 1)Every a
       <type name="int8"/>
       <config value="false"/>
       <description>
-        <text>Current transmit level. Signed Byte is required.</text>
+        <text>Current transmit level.</text>
       </description>
       <units name="dBm"/>
       <default value="99"/>
@@ -474,7 +488,7 @@ Basic principles for defining the Default values of Status attributes: 1)Every a
       <type name="int8"/>
       <config value="false"/>
       <description>
-        <text>Current receive level. Signed Byte is required.</text>
+        <text>Current receive level.</text>
       </description>
       <units name="dBm"/>
       <default value="99"/>
@@ -483,7 +497,7 @@ Basic principles for defining the Default values of Status attributes: 1)Every a
       <type name="int16"/>
       <config value="false"/>
       <description>
-        <text>Currently operated modulation on transmit path. The modulation scheme shall be described by the number of symbols (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256'). Allowed values are defined in AirInterface::Script::modulationScheme (all instances of the device).</text>
+        <text>Currently operated modulation on transmit path. The modulation scheme shall be described by the number of symbols (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.</text>
       </description>
       <units name="symbols"/>
       <default value="-1"/>
@@ -497,20 +511,11 @@ Basic principles for defining the Default values of Status attributes: 1)Every a
       <units name="%"/>
       <default value="-1"/>
     </leaf>
-    <leaf name="snrCur">
+    <leaf name="snirCur">
       <type name="int8"/>
       <config value="false"/>
       <description>
-        <text>Currently measured signal to noise ratio.</text>
-      </description>
-      <units name="dB"/>
-      <default value="-99"/>
-    </leaf>
-    <leaf name="mseCur">
-      <type name="int8"/>
-      <config value="false"/>
-      <description>
-        <text>Currently measured mean squared error.</text>
+        <text>Currently measured signal to (noise+interference) ratio.</text>
       </description>
       <units name="dB"/>
       <default value="-99"/>
@@ -530,7 +535,7 @@ Basic principles for defining the Default values of Status attributes: 1)Every a
       <description>
         <text>Current temperature (in degree Celsius) of the radio module inside the outdoor unit.</text>
       </description>
-      <units name="C"/>
+      <units name="Celsius"/>
       <default value="-99"/>
     </leaf>
     <leaf name="lastStatusChange">
@@ -546,57 +551,81 @@ _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' m
       <type name="boolean"/>
       <config value="false"/>
       <description>
-        <text>If the radio unit has power and is switched on, this shall be expressed as an '1'.</text>
+        <text>If the radio unit has power and is switched on, this shall be expressed as a 'true'.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="linkIsUp">
       <type name="boolean"/>
       <config value="false"/>
       <description>
-        <text>If connection is established to the remote site with the same linkID, this shall be expressed as an '1'.</text>
+        <text>If connection is established to the remote site with the same linkID, this shall be expressed as a 'true'.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="xpicIsUp">
       <type name="boolean"/>
       <config value="false"/>
       <description>
-        <text>If XPIC is currently actually working (not just configured), this shall be expressed as an '1'.</text>
+        <text>If XPIC is currently actually working (not just configured), this shall be expressed as a 'true'.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="mimoIsUp">
       <type name="boolean"/>
       <config value="false"/>
       <description>
-        <text>If MIMO is currently actually working (not just configured), this shall be expressed as an '1'.</text>
+        <text>If MIMO is currently actually working (not just configured), this shall be expressed as a 'true'.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="alicIsUp">
       <type name="boolean"/>
       <config value="false"/>
       <description>
-        <text>If Adjacent Link Interference Cancelation (ALIC) is currently actually working (not just configured), this shall be expressed as an '1'.</text>
+        <text>If Adjacent Link Interference Cancelation (ALIC) is currently actually working (not just configured), this shall be expressed as a 'true'.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="atpcIsUp">
       <type name="boolean"/>
       <config value="false"/>
       <description>
-        <text>If ATPC is currently actually working (not just configured), this shall be expressed as an '1'.</text>
+        <text>If ATPC is currently actually working (not just configured), this shall be expressed as a 'true'.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="autoFreqSelectIsUp">
       <type name="boolean"/>
       <config value="false"/>
       <description>
-        <text>If automated frequency selection is currently actually working (not just configured), this shall be expressed as an '1'.</text>
+        <text>If automated frequency selection is currently actually working (not just configured), this shall be expressed as a 'true'.</text>
       </description>
+      <default value="false"/>
     </leaf>
     <leaf name="loopBackIsUp">
       <type name="boolean"/>
       <config value="false"/>
       <description>
-        <text>If loop back of the air interface header is currently active (not just configured), this shall be expressed as an '1'.</text>
+        <text>If loop back of the air interface header is currently active (not just configured), this shall be expressed as a 'true'.</text>
       </description>
+      <default value="false"/>
+    </leaf>
+    <leaf name="localEndPointId">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>The value of the localEndPointId is a vendor specific identifier of the air interface, used by the node to discover a microwave radio link.</text>
+      </description>
+      <default value="not-supported"/>
+    </leaf>
+    <leaf name="remoteEndPointId">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>The value of the remoteEndPointId is a vendor specific identifier or the airinterface at the remote side, used to by the node to discover a microwave radio link.</text>
+      </description>
+      <default value="not-supported"/>
     </leaf>
   </grouping>
   <grouping name="AirInterfaceCurrentProblem">
@@ -624,6 +653,9 @@ _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' m
     </container>
   </grouping>
   <list name="CoChannelGroup">
+    <description>
+      <text>Required for configuring XPIC, MIMO and ALIC.</text>
+    </description>
     <key value="coChannelGroupId"/>
     <config value="true"/>
     <leaf name="coChannelGroupId">
@@ -631,7 +663,7 @@ _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' m
     </leaf>
     <leaf-list name="airInterfaceList">
       <description>
-        <text>List of air interfaces, which are part of the co-channel (XPIC, MIMO, AFR) group.</text>
+        <text>List of air interfaces, which are part of the co-channel (XPIC, MIMO, ALIC) group.</text>
       </description>
       <ordered-by value="system"/>
       <type name="leafref">
@@ -641,7 +673,7 @@ _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' m
     <leaf name="sortOfCoChannelGroup">
       <type name="string"/>
       <description>
-        <text>Type of group of air interfaces with the same transmit and receive frequency. The values shall be chosen from the following _list:'XPIC', 'MIMO', 'AFR';</text>
+        <text>Type of group of air interfaces with the same transmit and receive frequency. The values shall be chosen from the following _list:'XPIC', 'MIMO', 'ALIC';</text>
       </description>
     </leaf>
   </list>
