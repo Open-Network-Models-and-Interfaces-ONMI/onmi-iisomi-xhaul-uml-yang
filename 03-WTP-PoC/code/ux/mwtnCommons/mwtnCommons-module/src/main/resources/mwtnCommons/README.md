@@ -11,3 +11,13 @@ Common functions are:
 * Communication with the RestConf API of OpenDaylight.
 * WebSocket subscription for notification handling
 * Implementation of common object classes as defined by the Microwave Information model (e.g. NetConfServer, NetworkElement, LogicalTerminationPoint, LayerProtocol, MW_AirInterface_Pac, MW_PureEthernetStructure_Pac, MW_EthernetContainer_Pac)
+* Enhanced angular.js features for web development, which are not native in ODL DLUX.
+
+## Installation
+
+Additional angular.js feature and implementations are listed in the file [bower.json](./bower.json).
+
+```
+bower install
+```
+Please see [bower.io](https://bower.io/) for further information about bower.
