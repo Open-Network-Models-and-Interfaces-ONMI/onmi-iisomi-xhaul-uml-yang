@@ -11,7 +11,7 @@ module: CoreModel-CoreNetworkModule-ObjectClasses
    |  |  +--rw value?       string
    |  +--ro operationalState?        OperationalState
    |  +--rw administrativeControl?   AdministrativeControl
-   |  +--ro adminsatratveState?      AdministrativeState
+   |  +--ro administrativeState?     AdministrativeState
    |  +--rw lifecycleState?          LifecycleState
    |  +--rw localIdList* [valueName]
    |  |  +--rw valueName    string
@@ -31,7 +31,7 @@ module: CoreModel-CoreNetworkModule-ObjectClasses
    |  |  |  +--rw value?       string
    |  |  +--ro operationalState?        OperationalState
    |  |  +--rw administrativeControl?   AdministrativeControl
-   |  |  +--ro adminsatratveState?      AdministrativeState
+   |  |  +--ro administrativeState?     AdministrativeState
    |  |  +--rw lifecycleState?          LifecycleState
    |  |  +--rw localIdList* [valueName]
    |  |  |  +--rw valueName    string
@@ -52,7 +52,7 @@ module: CoreModel-CoreNetworkModule-ObjectClasses
    |  |  |  +--rw value?       string
    |  |  +--ro operationalState?         OperationalState
    |  |  +--rw administrativeControl?    AdministrativeControl
-   |  |  +--ro adminsatratveState?       AdministrativeState
+   |  |  +--ro administrativeState?      AdministrativeState
    |  |  +--rw lifecycleState?           LifecycleState
    |  |  +--rw localIdList* [valueName]
    |  |  |  +--rw valueName    string
@@ -64,7 +64,7 @@ module: CoreModel-CoreNetworkModule-ObjectClasses
    |  |  +--rw operType?                 CoreModel-CoreNetworkModule-TypeDefinitions:OperType
    |  |  +--rw _selectedFcPortRefList*   -> /ForwardingConstruct/_fcPortList/uuid
    |  +--rw forwardingDirection?     CoreModel-CoreNetworkModule-TypeDefinitions:ForwardingDirection
-   +--rw NetworkElement
+   +--rw NetworkElement!
       +--rw nameList* [valueName]
       |  +--rw valueName    string
       |  +--rw value?       string
@@ -76,7 +76,7 @@ module: CoreModel-CoreNetworkModule-ObjectClasses
       |  +--rw value?       string
       +--ro operationalState?        OperationalState
       +--rw administrativeControl?   AdministrativeControl
-      +--ro adminsatratveState?      AdministrativeState
+      +--ro administrativeState?     AdministrativeState
       +--rw lifecycleState?          LifecycleState
       +--rw localIdList* [valueName]
       |  +--rw valueName    string
@@ -94,7 +94,7 @@ module: CoreModel-CoreNetworkModule-ObjectClasses
       |  |  +--rw value?       string
       |  +--ro operationalState?        OperationalState
       |  +--rw administrativeControl?   AdministrativeControl
-      |  +--ro adminsatratveState?      AdministrativeState
+      |  +--ro administrativeState?     AdministrativeState
       |  +--rw lifecycleState?          LifecycleState
       |  +--rw localIdList* [valueName]
       |  |  +--rw valueName    string
@@ -116,7 +116,7 @@ module: CoreModel-CoreNetworkModule-ObjectClasses
          |  +--rw value?       string
          +--ro operationalState?        OperationalState
          +--rw administrativeControl?   AdministrativeControl
-         +--ro adminsatratveState?      AdministrativeState
+         +--ro administrativeState?     AdministrativeState
          +--rw lifecycleState?          LifecycleState
          +--rw localIdList* [valueName]
          |  +--rw valueName    string
@@ -136,7 +136,7 @@ module: CoreModel-CoreNetworkModule-ObjectClasses
          |  |  +--rw value?       string
          |  +--ro operationalState?           OperationalState
          |  +--rw administrativeControl?      AdministrativeControl
-         |  +--ro adminsatratveState?         AdministrativeState
+         |  +--ro administrativeState?        AdministrativeState
          |  +--rw lifecycleState?             LifecycleState
          |  +--rw localIdList* [valueName]
          |  |  +--rw valueName    string
@@ -171,8 +171,7 @@ module: MicrowaveModel-ObjectClasses-AirInterfaceDiversity
       |     +--ro problemName?       string
       |     +--ro problemSeverity?   severityType
       +--ro airInterfaceDiversityStatus
-      |  +--ro snrCur?                        int8
-      |  +--ro mseCur?                        int8
+      |  +--ro snirCur?                       int8
       |  +--ro airInterfaceDiversityStatus?   MicrowaveModel-TypeDefinitions:airInterfaceDiversityStatusType
       |  +--ro lastStatusChange?              CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
       +--ro airInterfaceDiversityCurrentProblemList* [sequenceNumber]
@@ -192,12 +191,9 @@ module: MicrowaveModel-ObjectClasses-AirInterfaceDiversity
       |  +--ro elapsedTime?           int32
       |  +--ro timestamp?             G_874_1_model-Type_Definitions:DateAndTime
       |  +--ro performanceData
-      |     +--ro snrMin?   int8
-      |     +--ro snrMax?   int8
-      |     +--ro snrAvg?   int8
-      |     +--ro mseMin?   int8
-      |     +--ro mseMax?   int8
-      |     +--ro mseAvg?   int8
+      |     +--ro snirMin?   int8
+      |     +--ro snirMax?   int8
+      |     +--ro snirAvg?   int8
       +--ro airInterfaceDiversityHistoricalPerformanceList*
          +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
          +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
@@ -206,12 +202,9 @@ module: MicrowaveModel-ObjectClasses-AirInterfaceDiversity
          +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
          +--ro suspectIntervalFlag?   boolean
          +--ro performanceData
-            +--ro snrMin?   int8
-            +--ro snrMax?   int8
-            +--ro snrAvg?   int8
-            +--ro mseMin?   int8
-            +--ro mseMax?   int8
-            +--ro mseAvg?   int8
+            +--ro snirMin?   int8
+            +--ro snirMax?   int8
+            +--ro snirAvg?   int8
 module: MicrowaveModel-ObjectClasses-AirInterfaceHsb
    +--rw MW_AirInterfaceHsbEndPoint_Pac* [endpoint]
    |  +--rw role?       MicrowaveModel-TypeDefinitions:roleType
@@ -297,8 +290,7 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |  |  +--ro rxLevelCur?           int8
    |  |  +--ro modulationCur?        int16
    |  |  +--ro informationRateCur?   int8
-   |  |  +--ro snrCur?               int8
-   |  |  +--ro mseCur?               int8
+   |  |  +--ro snirCur?              int8
    |  |  +--ro xpdCur?               int8
    |  |  +--ro rfTempCur?            int8
    |  |  +--ro lastStatusChange?     CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
@@ -310,6 +302,8 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |  |  +--ro atpcIsUp?             boolean
    |  |  +--ro autoFreqSelectIsUp?   boolean
    |  |  +--ro loopBackIsUp?         boolean
+   |  |  +--ro localEndPointId?      string
+   |  |  +--ro remoteEndPointId?     string
    |  +--ro airInterfaceCurrentProblemList* [sequenceNumber]
    |  |  +--ro sequenceNumber    int32
    |  |  +--ro timeStamp?        CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
@@ -357,12 +351,9 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |  |     +--ro time4096SymbolsL?   int32
    |  |     +--ro time8192Symbols?    int32
    |  |     +--ro time8192SymbolsL?   int32
-   |  |     +--ro snrMin?             int8
-   |  |     +--ro snrMax?             int8
-   |  |     +--ro snrAvg?             int8
-   |  |     +--ro mseMin?             int8
-   |  |     +--ro mseMax?             int8
-   |  |     +--ro mseAvg?             int8
+   |  |     +--ro snirMin?            int8
+   |  |     +--ro snirMax?            int8
+   |  |     +--ro snirAvg?            int8
    |  |     +--ro xpdMin?             int8
    |  |     +--ro xpdMax?             int8
    |  |     +--ro xpdAvg?             int8
@@ -409,12 +400,9 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |        +--ro time4096SymbolsL?   int32
    |        +--ro time8192Symbols?    int32
    |        +--ro time8192SymbolsL?   int32
-   |        +--ro snrMin?             int8
-   |        +--ro snrMax?             int8
-   |        +--ro snrAvg?             int8
-   |        +--ro mseMin?             int8
-   |        +--ro mseMax?             int8
-   |        +--ro mseAvg?             int8
+   |        +--ro snirMin?            int8
+   |        +--ro snirMax?            int8
+   |        +--ro snirAvg?            int8
    |        +--ro xpdMin?             int8
    |        +--ro xpdMax?             int8
    |        +--ro xpdAvg?             int8
@@ -522,6 +510,7 @@ module: MicrowaveModel-ObjectClasses-HybridMwStructure
       |  +--ro segmentStatusList* [segmentStatusTypeId]
       |  |  +--ro segmentStatusTypeId        CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |  |  +--ro segmentIsReservedForTdm?   boolean
+      |  |  +--ro operationalStatus?         CoreModel-CoreFoundationModule-StateModel:OperationalState
       |  +--ro lastStatusChange?    CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
       +--ro hybridMwStructureCurrentProblemList* [sequenceNumber]
       |  +--ro sequenceNumber    int32
@@ -563,6 +552,7 @@ module: MicrowaveModel-ObjectClasses-PureEthernetStructure
       |  +--ro segmentStatusList
       |  |  +--ro segmentStatusTypeId?       CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |  |  +--ro segmentIsReservedForTdm?   boolean
+      |  |  +--ro operationalStatus?         CoreModel-CoreFoundationModule-StateModel:OperationalState
       |  +--ro lastStatusChange?    CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
       +--ro pureEthernetStructureCurrentProblemList* [sequenceNumber]
       |  +--ro sequenceNumber    int32
