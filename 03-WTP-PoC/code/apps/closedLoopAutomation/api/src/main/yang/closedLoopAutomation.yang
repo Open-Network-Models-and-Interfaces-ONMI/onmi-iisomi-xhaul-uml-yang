@@ -1,0 +1,25 @@
+module closedLoopAutomation {
+    yang-version 1;
+    namespace "urn:opendaylight:params:xml:ns:yang:closedLoopAutomation";
+    prefix "closedLoopAutomation";
+
+    revision "2016-08-15" {
+        description "Initial revision of closedLoopAutomation model";
+    }
+
+    rpc start {
+        output {
+            leaf status {
+                type string;
+            }
+        }
+    }
+
+    rpc stop {
+        output {
+            leaf status {
+                type string;
+            }
+        }
+    }
+}
