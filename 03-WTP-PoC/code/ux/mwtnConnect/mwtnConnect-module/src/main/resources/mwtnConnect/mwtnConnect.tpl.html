@@ -1,12 +1,24 @@
 <!-- This is the landing page of you application, Update the content as per your requirements -->
+<div><br/><br/></div>
 
-<div id="mwtnConnectGrid" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection ui-grid-pinning ui-grid-resize-columns ui-grid-move-columns
- class="mwtnConnectGrid"></div>
-<div class="text-right">
- <br/>
- <button type="button" id="addNetconfServer" class="btn btn-primary" ng-click="addNetconfServer()">Add NetConf Server ...</button>
-</div>
+  <uib-accordion close-others="oneAtATime">
 
+    <div uib-accordion-group class="panel-primary" heading="{{'Required NetworkElements' | translate}}" is-open="status.requiredNes">
+		<div id="requiredNesGrid" ui-grid="requiredNesGridOptions" ui-grid-exporter ui-grid-selection ui-grid-pinning ui-grid-resize-columns ui-grid-move-columns
+		 class="requiredNesGrid"></div>
+		<div class="text-right">
+		 <br/>
+		 <button type="button" id="addNetconfServer" class="btn btn-primary" ng-click="addNetconfServer()">Add NetConf Server ...</button>
+		</div>
+    </div>
+
+    <div uib-accordion-group class="panel-default" heading="{{'Unknown NetworkElements' | translate}}" is-open="status.unkownNes">
+		<div id="unknownNesGrid" ui-grid="unknownNesGridOptions" ui-grid-exporter ui-grid-selection ui-grid-pinning ui-grid-resize-columns ui-grid-move-columns
+		 class="unknownNesGrid"></div>
+    </div>
+
+  </uib-accordion>
+  
 <hr />
 <p>
  <span>Build: @buildtime@</span>

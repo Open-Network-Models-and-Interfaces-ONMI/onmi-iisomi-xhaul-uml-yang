@@ -2,13 +2,30 @@
  *  Add your application related css here
  *  width: 1260px;
  */
+
+.panel-group .panel-warning span {
+  color: #393939;
+}
+
+.panel-group .panel-default span {
+  color: #393939;
+}
  
-.mwtnConnectGrid {
-  height: 725px;
+.requiredNesGrid {
+  height: 600px;
   background-color: white;
 }
 
-.mwtnConnectGrid span {
+.requiredNesGrid span {
+  color: #393939;
+}
+
+.unknownNesGrid {
+  height: 600px;
+  background-color: white;
+}
+
+.unknownNesGrid span {
   color: #393939;
 }
 
