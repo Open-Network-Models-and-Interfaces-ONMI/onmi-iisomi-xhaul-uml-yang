@@ -6,81 +6,84 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
+if (!String.prototype.contains) { 
+  String.prototype.contains = function(it) { 
+    return this.indexOf(it) != -1; 
+  }; 
+}
+
 define(
     [ 'app/mwtnCommons/mwtnCommons.module' ],
     function(mwtnCommonsApp) {
 
-      mwtnCommonsApp.register
-          .factory(
-              '$mwtnCommons',
-              function($http, ENV) {
-                var service = {
-                  base : ENV.getBaseURL("MD_SAL") + "/restconf/"
-                };
+      mwtnCommonsApp.register.factory('$mwtnCommons', function($http, ENV) {
+        var service = {
+          base : ENV.getBaseURL("MD_SAL") + "/restconf/"
+        };
 
-                service.getData = function(callback) {
-                  return callback('Hallo World! I\'m here');
-                }
+        service.getData = function(callback) {
+          return callback('Hallo World! I\'m here');
+        }
 
-                // grid settings
-                service.highlightFilteredHeader = function(row, rowRenderIndex,
-                    col, colRenderIndex) {
-                  if (col.filters[0].term) {
-                    return 'header-filtered';
-                  } else {
-                    return '';
-                  }
-                };
-                service.gridOptions = {
-                  data : [],
-                  enableColumnResizing : true,
-                  enableSorting : true,
-                  enableFiltering : true,
-                  enableGridMenu : true,
-                  exporterMenuPdf: false,
-                  showGridFooter : true,
-                  // showColumnFooter: true,
-                  fastWatch : true,
-                  enableRowSelection : true,
-                  enableRowHeaderSelection : true,
-                  multiSelect : false
-                };
-                service.gridOptions.gridMenuCustomItems = [ {
-                  title : 'Rotate Grid',
-                  action : function($event) {
-                    this.grid.element.toggleClass('rotated');
-                  },
-                  order : 210
-                } ];
+        // grid settings
+        service.highlightFilteredHeader = function(row, rowRenderIndex,
+            col, colRenderIndex) {
+          if (col.filters[0].term) {
+            return 'header-filtered';
+          } else {
+            return '';
+          }
+        };
+        service.gridOptions = {
+          data : [],
+          enableColumnResizing : true,
+          enableSorting : true,
+          enableFiltering : true,
+          enableGridMenu : true,
+          exporterMenuPdf: false,
+          showGridFooter : true,
+          // showColumnFooter: true,
+          fastWatch : true,
+          enableRowSelection : true,
+          enableRowHeaderSelection : true,
+          multiSelect : false
+        };
+        service.gridOptions.gridMenuCustomItems = [ {
+          title : 'Rotate Grid',
+          action : function($event) {
+            this.grid.element.toggleClass('rotated');
+          },
+          order : 210
+        } ];
 
-                service.url = {
-                  actualNetworkElements : function() {
-                    return 'operational/network-topology:network-topology/topology/topology-netconf';
-                  },
-                  actualNetworkElement : function(neId) {
-                    return [
-                        'operational/network-topology:network-topology/topology/topology-netconf/node/',
-                        neId,
-                        '/yang-ext:mount/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/',
-                        neId ].join('');
-                  }
-                };
+        service.url = {
+          actualNetworkElements : function() {
+            return 'operational/network-topology:network-topology/topology/topology-netconf';
+          },
+          actualNetworkElement : function(neId) {
+            return [
+                'operational/network-topology:network-topology/topology/topology-netconf/node/',
+                neId,
+                '/yang-ext:mount/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/',
+                neId ].join('');
+          }
+        };
 
-                service.getMountedNetConfServers = function(callback) {
-                  var url = service.base + service.url.actualNetworkElements();
-                  var request = {
-                    method : 'GET',
-                    url : url
-                  };
-                  $http(request).then(function successCallback(response) {
-                    callback(response.data);
-                  }, function errorCallback(response) {
-                    console.error(JSON.stringify(response));
-                    callback();
-                  });
-                };
-                return service;
-              });
+        service.getMountedNetConfServers = function(callback) {
+          var url = service.base + service.url.actualNetworkElements();
+          var request = {
+            method : 'GET',
+            url : url
+          };
+          $http(request).then(function successCallback(response) {
+            callback(response.data);
+          }, function errorCallback(response) {
+            console.error(JSON.stringify(response));
+            callback();
+          });
+        };
+        return service;
+      });
 
       // Service log
       mwtnCommonsApp.register.factory('$mwtnLog', function($http, ENV,
