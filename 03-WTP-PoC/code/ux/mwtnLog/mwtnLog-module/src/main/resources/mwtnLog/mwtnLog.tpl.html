@@ -1,5 +1,4 @@
 <!-- This is the landing page of you application, Update the content as per your requirements -->
-
 <div id="mwtnLogGrid" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection ui-grid-pinning ui-grid-resize-columns ui-grid-move-columns
  class="mwtnLogGrid"></div>
  <uib-progressbar ng-show="progress.show" class="progress-striped" type="warning" max="progress.max" value="progress.value" ><i>{{progress.value}} / {{progress.max}}</i></uib-progressbar>
@@ -10,10 +9,11 @@
   <i class="fa fa-times" aria-hidden="true"></i>
   <span>Clear log</span>
  </button>
+ <!-- see gird menu Export ...
  <button type="button" id="saveLog" class="btn btn-primary" ng-click="saveLog()">
   <i class="fa fa-save" aria-hidden="true"></i>
   <span>Save...</span>
- </button>
+ </button>  -->
  <button type="button" id="refreshLog" class="btn btn-primary" ng-click="refreshLog()">
   <i class="fa fa-refresh" aria-hidden="true"></i>
   <span>Refresh</span>

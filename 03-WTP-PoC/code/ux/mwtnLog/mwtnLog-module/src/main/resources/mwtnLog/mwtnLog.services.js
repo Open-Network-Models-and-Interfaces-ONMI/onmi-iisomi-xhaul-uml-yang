@@ -12,13 +12,22 @@ define(['app/mwtnLog/mwtnLog.module','app/mwtnCommons/mwtnCommons.services'],fun
     
     var service = {};
 
-    service.getAllLogEntries = function(callback) {
-      $mwtnDatabase.getAllData('log', function(logEntries){
+    service.getAllLogEntries = function(from, size, callback) {
+      var sort = [ {
+        timestamp : {
+          order : 'desc'
+        }
+      }];
+      $mwtnDatabase.getAllData('log', from, size, sort, function(logEntries){
         return callback(logEntries);
       });
     }
 
+    service.deleteLogEntry = function(id, callback) {
+      $mwtnDatabase.deleteDoc('log', id, function(deleted){
+        return callback(deleted);
+      });
+    };
     return service;
   });
-
 });
