@@ -211,12 +211,12 @@ Node.prototype.writeNode = function (layer) {
         // [sko] TODO hack, situation needs to be analysed... ;(
         if (this.name === 'Q_822_CurrentData') {
           this.key = 'scannerId';
-        }
-        if (this.name === 'timeSlotIDList') {
-          this.key = 'structureId timeSlotId';
-        }
-        if (this.name === 'segmentsIDList') {
+        // } else if (this.name === 'timeSlotIDList') {
+        //  this.key = 'structureId timeSlotId';
+        } else if (this.name === 'segmentsIDList') {
           this.key = 'structureIdRef segmentIdRef';
+        } else if (this.name.endsWith('HistoricalPerformanceList')) {
+          this.key = 'historyDataId'
         }
         if (typeof this.key=="string") {
             Key = PRE + "\tkey '" + this.key + "';\r\n";
