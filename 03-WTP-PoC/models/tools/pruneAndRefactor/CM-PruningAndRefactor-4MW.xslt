@@ -29,7 +29,6 @@
        - remove attribute CoreModel::CoreNetworkModule::ObjectClasses::LayerProtocol::_lpSpec, because LP capabilities are described for Microwave another way.
        - define type for CoreModel::CoreNetworkModule::ObjectClasses::LayerProtocol::terminationState - set to Boolean
        - define type for CoreModel::CoreNetworkModule::ObjectClasses::LayerProtocol::configuredClientCapacity - set to String
-       - add Q.822 to  CoreModel::CoreNetworkModule::TypeDefinitions
        - add attribute uuid to CoreModel::CoreFoundationModule::SuperClassesAndCommonPackages::ObjectClasses::LocalClass used at yang key
        - correct CoreModel::CoreFoundationModel::StateModel::ObjectClasses::State_Pac::adminsatratveState -> administrativeState
        - add yang key definitions according to keys.xml
@@ -83,8 +82,6 @@
 			<type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
 		</xsl:copy>
 	</xsl:template>
-	<!-- 
-    add Q.822 to  CoreModel::CoreNetworkModule::TypeDefinitions  -->
 	<!--
     add attribute uuid to CoreModel::CoreFoundationModule::SuperClassesAndCommonPackages::ObjectClasses::LocalClass used at yang key -->
 	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'LocalClass' ]">
