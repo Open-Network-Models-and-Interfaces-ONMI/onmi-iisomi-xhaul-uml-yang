@@ -194,10 +194,10 @@ module: MicrowaveModel-ObjectClasses-AirInterfaceDiversity
       |     +--ro snirMin?   int8
       |     +--ro snirMax?   int8
       |     +--ro snirAvg?   int8
-      +--ro airInterfaceDiversityHistoricalPerformanceList*
+      +--ro airInterfaceDiversityHistoricalPerformanceList* [historyDataId]
          +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
          +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-         +--ro historyDataId?         string
+         +--ro historyDataId          string
          +--ro periodEndTime?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
          +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
          +--ro suspectIntervalFlag?   boolean
@@ -252,37 +252,36 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |  |        +--ro amDownshiftLevel?     int8
    |  |        +--ro xpicIsAvail?          boolean
    |  +--rw airInterfaceConfiguration
-   |  |  +--rw airInterfaceName?         string
-   |  |  +--rw radioSignalID?            string
-   |  |  +--rw txFrequency?              int32
-   |  |  +--rw rxFrequency?              int32
-   |  |  +--rw txChannelBandwidth?       int32
-   |  |  +--rw rxChannelBandwidth?       int32
-   |  |  +--rw polarization?             MicrowaveModel-TypeDefinitions:polarizationType
-   |  |  +--rw powerIsOn?                boolean
-   |  |  +--rw transmitterIsOn?          boolean
-   |  |  +--rw receiverIsOn?             boolean
-   |  |  +--rw txPower?                  int8
-   |  |  +--rw adaptiveModulationIsOn?   boolean
-   |  |  +--rw modulationMin?            int16
-   |  |  +--rw modulationMax?            int16
-   |  |  +--rw xpicIsOn?                 boolean
-   |  |  +--rw mimoIsOn?                 boolean
-   |  |  +--rw alicIsOn?                 boolean
-   |  |  +--rw atpcIsOn?                 boolean
-   |  |  +--rw atpcThreshUpper?          int16
-   |  |  +--rw atpcThreshLower?          int16
-   |  |  +--rw autoFreqSelectIsOn?       boolean
-   |  |  +--rw autoFreqSelectRange?      int8
-   |  |  +--rw modulationIsOn?           boolean
-   |  |  +--rw encryptionIsOn?           boolean
-   |  |  +--rw cryptographicKey?         string
-   |  |  +--rw loopBackIsOn?             boolean
-   |  |  +--rw maintenanceTimer?         int32
-   |  |  +--ro problemSeverityList* [problemId]
-   |  |     +--ro problemId          CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
-   |  |     +--ro problemName?       string
-   |  |     +--ro problemSeverity?   severityType
+   |  |  +--rw airInterfaceName?          string
+   |  |  +--rw radioSignalID?             string
+   |  |  +--rw txFrequency?               int32
+   |  |  +--rw rxFrequency?               int32
+   |  |  +--rw txChannelBandwidth?        int32
+   |  |  +--rw rxChannelBandwidth?        int32
+   |  |  +--rw polarization?              MicrowaveModel-TypeDefinitions:polarizationType
+   |  |  +--rw powerIsOn?                 boolean
+   |  |  +--rw transmitterIsOn?           boolean
+   |  |  +--rw receiverIsOn?              boolean
+   |  |  +--rw txPower?                   int8
+   |  |  +--rw adaptiveModulationIsOn?    boolean
+   |  |  +--rw modulationMin?             int16
+   |  |  +--rw modulationMax?             int16
+   |  |  +--rw xpicIsOn?                  boolean
+   |  |  +--rw mimoIsOn?                  boolean
+   |  |  +--rw alicIsOn?                  boolean
+   |  |  +--rw atpcIsOn?                  boolean
+   |  |  +--rw atpcThreshUpper?           int16
+   |  |  +--rw atpcThreshLower?           int16
+   |  |  +--rw autoFreqSelectIsOn?        boolean
+   |  |  +--rw autoFreqSelectRange?       int8
+   |  |  +--rw modulationIsOn?            boolean
+   |  |  +--rw encryptionIsOn?            boolean
+   |  |  +--rw cryptographicKey?          string
+   |  |  +--rw loopBackIsOn?              boolean
+   |  |  +--rw maintenanceTimer?          int32
+   |  |  +--rw problemKindSeverityList* [problemKindName]
+   |  |     +--rw problemKindName        string
+   |  |     +--rw problemKindSeverity?   severityType
    |  +--ro airInterfaceStatus
    |  |  +--ro txFrequencyCur?       int32
    |  |  +--ro rxFrequencyCur?       int32
@@ -304,113 +303,115 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |  |  +--ro loopBackIsUp?         boolean
    |  |  +--ro localEndPointId?      string
    |  |  +--ro remoteEndPointId?     string
-   |  +--ro airInterfaceCurrentProblemList* [sequenceNumber]
-   |  |  +--ro sequenceNumber    int32
-   |  |  +--ro timeStamp?        CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
-   |  |  +--ro problem
+   |  +--ro airInterfaceCurrentProblemList
+   |  |  +--ro currentProblemList* [sequenceNumber]
+   |  |     +--ro sequenceNumber     int32
+   |  |     +--ro timeStamp?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
    |  |     +--ro problemId?         CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
    |  |     +--ro problemName?       string
    |  |     +--ro problemSeverity?   severityType
    |  +--ro airInterfaceCurrentPerformance
-   |  |  +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-   |  |  +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-   |  |  +--ro scannerId?             string
-   |  |  +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
-   |  |  +--ro administrativeState?   CoreModel-CoreFoundationModule-StateModel:AdministrativeState
-   |  |  +--ro suspectIntervalFlag?   boolean
-   |  |  +--ro elapsedTime?           int32
-   |  |  +--ro timestamp?             G_874_1_model-Type_Definitions:DateAndTime
-   |  |  +--ro performanceData
-   |  |     +--ro es?                 int32
-   |  |     +--ro ses?                int32
-   |  |     +--ro cses?               int32
-   |  |     +--ro unavailability?     int32
-   |  |     +--ro txLevelMin?         int8
-   |  |     +--ro txLevelMax?         int8
-   |  |     +--ro txLevelAvg?         int8
-   |  |     +--ro rxLevelMin?         int8
-   |  |     +--ro rxLevelMax?         int8
-   |  |     +--ro rxLevelAvg?         int8
-   |  |     +--ro time2Symbols?       int32
-   |  |     +--ro time4SymbolsS?      int32
-   |  |     +--ro time4Symbols?       int32
-   |  |     +--ro time8Symbols?       int32
-   |  |     +--ro time16SymbolsS?     int32
-   |  |     +--ro time16Symbols?      int32
-   |  |     +--ro time32Symbols?      int32
-   |  |     +--ro time64Symbols?      int32
-   |  |     +--ro time128Symbols?     int32
-   |  |     +--ro time256Symbols?     int32
-   |  |     +--ro time512Symbols?     int32
-   |  |     +--ro time512SymbolsL?    int32
-   |  |     +--ro time1024Symbols?    int32
-   |  |     +--ro time1024SymbolsL?   int32
-   |  |     +--ro time2048Symbols?    int32
-   |  |     +--ro time2048SymbolsL?   int32
-   |  |     +--ro time4096Symbols?    int32
-   |  |     +--ro time4096SymbolsL?   int32
-   |  |     +--ro time8192Symbols?    int32
-   |  |     +--ro time8192SymbolsL?   int32
-   |  |     +--ro snirMin?            int8
-   |  |     +--ro snirMax?            int8
-   |  |     +--ro snirAvg?            int8
-   |  |     +--ro xpdMin?             int8
-   |  |     +--ro xpdMax?             int8
-   |  |     +--ro xpdAvg?             int8
-   |  |     +--ro rfTempMin?          int8
-   |  |     +--ro rfTempMax?          int8
-   |  |     +--ro rfTempAvg?          int8
-   |  |     +--ro defectBlocksSum?    int16
-   |  |     +--ro timePeriod?         int32
-   |  +--ro airInterfaceHistoricalPerformanceList*
-   |     +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-   |     +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-   |     +--ro historyDataId?         string
-   |     +--ro periodEndTime?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
-   |     +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
-   |     +--ro suspectIntervalFlag?   boolean
-   |     +--ro performanceData
-   |        +--ro es?                 int32
-   |        +--ro ses?                int32
-   |        +--ro cses?               int32
-   |        +--ro unavailability?     int32
-   |        +--ro txLevelMin?         int8
-   |        +--ro txLevelMax?         int8
-   |        +--ro txLevelAvg?         int8
-   |        +--ro rxLevelMin?         int8
-   |        +--ro rxLevelMax?         int8
-   |        +--ro rxLevelAvg?         int8
-   |        +--ro time2Symbols?       int32
-   |        +--ro time4SymbolsS?      int32
-   |        +--ro time4Symbols?       int32
-   |        +--ro time8Symbols?       int32
-   |        +--ro time16SymbolsS?     int32
-   |        +--ro time16Symbols?      int32
-   |        +--ro time32Symbols?      int32
-   |        +--ro time64Symbols?      int32
-   |        +--ro time128Symbols?     int32
-   |        +--ro time256Symbols?     int32
-   |        +--ro time512Symbols?     int32
-   |        +--ro time512SymbolsL?    int32
-   |        +--ro time1024Symbols?    int32
-   |        +--ro time1024SymbolsL?   int32
-   |        +--ro time2048Symbols?    int32
-   |        +--ro time2048SymbolsL?   int32
-   |        +--ro time4096Symbols?    int32
-   |        +--ro time4096SymbolsL?   int32
-   |        +--ro time8192Symbols?    int32
-   |        +--ro time8192SymbolsL?   int32
-   |        +--ro snirMin?            int8
-   |        +--ro snirMax?            int8
-   |        +--ro snirAvg?            int8
-   |        +--ro xpdMin?             int8
-   |        +--ro xpdMax?             int8
-   |        +--ro xpdAvg?             int8
-   |        +--ro rfTempMin?          int8
-   |        +--ro rfTempMax?          int8
-   |        +--ro rfTempAvg?          int8
-   |        +--ro defectBlocksSum?    int16
-   |        +--ro timePeriod?         int32
+   |  |  +--ro currentPerformanceData
+   |  |     +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |  |     +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |  |     +--ro scannerId?             string
+   |  |     +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
+   |  |     +--ro administrativeState?   CoreModel-CoreFoundationModule-StateModel:AdministrativeState
+   |  |     +--ro suspectIntervalFlag?   boolean
+   |  |     +--ro elapsedTime?           int32
+   |  |     +--ro timestamp?             G_874_1_model-Type_Definitions:DateAndTime
+   |  |     +--ro performanceData
+   |  |        +--ro es?                 int32
+   |  |        +--ro ses?                int32
+   |  |        +--ro cses?               int32
+   |  |        +--ro unavailability?     int32
+   |  |        +--ro txLevelMin?         int8
+   |  |        +--ro txLevelMax?         int8
+   |  |        +--ro txLevelAvg?         int8
+   |  |        +--ro rxLevelMin?         int8
+   |  |        +--ro rxLevelMax?         int8
+   |  |        +--ro rxLevelAvg?         int8
+   |  |        +--ro time2Symbols?       int32
+   |  |        +--ro time4SymbolsS?      int32
+   |  |        +--ro time4Symbols?       int32
+   |  |        +--ro time8Symbols?       int32
+   |  |        +--ro time16SymbolsS?     int32
+   |  |        +--ro time16Symbols?      int32
+   |  |        +--ro time32Symbols?      int32
+   |  |        +--ro time64Symbols?      int32
+   |  |        +--ro time128Symbols?     int32
+   |  |        +--ro time256Symbols?     int32
+   |  |        +--ro time512Symbols?     int32
+   |  |        +--ro time512SymbolsL?    int32
+   |  |        +--ro time1024Symbols?    int32
+   |  |        +--ro time1024SymbolsL?   int32
+   |  |        +--ro time2048Symbols?    int32
+   |  |        +--ro time2048SymbolsL?   int32
+   |  |        +--ro time4096Symbols?    int32
+   |  |        +--ro time4096SymbolsL?   int32
+   |  |        +--ro time8192Symbols?    int32
+   |  |        +--ro time8192SymbolsL?   int32
+   |  |        +--ro snirMin?            int8
+   |  |        +--ro snirMax?            int8
+   |  |        +--ro snirAvg?            int8
+   |  |        +--ro xpdMin?             int8
+   |  |        +--ro xpdMax?             int8
+   |  |        +--ro xpdAvg?             int8
+   |  |        +--ro rfTempMin?          int8
+   |  |        +--ro rfTempMax?          int8
+   |  |        +--ro rfTempAvg?          int8
+   |  |        +--ro defectBlocksSum?    int16
+   |  |        +--ro timePeriod?         int32
+   |  +--ro airInterfaceHistoricalPerformanceList
+   |     +--ro historicalPerformanceDataList*
+   |        +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |        +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |        +--ro historyDataId?         string
+   |        +--ro periodEndTime?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
+   |        +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
+   |        +--ro suspectIntervalFlag?   boolean
+   |        +--ro performanceData
+   |           +--ro es?                 int32
+   |           +--ro ses?                int32
+   |           +--ro cses?               int32
+   |           +--ro unavailability?     int32
+   |           +--ro txLevelMin?         int8
+   |           +--ro txLevelMax?         int8
+   |           +--ro txLevelAvg?         int8
+   |           +--ro rxLevelMin?         int8
+   |           +--ro rxLevelMax?         int8
+   |           +--ro rxLevelAvg?         int8
+   |           +--ro time2Symbols?       int32
+   |           +--ro time4SymbolsS?      int32
+   |           +--ro time4Symbols?       int32
+   |           +--ro time8Symbols?       int32
+   |           +--ro time16SymbolsS?     int32
+   |           +--ro time16Symbols?      int32
+   |           +--ro time32Symbols?      int32
+   |           +--ro time64Symbols?      int32
+   |           +--ro time128Symbols?     int32
+   |           +--ro time256Symbols?     int32
+   |           +--ro time512Symbols?     int32
+   |           +--ro time512SymbolsL?    int32
+   |           +--ro time1024Symbols?    int32
+   |           +--ro time1024SymbolsL?   int32
+   |           +--ro time2048Symbols?    int32
+   |           +--ro time2048SymbolsL?   int32
+   |           +--ro time4096Symbols?    int32
+   |           +--ro time4096SymbolsL?   int32
+   |           +--ro time8192Symbols?    int32
+   |           +--ro time8192SymbolsL?   int32
+   |           +--ro snirMin?            int8
+   |           +--ro snirMax?            int8
+   |           +--ro snirAvg?            int8
+   |           +--ro xpdMin?             int8
+   |           +--ro xpdMax?             int8
+   |           +--ro xpdAvg?             int8
+   |           +--ro rfTempMin?          int8
+   |           +--ro rfTempMax?          int8
+   |           +--ro rfTempAvg?          int8
+   |           +--ro defectBlocksSum?    int16
+   |           +--ro timePeriod?         int32
    +--rw CoChannelGroup* [coChannelGroupId]
       +--rw coChannelGroupId        CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       +--rw airInterfaceList*       -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/uuid
@@ -472,10 +473,10 @@ module: MicrowaveModel-ObjectClasses-EthernetContainer
       |     +--ro txEthernetBytesMaxM?   int64
       |     +--ro txEthernetBytesSum?    int64
       |     +--ro timePeriod?            int32
-      +--ro ethernetContainerHistoricalPerformanceList*
+      +--ro ethernetContainerHistoricalPerformanceList* [historyDataId]
          +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
          +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-         +--ro historyDataId?         string
+         +--ro historyDataId          string
          +--ro periodEndTime?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
          +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
          +--ro suspectIntervalFlag?   boolean
@@ -529,10 +530,10 @@ module: MicrowaveModel-ObjectClasses-HybridMwStructure
       |  +--ro elapsedTime?           int32
       |  +--ro timestamp?             G_874_1_model-Type_Definitions:DateAndTime
       |  +--ro performanceData?       MicrowaveModel-TypeDefinitions:structurePerformanceType
-      +--ro hybridMwStructureHistoricalPerformanceList*
+      +--ro hybridMwStructureHistoricalPerformanceList* [historyDataId]
          +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
          +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-         +--ro historyDataId?         string
+         +--ro historyDataId          string
          +--ro periodEndTime?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
          +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
          +--ro suspectIntervalFlag?   boolean
@@ -571,10 +572,10 @@ module: MicrowaveModel-ObjectClasses-PureEthernetStructure
       |  +--ro elapsedTime?           int32
       |  +--ro timestamp?             G_874_1_model-Type_Definitions:DateAndTime
       |  +--ro performanceData?       MicrowaveModel-TypeDefinitions:structurePerformanceType
-      +--ro pureEthernetStructureHistoricalPerformanceList*
+      +--ro pureEthernetStructureHistoricalPerformanceList* [historyDataId]
          +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
          +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-         +--ro historyDataId?         string
+         +--ro historyDataId          string
          +--ro periodEndTime?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
          +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
          +--ro suspectIntervalFlag?   boolean
@@ -624,10 +625,10 @@ module: MicrowaveModel-ObjectClasses-TdmContainer
       |     +--ro txEthernetBytesMaxM?   int64
       |     +--ro txEthernetBytesSum?    int64
       |     +--ro timePeriod?            int32
-      +--ro tdmContainerHistoricalPerformanceList*
+      +--ro tdmContainerHistoricalPerformanceList* [historyDataId]
          +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
          +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-         +--ro historyDataId?         string
+         +--ro historyDataId          string
          +--ro periodEndTime?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
          +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
          +--ro suspectIntervalFlag?   boolean

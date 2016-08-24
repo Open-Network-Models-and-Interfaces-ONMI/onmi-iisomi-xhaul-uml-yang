@@ -11,12 +11,6 @@ module MicrowaveModel-ObjectClasses-AirInterface {
     import CoreModel-CoreFoundationModule-TypeDefinitions {
         prefix CoreModel-CoreFoundationModule-TypeDefinitions;
     }
-    import MicrowaveModel-ObjectClasses-SuperClasses {
-        prefix MicrowaveModel-ObjectClasses-SuperClasses;
-    }
-    import G_874_1_model-Object_Classes {
-        prefix G_874_1_model-Object_Classes;
-    }
     import CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages {
         prefix CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages;
     }
@@ -36,7 +30,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-08-11 {
+    revision 2016-08-24 {
         description 
             "Initial revision."; 
         reference 
@@ -65,20 +59,17 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             config false;
             uses AirInterfaceStatus;
         }
-        list airInterfaceCurrentProblemList {
-            key 'sequenceNumber';
+        container airInterfaceCurrentProblemList {
             config false;
-            ordered-by system;
-            uses AirInterfaceCurrentProblem;
+            uses AirInterfaceCurrentProblems;
         }
         container airInterfaceCurrentPerformance {
             config false;
             uses AirInterfaceCurrentPerformance;
         }
-        list airInterfaceHistoricalPerformanceList {
+        container airInterfaceHistoricalPerformanceList {
             config false;
-            ordered-by system;
-            uses AirInterfaceHistoricalPerformance;
+            uses AirInterfaceHistoricalPerformances;
         }
     }
     grouping AirInterfaceCapability {
@@ -340,12 +331,12 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             units "s";
             default -1;
         }
-        list problemSeverityList {
+        list problemKindSeverityList {
             description "Severity of the problem to be configured.";
-            key 'problemId';
-            config false;
+            key 'problemKindName';
+            config true;
             ordered-by system;
-            uses MicrowaveModel-TypeDefinitions:airInterfaceProblemType;
+            uses MicrowaveModel-TypeDefinitions:airInterfaceProblemSeverityType;
             min-elements 6;
         }
     }
@@ -482,24 +473,24 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             default "not-supported";
         }
     }
-    grouping AirInterfaceCurrentProblem {
-        uses MicrowaveModel-ObjectClasses-SuperClasses:MwCurrentProblem;
-        container problem {
-            uses MicrowaveModel-TypeDefinitions:airInterfaceProblemType;
+    grouping AirInterfaceCurrentProblems {
+        list currentProblemList {
+            key 'sequenceNumber';
+            ordered-by system;
+            uses MicrowaveModel-TypeDefinitions:airInterfaceCurrentProblemType;
         }
     }
     grouping AirInterfaceCurrentPerformance {
         description "Aggregated performance information of the air interface at a particular moment.";
-        uses G_874_1_model-Object_Classes:OTN_CurrentData;
-        container performanceData {
-            uses MicrowaveModel-TypeDefinitions:airInterfacePerformanceType;
+        container currentPerformanceData {
+            uses MicrowaveModel-TypeDefinitions:airInterfaceCurrentPerformanceType;
         }
     }
-    grouping AirInterfaceHistoricalPerformance {
+    grouping AirInterfaceHistoricalPerformances {
         description "Aggregated performance information of the air interface for a pre-defined measurement interval.";
-        uses G_874_1_model-Object_Classes:OTN_HistoryData;
-        container performanceData {
-            uses MicrowaveModel-TypeDefinitions:airInterfacePerformanceType;
+        list historicalPerformanceDataList {
+            ordered-by system;
+            uses MicrowaveModel-TypeDefinitions:airInterfaceHistoricalPerformanceType;
         }
     }
     list CoChannelGroup {
