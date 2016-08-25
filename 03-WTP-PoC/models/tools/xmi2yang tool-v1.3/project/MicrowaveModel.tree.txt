@@ -155,14 +155,12 @@ module: MicrowaveModel-ObjectClasses-AirInterfaceDiversity
    +--rw MW_AirInterfaceDiversity_Pac* [layerProtocol]
       +--rw layerProtocol                                     -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid
       +--ro airInterfaceDiversityCapability
-      |  +--ro availableKindsOfDiversity* [diversityTypeId]
-      |  |  +--ro diversityTypeId             CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
-      |  |  +--ro diversityName?              string
+      |  +--ro availableKindsOfDiversity* [diversityName]
+      |  |  +--ro diversityName               string
       |  |  +--ro numberOfAirInterfacesMax?   int8
       |  +--ro supportedAlarms?             string
       +--rw airInterfaceDiversityConfiguration
       |  +--rw airInterfaceDiversity
-      |  |  +--ro diversityTypeId?            CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |  |  +--ro diversityName?              string
       |  |  +--ro numberOfAirInterfacesMax?   int8
       |  +--rw airInterfaceLtpList*     -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/uuid
@@ -234,9 +232,8 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |  |  +--ro loopBackIsAvail?             boolean
    |  |  +--ro maintenanceTimerRange?       string
    |  |  +--ro supportedAlarms?             string
-   |  |  +--ro supportedChannelPlanList* [channelPlanTypeId]
-   |  |     +--ro channelPlanTypeId           CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
-   |  |     +--ro supportedChannelPlan?       string
+   |  |  +--ro supportedChannelPlanList* [supportedChannelPlan]
+   |  |     +--ro supportedChannelPlan        string
    |  |     +--ro duplexDistanceIsVariable?   boolean
    |  |     +--ro duplexDistance?             int32
    |  |     +--ro autoFreqSelectIsAvail?      boolean
@@ -307,7 +304,6 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |  |  +--ro currentProblemList* [sequenceNumber]
    |  |     +--ro sequenceNumber     int32
    |  |     +--ro timeStamp?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
-   |  |     +--ro problemId?         CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
    |  |     +--ro problemName?       string
    |  |     +--ro problemSeverity?   severityType
    |  +--ro airInterfaceCurrentPerformance
