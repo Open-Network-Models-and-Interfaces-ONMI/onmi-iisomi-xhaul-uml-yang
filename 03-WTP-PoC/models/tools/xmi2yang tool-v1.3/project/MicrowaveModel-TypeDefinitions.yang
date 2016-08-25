@@ -5,6 +5,12 @@ module MicrowaveModel-TypeDefinitions {
     import CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages {
         prefix CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages;
     }
+    import MicrowaveModel-ObjectClasses-SuperClasses {
+        prefix MicrowaveModel-ObjectClasses-SuperClasses;
+    }
+    import G_874_1_model-Object_Classes {
+        prefix G_874_1_model-Object_Classes;
+    }
     import CoreModel-CoreFoundationModule-StateModel {
         prefix CoreModel-CoreFoundationModule-StateModel;
     }
@@ -24,7 +30,7 @@ module MicrowaveModel-TypeDefinitions {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-08-11 {
+    revision 2016-08-24 {
         description 
             "Initial revision."; 
         reference 
@@ -154,7 +160,19 @@ module MicrowaveModel-TypeDefinitions {
             enum vertical;
         }
     }
-    grouping airInterfaceProblemType {
+    grouping airInterfaceProblemSeverityType {
+        leaf problemKindName {
+            type string;
+            description "Name of the alarm according to AirInterface::AirInterfaceCapability::supportedAlarms";
+        }
+        leaf problemKindSeverity {
+            type severityType;
+            description "Severity of this type of alarm.";
+            default "warning";
+        }
+    }
+    grouping airInterfaceCurrentProblemType {
+        uses MicrowaveModel-ObjectClasses-SuperClasses:MwCurrentProblem;
         leaf problemId {
             type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
             config false;
@@ -167,6 +185,7 @@ module MicrowaveModel-TypeDefinitions {
         }
         leaf problemSeverity {
             type severityType;
+            config false;
             description "Severity of the alarm.";
             default "warning";
         }
@@ -440,6 +459,20 @@ module MicrowaveModel-TypeDefinitions {
             description "Total length of the measurement period.";
             units "s";
             default -1;
+        }
+    }
+    grouping airInterfaceCurrentPerformanceType {
+        description "Turns performance information into current performance information by inheriting from OTN_CurrentData.";
+        uses G_874_1_model-Object_Classes:OTN_CurrentData;
+        container performanceData {
+            uses airInterfacePerformanceType;
+        }
+    }
+    grouping airInterfaceHistoricalPerformanceType {
+        description "Turns performance information into historical performance information by inheriting from OTN_HistoryData.";
+        uses G_874_1_model-Object_Classes:OTN_HistoryData;
+        container performanceData {
+            uses airInterfacePerformanceType;
         }
     }
     typedef protectionType {
