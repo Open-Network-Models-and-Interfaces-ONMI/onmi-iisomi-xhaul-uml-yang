@@ -22,7 +22,7 @@ define(['app/mwtnTest/mwtnTest.module',
         layerProtocol: 'unknown'              
     };
     $scope.details.map(function(detail){
-      initPac[detail] = {detail: ' to be done'};
+      initPac[detail] = {info: 'Not supported by ONF Microwave Model revision: 2016-03-23'};
     });
     
     
@@ -65,11 +65,6 @@ define(['app/mwtnTest/mwtnTest.module',
     var updateNe = function(data) {
       if (!data) return;
 
-      // close all groups
-      Object.keys($scope.status).map(function(group){
-        $scope.status[group] = false;
-      });
-      
       // update onfNetworkElement
       $scope.onfNetworkElement = JSON.parse(JSON.stringify(data.NetworkElement[0]));
       $scope.onfNetworkElement._ltpRefList = undefined;
@@ -130,14 +125,46 @@ define(['app/mwtnTest/mwtnTest.module',
       });
     };
 
-    var updateAirInterface = function(lpId, data) {
-      console.log(JSON.stringify(data), lpId);
+    var updateAirInterface = function(lpId, part, data) {
+      // console.log(JSON.stringify(data), lpId);
       $scope.airinterfaces.map(function(airinterface){
-        console.log(JSON.stringify(airinterface));
+        // console.log(JSON.stringify(airinterface));
         if (airinterface.layerProtocol === lpId) {
-          var part = Object.keys(data)[0].substring('airInterface'.length);
-          console.log(part);
-          airinterface[part] = data;
+          if (Object.keys(data)[0].startsWith('airInterface')) {
+            airinterface[part] = data;            
+          } else if (part === 'Capability') {
+            // 2. PoC
+            // console.log(part, JSON.stringify(data));
+            airinterface[part] = data.MW_AirInterface_Pac[0].airInterfaceCapabilityList;            
+          } else if (part === 'CurrentProblems') {
+            // 2. PoC
+            // console.log(part, JSON.stringify(data));
+            airinterface[part] = data.MW_AirInterface_Pac[0].airInterfaceCurrentProblemList;            
+          }
+        }
+      });
+    };
+
+    var updateStructure = function(lpId, data) {
+      // console.log(JSON.stringify(data), lpId);
+      $scope.structures.map(function(structure){
+        // console.log(JSON.stringify(structure));
+        if (structure.layerProtocol === lpId) {
+          var part = Object.keys(data)[0].substring('structure'.length);
+          // console.log(part);
+          structure[part] = data;
+        }
+      });
+    };
+
+    var updateContainer = function(lpId, data) {
+      console.log(JSON.stringify(data), lpId);
+      $scope.containers.map(function(container){
+        // console.log(JSON.stringify(container));
+        if (container.layerProtocol === lpId) {
+          var part = Object.keys(data)[0].substring('container'.length);
+          // console.log(part);
+          container[part] = data;
         }
       });
     };
@@ -148,7 +175,7 @@ define(['app/mwtnTest/mwtnTest.module',
     $scope.$watch('status', function(status, oldValue) {
       Object.keys(status).map(function(key){
         if ($scope.networkElementId && status[key] && status[key] !== oldValue[key]) {
-          console.log('getdata by status change', $scope.networkElementId, key);
+          // console.log('getdata by status change', $scope.networkElementId, key);
           $mwtnTest.getData($scope.networkElementId, $scope.revision, key, function(data){
             if (data) {
               var info = key.split($scope.separator);
@@ -160,20 +187,27 @@ define(['app/mwtnTest/mwtnTest.module',
                 updateLtp(data);
                 break;
               case 'airinterface':
-                updateAirInterface(info[1], data);
+                updateAirInterface(info[1], info[2], data);
                 break;
-//              case 'structure':
-//                updateStructure(data);
-//                break;
-//              case 'container':
-//                updateContainer(data);
-//                break;
+              case 'structure':
+                updateStructure(info[1], data);
+                break;
+              case 'container':
+                updateContainer(info[1], data);
+                break;
               }
             }            
           }); 
         }
       });   
     }, true);
+    
+    $scope.collapseAll = function() {
+      // close all groups
+      Object.keys($scope.status).map(function(group){
+        $scope.status[group] = false;
+      });
+    };
     
     $scope.$watch('networkElement', function(neId, oldValue) {
       if (neId && neId !== '' && neId !== oldValue) {
@@ -183,8 +217,9 @@ define(['app/mwtnTest/mwtnTest.module',
         });
         $scope.networkElementId = neId;
         $scope.revision = revision;
-        console.log('getdata by ne change', neId, revision);
+        // console.log('getdata by ne change', neId, revision);
         $mwtnTest.getData(neId, revision, 'ne', function(data){
+          $scope.collapseAll();
           updateNe(data);
         }); 
       }

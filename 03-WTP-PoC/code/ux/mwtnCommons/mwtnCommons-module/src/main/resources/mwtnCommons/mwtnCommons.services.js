@@ -134,12 +134,30 @@ define(
         service.getConditionalPackagePart = function(neId, revision, pacId, lpId, partId, callback) {
 
           switch (pacId) {
-          case 'MWPS':
-          case 'AirInterface':
-          case 'airinterface':
-          case 'airInterface':
-            pacId = 'MicrowaveModel-ObjectClasses-MwConnection:MW_AirInterface_Pac';
-            partId = 'airInterface' + partId
+            case 'MWPS':
+            case 'AirInterface':
+            case 'airinterface':
+            case 'airInterface':
+              pacId = 'MicrowaveModel-ObjectClasses-MwConnection:MW_AirInterface_Pac';
+              partId = 'airInterface' + partId;
+              console.log(partId, partId === 'airInterfaceCapability');
+              if (partId === 'airInterfaceCapability' || partId === 'airInterfaceCurrentProblems') {
+                partId = undefined;
+              }
+              console.log(partId, partId === 'airInterfaceCapability');
+              break;
+            case 'MWS':
+            case 'Structure':
+            case 'structure':
+              pacId = 'MicrowaveModel-ObjectClasses-MwConnection:MW_Structure_Pac';
+              partId = 'structure' + partId;
+              break;
+            case 'ETH-CTP':
+            case 'Container':
+            case 'container':
+              pacId = 'MicrowaveModel-ObjectClasses-MwConnection:MW_Container_Pac';
+              partId = 'container' + partId;
+              break;
           }
           
           var url = [service.base,
