@@ -1,7 +1,76 @@
 <!-- This is the landing page of you application, Update the content as per your requirements -->
+<div>
+	<br />
+	<br />
+</div>
+<div class="container">
 
-<h4>Your {{data}} application is loaded</h4>
-<hr />
-<p>
- <span>Build: @buildtime@</span>
-</p>
+	<div class="row">
+		<div class="col-md-2 text-right">
+			<span>{{'Select NetworkElement' | translate}}</span>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<select class="form-control" ng-model="networkElement">
+					<option ng-repeat="ne in networkElements" value="{{ne.id}}">{{ne.id}}
+						(revision: {{ne.revision}})</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+
+		<uib-accordion close-others="oneAtATime">
+
+		<div uib-accordion-group class="panel-primary"
+			heading="{{'NetworkElement' | translate}} '{{onfNetworkElement.nameList[0].value}}'"
+			is-open="status.ne">
+			<pre>{{onfNetworkElement | json}}</pre>
+		</div>
+
+		<div ng-repeat="ltp in onfLtps" uib-accordion-group
+			class="panel-default"
+			heading="{{'LTP' | translate}}({{ltp._lpList[0].layerProtocolName}}) '{{ltp.uuid}}' -> '{{ltp._lpList[0].uuid}}'"
+			is-open="status['ltp' + separator + ltp.uuid]">
+			<pre>{{ltp | json}}</pre>
+		</div>
+
+		<div ng-repeat="airinterface in airinterfaces" uib-accordion-group
+			class="panel-primary"
+			heading="AirInterface (Pac) '{{airinterface.layerProtocol}}'"
+			is-open="status['airinterface' + separator + airinterface.layerProtocol]">
+			<div ng-repeat="detail in details" uib-accordion-group
+				class="panel-default" heading="{{detail}}"
+				is-open="status['airinterface' + separator + airinterface.layerProtocol + separator + detail]">
+				<pre>{{airinterface[detail] | json}}</pre>
+			</div>
+		</div>
+
+		<div ng-repeat="structure in structures" uib-accordion-group
+			class="panel-primary"
+			heading="Structure (Pac) '{{structure.layerProtocol}}'"
+			is-open="status['structure' + separator + structure.layerProtocol]">
+			<div ng-repeat="detail in details" uib-accordion-group
+				class="panel-default" heading="{{detail}}"
+				is-open="status['structure' + separator + structure.layerProtocol + separator + detail]">
+				<pre>{{structure[detail] | json}}</pre>
+			</div>
+		</div>
+
+		<div ng-repeat="container in containers" uib-accordion-group
+			class="panel-primary"
+			heading="Container (Pac) '{{container.layerProtocol}}'"
+			is-open="status['container' + separator + container.layerProtocol]">
+			<div ng-repeat="detail in details" uib-accordion-group
+				class="panel-default" heading="{{detail}}"
+				is-open="status['container' + separator +  container.layerProtocol + separator + detail]">
+				<pre>{{container[detail] | json}}</pre>
+			</div>
+		</div>
+
+		</uib-accordion>
+
+		<hr />
+		<p>
+			<span>Build: @buildtime@</span>
+		</p>

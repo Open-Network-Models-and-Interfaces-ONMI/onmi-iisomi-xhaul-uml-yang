@@ -6,21 +6,24 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-define(['angularAMD', 'app/routingConfig', 'app/core/core.services', 'common/config/env.module', 'app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min'], function(ng) {
+define(['angularAMD', 
+        'app/routingConfig', 
+        'app/core/core.services', 
+        'common/config/env.module',
+        'app/mwtnCommons/mwtnCommons.module'], function(ng) {
   var mwtnConnectApp = angular.module('app.mwtnConnect', [ 'app.core',
       'ui.router.state', 'config', 'ui.grid', 'ui.grid.exporter',
       'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.grid.selection',
-      'ui.grid.resizeColumns' ]);
+      'ui.grid.resizeColumns', 'ui.bootstrap' ]);
 
   mwtnConnectApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $translateProvider) {
+
     mwtnConnectApp.register = {
       controller : $controllerProvider.register,
       directive : $compileProvider.directive,
       factory : $provide.factory,
       service : $provide.service
-
     };
-
 
     NavHelperProvider.addControllerUrl('app/mwtnConnect/mwtnConnect.controller');
     NavHelperProvider.addToMenu('mwtnConnect', {

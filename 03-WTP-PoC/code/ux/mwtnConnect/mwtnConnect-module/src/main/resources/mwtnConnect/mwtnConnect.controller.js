@@ -6,9 +6,13 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-define(['app/mwtnConnect/mwtnConnect.module','app/mwtnConnect/mwtnConnect.services','app/mwtnCommons/mwtnCommons.services', 'app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min'], function(mwtnConnectApp) {
+define(['app/mwtnConnect/mwtnConnect.module',
+        'app/mwtnConnect/mwtnConnect.services',
+        'app/mwtnCommons/mwtnCommons.module'], 
+        function(mwtnConnectApp) {
 
-  mwtnConnectApp.register.controller('mwtnConnectCtrl', ['$scope', '$rootScope', '$http', '$mwtnConnect', '$mwtnCommons', '$mwtnLog', 'uiGridConstants', 'NetConfServer', function($scope, $rootScope, $http, $mwtnConnect, $mwtnCommons, $mwtnLog, uiGridConstants, NetConfServer) {
+  mwtnConnectApp.register.controller('mwtnConnectCtrl', ['$scope', '$rootScope', '$http', '$mwtnConnect', '$mwtnCommons', '$mwtnLog', 'uiGridConstants', '$uibModal', 'NetConfServer', 
+                                                         function($scope, $rootScope, $http, $mwtnConnect, $mwtnCommons, $mwtnLog, uiGridConstants, $uibModal, NetConfServer) {
 
     var COMPONENT = 'mwtnConnectCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnConnectCtrl started!'});
@@ -57,7 +61,7 @@ define(['app/mwtnConnect/mwtnConnect.module','app/mwtnConnect/mwtnConnect.servic
     var unknownNesActionCellTemplate = [
      '<a class="vCenter" ng-class="{attention: grid.appScope.hover, hidden: onfAirIinterfaceRevision}" >',
      '<button class="btn btn-default" ng-show="row.entity[\'node-id\'] !== \'controller-config\'" ng-click="grid.appScope.unmount(row.entity)">Unmount</button>',
-     '<button class="btn btn-primary" ng-show="row.entity[\'node-id\'] !== \'controller-config\' && row.entity.onfAirIinterfaceRevision" ng-click="grid.appScope.edit(row.entity)">Make known ...</button>',
+     '<button class="btn btn-primary" ng-show="row.entity[\'node-id\'] !== \'controller-config\' && row.entity.onfAirIinterfaceRevision" ng-click="grid.appScope.addToRequiredNetworkElements(row.entity)">Make known ...</button>',
      '</a>' ].join('<span>&nbsp;</span>');
     $scope.unknownNesGridOptions = JSON.parse(JSON.stringify($mwtnCommons.gridOptions));
     $scope.unknownNesGridOptions.rowHeight  = 44;
@@ -98,7 +102,7 @@ define(['app/mwtnConnect/mwtnConnect.module','app/mwtnConnect/mwtnConnect.servic
             // console.log('ane', aneHash);
             // console.log(JSON.stringify(topology.node));
             topology.node.map(function(ne) {
-              if (ne['netconf-node-topology:available-capabilities']['available-capability']) {
+              if (ne['netconf-node-topology:available-capabilities'] && ne['netconf-node-topology:available-capabilities']['available-capability']) {
                 ne['netconf-node-topology:available-capabilities']['available-capability'].map(function(cap){
                   if (cap.contains('CoreModel-CoreNetworkModule-ObjectClasses')) {
                     ne.onfCoreModelRevision = cap.split('?revision=')[1].substring(0,10);
@@ -114,6 +118,36 @@ define(['app/mwtnConnect/mwtnConnect.module','app/mwtnConnect/mwtnConnect.servic
       });
     }; 
     getActualNetworkElements();
+    
+    $scope.netconfServer = {};
+    $scope.addToRequiredNetworkElements = function (netconfServer) {
+      
+      // set default user/pw according to DVM
+      netconfServer.username = 'compila';
+      netconfServer.password = 'compila+';
+
+      $scope.netconfServer = netconfServer;
+      var modalInstance = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'src/app/mwtnConnect/templates/addToRequired.tpl.html',
+        controller: 'AddToRequiredMessageCtrl',
+        size: 'lg',
+        resolve: {
+          netconfServer: function () {
+            return $scope.netconfServer;
+          }
+        }
+      });
+
+      modalInstance.result.then(function (netconfServer) {
+        
+        $mwtnLog.info({component: COMPONENT, message: 'Mount result: ' + JSON.stringify(netconfServer)});
+      }, function () {
+        $mwtnLog.info({component: COMPONENT, message: 'Creation of new planned NetworkElement dismissed!'});
+      });
+    };
     
     $scope.addNetconfServer = function() {
       var n = $scope.requiredNesGridOptions.data.length + 1;
@@ -132,13 +166,6 @@ define(['app/mwtnConnect/mwtnConnect.module','app/mwtnConnect/mwtnConnect.servic
     $scope.connect = function(row) {
       console.info(JSON.stringify(row));
     };
-
-    $scope.disconnect = function(netConfServer) {
-      netConfServer['netconf-node-topology:connection-status'] = 'disconnecting...';
-      $mwtnConnect.unmount(netConfServer['node-id'], function(response) {
-        netConfServer['netconf-node-topology:connection-status'] = 'disconnected';
-      });
-    };
     
     $scope.unmount = function(netConfServer) {
       netConfServer['netconf-node-topology:connection-status'] = 'disconnecting...';
@@ -147,6 +174,7 @@ define(['app/mwtnConnect/mwtnConnect.module','app/mwtnConnect/mwtnConnect.servic
         var index = $scope.unknownNesGridOptions.data.length;
         while (--index) {
           if ($scope.unknownNesGridOptions.data[index]['node-id'] === netConfServer['node-id']) {
+            console.log('found');
             $scope.unknownNesGridOptions.data.splice(index, 1);
             break;
           } 
@@ -162,4 +190,32 @@ define(['app/mwtnConnect/mwtnConnect.module','app/mwtnConnect/mwtnConnect.servic
     };
     
   }]);
+
+  mwtnConnectApp.register.controller('AddToRequiredMessageCtrl', ['$scope', '$uibModalInstance', '$mwtnDatabase', 'netconfServer', function ($scope, $uibModalInstance, $mwtnDatabase, netconfServer) {
+
+    $scope.netconfServer = netconfServer;
+    $scope.sites = [];
+    var sort = [ {
+      id : {
+        order : 'asc'
+      }
+    }];
+    $mwtnDatabase.getAllData('site', 0, 999, sort, function(sites){
+      if (sites.data.hits.hits) {
+        sites.data.hits.hits.map(function(site){
+          $scope.sites.push({id:site._source.id, name:site._source.name});
+        });
+      }
+    });
+    
+  
+    $scope.ok = function () {
+      $uibModalInstance.close($scope.netconfServer);
+    };
+  
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+  }]);
+
 });

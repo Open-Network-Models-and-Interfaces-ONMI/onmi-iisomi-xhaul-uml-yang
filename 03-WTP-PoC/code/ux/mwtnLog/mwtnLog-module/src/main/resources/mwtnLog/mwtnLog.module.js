@@ -9,9 +9,8 @@
 define(['angularAMD', 
         'app/routingConfig', 
         'app/core/core.services', 
-        'common/config/env.module', 
-        'app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min', 
-        'app/mwtnCommons/bower_components/angular-bootstrap/ui-bootstrap-tpls.min'], function(ng) {
+        'common/config/env.module',
+        'app/mwtnCommons/mwtnCommons.module'], function(ng) {
   var mwtnLogApp = angular.module('app.mwtnLog', [ 'app.core',
       'ui.router.state', 'config', 'ui.grid', 'ui.grid.exporter',
       'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.grid.selection',
