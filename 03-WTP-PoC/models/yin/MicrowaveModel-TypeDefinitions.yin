@@ -3,11 +3,19 @@
         xmlns="urn:ietf:params:xml:ns:yang:yin:1"
         xmlns:MicrowaveModel-TypeDefinitions="uri:onf:MicrowaveModel-TypeDefinitions"
         xmlns:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages="uri:onf:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"
+        xmlns:MicrowaveModel-ObjectClasses-SuperClasses="uri:onf:MicrowaveModel-ObjectClasses-SuperClasses"
+        xmlns:G_874_1_model-Object_Classes="uri:onf:G_874_1_model-Object_Classes"
         xmlns:CoreModel-CoreFoundationModule-StateModel="uri:onf:CoreModel-CoreFoundationModule-StateModel">
   <namespace uri="uri:onf:MicrowaveModel-TypeDefinitions"/>
   <prefix value="MicrowaveModel-TypeDefinitions"/>
   <import module="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages">
     <prefix value="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"/>
+  </import>
+  <import module="MicrowaveModel-ObjectClasses-SuperClasses">
+    <prefix value="MicrowaveModel-ObjectClasses-SuperClasses"/>
+  </import>
+  <import module="G_874_1_model-Object_Classes">
+    <prefix value="G_874_1_model-Object_Classes"/>
   </import>
   <import module="CoreModel-CoreFoundationModule-StateModel">
     <prefix value="CoreModel-CoreFoundationModule-StateModel"/>
@@ -27,7 +35,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-08-11">
+  <revision date="2016-08-28">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -48,17 +56,12 @@
     </type>
   </typedef>
   <grouping name="channelPlanType">
-    <leaf name="channelPlanTypeId">
-      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
-      <config value="false"/>
-    </leaf>
     <leaf name="supportedChannelPlan">
       <type name="string"/>
       <config value="false"/>
       <description>
         <text>Unique name (e.g. CEPT/ERC/REC (01) 04 Annex 5) of an international agreement that describe allocations of frequency channels, to which this air interface complies. Corresponding channel plans to be delivered by the hardware vendor and to be stored by the operator in the controller/application attached database.</text>
       </description>
-      <default value="Supported Channel Plan not yet defined."/>
     </leaf>
     <leaf name="duplexDistanceIsVariable">
       <type name="boolean"/>
@@ -188,11 +191,23 @@
       <enum name="vertical"/>
     </type>
   </typedef>
-  <grouping name="airInterfaceProblemType">
-    <leaf name="problemId">
-      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
-      <config value="false"/>
+  <grouping name="airInterfaceProblemSeverityType">
+    <leaf name="problemKindName">
+      <type name="string"/>
+      <description>
+        <text>Name of the alarm according to AirInterface::AirInterfaceCapability::supportedAlarms</text>
+      </description>
     </leaf>
+    <leaf name="problemKindSeverity">
+      <type name="severityType"/>
+      <description>
+        <text>Severity of this type of alarm.</text>
+      </description>
+      <default value="warning"/>
+    </leaf>
+  </grouping>
+  <grouping name="airInterfaceCurrentProblemType">
+    <uses name="MicrowaveModel-ObjectClasses-SuperClasses:MwCurrentProblem"/>
     <leaf name="problemName">
       <type name="string"/>
       <config value="false"/>
@@ -203,6 +218,7 @@
     </leaf>
     <leaf name="problemSeverity">
       <type name="severityType"/>
+      <config value="false"/>
       <description>
         <text>Severity of the alarm.</text>
       </description>
@@ -526,6 +542,24 @@
       <default value="-1"/>
     </leaf>
   </grouping>
+  <grouping name="airInterfaceCurrentPerformanceType">
+    <description>
+      <text>Turns performance information into current performance information by inheriting from OTN_CurrentData.</text>
+    </description>
+    <uses name="G_874_1_model-Object_Classes:OTN_CurrentData"/>
+    <container name="performanceData">
+      <uses name="airInterfacePerformanceType"/>
+    </container>
+  </grouping>
+  <grouping name="airInterfaceHistoricalPerformanceType">
+    <description>
+      <text>Turns performance information into historical performance information by inheriting from OTN_HistoryData.</text>
+    </description>
+    <uses name="G_874_1_model-Object_Classes:OTN_HistoryData"/>
+    <container name="performanceData">
+      <uses name="airInterfacePerformanceType"/>
+    </container>
+  </grouping>
   <typedef name="protectionType">
     <type name="enumeration">
       <enum name="hsb"/>
@@ -539,17 +573,12 @@
     </type>
   </typedef>
   <grouping name="diversityType">
-    <leaf name="diversityTypeId">
-      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
-      <config value="false"/>
-    </leaf>
     <leaf name="diversityName">
       <type name="string"/>
       <config value="false"/>
       <description>
         <text>Names to be chosen from the following list: 'spaceDiversity', 'frequencyDiversity'</text>
       </description>
-      <default value="Diversity name not yet defined."/>
     </leaf>
     <leaf name="numberOfAirInterfacesMax">
       <type name="int8"/>
@@ -568,11 +597,23 @@
       <enum name="allAiActive"/>
     </type>
   </typedef>
-  <grouping name="airInterfaceDiversityProblemType">
-    <leaf name="problemId">
-      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
-      <config value="false"/>
+  <grouping name="airInterfaceDiversityProblemSeverityType">
+    <leaf name="problemKindName">
+      <type name="string"/>
+      <description>
+        <text>Name of the alarm according to AirInterfaceDiversity::AirInterfaceDiversityCapability::supportedAlarms</text>
+      </description>
     </leaf>
+    <leaf name="problemSeverity">
+      <type name="severityType"/>
+      <description>
+        <text>Severity of this type of alarm.</text>
+      </description>
+      <default value="warning"/>
+    </leaf>
+  </grouping>
+  <grouping name="airInterfaceDiversityCurrentProblemType">
+    <uses name="MicrowaveModel-ObjectClasses-SuperClasses:MwCurrentProblem"/>
     <leaf name="problemName">
       <type name="string"/>
       <config value="false"/>
@@ -621,18 +662,31 @@
       <default value="-99"/>
     </leaf>
   </grouping>
+  <grouping name="airInterfaceDiversityCurrentPerformanceType">
+    <description>
+      <text>Turns performance information into current performance information by inheriting from OTN_CurrentData.</text>
+    </description>
+    <uses name="G_874_1_model-Object_Classes:OTN_CurrentData"/>
+    <container name="performanceData">
+      <uses name="airInterfaceDiversityPerformanceType"/>
+    </container>
+  </grouping>
+  <grouping name="airInterfaceDiversityHistoricalPerformanceType">
+    <description>
+      <text>Turns performance information into historical performance information by inheriting from OTN_HistoryData.</text>
+    </description>
+    <uses name="G_874_1_model-Object_Classes:OTN_HistoryData"/>
+    <container name="performanceData">
+      <uses name="airInterfaceDiversityPerformanceType"/>
+    </container>
+  </grouping>
   <grouping name="tdmStructureType">
-    <leaf name="tdmStructureTypeId">
-      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
-      <config value="false"/>
-    </leaf>
     <leaf name="tdmStructureName">
       <type name="string"/>
       <config value="false"/>
       <description>
         <text>Names to be chosen from the following list: 'e1','t1','j1','e3','ds3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'</text>
       </description>
-      <default value="TDM structure name not yet defined."/>
     </leaf>
     <leaf name="tdmSegmentSize">
       <type name="int32"/>
@@ -653,11 +707,23 @@
       <default value="-1"/>
     </leaf>
   </grouping>
-  <grouping name="structureProblemType">
-    <leaf name="problemId">
-      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
-      <config value="false"/>
+  <grouping name="structureProblemSeverityType">
+    <leaf name="problemKindName">
+      <type name="string"/>
+      <description>
+        <text>Name of the alarm according to Structure::StructureCapability::supportedAlarms</text>
+      </description>
     </leaf>
+    <leaf name="problemSeverity">
+      <type name="severityType"/>
+      <description>
+        <text>Severity of this type of alarm.</text>
+      </description>
+      <default value="warning"/>
+    </leaf>
+  </grouping>
+  <grouping name="structureCurrentProblemType">
+    <uses name="MicrowaveModel-ObjectClasses-SuperClasses:MwCurrentProblem"/>
     <leaf name="problemName">
       <type name="string"/>
       <config value="false"/>
@@ -680,18 +746,33 @@
     </description>
     <type name="int32"/>
   </typedef>
-  <grouping name="tdmContainerType">
-    <leaf name="tdmContainerTypeId">
-      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
+  <grouping name="structureCurrentPerformanceType">
+    <description>
+      <text>Turns performance information into current performance information by inheriting from OTN_CurrentData.</text>
+    </description>
+    <uses name="G_874_1_model-Object_Classes:OTN_CurrentData"/>
+    <leaf name="performanceData">
+      <type name="structurePerformanceType"/>
       <config value="false"/>
     </leaf>
+  </grouping>
+  <grouping name="structureHistoricalPerformanceType">
+    <description>
+      <text>Turns performance information into historical performance information by inheriting from OTN_HistoryData.</text>
+    </description>
+    <uses name="G_874_1_model-Object_Classes:OTN_HistoryData"/>
+    <leaf name="performanceData">
+      <type name="structurePerformanceType"/>
+      <config value="false"/>
+    </leaf>
+  </grouping>
+  <grouping name="tdmContainerType">
     <leaf name="tdmContainerName">
       <type name="string"/>
       <config value="false"/>
       <description>
         <text>Names to be chosen from the following list: 'e1','t1','j1','e3','t3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'</text>
       </description>
-      <default value="TDM container name not yet defined."/>
     </leaf>
     <leaf name="tdmContainerSize">
       <type name="int32"/>
@@ -717,7 +798,7 @@ Combinations of structureId and segmentId must be unique inside the device to as
   </grouping>
   <grouping name="segmentStatusType">
     <leaf name="segmentStatusTypeId">
-      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
+      <type name="int16"/>
       <config value="false"/>
     </leaf>
     <leaf name="segmentIsReservedForTdm">
@@ -738,11 +819,23 @@ Combinations of structureId and segmentId must be unique inside the device to as
       <default value="DISABLED"/>
     </leaf>
   </grouping>
-  <grouping name="containerProblemType">
-    <leaf name="problemId">
-      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
-      <config value="false"/>
+  <grouping name="containerProblemSeverityType">
+    <leaf name="problemKindName">
+      <type name="string"/>
+      <description>
+        <text>Name of the alarm according to Container::ContainerCapability::supportedAlarms</text>
+      </description>
     </leaf>
+    <leaf name="problemSeverity">
+      <type name="severityType"/>
+      <description>
+        <text>Severity of this type of alarm.</text>
+      </description>
+      <default value="warning"/>
+    </leaf>
+  </grouping>
+  <grouping name="containerCurrentProblemType">
+    <uses name="MicrowaveModel-ObjectClasses-SuperClasses:MwCurrentProblem"/>
     <leaf name="problemName">
       <type name="string"/>
       <config value="false"/>
@@ -803,5 +896,23 @@ Required data volume = 17bit</text>
       <units name="s"/>
       <default value="-1"/>
     </leaf>
+  </grouping>
+  <grouping name="containerCurrentPerformanceType">
+    <description>
+      <text>Turns performance information into current performance information by inheriting from OTN_CurrentData.</text>
+    </description>
+    <uses name="G_874_1_model-Object_Classes:OTN_CurrentData"/>
+    <container name="performanceData">
+      <uses name="containerPerformanceType"/>
+    </container>
+  </grouping>
+  <grouping name="containerHistoricalPerformanceType">
+    <description>
+      <text>Turns performance information into historical performance information by inheriting from OTN_HistoryData.</text>
+    </description>
+    <uses name="G_874_1_model-Object_Classes:OTN_HistoryData"/>
+    <container name="performanceData">
+      <uses name="containerPerformanceType"/>
+    </container>
   </grouping>
 </module>

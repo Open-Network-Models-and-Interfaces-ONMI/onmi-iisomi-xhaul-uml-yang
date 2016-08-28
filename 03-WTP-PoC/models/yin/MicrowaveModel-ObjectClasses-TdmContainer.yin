@@ -4,9 +4,7 @@
         xmlns:MicrowaveModel-ObjectClasses-TdmContainer="uri:onf:MicrowaveModel-ObjectClasses-TdmContainer"
         xmlns:CoreModel-CoreNetworkModule-ObjectClasses="uri:onf:CoreModel-CoreNetworkModule-ObjectClasses"
         xmlns:MicrowaveModel-TypeDefinitions="uri:onf:MicrowaveModel-TypeDefinitions"
-        xmlns:CoreModel-CoreFoundationModule-TypeDefinitions="uri:onf:CoreModel-CoreFoundationModule-TypeDefinitions"
-        xmlns:MicrowaveModel-ObjectClasses-SuperClasses="uri:onf:MicrowaveModel-ObjectClasses-SuperClasses"
-        xmlns:G_874_1_model-Object_Classes="uri:onf:G_874_1_model-Object_Classes">
+        xmlns:CoreModel-CoreFoundationModule-TypeDefinitions="uri:onf:CoreModel-CoreFoundationModule-TypeDefinitions">
   <namespace uri="uri:onf:MicrowaveModel-ObjectClasses-TdmContainer"/>
   <prefix value="MicrowaveModel-ObjectClasses-TdmContainer"/>
   <import module="CoreModel-CoreNetworkModule-ObjectClasses">
@@ -17,12 +15,6 @@
   </import>
   <import module="CoreModel-CoreFoundationModule-TypeDefinitions">
     <prefix value="CoreModel-CoreFoundationModule-TypeDefinitions"/>
-  </import>
-  <import module="MicrowaveModel-ObjectClasses-SuperClasses">
-    <prefix value="MicrowaveModel-ObjectClasses-SuperClasses"/>
-  </import>
-  <import module="G_874_1_model-Object_Classes">
-    <prefix value="G_874_1_model-Object_Classes"/>
   </import>
   <organization>
     <text>ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project</text>
@@ -39,7 +31,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-08-09">
+  <revision date="2016-08-28">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -78,21 +70,17 @@
       <config value="false"/>
       <uses name="TdmContainerStatus"/>
     </container>
-    <list name="tdmContainerCurrentProblemList">
-      <key value="sequenceNumber"/>
+    <container name="tdmContainerCurrentProblems">
       <config value="false"/>
-      <ordered-by value="system"/>
-      <uses name="TdmContainerCurrentProblem"/>
-    </list>
+      <uses name="TdmContainerCurrentProblems"/>
+    </container>
     <container name="tdmContainerCurrentPerformance">
       <config value="false"/>
       <uses name="TdmContainerCurrentPerformance"/>
     </container>
-    <list name="tdmContainerHistoricalPerformanceList">
-      <config value="false"/>
-      <ordered-by value="system"/>
-      <uses name="TdmContainerHistoricalPerformance"/>
-    </list>
+    <container name="tdmContainerHistoricalPerformances">
+      <uses name="TdmContainerHistoricalPerformances"/>
+    </container>
   </list>
   <grouping name="TdmContainerCapability">
     <description>
@@ -102,7 +90,7 @@
       <description>
         <text>Lists the TDM containers that are supported.</text>
       </description>
-      <key value="tdmContainerTypeId"/>
+      <key value="tdmContainerName"/>
       <ordered-by value="system"/>
       <uses name="MicrowaveModel-TypeDefinitions:tdmContainerType"/>
       <min-elements value="1"/>
@@ -141,10 +129,10 @@
       <description>
         <text>Severity of the problem to be configured.</text>
       </description>
-      <key value="problemId"/>
+      <key value="sequenceNumber"/>
       <config value="false"/>
       <ordered-by value="system"/>
-      <uses name="MicrowaveModel-TypeDefinitions:containerProblemType"/>
+      <uses name="MicrowaveModel-TypeDefinitions:containerCurrentProblemType"/>
       <min-elements value="2"/>
     </list>
   </grouping>
@@ -159,22 +147,29 @@ _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' m
       <default value="20101120140000.0Z+1"/>
     </leaf>
   </grouping>
-  <grouping name="TdmContainerCurrentProblem">
-    <uses name="MicrowaveModel-ObjectClasses-SuperClasses:MwCurrentProblem"/>
-    <container name="problem">
-      <uses name="MicrowaveModel-TypeDefinitions:containerProblemType"/>
-    </container>
+  <grouping name="TdmContainerCurrentProblems">
+    <list name="currentProblemList">
+      <key value="sequenceNumber"/>
+      <ordered-by value="system"/>
+      <uses name="MicrowaveModel-TypeDefinitions:containerCurrentProblemType"/>
+    </list>
   </grouping>
   <grouping name="TdmContainerCurrentPerformance">
-    <uses name="G_874_1_model-Object_Classes:OTN_CurrentData"/>
-    <container name="performanceData">
-      <uses name="MicrowaveModel-TypeDefinitions:containerPerformanceType"/>
+    <description>
+      <text>Aggregated performance information of the TDM container at a particular moment.</text>
+    </description>
+    <container name="currentPerformanceData">
+      <uses name="MicrowaveModel-TypeDefinitions:containerCurrentPerformanceType"/>
     </container>
   </grouping>
-  <grouping name="TdmContainerHistoricalPerformance">
-    <uses name="G_874_1_model-Object_Classes:OTN_HistoryData"/>
-    <container name="performanceData">
-      <uses name="MicrowaveModel-TypeDefinitions:containerPerformanceType"/>
-    </container>
+  <grouping name="TdmContainerHistoricalPerformances">
+    <description>
+      <text>Aggregated performance information of the TDM container for a pre-defined measurement interval.</text>
+    </description>
+    <list name="historicalPerformanceDataList">
+      <key value="historyDataId"/>
+      <ordered-by value="system"/>
+      <uses name="MicrowaveModel-TypeDefinitions:containerHistoricalPerformanceType"/>
+    </list>
   </grouping>
 </module>
