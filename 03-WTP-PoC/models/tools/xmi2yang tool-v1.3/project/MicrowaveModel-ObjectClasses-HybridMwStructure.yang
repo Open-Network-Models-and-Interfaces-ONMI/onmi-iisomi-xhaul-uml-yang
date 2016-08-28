@@ -14,12 +14,6 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
     import CoreModel-CoreFoundationModule-TypeDefinitions {
         prefix CoreModel-CoreFoundationModule-TypeDefinitions;
     }
-    import MicrowaveModel-ObjectClasses-SuperClasses {
-        prefix MicrowaveModel-ObjectClasses-SuperClasses;
-    }
-    import G_874_1_model-Object_Classes {
-        prefix G_874_1_model-Object_Classes;
-    }
 
     organization 
         'ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project';
@@ -36,7 +30,7 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-08-09 {
+    revision 2016-08-28 {
         description 
             "Initial revision."; 
         reference 
@@ -69,20 +63,16 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
             config false;
             uses HybridMwStructureStatus;
         }
-        list hybridMwStructureCurrentProblemList {
-            key 'sequenceNumber';
+        container hybridMwStructureCurrentProblems {
             config false;
-            ordered-by system;
-            uses HybridMwStructureCurrentProblem;
+            uses HybridMwStructureCurrentProblems;
         }
         container hybridMwStructureCurrentPerformance {
             config false;
             uses HybridMwStructureCurrentPerformance;
         }
-        list hybridMwStructureHistoricalPerformanceList {
-            config false;
-            ordered-by system;
-            uses HybridMwStructureHistoricalPerformance;
+        container hybridMwStructureHistoricalPerformances {
+            uses HybridMwStructureHistoricalPerformances;
         }
     }
     grouping HybridMwStructureCapability {
@@ -96,7 +86,7 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
         }
         list supportedTdmStructureTypesList {
             description "Lists the TDM frame types that are supported.";
-            key 'tdmStructureTypeId';
+            key 'tdmStructureName';
             ordered-by system;
             uses MicrowaveModel-TypeDefinitions:tdmStructureType;
             min-elements 1;
@@ -121,10 +111,10 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
         }
         list problemSeverityList {
             description "Severity of the type of problem to be configured.";
-            key 'problemId';
+            key 'sequenceNumber';
             config false;
             ordered-by system;
-            uses MicrowaveModel-TypeDefinitions:structureProblemType;
+            uses MicrowaveModel-TypeDefinitions:structureCurrentProblemType;
         }
     }
     grouping HybridMwStructureStatus {
@@ -142,24 +132,25 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
                 _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' month; dd='01'..'31' day; hh='00'..'23' hour; mm='00'..'59' minute; ss='00'..'59' second; s='.0'..'.9'tenth of second (set to '.0' if EMS or NE cannot support this granularity); Z='Z' indicates UTC (rather than local time); {+|-}='+' or '-' delta from UTC; HH='00'..'23' time zone difference in hours; Mm='00'..'59' time zone difference in minutes.";
         }
     }
-    grouping HybridMwStructureCurrentProblem {
-        uses MicrowaveModel-ObjectClasses-SuperClasses:MwCurrentProblem;
-        container problem {
-            uses MicrowaveModel-TypeDefinitions:structureProblemType;
+    grouping HybridMwStructureCurrentProblems {
+        list currentProblemList {
+            key 'sequenceNumber';
+            ordered-by system;
+            uses MicrowaveModel-TypeDefinitions:structureCurrentProblemType;
         }
     }
     grouping HybridMwStructureCurrentPerformance {
-        uses G_874_1_model-Object_Classes:OTN_CurrentData;
-        leaf performanceData {
-            type MicrowaveModel-TypeDefinitions:structurePerformanceType;
-            config false;
+        description "Aggregated performance information of the structure of a hybrid microwave at a particular moment.";
+        container currentPerformanceData {
+            uses MicrowaveModel-TypeDefinitions:structureCurrentPerformanceType;
         }
     }
-    grouping HybridMwStructureHistoricalPerformance {
-        uses G_874_1_model-Object_Classes:OTN_HistoryData;
-        leaf performanceData {
-            type MicrowaveModel-TypeDefinitions:structurePerformanceType;
-            config false;
+    grouping HybridMwStructureHistoricalPerformances {
+        description "Aggregated performance information of the structure of a hybrid microwave for a pre-defined measurement interval.";
+        list historicalPerformanceDataList {
+            key 'historyDataId';
+            ordered-by system;
+            uses MicrowaveModel-TypeDefinitions:structureHistoricalPerformanceType;
         }
     }
 }
