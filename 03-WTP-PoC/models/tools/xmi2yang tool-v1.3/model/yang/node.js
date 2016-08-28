@@ -182,16 +182,16 @@ Node.prototype.writeNode = function (layer) {
     }
     // [sko] hack start
     var checkName = this.name;
-    var forceConfigFalse = ['airInterfaceCapability', 'airInterfaceStatus', 'airInterfaceCurrentProblemList', 'airInterfaceCurrentPerformance', 'airInterfaceHistoricalPerformanceList',
-                            'airInterfaceDiversityCapability', 'airInterfaceDiversityStatus', 'airInterfaceDiversityCurrentProblemList', 'airInterfaceDiversityCurrentPerformance', 'airInterfaceDiversityHistoricalPerformanceList',
+    var forceConfigFalse = ['airInterfaceCapability', 'airInterfaceStatus', 'airInterfaceCurrentProblems', 'airInterfaceCurrentPerformance', 'airInterfaceHistoricalPerformanceList',
+                            'airInterfaceDiversityCapability', 'airInterfaceDiversityStatus', 'airInterfaceDiversityCurrentProblems', 'airInterfaceDiversityCurrentPerformance', 'airInterfaceDiversityHistoricalPerformanceList',
 
-                            'structureCapability', 'structureStatus', 'structureCurrentProblemList', 'structureCurrentPerformance', 'structureHistoricalPerformanceList',
-                            'pureEthernetStructureCapability', 'pureEthernetStructureStatus', 'pureEthernetStructureCurrentProblemList', 'pureEthernetStructureCurrentPerformance', 'pureEthernetStructureHistoricalPerformanceList',
-                            'hybridMwStructureCapability', 'hybridMwStructureStatus', 'hybridMwStructureCurrentProblemList', 'hybridMwStructureCurrentPerformance', 'hybridMwStructureHistoricalPerformanceList',
+                            'structureCapability', 'structureStatus', 'structureCurrentProblems', 'structureCurrentPerformance', 'structureHistoricalPerformanceList',
+                            'pureEthernetStructureCapability', 'pureEthernetStructureStatus', 'pureEthernetStructureCurrentProblems', 'pureEthernetStructureCurrentPerformance', 'pureEthernetStructureHistoricalPerformanceList',
+                            'hybridMwStructureCapability', 'hybridMwStructureStatus', 'hybridMwStructureCurrentProblems', 'hybridMwStructureCurrentPerformance', 'hybridMwStructureHistoricalPerformanceList',
                             
-                            'containerCapability', 'containerStatus', 'containerCurrentProblemList', 'containerCurrentPerformance', 'containerHistoricalPerformanceList',
-                            'ethernetContainerCapability', 'ethernetContainerStatus', 'ethernetContainerCurrentProblemList', 'ethernetContainerCurrentPerformance', 'ethernetContainerHistoricalPerformanceList',
-                            'tdmContainerCapability', 'tdmContainerStatus', 'tdmContainerCurrentProblemList', 'tdmContainerCurrentPerformance', 'tdmContainerHistoricalPerformanceList',
+                            'containerCapability', 'containerStatus', 'containerCurrentProblems', 'containerCurrentPerformance', 'containerHistoricalPerformanceList',
+                            'ethernetContainerCapability', 'ethernetContainerStatus', 'ethernetContainerCurrentProblems', 'ethernetContainerCurrentPerformance', 'ethernetContainerHistoricalPerformanceList',
+                            'tdmContainerCapability', 'tdmContainerStatus', 'tdmContainerCurrentProblems', 'tdmContainerCurrentPerformance', 'tdmContainerHistoricalPerformanceList',
                             
                             'problemSeverityList'];
     forceConfigFalse.map(function(item){
@@ -209,13 +209,14 @@ Node.prototype.writeNode = function (layer) {
             maxele = "";
         }
         // [sko] TODO hack, situation needs to be analysed... ;(
+        // console.log('###', this.name);
         if (this.name === 'Q_822_CurrentData') {
           this.key = 'scannerId';
         // } else if (this.name === 'timeSlotIDList') {
         //  this.key = 'structureId timeSlotId';
-        } else if (this.name === 'segmentsIDList') {
-          this.key = 'structureIdRef segmentIdRef';
-        } else if (this.name.endsWith('HistoricalPerformanceList')) {
+        // } else if (this.name === 'segmentsIDList') {
+        //   this.key = 'structureIdRef segmentIdRef';
+        } else if (this.name === 'historicalPerformanceDataList') {
           this.key = 'historyDataId'
         }
         if (typeof this.key=="string") {
