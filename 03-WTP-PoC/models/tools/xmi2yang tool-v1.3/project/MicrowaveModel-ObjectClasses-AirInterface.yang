@@ -30,7 +30,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-08-25 {
+    revision 2016-08-28 {
         description 
             "Initial revision."; 
         reference 
@@ -59,7 +59,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             config false;
             uses AirInterfaceStatus;
         }
-        container airInterfaceCurrentProblemList {
+        container airInterfaceCurrentProblems {
             config false;
             uses AirInterfaceCurrentProblems;
         }
@@ -67,8 +67,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
             config false;
             uses AirInterfaceCurrentPerformance;
         }
-        container airInterfaceHistoricalPerformanceList {
-            config false;
+        container airInterfaceHistoricalPerformances {
             uses AirInterfaceHistoricalPerformances;
         }
     }
@@ -489,6 +488,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
     grouping AirInterfaceHistoricalPerformances {
         description "Aggregated performance information of the air interface for a pre-defined measurement interval.";
         list historicalPerformanceDataList {
+            key 'historyDataId';
             ordered-by system;
             uses MicrowaveModel-TypeDefinitions:airInterfaceHistoricalPerformanceType;
         }
