@@ -30,7 +30,7 @@ module MicrowaveModel-TypeDefinitions {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-08-25 {
+    revision 2016-08-28 {
         description 
             "Initial revision."; 
         reference 
@@ -499,11 +499,19 @@ module MicrowaveModel-TypeDefinitions {
             enum allAiActive;
         }
     }
-    grouping airInterfaceDiversityProblemType {
-        leaf problemId {
-            type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
-            config false;
+    grouping airInterfaceDiversityProblemSeverityType {
+        leaf problemKindName {
+            type string;
+            description "Name of the alarm according to AirInterfaceDiversity::AirInterfaceDiversityCapability::supportedAlarms";
         }
+        leaf problemSeverity {
+            type severityType;
+            description "Severity of this type of alarm.";
+            default "warning";
+        }
+    }
+    grouping airInterfaceDiversityCurrentProblemType {
+        uses MicrowaveModel-ObjectClasses-SuperClasses:MwCurrentProblem;
         leaf problemName {
             type string;
             config false;
@@ -540,16 +548,25 @@ module MicrowaveModel-TypeDefinitions {
             default -99;
         }
     }
-    grouping tdmStructureType {
-        leaf tdmStructureTypeId {
-            type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
-            config false;
+    grouping airInterfaceDiversityCurrentPerformanceType {
+        description "Turns performance information into current performance information by inheriting from OTN_CurrentData.";
+        uses G_874_1_model-Object_Classes:OTN_CurrentData;
+        container performanceData {
+            uses airInterfaceDiversityPerformanceType;
         }
+    }
+    grouping airInterfaceDiversityHistoricalPerformanceType {
+        description "Turns performance information into historical performance information by inheriting from OTN_HistoryData.";
+        uses G_874_1_model-Object_Classes:OTN_HistoryData;
+        container performanceData {
+            uses airInterfaceDiversityPerformanceType;
+        }
+    }
+    grouping tdmStructureType {
         leaf tdmStructureName {
             type string;
             config false;
             description "Names to be chosen from the following list: 'e1','t1','j1','e3','ds3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'";
-            default "TDM structure name not yet defined.";
         }
         leaf tdmSegmentSize {
             type int32;
@@ -566,11 +583,19 @@ module MicrowaveModel-TypeDefinitions {
             default -1;
         }
     }
-    grouping structureProblemType {
-        leaf problemId {
-            type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
-            config false;
+    grouping structureProblemSeverityType {
+        leaf problemKindName {
+            type string;
+            description "Name of the alarm according to Structure::StructureCapability::supportedAlarms";
         }
+        leaf problemSeverity {
+            type severityType;
+            description "Severity of this type of alarm.";
+            default "warning";
+        }
+    }
+    grouping structureCurrentProblemType {
+        uses MicrowaveModel-ObjectClasses-SuperClasses:MwCurrentProblem;
         leaf problemName {
             type string;
             config false;
@@ -587,16 +612,27 @@ module MicrowaveModel-TypeDefinitions {
         description "Consolidated performance information of the Structure.";
         type int32;
     }
-    grouping tdmContainerType {
-        leaf tdmContainerTypeId {
-            type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
+    grouping structureCurrentPerformanceType {
+        description "Turns performance information into current performance information by inheriting from OTN_CurrentData.";
+        uses G_874_1_model-Object_Classes:OTN_CurrentData;
+        leaf performanceData {
+            type structurePerformanceType;
             config false;
         }
+    }
+    grouping structureHistoricalPerformanceType {
+        description "Turns performance information into historical performance information by inheriting from OTN_HistoryData.";
+        uses G_874_1_model-Object_Classes:OTN_HistoryData;
+        leaf performanceData {
+            type structurePerformanceType;
+            config false;
+        }
+    }
+    grouping tdmContainerType {
         leaf tdmContainerName {
             type string;
             config false;
             description "Names to be chosen from the following list: 'e1','t1','j1','e3','t3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'";
-            default "TDM container name not yet defined.";
         }
         leaf tdmContainerSize {
             type int32;
@@ -618,7 +654,7 @@ module MicrowaveModel-TypeDefinitions {
     }
     grouping segmentStatusType {
         leaf segmentStatusTypeId {
-            type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
+            type int16;
             config false;
         }
         leaf segmentIsReservedForTdm {
@@ -635,11 +671,19 @@ module MicrowaveModel-TypeDefinitions {
             default "DISABLED";
         }
     }
-    grouping containerProblemType {
-        leaf problemId {
-            type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
-            config false;
+    grouping containerProblemSeverityType {
+        leaf problemKindName {
+            type string;
+            description "Name of the alarm according to Container::ContainerCapability::supportedAlarms";
         }
+        leaf problemSeverity {
+            type severityType;
+            description "Severity of this type of alarm.";
+            default "warning";
+        }
+    }
+    grouping containerCurrentProblemType {
+        uses MicrowaveModel-ObjectClasses-SuperClasses:MwCurrentProblem;
         leaf problemName {
             type string;
             config false;
@@ -685,6 +729,20 @@ module MicrowaveModel-TypeDefinitions {
                 Required data volume = 17bit";
             units "s";
             default -1;
+        }
+    }
+    grouping containerCurrentPerformanceType {
+        description "Turns performance information into current performance information by inheriting from OTN_CurrentData.";
+        uses G_874_1_model-Object_Classes:OTN_CurrentData;
+        container performanceData {
+            uses containerPerformanceType;
+        }
+    }
+    grouping containerHistoricalPerformanceType {
+        description "Turns performance information into historical performance information by inheriting from OTN_HistoryData.";
+        uses G_874_1_model-Object_Classes:OTN_HistoryData;
+        container performanceData {
+            uses containerPerformanceType;
         }
     }
 }
