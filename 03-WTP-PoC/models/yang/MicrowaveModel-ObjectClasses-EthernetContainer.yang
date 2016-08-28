@@ -11,12 +11,6 @@ module MicrowaveModel-ObjectClasses-EthernetContainer {
     import CoreModel-CoreFoundationModule-TypeDefinitions {
         prefix CoreModel-CoreFoundationModule-TypeDefinitions;
     }
-    import MicrowaveModel-ObjectClasses-SuperClasses {
-        prefix MicrowaveModel-ObjectClasses-SuperClasses;
-    }
-    import G_874_1_model-Object_Classes {
-        prefix G_874_1_model-Object_Classes;
-    }
 
     organization 
         'ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project';
@@ -33,7 +27,7 @@ module MicrowaveModel-ObjectClasses-EthernetContainer {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-08-11 {
+    revision 2016-08-28 {
         description 
             "Initial revision."; 
         reference 
@@ -62,20 +56,16 @@ module MicrowaveModel-ObjectClasses-EthernetContainer {
             config false;
             uses EthernetContainerStatus;
         }
-        list ethernetContainerCurrentProblemList {
-            key 'sequenceNumber';
+        container ethernetContainerCurrentProblems {
             config false;
-            ordered-by system;
-            uses EthernetContainerCurrentProblem;
+            uses EthernetContainerCurrentProblems;
         }
         container ethernetContainerCurrentPerformance {
             config false;
             uses EthernetContainerCurrentPerformance;
         }
-        list ethernetContainerHistoricalPerformanceList {
-            config false;
-            ordered-by system;
-            uses EthernetContainerHistoricalPerformance;
+        container ethernetContainerHistoricalPerformances {
+            uses EthernetContainerHistoricalPerformances;
         }
     }
     grouping EthernetContainerCapability {
@@ -211,10 +201,10 @@ module MicrowaveModel-ObjectClasses-EthernetContainer {
         }
         list problemSeverityList {
             description "Severity of the problem to be configured.";
-            key 'problemId';
+            key 'sequenceNumber';
             config false;
             ordered-by system;
-            uses MicrowaveModel-TypeDefinitions:containerProblemType;
+            uses MicrowaveModel-TypeDefinitions:containerCurrentProblemType;
             min-elements 2;
         }
     }
@@ -227,22 +217,25 @@ module MicrowaveModel-ObjectClasses-EthernetContainer {
             default "20101120140000.0Z+1";
         }
     }
-    grouping EthernetContainerCurrentProblem {
-        uses MicrowaveModel-ObjectClasses-SuperClasses:MwCurrentProblem;
-        container problem {
-            uses MicrowaveModel-TypeDefinitions:containerProblemType;
+    grouping EthernetContainerCurrentProblems {
+        list currentProblemList {
+            key 'sequenceNumber';
+            ordered-by system;
+            uses MicrowaveModel-TypeDefinitions:containerCurrentProblemType;
         }
     }
     grouping EthernetContainerCurrentPerformance {
-        uses G_874_1_model-Object_Classes:OTN_CurrentData;
-        container performanceData {
-            uses MicrowaveModel-TypeDefinitions:containerPerformanceType;
+        description "Aggregated performance information of the Ethernet container at a particular moment.";
+        container currentPerformanceData {
+            uses MicrowaveModel-TypeDefinitions:containerCurrentPerformanceType;
         }
     }
-    grouping EthernetContainerHistoricalPerformance {
-        uses G_874_1_model-Object_Classes:OTN_HistoryData;
-        container performanceData {
-            uses MicrowaveModel-TypeDefinitions:containerPerformanceType;
+    grouping EthernetContainerHistoricalPerformances {
+        description "Aggregated performance information of the Ethernet container for a pre-defined measurement interval.";
+        list historicalPerformanceDataList {
+            key 'historyDataId';
+            ordered-by system;
+            uses MicrowaveModel-TypeDefinitions:containerHistoricalPerformanceType;
         }
     }
 }

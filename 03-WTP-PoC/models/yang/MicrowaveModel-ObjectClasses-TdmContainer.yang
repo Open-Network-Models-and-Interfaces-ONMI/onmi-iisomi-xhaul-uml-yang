@@ -11,12 +11,6 @@ module MicrowaveModel-ObjectClasses-TdmContainer {
     import CoreModel-CoreFoundationModule-TypeDefinitions {
         prefix CoreModel-CoreFoundationModule-TypeDefinitions;
     }
-    import MicrowaveModel-ObjectClasses-SuperClasses {
-        prefix MicrowaveModel-ObjectClasses-SuperClasses;
-    }
-    import G_874_1_model-Object_Classes {
-        prefix G_874_1_model-Object_Classes;
-    }
 
     organization 
         'ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project';
@@ -33,7 +27,7 @@ module MicrowaveModel-ObjectClasses-TdmContainer {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-08-09 {
+    revision 2016-08-28 {
         description 
             "Initial revision."; 
         reference 
@@ -65,27 +59,23 @@ module MicrowaveModel-ObjectClasses-TdmContainer {
             config false;
             uses TdmContainerStatus;
         }
-        list tdmContainerCurrentProblemList {
-            key 'sequenceNumber';
+        container tdmContainerCurrentProblems {
             config false;
-            ordered-by system;
-            uses TdmContainerCurrentProblem;
+            uses TdmContainerCurrentProblems;
         }
         container tdmContainerCurrentPerformance {
             config false;
             uses TdmContainerCurrentPerformance;
         }
-        list tdmContainerHistoricalPerformanceList {
-            config false;
-            ordered-by system;
-            uses TdmContainerHistoricalPerformance;
+        container tdmContainerHistoricalPerformances {
+            uses TdmContainerHistoricalPerformances;
         }
     }
     grouping TdmContainerCapability {
         description "Bundling is not available.";
         list supportedTdmContainerTypesList {
             description "Lists the TDM containers that are supported.";
-            key 'tdmContainerTypeId';
+            key 'tdmContainerName';
             ordered-by system;
             uses MicrowaveModel-TypeDefinitions:tdmContainerType;
             min-elements 1;
@@ -114,10 +104,10 @@ module MicrowaveModel-ObjectClasses-TdmContainer {
         }
         list problemSeverityList {
             description "Severity of the problem to be configured.";
-            key 'problemId';
+            key 'sequenceNumber';
             config false;
             ordered-by system;
-            uses MicrowaveModel-TypeDefinitions:containerProblemType;
+            uses MicrowaveModel-TypeDefinitions:containerCurrentProblemType;
             min-elements 2;
         }
     }
@@ -130,22 +120,25 @@ module MicrowaveModel-ObjectClasses-TdmContainer {
             default "20101120140000.0Z+1";
         }
     }
-    grouping TdmContainerCurrentProblem {
-        uses MicrowaveModel-ObjectClasses-SuperClasses:MwCurrentProblem;
-        container problem {
-            uses MicrowaveModel-TypeDefinitions:containerProblemType;
+    grouping TdmContainerCurrentProblems {
+        list currentProblemList {
+            key 'sequenceNumber';
+            ordered-by system;
+            uses MicrowaveModel-TypeDefinitions:containerCurrentProblemType;
         }
     }
     grouping TdmContainerCurrentPerformance {
-        uses G_874_1_model-Object_Classes:OTN_CurrentData;
-        container performanceData {
-            uses MicrowaveModel-TypeDefinitions:containerPerformanceType;
+        description "Aggregated performance information of the TDM container at a particular moment.";
+        container currentPerformanceData {
+            uses MicrowaveModel-TypeDefinitions:containerCurrentPerformanceType;
         }
     }
-    grouping TdmContainerHistoricalPerformance {
-        uses G_874_1_model-Object_Classes:OTN_HistoryData;
-        container performanceData {
-            uses MicrowaveModel-TypeDefinitions:containerPerformanceType;
+    grouping TdmContainerHistoricalPerformances {
+        description "Aggregated performance information of the TDM container for a pre-defined measurement interval.";
+        list historicalPerformanceDataList {
+            key 'historyDataId';
+            ordered-by system;
+            uses MicrowaveModel-TypeDefinitions:containerHistoricalPerformanceType;
         }
     }
 }
