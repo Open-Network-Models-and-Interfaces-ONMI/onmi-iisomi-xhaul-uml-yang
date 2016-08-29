@@ -193,15 +193,15 @@ module: MicrowaveModel-ObjectClasses-AirInterfaceDiversity
       |        +--ro snirMin?   int8
       |        +--ro snirMax?   int8
       |        +--ro snirAvg?   int8
-      +--rw airInterfaceDiversityHistoricalPerformances
-         +--rw historicalPerformanceDataList* [historyDataId]
-            +--rw objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-            +--rw nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-            +--rw historyDataId          string
-            +--rw periodEndTime?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
-            +--rw granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
-            +--rw suspectIntervalFlag?   boolean
-            +--rw performanceData
+      +--ro airInterfaceDiversityHistoricalPerformances
+         +--ro historicalPerformanceDataList* [historyDataId]
+            +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
+            +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
+            +--ro historyDataId          string
+            +--ro periodEndTime?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
+            +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
+            +--ro suspectIntervalFlag?   boolean
+            +--ro performanceData
                +--ro snirMin?   int8
                +--ro snirMax?   int8
                +--ro snirAvg?   int8
@@ -360,15 +360,15 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |  |        +--ro rfTempAvg?          int8
    |  |        +--ro defectBlocksSum?    int16
    |  |        +--ro timePeriod?         int32
-   |  +--rw airInterfaceHistoricalPerformances
-   |     +--rw historicalPerformanceDataList* [historyDataId]
-   |        +--rw objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-   |        +--rw nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-   |        +--rw historyDataId          string
-   |        +--rw periodEndTime?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
-   |        +--rw granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
-   |        +--rw suspectIntervalFlag?   boolean
-   |        +--rw performanceData
+   |  +--ro airInterfaceHistoricalPerformances
+   |     +--ro historicalPerformanceDataList* [historyDataId]
+   |        +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |        +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
+   |        +--ro historyDataId          string
+   |        +--ro periodEndTime?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
+   |        +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
+   |        +--ro suspectIntervalFlag?   boolean
+   |        +--ro performanceData
    |           +--ro es?                 int32
    |           +--ro ses?                int32
    |           +--ro cses?               int32
@@ -472,15 +472,15 @@ module: MicrowaveModel-ObjectClasses-EthernetContainer
       |        +--ro txEthernetBytesMaxM?   int64
       |        +--ro txEthernetBytesSum?    int64
       |        +--ro timePeriod?            int32
-      +--rw ethernetContainerHistoricalPerformances
-         +--rw historicalPerformanceDataList* [historyDataId]
-            +--rw objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-            +--rw nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-            +--rw historyDataId          string
-            +--rw periodEndTime?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
-            +--rw granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
-            +--rw suspectIntervalFlag?   boolean
-            +--rw performanceData
+      +--ro ethernetContainerHistoricalPerformances
+         +--ro historicalPerformanceDataList* [historyDataId]
+            +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
+            +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
+            +--ro historyDataId          string
+            +--ro periodEndTime?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
+            +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
+            +--ro suspectIntervalFlag?   boolean
+            +--ro performanceData
                +--ro txEthernetBytesMaxS?   int32
                +--ro txEthernetBytesMaxM?   int64
                +--ro txEthernetBytesSum?    int64
@@ -529,14 +529,14 @@ module: MicrowaveModel-ObjectClasses-HybridMwStructure
       |     +--ro elapsedTime?           int32
       |     +--ro timestamp?             G_874_1_model-Type_Definitions:DateAndTime
       |     +--ro performanceData?       structurePerformanceType
-      +--rw hybridMwStructureHistoricalPerformances
-         +--rw historicalPerformanceDataList* [historyDataId]
-            +--rw objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-            +--rw nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-            +--rw historyDataId          string
-            +--rw periodEndTime?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
-            +--rw granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
-            +--rw suspectIntervalFlag?   boolean
+      +--ro hybridMwStructureHistoricalPerformances
+         +--ro historicalPerformanceDataList* [historyDataId]
+            +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
+            +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
+            +--ro historyDataId          string
+            +--ro periodEndTime?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
+            +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
+            +--ro suspectIntervalFlag?   boolean
             +--ro performanceData?       structurePerformanceType
 module: MicrowaveModel-ObjectClasses-PureEthernetStructure
    +--rw MW_PureEthernetStructure_Pac* [layerProtocol]
@@ -573,14 +573,14 @@ module: MicrowaveModel-ObjectClasses-PureEthernetStructure
       |     +--ro elapsedTime?           int32
       |     +--ro timestamp?             G_874_1_model-Type_Definitions:DateAndTime
       |     +--ro performanceData?       structurePerformanceType
-      +--rw pureEthernetStructureHistoricalPerformances
-         +--rw historicalPerformanceDataList* [historyDataId]
-            +--rw objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-            +--rw nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-            +--rw historyDataId          string
-            +--rw periodEndTime?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
-            +--rw granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
-            +--rw suspectIntervalFlag?   boolean
+      +--ro pureEthernetStructureHistoricalPerformances
+         +--ro historicalPerformanceDataList* [historyDataId]
+            +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
+            +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
+            +--ro historyDataId          string
+            +--ro periodEndTime?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
+            +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
+            +--ro suspectIntervalFlag?   boolean
             +--ro performanceData?       structurePerformanceType
 module: MicrowaveModel-ObjectClasses-TdmContainer
    +--rw MW_TdmContainer_Pac* [layerProtocol]
@@ -626,15 +626,15 @@ module: MicrowaveModel-ObjectClasses-TdmContainer
       |        +--ro txEthernetBytesMaxM?   int64
       |        +--ro txEthernetBytesSum?    int64
       |        +--ro timePeriod?            int32
-      +--rw tdmContainerHistoricalPerformances
-         +--rw historicalPerformanceDataList* [historyDataId]
-            +--rw objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-            +--rw nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-            +--rw historyDataId          string
-            +--rw periodEndTime?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
-            +--rw granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
-            +--rw suspectIntervalFlag?   boolean
-            +--rw performanceData
+      +--ro tdmContainerHistoricalPerformances
+         +--ro historicalPerformanceDataList* [historyDataId]
+            +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
+            +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
+            +--ro historyDataId          string
+            +--ro periodEndTime?         CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
+            +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
+            +--ro suspectIntervalFlag?   boolean
+            +--ro performanceData
                +--ro txEthernetBytesMaxS?   int32
                +--ro txEthernetBytesMaxM?   int64
                +--ro txEthernetBytesSum?    int64

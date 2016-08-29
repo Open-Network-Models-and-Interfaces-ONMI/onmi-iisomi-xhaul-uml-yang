@@ -182,16 +182,16 @@ Node.prototype.writeNode = function (layer) {
     }
     // [sko] hack start
     var checkName = this.name;
-    var forceConfigFalse = ['airInterfaceCapability', 'airInterfaceStatus', 'airInterfaceCurrentProblems', 'airInterfaceCurrentPerformance', 'airInterfaceHistoricalPerformanceList',
-                            'airInterfaceDiversityCapability', 'airInterfaceDiversityStatus', 'airInterfaceDiversityCurrentProblems', 'airInterfaceDiversityCurrentPerformance', 'airInterfaceDiversityHistoricalPerformanceList',
+    var forceConfigFalse = ['airInterfaceCapability', 'airInterfaceStatus', 'airInterfaceCurrentProblems', 'airInterfaceCurrentPerformance', 'airInterfaceHistoricalPerformances',
+                            'airInterfaceDiversityCapability', 'airInterfaceDiversityStatus', 'airInterfaceDiversityCurrentProblems', 'airInterfaceDiversityCurrentPerformance', 'airInterfaceDiversityHistoricalPerformances',
 
                             'structureCapability', 'structureStatus', 'structureCurrentProblems', 'structureCurrentPerformance', 'structureHistoricalPerformanceList',
-                            'pureEthernetStructureCapability', 'pureEthernetStructureStatus', 'pureEthernetStructureCurrentProblems', 'pureEthernetStructureCurrentPerformance', 'pureEthernetStructureHistoricalPerformanceList',
-                            'hybridMwStructureCapability', 'hybridMwStructureStatus', 'hybridMwStructureCurrentProblems', 'hybridMwStructureCurrentPerformance', 'hybridMwStructureHistoricalPerformanceList',
+                            'pureEthernetStructureCapability', 'pureEthernetStructureStatus', 'pureEthernetStructureCurrentProblems', 'pureEthernetStructureCurrentPerformance', 'pureEthernetStructureHistoricalPerformances',
+                            'hybridMwStructureCapability', 'hybridMwStructureStatus', 'hybridMwStructureCurrentProblems', 'hybridMwStructureCurrentPerformance', 'hybridMwStructureHistoricalPerformances',
                             
-                            'containerCapability', 'containerStatus', 'containerCurrentProblems', 'containerCurrentPerformance', 'containerHistoricalPerformanceList',
-                            'ethernetContainerCapability', 'ethernetContainerStatus', 'ethernetContainerCurrentProblems', 'ethernetContainerCurrentPerformance', 'ethernetContainerHistoricalPerformanceList',
-                            'tdmContainerCapability', 'tdmContainerStatus', 'tdmContainerCurrentProblems', 'tdmContainerCurrentPerformance', 'tdmContainerHistoricalPerformanceList',
+                            'containerCapability', 'containerStatus', 'containerCurrentProblems', 'containerCurrentPerformance', 'containerHistoricalPerformances',
+                            'ethernetContainerCapability', 'ethernetContainerStatus', 'ethernetContainerCurrentProblems', 'ethernetContainerCurrentPerformance', 'ethernetContainerHistoricalPerformances',
+                            'tdmContainerCapability', 'tdmContainerStatus', 'tdmContainerCurrentProblems', 'tdmContainerCurrentPerformance', 'tdmContainerHistoricalPerformances',
                             
                             'problemSeverityList'];
     forceConfigFalse.map(function(item){
