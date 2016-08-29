@@ -100,10 +100,10 @@ module MicrowaveModel-ObjectClasses-AirInterfaceDiversity {
         }
         list problemSeverityList {
             description "Severity of the problem to be configured.";
-            key 'sequenceNumber';
-            config false;
+            key 'problemKindName';
+            config true;
             ordered-by system;
-            uses MicrowaveModel-TypeDefinitions:airInterfaceDiversityCurrentProblemType;
+            uses MicrowaveModel-TypeDefinitions:airInterfaceDiversityProblemSeverityType;
             min-elements 3;
         }
     }
