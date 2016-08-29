@@ -112,10 +112,10 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
         }
         list problemSeverityList {
             description "Severity of the type of problem to be configured.";
-            key 'sequenceNumber';
-            config false;
+            key 'problemKindName';
+            config true;
             ordered-by system;
-            uses MicrowaveModel-TypeDefinitions:structureCurrentProblemType;
+            uses MicrowaveModel-TypeDefinitions:structureProblemSeverityType;
         }
     }
     grouping HybridMwStructureStatus {

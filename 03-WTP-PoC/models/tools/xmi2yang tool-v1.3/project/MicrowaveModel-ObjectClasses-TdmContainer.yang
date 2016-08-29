@@ -105,10 +105,10 @@ module MicrowaveModel-ObjectClasses-TdmContainer {
         }
         list problemSeverityList {
             description "Severity of the problem to be configured.";
-            key 'sequenceNumber';
-            config false;
+            key 'problemKindName';
+            config true;
             ordered-by system;
-            uses MicrowaveModel-TypeDefinitions:containerCurrentProblemType;
+            uses MicrowaveModel-TypeDefinitions:containerProblemSeverityType;
             min-elements 2;
         }
     }
