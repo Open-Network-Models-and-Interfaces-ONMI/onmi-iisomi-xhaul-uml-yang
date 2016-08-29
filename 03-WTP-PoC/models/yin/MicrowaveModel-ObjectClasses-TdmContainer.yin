@@ -31,7 +31,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-08-28">
+  <revision date="2016-08-29">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -79,6 +79,7 @@
       <uses name="TdmContainerCurrentPerformance"/>
     </container>
     <container name="tdmContainerHistoricalPerformances">
+      <config value="false"/>
       <uses name="TdmContainerHistoricalPerformances"/>
     </container>
   </list>

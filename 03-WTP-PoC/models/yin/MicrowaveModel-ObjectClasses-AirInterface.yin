@@ -35,7 +35,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-08-28">
+  <revision date="2016-08-29">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -78,6 +78,7 @@
       <uses name="AirInterfaceCurrentPerformance"/>
     </container>
     <container name="airInterfaceHistoricalPerformances">
+      <config value="false"/>
       <uses name="AirInterfaceHistoricalPerformances"/>
     </container>
   </list>

@@ -35,7 +35,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-08-28">
+  <revision date="2016-08-29">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -84,6 +84,7 @@ The HybridMwStructure_Pac and its attached classes MUST be provided on managemen
       <uses name="HybridMwStructureCurrentPerformance"/>
     </container>
     <container name="hybridMwStructureHistoricalPerformances">
+      <config value="false"/>
       <uses name="HybridMwStructureHistoricalPerformances"/>
     </container>
   </list>
