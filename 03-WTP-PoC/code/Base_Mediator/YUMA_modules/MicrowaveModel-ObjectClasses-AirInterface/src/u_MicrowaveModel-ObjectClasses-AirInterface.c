@@ -3241,7 +3241,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     }
 
     res = cb_set_runtime_airInterfaceStatus_element_value(&dstval);
-    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -3272,7 +3272,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     }
 
     res = cb_set_runtime_airInterfaceStatus_element_value(&dstval);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -3303,7 +3303,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     }
 
     res = cb_set_runtime_airInterfaceStatus_element_value(&dstval);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -3334,7 +3334,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     }
 
     res = cb_set_runtime_airInterfaceStatus_element_value(&dstval);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -3365,7 +3365,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     }
 
     res = cb_set_runtime_airInterfaceStatus_element_value(&dstval);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -3396,7 +3396,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     }
 
     res = cb_set_runtime_airInterfaceStatus_element_value(&dstval);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -3427,7 +3427,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     }
 
     res = cb_set_runtime_airInterfaceStatus_element_value(&dstval);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -3458,7 +3458,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     }
 
     res = cb_set_runtime_airInterfaceStatus_element_value(&dstval);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -3489,7 +3489,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     }
 
     res = cb_set_runtime_airInterfaceStatus_element_value(&dstval);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -3520,7 +3520,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     }
 
     res = cb_set_runtime_airInterfaceStatus_element_value(&dstval);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -3551,7 +3551,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     }
 
     res = cb_set_runtime_airInterfaceStatus_element_value(&dstval);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -3582,7 +3582,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     }
 
     res = cb_set_runtime_airInterfaceStatus_element_value(&dstval);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -3613,7 +3613,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     }
 
     res = cb_set_runtime_airInterfaceStatus_element_value(&dstval);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -3644,7 +3644,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     }
 
     res = cb_set_runtime_airInterfaceStatus_element_value(&dstval);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -3675,7 +3675,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     }
 
     res = cb_set_runtime_airInterfaceStatus_element_value(&dstval);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -3706,7 +3706,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     }
 
     res = cb_set_runtime_airInterfaceStatus_element_value(&dstval);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -3737,7 +3737,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     }
 
     res = cb_set_runtime_airInterfaceStatus_element_value(&dstval);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -3768,7 +3768,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     }
 
     res = cb_set_runtime_airInterfaceStatus_element_value(&dstval);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -3799,7 +3799,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     }
 
     res = cb_set_runtime_airInterfaceStatus_element_value(&dstval);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -3830,7 +3830,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     }
 
     res = cb_set_runtime_airInterfaceStatus_element_value(&dstval);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4005,13 +4005,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_objectClass_get callback");
     }
 
-
-    /* set the objectClass var here, change EMPTY_STRING */
-    objectClass = EMPTY_STRING;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        objectClass);
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4041,13 +4036,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_nameBinding_get callback");
     }
 
-
-    /* set the nameBinding var here, change EMPTY_STRING */
-    nameBinding = EMPTY_STRING;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        nameBinding);
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4077,13 +4067,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_scannerId_get callback");
     }
 
-
-    /* set the scannerId var here, change EMPTY_STRING */
-    scannerId = EMPTY_STRING;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        scannerId);
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4113,13 +4098,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_granularityPeriod_get callback");
     }
 
-
-    /* set the granularityPeriod var here, change enum */
-    granularityPeriod = EMPTY_STRING;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        granularityPeriod);
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4149,13 +4129,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_administrativeState_get callback");
     }
 
-
-    /* set the administrativeState var here, change enum */
-    administrativeState = EMPTY_STRING;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        administrativeState);
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4185,13 +4160,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_suspectIntervalFlag_get callback");
     }
 
-
-    /* set the suspectIntervalFlag var here, replace (void) or use default value */
-    (void)suspectIntervalFlag;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"false");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4221,10 +4191,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_elapsedTime_get callback");
     }
 
-
-    /* set the elapsedTime var here, change zero */
-    elapsedTime = 0;
-    VAL_INT(dstval) = elapsedTime;
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4254,13 +4222,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_timestamp_get callback");
     }
 
-
-    /* set the timestamp var here, change EMPTY_STRING */
-    timestamp = EMPTY_STRING;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        timestamp);
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4290,13 +4253,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_es_get callback");
     }
 
-
-    /* set the es var here, replace (void) or use default value */
-    (void)es;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4326,13 +4284,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_ses_get callback");
     }
 
-
-    /* set the ses var here, replace (void) or use default value */
-    (void)ses;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4362,13 +4315,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_cses_get callback");
     }
 
-
-    /* set the cses var here, replace (void) or use default value */
-    (void)cses;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4398,13 +4346,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_unavailability_get callback");
     }
 
-
-    /* set the unavailability var here, replace (void) or use default value */
-    (void)unavailability;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4434,13 +4377,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_txLevelMin_get callback");
     }
 
-
-    /* set the txLevelMin var here, replace (void) or use default value */
-    (void)txLevelMin;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"99");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4470,13 +4408,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_txLevelMax_get callback");
     }
 
-
-    /* set the txLevelMax var here, replace (void) or use default value */
-    (void)txLevelMax;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"99");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4506,13 +4439,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_txLevelAvg_get callback");
     }
 
-
-    /* set the txLevelAvg var here, replace (void) or use default value */
-    (void)txLevelAvg;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"99");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4542,13 +4470,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rxLevelMin_get callback");
     }
 
-
-    /* set the rxLevelMin var here, replace (void) or use default value */
-    (void)rxLevelMin;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"99");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4578,13 +4501,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rxLevelMax_get callback");
     }
 
-
-    /* set the rxLevelMax var here, replace (void) or use default value */
-    (void)rxLevelMax;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"99");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4614,13 +4532,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rxLevelAvg_get callback");
     }
 
-
-    /* set the rxLevelAvg var here, replace (void) or use default value */
-    (void)rxLevelAvg;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"99");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4650,13 +4563,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time2Symbols_get callback");
     }
 
-
-    /* set the time2Symbols var here, replace (void) or use default value */
-    (void)time2Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4686,13 +4594,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time4SymbolsS_get callback");
     }
 
-
-    /* set the time4SymbolsS var here, replace (void) or use default value */
-    (void)time4SymbolsS;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4722,13 +4625,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time4Symbols_get callback");
     }
 
-
-    /* set the time4Symbols var here, replace (void) or use default value */
-    (void)time4Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4758,13 +4656,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time8Symbols_get callback");
     }
 
-
-    /* set the time8Symbols var here, replace (void) or use default value */
-    (void)time8Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4794,13 +4687,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time16SymbolsS_get callback");
     }
 
-
-    /* set the time16SymbolsS var here, replace (void) or use default value */
-    (void)time16SymbolsS;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4830,13 +4718,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time16Symbols_get callback");
     }
 
-
-    /* set the time16Symbols var here, replace (void) or use default value */
-    (void)time16Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4866,13 +4749,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time32Symbols_get callback");
     }
 
-
-    /* set the time32Symbols var here, replace (void) or use default value */
-    (void)time32Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4902,13 +4780,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time64Symbols_get callback");
     }
 
-
-    /* set the time64Symbols var here, replace (void) or use default value */
-    (void)time64Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4938,13 +4811,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time128Symbols_get callback");
     }
 
-
-    /* set the time128Symbols var here, replace (void) or use default value */
-    (void)time128Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -4974,13 +4842,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time256Symbols_get callback");
     }
 
-
-    /* set the time256Symbols var here, replace (void) or use default value */
-    (void)time256Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5010,13 +4873,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time512Symbols_get callback");
     }
 
-
-    /* set the time512Symbols var here, replace (void) or use default value */
-    (void)time512Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5046,13 +4904,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time512SymbolsL_get callback");
     }
 
-
-    /* set the time512SymbolsL var here, replace (void) or use default value */
-    (void)time512SymbolsL;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5082,13 +4935,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time1024Symbols_get callback");
     }
 
-
-    /* set the time1024Symbols var here, replace (void) or use default value */
-    (void)time1024Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5118,13 +4966,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time1024SymbolsL_get callback");
     }
 
-
-    /* set the time1024SymbolsL var here, replace (void) or use default value */
-    (void)time1024SymbolsL;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5154,13 +4997,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time2048Symbols_get callback");
     }
 
-
-    /* set the time2048Symbols var here, replace (void) or use default value */
-    (void)time2048Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5190,13 +5028,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time2048SymbolsL_get callback");
     }
 
-
-    /* set the time2048SymbolsL var here, replace (void) or use default value */
-    (void)time2048SymbolsL;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5226,13 +5059,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time4096Symbols_get callback");
     }
 
-
-    /* set the time4096Symbols var here, replace (void) or use default value */
-    (void)time4096Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5262,13 +5090,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time4096SymbolsL_get callback");
     }
 
-
-    /* set the time4096SymbolsL var here, replace (void) or use default value */
-    (void)time4096SymbolsL;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5298,13 +5121,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time8192Symbols_get callback");
     }
 
-
-    /* set the time8192Symbols var here, replace (void) or use default value */
-    (void)time8192Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5334,13 +5152,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time8192SymbolsL_get callback");
     }
 
-
-    /* set the time8192SymbolsL var here, replace (void) or use default value */
-    (void)time8192SymbolsL;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5370,13 +5183,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_snirMin_get callback");
     }
 
-
-    /* set the snirMin var here, replace (void) or use default value */
-    (void)snirMin;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-99");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5406,13 +5214,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_snirMax_get callback");
     }
 
-
-    /* set the snirMax var here, replace (void) or use default value */
-    (void)snirMax;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-99");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5442,13 +5245,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_snirAvg_get callback");
     }
 
-
-    /* set the snirAvg var here, replace (void) or use default value */
-    (void)snirAvg;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-99");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5478,13 +5276,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_xpdMin_get callback");
     }
 
-
-    /* set the xpdMin var here, replace (void) or use default value */
-    (void)xpdMin;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-99");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5514,13 +5307,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_xpdMax_get callback");
     }
 
-
-    /* set the xpdMax var here, replace (void) or use default value */
-    (void)xpdMax;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-99");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5550,13 +5338,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_xpdAvg_get callback");
     }
 
-
-    /* set the xpdAvg var here, replace (void) or use default value */
-    (void)xpdAvg;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-99");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5586,13 +5369,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rfTempMin_get callback");
     }
 
-
-    /* set the rfTempMin var here, replace (void) or use default value */
-    (void)rfTempMin;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-99");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5622,13 +5400,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rfTempMax_get callback");
     }
 
-
-    /* set the rfTempMax var here, replace (void) or use default value */
-    (void)rfTempMax;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-99");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5658,13 +5431,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rfTempAvg_get callback");
     }
 
-
-    /* set the rfTempAvg var here, replace (void) or use default value */
-    (void)rfTempAvg;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-99");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5694,13 +5462,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_defectBlocksSum_get callback");
     }
 
-
-    /* set the defectBlocksSum var here, replace (void) or use default value */
-    (void)defectBlocksSum;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5730,13 +5493,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_timePeriod_get callback");
     }
 
-
-    /* set the timePeriod var here, replace (void) or use default value */
-    (void)timePeriod;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -8016,7 +7774,6 @@ static status_t attach_air_interface_pac_element_to_running_config(cfg_template_
 					get_air_interface_current_problem_list,
 					airInterfaceCurrentProblems_val->obj);
 
-
 	/*
 	 * Creating airInterfaceCurrentPerformance container
 	 */
@@ -8454,6 +8211,20 @@ static status_t attach_air_interface_historical_performance_list_entry(val_value
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_historicalPerformanceDataList);
 
 	/*
+	 * Create historyDataId leaf
+	 */
+	val_value_t  *historyDataId_val = NULL;
+
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_historyDataId,
+			historicalPerformanceDataList_val,
+			&historyDataId_val,
+			air_interface_historical_performance_list_key_entry,
+			true);
+	YUMA_ASSERT(NULL == historyDataId_val, return ERR_INTERNAL_VAL ,
+				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_historyDataId);
+
+	/*
 	 * Create objectClass leaf
 	 */
 	val_value_t  *objectClass_val = NULL;
@@ -8482,21 +8253,7 @@ static status_t attach_air_interface_historical_performance_list_entry(val_value
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_nameBinding);
 
 	/*
-	 * Create historyDataId leaf
-	 */
-	val_value_t  *historyDataId_val = NULL;
-
-	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
-			y_MicrowaveModel_ObjectClasses_AirInterface_N_historyDataId,
-			historicalPerformanceDataList_val,
-			&historyDataId_val,
-			air_interface_historical_performance_list_key_entry,
-			true);
-	YUMA_ASSERT(NULL == historyDataId_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_historyDataId);
-
-	/*
-	 * Create all other leafs after historyDataId
+	 * Create all other leafs after historyDataId -- because this is the order in the YANG file!!
 	 */
 	obj_template_t *next_obj = NULL;
 	next_obj = obj_next_child(obj_find_child(historicalPerformanceDataList_val->obj,
