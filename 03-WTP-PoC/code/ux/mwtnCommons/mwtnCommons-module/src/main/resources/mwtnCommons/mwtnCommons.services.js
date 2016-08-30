@@ -16,7 +16,7 @@ define(
     [ 'app/mwtnCommons/mwtnCommons.module' ],
     function(mwtnCommonsApp) {
 
-      mwtnCommonsApp.register.factory('$mwtnCommons', function($http, ENV) {
+      mwtnCommonsApp.register.factory('$mwtnCommons', function($http, ENV, $mwtnDatabase) {
         var service = {
           base : ENV.getBaseURL("MD_SAL") + "/restconf/"
         };
@@ -24,6 +24,15 @@ define(
         service.getData = function(callback) {
           return callback('$mwtnCommons registered to this application.');
         }
+        
+        service.getSchema = function(callback) {
+          // console.log('$mwtnDatabase call!');
+          $mwtnDatabase.getSchema(function(data){
+            // console.log('$mwtnDatabase called!', data);
+            return callback(data);
+          });
+        };
+   
         service.separator = '&nbsp;';
 
         // grid settings
@@ -474,7 +483,7 @@ define(
           index : 'mwtn',
           command : '_search'
         };
-
+                
         service.genericRequest = function(databaseRequest, callback) {
           var url = [ service.base, service.index, databaseRequest.docType,
                       databaseRequest.command ].join('/');
@@ -541,6 +550,36 @@ define(
             // console.log(JSON.stringify(response));
             callback({status: response.status, logId: response.data._id});
           });
+        };
+
+        var schemaInformation;
+        var inquireSchemaInformation = function(callback){
+          var databaseRequest = {
+            method: 'GET',
+            from: 0,
+            size: 999
+          };
+          service.getAllData('schema-information', 0, 999, undefined, function(data){
+            // console.log(JSON.stringify(data.data.hits.hits));
+            schemaInformation = {};
+            data.data.hits.hits.map(function(hit){
+              schemaInformation[hit._id] = hit._source;
+            });
+            // console.log('got schemaInformation', Object.keys(schemaInformation).length);
+            return callback(schemaInformation);
+          });
+        };
+
+        service.getSchema = function(callback) {
+          if (schemaInformation) {
+            // console.log(data);
+            return callback(schemaInformation);
+          } else {
+            inquireSchemaInformation(function(data){
+              // console.log(data);
+              return callback(data);
+            });
+          }
         };
 
         return service;
