@@ -182,18 +182,18 @@ Node.prototype.writeNode = function (layer) {
     }
     // [sko] hack start
     var checkName = this.name;
-    var forceConfigFalse = ['airInterfaceCapability', 'airInterfaceStatus', 'airInterfaceCurrentProblems', 'airInterfaceCurrentPerformance', 'airInterfaceHistoricalPerformances',
-                            'airInterfaceDiversityCapability', 'airInterfaceDiversityStatus', 'airInterfaceDiversityCurrentProblems', 'airInterfaceDiversityCurrentPerformance', 'airInterfaceDiversityHistoricalPerformances',
+    var forceConfigFalse = [
+      'airInterfaceCapability', 'airInterfaceStatus', 'airInterfaceCurrentProblems', 'airInterfaceCurrentPerformance', 'airInterfaceHistoricalPerformances',
+      'airInterfaceDiversityCapability', 'airInterfaceDiversityStatus', 'airInterfaceDiversityCurrentProblems', 'airInterfaceDiversityCurrentPerformance', 'airInterfaceDiversityHistoricalPerformances',
 
-                            'structureCapability', 'structureStatus', 'structureCurrentProblems', 'structureCurrentPerformance', 'structureHistoricalPerformanceList',
-                            'pureEthernetStructureCapability', 'pureEthernetStructureStatus', 'pureEthernetStructureCurrentProblems', 'pureEthernetStructureCurrentPerformance', 'pureEthernetStructureHistoricalPerformances',
-                            'hybridMwStructureCapability', 'hybridMwStructureStatus', 'hybridMwStructureCurrentProblems', 'hybridMwStructureCurrentPerformance', 'hybridMwStructureHistoricalPerformances',
-                            
-                            'containerCapability', 'containerStatus', 'containerCurrentProblems', 'containerCurrentPerformance', 'containerHistoricalPerformances',
-                            'ethernetContainerCapability', 'ethernetContainerStatus', 'ethernetContainerCurrentProblems', 'ethernetContainerCurrentPerformance', 'ethernetContainerHistoricalPerformances',
-                            'tdmContainerCapability', 'tdmContainerStatus', 'tdmContainerCurrentProblems', 'tdmContainerCurrentPerformance', 'tdmContainerHistoricalPerformances',
-                            
-                            'problemSeverityList'];
+      'structureCapability', 'structureStatus', 'structureCurrentProblems', 'structureCurrentPerformance', 'structureHistoricalPerformanceList',
+      'pureEthernetStructureCapability', 'pureEthernetStructureStatus', 'pureEthernetStructureCurrentProblems', 'pureEthernetStructureCurrentPerformance', 'pureEthernetStructureHistoricalPerformances',
+      'hybridMwStructureCapability', 'hybridMwStructureStatus', 'hybridMwStructureCurrentProblems', 'hybridMwStructureCurrentPerformance', 'hybridMwStructureHistoricalPerformances',
+      
+      'containerCapability', 'containerStatus', 'containerCurrentProblems', 'containerCurrentPerformance', 'containerHistoricalPerformances',
+      'ethernetContainerCapability', 'ethernetContainerStatus', 'ethernetContainerCurrentProblems', 'ethernetContainerCurrentPerformance', 'ethernetContainerHistoricalPerformances',
+      'tdmContainerCapability', 'tdmContainerStatus', 'tdmContainerCurrentProblems', 'tdmContainerCurrentPerformance', 'tdmContainerHistoricalPerformances'
+      ];
     forceConfigFalse.map(function(item){
       if (checkName === item) {
         conf = PRE + "\tconfig false;\r\n";
