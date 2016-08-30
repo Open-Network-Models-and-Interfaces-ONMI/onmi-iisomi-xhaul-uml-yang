@@ -1,0 +1,7 @@
+<div class="container" style="width: 100%">
+	<div class="row" ng-repeat="(key, value) in parameters track by key">
+		<div class="col-md-6 text-right">{{key}}</div>
+		<div class="col-md-4" ng-class="{'text-right':!isString(value)}">{{value}}</div>
+		<div class="col-md-2">{{schema[key].unit}}</div>
+	</div>
+</div>

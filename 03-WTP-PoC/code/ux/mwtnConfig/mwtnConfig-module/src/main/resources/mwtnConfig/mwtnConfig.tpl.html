@@ -1,7 +1,99 @@
 <!-- This is the landing page of you application, Update the content as per your requirements -->
+<div id="mwtnConfig">
+	<div class="container" style="width: 100%">
 
-<h4>Your {{data}} application is loaded</h4>
+		<div class="row">
+			<div class="col-md-2 text-right">
+				<span>{{'Select NetworkElement' | translate}}</span>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<select class="form-control" ng-model="networkElement">
+						<option ng-repeat="ne in networkElements" value="{{ne.id}}">{{ne.id}}
+							(revision: {{ne.revision}})</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-md-6 text-right">
+				<div class="form-group">
+					<button type="button" class="btn btn-default"
+						ng-click="collapseAll()">{{'Collapse all' | translate}}</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="container" style="width: 100%">
+		<uib-accordion close-others="oneAtATime">
+
+		<div class="row">
+			<div class="col-md-12">
+				<div uib-accordion-group class="panel-primary"
+					heading="{{'NetworkElement' | translate}} '{{onfNetworkElement.nameList[0].value}}'"
+					is-open="status.ne">
+					<pre>{{onfNetworkElement | json}}</pre>
+
+					<div ng-repeat="ltp in onfLtps" uib-accordion-group
+						class="panel-default"
+						heading="{{'LTP' | translate}}({{ltp._lpList[0].layerProtocolName}}) '{{ltp.uuid}}' -> '{{ltp._lpList[0].uuid}}'"
+						is-open="status['ltp' + separator + ltp.uuid]">
+						<pre>{{ltp | json}}</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12" ng-repeat="container in containers">
+				<div uib-accordion-group class="panel-primary"
+					heading="Container (Pac) '{{container.layerProtocol}}'"
+					is-open="status['container' + separator + container.layerProtocol]">
+					<div ng-repeat="detail in details" uib-accordion-group
+						class="panel-default" heading="{{detail}}"
+						is-open="status['container' + separator +  container.layerProtocol + separator + detail]">
+						<div class="container" style="width:100%" ng-repeat="(detail2, parameters) in container[detail]" parameters="parameters" schema="schema" >
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6" ng-repeat="structure in structures">
+				<div uib-accordion-group class="panel-primary"
+					heading="Structure (Pac) '{{structure.layerProtocol}}'"
+					is-open="status['structure' + separator + structure.layerProtocol]">
+					<div ng-repeat="detail in details" uib-accordion-group
+						class="panel-default" heading="{{detail}}"
+						is-open="status['structure' + separator + structure.layerProtocol + separator + detail]">
+						<div class="container" style="width:100%" ng-repeat="(detail2, parameters) in structure[detail]" parameters="parameters" schema="schema" >
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6" ng-repeat="airinterface in airinterfaces">
+				<div uib-accordion-group class="panel-primary"
+					heading="Airinterface (Pac) '{{airinterface.layerProtocol}}'"
+					is-open="status['airinterface' + separator + airinterface.layerProtocol]">
+					<div ng-repeat="detail in details" uib-accordion-group
+						class="panel-default" heading="{{detail}}"
+						is-open="status['airinterface' + separator + airinterface.layerProtocol + separator + detail]">
+
+						<div class="container" style="width:100%" ng-repeat="(detail2, parameters) in airinterface[detail]" parameters="parameters" schema="schema" >
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		</uib-accordion>
+	</div>
+</div>
 <hr />
 <p>
- <span>Build: @buildtime@</span>
+	<span>Build: @buildtime@</span>
 </p>

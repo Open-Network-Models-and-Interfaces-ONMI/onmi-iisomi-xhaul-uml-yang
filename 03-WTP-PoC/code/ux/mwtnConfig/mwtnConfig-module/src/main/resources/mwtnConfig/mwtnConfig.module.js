@@ -6,7 +6,10 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-define(['angularAMD', 'app/routingConfig', 'app/core/core.services', 'common/config/env.module'], function(ng) {
+define(['angularAMD', 
+        'app/routingConfig', 
+        'app/core/core.services', 
+        'common/config/env.module'], function(ng) {
   var mwtnConfigApp = angular.module('app.mwtnConfig', ['app.core', 'ui.router.state','config']);
 
   mwtnConfigApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $translateProvider) {
@@ -17,7 +20,6 @@ define(['angularAMD', 'app/routingConfig', 'app/core/core.services', 'common/con
       service : $provide.service
 
     };
-
 
     NavHelperProvider.addControllerUrl('app/mwtnConfig/mwtnConfig.controller');
     NavHelperProvider.addToMenu('mwtnConfig', {
