@@ -6,7 +6,9 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-define(['app/mwtnCompare/mwtnCompare.module','app/mwtnCompare/mwtnCompare.services','app/mwtnCommons/mwtnCommons.services'], function(mwtnCompareApp) {
+define(['app/mwtnCompare/mwtnCompare.module','app/mwtnCompare/mwtnCompare.services','app/mwtnCommons/mwtnCommons.services',
+        'app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min', 
+        'app/mwtnCommons/bower_components/angular-bootstrap/ui-bootstrap-tpls.min'], function(mwtnCompareApp) {
 
   mwtnCompareApp.register.controller('mwtnCompareCtrl', ['$scope', '$rootScope', '$mwtnCompare', '$mwtnCommons', '$mwtnLog', function($scope, $rootScope, $mwtnCompare, $mwtnCommons, $mwtnLog) {
 
