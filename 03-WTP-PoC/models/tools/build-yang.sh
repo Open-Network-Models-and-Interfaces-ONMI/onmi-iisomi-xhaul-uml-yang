@@ -33,12 +33,24 @@ xslt="G.874.1-PruningAndRefactor-4MW.xslt";
 java -jar $par/saxon9he.jar -s:$input/$in -xsl:$par/$xslt -o:"$project/$out";
 log "$project/$out generated!";
 
+  in="G.874.1-ForMicrowave.xml";
+xslt="uml2CentralisedDatabase.xslt";
+ out="G.874.1-ForMicrowave.json";
+java -jar $par/saxon9he.jar -s:"$project/$in" -xsl:$par/$xslt -o:"$project/$out";
+log "$project/$out generated!";
+
 
 # ONF CoreModel 1.1
   in="CoreModel.uml";
 xslt="CM-PruningAndRefactor-4MW.xslt";
  out="CoreModel-ForMicrowave.xml";
 java -jar $par/saxon9he.jar -s:$input/$in -xsl:$par/$xslt -o:"$project/$out";
+log "$project/$out generated!";
+
+  in="CoreModel-ForMicrowave.xml";
+xslt="uml2CentralisedDatabase.xslt";
+ out="CoreModel-ForMicrowave.json";
+java -jar $par/saxon9he.jar -s:"$project/$in" -xsl:$par/$xslt -o:"$project/$out";
 log "$project/$out generated!";
 
 
@@ -49,6 +61,11 @@ xslt="mwModelPreProcessor.xslt";
 java -jar $par/saxon9he.jar -s:$input/$in -xsl:$par/$xslt -o:"$project/$out";
 log "$project/$out generated!";
 
+  in="MicrowaveModel.xml";
+xslt="uml2CentralisedDatabase.xslt";
+ out="MicrowaveModel.json";
+java -jar $par/saxon9he.jar -s:"$project/$in" -xsl:$par/$xslt -o:"$project/$out";
+log "$project/$out generated!";
 
 # generate yang from pruned and refactored uml
 cd "$project/..";
