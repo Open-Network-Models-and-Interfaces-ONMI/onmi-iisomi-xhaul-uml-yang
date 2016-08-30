@@ -40,6 +40,7 @@
 #include "ses.h"
 #include "rpc.h"
 #include "runtime_callbacks.h"
+#include "configuration_callbacks.h"
 
 /* put your static variables here */
 static status_t build_attributes_tree_and_attach_to_running_cfg(cfg_template_t *runningcfg);
@@ -1238,6 +1239,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -1303,6 +1307,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -1368,6 +1375,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -1433,6 +1443,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -1498,6 +1511,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -1563,6 +1579,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -1628,6 +1647,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -1693,6 +1715,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -1758,6 +1783,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -1823,6 +1851,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -1888,6 +1919,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -1953,6 +1987,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -2018,6 +2055,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -2083,6 +2123,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -2148,6 +2191,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -2213,6 +2259,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -2278,6 +2327,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -2343,6 +2395,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -2408,6 +2463,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -2473,6 +2531,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -2538,6 +2599,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -2603,6 +2667,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -2668,6 +2735,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -2733,6 +2803,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -2798,6 +2871,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -2863,6 +2939,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -2928,6 +3007,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -2994,6 +3076,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_problemKindSeverityList_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol, k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
@@ -3060,6 +3145,9 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+    	res = cb_send_to_device_airInterfaceConfiguration_problemKindSeverityList_element_value((newval) ? newval : curval, k_MW_AirInterface_Pac_layerProtocol, k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
+    	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not set the value for the attribute");
+
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;
