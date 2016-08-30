@@ -36,7 +36,7 @@ define(
               });
             }
             notificatinSocket.onerror = function(error) {
-              console.log("Socket error: " + error);
+              console.log("Socket error: " + JSON.stringify(error));
             }
             notificatinSocket.onopen = function(event) {
               console.log("Socket connection opened.");

@@ -91,7 +91,7 @@ define(['app/odlChat/odlChat.module'],function(odlChatApp) {
         }
       };
       $http(request).then(function successCallback(response) {
-        callback('');
+        callback('send successfully');
       }, function errorCallback(response) {
         console.error(response);
         callback('ERROR while sending ;(');

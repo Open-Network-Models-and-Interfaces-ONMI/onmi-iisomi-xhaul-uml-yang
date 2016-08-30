@@ -8,7 +8,9 @@
 
 define(['app/mwtnLog/mwtnLog.module',
         'app/mwtnLog/mwtnLog.services',
-        'app/mwtnCommons/mwtnCommons.module'], 
+        'app/mwtnCommons/mwtnCommons.module',
+        'app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min', 
+        'app/mwtnCommons/bower_components/angular-bootstrap/ui-bootstrap-tpls.min'], 
         function(mwtnLogApp) {
 
   mwtnLogApp.register.controller('ClearLogCtrl', ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
