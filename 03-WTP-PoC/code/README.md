@@ -36,72 +36,59 @@ Start karaf with:
 ./bin/karaf
 ```
 
-### Step #2 Clone, build and install the applications.
-Before the application can be build the apache build manager maven needs to be installed and configured.
+### Step #2 Preparations
 
-```
-wget https://archive.apache.org/dist/maven/maven-3/3.3.3/binaries/apache-maven-3.3.3-bin.tar.gz
-sudo tar xzvf apache-maven-3.3.3-bin.tar.gz -C /usr/share/
-sudo update-alternatives --install /usr/bin/mvn mvn /usr/share/apache-maven-3.3.3/bin/mvn 150
-sudo update-alternatives --config mvn
-```
-OpenDaylight requires specific maven settings.
+Please follow the install instuctions of the [2. PoC](../../02-MWTN-PoC/test/INSTALL.md)
 
-```
-cp -n ~/.m2/settings.xml{,.orig}
-curl -L -s -o ~/.m2/settings.xml https://raw.githubusercontent.com/opendaylight/odlparent/master/settings.xml
-```
 
+### Step #3 Clone, build and install the applications.
 Open a new terminal and clone the ONF Git reposotory for the open source project 
 
 ```
 git clone https://github.com/OpenNetworkingFoundation/CENTENNIAL.git
 cd CENTENNIAL/03-WTP-PoC/code
 ```
+Install nessesary web components.
+```
+cd ./ux/mwtnCommons/mwtnCommons-module/src/main/resources/mwtnCommons/
+bower install
+cd ../../../../../../../
+```
 
-
-
-First the applications and OSGi Java bundels must be build with the command:
+Build the applications for the 3. ONF MWTN PoC.
 ```
 mvn clean install -DskipTests
 ```
+It takes some time ...
+
+
 Copy manually the bundles into the karaf system folder.
 ```
 mkdir -p $KARAF_HOME/system/cn && \
 mkdir -p $KARAF_HOME/system/cn/com && \
+cp -R ~/.m2/repository/org/opendaylight/mwtn $KARAF_HOME/system/org/opendaylight  && \
 cp -R ~/.m2/repository/cn/com/zte $KARAF_HOME/system/cn/com  && \
 cp -R ~/.m2/repository/com/hcl $KARAF_HOME/system/com  && \
 cp -R ~/.m2/repository/com/highstreet $KARAF_HOME/system/com
 ```
 
-Now you are able to start the bundles in the karaf console:
+Now you should be able to add the new bundles in the karaf console.
 ```
-bundle:install -s \
-mvn:com.highstreet.technologies.odl.dlux/mwtnCommons-bundle/0.3.0-SNAPSHOT \
-mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/0.3.0-SNAPSHOT \
-mvn:com.highstreet.technologies.odl.dlux/mwtnCompare-bundle/0.3.0-SNAPSHOT \
-mvn:com.highstreet.technologies.odl.dlux/mwtnConfig-bundle/0.3.0-SNAPSHOT \
-mvn:com.highstreet.technologies.odl.dlux/mwtnTopology-bundle/0.3.0-SNAPSHOT \
-mvn:cn.com.zte.odl.dlux/mwtnSpectrum-bundle/0.3.0-SNAPSHOT \
-mvn:com.highstreet.technologies.odl.dlux/mwtnClosedLoop-bundle/0.3.0-SNAPSHOT \
-mvn:com.highstreet.technologies.odl.dlux/mwtnEvents-bundle/0.3.0-SNAPSHOT \
-mvn:com.hcl.odl.dlux/mwtnTest-bundle/0.3.0-SNAPSHOT \
-mvn:com.highstreet.technologies.odl.dlux/mwtnLog-bundle/0.3.0-SNAPSHOT \
-mvn:com.highstreet.technologies.odl.dlux/odlChat-bundle/0.3.0-SNAPSHOT
-```
+feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/0.3.0-SNAPSHOT/xml/features
 
-To uninstall the bundles you can use the following command:
 ```
-bundle:uninstall \
-"ODL :: Microwave Transport Network :: odlChat-bundle" \
-"ODL :: Microwave Transport Network :: mwtnTest-bundle" \
-"ODL :: Microwave Transport Network :: mwtnLog-bundle" \
-"ODL :: Microwave Transport Network :: mwtnEvents-bundle" \
-"ODL :: Microwave Transport Network :: mwtnClosedLoop-bundle" \
-"ODL :: Microwave Transport Network :: mwtnSpectrum-bundle" \
-"ODL :: Microwave Transport Network :: mwtnTopology-bundle" \
-"ODL :: Microwave Transport Network :: mwtnConfig-bundle" \
-"ODL :: Microwave Transport Network :: mwtnCompare-bundle" \
-"ODL :: Microwave Transport Network :: mwtnConnect-bundle" \
-"ODL :: Microwave Transport Network :: mwtnCommons-bundle"
+For remote access of the persistent database ElasticSearch, please consider the instrcutions in the following chapter:
+ -* [Persistent database](./apps/persistentDatabase#installation)
+
+
+Install the karaf features with the following command:
 ```
+feature:install odl-netconf-connector-all odl-restconf-all odl-l2switch-switch odl-mdsal-apidocs odl-dlux-all odl-toaster elasticsearch odl-mwtn-all
+
+```
+It takes some time ...
+
+
+
+
+
