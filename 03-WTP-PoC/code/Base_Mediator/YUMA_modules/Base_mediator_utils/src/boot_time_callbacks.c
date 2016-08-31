@@ -40,6 +40,34 @@ static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanL
 static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_amDownshiftLevel(val_value_t *element);
 static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_xpicIsAvail(val_value_t *element);
 
+static const char* cb_get_boot_time_airInterfaceConfiguration_airInterfaceName(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_radioSignalID(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_txFrequency(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_rxFrequency(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_txChannelBandwidth(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_rxChannelBandwidth(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_polarization(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_powerIsOn(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_transmitterIsOn(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_receiverIsOn(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_txPower(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_adaptiveModulationIsOn(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_modulationMin(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_modulationMax(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_xpicIsOn(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_mimoIsOn(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_alicIsOn(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_atpcIsOn(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_atpcThreshUpper(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_atpcThreshLower(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectIsOn(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectRange(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_modulationIsOn(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_encryptionIsOn(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_cryptographicKey(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_loopBackIsOn(val_value_t *element);
+static const char* cb_get_boot_time_airInterfaceConfiguration_maintenanceTimer(val_value_t *element);
+
 static const char* cb_get_boot_time_airInterfaceConfiguration_problemKindSeverity(val_value_t *element);
 
 /********************************************************************
@@ -492,6 +520,114 @@ const char* cb_get_boot_time_element_value(val_value_t *element)
 	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemKindSeverity) == 0)
 	{
 		return cb_get_boot_time_airInterfaceConfiguration_problemKindSeverity(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceName) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_airInterfaceName(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_radioSignalID) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_radioSignalID(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txFrequency) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_txFrequency(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxFrequency) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_rxFrequency(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txChannelBandwidth) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_txChannelBandwidth(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxChannelBandwidth) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_rxChannelBandwidth(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_polarization) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_polarization(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_powerIsOn) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_powerIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_transmitterIsOn) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_transmitterIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_receiverIsOn) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_receiverIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txPower) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_txPower(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_adaptiveModulationIsOn) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_adaptiveModulationIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_modulationMin) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_modulationMin(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_modulationMax) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_modulationMax(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpicIsOn) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_xpicIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_mimoIsOn) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_mimoIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_alicIsOn) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_alicIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_atpcIsOn) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_atpcIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_atpcThreshUpper) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_atpcThreshUpper(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_atpcThreshLower) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_atpcThreshLower(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_autoFreqSelectIsOn) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_autoFreqSelectRange) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectRange(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_modulationIsOn) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_modulationIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_encryptionIsOn) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_encryptionIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_cryptographicKey) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_cryptographicKey(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_loopBackIsOn) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_loopBackIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_maintenanceTimer) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_maintenanceTimer(element);
 	}
 
 
@@ -1565,6 +1701,845 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_problemKindSeverit
 	{
 		return "critical";
 	}
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_airInterfaceName
+*
+* Callback function for getting the value of the airInterfaceName leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_airInterfaceName(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_radioSignalID
+*
+* Callback function for getting the value of the radioSignalID leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_radioSignalID(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_txFrequency
+*
+* Callback function for getting the value of the txFrequency leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_txFrequency(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return "15000000";
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_rxFrequency
+*
+* Callback function for getting the value of the rxFrequency leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_rxFrequency(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_txChannelBandwidth
+*
+* Callback function for getting the value of the txChannelBandwidth leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_txChannelBandwidth(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_rxChannelBandwidth
+*
+* Callback function for getting the value of the rxChannelBandwidth leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_rxChannelBandwidth(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_polarization
+*
+* Callback function for getting the value of the polarization leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_polarization(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_powerIsOn
+*
+* Callback function for getting the value of the powerIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_powerIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_transmitterIsOn
+*
+* Callback function for getting the value of the transmitterIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_transmitterIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_receiverIsOn
+*
+* Callback function for getting the value of the receiverIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_receiverIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_txPower
+*
+* Callback function for getting the value of the txPower leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_txPower(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_adaptiveModulationIsOn
+*
+* Callback function for getting the value of the adaptiveModulationIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_adaptiveModulationIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_modulationMin
+*
+* Callback function for getting the value of the modulationMin leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_modulationMin(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_modulationMax
+*
+* Callback function for getting the value of the modulationMax leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_modulationMax(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_xpicIsOn
+*
+* Callback function for getting the value of the xpicIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_xpicIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_mimoIsOn
+*
+* Callback function for getting the value of the mimoIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_mimoIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_alicIsOn
+*
+* Callback function for getting the value of the alicIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_alicIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_atpcIsOn
+*
+* Callback function for getting the value of the atpcIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_atpcIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_atpcThreshUpper
+*
+* Callback function for getting the value of the atpcThreshUpper leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_atpcThreshUpper(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_atpcThreshLower
+*
+* Callback function for getting the value of the atpcThreshLower leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_atpcThreshLower(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectIsOn
+*
+* Callback function for getting the value of the autoFreqSelectIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectRange
+*
+* Callback function for getting the value of the autoFreqSelectRange leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectRange(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_modulationIsOn
+*
+* Callback function for getting the value of the modulationIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_modulationIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_encryptionIsOn
+*
+* Callback function for getting the value of the encryptionIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_encryptionIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_cryptographicKey
+*
+* Callback function for getting the value of the cryptographicKey leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_cryptographicKey(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_loopBackIsOn
+*
+* Callback function for getting the value of the loopBackIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_loopBackIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_airInterfaceConfiguration_maintenanceTimer
+*
+* Callback function for getting the value of the maintenanceTimer leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_airInterfaceConfiguration_maintenanceTimer(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
+	 */
 
 	return NULL;
 }
