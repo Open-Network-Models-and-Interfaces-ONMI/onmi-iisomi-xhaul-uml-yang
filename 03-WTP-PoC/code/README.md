@@ -75,7 +75,6 @@ cp -R ~/.m2/repository/com/highstreet $KARAF_HOME/system/com
 Now you should be able to add the new bundles in the karaf console.
 ```
 feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/0.3.0-SNAPSHOT/xml/features
-
 ```
 For remote access of the persistent database ElasticSearch, please consider the instrcutions in the following chapter:
  -* [Persistent database](./apps/persistentDatabase#installation)
@@ -83,12 +82,13 @@ For remote access of the persistent database ElasticSearch, please consider the 
 
 Install the karaf features with the following command:
 ```
-feature:install odl-netconf-connector-all odl-restconf-all odl-l2switch-switch odl-mdsal-apidocs odl-dlux-all odl-toaster elasticsearch odl-mwtn-all
+feature:install \
+odl-netconf-connector-all \
+odl-restconf-all \
+odl-l2switch-switch \
+odl-mdsal-apidocs \
+odl-dlux-all \odl-toaster \elasticsearch \
+odl-mwtn-all
 
 ```
 It takes some time ...
-
-
-
-
-
