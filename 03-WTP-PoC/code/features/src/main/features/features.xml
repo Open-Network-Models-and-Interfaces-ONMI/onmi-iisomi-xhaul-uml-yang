@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features name="odl-mwtn-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
+
+  <repository>mvn:com.highstreet.technologies.odl.dlux/mwtnFeatures/${project.version}/xml/features</repository>
+
+  <feature name="odl-mwtn-all" version="${project.version}" description="OpenDaylight :: MWTN :: All">
+    <!-- <feature version="${project.version}">odl-mwtn-apps-all</feature> -->
+    <feature version="${project.version}">odl-mwtn-ux-all</feature>
+  </feature>
+
+</features>

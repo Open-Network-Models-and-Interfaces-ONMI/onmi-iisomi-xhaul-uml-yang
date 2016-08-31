@@ -10,12 +10,58 @@ Please consider it as a "working document" or guidelines.
 ![Software architecture](software_architecture.png?raw=true "Software architecture")
 
 ## Installation
-Please consider:
-* [Persistent database](./apps/persistentDatabase#installation)
-* [MWTN comments](./ux/mwtnCommons/mwtnCommons-module/src/main/resources/mwtnCommons/README.md#installation)
 
-Currently there is a karaf feature.xml definition missing, because the entire use cases and its implementation is under discussion. (sko: please feel free to start the development of the feature.xml ;) ) The procedure to run the OSGi bundel in karaf is:
+The following instuctions are valid for an Ubuntu version.
+Java 1.8 should be installed and the environment variable $JAVA_HOME should be set correctly.
+In most of the cases the follow command fits.
 
+```
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+```
+
+### Step #1 - Download, unpack and start OpenDaylight
+
+The 3. ONF MWTN PoC applications are developed for the Beryllium-SR2 release.
+
+```
+wget https://nexus.opendaylight.org/content/groups/public/org/opendaylight/integration/distribution-karaf/0.4.2-Beryllium-SR2/distribution-karaf-0.4.2-Beryllium-SR2.tar.gz
+tar -xvzf distribution-karaf-0.4.2-Beryllium-SR2.tar.gz
+cd distribution-karaf-0.4.2-Beryllium-SR2/
+```
+The folder "Distribution-karaf-0.4.2-Beryllium-SR2/" is also called "$KARAF_HOME" in the following sections.
+
+Start karaf with:
+
+```
+./bin/karaf
+```
+
+### Step #2 Clone, build and install the applications.
+Before the application can be build the apache build manager maven needs to be installed and configured.
+
+```
+wget https://archive.apache.org/dist/maven/maven-3/3.3.3/binaries/apache-maven-3.3.3-bin.tar.gz
+sudo tar xzvf apache-maven-3.3.3-bin.tar.gz -C /usr/share/
+sudo update-alternatives --install /usr/bin/mvn mvn /usr/share/apache-maven-3.3.3/bin/mvn 150
+sudo update-alternatives --config mvn
+```
+OpenDaylight requires specific maven settings.
+
+```
+cp -n ~/.m2/settings.xml{,.orig}
+curl -L -s -o ~/.m2/settings.xml https://raw.githubusercontent.com/opendaylight/odlparent/master/settings.xml
+```
+
+Open a new terminal and clone the ONF Git reposotory for the open source project 
+
+```
+git clone https://github.com/OpenNetworkingFoundation/CENTENNIAL.git
+cd CENTENNIAL/03-WTP-PoC/code
+```
+
+
+
+First the applications and OSGi Java bundels must be build with the command:
 ```
 mvn clean install -DskipTests
 ```
