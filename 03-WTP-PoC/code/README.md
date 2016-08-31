@@ -38,8 +38,11 @@ Start karaf with:
 
 ### Step #2 Preparations
 
-Please follow the install instuctions of the [2. PoC](../../02-MWTN-PoC/test/INSTALL.md)
-
+Please follow the install instuctions of the [2. PoC](../../02-MWTN-PoC/test/INSTALL.md). 
+In addition please install the package manager for web components:
+```
+npm install -g bower
+```
 
 ### Step #3 Clone, build and install the applications.
 Open a new terminal and clone the ONF Git reposotory for the open source project 
