@@ -178,10 +178,10 @@ module: MicrowaveModel-ObjectClasses-AirInterfaceDiversity
       |     +--ro problemName?       string
       |     +--ro problemSeverity?   severityType
       +--ro airInterfaceDiversityCurrentPerformance
-      |  +--ro currentPerformanceData
+      |  +--ro currentPerformanceDataList* [scannerId]
       |     +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
       |     +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-      |     +--ro scannerId?             string
+      |     +--ro scannerId              string
       |     +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
       |     +--ro administrativeState?   CoreModel-CoreFoundationModule-StateModel:AdministrativeState
       |     +--ro suspectIntervalFlag?   boolean
@@ -307,10 +307,10 @@ module: MicrowaveModel-ObjectClasses-AirInterface
    |  |     +--ro problemName?       string
    |  |     +--ro problemSeverity?   severityType
    |  +--ro airInterfaceCurrentPerformance
-   |  |  +--ro currentPerformanceData
+   |  |  +--ro currentPerformanceDataList* [scannerId]
    |  |     +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
    |  |     +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-   |  |     +--ro scannerId?             string
+   |  |     +--ro scannerId              string
    |  |     +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
    |  |     +--ro administrativeState?   CoreModel-CoreFoundationModule-StateModel:AdministrativeState
    |  |     +--ro suspectIntervalFlag?   boolean
@@ -454,10 +454,10 @@ module: MicrowaveModel-ObjectClasses-EthernetContainer
       |     +--ro problemName?       string
       |     +--ro problemSeverity?   severityType
       +--ro ethernetContainerCurrentPerformance
-      |  +--ro currentPerformanceData
+      |  +--ro currentPerformanceDataList* [scannerId]
       |     +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
       |     +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-      |     +--ro scannerId?             string
+      |     +--ro scannerId              string
       |     +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
       |     +--ro administrativeState?   CoreModel-CoreFoundationModule-StateModel:AdministrativeState
       |     +--ro suspectIntervalFlag?   boolean
@@ -513,10 +513,10 @@ module: MicrowaveModel-ObjectClasses-HybridMwStructure
       |     +--ro problemName?       string
       |     +--ro problemSeverity?   severityType
       +--ro hybridMwStructureCurrentPerformance
-      |  +--ro currentPerformanceData
+      |  +--ro currentPerformanceDataList* [scannerId]
       |     +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
       |     +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-      |     +--ro scannerId?             string
+      |     +--ro scannerId              string
       |     +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
       |     +--ro administrativeState?   CoreModel-CoreFoundationModule-StateModel:AdministrativeState
       |     +--ro suspectIntervalFlag?   boolean
@@ -555,10 +555,10 @@ module: MicrowaveModel-ObjectClasses-PureEthernetStructure
       |     +--ro problemName?       string
       |     +--ro problemSeverity?   severityType
       +--ro pureEthernetStructureCurrentPerformance
-      |  +--ro currentPerformanceData
+      |  +--ro currentPerformanceDataList* [scannerId]
       |     +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
       |     +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-      |     +--ro scannerId?             string
+      |     +--ro scannerId              string
       |     +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
       |     +--ro administrativeState?   CoreModel-CoreFoundationModule-StateModel:AdministrativeState
       |     +--ro suspectIntervalFlag?   boolean
@@ -602,10 +602,10 @@ module: MicrowaveModel-ObjectClasses-TdmContainer
       |     +--ro problemName?       string
       |     +--ro problemSeverity?   severityType
       +--ro tdmContainerCurrentPerformance
-      |  +--ro currentPerformanceData
+      |  +--ro currentPerformanceDataList* [scannerId]
       |     +--ro objectClass?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
       |     +--ro nameBinding?           G_874_1_model-Imported_Data_Types:ObjectIdentifier
-      |     +--ro scannerId?             string
+      |     +--ro scannerId              string
       |     +--ro granularityPeriod?     G_874_1_model-Type_Definitions:GranularityPeriodType
       |     +--ro administrativeState?   CoreModel-CoreFoundationModule-StateModel:AdministrativeState
       |     +--ro suspectIntervalFlag?   boolean
