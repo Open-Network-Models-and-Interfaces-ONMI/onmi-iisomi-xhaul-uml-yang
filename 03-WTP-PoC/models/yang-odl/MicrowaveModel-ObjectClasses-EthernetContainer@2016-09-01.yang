@@ -27,7 +27,7 @@ module MicrowaveModel-ObjectClasses-EthernetContainer {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-08-29 {
+    revision 2016-09-01 {
         description 
             "Initial revision."; 
         reference 
@@ -202,10 +202,10 @@ module MicrowaveModel-ObjectClasses-EthernetContainer {
         }
         list problemSeverityList {
             description "Severity of the problem to be configured.";
-            key 'sequenceNumber';
-            config false;
+            key 'problemKindName';
+            config true;
             ordered-by system;
-            uses MicrowaveModel-TypeDefinitions:containerCurrentProblemType;
+            uses MicrowaveModel-TypeDefinitions:containerProblemSeverityType;
             min-elements 2;
         }
     }
@@ -227,8 +227,12 @@ module MicrowaveModel-ObjectClasses-EthernetContainer {
     }
     grouping EthernetContainerCurrentPerformance {
         description "Aggregated performance information of the Ethernet container at a particular moment.";
-        container currentPerformanceData {
+        list currentPerformanceDataList {
+            key 'scannerId';
+            ordered-by system;
             uses MicrowaveModel-TypeDefinitions:containerCurrentPerformanceType;
+            max-elements 2;
+            min-elements 1;
         }
     }
     grouping EthernetContainerHistoricalPerformances {

@@ -35,7 +35,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-08-29">
+  <revision date="2016-09-01">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -90,7 +90,7 @@
       <type name="string"/>
       <config value="false"/>
       <description>
-        <text>This parameter indicates the equipment type. Instead of uploading the complete set of capabilities, capabilities of the same equipment type could be reused.</text>
+        <text>This parameter indicates the equipment type. Instead of uploading the complete set of capabilities, capabilities of the same equipment type could be reused. Should be unique for a combination of modem, radio and their respective firmware.</text>
       </description>
       <default value="Type of equipment not yet defined."/>
     </leaf>
@@ -628,9 +628,16 @@ _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' m
     <description>
       <text>Aggregated performance information of the air interface at a particular moment.</text>
     </description>
-    <container name="currentPerformanceData">
+    <list name="currentPerformanceDataList">
+      <description>
+        <text>At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.</text>
+      </description>
+      <key value="scannerId"/>
+      <ordered-by value="system"/>
       <uses name="MicrowaveModel-TypeDefinitions:airInterfaceCurrentPerformanceType"/>
-    </container>
+      <max-elements value="2"/>
+      <min-elements value="1"/>
+    </list>
   </grouping>
   <grouping name="AirInterfaceHistoricalPerformances">
     <description>

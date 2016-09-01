@@ -31,7 +31,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-08-29">
+  <revision date="2016-09-01">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -259,10 +259,10 @@
       <description>
         <text>Severity of the problem to be configured.</text>
       </description>
-      <key value="sequenceNumber"/>
-      <config value="false"/>
+      <key value="problemKindName"/>
+      <config value="true"/>
       <ordered-by value="system"/>
-      <uses name="MicrowaveModel-TypeDefinitions:containerCurrentProblemType"/>
+      <uses name="MicrowaveModel-TypeDefinitions:containerProblemSeverityType"/>
       <min-elements value="2"/>
     </list>
   </grouping>
@@ -288,9 +288,13 @@ _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' m
     <description>
       <text>Aggregated performance information of the Ethernet container at a particular moment.</text>
     </description>
-    <container name="currentPerformanceData">
+    <list name="currentPerformanceDataList">
+      <key value="scannerId"/>
+      <ordered-by value="system"/>
       <uses name="MicrowaveModel-TypeDefinitions:containerCurrentPerformanceType"/>
-    </container>
+      <max-elements value="2"/>
+      <min-elements value="1"/>
+    </list>
   </grouping>
   <grouping name="EthernetContainerHistoricalPerformances">
     <description>

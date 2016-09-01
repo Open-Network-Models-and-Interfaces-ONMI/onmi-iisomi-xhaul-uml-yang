@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module name="MicrowaveModel-ObjectClasses-HybridMwStructure"
+<module name="MicrowaveModel-ObjectClasses-PureEthernetStructure"
         xmlns="urn:ietf:params:xml:ns:yang:yin:1"
-        xmlns:MicrowaveModel-ObjectClasses-HybridMwStructure="uri:onf:MicrowaveModel-ObjectClasses-HybridMwStructure"
+        xmlns:MicrowaveModel-ObjectClasses-PureEthernetStructure="uri:onf:MicrowaveModel-ObjectClasses-PureEthernetStructure"
         xmlns:CoreModel-CoreNetworkModule-ObjectClasses="uri:onf:CoreModel-CoreNetworkModule-ObjectClasses"
         xmlns:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages="uri:onf:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"
         xmlns:MicrowaveModel-TypeDefinitions="uri:onf:MicrowaveModel-TypeDefinitions"
         xmlns:CoreModel-CoreFoundationModule-TypeDefinitions="uri:onf:CoreModel-CoreFoundationModule-TypeDefinitions">
-  <namespace uri="uri:onf:MicrowaveModel-ObjectClasses-HybridMwStructure"/>
-  <prefix value="MicrowaveModel-ObjectClasses-HybridMwStructure"/>
+  <namespace uri="uri:onf:MicrowaveModel-ObjectClasses-PureEthernetStructure"/>
+  <prefix value="MicrowaveModel-ObjectClasses-PureEthernetStructure"/>
   <import module="CoreModel-CoreNetworkModule-ObjectClasses">
     <prefix value="CoreModel-CoreNetworkModule-ObjectClasses"/>
   </import>
@@ -35,7 +35,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-08-29">
+  <revision date="2016-09-01">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -43,15 +43,15 @@
       <text>ONF TR xyz: A YANG Data Model for Microwave Transport Networks.</text>
     </reference>
   </revision>
-  <feature name="hybrid-microwave">
+  <feature name="pure-ethernet">
     <description>
-      <text>Feature 'hybrid-microwave' is mandatory for device types transporting Ethernet + TDM.</text>
+      <text>Feature 'pure-ethernet' is mandatory for device types transporting pure Ethernet.</text>
     </description>
   </feature>
-  <list name="MW_HybridMwStructure_Pac">
+  <list name="MW_PureEthernetStructure_Pac">
     <description>
       <text>LTP(MWS-TTP)
-The HybridMwStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting TDM and Ethernet traffic.</text>
+The pureEthernetStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting Ethernet traffic only.</text>
     </description>
     <key value="layerProtocol"/>
     <config value="true"/>
@@ -63,36 +63,37 @@ The HybridMwStructure_Pac and its attached classes MUST be provided on managemen
         <text>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</text>
       </description>
     </leaf>
-    <container name="hybridMwStructureCapability">
+    <container name="pureEthernetStructureCapability">
       <config value="false"/>
-      <uses name="HybridMwStructureCapability"/>
+      <uses name="PureEthernetStructureCapability"/>
     </container>
-    <container name="hybridMwStructureConfiguration">
+    <container name="pureEthernetStructureConfiguration">
       <config value="true"/>
-      <uses name="HybridMwStructureConfiguration"/>
+      <uses name="PureEthernetStructureConfiguration"/>
     </container>
-    <container name="hybridMwStructureStatus">
+    <container name="pureEthernetStructureStatus">
       <config value="false"/>
-      <uses name="HybridMwStructureStatus"/>
+      <uses name="PureEthernetStructureStatus"/>
     </container>
-    <container name="hybridMwStructureCurrentProblems">
+    <container name="pureEthernetStructureCurrentProblems">
       <config value="false"/>
-      <uses name="HybridMwStructureCurrentProblems"/>
+      <uses name="PureEthernetStructureCurrentProblems"/>
     </container>
-    <container name="hybridMwStructureCurrentPerformance">
+    <container name="pureEthernetStructureCurrentPerformance">
       <config value="false"/>
-      <uses name="HybridMwStructureCurrentPerformance"/>
+      <uses name="PureEthernetStructureCurrentPerformance"/>
     </container>
-    <container name="hybridMwStructureHistoricalPerformances">
+    <container name="pureEthernetStructureHistoricalPerformances">
       <config value="false"/>
-      <uses name="HybridMwStructureHistoricalPerformances"/>
+      <uses name="PureEthernetStructureHistoricalPerformances"/>
     </container>
   </list>
-  <grouping name="HybridMwStructureCapability">
+  <grouping name="PureEthernetStructureCapability">
     <description>
-      <text>Describes the logical structuring of the physical capacity provided by a hybrid microwave device (TDM + Ethernet).
-Segmentation is available.
-TDM transport is available.</text>
+      <text>Describes the logical structuring of the physical capacity provided by a pure Ethernet microwave device.
+Segmentation is not available.
+No fixed segment size.
+No TDM transport.</text>
     </description>
     <leaf name="structureId">
       <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
@@ -101,15 +102,6 @@ TDM transport is available.</text>
         <text>Identifies the Structure for bundling and container.</text>
       </description>
     </leaf>
-    <list name="supportedTdmStructureTypesList">
-      <description>
-        <text>Lists the TDM frame types that are supported.</text>
-      </description>
-      <key value="tdmStructureName"/>
-      <ordered-by value="system"/>
-      <uses name="MicrowaveModel-TypeDefinitions:tdmStructureType"/>
-      <min-elements value="1"/>
-    </list>
     <leaf name="supportedAlarms">
       <type name="string"/>
       <config value="false"/>
@@ -119,41 +111,25 @@ TDM transport is available.</text>
       <default value="Supported alarms not yet defined."/>
     </leaf>
   </grouping>
-  <grouping name="HybridMwStructureConfiguration">
-    <container name="structureType">
-      <description>
-        <text>TDM frame to be applied.</text>
-      </description>
-      <config value="true"/>
-      <uses name="MicrowaveModel-TypeDefinitions:tdmStructureType"/>
-    </container>
-    <leaf name="numberOfTdmSegmentsToBeReserved">
-      <type name="int16"/>
-      <description>
-        <text>Allows to configure the number of segments reserved for TDM frames of the type specified in HybridMwStructure::HybridMwStructureConfiguration::structureType</text>
-      </description>
-      <default value="-1"/>
-    </leaf>
+  <grouping name="PureEthernetStructureConfiguration">
     <list name="problemSeverityList">
       <description>
         <text>Severity of the type of problem to be configured.</text>
       </description>
-      <key value="sequenceNumber"/>
-      <config value="false"/>
+      <key value="problemKindName"/>
+      <config value="true"/>
       <ordered-by value="system"/>
-      <uses name="MicrowaveModel-TypeDefinitions:structureCurrentProblemType"/>
+      <uses name="MicrowaveModel-TypeDefinitions:structureProblemSeverityType"/>
     </list>
   </grouping>
-  <grouping name="HybridMwStructureStatus">
-    <list name="segmentStatusList">
+  <grouping name="PureEthernetStructureStatus">
+    <container name="segmentStatusList">
       <description>
-        <text>Status of each segment (all TDM and one Ethernet).
-Multiplicity = HybridMwStructure::StructureConfiguration::tdmReservedNumberOfSegments + 1</text>
+        <text>Status of the Ethernet transport segment.
+Always just one segment.</text>
       </description>
-      <key value="segmentStatusTypeId"/>
-      <ordered-by value="system"/>
       <uses name="MicrowaveModel-TypeDefinitions:segmentStatusType"/>
-    </list>
+    </container>
     <leaf name="lastStatusChange">
       <type name="CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime"/>
       <config value="false"/>
@@ -163,24 +139,31 @@ _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' m
       </description>
     </leaf>
   </grouping>
-  <grouping name="HybridMwStructureCurrentProblems">
+  <grouping name="PureEthernetStructureCurrentProblems">
     <list name="currentProblemList">
       <key value="sequenceNumber"/>
       <ordered-by value="system"/>
       <uses name="MicrowaveModel-TypeDefinitions:structureCurrentProblemType"/>
     </list>
   </grouping>
-  <grouping name="HybridMwStructureCurrentPerformance">
+  <grouping name="PureEthernetStructureCurrentPerformance">
     <description>
-      <text>Aggregated performance information of the structure of a hybrid microwave at a particular moment.</text>
+      <text>Aggregated performance information of the structure of an pure Ethernet microwave at a particular moment.</text>
     </description>
-    <container name="currentPerformanceData">
+    <list name="currentPerformanceDataList">
+      <description>
+        <text>At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.</text>
+      </description>
+      <key value="scannerId"/>
+      <ordered-by value="system"/>
       <uses name="MicrowaveModel-TypeDefinitions:structureCurrentPerformanceType"/>
-    </container>
+      <max-elements value="2"/>
+      <min-elements value="1"/>
+    </list>
   </grouping>
-  <grouping name="HybridMwStructureHistoricalPerformances">
+  <grouping name="PureEthernetStructureHistoricalPerformances">
     <description>
-      <text>Aggregated performance information of the structure of a hybrid microwave for a pre-defined measurement interval.</text>
+      <text>Aggregated performance information of the structure of an pure Ethernet microwave for a pre-defined measurement interval.</text>
     </description>
     <list name="historicalPerformanceDataList">
       <key value="historyDataId"/>
