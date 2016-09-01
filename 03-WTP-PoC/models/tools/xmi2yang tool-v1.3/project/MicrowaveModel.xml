@@ -845,7 +845,7 @@
           </ownedComment>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_gK4jMJUBEeWIaZzoaYJ6_A" name="typeOfEquipment" visibility="private" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_gK4jMZUBEeWIaZzoaYJ6_A" annotatedElement="_gK4jMJUBEeWIaZzoaYJ6_A">
-              <body>This parameter indicates the equipment type. Instead of uploading the complete set of capabilities, capabilities of the same equipment type could be reused.</body>
+              <body>This parameter indicates the equipment type. Instead of uploading the complete set of capabilities, capabilities of the same equipment type could be reused. Should be unique for a combination of modem, radio and their respective firmware.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
             <defaultValue xmi:type="uml:LiteralString" xmi:id="_jxVHsEj2EeaQGMvlilSo2Q" value="Type of equipment not yet defined."/>
@@ -1391,11 +1391,6 @@
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
             <defaultValue xmi:type="uml:LiteralString" xmi:id="_Zemf4FQIEeaCXY7nSBqs6w" value="not-supported"/>
           </ownedAttribute>
-          <ownedOperation xmi:type="uml:Operation" xmi:id="_s0JTYHvfEeWzooKF5kx0aw" name="getAirInterfaceCapacity">
-            <ownedComment xmi:type="uml:Comment" xmi:id="_s0JTYXvfEeWzooKF5kx0aw" annotatedElement="_s0JTYHvfEeWzooKF5kx0aw">
-              <body>Provides the current Capacity of the Air Interface in Mbit/s based on channel bandwidth, modulation, coding and so on.</body>
-            </ownedComment>
-          </ownedOperation>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_UF8VcHmIEeWRAfnL3fvovg" name="AirInterfaceCurrentProblems">
           <ownedAttribute xmi:type="uml:Property" xmi:id="_wNTMQJHzEeWhSKF7pUEwxA" name="currentProblemList" visibility="private" type="_umuZUMXjEeW3xsRKtpCLuA" isUnique="false" isReadOnly="true">
@@ -1407,7 +1402,13 @@
           <ownedComment xmi:type="uml:Comment" xmi:id="_bcWgIEQcEea3g-FxAUaYRg" annotatedElement="_fChNMHmHEeWRAfnL3fvovg">
             <body>Aggregated performance information of the air interface at a particular moment.</body>
           </ownedComment>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_LphgkEQcEea3g-FxAUaYRg" name="currentPerformanceData" visibility="private" type="_pQ_y4GoHEeaZwMagYjVCHQ" isUnique="false" isReadOnly="true"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_LphgkEQcEea3g-FxAUaYRg" name="currentPerformanceDataList" visibility="private" type="_pQ_y4GoHEeaZwMagYjVCHQ" isUnique="false" isReadOnly="true">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_zRJSwHBVEea2DrxJm8d_sQ">
+              <body>At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.</body>
+            </ownedComment>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_c1hMgHBQEea2DrxJm8d_sQ" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_c1jBsHBQEea2DrxJm8d_sQ" value="2"/>
+          </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_fChNMHmHEeWRAfnL3fvovg" name="AirInterfaceHistoricalPerformances">
           <ownedComment xmi:type="uml:Comment" xmi:id="_qOoW8HmgEeWsUsDOj_Trdg" annotatedElement="_fChNMHmHEeWRAfnL3fvovg">
@@ -1588,7 +1589,13 @@
           <ownedComment xmi:type="uml:Comment" xmi:id="_7n7sgGz9Eeaf-__BRLM84g" annotatedElement="_fChNMHmHEeWRAfnL3fvovg">
             <body>Aggregated performance information of the air interface diversity configuration at a particular moment.</body>
           </ownedComment>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_fHrs8EQdEea3g-FxAUaYRg" name="currentPerformanceData" visibility="private" type="_n4wTgGz6Eeaf-__BRLM84g" isUnique="false" isReadOnly="true"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_fHrs8EQdEea3g-FxAUaYRg" name="currentPerformanceDataList" visibility="private" type="_n4wTgGz6Eeaf-__BRLM84g" isUnique="false" isReadOnly="true">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_vYg0UHBVEea2DrxJm8d_sQ">
+              <body>At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.</body>
+            </ownedComment>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_z9J5oHBUEea2DrxJm8d_sQ" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_z9Lu0HBUEea2DrxJm8d_sQ" value="2"/>
+          </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_8IIu8HvsEeWzooKF5kx0aw" name="AirInterfaceDiversityHistoricalPerformances">
           <ownedComment xmi:type="uml:Comment" xmi:id="_QgkS0Gz_Eeaf-__BRLM84g" annotatedElement="_fChNMHmHEeWRAfnL3fvovg">
@@ -1695,7 +1702,13 @@
           <ownedComment xmi:type="uml:Comment" xmi:id="_8JuyAGz9Eeaf-__BRLM84g" annotatedElement="_fChNMHmHEeWRAfnL3fvovg">
             <body>Aggregated performance information of the structure of an pure Ethernet microwave at a particular moment.</body>
           </ownedComment>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="__OTREkaeEeas2eqI3oKNtg" name="currentPerformanceData" visibility="private" type="_o7jNQGz6Eeaf-__BRLM84g" isUnique="false" isReadOnly="true"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="__OTREkaeEeas2eqI3oKNtg" name="currentPerformanceDataList" visibility="private" type="_o7jNQGz6Eeaf-__BRLM84g" isUnique="false" isReadOnly="true">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_rGbUEHBVEea2DrxJm8d_sQ">
+              <body>At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.</body>
+            </ownedComment>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_20M_QHBUEea2DrxJm8d_sQ" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_20O0cHBUEea2DrxJm8d_sQ" value="2"/>
+          </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="__OTRE0aeEeas2eqI3oKNtg" name="PureEthernetStructureHistoricalPerformances">
           <ownedComment xmi:type="uml:Comment" xmi:id="_QBbfwGz_Eeaf-__BRLM84g" annotatedElement="_fChNMHmHEeWRAfnL3fvovg">
@@ -1820,7 +1833,13 @@
           <ownedComment xmi:type="uml:Comment" xmi:id="_8bcNEGz9Eeaf-__BRLM84g" annotatedElement="_fChNMHmHEeWRAfnL3fvovg">
             <body>Aggregated performance information of the structure of a hybrid microwave at a particular moment.</body>
           </ownedComment>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_BzxpEkagEeas2eqI3oKNtg" name="currentPerformanceData" visibility="private" type="_o7jNQGz6Eeaf-__BRLM84g" isUnique="false" isReadOnly="true"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_BzxpEkagEeas2eqI3oKNtg" name="currentPerformanceDataList" visibility="private" type="_o7jNQGz6Eeaf-__BRLM84g" isUnique="false" isReadOnly="true">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_8h7hoHBVEea2DrxJm8d_sQ">
+              <body>At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.</body>
+            </ownedComment>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9nxk0HBUEea2DrxJm8d_sQ" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9n0oIHBUEea2DrxJm8d_sQ" value="2"/>
+          </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_BzxpE0agEeas2eqI3oKNtg" name="HybridMwStructureHistoricalPerformances">
           <ownedComment xmi:type="uml:Comment" xmi:id="_PH_WUGz_Eeaf-__BRLM84g" annotatedElement="_fChNMHmHEeWRAfnL3fvovg">
@@ -2067,7 +2086,10 @@
           <ownedComment xmi:type="uml:Comment" xmi:id="_BttX8Gz-Eeaf-__BRLM84g" annotatedElement="_fChNMHmHEeWRAfnL3fvovg">
             <body>Aggregated performance information of the Ethernet container at a particular moment.</body>
           </ownedComment>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_4uECFkafEeas2eqI3oKNtg" name="currentPerformanceData" visibility="private" type="_pA5AQGz6Eeaf-__BRLM84g" isUnique="false" isReadOnly="true"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_4uECFkafEeas2eqI3oKNtg" name="currentPerformanceDataList" visibility="private" type="_pA5AQGz6Eeaf-__BRLM84g" isUnique="false" isReadOnly="true">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="__21dYHBUEea2DrxJm8d_sQ" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="__23SkHBUEea2DrxJm8d_sQ" value="2"/>
+          </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_4uECF0afEeas2eqI3oKNtg" name="EthernetContainerHistoricalPerformances">
           <ownedComment xmi:type="uml:Comment" xmi:id="_M3uj4Gz_Eeaf-__BRLM84g" annotatedElement="_fChNMHmHEeWRAfnL3fvovg">
@@ -2171,7 +2193,13 @@
           <ownedComment xmi:type="uml:Comment" xmi:id="_9JDhAGz9Eeaf-__BRLM84g" annotatedElement="_fChNMHmHEeWRAfnL3fvovg">
             <body>Aggregated performance information of the TDM container at a particular moment.</body>
           </ownedComment>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_ecCexkaqEeas2eqI3oKNtg" name="currentPerformanceData" visibility="private" type="_pA5AQGz6Eeaf-__BRLM84g" isUnique="false" isReadOnly="true"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_ecCexkaqEeas2eqI3oKNtg" name="currentPerformanceDataList" visibility="private" type="_pA5AQGz6Eeaf-__BRLM84g" isUnique="false" isReadOnly="true">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_-rvt0HBVEea2DrxJm8d_sQ">
+              <body>At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.</body>
+            </ownedComment>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_DRdxMHBVEea2DrxJm8d_sQ" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_DRfmYHBVEea2DrxJm8d_sQ" value="2"/>
+          </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_ecCex0aqEeas2eqI3oKNtg" name="TdmContainerHistoricalPerformances">
           <ownedComment xmi:type="uml:Comment" xmi:id="_LM7O8Gz_Eeaf-__BRLM84g" annotatedElement="_fChNMHmHEeWRAfnL3fvovg">
@@ -2765,7 +2793,6 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="_Vp4ggXmgEeWsUsDOj_Trdg" base_StructuralFeature="_Vp4ggHmgEeWsUsDOj_Trdg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_ZeRYI3mgEeWsUsDOj_Trdg" base_StructuralFeature="_ZeRYInmgEeWsUsDOj_Trdg" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_ZeR_MXmgEeWsUsDOj_Trdg" base_StructuralFeature="_ZeR_MHmgEeWsUsDOj_Trdg"/>
-  <OpenModel_Profile:OpenModelOperation xmi:id="_s0JTYnvfEeWzooKF5kx0aw" base_Operation="_s0JTYHvfEeWzooKF5kx0aw"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_8IIu8XvsEeWzooKF5kx0aw" base_Class="_8IIu8HvsEeWzooKF5kx0aw" objectCreationNotification="NO" objectDeletionNotification="NO"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_-O9RgXvsEeWzooKF5kx0aw" base_Class="_-O9RgHvsEeWzooKF5kx0aw" objectCreationNotification="NO" objectDeletionNotification="NO"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_CAvhEXvtEeWzooKF5kx0aw" base_Class="_CAvhEHvtEeWzooKF5kx0aw" objectCreationNotification="NO" objectDeletionNotification="NO"/>
