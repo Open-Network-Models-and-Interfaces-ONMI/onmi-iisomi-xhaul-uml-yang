@@ -30,7 +30,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-08-29 {
+    revision 2016-09-01 {
         description 
             "Initial revision."; 
         reference 
@@ -77,7 +77,7 @@ module MicrowaveModel-ObjectClasses-AirInterface {
         leaf typeOfEquipment {
             type string;
             config false;
-            description "This parameter indicates the equipment type. Instead of uploading the complete set of capabilities, capabilities of the same equipment type could be reused.";
+            description "This parameter indicates the equipment type. Instead of uploading the complete set of capabilities, capabilities of the same equipment type could be reused. Should be unique for a combination of modem, radio and their respective firmware.";
             default "Type of equipment not yet defined.";
         }
         leaf txFrequencyMin {
@@ -482,8 +482,13 @@ module MicrowaveModel-ObjectClasses-AirInterface {
     }
     grouping AirInterfaceCurrentPerformance {
         description "Aggregated performance information of the air interface at a particular moment.";
-        container currentPerformanceData {
+        list currentPerformanceDataList {
+            description "At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.";
+            key 'scannerId';
+            ordered-by system;
             uses MicrowaveModel-TypeDefinitions:airInterfaceCurrentPerformanceType;
+            max-elements 2;
+            min-elements 1;
         }
     }
     grouping AirInterfaceHistoricalPerformances {
