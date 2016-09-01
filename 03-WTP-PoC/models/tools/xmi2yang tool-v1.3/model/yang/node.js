@@ -216,6 +216,8 @@ Node.prototype.writeNode = function (layer) {
         //  this.key = 'structureId timeSlotId';
         // } else if (this.name === 'segmentsIDList') {
         //   this.key = 'structureIdRef segmentIdRef';
+        } else if (this.name === 'currentPerformanceDataList') {
+          this.key = 'scannerId'
         } else if (this.name === 'historicalPerformanceDataList') {
           this.key = 'historyDataId'
         }
