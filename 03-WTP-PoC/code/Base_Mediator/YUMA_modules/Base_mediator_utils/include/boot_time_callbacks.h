@@ -20,4 +20,9 @@ const char* cb_get_boot_time_element_value(val_value_t *element);
 status_t cb_get_all_co_channel_group_id_keys(char **co_channel_group_id_keys_list, int *num_of_keys);
 status_t cb_get_all_co_channel_group_air_interface_list_id_keys(const char *co_channel_group_id_key, char **co_channel_group_air_interface_list_entries, int *num_of_entries);
 
+status_t cb_get_all_server_ltp_ref_leaf_list_elements_for_ltp(char* ltp_uuid, char** server_ltp_ref_leaf_list, int* num_of_elements);
+status_t cb_get_all_client_ltp_ref_leaf_list_elements_for_ltp(char* ltp_uuid, char** client_ltp_ref_leaf_list, int* num_of_elements);
+status_t cb_get_all_ltp_ref_leaf_list_elements_for_ltp(char* ltp_uuid, char** ltp_ref_leaf_list, int* num_of_elements);
+
+
 #endif /* BOOT_TIME_CALLBACKS_H_ */

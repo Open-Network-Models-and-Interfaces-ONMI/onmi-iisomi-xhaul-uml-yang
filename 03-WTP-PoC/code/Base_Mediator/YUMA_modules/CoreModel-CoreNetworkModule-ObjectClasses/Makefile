@@ -9,8 +9,8 @@
 # Put only the directories that build object files in the list
 
 # make all targets
-DIRS = YUMA_modules/MicrowaveModel-ObjectClasses-AirInterface \
-       YUMA_modules/CoreModel-CoreNetworkModule-ObjectClasses
+DIRS = src
+BASE_MEDIATOR_DIR = ../Base_mediator_utils
 
 #################### PLATFORM DEFINITIONS ############
 
@@ -26,23 +26,26 @@ superclean: silsuperclean
 install: silinstall
 
 silall: silclean
+	cd $(BASE_MEDIATOR_DIR); $(MAKE);
+	
 	for dir in $(DIRS); do\
-	  cd $$dir && $(MAKE) && cd ../..;\
+	  cd $$dir && $(MAKE) && cd ..;\
         done
 
 silclean:
+	cd $(BASE_MEDIATOR_DIR); $(MAKE) clean;
 	for dir in $(DIRS); do\
-	  cd $$dir && $(MAKE) clean && cd ../..;\
+	  cd $$dir && $(MAKE) clean && cd ..;\
         done
 
 silsuperclean:
 	for dir in $(DIRS); do\
-	  cd $$dir && $(MAKE) superclean && cd ../..;\
+	  cd $$dir && $(MAKE) superclean && cd ..;\
         done
 
 silinstall:
 	for dir in $(DIRS); do\
-          cd $$dir && $(MAKE) install && cd ../..;\
+          cd $$dir && $(MAKE) install && cd ..;\
         done
 
 

@@ -38,6 +38,9 @@
 #define MAX_NUMBER_OF_CO_CHANNEL_GROUP_LIST_ENTRIES 50
 #define MAX_NUMBER_OF_CO_CHANNEL_GROUP_AIR_INTERFACE_LIST_ENTRIES 50
 
+#define MAX_NUMBER_OF_LTP_REF_ENTRIES 100
+#define MAX_NUMBER_OF_SERVER_CLIENT_REF_ENTRIES 1000
+
 status_t create_root_element_for_module(const char *module_name, const char *revision, const char *element_name, val_value_t** created_element_val);
 
 status_t create_and_init_child_element(const char *modname, const char *objname, val_value_t *parent_val, val_value_t **child_val, const char *valuestr, bool isRuntime);

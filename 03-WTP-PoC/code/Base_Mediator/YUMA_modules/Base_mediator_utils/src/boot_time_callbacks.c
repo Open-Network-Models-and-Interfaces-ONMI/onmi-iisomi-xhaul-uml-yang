@@ -8,6 +8,7 @@
 #include "boot_time_callbacks.h"
 #include "utils.h"
 #include "y_MicrowaveModel-ObjectClasses-AirInterface.h"
+#include "y_CoreModel-CoreNetworkModule-ObjectClasses.h"
 
 static const char* cb_get_boot_time_airInterfaceCapability_typeOfEquipment(val_value_t *element);
 static const char* cb_get_boot_time_airInterfaceCapability_txFrequencyMin(val_value_t *element);
@@ -70,6 +71,27 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_maintenanceTimer(v
 
 static const char* cb_get_boot_time_airInterfaceConfiguration_problemKindSeverity(val_value_t *element);
 
+
+static const char* cb_get_boot_time_NetworkElement_class_value(val_value_t *element);
+static const char* cb_get_boot_time_NetworkElement_class_valueName(val_value_t *element);
+static const char* cb_get_boot_time_NetworkElement_global_class_valueName(val_value_t *element);
+static const char* cb_get_boot_time_NetworkElement_global_class_value(val_value_t *element);
+
+static const char* cb_get_boot_time_NetworkElement_state_pac_operationalState(val_value_t *element);
+static const char* cb_get_boot_time_NetworkElement_state_pac_administrativeControl(val_value_t *element);
+static const char* cb_get_boot_time_NetworkElement_state_pac_administrativeState(val_value_t *element);
+static const char* cb_get_boot_time_NetworkElement_state_pac_lifecycleState(val_value_t *element);
+
+static const char* cb_get_boot_time_NetworkElement_ltpRefList_connectedLtpRef(val_value_t *element);
+static const char* cb_get_boot_time_NetworkElement_ltpRefList_peerLtpRef(val_value_t *element);
+static const char* cb_get_boot_time_NetworkElement_ltpRefList_physicalPortReference(val_value_t *element);
+static const char* cb_get_boot_time_NetworkElement_ltpRefList_ltpDirection(val_value_t *element);
+
+static const char* cb_get_boot_time_NetworkElement_lpList_layerProtocolName(val_value_t *element);
+static const char* cb_get_boot_time_NetworkElement_lpList_configuredClientCapacity(val_value_t *element);
+static const char* cb_get_boot_time_NetworkElement_lpList_lpDirection(val_value_t *element);
+static const char* cb_get_boot_time_NetworkElement_lpList_terminationState(val_value_t *element);
+
 /********************************************************************
 * FUNCTION cb_get_all_air_interface_pac_keys
 *
@@ -91,11 +113,8 @@ status_t cb_get_all_air_interface_pac_keys(char** air_interface_pac_keys_list, i
 	 */
 
 	char layerProtocol[256];
-	char layerProtocolString[256];
 
-	strcpy(layerProtocolString, "ifIndex1");
-	strcpy(layerProtocol, LP_MWPS_PREFIX);
-	strcat(layerProtocol, layerProtocolString);
+	strcpy(layerProtocol, "ifIndex1");
 
 	air_interface_pac_keys_list[*num_of_keys] = (char*) malloc(strlen(layerProtocol) + 1);
 	YUMA_ASSERT(air_interface_pac_keys_list[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
@@ -104,9 +123,7 @@ status_t cb_get_all_air_interface_pac_keys(char** air_interface_pac_keys_list, i
 
 	*num_of_keys += 1;
 
-	strcpy(layerProtocolString, "ifIndex2");
-	strcpy(layerProtocol, LP_MWPS_PREFIX);
-	strcat(layerProtocol, layerProtocolString);
+	strcpy(layerProtocol, "ifIndex2");
 
 	air_interface_pac_keys_list[*num_of_keys] = (char*) malloc(strlen(layerProtocol) + 1);
 	YUMA_ASSERT(air_interface_pac_keys_list[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
@@ -628,6 +645,63 @@ const char* cb_get_boot_time_element_value(val_value_t *element)
 	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_maintenanceTimer) == 0)
 	{
 		return cb_get_boot_time_airInterfaceConfiguration_maintenanceTimer(element);
+	}
+
+	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_valueName) == 0)
+	{
+		return cb_get_boot_time_NetworkElement_class_valueName(element);
+	}
+	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_value) == 0)
+	{
+		return cb_get_boot_time_NetworkElement_class_value(element);
+	}
+	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_operationalState) == 0)
+	{
+		return cb_get_boot_time_NetworkElement_state_pac_operationalState(element);
+	}
+	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_administrativeControl) == 0)
+	{
+		return cb_get_boot_time_NetworkElement_state_pac_administrativeControl(element);
+	}
+	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_administrativeState) == 0)
+	{
+		return cb_get_boot_time_NetworkElement_state_pac_administrativeState(element);
+	}
+	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_lifecycleState) == 0)
+	{
+		return cb_get_boot_time_NetworkElement_state_pac_lifecycleState(element);
+	}
+	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N__connectedLtpRef) == 0)
+	{
+		return cb_get_boot_time_NetworkElement_ltpRefList_connectedLtpRef(element);
+	}
+	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N__peerLtpRef) == 0)
+	{
+		return cb_get_boot_time_NetworkElement_ltpRefList_peerLtpRef(element);
+	}
+	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_physicalPortReference) == 0)
+	{
+		return cb_get_boot_time_NetworkElement_ltpRefList_physicalPortReference(element);
+	}
+	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_ltpDirection) == 0)
+	{
+		return cb_get_boot_time_NetworkElement_ltpRefList_ltpDirection(element);
+	}
+	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_layerProtocolName) == 0)
+	{
+		return cb_get_boot_time_NetworkElement_lpList_layerProtocolName(element);
+	}
+	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_configuredClientCapacity) == 0)
+	{
+		return cb_get_boot_time_NetworkElement_lpList_configuredClientCapacity(element);
+	}
+	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_lpDirection) == 0)
+	{
+		return cb_get_boot_time_NetworkElement_lpList_lpDirection(element);
+	}
+	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_terminationState) == 0)
+	{
+		return cb_get_boot_time_NetworkElement_lpList_terminationState(element);
 	}
 
 
@@ -2540,6 +2614,590 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_maintenanceTimer(v
 	/*
 	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
 	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_class_valueName
+*
+* Callback function for getting the value of the valueName leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_NetworkElement_class_valueName(val_value_t *element)
+{
+	val_value_t* grandParentDoingAttach = element->parent->parent;
+	YUMA_ASSERT(NULL == grandParentDoingAttach, return NULL, "Could not find parent of parent element %s", element->name);
+
+	if (strcmp(grandParentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_NetworkElement) == 0)
+	{
+		return cb_get_boot_time_NetworkElement_global_class_valueName(element);
+	}
+	else
+	{
+		return cb_get_boot_time_NetworkElement_global_class_valueName(element);
+	}
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_class_value
+*
+* Callback function for getting the value of the value leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_NetworkElement_class_value(val_value_t *element)
+{
+	val_value_t* grandParentDoingAttach = element->parent->parent;
+	YUMA_ASSERT(NULL == grandParentDoingAttach, return NULL, "Could not find parent of parent element %s", element->name);
+
+	if (strcmp(grandParentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_NetworkElement) == 0)
+	{
+		return cb_get_boot_time_NetworkElement_global_class_value(element);
+	}
+	else
+	{
+		return cb_get_boot_time_NetworkElement_global_class_value(element);
+	}
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_global_class_valueName
+*
+* Callback function for getting the value of the valueName leaf for the global class
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_NetworkElement_global_class_valueName(val_value_t *element)
+{
+	return "vName";
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_global_class_value
+*
+* Callback function for getting the value of the value leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_NetworkElement_global_class_value(val_value_t *element)
+{
+	val_value_t* parentDoingAttach = element->parent;
+	YUMA_ASSERT(NULL == parentDoingAttach, return NULL, "Could not find parent element %s", element->name);
+
+	if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_nameList) == 0)
+	{
+		return "NE_Name1";
+	}
+	else if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_labelList) == 0)
+	{
+		return "label_1";
+	}
+	else if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_extensionList) == 0)
+	{
+		return "extension_1";
+	}
+	else if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_localIdList) == 0)
+	{
+		return "localId_1";
+	}
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_state_pac_operationalState
+*
+* Callback function for getting the value of the operationalState leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_NetworkElement_state_pac_operationalState(val_value_t *element)
+{
+	val_value_t* parentDoingAttach = element->parent;
+	YUMA_ASSERT(NULL == parentDoingAttach, return NULL, "Could not find parent element %s", element->name);
+
+	if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_NetworkElement) == 0)
+	{
+		return "ENABLED";
+	}
+	else if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N__lpList) == 0)
+	{
+		return "DISABLED";
+	}
+
+	return "ENABLED";
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_state_pac_administrativeControl
+*
+* Callback function for getting the value of the administrativeControl leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_NetworkElement_state_pac_administrativeControl(val_value_t *element)
+{
+	val_value_t* parentDoingAttach = element->parent;
+	YUMA_ASSERT(NULL == parentDoingAttach, return NULL, "Could not find parent element %s", element->name);
+
+	if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_NetworkElement) == 0)
+	{
+		return "UNLOCK";
+	}
+
+	return "UNLOCK";
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_state_pac_administrativeState
+*
+* Callback function for getting the value of the administrativeState leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_NetworkElement_state_pac_administrativeState(val_value_t *element)
+{
+	val_value_t* parentDoingAttach = element->parent;
+	YUMA_ASSERT(NULL == parentDoingAttach, return NULL, "Could not find parent element %s", element->name);
+
+	if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_NetworkElement) == 0)
+	{
+		return "UNLOCKED";
+	}
+
+	return "UNLOCKED";
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_state_pac_lifecycleState
+*
+* Callback function for getting the value of the lifecycleState leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_NetworkElement_state_pac_lifecycleState(val_value_t *element)
+{
+	val_value_t* parentDoingAttach = element->parent;
+	YUMA_ASSERT(NULL == parentDoingAttach, return NULL, "Could not find parent element %s", element->name);
+
+	if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_NetworkElement) == 0)
+	{
+		return "INSTALLED";
+	}
+
+	return "INSTALLED";
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_all_server_ltp_ref_leaf_list_elements_for_ltp
+*
+* Get an array representing the elements of the _serverLtpRefList list
+*
+* INPUTS:
+* ltp_uuid - the UUID of the LTP for which we want its server_ltp_ref_leaf_list
+* OUTPUTS:
+* char** server_ltp_ref_leaf_list - an array of strings containing the list of elements
+* int* num_of_elements - the number of elements found
+*
+* RETURNS:
+*     error status
+********************************************************************/
+status_t cb_get_all_server_ltp_ref_leaf_list_elements_for_ltp(char* ltp_uuid, char** server_ltp_ref_leaf_list, int* num_of_elements)
+{
+	*num_of_elements = 0;
+
+	/*
+	 * fill in the actual values for the _serverLtpRefList list here. E.g.:
+	 */
+
+	char server_uuid[256];
+
+	strcpy(server_uuid, "uuid1");
+
+	server_ltp_ref_leaf_list[*num_of_elements] = (char*) malloc(strlen(server_uuid) + 1);
+	YUMA_ASSERT(server_ltp_ref_leaf_list[*num_of_elements] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+
+	strcpy(server_ltp_ref_leaf_list[*num_of_elements], server_uuid);
+
+	*num_of_elements += 1;
+
+	return NO_ERR;
+}
+
+/********************************************************************
+* FUNCTION cb_get_all_client_ltp_ref_leaf_list_elements_for_ltp
+*
+* Get an array representing the elements of the _clientLtpRefList list
+*
+* INPUTS:
+* ltp_uuid - the UUID of the LTP for which we want its client_ltp_ref_leaf_list
+* OUTPUTS:
+* char** client_ltp_ref_leaf_list - an array of strings containing the list of elements
+* int* num_of_elements - the number of elements found
+*
+* RETURNS:
+*     error status
+********************************************************************/
+status_t cb_get_all_client_ltp_ref_leaf_list_elements_for_ltp(char* ltp_uuid, char** client_ltp_ref_leaf_list, int* num_of_elements)
+{
+	*num_of_elements = 0;
+
+	/*
+	 * fill in the actual values for the _clientLtpRefList list here. E.g.:
+	 */
+
+	char client_uuid[256];
+
+	strcpy(client_uuid, "uuid2");
+
+	client_ltp_ref_leaf_list[*num_of_elements] = (char*) malloc(strlen(client_uuid) + 1);
+	YUMA_ASSERT(client_ltp_ref_leaf_list[*num_of_elements] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+
+	strcpy(client_ltp_ref_leaf_list[*num_of_elements], client_uuid);
+
+	*num_of_elements += 1;
+
+	return NO_ERR;
+}
+
+/********************************************************************
+* FUNCTION cb_get_all_ltp_ref_leaf_list_elements_for_ltp
+*
+* Get an array representing the elements of the _ltpRefList list
+*
+* INPUTS:
+* ltp_uuid - the UUID of the LTP for which we want its ltp_ref_leaf_list
+* OUTPUTS:
+* char** ltp_ref_leaf_list - an array of strings containing the list of elements
+* int* num_of_elements - the number of elements found
+*
+* RETURNS:
+*     error status
+********************************************************************/
+status_t cb_get_all_ltp_ref_leaf_list_elements_for_ltp(char* ltp_uuid, char** ltp_ref_leaf_list, int* num_of_elements)
+{
+	*num_of_elements = 0;
+
+	/*
+	 * fill in the actual values for the _ltpRefList list here. E.g.:
+	 */
+
+	char ltp_ref_uuid[256];
+
+	strcpy(ltp_ref_uuid, "uuid2");
+
+	ltp_ref_leaf_list[*num_of_elements] = (char*) malloc(strlen(ltp_ref_uuid) + 1);
+	YUMA_ASSERT(ltp_ref_leaf_list[*num_of_elements] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+
+	strcpy(ltp_ref_leaf_list[*num_of_elements], ltp_ref_uuid);
+
+	*num_of_elements += 1;
+
+	return NO_ERR;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_ltpRefList_connectedLtpRef
+*
+* Callback function for getting the value of the _connectedLtpRef leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_NetworkElement_ltpRefList_connectedLtpRef(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *uuidKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	uuidKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == uuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(uuidKey), return NULL, "Could not access value of the key %s for element %s", uuidKey->name, element->name);
+
+	if (strcmp(VAL_STRING(uuidKey), "uuid2") == 0)
+	{
+		return "uuid15";
+	}
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_ltpRefList_peerLtpRef
+*
+* Callback function for getting the value of the _peerLtpRef leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_NetworkElement_ltpRefList_peerLtpRef(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *uuidKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	uuidKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == uuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(uuidKey), return NULL, "Could not access value of the key %s for element %s", uuidKey->name, element->name);
+
+	if (strcmp(VAL_STRING(uuidKey), "uuid2") == 0)
+	{
+		return "uuid15";
+	}
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_ltpRefList_physicalPortReference
+*
+* Callback function for getting the value of the physicalPortReference leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_NetworkElement_ltpRefList_physicalPortReference(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *uuidKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	uuidKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == uuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(uuidKey), return NULL, "Could not access value of the key %s for element %s", uuidKey->name, element->name);
+
+	return "reference1";
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_ltpRefList_ltpDirection
+*
+* Callback function for getting the value of the ltpDirection leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_NetworkElement_ltpRefList_ltpDirection(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *uuidKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	uuidKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == uuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(uuidKey), return NULL, "Could not access value of the key %s for element %s", uuidKey->name, element->name);
+
+	return "BIDIRECTIONAL";
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_lpList_layerProtocolName
+*
+* Callback function for getting the value of the layerProtocolName leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_NetworkElement_lpList_layerProtocolName(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *ltpUuidKey = NULL;
+	val_value_t *lpUuidKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	ltpUuidKey = agt_get_key_value(parentHavingKey, &lastkey);
+	lpUuidKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == ltpUuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(ltpUuidKey), return NULL, "Could not access value of the key %s for element %s", ltpUuidKey->name, element->name);
+	YUMA_ASSERT(NULL == lpUuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(lpUuidKey), return NULL, "Could not access value of the key %s for element %s", ltpUuidKey->name, element->name);
+
+	return "layerProtocolName1";
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_lpList_configuredClientCapacity
+*
+* Callback function for getting the value of the configuredClientCapacity leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_NetworkElement_lpList_configuredClientCapacity(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *ltpUuidKey = NULL;
+	val_value_t *lpUuidKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	ltpUuidKey = agt_get_key_value(parentHavingKey, &lastkey);
+	lpUuidKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == ltpUuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(ltpUuidKey), return NULL, "Could not access value of the key %s for element %s", ltpUuidKey->name, element->name);
+	YUMA_ASSERT(NULL == lpUuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(lpUuidKey), return NULL, "Could not access value of the key %s for element %s", ltpUuidKey->name, element->name);
+
+	return "1000 kbps";
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_lpList_lpDirection
+*
+* Callback function for getting the value of the lpDirection leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_NetworkElement_lpList_lpDirection(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *ltpUuidKey = NULL;
+	val_value_t *lpUuidKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	ltpUuidKey = agt_get_key_value(parentHavingKey, &lastkey);
+	lpUuidKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == ltpUuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(ltpUuidKey), return NULL, "Could not access value of the key %s for element %s", ltpUuidKey->name, element->name);
+	YUMA_ASSERT(NULL == lpUuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(lpUuidKey), return NULL, "Could not access value of the key %s for element %s", ltpUuidKey->name, element->name);
+
+	if (strcmp(VAL_STRING(lpUuidKey), "uuid3") == 0)
+	{
+		return "BIDIRECTIONAL";
+	}
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_lpList_terminationState
+*
+* Callback function for getting the value of the terminationState leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_NetworkElement_lpList_terminationState(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *ltpUuidKey = NULL;
+	val_value_t *lpUuidKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	ltpUuidKey = agt_get_key_value(parentHavingKey, &lastkey);
+	lpUuidKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == ltpUuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(ltpUuidKey), return NULL, "Could not access value of the key %s for element %s", ltpUuidKey->name, element->name);
+	YUMA_ASSERT(NULL == lpUuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(lpUuidKey), return NULL, "Could not access value of the key %s for element %s", ltpUuidKey->name, element->name);
+
+	if (strcmp(VAL_STRING(lpUuidKey), "uuid3") == 0)
+	{
+		return "true";
+	}
 
 	return NULL;
 }
