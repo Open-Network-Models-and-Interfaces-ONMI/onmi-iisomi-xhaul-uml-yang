@@ -41,7 +41,7 @@ Start karaf with:
 Please follow the install instuctions of the [2. PoC](../../02-MWTN-PoC/test/INSTALL.md). 
 In addition please install the package manager for web components:
 ```
-npm install -g bower
+sudo npm install -g bower
 ```
 
 ### Step #3 Clone, build and install the applications.
