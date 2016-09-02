@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module name="MicrowaveModel-ObjectClasses-HybridMwStructure"
+<module name="MicrowaveModel-ObjectClasses-AirInterfaceDiversity"
         xmlns="urn:ietf:params:xml:ns:yang:yin:1"
-        xmlns:MicrowaveModel-ObjectClasses-HybridMwStructure="uri:onf:MicrowaveModel-ObjectClasses-HybridMwStructure"
+        xmlns:MicrowaveModel-ObjectClasses-AirInterfaceDiversity="uri:onf:MicrowaveModel-ObjectClasses-AirInterfaceDiversity"
         xmlns:CoreModel-CoreNetworkModule-ObjectClasses="uri:onf:CoreModel-CoreNetworkModule-ObjectClasses"
-        xmlns:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages="uri:onf:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"
         xmlns:MicrowaveModel-TypeDefinitions="uri:onf:MicrowaveModel-TypeDefinitions"
         xmlns:CoreModel-CoreFoundationModule-TypeDefinitions="uri:onf:CoreModel-CoreFoundationModule-TypeDefinitions">
-  <namespace uri="uri:onf:MicrowaveModel-ObjectClasses-HybridMwStructure"/>
-  <prefix value="MicrowaveModel-ObjectClasses-HybridMwStructure"/>
+  <namespace uri="uri:onf:MicrowaveModel-ObjectClasses-AirInterfaceDiversity"/>
+  <prefix value="MicrowaveModel-ObjectClasses-AirInterfaceDiversity"/>
   <import module="CoreModel-CoreNetworkModule-ObjectClasses">
     <prefix value="CoreModel-CoreNetworkModule-ObjectClasses"/>
-  </import>
-  <import module="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages">
-    <prefix value="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"/>
   </import>
   <import module="MicrowaveModel-TypeDefinitions">
     <prefix value="MicrowaveModel-TypeDefinitions"/>
@@ -35,7 +31,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-09-01">
+  <revision date="2016-09-02">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -43,15 +39,9 @@
       <text>ONF TR xyz: A YANG Data Model for Microwave Transport Networks.</text>
     </reference>
   </revision>
-  <feature name="hybrid-microwave">
+  <list name="MW_AirInterfaceDiversity_Pac">
     <description>
-      <text>Feature 'hybrid-microwave' is mandatory for device types transporting Ethernet + TDM.</text>
-    </description>
-  </feature>
-  <list name="MW_HybridMwStructure_Pac">
-    <description>
-      <text>LTP(MWS-TTP)
-The HybridMwStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting TDM and Ethernet traffic.</text>
+      <text>LTP(MWS-CTP-xD)</text>
     </description>
     <key value="layerProtocol"/>
     <config value="true"/>
@@ -63,116 +53,119 @@ The HybridMwStructure_Pac and its attached classes MUST be provided on managemen
         <text>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</text>
       </description>
     </leaf>
-    <container name="hybridMwStructureCapability">
+    <container name="airInterfaceDiversityCapability">
       <config value="false"/>
-      <uses name="HybridMwStructureCapability"/>
+      <uses name="AirInterfaceDiversityCapability"/>
     </container>
-    <container name="hybridMwStructureConfiguration">
+    <container name="airInterfaceDiversityConfiguration">
       <config value="true"/>
-      <uses name="HybridMwStructureConfiguration"/>
+      <uses name="AirInterfaceDiversityConfiguration"/>
     </container>
-    <container name="hybridMwStructureStatus">
+    <container name="airInterfaceDiversityStatus">
       <config value="false"/>
-      <uses name="HybridMwStructureStatus"/>
+      <uses name="AirInterfaceDiversityStatus"/>
     </container>
-    <container name="hybridMwStructureCurrentProblems">
+    <container name="airInterfaceDiversityCurrentProblems">
       <config value="false"/>
-      <uses name="HybridMwStructureCurrentProblems"/>
+      <uses name="AirInterfaceDiversityCurrentProblems"/>
     </container>
-    <container name="hybridMwStructureCurrentPerformance">
+    <container name="airInterfaceDiversityCurrentPerformance">
       <config value="false"/>
-      <uses name="HybridMwStructureCurrentPerformance"/>
+      <uses name="AirInterfaceDiversityCurrentPerformance"/>
     </container>
-    <container name="hybridMwStructureHistoricalPerformances">
+    <container name="airInterfaceDiversityHistoricalPerformances">
       <config value="false"/>
-      <uses name="HybridMwStructureHistoricalPerformances"/>
+      <uses name="AirInterfaceDiversityHistoricalPerformances"/>
     </container>
   </list>
-  <grouping name="HybridMwStructureCapability">
+  <grouping name="AirInterfaceDiversityCapability">
     <description>
-      <text>Describes the logical structuring of the physical capacity provided by a hybrid microwave device (TDM + Ethernet).
-Segmentation is available.
-TDM transport is available.</text>
+      <text>Describes the capabilities in implementing different types of air interface diversity.</text>
     </description>
-    <leaf name="structureId">
-      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
-      <config value="false"/>
+    <list name="availableKindsOfDiversity">
       <description>
-        <text>Identifies the Structure for bundling and container.</text>
+        <text>Available types of diversity to be listed.</text>
       </description>
-    </leaf>
-    <list name="supportedTdmStructureTypesList">
-      <description>
-        <text>Lists the TDM frame types that are supported.</text>
-      </description>
-      <key value="tdmStructureName"/>
+      <key value="diversityName"/>
       <ordered-by value="system"/>
-      <uses name="MicrowaveModel-TypeDefinitions:tdmStructureType"/>
-      <min-elements value="1"/>
+      <uses name="MicrowaveModel-TypeDefinitions:diversityType"/>
     </list>
     <leaf name="supportedAlarms">
       <type name="string"/>
       <config value="false"/>
       <description>
-        <text>Available alarms to be listed. Mandatory:non. Names are to be separated by commas. Further alarms might be added by the device.</text>
+        <text>Available alarms to be listed. Mandatory:'airInterfaceDiversityConfigurationIsPartlyDown' (at least one air interface is down, but not all of them) and 'airInterfaceDiversityConfigurationIsDown' (all air interfaces are down). Further alarms might be added by the device. Names are to be separated by commas.</text>
       </description>
       <default value="Supported alarms not yet defined."/>
     </leaf>
   </grouping>
-  <grouping name="HybridMwStructureConfiguration">
-    <container name="structureType">
+  <grouping name="AirInterfaceDiversityConfiguration">
+    <container name="airInterfaceDiversity">
       <description>
-        <text>TDM frame to be applied.</text>
+        <text>Type of air interface diversity configured at the link.</text>
       </description>
       <config value="true"/>
-      <uses name="MicrowaveModel-TypeDefinitions:tdmStructureType"/>
+      <uses name="MicrowaveModel-TypeDefinitions:diversityType"/>
     </container>
-    <leaf name="numberOfTdmSegmentsToBeReserved">
-      <type name="int16"/>
+    <leaf-list name="airInterfaceLtpList">
       <description>
-        <text>Allows to configure the number of segments reserved for TDM frames of the type specified in HybridMwStructure::HybridMwStructureConfiguration::structureType</text>
+        <text>_multiplicity:2-ThisAirInterfaceDiversity::AirInterfaceDiversityConfiguration::airInterfaceDiversity::diversityType::numberOfAirInterfacesMax</text>
       </description>
-      <default value="-1"/>
-    </leaf>
-    <list name="problemSeverityList">
+      <ordered-by value="system"/>
+      <type name="leafref">
+        <path value="/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid"/>
+      </type>
+      <min-elements value="2"/>
+    </leaf-list>
+    <list name="problemKindSeverityList">
       <description>
-        <text>Severity of the type of problem to be configured.</text>
+        <text>Severity of the problem to be configured.</text>
       </description>
       <key value="problemKindName"/>
       <config value="true"/>
       <ordered-by value="system"/>
-      <uses name="MicrowaveModel-TypeDefinitions:structureProblemSeverityType"/>
+      <uses name="MicrowaveModel-TypeDefinitions:airInterfaceDiversityProblemSeverityType"/>
+      <min-elements value="3"/>
     </list>
   </grouping>
-  <grouping name="HybridMwStructureStatus">
-    <list name="segmentStatusList">
+  <grouping name="AirInterfaceDiversityStatus">
+    <leaf name="snirCur">
+      <type name="int8"/>
+      <config value="false"/>
       <description>
-        <text>Status of each segment (all TDM and one Ethernet).
-Multiplicity = HybridMwStructure::StructureConfiguration::tdmReservedNumberOfSegments + 1</text>
+        <text>Currently measured signal to (noise+interference) ratio of the combined signals.</text>
       </description>
-      <key value="segmentStatusTypeId"/>
-      <ordered-by value="system"/>
-      <uses name="MicrowaveModel-TypeDefinitions:segmentStatusType"/>
-    </list>
+      <units name="dB"/>
+      <default value="-99"/>
+    </leaf>
+    <leaf name="airInterfaceDiversityStatus">
+      <type name="MicrowaveModel-TypeDefinitions:airInterfaceDiversityStatusType"/>
+      <config value="false"/>
+      <description>
+        <text>Status of the air interface bundle. </text>
+      </description>
+      <default value="groupDown"/>
+    </leaf>
     <leaf name="lastStatusChange">
       <type name="CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime"/>
       <config value="false"/>
       <description>
-        <text>Time and date of the last update of the status information.
+        <text>Time the Diversity Group entered its current operational status. 
 _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' month; dd='01'..'31' day; hh='00'..'23' hour; mm='00'..'59' minute; ss='00'..'59' second; s='.0'..'.9'tenth of second (set to '.0' if EMS or NE cannot support this granularity); Z='Z' indicates UTC (rather than local time); {+|-}='+' or '-' delta from UTC; HH='00'..'23' time zone difference in hours; Mm='00'..'59' time zone difference in minutes.</text>
       </description>
+      <default value="20101120140000.0Z+1"/>
     </leaf>
   </grouping>
-  <grouping name="HybridMwStructureCurrentProblems">
+  <grouping name="AirInterfaceDiversityCurrentProblems">
     <list name="currentProblemList">
       <key value="sequenceNumber"/>
       <ordered-by value="system"/>
-      <uses name="MicrowaveModel-TypeDefinitions:structureCurrentProblemType"/>
+      <uses name="MicrowaveModel-TypeDefinitions:airInterfaceDiversityCurrentProblemType"/>
     </list>
   </grouping>
-  <grouping name="HybridMwStructureCurrentPerformance">
+  <grouping name="AirInterfaceDiversityCurrentPerformance">
     <description>
-      <text>Aggregated performance information of the structure of a hybrid microwave at a particular moment.</text>
+      <text>Aggregated performance information of the air interface diversity configuration at a particular moment.</text>
     </description>
     <list name="currentPerformanceDataList">
       <description>
@@ -180,19 +173,19 @@ _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' m
       </description>
       <key value="scannerId"/>
       <ordered-by value="system"/>
-      <uses name="MicrowaveModel-TypeDefinitions:structureCurrentPerformanceType"/>
+      <uses name="MicrowaveModel-TypeDefinitions:airInterfaceDiversityCurrentPerformanceType"/>
       <max-elements value="2"/>
       <min-elements value="1"/>
     </list>
   </grouping>
-  <grouping name="HybridMwStructureHistoricalPerformances">
+  <grouping name="AirInterfaceDiversityHistoricalPerformances">
     <description>
-      <text>Aggregated performance information of the structure of a hybrid microwave for a pre-defined measurement interval.</text>
+      <text>Aggregated performance information of the air interface diversity configuration for a pre-defined measurement interval.</text>
     </description>
     <list name="historicalPerformanceDataList">
       <key value="historyDataId"/>
       <ordered-by value="system"/>
-      <uses name="MicrowaveModel-TypeDefinitions:structureHistoricalPerformanceType"/>
+      <uses name="MicrowaveModel-TypeDefinitions:airInterfaceDiversityHistoricalPerformanceType"/>
     </list>
   </grouping>
 </module>

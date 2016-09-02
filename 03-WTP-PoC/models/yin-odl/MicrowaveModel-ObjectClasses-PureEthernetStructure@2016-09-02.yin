@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module name="MicrowaveModel-ObjectClasses-AirInterfaceDiversity"
+<module name="MicrowaveModel-ObjectClasses-PureEthernetStructure"
         xmlns="urn:ietf:params:xml:ns:yang:yin:1"
-        xmlns:MicrowaveModel-ObjectClasses-AirInterfaceDiversity="uri:onf:MicrowaveModel-ObjectClasses-AirInterfaceDiversity"
+        xmlns:MicrowaveModel-ObjectClasses-PureEthernetStructure="uri:onf:MicrowaveModel-ObjectClasses-PureEthernetStructure"
         xmlns:CoreModel-CoreNetworkModule-ObjectClasses="uri:onf:CoreModel-CoreNetworkModule-ObjectClasses"
+        xmlns:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages="uri:onf:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"
         xmlns:MicrowaveModel-TypeDefinitions="uri:onf:MicrowaveModel-TypeDefinitions"
         xmlns:CoreModel-CoreFoundationModule-TypeDefinitions="uri:onf:CoreModel-CoreFoundationModule-TypeDefinitions">
-  <namespace uri="uri:onf:MicrowaveModel-ObjectClasses-AirInterfaceDiversity"/>
-  <prefix value="MicrowaveModel-ObjectClasses-AirInterfaceDiversity"/>
+  <namespace uri="uri:onf:MicrowaveModel-ObjectClasses-PureEthernetStructure"/>
+  <prefix value="MicrowaveModel-ObjectClasses-PureEthernetStructure"/>
   <import module="CoreModel-CoreNetworkModule-ObjectClasses">
     <prefix value="CoreModel-CoreNetworkModule-ObjectClasses"/>
+  </import>
+  <import module="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages">
+    <prefix value="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages"/>
   </import>
   <import module="MicrowaveModel-TypeDefinitions">
     <prefix value="MicrowaveModel-TypeDefinitions"/>
@@ -31,7 +35,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-09-01">
+  <revision date="2016-09-02">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -39,9 +43,15 @@
       <text>ONF TR xyz: A YANG Data Model for Microwave Transport Networks.</text>
     </reference>
   </revision>
-  <list name="MW_AirInterfaceDiversity_Pac">
+  <feature name="pure-ethernet">
     <description>
-      <text>LTP(MWS-CTP-xD)</text>
+      <text>Feature 'pure-ethernet' is mandatory for device types transporting pure Ethernet.</text>
+    </description>
+  </feature>
+  <list name="MW_PureEthernetStructure_Pac">
+    <description>
+      <text>LTP(MWS-TTP)
+The pureEthernetStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting Ethernet traffic only.</text>
     </description>
     <key value="layerProtocol"/>
     <config value="true"/>
@@ -53,119 +63,92 @@
         <text>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</text>
       </description>
     </leaf>
-    <container name="airInterfaceDiversityCapability">
+    <container name="pureEthernetStructureCapability">
       <config value="false"/>
-      <uses name="AirInterfaceDiversityCapability"/>
+      <uses name="PureEthernetStructureCapability"/>
     </container>
-    <container name="airInterfaceDiversityConfiguration">
+    <container name="pureEthernetStructureConfiguration">
       <config value="true"/>
-      <uses name="AirInterfaceDiversityConfiguration"/>
+      <uses name="PureEthernetStructureConfiguration"/>
     </container>
-    <container name="airInterfaceDiversityStatus">
+    <container name="pureEthernetStructureStatus">
       <config value="false"/>
-      <uses name="AirInterfaceDiversityStatus"/>
+      <uses name="PureEthernetStructureStatus"/>
     </container>
-    <container name="airInterfaceDiversityCurrentProblems">
+    <container name="pureEthernetStructureCurrentProblems">
       <config value="false"/>
-      <uses name="AirInterfaceDiversityCurrentProblems"/>
+      <uses name="PureEthernetStructureCurrentProblems"/>
     </container>
-    <container name="airInterfaceDiversityCurrentPerformance">
+    <container name="pureEthernetStructureCurrentPerformance">
       <config value="false"/>
-      <uses name="AirInterfaceDiversityCurrentPerformance"/>
+      <uses name="PureEthernetStructureCurrentPerformance"/>
     </container>
-    <container name="airInterfaceDiversityHistoricalPerformances">
+    <container name="pureEthernetStructureHistoricalPerformances">
       <config value="false"/>
-      <uses name="AirInterfaceDiversityHistoricalPerformances"/>
+      <uses name="PureEthernetStructureHistoricalPerformances"/>
     </container>
   </list>
-  <grouping name="AirInterfaceDiversityCapability">
+  <grouping name="PureEthernetStructureCapability">
     <description>
-      <text>Describes the capabilities in implementing different types of air interface diversity.</text>
+      <text>Describes the logical structuring of the physical capacity provided by a pure Ethernet microwave device.
+Segmentation is not available.
+No fixed segment size.
+No TDM transport.</text>
     </description>
-    <list name="availableKindsOfDiversity">
+    <leaf name="structureId">
+      <type name="CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId"/>
+      <config value="false"/>
       <description>
-        <text>Available types of diversity to be listed.</text>
+        <text>Identifies the Structure for bundling and container.</text>
       </description>
-      <key value="diversityName"/>
-      <ordered-by value="system"/>
-      <uses name="MicrowaveModel-TypeDefinitions:diversityType"/>
-    </list>
+    </leaf>
     <leaf name="supportedAlarms">
       <type name="string"/>
       <config value="false"/>
       <description>
-        <text>Available alarms to be listed. Mandatory:'airInterfaceDiversityConfigurationIsPartlyDown' (at least one air interface is down, but not all of them) and 'airInterfaceDiversityConfigurationIsDown' (all air interfaces are down). Further alarms might be added by the device. Names are to be separated by commas.</text>
+        <text>Available alarms to be listed. Mandatory:non. Names are to be separated by commas. Further alarms might be added by the device.</text>
       </description>
       <default value="Supported alarms not yet defined."/>
     </leaf>
   </grouping>
-  <grouping name="AirInterfaceDiversityConfiguration">
-    <container name="airInterfaceDiversity">
+  <grouping name="PureEthernetStructureConfiguration">
+    <list name="problemKindSeverityList">
       <description>
-        <text>Type of air interface diversity configured at the link.</text>
-      </description>
-      <config value="true"/>
-      <uses name="MicrowaveModel-TypeDefinitions:diversityType"/>
-    </container>
-    <leaf-list name="airInterfaceLtpList">
-      <description>
-        <text>_multiplicity:2-ThisAirInterfaceDiversity::AirInterfaceDiversityConfiguration::airInterfaceDiversity::diversityType::numberOfAirInterfacesMax</text>
-      </description>
-      <ordered-by value="system"/>
-      <type name="leafref">
-        <path value="/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid"/>
-      </type>
-      <min-elements value="2"/>
-    </leaf-list>
-    <list name="problemSeverityList">
-      <description>
-        <text>Severity of the problem to be configured.</text>
+        <text>Severity of the type of problem to be configured.</text>
       </description>
       <key value="problemKindName"/>
       <config value="true"/>
       <ordered-by value="system"/>
-      <uses name="MicrowaveModel-TypeDefinitions:airInterfaceDiversityProblemSeverityType"/>
-      <min-elements value="3"/>
+      <uses name="MicrowaveModel-TypeDefinitions:structureProblemSeverityType"/>
     </list>
   </grouping>
-  <grouping name="AirInterfaceDiversityStatus">
-    <leaf name="snirCur">
-      <type name="int8"/>
-      <config value="false"/>
+  <grouping name="PureEthernetStructureStatus">
+    <container name="segmentStatusList">
       <description>
-        <text>Currently measured signal to (noise+interference) ratio of the combined signals.</text>
+        <text>Status of the Ethernet transport segment.
+Always just one segment.</text>
       </description>
-      <units name="dB"/>
-      <default value="-99"/>
-    </leaf>
-    <leaf name="airInterfaceDiversityStatus">
-      <type name="MicrowaveModel-TypeDefinitions:airInterfaceDiversityStatusType"/>
-      <config value="false"/>
-      <description>
-        <text>Status of the air interface bundle. </text>
-      </description>
-      <default value="groupDown"/>
-    </leaf>
+      <uses name="MicrowaveModel-TypeDefinitions:segmentStatusType"/>
+    </container>
     <leaf name="lastStatusChange">
       <type name="CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime"/>
       <config value="false"/>
       <description>
-        <text>Time the Diversity Group entered its current operational status. 
+        <text>Time and date of the last update of the status information.
 _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' month; dd='01'..'31' day; hh='00'..'23' hour; mm='00'..'59' minute; ss='00'..'59' second; s='.0'..'.9'tenth of second (set to '.0' if EMS or NE cannot support this granularity); Z='Z' indicates UTC (rather than local time); {+|-}='+' or '-' delta from UTC; HH='00'..'23' time zone difference in hours; Mm='00'..'59' time zone difference in minutes.</text>
       </description>
-      <default value="20101120140000.0Z+1"/>
     </leaf>
   </grouping>
-  <grouping name="AirInterfaceDiversityCurrentProblems">
+  <grouping name="PureEthernetStructureCurrentProblems">
     <list name="currentProblemList">
       <key value="sequenceNumber"/>
       <ordered-by value="system"/>
-      <uses name="MicrowaveModel-TypeDefinitions:airInterfaceDiversityCurrentProblemType"/>
+      <uses name="MicrowaveModel-TypeDefinitions:structureCurrentProblemType"/>
     </list>
   </grouping>
-  <grouping name="AirInterfaceDiversityCurrentPerformance">
+  <grouping name="PureEthernetStructureCurrentPerformance">
     <description>
-      <text>Aggregated performance information of the air interface diversity configuration at a particular moment.</text>
+      <text>Aggregated performance information of the structure of an pure Ethernet microwave at a particular moment.</text>
     </description>
     <list name="currentPerformanceDataList">
       <description>
@@ -173,19 +156,19 @@ _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' m
       </description>
       <key value="scannerId"/>
       <ordered-by value="system"/>
-      <uses name="MicrowaveModel-TypeDefinitions:airInterfaceDiversityCurrentPerformanceType"/>
+      <uses name="MicrowaveModel-TypeDefinitions:structureCurrentPerformanceType"/>
       <max-elements value="2"/>
       <min-elements value="1"/>
     </list>
   </grouping>
-  <grouping name="AirInterfaceDiversityHistoricalPerformances">
+  <grouping name="PureEthernetStructureHistoricalPerformances">
     <description>
-      <text>Aggregated performance information of the air interface diversity configuration for a pre-defined measurement interval.</text>
+      <text>Aggregated performance information of the structure of an pure Ethernet microwave for a pre-defined measurement interval.</text>
     </description>
     <list name="historicalPerformanceDataList">
       <key value="historyDataId"/>
       <ordered-by value="system"/>
-      <uses name="MicrowaveModel-TypeDefinitions:airInterfaceDiversityHistoricalPerformanceType"/>
+      <uses name="MicrowaveModel-TypeDefinitions:structureHistoricalPerformanceType"/>
     </list>
   </grouping>
 </module>

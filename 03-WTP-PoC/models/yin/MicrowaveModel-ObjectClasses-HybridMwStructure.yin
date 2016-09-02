@@ -35,7 +35,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-09-01">
+  <revision date="2016-09-02">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -134,7 +134,7 @@ TDM transport is available.</text>
       </description>
       <default value="-1"/>
     </leaf>
-    <list name="problemSeverityList">
+    <list name="problemKindSeverityList">
       <description>
         <text>Severity of the type of problem to be configured.</text>
       </description>

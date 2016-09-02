@@ -31,7 +31,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-09-01">
+  <revision date="2016-09-02">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -126,7 +126,7 @@
       <config value="true"/>
       <uses name="MicrowaveModel-TypeDefinitions:segmentIDType"/>
     </container>
-    <list name="problemSeverityList">
+    <list name="problemKindSeverityList">
       <description>
         <text>Severity of the problem to be configured.</text>
       </description>

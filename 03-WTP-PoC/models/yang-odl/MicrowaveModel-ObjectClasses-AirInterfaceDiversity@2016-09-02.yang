@@ -27,7 +27,7 @@ module MicrowaveModel-ObjectClasses-AirInterfaceDiversity {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-09-01 {
+    revision 2016-09-02 {
         description 
             "Initial revision."; 
         reference 
@@ -98,7 +98,7 @@ module MicrowaveModel-ObjectClasses-AirInterfaceDiversity {
             }
             min-elements 2;
         }
-        list problemSeverityList {
+        list problemKindSeverityList {
             description "Severity of the problem to be configured.";
             key 'problemKindName';
             config true;

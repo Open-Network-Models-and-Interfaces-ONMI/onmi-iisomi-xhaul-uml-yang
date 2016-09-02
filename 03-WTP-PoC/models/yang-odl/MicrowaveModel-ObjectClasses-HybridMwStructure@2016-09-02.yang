@@ -30,7 +30,7 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-09-01 {
+    revision 2016-09-02 {
         description 
             "Initial revision."; 
         reference 
@@ -110,7 +110,7 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
             description "Allows to configure the number of segments reserved for TDM frames of the type specified in HybridMwStructure::HybridMwStructureConfiguration::structureType";
             default -1;
         }
-        list problemSeverityList {
+        list problemKindSeverityList {
             description "Severity of the type of problem to be configured.";
             key 'problemKindName';
             config true;

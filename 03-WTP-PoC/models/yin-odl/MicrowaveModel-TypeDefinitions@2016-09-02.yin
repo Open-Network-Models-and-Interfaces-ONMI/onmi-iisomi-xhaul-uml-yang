@@ -35,7 +35,7 @@
     <text>This module contains a collection of YANG definitions for 
          managing microwave transport networks.</text>
   </description>
-  <revision date="2016-08-28">
+  <revision date="2016-09-02">
     <description>
       <text>Initial revision.</text>
     </description>
@@ -604,7 +604,7 @@
         <text>Name of the alarm according to AirInterfaceDiversity::AirInterfaceDiversityCapability::supportedAlarms</text>
       </description>
     </leaf>
-    <leaf name="problemSeverity">
+    <leaf name="problemKindSeverity">
       <type name="severityType"/>
       <description>
         <text>Severity of this type of alarm.</text>
@@ -714,7 +714,7 @@
         <text>Name of the alarm according to Structure::StructureCapability::supportedAlarms</text>
       </description>
     </leaf>
-    <leaf name="problemSeverity">
+    <leaf name="problemKindSeverity">
       <type name="severityType"/>
       <description>
         <text>Severity of this type of alarm.</text>
@@ -826,7 +826,7 @@ Combinations of structureId and segmentId must be unique inside the device to as
         <text>Name of the alarm according to Container::ContainerCapability::supportedAlarms</text>
       </description>
     </leaf>
-    <leaf name="problemSeverity">
+    <leaf name="problemKindSeverity">
       <type name="severityType"/>
       <description>
         <text>Severity of this type of alarm.</text>
