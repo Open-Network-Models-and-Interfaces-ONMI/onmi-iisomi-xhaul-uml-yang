@@ -163,10 +163,10 @@ module: MicrowaveModel-ObjectClasses-AirInterfaceDiversity
       |  +--rw airInterfaceDiversity
       |  |  +--ro diversityName?              string
       |  |  +--ro numberOfAirInterfacesMax?   int8
-      |  +--rw airInterfaceLtpList*     -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/uuid
-      |  +--rw problemSeverityList* [problemKindName]
-      |     +--rw problemKindName    string
-      |     +--rw problemSeverity?   severityType
+      |  +--rw airInterfaceLtpList*       -> /CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/uuid
+      |  +--rw problemKindSeverityList* [problemKindName]
+      |     +--rw problemKindName        string
+      |     +--rw problemKindSeverity?   severityType
       +--ro airInterfaceDiversityStatus
       |  +--ro snirCur?                       int8
       |  +--ro airInterfaceDiversityStatus?   MicrowaveModel-TypeDefinitions:airInterfaceDiversityStatusType
@@ -428,23 +428,23 @@ module: MicrowaveModel-ObjectClasses-EthernetContainer
       |  +--ro encryptionIsAvail?          boolean
       |  +--ro supportedAlarms?            string
       +--rw ethernetContainerConfiguration
-      |  +--rw containerID?             string
+      |  +--rw containerID?               string
       |  +--rw segmentsIDList* [structureIdRef segmentIdRef]
       |  |  +--rw structureIdRef    CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |  |  +--rw segmentIdRef      int16
-      |  +--rw packetCompressionIsOn?   boolean
-      |  +--rw layer2CompressionIsOn?   boolean
-      |  +--rw vlanCompressionIsOn?     boolean
-      |  +--rw qInQCompressionIsOn?     boolean
-      |  +--rw mplsCompressionIsOn?     boolean
-      |  +--rw ipv4CompressionIsOn?     boolean
-      |  +--rw ipv6CompressionIsOn?     boolean
-      |  +--rw layer4CompressionIsOn?   boolean
-      |  +--rw encryptionIsOn?          boolean
-      |  +--rw cryptographicKey?        string
-      |  +--rw problemSeverityList* [problemKindName]
-      |     +--rw problemKindName    string
-      |     +--rw problemSeverity?   severityType
+      |  +--rw packetCompressionIsOn?     boolean
+      |  +--rw layer2CompressionIsOn?     boolean
+      |  +--rw vlanCompressionIsOn?       boolean
+      |  +--rw qInQCompressionIsOn?       boolean
+      |  +--rw mplsCompressionIsOn?       boolean
+      |  +--rw ipv4CompressionIsOn?       boolean
+      |  +--rw ipv6CompressionIsOn?       boolean
+      |  +--rw layer4CompressionIsOn?     boolean
+      |  +--rw encryptionIsOn?            boolean
+      |  +--rw cryptographicKey?          string
+      |  +--rw problemKindSeverityList* [problemKindName]
+      |     +--rw problemKindName        string
+      |     +--rw problemKindSeverity?   severityType
       +--ro ethernetContainerStatus
       |  +--ro lastStatusChange?   CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
       +--ro ethernetContainerCurrentProblems
@@ -497,9 +497,9 @@ module: MicrowaveModel-ObjectClasses-HybridMwStructure
       |  |  +--ro tdmSegmentSize?                  int32
       |  |  +--ro maxNumberOfSegmentsReservable?   int8
       |  +--rw numberOfTdmSegmentsToBeReserved?   int16
-      |  +--rw problemSeverityList* [problemKindName]
-      |     +--rw problemKindName    string
-      |     +--rw problemSeverity?   severityType
+      |  +--rw problemKindSeverityList* [problemKindName]
+      |     +--rw problemKindName        string
+      |     +--rw problemKindSeverity?   severityType
       +--ro hybridMwStructureStatus
       |  +--ro segmentStatusList* [segmentStatusTypeId]
       |  |  +--ro segmentStatusTypeId        int16
@@ -539,9 +539,9 @@ module: MicrowaveModel-ObjectClasses-PureEthernetStructure
       |  +--ro structureId?       CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |  +--ro supportedAlarms?   string
       +--rw pureEthernetStructureConfiguration
-      |  +--rw problemSeverityList* [problemKindName]
-      |     +--rw problemKindName    string
-      |     +--rw problemSeverity?   severityType
+      |  +--rw problemKindSeverityList* [problemKindName]
+      |     +--rw problemKindName        string
+      |     +--rw problemKindSeverity?   severityType
       +--ro pureEthernetStructureStatus
       |  +--ro segmentStatusList
       |  |  +--ro segmentStatusTypeId?       int16
@@ -583,16 +583,16 @@ module: MicrowaveModel-ObjectClasses-TdmContainer
       |  |  +--ro tdmContainerSize?   int32
       |  +--ro supportedAlarms?                  string
       +--rw tdmContainerConfiguration
-      |  +--rw containerID?           string
+      |  +--rw containerID?               string
       |  +--rw containerType
       |  |  +--ro tdmContainerName?   string
       |  |  +--ro tdmContainerSize?   int32
       |  +--rw segmentID
       |  |  +--rw structureIdRef?   CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId
       |  |  +--rw segmentIdRef?     int16
-      |  +--rw problemSeverityList* [problemKindName]
-      |     +--rw problemKindName    string
-      |     +--rw problemSeverity?   severityType
+      |  +--rw problemKindSeverityList* [problemKindName]
+      |     +--rw problemKindName        string
+      |     +--rw problemKindSeverity?   severityType
       +--ro tdmContainerStatus
       |  +--ro lastStatusChange?   CoreModel-CoreFoundationModule-TypeDefinitions:DateAndTime
       +--ro tdmContainerCurrentProblems

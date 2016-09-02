@@ -30,7 +30,7 @@ module MicrowaveModel-TypeDefinitions {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-08-28 {
+    revision 2016-09-02 {
         description 
             "Initial revision."; 
         reference 
@@ -504,7 +504,7 @@ module MicrowaveModel-TypeDefinitions {
             type string;
             description "Name of the alarm according to AirInterfaceDiversity::AirInterfaceDiversityCapability::supportedAlarms";
         }
-        leaf problemSeverity {
+        leaf problemKindSeverity {
             type severityType;
             description "Severity of this type of alarm.";
             default "warning";
@@ -588,7 +588,7 @@ module MicrowaveModel-TypeDefinitions {
             type string;
             description "Name of the alarm according to Structure::StructureCapability::supportedAlarms";
         }
-        leaf problemSeverity {
+        leaf problemKindSeverity {
             type severityType;
             description "Severity of this type of alarm.";
             default "warning";
@@ -676,7 +676,7 @@ module MicrowaveModel-TypeDefinitions {
             type string;
             description "Name of the alarm according to Container::ContainerCapability::supportedAlarms";
         }
-        leaf problemSeverity {
+        leaf problemKindSeverity {
             type severityType;
             description "Severity of this type of alarm.";
             default "warning";

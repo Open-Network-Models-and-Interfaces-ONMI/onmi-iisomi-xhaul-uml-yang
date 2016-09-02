@@ -498,7 +498,7 @@
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_2kMRZWzzEeaf-__BRLM84g" name="problemSeverity" visibility="private" type="_eIml0JH1EeWUdbnmmNiTAA" isUnique="false">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_2kMRZWzzEeaf-__BRLM84g" name="problemKindSeverity" visibility="private" type="_eIml0JH1EeWUdbnmmNiTAA" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_2kMRZmzzEeaf-__BRLM84g">
             <body>Severity of this type of alarm.</body>
           </ownedComment>
@@ -596,7 +596,7 @@
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_LPgp5Wz0Eeaf-__BRLM84g" name="problemSeverity" visibility="private" type="_eIml0JH1EeWUdbnmmNiTAA" isUnique="false">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_LPgp5Wz0Eeaf-__BRLM84g" name="problemKindSeverity" visibility="private" type="_eIml0JH1EeWUdbnmmNiTAA" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_LPgp5mz0Eeaf-__BRLM84g">
             <body>Severity of this type of alarm.</body>
           </ownedComment>
@@ -713,7 +713,7 @@
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_OMQH02z0Eeaf-__BRLM84g" name="problemSeverity" visibility="private" type="_eIml0JH1EeWUdbnmmNiTAA" isUnique="false">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_OMQH02z0Eeaf-__BRLM84g" name="problemKindSeverity" visibility="private" type="_eIml0JH1EeWUdbnmmNiTAA" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_OMQH1Gz0Eeaf-__BRLM84g">
             <body>Severity of this type of alarm.</body>
           </ownedComment>
@@ -1546,7 +1546,7 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_fFNs0NyYEeW-SfXlFFFI0Q" value="2"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_fFO68NyYEeW-SfXlFFFI0Q" value="*"/>
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_ia31kMXlEeWJ6KZuc0h_vw" name="problemSeverityList" visibility="private" type="_2kMRYGzzEeaf-__BRLM84g" isUnique="false">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_ia31kMXlEeWJ6KZuc0h_vw" name="problemKindSeverityList" visibility="private" type="_2kMRYGzzEeaf-__BRLM84g" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_gGYN8MXmEeWJ6KZuc0h_vw" annotatedElement="_DQQekMXjEeW3xsRKtpCLuA">
               <body>Severity of the problem to be configured.</body>
             </ownedComment>
@@ -1662,7 +1662,7 @@
           </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="__OTQ8UaeEeas2eqI3oKNtg" name="PureEthernetStructureConfiguration">
-          <ownedAttribute xmi:type="uml:Property" xmi:id="__OTQ-UaeEeas2eqI3oKNtg" name="problemSeverityList" visibility="private" type="_LPgp4Gz0Eeaf-__BRLM84g" isUnique="false">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="__OTQ-UaeEeas2eqI3oKNtg" name="problemKindSeverityList" visibility="private" type="_LPgp4Gz0Eeaf-__BRLM84g" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="__OTQ-kaeEeas2eqI3oKNtg" annotatedElement="__OTQ-UaeEeas2eqI3oKNtg">
               <body>Severity of the type of problem to be configured.</body>
             </ownedComment>
@@ -1793,7 +1793,7 @@
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Bzxo90agEeas2eqI3oKNtg" value="1"/>
             <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_GHwqUE2iEeaiLc1v1_HItw" value="-1"/>
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_Bzxo-UagEeas2eqI3oKNtg" name="problemSeverityList" visibility="private" type="_LPgp4Gz0Eeaf-__BRLM84g" isUnique="false">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_Bzxo-UagEeas2eqI3oKNtg" name="problemKindSeverityList" visibility="private" type="_LPgp4Gz0Eeaf-__BRLM84g" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_Bzxo-kagEeas2eqI3oKNtg" annotatedElement="_Bzxo-UagEeas2eqI3oKNtg">
               <body>Severity of the type of problem to be configured.</body>
             </ownedComment>
@@ -2056,7 +2056,7 @@
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
             <defaultValue xmi:type="uml:LiteralString" xmi:id="_psRpok58EeaCk6G-lyG1OQ" value="Cryptographic key not yet defined."/>
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEB_UafEeas2eqI3oKNtg" name="problemSeverityList" visibility="private" type="_OMPgwGz0Eeaf-__BRLM84g" isUnique="false">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEB_UafEeas2eqI3oKNtg" name="problemKindSeverityList" visibility="private" type="_OMPgwGz0Eeaf-__BRLM84g" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4uEB_kafEeas2eqI3oKNtg" annotatedElement="_DQQekMXjEeW3xsRKtpCLuA">
               <body>Severity of the problem to be configured.</body>
             </ownedComment>
@@ -2163,7 +2163,7 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ecCefkaqEeas2eqI3oKNtg" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ecCef0aqEeas2eqI3oKNtg" value="1"/>
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_ecCerUaqEeas2eqI3oKNtg" name="problemSeverityList" visibility="private" type="_OMPgwGz0Eeaf-__BRLM84g" isUnique="false">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_ecCerUaqEeas2eqI3oKNtg" name="problemKindSeverityList" visibility="private" type="_OMPgwGz0Eeaf-__BRLM84g" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_ecCerkaqEeas2eqI3oKNtg" annotatedElement="_DQQekMXjEeW3xsRKtpCLuA">
               <body>Severity of the problem to be configured.</body>
             </ownedComment>
