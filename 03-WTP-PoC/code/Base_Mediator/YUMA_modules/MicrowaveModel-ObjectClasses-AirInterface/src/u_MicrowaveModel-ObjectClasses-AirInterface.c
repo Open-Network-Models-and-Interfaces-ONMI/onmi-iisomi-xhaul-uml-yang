@@ -14,7 +14,7 @@
 
     User SIL module
     module MicrowaveModel-ObjectClasses-AirInterface
-    revision 2016-08-29
+    revision 2016-09-01
     namespace uri:onf:MicrowaveModel-ObjectClasses-AirInterface
     organization ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project
 
@@ -60,6 +60,9 @@ static status_t attach_transmission_mode_list_entry(val_value_t *parentval, cons
 
 static status_t get_air_interface_current_problem_list(ses_cb_t *scb, getcb_mode_t cbmode, val_value_t *vir_val, val_value_t *dst_val);
 static status_t attach_air_interface_current_problem_list_entry(val_value_t *parentval, const char *air_interface_current_problem_list_key_entry);
+
+static status_t get_air_interface_current_performance_list(ses_cb_t *scb, getcb_mode_t cbmode, val_value_t *vir_val, val_value_t *dst_val);
+static status_t attach_air_interface_current_performance_list_entry(val_value_t *parentval, const char *air_interface_current_performance_list_key_entry);
 
 static status_t get_air_interface_historical_performance_list(ses_cb_t *scb, getcb_mode_t cbmode, val_value_t *vir_val, val_value_t *dst_val);
 static status_t attach_air_interface_historical_performance_list_entry(val_value_t *parentval, const char *air_interface_historical_performance_list_key_entry);
@@ -4070,10 +4073,10 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 } /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentProblems_currentProblemList_problemSeverity_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_objectClass_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_objectClass_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/objectClass
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/objectClass
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4082,15 +4085,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_objectClass_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_objectClass_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     const xmlChar *objectClass;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_objectClass_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_objectClass_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4098,13 +4102,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_objectClass_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_objectClass_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_nameBinding_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_nameBinding_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/nameBinding
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/nameBinding
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4113,15 +4117,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_nameBinding_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_nameBinding_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     const xmlChar *nameBinding;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_nameBinding_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_nameBinding_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4129,13 +4134,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_nameBinding_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_nameBinding_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_scannerId_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/scannerId
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/scannerId
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4144,15 +4149,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_scannerId_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     const xmlChar *scannerId;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_scannerId_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4160,13 +4166,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_scannerId_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_granularityPeriod_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_granularityPeriod_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/granularityPeriod
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/granularityPeriod
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4175,15 +4181,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_granularityPeriod_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_granularityPeriod_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     const xmlChar *granularityPeriod;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_granularityPeriod_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_granularityPeriod_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4191,13 +4198,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_granularityPeriod_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_granularityPeriod_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_administrativeState_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_administrativeState_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/administrativeState
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/administrativeState
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4206,15 +4213,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_administrativeState_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_administrativeState_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     const xmlChar *administrativeState;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_administrativeState_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_administrativeState_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4222,13 +4230,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_administrativeState_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_administrativeState_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_suspectIntervalFlag_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_suspectIntervalFlag_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/suspectIntervalFlag
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/suspectIntervalFlag
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4237,15 +4245,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_suspectIntervalFlag_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_suspectIntervalFlag_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     boolean suspectIntervalFlag;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_suspectIntervalFlag_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_suspectIntervalFlag_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4253,13 +4262,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_suspectIntervalFlag_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_suspectIntervalFlag_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_elapsedTime_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_elapsedTime_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/elapsedTime
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/elapsedTime
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4268,15 +4277,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_elapsedTime_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_elapsedTime_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 elapsedTime;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_elapsedTime_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_elapsedTime_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4284,13 +4294,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_elapsedTime_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_elapsedTime_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_timestamp_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_timestamp_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/timestamp
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/timestamp
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4299,15 +4309,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_timestamp_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_timestamp_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     const xmlChar *timestamp;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_timestamp_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_timestamp_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4315,13 +4326,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_timestamp_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_timestamp_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_es_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_es_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/es
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/es
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4330,15 +4341,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_es_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_es_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 es;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_es_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_es_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4346,13 +4358,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_es_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_es_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_ses_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_ses_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/ses
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/ses
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4361,15 +4373,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_ses_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_ses_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 ses;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_ses_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_ses_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4377,13 +4390,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_ses_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_ses_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_cses_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_cses_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/cses
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/cses
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4392,15 +4405,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_cses_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_cses_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 cses;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_cses_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_cses_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4408,13 +4422,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_cses_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_cses_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_unavailability_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_unavailability_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/unavailability
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/unavailability
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4423,15 +4437,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_unavailability_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_unavailability_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 unavailability;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_unavailability_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_unavailability_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4439,13 +4454,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_unavailability_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_unavailability_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_txLevelMin_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_txLevelMin_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/txLevelMin
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/txLevelMin
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4454,15 +4469,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_txLevelMin_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_txLevelMin_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int8 txLevelMin;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_txLevelMin_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_txLevelMin_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4470,13 +4486,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_txLevelMin_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_txLevelMin_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_txLevelMax_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_txLevelMax_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/txLevelMax
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/txLevelMax
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4485,15 +4501,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_txLevelMax_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_txLevelMax_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int8 txLevelMax;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_txLevelMax_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_txLevelMax_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4501,13 +4518,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_txLevelMax_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_txLevelMax_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_txLevelAvg_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_txLevelAvg_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/txLevelAvg
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/txLevelAvg
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4516,15 +4533,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_txLevelAvg_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_txLevelAvg_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int8 txLevelAvg;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_txLevelAvg_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_txLevelAvg_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4532,13 +4550,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_txLevelAvg_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_txLevelAvg_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rxLevelMin_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rxLevelMin_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/rxLevelMin
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/rxLevelMin
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4547,15 +4565,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rxLevelMin_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rxLevelMin_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int8 rxLevelMin;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rxLevelMin_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rxLevelMin_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4563,13 +4582,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rxLevelMin_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rxLevelMin_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rxLevelMax_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rxLevelMax_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/rxLevelMax
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/rxLevelMax
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4578,15 +4597,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rxLevelMax_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rxLevelMax_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int8 rxLevelMax;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rxLevelMax_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rxLevelMax_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4594,13 +4614,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rxLevelMax_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rxLevelMax_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rxLevelAvg_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rxLevelAvg_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/rxLevelAvg
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/rxLevelAvg
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4609,15 +4629,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rxLevelAvg_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rxLevelAvg_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int8 rxLevelAvg;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rxLevelAvg_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rxLevelAvg_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4625,13 +4646,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rxLevelAvg_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rxLevelAvg_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time2Symbols_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time2Symbols_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/time2Symbols
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/time2Symbols
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4640,15 +4661,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time2Symbols_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time2Symbols_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 time2Symbols;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time2Symbols_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time2Symbols_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4656,13 +4678,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time2Symbols_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time2Symbols_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time4SymbolsS_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time4SymbolsS_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/time4SymbolsS
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/time4SymbolsS
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4671,15 +4693,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time4SymbolsS_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time4SymbolsS_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 time4SymbolsS;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time4SymbolsS_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time4SymbolsS_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4687,13 +4710,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time4SymbolsS_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time4SymbolsS_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time4Symbols_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time4Symbols_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/time4Symbols
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/time4Symbols
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4702,15 +4725,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time4Symbols_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time4Symbols_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 time4Symbols;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time4Symbols_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time4Symbols_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4718,13 +4742,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time4Symbols_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time4Symbols_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time8Symbols_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time8Symbols_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/time8Symbols
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/time8Symbols
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4733,15 +4757,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time8Symbols_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time8Symbols_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 time8Symbols;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time8Symbols_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time8Symbols_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4749,13 +4774,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time8Symbols_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time8Symbols_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time16SymbolsS_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time16SymbolsS_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/time16SymbolsS
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/time16SymbolsS
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4764,15 +4789,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time16SymbolsS_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time16SymbolsS_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 time16SymbolsS;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time16SymbolsS_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time16SymbolsS_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4780,13 +4806,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time16SymbolsS_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time16SymbolsS_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time16Symbols_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time16Symbols_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/time16Symbols
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/time16Symbols
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4795,15 +4821,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time16Symbols_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time16Symbols_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 time16Symbols;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time16Symbols_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time16Symbols_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4811,13 +4838,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time16Symbols_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time16Symbols_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time32Symbols_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time32Symbols_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/time32Symbols
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/time32Symbols
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4826,15 +4853,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time32Symbols_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time32Symbols_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 time32Symbols;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time32Symbols_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time32Symbols_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4842,13 +4870,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time32Symbols_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time32Symbols_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time64Symbols_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time64Symbols_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/time64Symbols
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/time64Symbols
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4857,15 +4885,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time64Symbols_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time64Symbols_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 time64Symbols;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time64Symbols_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time64Symbols_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4873,13 +4902,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time64Symbols_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time64Symbols_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time128Symbols_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time128Symbols_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/time128Symbols
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/time128Symbols
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4888,15 +4917,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time128Symbols_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time128Symbols_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 time128Symbols;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time128Symbols_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time128Symbols_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4904,13 +4934,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time128Symbols_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time128Symbols_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time256Symbols_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time256Symbols_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/time256Symbols
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/time256Symbols
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4919,15 +4949,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time256Symbols_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time256Symbols_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 time256Symbols;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time256Symbols_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time256Symbols_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4935,13 +4966,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time256Symbols_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time256Symbols_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time512Symbols_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time512Symbols_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/time512Symbols
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/time512Symbols
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4950,15 +4981,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time512Symbols_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time512Symbols_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 time512Symbols;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time512Symbols_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time512Symbols_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4966,13 +4998,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time512Symbols_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time512Symbols_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time512SymbolsL_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time512SymbolsL_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/time512SymbolsL
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/time512SymbolsL
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -4981,15 +5013,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time512SymbolsL_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time512SymbolsL_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 time512SymbolsL;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time512SymbolsL_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time512SymbolsL_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -4997,13 +5030,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time512SymbolsL_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time512SymbolsL_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time1024Symbols_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time1024Symbols_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/time1024Symbols
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/time1024Symbols
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -5012,15 +5045,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time1024Symbols_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time1024Symbols_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 time1024Symbols;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time1024Symbols_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time1024Symbols_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -5028,13 +5062,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time1024Symbols_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time1024Symbols_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time1024SymbolsL_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time1024SymbolsL_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/time1024SymbolsL
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/time1024SymbolsL
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -5043,15 +5077,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time1024SymbolsL_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time1024SymbolsL_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 time1024SymbolsL;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time1024SymbolsL_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time1024SymbolsL_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -5059,13 +5094,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time1024SymbolsL_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time1024SymbolsL_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time2048Symbols_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time2048Symbols_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/time2048Symbols
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/time2048Symbols
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -5074,15 +5109,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time2048Symbols_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time2048Symbols_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 time2048Symbols;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time2048Symbols_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time2048Symbols_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -5090,13 +5126,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time2048Symbols_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time2048Symbols_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time2048SymbolsL_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time2048SymbolsL_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/time2048SymbolsL
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/time2048SymbolsL
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -5105,15 +5141,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time2048SymbolsL_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time2048SymbolsL_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 time2048SymbolsL;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time2048SymbolsL_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time2048SymbolsL_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -5121,13 +5158,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time2048SymbolsL_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time2048SymbolsL_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time4096Symbols_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time4096Symbols_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/time4096Symbols
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/time4096Symbols
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -5136,15 +5173,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time4096Symbols_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time4096Symbols_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 time4096Symbols;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time4096Symbols_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time4096Symbols_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -5152,13 +5190,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time4096Symbols_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time4096Symbols_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time4096SymbolsL_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time4096SymbolsL_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/time4096SymbolsL
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/time4096SymbolsL
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -5167,15 +5205,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time4096SymbolsL_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time4096SymbolsL_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 time4096SymbolsL;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time4096SymbolsL_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time4096SymbolsL_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -5183,13 +5222,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time4096SymbolsL_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time4096SymbolsL_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time8192Symbols_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time8192Symbols_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/time8192Symbols
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/time8192Symbols
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -5198,15 +5237,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time8192Symbols_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time8192Symbols_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 time8192Symbols;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time8192Symbols_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time8192Symbols_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -5214,13 +5254,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time8192Symbols_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time8192Symbols_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time8192SymbolsL_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time8192SymbolsL_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/time8192SymbolsL
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/time8192SymbolsL
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -5229,15 +5269,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time8192SymbolsL_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time8192SymbolsL_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 time8192SymbolsL;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time8192SymbolsL_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time8192SymbolsL_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -5245,13 +5286,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_time8192SymbolsL_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_time8192SymbolsL_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_snirMin_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_snirMin_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/snirMin
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/snirMin
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -5260,15 +5301,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_snirMin_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_snirMin_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int8 snirMin;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_snirMin_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_snirMin_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -5276,13 +5318,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_snirMin_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_snirMin_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_snirMax_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_snirMax_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/snirMax
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/snirMax
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -5291,15 +5333,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_snirMax_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_snirMax_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int8 snirMax;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_snirMax_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_snirMax_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -5307,13 +5350,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_snirMax_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_snirMax_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_snirAvg_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_snirAvg_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/snirAvg
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/snirAvg
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -5322,15 +5365,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_snirAvg_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_snirAvg_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int8 snirAvg;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_snirAvg_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_snirAvg_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -5338,13 +5382,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_snirAvg_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_snirAvg_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_xpdMin_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_xpdMin_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/xpdMin
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/xpdMin
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -5353,15 +5397,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_xpdMin_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_xpdMin_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int8 xpdMin;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_xpdMin_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_xpdMin_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -5369,13 +5414,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_xpdMin_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_xpdMin_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_xpdMax_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_xpdMax_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/xpdMax
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/xpdMax
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -5384,15 +5429,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_xpdMax_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_xpdMax_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int8 xpdMax;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_xpdMax_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_xpdMax_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -5400,13 +5446,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_xpdMax_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_xpdMax_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_xpdAvg_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_xpdAvg_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/xpdAvg
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/xpdAvg
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -5415,15 +5461,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_xpdAvg_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_xpdAvg_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int8 xpdAvg;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_xpdAvg_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_xpdAvg_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -5431,13 +5478,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_xpdAvg_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_xpdAvg_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rfTempMin_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rfTempMin_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/rfTempMin
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/rfTempMin
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -5446,15 +5493,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rfTempMin_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rfTempMin_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int8 rfTempMin;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rfTempMin_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rfTempMin_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -5462,13 +5510,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rfTempMin_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rfTempMin_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rfTempMax_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rfTempMax_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/rfTempMax
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/rfTempMax
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -5477,15 +5525,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rfTempMax_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rfTempMax_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int8 rfTempMax;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rfTempMax_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rfTempMax_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -5493,13 +5542,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rfTempMax_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rfTempMax_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rfTempAvg_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rfTempAvg_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/rfTempAvg
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/rfTempAvg
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -5508,15 +5557,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rfTempAvg_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rfTempAvg_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int8 rfTempAvg;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rfTempAvg_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rfTempAvg_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -5524,13 +5574,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_rfTempAvg_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_rfTempAvg_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_defectBlocksSum_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_defectBlocksSum_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/defectBlocksSum
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/defectBlocksSum
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -5539,15 +5589,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_defectBlocksSum_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_defectBlocksSum_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int16 defectBlocksSum;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_defectBlocksSum_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_defectBlocksSum_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -5555,13 +5606,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_defectBlocksSum_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_defectBlocksSum_get */
 
 /********************************************************************
-* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_timePeriod_get
+* FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_timePeriod_get
 * 
 * Get database object callback
-* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceData/performanceData/timePeriod
+* Path: /MW_AirInterface_Pac/airInterfaceCurrentPerformance/currentPerformanceDataList/performanceData/timePeriod
 * Fill in 'dstval' contents
 * 
 * INPUTS:
@@ -5570,15 +5621,16 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_timePeriod_get (
+status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_timePeriod_get (
     val_value_t *dstval,
-    const xmlChar *k_MW_AirInterface_Pac_layerProtocol)
+    const xmlChar *k_MW_AirInterface_Pac_layerProtocol,
+    const xmlChar *k_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
     int32 timePeriod;
 
     if (LOGDEBUG) {
-        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_timePeriod_get callback");
+        log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_timePeriod_get callback");
     }
 
     res = cb_set_runtime_airInterfaceCurrentPerformance_element_value(&dstval);
@@ -5586,7 +5638,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
     return res;
 
-} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceData_performanceData_timePeriod_get */
+} /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_timePeriod_get */
 
 /********************************************************************
 * FUNCTION u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_objectClass_get
@@ -7867,19 +7919,16 @@ static status_t attach_air_interface_pac_element_to_running_config(cfg_template_
 	 */
 	val_value_t  *airInterfaceCurrentPerformance_val = NULL;
 
-	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+	res = agt_add_container(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
 			y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceCurrentPerformance,
 			MW_AirInterface_Pac_val,
-			&airInterfaceCurrentPerformance_val,
-			NULL,
-			true);
-	YUMA_ASSERT(NULL == airInterfaceCurrentPerformance_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceCurrentPerformance);
-
-	res = MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_mro(airInterfaceCurrentPerformance_val);
+			&airInterfaceCurrentPerformance_val);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL ,
-					"MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_mro failed");
+						"agt_make_container failed for obj=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceCurrentPerformance);
 
+	val_init_virtual(airInterfaceCurrentPerformance_val,
+					get_air_interface_current_performance_list,
+					airInterfaceCurrentPerformance_val->obj);
 	/*
 	 * Creating airInterfaceHistoricalPerformances_val container
 	 */
@@ -8248,6 +8297,145 @@ static status_t attach_air_interface_current_problem_list_entry(val_value_t* par
 			y_MicrowaveModel_ObjectClasses_AirInterface_N_sequenceNumber));
 
 	res = create_and_init_siblings(next_obj, currentProblemList_val, true);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "create_and_init_siblings failed!");
+
+	return NO_ERR;
+}
+
+static status_t get_air_interface_current_performance_list(ses_cb_t *scb,
+        getcb_mode_t cbmode,
+        val_value_t *vir_val,
+        val_value_t *dst_val)
+{
+	status_t res = NO_ERR;
+	char* air_interface_current_performance_list_keys_entries[MAX_NUMBER_OF_AIR_INTERFACE_PAC_AIR_INTERFACE_CURRENT_PERFORMANCE_LIST_ENTRIES];
+	int num_of_air_interface_current_performance_list_keys;
+
+	val_value_t *lastkey = NULL;
+	const xmlChar *k_MW_AirInterface_Pac_layerProtocol_key = VAL_STRING(agt_get_key_value(dst_val, &lastkey));
+
+	YUMA_ASSERT(TRUE, NOP, "get_air_interface_current_performance_list was called!");
+
+	res = cb_get_all_air_interface_current_performance_list_keys(k_MW_AirInterface_Pac_layerProtocol_key, air_interface_current_performance_list_keys_entries, &num_of_air_interface_current_performance_list_keys);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "get_air_interface_current_performance_list_key failed!");
+
+	for (int i=0; i<num_of_air_interface_current_performance_list_keys; ++i)
+	{
+		res = attach_air_interface_current_performance_list_entry(dst_val, air_interface_current_performance_list_keys_entries[i]);
+		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL,
+				"attach_air_interface_current_performance_list_entry failed for key=%s!", air_interface_current_performance_list_keys_entries[i]);
+	}
+
+	return NO_ERR;
+}
+
+static status_t attach_air_interface_current_performance_list_entry(val_value_t *parentval, const char *air_interface_current_performance_list_key_entry)
+{
+	status_t res = NO_ERR;
+
+	/*
+	 * Create currentPerformanceDataList list entry
+	 */
+	val_value_t  *currentPerformanceDataList_val = NULL;
+
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_currentPerformanceDataList,
+			parentval,
+			&currentPerformanceDataList_val,
+			NULL,
+			true);
+	YUMA_ASSERT(NULL == currentPerformanceDataList_val, return ERR_INTERNAL_VAL ,
+				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_currentPerformanceDataList);
+	/*
+	 * Create objectClass leaf
+	 */
+	val_value_t  *objectClass_val = NULL;
+
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_objectClass,
+			currentPerformanceDataList_val,
+			&objectClass_val,
+			NULL,
+			true);
+	YUMA_ASSERT(NULL == objectClass_val, return ERR_INTERNAL_VAL ,
+				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_objectClass);
+
+	/*
+	 * Create nameBinding leaf
+	 */
+	val_value_t  *nameBinding_val = NULL;
+
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_nameBinding,
+			currentPerformanceDataList_val,
+			&nameBinding_val,
+			NULL,
+			true);
+	YUMA_ASSERT(NULL == nameBinding_val, return ERR_INTERNAL_VAL ,
+				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_nameBinding);
+
+	/*
+	 * Create scannerId leaf
+	 */
+	val_value_t  *scannerId_val = NULL;
+
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_scannerId,
+			currentPerformanceDataList_val,
+			&scannerId_val,
+			air_interface_current_performance_list_key_entry,
+			true);
+	YUMA_ASSERT(NULL == scannerId_val, return ERR_INTERNAL_VAL ,
+				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_scannerId);
+
+	/*
+	 * Create all other leafs after scannerId -- because this is the order in the YANG file!!
+	 */
+	obj_template_t *next_obj = NULL;
+	next_obj = obj_next_child(obj_find_child(currentPerformanceDataList_val->obj,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_scannerId));
+
+	res = create_and_init_siblings(next_obj, currentPerformanceDataList_val, true);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "create_and_init_siblings failed!");
+
+	/*
+	 * Create performanceData container
+	 */
+	val_value_t  *performanceData_val = NULL;
+
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_performanceData,
+			currentPerformanceDataList_val,
+			&performanceData_val,
+			NULL,
+			true);
+	YUMA_ASSERT(NULL == performanceData_val, return ERR_INTERNAL_VAL ,
+				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_performanceData);
+
+	/*
+	 * Create es leaf
+	 */
+	val_value_t  *es_val = NULL;
+
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_es,
+			performanceData_val,
+			&es_val,
+			NULL,
+			true);
+	YUMA_ASSERT(NULL == es_val, return ERR_INTERNAL_VAL ,
+				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_es);
+
+	/*
+	 * Create all other leafs after es
+	 */
+	next_obj = NULL;
+	next_obj = obj_next_child(obj_find_child(performanceData_val->obj,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_es));
+
+	res = create_and_init_siblings(next_obj, performanceData_val, true);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "create_and_init_siblings failed!");
 
 	return NO_ERR;

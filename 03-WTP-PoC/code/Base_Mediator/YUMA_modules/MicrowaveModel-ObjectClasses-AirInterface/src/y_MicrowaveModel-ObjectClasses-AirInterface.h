@@ -16,7 +16,7 @@
 
     Yuma SIL header
     module MicrowaveModel-ObjectClasses-AirInterface
-    revision 2016-08-29
+    revision 2016-09-01
     namespace uri:onf:MicrowaveModel-ObjectClasses-AirInterface
     organization ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project
 
@@ -35,7 +35,7 @@ extern "C" {
 #endif
 
 #define y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface (const xmlChar *)"MicrowaveModel-ObjectClasses-AirInterface"
-#define y_MicrowaveModel_ObjectClasses_AirInterface_R_MicrowaveModel_ObjectClasses_AirInterface (const xmlChar *)"2016-08-29"
+#define y_MicrowaveModel_ObjectClasses_AirInterface_R_MicrowaveModel_ObjectClasses_AirInterface (const xmlChar *)"2016-09-01"
 
 #define y_MicrowaveModel_ObjectClasses_AirInterface_N_CoChannelGroup (const xmlChar *)"CoChannelGroup"
 #define y_MicrowaveModel_ObjectClasses_AirInterface_N_MW_AirInterface_Pac (const xmlChar *)"MW_AirInterface_Pac"
@@ -69,7 +69,7 @@ extern "C" {
 #define y_MicrowaveModel_ObjectClasses_AirInterface_N_coChannelGroupId (const xmlChar *)"coChannelGroupId"
 #define y_MicrowaveModel_ObjectClasses_AirInterface_N_cryptographicKey (const xmlChar *)"cryptographicKey"
 #define y_MicrowaveModel_ObjectClasses_AirInterface_N_cses (const xmlChar *)"cses"
-#define y_MicrowaveModel_ObjectClasses_AirInterface_N_currentPerformanceData (const xmlChar *)"currentPerformanceData"
+#define y_MicrowaveModel_ObjectClasses_AirInterface_N_currentPerformanceDataList (const xmlChar *)"currentPerformanceDataList"
 #define y_MicrowaveModel_ObjectClasses_AirInterface_N_currentProblemList (const xmlChar *)"currentProblemList"
 #define y_MicrowaveModel_ObjectClasses_AirInterface_N_defectBlocksSum (const xmlChar *)"defectBlocksSum"
 #define y_MicrowaveModel_ObjectClasses_AirInterface_N_duplexDistance (const xmlChar *)"duplexDistance"

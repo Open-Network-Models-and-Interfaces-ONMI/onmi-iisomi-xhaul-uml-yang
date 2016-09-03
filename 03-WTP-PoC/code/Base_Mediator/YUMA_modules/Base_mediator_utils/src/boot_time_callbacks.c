@@ -114,7 +114,7 @@ status_t cb_get_all_air_interface_pac_keys(char** air_interface_pac_keys_list, i
 
 	char layerProtocol[256];
 
-	strcpy(layerProtocol, "ifIndex1");
+	strcpy(layerProtocol, "LP-MWPS-TTP-ifIndex1");
 
 	air_interface_pac_keys_list[*num_of_keys] = (char*) malloc(strlen(layerProtocol) + 1);
 	YUMA_ASSERT(air_interface_pac_keys_list[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
@@ -123,7 +123,7 @@ status_t cb_get_all_air_interface_pac_keys(char** air_interface_pac_keys_list, i
 
 	*num_of_keys += 1;
 
-	strcpy(layerProtocol, "ifIndex2");
+	strcpy(layerProtocol, "LP-MWPS-TTP-ifIndex2");
 
 	air_interface_pac_keys_list[*num_of_keys] = (char*) malloc(strlen(layerProtocol) + 1);
 	YUMA_ASSERT(air_interface_pac_keys_list[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
