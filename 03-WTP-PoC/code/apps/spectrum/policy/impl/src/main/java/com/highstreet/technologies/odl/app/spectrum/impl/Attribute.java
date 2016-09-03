@@ -5,4 +5,6 @@ package com.highstreet.technologies.odl.app.spectrum.impl;
  */
 public class Attribute
 {
+    // meta + value
+    // meta incl. dn, type
 }

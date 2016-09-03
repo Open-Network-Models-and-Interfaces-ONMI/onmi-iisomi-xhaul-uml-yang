@@ -7,7 +7,9 @@ public class NotEqualConfigurationPolicy
 {
     public void execute()
     {
-        notEquals(planned(new DN("agent")), running(new DN("device")), () -> set(planned(new DN("agent"))));
+        notEquals(
+                planned(new DN("some_airInterface")), running(new DN("some_airInterface")),
+                () -> set(planned(new DN("some_airInterface"))));
     }
 
     private void notEquals(Attribute planned, Attribute running, Then then)
@@ -16,24 +18,20 @@ public class NotEqualConfigurationPolicy
             then.then();
     }
 
-    private Then then(Execute set)
+    private void set(Attribute attr)
     {
-        return null;
-    }
-
-    private Execute set(Attribute planned)
-    {
-
-        return null;
+        // set the attribute via netconf
     }
 
     private Attribute running(DN dn)
     {
+        // fetch via netconf
         return null;
     }
 
     private Attribute planned(DN dn)
     {
+        // fetch via agent
         return null;
     }
 }
