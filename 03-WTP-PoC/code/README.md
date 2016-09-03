@@ -11,17 +11,56 @@ Please consider it as a "working document" or guidelines.
 
 ## Installation
 
-The following instuctions are valid for an Ubuntu version.
-Java 1.8 should be installed and the environment variable $JAVA_HOME should be set correctly.
-In most of the cases the follow command fits.
 
-```
-export JAVA_HOME=/usr/lib/jvm/java-8-oracle
-```
+This chapter describes how to install the SDN-Controller OpenDaylight and the applications
+of the 3.  ONF Microwave Transport Network Proof-of-Concept on Ubuntu 16.04. 
+These instructions should also work on other Debian derivative distributions.
 
-### Step #1 - Download, unpack and start OpenDaylight
 
-The 3. ONF MWTN PoC applications are developed for the Beryllium-SR2 release.
+### Step #1 Preparations
+
+  - java-jdk: the Java development kit.
+
+      ```
+      sudo add-apt-repository ppa:webupd8team/java
+      sudo apt-get update
+      sudo apt-get install oracle-java8-installer
+      sudo apt-get install oracle-java8-set-default
+      ```
+
+  - maven: the Apache build manager for Java projects.
+
+      ```
+      wget https://archive.apache.org/dist/maven/maven-3/3.3.3/binaries/apache-maven-3.3.3-bin.tar.gz
+      sudo tar xzvf apache-maven-3.3.3-bin.tar.gz -C /usr/share/
+      sudo update-alternatives --install /usr/bin/mvn mvn /usr/share/apache-maven-3.3.3/bin/mvn 150
+      sudo update-alternatives --config mvn
+      ```
+
+      OpenDaylight requires specific maven settings. Please see  [ODL wiki](https://wiki.opendaylight.org/view/GettingStarted:Development_Environment_Setup#Edit_your_.7E.2F.m2.2Fsettings.xml)      
+      
+      ```
+      cp -n ~/.m2/settings.xml{,.orig} ; \
+      wget -q -O - https://raw.githubusercontent.com/opendaylight/odlparent/master/settings.xml > ~/.m2/settings.xml
+      ```
+       
+  - node.js: the JavaScript runtime environment.
+
+      ```
+      sudo apt-get install nodejs npm jq
+      sudo update-alternatives --install /usr/bin/node node /usr/bin/nodejs 150
+      sudo update-alternatives --config node
+      ```
+
+  - bower: the package manager for the web components.
+
+      ```
+      sudo npm install -g bower
+      ```
+
+### Step #2 - Download, unpack and start OpenDaylight
+
+The 3. ONF MWTN PoC applications are developed for OpenDaylight Beryllium-SR2 release.
 
 ```
 wget https://nexus.opendaylight.org/content/groups/public/org/opendaylight/integration/distribution-karaf/0.4.2-Beryllium-SR2/distribution-karaf-0.4.2-Beryllium-SR2.tar.gz
@@ -36,22 +75,14 @@ Start karaf with:
 ./bin/karaf
 ```
 
-### Step #2 Preparations
-
-Please follow the install instuctions of the [2. PoC](../../02-MWTN-PoC/test/INSTALL.md). 
-In addition please install the package manager for web components:
-```
-npm install -g bower
-```
-
 ### Step #3 Clone, build and install the applications.
-Open a new terminal and clone the ONF Git reposotory for the open source project 
+Open a new terminal and clone the ONF Git repository for the open source project 
 
 ```
 git clone https://github.com/OpenNetworkingFoundation/CENTENNIAL.git
 cd CENTENNIAL/03-WTP-PoC/code
 ```
-Install nessesary web components.
+Install necessary web components.
 ```
 cd ./ux/mwtnCommons/mwtnCommons-module/src/main/resources/mwtnCommons/
 bower install
@@ -79,7 +110,7 @@ Now you should be able to add the new bundles in the karaf console.
 ```
 feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/0.3.0-SNAPSHOT/xml/features
 ```
-For remote access of the persistent database ElasticSearch, please consider the instrcutions in the following chapter:
+For remote access of the persistent database ElasticSearch, please consider the instructions in the following chapter:
  -* [Persistent database](./apps/persistentDatabase#installation)
 
 
