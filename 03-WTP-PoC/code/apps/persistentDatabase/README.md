@@ -29,9 +29,9 @@ opendaylight-user@root>feature:repo-add mvn:org.apache.karaf.decanter/apache-kar
 ```
 
 ### Step 2: Allow remote access to database
-Elasticsearch binds to localhost only by default. In order to allow remote access to the database the configuration file must be modified. The configuration file is located in the <karaf>/etc folder: <karaf>/etc/elasticsearch.yml.
+Elasticsearch binds to localhost only by default. In order to allow remote access to the database the configuration file must be modified. The configuration file is located in the $ODL_KARAF_HOME/etc folder: $ODL_KARAF_HOME/etc/elasticsearch.yml.
 
-In case you do not find the configuration file in your karaf home directory, please continue with the next step and modify the file later. (sko: can we remove this paragraph?)
+In case you do not find the configuration file in your karaf home directory, please continue with the next step 3 and modify the file later.
 
 Please add the following line to the configuration file:
 ```
