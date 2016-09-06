@@ -1,7 +1,7 @@
 # Reduced Core Model and Microwave/mmWave Model
 
 ## Status 
-Date: 2016-08-28 (RC1)
+Date: 2016-09-01 
 
 - YANG files are valid according to pyang 1.7.
 - YANG files are valid according to OpenDaylight yang-validation-tool-0.8.2-Beryllium-SR2'
