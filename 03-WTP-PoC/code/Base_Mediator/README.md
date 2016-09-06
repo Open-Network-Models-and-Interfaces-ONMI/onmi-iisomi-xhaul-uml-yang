@@ -21,7 +21,7 @@ This is a NETCONF Server, based on OpenYuma, that implements the **_MicrowaveMod
 
 This will start the NETCONF server as a process, in the foreground, and print the debug logs on that specific terminal.
 
-`netconfd  --log-level=debug --access-control=off --target=running --no-startup --module=MicrowaveModel-ObjectClasses-AirInterface`
+`netconfd  --log-level=debug --access-control=off --target=running --no-startup --module=MicrowaveModel-ObjectClasses-AirInterface`--module=CoreModel-CoreNetworkModule-ObjectClasses --module=MicrowaveModel-ObjectClasses-PureEthernetStructure
 
 
 ### How to configure the Base Mediator:
@@ -42,3 +42,5 @@ Contact
 -------
 
 alexandrus@ceragon.com
+danilo.pala@siaemic.com
+
