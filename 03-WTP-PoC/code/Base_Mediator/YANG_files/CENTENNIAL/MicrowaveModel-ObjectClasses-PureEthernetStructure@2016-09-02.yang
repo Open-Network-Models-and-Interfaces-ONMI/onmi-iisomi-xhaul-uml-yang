@@ -1,6 +1,6 @@
-module MicrowaveModel-ObjectClasses-HybridMwStructure {
-    namespace "uri:onf:MicrowaveModel-ObjectClasses-HybridMwStructure";
-    prefix MicrowaveModel-ObjectClasses-HybridMwStructure;
+module MicrowaveModel-ObjectClasses-PureEthernetStructure {
+    namespace "uri:onf:MicrowaveModel-ObjectClasses-PureEthernetStructure";
+    prefix MicrowaveModel-ObjectClasses-PureEthernetStructure;
 
     import CoreModel-CoreNetworkModule-ObjectClasses {
         prefix CoreModel-CoreNetworkModule-ObjectClasses;
@@ -30,19 +30,19 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-08-29 {
+    revision 2016-09-02 {
         description 
             "Initial revision."; 
         reference 
             "ONF TR xyz: A YANG Data Model for Microwave Transport Networks."; 
     }
 
-    feature hybrid-microwave {
-        description "Feature 'hybrid-microwave' is mandatory for device types transporting Ethernet + TDM.";
+    feature pure-ethernet {
+        description "Feature 'pure-ethernet' is mandatory for device types transporting pure Ethernet.";
     }
-    list MW_HybridMwStructure_Pac {
+    list MW_PureEthernetStructure_Pac {
         description "LTP(MWS-TTP)
-            The HybridMwStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting TDM and Ethernet traffic.";
+            The pureEthernetStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting Ethernet traffic only.";
         key 'layerProtocol';
         config true;
         leaf layerProtocol {
@@ -51,46 +51,40 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
             }
             description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
         }
-        container hybridMwStructureCapability {
+        container pureEthernetStructureCapability {
             config false;
-            uses HybridMwStructureCapability;
+            uses PureEthernetStructureCapability;
         }
-        container hybridMwStructureConfiguration {
+        container pureEthernetStructureConfiguration {
             config true;
-            uses HybridMwStructureConfiguration;
+            uses PureEthernetStructureConfiguration;
         }
-        container hybridMwStructureStatus {
+        container pureEthernetStructureStatus {
             config false;
-            uses HybridMwStructureStatus;
+            uses PureEthernetStructureStatus;
         }
-        container hybridMwStructureCurrentProblems {
+        container pureEthernetStructureCurrentProblems {
             config false;
-            uses HybridMwStructureCurrentProblems;
+            uses PureEthernetStructureCurrentProblems;
         }
-        container hybridMwStructureCurrentPerformance {
+        container pureEthernetStructureCurrentPerformance {
             config false;
-            uses HybridMwStructureCurrentPerformance;
+            uses PureEthernetStructureCurrentPerformance;
         }
-        container hybridMwStructureHistoricalPerformances {
+        container pureEthernetStructureHistoricalPerformances {
             config false;
-            uses HybridMwStructureHistoricalPerformances;
+            uses PureEthernetStructureHistoricalPerformances;
         }
     }
-    grouping HybridMwStructureCapability {
-        description "Describes the logical structuring of the physical capacity provided by a hybrid microwave device (TDM + Ethernet).
-            Segmentation is available.
-            TDM transport is available.";
+    grouping PureEthernetStructureCapability {
+        description "Describes the logical structuring of the physical capacity provided by a pure Ethernet microwave device.
+            Segmentation is not available.
+            No fixed segment size.
+            No TDM transport.";
         leaf structureId {
             type CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:UniversalId;
             config false;
             description "Identifies the Structure for bundling and container.";
-        }
-        list supportedTdmStructureTypesList {
-            description "Lists the TDM frame types that are supported.";
-            key 'tdmStructureName';
-            ordered-by system;
-            uses MicrowaveModel-TypeDefinitions:tdmStructureType;
-            min-elements 1;
         }
         leaf supportedAlarms {
             type string;
@@ -99,31 +93,19 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
             default "Supported alarms not yet defined.";
         }
     }
-    grouping HybridMwStructureConfiguration {
-        container structureType {
-            description "TDM frame to be applied.";
-            config true;
-            uses MicrowaveModel-TypeDefinitions:tdmStructureType;
-        }
-        leaf numberOfTdmSegmentsToBeReserved {
-            type int16;
-            description "Allows to configure the number of segments reserved for TDM frames of the type specified in HybridMwStructure::HybridMwStructureConfiguration::structureType";
-            default -1;
-        }
-        list problemSeverityList {
+    grouping PureEthernetStructureConfiguration {
+        list problemKindSeverityList {
             description "Severity of the type of problem to be configured.";
-            key 'sequenceNumber';
-            config false;
+            key 'problemKindName';
+            config true;
             ordered-by system;
-            uses MicrowaveModel-TypeDefinitions:structureCurrentProblemType;
+            uses MicrowaveModel-TypeDefinitions:structureProblemSeverityType;
         }
     }
-    grouping HybridMwStructureStatus {
-        list segmentStatusList {
-            description "Status of each segment (all TDM and one Ethernet).
-                Multiplicity = HybridMwStructure::StructureConfiguration::tdmReservedNumberOfSegments + 1";
-            key 'segmentStatusTypeId';
-            ordered-by system;
+    grouping PureEthernetStructureStatus {
+        container segmentStatusList {
+            description "Status of the Ethernet transport segment.
+                Always just one segment.";
             uses MicrowaveModel-TypeDefinitions:segmentStatusType;
         }
         leaf lastStatusChange {
@@ -133,21 +115,26 @@ module MicrowaveModel-ObjectClasses-HybridMwStructure {
                 _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' month; dd='01'..'31' day; hh='00'..'23' hour; mm='00'..'59' minute; ss='00'..'59' second; s='.0'..'.9'tenth of second (set to '.0' if EMS or NE cannot support this granularity); Z='Z' indicates UTC (rather than local time); {+|-}='+' or '-' delta from UTC; HH='00'..'23' time zone difference in hours; Mm='00'..'59' time zone difference in minutes.";
         }
     }
-    grouping HybridMwStructureCurrentProblems {
+    grouping PureEthernetStructureCurrentProblems {
         list currentProblemList {
             key 'sequenceNumber';
             ordered-by system;
             uses MicrowaveModel-TypeDefinitions:structureCurrentProblemType;
         }
     }
-    grouping HybridMwStructureCurrentPerformance {
-        description "Aggregated performance information of the structure of a hybrid microwave at a particular moment.";
-        container currentPerformanceData {
+    grouping PureEthernetStructureCurrentPerformance {
+        description "Aggregated performance information of the structure of an pure Ethernet microwave at a particular moment.";
+        list currentPerformanceDataList {
+            description "At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.";
+            key 'scannerId';
+            ordered-by system;
             uses MicrowaveModel-TypeDefinitions:structureCurrentPerformanceType;
+            max-elements 2;
+            min-elements 1;
         }
     }
-    grouping HybridMwStructureHistoricalPerformances {
-        description "Aggregated performance information of the structure of a hybrid microwave for a pre-defined measurement interval.";
+    grouping PureEthernetStructureHistoricalPerformances {
+        description "Aggregated performance information of the structure of an pure Ethernet microwave for a pre-defined measurement interval.";
         list historicalPerformanceDataList {
             key 'historyDataId';
             ordered-by system;

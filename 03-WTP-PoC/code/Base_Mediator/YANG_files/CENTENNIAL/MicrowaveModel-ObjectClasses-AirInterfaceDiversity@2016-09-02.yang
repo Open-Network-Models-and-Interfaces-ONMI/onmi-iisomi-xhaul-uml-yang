@@ -27,7 +27,7 @@ module MicrowaveModel-ObjectClasses-AirInterfaceDiversity {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-08-29 {
+    revision 2016-09-02 {
         description 
             "Initial revision."; 
         reference 
@@ -98,12 +98,12 @@ module MicrowaveModel-ObjectClasses-AirInterfaceDiversity {
             }
             min-elements 2;
         }
-        list problemSeverityList {
+        list problemKindSeverityList {
             description "Severity of the problem to be configured.";
-            key 'sequenceNumber';
-            config false;
+            key 'problemKindName';
+            config true;
             ordered-by system;
-            uses MicrowaveModel-TypeDefinitions:airInterfaceDiversityCurrentProblemType;
+            uses MicrowaveModel-TypeDefinitions:airInterfaceDiversityProblemSeverityType;
             min-elements 3;
         }
     }
@@ -138,8 +138,13 @@ module MicrowaveModel-ObjectClasses-AirInterfaceDiversity {
     }
     grouping AirInterfaceDiversityCurrentPerformance {
         description "Aggregated performance information of the air interface diversity configuration at a particular moment.";
-        container currentPerformanceData {
+        list currentPerformanceDataList {
+            description "At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.";
+            key 'scannerId';
+            ordered-by system;
             uses MicrowaveModel-TypeDefinitions:airInterfaceDiversityCurrentPerformanceType;
+            max-elements 2;
+            min-elements 1;
         }
     }
     grouping AirInterfaceDiversityHistoricalPerformances {
