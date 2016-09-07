@@ -3185,10 +3185,7 @@ static const char* cb_get_boot_time_NetworkElement_lpList_lpDirection(val_value_
 	YUMA_ASSERT(NULL == lpUuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
 	YUMA_ASSERT(NULL == VAL_STRING(lpUuidKey), return NULL, "Could not access value of the key %s for element %s", ltpUuidKey->name, element->name);
 
-	if (strcmp(VAL_STRING(lpUuidKey), "uuid3") == 0)
-	{
-		return "BIDIRECTIONAL";
-	}
+    return "BIDIRECTIONAL";
 
 	return NULL;
 }

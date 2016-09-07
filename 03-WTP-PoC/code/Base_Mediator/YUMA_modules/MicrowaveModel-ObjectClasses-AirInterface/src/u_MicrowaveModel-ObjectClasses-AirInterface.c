@@ -5815,7 +5815,7 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
 
 
     /* set the granularityPeriod var here, change enum */
-    granularityPeriod = EMPTY_STRING;
+    granularityPeriod = "PERIOD_15MIN";
     res = val_set_simval_obj(
         dstval,
         dstval->obj,

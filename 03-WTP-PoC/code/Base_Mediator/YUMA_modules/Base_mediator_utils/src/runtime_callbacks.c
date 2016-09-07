@@ -583,7 +583,7 @@ const char* cb_get_runtime_element_value(val_value_t *element)
             return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_timePeriod(element);
         }
     }
-    else if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_historicalPerformanceDataList) == 0))
+    else if (element->parent && (strcmp(element->parent->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_historicalPerformanceDataList) == 0))
     {
         if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_objectClass) == 0)
         {
