@@ -72,10 +72,10 @@ define(['app/mwtnConnect/mwtnConnect.module',
         direction: uiGridConstants.ASC,
         priority: 0
        }},
-      { field: 'netconf-node-topology:host',  type: 'number', displayName: 'IP address',  headerCellClass: $scope.highlightFilteredHeader, width : 100, cellClass: 'number' },
+      { field: 'netconf-node-topology:host',  type: 'number', displayName: 'IP address',  headerCellClass: $scope.highlightFilteredHeader, width : 150, cellClass: 'number' },
       { field: 'netconf-node-topology:port',  type: 'number', displayName: 'NetConf port',  headerCellClass: $scope.highlightFilteredHeader, width : 120, cellClass: 'number' },
-      { field: 'onfCoreModelRevision', type: 'string', displayName: 'CoreModel revision',  headerCellClass: $scope.highlightFilteredHeader, width : 160 },
-      { field: 'onfAirIinterfaceRevision', type: 'string', displayName: 'AirInterface revision',  headerCellClass: $scope.highlightFilteredHeader, width : 160 },
+      { field: 'onfCoreModelRevision', type: 'string', displayName: 'CoreModel revision',  headerCellClass: $scope.highlightFilteredHeader, width : 160,  cellClass: 'number' },
+      { field: 'onfAirIinterfaceRevision', type: 'string', displayName: 'AirInterface revision',  headerCellClass: $scope.highlightFilteredHeader, width : 160,  cellClass: 'number' },
       { field: 'netconf-node-topology:connection-status', type: 'string', displayName: 'Connection status',  headerCellClass: $scope.highlightFilteredHeader, width : 160 },
       {
         name : 'actions',

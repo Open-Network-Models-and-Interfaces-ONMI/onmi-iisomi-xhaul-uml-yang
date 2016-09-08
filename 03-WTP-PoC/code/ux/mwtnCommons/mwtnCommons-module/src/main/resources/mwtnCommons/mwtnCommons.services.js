@@ -83,8 +83,7 @@ define(
               return [
                       'operational/network-topology:network-topology/topology/topology-netconf/node/',
                       neId,
-                      '/yang-ext:mount/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/',
-                      neId ].join('');
+                      '/yang-ext:mount/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement'].join('');
             }
           }
         };
@@ -131,6 +130,7 @@ define(
           console.time([neId, 'ONF:CoreModel:NetworkElement data received'].join(' '));
           $http(request).then(function successCallback(response) {
             console.timeEnd([neId, 'ONF:CoreModel:NetworkElement data received'].join(' '));
+            response.data.revision = revision;
             callback(response.data);
           }, function errorCallback(response) {
             console.timeEnd([neId, 'ONF:CoreModel:NetworkElement data received'].join(' '));
