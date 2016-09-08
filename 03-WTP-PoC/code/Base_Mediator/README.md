@@ -36,7 +36,8 @@ This will start the NETCONF server as a process, in the foreground, and print th
 ```
 	netconfd  --log-level=debug --access-control=off --target=running --no-startup \
 	--module=CoreModel-CoreNetworkModule-ObjectClasses \
-	--module=MicrowaveModel-ObjectClasses-AirInterface
+	--module=MicrowaveModel-ObjectClasses-AirInterface \
+	--module=MicrowaveModel-ObjectClasses-PureEthernetStructure
 ```
 
 
@@ -60,3 +61,4 @@ Contact
 -------
 
 alexandrus@ceragon.com
+

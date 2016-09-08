@@ -8,6 +8,7 @@
 #include "boot_time_callbacks.h"
 #include "utils.h"
 #include "y_MicrowaveModel-ObjectClasses-AirInterface.h"
+#include "y_MicrowaveModel-ObjectClasses-PureEthernetStructure.h"
 #include "y_CoreModel-CoreNetworkModule-ObjectClasses.h"
 
 static const char* cb_get_boot_time_airInterfaceCapability_typeOfEquipment(val_value_t *element);
@@ -91,6 +92,11 @@ static const char* cb_get_boot_time_NetworkElement_lpList_layerProtocolName(val_
 static const char* cb_get_boot_time_NetworkElement_lpList_configuredClientCapacity(val_value_t *element);
 static const char* cb_get_boot_time_NetworkElement_lpList_lpDirection(val_value_t *element);
 static const char* cb_get_boot_time_NetworkElement_lpList_terminationState(val_value_t *element);
+
+static const char* cb_get_boot_time_pureEthernetStructure_structureID(val_value_t *element);
+
+static const char* cb_get_boot_time_pureEthernetStructure_problemKindSeverity(val_value_t *element);
+
 
 /********************************************************************
 * FUNCTION cb_get_all_air_interface_pac_keys
@@ -273,7 +279,7 @@ status_t cb_get_all_problem_kind_severity_list_keys(const char *air_interface_pa
 
 	char problemKindName[256];
 
-	strcpy(problemKindName, "alarm1");
+	strcpy(problemKindName, "severity1");
 
 	problem_kind_severity_list_key_entries[*num_of_keys] = (char*) malloc(strlen(problemKindName) + 1);
 	YUMA_ASSERT(problem_kind_severity_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
@@ -282,7 +288,7 @@ status_t cb_get_all_problem_kind_severity_list_keys(const char *air_interface_pa
 
 	*num_of_keys += 1;
 
-	strcpy(problemKindName, "alarm2");
+	strcpy(problemKindName, "severity2");
 
 	problem_kind_severity_list_key_entries[*num_of_keys] = (char*) malloc(strlen(problemKindName) + 1);
 	YUMA_ASSERT(problem_kind_severity_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
@@ -291,7 +297,7 @@ status_t cb_get_all_problem_kind_severity_list_keys(const char *air_interface_pa
 
 	*num_of_keys += 1;
 
-	strcpy(problemKindName, "alarm3");
+	strcpy(problemKindName, "severity3");
 
 	problem_kind_severity_list_key_entries[*num_of_keys] = (char*) malloc(strlen(problemKindName) + 1);
 	YUMA_ASSERT(problem_kind_severity_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
@@ -300,7 +306,7 @@ status_t cb_get_all_problem_kind_severity_list_keys(const char *air_interface_pa
 
 	*num_of_keys += 1;
 
-	strcpy(problemKindName, "alarm4");
+	strcpy(problemKindName, "severity4");
 
 	problem_kind_severity_list_key_entries[*num_of_keys] = (char*) malloc(strlen(problemKindName) + 1);
 	YUMA_ASSERT(problem_kind_severity_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
@@ -309,7 +315,7 @@ status_t cb_get_all_problem_kind_severity_list_keys(const char *air_interface_pa
 
 	*num_of_keys += 1;
 
-	strcpy(problemKindName, "alarm5");
+	strcpy(problemKindName, "severity5");
 
 	problem_kind_severity_list_key_entries[*num_of_keys] = (char*) malloc(strlen(problemKindName) + 1);
 	YUMA_ASSERT(problem_kind_severity_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
@@ -318,16 +324,16 @@ status_t cb_get_all_problem_kind_severity_list_keys(const char *air_interface_pa
 
 	*num_of_keys += 1;
 
-	strcpy(problemKindName, "alarm6");
+    strcpy(problemKindName, "severity6");
 
-	problem_kind_severity_list_key_entries[*num_of_keys] = (char*) malloc(strlen(problemKindName) + 1);
-	YUMA_ASSERT(problem_kind_severity_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+    problem_kind_severity_list_key_entries[*num_of_keys] = (char*) malloc(strlen(problemKindName) + 1);
+    YUMA_ASSERT(problem_kind_severity_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
 
-	strcpy(problem_kind_severity_list_key_entries[*num_of_keys], problemKindName);
+    strcpy(problem_kind_severity_list_key_entries[*num_of_keys], problemKindName);
 
-	*num_of_keys += 1;
+    *num_of_keys += 1;
 
-	return NO_ERR;
+    return NO_ERR;
 }
 
 /********************************************************************
@@ -534,10 +540,6 @@ const char* cb_get_boot_time_element_value(val_value_t *element)
 	{
 		return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_xpicIsAvail(element);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemKindSeverity) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_problemKindSeverity(element);
-	}
 	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceName) == 0)
 	{
 		return cb_get_boot_time_airInterfaceConfiguration_airInterfaceName(element);
@@ -646,8 +648,15 @@ const char* cb_get_boot_time_element_value(val_value_t *element)
 	{
 		return cb_get_boot_time_airInterfaceConfiguration_maintenanceTimer(element);
 	}
+    else if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceConfiguration) == 0))
+    {
+        if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemKindSeverity) == 0)
+        {
+            return cb_get_boot_time_airInterfaceConfiguration_problemKindSeverity(element);
+        }
+    }
 
-	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_valueName) == 0)
+    else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_valueName) == 0)
 	{
 		return cb_get_boot_time_NetworkElement_class_valueName(element);
 	}
@@ -704,6 +713,20 @@ const char* cb_get_boot_time_element_value(val_value_t *element)
 		return cb_get_boot_time_NetworkElement_lpList_terminationState(element);
 	}
 
+    /* pureEthernetStructure */
+
+
+    if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_structureId) == 0)
+    {
+        return cb_get_boot_time_pureEthernetStructure_structureID(element);
+    }
+    else if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_pureEthernetStructureConfiguration) == 0))
+	{
+        if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemKindSeverity) == 0)
+        {
+            return cb_get_boot_time_pureEthernetStructure_problemKindSeverity(element);
+        }
+	}
 
 	return NULL;
 }
@@ -1755,26 +1778,30 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_problemKindSeverit
 	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and problemKindName
 	 */
 
-	if (strcmp(VAL_STRING(problemKindName), "alarm1") == 0)
-	{
-		return "non-alarmed";
-	}
-	else if (strcmp(VAL_STRING(problemKindName), "alarm2") == 0)
-	{
-		return "warning";
-	}
-	else if (strcmp(VAL_STRING(problemKindName), "alarm3") == 0)
-	{
-		return "minor";
-	}
-	else if (strcmp(VAL_STRING(problemKindName), "alarm4") == 0)
-	{
-		return "major";
-	}
-	else if (strcmp(VAL_STRING(problemKindName), "alarm5") == 0)
+	if (strcmp(VAL_STRING(problemKindName), "severity1") == 0)
 	{
 		return "critical";
 	}
+	else if (strcmp(VAL_STRING(problemKindName), "severity2") == 0)
+	{
+		return "major";
+	}
+	else if (strcmp(VAL_STRING(problemKindName), "severity3") == 0)
+	{
+		return "minor";
+	}
+	else if (strcmp(VAL_STRING(problemKindName), "severity4") == 0)
+	{
+		return "warning";
+	}
+	else if (strcmp(VAL_STRING(problemKindName), "severity5") == 0)
+	{
+		return "non-alarmed";
+	}
+    else if (strcmp(VAL_STRING(problemKindName), "severity6") == 0)
+    {
+        return "non-alarmed";
+    }
 
 	return NULL;
 }
@@ -3158,10 +3185,7 @@ static const char* cb_get_boot_time_NetworkElement_lpList_lpDirection(val_value_
 	YUMA_ASSERT(NULL == lpUuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
 	YUMA_ASSERT(NULL == VAL_STRING(lpUuidKey), return NULL, "Could not access value of the key %s for element %s", ltpUuidKey->name, element->name);
 
-	if (strcmp(VAL_STRING(lpUuidKey), "uuid3") == 0)
-	{
-		return "BIDIRECTIONAL";
-	}
+    return "BIDIRECTIONAL";
 
 	return NULL;
 }
@@ -3200,4 +3224,148 @@ static const char* cb_get_boot_time_NetworkElement_lpList_terminationState(val_v
 	}
 
 	return NULL;
+}
+
+
+/********************************************************************
+* FUNCTION cb_get_all_pure_eth_structure_keys
+*
+* Get an array representing the keys of MW_PureEthernetStructure_Pac list
+*
+* OUTPUTS:
+* char** air_pure_eth_structure_keys_list - an array of strings containing the list of keys
+* int* num_of_keys - the number of keys found (actually the number of interfaces found)
+*
+* RETURNS:
+*     error status
+********************************************************************/
+status_t cb_get_all_pure_eth_structure_keys(char** air_pure_eth_structure_keys_list, int* num_of_keys)
+{
+	*num_of_keys = 0;
+
+	/*
+	 * fill in the actual values for the MW_PureEthernetStructure_Pac layerProtocol list here. E.g.:
+	 */
+
+	char layerProtocol[256];
+
+	strcpy(layerProtocol, "LP-MWS-TTP-ifIndex1");
+
+	air_pure_eth_structure_keys_list[*num_of_keys] = (char*) malloc(strlen(layerProtocol) + 1);
+	YUMA_ASSERT(air_pure_eth_structure_keys_list[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+
+	strcpy(air_pure_eth_structure_keys_list[*num_of_keys], layerProtocol);
+
+	*num_of_keys += 1;
+
+	strcpy(layerProtocol, "LP-MWS-TTP-ifIndex2");
+
+	air_pure_eth_structure_keys_list[*num_of_keys] = (char*) malloc(strlen(layerProtocol) + 1);
+	YUMA_ASSERT(air_pure_eth_structure_keys_list[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+
+	strcpy(air_pure_eth_structure_keys_list[*num_of_keys], layerProtocol);
+
+	*num_of_keys += 1;
+
+	return NO_ERR;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_pureEthernetStructure_structureID
+*
+* Callback function for getting the value of the structureID leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_pureEthernetStructure_structureID(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information. E.g.:
+	 */
+
+	if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWS-TTP-ifIndex1") == 0)
+	{
+		return "LP-MWS-TTP-structureId1";
+	}
+	if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWS-TTP-ifIndex2") == 0)
+	{
+		return "LP-MWS-TTP-structureId2";
+	}
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_pureEthernetStructure_problemKindSeverity
+*
+* Callback function for getting the value of the problemKindSeverity leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_pureEthernetStructure_problemKindSeverity(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *problemKindName = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    problemKindName = agt_get_key_value(parentHavingKey, &lastkey);
+
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+    YUMA_ASSERT(NULL == problemKindName, return NULL, "Could not find supportedChannelPlanKey for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(problemKindName), return NULL, "Could not access value of the key %s for element %s", problemKindName->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and problemKindName
+     */
+
+    if (strcmp(VAL_STRING(problemKindName), "severity1") == 0)
+    {
+        return "non-alarmed";
+    }
+    else if (strcmp(VAL_STRING(problemKindName), "severity2") == 0)
+    {
+        return "warning";
+    }
+    else if (strcmp(VAL_STRING(problemKindName), "severity3") == 0)
+    {
+        return "minor";
+    }
+    else if (strcmp(VAL_STRING(problemKindName), "severity4") == 0)
+    {
+        return "major";
+    }
+    else if (strcmp(VAL_STRING(problemKindName), "severity5") == 0)
+    {
+        return "critical";
+    }
+    else if (strcmp(VAL_STRING(problemKindName), "severity6") == 0)
+    {
+        return "critical";
+    }
+
+    return NULL;
 }
