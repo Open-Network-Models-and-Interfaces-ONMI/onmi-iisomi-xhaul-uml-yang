@@ -35,9 +35,11 @@ define(['app/mwtnTest/mwtnTest.module',
               ne['netconf-node-topology:available-capabilities']['available-capability'].map(function(cap){
                 if (cap.contains('CoreModel-CoreNetworkModule-ObjectClasses')) {
                   ne.onfCoreModelRevision = cap.split('?revision=')[1].substring(0,10);
-                } else if (cap.contains('MicrowaveModel-ObjectClasses')) {
+                } else if (cap.contains('MicrowaveModel-ObjectClasses-AirInterface')) {
                   ne.onfAirIinterfaceRevision = cap.split('?revision=')[1].substring(0,10);
-                }
+                }  else if (!ne.onfAirIinterfaceRevision && cap.contains('MicrowaveModel-ObjectClasses')) {
+                  ne.onfAirIinterfaceRevision = cap.split('?revision=')[1].substring(0,10);
+                } 
               });
               if (ne.onfAirIinterfaceRevision) {
                 $scope.networkElements.push({id:ne['node-id'], revision:ne.onfAirIinterfaceRevision});
@@ -66,11 +68,22 @@ define(['app/mwtnTest/mwtnTest.module',
       if (!data) return;
 
       // update onfNetworkElement
-      $scope.onfNetworkElement = JSON.parse(JSON.stringify(data.NetworkElement[0]));
-      $scope.onfNetworkElement._ltpRefList = undefined;
+      console.log(data.revision);
+      switch (data.revision) {
+      case '2016-03-23':
+        $scope.onfNetworkElement = JSON.parse(JSON.stringify(data.NetworkElement[0]));
+        $scope.onfLtps = data.NetworkElement[0]._ltpRefList;
+        $scope.onfNetworkElement._ltpRefList = undefined;
+        break;
+      default:
+        $scope.onfNetworkElement = JSON.parse(JSON.stringify(data.NetworkElement));
+      console.log(JSON.stringify(data.NetworkElement));
+        $scope.onfLtps = data.NetworkElement._ltpRefList;
+        $scope.onfNetworkElement._ltpRefList = undefined;
+      }
       
       // update onfLTPs
-      $scope.onfLtps = data.NetworkElement[0]._ltpRefList;
+      console.log(JSON.stringify($scope.onfLtps));
       $scope.onfLtps.sort(function(a, b){
         if(order[a._lpList[0].layerProtocolName] < order[b._lpList[0].layerProtocolName]) return -1;
         if(order[a._lpList[0].layerProtocolName] > order[b._lpList[0].layerProtocolName]) return 1;
@@ -181,6 +194,7 @@ define(['app/mwtnTest/mwtnTest.module',
               var info = key.split($scope.separator);
               switch (info[0]) {
               case 'ne':
+                console.log(JSON.stringify(info));
                 updateNe(data);
                 break;
               case 'ltp':
