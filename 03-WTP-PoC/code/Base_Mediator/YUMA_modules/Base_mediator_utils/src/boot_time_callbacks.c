@@ -3119,7 +3119,22 @@ static const char* cb_get_boot_time_NetworkElement_lpList_layerProtocolName(val_
 	YUMA_ASSERT(NULL == lpUuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
 	YUMA_ASSERT(NULL == VAL_STRING(lpUuidKey), return NULL, "Could not access value of the key %s for element %s", ltpUuidKey->name, element->name);
 
-	return "layerProtocolName1";
+    if (strcmp(VAL_STRING(lpUuidKey), "LP-MWPS-TTP-ifIndex1") == 0)
+    {
+        return "MWPS";
+    }
+    else if (strcmp(VAL_STRING(lpUuidKey), "LP-MWPS-TTP-ifIndex2") == 0)
+    {
+        return "MWPS";
+    }
+    else if (strcmp(VAL_STRING(lpUuidKey), "LP-MWS-TTP-ifIndex1") == 0)
+    {
+        return "MWS";
+    }
+    else if (strcmp(VAL_STRING(lpUuidKey), "LP-MWS-TTP-ifIndex2") == 0)
+    {
+        return "MWS";
+    }
 
 	return NULL;
 }
@@ -3228,7 +3243,7 @@ static const char* cb_get_boot_time_NetworkElement_lpList_terminationState(val_v
 
 
 /********************************************************************
-* FUNCTION cb_get_all_pure_eth_structure_keys
+* FUNCTION cb_get_all_pure_eth_structure_pac_keys
 *
 * Get an array representing the keys of MW_PureEthernetStructure_Pac list
 *
@@ -3239,7 +3254,7 @@ static const char* cb_get_boot_time_NetworkElement_lpList_terminationState(val_v
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t cb_get_all_pure_eth_structure_keys(char** air_pure_eth_structure_keys_list, int* num_of_keys)
+status_t cb_get_all_pure_eth_structure_pac_keys(char** air_pure_eth_structure_keys_list, int* num_of_keys)
 {
 	*num_of_keys = 0;
 
