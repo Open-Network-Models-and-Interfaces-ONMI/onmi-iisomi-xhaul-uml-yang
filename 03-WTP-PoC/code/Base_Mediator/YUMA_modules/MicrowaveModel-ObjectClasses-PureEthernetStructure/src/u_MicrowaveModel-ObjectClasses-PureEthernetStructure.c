@@ -237,6 +237,7 @@ status_t u_MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthernetStr
         /* database manipulation done here */
         break;
     case AGT_CB_COMMIT:
+        res = cb_send_to_device_pureEthernetStructureConfiguration_problemKindSeverityList_element_value((newval) ? newval : curval, k_MW_PureEthernetStructure_Pac_layerProtocol, k_MW_PureEthernetStructure_Pac_pureEthernetStructureConfiguration_problemKindSeverityList_problemKindName);
         /* device instrumentation done here */
         switch (editop) {
         case OP_EDITOP_LOAD:
@@ -304,6 +305,7 @@ status_t u_MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthernetStr
         break;
     case AGT_CB_COMMIT:
         /* device instrumentation done here */
+        res = cb_send_to_device_pureEthernetStructureConfiguration_problemKindSeverityList_element_value((newval) ? newval : curval, k_MW_PureEthernetStructure_Pac_layerProtocol, k_MW_PureEthernetStructure_Pac_pureEthernetStructureConfiguration_problemKindSeverityList_problemKindName);
         switch (editop) {
         case OP_EDITOP_LOAD:
             break;

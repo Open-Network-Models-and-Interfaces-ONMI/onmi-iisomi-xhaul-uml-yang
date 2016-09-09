@@ -39,6 +39,9 @@ static status_t cb_send_to_device_airInterfaceConfiguration_maintenanceTimer(val
 static status_t cb_send_to_device_airInterfaceConfiguration_problemKindName(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol, const char* k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
 static status_t cb_send_to_device_airInterfaceConfiguration_problemKindSeverity(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol, const char* k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
 
+static status_t cb_send_to_device_pureEthernetStructureConfiguration_problemKindName(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol, const char* k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
+static status_t cb_send_to_device_pureEthernetStructureConfiguration_problemKindSeverity(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol, const char* k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
+
 /********************************************************************
 * FUNCTION cb_send_to_device_airInterfaceConfiguration_element_value
 *
@@ -815,3 +818,62 @@ static status_t cb_send_to_device_airInterfaceConfiguration_problemKindSeverity(
 
 	return NO_ERR;
 }
+
+status_t cb_send_to_device_pureEthernetStructureConfiguration_problemKindSeverityList_element_value(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol, const char* k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName)
+{
+    if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemKindName) == 0)
+    {
+        return cb_send_to_device_pureEthernetStructureConfiguration_problemKindName(element, k_MW_AirInterface_Pac_layerProtocol, k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemKindSeverity) == 0)
+    {
+        return cb_send_to_device_pureEthernetStructureConfiguration_problemKindSeverity(element, k_MW_AirInterface_Pac_layerProtocol, k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
+    }
+
+    return NO_ERR;
+}
+
+/********************************************************************
+* FUNCTION cb_send_to_device_pureEthernetStructureConfiguration_problemKindName
+*
+* Callback function for setting the value of problemKindName leaf to the device
+*
+* INPUTS:
+* val_value_t *element - the element for which we want to set the value
+*
+* RETURNS:
+* error status
+********************************************************************/
+static status_t cb_send_to_device_pureEthernetStructureConfiguration_problemKindName(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol, const char* k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName)
+{
+    YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
+    /*
+     * Send the new configured value to the device
+     * using: VAL_ULONG, VAL_STRING, etc., depending on the parameter type
+     */
+
+    return NO_ERR;
+}
+
+/********************************************************************
+* FUNCTION cb_send_to_device_pureEthernetStructureConfiguration_problemKindSeverity
+*
+* Callback function for setting the value of problemKindSeverity leaf to the device
+*
+* INPUTS:
+* val_value_t *element - the element for which we want to set the value
+*
+* RETURNS:
+* error status
+********************************************************************/
+static status_t cb_send_to_device_pureEthernetStructureConfiguration_problemKindSeverity(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol, const char* k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName)
+{
+    YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
+    /*
+     * Send the new configured value to the device
+     * using: VAL_ULONG, VAL_STRING, etc., depending on the parameter type
+     */
+
+    return NO_ERR;
+}
+
