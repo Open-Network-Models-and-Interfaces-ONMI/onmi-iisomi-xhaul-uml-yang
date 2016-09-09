@@ -24,6 +24,6 @@ status_t cb_get_all_server_ltp_ref_leaf_list_elements_for_ltp(char* ltp_uuid, ch
 status_t cb_get_all_client_ltp_ref_leaf_list_elements_for_ltp(char* ltp_uuid, char** client_ltp_ref_leaf_list, int* num_of_elements);
 status_t cb_get_all_ltp_ref_leaf_list_elements_for_ltp(char* ltp_uuid, char** ltp_ref_leaf_list, int* num_of_elements);
 
-status_t cb_get_all_pure_eth_structure_keys(char** air_pure_eth_sructure_keys_list, int* num_of_keys);
+status_t cb_get_all_pure_eth_structure_pac_keys(char** air_pure_eth_sructure_keys_list, int* num_of_keys);
 
 #endif /* BOOT_TIME_CALLBACKS_H_ */

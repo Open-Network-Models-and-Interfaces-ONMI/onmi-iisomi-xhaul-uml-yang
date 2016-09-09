@@ -1472,7 +1472,7 @@ static status_t build_attributes_tree_and_attach_to_running_cfg(cfg_template_t* 
 	/*
 	 * Getting all the interfaces of the system
 	 */
-	res = cb_get_all_pure_eth_structure_keys(air_pure_eth_structure_keys_list, &num_of_pure_eth_structure_pac_keys);
+	res = cb_get_all_pure_eth_structure_pac_keys(air_pure_eth_structure_keys_list, &num_of_pure_eth_structure_pac_keys);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_all_air_pure_eth_structure_keys failed!");
 
 	for (int i=0; i<num_of_pure_eth_structure_pac_keys; ++i)
