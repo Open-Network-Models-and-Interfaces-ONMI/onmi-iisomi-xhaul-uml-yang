@@ -11,10 +11,10 @@ define(['angularAMD',
         'app/core/core.services', 
         'common/config/env.module',
         'app/mwtnCommons/mwtnCommons.module'], function(ng) {
-  var mwtnLogApp = angular.module('app.mwtnLog', [ 'app.core',
-      'ui.router.state', 'config', 'ui.grid', 'ui.grid.exporter',
+  var mwtnLogApp = angular.module('app.mwtnLog', ['ui.grid', 'ui.bootstrap', 'app.core',
+      'ui.router.state', 'config', 'ui.grid.exporter',
       'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.grid.selection',
-      'ui.grid.resizeColumns', 'ui.bootstrap' ]);
+      'ui.grid.resizeColumns' ]);
 
   mwtnLogApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $translateProvider) {
     mwtnLogApp.register = {
@@ -22,7 +22,6 @@ define(['angularAMD',
       directive : $compileProvider.directive,
       factory : $provide.factory,
       service : $provide.service
-
     };
 
 

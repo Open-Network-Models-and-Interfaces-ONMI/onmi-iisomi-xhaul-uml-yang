@@ -12,6 +12,18 @@ if (!String.prototype.contains) {
   }; 
 }
 
+if (!String.prototype.format) {
+  String.prototype.format = function() {
+    var args = arguments;
+    return this.replace(/{(\d+)}/g, function(match, number) { 
+      return typeof args[number] != 'undefined'
+        ? args[number]
+        : match
+      ;
+    });
+  };
+}
+
 define(
     [ 'app/mwtnCommons/mwtnCommons.module' ],
     function(mwtnCommonsApp) {
@@ -23,8 +35,72 @@ define(
 
         service.getData = function(callback) {
           return callback('$mwtnCommons registered to this application.');
-        }
+        };
         
+        service.tryModules = function(names) {
+          // accepts a list of module names and
+          // attempts to load them, in order.
+
+          // if no options remain, throw an error.
+          if( names.length == 0 ) {
+            throw new Error("None of the modules could be loaded.");
+          }
+
+          // attempt to load the module into m
+          var m;
+          try {
+            m = angular.module(names[0])
+          } catch(err) {
+            m = null;
+          }
+
+          // if it could not be loaded, try the rest of
+          // the options. if it was, return it.
+          if( m == null ) return service.tryModules(names.slice(1));
+          else return m;
+        };
+        
+        service.mount = function(mp, callback) {
+          // mp means mounting point
+
+          var xml = [
+            '<module xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">',
+            '<type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">prefix:sal-netconf-connector</type>',
+            '<name>{0}</name>',
+            '<address xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">{1}</address>',
+            '<port xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">{2}</port>',
+            '<username xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">{3}</username>',
+            '<password xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">{4}</password>',
+            '<tcp-only xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">false</tcp-only>',
+            '<event-executor xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">',
+            '  <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:netty">prefix:netty-event-executor</type>',
+            '  <name>global-event-executor</name>',
+            '</event-executor>',
+            '<binding-registry xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">',
+            '  <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding">prefix:binding-broker-osgi-registry</type>',
+            '  <name>binding-osgi-broker</name>',
+            '</binding-registry>',
+            '<dom-registry xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">',
+            '  <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:md:sal:dom">prefix:dom-broker-osgi-registry</type>',
+            '  <name>dom-broker</name>',
+            '</dom-registry>',
+            '<client-dispatcher xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">',
+            '  <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:config:netconf">prefix:netconf-client-dispatcher</type>',
+            '  <name>global-netconf-dispatcher</name>',
+            '</client-dispatcher>',
+            '<processing-executor xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">',
+            '  <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:threadpool">prefix:threadpool</type>',
+            '  <name>global-netconf-processing-executor</name>',
+            '</processing-executor>',
+            '<keepalive-executor xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">',
+            '  <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:threadpool">prefix:scheduled-threadpool</type>',
+            '  <name>global-netconf-ssh-scheduled-executor</name>',
+            '</keepalive-executor>', '</module>' ].join('').format(mp.name, mp.ipaddress, mp.port, mp.username, mp.passworf);
+
+          
+            return callback(xml);
+        };
+
         service.getSchema = function(callback) {
           // console.log('$mwtnDatabase call!');
           $mwtnDatabase.getSchema(function(data){
@@ -140,40 +216,72 @@ define(
           });
         };
 
-        service.getConditionalPackagePart = function(neId, revision, pacId, lpId, partId, callback) {
-
-          switch (pacId) {
-            case 'MWPS':
-            case 'AirInterface':
-            case 'airinterface':
-            case 'airInterface':
-              pacId = 'MicrowaveModel-ObjectClasses-MwConnection:MW_AirInterface_Pac';
-              partId = 'airInterface' + partId;
-              console.log(partId, partId === 'airInterfaceCapability');
-              if (partId === 'airInterfaceCapability' || partId === 'airInterfaceCurrentProblems') {
-                partId = undefined;
-              }
-              console.log(partId, partId === 'airInterfaceCapability');
-              break;
-            case 'MWS':
-            case 'Structure':
-            case 'structure':
-              pacId = 'MicrowaveModel-ObjectClasses-MwConnection:MW_Structure_Pac';
-              partId = 'structure' + partId;
-              break;
-            case 'ETH-CTP':
-            case 'Container':
-            case 'container':
-              pacId = 'MicrowaveModel-ObjectClasses-MwConnection:MW_Container_Pac';
-              partId = 'container' + partId;
-              break;
+        var getIdsByRevision = function(revision, pacId, partId) {
+          
+          if (revision === '2016-03-23') {
+            switch (pacId) {
+              case 'MWPS':
+              case 'AirInterface':
+              case 'airinterface':
+              case 'airInterface':
+                pacId = 'MicrowaveModel-ObjectClasses-MwConnection:MW_AirInterface_Pac';
+                partId = 'airInterface' + partId;
+                if (partId === 'airInterfaceCapability' || partId === 'airInterfaceCurrentProblems') {
+                  partId = undefined;
+                }
+                break;
+              case 'MWS':
+              case 'Structure':
+              case 'structure':
+                pacId = 'MicrowaveModel-ObjectClasses-MwConnection:MW_Structure_Pac';
+                partId = 'structure' + partId;
+                break;
+              case 'ETH-CTP':
+              case 'Container':
+              case 'container':
+                pacId = 'MicrowaveModel-ObjectClasses-MwConnection:MW_Container_Pac';
+                partId = 'container' + partId;
+                break;
+            }
+          } else {
+            switch (pacId) {
+              case 'MWPS':
+              case 'AirInterface':
+              case 'airinterface':
+              case 'airInterface':
+                pacId = 'MicrowaveModel-ObjectClasses-AirInterface:MW_AirInterface_Pac';
+                partId = 'airInterface' + partId;
+                break;
+              case 'MWS':
+              case 'Structure':
+              case 'structure':
+                pacId = 'MicrowaveModel-ObjectClasses-PureEthernetStructure:MW_PureEthernetStructure_Pac';
+                partId = 'structure' + partId;
+                break;
+              case 'ETH-CTP':
+              case 'Container':
+              case 'container':
+                pacId = 'MicrowaveModel-ObjectClasses-EthernetContainer:MW_EthernetContainer_Pac';
+                partId = 'container' + partId;
+                break;
+            }
           }
+          return {
+            pacId: pacId,
+            partId: partId
+          }
+        };
+        
+        service.getConditionalPackagePart = function(neId, revision, pacId, lpId, partId, callback) {
+          
+          var ids = getIdsByRevision(revision, pacId, partId);
+          console.log(JSON.stringify(ids)); 
           
           var url = [service.base,
               'operational/network-topology:network-topology/topology/topology-netconf/node/',
               neId,
-              '/yang-ext:mount/',pacId,'/',
-              lpId, '/', partId].join('');
+              '/yang-ext:mount/',ids.pacId,'/',
+              lpId, '/', ids.partId].join('');
           var request = {
             method : 'GET',
             url : url
@@ -182,6 +290,7 @@ define(
           console.time([neId, lpId, 'MW_AirInterface_Pac data received'].join(' '));
           $http(request).then(function successCallback(response) {
             console.timeEnd([neId, lpId, 'MW_AirInterface_Pac data received'].join(' '));
+            response.data.revision = revision;
             callback(response.data);
           }, function errorCallback(response) {
             console.timeEnd([neId, lpId, 'MW_AirInterface_Pac data received'].join(' '));
@@ -334,7 +443,7 @@ define(
         };
 
         var createIndex = function(index, callback) {
-          var url = [ $mwtnDatabase.base, index, 'log' ].join('/');
+          var url = [ $mwtnDatabase.base, index ].join('/');
           var request = {
             method : 'POST',
             url : url,

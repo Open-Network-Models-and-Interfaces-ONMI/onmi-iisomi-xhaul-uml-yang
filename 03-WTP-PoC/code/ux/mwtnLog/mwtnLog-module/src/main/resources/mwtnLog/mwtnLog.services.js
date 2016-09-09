@@ -8,9 +8,11 @@
 
 define(['app/mwtnLog/mwtnLog.module','app/mwtnCommons/mwtnCommons.services'],function(mwtnLogApp) {
 
-  mwtnLogApp.register.factory('$mwtnLogView', function($http, $mwtnLog, $mwtnDatabase) {
+  mwtnLogApp.register.factory('$mwtnLogView', function($http, $mwtnCommons, $mwtnLog, $mwtnDatabase) {
     
     var service = {};
+
+    console.log($mwtnCommons.tryModules(['ngRoute', 'ui.router']));
 
     service.getAllLogEntries = function(from, size, callback) {
       var sort = [ {

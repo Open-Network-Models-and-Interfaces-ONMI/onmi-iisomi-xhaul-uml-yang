@@ -31,6 +31,12 @@ define(['app/mwtnConnect/mwtnConnect.module',
     
     $scope.oneAtATime = true;
     $scope.status = {requiredNes: true};
+    $scope.newMountingPoint = {
+      ipaddress: '127.0.0.1',
+      port: 830,
+      username: 'admin',
+      password: 'admin'
+    };
     
     var requiredNesActionCellTemplate = [
       '<a class="vCenter" ng-class="{attention: grid.appScope.hover}" >',
@@ -151,18 +157,11 @@ define(['app/mwtnConnect/mwtnConnect.module',
       });
     };
     
-    $scope.addNetconfServer = function() {
-      var n = $scope.requiredNesGridOptions.data.length + 1;
-      $scope.requiredNesGridOptions.data.push({
-                  'id': n,
-                  'name': 'newNE-' + n,
-                  'ipAddress': '127.0.0.1',
-                  'netconfPort': 830,
-                  'username': 'compila',
-                  'password': 'compila+',
-                  'radioSignalIds': ['12', '13'],
-                  'connectionStatus': 'disconnected'
-                });
+    $scope.mount = function() {
+      console.log(11, JSON.stringify($scope.newMountingPoint));
+      $mwtnConnect.mount($scope.newMountingPoint, function(data) {
+        console.log(data);
+      });
     };
     
     $scope.connect = function(row) {

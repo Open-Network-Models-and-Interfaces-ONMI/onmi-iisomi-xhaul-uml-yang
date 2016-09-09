@@ -22,7 +22,7 @@ define(['app/mwtnTest/mwtnTest.module',
         layerProtocol: 'unknown'              
     };
     $scope.details.map(function(detail){
-      initPac[detail] = {info: 'Not supported by ONF Microwave Model revision: 2016-03-23'};
+      initPac[detail] = {info: 'No data available'};
     });
     
     
@@ -127,6 +127,7 @@ define(['app/mwtnTest/mwtnTest.module',
           return 0;
         });
       });
+      data.revision = undefined;
       
     };
 
@@ -154,7 +155,7 @@ define(['app/mwtnTest/mwtnTest.module',
             // console.log(part, JSON.stringify(data));
             airinterface[part] = data.MW_AirInterface_Pac[0].airInterfaceCurrentProblemList;            
           }
-        }
+          data.revision = undefined;        }
       });
     };
 
@@ -190,7 +191,9 @@ define(['app/mwtnTest/mwtnTest.module',
         if ($scope.networkElementId && status[key] && status[key] !== oldValue[key]) {
           // console.log('getdata by status change', $scope.networkElementId, key);
           $mwtnTest.getData($scope.networkElementId, $scope.revision, key, function(data){
-            if (data) {
+            if (!data) {
+              data = {info:'no data received'}
+            }            
               var info = key.split($scope.separator);
               switch (info[0]) {
               case 'ne':
@@ -210,7 +213,6 @@ define(['app/mwtnTest/mwtnTest.module',
                 updateContainer(info[1], data);
                 break;
               }
-            }            
           }); 
         }
       });   

@@ -1,26 +1,81 @@
-<script src="src/app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min.js"></script>
-<div><br/><br/></div>
+<script
+	src="src/app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min.js"></script>
+<div>
+	<br /> <br />
+</div>
 
-  <uib-accordion close-others="oneAtATime">
+<uib-accordion close-others="oneAtATime">
 
-    <div uib-accordion-group class="panel-primary" heading="{{'Required NetworkElements' | translate}}" is-open="status.requiredNes">
-		<div id="requiredNesGrid" ui-grid="requiredNesGridOptions" ui-grid-exporter ui-grid-selection ui-grid-pinning ui-grid-resize-columns ui-grid-move-columns
-		 class="requiredNesGrid"></div>
-<!-- 
-		<div class="text-right">
-		 <br/>
-		 <button type="button" id="addNetconfServer" class="btn btn-primary" ng-click="addNetconfServer()">Add NetConf Server ...</button>
+<div uib-accordion-group class="panel-primary"
+	heading="{{'Required NetworkElements' | translate}}"
+	is-open="status.requiredNes">
+	<div id="requiredNesGrid" ui-grid="requiredNesGridOptions"
+		ui-grid-exporter ui-grid-selection ui-grid-pinning
+		ui-grid-resize-columns ui-grid-move-columns class="requiredNesGrid"></div>
+</div>
+
+<div uib-accordion-group class="panel-default"
+	heading="{{'Unknown NetworkElements' | translate}}"
+	is-open="status.unkownNes">
+	<div id="unknownNesGrid" ui-grid="unknownNesGridOptions"
+		ui-grid-exporter ui-grid-selection ui-grid-pinning
+		ui-grid-resize-columns ui-grid-move-columns class="unknownNesGrid"></div>
+</div>
+
+<div uib-accordion-group class="panel-default"
+	heading="{{'Mount NETCONF Servers (devices, nodes, mediators, controllers, ...)' | translate}}"
+	is-open="status.mount">
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2 text-right">
+				<span>{{'IP address' | translate}}</span>
+			</div>
+			<div class="col-md-4">
+				<input type="text" class="form-control"
+					ng-model="newMountingPoint.ipaddress"></input>
+			</div>
 		</div>
- -->    </div>
+		<div class="row">
+			<div class="col-md-2 text-right">
+				<span>{{'Port' | translate}}</span>
+			</div>
+			<div class="col-md-4">
+				<input type="text" class="form-control"
+					ng-model="newMountingPoint.port"></input>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2 text-right">
+				<span>{{'User name' | translate}}</span>
+			</div>
+			<div class="col-md-4">
+				<input type="text" class="form-control"
+					ng-model="newMountingPoint.username"></input>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2 text-right">
+				<span>{{'Password' | translate}}</span>
+			</div>
+			<div class="col-md-4">
+				<input type="text" class="form-control"
+					ng-model="newMountingPoint.password"></input>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 text-right">
+				<div class="text-right">
+					<br />
+					<button type="button" class="btn btn-primary" ng-click="mount()">Mount!</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</uib-accordion>
 
-    <div uib-accordion-group class="panel-default" heading="{{'Unknown NetworkElements' | translate}}" is-open="status.unkownNes">
-		<div id="unknownNesGrid" ui-grid="unknownNesGridOptions" ui-grid-exporter ui-grid-selection ui-grid-pinning ui-grid-resize-columns ui-grid-move-columns
-		 class="unknownNesGrid"></div>
-    </div>
-
-  </uib-accordion>
-  
 <hr />
 <p>
- <span>Build: @buildtime@</span>
+	<span>Build: @buildtime@</span>
 </p>
