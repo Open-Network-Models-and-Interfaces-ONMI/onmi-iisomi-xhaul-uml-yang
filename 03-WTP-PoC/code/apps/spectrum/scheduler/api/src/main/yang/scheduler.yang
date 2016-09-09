@@ -6,4 +6,54 @@ module scheduler {
     revision "2015-01-05" {
         description "Initial revision of scheduler model";
     }
+
+    rpc execute {
+        input {
+            leaf taskName {
+                type string;
+            }
+            leaf period {
+                type uint64;
+                description "using second as unit";
+            }
+//            container plan {
+//                container repeatByWeek {
+//                    leaf startDate {
+//                        type yang:date-and-time;
+//                    }
+//                    list repeatDays {
+//                        key repeat;
+//                        leaf repeat {
+//                            type enumeration {
+//                                enum "SUN" {
+//                                    value 0;
+//                                }
+//                                enum "MON" {
+//                                    value 1;
+//                                }
+//                                enum "TUE" {
+//                                    value 2;
+//                                }
+//                                enum "WED" {
+//                                    value 3;
+//                                }
+//                                enum "THU" {
+//                                    value 4;
+//                                }
+//                                enum "FRI" {
+//                                    value 5;
+//                                }
+//                                enum "SAT" {
+//                                    value 6;
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//                container repeatByPeriod {
+//                }
+//            }
+        }
+    }
+
 }
