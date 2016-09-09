@@ -9,6 +9,7 @@
 #include "utils.h"
 #include "y_MicrowaveModel-ObjectClasses-AirInterface.h"
 #include "y_MicrowaveModel-ObjectClasses-PureEthernetStructure.h"
+#include "y_MicrowaveModel-ObjectClasses-EthernetContainer.h"
 #include "y_CoreModel-CoreNetworkModule-ObjectClasses.h"
 
 static const char* cb_get_boot_time_airInterfaceCapability_typeOfEquipment(val_value_t *element);
@@ -16,6 +17,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_txFrequencyMin(val_va
 static const char* cb_get_boot_time_airInterfaceCapability_txFrequencyMax(val_value_t *element);
 static const char* cb_get_boot_time_airInterfaceCapability_rxFrequencyMin(val_value_t *element);
 static const char* cb_get_boot_time_airInterfaceCapability_rxFrequencyMax(val_value_t *element);
+
 static const char* cb_get_boot_time_airInterfaceCapability_adaptiveModulationIsAvail(val_value_t *element);
 static const char* cb_get_boot_time_airInterfaceCapability_mimoIsAvail(val_value_t *element);
 static const char* cb_get_boot_time_airInterfaceCapability_mimoChannels(val_value_t *element);
@@ -97,6 +99,30 @@ static const char* cb_get_boot_time_pureEthernetStructure_structureID(val_value_
 
 static const char* cb_get_boot_time_pureEthernetStructure_problemKindSeverity(val_value_t *element);
 
+static const char* cb_get_boot_time_ethernetContainerCapability_bundlingIsAvail(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerCapability_packetCompressionIsAvail(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerCapability_layer2CompressionIsAvail(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerCapability_vlanCompressionIsAvail(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerCapability_qInQCompressionIsAvail(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerCapability_mplsCompressionIsAvail(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerCapability_ipv4CompressionIsAvail(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerCapability_ipv6CompressionIsAvail(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerCapability_layer4CompressionIsAvail(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerCapability_encryptionIsAvail(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerCapability_supportedAlarms(val_value_t *element);
+
+static const char* cb_get_boot_time_ethernetContainerConfiguration_containerID(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerConfiguration_packetCompressionIsOn(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerConfiguration_layer2CompressionIsOn(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerConfiguration_vlanCompressionIsOn(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerConfiguration_qInQCompressionIsOn(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerConfiguration_mplsCompressionIsOn(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerConfiguration_ipv4CompressionIsOn(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerConfiguration_ipv6CompressionIsOn(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerConfiguration_layer4CompressionIsOn(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerConfiguration_encryptionIsOn(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerConfiguration_cryptographicKey(val_value_t *element);
+static const char* cb_get_boot_time_ethernetContainerConfiguration_segmentIdRef(val_value_t *element);
 
 /********************************************************************
 * FUNCTION cb_get_all_air_interface_pac_keys
@@ -416,6 +442,85 @@ status_t cb_get_all_co_channel_group_air_interface_list_id_keys(const char *co_c
 }
 
 /********************************************************************
+* FUNCTION cb_get_all_ethernet_container_pac_keys
+*
+* Get an array representing the keys of MW_AirInterface_Pac list
+*
+* OUTPUTS:
+* char** air_interface_pac_keys_list - an array of strings containing the list of keys
+* int* num_of_keys - the number of keys found (actually the number of interfaces found)
+*
+* RETURNS:
+*     error status
+********************************************************************/
+status_t cb_get_all_ethernet_container_pac_keys(char** ethernet_container_pac_keys_list, int* num_of_keys)
+{
+	*num_of_keys = 0;
+
+	/*
+	 * fill in the actual values for the MW_EthernetContainer_Pac layerProtocol list here. E.g.:
+	 */
+
+	char layerProtocol[256];
+
+	strcpy(layerProtocol, "CONTAINER-TYPE-ETH-ifIndex1");
+
+	ethernet_container_pac_keys_list[*num_of_keys] = (char*) malloc(strlen(layerProtocol) + 1);
+	YUMA_ASSERT(ethernet_container_pac_keys_list[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+
+	strcpy(ethernet_container_pac_keys_list[*num_of_keys], layerProtocol);
+
+	*num_of_keys += 1;
+
+	strcpy(layerProtocol, "CONTAINER-TYPE-ETH-ifIndex2");
+
+	ethernet_container_pac_keys_list[*num_of_keys] = (char*) malloc(strlen(layerProtocol) + 1);
+	YUMA_ASSERT(ethernet_container_pac_keys_list[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+
+	strcpy(ethernet_container_pac_keys_list[*num_of_keys], layerProtocol);
+
+	*num_of_keys += 1;
+
+	return NO_ERR;
+}
+
+/********************************************************************
+* FUNCTION cb_get_all_segment_id_list_keys
+*
+* Get an array representing the keys of problemKindSeverityList list
+*
+* INPUTS:
+* char *air_interface_pac_key - the key of the current interface
+* OUTPUTS:
+* char** problem_kind_severity_list_key_entries - an array of strings containing the list of keys
+* int* num_of_keys - the number of keys found on the interface
+*
+* RETURNS:
+*     error status
+********************************************************************/
+status_t cb_get_all_segment_id_list_keys(const char *air_interface_pac_key, char **segment_id_list_key_entries, int *num_of_keys)
+{
+	*num_of_keys = 0;
+
+	/*
+	 * fill in the actual values for the problemKindSeverityList keys here, using the air_interface_pac_key as a key for finding the relevant information E.g.:
+	 */
+
+	char structureIdRef[256];
+
+	strcpy(structureIdRef, "structure1");
+
+	segment_id_list_key_entries[*num_of_keys] = (char*) malloc(strlen(structureIdRef) + 1);
+	YUMA_ASSERT(segment_id_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+
+	strcpy(segment_id_list_key_entries[*num_of_keys], structureIdRef);
+
+	*num_of_keys += 1;
+
+	return NO_ERR;
+}
+
+/********************************************************************
 * FUNCTION cb_get_boot_time_element_value
 *
 * A general function that calls a specific callback for each attribute, depending on its name
@@ -540,6 +645,10 @@ const char* cb_get_boot_time_element_value(val_value_t *element)
 	{
 		return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_xpicIsAvail(element);
 	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemKindSeverity) == 0)
+	{
+		return cb_get_boot_time_airInterfaceConfiguration_problemKindSeverity(element);
+	}
 	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceName) == 0)
 	{
 		return cb_get_boot_time_airInterfaceConfiguration_airInterfaceName(element);
@@ -655,7 +764,6 @@ const char* cb_get_boot_time_element_value(val_value_t *element)
             return cb_get_boot_time_airInterfaceConfiguration_problemKindSeverity(element);
         }
     }
-
     else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_valueName) == 0)
 	{
 		return cb_get_boot_time_NetworkElement_class_valueName(element);
@@ -715,8 +823,7 @@ const char* cb_get_boot_time_element_value(val_value_t *element)
 
     /* pureEthernetStructure */
 
-
-    if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_structureId) == 0)
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_structureId) == 0)
     {
         return cb_get_boot_time_pureEthernetStructure_structureID(element);
     }
@@ -726,6 +833,101 @@ const char* cb_get_boot_time_element_value(val_value_t *element)
         {
             return cb_get_boot_time_pureEthernetStructure_problemKindSeverity(element);
         }
+	}
+
+    /* ethernetContainer */
+
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_bundlingIsAvail) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerCapability_bundlingIsAvail(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_packetCompressionIsAvail) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerCapability_packetCompressionIsAvail(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_layer2CompressionIsAvail) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerCapability_layer2CompressionIsAvail(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_vlanCompressionIsAvail) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerCapability_vlanCompressionIsAvail(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_qInQCompressionIsAvail) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerCapability_qInQCompressionIsAvail(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_mplsCompressionIsAvail) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerCapability_mplsCompressionIsAvail(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ipv4CompressionIsAvail) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerCapability_ipv4CompressionIsAvail(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ipv6CompressionIsAvail) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerCapability_ipv6CompressionIsAvail(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_layer4CompressionIsAvail) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerCapability_layer4CompressionIsAvail(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_encryptionIsAvail) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerCapability_encryptionIsAvail(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_supportedAlarms) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerCapability_supportedAlarms(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_containerID) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerConfiguration_containerID(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_packetCompressionIsOn) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerConfiguration_packetCompressionIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_layer2CompressionIsOn) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerConfiguration_layer2CompressionIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_vlanCompressionIsOn) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerConfiguration_vlanCompressionIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_qInQCompressionIsOn) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerConfiguration_qInQCompressionIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_mplsCompressionIsOn) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerConfiguration_mplsCompressionIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ipv4CompressionIsOn) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerConfiguration_ipv4CompressionIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ipv6CompressionIsOn) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerConfiguration_ipv6CompressionIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_layer4CompressionIsOn) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerConfiguration_layer4CompressionIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_encryptionIsOn) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerConfiguration_encryptionIsOn(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_cryptographicKey) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerConfiguration_cryptographicKey(element);
+	}
+	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_segmentIdRef) == 0)
+	{
+		return cb_get_boot_time_ethernetContainerConfiguration_segmentIdRef(element);
 	}
 
 	return NULL;
@@ -1780,11 +1982,11 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_problemKindSeverit
 
 	if (strcmp(VAL_STRING(problemKindName), "severity1") == 0)
 	{
-		return "critical";
+		return "non-alarmed";
 	}
 	else if (strcmp(VAL_STRING(problemKindName), "severity2") == 0)
 	{
-		return "major";
+		return "warning";
 	}
 	else if (strcmp(VAL_STRING(problemKindName), "severity3") == 0)
 	{
@@ -1792,15 +1994,15 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_problemKindSeverit
 	}
 	else if (strcmp(VAL_STRING(problemKindName), "severity4") == 0)
 	{
-		return "warning";
+		return "major";
 	}
 	else if (strcmp(VAL_STRING(problemKindName), "severity5") == 0)
 	{
-		return "non-alarmed";
+		return "critical";
 	}
     else if (strcmp(VAL_STRING(problemKindName), "severity6") == 0)
     {
-        return "non-alarmed";
+		return "critical";
     }
 
 	return NULL;
@@ -3135,6 +3337,14 @@ static const char* cb_get_boot_time_NetworkElement_lpList_layerProtocolName(val_
     {
         return "MWS";
     }
+    else if (strcmp(VAL_STRING(lpUuidKey), "CONTAINER-TYPE-ETH-ifIndex1") == 0)
+    {
+        return "ETH-CTP";
+    }
+    else if (strcmp(VAL_STRING(lpUuidKey), "CONTAINER-TYPE-ETH-ifIndex2") == 0)
+    {
+        return "ETH-CTP";
+    }
 
 	return NULL;
 }
@@ -3201,8 +3411,6 @@ static const char* cb_get_boot_time_NetworkElement_lpList_lpDirection(val_value_
 	YUMA_ASSERT(NULL == VAL_STRING(lpUuidKey), return NULL, "Could not access value of the key %s for element %s", ltpUuidKey->name, element->name);
 
     return "BIDIRECTIONAL";
-
-	return NULL;
 }
 
 /********************************************************************
@@ -3384,3 +3592,735 @@ static const char* cb_get_boot_time_pureEthernetStructure_problemKindSeverity(va
 
     return NULL;
 }
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerCapability_bundlingIsAvail
+*
+* Callback function for getting the value of the bundlingIsAvail leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerCapability_bundlingIsAvail(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerCapability_packetCompressionIsAvail
+*
+* Callback function for getting the value of the packetCompressionIsAvail leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerCapability_packetCompressionIsAvail(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerCapability_layer2CompressionIsAvail
+*
+* Callback function for getting the value of the layer2CompressionIsAvail leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerCapability_layer2CompressionIsAvail(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerCapability_vlanCompressionIsAvail
+*
+* Callback function for getting the value of the vlanCompressionIsAvail leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerCapability_vlanCompressionIsAvail(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerCapability_qInQCompressionIsAvail
+*
+* Callback function for getting the value of the qInQCompressionIsAvail leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerCapability_qInQCompressionIsAvail(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerCapability_mplsCompressionIsAvail
+*
+* Callback function for getting the value of the mplsCompressionIsAvail leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerCapability_mplsCompressionIsAvail(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerCapability_ipv4CompressionIsAvail
+*
+* Callback function for getting the value of the ipv4CompressionIsAvail leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerCapability_ipv4CompressionIsAvail(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerCapability_ipv6CompressionIsAvail
+*
+* Callback function for getting the value of the ipv6CompressionIsAvail leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerCapability_ipv6CompressionIsAvail(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerCapability_layer4CompressionIsAvail
+*
+* Callback function for getting the value of the layer4CompressionIsAvail leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerCapability_layer4CompressionIsAvail(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerCapability_encryptionIsAvail
+*
+* Callback function for getting the value of the encryptionIsAvail leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerCapability_encryptionIsAvail(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerCapability_supportedAlarms
+*
+* Callback function for getting the value of the supportedAlarms leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerCapability_supportedAlarms(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerConfiguration_containerID
+*
+* Callback function for getting the value of the containerID leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerConfiguration_containerID(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information. E.g.:
+	 */
+
+	if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex1") == 0)
+	{
+		return "CONTAINER-TYPE-ETH-containerId1";
+	}
+	if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex2") == 0)
+	{
+		return "CONTAINER-TYPE-ETH-containerId2";
+	}
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerConfiguration_packetCompressionIsOn
+*
+* Callback function for getting the value of the packetCompressionIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerConfiguration_packetCompressionIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerConfiguration_layer2CompressionIsOn
+*
+* Callback function for getting the value of the layer2CompressionIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerConfiguration_layer2CompressionIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerConfiguration_vlanCompressionIsOn
+*
+* Callback function for getting the value of the vlanCompressionIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerConfiguration_vlanCompressionIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerConfiguration_qInQCompressionIsOn
+*
+* Callback function for getting the value of the qInQCompressionIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerConfiguration_qInQCompressionIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerConfiguration_mplsCompressionIsOn
+*
+* Callback function for getting the value of the mplsCompressionIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerConfiguration_mplsCompressionIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerConfiguration_ipv4CompressionIsOn
+*
+* Callback function for getting the value of the ipv4CompressionIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerConfiguration_ipv4CompressionIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerConfiguration_ipv6CompressionIsOn
+*
+* Callback function for getting the value of the ipv6CompressionIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerConfiguration_ipv6CompressionIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerConfiguration_layer4CompressionIsOn
+*
+* Callback function for getting the value of the layer4CompressionIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerConfiguration_layer4CompressionIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerConfiguration_encryptionIsOn
+*
+* Callback function for getting the value of the encryptionIsOn leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerConfiguration_encryptionIsOn(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerConfiguration_cryptographicKey
+*
+* Callback function for getting the value of the cryptographicKey leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerConfiguration_cryptographicKey(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+	 */
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerConfiguration_segmentIdRef
+*
+* Callback function for getting the value of the segmentIdRef leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_boot_time_ethernetContainerConfiguration_segmentIdRef(val_value_t *element)
+{
+	val_value_t *lastkey = NULL;
+	val_value_t *layerProtocolKey = NULL;
+
+	val_value_t* parentHavingKey = element->parent;
+
+	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+	/*
+	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information. E.g.:
+	 */
+
+	if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex1") == 0)
+	{
+		return "111";
+	}
+	if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex2") == 0)
+	{
+		return "222";
+	}
+
+	return NULL;
+}
+
