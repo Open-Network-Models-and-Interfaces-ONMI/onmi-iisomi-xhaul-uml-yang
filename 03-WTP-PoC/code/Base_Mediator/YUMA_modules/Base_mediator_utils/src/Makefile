@@ -6,6 +6,7 @@ YUMA_HOME = /home/compila/app/poc2-md/open-yuma/netconf
 CINC = -I../include \
 		-I../../MicrowaveModel-ObjectClasses-AirInterface/src \
 		-I../../MicrowaveModel-ObjectClasses-PureEthernetStructure/src \
+		-I../../MicrowaveModel-ObjectClasses-EthernetContainer/src \
 		-I../../CoreModel-CoreNetworkModule-ObjectClasses/src \
 		-I$(YUMA_HOME)/src/agt -I$(YUMA_HOME)/src/ncx \
 		-I/usr/include -I/usr/include/libxml2 \

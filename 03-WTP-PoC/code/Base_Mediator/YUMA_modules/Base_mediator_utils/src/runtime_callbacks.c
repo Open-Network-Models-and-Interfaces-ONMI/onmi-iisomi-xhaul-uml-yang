@@ -8,6 +8,7 @@
 #include "runtime_callbacks.h"
 #include "y_MicrowaveModel-ObjectClasses-AirInterface.h"
 #include "y_MicrowaveModel-ObjectClasses-PureEthernetStructure.h"
+#include "y_MicrowaveModel-ObjectClasses-EthernetContainer.h"
 
 static const char* cb_get_runtime_airInterfaceStatus_value(val_value_t *element);
 static const char* cb_get_runtime_airInterfaceStatus_txFrequencyCur(val_value_t *element);
@@ -146,6 +147,39 @@ static const char* cb_get_runtime_pureEthernetStructureCurrentProblemList_proble
 static const char* cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemName(val_value_t *element);
 static const char* cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemSeverity(val_value_t *element);
 
+static const char* cb_get_runtime_ethernetContainerCurrentProblem_value(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerCurrentProblem_sequenceNumber(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerCurrentProblem_timeStamp(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerCurrentProblem_problemName(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerCurrentProblem_problemSeverity(val_value_t *element);
+
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_value(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_objectClass(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_nameBinding(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_scannerId(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_granularityPeriod(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_administrativeState(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_suspectIntervalFlag(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_elapsedTime(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_timestamp(val_value_t *element);
+
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesMaxS(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesMaxM(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesSum(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_timePeriod(val_value_t *element);
+
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_value(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_objectClass(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_nameBinding(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_historyDataId(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_periodEndTime(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_granularityPeriod(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_suspectIntervalFlag(val_value_t *element);
+
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesMaxS(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesMaxM(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesSum(val_value_t *element);
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_timePeriod(val_value_t *element);
 
 /********************************************************************
 * FUNCTION cb_get_all_air_interface_current_problem_list_keys
@@ -342,7 +376,42 @@ status_t cb_set_runtime_airInterfaceCurrentPerformance_element_value(val_value_t
 }
 
 /********************************************************************
-* FUNCTION cb_get_runtime_element_value
+* FUNCTION cb_set_runtime_ethernetContainerCurrentPerformance_element_value
+*
+* Set the value of the element received as a parameter with the value that we get from a callback specific to the element.
+* If we do not have a callback implemented for the element, we use the default value from the YANG file.
+*
+* OUTPUTS:
+* val_value_t **element - the element that will have its value changed
+*
+* RETURNS:
+*     error status
+********************************************************************/
+status_t cb_set_runtime_ethernetContainerCurrentPerformance_element_value(val_value_t **element)
+{
+    status_t res = NO_ERR;
+
+    YUMA_ASSERT(NULL == (*element), return ERR_INTERNAL_VAL, "NULL element received");
+
+    //get the element value through the callback
+    const char* elementStringValue = cb_get_runtime_ethernetContainerCurrentPerformance_value(*element);
+
+    if (elementStringValue == NULL) //no callback implemented for this element, just use the default value
+    {
+        elementStringValue = obj_get_default((*element)->obj);
+    }
+
+    if (elementStringValue != NULL)
+    {
+        res = val_set_simval_obj(*element, (*element)->obj, elementStringValue);
+        YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "val_set_simval_obj %s failed!", (*element)->name);
+    }
+
+    return NO_ERR;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_air_interface_element_value
 *
 * A general function that calls a specific callback for each attribute, depending on its name
 *
@@ -352,7 +421,7 @@ status_t cb_set_runtime_airInterfaceCurrentPerformance_element_value(val_value_t
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-const char* cb_get_runtime_element_value(val_value_t *element)
+const char* cb_get_runtime_air_interface_element_value(val_value_t *element)
 {
     if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceCurrentProblems) == 0))
     {
@@ -775,7 +844,104 @@ const char* cb_get_runtime_element_value(val_value_t *element)
             return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_timePeriod(element);
         }
     }
+    return NULL;
+}
 
+/********************************************************************
+* FUNCTION cb_get_runtime_pure_ethernet_structure_element_value
+*
+* A general function that calls a specific callback for each attribute, depending on its name
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+const char* cb_get_runtime_pure_ethernet_structure_element_value(val_value_t *element)
+{
+    if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_pureEthernetStructureCurrentProblems) == 0))
+    {
+        if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_timeStamp) == 0)
+        {
+            return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_timeStamp(element);
+        }
+        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemName) == 0)
+        {
+            return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemName(element);
+        }
+        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemSeverity) == 0)
+        {
+            return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemSeverity(element);
+        }
+    }
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernet_container_element_value
+*
+* A general function that calls a specific callback for each attribute, depending on its name
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+const char* cb_get_runtime_ethernet_container_element_value(val_value_t *element)
+{
+    if (element->parent && (strcmp(element->parent->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_currentProblemList) == 0))
+    {
+        return cb_get_runtime_ethernetContainerCurrentProblem_value(element);
+    }
+    else if (element->parent && (strcmp(element->parent->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_currentPerformanceDataList) == 0))
+    {
+        return cb_get_runtime_ethernetContainerCurrentPerformance_value(element);
+    }
+    else if (element->parent && (strcmp(element->parent->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_historicalPerformanceDataList) == 0))
+    {
+        return cb_get_runtime_ethernetContainerHistoricalPerformances_value(element);
+    }
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_element_value
+*
+* A general function that calls a specific callback for each attribute, depending on its name
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+const char* cb_get_runtime_element_value(val_value_t *element)
+{
+    val_value_t *parent = element->parent;
+    int loopNb;
+
+    for(loopNb=0;loopNb<10;loopNb++)
+    {
+        if( !parent )
+            break;
+
+        if( strcmp( parent->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_MW_AirInterface_Pac) == 0 )
+        {
+            return cb_get_runtime_air_interface_element_value(element);
+        }
+        else if( strcmp( parent->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_MW_PureEthernetStructure_Pac) == 0 )
+        {
+            return cb_get_runtime_pure_ethernet_structure_element_value(element);
+        }
+        else if( strcmp( parent->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_MW_EthernetContainer_Pac) == 0 )
+        {
+            return cb_get_runtime_ethernet_container_element_value(element);
+        }
+
+        parent = parent->parent;
+    }
     return NULL;
 }
 
@@ -5698,3 +5864,1405 @@ static const char* cb_get_runtime_pureEthernetStructureCurrentProblemList_proble
 
 	return NULL;
 }
+
+
+/********************************************************************
+* FUNCTION cb_get_all_ethernet_container_current_problem_list_keys
+*
+* Get an array representing the keys of currentProblemList list
+*
+* INPUTS:
+* char *air_interface_pac_key - the key of the current interface
+* OUTPUTS:
+* char** ethernet_container_current_problem_list_key_entries - an array of strings containing the list of keys
+* int* num_of_keys - the number of keys found on the interface
+*
+* RETURNS:
+*     error status
+********************************************************************/
+status_t cb_get_all_ethernet_container_current_problem_list_keys(char *ethernet_container_pac_key, char** current_problem_list_key_entries, int* num_of_keys)
+{
+    *num_of_keys = 0;
+
+    char sequenceNumber[256];
+
+    strcpy(sequenceNumber, "1");
+
+    current_problem_list_key_entries[*num_of_keys] = (char*) malloc(strlen(sequenceNumber) + 1);
+    YUMA_ASSERT(current_problem_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+
+    strcpy(current_problem_list_key_entries[*num_of_keys], sequenceNumber);
+
+    *num_of_keys += 1;
+
+    strcpy(sequenceNumber, "2");
+
+    current_problem_list_key_entries[*num_of_keys] = (char*) malloc(strlen(sequenceNumber) + 1);
+    YUMA_ASSERT(current_problem_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+
+    strcpy(current_problem_list_key_entries[*num_of_keys], sequenceNumber);
+
+    *num_of_keys += 1;
+
+    return NO_ERR;
+}
+
+/********************************************************************
+* FUNCTION cb_get_all_ethernet_container_current_performance_list_keys
+*
+* Get an array representing the keys of historicalPerformanceDataList list
+*
+* INPUTS:
+* char *ethernet_container_pac_key - the key of the current interface
+* OUTPUTS:
+* char** ethernet_container_current_performance_list_keys_entries - an array of strings containing the list of keys
+* int* num_of_keys - the number of keys found on the interface
+*
+* RETURNS:
+*     error status
+********************************************************************/
+status_t cb_get_all_ethernet_container_current_performance_list_keys(char *ethernet_container_pac_key, char **current_performance_data_list_keys_entries, int *num_of_keys)
+{
+    *num_of_keys = 0;
+
+    char scannerId[256];
+
+    strcpy(scannerId, "current15m");
+
+    current_performance_data_list_keys_entries[*num_of_keys] = (char*) malloc(strlen(scannerId) + 1);
+    YUMA_ASSERT(current_performance_data_list_keys_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+
+    strcpy(current_performance_data_list_keys_entries[*num_of_keys], scannerId);
+
+    *num_of_keys += 1;
+
+    strcpy(scannerId, "current24h");
+
+    current_performance_data_list_keys_entries[*num_of_keys] = (char*) malloc(strlen(scannerId) + 1);
+    YUMA_ASSERT(current_performance_data_list_keys_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+
+    strcpy(current_performance_data_list_keys_entries[*num_of_keys], scannerId);
+
+    *num_of_keys += 1;
+
+    return NO_ERR;
+}
+
+/********************************************************************
+* FUNCTION cb_get_all_ethernet_container_historical_performance_list_keys
+*
+* Get an array representing the keys of historicalPerformanceDataList list
+*
+* INPUTS:
+* char *ethernet_container_pac_key - the key of the current interface
+* OUTPUTS:
+* char** ethernet_container_historical_performance_list_keys_entries - an array of strings containing the list of keys
+* int* num_of_keys - the number of keys found on the interface
+*
+* RETURNS:
+*     error status
+********************************************************************/
+status_t cb_get_all_ethernet_container_historical_performance_list_keys(char *ethernet_container_pac_key, char **historical_performance_data_list_keys_entries, int *num_of_keys)
+{
+    *num_of_keys = 0;
+
+    char historyDataId[256];
+
+    strcpy(historyDataId, "historyDataId_1");
+
+    historical_performance_data_list_keys_entries[*num_of_keys] = (char*) malloc(strlen(historyDataId) + 1);
+    YUMA_ASSERT(historical_performance_data_list_keys_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+
+    strcpy(historical_performance_data_list_keys_entries[*num_of_keys], historyDataId);
+
+    *num_of_keys += 1;
+
+    strcpy(historyDataId, "historyDataId_2");
+
+    historical_performance_data_list_keys_entries[*num_of_keys] = (char*) malloc(strlen(historyDataId) + 1);
+    YUMA_ASSERT(historical_performance_data_list_keys_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+
+    strcpy(historical_performance_data_list_keys_entries[*num_of_keys], historyDataId);
+
+    *num_of_keys += 1;
+
+    return NO_ERR;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerCurrentPerformance_value
+*
+* A general function that calls a specific callback for each attribute, depending on its name
+*
+* INPUTS:
+* val_value_t *element - the element for which we need its value
+*
+* RETURNS:
+*     the value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_value(val_value_t *element)
+{
+    if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_objectClass) == 0)
+    {
+        return cb_get_runtime_ethernetContainerCurrentPerformance_objectClass(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_nameBinding) == 0)
+    {
+        return cb_get_runtime_ethernetContainerCurrentPerformance_nameBinding(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_scannerId) == 0)
+    {
+        return cb_get_runtime_ethernetContainerCurrentPerformance_scannerId(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_granularityPeriod) == 0)
+    {
+        return cb_get_runtime_ethernetContainerCurrentPerformance_granularityPeriod(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_administrativeState) == 0)
+    {
+        return cb_get_runtime_ethernetContainerCurrentPerformance_administrativeState(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_suspectIntervalFlag) == 0)
+    {
+        return cb_get_runtime_ethernetContainerCurrentPerformance_suspectIntervalFlag(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_elapsedTime) == 0)
+    {
+        return cb_get_runtime_ethernetContainerCurrentPerformance_elapsedTime(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_timestamp) == 0)
+    {
+        return cb_get_runtime_ethernetContainerCurrentPerformance_timestamp(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_txEthernetBytesMaxS) == 0)
+    {
+        return cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesMaxS(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_txEthernetBytesMaxM) == 0)
+    {
+        return cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesMaxM(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_txEthernetBytesSum) == 0)
+    {
+        return cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesSum(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_timePeriod) == 0)
+    {
+        return cb_get_runtime_ethernetContainerCurrentPerformance_timePeriod(element);
+    }
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerCurrentPerformance_objectClass
+*
+* Callback function for getting the value of the objectClass leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_objectClass(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *scannerId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    scannerId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == scannerId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(scannerId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
+     */
+
+    if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex1") == 0)
+    {
+        if (strcmp(VAL_STRING(scannerId), "current15m") == 0)
+        {
+            return "obj1";
+        }
+        else if (strcmp(VAL_STRING(scannerId), "current24h") == 0)
+        {
+            return "obj2";
+        }
+    }
+    else if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex2") == 0)
+    {
+        if (strcmp(VAL_STRING(scannerId), "current15m") == 0)
+        {
+            return "obj3";
+        }
+        else if (strcmp(VAL_STRING(scannerId), "current24h") == 0)
+        {
+            return "obj4";
+        }
+    }
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerCurrentPerformance_nameBinding
+*
+* Callback function for getting the value of the nameBinding leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_nameBinding(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *scannerId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    scannerId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == scannerId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(scannerId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+    if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex1") == 0)
+    {
+        if (strcmp(VAL_STRING(scannerId), "current15m") == 0)
+        {
+            return "uuid1";
+        }
+        else if (strcmp(VAL_STRING(scannerId), "current24h") == 0)
+        {
+            return "uuid2";
+        }
+    }
+    else if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex2") == 0)
+    {
+        if (strcmp(VAL_STRING(scannerId), "current15m") == 0)
+        {
+            return "uuid3";
+        }
+        else if (strcmp(VAL_STRING(scannerId), "current24h") == 0)
+        {
+            return "uuid4";
+        }
+    }
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerCurrentPerformance_scannerId
+*
+* Callback function for getting the value of the scannerId leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_scannerId(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *scannerId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    scannerId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == scannerId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(scannerId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerCurrentPerformance_granularityPeriod
+*
+* Callback function for getting the value of the granularityPeriod leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_granularityPeriod(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *scannerId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    scannerId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == scannerId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(scannerId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+
+    if (strcmp(VAL_STRING(scannerId), "current15m") == 0)
+    {
+        return "PERIOD_15MIN";
+    }
+    else if (strcmp(VAL_STRING(scannerId), "current24h") == 0)
+    {
+        return "PERIOD_24HOURS";
+    }
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerCurrentPerformance_administrativeState
+*
+* Callback function for getting the value of the administrativeState leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_administrativeState(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *scannerId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    scannerId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == scannerId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(scannerId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+    if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex1") == 0)
+    {
+        return "LOCKED";
+    }
+    else if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex2") == 0)
+    {
+        return "UNLOCKED";
+    }
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerCurrentPerformance_suspectIntervalFlag
+*
+* Callback function for getting the value of the suspectIntervalFlag leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_suspectIntervalFlag(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *scannerId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    scannerId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == scannerId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(scannerId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerCurrentPerformance_elapsedTime
+*
+* Callback function for getting the value of the timestamp leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_elapsedTime(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *scannerId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    scannerId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == scannerId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(scannerId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerCurrentPerformance_timestamp
+*
+* Callback function for getting the value of the timestamp leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_timestamp(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *scannerId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    scannerId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == scannerId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(scannerId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+
+    return "20101120140000.0Z+1";
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesMaxS
+*
+* Callback function for getting the value of the timestamp leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesMaxS(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *scannerId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    scannerId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == scannerId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(scannerId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesMaxM
+*
+* Callback function for getting the value of the timestamp leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesMaxM(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *scannerId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    scannerId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == scannerId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(scannerId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesSum
+*
+* Callback function for getting the value of the timestamp leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesSum(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *scannerId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    scannerId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == scannerId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(scannerId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerCurrentPerformance_timePeriod
+*
+* Callback function for getting the value of the timestamp leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerCurrentPerformance_timePeriod(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *scannerId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    scannerId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == scannerId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(scannerId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerHistoricalPerformances_value
+*
+* A general function that calls a specific callback for each attribute, depending on its name
+*
+* INPUTS:
+* val_value_t *element - the element for which we need its value
+*
+* RETURNS:
+*     the value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_value(val_value_t *element)
+{
+    if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_objectClass) == 0)
+    {
+        return cb_get_runtime_ethernetContainerHistoricalPerformances_objectClass(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_nameBinding) == 0)
+    {
+        return cb_get_runtime_ethernetContainerHistoricalPerformances_nameBinding(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_historyDataId) == 0)
+    {
+        return cb_get_runtime_ethernetContainerHistoricalPerformances_historyDataId(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_periodEndTime) == 0)
+    {
+        return cb_get_runtime_ethernetContainerHistoricalPerformances_periodEndTime(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_granularityPeriod) == 0)
+    {
+        return cb_get_runtime_ethernetContainerHistoricalPerformances_granularityPeriod(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_suspectIntervalFlag) == 0)
+    {
+        return cb_get_runtime_ethernetContainerHistoricalPerformances_suspectIntervalFlag(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_txEthernetBytesMaxS) == 0)
+    {
+        return cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesMaxS(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_txEthernetBytesMaxM) == 0)
+    {
+        return cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesMaxM(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_txEthernetBytesSum) == 0)
+    {
+        return cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesSum(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_timePeriod) == 0)
+    {
+        return cb_get_runtime_ethernetContainerHistoricalPerformances_timePeriod(element);
+    }
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_set_runtime_ethernetContainerHistoricalPerformance_element_value
+*
+* Set the value of the element received as a parameter with the value that we get from a callback specific to the element.
+* If we do not have a callback implemented for the element, we use the default value from the YANG file.
+*
+* OUTPUTS:
+* val_value_t **element - the element that will have its value changed
+*
+* RETURNS:
+*     error status
+********************************************************************/
+status_t cb_set_runtime_ethernetContainerHistoricalPerformance_element_value(val_value_t **element)
+{
+    status_t res = NO_ERR;
+
+    YUMA_ASSERT(NULL == (*element), return ERR_INTERNAL_VAL, "NULL element received");
+
+    //get the element value through the callback
+    const char* elementStringValue = cb_get_runtime_ethernetContainerHistoricalPerformances_value(*element);
+
+    if (elementStringValue == NULL) //no callback implemented for this element, just use the default value
+    {
+        elementStringValue = obj_get_default((*element)->obj);
+    }
+
+    if (elementStringValue != NULL)
+    {
+        res = val_set_simval_obj(*element, (*element)->obj, elementStringValue);
+        YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "val_set_simval_obj %s failed!", (*element)->name);
+    }
+
+    return NO_ERR;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerHistoricalPerformances_objectClass
+*
+* Callback function for getting the value of the objectClass leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_objectClass(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *historyDataId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    historyDataId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == historyDataId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(historyDataId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
+     */
+
+    if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex1") == 0)
+    {
+        if (strcmp(VAL_STRING(historyDataId), "historyDataId_1") == 0)
+        {
+            return "obj-1.1";
+        }
+        else if (strcmp(VAL_STRING(historyDataId), "historyDataId_2") == 0)
+        {
+            return "obj-1.2";
+        }
+    }
+    else if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex2") == 0)
+    {
+        if (strcmp(VAL_STRING(historyDataId), "historyDataId_1") == 0)
+        {
+            return "obj-2.1";
+        }
+        else if (strcmp(VAL_STRING(historyDataId), "historyDataId_2") == 0)
+        {
+            return "obj-2.2";
+        }
+    }
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerHistoricalPerformances_nameBinding
+*
+* Callback function for getting the value of the nameBinding leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_nameBinding(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *historyDataId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    historyDataId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == historyDataId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(historyDataId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+    if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex1") == 0)
+    {
+        if (strcmp(VAL_STRING(historyDataId), "historyDataId_1") == 0)
+        {
+            return "uuid-1.1";
+        }
+        else if (strcmp(VAL_STRING(historyDataId), "historyDataId_2") == 0)
+        {
+            return "uuid-1.2";
+        }
+    }
+    else if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex2") == 0)
+    {
+        if (strcmp(VAL_STRING(historyDataId), "historyDataId_1") == 0)
+        {
+            return "uuid-2.1";
+        }
+        else if (strcmp(VAL_STRING(historyDataId), "historyDataId_2") == 0)
+        {
+            return "uuid-2.2";
+        }
+    }
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerHistoricalPerformances_historyDataId
+*
+* Callback function for getting the value of the historyDataId leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_historyDataId(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *historyDataId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    historyDataId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == historyDataId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(historyDataId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerHistoricalPerformances_periodEndTime
+*
+* Callback function for getting the value of the periodEndTime leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_periodEndTime(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *historyDataId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    historyDataId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == historyDataId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(historyDataId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+
+    return "20161120140000.0Z+1";
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerHistoricalPerformances_granularityPeriod
+*
+* Callback function for getting the value of the granularityPeriod leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_granularityPeriod(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *historyDataId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    historyDataId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == historyDataId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(historyDataId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+
+    if (strcmp(VAL_STRING(historyDataId), "historyDataId_1") == 0)
+    {
+        return "PERIOD_15MIN";
+    }
+    else if (strcmp(VAL_STRING(historyDataId), "historyDataId_2") == 0)
+    {
+        return "PERIOD_24HOURS";
+    }
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerHistoricalPerformances_suspectIntervalFlag
+*
+* Callback function for getting the value of the suspectIntervalFlag leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_suspectIntervalFlag(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *historyDataId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    historyDataId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == historyDataId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(historyDataId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesMaxS
+*
+* Callback function for getting the value of the timestamp leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesMaxS(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *historyDataId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    historyDataId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == historyDataId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(historyDataId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesMaxM
+*
+* Callback function for getting the value of the timestamp leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesMaxM(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *historyDataId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    historyDataId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == historyDataId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(historyDataId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesSum
+*
+* Callback function for getting the value of the timestamp leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesSum(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *historyDataId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    historyDataId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == historyDataId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(historyDataId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerHistoricalPerformances_timePeriod
+*
+* Callback function for getting the value of the timestamp leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerHistoricalPerformances_timePeriod(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *historyDataId = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    historyDataId = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == historyDataId, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(historyDataId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerCurrentProblem_value
+*
+* A general function that calls a specific callback for each attribute, depending on its name
+*
+* INPUTS:
+* val_value_t *element - the element for which we need its value
+*
+* RETURNS:
+*     the value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerCurrentProblem_value(val_value_t *element)
+{
+    if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_timeStamp) == 0)
+    {
+        return cb_get_runtime_ethernetContainerCurrentProblem_timeStamp(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_problemName) == 0)
+    {
+        return cb_get_runtime_ethernetContainerCurrentProblem_problemName(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_problemSeverity) == 0)
+    {
+        return cb_get_runtime_ethernetContainerCurrentProblem_problemSeverity(element);
+    }
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_set_runtime_ethernetContainerCurrentProblem_element_value
+*
+* Set the value of the element received as a parameter with the value that we get from a callback specific to the element.
+* If we do not have a callback implemented for the element, we use the default value from the YANG file.
+*
+* OUTPUTS:
+* val_value_t **element - the element that will have its value changed
+*
+* RETURNS:
+*     error status
+********************************************************************/
+status_t cb_set_runtime_ethernetContainerCurrentProblem_element_value(val_value_t **element)
+{
+    status_t res = NO_ERR;
+
+    YUMA_ASSERT(NULL == (*element), return ERR_INTERNAL_VAL, "NULL element received");
+
+    //get the element value through the callback
+    const char* elementStringValue = cb_get_runtime_ethernetContainerCurrentProblem_value(*element);
+
+    if (elementStringValue == NULL) //no callback implemented for this element, just use the default value
+    {
+        elementStringValue = obj_get_default((*element)->obj);
+    }
+
+    if (elementStringValue != NULL)
+    {
+        res = val_set_simval_obj(*element, (*element)->obj, elementStringValue);
+        YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "val_set_simval_obj %s failed!", (*element)->name);
+    }
+
+    return NO_ERR;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerCurrentProblem_timeStamp
+*
+* Callback function for getting the value of the timestamp leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerCurrentProblem_timeStamp(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *sequenceNumberKey = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    sequenceNumberKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == sequenceNumberKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(sequenceNumberKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+    if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex1") == 0)
+    {
+        if (VAL_INT(sequenceNumberKey) == 1)
+        {
+            return "20160822133005.0";
+        }
+        if (VAL_INT(sequenceNumberKey) == 2)
+        {
+            return "20160822133105.0";
+        }
+     }
+     else if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex2") == 0)
+     {
+        if (VAL_INT(sequenceNumberKey) == 1)
+        {
+            return "20160822133122.0";
+        }
+        if (VAL_INT(sequenceNumberKey) == 2)
+        {
+            return "20160822133522.0";
+        }
+     }
+
+     return NULL;
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerCurrentProblem_problemName
+*
+* Callback function for getting the value of the timestamp leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerCurrentProblem_problemName(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *sequenceNumberKey = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    sequenceNumberKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == sequenceNumberKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(sequenceNumberKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+    if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex1") == 0)
+    {
+        if (VAL_INT(sequenceNumberKey) == 1)
+        {
+            return "capacityIsLowerThanConfigured";
+        }
+        if (VAL_INT(sequenceNumberKey) == 2)
+        {
+            return "capacityIsEqualToMinimumValue";
+        }
+    }
+    else if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex2") == 0)
+    {
+        if (VAL_INT(sequenceNumberKey) == 1)
+        {
+            return "capacityIsLowerThanConfigured";
+        }
+        if (VAL_INT(sequenceNumberKey) == 2)
+        {
+            return "capacityIsEqualToMinimumValue";
+        }
+    }
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerCurrentProblem_problemSeverity
+*
+* Callback function for getting the value of the timestamp leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static const char* cb_get_runtime_ethernetContainerCurrentProblem_problemSeverity(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *sequenceNumberKey = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    sequenceNumberKey = agt_get_key_value(parentHavingKey, &lastkey);
+    YUMA_ASSERT(NULL == sequenceNumberKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(sequenceNumberKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+    if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex1") == 0)
+    {
+        if (VAL_INT(sequenceNumberKey) == 1)
+        {
+            return "critical";
+        }
+        if (VAL_INT(sequenceNumberKey) == 2)
+        {
+            return "warning";
+        }
+    }
+    else if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex2") == 0)
+    {
+        if (VAL_INT(sequenceNumberKey) == 1)
+        {
+            return "critical";
+        }
+        if (VAL_INT(sequenceNumberKey) == 2)
+        {
+            return "critical";
+        }
+    }
+
+    return NULL;
+}
+
