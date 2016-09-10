@@ -40,7 +40,7 @@ module MicrowaveModel-ObjectClasses-AirInterfaceHsb {
         }
         leaf endpoint {
             type leafref {
-                path '/CoreModel-CoreNetworkModule-ObjectClasses:ForwardingConstruct/CoreModel-CoreNetworkModule-ObjectClasses:_fcPortList/CoreModel-CoreNetworkModule-ObjectClasses:uuid';
+                path '/CoreModel-CoreNetworkModule-ObjectClasses:ForwardingConstruct/CoreModel-CoreNetworkModule-ObjectClasses:uuid';
             }
         }
     }
@@ -66,7 +66,7 @@ module MicrowaveModel-ObjectClasses-AirInterfaceHsb {
         }
         leaf fcswitch {
             type leafref {
-                path '/CoreModel-CoreNetworkModule-ObjectClasses:ForwardingConstruct/CoreModel-CoreNetworkModule-ObjectClasses:_fcSwitchList/CoreModel-CoreNetworkModule-ObjectClasses:uuid';
+                path '/CoreModel-CoreNetworkModule-ObjectClasses:ForwardingConstruct/CoreModel-CoreNetworkModule-ObjectClasses:uuid';
             }
         }
     }
