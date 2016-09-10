@@ -9,8 +9,9 @@
 define(['angularAMD', 
         'app/routingConfig', 
         'app/core/core.services', 
-        'common/config/env.module'], function(ng) {
-  var mwtnTestApp = angular.module('app.mwtnTest', ['app.core', 'ui.router.state','config']);
+        'common/config/env.module',
+        'app/mwtnCommons/mwtnCommons.module'], function(ng) {
+  var mwtnTestApp = angular.module('app.mwtnTest', ['ui.grid', 'ui.bootstrap', 'app.core', 'ui.router.state', 'config']);
 
   mwtnTestApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $translateProvider) {
     mwtnTestApp.register = {
