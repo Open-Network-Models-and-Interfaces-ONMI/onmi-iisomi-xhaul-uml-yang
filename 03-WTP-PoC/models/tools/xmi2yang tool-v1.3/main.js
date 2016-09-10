@@ -22,7 +22,7 @@ var defaults = {
     revision:     [{
       date: new Date().toISOString().split('T')[0],
       description: 'Initial revision.',
-      reference: 'ONF TR xyz: A YANG Data Model for Microwave Transport Networks.'
+      reference: 'ONF TR 532: A YANG Data Model for Microwave Transport Networks.'
     }],
     description: 'This module contains a collection of YANG definitions for \r\n         managing microwave transport networks.'
 };
@@ -95,7 +95,7 @@ function main_Entrance(){
                       log('INFO ', "There is no .xml file in 'project' directory! Please check your files path")
                     }else{
                         addKey();//deal with the key for every class
-                        //if the class's value of aggregation is omposite,the class don't need to be instantiated individually
+                        //if the class's value of aggregation is composite,the class don't need to be instantiated individually
                         for(var i=0;i<Class.length;i++){
                             pflag=Class[i].id;
                             var path=addPath(Class[i].id);
