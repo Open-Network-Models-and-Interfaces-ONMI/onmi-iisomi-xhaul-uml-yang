@@ -28,6 +28,7 @@
   <feature name="odl-mwtn-ux-connect" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Connect">
     <feature version="${dlux.version}">odl-dlux-all</feature>
     <feature version="${elasticsearch.version}">elasticsearch</feature>
+    <bundle>mvn:org.opendaylight.mwtn/devicemodel/${project.version}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnCommons-bundle/${project.version}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/${project.version}</bundle>
   </feature>

@@ -11,7 +11,7 @@
   <groupId>org.opennetworking.otwg.wtp</groupId>
   <artifactId>apps</artifactId>
 
-  <name>ONF :: Microwave Transport Network :: 3. POC Apps</name>
+  <name>ODL :: Microwave Transport Network :: 3. POC Apps</name>
   <packaging>pom</packaging>
 
   <prerequisites>
@@ -20,6 +20,12 @@
 
 
   <modules>
+    <!-- modified Wipro Apps from 2. PoC -->
+ 	<module>commons/config-parent</module>
+	<module>commons/binding-parent</module>
+	<module>commons/configuration</module>
+    <module>devicemodel</module>
+    <!-- 3. PoC -->
     <module>closedLoopAutomation</module>
   </modules>
 

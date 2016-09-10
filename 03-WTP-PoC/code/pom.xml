@@ -7,7 +7,7 @@
   <artifactId>poc03</artifactId>
   <version>0.3.0-SNAPSHOT</version>
 
-  <name>ONF :: Microwave Transport Network :: 3. POC</name>
+  <name>ODL :: Microwave Transport Network :: 3. POC</name>
   <packaging>pom</packaging>
 
   <prerequisites>
@@ -15,6 +15,7 @@
   </prerequisites>
 
   <modules>
+    <module>../../02-MWTN-PoC/code/odl/devicemodel</module>
     <module>apps</module>
     <module>ux</module>
     <module>features</module>
