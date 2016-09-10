@@ -75,7 +75,7 @@ The LTPs that bound the FD provide capacity for forwarding.";
         key 'uuid';
         config true;
         ordered-by system;
-        uses ForwardingConstruct;
+        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:GlobalClass;
     }
     grouping ForwardingConstruct {
         description "The ForwardingConstruct (FC) object class models enabled potential for forwarding between two or more LTPs at a particular specific layerProtocol.
