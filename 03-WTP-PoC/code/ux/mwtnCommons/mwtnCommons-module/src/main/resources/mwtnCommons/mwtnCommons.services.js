@@ -65,8 +65,8 @@ define(
         };
         
         service.mount = function(mp, callback) {
-          // mp means mounting point
-
+          // mp: mounting point
+          var url = [ service.base, service.url.mount()].join('');
           var xml = [
             '<module xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">',
             '<type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">prefix:sal-netconf-connector</type>',
@@ -99,10 +99,24 @@ define(
             '<keepalive-executor xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">',
             '  <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:threadpool">prefix:scheduled-threadpool</type>',
             '  <name>global-netconf-ssh-scheduled-executor</name>',
-            '</keepalive-executor>', '</module>' ].join('').format(mp.name, mp.ipaddress, mp.port, mp.username, mp.passworf);
+            '</keepalive-executor>', 
+            '</module>' ].join('').format(mp.name, mp.ipaddress, mp.port, mp.username, mp.password);
 
-          
-            return callback(xml);
+            var request = {
+              method : 'POST',
+              url : url,
+              headers: {
+                'Content-Type': 'application/xml',
+                'Accept': 'application/xml'
+              },
+              data : xml
+            };
+            $http(request).then(function successCallback(response) {
+              return callback(response);
+            }, function errorCallback(response) {
+              console.error(JSON.stringify(response));
+              return callback();
+            });
         };
 
         service.getSchema = function(callback) {
@@ -149,6 +163,9 @@ define(
         service.url = {
           actualNetworkElements : function() {
             return 'operational/network-topology:network-topology/topology/topology-netconf';
+          },
+          mount : function() {
+            return 'config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules';
           },
           actualNetworkElement : function(neId, revision) {
             switch (revision) {

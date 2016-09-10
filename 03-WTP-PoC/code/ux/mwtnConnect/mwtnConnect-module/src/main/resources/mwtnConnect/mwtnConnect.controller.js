@@ -13,8 +13,8 @@ define(['app/mwtnConnect/mwtnConnect.module',
         'app/mwtnCommons/bower_components/angular-bootstrap/ui-bootstrap-tpls.min'], 
         function(mwtnConnectApp) {
 
-  mwtnConnectApp.register.controller('mwtnConnectCtrl', ['$scope', '$rootScope', '$http', '$mwtnConnect', '$mwtnCommons', '$mwtnLog', 'uiGridConstants', '$uibModal', 'NetConfServer', 
-                                                         function($scope, $rootScope, $http, $mwtnConnect, $mwtnCommons, $mwtnLog, uiGridConstants, $uibModal, NetConfServer) {
+  mwtnConnectApp.register.controller('mwtnConnectCtrl', ['$scope', '$rootScope', '$q', '$mwtnConnect', '$mwtnCommons', '$mwtnLog', 'uiGridConstants', '$uibModal', 'NetConfServer', 
+                                                         function($scope, $rootScope, $q, $mwtnConnect, $mwtnCommons, $mwtnLog, uiGridConstants, $uibModal, NetConfServer) {
 
     var COMPONENT = 'mwtnConnectCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnConnectCtrl started!'});
@@ -126,7 +126,6 @@ define(['app/mwtnConnect/mwtnConnect.module',
         });
       });
     }; 
-    getActualNetworkElements();
     
     $scope.netconfServer = {};
     $scope.addToRequiredNetworkElements = function (netconfServer) {
@@ -161,7 +160,13 @@ define(['app/mwtnConnect/mwtnConnect.module',
     $scope.mount = function() {
       console.log(11, JSON.stringify($scope.newMountingPoint));
       $mwtnConnect.mount($scope.newMountingPoint, function(data) {
-        console.log(data);
+        if (!data) {
+          $scope.mountError = ['NETCONF server', $scope.newMountingPoint.name, 'chould not be mounted.'].join(' ');
+          $scope.mountSuccess = undefined;
+        } else {
+          $scope.mountError = undefined;
+          $scope.mountSuccess = ['NETCONF server', $scope.newMountingPoint.name, 'successfully mounted.'].join(' ');
+        }
       });
     };
     
@@ -191,6 +196,27 @@ define(['app/mwtnConnect/mwtnConnect.module',
       console.info(JSON.stringify(row));
     };
     
+    // events
+    $scope.status = {requiredNes : true};
+    $scope.separator = $mwtnCommons.separator; //'&nbsp;'
+    $scope.$watch('status', function(status, oldValue) {
+      Object.keys(status).map(function(key){
+        if (status[key] && status[key] !== oldValue[key]) {
+          switch (key) {
+          case 'requiredNes':
+            getActualNetworkElements();
+            break;
+          case 'unkownNes':
+            getActualNetworkElements();
+            break;
+          case 'mount':
+            $scope.mountSuccess = undefined;
+            $scope.mountError = undefined;
+            break;
+          }
+        }
+      });
+    }, true);
   }]);
 
   mwtnConnectApp.register.controller('AddToRequiredMessageCtrl', ['$scope', '$uibModalInstance', '$mwtnDatabase', 'netconfServer', function ($scope, $uibModalInstance, $mwtnDatabase, netconfServer) {
