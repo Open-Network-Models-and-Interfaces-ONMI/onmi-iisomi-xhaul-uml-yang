@@ -42,7 +42,7 @@ module MicrowaveModel-ObjectClasses-AirInterfaceDiversity {
             type leafref {
                 path '/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:_lpList/CoreModel-CoreNetworkModule-ObjectClasses:uuid';
             }
-            description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
+            description "";
         }
         container airInterfaceDiversityCapability {
             config false;
@@ -91,7 +91,7 @@ module MicrowaveModel-ObjectClasses-AirInterfaceDiversity {
             uses MicrowaveModel-TypeDefinitions:diversityType;
         }
         leaf-list airInterfaceLtpList {
-            description "_multiplicity:2-ThisAirInterfaceDiversity::AirInterfaceDiversityConfiguration::airInterfaceDiversity::diversityType::numberOfAirInterfacesMax";
+            description "";
             ordered-by system;
             type leafref {
                 path '/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:uuid';
