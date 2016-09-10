@@ -36,13 +36,6 @@ module G_874_1_model-Imported_Information_Object_Classes-Q_822 {
         reference 
             "ONF TR xyz: A YANG Data Model for Microwave Transport Networks."; 
     }
-
-    list Q_822_CurrentData {
-        key 'scannerId';
-        config true;
-        ordered-by system;
-        uses Q_822_CurrentData;
-    }
     grouping Q_822_CurrentData {
         uses G_874_1_model-Imported_Information_Object_Classes-X_739:X_739_Scanner;
         leaf suspectIntervalFlag {
@@ -53,12 +46,6 @@ module G_874_1_model-Imported_Information_Object_Classes-Q_822 {
         leaf elapsedTime {
             type int32;
         }
-    }
-    list Q_822_HistoryData {
-        key 'historyDataId';
-        config true;
-        ordered-by system;
-        uses Q_822_HistoryData;
     }
     grouping Q_822_HistoryData {
         uses G_874_1_model-Imported_Information_Object_Classes-X_721:X_721_Top;

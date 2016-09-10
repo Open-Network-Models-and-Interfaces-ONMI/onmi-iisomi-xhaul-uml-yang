@@ -27,19 +27,13 @@ module G_874_1_model-Imported_Information_Object_Classes-X_739 {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-07-24 {
+    revision 2016-07-10 {
         description 
             "Initial revision."; 
         reference 
             "ONF TR xyz: A YANG Data Model for Microwave Transport Networks."; 
     }
 
-    list X_739_Scanner {
-        key 'scannerId';
-        config true;
-        ordered-by system;
-        uses X_739_Scanner;
-    }
     grouping X_739_Scanner {
         uses G_874_1_model-Imported_Information_Object_Classes-X_721:X_721_Top;
         leaf scannerId {
