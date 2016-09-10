@@ -1,5 +1,5 @@
-<script
-	src="src/app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min.js"></script>
+<script src="src/app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min.js"></script>
+<script src="src/app/mwtnCommons/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <div>
 	<br /> <br />
 </div>
@@ -29,7 +29,7 @@
 	<div class="container">
 		<div class="row" ng-repeat="(key, value) in newMountingPoint">
 			<div class="col-md-2 text-right">
-				<span>{{key | translate}}</span>
+				<span>{{['mwtn', key].join('_').toUpperCase() | translate}}</span>
 			</div>
 			<div class="col-md-4">
 				<input type="text" class="form-control"

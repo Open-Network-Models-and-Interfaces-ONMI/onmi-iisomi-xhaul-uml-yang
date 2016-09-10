@@ -17,9 +17,7 @@ define(['app/mwtnConnect/mwtnConnect.module','app/mwtnCommons/mwtnCommons.servic
     var service = {};
 
     service.mount = function(mountingPoint, callback) {
-      console.log(21, JSON.stringify(mountingPoint));
       $mwtnCommons.mount(mountingPoint, function(data){
-        console.log(22, JSON.stringify(data));
         return callback(data);
       });
     };

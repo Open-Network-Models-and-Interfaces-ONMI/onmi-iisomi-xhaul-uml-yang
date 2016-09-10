@@ -37,6 +37,10 @@ define(
           return callback('$mwtnCommons registered to this application.');
         };
         
+        service.getLabelId = function(key, callback) {
+          return  callback(['mwtn', key].join('_').toUpperCase());
+        };
+        
         service.tryModules = function(names) {
           // accepts a list of module names and
           // attempts to load them, in order.

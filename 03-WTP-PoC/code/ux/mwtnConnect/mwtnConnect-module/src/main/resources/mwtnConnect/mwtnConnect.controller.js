@@ -38,7 +38,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
       username: 'admin',
       password: 'admin'
     };
-    
+        
     var requiredNesActionCellTemplate = [
       '<a class="vCenter" ng-class="{attention: grid.appScope.hover}" >',
       '<button class="btn btn-primary" ng-click="grid.appScope.connect(row.entity)">Connect</button>',
