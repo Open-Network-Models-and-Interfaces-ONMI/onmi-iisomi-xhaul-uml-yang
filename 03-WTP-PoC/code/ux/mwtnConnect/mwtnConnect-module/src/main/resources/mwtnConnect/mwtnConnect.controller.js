@@ -32,6 +32,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
     $scope.oneAtATime = true;
     $scope.status = {requiredNes: true};
     $scope.newMountingPoint = {
+      name: 'new-mounting-point',
       ipaddress: '127.0.0.1',
       port: 830,
       username: 'admin',

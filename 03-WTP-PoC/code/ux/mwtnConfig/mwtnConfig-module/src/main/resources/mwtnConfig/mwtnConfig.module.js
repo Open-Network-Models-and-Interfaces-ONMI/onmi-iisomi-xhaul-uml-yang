@@ -9,7 +9,8 @@
 define(['angularAMD', 
         'app/routingConfig', 
         'app/core/core.services', 
-        'common/config/env.module'], function(ng) {
+        'common/config/env.module',
+        'app/mwtnCommons/mwtnCommons.module'], function(ng) {
   var mwtnConfigApp = angular.module('app.mwtnConfig', ['app.core', 'ui.router.state','config']);
 
   mwtnConfigApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $translateProvider) {

@@ -27,40 +27,13 @@
 	is-open="status.mount">
 
 	<div class="container">
-		<div class="row">
+		<div class="row" ng-repeat="(key, value) in newMountingPoint">
 			<div class="col-md-2 text-right">
-				<span>{{'IP address' | translate}}</span>
+				<span>{{key | translate}}</span>
 			</div>
 			<div class="col-md-4">
 				<input type="text" class="form-control"
-					ng-model="newMountingPoint.ipaddress"></input>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-2 text-right">
-				<span>{{'Port' | translate}}</span>
-			</div>
-			<div class="col-md-4">
-				<input type="text" class="form-control"
-					ng-model="newMountingPoint.port"></input>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-2 text-right">
-				<span>{{'User name' | translate}}</span>
-			</div>
-			<div class="col-md-4">
-				<input type="text" class="form-control"
-					ng-model="newMountingPoint.username"></input>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-2 text-right">
-				<span>{{'Password' | translate}}</span>
-			</div>
-			<div class="col-md-4">
-				<input type="text" class="form-control"
-					ng-model="newMountingPoint.password"></input>
+					ng-model="newMountingPoint[key]"></input>
 			</div>
 		</div>
 		<div class="row">

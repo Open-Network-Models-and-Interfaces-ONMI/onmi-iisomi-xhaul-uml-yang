@@ -12,7 +12,7 @@ define(['app/mwtnLog/mwtnLog.module','app/mwtnCommons/mwtnCommons.services'],fun
     
     var service = {};
 
-    console.log($mwtnCommons.tryModules(['ngRoute', 'ui.router']));
+    // console.log($mwtnCommons.tryModules(['ngRoute', 'ui.router']));
 
     service.getAllLogEntries = function(from, size, callback) {
       var sort = [ {

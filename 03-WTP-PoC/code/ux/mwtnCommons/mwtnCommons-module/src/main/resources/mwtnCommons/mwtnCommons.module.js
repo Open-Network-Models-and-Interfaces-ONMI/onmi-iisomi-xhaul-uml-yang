@@ -13,7 +13,7 @@ define(['angularAMD',
         'app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min', 
         'app/mwtnCommons/bower_components/angular-bootstrap/ui-bootstrap-tpls.min'], 
         function(ng) {
-  var mwtnCommonsApp = angular.module('app.mwtnCommons', ['app.core', 'ui.router.state','config']);
+  var mwtnCommonsApp = angular.module('app.mwtnCommons', ['app.core', 'ui.router.state','config', 'pascalprecht.translate']);
 
   mwtnCommonsApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $translateProvider) {
     mwtnCommonsApp.register = {
@@ -23,6 +23,22 @@ define(['angularAMD',
       service : $provide.service
     };
 
+      $translateProvider.translations('en', {
+        name: 'Name',
+        ipaddress: 'IP Address',
+        port: 'Port',
+        username: 'User name',
+        password: 'Password'
+      });
+      $translateProvider.translations('de', {
+        name: 'Name',
+        ipaddress: 'IP Adresse',
+        port: 'Port',
+        username: 'Benutzername',
+        password: 'Passwort'
+      });
+      $translateProvider.preferredLanguage('en');
+    
 
 //    NavHelperProvider.addControllerUrl('app/mwtnCommons/mwtnCommons.controller');
 //    NavHelperProvider.addToMenu('mwtnCommons', {

@@ -11,10 +11,10 @@ define(['angularAMD',
         'app/core/core.services', 
         'common/config/env.module',
         'app/mwtnCommons/mwtnCommons.module'], function(ng) {
-  var mwtnConnectApp = angular.module('app.mwtnConnect', [ 'app.core',
-      'ui.router.state', 'config', 'ui.grid', 'ui.grid.exporter',
+  var mwtnConnectApp = angular.module('app.mwtnConnect', [ 'ui.grid', 'ui.bootstrap', 'app.core',
+      'ui.router.state', 'config', 'ui.grid.exporter',
       'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.grid.selection',
-      'ui.grid.resizeColumns', 'ui.bootstrap' ]);
+      'ui.grid.resizeColumns' ]);
 
   mwtnConnectApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $translateProvider) {
 
