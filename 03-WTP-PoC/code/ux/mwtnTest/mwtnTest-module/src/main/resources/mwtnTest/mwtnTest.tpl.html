@@ -47,10 +47,10 @@
 			class="panel-primary"
 			heading="AirInterface (Pac) '{{airinterface.layerProtocol}}'"
 			is-open="status['airinterface' + separator + airinterface.layerProtocol]">
-			<div ng-repeat="detail in details" uib-accordion-group
-				class="panel-default" heading="{{detail}}"
-				is-open="status['airinterface' + separator + airinterface.layerProtocol + separator + detail]">
-				<pre>{{airinterface[detail] | json}}</pre>
+			<div ng-repeat="part in parts" uib-accordion-group
+				class="panel-default" heading="{{part}}"
+				is-open="status['airinterface' + separator + airinterface.layerProtocol + separator + part]">
+				<pre>{{airinterface[part] | json}}</pre>
 			</div>
 		</div>
 
@@ -58,10 +58,10 @@
 			class="panel-primary"
 			heading="Structure (Pac) '{{structure.layerProtocol}}'"
 			is-open="status['structure' + separator + structure.layerProtocol]">
-			<div ng-repeat="detail in details" uib-accordion-group
-				class="panel-default" heading="{{detail}}"
-				is-open="status['structure' + separator + structure.layerProtocol + separator + detail]">
-				<pre>{{structure[detail] | json}}</pre>
+			<div ng-repeat="part in parts" uib-accordion-group
+				class="panel-default" heading="{{part}}"
+				is-open="status['structure' + separator + structure.layerProtocol + separator + part]">
+				<pre>{{structure[part] | json}}</pre>
 			</div>
 		</div>
 
@@ -69,10 +69,10 @@
 			class="panel-primary"
 			heading="Container (Pac) '{{container.layerProtocol}}'"
 			is-open="status['container' + separator + container.layerProtocol]">
-			<div ng-repeat="detail in details" uib-accordion-group
-				class="panel-default" heading="{{detail}}"
-				is-open="status['container' + separator +  container.layerProtocol + separator + detail]">
-				<pre>{{container[detail] | json}}</pre>
+			<div ng-repeat="part in parts" uib-accordion-group
+				class="panel-default" heading="{{part}}"
+				is-open="status['container' + separator +  container.layerProtocol + separator + part]">
+				<pre>{{container[part] | json}}</pre>
 			</div>
 		</div>
 

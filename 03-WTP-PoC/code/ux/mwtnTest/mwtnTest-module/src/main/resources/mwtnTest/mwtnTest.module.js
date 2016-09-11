@@ -10,6 +10,8 @@ define(['angularAMD',
         'app/routingConfig', 
         'app/core/core.services', 
         'common/config/env.module',
+        'app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min', 
+        'app/mwtnCommons/bower_components/angular-bootstrap/ui-bootstrap-tpls.min',
         'app/mwtnCommons/mwtnCommons.module'], function(ng) {
   var mwtnTestApp = angular.module('app.mwtnTest', ['ui.grid', 'ui.bootstrap', 'app.core', 'ui.router.state', 'config']);
 

@@ -17,46 +17,11 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnConfig/mwtnConfig.module'
     var service = {};
     
     service.separator = $mwtnCommons.separator;
+    service.parts = $mwtnCommons.parts;
+    service.getActualNetworkElements = $mwtnCommons.getActualNetworkElements;
+    service.getPacParts = $mwtnCommons.getPacParts;
+    service.getSchema = $mwtnCommons.getSchema;
 
-    service.getData = function(neId, revision, key, callback) {
-      
-      // console.log(key, 'opened');
-      var info = key.split(service.separator);
-      console.log(info);
-      
-      switch (info[0]) {
-      case 'ne':
-        $mwtnCommons.getActualNetworkElement(neId, revision, function(data){
-          return callback(data);
-        });
-        break;
-      case 'ltp':
-        // /_ltpRefList/LTP-MWS-TTP-ifIndex1
-        var odlRequest = {
-          method: 'GET',
-          url: [$mwtnCommons.url.actualNetworkElement(neId, revision), '_ltpRefList', info[1]].join('/')
-        };
-        $mwtnCommons.genericRequest(odlRequest, function(data){
-          return callback(data);
-        });
-        break;
-      case 'airinterface':
-      case 'structure':
-      case 'container':
-        if (info[2]) {
-          $mwtnCommons.getConditionalPackagePart(neId, revision, info[0], info[1], info[2], function(data){
-            return callback(data);
-          }); 
-        } else {
-          return callback();
-        }
-        break;
-      default:
-        $mwtnLog.error({component: COMPONENT, message: 'Requesting ' + info[0] + ' not supported!'});
-        return callback();
-      }
-      
-    };
     return service;
   });
 

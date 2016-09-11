@@ -8,7 +8,7 @@
 
 define(['app/mwtnCommons/mwtnCommons.module','app/mwtnCommons/mwtnCommons.services'], function(mwtnCommonsApp) {
 
-  mwtnCommonsApp.register.controller('mwtnCommonsCtrl', ['$scope', '$rootScope', '$mwtnCommons', '$mwtnLog', function($scope, $rootScope, $mwtnCommons, $mwtnLog) {
+  mwtnCommonsApp.register.controller('mwtnCommonsCtrl', ['$scope', '$rootScope', '$mwtnCommons', '$mwtnLog', 'FileReader', function($scope, $rootScope, $mwtnCommons, $mwtnLog, FileReader) {
 
     $rootScope['section_logo'] = ''; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
@@ -17,7 +17,7 @@ define(['app/mwtnCommons/mwtnCommons.module','app/mwtnCommons/mwtnCommons.servic
     $mwtnCommons.getData(function(data){
       $scope.data = data;      
     });
-
+    
   }]);
 
 

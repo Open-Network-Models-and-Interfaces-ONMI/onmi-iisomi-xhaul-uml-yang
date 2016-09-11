@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 highstreet technologies GmbH and others. All rights reserved.
+ * Copyright (c) 2016 highstreet technologies GmbH and others.  All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -7,70 +7,71 @@
  */
 
 define(['app/mwtnConfig/mwtnConfig.module',
-        'app/mwtnConfig/mwtnConfig.services', 
-        'app/mwtnConfig/mwtnConfig.directives', 
-        'app/mwtnCommons/mwtnCommons.module',
-        'app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min', 
-        'app/mwtnCommons/bower_components/angular-bootstrap/ui-bootstrap-tpls.min'], function(mwtnConfigApp) {
+        'app/mwtnConfig/mwtnConfig.services',
+        'app/mwtnConfig/mwtnConfig.directives'],
+        function(mwtnConfigApp) {
 
-  mwtnConfigApp.register.controller('mwtnConfigCtrl', ['$scope', '$rootScope', '$mwtnCommons', '$mwtnLog', '$mwtnConnect', '$mwtnConfig', function($scope, $rootScope, $mwtnCommons, $mwtnLog, $mwtnConnect, $mwtnConfig) {
+  mwtnConfigApp.register.controller('mwtnConfigCtrl', ['$scope', '$rootScope', '$mwtnLog', '$mwtnConfig',  function($scope, $rootScope, $mwtnLog, $mwtnConfig) {
 
     var COMPONENT = 'mwtnConfigCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnConfigCtrl started!'});
 
     $rootScope['section_logo'] = 'src/app/mwtnConfig/images/mwtnConfig.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
-
-    $scope.isArray = angular.isArray;
-    $scope.isString = angular.isString;
-    $scope.details = ['Capability', 'Configuration', 'Status', 'CurrentProblems', 'CurrentPerformance', 'HistoricalPerformances']
+    $scope.parts = $mwtnConfig.parts;
     var initPac = {
         layerProtocol: 'unknown'              
     };
-    $scope.details.map(function(detail){
-      initPac[detail] = {info: 'Not supported by ONF Microwave Model revision: 2016-03-23'};
+    $scope.parts.map(function(part){
+      initPac[part] = {info: 'No data available'};
     });
-
+    
     $scope.schema = {init:false};
-    $mwtnCommons.getSchema(function(data){
-      // console.log(data);
+    $mwtnConfig.getSchema().then(function(data){
       $scope.schema = data;
+    }, function(error){
+      console.log('bad luck - no schema ;( ');
     });
     
-    $scope.getUnit = $mwtnCommons.getUnit;
-    $scope.getTest = function(key, value) {
-      console.log(key, value);
-      return key;
-    };
-    
-    $mwtnConnect.getActualNetworkElements(function(networkElements) {
+//    $scope.getUnit = $mwtnCommons.getUnit;
+//    $scope.getTest = function(key, value) {
+//      console.log(key, value);
+//      return key;
+//    };
+
+    var initNodeList = function(nodes){
       $scope.networkElements = [];
-      networkElements.topology.map(function(topology) {
-        if (topology['topology-id'] === 'topology-netconf') {
-          topology.node.map(function(ne) {
-            if (ne['netconf-node-topology:connection-status'] === 'connected' && ne['netconf-node-topology:available-capabilities'] && ne['netconf-node-topology:available-capabilities']['available-capability']) {
-              ne['netconf-node-topology:available-capabilities']['available-capability'].map(function(cap){
-                if (cap.contains('CoreModel-CoreNetworkModule-ObjectClasses')) {
-                  ne.onfCoreModelRevision = cap.split('?revision=')[1].substring(0,10);
-                } else if (cap.contains('MicrowaveModel-ObjectClasses')) {
-                  ne.onfAirIinterfaceRevision = cap.split('?revision=')[1].substring(0,10);
-                }
-              });
-              if (ne.onfAirIinterfaceRevision) {
-                $scope.networkElements.push({id:ne['node-id'], revision:ne.onfAirIinterfaceRevision});
-              }
-            }
+      nodes.map(function(ne) {
+        // revision detection should go to commons
+        if (ne['netconf-node-topology:connection-status'] === 'connected' && ne['netconf-node-topology:available-capabilities'] && ne['netconf-node-topology:available-capabilities']['available-capability']) {
+          ne['netconf-node-topology:available-capabilities']['available-capability'].map(function(cap){
+            if (cap.contains('CoreModel-CoreNetworkModule-ObjectClasses')) {
+              ne.onfCoreModelRevision = cap.split('?revision=')[1].substring(0,10);
+            } else if (cap.contains('MicrowaveModel-ObjectClasses-AirInterface')) {
+              ne.onfAirIinterfaceRevision = cap.split('?revision=')[1].substring(0,10);
+            }  else if (!ne.onfAirIinterfaceRevision && cap.contains('MicrowaveModel-ObjectClasses')) {
+              ne.onfAirIinterfaceRevision = cap.split('?revision=')[1].substring(0,10);
+            } 
           });
-          $scope.networkElements.sort(function(a, b){
-            if(a.id < b.id) return -1;
-            if(a.id > b.id) return 1;
-            return 0;
-          });
-          
-          // select one of the nodes
-          var select = parseInt(Math.random()*$scope.networkElements.length);
-          $scope.networkElement = $scope.networkElements[select].id;
+          if (ne.onfAirIinterfaceRevision) {
+            $scope.networkElements.push({id:ne['node-id'], revision:ne.onfAirIinterfaceRevision});
+          }
         }
       });
+      $scope.networkElements.sort(function(a, b){
+        if(a.id < b.id) return -1;
+        if(a.id > b.id) return 1;
+        return 0;
+      });
+      
+      // select one of the nodes
+      var select = parseInt(Math.random()*$scope.networkElements.length);
+      $scope.networkElement = $scope.networkElements[select].id;      
+    };
+    
+    $mwtnConfig.getActualNetworkElements().then(function(nodes){
+      initNodeList(nodes);
+    }, function(error){
+      $scope.networkElements = [];
     });
     
     var order = {
@@ -82,11 +83,19 @@ define(['app/mwtnConfig/mwtnConfig.module',
       if (!data) return;
 
       // update onfNetworkElement
-      $scope.onfNetworkElement = JSON.parse(JSON.stringify(data.NetworkElement[0]));
-      $scope.onfNetworkElement._ltpRefList = undefined;
+      switch (data.revision) {
+      case '2016-03-23':
+        $scope.onfNetworkElement = JSON.parse(JSON.stringify(data.NetworkElement[0]));
+        $scope.onfLtps = data.NetworkElement[0]._ltpRefList;
+        $scope.onfNetworkElement._ltpRefList = undefined;
+        break;
+      default:
+        $scope.onfNetworkElement = JSON.parse(JSON.stringify(data.NetworkElement));
+        $scope.onfLtps = data.NetworkElement._ltpRefList;
+        $scope.onfNetworkElement._ltpRefList = undefined;
+      }
       
       // update onfLTPs
-      $scope.onfLtps = data.NetworkElement[0]._ltpRefList;
       $scope.onfLtps.sort(function(a, b){
         if(order[a._lpList[0].layerProtocolName] < order[b._lpList[0].layerProtocolName]) return -1;
         if(order[a._lpList[0].layerProtocolName] > order[b._lpList[0].layerProtocolName]) return 1;
@@ -130,7 +139,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
           return 0;
         });
       });
-      
+      data.revision = undefined;
     };
 
     var updateLtp = function(data) {
@@ -159,9 +168,10 @@ define(['app/mwtnConfig/mwtnConfig.module',
           }
         }
       });
+      data.revision = undefined;
     };
 
-    var updateStructure = function(lpId, data) {
+    var updaConfigructure = function(lpId, data) {
       // console.log(JSON.stringify(data), lpId);
       $scope.structures.map(function(structure){
         // console.log(JSON.stringify(structure));
@@ -171,6 +181,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
           structure[part] = data;
         }
       });
+      data.revision = undefined;
     };
 
     var updateContainer = function(lpId, data) {
@@ -183,37 +194,53 @@ define(['app/mwtnConfig/mwtnConfig.module',
           container[part] = data;
         }
       });
+      data.revision = undefined;
     };
 
+    var updatePart = function(spec, data) {
+      switch (spec.pacId) {
+      case 'ne':
+        updateNe(data);
+        break;
+      case 'ltp':
+        updateLtp(data);
+        break;
+      case 'airinterface':
+        // console.log(JSON.stringify(spec, JSON.stringify(data)));
+        updateAirInterface(spec.layerProtocolId, spec.partId, data);
+        break;
+      case 'structure':
+        // console.log(JSON.stringify(data));
+        updaConfigructure(spec.layerProtocolId, data);
+        break;
+      case 'container':
+        // console.log(JSON.stringify(data));
+        updateContainer(spec.layerProtocolId, data);
+        break;
+      }
+    };
+    
     // events
     $scope.status = {};
-    $scope.separator = $mwtnCommons.separator; //'&nbsp;'
+    $scope.separator = $mwtnConfig.separator; //'&nbsp;'
+    
     $scope.$watch('status', function(status, oldValue) {
       Object.keys(status).map(function(key){
         if ($scope.networkElementId && status[key] && status[key] !== oldValue[key]) {
-          // console.log('getdata by status change', $scope.networkElementId, key);
-          $mwtnConfig.getData($scope.networkElementId, $scope.revision, key, function(data){
-            if (data) {
-              var info = key.split($scope.separator);
-              switch (info[0]) {
-              case 'ne':
-                updateNe(data);
-                break;
-              case 'ltp':
-                updateLtp(data);
-                break;
-              case 'airinterface':
-                updateAirInterface(info[1], info[2], data);
-                break;
-              case 'structure':
-                updateStructure(info[1], data);
-                break;
-              case 'container':
-                updateContainer(info[1], data);
-                break;
-              }
-            }            
-          }); 
+          
+          var info = key.split($scope.separator);
+          var spec = {
+            nodeId: $scope.networkElementId,
+            revision: $scope.revision,
+            pacId: info[0],
+            layerProtocolId: info[1],
+            partId: info[2]
+          };
+          $mwtnConfig.getPacParts(spec).then(function(success){
+            updatePart(spec, success);
+          }, function(error){
+            updatePart(spec, error);
+          });
         }
       });   
     }, true);
@@ -233,11 +260,19 @@ define(['app/mwtnConfig/mwtnConfig.module',
         });
         $scope.networkElementId = neId;
         $scope.revision = revision;
-        // console.log('getdata by ne change', neId, revision);
-        $mwtnConfig.getData(neId, revision, 'ne', function(data){
+
+        var spec = {
+          nodeId: neId,
+          revision: revision,
+          pacId: 'ne'
+        };
+        $mwtnConfig.getPacParts(spec).then(function(success){
           $scope.collapseAll();
-          updateNe(data);
-        }); 
+          updatePart(spec, success);
+        }, function(error){
+          $scope.collapseAll();
+          updatePart(spec, error);
+        });
       }
     });
 

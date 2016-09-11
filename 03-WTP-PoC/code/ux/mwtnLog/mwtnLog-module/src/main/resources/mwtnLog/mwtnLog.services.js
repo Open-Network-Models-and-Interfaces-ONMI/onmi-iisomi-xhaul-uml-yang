@@ -8,27 +8,35 @@
 
 define(['app/mwtnLog/mwtnLog.module','app/mwtnCommons/mwtnCommons.services'],function(mwtnLogApp) {
 
-  mwtnLogApp.register.factory('$mwtnLogView', function($http, $mwtnCommons, $mwtnLog, $mwtnDatabase) {
+  mwtnLogApp.register.factory('$mwtnLogView', function($q, $mwtnDatabase, $mwtnLog) {
     
     var service = {};
 
-    // console.log($mwtnCommons.tryModules(['ngRoute', 'ui.router']));
-
-    service.getAllLogEntries = function(from, size, callback) {
+    service.getAllLogEntries = function(from, size) {
       var sort = [ {
         timestamp : {
           order : 'desc'
         }
       }];
-      $mwtnDatabase.getAllData('log', from, size, sort, function(logEntries){
-        return callback(logEntries);
+      var deferred = $q.defer();
+      $mwtnDatabase.getAllData('log', from, size, sort).then(function(success){
+        deferred.resolve(success);
+      }, function(error){
+        $mwtnLog.error({component: '$mwtnLogView.getAllLogEntries', message: JSON.stringify(error.data)});
+        deferred.reject(error)
       });
-    }
+      return deferred.promise;
+    };
 
-    service.deleteLogEntry = function(id, callback) {
-      $mwtnDatabase.deleteDoc('log', id, function(deleted){
-        return callback(deleted);
+    service.deleteLogEntry = function(id) {
+      var deferred = $q.defer();
+      $mwtnDatabase.deleteDoc('log', id).then(function(deleted){
+        deferred.resolve(deleted);
+      }, function(error){
+        $mwtnLog.error({component: '$mwtnLogView.deleteLogEntry', message: JSON.stringify(error.data)});
+        deferred.reject(error)
       });
+      return deferred.promise;
     };
     return service;
   });

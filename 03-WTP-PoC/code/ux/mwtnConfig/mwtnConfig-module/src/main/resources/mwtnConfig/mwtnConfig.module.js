@@ -19,7 +19,6 @@ define(['angularAMD',
       directive : $compileProvider.directive,
       factory : $provide.factory,
       service : $provide.service
-
     };
 
     NavHelperProvider.addControllerUrl('app/mwtnConfig/mwtnConfig.controller');

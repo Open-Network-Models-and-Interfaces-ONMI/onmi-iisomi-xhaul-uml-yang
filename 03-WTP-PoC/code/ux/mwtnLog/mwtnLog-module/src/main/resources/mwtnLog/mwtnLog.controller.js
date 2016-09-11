@@ -25,8 +25,8 @@ define(['app/mwtnLog/mwtnLog.module',
   }]);
     
     
-  mwtnLogApp.register.controller('mwtnLogCtrl', ['$scope', '$rootScope', '$mwtnLogView', '$mwtnCommons', '$mwtnLog', 'uiGridConstants', '$uibModal',
-                                                 function($scope, $rootScope, $mwtnLogView, $mwtnCommons, $mwtnLog, uiGridConstants, $uibModal) {
+  mwtnLogApp.register.controller('mwtnLogCtrl', ['$scope', '$rootScope', '$uibModal', 'uiGridConstants', '$mwtnLogView', '$mwtnCommons', '$mwtnLog' ,
+                                                 function($scope, $rootScope, uiGridConstants, $uibModal, $mwtnLogView, $mwtnCommons, $mwtnLog) {
 
     var COMPONENT = 'mwtnLogCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnLogCtrl started!'});
@@ -81,8 +81,10 @@ define(['app/mwtnLog/mwtnLog.module',
         var i = 0;
         $scope.gridOptions.data.map(function(item){
           // console.log('delete:', i++, item.id, item.type);
-          $mwtnLogView.deleteLogEntry(item.id, function(deleted){
+          $mwtnLogView.deleteLogEntry(item.id).then(function(deleted){
             // console.log('delete', JSON.stringify(deleted));
+          }, function(error){
+            console.error(JSON.stringify(error));
           });
         });
         $scope.gridOptions.data = [];
@@ -125,15 +127,19 @@ define(['app/mwtnLog/mwtnLog.module',
       $scope.gridOptions.data = [];
       var from = 0;
       var size = 100;
-      $mwtnLogView.getAllLogEntries(from, size, function(logEntries){
+      $mwtnLogView.getAllLogEntries(from, size).then(function(logEntries){
         processLogEntries(logEntries);
         from = from + size;
         while (from < $scope.progress.max) {
-          $mwtnLogView.getAllLogEntries(from, size, function(logEntries){
+          $mwtnLogView.getAllLogEntries(from, size).then(function(logEntries){
             processLogEntries(logEntries);
+          }, function(error){
+            console.error(JSON.stringify(error));
           });
           from = from + size;
         }
+      }, function(error){
+        console.error(JSON.stringify(error));
       });      
     }
     $scope.refreshLog();

@@ -13,8 +13,8 @@ define(['app/mwtnConnect/mwtnConnect.module',
         'app/mwtnCommons/bower_components/angular-bootstrap/ui-bootstrap-tpls.min'], 
         function(mwtnConnectApp) {
 
-  mwtnConnectApp.register.controller('mwtnConnectCtrl', ['$scope', '$rootScope', '$q', '$mwtnConnect', '$mwtnCommons', '$mwtnLog', 'uiGridConstants', '$uibModal', 'NetConfServer', 
-                                                         function($scope, $rootScope, $q, $mwtnConnect, $mwtnCommons, $mwtnLog, uiGridConstants, $uibModal, NetConfServer) {
+  mwtnConnectApp.register.controller('mwtnConnectCtrl', ['$scope', '$rootScope', '$q', 'uiGridConstants', '$uibModal', '$mwtnConnect', '$mwtnCommons', '$mwtnLog', 'NetConfServer', 
+                                                         function($scope, $rootScope, $q, uiGridConstants, $uibModal, $mwtnConnect, $mwtnCommons, $mwtnLog, NetConfServer) {
 
     var COMPONENT = 'mwtnConnectCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnConnectCtrl started!'});
@@ -101,29 +101,22 @@ define(['app/mwtnConnect/mwtnConnect.module',
           ne.connectionStatus = 'disconnected';
         });
       }
-      $mwtnConnect.getActualNetworkElements(function(networkElements) {
+      $mwtnConnect.getActualNetworkElements().then(function(networkElements) {
         $scope.unknownNesGridOptions.data = [];
-        networkElements.topology.map(function(topology) {
-          if (topology['topology-id'] === 'topology-netconf') {
-//            aneHash = topology.node.map(function(ne) {
-//              return ne['node-id'];
-//            });
-            // console.log('ane', aneHash);
-            // console.log(JSON.stringify(topology.node));
-            topology.node.map(function(ne) {
-              if (ne['netconf-node-topology:available-capabilities'] && ne['netconf-node-topology:available-capabilities']['available-capability']) {
-                ne['netconf-node-topology:available-capabilities']['available-capability'].map(function(cap){
-                  if (cap.contains('CoreModel-CoreNetworkModule-ObjectClasses')) {
-                    ne.onfCoreModelRevision = cap.split('?revision=')[1].substring(0,10);
-                  } else if (cap.contains('MicrowaveModel-ObjectClasses')) {
-                    ne.onfAirIinterfaceRevision = cap.split('?revision=')[1].substring(0,10);
-                  }
-                });
-              }
-            });
-            $scope.unknownNesGridOptions.data = topology.node;
-          }
+        networkElements.map(function(ne) {
+            if (ne['netconf-node-topology:available-capabilities'] && ne['netconf-node-topology:available-capabilities']['available-capability']) {
+              ne['netconf-node-topology:available-capabilities']['available-capability'].map(function(cap){
+                if (cap.contains('CoreModel-CoreNetworkModule-ObjectClasses')) {
+                  ne.onfCoreModelRevision = cap.split('?revision=')[1].substring(0,10);
+                } else if (cap.contains('MicrowaveModel-ObjectClasses')) {
+                  ne.onfAirIinterfaceRevision = cap.split('?revision=')[1].substring(0,10);
+                }
+              });
+            }
         });
+        $scope.unknownNesGridOptions.data = networkElements;
+      }, function(error){
+        $mwtnLog.info({component: COMPONENT, message: JSON.stringify(error)});
       });
     }; 
     
@@ -158,15 +151,13 @@ define(['app/mwtnConnect/mwtnConnect.module',
     };
     
     $scope.mount = function() {
-      console.log(11, JSON.stringify($scope.newMountingPoint));
-      $mwtnConnect.mount($scope.newMountingPoint, function(data) {
-        if (!data) {
-          $scope.mountError = ['NETCONF server', $scope.newMountingPoint.name, 'chould not be mounted.'].join(' ');
-          $scope.mountSuccess = undefined;
-        } else {
-          $scope.mountError = undefined;
-          $scope.mountSuccess = ['NETCONF server', $scope.newMountingPoint.name, 'successfully mounted.'].join(' ');
-        }
+      $scope.mountError = undefined;
+      $scope.mountSuccess = undefined;
+      var promise = $mwtnConnect.mount($scope.newMountingPoint);
+      promise.then(function(success){
+        $scope.mountSuccess = ['NETCONF server', $scope.newMountingPoint.name, 'successfully mounted.'].join(' ');
+      }, function(error){
+        $scope.mountError = ['NETCONF server', $scope.newMountingPoint.name, 'chould not be mounted.'].join(' ');
       });
     };
     
@@ -174,18 +165,24 @@ define(['app/mwtnConnect/mwtnConnect.module',
       console.info(JSON.stringify(row));
     };
     
+    var removeFromNodeList = function(nodeId) {
+      var index = $scope.unknownNesGridOptions.data.length;
+      while (--index) {
+        if ($scope.unknownNesGridOptions.data[index]['node-id'] === nodeId) {
+          $scope.unknownNesGridOptions.data.splice(index, 1);
+          break;
+        } 
+      }
+    };
+    
     $scope.unmount = function(netConfServer) {
       netConfServer['netconf-node-topology:connection-status'] = 'disconnecting...';
-      $mwtnConnect.unmount(netConfServer['node-id'], function(response) {
+      $mwtnConnect.unmount(netConfServer['node-id']).then(function(response) {
         $mwtnLog.info({component: COMPONENT, message: 'Mounting point deleted: ' + netConfServer['node-id'] });
-        var index = $scope.unknownNesGridOptions.data.length;
-        while (--index) {
-          if ($scope.unknownNesGridOptions.data[index]['node-id'] === netConfServer['node-id']) {
-            console.log('found');
-            $scope.unknownNesGridOptions.data.splice(index, 1);
-            break;
-          } 
-        }
+        removeFromNodeList(netConfServer['node-id']);
+      }, function(error){
+        $mwtnLog.info({component: COMPONENT, message: 'Unmounting of '+netConfServer['node-id']+' failed!'});
+        removeFromNodeList(netConfServer['node-id']);
       });
     };
     

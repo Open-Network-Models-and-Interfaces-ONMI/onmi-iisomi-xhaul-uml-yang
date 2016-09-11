@@ -44,14 +44,14 @@
 		</div>
 
 		<div class="row">
-			<div class="col-md-12" ng-repeat="container in containers">
+			<div ng-class="{ 'col-md-12': containers.length === 1, 'col-md-6': containers.length === 2, 'col-md-4': containers.length === 3 , 'col-md-3': containers.length > 3 }" ng-repeat="container in containers">
 				<div uib-accordion-group class="panel-primary"
 					heading="Container (Pac) '{{container.layerProtocol}}'"
 					is-open="status['container' + separator + container.layerProtocol]">
-					<div ng-repeat="detail in details" uib-accordion-group
-						class="panel-default" heading="{{detail}}"
-						is-open="status['container' + separator +  container.layerProtocol + separator + detail]">
-						<div class="container" style="width:100%" ng-repeat="(detail2, parameters) in container[detail]" parameters="parameters" schema="schema" >
+					<div ng-repeat="part in parts" uib-accordion-group
+						class="panel-default" heading="{{part}}"
+						is-open="status['container' + separator +  container.layerProtocol + separator + part]">
+						<div class="container" style="width:100%" ng-repeat="(part2, parameters) in container[part]" parameters="parameters" schema="schema" >
 						</div>
 					</div>
 				</div>
@@ -59,14 +59,14 @@
 		</div>
 
 		<div class="row">
-			<div class="col-md-6" ng-repeat="structure in structures">
+			<div ng-class="{ 'col-md-12': structures.length === 1, 'col-md-6': structures.length === 2, 'col-md-4': structures.length === 3 , 'col-md-3': structures.length > 3 }" ng-repeat="structure in structures">
 				<div uib-accordion-group class="panel-primary"
 					heading="Structure (Pac) '{{structure.layerProtocol}}'"
 					is-open="status['structure' + separator + structure.layerProtocol]">
-					<div ng-repeat="detail in details" uib-accordion-group
-						class="panel-default" heading="{{detail}}"
-						is-open="status['structure' + separator + structure.layerProtocol + separator + detail]">
-						<div class="container" style="width:100%" ng-repeat="(detail2, parameters) in structure[detail]" parameters="parameters" schema="schema" >
+					<div ng-repeat="part in parts" uib-accordion-group
+						class="panel-default" heading="{{part}}"
+						is-open="status['structure' + separator + structure.layerProtocol + separator + part]">
+						<div class="container" style="width:100%" ng-repeat="(part2, parameters) in structure[part]" parameters="parameters" schema="schema" >
 						</div>
 					</div>
 				</div>
@@ -74,15 +74,14 @@
 		</div>
 
 		<div class="row">
-			<div class="col-md-6" ng-repeat="airinterface in airinterfaces">
+			<div ng-class="{ 'col-md-12': airinterfaces.length === 1, 'col-md-6': airinterfaces.length === 2, 'col-md-4': airinterfaces.length === 3 , 'col-md-3': airinterfaces.length > 3 }" ng-repeat="airinterface in airinterfaces">
 				<div uib-accordion-group class="panel-primary"
 					heading="Airinterface (Pac) '{{airinterface.layerProtocol}}'"
 					is-open="status['airinterface' + separator + airinterface.layerProtocol]">
-					<div ng-repeat="detail in details" uib-accordion-group
-						class="panel-default" heading="{{detail}}"
-						is-open="status['airinterface' + separator + airinterface.layerProtocol + separator + detail]">
-
-						<div class="container" style="width:100%" ng-repeat="(detail2, parameters) in airinterface[detail]" parameters="parameters" schema="schema" >
+					<div ng-repeat="part in parts" uib-accordion-group
+						class="panel-default" heading="{{part}}"
+						is-open="status['airinterface' + separator + airinterface.layerProtocol + separator + part]">
+						<div class="container" style="width:100%" ng-repeat="(part2, parameters) in airinterface[part]" parameters="parameters" schema="schema" >
 						</div>
 
 					</div>

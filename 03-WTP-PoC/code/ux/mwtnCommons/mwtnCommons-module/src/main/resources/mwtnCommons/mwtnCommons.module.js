@@ -11,11 +11,12 @@ define(['angularAMD',
         'app/core/core.services', 
         'common/config/env.module', 
         'app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min', 
-        'app/mwtnCommons/bower_components/angular-bootstrap/ui-bootstrap-tpls.min'], 
+        'app/mwtnCommons/bower_components/angular-bootstrap/ui-bootstrap-tpls.min',
+        'app/mwtnCommons/bower_components/angular-filereader/angular-filereader.min'], 
         function(ng) {
-  var mwtnCommonsApp = angular.module('app.mwtnCommons', ['app.core', 'ui.grid', 'ui.router.state','config', 'pascalprecht.translate']);
+  var mwtnCommonsApp = angular.module('app.mwtnCommons', ['app.core', 'ui.grid', 'ui.router.state','config', 'pascalprecht.translate', 'filereader']);
 
-  mwtnCommonsApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $translateProvider, $translatePartialLoaderProvider) {
+  mwtnCommonsApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $httpProvider, $translateProvider, $translatePartialLoaderProvider) {
     mwtnCommonsApp.register = {
       controller : $controllerProvider.register,
       directive : $compileProvider.directive,
@@ -24,6 +25,7 @@ define(['angularAMD',
     };
 
     $translatePartialLoaderProvider.addPart('app/mwtnCommons/locale/locale');
+
 
 //    NavHelperProvider.addControllerUrl('app/mwtnCommons/mwtnCommons.controller');
 //    NavHelperProvider.addToMenu('mwtnCommons', {

@@ -28,7 +28,10 @@ define(
     [ 'app/mwtnCommons/mwtnCommons.module' ],
     function(mwtnCommonsApp) {
 
-      mwtnCommonsApp.register.factory('$mwtnCommons', function($http, ENV, $mwtnDatabase) {
+      mwtnCommonsApp.register.factory('$mwtnCommons', function($http, $q,  ENV, $mwtnLog, $mwtnDatabase) {
+        
+        var COMPONENT = '$mwtnCommons';
+        
         var service = {
           base : ENV.getBaseURL("MD_SAL") + "/restconf/"
         };
@@ -36,6 +39,8 @@ define(
         service.getData = function(callback) {
           return callback('$mwtnCommons registered to this application.');
         };
+        
+        service.parts = ['Capability', 'Configuration', 'Status', 'CurrentProblems', 'CurrentPerformance', 'HistoricalPerformances'];
         
         service.getLabelId = function(key, callback) {
           return  callback(['mwtn', key].join('_').toUpperCase());
@@ -64,8 +69,9 @@ define(
           else return m;
         };
         
-        service.mount = function(mp, callback) {
+        service.mount = function(mp) {
           // mp: mounting point
+
           var url = [ service.base, service.url.mount()].join('');
           var xml = [
             '<module xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">',
@@ -111,20 +117,122 @@ define(
               },
               data : xml
             };
-            $http(request).then(function successCallback(response) {
-              return callback(response);
-            }, function errorCallback(response) {
-              console.error(JSON.stringify(response));
-              return callback();
+
+            var deferred = $q.defer();
+            $http(request).then(function(success) {
+              deferred.resolve(success.data);
+            }, function(error) {
+              $mwtnLog.info({component: '$mwtnCommons.mount', message: JSON.stringify(error.data)});
+              deferred.reject(error);
             });
+            return deferred.promise;
         };
 
-        service.getSchema = function(callback) {
-          // console.log('$mwtnDatabase call!');
-          $mwtnDatabase.getSchema(function(data){
-            // console.log('$mwtnDatabase called!', data);
-            return callback(data);
+        service.unmount = function(nodeId) {
+          var url = [service.base,
+              'config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector/',
+              nodeId].join('');
+          var request = {
+            method : 'DELETE',
+            url : url
+          };
+          var deferred = $q.defer();
+          $http(request).then(function(success) {
+            $mwtnLog.info({component: COMPONENT, message: 'Mounting Point deleted: ' + nodeId});
+            deferred.resolve(success.data);
+          }, function(error) {
+            $mwtnLog.info({component: '$mwtnCommons.unmount', message: JSON.stringify(error.data)});
+            deferred.reject(error);
           });
+          return deferred.promise;
+        };
+
+        service.getPacParts = function(spec) {
+          var errorMsg = {info:'no data received'};
+          var deferred = $q.defer();
+
+          switch (spec.pacId){
+          case 'ne':
+            service.getActualNetworkElement(spec.nodeId, spec.revision).then(function(success){
+              deferred.resolve(success);
+            }, function(error){
+              $mwtnLog.error({component: COMPONENT, message: 'Requesting ' + spec.nodeId + ' failed!'});
+              deferred.reject(errorMsg);
+            });
+            break;
+          case 'ltp':
+            var odlRequest = {
+              method: 'GET',
+              url: [service.url.actualNetworkElement(spec.nodeId, spec.revision), '_ltpRefList', spec.layerProtocolId].join('/')
+            };
+            service.genericRequest(odlRequest).then(function(success){
+              deferred.resolve(success);
+            }, function(error){
+              $mwtnLog.error({component: COMPONENT, message: 'Requesting LTPs of ' + spec.nodeId + ' failed!'});
+              deferred.reject(errorMsg);
+            });
+            break;
+          case 'airinterface':
+          case 'structure':
+          case 'container':
+            if (spec.partId) {
+              service.getConditionalPackagePart(spec).then(function(success){
+                deferred.resolve(success);
+              }, function(error){
+                $mwtnLog.error({component: COMPONENT, message: 'Requesting conditional package of ' + JSON.stringify(spec) + ' failed!'});
+                deferred.reject(errorMsg);
+              });
+            }
+            break;
+          default:
+            $mwtnLog.error({component: COMPONENT, message: 'Requesting ' + spec.pacId + ' not supported!'});
+            deferred.reject(errorMsg);
+          }
+          return deferred.promise;
+        };
+
+        service.getActualNetworkElements = function() {
+          var url = service.base + service.url.actualNetworkElements();
+          var request = {
+            method : 'GET',
+            url : url
+          };
+          var deferred = $q.defer();
+          $http(request).then(function(success) {
+            success.data.topology.map(function(topo){
+              if (topo['topology-id'] === 'topology-netconf') {
+                var position;
+                var index = -1;
+                topo.node.map(function(ne){
+                  index = index + 1;
+                  if (ne['node-id'] === 'controller-config') {
+                    position = index;
+                  }
+                });
+                if (position){
+                  topo.node.splice(position, 1);
+                }
+                deferred.resolve(topo.node);
+              }
+            });
+          }, function(error) {
+            $mwtnLog.error({component: COMPONENT, message: JSON.stringify(error.data)});
+            deferred.reject(error);
+          });
+          return deferred.promise;
+        };
+
+        service.getSchema = function() {
+          // console.log('$mwtnDatabase call!');
+          var deferred = $q.defer();
+          $mwtnDatabase.getSchema().then(function(data){
+            console.log('$mwtnDatabase called!', data);
+            deferred.resolve(data);
+          }, function(error){
+            $mwtnLog.error({component: COMPONENT, message: JSON.stringify(error.data)});
+            deferred.reject(error);
+          });
+          return deferred.promise;
         };
    
         service.separator = '&nbsp;';
@@ -185,21 +293,22 @@ define(
           }
         };
 
-        service.genericRequest = function(odlRequest, callback) {
+        service.genericRequest = function(odlRequest) {
           var url = [ service.base, odlRequest.url].join('');
           var request = {
             method : odlRequest.method,
             url : url,
             data : odlRequest.data
           };
-          console.info(JSON.stringify(request));
 
-          $http(request).then(function successCallback(response) {
-            callback(response);
-          }, function errorCallback(response) {
-            console.error(JSON.stringify(response));
-            callback();
+          var deferred = $q.defer();
+          $http(request).then(function(success) {
+            deferred.resolve(success);
+          }, function(error) {
+            $mwtnLog.error({component: COMPONENT + '.genericRequest', message: JSON.stringify(error.data)});
+            deferred.reject(error);
           });
+          return deferred.promise;
         };
 
         service.getMountedNetConfServers = function(callback) {
@@ -208,15 +317,15 @@ define(
             method : 'GET',
             url : url
           };
-          $http(request).then(function successCallback(response) {
-            callback(response.data);
-          }, function errorCallback(response) {
-            console.error(JSON.stringify(response));
-            callback();
+          $http(request).then(function(success) {
+            return callback(success.data);
+          }, function(error) {
+            console.error(JSON.stringify(error));
+            return callback();
           });
         };
 
-        service.getActualNetworkElement = function(neId, revision, callback) {
+        service.getActualNetworkElement = function(neId, revision) {
 
           var url = [service.base,
               service.url.actualNetworkElement(neId, revision)].join('');
@@ -224,17 +333,20 @@ define(
             method : 'GET',
             url : url
           };
-          console.time([neId, 'ONF:CoreModel:NetworkElement data received'].join(' '));
-          $http(request).then(function successCallback(response) {
-            console.timeEnd([neId, 'ONF:CoreModel:NetworkElement data received'].join(' '));
-            response.data.revision = revision;
-            callback(response.data);
-          }, function errorCallback(response) {
-            console.timeEnd([neId, 'ONF:CoreModel:NetworkElement data received'].join(' '));
-            console.info('Could not get data from', neId);
-            // console.error(JSON.stringify(response));
-            callback();
-          });
+          var taskId = [neId, 'ONF:CoreModel:NetworkElement data received'].join(' ');
+          
+          var deferred = $q.defer();
+          console.time(taskId);
+          $http(request).then(function(success) {
+            console.timeEnd(taskId);
+            success.data.revision = revision;
+            deferred.resolve(success.data);
+          }, function(error) {
+            console.timeEnd(taskId);
+            $mwtnLog.info({component: '$mwtnCommons.getActualNetworkElement', message: JSON.stringify(error.data)});
+            deferred.reject(error);
+           });
+          return deferred.promise;
         };
 
         var getIdsByRevision = function(revision, pacId, partId) {
@@ -293,99 +405,108 @@ define(
           }
         };
         
-        service.getConditionalPackagePart = function(neId, revision, pacId, lpId, partId, callback) {
+        service.getConditionalPackagePart = function(spec) {
+          var deferred = $q.defer();
+          if(!spec.partId) {
+            deferred.reject('ignore');
+            return deferred.promise;
+          }
           
-          var ids = getIdsByRevision(revision, pacId, partId);
+          var ids = getIdsByRevision(spec.revision, spec.pacId, spec.partId);
           console.log(JSON.stringify(ids)); 
           
           var url = [service.base,
               'operational/network-topology:network-topology/topology/topology-netconf/node/',
-              neId,
+              spec.nodeId,
               '/yang-ext:mount/',ids.pacId,'/',
-              lpId, '/', ids.partId].join('');
+              spec.layerProtocolId, '/', 
+              ids.partId].join('');
           var request = {
             method : 'GET',
             url : url
           };
           console.log(url);
-          console.time([neId, lpId, 'MW_AirInterface_Pac data received'].join(' '));
-          $http(request).then(function successCallback(response) {
-            console.timeEnd([neId, lpId, 'MW_AirInterface_Pac data received'].join(' '));
-            response.data.revision = revision;
-            callback(response.data);
-          }, function errorCallback(response) {
-            console.timeEnd([neId, lpId, 'MW_AirInterface_Pac data received'].join(' '));
-            console.error('getActualMW_AirInterface_Pac');
-            //console.error(JSON.stringify(response));
-            callback();
+          
+          var taskId = [spec.nodeId, spec.layerProtocolId, 'MW_AirInterface_Pac data received'].join(' ');
+          console.time(taskId);
+          
+          $http(request).then(function(success) {
+            console.timeEnd(taskId);
+            success.data.revision = spec.revision;
+            deferred.resolve(success.data);
+          }, function(error) {
+            console.timeEnd(taskId);
+            $mwtnLog.info({component: '$mwtnCommons.getConditionalPackagePart', message: JSON.stringify(error.data)});
+            deferred.reject(error);
           });
+          return deferred.promise;
         };
 
-        service.getActualMW_AirInterface_Pac = function(neId, lpId, callback) {
-//console.log('234', neId, lpId);
-          var url = [service.base,
-              'operational/network-topology:network-topology/topology/topology-netconf/node/',
-              neId,
-              '/yang-ext:mount/MicrowaveModel-ObjectClasses-MwConnection:MW_AirInterface_Pac/',
-              lpId].join('');
-          var request = {
-            method : 'GET',
-            url : url
-          };
-          console.time([neId, lpId, 'MW_AirInterface_Pac data received'].join(' '));
-          $http(request).then(function successCallback(response) {
-            console.timeEnd([neId, lpId, 'MW_AirInterface_Pac data received'].join(' '));
-            callback(response.data);
-          }, function errorCallback(response) {
-            console.timeEnd([neId, lpId, 'MW_AirInterface_Pac data received'].join(' '));
-            console.error('getActualMW_AirInterface_Pac');
-            //console.error(JSON.stringify(response));
-            callback();
-          });
-        };
-
-        service.getActualMW_Structure_Pac = function(neId, lpId, callback) {
-
-          var url = [service.base,
-              'operational/network-topology:network-topology/topology/topology-netconf/node/',
-              neId,
-              '/yang-ext:mount/MicrowaveModel-ObjectClasses-MwConnection:MW_Structure_Pac/',
-              lpId].join('');
-          var request = {
-            method : 'GET',
-            url : url
-          };
-          console.time([neId, lpId, 'MW_Structure_Pac data received'].join(' '));
-          $http(request).then(function successCallback(response) {
-            console.timeEnd([neId, lpId, 'MW_Structure_Pac data received'].join(' '));
-            callback(response.data);
-          }, function errorCallback(response) {
-            console.error(JSON.stringify(response));
-            callback();
-          });
-        };
-
-        service.getActualMW_Container_Pac = function(neId, lpId, callback) {
-
-          var url = [service.base,
-              'operational/network-topology:network-topology/topology/topology-netconf/node/',
-              neId,
-              '/yang-ext:mount/MicrowaveModel-ObjectClasses-MwConnection:MW_Container_Pac/',
-              lpId].join('');
-          var request = {
-            method : 'GET',
-            url : url
-          }; 
-          console.time([neId, lpId, 'MW_Container_Pac data received'].join(' '));
-          $http(request).then(function successCallback(response) {
-            console.timeEnd([neId, lpId, 'MW_Container_Pac data received'].join(' '));
-            callback(response.data);
-          }, function errorCallback(response) {
-            console.timeEnd([neId, lpId, 'MW_Container_Pac data received'].join(' '));
-            console.error(JSON.stringify(response));
-            callback();
-          });
-        };
+//        service.getActualMW_AirInterface_Pac = function(neId, lpId, callback) {
+////console.log('234', neId, lpId);
+//          var url = [service.base,
+//              'operational/network-topology:network-topology/topology/topology-netconf/node/',
+//              neId,
+//              '/yang-ext:mount/MicrowaveModel-ObjectClasses-MwConnection:MW_AirInterface_Pac/',
+//              lpId].join('');
+//          var request = {
+//            method : 'GET',
+//            url : url
+//          };
+//          console.time([neId, lpId, 'MW_AirInterface_Pac data received'].join(' '));
+//          $http(request).then(function successCallback(response) {
+//            console.timeEnd([neId, lpId, 'MW_AirInterface_Pac data received'].join(' '));
+//            callback(response.data);
+//          }, function errorCallback(response) {
+//            console.timeEnd([neId, lpId, 'MW_AirInterface_Pac data received'].join(' '));
+//            console.error('getActualMW_AirInterface_Pac');
+//            //console.error(JSON.stringify(response));
+//            callback();
+//          });
+//        };
+//
+//        service.getActualMW_Structure_Pac = function(neId, lpId, callback) {
+//
+//          var url = [service.base,
+//              'operational/network-topology:network-topology/topology/topology-netconf/node/',
+//              neId,
+//              '/yang-ext:mount/MicrowaveModel-ObjectClasses-MwConnection:MW_Structure_Pac/',
+//              lpId].join('');
+//          var request = {
+//            method : 'GET',
+//            url : url
+//          };
+//          console.time([neId, lpId, 'MW_Structure_Pac data received'].join(' '));
+//          $http(request).then(function successCallback(response) {
+//            console.timeEnd([neId, lpId, 'MW_Structure_Pac data received'].join(' '));
+//            callback(response.data);
+//          }, function errorCallback(response) {
+//            console.error(JSON.stringify(response));
+//            callback();
+//          });
+//        };
+//
+//        service.getActualMW_Container_Pac = function(neId, lpId, callback) {
+//
+//          var url = [service.base,
+//              'operational/network-topology:network-topology/topology/topology-netconf/node/',
+//              neId,
+//              '/yang-ext:mount/MicrowaveModel-ObjectClasses-MwConnection:MW_Container_Pac/',
+//              lpId].join('');
+//          var request = {
+//            method : 'GET',
+//            url : url
+//          }; 
+//          console.time([neId, lpId, 'MW_Container_Pac data received'].join(' '));
+//          $http(request).then(function successCallback(response) {
+//            console.timeEnd([neId, lpId, 'MW_Container_Pac data received'].join(' '));
+//            callback(response.data);
+//          }, function errorCallback(response) {
+//            console.timeEnd([neId, lpId, 'MW_Container_Pac data received'].join(' '));
+//            console.error(JSON.stringify(response));
+//            callback();
+//          });
+//        };
         
         var createStream = function(streamName, callback) {
           var request = {
@@ -440,7 +561,7 @@ define(
       });
 
       // Service log
-      mwtnCommonsApp.register.factory('$mwtnLog', function($http, ENV,
+      mwtnCommonsApp.register.factory('$mwtnLog', function($http, $q, ENV,
           $mwtnDatabase) {
 
         var writeLogToDB = function(data, callback) {
@@ -584,7 +705,6 @@ define(
                   'Database (ElasticSerach) not reachable!?')
             }
           });
-          console.info(data.timestamp, JSON.stringify(log));
         };
 
         service.warning = function(log) {
@@ -606,7 +726,7 @@ define(
       });
 
       // Service Database (ElasticSerach)
-      mwtnCommonsApp.register.factory('$mwtnDatabase', function($http, ENV) {
+      mwtnCommonsApp.register.factory('$mwtnDatabase', function($http, $q, ENV) {
 
         var service = {
           base : ENV.getBaseURL("MD_SAL").replace(':8181', ':9200'),
@@ -614,7 +734,7 @@ define(
           command : '_search'
         };
                 
-        service.genericRequest = function(databaseRequest, callback) {
+        service.genericRequest = function(databaseRequest) {
           var url = [ service.base, service.index, databaseRequest.docType,
                       databaseRequest.command ].join('/');
           var request = {
@@ -630,15 +750,16 @@ define(
           };
           // console.info(JSON.stringify(request));
 
-          $http(request).then(function successCallback(response) {
-            callback(response);
-          }, function errorCallback(response) {
-            console.error(JSON.stringify(response));
-            callback();
+          var deferred = $q.defer();
+          $http(request).then(function(success) {
+            deferred.resolve(success);
+          }, function(error) {
+            deferred.reject(error);
           });
+          return deferred.promise;
         };
 
-        service.getAllData = function(docType, from, size, sort, callback) {
+        service.getAllData = function(docType, from, size, sort) {
           var databaseRequest = {
             method : 'POST',
             command: '_search',
@@ -650,12 +771,16 @@ define(
               match_all : {}
             }
           };
-          service.genericRequest(databaseRequest, function(response){
-            callback(response);
+          var deferred = $q.defer();
+          service.genericRequest(databaseRequest).then(function(success){
+            deferred.resolve(success);
+          }, function(error){
+            deferred.reject(error);
           });
+          return deferred.promise;
         };
 
-        service.getData = function(docType, from, size, sort, filter, query, callback) {
+        service.getData = function(docType, from, size, sort, filter, query) {
           var databaseRequest = {
             method : 'POST',
             docType: docType,
@@ -665,21 +790,29 @@ define(
             filter : filter,
             query : query
           };
-          service.genericRequest(databaseRequest, function(response){
-            callback(response);
+          var deferred = $q.defer();
+          service.genericRequest(databaseRequest).then(function(success){
+            deferred.resolve(success);
+          }, function(error){
+            deferred.reject(error);
           });
+          return deferred.promise;
         };
         
-        service.deleteDoc = function(docType, id, callback) {
+        service.deleteDoc = function(docType, id) {
           var databaseRequest = {
             method : 'DELETE',
             docType: docType,
             command: id,
           };
-          service.genericRequest(databaseRequest, function(response){
-            // console.log(JSON.stringify(response));
-            callback({status: response.status, logId: response.data._id});
+          
+          var deferred = $q.defer();
+          service.genericRequest(databaseRequest).then(function(success){
+            deferred.resolve({status: success.status, logId: success.data._id});
+          }, function(error){
+            deferred.reject(error);
           });
+          return deferred.promise;
         };
 
         var schemaInformation;
@@ -689,27 +822,33 @@ define(
             from: 0,
             size: 999
           };
-          service.getAllData('schema-information', 0, 999, undefined, function(data){
+          var deferred = $q.defer();
+          service.getAllData('schema-information', 0, 999, undefined).then(function(success){
             // console.log(JSON.stringify(data.data.hits.hits));
             schemaInformation = {};
-            data.data.hits.hits.map(function(hit){
+            success.data.hits.hits.map(function(hit){
               schemaInformation[hit._id] = hit._source;
             });
             // console.log('got schemaInformation', Object.keys(schemaInformation).length);
-            return callback(schemaInformation);
+            return deferred.resolve(schemaInformation);
+          }, function(error){
+            deferred.reject(error);
           });
+          return deferred.promise;
         };
 
-        service.getSchema = function(callback) {
+        service.getSchema = function() {
+          var deferred = $q.defer();
           if (schemaInformation) {
-            // console.log(data);
-            return callback(schemaInformation);
+            deferred.resolve(schemaInformation);
           } else {
-            inquireSchemaInformation(function(data){
-              // console.log(data);
-              return callback(data);
+            inquireSchemaInformation().then(function(success){
+              deferred.resolve(success);
+            }, function(error){
+              deferred.reject(error)
             });
           }
+          return deferred.promise;
         };
 
         return service;

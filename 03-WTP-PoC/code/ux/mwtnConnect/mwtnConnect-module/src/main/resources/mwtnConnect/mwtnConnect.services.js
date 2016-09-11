@@ -9,49 +9,16 @@
 define(['app/mwtnConnect/mwtnConnect.module','app/mwtnCommons/mwtnCommons.services'],function(mwtnConnectApp) {
 
 
-  mwtnConnectApp.register.factory('$mwtnConnect', function($http, $mwtnCommons, $mwtnDatabase, $mwtnLog) {
+  mwtnConnectApp.register.factory('$mwtnConnect', function($mwtnCommons, $mwtnLog) {
 
     var COMPONENT = '$mwtnConnect';
     $mwtnLog.info({component: COMPONENT, message: '$mwtnConnect started!'});
 
     var service = {};
 
-    service.mount = function(mountingPoint, callback) {
-      $mwtnCommons.mount(mountingPoint, function(data){
-        return callback(data);
-      });
-    };
-    
-    service.getActualNetworkElements = function(callback) {
-      var url = $mwtnCommons.base + $mwtnCommons.url.actualNetworkElements();
-      var request = {
-        method : 'GET',
-        url : url
-      };
-      $http(request).then(function successCallback(response) {
-        callback(response.data);
-      }, function errorCallback(response) {
-        $mwtnLog.error({component: COMPONENT, message: JSON.stringify(response)});
-        callback();
-      });
-    };
-
-    service.unmount = function(neName, callback) {
-      var url = [$mwtnCommons.base,
-          'config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector/',
-          neName].join('');
-      var request = {
-        method : 'DELETE',
-        url : url
-      };
-      $http(request).then(function successCallback(response) {
-        $mwtnLog.info({component: COMPONENT, message: 'Mounting Point deleted: ' + neName});
-        callback(response.data);
-      }, function errorCallback(response) {
-        $mwtnLog.error({component: COMPONENT, message: JSON.stringify(response)});
-        callback();
-      });
-    };
+    service.getActualNetworkElements = $mwtnCommons.getActualNetworkElements;
+    service.mount = $mwtnCommons.mount;
+    service.unmount = $mwtnCommons.unmount;
     
     return service;
   });
