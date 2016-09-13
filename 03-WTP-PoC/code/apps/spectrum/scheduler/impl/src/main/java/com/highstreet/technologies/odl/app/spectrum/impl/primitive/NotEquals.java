@@ -8,16 +8,15 @@
 package com.highstreet.technologies.odl.app.spectrum.impl.primitive;
 
 import com.highstreet.technologies.odl.app.spectrum.impl.Then;
-import com.highstreet.technologies.odl.app.spectrum.impl.meta.Attribute;
 
 /**
  * Created by olinchy on 16-9-9.
  */
 public class NotEquals
 {
-    public static void is(Attribute planned, Attribute running, Then then)
+    public static void is(Object left, Object right, Then then)
     {
-        if (planned.equals(running))
+        if (left.equals(right))
             then.then();
     }
 }

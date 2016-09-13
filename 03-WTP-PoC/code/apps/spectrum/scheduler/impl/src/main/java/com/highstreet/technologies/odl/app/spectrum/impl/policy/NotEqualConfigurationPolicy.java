@@ -9,7 +9,7 @@ package com.highstreet.technologies.odl.app.spectrum.impl.policy;
 
 import com.highstreet.technologies.odl.app.spectrum.impl.api.DataAgent;
 import com.highstreet.technologies.odl.app.spectrum.impl.api.NeCommunicator;
-import com.highstreet.technologies.odl.app.spectrum.impl.meta.DN;
+import com.highstreet.technologies.odl.app.spectrum.impl.meta.Attribute;
 
 import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.NotEquals.is;
 
@@ -18,9 +18,8 @@ import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.NotEqu
  */
 public interface NotEqualConfigurationPolicy
 {
-    default void execute(DataAgent agent, NeCommunicator neCommunicator)
+    default void execute(DataAgent agent, NeCommunicator neCommunicator, Attribute attr)
     {
-        is(agent.get(new DN("some_airInterface")), neCommunicator.running(new DN("some_airInterface")),
-           () -> neCommunicator.set(agent.planned(new DN("some_airInterface"))));
+        is(agent.get(attr), neCommunicator.running(attr), () -> neCommunicator.set(attr, agent.get(attr)));
     }
 }

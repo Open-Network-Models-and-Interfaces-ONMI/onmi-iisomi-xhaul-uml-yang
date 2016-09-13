@@ -8,12 +8,11 @@
 package com.highstreet.technologies.odl.app.spectrum.impl.api;
 
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Attribute;
-import com.highstreet.technologies.odl.app.spectrum.impl.meta.DN;
 
 /**
  * Created by olinchy on 16-9-5.
  */
 public interface DataAgent
 {
-    Attribute get(DN dn);
+    Object get(Attribute attr);
 }

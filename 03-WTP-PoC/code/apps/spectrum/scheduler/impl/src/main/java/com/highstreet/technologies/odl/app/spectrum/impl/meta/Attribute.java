@@ -12,6 +12,7 @@ package com.highstreet.technologies.odl.app.spectrum.impl.meta;
  */
 public class Attribute
 {
-    // meta + value
-    // meta incl. dn, type
+    // value sections
+    public DN dn;
+    public String attrName;
 }

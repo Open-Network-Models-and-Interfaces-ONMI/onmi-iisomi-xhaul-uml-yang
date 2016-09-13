@@ -8,14 +8,13 @@
 package com.highstreet.technologies.odl.app.spectrum.impl.api;
 
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Attribute;
-import com.highstreet.technologies.odl.app.spectrum.impl.meta.DN;
 
 /**
  * Created by olinchy on 16-9-5.
  */
 public interface NeCommunicator
 {
-    void set(Attribute attribute);
+    void set(Attribute attribute, Object value);
 
-    Attribute running(DN dn);
+    Object running(Attribute attr);
 }
