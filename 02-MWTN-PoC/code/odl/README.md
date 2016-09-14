@@ -62,13 +62,13 @@ git clone https://github.com/OpenClovis/OpenYuma.git
 This step is necessary as there is yang model revision compatibility between Opendaylight and OpenYuma. While majority of these are resolved, there are still more to be rectified. Comment out yang revision 2013-07-15 from ietf-yang-types.yang in OpenYuma/netconf/modules/ietf folder as follows (ensure that you retain the revision declaration 2010-09-24 just below ) 
 ~~~~~
 /* MWT : Commented to make compatible with ODL
-   revision 2013-07-15 {
-     description
-      "This revision adds the following new data types:
-     reference
-      "RFC 6991: Common YANG Data Types";
- }
-*/
+     revision 2013-07-15 {
+       description
+        "This revision adds the following new data types:
+       reference
+        "RFC 6991: Common YANG Data Types";
+   }
+  */
 revision 2010-09-24 {
 .......
 ~~~~~
