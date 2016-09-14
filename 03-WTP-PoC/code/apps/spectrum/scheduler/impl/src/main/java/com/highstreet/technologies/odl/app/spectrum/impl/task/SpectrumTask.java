@@ -36,7 +36,7 @@ public class SpectrumTask implements Task
     {
         // get all airInterfaces
         Result<Mo> result = agent.find("AirInterface");
-        if (!result.isSuccessfull())
+        if (!result.isSuccess())
             return;
         for (Mo mo : result.getMo())
         {
