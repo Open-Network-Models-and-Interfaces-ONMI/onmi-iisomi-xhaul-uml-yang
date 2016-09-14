@@ -1,7 +1,7 @@
 <div class="container" style="width: 100%">
-	<div> ** {{ attributes }}</div>
+	<div ng-hide="isString(attributes)">{{ attributes }}</div>
 	
-	<div ng-hide="isString(attributes)" class="row" ng-repeat="attribute in attributes">
+	<div  class="row" ng-repeat="attribute in attributes">
 		<div class="col-md-5 text-right">{{['mwtn', attribute.name].join('_').toUpperCase() | translate}}</div>
 		<!-- string -->
 		<div class="col-md-7"
