@@ -7,15 +7,14 @@
  */
 package com.highstreet.technologies.odl.app.spectrum.impl.primitive;
 
-import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.When.when;
-
 /**
- * Created by olinchy on 16-9-9.
+ * Created by olinchy on 16-9-14.
  */
-public class NotEquals
+public class When
 {
-    public static void notEqualsThen(Object left, Object right, Then then)
+    public static void when(True is, Then then)
     {
-        when(() -> left.equals(right), then);
+        if (is.true_())
+            then.then();
     }
 }

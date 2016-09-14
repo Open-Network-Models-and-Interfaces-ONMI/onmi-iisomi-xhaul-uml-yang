@@ -8,6 +8,8 @@
 package com.highstreet.technologies.odl.app.spectrum.impl.api;
 
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Attribute;
+import com.highstreet.technologies.odl.app.spectrum.impl.meta.Mo;
+import com.highstreet.technologies.odl.app.spectrum.impl.meta.Result;
 
 /**
  * Created by olinchy on 16-9-5.
@@ -15,4 +17,6 @@ import com.highstreet.technologies.odl.app.spectrum.impl.meta.Attribute;
 public interface DataAgent
 {
     Object get(Attribute attr);
+
+    Result<Mo> find(String typeName);
 }

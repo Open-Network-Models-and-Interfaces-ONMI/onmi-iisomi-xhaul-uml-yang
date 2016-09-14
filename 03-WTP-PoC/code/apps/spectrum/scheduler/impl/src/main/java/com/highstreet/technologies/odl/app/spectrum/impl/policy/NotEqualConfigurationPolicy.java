@@ -11,15 +11,15 @@ import com.highstreet.technologies.odl.app.spectrum.impl.api.DataAgent;
 import com.highstreet.technologies.odl.app.spectrum.impl.api.NeCommunicator;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Attribute;
 
-import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.NotEquals.is;
+import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.NotEquals.notEqualsThen;
 
 /**
  * Created by olinchy on 16-9-3.
  */
-public interface NotEqualConfigurationPolicy
+public class NotEqualConfigurationPolicy
 {
-    default void execute(DataAgent agent, NeCommunicator neCommunicator, Attribute attr)
+    public static void execute(DataAgent agent, NeCommunicator neCommunicator, Attribute attr)
     {
-        is(agent.get(attr), neCommunicator.running(attr), () -> neCommunicator.set(attr, agent.get(attr)));
+        notEqualsThen(agent.get(attr), neCommunicator.running(attr), () -> neCommunicator.set(attr, agent.get(attr)));
     }
 }

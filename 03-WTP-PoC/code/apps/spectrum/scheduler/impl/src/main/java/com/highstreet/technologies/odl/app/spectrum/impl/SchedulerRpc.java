@@ -7,21 +7,49 @@
  */
 package com.highstreet.technologies.odl.app.spectrum.impl;
 
+import com.highstreet.technologies.odl.app.spectrum.impl.task.Task;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.scheduler.rev150105.ExecuteInput;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.scheduler.rev150105.SchedulerService;
 import org.opendaylight.yangtools.yang.common.RpcResult;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Future;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.Singleton.getInstance;
 
 /**
  * Created by olinchy on 16-9-9.
  */
 public class SchedulerRpc implements SchedulerService
 {
+    ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 20, 1, TimeUnit.SECONDS, new LinkedBlockingDeque<>());
+    Timer timer = new Timer("scheduler timer", true);
+
     @Override
     public Future<RpcResult<Void>> execute(
             ExecuteInput input)
     {
+        try
+        {
+            Task task = getInstance(TaskFactory.class).create(input.getTaskName());
+            timer.schedule(new TimerTask()
+            {
+                @Override
+                public void run()
+                {
+                    task.executeIn(executor);
+                }
+            }, input.getPeriod().intValue());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
         return null;
     }
 }

@@ -8,27 +8,20 @@
 package com.highstreet.technologies.odl.app.spectrum.impl.meta;
 
 /**
- * Created by olinchy on 16-9-3.
+ * Created by olinchy on 16-9-14.
  */
-public class Attribute
+public class Result<T>
 {
-    public Attribute(DN dn, String attrName)
+    private boolean successfull;
+    private Mo[] mo;
+
+    public boolean isSuccessfull()
     {
-        this.dn = dn;
-        this.attrName = attrName;
+        return successfull;
     }
 
-    // value sections
-    private DN dn;
-    private String attrName;
-
-    public DN getDn()
+    public Mo[] getMo()
     {
-        return dn;
-    }
-
-    public String getAttrName()
-    {
-        return attrName;
+        return mo;
     }
 }
