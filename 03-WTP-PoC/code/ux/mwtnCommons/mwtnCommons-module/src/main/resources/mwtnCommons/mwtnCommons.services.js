@@ -50,23 +50,18 @@ define(
           // accepts a list of module names and
           // attempts to load them, in order.
 
-          // if no options remain, throw an error.
-          if( names.length == 0 ) {
-            throw new Error("None of the modules could be loaded.");
-          }
-
           // attempt to load the module into m
           var m;
-          try {
-            m = angular.module(names[0])
-          } catch(err) {
-            m = null;
-          }
-
-          // if it could not be loaded, try the rest of
-          // the options. if it was, return it.
-          if( m == null ) return service.tryModules(names.slice(1));
-          else return m;
+          var result = {};
+          names.map(function(name){
+            try {
+              m = angular.module(name);
+              result[name] = true;
+            } catch(err) {
+              result[name] = false;
+            }
+          });
+          return result;
         };
         
         service.mount = function(mp) {
@@ -222,19 +217,6 @@ define(
           return deferred.promise;
         };
 
-        service.getSchema = function() {
-          // console.log('$mwtnDatabase call!');
-          var deferred = $q.defer();
-          $mwtnDatabase.getSchema().then(function(data){
-            console.log('$mwtnDatabase called!', data);
-            deferred.resolve(data);
-          }, function(error){
-            $mwtnLog.error({component: COMPONENT, message: JSON.stringify(error.data)});
-            deferred.reject(error);
-          });
-          return deferred.promise;
-        };
-   
         service.separator = '&nbsp;';
 
         // grid settings

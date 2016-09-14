@@ -8,9 +8,7 @@
 
 define(['app/mwtnConnect/mwtnConnect.module',
         'app/mwtnConnect/mwtnConnect.services',
-        'app/mwtnCommons/mwtnCommons.module',
-        'app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min', 
-        'app/mwtnCommons/bower_components/angular-bootstrap/ui-bootstrap-tpls.min'], 
+        'app/mwtnCommons/mwtnCommons.module'], 
         function(mwtnConnectApp) {
 
   mwtnConnectApp.register.controller('mwtnConnectCtrl', ['$scope', '$rootScope', '$q', 'uiGridConstants', '$uibModal', '$mwtnConnect', '$mwtnCommons', '$mwtnLog', 'NetConfServer', 

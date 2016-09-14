@@ -11,7 +11,8 @@ define(['app/mwtnConfig/mwtnConfig.module',
         'app/mwtnConfig/mwtnConfig.directives'],
         function(mwtnConfigApp) {
 
-  mwtnConfigApp.register.controller('mwtnConfigCtrl', ['$scope', '$rootScope', '$mwtnLog', '$mwtnConfig',  function($scope, $rootScope, $mwtnLog, $mwtnConfig) {
+  mwtnConfigApp.register.controller('mwtnConfigCtrl', ['$scope', '$rootScope', '$q', '$mwtnLog', '$mwtnConfig',  
+                                                       function($scope, $rootScope, $q, $mwtnLog, $mwtnConfig) {
 
     var COMPONENT = 'mwtnConfigCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnConfigCtrl started!'});
@@ -24,7 +25,6 @@ define(['app/mwtnConfig/mwtnConfig.module',
     $scope.parts.map(function(part){
       initPac[part] = {info: 'No data available'};
     });
-    
     $scope.schema = {init:false};
     $mwtnConfig.getSchema().then(function(data){
       $scope.schema = data;
@@ -32,6 +32,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
       console.log('bad luck - no schema ;( ');
     });
     
+
 //    $scope.getUnit = $mwtnCommons.getUnit;
 //    $scope.getTest = function(key, value) {
 //      console.log(key, value);

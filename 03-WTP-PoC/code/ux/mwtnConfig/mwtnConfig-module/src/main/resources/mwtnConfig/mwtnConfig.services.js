@@ -9,7 +9,7 @@
 define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnConfig/mwtnConfig.module'],function(mwtnConfigApp) {
 
 
-  mwtnConfigApp.register.factory('$mwtnConfig', function($mwtnCommons, $mwtnLog) {
+  mwtnConfigApp.register.factory('$mwtnConfig', function($mwtnCommons, $mwtnDatabase, $mwtnLog) {
     
     var COMPONENT = '$mwtnConfig';
     $mwtnLog.info({component: COMPONENT, message: '$mwtnConfig started!'});
@@ -20,7 +20,7 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnConfig/mwtnConfig.module'
     service.parts = $mwtnCommons.parts;
     service.getActualNetworkElements = $mwtnCommons.getActualNetworkElements;
     service.getPacParts = $mwtnCommons.getPacParts;
-    service.getSchema = $mwtnCommons.getSchema;
+    service.getSchema = $mwtnDatabase.getSchema;
 
     return service;
   });

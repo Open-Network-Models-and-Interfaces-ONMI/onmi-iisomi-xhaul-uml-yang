@@ -8,25 +8,13 @@
 
 define(['app/mwtnLog/mwtnLog.module',
         'app/mwtnLog/mwtnLog.services',
-        'app/mwtnCommons/mwtnCommons.module',
-        'app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min', 
-        'app/mwtnCommons/bower_components/angular-bootstrap/ui-bootstrap-tpls.min'], 
+        'app/mwtnCommons/mwtnCommons.module'], 
         function(mwtnLogApp) {
-
-  mwtnLogApp.register.controller('ClearLogCtrl', ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
-
-    $scope.ok = function () {
-      $uibModalInstance.close('ok');
-    };
-
-    $scope.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
-    };
-  }]);
     
-    
-  mwtnLogApp.register.controller('mwtnLogCtrl', ['$scope', '$rootScope', '$uibModal', 'uiGridConstants', '$mwtnLogView', '$mwtnCommons', '$mwtnLog' ,
-                                                 function($scope, $rootScope, uiGridConstants, $uibModal, $mwtnLogView, $mwtnCommons, $mwtnLog) {
+  mwtnLogApp.register.controller('mwtnLogCtrl', ['uiGridConstants', '$uibModal', '$scope', '$rootScope', '$mwtnCommons', '$mwtnLogView', '$mwtnLog' ,
+                                                 function(uiGridConstants, $uibModal, $scope, $rootScope, $mwtnCommons, $mwtnLogView,  $mwtnLog) {
+
+    console.log(JSON.stringify($mwtnLogView.tryModules(['ui.grid', 'ui.bootstrap'])));
 
     var COMPONENT = 'mwtnLogCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnLogCtrl started!'});
@@ -146,5 +134,15 @@ define(['app/mwtnLog/mwtnLog.module',
 
   }]);
 
+  mwtnLogApp.register.controller('ClearLogCtrl', ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
 
+    $scope.ok = function () {
+      $uibModalInstance.close('ok');
+    };
+
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+  }]);
+    
 });

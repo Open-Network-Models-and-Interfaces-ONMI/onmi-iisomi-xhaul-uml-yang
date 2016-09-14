@@ -1,7 +1,26 @@
 <div class="container" style="width: 100%">
-	<div class="row" ng-repeat="(key, value) in parameters track by key">
-		<div class="col-md-6 text-right">{{key}}</div>
-		<div class="col-md-4" ng-class="{'text-right':!isString(value)}">{{value}}</div>
-		<div class="col-md-2">{{schema[key].unit}}</div>
+	<div> ** {{ attributes }}</div>
+	
+	<div ng-hide="isString(attributes)" class="row" ng-repeat="attribute in attributes">
+		<div class="col-md-5 text-right">{{['mwtn', attribute.name].join('_').toUpperCase() | translate}}</div>
+		<!-- string -->
+		<div class="col-md-7"
+			ng-show="getType(attribute.value) === 'string'"><b>{{attribute.value}}</b></div>
+		
+		<!-- number, boolean -->
+		<div class="col-md-3 text-right"
+			ng-show="getType(attribute.value) !== 'string' && getType(attribute.value) !== 'object' && getType(attribute.value) !== 'array'"><b>{{attribute.value}}</b></div>
+		<div class="col-md-3"
+            ng-show="getType(attribute.value) !== 'string' && getType(attribute.value) !== 'object' && getType(attribute.value) !== 'array'">{{attribute.unit}}</div>
+		
+			
+		<div class="col-md-7" ng-show="getType(attribute.value) === 'object'">
+			<button ng-click="showObject(attribute.value)" class="btn btn-primary">{{'Show object'
+				| translate}}...</button>
+		</div>
+		<div class="col-md-7" ng-show="getType(attribute.value) === 'array'">
+			<button ng-click="showArray(attribute.value)" class="btn btn-primary">{{'Show list'
+				| translate}}...</button>
+		</div>
 	</div>
 </div>

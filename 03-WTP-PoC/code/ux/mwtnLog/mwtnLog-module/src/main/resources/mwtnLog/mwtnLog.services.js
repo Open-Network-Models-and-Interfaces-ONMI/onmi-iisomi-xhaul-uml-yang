@@ -8,10 +8,12 @@
 
 define(['app/mwtnLog/mwtnLog.module','app/mwtnCommons/mwtnCommons.services'],function(mwtnLogApp) {
 
-  mwtnLogApp.register.factory('$mwtnLogView', function($q, $mwtnDatabase, $mwtnLog) {
+  mwtnLogApp.register.factory('$mwtnLogView', function($q, $mwtnCommons, $mwtnDatabase, $mwtnLog) {
     
     var service = {};
 
+    service.tryModules = $mwtnCommons.tryModules;
+    
     service.getAllLogEntries = function(from, size) {
       var sort = [ {
         timestamp : {

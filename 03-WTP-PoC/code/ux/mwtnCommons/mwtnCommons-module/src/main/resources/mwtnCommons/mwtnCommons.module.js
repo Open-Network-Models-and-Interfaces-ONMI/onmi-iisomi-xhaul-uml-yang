@@ -9,12 +9,11 @@
 define(['angularAMD', 
         'app/routingConfig', 
         'app/core/core.services', 
-        'common/config/env.module', 
+        'common/config/env.module',
         'app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min', 
-        'app/mwtnCommons/bower_components/angular-bootstrap/ui-bootstrap-tpls.min',
-        'app/mwtnCommons/bower_components/angular-filereader/angular-filereader.min'], 
+        'app/mwtnCommons/bower_components/angular-bootstrap/ui-bootstrap-tpls.min'], 
         function(ng) {
-  var mwtnCommonsApp = angular.module('app.mwtnCommons', ['app.core', 'ui.grid', 'ui.router.state','config', 'pascalprecht.translate', 'filereader']);
+  var mwtnCommonsApp = angular.module('app.mwtnCommons', ['app.core', 'ui.grid', 'ui.bootstrap',  'ui.router.state','config', 'pascalprecht.translate']);
 
   mwtnCommonsApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $httpProvider, $translateProvider, $translatePartialLoaderProvider) {
     mwtnCommonsApp.register = {
