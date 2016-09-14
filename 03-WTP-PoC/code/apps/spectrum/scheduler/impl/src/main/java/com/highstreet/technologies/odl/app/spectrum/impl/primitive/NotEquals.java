@@ -16,6 +16,6 @@ public class NotEquals
 {
     public static void notEqualsThen(Object left, Object right, Then then)
     {
-        when(() -> left.equals(right), then);
+        when(() -> !left.equals(right), then);
     }
 }

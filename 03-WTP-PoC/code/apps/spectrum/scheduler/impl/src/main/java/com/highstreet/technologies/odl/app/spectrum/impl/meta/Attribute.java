@@ -31,4 +31,13 @@ public class Attribute
     {
         return attrName;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Attribute{" +
+                "dn=" + dn +
+                ", attrName='" + attrName + '\'' +
+                '}';
+    }
 }

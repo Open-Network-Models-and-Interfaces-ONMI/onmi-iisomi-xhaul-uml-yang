@@ -7,7 +7,6 @@
  */
 package com.highstreet.technologies.odl.app.spectrum.impl.task;
 
-import com.highstreet.technologies.odl.app.spectrum.impl.SchedulerRpc;
 import com.highstreet.technologies.odl.app.spectrum.impl.api.DataAgent;
 import com.highstreet.technologies.odl.app.spectrum.impl.api.NeCommunicator;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Attribute;
