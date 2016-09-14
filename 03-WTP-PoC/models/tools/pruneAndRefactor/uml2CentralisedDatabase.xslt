@@ -87,9 +87,9 @@
     <xsl:apply-templates select="type"></xsl:apply-templates>
     <xsl:text>&quot;,</xsl:text>
     <!-- order number -->
-    <xsl:text>&quot;order-number&quot;:&quot;</xsl:text>
+    <xsl:text>&quot;order-number&quot;:</xsl:text>
     <xsl:value-of select="position()"></xsl:value-of>
-    <xsl:text>&quot;,</xsl:text>
+    <xsl:text>,</xsl:text>
     <!-- is-read-only -->
     <xsl:text>&quot;is-read-only&quot;:</xsl:text>
     <xsl:choose>

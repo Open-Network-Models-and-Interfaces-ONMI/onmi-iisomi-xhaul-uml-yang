@@ -24,11 +24,11 @@ module CoreModel-CoreNetworkModule-ObjectClasses {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-08-11 {
+    revision 2016-09-13 {
         description 
             "Initial revision."; 
         reference 
-            "ONF TR xyz: A YANG Data Model for Microwave Transport Networks."; 
+            "ONF TR 532: A YANG Data Model for Microwave Transport Networks."; 
     }
 
     grouping ForwardingDomain {
@@ -75,7 +75,7 @@ The LTPs that bound the FD provide capacity for forwarding.";
         key 'uuid';
         config true;
         ordered-by system;
-        uses CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages:GlobalClass;
+        uses ForwardingConstruct;
     }
     grouping ForwardingConstruct {
         description "The ForwardingConstruct (FC) object class models enabled potential for forwarding between two or more LTPs at a particular specific layerProtocol.

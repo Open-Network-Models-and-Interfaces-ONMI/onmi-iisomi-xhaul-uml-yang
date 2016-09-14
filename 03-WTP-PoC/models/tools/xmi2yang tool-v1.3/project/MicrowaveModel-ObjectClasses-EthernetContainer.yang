@@ -27,11 +27,11 @@ module MicrowaveModel-ObjectClasses-EthernetContainer {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-09-02 {
+    revision 2016-09-13 {
         description 
             "Initial revision."; 
         reference 
-            "ONF TR xyz: A YANG Data Model for Microwave Transport Networks."; 
+            "ONF TR 532: A YANG Data Model for Microwave Transport Networks."; 
     }
 
     list MW_EthernetContainer_Pac {
@@ -42,7 +42,7 @@ module MicrowaveModel-ObjectClasses-EthernetContainer {
             type leafref {
                 path '/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/CoreModel-CoreNetworkModule-ObjectClasses:_ltpRefList/CoreModel-CoreNetworkModule-ObjectClasses:_lpList/CoreModel-CoreNetworkModule-ObjectClasses:uuid';
             }
-            description "";
+            description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
         }
         container ethernetContainerCapability {
             config false;

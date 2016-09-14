@@ -30,11 +30,18 @@ module G_874_1_model-Imported_Information_Object_Classes-Q_822 {
         'This module contains a collection of YANG definitions for 
          managing microwave transport networks.';
 
-    revision 2016-08-11 {
+    revision 2016-09-13 {
         description 
             "Initial revision."; 
         reference 
-            "ONF TR xyz: A YANG Data Model for Microwave Transport Networks."; 
+            "ONF TR 532: A YANG Data Model for Microwave Transport Networks."; 
+    }
+
+    list Q_822_CurrentData {
+        key 'scannerId';
+        config true;
+        ordered-by system;
+        uses Q_822_CurrentData;
     }
     grouping Q_822_CurrentData {
         uses G_874_1_model-Imported_Information_Object_Classes-X_739:X_739_Scanner;
@@ -46,6 +53,12 @@ module G_874_1_model-Imported_Information_Object_Classes-Q_822 {
         leaf elapsedTime {
             type int32;
         }
+    }
+    list Q_822_HistoryData {
+        key 'historyDataId';
+        config true;
+        ordered-by system;
+        uses Q_822_HistoryData;
     }
     grouping Q_822_HistoryData {
         uses G_874_1_model-Imported_Information_Object_Classes-X_721:X_721_Top;

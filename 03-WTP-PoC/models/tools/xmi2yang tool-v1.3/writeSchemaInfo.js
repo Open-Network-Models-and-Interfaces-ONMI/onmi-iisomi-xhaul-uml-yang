@@ -172,6 +172,8 @@ checkDatabase(database, function(dbStatus) {
               console.log('remove', removeStatus);
             });
           });
+          
+          if (true)
           fs.readdir(__dirname + '/project', function(err, files) {
             if (err) {
               console.error(err);
