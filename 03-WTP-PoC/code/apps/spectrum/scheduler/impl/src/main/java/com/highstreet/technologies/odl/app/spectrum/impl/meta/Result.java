@@ -7,21 +7,20 @@
  */
 package com.highstreet.technologies.odl.app.spectrum.impl.meta;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Created by olinchy on 16-9-14.
  */
-public class Result<T>
+public abstract class Result<T> implements Serializable
 {
-    private boolean successfull;
-    private Mo[] mo;
+    public abstract boolean isSuccess();
 
-    public boolean isSuccessfull()
+    public Throwable exception()
     {
-        return successfull;
+        return null;
     }
 
-    public Mo[] getMo()
-    {
-        return mo;
-    }
+    public abstract List<T> getMo();
 }

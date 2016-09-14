@@ -7,27 +7,29 @@
  */
 package com.highstreet.technologies.odl.app.spectrum.impl.meta;
 
+import java.util.List;
+
 /**
  * Created by olinchy on 16-9-14.
  */
-public class Mo
+public class Successful<T> extends Result<T>
 {
-    public Mo(String moClass)
+    public Successful(List<T> mo)
     {
-        this.moClass = moClass;
+        this.mo = mo;
     }
 
-    private final String moClass;
-    private DN DN;
+    private final List<T> mo;
 
-    public DN getDN()
+    @Override
+    public boolean isSuccess()
     {
-        return DN;
+        return true;
     }
 
-    public Mo setDN(DN DN)
+    @Override
+    public List<T> getMo()
     {
-        this.DN = DN;
-        return this;
+        return mo;
     }
 }
