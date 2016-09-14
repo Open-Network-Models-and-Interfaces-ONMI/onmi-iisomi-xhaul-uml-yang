@@ -7,10 +7,14 @@
  */
 package com.highstreet.technologies.odl.app.spectrum.impl;
 
+import com.google.common.util.concurrent.Futures;
 import com.highstreet.technologies.odl.app.spectrum.impl.task.Task;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.scheduler.rev150105.ExecuteInput;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.scheduler.rev150105.SchedulerService;
 import org.opendaylight.yangtools.yang.common.RpcResult;
+import org.opendaylight.yangtools.yang.common.RpcResultBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,6 +30,7 @@ import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.Single
  */
 public class SchedulerRpc implements SchedulerService
 {
+    private static final Logger LOG = LoggerFactory.getLogger(SchedulerRpc.class);
     ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 20, 1, TimeUnit.SECONDS, new LinkedBlockingDeque<>());
     Timer timer = new Timer("scheduler timer", true);
 
@@ -45,11 +50,11 @@ public class SchedulerRpc implements SchedulerService
                 }
             }, input.getPeriod().intValue());
         }
-        catch (Exception e)
+        catch (Throwable e)
         {
-            e.printStackTrace();
+            LOG.warn("execute task failed!", e);
         }
 
-        return null;
+        return Futures.immediateFuture(RpcResultBuilder.<Void>success().build());
     }
 }

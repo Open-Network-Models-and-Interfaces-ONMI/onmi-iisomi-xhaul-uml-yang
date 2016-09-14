@@ -7,11 +7,14 @@
  */
 package com.highstreet.technologies.odl.app.spectrum.impl.task;
 
+import com.highstreet.technologies.odl.app.spectrum.impl.SchedulerRpc;
 import com.highstreet.technologies.odl.app.spectrum.impl.api.DataAgent;
 import com.highstreet.technologies.odl.app.spectrum.impl.api.NeCommunicator;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Attribute;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Mo;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Result;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -22,6 +25,7 @@ import static com.highstreet.technologies.odl.app.spectrum.impl.policy.NotEqualC
  */
 public class SpectrumTask implements Task
 {
+    private static final Logger LOG = LoggerFactory.getLogger(SpectrumTask.class);
     private DataAgent agent;
     private NeCommunicator communicator;
 
@@ -40,6 +44,7 @@ public class SpectrumTask implements Task
             return;
         for (Mo mo : result.getMo())
         {
+            LOG.info("adding task to threadPool");
             executor.execute(() -> execute(agent, communicator, new Attribute(mo.getDN(), "txFrequency")));
             executor.execute(() -> execute(agent, communicator, new Attribute(mo.getDN(), "rxFrequency")));
         }
