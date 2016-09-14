@@ -334,7 +334,7 @@
         "name":"Ericsson-21",
         "MW_AirInterface_Pac":[
           {
-            "layerProtocol":"2146697473",
+            "layerProtocol":"LP-AirInterface-1",
             "airInterfaceConfiguration":{
               "airInterfaceName":"1/2.1/1",
               "radioSignalId":"ERI1",
@@ -352,7 +352,7 @@
             }
          },
           {
-            "layerProtocol":"2146697601",
+            "layerProtocol":"LP-AirInterface-2",
             "airInterfaceConfiguration":{
               "airInterfaceName":"1/3.1/1",
               "radioSignalId":"ERI2",
@@ -495,7 +495,7 @@
         "name":"Ericsson-22",
         "MW_AirInterface_Pac":[
           {
-            "layerProtocol":"2146697473",
+            "layerProtocol":"LP-AirInterface-1",
             "airInterfaceConfiguration":{
               "airInterfaceName":"1/2.1/1",
               "radioSignalId":"ERI1",
@@ -513,7 +513,7 @@
             }
           },
           {
-            "layerProtocol":"2146697601",
+            "layerProtocol":"LP-AirInterface-2",
             "airInterfaceConfiguration":{
               "airInterfaceName":"1/3.1/1",
               "radioSignalId":"ERI2",
@@ -656,38 +656,146 @@
         "name":"Rack0NodeA-10.2.1.2",
         "MW_AirInterface_Pac":[
           {
-            "layerProtocol":"2146697473",
+            "layerProtocol":"LP-AirInterface-1",
             "airInterfaceConfiguration":{
-              "airInterfaceName":"1/2.1/1",
-              "radioSignalId":"A1B1",
-              "txFrequency":23088000,
-              "rxFrequency":22080000,
-              "txChannelBandwidth":56000,
-              "rxChannelBandwidth":56000,
+              "airInterfaceName":"1/17.1/1",
+              "radioSignalId":"A93B93",
+              "txFrequency":19417000,
+              "rxFrequency":17857000,
+              "txChannelBandwidth":50000,
+              "rxChannelBandwidth":50000,
               "powerIsOn":true,
               "transmitterIsOn":true,
-              "txPower":0,
+              "txPower":-10,
+              "adaptiveModulationIsOn":true,
+              "modulationMin":512,
+              "modulationMax":512,
+              "xpicIsOn":false
+            }
+          },
+          {
+            "layerProtocol":"LP-AirInterface-2",
+            "airInterfaceConfiguration":{
+              "airInterfaceName":"1/15.1/1",
+              "radioSignalId":"A37B37",
+              "txFrequency":0,
+              "rxFrequency":0,
+              "txChannelBandwidth":50000,
+              "rxChannelBandwidth":50000,
+              "powerIsOn":true,
+              "transmitterIsOn":true,
+              "txPower":254,
               "adaptiveModulationIsOn":true,
               "modulationMin":4,
+              "modulationMax":4,
+              "xpicIsOn":false
+            }
+          },
+          {
+            "layerProtocol":"LP-AirInterface-3",
+            "airInterfaceConfiguration":{
+              "airInterfaceName":"1/5.1/1",
+              "radioSignalId":"A57B57",
+              "txFrequency":22525000,
+              "rxFrequency":21325000,
+              "txChannelBandwidth":50000,
+              "rxChannelBandwidth":50000,
+              "powerIsOn":true,
+              "transmitterIsOn":true,
+              "txPower":-5,
+              "adaptiveModulationIsOn":true,
+              "modulationMin":512,
+              "modulationMax":512,
+              "xpicIsOn":false
+            }
+          },
+          {
+            "layerProtocol":"LP-AirInterface-4",
+            "airInterfaceConfiguration":{
+              "airInterfaceName":"1/3.1/1",
+              "radioSignalId":"A01B01",
+              "txFrequency":22525000,
+              "rxFrequency":21402000,
+              "txChannelBandwidth":50000,
+              "rxChannelBandwidth":50000,
+              "powerIsOn":true,
+              "transmitterIsOn":true,
+              "txPower":-5,
+              "adaptiveModulationIsOn":true,
+              "modulationMin":256,
               "modulationMax":256,
               "xpicIsOn":false
             }
           },
           {
-            "layerProtocol":"2146697601",
+            "layerProtocol":"LP-AirInterface-5",
             "airInterfaceConfiguration":{
-              "airInterfaceName":"1/3.1/1",
-              "radioSignalId":"A2B2",
-              "txFrequency":23312000,
-              "rxFrequency":22002750,
-              "txChannelBandwidth":56000,
-              "rxChannelBandwidth":56000,
+              "airInterfaceName":"1/16.1/1",
+              "radioSignalId":"A65B65",
+              "txFrequency":19417000,
+              "rxFrequency":17857000,
+              "txChannelBandwidth":50000,
+              "rxChannelBandwidth":50000,
               "powerIsOn":true,
               "transmitterIsOn":true,
-              "txPower":18,
+              "txPower":-10,
+              "adaptiveModulationIsOn":true,
+              "modulationMin":512,
+              "modulationMax":512,
+              "xpicIsOn":false
+            }
+          },
+          {
+            "layerProtocol":"LP-AirInterface-6",
+            "airInterfaceConfiguration":{
+              "airInterfaceName":"1/14.1/1",
+              "radioSignalId":"A09B09",
+              "txFrequency":0,
+              "rxFrequency":0,
+              "txChannelBandwidth":50000,
+              "rxChannelBandwidth":50000,
+              "powerIsOn":true,
+              "transmitterIsOn":true,
+              "txPower":254,
               "adaptiveModulationIsOn":true,
               "modulationMin":4,
-              "modulationMax":512,
+              "modulationMax":4,
+              "xpicIsOn":false
+            }
+          },
+          {
+            "layerProtocol":"LP-AirInterface-7",
+            "airInterfaceConfiguration":{
+              "airInterfaceName":"1/4.1/1",
+              "radioSignalId":"A29B29",
+              "txFrequency":22525000,
+              "rxFrequency":21325000,
+              "txChannelBandwidth":50000,
+              "rxChannelBandwidth":50000,
+              "powerIsOn":true,
+              "transmitterIsOn":true,
+              "txPower":-5,
+              "adaptiveModulationIsOn":true,
+              "modulationMin":256,
+              "modulationMax":256,
+              "xpicIsOn":false
+            }
+          },
+          {
+            "layerProtocol":"LP-AirInterface-8",
+            "airInterfaceConfiguration":{
+              "airInterfaceName":"1/4.1/1",
+              "radioSignalId":"A73B73",
+              "txFrequency":22602000,
+              "rxFrequency":21402000,
+              "txChannelBandwidth":50000,
+              "rxChannelBandwidth":50000,
+              "powerIsOn":true,
+              "transmitterIsOn":true,
+              "txPower":-5,
+              "adaptiveModulationIsOn":true,
+              "modulationMin":256,
+              "modulationMax":256,
               "xpicIsOn":false
             }
           }
@@ -751,6 +859,97 @@
               },
               {
                 "operationalState":"ENABLED",
+                "uuid":"LTP-AirInterface-2",
+                "_clientLtpRefList":[
+                  "LTP-Structure-2"
+                ],
+                "_lpList":[
+                  {
+                    "uuid":"LP-AirInterface-2",
+                    "layerProtocolName":"MWPS"
+                  }
+                ]
+              },
+              {
+                "operationalState":"ENABLED",
+                "uuid":"LTP-AirInterface-3",
+                "_clientLtpRefList":[
+                  "LTP-Structure-3"
+                ],
+                "_lpList":[
+                  {
+                    "uuid":"LP-AirInterface-3",
+                    "layerProtocolName":"MWPS"
+                  }
+                ]
+              },
+              {
+                "operationalState":"ENABLED",
+                "uuid":"LTP-AirInterface-4",
+                "_clientLtpRefList":[
+                  "LTP-Structure-4"
+                ],
+                "_lpList":[
+                  {
+                    "uuid":"LP-AirInterface-4",
+                    "layerProtocolName":"MWPS"
+                  }
+                ]
+              },
+              {
+                "operationalState":"ENABLED",
+                "uuid":"LTP-AirInterface-5",
+                "_clientLtpRefList":[
+                  "LTP-Structure-5"
+                ],
+                "_lpList":[
+                  {
+                    "uuid":"LP-AirInterface-5",
+                    "layerProtocolName":"MWPS"
+                  }
+                ]
+              },
+              {
+                "operationalState":"ENABLED",
+                "uuid":"LTP-AirInterface-6",
+                "_clientLtpRefList":[
+                  "LTP-Structure-6"
+                ],
+                "_lpList":[
+                  {
+                    "uuid":"LP-AirInterface-6",
+                    "layerProtocolName":"MWPS"
+                  }
+                ]
+              },
+              {
+                "operationalState":"ENABLED",
+                "uuid":"LTP-AirInterface-7",
+                "_clientLtpRefList":[
+                  "LTP-Structure-7"
+                ],
+                "_lpList":[
+                  {
+                    "uuid":"LP-AirInterface-7",
+                    "layerProtocolName":"MWPS"
+                  }
+                ]
+              },
+              {
+                "operationalState":"ENABLED",
+                "uuid":"LTP-AirInterface-8",
+                "_clientLtpRefList":[
+                  "LTP-Structure-8"
+                ],
+                "_lpList":[
+                  {
+                    "uuid":"LP-AirInterface-8",
+                    "layerProtocolName":"MWPS"
+                  }
+                ]
+              },
+              {
+                "operationalState":"ENABLED",
                 "uuid":"LTP-Structure-1",
                 "_serverLtpRefList":[
                   "LTP-AirInterface-1"
@@ -762,19 +961,6 @@
                   {
                     "uuid":"LP-Structure-1",
                     "layerProtocolName":"MWS"
-                  }
-                ]
-              },
-              {
-                "operationalState":"ENABLED",
-                "uuid":"LTP-AirInterface-2",
-                "_clientLtpRefList":[
-                  "LTP-Structure-2"
-                ],
-                "_lpList":[
-                  {
-                    "uuid":"LP-AirInterface-2",
-                    "layerProtocolName":"MWPS"
                   }
                 ]
               },
@@ -817,38 +1003,146 @@
         "name":"Rack1NodeB-172.31.1.6",
         "MW_AirInterface_Pac":[
           {
-            "layerProtocol":"2146697473",
+            "layerProtocol":"LP-AirInterface-1",
             "airInterfaceConfiguration":{
-              "airInterfaceName":"1/2.1/1",
-              "radioSignalId":"A1B1",
-              "txFrequency":23088000,
-              "rxFrequency":22080000,
-              "txChannelBandwidth":56000,
-              "rxChannelBandwidth":56000,
+              "airInterfaceName":"1/17.1/1",
+              "radioSignalId":"A93B93",
+              "txFrequency":17857000,
+              "rxFrequency":19417000,
+              "txChannelBandwidth":50000,
+              "rxChannelBandwidth":50000,
               "powerIsOn":true,
               "transmitterIsOn":true,
-              "txPower":0,
+              "txPower":-10,
+              "adaptiveModulationIsOn":true,
+              "modulationMin":512,
+              "modulationMax":512,
+              "xpicIsOn":false
+            }
+          },
+          {
+            "layerProtocol":"LP-AirInterface-2",
+            "airInterfaceConfiguration":{
+              "airInterfaceName":"1/15.1/1",
+              "radioSignalId":"A37B37",
+              "txFrequency":0,
+              "rxFrequency":0,
+              "txChannelBandwidth":50000,
+              "rxChannelBandwidth":50000,
+              "powerIsOn":true,
+              "transmitterIsOn":true,
+              "txPower":254,
               "adaptiveModulationIsOn":true,
               "modulationMin":4,
+              "modulationMax":4,
+              "xpicIsOn":false
+            }
+          },
+          {
+            "layerProtocol":"LP-AirInterface-3",
+            "airInterfaceConfiguration":{
+              "airInterfaceName":"1/5.1/1",
+              "radioSignalId":"A57B57",
+              "txFrequency":21325000,
+              "rxFrequency":22525000,
+              "txChannelBandwidth":50000,
+              "rxChannelBandwidth":50000,
+              "powerIsOn":true,
+              "transmitterIsOn":true,
+              "txPower":-5,
+              "adaptiveModulationIsOn":true,
+              "modulationMin":512,
+              "modulationMax":512,
+              "xpicIsOn":false
+            }
+          },
+          {
+            "layerProtocol":"LP-AirInterface-4",
+            "airInterfaceConfiguration":{
+              "airInterfaceName":"1/3.1/1",
+              "radioSignalId":"A01B01",
+              "txFrequency":21402000,
+              "rxFrequency":22525000,
+              "txChannelBandwidth":50000,
+              "rxChannelBandwidth":50000,
+              "powerIsOn":true,
+              "transmitterIsOn":true,
+              "txPower":-5,
+              "adaptiveModulationIsOn":true,
+              "modulationMin":256,
               "modulationMax":256,
               "xpicIsOn":false
             }
           },
           {
-            "layerProtocol":"2146697601",
+            "layerProtocol":"LP-AirInterface-5",
             "airInterfaceConfiguration":{
-              "airInterfaceName":"1/3.1/1",
-              "radioSignalId":"A2B2",
-              "txFrequency":23312000,
-              "rxFrequency":22002750,
-              "txChannelBandwidth":56000,
-              "rxChannelBandwidth":56000,
+              "airInterfaceName":"1/16.1/1",
+              "radioSignalId":"A65B65",
+              "txFrequency":17857000,
+              "rxFrequency":19417000,
+              "txChannelBandwidth":50000,
+              "rxChannelBandwidth":50000,
               "powerIsOn":true,
               "transmitterIsOn":true,
-              "txPower":18,
+              "txPower":-10,
+              "adaptiveModulationIsOn":true,
+              "modulationMin":512,
+              "modulationMax":512,
+              "xpicIsOn":false
+            }
+          },
+          {
+            "layerProtocol":"LP-AirInterface-6",
+            "airInterfaceConfiguration":{
+              "airInterfaceName":"1/14.1/1",
+              "radioSignalId":"A09B09",
+              "txFrequency":0,
+              "rxFrequency":0,
+              "txChannelBandwidth":50000,
+              "rxChannelBandwidth":50000,
+              "powerIsOn":true,
+              "transmitterIsOn":true,
+              "txPower":254,
               "adaptiveModulationIsOn":true,
               "modulationMin":4,
-              "modulationMax":512,
+              "modulationMax":4,
+              "xpicIsOn":false
+            }
+          },
+          {
+            "layerProtocol":"LP-AirInterface-7",
+            "airInterfaceConfiguration":{
+              "airInterfaceName":"1/4.1/1",
+              "radioSignalId":"A29B29",
+              "txFrequency":21325000,
+              "rxFrequency":22525000,
+              "txChannelBandwidth":50000,
+              "rxChannelBandwidth":50000,
+              "powerIsOn":true,
+              "transmitterIsOn":true,
+              "txPower":-5,
+              "adaptiveModulationIsOn":true,
+              "modulationMin":256,
+              "modulationMax":256,
+              "xpicIsOn":false
+            }
+          },
+          {
+            "layerProtocol":"LP-AirInterface-8",
+            "airInterfaceConfiguration":{
+              "airInterfaceName":"1/4.1/1",
+              "radioSignalId":"A73B73",
+              "txFrequency":21402000,
+              "rxFrequency":22602000,
+              "txChannelBandwidth":50000,
+              "rxChannelBandwidth":50000,
+              "powerIsOn":true,
+              "transmitterIsOn":true,
+              "txPower":-5,
+              "adaptiveModulationIsOn":true,
+              "modulationMin":256,
+              "modulationMax":256,
               "xpicIsOn":false
             }
           }
@@ -895,7 +1189,7 @@
               }
             ],
             "operationalState":"ENABLED",
-            "uuid":"Rack0NodeA-10.2.1.2",
+            "uuid":"Rack1NodeB-172.31.1.6",
             "_ltpRefList":[
               {
                 "operationalState":"ENABLED",
@@ -978,7 +1272,7 @@
         "name":"Rack2NodeA-172.31.1.2",
         "MW_AirInterface_Pac":[
           {
-            "layerProtocol":"2146697473",
+            "layerProtocol":"LP-AirInterface-1",
             "airInterfaceConfiguration":{
               "airInterfaceName":"1/2.1/1",
               "radioSignalId":"0002",
@@ -1046,6 +1340,97 @@
               },
               {
                 "operationalState":"ENABLED",
+                "uuid":"LTP-AirInterface-2",
+                "_clientLtpRefList":[
+                  "LTP-Structure-2"
+                ],
+                "_lpList":[
+                  {
+                    "uuid":"LP-AirInterface-2",
+                    "layerProtocolName":"MWPS"
+                  }
+                ]
+              },
+              {
+                "operationalState":"ENABLED",
+                "uuid":"LTP-AirInterface-3",
+                "_clientLtpRefList":[
+                  "LTP-Structure-3"
+                ],
+                "_lpList":[
+                  {
+                    "uuid":"LP-AirInterface-3",
+                    "layerProtocolName":"MWPS"
+                  }
+                ]
+              },
+              {
+                "operationalState":"ENABLED",
+                "uuid":"LTP-AirInterface-4",
+                "_clientLtpRefList":[
+                  "LTP-Structure-4"
+                ],
+                "_lpList":[
+                  {
+                    "uuid":"LP-AirInterface-4",
+                    "layerProtocolName":"MWPS"
+                  }
+                ]
+              },
+              {
+                "operationalState":"ENABLED",
+                "uuid":"LTP-AirInterface-5",
+                "_clientLtpRefList":[
+                  "LTP-Structure-5"
+                ],
+                "_lpList":[
+                  {
+                    "uuid":"LP-AirInterface-5",
+                    "layerProtocolName":"MWPS"
+                  }
+                ]
+              },
+              {
+                "operationalState":"ENABLED",
+                "uuid":"LTP-AirInterface-6",
+                "_clientLtpRefList":[
+                  "LTP-Structure-6"
+                ],
+                "_lpList":[
+                  {
+                    "uuid":"LP-AirInterface-6",
+                    "layerProtocolName":"MWPS"
+                  }
+                ]
+              },
+              {
+                "operationalState":"ENABLED",
+                "uuid":"LTP-AirInterface-7",
+                "_clientLtpRefList":[
+                  "LTP-Structure-7"
+                ],
+                "_lpList":[
+                  {
+                    "uuid":"LP-AirInterface-7",
+                    "layerProtocolName":"MWPS"
+                  }
+                ]
+              },
+              {
+                "operationalState":"ENABLED",
+                "uuid":"LTP-AirInterface-8",
+                "_clientLtpRefList":[
+                  "LTP-Structure-8"
+                ],
+                "_lpList":[
+                  {
+                    "uuid":"LP-AirInterface-8",
+                    "layerProtocolName":"MWPS"
+                  }
+                ]
+              },
+              {
+                "operationalState":"ENABLED",
                 "uuid":"LTP-Structure-1",
                 "_serverLtpRefList":[
                   "LTP-AirInterface-1"
@@ -1082,7 +1467,7 @@
         "name":"Rack2NodeB-10.2.1.38",
         "MW_AirInterface_Pac":[
           {
-            "layerProtocol":"2146697473",
+            "layerProtocol":"LP-AirInterface-1",
             "airInterfaceConfiguration":{
               "airInterfaceName":"1/2.1/1",
               "radioSignalId":"0002",
@@ -1133,7 +1518,7 @@
               }
             ],
             "operationalState":"ENABLED",
-            "uuid":"Rack0NodeA-10.2.1.2",
+            "uuid":"Rack0NodeA-10.2.1.38",
             "_ltpRefList":[
               {
                 "operationalState":"ENABLED",
