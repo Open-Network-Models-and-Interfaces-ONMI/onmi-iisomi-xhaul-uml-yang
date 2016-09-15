@@ -13,10 +13,13 @@ define([ 'app/mwtnConfig/mwtnConfig.module',], function(mwtnConfigApp) {
       restrict : 'A',
       scope: {
         parameters: '=parameters',
-        schema: '=schema'
+        schema: '=schema',
+        path: '=path'
       },
       templateUrl : 'src/app/mwtnConfig/templates/show.tpl.html',
-      controller :  ['$scope', 'orderByFilter', function($scope, orderBy){
+      windowClass: 'app-modal-window',
+      size: 'mysize',
+      controller :  ['$scope', 'orderByFilter', '$uibModal',  function($scope, orderBy, $uibModal){
         
         if ($scope.parameters) {
           
@@ -53,8 +56,31 @@ define([ 'app/mwtnConfig/mwtnConfig.module',], function(mwtnConfigApp) {
           }
           return result;
         };
-        $scope.showArray = function(value) {
-          console.log(JSON.stringify(value));
+                
+        $scope.showArray = function(path, attribute) {
+          $scope.path = path;
+          $scope.path.attribute = attribute.name,
+          $scope.listData = attribute.value; // which is an array
+          var modalInstance = $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'src/app/mwtnConfig/templates/showArray.html',
+            controller: 'ShowListCtrl',
+            size: 'huge',
+            resolve: {
+              listData: function () {
+                return {path:$scope.path, listData:$scope.listData};
+              }
+            }
+          });
+
+          modalInstance.result.then(function (listData) {
+            
+            // $mwtnLog.info({component: COMPONENT, message: 'Mount result: ' + JSON.stringify(netconfServer)});
+          }, function () {
+            // $mwtnLog.info({component: COMPONENT, message: 'Creation of new planned NetworkElement dismissed!'});
+          });
         }
         $scope.showObject = function(value) {
           console.log(JSON.stringify(value));

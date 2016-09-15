@@ -11,7 +11,7 @@ define(['angularAMD',
         'app/core/core.services', 
         'common/config/env.module',
         'app/mwtnCommons/mwtnCommons.module'], function(ng) {
-  var mwtnConfigApp = angular.module('app.mwtnConfig', ['app.core', 'ui.router.state','config']);
+  var mwtnConfigApp = angular.module('app.mwtnConfig', ['app.core', 'ui.router.state','config', 'pascalprecht.translate']);
 
   mwtnConfigApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $translateProvider) {
     mwtnConfigApp.register = {

@@ -31,6 +31,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
     }, function(error){
       console.log('bad luck - no schema ;( ');
     });
+    $scope.path = {};
     
 
 //    $scope.getUnit = $mwtnCommons.getUnit;
@@ -225,6 +226,26 @@ define(['app/mwtnConfig/mwtnConfig.module',
     $scope.status = {};
     $scope.separator = $mwtnConfig.separator; //'&nbsp;'
     
+    var getLayer = function(pacId) {
+      switch (pacId) {
+      case 'airinterface':
+        return 'MWPS';
+        break;
+      case 'structure':
+      case 'pureEthernetStructure':
+      case 'hybridSturcture':
+        return 'MWS';
+        break;
+      case 'ethernetContainer':
+      case 'tdmContainer':
+      case 'container':
+        return 'ETH-CTP';
+        break;
+      default:
+        return (pacId);
+      }
+    };
+    
     $scope.$watch('status', function(status, oldValue) {
       Object.keys(status).map(function(key){
         if ($scope.networkElementId && status[key] && status[key] !== oldValue[key]) {
@@ -234,6 +255,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
             nodeId: $scope.networkElementId,
             revision: $scope.revision,
             pacId: info[0],
+            layer: getLayer(info[0]),
             layerProtocolId: info[1],
             partId: info[2]
           };
@@ -242,6 +264,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
           }, function(error){
             updatePart(spec, error);
           });
+          $scope.path = spec;
         }
       });   
     }, true);
@@ -274,9 +297,62 @@ define(['app/mwtnConfig/mwtnConfig.module',
           $scope.collapseAll();
           updatePart(spec, error);
         });
+        $scope.path = spec;
       }
     });
 
+  }]);
+
+  mwtnConfigApp.register.controller('ShowListCtrl', ['$scope', '$uibModalInstance', '$filter', '$mwtnCommons', 'listData', 
+                                                     function ($scope, $uibModalInstance, $filter, $mwtnCommons, listData) {
+
+    $scope.path = listData.path;
+    $scope.listData = listData.listData;
+    $scope.gridOptions = JSON.parse(JSON.stringify($mwtnCommons.gridOptions));
+    $scope.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
+
+//    $scope.gridOptions.rowTemplate = rowTemplate;
+    
+    $scope.getType = function(value) {
+      var result = typeof value;
+      if (result === 'object' && JSON.stringify(value).substring(0,1) === '[') {
+        result = 'array';
+      }
+      return result;
+    };
+
+    var enable = $scope.listData.length > 10;
+    if ($scope.listData.length > 0 && $scope.getType($scope.listData[0]) === 'object') {
+      $scope.gridOptions.columnDefs = Object.keys($scope.listData[0]).map(function(field){
+        var type = $scope.getType($scope.listData[0][field]);
+        var labelId = ['mwtn', field].join('_').toUpperCase();
+        var displayName = $filter('translate')(labelId);
+        var visible = true;
+        if (labelId.contains('$$')) {
+          visible = false;
+        }
+        return {
+          field: field,
+          type: type,
+          displayName: displayName,
+          enableSorting: enable, 
+          enableFiltering:enable,
+          headerCellClass: $scope.highlightFilteredHeader,
+          cellClass: type,
+          visible: visible
+        };
+      });
+      $scope.gridOptions.data = $scope.listData;
+    }
+
+    
+    $scope.ok = function () {
+      $uibModalInstance.close($scope.listData);
+    };
+  
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
   }]);
 
 });

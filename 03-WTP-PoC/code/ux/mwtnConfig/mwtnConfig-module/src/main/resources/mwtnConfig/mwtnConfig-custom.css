@@ -4,3 +4,25 @@
 #mwtnConfig .row {
 	margin: 10px;
 }
+
+#mwtnConfig .modal-dialog .modal-huge {
+  width: 1200px;
+}
+
+@media (min-width: 992px) {
+  .modal-lg {
+    width: 900px;
+  }
+}
+
+@media (min-width: 1296px) {
+  .modal-huge {
+    width: 1200px;
+  }
+}
+
+.mwtnShowListGrid {
+  height: 600px;
+  background-color: white;
+}
+	

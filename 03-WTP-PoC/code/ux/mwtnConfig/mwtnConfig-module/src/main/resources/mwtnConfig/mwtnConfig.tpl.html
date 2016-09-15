@@ -50,7 +50,7 @@
 					<div ng-repeat="part in parts" uib-accordion-group
 						class="panel-default" heading="{{part}}"
 						is-open="status['container' + separator +  container.layerProtocol + separator + part]">
-						<div class="container" style="width:100%" ng-repeat="(part2, parameters) in container[part]" parameters="parameters" schema="schema" >
+						<div class="container" style="width:100%" ng-repeat="(part2, parameters) in container[part]" path="path" parameters="parameters" schema="schema" >
 						</div>
 					</div>
 				</div>
@@ -65,7 +65,7 @@
 					<div ng-repeat="part in parts" uib-accordion-group
 						class="panel-default" heading="{{part}}"
 						is-open="status['structure' + separator + structure.layerProtocol + separator + part]">
-						<div class="container" style="width:100%" ng-repeat="(part2, parameters) in structure[part]" parameters="parameters" schema="schema" >
+						<div class="container" style="width:100%" ng-repeat="(part2, parameters) in structure[part]" path="path" parameters="parameters" schema="schema" >
 						</div>
 					</div>
 				</div>
@@ -80,7 +80,7 @@
 					<div ng-repeat="part in parts" uib-accordion-group
 						class="panel-default" heading="{{part}}"
 						is-open="status['airinterface' + separator + airinterface.layerProtocol + separator + part]">
-						<div class="container" style="width:100%" ng-repeat="(part2, parameters) in airinterface[part]" parameters="parameters" schema="schema" >
+						<div class="container" style="width:100%" ng-repeat="(part2, parameters) in airinterface[part]" path="path" parameters="parameters" schema="schema" >
 						</div>
 
 					</div>
