@@ -56,7 +56,7 @@ define([ 'app/mwtnConfig/mwtnConfig.module',], function(mwtnConfigApp) {
           }
           return result;
         };
-                
+
         $scope.showArray = function(path, attribute) {
           $scope.path = path;
           $scope.path.attribute = attribute.name,

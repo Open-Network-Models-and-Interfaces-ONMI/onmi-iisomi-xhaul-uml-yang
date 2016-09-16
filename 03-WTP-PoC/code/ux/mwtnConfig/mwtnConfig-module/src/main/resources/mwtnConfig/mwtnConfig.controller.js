@@ -303,8 +303,8 @@ define(['app/mwtnConfig/mwtnConfig.module',
 
   }]);
 
-  mwtnConfigApp.register.controller('ShowListCtrl', ['$scope', '$uibModalInstance', '$filter', '$mwtnCommons', 'listData', 
-                                                     function ($scope, $uibModalInstance, $filter, $mwtnCommons, listData) {
+  mwtnConfigApp.register.controller('ShowListCtrl', ['$scope', '$uibModalInstance', '$uibModal', '$filter', '$mwtnCommons', 'listData', 
+                                                     function ($scope, $uibModalInstance, $uibModal, $filter, $mwtnCommons, listData) {
 
     $scope.path = listData.path;
     $scope.listData = listData.listData;
@@ -321,6 +321,21 @@ define(['app/mwtnConfig/mwtnConfig.module',
       return result;
     };
 
+    var getCellTemplate = function(type) {
+      switch (type) {
+      case 'array':
+        // path, grid.getCellValue(row, col)
+        return ['<button ng-click="grid.appScope.showArray(grid.appScope.path, grid.getCellValue(row, col), row.entity)" class="btn btn-primary">{{\'MWTN_SHOWLIST\' | translate}}: {{grid.getCellValue(row, col).length}}  {{\'MWTN_ITEMS\'| translate}}...</button>'
+                ].join('');
+        break;
+      case 'object':
+        return ['<button ng-click="grid.appScope.showObject(grid.appScope.path, grid.getCellValue(row, col), row.entity)" class="btn btn-primary">{{\'MWTN_SHOWOBJECT\' | translate}}...</button>'].join('');
+        break;
+      default:
+        return undefined;
+      }
+    };
+
     var enable = $scope.listData.length > 10;
     if ($scope.listData.length > 0 && $scope.getType($scope.listData[0]) === 'object') {
       $scope.gridOptions.columnDefs = Object.keys($scope.listData[0]).map(function(field){
@@ -331,6 +346,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
         if (labelId.contains('$$')) {
           visible = false;
         }
+        
         return {
           field: field,
           type: type,
@@ -338,6 +354,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
           enableSorting: enable, 
           enableFiltering:enable,
           headerCellClass: $scope.highlightFilteredHeader,
+          cellTemplate: getCellTemplate(type),
           cellClass: type,
           visible: visible
         };
@@ -345,7 +362,6 @@ define(['app/mwtnConfig/mwtnConfig.module',
       $scope.gridOptions.data = $scope.listData;
     }
 
-    
     $scope.ok = function () {
       $uibModalInstance.close($scope.listData);
     };
@@ -353,6 +369,203 @@ define(['app/mwtnConfig/mwtnConfig.module',
     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel');
     };
-  }]);
 
+    $scope.showArray = function(path, attribute, row) {
+      $scope.path =  path;
+      $scope.path.row = Object.keys(row)[0];
+      $scope.path.value = row[Object.keys(row)[0]];
+      
+      // $scope.path.attribute = attribute.name,
+      $scope.listData = attribute; // which is an array
+      var modalInstance = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'src/app/mwtnConfig/templates/showArray.html',
+        controller: 'ShowListCtrl',
+        size: 'huge',
+        resolve: {
+          listData: function () {
+            console.log('new path', $scope.path);
+            return {path:$scope.path, listData:$scope.listData};
+          }
+        }
+      });
+
+      modalInstance.result.then(function (listData) {
+        // $mwtnLog.info({component: COMPONENT, message: 'Mount result: ' + JSON.stringify(netconfServer)});
+      }, function () {
+        // $mwtnLog.info({component: COMPONENT, message: 'Creation of new planned NetworkElement dismissed!'});
+      });
+    }
+    
+    $scope.showObject = function(path, objValue, row) {
+      $scope.path =  path;
+      $scope.path.row = Object.keys(row)[0];
+      $scope.path.value = row[Object.keys(row)[0]];
+      $scope.objValue = objValue;
+      
+      var modalInstance = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'src/app/mwtnConfig/templates/showObject.html',
+        controller: 'ShowListCtrl',
+        size: 'huge',
+        resolve: {
+          listData: function () {
+            return {path:$scope.path, objValue:$scope.objValue};
+          }
+        }
+      });
+
+      modalInstance.result.then(function (objValue) {
+        // $mwtnLog.info({component: COMPONENT, message: 'Mount result: ' + JSON.stringify(netconfServer)});
+      }, function () {
+        // $mwtnLog.info({component: COMPONENT, message: 'Creation of new planned NetworkElement dismissed!'});
+      });
+    }
+
+}]);
+
+  mwtnConfigApp.register.controller('ShowListCtrl', ['$scope', '$uibModalInstance', '$uibModal', '$filter', '$mwtnCommons', 'listData', 
+                                                     function ($scope, $uibModalInstance, $uibModal, $filter, $mwtnCommons, listData) {
+
+    $scope.path = listData.path;
+    $scope.listData = listData.listData;
+    $scope.gridOptions = JSON.parse(JSON.stringify($mwtnCommons.gridOptions));
+    $scope.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
+
+//    $scope.gridOptions.rowTemplate = rowTemplate;
+    
+    $scope.getType = function(value) {
+      var result = typeof value;
+      if (result === 'object' && JSON.stringify(value).substring(0,1) === '[') {
+        result = 'array';
+      }
+      return result;
+    };
+
+    var getCellTemplate = function(type) {
+      switch (type) {
+      case 'array':
+        // path, grid.getCellValue(row, col)
+        return ['<button ng-click="grid.appScope.showArray(grid.appScope.path, grid.getCellValue(row, col), row.entity)" class="btn btn-primary">{{\'MWTN_SHOWLIST\' | translate}}: {{grid.getCellValue(row, col).length}}  {{\'MWTN_ITEMS\'| translate}}...</button>'
+                ].join('');
+        break;
+      case 'object':
+        return ['<button ng-click="grid.appScope.showObject(grid.appScope.path, grid.getCellValue(row, col), row.entity)" class="btn btn-primary">{{\'MWTN_SHOWOBJECT\' | translate}}...</button>'].join('');
+        break;
+      default:
+        return undefined;
+      }
+    };
+
+    var enable = $scope.listData.length > 10;
+    if ($scope.listData.length > 0 && $scope.getType($scope.listData[0]) === 'object') {
+      $scope.gridOptions.columnDefs = Object.keys($scope.listData[0]).map(function(field){
+        var type = $scope.getType($scope.listData[0][field]);
+        var labelId = ['mwtn', field].join('_').toUpperCase();
+        var displayName = $filter('translate')(labelId);
+        var visible = true;
+        if (labelId.contains('$$')) {
+          visible = false;
+        }
+        
+        return {
+          field: field,
+          type: type,
+          displayName: displayName,
+          enableSorting: enable, 
+          enableFiltering:enable,
+          headerCellClass: $scope.highlightFilteredHeader,
+          cellTemplate: getCellTemplate(type),
+          cellClass: type,
+          visible: visible
+        };
+      });
+      $scope.gridOptions.data = $scope.listData;
+    }
+
+    $scope.ok = function () {
+      $uibModalInstance.close($scope.listData);
+    };
+  
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+
+    $scope.showArray = function(path, attribute, row) {
+      $scope.path =  path;
+      $scope.path.row = Object.keys(row)[0];
+      $scope.path.value = row[Object.keys(row)[0]];
+      
+      // $scope.path.attribute = attribute.name,
+      $scope.listData = attribute; // which is an array
+      var modalInstance = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'src/app/mwtnConfig/templates/showArray.html',
+        controller: 'ShowListCtrl',
+        size: 'huge',
+        resolve: {
+          listData: function () {
+            console.log('new path', $scope.path);
+            return {path:$scope.path, listData:$scope.listData};
+          }
+        }
+      });
+
+      modalInstance.result.then(function (listData) {
+        // $mwtnLog.info({component: COMPONENT, message: 'Mount result: ' + JSON.stringify(netconfServer)});
+      }, function () {
+        // $mwtnLog.info({component: COMPONENT, message: 'Creation of new planned NetworkElement dismissed!'});
+      });
+    }
+    
+    $scope.showObject = function(path, objValue, row) {
+      $scope.path =  path;
+      $scope.path.row = Object.keys(row)[0];
+      $scope.path.value = row[Object.keys(row)[0]];
+      $scope.objValue = objValue;
+      
+      var modalInstance = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'src/app/mwtnConfig/templates/showObject.html',
+        controller: 'ShowObjectCtrl',
+        size: 'huge',
+        resolve: {
+          objValue: function () {
+            return {path:$scope.path, objValue:$scope.objValue};
+          }
+        }
+      });
+
+      modalInstance.result.then(function (objValue) {
+        // $mwtnLog.info({component: COMPONENT, message: 'Mount result: ' + JSON.stringify(netconfServer)});
+      }, function () {
+        // $mwtnLog.info({component: COMPONENT, message: 'Creation of new planned NetworkElement dismissed!'});
+      });
+    }
+
+}]);
+
+  mwtnConfigApp.register.controller('ShowObjectCtrl', ['$scope', '$uibModalInstance', '$mwtnCommons', 'objValue', 
+                                                     function ($scope, $uibModalInstance, $mwtnCommons, objValue) {
+
+    $scope.path = objValue.path;
+    $scope.objValue = objValue.objValue;
+
+    $scope.ok = function () {
+      $uibModalInstance.close($scope.objValue);
+    };
+  
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+
+}]);
 });
