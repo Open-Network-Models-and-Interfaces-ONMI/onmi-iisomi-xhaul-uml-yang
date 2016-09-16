@@ -180,7 +180,7 @@ checkDatabase(database, function(dbStatus) {
               return;
             }
             files.filter(function(file) {
-              return file.slice(-5) === '.json';
+              return file.slice(-5) === '.json' && file !== 'locale-en_US.json';
             }).map(function(file) {
               filename = [__dirname, 'project',file].join('/');
               console.log();
