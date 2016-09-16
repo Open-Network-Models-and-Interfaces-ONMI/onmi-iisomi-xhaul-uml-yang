@@ -48,7 +48,7 @@ public class SchedulerRpc implements SchedulerService
                 {
                     task.executeIn(executor);
                 }
-            }, input.getPeriod().intValue());
+            }, input.getPeriod().intValue() * 1000);
         }
         catch (Throwable e)
         {
