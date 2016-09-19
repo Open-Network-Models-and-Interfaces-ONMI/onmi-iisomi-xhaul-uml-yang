@@ -9778,6 +9778,8 @@ static status_t build_network_element_tree_and_attach_to_running_cfg(cfg_templat
 	{
 		res = attach_ltpRefList_list_elements(NetworkElement_val, ltp_ref_uuid_list[i]);
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_ltpRefList_list_elements failed ");
+
+		free(ltp_ref_uuid_list[i]);
 	}
 
     res = cb_get_all_pure_eth_structure_pac_keys(ltp_ref_uuid_list, &num_of_elements);
@@ -9787,6 +9789,8 @@ static status_t build_network_element_tree_and_attach_to_running_cfg(cfg_templat
     {
         res = attach_ltpRefList_list_elements(NetworkElement_val, ltp_ref_uuid_list[i]);
         YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_ltpRefList_list_elements failed ");
+
+        free(ltp_ref_uuid_list[i]);
     }
 
     res = cb_get_all_ethernet_container_pac_keys(ltp_ref_uuid_list, &num_of_elements);
@@ -9796,6 +9800,8 @@ static status_t build_network_element_tree_and_attach_to_running_cfg(cfg_templat
     {
         res = attach_ltpRefList_list_elements(NetworkElement_val, ltp_ref_uuid_list[i]);
         YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_ltpRefList_list_elements failed ");
+
+        free(ltp_ref_uuid_list[i]);
     }
 	return NO_ERR;
 }

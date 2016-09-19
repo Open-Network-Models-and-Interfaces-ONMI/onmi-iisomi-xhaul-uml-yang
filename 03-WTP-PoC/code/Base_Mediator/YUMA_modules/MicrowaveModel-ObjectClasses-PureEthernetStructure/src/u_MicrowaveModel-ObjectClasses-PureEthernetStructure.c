@@ -1482,6 +1482,8 @@ static status_t build_attributes_tree_and_attach_to_running_cfg(cfg_template_t* 
 		 */
 		res = attach_air_pure_eth_structure_element_to_running_config(runningcfg, air_pure_eth_structure_keys_list[i]);
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "attach_air_pure_eth_structure_element_to_running_config failed!");
+
+		free(air_pure_eth_structure_keys_list[i]);
 	}
 
 	return NO_ERR;
@@ -1695,6 +1697,8 @@ static status_t attach_problem_kind_severity_list(val_value_t* parentval)
 		res = attach_problem_kind_severity_list_entry(parentval, problem_kind_name_list[i]);
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL,
 				"attach_problem_kind_severity_list_entry failed for layerProtocol=%s and key=%s!", k_MW_PureEthernetStructure_Pac_layerProtocol_key, problem_kind_name_list[i]);
+
+		free(problem_kind_name_list[i]);
 	}
 
 	return NO_ERR;
@@ -1766,6 +1770,8 @@ static status_t get_pure_eth_structure_current_problem_list(ses_cb_t *scb, getcb
 		res = attach_current_problem_list_entry(dst_val, pure_eth_structure_current_problem_list_keys_entries[i]);
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL,
 				"attach_pure_eth_structure_current_problem_list_entry failed for key=%s!", pure_eth_structure_current_problem_list_keys_entries[i]);
+
+		free(pure_eth_structure_current_problem_list_keys_entries[i]);
 	}
 
 	return NO_ERR;

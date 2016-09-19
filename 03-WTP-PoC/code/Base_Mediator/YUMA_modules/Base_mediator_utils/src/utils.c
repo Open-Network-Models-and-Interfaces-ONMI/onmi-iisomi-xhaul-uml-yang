@@ -102,6 +102,7 @@ status_t create_and_init_siblings(obj_template_t *curr_obj,	val_value_t *parent_
 status_t init_element_with_value(obj_template_t *curr_obj,	val_value_t **curr_val, const char *valuestr, bool isRuntime)
 {
 	status_t res = NO_ERR;
+	int need_free = TRUE;
 
 	YUMA_ASSERT(*curr_val == NULL || curr_obj == NULL, return ERR_INTERNAL_VAL, "NULL pointer received!");
 
@@ -117,12 +118,18 @@ status_t init_element_with_value(obj_template_t *curr_obj,	val_value_t **curr_va
 		if (elementStringValue == NULL) //no callback implemented for this element, just use the default value
 		{
 			elementStringValue = obj_get_default(curr_obj);
+			need_free = FALSE; //no need to free this value, it is not dynamically allocated
 		}
 
 		if (elementStringValue != NULL)
 		{
 			res = val_set_simval_obj(*curr_val, curr_obj, elementStringValue);
 			YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "val_set_simval_obj %s failed!", (*curr_val)->name);
+
+			if (need_free)
+			{
+			    free (elementStringValue); //need to free this value that was allocated in the specific callback implemented by the user
+			}
 		}
 	}
 

@@ -12,117 +12,117 @@
 #include "y_MicrowaveModel-ObjectClasses-EthernetContainer.h"
 #include "y_CoreModel-CoreNetworkModule-ObjectClasses.h"
 
-static const char* cb_get_boot_time_airInterfaceCapability_typeOfEquipment(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_txFrequencyMin(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_txFrequencyMax(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_rxFrequencyMin(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_rxFrequencyMax(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_typeOfEquipment(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_txFrequencyMin(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_txFrequencyMax(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_rxFrequencyMin(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_rxFrequencyMax(val_value_t *element);
 
-static const char* cb_get_boot_time_airInterfaceCapability_adaptiveModulationIsAvail(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_mimoIsAvail(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_mimoChannels(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_alicIsAvail(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_atpcIsAvail(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_atpcRange(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_encryptionIsAvail(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_loopBackIsAvail(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_maintenanceTimerRange(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_supportedAlarms(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_adaptiveModulationIsAvail(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_mimoIsAvail(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_mimoChannels(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_alicIsAvail(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_atpcIsAvail(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_atpcRange(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_encryptionIsAvail(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_loopBackIsAvail(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_maintenanceTimerRange(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_supportedAlarms(val_value_t *element);
 
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_supportedChannelPlan(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_duplexDistanceIsVariable(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_duplexDistance(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_autoFreqSelectIsAvail(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_supportedChannelPlan(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_duplexDistanceIsVariable(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_duplexDistance(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_autoFreqSelectIsAvail(val_value_t *element);
 
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_channelBandwidth(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_modulationScheme(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_informationRate(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_txPowerMin(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_txPowerMax(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_rxThreshold(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_amUpshiftLevel(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_amDownshiftLevel(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_xpicIsAvail(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_channelBandwidth(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_modulationScheme(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_informationRate(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_txPowerMin(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_txPowerMax(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_rxThreshold(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_amUpshiftLevel(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_amDownshiftLevel(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_xpicIsAvail(val_value_t *element);
 
-static const char* cb_get_boot_time_airInterfaceConfiguration_airInterfaceName(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_radioSignalID(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_txFrequency(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_rxFrequency(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_txChannelBandwidth(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_rxChannelBandwidth(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_polarization(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_powerIsOn(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_transmitterIsOn(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_receiverIsOn(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_txPower(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_adaptiveModulationIsOn(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_modulationMin(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_modulationMax(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_xpicIsOn(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_mimoIsOn(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_alicIsOn(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_atpcIsOn(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_atpcThreshUpper(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_atpcThreshLower(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectIsOn(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectRange(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_modulationIsOn(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_encryptionIsOn(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_cryptographicKey(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_loopBackIsOn(val_value_t *element);
-static const char* cb_get_boot_time_airInterfaceConfiguration_maintenanceTimer(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_airInterfaceName(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_radioSignalID(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_txFrequency(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_rxFrequency(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_txChannelBandwidth(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_rxChannelBandwidth(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_polarization(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_powerIsOn(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_transmitterIsOn(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_receiverIsOn(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_txPower(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_adaptiveModulationIsOn(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_modulationMin(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_modulationMax(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_xpicIsOn(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_mimoIsOn(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_alicIsOn(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_atpcIsOn(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_atpcThreshUpper(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_atpcThreshLower(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectIsOn(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectRange(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_modulationIsOn(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_encryptionIsOn(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_cryptographicKey(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_loopBackIsOn(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_maintenanceTimer(val_value_t *element);
 
-static const char* cb_get_boot_time_airInterfaceConfiguration_problemKindSeverity(val_value_t *element);
+static char* cb_get_boot_time_airInterfaceConfiguration_problemKindSeverity(val_value_t *element);
 
 
-static const char* cb_get_boot_time_NetworkElement_class_value(val_value_t *element);
-static const char* cb_get_boot_time_NetworkElement_class_valueName(val_value_t *element);
-static const char* cb_get_boot_time_NetworkElement_global_class_valueName(val_value_t *element);
-static const char* cb_get_boot_time_NetworkElement_global_class_value(val_value_t *element);
+static char* cb_get_boot_time_NetworkElement_class_value(val_value_t *element);
+static char* cb_get_boot_time_NetworkElement_class_valueName(val_value_t *element);
+static char* cb_get_boot_time_NetworkElement_global_class_valueName(val_value_t *element);
+static char* cb_get_boot_time_NetworkElement_global_class_value(val_value_t *element);
 
-static const char* cb_get_boot_time_NetworkElement_state_pac_operationalState(val_value_t *element);
-static const char* cb_get_boot_time_NetworkElement_state_pac_administrativeControl(val_value_t *element);
-static const char* cb_get_boot_time_NetworkElement_state_pac_administrativeState(val_value_t *element);
-static const char* cb_get_boot_time_NetworkElement_state_pac_lifecycleState(val_value_t *element);
+static char* cb_get_boot_time_NetworkElement_state_pac_operationalState(val_value_t *element);
+static char* cb_get_boot_time_NetworkElement_state_pac_administrativeControl(val_value_t *element);
+static char* cb_get_boot_time_NetworkElement_state_pac_administrativeState(val_value_t *element);
+static char* cb_get_boot_time_NetworkElement_state_pac_lifecycleState(val_value_t *element);
 
-static const char* cb_get_boot_time_NetworkElement_ltpRefList_connectedLtpRef(val_value_t *element);
-static const char* cb_get_boot_time_NetworkElement_ltpRefList_peerLtpRef(val_value_t *element);
-static const char* cb_get_boot_time_NetworkElement_ltpRefList_physicalPortReference(val_value_t *element);
-static const char* cb_get_boot_time_NetworkElement_ltpRefList_ltpDirection(val_value_t *element);
+static char* cb_get_boot_time_NetworkElement_ltpRefList_connectedLtpRef(val_value_t *element);
+static char* cb_get_boot_time_NetworkElement_ltpRefList_peerLtpRef(val_value_t *element);
+static char* cb_get_boot_time_NetworkElement_ltpRefList_physicalPortReference(val_value_t *element);
+static char* cb_get_boot_time_NetworkElement_ltpRefList_ltpDirection(val_value_t *element);
 
-static const char* cb_get_boot_time_NetworkElement_lpList_layerProtocolName(val_value_t *element);
-static const char* cb_get_boot_time_NetworkElement_lpList_configuredClientCapacity(val_value_t *element);
-static const char* cb_get_boot_time_NetworkElement_lpList_lpDirection(val_value_t *element);
-static const char* cb_get_boot_time_NetworkElement_lpList_terminationState(val_value_t *element);
+static char* cb_get_boot_time_NetworkElement_lpList_layerProtocolName(val_value_t *element);
+static char* cb_get_boot_time_NetworkElement_lpList_configuredClientCapacity(val_value_t *element);
+static char* cb_get_boot_time_NetworkElement_lpList_lpDirection(val_value_t *element);
+static char* cb_get_boot_time_NetworkElement_lpList_terminationState(val_value_t *element);
 
-static const char* cb_get_boot_time_pureEthernetStructure_structureID(val_value_t *element);
+static char* cb_get_boot_time_pureEthernetStructure_structureID(val_value_t *element);
 
-static const char* cb_get_boot_time_pureEthernetStructure_problemKindSeverity(val_value_t *element);
+static char* cb_get_boot_time_pureEthernetStructure_problemKindSeverity(val_value_t *element);
 
-static const char* cb_get_boot_time_ethernetContainerCapability_bundlingIsAvail(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerCapability_packetCompressionIsAvail(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerCapability_layer2CompressionIsAvail(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerCapability_vlanCompressionIsAvail(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerCapability_qInQCompressionIsAvail(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerCapability_mplsCompressionIsAvail(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerCapability_ipv4CompressionIsAvail(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerCapability_ipv6CompressionIsAvail(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerCapability_layer4CompressionIsAvail(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerCapability_encryptionIsAvail(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerCapability_supportedAlarms(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerCapability_bundlingIsAvail(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerCapability_packetCompressionIsAvail(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerCapability_layer2CompressionIsAvail(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerCapability_vlanCompressionIsAvail(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerCapability_qInQCompressionIsAvail(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerCapability_mplsCompressionIsAvail(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerCapability_ipv4CompressionIsAvail(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerCapability_ipv6CompressionIsAvail(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerCapability_layer4CompressionIsAvail(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerCapability_encryptionIsAvail(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerCapability_supportedAlarms(val_value_t *element);
 
-static const char* cb_get_boot_time_ethernetContainerConfiguration_containerID(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerConfiguration_packetCompressionIsOn(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerConfiguration_layer2CompressionIsOn(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerConfiguration_vlanCompressionIsOn(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerConfiguration_qInQCompressionIsOn(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerConfiguration_mplsCompressionIsOn(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerConfiguration_ipv4CompressionIsOn(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerConfiguration_ipv6CompressionIsOn(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerConfiguration_layer4CompressionIsOn(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerConfiguration_encryptionIsOn(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerConfiguration_cryptographicKey(val_value_t *element);
-static const char* cb_get_boot_time_ethernetContainerConfiguration_segmentIdRef(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerConfiguration_containerID(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerConfiguration_packetCompressionIsOn(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerConfiguration_layer2CompressionIsOn(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerConfiguration_vlanCompressionIsOn(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerConfiguration_qInQCompressionIsOn(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerConfiguration_mplsCompressionIsOn(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerConfiguration_ipv4CompressionIsOn(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerConfiguration_ipv6CompressionIsOn(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerConfiguration_layer4CompressionIsOn(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerConfiguration_encryptionIsOn(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerConfiguration_cryptographicKey(val_value_t *element);
+static char* cb_get_boot_time_ethernetContainerConfiguration_segmentIdRef(val_value_t *element);
 
 /********************************************************************
 * FUNCTION cb_get_all_air_interface_pac_keys
@@ -531,7 +531,7 @@ status_t cb_get_all_segment_id_list_keys(const char *air_interface_pac_key, char
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-const char* cb_get_boot_time_element_value(val_value_t *element)
+char* cb_get_boot_time_element_value(val_value_t *element)
 {
 	if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_typeOfEquipment) == 0)
 	{
@@ -944,7 +944,7 @@ const char* cb_get_boot_time_element_value(val_value_t *element)
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_typeOfEquipment(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_typeOfEquipment(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -960,17 +960,18 @@ static const char* cb_get_boot_time_airInterfaceCapability_typeOfEquipment(val_v
 	/*
 	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information. E.g.:
 	 */
+	char* typeOfEquipment = NULL;
 
 	if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWPS-TTP-ifIndex1") == 0)
 	{
-		return "MW_type_1";
+	    typeOfEquipment = strdup("MW_type_1");
 	}
 	if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWPS-TTP-ifIndex2") == 0)
 	{
-		return "MW_type_2";
+	    typeOfEquipment = strdup("MW_type_2");
 	}
 
-	return NULL;
+	return typeOfEquipment;
 }
 
 /********************************************************************
@@ -984,7 +985,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_typeOfEquipment(val_v
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_txFrequencyMin(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_txFrequencyMin(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1015,7 +1016,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_txFrequencyMin(val_va
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_txFrequencyMax(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_txFrequencyMax(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1046,7 +1047,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_txFrequencyMax(val_va
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_rxFrequencyMin(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_rxFrequencyMin(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1077,7 +1078,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_rxFrequencyMin(val_va
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_rxFrequencyMax(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_rxFrequencyMax(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1108,7 +1109,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_rxFrequencyMax(val_va
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_adaptiveModulationIsAvail(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_adaptiveModulationIsAvail(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1139,7 +1140,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_adaptiveModulationIsA
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_mimoIsAvail(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_mimoIsAvail(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1170,7 +1171,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_mimoIsAvail(val_value
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_mimoChannels(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_mimoChannels(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1201,7 +1202,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_mimoChannels(val_valu
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_alicIsAvail(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_alicIsAvail(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1232,7 +1233,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_alicIsAvail(val_value
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_atpcIsAvail(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_atpcIsAvail(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1263,7 +1264,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_atpcIsAvail(val_value
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_atpcRange(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_atpcRange(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1294,7 +1295,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_atpcRange(val_value_t
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_encryptionIsAvail(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_encryptionIsAvail(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1325,7 +1326,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_encryptionIsAvail(val
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_loopBackIsAvail(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_loopBackIsAvail(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1356,7 +1357,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_loopBackIsAvail(val_v
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_maintenanceTimerRange(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_maintenanceTimerRange(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1387,7 +1388,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_maintenanceTimerRange
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_supportedAlarms(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_supportedAlarms(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1418,7 +1419,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_supportedAlarms(val_v
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_supportedChannelPlan(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_supportedChannelPlan(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1453,7 +1454,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanL
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_duplexDistanceIsVariable(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_duplexDistanceIsVariable(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1488,7 +1489,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanL
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_duplexDistance(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_duplexDistance(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1523,7 +1524,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanL
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_autoFreqSelectIsAvail(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_autoFreqSelectIsAvail(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1558,7 +1559,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanL
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_channelBandwidth(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_channelBandwidth(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1582,28 +1583,30 @@ static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanL
 	/*
 	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey, supportedChannelPlanKey and transmissionModeIdKey as keys to find the information
 	 */
+	char* channelBandwidth = NULL;
+
 	if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWPS-TTP-ifIndex1") == 0)
 	{
 		if (strcmp(VAL_STRING(supportedChannelPlanKey), "ETSI") == 0)
 		{
 			if (strcmp(VAL_STRING(transmissionModeIdKey), "script_1") == 0)
 			{
-				return "28";
+			    channelBandwidth = strdup("28");
 			}
 			if (strcmp(VAL_STRING(transmissionModeIdKey), "script_2") == 0)
 			{
-				return "28";
+			    channelBandwidth = strdup("28");
 			}
 		}
 		if (strcmp(VAL_STRING(supportedChannelPlanKey), "FCC") == 0)
 		{
 			if (strcmp(VAL_STRING(transmissionModeIdKey), "script_3") == 0)
 			{
-				return "56";
+			    channelBandwidth = strdup("56");
 			}
 			if (strcmp(VAL_STRING(transmissionModeIdKey), "script_4") == 0)
 			{
-				return "56";
+			    channelBandwidth = strdup("56");
 			}
 		}
 	}
@@ -1613,27 +1616,27 @@ static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanL
 		{
 			if (strcmp(VAL_STRING(transmissionModeIdKey), "script_1") == 0)
 			{
-				return "14";
+			    channelBandwidth = strdup("14");
 			}
 			if (strcmp(VAL_STRING(transmissionModeIdKey), "script_2") == 0)
 			{
-				return "14";
+			    channelBandwidth = strdup("14");
 			}
 		}
 		if (strcmp(VAL_STRING(supportedChannelPlanKey), "FCC") == 0)
 		{
 			if (strcmp(VAL_STRING(transmissionModeIdKey), "script_3") == 0)
 			{
-				return "7";
+			    channelBandwidth = strdup("7");
 			}
 			if (strcmp(VAL_STRING(transmissionModeIdKey), "script_4") == 0)
 			{
-				return "7";
+			    channelBandwidth = strdup("7");
 			}
 		}
 	}
 
-	return NULL;
+	return channelBandwidth;
 }
 
 /********************************************************************
@@ -1647,7 +1650,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanL
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_modulationScheme(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_modulationScheme(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1686,7 +1689,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanL
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_informationRate(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_informationRate(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1725,7 +1728,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanL
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_txPowerMin(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_txPowerMin(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1764,7 +1767,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanL
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_txPowerMax(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_txPowerMax(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1803,7 +1806,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanL
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_rxThreshold(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_rxThreshold(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1842,7 +1845,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanL
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_amUpshiftLevel(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_amUpshiftLevel(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1881,7 +1884,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanL
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_amDownshiftLevel(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_amDownshiftLevel(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1920,7 +1923,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanL
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_xpicIsAvail(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_xpicIsAvail(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1959,7 +1962,7 @@ static const char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanL
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_problemKindSeverity(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_problemKindSeverity(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -1979,33 +1982,34 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_problemKindSeverit
 	/*
 	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and problemKindName
 	 */
+	char* problemKindSeverity = NULL;
 
 	if (strcmp(VAL_STRING(problemKindName), "severity1") == 0)
 	{
-		return "non-alarmed";
+	    problemKindSeverity = strdup("non-alarmed");
 	}
 	else if (strcmp(VAL_STRING(problemKindName), "severity2") == 0)
 	{
-		return "warning";
+	    problemKindSeverity = strdup("warning");
 	}
 	else if (strcmp(VAL_STRING(problemKindName), "severity3") == 0)
 	{
-		return "minor";
+	    problemKindSeverity = strdup("minor");
 	}
 	else if (strcmp(VAL_STRING(problemKindName), "severity4") == 0)
 	{
-		return "major";
+	    problemKindSeverity = strdup("major");
 	}
 	else if (strcmp(VAL_STRING(problemKindName), "severity5") == 0)
 	{
-		return "critical";
+	    problemKindSeverity = strdup("critical");
 	}
     else if (strcmp(VAL_STRING(problemKindName), "severity6") == 0)
     {
-		return "critical";
+        problemKindSeverity = strdup("critical");
     }
 
-	return NULL;
+	return problemKindSeverity;
 }
 
 /********************************************************************
@@ -2019,7 +2023,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_problemKindSeverit
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_airInterfaceName(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_airInterfaceName(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2050,7 +2054,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_airInterfaceName(v
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_radioSignalID(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_radioSignalID(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2081,7 +2085,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_radioSignalID(val_
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_txFrequency(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_txFrequency(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2097,10 +2101,11 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_txFrequency(val_va
 	/*
 	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key for finding the information
 	 */
+	char* txFrequency = NULL;
 
-	return "15000000";
+	txFrequency = strdup("15000000");
 
-	return NULL;
+	return txFrequency;
 }
 
 /********************************************************************
@@ -2114,7 +2119,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_txFrequency(val_va
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_rxFrequency(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_rxFrequency(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2145,7 +2150,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_rxFrequency(val_va
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_txChannelBandwidth(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_txChannelBandwidth(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2176,7 +2181,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_txChannelBandwidth
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_rxChannelBandwidth(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_rxChannelBandwidth(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2207,7 +2212,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_rxChannelBandwidth
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_polarization(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_polarization(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2238,7 +2243,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_polarization(val_v
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_powerIsOn(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_powerIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2269,7 +2274,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_powerIsOn(val_valu
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_transmitterIsOn(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_transmitterIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2300,7 +2305,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_transmitterIsOn(va
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_receiverIsOn(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_receiverIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2331,7 +2336,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_receiverIsOn(val_v
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_txPower(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_txPower(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2362,7 +2367,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_txPower(val_value_
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_adaptiveModulationIsOn(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_adaptiveModulationIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2393,7 +2398,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_adaptiveModulation
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_modulationMin(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_modulationMin(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2424,7 +2429,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_modulationMin(val_
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_modulationMax(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_modulationMax(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2455,7 +2460,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_modulationMax(val_
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_xpicIsOn(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_xpicIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2486,7 +2491,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_xpicIsOn(val_value
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_mimoIsOn(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_mimoIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2517,7 +2522,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_mimoIsOn(val_value
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_alicIsOn(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_alicIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2548,7 +2553,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_alicIsOn(val_value
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_atpcIsOn(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_atpcIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2579,7 +2584,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_atpcIsOn(val_value
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_atpcThreshUpper(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_atpcThreshUpper(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2610,7 +2615,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_atpcThreshUpper(va
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_atpcThreshLower(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_atpcThreshLower(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2641,7 +2646,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_atpcThreshLower(va
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectIsOn(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2672,7 +2677,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectIsOn
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectRange(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectRange(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2703,7 +2708,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectRang
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_modulationIsOn(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_modulationIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2734,7 +2739,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_modulationIsOn(val
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_encryptionIsOn(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_encryptionIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2765,7 +2770,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_encryptionIsOn(val
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_cryptographicKey(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_cryptographicKey(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2796,7 +2801,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_cryptographicKey(v
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_loopBackIsOn(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_loopBackIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2827,7 +2832,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_loopBackIsOn(val_v
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_airInterfaceConfiguration_maintenanceTimer(val_value_t *element)
+static char* cb_get_boot_time_airInterfaceConfiguration_maintenanceTimer(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -2858,7 +2863,7 @@ static const char* cb_get_boot_time_airInterfaceConfiguration_maintenanceTimer(v
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_NetworkElement_class_valueName(val_value_t *element)
+static char* cb_get_boot_time_NetworkElement_class_valueName(val_value_t *element)
 {
 	val_value_t* grandParentDoingAttach = element->parent->parent;
 	YUMA_ASSERT(NULL == grandParentDoingAttach, return NULL, "Could not find parent of parent element %s", element->name);
@@ -2886,7 +2891,7 @@ static const char* cb_get_boot_time_NetworkElement_class_valueName(val_value_t *
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_NetworkElement_class_value(val_value_t *element)
+static char* cb_get_boot_time_NetworkElement_class_value(val_value_t *element)
 {
 	val_value_t* grandParentDoingAttach = element->parent->parent;
 	YUMA_ASSERT(NULL == grandParentDoingAttach, return NULL, "Could not find parent of parent element %s", element->name);
@@ -2914,9 +2919,13 @@ static const char* cb_get_boot_time_NetworkElement_class_value(val_value_t *elem
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_NetworkElement_global_class_valueName(val_value_t *element)
+static char* cb_get_boot_time_NetworkElement_global_class_valueName(val_value_t *element)
 {
-	return "vName";
+    char* valueName = NULL;
+
+    valueName = strdup("vName");
+
+	return valueName;
 }
 
 /********************************************************************
@@ -2930,29 +2939,31 @@ static const char* cb_get_boot_time_NetworkElement_global_class_valueName(val_va
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_NetworkElement_global_class_value(val_value_t *element)
+static char* cb_get_boot_time_NetworkElement_global_class_value(val_value_t *element)
 {
 	val_value_t* parentDoingAttach = element->parent;
 	YUMA_ASSERT(NULL == parentDoingAttach, return NULL, "Could not find parent element %s", element->name);
 
+	char* returnValue = NULL;
+
 	if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_nameList) == 0)
 	{
-		return "NE_Name1";
+	    returnValue = strdup("NE_Name1");
 	}
 	else if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_labelList) == 0)
 	{
-		return "label_1";
+	    returnValue = strdup("label_1");
 	}
 	else if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_extensionList) == 0)
 	{
-		return "extension_1";
+	    returnValue = strdup("extension_1");
 	}
 	else if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_localIdList) == 0)
 	{
-		return "localId_1";
+	    returnValue = strdup("localId_1");
 	}
 
-	return NULL;
+	return returnValue;
 }
 
 /********************************************************************
@@ -2966,23 +2977,23 @@ static const char* cb_get_boot_time_NetworkElement_global_class_value(val_value_
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_NetworkElement_state_pac_operationalState(val_value_t *element)
+static char* cb_get_boot_time_NetworkElement_state_pac_operationalState(val_value_t *element)
 {
 	val_value_t* parentDoingAttach = element->parent;
 	YUMA_ASSERT(NULL == parentDoingAttach, return NULL, "Could not find parent element %s", element->name);
 
+	char* returnValue = NULL;
+
 	if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_NetworkElement) == 0)
 	{
-		return "ENABLED";
+	    returnValue = strdup("ENABLED");
 	}
 	else if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N__lpList) == 0)
 	{
-		return "DISABLED";
+	    returnValue = strdup("ENABLED");
 	}
 
-	return "ENABLED";
-
-	return NULL;
+	return returnValue;
 }
 
 /********************************************************************
@@ -2996,19 +3007,19 @@ static const char* cb_get_boot_time_NetworkElement_state_pac_operationalState(va
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_NetworkElement_state_pac_administrativeControl(val_value_t *element)
+static char* cb_get_boot_time_NetworkElement_state_pac_administrativeControl(val_value_t *element)
 {
 	val_value_t* parentDoingAttach = element->parent;
 	YUMA_ASSERT(NULL == parentDoingAttach, return NULL, "Could not find parent element %s", element->name);
 
+	char* returnValue = NULL;
+
 	if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_NetworkElement) == 0)
 	{
-		return "UNLOCK";
+	    returnValue = strdup("UNLOCK");
 	}
 
-	return "UNLOCK";
-
-	return NULL;
+	return returnValue;
 }
 
 /********************************************************************
@@ -3022,19 +3033,19 @@ static const char* cb_get_boot_time_NetworkElement_state_pac_administrativeContr
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_NetworkElement_state_pac_administrativeState(val_value_t *element)
+static char* cb_get_boot_time_NetworkElement_state_pac_administrativeState(val_value_t *element)
 {
 	val_value_t* parentDoingAttach = element->parent;
 	YUMA_ASSERT(NULL == parentDoingAttach, return NULL, "Could not find parent element %s", element->name);
 
+	char* returnValue = NULL;
+
 	if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_NetworkElement) == 0)
 	{
-		return "UNLOCKED";
+	    returnValue = strdup("UNLOCKED");
 	}
 
-	return "UNLOCKED";
-
-	return NULL;
+	return returnValue;
 }
 
 /********************************************************************
@@ -3048,19 +3059,19 @@ static const char* cb_get_boot_time_NetworkElement_state_pac_administrativeState
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_NetworkElement_state_pac_lifecycleState(val_value_t *element)
+static char* cb_get_boot_time_NetworkElement_state_pac_lifecycleState(val_value_t *element)
 {
 	val_value_t* parentDoingAttach = element->parent;
 	YUMA_ASSERT(NULL == parentDoingAttach, return NULL, "Could not find parent element %s", element->name);
 
+	char* returnValue = NULL;
+
 	if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_NetworkElement) == 0)
 	{
-		return "INSTALLED";
+	    returnValue = strdup("INSTALLED");
 	}
 
-	return "INSTALLED";
-
-	return NULL;
+	return returnValue;
 }
 
 /********************************************************************
@@ -3182,7 +3193,7 @@ status_t cb_get_all_ltp_ref_leaf_list_elements_for_ltp(char* ltp_uuid, char** lt
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_NetworkElement_ltpRefList_connectedLtpRef(val_value_t *element)
+static char* cb_get_boot_time_NetworkElement_ltpRefList_connectedLtpRef(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *uuidKey = NULL;
@@ -3195,12 +3206,14 @@ static const char* cb_get_boot_time_NetworkElement_ltpRefList_connectedLtpRef(va
 	YUMA_ASSERT(NULL == uuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
 	YUMA_ASSERT(NULL == VAL_STRING(uuidKey), return NULL, "Could not access value of the key %s for element %s", uuidKey->name, element->name);
 
+	char* connectedLtpRef = NULL;
+
 	if (strcmp(VAL_STRING(uuidKey), "uuid2") == 0)
 	{
-		return "uuid15";
+	    connectedLtpRef = strdup("uuid15");
 	}
 
-	return NULL;
+	return connectedLtpRef;
 }
 
 /********************************************************************
@@ -3214,7 +3227,7 @@ static const char* cb_get_boot_time_NetworkElement_ltpRefList_connectedLtpRef(va
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_NetworkElement_ltpRefList_peerLtpRef(val_value_t *element)
+static char* cb_get_boot_time_NetworkElement_ltpRefList_peerLtpRef(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *uuidKey = NULL;
@@ -3227,12 +3240,14 @@ static const char* cb_get_boot_time_NetworkElement_ltpRefList_peerLtpRef(val_val
 	YUMA_ASSERT(NULL == uuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
 	YUMA_ASSERT(NULL == VAL_STRING(uuidKey), return NULL, "Could not access value of the key %s for element %s", uuidKey->name, element->name);
 
-	if (strcmp(VAL_STRING(uuidKey), "uuid2") == 0)
-	{
-		return "uuid15";
-	}
+    char* peerLtpRef = NULL;
 
-	return NULL;
+    if (strcmp(VAL_STRING(uuidKey), "uuid2") == 0)
+    {
+        peerLtpRef = strdup("uuid15");
+    }
+
+    return peerLtpRef;
 }
 
 /********************************************************************
@@ -3246,7 +3261,7 @@ static const char* cb_get_boot_time_NetworkElement_ltpRefList_peerLtpRef(val_val
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_NetworkElement_ltpRefList_physicalPortReference(val_value_t *element)
+static char* cb_get_boot_time_NetworkElement_ltpRefList_physicalPortReference(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *uuidKey = NULL;
@@ -3259,9 +3274,11 @@ static const char* cb_get_boot_time_NetworkElement_ltpRefList_physicalPortRefere
 	YUMA_ASSERT(NULL == uuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
 	YUMA_ASSERT(NULL == VAL_STRING(uuidKey), return NULL, "Could not access value of the key %s for element %s", uuidKey->name, element->name);
 
-	return "reference1";
+	char* physicalPortReference = NULL;
 
-	return NULL;
+	physicalPortReference = strdup("reference1");
+
+	return physicalPortReference;
 }
 
 /********************************************************************
@@ -3275,7 +3292,7 @@ static const char* cb_get_boot_time_NetworkElement_ltpRefList_physicalPortRefere
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_NetworkElement_ltpRefList_ltpDirection(val_value_t *element)
+static char* cb_get_boot_time_NetworkElement_ltpRefList_ltpDirection(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *uuidKey = NULL;
@@ -3288,9 +3305,11 @@ static const char* cb_get_boot_time_NetworkElement_ltpRefList_ltpDirection(val_v
 	YUMA_ASSERT(NULL == uuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
 	YUMA_ASSERT(NULL == VAL_STRING(uuidKey), return NULL, "Could not access value of the key %s for element %s", uuidKey->name, element->name);
 
-	return "BIDIRECTIONAL";
+    char* ltpDirection = NULL;
 
-	return NULL;
+    ltpDirection = strdup("BIDIRECTIONAL");
+
+    return ltpDirection;
 }
 
 /********************************************************************
@@ -3304,7 +3323,7 @@ static const char* cb_get_boot_time_NetworkElement_ltpRefList_ltpDirection(val_v
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_NetworkElement_lpList_layerProtocolName(val_value_t *element)
+static char* cb_get_boot_time_NetworkElement_lpList_layerProtocolName(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *ltpUuidKey = NULL;
@@ -3321,32 +3340,34 @@ static const char* cb_get_boot_time_NetworkElement_lpList_layerProtocolName(val_
 	YUMA_ASSERT(NULL == lpUuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
 	YUMA_ASSERT(NULL == VAL_STRING(lpUuidKey), return NULL, "Could not access value of the key %s for element %s", ltpUuidKey->name, element->name);
 
+	char* layerProtocolName = NULL;
+
     if (strcmp(VAL_STRING(lpUuidKey), "LP-MWPS-TTP-ifIndex1") == 0)
     {
-        return "MWPS";
+        layerProtocolName = strdup("MWPS");
     }
     else if (strcmp(VAL_STRING(lpUuidKey), "LP-MWPS-TTP-ifIndex2") == 0)
     {
-        return "MWPS";
+        layerProtocolName = strdup("MWPS");
     }
     else if (strcmp(VAL_STRING(lpUuidKey), "LP-MWS-TTP-ifIndex1") == 0)
     {
-        return "MWS";
+        layerProtocolName = strdup("MWS");
     }
     else if (strcmp(VAL_STRING(lpUuidKey), "LP-MWS-TTP-ifIndex2") == 0)
     {
-        return "MWS";
+        layerProtocolName = strdup("MWS");
     }
     else if (strcmp(VAL_STRING(lpUuidKey), "CONTAINER-TYPE-ETH-ifIndex1") == 0)
     {
-        return "ETH-CTP";
+        layerProtocolName = strdup("ETH-CTP");
     }
     else if (strcmp(VAL_STRING(lpUuidKey), "CONTAINER-TYPE-ETH-ifIndex2") == 0)
     {
-        return "ETH-CTP";
+        layerProtocolName = strdup("ETH-CTP");
     }
 
-	return NULL;
+	return layerProtocolName;
 }
 
 /********************************************************************
@@ -3360,7 +3381,7 @@ static const char* cb_get_boot_time_NetworkElement_lpList_layerProtocolName(val_
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_NetworkElement_lpList_configuredClientCapacity(val_value_t *element)
+static char* cb_get_boot_time_NetworkElement_lpList_configuredClientCapacity(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *ltpUuidKey = NULL;
@@ -3377,9 +3398,11 @@ static const char* cb_get_boot_time_NetworkElement_lpList_configuredClientCapaci
 	YUMA_ASSERT(NULL == lpUuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
 	YUMA_ASSERT(NULL == VAL_STRING(lpUuidKey), return NULL, "Could not access value of the key %s for element %s", ltpUuidKey->name, element->name);
 
-	return "1000 kbps";
+	char* configuredClientCapacity = NULL;
 
-	return NULL;
+	configuredClientCapacity = strdup("1000 kbps");
+
+	return configuredClientCapacity;
 }
 
 /********************************************************************
@@ -3393,7 +3416,7 @@ static const char* cb_get_boot_time_NetworkElement_lpList_configuredClientCapaci
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_NetworkElement_lpList_lpDirection(val_value_t *element)
+static char* cb_get_boot_time_NetworkElement_lpList_lpDirection(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *ltpUuidKey = NULL;
@@ -3410,7 +3433,11 @@ static const char* cb_get_boot_time_NetworkElement_lpList_lpDirection(val_value_
 	YUMA_ASSERT(NULL == lpUuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
 	YUMA_ASSERT(NULL == VAL_STRING(lpUuidKey), return NULL, "Could not access value of the key %s for element %s", ltpUuidKey->name, element->name);
 
-    return "BIDIRECTIONAL";
+	char* lpDirection = NULL;
+
+	lpDirection = strdup("BIDIRECTIONAL");
+
+    return lpDirection;
 }
 
 /********************************************************************
@@ -3424,7 +3451,7 @@ static const char* cb_get_boot_time_NetworkElement_lpList_lpDirection(val_value_
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_NetworkElement_lpList_terminationState(val_value_t *element)
+static char* cb_get_boot_time_NetworkElement_lpList_terminationState(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *ltpUuidKey = NULL;
@@ -3441,12 +3468,14 @@ static const char* cb_get_boot_time_NetworkElement_lpList_terminationState(val_v
 	YUMA_ASSERT(NULL == lpUuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
 	YUMA_ASSERT(NULL == VAL_STRING(lpUuidKey), return NULL, "Could not access value of the key %s for element %s", ltpUuidKey->name, element->name);
 
+	char* terminationState = NULL;
+
 	if (strcmp(VAL_STRING(lpUuidKey), "uuid3") == 0)
 	{
-		return "true";
+	    terminationState = strdup("true");
 	}
 
-	return NULL;
+	return terminationState;
 }
 
 
@@ -3504,7 +3533,7 @@ status_t cb_get_all_pure_eth_structure_pac_keys(char** air_pure_eth_structure_ke
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_pureEthernetStructure_structureID(val_value_t *element)
+static char* cb_get_boot_time_pureEthernetStructure_structureID(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -3520,17 +3549,18 @@ static const char* cb_get_boot_time_pureEthernetStructure_structureID(val_value_
 	/*
 	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information. E.g.:
 	 */
+	char* structureID = NULL;
 
 	if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWS-TTP-ifIndex1") == 0)
 	{
-		return "LP-MWS-TTP-structureId1";
+	    structureID = strdup("LP-MWS-TTP-structureId1");
 	}
 	if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWS-TTP-ifIndex2") == 0)
 	{
-		return "LP-MWS-TTP-structureId2";
+	    structureID = strdup("LP-MWS-TTP-structureId2");
 	}
 
-	return NULL;
+	return structureID;
 }
 
 /********************************************************************
@@ -3544,7 +3574,7 @@ static const char* cb_get_boot_time_pureEthernetStructure_structureID(val_value_
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_pureEthernetStructure_problemKindSeverity(val_value_t *element)
+static char* cb_get_boot_time_pureEthernetStructure_problemKindSeverity(val_value_t *element)
 {
     val_value_t *lastkey = NULL;
     val_value_t *layerProtocolKey = NULL;
@@ -3564,33 +3594,34 @@ static const char* cb_get_boot_time_pureEthernetStructure_problemKindSeverity(va
     /*
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and problemKindName
      */
+    char* problemKindSeverity = NULL;
 
     if (strcmp(VAL_STRING(problemKindName), "severity1") == 0)
     {
-        return "non-alarmed";
+        problemKindSeverity = strdup("non-alarmed");
     }
     else if (strcmp(VAL_STRING(problemKindName), "severity2") == 0)
     {
-        return "warning";
+        problemKindSeverity = strdup("warning");
     }
     else if (strcmp(VAL_STRING(problemKindName), "severity3") == 0)
     {
-        return "minor";
+        problemKindSeverity = strdup("minor");
     }
     else if (strcmp(VAL_STRING(problemKindName), "severity4") == 0)
     {
-        return "major";
+        problemKindSeverity = strdup("major");
     }
     else if (strcmp(VAL_STRING(problemKindName), "severity5") == 0)
     {
-        return "critical";
+        problemKindSeverity = strdup("critical");
     }
     else if (strcmp(VAL_STRING(problemKindName), "severity6") == 0)
     {
-        return "critical";
+        problemKindSeverity = strdup("critical");
     }
 
-    return NULL;
+    return problemKindSeverity;
 }
 
 /********************************************************************
@@ -3604,7 +3635,7 @@ static const char* cb_get_boot_time_pureEthernetStructure_problemKindSeverity(va
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerCapability_bundlingIsAvail(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerCapability_bundlingIsAvail(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -3635,7 +3666,7 @@ static const char* cb_get_boot_time_ethernetContainerCapability_bundlingIsAvail(
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerCapability_packetCompressionIsAvail(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerCapability_packetCompressionIsAvail(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -3666,7 +3697,7 @@ static const char* cb_get_boot_time_ethernetContainerCapability_packetCompressio
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerCapability_layer2CompressionIsAvail(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerCapability_layer2CompressionIsAvail(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -3697,7 +3728,7 @@ static const char* cb_get_boot_time_ethernetContainerCapability_layer2Compressio
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerCapability_vlanCompressionIsAvail(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerCapability_vlanCompressionIsAvail(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -3728,7 +3759,7 @@ static const char* cb_get_boot_time_ethernetContainerCapability_vlanCompressionI
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerCapability_qInQCompressionIsAvail(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerCapability_qInQCompressionIsAvail(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -3759,7 +3790,7 @@ static const char* cb_get_boot_time_ethernetContainerCapability_qInQCompressionI
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerCapability_mplsCompressionIsAvail(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerCapability_mplsCompressionIsAvail(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -3790,7 +3821,7 @@ static const char* cb_get_boot_time_ethernetContainerCapability_mplsCompressionI
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerCapability_ipv4CompressionIsAvail(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerCapability_ipv4CompressionIsAvail(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -3821,7 +3852,7 @@ static const char* cb_get_boot_time_ethernetContainerCapability_ipv4CompressionI
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerCapability_ipv6CompressionIsAvail(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerCapability_ipv6CompressionIsAvail(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -3852,7 +3883,7 @@ static const char* cb_get_boot_time_ethernetContainerCapability_ipv6CompressionI
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerCapability_layer4CompressionIsAvail(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerCapability_layer4CompressionIsAvail(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -3883,7 +3914,7 @@ static const char* cb_get_boot_time_ethernetContainerCapability_layer4Compressio
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerCapability_encryptionIsAvail(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerCapability_encryptionIsAvail(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -3914,7 +3945,7 @@ static const char* cb_get_boot_time_ethernetContainerCapability_encryptionIsAvai
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerCapability_supportedAlarms(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerCapability_supportedAlarms(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -3945,7 +3976,7 @@ static const char* cb_get_boot_time_ethernetContainerCapability_supportedAlarms(
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerConfiguration_containerID(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerConfiguration_containerID(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -3961,17 +3992,18 @@ static const char* cb_get_boot_time_ethernetContainerConfiguration_containerID(v
 	/*
 	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information. E.g.:
 	 */
+	char* containerId = NULL;
 
 	if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex1") == 0)
 	{
-		return "CONTAINER-TYPE-ETH-containerId1";
+	    containerId = strdup("CONTAINER-TYPE-ETH-containerId1");
 	}
 	if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex2") == 0)
 	{
-		return "CONTAINER-TYPE-ETH-containerId2";
+	    containerId = strdup("CONTAINER-TYPE-ETH-containerId2");
 	}
 
-	return NULL;
+	return containerId;
 }
 
 /********************************************************************
@@ -3985,7 +4017,7 @@ static const char* cb_get_boot_time_ethernetContainerConfiguration_containerID(v
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerConfiguration_packetCompressionIsOn(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerConfiguration_packetCompressionIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -4016,7 +4048,7 @@ static const char* cb_get_boot_time_ethernetContainerConfiguration_packetCompres
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerConfiguration_layer2CompressionIsOn(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerConfiguration_layer2CompressionIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -4047,7 +4079,7 @@ static const char* cb_get_boot_time_ethernetContainerConfiguration_layer2Compres
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerConfiguration_vlanCompressionIsOn(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerConfiguration_vlanCompressionIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -4078,7 +4110,7 @@ static const char* cb_get_boot_time_ethernetContainerConfiguration_vlanCompressi
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerConfiguration_qInQCompressionIsOn(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerConfiguration_qInQCompressionIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -4109,7 +4141,7 @@ static const char* cb_get_boot_time_ethernetContainerConfiguration_qInQCompressi
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerConfiguration_mplsCompressionIsOn(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerConfiguration_mplsCompressionIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -4140,7 +4172,7 @@ static const char* cb_get_boot_time_ethernetContainerConfiguration_mplsCompressi
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerConfiguration_ipv4CompressionIsOn(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerConfiguration_ipv4CompressionIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -4171,7 +4203,7 @@ static const char* cb_get_boot_time_ethernetContainerConfiguration_ipv4Compressi
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerConfiguration_ipv6CompressionIsOn(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerConfiguration_ipv6CompressionIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -4202,7 +4234,7 @@ static const char* cb_get_boot_time_ethernetContainerConfiguration_ipv6Compressi
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerConfiguration_layer4CompressionIsOn(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerConfiguration_layer4CompressionIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -4233,7 +4265,7 @@ static const char* cb_get_boot_time_ethernetContainerConfiguration_layer4Compres
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerConfiguration_encryptionIsOn(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerConfiguration_encryptionIsOn(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -4264,7 +4296,7 @@ static const char* cb_get_boot_time_ethernetContainerConfiguration_encryptionIsO
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerConfiguration_cryptographicKey(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerConfiguration_cryptographicKey(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -4295,7 +4327,7 @@ static const char* cb_get_boot_time_ethernetContainerConfiguration_cryptographic
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-static const char* cb_get_boot_time_ethernetContainerConfiguration_segmentIdRef(val_value_t *element)
+static char* cb_get_boot_time_ethernetContainerConfiguration_segmentIdRef(val_value_t *element)
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
@@ -4311,16 +4343,17 @@ static const char* cb_get_boot_time_ethernetContainerConfiguration_segmentIdRef(
 	/*
 	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information. E.g.:
 	 */
+	char* segmentIdRef = NULL;
 
 	if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex1") == 0)
 	{
-		return "111";
+	    segmentIdRef = strdup("111");
 	}
 	if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex2") == 0)
 	{
-		return "222";
+	    segmentIdRef = strdup("222");
 	}
 
-	return NULL;
+	return segmentIdRef;
 }
 

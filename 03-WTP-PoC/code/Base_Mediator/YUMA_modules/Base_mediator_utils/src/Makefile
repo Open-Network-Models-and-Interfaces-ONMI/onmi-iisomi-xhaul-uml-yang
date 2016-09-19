@@ -24,7 +24,7 @@ CWARN=-Wall -Wno-long-long -Wformat-y2k -Winit-self \
 
 CDEFS=-DDEBUG=1 -DLINUX=1 -DGCC=1
 CFLAGS += $(CDEFS) $(CWARN)
-CFLAGS += -fPIC
+CFLAGS += -fPIC -ggdb3
 
 SUBDIR_NM=Base_mediator_utils
 LIBSUFFIX=a

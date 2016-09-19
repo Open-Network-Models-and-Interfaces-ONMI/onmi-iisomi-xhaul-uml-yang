@@ -2794,6 +2794,8 @@ static status_t build_attributes_tree_and_attach_to_running_cfg(cfg_template_t* 
 		 */
 		res = attach_ethernet_container_pac_element_to_running_config(runningcfg, ethernet_container_pac_keys_list[i]);
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "attach_ethernet_container_pac_element_to_running_config failed!");
+
+		free(ethernet_container_pac_keys_list[i]);
 	}
 
 	return NO_ERR;
@@ -3028,6 +3030,8 @@ static status_t attach_segment_id_list(val_value_t* parentval)
 		res = attach_segment_id_list_entry(parentval, segment_id_list[i]);
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL,
 				"attach_problem_kind_severity_list_entry failed for layerProtocol=%s and key=%s!", k_MW_EthernetContainer_Pac_layerProtocol_key, segment_id_list[i]);
+
+		free(segment_id_list[i]);
 	}
 
 	return NO_ERR;
@@ -3099,6 +3103,8 @@ static status_t attach_problem_kind_severity_list(val_value_t* parentval)
 		res = attach_problem_kind_severity_list_entry(parentval, problem_kind_name_list[i]);
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL,
 				"attach_problem_kind_severity_list_entry failed for layerProtocol=%s and key=%s!", k_MW_EthernetContainer_Pac_layerProtocol_key, problem_kind_name_list[i]);
+
+		free(problem_kind_name_list[i]);
 	}
 
 	return NO_ERR;
@@ -3170,6 +3176,8 @@ static status_t get_ethernet_container_current_problem_list(ses_cb_t *scb, getcb
 		res = attach_ethernet_container_current_problem_list_entry(dst_val, ethernet_container_current_problem_list_keys_entries[i]);
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL,
 				"attach_ethernet_container_current_problem_list_entry failed for key=%s!", ethernet_container_current_problem_list_keys_entries[i]);
+
+		free(ethernet_container_current_problem_list_keys_entries[i]);
 	}
 
 	return NO_ERR;
@@ -3237,13 +3245,15 @@ static status_t get_ethernet_container_current_performance_list(ses_cb_t *scb,
 	YUMA_ASSERT(TRUE, NOP, "get_ethernet_container_current_performance_list was called!");
 
 	res = cb_get_all_ethernet_container_current_performance_list_keys(k_MW_EthernetContainer_Pac_layerProtocol_key, ethernet_container_current_performance_list_keys_entries, &num_of_ethernet_container_current_performance_list_keys);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "get_ethernet_container_current_performance_list_key failed!");
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_all_ethernet_container_current_performance_list_keys failed!");
 
 	for (int i=0; i<num_of_ethernet_container_current_performance_list_keys; ++i)
 	{
 		res = attach_ethernet_container_current_performance_list_entry(dst_val, ethernet_container_current_performance_list_keys_entries[i]);
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL,
 				"attach_ethernet_container_current_performance_list_entry failed for key=%s!", ethernet_container_current_performance_list_keys_entries[i]);
+
+		free(ethernet_container_current_performance_list_keys_entries[i]);
 	}
 
 	return NO_ERR;
@@ -3383,6 +3393,8 @@ static status_t get_ethernet_container_historical_performance_list(ses_cb_t *scb
 		res = attach_ethernet_container_historical_performance_list_entry(dst_val, ethernet_container_historical_performance_list_keys_entries[i]);
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL,
 				"attach_ethernet_container_historical_performance_list_entry failed for key=%s!", ethernet_container_historical_performance_list_keys_entries[i]);
+
+		free(ethernet_container_historical_performance_list_keys_entries[i]);
 	}
 
 	return NO_ERR;

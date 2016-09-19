@@ -7795,6 +7795,8 @@ static status_t build_attributes_tree_and_attach_to_running_cfg(cfg_template_t* 
 		 */
 		res = attach_air_interface_pac_element_to_running_config(runningcfg, air_interface_pac_keys_list[i]);
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "attach_air_interface_pac_element_to_running_config failed!");
+
+		free(air_interface_pac_keys_list[i]);
 	}
 
 	return NO_ERR;
@@ -8034,6 +8036,8 @@ static status_t attach_problem_kind_severity_list(val_value_t* parentval)
 		res = attach_problem_kind_severity_list_entry(parentval, problem_kind_name_list[i]);
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL,
 				"attach_problem_kind_severity_list_entry failed for layerProtocol=%s and key=%s!", k_MW_AirInterface_Pac_layerProtocol_key, problem_kind_name_list[i]);
+
+		free(problem_kind_name_list[i]);
 	}
 
 	return NO_ERR;
@@ -8105,6 +8109,8 @@ static status_t attach_supported_channel_plan_list(val_value_t* parentval)
 		res = attach_supported_channel_plan_list_entry(parentval, supported_channel_plan_list[i]);
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL,
 				"attach_supported_channel_plan_list_entry failed for layerProtocol=%s and key=%s!", k_MW_AirInterface_Pac_layerProtocol_key, supported_channel_plan_list[i]);
+
+		free(supported_channel_plan_list[i]);
 	}
 
 	return NO_ERR;
@@ -8182,6 +8188,8 @@ static status_t attach_transmission_mode_list(val_value_t *parentval)
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL,
 				"attach_supported_channel_plan_list_entry failed for layerProtocol=%s and supportedChannelPlan=%s and transmissionModeId=%s!",
 				k_MW_AirInterface_Pac_layerProtocol_key, k_MW_AirInterface_Pac_layerProtocol_supportedChannelPlan_key, transmission_mode_id_list[i]);
+
+		free(transmission_mode_id_list[i]);
 	}
 
 	return NO_ERR;
@@ -8250,6 +8258,8 @@ static status_t get_air_interface_current_problem_list(ses_cb_t *scb, getcb_mode
 		res = attach_air_interface_current_problem_list_entry(dst_val, air_interface_current_problem_list_keys_entries[i]);
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL,
 				"attach_air_interface_current_problem_list_entry failed for key=%s!", air_interface_current_problem_list_keys_entries[i]);
+
+		free(air_interface_current_problem_list_keys_entries[i]);
 	}
 
 	return NO_ERR;
@@ -8317,13 +8327,15 @@ static status_t get_air_interface_current_performance_list(ses_cb_t *scb,
 	YUMA_ASSERT(TRUE, NOP, "get_air_interface_current_performance_list was called!");
 
 	res = cb_get_all_air_interface_current_performance_list_keys(k_MW_AirInterface_Pac_layerProtocol_key, air_interface_current_performance_list_keys_entries, &num_of_air_interface_current_performance_list_keys);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "get_air_interface_current_performance_list_key failed!");
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_all_air_interface_current_performance_list_keys failed!");
 
 	for (int i=0; i<num_of_air_interface_current_performance_list_keys; ++i)
 	{
 		res = attach_air_interface_current_performance_list_entry(dst_val, air_interface_current_performance_list_keys_entries[i]);
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL,
 				"attach_air_interface_current_performance_list_entry failed for key=%s!", air_interface_current_performance_list_keys_entries[i]);
+
+		free(air_interface_current_performance_list_keys_entries[i]);
 	}
 
 	return NO_ERR;
@@ -8463,6 +8475,8 @@ static status_t get_air_interface_historical_performance_list(ses_cb_t *scb,
 		res = attach_air_interface_historical_performance_list_entry(dst_val, air_interface_historical_performance_list_keys_entries[i]);
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL,
 				"attach_air_interface_historical_performance_list_entry failed for key=%s!", air_interface_historical_performance_list_keys_entries[i]);
+
+		free(air_interface_historical_performance_list_keys_entries[i]);
 	}
 
 	return NO_ERR;
@@ -8595,6 +8609,8 @@ static status_t attach_co_channel_group_list(cfg_template_t* runningcfg)
 		res = attach_co_channel_group_list_entry(runningcfg->root, co_channel_group_id_keys_entries[i]);
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL,
 				"attach_co_channel_group_list_entry failed for key=%s!", co_channel_group_id_keys_entries[i]);
+
+		free(co_channel_group_id_keys_entries[i]);
 	}
 
 	return NO_ERR;
@@ -8653,6 +8669,8 @@ static status_t attach_co_channel_group_list_entry(val_value_t *parentval, const
 				false);
 		YUMA_ASSERT(NULL == airInterfaceList_val, return ERR_INTERNAL_VAL ,
 					"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceList);
+
+		free(airInterfaceList_entries[i]);
 	}
 
 	/*
