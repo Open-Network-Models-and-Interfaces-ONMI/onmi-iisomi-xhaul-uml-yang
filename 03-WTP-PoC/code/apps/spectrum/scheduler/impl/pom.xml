@@ -13,7 +13,7 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
     <parent>
         <groupId>org.opendaylight.controller</groupId>
         <artifactId>config-parent</artifactId>
-        <version>0.4.1-Beryllium-SR1</version>
+        <version>0.4.2-Beryllium-SR2</version>
         <relativePath/>
     </parent>
 
@@ -21,19 +21,20 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
     <groupId>com.highstreet.technologies.odl.app.spectrum</groupId>
     <artifactId>scheduler-impl</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <packaging>bundle</packaging>
+
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-    <packaging>bundle</packaging>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
