@@ -1,6 +1,6 @@
 
 <div class="modal-header">
-	<h3 class="modal-title" id="modal-title">{{'MWTN_SHOWLIST' | translate}}</h3>
+	<h3 class="modal-title" id="modal-title">{{'MWTN_SHOWOBJECT' | translate}}</h3>
 </div>
 <div class="modal-body" id="modal-body">
 
@@ -63,7 +63,29 @@
 		<div class="row">
 			<div class="col-md-12">
 			
-			<pre>{{objValue | json}}</pre>
+			<div class="container" style="width:100%" ng-repeat="attribute in attributes">
+
+		<div class="col-md-5 text-right">{{['mwtn', attribute.name].join('_').toUpperCase() | translate}}</div>
+		<!-- string -->
+		<div class="col-md-7"
+			ng-show="getType(attribute.value) === 'string'"><b>{{attribute.value}}</b></div>
+		
+		<!-- number, boolean -->
+		<div class="col-md-3 text-right"
+			ng-show="getType(attribute.value) !== 'string' && getType(attribute.value) !== 'object' && getType(attribute.value) !== 'array'"><b>{{attribute.value}}</b></div>
+		<div class="col-md-3"
+            ng-show="getType(attribute.value) !== 'string' && getType(attribute.value) !== 'object' && getType(attribute.value) !== 'array'">{{schema[attribute.name].unit}}</div>
+		
+			
+		<div class="col-md-7" ng-show="getType(attribute.value) === 'object'">
+			<button ng-click="showObject(attribute.value)" class="btn btn-primary">{{'MWTN_SHOWOBJECT'
+				| translate}}...</button>
+		</div>
+		<div class="col-md-7" ng-show="getType(attribute.value) === 'array'">
+			<button ng-click="showArray(path, attribute.value)" class="btn btn-primary">{{'MWTN_SHOWLIST' | translate}}: {{attribute.value.length}}  {{'MWTN_ITEMS'| translate}}...</button>
+		</div>
+
+			</div>
 
 			</div>
 		</div>

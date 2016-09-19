@@ -411,7 +411,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
         ariaDescribedBy: 'modal-body',
         templateUrl: 'src/app/mwtnConfig/templates/showObject.html',
         controller: 'ShowListCtrl',
-        size: 'huge',
+        size: 'md',
         resolve: {
           listData: function () {
             return {path:$scope.path, objValue:$scope.objValue};
@@ -536,7 +536,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
         ariaDescribedBy: 'modal-body',
         templateUrl: 'src/app/mwtnConfig/templates/showObject.html',
         controller: 'ShowObjectCtrl',
-        size: 'huge',
+        size: 'md',
         resolve: {
           objValue: function () {
             return {path:$scope.path, objValue:$scope.objValue};
@@ -553,11 +553,42 @@ define(['app/mwtnConfig/mwtnConfig.module',
 
 }]);
 
-  mwtnConfigApp.register.controller('ShowObjectCtrl', ['$scope', '$uibModalInstance', '$mwtnCommons', 'objValue', 
-                                                     function ($scope, $uibModalInstance, $mwtnCommons, objValue) {
+  mwtnConfigApp.register.controller('ShowObjectCtrl', ['$scope', '$uibModalInstance', '$mwtnCommons', '$mwtnConfig', 'orderByFilter', 'objValue', 
+                                                     function ($scope, $uibModalInstance, $mwtnCommons, $mwtnConfig, orderBy, objValue) {
 
     $scope.path = objValue.path;
     $scope.objValue = objValue.objValue;
+    $scope.schema = {init:false};
+    $mwtnConfig.getSchema().then(function(data){
+      $scope.schema = data;
+
+      var attributes = Object.keys($scope.objValue).map(function(parameter) {
+        console.log($scope.schema[parameter]);
+        if ($scope.schema[parameter]) {
+          console.log($scope.schema[parameter]);
+          return {
+            name: parameter,
+            value: $scope.objValue[parameter],
+            order: $scope.schema[parameter]['order-number'],
+            unit:  $scope.schema[parameter].unit,
+          }
+        } else {
+          return {
+            name: parameter,
+            value: $scope.objValue[parameter],
+            order: 0,
+            unit:  'error',
+          }
+        }
+      });
+      
+      $scope.attributes =  orderBy(attributes, 'order', false);
+
+    }, function(error){
+      console.log('bad luck - no schema ;( ');
+    });
+    
+
 
     $scope.ok = function () {
       $uibModalInstance.close($scope.objValue);
