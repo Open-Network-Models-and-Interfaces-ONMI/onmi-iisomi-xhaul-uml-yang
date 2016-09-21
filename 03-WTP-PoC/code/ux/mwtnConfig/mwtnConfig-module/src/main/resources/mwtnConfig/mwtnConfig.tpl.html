@@ -30,13 +30,16 @@
 				<div uib-accordion-group class="panel-primary"
 					heading="{{'NetworkElement' | translate}} '{{onfNetworkElement.nameList[0].value}}'"
 					is-open="status.ne">
-					<pre>{{onfNetworkElement | json}}</pre>
-
+					
+						<div class="container" style="width:100%" path="path" parameters="onfNetworkElement" >
+						</div>
+					
 					<div ng-repeat="ltp in onfLtps" uib-accordion-group
 						class="panel-default"
 						heading="{{'LTP' | translate}}({{ltp._lpList[0].layerProtocolName}}) '{{ltp.uuid}}' -> '{{ltp._lpList[0].uuid}}'"
 						is-open="status['ltp' + separator + ltp.uuid]">
-						<pre>{{ltp | json}}</pre>
+						<div class="container" style="width:100%" path="path" parameters="ltp" >
+						</div>
 					</div>
 				</div>
 			</div>
@@ -50,7 +53,7 @@
 					<div ng-repeat="part in parts" uib-accordion-group
 						class="panel-default" heading="{{part}}"
 						is-open="status['container' + separator +  container.layerProtocol + separator + part]">
-						<div class="container" style="width:100%" ng-repeat="(part2, parameters) in container[part]" path="path" parameters="parameters" schema="schema" >
+						<div class="container" style="width:100%" ng-repeat="(part2, parameters) in container[part]" path="path" parameters="parameters" >
 						</div>
 					</div>
 				</div>
@@ -65,7 +68,7 @@
 					<div ng-repeat="part in parts" uib-accordion-group
 						class="panel-default" heading="{{part}}"
 						is-open="status['structure' + separator + structure.layerProtocol + separator + part]">
-						<div class="container" style="width:100%" ng-repeat="(part2, parameters) in structure[part]" path="path" parameters="parameters" schema="schema" >
+						<div class="container" style="width:100%" ng-repeat="(part2, parameters) in structure[part]" path="path" parameters="parameters" >
 						</div>
 					</div>
 				</div>
@@ -80,7 +83,7 @@
 					<div ng-repeat="part in parts" uib-accordion-group
 						class="panel-default" heading="{{part}}"
 						is-open="status['airinterface' + separator + airinterface.layerProtocol + separator + part]">
-						<div class="container" style="width:100%" ng-repeat="(part2, parameters) in airinterface[part]" path="path" parameters="parameters" schema="schema" >
+						<div class="container" style="width:100%" ng-repeat="(part2, parameters) in airinterface[part]" path="path" parameters="parameters" >
 						</div>
 
 					</div>

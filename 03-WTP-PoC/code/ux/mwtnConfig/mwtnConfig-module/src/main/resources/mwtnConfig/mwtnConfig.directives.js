@@ -13,41 +13,37 @@ define([ 'app/mwtnConfig/mwtnConfig.module',], function(mwtnConfigApp) {
       restrict : 'A',
       scope: {
         parameters: '=parameters',
-        schema: '=schema',
         path: '=path'
       },
       templateUrl : 'src/app/mwtnConfig/templates/show.tpl.html',
       windowClass: 'app-modal-window',
       size: 'mysize',
-      controller :  ['$scope', 'orderByFilter', '$uibModal',  function($scope, orderBy, $uibModal){
+      controller :  ['$uibModal', '$scope', 'orderByFilter', '$mwtnConfig', function($uibModal, $scope, orderBy, $mwtnConfig){
         
-        if ($scope.parameters) {
-          
+        $scope.schema = {initDirectiveCtrl:false};
+        var update = function() {
+          if (!$scope.parameters) {
+              return;
+          }
           if ((typeof $scope.parameters) === 'string') {
              $scope.attributes = $scope.parameters; 
           } else {
-  
-            var attributes = Object.keys($scope.parameters).map(function(parameter) {
-              if ($scope.schema[parameter]) {
-                return {
-                  name: parameter,
-                  value: $scope.parameters[parameter],
-                  order: $scope.schema[parameter]['order-number'],
-                  unit:  $scope.schema[parameter].unit,
-                }
-              } else {
-                return {
-                  name: parameter,
-                  value: $scope.parameters[parameter],
-                  order: 0,
-                  unit:  'error',
-                }
-              }
-            });
-            
+            var attributes = $mwtnConfig.getAttributes($scope.parameters, $scope.schema);
             $scope.attributes =  orderBy(attributes, 'order', false);
           }
-        }
+        };
+        
+        $mwtnConfig.getSchema().then(function(schema){
+          $scope.schema = schema;
+          update();
+          $scope.$watch('parameters', function(nv, ov){
+            if (nv && nv !== ov) {
+              update();
+            }
+          });
+        }, function(error){
+          console.error(error);
+        });
         
         $scope.getType = function(value) {
           var result = typeof value;
@@ -81,10 +77,11 @@ define([ 'app/mwtnConfig/mwtnConfig.module',], function(mwtnConfigApp) {
           }, function () {
             // $mwtnLog.info({component: COMPONENT, message: 'Creation of new planned NetworkElement dismissed!'});
           });
-        }
+        };
+
         $scope.showObject = function(value) {
           console.log(JSON.stringify(value));
-        }
+        };
       }]
     };
   });
