@@ -23,32 +23,14 @@ define([ 'app/mwtnConfig/mwtnConfig.module',], function(mwtnConfigApp) {
         $scope.schema = {initDirectiveCtrl:false};
         var update = function() {
           if (!$scope.parameters) {
-              console.log('no parameters ;(');
               return;
           }
-            if ((typeof $scope.parameters) === 'string') {
-               $scope.attributes = $scope.parameters; 
-            } else {
-              var attributes = Object.keys($scope.parameters).map(function(parameter) {
-                if ($scope.schema[parameter]) {
-                  return {
-                    name: parameter,
-                    value: $scope.parameters[parameter],
-                    order: $scope.schema[parameter]['order-number'],
-                    unit:  $scope.schema[parameter].unit,
-                  }
-                } else {
-                  return {
-                    name: parameter,
-                    value: $scope.parameters[parameter],
-                    order: 0,
-                    unit:  'error',
-                  }
-                }
-              });
-              $scope.attributes =  orderBy(attributes, 'order', false);
-            }
-          
+          if ((typeof $scope.parameters) === 'string') {
+             $scope.attributes = $scope.parameters; 
+          } else {
+            var attributes = $mwtnConfig.getAttributes($scope.parameters, $scope.schema);
+            $scope.attributes =  orderBy(attributes, 'order', false);
+          }
         };
         
         $mwtnConfig.getSchema().then(function(schema){

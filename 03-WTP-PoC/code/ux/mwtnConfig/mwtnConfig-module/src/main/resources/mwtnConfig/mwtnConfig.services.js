@@ -21,6 +21,32 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnConfig/mwtnConfig.module'
     service.getActualNetworkElements = $mwtnCommons.getActualNetworkElements;
     service.getPacParts = $mwtnCommons.getPacParts;
     service.getSchema = $mwtnDatabase.getSchema;
+    
+    service.getAttributes = function(object, schema){
+      var keys = Object.keys(object);
+      var index = keys.indexOf('$$hashKey');
+      console.log('index', index);
+      if (index > -1) {
+        keys.splice(index, 1);
+      }
+      return keys.map(function(parameter) {
+        if (schema[parameter]) {
+          return {
+            name: parameter,
+            value: object[parameter],
+            order: schema[parameter]['order-number'],
+            unit:  schema[parameter].unit,
+          }
+        } else {
+          return {
+            name: parameter,
+            value: object[parameter],
+            order: 0,
+            unit:  'error',
+          }
+        }
+      });
+    };
 
     return service;
   });
