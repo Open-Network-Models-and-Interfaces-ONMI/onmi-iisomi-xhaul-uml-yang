@@ -558,7 +558,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
 
     $scope.path = objValue.path;
     $scope.objValue = objValue.objValue;
-    $scope.schema = {init:false};
+    $scope.schema = {initShowObjectCtrl:false};
     $mwtnConfig.getSchema().then(function(data){
       $scope.schema = data;
 
