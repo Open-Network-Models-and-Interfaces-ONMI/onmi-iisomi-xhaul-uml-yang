@@ -107,6 +107,15 @@ extern status_t y_MicrowaveModel_ObjectClasses_PureEthernetStructure_init2 (void
 ********************************************************************/
 extern void y_MicrowaveModel_ObjectClasses_PureEthernetStructure_cleanup (void);
 
+status_t MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthernetStructure_Pac_pureEthernetStructureStatus_mro (val_value_t *parentval);
+
+status_t MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthernetStructure_Pac_pureEthernetStructureCurrentProblems_currentProblemList_timeStamp_get (ses_cb_t *scb, getcb_mode_t cbmode, const val_value_t *virval, val_value_t *dstval);
+status_t MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthernetStructure_Pac_pureEthernetStructureCurrentProblems_currentProblemList_problemName_get (ses_cb_t *scb, getcb_mode_t cbmode, const val_value_t *virval, val_value_t *dstval);
+status_t MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthernetStructure_Pac_pureEthernetStructureCurrentProblems_currentProblemList_problemSeverity_get (ses_cb_t *scb, getcb_mode_t cbmode, const val_value_t *virval, val_value_t *dstval);
+
+
+
+
 #ifdef __cplusplus
 } /* end extern 'C' */
 #endif

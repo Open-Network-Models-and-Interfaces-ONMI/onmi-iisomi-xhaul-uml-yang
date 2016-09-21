@@ -56,12 +56,14 @@
 
 status_t create_root_element_for_module(const char *module_name, const char *revision, const char *element_name, val_value_t** created_element_val);
 
-status_t create_and_init_child_element(const char *modname, const char *objname, val_value_t *parent_val, val_value_t **child_val, const char *valuestr, bool isRuntime);
+status_t create_and_init_child_element(const char *modname, const char *objname, val_value_t *parent_val, val_value_t **child_val, const char *valuestr);
 
-status_t create_and_init_child_object(obj_template_t *curr_obj,	val_value_t *parent_val, const char *valuestr, bool isRuntime);
+status_t create_and_init_child_object(obj_template_t *curr_obj,	val_value_t *parent_val, const char *valuestr);
 
-status_t create_and_init_siblings(obj_template_t *curr_obj,	val_value_t *parent_val, bool isRuntime);
+status_t create_and_init_siblings(obj_template_t *curr_obj,	val_value_t *parent_val);
 
-status_t init_element_with_value(obj_template_t *curr_obj,	val_value_t **curr_val, const char *valuestr, bool isRuntime);
+status_t init_element_with_value(obj_template_t *curr_obj,	val_value_t **curr_val, const char *valuestr);
+
+status_t add_virtual_leaf(val_value_t *parentVal, const char *elementName, getcb_fn_t callbackFunction);
 
 #endif /* UTILS_H_ */

@@ -801,7 +801,7 @@ static status_t MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthern
 * RETURNS:
 *     error status
 ********************************************************************/
-static status_t MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthernetStructure_Pac_pureEthernetStructureCurrentProblems_currentProblemList_timeStamp_get (
+status_t MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthernetStructure_Pac_pureEthernetStructureCurrentProblems_currentProblemList_timeStamp_get (
     ses_cb_t *scb,
     getcb_mode_t cbmode,
     const val_value_t *virval,
@@ -848,7 +848,7 @@ static status_t MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthern
 * RETURNS:
 *     error status
 ********************************************************************/
-static status_t MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthernetStructure_Pac_pureEthernetStructureCurrentProblems_currentProblemList_problemName_get (
+status_t MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthernetStructure_Pac_pureEthernetStructureCurrentProblems_currentProblemList_problemName_get (
     ses_cb_t *scb,
     getcb_mode_t cbmode,
     const val_value_t *virval,
@@ -895,7 +895,7 @@ static status_t MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthern
 * RETURNS:
 *     error status
 ********************************************************************/
-static status_t MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthernetStructure_Pac_pureEthernetStructureCurrentProblems_currentProblemList_problemSeverity_get (
+status_t MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthernetStructure_Pac_pureEthernetStructureCurrentProblems_currentProblemList_problemSeverity_get (
     ses_cb_t *scb,
     getcb_mode_t cbmode,
     const val_value_t *virval,

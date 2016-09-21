@@ -32,14 +32,12 @@ static char* cb_get_runtime_airInterfaceStatus_loopBackIsUp(val_value_t *element
 static char* cb_get_runtime_airInterfaceStatus_localEndPointId(val_value_t *element);
 static char* cb_get_runtime_airInterfaceStatus_remoteEndPointId(val_value_t *element);
 
+static char* cb_get_runtime_airInterfaceCurrentProblems_value(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentProblemList_problem_timeStamp(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentProblemList_problem_problemName(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentProblemList_problem_problemSeverity(val_value_t *element);
 
 static char* cb_get_runtime_airInterfaceCurrentPerformance_value(val_value_t *element);
-static char* cb_get_runtime_airInterfaceCurrentPerformance_objectClass(val_value_t *element);
-static char* cb_get_runtime_airInterfaceCurrentPerformance_nameBinding(val_value_t *element);
-static char* cb_get_runtime_airInterfaceCurrentPerformance_scannerId(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_granularityPeriod(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_administrativeState(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_suspectIntervalFlag(val_value_t *element);
@@ -47,16 +45,18 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_elapsedTime(val_value
 static char* cb_get_runtime_airInterfaceCurrentPerformance_timestamp(val_value_t *element);
 
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_es(val_value_t *element);
-static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_es(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_ses(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_cses(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_unavailability(val_value_t *element);
+
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_txLevelMin(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_txLevelMax(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_txLevelAvg(val_value_t *element);
+
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rxLevelMin(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rxLevelMax(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rxLevelAvg(val_value_t *element);
+
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time2Symbols(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time4SymbolsS(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time4Symbols(val_value_t *element);
@@ -77,20 +77,22 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time4096SymbolsL(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time8192Symbols(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time8192SymbolsL(val_value_t *element);
+
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_snirMin(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_snirMax(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_snirAvg(val_value_t *element);
+
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_xpdMin(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_xpdMax(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_xpdAvg(val_value_t *element);
+
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rfTempMin(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rfTempMax(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rfTempAvg(val_value_t *element);
+
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_defectBlocksSum(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_timePeriod(val_value_t *element);
 
-static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_objectClass(val_value_t *element);
-static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_nameBinding(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_periodEndTime(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_granularityPeriod(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_suspectIntervalFlag(val_value_t *element);
@@ -99,12 +101,15 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_ses(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_cses(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_unavailability(val_value_t *element);
+
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_txLevelMin(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_txLevelMax(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_txLevelAvg(val_value_t *element);
+
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rxLevelMin(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rxLevelMax(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rxLevelAvg(val_value_t *element);
+
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time2Symbols(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4SymbolsS(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4Symbols(val_value_t *element);
@@ -125,15 +130,19 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4096SymbolsL(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time8192Symbols(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time8192SymbolsL(val_value_t *element);
+
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_snirMin(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_snirMax(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_snirAvg(val_value_t *element);
+
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_xpdMin(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_xpdMax(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_xpdAvg(val_value_t *element);
+
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rfTempMin(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rfTempMax(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rfTempAvg(val_value_t *element);
+
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_defectBlocksSum(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_timePeriod(val_value_t *element);
 
@@ -143,20 +152,17 @@ static char* cb_get_runtime_pureEthernetStructureStatus_segmentIsReservedForTdm(
 static char* cb_get_runtime_pureEthernetStructureStatus_operationalStatus(val_value_t *element);
 static char* cb_get_runtime_pureEthernetStructureStatus_lastStatusChange(val_value_t *element);
 
+static char* cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_value(val_value_t *element);
 static char* cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_timeStamp(val_value_t *element);
 static char* cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemName(val_value_t *element);
 static char* cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemSeverity(val_value_t *element);
 
 static char* cb_get_runtime_ethernetContainerCurrentProblem_value(val_value_t *element);
-static char* cb_get_runtime_ethernetContainerCurrentProblem_sequenceNumber(val_value_t *element);
 static char* cb_get_runtime_ethernetContainerCurrentProblem_timeStamp(val_value_t *element);
 static char* cb_get_runtime_ethernetContainerCurrentProblem_problemName(val_value_t *element);
 static char* cb_get_runtime_ethernetContainerCurrentProblem_problemSeverity(val_value_t *element);
 
 static char* cb_get_runtime_ethernetContainerCurrentPerformance_value(val_value_t *element);
-static char* cb_get_runtime_ethernetContainerCurrentPerformance_objectClass(val_value_t *element);
-static char* cb_get_runtime_ethernetContainerCurrentPerformance_nameBinding(val_value_t *element);
-static char* cb_get_runtime_ethernetContainerCurrentPerformance_scannerId(val_value_t *element);
 static char* cb_get_runtime_ethernetContainerCurrentPerformance_granularityPeriod(val_value_t *element);
 static char* cb_get_runtime_ethernetContainerCurrentPerformance_administrativeState(val_value_t *element);
 static char* cb_get_runtime_ethernetContainerCurrentPerformance_suspectIntervalFlag(val_value_t *element);
@@ -348,6 +354,48 @@ status_t cb_set_runtime_airInterfaceStatus_element_value(val_value_t **element)
 }
 
 /********************************************************************
+* FUNCTION cb_set_runtime_airInterfaceCurrentProblems_element_value
+*
+* Set the value of the element received as a parameter with the value that we get from a callback specific to the element.
+* If we do not have a callback implemented for the element, we use the default value from the YANG file.
+*
+* OUTPUTS:
+* val_value_t **element - the element that will have its value changed
+*
+* RETURNS:
+*     error status
+********************************************************************/
+status_t cb_set_runtime_airInterfaceCurrentProblems_element_value(val_value_t **element)
+{
+    status_t res = NO_ERR;
+    int need_free = TRUE;
+
+    YUMA_ASSERT(NULL == (*element), return ERR_INTERNAL_VAL, "NULL element received");
+
+    //get the element value through the callback
+    char* elementStringValue = cb_get_runtime_airInterfaceCurrentProblems_value(*element);
+
+    if (elementStringValue == NULL) //no callback implemented for this element, just use the default value
+    {
+        elementStringValue = obj_get_default((*element)->obj);
+        need_free = FALSE; //we do not need to free the memory in this case
+    }
+
+    if (elementStringValue != NULL)
+    {
+        res = val_set_simval_obj(*element, (*element)->obj, elementStringValue);
+        YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "val_set_simval_obj %s failed!", (*element)->name);
+
+        if (need_free)
+        {
+            free(elementStringValue); //free the element that was allocated by the user in its callback function
+        }
+    }
+
+    return NO_ERR;
+}
+
+/********************************************************************
 * FUNCTION cb_set_runtime_airInterfaceCurrentPerformance_element_value
 *
 * Set the value of the element received as a parameter with the value that we get from a callback specific to the element.
@@ -368,6 +416,48 @@ status_t cb_set_runtime_airInterfaceCurrentPerformance_element_value(val_value_t
 
     //get the element value through the callback
     char* elementStringValue = cb_get_runtime_airInterfaceCurrentPerformance_value(*element);
+
+    if (elementStringValue == NULL) //no callback implemented for this element, just use the default value
+    {
+        elementStringValue = obj_get_default((*element)->obj);
+        need_free = FALSE; //we do not need to free the memory in this case
+    }
+
+    if (elementStringValue != NULL)
+    {
+        res = val_set_simval_obj(*element, (*element)->obj, elementStringValue);
+        YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "val_set_simval_obj %s failed!", (*element)->name);
+
+        if (need_free)
+        {
+            free(elementStringValue); //free the element that was allocated by the user in its callback function
+        }
+    }
+
+    return NO_ERR;
+}
+
+/********************************************************************
+* FUNCTION cb_set_runtime_pureEthernetStructureCurrentProblems_element_value
+*
+* Set the value of the element received as a parameter with the value that we get from a callback specific to the element.
+* If we do not have a callback implemented for the element, we use the default value from the YANG file.
+*
+* OUTPUTS:
+* val_value_t **element - the element that will have its value changed
+*
+* RETURNS:
+*     error status
+********************************************************************/
+status_t cb_set_runtime_pureEthernetStructureCurrentProblems_element_value(val_value_t **element)
+{
+    status_t res = NO_ERR;
+    int need_free = TRUE;
+
+    YUMA_ASSERT(NULL == (*element), return ERR_INTERNAL_VAL, "NULL element received");
+
+    //get the element value through the callback
+    char* elementStringValue = cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_value(*element);
 
     if (elementStringValue == NULL) //no callback implemented for this element, just use the default value
     {
@@ -432,541 +522,6 @@ status_t cb_set_runtime_ethernetContainerCurrentPerformance_element_value(val_va
 }
 
 /********************************************************************
-* FUNCTION cb_get_runtime_air_interface_element_value
-*
-* A general function that calls a specific callback for each attribute, depending on its name
-*
-* INPUTS:
-* val_value_t *element - the element for which we want the value
-*
-* RETURNS:
-* The value of the element, represented as a string
-********************************************************************/
-char* cb_get_runtime_air_interface_element_value(val_value_t *element)
-{
-    if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceCurrentProblems) == 0))
-    {
-        if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_timeStamp) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentProblemList_problem_timeStamp(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemName) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentProblemList_problem_problemName(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemSeverity) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentProblemList_problem_problemSeverity(element);
-        }
-    }
-    if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_pureEthernetStructureCurrentProblems) == 0))
-    {
-        if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_timeStamp) == 0)
-        {
-            return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_timeStamp(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemName) == 0)
-        {
-            return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemName(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemSeverity) == 0)
-        {
-            return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemSeverity(element);
-        }
-    }
-    else if (element->parent && (strcmp(element->parent->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_currentPerformanceDataList) == 0))
-    {
-        if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_objectClass) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_objectClass(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_nameBinding) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_nameBinding(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_granularityPeriod) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_granularityPeriod(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_administrativeState) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_administrativeState(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_suspectIntervalFlag) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_suspectIntervalFlag(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_elapsedTime) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_elapsedTime(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_timestamp) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_timestamp(element);
-        }
-    }
-    else if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_currentPerformanceDataList) == 0))
-    {
-        /* current - according to the parent :( */
-        if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_es) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_es(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_ses) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_ses(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_cses) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_cses(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_unavailability) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_unavailability(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txLevelMin) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_txLevelMin(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txLevelMax) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_txLevelMax(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txLevelAvg) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_txLevelAvg(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxLevelMin) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rxLevelMin(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxLevelMax) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rxLevelMax(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxLevelAvg) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rxLevelAvg(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time2Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time2Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time4SymbolsS) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time4SymbolsS(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time4Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time4Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time8Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time8Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time16SymbolsS) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time16SymbolsS(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time16Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time16Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time32Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time32Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time64Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time64Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time128Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time128Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time256Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time256Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time512Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time512Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time512SymbolsL) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time512SymbolsL(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time1024Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time1024Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time1024SymbolsL) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time1024SymbolsL(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time2048Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time2048Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time2048SymbolsL) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time2048SymbolsL(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time4096Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time4096Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time4096SymbolsL) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time4096SymbolsL(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time8192Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time8192Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time8192SymbolsL) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time8192SymbolsL(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_snirMin) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_snirMin(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_snirMax) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_snirMax(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_snirAvg) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_snirAvg(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpdMin) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_xpdMin(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpdMax) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_xpdMax(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpdAvg) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_xpdAvg(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rfTempMin) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rfTempMin(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rfTempMax) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rfTempMax(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rfTempAvg) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rfTempAvg(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_defectBlocksSum) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_defectBlocksSum(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_timePeriod) == 0)
-        {
-            return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_timePeriod(element);
-        }
-    }
-    else if (element->parent && (strcmp(element->parent->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_historicalPerformanceDataList) == 0))
-    {
-        if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_objectClass) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_objectClass(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_nameBinding) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_nameBinding(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_periodEndTime) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_periodEndTime(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_granularityPeriod) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_granularityPeriod(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_suspectIntervalFlag) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_suspectIntervalFlag(element);
-        }
-    }
-    else if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_historicalPerformanceDataList) == 0))
-    {
-        /* historical - according to the parent :( */
-
-        if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_es) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_es(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_ses) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_ses(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_cses) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_cses(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_unavailability) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_unavailability(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txLevelMin) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_txLevelMin(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txLevelMax) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_txLevelMax(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txLevelAvg) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_txLevelAvg(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxLevelMin) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rxLevelMin(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxLevelMax) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rxLevelMax(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxLevelAvg) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rxLevelAvg(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time2Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time2Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time4SymbolsS) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4SymbolsS(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time4Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time8Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time8Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time16SymbolsS) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time16SymbolsS(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time16Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time16Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time32Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time32Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time64Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time64Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time128Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time128Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time256Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time256Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time512Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time512Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time512SymbolsL) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time512SymbolsL(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time1024Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time1024Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time1024SymbolsL) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time1024SymbolsL(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time2048Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time2048Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time2048SymbolsL) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time2048SymbolsL(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time4096Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4096Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time4096SymbolsL) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4096SymbolsL(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time8192Symbols) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time8192Symbols(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time8192SymbolsL) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time8192SymbolsL(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_snirMin) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_snirMin(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_snirMax) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_snirMax(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_snirAvg) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_snirAvg(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpdMin) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_xpdMin(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpdMax) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_xpdMax(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpdAvg) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_xpdAvg(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rfTempMin) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rfTempMin(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rfTempMax) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rfTempMax(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rfTempAvg) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rfTempAvg(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_defectBlocksSum) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_defectBlocksSum(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_timePeriod) == 0)
-        {
-            return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_timePeriod(element);
-        }
-    }
-    return NULL;
-}
-
-/********************************************************************
-* FUNCTION cb_get_runtime_pure_ethernet_structure_element_value
-*
-* A general function that calls a specific callback for each attribute, depending on its name
-*
-* INPUTS:
-* val_value_t *element - the element for which we want the value
-*
-* RETURNS:
-* The value of the element, represented as a string
-********************************************************************/
-char* cb_get_runtime_pure_ethernet_structure_element_value(val_value_t *element)
-{
-    if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_pureEthernetStructureCurrentProblems) == 0))
-    {
-        if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_timeStamp) == 0)
-        {
-            return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_timeStamp(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemName) == 0)
-        {
-            return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemName(element);
-        }
-        else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemSeverity) == 0)
-        {
-            return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemSeverity(element);
-        }
-    }
-    return NULL;
-}
-
-/********************************************************************
-* FUNCTION cb_get_runtime_ethernet_container_element_value
-*
-* A general function that calls a specific callback for each attribute, depending on its name
-*
-* INPUTS:
-* val_value_t *element - the element for which we want the value
-*
-* RETURNS:
-* The value of the element, represented as a string
-********************************************************************/
-char* cb_get_runtime_ethernet_container_element_value(val_value_t *element)
-{
-    if (element->parent && (strcmp(element->parent->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_currentProblemList) == 0))
-    {
-        return cb_get_runtime_ethernetContainerCurrentProblem_value(element);
-    }
-    else if (element->parent && (strcmp(element->parent->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_currentPerformanceDataList) == 0))
-    {
-        return cb_get_runtime_ethernetContainerCurrentPerformance_value(element);
-    }
-    else if (element->parent && (strcmp(element->parent->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_historicalPerformanceDataList) == 0))
-    {
-        return cb_get_runtime_ethernetContainerHistoricalPerformances_value(element);
-    }
-    return NULL;
-}
-
-/********************************************************************
-* FUNCTION cb_get_runtime_element_value
-*
-* A general function that calls a specific callback for each attribute, depending on its name
-*
-* INPUTS:
-* val_value_t *element - the element for which we want the value
-*
-* RETURNS:
-* The value of the element, represented as a string
-********************************************************************/
-char* cb_get_runtime_element_value(val_value_t *element)
-{
-    val_value_t *parent = element->parent;
-    int loopNb;
-
-    for(loopNb=0;loopNb<10;loopNb++)
-    {
-        if( !parent )
-            break;
-
-        if( strcmp( parent->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_MW_AirInterface_Pac) == 0 )
-        {
-            return cb_get_runtime_air_interface_element_value(element);
-        }
-        else if( strcmp( parent->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_MW_PureEthernetStructure_Pac) == 0 )
-        {
-            return cb_get_runtime_pure_ethernet_structure_element_value(element);
-        }
-        else if( strcmp( parent->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_MW_EthernetContainer_Pac) == 0 )
-        {
-            return cb_get_runtime_ethernet_container_element_value(element);
-        }
-
-        parent = parent->parent;
-    }
-    return NULL;
-}
-
-/********************************************************************
 * FUNCTION cb_get_runtime_airInterfaceCurrentProblemList_problem_timeStamp
 *
 * Callback function for getting the value of the timeStamp leaf
@@ -996,6 +551,7 @@ static char* cb_get_runtime_airInterfaceCurrentProblemList_problem_timeStamp(val
     /*
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey, and sequenceNumberKey as keys to find the information. E.g.:
      */
+
     char* timeStamp = NULL;
 
     if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWPS-TTP-ifIndex1") == 0)
@@ -1864,6 +1420,35 @@ static char* cb_get_runtime_airInterfaceStatus_remoteEndPointId(val_value_t *ele
 }
 
 /********************************************************************
+* FUNCTION cb_get_runtime_airInterfaceStatus_value
+*
+* A general function that calls a specific callback for each attribute, depending on its name
+*
+* INPUTS:
+* val_value_t *element - the element for which we need its value
+*
+* RETURNS:
+*     the value of the element, represented as a string
+********************************************************************/
+static char* cb_get_runtime_airInterfaceCurrentProblems_value(val_value_t *element)
+{
+    if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_timeStamp) == 0)
+    {
+        return cb_get_runtime_airInterfaceCurrentProblemList_problem_timeStamp(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemName) == 0)
+    {
+        return cb_get_runtime_airInterfaceCurrentProblemList_problem_problemName(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemSeverity) == 0)
+    {
+        return cb_get_runtime_airInterfaceCurrentProblemList_problem_problemSeverity(element);
+    }
+
+    return NULL;
+}
+
+/********************************************************************
 * FUNCTION cb_get_runtime_airInterfaceCurrentPerformance_value
 *
 * A general function that calls a specific callback for each attribute, depending on its name
@@ -1876,19 +1461,7 @@ static char* cb_get_runtime_airInterfaceStatus_remoteEndPointId(val_value_t *ele
 ********************************************************************/
 static char* cb_get_runtime_airInterfaceCurrentPerformance_value(val_value_t *element)
 {
-    if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_objectClass) == 0)
-    {
-        return cb_get_runtime_airInterfaceCurrentPerformance_objectClass(element);
-    }
-    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_nameBinding) == 0)
-    {
-        return cb_get_runtime_airInterfaceCurrentPerformance_nameBinding(element);
-    }
-    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_scannerId) == 0)
-    {
-        return cb_get_runtime_airInterfaceCurrentPerformance_scannerId(element);
-    }
-    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_granularityPeriod) == 0)
+    if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_granularityPeriod) == 0)
     {
         return cb_get_runtime_airInterfaceCurrentPerformance_granularityPeriod(element);
     }
@@ -2077,111 +1650,6 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_value(val_value_t *el
 }
 
 /********************************************************************
-* FUNCTION cb_get_runtime_airInterfaceCurrentPerformance_objectClass
-*
-* Callback function for getting the value of the objectClass leaf
-*
-* INPUTS:
-* val_value_t *element - the element for which we want the value
-*
-* RETURNS:
-* The value of the element, represented as a string
-********************************************************************/
-static char* cb_get_runtime_airInterfaceCurrentPerformance_objectClass(val_value_t *element)
-{
-    val_value_t *lastkey = NULL;
-    val_value_t *layerProtocolKey = NULL;
-    val_value_t *scannerId = NULL;
-
-    val_value_t* parentHavingKey = element->parent;
-    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
-
-    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
-    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
-    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
-
-    scannerId = agt_get_key_value(parentHavingKey, &lastkey);
-    YUMA_ASSERT(NULL == scannerId, return NULL, "Could not find keys for element %s", element->name);
-    YUMA_ASSERT(NULL == VAL_STRING(scannerId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
-
-    /*
-     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
-     */
-
-    return NULL;
-}
-
-/********************************************************************
-* FUNCTION cb_get_runtime_airInterfaceCurrentPerformance_nameBinding
-*
-* Callback function for getting the value of the nameBinding leaf
-*
-* INPUTS:
-* val_value_t *element - the element for which we want the value
-*
-* RETURNS:
-* The value of the element, represented as a string
-********************************************************************/
-static char* cb_get_runtime_airInterfaceCurrentPerformance_nameBinding(val_value_t *element)
-{
-    val_value_t *lastkey = NULL;
-    val_value_t *layerProtocolKey = NULL;
-    val_value_t *scannerId = NULL;
-
-    val_value_t* parentHavingKey = element->parent;
-    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
-
-    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
-    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
-    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
-
-    scannerId = agt_get_key_value(parentHavingKey, &lastkey);
-    YUMA_ASSERT(NULL == scannerId, return NULL, "Could not find keys for element %s", element->name);
-    YUMA_ASSERT(NULL == VAL_STRING(scannerId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
-
-    /*
-     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
-     */
-
-    return NULL;
-}
-
-/********************************************************************
-* FUNCTION cb_get_runtime_airInterfaceCurrentPerformance_scannerId
-*
-* Callback function for getting the value of the scannerId leaf
-*
-* INPUTS:
-* val_value_t *element - the element for which we want the value
-*
-* RETURNS:
-* The value of the element, represented as a string
-********************************************************************/
-static char* cb_get_runtime_airInterfaceCurrentPerformance_scannerId(val_value_t *element)
-{
-    val_value_t *lastkey = NULL;
-    val_value_t *layerProtocolKey = NULL;
-    val_value_t *scannerId = NULL;
-
-    val_value_t* parentHavingKey = element->parent;
-    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
-
-    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
-    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
-    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
-
-    scannerId = agt_get_key_value(parentHavingKey, &lastkey);
-    YUMA_ASSERT(NULL == scannerId, return NULL, "Could not find keys for element %s", element->name);
-    YUMA_ASSERT(NULL == VAL_STRING(scannerId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
-
-    /*
-     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
-     */
-
-    return NULL;
-}
-
-/********************************************************************
 * FUNCTION cb_get_runtime_airInterfaceCurrentPerformance_granularityPeriod
 *
 * Callback function for getting the value of the granularityPeriod leaf
@@ -2266,7 +1734,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_administrativeState(v
     }
     else if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWPS-TTP-ifIndex2") == 0)
     {
-        administrativeState = strdup("LOCKED");
+        administrativeState = strdup("UNLOCKED");
     }
 
     return administrativeState;
@@ -6011,19 +5479,7 @@ status_t cb_get_all_ethernet_container_historical_performance_list_keys(char *et
 ********************************************************************/
 static char* cb_get_runtime_ethernetContainerCurrentPerformance_value(val_value_t *element)
 {
-    if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_objectClass) == 0)
-    {
-        return cb_get_runtime_ethernetContainerCurrentPerformance_objectClass(element);
-    }
-    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_nameBinding) == 0)
-    {
-        return cb_get_runtime_ethernetContainerCurrentPerformance_nameBinding(element);
-    }
-    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_scannerId) == 0)
-    {
-        return cb_get_runtime_ethernetContainerCurrentPerformance_scannerId(element);
-    }
-    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_granularityPeriod) == 0)
+    if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_granularityPeriod) == 0)
     {
         return cb_get_runtime_ethernetContainerCurrentPerformance_granularityPeriod(element);
     }
@@ -6990,6 +6446,34 @@ static char* cb_get_runtime_ethernetContainerCurrentProblem_value(val_value_t *e
     else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_problemSeverity) == 0)
     {
         return cb_get_runtime_ethernetContainerCurrentProblem_problemSeverity(element);
+    }
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_pureEthernetStructureCurrentProblem_value
+*
+* A general function that calls a specific callback for each attribute, depending on its name
+*
+* INPUTS:
+* val_value_t *element - the element for which we need its value
+*
+* RETURNS:
+*     the value of the element, represented as a string
+********************************************************************/
+static char* cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_value(val_value_t *element)
+{
+    if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_timeStamp) == 0)
+    {
+        return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_timeStamp(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_problemName) == 0)
+    {
+        return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemName(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_problemSeverity) == 0)
+    {
+        return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemSeverity(element);
     }
     return NULL;
 }

@@ -1834,14 +1834,11 @@ status_t u_MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_P
     int32 k_MW_EthernetContainer_Pac_ethernetContainerCurrentProblems_currentProblemList_sequenceNumber)
 {
     status_t res = NO_ERR;
-    const xmlChar *timeStamp;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentProblems_currentProblemList_timeStamp_get callback");
     }
 
-
-    /* set the timeStamp var here, change EMPTY_STRING */
     res = cb_set_runtime_ethernetContainerCurrentProblem_element_value(&dstval);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_ethernetContainerCurrentProblem_element_value failed for element %s", dstval->name);
 
@@ -1868,14 +1865,11 @@ status_t u_MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_P
     int32 k_MW_EthernetContainer_Pac_ethernetContainerCurrentProblems_currentProblemList_sequenceNumber)
 {
     status_t res = NO_ERR;
-    const xmlChar *problemName;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentProblems_currentProblemList_problemName_get callback");
     }
 
-
-    /* set the problemName var here, replace (void) or use default value */
     res = cb_set_runtime_ethernetContainerCurrentProblem_element_value(&dstval);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_ethernetContainerCurrentProblem_element_value failed for element %s", dstval->name);
 
@@ -1902,14 +1896,11 @@ status_t u_MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_P
     int32 k_MW_EthernetContainer_Pac_ethernetContainerCurrentProblems_currentProblemList_sequenceNumber)
 {
     status_t res = NO_ERR;
-    const xmlChar *problemSeverity;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentProblems_currentProblemList_problemSeverity_get callback");
     }
 
-
-    /* set the problemSeverity var here, replace (void) or use default value */
     res = cb_set_runtime_ethernetContainerCurrentProblem_element_value(&dstval);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_ethernetContainerCurrentProblem_element_value failed for element %s", dstval->name);
 
@@ -2828,8 +2819,7 @@ static status_t attach_ethernet_container_pac_element_to_running_config(cfg_temp
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_layerProtocol,
 			MW_EthernetContainer_Pac_val,
 			&layerProtocol_val,
-			ethernet_container_pac_key,
-			false);
+			ethernet_container_pac_key);
 	YUMA_ASSERT(NULL == layerProtocol_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_layerProtocol);
 
@@ -2842,8 +2832,7 @@ static status_t attach_ethernet_container_pac_element_to_running_config(cfg_temp
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ethernetContainerCapability,
 			MW_EthernetContainer_Pac_val,
 			&ethernetContainerCapability_val,
-			NULL,
-			false);
+			NULL);
 	YUMA_ASSERT(NULL == ethernetContainerCapability_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ethernetContainerCapability);
 
@@ -2863,8 +2852,7 @@ static status_t attach_ethernet_container_pac_element_to_running_config(cfg_temp
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ethernetContainerConfiguration,
 			MW_EthernetContainer_Pac_val,
 			&ethernetContainerConfiguration_val,
-			NULL,
-			false);
+			NULL);
 	YUMA_ASSERT(NULL == ethernetContainerConfiguration_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ethernetContainerConfiguration);
 
@@ -2880,8 +2868,7 @@ static status_t attach_ethernet_container_pac_element_to_running_config(cfg_temp
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ethernetContainerStatus,
 			MW_EthernetContainer_Pac_val,
 			&ethernetContainerStatus_val,
-			NULL,
-			true);
+			NULL);
 	YUMA_ASSERT(NULL == ethernetContainerStatus_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ethernetContainerStatus);
 
@@ -2954,8 +2941,7 @@ static status_t attach_ethernet_container_capability_container(val_value_t *pare
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_bundlingIsAvail,
 			parentval,
 			&bundlingIsAvail_val,
-			NULL,
-			false);
+			NULL);
 	YUMA_ASSERT(NULL == bundlingIsAvail_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_bundlingIsAvail);
 
@@ -2967,7 +2953,7 @@ static status_t attach_ethernet_container_capability_container(val_value_t *pare
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_M_MicrowaveModel_ObjectClasses_EthernetContainer,
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_bundlingIsAvail));
 
-	res = create_and_init_siblings(next_obj, parentval, false);
+	res = create_and_init_siblings(next_obj, parentval);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "create_and_init_siblings failed!");
 
 
@@ -2988,8 +2974,7 @@ static status_t attach_ethernet_container_configuration_container(val_value_t *p
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_containerID,
 			parentval,
 			&containerID_val,
-			NULL,
-			false);
+			NULL);
 	YUMA_ASSERT(NULL == containerID_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_containerID);
 
@@ -3004,7 +2989,7 @@ static status_t attach_ethernet_container_configuration_container(val_value_t *p
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_M_MicrowaveModel_ObjectClasses_EthernetContainer,
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_containerID));
 
-	res = create_and_init_siblings(next_obj, parentval, false);
+	res = create_and_init_siblings(next_obj, parentval);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "create_and_init_siblings failed!");
 
 	res = attach_problem_kind_severity_list(parentval);
@@ -3050,8 +3035,7 @@ static status_t attach_segment_id_list_entry(val_value_t* parentval, const char*
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_segmentsIDList,
 			parentval,
 			&segmentIdList_val,
-			NULL,
-			false);
+			NULL);
 	YUMA_ASSERT(NULL == segmentIdList_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_segmentsIDList);
 
@@ -3064,8 +3048,7 @@ static status_t attach_segment_id_list_entry(val_value_t* parentval, const char*
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_structureIdRef,
 			segmentIdList_val,
 			&structureIdRef_val,
-			segment_id_list_key_entry,
-			false);
+			segment_id_list_key_entry);
 	YUMA_ASSERT(NULL == structureIdRef_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_structureIdRef);
 
@@ -3078,8 +3061,7 @@ static status_t attach_segment_id_list_entry(val_value_t* parentval, const char*
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_segmentIdRef,
 			segmentIdList_val,
 			&segmentIdRef_val,
-			NULL,
-			false);
+			NULL);
 	YUMA_ASSERT(NULL == segmentIdRef_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_segmentIdRef);
 
@@ -3123,8 +3105,7 @@ static status_t attach_problem_kind_severity_list_entry(val_value_t* parentval, 
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_problemKindSeverityList,
 			parentval,
 			&problemKindSeverityList_val,
-			NULL,
-			false);
+			NULL);
 	YUMA_ASSERT(NULL == problemKindSeverityList_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_problemKindSeverityList);
 
@@ -3137,8 +3118,7 @@ static status_t attach_problem_kind_severity_list_entry(val_value_t* parentval, 
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_problemKindName,
 			problemKindSeverityList_val,
 			&problemKindName_val,
-			problem_kind_severity_list_key_entry,
-			false);
+			problem_kind_severity_list_key_entry);
 	YUMA_ASSERT(NULL == problemKindName_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_problemKindName);
 
@@ -3151,8 +3131,7 @@ static status_t attach_problem_kind_severity_list_entry(val_value_t* parentval, 
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_problemKindSeverity,
 			problemKindSeverityList_val,
 			&problemKindSeverity_val,
-			NULL,
-			false);
+			NULL);
 	YUMA_ASSERT(NULL == problemKindSeverity_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_problemKindSeverity);
 
@@ -3197,8 +3176,7 @@ static status_t attach_ethernet_container_current_problem_list_entry(val_value_t
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_currentProblemList,
 			parentval,
 			&currentProblemList_val,
-			NULL,
-			true);
+			NULL);
 	YUMA_ASSERT(NULL == currentProblemList_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_currentProblemList);
 
@@ -3211,21 +3189,33 @@ static status_t attach_ethernet_container_current_problem_list_entry(val_value_t
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_sequenceNumber,
 			currentProblemList_val,
 			&sequenceNumber_val,
-			ethernet_container_current_problem_list_key_entry,
-			true);
+			ethernet_container_current_problem_list_key_entry);
 	YUMA_ASSERT(NULL == sequenceNumber_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_sequenceNumber);
 
-	/*
-	 * Create all other leafs after sequenceNumber
-	 */
-	obj_template_t *next_obj = NULL;
-	next_obj = obj_next_child(obj_find_child(currentProblemList_val->obj,
-			y_MicrowaveModel_ObjectClasses_EthernetContainer_M_MicrowaveModel_ObjectClasses_EthernetContainer,
-			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_sequenceNumber));
+    /*
+     * Create timeStamp virtual leaf with callback attached
+     */
+    res = add_virtual_leaf(currentProblemList_val,
+                            y_MicrowaveModel_ObjectClasses_EthernetContainer_N_timeStamp,
+                            MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentProblems_currentProblemList_timeStamp_get);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_timeStamp);
 
-	res = create_and_init_siblings(next_obj, currentProblemList_val, true);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "create_and_init_siblings failed!");
+    /*
+     * Create problemName virtual leaf with callback attached
+     */
+    res = add_virtual_leaf(currentProblemList_val,
+                            y_MicrowaveModel_ObjectClasses_EthernetContainer_N_problemName,
+                            MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentProblems_currentProblemList_problemName_get);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_problemName);
+
+    /*
+     * Create problemSeverity virtual leaf with callback attached
+     */
+    res = add_virtual_leaf(currentProblemList_val,
+                            y_MicrowaveModel_ObjectClasses_EthernetContainer_N_problemSeverity,
+                            MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentProblems_currentProblemList_problemSeverity_get);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_problemSeverity);
 
 	return NO_ERR;
 }
@@ -3272,8 +3262,7 @@ static status_t attach_ethernet_container_current_performance_list_entry(val_val
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_currentPerformanceDataList,
 			parentval,
 			&currentPerformanceDataList_val,
-			NULL,
-			true);
+			NULL);
 	YUMA_ASSERT(NULL == currentPerformanceDataList_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_currentPerformanceDataList);
 	/*
@@ -3285,49 +3274,50 @@ static status_t attach_ethernet_container_current_performance_list_entry(val_val
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_scannerId,
 			currentPerformanceDataList_val,
 			&scannerId_val,
-			ethernet_container_current_performance_list_key_entry,
-			true);
+			ethernet_container_current_performance_list_key_entry);
 	YUMA_ASSERT(NULL == scannerId_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_scannerId);
 
-	/*
-	 * Create objectClass leaf
-	 */
-	val_value_t  *objectClass_val = NULL;
+    /*
+     * Create granularityPeriod virtual leaf with callback attached
+     */
+    res = add_virtual_leaf(currentPerformanceDataList_val,
+                            y_MicrowaveModel_ObjectClasses_EthernetContainer_N_granularityPeriod,
+                            MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_granularityPeriod_get);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_granularityPeriod);
 
-	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_EthernetContainer_M_MicrowaveModel_ObjectClasses_EthernetContainer,
-			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_objectClass,
-			currentPerformanceDataList_val,
-			&objectClass_val,
-			NULL,
-			true);
-	YUMA_ASSERT(NULL == objectClass_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_objectClass);
+    /*
+     * Create administrativeState virtual leaf with callback attached
+     */
+    res = add_virtual_leaf(currentPerformanceDataList_val,
+                            y_MicrowaveModel_ObjectClasses_EthernetContainer_N_administrativeState,
+                            MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_administrativeState_get);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_administrativeState);
 
-	/*
-	 * Create nameBinding leaf
-	 */
-	val_value_t  *nameBinding_val = NULL;
+    /*
+     * Create suspectIntervalFlag virtual leaf with callback attached
+     */
+    res = add_virtual_leaf(currentPerformanceDataList_val,
+                            y_MicrowaveModel_ObjectClasses_EthernetContainer_N_suspectIntervalFlag,
+                            MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_suspectIntervalFlag_get);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_suspectIntervalFlag);
 
-	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_EthernetContainer_M_MicrowaveModel_ObjectClasses_EthernetContainer,
-			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_nameBinding,
-			currentPerformanceDataList_val,
-			&nameBinding_val,
-			NULL,
-			true);
-	YUMA_ASSERT(NULL == nameBinding_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_nameBinding);
+    /*
+     * Create elapsedTime virtual leaf with callback attached
+     */
+    res = add_virtual_leaf(currentPerformanceDataList_val,
+                            y_MicrowaveModel_ObjectClasses_EthernetContainer_N_elapsedTime,
+                            MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_elapsedTime_get);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_elapsedTime);
 
-	/*
-	 * Create all other leafs after scannerId -- because this is the order in the YANG file!!
-	 */
-	obj_template_t *next_obj = NULL;
-	next_obj = obj_next_child(obj_find_child(currentPerformanceDataList_val->obj,
-			y_MicrowaveModel_ObjectClasses_EthernetContainer_M_MicrowaveModel_ObjectClasses_EthernetContainer,
-			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_scannerId));
+    /*
+     * Create timestamp virtual leaf with callback attached
+     */
+    res = add_virtual_leaf(currentPerformanceDataList_val,
+                            y_MicrowaveModel_ObjectClasses_EthernetContainer_N_timestamp,
+                            MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_timestamp_get);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_timestamp);
 
-	res = create_and_init_siblings(next_obj, currentPerformanceDataList_val, true);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "create_and_init_siblings failed!");
 
 	/*
 	 * Create performanceData container
@@ -3338,35 +3328,12 @@ static status_t attach_ethernet_container_current_performance_list_entry(val_val
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_performanceData,
 			currentPerformanceDataList_val,
 			&performanceData_val,
-			NULL,
-			true);
+			NULL);
 	YUMA_ASSERT(NULL == performanceData_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_performanceData);
 
-	/*
-	 * Create txEthernetBytesMaxS leaf
-	 */
-	val_value_t  *txEthernetBytesMaxS_val = NULL;
-
-	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_EthernetContainer_M_MicrowaveModel_ObjectClasses_EthernetContainer,
-			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_txEthernetBytesMaxS,
-			performanceData_val,
-			&txEthernetBytesMaxS_val,
-			NULL,
-			true);
-	YUMA_ASSERT(NULL == txEthernetBytesMaxS_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_txEthernetBytesMaxS);
-
-	/*
-	 * Create all other leafs after txEthernetBytesMaxS
-	 */
-	next_obj = NULL;
-	next_obj = obj_next_child(obj_find_child(performanceData_val->obj,
-			y_MicrowaveModel_ObjectClasses_EthernetContainer_M_MicrowaveModel_ObjectClasses_EthernetContainer,
-			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_txEthernetBytesMaxS));
-
-	res = create_and_init_siblings(next_obj, performanceData_val, true);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "create_and_init_siblings failed!");
+	res = MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_performanceData_mro(performanceData_val);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_performanceData_mro failed!");
 
 	return NO_ERR;
 }
@@ -3413,8 +3380,7 @@ static status_t attach_ethernet_container_historical_performance_list_entry(val_
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_historicalPerformanceDataList,
 			parentval,
 			&historicalPerformanceDataList_val,
-			NULL,
-			true);
+			NULL);
 	YUMA_ASSERT(NULL == historicalPerformanceDataList_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_historicalPerformanceDataList);
 
@@ -3427,49 +3393,34 @@ static status_t attach_ethernet_container_historical_performance_list_entry(val_
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_historyDataId,
 			historicalPerformanceDataList_val,
 			&historyDataId_val,
-			ethernet_container_historical_performance_list_key_entry,
-			true);
+			ethernet_container_historical_performance_list_key_entry);
 	YUMA_ASSERT(NULL == historyDataId_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_historyDataId);
 
-	/*
-	 * Create objectClass leaf
-	 */
-	val_value_t  *objectClass_val = NULL;
+    /*
+     * Create periodEndTime virtual leaf with callback attached
+     */
+    res = add_virtual_leaf(historicalPerformanceDataList_val,
+                            y_MicrowaveModel_ObjectClasses_EthernetContainer_N_periodEndTime,
+                            MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerHistoricalPerformances_historicalPerformanceDataList_periodEndTime_get);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_periodEndTime);
 
-	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_EthernetContainer_M_MicrowaveModel_ObjectClasses_EthernetContainer,
-			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_objectClass,
-			historicalPerformanceDataList_val,
-			&objectClass_val,
-			NULL,
-			true);
-	YUMA_ASSERT(NULL == objectClass_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_objectClass);
 
-	/*
-	 * Create nameBinding leaf
-	 */
-	val_value_t  *nameBinding_val = NULL;
+    /*
+     * Create granularityPeriod virtual leaf with callback attached
+     */
+    res = add_virtual_leaf(historicalPerformanceDataList_val,
+                            y_MicrowaveModel_ObjectClasses_EthernetContainer_N_granularityPeriod,
+                            MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerHistoricalPerformances_historicalPerformanceDataList_granularityPeriod_get);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_granularityPeriod);
 
-	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_EthernetContainer_M_MicrowaveModel_ObjectClasses_EthernetContainer,
-			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_nameBinding,
-			historicalPerformanceDataList_val,
-			&nameBinding_val,
-			NULL,
-			true);
-	YUMA_ASSERT(NULL == nameBinding_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_nameBinding);
-
-	/*
-	 * Create all other leafs after historyDataId -- because this is the order in the YANG file!!
-	 */
-	obj_template_t *next_obj = NULL;
-	next_obj = obj_next_child(obj_find_child(historicalPerformanceDataList_val->obj,
-			y_MicrowaveModel_ObjectClasses_EthernetContainer_M_MicrowaveModel_ObjectClasses_EthernetContainer,
-			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_historyDataId));
-
-	res = create_and_init_siblings(next_obj, historicalPerformanceDataList_val, true);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "create_and_init_siblings failed!");
+    /*
+     * Create suspectIntervalFlag virtual leaf with callback attached
+     */
+    res = add_virtual_leaf(historicalPerformanceDataList_val,
+                            y_MicrowaveModel_ObjectClasses_EthernetContainer_N_suspectIntervalFlag,
+                            MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerHistoricalPerformances_historicalPerformanceDataList_suspectIntervalFlag_get);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_suspectIntervalFlag);
 
 	/*
 	 * Create performanceData container
@@ -3480,35 +3431,12 @@ static status_t attach_ethernet_container_historical_performance_list_entry(val_
 			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_performanceData,
 			historicalPerformanceDataList_val,
 			&performanceData_val,
-			NULL,
-			true);
+			NULL);
 	YUMA_ASSERT(NULL == performanceData_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_performanceData);
 
-	/*
-	 * Create es leaf
-	 */
-	val_value_t  *es_val = NULL;
-
-	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_EthernetContainer_M_MicrowaveModel_ObjectClasses_EthernetContainer,
-			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_txEthernetBytesMaxS,
-			performanceData_val,
-			&es_val,
-			NULL,
-			true);
-	YUMA_ASSERT(NULL == es_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_EthernetContainer_N_txEthernetBytesMaxS);
-
-	/*
-	 * Create all other leafs after es
-	 */
-	next_obj = NULL;
-	next_obj = obj_next_child(obj_find_child(performanceData_val->obj,
-			y_MicrowaveModel_ObjectClasses_EthernetContainer_M_MicrowaveModel_ObjectClasses_EthernetContainer,
-			y_MicrowaveModel_ObjectClasses_EthernetContainer_N_txEthernetBytesMaxS));
-
-	res = create_and_init_siblings(next_obj, performanceData_val, true);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "create_and_init_siblings failed!");
+	res = MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerHistoricalPerformances_historicalPerformanceDataList_performanceData_mro(performanceData_val);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerHistoricalPerformances_historicalPerformanceDataList_performanceData_mro failed!");
 
 	return NO_ERR;
 }
