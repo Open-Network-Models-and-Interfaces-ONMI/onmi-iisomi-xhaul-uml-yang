@@ -1832,7 +1832,7 @@ static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContai
 * RETURNS:
 *     error status
 ********************************************************************/
-static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentProblems_currentProblemList_timeStamp_get (
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentProblems_currentProblemList_timeStamp_get (
     ses_cb_t *scb,
     getcb_mode_t cbmode,
     const val_value_t *virval,
@@ -1879,7 +1879,7 @@ static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContai
 * RETURNS:
 *     error status
 ********************************************************************/
-static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentProblems_currentProblemList_problemName_get (
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentProblems_currentProblemList_problemName_get (
     ses_cb_t *scb,
     getcb_mode_t cbmode,
     const val_value_t *virval,
@@ -1926,7 +1926,7 @@ static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContai
 * RETURNS:
 *     error status
 ********************************************************************/
-static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentProblems_currentProblemList_problemSeverity_get (
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentProblems_currentProblemList_problemSeverity_get (
     ses_cb_t *scb,
     getcb_mode_t cbmode,
     const val_value_t *virval,
@@ -2138,7 +2138,7 @@ static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContai
 * RETURNS:
 *     error status
 ********************************************************************/
-static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_granularityPeriod_get (
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_granularityPeriod_get (
     ses_cb_t *scb,
     getcb_mode_t cbmode,
     const val_value_t *virval,
@@ -2185,7 +2185,7 @@ static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContai
 * RETURNS:
 *     error status
 ********************************************************************/
-static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_administrativeState_get (
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_administrativeState_get (
     ses_cb_t *scb,
     getcb_mode_t cbmode,
     const val_value_t *virval,
@@ -2232,7 +2232,7 @@ static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContai
 * RETURNS:
 *     error status
 ********************************************************************/
-static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_suspectIntervalFlag_get (
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_suspectIntervalFlag_get (
     ses_cb_t *scb,
     getcb_mode_t cbmode,
     const val_value_t *virval,
@@ -2279,7 +2279,7 @@ static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContai
 * RETURNS:
 *     error status
 ********************************************************************/
-static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_elapsedTime_get (
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_elapsedTime_get (
     ses_cb_t *scb,
     getcb_mode_t cbmode,
     const val_value_t *virval,
@@ -2326,7 +2326,7 @@ static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContai
 * RETURNS:
 *     error status
 ********************************************************************/
-static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_timestamp_get (
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_timestamp_get (
     ses_cb_t *scb,
     getcb_mode_t cbmode,
     const val_value_t *virval,
@@ -2797,7 +2797,7 @@ static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContai
 * RETURNS:
 *     error status
 ********************************************************************/
-static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerHistoricalPerformances_historicalPerformanceDataList_periodEndTime_get (
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerHistoricalPerformances_historicalPerformanceDataList_periodEndTime_get (
     ses_cb_t *scb,
     getcb_mode_t cbmode,
     const val_value_t *virval,
@@ -2844,7 +2844,7 @@ static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContai
 * RETURNS:
 *     error status
 ********************************************************************/
-static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerHistoricalPerformances_historicalPerformanceDataList_granularityPeriod_get (
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerHistoricalPerformances_historicalPerformanceDataList_granularityPeriod_get (
     ses_cb_t *scb,
     getcb_mode_t cbmode,
     const val_value_t *virval,
@@ -2891,7 +2891,7 @@ static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContai
 * RETURNS:
 *     error status
 ********************************************************************/
-static status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerHistoricalPerformances_historicalPerformanceDataList_suspectIntervalFlag_get (
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerHistoricalPerformances_historicalPerformanceDataList_suspectIntervalFlag_get (
     ses_cb_t *scb,
     getcb_mode_t cbmode,
     const val_value_t *virval,

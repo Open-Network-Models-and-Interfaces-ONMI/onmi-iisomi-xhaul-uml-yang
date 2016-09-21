@@ -130,6 +130,27 @@ extern status_t y_MicrowaveModel_ObjectClasses_EthernetContainer_init2 (void);
 ********************************************************************/
 extern void y_MicrowaveModel_ObjectClasses_EthernetContainer_cleanup (void);
 
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerStatus_mro (val_value_t *parentval);
+
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentProblems_currentProblemList_timeStamp_get (ses_cb_t *scb, getcb_mode_t cbmode, const val_value_t *virval, val_value_t *dstval);
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentProblems_currentProblemList_problemName_get (ses_cb_t *scb, getcb_mode_t cbmode, const val_value_t *virval, val_value_t *dstval);
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentProblems_currentProblemList_problemSeverity_get (ses_cb_t *scb, getcb_mode_t cbmode, const val_value_t *virval, val_value_t *dstval);
+
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_granularityPeriod_get (ses_cb_t *scb, getcb_mode_t cbmode, const val_value_t *virval, val_value_t *dstval);
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_administrativeState_get (ses_cb_t *scb, getcb_mode_t cbmode, const val_value_t *virval, val_value_t *dstval);
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_suspectIntervalFlag_get (ses_cb_t *scb, getcb_mode_t cbmode, const val_value_t *virval, val_value_t *dstval);
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_elapsedTime_get (ses_cb_t *scb, getcb_mode_t cbmode, const val_value_t *virval, val_value_t *dstval);
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_timestamp_get (ses_cb_t *scb, getcb_mode_t cbmode, const val_value_t *virval, val_value_t *dstval);
+
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_performanceData_mro (val_value_t *parentval);
+
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerHistoricalPerformances_historicalPerformanceDataList_periodEndTime_get (ses_cb_t *scb, getcb_mode_t cbmode, const val_value_t *virval, val_value_t *dstval);
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerHistoricalPerformances_historicalPerformanceDataList_granularityPeriod_get (ses_cb_t *scb, getcb_mode_t cbmode, const val_value_t *virval, val_value_t *dstval);
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerHistoricalPerformances_historicalPerformanceDataList_suspectIntervalFlag_get (ses_cb_t *scb, getcb_mode_t cbmode, const val_value_t *virval, val_value_t *dstval);
+
+status_t MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerHistoricalPerformances_historicalPerformanceDataList_performanceData_mro (val_value_t *parentval);
+
+
 #ifdef __cplusplus
 } /* end extern 'C' */
 #endif

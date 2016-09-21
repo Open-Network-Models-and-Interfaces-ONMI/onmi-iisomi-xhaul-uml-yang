@@ -10,7 +10,9 @@
 
 # make all targets
 DIRS = YUMA_modules/MicrowaveModel-ObjectClasses-AirInterface \
-       YUMA_modules/CoreModel-CoreNetworkModule-ObjectClasses
+       YUMA_modules/CoreModel-CoreNetworkModule-ObjectClasses \
+       YUMA_modules/MicrowaveModel-ObjectClasses-EthernetContainer \
+       YUMA_modules/MicrowaveModel-ObjectClasses-PureEthernetStructure
 
 #################### PLATFORM DEFINITIONS ############
 

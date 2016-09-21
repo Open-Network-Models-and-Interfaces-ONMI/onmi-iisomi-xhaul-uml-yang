@@ -34,7 +34,7 @@ status_t create_root_element_for_module(const char *module_name, const char *rev
 }
 
 status_t create_and_init_child_element(const char *module_name, const char *element_name,
-		val_value_t *parent_val, val_value_t **child_val, const char *valuestr, bool isRuntime)
+		val_value_t *parent_val, val_value_t **child_val, const char *valuestr)
 {
 	status_t 		res = NO_ERR;
 	obj_template_t* child_obj;
@@ -51,7 +51,7 @@ status_t create_and_init_child_element(const char *module_name, const char *elem
 
 	val_add_child(*child_val, parent_val);
 
-	res = init_element_with_value(child_obj, child_val, valuestr, isRuntime);
+	res = init_element_with_value(child_obj, child_val, valuestr);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not assign value to element %s", element_name);
 
 //	if (obj_is_key(child_obj))
@@ -63,7 +63,7 @@ status_t create_and_init_child_element(const char *module_name, const char *elem
 	return NO_ERR;
 }
 
-status_t create_and_init_child_object(obj_template_t *curr_obj,	val_value_t *parent_val, const char *valuestr, bool isRuntime)
+status_t create_and_init_child_object(obj_template_t *curr_obj,	val_value_t *parent_val, const char *valuestr)
 {
 	YUMA_ASSERT(curr_obj->objtype == OBJ_TYP_LIST || curr_obj->objtype == OBJ_TYP_CONTAINER, return NO_ERR, "Nothing to do for list/container object");
 	YUMA_ASSERT(curr_obj == NULL, return NO_ERR, "Nothing to do for NULL object");
@@ -76,19 +76,19 @@ status_t create_and_init_child_object(obj_template_t *curr_obj,	val_value_t *par
 
 	val_add_child(curr_val, parent_val);
 
-	res = init_element_with_value(curr_obj, &curr_val, valuestr, isRuntime);
+	res = init_element_with_value(curr_obj, &curr_val, valuestr);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not assign value to element %s", curr_val->name);
 
 	return NO_ERR;
 }
 
-status_t create_and_init_siblings(obj_template_t *curr_obj,	val_value_t *parent_val, bool isRuntime)
+status_t create_and_init_siblings(obj_template_t *curr_obj,	val_value_t *parent_val)
 {
 	status_t res = NO_ERR;
 
 	do
 	{
-		res = create_and_init_child_object(curr_obj, parent_val, NULL, isRuntime);
+		res = create_and_init_child_object(curr_obj, parent_val, NULL);
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL ,
 					"create_and_init_child_object failed!");
 
@@ -99,9 +99,10 @@ status_t create_and_init_siblings(obj_template_t *curr_obj,	val_value_t *parent_
 	return NO_ERR;
 }
 
-status_t init_element_with_value(obj_template_t *curr_obj,	val_value_t **curr_val, const char *valuestr, bool isRuntime)
+status_t init_element_with_value(obj_template_t *curr_obj,	val_value_t **curr_val, const char *valuestr)
 {
 	status_t res = NO_ERR;
+	int need_free = TRUE;
 
 	YUMA_ASSERT(*curr_val == NULL || curr_obj == NULL, return ERR_INTERNAL_VAL, "NULL pointer received!");
 
@@ -112,17 +113,23 @@ status_t init_element_with_value(obj_template_t *curr_obj,	val_value_t **curr_va
 	}
 	else
 	{
-		char* elementStringValue = (isRuntime == true) ? cb_get_runtime_element_value(*curr_val) : cb_get_boot_time_element_value(*curr_val);
+		char* elementStringValue = cb_get_boot_time_element_value(*curr_val);
 
 		if (elementStringValue == NULL) //no callback implemented for this element, just use the default value
 		{
 			elementStringValue = obj_get_default(curr_obj);
+			need_free = FALSE; //no need to free this value, it is not dynamically allocated
 		}
 
 		if (elementStringValue != NULL)
 		{
 			res = val_set_simval_obj(*curr_val, curr_obj, elementStringValue);
 			YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "val_set_simval_obj %s failed!", (*curr_val)->name);
+
+			if (need_free)
+			{
+			    free (elementStringValue); //need to free this value that was allocated in the specific callback implemented by the user
+			}
 		}
 	}
 
@@ -133,4 +140,21 @@ status_t init_element_with_value(obj_template_t *curr_obj,	val_value_t **curr_va
 	}
 
 	return NO_ERR;
+}
+
+status_t add_virtual_leaf(val_value_t *parentVal, const char *elementName, getcb_fn_t callbackFunction)
+{
+    status_t res = NO_ERR;
+    val_value_t *child_val = NULL;
+
+    child_val = agt_make_virtual_leaf(
+            parentVal->obj,
+            elementName,
+            callbackFunction,
+           &res);
+   YUMA_ASSERT(NULL == child_val || res != NO_ERR, return ERR_INTERNAL_VAL ,
+                   "agt_make_virtual_leaf failed for element=%s", elementName);
+   val_add_child(child_val, parentVal);
+
+   return NO_ERR;
 }
