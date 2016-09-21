@@ -21,11 +21,11 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnConfig/mwtnConfig.module'
     service.getActualNetworkElements = $mwtnCommons.getActualNetworkElements;
     service.getPacParts = $mwtnCommons.getPacParts;
     service.getSchema = $mwtnDatabase.getSchema;
+    service.checkModules = $mwtnCommons.checkModules;
     
     service.getAttributes = function(object, schema){
       var keys = Object.keys(object);
       var index = keys.indexOf('$$hashKey');
-      console.log('index', index);
       if (index > -1) {
         keys.splice(index, 1);
       }

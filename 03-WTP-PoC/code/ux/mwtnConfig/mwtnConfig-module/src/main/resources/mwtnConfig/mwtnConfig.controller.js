@@ -430,7 +430,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
 
   mwtnConfigApp.register.controller('ShowListCtrl', ['$scope', '$uibModalInstance', '$uibModal', '$filter', '$mwtnCommons', 'listData', 
                                                      function ($scope, $uibModalInstance, $uibModal, $filter, $mwtnCommons, listData) {
-
+ 
     $scope.path = listData.path;
     $scope.listData = listData.listData;
     $scope.gridOptions = JSON.parse(JSON.stringify($mwtnCommons.gridOptions));

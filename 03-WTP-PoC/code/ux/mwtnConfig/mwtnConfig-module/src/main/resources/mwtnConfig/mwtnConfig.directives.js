@@ -26,7 +26,7 @@ define([ 'app/mwtnConfig/mwtnConfig.module',], function(mwtnConfigApp) {
               return;
           }
           if ((typeof $scope.parameters) === 'string') {
-             $scope.attributes = $scope.parameters; 
+             $scope.info = $scope.parameters; 
           } else {
             var attributes = $mwtnConfig.getAttributes($scope.parameters, $scope.schema);
             $scope.attributes =  orderBy(attributes, 'order', false);

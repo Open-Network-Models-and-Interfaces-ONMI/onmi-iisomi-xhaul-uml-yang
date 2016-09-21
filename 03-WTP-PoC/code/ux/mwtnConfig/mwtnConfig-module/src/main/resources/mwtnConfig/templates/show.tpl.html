@@ -1,8 +1,8 @@
 <div class="container" style="width: 100%">
 
-	<div ng-hide="getType(attributes) === 'array'">{{ attributes }}</div>
+	<div ng-show="info">{{ info }}</div>
 	
-	<div ng-show="getType(attributes) === 'array' && attribute.name !== '_ltpRefList'" class="row" ng-class="{'bgLightGrey' : $index%2 !== 0}" ng-repeat="attribute in attributes">
+	<div ng-show="!info && attribute.name !== '_ltpRefList'" class="row" ng-class="{'bgLightGrey' : $index%2 !== 0}" ng-repeat="attribute in attributes">
 		<div class="col-md-5 text-right">{{['mwtn', attribute.name].join('_').toUpperCase() | translate}}</div>
 		<!-- string -->
 		<div class="col-md-7"

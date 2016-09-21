@@ -46,7 +46,7 @@ define(
           return  callback(['mwtn', key].join('_').toUpperCase());
         };
         
-        service.tryModules = function(names) {
+        service.checkModules = function(names) {
           // accepts a list of module names and
           // attempts to load them, in order.
 

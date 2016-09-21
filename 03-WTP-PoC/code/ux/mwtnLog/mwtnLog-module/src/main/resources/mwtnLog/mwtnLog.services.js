@@ -12,7 +12,7 @@ define(['app/mwtnLog/mwtnLog.module','app/mwtnCommons/mwtnCommons.services'],fun
     
     var service = {};
 
-    service.tryModules = $mwtnCommons.tryModules;
+    service.checkModules = $mwtnCommons.checkModules;
     
     service.getAllLogEntries = function(from, size) {
       var sort = [ {

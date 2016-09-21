@@ -14,7 +14,7 @@ define(['app/mwtnLog/mwtnLog.module',
   mwtnLogApp.register.controller('mwtnLogCtrl', ['uiGridConstants', '$uibModal', '$scope', '$rootScope', '$mwtnCommons', '$mwtnLogView', '$mwtnLog' ,
                                                  function(uiGridConstants, $uibModal, $scope, $rootScope, $mwtnCommons, $mwtnLogView,  $mwtnLog) {
 
-    console.log(JSON.stringify($mwtnLogView.tryModules(['ui.grid', 'ui.bootstrap'])));
+    console.log(JSON.stringify($mwtnLogView.checkModules(['ui.grid', 'ui.bootstrap'])));
 
     var COMPONENT = 'mwtnLogCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnLogCtrl started!'});

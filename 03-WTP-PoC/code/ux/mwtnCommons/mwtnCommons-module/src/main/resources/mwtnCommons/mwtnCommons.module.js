@@ -13,7 +13,7 @@ define(['angularAMD',
         'app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min', 
         'app/mwtnCommons/bower_components/angular-bootstrap/ui-bootstrap-tpls.min'], 
         function(ng) {
-  var mwtnCommonsApp = angular.module('app.mwtnCommons', ['app.core', 'ui.grid', 'ui.bootstrap',  'ui.router.state','config', 'pascalprecht.translate']);
+  var mwtnCommonsApp = angular.module('app.mwtnCommons', ['ui.grid', 'ui.bootstrap', 'app.core', 'ui.router.state','config', 'pascalprecht.translate']);
 
   mwtnCommonsApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $httpProvider, $translateProvider, $translatePartialLoaderProvider) {
     mwtnCommonsApp.register = {
