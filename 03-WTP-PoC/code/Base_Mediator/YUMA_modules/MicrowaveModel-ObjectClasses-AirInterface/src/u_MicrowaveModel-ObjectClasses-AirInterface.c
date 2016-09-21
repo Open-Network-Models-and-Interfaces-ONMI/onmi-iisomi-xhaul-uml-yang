@@ -5784,19 +5784,14 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    const xmlChar *granularityPeriod;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_granularityPeriod_get callback");
     }
 
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
-    /* set the granularityPeriod var here, change enum */
-    granularityPeriod = "PERIOD_15MIN";
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        granularityPeriod);
 
     return res;
 
@@ -5821,19 +5816,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    boolean suspectIntervalFlag;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_suspectIntervalFlag_get callback");
     }
 
-
-    /* set the suspectIntervalFlag var here, replace (void) or use default value */
-    (void)suspectIntervalFlag;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"false");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5858,19 +5847,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 es;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_es_get callback");
     }
 
-
-    /* set the es var here, replace (void) or use default value */
-    (void)es;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5895,19 +5878,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 ses;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_ses_get callback");
     }
 
-
-    /* set the ses var here, replace (void) or use default value */
-    (void)ses;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5932,19 +5909,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 cses;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_cses_get callback");
     }
 
-
-    /* set the cses var here, replace (void) or use default value */
-    (void)cses;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -5969,19 +5940,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 unavailability;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_unavailability_get callback");
     }
 
-
-    /* set the unavailability var here, replace (void) or use default value */
-    (void)unavailability;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6006,20 +5971,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int8 txLevelMin;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_txLevelMin_get callback");
     }
 
-
-    /* set the txLevelMin var here, replace (void) or use default value */
-    (void)txLevelMin;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"99");
-
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
     return res;
 
 } /* u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_txLevelMin_get */
@@ -6043,19 +6001,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int8 txLevelMax;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_txLevelMax_get callback");
     }
 
-
-    /* set the txLevelMax var here, replace (void) or use default value */
-    (void)txLevelMax;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"99");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6080,19 +6032,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int8 txLevelAvg;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_txLevelAvg_get callback");
     }
 
-
-    /* set the txLevelAvg var here, replace (void) or use default value */
-    (void)txLevelAvg;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"99");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6117,19 +6063,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int8 rxLevelMin;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rxLevelMin_get callback");
     }
 
-
-    /* set the rxLevelMin var here, replace (void) or use default value */
-    (void)rxLevelMin;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"99");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6154,19 +6094,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int8 rxLevelMax;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rxLevelMax_get callback");
     }
 
-
-    /* set the rxLevelMax var here, replace (void) or use default value */
-    (void)rxLevelMax;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"99");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6191,19 +6125,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int8 rxLevelAvg;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rxLevelAvg_get callback");
     }
 
-
-    /* set the rxLevelAvg var here, replace (void) or use default value */
-    (void)rxLevelAvg;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"99");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6228,19 +6156,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 time2Symbols;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time2Symbols_get callback");
     }
 
-
-    /* set the time2Symbols var here, replace (void) or use default value */
-    (void)time2Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6265,19 +6187,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 time4SymbolsS;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4SymbolsS_get callback");
     }
 
-
-    /* set the time4SymbolsS var here, replace (void) or use default value */
-    (void)time4SymbolsS;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6302,19 +6218,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 time4Symbols;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4Symbols_get callback");
     }
 
-
-    /* set the time4Symbols var here, replace (void) or use default value */
-    (void)time4Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6339,19 +6249,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 time8Symbols;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time8Symbols_get callback");
     }
 
-
-    /* set the time8Symbols var here, replace (void) or use default value */
-    (void)time8Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6376,19 +6280,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 time16SymbolsS;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time16SymbolsS_get callback");
     }
 
-
-    /* set the time16SymbolsS var here, replace (void) or use default value */
-    (void)time16SymbolsS;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6413,19 +6311,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 time16Symbols;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time16Symbols_get callback");
     }
 
-
-    /* set the time16Symbols var here, replace (void) or use default value */
-    (void)time16Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6450,19 +6342,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 time32Symbols;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time32Symbols_get callback");
     }
 
-
-    /* set the time32Symbols var here, replace (void) or use default value */
-    (void)time32Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6487,19 +6373,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 time64Symbols;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time64Symbols_get callback");
     }
 
-
-    /* set the time64Symbols var here, replace (void) or use default value */
-    (void)time64Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6524,19 +6404,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 time128Symbols;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time128Symbols_get callback");
     }
 
-
-    /* set the time128Symbols var here, replace (void) or use default value */
-    (void)time128Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6561,19 +6435,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 time256Symbols;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time256Symbols_get callback");
     }
 
-
-    /* set the time256Symbols var here, replace (void) or use default value */
-    (void)time256Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6598,19 +6466,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 time512Symbols;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time512Symbols_get callback");
     }
 
-
-    /* set the time512Symbols var here, replace (void) or use default value */
-    (void)time512Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6635,19 +6497,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 time512SymbolsL;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time512SymbolsL_get callback");
     }
 
-
-    /* set the time512SymbolsL var here, replace (void) or use default value */
-    (void)time512SymbolsL;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6672,19 +6528,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 time1024Symbols;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time1024Symbols_get callback");
     }
 
-
-    /* set the time1024Symbols var here, replace (void) or use default value */
-    (void)time1024Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6709,19 +6559,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 time1024SymbolsL;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time1024SymbolsL_get callback");
     }
 
-
-    /* set the time1024SymbolsL var here, replace (void) or use default value */
-    (void)time1024SymbolsL;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6746,19 +6590,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 time2048Symbols;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time2048Symbols_get callback");
     }
 
-
-    /* set the time2048Symbols var here, replace (void) or use default value */
-    (void)time2048Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6783,19 +6621,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 time2048SymbolsL;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time2048SymbolsL_get callback");
     }
 
-
-    /* set the time2048SymbolsL var here, replace (void) or use default value */
-    (void)time2048SymbolsL;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6820,19 +6652,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 time4096Symbols;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4096Symbols_get callback");
     }
 
-
-    /* set the time4096Symbols var here, replace (void) or use default value */
-    (void)time4096Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6857,19 +6683,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 time4096SymbolsL;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4096SymbolsL_get callback");
     }
 
-
-    /* set the time4096SymbolsL var here, replace (void) or use default value */
-    (void)time4096SymbolsL;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6894,19 +6714,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 time8192Symbols;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time8192Symbols_get callback");
     }
 
-
-    /* set the time8192Symbols var here, replace (void) or use default value */
-    (void)time8192Symbols;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6931,19 +6745,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 time8192SymbolsL;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time8192SymbolsL_get callback");
     }
 
-
-    /* set the time8192SymbolsL var here, replace (void) or use default value */
-    (void)time8192SymbolsL;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -6968,19 +6776,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int8 snirMin;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_snirMin_get callback");
     }
 
-
-    /* set the snirMin var here, replace (void) or use default value */
-    (void)snirMin;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-99");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -7005,19 +6807,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int8 snirMax;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_snirMax_get callback");
     }
 
-
-    /* set the snirMax var here, replace (void) or use default value */
-    (void)snirMax;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-99");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -7042,19 +6838,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int8 snirAvg;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_snirAvg_get callback");
     }
 
-
-    /* set the snirAvg var here, replace (void) or use default value */
-    (void)snirAvg;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-99");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -7079,19 +6869,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int8 xpdMin;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_xpdMin_get callback");
     }
 
-
-    /* set the xpdMin var here, replace (void) or use default value */
-    (void)xpdMin;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-99");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -7116,19 +6900,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int8 xpdMax;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_xpdMax_get callback");
     }
 
-
-    /* set the xpdMax var here, replace (void) or use default value */
-    (void)xpdMax;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-99");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -7153,19 +6931,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int8 xpdAvg;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_xpdAvg_get callback");
     }
 
-
-    /* set the xpdAvg var here, replace (void) or use default value */
-    (void)xpdAvg;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-99");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -7190,19 +6962,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int8 rfTempMin;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rfTempMin_get callback");
     }
 
-
-    /* set the rfTempMin var here, replace (void) or use default value */
-    (void)rfTempMin;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-99");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -7227,19 +6993,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int8 rfTempMax;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rfTempMax_get callback");
     }
 
-
-    /* set the rfTempMax var here, replace (void) or use default value */
-    (void)rfTempMax;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-99");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -7264,19 +7024,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int8 rfTempAvg;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rfTempAvg_get callback");
     }
 
-
-    /* set the rfTempAvg var here, replace (void) or use default value */
-    (void)rfTempAvg;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-99");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -7301,19 +7055,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int16 defectBlocksSum;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_defectBlocksSum_get callback");
     }
 
-
-    /* set the defectBlocksSum var here, replace (void) or use default value */
-    (void)defectBlocksSum;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -7338,19 +7086,13 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
     const xmlChar *k_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_historyDataId)
 {
     status_t res = NO_ERR;
-    int32 timePeriod;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_timePeriod_get callback");
     }
 
-
-    /* set the timePeriod var here, replace (void) or use default value */
-    (void)timePeriod;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_airInterfaceHistoricalPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_airInterfaceHistoricalPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 

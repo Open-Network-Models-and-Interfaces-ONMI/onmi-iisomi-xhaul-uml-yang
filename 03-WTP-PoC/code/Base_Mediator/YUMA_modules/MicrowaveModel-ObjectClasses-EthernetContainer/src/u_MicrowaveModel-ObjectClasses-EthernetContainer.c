@@ -1763,19 +1763,13 @@ status_t u_MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_P
     const xmlChar *k_MW_EthernetContainer_Pac_layerProtocol)
 {
     status_t res = NO_ERR;
-    const xmlChar *lastStatusChange;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerStatus_lastStatusChange_get callback");
     }
 
-
-    /* set the lastStatusChange var here, replace (void) or use default value */
-    (void)lastStatusChange;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"20101120140000.0Z+1");
+    res = cb_set_runtime_ethernetContainerStatus_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_ethernetContainerStatus_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -2183,19 +2177,13 @@ status_t u_MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_P
     const xmlChar *k_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
-    int32 txEthernetBytesMaxS;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_performanceData_txEthernetBytesMaxS_get callback");
     }
 
-
-    /* set the txEthernetBytesMaxS var here, replace (void) or use default value */
-    (void)txEthernetBytesMaxS;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_ethernetContainerCurrentPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_ethernetContainerCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -2220,19 +2208,13 @@ status_t u_MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_P
     const xmlChar *k_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
-    int64 txEthernetBytesMaxM;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_performanceData_txEthernetBytesMaxM_get callback");
     }
 
-
-    /* set the txEthernetBytesMaxM var here, replace (void) or use default value */
-    (void)txEthernetBytesMaxM;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_ethernetContainerCurrentPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_ethernetContainerCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -2257,19 +2239,13 @@ status_t u_MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_P
     const xmlChar *k_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
-    int64 txEthernetBytesSum;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_performanceData_txEthernetBytesSum_get callback");
     }
 
-
-    /* set the txEthernetBytesSum var here, replace (void) or use default value */
-    (void)txEthernetBytesSum;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_ethernetContainerCurrentPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_ethernetContainerCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
@@ -2294,19 +2270,13 @@ status_t u_MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_P
     const xmlChar *k_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_scannerId)
 {
     status_t res = NO_ERR;
-    int32 timePeriod;
 
     if (LOGDEBUG) {
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_EthernetContainer_MW_EthernetContainer_Pac_ethernetContainerCurrentPerformance_currentPerformanceDataList_performanceData_timePeriod_get callback");
     }
 
-
-    /* set the timePeriod var here, replace (void) or use default value */
-    (void)timePeriod;
-    res = val_set_simval_obj(
-        dstval,
-        dstval->obj,
-        (const xmlChar *)"-1");
+    res = cb_set_runtime_ethernetContainerCurrentPerformance_element_value(&dstval);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_set_runtime_ethernetContainerCurrentPerformance_element_value failed for element %s", dstval->name);
 
     return res;
 
