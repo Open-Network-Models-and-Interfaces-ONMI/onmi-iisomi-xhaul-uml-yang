@@ -35,10 +35,15 @@ public class MosAgent implements DataAgent
         try
         {
             Result<Mo> result = get(attr.getDn());
+            if (result.isSuccess())
+            {
+                Mo mo = result.getMo().get(0);
+                return mo.get(attr.getAttrName());
+            }
 
         } catch (Exception e)
         {
-            return null;
+            logger.warn("get attr " + attr + " from data agent failed!", e);
         }
         return null;
     }
@@ -61,7 +66,7 @@ public class MosAgent implements DataAgent
         }
     }
 
-    protected void login()
+    private void login()
             throws Exception
     {
         JsonNode node;

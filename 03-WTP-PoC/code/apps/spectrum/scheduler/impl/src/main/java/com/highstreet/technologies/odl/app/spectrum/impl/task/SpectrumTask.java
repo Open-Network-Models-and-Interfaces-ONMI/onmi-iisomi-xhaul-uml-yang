@@ -44,8 +44,8 @@ public class SpectrumTask implements Task
         for (Mo mo : result.getMo())
         {
             LOG.info("adding task to threadPool");
-            executor.execute(() -> execute(agent, communicator, new Attribute(mo.getDN(), "txFrequency")));
-            executor.execute(() -> execute(agent, communicator, new Attribute(mo.getDN(), "rxFrequency")));
+            executor.execute(() -> execute(agent, communicator, new Attribute(mo.getDn(), "txFrequency")));
+            executor.execute(() -> execute(agent, communicator, new Attribute(mo.getDn(), "rxFrequency")));
         }
     }
 }

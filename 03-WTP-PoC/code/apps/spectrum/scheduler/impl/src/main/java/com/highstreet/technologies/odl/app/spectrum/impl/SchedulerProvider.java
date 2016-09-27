@@ -46,9 +46,9 @@ public class SchedulerProvider implements BindingAwareProvider, AutoCloseable
                             String typeName)
                     {
                         ArrayList<Mo> list = new ArrayList<>();
-                        list.add(new Mo("AirInterface").setDN(new DN("/Ne/1/AirInterface/1")));
-                        list.add(new Mo("AirInterface").setDN(new DN("/Ne/1/AirInterface/2")));
-                        list.add(new Mo("AirInterface").setDN(new DN("/Ne/1/AirInterface/3")));
+                        list.add(new Mo("AirInterface").setDn(new DN("/Ne/1/AirInterface/1")));
+                        list.add(new Mo("AirInterface").setDn(new DN("/Ne/1/AirInterface/2")));
+                        list.add(new Mo("AirInterface").setDn(new DN("/Ne/1/AirInterface/3")));
                         return new Successful<>(list);
                     }
                 }, new NeCommunicator()
