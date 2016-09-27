@@ -24,9 +24,9 @@ public class MosAgent implements DataAgent
     private static JsonRpcHttpClient client;
     private static String sessionId;
 
-    public MosAgent() throws MalformedURLException
+    public MosAgent(String url) throws MalformedURLException
     {
-        client = new JsonRpcHttpClient(new URL("http://localhost:8080"));
+        client = new JsonRpcHttpClient(new URL(url));
     }
 
     @Override
