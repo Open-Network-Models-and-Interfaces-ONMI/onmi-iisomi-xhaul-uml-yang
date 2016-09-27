@@ -7,6 +7,7 @@
  */
 package com.highstreet.technologies.odl.app.spectrum.impl.meta;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,15 @@ public class Successful<T> extends Result<T>
         this.mo = mo;
     }
 
-    private final List<T> mo;
+     List<T> mo;
+
+    public Successful(ArrayList<T> lst, Maybe<Integer> transId) {super();}
+
+    @Override
+    public long getResult()
+    {
+        return 0;
+    }
 
     @Override
     public boolean isSuccess()
@@ -31,5 +40,11 @@ public class Successful<T> extends Result<T>
     public List<T> getMo()
     {
         return mo;
+    }
+
+    @Override
+    public Maybe<Integer> getTransId()
+    {
+        return null;
     }
 }

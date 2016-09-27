@@ -7,6 +7,8 @@
  */
 package com.highstreet.technologies.odl.app.spectrum.impl.meta;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,6 +17,8 @@ import java.util.List;
  */
 public abstract class Result<T> implements Serializable
 {
+    public abstract long getResult();
+
     public abstract boolean isSuccess();
 
     public Throwable exception()
@@ -23,4 +27,7 @@ public abstract class Result<T> implements Serializable
     }
 
     public abstract List<T> getMo();
+
+    @JsonIgnore
+    public abstract Maybe<Integer> getTransId();
 }
