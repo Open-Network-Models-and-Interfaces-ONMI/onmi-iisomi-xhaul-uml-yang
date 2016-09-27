@@ -12,6 +12,9 @@
 #include "y_MicrowaveModel-ObjectClasses-EthernetContainer.h"
 #include "y_CoreModel-CoreNetworkModule-ObjectClasses.h"
 
+/*
+ * module: MicrowaveModel-ObjectClasses-AirInterface
+ */
 static char* cb_get_boot_time_airInterfaceCapability_typeOfEquipment(val_value_t *element);
 static char* cb_get_boot_time_airInterfaceCapability_txFrequencyMin(val_value_t *element);
 static char* cb_get_boot_time_airInterfaceCapability_txFrequencyMax(val_value_t *element);
@@ -29,7 +32,6 @@ static char* cb_get_boot_time_airInterfaceCapability_loopBackIsAvail(val_value_t
 static char* cb_get_boot_time_airInterfaceCapability_maintenanceTimerRange(val_value_t *element);
 static char* cb_get_boot_time_airInterfaceCapability_supportedAlarms(val_value_t *element);
 
-static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_supportedChannelPlan(val_value_t *element);
 static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_duplexDistanceIsVariable(val_value_t *element);
 static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_duplexDistance(val_value_t *element);
 static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_autoFreqSelectIsAvail(val_value_t *element);
@@ -74,11 +76,18 @@ static char* cb_get_boot_time_airInterfaceConfiguration_maintenanceTimer(val_val
 
 static char* cb_get_boot_time_airInterfaceConfiguration_problemKindSeverity(val_value_t *element);
 
-
+/*
+ * module: CoreModel-CoreNetworkModule-ObjectClasses
+ */
+static char* cb_get_boot_time_NetworkElement_uuid(val_value_t *element);
 static char* cb_get_boot_time_NetworkElement_class_value(val_value_t *element);
 static char* cb_get_boot_time_NetworkElement_class_valueName(val_value_t *element);
 static char* cb_get_boot_time_NetworkElement_global_class_valueName(val_value_t *element);
 static char* cb_get_boot_time_NetworkElement_global_class_value(val_value_t *element);
+static char* cb_get_boot_time_NetworkElement_ltp_ref_list_class_valueName(val_value_t *element);
+static char* cb_get_boot_time_NetworkElement_ltp_ref_list_class_value(val_value_t *element);
+static char* cb_get_boot_time_NetworkElement_lp_list_class_valueName(val_value_t *element);
+static char* cb_get_boot_time_NetworkElement_lp_list_class_value(val_value_t *element);
 
 static char* cb_get_boot_time_NetworkElement_state_pac_operationalState(val_value_t *element);
 static char* cb_get_boot_time_NetworkElement_state_pac_administrativeControl(val_value_t *element);
@@ -95,10 +104,16 @@ static char* cb_get_boot_time_NetworkElement_lpList_configuredClientCapacity(val
 static char* cb_get_boot_time_NetworkElement_lpList_lpDirection(val_value_t *element);
 static char* cb_get_boot_time_NetworkElement_lpList_terminationState(val_value_t *element);
 
+/*
+ * module: MicrowaveModel-ObjectClasses-PureEthernetStructure
+ */
 static char* cb_get_boot_time_pureEthernetStructure_structureID(val_value_t *element);
 
 static char* cb_get_boot_time_pureEthernetStructure_problemKindSeverity(val_value_t *element);
 
+/*
+ * module: MicrowaveModel-ObjectClasses-EthernetContainer
+ */
 static char* cb_get_boot_time_ethernetContainerCapability_bundlingIsAvail(val_value_t *element);
 static char* cb_get_boot_time_ethernetContainerCapability_packetCompressionIsAvail(val_value_t *element);
 static char* cb_get_boot_time_ethernetContainerCapability_layer2CompressionIsAvail(val_value_t *element);
@@ -363,6 +378,87 @@ status_t cb_get_all_problem_kind_severity_list_keys(const char *air_interface_pa
 }
 
 /********************************************************************
+* FUNCTION cb_get_all_ethernet_container_problem_kind_severity_list_keys
+*
+* Get an array representing the keys of problemKindSeverityList list
+*
+* INPUTS:
+* char *ethernet_container_pac_key - the key of the current interface
+* OUTPUTS:
+* char** problem_kind_severity_list_key_entries - an array of strings containing the list of keys
+* int* num_of_keys - the number of keys found on the interface
+*
+* RETURNS:
+*     error status
+********************************************************************/
+status_t cb_get_all_ethernet_container_problem_kind_severity_list_keys(const char *ethernet_container_pac_key, char **problem_kind_severity_list_key_entries, int *num_of_keys)
+{
+	*num_of_keys = 0;
+
+	/*
+	 * fill in the actual values for the problemKindSeverityList keys here, using the ethernet_container_pac_key as a key for finding the relevant information E.g.:
+	 */
+
+	char problemKindName[256];
+
+	strcpy(problemKindName, "severity1");
+
+	problem_kind_severity_list_key_entries[*num_of_keys] = (char*) malloc(strlen(problemKindName) + 1);
+	YUMA_ASSERT(problem_kind_severity_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+
+	strcpy(problem_kind_severity_list_key_entries[*num_of_keys], problemKindName);
+
+	*num_of_keys += 1;
+
+	strcpy(problemKindName, "severity2");
+
+	problem_kind_severity_list_key_entries[*num_of_keys] = (char*) malloc(strlen(problemKindName) + 1);
+	YUMA_ASSERT(problem_kind_severity_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+
+	strcpy(problem_kind_severity_list_key_entries[*num_of_keys], problemKindName);
+
+	*num_of_keys += 1;
+
+	strcpy(problemKindName, "severity3");
+
+	problem_kind_severity_list_key_entries[*num_of_keys] = (char*) malloc(strlen(problemKindName) + 1);
+	YUMA_ASSERT(problem_kind_severity_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+
+	strcpy(problem_kind_severity_list_key_entries[*num_of_keys], problemKindName);
+
+	*num_of_keys += 1;
+
+	strcpy(problemKindName, "severity4");
+
+	problem_kind_severity_list_key_entries[*num_of_keys] = (char*) malloc(strlen(problemKindName) + 1);
+	YUMA_ASSERT(problem_kind_severity_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+
+	strcpy(problem_kind_severity_list_key_entries[*num_of_keys], problemKindName);
+
+	*num_of_keys += 1;
+
+	strcpy(problemKindName, "severity5");
+
+	problem_kind_severity_list_key_entries[*num_of_keys] = (char*) malloc(strlen(problemKindName) + 1);
+	YUMA_ASSERT(problem_kind_severity_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+
+	strcpy(problem_kind_severity_list_key_entries[*num_of_keys], problemKindName);
+
+	*num_of_keys += 1;
+
+    strcpy(problemKindName, "severity6");
+
+    problem_kind_severity_list_key_entries[*num_of_keys] = (char*) malloc(strlen(problemKindName) + 1);
+    YUMA_ASSERT(problem_kind_severity_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
+
+    strcpy(problem_kind_severity_list_key_entries[*num_of_keys], problemKindName);
+
+    *num_of_keys += 1;
+
+    return NO_ERR;
+}
+
+/********************************************************************
 * FUNCTION cb_get_all_co_channel_group_id_keys
 *
 * Get an array representing the keys of CoChannelGroup list
@@ -444,7 +540,7 @@ status_t cb_get_all_co_channel_group_air_interface_list_id_keys(const char *co_c
 /********************************************************************
 * FUNCTION cb_get_all_ethernet_container_pac_keys
 *
-* Get an array representing the keys of MW_AirInterface_Pac list
+* Get an array representing the keys of MW_EthernetContainer_Pac list
 *
 * OUTPUTS:
 * char** air_interface_pac_keys_list - an array of strings containing the list of keys
@@ -527,407 +623,422 @@ status_t cb_get_all_segment_id_list_keys(const char *air_interface_pac_key, char
 *
 * INPUTS:
 * val_value_t *element - the element for which we want the value
+* const char *moduleName - the module that the attribute belongs to
 *
 * RETURNS:
 * The value of the element, represented as a string
 ********************************************************************/
-char* cb_get_boot_time_element_value(val_value_t *element)
+char* cb_get_boot_time_element_value(val_value_t *element, const char* moduleName)
 {
-	if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_typeOfEquipment) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_typeOfEquipment(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txFrequencyMin) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_txFrequencyMin(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txFrequencyMax) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_txFrequencyMax(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxFrequencyMin) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_rxFrequencyMin(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxFrequencyMax) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_rxFrequencyMax(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_adaptiveModulationIsAvail) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_adaptiveModulationIsAvail(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_mimoIsAvail) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_mimoIsAvail(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_mimoChannels) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_mimoChannels(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_alicIsAvail) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_alicIsAvail(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_atpcIsAvail) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_atpcIsAvail(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_atpcRange) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_atpcRange(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_encryptionIsAvail) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_encryptionIsAvail(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_loopBackIsAvail) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_loopBackIsAvail(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_maintenanceTimerRange) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_maintenanceTimerRange(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_supportedAlarms) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_supportedAlarms(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_supportedChannelPlan) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_supportedChannelPlan(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_duplexDistanceIsVariable) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_duplexDistanceIsVariable(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_duplexDistance) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_duplexDistance(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_autoFreqSelectIsAvail) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_autoFreqSelectIsAvail(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_channelBandwidth) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_channelBandwidth(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_modulationScheme) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_modulationScheme(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_informationRate) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_informationRate(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txPowerMin) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_txPowerMin(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txPowerMax) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_txPowerMax(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxThreshold) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_rxThreshold(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_amUpshiftLevel) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_amUpshiftLevel(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_amDownshiftLevel) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_amDownshiftLevel(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpicIsAvail) == 0)
-	{
-		return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_xpicIsAvail(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemKindSeverity) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_problemKindSeverity(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceName) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_airInterfaceName(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_radioSignalID) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_radioSignalID(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txFrequency) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_txFrequency(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxFrequency) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_rxFrequency(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txChannelBandwidth) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_txChannelBandwidth(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxChannelBandwidth) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_rxChannelBandwidth(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_polarization) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_polarization(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_powerIsOn) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_powerIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_transmitterIsOn) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_transmitterIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_receiverIsOn) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_receiverIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txPower) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_txPower(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_adaptiveModulationIsOn) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_adaptiveModulationIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_modulationMin) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_modulationMin(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_modulationMax) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_modulationMax(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpicIsOn) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_xpicIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_mimoIsOn) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_mimoIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_alicIsOn) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_alicIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_atpcIsOn) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_atpcIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_atpcThreshUpper) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_atpcThreshUpper(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_atpcThreshLower) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_atpcThreshLower(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_autoFreqSelectIsOn) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_autoFreqSelectRange) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectRange(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_modulationIsOn) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_modulationIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_encryptionIsOn) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_encryptionIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_cryptographicKey) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_cryptographicKey(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_loopBackIsOn) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_loopBackIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_maintenanceTimer) == 0)
-	{
-		return cb_get_boot_time_airInterfaceConfiguration_maintenanceTimer(element);
-	}
-    else if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceConfiguration) == 0))
-    {
-        if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemKindSeverity) == 0)
-        {
-            return cb_get_boot_time_airInterfaceConfiguration_problemKindSeverity(element);
-        }
-    }
-    else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_valueName) == 0)
-	{
-		return cb_get_boot_time_NetworkElement_class_valueName(element);
-	}
-	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_value) == 0)
-	{
-		return cb_get_boot_time_NetworkElement_class_value(element);
-	}
-	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_operationalState) == 0)
-	{
-		return cb_get_boot_time_NetworkElement_state_pac_operationalState(element);
-	}
-	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_administrativeControl) == 0)
-	{
-		return cb_get_boot_time_NetworkElement_state_pac_administrativeControl(element);
-	}
-	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_administrativeState) == 0)
-	{
-		return cb_get_boot_time_NetworkElement_state_pac_administrativeState(element);
-	}
-	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_lifecycleState) == 0)
-	{
-		return cb_get_boot_time_NetworkElement_state_pac_lifecycleState(element);
-	}
-	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N__connectedLtpRef) == 0)
-	{
-		return cb_get_boot_time_NetworkElement_ltpRefList_connectedLtpRef(element);
-	}
-	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N__peerLtpRef) == 0)
-	{
-		return cb_get_boot_time_NetworkElement_ltpRefList_peerLtpRef(element);
-	}
-	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_physicalPortReference) == 0)
-	{
-		return cb_get_boot_time_NetworkElement_ltpRefList_physicalPortReference(element);
-	}
-	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_ltpDirection) == 0)
-	{
-		return cb_get_boot_time_NetworkElement_ltpRefList_ltpDirection(element);
-	}
-	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_layerProtocolName) == 0)
-	{
-		return cb_get_boot_time_NetworkElement_lpList_layerProtocolName(element);
-	}
-	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_configuredClientCapacity) == 0)
-	{
-		return cb_get_boot_time_NetworkElement_lpList_configuredClientCapacity(element);
-	}
-	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_lpDirection) == 0)
-	{
-		return cb_get_boot_time_NetworkElement_lpList_lpDirection(element);
-	}
-	else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_terminationState) == 0)
-	{
-		return cb_get_boot_time_NetworkElement_lpList_terminationState(element);
+	/* airInterface */
+	if (strcmp(moduleName, y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface) == 0)
+	{
+		if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_typeOfEquipment) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_typeOfEquipment(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txFrequencyMin) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_txFrequencyMin(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txFrequencyMax) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_txFrequencyMax(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxFrequencyMin) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_rxFrequencyMin(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxFrequencyMax) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_rxFrequencyMax(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_adaptiveModulationIsAvail) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_adaptiveModulationIsAvail(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_mimoIsAvail) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_mimoIsAvail(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_mimoChannels) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_mimoChannels(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_alicIsAvail) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_alicIsAvail(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_atpcIsAvail) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_atpcIsAvail(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_atpcRange) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_atpcRange(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_encryptionIsAvail) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_encryptionIsAvail(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_loopBackIsAvail) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_loopBackIsAvail(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_maintenanceTimerRange) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_maintenanceTimerRange(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_supportedAlarms) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_supportedAlarms(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_duplexDistanceIsVariable) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_duplexDistanceIsVariable(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_duplexDistance) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_duplexDistance(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_autoFreqSelectIsAvail) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_autoFreqSelectIsAvail(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_channelBandwidth) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_channelBandwidth(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_modulationScheme) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_modulationScheme(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_informationRate) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_informationRate(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txPowerMin) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_txPowerMin(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txPowerMax) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_txPowerMax(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxThreshold) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_rxThreshold(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_amUpshiftLevel) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_amUpshiftLevel(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_amDownshiftLevel) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_amDownshiftLevel(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpicIsAvail) == 0)
+		{
+			return cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_transmissionModeList_xpicIsAvail(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemKindSeverity) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_problemKindSeverity(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceName) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_airInterfaceName(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_radioSignalID) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_radioSignalID(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txFrequency) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_txFrequency(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxFrequency) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_rxFrequency(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txChannelBandwidth) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_txChannelBandwidth(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxChannelBandwidth) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_rxChannelBandwidth(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_polarization) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_polarization(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_powerIsOn) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_powerIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_transmitterIsOn) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_transmitterIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_receiverIsOn) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_receiverIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txPower) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_txPower(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_adaptiveModulationIsOn) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_adaptiveModulationIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_modulationMin) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_modulationMin(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_modulationMax) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_modulationMax(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpicIsOn) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_xpicIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_mimoIsOn) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_mimoIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_alicIsOn) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_alicIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_atpcIsOn) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_atpcIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_atpcThreshUpper) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_atpcThreshUpper(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_atpcThreshLower) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_atpcThreshLower(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_autoFreqSelectIsOn) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_autoFreqSelectRange) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_autoFreqSelectRange(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_modulationIsOn) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_modulationIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_encryptionIsOn) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_encryptionIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_cryptographicKey) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_cryptographicKey(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_loopBackIsOn) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_loopBackIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_maintenanceTimer) == 0)
+		{
+			return cb_get_boot_time_airInterfaceConfiguration_maintenanceTimer(element);
+		}
+		else if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceConfiguration) == 0))
+		{
+			if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemKindSeverity) == 0)
+			{
+				return cb_get_boot_time_airInterfaceConfiguration_problemKindSeverity(element);
+			}
+		}
+	}
+	/* CoreModel-CoreNetworkModule-ObjectClasses*/
+	else if (strcmp(moduleName, y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses) == 0)
+	{
+		if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_uuid) == 0)
+		{
+			return cb_get_boot_time_NetworkElement_uuid(element);
+		}
+		else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_valueName) == 0)
+		{
+			return cb_get_boot_time_NetworkElement_class_valueName(element);
+		}
+		else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_value) == 0)
+		{
+			return cb_get_boot_time_NetworkElement_class_value(element);
+		}
+		else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_operationalState) == 0)
+		{
+			return cb_get_boot_time_NetworkElement_state_pac_operationalState(element);
+		}
+		else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_administrativeControl) == 0)
+		{
+			return cb_get_boot_time_NetworkElement_state_pac_administrativeControl(element);
+		}
+		else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_administrativeState) == 0)
+		{
+			return cb_get_boot_time_NetworkElement_state_pac_administrativeState(element);
+		}
+		else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_lifecycleState) == 0)
+		{
+			return cb_get_boot_time_NetworkElement_state_pac_lifecycleState(element);
+		}
+		else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N__connectedLtpRef) == 0)
+		{
+			return cb_get_boot_time_NetworkElement_ltpRefList_connectedLtpRef(element);
+		}
+		else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N__peerLtpRef) == 0)
+		{
+			return cb_get_boot_time_NetworkElement_ltpRefList_peerLtpRef(element);
+		}
+		else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_physicalPortReference) == 0)
+		{
+			return cb_get_boot_time_NetworkElement_ltpRefList_physicalPortReference(element);
+		}
+		else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_ltpDirection) == 0)
+		{
+			return cb_get_boot_time_NetworkElement_ltpRefList_ltpDirection(element);
+		}
+		else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_layerProtocolName) == 0)
+		{
+			return cb_get_boot_time_NetworkElement_lpList_layerProtocolName(element);
+		}
+		else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_configuredClientCapacity) == 0)
+		{
+			return cb_get_boot_time_NetworkElement_lpList_configuredClientCapacity(element);
+		}
+		else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_lpDirection) == 0)
+		{
+			return cb_get_boot_time_NetworkElement_lpList_lpDirection(element);
+		}
+		else if (strcmp(element->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_terminationState) == 0)
+		{
+			return cb_get_boot_time_NetworkElement_lpList_terminationState(element);
+		}
 	}
-
     /* pureEthernetStructure */
-
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_structureId) == 0)
-    {
-        return cb_get_boot_time_pureEthernetStructure_structureID(element);
-    }
-    else if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_pureEthernetStructureConfiguration) == 0))
+	else if (strcmp(moduleName, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure) == 0)
 	{
-        if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemKindSeverity) == 0)
+		if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_structureId) == 0)
+		{
+			return cb_get_boot_time_pureEthernetStructure_structureID(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_supportedAlarms) == 0)
         {
-            return cb_get_boot_time_pureEthernetStructure_problemKindSeverity(element);
+            return cb_get_boot_time_airInterfaceCapability_supportedAlarms(element);
         }
+		else if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_pureEthernetStructureConfiguration) == 0))
+		{
+			if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemKindSeverity) == 0)
+			{
+				return cb_get_boot_time_pureEthernetStructure_problemKindSeverity(element);
+			}
+		}
 	}
-
     /* ethernetContainer */
-
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_bundlingIsAvail) == 0)
+	else if (strcmp(moduleName, y_MicrowaveModel_ObjectClasses_EthernetContainer_M_MicrowaveModel_ObjectClasses_EthernetContainer) == 0)
 	{
-		return cb_get_boot_time_ethernetContainerCapability_bundlingIsAvail(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_packetCompressionIsAvail) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerCapability_packetCompressionIsAvail(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_layer2CompressionIsAvail) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerCapability_layer2CompressionIsAvail(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_vlanCompressionIsAvail) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerCapability_vlanCompressionIsAvail(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_qInQCompressionIsAvail) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerCapability_qInQCompressionIsAvail(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_mplsCompressionIsAvail) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerCapability_mplsCompressionIsAvail(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ipv4CompressionIsAvail) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerCapability_ipv4CompressionIsAvail(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ipv6CompressionIsAvail) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerCapability_ipv6CompressionIsAvail(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_layer4CompressionIsAvail) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerCapability_layer4CompressionIsAvail(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_encryptionIsAvail) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerCapability_encryptionIsAvail(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_supportedAlarms) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerCapability_supportedAlarms(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_containerID) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerConfiguration_containerID(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_packetCompressionIsOn) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerConfiguration_packetCompressionIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_layer2CompressionIsOn) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerConfiguration_layer2CompressionIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_vlanCompressionIsOn) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerConfiguration_vlanCompressionIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_qInQCompressionIsOn) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerConfiguration_qInQCompressionIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_mplsCompressionIsOn) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerConfiguration_mplsCompressionIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ipv4CompressionIsOn) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerConfiguration_ipv4CompressionIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ipv6CompressionIsOn) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerConfiguration_ipv6CompressionIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_layer4CompressionIsOn) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerConfiguration_layer4CompressionIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_encryptionIsOn) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerConfiguration_encryptionIsOn(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_cryptographicKey) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerConfiguration_cryptographicKey(element);
-	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_segmentIdRef) == 0)
-	{
-		return cb_get_boot_time_ethernetContainerConfiguration_segmentIdRef(element);
+		if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_bundlingIsAvail) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerCapability_bundlingIsAvail(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_packetCompressionIsAvail) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerCapability_packetCompressionIsAvail(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_layer2CompressionIsAvail) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerCapability_layer2CompressionIsAvail(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_vlanCompressionIsAvail) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerCapability_vlanCompressionIsAvail(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_qInQCompressionIsAvail) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerCapability_qInQCompressionIsAvail(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_mplsCompressionIsAvail) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerCapability_mplsCompressionIsAvail(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ipv4CompressionIsAvail) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerCapability_ipv4CompressionIsAvail(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ipv6CompressionIsAvail) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerCapability_ipv6CompressionIsAvail(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_layer4CompressionIsAvail) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerCapability_layer4CompressionIsAvail(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_encryptionIsAvail) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerCapability_encryptionIsAvail(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_supportedAlarms) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerCapability_supportedAlarms(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_containerID) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerConfiguration_containerID(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_packetCompressionIsOn) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerConfiguration_packetCompressionIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_layer2CompressionIsOn) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerConfiguration_layer2CompressionIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_vlanCompressionIsOn) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerConfiguration_vlanCompressionIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_qInQCompressionIsOn) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerConfiguration_qInQCompressionIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_mplsCompressionIsOn) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerConfiguration_mplsCompressionIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ipv4CompressionIsOn) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerConfiguration_ipv4CompressionIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ipv6CompressionIsOn) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerConfiguration_ipv6CompressionIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_layer4CompressionIsOn) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerConfiguration_layer4CompressionIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_encryptionIsOn) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerConfiguration_encryptionIsOn(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_cryptographicKey) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerConfiguration_cryptographicKey(element);
+		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_segmentIdRef) == 0)
+		{
+			return cb_get_boot_time_ethernetContainerConfiguration_segmentIdRef(element);
+		}
 	}
 
 	return NULL;
@@ -1403,41 +1514,6 @@ static char* cb_get_boot_time_airInterfaceCapability_supportedAlarms(val_value_t
 
 	/*
 	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
-	 */
-
-	return NULL;
-}
-
-/********************************************************************
-* FUNCTION cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_supportedChannelPlan
-*
-* Callback function for getting the value of the supportedChannelPlan leaf
-*
-* INPUTS:
-* val_value_t *element - the element for which we want the value
-*
-* RETURNS:
-* The value of the element, represented as a string
-********************************************************************/
-static char* cb_get_boot_time_airInterfaceCapability_supportedChannelPlanList_supportedChannelPlan(val_value_t *element)
-{
-	val_value_t *lastkey = NULL;
-	val_value_t *layerProtocolKey = NULL;
-	val_value_t *supportedChannelPlanKey = NULL;
-
-	val_value_t* parentHavingKey = element->parent;
-
-	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
-	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
-	supportedChannelPlanKey = agt_get_key_value(parentHavingKey, &lastkey);
-
-	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
-	YUMA_ASSERT(NULL == supportedChannelPlanKey, return NULL, "Could not find supportedChannelPlanKey for element %s", element->name);
-	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
-	YUMA_ASSERT(NULL == VAL_STRING(supportedChannelPlanKey), return NULL, "Could not access value of the key %s for element %s", supportedChannelPlanKey->name, element->name);
-
-	/*
-	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and supportedChannelPlanKey as keys to find the information
 	 */
 
 	return NULL;
@@ -2853,6 +2929,26 @@ static char* cb_get_boot_time_airInterfaceConfiguration_maintenanceTimer(val_val
 }
 
 /********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_uuid
+*
+* Callback function for getting the value of the valueName leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static char* cb_get_boot_time_NetworkElement_uuid(val_value_t *element)
+{
+	val_value_t* parentDoingAttach = element->parent;
+	YUMA_ASSERT(NULL == parentDoingAttach, return NULL, "Could not find parent of parent element %s", element->name);
+
+	return strdup("NeName1");
+}
+
+
+/********************************************************************
 * FUNCTION cb_get_boot_time_NetworkElement_class_valueName
 *
 * Callback function for getting the value of the valueName leaf
@@ -2872,9 +2968,13 @@ static char* cb_get_boot_time_NetworkElement_class_valueName(val_value_t *elemen
 	{
 		return cb_get_boot_time_NetworkElement_global_class_valueName(element);
 	}
-	else
+	else if (strcmp(grandParentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N__ltpRefList) == 0)
 	{
-		return cb_get_boot_time_NetworkElement_global_class_valueName(element);
+		return cb_get_boot_time_NetworkElement_ltp_ref_list_class_valueName(element);
+	}
+	else if (strcmp(grandParentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N__lpList) == 0)
+	{
+		return cb_get_boot_time_NetworkElement_lp_list_class_valueName(element);
 	}
 
 	return NULL;
@@ -2900,9 +3000,13 @@ static char* cb_get_boot_time_NetworkElement_class_value(val_value_t *element)
 	{
 		return cb_get_boot_time_NetworkElement_global_class_value(element);
 	}
-	else
+	else if (strcmp(grandParentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N__ltpRefList) == 0)
 	{
-		return cb_get_boot_time_NetworkElement_global_class_value(element);
+		return cb_get_boot_time_NetworkElement_ltp_ref_list_class_value(element);
+	}
+	else if (strcmp(grandParentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N__lpList) == 0)
+	{
+		return cb_get_boot_time_NetworkElement_lp_list_class_value(element);
 	}
 
 	return NULL;
@@ -2921,11 +3025,29 @@ static char* cb_get_boot_time_NetworkElement_class_value(val_value_t *element)
 ********************************************************************/
 static char* cb_get_boot_time_NetworkElement_global_class_valueName(val_value_t *element)
 {
-    char* valueName = NULL;
+	val_value_t* parentDoingAttach = element->parent;
+	YUMA_ASSERT(NULL == parentDoingAttach, return NULL, "Could not find parent element %s", element->name);
 
-    valueName = strdup("vName");
+	char* returnValue = NULL;
 
-	return valueName;
+	if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_nameList) == 0)
+	{
+		returnValue = strdup("neName");
+	}
+	else if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_labelList) == 0)
+	{
+		returnValue = strdup("neLabel");
+	}
+	else if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_extensionList) == 0)
+	{
+		returnValue = strdup("neExtension");
+	}
+	else if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_localIdList) == 0)
+	{
+		returnValue = strdup("neLocalIdList");
+	}
+
+	return returnValue;
 }
 
 /********************************************************************
@@ -2944,26 +3066,121 @@ static char* cb_get_boot_time_NetworkElement_global_class_value(val_value_t *ele
 	val_value_t* parentDoingAttach = element->parent;
 	YUMA_ASSERT(NULL == parentDoingAttach, return NULL, "Could not find parent element %s", element->name);
 
+	return cb_get_boot_time_NetworkElement_uuid(element);
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_ltp_ref_list_class_valueName
+*
+* Callback function for getting the value of the valueName leaf for the _ltpRefList class
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static char* cb_get_boot_time_NetworkElement_ltp_ref_list_class_valueName(val_value_t *element)
+{
+	val_value_t* parentDoingAttach = element->parent;
+	YUMA_ASSERT(NULL == parentDoingAttach, return NULL, "Could not find parent element %s", element->name);
+
 	char* returnValue = NULL;
 
 	if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_nameList) == 0)
 	{
-	    returnValue = strdup("NE_Name1");
+		returnValue = strdup("ltpName");
 	}
 	else if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_labelList) == 0)
 	{
-	    returnValue = strdup("label_1");
+		returnValue = strdup("ltpLabel");
 	}
 	else if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_extensionList) == 0)
 	{
-	    returnValue = strdup("extension_1");
+		returnValue = strdup("ltpExtension");
 	}
 	else if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_localIdList) == 0)
 	{
-	    returnValue = strdup("localId_1");
+		returnValue = strdup("ltpLocalIdList");
 	}
 
 	return returnValue;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_ltp_ref_list_class_value
+*
+* Callback function for getting the value of the value leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static char* cb_get_boot_time_NetworkElement_ltp_ref_list_class_value(val_value_t *element)
+{
+	val_value_t* parentDoingAttach = element->parent;
+	YUMA_ASSERT(NULL == parentDoingAttach, return NULL, "Could not find parent element %s", element->name);
+
+	return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_lp_list_class_valueName
+*
+* Callback function for getting the value of the valueName leaf for the _lpList class
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static char* cb_get_boot_time_NetworkElement_lp_list_class_valueName(val_value_t *element)
+{
+	val_value_t* parentDoingAttach = element->parent;
+	YUMA_ASSERT(NULL == parentDoingAttach, return NULL, "Could not find parent element %s", element->name);
+
+	char* returnValue = NULL;
+
+	if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_nameList) == 0)
+	{
+		returnValue = strdup("lpName");
+	}
+	else if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_labelList) == 0)
+	{
+		returnValue = strdup("lpLabel");
+	}
+	else if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_extensionList) == 0)
+	{
+		returnValue = strdup("lpExtension");
+	}
+	else if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_localIdList) == 0)
+	{
+		returnValue = strdup("lpLocalIdList");
+	}
+
+	return returnValue;
+}
+
+/********************************************************************
+* FUNCTION cb_get_boot_time_NetworkElement_lp_list_class_value
+*
+* Callback function for getting the value of the value leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static char* cb_get_boot_time_NetworkElement_lp_list_class_value(val_value_t *element)
+{
+	val_value_t* parentDoingAttach = element->parent;
+	YUMA_ASSERT(NULL == parentDoingAttach, return NULL, "Could not find parent element %s", element->name);
+
+	return NULL;
 }
 
 /********************************************************************
@@ -2988,7 +3205,7 @@ static char* cb_get_boot_time_NetworkElement_state_pac_operationalState(val_valu
 	{
 	    returnValue = strdup("ENABLED");
 	}
-	else if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N__lpList) == 0)
+	else
 	{
 	    returnValue = strdup("ENABLED");
 	}
@@ -3016,7 +3233,11 @@ static char* cb_get_boot_time_NetworkElement_state_pac_administrativeControl(val
 
 	if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_NetworkElement) == 0)
 	{
-	    returnValue = strdup("UNLOCK");
+		returnValue = strdup("UNLOCK");
+	}
+	else
+	{
+		returnValue = strdup("UNLOCK");
 	}
 
 	return returnValue;
@@ -3041,6 +3262,10 @@ static char* cb_get_boot_time_NetworkElement_state_pac_administrativeState(val_v
 	char* returnValue = NULL;
 
 	if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_NetworkElement) == 0)
+	{
+		returnValue = strdup("UNLOCKED");
+	}
+	else
 	{
 	    returnValue = strdup("UNLOCKED");
 	}
@@ -3068,7 +3293,11 @@ static char* cb_get_boot_time_NetworkElement_state_pac_lifecycleState(val_value_
 
 	if (strcmp(parentDoingAttach->name, y_CoreModel_CoreNetworkModule_ObjectClasses_N_NetworkElement) == 0)
 	{
-	    returnValue = strdup("INSTALLED");
+		returnValue = strdup("INSTALLED");
+	}
+	else
+	{
+		returnValue = strdup("INSTALLED");
 	}
 
 	return returnValue;
@@ -3147,42 +3376,6 @@ status_t cb_get_all_client_ltp_ref_leaf_list_elements_for_ltp(char* ltp_uuid, ch
 }
 
 /********************************************************************
-* FUNCTION cb_get_all_ltp_ref_leaf_list_elements_for_ltp
-*
-* Get an array representing the elements of the _ltpRefList list
-*
-* INPUTS:
-* ltp_uuid - the UUID of the LTP for which we want its ltp_ref_leaf_list
-* OUTPUTS:
-* char** ltp_ref_leaf_list - an array of strings containing the list of elements
-* int* num_of_elements - the number of elements found
-*
-* RETURNS:
-*     error status
-********************************************************************/
-status_t cb_get_all_ltp_ref_leaf_list_elements_for_ltp(char* ltp_uuid, char** ltp_ref_leaf_list, int* num_of_elements)
-{
-	*num_of_elements = 0;
-
-	/*
-	 * fill in the actual values for the _ltpRefList list here. E.g.:
-	 */
-
-	char ltp_ref_uuid[256];
-
-	strcpy(ltp_ref_uuid, "uuid2");
-
-	ltp_ref_leaf_list[*num_of_elements] = (char*) malloc(strlen(ltp_ref_uuid) + 1);
-	YUMA_ASSERT(ltp_ref_leaf_list[*num_of_elements] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
-
-	strcpy(ltp_ref_leaf_list[*num_of_elements], ltp_ref_uuid);
-
-	*num_of_elements += 1;
-
-	return NO_ERR;
-}
-
-/********************************************************************
 * FUNCTION cb_get_boot_time_NetworkElement_ltpRefList_connectedLtpRef
 *
 * Callback function for getting the value of the _connectedLtpRef leaf
@@ -3206,14 +3399,7 @@ static char* cb_get_boot_time_NetworkElement_ltpRefList_connectedLtpRef(val_valu
 	YUMA_ASSERT(NULL == uuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
 	YUMA_ASSERT(NULL == VAL_STRING(uuidKey), return NULL, "Could not access value of the key %s for element %s", uuidKey->name, element->name);
 
-	char* connectedLtpRef = NULL;
-
-	if (strcmp(VAL_STRING(uuidKey), "uuid2") == 0)
-	{
-	    connectedLtpRef = strdup("uuid15");
-	}
-
-	return connectedLtpRef;
+	return NULL;
 }
 
 /********************************************************************
@@ -3240,14 +3426,7 @@ static char* cb_get_boot_time_NetworkElement_ltpRefList_peerLtpRef(val_value_t *
 	YUMA_ASSERT(NULL == uuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
 	YUMA_ASSERT(NULL == VAL_STRING(uuidKey), return NULL, "Could not access value of the key %s for element %s", uuidKey->name, element->name);
 
-    char* peerLtpRef = NULL;
-
-    if (strcmp(VAL_STRING(uuidKey), "uuid2") == 0)
-    {
-        peerLtpRef = strdup("uuid15");
-    }
-
-    return peerLtpRef;
+    return NULL;
 }
 
 /********************************************************************
@@ -3338,7 +3517,7 @@ static char* cb_get_boot_time_NetworkElement_lpList_layerProtocolName(val_value_
 	YUMA_ASSERT(NULL == ltpUuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
 	YUMA_ASSERT(NULL == VAL_STRING(ltpUuidKey), return NULL, "Could not access value of the key %s for element %s", ltpUuidKey->name, element->name);
 	YUMA_ASSERT(NULL == lpUuidKey, return NULL, "Could not find uuidKey for element %s", element->name);
-	YUMA_ASSERT(NULL == VAL_STRING(lpUuidKey), return NULL, "Could not access value of the key %s for element %s", ltpUuidKey->name, element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(lpUuidKey), return NULL, "Could not access value of the key %s for element %s", lpUuidKey->name, element->name);
 
 	char* layerProtocolName = NULL;
 
@@ -4331,15 +4510,19 @@ static char* cb_get_boot_time_ethernetContainerConfiguration_segmentIdRef(val_va
 {
 	val_value_t *lastkey = NULL;
 	val_value_t *layerProtocolKey = NULL;
+	val_value_t *structureIdRefKey = NULL;
 
 	val_value_t* parentHavingKey = element->parent;
 
 	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
 	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+	structureIdRefKey = agt_get_key_value(parentHavingKey, &lastkey);
 
 	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find key for element %s", element->name);
 	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
 
+	YUMA_ASSERT(NULL == structureIdRefKey, return NULL, "Could not find key for element %s", element->name);
+	YUMA_ASSERT(NULL == VAL_STRING(structureIdRefKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
 	/*
 	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information. E.g.:
 	 */

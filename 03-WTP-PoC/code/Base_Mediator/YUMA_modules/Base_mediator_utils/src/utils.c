@@ -9,6 +9,9 @@
 #include "boot_time_callbacks.h"
 #include "runtime_callbacks.h"
 
+static status_t create_and_init_child_object(obj_template_t *curr_obj,	val_value_t *parent_val, const char *valuestr, const char* moduleName);
+static status_t init_element_with_value(obj_template_t *curr_obj,	val_value_t **curr_val, const char *valuestr, const char* moduleName);
+
 status_t create_root_element_for_module(const char *module_name, const char *revision,
 		const char *element_name, val_value_t** created_element_val)
 {
@@ -34,7 +37,7 @@ status_t create_root_element_for_module(const char *module_name, const char *rev
 }
 
 status_t create_and_init_child_element(const char *module_name, const char *element_name,
-		val_value_t *parent_val, val_value_t **child_val, const char *valuestr)
+		val_value_t *parent_val, val_value_t **child_val, const char *valuestr, const char* moduleName)
 {
 	status_t 		res = NO_ERR;
 	obj_template_t* child_obj;
@@ -51,7 +54,7 @@ status_t create_and_init_child_element(const char *module_name, const char *elem
 
 	val_add_child(*child_val, parent_val);
 
-	res = init_element_with_value(child_obj, child_val, valuestr);
+	res = init_element_with_value(child_obj, child_val, valuestr, moduleName);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not assign value to element %s", element_name);
 
 //	if (obj_is_key(child_obj))
@@ -63,7 +66,7 @@ status_t create_and_init_child_element(const char *module_name, const char *elem
 	return NO_ERR;
 }
 
-status_t create_and_init_child_object(obj_template_t *curr_obj,	val_value_t *parent_val, const char *valuestr)
+static status_t create_and_init_child_object(obj_template_t *curr_obj,	val_value_t *parent_val, const char *valuestr, const char* moduleName)
 {
 	YUMA_ASSERT(curr_obj->objtype == OBJ_TYP_LIST || curr_obj->objtype == OBJ_TYP_CONTAINER, return NO_ERR, "Nothing to do for list/container object");
 	YUMA_ASSERT(curr_obj == NULL, return NO_ERR, "Nothing to do for NULL object");
@@ -76,19 +79,19 @@ status_t create_and_init_child_object(obj_template_t *curr_obj,	val_value_t *par
 
 	val_add_child(curr_val, parent_val);
 
-	res = init_element_with_value(curr_obj, &curr_val, valuestr);
+	res = init_element_with_value(curr_obj, &curr_val, valuestr, moduleName);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not assign value to element %s", curr_val->name);
 
 	return NO_ERR;
 }
 
-status_t create_and_init_siblings(obj_template_t *curr_obj,	val_value_t *parent_val)
+status_t create_and_init_siblings(obj_template_t *curr_obj,	val_value_t *parent_val, const char* moduleName)
 {
 	status_t res = NO_ERR;
 
 	do
 	{
-		res = create_and_init_child_object(curr_obj, parent_val, NULL);
+		res = create_and_init_child_object(curr_obj, parent_val, NULL, moduleName);
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL ,
 					"create_and_init_child_object failed!");
 
@@ -99,7 +102,7 @@ status_t create_and_init_siblings(obj_template_t *curr_obj,	val_value_t *parent_
 	return NO_ERR;
 }
 
-status_t init_element_with_value(obj_template_t *curr_obj,	val_value_t **curr_val, const char *valuestr)
+static status_t init_element_with_value(obj_template_t *curr_obj,	val_value_t **curr_val, const char *valuestr, const char* moduleName)
 {
 	status_t res = NO_ERR;
 	int need_free = TRUE;
@@ -113,7 +116,7 @@ status_t init_element_with_value(obj_template_t *curr_obj,	val_value_t **curr_va
 	}
 	else
 	{
-		char* elementStringValue = cb_get_boot_time_element_value(*curr_val);
+		char* elementStringValue = cb_get_boot_time_element_value(*curr_val, moduleName);
 
 		if (elementStringValue == NULL) //no callback implemented for this element, just use the default value
 		{

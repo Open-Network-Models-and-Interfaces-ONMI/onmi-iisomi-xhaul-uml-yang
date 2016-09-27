@@ -22,12 +22,17 @@
 ({													\
 	if ((condition))								\
 	{												\
-		printf("\nWT_3.PoC: %s at %s line %d: "fmt, __FILE__,__FUNCTION__,__LINE__, ##__VA_ARGS__); \
+		fprintf(stderr, "WT_3.PoC: %s at %s line %d: "fmt"\n", __FILE__,__FUNCTION__,__LINE__, ##__VA_ARGS__); \
 		action;										\
 	} 												\
 })
 
-#define LP_MWPS_PREFIX "LP-MWPS-TTP-"
+#define LTP_MWPS_PREFIX "LTP-MWPS-"
+#define LP_MWPS_PREFIX "LP-MWPS-"
+#define LTP_MWS_PREFIX "LTP-MWS-"
+#define LP_MWS_PREFIX "LP-MWS-"
+#define LTP_ETH_CTP_PREFIX "LTP-ETH-CTP-"
+#define LP_ETH_CTP_PREFIX "LP-ETH-CTP-"
 
 #define MAX_NUMBER_OF_AIR_INTERFACE_PAC 50
 #define MAX_NUMBER_OF_PROBLEM_KIND_SEVERITY_ENTRIES 1000
@@ -53,16 +58,14 @@
 #define MAX_NUMBER_OF_ETHERNET_CONTAINER_PAC_ETHERNET_CONTAINER_HISTORICAL_PERFORMANCE_LIST_ENTRIES 1000
 #define MAX_NUMBER_OF_ETHERNET_CONTAINER_PAC_ETHERNET_CONTAINER_CURRENT_PERFORMANCE_LIST_ENTRIES 50
 
+#define ALARM_RAISED 1
+#define ALARM_CLEARED 0
 
 status_t create_root_element_for_module(const char *module_name, const char *revision, const char *element_name, val_value_t** created_element_val);
 
-status_t create_and_init_child_element(const char *modname, const char *objname, val_value_t *parent_val, val_value_t **child_val, const char *valuestr);
+status_t create_and_init_child_element(const char *modname, const char *objname, val_value_t *parent_val, val_value_t **child_val, const char *valuestr, const char* moduleName);
 
-status_t create_and_init_child_object(obj_template_t *curr_obj,	val_value_t *parent_val, const char *valuestr);
-
-status_t create_and_init_siblings(obj_template_t *curr_obj,	val_value_t *parent_val);
-
-status_t init_element_with_value(obj_template_t *curr_obj,	val_value_t **curr_val, const char *valuestr);
+status_t create_and_init_siblings(obj_template_t *curr_obj,	val_value_t *parent_val, const char* moduleName);
 
 status_t add_virtual_leaf(val_value_t *parentVal, const char *elementName, getcb_fn_t callbackFunction);
 

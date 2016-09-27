@@ -46,13 +46,13 @@
 /* put your static variables here */
 
 static status_t build_network_element_tree_and_attach_to_running_cfg(cfg_template_t *runningcfg);
-static status_t attach_class_elements(val_value_t *parentval);
-static status_t attach_name_and_value_entry(val_value_t *parentval);
-static status_t attach_nameList_list_elements(val_value_t *parentval);
-static status_t attach_labelList_list_elements(val_value_t *parentval);
-static status_t attach_extensionList_list_elements(val_value_t *parentval);
+static status_t attach_class_elements(val_value_t *parentval, const char *stringValue);
+static status_t attach_name_and_value_entry(val_value_t *parentval, const char *stringValue);
+static status_t attach_nameList_list_elements(val_value_t *parentval, const char *stringValue);
+static status_t attach_labelList_list_elements(val_value_t *parentval, const char *stringValue);
+static status_t attach_extensionList_list_elements(val_value_t *parentval, const char *stringValue);
 static status_t attach_state_pac_elements(val_value_t *parentval);
-static status_t attach_localIdList_list_elements(val_value_t *parentval);
+static status_t attach_localIdList_list_elements(val_value_t *parentval, const char *stringValue);
 
 static status_t attach_ltpRefList_list_elements(val_value_t *parentval, const char* ltpUuid);
 static status_t attach_server_and_client_ref_list_elements(val_value_t *parentval);
@@ -9760,22 +9760,29 @@ static status_t build_network_element_tree_and_attach_to_running_cfg(cfg_templat
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N_uuid,
 			NetworkElement_val,
 			&uuid_val,
-			"uuid1");
+			NULL,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == uuid_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N_uuid);
 
-	res = attach_class_elements(NetworkElement_val);
+	res = attach_class_elements(NetworkElement_val, NULL);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_class_elements failed ");
 
-	char* ltp_ref_uuid_list[MAX_NUMBER_OF_LTP_REF_ENTRIES];
-	int num_of_elements;
+	char *ltp_ref_uuid_list[MAX_NUMBER_OF_LTP_REF_ENTRIES];
+	char ifIndex[1000];
+	char new_ltp_ref[3000];
+	int num_of_elements, foundIfIndex;
 
 	res = cb_get_all_air_interface_pac_keys(ltp_ref_uuid_list, &num_of_elements);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_all_air_interface_pac_keys failed!");
 
 	for (int i=0; i<num_of_elements; ++i)
 	{
-		res = attach_ltpRefList_list_elements(NetworkElement_val, ltp_ref_uuid_list[i]);
+		foundIfIndex = sscanf(ltp_ref_uuid_list[i], LP_MWPS_PREFIX"%s", ifIndex);
+
+		sprintf(new_ltp_ref, LTP_MWPS_PREFIX"%s", ifIndex);
+
+		res = attach_ltpRefList_list_elements(NetworkElement_val, (foundIfIndex == 0) ? ltp_ref_uuid_list[i] : new_ltp_ref);
 		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_ltpRefList_list_elements failed ");
 
 		free(ltp_ref_uuid_list[i]);
@@ -9786,8 +9793,12 @@ static status_t build_network_element_tree_and_attach_to_running_cfg(cfg_templat
 
     for (int i=0; i<num_of_elements; ++i)
     {
-        res = attach_ltpRefList_list_elements(NetworkElement_val, ltp_ref_uuid_list[i]);
-        YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_ltpRefList_list_elements failed ");
+    	foundIfIndex = sscanf(ltp_ref_uuid_list[i], LP_MWS_PREFIX"%s", ifIndex);
+
+		sprintf(new_ltp_ref, LTP_MWS_PREFIX"%s", ifIndex);
+
+		res = attach_ltpRefList_list_elements(NetworkElement_val, (foundIfIndex == 0) ? ltp_ref_uuid_list[i] : new_ltp_ref);
+		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_ltpRefList_list_elements failed ");
 
         free(ltp_ref_uuid_list[i]);
     }
@@ -9797,37 +9808,41 @@ static status_t build_network_element_tree_and_attach_to_running_cfg(cfg_templat
 
     for (int i=0; i<num_of_elements; ++i)
     {
-        res = attach_ltpRefList_list_elements(NetworkElement_val, ltp_ref_uuid_list[i]);
-        YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_ltpRefList_list_elements failed ");
+		foundIfIndex = sscanf(ltp_ref_uuid_list[i], LP_ETH_CTP_PREFIX"%s", ifIndex);
+
+		sprintf(new_ltp_ref, LTP_ETH_CTP_PREFIX"%s", ifIndex);
+
+		res = attach_ltpRefList_list_elements(NetworkElement_val, (foundIfIndex == 0) ? ltp_ref_uuid_list[i] : new_ltp_ref);
+		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_ltpRefList_list_elements failed ");
 
         free(ltp_ref_uuid_list[i]);
     }
 	return NO_ERR;
 }
 
-static status_t attach_class_elements(val_value_t *parentval)
+static status_t attach_class_elements(val_value_t *parentval, const char *stringValue)
 {
 	status_t res = NO_ERR;
 
-	res = attach_nameList_list_elements(parentval);
+	res = attach_nameList_list_elements(parentval, stringValue);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_nameList_list_elements failed ");
 
-	res = attach_labelList_list_elements(parentval);
+	res = attach_labelList_list_elements(parentval, stringValue);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_labelList_list_elements failed ");
 
-	res = attach_extensionList_list_elements(parentval);
+	res = attach_extensionList_list_elements(parentval, stringValue);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_extensionList_list_elements failed ");
 
 	res = attach_state_pac_elements(parentval);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_state_pac_elements failed ");
 
-	res = attach_localIdList_list_elements(parentval);
+	res = attach_localIdList_list_elements(parentval, stringValue);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_localIdList_list_elements failed ");
 
 	return NO_ERR;
 }
 
-static status_t attach_name_and_value_entry(val_value_t *parentval)
+static status_t attach_name_and_value_entry(val_value_t *parentval, const char *stringValue)
 {
 	status_t res = NO_ERR;
 
@@ -9840,7 +9855,8 @@ static status_t attach_name_and_value_entry(val_value_t *parentval)
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N_valueName,
 			parentval,
 			&valueName_val,
-			NULL);
+			NULL,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == valueName_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N_valueName);
 
@@ -9853,14 +9869,15 @@ static status_t attach_name_and_value_entry(val_value_t *parentval)
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N_value,
 			parentval,
 			&value_val,
-			NULL);
+			stringValue,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == value_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N_value);
 
 	return NO_ERR;
 }
 
-static status_t attach_nameList_list_elements(val_value_t *parentval)
+static status_t attach_nameList_list_elements(val_value_t *parentval, const char *stringValue)
 {
 	status_t res = NO_ERR;
 
@@ -9873,17 +9890,18 @@ static status_t attach_nameList_list_elements(val_value_t *parentval)
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N_nameList,
 			parentval,
 			&nameList_val,
-			NULL);
+			NULL,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == nameList_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N_nameList);
 
-	res = attach_name_and_value_entry(nameList_val);
+	res = attach_name_and_value_entry(nameList_val, stringValue);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_name_and_value_entry failed");
 
 	return NO_ERR;
 }
 
-static status_t attach_labelList_list_elements(val_value_t *parentval)
+static status_t attach_labelList_list_elements(val_value_t *parentval, const char *stringValue)
 {
 	status_t res = NO_ERR;
 
@@ -9896,17 +9914,18 @@ static status_t attach_labelList_list_elements(val_value_t *parentval)
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N_labelList,
 			parentval,
 			&labelList_val,
-			NULL);
+			NULL,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == labelList_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N_labelList);
 
-	res = attach_name_and_value_entry(labelList_val);
+	res = attach_name_and_value_entry(labelList_val, stringValue);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_name_and_value_entry failed");
 
 	return NO_ERR;
 }
 
-static status_t attach_extensionList_list_elements(val_value_t *parentval)
+static status_t attach_extensionList_list_elements(val_value_t *parentval, const char *stringValue)
 {
 	status_t res = NO_ERR;
 
@@ -9919,11 +9938,12 @@ static status_t attach_extensionList_list_elements(val_value_t *parentval)
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N_extensionList,
 			parentval,
 			&extensionList_val,
-			NULL);
+			NULL,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == extensionList_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N_extensionList);
 
-	res = attach_name_and_value_entry(extensionList_val);
+	res = attach_name_and_value_entry(extensionList_val, stringValue);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_name_and_value_entry failed");
 
 	return NO_ERR;
@@ -9942,7 +9962,8 @@ static status_t attach_state_pac_elements(val_value_t *parentval)
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N_operationalState,
 			parentval,
 			&operationalState_val,
-			NULL);
+			NULL,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == operationalState_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N_operationalState);
 
@@ -9955,7 +9976,8 @@ static status_t attach_state_pac_elements(val_value_t *parentval)
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N_administrativeControl,
 			parentval,
 			&administrativeControl_val,
-			NULL);
+			NULL,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == administrativeControl_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N_administrativeControl);
 
@@ -9968,7 +9990,8 @@ static status_t attach_state_pac_elements(val_value_t *parentval)
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N_administrativeState,
 			parentval,
 			&administrativeState_val,
-			NULL);
+			NULL,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == administrativeState_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N_administrativeState);
 
@@ -9981,14 +10004,15 @@ static status_t attach_state_pac_elements(val_value_t *parentval)
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N_lifecycleState,
 			parentval,
 			&lifecycleState_val,
-			NULL);
+			NULL,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == administrativeState_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N_lifecycleState);
 
 	return NO_ERR;
 }
 
-static status_t attach_localIdList_list_elements(val_value_t *parentval)
+static status_t attach_localIdList_list_elements(val_value_t *parentval, const char *stringValue)
 {
 	status_t res = NO_ERR;
 
@@ -10001,11 +10025,12 @@ static status_t attach_localIdList_list_elements(val_value_t *parentval)
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N_localIdList,
 			parentval,
 			&localIdList_val,
-			NULL);
+			NULL,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == localIdList_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N_localIdList);
 
-	res = attach_name_and_value_entry(localIdList_val);
+	res = attach_name_and_value_entry(localIdList_val, stringValue);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_name_and_value_entry failed");
 
 	return NO_ERR;
@@ -10024,7 +10049,8 @@ static status_t attach_ltpRefList_list_elements(val_value_t *parentval, const ch
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N__ltpRefList,
 			parentval,
 			&ltpRefList_val,
-			NULL);
+			NULL,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == ltpRefList_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N__ltpRefList);
 
@@ -10037,11 +10063,12 @@ static status_t attach_ltpRefList_list_elements(val_value_t *parentval, const ch
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N_uuid,
 			ltpRefList_val,
 			&uuid_val,
-			ltpUuid);
+			ltpUuid,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == uuid_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N_uuid);
 
-	res = attach_class_elements(ltpRefList_val);
+	res = attach_class_elements(ltpRefList_val, ltpUuid);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_class_elements failed");
 
 	/* TODO need to attach more elements here*/
@@ -10060,9 +10087,48 @@ static status_t attach_ltpRefList_list_elements(val_value_t *parentval, const ch
 //		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_lpList_list_elements failed ");
 //	}
 
-	res = attach_lpList_list_elements(ltpRefList_val, ltpUuid);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_lpList_list_elements failed ");
+	char ifIndex[1000];
+	char new_ltp_ref[3000];
+	int foundIfIndex = 0;
 
+	foundIfIndex = sscanf(ltpUuid, LTP_MWPS_PREFIX"%s", ifIndex);
+
+	if (foundIfIndex)
+	{
+		sprintf(new_ltp_ref, LP_MWPS_PREFIX"%s", ifIndex);
+
+		res = attach_lpList_list_elements(ltpRefList_val, new_ltp_ref);
+		YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_lpList_list_elements failed ");
+	}
+	else
+	{
+		foundIfIndex = sscanf(ltpUuid, LTP_MWS_PREFIX"%s", ifIndex);
+
+		if (foundIfIndex)
+		{
+			sprintf(new_ltp_ref, LP_MWS_PREFIX"%s", ifIndex);
+
+			res = attach_lpList_list_elements(ltpRefList_val, new_ltp_ref);
+			YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_lpList_list_elements failed ");
+		}
+		else
+		{
+			foundIfIndex = sscanf(ltpUuid, LTP_ETH_CTP_PREFIX"%s", ifIndex);
+
+			if (foundIfIndex)
+			{
+				sprintf(new_ltp_ref, LP_ETH_CTP_PREFIX"%s", ifIndex);
+
+				res = attach_lpList_list_elements(ltpRefList_val, new_ltp_ref);
+				YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_lpList_list_elements failed ");
+			}
+			else
+			{
+				res = attach_lpList_list_elements(ltpRefList_val, ltpUuid);
+				YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_lpList_list_elements failed ");
+			}
+		}
+	}
 
 	/*
 	 * Creating _connectedLtpRef leaf
@@ -10073,7 +10139,8 @@ static status_t attach_ltpRefList_list_elements(val_value_t *parentval, const ch
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N__connectedLtpRef,
 			ltpRefList_val,
 			&_connectedLtpRef_val,
-			NULL);
+			NULL,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == _connectedLtpRef_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N__connectedLtpRef);
 
@@ -10086,7 +10153,8 @@ static status_t attach_ltpRefList_list_elements(val_value_t *parentval, const ch
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N__peerLtpRef,
 			ltpRefList_val,
 			&_peerLtpRef_val,
-			NULL);
+			NULL,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == _peerLtpRef_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N__peerLtpRef);
 
@@ -10099,7 +10167,8 @@ static status_t attach_ltpRefList_list_elements(val_value_t *parentval, const ch
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N_physicalPortReference,
 			ltpRefList_val,
 			&physicalPortReference_val,
-			NULL);
+			NULL,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == physicalPortReference_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N_physicalPortReference);
 
@@ -10116,7 +10185,8 @@ static status_t attach_ltpRefList_list_elements(val_value_t *parentval, const ch
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N_ltpDirection,
 			ltpRefList_val,
 			&ltpDirection_val,
-			NULL);
+			NULL,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == ltpDirection_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N_ltpDirection);
 
@@ -10136,7 +10206,8 @@ static status_t attach_lpList_list_elements(val_value_t *parentval, const char* 
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N__lpList,
 			parentval,
 			&lpList_val,
-			NULL);
+			NULL,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == lpList_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N__lpList);
 
@@ -10149,11 +10220,12 @@ static status_t attach_lpList_list_elements(val_value_t *parentval, const char* 
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N_uuid,
 			lpList_val,
 			&uuid_val,
-			lpUuid);
+			lpUuid,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == uuid_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N_uuid);
 
-	res = attach_class_elements(lpList_val);
+	res = attach_class_elements(lpList_val, lpUuid);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_class_elements failed");
 
 	/*
@@ -10165,7 +10237,8 @@ static status_t attach_lpList_list_elements(val_value_t *parentval, const char* 
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N_layerProtocolName,
 			lpList_val,
 			&layerProtocolName_val,
-			NULL);
+			NULL,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == layerProtocolName_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N_layerProtocolName);
 
@@ -10178,7 +10251,8 @@ static status_t attach_lpList_list_elements(val_value_t *parentval, const char* 
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N_configuredClientCapacity,
 			lpList_val,
 			&configuredClientCapacity_val,
-			NULL);
+			NULL,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == configuredClientCapacity_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N_configuredClientCapacity);
 
@@ -10191,7 +10265,8 @@ static status_t attach_lpList_list_elements(val_value_t *parentval, const char* 
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N_lpDirection,
 			lpList_val,
 			&lpDirection_val,
-			NULL);
+			NULL,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == lpDirection_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N_lpDirection);
 
@@ -10204,7 +10279,8 @@ static status_t attach_lpList_list_elements(val_value_t *parentval, const char* 
 			y_CoreModel_CoreNetworkModule_ObjectClasses_N_terminationState,
 			lpList_val,
 			&terminationState_val,
-			NULL);
+			NULL,
+			y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 	YUMA_ASSERT(NULL == terminationState_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N_terminationState);
 
@@ -10237,7 +10313,8 @@ static status_t attach_server_and_client_ref_list_elements(val_value_t *parentva
 				y_CoreModel_CoreNetworkModule_ObjectClasses_N__serverLtpRefList,
 				parentval,
 				&_serverLtpRefList_val,
-				server_ltp_ref_leaf_list[i]);
+				server_ltp_ref_leaf_list[i],
+				y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 		YUMA_ASSERT(NULL == _serverLtpRefList_val, return ERR_INTERNAL_VAL ,
 					"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N__serverLtpRefList);
 	}
@@ -10256,7 +10333,8 @@ static status_t attach_server_and_client_ref_list_elements(val_value_t *parentva
 				y_CoreModel_CoreNetworkModule_ObjectClasses_N__clientLtpRefList,
 				parentval,
 				&_clientLtpRefList_val,
-				client_ltp_ref_leaf_list[i]);
+				client_ltp_ref_leaf_list[i],
+				y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 		YUMA_ASSERT(NULL == _clientLtpRefList_val, return ERR_INTERNAL_VAL ,
 					"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N__clientLtpRefList);
 	}
@@ -10274,8 +10352,8 @@ static status_t attach_ltp_ref_list_elements(val_value_t *parentval)
 	val_value_t *lastkey = NULL;
 	const xmlChar *k_ltpRefList_uuid_key = VAL_STRING(agt_get_key_value(parentval, &lastkey));
 
-	res = cb_get_all_ltp_ref_leaf_list_elements_for_ltp(k_ltpRefList_uuid_key, ltp_ref_leaf_list, &num_of_elements);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_all_ltp_ref_leaf_list_elements_for_ltp failed!");
+	res = cb_get_all_server_ltp_ref_leaf_list_elements_for_ltp(k_ltpRefList_uuid_key, ltp_ref_leaf_list, &num_of_elements);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_all_server_ltp_ref_leaf_list_elements_for_ltp failed!");
 
 	for (int i=0; i<num_of_elements; ++i)
 	{
@@ -10288,9 +10366,34 @@ static status_t attach_ltp_ref_list_elements(val_value_t *parentval)
 				y_CoreModel_CoreNetworkModule_ObjectClasses_N__ltpRefList,
 				parentval,
 				&_ltpRefList_val,
-				ltp_ref_leaf_list[i]);
+				ltp_ref_leaf_list[i],
+				y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
 		YUMA_ASSERT(NULL == _ltpRefList_val, return ERR_INTERNAL_VAL ,
 					"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N__ltpRefList);
+
+		free(ltp_ref_leaf_list[i]);
+	}
+
+	res = cb_get_all_client_ltp_ref_leaf_list_elements_for_ltp(k_ltpRefList_uuid_key, ltp_ref_leaf_list, &num_of_elements);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_all_client_ltp_ref_leaf_list_elements_for_ltp failed!");
+
+	for (int i=0; i<num_of_elements; ++i)
+	{
+		/*
+		 * Creating _ltpRefList leaf-list
+		 */
+		val_value_t  *_ltpRefList_val = NULL;
+
+		res = create_and_init_child_element(y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses,
+				y_CoreModel_CoreNetworkModule_ObjectClasses_N__ltpRefList,
+				parentval,
+				&_ltpRefList_val,
+				ltp_ref_leaf_list[i],
+				y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses);
+		YUMA_ASSERT(NULL == _ltpRefList_val, return ERR_INTERNAL_VAL ,
+					"create_and_init_child_element failed for element=%s", y_CoreModel_CoreNetworkModule_ObjectClasses_N__ltpRefList);
+
+		free(ltp_ref_leaf_list[i]);
 	}
 
 	return NO_ERR;
