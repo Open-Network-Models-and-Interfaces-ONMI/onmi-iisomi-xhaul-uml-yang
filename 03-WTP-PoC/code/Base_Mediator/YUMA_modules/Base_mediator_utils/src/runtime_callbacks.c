@@ -10,6 +10,9 @@
 #include "y_MicrowaveModel-ObjectClasses-PureEthernetStructure.h"
 #include "y_MicrowaveModel-ObjectClasses-EthernetContainer.h"
 
+/*
+ * module: MicrowaveModel-ObjectClasses-AirInterface
+ */
 static char* cb_get_runtime_airInterfaceStatus_value(val_value_t *element);
 static char* cb_get_runtime_airInterfaceStatus_txFrequencyCur(val_value_t *element);
 static char* cb_get_runtime_airInterfaceStatus_rxFrequencyCur(val_value_t *element);
@@ -93,6 +96,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_defectBlocksSum(val_value_t *element);
 static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_timePeriod(val_value_t *element);
 
+static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_value(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_periodEndTime(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_granularityPeriod(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_suspectIntervalFlag(val_value_t *element);
@@ -146,16 +150,24 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_defectBlocksSum(val_value_t *element);
 static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_timePeriod(val_value_t *element);
 
+/*
+ * module: MicrowaveModel-ObjectClasses-PureEthernetStructure
+ */
 static char* cb_get_runtime_pureEthernetStructureStatus_value(val_value_t *element);
 static char* cb_get_runtime_pureEthernetStructureStatus_segmentStatusTypeId(val_value_t *element);
 static char* cb_get_runtime_pureEthernetStructureStatus_segmentIsReservedForTdm(val_value_t *element);
 static char* cb_get_runtime_pureEthernetStructureStatus_operationalStatus(val_value_t *element);
-static char* cb_get_runtime_pureEthernetStructureStatus_lastStatusChange(val_value_t *element);
 
 static char* cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_value(val_value_t *element);
 static char* cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_timeStamp(val_value_t *element);
 static char* cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemName(val_value_t *element);
 static char* cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemSeverity(val_value_t *element);
+
+/*
+ * module: MicrowaveModel-ObjectClasses-EthernetContainer
+ */
+static char* cb_get_runtime_ethernetContainerStatus_value(val_value_t *element);
+static char* cb_get_runtime_ethernetContainerStatus_lastStatusChange(val_value_t *element);
 
 static char* cb_get_runtime_ethernetContainerCurrentProblem_value(val_value_t *element);
 static char* cb_get_runtime_ethernetContainerCurrentProblem_timeStamp(val_value_t *element);
@@ -175,9 +187,6 @@ static char* cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesS
 static char* cb_get_runtime_ethernetContainerCurrentPerformance_timePeriod(val_value_t *element);
 
 static char* cb_get_runtime_ethernetContainerHistoricalPerformances_value(val_value_t *element);
-static char* cb_get_runtime_ethernetContainerHistoricalPerformances_objectClass(val_value_t *element);
-static char* cb_get_runtime_ethernetContainerHistoricalPerformances_nameBinding(val_value_t *element);
-static char* cb_get_runtime_ethernetContainerHistoricalPerformances_historyDataId(val_value_t *element);
 static char* cb_get_runtime_ethernetContainerHistoricalPerformances_periodEndTime(val_value_t *element);
 static char* cb_get_runtime_ethernetContainerHistoricalPerformances_granularityPeriod(val_value_t *element);
 static char* cb_get_runtime_ethernetContainerHistoricalPerformances_suspectIntervalFlag(val_value_t *element);
@@ -416,6 +425,48 @@ status_t cb_set_runtime_airInterfaceCurrentPerformance_element_value(val_value_t
 
     //get the element value through the callback
     char* elementStringValue = cb_get_runtime_airInterfaceCurrentPerformance_value(*element);
+
+    if (elementStringValue == NULL) //no callback implemented for this element, just use the default value
+    {
+        elementStringValue = obj_get_default((*element)->obj);
+        need_free = FALSE; //we do not need to free the memory in this case
+    }
+
+    if (elementStringValue != NULL)
+    {
+        res = val_set_simval_obj(*element, (*element)->obj, elementStringValue);
+        YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "val_set_simval_obj %s failed!", (*element)->name);
+
+        if (need_free)
+        {
+            free(elementStringValue); //free the element that was allocated by the user in its callback function
+        }
+    }
+
+    return NO_ERR;
+}
+
+/********************************************************************
+* FUNCTION cb_set_runtime_airInterfaceHistoricalPerformance_element_value
+*
+* Set the value of the element received as a parameter with the value that we get from a callback specific to the element.
+* If we do not have a callback implemented for the element, we use the default value from the YANG file.
+*
+* OUTPUTS:
+* val_value_t **element - the element that will have its value changed
+*
+* RETURNS:
+*     error status
+********************************************************************/
+status_t cb_set_runtime_airInterfaceHistoricalPerformance_element_value(val_value_t **element)
+{
+    status_t res = NO_ERR;
+    int need_free = TRUE;
+
+    YUMA_ASSERT(NULL == (*element), return ERR_INTERNAL_VAL, "NULL element received");
+
+    //get the element value through the callback
+    char* elementStringValue = cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_value(*element);
 
     if (elementStringValue == NULL) //no callback implemented for this element, just use the default value
     {
@@ -3351,6 +3402,188 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
     return NULL;
 }
 
+static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_value(val_value_t *element)
+{
+    if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_periodEndTime) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_periodEndTime(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_granularityPeriod) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_granularityPeriod(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_suspectIntervalFlag) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_suspectIntervalFlag(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_es) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_es(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_ses) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_ses(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_cses) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_cses(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_unavailability) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_unavailability(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txLevelMin) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_txLevelMin(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txLevelMax) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_txLevelMax(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txLevelAvg) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_txLevelAvg(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxLevelMin) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rxLevelMin(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxLevelMax) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rxLevelMax(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxLevelAvg) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rxLevelAvg(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time2Symbols) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time2Symbols(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time4SymbolsS) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4SymbolsS(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time4Symbols) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4Symbols(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time8Symbols) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time8Symbols(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time16SymbolsS) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time16SymbolsS(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time16Symbols) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time16Symbols(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time32Symbols) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time32Symbols(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time64Symbols) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time64Symbols(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time128Symbols) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time128Symbols(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time256Symbols) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time256Symbols(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time512Symbols) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time512Symbols(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time512SymbolsL) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time512SymbolsL(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time1024Symbols) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time1024Symbols(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time1024SymbolsL) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time1024SymbolsL(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time2048Symbols) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time2048Symbols(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time2048SymbolsL) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time2048SymbolsL(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time4096Symbols) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4096Symbols(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time4096SymbolsL) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4096SymbolsL(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time8192Symbols) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time8192Symbols(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time8192SymbolsL) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time8192SymbolsL(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_snirMin) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_snirMin(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_snirMax) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_snirMax(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_snirAvg) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_snirAvg(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpdMin) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_xpdMin(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpdMax) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_xpdMax(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpdAvg) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_xpdAvg(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rfTempMin) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rfTempMin(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rfTempMax) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rfTempMax(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rfTempAvg) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rfTempAvg(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_defectBlocksSum) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_defectBlocksSum(element);
+    }
+    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_timePeriod) == 0)
+    {
+        return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_timePeriod(element);
+    }
+
+    return NULL;
+}
+
 /********************************************************************
 * FUNCTION cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_periodEndTime
 *
@@ -4896,7 +5129,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
     {
         if (strcmp(VAL_STRING(historyDataId), "historyDataId_1") == 0)
         {
-            timePeriod = strdup("100");
+            timePeriod = strdup("150");
         }
         else if (strcmp(VAL_STRING(historyDataId), "historyDataId_2") == 0)
         {
@@ -4916,49 +5149,6 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
     }
 
     return timePeriod;
-}
-
-
-/********************************************************************
-* FUNCTION cb_get_all_pure_eth_structure_current_problem_list_keys
-*
-* Get an array representing the keys of currentProblemList list
-*
-* INPUTS:
-* char *pure_eth_structure_pac_key - the key of the current interface
-* OUTPUTS:
-* char** pure_eth_structure_current_problem_list_key_entries - an array of strings containing the list of keys
-* int* num_of_keys - the number of keys found on the interface
-*
-* RETURNS:
-*     error status
-********************************************************************/
-status_t cb_get_all_pure_eth_structure_current_problem_list_keys(char *pure_eth_structure_pac_key, char** current_problem_list_key_entries, int* num_of_keys)
-{
-	*num_of_keys = 0;
-
-	char sequenceNumber[256];
-
-	strcpy(sequenceNumber, "1");
-
-	current_problem_list_key_entries[*num_of_keys] = (char*) malloc(strlen(sequenceNumber) + 1);
-	YUMA_ASSERT(current_problem_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
-
-	strcpy(current_problem_list_key_entries[*num_of_keys], sequenceNumber);
-
-	*num_of_keys += 1;
-
-	strcpy(sequenceNumber, "2");
-
-	current_problem_list_key_entries[*num_of_keys] = (char*) malloc(strlen(sequenceNumber) + 1);
-	YUMA_ASSERT(current_problem_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
-
-	strcpy(current_problem_list_key_entries[*num_of_keys], sequenceNumber);
-
-	*num_of_keys += 1;
-
-	return NO_ERR;
-
 }
 
 /********************************************************************
@@ -5003,6 +5193,103 @@ status_t cb_set_runtime_pureEthernetStructure_element_value(val_value_t **elemen
     return NO_ERR;
 }
 
+/********************************************************************
+* FUNCTION cb_set_runtime_ethernetContainerStatus_element_value
+*
+* Set the value of the element received as a parameter with the value that we get from a callback specific to the element.
+* If we do not have a callback implemented for the element, we use the default value from the YANG file.
+*
+* OUTPUTS:
+* val_value_t **element - the element that will have its value changed
+*
+* RETURNS:
+*     error status
+********************************************************************/
+status_t cb_set_runtime_ethernetContainerStatus_element_value(val_value_t **element)
+{
+    status_t res = NO_ERR;
+    int need_free = TRUE;
+
+    YUMA_ASSERT(NULL == (*element), return ERR_INTERNAL_VAL, "NULL element received");
+
+    //get the element value through the callback
+    char* elementStringValue = cb_get_runtime_ethernetContainerStatus_value(*element);
+
+    if (elementStringValue == NULL) //no callback implemented for this element, just use the default value
+    {
+        elementStringValue = obj_get_default((*element)->obj);
+        need_free = FALSE; //we do not need to free the memory in this case
+    }
+
+    if (elementStringValue != NULL)
+    {
+        res = val_set_simval_obj(*element, (*element)->obj, elementStringValue);
+        YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "val_set_simval_obj %s failed!", (*element)->name);
+
+        if (need_free)
+        {
+            free(elementStringValue); //free the element that was allocated by the user in its callback function
+        }
+    }
+
+    return NO_ERR;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerStatus_value
+*
+* A general function that calls a specific callback for each attribute, depending on its name
+*
+* INPUTS:
+* val_value_t *element - the element for which we need its value
+*
+* RETURNS:
+*     the value of the element, represented as a string
+********************************************************************/
+static char* cb_get_runtime_ethernetContainerStatus_value(val_value_t *element)
+{
+    if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_lastStatusChange) == 0)
+    {
+        return cb_get_runtime_ethernetContainerStatus_lastStatusChange(element);
+    }
+
+    return NULL;
+}
+
+/********************************************************************
+* FUNCTION cb_get_runtime_ethernetContainerStatus_lastStatusChange
+*
+* Callback function for getting the value of the lastStatusChange leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static char* cb_get_runtime_ethernetContainerStatus_lastStatusChange(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
+     */
+
+    char* lastStatusChange = NULL;
+
+    lastStatusChange = strdup("20161120140000.0Z+1");
+
+    return lastStatusChange;
+}
 
 /********************************************************************
 * FUNCTION cb_get_runtime_pureEthernetStructureStatus_value
@@ -5031,7 +5318,7 @@ static char* cb_get_runtime_pureEthernetStructureStatus_value(val_value_t *eleme
     }
     else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_lastStatusChange) == 0)
 	{
-		return cb_get_runtime_pureEthernetStructureStatus_lastStatusChange(element);
+		return cb_get_runtime_airInterfaceStatus_lastStatusChange(element);
 	}
 
 	return NULL;
@@ -5131,41 +5418,6 @@ static char* cb_get_runtime_pureEthernetStructureStatus_operationalStatus(val_va
     operationalStatus = strdup("ENABLED");
 
     return operationalStatus;
-}
-
-/********************************************************************
-* FUNCTION cb_get_runtime_pureEthernetStructureStatus_lastStatusChange
-*
-* Callback function for getting the value of the lastStatusChange leaf
-*
-* INPUTS:
-* val_value_t *element - the element for which we want the value
-*
-* RETURNS:
-* The value of the element, represented as a string
-********************************************************************/
-static char* cb_get_runtime_pureEthernetStructureStatus_lastStatusChange(val_value_t *element)
-{
-	val_value_t *lastkey = NULL;
-	val_value_t *layerProtocolKey = NULL;
-
-	val_value_t* parentHavingKey = element->parent;
-
-	YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
-	layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
-
-	YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
-	YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
-
-	/*
-	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
-	 */
-
-    char* lastStatusChange = NULL;
-
-    lastStatusChange = strdup("20101120140000.0Z+1");
-
-    return lastStatusChange;
 }
 
 /********************************************************************
@@ -5751,7 +6003,7 @@ static char* cb_get_runtime_ethernetContainerCurrentPerformance_suspectIntervalF
 /********************************************************************
 * FUNCTION cb_get_runtime_ethernetContainerCurrentPerformance_elapsedTime
 *
-* Callback function for getting the value of the timestamp leaf
+* Callback function for getting the value of the elapsedTime leaf
 *
 * INPUTS:
 * val_value_t *element - the element for which we want the value
@@ -5824,7 +6076,7 @@ static char* cb_get_runtime_ethernetContainerCurrentPerformance_timestamp(val_va
 /********************************************************************
 * FUNCTION cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesMaxS
 *
-* Callback function for getting the value of the timestamp leaf
+* Callback function for getting the value of the txEthernetBytesMaxS leaf
 *
 * INPUTS:
 * val_value_t *element - the element for which we want the value
@@ -5859,7 +6111,7 @@ static char* cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesM
 /********************************************************************
 * FUNCTION cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesMaxM
 *
-* Callback function for getting the value of the timestamp leaf
+* Callback function for getting the value of the txEthernetBytesMaxM leaf
 *
 * INPUTS:
 * val_value_t *element - the element for which we want the value
@@ -5894,7 +6146,7 @@ static char* cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesM
 /********************************************************************
 * FUNCTION cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesSum
 *
-* Callback function for getting the value of the timestamp leaf
+* Callback function for getting the value of the txEthernetBytesSum leaf
 *
 * INPUTS:
 * val_value_t *element - the element for which we want the value
@@ -5929,7 +6181,7 @@ static char* cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesS
 /********************************************************************
 * FUNCTION cb_get_runtime_ethernetContainerCurrentPerformance_timePeriod
 *
-* Callback function for getting the value of the timestamp leaf
+* Callback function for getting the value of the timePeriod leaf
 *
 * INPUTS:
 * val_value_t *element - the element for which we want the value
@@ -5974,19 +6226,7 @@ static char* cb_get_runtime_ethernetContainerCurrentPerformance_timePeriod(val_v
 ********************************************************************/
 static char* cb_get_runtime_ethernetContainerHistoricalPerformances_value(val_value_t *element)
 {
-    if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_objectClass) == 0)
-    {
-        return cb_get_runtime_ethernetContainerHistoricalPerformances_objectClass(element);
-    }
-    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_nameBinding) == 0)
-    {
-        return cb_get_runtime_ethernetContainerHistoricalPerformances_nameBinding(element);
-    }
-    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_historyDataId) == 0)
-    {
-        return cb_get_runtime_ethernetContainerHistoricalPerformances_historyDataId(element);
-    }
-    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_periodEndTime) == 0)
+    if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_periodEndTime) == 0)
     {
         return cb_get_runtime_ethernetContainerHistoricalPerformances_periodEndTime(element);
     }
@@ -6057,111 +6297,6 @@ status_t cb_set_runtime_ethernetContainerHistoricalPerformance_element_value(val
     }
 
     return NO_ERR;
-}
-
-/********************************************************************
-* FUNCTION cb_get_runtime_ethernetContainerHistoricalPerformances_objectClass
-*
-* Callback function for getting the value of the objectClass leaf
-*
-* INPUTS:
-* val_value_t *element - the element for which we want the value
-*
-* RETURNS:
-* The value of the element, represented as a string
-********************************************************************/
-static char* cb_get_runtime_ethernetContainerHistoricalPerformances_objectClass(val_value_t *element)
-{
-    val_value_t *lastkey = NULL;
-    val_value_t *layerProtocolKey = NULL;
-    val_value_t *historyDataId = NULL;
-
-    val_value_t* parentHavingKey = element->parent;
-    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
-
-    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
-    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
-    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
-
-    historyDataId = agt_get_key_value(parentHavingKey, &lastkey);
-    YUMA_ASSERT(NULL == historyDataId, return NULL, "Could not find keys for element %s", element->name);
-    YUMA_ASSERT(NULL == VAL_STRING(historyDataId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
-
-    /*
-     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
-     */
-
-    return NULL;
-}
-
-/********************************************************************
-* FUNCTION cb_get_runtime_ethernetContainerHistoricalPerformances_nameBinding
-*
-* Callback function for getting the value of the nameBinding leaf
-*
-* INPUTS:
-* val_value_t *element - the element for which we want the value
-*
-* RETURNS:
-* The value of the element, represented as a string
-********************************************************************/
-static char* cb_get_runtime_ethernetContainerHistoricalPerformances_nameBinding(val_value_t *element)
-{
-    val_value_t *lastkey = NULL;
-    val_value_t *layerProtocolKey = NULL;
-    val_value_t *historyDataId = NULL;
-
-    val_value_t* parentHavingKey = element->parent;
-    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
-
-    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
-    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
-    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
-
-    historyDataId = agt_get_key_value(parentHavingKey, &lastkey);
-    YUMA_ASSERT(NULL == historyDataId, return NULL, "Could not find keys for element %s", element->name);
-    YUMA_ASSERT(NULL == VAL_STRING(historyDataId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
-
-    /*
-     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
-     */
-
-    return NULL;
-}
-
-/********************************************************************
-* FUNCTION cb_get_runtime_ethernetContainerHistoricalPerformances_historyDataId
-*
-* Callback function for getting the value of the historyDataId leaf
-*
-* INPUTS:
-* val_value_t *element - the element for which we want the value
-*
-* RETURNS:
-* The value of the element, represented as a string
-********************************************************************/
-static char* cb_get_runtime_ethernetContainerHistoricalPerformances_historyDataId(val_value_t *element)
-{
-    val_value_t *lastkey = NULL;
-    val_value_t *layerProtocolKey = NULL;
-    val_value_t *historyDataId = NULL;
-
-    val_value_t* parentHavingKey = element->parent;
-    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
-
-    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
-    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find keys for element %s", element->name);
-    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
-
-    historyDataId = agt_get_key_value(parentHavingKey, &lastkey);
-    YUMA_ASSERT(NULL == historyDataId, return NULL, "Could not find keys for element %s", element->name);
-    YUMA_ASSERT(NULL == VAL_STRING(historyDataId), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
-
-    /*
-     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
-     */
-
-    return NULL;
 }
 
 /********************************************************************
@@ -6285,7 +6420,7 @@ static char* cb_get_runtime_ethernetContainerHistoricalPerformances_suspectInter
 /********************************************************************
 * FUNCTION cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesMaxS
 *
-* Callback function for getting the value of the timestamp leaf
+* Callback function for getting the value of the txEthernetBytesMaxS leaf
 *
 * INPUTS:
 * val_value_t *element - the element for which we want the value
@@ -6320,7 +6455,7 @@ static char* cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBy
 /********************************************************************
 * FUNCTION cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesMaxM
 *
-* Callback function for getting the value of the timestamp leaf
+* Callback function for getting the value of the txEthernetBytesMaxM leaf
 *
 * INPUTS:
 * val_value_t *element - the element for which we want the value
@@ -6355,7 +6490,7 @@ static char* cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBy
 /********************************************************************
 * FUNCTION cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesSum
 *
-* Callback function for getting the value of the timestamp leaf
+* Callback function for getting the value of the txEthernetBytesSum leaf
 *
 * INPUTS:
 * val_value_t *element - the element for which we want the value
@@ -6390,7 +6525,7 @@ static char* cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBy
 /********************************************************************
 * FUNCTION cb_get_runtime_ethernetContainerHistoricalPerformances_timePeriod
 *
-* Callback function for getting the value of the timestamp leaf
+* Callback function for getting the value of the timePeriod leaf
 *
 * INPUTS:
 * val_value_t *element - the element for which we want the value
@@ -6546,7 +6681,6 @@ static char* cb_get_runtime_ethernetContainerCurrentProblem_timeStamp(val_value_
 
     sequenceNumberKey = agt_get_key_value(parentHavingKey, &lastkey);
     YUMA_ASSERT(NULL == sequenceNumberKey, return NULL, "Could not find keys for element %s", element->name);
-    YUMA_ASSERT(NULL == VAL_STRING(sequenceNumberKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
 
     /*
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
@@ -6582,7 +6716,7 @@ static char* cb_get_runtime_ethernetContainerCurrentProblem_timeStamp(val_value_
 /********************************************************************
 * FUNCTION cb_get_runtime_ethernetContainerCurrentProblem_problemName
 *
-* Callback function for getting the value of the timestamp leaf
+* Callback function for getting the value of the problemName leaf
 *
 * INPUTS:
 * val_value_t *element - the element for which we want the value
@@ -6605,7 +6739,6 @@ static char* cb_get_runtime_ethernetContainerCurrentProblem_problemName(val_valu
 
     sequenceNumberKey = agt_get_key_value(parentHavingKey, &lastkey);
     YUMA_ASSERT(NULL == sequenceNumberKey, return NULL, "Could not find keys for element %s", element->name);
-    YUMA_ASSERT(NULL == VAL_STRING(sequenceNumberKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
 
     /*
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
@@ -6641,7 +6774,7 @@ static char* cb_get_runtime_ethernetContainerCurrentProblem_problemName(val_valu
 /********************************************************************
 * FUNCTION cb_get_runtime_ethernetContainerCurrentProblem_problemSeverity
 *
-* Callback function for getting the value of the timestamp leaf
+* Callback function for getting the value of the problemSeverity leaf
 *
 * INPUTS:
 * val_value_t *element - the element for which we want the value
@@ -6664,7 +6797,6 @@ static char* cb_get_runtime_ethernetContainerCurrentProblem_problemSeverity(val_
 
     sequenceNumberKey = agt_get_key_value(parentHavingKey, &lastkey);
     YUMA_ASSERT(NULL == sequenceNumberKey, return NULL, "Could not find keys for element %s", element->name);
-    YUMA_ASSERT(NULL == VAL_STRING(sequenceNumberKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
 
     /*
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
