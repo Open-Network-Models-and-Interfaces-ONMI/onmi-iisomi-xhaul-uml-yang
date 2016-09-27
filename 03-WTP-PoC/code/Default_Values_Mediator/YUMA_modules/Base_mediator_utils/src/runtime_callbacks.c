@@ -9,6 +9,7 @@
 #include "y_MicrowaveModel-ObjectClasses-AirInterface.h"
 #include "y_MicrowaveModel-ObjectClasses-PureEthernetStructure.h"
 #include "y_MicrowaveModel-ObjectClasses-EthernetContainer.h"
+#include "dvm_runtime_callbacks.h"
 
 /*
  * module: MicrowaveModel-ObjectClasses-AirInterface
@@ -212,30 +213,7 @@ static char* cb_get_runtime_ethernetContainerHistoricalPerformances_timePeriod(v
 ********************************************************************/
 status_t cb_get_all_air_interface_current_problem_list_keys(char *air_interface_pac_key, char** current_problem_list_key_entries, int* num_of_keys)
 {
-    *num_of_keys = 0;
-
-    char sequenceNumber[256];
-
-    strcpy(sequenceNumber, "1");
-
-    current_problem_list_key_entries[*num_of_keys] = (char*) malloc(strlen(sequenceNumber) + 1);
-    YUMA_ASSERT(current_problem_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
-
-    strcpy(current_problem_list_key_entries[*num_of_keys], sequenceNumber);
-
-    *num_of_keys += 1;
-
-    strcpy(sequenceNumber, "2");
-
-    current_problem_list_key_entries[*num_of_keys] = (char*) malloc(strlen(sequenceNumber) + 1);
-    YUMA_ASSERT(current_problem_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
-
-    strcpy(current_problem_list_key_entries[*num_of_keys], sequenceNumber);
-
-    *num_of_keys += 1;
-
-    return NO_ERR;
-
+	return dvm_cb_get_all_air_interface_current_problem_list_keys(air_interface_pac_key, current_problem_list_key_entries, num_of_keys);
 }
 
 /********************************************************************
@@ -254,29 +232,7 @@ status_t cb_get_all_air_interface_current_problem_list_keys(char *air_interface_
 ********************************************************************/
 status_t cb_get_all_air_interface_current_performance_list_keys(char *air_interface_pac_key, char **current_performance_data_list_keys_entries, int *num_of_keys)
 {
-    *num_of_keys = 0;
-
-    char scannerId[256];
-
-    strcpy(scannerId, "current15m");
-
-    current_performance_data_list_keys_entries[*num_of_keys] = (char*) malloc(strlen(scannerId) + 1);
-    YUMA_ASSERT(current_performance_data_list_keys_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
-
-    strcpy(current_performance_data_list_keys_entries[*num_of_keys], scannerId);
-
-    *num_of_keys += 1;
-
-    strcpy(scannerId, "current24h");
-
-    current_performance_data_list_keys_entries[*num_of_keys] = (char*) malloc(strlen(scannerId) + 1);
-    YUMA_ASSERT(current_performance_data_list_keys_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
-
-    strcpy(current_performance_data_list_keys_entries[*num_of_keys], scannerId);
-
-    *num_of_keys += 1;
-
-    return NO_ERR;
+	return dvm_cb_get_all_air_interface_current_performance_list_keys(air_interface_pac_key, current_performance_data_list_keys_entries, num_of_keys);
 }
 
 /********************************************************************
@@ -295,29 +251,7 @@ status_t cb_get_all_air_interface_current_performance_list_keys(char *air_interf
 ********************************************************************/
 status_t cb_get_all_air_interface_historical_performance_list_keys(char *air_interface_pac_key, char **historical_performance_data_list_keys_entries, int *num_of_keys)
 {
-    *num_of_keys = 0;
-
-    char historyDataId[256];
-
-    strcpy(historyDataId, "historyDataId_1");
-
-    historical_performance_data_list_keys_entries[*num_of_keys] = (char*) malloc(strlen(historyDataId) + 1);
-    YUMA_ASSERT(historical_performance_data_list_keys_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
-
-    strcpy(historical_performance_data_list_keys_entries[*num_of_keys], historyDataId);
-
-    *num_of_keys += 1;
-
-    strcpy(historyDataId, "historyDataId_2");
-
-    historical_performance_data_list_keys_entries[*num_of_keys] = (char*) malloc(strlen(historyDataId) + 1);
-    YUMA_ASSERT(historical_performance_data_list_keys_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
-
-    strcpy(historical_performance_data_list_keys_entries[*num_of_keys], historyDataId);
-
-    *num_of_keys += 1;
-
-    return NO_ERR;
+    return dvm_cb_get_all_air_interface_historical_performance_list_keys(air_interface_pac_key, historical_performance_data_list_keys_entries, num_of_keys);
 }
 
 /********************************************************************
@@ -603,32 +537,7 @@ static char* cb_get_runtime_airInterfaceCurrentProblemList_problem_timeStamp(val
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey, and sequenceNumberKey as keys to find the information. E.g.:
      */
 
-    char* timeStamp = NULL;
-
-    if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWPS-TTP-ifIndex1") == 0)
-    {
-        if (VAL_INT(sequenceNumberKey) == 1)
-        {
-            timeStamp = strdup("20160822133005.0");
-        }
-        if (VAL_INT(sequenceNumberKey) == 2)
-        {
-            timeStamp = strdup("20160822133105.0");
-        }
-    }
-    else if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWPS-TTP-ifIndex2") == 0)
-    {
-        if (VAL_INT(sequenceNumberKey) == 1)
-        {
-            timeStamp = strdup("20160822133122.0");
-        }
-        if (VAL_INT(sequenceNumberKey) == 2)
-        {
-            timeStamp = strdup("20160822133522.0");
-        }
-    }
-
-    return timeStamp;
+    return dvm_cb_get_runtime_airInterfaceCurrentProblemList_problem_timeStamp(VAL_STRING(layerProtocolKey), VAL_INT32(sequenceNumberKey));
 }
 
 /********************************************************************
@@ -661,32 +570,8 @@ static char* cb_get_runtime_airInterfaceCurrentProblemList_problem_problemName(v
     /*
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey, and sequenceNumberKey as keys to find the information. E.g.:
      */
-    char* problemName = NULL;
 
-    if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWPS-TTP-ifIndex1") == 0)
-    {
-        if (VAL_INT(sequenceNumberKey) == 1)
-        {
-            problemName = strdup("signalIsLost");
-        }
-        if (VAL_INT(sequenceNumberKey) == 2)
-        {
-            problemName = strdup("temperatureIsExceeded");
-        }
-    }
-    else if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWPS-TTP-ifIndex2") == 0)
-    {
-        if (VAL_INT(sequenceNumberKey) == 1)
-        {
-            problemName = strdup("radioIsFaulty");
-        }
-        if (VAL_INT(sequenceNumberKey) == 2)
-        {
-            problemName = strdup("modemIsFaulty");
-        }
-    }
-
-    return problemName;
+    return dvm_cb_get_runtime_airInterfaceCurrentProblemList_problem_problemName(VAL_STRING(layerProtocolKey), VAL_INT32(sequenceNumberKey));
 }
 
 /********************************************************************
@@ -719,32 +604,8 @@ static char* cb_get_runtime_airInterfaceCurrentProblemList_problem_problemSeveri
     /*
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey, and sequenceNumberKey as keys to find the information. E.g.:
      */
-    char* problemSeverity = NULL;
 
-    if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWPS-TTP-ifIndex1") == 0)
-    {
-        if (VAL_INT(sequenceNumberKey) == 1)
-        {
-            problemSeverity = strdup("critical");
-        }
-        if (VAL_INT(sequenceNumberKey) == 2)
-        {
-            problemSeverity = strdup("critical");
-        }
-    }
-    else if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWPS-TTP-ifIndex2") == 0)
-    {
-        if (VAL_INT(sequenceNumberKey) == 1)
-        {
-            problemSeverity = strdup("critical");
-        }
-        if (VAL_INT(sequenceNumberKey) == 2)
-        {
-            problemSeverity = strdup("critical");
-        }
-    }
-
-    return problemSeverity;
+    return dvm_cb_get_runtime_airInterfaceCurrentProblemList_problem_problemSeverity(VAL_STRING(layerProtocolKey), VAL_INT32(sequenceNumberKey));
 }
 
 /********************************************************************
@@ -871,14 +732,8 @@ static char* cb_get_runtime_airInterfaceStatus_txFrequencyCur(val_value_t *eleme
     /*
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information. E.g.:
      */
-    char* txFreqCur = NULL;
 
-    if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWPS-TTP-ifIndex1") == 0)
-    {
-        txFreqCur = strdup("15123000");
-    }
-
-    return txFreqCur;
+    return dvm_cb_get_runtime_airInterfaceStatus_txFrequencyCur(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -909,7 +764,7 @@ static char* cb_get_runtime_airInterfaceStatus_rxFrequencyCur(val_value_t *eleme
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceStatus_rxFrequencyCur(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -940,7 +795,7 @@ static char* cb_get_runtime_airInterfaceStatus_txLevelCur(val_value_t *element)
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceStatus_txLevelCur(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -971,7 +826,7 @@ static char* cb_get_runtime_airInterfaceStatus_rxLevelCur(val_value_t *element)
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceStatus_rxLevelCur(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -1002,7 +857,7 @@ static char* cb_get_runtime_airInterfaceStatus_modulationCur(val_value_t *elemen
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceStatus_modulationCur(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -1033,7 +888,7 @@ static char* cb_get_runtime_airInterfaceStatus_informationRateCur(val_value_t *e
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceStatus_informationRateCur(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -1064,7 +919,7 @@ static char* cb_get_runtime_airInterfaceStatus_snirCur(val_value_t *element)
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceStatus_snirCur(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -1095,7 +950,7 @@ static char* cb_get_runtime_airInterfaceStatus_xpdCur(val_value_t *element)
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceStatus_xpdCur(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -1126,7 +981,7 @@ static char* cb_get_runtime_airInterfaceStatus_rfTempCur(val_value_t *element)
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceStatus_rfTempCur(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -1157,7 +1012,7 @@ static char* cb_get_runtime_airInterfaceStatus_lastStatusChange(val_value_t *ele
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceStatus_lastStatusChange(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -1188,7 +1043,7 @@ static char* cb_get_runtime_airInterfaceStatus_radioPowerIsUp(val_value_t *eleme
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceStatus_radioPowerIsUp(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -1219,7 +1074,7 @@ static char* cb_get_runtime_airInterfaceStatus_linkIsUp(val_value_t *element)
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceStatus_linkIsUp(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -1250,7 +1105,7 @@ static char* cb_get_runtime_airInterfaceStatus_xpicIsUp(val_value_t *element)
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceStatus_xpicIsUp(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -1281,7 +1136,7 @@ static char* cb_get_runtime_airInterfaceStatus_mimoIsUp(val_value_t *element)
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceStatus_mimoIsUp(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -1312,7 +1167,7 @@ static char* cb_get_runtime_airInterfaceStatus_alicIsUp(val_value_t *element)
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceStatus_alicIsUp(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -1343,7 +1198,7 @@ static char* cb_get_runtime_airInterfaceStatus_atpcIsUp(val_value_t *element)
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceStatus_atpcIsUp(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -1374,7 +1229,7 @@ static char* cb_get_runtime_airInterfaceStatus_autoFreqSelectIsUp(val_value_t *e
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceStatus_autoFreqSelectIsUp(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -1405,7 +1260,7 @@ static char* cb_get_runtime_airInterfaceStatus_loopBackIsUp(val_value_t *element
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceStatus_loopBackIsUp(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -1436,7 +1291,7 @@ static char* cb_get_runtime_airInterfaceStatus_localEndPointId(val_value_t *elem
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceStatus_localEndPointId(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -1467,7 +1322,7 @@ static char* cb_get_runtime_airInterfaceStatus_remoteEndPointId(val_value_t *ele
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceStatus_remoteEndPointId(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -1732,18 +1587,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_granularityPeriod(val
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    char* granularityPeriod = NULL;
-
-    if (strcmp(VAL_STRING(scannerId), "current15m") == 0)
-    {
-        granularityPeriod = strdup("PERIOD_15MIN");
-    }
-    else if (strcmp(VAL_STRING(scannerId), "current24h") == 0)
-    {
-        granularityPeriod = strdup("PERIOD_15MIN");
-    }
-
-    return granularityPeriod;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_granularityPeriod(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -1777,18 +1621,8 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_administrativeState(v
     /*
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
-    char* administrativeState = NULL;
 
-    if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWPS-TTP-ifIndex1") == 0)
-    {
-        administrativeState = strdup("LOCKED");
-    }
-    else if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWPS-TTP-ifIndex2") == 0)
-    {
-        administrativeState = strdup("UNLOCKED");
-    }
-
-    return administrativeState;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_administrativeState(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -1823,7 +1657,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_suspectIntervalFlag(v
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_suspectIntervalFlag(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -1858,7 +1692,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_elapsedTime(val_value
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_elapsedTime(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -1893,7 +1727,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_timestamp(val_value_t
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_timestamp(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -1929,7 +1763,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_es(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -1964,7 +1798,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_ses(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -1999,7 +1833,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_cses(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2034,7 +1868,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_unavailability(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2069,7 +1903,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_txLevelMin(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2104,7 +1938,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_txLevelMax(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2139,7 +1973,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_txLevelAvg(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2174,7 +2008,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rxLevelMin(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2209,7 +2043,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rxLevelMax(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2244,7 +2078,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rxLevelAvg(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2279,7 +2113,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time2Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2314,7 +2148,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time4SymbolsS(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2349,7 +2183,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time4Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2384,7 +2218,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time8Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2419,7 +2253,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time16SymbolsS(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2454,7 +2288,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time16Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2489,7 +2323,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time32Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2524,7 +2358,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time64Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2559,7 +2393,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time128Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2594,7 +2428,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time256Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2629,7 +2463,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time512Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2664,7 +2498,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time512SymbolsL(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2699,7 +2533,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time1024Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2734,7 +2568,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time1024SymbolsL(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2769,7 +2603,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time2048Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2804,7 +2638,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time2048SymbolsL(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2839,7 +2673,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time4096Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2874,7 +2708,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time4096SymbolsL(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2909,7 +2743,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time8192Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2944,7 +2778,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time8192SymbolsL(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -2979,7 +2813,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_snirMin(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -3014,7 +2848,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_snirMax(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -3049,7 +2883,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_snirAvg(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -3084,7 +2918,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_xpdMin(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -3119,7 +2953,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_xpdMax(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -3154,7 +2988,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_xpdAvg(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -3189,7 +3023,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rfTempMin(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -3224,7 +3058,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rfTempMax(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -3259,7 +3093,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rfTempAvg(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -3294,7 +3128,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_defectBlocksSum(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -3329,7 +3163,7 @@ static char* cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDat
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_timePeriod(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -3616,7 +3450,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_periodEndTime(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -3650,11 +3484,8 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
     /*
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
-    char* granularityPeriod = NULL;
 
-    granularityPeriod = strdup("PERIOD_15MIN");
-
-    return granularityPeriod;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_granularityPeriod(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -3689,7 +3520,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_suspectIntervalFlag(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -3725,7 +3556,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_es(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -3760,7 +3591,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_ses(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -3795,7 +3626,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_cses(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -3830,7 +3661,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_unavailability(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -3865,7 +3696,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_txLevelMin(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -3900,7 +3731,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_txLevelMax(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -3935,7 +3766,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_txLevelAvg(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -3970,7 +3801,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rxLevelMin(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4005,7 +3836,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rxLevelMax(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4040,7 +3871,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rxLevelAvg(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4075,7 +3906,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time2Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4110,7 +3941,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4SymbolsS(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4145,7 +3976,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 /********************************************************************
 * FUNCTION cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time8Symbols
@@ -4179,7 +4010,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time8Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4214,7 +4045,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time16SymbolsS(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4249,7 +4080,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time16Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4284,7 +4115,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time32Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4319,7 +4150,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time64Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4354,7 +4185,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time128Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4389,7 +4220,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time256Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4424,7 +4255,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time512Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4459,7 +4290,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time512SymbolsL(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4494,7 +4325,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time1024Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4529,7 +4360,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time1024SymbolsL(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4564,7 +4395,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time2048Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4599,7 +4430,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time2048SymbolsL(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4634,7 +4465,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4096Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4669,7 +4500,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4096SymbolsL(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4704,7 +4535,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time8192Symbols(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4739,7 +4570,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time8192SymbolsL(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4774,7 +4605,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_snirMin(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4809,7 +4640,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_snirMax(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4844,7 +4675,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_snirAvg(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4879,7 +4710,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_xpdMin(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4914,7 +4745,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_xpdMax(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4949,7 +4780,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_xpdAvg(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -4984,7 +4815,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rfTempMin(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -5019,7 +4850,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rfTempMax(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -5054,7 +4885,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rfTempAvg(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -5089,7 +4920,7 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_defectBlocksSum(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -5123,32 +4954,8 @@ static char* cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerform
     /*
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and historyDataId as keys to find the information
      */
-    char* timePeriod = NULL;
 
-    if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWPS-TTP-ifIndex1") == 0)
-    {
-        if (strcmp(VAL_STRING(historyDataId), "historyDataId_1") == 0)
-        {
-            timePeriod = strdup("150");
-        }
-        else if (strcmp(VAL_STRING(historyDataId), "historyDataId_2") == 0)
-        {
-            timePeriod = strdup("200");
-        }
-    }
-    else if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWPS-TTP-ifIndex2") == 0)
-    {
-        if (strcmp(VAL_STRING(historyDataId), "historyDataId_1") == 0)
-        {
-            timePeriod = strdup("500");
-        }
-        else if (strcmp(VAL_STRING(historyDataId), "historyDataId_2") == 0)
-        {
-            timePeriod = strdup("600");
-        }
-    }
-
-    return timePeriod;
+    return dvm_cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_timePeriod(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -5284,11 +5091,8 @@ static char* cb_get_runtime_ethernetContainerStatus_lastStatusChange(val_value_t
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    char* lastStatusChange = NULL;
 
-    lastStatusChange = strdup("20161120140000.0Z+1");
-
-    return lastStatusChange;
+    return dvm_cb_get_runtime_ethernetContainerStatus_lastStatusChange(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -5352,7 +5156,7 @@ static char* cb_get_runtime_pureEthernetStructureStatus_segmentStatusTypeId(val_
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_pureEthernetStructureStatus_segmentStatusTypeId(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -5383,7 +5187,7 @@ static char* cb_get_runtime_pureEthernetStructureStatus_segmentIsReservedForTdm(
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_pureEthernetStructureStatus_segmentIsReservedForTdm(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -5413,11 +5217,7 @@ static char* cb_get_runtime_pureEthernetStructureStatus_operationalStatus(val_va
     /*
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
-    char* operationalStatus = NULL;
-
-    operationalStatus = strdup("ENABLED");
-
-    return operationalStatus;
+    return dvm_cb_get_runtime_pureEthernetStructureStatus_operationalStatus(VAL_STRING(layerProtocolKey));
 }
 
 /********************************************************************
@@ -5450,32 +5250,8 @@ static char* cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_time
 	/*
 	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey, and sequenceNumberKey as keys to find the information. E.g.:
 	 */
-	char* timeStamp = NULL;
 
-	if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWS-TTP-ifIndex1") == 0)
-	{
-		if (VAL_INT(sequenceNumberKey) == 1)
-		{
-		    timeStamp = strdup("20160822133005.0");
-		}
-		if (VAL_INT(sequenceNumberKey) == 2)
-		{
-		    timeStamp = strdup("20160822133105.0");
-		}
-	}
-	else if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWS-TTP-ifIndex2") == 0)
-	{
-		if (VAL_INT(sequenceNumberKey) == 1)
-		{
-		    timeStamp = strdup("20160822133122.0");
-		}
-		if (VAL_INT(sequenceNumberKey) == 2)
-		{
-		    timeStamp = strdup("20160822133522.0");
-		}
-	}
-
-	return timeStamp;
+	return dvm_cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_timeStamp(VAL_STRING(layerProtocolKey), VAL_INT32(sequenceNumberKey));
 }
 
 /********************************************************************
@@ -5508,32 +5284,8 @@ static char* cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_prob
 	/*
 	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey, and sequenceNumberKey as keys to find the information. E.g.:
 	 */
-	char* problemName = NULL;
 
-	if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWS-TTP-ifIndex1") == 0)
-	{
-		if (VAL_INT(sequenceNumberKey) == 1)
-		{
-		    problemName = strdup("capacityIsLowerThanConfigured");
-		}
-		if (VAL_INT(sequenceNumberKey) == 2)
-		{
-		    problemName = strdup("capacityIsEqualToMinimumValue");
-		}
-	}
-	else if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWS-TTP-ifIndex2") == 0)
-	{
-		if (VAL_INT(sequenceNumberKey) == 1)
-		{
-		    problemName = strdup("capacityIsLowerThanConfigured");
-		}
-		if (VAL_INT(sequenceNumberKey) == 2)
-		{
-		    problemName = strdup("capacityIsEqualToMinimumValue");
-		}
-	}
-
-	return problemName;
+	return dvm_cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemName(VAL_STRING(layerProtocolKey), VAL_INT32(sequenceNumberKey));
 }
 
 /********************************************************************
@@ -5566,32 +5318,8 @@ static char* cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_prob
 	/*
 	 * return the actual value for the attribute here, represented as a string, using the layerProtocolKey, and sequenceNumberKey as keys to find the information. E.g.:
 	 */
-	char* problemSeverity = NULL;
 
-	if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWS-TTP-ifIndex1") == 0)
-	{
-		if (VAL_INT(sequenceNumberKey) == 1)
-		{
-		    problemSeverity = strdup("critical");
-		}
-		if (VAL_INT(sequenceNumberKey) == 2)
-		{
-		    problemSeverity = strdup("warning");
-		}
-	}
-	else if (strcmp(VAL_STRING(layerProtocolKey), "LP-MWS-TTP-ifIndex2") == 0)
-	{
-		if (VAL_INT(sequenceNumberKey) == 1)
-		{
-		    problemSeverity = strdup("critical");
-		}
-		if (VAL_INT(sequenceNumberKey) == 2)
-		{
-		    problemSeverity = strdup("critical");
-		}
-	}
-
-	return problemSeverity;
+	return dvm_cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemSeverity(VAL_STRING(layerProtocolKey), VAL_INT32(sequenceNumberKey));
 }
 
 
@@ -5611,29 +5339,7 @@ static char* cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_prob
 ********************************************************************/
 status_t cb_get_all_ethernet_container_current_problem_list_keys(char *ethernet_container_pac_key, char** current_problem_list_key_entries, int* num_of_keys)
 {
-    *num_of_keys = 0;
-
-    char sequenceNumber[256];
-
-    strcpy(sequenceNumber, "1");
-
-    current_problem_list_key_entries[*num_of_keys] = (char*) malloc(strlen(sequenceNumber) + 1);
-    YUMA_ASSERT(current_problem_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
-
-    strcpy(current_problem_list_key_entries[*num_of_keys], sequenceNumber);
-
-    *num_of_keys += 1;
-
-    strcpy(sequenceNumber, "2");
-
-    current_problem_list_key_entries[*num_of_keys] = (char*) malloc(strlen(sequenceNumber) + 1);
-    YUMA_ASSERT(current_problem_list_key_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
-
-    strcpy(current_problem_list_key_entries[*num_of_keys], sequenceNumber);
-
-    *num_of_keys += 1;
-
-    return NO_ERR;
+    return dvm_cb_get_all_ethernet_container_current_problem_list_keys(ethernet_container_pac_key, current_problem_list_key_entries, num_of_keys);
 }
 
 /********************************************************************
@@ -5652,29 +5358,7 @@ status_t cb_get_all_ethernet_container_current_problem_list_keys(char *ethernet_
 ********************************************************************/
 status_t cb_get_all_ethernet_container_current_performance_list_keys(char *ethernet_container_pac_key, char **current_performance_data_list_keys_entries, int *num_of_keys)
 {
-    *num_of_keys = 0;
-
-    char scannerId[256];
-
-    strcpy(scannerId, "current15m");
-
-    current_performance_data_list_keys_entries[*num_of_keys] = (char*) malloc(strlen(scannerId) + 1);
-    YUMA_ASSERT(current_performance_data_list_keys_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
-
-    strcpy(current_performance_data_list_keys_entries[*num_of_keys], scannerId);
-
-    *num_of_keys += 1;
-
-    strcpy(scannerId, "current24h");
-
-    current_performance_data_list_keys_entries[*num_of_keys] = (char*) malloc(strlen(scannerId) + 1);
-    YUMA_ASSERT(current_performance_data_list_keys_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
-
-    strcpy(current_performance_data_list_keys_entries[*num_of_keys], scannerId);
-
-    *num_of_keys += 1;
-
-    return NO_ERR;
+    return dvm_cb_get_all_ethernet_container_current_performance_list_keys(ethernet_container_pac_key, current_performance_data_list_keys_entries, num_of_keys);
 }
 
 /********************************************************************
@@ -5693,29 +5377,7 @@ status_t cb_get_all_ethernet_container_current_performance_list_keys(char *ether
 ********************************************************************/
 status_t cb_get_all_ethernet_container_historical_performance_list_keys(char *ethernet_container_pac_key, char **historical_performance_data_list_keys_entries, int *num_of_keys)
 {
-    *num_of_keys = 0;
-
-    char historyDataId[256];
-
-    strcpy(historyDataId, "historyDataId_1");
-
-    historical_performance_data_list_keys_entries[*num_of_keys] = (char*) malloc(strlen(historyDataId) + 1);
-    YUMA_ASSERT(historical_performance_data_list_keys_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
-
-    strcpy(historical_performance_data_list_keys_entries[*num_of_keys], historyDataId);
-
-    *num_of_keys += 1;
-
-    strcpy(historyDataId, "historyDataId_2");
-
-    historical_performance_data_list_keys_entries[*num_of_keys] = (char*) malloc(strlen(historyDataId) + 1);
-    YUMA_ASSERT(historical_performance_data_list_keys_entries[*num_of_keys] == NULL, return ERR_INTERNAL_MEM, "Could not allocate memory!");
-
-    strcpy(historical_performance_data_list_keys_entries[*num_of_keys], historyDataId);
-
-    *num_of_keys += 1;
-
-    return NO_ERR;
+    return dvm_cb_get_all_ethernet_container_historical_performance_list_keys(ethernet_container_pac_key, historical_performance_data_list_keys_entries, num_of_keys);
 }
 
 /********************************************************************
@@ -5906,18 +5568,8 @@ static char* cb_get_runtime_ethernetContainerCurrentPerformance_granularityPerio
     /*
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
-    char* granularityPeriod = NULL;
 
-    if (strcmp(VAL_STRING(scannerId), "current15m") == 0)
-    {
-        granularityPeriod = strdup("PERIOD_15MIN");
-    }
-    else if (strcmp(VAL_STRING(scannerId), "current24h") == 0)
-    {
-        granularityPeriod = strdup("PERIOD_24HOURS");
-    }
-
-    return granularityPeriod;
+    return dvm_cb_get_runtime_ethernetContainerCurrentPerformance_granularityPeriod(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -5951,18 +5603,8 @@ static char* cb_get_runtime_ethernetContainerCurrentPerformance_administrativeSt
     /*
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
-    char* administrativeState = NULL;
 
-    if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex1") == 0)
-    {
-        administrativeState = strdup("LOCKED");
-    }
-    else if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex2") == 0)
-    {
-        administrativeState = strdup("UNLOCKED");
-    }
-
-    return administrativeState;
+    return dvm_cb_get_runtime_ethernetContainerCurrentPerformance_administrativeState(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -5997,7 +5639,7 @@ static char* cb_get_runtime_ethernetContainerCurrentPerformance_suspectIntervalF
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_ethernetContainerCurrentPerformance_suspectIntervalFlag(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -6032,7 +5674,7 @@ static char* cb_get_runtime_ethernetContainerCurrentPerformance_elapsedTime(val_
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_ethernetContainerCurrentPerformance_elapsedTime(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -6066,11 +5708,8 @@ static char* cb_get_runtime_ethernetContainerCurrentPerformance_timestamp(val_va
     /*
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
-    char* timestamp = NULL;
 
-    timestamp = strdup("20101120140000.0Z+1");
-
-    return timestamp;
+    return dvm_cb_get_runtime_ethernetContainerCurrentPerformance_timestamp(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -6105,7 +5744,7 @@ static char* cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesM
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesMaxS(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -6140,7 +5779,7 @@ static char* cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesM
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesMaxM(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -6175,7 +5814,7 @@ static char* cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesS
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesSum(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -6210,7 +5849,7 @@ static char* cb_get_runtime_ethernetContainerCurrentPerformance_timePeriod(val_v
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_ethernetContainerCurrentPerformance_timePeriod(VAL_STRING(layerProtocolKey), VAL_STRING(scannerId));
 }
 
 /********************************************************************
@@ -6330,11 +5969,8 @@ static char* cb_get_runtime_ethernetContainerHistoricalPerformances_periodEndTim
     /*
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
-    char* periodEndTime = NULL;
 
-    periodEndTime = strdup("20161120140000.0Z+1");
-
-    return periodEndTime;
+    return dvm_cb_get_runtime_ethernetContainerHistoricalPerformances_periodEndTime(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -6368,18 +6004,8 @@ static char* cb_get_runtime_ethernetContainerHistoricalPerformances_granularityP
     /*
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
-    char* granularityPeriod = NULL;
 
-    if (strcmp(VAL_STRING(historyDataId), "historyDataId_1") == 0)
-    {
-        granularityPeriod = strdup("PERIOD_15MIN");
-    }
-    else if (strcmp(VAL_STRING(historyDataId), "historyDataId_2") == 0)
-    {
-        granularityPeriod = strdup("PERIOD_24HOURS");
-    }
-
-    return granularityPeriod;
+    return dvm_cb_get_runtime_ethernetContainerHistoricalPerformances_granularityPeriod(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -6414,7 +6040,7 @@ static char* cb_get_runtime_ethernetContainerHistoricalPerformances_suspectInter
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_ethernetContainerHistoricalPerformances_suspectIntervalFlag(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -6449,7 +6075,7 @@ static char* cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBy
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesMaxS(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -6484,7 +6110,7 @@ static char* cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBy
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesMaxM(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -6519,7 +6145,7 @@ static char* cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBy
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesSum(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -6554,7 +6180,7 @@ static char* cb_get_runtime_ethernetContainerHistoricalPerformances_timePeriod(v
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
 
-    return NULL;
+    return dvm_cb_get_runtime_ethernetContainerHistoricalPerformances_timePeriod(VAL_STRING(layerProtocolKey), VAL_STRING(historyDataId));
 }
 
 /********************************************************************
@@ -6685,32 +6311,8 @@ static char* cb_get_runtime_ethernetContainerCurrentProblem_timeStamp(val_value_
     /*
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
-    char* timeStamp = NULL;
 
-    if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex1") == 0)
-    {
-        if (VAL_INT(sequenceNumberKey) == 1)
-        {
-            timeStamp = strdup("20160822133005.0");
-        }
-        if (VAL_INT(sequenceNumberKey) == 2)
-        {
-            timeStamp = strdup("20160822133105.0");
-        }
-     }
-     else if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex2") == 0)
-     {
-        if (VAL_INT(sequenceNumberKey) == 1)
-        {
-            timeStamp = strdup("20160822133122.0");
-        }
-        if (VAL_INT(sequenceNumberKey) == 2)
-        {
-            timeStamp = strdup("20160822133522.0");
-        }
-     }
-
-    return timeStamp;
+    return dvm_cb_get_runtime_ethernetContainerCurrentProblem_timeStamp(VAL_STRING(layerProtocolKey), VAL_INT32(sequenceNumberKey));
 }
 
 /********************************************************************
@@ -6743,32 +6345,8 @@ static char* cb_get_runtime_ethernetContainerCurrentProblem_problemName(val_valu
     /*
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
-    char* problemName = NULL;
 
-    if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex1") == 0)
-    {
-        if (VAL_INT(sequenceNumberKey) == 1)
-        {
-            problemName = strdup("capacityIsLowerThanConfigured");
-        }
-        if (VAL_INT(sequenceNumberKey) == 2)
-        {
-            problemName = strdup("capacityIsEqualToMinimumValue");
-        }
-    }
-    else if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex2") == 0)
-    {
-        if (VAL_INT(sequenceNumberKey) == 1)
-        {
-            problemName = strdup("capacityIsLowerThanConfigured");
-        }
-        if (VAL_INT(sequenceNumberKey) == 2)
-        {
-            problemName = strdup("capacityIsEqualToMinimumValue");
-        }
-    }
-
-    return problemName;
+    return dvm_cb_get_runtime_ethernetContainerCurrentProblem_problemName(VAL_STRING(layerProtocolKey), VAL_INT32(sequenceNumberKey));
 }
 
 /********************************************************************
@@ -6801,30 +6379,6 @@ static char* cb_get_runtime_ethernetContainerCurrentProblem_problemSeverity(val_
     /*
      * return the actual value for the attribute here, represented as a string, using the layerProtocolKey as a key to find the information
      */
-    char* problemSeverity = NULL;
 
-    if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex1") == 0)
-    {
-        if (VAL_INT(sequenceNumberKey) == 1)
-        {
-            problemSeverity = strdup("critical");
-        }
-        if (VAL_INT(sequenceNumberKey) == 2)
-        {
-            problemSeverity = strdup("warning");
-        }
-    }
-    else if (strcmp(VAL_STRING(layerProtocolKey), "CONTAINER-TYPE-ETH-ifIndex2") == 0)
-    {
-        if (VAL_INT(sequenceNumberKey) == 1)
-        {
-            problemSeverity = strdup("critical");
-        }
-        if (VAL_INT(sequenceNumberKey) == 2)
-        {
-            problemSeverity = strdup("critical");
-        }
-    }
-
-    return problemSeverity;
+    return dvm_cb_get_runtime_ethernetContainerCurrentProblem_problemSeverity(VAL_STRING(layerProtocolKey), VAL_INT32(sequenceNumberKey));
 }
