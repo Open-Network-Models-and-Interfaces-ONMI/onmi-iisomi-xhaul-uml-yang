@@ -21,8 +21,28 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
   <artifactId>closedLoopAutomation-impl</artifactId>
   <version>0.3.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Bundle-Activator>com.highstreet.technologies.odl.app.impl.Activator</Bundle-Activator>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
   <dependencies>
+    <dependency>
+      <groupId>org.opendaylight.controller</groupId>
+      <artifactId>sal-binding-api</artifactId>
+      <version>1.3.2-Beryllium-SR2</version>
+    </dependency>
+
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>closedLoopAutomation-api</artifactId>

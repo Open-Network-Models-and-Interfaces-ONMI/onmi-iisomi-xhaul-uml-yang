@@ -8,10 +8,11 @@
 package com.highstreet.technologies.odl.app.impl;
 
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
+import org.opendaylight.controller.sal.binding.api.BindingAwareBroker;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.ProviderContext;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.RpcRegistration;
 import org.opendaylight.controller.sal.binding.api.BindingAwareProvider;
-import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.closedloopautomation.rev160815.ClosedLoopAutomationService;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.closedloopautomation.rev160919.ClosedLoopAutomationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,24 +20,30 @@ public class ClosedLoopAutomationProvider implements BindingAwareProvider, AutoC
 
     private static final Logger LOG = LoggerFactory.getLogger(ClosedLoopAutomationProvider.class);
 
-    private final DataBroker dataBroker;
+    private DataBroker dataBroker;
+    private BindingAwareBroker bindingAwareBroker;
     
     private RpcRegistration<ClosedLoopAutomationService> closedLoopAutomationService;
 
-    public ClosedLoopAutomationProvider(final DataBroker dataBroker) {
-        this.dataBroker = dataBroker;
+    public ClosedLoopAutomationProvider(BindingAwareBroker bindingAwareBroker) {
+        this.bindingAwareBroker = bindingAwareBroker;
+        LOG.info("ClosedLoopAutomationProvider Constructor");
+        System.out.println("ClosedLoopAutomationProvider Constructor  XXXXXXXXXXXXXX");
     }
 
     /**
      * Method called when the blueprint container is created.
      */
     public void init() {
-        LOG.info("ClosedLoopAutomationProvider Session Initiated");
+        LOG.info("ClosedLoopAutomationProvider Init");
+        System.out.println("ClosedLoopAutomationProvider Init");
+        bindingAwareBroker.registerProvider(this);
     }
     
     @Override
     public void onSessionInitiated(ProviderContext session) {
-        LOG.info("HelloProvider Session Initiated");
+        LOG.info("ClosedLoopAutomationProvider onSessionInitiated");
+        System.out.println("ClosedLoopAutomationProvider onSessionInitiated");
         closedLoopAutomationService = session.addRpcImplementation(ClosedLoopAutomationService.class, new ClosedLoopAutomationImpl());
     }    
 
