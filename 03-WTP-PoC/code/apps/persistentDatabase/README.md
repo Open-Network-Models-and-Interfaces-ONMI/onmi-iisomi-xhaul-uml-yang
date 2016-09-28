@@ -45,3 +45,10 @@ The database is started by a feature:install command:
 ```
 opendaylight-user@root>feature:install elasticsearch
 ```
+
+### Step 4: Fill the database
+Run the script to fill the database.
+```
+node initDatabase.js
+```
+
