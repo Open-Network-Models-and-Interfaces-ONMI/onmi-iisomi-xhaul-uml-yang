@@ -185,7 +185,7 @@ checkDatabase(database, function(dbStatus) {
 
           
           if (addToDB)
-          fs.readdir([__dirname, data].join('/'), function(err, files) {
+          fs.readdir([__dirname, dataDir].join('/'), function(err, files) {
             if (err) {
               console.error(err);
               return;
@@ -193,7 +193,7 @@ checkDatabase(database, function(dbStatus) {
             files.filter(function(file) {
               return file.slice(-5) === '.json';
             }).map(function(file) {
-              filename = [__dirname, data, file].join('/');
+              filename = [__dirname, dataDir, file].join('/');
               console.log();
               console.log(filename);
               fs.readFile(filename, 'utf-8', function(err, contents) {
