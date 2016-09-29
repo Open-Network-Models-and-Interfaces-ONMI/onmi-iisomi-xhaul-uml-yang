@@ -37,7 +37,7 @@ public class TestNetConfRestGet
     {
         return Arrays.asList(new String[][]
                 {
-//                        {"http://localhost:8181/restconf/operational/network-topology:network-topology", ""},
+//                        {"http://localhost:8181/restconf/operational/network-topology:network-topology/topology/topology-netconf/", ""},
                         {"http://localhost:8181/restconf/operational/network-topology:network-topology/topology/topology-netconf/node/mw-112/yang-ext:mount/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement", ""}
                 });
     }
@@ -101,7 +101,7 @@ public class TestNetConfRestGet
         WebResource resource = client.resource(target);
         String get = resource.get(String.class);
 
-//        JsonNode node = JsonUtil.toNode(get);
+        JsonNode node = JsonUtil.toNode(get);
 
         System.out.println(get);
 

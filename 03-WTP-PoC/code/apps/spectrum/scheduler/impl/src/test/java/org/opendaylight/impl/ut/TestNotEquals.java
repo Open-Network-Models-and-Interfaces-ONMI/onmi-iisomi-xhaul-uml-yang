@@ -7,8 +7,9 @@
  */
 package org.opendaylight.impl.ut;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.highstreet.technologies.odl.app.spectrum.impl.api.DataAgent;
-import com.highstreet.technologies.odl.app.spectrum.impl.api.NeCommunicator;
+import com.highstreet.technologies.odl.app.spectrum.impl.api.Communicator;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Attribute;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.DN;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Mo;
@@ -41,7 +42,7 @@ public class TestNotEquals
             {
                 return null;
             }
-        }, new NeCommunicator()
+        }, new Communicator()
         {
             @Override
             public void set(Attribute attribute, Object value)
@@ -54,6 +55,13 @@ public class TestNotEquals
             {
                 return "2";
             }
+
+            @Override
+            public Result<JsonNode> ls(String path, String targetName)
+            {
+                return null;
+            }
+
         }, new Attribute(new DN("/A/1"), "txFrequency"));
 
         assertTrue(isSetCalled[0]);

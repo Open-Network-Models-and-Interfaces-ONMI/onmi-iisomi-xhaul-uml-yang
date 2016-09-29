@@ -8,7 +8,7 @@
 package com.highstreet.technologies.odl.app.spectrum.impl.policy;
 
 import com.highstreet.technologies.odl.app.spectrum.impl.api.DataAgent;
-import com.highstreet.technologies.odl.app.spectrum.impl.api.NeCommunicator;
+import com.highstreet.technologies.odl.app.spectrum.impl.api.Communicator;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Attribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +22,8 @@ public class NotEqualConfigurationPolicy
 {
     private static final Logger LOG = LoggerFactory.getLogger(NotEqualConfigurationPolicy.class);
 
-    public static void execute(DataAgent agent, NeCommunicator neCommunicator, Attribute attr)
+    public static void execute(DataAgent agent, Communicator Communicator, Attribute attr)
     {
-        notEqualsThen(agent.get(attr), neCommunicator.running(attr), () -> neCommunicator.set(attr, agent.get(attr)));
+        notEqualsThen(agent.get(attr), Communicator.running(attr), () -> Communicator.set(attr, agent.get(attr)));
     }
 }

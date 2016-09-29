@@ -7,14 +7,18 @@
  */
 package com.highstreet.technologies.odl.app.spectrum.impl.api;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Attribute;
+import com.highstreet.technologies.odl.app.spectrum.impl.meta.Result;
 
 /**
  * Created by olinchy on 16-9-5.
  */
-public interface NeCommunicator
+public interface Communicator
 {
     void set(Attribute attribute, Object value);
 
     Object running(Attribute attr);
+
+    Result<JsonNode> ls(String path, String targetName);
 }

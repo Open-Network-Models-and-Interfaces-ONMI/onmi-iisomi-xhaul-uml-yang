@@ -7,8 +7,9 @@
  */
 package com.highstreet.technologies.odl.app.spectrum.impl;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.highstreet.technologies.odl.app.spectrum.impl.api.DataAgent;
-import com.highstreet.technologies.odl.app.spectrum.impl.api.NeCommunicator;
+import com.highstreet.technologies.odl.app.spectrum.impl.api.Communicator;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.*;
 import com.highstreet.technologies.odl.app.spectrum.impl.task.SpectrumTask;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker;
@@ -18,6 +19,8 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.schedule
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
 import java.util.ArrayList;
 
 import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.Singleton.getInstance;
@@ -26,6 +29,19 @@ public class SchedulerProvider implements BindingAwareProvider, AutoCloseable
 {
     private static final Logger LOG = LoggerFactory.getLogger(SchedulerProvider.class);
     private BindingAwareBroker.RpcRegistration<SchedulerService> schedulerService;
+
+    static
+    {
+        Authenticator.setDefault(new Authenticator()
+        {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication()
+            {
+                return new PasswordAuthentication("admin", "admin".toCharArray());
+            }
+        });
+
+    }
 
     @Override
     public void onSessionInitiated(ProviderContext session)
@@ -51,7 +67,7 @@ public class SchedulerProvider implements BindingAwareProvider, AutoCloseable
                         list.add(new Mo("AirInterface").setDn(new DN("/Ne/1/AirInterface/3")));
                         return new Successful<>(list);
                     }
-                }, new NeCommunicator()
+                }, new Communicator()
                 {
                     @Override
                     public void set(Attribute attribute, Object value)
@@ -64,6 +80,13 @@ public class SchedulerProvider implements BindingAwareProvider, AutoCloseable
                     {
                         return String.valueOf(Integer.parseInt(attr.getDn().value(-1)) * 150);
                     }
+
+                    @Override
+                    public Result<JsonNode> ls(String path, String targetName)
+                    {
+                        return null;
+                    }
+
                 }));
 
         LOG.info("TaskFactory initiated");
