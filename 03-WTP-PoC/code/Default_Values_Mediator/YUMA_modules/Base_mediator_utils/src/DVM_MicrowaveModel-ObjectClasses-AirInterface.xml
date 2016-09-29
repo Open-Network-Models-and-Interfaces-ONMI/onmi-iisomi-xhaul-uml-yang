@@ -751,13 +751,13 @@
   <MW_PureEthernetStructure_Pac>
     <layerProtocol>LP-MWS-ifIndex1</layerProtocol>
     <pureEthernetStructureCapability>
-      <structureId>LP-MWS-TTP-strId1</structureId>
-      <supportedAlarms>Supported alarms not yet defined.</supportedAlarms>
+      <structureId>LTP-MWS-ifIndex1</structureId>
+      <supportedAlarms></supportedAlarms>
     </pureEthernetStructureCapability>
     <pureEthernetStructureConfiguration/>
     <pureEthernetStructureStatus>
       <segmentStatusList>
-        <segmentStatusTypeId>0</segmentStatusTypeId>
+        <segmentStatusTypeId>1</segmentStatusTypeId>
         <segmentIsReservedForTdm>true</segmentIsReservedForTdm>
         <operationalStatus>ENABLED</operationalStatus>
       </segmentStatusList>
@@ -768,8 +768,8 @@
   <MW_PureEthernetStructure_Pac>
     <layerProtocol>LP-MWS-ifIndex2</layerProtocol>
     <pureEthernetStructureCapability>
-      <structureId>LP-MWS-TTP-strId2</structureId>
-      <supportedAlarms>Supported alarms not yet defined.</supportedAlarms>
+      <structureId>LTP-MWS-ifIndex2</structureId>
+      <supportedAlarms></supportedAlarms>
     </pureEthernetStructureCapability>
     <pureEthernetStructureConfiguration/>
     <pureEthernetStructureStatus>
@@ -798,10 +798,14 @@
       <supportedAlarms>Supported alarms not yet defined.</supportedAlarms>
     </ethernetContainerCapability>
     <ethernetContainerConfiguration>
-      <containerID>CONTAINER-TYPE-ETH-containerId1</containerID>
+      <containerID>LTP-ETH-CTP-ifIndex1</containerID>
       <segmentsIDList>
-        <structureIdRef>structure1</structureIdRef>
-        <segmentIdRef>111</segmentIdRef>
+        <structureIdRef>LTP-MWS-ifIndex1</structureIdRef>
+        <segmentIdRef>1</segmentIdRef>
+      </segmentsIDList>
+      <segmentsIDList>
+        <structureIdRef>LTP-MWS-ifIndex2</structureIdRef>
+        <segmentIdRef>1</segmentIdRef>
       </segmentsIDList>
       <packetCompressionIsOn>false</packetCompressionIsOn>
       <layer2CompressionIsOn>false</layer2CompressionIsOn>
