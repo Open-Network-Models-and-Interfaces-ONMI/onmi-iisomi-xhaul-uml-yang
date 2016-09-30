@@ -36,26 +36,6 @@ public class MosAgent implements DataAgent
         client = new JsonRpcHttpClient(new URL(url));
     }
 
-    @Override
-    public Object get(Attribute attr)
-    {
-        try
-        {
-            Result<Mo> result = get(attr.getDn());
-            if (result.isSuccess())
-            {
-                Mo mo = result.getMo().get(0);
-                return mo.get(attr.getAttrName());
-            }
-
-        } catch (Exception e)
-        {
-            logger.warn("get attr " + attr + " from data agent failed!", e);
-        }
-        return null;
-    }
-
-
     protected <T> Result<T> methodShell(Executor<T> executor) throws Exception
     {
         StackTraceElement[] stackTraceElements = new Throwable().getStackTrace();
@@ -127,8 +107,21 @@ public class MosAgent implements DataAgent
 
 
     @Override
-    public Result<Mo> find(String typeName)
+    public Object get(DN dnAgent, String attrName)
     {
+        try
+        {
+            Result<Mo> result = get(dnAgent);
+            if (result.isSuccess())
+            {
+                Mo mo = result.getMo().get(0);
+                return mo.get(attrName);
+            }
+
+        } catch (Exception e)
+        {
+            logger.warn("get attr " + attrName + "of " + dnAgent + " from data agent failed!", e);
+        }
         return null;
     }
 }

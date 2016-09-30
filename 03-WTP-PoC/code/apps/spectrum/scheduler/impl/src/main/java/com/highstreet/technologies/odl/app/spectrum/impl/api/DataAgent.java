@@ -7,16 +7,12 @@
  */
 package com.highstreet.technologies.odl.app.spectrum.impl.api;
 
-import com.highstreet.technologies.odl.app.spectrum.impl.meta.Attribute;
-import com.highstreet.technologies.odl.app.spectrum.impl.meta.Mo;
-import com.highstreet.technologies.odl.app.spectrum.impl.meta.Result;
+import com.highstreet.technologies.odl.app.spectrum.impl.meta.DN;
 
 /**
  * Created by olinchy on 16-9-5.
  */
 public interface DataAgent
 {
-    Object get(Attribute attr);
-
-    Result<Mo> find(String typeName);
+    Object get(DN dnAgent, String attrName);
 }

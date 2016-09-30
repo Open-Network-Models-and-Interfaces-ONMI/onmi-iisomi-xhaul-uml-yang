@@ -49,42 +49,24 @@ public class SchedulerProvider implements BindingAwareProvider, AutoCloseable
         schedulerService = session.addRpcImplementation(SchedulerService.class, new SchedulerRpc());
 
         getInstance(TaskFactory.class).register("test", () ->
-                new SpectrumTask(new DataAgent()
+                new SpectrumTask((dnAgent, attrName) -> 700, new Communicator()
                 {
-                    @Override
-                    public Object get(Attribute attr)
-                    {
-                        return String.valueOf(Integer.parseInt(attr.getDn().value(-1)) * 100);
-                    }
-
-                    @Override
-                    public Result<Mo> find(
-                            String typeName)
-                    {
-                        ArrayList<Mo> list = new ArrayList<>();
-                        list.add(new Mo("AirInterface").setDn(new DN("/Ne/1/AirInterface/1")));
-                        list.add(new Mo("AirInterface").setDn(new DN("/Ne/1/AirInterface/2")));
-                        list.add(new Mo("AirInterface").setDn(new DN("/Ne/1/AirInterface/3")));
-                        return new Successful<>(list);
-                    }
-                }, new Communicator()
-                {
-                    @Override
-                    public void set(Attribute attribute, Object value)
-                    {
-                        LOG.info("setting " + attribute.toString() + "with value: " + value.toString() + " to ne");
-                    }
-
-                    @Override
-                    public Object running(Attribute attr)
-                    {
-                        return String.valueOf(Integer.parseInt(attr.getDn().value(-1)) * 150);
-                    }
-
                     @Override
                     public Result<JsonNode> ls(String path, String targetName)
                     {
                         return null;
+                    }
+
+                    @Override
+                    public Object get(String dn, String attrName)
+                    {
+                        return 750;
+                    }
+
+                    @Override
+                    public void set(String dn, String attrName, Object o)
+                    {
+                        LOG.info("setting " + attrName + "with value: " + o.toString() + " to ne");
                     }
 
                 }));

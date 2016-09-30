@@ -114,8 +114,7 @@ public class DNWrapper implements Serializable, Comparable<DNWrapper>
         if (isSizeInOdd())
         {
             this.lst.getLast().setSecond(value);
-        }
-        else
+        } else
         {
             this.lst.add(pair(value, ""));
         }
@@ -135,20 +134,71 @@ public class DNWrapper implements Serializable, Comparable<DNWrapper>
         {
             String thisValue = seq.get(i);
             String thatValue = that.seq.get(i);
-            int compareResult;
-            if (thisValue.matches("[\\d]+") && thatValue.matches("[\\d]+"))
-            {
-                compareResult = new Integer(thisValue).compareTo(new Integer(thatValue));
-            }
-            else
-            {
-                compareResult = thisValue.compareTo(thatValue);
-            }
-            if (compareResult != 0)
-                return compareResult;
+            int value = compare(thisValue, thatValue);
+            if (value != 0)
+                return value;
         }
 
         return 0;
+    }
+
+    private int compare(String thisValue, String thatValue)
+    {
+        char[] arr1 = thisValue.toCharArray();
+        char[] arr2 = thatValue.toCharArray();
+
+        int i = 0, j = 0;
+        while (i < arr1.length && j < arr2.length)
+        {
+            if (Character.isDigit(arr1[i]) && Character.isDigit(arr2[j]))
+            {
+                String s1 = "", s2 = "";
+                while (i < arr1.length && Character.isDigit(arr1[i]))
+                {
+                    s1 += arr1[i];
+                    i++;
+                }
+                while (j < arr2.length && Character.isDigit(arr2[j]))
+                {
+                    s2 += arr2[j];
+                    j++;
+                }
+
+                if (Integer.parseInt(s1) > Integer.parseInt(s2))
+                {
+                    return 1;
+                }
+
+                if (Integer.parseInt(s1) < Integer.parseInt(s2))
+                {
+                    return -1;
+                }
+
+            } else
+            {
+                if (arr1[i] > arr2[j])
+                {
+                    return 1;
+                }
+
+                if (arr1[i] < arr2[j])
+                {
+                    return -1;
+                }
+                i++;
+                j++;
+
+            }
+
+        }
+
+        if (arr1.length == arr2.length)
+        {
+            return 0;
+        } else
+        {
+            return arr1.length > arr2.length ? 1 : -1;
+        }
     }
 
     public boolean deeperThan(DNWrapper wrapper)
@@ -202,8 +252,7 @@ public class DNWrapper implements Serializable, Comparable<DNWrapper>
             if (i == 0)
             {
                 i++;
-            }
-            else
+            } else
             {
                 buf.append("/").append(one.first());
             }
@@ -222,8 +271,7 @@ public class DNWrapper implements Serializable, Comparable<DNWrapper>
         if (temp.contains("/"))
         {
             seq.addAll(Arrays.asList(temp.split("/")));
-        }
-        else if (!temp.equals(""))
+        } else if (!temp.equals(""))
         {
             seq.add(temp);
         }

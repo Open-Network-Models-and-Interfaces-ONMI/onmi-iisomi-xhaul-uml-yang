@@ -9,6 +9,7 @@ package com.highstreet.technologies.odl.app.spectrum.impl.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Attribute;
+import com.highstreet.technologies.odl.app.spectrum.impl.meta.DN;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Result;
 
 /**
@@ -16,9 +17,9 @@ import com.highstreet.technologies.odl.app.spectrum.impl.meta.Result;
  */
 public interface Communicator
 {
-    void set(Attribute attribute, Object value);
-
-    Object running(Attribute attr);
-
     Result<JsonNode> ls(String path, String targetName);
+
+    Object get(String dn, String attrName);
+
+    void set(String dn, String attrName, Object o);
 }

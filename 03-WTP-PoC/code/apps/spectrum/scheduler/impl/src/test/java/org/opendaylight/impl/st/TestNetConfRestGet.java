@@ -46,49 +46,6 @@ public class TestNetConfRestGet
     public void get() throws Exception
     {
 
-        ClientConfig config = new ClientConfig() {
-            @Override
-            public Set<Class<?>> getClasses()
-            {
-                return null;
-            }
-
-            @Override
-            public Set<Object> getSingletons()
-            {
-                return null;
-            }
-
-            @Override
-            public boolean getPropertyAsFeature(String featureName)
-            {
-                return false;
-            }
-
-            @Override
-            public Map<String, Boolean> getFeatures()
-            {
-                return null;
-            }
-
-            @Override
-            public boolean getFeature(String s)
-            {
-                return false;
-            }
-
-            @Override
-            public Map<String, Object> getProperties()
-            {
-                return null;
-            }
-
-            @Override
-            public Object getProperty(String s)
-            {
-                return null;
-            }
-        };
         Authenticator.setDefault(new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication()
