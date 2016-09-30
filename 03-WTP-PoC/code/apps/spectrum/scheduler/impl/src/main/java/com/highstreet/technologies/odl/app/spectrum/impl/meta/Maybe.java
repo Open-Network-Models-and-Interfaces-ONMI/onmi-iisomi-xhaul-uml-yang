@@ -16,16 +16,6 @@ import java.io.Serializable;
  */
 public class Maybe<T> implements Serializable
 {
-    public void setValue(T value)
-    {
-        this.value = value;
-    }
-
-    public void setPresent(boolean present)
-    {
-        this.present = present;
-    }
-
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private T value;
     private boolean present = false;
@@ -34,7 +24,6 @@ public class Maybe<T> implements Serializable
     {
         this(null);
     }
-
     public Maybe(T t)
     {
         this.value = t;
@@ -44,6 +33,11 @@ public class Maybe<T> implements Serializable
     public boolean isPresent()
     {
         return present;
+    }
+
+    public void setPresent(boolean present)
+    {
+        this.present = present;
     }
 
     public boolean nothing()
@@ -58,6 +52,11 @@ public class Maybe<T> implements Serializable
             return value;
         }
         return null;
+    }
+
+    public void setValue(T value)
+    {
+        this.value = value;
     }
 
     @Override

@@ -21,8 +21,8 @@ import java.util.List;
  */
 public class FindResult extends Result<Mo>
 {
-    private int size = 0;
     public Maybe<Integer> transId;
+    private int size = 0;
     private ArrayList<Mo> moLst = new ArrayList<Mo>();
 
     public FindResult()
@@ -80,14 +80,14 @@ public class FindResult extends Result<Mo>
         return moLst;
     }
 
-    public int getSize()
-    {
-        return size;
-    }
-
     public void setMo(ArrayList<Mo> moLst)
     {
         this.moLst = moLst;
+    }
+
+    public int getSize()
+    {
+        return size;
     }
 
     @Override

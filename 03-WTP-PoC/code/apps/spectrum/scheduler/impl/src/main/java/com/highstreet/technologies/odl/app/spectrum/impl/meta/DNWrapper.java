@@ -23,6 +23,20 @@ public class DNWrapper implements Serializable, Comparable<DNWrapper>
     private final LinkedList<Pair<String, String>> lst = new LinkedList<Pair<String, String>>();
     private final ArrayList<String> seq = new ArrayList<String>(20);
 
+    public DNWrapper(String dn)
+    {
+        if (dn != null)
+        {
+            dn = dn.replace("//", "/");
+        }
+        wrap(dn);
+    }
+
+    public static boolean is(String dnString)
+    {
+        return dnString != null && dnString.startsWith("/");
+    }
+
     @Override
     public boolean equals(Object o)
     {
@@ -38,20 +52,6 @@ public class DNWrapper implements Serializable, Comparable<DNWrapper>
     public int hashCode()
     {
         return seq.hashCode();
-    }
-
-    public DNWrapper(String dn)
-    {
-        if (dn != null)
-        {
-            dn = dn.replace("//", "/");
-        }
-        wrap(dn);
-    }
-
-    public static boolean is(String dnString)
-    {
-        return dnString != null && dnString.startsWith("/");
     }
 
     public String to(String keyword) throws Exception

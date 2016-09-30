@@ -8,8 +8,6 @@
 package com.highstreet.technologies.odl.app.spectrum.impl.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.highstreet.technologies.odl.app.spectrum.impl.meta.Attribute;
-import com.highstreet.technologies.odl.app.spectrum.impl.meta.DN;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Result;
 
 /**

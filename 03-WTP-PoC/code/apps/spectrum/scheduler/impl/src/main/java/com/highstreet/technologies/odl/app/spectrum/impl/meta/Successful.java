@@ -15,14 +15,18 @@ import java.util.List;
  */
 public class Successful<T> extends Result<T>
 {
+    private Maybe<Integer> transId = new Maybe<>(null);
+    List<T> mo;
+
     public Successful(List<T> mo)
     {
         this.mo = mo;
     }
 
-     List<T> mo;
-
-    public Successful(ArrayList<T> lst, Maybe<Integer> transId) {super();}
+    public Successful(ArrayList<T> lst, Maybe<Integer> transId) {
+        this.mo = lst;
+        this.transId = transId;
+    }
 
     @Override
     public long getResult()
@@ -45,6 +49,6 @@ public class Successful<T> extends Result<T>
     @Override
     public Maybe<Integer> getTransId()
     {
-        return null;
+        return transId;
     }
 }

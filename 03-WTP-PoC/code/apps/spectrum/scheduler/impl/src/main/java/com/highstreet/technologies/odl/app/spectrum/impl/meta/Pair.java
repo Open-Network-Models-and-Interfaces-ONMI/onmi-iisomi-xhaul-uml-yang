@@ -11,6 +11,13 @@ import java.io.Serializable;
 
 public class Pair<FirstType, SecondType> implements Serializable
 {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    private FirstType first;
+    private SecondType second;
+
     public Pair()
     {
     }
@@ -21,22 +28,14 @@ public class Pair<FirstType, SecondType> implements Serializable
         this.second = second;
     }
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+    public static <T1, T2> Pair<T1, T2> pair(T1 t1, T2 t2)
+    {
+        return new Pair<T1, T2>(t1, t2);
+    }
 
     public void setFirst(FirstType first)
     {
         this.first = first;
-    }
-
-    private FirstType first;
-    private SecondType second;
-
-    public static <T1, T2> Pair<T1, T2> pair(T1 t1, T2 t2)
-    {
-        return new Pair<T1, T2>(t1, t2);
     }
 
     public FirstType first()
@@ -67,8 +66,7 @@ public class Pair<FirstType, SecondType> implements Serializable
                         || (first.equals(((Pair<?, ?>) o).second) && second.equals(
                         ((Pair<?, ?>) o).first));
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
         }
 
@@ -96,8 +94,7 @@ public class Pair<FirstType, SecondType> implements Serializable
                         && ((Pair<?, ?>) o).second
                         .toString().matches(first.toString()));
             }
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             e.printStackTrace();
         }

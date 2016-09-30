@@ -37,12 +37,10 @@ public abstract class Singleton
             }
             constructor.setAccessible(true);
             return constructor.newInstance();
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             throw e;
-        }
-        finally
+        } finally
         {
             if (constructor != null)
             {
@@ -61,8 +59,7 @@ public abstract class Singleton
                 try
                 {
                     instance = createNewInstance(claxx);
-                }
-                catch (Exception e)
+                } catch (Exception e)
                 {
                     throw new IllegalArgumentException(e);
                 }

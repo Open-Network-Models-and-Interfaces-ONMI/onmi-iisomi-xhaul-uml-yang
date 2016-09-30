@@ -11,14 +11,13 @@ import java.io.Serializable;
 
 public class DN implements Serializable, Comparable<DN>
 {
+    private static final long serialVersionUID = 1L;
+    private DNWrapper wrapper;
     public DN(String dn)
     {
         if (isDN(dn))
             wrapper = new DNWrapper(dn);
     }
-
-    private static final long serialVersionUID = 1L;
-    private DNWrapper wrapper;
 
     public static boolean isDN(String dnString)
     {

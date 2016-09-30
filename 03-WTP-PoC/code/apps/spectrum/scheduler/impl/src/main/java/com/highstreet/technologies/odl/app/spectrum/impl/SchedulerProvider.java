@@ -8,9 +8,8 @@
 package com.highstreet.technologies.odl.app.spectrum.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.highstreet.technologies.odl.app.spectrum.impl.api.DataAgent;
 import com.highstreet.technologies.odl.app.spectrum.impl.api.Communicator;
-import com.highstreet.technologies.odl.app.spectrum.impl.meta.*;
+import com.highstreet.technologies.odl.app.spectrum.impl.meta.Result;
 import com.highstreet.technologies.odl.app.spectrum.impl.task.SpectrumTask;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.ProviderContext;
@@ -21,14 +20,12 @@ import org.slf4j.LoggerFactory;
 
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
-import java.util.ArrayList;
 
 import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.Singleton.getInstance;
 
 public class SchedulerProvider implements BindingAwareProvider, AutoCloseable
 {
     private static final Logger LOG = LoggerFactory.getLogger(SchedulerProvider.class);
-    private BindingAwareBroker.RpcRegistration<SchedulerService> schedulerService;
 
     static
     {
@@ -42,6 +39,8 @@ public class SchedulerProvider implements BindingAwareProvider, AutoCloseable
         });
 
     }
+
+    private BindingAwareBroker.RpcRegistration<SchedulerService> schedulerService;
 
     @Override
     public void onSessionInitiated(ProviderContext session)
