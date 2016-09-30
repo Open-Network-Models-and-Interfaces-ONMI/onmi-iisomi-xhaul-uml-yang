@@ -157,27 +157,43 @@ define(['app/mwtnTest/mwtnTest.module',
       data.revision = undefined;
     };
 
-    var updateStructure = function(lpId, data) {
+    var updateStructure = function(lpId, part, data) {
       // console.log(JSON.stringify(data), lpId);
       $scope.structures.map(function(structure){
         // console.log(JSON.stringify(structure));
         if (structure.layerProtocol === lpId) {
-          var part = Object.keys(data)[0].substring('structure'.length);
-          // console.log(part);
-          structure[part] = data;
+          if (Object.keys(data)[0].contains('tructure')) {
+            structure[part] = data;            
+          } else if (part === 'Capability') {
+            // 2. PoC
+            // console.log(part, JSON.stringify(data));
+            structure[part] = data.MW_Structure_Pac[0].structureCapabilityList;            
+          } else if (part === 'CurrentProblems') {
+            // 2. PoC
+            // console.log(part, JSON.stringify(data));
+            structure[part] = data.MW_Structure_Pac[0].structureCurrentProblemList;            
+          }
         }
       });
       data.revision = undefined;
     };
 
-    var updateContainer = function(lpId, data) {
-      console.log(JSON.stringify(data), lpId);
+    var updateContainer = function(lpId, part, data) {
+      // console.log(JSON.stringify(data), lpId);
       $scope.containers.map(function(container){
         // console.log(JSON.stringify(container));
         if (container.layerProtocol === lpId) {
-          var part = Object.keys(data)[0].substring('container'.length);
-          // console.log(part);
-          container[part] = data;
+          if (Object.keys(data)[0].contains('ontainer') ) {
+            container[part] = data;            
+          } else if (part === 'Capability') {
+            // 2. PoC
+            // console.log(part, JSON.stringify(data));
+            container[part] = data.MW_Container_Pac[0].containerCapabilityList;            
+          } else if (part === 'CurrentProblems') {
+            // 2. PoC
+            // console.log(part, JSON.stringify(data));
+            container[part] = data.MW_Container_Pac[0].containerCurrentProblemList;            
+          }
         }
       });
       data.revision = undefined;
@@ -197,11 +213,11 @@ define(['app/mwtnTest/mwtnTest.module',
         break;
       case 'structure':
         console.log(JSON.stringify(data));
-        updateStructure(spec.layerProtocolId, data);
+        updateStructure(spec.layerProtocolId, spec.partId, data);
         break;
       case 'container':
         console.log(JSON.stringify(data));
-        updateContainer(spec.layerProtocolId, data);
+        updateContainer(spec.layerProtocolId, spec.partId, data);
         break;
       }
     };

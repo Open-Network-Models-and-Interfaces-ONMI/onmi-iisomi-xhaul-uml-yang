@@ -145,7 +145,6 @@ define(
         service.getPacParts = function(spec) {
           var errorMsg = {info:'no data received'};
           var deferred = $q.defer();
-
           switch (spec.pacId){
           case 'ne':
             service.getActualNetworkElement(spec.nodeId, spec.revision).then(function(success){
@@ -371,13 +370,13 @@ define(
               case 'Structure':
               case 'structure':
                 pacId = 'MicrowaveModel-ObjectClasses-PureEthernetStructure:MW_PureEthernetStructure_Pac';
-                partId = 'structure' + partId;
+                partId = 'pureEthernetStructure' + partId;
                 break;
               case 'ETH-CTP':
               case 'Container':
               case 'container':
                 pacId = 'MicrowaveModel-ObjectClasses-EthernetContainer:MW_EthernetContainer_Pac';
-                partId = 'container' + partId;
+                partId = 'ethernetContainer' + partId;
                 break;
             }
           }
@@ -395,7 +394,6 @@ define(
           }
           
           var ids = getIdsByRevision(spec.revision, spec.pacId, spec.partId);
-          console.log(JSON.stringify(ids)); 
           
           var url = [service.base,
               'operational/network-topology:network-topology/topology/topology-netconf/node/',
@@ -409,7 +407,7 @@ define(
           };
           console.log(url);
           
-          var taskId = [spec.nodeId, spec.layerProtocolId, 'MW_AirInterface_Pac data received'].join(' ');
+          var taskId = [spec.nodeId, spec.layerProtocolId, spec.pacId, 'data received'].join(' ');
           console.time(taskId);
           
           $http(request).then(function(success) {
