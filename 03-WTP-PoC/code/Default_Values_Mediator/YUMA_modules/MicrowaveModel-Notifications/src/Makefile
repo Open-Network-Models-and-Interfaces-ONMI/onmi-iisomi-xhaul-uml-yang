@@ -258,7 +258,7 @@ superclean:
 
 ifndef MAC
 $(LIB_INST)/lib$(SUBDIR_NM).so: $(OBJS)
-	$(LINK) $(CFLAGS) $(LDFLAGS) -shared -rdynamic -Wl,-soname,lib$(SUBDIR_NM).so -o $@ $(OBJS) -L$(BASE_COMMON)/lib -l$(BASE_NAME) -L/usr/local/lib -lnetsnmp -lnetsnmpagent -lnetsnmphelpers
+	$(LINK) $(CFLAGS) $(LDFLAGS) -shared -rdynamic -Wl,-soname,lib$(SUBDIR_NM).so -o $@ $(OBJS) -L$(BASE_COMMON)/lib -l$(BASE_NAME) -L/usr/local/lib
 else
 $(LIB_INST)/lib$(SUBDIR_NM).so: $(OBJS)
 	$(LINK) $(CFLAGS) $(LDFLAGS) -shared -bundle -std=gnu99 \

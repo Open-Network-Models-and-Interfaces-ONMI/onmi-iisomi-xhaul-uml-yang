@@ -47,7 +47,6 @@
 #include <pthread.h>
 #include <time.h>
 #include <math.h>
-#include <errno.h>
 
 
 static obj_template_t *ObjectCreationNotification_obj;
@@ -55,22 +54,8 @@ static obj_template_t *ObjectDeletionNotification_obj;
 static obj_template_t *AttributeValueChangedNotification_obj;
 static obj_template_t *ProblemNotification_obj;
 
-#include <net-snmp/net-snmp-config.h>
-#include <net-snmp/net-snmp-includes.h>
-#include <net-snmp/agent/net-snmp-agent-includes.h>
-#include <net-snmp/agent/agent_trap.h>
-#include <net-snmp/agent/snmp_agent.h>
-#include <net-snmp/agent/agent_callbacks.h>
-#include <net-snmp/agent/snmp_vars.h>
-
 /* put your static variables here */
 
-netsnmp_transport *transport = NULL;
-netsnmp_session sess, *session = &sess, *rc = NULL;
-static fd_set read_fd_set;
-struct timeval         timeout;
-uint32 g_attr_counter = 0;
-uint32 g_problems_counter = 0;
 
 /********************************************************************
 * FUNCTION u_MicrowaveModel_Notifications_ObjectCreationNotification_send
@@ -516,174 +501,88 @@ status_t u_MicrowaveModel_Notifications_init (
     return res;
 } /* u_MicrowaveModel_Notifications_init */
 
-static int sendCustomNotification(const xmlChar* dateAndTime, int alarmId, int ifIndex, int state, int severity)
+static void generateNotification()
 {
-	switch (alarmId)
+	xmlChar buffer[256];
+	int n = 0, freq = 0, attrValChangedcounter = 0, problemNotificationCounter;
+
+	xmlChar dateAndTime[256];
+
+	const xmlChar evalPath[1000], *resultString;
+	sprintf(evalPath, "/data/MW_Notifications/notificationTimeout");
+
+	resultString = get_value_from_xpath(evalPath);
+	if (resultString)
 	{
-		case 0: //define your own alarm IDs and use them here
+		freq = strtol(resultString, NULL, 10);
+		free(resultString);
+	}
+
+	YUMA_ASSERT(freq == 0, return, "No eventFrequency configured. Not generating any notifications.");
+
+    while (TRUE)
+    {
+    	time_t t = time(NULL);
+    	struct tm tm = *localtime(&t);
+    	struct timeval tv;
+
+    	gettimeofday(&tv, NULL);
+    	int millisec;
+    	millisec = lrint(tv.tv_usec/1000.0); // Round to nearest millisec
+    	if (millisec>=1000)
+    	{ // Allow for rounding up to nearest second
+    		millisec -=1000;
+    		tv.tv_sec++;
+    		millisec /= 100;
+    	}
+
+    	sprintf(dateAndTime, "%04d%02d%02d%02d%02d%02d.%01dZ", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec,
+    			millisec/100);
+
+    	sprintf(evalPath, "/data/MW_Notifications/problemNotification/problemName");
+    	resultString = get_value_from_xpath(evalPath);
+
+    	if (resultString)
+    	{
+    		sprintf(evalPath, "/data/MW_Notifications/problemNotification/objIdRef");
+    		char* objIdRef = get_value_from_xpath(evalPath);
+
+    		sprintf(evalPath, "/data/MW_Notifications/problemNotification/severity");
+			char* severity = get_value_from_xpath(evalPath);
+
+    		u_MicrowaveModel_Notifications_ProblemNotification_send(problemNotificationCounter++,
+    				dateAndTime,
+					objIdRef,
+					resultString,
+					severity);
+    		free(objIdRef);
+    		free(severity);
+    		free(resultString);
+    	}
+
+    	sprintf(evalPath, "/data/MW_Notifications/attributeValueChangedNotification/attributeName");
+		resultString = get_value_from_xpath(evalPath);
+
+		if (resultString)
 		{
-			char ifIndexStr[64];
-			sprintf(ifIndexStr, LTP_MWPS_PREFIX"%lu", ifIndex);
+			sprintf(evalPath, "/data/MW_Notifications/attributeValueChangedNotification/objIdRef");
+			char* objIdRef = get_value_from_xpath(evalPath);
 
-			u_MicrowaveModel_Notifications_AttributeValueChangedNotification_send(g_attr_counter++,
+			sprintf(evalPath, "/data/MW_Notifications/attributeValueChangedNotification/newValue");
+			char* newValue = get_value_from_xpath(evalPath);
+
+			u_MicrowaveModel_Notifications_AttributeValueChangedNotification_send(attrValChangedcounter++,
 					dateAndTime,
-					ifIndexStr,
-					"transmitterIsOn",
-					(state == 1) ? "false" : "true");
-			u_MicrowaveModel_Notifications_ProblemNotification_send(g_problems_counter++,
-					dateAndTime,
-					ifIndexStr, //layer protocol here
-					"transmitterIsTurnedOff", //problemName here
-					(state == 1) ? "warning" : "non-alarmed");
-			break;
+					objIdRef,
+					resultString,
+					newValue);
+
+			free(objIdRef);
+			free(newValue);
+			free(resultString);
 		}
-		default:
-			YUMA_ASSERT(TRUE, NOP, "AlarmId=%d having severity=%d and state=%d for ifIndex=%lu is not yet handled, not sending any notification",
-					alarmId, severity, state, ifIndex);
-	}
-
-	return 1;
-}
-
-static int handleSnmpTrap(int op, netsnmp_session* session, int reqid, netsnmp_pdu* response, void *magic)
-{
-	struct variable_list *vars;
-
-	if (op == NETSNMP_CALLBACK_OP_RECEIVED_MESSAGE)
-	{
-		/* drop problem packets */
-		YUMA_ASSERT(session->s_snmp_errno, return 1, "Received SNMP packet with errors!");
-
-		if (response->command == SNMP_MSG_TRAP2) /* TRAP V2 */
-		{
-		    unsigned long int alarmId = 0, ifIndex = 0, severity = 0, state = 0;
-
-			/*----------------------------------------------
-			 * Insert here the code to manage SNMP trap
-			 * need to extract the alarmId, ifIndex (actually the layerProtocol), severity and state of the alarm (raised/cleared)
-			 *---------------------------------------------*/
-
-			xmlChar dateAndTime[256];
-
-			/*
-			 * Create dateAndTime according to ONF specifications
-			 */
-			time_t t = time(NULL);
-			struct tm tm = *localtime(&t);
-			struct timeval tv;
-
-			gettimeofday(&tv, NULL);
-			int millisec;
-			millisec = lrint(tv.tv_usec/1000.0); // Round to nearest millisec
-			if (millisec>=1000)
-			{ // Allow for rounding up to nearest second
-				millisec -=1000;
-				tv.tv_sec++;
-				millisec /= 100;
-			}
-
-			sprintf(dateAndTime, "%04d%02d%02d%02d%02d%02d.%01dZ", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec,
-					millisec/100);
-
-			int ret = sendCustomNotification(dateAndTime, alarmId, ifIndex, state, severity);
-			YUMA_ASSERT(ret == FALSE, return FALSE, "Failed to sendCustomNotification for alarmId=%d", alarmId);
-		}
-	}
-	else if (op == NETSNMP_CALLBACK_OP_TIMED_OUT)
-	{
-		YUMA_ASSERT(TRUE, NOP, "Timeout: This shouldn't happen!\n");
-	}
-	return 1;
-}
-
-static status_t waitForSnmpTrap()
-{
-	int ret = 0, done, maxNumOfFD = transport->sock;
-
-	FD_ZERO(&read_fd_set);
-
-	YUMA_ASSERT(TRUE, NOP, "Thread listening for SNMP Traps...");
-
-	//This thread will block in a loop, waiting for SNMP Traps
-
-	while (TRUE)
-	{
-		done = FALSE;
-		while (!done) {
-			//Set the file descriptor to listen for modifications to the socket associated with the SNMP trap
-			FD_SET(transport->sock, &read_fd_set);
-
-			//Block for 5 seconds waiting for something on the socket
-			timeout.tv_sec = 5;
-			timeout.tv_usec = 0;
-
-			/* Block until input arrives on one or more active sockets.
-			 * or the timer expires
-			 */
-			ret = select(maxNumOfFD + 1, //the max number of the FD to listen to
-						 &read_fd_set,
-						 NULL,
-						 NULL,
-						 &timeout);
-			if (ret > 0) { //the FD was ready for reading
-				done = TRUE;
-			} else if (ret < 0) {
-				if (!(errno == EINTR || errno==EAGAIN)) {
-					done = TRUE;
-				}
-			} else if (ret == 0) {
-				/* should only happen if a timeout occurred */
-				if (agt_shutdown_requested()) {
-					done = TRUE;
-				} else {
-					/* !! put all polling callbacks here for now !! */
-					agt_ses_check_timeouts();
-					agt_timer_handler();
-				}
-			} else {
-				/* normal return with some bytes */
-				done = TRUE;
-			}
-		}
-
-		//Read the actual data from the socket, and call the associated handle of the SNMP session
-		snmp_read(&read_fd_set);
-	}
-
-	YUMA_ASSERT(TRUE, NOP, "Finished the SNMP trap listen loop, we should not be here!");
-
-	snmp_close(session);
-	netsnmp_transport_free(transport);
-
-	return NO_ERR;
-}
-
-static status_t addSnmpTrapSession()
-{
-	init_snmp("mdtrapd");
-	init_agent("mdtrapd");
-
-	transport = netsnmp_tdomain_transport("udp:162", 1, "udp");
-    YUMA_ASSERT(transport == NULL, return ERR_INTERNAL_VAL, "########### SNMP Transport could not be opened! Are you sure you are running as root ? ##############");
-
-	snmp_sess_init(session);
-	session->peername = SNMP_DEFAULT_PEERNAME;  /* Original code had NULL here */
-	session->version = SNMP_VERSION_2c;
-	session->community = "public";
-	session->community_len = strlen(session->community);
-	session->retries = SNMP_DEFAULT_RETRIES;
-	session->timeout = SNMP_DEFAULT_TIMEOUT;
-	session->callback = handleSnmpTrap;
-	session->callback_magic = (void *) transport;
-	session->authenticator = NULL;
-	sess.isAuthoritative = SNMP_SESS_UNKNOWNAUTH;
-
-	rc = snmp_add(session, transport, NULL, NULL);
-	YUMA_ASSERT(rc == NULL, return ERR_INTERNAL_VAL, "COULD NOT ADD SNMP SESSION!");
-
-	YUMA_ASSERT(TRUE, NOP, "SNMP Trap session added and Transport Socket=%d", transport->sock);
-
-	return NO_ERR;
+    	sleep(freq);
+    }
 }
 
 /********************************************************************
@@ -699,15 +598,12 @@ status_t u_MicrowaveModel_Notifications_init2 (void)
 {
     status_t res = NO_ERR;
 
-    pthread_t wait_for_trap_thread;
+    pthread_t gen_notif_thread;
 
-    res = addSnmpTrapSession();
-    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not addSnmpTrapSession!");
-
-    if(pthread_create(&wait_for_trap_thread, NULL, waitForSnmpTrap, NULL))
-	{
-		YUMA_ASSERT(TRUE, return ERR_INTERNAL_VAL, "Could not create thread that listens to SNMP Traps!");
-	}
+    if(pthread_create(&gen_notif_thread, NULL, generateNotification, NULL))
+    {
+    	YUMA_ASSERT(TRUE, return ERR_INTERNAL_VAL, "Could not create thread for generating notifications!");
+    }
 
     return NO_ERR;
 } /* u_MicrowaveModel_Notifications_init2 */

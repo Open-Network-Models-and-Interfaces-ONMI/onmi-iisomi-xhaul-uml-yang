@@ -167,14 +167,15 @@ status_t add_virtual_leaf(val_value_t *parentVal, const char *elementName, getcb
  */
 static xmlDocPtr get_xml_doc_ptr();
 
-xmlDocPtr xmlDefaultValues = NULL;
+//xmlDocPtr xmlDefaultValues = NULL;
 
 static xmlDocPtr get_xml_doc_ptr()
 {
-	if (xmlDefaultValues != NULL)
-	{
-		return xmlDefaultValues;
-	}
+//	if (xmlDefaultValues != NULL)
+//	{
+//		return xmlDefaultValues;
+//	}
+	xmlDocPtr xmlDefaultValues = NULL;
 
 	const char *filename =  "/home/compila/app/CENTENNIAL/03-WTP-PoC/code/Default_Values_Mediator/YUMA_modules/Base_mediator_utils/src/DVM_MicrowaveModel-ObjectClasses-AirInterface.xml";
 
@@ -213,6 +214,7 @@ char* get_value_from_xpath(const xmlChar* xPathExpression)
 
     xmlXPathFreeObject(xpathObj);
     xmlXPathFreeContext(xpathCtx);
+    xmlFreeDoc(doc);
 
     return resultString;
 }
@@ -244,6 +246,7 @@ status_t get_list_from_xpath(const xmlChar* xPathExpression, char **list_element
 
     xmlXPathFreeObject(xpathObj);
     xmlXPathFreeContext(xpathCtx);
+    xmlFreeDoc(doc);
 
     return NO_ERR;
 }

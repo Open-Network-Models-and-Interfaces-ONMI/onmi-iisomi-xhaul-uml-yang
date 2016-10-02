@@ -13,9 +13,16 @@ This is a NETCONF Server, based on OpenYuma, that implements the **_MicrowaveMod
 	sudo cp /home/compila/app/CENTENNIAL/03-WTP-PoC/code/Default_Values_Mediator/YANG_files/CENTENNIAL/*.yang /usr/share/yuma/modules/CENTENNIAL
 	```
 
-2. Overwrite */home/compila/app/poc2-md/open-yuma/netconf/src/agt/agt_val.c* with the **agt_val.c** file that is available here.
+2. 
+
+	a. Overwrite */home/compila/app/poc2-md/open-yuma/netconf/src/agt/agt_val.c* with the **agt_val.c** file that is available here.
 	```
 	cp /home/compila/app/CENTENNIAL/03-WTP-PoC/code/Default_Values_Mediator/agt_val.c /home/compila/app/poc2-md/open-yuma/netconf/src/agt/
+	```
+
+	b. Overwrite */home/compila/app/poc2-md/open-yuma/netconf/src/ncx/ncxconst.h* with the **ncxconst.h** file that is available here.
+	```
+	cp /home/compila/app/CENTENNIAL/03-WTP-PoC/code/Default_Values_Mediator/ncxconst.h /home/compila/app/poc2-md/open-yuma/netconf/src/ncx/
 	```
 
 3. Recompile OpenYuma project:
@@ -49,7 +56,33 @@ The values of the YANG attributes are set in the following XML file:
 
 - Default_Values_Mediator\YUMA_modules\Base_mediator_utils\src\DVM_MicrowaveModel-ObjectClasses-AirInterface.xml
 
-After the above file is modified, the NETCONF server must be restarted restarted.
+After the above file is modified, the NETCONF server must be restarted.
+
+The DVM is configured to send a NETCONF notification periodically. 
+
+<MW_Notifications>
+  <notificationTimeout>60</notificationTimeout>
+</MW_Notifications>
+
+The timeout, in seconds, between notifications is represented by the XML node notificationTimeout.
+
+If a problemNotification needs to be sent, then one element of the following type needs to be added under the MW_Notifications XML node:
+
+<problemNotification>
+    <problemName>signalIsLost</problemName>
+    <objIdRef>MW_AirInterface_Pac[layerProtocol=LP-MWPS-ifIndex1]</objIdRef>
+    <severity>non-alarmed</severity>
+  </problemNotification>
+
+ If an attributeValueChanged notificaion needs to be send, then one element of the following type needs to be added under the MW_Notifications XML node:
+
+ <attributeValueChangedNotification>
+   <attributeName>modulationCur</attributeName>
+   <objIdRef>MW_AirInterface_Pac[layerProtocol=LP-MWPS-ifIndex1]/airInterfaceStatus</objIdRef>
+   <newValue>128</newValue>
+ </attributeValueChangedNotification>
+
+ The reading of the values from the XML file is done dynamically, so if a value of an XML node is changed it will be reflected in the mediator without restarting. This is available for the dynamic YANG values, such as the Status, Current Problems, Current Performance or Historical Performance values, or Notifications.
 
 Contact
 -------

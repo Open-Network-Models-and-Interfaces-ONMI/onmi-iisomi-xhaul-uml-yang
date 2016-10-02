@@ -136,7 +136,7 @@
       <rxFrequencyCur>15150000</rxFrequencyCur>
       <txLevelCur>3</txLevelCur>
       <rxLevelCur>-37</rxLevelCur>
-      <modulationCur>512</modulationCur>
+      <modulationCur>256</modulationCur>
       <informationRateCur>-1</informationRateCur>
       <snirCur>-99</snirCur>
       <xpdCur>0</xpdCur>
@@ -1228,4 +1228,17 @@
     <ltpDirection>BIDIRECTIONAL</ltpDirection>
   </_ltpRefList>
 </NetworkElement>
+<MW_Notifications>
+  <notificationTimeout>60</notificationTimeout>
+  <problemNotification>
+    <problemName>signalIsLost</problemName>
+    <objIdRef>MW_AirInterface_Pac[layerProtocol=LP-MWPS-ifIndex1]</objIdRef>
+    <severity>non-alarmed</severity>
+  </problemNotification>
+  <attributeValueChangedNotification>
+    <attributeName>modulationCur</attributeName>
+    <objIdRef>MW_AirInterface_Pac[layerProtocol=LP-MWPS-ifIndex1]/airInterfaceStatus</objIdRef>
+    <newValue>128</newValue>
+  </attributeValueChangedNotification>
+</MW_Notifications>
 </data>

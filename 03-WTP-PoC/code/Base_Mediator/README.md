@@ -13,9 +13,16 @@ This is a NETCONF Server, based on OpenYuma, that implements the **_MicrowaveMod
 	sudo cp /home/compila/app/CENTENNIAL/03-WTP-PoC/code/Base_Mediator/YANG_files/CENTENNIAL/*.yang /usr/share/yuma/modules/CENTENNIAL
 	```
 
-2. Overwrite */home/compila/app/poc2-md/open-yuma/netconf/src/agt/agt_val.c* with the **agt_val.c** file that is available here.
+2. 
+
+	a. Overwrite */home/compila/app/poc2-md/open-yuma/netconf/src/agt/agt_val.c* with the **agt_val.c** file that is available here.
 	```
 	cp /home/compila/app/CENTENNIAL/03-WTP-PoC/code/Base_Mediator/agt_val.c /home/compila/app/poc2-md/open-yuma/netconf/src/agt/
+	```
+
+	b. Overwrite */home/compila/app/poc2-md/open-yuma/netconf/src/ncx/ncxconst.h* with the **ncxconst.h** file that is available here.
+	```
+	cp /home/compila/app/CENTENNIAL/03-WTP-PoC/code/Base_Mediator/ncxconst.h /home/compila/app/poc2-md/open-yuma/netconf/src/ncx/
 	```
 
 3. Recompile OpenYuma project:
