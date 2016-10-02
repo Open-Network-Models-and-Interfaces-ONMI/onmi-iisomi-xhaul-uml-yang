@@ -28,47 +28,75 @@
 		<uib-accordion close-others="oneAtATime">
 
 		<div uib-accordion-group class="panel-primary"
-			heading="{{'NetworkElement' | translate}} '{{onfNetworkElement.nameList[0].value}}'"
 			is-open="status.ne">
+			<uib-accordion-heading>
+			    <i class="pull-left fa" ng-class="{'fa-chevron-down': status.ne, 'fa-chevron-right': !status.ne}"></i>
+			    <span>{{'NetworkElement' | translate}} '{{onfNetworkElement.nameList[0].value}}'</span>
+			</uib-accordion-heading>
 			<pre>{{onfNetworkElement | json}}</pre>
 		</div>
 
 		<div ng-repeat="ltp in onfLtps" uib-accordion-group
 			class="panel-default"
-			heading="{{'LTP' | translate}}({{ltp._lpList[0].layerProtocolName}}) '{{ltp.uuid}}' -> '{{ltp._lpList[0].uuid}}'"
 			is-open="status['ltp' + separator + ltp.uuid]">
+			<uib-accordion-heading>
+			    <i class="pull-left fa" ng-class="{'fa-chevron-down': status['ltp' + separator + ltp.uuid], 'fa-chevron-right': !status['ltp' + separator + ltp.uuid]}"></i>
+			    <span>{{'LTP' | translate}}({{ltp._lpList[0].layerProtocolName}}) '{{ltp.uuid}}' -> '{{ltp._lpList[0].uuid}}'</span>
+			</uib-accordion-heading>
 			<pre>{{ltp | json}}</pre>
 		</div>
 
 		<div ng-repeat="airinterface in airinterfaces" uib-accordion-group
 			class="panel-primary"
-			heading="AirInterface (Pac) '{{airinterface.layerProtocol}}'"
 			is-open="status['airinterface' + separator + airinterface.layerProtocol]">
+			<uib-accordion-heading>
+			    <i class="pull-left fa" ng-class="{'fa-chevron-down': status['airinterface' + separator + airinterface.layerProtocol], 'fa-chevron-right': !status['airinterface' + separator + airinterface.layerProtocol]}"></i>
+			    <span>AirInterface (Pac) '{{airinterface.layerProtocol}}'</span>
+			</uib-accordion-heading>
 			<div ng-repeat="part in parts" uib-accordion-group
-				class="panel-default" heading="{{part}}"
+				class="panel-default" 
 				is-open="status['airinterface' + separator + airinterface.layerProtocol + separator + part]">
+				<uib-accordion-heading>
+				    <i class="pull-left fa" ng-class="{'fa-chevron-down': status['airinterface' + separator + airinterface.layerProtocol + separator + part], 'fa-chevron-right': !status['airinterface' + separator + airinterface.layerProtocol + separator + part]}"></i>
+				    <span>{{part}}</span>
+				</uib-accordion-heading>
 				<pre>{{airinterface[part] | json}}</pre>
 			</div>
 		</div>
 
 		<div ng-repeat="structure in structures" uib-accordion-group
 			class="panel-primary"
-			heading="Structure (Pac) '{{structure.layerProtocol}}'"
+			heading=""
 			is-open="status['structure' + separator + structure.layerProtocol]">
+			<uib-accordion-heading>
+			    <i class="pull-left fa" ng-class="{'fa-chevron-down': status['structure' + separator + structure.layerProtocol], 'fa-chevron-right': !status['structure' + separator + structure.layerProtocol]}"></i>
+			    <span>Structure (Pac) '{{structure.layerProtocol}}'</span>
+			</uib-accordion-heading>
 			<div ng-repeat="part in parts" uib-accordion-group
-				class="panel-default" heading="{{part}}"
+				class="panel-default" 
 				is-open="status['structure' + separator + structure.layerProtocol + separator + part]">
+				<uib-accordion-heading>
+				    <i class="pull-left fa" ng-class="{'fa-chevron-down': status['structure' + separator + structure.layerProtocol + separator + part], 'fa-chevron-right': !status['structure' + separator + structure.layerProtocol + separator + part]}"></i>
+				    <span>{{part}}</span>
+				</uib-accordion-heading>
 				<pre>{{structure[part] | json}}</pre>
 			</div>
 		</div>
 
 		<div ng-repeat="container in containers" uib-accordion-group
 			class="panel-primary"
-			heading="Container (Pac) '{{container.layerProtocol}}'"
 			is-open="status['container' + separator + container.layerProtocol]">
+			<uib-accordion-heading>
+			    <i class="pull-left fa" ng-class="{'fa-chevron-down': status['container' + separator + container.layerProtocol], 'fa-chevron-right': !status['container' + separator + container.layerProtocol]}"></i>
+			    <span>Container (Pac) '{{container.layerProtocol}}'</span>
+			</uib-accordion-heading>
 			<div ng-repeat="part in parts" uib-accordion-group
-				class="panel-default" heading="{{part}}"
+				class="panel-default" 
 				is-open="status['container' + separator +  container.layerProtocol + separator + part]">
+				<uib-accordion-heading>
+				    <i class="pull-left fa" ng-class="{'fa-chevron-down': status['container' + separator +  container.layerProtocol + separator + part], 'fa-chevron-right': !status['container' + separator +  container.layerProtocol + separator + part]}"></i>
+				    <span>{{part}}</span>
+				</uib-accordion-heading>
 				<pre>{{container[part] | json}}</pre>
 			</div>
 		</div>

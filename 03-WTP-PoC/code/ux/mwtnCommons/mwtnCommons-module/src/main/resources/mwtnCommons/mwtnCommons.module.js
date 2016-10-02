@@ -11,7 +11,7 @@ define(['angularAMD',
         'app/core/core.services', 
         'common/config/env.module',
         'app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min', 
-        'app/mwtnCommons/bower_components/angular-bootstrap/ui-bootstrap-tpls.min'], 
+        'ui-bootstrap'], 
         function(ng) {
   var mwtnCommonsApp = angular.module('app.mwtnCommons', ['ui.grid', 'ui.bootstrap', 'app.core', 'ui.router.state','config', 'pascalprecht.translate']);
 

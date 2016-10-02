@@ -223,7 +223,7 @@ define(['app/mwtnTest/mwtnTest.module',
     };
     
     // events
-    $scope.status = {};
+    $scope.status = {ne:false};
     $scope.separator = $mwtnTest.separator; //'&nbsp;'
     
     $scope.$watch('status', function(status, oldValue) {
