@@ -229,7 +229,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
         break;
       case 'structure':
         // console.log(JSON.stringify(data));
-        updaConfigructure(spec.layerProtocolId, spec.partId, data);
+        updaSructure(spec.layerProtocolId, spec.partId, data);
         break;
       case 'container':
         // console.log(JSON.stringify(data));
