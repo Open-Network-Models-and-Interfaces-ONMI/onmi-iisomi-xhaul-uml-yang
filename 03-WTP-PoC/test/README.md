@@ -42,7 +42,7 @@ node <test_case>
 To change the input settings for 01-standalone-YANG-parser, edit: ./automated_test/input/test-cases.json
 
 Running 02-netconfserver-YANG-parser requires the mounted DVM03 resource in place
-(once ODL Beryllium and DVM03 has been started as per instructions, in order to mount the netconf server it is possible to run './test-env/base_mediator/mediator-mount.sh ./config.json' after having configured properly the ./config.json file)
+(once ODL Beryllium and DVM03 has been started as per instructions, in order to mount the netconf server it is possible to run './test-env/base-mediator/mediator-mount.sh ./config.json' after having configured properly the ./config.json file)
 
 ```
 
