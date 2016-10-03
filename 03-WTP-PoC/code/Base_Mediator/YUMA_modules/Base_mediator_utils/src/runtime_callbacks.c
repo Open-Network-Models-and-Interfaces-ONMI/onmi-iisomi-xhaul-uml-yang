@@ -1471,7 +1471,7 @@ static char* cb_get_runtime_airInterfaceStatus_remoteEndPointId(val_value_t *ele
 }
 
 /********************************************************************
-* FUNCTION cb_get_runtime_airInterfaceStatus_value
+* FUNCTION cb_get_runtime_airInterfaceCurrentProblems_value
 *
 * A general function that calls a specific callback for each attribute, depending on its name
 *
