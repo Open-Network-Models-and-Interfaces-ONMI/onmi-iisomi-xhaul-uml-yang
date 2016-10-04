@@ -712,6 +712,152 @@
 			"description": [
 				"The specific value of the universal id"
 			]
+		},
+		"_oGqjf1LNEeO75dO39GbF8Q": {
+			"id": "OperType",
+			"uml-id": "_oGqjf1LNEeO75dO39GbF8Q",
+			"enum": [
+				"REVERTIVE",
+				"NON-REVERTIVE"
+			],
+			"is-read-only": false,
+			"description": [
+				"The operation type associated with the protection mechanism (either non-revertive or revertive)."
+			]
+		},
+		"_2WpC8EC7EeWxhL2B6Peg6A": {
+			"id": "PortDirection",
+			"uml-id": "_2WpC8EC7EeWxhL2B6Peg6A",
+			"enum": [
+				"BIDIRECTIONAL",
+				"INPUT",
+				"OUTPUT",
+				"UNIDENTIFIED_OR_UNKNOWN"
+			],
+			"is-read-only": false,
+			"description": [
+				"The orientation of flow at the Port of a Forwarding entity"
+			]
+		},
+		"_dV67AEC8EeWxhL2B6Peg6A": {
+			"id": "ForwardingDirection",
+			"uml-id": "_dV67AEC8EeWxhL2B6Peg6A",
+			"enum": [
+				"BIDIRECTIONAL",
+				"UNIDIRECTIONAL",
+				"UNDEFINED_OR_UNKNOWN"
+			],
+			"is-read-only": false,
+			"description": [
+				"The directionality of a Forwarding entity."
+			]
+		},
+		"_RWILYEDAEeWQeOKbNUpP9A": {
+			"id": "TerminationDirection",
+			"uml-id": "_RWILYEDAEeWQeOKbNUpP9A",
+			"enum": [
+				"BIDIRECTIONAL",
+				"SINK",
+				"SOURCE",
+				"UNDEFINED_OR_UNKNOWN"
+			],
+			"is-read-only": false,
+			"description": [
+				"The directionality of a termination entity"
+			]
+		},
+		"_T5GykEDNEeWQeOKbNUpP9A": {
+			"id": "ExtendedTerminationDirection",
+			"uml-id": "_T5GykEDNEeWQeOKbNUpP9A",
+			"enum": [
+				"CONTRA_DIRECTION_SINK",
+				"CONTRA_DIRECTION_SOURCE"
+			],
+			"is-read-only": false,
+			"description": [
+				"Extended to include contra-direction considerations. Only applies to LP and elements of LP not to LTP??"
+			]
+		},
+		"_6anG8GeEEeWmgIwAIZlYKQ": {
+			"id": "TerminationState",
+			"uml-id": "_6anG8GeEEeWmgIwAIZlYKQ",
+			"enum": [
+				"LP_CAN_NEVER_TERMINATE",
+				"LT_NOT_TERMINATED",
+				"TERMINATED_SERVER_TO_CLIENT_FLOW",
+				"TERMINATED_CLIENT_TO_SERVER_FLOW",
+				"TERMINATED_BIDIRECTIONAL",
+				"LT_PERMENANTLY_TERMINATED",
+				"TERMINATION_STATE_UNKNOWN"
+			],
+			"is-read-only": false,
+			"description": [
+				"Provides support for the range of behaviours and specific states that an LP can take with respect to termination of the signal. Indicates to what degree the LayerTermination is terminated."
+			]
+		},
+		"_lNclkLEtEeSZUdYfPSdgew": {
+			"id": "OperationalState",
+			"uml-id": "_lNclkLEtEeSZUdYfPSdgew",
+			"enum": [
+				"DISABLED",
+				"ENABLED"
+			],
+			"is-read-only": false,
+			"description": [
+				"The possible values of the operationalState."
+			]
+		},
+		"_KSKOYLEuEeSZUdYfPSdgew": {
+			"id": "AdministrativeState",
+			"uml-id": "_KSKOYLEuEeSZUdYfPSdgew",
+			"enum": [
+				"LOCKED",
+				"UNLOCKED"
+			],
+			"is-read-only": false,
+			"description": [
+				"The possible values of the administrativeState."
+			]
+		},
+		"_-xPeALEvEeSZUdYfPSdgew": {
+			"id": "AdministrativeControl",
+			"uml-id": "_-xPeALEvEeSZUdYfPSdgew",
+			"enum": [
+				"UNLOCK",
+				"LOCK_PASSIVE",
+				"LOCK_ACTIVE",
+				"LOCK_IMMEDIATE"
+			],
+			"is-read-only": false,
+			"description": [
+				"The possible values of the current target administrative state."
+			]
+		},
+		"_McyhcGgeEeWmgIwAIZlYKQ": {
+			"id": "ExtendedAdminState",
+			"uml-id": "_McyhcGgeEeWmgIwAIZlYKQ",
+			"enum": [
+				"SHUTTING_DOWN_ACTIVE",
+				"SHUTTING_DOWN_PASSIVE"
+			],
+			"is-read-only": false,
+			"description": [
+				"Possible extentions to AdministrativeState"
+			]
+		},
+		"_YSsboGgiEeWmgIwAIZlYKQ": {
+			"id": "LifecycleState",
+			"uml-id": "_YSsboGgiEeWmgIwAIZlYKQ",
+			"enum": [
+				"PLANNED",
+				"POTENTIAL",
+				"INSTALLED",
+				"PENDING_REMOVAL"
+			],
+			"is-read-only": false,
+			"description": [
+				"The possible values of the lifecycleState."
+			]
 		}
 	}
 }

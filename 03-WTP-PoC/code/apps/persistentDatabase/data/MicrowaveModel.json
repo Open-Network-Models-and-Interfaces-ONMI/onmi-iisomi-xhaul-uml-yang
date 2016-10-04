@@ -3128,6 +3128,42 @@
 				"Consolidated performance information of the air interface diversity group."
 			]
 		},
+		"snirMin": {
+			"id": "snirMin",
+			"uml-id": "_nG-NsEzvEeaRytIQfQ43Wg",
+			"uml-type": "ownedAttribute",
+			"type": "pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EByte",
+			"order-number": 1,
+			"is-read-only": true,
+			"unit": "dB",
+			"description": [
+				"Minimum signal to (noise+interference) ratio of the combined signals."
+			]
+		},
+		"snirMax": {
+			"id": "snirMax",
+			"uml-id": "_n_OEUEzvEeaRytIQfQ43Wg",
+			"uml-type": "ownedAttribute",
+			"type": "pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EByte",
+			"order-number": 2,
+			"is-read-only": true,
+			"unit": "dB",
+			"description": [
+				"Maximum signal to (noise+interference) ratio of the combined signals."
+			]
+		},
+		"snirAvg": {
+			"id": "snirAvg",
+			"uml-id": "_oU3kMEzvEeaRytIQfQ43Wg",
+			"uml-type": "ownedAttribute",
+			"type": "pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EByte",
+			"order-number": 3,
+			"is-read-only": true,
+			"unit": "dB",
+			"description": [
+				"Average signal to (noise+interference) ratio of the combined signals."
+			]
+		},
 		"airInterfaceDiversityCurrentPerformanceType": {
 			"id": "airInterfaceDiversityCurrentPerformanceType",
 			"uml-id": "_n4wTgGz6Eeaf-__BRLM84g",
@@ -3541,6 +3577,59 @@
 			"type": "_U9tW0EQeEea3g-FxAUaYRg",
 			"order-number": 1,
 			"is-read-only": true
+		},
+		"_eIml0JH1EeWUdbnmmNiTAA": {
+			"id": "severityType",
+			"uml-id": "_eIml0JH1EeWUdbnmmNiTAA",
+			"enum": [
+				"non-alarmed",
+				"warning",
+				"minor",
+				"major",
+				"critical"
+			],
+			"is-read-only": false,
+			"description": [
+				"According to ITU-T M.3160"
+			]
+		},
+		"_e85NsI99EeWFluv9KLLl5A": {
+			"id": "polarizationType",
+			"uml-id": "_e85NsI99EeWFluv9KLLl5A",
+			"enum": [
+				"not-specified",
+				"horizontal",
+				"vertical"
+			],
+			"is-read-only": false
+		},
+		"_DaB5IJRgEeWxIPEwZQ_gmw": {
+			"id": "protectionType",
+			"uml-id": "_DaB5IJRgEeWxIPEwZQ_gmw",
+			"enum": [
+				"hsb"
+			],
+			"is-read-only": false
+		},
+		"_01_dYJReEeWxIPEwZQ_gmw": {
+			"id": "roleType",
+			"uml-id": "_01_dYJReEeWxIPEwZQ_gmw",
+			"enum": [
+				"working",
+				"protection",
+				"protected"
+			],
+			"is-read-only": false
+		},
+		"_DUJs8JOXEeWz-6sqLzUedw": {
+			"id": "airInterfaceDiversityStatusType",
+			"uml-id": "_DUJs8JOXEeWz-6sqLzUedw",
+			"enum": [
+				"groupDown",
+				"notAllAiActive",
+				"allAiActive"
+			],
+			"is-read-only": false
 		}
 	}
 }

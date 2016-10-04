@@ -5,8 +5,8 @@ var addToDB = true; // if false all schema info will be delete.
 var dataDir = 'data';
 
 var database = {
-//  host : '192.168.178.32',
-  host : '127.0.0.1',
+  host : '192.168.178.32',
+//  host : '127.0.0.1',
   port : 9200,
   index : 'mwtn',
   docType : 'schema-information'
@@ -159,16 +159,50 @@ var createEntry = function(db, key, value) {
   req.end();
 };
 
-//createEntry(database, 'key', {value:'value'}, function(createStatus){
-//  console.log('create', createStatus);
-//});
+var createIndex = function(db, callback) {
+  var settings = {
+        "settings" : {
+            "index" : {
+                "number_of_shards" : 5, 
+                "number_of_replicas" : 1 
+            }
+        }
+    };
 
-checkDatabase(database, function(dbStatus) {
-  console.log('database', dbStatus);
-  if (dbStatus === 'OK') {
-    checkIndex(database, function(status) {
-      console.log('index', status);
-      if (status === 'OK') {
+  var bodyString = JSON.stringify(settings);
+
+  var headers = {
+      'Content-Type': 'application/json',
+      'Content-Length': bodyString.length
+  };
+
+  var opts = {
+    host : db.host,
+    port : db.port,
+    method : 'PUT',
+    path : '/' + db.index + '/',
+    headers : headers
+  };
+
+  var req = http.request(opts, function(response) {
+    var body = '';
+    response.on('data', function(d) {
+      body += d;
+    });
+    response.on('end', function() {
+      var data = JSON.parse(body);
+      callback(true);
+    });
+  });  
+  req.on('error', function(e) {
+    callback(false);
+    console.log("Got error: " + e.message);
+  });
+  req.write(bodyString);
+  req.end();
+};
+
+var modifyDatabase = function(database) {
         searchEntries(database, function(searchStatus, data) {
 
           console.log('search', searchStatus, JSON.stringify(data));
@@ -206,6 +240,23 @@ checkDatabase(database, function(dbStatus) {
               });
             });
           });
+        });
+};
+
+checkDatabase(database, function(dbStatus) {
+  console.log('database', dbStatus);
+  if (dbStatus === 'OK') {
+    checkIndex(database, function(status) {
+      console.log('index', status);
+      if (status === 'OK') {
+        modifyDatabase(database);
+      } else {
+        createIndex(database, function(success){
+          if (success) {
+            modifyDatabase(database);
+          } else {
+            console.log('The index mwtn could not be created within the DB.');
+          }   
         });
       }
     });
