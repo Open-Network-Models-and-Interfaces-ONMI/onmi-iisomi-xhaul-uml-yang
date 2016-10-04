@@ -185,6 +185,49 @@ define(
           return deferred.promise;
         };
 
+        service.setPacParts = function(spec, data) {
+          var errorMsg = {info:'no data received'};
+          var deferred = $q.defer();
+          switch (spec.pacId){
+//          case 'ne':
+//            service.getActualNetworkElement(spec.nodeId, spec.revision).then(function(success){
+//              deferred.resolve(success);
+//            }, function(error){
+//              $mwtnLog.error({component: COMPONENT, message: 'Requesting ' + spec.nodeId + ' failed!'});
+//              deferred.reject(errorMsg);
+//            });
+//            break;
+//          case 'ltp':
+//            var odlRequest = {
+//              method: 'GET',
+//              url: [service.url.actualNetworkElement(spec.nodeId, spec.revision), '_ltpRefList', spec.layerProtocolId].join('/')
+//            };
+//            service.genericRequest(odlRequest).then(function(success){
+//              deferred.resolve(success);
+//            }, function(error){
+//              $mwtnLog.error({component: COMPONENT, message: 'Requesting LTPs of ' + spec.nodeId + ' failed!'});
+//              deferred.reject(errorMsg);
+//            });
+//            break;
+          case 'airinterface':
+          case 'structure':
+          case 'container':
+            if (spec.partId) {
+              service.setConditionalPackagePart(spec, data).then(function(success){
+                deferred.resolve(success);
+              }, function(error){
+                $mwtnLog.error({component: COMPONENT, message: 'Modification of ' + JSON.stringify(spec) + ' failed!'});
+                deferred.reject(errorMsg);
+              });
+            }
+            break;
+          default:
+            $mwtnLog.error({component: COMPONENT, message: 'Modification of ' + spec.pacId + ' not supported!'});
+            deferred.reject(errorMsg);
+          }
+          return deferred.promise;
+        };
+
         service.getActualNetworkElements = function() {
           var url = service.base + service.url.actualNetworkElements();
           var request = {
@@ -422,6 +465,50 @@ define(
           return deferred.promise;
         };
 
+        
+        service.setConditionalPackagePart = function(spec, data) {
+          var deferred = $q.defer();
+          if(!spec.partId) {
+            deferred.reject('ignore');
+            return deferred.promise;
+          }
+          
+          var ids = getIdsByRevision(spec.revision, spec.pacId, spec.partId);
+          var body = {};
+          body[ids.partId] = data;
+          
+          var url = [service.base,
+              'config/network-topology:network-topology/topology/topology-netconf/node/',
+              spec.nodeId,
+              '/yang-ext:mount/',ids.pacId,'/',
+              spec.layerProtocolId, '/', 
+              ids.partId].join('');
+          var request = {
+            method : 'PUT',
+            url : url,
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            data : body
+          };
+          console.log(JSON.stringify(request));
+          
+          var taskId = [spec.nodeId, spec.layerProtocolId, spec.pacId, 'data received'].join(' ');
+          console.time(taskId);
+          
+          $http(request).then(function(success) {
+            console.timeEnd(taskId);
+            success.data.revision = spec.revision;
+            deferred.resolve(success.data);
+          }, function(error) {
+            console.timeEnd(taskId);
+            $mwtnLog.info({component: '$mwtnCommons.getConditionalPackagePart', message: JSON.stringify(error.data)});
+            deferred.reject(error);
+          });
+          return deferred.promise;
+        };
+
 //        service.getActualMW_AirInterface_Pac = function(neId, lpId, callback) {
 ////console.log('234', neId, lpId);
 //          var url = [service.base,
@@ -576,10 +663,10 @@ define(
               message : 'init log'
             }
           };
-          $http(request).then(function successCallback(response) {
+          $http(request).then(function(success) {
             return callback(true);
-          }, function errorCallback(response) {
-            console.error(JSON.stringify(response));
+          }, function(error) {
+            console.error(JSON.stringify(error));
             return callback(false);
           });
         };

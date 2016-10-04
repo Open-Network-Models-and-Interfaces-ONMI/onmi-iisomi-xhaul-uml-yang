@@ -11,8 +11,37 @@ define(['app/mwtnConfig/mwtnConfig.module',
         'app/mwtnConfig/mwtnConfig.directives'],
         function(mwtnConfigApp) {
 
-  mwtnConfigApp.register.controller('mwtnConfigCtrl', ['$scope', '$rootScope', '$q', '$mwtnLog', '$mwtnConfig',  
-                                                       function($scope, $rootScope, $q, $mwtnLog, $mwtnConfig) {
+
+  var getType = function(value) {
+    var result = typeof value;
+    if (result === 'object' && JSON.stringify(value).substring(0,1) === '[') {
+      result = 'array';
+    }
+    return result;
+  };
+
+  var getLayer = function(pacId) {
+    switch (pacId) {
+    case 'airinterface':
+      return 'MWPS';
+      break;
+    case 'structure':
+    case 'pureEthernetStructure':
+    case 'hybridSturcture':
+      return 'MWS';
+      break;
+    case 'ethernetContainer':
+    case 'tdmContainer':
+    case 'container':
+      return 'ETH-CTP';
+      break;
+    default:
+      return (pacId);
+    }
+  };
+  
+  mwtnConfigApp.register.controller('mwtnConfigCtrl', ['$uibModal', '$scope', '$rootScope', '$q', '$mwtnLog', '$mwtnConfig',  
+                                                       function($uibModal, $scope, $rootScope, $q, $mwtnLog, $mwtnConfig) {
 
     var COMPONENT = 'mwtnConfigCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnConfigCtrl started!'});
@@ -229,7 +258,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
         break;
       case 'structure':
         // console.log(JSON.stringify(data));
-        updaSructure(spec.layerProtocolId, spec.partId, data);
+        updateStructure(spec.layerProtocolId, spec.partId, data);
         break;
       case 'container':
         // console.log(JSON.stringify(data));
@@ -238,29 +267,82 @@ define(['app/mwtnConfig/mwtnConfig.module',
       }
     };
     
+    //
+    var getConfigDataBySpec = function(spec) {
+      // console.log(spec.list, $scope[spec.list].length);
+      var lists = ['airinterfaces'];
+      var parts = ['airInterfaceConfiguration'];
+      var index = lists.indexOf(spec.list);
+      var result;
+      $scope[spec.list].map(function(obj){
+        // console.log(obj.layerProtocol, spec.lp, obj.layerProtocol === spec.lp);
+        if (obj.layerProtocol === spec.lp) {
+          result = obj.Configuration[parts[index]];
+        }
+      });
+      return result;
+    };
+        
+    var getLayerByListId = function(listId) {
+      switch (listId) {
+      case 'airinterfaces':
+        return 'MWPS';
+        break;
+      case 'structures':
+        return 'MWS';
+        break;
+      case 'containers':
+        return 'ETH-CTP';
+        break;
+      }
+    };
+    
+    $scope.openConfigView = function(spec) {
+      spec.nodeId = $scope.networkElement;
+      spec.revision = $scope.revision;
+      spec.layer = getLayerByListId(spec.list);
+      console.log('openConfigView', JSON.stringify(spec));
+
+      var modalInstance = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'src/app/mwtnConfig/templates/openConfigView.html',
+        controller: 'ShowConfigurationCtrl',
+        size: 'huge',
+        resolve: {
+          object: function () {
+            return {path:spec, data:getConfigDataBySpec(spec)};
+          }
+        }
+      });
+
+      modalInstance.result.then(function (object) {
+        // update
+        var spec = {
+          nodeId: $scope.networkElementId,
+          revision: $scope.revision,
+          pacId: object.path.list.slice(0, -1),
+          layer: getLayer(object.path.list.slice(0, -1)),
+          layerProtocolId: object.path.lp,
+          partId: 'Configuration'
+        };
+        $mwtnConfig.getPacParts(spec).then(function(success){
+          updatePart(spec, success);
+        }, function(error){
+          updatePart(spec, error);
+        });
+
+        // $mwtnLog.info({component: COMPONENT, message: 'Mount result: ' + JSON.stringify(netconfServer)});
+      }, function () {
+        // $mwtnLog.info({component: COMPONENT, message: 'Creation of new planned NetworkElement dismissed!'});
+      });
+      
+    };
+    
     // events
     $scope.status = {};
     $scope.separator = $mwtnConfig.separator; //'&nbsp;'
-    
-    var getLayer = function(pacId) {
-      switch (pacId) {
-      case 'airinterface':
-        return 'MWPS';
-        break;
-      case 'structure':
-      case 'pureEthernetStructure':
-      case 'hybridSturcture':
-        return 'MWS';
-        break;
-      case 'ethernetContainer':
-      case 'tdmContainer':
-      case 'container':
-        return 'ETH-CTP';
-        break;
-      default:
-        return (pacId);
-      }
-    };
     
     $scope.$watch('status', function(status, oldValue) {
       Object.keys(status).map(function(key){
@@ -329,13 +411,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
 
 //    $scope.gridOptions.rowTemplate = rowTemplate;
     
-    $scope.getType = function(value) {
-      var result = typeof value;
-      if (result === 'object' && JSON.stringify(value).substring(0,1) === '[') {
-        result = 'array';
-      }
-      return result;
-    };
+    $scope.getType = getType;
 
     var getCellTemplate = function(type) {
       switch (type) {
@@ -454,13 +530,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
 
 //    $scope.gridOptions.rowTemplate = rowTemplate;
     
-    $scope.getType = function(value) {
-      var result = typeof value;
-      if (result === 'object' && JSON.stringify(value).substring(0,1) === '[') {
-        result = 'array';
-      }
-      return result;
-    };
+    $scope.getType = getType;
 
     var getCellTemplate = function(type) {
       switch (type) {
@@ -567,52 +637,140 @@ define(['app/mwtnConfig/mwtnConfig.module',
       });
     }
 
-}]);
+  }]);
 
   mwtnConfigApp.register.controller('ShowObjectCtrl', ['$scope', '$uibModalInstance', '$mwtnCommons', '$mwtnConfig', 'orderByFilter', 'objValue', 
-                                                     function ($scope, $uibModalInstance, $mwtnCommons, $mwtnConfig, orderBy, objValue) {
+                                                       function ($scope, $uibModalInstance, $mwtnCommons, $mwtnConfig, orderBy, objValue) {
 
-    $scope.path = objValue.path;
-    $scope.objValue = objValue.objValue;
-    $scope.schema = {initShowObjectCtrl:false};
-    $mwtnConfig.getSchema().then(function(data){
-      $scope.schema = data;
-
-      var attributes = Object.keys($scope.objValue).map(function(parameter) {
-        // console.log($scope.schema[parameter]);
-        if ($scope.schema[parameter]) {
-          // console.log($scope.schema[parameter]);
-          return {
-            name: parameter,
-            value: $scope.objValue[parameter],
-            order: $scope.schema[parameter]['order-number'],
-            unit:  $scope.schema[parameter].unit,
-          }
-        } else {
-          return {
-            name: parameter,
-            value: $scope.objValue[parameter],
-            order: 0,
-            unit:  'error',
-          }
-        }
-      });
+      $scope.path = objValue.path;
+      $scope.objValue = objValue.objValue;
       
-      $scope.attributes =  orderBy(attributes, 'order', false);
+      $scope.schema = {initShowObjectCtrl:false};
+      $mwtnConfig.getSchema().then(function(data){
+        $scope.schema = data;
 
-    }, function(error){
-      console.log('bad luck - no schema ;( ');
-    });
+        var attributes = Object.keys($scope.objValue).map(function(parameter) {
+          // console.log($scope.schema[parameter]);
+          if ($scope.schema[parameter]) {
+            // console.log($scope.schema[parameter]);
+            return {
+              name: parameter,
+              value: $scope.objValue[parameter],
+              order: $scope.schema[parameter]['order-number'],
+              unit:  $scope.schema[parameter].unit,
+            }
+          } else {
+            return {
+              name: parameter,
+              value: $scope.objValue[parameter],
+              order: 0,
+              unit:  'error',
+            }
+          }
+        });
+        
+        $scope.attributes =  orderBy(attributes, 'order', false);
+
+      }, function(error){
+        console.log('bad luck - no schema ;( ');
+      });
+
+      $scope.ok = function () {
+        $uibModalInstance.close($scope.objValue);
+      };
     
+      $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+      };
 
+  }]);
 
-    $scope.ok = function () {
-      $uibModalInstance.close($scope.objValue);
-    };
-  
-    $scope.cancel = function () {
-      $uibModalInstance.dismiss('cancel');
-    };
+  mwtnConfigApp.register.controller('ShowConfigurationCtrl', ['$scope', '$uibModalInstance', '$mwtnCommons', '$mwtnConfig', 'orderByFilter', 'object', 
+                                                       function ($scope, $uibModalInstance, $mwtnCommons, $mwtnConfig, orderBy, object) {
 
-}]);
+      $scope.object = object;
+      $scope.getType = getType;
+      
+      var controlTypes = ['text', 'number', 'number','number', 'checkbox'];
+      var umlTypes = ['pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String', 
+                      'pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer',
+                      'pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EByte',
+                      'pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EShort',
+                      'pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean'];
+
+      var getControlType = function(umlType) {
+        var result = controlTypes[umlTypes.indexOf(umlType)];
+        if (!result) {
+          console.log(umlType);
+          result = 'text'
+        }
+        return result;
+      };
+      
+      $scope.schema = {initShowObjectCtrl:false};
+      $mwtnConfig.getSchema().then(function(data){
+        $scope.schema = data;
+
+        var attributes = Object.keys($scope.object.data).map(function(parameter) {
+          // console.log($scope.schema[parameter]);
+          if ($scope.schema[parameter]) {
+            // console.log($scope.schema[parameter], $scope.getType($scope.object.data[parameter]));
+            if ($scope.getType($scope.object.data[parameter]) !== 'array') {
+              return {
+                name: parameter,
+                value: $scope.object.data[parameter],
+                order: $scope.schema[parameter]['order-number'],
+                unit:  $scope.schema[parameter].unit,
+                controltype:  getControlType($scope.schema[parameter].type)
+              };
+            }
+          } else {
+            return {
+              name: parameter,
+              value: $scope.object.data[parameter],
+              order: 0,
+              unit:  'error',
+            }
+          }
+        });
+        
+        $scope.attributes =  orderBy(attributes, 'order', false);
+
+      }, function(error){
+        console.log('bad luck - no schema ;( ');
+      });
+
+      $scope.ok = function () {
+        
+        $scope.applied = new Date().toISOString();
+        
+        $scope.attributes.map(function(attribute){
+          if (attribute) {
+            $scope.object.data[attribute.name] = attribute.value;
+          }
+        });
+        
+        var spec = {
+            nodeId: $scope.object.path.nodeId,
+            revision: $scope.object.path.revision,
+            pacId: $scope.object.path.list.slice(0, -1),
+            layer: getLayer($scope.object.path.list.slice(0, -1)),
+            layerProtocolId: $scope.object.path.lp,
+            partId: 'Configuration'
+          };
+        $mwtnConfig.setPacParts(spec, $scope.object.data).then(function(success){
+          console.log('yippy - modified');
+        }, function(error){
+          console.error(spec, error);
+        });
+        
+      };
+    
+      $scope.cancel = function () {
+        $uibModalInstance.close($scope.object);
+        //$uibModalInstance.dismiss('cancel');
+      };
+
+  }]);
+
 });

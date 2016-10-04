@@ -85,5 +85,5 @@ define([ 'app/mwtnConfig/mwtnConfig.module',], function(mwtnConfigApp) {
       }]
     };
   });
-  
+
 });

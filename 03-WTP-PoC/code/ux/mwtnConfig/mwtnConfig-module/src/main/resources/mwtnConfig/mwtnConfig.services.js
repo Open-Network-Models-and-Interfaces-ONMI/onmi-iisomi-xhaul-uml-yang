@@ -20,6 +20,7 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnConfig/mwtnConfig.module'
     service.parts = $mwtnCommons.parts;
     service.getActualNetworkElements = $mwtnCommons.getActualNetworkElements;
     service.getPacParts = $mwtnCommons.getPacParts;
+    service.setPacParts = $mwtnCommons.setPacParts;
     service.getSchema = $mwtnDatabase.getSchema;
     service.checkModules = $mwtnCommons.checkModules;
     

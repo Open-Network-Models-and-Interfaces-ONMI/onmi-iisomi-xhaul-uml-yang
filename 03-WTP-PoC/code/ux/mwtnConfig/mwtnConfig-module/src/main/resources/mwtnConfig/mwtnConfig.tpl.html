@@ -110,7 +110,8 @@
 						<uib-accordion-heading>
 						    <i class="pull-left fa" ng-class="{'fa-chevron-down': status['airinterface' + separator + airinterface.layerProtocol + separator + part], 'fa-chevron-right': !status['airinterface' + separator + airinterface.layerProtocol + separator + part]}"></i>
 						    <span>{{part}}</span>
-						</uib-accordion-heading>
+ 						</uib-accordion-heading>
+   					    <i ng-show="part === 'Configuration'" class="pull-right fa fa-pencil-square-o pointer" aria-hidden="true" ng-click="openConfigView({list:'airinterfaces', lp:airinterface.layerProtocol})" ></i>
 						<div class="container" style="width:100%" ng-repeat="(part2, parameters) in airinterface[part]" path="path" parameters="parameters" >
 						</div>
 					</div>

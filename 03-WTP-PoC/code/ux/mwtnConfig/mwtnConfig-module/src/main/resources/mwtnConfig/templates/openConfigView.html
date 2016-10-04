@@ -1,0 +1,50 @@
+
+<div class="modal-header">
+	<h3 class="modal-title" id="modal-title">{{'MWTN_CONFIGURATION' | translate}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+
+	<div class="container" style="width:100%">
+
+		<div class="row">
+			<div class="col-md-3 text-right" >
+			{{'MWTN_NETWORKELEMENT' | translate}}
+			</div>
+			<div class="col-md-9">
+			<b>{{object.path.nodeId}}</b>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3 text-right" >
+			{{'MWTN_LAYER' | translate}}
+			</div>
+			<div class="col-md-9">
+			<b>{{['mwtn', object.path.layer].join('_').toUpperCase() | translate}}</b>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3 text-right" >
+			{{'MWTN_LP' | translate}}
+			</div>
+			<div class="col-md-9">
+			<b>{{object.path.lp}}</b>
+			</div>
+			<hr />
+		</div>
+
+		<div class="row" >
+			<div ng-repeat="attribute in attributes" ng-show="attribute">
+				<div class="col-md-3 text-right">{{['mwtn', attribute.name].join('_').toUpperCase() | translate}}</div>
+				<div class="col-md-2"><input type="{{attribute.controltype}}" ng-model="attribute.value"></input> </div>
+				<div class="col-md-1">{{attribute.unit}} </div>
+			</div>
+		</div>
+
+      
+	</div>
+</div>
+<div class="modal-footer">
+    <div ng-show="applied">Applied: {{applied}}</div>
+	<button class="btn btn-primary" type="button" ng-click="ok()">{{'MWTN_APPLY' | translate}}</button> 
+	<button class="btn btn-warning" type="button" ng-click="cancel()">{{'MWTN_CLOSE' | translate}}</button>
+</div>
