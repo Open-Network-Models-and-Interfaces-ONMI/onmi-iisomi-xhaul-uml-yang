@@ -21,9 +21,81 @@
   <xsl:template match="/">
     <xsl:text>{&quot;schema-information&quot;:{</xsl:text>
     <xsl:apply-templates select="//packagedElement[@xmi:type = 'uml:Class']" />
+    <xsl:apply-templates select="//packagedElement[@xmi:type = 'uml:DataType']" />
+    <xsl:apply-templates select="//packagedElement[@xmi:type = 'uml:Enumeration']" />
     <xsl:text>}}</xsl:text>
   </xsl:template>
   <xsl:template match="packagedElement">
+  </xsl:template>
+  <xsl:template match="packagedElement[@xmi:type = 'uml:DataType']">
+    <xsl:text>&quot;</xsl:text>
+    <xsl:call-template name="getKeyFromName">
+        <xsl:with-param name="name" select="@name"></xsl:with-param>
+    </xsl:call-template>
+    <xsl:text>&quot;:{</xsl:text>
+    <!-- id -->
+    <xsl:text>&quot;id&quot;:&quot;</xsl:text>
+    <xsl:call-template name="getKeyFromName">
+        <xsl:with-param name="name" select="@name"></xsl:with-param>
+    </xsl:call-template>
+    <xsl:text>&quot;,</xsl:text>
+    <!-- uml-id -->
+    <xsl:text>&quot;uml-id&quot;:&quot;</xsl:text>
+    <xsl:value-of select="@xmi:id" />
+    <xsl:text>&quot;,</xsl:text>
+    <!-- uml-type -->
+    <xsl:text>&quot;uml-type&quot;:&quot;</xsl:text>
+    <xsl:value-of select="@xmi:type" />
+    <xsl:text>&quot;,</xsl:text>
+
+    <!-- description -->
+    <xsl:apply-templates select="ownedComment" />
+    <xsl:text>}</xsl:text>
+    <xsl:text>,
+</xsl:text>
+    <xsl:apply-templates select="ownedAttribute" />
+
+  </xsl:template>
+  <xsl:template match="packagedElement[@xmi:type = 'uml:Enumeration']">
+    <xsl:text>&quot;</xsl:text>
+    <xsl:call-template name="getKeyFromName">
+        <xsl:with-param name="name" select="@xmi:id"></xsl:with-param>
+    </xsl:call-template>
+    <xsl:text>&quot;:{</xsl:text>
+    <!-- id -->
+    <xsl:text>&quot;id&quot;:&quot;</xsl:text>
+    <xsl:call-template name="getKeyFromName">
+        <xsl:with-param name="name" select="@name"></xsl:with-param>
+    </xsl:call-template>
+    <xsl:text>&quot;,</xsl:text>
+    <!-- uml-id -->
+    <xsl:text>&quot;uml-id&quot;:&quot;</xsl:text>
+    <xsl:value-of select="@xmi:id" />
+    <xsl:text>&quot;,</xsl:text>
+    <!-- enum -->
+    <xsl:text>&quot;enum&quot;:[</xsl:text>
+    <xsl:for-each select="ownedLiteral">
+      <xsl:text>&quot;</xsl:text>
+      <xsl:value-of select="@name"></xsl:value-of>
+      <xsl:text>&quot;,</xsl:text>
+    </xsl:for-each>
+    <xsl:text>],</xsl:text>
+    <!-- is-read-only -->
+    <xsl:text>&quot;is-read-only&quot;:</xsl:text>
+    <xsl:choose>
+      <xsl:when test="@isReadOnly">
+        <xsl:value-of select="@isReadOnly" />
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text>false</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
+    <xsl:text>,</xsl:text>
+    <!-- description -->
+    <xsl:apply-templates select="ownedComment" />
+    <xsl:text>}</xsl:text>
+    <xsl:text>,
+</xsl:text>  
   </xsl:template>
   <xsl:template match="packagedElement[@xmi:type = 'uml:Class']">
     <xsl:text>&quot;</xsl:text>
