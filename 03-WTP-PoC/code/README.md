@@ -97,6 +97,9 @@ cd distribution-karaf-0.4.2-Beryllium-SR2/
 ```
 The folder "Distribution-karaf-0.4.2-Beryllium-SR2/" is also called "$ODL_KARAF_HOME" in the following sections.
 
+For a robust web GUI it is nessesary to add a "patch" to ODL DLUX.
+Please see the following [instruction](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/03-WTP-PoC/code/apps/dlux).
+
 Start karaf with:
 
 ```
