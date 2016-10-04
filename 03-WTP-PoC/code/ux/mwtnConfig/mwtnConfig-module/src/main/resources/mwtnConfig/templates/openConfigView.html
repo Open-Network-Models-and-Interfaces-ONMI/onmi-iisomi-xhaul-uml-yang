@@ -31,15 +31,28 @@
 			</div>
 			<hr />
 		</div>
-
 		<div class="row" >
 			<div ng-repeat="attribute in attributes" ng-show="attribute">
+
+                <!-- checkbox 
+				<div class="col-md-offset-3 col-md-3 checkbox" 
+					ng-show="attribute.controltype === 'checkbox'">
+					<label><input type="checkbox" ng-model="attribute.value">{{['mwtn',
+						attribute.name].join('_').toUpperCase() | translate}}</label>
+				</div> -->
+
+                <!-- text, number, combo -->
 				<div class="col-md-3 text-right">{{['mwtn', attribute.name].join('_').toUpperCase() | translate}}</div>
-				<div class="col-md-2"><input type="{{attribute.controltype}}" ng-model="attribute.value"></input> </div>
-				<div class="col-md-1">{{attribute.unit}} </div>
+				<div ng-class="{'col-md-2':attribute.unit, 'col-md-3':!attribute.unit}" class="form-group" ng-show="getType(attribute.controltype) !== 'array' && attribute.controltype !== 'checkbox'"><input class="form-control" type="{{attribute.controltype}}" ng-model="attribute.value"></input> </div>
+				<div class="col-md-3 checkbox" ng-show="attribute.controltype === 'checkbox'"><input type="checkbox" ng-model="attribute.value" /></div> 
+				<div ng-class="{'col-md-2':attribute.unit, 'col-md-3':!attribute.unit}" class="form-group" ng-show="getType(attribute.controltype) === 'array'">
+				  <select class="form-control" ng-model="attribute.value">
+				    <option ng-repeat="option in attribute.controltype track by $index" value="{{option}}">{{option}}</option>
+                  </select>
+				</div>
+				<div class="col-md-1" ng-show="attribute.unit">{{attribute.unit}} </div>
 			</div>
 		</div>
-
       
 	</div>
 </div>

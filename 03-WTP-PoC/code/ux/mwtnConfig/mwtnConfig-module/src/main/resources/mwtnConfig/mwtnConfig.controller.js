@@ -710,6 +710,15 @@ define(['app/mwtnConfig/mwtnConfig.module',
       $scope.schema = {initShowObjectCtrl:false};
       $mwtnConfig.getSchema().then(function(data){
         $scope.schema = data;
+        var getControlType = function(umlType) {
+          var result = controlTypes[umlTypes.indexOf(umlType)];
+          if (!result) {
+            console.log($scope.schema[umlType]);
+            result = $scope.schema[umlType].enum;
+          }
+          return result;
+        };
+        
 
         var attributes = Object.keys($scope.object.data).map(function(parameter) {
           // console.log($scope.schema[parameter]);
