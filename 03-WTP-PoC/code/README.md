@@ -95,19 +95,19 @@ wget https://nexus.opendaylight.org/content/groups/public/org/opendaylight/integ
 tar -xvzf distribution-karaf-0.4.2-Beryllium-SR2.tar.gz
 cd distribution-karaf-0.4.2-Beryllium-SR2/
 ```
-The folder "Distribution-karaf-0.4.2-Beryllium-SR2/" is also called "$ODL_KARAF_HOME" in the following sections.
+The folder "distribution-karaf-0.4.2-Beryllium-SR2/" is also called "$ODL_KARAF_HOME" in the following sections.
+You may would like to add an environment variable to /etc/environment: $ODL_KARAF_HOME="/home/your_user_name/distribution-karaf-0.4.2-Beryllium-SR2".
 
-For a robust web GUI it is nessesary to add a "patch" to ODL DLUX.
-Please see the following [instruction](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/03-WTP-PoC/code/apps/dlux).
+For a robust web GUI it is nessesary to add a ["patch"](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/03-WTP-PoC/code/apps/dlux) to ODL DLUX.
+```
+cp ./apps/dlux/loader.implementation-0.3.2-Beryllium-SR2.jar $ODL_KARAF_HOME/system/org/opendaylight/dlux/loader.implementation/0.3.2-Beryllium-SR2
+```
 
 Start karaf with:
-
 ```
+cd $ODL_KARAF_HOME
 ./bin/karaf
 ```
-
-You may would like to add an environment variable to /etc/environment: $ODL_KARAF_HOME="/home/demx8as6/distribution-karaf-0.4.2-Beryllium-SR2"
-
 
 ### Step #3 Clone, build and install the applications.
 Open a new terminal and clone the ONF Git repository for the open source project 
