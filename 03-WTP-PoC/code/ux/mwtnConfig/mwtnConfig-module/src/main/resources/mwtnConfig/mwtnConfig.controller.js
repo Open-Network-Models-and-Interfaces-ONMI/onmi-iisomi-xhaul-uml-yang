@@ -525,8 +525,17 @@ define(['app/mwtnConfig/mwtnConfig.module',
 //    $scope.gridOptions.rowTemplate = rowTemplate;
     
     $scope.getType = getType;
+    $scope.severities = [ "non-alarmed", "warning", "minor", "major", "critical" ];
 
-    var getCellTemplate = function(type) {
+    var getCellTemplate = function(partId, field, type) {
+      console.log(partId, field, type);
+      if (partId === 'Configuration' && field === 'problemKindSeverity') {
+        return ['<div class="form-group">',
+                '  <select class="form-control" ng-model="MODEL_COL_FIELD">',
+                '    <option ng-repeat="option in grid.appScope.severities track by $index" value="{{option}}">{{option}}</option>',
+                '  </select>',
+                '</div>'].join('');
+      }
       switch (type) {
       case 'array':
         // path, grid.getCellValue(row, col)
@@ -556,10 +565,10 @@ define(['app/mwtnConfig/mwtnConfig.module',
           field: field,
           type: type,
           displayName: displayName,
-          enableSorting: enable, 
+          enableSorting: true, 
           enableFiltering:enable,
           headerCellClass: $scope.highlightFilteredHeader,
-          cellTemplate: getCellTemplate(type),
+          cellTemplate: getCellTemplate($scope.path.partId, field, type),
           cellClass: type,
           visible: visible
         };
@@ -568,7 +577,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
     }
 
     $scope.ok = function () {
-      $uibModalInstance.close($scope.listData);
+      console.log(JSON.stringify($scope.listData));
     };
   
     $scope.cancel = function () {
