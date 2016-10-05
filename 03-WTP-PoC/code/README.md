@@ -142,6 +142,7 @@ cp -R ~/.m2/repository/com/highstreet $ODL_KARAF_HOME/system/com
 
 Now you should be able to add the new bundles in the karaf console.
 ```
+feature:repo-add mvn:org.apache.karaf.decanter/apache-karaf-decanter/1.1.0/xml/features
 feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/0.3.0-SNAPSHOT/xml/features
 ```
 For remote access of the persistent database ElasticSearch, please consider the instructions in the following chapter:
