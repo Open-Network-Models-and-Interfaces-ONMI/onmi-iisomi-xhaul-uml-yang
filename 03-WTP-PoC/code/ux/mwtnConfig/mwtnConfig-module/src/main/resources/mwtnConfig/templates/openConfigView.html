@@ -42,7 +42,7 @@
 				</div> -->
 
                 <!-- text, number, combo -->
-				<div class="col-md-3 text-right">{{['mwtn', attribute.name].join('_').toUpperCase() | translate}}</div>
+				<div class="col-md-3 text-right radio">{{['mwtn', attribute.name].join('_').toUpperCase() | translate}}</div>
 				<div ng-class="{'col-md-2':attribute.unit, 'col-md-3':!attribute.unit}" class="form-group" ng-show="getType(attribute.controltype) !== 'array' && attribute.controltype !== 'checkbox'"><input class="form-control" type="{{attribute.controltype}}" ng-model="attribute.value"></input> </div>
 				<div class="col-md-3 checkbox" ng-show="attribute.controltype === 'checkbox'"><input type="checkbox" ng-model="attribute.value" /></div> 
 				<div ng-class="{'col-md-2':attribute.unit, 'col-md-3':!attribute.unit}" class="form-group" ng-show="getType(attribute.controltype) === 'array'">
@@ -50,7 +50,7 @@
 				    <option ng-repeat="option in attribute.controltype track by $index" value="{{option}}">{{option}}</option>
                   </select>
 				</div>
-				<div class="col-md-1" ng-show="attribute.unit">{{attribute.unit}} </div>
+				<div class="col-md-1 radio" ng-show="attribute.unit">{{attribute.unit}} </div>
 			</div>
 		</div>
       
