@@ -52,7 +52,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
         layerProtocol: 'unknown'              
     };
     $scope.parts.map(function(part){
-      initPac[part] = {info: 'No data available'};
+      initPac[part] = {info: 'Waiting...'};
     });
     $scope.schema = {init:false};
     $mwtnConfig.getSchema().then(function(data){
