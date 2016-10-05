@@ -23,13 +23,16 @@ define([ 'app/mwtnConfig/mwtnConfig.module',], function(mwtnConfigApp) {
         $scope.schema = {initDirectiveCtrl:false};
         var update = function() {
           if (!$scope.parameters) {
-              return;
+             return;
           }
           if ((typeof $scope.parameters) === 'string') {
              $scope.info = $scope.parameters; 
           } else {
             var attributes = $mwtnConfig.getAttributes($scope.parameters, $scope.schema);
             $scope.attributes =  orderBy(attributes, 'order', false);
+            if ($scope.attributes.length === 0) {
+              $scope.info = 'no data available'; 
+            }
           }
         };
         

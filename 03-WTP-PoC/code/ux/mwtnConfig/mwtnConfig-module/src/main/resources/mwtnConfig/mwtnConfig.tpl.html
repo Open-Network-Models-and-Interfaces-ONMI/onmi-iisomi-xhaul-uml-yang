@@ -67,6 +67,9 @@
 						    <i class="pull-left fa" ng-class="{'fa-chevron-down': status['container' + separator +  container.layerProtocol + separator + part], 'fa-chevron-right': !status['container' + separator +  container.layerProtocol + separator + part]}"></i>
 						    <span>{{part}}</span>
 						</uib-accordion-heading>
+ 						<div ng-show="part === 'Configuration'" class="container" style="width:100%">
+   					      <i class="pull-right fa fa-pencil-square-o pointer" aria-hidden="true" ng-click="openConfigView({list:'containers', lp:container.layerProtocol})" ></i>
+						</div>
 						<div class="container" style="width:100%" ng-repeat="(part2, parameters) in container[part]" path="path" parameters="parameters" >
 						</div>
 					</div>
@@ -89,6 +92,9 @@
 						    <i class="pull-left fa" ng-class="{'fa-chevron-down': status['structure' + separator + structure.layerProtocol + separator + part], 'fa-chevron-right': !status['structure' + separator + structure.layerProtocol + separator + part]}"></i>
 						    <span>{{part}}</span>
 						</uib-accordion-heading>
+ 						<!-- <div ng-show="part === 'Configuration'" class="container" style="width:100%">
+   					      <i class="pull-right fa fa-pencil-square-o pointer" aria-hidden="true" ng-click="openConfigView({list:'structures', lp:structure.layerProtocol})" ></i>
+						</div>  -->
 						<div class="container" style="width:100%" ng-repeat="(part2, parameters) in structure[part]" path="path" parameters="parameters" >
 						</div>
 					</div>
@@ -111,8 +117,8 @@
 						    <i class="pull-left fa" ng-class="{'fa-chevron-down': status['airinterface' + separator + airinterface.layerProtocol + separator + part], 'fa-chevron-right': !status['airinterface' + separator + airinterface.layerProtocol + separator + part]}"></i>
 						    <span>{{part}}</span>
  						</uib-accordion-heading>
- 						<div class="container" style="width:100%">
-   					    <i ng-show="part === 'Configuration'" class="pull-right fa fa-pencil-square-o pointer" aria-hidden="true" ng-click="openConfigView({list:'airinterfaces', lp:airinterface.layerProtocol})" ></i>
+ 						<div ng-show="part === 'Configuration'" class="container" style="width:100%">
+   					      <i class="pull-right fa fa-pencil-square-o pointer" aria-hidden="true" ng-click="openConfigView({list:'airinterfaces', lp:airinterface.layerProtocol})" ></i>
 						</div>
 						<div class="container" style="width:100%" ng-repeat="(part2, parameters) in airinterface[part]" path="path" parameters="parameters" >
 						</div>

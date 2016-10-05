@@ -268,15 +268,17 @@ define(['app/mwtnConfig/mwtnConfig.module',
     };
     
     //
+
     var getConfigDataBySpec = function(spec) {
-      // console.log(spec.list, $scope[spec.list].length);
-      var lists = ['airinterfaces'];
-      var parts = ['airInterfaceConfiguration'];
+      console.log(spec.list, $scope[spec.list].length);
+      var lists = ['airinterfaces', 'structures', 'containers'];
+      var parts = ['airInterfaceConfiguration', 'pureEthernetStructureConfiguration', 'ethernetContainerConfiguration'];
       var index = lists.indexOf(spec.list);
       var result;
       $scope[spec.list].map(function(obj){
-        // console.log(obj.layerProtocol, spec.lp, obj.layerProtocol === spec.lp);
+        console.log(obj.layerProtocol, spec.lp, obj.layerProtocol === spec.lp);
         if (obj.layerProtocol === spec.lp) {
+          console.log(index, parts[index], obj.Configuration[parts[index]], JSON.stringify(obj) );
           result = obj.Configuration[parts[index]];
         }
       });
@@ -284,17 +286,9 @@ define(['app/mwtnConfig/mwtnConfig.module',
     };
         
     var getLayerByListId = function(listId) {
-      switch (listId) {
-      case 'airinterfaces':
-        return 'MWPS';
-        break;
-      case 'structures':
-        return 'MWS';
-        break;
-      case 'containers':
-        return 'ETH-CTP';
-        break;
-      }
+      var lists = ['airinterfaces', 'structures', 'containers'];
+      var layers = ['MWPS', 'MWS', 'ETH-CTP'];
+      return layers[lists.indexOf(listId)];
     };
     
     $scope.openConfigView = function(spec) {
@@ -719,7 +713,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
           return result;
         };
         
-
+        console.log(JSON.stringify($scope.object.data));
         var attributes = Object.keys($scope.object.data).map(function(parameter) {
           // console.log($scope.schema[parameter]);
           if ($scope.schema[parameter]) {
@@ -743,7 +737,8 @@ define(['app/mwtnConfig/mwtnConfig.module',
           }
         });
         
-        $scope.attributes =  orderBy(attributes, 'order', false);
+        $scope.attributes =  orderBy(attributes.clean(null), 'order', false);
+        console.log(JSON.stringify($scope.attributes));
 
       }, function(error){
         console.log('bad luck - no schema ;( ');
