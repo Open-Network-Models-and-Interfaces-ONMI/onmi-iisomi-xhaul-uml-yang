@@ -50,6 +50,7 @@ netconfd  --log-level=debug --access-control=off --target=running --no-startup \
 	  --module=MicrowaveModel-ObjectClasses-EthernetContainer
 ```
 
+[Instructions to connect to OpenDaylight](POSTMAN_Scripts/READMEConnectToODL.md)
 
 ### How to configure the Base Mediator:
 
