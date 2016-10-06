@@ -224,12 +224,14 @@ define(['app/mwtnTest/mwtnTest.module',
     
     // events
     $scope.status = {ne:false};
+    $scope.spinner = {ne:false};
     $scope.separator = $mwtnTest.separator; //'&nbsp;'
     
     $scope.$watch('status', function(status, oldValue) {
       Object.keys(status).map(function(key){
         if ($scope.networkElementId && status[key] && status[key] !== oldValue[key]) {
           
+          $scope.spinner[key] = true;
           
           var info = key.split($scope.separator);
           var spec = {
@@ -241,8 +243,10 @@ define(['app/mwtnTest/mwtnTest.module',
           };
           $mwtnTest.getPacParts(spec).then(function(success){
             updatePart(spec, success);
+            $scope.spinner[key] = false;
           }, function(error){
             updatePart(spec, error);
+            $scope.spinner[key] = false;
           });
         }
       });   
@@ -252,6 +256,9 @@ define(['app/mwtnTest/mwtnTest.module',
       // close all groups
       Object.keys($scope.status).map(function(group){
         $scope.status[group] = false;
+      });
+      Object.keys($scope.spinner).map(function(group){
+        $scope.spinner[group] = false;
       });
     };
     

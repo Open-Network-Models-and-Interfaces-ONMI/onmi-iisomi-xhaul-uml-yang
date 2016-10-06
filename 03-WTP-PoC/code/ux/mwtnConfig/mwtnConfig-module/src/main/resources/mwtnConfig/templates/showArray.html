@@ -71,6 +71,7 @@
 	</div>
 </div>
 <div class="modal-footer">
+    <div ng-show="applied">Applied: {{applied}}</div>
     <button ng-show="path.partId === 'Configuration'" class="btn btn-primary" type="button" ng-click="ok()">{{'MWTN_APPLY' | translate}}</button>
 	<button class="btn btn-warning" type="button" ng-click="cancel()">{{'MWTN_CLOSE' | translate}}</button>
 </div>

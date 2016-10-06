@@ -336,12 +336,14 @@ define(['app/mwtnConfig/mwtnConfig.module',
     
     // events
     $scope.status = {};
+    $scope.spinner = {ne:false};
     $scope.separator = $mwtnConfig.separator; //'&nbsp;'
     
     $scope.$watch('status', function(status, oldValue) {
       Object.keys(status).map(function(key){
         if ($scope.networkElementId && status[key] && status[key] !== oldValue[key]) {
           
+          $scope.spinner[key] = true;
           var info = key.split($scope.separator);
           var spec = {
             nodeId: $scope.networkElementId,
@@ -353,8 +355,10 @@ define(['app/mwtnConfig/mwtnConfig.module',
           };
           $mwtnConfig.getPacParts(spec).then(function(success){
             updatePart(spec, success);
+            $scope.spinner[key] = false;
           }, function(error){
             updatePart(spec, error);
+            $scope.spinner[key] = false;
           });
           $scope.path = spec;
         }
@@ -365,6 +369,9 @@ define(['app/mwtnConfig/mwtnConfig.module',
       // close all groups
       Object.keys($scope.status).map(function(group){
         $scope.status[group] = false;
+      });
+      Object.keys($scope.spinner).map(function(group){
+        $scope.spinner[group] = false;
       });
     };
     
@@ -755,8 +762,6 @@ define(['app/mwtnConfig/mwtnConfig.module',
 
       $scope.ok = function () {
         
-        $scope.applied = new Date().toISOString();
-        
         $scope.attributes.map(function(attribute){
           if (attribute) {
             $scope.object.data[attribute.name] = attribute.value;
@@ -772,7 +777,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
             partId: 'Configuration'
           };
         $mwtnConfig.setPacParts(spec, $scope.object.data).then(function(success){
-          console.log('yippy - modified');
+          $scope.applied = new Date().toISOString();
         }, function(error){
           console.error(spec, error);
         });
