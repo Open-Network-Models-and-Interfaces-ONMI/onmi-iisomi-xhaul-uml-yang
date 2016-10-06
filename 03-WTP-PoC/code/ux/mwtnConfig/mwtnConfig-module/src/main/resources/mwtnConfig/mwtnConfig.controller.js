@@ -52,7 +52,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
         layerProtocol: 'unknown'              
     };
     $scope.parts.map(function(part){
-      initPac[part] = {info: 'No data available'};
+      initPac[part] = {info: 'Waiting...'};
     });
     $scope.schema = {init:false};
     $mwtnConfig.getSchema().then(function(data){
@@ -268,15 +268,17 @@ define(['app/mwtnConfig/mwtnConfig.module',
     };
     
     //
+
     var getConfigDataBySpec = function(spec) {
-      // console.log(spec.list, $scope[spec.list].length);
-      var lists = ['airinterfaces'];
-      var parts = ['airInterfaceConfiguration'];
+      console.log(spec.list, $scope[spec.list].length);
+      var lists = ['airinterfaces', 'structures', 'containers'];
+      var parts = ['airInterfaceConfiguration', 'pureEthernetStructureConfiguration', 'ethernetContainerConfiguration'];
       var index = lists.indexOf(spec.list);
       var result;
       $scope[spec.list].map(function(obj){
-        // console.log(obj.layerProtocol, spec.lp, obj.layerProtocol === spec.lp);
+        console.log(obj.layerProtocol, spec.lp, obj.layerProtocol === spec.lp);
         if (obj.layerProtocol === spec.lp) {
+          console.log(index, parts[index], obj.Configuration[parts[index]], JSON.stringify(obj) );
           result = obj.Configuration[parts[index]];
         }
       });
@@ -284,17 +286,9 @@ define(['app/mwtnConfig/mwtnConfig.module',
     };
         
     var getLayerByListId = function(listId) {
-      switch (listId) {
-      case 'airinterfaces':
-        return 'MWPS';
-        break;
-      case 'structures':
-        return 'MWS';
-        break;
-      case 'containers':
-        return 'ETH-CTP';
-        break;
-      }
+      var lists = ['airinterfaces', 'structures', 'containers'];
+      var layers = ['MWPS', 'MWS', 'ETH-CTP'];
+      return layers[lists.indexOf(listId)];
     };
     
     $scope.openConfigView = function(spec) {
@@ -342,12 +336,14 @@ define(['app/mwtnConfig/mwtnConfig.module',
     
     // events
     $scope.status = {};
+    $scope.spinner = {ne:false};
     $scope.separator = $mwtnConfig.separator; //'&nbsp;'
     
     $scope.$watch('status', function(status, oldValue) {
       Object.keys(status).map(function(key){
         if ($scope.networkElementId && status[key] && status[key] !== oldValue[key]) {
           
+          $scope.spinner[key] = true;
           var info = key.split($scope.separator);
           var spec = {
             nodeId: $scope.networkElementId,
@@ -359,8 +355,10 @@ define(['app/mwtnConfig/mwtnConfig.module',
           };
           $mwtnConfig.getPacParts(spec).then(function(success){
             updatePart(spec, success);
+            $scope.spinner[key] = false;
           }, function(error){
             updatePart(spec, error);
+            $scope.spinner[key] = false;
           });
           $scope.path = spec;
         }
@@ -371,6 +369,9 @@ define(['app/mwtnConfig/mwtnConfig.module',
       // close all groups
       Object.keys($scope.status).map(function(group){
         $scope.status[group] = false;
+      });
+      Object.keys($scope.spinner).map(function(group){
+        $scope.spinner[group] = false;
       });
     };
     
@@ -531,8 +532,17 @@ define(['app/mwtnConfig/mwtnConfig.module',
 //    $scope.gridOptions.rowTemplate = rowTemplate;
     
     $scope.getType = getType;
+    $scope.severities = [ "non-alarmed", "warning", "minor", "major", "critical" ];
 
-    var getCellTemplate = function(type) {
+    var getCellTemplate = function(partId, field, type) {
+      console.log(partId, field, type);
+      if (partId === 'Configuration' && field === 'problemKindSeverity') {
+        return ['<div class="form-group">',
+                '  <select class="form-control" ng-model="MODEL_COL_FIELD">',
+                '    <option ng-repeat="option in grid.appScope.severities track by $index" value="{{option}}">{{option}}</option>',
+                '  </select>',
+                '</div>'].join('');
+      }
       switch (type) {
       case 'array':
         // path, grid.getCellValue(row, col)
@@ -562,10 +572,10 @@ define(['app/mwtnConfig/mwtnConfig.module',
           field: field,
           type: type,
           displayName: displayName,
-          enableSorting: enable, 
+          enableSorting: true, 
           enableFiltering:enable,
           headerCellClass: $scope.highlightFilteredHeader,
-          cellTemplate: getCellTemplate(type),
+          cellTemplate: getCellTemplate($scope.path.partId, field, type),
           cellClass: type,
           visible: visible
         };
@@ -574,7 +584,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
     }
 
     $scope.ok = function () {
-      $uibModalInstance.close($scope.listData);
+      console.log(JSON.stringify($scope.listData));
     };
   
     $scope.cancel = function () {
@@ -719,7 +729,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
           return result;
         };
         
-
+        console.log(JSON.stringify($scope.object.data));
         var attributes = Object.keys($scope.object.data).map(function(parameter) {
           // console.log($scope.schema[parameter]);
           if ($scope.schema[parameter]) {
@@ -743,15 +753,14 @@ define(['app/mwtnConfig/mwtnConfig.module',
           }
         });
         
-        $scope.attributes =  orderBy(attributes, 'order', false);
+        $scope.attributes =  orderBy(attributes.clean(null), 'order', false);
+        console.log(JSON.stringify($scope.attributes));
 
       }, function(error){
         console.log('bad luck - no schema ;( ');
       });
 
       $scope.ok = function () {
-        
-        $scope.applied = new Date().toISOString();
         
         $scope.attributes.map(function(attribute){
           if (attribute) {
@@ -768,7 +777,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
             partId: 'Configuration'
           };
         $mwtnConfig.setPacParts(spec, $scope.object.data).then(function(success){
-          console.log('yippy - modified');
+          $scope.applied = new Date().toISOString();
         }, function(error){
           console.error(spec, error);
         });

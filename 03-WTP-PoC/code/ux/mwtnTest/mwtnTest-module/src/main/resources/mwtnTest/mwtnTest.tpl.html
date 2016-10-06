@@ -4,7 +4,7 @@
 <div class="container">
 
 	<div class="row">
-		<div class="col-md-2 text-right">
+		<div class="col-md-2 text-right radio">
 			<span>{{'Select NetworkElement' | translate}}</span>
 		</div>
 		<div class="col-md-4">
@@ -32,6 +32,7 @@
 			<uib-accordion-heading>
 			    <i class="pull-left fa" ng-class="{'fa-chevron-down': status.ne, 'fa-chevron-right': !status.ne}"></i>
 			    <span>{{'NetworkElement' | translate}} '{{onfNetworkElement.nameList[0].value}}'</span>
+			    <i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner.ne"></i>
 			</uib-accordion-heading>
 			<pre>{{onfNetworkElement | json}}</pre>
 		</div>
@@ -59,6 +60,7 @@
 				<uib-accordion-heading>
 				    <i class="pull-left fa" ng-class="{'fa-chevron-down': status['airinterface' + separator + airinterface.layerProtocol + separator + part], 'fa-chevron-right': !status['airinterface' + separator + airinterface.layerProtocol + separator + part]}"></i>
 				    <span>{{part}}</span>
+					<i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner[ ['airinterface', airinterface.layerProtocol, part].join(separator)]"></i>
 				</uib-accordion-heading>
 				<pre>{{airinterface[part] | json}}</pre>
 			</div>
@@ -78,6 +80,7 @@
 				<uib-accordion-heading>
 				    <i class="pull-left fa" ng-class="{'fa-chevron-down': status['structure' + separator + structure.layerProtocol + separator + part], 'fa-chevron-right': !status['structure' + separator + structure.layerProtocol + separator + part]}"></i>
 				    <span>{{part}}</span>
+				    <i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner[ ['structure', structure.layerProtocol, part].join(separator)]"></i>
 				</uib-accordion-heading>
 				<pre>{{structure[part] | json}}</pre>
 			</div>
@@ -96,6 +99,7 @@
 				<uib-accordion-heading>
 				    <i class="pull-left fa" ng-class="{'fa-chevron-down': status['container' + separator +  container.layerProtocol + separator + part], 'fa-chevron-right': !status['container' + separator +  container.layerProtocol + separator + part]}"></i>
 				    <span>{{part}}</span>
+					 <i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner[ ['container', container.layerProtocol, part].join(separator)]"></i>
 				</uib-accordion-heading>
 				<pre>{{container[part] | json}}</pre>
 			</div>

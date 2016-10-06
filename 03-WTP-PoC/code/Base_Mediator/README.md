@@ -3,6 +3,8 @@
 ### Overview:
 This is a NETCONF Server, based on OpenYuma, that implements the **_MicrowaveModel-ObjectClasses-AirInterface_** YANG model, offering a base Mediator providing callback functions for each YANG attribute, and an easy approach in order to modify them for getting the actual values from the Network Element (NE).
 
+[Instructions to create a new mediator VM](READMECreateMediatorVM.md)
+
 ### How to install:
 #### For a mediator VM that was previously downloaded from the FTP server:
 
@@ -48,6 +50,7 @@ netconfd  --log-level=debug --access-control=off --target=running --no-startup \
 	  --module=MicrowaveModel-ObjectClasses-EthernetContainer
 ```
 
+[Instructions to connect to OpenDaylight](POSTMAN_Scripts/READMEConnectToODL.md)
 
 ### How to configure the Base Mediator:
 

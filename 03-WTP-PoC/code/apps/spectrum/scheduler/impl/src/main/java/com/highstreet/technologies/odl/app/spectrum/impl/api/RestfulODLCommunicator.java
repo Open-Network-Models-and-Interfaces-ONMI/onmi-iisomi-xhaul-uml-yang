@@ -8,6 +8,7 @@
 package com.highstreet.technologies.odl.app.spectrum.impl.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Failure;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Result;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Successful;
@@ -55,6 +56,15 @@ public class RestfulODLCommunicator implements Communicator
     public void set(String dn, String attrName, Object o)
     {
         WebResource resource = client.resource(dn);
+        JsonNode node = JsonUtil.toNode(resource.get(String.class));
+        try
+        {
+            ((ObjectNode) node.get("airInterfaceConfiguration")).put(attrName, JsonUtil.toNode(o));
+            resource.accept("application/json").type("application/json").put(node.toString());
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
 }
