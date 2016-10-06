@@ -28,7 +28,7 @@ public class SpectrumTask implements Task
     private static final Logger LOG = LoggerFactory.getLogger(SpectrumTask.class);
     private static final String NODE_PATH = "network-topology:network-topology/topology/topology-netconf";
     private static final String NetElement_Path = NODE_PATH + "/node/%s/yang-ext:mount/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement";
-    private static final String LP_Path = NODE_PATH + "/node/%s/yang-ext:mount/MicrowaveModel-ObjectClasses-AirInterface:MW_AirInterface_Pac/%s";
+    private static final String LP_Path = NODE_PATH + "/node/%s/yang-ext:mount/MicrowaveModel-ObjectClasses-AirInterface:MW_AirInterface_Pac/%s/airInterfaceConfiguration";
     private static final String AGENT_DN = "/Ne/%s/AirInterface/%s";
 
     private DataAgent agent;
