@@ -19,8 +19,8 @@ public class ClosedLoopAutomationImplModuleFactory extends org.opendaylight.yang
 
     @Override
     public ClosedLoopAutomationImplModule instantiateModule(String instanceName, DependencyResolver dependencyResolver, ClosedLoopAutomationImplModule oldModule, AutoCloseable oldInstance, BundleContext bundleContext) {
-        LOG.info("instantiateModule");
-        System.out.println("instantiateModule");
+        LOG.info("instantiateModule 1");
+        System.out.println("instantiateModule 1");
 
         ClosedLoopAutomationImplModule module = super.instantiateModule(instanceName, dependencyResolver, oldModule, oldInstance, bundleContext);
         module.setBundleContext(bundleContext);
@@ -29,8 +29,8 @@ public class ClosedLoopAutomationImplModuleFactory extends org.opendaylight.yang
 
     @Override
     public ClosedLoopAutomationImplModule instantiateModule(String instanceName, DependencyResolver dependencyResolver, BundleContext bundleContext) {
-        LOG.info("instantiateModule");
-        System.out.println("instantiateModule");
+        LOG.info("instantiateModule 2");
+        System.out.println("instantiateModule 2");
         ClosedLoopAutomationImplModule module = super.instantiateModule(instanceName, dependencyResolver, bundleContext);
         module.setBundleContext(bundleContext);
         return module;

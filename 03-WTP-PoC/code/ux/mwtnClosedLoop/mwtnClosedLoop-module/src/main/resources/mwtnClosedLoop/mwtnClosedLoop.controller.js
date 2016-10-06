@@ -19,6 +19,31 @@ define(['app/mwtnClosedLoop/mwtnClosedLoop.module','app/mwtnClosedLoop/mwtnClose
       $scope.data = data;      
     });
 
+    var timerIterationList = [
+        {id : 1, name : "5 seconds"},
+        {id : 2, name : "30 seconds"},
+        {id : 3, name : "60 seconds"},
+        {id : 4, name : "5 minutes"},
+        {id : 5, name : "1 hour"}]
+
+    $scope.timerIterationList = timerIterationList;
+    $scope.timerIteration = timerIterationList[0];
+
+    $scope.timerStatus = true;
+
+    $scope.executeNow = function() {
+        console.log('Execute NOW');
+        $mwtnCommons.executeClosedLoopAutomation().then(function(message){
+          console.log('Execute was ok '+message);
+        }, function(error){
+          console.log('Execute was failed');
+        });
+    };
+
+    $scope.save = function() {
+        alert('Save');
+    };
+
   }]);
 
 

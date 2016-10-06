@@ -394,6 +394,27 @@ define(
           return deferred.promise;
         };
 
+        service.executeClosedLoopAutomation = function() {
+            var url = service.base+'operations/closedLoopAutomation:start';
+            console.log('URL : '+url);
+
+            var request = {
+                method : 'POST',
+                url : url
+            };
+            var deferred = $q.defer();
+
+            $http(request).then(function(success) {
+                console.log('receive data :'+success);
+                deferred.resolve(success);
+            }, function(error) {
+               console.log('error');
+               $mwtnLog.error({component: COMPONENT, message: error});
+               deferred.reject(error);
+            });
+            return deferred.promise;
+        }
+
         service.getActualNetworkElements = function() {
           var url = service.base + service.url.actualNetworkElements();
           var request = {
