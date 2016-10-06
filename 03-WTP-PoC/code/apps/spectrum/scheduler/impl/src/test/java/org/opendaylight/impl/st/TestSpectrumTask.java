@@ -11,9 +11,6 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-
 /**
  * Created by olinchy on 9/30/16.
  */
@@ -52,8 +49,7 @@ public class TestSpectrumTask
                 try
                 {
                     command.run();
-                }
-                catch (Throwable e)
+                } catch (Throwable e)
                 {
                     System.out.println("");
                 }
