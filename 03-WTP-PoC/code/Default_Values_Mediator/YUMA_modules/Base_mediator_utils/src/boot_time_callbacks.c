@@ -140,6 +140,8 @@ static char* cb_get_boot_time_ethernetContainerConfiguration_encryptionIsOn(val_
 static char* cb_get_boot_time_ethernetContainerConfiguration_cryptographicKey(val_value_t *element);
 static char* cb_get_boot_time_ethernetContainerConfiguration_segmentIdRef(val_value_t *element);
 
+static char* cb_get_boot_time_ethernetContainerConfiguration_problemKindSeverity(val_value_t *element);
+
 /********************************************************************
 * FUNCTION cb_get_all_air_interface_pac_keys
 *
@@ -772,6 +774,10 @@ char* cb_get_boot_time_element_value(val_value_t *element, const char* moduleNam
 		{
 			return cb_get_boot_time_ethernetContainerConfiguration_segmentIdRef(element);
 		}
+		else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_problemKindSeverity) == 0)
+        {
+            return cb_get_boot_time_ethernetContainerConfiguration_problemKindSeverity(element);
+        }
 	}
 
 	return NULL;
@@ -4015,3 +4021,37 @@ static char* cb_get_boot_time_ethernetContainerConfiguration_segmentIdRef(val_va
 	return dvm_cb_get_boot_time_ethernetContainerConfiguration_segmentIdRef(VAL_STRING(layerProtocolKey), VAL_STRING(structureIdRefKey));
 }
 
+/********************************************************************
+* FUNCTION cb_get_boot_time_ethernetContainerConfiguration_problemKindSeverity
+*
+* Callback function for getting the value of the problemKindSeverity leaf
+*
+* INPUTS:
+* val_value_t *element - the element for which we want the value
+*
+* RETURNS:
+* The value of the element, represented as a string
+********************************************************************/
+static char* cb_get_boot_time_ethernetContainerConfiguration_problemKindSeverity(val_value_t *element)
+{
+    val_value_t *lastkey = NULL;
+    val_value_t *layerProtocolKey = NULL;
+    val_value_t *problemKindName = NULL;
+
+    val_value_t* parentHavingKey = element->parent;
+
+    YUMA_ASSERT(NULL == parentHavingKey, return NULL, "Could not find parent of element %s", element->name);
+    layerProtocolKey = agt_get_key_value(parentHavingKey, &lastkey);
+    problemKindName = agt_get_key_value(parentHavingKey, &lastkey);
+
+    YUMA_ASSERT(NULL == layerProtocolKey, return NULL, "Could not find layerProtocolKey for element %s", element->name);
+    YUMA_ASSERT(NULL == problemKindName, return NULL, "Could not find supportedChannelPlanKey for element %s", element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(layerProtocolKey), return NULL, "Could not access value of the key %s for element %s", layerProtocolKey->name, element->name);
+    YUMA_ASSERT(NULL == VAL_STRING(problemKindName), return NULL, "Could not access value of the key %s for element %s", problemKindName->name, element->name);
+
+    /*
+     * return the actual value for the attribute here, represented as a string, using the layerProtocolKey and problemKindName
+     */
+
+    return NULL;
+}
