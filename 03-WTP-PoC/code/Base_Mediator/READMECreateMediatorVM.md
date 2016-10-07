@@ -196,5 +196,5 @@ They Base_Mediator source are located in *03-WTP_PoC/code/Base_Mediator*.
     Verify if the configuration is correct for the actually used *directory structure* and *user name*.  
     If not matching the individual configurations have to be adapted accordingly.
 
-4. Follow the steps in the Base_Mediator README [How to install:](README.md) to finish and run the Base mediator
+4. Follow the steps in the Base_Mediator README [How to install:For a mediator VM that was previously downloaded from the FTP server:](README.md) to finish and run the Base mediator
 

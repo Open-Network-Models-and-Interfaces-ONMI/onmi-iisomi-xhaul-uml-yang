@@ -1233,6 +1233,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
             agt_cbtype_name(cbtyp));
     }
 
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
+
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
         /* description-stmt validation here */
@@ -1300,6 +1302,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceConfiguration_radioSignalID_edit callback for %s phase",
             agt_cbtype_name(cbtyp));
     }
+
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
 
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
@@ -1369,6 +1373,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
             agt_cbtype_name(cbtyp));
     }
 
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
+
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
         /* description-stmt validation here */
@@ -1436,6 +1442,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceConfiguration_rxFrequency_edit callback for %s phase",
             agt_cbtype_name(cbtyp));
     }
+
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
 
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
@@ -1505,6 +1513,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
             agt_cbtype_name(cbtyp));
     }
 
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
+
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
         /* description-stmt validation here */
@@ -1572,6 +1582,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceConfiguration_rxChannelBandwidth_edit callback for %s phase",
             agt_cbtype_name(cbtyp));
     }
+
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
 
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
@@ -1641,6 +1653,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
             agt_cbtype_name(cbtyp));
     }
 
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
+
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
         /* description-stmt validation here */
@@ -1708,6 +1722,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceConfiguration_powerIsOn_edit callback for %s phase",
             agt_cbtype_name(cbtyp));
     }
+
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
 
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
@@ -1777,6 +1793,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
             agt_cbtype_name(cbtyp));
     }
 
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
+
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
         /* description-stmt validation here */
@@ -1844,6 +1862,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceConfiguration_receiverIsOn_edit callback for %s phase",
             agt_cbtype_name(cbtyp));
     }
+
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
 
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
@@ -1913,6 +1933,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
             agt_cbtype_name(cbtyp));
     }
 
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
+
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
         /* description-stmt validation here */
@@ -1980,6 +2002,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceConfiguration_adaptiveModulationIsOn_edit callback for %s phase",
             agt_cbtype_name(cbtyp));
     }
+
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
 
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
@@ -2049,6 +2073,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
             agt_cbtype_name(cbtyp));
     }
 
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
+
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
         /* description-stmt validation here */
@@ -2116,6 +2142,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceConfiguration_modulationMax_edit callback for %s phase",
             agt_cbtype_name(cbtyp));
     }
+
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
 
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
@@ -2185,6 +2213,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
             agt_cbtype_name(cbtyp));
     }
 
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
+
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
         /* description-stmt validation here */
@@ -2252,6 +2282,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceConfiguration_mimoIsOn_edit callback for %s phase",
             agt_cbtype_name(cbtyp));
     }
+
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
 
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
@@ -2321,6 +2353,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
             agt_cbtype_name(cbtyp));
     }
 
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
+
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
         /* description-stmt validation here */
@@ -2388,6 +2422,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceConfiguration_atpcIsOn_edit callback for %s phase",
             agt_cbtype_name(cbtyp));
     }
+
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
 
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
@@ -2457,6 +2493,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
             agt_cbtype_name(cbtyp));
     }
 
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
+
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
         /* description-stmt validation here */
@@ -2524,6 +2562,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceConfiguration_atpcThreshLower_edit callback for %s phase",
             agt_cbtype_name(cbtyp));
     }
+
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
 
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
@@ -2593,6 +2633,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
             agt_cbtype_name(cbtyp));
     }
 
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
+
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
         /* description-stmt validation here */
@@ -2660,6 +2702,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceConfiguration_autoFreqSelectRange_edit callback for %s phase",
             agt_cbtype_name(cbtyp));
     }
+
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
 
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
@@ -2729,6 +2773,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
             agt_cbtype_name(cbtyp));
     }
 
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
+
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
         /* description-stmt validation here */
@@ -2796,6 +2842,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceConfiguration_encryptionIsOn_edit callback for %s phase",
             agt_cbtype_name(cbtyp));
     }
+
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
 
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
@@ -2865,6 +2913,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
             agt_cbtype_name(cbtyp));
     }
 
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
+
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
         /* description-stmt validation here */
@@ -2933,6 +2983,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
             agt_cbtype_name(cbtyp));
     }
 
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
+
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
         /* description-stmt validation here */
@@ -3000,6 +3052,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceConfiguration_maintenanceTimer_edit callback for %s phase",
             agt_cbtype_name(cbtyp));
     }
+
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
 
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
@@ -3070,6 +3124,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
             agt_cbtype_name(cbtyp));
     }
 
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
+
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
         /* description-stmt validation here */
@@ -3139,6 +3195,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
             agt_cbtype_name(cbtyp));
     }
 
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
+
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
         /* description-stmt validation here */
@@ -3207,6 +3265,8 @@ status_t u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInte
         log_debug("\nEnter u_MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_edit callback for %s phase",
             agt_cbtype_name(cbtyp));
     }
+
+    YUMA_ASSERT(val_compare(curval, newval) == 0, return NO_ERR, "Not doing anything because the current and new values are the same");
 
     switch (cbtyp) {
     case AGT_CB_VALIDATE:
