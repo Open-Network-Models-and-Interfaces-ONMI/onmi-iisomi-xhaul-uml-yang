@@ -48,7 +48,7 @@ If you send a second time the response is like this:
             <error-message>Data already exists for path: /(urn:opendaylight:params:xml:ns:yang:controller:config?revision=2013-04-05)modules/module/module[{(urn:opendaylight:params:xml:ns:yang:controller:config?revision=2013-04-05)type=(urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf?revision=2015-08-03)sal-netconf-connector, (urn:opendaylight:params:xml:ns:yang:controller:config?revision=2013-04-05)name=base-mediator3}]</error-message>
         </error>
     </errors>
-	```
+```
 
 ##### De-Register Base Mediator
 
@@ -60,8 +60,6 @@ Use the command Get from ODL. The response shows a list of all endpoints known t
 Scroll to see the Base Mediator endpoint. 
 
 ##### Example of Get
-
-
 
 
 The following screenshot shows the steps to see an example of a correct get result. 
