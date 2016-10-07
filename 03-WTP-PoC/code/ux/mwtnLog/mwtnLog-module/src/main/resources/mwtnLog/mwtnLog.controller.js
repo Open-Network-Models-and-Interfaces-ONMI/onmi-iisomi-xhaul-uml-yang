@@ -115,7 +115,9 @@ define(['app/mwtnLog/mwtnLog.module',
       $scope.gridOptions.data = [];
       var from = 0;
       var size = 100;
+      $scope.processing = true;
       $mwtnLogView.getAllLogEntries(from, size).then(function(logEntries){
+        $scope.processing = false;
         processLogEntries(logEntries);
         from = from + size;
         while (from < $scope.progress.max) {
