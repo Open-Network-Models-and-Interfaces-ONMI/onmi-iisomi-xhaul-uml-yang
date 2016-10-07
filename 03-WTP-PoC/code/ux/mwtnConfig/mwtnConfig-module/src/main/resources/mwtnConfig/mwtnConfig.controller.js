@@ -521,21 +521,22 @@ define(['app/mwtnConfig/mwtnConfig.module',
 
 }]);
 
-  mwtnConfigApp.register.controller('ShowListCtrl', ['$scope', '$uibModalInstance', '$uibModal', '$filter', '$mwtnCommons', 'listData', 
-                                                     function ($scope, $uibModalInstance, $uibModal, $filter, $mwtnCommons, listData) {
+  mwtnConfigApp.register.controller('ShowListCtrl', ['$scope', '$uibModalInstance', '$uibModal', '$filter', '$mwtnCommons', '$mwtnLog', '$mwtnConfig', 'listData', 
+                                                     function ($scope, $uibModalInstance, $uibModal, $filter, $mwtnCommons, $mwtnLog, $mwtnConfig, listData) {
  
+    var COMPONENT = 'ShowListCtrl'; 
+    
     $scope.path = listData.path;
+    $scope.data = listData.data;
     $scope.listData = listData.listData;
     $scope.gridOptions = JSON.parse(JSON.stringify($mwtnCommons.gridOptions));
     $scope.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
 
-//    $scope.gridOptions.rowTemplate = rowTemplate;
-    
     $scope.getType = getType;
     $scope.severities = [ "non-alarmed", "warning", "minor", "major", "critical" ];
 
     var getCellTemplate = function(partId, field, type) {
-      console.log(partId, field, type);
+      // console.log(partId, field, type);
       if (partId === 'Configuration' && field === 'problemKindSeverity') {
         return ['<div class="form-group">',
                 '  <select class="form-control" ng-model="MODEL_COL_FIELD">',
@@ -584,7 +585,16 @@ define(['app/mwtnConfig/mwtnConfig.module',
     }
 
     $scope.ok = function () {
-      console.log(JSON.stringify($scope.listData));
+      $scope.processing = true;
+      $mwtnConfig.setPacPartLists($scope.path, $scope.listData).then(function(success){
+        $scope.applied = {text: 'Applied: ' + new Date().toISOString(), class:'mwtnSuccess'};
+        $scope.processing = false;
+      }, function(error){
+        $scope.applied = {text: 'Error: ' + new Date().toISOString(), class:'mwtnError'};
+        $scope.processing = false;
+        $mwtnLog.error({component: COMPONENT, message: JSON.stringify(error)});
+      });
+
     };
   
     $scope.cancel = function () {
@@ -608,7 +618,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
         resolve: {
           listData: function () {
             console.log('new path', $scope.path);
-            return {path:$scope.path, listData:$scope.listData};
+            return {path:$scope.path, data:$scope.data, listData:$scope.listData};
           }
         }
       });
@@ -695,9 +705,11 @@ define(['app/mwtnConfig/mwtnConfig.module',
 
   }]);
 
-  mwtnConfigApp.register.controller('ShowConfigurationCtrl', ['$scope', '$uibModalInstance', '$mwtnCommons', '$mwtnConfig', 'orderByFilter', 'object', 
-                                                       function ($scope, $uibModalInstance, $mwtnCommons, $mwtnConfig, orderBy, object) {
+  mwtnConfigApp.register.controller('ShowConfigurationCtrl', ['$scope', '$uibModalInstance', '$mwtnCommons', '$mwtnConfig', '$mwtnLog', 'orderByFilter', 'object', 
+                                                       function ($scope, $uibModalInstance, $mwtnCommons, $mwtnConfig, $mwtnLog, orderBy, object) {
 
+      var COMPONENT = 'ShowConfigurationCtrl';
+      
       $scope.object = object;
       $scope.getType = getType;
       
@@ -776,10 +788,14 @@ define(['app/mwtnConfig/mwtnConfig.module',
             layerProtocolId: $scope.object.path.lp,
             partId: 'Configuration'
           };
+        $scope.processing = true;
         $mwtnConfig.setPacParts(spec, $scope.object.data).then(function(success){
-          $scope.applied = new Date().toISOString();
+          $scope.applied = {text: 'Applied: ' + new Date().toISOString(), class:'mwtnSuccess'};
+          $scope.processing = false;
         }, function(error){
-          console.error(spec, error);
+          $scope.applied = {text: 'Error: ' + new Date().toISOString(), class:'mwtnError'};
+          $scope.processing = false;
+          $mwtnLog.error({component: COMPONENT, message: JSON.stringify(error)});
         });
         
       };
