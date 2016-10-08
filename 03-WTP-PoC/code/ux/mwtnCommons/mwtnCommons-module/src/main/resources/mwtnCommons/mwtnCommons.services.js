@@ -61,7 +61,6 @@ define(
           }
         };         
 
-
         var service = {
           base : ENV.getBaseURL("MD_SAL") + "/restconf/"
         };
