@@ -29,13 +29,6 @@ define(['app/mwtnConnect/mwtnConnect.module',
     
     $scope.oneAtATime = true;
     $scope.status = {requiredNes: true};
-    $scope.newMountingPoint = {
-      name: 'new-mounting-point',
-      ipaddress: '127.0.0.1',
-      port: 830,
-      username: 'admin',
-      password: 'admin'
-    };
         
     var requiredNesActionCellTemplate = [
       '<a class="vCenter" ng-class="{attention: grid.appScope.hover}" >',
@@ -141,8 +134,11 @@ define(['app/mwtnConnect/mwtnConnect.module',
       });
 
       modalInstance.result.then(function (netconfServer) {
-        
-        $mwtnLog.info({component: COMPONENT, message: 'Mount result: ' + JSON.stringify(netconfServer)});
+        $mwtnConnect.addRequiredNetworkElement(netconfServer).then(function(success){
+          $mwtnLog.info({component: COMPONENT, message: 'Adding to database: ' + JSON.stringify(netconfServer)});
+        }, function(error){
+          $mwtnLog.error({component: COMPONENT, message: JSON.stringify(error)});
+        });
       }, function () {
         $mwtnLog.info({component: COMPONENT, message: 'Creation of new planned NetworkElement dismissed!'});
       });
@@ -214,7 +210,8 @@ define(['app/mwtnConnect/mwtnConnect.module',
     }, true);
   }]);
 
-  mwtnConnectApp.register.controller('AddToRequiredMessageCtrl', ['$scope', '$uibModalInstance', '$mwtnDatabase', 'netconfServer', function ($scope, $uibModalInstance, $mwtnDatabase, netconfServer) {
+  mwtnConnectApp.register.controller('AddToRequiredMessageCtrl', ['$scope', '$uibModalInstance', '$mwtnConnect', 'netconfServer', 
+                                                                  function ($scope, $uibModalInstance, $mwtnConnect, netconfServer) {
 
     $scope.netconfServer = netconfServer;
     $scope.sites = [];
@@ -223,14 +220,17 @@ define(['app/mwtnConnect/mwtnConnect.module',
         order : 'asc'
       }
     }];
-    $mwtnDatabase.getAllData('site', 0, 999, sort, function(sites){
+    $mwtnConnect.getAllData('site', 0, 999, sort).then(function(sites){
+      // console.log(JSON.stringify(sites));
       if (sites.data.hits.hits) {
         sites.data.hits.hits.map(function(site){
           $scope.sites.push({id:site._source.id, name:site._source.name});
         });
+        // console.log($scope.sites);
       }
+    }, function(error){
+      $scope.sites = [];
     });
-    
   
     $scope.ok = function () {
       $uibModalInstance.close($scope.netconfServer);

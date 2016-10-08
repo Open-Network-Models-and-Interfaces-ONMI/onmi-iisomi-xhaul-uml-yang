@@ -223,6 +223,9 @@ define(
               deferred.reject(errorMsg);
             });
             break;
+          case 'MWPS':
+          case 'MWS':
+          case 'ETH-CTP':
           case 'airinterface':
           case 'structure':
           case 'container':
@@ -530,6 +533,7 @@ define(
         };
         
         service.getConditionalPackagePart = function(spec) {
+          //console.log(JSON.stringify(spec));
           var deferred = $q.defer();
           if(!spec.partId) {
             deferred.reject('ignore');
@@ -548,7 +552,8 @@ define(
             method : 'GET',
             url : url
           };
-          
+          // console.log(JSON.stringify(request));
+                    
           var taskId = [spec.nodeId, spec.layerProtocolId, spec.pacId, 'data received'].join(' ');
           console.time(taskId);
           $http(request).then(function(success) {
@@ -821,14 +826,29 @@ define(
               pacId : 'ne'
           };
           
+          var updatePart = function(spec, data) {
+            var pacIds = ['MWPS', 'MWS', 'ETH-CTP'];
+            var pacNames = ['MW_AirInterface_Pac', 'MW_PureEthernetStructure_Pac', 'MW_EthernetContainer_Pac'];
+            var index = pacIds.indexOf(spec.pacId);
+            data.layerProtocol = spec.layerProtocolId;
+            requiredNode[pacNames[index]].push(data);
+          };
           var processLTPs = function(item, i, callback) {
             var spec = {
                 nodeId : requiredNode.nodeId,
-                revision: requiredNode.onfCoreModelRevision,
-                pacId : 'ne'
-            };
-            console.log(i, item);
-            return callback();
+                revision: requiredNode.onfCoreModelRevision, 
+                pacId: item._lpList[0].layerProtocolName,
+                layer: item._lpList[0].layerProtocolName,
+                layerProtocolId: item._lpList[0].uuid,
+                partId: 'Configuration'
+              };
+              service.getPacParts(spec).then(function(success){
+                updatePart(spec, success);
+                return callback();
+              }, function(error){
+                updatePart(spec, error);
+                return callback();
+              });
           };
           var deferred = $q.defer();
           service.getPacParts(spec).then(function(success){

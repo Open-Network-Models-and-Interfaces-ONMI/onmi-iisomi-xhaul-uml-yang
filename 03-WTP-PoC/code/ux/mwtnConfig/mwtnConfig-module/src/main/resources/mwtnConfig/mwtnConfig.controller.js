@@ -241,10 +241,8 @@ define(['app/mwtnConfig/mwtnConfig.module',
       }
     };
     
-    //
-
     var getConfigDataBySpec = function(spec) {
-      console.log(spec.list, $scope[spec.list].length);
+      // console.log(spec.list, $scope[spec.list].length);
       var lists = ['airinterfaces', 'structures', 'containers'];
       var parts = ['airInterfaceConfiguration', 'pureEthernetStructureConfiguration', 'ethernetContainerConfiguration'];
       var index = lists.indexOf(spec.list);
