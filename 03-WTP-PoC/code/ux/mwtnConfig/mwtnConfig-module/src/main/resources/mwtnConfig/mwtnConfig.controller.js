@@ -11,35 +11,6 @@ define(['app/mwtnConfig/mwtnConfig.module',
         'app/mwtnConfig/mwtnConfig.directives'],
         function(mwtnConfigApp) {
 
-
-  var getType = function(value) {
-    var result = typeof value;
-    if (result === 'object' && JSON.stringify(value).substring(0,1) === '[') {
-      result = 'array';
-    }
-    return result;
-  };
-
-  var getLayer = function(pacId) {
-    switch (pacId) {
-    case 'airinterface':
-      return 'MWPS';
-      break;
-    case 'structure':
-    case 'pureEthernetStructure':
-    case 'hybridSturcture':
-      return 'MWS';
-      break;
-    case 'ethernetContainer':
-    case 'tdmContainer':
-    case 'container':
-      return 'ETH-CTP';
-      break;
-    default:
-      return (pacId);
-    }
-  };
-  
   mwtnConfigApp.register.controller('mwtnConfigCtrl', ['$uibModal', '$scope', '$rootScope', '$q', '$mwtnLog', '$mwtnConfig',  
                                                        function($uibModal, $scope, $rootScope, $q, $mwtnLog, $mwtnConfig) {
 
@@ -207,7 +178,10 @@ define(['app/mwtnConfig/mwtnConfig.module',
       $scope.structures.map(function(structure){
         // console.log(JSON.stringify(structure));
         if (structure.layerProtocol === lpId) {
-          if (Object.keys(data)[0].contains('tructure')) {
+          if (Object.keys(data)[0] === 'info') {
+            structure[part] = data;
+          } else if (Object.keys(data)[0].contains('tructure')) {
+            // console.log(part, data);
             structure[part] = data;            
           } else if (part === 'Capability') {
             // 2. PoC
@@ -317,7 +291,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
           nodeId: $scope.networkElementId,
           revision: $scope.revision,
           pacId: object.path.list.slice(0, -1),
-          layer: getLayer(object.path.list.slice(0, -1)),
+          layer: $mwtnConfig.getLayer(object.path.list.slice(0, -1)),
           layerProtocolId: object.path.lp,
           partId: 'Configuration'
         };
@@ -349,7 +323,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
             nodeId: $scope.networkElementId,
             revision: $scope.revision,
             pacId: info[0],
-            layer: getLayer(info[0]),
+            layer: $mwtnConfig.getLayer(info[0]),
             layerProtocolId: info[1],
             partId: info[2]
           };
@@ -412,7 +386,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
 
 //    $scope.gridOptions.rowTemplate = rowTemplate;
     
-    $scope.getType = getType;
+    $scope.getType = $mwtnConfig.getType;
 
     var getCellTemplate = function(type) {
       switch (type) {
@@ -436,7 +410,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
         var labelId = ['mwtn', field].join('_').toUpperCase();
         var displayName = $filter('translate')(labelId);
         var visible = true;
-        if (labelId.contains('$$')) {
+        if (labelId.contains('$$') || labelId === 'MWTN_SPEC') {
           visible = false;
         }
         
@@ -532,7 +506,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
     $scope.gridOptions = JSON.parse(JSON.stringify($mwtnCommons.gridOptions));
     $scope.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
 
-    $scope.getType = getType;
+    $scope.getType = $mwtnConfig.getType;
     $scope.severities = [ "non-alarmed", "warning", "minor", "major", "critical" ];
 
     var getCellTemplate = function(partId, field, type) {
@@ -565,7 +539,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
         var labelId = ['mwtn', field].join('_').toUpperCase();
         var displayName = $filter('translate')(labelId);
         var visible = true;
-        if (labelId.contains('$$')) {
+        if (labelId.contains('$$') || labelId === 'MWTN_SPEC') {
           visible = false;
         }
         
@@ -711,7 +685,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
       var COMPONENT = 'ShowConfigurationCtrl';
       
       $scope.object = object;
-      $scope.getType = getType;
+      $scope.getType = $mwtnConfig.getType;
       
       var controlTypes = ['text', 'number', 'number','number', 'checkbox'];
       var umlTypes = ['pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String', 
@@ -784,7 +758,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
             nodeId: $scope.object.path.nodeId,
             revision: $scope.object.path.revision,
             pacId: $scope.object.path.list.slice(0, -1),
-            layer: getLayer($scope.object.path.list.slice(0, -1)),
+            layer: $mwtnConfig.getLayer($scope.object.path.list.slice(0, -1)),
             layerProtocolId: $scope.object.path.lp,
             partId: 'Configuration'
           };

@@ -19,6 +19,8 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnConfig/mwtnConfig.module'
     service.separator = $mwtnCommons.separator;
     service.parts = $mwtnCommons.parts;
     service.getActualNetworkElements = $mwtnCommons.getActualNetworkElements;
+    service.getLayer = $mwtnCommons.getLayer;
+    service.getType = $mwtnCommons.getType;
     service.getPacParts = $mwtnCommons.getPacParts;
     service.setPacParts = $mwtnCommons.setPacParts;
     service.setPacPartLists = $mwtnCommons.setPacPartLists;
