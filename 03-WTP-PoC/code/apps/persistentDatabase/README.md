@@ -48,6 +48,9 @@ opendaylight-user@root>feature:install elasticsearch
 
 ### Step 4: Fill the database
 Run the script to fill the database.
+Configure the right IP address in the 'host' attribute in the config.json file. 
+It must be the IP address of the system, where OpenDaylight is running.
+
 ```
 node initDatabase.js
 ```
