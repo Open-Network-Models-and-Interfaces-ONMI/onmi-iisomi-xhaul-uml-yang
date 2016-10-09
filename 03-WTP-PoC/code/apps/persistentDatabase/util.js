@@ -81,7 +81,7 @@ module.exports = {
     req.write(bodyString);
     req.end();
   },
-  removeEntry : function(db, id, callback) {
+  removeEntry : function(db, docType, id, callback) {
 
     var headers = {
       'Content-Type': 'application/json'
@@ -91,7 +91,7 @@ module.exports = {
       host : db.host,
       port : db.port,
       method : 'DELETE',
-      path : '/' + db.index + '/' + db.docType + '/' + id,
+      path : '/' + db.index + '/' + docType + '/' + id,
       headers : headers
     };
 
@@ -111,7 +111,7 @@ module.exports = {
     });
     req.end();
   },
-  createEntry : function(db, key, value) {
+  createEntry : function(db, docType, key, value, callback) {
 
     var bodyString = JSON.stringify(value);
   
@@ -124,7 +124,7 @@ module.exports = {
       host : db.host,
       port : db.port,
       method : 'PUT',
-      path : '/' + db.index + '/' + db.docType + '/' + key + '/_create',
+      path : '/' + db.index + '/' + docType + '/' + key,
       headers : headers
     };
 
@@ -135,7 +135,7 @@ module.exports = {
       });
       response.on('end', function() {
         var data = JSON.parse(body);
-        // callback(response.statusMessage, data);
+        callback(response.statusMessage, data);
       });
     });  
     req.on('error', function(e) {

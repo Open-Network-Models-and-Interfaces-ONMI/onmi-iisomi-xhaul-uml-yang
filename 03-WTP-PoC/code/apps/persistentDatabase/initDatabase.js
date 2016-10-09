@@ -2,48 +2,43 @@ var fs = require('fs');
 var util = require('./util.js');
 var database = require('./config.json');
 
-var addToDB = true;
+
+var createHit = function(item, i, done) {
+  util.createEntry(database, item._type, item._id, item._source, function(status, data) {
+    console.log(item._type, item._id, 'created', status);
+    done();
+  });
+};
 
 var modifyDatabase = function(database) {
-    util.searchEntries(database, 'schema-information',  function(searchStatus, data) {
 
-      console.log('search', searchStatus, JSON.stringify(data));
-      
-      if (!addToDB) {
-        data.hits.hits.map(function(hit) {
-          console.log(JSON.stringify(hit));
-          util.removeEntry(database, hit._id, function(removeStatus) {
-            // console.log('remove', removeStatus);
-          });
-          
+   fs.readdir([__dirname, database.in].join('/'), function(err, files) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    files.filter(function(file) {
+      return file.slice(-5) === '.json';
+    }).map(function(file) {
+      filename = [__dirname, database.in, file].join('/');
+      console.log(filename);
+      fs.readFile(filename, 'utf-8', function(err, contents) {
+        var json = JSON.parse(contents);
+        var docType = Object.keys(json)[0];
+        console.log(docType);
+        var array = Object.keys(json[docType]).map(function(key){
+          return {
+            _id : key,
+            _type : docType,
+            _source : json[docType][key]
+          };
         });
-      }
-
-      
-      if (addToDB)
-      fs.readdir([__dirname, database.in].join('/'), function(err, files) {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        files.filter(function(file) {
-          return file.slice(-5) === '.json';
-        }).map(function(file) {
-          filename = [__dirname, database.in, file].join('/');
-          console.log();
-          console.log(filename);
-          fs.readFile(filename, 'utf-8', function(err, contents) {
-            var json = JSON.parse(contents);
-            var docType = Object.keys(json)[0];
-            Object.keys(json[docType]).map(function(key) {
-              var value = json[docType][key];
-              // console.log(JSON.stringify(value));
-              util.createEntry(database, key, value);
-            });
-          });
+        util.doSynchronousLoop(array, createHit, function(){
+          console.log('done', filename);
         });
       });
     });
+  });
 };
 
 util.checkDatabase(database, function(dbStatus) {
