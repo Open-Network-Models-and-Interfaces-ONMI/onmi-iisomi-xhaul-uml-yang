@@ -42,32 +42,35 @@ define(['app/mwtnConfig/mwtnConfig.module',
 
     var initNodeList = function(nodes){
       $scope.networkElements = [];
-      nodes.map(function(ne) {
-        // revision detection should go to commons
-        if (ne['netconf-node-topology:connection-status'] === 'connected' && ne['netconf-node-topology:available-capabilities'] && ne['netconf-node-topology:available-capabilities']['available-capability']) {
-          ne['netconf-node-topology:available-capabilities']['available-capability'].map(function(cap){
-            if (cap.contains('CoreModel-CoreNetworkModule-ObjectClasses')) {
-              ne.onfCoreModelRevision = cap.split('?revision=')[1].substring(0,10);
-            } else if (cap.contains('MicrowaveModel-ObjectClasses-AirInterface')) {
-              ne.onfAirIinterfaceRevision = cap.split('?revision=')[1].substring(0,10);
-            }  else if (!ne.onfAirIinterfaceRevision && cap.contains('MicrowaveModel-ObjectClasses')) {
-              ne.onfAirIinterfaceRevision = cap.split('?revision=')[1].substring(0,10);
-            } 
-          });
-          if (ne.onfAirIinterfaceRevision) {
-            $scope.networkElements.push({id:ne['node-id'], revision:ne.onfAirIinterfaceRevision});
+      if (nodes.length > 0) {
+        nodes.map(function(ne) {
+          // revision detection should go to commons
+          if (ne['netconf-node-topology:connection-status'] === 'connected' && ne['netconf-node-topology:available-capabilities'] && ne['netconf-node-topology:available-capabilities']['available-capability']) {
+            ne['netconf-node-topology:available-capabilities']['available-capability'].map(function(cap){
+              if (cap.contains('CoreModel-CoreNetworkModule-ObjectClasses')) {
+                ne.onfCoreModelRevision = cap.split('?revision=')[1].substring(0,10);
+              } else if (cap.contains('MicrowaveModel-ObjectClasses-AirInterface')) {
+                ne.onfAirIinterfaceRevision = cap.split('?revision=')[1].substring(0,10);
+              }  else if (!ne.onfAirIinterfaceRevision && cap.contains('MicrowaveModel-ObjectClasses')) {
+                ne.onfAirIinterfaceRevision = cap.split('?revision=')[1].substring(0,10);
+              } 
+            });
+            if (ne.onfAirIinterfaceRevision) {
+              $scope.networkElements.push({id:ne['node-id'], revision:ne.onfAirIinterfaceRevision});
+            }
           }
-        }
-      });
-      $scope.networkElements.sort(function(a, b){
-        if(a.id < b.id) return -1;
-        if(a.id > b.id) return 1;
-        return 0;
-      });
-      
-      // select one of the nodes
-      var select = parseInt(Math.random()*$scope.networkElements.length);
-      $scope.networkElement = $scope.networkElements[select].id;      
+        });
+        $scope.networkElements.sort(function(a, b){
+          if(a.id < b.id) return -1;
+          if(a.id > b.id) return 1;
+          return 0;
+        });
+        
+        // select one of the nodes
+        var select = parseInt(Math.random()*$scope.networkElements.length);
+        console.log($scope.networkElements.length, JSON.stringify($scope.networkElements));
+        $scope.networkElement = $scope.networkElements[select].id;
+      }
     };
     
     $mwtnConfig.getActualNetworkElements().then(function(nodes){
@@ -317,6 +320,14 @@ define(['app/mwtnConfig/mwtnConfig.module',
           
           $scope.spinner[key] = true;
           var info = key.split($scope.separator);
+
+          // collabs all others, because they may oudated.
+          if (info[0] === 'ne') {
+            Object.keys($scope.status).map(function(group){
+              if (group !== 'ne')
+              $scope.status[group] = false;
+            });
+          }
           var spec = {
             nodeId: $scope.networkElementId,
             revision: $scope.revision,
@@ -337,7 +348,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
       });   
     }, true);
     
-    $scope.collapseAll = function() {
+    $scope.collapseAll = function(except) {
       // close all groups
       Object.keys($scope.status).map(function(group){
         $scope.status[group] = false;

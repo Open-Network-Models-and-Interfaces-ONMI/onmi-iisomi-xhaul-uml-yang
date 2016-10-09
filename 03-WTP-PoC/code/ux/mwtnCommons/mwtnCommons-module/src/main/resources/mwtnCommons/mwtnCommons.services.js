@@ -330,6 +330,45 @@ define(
           return deferred.promise;
         };
 
+        service.getRequiredNetworkElements = function(complete) {
+          var deferred = $q.defer();
+          $mwtnDatabase.getAllData('required-networkelement', 0, 999, undefined).then(function(success){
+            if (complete) {
+              deferred.resolve(success.data.hits.hits); 
+            }
+            var result = success.data.hits.hits.map(function(ne){
+              
+              var id;
+              if (ne._source.nodeId.contains('-')) {
+                id = ne._source.nodeId.split('-')[1]; 
+              } else {
+                id = ne._source.nodeId;
+              }
+              
+              var radioSignalIds = [];
+              ne._source.MW_AirInterface_Pac.map(function(mwps){
+                radioSignalIds.push(mwps.airInterfaceConfiguration.radioSignalID);
+              });
+              
+              return {
+                id: id,
+                name: ne._source.nodeId,
+                ipaddress: ne._source.connect.host,
+                port: ne._source.connect.port,
+                username: ne._source.connect.username,
+                password: ne._source.connect.password,
+                radioSignalIds: JSON.stringify(radioSignalIds),
+                connectionStatus: 'disconnected'
+              };
+            });
+            deferred.resolve(result);         
+          }, function(error){
+            $mwtnLog.error({component: COMPONENT, message: 'Problems in retrieving required network elements.'});
+            deferred.reject(error);
+          });
+          return deferred.promise;
+        };
+
         service.getActualNetworkElements = function() {
           var url = service.base + service.url.actualNetworkElements();
           var request = {
@@ -869,26 +908,28 @@ define(
           return deferred.promise;
         };
 
-        var createStream = function(streamName, callback) {
+        var createStream = function(streamName) {
           var request = {
             method : 'GET',
             url : [ service.base, 'streams/stream/', streamName ]
                 .join('')
           };
-          $http(request).then(function successCallback(response) {
+          var deferred = $q.defer();
+          $http(request).then(function(success) {
             // this callback will be called asynchronously
             // when the response is available
             // console.log(JSON.stringify(response));
-            console.log(response.headers('Location'));
-            callback(response.headers('Location'));
-          }, function errorCallback(response) {
+            console.log('yippy2', JSON.stringify(success));
+            deferred.resolve(success.headers('Location'));
+          }, function(error) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
-            console.error(JSON.stringify(response));
-            callback();
+            $mwtnLog.error({component: '$mwtnCommons.createStream', message: JSON.stringify(error.data)});
+            deferred.reject(error);
           });
+          return deferred.promise;
         };
-        service.registerForOdlEvents = function(path, callback) {
+        service.registerForOdlEvents = function(path) {
           var request = {
             method : 'POST',
             url : [ service.base,
@@ -902,20 +943,25 @@ define(
               }
             }
           };
+          var deferred = $q.defer();
           $http(request).then(
-              function successCallback(response) {
+              function(success) {
                 // this callback will be called asynchronously
                 // when the response is available
-                // console.log(JSON.stringify(response));
-                createStream(response.data.output['stream-name'],
-                    function(socketLocation) {
-                      callback(socketLocation);
-                    });
-              }, function errorCallback(response) {
+                console.log(JSON.stringify('yippy0', JSON.stringify(success)));
+                createStream(success.data.output['stream-name']).then(function(socketLocation){
+                  console.log('yippy1', socketLocation);
+                  deferred.resolve(socketLocation)
+                }, function(error){
+                  deferred.reject(error);
+                });
+              }, function(error) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                console.error(JSON.stringify(response));
+                $mwtnLog.error({component: '$mwtnCommons.registerForOdlEvents', message: JSON.stringify(error)});
+                deferred.reject(error);
               });
+          return deferred.promise;
         };
         return service;
       });

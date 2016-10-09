@@ -29,31 +29,37 @@ define(['app/mwtnConnect/mwtnConnect.module',
     
     $scope.oneAtATime = true;
     $scope.status = {requiredNes: true};
-        
+    
+    var requiredNesConnectionStatusCellTemplate = [
+         '<div class="ui-grid-cell-contents" ng-class="{ \'green\': grid.getCellValue(row, col) === \'connected\'}"}>',
+         '  <i ng-show="grid.getCellValue(row, col) === \'connected\'" class="fa fa-signal" aria-hidden="true"></i>',
+         '  <span>{{grid.getCellValue(row, col)}}</span>',
+         '</div>'].join('');
+
+//    '<button class="btn btn-primary" ng-click="grid.appScope.edit(row.entity)"><i class="fa fa-pencil"></i></button>',
+//    '<button class="btn btn-default" ng-click="grid.appScope.delete(row.entity)"><i class="fa fa-times mwtnError"></i></button>',
     var requiredNesActionCellTemplate = [
       '<a class="vCenter" ng-class="{attention: grid.appScope.hover}" >',
       '<button class="btn btn-primary" ng-click="grid.appScope.connect(row.entity)">Connect</button>',
       '<button class="btn btn-default" ng-click="grid.appScope.disconnect(row.entity)">Disconnect</button>',
-      '<button class="btn btn-primary" ng-click="grid.appScope.edit(row.entity)"><i class="fa fa-pencil"></i></button>',
-      '<button class="btn btn-default" ng-click="grid.appScope.delete(row.entity)"><i class="fa fa-times mwtnError"></i></button>',
       '</a>' ].join('<span>&nbsp;</span>');
     $scope.requiredNesGridOptions = JSON.parse(JSON.stringify($mwtnCommons.gridOptions));
     $scope.requiredNesGridOptions.rowHeight  = 44;
     $scope.requiredNesGridOptions.columnDefs = [
        { field: 'id', type: 'number', displayName: 'Id',  headerCellClass: $scope.highlightFilteredHeader, width : 50, cellClass: 'number', pinnedLeft : true },
        { field: 'name', type: 'string', displayName: 'Name',  headerCellClass: $scope.highlightFilteredHeader, width : 150 },
-       { field: 'ipAddress',  type: 'number', displayName: 'IP address',  headerCellClass: $scope.highlightFilteredHeader, width : 100, cellClass: 'number' },
-       { field: 'netconfPort',  type: 'number', displayName: 'NetConf port',  headerCellClass: $scope.highlightFilteredHeader, width : 120, cellClass: 'number' },
+       { field: 'ipaddress',  type: 'number', displayName: 'IP address',  headerCellClass: $scope.highlightFilteredHeader, width : 140, cellClass: 'number' },
+       { field: 'port',  type: 'number', displayName: 'Port',  headerCellClass: $scope.highlightFilteredHeader, width : 80, cellClass: 'number' },
        { field: 'username', type: 'string', displayName: 'User name',  headerCellClass: $scope.highlightFilteredHeader, width : 100 },
        { field: 'password', type: 'string', displayName: 'Password',  headerCellClass: $scope.highlightFilteredHeader, width : 100 },
        { field: 'radioSignalIds', type: 'string', displayName: 'Radio signal ids',  headerCellClass: $scope.highlightFilteredHeader, width : 150 },
-       { field: 'connectionStatus', type: 'string', displayName: 'Connection status',  headerCellClass: $scope.highlightFilteredHeader, width : 160 },
+       { field: 'connectionStatus', type: 'string', displayName: 'Connection status',  headerCellClass: $scope.highlightFilteredHeader, width : 160, cellTemplate: requiredNesConnectionStatusCellTemplate },
        {
          name : 'actions',
          enableSorting : false,
          enableFiltering: false,
          cellTemplate: requiredNesActionCellTemplate,
-         width : 300,
+         width : 220,
          pinnedRight : true
        }
      ];
@@ -85,6 +91,34 @@ define(['app/mwtnConnect/mwtnConnect.module',
       }
     ];
     
+    var getRequiredNetworkElements = function() {
+      $mwtnConnect.getRequiredNetworkElements().then(function(networkElements) {
+        $scope.requiredNesGridOptions.data = networkElements;
+        getActualNetworkElements();
+      }, function(error){
+        $scope.requiredNesGridOptions.data = []
+      });
+    };
+    getRequiredNetworkElements();
+    
+    var isKnown = function(neId) {
+      if ($scope.requiredNesGridOptions.data) {
+        var result = false;
+        $scope.requiredNesGridOptions.data.map(function(rne) {
+          if (rne.name === neId) result = true;
+        });
+        return result;
+      } else {
+        return false;
+      }
+    };
+    var setConnectionStatus = function(neId, connectionStatus) {
+      if ($scope.requiredNesGridOptions.data) {
+        $scope.requiredNesGridOptions.data.map(function(rne) {
+          if (rne.name === neId) rne.connectionStatus = connectionStatus;
+        });
+      }
+    };
     var getActualNetworkElements = function() {
       // aneHash = [];
       if ($scope.requiredNesGridOptions.data) {
@@ -104,8 +138,12 @@ define(['app/mwtnConnect/mwtnConnect.module',
                 }
               });
             }
+            if (isKnown(ne['node-id'])) {
+              setConnectionStatus(ne['node-id'], ne['netconf-node-topology:connection-status']);
+            } else {
+              $scope.unknownNesGridOptions.data.push(ne);
+            }
         });
-        $scope.unknownNesGridOptions.data = networkElements;
       }, function(error){
         $mwtnLog.info({component: COMPONENT, message: JSON.stringify(error)});
       });
@@ -144,6 +182,13 @@ define(['app/mwtnConnect/mwtnConnect.module',
       });
     };
     
+    $scope.newMountingPoint = {
+        name: 'new-netconf-server',
+        ipaddress: '127.0.0.1',
+        port: 830,
+        username: 'compila',
+        password: 'compila+'
+    }
     $scope.mount = function() {
       $scope.mountError = undefined;
       $scope.mountSuccess = undefined;
@@ -155,8 +200,22 @@ define(['app/mwtnConnect/mwtnConnect.module',
       });
     };
     
-    $scope.connect = function(row) {
-      console.info(JSON.stringify(row));
+    $scope.connect = function(ne) {
+      ne.connectionStatus = 'connecting...';
+      $mwtnConnect.mount(ne).then(function(success){
+        ne.connectionStatus = 'connected';
+      }, function(error){
+        ne.connectionStatus = 'connected';
+      });
+    };
+    
+    $scope.disconnect = function(ne) {
+      ne.connectionStatus = 'connecting...';
+      $mwtnConnect.unmount(ne.name).then(function(success){
+        ne.connectionStatus = 'disconnected';
+      }, function(error){
+        ne.connectionStatus = 'unknown';
+      });
     };
     
     var removeFromNodeList = function(nodeId) {
@@ -187,7 +246,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
       console.info(JSON.stringify(row));
     };
     
-    // events
+    // browser events
     $scope.status = {requiredNes : true};
     $scope.separator = $mwtnCommons.separator; //'&nbsp;'
     $scope.$watch('status', function(status, oldValue) {
@@ -195,7 +254,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
         if (status[key] && status[key] !== oldValue[key]) {
           switch (key) {
           case 'requiredNes':
-            getActualNetworkElements();
+            getRequiredNetworkElements();
             break;
           case 'unkownNes':
             getActualNetworkElements();
@@ -208,6 +267,41 @@ define(['app/mwtnConnect/mwtnConnect.module',
         }
       });
     }, true);
+    
+    // ODL events
+ // actualNetworkElements - NE added/deleted
+    var listenToActualNetworkElementsNotifications = function(socketLocation) {
+      console.log('yippy4');
+      try {
+        var notificatinSocket = new WebSocket(socketLocation);
+
+        console.log('yippy5');
+        notificatinSocket.onmessage = function(event) {
+          console.log('yippy6');
+          setTimeout(function() {
+            console.log('yippy7');
+            getActualNetworkElements();
+          }, 1000);
+        };
+        notificatinSocket.onerror = function(error) {
+          console.error("Socket error: " + error);
+        };
+        notificatinSocket.onopen = function(event) {
+          console.info("Socket connection opened.");
+        };
+        notificatinSocket.onclose = function(event) {
+          console.info("Socket connection closed.");
+        };
+      } catch (e) {
+        console.error("Error when creating WebSocket" + e);
+      }
+    };
+    var path = '/network-topology:network-topology';
+    $mwtnConnect.registerForOdlEvents(path).then(function(socketLocation) {
+      listenToActualNetworkElementsNotifications(socketLocation);
+    }, function(error){
+      // no events ;(
+    });
   }]);
 
   mwtnConnectApp.register.controller('AddToRequiredMessageCtrl', ['$scope', '$uibModalInstance', '$mwtnConnect', 'netconfServer', 

@@ -18,8 +18,10 @@ define(['app/mwtnConnect/mwtnConnect.module','app/mwtnCommons/mwtnCommons.servic
     
     service.getAllData = $mwtnDatabase.getAllData;
     service.addRequiredNetworkElement = $mwtnCommons.addRequiredNetworkElement;
-
+    service.getRequiredNetworkElements = $mwtnCommons.getRequiredNetworkElements
     service.getActualNetworkElements = $mwtnCommons.getActualNetworkElements;
+    service.registerForOdlEvents = $mwtnCommons.registerForOdlEvents;
+    
     service.mount = $mwtnCommons.mount;
     service.unmount = $mwtnCommons.unmount;
     
