@@ -12,6 +12,7 @@
 #include "val.h"
 #include "utils.h"
 
+char* cb_get_runtime_element_value(val_value_t *element, const char* moduleName);
 /*
  * module: MicrowaveModel-ObjectClasses-AirInterface
  */
