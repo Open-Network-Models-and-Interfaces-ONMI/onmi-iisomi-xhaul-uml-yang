@@ -31,7 +31,7 @@ define([ 'app/mwtnConfig/mwtnConfig.module',], function(mwtnConfigApp) {
             var attributes = $mwtnConfig.getAttributes($scope.parameters, $scope.schema);
             $scope.attributes =  orderBy(attributes, 'order', false);
             if ($scope.attributes.length === 0) {
-              $scope.info = 'no data available'; 
+              $scope.info = 'No data available'; 
             }
           }
         };

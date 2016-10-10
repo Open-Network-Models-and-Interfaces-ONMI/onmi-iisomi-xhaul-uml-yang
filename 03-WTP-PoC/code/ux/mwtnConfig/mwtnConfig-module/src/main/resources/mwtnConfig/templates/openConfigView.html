@@ -57,7 +57,10 @@
 	</div>
 </div>
 <div class="modal-footer">
-    <div ng-show="applied">Applied: {{applied}}</div>
-	<button class="btn btn-primary" type="button" ng-click="ok()">{{'MWTN_APPLY' | translate}}</button> 
+    <div class="{{applied.class}}", ng-show="applied">{{applied.text}}</div>
+	<button class="btn btn-primary" type="button" ng-click="ok()">
+	    <span>{{'MWTN_APPLY' | translate}}</span>
+	    <i class="pull-right fa fa-spinner fa-pulse" ng-show="processing"></i>
+	</button> 
 	<button class="btn btn-warning" type="button" ng-click="cancel()">{{'MWTN_CLOSE' | translate}}</button>
 </div>

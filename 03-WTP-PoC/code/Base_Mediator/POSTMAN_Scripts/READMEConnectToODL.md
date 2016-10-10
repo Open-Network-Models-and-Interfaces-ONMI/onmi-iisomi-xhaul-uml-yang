@@ -2,10 +2,74 @@
 
 The OpenDaylight configuration is done with the Rest Client "Postman" that you can get from here: https://www.getpostman.com/.
 
+Postman runs on top of google chrome. The steps below are executed on Google Chrome with Windows 10 PC and Ubuntu 16.04.1 LTS Base_Mediator Server.
+  
+The test setup needs:
 
-##### Register
+* OpenDaylight running with all plugins for this PoC and a route to the Base_Mediator Server
+* OpenDaylight supports the standard login admin/admin
+* Base_Mediator Server running with startet OpenYuma/NETCONF service
 
-##### De-Register
+The setup uses the following variables.
+**Adapt this Variables to your environment.** 
+
+Variables | Start values | Meaning
+----------|------------|---------
+*ODL_IP* | sendateodl | IP Adress or hostname of OpenDaylight Server
+*ODL_Base_Mediator_Name* | base-mediator3 | Unique name of endpoint in OpenDaylight
+*Base_Mediator_IP* | 192.168.2.125 | IP Adress or hostname of Base_Mediator Server
+*Base_Mediator_User* | compila | Username to login via ssh to Base_Mediator Server on NETCONF port
+*Base_Mediator_UserPassword* | compila+ |  Password of user to login via ssh to Base_Mediator Server
+
+##### Prepare Postman
+
+The steps refer to the number of the Postman windows in the screenshot below.
+
+1. Import *Postman_collection_ToRegister.json*
+2. Import *Postman_environment.json*
+3. Choose Environment "03-WTP-Poc" and provide the rights values to the environment variables
+4. Choose Get command
+5. Press the send button to get an answer back from ODL
+
+
+![Postman configuration steps 1 till 5](READMEConnectToODL_Img1.png "Postman configuration steps 1 till 5")
+
+##### Register Base Mediator
+
+First of all the Base_Mediator endpoint needs a registration in ODL. Use the "Register Base Mediator" message.
+After send there should be an empty body as positive feedback. The OpenYuma Server should show messages indicating a connection setup to the ODL Server. See last part of Base Mediator output below.
+If you send a second time the response is like this:
+
+```
+    <errors xmlns="urn:ietf:params:xml:ns:yang:ietf-restconf">
+        <error>
+            <error-type>protocol</error-type>
+            <error-tag>data-exists</error-tag>
+            <error-message>Data already exists for path: /(urn:opendaylight:params:xml:ns:yang:controller:config?revision=2013-04-05)modules/module/module[{(urn:opendaylight:params:xml:ns:yang:controller:config?revision=2013-04-05)type=(urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf?revision=2015-08-03)sal-netconf-connector, (urn:opendaylight:params:xml:ns:yang:controller:config?revision=2013-04-05)name=base-mediator3}]</error-message>
+        </error>
+    </errors>
+```
+
+##### De-Register Base Mediator
+
+The command to de-register is "De-Register". After send there should be an empty body as positive feedback. If the endpoint is not available an error response is generated.
+
+##### Get Base Mediator configuration
+
+Use the command Get from ODL. The response shows a list of all endpoints known to ODL and its status and configurations.
+Scroll to see the Base Mediator endpoint. 
+
+##### Example of Get
+
+
+The following screenshot shows the steps to see an example of a correct get result. 
+This answer was created at a testbed with the start value configuration and is part of the JSON import file.
+
+1. Click the small triangle to see the Saved Responses.
+2. Click the htTestBedAnswer to see this response in the lower part of postman window
+3. Study the section with the Base_Mediator name "base_mediator3".  
+
+![](READMEConnectToODL_Img2.png "Get example for base-mediator3")
 
 ##### Base Mediator Output
 

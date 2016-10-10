@@ -44,6 +44,23 @@ define(
         
         var COMPONENT = '$mwtnCommons';
         
+        var doSynchronousLoop = function (data, processData, done) {
+          if (data.length > 0) {
+            var loop = function(data, i, processData, done) {
+              processData(data[i], i, function() {
+                if (++i < data.length) {
+                  loop(data, i, processData, done);
+                } else {
+                  done();
+                }
+              });
+            };
+            loop(data, 0, processData, done);
+          } else {
+            done();
+          }
+        };         
+
         var service = {
           base : ENV.getBaseURL("MD_SAL") + "/restconf/"
         };
@@ -52,6 +69,33 @@ define(
           return callback('$mwtnCommons registered to this application.');
         };
         
+        service.getType = function(value) {
+          var result = typeof value;
+          if (result === 'object' && JSON.stringify(value).substring(0,1) === '[') {
+            result = 'array';
+          }
+          return result;
+        };
+
+        service.getLayer = function(pacId) {
+          switch (pacId) {
+          case 'airinterface':
+            return 'MWPS';
+            break;
+          case 'structure':
+          case 'pureEthernetStructure':
+          case 'hybridSturcture':
+            return 'MWS';
+            break;
+          case 'ethernetContainer':
+          case 'tdmContainer':
+          case 'container':
+            return 'ETH-CTP';
+            break;
+          default:
+            return (pacId);
+          }
+        };
         service.parts = ['Capability', 'Configuration', 'Status', 'CurrentProblems', 'CurrentPerformance', 'HistoricalPerformances'];
         
         service.getLabelId = function(key, callback) {
@@ -129,7 +173,7 @@ define(
             $http(request).then(function(success) {
               deferred.resolve(success.data);
             }, function(error) {
-              $mwtnLog.info({component: '$mwtnCommons.mount', message: JSON.stringify(error.data)});
+              $mwtnLog.error({component: '$mwtnCommons.mount', message: JSON.stringify(error.data)});
               deferred.reject(error);
             });
             return deferred.promise;
@@ -155,7 +199,7 @@ define(
         };
 
         service.getPacParts = function(spec) {
-          var errorMsg = {info:'no data received'};
+          var errorMsg = {info:'No data received'};
           var deferred = $q.defer();
           switch (spec.pacId){
           case 'ne':
@@ -178,6 +222,9 @@ define(
               deferred.reject(errorMsg);
             });
             break;
+          case 'MWPS':
+          case 'MWS':
+          case 'ETH-CTP':
           case 'airinterface':
           case 'structure':
           case 'container':
@@ -198,7 +245,7 @@ define(
         };
 
         service.setPacParts = function(spec, data) {
-          var errorMsg = {info:'no data received'};
+          var errorMsg = {info:'No data received'};
           var deferred = $q.defer();
           switch (spec.pacId){
 //          case 'ne':
@@ -237,6 +284,88 @@ define(
             $mwtnLog.error({component: COMPONENT, message: 'Modification of ' + spec.pacId + ' not supported!'});
             deferred.reject(errorMsg);
           }
+          return deferred.promise;
+        };
+
+        service.setPacPartLists = function(spec, listData) {
+          var errorMsg = {info:'No data received'};
+          var deferred = $q.defer();
+          switch (spec.pacId){
+//          case 'ne':
+//            service.getActualNetworkElement(spec.nodeId, spec.revision).then(function(success){
+//              deferred.resolve(success);
+//            }, function(error){
+//              $mwtnLog.error({component: COMPONENT, message: 'Requesting ' + spec.nodeId + ' failed!'});
+//              deferred.reject(errorMsg);
+//            });
+//            break;
+//          case 'ltp':
+//            var odlRequest = {
+//              method: 'GET',
+//              url: [service.url.actualNetworkElement(spec.nodeId, spec.revision), '_ltpRefList', spec.layerProtocolId].join('/')
+//            };
+//            service.genericRequest(odlRequest).then(function(success){
+//              deferred.resolve(success);
+//            }, function(error){
+//              $mwtnLog.error({component: COMPONENT, message: 'Requesting LTPs of ' + spec.nodeId + ' failed!'});
+//              deferred.reject(errorMsg);
+//            });
+//            break;
+          case 'airinterface':
+          case 'structure':
+          case 'container':
+            if (spec.partId === 'Configuration') {
+              service.setConditionalPackagePartList(spec, listData).then(function(success){
+                deferred.resolve(success);
+              }, function(error){
+                $mwtnLog.error({component: COMPONENT, message: 'Modification of ' + JSON.stringify(spec) + ' failed!'});
+                deferred.reject(errorMsg);
+              });
+            }
+            break;
+          default:
+            $mwtnLog.error({component: COMPONENT, message: 'Modification of ' + spec.pacId + ' not supported!'});
+            deferred.reject(errorMsg);
+          }
+          return deferred.promise;
+        };
+
+        service.getRequiredNetworkElements = function(complete) {
+          var deferred = $q.defer();
+          $mwtnDatabase.getAllData('required-networkelement', 0, 999, undefined).then(function(success){
+            if (complete) {
+              deferred.resolve(success.data.hits.hits); 
+            }
+            var result = success.data.hits.hits.map(function(ne){
+              
+              var id;
+              if (ne._source.nodeId.contains('-')) {
+                id = ne._source.nodeId.split('-')[1]; 
+              } else {
+                id = ne._source.nodeId;
+              }
+              
+              var radioSignalIds = [];
+              ne._source.MW_AirInterface_Pac.map(function(mwps){
+                radioSignalIds.push(mwps.airInterfaceConfiguration.radioSignalID);
+              });
+              
+              return {
+                id: id,
+                name: ne._source.nodeId,
+                ipaddress: ne._source.connect.host,
+                port: ne._source.connect.port,
+                username: ne._source.connect.username,
+                password: ne._source.connect.password,
+                radioSignalIds: JSON.stringify(radioSignalIds),
+                connectionStatus: 'disconnected'
+              };
+            });
+            deferred.resolve(result);         
+          }, function(error){
+            $mwtnLog.error({component: COMPONENT, message: 'Problems in retrieving required network elements.'});
+            deferred.reject(error);
+          });
           return deferred.promise;
         };
 
@@ -442,6 +571,7 @@ define(
         };
         
         service.getConditionalPackagePart = function(spec) {
+          //console.log(JSON.stringify(spec));
           var deferred = $q.defer();
           if(!spec.partId) {
             deferred.reject('ignore');
@@ -460,11 +590,10 @@ define(
             method : 'GET',
             url : url
           };
-          console.log(url);
-          
+          // console.log(JSON.stringify(request));
+                    
           var taskId = [spec.nodeId, spec.layerProtocolId, spec.pacId, 'data received'].join(' ');
           console.time(taskId);
-          
           $http(request).then(function(success) {
             console.timeEnd(taskId);
             success.data.revision = spec.revision;
@@ -496,14 +625,22 @@ define(
               spec.layerProtocolId, '/', 
               ids.partId].join('');
           var request = {
-            method : 'PUT',
-            url : url,
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            },
-            data : body
-          };
+              method : 'PUT',
+              url : url,
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept' : 'application/json'
+              },
+              data : body
+            };
+//          var request = {
+//              method : 'PATCH',
+//              url : url,
+//              headers: {
+//                'Content-Type': 'application/yang.patch+json'
+//              },
+//              data : body
+//            };
           console.log(JSON.stringify(request));
           
           var taskId = [spec.nodeId, spec.layerProtocolId, spec.pacId, 'data received'].join(' ');
@@ -515,12 +652,98 @@ define(
             deferred.resolve(success.data);
           }, function(error) {
             console.timeEnd(taskId);
-            $mwtnLog.info({component: '$mwtnCommons.getConditionalPackagePart', message: JSON.stringify(error.data)});
+            $mwtnLog.error({component: '$mwtnCommons.setConditionalPackagePart', message: JSON.stringify(error.data)});
             deferred.reject(error);
           });
           return deferred.promise;
         };
 
+//     pureEthernetStructureConfiguration/problemKindSeverityList/value1
+//     {
+//       "problemKindSeverityList": [
+//         {
+//           "problemKindName": "severity1",
+//           "problemKindSeverity": "warning"
+//         }
+//       ]
+//     }
+     
+       var processData = function(item, i, callback) {
+          var spec = item.spec;
+          var ids = getIdsByRevision(spec.revision, spec.pacId,
+              spec.partId);
+          item.spec = undefined;
+
+          var body = {};
+          body[spec.attribute] = [ item ];
+
+          $mwtnDatabase.getSchema().then(function(schema) {
+            
+            var key;
+            Object.keys(item).map(function(k){
+              // works currently only for single key lists
+              if (schema[k] && schema[k]['is-key']) {
+                key = k;
+              }
+            });
+           
+            var url = [
+                service.base.slice(0, -1),
+                'config/network-topology:network-topology/topology/topology-netconf/node',
+                spec.nodeId, 'yang-ext:mount', ids.pacId,
+                spec.layerProtocolId, ids.partId,
+                spec.attribute, item[key] ].join('/');
+            var request = {
+              method : 'PUT',
+              url : url,
+              headers : {
+                'Content-Type' : 'application/json',
+                'Accept' : 'application/json'
+              },
+              data : body
+            };
+            // console.log(JSON.stringify(request));
+            var taskId = [ spec.nodeId, spec.layerProtocolId,
+                spec.pacId, item.problemKindName,
+                'data received' ].join(' ');
+            console.time(taskId);
+
+            $http(request).then(function(success) {
+              console.timeEnd(taskId);
+              success.data.revision = spec.revision;
+              return callback();
+            },
+            function(error) {
+              console.timeEnd(taskId);
+              $mwtnLog
+                  .error({
+                    component : '$mwtnCommons.setConditionalPackagePart',
+                    message : JSON
+                        .stringify(error.data)
+                  });
+              return callback();
+            });
+          });
+        };
+     
+        service.setConditionalPackagePartList = function(spec, data) {
+          var deferred = $q.defer();
+          if(!spec.partId) {
+            deferred.reject('ignore');
+            return deferred.promise;
+          }
+          
+          data.map(function(item){
+            item.spec = spec;
+          });
+          
+          doSynchronousLoop(data, processData, function(){
+            deferred.resolve();
+          });
+          return deferred.promise;
+        };
+
+        
 //        service.getActualMW_AirInterface_Pac = function(neId, lpId, callback) {
 ////console.log('234', neId, lpId);
 //          var url = [service.base,
@@ -586,8 +809,107 @@ define(
 //            callback();
 //          });
 //        };
+ 
+            
+        var saveRequiredNetworkElement = function(requiredNode){
+          var url = [ $mwtnDatabase.base, $mwtnDatabase.index, 'required-networkelement',
+                      requiredNode.nodeId ].join('/');
+          var bodyString = JSON.stringify(requiredNode); 
+          var headers = {
+              'Content-Type': 'application/json',
+              'Content-Length': bodyString.length
+          };
+          var request = {
+            method : 'PUT',
+            url : url,
+            data : requiredNode
+          };
         
+          var deferred = $q.defer();
+          console.time('database:' + url);
+          $http(request).then(function(success) {
+            console.timeEnd('database:' + url);
+            // console.log(JSON.stringify(success));
+            deferred.resolve(success);
+          }, function(error) {
+            console.timeEnd('database:' + url);
+            $mwtnLog.error({component: '$mwtnCommons.addRequiredNetworkElementToDatabase', message: JSON.stringify(error.data)});
+            deferred.reject(error);
+          });
+          return deferred.promise;
+        };
+        service.addRequiredNetworkElement = function(netconfServer) {
+          var requiredNode = {
+              nodeId: netconfServer['node-id'],
+              siteRef: netconfServer.site,
+              onfCoreModelRevision: netconfServer.onfCoreModelRevision,
+              onfAirIinterfaceRevision: netconfServer.onfAirIinterfaceRevision,
+              connect: {
+                mountId : netconfServer['node-id'],
+                host: netconfServer['netconf-node-topology:host'],
+                port: netconfServer['netconf-node-topology:port'],
+                username: netconfServer.username,
+                password: netconfServer.password
+              },
+              NetworkElement : {},
+              MW_AirInterface_Pac: [],
+              MW_PureEthernetStructure_Pac: [],
+              MW_EthernetContainer_Pac: []
+          };
+          
+          // get NetworkElement object from node
+          var spec = {
+              nodeId : requiredNode.nodeId,
+              revision: requiredNode.onfCoreModelRevision,
+              pacId : 'ne'
+          };
+          
+          var updatePart = function(spec, data) {
+            var pacIds = ['MWPS', 'MWS', 'ETH-CTP'];
+            var pacNames = ['MW_AirInterface_Pac', 'MW_PureEthernetStructure_Pac', 'MW_EthernetContainer_Pac'];
+            var index = pacIds.indexOf(spec.pacId);
+            data.layerProtocol = spec.layerProtocolId;
+            requiredNode[pacNames[index]].push(data);
+          };
+          var processLTPs = function(item, i, callback) {
+            var spec = {
+                nodeId : requiredNode.nodeId,
+                revision: requiredNode.onfCoreModelRevision, 
+                pacId: item._lpList[0].layerProtocolName,
+                layer: item._lpList[0].layerProtocolName,
+                layerProtocolId: item._lpList[0].uuid,
+                partId: 'Configuration'
+              };
+              service.getPacParts(spec).then(function(success){
+                updatePart(spec, success);
+                return callback();
+              }, function(error){
+                updatePart(spec, error);
+                return callback();
+              });
+          };
+          var deferred = $q.defer();
+          service.getPacParts(spec).then(function(success){
+            requiredNode.NetworkElement = success.NetworkElement;
+            
+            doSynchronousLoop(success.NetworkElement._ltpRefList, processLTPs, function(){
+              saveRequiredNetworkElement(requiredNode).then(function(success){
+                deferred.resolve(success);
+              }, function(error){
+                $mwtnLog.error({component: '$mwtnCommons.saveRequiredNetworkElement', message: JSON.stringify(error.data)});
+                deferred.reject(error);
+              });
+            });
+            
+          }, function(error){
+            $mwtnLog.error({component: '$mwtnCommons.getPacParts', message: JSON.stringify(error.data)});
+            deferred.reject(error);
+          });
+          return deferred.promise;
+        };
+
         var createStream = function(streamName, callback) {
+          console.log('streamName', streamName);
           var request = {
             method : 'GET',
             url : [ service.base, 'streams/stream/', streamName ]
@@ -606,7 +928,6 @@ define(
             callback();
           });
         };
-
         service.registerForOdlEvents = function(path, callback) {
           var request = {
             method : 'POST',
@@ -636,12 +957,12 @@ define(
                 console.error(JSON.stringify(response));
               });
         };
+        
         return service;
       });
 
       // Service log
-      mwtnCommonsApp.register.factory('$mwtnLog', function($http, $q, ENV,
-          $mwtnDatabase) {
+      mwtnCommonsApp.register.factory('$mwtnLog', function($http, $q, ENV, $mwtnDatabase) {
 
         var writeLogToDB = function(data, callback) {
           var url = [ $mwtnDatabase.base, $mwtnDatabase.index, 'log' ].join('/');
@@ -830,9 +1151,14 @@ define(
           // console.info(JSON.stringify(request));
 
           var deferred = $q.defer();
+          console.time('database:' + url);
           $http(request).then(function(success) {
+            console.timeEnd('database:' + url);
+            // console.log(JSON.stringify(success));
             deferred.resolve(success);
           }, function(error) {
+            console.timeEnd('database:' + url);
+            console.error(error);
             deferred.reject(error);
           });
           return deferred.promise;
@@ -852,6 +1178,7 @@ define(
           };
           var deferred = $q.defer();
           service.genericRequest(databaseRequest).then(function(success){
+            // console.log('getAllData', success);
             deferred.resolve(success);
           }, function(error){
             deferred.reject(error);
@@ -929,7 +1256,8 @@ define(
           }
           return deferred.promise;
         };
-
+        
+        
         return service;
       });
 

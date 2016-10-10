@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "Register Base_Mediator {{Base_Mediator_Name}}",
+			"name": "Register Base_Mediator {{ODL_Base_Mediator_Name}}",
 			"request": {
 				"url": "http://{{ODL_IP}}:8181/restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules",
 				"method": "POST",
@@ -38,9 +38,9 @@
 			"response": []
 		},
 		{
-			"name": "De-Register Base_Mediator {{Base_Mediator_Name}}",
+			"name": "De-Register Base_Mediator {{ODL_Base_Mediator_Name}}",
 			"request": {
-				"url": "http://{{ODL_IP}}:8181/restconf/config/opendaylight-inventory:nodes/node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector/{{Base_Mediator_Name}}",
+				"url": "http://{{ODL_IP}}:8181/restconf/config/opendaylight-inventory:nodes/node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector/{{ODL_Base_Mediator_Name}}",
 				"method": "DELETE",
 				"header": [
 					{

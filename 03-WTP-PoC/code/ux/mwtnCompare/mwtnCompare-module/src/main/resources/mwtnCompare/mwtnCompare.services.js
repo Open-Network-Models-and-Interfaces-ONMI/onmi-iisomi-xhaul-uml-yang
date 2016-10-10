@@ -9,15 +9,12 @@
 define(['app/mwtnCompare/mwtnCompare.module'],function(mwtnCompareApp) {
 
 
-  mwtnCompareApp.register.factory('$mwtnCompare', function($http, ENV) {
-    var service = {
-      base: ENV.getBaseURL("MD_SAL") + "/restconf/"
-    };
+  mwtnCompareApp.register.factory('$mwtnCompare', function($mwtnCommons) {
 
-    /*
-     * You can define all of your REST API interactions here.
-     */
-
+    var service = {};
+    
+    service.getRequiredNetworkElements = $mwtnCommons.getRequiredNetworkElements
+    
     return service;
   });
 

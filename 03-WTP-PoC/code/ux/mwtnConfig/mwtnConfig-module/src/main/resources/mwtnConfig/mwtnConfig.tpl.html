@@ -1,7 +1,9 @@
 <div id="mwtnConfig">
 	<div class="container" style="width: 100%">
-
-		<div class="row">
+		<div class="row"  ng-show="networkElements.length === 0">
+		 <span>Sorry, no Microwave devices connected to OpenDaylight.</span>
+		</div>
+		<div class="row" ng-show="networkElements.length > 0">
 			<div class="col-md-2 text-right radio">
 				<span>{{'Select NetworkElement' | translate}}</span>
 			</div>
@@ -22,7 +24,7 @@
 
 		</div>
 	</div>
-	<div class="container" style="width: 100%">
+	<div class="container" style="width: 100%"  ng-show="networkElements.length > 0">
 		<uib-accordion close-others="oneAtATime">
 
 		<div class="row">
