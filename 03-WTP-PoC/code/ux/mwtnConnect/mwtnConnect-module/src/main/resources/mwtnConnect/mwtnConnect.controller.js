@@ -272,18 +272,15 @@ define(['app/mwtnConnect/mwtnConnect.module',
       });
     }, true);
     
-    // ODL events
- // actualNetworkElements - NE added/deleted
+ // odl events
+    // actualNetworkElements - NE added/deleted
     var listenToActualNetworkElementsNotifications = function(socketLocation) {
-      console.log('yippy4');
       try {
         var notificatinSocket = new WebSocket(socketLocation);
 
-        console.log('yippy5');
         notificatinSocket.onmessage = function(event) {
-          console.log('yippy6');
+          console.log('Event received.');
           setTimeout(function() {
-            console.log('yippy7');
             getActualNetworkElements();
           }, 1000);
         };
@@ -300,12 +297,14 @@ define(['app/mwtnConnect/mwtnConnect.module',
         console.error("Error when creating WebSocket" + e);
       }
     };
-    var path = '/network-topology:network-topology';
-    $mwtnConnect.registerForOdlEvents(path).then(function(socketLocation) {
+    
+//    var path = '/network-topology:network-topology/network-topology:topology[network-topology:topology-id = "topology-netconf"]'; 
+//    var path = "/opendaylight-inventory:nodes";  // [sko] works!
+    var path = '/network-topology:network-topology'; // for whatever reason it does not work, but work in Lithium.
+    $mwtnConnect.registerForOdlEvents(path, function(socketLocation) {
       listenToActualNetworkElementsNotifications(socketLocation);
-    }, function(error){
-      // no events ;(
     });
+    
   }]);
 
   mwtnConnectApp.register.controller('AddToRequiredMessageCtrl', ['$scope', '$uibModalInstance', '$mwtnConnect', 'netconfServer', 

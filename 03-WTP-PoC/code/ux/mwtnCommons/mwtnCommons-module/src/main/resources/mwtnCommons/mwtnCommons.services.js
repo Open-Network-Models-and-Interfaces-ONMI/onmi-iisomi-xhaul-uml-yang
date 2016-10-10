@@ -908,28 +908,27 @@ define(
           return deferred.promise;
         };
 
-        var createStream = function(streamName) {
+        var createStream = function(streamName, callback) {
+          console.log('streamName', streamName);
           var request = {
             method : 'GET',
             url : [ service.base, 'streams/stream/', streamName ]
                 .join('')
           };
-          var deferred = $q.defer();
-          $http(request).then(function(success) {
+          $http(request).then(function successCallback(response) {
             // this callback will be called asynchronously
             // when the response is available
             // console.log(JSON.stringify(response));
-            console.log('yippy2', JSON.stringify(success));
-            deferred.resolve(success.headers('Location'));
-          }, function(error) {
+            console.log(response.headers('Location'));
+            callback(response.headers('Location'));
+          }, function errorCallback(response) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
-            $mwtnLog.error({component: '$mwtnCommons.createStream', message: JSON.stringify(error.data)});
-            deferred.reject(error);
+            console.error(JSON.stringify(response));
+            callback();
           });
-          return deferred.promise;
         };
-        service.registerForOdlEvents = function(path) {
+        service.registerForOdlEvents = function(path, callback) {
           var request = {
             method : 'POST',
             url : [ service.base,
@@ -943,26 +942,22 @@ define(
               }
             }
           };
-          var deferred = $q.defer();
           $http(request).then(
-              function(success) {
+              function successCallback(response) {
                 // this callback will be called asynchronously
                 // when the response is available
-                console.log(JSON.stringify('yippy0', JSON.stringify(success)));
-                createStream(success.data.output['stream-name']).then(function(socketLocation){
-                  console.log('yippy1', socketLocation);
-                  deferred.resolve(socketLocation)
-                }, function(error){
-                  deferred.reject(error);
-                });
-              }, function(error) {
+                // console.log(JSON.stringify(response));
+                createStream(response.data.output['stream-name'],
+                    function(socketLocation) {
+                      callback(socketLocation);
+                    });
+              }, function errorCallback(response) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                $mwtnLog.error({component: '$mwtnCommons.registerForOdlEvents', message: JSON.stringify(error)});
-                deferred.reject(error);
+                console.error(JSON.stringify(response));
               });
-          return deferred.promise;
         };
+        
         return service;
       });
 

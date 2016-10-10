@@ -14,36 +14,51 @@ define(['app/mwtnCompare/mwtnCompare.module','app/mwtnCompare/mwtnCompare.servic
 
     $rootScope['section_logo'] = 'src/app/mwtnCompare/images/mwtnCompare.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
+    $scope.status = {ne:false};
+    
     var initNodeList = function(nodes){
-      $scope.networkElements = [];
+      $scope.neSelection = [];
       if (nodes.length > 0) {
         nodes.map(function(ne) {
-          console.log(JSON.stringify(ne));
-          if (ne.onfAirIinterfaceRevision) {
-            $scope.networkElements.push({id:ne._id, revision:ne._source.onfAirIinterfaceRevision});
+          if (ne._source.onfAirIinterfaceRevision) {
+            $scope.neSelection.push({id:ne._id, revision:ne._source.onfAirIinterfaceRevision});
             
           }
         });
-        $scope.networkElements.sort(function(a, b){
+        $scope.neSelection.sort(function(a, b){
           if(a.id < b.id) return -1;
           if(a.id > b.id) return 1;
           return 0;
         });
         
         // select one of the nodes
-        var select = parseInt(Math.random()*$scope.networkElements.length);
-        console.log($scope.networkElements.length, JSON.stringify($scope.networkElements));
-        $scope.networkElement = $scope.networkElements[select].id;
+        var select = parseInt(Math.random()*$scope.neSelection.length);
+        $scope.selection = $scope.neSelection[select].id;
       }
     };
-    var requiredNetworkElements = [];
+    $scope.requiredNetworkElements = [];
     $mwtnCompare.getRequiredNetworkElements(true).then(function(nodes){
-      requiredNetworkElements = nodes;
+      $scope.requiredNetworkElements = nodes;
       initNodeList(nodes);
     }, function(error){
-      $scope.networkElements = [];
+      $scope.neSelection = [];
+      $scope.requiredNetworkElements = [];
     });
 
+
+  // events
+    $scope.$watch('selection', function(neId, oldValue) {
+      if (neId && neId !== '' && neId !== oldValue) {
+
+        $scope.requiredNetworkElements.map(function(rne){
+          if (rne._id === neId) {
+            $scope.requiredNetworkElement = rne._source;
+          }
+        });
+      }
+    });
+ 
+  
   }]);
 
 
