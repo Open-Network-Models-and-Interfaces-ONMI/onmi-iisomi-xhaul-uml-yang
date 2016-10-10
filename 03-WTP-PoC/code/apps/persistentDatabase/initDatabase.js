@@ -5,7 +5,7 @@ var database = require('./config.json');
 
 var createHit = function(item, i, done) {
   util.createEntry(database, item._type, item._id, item._source, function(status, data) {
-    console.log(item._type, item._id, 'created', status);
+    // console.log(item._type, item._id, 'created', status);
     done();
   });
 };
@@ -30,11 +30,10 @@ var modifyDatabase = function(database) {
           return {
             _id : key,
             _type : docType,
-            _source : json[docType][key]
-          };
+            _source : json[docType][key]          };
         });
         util.doSynchronousLoop(array, createHit, function(){
-          console.log('done', filename);
+          console.log('done');
         });
       });
     });
