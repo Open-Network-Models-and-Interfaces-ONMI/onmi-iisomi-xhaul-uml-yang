@@ -15,7 +15,12 @@
 					</select>
 				</div>
 			</div>
-			<div class="col-md-6 text-right">
+			<div class="col-md-3 radio" ng-class="{'connected':connectionStatus === 'connected'}">
+			  <span>{{'MWTN_CONNECTIONSTATUS' | translate}}: </span>
+			  <i ng-show="connectionStatus === 'connected'" class="fa fa-signal" aria-hidden="true"></i>	
+              <span>{{connectionStatus}}</span>
+            </div>
+			<div class="col-md-3 text-right">
 				<div class="form-group">
 					<button type="button" class="btn btn-default"
 						ng-click="collapseAll()">{{'Collapse all' | translate}}</button>
@@ -42,8 +47,9 @@
 			class="panel-primary"
 			is-open="status['airinterface' + separator + airinterface.layerProtocol]">
 			<uib-accordion-heading>
-			    <i class="pull-left fa" ng-class="{'fa-chevron-down': status['airinterface' + separator + airinterface.layerProtocol], 'fa-chevron-right': !status['airinterface' + separator + airinterface.layerProtocol]}"></i>
+			    <i class="pull-left fa" ng-class="{'fa-chevron-down': status[['airinterface', airinterface.layerProtocol].join(separator)], 'fa-chevron-right': !status['airinterface' + separator + airinterface.layerProtocol]}"></i>
 			    <span>AirInterface MWPS '{{airinterface.layerProtocol}}'</span>
+			    <i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner[['airinterface', airinterface.layerProtocol].join(separator)]"></i>
 			</uib-accordion-heading>
 			<pre>{{airinterface.airInterfaceConfiguration | json}}</pre>
 		</div>
@@ -53,8 +59,9 @@
 			heading=""
 			is-open="status['structure' + separator + structure.layerProtocol]">
 			<uib-accordion-heading>
-			    <i class="pull-left fa" ng-class="{'fa-chevron-down': status['structure' + separator + structure.layerProtocol], 'fa-chevron-right': !status['structure' + separator + structure.layerProtocol]}"></i>
+			    <i class="pull-left fa" ng-class="{'fa-chevron-down': status[['structure', structure.layerProtocol].join(separator)], 'fa-chevron-right': !status['structure' + separator + structure.layerProtocol]}"></i>
 			    <span>Structure MWS '{{structure.layerProtocol}}'</span>
+			    <i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner[['structure', structure.layerProtocol].join(separator)]"></i>
 			</uib-accordion-heading>
 			<pre>{{structure.pureEthernetStructureConfiguration | json}}</pre>
 		</div>
@@ -63,8 +70,9 @@
 			class="panel-primary"
 			is-open="status['container' + separator + container.layerProtocol]">
 			<uib-accordion-heading>
-			    <i class="pull-left fa" ng-class="{'fa-chevron-down': status['container' + separator + container.layerProtocol], 'fa-chevron-right': !status['container' + separator + container.layerProtocol]}"></i>
+			    <i class="pull-left fa" ng-class="{'fa-chevron-down': status[['container', container.layerProtocol].join(separator)], 'fa-chevron-right': !status['container' + separator + container.layerProtocol]}"></i>
 			    <span>Container ETH-CTP '{{container.layerProtocol}}'</span>
+			    <i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner[['container', container.layerProtocol].join(separator)]"></i>
 			</uib-accordion-heading>
 			<pre>{{container.ethernetContainerConfiguration | json}}</pre>
 		</div>

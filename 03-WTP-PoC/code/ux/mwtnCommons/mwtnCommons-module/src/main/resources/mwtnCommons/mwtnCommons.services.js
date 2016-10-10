@@ -369,6 +369,23 @@ define(
           return deferred.promise;
         };
 
+        
+        service.getConnectionStatus = function(neId) {
+          var url = service.base + service.url.connectionStatus(neId);
+          var request = {
+            method : 'GET',
+            url : url
+          };
+          var deferred = $q.defer();
+          $http(request).then(function(success) {
+            console.log(JSON.stringify(success));
+            deferred.resolve(success.data.node[0]['netconf-node-topology:connection-status']);
+          }, function(error) {
+            deferred.reject(error);
+          });
+          return deferred.promise;
+        };
+
         service.getActualNetworkElements = function() {
           var url = service.base + service.url.actualNetworkElements();
           var request = {
@@ -436,6 +453,9 @@ define(
         service.url = {
           actualNetworkElements : function() {
             return 'operational/network-topology:network-topology/topology/topology-netconf';
+          },
+          connectionStatus : function(neId) {
+            return 'operational/network-topology:network-topology/topology/topology-netconf/node/' + neId;
           },
           mount : function() {
             return 'config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules';

@@ -15,6 +15,9 @@ define(['app/mwtnCompare/mwtnCompare.module','app/mwtnCompare/mwtnCompare.servic
     $rootScope['section_logo'] = 'src/app/mwtnCompare/images/mwtnCompare.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
     $scope.status = {ne:false};
+    $scope.spinner = {ne:false};
+    $scope.separator = $mwtnCompare.separator; //'&nbsp;'
+    $scope.connectionStatus = 'disconnected';
     
     var initNodeList = function(nodes){
       $scope.neSelection = [];
@@ -45,11 +48,26 @@ define(['app/mwtnCompare/mwtnCompare.module','app/mwtnCompare/mwtnCompare.servic
       $scope.requiredNetworkElements = [];
     });
 
+    $scope.collapseAll = function() {
+      // close all groups
+      Object.keys($scope.status).map(function(group){
+        $scope.status[group] = false;
+      });
+      Object.keys($scope.spinner).map(function(group){
+        $scope.spinner[group] = false;
+      });
+    };
+
 
   // events
     $scope.$watch('selection', function(neId, oldValue) {
       if (neId && neId !== '' && neId !== oldValue) {
-
+        $scope.connectionStatus = 'disconnected';
+        $mwtnCompare.getConnectionStatus(neId).then(function(connectionStatus){
+          $scope.connectionStatus = connectionStatus;
+        },function(error){
+          $scope.connectionStatus = 'disconnected';
+        });
         $scope.requiredNetworkElements.map(function(rne){
           if (rne._id === neId) {
             $scope.requiredNetworkElement = rne._source;
@@ -57,7 +75,32 @@ define(['app/mwtnCompare/mwtnCompare.module','app/mwtnCompare/mwtnCompare.servic
         });
       }
     });
- 
+
+    $scope.$watch('status', function(status, oldValue) {
+      Object.keys(status).map(function(key){
+        if ($scope.selection && status[key] && status[key] !== oldValue[key]) {
+          
+          $scope.spinner[key] = true;
+          
+          var info = key.split($scope.separator);
+          var spec = {
+            nodeId: $scope.selection,
+            revision: $scope.requiredNetworkElement.onfAirIinterfaceRevision,
+            pacId: info[0],
+            layerProtocolId: info[1],
+            partId: info[2]
+          };
+          $mwtnCompare.getPacParts(spec).then(function(success){
+            updatePart(spec, success);
+            $scope.spinner[key] = false;
+          }, function(error){
+            updatePart(spec, error);
+            $scope.spinner[key] = false;
+          });
+        }
+      });   
+    }, true);
+
   
   }]);
 

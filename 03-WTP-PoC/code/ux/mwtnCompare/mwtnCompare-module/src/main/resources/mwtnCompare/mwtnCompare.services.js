@@ -13,7 +13,10 @@ define(['app/mwtnCompare/mwtnCompare.module'],function(mwtnCompareApp) {
 
     var service = {};
     
-    service.getRequiredNetworkElements = $mwtnCommons.getRequiredNetworkElements
+    service.separator = $mwtnCommons.separator;
+    service.getRequiredNetworkElements = $mwtnCommons.getRequiredNetworkElements;
+    service.getConnectionStatus = $mwtnCommons.getConnectionStatus;
+    service.getPacParts = $mwtnCommons.getPacParts;
     
     return service;
   });
