@@ -1500,7 +1500,8 @@ static status_t attach_air_pure_eth_structure_element_to_running_config(cfg_temp
 			MW_PureEthernetStructure_Pac_val,
 			&layerProtocol_val,
 			air_pure_eth_structure_key,
-			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure);
+			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure,
+			false);
 	YUMA_ASSERT(NULL == layerProtocol_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_layerProtocol);
 
@@ -1514,7 +1515,8 @@ static status_t attach_air_pure_eth_structure_element_to_running_config(cfg_temp
 			MW_PureEthernetStructure_Pac_val,
 			&pureEthernetStructureCapability_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure);
+			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure,
+			false);
 	YUMA_ASSERT(NULL == pureEthernetStructureCapability_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_pureEthernetStructureCapability);
 
@@ -1535,7 +1537,8 @@ static status_t attach_air_pure_eth_structure_element_to_running_config(cfg_temp
 			MW_PureEthernetStructure_Pac_val,
 			&pureEthernetStructureConfiguration_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure);
+			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure,
+			false);
 	YUMA_ASSERT(NULL == pureEthernetStructureConfiguration_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_pureEthernetStructureConfiguration);
 
@@ -1553,7 +1556,8 @@ static status_t attach_air_pure_eth_structure_element_to_running_config(cfg_temp
 			MW_PureEthernetStructure_Pac_val,
 			&pureEthernetStructureStatus_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure);
+			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure,
+			true);
 	YUMA_ASSERT(NULL == pureEthernetStructureStatus_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_pureEthernetStructureStatus);
 
@@ -1628,7 +1632,8 @@ static status_t attach_pure_eth_structure_capability_container(val_value_t *pare
 			parentval,
 			&structureId_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure);
+			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure,
+			false);
 	YUMA_ASSERT(NULL == structureId_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_structureId);
 
@@ -1640,7 +1645,10 @@ static status_t attach_pure_eth_structure_capability_container(val_value_t *pare
 			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure,
 			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_structureId));
 
-	res = create_and_init_siblings(next_obj, parentval, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure);
+	res = create_and_init_siblings(next_obj,
+			parentval,
+			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure,
+			false);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "create_and_init_siblings failed!");
 
 
@@ -1711,7 +1719,8 @@ static status_t attach_problem_kind_severity_list_entry(val_value_t* parentval, 
 			parentval,
 			&problemKindSeverityList_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure);
+			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure,
+			false);
 	YUMA_ASSERT(NULL == problemKindSeverityList_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_problemKindSeverityList);
 
@@ -1725,7 +1734,8 @@ static status_t attach_problem_kind_severity_list_entry(val_value_t* parentval, 
 			problemKindSeverityList_val,
 			&problemKindName_val,
 			problem_kind_severity_list_key_entry,
-			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure);
+			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure,
+			false);
 	YUMA_ASSERT(NULL == problemKindName_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_problemKindName);
 
@@ -1739,7 +1749,8 @@ static status_t attach_problem_kind_severity_list_entry(val_value_t* parentval, 
 			problemKindSeverityList_val,
 			&problemKindSeverity_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure);
+			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure,
+			false);
 	YUMA_ASSERT(NULL == problemKindSeverity_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_problemKindSeverity);
 
@@ -1796,7 +1807,8 @@ static status_t attach_current_problem_list_entry(val_value_t* parentval, const 
 			parentval,
 			&currentProblemList_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure);
+			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure,
+			true);
 	YUMA_ASSERT(NULL == currentProblemList_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_currentProblemList);
 
@@ -1810,33 +1822,70 @@ static status_t attach_current_problem_list_entry(val_value_t* parentval, const 
 			currentProblemList_val,
 			&sequenceNumber_val,
 			pure_eth_structure_current_problem_list_key_entry,
-			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure);
+			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure,
+			true);
 	YUMA_ASSERT(NULL == sequenceNumber_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_sequenceNumber);
 
     /*
      * Create timeStamp virtual leaf with callback attached
      */
-    res = add_virtual_leaf(currentProblemList_val,
-                            y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_timeStamp,
-                            MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthernetStructure_Pac_pureEthernetStructureCurrentProblems_currentProblemList_timeStamp_get);
-    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_timeStamp);
+	val_value_t  *timeStamp_val = NULL;
+
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure,
+			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_timeStamp,
+			currentProblemList_val,
+			&timeStamp_val,
+			pure_eth_structure_current_problem_list_key_entry,
+			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure,
+			true);
+	YUMA_ASSERT(NULL == timeStamp_val, return ERR_INTERNAL_VAL ,
+				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_timeStamp);
+
+//    res = add_virtual_leaf(currentProblemList_val,
+//                            y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_timeStamp,
+//                            MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthernetStructure_Pac_pureEthernetStructureCurrentProblems_currentProblemList_timeStamp_get);
+//    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_timeStamp);
 
     /*
      * Create problemName virtual leaf with callback attached
      */
-    res = add_virtual_leaf(currentProblemList_val,
-                            y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_problemName,
-                            MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthernetStructure_Pac_pureEthernetStructureCurrentProblems_currentProblemList_problemName_get);
-    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_problemName);
+	val_value_t  *problemName_val = NULL;
+
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure,
+			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_problemName,
+			currentProblemList_val,
+			&problemName_val,
+			pure_eth_structure_current_problem_list_key_entry,
+			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure,
+			true);
+	YUMA_ASSERT(NULL == problemName_val, return ERR_INTERNAL_VAL ,
+				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_problemName);
+
+//    res = add_virtual_leaf(currentProblemList_val,
+//                            y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_problemName,
+//                            MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthernetStructure_Pac_pureEthernetStructureCurrentProblems_currentProblemList_problemName_get);
+//    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_problemName);
 
     /*
      * Create problemSeverity virtual leaf with callback attached
      */
-    res = add_virtual_leaf(currentProblemList_val,
-                            y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_problemSeverity,
-                            MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthernetStructure_Pac_pureEthernetStructureCurrentProblems_currentProblemList_problemSeverity_get);
-    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_problemSeverity);
+	val_value_t  *problemSeverity_val = NULL;
+
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure,
+			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_problemSeverity,
+			currentProblemList_val,
+			&problemSeverity_val,
+			pure_eth_structure_current_problem_list_key_entry,
+			y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure,
+			true);
+	YUMA_ASSERT(NULL == problemSeverity_val, return ERR_INTERNAL_VAL ,
+				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_problemSeverity);
+
+//    res = add_virtual_leaf(currentProblemList_val,
+//                            y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_problemSeverity,
+//                            MicrowaveModel_ObjectClasses_PureEthernetStructure_MW_PureEthernetStructure_Pac_pureEthernetStructureCurrentProblems_currentProblemList_problemSeverity_get);
+//    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_problemSeverity);
 
 	return NO_ERR;
 }

@@ -9,6 +9,7 @@
 #include "y_MicrowaveModel-ObjectClasses-AirInterface.h"
 #include "y_MicrowaveModel-ObjectClasses-PureEthernetStructure.h"
 #include "y_MicrowaveModel-ObjectClasses-EthernetContainer.h"
+#include "y_CoreModel-CoreNetworkModule-ObjectClasses.h"
 
 /*
  * module: MicrowaveModel-ObjectClasses-AirInterface
@@ -6827,4 +6828,534 @@ static char* cb_get_runtime_ethernetContainerCurrentProblem_problemSeverity(val_
     }
 
     return problemSeverity;
+}
+
+char* cb_get_runtime_element_value(val_value_t *element, const char* moduleName)
+{
+	/* airInterface */
+	if (strcmp(moduleName, y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface) == 0)
+	{
+		/*currentProblems*/
+		if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceCurrentProblems) == 0))
+		{
+			if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_timeStamp) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentProblemList_problem_timeStamp(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemName) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentProblemList_problem_problemName(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemSeverity) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentProblemList_problem_problemSeverity(element);
+			}
+		}
+
+		/*currentPerformance*/
+		else if (element->parent && (strcmp(element->parent->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_currentPerformanceDataList) == 0))
+		{
+			if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_granularityPeriod) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_granularityPeriod(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_administrativeState) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_administrativeState(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_suspectIntervalFlag) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_suspectIntervalFlag(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_elapsedTime) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_elapsedTime(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_timestamp) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_timestamp(element);
+			}
+		}
+		else if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_currentPerformanceDataList) == 0))
+		{
+			if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_es) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_es(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_ses) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_ses(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_cses) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_cses(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_unavailability) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_unavailability(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txLevelMin) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_txLevelMin(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txLevelMax) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_txLevelMax(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txLevelAvg) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_txLevelAvg(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxLevelMin) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rxLevelMin(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxLevelMax) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rxLevelMax(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxLevelAvg) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rxLevelAvg(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time2Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time2Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time4SymbolsS) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time4SymbolsS(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time4Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time4Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time8Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time8Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time16SymbolsS) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time16SymbolsS(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time16Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time16Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time32Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time32Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time64Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time64Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time128Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time128Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time256Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time256Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time512Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time512Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time512SymbolsL) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time512SymbolsL(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time1024Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time1024Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time1024SymbolsL) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time1024SymbolsL(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time2048Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time2048Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time2048SymbolsL) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time2048SymbolsL(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time4096Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time4096Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time4096SymbolsL) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time4096SymbolsL(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time8192Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time8192Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time8192SymbolsL) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_time8192SymbolsL(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_snirMin) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_snirMin(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_snirMax) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_snirMax(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_snirAvg) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_snirAvg(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpdMin) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_xpdMin(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpdMax) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_xpdMax(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpdAvg) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_xpdAvg(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rfTempMin) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rfTempMin(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rfTempMax) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rfTempMax(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rfTempAvg) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_rfTempAvg(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_defectBlocksSum) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_defectBlocksSum(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_timePeriod) == 0)
+			{
+				return cb_get_runtime_airInterfaceCurrentPerformance_currentPerformanceDataList_timePeriod(element);
+			}
+		}
+
+		/*historicalPerformance*/
+		else if (element->parent && (strcmp(element->parent->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_historicalPerformanceDataList) == 0))
+		{
+			if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_periodEndTime) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_periodEndTime(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_granularityPeriod) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_granularityPeriod(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_suspectIntervalFlag) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_suspectIntervalFlag(element);
+			}
+		}
+		else if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_historicalPerformanceDataList) == 0))
+		{
+			if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_es) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_es(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_ses) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_ses(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_cses) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_cses(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_unavailability) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_unavailability(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txLevelMin) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_txLevelMin(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txLevelMax) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_txLevelMax(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txLevelAvg) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_txLevelAvg(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxLevelMin) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rxLevelMin(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxLevelMax) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rxLevelMax(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxLevelAvg) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rxLevelAvg(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time2Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time2Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time4SymbolsS) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4SymbolsS(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time4Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time8Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time8Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time16SymbolsS) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time16SymbolsS(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time16Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time16Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time32Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time32Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time64Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time64Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time128Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time128Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time256Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time256Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time512Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time512Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time512SymbolsL) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time512SymbolsL(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time1024Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time1024Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time1024SymbolsL) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time1024SymbolsL(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time2048Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time2048Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time2048SymbolsL) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time2048SymbolsL(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time4096Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4096Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time4096SymbolsL) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time4096SymbolsL(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time8192Symbols) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time8192Symbols(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_time8192SymbolsL) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_time8192SymbolsL(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_snirMin) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_snirMin(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_snirMax) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_snirMax(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_snirAvg) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_snirAvg(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpdMin) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_xpdMin(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpdMax) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_xpdMax(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpdAvg) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_xpdAvg(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rfTempMin) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rfTempMin(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rfTempMax) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rfTempMax(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rfTempAvg) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_rfTempAvg(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_defectBlocksSum) == 0)
+			{
+				return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_defectBlocksSum(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_timePeriod) == 0)
+			{
+			   return cb_get_runtime_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_timePeriod(element);
+			}
+		}
+	}
+
+	/* CoreModel-CoreNetworkModule-ObjectClasses*/
+	else if (strcmp(moduleName, y_CoreModel_CoreNetworkModule_ObjectClasses_M_CoreModel_CoreNetworkModule_ObjectClasses) == 0)
+	{
+		/*no dynamic data here, yet*/
+	}
+
+	/* pureEthernetStructure */
+	else if (strcmp(moduleName, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_M_MicrowaveModel_ObjectClasses_PureEthernetStructure) == 0)
+	{
+		/*currentProblems*/
+		if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_pureEthernetStructureCurrentProblems) == 0))
+		{
+			if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_timeStamp) == 0)
+			{
+				return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_timeStamp(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_problemName) == 0)
+			{
+				return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemName(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_PureEthernetStructure_N_problemSeverity) == 0)
+			{
+				return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemSeverity(element);
+			}
+		}
+	}
+
+	/* ethernetContainer */
+	else if (strcmp(moduleName, y_MicrowaveModel_ObjectClasses_EthernetContainer_M_MicrowaveModel_ObjectClasses_EthernetContainer) == 0)
+	{
+		/*currentProblems*/
+		if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ethernetContainerCurrentProblems) == 0))
+		{
+			if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_timeStamp) == 0)
+			{
+				return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_timeStamp(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemName) == 0)
+			{
+				return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemName(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemSeverity) == 0)
+			{
+				return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemSeverity(element);
+			}
+		}
+
+		/*currentPerformance*/
+		else if (element->parent && (strcmp(element->parent->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_currentPerformanceDataList) == 0))
+		{
+			if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_granularityPeriod) == 0)
+			{
+				return cb_get_runtime_ethernetContainerCurrentPerformance_granularityPeriod(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_administrativeState) == 0)
+			{
+				return cb_get_runtime_ethernetContainerCurrentPerformance_administrativeState(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_suspectIntervalFlag) == 0)
+			{
+				return cb_get_runtime_ethernetContainerCurrentPerformance_suspectIntervalFlag(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_elapsedTime) == 0)
+			{
+				return cb_get_runtime_ethernetContainerCurrentPerformance_elapsedTime(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_timestamp) == 0)
+			{
+				return cb_get_runtime_ethernetContainerCurrentPerformance_timestamp(element);
+			}
+		}
+		else if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_currentPerformanceDataList) == 0))
+		{
+			if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_txEthernetBytesMaxS) == 0)
+			{
+				return cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesMaxS(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_txEthernetBytesMaxM) == 0)
+			{
+				return cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesMaxM(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_txEthernetBytesSum) == 0)
+			{
+				return cb_get_runtime_ethernetContainerCurrentPerformance_txEthernetBytesSum(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_timePeriod) == 0)
+			{
+				return cb_get_runtime_ethernetContainerCurrentPerformance_timePeriod(element);
+			}
+		}
+
+		/*historicalPerformance*/
+		else if (element->parent && (strcmp(element->parent->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_historicalPerformanceDataList) == 0))
+		{
+			if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_periodEndTime) == 0)
+			{
+				return cb_get_runtime_ethernetContainerHistoricalPerformances_periodEndTime(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_granularityPeriod) == 0)
+			{
+				return cb_get_runtime_ethernetContainerHistoricalPerformances_granularityPeriod(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_suspectIntervalFlag) == 0)
+			{
+				return cb_get_runtime_ethernetContainerHistoricalPerformances_suspectIntervalFlag(element);
+			}
+		}
+		else if (element->parent && element->parent->parent && (strcmp(element->parent->parent->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_historicalPerformanceDataList) == 0))
+		{
+			if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_txEthernetBytesMaxS) == 0)
+			{
+				return cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesMaxS(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_txEthernetBytesMaxM) == 0)
+			{
+				return cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesMaxM(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_txEthernetBytesSum) == 0)
+			{
+				return cb_get_runtime_ethernetContainerHistoricalPerformances_txEthernetBytesSum(element);
+			}
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_timePeriod) == 0)
+			{
+				return cb_get_runtime_ethernetContainerHistoricalPerformances_timePeriod(element);
+			}
+		}
+	}
+
+	return NULL;
 }

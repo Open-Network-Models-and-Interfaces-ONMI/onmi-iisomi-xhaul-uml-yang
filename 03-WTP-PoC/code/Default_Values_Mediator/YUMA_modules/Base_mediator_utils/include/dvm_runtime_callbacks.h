@@ -45,7 +45,6 @@ char* dvm_cb_get_runtime_airInterfaceCurrentProblemList_problem_problemSeverity(
 status_t dvm_cb_get_all_air_interface_current_performance_list_keys(char *air_interface_pac_key, char **current_performance_data_list_keys_entries, int *num_of_keys);
 
 char* dvm_cb_get_runtime_airInterfaceCurrentPerformance_granularityPeriod(char* layerProtocolKeyString, char* scannerIdKeyString);
-char* dvm_cb_get_runtime_airInterfaceCurrentPerformance_administrativeState(char* layerProtocolKeyString, char* scannerIdKeyString);
 char* dvm_cb_get_runtime_airInterfaceCurrentPerformance_suspectIntervalFlag(char* layerProtocolKeyString, char* scannerIdKeyString);
 char* dvm_cb_get_runtime_airInterfaceCurrentPerformance_elapsedTime(char* layerProtocolKeyString, char* scannerIdKeyString);
 char* dvm_cb_get_runtime_airInterfaceCurrentPerformance_timestamp(char* layerProtocolKeyString, char* scannerIdKeyString);

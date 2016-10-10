@@ -7602,7 +7602,8 @@ static status_t attach_air_interface_pac_element_to_running_config(cfg_template_
 			MW_AirInterface_Pac_val,
 			&layerProtocol_val,
 			air_interface_pac_key,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			false);
 	YUMA_ASSERT(NULL == layerProtocol_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_layerProtocol);
 
@@ -7616,7 +7617,8 @@ static status_t attach_air_interface_pac_element_to_running_config(cfg_template_
 			MW_AirInterface_Pac_val,
 			&airInterfaceCapability_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			false);
 	YUMA_ASSERT(NULL == airInterfaceCapability_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceCapability);
 
@@ -7644,7 +7646,8 @@ static status_t attach_air_interface_pac_element_to_running_config(cfg_template_
 			MW_AirInterface_Pac_val,
 			&airInterfaceConfiguration_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			false);
 	YUMA_ASSERT(NULL == airInterfaceConfiguration_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceConfiguration);
 
@@ -7662,7 +7665,8 @@ static status_t attach_air_interface_pac_element_to_running_config(cfg_template_
 			MW_AirInterface_Pac_val,
 			&airInterfaceStatus_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
 	YUMA_ASSERT(NULL == airInterfaceStatus_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceStatus);
 
@@ -7736,7 +7740,8 @@ static status_t attach_air_interface_capability_container(val_value_t *parentval
 			parentval,
 			&typeOfEquipment_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			false);
 	YUMA_ASSERT(NULL == typeOfEquipment_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_typeOfEquipment);
 
@@ -7748,7 +7753,10 @@ static status_t attach_air_interface_capability_container(val_value_t *parentval
 			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
 			y_MicrowaveModel_ObjectClasses_AirInterface_N_typeOfEquipment));
 
-	res = create_and_init_siblings(next_obj, parentval, y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+	res = create_and_init_siblings(next_obj,
+			parentval,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			false);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "create_and_init_siblings failed!");
 
 
@@ -7770,7 +7778,8 @@ static status_t attach_air_interface_configuration_container(val_value_t *parent
 			parentval,
 			&airInterfaceName_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			false);
 	YUMA_ASSERT(NULL == airInterfaceName_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceName);
 
@@ -7782,7 +7791,10 @@ static status_t attach_air_interface_configuration_container(val_value_t *parent
 			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
 			y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceName));
 
-	res = create_and_init_siblings(next_obj, parentval, y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+	res = create_and_init_siblings(next_obj,
+			parentval,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			false);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "create_and_init_siblings failed!");
 
 	res = attach_problem_kind_severity_list(parentval);
@@ -7829,7 +7841,8 @@ static status_t attach_problem_kind_severity_list_entry(val_value_t* parentval, 
 			parentval,
 			&problemKindSeverityList_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			false);
 	YUMA_ASSERT(NULL == problemKindSeverityList_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_problemKindSeverityList);
 
@@ -7843,7 +7856,8 @@ static status_t attach_problem_kind_severity_list_entry(val_value_t* parentval, 
 			problemKindSeverityList_val,
 			&problemKindName_val,
 			problem_kind_severity_list_key_entry,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			false);
 	YUMA_ASSERT(NULL == problemKindName_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_problemKindName);
 
@@ -7857,7 +7871,8 @@ static status_t attach_problem_kind_severity_list_entry(val_value_t* parentval, 
 			problemKindSeverityList_val,
 			&problemKindSeverity_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			false);
 	YUMA_ASSERT(NULL == problemKindSeverity_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_problemKindSeverity);
 
@@ -7902,7 +7917,8 @@ static status_t attach_supported_channel_plan_list_entry(val_value_t* parentval,
 			parentval,
 			&supportedChannelPlanList_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			false);
 	YUMA_ASSERT(NULL == supportedChannelPlanList_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_supportedChannelPlanList);
 
@@ -7916,7 +7932,8 @@ static status_t attach_supported_channel_plan_list_entry(val_value_t* parentval,
 			supportedChannelPlanList_val,
 			&supportedChannelPlan_val,
 			supported_channel_plan_key_entry,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			false);
 	YUMA_ASSERT(NULL == supportedChannelPlan_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_supportedChannelPlan);
 
@@ -7928,7 +7945,10 @@ static status_t attach_supported_channel_plan_list_entry(val_value_t* parentval,
 			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
 			y_MicrowaveModel_ObjectClasses_AirInterface_N_supportedChannelPlan));
 
-	res = create_and_init_siblings(next_obj, supportedChannelPlanList_val, y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+	res = create_and_init_siblings(next_obj,
+			supportedChannelPlanList_val,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			false);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "create_and_init_siblings failed!");
 
 	/*
@@ -7981,7 +8001,8 @@ static status_t attach_transmission_mode_list_entry(val_value_t *parentval, cons
 			parentval,
 			&transmissionModeList_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			false);
 	YUMA_ASSERT(NULL == transmissionModeList_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_transmissionModeList);
 
@@ -7995,7 +8016,8 @@ static status_t attach_transmission_mode_list_entry(val_value_t *parentval, cons
 			transmissionModeList_val,
 			&transmissionModeId_val,
 			transmission_mode_key_entry,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			false);
 	YUMA_ASSERT(NULL == transmissionModeId_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_transmissionModeId);
 
@@ -8007,7 +8029,10 @@ static status_t attach_transmission_mode_list_entry(val_value_t *parentval, cons
 	/*
 	 * Create all other leafs after transmissionModeId
 	 */
-	res = create_and_init_siblings(next_obj, transmissionModeList_val, y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+	res = create_and_init_siblings(next_obj,
+			transmissionModeList_val,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			false);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "create_and_init_siblings failed!");
 
 	return NO_ERR;
@@ -8052,7 +8077,8 @@ static status_t attach_air_interface_current_problem_list_entry(val_value_t* par
 			parentval,
 			&currentProblemList_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
 	YUMA_ASSERT(NULL == currentProblemList_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_currentProblemList);
 
@@ -8067,33 +8093,70 @@ static status_t attach_air_interface_current_problem_list_entry(val_value_t* par
 			currentProblemList_val,
 			&sequenceNumber_val,
 			air_interface_current_problem_list_key_entry,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
 	YUMA_ASSERT(NULL == sequenceNumber_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_sequenceNumber);
 
 	/*
 	 * Create timeStamp virtual leaf with callback attached
 	 */
-	res = add_virtual_leaf(currentProblemList_val,
-	                        y_MicrowaveModel_ObjectClasses_AirInterface_N_timeStamp,
-	                        MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentProblems_currentProblemList_timeStamp_get);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_timeStamp);
+	val_value_t  *timeStamp_val = NULL;
+
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_timeStamp,
+			currentProblemList_val,
+			&timeStamp_val,
+			NULL,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
+	YUMA_ASSERT(NULL == timeStamp_val, return ERR_INTERNAL_VAL ,
+				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_timeStamp);
+
+//	res = add_virtual_leaf(currentProblemList_val,
+//	                        y_MicrowaveModel_ObjectClasses_AirInterface_N_timeStamp,
+//	                        MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentProblems_currentProblemList_timeStamp_get);
+//	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_timeStamp);
 
     /*
      * Create problemName virtual leaf with callback attached
      */
-    res = add_virtual_leaf(currentProblemList_val,
-                            y_MicrowaveModel_ObjectClasses_AirInterface_N_problemName,
-                            MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentProblems_currentProblemList_problemName_get);
-    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_problemName);
+	val_value_t  *problemName_val = NULL;
+
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_problemName,
+			currentProblemList_val,
+			&problemName_val,
+			NULL,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
+	YUMA_ASSERT(NULL == problemName_val, return ERR_INTERNAL_VAL ,
+				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_problemName);
+
+//    res = add_virtual_leaf(currentProblemList_val,
+//                            y_MicrowaveModel_ObjectClasses_AirInterface_N_problemName,
+//                            MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentProblems_currentProblemList_problemName_get);
+//    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_problemName);
 
     /*
      * Create problemSeverity virtual leaf with callback attached
      */
-    res = add_virtual_leaf(currentProblemList_val,
-                            y_MicrowaveModel_ObjectClasses_AirInterface_N_problemSeverity,
-                            MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentProblems_currentProblemList_problemSeverity_get);
-    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_problemSeverity);
+	val_value_t  *problemSeverity_val = NULL;
+
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_problemSeverity,
+			currentProblemList_val,
+			&problemSeverity_val,
+			NULL,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
+	YUMA_ASSERT(NULL == problemSeverity_val, return ERR_INTERNAL_VAL ,
+				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_problemSeverity);
+
+//    res = add_virtual_leaf(currentProblemList_val,
+//                            y_MicrowaveModel_ObjectClasses_AirInterface_N_problemSeverity,
+//                            MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentProblems_currentProblemList_problemSeverity_get);
+//    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_problemSeverity);
 
 	return NO_ERR;
 }
@@ -8141,7 +8204,8 @@ static status_t attach_air_interface_current_performance_list_entry(val_value_t 
 			parentval,
 			&currentPerformanceDataList_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
 	YUMA_ASSERT(NULL == currentPerformanceDataList_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_currentPerformanceDataList);
 
@@ -8155,49 +8219,110 @@ static status_t attach_air_interface_current_performance_list_entry(val_value_t 
 			currentPerformanceDataList_val,
 			&scannerId_val,
 			air_interface_current_performance_list_key_entry,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
 	YUMA_ASSERT(NULL == scannerId_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_scannerId);
 
     /*
      * Create granularityPeriod virtual leaf with callback attached
      */
-    res = add_virtual_leaf(currentPerformanceDataList_val,
-                            y_MicrowaveModel_ObjectClasses_AirInterface_N_granularityPeriod,
-                            MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_granularityPeriod_get);
-    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_granularityPeriod);
+	val_value_t  *granularityPeriod_val = NULL;
+
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_granularityPeriod,
+			currentPerformanceDataList_val,
+			&granularityPeriod_val,
+			NULL,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
+	YUMA_ASSERT(NULL == granularityPeriod_val, return ERR_INTERNAL_VAL ,
+				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_granularityPeriod);
+
+//    res = add_virtual_leaf(currentPerformanceDataList_val,
+//                            y_MicrowaveModel_ObjectClasses_AirInterface_N_granularityPeriod,
+//                            MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_granularityPeriod_get);
+//    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_granularityPeriod);
 
     /*
      * Create administrativeState virtual leaf with callback attached
      */
-    res = add_virtual_leaf(currentPerformanceDataList_val,
-                            y_MicrowaveModel_ObjectClasses_AirInterface_N_administrativeState,
-                            MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_administrativeState_get);
-    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_administrativeState);
+	val_value_t  *administrativeState_val = NULL;
+
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_administrativeState,
+			currentPerformanceDataList_val,
+			&administrativeState_val,
+			NULL,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
+	YUMA_ASSERT(NULL == administrativeState_val, return ERR_INTERNAL_VAL ,
+				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_administrativeState);
+
+//    res = add_virtual_leaf(currentPerformanceDataList_val,
+//                            y_MicrowaveModel_ObjectClasses_AirInterface_N_administrativeState,
+//                            MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_administrativeState_get);
+//    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_administrativeState);
 
     /*
      * Create suspectIntervalFlag virtual leaf with callback attached
      */
-    res = add_virtual_leaf(currentPerformanceDataList_val,
-                            y_MicrowaveModel_ObjectClasses_AirInterface_N_suspectIntervalFlag,
-                            MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_suspectIntervalFlag_get);
-    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_suspectIntervalFlag);
+	val_value_t  *suspectIntervalFlag_val = NULL;
+
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_suspectIntervalFlag,
+			currentPerformanceDataList_val,
+			&suspectIntervalFlag_val,
+			NULL,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
+	YUMA_ASSERT(NULL == suspectIntervalFlag_val, return ERR_INTERNAL_VAL ,
+				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_suspectIntervalFlag);
+
+//    res = add_virtual_leaf(currentPerformanceDataList_val,
+//                            y_MicrowaveModel_ObjectClasses_AirInterface_N_suspectIntervalFlag,
+//                            MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_suspectIntervalFlag_get);
+//    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_suspectIntervalFlag);
 
     /*
      * Create elapsedTime virtual leaf with callback attached
      */
-    res = add_virtual_leaf(currentPerformanceDataList_val,
-                            y_MicrowaveModel_ObjectClasses_AirInterface_N_elapsedTime,
-							MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_elapsedTime_get);
-    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_elapsedTime);
+	val_value_t  *elapsedTime_val = NULL;
+
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_elapsedTime,
+			currentPerformanceDataList_val,
+			&elapsedTime_val,
+			NULL,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
+	YUMA_ASSERT(NULL == elapsedTime_val, return ERR_INTERNAL_VAL ,
+				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_elapsedTime);
+
+//    res = add_virtual_leaf(currentPerformanceDataList_val,
+//                            y_MicrowaveModel_ObjectClasses_AirInterface_N_elapsedTime,
+//							MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_elapsedTime_get);
+//    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_elapsedTime);
 
     /*
      * Create timestamp virtual leaf with callback attached
      */
-    res = add_virtual_leaf(currentPerformanceDataList_val,
-                            y_MicrowaveModel_ObjectClasses_AirInterface_N_timestamp,
-                            MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_timestamp_get);
-    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_timestamp);
+	val_value_t  *timestamp_val = NULL;
+
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_timestamp,
+			currentPerformanceDataList_val,
+			&timestamp_val,
+			NULL,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
+	YUMA_ASSERT(NULL == timestamp_val, return ERR_INTERNAL_VAL ,
+				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_timestamp);
+
+//    res = add_virtual_leaf(currentPerformanceDataList_val,
+//                            y_MicrowaveModel_ObjectClasses_AirInterface_N_timestamp,
+//                            MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_timestamp_get);
+//    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_timestamp);
 
 	/*
 	 * Create performanceData container
@@ -8209,12 +8334,40 @@ static status_t attach_air_interface_current_performance_list_entry(val_value_t 
 			currentPerformanceDataList_val,
 			&performanceData_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
 	YUMA_ASSERT(NULL == performanceData_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_performanceData);
 
-	res = MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_mro(performanceData_val);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_mro failed!");
+    /*
+     * Create es leaf
+     */
+	val_value_t  *es_val = NULL;
+
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_es,
+			performanceData_val,
+			&es_val,
+			NULL,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
+	YUMA_ASSERT(NULL == es_val, return ERR_INTERNAL_VAL ,
+				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_es);
+
+	obj_template_t *next_obj = NULL;
+	next_obj = obj_next_child(obj_find_child(performanceData_val->obj,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_es));
+
+	res = create_and_init_siblings(next_obj,
+			performanceData_val,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL ,
+					"create_and_init_siblings failed");
+
+//	res = MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_mro(performanceData_val);
+//	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceCurrentPerformance_currentPerformanceDataList_performanceData_mro failed!");
 
 	return NO_ERR;
 }
@@ -8262,7 +8415,8 @@ static status_t attach_air_interface_historical_performance_list_entry(val_value
 			parentval,
 			&historicalPerformanceDataList_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
 	YUMA_ASSERT(NULL == historicalPerformanceDataList_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_historicalPerformanceDataList);
 
@@ -8276,33 +8430,61 @@ static status_t attach_air_interface_historical_performance_list_entry(val_value
 			historicalPerformanceDataList_val,
 			&historyDataId_val,
 			air_interface_historical_performance_list_key_entry,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
 	YUMA_ASSERT(NULL == historyDataId_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_historyDataId);
 
     /*
      * Create periodEndTime virtual leaf with callback attached
      */
-    res = add_virtual_leaf(historicalPerformanceDataList_val,
-                            y_MicrowaveModel_ObjectClasses_AirInterface_N_periodEndTime,
-                            MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_periodEndTime_get);
+	val_value_t  *periodEndTime_val = NULL;
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_periodEndTime,
+			historicalPerformanceDataList_val,
+			&periodEndTime_val,
+			NULL,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
+
+//    res = add_virtual_leaf(historicalPerformanceDataList_val,
+//                            y_MicrowaveModel_ObjectClasses_AirInterface_N_periodEndTime,
+//                            MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_periodEndTime_get);
     YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_periodEndTime);
 
 
     /*
      * Create granularityPeriod virtual leaf with callback attached
      */
-    res = add_virtual_leaf(historicalPerformanceDataList_val,
-                            y_MicrowaveModel_ObjectClasses_AirInterface_N_granularityPeriod,
-                            MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_granularityPeriod_get);
+	val_value_t  *granularityPeriod_val = NULL;
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_granularityPeriod,
+			historicalPerformanceDataList_val,
+			&granularityPeriod_val,
+			NULL,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
+
+//    res = add_virtual_leaf(historicalPerformanceDataList_val,
+//                            y_MicrowaveModel_ObjectClasses_AirInterface_N_granularityPeriod,
+//                            MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_granularityPeriod_get);
     YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_granularityPeriod);
 
     /*
      * Create suspectIntervalFlag virtual leaf with callback attached
      */
-    res = add_virtual_leaf(historicalPerformanceDataList_val,
-                            y_MicrowaveModel_ObjectClasses_AirInterface_N_suspectIntervalFlag,
-                            MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_suspectIntervalFlag_get);
+	val_value_t  *suspectIntervalFlag_val = NULL;
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_suspectIntervalFlag,
+			historicalPerformanceDataList_val,
+			&suspectIntervalFlag_val,
+			NULL,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
+
+//    res = add_virtual_leaf(historicalPerformanceDataList_val,
+//                            y_MicrowaveModel_ObjectClasses_AirInterface_N_suspectIntervalFlag,
+//                            MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_suspectIntervalFlag_get);
     YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_suspectIntervalFlag);
 
 
@@ -8316,12 +8498,38 @@ static status_t attach_air_interface_historical_performance_list_entry(val_value
 			historicalPerformanceDataList_val,
 			&performanceData_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
 	YUMA_ASSERT(NULL == performanceData_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_performanceData);
 
-	res = MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_mro(performanceData_val);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_mro failed");
+	/*
+	 * Create es leaf
+	 */
+	val_value_t  *es_val = NULL;
+
+	res = create_and_init_child_element(y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			y_MicrowaveModel_ObjectClasses_AirInterface_N_es,
+			performanceData_val,
+			&es_val,
+			NULL,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
+
+	obj_template_t *next_obj = NULL;
+	next_obj = obj_next_child(obj_find_child(performanceData_val->obj,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+		y_MicrowaveModel_ObjectClasses_AirInterface_N_es));
+
+	res = create_and_init_siblings(next_obj,
+			performanceData_val,
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			true);
+	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL ,
+					"create_and_init_siblings failed");
+
+//	res = MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_mro(performanceData_val);
+//	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "MicrowaveModel_ObjectClasses_AirInterface_MW_AirInterface_Pac_airInterfaceHistoricalPerformances_historicalPerformanceDataList_performanceData_mro failed");
 
 	return NO_ERR;
 }
@@ -8375,7 +8583,8 @@ static status_t attach_co_channel_group_list_entry(val_value_t *parentval, const
 			co_channel_group_val,
 			&coChannelGroupId_val,
 			co_channel_group_list_key_entry,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			false);
 	YUMA_ASSERT(NULL == coChannelGroupId_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_coChannelGroupId);
 
@@ -8397,7 +8606,8 @@ static status_t attach_co_channel_group_list_entry(val_value_t *parentval, const
 				co_channel_group_val,
 				&airInterfaceList_val,
 				airInterfaceList_entries[i],
-				y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+				y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+				false);
 		YUMA_ASSERT(NULL == airInterfaceList_val, return ERR_INTERNAL_VAL ,
 					"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceList);
 
@@ -8414,7 +8624,8 @@ static status_t attach_co_channel_group_list_entry(val_value_t *parentval, const
 			co_channel_group_val,
 			&sortOfCoChannelGroup_val,
 			NULL,
-			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface);
+			y_MicrowaveModel_ObjectClasses_AirInterface_M_MicrowaveModel_ObjectClasses_AirInterface,
+			false);
 	YUMA_ASSERT(NULL == sortOfCoChannelGroup_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_MicrowaveModel_ObjectClasses_AirInterface_N_sortOfCoChannelGroup);
 
