@@ -46,7 +46,11 @@ define(['app/mwtnConnect/mwtnConnect.module',
     $scope.requiredNesGridOptions = JSON.parse(JSON.stringify($mwtnCommons.gridOptions));
     $scope.requiredNesGridOptions.rowHeight  = 44;
     $scope.requiredNesGridOptions.columnDefs = [
-       { field: 'id', type: 'number', displayName: 'Id',  headerCellClass: $scope.highlightFilteredHeader, width : 50, cellClass: 'number', pinnedLeft : true },
+       { field: 'id', type: 'number', displayName: 'Id',  headerCellClass: $scope.highlightFilteredHeader, width : 50, cellClass: 'number', pinnedLeft : true , sort: {
+         direction: uiGridConstants.ASC,
+         ignoreSort: false,
+         priority: 0
+        }},
        { field: 'name', type: 'string', displayName: 'Name',  headerCellClass: $scope.highlightFilteredHeader, width : 150 },
        { field: 'ipaddress',  type: 'number', displayName: 'IP address',  headerCellClass: $scope.highlightFilteredHeader, width : 140, cellClass: 'number' },
        { field: 'port',  type: 'number', displayName: 'Port',  headerCellClass: $scope.highlightFilteredHeader, width : 80, cellClass: 'number' },
