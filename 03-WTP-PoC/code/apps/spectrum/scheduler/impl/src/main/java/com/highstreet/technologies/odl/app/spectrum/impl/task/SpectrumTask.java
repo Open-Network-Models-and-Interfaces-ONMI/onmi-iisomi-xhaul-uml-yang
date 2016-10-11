@@ -65,12 +65,12 @@ public class SpectrumTask implements Task
                                             when(() -> lpName.contains("MWPS"), () ->
                                             {
                                                 LOG.info("adding task to threadPool of " + dnAgent);
-                                                executor.execute(() ->
-                                                        notEqualsThen(agent.get(dnAgent, "txFrequency"),
-                                                                communicator.get(dnODL, "txFrequency"),
-                                                                () -> communicator.set(dnODL,
-                                                                        pair("txFrequency", agent.get(dnAgent, "txFrequency")),
-                                                                        pair("rxFrequency", agent.get(dnAgent, "rxFrequency")))));
+                                                notEqualsThen(agent.get(dnAgent, "txFrequency"),
+                                                        communicator.get(dnODL, "txFrequency"),
+                                                        () -> communicator.set(dnODL,
+                                                                pair("txFrequency", agent.get(dnAgent, "txFrequency")),
+                                                                pair("rxFrequency", agent.get(dnAgent, "rxFrequency"))));
+//                                                executor.execute(() ->
                                             });
 
                                         })));
