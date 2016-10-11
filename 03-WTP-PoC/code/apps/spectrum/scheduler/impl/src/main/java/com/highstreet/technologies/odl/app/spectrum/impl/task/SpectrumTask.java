@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ThreadPoolExecutor;
 
+import static com.highstreet.technologies.odl.app.spectrum.impl.meta.Pair.pair;
 import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.NotEquals.notEqualsThen;
 import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.When.when;
 
@@ -67,7 +68,9 @@ public class SpectrumTask implements Task
                                                 executor.execute(() ->
                                                         notEqualsThen(agent.get(dnAgent, "txFrequency"),
                                                                 communicator.get(dnODL, "txFrequency"),
-                                                                () -> communicator.set(dnODL, "txFrequency", agent.get(dnAgent, "txFrequency"))));
+                                                                () -> communicator.set(dnODL,
+                                                                        pair("txFrequency", agent.get(dnAgent, "txFrequency")),
+                                                                        pair("rxFrequency", agent.get(dnAgent, "rxFrequency")))));
                                             });
 
                                         })));

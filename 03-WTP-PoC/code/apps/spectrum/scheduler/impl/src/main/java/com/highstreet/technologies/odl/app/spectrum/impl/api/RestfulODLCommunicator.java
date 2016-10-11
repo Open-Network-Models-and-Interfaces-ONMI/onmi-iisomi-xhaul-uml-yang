@@ -10,6 +10,7 @@ package com.highstreet.technologies.odl.app.spectrum.impl.api;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Failure;
+import com.highstreet.technologies.odl.app.spectrum.impl.meta.Pair;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Result;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Successful;
 import com.highstreet.technologies.odl.app.spectrum.impl.primitive.JsonUtil;
@@ -54,18 +55,20 @@ public class RestfulODLCommunicator implements Communicator
     }
 
     @Override
-    public void set(String dn, String attrName, Object o)
+    public void set(String dn, Pair<String, Object>... values)
     {
         WebResource resource = client.resource(odlPath_config + dn);
         JsonNode node = JsonUtil.toNode(resource.get(String.class));
         try
         {
-            ((ObjectNode) node.get("airInterfaceConfiguration")).put(attrName, JsonUtil.toNode(o));
+            for (Pair<String, Object> value : values)
+            {
+                ((ObjectNode) node.get("airInterfaceConfiguration")).put(value.first(), JsonUtil.toNode(value.second()));
+            }
             resource.accept("application/json").type("application/json").put(node.toString());
         } catch (Exception e)
         {
             e.printStackTrace();
         }
     }
-
 }

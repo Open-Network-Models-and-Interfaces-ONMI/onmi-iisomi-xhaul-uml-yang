@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.highstreet.technologies.odl.app.spectrum.impl.api.Communicator;
 import com.highstreet.technologies.odl.app.spectrum.impl.api.MosAgent;
 import com.highstreet.technologies.odl.app.spectrum.impl.api.RestfulODLCommunicator;
+import com.highstreet.technologies.odl.app.spectrum.impl.meta.Pair;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Result;
 import com.highstreet.technologies.odl.app.spectrum.impl.task.SpectrumTask;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker;
@@ -66,9 +67,12 @@ public class SchedulerProvider implements BindingAwareProvider, AutoCloseable
                     }
 
                     @Override
-                    public void set(String dn, String attrName, Object o)
+                    public void set(String dn, Pair<String, Object>... values)
                     {
-                        LOG.info("setting " + attrName + "with value: " + o.toString() + " to ne");
+                        for (Pair<String, Object> value : values)
+                        {
+                            LOG.info("setting " + value.first() + "with value: " + value.second().toString() + " to ne");
+                        }
                     }
 
                 }));

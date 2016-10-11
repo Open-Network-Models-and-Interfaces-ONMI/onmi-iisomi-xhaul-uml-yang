@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 
+import static com.highstreet.technologies.odl.app.spectrum.impl.meta.Pair.pair;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -45,7 +46,6 @@ public class TestCommunicatorOfODL
     public void test_set() throws Exception
     {
         RestfulODLCommunicator communicator = new RestfulODLCommunicator();
-        communicator.set("network-topology:network-topology/topology/topology-netconf/node/mw-112/yang-ext:mount/MicrowaveModel-ObjectClasses-AirInterface:MW_AirInterface_Pac/LP-MWPS-ifIndex2/airInterfaceConfiguration", "txFrequency", 14800000);
-
+        communicator.set("network-topology:network-topology/topology/topology-netconf/node/mw-112/yang-ext:mount/MicrowaveModel-ObjectClasses-AirInterface:MW_AirInterface_Pac/LP-MWPS-ifIndex2/airInterfaceConfiguration", pair("txFrequency", 14800000));
     }
 }
