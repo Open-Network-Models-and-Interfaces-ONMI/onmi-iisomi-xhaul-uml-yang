@@ -4,7 +4,8 @@
 #
 # Copyright (C) 2016 HCL Technologies 
 #
-# Author: Paolo Spallaccini <paolo.spallaccini@hcl.com>
+# Authors: HCL SDN & NFV CoE Team
+# Contact: paolo.spallaccini@hcl.com
 #
 
 if [ $# -ne 1 ]; then

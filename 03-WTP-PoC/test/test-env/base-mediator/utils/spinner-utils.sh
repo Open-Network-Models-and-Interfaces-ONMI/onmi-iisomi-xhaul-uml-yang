@@ -3,7 +3,8 @@
 # spinner.sh - Display an awesome 'spinner' while running shell commands
 #
 # Authors: Tasos Latsas (original work)
-#          Paolo Rovelli (extended spinner_exec)
+#          Paolo Rovelli & HCL SDN & NFV CoE Team (extended spinner_exec)
+# Contact: paolo.spallaccini@hcl.com
 #
 
 function _spinner() {

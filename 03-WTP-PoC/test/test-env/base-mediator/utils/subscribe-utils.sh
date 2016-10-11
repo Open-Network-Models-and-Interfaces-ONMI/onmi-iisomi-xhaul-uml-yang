@@ -4,7 +4,8 @@
 #
 # Copyright (C) 2016 HCL Technologies
 #
-# Author: Paolo Rovelli <paolo.rovelli@hcl.com>
+# Authors: HCL SDN & NFV CoE Team
+# Contact: paolo.spallaccini@hcl.com
 #
 
 function subscribe_module {
