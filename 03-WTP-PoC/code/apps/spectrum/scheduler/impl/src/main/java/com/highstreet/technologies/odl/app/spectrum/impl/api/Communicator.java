@@ -8,6 +8,7 @@
 package com.highstreet.technologies.odl.app.spectrum.impl.api;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.highstreet.technologies.odl.app.spectrum.impl.meta.Pair;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Result;
 
 /**
@@ -19,5 +20,5 @@ public interface Communicator
 
     Object get(String dn, String attrName);
 
-    void set(String dn, String attrName, Object o);
+    void set(String dn, Pair<String, Object>... values);
 }

@@ -1,6 +1,7 @@
 package org.opendaylight.impl.st;
 
 import com.highstreet.technologies.odl.app.spectrum.impl.api.RestfulODLCommunicator;
+import com.highstreet.technologies.odl.app.spectrum.impl.meta.Pair;
 import com.highstreet.technologies.odl.app.spectrum.impl.task.SpectrumTask;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -36,9 +37,9 @@ public class TestSpectrumTask
         SpectrumTask task = new SpectrumTask((dnAgent, attrName) -> 500, new RestfulODLCommunicator()
         {
             @Override
-            public void set(String dn, String attrName, Object o)
+            public void set(String dn, Pair<String, Object>... values)
             {
-                obj[0] = o;
+                obj[0] = values[0].second();
             }
         });
         task.executeIn(new ThreadPoolExecutor(5, 20, 1, TimeUnit.SECONDS, new LinkedBlockingDeque<>())
@@ -55,8 +56,5 @@ public class TestSpectrumTask
                 }
             }
         });
-
-//        assertThat(obj[0], is(500));
-
     }
 }

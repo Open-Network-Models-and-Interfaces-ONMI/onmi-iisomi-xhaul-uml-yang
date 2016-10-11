@@ -318,19 +318,6 @@ char* dvm_cb_get_runtime_airInterfaceCurrentPerformance_granularityPeriod(char* 
 	return resultString;
 }
 
-char* dvm_cb_get_runtime_airInterfaceCurrentPerformance_administrativeState(char* layerProtocolKeyString, char* scannerIdKeyString)
-{
-	char* resultString = NULL;
-
-	const xmlChar evalPath[1000];
-	sprintf(evalPath, "/data/MW_AirInterface_Pac[layerProtocol=\"%s\"]/airInterfaceCurrentPerformance/currentPerformanceDataList[scannerId=\"%s\"]/administrativeState",
-			layerProtocolKeyString, scannerIdKeyString);
-
-	resultString = get_value_from_xpath(evalPath);
-
-	return resultString;
-}
-
 char* dvm_cb_get_runtime_airInterfaceCurrentPerformance_suspectIntervalFlag(char* layerProtocolKeyString, char* scannerIdKeyString)
 {
 	char* resultString = NULL;

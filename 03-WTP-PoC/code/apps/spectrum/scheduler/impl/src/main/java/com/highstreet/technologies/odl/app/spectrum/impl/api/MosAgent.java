@@ -34,6 +34,13 @@ public class MosAgent implements DataAgent
     public MosAgent(String url) throws MalformedURLException
     {
         client = new JsonRpcHttpClient(new URL(url));
+        try
+        {
+            this.login();
+        } catch (Exception e)
+        {
+            logger.warn("login to mos service failed!", e);
+        }
     }
 
     protected <T> Result<T> methodShell(Executor<T> executor) throws Exception
@@ -61,7 +68,7 @@ public class MosAgent implements DataAgent
         {
             node = client.invoke(
                     "login",
-                    new Object[]{"MOSSERVICE", "ems", "ems", JsonUtil.toNode(new Maybe<Server>(null))},
+                    new Object[]{"CLI", "ems", "ems", JsonUtil.toNode(new Maybe<Server>(null))},
                     JsonNode.class);
         } catch (Throwable throwable)
         {
