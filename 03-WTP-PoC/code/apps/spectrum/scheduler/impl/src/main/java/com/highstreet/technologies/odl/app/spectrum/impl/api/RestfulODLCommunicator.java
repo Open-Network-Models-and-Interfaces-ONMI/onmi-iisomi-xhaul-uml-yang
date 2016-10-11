@@ -24,6 +24,7 @@ import java.util.ArrayList;
 public class RestfulODLCommunicator implements Communicator
 {
     private static String odlPath = "http://localhost:8181/restconf/operational/";
+    private static String odlPath_config = "http://localhost:8181/restconf/config/";
     private static Client client = Client.create();
 
 
@@ -55,7 +56,7 @@ public class RestfulODLCommunicator implements Communicator
     @Override
     public void set(String dn, String attrName, Object o)
     {
-        WebResource resource = client.resource(dn);
+        WebResource resource = client.resource(odlPath_config + dn);
         JsonNode node = JsonUtil.toNode(resource.get(String.class));
         try
         {

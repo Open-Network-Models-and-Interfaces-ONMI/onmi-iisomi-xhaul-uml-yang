@@ -7,13 +7,12 @@
  */
 package com.highstreet.technologies.odl.app.spectrum.impl.api;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Maybe;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Mo;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Result;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -21,45 +20,17 @@ import java.util.List;
  */
 public class FindResult extends Result<Mo>
 {
-    public Maybe<Integer> transId;
-    private int size = 0;
-    private ArrayList<Mo> moLst = new ArrayList<Mo>();
+    public int result;
+    public LinkedHashMap<String, Object> mo = new LinkedHashMap<>();
 
     public FindResult()
     {
     }
 
-    public FindResult(Mo mo, Maybe<Integer> transactionID) throws Exception
-    {
-        this(transactionID, 1, mo);
-    }
-
-    public FindResult(ArrayList<Mo> moLst, int size, Maybe<Integer> transId)
-    {
-        this(transId, size, moLst.toArray(new Mo[moLst.size()]));
-    }
-
-    FindResult(Maybe<Integer> transId, int size, Mo... moArray)
-    {
-        moLst.addAll(Arrays.asList(moArray));
-        this.transId = transId;
-        this.size = size;
-    }
-
-    public FindResult(Maybe<Integer> transactionID)
-    {
-        this(new ArrayList<Mo>(), 0, transactionID);
-    }
-
-    public void merge(FindResult other)
-    {
-        moLst.addAll(other.moLst);
-    }
-
     @Override
     public long getResult()
     {
-        return 0;
+        return result;
     }
 
     @Override
@@ -69,31 +40,18 @@ public class FindResult extends Result<Mo>
     }
 
     @Override
-    public Throwable exception()
-    {
-        return null;
-    }
-
-    @Override
     public List<Mo> getMo()
     {
-        return moLst;
-    }
-
-    public void setMo(ArrayList<Mo> moLst)
-    {
-        this.moLst = moLst;
-    }
-
-    public int getSize()
-    {
-        return size;
+        ArrayList<Mo> list = new ArrayList<>();
+        Mo mo = new Mo();
+        mo.setMo(this.mo);
+        list.add(mo);
+        return list;
     }
 
     @Override
-    @JsonIgnore
     public Maybe<Integer> getTransId()
     {
-        return transId;
+        return new Maybe<>();
     }
 }

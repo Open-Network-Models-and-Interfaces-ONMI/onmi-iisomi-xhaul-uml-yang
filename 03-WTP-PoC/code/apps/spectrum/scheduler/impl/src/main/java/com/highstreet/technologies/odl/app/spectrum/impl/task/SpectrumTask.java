@@ -29,7 +29,7 @@ public class SpectrumTask implements Task
     private static final String NODE_PATH = "network-topology:network-topology/topology/topology-netconf";
     private static final String NetElement_Path = NODE_PATH + "/node/%s/yang-ext:mount/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement";
     private static final String LP_Path = NODE_PATH + "/node/%s/yang-ext:mount/MicrowaveModel-ObjectClasses-AirInterface:MW_AirInterface_Pac/%s/airInterfaceConfiguration";
-    private static final String AGENT_DN = "/Ne/%s/AirInterface/%s";
+    private static final String AGENT_DN = "/NE/%s/AirInterface/%s";
 
     private DataAgent agent;
     private Communicator communicator;
@@ -61,19 +61,13 @@ public class SpectrumTask implements Task
                                             DN dnAgent = new DN(String.format(AGENT_DN, neName, lpName));
                                             String dnODL = String.format(LP_Path, neName, lpName);
 
-                                            LOG.info("adding task to threadPool");
-
                                             when(() -> lpName.contains("MWPS"), () ->
                                             {
+                                                LOG.info("adding task to threadPool of " + dnAgent);
                                                 executor.execute(() ->
                                                         notEqualsThen(agent.get(dnAgent, "txFrequency"),
                                                                 communicator.get(dnODL, "txFrequency"),
                                                                 () -> communicator.set(dnODL, "txFrequency", agent.get(dnAgent, "txFrequency"))));
-
-                                                executor.execute(() ->
-                                                        notEqualsThen(agent.get(dnAgent, "rxFrequency"),
-                                                                communicator.get(dnODL, "rxFrequency"),
-                                                                () -> communicator.set(dnODL, "rxFrequency", agent.get(dnAgent, "rxFrequency"))));
                                             });
 
                                         })));
