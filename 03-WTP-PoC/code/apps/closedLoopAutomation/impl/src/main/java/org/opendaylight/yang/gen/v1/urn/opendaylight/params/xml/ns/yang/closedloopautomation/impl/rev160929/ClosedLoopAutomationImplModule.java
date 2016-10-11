@@ -1,13 +1,12 @@
 package org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.closedloopautomation.impl.rev160929;
 
-import com.highstreet.technologies.odl.app.impl.ClosedLoopAutomationImpl;
+import com.highstreet.technologies.odl.app.impl.ClosedLoopAutomationCreator;
 import com.highstreet.technologies.odl.app.impl.MicrowaveModelNotificationsHandler;
-import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.closedloopautomation.rev160919.ClosedLoopAutomationService;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ClosedLoopAutomationImplModule extends org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.closedloopautomation.impl.rev160929.AbstractClosedLoopAutomationImplModule {
+public class ClosedLoopAutomationImplModule extends AbstractClosedLoopAutomationImplModule {
     private static final Logger LOG = LoggerFactory.getLogger(ClosedLoopAutomationImplModule.class);
     private BundleContext bundleContext;
 
@@ -29,22 +28,16 @@ public class ClosedLoopAutomationImplModule extends org.opendaylight.yang.gen.v1
 
     @Override
     public java.lang.AutoCloseable createInstance() {
-        LOG.info("createInstance start1111");
-        System.out.println("createInstance start1111");
-        final ClosedLoopAutomationImpl closedLoopAutomation = new ClosedLoopAutomationImpl(getDomDataProviderDependency(), this.bundleContext);
-        getRpcRegistryDependency().addRpcImplementation(ClosedLoopAutomationService.class, closedLoopAutomation);
-        LOG.info("createInstance 1");
-        System.out.println("createInstance 1");
+        System.out.println("CreateInstance");
+
+
+        ClosedLoopAutomationCreator ic = new ClosedLoopAutomationCreator(bundleContext, getRpcRegistryDependency());
+        getBrokerDependency().registerProvider(ic);
+
+        System.out.println("Creating notification");
         getListenServiceDependency().registerNotificationListener(new MicrowaveModelNotificationsHandler());
 
-        LOG.info("createInstance 2");
-        System.out.println("createInstance 2");
-//        NotificationService notificationService = session.getSALService(NotificationService.class);
-//        notificationService.registerNotificationListener(new MicrowaveModelNotificationsHandler());
-        return closedLoopAutomation;
-
-
-
+        return ic.getImpl();
     }
 
 }

@@ -9,18 +9,20 @@
 */
 package org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.closedloopautomation.impl.rev160929;
 
+import javax.management.ObjectName;
 import org.opendaylight.controller.config.api.DependencyResolver;
+import org.opendaylight.controller.config.api.DynamicMBeanWithInstance;
+import org.opendaylight.controller.config.api.ModuleIdentifier;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ClosedLoopAutomationImplModuleFactory extends org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.closedloopautomation.impl.rev160929.AbstractClosedLoopAutomationImplModuleFactory {
+public class ClosedLoopAutomationImplModuleFactory extends AbstractClosedLoopAutomationImplModuleFactory {
     private static final Logger LOG = LoggerFactory.getLogger(ClosedLoopAutomationImplModuleFactory.class);
 
     @Override
     public ClosedLoopAutomationImplModule instantiateModule(String instanceName, DependencyResolver dependencyResolver, ClosedLoopAutomationImplModule oldModule, AutoCloseable oldInstance, BundleContext bundleContext) {
-        LOG.info("instantiateModule 1");
-        System.out.println("instantiateModule 1");
+        System.out.println("InstantiateModule");
 
         ClosedLoopAutomationImplModule module = super.instantiateModule(instanceName, dependencyResolver, oldModule, oldInstance, bundleContext);
         module.setBundleContext(bundleContext);
@@ -28,11 +30,38 @@ public class ClosedLoopAutomationImplModuleFactory extends org.opendaylight.yang
     }
 
     @Override
+    public org.opendaylight.controller.config.spi.Module createModule(String instanceName, DependencyResolver dependencyResolver, DynamicMBeanWithInstance old, BundleContext bundleContext) throws Exception {
+        ClosedLoopAutomationImplModule oldModule;
+        try {
+            oldModule = (ClosedLoopAutomationImplModule) old.getModule();
+        } catch(Exception e) {
+            ClosedLoopAutomationImplModule newModule = handleChangedClass(old, dependencyResolver);
+            old.getInstance().close();
+            return newModule;
+        }
+        ClosedLoopAutomationImplModule module = instantiateModule(instanceName, dependencyResolver, oldModule, old.getInstance(), bundleContext);
+        module.setRpcRegistry(oldModule.getRpcRegistry());
+        module.setBroker(oldModule.getBroker());
+        module.setListenService(oldModule.getListenService());
+
+        return module;
+    }
+
+    @Override
     public ClosedLoopAutomationImplModule instantiateModule(String instanceName, DependencyResolver dependencyResolver, BundleContext bundleContext) {
-        LOG.info("instantiateModule 2");
-        System.out.println("instantiateModule 2");
         ClosedLoopAutomationImplModule module = super.instantiateModule(instanceName, dependencyResolver, bundleContext);
         module.setBundleContext(bundleContext);
         return module;
+    }
+
+    public ClosedLoopAutomationImplModule handleChangedClass(DynamicMBeanWithInstance old, DependencyResolver dependencyResolver) throws Exception {
+        System.out.println("handleChangedClass start");
+        String instanceName = old.getModule().getIdentifier().getInstanceName();
+        ClosedLoopAutomationImplModule newModule = new ClosedLoopAutomationImplModule(new ModuleIdentifier(NAME, instanceName), dependencyResolver);
+        newModule.setListenService((ObjectName)old.getAttribute(AbstractClosedLoopAutomationImplModule.listenServiceJmxAttribute.getAttributeName()));
+        newModule.setBroker((ObjectName)old.getAttribute(AbstractClosedLoopAutomationImplModule.brokerJmxAttribute.getAttributeName()));
+        newModule.setRpcRegistry((ObjectName)old.getAttribute(AbstractClosedLoopAutomationImplModule.rpcRegistryJmxAttribute.getAttributeName()));
+        System.out.println("handleChangedClass end");
+        return newModule;
     }
 }

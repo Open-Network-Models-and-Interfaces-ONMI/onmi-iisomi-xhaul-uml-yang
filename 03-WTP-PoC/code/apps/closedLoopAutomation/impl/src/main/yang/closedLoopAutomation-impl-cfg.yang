@@ -29,11 +29,11 @@ module closedLoopAutomation-impl-cfg {
         case closed-loop-automation-impl {
             when "/config:modules/config:module/config:type = 'closed-loop-automation-impl'";
 
-            container dom-data-provider {
+            container broker {
                 uses config:service-ref {
                     refine type {
                         mandatory true;
-                        config:required-identity sal:dom-async-data-broker;
+                        config:required-identity mdsal:binding-broker-osgi-registry;
                     }
                 }
             }

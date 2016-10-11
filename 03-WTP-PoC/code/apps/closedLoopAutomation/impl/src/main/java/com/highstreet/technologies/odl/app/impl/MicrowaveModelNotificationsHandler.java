@@ -24,24 +24,20 @@ public class MicrowaveModelNotificationsHandler implements MicrowaveModelNotific
     @Override
     public void onObjectCreationNotification(ObjectCreationNotification notification) {
         System.out.println("LLLLLLLLLL onObjectCreationNotification");
-        LOG.info("LLLLLLLLLL onObjectCreationNotification");
     }
 
     @Override
     public void onAttributeValueChangedNotification(AttributeValueChangedNotification notification) {
         System.out.println("LLLLLLLLLL onAttributeValueChangedNotification");
-        LOG.info("LLLLLLLLLL onAttributeValueChangedNotification");
     }
 
     @Override
     public void onProblemNotification(ProblemNotification notification) {
         System.out.println("LLLLLLLLLL onProblemNotification");
-        LOG.info("LLLLLLLLLL onProblemNotification");
     }
 
     @Override
     public void onObjectDeletionNotification(ObjectDeletionNotification notification) {
         System.out.println("LLLLLLLLLL onObjectDeletionNotification");
-        LOG.info("LLLLLLLLLL onObjectDeletionNotification");
     }
 }
