@@ -22,8 +22,6 @@ public class ClosedLoopAutomationImplModuleFactory extends AbstractClosedLoopAut
 
     @Override
     public ClosedLoopAutomationImplModule instantiateModule(String instanceName, DependencyResolver dependencyResolver, ClosedLoopAutomationImplModule oldModule, AutoCloseable oldInstance, BundleContext bundleContext) {
-        System.out.println("InstantiateModule");
-
         ClosedLoopAutomationImplModule module = super.instantiateModule(instanceName, dependencyResolver, oldModule, oldInstance, bundleContext);
         module.setBundleContext(bundleContext);
         return module;
@@ -55,13 +53,11 @@ public class ClosedLoopAutomationImplModuleFactory extends AbstractClosedLoopAut
     }
 
     public ClosedLoopAutomationImplModule handleChangedClass(DynamicMBeanWithInstance old, DependencyResolver dependencyResolver) throws Exception {
-        System.out.println("handleChangedClass start");
         String instanceName = old.getModule().getIdentifier().getInstanceName();
         ClosedLoopAutomationImplModule newModule = new ClosedLoopAutomationImplModule(new ModuleIdentifier(NAME, instanceName), dependencyResolver);
         newModule.setListenService((ObjectName)old.getAttribute(AbstractClosedLoopAutomationImplModule.listenServiceJmxAttribute.getAttributeName()));
         newModule.setBroker((ObjectName)old.getAttribute(AbstractClosedLoopAutomationImplModule.brokerJmxAttribute.getAttributeName()));
         newModule.setRpcRegistry((ObjectName)old.getAttribute(AbstractClosedLoopAutomationImplModule.rpcRegistryJmxAttribute.getAttributeName()));
-        System.out.println("handleChangedClass end");
         return newModule;
     }
 }

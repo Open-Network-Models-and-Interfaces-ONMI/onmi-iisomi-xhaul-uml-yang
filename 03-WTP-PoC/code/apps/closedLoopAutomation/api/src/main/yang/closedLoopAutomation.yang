@@ -15,7 +15,17 @@ module closedLoopAutomation {
         }
     }
 
-    rpc stop {
+    rpc save-timer {
+        input {
+            leaf value {
+                 type int32;
+            }
+
+            leaf enabled {
+                  type boolean;
+            }
+        }
+
         output {
             leaf status {
                 type string;
@@ -23,11 +33,27 @@ module closedLoopAutomation {
         }
     }
 
-     rpc middle {
+     rpc read-timer {
         output {
-            leaf status {
-                type string;
-            }
+             leaf value {
+                 type int32;
+             }
+
+             leaf enabled {
+                  type boolean;
+             }
         }
+     }
+
+     container timer-setting {
+         config true;
+
+         leaf value {
+             type int32;
+         }
+
+         leaf enabled {
+              type boolean;
+         }
      }
 }
