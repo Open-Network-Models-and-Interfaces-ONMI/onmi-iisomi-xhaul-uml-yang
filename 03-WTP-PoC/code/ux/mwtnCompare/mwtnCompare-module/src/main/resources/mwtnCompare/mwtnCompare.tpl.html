@@ -15,12 +15,20 @@
 					</select>
 				</div>
 			</div>
-			<div class="col-md-3 radio" ng-class="{'connected':connectionStatus === 'connected'}">
-			  <span>{{'MWTN_CONNECTIONSTATUS' | translate}}: </span>
-			  <i ng-show="connectionStatus === 'connected'" class="fa fa-signal" aria-hidden="true"></i>	
-              <span>{{connectionStatus}}</span>
+			<div class="col-md-2 text-right" >
+			  <span ng-class="{'connected':connectionStatus === 'connected'}">{{'MWTN_CONNECTIONSTATUS' | translate}}: </span><br/>
+			  <span ng-class="{'match':match.numberOfLTPs}">{{'MWTN_NUMBEROFLTPS' | translate}}: </span><br/>
+			  <span ng-class="{'match':match.radioSignalIds}">{{'MWTN_RADIOSIGNALIDS' | translate}}: </span>
             </div>
-			<div class="col-md-3 text-right">
+			<div class="col-md-2">
+			  <i ng-show="connectionStatus === 'connected'" class="fa fa-signal" aria-hidden="true" ng-class="{'connected':connectionStatus === 'connected'}"></i>	
+              <span ng-class="{'connected':connectionStatus === 'connected'}">{{connectionStatus}}</span><br/>
+			  <i ng-class="{'match':match.numberOfLTPs}" ng-show="match.numberOfLTPs" class="fa fa-check-square-o" aria-hidden="true"></i>	
+              <span ng-class="{'match':match.numberOfLTPs}">{{match.numberOfLTPsStatus}}</span><br/>
+			  <i ng-class="{'match':match.radioSignalIds}" ng-show="match.radioSignalIds" class="fa fa-check-square-o" aria-hidden="true"></i>	
+              <span ng-class="{'match':match.radioSignalIds}">{{match.radioSignalIdsStatus}}</span>
+            </div>
+			<div class="col-md-2 text-right">
 				<div class="form-group">
 					<button type="button" class="btn btn-default"
 						ng-click="collapseAll()">{{'Collapse all' | translate}}</button>
@@ -40,61 +48,10 @@
 			    <span>{{'NetworkElement' | translate}} '{{requiredNetworkElement.NetworkElement.nameList[0].value}}'</span>
 			    <i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner.ne"></i>
 			</uib-accordion-heading>
-			<pre>{{requiredNetworkElement.NetworkElement | json}}</pre>
-		</div>
-
-		<div ng-repeat="airinterface in requiredNetworkElement.MW_AirInterface_Pac" uib-accordion-group
-			class="panel-primary"
-			is-open="status['airinterface' + separator + airinterface.layerProtocol]">
-			<uib-accordion-heading>
-			    <i class="pull-left fa" ng-class="{'fa-chevron-down': status[['airinterface', airinterface.layerProtocol].join(separator)], 'fa-chevron-right': !status['airinterface' + separator + airinterface.layerProtocol]}"></i>
-			    <span>AirInterface MWPS '{{airinterface.layerProtocol}}'</span>
-			    <i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner[['airinterface', airinterface.layerProtocol].join(separator)]"></i>
-			</uib-accordion-heading>
-			<pre>{{airinterface.airInterfaceConfiguration | json}}</pre>
-		</div>
-
-		<div ng-repeat="structure in requiredNetworkElement.MW_PureEthernetStructure_Pac" uib-accordion-group
-			class="panel-primary"
-			heading=""
-			is-open="status['structure' + separator + structure.layerProtocol]">
-			<uib-accordion-heading>
-			    <i class="pull-left fa" ng-class="{'fa-chevron-down': status[['structure', structure.layerProtocol].join(separator)], 'fa-chevron-right': !status['structure' + separator + structure.layerProtocol]}"></i>
-			    <span>Structure MWS '{{structure.layerProtocol}}'</span>
-			    <i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner[['structure', structure.layerProtocol].join(separator)]"></i>
-			</uib-accordion-heading>
-			<pre>{{structure.pureEthernetStructureConfiguration | json}}</pre>
-		</div>
-
-		<div ng-repeat="container in requiredNetworkElement.MW_EthernetContainer_Pac" uib-accordion-group
-			class="panel-primary"
-			is-open="status['container' + separator + container.layerProtocol]">
-			<uib-accordion-heading>
-			    <i class="pull-left fa" ng-class="{'fa-chevron-down': status[['container', container.layerProtocol].join(separator)], 'fa-chevron-right': !status['container' + separator + container.layerProtocol]}"></i>
-			    <span>Container ETH-CTP '{{container.layerProtocol}}'</span>
-			    <i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner[['container', container.layerProtocol].join(separator)]"></i>
-			</uib-accordion-heading>
-			<pre>{{container.ethernetContainerConfiguration | json}}</pre>
-		</div>
-
-		</uib-accordion>
-       </div>
-    </div>
-    
-	<div class="container" style="width: 100%">
-		<div class="row">
-    <uib-accordion close-others="oneAtATime">
-    <div uib-accordion-group panel-class="panel-odl" ng-repeat="ne in referenceValues.network.networkElement" is-open="ne.open"> <uib-accordion-heading>
-<i class="pull-left" ng-class="{'icon-angle-down': ne.open, 'icon-angle-right': !ne.open}"></i> <span>Network element: </span> <b>"{{ne.name}}"</b> </uib-accordion-heading> <accordion
- close-others="oneAtATime"> <div uib-accordion-group panel-class="panel-odl" is-open="ne.NetworkElement[0].open"> <uib-accordion-heading>
-<i class="pull-left" ng-class="{'icon-angle-down': ne.NetworkElement[0].open, 'icon-angle-right': !ne.NetworkElement[0].open}"></i> <span>
- {{ 'Network element' | translate}}
- <span></uib-accordion-heading>
 
 <table class="table">
  <tr>
   <td>
-
    <table class="footable table table-hover">
     <thead>
      <tr>
@@ -106,7 +63,7 @@
      </tr>
     </thead>
     <tbody>
-     <tr ng-repeat="compare in ne.NetworkElement[0].compares" compare="compare"></tr>
+     <tr ng-repeat="compare in requiredNetworkElement.NetworkElement.compares" compare="compare"></tr>
     </tbody>
    </table>
   </td>
@@ -114,18 +71,21 @@
    <h4 style="color: #444444;">
     <b>NetworkElement</b>
    </h4>
-   <p ng-repeat="p in getDescription('NetworkElement')">{{ p }}</p>
+   <p>{{ schema['NetworkElement'].description }}</p>
   </td>
-
  </tr>
 </table>
+		</div>
 
-
-
-</div> <div uib-accordion-group panel-class="panel-odl" ng-repeat="mwps in ne.MW_AirInterface_Pac" is-open="mwps.open"> <uib-accordion-heading>
-<i class="pull-left" ng-class="{'icon-angle-down': mwps.open, 'icon-angle-right': !mwps.open}"></i> <span>
- LTP ({{mwps.layerProtocol}})
- <span></uib-accordion-heading>
+		<div ng-repeat="mwps in requiredNetworkElement.MW_AirInterface_Pac" uib-accordion-group
+			class="panel-primary"
+			is-open="status['airinterface' + separator + mwps.layerProtocol]">
+			<uib-accordion-heading>
+			    <i class="pull-left fa" ng-class="{'fa-chevron-down': status[['airinterface', mwps.layerProtocol].join(separator)], 'fa-chevron-right': !status['airinterface' + separator + airinterface.layerProtocol]}"></i>
+			    <span>AirInterface MWPS '{{mwps.layerProtocol}}'</span>
+			    <i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner[['airinterface', mwps.layerProtocol].join(separator)]"></i>
+			</uib-accordion-heading>
+			
 <div class="text-right">
  <a style="cursor: pointer;" ng-click="mwps.showDescriptions = !mwps.showDescriptions">
   <span ng-show="mwps.showDescriptions" style="color: #444444">Hide </span>
@@ -184,11 +144,17 @@
    </tfoot>
   </table>
 
-  </div>
-  <div uib-accordion-group panel-class="panel-odl" ng-repeat="mws in ne.MW_Structure_Pac" is-open="mws.open"> <uib-accordion-heading>
-  <i class="pull-left" ng-class="{'icon-angle-down': mws.open, 'icon-angle-right': !mws.open}"></i> <span>
-   LTP ({{mws.layerProtocol}})
-   <span></uib-accordion-heading>
+		</div>
+
+		<div ng-repeat="mws in requiredNetworkElement.MW_PureEthernetStructure_Pac" uib-accordion-group
+			class="panel-primary"
+			heading=""
+			is-open="status['structure' + separator + mws.layerProtocol]">
+			<uib-accordion-heading>
+			    <i class="pull-left fa" ng-class="{'fa-chevron-down': status[['structure', mws.layerProtocol].join(separator)], 'fa-chevron-right': !status['structure' + separator + structure.layerProtocol]}"></i>
+			    <span>Structure MWS '{{mws.layerProtocol}}'</span>
+			    <i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner[['structure', mws.layerProtocol].join(separator)]"></i>
+			</uib-accordion-heading>
 
   <div class="text-right">
    <a style="cursor: pointer;" ng-click="mws.showDescriptions = !mws.showDescriptions">
@@ -244,12 +210,16 @@
     </tr>
    </tfoot>
   </table>
+		</div>
 
-  </div>
-  <div uib-accordion-group panel-class="panel-odl" ng-repeat="mwClient in ne.MW_Container_Pac" is-open="mwClient.open"> <uib-accordion-heading>
-  <i class="pull-left" ng-class="{'icon-angle-down': mwClient.open, 'icon-angle-right': !mwClient.open}"></i> <span>
-   LTP ({{mwClient.layerProtocol}})
-   <span></uib-accordion-heading>
+		<div ng-repeat="mwClient in requiredNetworkElement.MW_EthernetContainer_Pac" uib-accordion-group
+			class="panel-primary"
+			is-open="status['container' + separator + mwClient.layerProtocol]">
+			<uib-accordion-heading>
+			    <i class="pull-left fa" ng-class="{'fa-chevron-down': status[['container', mwClient.layerProtocol].join(separator)], 'fa-chevron-right': !status['container' + separator + container.layerProtocol]}"></i>
+			    <span>Container ETH-CTP '{{mwClient.layerProtocol}}'</span>
+			    <i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner[['container', mwClient.layerProtocol].join(separator)]"></i>
+			</uib-accordion-heading>
 
   <div class="text-right">
    <a style="cursor: pointer;" ng-click="mwClient.showDescriptions = !mwClient.showDescriptions">
@@ -309,6 +279,45 @@
       </tr>
      </tfoot>
     </table>
+    	</div>
+
+		</uib-accordion>
+       </div>
+    </div>
+    
+	<div class="container" style="width: 100%">
+		<div class="row">
+    <uib-accordion close-others="oneAtATime">
+    <div uib-accordion-group panel-class="panel-odl" ng-repeat="ne in referenceValues.network.networkElement" is-open="ne.open"> <uib-accordion-heading>
+<i class="pull-left" ng-class="{'icon-angle-down': ne.open, 'icon-angle-right': !ne.open}"></i> <span>Network element: </span> <b>"{{ne.name}}"</b> </uib-accordion-heading> <accordion
+ close-others="oneAtATime"> <div uib-accordion-group panel-class="panel-odl" is-open="ne.NetworkElement[0].open"> <uib-accordion-heading>
+<i class="pull-left" ng-class="{'icon-angle-down': ne.NetworkElement[0].open, 'icon-angle-right': !ne.NetworkElement[0].open}"></i> <span>
+ {{ 'Network element' | translate}}
+ <span></uib-accordion-heading>
+
+
+
+
+</div> <div uib-accordion-group panel-class="panel-odl" ng-repeat="mwps in ne.MW_AirInterface_Pac" is-open="mwps.open"> <uib-accordion-heading>
+<i class="pull-left" ng-class="{'icon-angle-down': mwps.open, 'icon-angle-right': !mwps.open}"></i> <span>
+ LTP ({{mwps.layerProtocol}})
+ <span></uib-accordion-heading>
+
+
+  </div>
+  <div uib-accordion-group panel-class="panel-odl" ng-repeat="mws in ne.MW_Structure_Pac" is-open="mws.open"> <uib-accordion-heading>
+  <i class="pull-left" ng-class="{'icon-angle-down': mws.open, 'icon-angle-right': !mws.open}"></i> <span>
+   LTP ({{mws.layerProtocol}})
+   <span></uib-accordion-heading>
+
+
+  </div>
+  <div uib-accordion-group panel-class="panel-odl" ng-repeat="mwClient in ne.MW_Container_Pac" is-open="mwClient.open"> <uib-accordion-heading>
+  <i class="pull-left" ng-class="{'icon-angle-down': mwClient.open, 'icon-angle-right': !mwClient.open}"></i> <span>
+   LTP ({{mwClient.layerProtocol}})
+   <span></uib-accordion-heading>
+
+
 
 
     </div>

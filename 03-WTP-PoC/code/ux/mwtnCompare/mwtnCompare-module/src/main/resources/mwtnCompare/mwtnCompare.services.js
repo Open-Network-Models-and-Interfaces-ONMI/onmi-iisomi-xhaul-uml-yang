@@ -8,15 +8,16 @@
 
 define(['app/mwtnCompare/mwtnCompare.module'],function(mwtnCompareApp) {
 
-
-  mwtnCompareApp.register.factory('$mwtnCompare', function($mwtnCommons) {
+  mwtnCompareApp.register.factory('$mwtnCompare', function($mwtnCommons, $mwtnDatabase) {
 
     var service = {};
     
-    service.separator = $mwtnCommons.separator;
-    service.getRequiredNetworkElements = $mwtnCommons.getRequiredNetworkElements;
     service.getConnectionStatus = $mwtnCommons.getConnectionStatus;
     service.getPacParts = $mwtnCommons.getPacParts;
+    service.getRequiredNetworkElements = $mwtnCommons.getRequiredNetworkElements;
+    service.getSchema = $mwtnDatabase.getSchema;
+    service.getType = $mwtnCommons.getType;
+    service.separator = $mwtnCommons.separator;
     
     return service;
   });
