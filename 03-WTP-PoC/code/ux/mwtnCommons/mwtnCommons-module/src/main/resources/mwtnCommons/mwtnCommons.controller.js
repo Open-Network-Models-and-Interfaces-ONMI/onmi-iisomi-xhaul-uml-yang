@@ -6,9 +6,11 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-define(['app/mwtnCommons/mwtnCommons.module','app/mwtnCommons/mwtnCommons.services'], function(mwtnCommonsApp) {
+define(['app/mwtnCommons/mwtnCommons.module',
+        'app/mwtnCommons/mwtnCommons.services'], function(mwtnCommonsApp) {
 
-  mwtnCommonsApp.register.controller('mwtnCommonsCtrl', ['$scope', '$rootScope', '$mwtnCommons', '$mwtnLog', 'FileReader', function($scope, $rootScope, $mwtnCommons, $mwtnLog, FileReader) {
+  mwtnCommonsApp.register.controller('mwtnCommonsCtrl', ['$scope', '$rootScope', '$mwtnCommons', '$mwtnLog', 'FileReader', 
+                                                         function($scope, $rootScope, $mwtnCommons, $mwtnLog, FileReader) {
 
     $rootScope['section_logo'] = ''; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 

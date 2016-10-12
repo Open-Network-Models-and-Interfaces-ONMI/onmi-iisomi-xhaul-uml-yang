@@ -33,13 +33,6 @@ define(['app/mwtnConfig/mwtnConfig.module',
     });
     $scope.path = {};
     
-
-//    $scope.getUnit = $mwtnCommons.getUnit;
-//    $scope.getTest = function(key, value) {
-//      console.log(key, value);
-//      return key;
-//    };
-
     var initNodeList = function(nodes){
       $scope.networkElements = [];
       if (nodes.length > 0) {
@@ -68,7 +61,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
         
         // select one of the nodes
         var select = parseInt(Math.random()*$scope.networkElements.length);
-        console.log($scope.networkElements.length, JSON.stringify($scope.networkElements));
+        // console.log($scope.networkElements.length, JSON.stringify($scope.networkElements));
         $scope.networkElement = $scope.networkElements[select].id;
       }
     };
@@ -83,7 +76,8 @@ define(['app/mwtnConfig/mwtnConfig.module',
         'MWPS':1,
         'MWS':2,
         'ETH-CTP':3
-    }
+    };
+    
     var updateNe = function(data) {
       if (!data) return;
 

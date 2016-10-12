@@ -378,7 +378,7 @@ define(
           };
           var deferred = $q.defer();
           $http(request).then(function(success) {
-            console.log(JSON.stringify(success));
+            // console.log(JSON.stringify(success));
             deferred.resolve(success.data.node[0]['netconf-node-topology:connection-status']);
           }, function(error) {
             deferred.reject(error);
