@@ -9,14 +9,11 @@
 define(['app/mwtnSpectrum/mwtnSpectrum.module'],function(mwtnSpectrumApp) {
 
 
-  mwtnSpectrumApp.register.factory('$mwtnSpectrum', function($http, ENV) {
-    var service = {
-      base: ENV.getBaseURL("MD_SAL") + "/restconf/"
-    };
+  mwtnSpectrumApp.register.factory('$mwtnSpectrum', function($mwtnCommons) {
+    var service = {};
 
-    /*
-     * You can define all of your REST API interactions here.
-     */
+    service.gridOptions = $mwtnCommons.gridOptions;
+    service.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
 
     return service;
   });

@@ -1,7 +1,50 @@
-<!-- This is the landing page of you application, Update the content as per your requirements -->
+<div class="container">
+	<div class="row">
+		<div clase="col-md-12 text-left radio"
+			ng-class="{'raised':interference.alarmStatus !== 'cleared', 'cleared':interference.alarmStatus === 'cleared' }">
+			<span>{{'MWTN_INTERFERENCE_ALARM_STATUS' | translate}}</span>
+			<i class="fa fa-bell" aria-hidden="true"></i> 
+			<span>{{interference.alarmStatus}}</span>
+		</div>
+	</div>
+	<div class="row">
+		<div clase="col-md-12">
+		    <hr/>
+			<button class="btn btn-lg btn-block" ng-click="execute()" ng-class="{'btn-danger':interference.alarmStatus !== 'cleared', 'btn-success':interference.alarmStatus === 'cleared' }">
+			    <br/><br/>
+				<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+				<span>{{'MWTN_INTERFERENCE_ALARM' | translate}}</span>
+				<br/><br/><br/>
+			</button>
+			<hr/>
+		</div>
+	</div>
+	<div class="row">
+		<div clase="col-md-12">
+			<button class="btn btn-success" ng-click="clear()">
+               <i class="fa fa-magic" aria-hidden="true"></i>
+				<span>{{'MWTN_CLEAR' | translate}}</span>
+			</button>
+		</div>
+	</div>
+	<div class="row">
+		<div clase="col-md-12 text-right">
+			<button class="btn btn-primary pull-right" ng-click="refresh()">
+                <i class="fa fa-refresh" ng-class="{'fa-pulse':processing}" aria-hidden="true"></i>
+				<span>{{'MWTN_REFRESH' | translate}}</span>
+			</button>
+		</div>
+	</div>
+	<div class="row">
+		<div clase="col-md-12">
+		    <div><span>All frequencies in kHz</span></div>
+			<div id="mwtnSpectrumGrid" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection ui-grid-pinning ui-grid-resize-columns ui-grid-move-columns
+			 class="mwtnSpectrumGrid">
+			 </div>
+		</div>
+	</div>
 
-<h4>The application is under development...</h4>
-<h4>{{data}}</h4>
+</div>
 <hr />
 <p>
 	<span>Build: @buildtime@</span>

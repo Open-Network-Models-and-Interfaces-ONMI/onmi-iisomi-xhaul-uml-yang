@@ -6,8 +6,12 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-define(['angularAMD', 'app/routingConfig', 'app/core/core.services', 'common/config/env.module'], function(ng) {
-  var mwtnSpectrumApp = angular.module('app.mwtnSpectrum', ['app.core', 'ui.router.state','config']);
+define(['angularAMD', 
+        'app/routingConfig', 
+        'app/core/core.services', 
+        'common/config/env.module',
+        'app/mwtnCommons/mwtnCommons.module'], function(ng) {
+  var mwtnSpectrumApp = angular.module('app.mwtnSpectrum', ['ui.grid', 'ui.bootstrap', 'app.core', 'ui.router.state','config']);
 
   mwtnSpectrumApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $translateProvider) {
     mwtnSpectrumApp.register = {
