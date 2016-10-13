@@ -1,10 +1,12 @@
 /*
- * 01-standalone-YANG-parser.js - Parses YANG models according to test-cases specified in input file
+ * 01-standalone-YANG-parser.js - Parses YANG models according to cases specified in input file
  *
  * Copyright (C) 2016 HCL Tecnologies
  *
  * Authors: HCL SDN & NFV CoE Team
+ *
  * Contact: paolo.spallaccini@hcl.com
+ *
  */
 
 var yang = require("yang-js");
@@ -18,6 +20,8 @@ var globalConfigurations = [];
 var typeDefArray =[];
 var flag ="";
 var yangArray = [];
+var neNodeName = test_cases["nodeName"];
+var baseurl = "";
 var sync = require('synchronize');
 
 var controller = supertest.agent('http://' +
@@ -55,62 +59,55 @@ var xmlhello1 = '<?xml version="1.0" encoding="UTF-8"?>'+
 
 sync.fiber(function() {
 
-    debug.write("Test executed on : " + Date(), true,  fs.openSync(TestResultFile, "a+"));
+		debug.write("Test executed on : " + Date(), true, fs.openSync(TestResultFile, "a+"));
 
-    // sync.await(netconfCAll(sync.defers()));
+		var yangFromNetConf = sync.await(readNetConfFile(sync.defers()));
 
-    var yangFromNetConf =   sync.await(readNetConfFile(sync.defers()));
+		if (yangFromNetConf != "") {
 
-    if (yangFromNetConf != "") {
+			var regex = new RegExp('uri:onf:(.*)?module=');
 
-        var regex = new RegExp('uri:onf:(.*)?module=');
+			var stringData = String(yangFromNetConf).split(" ");
 
-        var stringData = String(yangFromNetConf).split(" ");
+			for (var i = 0; i < stringData.length; i++) {
 
-        for( var i = 0 ; i < stringData.length ; i++ ){
+				var matchPattern = String(stringData[i]).match(regex);
+				if (matchPattern) {
+					var yangmodel = matchPattern[1];
+					if (yangmodel.split('-')[0] == 'MicrowaveModel') {
+						yangmodel = yangmodel.substring(0, yangmodel.length - 1);
+						yangArray.push(yangmodel);
+					}
 
-            var matchPattern = String(stringData[i]).match(regex);
-            if (matchPattern) {
-                var yangmodel = matchPattern[1];
-                if (yangmodel.split('-')[0] == 'MicrowaveModel'){
-                    yangmodel = yangmodel.substring(0, yangmodel.length - 1);
-                    yangArray.push(yangmodel);
-                }
+				}
+			}
+		}
 
-            }
-        }
-    }
+		var yangModelName = test_cases["yangModelName"];
 
+		debug.write("YANG Model Name : " + yangModelName, true, fs.openSync(parseDataFile, "a+"));
 
-    for (var i = 0; i < yangArray.length; i++) {
+		var neNodeName = test_cases["nodeName"];
 
-        console.log(yangArray[i]);
-    }
+		var yangObj = yang.parse(fs.readFileSync(test_cases.YangDirectory + yangModelName + '.yang', 'utf8'));
 
+		baseurl = restconf + '/topology/topology-netconf/node/' + neNodeName + '/yang-ext:mount/' + yangModelName + '';
 
-    var yangModelName = test_cases["yangModelName"];
+		getLeafs(yangObj, yangModelName, flag);
 
-    debug.write("YANG Model Name : "+yangModelName, true, fs.openSync(parseDataFile, "a+"));
+		debug.write("****************EOD Test****************", true, fs.openSync(TestResultFile, "a+"));
 
-    var neNodeName = test_cases["nodeName"];
+		console.log("The Script has been executed successfully on " + Date());
 
-    var yangObj = yang.parse(fs.readFileSync(test_cases.YangDirectory + yangModelName + '.yang', 'utf8'));
+});
 
-    var baseurl = restconf + '/topology/topology-netconf/node/' + neNodeName + '/yang-ext:mount/' + yangModelName + '';
-
-    var module = yangObj.module[yangModelName];
-
-    getLeafs(yangObj, yangModelName, flag);
-
-    debug.write("****************EOD Test****************", true, fs.openSync(TestResultFile, "a+"));
 
     //This Method is used to fetch all leafs inside nested containers,choice,grouping... so on
     function getLeafs(yangObj, yangName, flag) {
 
         var chainType = "";
-
-
         var url = "";
+		var module = yangObj.module[yangName];
 
         if (module.hasOwnProperty('typedef')) {
 
@@ -121,7 +118,7 @@ sync.fiber(function() {
         }
 
         if (module.hasOwnProperty('list')) {
-            var gotObj = yangProcessLeafList(module.list, url, flag, chainType,yangName);
+            var gotObj = yangProcessLeafList(module.list, url, flag, chainType, yangName);
 
         }
 
@@ -132,7 +129,7 @@ sync.fiber(function() {
 
     }
 
-// Final Get/ Set of the leafs based on the URL
+	// Final Get/ Set of the leafs based on the URL
     function executeGetSet(url, leafData, chainType) {
 
         var finalUrl = "";
@@ -163,58 +160,6 @@ sync.fiber(function() {
             debug.write("#############################", true, fs.openSync(parseDataFile, "a+"));
 
         }
-
-
-        /* var res =  sync.await(getUrl(finalUrl,sync.defers()));
-
-         if (res != "") {
-
-         var temp = JSON.stringify(res[0].body);
-         var jsonData = JSON.parse(temp);
-
-         jsonDataCopy = res[0].body;
-
-         newUrl = changeAllValues(jsonData, leafData, chainType, url);
-
-         if (newUrl != "")
-         finalUrl = baseurl + ":" + newUrl.substr(1);
-
-         var res1 =   sync.await(putUrl(finalUrl, jsonData,sync.defers()));
-
-         if (res1 != "") {
-
-         sync.await(netconfCAll(sync.defers()));
-
-         debug.write("Data validation started ", true, fs.openSync(TestResultFile, "a+"));
-
-         var resData =   sync.await(readNetConfFile(sync.defers()));
-
-         if (resData != "") {
-
-         for (var i = 0; i < netConfArray.length; i++) {
-         if ((resData.indexOf(netConfArray[i].name + '>' + netConfArray[i].value + '</' + netConfArray[i].name))) {
-         debug.write("Testcase for leaf: " + netConfArray[i].name + "new value " + netConfArray[i].value + " pass.", true, fs.openSync(TestResultFile, "a+"));
-         }
-         else {
-         debug.write("Testcase : " + netConfArray[i].name + " fail, retrive value not matched " + netConfArray[i].value, true, fs.openSync(TestResultFile, "a+"));
-         }
-         }
-
-
-         fs.truncate(netConfDataFile, 0, function () {
-         });
-
-         netConfArray = [];
-
-         }
-
-         sync.await(revertToOriginal(finalUrl,jsonDataCopy,sync.defers()));
-
-         }
-
-         }*/
-        //   }
-
 
     }
 
@@ -367,7 +312,7 @@ sync.fiber(function() {
             });
     }
 
-// handling Nested List
+	// handling Nested List
     function yangProcessLeafList(yangObj, url, flag, type,yangName) {
 
         var localArray = [];
@@ -387,7 +332,9 @@ sync.fiber(function() {
             chainType = type + "/" + currentType;
         }
 
-        for (var ele in yangObj) {
+		debug.write("Parsing List " + url, true, fs.openSync(TestResultFile, "a+"));
+
+		for (var ele in yangObj) {
 
             var parentNode = ele;
 
@@ -428,7 +375,7 @@ sync.fiber(function() {
 
             if (each_ele.hasOwnProperty('container')) {
 
-                yangProcessLeafContainer(each_ele.container, url1, flag, chainType,yangName);
+                yangProcessLeafContainer(each_ele.container, url1, flag, chainType, yangName);
 
             }
             if (each_ele.hasOwnProperty('list')) {
@@ -436,12 +383,9 @@ sync.fiber(function() {
 
             }
 
-
             if (each_ele.hasOwnProperty('uses')) {
 
-                // localArray = useUses(each_ele.uses, refineLeafs, url1);
-
-                UsesSecond(yangName,each_ele.uses,url1,chainType);
+                UsesSecond(yangName, each_ele.uses, url1, chainType);
 
             }
 
@@ -517,7 +461,7 @@ sync.fiber(function() {
 
     }
 
-    function yangProcessLeafContainer(yangObj, url, flag, type,yangName) {
+    function yangProcessLeafContainer(yangObj, url, flag, type, yangName) {
 
         var localArray = [];
         var localArray1 = [];
@@ -536,6 +480,7 @@ sync.fiber(function() {
             chainType = type + "/" + currentType;
         }
 
+		debug.write("Parsing Container " + url, true, fs.openSync(TestResultFile, "a+"));
 
         for (var ele in yangObj) {
 
@@ -573,13 +518,9 @@ sync.fiber(function() {
                 yangProcessLeafList(each_ele.list, url1, flag, chainType,yangName);
 
             }
-
             if (each_ele.hasOwnProperty('uses')) {
 
-                // localArray = useUses(each_ele.uses, refineLeafs, url1);
-
-                    UsesSecond(yangName,each_ele.uses,url1,chainType);
-
+                    UsesSecond(yangName, each_ele.uses, url1, chainType);
             }
 
             if (flag == "") {
@@ -633,149 +574,16 @@ sync.fiber(function() {
                     }
                 }
             }
-
-            if (flag == "" && url1 != "" && leafData.length != 0 && !chainType.includes("Grouping")) {
-                executeGetSet(url1, leafData, chainType);
-                leafData = [];
-
-            }
-
         }
-
-
-    }
-// Handles the Uses scenario
-    function useUses(uses, refineLeafs, url1) {
-
-        var localArray = [];
-
-        if (typeof uses != 'string') {
-            for (var ele in uses) {
-                if (ele.indexOf(":") != -1) {
-                    uses = ele;
-                    break;
-                }
-            }
-            if (typeof uses != 'string') {
-                return localArray;
-            }
-        }
-        if (uses.indexOf(":") == -1) {
-
-            for (var i = 0; i < globalConfigurations.length; i++) {
-
-                if (uses == globalConfigurations[i].parentNode) {
-
-                    if (refineLeafs.length != 0) {
-                        for (var j = 0; j < refineLeafs.length; j++) {
-
-                            if (refineLeafs[j].leafName == globalConfigurations[i].leafName) {
-                                localArray.push({
-                                    config: globalConfigurations[i].config,
-                                    type: globalConfigurations[i].type,
-                                    leafName: globalConfigurations[i].leafName,
-                                    parentNode: globalConfigurations[i].parentNode,
-                                    proposedValue: globalConfigurations[i].proposedValue,
-                                    url: url1,
-                                    parentNodeType: globalConfigurations[i].parentNodeType,
-                                    refine: "true"
-                                });
-                            }
-
-                            else {
-                                localArray.push({
-                                    config: globalConfigurations[i].config,
-                                    type: globalConfigurations[i].type,
-                                    leafName: globalConfigurations[i].leafName,
-                                    parentNode: globalConfigurations[i].parentNode,
-                                    proposedValue: globalConfigurations[i].proposedValue,
-                                    url: url1,
-                                    parentNodeType: globalConfigurations[i].parentNodeType,
-                                    refine: "false"
-                                });
-                            }
-                        }
-                    }
-                    else {
-                        localArray.push({
-                            config: globalConfigurations[i].config,
-                            type: globalConfigurations[i].type,
-                            leafName: globalConfigurations[i].leafName,
-                            parentNode: globalConfigurations[i].parentNode,
-                            proposedValue: globalConfigurations[i].proposedValue,
-                            url: url1,
-                            parentNodeType: globalConfigurations[i].parentNodeType,
-                            refine: "NA"
-                        });
-                    }
-
-
-                }
-            }
-
-        }
-
-        else if (uses.indexOf(":") != -1) {
-
-            for (var i = 0; i < globalConfigurations.length; i++) {
-
-                if (uses.split(":")[1] == globalConfigurations[i].parentNode) {
-
-                    if (refineLeafs.length != 0) {
-                        for (var j = 0; j < refineLeafs.length; j++) {
-
-                            if (refineLeafs[j].leafName == globalConfigurations[i].leafName) {
-                                localArray.push({
-                                    config: globalConfigurations[i].config,
-                                    type: globalConfigurations[i].type,
-                                    leafName: globalConfigurations[i].leafName,
-                                    parentNode: globalConfigurations[i].parentNode,
-                                    proposedValue: globalConfigurations[i].proposedValue,
-                                    url: url1,
-                                    parentNodeType: globalConfigurations[i].parentNodeType,
-                                    refine: "true"
-                                });
-                            }
-
-                            else {
-                                localArray.push({
-                                    config: globalConfigurations[i].config,
-                                    type: globalConfigurations[i].type,
-                                    leafName: globalConfigurations[i].leafName,
-                                    parentNode: globalConfigurations[i].parentNode,
-                                    proposedValue: globalConfigurations[i].proposedValue,
-                                    url: url1,
-                                    parentNodeType: globalConfigurations[i].parentNodeType,
-                                    refine: "false"
-                                });
-                            }
-                        }
-                    }
-                    else {
-                        localArray.push({
-                            config: globalConfigurations[i].config,
-                            type: globalConfigurations[i].type,
-                            leafName: globalConfigurations[i].leafName,
-                            parentNode: globalConfigurations[i].parentNode,
-                            proposedValue: globalConfigurations[i].proposedValue,
-                            url: url1,
-                            parentNodeType: globalConfigurations[i].parentNodeType,
-                            refine: "NA"
-                        });
-                    }
-                }
-            }
-        }
-
-        return localArray;
-
     }
 
-// creates an array of leafs in a particular node
+
+	// creates an array of leafs in a particular node
     function getLeafData(leafObj, leafName, parentNode, proposedValue, url1, currentType, configurable) {
 
         var localArray = [];
-        if (leafObj.hasOwnProperty('config')) {
+		debug.write("Parsing Leaf " + url1, true, fs.openSync(TestResultFile, "a+"));
+		if (leafObj.hasOwnProperty('config')) {
             if (leafObj.config) {
                 var config = leafObj.config.toString();
                 localArray.push({
@@ -913,7 +721,7 @@ sync.fiber(function() {
     }
 
 
-// proposed value based on type for set/get operation
+	// proposed value based on type for set/get operation
     function setLeafProposedValue(leafObjType, min, max) {
 
         var proposedValue = "";
@@ -1025,7 +833,7 @@ sync.fiber(function() {
 
     }
 
-    function UsesSecond(yangModuleName,groupingName,url,type){
+    function UsesSecond(yangModuleName, groupingName, url, type){
 
         var currentType = "Grouping";
         var chainType = "";
@@ -1040,15 +848,16 @@ sync.fiber(function() {
         var yangObj = yang.parse(fs.readFileSync(test_cases.YangDirectory + yangModelName + '.yang', 'utf8'));
         var module = yangObj.module[yangModelName];
 
+		debug.write("Parsing within Uses block " + url, true, fs.openSync(TestResultFile, "a+"));
         if (module.hasOwnProperty('grouping')){
             var groupingObject = module['grouping'][groupingName];
 
             if (groupingObject.hasOwnProperty('container')) {
-                getContainer(groupingObject,yangModelName,url,chainType);
+                getContainer(groupingObject, yangModelName, url, chainType);
             }
 
             if (groupingObject.hasOwnProperty('list')) {
-                getList(groupingObject,yangModelName,url,chainType);
+                getList(groupingObject, yangModelName, url, chainType);
             }
 
             if (groupingObject.hasOwnProperty('leaf')) {
@@ -1070,187 +879,156 @@ sync.fiber(function() {
                 }
             }
 
-        }
+		}
+	}
 
-        function getContainer(groupingObject,yangModelName,url,type){
+	function getContainer(groupingObject, yangModelName, url, type){
 
-            var currentType = "Container";
-            var chainType = "";
-            if (type == "") {
-                chainType = currentType;
-            }
-            else {
-                chainType = type + "/" + currentType;
-            }
+		var currentType = "Container";
+		var chainType = "";
+		if (type == "") {
+			chainType = currentType;
+		}
+		else {
+			chainType = type + "/" + currentType;
+		}
 
-            var containerObject = groupingObject['container'];
-            console.log(containerObject);
-            for (var ele in containerObject) {
-                url = url + "/" + ele;
-                if (containerObject[ele].hasOwnProperty('uses')){
-                    if (containerObject[ele].uses.indexOf(":") != -1) {
-                        UsesSecond(containerObject[ele].uses.split(":")[0],containerObject[ele].uses.split(":")[1],url,chainType);
-                    }
-                    else {
-                        UsesSecond(yangModelName,containerObject[ele].uses,url,chainType);
-                    }
-                }
-                if (containerObject[ele].hasOwnProperty('leaf')){
-                    if (containerObject[ele].hasOwnProperty('config')) {
-                        getLeaf(containerObject[ele],yangModelName,url,containerObject[ele].config.toString(),chainType);
-                    }
-                    else {
-                        getLeaf(containerObject[ele],yangModelName,url,"",chainType);
-                    }
-                }
-                if (containerObject[ele].hasOwnProperty('list')){
-                    getList(containerObject[ele],yangModelName,url,chainType);
-                }
-            }
-        }
+		var containerObject = groupingObject['container'];
+		//console.log(containerObject);
+		debug.write("Parsing Container within Uses block " + url, true, fs.openSync(TestResultFile, "a+"));
+		for (var ele in containerObject) {
+			url = url + "/" + ele;
+			if (containerObject[ele].hasOwnProperty('uses')){
+				if (containerObject[ele].uses.indexOf(":") != -1) {
+					UsesSecond(containerObject[ele].uses.split(":")[0],containerObject[ele].uses.split(":")[1],url,chainType);
+				}
+				else {
+					UsesSecond(yangModelName,containerObject[ele].uses,url,chainType);
+				}
+			}
+			if (containerObject[ele].hasOwnProperty('leaf')){
+				if (containerObject[ele].hasOwnProperty('config')) {
+					getLeaf(containerObject[ele],yangModelName,url,containerObject[ele].config.toString(),chainType);
+				}
+				else {
+					getLeaf(containerObject[ele],yangModelName,url,"",chainType);
+				}
+			}
+			if (containerObject[ele].hasOwnProperty('list')){
+				getList(containerObject[ele],yangModelName,url,chainType);
+			}
+			if (containerObject[ele].hasOwnProperty('container')){
+				getContainer(containerObject[ele],yangModelName,url,chainType);
+			}
+		}
+	}
 
-        function getLeaf(groupingObject,yangModelName,url,config,chainType){
+	function getLeaf(groupingObject, yangModelName, url, config, chainType){
 
-            var localArray = [];
-            var leafData = [];
-            var proposedValue = "";
-
-
-            var leafObject = groupingObject['leaf'];
-
-            for (var ele in leafObject) {
-                console.log(leafObject[ele]);
-
-                if (leafObject[ele].type.indexOf(":") != -1) {
-                    console.log(leafObject[ele].type.split(":")[1]);
-                    var yangModelName = leafObject[ele].type.split(":")[0];
-                    var yangObj = yang.parse(fs.readFileSync(test_cases.YangDirectory + yangModelName + '.yang', 'utf8'));
-                    var module = yangObj.module[yangModelName];
-                    if (module.hasOwnProperty('typedef')){
-                        var typedefObject = module['typedef'][leafObject[ele].type.split(":")[1]];
-                        proposedValue = setLeafProposedValue(typedefObject.type, "", "");
-                        localArray = getLeafData(leafObject[ele], ele, "", proposedValue, url, "", config);
-                    }
-
-                }
-                else {
-                    proposedValue = getProposedValues(leafObject[ele]);
-                    localArray = getLeafData(leafObject[ele], ele, "", proposedValue, url, "", config);
-                }
-
-                for (var i = 0; i < localArray.length; i++) {
-                    leafData.push(localArray[i]);
-                }
-
-            }
-            executeGetSet(url, leafData, chainType);
-        }
+		var localArray = [];
+		var leafData = [];
+		var proposedValue = "";
 
 
-        function getList(groupingObject,yangModelName,url,type){
+		var leafObject = groupingObject['leaf'];
 
-            var currentType = "List";
-            var chainType = "";
-            if (type == "") {
-                chainType = currentType;
-            }
-            else {
-                chainType = type + "/" + currentType;
-            }
+		debug.write("Parsing Leaf within Uses block " + url, true, fs.openSync(TestResultFile, "a+"));
+		for (var ele in leafObject) {
+			//console.log(leafObject[ele]);
 
-            var listObject = groupingObject['list'];
-            console.log(listObject);
-            for (var ele in listObject) {
+			if (leafObject[ele].type.indexOf(":") != -1) {
+				//console.log(leafObject[ele].type.split(":")[1]);
+				var yangModelName = leafObject[ele].type.split(":")[0];
+				var yangObj = yang.parse(fs.readFileSync(test_cases.YangDirectory + yangModelName + '.yang', 'utf8'));
+				var module = yangObj.module[yangModelName];
+				if (module.hasOwnProperty('typedef')){
+					var typedefObject = module['typedef'][leafObject[ele].type.split(":")[1]];
+					proposedValue = setLeafProposedValue(typedefObject.type, "", "");
+					localArray = getLeafData(leafObject[ele], ele, "", proposedValue, url, "", config);
+				}
 
-                var listKey = test_cases[ele];
+			}
+			else {
+				proposedValue = getProposedValues(leafObject[ele]);
+				localArray = getLeafData(leafObject[ele], ele, "", proposedValue, url, "", config);
+			}
 
-                if (listKey != undefined) {
-                    url = url + "/" + ele + "/" + listKey;
-                }
-                else {
-                    url = url + "/" + ele
-                }
+			for (var i = 0; i < localArray.length; i++) {
+				leafData.push(localArray[i]);
+			}
 
-
-                if (listObject[ele].hasOwnProperty('uses')){
-                    if (listObject[ele].uses.indexOf(":") != -1) {
-                        UsesSecond(listObject[ele].uses.split(":")[0],listObject[ele].uses.split(":")[1],url,chainType);
-                    }
-                    else {
-                        UsesSecond(yangModelName,listObject[ele].uses,url,chainType);
-                    }
-                }
-                if (listObject[ele].hasOwnProperty('leaf')){
-                    if (listObject[ele].hasOwnProperty('config')) {
-                        getLeaf(listObject[ele],yangModelName,url,listObject[ele].config.toString(),chainType);
-                    }
-                    else {
-                        getLeaf(listObject[ele],yangModelName,url,"",chainType);
-                    }
-                }
-                if (listObject[ele].hasOwnProperty('container')){
-                    getContainer(listObject[ele],yangModelName,url,chainType);
-                }
-            }
-        }
-
-    }
-
-});
+		}
+		executeGetSet(url, leafData, chainType);
+	}
 
 
-function netconfCAll(cb) {
+	function getList(groupingObject, yangModelName, url, type){
 
-    var conn = new Client();
+		var currentType = "List";
+		var chainType = "";
+		if (type == "") {
+			chainType = currentType;
+		}
+		else {
+			chainType = type + "/" + currentType;
+		}
 
-    conn.on('ready', function () {
-        console.log('Client :: ready');
-        conn.subsys('netconf', function (err, stream) {
-            if (err) throw err;
-            stream.on('data', function (data) {
-                // console.log(data.toString('utf8'));
-            }).write(xmlhello);
-            stream.on('data', function (data) {
-                console.log(data.toString('utf8'));
-                debug.write(data.toString('utf8'), true, fs.openSync(netConfDataFile, "a+"));
+		var listObject = groupingObject['list'];
+		//console.log(listObject);
+		debug.write("Parsing List within Uses block " + url, true, fs.openSync(TestResultFile, "a+"));
+		for (var ele in listObject) {
 
+			var listKey = test_cases[ele];
 
-
-            }).write(xmlhello1);
-
-            setTimeout(function(){
-                // remember that callbacks expect (err, result)
-                cb(null);
-            }, 1000)
-
-        });
-    }).connect({
-        host: config[config.topology[1].type].ip,
-        port: 830,
-        username: 'compila',
-        password: 'compila+'
-    });
-
-}
+			if (listKey != undefined) {
+				url = url + "/" + ele + "/" + listKey;
+			}
+			else {
+				url = url + "/" + ele
+			}
 
 
-function readNetConfFile(cb) {
+			if (listObject[ele].hasOwnProperty('uses')){
+				if (listObject[ele].uses.indexOf(":") != -1) {
+					UsesSecond(listObject[ele].uses.split(":")[0],listObject[ele].uses.split(":")[1],url,chainType);
+				}
+				else {
+					UsesSecond(yangModelName,listObject[ele].uses,url,chainType);
+				}
+			}
+			if (listObject[ele].hasOwnProperty('leaf')){
+				if (listObject[ele].hasOwnProperty('config')) {
+					getLeaf(listObject[ele],yangModelName,url,listObject[ele].config.toString(),chainType);
+				}
+				else {
+					getLeaf(listObject[ele],yangModelName,url,"",chainType);
+				}
+			}
+			if (listObject[ele].hasOwnProperty('container')){
+				getContainer(listObject[ele],yangModelName,url,chainType);
+			}
+			if (listObject[ele].hasOwnProperty('list')){
+				getList(listObject[ele],yangModelName,url,chainType);
+			}
+		}
+	}
 
-    var responce = "";
 
-    fs.readFile(netConfDataFile, function (err, data) {
-        if (err) {
-            responce = "";
-        }
-        else {
-            responce = data;
-        }
-        setTimeout(function(){
-            cb(null,responce);
-        }, 1000)
+	function readNetConfFile(cb) {
 
-    });
+		var responce = "";
 
+		fs.readFile(netConfDataFile, function (err, data) {
+			if (err) {
+				responce = "";
+			}
+			else {
+				responce = data;
+			}
+			setTimeout(function(){
+				cb(null,responce);
+			}, 1000)
 
-}
+		});
+	}
 
