@@ -1,13 +1,13 @@
 {
  "required-networkelement": {
-  "NEC-52": {
-   "nodeId": "NEC-52",
-   "siteRef": "6",
+  "Fujitsu-32": {
+   "nodeId": "Fujitsu-32",
+   "siteRef": "8",
    "onfCoreModelRevision": "2016-08-11",
    "onfAirIinterfaceRevision": "2016-08-09",
    "connect": {
-    "mountId": "NEC-52",
-    "host": "192.168.178.28",
+    "mountId": "Fujitsu-32",
+    "host": "192.168.178.37",
     "port": 830,
     "username": "compila",
     "password": "compila+"
@@ -15,27 +15,27 @@
    "NetworkElement": {
     "_ltpRefList": [
      {
-      "uuid": "LTP-MWPS-1",
+      "uuid": "LTP-MWPS-ifIndex1",
       "_clientLtpRefList": [
-       "LTP-MWS-1"
+       "LTP-MWS-ifIndex1"
       ],
       "ltpDirection": "BIDIRECTIONAL",
       "_peerLtpRef": "",
       "administrativeState": "UNLOCKED",
       "operationalState": "ENABLED",
       "_ltpRefList": [
-       "LTP-MWS-1",
+       "LTP-MWS-ifIndex1",
        ""
       ],
       "labelList": [
        {
         "valueName": "ltpLabel",
-        "value": "LTP-MWPS-1"
+        "value": "LTP-MWPS-ifIndex1"
        }
       ],
       "_lpList": [
        {
-        "uuid": "LP-MWPS-1",
+        "uuid": "LP-MWPS-ifIndex1",
         "layerProtocolName": "MWPS",
         "configuredClientCapacity": "500",
         "administrativeState": "UNLOCKED",
@@ -45,26 +45,26 @@
         "labelList": [
          {
           "valueName": "lpLabel",
-          "value": "LP-MWPS-1"
+          "value": "LP-MWPS-ifIndex1"
          }
         ],
         "nameList": [
          {
           "valueName": "lpName",
-          "value": "LP-MWPS-1"
+          "value": "LP-MWPS-ifIndex1"
          }
         ],
         "extensionList": [
          {
           "valueName": "lpExtension",
-          "value": "LP-MWPS-1"
+          "value": "LP-MWPS-ifIndex1"
          }
         ],
         "lifecycleState": "INSTALLED",
         "localIdList": [
          {
           "valueName": "lpLocalIdList",
-          "value": "LP-MWPS-1"
+          "value": "LP-MWPS-ifIndex1"
          }
         ],
         "administrativeControl": "UNLOCK"
@@ -73,14 +73,14 @@
       "nameList": [
        {
         "valueName": "ltpName",
-        "value": "LTP-MWPS-1"
+        "value": "LTP-MWPS-ifIndex1"
        }
       ],
       "_connectedLtpRef": "",
       "extensionList": [
        {
         "valueName": "ltpExtension",
-        "value": "LTP-MWPS-1"
+        "value": "LTP-MWPS-ifIndex1"
        }
       ],
       "physicalPortReference": [
@@ -93,33 +93,117 @@
       "localIdList": [
        {
         "valueName": "ltpLocalIdList",
-        "value": "LTP-MWPS-1"
+        "value": "LTP-MWPS-ifIndex1"
        }
       ],
       "administrativeControl": "UNLOCK"
      },
      {
-      "uuid": "LTP-MWS-1",
+      "uuid": "LTP-MWPS-ifIndex2",
       "_clientLtpRefList": [
-       "LTP-ETH-CTP-1"
+       "LTP-MWS-ifIndex2"
       ],
       "ltpDirection": "BIDIRECTIONAL",
       "_peerLtpRef": "",
       "administrativeState": "UNLOCKED",
       "operationalState": "ENABLED",
       "_ltpRefList": [
-       "LTP-MWPS-1",
-       "LTP-ETH-CTP-1"
+       "LTP-MWS-ifIndex2",
+       ""
       ],
       "labelList": [
        {
         "valueName": "ltpLabel",
-        "value": "LTP-MWS-1"
+        "value": "LTP-MWPS-ifIndex2"
        }
       ],
       "_lpList": [
        {
-        "uuid": "LP-MWS-1",
+        "uuid": "LP-MWPS-ifIndex2",
+        "layerProtocolName": "MWPS",
+        "configuredClientCapacity": "500",
+        "administrativeState": "UNLOCKED",
+        "operationalState": "ENABLED",
+        "terminationState": true,
+        "lpDirection": "BIDIRECTIONAL",
+        "labelList": [
+         {
+          "valueName": "lpLabel",
+          "value": "LP-MWPS-ifIndex2"
+         }
+        ],
+        "nameList": [
+         {
+          "valueName": "lpName",
+          "value": "LP-MWPS-ifIndex2"
+         }
+        ],
+        "extensionList": [
+         {
+          "valueName": "lpExtension",
+          "value": "LP-MWPS-ifIndex2"
+         }
+        ],
+        "lifecycleState": "INSTALLED",
+        "localIdList": [
+         {
+          "valueName": "lpLocalIdList",
+          "value": "LP-MWPS-ifIndex2"
+         }
+        ],
+        "administrativeControl": "UNLOCK"
+       }
+      ],
+      "nameList": [
+       {
+        "valueName": "ltpName",
+        "value": "LTP-MWPS-ifIndex2"
+       }
+      ],
+      "_connectedLtpRef": "",
+      "extensionList": [
+       {
+        "valueName": "ltpExtension",
+        "value": "LTP-MWPS-ifIndex2"
+       }
+      ],
+      "physicalPortReference": [
+       "slot 2 port 2"
+      ],
+      "lifecycleState": "INSTALLED",
+      "_serverLtpRefList": [
+       ""
+      ],
+      "localIdList": [
+       {
+        "valueName": "ltpLocalIdList",
+        "value": "LTP-MWPS-ifIndex2"
+       }
+      ],
+      "administrativeControl": "UNLOCK"
+     },
+     {
+      "uuid": "LTP-MWS-ifIndex2",
+      "_clientLtpRefList": [
+       "LTP-ETH-CTP-ifIndex1"
+      ],
+      "ltpDirection": "BIDIRECTIONAL",
+      "_peerLtpRef": "",
+      "administrativeState": "UNLOCKED",
+      "operationalState": "ENABLED",
+      "_ltpRefList": [
+       "LTP-ETH-CTP-ifIndex1",
+       "LTP-MWPS-ifIndex2"
+      ],
+      "labelList": [
+       {
+        "valueName": "ltpLabel",
+        "value": "LTP-MWS-ifIndex2"
+       }
+      ],
+      "_lpList": [
+       {
+        "uuid": "LP-MWS-ifIndex2",
         "layerProtocolName": "MWS",
         "configuredClientCapacity": "500",
         "administrativeState": "UNLOCKED",
@@ -129,26 +213,26 @@
         "labelList": [
          {
           "valueName": "lpLabel",
-          "value": "LP-MWS-1"
+          "value": "LP-MWS-ifIndex2"
          }
         ],
         "nameList": [
          {
           "valueName": "lpName",
-          "value": "LP-MWS-1"
+          "value": "LP-MWS-ifIndex2"
          }
         ],
         "extensionList": [
          {
           "valueName": "lpExtension",
-          "value": "LP-MWS-1"
+          "value": "LP-MWS-ifIndex2"
          }
         ],
         "lifecycleState": "INSTALLED",
         "localIdList": [
          {
           "valueName": "lpLocalIdList",
-          "value": "LP-MWS-1"
+          "value": "LP-MWS-ifIndex2"
          }
         ],
         "administrativeControl": "UNLOCK"
@@ -157,14 +241,14 @@
       "nameList": [
        {
         "valueName": "ltpName",
-        "value": "LTP-MWS-1"
+        "value": "LTP-MWS-ifIndex2"
        }
       ],
       "_connectedLtpRef": "",
       "extensionList": [
        {
         "valueName": "ltpExtension",
-        "value": "LTP-MWS-1"
+        "value": "LTP-MWS-ifIndex2"
        }
       ],
       "physicalPortReference": [
@@ -172,18 +256,102 @@
       ],
       "lifecycleState": "INSTALLED",
       "_serverLtpRefList": [
-       "LTP-MWPS-1"
+       "LTP-MWPS-ifIndex2"
       ],
       "localIdList": [
        {
         "valueName": "ltpLocalIdList",
-        "value": "LTP-MWS-1"
+        "value": "LTP-MWS-ifIndex2"
        }
       ],
       "administrativeControl": "UNLOCK"
      },
      {
-      "uuid": "LTP-ETH-CTP-1",
+      "uuid": "LTP-MWS-ifIndex1",
+      "_clientLtpRefList": [
+       "LTP-ETH-CTP-ifIndex1"
+      ],
+      "ltpDirection": "BIDIRECTIONAL",
+      "_peerLtpRef": "",
+      "administrativeState": "UNLOCKED",
+      "operationalState": "ENABLED",
+      "_ltpRefList": [
+       "LTP-MWPS-ifIndex1",
+       "LTP-ETH-CTP-ifIndex1"
+      ],
+      "labelList": [
+       {
+        "valueName": "ltpLabel",
+        "value": "LTP-MWS-ifIndex1"
+       }
+      ],
+      "_lpList": [
+       {
+        "uuid": "LP-MWS-ifIndex1",
+        "layerProtocolName": "MWS",
+        "configuredClientCapacity": "500",
+        "administrativeState": "UNLOCKED",
+        "operationalState": "ENABLED",
+        "terminationState": false,
+        "lpDirection": "BIDIRECTIONAL",
+        "labelList": [
+         {
+          "valueName": "lpLabel",
+          "value": "LP-MWS-ifIndex1"
+         }
+        ],
+        "nameList": [
+         {
+          "valueName": "lpName",
+          "value": "LP-MWS-ifIndex1"
+         }
+        ],
+        "extensionList": [
+         {
+          "valueName": "lpExtension",
+          "value": "LP-MWS-ifIndex1"
+         }
+        ],
+        "lifecycleState": "INSTALLED",
+        "localIdList": [
+         {
+          "valueName": "lpLocalIdList",
+          "value": "LP-MWS-ifIndex1"
+         }
+        ],
+        "administrativeControl": "UNLOCK"
+       }
+      ],
+      "nameList": [
+       {
+        "valueName": "ltpName",
+        "value": "LTP-MWS-ifIndex1"
+       }
+      ],
+      "_connectedLtpRef": "",
+      "extensionList": [
+       {
+        "valueName": "ltpExtension",
+        "value": "LTP-MWS-ifIndex1"
+       }
+      ],
+      "physicalPortReference": [
+       ""
+      ],
+      "lifecycleState": "INSTALLED",
+      "_serverLtpRefList": [
+       "LTP-MWPS-ifIndex1"
+      ],
+      "localIdList": [
+       {
+        "valueName": "ltpLocalIdList",
+        "value": "LTP-MWS-ifIndex1"
+       }
+      ],
+      "administrativeControl": "UNLOCK"
+     },
+     {
+      "uuid": "LTP-ETH-CTP-ifIndex1",
       "_clientLtpRefList": [
        ""
       ],
@@ -192,17 +360,19 @@
       "administrativeState": "UNLOCKED",
       "operationalState": "ENABLED",
       "_ltpRefList": [
-       "LTP-MWS-1"
+       "LTP-MWS-ifIndex2",
+       "LTP-MWS-ifIndex1",
+       ""
       ],
       "labelList": [
        {
         "valueName": "ltpLabel",
-        "value": "LTP-ETH-CTP-1"
+        "value": "LTP-ETH-CTP-ifIndex1"
        }
       ],
       "_lpList": [
        {
-        "uuid": "LP-ETH-CTP-1",
+        "uuid": "LP-ETH-CTP-ifIndex1",
         "layerProtocolName": "ETH-CTP",
         "configuredClientCapacity": "1000",
         "administrativeState": "UNLOCKED",
@@ -212,26 +382,26 @@
         "labelList": [
          {
           "valueName": "lpLabel",
-          "value": "LP-ETH-CTP-1"
+          "value": "LP-ETH-CTP-ifIndex1"
          }
         ],
         "nameList": [
          {
           "valueName": "lpName",
-          "value": "LP-ETH-CTP-1"
+          "value": "LP-ETH-CTP-ifIndex1"
          }
         ],
         "extensionList": [
          {
           "valueName": "lpExtension",
-          "value": "LP-ETH-CTP-1"
+          "value": "LP-ETH-CTP-ifIndex1"
          }
         ],
         "lifecycleState": "INSTALLED",
         "localIdList": [
          {
           "valueName": "lpLocalIdList",
-          "value": "LP-ETH-CTP-1"
+          "value": "LP-ETH-CTP-ifIndex1"
          }
         ],
         "administrativeControl": "UNLOCK"
@@ -240,14 +410,14 @@
       "nameList": [
        {
         "valueName": "ltpName",
-        "value": "LTP-ETH-CTP-1"
+        "value": "LTP-ETH-CTP-ifIndex1"
        }
       ],
       "_connectedLtpRef": "",
       "extensionList": [
        {
         "valueName": "ltpExtension",
-        "value": "LTP-ETH-CTP-1"
+        "value": "LTP-ETH-CTP-ifIndex1"
        }
       ],
       "physicalPortReference": [
@@ -255,12 +425,13 @@
       ],
       "lifecycleState": "INSTALLED",
       "_serverLtpRefList": [
-       "LTP-MWS-1"
+       "LTP-MWS-ifIndex1",
+       "LTP-MWS-ifIndex2"
       ],
       "localIdList": [
        {
         "valueName": "ltpLocalIdList",
-        "value": "LTP-ETH-CTP-1"
+        "value": "LTP-ETH-CTP-ifIndex1"
        }
       ],
       "administrativeControl": "UNLOCK"
@@ -269,20 +440,20 @@
     "labelList": [
      {
       "valueName": "neLabel",
-      "value": "NEC-52"
+      "value": "Fujitsu-32"
      }
     ],
-    "uuid": "NEC-52",
+    "uuid": "Fujitsu-32",
     "nameList": [
      {
       "valueName": "neName",
-      "value": "NEC-52"
+      "value": "Fujitsu-32"
      }
     ],
     "extensionList": [
      {
       "valueName": "neExtension",
-      "value": "NEC-52"
+      "value": "Fujitsu-32"
      }
     ],
     "administrativeState": "UNLOCKED",
@@ -290,7 +461,7 @@
     "localIdList": [
      {
       "valueName": "neLocalIdList",
-      "value": "NEC-52"
+      "value": "Fujitsu-32"
      }
     ],
     "administrativeControl": "UNLOCK",
@@ -340,7 +511,7 @@
         "problemKindSeverity": "warning"
        }
       ],
-      "radioSignalID": "51",
+      "radioSignalID": "31",
       "atpcThreshLower": 99,
       "rxFrequency": 14800000,
       "rxChannelBandwidth": 28,
@@ -354,7 +525,66 @@
       "modulationMax": -1
      },
      "revision": "2016-08-11",
-     "layerProtocol": "LP-MWPS-1"
+     "layerProtocol": "LP-MWPS-ifIndex1"
+    },
+    {
+     "airInterfaceConfiguration": {
+      "txFrequency": 15000000,
+      "modulationMin": -1,
+      "cryptographicKey": "********",
+      "loopBackIsOn": false,
+      "powerIsOn": true,
+      "txPower": 99,
+      "adaptiveModulationIsOn": false,
+      "atpcIsOn": false,
+      "xpicIsOn": false,
+      "modulationIsOn": true,
+      "autoFreqSelectIsOn": false,
+      "mimoIsOn": false,
+      "autoFreqSelectRange": -1,
+      "encryptionIsOn": false,
+      "alicIsOn": false,
+      "problemKindSeverityList": [
+       {
+        "problemKindName": "radioIsFaulty",
+        "problemKindSeverity": "major"
+       },
+       {
+        "problemKindName": "modemIsFaulty",
+        "problemKindSeverity": "major"
+       },
+       {
+        "problemKindName": "signalIsLost",
+        "problemKindSeverity": "critical"
+       },
+       {
+        "problemKindName": "temperatureIsExceeded",
+        "problemKindSeverity": "major"
+       },
+       {
+        "problemKindName": "rslIsExceeded",
+        "problemKindSeverity": "major"
+       },
+       {
+        "problemKindName": "modulationIsDownShifted",
+        "problemKindSeverity": "warning"
+       }
+      ],
+      "radioSignalID": "32",
+      "atpcThreshLower": 99,
+      "rxFrequency": -1,
+      "rxChannelBandwidth": -1,
+      "polarization": "not-specified",
+      "airInterfaceName": "AirInterface#2",
+      "receiverIsOn": true,
+      "maintenanceTimer": -1,
+      "atpcThreshUpper": 99,
+      "txChannelBandwidth": -1,
+      "transmitterIsOn": false,
+      "modulationMax": -1
+     },
+     "revision": "2016-08-11",
+     "layerProtocol": "LP-MWPS-ifIndex2"
     }
    ],
    "MW_PureEthernetStructure_Pac": [
@@ -388,7 +618,39 @@
       ]
      },
      "revision": "2016-08-11",
-     "layerProtocol": "LP-MWS-1"
+     "layerProtocol": "LP-MWS-ifIndex2"
+    },
+    {
+     "pureEthernetStructureConfiguration": {
+      "problemKindSeverityList": [
+       {
+        "problemKindName": "modulationIsDownShifted",
+        "problemKindSeverity": "warning"
+       },
+       {
+        "problemKindName": "temperatureIsExceeded",
+        "problemKindSeverity": "warning"
+       },
+       {
+        "problemKindName": "radioIsFaulty",
+        "problemKindSeverity": "warning"
+       },
+       {
+        "problemKindName": "rslIsExceeded",
+        "problemKindSeverity": "warning"
+       },
+       {
+        "problemKindName": "modemIsFaulty",
+        "problemKindSeverity": "warning"
+       },
+       {
+        "problemKindName": "signalIsLost",
+        "problemKindSeverity": "warning"
+       }
+      ]
+     },
+     "revision": "2016-08-11",
+     "layerProtocol": "LP-MWS-ifIndex1"
     }
    ],
    "MW_EthernetContainer_Pac": [
@@ -400,7 +662,11 @@
       "vlanCompressionIsOn": false,
       "segmentsIDList": [
        {
-        "structureIdRef": "LTP-MWS-1",
+        "structureIdRef": "LTP-MWS-ifIndex1",
+        "segmentIdRef": 1
+       },
+       {
+        "structureIdRef": "LTP-MWS-ifIndex2",
         "segmentIdRef": 1
        }
       ],
@@ -419,11 +685,11 @@
       ],
       "layer4CompressionIsOn": false,
       "cryptographicKey": "********",
-      "containerID": "LTP-ETH-CTP-1",
+      "containerID": "LTP-ETH-CTP-ifIndex1",
       "layer2CompressionIsOn": false
      },
      "revision": "2016-08-11",
-     "layerProtocol": "LP-ETH-CTP-1"
+     "layerProtocol": "LP-ETH-CTP-ifIndex1"
     }
    ]
   }
