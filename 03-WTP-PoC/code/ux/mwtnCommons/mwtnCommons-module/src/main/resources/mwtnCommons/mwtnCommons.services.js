@@ -24,6 +24,12 @@ if (!String.prototype.format) {
   };
 }
 
+if (!Array.prototype.contains) {
+  Array.prototype.contains = function (v) {
+    return this.indexOf(v) > -1;
+  };
+}
+
 if (!Array.prototype.clean) {
   Array.prototype.clean = function(deleteValue) {
     for (var i = 0; i < this.length; i++) {
@@ -230,6 +236,7 @@ define(
           case 'container':
             if (spec.partId) {
               service.getConditionalPackagePart(spec).then(function(success){
+                success.layerProtocol = spec.layerProtocolId;
                 deferred.resolve(success);
               }, function(error){
                 $mwtnLog.error({component: COMPONENT, message: 'Requesting conditional package of ' + JSON.stringify(spec) + ' failed!'});
@@ -1370,11 +1377,23 @@ define(
           this.getData = function() {
            return this.data;
           };
+          this.getNumberOfLtps = function() {
+            return this.data._ltpRefList.length;
+          }
           this.getServerLtps = function(layerProtocolRef) {
             var result = [];
             var ltpList = this.data._ltpRefList.map(function(ltp){
               if (ltp._lpList[0].uuid === layerProtocolRef) {
                 result =  ltp._serverLtpRefList;
+              }
+            });
+            return result;
+          };
+          this.getClientLtpIds = function(layerProtocolRef) {
+            var result = [];
+            var ltpList = this.data._ltpRefList.map(function(ltp){
+              if (ltp._lpList[0].uuid === layerProtocolRef) {
+                result =  ltp._clientLtpRefList;
               }
             });
             return result;
@@ -1394,13 +1413,16 @@ define(
                 return ltp;
               }
             });
-            return ltpList;
+            return ltpList.clean(null);
           };
           this.getLTPMwpsList = function() {
             return this.getLtpsByLayer('MWPS');
           };
           this.getLTPMwsList = function() {
             return this.getLtpsByLayer('MWS');
+          };
+          this.getLTPEthCtpList = function() {
+            return this.getLtpsByLayer('ETH-CTP');
           };
         };
         return OnfNetworkElement;
@@ -1414,8 +1436,11 @@ define(
           this.getData = function() {
            return this.data;
           };
+          this.getLayerProtocolId = function() {
+            return this.data.layerProtocol;
+          };
           this.getRadioSignalId = function() {
-            return this.data.airInterfaceConfiguration.radioSignalId;
+            return this.data.airInterfaceConfiguration.radioSignalID;
           };
           this.isLinkUp = function() {
             return this.data.airInterfaceStatus.linkIsUp;
@@ -1432,7 +1457,7 @@ define(
 
       mwtnCommonsApp.register.factory('MicrowaveSection', function() {
         // Classes
-        // Class OnfNetworkElement
+        // Class MicrowaveSection
         var MicrowaveSection = function(data) {
           this.data = data;
           this.getData = function() {

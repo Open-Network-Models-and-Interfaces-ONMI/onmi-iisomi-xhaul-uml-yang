@@ -29,7 +29,84 @@ define(['app/mwtnCompare/mwtnCompare.module',
         numberOfLTPs: false,
         numberOfLTPsStatus: 'unknown',
         radioSignalIds: false,
-        radioSignalIdsStatus: 'unknown'
+        radioSignalIdsStatus: 'unknown',
+        mapping: {},
+        addActualRadioSignalId: function(rsId) {
+          if (!this.actualRadioSignalIds) {
+            this.actualRadioSignalIds = [];
+          }
+          if (this.actualRadioSignalIds.contains(rsId)) {
+            return;
+          }
+          this.actualRadioSignalIds.push(rsId);
+          this.actualRadioSignalIds.sort();
+          this.checkRadioSignalIdsStatus();
+        },
+        clearActualNumberOfLtps: function() {
+          this.actualNumberOfLtps = undefined;
+          this.numberOfLTPs = false;
+          this.numberOfLTPsStatus = this.requiredNumberOfLtps;
+        },
+        clearActualRadioSignalIds: function() {
+          this.actualRadioSignalIds = undefined;
+          this.radioSignalIds = false;
+          this.radioSignalIdsStatus = this.requiredRadioSignalIds;
+        },
+        setRequiredNumberOfLtps: function(rNoLtps) {
+          this.requiredNumberOfLtps = rNoLtps;
+          this.checkNumberOfLTPs();
+        },
+        setRequiredRadioSignalIds: function(rRsIds) {
+          this.requiredRadioSignalIds = rRsIds.sort();
+          this.checkRadioSignalIdsStatus();
+        },
+        setActualNumberOfLtps: function(aNoLtps) {
+          this.actualNumberOfLtps = aNoLtps;
+          this.checkNumberOfLTPs();
+        },
+        setActualRadioSignalIds: function(aRsIds) {
+          this.actualRadioSignalIds = aRsIds.sort();
+          this.checkRadioSignalIdsStatus();
+        },
+        checkNumberOfLTPs: function() {
+          if (!this.requiredNumberOfLtps) {
+            this.numberOfLTPs = false;
+            this.numberOfLTPsStatus = 'unknown';
+          } else {
+            if (!this.actualNumberOfLtps) {
+              this.numberOfLTPs = false;
+              this.numberOfLTPsStatus = this.requiredNumberOfLtps;
+            } else {
+              if (this.requiredNumberOfLtps === this.actualNumberOfLtps) {
+                this.numberOfLTPs = true;
+                this.numberOfLTPsStatus = this.requiredNumberOfLtps;
+              } else {
+                this.numberOfLTPs = false;
+                this.numberOfLTPsStatus = ['required:', this.requiredNumberOfLtps, 'does not match actual:',this.actualNumberOfLtps].join(' ');
+              }
+            }
+          }
+        },
+        checkRadioSignalIdsStatus: function() {
+          if (!this.requiredRadioSignalIds) {
+            this.radioSignalIds = false;
+            this.radioSignalIdsStatus = 'unknown';
+          } else {
+            if (!this.actualRadioSignalIds) {
+              this.radioSignalIds = false;
+              this.radioSignalIdsStatus = this.requiredRadioSignalIds;
+            } else {
+              if (JSON.stringify(this.requiredRadioSignalIds) === JSON.stringify(this.actualRadioSignalIds)) {
+                this.radioSignalIds = true;
+                this.radioSignalIdsStatus = this.requiredRadioSignalIds;
+              } else {
+                this.radioSignalIds = false;
+                this.radioSignalIdsStatus = ['required:', this.requiredRadioSignalIds, 'does not match actual:',this.actualRadioSignalIds].join(' ');
+              }
+            }
+          }
+        }
+        
     };
     
     $scope.schema = {initShowObjectCtrl:false};
@@ -80,16 +157,14 @@ define(['app/mwtnCompare/mwtnCompare.module',
   // events
     $scope.$watch('selection', function(neId, oldValue) {
       if (neId && neId !== '' && neId !== oldValue) {
+        $scope.collapseAll();
         $scope.connectionStatus = 'disconnected';
+        $scope.match.clearActualNumberOfLtps();
+        $scope.match.clearActualRadioSignalIds();
         $mwtnCompare.getConnectionStatus(neId).then(function(connectionStatus){
           $scope.connectionStatus = connectionStatus;
-        },function(error){
-          $scope.connectionStatus = 'disconnected';
-        });
-        $scope.requiredNetworkElements.map(function(rne){
-          if (rne._id === neId) {
-            $scope.requiredNetworkElement = rne._source;
-            rOnfNe = new OnfNetworkElement(rne._source.NetworkElement);
+         // get actual data
+          if ($scope.connectionStatus === 'connected') {
             var key = 'ne';
             var spec = {
                 nodeId: $scope.selection,
@@ -103,6 +178,30 @@ define(['app/mwtnCompare/mwtnCompare.module',
                 updatePart(spec, error);
                 $scope.spinner[key] = false;
               });
+          }
+          
+        },function(error){
+          $scope.connectionStatus = 'disconnected';
+        });
+        $scope.requiredNetworkElements.map(function(rne){
+          if (rne._id === neId) {
+            $scope.requiredNetworkElement = rne._source;
+            rOnfNe = new OnfNetworkElement(rne._source.NetworkElement);
+            $scope.match.setRequiredNumberOfLtps(rOnfNe.getNumberOfLtps());
+            // required NE
+            var rMwpsList = rOnfNe.getLTPMwpsList().map(function(mwpsLtp){
+              var rMwpsList = $scope.requiredNetworkElement.MW_AirInterface_Pac.map(function(mwps){
+                if (mwps.layerProtocol === mwpsLtp._lpList[0].uuid) {
+                  return new MicrowavePhysicalSection(mwps);
+                }
+              });
+              return rMwpsList.clean(undefined)[0];
+            });
+            
+            var rRadioSignalIds = rMwpsList.map(function(rMwps){
+             return rMwps.getRadioSignalId();
+            });
+            $scope.match.setRequiredRadioSignalIds(rRadioSignalIds);
           }
         });
       }
@@ -247,46 +346,87 @@ define(['app/mwtnCompare/mwtnCompare.module',
     };
     
     var updateNe = function(data) {
-      console.log(data);
+
       var rne = $scope.requiredNetworkElement;
+      if (!data) {
+        rne.NetworkElement.compares = getCompares(rne.NetworkElement);
+        return;        
+      }
       rne.NetworkElement.compares = getCompares(rne.NetworkElement, data.NetworkElement);
       aOnfNe = new OnfNetworkElement(data.NetworkElement);
-      
-      console.log(JSON.stringify(rOnfNe.getLTPMwpsList()), JSON.stringify(aOnfNe.getLTPMwpsList()));
-      console.log(JSON.stringify(rOnfNe.getLTPMwpsList()), JSON.stringify(aOnfNe.getLTPMwpsList()));
+      $scope.match.setActualNumberOfLtps(aOnfNe.getNumberOfLtps());
+      var aMwpsList = aOnfNe.getLTPMwpsList().map(function(mwpsLtp){
+        
+        var spec = {
+          nodeId: $scope.selection,
+          revision: $scope.requiredNetworkElement.onfAirIinterfaceRevision,
+          pacId: 'airinterface',
+          layerProtocolId: mwpsLtp._lpList[0].uuid,
+          partId: 'Configuration'
+        };
+
+        $mwtnCompare.getPacParts(spec).then(function(success){
+          updatePart(spec, success);
+        }, function(error){
+          updatePart(spec, error);
+        });
+        return mwpsLtp._lpList[0].uuid;
+      });
+      // console.log(aMwpsList)
+      var mwClient = rne.MW_EthernetContainer_Pac[0];
+      $scope.match.mapping[mwClient.layerProtocol] = aOnfNe.getLTPEthCtpList()[0]._lpList[0].uuid;
     };
 
     var updateAirInterface = function(spec, data) {
-      console.log(JSON.stringify(data), spec.requiredLayerProtocolId);
-      $scope.requiredNetworkElement.MW_AirInterface_Pac.map(function(mwps){
-        if (mwps.layerProtocol === spec.requiredLayerProtocolId) {
-          var actualData = data.airInterfaceConfiguration;
-          mwps.compares = getCompares(mwps.airInterfaceConfiguration, actualData);
-        }
-      });
+      if (!data) {
+        $scope.requiredNetworkElement.MW_AirInterface_Pac.map(function(mwps){
+          mwps.compares = getCompares(mwps.airInterfaceConfiguration);
+        });
+      } else {
+        var actual = new MicrowavePhysicalSection(data);
+        $scope.match.addActualRadioSignalId(actual.getRadioSignalId());
+        // console.log(actual.getRadioSignalId());
+        $scope.requiredNetworkElement.MW_AirInterface_Pac.map(function(mwps){
+          var required = new MicrowavePhysicalSection(mwps);
+          if (actual.getRadioSignalId() === required.getRadioSignalId()) {
+            $scope.match.mapping[required.getLayerProtocolId()] = actual.getLayerProtocolId();
+            var actualData = data.airInterfaceConfiguration;
+            mwps.compares = getCompares(mwps.airInterfaceConfiguration, actualData);
+  
+            // MWS mapping
+            var rMws = rOnfNe.getClientLtpIds(required.getLayerProtocolId());
+            var aMws = aOnfNe.getClientLtpIds(actual.getLayerProtocolId());
+            // In PoC just a 1:1 relation between MWPS and MWS
+            $scope.match.mapping[rOnfNe.getLpByLtpRef(rMws[0]).uuid] = aOnfNe.getLpByLtpRef(aMws[0]).uuid;
+          }
+        });
+     };
     };
 
     var updateStructure = function(spec, data) {
-      console.log(JSON.stringify(data), spec.requiredLayerProtocolId);
-      $scope.requiredNetworkElement.MW_PureEthernetStructure_Pac.map(function(mws){
-        console.log(JSON.stringify(mws.layerProtocol), rLpId, mws.layerProtocol === rLpId);
-        if (mws.layerProtocol === spec.requiredLayerProtocolId) {
-          var actualData = data.pureEthernetStructureConfiguration;
-          console.log(actualData);
-          mws.compares = getCompares(mws.pureEthernetStructureConfiguration, actualData);
-          
-        }
-      });
+      if (!data) {
+        $scope.requiredNetworkElement.MW_PureEthernetStructure_Pac.map(function(mws){
+          mws.compares = getCompares(mws.pureEthernetStructureConfiguration);
+        });
+      } else {
+        $scope.requiredNetworkElement.MW_PureEthernetStructure_Pac.map(function(mws){
+          if ($scope.match.mapping[mws.layerProtocol] === data.layerProtocol) {
+            var actualData = data.pureEthernetStructureConfiguration;
+            mws.compares = getCompares(mws.pureEthernetStructureConfiguration, actualData);
+          }
+        });
+      }
     };
 
     var updateContainer = function(spec, data) {
-      console.log(JSON.stringify(data), spec.requiredLayerProtocolId);
-      $scope.requiredNetworkElement.MW_EthernetContainer_Pac.map(function(mwClient){
-        if (mwClient.layerProtocol === spec.requiredLayerProtocolId) {
-          var actualData = data.ethernetContainerConfiguration;
-          mwClient.compares = getCompares(mwClient.ethernetContainerConfiguration, actualData);
-        }
-      });
+      // there is only one container in PoCs
+      var mwClient = $scope.requiredNetworkElement.MW_EthernetContainer_Pac[0];
+      if (!data) {
+        mwClient.compares = getCompares(mwClient.ethernetContainerConfiguration);
+      } else {
+        var actualData = data.ethernetContainerConfiguration;
+        mwClient.compares = getCompares(mwClient.ethernetContainerConfiguration, actualData);
+      }
     };
 
     var updatePart = function(spec, data) {
@@ -312,23 +452,26 @@ define(['app/mwtnCompare/mwtnCompare.module',
     $scope.$watch('status', function(status, oldValue) {
       Object.keys(status).map(function(key){
         if ($scope.selection && status[key] && status[key] !== oldValue[key]) {
-          
           var info = key.split($scope.separator);
           var spec = {
             nodeId: $scope.selection,
             revision: $scope.requiredNetworkElement.onfAirIinterfaceRevision,
             pacId: info[0],
             requiredLayerProtocolId: info[1],
-            layerProtocolId: info[1], // HACK must be a function of actuelNE uuids
+            layerProtocolId: $scope.match.mapping[info[1]],
             partId: 'Configuration'
           };
 
-          $scope.spinner[key] = true;
           if ($scope.connectionStatus !== 'connected') {
             updatePart(spec, undefined)
             return;
           }
-          
+          if (info.length > 1 && !$scope.match.mapping[info[1]]) {
+            updatePart(spec, undefined)
+            return;
+          } 
+
+          $scope.spinner[key] = true;
           $mwtnCompare.getPacParts(spec).then(function(success){
             updatePart(spec, success);
             $scope.spinner[key] = false;
