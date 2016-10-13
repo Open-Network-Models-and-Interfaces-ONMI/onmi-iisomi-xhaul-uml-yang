@@ -68,6 +68,7 @@ These instructions should also work on other Debian derivative distributions.
       sudo update-alternatives --config node
       sudo ln -s /usr/bin/nodejs /usr/bin/node
       ```
+      Please see also the instrucion for the [test automation app](https://github.com/OpenNetworkingFoundation/CENTENNIAL/blob/master/03-WTP-PoC/test/INSTALL.md).
 
   - bower: the package manager for the web components.
 
