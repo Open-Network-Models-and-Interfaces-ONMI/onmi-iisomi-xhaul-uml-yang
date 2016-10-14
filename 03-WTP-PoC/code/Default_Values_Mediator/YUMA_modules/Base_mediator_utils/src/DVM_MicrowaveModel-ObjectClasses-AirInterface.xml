@@ -2740,5 +2740,18 @@
          <ltpDirection>BIDIRECTIONAL</ltpDirection>
       </_ltpRefList>
    </NetworkElement>
+   <MW_Notifications>
+      <notificationTimeout>0</notificationTimeout>
+      <problemNotification>
+         <problemName>signalIsLost</problemName>
+         <objIdRef>MW_AirInterface_Pac[layerProtocol=LP-MWPS-ifIndex1]</objIdRef>
+         <severity>non-alarmed</severity>
+      </problemNotification>
+      <attributeValueChangedNotification>
+         <attributeName>modulationCur</attributeName>
+         <objIdRef>MW_AirInterface_Pac[layerProtocol=LP-MWPS-ifIndex1]/airInterfaceStatus</objIdRef>
+         <newValue>128</newValue>
+      </attributeValueChangedNotification>
+   </MW_Notifications>
 </data>
 
