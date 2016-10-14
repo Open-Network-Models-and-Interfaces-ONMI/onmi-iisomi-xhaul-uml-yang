@@ -396,8 +396,6 @@ define(
 
         service.executeClosedLoopAutomation = function() {
             var url = service.base+'operations/closedLoopAutomation:start';
-            console.log('URL : '+url);
-
             var request = {
                 method : 'POST',
                 url : url
@@ -405,15 +403,40 @@ define(
             var deferred = $q.defer();
 
             $http(request).then(function(success) {
-                console.log('receive data :'+success);
                 deferred.resolve(success);
             }, function(error) {
-               console.log('error');
-               $mwtnLog.error({component: COMPONENT, message: error});
                deferred.reject(error);
             });
             return deferred.promise;
         }
+
+        service.saveClosedLoopAutomation = function(enabled, value) {
+                    var url = service.base+'operations/closedLoopAutomation:save-timer';
+                    console.log('URL : '+url);
+
+                    var request = {
+                        method : 'POST',
+                        url : url,
+
+                        data : {
+                           "input" : {
+                             "enabled" : enabled,
+                             "value" : value
+                           }
+                        }
+                    };
+                    var deferred = $q.defer();
+
+                    $http(request).then(function(success) {
+                        console.log('receive data :'+success);
+                        deferred.resolve(success);
+                    }, function(error) {
+                       console.log('error');
+                       $mwtnLog.error({component: COMPONENT, message: error});
+                       deferred.reject(error);
+                    });
+                    return deferred.promise;
+                }
 
         service.getActualNetworkElements = function() {
           var url = service.base + service.url.actualNetworkElements();

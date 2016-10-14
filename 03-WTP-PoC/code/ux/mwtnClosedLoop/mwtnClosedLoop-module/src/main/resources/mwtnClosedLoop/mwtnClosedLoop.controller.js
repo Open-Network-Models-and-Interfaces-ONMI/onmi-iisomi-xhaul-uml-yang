@@ -34,14 +34,23 @@ define(['app/mwtnClosedLoop/mwtnClosedLoop.module','app/mwtnClosedLoop/mwtnClose
     $scope.executeNow = function() {
         console.log('Execute NOW');
         $mwtnCommons.executeClosedLoopAutomation().then(function(message){
-          console.log('Execute was ok '+message);
+          $mwtnLog.info({component: 'mwtnClosedLoopCtrl', message: 'Closed loop automation was started'});
+          alert('Closed loop automation was started');
         }, function(error){
-          console.log('Execute was failed');
+          $mwtnLog.error({component: 'mwtnClosedLoopCtrl', message: error});
+          alert('Error: '+error);
         });
     };
 
     $scope.save = function() {
-        alert('Save');
+        console.log('Change timer ...');
+        $mwtnCommons.saveClosedLoopAutomation(true, 100).then(function(message){
+          $mwtnLog.info({component: 'mwtnClosedLoopCtrl', message: 'Timer was changed'});
+          alert('Timer was changed')
+        }, function(error){
+          $mwtnLog.error({component: 'mwtnClosedLoopCtrl', message: error});
+          alert('Error: '+error);
+        });
     };
 
   }]);

@@ -11,10 +11,13 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.CheckedFuture;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.binding.api.MountPoint;
 import org.opendaylight.controller.md.sal.binding.api.MountPointService;
@@ -35,7 +38,6 @@ import org.opendaylight.yang.gen.v1.uri.onf.coremodel.corenetworkmodule.objectcl
 import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.objectclasses.airinterface.rev160901.MWAirInterfacePac;
 import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.objectclasses.airinterface.rev160901.MWAirInterfacePacBuilder;
 import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.objectclasses.airinterface.rev160901.MWAirInterfacePacKey;
-import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.objectclasses.airinterface.rev160901.mw_airinterface_pac.AirInterfaceConfiguration;
 import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.objectclasses.airinterface.rev160901.mw_airinterface_pac.AirInterfaceConfigurationBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.NetconfNode;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.NetconfNodeConnectionStatus;
@@ -76,12 +78,17 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 	private BindingAwareBroker.RpcRegistration registration;
 	private MountPointService mountService;
 
+	private ScheduledExecutorService scheduledExecutorService;
+	private ScheduledFuture scheduledFuture;
+
 	public ClosedLoopAutomationImpl(BindingAwareBroker.ProviderContext providerContext,  final RpcProviderRegistry rpcProviderRegistry) {
 		System.out.println("Register ClosedLoopAutomationImpl");
 		this.dataBroker = providerContext.getSALService(DataBroker.class);
 		this.mountService = providerContext.getSALService(MountPointService.class);
 		this.registration = rpcProviderRegistry.addRpcImplementation(ClosedLoopAutomationService.class, this);
 
+		scheduledExecutorService = Executors.newScheduledThreadPool(10);
+		scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this, "111"),10, 5, TimeUnit.SECONDS);
 	}
 
 	@Override
@@ -201,7 +208,6 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 
 		}
 
-//		return new UniversalId("LP-MWPS-ifIndex1");
 		return list;
 	}
 
@@ -216,20 +222,32 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 
 	@Override
 	public Future<RpcResult<SaveTimerOutput>> saveTimer(SaveTimerInput input) {
+		LOG.info("Received data. Enabled {}, Value: {} ", input.isEnabled(), input.getValue());
+
 		String message = null;
+		if (input.isEnabled()==null || input.getValue() == null) {
+			message =  "Enabled or value is empty";
+		} else {
+			ReadWriteTransaction transaction = dataBroker.newReadWriteTransaction();
 
-		ReadWriteTransaction transaction = dataBroker.newReadWriteTransaction();
+			TimerSettingBuilder builder = new TimerSettingBuilder();
+			builder.setEnabled(input.isEnabled()).setValue(input.getValue());
+			transaction.put(LogicalDatastoreType.CONFIGURATION, TIMER_SETTING_PATH,builder.build());
 
-		TimerSettingBuilder builder = new TimerSettingBuilder();
-		builder.setEnabled(input.isEnabled()).setValue(input.getValue());
-		transaction.put(LogicalDatastoreType.CONFIGURATION, TIMER_SETTING_PATH,builder.build());
+			try {
+				transaction.submit().checkedGet();
+				scheduledFuture.cancel(false);
+				if  (input.isEnabled()) {
+					scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this,"2222"),10, 5, TimeUnit.SECONDS);
+				}
 
-		try {
-			transaction.submit().checkedGet();
-			message = "ok";
-		} catch (TransactionCommitFailedException e) {
-			message = "failed";
+				LOG.info("Schdeduler has been changed");
+				message = "ok";
+			} catch (TransactionCommitFailedException e) {
+				message = "failed";
+			}
 		}
+
 
 		SaveTimerOutputBuilder saveTimerOutputBuilder = new SaveTimerOutputBuilder();
 		saveTimerOutputBuilder.setStatus(message);
@@ -270,5 +288,31 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 		if (this.registration != null) {
 			this.registration.close();
 		}
+
+		if (scheduledExecutorService != null) {
+			scheduledExecutorService.shutdown();
+		}
+	}
+}
+
+class TimerJob implements Runnable {
+	private static final Logger LOG = LoggerFactory.getLogger(TimerJob.class);
+	private ClosedLoopAutomationImpl impl;
+	private String message;
+
+	public TimerJob(ClosedLoopAutomationImpl impl, String message) {
+		this.impl = impl;
+		this.message = message;
+	}
+
+	@Override
+	public void run() {
+		LOG.info("Timer JOB start " + this.message);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		LOG.info("Timer JOB end " + this.message);
 	}
 }
