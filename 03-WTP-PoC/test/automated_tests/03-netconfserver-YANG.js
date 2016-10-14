@@ -91,19 +91,20 @@ sync.fiber(function() {
 		//changed version 2 to take yang from netconf dynamically
 		for (var i = 0; i < yangArray.length; i++) {
 
-		var yangModelName = yangArray[i];
 
-		debug.write("YANG Model Name : " + yangModelName, true, fs.openSync(parseDataFile, "a+"));
+            var yangModelName = yangArray[i];
 
-		var neNodeName = test_cases["nodeName"];
+            debug.write("YANG Model Name : " + yangModelName, true, fs.openSync(parseDataFile, "a+"));
 
-		var yangObj = yang.parse(fs.readFileSync(test_cases.YangDirectory + yangModelName + '.yang', 'utf8'));
+            var neNodeName = test_cases["nodeName"];
 
-		baseurl = restconf + '/topology/topology-netconf/node/' + neNodeName + '/yang-ext:mount/' + yangModelName + '';
+            var yangObj = yang.parse(fs.readFileSync(test_cases.YangDirectory + yangModelName + '.yang', 'utf8'));
 
-		getLeafs(yangObj, yangModelName, flag);
+            baseurl = restconf + '/topology/topology-netconf/node/' + neNodeName + '/yang-ext:mount/' + yangModelName + '';
 
-		}
+            getLeafs(yangObj, yangModelName, flag);
+        }
+
 
 		debug.write("****************EOD Test****************", true, fs.openSync(TestResultFile, "a+"));
 
@@ -177,48 +178,47 @@ sync.fiber(function() {
 
          if (res != "") {
 
-         var temp = JSON.stringify(res[0].body);
-         var jsonData = JSON.parse(temp);
+			 var temp = JSON.stringify(res[0].body);
+			 var jsonData = JSON.parse(temp);
 
-         jsonDataCopy = res[0].body;
+			 jsonDataCopy = res[0].body;
 
-         newUrl = changeAllValues(jsonData, leafData, chainType, url);
+			 newUrl = changeAllValues(jsonData, leafData, chainType, url);
 
-         if (newUrl != "")
-         finalUrl = baseurl + ":" + newUrl.substr(1);
+			 if (newUrl != "")
+			 finalUrl = baseurl + ":" + newUrl.substr(1);
 
-         var res1 =   sync.await(putUrl(finalUrl, jsonData,sync.defers()));
+			 var res1 =   sync.await(putUrl(finalUrl, jsonData,sync.defers()));
 
-         if (res1 != "") {
+			 if (res1 != "") {
 
-         sync.await(netconfCAll(sync.defers()));
+				 sync.await(netconfCAll(sync.defers()));
 
-         debug.write("Data validation started ", true, fs.openSync(TestResultFile, "a+"));
+				 debug.write("Data validation started ", true, fs.openSync(TestResultFile, "a+"));
 
-         var resData =   sync.await(readNetConfFile(sync.defers()));
+				 var resData =   sync.await(readNetConfFile(sync.defers()));
 
-         if (resData != "") {
+				 if (resData != "") {
 
-         for (var i = 0; i < netConfArray.length; i++) {
-         if ((resData.indexOf(netConfArray[i].name + '>' + netConfArray[i].value + '</' + netConfArray[i].name))) {
-         debug.write("Testcase for leaf: " + netConfArray[i].name + "new value " + netConfArray[i].value + " pass.", true, fs.openSync(TestResultFile, "a+"));
-         }
-         else {
-         debug.write("Testcase : " + netConfArray[i].name + " fail, retrive value not matched " + netConfArray[i].value, true, fs.openSync(TestResultFile, "a+"));
-         }
-         }
+					 for (var i = 0; i < netConfArray.length; i++) {
+						 if ((resData.indexOf(netConfArray[i].name + '>' + netConfArray[i].value + '</' + netConfArray[i].name))) {
+						 debug.write("Testcase for leaf: " + netConfArray[i].name + "new value " + netConfArray[i].value + " pass.", true, fs.openSync(TestResultFile, "a+"));
+						 }
+						 else {
+						 debug.write("Testcase : " + netConfArray[i].name + " fail, retrive value not matched " + netConfArray[i].value, true, fs.openSync(TestResultFile, "a+"));
+						 }
+					 }
 
+					 fs.truncate(netConfDataFile, 0, function () {
+					 });
 
-         fs.truncate(netConfDataFile, 0, function () {
-         });
+					 netConfArray = [];
 
-         netConfArray = [];
+				 }
 
-         }
+				 sync.await(revertToOriginal(finalUrl,jsonDataCopy,sync.defers()));
 
-         sync.await(revertToOriginal(finalUrl,jsonDataCopy,sync.defers()));
-
-         }
+			 }
 
          }
 		 
@@ -791,21 +791,17 @@ sync.fiber(function() {
 
 
         //handles the enum and gets all its possible values
+
+        //Start: Bug Fix – Enum value setting functionality
         if (leafObjType.hasOwnProperty('enumeration')) {
             var type = leafObjType.enumeration.enum;
-            var possibleValues = "";
             for (var ele1 in type) {
-                if (possibleValues == "") {
-                    possibleValues = ele1;
-                }
-                else if (possibleValues != "") {
-                    possibleValues = possibleValues + "," + ele1;
-                }
+                proposedValue = ele1;
+               break;
             }
-            proposedValue = possibleValues;
             return proposedValue;
         }
-
+        //End: Bug Fix – Enum value setting functionality
 
         if (leafObjType.hasOwnProperty("leafref")) {
             proposedValue = "skip";
@@ -896,7 +892,21 @@ sync.fiber(function() {
 
     }
 
-    function UsesSecond(yangModuleName, groupingName, url, type){
+	//Start: Bug Fix – Enum value setting functionality - this function has been called from many places
+	function typeDef(module){
+
+		if (module.hasOwnProperty('typedef')) {
+
+			var typedef = module.typedef;
+			for (var ele in typedef) {
+				typeDefArray.push({typedef: ele, type: typedef[ele].type});
+			}
+		}
+
+	}
+	//End: Bug Fix – Enum value setting functionality
+	
+	function UsesSecond(yangModuleName, groupingName, url, type){
 
         var currentType = "Grouping";
         var chainType = "";
@@ -910,17 +920,18 @@ sync.fiber(function() {
         var yangModelName = yangModuleName;
         var yangObj = yang.parse(fs.readFileSync(test_cases.YangDirectory + yangModelName + '.yang', 'utf8'));
         var module = yangObj.module[yangModelName];
+        typeDef(module);
 
 		debug.write("Parsing within Uses block " + url, true, fs.openSync(TestResultFile, "a+"));
         if (module.hasOwnProperty('grouping')){
             var groupingObject = module['grouping'][groupingName];
 
             if (groupingObject.hasOwnProperty('container')) {
-                getContainer(groupingObject, yangModelName, url, chainType);
+                getContainer(groupingObject, yangModelName, url, chainType,module);
             }
 
             if (groupingObject.hasOwnProperty('list')) {
-                getList(groupingObject, yangModelName, url, chainType);
+                getList(groupingObject, yangModelName, url, chainType,module);
             }
 
             if (groupingObject.hasOwnProperty('leaf')) {
@@ -935,6 +946,7 @@ sync.fiber(function() {
 
             if (groupingObject.hasOwnProperty('uses')){
                 if (groupingObject.uses.indexOf(":") != -1) {
+                    typeDef(module);
                     UsesSecond(groupingObject.uses.split(":")[0],groupingObject.uses.split(":")[1],url,chainType);
                 }
                 else {
@@ -945,7 +957,7 @@ sync.fiber(function() {
 		}
 	}
 
-	function getContainer(groupingObject, yangModelName, url, type){
+	function getContainer(groupingObject, yangModelName, url, type,module){
 
 		var currentType = "Container";
 		var chainType = "";
@@ -963,6 +975,7 @@ sync.fiber(function() {
 			url = url + "/" + ele;
 			if (containerObject[ele].hasOwnProperty('uses')){
 				if (containerObject[ele].uses.indexOf(":") != -1) {
+                    typeDef(module);
 					UsesSecond(containerObject[ele].uses.split(":")[0],containerObject[ele].uses.split(":")[1],url,chainType);
 				}
 				else {
@@ -978,10 +991,10 @@ sync.fiber(function() {
 				}
 			}
 			if (containerObject[ele].hasOwnProperty('list')){
-				getList(containerObject[ele],yangModelName,url,chainType);
+				getList(containerObject[ele],yangModelName,url,chainType,module);
 			}
 			if (containerObject[ele].hasOwnProperty('container')){
-				getContainer(containerObject[ele],yangModelName,url,chainType);
+				getContainer(containerObject[ele],yangModelName,url,chainType,module);
 			}
 		}
 	}
@@ -1012,6 +1025,7 @@ sync.fiber(function() {
 
 			}
 			else {
+
 				proposedValue = getProposedValues(leafObject[ele]);
 				localArray = getLeafData(leafObject[ele], ele, "", proposedValue, url, "", config);
 			}
@@ -1025,7 +1039,7 @@ sync.fiber(function() {
 	}
 
 
-	function getList(groupingObject, yangModelName, url, type){
+	function getList(groupingObject, yangModelName, url, type,module){
 
 		var currentType = "List";
 		var chainType = "";
@@ -1053,6 +1067,7 @@ sync.fiber(function() {
 
 			if (listObject[ele].hasOwnProperty('uses')){
 				if (listObject[ele].uses.indexOf(":") != -1) {
+                    typeDef(module);
 					UsesSecond(listObject[ele].uses.split(":")[0],listObject[ele].uses.split(":")[1],url,chainType);
 				}
 				else {
@@ -1068,10 +1083,10 @@ sync.fiber(function() {
 				}
 			}
 			if (listObject[ele].hasOwnProperty('container')){
-				getContainer(listObject[ele],yangModelName,url,chainType);
+				getContainer(listObject[ele],yangModelName,url,chainType,module);
 			}
 			if (listObject[ele].hasOwnProperty('list')){
-				getList(listObject[ele],yangModelName,url,chainType);
+				getList(listObject[ele],yangModelName,url,chainType,module);
 			}
 		}
 	}
@@ -1133,4 +1148,5 @@ sync.fiber(function() {
 
 		});
 	}
+
 

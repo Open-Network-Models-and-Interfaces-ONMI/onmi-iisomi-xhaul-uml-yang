@@ -26,7 +26,7 @@ To check npm modules installation
 
 ```
 npm ls
-(should resturn an errorless installed module tree)
+(should return an errorless installed module tree)
 ```
 
 Run the Test Scripts
@@ -38,21 +38,20 @@ To run the automated tests under node js:
 node <test_case>
 ```
 
-Logfiles produced by the scripts can be found under folder: ./automated_test/netconf_client/core/logs.
+Logfiles produced by the scripts can be found under folder: ./automated_tests/logs.
 
 Static configuration values for all the scripts are to be set in ./config.json file.
 
 
-Script <01-standalone-YANG-parser.js> DOES NOT require the mounted DVM03 resource in place and can be executed from a terminal.
+Script <01-standalone-YANG-parser.js> DOES NOT require the mounted DVM03 resource in place and can be executed from a terminal (see file header for purpose description).
+For the above script only, ./automated_test/input/test-cases.json file must be set to specify the YANG models/containers to be parsed.
 
-(For the above script only, ./automated_test/input/test-cases.json file must be set to specify the YANG models/containers to be parsed.)
+Script <02-netconfserver-YANG-parser.js> requires the mounted DVM03 resource in place (see file header for purpose description).
 
-Script <02-netconfserver-YANG-parser.js> requires the mounted DVM03 resource in place.
-
-Script <03-netconfserver-YANG.js> requires the mounted DVM03 resource in place
+Script <03-netconfserver-YANG.js> requires the mounted DVM03 resource in place (see file header for purpose description).
 
 
-In order to mount the netconf server it is possible to leverage the script: './test-env/base-mediator/mediator-mount.sh ./config.json' after having filled properly the ./config.json file
+In order to mount the PoC3 netconf server (DVM03) it is possible to leverage the script: './test-env/base-mediator/mediator-mount.sh ./config.json' after having filled properly the ./config.json file
 
 
 
