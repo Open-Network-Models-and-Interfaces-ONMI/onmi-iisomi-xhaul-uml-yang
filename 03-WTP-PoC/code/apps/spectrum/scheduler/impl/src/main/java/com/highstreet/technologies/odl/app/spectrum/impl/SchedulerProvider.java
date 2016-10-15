@@ -9,8 +9,10 @@ package com.highstreet.technologies.odl.app.spectrum.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.highstreet.technologies.odl.app.spectrum.impl.api.Communicator;
+import com.highstreet.technologies.odl.app.spectrum.impl.api.DataAgent;
 import com.highstreet.technologies.odl.app.spectrum.impl.api.MosAgent;
 import com.highstreet.technologies.odl.app.spectrum.impl.api.RestfulODLCommunicator;
+import com.highstreet.technologies.odl.app.spectrum.impl.meta.DN;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Pair;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Result;
 import com.highstreet.technologies.odl.app.spectrum.impl.task.SpectrumTask;
@@ -24,6 +26,8 @@ import org.slf4j.LoggerFactory;
 import java.net.Authenticator;
 import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.Singleton.getInstance;
 
@@ -52,7 +56,21 @@ public class SchedulerProvider implements BindingAwareProvider, AutoCloseable
         schedulerService = session.addRpcImplementation(SchedulerService.class, new SchedulerRpc());
 
         getInstance(TaskFactory.class).register("test", () ->
-                new SpectrumTask((dnAgent, attrName) -> 700, new Communicator()
+                new SpectrumTask(new DataAgent()
+                {
+
+                    @Override
+                    public Object get(DN dnAgent, String attrName)
+                    {
+                        return 700;
+                    }
+
+                    @Override
+                    public List<String> ls(DN dnAgent) throws Exception
+                    {
+                        return new ArrayList<>();
+                    }
+                }, new Communicator()
                 {
                     @Override
                     public Result<JsonNode> ls(String path, String targetName)

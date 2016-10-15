@@ -17,8 +17,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ThreadPoolExecutor;
 
-import static com.highstreet.technologies.odl.app.spectrum.impl.meta.Pair.pair;
-import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.NotEquals.notEqualsThen;
 import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.When.when;
 
 /**
@@ -34,11 +32,14 @@ public class SpectrumTask implements Task
 
     private DataAgent agent;
     private Communicator communicator;
+    private static NextFrequencyGetter getter;
 
     public SpectrumTask(DataAgent agent, Communicator communicator)
     {
         this.agent = agent;
         this.communicator = communicator;
+        if (this.agent == null)
+            getter = new NextFrequencyGetter(agent);
     }
 
     @Override
@@ -65,16 +66,14 @@ public class SpectrumTask implements Task
                                             when(() -> lpName.contains("MWPS"), () ->
                                             {
                                                 LOG.info("adding task to threadPool of " + dnAgent);
-                                                notEqualsThen(agent.get(dnAgent, "txFrequency"),
-                                                        communicator.get(dnODL, "txFrequency"),
-                                                        () -> communicator.set(dnODL,
-                                                                pair("txFrequency", agent.get(dnAgent, "txFrequency")),
-                                                                pair("rxFrequency", agent.get(dnAgent, "rxFrequency"))));
-//                                                executor.execute(() ->
+                                                executor.execute(() -> communicator.set(dnODL,
+                                                        getter.next(dnAgent, "txFrequency", communicator.get(dnODL, "txFrequency")),
+                                                        getter.next(dnAgent, "rxFrequency", communicator.get(dnODL, "rxFrequency"))));
                                             });
 
                                         })));
                             });
                         })));
     }
+
 }
