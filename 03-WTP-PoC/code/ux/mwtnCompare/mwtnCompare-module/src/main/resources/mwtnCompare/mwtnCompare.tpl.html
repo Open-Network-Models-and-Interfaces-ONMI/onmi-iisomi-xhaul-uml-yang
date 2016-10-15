@@ -38,6 +38,7 @@
 		</div>
 	</div>
 	<div class="container" style="width: 100%">
+	    <hr/>
 		<div class="row">
 		<uib-accordion close-others="oneATime">
 
@@ -102,14 +103,14 @@
     <h4 style="color: #444444;">
      <b>{{item}}</b>
     </h4>
-    <p ng-repeat="p in getDescription(item)">{{ p }}</p>
+    {{schema[item].description}}
    </div>
   </td>
   <td style="width: 50%">
    <h4 style="color: #444444;">
     <b>AirInterfaceConfiguration</b>
    </h4>
-   <p ng-repeat="p in getDescription('AirInterfaceConfiguration')">{{ p }}</p>
+     {{schema['AirInterfaceConfiguration'].description}}
   </td>
 
  </tr>
@@ -168,18 +169,18 @@
    <tr>
 
     <td style="width: 50%">
-     <div ng-repeat="item in ['LogicalTerminationPoint', 'LayerProtocol', 'MW_Structure_Pac']">
+     <div ng-repeat="item in ['LogicalTerminationPoint', 'LayerProtocol', 'MW_PureEthernetStructure_Pac']">
       <h4 style="color: #444444;">
        <b>{{item}}</b>
       </h4>
-      <p ng-repeat="p in getDescription(item)">{{ p }}</p>
+    {{schema[item].description}}
      </div>
     </td>
     <td style="width: 50%">
      <h4 style="color: #444444;">
-      <b>StructureConfiguration</b>
+      <b>PureEthernetStructureConfiguration</b>
      </h4>
-     <p ng-repeat="p in getDescription('StructureConfiguration')">{{ p }}</p>
+    {{schema['PureEthernetStructureConfiguration'].description}}
     </td>
 
    </tr>
@@ -232,20 +233,20 @@
    <tr>
 
     <td style="width: 50%">
-     <div ng-repeat="item in ['LogicalTerminationPoint', 'LayerProtocol', 'MW_Container_Pac']">
+     <div ng-repeat="item in ['LogicalTerminationPoint', 'LayerProtocol', 'MW_EthernetContainer_Pac']">
       <h4 style="color: #444444;">
        <b>{{item}}</b>
       </h4>
-      <p ng-repeat="p in getDescription(item)">{{ p }}</p>
+    {{schema[item].description}}
      </div>
 
     </td>
     <td style="width: 50%">
-     <div ng-repeat="item in ['ContainerConfiguration', 'container']">
+     <div ng-repeat="item in ['EthernetContainerConfiguration', 'ethernetContainerConfiguration']">
       <h4 style="color: #444444;">
        <b>{{item}}</b>
       </h4>
-      <p ng-repeat="p in getDescription(item)">{{ p }}</p>
+    {{schema[item].description}}
      </div>
 
     </td>
@@ -305,14 +306,14 @@
 
 
   </div>
-  <div uib-accordion-group panel-class="panel-odl" ng-repeat="mws in ne.MW_Structure_Pac" is-open="mws.open"> <uib-accordion-heading>
+  <div uib-accordion-group panel-class="panel-odl" ng-repeat="mws in ne.MW_PureEthernetStructure_Pac" is-open="mws.open"> <uib-accordion-heading>
   <i class="pull-left" ng-class="{'icon-angle-down': mws.open, 'icon-angle-right': !mws.open}"></i> <span>
    LTP ({{mws.layerProtocol}})
    <span></uib-accordion-heading>
 
 
   </div>
-  <div uib-accordion-group panel-class="panel-odl" ng-repeat="mwClient in ne.MW_Container_Pac" is-open="mwClient.open"> <uib-accordion-heading>
+  <div uib-accordion-group panel-class="panel-odl" ng-repeat="mwClient in ne.MW_EthernetContainer_Pac" is-open="mwClient.open"> <uib-accordion-heading>
   <i class="pull-left" ng-class="{'icon-angle-down': mwClient.open, 'icon-angle-right': !mwClient.open}"></i> <span>
    LTP ({{mwClient.layerProtocol}})
    <span></uib-accordion-heading>

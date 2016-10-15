@@ -12,8 +12,8 @@ define(['app/mwtnCompare/mwtnCompare.module',
         'app/mwtnCompare/mwtnCompare.directives',
         'app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min'], function(mwtnCompareApp) {
 
-  mwtnCompareApp.register.controller('mwtnCompareCtrl', ['$scope', '$rootScope', '$mwtnCompare', '$mwtnLog', 'OnfNetworkElement', 'MicrowavePhysicalSection', 'MicrowaveSection',  
-                                                         function($scope, $rootScope, $mwtnCompare, $mwtnLog, OnfNetworkElement, MicrowavePhysicalSection, MicrowaveSection) {
+  mwtnCompareApp.register.controller('mwtnCompareCtrl', ['$scope', '$rootScope', '$mwtnCompare', '$mwtnLog', 'orderByFilter', 'OnfNetworkElement', 'MicrowavePhysicalSection', 'MicrowaveSection',  
+                                                         function($scope, $rootScope, $mwtnCompare, $mwtnLog, orderBy, OnfNetworkElement, MicrowavePhysicalSection, MicrowaveSection) {
 
     $rootScope['section_logo'] = 'src/app/mwtnCompare/images/mwtnCompare.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
@@ -266,7 +266,8 @@ define(['app/mwtnCompare/mwtnCompare.module',
               match : match,
               missingActualValueLabelId : missingActualValueLabelId,
               unit : $scope.schema[labelId].unit,
-              description : $scope.schema[labelId].description,
+              order: $scope.schema[labelId]['order-number'],
+              description :  $scope.schema[labelId].description,
               showDescriptions : false
             });
             break;
@@ -287,7 +288,8 @@ define(['app/mwtnCompare/mwtnCompare.module',
                 match : true,
                 missingActualValueLabelId : missingActualValueLabelId,
                 unit : $scope.schema[labelId].unit,
-                description : $scope.schema[labelId].description,
+                order: $scope.schema[labelId]['order-number'],
+                description :  $scope.schema[labelId].description,
                 showDescriptions : false
               });
             }
@@ -316,7 +318,8 @@ define(['app/mwtnCompare/mwtnCompare.module',
                 match : match,
                 missingActualValueLabelId : missingActualValueLabelId,
                 unit : $scope.schema[labelId].unit,
-                description : $scope.schema[labelId].description,
+                order: $scope.schema[labelId]['order-number'],
+                description :  $scope.schema[labelId].description,
                 showDescriptions : false
               });
               break;
@@ -336,13 +339,15 @@ define(['app/mwtnCompare/mwtnCompare.module',
                 match : match,
                 missingActualValueLabelId : missingActualValueLabelId,
                 unit : $scope.schema[labelId].unit,
-                description : $scope.schema[labelId].description,
+                order: $scope.schema[labelId]['order-number'],
+                description :  $scope.schema[labelId].description,
                 showDescriptions : false
               });
             }
           }
       }
-      return compares;
+      return orderBy(compares, 'order', false);
+;
     };
     
     var updateNe = function(data) {
@@ -377,10 +382,23 @@ define(['app/mwtnCompare/mwtnCompare.module',
       $scope.match.mapping[mwClient.layerProtocol] = aOnfNe.getLTPEthCtpList()[0]._lpList[0].uuid;
     };
 
+    var addShowDescriptionEvent = function(obj) {
+      $scope.$watch(function() {
+        return obj.showDescriptions;
+      }, function(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          obj.compares.map(function(compare){
+            compare.showDescriptions = newValue;
+          });
+        }
+      });
+    };
+
     var updateAirInterface = function(spec, data) {
       if (!data) {
         $scope.requiredNetworkElement.MW_AirInterface_Pac.map(function(mwps){
           mwps.compares = getCompares(mwps.airInterfaceConfiguration);
+          addShowDescriptionEvent(mwps);
         });
       } else {
         var actual = new MicrowavePhysicalSection(data);
@@ -392,6 +410,7 @@ define(['app/mwtnCompare/mwtnCompare.module',
             $scope.match.mapping[required.getLayerProtocolId()] = actual.getLayerProtocolId();
             var actualData = data.airInterfaceConfiguration;
             mwps.compares = getCompares(mwps.airInterfaceConfiguration, actualData);
+            addShowDescriptionEvent(mwps);
   
             // MWS mapping
             var rMws = rOnfNe.getClientLtpIds(required.getLayerProtocolId());
@@ -407,12 +426,14 @@ define(['app/mwtnCompare/mwtnCompare.module',
       if (!data) {
         $scope.requiredNetworkElement.MW_PureEthernetStructure_Pac.map(function(mws){
           mws.compares = getCompares(mws.pureEthernetStructureConfiguration);
+          addShowDescriptionEvent(mws);
         });
       } else {
         $scope.requiredNetworkElement.MW_PureEthernetStructure_Pac.map(function(mws){
           if ($scope.match.mapping[mws.layerProtocol] === data.layerProtocol) {
             var actualData = data.pureEthernetStructureConfiguration;
             mws.compares = getCompares(mws.pureEthernetStructureConfiguration, actualData);
+            addShowDescriptionEvent(mws);
           }
         });
       }
@@ -423,9 +444,11 @@ define(['app/mwtnCompare/mwtnCompare.module',
       var mwClient = $scope.requiredNetworkElement.MW_EthernetContainer_Pac[0];
       if (!data) {
         mwClient.compares = getCompares(mwClient.ethernetContainerConfiguration);
+        addShowDescriptionEvent(mwClient);
       } else {
         var actualData = data.ethernetContainerConfiguration;
         mwClient.compares = getCompares(mwClient.ethernetContainerConfiguration, actualData);
+        addShowDescriptionEvent(mwClient);
       }
     };
 
@@ -479,10 +502,12 @@ define(['app/mwtnCompare/mwtnCompare.module',
             updatePart(spec, error);
             $scope.spinner[key] = false;
           });
+
         }
       });   
     }, true);
 
+    
   
   }]);
 

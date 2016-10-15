@@ -7,7 +7,7 @@
  */
 
 define(['angularAMD', 'app/routingConfig', 'app/core/core.services', 'common/config/env.module'], function(ng) {
-  var mwtnCompareApp = angular.module('app.mwtnCompare', ['app.core', 'ui.router.state','config']);
+  var mwtnCompareApp = angular.module('app.mwtnCompare', ['app.core', 'ui.router.state','config', 'pascalprecht.translate']);
 
   mwtnCompareApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $translateProvider) {
     mwtnCompareApp.register = {

@@ -1,4 +1,4 @@
-<td style="text-align: right;" ng-class="{ 'red': !item.match }">{{	item.labelId | translate }}</td>
+<td style="text-align: right;" ng-class="{ 'red': !item.match }">{{['mwtn', item.labelId].join('_').toUpperCase() | translate}}</td>
 <td><b ng-class="{ 'red': !item.match }">{{ item.requiredValue}}</b></td>
 <td>
 	<!-- [sko]: Bug reported by Amy: Of cause item.actualValue === false does not mean "missing"
@@ -7,5 +7,5 @@
 </td>
 <td>{{ item.unit }}</td>
 <td style="max-width: 300px;" ng-show="item.showDescriptions">
-	<p ng-repeat="p in item.description">{{ p }}</p>
+	    {{item.description}}
 </td>
