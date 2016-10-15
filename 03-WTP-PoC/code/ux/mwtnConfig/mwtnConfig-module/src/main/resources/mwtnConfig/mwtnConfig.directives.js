@@ -45,7 +45,13 @@ define([ 'app/mwtnConfig/mwtnConfig.module',], function(mwtnConfigApp) {
             }
           });
         }, function(error){
-          console.error(error);
+          console.log('no schema ;(');
+          update();
+          $scope.$watch('parameters', function(nv, ov){
+            if (nv && nv !== ov) {
+              update();
+            }
+          });
         });
         
         $scope.getType = function(value) {

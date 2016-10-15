@@ -200,6 +200,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
         // console.log(JSON.stringify(container));
         if (container.layerProtocol === lpId) {
           if (Object.keys(data)[0].contains('ontainer') ) {
+            console.log('1', data);
             container[part] = data;            
           } else if (part === 'Capability') {
             // 2. PoC
@@ -232,7 +233,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
         updateStructure(spec.layerProtocolId, spec.partId, data);
         break;
       case 'container':
-        // console.log(JSON.stringify(data));
+        console.log(JSON.stringify('2', data));
         updateContainer(spec.layerProtocolId, spec.partId, data);
         break;
       }
@@ -291,6 +292,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
           partId: 'Configuration'
         };
         $mwtnConfig.getPacParts(spec).then(function(success){
+          console.log('3', success);
           updatePart(spec, success);
         }, function(error){
           updatePart(spec, error);
@@ -331,6 +333,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
             partId: info[2]
           };
           $mwtnConfig.getPacParts(spec).then(function(success){
+            console.log('4', success);
             updatePart(spec, success);
             $scope.spinner[key] = false;
           }, function(error){
@@ -661,7 +664,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
               name: parameter,
               value: $scope.objValue[parameter],
               order: 0,
-              unit:  'error',
+              unit:  '',
             }
           }
         });
@@ -707,8 +710,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
       };
       
       $scope.schema = {initShowObjectCtrl:false};
-      $mwtnConfig.getSchema().then(function(data){
-        $scope.schema = data;
+      var processAttributes = function() {
         var getControlType = function(umlType) {
           var result = controlTypes[umlTypes.indexOf(umlType)];
           if (!result) {
@@ -737,16 +739,21 @@ define(['app/mwtnConfig/mwtnConfig.module',
               name: parameter,
               value: $scope.object.data[parameter],
               order: 0,
-              unit:  'error',
+              unit:  '',
             }
           }
         });
         
         $scope.attributes =  orderBy(attributes.clean(null), 'order', false);
         console.log(JSON.stringify($scope.attributes));
-
+      };
+      
+      $mwtnConfig.getSchema().then(function(data){
+        $scope.schema = data;
+        processAttributes();
       }, function(error){
         console.log('bad luck - no schema ;( ');
+        processAttributes();
       });
 
       $scope.ok = function () {

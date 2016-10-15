@@ -46,7 +46,7 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnConfig/mwtnConfig.module'
             name: parameter,
             value: object[parameter],
             order: 0,
-            unit:  'error',
+            unit:  '',
           }
         }
       });
