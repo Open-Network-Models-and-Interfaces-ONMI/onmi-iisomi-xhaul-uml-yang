@@ -19,8 +19,11 @@ import org.slf4j.LoggerFactory;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.JsonUtil.newArrayNode;
+import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.JsonUtil.toObject;
 
 /**
  * Created by olinchy on 9/27/16.
@@ -130,5 +133,56 @@ public class MosAgent implements DataAgent
             logger.warn("get attr " + attrName + "of " + dnAgent + " from data agent failed!", e);
         }
         return null;
+    }
+
+    @Override
+    public List<String> ls(DN dnAgent) throws Exception
+    {
+        Result<String> result = this.lsMo(dnAgent);
+        if (result.isSuccess())
+            return result.getMo();
+
+        return new ArrayList<>();
+    }
+
+    private Result<String> lsMo(final DN dn) throws Exception
+    {
+        return methodShell(
+                new Executor<String>()
+                {
+                    @Override
+                    public Result<String> post(JsonNode result, DataAgent service)
+                            throws Exception
+                    {
+                        if (result.findValue("result").intValue() == 0)
+                        {
+                            return new Successful<>(
+                                    toObject(result.findValue("children").toString(), ArrayList.class));
+                        } else
+                        {
+                            return toObject(result.toString(), Failure.class);
+                        }
+                    }
+
+                    @Override
+                    public Result postException(Throwable throwable, DataAgent service)
+                    {
+                        return new Failure(throwable);
+                    }
+
+                    @Override
+                    public JsonNode exec() throws Exception
+                    {
+                        try
+                        {
+                            return client.invoke(
+                                    "ls", new Object[]{sessionId, dn.toString(), new Maybe<Integer>()},
+                                    JsonNode.class);
+                        } catch (Throwable e)
+                        {
+                            throw new Exception(e);
+                        }
+                    }
+                });
     }
 }

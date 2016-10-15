@@ -5,16 +5,13 @@
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
-package com.highstreet.technologies.odl.app.spectrum.impl.task;
-
-import java.util.concurrent.ThreadPoolExecutor;
+package com.highstreet.technologies.odl.app.spectrum.impl.primitive;
 
 /**
- * Created by olinchy on 16-9-14.
+ * Created by olinchy on 15/10/2016.
  */
-public interface Task
+public interface Next
 {
-    void executeIn(ThreadPoolExecutor executor);
-
+    int next(int currentIndex);
 
 }
