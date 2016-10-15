@@ -29,6 +29,7 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnConfig/mwtnConfig.module'
     
     service.getAttributes = function(object, schema){
       var keys = Object.keys(object);
+      console.log(JSON.stringify(object));
       var index = keys.indexOf('$$hashKey');
       if (index > -1) {
         keys.splice(index, 1);

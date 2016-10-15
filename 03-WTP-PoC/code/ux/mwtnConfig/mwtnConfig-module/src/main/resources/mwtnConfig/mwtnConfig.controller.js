@@ -200,7 +200,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
         // console.log(JSON.stringify(container));
         if (container.layerProtocol === lpId) {
           if (Object.keys(data)[0].contains('ontainer') ) {
-            console.log('1', data);
+            // console.log('1', data);
             container[part] = data;            
           } else if (part === 'Capability') {
             // 2. PoC
@@ -233,7 +233,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
         updateStructure(spec.layerProtocolId, spec.partId, data);
         break;
       case 'container':
-        console.log(JSON.stringify('2', data));
+        // console.log(JSON.stringify('2', data));
         updateContainer(spec.layerProtocolId, spec.partId, data);
         break;
       }
@@ -292,7 +292,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
           partId: 'Configuration'
         };
         $mwtnConfig.getPacParts(spec).then(function(success){
-          console.log('3', success);
+          // console.log('3', success);
           updatePart(spec, success);
         }, function(error){
           updatePart(spec, error);
@@ -333,7 +333,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
             partId: info[2]
           };
           $mwtnConfig.getPacParts(spec).then(function(success){
-            console.log('4', success);
+            // console.log('4', success);
             updatePart(spec, success);
             $scope.spinner[key] = false;
           }, function(error){
@@ -714,13 +714,13 @@ define(['app/mwtnConfig/mwtnConfig.module',
         var getControlType = function(umlType) {
           var result = controlTypes[umlTypes.indexOf(umlType)];
           if (!result) {
-            console.log($scope.schema[umlType]);
+            // console.log($scope.schema[umlType]);
             result = $scope.schema[umlType].enum;
           }
           return result;
         };
         
-        console.log(JSON.stringify($scope.object.data));
+        // console.log(JSON.stringify($scope.object.data));
         var attributes = Object.keys($scope.object.data).map(function(parameter) {
           // console.log($scope.schema[parameter]);
           if ($scope.schema[parameter]) {
@@ -745,7 +745,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
         });
         
         $scope.attributes =  orderBy(attributes.clean(null), 'order', false);
-        console.log(JSON.stringify($scope.attributes));
+        // console.log(JSON.stringify($scope.attributes));
       };
       
       $mwtnConfig.getSchema().then(function(data){

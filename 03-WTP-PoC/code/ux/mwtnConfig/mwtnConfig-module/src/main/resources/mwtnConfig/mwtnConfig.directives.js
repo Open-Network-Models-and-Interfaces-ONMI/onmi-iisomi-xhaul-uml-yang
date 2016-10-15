@@ -25,7 +25,9 @@ define([ 'app/mwtnConfig/mwtnConfig.module',], function(mwtnConfigApp) {
           if (!$scope.parameters) {
              return;
           }
+          $scope.info = undefined;
           if ((typeof $scope.parameters) === 'string') {
+            if ($scope.parameters.startsWith('No')) 
              $scope.info = $scope.parameters; 
           } else {
             var attributes = $mwtnConfig.getAttributes($scope.parameters, $scope.schema);
