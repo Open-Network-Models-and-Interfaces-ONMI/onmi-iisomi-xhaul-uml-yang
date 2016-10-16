@@ -9,13 +9,35 @@
 define(['app/mwtnSpectrum/mwtnSpectrum.module'],function(mwtnSpectrumApp) {
 
 
-  mwtnSpectrumApp.register.factory('$mwtnSpectrum', function($mwtnCommons) {
+  mwtnSpectrumApp.register.factory('$mwtnSpectrum', function($q, $mwtnCommons, $mwtnLog) {
     var service = {};
 
     service.gridOptions = $mwtnCommons.gridOptions;
     service.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
-
+    service.refresh = $mwtnCommons.refreshSpectrum;
+    service.getActualNetworkElement = $mwtnCommons.getActualNetworkElement;
+    service.getPacParts = $mwtnCommons.getPacParts;
+    
+    service.execute = function() {
+      var request = {
+          method: 'POST',
+          url: 'operations/scheduler:execute',
+          data: {
+            input: {
+              taskName: 'spectrum',
+              period: 300
+            }
+          }
+      };
+      var deferred = $q.defer();
+      $mwtnCommons.genericRequest(request).then(function(success) {
+        deferred.resolve(success);
+      }, function(error) {
+        deferred.reject(error);
+      });
+      return deferred.promise;
+    };
+    
     return service;
   });
-
 });

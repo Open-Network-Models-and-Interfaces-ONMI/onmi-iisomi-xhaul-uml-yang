@@ -337,6 +337,15 @@ define(
           return deferred.promise;
         };
 
+        var nodeIntId = 100;
+        var getNodeIntIdFromNodeId = function(nodeId) {
+          nodeIntId = nodeIntId + 1;
+          if (nodeId.contains('-')) {
+            return nodeId.split('-')[1]; 
+          }
+          return nodiIntId;
+        };
+
         service.getRequiredNetworkElements = function(complete) {
           var deferred = $q.defer();
           $mwtnDatabase.getAllData('required-networkelement', 0, 999, undefined).then(function(success){
@@ -344,21 +353,13 @@ define(
               deferred.resolve(success.data.hits.hits); 
             }
             var result = success.data.hits.hits.map(function(ne){
-              
-              var id;
-              if (ne._source.nodeId.contains('-')) {
-                id = ne._source.nodeId.split('-')[1]; 
-              } else {
-                id = ne._source.nodeId;
-              }
-              
               var radioSignalIds = [];
               ne._source.MW_AirInterface_Pac.map(function(mwps){
                 radioSignalIds.push(mwps.airInterfaceConfiguration.radioSignalID);
               });
               
               return {
-                id: id,
+                id: getNodeIntIdFromNodeId(ne._source.nodeId),
                 name: ne._source.nodeId,
                 ipaddress: ne._source.connect.host,
                 port: ne._source.connect.port,
@@ -403,18 +404,12 @@ define(
           $http(request).then(function(success) {
             success.data.topology.map(function(topo){
               if (topo['topology-id'] === 'topology-netconf') {
-                var position;
-                var index = -1;
-                topo.node.map(function(ne){
-                  index = index + 1;
-                  if (ne['node-id'] === 'controller-config') {
-                    position = index;
+                var mwNes = topo.node.map(function(ne){
+                  if (ne['node-id'] !== 'controller-config') {
+                    return ne;
                   }
                 });
-                if (position){
-                  topo.node.splice(position, 1);
-                }
-                deferred.resolve(topo.node);
+                deferred.resolve(mwNes.clean(null));
               }
             });
           }, function(error) {
@@ -771,72 +766,56 @@ define(
         };
 
         
-//        service.getActualMW_AirInterface_Pac = function(neId, lpId, callback) {
-////console.log('234', neId, lpId);
-//          var url = [service.base,
-//              'operational/network-topology:network-topology/topology/topology-netconf/node/',
-//              neId,
-//              '/yang-ext:mount/MicrowaveModel-ObjectClasses-MwConnection:MW_AirInterface_Pac/',
-//              lpId].join('');
-//          var request = {
-//            method : 'GET',
-//            url : url
-//          };
-//          console.time([neId, lpId, 'MW_AirInterface_Pac data received'].join(' '));
-//          $http(request).then(function successCallback(response) {
-//            console.timeEnd([neId, lpId, 'MW_AirInterface_Pac data received'].join(' '));
-//            callback(response.data);
-//          }, function errorCallback(response) {
-//            console.timeEnd([neId, lpId, 'MW_AirInterface_Pac data received'].join(' '));
-//            console.error('getActualMW_AirInterface_Pac');
-//            //console.error(JSON.stringify(response));
-//            callback();
-//          });
-//        };
-//
-//        service.getActualMW_Structure_Pac = function(neId, lpId, callback) {
-//
-//          var url = [service.base,
-//              'operational/network-topology:network-topology/topology/topology-netconf/node/',
-//              neId,
-//              '/yang-ext:mount/MicrowaveModel-ObjectClasses-MwConnection:MW_Structure_Pac/',
-//              lpId].join('');
-//          var request = {
-//            method : 'GET',
-//            url : url
-//          };
-//          console.time([neId, lpId, 'MW_Structure_Pac data received'].join(' '));
-//          $http(request).then(function successCallback(response) {
-//            console.timeEnd([neId, lpId, 'MW_Structure_Pac data received'].join(' '));
-//            callback(response.data);
-//          }, function errorCallback(response) {
-//            console.error(JSON.stringify(response));
-//            callback();
-//          });
-//        };
-//
-//        service.getActualMW_Container_Pac = function(neId, lpId, callback) {
-//
-//          var url = [service.base,
-//              'operational/network-topology:network-topology/topology/topology-netconf/node/',
-//              neId,
-//              '/yang-ext:mount/MicrowaveModel-ObjectClasses-MwConnection:MW_Container_Pac/',
-//              lpId].join('');
-//          var request = {
-//            method : 'GET',
-//            url : url
-//          }; 
-//          console.time([neId, lpId, 'MW_Container_Pac data received'].join(' '));
-//          $http(request).then(function successCallback(response) {
-//            console.timeEnd([neId, lpId, 'MW_Container_Pac data received'].join(' '));
-//            callback(response.data);
-//          }, function errorCallback(response) {
-//            console.timeEnd([neId, lpId, 'MW_Container_Pac data received'].join(' '));
-//            console.error(JSON.stringify(response));
-//            callback();
-//          });
-//        };
- 
+        service.refreshSpectrum = function() {
+          var deferred = $q.defer();
+          service.getRequiredNetworkElements(true).then(function(pNes){
+            var neIds = pNes.map(function(pNe){
+              pNe._source.connectionStatus = 'disconnected';
+              return pNe._id;
+            });
+            service.getActualNetworkElements(). then(function(mountpoints){
+              var actualNodes = mountpoints.map(function(mountpoint){
+                var pIndex = neIds.indexOf(mountpoint['node-id']);
+                if (pIndex > -1) {
+                  pNes[pIndex]._source.connectionStatus = mountpoint['netconf-node-topology:connection-status']; 
+                }
+                return {
+                  id: mountpoint['node-id'],
+                  connectionStatus: mountpoint['netconf-node-topology:connection-status']
+                }
+              });
+              var airInterfaces = [];
+              pNes.map(function(hit){
+                hit._source.MW_AirInterface_Pac.map(function(airinterface){
+                  airInterfaces.push({
+                    id: getNodeIntIdFromNodeId(hit._source.nodeId),
+                    name: hit._source.nodeId,
+                    connectionStatus: hit._source.connectionStatus,
+                    airInterfaceName: airinterface.airInterfaceConfiguration.airInterfaceName,
+                    radioSignalID: airinterface.airInterfaceConfiguration.radioSignalID,
+                    plannedTxFrequency: airinterface.airInterfaceConfiguration.rxFrequency,
+                    actualTxFrequency: '?',
+                    plannedRxFrequency: airinterface.airInterfaceConfiguration.rxFrequency,
+                    actualRxFrequency: '?'
+                  });
+                });
+              });
+              
+              airInterfaces.sort(function(a, b){
+                if(a.radioSignalID < b.radioSignalID) return -1;
+                if(a.radioSignalID > b.radioSignalID) return 1;
+                return 0;
+              });
+              deferred.resolve({airInterfaces: airInterfaces, actualNodes: actualNodes});
+            }, function(error){
+              deferred.reject([]);
+            });
+            
+          }, function(error){
+            deferred.reject([]);
+          });
+          return deferred.promise;
+        };
             
         var saveRequiredNetworkElement = function(requiredNode){
           var url = [ $mwtnDatabase.base, $mwtnDatabase.index, 'required-networkelement',
