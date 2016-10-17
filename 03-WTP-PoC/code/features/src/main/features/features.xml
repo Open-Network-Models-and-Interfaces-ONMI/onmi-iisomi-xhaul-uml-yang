@@ -16,8 +16,9 @@
     <feature version="${project.version}">odl-mwtn-ux-all</feature>
 
   </feature>
+
 	<feature name='odl-mwt-models' version='${project.version}'
-		description='OpenDaylight :: MicrowaveTransport :: models'>
+    description='OpenDaylight :: MicrowaveTransport :: Device model'>
 		<feature version="${mdsal.version}">odl-restconf-all</feature>
 <!-- Avadh
 		<feature version="${mdsal.version}">odl-netconf-connector-all</feature>
@@ -28,16 +29,14 @@
 		<feature version='${yangtools.version}'>odl-yangtools-models</feature>
 -->
 		<feature version='${mdsal.model.version}'>odl-mdsal-models</feature>
-		<bundle>mvn:org.opendaylight.mwtn/devicemodel/${project.version}
-		</bundle>
+		<bundle>mvn:org.opendaylight.mwtn/devicemodel/${project.version}</bundle>
 	</feature>
+
 
 	<feature name='odl-mwt-websocketmanager' version='${project.version}'
 		description='OpenDaylight :: MicrowaveTransport :: Websocket manager'>
-		<bundle>mvn:org.opendaylight.mwtn/websocketmanager-api/{{VERSION}}
-		</bundle>
-		<bundle>mvn:org.opendaylight.mwtn/websocketmanager-impl/{{VERSION}}
-		</bundle>
+		<bundle>mvn:org.opendaylight.mwtn/websocketmanager-api/{{VERSION}}</bundle>
+		<bundle>mvn:org.opendaylight.mwtn/websocketmanager-impl/{{VERSION}}</bundle>
 		<configfile finalname="${configfile.directory}/websocketmgr.xml">mvn:org.opendaylight.mwtn/websocketmanager-impl/${project.version}/xml/config
 		</configfile>
 	</feature>
@@ -49,7 +48,9 @@
 		<feature version="${mdsal.version}">odl-netconf-mdsal</feature>
 -->
 		<feature version='${project.version}'>odl-mwt-models</feature>
+<!-- [sko] for test purposes -->
 		<feature version='${project.version}'>odl-mwt-websocketmanager</feature>
+
 		<bundle>mvn:org.opendaylight.mwtn/eventmanager-api/{{VERSION}}</bundle>
 		<bundle>mvn:org.opendaylight.mwtn/eventmanager-impl/{{VERSION}}
 		</bundle>
@@ -60,19 +61,13 @@
 	<feature name='odl-mwt-netconfconnector' version='${project.version}'
 		description='OpenDaylight :: MicrowaveTransport :: odl-mwt-netconfconnector'>
 		<feature version='${project.version}'>odl-mwt-event</feature>
-		<bundle>mvn:com.fasterxml.jackson.core/jackson-core/${jackson.version}
-		</bundle>
-		<bundle>mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.version}
-		</bundle>
-		<bundle>mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}
-		</bundle>
+		<bundle>mvn:com.fasterxml.jackson.core/jackson-core/${jackson.version}</bundle>
+		<bundle>mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.version}</bundle>
+		<bundle>mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}</bundle>
 		<bundle>mvn:com.sun.jersey/jersey-client/${jersey.version}</bundle>
-		<bundle>mvn:org.opendaylight.mwtn/netconfconnector-api/{{VERSION}}
-		</bundle>
-		<bundle>mvn:org.opendaylight.mwtn/netconfconnector-impl/{{VERSION}}
-		</bundle>
-		<configfile finalname="${configfile.directory}/netconfconnector.xml">mvn:org.opendaylight.mwtn/netconfconnector-impl/${project.version}/xml/config
-		</configfile>
+		<bundle>mvn:org.opendaylight.mwtn/netconfconnector-api/{{VERSION}}</bundle>
+		<bundle>mvn:org.opendaylight.mwtn/netconfconnector-impl/{{VERSION}}</bundle>
+		<configfile finalname="${configfile.directory}/netconfconnector.xml">mvn:org.opendaylight.mwtn/netconfconnector-impl/${project.version}/xml/config</configfile>
 	</feature>
 
 	<feature name='odl-mwt-nodediscovery' version='${project.version}'
@@ -81,8 +76,7 @@
 		<feature version="${openflow.plugin.version}">odl-openflowplugin-southbound</feature>
 		<bundle>mvn:org.opendaylight.mwtn/nediscovery-api/{{VERSION}}</bundle>
 		<bundle>mvn:org.opendaylight.mwtn/nediscovery-impl/{{VERSION}}</bundle>
-		<configfile finalname="${configfile.directory}/nediscovery.xml">mvn:org.opendaylight.mwtn/nediscovery-impl/${project.version}/xml/config
-		</configfile>
+		<configfile finalname="${configfile.directory}/nediscovery.xml">mvn:org.opendaylight.mwtn/nediscovery-impl/${project.version}/xml/config</configfile>
 	</feature>
 
 
