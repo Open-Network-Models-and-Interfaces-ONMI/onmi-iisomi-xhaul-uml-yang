@@ -12,6 +12,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.CheckedFuture;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -50,8 +51,9 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.closedlo
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.closedloopautomation.rev160919.SaveTimerOutputBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.closedloopautomation.rev160919.StartOutput;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.closedloopautomation.rev160919.StartOutputBuilder;
-import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.closedloopautomation.rev160919.TimerSetting;
-import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.closedloopautomation.rev160919.TimerSettingBuilder;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.closedloopautomation.rev160919.Timer;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.closedloopautomation.rev160919.TimerConfig;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.closedloopautomation.rev160919.TimerConfigBuilder;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NetworkTopology;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.TopologyId;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.Topology;
@@ -68,8 +70,8 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 	private static final Logger LOG = LoggerFactory.getLogger(ClosedLoopAutomationImpl.class);
 
 	private static final Boolean TIMER_DEFAULT_ENABLED = Boolean.FALSE;
-	private static final int TIMER_DEFAULT_VALUE = 10;
-	private static final InstanceIdentifier<TimerSetting> TIMER_SETTING_PATH = InstanceIdentifier.create(TimerSetting.class);
+	private static final Timer.Option TIMER_DEFAULT_OPTION = Timer.Option._5seconds;
+	private static final InstanceIdentifier<TimerConfig> TIMER_SETTING_PATH = InstanceIdentifier.create(TimerConfig.class);
 	private static final InstanceIdentifier<Topology> NETCONF_TOPO_IID = InstanceIdentifier
 						 .create(NetworkTopology.class)
 			     		 .child(Topology.class, new TopologyKey(new TopologyId(TopologyNetconf.QNAME.getLocalName())));
@@ -88,7 +90,16 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 		this.registration = rpcProviderRegistry.addRpcImplementation(ClosedLoopAutomationService.class, this);
 
 		scheduledExecutorService = Executors.newScheduledThreadPool(10);
-		scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this, "111"),10, 5, TimeUnit.SECONDS);
+
+		try {
+			Timer timer = readTimer().get().getResult();
+			LOG.info("Init timer. isEnabled {} and option {}",timer.isEnabled(), timer.getOption());
+			if (timer.isEnabled()) {
+				scheduledFuture = createNewTimerJob(timer.getOption());
+			}
+		} catch (Exception e) {
+			LOG.error(e.getMessage(),e);
+		}
 	}
 
 	@Override
@@ -153,7 +164,7 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 						LOG.info("AirInterfaceName {} ",airInterfacePac.getAirInterfaceConfiguration().getAirInterfaceName());
 						MWAirInterfacePacBuilder mWAirInterfacePacBuilder = new MWAirInterfacePacBuilder(airInterfacePac);
 						AirInterfaceConfigurationBuilder configurationBuilder = new AirInterfaceConfigurationBuilder(airInterfacePac.getAirInterfaceConfiguration());
-						configurationBuilder.setAirInterfaceName("xxxx");
+						configurationBuilder.setAirInterfaceName("AirName "+new Date());
 
 						mWAirInterfacePacBuilder.setAirInterfaceConfiguration(configurationBuilder.build());
 
@@ -222,23 +233,26 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 
 	@Override
 	public Future<RpcResult<SaveTimerOutput>> saveTimer(SaveTimerInput input) {
-		LOG.info("Received data. Enabled {}, Value: {} ", input.isEnabled(), input.getValue());
+		LOG.info("Received data. Enabled {}, Option: {} ", input.isEnabled(), input.getOption());
 
 		String message = null;
-		if (input.isEnabled()==null || input.getValue() == null) {
-			message =  "Enabled or value is empty";
+		if (input.isEnabled()==null || input.getOption() == null) {
+			message =  "Enabled or option is empty";
 		} else {
 			ReadWriteTransaction transaction = dataBroker.newReadWriteTransaction();
 
-			TimerSettingBuilder builder = new TimerSettingBuilder();
-			builder.setEnabled(input.isEnabled()).setValue(input.getValue());
+			TimerConfigBuilder builder = new TimerConfigBuilder();
+			builder.setEnabled(input.isEnabled()).setOption(input.getOption());
 			transaction.put(LogicalDatastoreType.CONFIGURATION, TIMER_SETTING_PATH,builder.build());
 
 			try {
 				transaction.submit().checkedGet();
-				scheduledFuture.cancel(false);
+				if (scheduledFuture != null) {
+					scheduledFuture.cancel(false);
+				}
+
 				if  (input.isEnabled()) {
-					scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this,"2222"),10, 5, TimeUnit.SECONDS);
+					scheduledFuture = createNewTimerJob(input.getOption());
 				}
 
 				LOG.info("Schdeduler has been changed");
@@ -248,26 +262,39 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 			}
 		}
 
-
 		SaveTimerOutputBuilder saveTimerOutputBuilder = new SaveTimerOutputBuilder();
 		saveTimerOutputBuilder.setStatus(message);
 		return RpcResultBuilder.success(saveTimerOutputBuilder.build()).buildFuture();
+	}
+
+	private ScheduledFuture createNewTimerJob(Timer.Option option) {
+		switch (option) {
+			case _5seconds: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this,option),10, 5, TimeUnit.SECONDS);
+			case _30seconds: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this,option),10, 30, TimeUnit.SECONDS);
+			case _1minute: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this,option),10, 1, TimeUnit.MINUTES);
+			case _30minutes: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this,option),10, 30, TimeUnit.MINUTES);
+			case _1hour: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this,option),10, 1, TimeUnit.HOURS);
+			default: {
+				throw new IllegalArgumentException("Wrong option");
+			}
+		}
+
 	}
 
 	@Override
 	public Future<RpcResult<ReadTimerOutput>> readTimer() {
 		ReadOnlyTransaction transaction = dataBroker.newReadOnlyTransaction();
 
-		CheckedFuture<Optional<TimerSetting>, ReadFailedException> timerSettingFuture = transaction.read(LogicalDatastoreType.CONFIGURATION,TIMER_SETTING_PATH);
+		CheckedFuture<Optional<TimerConfig>, ReadFailedException> timerSettingFuture = transaction.read(LogicalDatastoreType.CONFIGURATION,TIMER_SETTING_PATH);
 		ReadTimerOutputBuilder readTimerOutputBuilder = new ReadTimerOutputBuilder();
 		try {
-			Optional<TimerSetting> opt = timerSettingFuture.checkedGet();
-			TimerSetting timerSetting = opt.get();
+			Optional<TimerConfig> opt = timerSettingFuture.checkedGet();
+			TimerConfig timerSetting = opt.get();
 			readTimerOutputBuilder.setEnabled(timerSetting.isEnabled());
-			readTimerOutputBuilder.setValue(timerSetting.getValue());
+			readTimerOutputBuilder.setOption(timerSetting.getOption());
 		} catch (Exception e) {
 			readTimerOutputBuilder.setEnabled(TIMER_DEFAULT_ENABLED);
-			readTimerOutputBuilder.setValue(TIMER_DEFAULT_VALUE);
+			readTimerOutputBuilder.setOption(TIMER_DEFAULT_OPTION);
 		}
 		return RpcResultBuilder.success(readTimerOutputBuilder.build()).buildFuture();
 	}
@@ -289,6 +316,10 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 			this.registration.close();
 		}
 
+		if (scheduledFuture != null) {
+			scheduledFuture.cancel(false);
+		}
+
 		if (scheduledExecutorService != null) {
 			scheduledExecutorService.shutdown();
 		}
@@ -298,21 +329,21 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 class TimerJob implements Runnable {
 	private static final Logger LOG = LoggerFactory.getLogger(TimerJob.class);
 	private ClosedLoopAutomationImpl impl;
-	private String message;
+	private Timer.Option option;
 
-	public TimerJob(ClosedLoopAutomationImpl impl, String message) {
+	public TimerJob(ClosedLoopAutomationImpl impl, Timer.Option option) {
 		this.impl = impl;
-		this.message = message;
+		this.option = option;
 	}
 
 	@Override
 	public void run() {
-		LOG.info("Timer JOB start " + this.message);
+		LOG.info("Timer JOB start " + this.option);
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		LOG.info("Timer JOB end " + this.message);
+		LOG.info("Timer JOB end " + this.option);
 	}
 }

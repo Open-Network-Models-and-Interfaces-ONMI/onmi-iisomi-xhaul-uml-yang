@@ -17,13 +17,7 @@ module closedLoopAutomation {
 
     rpc save-timer {
         input {
-            leaf value {
-                 type int32;
-            }
-
-            leaf enabled {
-                  type boolean;
-            }
+           uses timer;
         }
 
         output {
@@ -35,25 +29,29 @@ module closedLoopAutomation {
 
      rpc read-timer {
         output {
-             leaf value {
-                 type int32;
-             }
-
-             leaf enabled {
-                  type boolean;
-             }
+             uses timer;
         }
      }
 
-     container timer-setting {
+     container timer-config {
          config true;
 
-         leaf value {
-             type int32;
-         }
-
-         leaf enabled {
-              type boolean;
-         }
+         uses timer;
      }
+
+      grouping timer {
+        leaf option {
+             type enumeration {
+                  enum 5seconds;
+                  enum 30seconds;
+                  enum 1minute;
+                  enum 30minutes;
+                  enum 1hour;
+             }
+        }
+
+        leaf enabled {
+              type boolean;
+        }
+      }
 }

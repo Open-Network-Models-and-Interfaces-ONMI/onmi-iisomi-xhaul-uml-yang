@@ -10,20 +10,20 @@
 		</div>
 		<div class="col-md-4">
 			<div class="form-group">
-				<input type="checkbox" ng-model="timerStatus">
+				<input type="checkbox" ng-model="timerEnabled">
 			</div>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-md-2 text-right">
-			<span>{{'Timer Iteration' | translate}}</span>
+			<span>{{'Timer Option' | translate}}</span>
 		</div>
 		<div class="col-md-4">
 			<div class="form-group">
-				<select class="form-control" ng-model="timerIteration">
-					<option ng-repeat="timerIteration in timerIterationList" value="{{timerIteration.id}}">
-						{{timerIteration.name}}</option>
+				<select class="form-control" ng-model="timerOption">
+					<option ng-repeat="timerOption in timerOptionList" value="{{timerOption.id}}">
+						{{timerOption.name}}</option>
 				</select>
 			</div>
 		</div>

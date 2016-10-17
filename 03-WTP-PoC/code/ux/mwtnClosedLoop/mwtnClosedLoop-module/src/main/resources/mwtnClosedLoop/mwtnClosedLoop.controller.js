@@ -19,17 +19,12 @@ define(['app/mwtnClosedLoop/mwtnClosedLoop.module','app/mwtnClosedLoop/mwtnClose
       $scope.data = data;      
     });
 
-    var timerIterationList = [
-        {id : 1, name : "5 seconds"},
-        {id : 2, name : "30 seconds"},
-        {id : 3, name : "60 seconds"},
-        {id : 4, name : "5 minutes"},
-        {id : 5, name : "1 hour"}]
-
-    $scope.timerIterationList = timerIterationList;
-    $scope.timerIteration = timerIterationList[0];
-
-    $scope.timerStatus = true;
+    $scope.timerOptionList = [
+        {id : '5seconds', name : "5 seconds"},
+        {id : '30seconds', name : "30 seconds"},
+        {id : '1minute', name : "One minute"},
+        {id : '30minutes', name : "30 minutes"},
+        {id : '1hour', name : "One hour"}]
 
     $scope.executeNow = function() {
         console.log('Execute NOW');
@@ -37,21 +32,34 @@ define(['app/mwtnClosedLoop/mwtnClosedLoop.module','app/mwtnClosedLoop/mwtnClose
           $mwtnLog.info({component: 'mwtnClosedLoopCtrl', message: 'Closed loop automation was started'});
           alert('Closed loop automation was started');
         }, function(error){
-          $mwtnLog.error({component: 'mwtnClosedLoopCtrl', message: error});
-          alert('Error: '+error);
+          $mwtnLog.error({component: 'mwtnClosedLoopCtrl', message: 'Cannot execute Closed Loop Automation'});
+          alert('Cannot execute Closed Loop Automation');
         });
     };
 
     $scope.save = function() {
-        console.log('Change timer ...');
-        $mwtnCommons.saveClosedLoopAutomation(true, 100).then(function(message){
+        $mwtnCommons.saveClosedLoopAutomation($scope.timerEnabled, $scope.timerOption).then(function(message){
           $mwtnLog.info({component: 'mwtnClosedLoopCtrl', message: 'Timer was changed'});
           alert('Timer was changed')
         }, function(error){
-          $mwtnLog.error({component: 'mwtnClosedLoopCtrl', message: error});
-          alert('Error: '+error);
+          console.log(error);
+          $mwtnLog.error({component: 'mwtnClosedLoopCtrl', message: 'Cannot save timer'});
+          alert('Cannot save timer');
         });
     };
+
+    $scope.read = function() {
+        $mwtnCommons.readClosedLoopAutomation().then(function(message){
+           $scope.timerEnabled = message.data.output.enabled;
+           $scope.timerOption = message.data.output.option;
+        }, function(error){
+          console.log(error);
+          $mwtnLog.error({component: 'mwtnClosedLoopCtrl', message: 'Cannot read data from the server'});
+          alert('Cannot read data from the server');
+        });
+     };
+
+     $scope.read();
 
   }]);
 
