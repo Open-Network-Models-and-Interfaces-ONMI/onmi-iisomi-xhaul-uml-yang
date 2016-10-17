@@ -28,7 +28,7 @@ public class SpectrumTask implements Task
     private static final String NODE_PATH = "network-topology:network-topology/topology/topology-netconf";
     private static final String NetElement_Path = NODE_PATH + "/node/%s/yang-ext:mount/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement";
     private static final String LP_Path = NODE_PATH + "/node/%s/yang-ext:mount/MicrowaveModel-ObjectClasses-AirInterface:MW_AirInterface_Pac/%s/airInterfaceConfiguration";
-    private static final String AGENT_DN = "/NE/%s/AirInterface/%s";
+    private static final String AGENT_DN = "/NE/%s/";
 
     private DataAgent agent;
     private Communicator communicator;
@@ -60,7 +60,7 @@ public class SpectrumTask implements Task
                                         neNode.getMo().forEach(ne -> ne.findValues("_lpList").forEach(lf ->
                                         {
                                             String lpName = lf.findValue("uuid").asText();
-                                            DN dnAgent = new DN(String.format(AGENT_DN, neName, lpName));
+                                            DN dnAgent = new DN(String.format(AGENT_DN, neName));
                                             String dnODL = String.format(LP_Path, neName, lpName);
 
                                             when(() -> lpName.contains("MWPS"), () ->
