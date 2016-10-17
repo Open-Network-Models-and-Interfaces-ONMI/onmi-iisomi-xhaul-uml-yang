@@ -36,7 +36,7 @@ public class NextFrequencyGetter
         List<String> list = null;
         try
         {
-            list = agent.ls(dnAgent.append(fieldName));
+            list = agent.ls(new DN(dnAgent.toString()).append(fieldName));
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -49,6 +49,8 @@ public class NextFrequencyGetter
         {
             index = nextIndex(dnAgent, fieldName, index);
         }
+        if (index < 0)
+            index = 0;
 
         return pair(fieldName, list.get(index));
     }

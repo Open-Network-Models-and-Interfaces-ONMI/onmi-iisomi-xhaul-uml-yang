@@ -30,16 +30,13 @@ public class SpectrumTask implements Task
     private static final String LP_Path = NODE_PATH + "/node/%s/yang-ext:mount/MicrowaveModel-ObjectClasses-AirInterface:MW_AirInterface_Pac/%s/airInterfaceConfiguration";
     private static final String AGENT_DN = "/NE/%s/";
 
-    private DataAgent agent;
     private Communicator communicator;
     private static NextFrequencyGetter getter;
 
     public SpectrumTask(DataAgent agent, Communicator communicator)
     {
-        this.agent = agent;
         this.communicator = communicator;
-        if (this.agent == null)
-            getter = new NextFrequencyGetter(agent);
+        getter = new NextFrequencyGetter(agent);
     }
 
     @Override
@@ -60,10 +57,11 @@ public class SpectrumTask implements Task
                                         neNode.getMo().forEach(ne -> ne.findValues("_lpList").forEach(lf ->
                                         {
                                             String lpName = lf.findValue("uuid").asText();
+                                            String layerProtocolName = lf.findValue("layerProtocolName").asText();
                                             DN dnAgent = new DN(String.format(AGENT_DN, neName));
                                             String dnODL = String.format(LP_Path, neName, lpName);
 
-                                            when(() -> lpName.contains("MWPS"), () ->
+                                            when(() -> layerProtocolName.equalsIgnoreCase("MWPS"), () ->
                                             {
                                                 LOG.info("adding task to threadPool of " + dnAgent);
                                                 executor.execute(() -> communicator.set(dnODL,
