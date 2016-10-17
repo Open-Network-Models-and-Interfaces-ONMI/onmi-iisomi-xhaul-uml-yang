@@ -21,12 +21,10 @@ public class Activator implements BundleActivator {
     @Override
     public void start(BundleContext bundleContext) throws Exception {
         LOG.info("Activator start");
-        System.out.println("Activator start");
     }
 
     @Override
     public void stop(BundleContext bundleContext) throws Exception {
         LOG.info("Activator stop");
-        System.out.println("Activator stop");
     }
 }

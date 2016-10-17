@@ -11,7 +11,6 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.CheckedFuture;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -20,6 +19,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
+import org.opendaylight.controller.md.sal.binding.api.DataTreeIdentifier;
 import org.opendaylight.controller.md.sal.binding.api.MountPoint;
 import org.opendaylight.controller.md.sal.binding.api.MountPointService;
 import org.opendaylight.controller.md.sal.binding.api.ReadOnlyTransaction;
@@ -60,6 +60,7 @@ import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.TopologyKey;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.NodeKey;
+import org.opendaylight.yangtools.concepts.ListenerRegistration;
 import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
 import org.opendaylight.yangtools.yang.common.RpcResult;
 import org.opendaylight.yangtools.yang.common.RpcResultBuilder;
@@ -75,6 +76,7 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 	private static final InstanceIdentifier<Topology> NETCONF_TOPO_IID = InstanceIdentifier
 						 .create(NetworkTopology.class)
 			     		 .child(Topology.class, new TopologyKey(new TopologyId(TopologyNetconf.QNAME.getLocalName())));
+	public static final String SUITABLE_CAPABILITY = "http://netconfcentral.org/ns/yuma-proc";
 
 	private DataBroker dataBroker;
 	private BindingAwareBroker.RpcRegistration registration;
@@ -82,12 +84,14 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 
 	private ScheduledExecutorService scheduledExecutorService;
 	private ScheduledFuture scheduledFuture;
+	private ListenerRegistration dataTreeChangeHandler;
 
 	public ClosedLoopAutomationImpl(BindingAwareBroker.ProviderContext providerContext,  final RpcProviderRegistry rpcProviderRegistry) {
-		System.out.println("Register ClosedLoopAutomationImpl");
 		this.dataBroker = providerContext.getSALService(DataBroker.class);
 		this.mountService = providerContext.getSALService(MountPointService.class);
 		this.registration = rpcProviderRegistry.addRpcImplementation(ClosedLoopAutomationService.class, this);
+
+		dataTreeChangeHandler = dataBroker.registerDataTreeChangeListener(new DataTreeIdentifier<Topology>(LogicalDatastoreType.OPERATIONAL, NETCONF_TOPO_IID), new DeviceConnectionStatusHandler());
 
 		scheduledExecutorService = Executors.newScheduledThreadPool(10);
 
@@ -104,7 +108,7 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 
 	@Override
 	public Future<RpcResult<StartOutput>> start() {
-		LOG.info("Backend call start");
+		LOG.info("Call close loop automation");
 
 		boolean result = processDevices();
 
@@ -113,7 +117,26 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 		return RpcResultBuilder.success(startBuilder.build()).buildFuture();
 	}
 
-	private boolean processDevices() {
+	private boolean canProcessNode (Node node) {
+
+		NetconfNode nnode = node.getAugmentation(NetconfNode.class);
+		if (nnode != null && nnode.getAvailableCapabilities() != null && nnode.getAvailableCapabilities().getAvailableCapability() != null) {
+			boolean hasCapability = false;
+			for (String capability : nnode.getAvailableCapabilities().getAvailableCapability()) {
+				if (capability.contains(SUITABLE_CAPABILITY)) {
+					hasCapability = true;
+				}
+			}
+
+			if (hasCapability && nnode.getConnectionStatus() == NetconfNodeConnectionStatus.ConnectionStatus.Connected) {
+				return true;
+			}
+		}
+		return false;
+
+	}
+
+	public boolean processDevices() {
 		ReadWriteTransaction transaction = dataBroker.newReadWriteTransaction();
 
 		CheckedFuture<Optional<Topology>, ReadFailedException> topology = transaction.read(LogicalDatastoreType.OPERATIONAL,NETCONF_TOPO_IID);
@@ -121,20 +144,10 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 		try {
 			Optional<Topology> optTopology = topology.checkedGet();
 			List<Node> nodeList = optTopology.get().getNode();
-			Collections.reverse(nodeList);
-			nodeList.remove(0);
 			for (Node node : nodeList) {
-				LOG.info("Node: {}", node.getKey().getNodeId());
-				NetconfNode nnode = node.getAugmentation(NetconfNode.class);
-				if (nnode != null) {
-					LOG.info("We have a Netconf device");
-					NetconfNodeConnectionStatus.ConnectionStatus csts = nnode.getConnectionStatus();
-					if (csts == NetconfNodeConnectionStatus.ConnectionStatus.Connected) {
-						LOG.info("Device is connected");
-						processNode(node.getKey());
-					} else {
-						LOG.info("Device is off");
-					}
+				LOG.info("Node : {}", node.getKey().getNodeId());
+				if (canProcessNode(node)) {
+					processNode(node.getKey());
 				}
 			}
 		} catch (Exception e) {
@@ -151,6 +164,8 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 		final MountPoint xrNode = xrNodeOptional.get();
 		final DataBroker xrNodeBroker = xrNode.getService(DataBroker.class).get();
 
+
+		LOG.info("We found the suitable node : {}", nodeKey);
 		List<UniversalId> universalIdList = retrieveUniversalId(xrNodeBroker);
 		if (universalIdList != null && universalIdList.size() > 0) {
 			for (UniversalId uuid : universalIdList) {
@@ -161,15 +176,18 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 
 					MWAirInterfacePac airInterfacePac = readNode(xrNodeReadTx, path);
 					if (airInterfacePac != null) {
-						LOG.info("AirInterfaceName {} ",airInterfacePac.getAirInterfaceConfiguration().getAirInterfaceName());
+						String newAirInterfaceName = "AirName "+new Date();
+						LOG.info("Old AirInterfaceName {} - New AirInterfaceName {}",airInterfacePac.getAirInterfaceConfiguration().getAirInterfaceName(), newAirInterfaceName);
+
 						MWAirInterfacePacBuilder mWAirInterfacePacBuilder = new MWAirInterfacePacBuilder(airInterfacePac);
 						AirInterfaceConfigurationBuilder configurationBuilder = new AirInterfaceConfigurationBuilder(airInterfacePac.getAirInterfaceConfiguration());
-						configurationBuilder.setAirInterfaceName("AirName "+new Date());
+						configurationBuilder.setAirInterfaceName(newAirInterfaceName);
 
 						mWAirInterfacePacBuilder.setAirInterfaceConfiguration(configurationBuilder.build());
 
 						xrNodeReadTx.merge(LogicalDatastoreType.CONFIGURATION, path, mWAirInterfacePacBuilder.build());
 						xrNodeReadTx.submit();
+
 					} else {
 						xrNodeReadTx.cancel();
 					}
@@ -269,11 +287,11 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 
 	private ScheduledFuture createNewTimerJob(Timer.Option option) {
 		switch (option) {
-			case _5seconds: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this,option),10, 5, TimeUnit.SECONDS);
-			case _30seconds: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this,option),10, 30, TimeUnit.SECONDS);
-			case _1minute: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this,option),10, 1, TimeUnit.MINUTES);
-			case _30minutes: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this,option),10, 30, TimeUnit.MINUTES);
-			case _1hour: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this,option),10, 1, TimeUnit.HOURS);
+			case _5seconds: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 5, TimeUnit.SECONDS);
+			case _30seconds: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 30, TimeUnit.SECONDS);
+			case _1minute: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 1, TimeUnit.MINUTES);
+			case _30minutes: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 30, TimeUnit.MINUTES);
+			case _1hour: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 1, TimeUnit.HOURS);
 			default: {
 				throw new IllegalArgumentException("Wrong option");
 			}
@@ -301,16 +319,6 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 
 
 	@Override
-	public void onTransactionChainFailed(TransactionChain<?, ?> transactionChain, AsyncTransaction<?, ?> asyncTransaction, Throwable throwable) {
-
-	}
-
-	@Override
-	public void onTransactionChainSuccessful(TransactionChain<?, ?> transactionChain) {
-
-	}
-
-	@Override
 	public void close() throws Exception {
 		if (this.registration != null) {
 			this.registration.close();
@@ -323,27 +331,36 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 		if (scheduledExecutorService != null) {
 			scheduledExecutorService.shutdown();
 		}
+
+		if (dataTreeChangeHandler != null) {
+			dataTreeChangeHandler.close();
+		}
+	}
+
+
+	@Override
+	public void onTransactionChainFailed(TransactionChain<?, ?> transactionChain, AsyncTransaction<?, ?> asyncTransaction, Throwable throwable) {
+
+	}
+
+	@Override
+	public void onTransactionChainSuccessful(TransactionChain<?, ?> transactionChain) {
+
 	}
 }
 
 class TimerJob implements Runnable {
 	private static final Logger LOG = LoggerFactory.getLogger(TimerJob.class);
 	private ClosedLoopAutomationImpl impl;
-	private Timer.Option option;
 
-	public TimerJob(ClosedLoopAutomationImpl impl, Timer.Option option) {
+	public TimerJob(ClosedLoopAutomationImpl impl) {
 		this.impl = impl;
-		this.option = option;
 	}
 
 	@Override
 	public void run() {
-		LOG.info("Timer JOB start " + this.option);
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		LOG.info("Timer JOB end " + this.option);
+		LOG.info("Timer start ");
+		impl.processDevices();
+		LOG.info("Timer end ");
 	}
 }

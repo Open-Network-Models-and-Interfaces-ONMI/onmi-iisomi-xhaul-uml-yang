@@ -28,13 +28,11 @@ public class ClosedLoopAutomationImplModule extends AbstractClosedLoopAutomation
 
     @Override
     public java.lang.AutoCloseable createInstance() {
-        System.out.println("CreateInstance");
-
-
+        LOG.info("CreateInstance");
         ClosedLoopAutomationCreator ic = new ClosedLoopAutomationCreator(bundleContext, getRpcRegistryDependency());
         getBrokerDependency().registerProvider(ic);
 
-        System.out.println("Creating notification");
+        LOG.info("Creating notification");
         getListenServiceDependency().registerNotificationListener(new MicrowaveModelNotificationsHandler());
 
         return ic.getImpl();
