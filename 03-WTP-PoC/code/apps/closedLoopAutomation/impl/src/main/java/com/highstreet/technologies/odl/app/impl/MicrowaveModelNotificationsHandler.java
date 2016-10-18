@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Created by ekis on 28.9.2016.
+ * The class has not already implemented
  */
 public class MicrowaveModelNotificationsHandler implements MicrowaveModelNotificationsListener {
     private static final Logger LOG = LoggerFactory.getLogger(MicrowaveModelNotificationsHandler.class);

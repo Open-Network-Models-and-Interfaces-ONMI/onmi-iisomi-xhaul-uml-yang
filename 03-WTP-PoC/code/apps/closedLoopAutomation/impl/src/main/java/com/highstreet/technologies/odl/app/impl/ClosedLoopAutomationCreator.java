@@ -13,7 +13,7 @@ import org.opendaylight.controller.sal.binding.api.RpcProviderRegistry;
 import org.osgi.framework.BundleContext;
 
 /**
- * Created by ekis on 11.10.2016.
+ * Created by lbeles on 11.10.2016.
  */
 public class ClosedLoopAutomationCreator implements BindingAwareProvider, AutoCloseable {
 

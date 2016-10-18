@@ -23,7 +23,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created by ekis on 17.10.2016.
+ * Created by lbeles on 17.10.2016.
+ * Listerner which listens when in the netconf topology are something changed. We notice only the connection status of the device.
+ * If device changes the connection status then we log it
  */
 public class DeviceConnectionStatusHandler implements DataTreeChangeListener<Topology> {
     private static final Logger LOG = LoggerFactory.getLogger(DeviceConnectionStatusHandler.class);
@@ -31,10 +33,10 @@ public class DeviceConnectionStatusHandler implements DataTreeChangeListener<Top
     @Override
     public void onDataTreeChanged(@Nonnull Collection<DataTreeModification<Topology>> changes) {
         for (DataTreeModification<Topology> change : changes) {
-
             DataObjectModification<Topology> rootNode = change.getRootNode();
-
             Map<NodeKey, NetconfNodeConnectionStatus.ConnectionStatus> mapChanges = new HashMap<>();
+
+            // loop all data before change
             if (rootNode.getDataBefore() != null && rootNode.getDataBefore().getNode() != null) {
                 for (Node node : rootNode.getDataBefore().getNode()) {
                     NetconfNode  nnode = node.getAugmentation(NetconfNode.class);
@@ -45,14 +47,14 @@ public class DeviceConnectionStatusHandler implements DataTreeChangeListener<Top
                     }
                 }
             }
-
+            // loop the new data after change
             if (rootNode.getDataAfter() != null && rootNode.getDataAfter().getNode() != null) {
                 for (Node node : rootNode.getDataAfter().getNode()) {
                     NetconfNode  nnode = node.getAugmentation(NetconfNode.class);
                     if (nnode != null) {
                         //LOG.info("After: device {} status {}",node.getKey(),nnode.getConnectionStatus());
                         NetconfNodeConnectionStatus.ConnectionStatus oldConnection = mapChanges.get(node.getKey());
-                        if (oldConnection != nnode.getConnectionStatus()) {
+                        if (oldConnection != nnode.getConnectionStatus()) { // if the connection status is changed, then we log this information
                             LOG.info("Device {} has been changed. Previously connection status was {} and currently is {}",node.getKey(),oldConnection,nnode.getConnectionStatus());
                         }
                     }

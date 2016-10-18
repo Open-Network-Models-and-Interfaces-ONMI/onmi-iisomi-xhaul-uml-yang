@@ -67,6 +67,11 @@ import org.opendaylight.yangtools.yang.common.RpcResultBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Created by lbeles on 11.10.2016.
+ * Implement RPC of the closed loop automation
+ * Saving and reading data from config datastore
+ */
 public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutomationService, TransactionChainListener {
 	private static final Logger LOG = LoggerFactory.getLogger(ClosedLoopAutomationImpl.class);
 
@@ -77,6 +82,7 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 						 .create(NetworkTopology.class)
 			     		 .child(Topology.class, new TopologyKey(new TopologyId(TopologyNetconf.QNAME.getLocalName())));
 	public static final String SUITABLE_CAPABILITY = "http://netconfcentral.org/ns/yuma-proc";
+	public static final String LAYER_PROTOCOL = "MWPS";
 
 	private DataBroker dataBroker;
 	private BindingAwareBroker.RpcRegistration registration;
@@ -86,15 +92,21 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 	private ScheduledFuture scheduledFuture;
 	private ListenerRegistration dataTreeChangeHandler;
 
+	/**
+	 * Here everything are initialized. Databroker, executor scheduler for timer and registration for datatree changelistener.
+	 * @param providerContext
+	 * @param rpcProviderRegistry
+     */
 	public ClosedLoopAutomationImpl(BindingAwareBroker.ProviderContext providerContext,  final RpcProviderRegistry rpcProviderRegistry) {
 		this.dataBroker = providerContext.getSALService(DataBroker.class);
 		this.mountService = providerContext.getSALService(MountPointService.class);
 		this.registration = rpcProviderRegistry.addRpcImplementation(ClosedLoopAutomationService.class, this);
 
+		// registration for data tree change lister. Listener listens whether some device is connected or disconnected
 		dataTreeChangeHandler = dataBroker.registerDataTreeChangeListener(new DataTreeIdentifier<Topology>(LogicalDatastoreType.OPERATIONAL, NETCONF_TOPO_IID), new DeviceConnectionStatusHandler());
 
+		// config executor scheduler, where will be maximally one job.
 		scheduledExecutorService = Executors.newScheduledThreadPool(10);
-
 		try {
 			Timer timer = readTimer().get().getResult();
 			LOG.info("Init timer. isEnabled {} and option {}",timer.isEnabled(), timer.getOption());
@@ -106,20 +118,98 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 		}
 	}
 
+	/**
+	 * Immediately execute closed loop process
+	 * @return
+     */
 	@Override
 	public Future<RpcResult<StartOutput>> start() {
 		LOG.info("Call close loop automation");
 
-		boolean result = processDevices();
+		boolean result = processNetworkDevices();
 
 		StartOutputBuilder startBuilder = new StartOutputBuilder();
 		startBuilder.setStatus(result ? "ok" : "failed");
 		return RpcResultBuilder.success(startBuilder.build()).buildFuture();
 	}
 
-	private boolean canProcessNode (Node node) {
+	/**
+	 * Save new configuration of the timer to the config datastore. According this config, reschedule actually timer.
+	 * If it needs, run new job
+	 * @param input
+	 * @return
+     */
+	@Override
+	public Future<RpcResult<SaveTimerOutput>> saveTimer(SaveTimerInput input) {
+		LOG.info("Received data. Enabled {}, Option: {} ", input.isEnabled(), input.getOption());
 
-		NetconfNode nnode = node.getAugmentation(NetconfNode.class);
+		String message = null;
+		if (input.isEnabled()==null || input.getOption() == null) {
+			message =  "Value of enabled or option is empty";
+		} else {
+			// save data to config datastore
+			TimerConfigBuilder builder = new TimerConfigBuilder();
+			ReadWriteTransaction transaction = dataBroker.newReadWriteTransaction();
+			builder.setEnabled(input.isEnabled()).setOption(input.getOption());
+			transaction.put(LogicalDatastoreType.CONFIGURATION, TIMER_SETTING_PATH,builder.build());
+
+			try {
+				transaction.submit().checkedGet();
+
+				// remove last instance of the job
+				if (scheduledFuture != null) {
+					scheduledFuture.cancel(false);
+				}
+
+				//if timer is enabled, run a new job
+				if  (input.isEnabled()) {
+					scheduledFuture = createNewTimerJob(input.getOption());
+				}
+
+				LOG.info("Schdeduler has been changed");
+				message = "ok";
+			} catch (TransactionCommitFailedException e) {
+				LOG.error(e.getMessage(),e);
+				message = "failed";
+			}
+		}
+
+		// create and send message as response of this RPC
+		SaveTimerOutputBuilder saveTimerOutputBuilder = new SaveTimerOutputBuilder();
+		saveTimerOutputBuilder.setStatus(message);
+		return RpcResultBuilder.success(saveTimerOutputBuilder.build()).buildFuture();
+	}
+
+	/**
+	 * Read configuration of the Timer from the config datastore
+	 * @return
+     */
+	@Override
+	public Future<RpcResult<ReadTimerOutput>> readTimer() {
+		ReadOnlyTransaction transaction = dataBroker.newReadOnlyTransaction();
+
+		CheckedFuture<Optional<TimerConfig>, ReadFailedException> timerSettingFuture = transaction.read(LogicalDatastoreType.CONFIGURATION,TIMER_SETTING_PATH);
+		ReadTimerOutputBuilder readTimerOutputBuilder = new ReadTimerOutputBuilder();
+		try {
+			Optional<TimerConfig> opt = timerSettingFuture.checkedGet();
+			TimerConfig timerSetting = opt.get();
+			readTimerOutputBuilder.setEnabled(timerSetting.isEnabled());
+			readTimerOutputBuilder.setOption(timerSetting.getOption());
+		} catch (Exception e) {
+			// if node of the config datastore is empty, we will return default timer setting
+			readTimerOutputBuilder.setEnabled(TIMER_DEFAULT_ENABLED);
+			readTimerOutputBuilder.setOption(TIMER_DEFAULT_OPTION);
+		}
+		return RpcResultBuilder.success(readTimerOutputBuilder.build()).buildFuture();
+	}
+
+	/**
+	 * If device is connected and has specifically capability then this device is suitable for closed loop process
+	 * @param deviceNode
+	 * @return
+     */
+	private boolean canProcessDevice(Node deviceNode) {
+		NetconfNode nnode = deviceNode.getAugmentation(NetconfNode.class);
 		if (nnode != null && nnode.getAvailableCapabilities() != null && nnode.getAvailableCapabilities().getAvailableCapability() != null) {
 			boolean hasCapability = false;
 			for (String capability : nnode.getAvailableCapabilities().getAvailableCapability()) {
@@ -136,17 +226,20 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 
 	}
 
-	public boolean processDevices() {
+	/**
+	 * Start closed loop process. Read all possible devices from topology. Read airinterface name. Modify it on another name.
+	 * @return
+     */
+	public boolean processNetworkDevices() {
 		ReadWriteTransaction transaction = dataBroker.newReadWriteTransaction();
-
 		CheckedFuture<Optional<Topology>, ReadFailedException> topology = transaction.read(LogicalDatastoreType.OPERATIONAL,NETCONF_TOPO_IID);
 
 		try {
 			Optional<Topology> optTopology = topology.checkedGet();
 			List<Node> nodeList = optTopology.get().getNode();
-			for (Node node : nodeList) {
+			for (Node node : nodeList) { // loop all nodes from topology
 				LOG.info("Node : {}", node.getKey().getNodeId());
-				if (canProcessNode(node)) {
+				if (canProcessDevice(node)) { // check if we can process it
 					processNode(node.getKey());
 				}
 			}
@@ -157,44 +250,54 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 		return true;
 	}
 
+	/**
+	 * Process device which has MWAirInterfacePac
+	 * @param nodeKey
+     */
 	private void processNode(NodeKey nodeKey) {
 		final Optional<MountPoint> xrNodeOptional = mountService.getMountPoint(NETCONF_TOPO_IID.child(Node.class, nodeKey));
 
+		// try to mount the device
 		Preconditions.checkArgument(xrNodeOptional.isPresent(), "Unable to locate mountpoint: %s, not mounted yet or not configured", nodeKey.getNodeId().getValue());
 		final MountPoint xrNode = xrNodeOptional.get();
 		final DataBroker xrNodeBroker = xrNode.getService(DataBroker.class).get();
 
 
-		LOG.info("We found the suitable node : {}", nodeKey);
+		LOG.info("We found the suitable device : {}", nodeKey);
+		// retrieve list of universal IDs which need to retrieve MWAirInterfacePac
 		List<UniversalId> universalIdList = retrieveUniversalId(xrNodeBroker);
 		if (universalIdList != null && universalIdList.size() > 0) {
 			for (UniversalId uuid : universalIdList) {
-				ReadWriteTransaction xrNodeReadTx = null;
+				ReadWriteTransaction airInterfaceTransaction = null;
 				try {
-					xrNodeReadTx = xrNodeBroker.newReadWriteTransaction();
+					// read MWAirInterfacePac
+					airInterfaceTransaction = xrNodeBroker.newReadWriteTransaction();
 					InstanceIdentifier<MWAirInterfacePac> path = InstanceIdentifier.builder(MWAirInterfacePac.class, new MWAirInterfacePacKey(uuid)).build();
+					MWAirInterfacePac airInterfacePac = readNode(airInterfaceTransaction, path);
 
-					MWAirInterfacePac airInterfacePac = readNode(xrNodeReadTx, path);
 					if (airInterfacePac != null) {
 						String newAirInterfaceName = "AirName "+new Date();
 						LOG.info("Old AirInterfaceName {} - New AirInterfaceName {}",airInterfacePac.getAirInterfaceConfiguration().getAirInterfaceName(), newAirInterfaceName);
 
+						// modify AirInterface name.
 						MWAirInterfacePacBuilder mWAirInterfacePacBuilder = new MWAirInterfacePacBuilder(airInterfacePac);
 						AirInterfaceConfigurationBuilder configurationBuilder = new AirInterfaceConfigurationBuilder(airInterfacePac.getAirInterfaceConfiguration());
 						configurationBuilder.setAirInterfaceName(newAirInterfaceName);
-
 						mWAirInterfacePacBuilder.setAirInterfaceConfiguration(configurationBuilder.build());
 
-						xrNodeReadTx.merge(LogicalDatastoreType.CONFIGURATION, path, mWAirInterfacePacBuilder.build());
-						xrNodeReadTx.submit();
+						// store new information to config datastore
+						airInterfaceTransaction.merge(LogicalDatastoreType.CONFIGURATION, path, mWAirInterfacePacBuilder.build());
+						airInterfaceTransaction.submit();
 
 					} else {
-						xrNodeReadTx.cancel();
+						// in case if there is nothing
+						airInterfaceTransaction.cancel();
 					}
 
 				} catch (Exception e) {
-					if (xrNodeReadTx != null) {
-						xrNodeReadTx.cancel();
+					// in case if something strange was happened
+					if (airInterfaceTransaction != null) {
+						airInterfaceTransaction.cancel();
 					}
 				}
 			}
@@ -203,23 +306,43 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 
 	}
 
+	/**
+	 * Read information from mounted node. Result is MWAirInterfacePac
+	 * @param xrNodeReadTx
+	 * @param path
+	 * @return
+	 * @throws ReadFailedException
+     */
+	private MWAirInterfacePac readNode(ReadWriteTransaction xrNodeReadTx, InstanceIdentifier<MWAirInterfacePac> path) throws ReadFailedException {
+		Optional<MWAirInterfacePac> airInterfaceOpt;
+		airInterfaceOpt = xrNodeReadTx.read(LogicalDatastoreType.CONFIGURATION, path).checkedGet();
+		if (airInterfaceOpt.isPresent()) {
+			return airInterfaceOpt.get();
+		}
+		return null;
+	}
 
+	/**
+	 * Search UUID in has already mounted device. Loop all Logical Termination Point and then loop all Layer Protocol.
+	 * We search layer protocols which are MWPS
+	 * @param xrNodeBroker
+	 * @return
+     */
 	private List<UniversalId> retrieveUniversalId(DataBroker xrNodeBroker) {
 		List<UniversalId> list = new ArrayList<>();
-		ReadOnlyTransaction readElementTx = null;
+		ReadOnlyTransaction networkElementTransaction = null;
 		try {
-			readElementTx = xrNodeBroker.newReadOnlyTransaction();
+			// read network elements
 			InstanceIdentifier<NetworkElement> path = InstanceIdentifier.create(NetworkElement.class);
-
-			Optional<NetworkElement> networkElementOpt;
-			networkElementOpt = readElementTx.read(LogicalDatastoreType.OPERATIONAL, path).checkedGet();
+			networkElementTransaction = xrNodeBroker.newReadOnlyTransaction();
+			Optional<NetworkElement> networkElementOpt = networkElementTransaction.read(LogicalDatastoreType.OPERATIONAL, path).checkedGet();
 
 			if (networkElementOpt.isPresent()) {
 				NetworkElement networkElement = networkElementOpt.get();
-				if (networkElement.getLtpRefList() != null) {
+				if (networkElement.getLtpRefList() != null) { // loop Logical Termination Point
 					for (LtpRefList ltp : networkElement.getLtpRefList()) {
-						for (LpList lp : ltp.getLpList()) {
-							if ("MWPS".equals(lp.getLayerProtocolName().getValue())) {
+						for (LpList lp : ltp.getLpList()) { // loop Layer Protocol
+							if (LAYER_PROTOCOL.equals(lp.getLayerProtocolName().getValue())) { //if it is MWPS we have one
 								LOG.info("UUID: "+lp.getKey().getUuid());
 								list.add(lp.getKey().getUuid());
 							}
@@ -228,11 +351,11 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 					}
 				}
 			}
-			readElementTx.close();
+			networkElementTransaction.close();
 
 		} catch (Exception e) {
-			if (readElementTx != null) {
-				readElementTx.close();
+			if (networkElementTransaction != null) {
+				networkElementTransaction.close();
 			}
 
 		}
@@ -240,51 +363,11 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 		return list;
 	}
 
-	private MWAirInterfacePac readNode(ReadWriteTransaction xrNodeReadTx, InstanceIdentifier<MWAirInterfacePac> path) throws ReadFailedException {
-		Optional<MWAirInterfacePac> airInterfaceOpt;
-		airInterfaceOpt = xrNodeReadTx.read(LogicalDatastoreType.CONFIGURATION, path).checkedGet();
-		if (airInterfaceOpt.isPresent()) {
-            return airInterfaceOpt.get();
-        }
-		return null;
-	}
-
-	@Override
-	public Future<RpcResult<SaveTimerOutput>> saveTimer(SaveTimerInput input) {
-		LOG.info("Received data. Enabled {}, Option: {} ", input.isEnabled(), input.getOption());
-
-		String message = null;
-		if (input.isEnabled()==null || input.getOption() == null) {
-			message =  "Enabled or option is empty";
-		} else {
-			ReadWriteTransaction transaction = dataBroker.newReadWriteTransaction();
-
-			TimerConfigBuilder builder = new TimerConfigBuilder();
-			builder.setEnabled(input.isEnabled()).setOption(input.getOption());
-			transaction.put(LogicalDatastoreType.CONFIGURATION, TIMER_SETTING_PATH,builder.build());
-
-			try {
-				transaction.submit().checkedGet();
-				if (scheduledFuture != null) {
-					scheduledFuture.cancel(false);
-				}
-
-				if  (input.isEnabled()) {
-					scheduledFuture = createNewTimerJob(input.getOption());
-				}
-
-				LOG.info("Schdeduler has been changed");
-				message = "ok";
-			} catch (TransactionCommitFailedException e) {
-				message = "failed";
-			}
-		}
-
-		SaveTimerOutputBuilder saveTimerOutputBuilder = new SaveTimerOutputBuilder();
-		saveTimerOutputBuilder.setStatus(message);
-		return RpcResultBuilder.success(saveTimerOutputBuilder.build()).buildFuture();
-	}
-
+	/**
+	 * Create new job according the timer option
+	 * @param option
+	 * @return
+     */
 	private ScheduledFuture createNewTimerJob(Timer.Option option) {
 		switch (option) {
 			case _5seconds: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 5, TimeUnit.SECONDS);
@@ -299,25 +382,10 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 
 	}
 
-	@Override
-	public Future<RpcResult<ReadTimerOutput>> readTimer() {
-		ReadOnlyTransaction transaction = dataBroker.newReadOnlyTransaction();
-
-		CheckedFuture<Optional<TimerConfig>, ReadFailedException> timerSettingFuture = transaction.read(LogicalDatastoreType.CONFIGURATION,TIMER_SETTING_PATH);
-		ReadTimerOutputBuilder readTimerOutputBuilder = new ReadTimerOutputBuilder();
-		try {
-			Optional<TimerConfig> opt = timerSettingFuture.checkedGet();
-			TimerConfig timerSetting = opt.get();
-			readTimerOutputBuilder.setEnabled(timerSetting.isEnabled());
-			readTimerOutputBuilder.setOption(timerSetting.getOption());
-		} catch (Exception e) {
-			readTimerOutputBuilder.setEnabled(TIMER_DEFAULT_ENABLED);
-			readTimerOutputBuilder.setOption(TIMER_DEFAULT_OPTION);
-		}
-		return RpcResultBuilder.success(readTimerOutputBuilder.build()).buildFuture();
-	}
-
-
+	/**
+	 * Clean up information
+	 * @throws Exception
+     */
 	@Override
 	public void close() throws Exception {
 		if (this.registration != null) {
@@ -349,6 +417,9 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 	}
 }
 
+/**
+ * This is the timer job. Class which is based on the Runnable. The asynchronic job execute closed loop process on the devices
+ */
 class TimerJob implements Runnable {
 	private static final Logger LOG = LoggerFactory.getLogger(TimerJob.class);
 	private ClosedLoopAutomationImpl impl;
@@ -360,7 +431,7 @@ class TimerJob implements Runnable {
 	@Override
 	public void run() {
 		LOG.info("Timer start ");
-		impl.processDevices();
+		impl.processNetworkDevices();
 		LOG.info("Timer end ");
 	}
 }
