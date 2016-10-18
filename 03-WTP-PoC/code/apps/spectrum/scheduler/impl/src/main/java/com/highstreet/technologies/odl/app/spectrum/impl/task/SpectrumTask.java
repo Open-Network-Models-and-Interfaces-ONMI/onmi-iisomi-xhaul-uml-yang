@@ -61,7 +61,6 @@ public class SpectrumTask implements Task
 
                                             when(() -> layerProtocolName.equalsIgnoreCase("MWPS"), () ->
                                             {
-                                                LOG.info("adding task to threadPool of " + dnODL);
                                                 communicator.set(dnODL,
                                                         getter.next(dnAgent, lpName, "txFrequency", communicator.get(dnODL, "txFrequency")),
                                                         getter.next(dnAgent, lpName, "rxFrequency", communicator.get(dnODL, "rxFrequency")));
