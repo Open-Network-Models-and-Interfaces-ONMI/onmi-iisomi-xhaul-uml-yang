@@ -40,6 +40,17 @@ odl-scheduler-ui
 https://github.com/olinchy/mos/tree/master/develop/source-code
 ```
 
+### Step #6 create necessary data in mos-style command line
+```
+cd ../exl2cmd
+python exl2cmd.py [excel which define all available frequencies]
+```
+
+### Step #7 follow the instruction at "https://github.com/olinchy/mos/tree/master/develop/source-code" to start mos and cli of mos
+
+### Step #8 paste all command in exl2cmd/cmd.txt to cli of mos
+
+
 
 
 
