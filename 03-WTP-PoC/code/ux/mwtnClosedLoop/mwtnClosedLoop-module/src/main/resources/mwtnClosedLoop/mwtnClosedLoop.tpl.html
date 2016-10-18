@@ -21,7 +21,7 @@
 		</div>
 		<div class="col-md-4">
 			<div class="form-group">
-				<select class="form-control" ng-model="timerOption">
+				<select class="form-control" ng-model="timerOption" ng-disabled="!timerEnabled">
 					<option ng-repeat="timerOption in timerOptionList" value="{{timerOption.id}}">
 						{{timerOption.name}}</option>
 				</select>
