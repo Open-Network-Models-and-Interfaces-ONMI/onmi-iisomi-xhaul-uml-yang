@@ -29,7 +29,7 @@ public class SpectrumTask implements Task
     private static final String AGENT_DN = "/NE/%s/";
 
     private Communicator communicator;
-    private static NextFrequencyGetter getter;
+    private NextFrequencyGetter getter;
 
     public SpectrumTask(DataAgent agent, Communicator communicator)
     {
@@ -63,8 +63,8 @@ public class SpectrumTask implements Task
                                             {
                                                 LOG.info("adding task to threadPool of " + dnODL);
                                                 communicator.set(dnODL,
-                                                        getter.next(dnAgent, "txFrequency", communicator.get(dnODL, "txFrequency")),
-                                                        getter.next(dnAgent, "rxFrequency", communicator.get(dnODL, "rxFrequency")));
+                                                        getter.next(dnAgent, lpName, "txFrequency", communicator.get(dnODL, "txFrequency")),
+                                                        getter.next(dnAgent, lpName, "rxFrequency", communicator.get(dnODL, "rxFrequency")));
                                             });
 
                                         })));

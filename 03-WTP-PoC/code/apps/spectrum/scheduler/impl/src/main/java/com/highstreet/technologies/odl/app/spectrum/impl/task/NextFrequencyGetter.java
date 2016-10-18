@@ -24,14 +24,14 @@ import static com.highstreet.technologies.odl.app.spectrum.impl.task.Direction.D
 public class NextFrequencyGetter
 {
     private DataAgent agent;
-    private HashMap<DN, HashMap<String, Direction>> reverseSignMap = new HashMap<>();
+    private static HashMap<DN, HashMap<String, Direction>> reverseSignMap = new HashMap<>();
 
     public NextFrequencyGetter(DataAgent agent)
     {
         this.agent = agent;
     }
 
-    public Pair<String, Object> next(DN dnAgent, String fieldName, Object currentValue)
+    public Pair<String, Object> next(DN dnAgent, String ifId, String fieldName, Object currentValue)
     {
         List<String> list = null;
         try
@@ -44,10 +44,10 @@ public class NextFrequencyGetter
         int index;
         if ((index = list.indexOf(currentValue)) == list.size() - 1 || index == 0)
         {
-            index = reverseIndex(dnAgent, fieldName, index);
+            index = reverseIndex(new DN(dnAgent.toString()).append(ifId), fieldName, index);
         } else
         {
-            index = nextIndex(dnAgent, fieldName, index);
+            index = nextIndex(new DN(dnAgent.toString()).append(ifId), fieldName, index);
         }
         if (index < 0)
             index = 0;
