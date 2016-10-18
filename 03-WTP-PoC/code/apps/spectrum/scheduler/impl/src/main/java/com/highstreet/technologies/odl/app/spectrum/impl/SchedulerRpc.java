@@ -16,9 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.Future;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.Singleton.getInstance;
 
@@ -28,7 +25,6 @@ import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.Single
 public class SchedulerRpc implements SchedulerService
 {
     private static final Logger LOG = LoggerFactory.getLogger(SchedulerRpc.class);
-    ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 20, 1, TimeUnit.SECONDS, new LinkedBlockingDeque<>());
 
     @Override
     public Future<RpcResult<Void>> next()
@@ -36,7 +32,7 @@ public class SchedulerRpc implements SchedulerService
         try
         {
             Task task = getInstance(TaskFactory.class).create("spectrum");
-            task.executeIn(executor);
+            task.execute();
         } catch (Exception e)
         {
             LOG.warn("execute task failed!", e);

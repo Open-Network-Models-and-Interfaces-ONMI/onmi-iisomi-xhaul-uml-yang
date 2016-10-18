@@ -11,10 +11,8 @@ import org.junit.Test;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by olinchy on 9/30/16.
@@ -59,19 +57,29 @@ public class TestSpectrumTask
                 obj[0] = values[0].second();
             }
         });
-        task.executeIn(new ThreadPoolExecutor(5, 20, 1, TimeUnit.SECONDS, new LinkedBlockingDeque<>())
+        task.execute();
+    }
+
+    @Test
+    public void given_fake_dataAgent_and_ODLCommunicator() throws Exception
+    {
+        SpectrumTask task = new SpectrumTask(new DataAgent()
         {
             @Override
-            public void execute(Runnable command)
+            public Object get(DN dnAgent, String attrName)
             {
-                try
-                {
-                    command.run();
-                } catch (Throwable e)
-                {
-                    System.out.println("");
-                }
+                return null;
             }
-        });
+
+            @Override
+            public List<String> ls(DN dnAgent) throws Exception
+            {
+                return Arrays.asList(new String[]{"14400000", "14500000", "14600000"});
+            }
+        }, new RestfulODLCommunicator());
+        for (int i = 0; i < 3; i++)
+        {
+            task.execute();
+        }
     }
 }

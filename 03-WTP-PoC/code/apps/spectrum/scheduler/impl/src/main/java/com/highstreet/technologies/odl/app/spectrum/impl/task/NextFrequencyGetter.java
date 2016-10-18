@@ -65,7 +65,7 @@ public class NextFrequencyGetter
     private int reverseIndex(DN dnAgent, String fieldName, int currentIndex)
     {
         HashMap<String, Direction> mapDirection = getMap(dnAgent, fieldName, DESC);
-        if (mapDirection.get(fieldName).equals(DESC) && currentIndex == 0)
+        if ((mapDirection.get(fieldName).equals(DESC) || mapDirection.get(fieldName).equals(ASC)) && currentIndex == 0)
             mapDirection.put(fieldName, ASC);
         else
             mapDirection.put(fieldName, DESC);

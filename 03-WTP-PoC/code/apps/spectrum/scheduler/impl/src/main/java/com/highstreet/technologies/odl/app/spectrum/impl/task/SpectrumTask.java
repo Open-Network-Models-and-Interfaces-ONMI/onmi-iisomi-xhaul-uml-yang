@@ -15,8 +15,6 @@ import com.highstreet.technologies.odl.app.spectrum.impl.meta.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.ThreadPoolExecutor;
-
 import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.When.when;
 
 /**
@@ -40,7 +38,7 @@ public class SpectrumTask implements Task
     }
 
     @Override
-    public void executeIn(ThreadPoolExecutor executor)
+    public void execute()
     {
         Result<JsonNode> result = communicator.ls(NODE_PATH, "node");
         when(result::isSuccess, () ->
@@ -63,10 +61,10 @@ public class SpectrumTask implements Task
 
                                             when(() -> layerProtocolName.equalsIgnoreCase("MWPS"), () ->
                                             {
-                                                LOG.info("adding task to threadPool of " + dnAgent);
-                                                executor.execute(() -> communicator.set(dnODL,
+                                                LOG.info("adding task to threadPool of " + dnODL);
+                                                communicator.set(dnODL,
                                                         getter.next(dnAgent, "txFrequency", communicator.get(dnODL, "txFrequency")),
-                                                        getter.next(dnAgent, "rxFrequency", communicator.get(dnODL, "rxFrequency"))));
+                                                        getter.next(dnAgent, "rxFrequency", communicator.get(dnODL, "rxFrequency")));
                                             });
 
                                         })));
