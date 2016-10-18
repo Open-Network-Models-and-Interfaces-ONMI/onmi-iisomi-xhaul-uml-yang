@@ -1,4 +1,4 @@
-#### Register ONF CENTENNIAL PoC 3 Base Mediator to OpendayLight 
+#### Register ONF CENTENNIAL PoC 3 Base Mediator to OpenDaylight 
 
 The OpenDaylight configuration is done with the Rest Client "Postman" that you can get from here: https://www.getpostman.com/.
 
