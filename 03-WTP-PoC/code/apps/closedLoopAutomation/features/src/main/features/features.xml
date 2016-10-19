@@ -19,6 +19,7 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
   <feature name='odl-closedLoopAutomation' version='${project.version}' description='OpenDaylight :: closedLoopAutomation'>
     <feature version='${mdsal.version}'>odl-mdsal-broker</feature>
     <feature version='${mdsal.model.version}'>odl-mdsal-models</feature>
+    <feature version='${project.version}'>odl-mwt-models</feature>
     <bundle>mvn:com.highstreet.technologies.odl.app/closedLoopAutomation-impl/{{VERSION}}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.app/closedLoopAutomation-api/{{VERSION}}</bundle>
     <configfile finalname="etc/opendaylight/karaf/closedLoopAutomation-config.xml">mvn:com.highstreet.technologies.odl.app/closedLoopAutomation-controller-config/{{VERSION}}/xml/config</configfile>

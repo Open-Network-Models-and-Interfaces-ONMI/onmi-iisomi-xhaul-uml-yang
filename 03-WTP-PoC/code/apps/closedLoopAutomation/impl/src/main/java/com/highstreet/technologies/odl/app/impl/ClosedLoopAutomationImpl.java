@@ -10,6 +10,7 @@ package com.highstreet.technologies.odl.app.impl;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.CheckedFuture;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -276,8 +277,9 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 					MWAirInterfacePac airInterfacePac = readNode(airInterfaceTransaction, path);
 
 					if (airInterfacePac != null) {
-						String newAirInterfaceName = "AirName "+new Date();
-						LOG.info("Old AirInterfaceName {} - New AirInterfaceName {}",airInterfacePac.getAirInterfaceConfiguration().getAirInterfaceName(), newAirInterfaceName);
+						SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M hh:mm:ss");
+						String newAirInterfaceName = "AirInterface "+dateFormat.format(new Date());
+						LOG.info("Old AirInterfaceName: {} - New AirInterfaceName: {}",airInterfacePac.getAirInterfaceConfiguration().getAirInterfaceName(), newAirInterfaceName);
 
 						// modify AirInterface name.
 						MWAirInterfacePacBuilder mWAirInterfacePacBuilder = new MWAirInterfacePacBuilder(airInterfacePac);
@@ -373,6 +375,7 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 			case _5seconds: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 5, TimeUnit.SECONDS);
 			case _30seconds: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 30, TimeUnit.SECONDS);
 			case _1minute: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 1, TimeUnit.MINUTES);
+			case _2minutes: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 2, TimeUnit.MINUTES);
 			case _30minutes: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 30, TimeUnit.MINUTES);
 			case _1hour: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 1, TimeUnit.HOURS);
 			default: {

@@ -23,6 +23,7 @@ define(['app/mwtnClosedLoop/mwtnClosedLoop.module','app/mwtnClosedLoop/mwtnClose
         {id : '5seconds', name : "5 seconds"},
         {id : '30seconds', name : "30 seconds"},
         {id : '1minute', name : "One minute"},
+        {id : '2minutes', name : "Two minutes"},
         {id : '30minutes', name : "30 minutes"},
         {id : '1hour', name : "One hour"}]
 
