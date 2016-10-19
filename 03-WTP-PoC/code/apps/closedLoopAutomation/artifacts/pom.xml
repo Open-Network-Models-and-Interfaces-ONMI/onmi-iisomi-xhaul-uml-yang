@@ -41,6 +41,20 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
         <classifier>features</classifier>
         <type>xml</type>
       </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>closedLoopAutomation-controller-config</artifactId>
+        <version>${project.version}</version>
+        <type>xml</type>
+        <classifier>config</classifier>
+      </dependency>
+
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>closedLoopAutomation-controller-config</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 </project>

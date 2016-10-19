@@ -1,8 +1,51 @@
 <!-- This is the landing page of you application, Update the content as per your requirements -->
 
-<h4>The application is under development...</h4>
-<h4>{{data}}</h4>
+<h2>Closed Loop Automation Setup</h2>
 <hr />
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-2 text-right">
+			<span>{{'Timer ON/OFF' | translate}}</span>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<input type="checkbox" ng-model="timerEnabled">
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-2 text-right">
+			<span>{{'Timer Option' | translate}}</span>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group">
+				<select class="form-control" ng-model="timerOption" ng-disabled="!timerEnabled">
+					<option ng-repeat="timerOption in timerOptionList" value="{{timerOption.id}}">
+						{{timerOption.name}}</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="col-md-6 text-right">
+			<div class="form-group">
+				<button type="button" class="btn btn-default" ng-click="save()">{{'Save' | translate}}</button>
+			</div>
+		</div>
+	</div>
+</div>
+<hr />
+<div class="container">
+	<div class="row">
+		<div class="col-md-2 text-right">
+			<div class="form-group">
+				<button type="button" class="btn btn-default" ng-click="executeNow()">{{'Execute now' | translate}}</button>
+			</div>
+		</div>
+	</div>
+
+</div>
 <p>
 	<span>Build: @buildtime@</span>
 </p>
