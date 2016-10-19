@@ -21,13 +21,7 @@ define(['app/mwtnSpectrum/mwtnSpectrum.module'],function(mwtnSpectrumApp) {
     service.execute = function() {
       var request = {
           method: 'POST',
-          url: 'operations/scheduler:execute',
-          data: {
-            input: {
-              taskName: 'spectrum',
-              period: 300
-            }
-          }
+          url: 'operations/scheduler:next'
       };
       var deferred = $q.defer();
       $mwtnCommons.genericRequest(request).then(function(success) {
