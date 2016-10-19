@@ -720,7 +720,7 @@ define(
 //              },
 //              data : body
 //            };
-          console.log(JSON.stringify(request));
+          // console.log(JSON.stringify(request));
           
           var taskId = [spec.nodeId, spec.layerProtocolId, spec.pacId, 'data received'].join(' ');
           console.time(taskId);

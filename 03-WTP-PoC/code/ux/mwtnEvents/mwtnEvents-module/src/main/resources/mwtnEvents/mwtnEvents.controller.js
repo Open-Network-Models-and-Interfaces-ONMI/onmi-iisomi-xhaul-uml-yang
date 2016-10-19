@@ -17,14 +17,62 @@ define(
                   '$scope',
                   '$rootScope',
                   '$mwtnEvents',
-                  '$mwtnCommons',
-                  function($scope, $rootScope, $mwtnEvents, $mwtnCommons, $mwtnLog) {
+                  'uiGridConstants',
+                  function($scope, $rootScope, $mwtnEvents, uiGridConstants) {
 
                     $rootScope['section_logo'] = 'src/app/mwtnEvents/images/mwtnEvents.png';
 
-                    $scope.collection = [];
+                    $scope.status = {alarms:true};
+                    $scope.oneATime = true;
+                    
+                    $scope.gridOptionsAlarms = JSON.parse(JSON.stringify($mwtnEvents.gridOptions));
+                    $scope.gridOptionsAlarms.columnDefs = [
+                      // { field: 'id', type: 'number', displayName: 'No.',  headerCellClass: $scope.highlightFilteredHeader, width : 50, cellClass: 'number', pinnedLeft : true },
+                      // { field: 'icon',  type: 'string', displayName: '',  headerCellClass: $scope.highlightFilteredHeader, width: 25, enableSorting: false, enableFiltering:false, cellTemplate: iconCell },
+                      { field: 'timeStamp',  type: 'string', displayName: 'Timestamp',  headerCellClass: $scope.highlightFilteredHeader, width : 200,sort: {
+                        direction: uiGridConstants.DESC,
+                        priority: 1
+                      } },
+                      { field: 'counter',  type: 'number', displayName: 'Counter',  headerCellClass: $scope.highlightFilteredHeader, width: 90 },
+                      { field: 'nodeName',  type: 'string', displayName: 'NetworkElement',  headerCellClass: $scope.highlightFilteredHeader, width: 170 },
+                      { field: 'objectId',  type: 'string', displayName: 'Object',  headerCellClass: $scope.highlightFilteredHeader, width: 400 },
 
-                    var listenToNotifications = function(socketLocation) {
+                      { field: 'problem',  type: 'string', displayName: 'Alarm',  headerCellClass: $scope.highlightFilteredHeader, width : 140 },
+                      { field: 'severity',  type: 'string', displayName: 'Severity',  headerCellClass: $scope.highlightFilteredHeader, width : 100 }
+                    ];
+
+                    $scope.gridOptionsAVC = JSON.parse(JSON.stringify($mwtnEvents.gridOptions));
+                    $scope.gridOptionsAVC.columnDefs = [
+                      // { field: 'id', type: 'number', displayName: 'No.',  headerCellClass: $scope.highlightFilteredHeader, width : 50, cellClass: 'number', pinnedLeft : true },
+                      // { field: 'icon',  type: 'string', displayName: '',  headerCellClass: $scope.highlightFilteredHeader, width: 25, enableSorting: false, enableFiltering:false, cellTemplate: iconCell },
+                      { field: 'timeStamp',  type: 'string', displayName: 'Timestamp',  headerCellClass: $scope.highlightFilteredHeader, width : 200,sort: {
+                        direction: uiGridConstants.DESC,
+                        priority: 1
+                      } },
+                      { field: 'counter',  type: 'number', displayName: 'Counter',  headerCellClass: $scope.highlightFilteredHeader, width: 90 },
+                      { field: 'nodeName',  type: 'string', displayName: 'NetworkElement',  headerCellClass: $scope.highlightFilteredHeader, width: 170 },
+                      { field: 'objectId',  type: 'string', displayName: 'Object',  headerCellClass: $scope.highlightFilteredHeader, width: 400 },
+                      { field: 'attributeName',  type: 'string', displayName: 'Attribute',  headerCellClass: $scope.highlightFilteredHeader, width : 140 },
+                      { field: 'newValue',  type: 'string', displayName: 'New value',  headerCellClass: $scope.highlightFilteredHeader, width : 140 }
+                    ];
+
+                    $scope.gridOptionsObject = JSON.parse(JSON.stringify($mwtnEvents.gridOptions));
+                    $scope.gridOptionsObject.columnDefs = [
+                      // { field: 'id', type: 'number', displayName: 'No.',  headerCellClass: $scope.highlightFilteredHeader, width : 50, cellClass: 'number', pinnedLeft : true },
+                      // { field: 'icon',  type: 'string', displayName: '',  headerCellClass: $scope.highlightFilteredHeader, width: 25, enableSorting: false, enableFiltering:false, cellTemplate: iconCell },
+                      { field: 'timeStamp',  type: 'string', displayName: 'Timestamp',  headerCellClass: $scope.highlightFilteredHeader, width : 200,sort: {
+                        direction: uiGridConstants.DESC,
+                        priority: 1
+                      } },
+                      { field: 'counter',  type: 'number', displayName: 'Counter',  headerCellClass: $scope.highlightFilteredHeader, width: 90 },
+                      { field: 'nodeName',  type: 'string', displayName: 'NetworkElement',  headerCellClass: $scope.highlightFilteredHeader, width: 170 },
+                      { field: 'objectId',  type: 'string', displayName: 'Object',  headerCellClass: $scope.highlightFilteredHeader, width: 400 },
+                      { field: 'objectType',  type: 'string', displayName: 'Object',  headerCellClass: $scope.highlightFilteredHeader, width: 400 },
+                      { field: 'action',  type: 'string', displayName: 'Object',  headerCellClass: $scope.highlightFilteredHeader, width: 100 }
+                      
+                    ];
+
+                    var listenToNotifications = function() {
                       try {
                         var url = $mwtnEvents.getMmwtnWebSocketUrl();
                         var notificationSocket = new WebSocket(url);
@@ -34,19 +82,30 @@ define(
                           if (typeof event.data === 'string') {
                             console.log("Client Received:\n" + event.data);
                             console.log("---------------------------");
-                            $mwtnEvents.getData(event, function(info, tweet) {
-                              $scope.collection.push(tweet);
-                              if ($scope.collection.length > 20) {
-                                $scope.collection.shift();
+                            $mwtnEvents.formatData(event).then(function(formated) {
+                              switch (formated.notifType) {
+                              case 'ProblemNotification':
+                                $scope.gridOptionsAlarms.data.push(formated);
+                                break;
+                              case 'AttributeValueChangedNotification':
+                                $scope.gridOptionsAVC.data.push(formated);
+                                break;
+                              case 'ObjectCreationNotification':
+                              case 'ObjectDeletionNotification':
+                                $scope.gridOptionsObject.data.push(formated);
+                                break;
+                              default:
+                                console.error('Missing implementation for', formated.notifType);
                               }
-                              ;
+                            }, function(error) {
+                              // do nothing
                             });
                           }
-                        }
+                        };
 
                         notificationSocket.onerror = function(error) {
                           console.log("Socket error: " + error);
-                        }
+                        };
 
                         notificationSocket.onopen = function(event) {
                           console.log("Socket connection opened.");
@@ -65,7 +124,7 @@ define(
                             }
                           }
                           subscribe();
-                        }
+                        };
 
                         notificationSocket.onclose = function(event) {
                           console.log("Socket connection closed.");
@@ -75,10 +134,7 @@ define(
                       }
                     };
 
-                    var path = "/opendaylight-inventory:nodes/opendaylight-inventory:node[opendaylight-inventory:id='mwtnEvents']";
-                    $mwtnEvents.register(path, function(socketLocation) {
-                      listenToNotifications(socketLocation);
-                    });
+                    listenToNotifications();
                   } ]);
 
     });
