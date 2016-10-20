@@ -1,7 +1,7 @@
 /*
  * 01-standalone-YANG-parser.js - Parses YANG models according to cases specified in input file
  *
- * Copyright (C) 2016 HCL Tecnologies
+ * Copyright (C) 2016 HCL Technologies
  *
  * Authors: HCL SDN & NFV CoE Team
  *
@@ -59,6 +59,9 @@ var xmlhello1 = '<?xml version="1.0" encoding="UTF-8"?>'+
 
 sync.fiber(function() {
 
+        sync.await(truncateFile(TestResultFile,sync.defers()));
+        sync.await(truncateFile(parseDataFile,sync.defers()));
+
 		debug.write("Test executed on : " + Date(), true, fs.openSync(TestResultFile, "a+"));
 
 		var yangFromNetConf = sync.await(readNetConfFile(sync.defers()));
@@ -89,15 +92,15 @@ sync.fiber(function() {
 
 		var neNodeName = test_cases["nodeName"];
 
-		var yangObj = yang.parse(fs.readFileSync(test_cases.YangDirectory + yangModelName + '.yang', 'utf8'));
+		var yangObj = yang.parse(fs.readFileSync(__dirname+test_cases.YangDirectory + yangModelName + '.yang', 'utf8'));
 
 		baseurl = restconf + '/topology/topology-netconf/node/' + neNodeName + '/yang-ext:mount/' + yangModelName + '';
 
 		getLeafs(yangObj, yangModelName, flag);
 
-		debug.write("****************EOD Test****************", true, fs.openSync(TestResultFile, "a+"));
-
+		debug.write("The Script has been executed successfully on " + Date(), true, fs.openSync(TestResultFile, "a+"));
 		console.log("The Script has been executed successfully on " + Date());
+		process.exit(0);
 
 });
 
@@ -332,7 +335,7 @@ sync.fiber(function() {
             chainType = type + "/" + currentType;
         }
 
-		debug.write("Parsing List " + url, true, fs.openSync(TestResultFile, "a+"));
+        debug.write("Attribute Discovery: Parsing List " + url, true, fs.openSync(TestResultFile, "a+"));
 
 		for (var ele in yangObj) {
 
@@ -480,7 +483,7 @@ sync.fiber(function() {
             chainType = type + "/" + currentType;
         }
 
-		debug.write("Parsing Container " + url, true, fs.openSync(TestResultFile, "a+"));
+        debug.write("Attribute Discovery: Parsing Container " + url, true, fs.openSync(TestResultFile, "a+"));
 
         for (var ele in yangObj) {
 
@@ -582,7 +585,7 @@ sync.fiber(function() {
     function getLeafData(leafObj, leafName, parentNode, proposedValue, url1, currentType, configurable) {
 
         var localArray = [];
-		debug.write("Parsing Leaf " + url1, true, fs.openSync(TestResultFile, "a+"));
+        debug.write("Attribute Discovery: Parsing Leaf " + url1, true, fs.openSync(TestResultFile, "a+"));
 		if (leafObj.hasOwnProperty('config')) {
             if (leafObj.config) {
                 var config = leafObj.config.toString();
@@ -676,7 +679,7 @@ sync.fiber(function() {
         if (leafObj.type.indexOf(":") != -1) {
 
             var yangModelName = leafObj.type.split(":")[0];
-            var yangObj = yang.parse(fs.readFileSync(test_cases.YangDirectory + yangModelName + '.yang', 'utf8'));
+            var yangObj = yang.parse(fs.readFileSync(__dirname+test_cases.YangDirectory + yangModelName + '.yang', 'utf8'));
             var module = yangObj.module[yangModelName];
             //if (module.hasOwnProperty('typedef')) {
             var typedefObject = module['typedef'][leafObj.type.split(":")[1]];
@@ -845,10 +848,11 @@ sync.fiber(function() {
         }
 
         var yangModelName = yangModuleName;
-        var yangObj = yang.parse(fs.readFileSync(test_cases.YangDirectory + yangModelName + '.yang', 'utf8'));
+        var yangObj = yang.parse(fs.readFileSync(__dirname+test_cases.YangDirectory + yangModelName + '.yang', 'utf8'));
         var module = yangObj.module[yangModelName];
 
-		debug.write("Parsing within Uses block " + url, true, fs.openSync(TestResultFile, "a+"));
+        debug.write("Attribute Discovery: Parsing (within Uses block) " + url, true, fs.openSync(TestResultFile, "a+"));
+
         if (module.hasOwnProperty('grouping')){
             var groupingObject = module['grouping'][groupingName];
 
@@ -895,7 +899,7 @@ sync.fiber(function() {
 
 		var containerObject = groupingObject['container'];
 		//console.log(containerObject);
-		debug.write("Parsing Container within Uses block " + url, true, fs.openSync(TestResultFile, "a+"));
+        debug.write("Attribute Discovery: Parsing Container (within Uses block) " + url, true, fs.openSync(TestResultFile, "a+"));
 		for (var ele in containerObject) {
 			url = url + "/" + ele;
 			if (containerObject[ele].hasOwnProperty('uses')){
@@ -932,14 +936,15 @@ sync.fiber(function() {
 
 		var leafObject = groupingObject['leaf'];
 
-		debug.write("Parsing Leaf within Uses block " + url, true, fs.openSync(TestResultFile, "a+"));
+        debug.write("Attribute Discovery: Parsing Leaf (within Uses block) " + url, true, fs.openSync(TestResultFile, "a+"));
+
 		for (var ele in leafObject) {
 			//console.log(leafObject[ele]);
 
 			if (leafObject[ele].type.indexOf(":") != -1) {
 				//console.log(leafObject[ele].type.split(":")[1]);
 				var yangModelName = leafObject[ele].type.split(":")[0];
-				var yangObj = yang.parse(fs.readFileSync(test_cases.YangDirectory + yangModelName + '.yang', 'utf8'));
+				var yangObj = yang.parse(fs.readFileSync(__dirname+test_cases.YangDirectory + yangModelName + '.yang', 'utf8'));
 				var module = yangObj.module[yangModelName];
 				if (module.hasOwnProperty('typedef')){
 					var typedefObject = module['typedef'][leafObject[ele].type.split(":")[1]];
@@ -975,7 +980,7 @@ sync.fiber(function() {
 
 		var listObject = groupingObject['list'];
 		//console.log(listObject);
-		debug.write("Parsing List within Uses block " + url, true, fs.openSync(TestResultFile, "a+"));
+        debug.write("Attribute Discovery: Parsing List (within Uses block) " + url, true, fs.openSync(TestResultFile, "a+"));
 		for (var ele in listObject) {
 
 			var listKey = test_cases[ele];
@@ -1032,3 +1037,11 @@ sync.fiber(function() {
 		});
 	}
 
+	function truncateFile(fileName,cb) {
+    	fs.truncate(fileName, 0, function () {
+        	{
+            	//console.log('done');
+            	cb(null);
+        	}
+    	});
+	}
