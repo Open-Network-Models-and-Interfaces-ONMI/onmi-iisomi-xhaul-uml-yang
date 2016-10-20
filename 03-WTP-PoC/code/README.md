@@ -171,7 +171,7 @@ odl-mwtn-all
 It takes some time ...
 
 
-Spectrum Management apllication:
+[Spectrum Management apllication](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/03-WTP-PoC/code/apps/spectrum):
 ```
 feature:repo-add mvn:com.highstreet.technologies.odl.app.spectrum/scheduler-features/1.0.0-SNAPSHOT/xml/features
 bundle:install -s mvn:net.iharder/base64/2.3.9
@@ -179,11 +179,8 @@ bundle:install -s mvn:com.github.briandilley.jsonrpc4j/jsonrpc4j/1.2.0
 bundle:install -s mvn:com.sun.jersey/jersey-client/1.17
 feature:install odl-scheduler odl-scheduler-api odl-scheduler-rest odl-scheduler-ui
 ```
-Closed Loop Automation apllication:
+[Closed Loop Automation apllication](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/03-WTP-PoC/code/apps/closedLoopAutomation):
+```
 feature:repo-add mvn:com.highstreet.technologies.odl.app/closedLoopAutomation-features/0.3.0-SNAPSHOT/xml/features
 feature:install odl-closedLoopAutomation
-
-
-
-
-
+```
