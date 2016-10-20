@@ -149,20 +149,17 @@ For remote access of the persistent database ElasticSearch, please consider the 
 Install the karaf features with the following command:
 ```
 feature:install \
-elasticsearch \
 odl-netconf-connector-all \
 odl-l2switch-switch \
 odl-restconf-all \
 odl-mdsal-apidocs \
 odl-dlux-all \
 odl-toaster \
-odl-mwtn-all
 ```
 Now you should be able to add the new bundles in the karaf console.
 ```
 feature:repo-add mvn:org.apache.karaf.decanter/apache-karaf-decanter/1.1.0/xml/features
 feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/0.3.0-SNAPSHOT/xml/features
-feature:repo-add mvn:com.highstreet.technologies.odl.app.spectrum/scheduler-features/1.0.0-SNAPSHOT/xml/features
 ```
  ... and install them:
 ```
@@ -176,11 +173,15 @@ It takes some time ...
 
 Spectrum Management apllication:
 ```
+feature:repo-add mvn:com.highstreet.technologies.odl.app.spectrum/scheduler-features/1.0.0-SNAPSHOT/xml/features
 bundle:install -s mvn:net.iharder/base64/2.3.9
 bundle:install -s mvn:com.github.briandilley.jsonrpc4j/jsonrpc4j/1.2.0
 bundle:install -s mvn:com.sun.jersey/jersey-client/1.17
 feature:install odl-scheduler odl-scheduler-api odl-scheduler-rest odl-scheduler-ui
 ```
+Closed Loop Automation apllication:
+feature:repo-add mvn:com.highstreet.technologies.odl.app/closedLoopAutomation-features/0.3.0-SNAPSHOT/xml/features
+feature:install odl-closedLoopAutomation
 
 
 
