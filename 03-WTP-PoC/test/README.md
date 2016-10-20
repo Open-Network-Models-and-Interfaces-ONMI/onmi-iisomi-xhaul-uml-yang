@@ -38,13 +38,18 @@ To run the automated tests under node js:
 node <test_case>
 ```
 
-Logfiles produced by the scripts can be found under folder: ./automated_tests/logs.
+Logfiles produced by the scripts can be found under folder: ./automated_tests/logs/
+There are:
+"parseData.log" contains details for all the discovered YANG models attributes in the automated tests.
+"TestResult.log" contains actions log details for the script that has been run.
+"client.log" logs client details.
 
-Static configuration values for all the scripts are to be set in ./config.json file.
+Static configuration values for all the scripts are to be set in ./config.json file. PoC Topology must be set in this file.
+
+Test Cases configuration values for all the scripts ./automated_test/input/test-cases.json (file content is self-explanatory).
 
 
 Script <01-standalone-YANG-parser.js> DOES NOT require the mounted DVM03 resource in place and can be executed from a terminal (see file header for purpose description).
-For the above script only, ./automated_test/input/test-cases.json file must be set to specify the YANG models/containers to be parsed.
 
 Script <02-netconfserver-YANG-parser.js> requires the mounted DVM03 resource in place (see file header for purpose description).
 
