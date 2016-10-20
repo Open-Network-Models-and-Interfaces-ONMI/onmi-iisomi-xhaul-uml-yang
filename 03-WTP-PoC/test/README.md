@@ -15,7 +15,7 @@ Automation Framework:
 
 To install all the required dependencies check first [INSTALL.md].
 
-Install Node.js packages
+Installing Node.js packages
 ------------------------
 
 To install all the required Node.js packages (pls check package.json file):
@@ -32,17 +32,26 @@ npm ls
 (should return an errorless installed module tree)
 ```
 
+The working directory for the Test Automation Framework (./) is assumed to be:
+
+
+```
+CENTENNIAL/03-WTP-PoC/test
+```
+
+
 Running the Test Scripts
 ----------------------------------
 
-To run the automated test scripts directly via cmd terminal, under ./automated_tests folder:
+
+To run the automated test scripts directly via cmd terminal, under "./automated_tests" folder:
 
 ```
 node <test_case>
 ```
 
 
-To run the automated test scripts via the Automated Test GUI:
+To run the automated test scripts via the Automated Test GUI, under "./":
 
 ```
 npm start
@@ -52,7 +61,7 @@ npm start
 Accessing the Test Results
 ----------------------------------
 
-Logfiles produced by the scripts can be found under folder: ./automated_tests/logs/
+Logfiles produced by the scripts can be found under folder: "./automated_tests/logs/"
 
 There are:
 
@@ -63,9 +72,9 @@ There are:
 "client.log", containing client details logs.
 
 
-Static configuration values for all the scripts are to be set in ./config.json file. PoC Topology must be set in this file.
+Static configuration values for all the scripts are to be set in "./config.json" file. PoC Topology must be set in this file.
 
-Test Cases configuration values for all the scripts ./automated_test/input/test-cases.json (file content is self-explanatory).
+Test Cases configuration values for all the scripts "./automated_test/input/test-cases.json" (file content is self-explanatory).
 
 
 Automated Test scripts details
@@ -78,7 +87,15 @@ Script <02-netconfserver-YANG-parser.js> requires the mounted mediator (or DVM03
 Script <03-netconfserver-YANG.js> requires the mounted mediator (or DVM03) resource in place (see file header for purpose description).
 
 
-In order to mount the PoC3 DVM03 it is possible to leverage the script: './test-env/base-mediator/mediator-mount.sh ./config.json' after having filled properly the ./config.json file
+In order to mount a PoC3 DVM03 chosen topology it is possible to leverage a provided script:
+
+
+```
+./test-env/base-mediator/mediator-mount.sh ./config.json
+
+```
+
+after having filled properly the "./config.json" file
 
 
 
