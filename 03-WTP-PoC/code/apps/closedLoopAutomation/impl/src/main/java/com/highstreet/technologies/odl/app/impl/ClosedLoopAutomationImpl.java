@@ -374,10 +374,10 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 		switch (option) {
 			case _5seconds: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 5, TimeUnit.SECONDS);
 			case _30seconds: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 30, TimeUnit.SECONDS);
-			case _1minute: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 1, TimeUnit.MINUTES);
-			case _2minutes: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 2, TimeUnit.MINUTES);
-			case _30minutes: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 30, TimeUnit.MINUTES);
-			case _1hour: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 1, TimeUnit.HOURS);
+			case _1minute: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 60, TimeUnit.SECONDS);
+			case _2minutes: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 120, TimeUnit.SECONDS);
+			case _30minutes: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 1800, TimeUnit.SECONDS);
+			case _1hour: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 3600, TimeUnit.SECONDS);
 			default: {
 				throw new IllegalArgumentException("Wrong option");
 			}

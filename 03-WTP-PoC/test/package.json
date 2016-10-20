@@ -9,6 +9,9 @@
     },
     "license": "Copyright (C) 2016 HCL Technologies",
     "private": true,
+    "scripts": {
+        "start": "node ./ux/bin/www"
+    },
     "dependencies": {
         "xml2js": "0.4.16",
         "JSONPath": "0.11.2",
@@ -16,7 +19,14 @@
         "es6-shim": "0.35.0",
         "buffer-equal-constant-time": "1.0.1",
         "promise": "7.1.1",
-        "yang-js" : "0.13.0"
+        "yang-js" : "0.13.0",
+	"body-parser": "~1.15.1",
+        "cookie-parser": "~1.4.3",
+        "debug": "~2.2.0",
+        "express": "~4.13.4",
+        "jade": "~1.11.0",
+        "morgan": "~1.7.0",
+        "serve-favicon": "~2.3.0"
     },
     "devDependencies": {
         "async": "2.0.0-rc.2",
