@@ -8,16 +8,13 @@
 
 define(['app/mwtnClosedLoop/mwtnClosedLoop.module','app/mwtnClosedLoop/mwtnClosedLoop.services','app/mwtnCommons/mwtnCommons.services'], function(mwtnClosedLoopApp) {
 
-  mwtnClosedLoopApp.register.controller('mwtnClosedLoopCtrl', ['$scope', '$rootScope', '$mwtnClosedLoop', '$mwtnCommons', '$mwtnLog', function($scope, $rootScope, $mwtnClosedLoop, $mwtnCommons, $mwtnLog) {
+  mwtnClosedLoopApp.register.controller('mwtnClosedLoopCtrl', ['$scope', '$rootScope', 'uiGridConstants',  '$mwtnClosedLoop', '$mwtnCommons', '$mwtnLog', 'OnfNetworkElement', 'MicrowavePhysicalSection',
+                                                               function($scope, $rootScope, uiGridConstants, $mwtnClosedLoop, $mwtnCommons, $mwtnLog, OnfNetworkElement, MicrowavePhysicalSection) {
 
-    $mwtnLog.info('mwtnClosedLoopCtrl started!');
+    var COMPONENT = 'mwtnClosedLoopCtrl';
+    $mwtnLog.info({component: COMPONENT, message: 'Started!'});
+
     $rootScope['section_logo'] = 'src/app/mwtnClosedLoop/images/mwtnClosedLoop.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
-
-    $scope.mwtnClosedLoopInfo = {};
-
-    $mwtnCommons.getData(function(data){
-      $scope.data = data;      
-    });
 
     $scope.timerOptionList = [
         {id : '5seconds', name : "5 seconds"},
@@ -61,6 +58,90 @@ define(['app/mwtnClosedLoop/mwtnClosedLoop.module','app/mwtnClosedLoop/mwtnClose
      };
 
      $scope.read();
+
+     var updateAirInterface = function(spec, data) {
+       if (data) {
+         var radioSignalID = data.airInterfaceConfiguration.radioSignalID;      
+         $scope.gridOptions.data.map(function(row){
+           if (row.name === spec.nodeId && row.radioSignalID === radioSignalID) {
+             row.actualAirInterfaceName = data.airInterfaceConfiguration.airInterfaceName;
+           }
+         });
+       } else {
+         $scope.gridOptions.data.map(function(row){
+           if (row.nodeId === spec.nodeId) {
+             row.actualAirInterfaceName = '?';
+           }
+         });
+       }
+     };
+
+     $scope.processing = false;
+     $scope.refresh = function() {
+       $scope.processing = true;
+       $mwtnClosedLoop.refresh().then(function(success){
+         $scope.processing = false;
+         $scope.gridOptions.data = success.airInterfaces;
+         success.actualNodes.map(function(actualNode){
+           if (actualNode.connectionStatus !== 'connected') {
+             return;
+           }
+           var revision = '2016-09-01';
+           $mwtnClosedLoop.getActualNetworkElement(actualNode.id, revision).then(function(onfNe){
+             var aOnfNe = new OnfNetworkElement(onfNe.NetworkElement);
+             aOnfNe.getLTPMwpsList().map(function(ltp){
+               var spec = {
+                 nodeId: actualNode.id,
+                 revision: revision,
+                 pacId: 'airinterface',
+                 layerProtocolId: ltp._lpList[0].uuid,
+                 partId: 'Configuration'
+               };
+               $mwtnClosedLoop.getPacParts(spec).then(function(success){
+                 updateAirInterface(spec, success);
+               }, function(error){
+                 updateAirInterface(spec, error);
+               });
+             });
+           }, function(error){
+             // do nothing
+           });
+         });
+       }, function(error){
+         $scope.processing = false;
+         $scope.gridOptions.data = [];
+       });
+     };
+
+     $scope.highlightFilteredHeader = $mwtnClosedLoop.highlightFilteredHeader;
+
+     var requiredNesConnectionStatusCellTemplate = [
+        '<div class="ui-grid-cell-contents" ng-class="{ \'green\': grid.getCellValue(row, col) === \'connected\'}"}>',
+        '  <i ng-show="grid.getCellValue(row, col) === \'connected\'" class="fa fa-signal" aria-hidden="true"></i>',
+        '  <span>{{grid.getCellValue(row, col)}}</span>',
+        '</div>'].join('');
+
+     // ng-class="{\'mismatch\': {{row.entity.plannedAirInterfaceName}}      !== grid.getCellValue(row, col) }"
+     var actualAirinterfaceNameTemplate = [
+      '<div class="ui-grid-cell-contents">',
+      '  <span>{{grid.getCellValue(row, col)}}</span>',
+      '</div>'].join('');
+   
+     $scope.gridOptions = JSON.parse(JSON.stringify($mwtnClosedLoop.gridOptions));
+     $scope.gridOptions.columnDefs = [
+      { field: 'id', type: 'number', displayName: 'Id',  headerCellClass: $scope.highlightFilteredHeader, width : 50, cellClass: 'number', pinnedLeft : true , sort: {
+        direction: uiGridConstants.ASC,
+        ignoreSort: false,
+        priority: 0
+       }},
+      { field: 'name', type: 'string', displayName: 'Name',  headerCellClass: $scope.highlightFilteredHeader, width : 140 },
+      { field: 'connectionStatus', type: 'string', displayName: 'Connection status',  headerCellClass: $scope.highlightFilteredHeader, width : 150, cellTemplate: requiredNesConnectionStatusCellTemplate },
+      { field: 'radioSignalID', type: 'string', displayName: 'Radio signal id',  headerCellClass: $scope.highlightFilteredHeader, width : 130 },
+      { field: 'plannedAirInterfaceName', type: 'string', displayName: 'Planned airinterface name',  headerCellClass: $scope.highlightFilteredHeader, width : 200 },
+      { field: 'actualAirInterfaceName',  type: 'string', displayName: 'Actual airinterface name',  headerCellClass: $scope.highlightFilteredHeader, width : 200, cellTemplate: actualAirinterfaceNameTemplate},
+      ];
+
+     $scope.refresh();
 
   }]);
 
