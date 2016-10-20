@@ -46,17 +46,29 @@ define(
                   return url;
                 };
 
+                var formatTimeStamp = function(t) {
+                  // t: time in ONF format, e.g. 20161020081633.7Z
+                  if (t.contains('-') || t.length !== '20161020081633.7Z'.length || !t.endsWith('Z')) {
+                    // return same values, if not ONF time format
+                    // console.log(t.contains('-'), t.length !== '20161020081633.7Z'.length, !t.endsWith('Z'))
+                    return t;
+                  }
+                  return [[t.slice(0,4), t.slice(4,6), t.slice(6, 8)].join('-'), 
+                          [t.slice(8, 10), t.slice(10, 12), t.slice(12, 16)].join(':')].join(' ') + ' UTC';
+                };1
+                
                 service.formatData = function(event) {
                   var deferred = $q.defer();
                   
                   var x2js = new X2JS();
                   var jsonObj = x2js.xml_str2json(event.data);
-                  console.log('a', $mwtnCommons.getType(jsonObj), JSON.stringify(jsonObj));
+                  // console.log('a', $mwtnCommons.getType(jsonObj), JSON.stringify(jsonObj));
                   if (jsonObj === null || $mwtnCommons.getType(jsonObj) !== 'object') {
                     deferred.reject('ignore');
                   } else {
                     notifType = Object.keys(jsonObj)[0];
                     var formated = jsonObj[notifType];
+                    formated.timeStamp = formatTimeStamp(formated.timeStamp);
                     formated.notifType = notifType;
                     formated.myMessage = 'someMessage';
                     formated.time = new Date().toISOString();

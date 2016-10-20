@@ -207,17 +207,21 @@ define(['app/mwtnCompare/mwtnCompare.module',
       }
     });
 
-    var getArrayValueToString = function(array) {
+    var getArrayValueToHtml = function(array) {
       if (array === undefined) {
         return '';
       }
       if (array.length > 0 && ($mwtnCompare.getType(array[0]) === 'object' || $mwtnCompare.getType(array[0]) === 'array') ) {
         var converted = array.map(function(item){
-          return JSON.stringify(item);
+          if ($mwtnCompare.getType(item) === 'object' && Object.keys(item).length === 2 ) {
+            return [item[Object.keys(item)[0]], item[Object.keys(item)[1]]].join(':');            
+          } else {
+            return JSON.stringify(item);            
+          }
         });
-        return converted.join(', ');
+        return converted.join('<br/>');
       } else {
-        return array.join(', ');
+        return array.join('<br/>');
       }
     };
     
@@ -305,10 +309,10 @@ define(['app/mwtnCompare/mwtnCompare.module',
               }
               break;
             case 'array':
-              var requiredDataValue = getArrayValueToString(obj[labelId]);
+              var requiredDataValue = getArrayValueToHtml(obj[labelId]);
               var actualDataValue = '';
               if (actualData) {
-                actualDataValue = getArrayValueToString(actualData[labelId]);
+                actualDataValue = getArrayValueToHtml(actualData[labelId]);
               }
               match = ((requiredDataValue === '' || actualDataValue === '') || (requiredDataValue === actualDataValue));
               compares.push({

@@ -80,8 +80,8 @@ define(
                         notificationSocket.onmessage = function(event) {
                           // we process our received event here
                           if (typeof event.data === 'string') {
-                            console.log("Client Received:\n" + event.data);
-                            console.log("---------------------------");
+                            // console.log("Client Received:\n" + event.data);
+                            // console.log("---------------------------");
                             $mwtnEvents.formatData(event).then(function(formated) {
                               switch (formated.notifType) {
                               case 'ProblemNotification':
