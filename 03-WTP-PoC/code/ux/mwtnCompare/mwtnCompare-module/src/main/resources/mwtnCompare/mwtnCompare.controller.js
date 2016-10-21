@@ -237,25 +237,25 @@ define(['app/mwtnCompare/mwtnCompare.module',
           break;
         case 'open':
           break;
-        case 'nameList':
-            var requiredName = obj[labelId][0].value;
-            var actualName = '';
-            if (actualData) {
-              actualName = actualData[labelId][0].value;
-            }
-            match = ((requiredName === '' || actualName === '') || (requiredName === actualName));
-            // console.log('NAME', requiredName, actualName, match);
-            compares.push({
-              labelId : 'NE name',
-              requiredValue : requiredName,
-              actualValue : actualName,
-              match : match,
-              missingActualValueLabelId : missingActualValueLabelId,
-//              unit : $scope.schema[labelId].unit,
-//              description : $scope.schema[labelId].description,
-              showDescriptions : false
-            });
-            break;
+//        case 'nameList':
+//            var requiredName = obj[labelId][0].value;
+//            var actualName = '';
+//            if (actualData) {
+//              actualName = actualData[labelId][0].value;
+//            }
+//            match = ((requiredName === '' || actualName === '') || (requiredName === actualName));
+//            // console.log('NAME', requiredName, actualName, match);
+//            compares.push({
+//              labelId : 'NE name',
+//              requiredValue : requiredName,
+//              actualValue : actualName,
+//              match : match,
+//              missingActualValueLabelId : missingActualValueLabelId,
+////              unit : $scope.schema[labelId].unit,
+////              description : $scope.schema[labelId].description,
+//              showDescriptions : false
+//            });
+//            break;
           case '_ltpRefList':
             var requiredLtpLength = obj[labelId].length;
             var actualLtpLength = '';
@@ -264,7 +264,7 @@ define(['app/mwtnCompare/mwtnCompare.module',
             }
             match = ((requiredLtpLength === '' || actualLtpLength === '') || (requiredLtpLength === actualLtpLength));
             compares.push({
-              labelId : 'Number of LTPs',
+              labelId : 'numberOfLTPs',
               requiredValue : requiredLtpLength,
               actualValue : actualLtpLength,
               match : match,
