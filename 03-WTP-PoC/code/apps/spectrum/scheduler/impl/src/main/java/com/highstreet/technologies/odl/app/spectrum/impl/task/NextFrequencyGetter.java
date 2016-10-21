@@ -24,19 +24,19 @@ import static com.highstreet.technologies.odl.app.spectrum.impl.task.Direction.D
 public class NextFrequencyGetter
 {
     private DataAgent agent;
-    private HashMap<DN, HashMap<String, Direction>> reverseSignMap = new HashMap<>();
+    private static HashMap<DN, HashMap<String, Direction>> reverseSignMap = new HashMap<>();
 
     public NextFrequencyGetter(DataAgent agent)
     {
         this.agent = agent;
     }
 
-    public Pair<String, Object> next(DN dnAgent, String fieldName, Object currentValue)
+    public Pair<String, Object> next(DN dnAgent, String ifId, String fieldName, Object currentValue)
     {
         List<String> list = null;
         try
         {
-            list = agent.ls(dnAgent);
+            list = agent.ls(new DN(dnAgent.toString()).append(fieldName));
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -44,11 +44,13 @@ public class NextFrequencyGetter
         int index;
         if ((index = list.indexOf(currentValue)) == list.size() - 1 || index == 0)
         {
-            index = reverseIndex(dnAgent, fieldName, index);
+            index = reverseIndex(new DN(dnAgent.toString()).append(ifId), fieldName, index);
         } else
         {
-            index = nextIndex(dnAgent, fieldName, index);
+            index = nextIndex(new DN(dnAgent.toString()).append(ifId), fieldName, index);
         }
+        if (index < 0)
+            index = 0;
 
         return pair(fieldName, list.get(index));
     }
@@ -63,7 +65,7 @@ public class NextFrequencyGetter
     private int reverseIndex(DN dnAgent, String fieldName, int currentIndex)
     {
         HashMap<String, Direction> mapDirection = getMap(dnAgent, fieldName, DESC);
-        if (mapDirection.get(fieldName).equals(DESC) && currentIndex == 0)
+        if ((mapDirection.get(fieldName).equals(DESC) || mapDirection.get(fieldName).equals(ASC)) && currentIndex == 0)
             mapDirection.put(fieldName, ASC);
         else
             mapDirection.put(fieldName, DESC);

@@ -19,6 +19,7 @@ var netConfArray = [];
 var globalConfigurations = [];
 var typeDefArray =[];
 var flag ="";
+var comma_flag = false;
 var yangArray = [];
 var neNodeName = test_cases["nodeName"];
 var baseurl = "";
@@ -40,8 +41,9 @@ var restconf = '/restconf/config/network-topology:network-topology';
 var TestResultFile = __dirname+test_cases["TestResultFile"];
 var netConfDataFile = __dirname+test_cases["NetConfDataFile"];
 var parseDataFile = __dirname+test_cases["ParseDataFile"];
+var summaryReportFile = __dirname+test_cases["SummaryReportFile02"];
 
-// var stream = fs.createReadStream(netConfDataFile);
+//var stream = fs.createReadStream(netConfDataFile);
 
 var Client = require('ssh2').Client;
 xmlhello = '<?xml version="1.0" encoding="UTF-8"?>'+
@@ -65,6 +67,7 @@ var xmlhello1 = '<?xml version="1.0" encoding="UTF-8"?>'+
        sync.await(truncateFile(TestResultFile,sync.defers()));
        sync.await(truncateFile(netConfDataFile,sync.defers()));
        sync.await(truncateFile(parseDataFile,sync.defers()));
+       debug.write("[", true, fs.openSync(summaryReportFile, "w"));
 
        debug.write("Test executed on : " + Date() + " with MediatorIndex : " + mediatorIndex, true, fs.openSync(TestResultFile, "a+"));
 
@@ -105,6 +108,7 @@ var xmlhello1 = '<?xml version="1.0" encoding="UTF-8"?>'+
 		   getLeafs(yangObj, yangModelName, flag);
        }
 
+	debug.write("]", true, fs.openSync(summaryReportFile, "a+"));
     debug.write("The Script has been executed successfully on " + Date(), true, fs.openSync(TestResultFile, "a+"));
     console.log("The Script has been executed successfully on " + Date());
 	process.exit(0);
@@ -167,7 +171,14 @@ function executeGetSet(url, leafData, chainType) {
         debug.write("parentNode : "+leafData[i].parentNode, true, fs.openSync(parseDataFile, "a+"));
         debug.write("parentNodeType : "+leafData[i].parentNodeType, true, fs.openSync(parseDataFile, "a+"));
         debug.write("#############################", true, fs.openSync(parseDataFile, "a+"));
-
+		var checkJson = "{\"Leaf Name\": \"" + leafData[i].leafName + "\", \"Parent Node\": \"" + leafData[i].parentNode + "\", \"Current Value\": \"" + leafData[i].leafCurrentValue + "\", \"Status\": \"Retrieved\"}";
+			
+		if(isValidJson(checkJson) && leafData[i].leafCurrentValue != null && leafData[i].leafCurrentValue != "" && comma_flag == false){
+			debug.write("{\"Leaf Name\": \"" + leafData[i].leafName + "\", \"Parent Node\": \"" + leafData[i].parentNode + "\", \"Current Value\": \"" + leafData[i].leafCurrentValue + "\", \"Status\": \"Retrieved\"}", true, fs.openSync(summaryReportFile, "a+"));
+			comma_flag = true;
+		}else if(isValidJson(checkJson) && leafData[i].leafCurrentValue != null && leafData[i].leafCurrentValue != "" ){
+			debug.write(", {\"Leaf Name\": \"" + leafData[i].leafName + "\", \"Parent Node\": \"" + leafData[i].parentNode + "\", \"Current Value\": \"" + leafData[i].leafCurrentValue + "\", \"Status\": \"Retrieved\"}", true, fs.openSync(summaryReportFile, "a+"));
+		}
     }
 }
 
@@ -624,7 +635,7 @@ function getLeafData(leafObj, leafName, parentNode, proposedValue, url1, current
 			var urlArray = url1.split("/");
 			listKey = urlArray[keyIndexPosition + 1];
 			var yangFromNetConfWithoutNewLine = String(yangFromNetConf);
-			yangFromNetConfWithoutNewLine = yangFromNetConfWithoutNewLine.replace(/\r?\n|\r/g, " ");
+			yangFromNetConfWithoutNewLine = yangFromNetConfWithoutNewLine.replace(/\r?\n|\r/g, "");
 			var regex = new RegExp("<layerProtocol>" + listKey + "(.*?)" + regexLeafNameClose);
 			var matchPattern = String(yangFromNetConfWithoutNewLine).match(regex);
 			if (matchPattern) {
@@ -1169,3 +1180,11 @@ function truncateFile(fileName,cb) {
 
 }
 
+function isValidJson(json) {
+	try {
+		JSON.parse(json);
+		return true;
+	} catch (e) {
+		return false;
+	}
+}

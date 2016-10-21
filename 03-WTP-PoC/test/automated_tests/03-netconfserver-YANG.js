@@ -20,6 +20,7 @@ var globalConfigurations = [];
 var typeDefArray =[];
 var flag ="";
 var yangArray = [];
+var comma_flag = false;
 var neNodeName = test_cases["nodeName"];
 var baseurl = "";
 var yangFromNetConf = "";
@@ -40,6 +41,7 @@ var restconf = '/restconf/config/network-topology:network-topology';
 var TestResultFile = __dirname+test_cases["TestResultFile"];
 var netConfDataFile = __dirname+test_cases["NetConfDataFile"];
 var parseDataFile = __dirname+test_cases["ParseDataFile"];
+var summaryReportFile = __dirname+test_cases["SummaryReportFile03"];
 
 // var stream = fs.createReadStream(netConfDataFile);
 
@@ -67,6 +69,7 @@ var xmlhello1 = '<?xml version="1.0" encoding="UTF-8"?>'+
        sync.await(truncateFile(parseDataFile,sync.defers()));
 
        debug.write("Test executed on : " + Date() + " with MediatorIndex : " + mediatorIndex, true, fs.openSync(TestResultFile, "a+"));
+       debug.write("[", true, fs.openSync(summaryReportFile, "w"));
 
        //<POC3-02> Uncomment below line to invoke Netconf Server connection functionality and get / set of URLs and values
 
@@ -89,7 +92,6 @@ var xmlhello1 = '<?xml version="1.0" encoding="UTF-8"?>'+
                        yangmodel = yangmodel.substring(0, yangmodel.length - 1);
                        yangArray.push(yangmodel);
                    }
-
                }
            }
        }
@@ -105,6 +107,7 @@ var xmlhello1 = '<?xml version="1.0" encoding="UTF-8"?>'+
 		   getLeafs(yangObj, yangModelName, flag);
        }
 
+    debug.write("]", true, fs.openSync(summaryReportFile, "a+"));
     debug.write("The Script has been executed successfully on " + Date(), true, fs.openSync(TestResultFile, "a+"));
     console.log("The Script has been executed successfully on " + Date());
 	process.exit(0);
@@ -152,9 +155,6 @@ function executeGetSet(url, leafData, chainType) {
 
     finalUrl = baseurl + ":" + url.substr(1);
 
-    //  if (url == "/MW_AirInterface_Pac/LP-MWPS-TTP-ifIndex1/airInterfaceConfiguration") {
-
-
     debug.write("**********************************************", true, fs.openSync(parseDataFile, "a+"));
 
     debug.write(url, true, fs.openSync(parseDataFile, "a+"));
@@ -193,20 +193,42 @@ function executeGetSet(url, leafData, chainType) {
 
         if (res1 != "") {
 
-            sync.await(netconfCAll(sync.defers()));
+            sync.await(truncateFile(netConfDataFile,sync.defers()));
 
-            debug.write("Validating the result of Set Operation ...", true, fs.openSync(TestResultFile, "a+"));
+			sync.await(netconfCAll(sync.defers()));
 
             var resData =   sync.await(readNetConfFile(sync.defers()));
+
+            debug.write("Validating the result of Set Operation ...", true, fs.openSync(TestResultFile, "a+"));
 
             if (resData != "") {
 
                 for (var i = 0; i < netConfArray.length; i++) {
                     if ((resData.indexOf(netConfArray[i].name + '>' + netConfArray[i].value + '</' + netConfArray[i].name))) {
                         debug.write("Automated Test Case: Test for setting new value '" + netConfArray[i].value + "' to leaf: '" + netConfArray[i].name + "' has passed.", true, fs.openSync(TestResultFile, "a+"));
-                    }
+						var checkJson = "{\"Leaf Name\": \"" + netConfArray[i].name + "\", \"Previous Value\": \"" + netConfArray[i].prevValue + "\", \"Current Value\": \"" + netConfArray[i].value + "\", \"Status\": \"Validation Passed\"}";
+						
+						if(!comma_flag && isValidJson(checkJson)){
+							debug.write("{\"Leaf Name\": \"" + netConfArray[i].name + "\", \"Previous Value\": \"" + netConfArray[i].prevValue + "\", \"Current Value\": \"" + netConfArray[i].value + "\", \"Status\": \"Validation Passed\"}", true, fs.openSync(summaryReportFile, "a+"));	
+							comma_flag = true;
+						}else if(isValidJson(checkJson)){
+							debug.write(", {\"Leaf Name\": \"" + netConfArray[i].name + "\", \"Previous Value\": \"" + netConfArray[i].prevValue + "\", \"Current Value\": \"" + netConfArray[i].value + "\", \"Status\": \"Validation Passed\"}", true, fs.openSync(summaryReportFile, "a+"));
+						}
+						
+
+					}
                     else {
                         debug.write("Automated Test Case: Test for setting new value '" + netConfArray[i].value + "' to leaf: '" + netConfArray[i].name + "' has failed since the retrieved value doesn't match.", true, fs.openSync(TestResultFile, "a+"));
+						var checkJson = "{\"Leaf Name\": \"" + netConfArray[i].name + "\", \"Previous Value\": \"" + netConfArray[i].prevValue + "\", \"Current Value\": \"" + netConfArray[i].value + "\", \"Status\": \"Validation Failed\"}";
+						
+						if(!comma_flag && isValidJson(checkJson)){
+							debug.write("{\"Leaf Name\": \"" + netConfArray[i].name + "\", \"Previous Value\": \"" + netConfArray[i].prevValue + "\", \"Current Value\": \"" + netConfArray[i].value + "\", \"Status\": \"Validation Failed\"}", true, fs.openSync(summaryReportFile, "a+"));	
+							comma_flag = true;
+						}else if(isValidJson(checkJson)){
+							debug.write(", {\"Leaf Name\": \"" + netConfArray[i].name + "\", \"Previous Value\": \"" + netConfArray[i].prevValue + "\", \"Current Value\": \"" + netConfArray[i].value + "\", \"Status\": \"Validation Failed\"}", true, fs.openSync(summaryReportFile, "a+"));
+						}
+						
+						
                     }
                 }
             }
@@ -298,7 +320,7 @@ function changeAllValues(jsonData, processingArray, chainType, url) {
                                 jsonData[node][ele] = processingArray[i].proposedValue;
                         }
 
-                        netConfArray.push({name: ele, value: processingArray[i].proposedValue});
+                        netConfArray.push({name: ele, value: processingArray[i].proposedValue, prevValue: processingArray[i].leafCurrentValue});
                         break;
                     }
 
@@ -674,7 +696,7 @@ function getLeafData(leafObj, leafName, parentNode, proposedValue, url1, current
 			var urlArray = url1.split("/");
 			listKey = urlArray[keyIndexPosition + 1];
 			var yangFromNetConfWithoutNewLine = String(yangFromNetConf);
-			yangFromNetConfWithoutNewLine = yangFromNetConfWithoutNewLine.replace(/\r?\n|\r/g, " ");
+			yangFromNetConfWithoutNewLine = yangFromNetConfWithoutNewLine.replace(/\r?\n|\r/g, "");
 			var regex = new RegExp("<layerProtocol>" + listKey + "(.*?)" + regexLeafNameClose);
 			var matchPattern = String(yangFromNetConfWithoutNewLine).match(regex);
 			if (matchPattern) {
@@ -1219,3 +1241,11 @@ function truncateFile(fileName,cb) {
 
 }
 
+function isValidJson(json) {
+	try {
+		JSON.parse(json);
+		return true;
+	} catch (e) {
+		return false;
+	}
+}
