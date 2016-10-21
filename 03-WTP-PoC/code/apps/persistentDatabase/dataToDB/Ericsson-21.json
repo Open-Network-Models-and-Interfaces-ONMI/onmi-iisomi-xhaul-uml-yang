@@ -1,6 +1,6 @@
 {
-	"required-networkelement" : {
-		"Ericsson-21" : {
+	"required-networkelement": {
+		"Ericsson-21": {
 			"nodeId" : "Ericsson-21",
 			"siteRef" : "2",
 			"onfCoreModelRevision" : "2016-08-11",
@@ -471,7 +471,7 @@
 						"alicIsOn" : false,
 						"txPower" : 23,
 						"transmitterIsOn" : true,
-						"cryptographicKey" : "Cryptographic key not yet defined.",
+						"cryptographicKey" : "********",
 						"modulationIsOn" : true,
 						"maintenanceTimer" : -1,
 						"adaptiveModulationIsOn" : true,
@@ -492,7 +492,7 @@
 						"powerIsOn" : true,
 						"txChannelBandwidth" : 50000,
 						"atpcIsOn" : false,
-						"airInterfaceName" : "Air interface ID not yet defined.",
+						"airInterfaceName" : "Airinterface#2",
 						"receiverIsOn" : true,
 						"problemKindSeverityList" : [{
 								"problemKindName" : "radioIsFaulty",
@@ -513,14 +513,17 @@
 								"problemKindName" : "modulationIsDownShifted",
 								"problemKindSeverity" : "warning"
 							}
-						],
-						"revision" : "2016-08-11",
-						"layerProtocol" : "LP-MWPS-2"
-					}
-					],
-					"MW_PureEthernetStructure_Pac" : [{
-							"pureEthernetStructureConfiguration" : {
-								"problemKindSeverityList" : [{
+						]
+					},
+					"revision": "2016-08-11",
+					"layerProtocol": "LP-MWPS-2"
+				}
+			],
+			"MW_PureEthernetStructure_Pac": [
+				{
+					"pureEthernetStructureConfiguration": {
+						"problemKindSeverityList": [
+							{
 										"problemKindName" : "modulationIsDownShifted",
 										"problemKindSeverity" : "warning"
 									}, {
@@ -538,14 +541,16 @@
 									}, {
 										"problemKindName" : "signalIsLost",
 										"problemKindSeverity" : "warning"
-									}
-								]
-							},
-							"revision" : "2016-08-11",
-							"layerProtocol" : "LP-MWS-2"
-						}, {
-							"pureEthernetStructureConfiguration" : {
-								"problemKindSeverityList" : [{
+							}
+						]
+					},
+					"revision": "2016-08-11",
+					"layerProtocol": "LP-MWS-2"
+				},
+				{
+					"pureEthernetStructureConfiguration": {
+						"problemKindSeverityList": [
+							{
 										"problemKindName" : "modulationIsDownShifted",
 										"problemKindSeverity" : "warning"
 									}, {
@@ -597,14 +602,14 @@
 									}, {
 										"problemKindName" : "containerIsDown",
 										"problemKindSeverity" : "warning"
-									}
-								],
-							},
-							"revision" : "2016-08-11",
-							"layerProtocol" : "LP-ETH-CTP-1"
-						}
-					]
+							}
+						]
+					},
+					"revision": "2016-08-11",
+					"layerProtocol": "LP-ETH-CTP-1"
 				}
-			}
+			]
 		}
+	}
+}
 

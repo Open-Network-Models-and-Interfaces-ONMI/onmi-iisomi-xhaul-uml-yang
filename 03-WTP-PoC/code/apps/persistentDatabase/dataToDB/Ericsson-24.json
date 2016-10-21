@@ -263,6 +263,7 @@
 				"operationalState" : "ENABLED"
 			},
 			"MW_AirInterface_Pac" : [{
+					"airInterfaceConfiguration" : {
 					"mimoIsOn" : false,
 					"alicIsOn" : false,
 					"txPower" : 12,
@@ -308,12 +309,12 @@
 						}, {
 							"problemKindName" : "modulationIsDownShifted",
 							"problemKindSeverity" : "warning"
-						}
-					]
-				},
-				"revision" : "2016-08-11",
-				"layerProtocol" : "LP-MWPS-1"
-			}
+							}
+						]
+					},
+					"revision" : "2016-08-11",
+					"layerProtocol" : "LP-MWPS-1"
+				}
 			],
 			"MW_PureEthernetStructure_Pac" : [{
 					"pureEthernetStructureConfiguration" : {
@@ -342,7 +343,9 @@
 					"layerProtocol" : "LP-MWS-1"
 				}
 			],
-			"MW_EthernetContainer_Pac" : [{
+			"MW_EthernetContainer_Pac": [
+				{
+					"ethernetContainerConfiguration": {
 					"containerID" : "831.1.1",
 					"layer2CompressionIsOn" : false,
 					"ipv4CompressionIsOn" : false,
