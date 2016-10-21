@@ -3,7 +3,7 @@ module closedLoopAutomation {
     namespace "urn:opendaylight:params:xml:ns:yang:closedLoopAutomation";
     prefix "closedLoopAutomation";
 
-    revision "2016-08-15" {
+    revision "2016-09-19" {
         description "Initial revision of closedLoopAutomation model";
     }
 
@@ -15,11 +15,44 @@ module closedLoopAutomation {
         }
     }
 
-    rpc stop {
+    rpc save-timer {
+        input {
+           uses timer;
+        }
+
         output {
             leaf status {
                 type string;
             }
         }
     }
+
+     rpc read-timer {
+        output {
+             uses timer;
+        }
+     }
+
+     container timer-config {
+         config true;
+
+         uses timer;
+     }
+
+      grouping timer {
+        leaf option {
+             type enumeration {
+                  enum 5seconds;
+                  enum 30seconds;
+                  enum 1minute;
+                  enum 2minutes;
+                  enum 30minutes;
+                  enum 1hour;
+             }
+        }
+
+        leaf enabled {
+              type boolean;
+        }
+      }
 }

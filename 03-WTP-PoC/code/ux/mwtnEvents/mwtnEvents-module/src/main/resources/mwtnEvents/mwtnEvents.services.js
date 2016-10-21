@@ -13,7 +13,7 @@ define(
       mwtnEventsApp.register
           .factory(
               '$mwtnEvents',
-              function($http, ENV) {
+              function($http, ENV, $q, $mwtnCommons) {
 
                 var createStream = function(streamName, callback) {
                   var request = {
@@ -34,6 +34,8 @@ define(
                   base : ENV.getBaseURL("MD_SAL") + "/restconf/",
                 };
 
+                service.gridOptions = $mwtnCommons.gridOptions;
+
                 service.getMmwtnWebSocketUrl = function() {
                   var user = 'admin'; // TODO avoid hardcoded user/pw
                   var pw = 'admin';
@@ -44,106 +46,38 @@ define(
                   return url;
                 };
 
-                service.getData = function(event, callback) {
-
-                  var request = {
-                    method : 'GET',
-                    url : [ service.base,
-                        'config/opendaylight-inventory:nodes/' ].join('')
-                  };
-                  $http(request)
-                      .then(
-                          function successCallback(response) {
-
-                            // this callback will be called asynchronously
-                            // when the response is available
-                            if (event.data
-                                .indexOf("AttributeValueChangedNotification") != -1) {
-                              var x2js = new X2JS();
-                              var jsonObj = x2js.xml_str2json(event.data);
-                              var objId = jsonObj.AttributeValueChangedNotification.objectId;
-                              var attrName = jsonObj.AttributeValueChangedNotification.attributeName;
-                              var modValue = jsonObj.AttributeValueChangedNotification.newValue;
-                              var notifMsg = "Object Modified: " + objId
-                                  + " --- For Attribute: " + attrName
-                                  + " --- With New Value As: " + modValue;
-
-                              tweet = {
-                                notifType : "AttributeValueChangedNotification",
-                                nodeName : jsonObj.AttributeValueChangedNotification.nodeName,
-                                message : event.data,
-                                msgStr : notifMsg,
-                                time : JSON.stringify(new Date()).split('T')[1]
-                                    .substring(0, 5)
-                              };
-                            }
-                            ;
-
-                            if (event.data.indexOf("ProblemNotification") != -1) {
-                              var x2js = new X2JS();
-                              var jsonObj = x2js.xml_str2json(event.data);
-                              var objId = jsonObj.ProblemNotification.objectId;
-                              var problem = jsonObj.ProblemNotification.problem;
-                              var severity = jsonObj.ProblemNotification.severity;
-                              var notifMsg = "Object Affected: " + objId
-                                  + " --- Having Problem: " + problem
-                                  + " --- With Severity As: " + severity;
-
-                              tweet = {
-                                notifType : "ProblemNotification",
-                                nodeName : jsonObj.ProblemNotification.nodeName,
-                                message : event.data,
-                                msgStr : notifMsg,
-                                time : JSON.stringify(new Date()).split('T')[1]
-                                    .substring(0, 5)
-                              };
-                            }
-                            ;
-
-                            if (event.data
-                                .indexOf("ObjectCreationNotification") != -1) {
-                              var x2js = new X2JS();
-                              var jsonObj = x2js.xml_str2json(event.data);
-                              var objId = jsonObj.ObjectCreationNotification.objectId;
-                              var notifMsg = "Object Created: " + objId;
-
-                              tweet = {
-                                notifType : "ObjectCreationNotification",
-                                nodeName : jsonObj.ObjectCreationNotification.nodeName,
-                                message : event.data,
-                                msgStr : notifMsg,
-                                time : JSON.stringify(new Date()).split('T')[1]
-                                    .substring(0, 5)
-                              };
-                            }
-                            ;
-
-                            if (event.data
-                                .indexOf("ObjectDeletionNotification") != -1) {
-                              var x2js = new X2JS();
-                              var jsonObj = x2js.xml_str2json(event.data);
-                              var objId = jsonObj.ObjectDeletionNotification.objectId;
-                              var notifMsg = "Object Deletion: " + objId;
-
-                              tweet = {
-                                notifType : "ObjectDeletionNotification",
-                                nodeName : jsonObj.ObjectDeletionNotification.nodeName,
-                                message : event.data,
-                                msgStr : notifMsg,
-                                time : JSON.stringify(new Date()).split('T')[1]
-                                    .substring(0, 5)
-                              };
-                            }
-                            ;
-
-                            callback('', tweet);
-                          }, function errorCallback(response) {
-                            console.error(JSON.stringify(response));
-                            callback('ERROR while sending ;(');
-                          });
-
+                var formatTimeStamp = function(t) {
+                  // t: time in ONF format, e.g. 20161020081633.7Z
+                  if (t.contains('-') || t.length !== '20161020081633.7Z'.length || !t.endsWith('Z')) {
+                    // return same values, if not ONF time format
+                    // console.log(t.contains('-'), t.length !== '20161020081633.7Z'.length, !t.endsWith('Z'))
+                    return t;
+                  }
+                  return [[t.slice(0,4), t.slice(4,6), t.slice(6, 8)].join('-'), 
+                          [t.slice(8, 10), t.slice(10, 12), t.slice(12, 16)].join(':')].join(' ') + ' UTC';
+                };1
+                
+                service.formatData = function(event) {
+                  var deferred = $q.defer();
+                  
+                  var x2js = new X2JS();
+                  var jsonObj = x2js.xml_str2json(event.data);
+                  // console.log('a', $mwtnCommons.getType(jsonObj), JSON.stringify(jsonObj));
+                  if (jsonObj === null || $mwtnCommons.getType(jsonObj) !== 'object') {
+                    deferred.reject('ignore');
+                  } else {
+                    notifType = Object.keys(jsonObj)[0];
+                    var formated = jsonObj[notifType];
+                    formated.timeStamp = formatTimeStamp(formated.timeStamp);
+                    formated.notifType = notifType;
+                    formated.myMessage = 'someMessage';
+                    formated.time = new Date().toISOString();
+                    deferred.resolve(formated);
+                  }
+                  
+                  return deferred.promise;
                 };
-
+                
                 service.register = function(path, callback) {
                   var request = {
                     method : 'POST',
