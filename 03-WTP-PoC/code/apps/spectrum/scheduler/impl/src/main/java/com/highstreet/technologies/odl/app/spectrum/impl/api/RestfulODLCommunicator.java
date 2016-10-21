@@ -16,8 +16,11 @@ import com.highstreet.technologies.odl.app.spectrum.impl.meta.Successful;
 import com.highstreet.technologies.odl.app.spectrum.impl.primitive.JsonUtil;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by olinchy on 9/23/16.
@@ -27,6 +30,7 @@ public class RestfulODLCommunicator implements Communicator
     private static String odlPath = "http://localhost:8181/restconf/operational/";
     private static String odlPath_config = "http://localhost:8181/restconf/config/";
     private static Client client = Client.create();
+    private static final Logger logger = LoggerFactory.getLogger(RestfulODLCommunicator.class);
 
 
     @Override
@@ -66,6 +70,7 @@ public class RestfulODLCommunicator implements Communicator
                 ((ObjectNode) node.get("airInterfaceConfiguration")).put(value.first(), JsonUtil.toNode(value.second()));
             }
             resource.accept("application/json").type("application/json").put(node.toString());
+            logger.info("setting " + Arrays.toString(values) + " to " + dn);
         } catch (Exception e)
         {
             e.printStackTrace();

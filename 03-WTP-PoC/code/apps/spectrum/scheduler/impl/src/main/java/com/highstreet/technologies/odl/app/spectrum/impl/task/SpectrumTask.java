@@ -15,8 +15,6 @@ import com.highstreet.technologies.odl.app.spectrum.impl.meta.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.ThreadPoolExecutor;
-
 import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.When.when;
 
 /**
@@ -28,22 +26,19 @@ public class SpectrumTask implements Task
     private static final String NODE_PATH = "network-topology:network-topology/topology/topology-netconf";
     private static final String NetElement_Path = NODE_PATH + "/node/%s/yang-ext:mount/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement";
     private static final String LP_Path = NODE_PATH + "/node/%s/yang-ext:mount/MicrowaveModel-ObjectClasses-AirInterface:MW_AirInterface_Pac/%s/airInterfaceConfiguration";
-    private static final String AGENT_DN = "/NE/%s/AirInterface/%s";
+    private static final String AGENT_DN = "/NE/%s/";
 
-    private DataAgent agent;
     private Communicator communicator;
-    private static NextFrequencyGetter getter;
+    private NextFrequencyGetter getter;
 
     public SpectrumTask(DataAgent agent, Communicator communicator)
     {
-        this.agent = agent;
         this.communicator = communicator;
-        if (this.agent == null)
-            getter = new NextFrequencyGetter(agent);
+        getter = new NextFrequencyGetter(agent);
     }
 
     @Override
-    public void executeIn(ThreadPoolExecutor executor)
+    public void execute()
     {
         Result<JsonNode> result = communicator.ls(NODE_PATH, "node");
         when(result::isSuccess, () ->
@@ -60,15 +55,15 @@ public class SpectrumTask implements Task
                                         neNode.getMo().forEach(ne -> ne.findValues("_lpList").forEach(lf ->
                                         {
                                             String lpName = lf.findValue("uuid").asText();
-                                            DN dnAgent = new DN(String.format(AGENT_DN, neName, lpName));
+                                            String layerProtocolName = lf.findValue("layerProtocolName").asText();
+                                            DN dnAgent = new DN(String.format(AGENT_DN, neName));
                                             String dnODL = String.format(LP_Path, neName, lpName);
 
-                                            when(() -> lpName.contains("MWPS"), () ->
+                                            when(() -> layerProtocolName.equalsIgnoreCase("MWPS"), () ->
                                             {
-                                                LOG.info("adding task to threadPool of " + dnAgent);
-                                                executor.execute(() -> communicator.set(dnODL,
-                                                        getter.next(dnAgent, "txFrequency", communicator.get(dnODL, "txFrequency")),
-                                                        getter.next(dnAgent, "rxFrequency", communicator.get(dnODL, "rxFrequency"))));
+                                                communicator.set(dnODL,
+                                                        getter.next(dnAgent, lpName, "txFrequency", communicator.get(dnODL, "txFrequency")),
+                                                        getter.next(dnAgent, lpName, "rxFrequency", communicator.get(dnODL, "rxFrequency")));
                                             });
 
                                         })));
