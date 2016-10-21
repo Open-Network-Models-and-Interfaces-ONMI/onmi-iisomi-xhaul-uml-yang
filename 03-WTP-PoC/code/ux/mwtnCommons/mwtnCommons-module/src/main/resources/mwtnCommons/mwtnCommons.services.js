@@ -403,7 +403,7 @@ define(
             var deferred = $q.defer();
 
             $http(request).then(function(success) {
-                deferred.resolve(success);
+               deferred.resolve(success);
             }, function(error) {
                deferred.reject(error);
             });
@@ -431,7 +431,7 @@ define(
                deferred.reject(error);
             });
             return deferred.promise;
-        }
+        };
 
         service.readClosedLoopAutomation = function() {
             var url = service.base+'operations/closedLoopAutomation:read-timer';
@@ -447,9 +447,7 @@ define(
                deferred.reject(error);
             });
             return deferred.promise;
-        }
-
-
+        };
 
         service.getActualNetworkElements = function() {
           var url = service.base + service.url.actualNetworkElements();
