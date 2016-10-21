@@ -14,20 +14,13 @@ define(['app/mwtnSpectrum/mwtnSpectrum.module'],function(mwtnSpectrumApp) {
 
     service.gridOptions = $mwtnCommons.gridOptions;
     service.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
-    service.refresh = $mwtnCommons.refreshSpectrum;
     service.getActualNetworkElement = $mwtnCommons.getActualNetworkElement;
     service.getPacParts = $mwtnCommons.getPacParts;
     
     service.execute = function() {
       var request = {
           method: 'POST',
-          url: 'operations/scheduler:execute',
-          data: {
-            input: {
-              taskName: 'spectrum',
-              period: 300
-            }
-          }
+          url: 'operations/scheduler:next'
       };
       var deferred = $q.defer();
       $mwtnCommons.genericRequest(request).then(function(success) {
@@ -38,6 +31,57 @@ define(['app/mwtnSpectrum/mwtnSpectrum.module'],function(mwtnSpectrumApp) {
       return deferred.promise;
     };
     
+    service.refresh = function() {
+      var deferred = $q.defer();
+      $mwtnCommons.getRequiredNetworkElements(true).then(function(pNes){
+        var neIds = pNes.map(function(pNe){
+          pNe._source.connectionStatus = 'disconnected';
+          return pNe._id;
+        });
+        $mwtnCommons.getActualNetworkElements(). then(function(mountpoints){
+          var actualNodes = mountpoints.map(function(mountpoint){
+            var pIndex = neIds.indexOf(mountpoint['node-id']);
+            if (pIndex > -1) {
+              pNes[pIndex]._source.connectionStatus = mountpoint['netconf-node-topology:connection-status']; 
+            }
+            return {
+              id: mountpoint['node-id'],
+              connectionStatus: mountpoint['netconf-node-topology:connection-status']
+            }
+          });
+          var airInterfaces = [];
+          pNes.map(function(hit){
+            hit._source.MW_AirInterface_Pac.map(function(airinterface){
+              airInterfaces.push({
+                id: $mwtnCommons.getNodeIntIdFromNodeId(hit._source.nodeId),
+                name: hit._source.nodeId,
+                connectionStatus: hit._source.connectionStatus,
+                airInterfaceName: airinterface.airInterfaceConfiguration.airInterfaceName,
+                radioSignalID: airinterface.airInterfaceConfiguration.radioSignalID,
+                plannedTxFrequency: airinterface.airInterfaceConfiguration.rxFrequency,
+                actualTxFrequency: '?',
+                plannedRxFrequency: airinterface.airInterfaceConfiguration.rxFrequency,
+                actualRxFrequency: '?'
+              });
+            });
+          });
+          
+          airInterfaces.sort(function(a, b){
+            if(a.radioSignalID < b.radioSignalID) return -1;
+            if(a.radioSignalID > b.radioSignalID) return 1;
+            return 0;
+          });
+          deferred.resolve({airInterfaces: airInterfaces, actualNodes: actualNodes});
+        }, function(error){
+          deferred.reject([]);
+        });
+        
+      }, function(error){
+        deferred.reject([]);
+      });
+      return deferred.promise;
+    };
+
     return service;
   });
 });

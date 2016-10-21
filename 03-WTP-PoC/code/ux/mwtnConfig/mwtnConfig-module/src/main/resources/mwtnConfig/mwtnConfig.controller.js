@@ -246,9 +246,9 @@ define(['app/mwtnConfig/mwtnConfig.module',
       var index = lists.indexOf(spec.list);
       var result;
       $scope[spec.list].map(function(obj){
-        console.log(obj.layerProtocol, spec.lp, obj.layerProtocol === spec.lp);
+        // console.log(obj.layerProtocol, spec.lp, obj.layerProtocol === spec.lp);
         if (obj.layerProtocol === spec.lp) {
-          console.log(index, parts[index], obj.Configuration[parts[index]], JSON.stringify(obj) );
+          // console.log(index, parts[index], obj.Configuration[parts[index]], JSON.stringify(obj) );
           result = obj.Configuration[parts[index]];
         }
       });
@@ -265,7 +265,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
       spec.nodeId = $scope.networkElement;
       spec.revision = $scope.revision;
       spec.layer = getLayerByListId(spec.list);
-      console.log('openConfigView', JSON.stringify(spec));
+      // console.log('openConfigView', JSON.stringify(spec));
 
       var modalInstance = $uibModal.open({
         animation: true,
@@ -334,11 +334,11 @@ define(['app/mwtnConfig/mwtnConfig.module',
           };
           $mwtnConfig.getPacParts(spec).then(function(success){
             // console.log('4', success);
+            $scope.spinner[key] = false;
             updatePart(spec, success);
-            $scope.spinner[key] = false;
           }, function(error){
-            updatePart(spec, error);
             $scope.spinner[key] = false;
+            updatePart(spec, error);
           });
           $scope.path = spec;
         }
@@ -758,10 +758,15 @@ define(['app/mwtnConfig/mwtnConfig.module',
 
       $scope.ok = function () {
         
+        // clone would make sence, when PATCH is implemented in ODL RestConf
+        // var clone = JSON.parse(JSON.stringify($scope.object.data));
         $scope.attributes.map(function(attribute){
-          if (attribute) {
+          if (attribute && $scope.object.data[attribute.name] !== attribute.value) { //&& $mwtnComments.getType(attribute.value) !== 'array') {
+            // clone[attribute.name] = attribute.value;
             $scope.object.data[attribute.name] = attribute.value;
-          }
+          } // else {
+            // clone[attribute.name] = undefined;
+          // }
         });
         
         var spec = {
@@ -773,6 +778,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
             partId: 'Configuration'
           };
         $scope.processing = true;
+        // console.log(JSON.stringify(clone));
         $mwtnConfig.setPacParts(spec, $scope.object.data).then(function(success){
           $scope.applied = {text: 'Applied: ' + new Date().toISOString(), class:'mwtnSuccess'};
           $scope.processing = false;

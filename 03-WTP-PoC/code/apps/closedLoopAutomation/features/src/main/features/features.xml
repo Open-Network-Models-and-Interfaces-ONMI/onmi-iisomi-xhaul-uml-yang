@@ -15,35 +15,14 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
   <repository>mvn:org.opendaylight.mdsal.model/features-mdsal-model/{{VERSION}}/xml/features</repository>
   <repository>mvn:org.opendaylight.netconf/features-restconf/{{VERSION}}/xml/features</repository>
   <repository>mvn:org.opendaylight.dlux/features-dlux/{{VERSION}}/xml/features</repository>
-  <feature name='odl-closedLoopAutomation-api' version='${project.version}' description='OpenDaylight :: closedLoopAutomation :: api'>
-    <feature version='${mdsal.model.version}'>odl-mdsal-models</feature>
-    <bundle>mvn:com.highstreet.technologies.odl.app/closedLoopAutomation-api/{{VERSION}}</bundle>
-  </feature>
+
   <feature name='odl-closedLoopAutomation' version='${project.version}' description='OpenDaylight :: closedLoopAutomation'>
     <feature version='${mdsal.version}'>odl-mdsal-broker</feature>
-    <feature version='${project.version}'>odl-closedLoopAutomation-api</feature>
+    <feature version='${mdsal.model.version}'>odl-mdsal-models</feature>
+    <feature version='${project.version}'>odl-mwt-models</feature>
     <bundle>mvn:com.highstreet.technologies.odl.app/closedLoopAutomation-impl/{{VERSION}}</bundle>
-  </feature>
-  <feature name='odl-closedLoopAutomation-rest' version='${project.version}' description='OpenDaylight :: closedLoopAutomation :: REST'>
-    <feature version="${project.version}">odl-closedLoopAutomation</feature>
-    <feature version="${restconf.version}">odl-restconf</feature>
-  </feature>
-  <feature name='odl-closedLoopAutomation-ui' version='${project.version}' description='OpenDaylight :: closedLoopAutomation :: UI'>
-    <feature version="${project.version}">odl-closedLoopAutomation-rest</feature>
-    <feature version="${restconf.version}">odl-mdsal-apidocs</feature>
-    <feature version="${mdsal.version}">odl-mdsal-xsql</feature>
-    <feature version="${dlux.version}">odl-dlux-yangui</feature>
-  </feature>
-  <feature name='odl-closedLoopAutomation-cli' version='${project.version}' description='OpenDaylight :: closedLoopAutomation :: CLI'>
-    <feature version="${project.version}">odl-closedLoopAutomation</feature>
-    <bundle>mvn:com.highstreet.technologies.odl.app/closedLoopAutomation-cli/{{VERSION}}</bundle>
-  </feature>
-  <feature name='odl-closedLoopAutomation-all' version='${project.version}' description='OpenDaylight :: closedLoopAutomation :: CLI'>
-    <feature version="${project.version}">odl-closedLoopAutomation</feature>
-    <feature version="${project.version}">odl-closedLoopAutomation-api</feature>
-    <feature version="${project.version}">odl-closedLoopAutomation-rest</feature>
-    <feature version="${project.version}">odl-closedLoopAutomation-ui</feature>
-    <feature version="${project.version}">odl-closedLoopAutomation-cli</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.app/closedLoopAutomation-api/{{VERSION}}</bundle>
+    <configfile finalname="etc/opendaylight/karaf/closedLoopAutomation-config.xml">mvn:com.highstreet.technologies.odl.app/closedLoopAutomation-controller-config/{{VERSION}}/xml/config</configfile>
   </feature>
 
 </features>
