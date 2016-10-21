@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
@@ -277,8 +278,9 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 					MWAirInterfacePac airInterfacePac = readNode(airInterfaceTransaction, path);
 
 					if (airInterfacePac != null) {
-						SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M hh:mm:ss");
-						String newAirInterfaceName = "AirInterface "+dateFormat.format(new Date());
+						SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+						dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));  
+						String newAirInterfaceName = "IF: "+dateFormat.format(new Date());
 						LOG.info("Old AirInterfaceName: {} - New AirInterfaceName: {}",airInterfacePac.getAirInterfaceConfiguration().getAirInterfaceName(), newAirInterfaceName);
 
 						// modify AirInterface name.

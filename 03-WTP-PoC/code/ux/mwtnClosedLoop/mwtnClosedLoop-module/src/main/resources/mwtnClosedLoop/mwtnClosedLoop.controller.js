@@ -24,36 +24,47 @@ define(['app/mwtnClosedLoop/mwtnClosedLoop.module','app/mwtnClosedLoop/mwtnClose
         {id : '30minutes', name : "30 minutes"},
         {id : '1hour', name : "One hour"}]
 
+    var clearMessages = function() {
+      $scope.info = undefined;
+      $scope.error = undefined;
+    };
+    
     $scope.executeNow = function() {
-        console.log('Execute NOW');
+        clearMessages();
         $mwtnCommons.executeClosedLoopAutomation().then(function(message){
           $mwtnLog.info({component: 'mwtnClosedLoopCtrl', message: 'Closed loop automation was started'});
-          alert('Closed loop automation was started');
+          $scope.info = 'Closed loop automation was executed: ' + new Date().toISOString().replace('T', ' ').split('.')[0] + ' UTC';
+          $scope.refresh();
         }, function(error){
           $mwtnLog.error({component: 'mwtnClosedLoopCtrl', message: 'Cannot execute Closed Loop Automation'});
-          alert('Cannot execute Closed Loop Automation');
+          $scope.error = 'Cannot execute Closed Loop Automation';
+          $scope.refresh();
         });
     };
 
     $scope.save = function() {
+        clearMessages();
         $mwtnCommons.saveClosedLoopAutomation($scope.timerEnabled, $scope.timerOption).then(function(message){
           $mwtnLog.info({component: 'mwtnClosedLoopCtrl', message: 'Timer was changed'});
-          alert('Timer was changed')
+          $scope.info = 'Timer was changed';
+          $scope.refresh();
         }, function(error){
-          console.log(error);
           $mwtnLog.error({component: 'mwtnClosedLoopCtrl', message: 'Cannot save timer'});
-          alert('Cannot save timer');
+          $scope.error = 'Cannot save timer';
+          $scope.refresh();
         });
     };
 
     $scope.read = function() {
+        clearMessages();
         $mwtnCommons.readClosedLoopAutomation().then(function(message){
            $scope.timerEnabled = message.data.output.enabled;
            $scope.timerOption = message.data.output.option;
+           $scope.refresh();
         }, function(error){
-          console.log(error);
-          $mwtnLog.error({component: 'mwtnClosedLoopCtrl', message: 'Cannot read data from the server'});
-          alert('Cannot read data from the server');
+          $mwtnLog.error({component: 'mwtnClosedLoopCtrl', message: 'Cannot read configuration data from the server'});
+          $scope.error = 'Cannot read configuration data from the server';
+          $scope.refresh();
         });
      };
 
@@ -138,7 +149,7 @@ define(['app/mwtnClosedLoop/mwtnClosedLoop.module','app/mwtnClosedLoop/mwtnClose
       { field: 'connectionStatus', type: 'string', displayName: 'Connection status',  headerCellClass: $scope.highlightFilteredHeader, width : 150, cellTemplate: requiredNesConnectionStatusCellTemplate },
       { field: 'radioSignalID', type: 'string', displayName: 'Radio signal id',  headerCellClass: $scope.highlightFilteredHeader, width : 130 },
       { field: 'plannedAirInterfaceName', type: 'string', displayName: 'Planned airinterface name',  headerCellClass: $scope.highlightFilteredHeader, width : 200 },
-      { field: 'actualAirInterfaceName',  type: 'string', displayName: 'Actual airinterface name',  headerCellClass: $scope.highlightFilteredHeader, width : 200, cellTemplate: actualAirinterfaceNameTemplate},
+      { field: 'actualAirInterfaceName',  type: 'string', displayName: 'Actual airinterface name',  headerCellClass: $scope.highlightFilteredHeader, width : 250, cellTemplate: actualAirinterfaceNameTemplate},
       ];
 
      $scope.refresh();
