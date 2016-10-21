@@ -1,6 +1,7 @@
 package org.opendaylight.impl.st;
 
 import com.highstreet.technologies.odl.app.spectrum.impl.api.DataAgent;
+import com.highstreet.technologies.odl.app.spectrum.impl.api.MosAgent;
 import com.highstreet.technologies.odl.app.spectrum.impl.api.RestfulODLCommunicator;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.DN;
 import com.highstreet.technologies.odl.app.spectrum.impl.meta.Pair;
@@ -78,6 +79,17 @@ public class TestSpectrumTask
             }
         }, new RestfulODLCommunicator());
         for (int i = 0; i < 3; i++)
+        {
+            task.execute();
+        }
+    }
+
+    @Test
+    public void given_mosAgent() throws Exception
+    {
+        SpectrumTask task = new SpectrumTask(new MosAgent("http://localhost:8282/mos"), new RestfulODLCommunicator());
+
+        for (int i = 0; i < 10; i++)
         {
             task.execute();
         }
