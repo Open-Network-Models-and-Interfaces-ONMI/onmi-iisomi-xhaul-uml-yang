@@ -6,8 +6,12 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-define(['angularAMD', 'app/routingConfig', 'app/core/core.services', 'common/config/env.module'], function(ng) {
-  var mwtnTopologyApp = angular.module('app.mwtnTopology', ['app.core', 'ui.router.state','config']);
+define(['angularAMD', 
+        'app/routingConfig', 
+        'app/core/core.services', 
+        'common/config/env.module',
+        'app/mwtnCommons/mwtnCommons.module'], function(ng) {
+  var mwtnTopologyApp = angular.module('app.mwtnTopology', ['app.core', 'ui.router.state', 'ui.grid', 'ui.bootstrap', 'config']);
 
   mwtnTopologyApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $translateProvider) {
     mwtnTopologyApp.register = {
