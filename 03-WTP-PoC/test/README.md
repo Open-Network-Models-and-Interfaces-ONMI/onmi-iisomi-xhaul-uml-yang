@@ -1,15 +1,15 @@
-ONF Wireless-Transport WG PoC3: Microwave Transport Network Test Automation Framework
+ONF Wireless-Transport Project PoC3: Test Automation Framework
 ==============================================
 
-This document describes how to use the ONF Microwave Transport Network Test
+This document describes how to use the ONF WTP PoC3 Microwave Transport Network Test
 Automation Framework:
   - The framework is based on Node.js, the well-known runtime environment for
     JavaScript. Mocha, Chai, and SuperTest provide the testing stack, while
     Grunt is used to automate tasks. The framework comprises a number of test scripts.
-  - The framework could also be leveraged to create a simulated test environment, acting as a
-    network simulator, actually composed of one OpenDaylight SDN controller
-    and many NETCONF SDN mediators emulating Network Elements.
-  - The framework includes a simple GUI to run the automated tests scripts on a
+  - The framework could also be leveraged to create a simulated test environment,
+    acting as a network simulator,  composed of one OpenDaylight SDN controller and many
+    NETCONF SDN mediators emulating Network Elements.
+  - The framework includes a simple GUI to run the developed automated tests scripts on a
     defined static network topology
 	
 
@@ -70,6 +70,8 @@ There are:
 "TestResult.log", containing actions log details for the script that has been run.
 
 "client.log", containing client details logs.
+
+"summaryReportXX.log", containing summary reports for GET/SET actions.
 
 
 Static configuration values for all the scripts are to be set in "./config.json" file. PoC Topology must be set in this file.

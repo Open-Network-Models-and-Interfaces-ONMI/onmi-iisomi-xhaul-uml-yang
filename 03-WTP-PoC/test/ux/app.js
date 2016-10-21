@@ -8,6 +8,9 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var executescript = require('./routes/executescript');
 var getlog = require('./routes/getlog');
+var getjsonFile = require('./routes/getjsonFile');
+var gettopology = require('./routes/gettopology');
+
 
 var app = express();
 
@@ -26,6 +29,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/executescript', executescript);
 app.use('/getlog', getlog);
+app.use('/getjsonFile', getjsonFile);
+app.use('/gettopology', gettopology);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
