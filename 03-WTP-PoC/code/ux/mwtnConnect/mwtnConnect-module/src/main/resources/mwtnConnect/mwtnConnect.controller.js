@@ -123,6 +123,17 @@ define(['app/mwtnConnect/mwtnConnect.module',
         });
       }
     };
+    var setValues = function(ane) {
+      if ($scope.requiredNesGridOptions.data) {
+        $scope.requiredNesGridOptions.data.map(function(rne) {
+          if (rne.name === ane['node-id']) {
+            rne.connectionStatus = ane['netconf-node-topology:connection-status'];
+            rne.ipaddress = ane['netconf-node-topology:host'];
+            rne.port = ane['netconf-node-topology:port'];
+          }
+        });
+      }
+    };
     var getActualNetworkElements = function() {
       // aneHash = [];
       if ($scope.requiredNesGridOptions.data) {
@@ -143,7 +154,8 @@ define(['app/mwtnConnect/mwtnConnect.module',
               });
             }
             if (isKnown(ne['node-id'])) {
-              setConnectionStatus(ne['node-id'], ne['netconf-node-topology:connection-status']);
+              // setConnectionStatus(ne['node-id'], ne['netconf-node-topology:connection-status']);
+              setValues(ne);
             } else {
               $scope.unknownNesGridOptions.data.push(ne);
             }
