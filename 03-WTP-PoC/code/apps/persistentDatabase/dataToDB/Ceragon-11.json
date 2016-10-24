@@ -536,65 +536,65 @@
 			"MW_PureEthernetStructure_Pac": [
 				{
 					"pureEthernetStructureConfiguration": {
-						"problemKindSeverityList": [
-							{
-								"problemKindName": "modulationIsDownShifted",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "temperatureIsExceeded",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "radioIsFaulty",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "rslIsExceeded",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "modemIsFaulty",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "signalIsLost",
-								"problemKindSeverity": "warning"
-							}
-						]
-					},
+    "problemKindSeverityList": [
+      {
+        "problemKindName": "modemIsFaulty",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "radioIsFaulty",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "modulationIsDownShifted",
+        "problemKindSeverity": "warning"
+      },
+      {
+        "problemKindName": "rslIsExceeded",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "signalIsLost",
+        "problemKindSeverity": "critical"
+      },
+      {
+        "problemKindName": "temperatureIsExceeded",
+        "problemKindSeverity": "major"
+      }
+    ]
+  },
 					"revision": "2016-08-11",
 					"layerProtocol": "LP-MWS-1"
 				},
 								{
 					"pureEthernetStructureConfiguration": {
-						"problemKindSeverityList": [
-							{
-								"problemKindName": "modulationIsDownShifted",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "temperatureIsExceeded",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "radioIsFaulty",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "rslIsExceeded",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "modemIsFaulty",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "signalIsLost",
-								"problemKindSeverity": "warning"
-							}
-						]
-					},
+    "problemKindSeverityList": [
+      {
+        "problemKindName": "modemIsFaulty",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "radioIsFaulty",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "modulationIsDownShifted",
+        "problemKindSeverity": "warning"
+      },
+      {
+        "problemKindName": "rslIsExceeded",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "signalIsLost",
+        "problemKindSeverity": "critical"
+      },
+      {
+        "problemKindName": "temperatureIsExceeded",
+        "problemKindSeverity": "major"
+      }
+    ]
+  },
 					"revision": "2016-08-11",
 					"layerProtocol": "LP-MWS-2"
 				}
