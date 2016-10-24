@@ -333,7 +333,7 @@
 						"modulationIsOn": true,
 						"maintenanceTimer": 1,
 						"adaptiveModulationIsOn": true,
-						"txFrequency": 15100000,
+						"rxFrequency": 15100000,
 						"autoFreqSelectRange": -1,
 						"autoFreqSelectIsOn": false,
 						"xpicIsOn": false,
@@ -342,7 +342,7 @@
 						"encryptionIsOn": false,
 						"rxChannelBandwidth": 56000,
 						"modulationMax": 10,
-						"rxFrequency": 14790000,
+						"txFrequency": 14790000,
 						"polarization": "not-specified",
 						"atpcThreshUpper": -42,
 						"radioSignalID": "11",
@@ -392,7 +392,7 @@
 						"modulationIsOn": true,
 						"maintenanceTimer": 1,
 						"adaptiveModulationIsOn": true,
-						"txFrequency": 15100000,
+						"rxFrequency": 15100000,
 						"autoFreqSelectRange": -1,
 						"autoFreqSelectIsOn": false,
 						"xpicIsOn": false,
@@ -401,7 +401,7 @@
 						"encryptionIsOn": false,
 						"rxChannelBandwidth": 56000,
 						"modulationMax": 10,
-						"rxFrequency": 14790000,
+						"txFrequency": 14790000,
 						"polarization": "horizontal",
 						"atpcThreshUpper": -42,
 						"radioSignalID": "12",
@@ -448,7 +448,40 @@
 					},
 					"revision": "2016-08-11",
 					"layerProtocol": "LP-MWS-1"
+				},
+								{
+					"pureEthernetStructureConfiguration": {
+						"problemKindSeverityList": [
+							{
+								"problemKindName": "modulationIsDownShifted",
+								"problemKindSeverity": "warning"
+							},
+							{
+								"problemKindName": "temperatureIsExceeded",
+								"problemKindSeverity": "warning"
+							},
+							{
+								"problemKindName": "radioIsFaulty",
+								"problemKindSeverity": "warning"
+							},
+							{
+								"problemKindName": "rslIsExceeded",
+								"problemKindSeverity": "warning"
+							},
+							{
+								"problemKindName": "modemIsFaulty",
+								"problemKindSeverity": "warning"
+							},
+							{
+								"problemKindName": "signalIsLost",
+								"problemKindSeverity": "warning"
+							}
+						]
+					},
+					"revision": "2016-08-11",
+					"layerProtocol": "LP-MWS-2"
 				}
+				
 			],
 			"MW_EthernetContainer_Pac": [
 				{
