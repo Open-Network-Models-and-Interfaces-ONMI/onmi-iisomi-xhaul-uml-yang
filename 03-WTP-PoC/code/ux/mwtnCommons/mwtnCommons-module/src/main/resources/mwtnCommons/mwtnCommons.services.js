@@ -1144,6 +1144,7 @@ define(
         };
                 
         service.genericRequest = function(databaseRequest) {
+          console.log(JSON.stringify(databaseRequest));
           var url = [ service.base, service.index, databaseRequest.docType,
                       databaseRequest.command ].join('/');
           var request = {
