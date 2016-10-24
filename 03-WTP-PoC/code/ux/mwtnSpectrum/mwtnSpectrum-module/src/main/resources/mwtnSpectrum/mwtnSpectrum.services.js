@@ -58,7 +58,7 @@ define(['app/mwtnSpectrum/mwtnSpectrum.module'],function(mwtnSpectrumApp) {
                 connectionStatus: hit._source.connectionStatus,
                 airInterfaceName: airinterface.airInterfaceConfiguration.airInterfaceName,
                 radioSignalID: airinterface.airInterfaceConfiguration.radioSignalID,
-                plannedTxFrequency: airinterface.airInterfaceConfiguration.rxFrequency,
+                plannedTxFrequency: airinterface.airInterfaceConfiguration.txFrequency,
                 actualTxFrequency: '?',
                 plannedRxFrequency: airinterface.airInterfaceConfiguration.rxFrequency,
                 actualRxFrequency: '?'
