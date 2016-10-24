@@ -12,286 +12,406 @@
 				"username": "compila",
 				"password": "compila+"
 			},
-			"NetworkElement": {
-				"_ltpRefList": [
-					{
-						"uuid": "LTP-MWPS-1",
-						"_clientLtpRefList": [
+			"NetworkElement" : {
+				"_ltpRefList" : [{
+						"uuid" : "LTP-MWPS-1",
+						"_clientLtpRefList" : [
 							"LTP-MWS-1"
 						],
-						"ltpDirection": "BIDIRECTIONAL",
-						"_peerLtpRef": "",
-						"administrativeState": "UNLOCKED",
-						"operationalState": "ENABLED",
-						"_ltpRefList": [
-							"LTP-MWS-1"
+						"ltpDirection" : "BIDIRECTIONAL",
+						"_peerLtpRef" : "",
+						"administrativeState" : "UNLOCKED",
+						"operationalState" : "ENABLED",
+						"_ltpRefList" : [
+							"LTP-MWS-1",
+							""
 						],
-						"labelList": [
-							{
-								"valueName": "ltpLabel",
-								"value": "LTP-MWPS-1"
+						"labelList" : [{
+								"valueName" : "ltpLabel",
+								"value" : "LTP-MWPS-1"
 							}
 						],
-						"_lpList": [
-							{
-								"uuid": "LP-MWPS-1",
-								"layerProtocolName": "MWPS",
-								"configuredClientCapacity": "500",
-								"administrativeState": "UNLOCKED",
-								"operationalState": "ENABLED",
-								"terminationState": true,
-								"lpDirection": "BIDIRECTIONAL",
-								"labelList": [
-									{
-										"valueName": "lpLabel",
-										"value": "LP-MWPS-1"
+						"_lpList" : [{
+								"uuid" : "LP-MWPS-1",
+								"layerProtocolName" : "MWPS",
+								"configuredClientCapacity" : "500",
+								"administrativeState" : "UNLOCKED",
+								"operationalState" : "ENABLED",
+								"terminationState" : true,
+								"lpDirection" : "BIDIRECTIONAL",
+								"labelList" : [{
+										"valueName" : "lpLabel",
+										"value" : "LP-MWPS-1"
 									}
 								],
-								"nameList": [
-									{
-										"valueName": "lpName",
-										"value": "LP-MWPS-1"
+								"nameList" : [{
+										"valueName" : "lpName",
+										"value" : "LP-MWPS-1"
 									}
 								],
-								"extensionList": [
-									{
-										"valueName": "lpExtension",
-										"value": "LP-MWPS-1"
+								"extensionList" : [{
+										"valueName" : "lpExtension",
+										"value" : "LP-MWPS-1"
 									}
 								],
-								"lifecycleState": "INSTALLED",
-								"localIdList": [
-									{
-										"valueName": "lpLocalIdList",
-										"value": "LP-MWPS-1"
+								"lifecycleState" : "INSTALLED",
+								"localIdList" : [{
+										"valueName" : "lpLocalIdList",
+										"value" : "LP-MWPS-1"
 									}
 								],
-								"administrativeControl": "UNLOCK"
+								"administrativeControl" : "UNLOCK"
 							}
 						],
-						"nameList": [
-							{
-								"valueName": "ltpName",
-								"value": "LTP-MWPS-1"
+						"nameList" : [{
+								"valueName" : "ltpName",
+								"value" : "LTP-MWPS-1"
 							}
 						],
-						"_connectedLtpRef": "",
-						"extensionList": [
-							{
-								"valueName": "ltpExtension",
-								"value": "LTP-MWPS-1"
+						"_connectedLtpRef" : "",
+						"extensionList" : [{
+								"valueName" : "ltpExtension",
+								"value" : "LTP-MWPS-1"
 							}
 						],
-						"physicalPortReference": [
+						"physicalPortReference" : [
 							"slot 2 port 1"
 						],
-						"lifecycleState": "INSTALLED",
-						"_serverLtpRefList": [],
-						"localIdList": [
-							{
-								"valueName": "ltpLocalIdList",
-								"value": "LTP-MWPS-1"
+						"lifecycleState" : "INSTALLED",
+						"_serverLtpRefList" : [
+							""
+						],
+						"localIdList" : [{
+								"valueName" : "ltpLocalIdList",
+								"value" : "LTP-MWPS-1"
 							}
 						],
-						"administrativeControl": "UNLOCK"
-					},
-					{
-						"uuid": "LTP-MWS-1",
-						"_clientLtpRefList": [
+						"administrativeControl" : "UNLOCK"
+					}, {
+						"uuid" : "LTP-MWPS-2",
+						"_clientLtpRefList" : [
+							"LTP-MWS-2"
+						],
+						"ltpDirection" : "BIDIRECTIONAL",
+						"_peerLtpRef" : "",
+						"administrativeState" : "UNLOCKED",
+						"operationalState" : "ENABLED",
+						"_ltpRefList" : [
+							"LTP-MWS-2",
+							""
+						],
+						"labelList" : [{
+								"valueName" : "ltpLabel",
+								"value" : "LTP-MWPS-2"
+							}
+						],
+						"_lpList" : [{
+								"uuid" : "LP-MWPS-2",
+								"layerProtocolName" : "MWPS",
+								"configuredClientCapacity" : "500",
+								"administrativeState" : "UNLOCKED",
+								"operationalState" : "ENABLED",
+								"terminationState" : true,
+								"lpDirection" : "BIDIRECTIONAL",
+								"labelList" : [{
+										"valueName" : "lpLabel",
+										"value" : "LP-MWPS-2"
+									}
+								],
+								"nameList" : [{
+										"valueName" : "lpName",
+										"value" : "LP-MWPS-2"
+									}
+								],
+								"extensionList" : [{
+										"valueName" : "lpExtension",
+										"value" : "LP-MWPS-2"
+									}
+								],
+								"lifecycleState" : "INSTALLED",
+								"localIdList" : [{
+										"valueName" : "lpLocalIdList",
+										"value" : "LP-MWPS-2"
+									}
+								],
+								"administrativeControl" : "UNLOCK"
+							}
+						],
+						"nameList" : [{
+								"valueName" : "ltpName",
+								"value" : "LTP-MWPS-2"
+							}
+						],
+						"_connectedLtpRef" : "",
+						"extensionList" : [{
+								"valueName" : "ltpExtension",
+								"value" : "LTP-MWPS-2"
+							}
+						],
+						"physicalPortReference" : [
+							"slot 2 port 2"
+						],
+						"lifecycleState" : "INSTALLED",
+						"_serverLtpRefList" : [
+							""
+						],
+						"localIdList" : [{
+								"valueName" : "ltpLocalIdList",
+								"value" : "LTP-MWPS-2"
+							}
+						],
+						"administrativeControl" : "UNLOCK"
+					}, {
+						"uuid" : "LTP-MWS-2",
+						"_clientLtpRefList" : [
 							"LTP-ETH-CTP-1"
 						],
-						"ltpDirection": "BIDIRECTIONAL",
-						"_peerLtpRef": "",
-						"administrativeState": "UNLOCKED",
-						"operationalState": "ENABLED",
-						"_ltpRefList": [
+						"ltpDirection" : "BIDIRECTIONAL",
+						"_peerLtpRef" : "",
+						"administrativeState" : "UNLOCKED",
+						"operationalState" : "ENABLED",
+						"_ltpRefList" : [
+							"LTP-ETH-CTP-1",
+							"LTP-MWPS-2"
+						],
+						"labelList" : [{
+								"valueName" : "ltpLabel",
+								"value" : "LTP-MWS-2"
+							}
+						],
+						"_lpList" : [{
+								"uuid" : "LP-MWS-2",
+								"layerProtocolName" : "MWS",
+								"configuredClientCapacity" : "500",
+								"administrativeState" : "UNLOCKED",
+								"operationalState" : "ENABLED",
+								"terminationState" : false,
+								"lpDirection" : "BIDIRECTIONAL",
+								"labelList" : [{
+										"valueName" : "lpLabel",
+										"value" : "LP-MWS-2"
+									}
+								],
+								"nameList" : [{
+										"valueName" : "lpName",
+										"value" : "LP-MWS-2"
+									}
+								],
+								"extensionList" : [{
+										"valueName" : "lpExtension",
+										"value" : "LP-MWS-2"
+									}
+								],
+								"lifecycleState" : "INSTALLED",
+								"localIdList" : [{
+										"valueName" : "lpLocalIdList",
+										"value" : "LP-MWS-2"
+									}
+								],
+								"administrativeControl" : "UNLOCK"
+							}
+						],
+						"nameList" : [{
+								"valueName" : "ltpName",
+								"value" : "LTP-MWS-2"
+							}
+						],
+						"_connectedLtpRef" : "",
+						"extensionList" : [{
+								"valueName" : "ltpExtension",
+								"value" : "LTP-MWS-2"
+							}
+						],
+						"physicalPortReference" : [
+							""
+						],
+						"lifecycleState" : "INSTALLED",
+						"_serverLtpRefList" : [
+							"LTP-MWPS-2"
+						],
+						"localIdList" : [{
+								"valueName" : "ltpLocalIdList",
+								"value" : "LTP-MWS-2"
+							}
+						],
+						"administrativeControl" : "UNLOCK"
+					}, {
+						"uuid" : "LTP-MWS-1",
+						"_clientLtpRefList" : [
+							"LTP-ETH-CTP-1"
+						],
+						"ltpDirection" : "BIDIRECTIONAL",
+						"_peerLtpRef" : "",
+						"administrativeState" : "UNLOCKED",
+						"operationalState" : "ENABLED",
+						"_ltpRefList" : [
 							"LTP-MWPS-1",
 							"LTP-ETH-CTP-1"
 						],
-						"labelList": [
-							{
-								"valueName": "ltpLabel",
-								"value": "LTP-MWS-1"
+						"labelList" : [{
+								"valueName" : "ltpLabel",
+								"value" : "LTP-MWS-1"
 							}
 						],
-						"_lpList": [
-							{
-								"uuid": "LP-MWS-1",
-								"layerProtocolName": "MWS",
-								"configuredClientCapacity": "500",
-								"administrativeState": "UNLOCKED",
-								"operationalState": "ENABLED",
-								"terminationState": false,
-								"lpDirection": "BIDIRECTIONAL",
-								"labelList": [
-									{
-										"valueName": "lpLabel",
-										"value": "LP-MWS-1"
+						"_lpList" : [{
+								"uuid" : "LP-MWS-1",
+								"layerProtocolName" : "MWS",
+								"configuredClientCapacity" : "500",
+								"administrativeState" : "UNLOCKED",
+								"operationalState" : "ENABLED",
+								"terminationState" : false,
+								"lpDirection" : "BIDIRECTIONAL",
+								"labelList" : [{
+										"valueName" : "lpLabel",
+										"value" : "LP-MWS-1"
 									}
 								],
-								"nameList": [
-									{
-										"valueName": "lpName",
-										"value": "LP-MWS-1"
+								"nameList" : [{
+										"valueName" : "lpName",
+										"value" : "LP-MWS-1"
 									}
 								],
-								"extensionList": [
-									{
-										"valueName": "lpExtension",
-										"value": "LP-MWS-1"
+								"extensionList" : [{
+										"valueName" : "lpExtension",
+										"value" : "LP-MWS-1"
 									}
 								],
-								"lifecycleState": "INSTALLED",
-								"localIdList": [
-									{
-										"valueName": "lpLocalIdList",
-										"value": "LP-MWS-1"
+								"lifecycleState" : "INSTALLED",
+								"localIdList" : [{
+										"valueName" : "lpLocalIdList",
+										"value" : "LP-MWS-1"
 									}
 								],
-								"administrativeControl": "UNLOCK"
+								"administrativeControl" : "UNLOCK"
 							}
 						],
-						"nameList": [
-							{
-								"valueName": "ltpName",
-								"value": "LTP-MWS-1"
+						"nameList" : [{
+								"valueName" : "ltpName",
+								"value" : "LTP-MWS-1"
 							}
 						],
-						"_connectedLtpRef": "",
-						"extensionList": [
-							{
-								"valueName": "ltpExtension",
-								"value": "LTP-MWS-1"
+						"_connectedLtpRef" : "",
+						"extensionList" : [{
+								"valueName" : "ltpExtension",
+								"value" : "LTP-MWS-1"
 							}
 						],
-						"physicalPortReference": [
+						"physicalPortReference" : [
 							""
 						],
-						"lifecycleState": "INSTALLED",
-						"_serverLtpRefList": [
+						"lifecycleState" : "INSTALLED",
+						"_serverLtpRefList" : [
 							"LTP-MWPS-1"
 						],
-						"localIdList": [
-							{
-								"valueName": "ltpLocalIdList",
-								"value": "LTP-MWS-1"
+						"localIdList" : [{
+								"valueName" : "ltpLocalIdList",
+								"value" : "LTP-MWS-1"
 							}
 						],
-						"administrativeControl": "UNLOCK"
-					},
-					{
-						"uuid": "LTP-ETH-CTP-1",
-						"_clientLtpRefList": [
+						"administrativeControl" : "UNLOCK"
+					}, {
+						"uuid" : "LTP-ETH-CTP-1",
+						"_clientLtpRefList" : [
 							""
 						],
-						"ltpDirection": "BIDIRECTIONAL",
-						"_peerLtpRef": "",
-						"administrativeState": "UNLOCKED",
-						"operationalState": "ENABLED",
-						"_ltpRefList": [
-							"LTP-MWS-1"
+						"ltpDirection" : "BIDIRECTIONAL",
+						"_peerLtpRef" : "",
+						"administrativeState" : "UNLOCKED",
+						"operationalState" : "ENABLED",
+						"_ltpRefList" : [
+							"LTP-MWS-2",
+							"LTP-MWS-1",
+							""
 						],
-						"labelList": [
-							{
-								"valueName": "ltpLabel",
-								"value": "LTP-ETH-CTP-1"
+						"labelList" : [{
+								"valueName" : "ltpLabel",
+								"value" : "LTP-ETH-CTP-1"
 							}
 						],
-						"_lpList": [
-							{
-								"uuid": "LP-ETH-CTP-1",
-								"layerProtocolName": "ETH-CTP",
-								"configuredClientCapacity": "1000",
-								"administrativeState": "UNLOCKED",
-								"operationalState": "ENABLED",
-								"terminationState": false,
-								"lpDirection": "BIDIRECTIONAL",
-								"labelList": [
-									{
-										"valueName": "lpLabel",
-										"value": "LP-ETH-CTP-1"
+						"_lpList" : [{
+								"uuid" : "LP-ETH-CTP-1",
+								"layerProtocolName" : "ETH-CTP",
+								"configuredClientCapacity" : "1000",
+								"administrativeState" : "UNLOCKED",
+								"operationalState" : "ENABLED",
+								"terminationState" : false,
+								"lpDirection" : "BIDIRECTIONAL",
+								"labelList" : [{
+										"valueName" : "lpLabel",
+										"value" : "LP-ETH-CTP-1"
 									}
 								],
-								"nameList": [
-									{
-										"valueName": "lpName",
-										"value": "LP-ETH-CTP-1"
+								"nameList" : [{
+										"valueName" : "lpName",
+										"value" : "LP-ETH-CTP-1"
 									}
 								],
-								"extensionList": [
-									{
-										"valueName": "lpExtension",
-										"value": "LP-ETH-CTP-1"
+								"extensionList" : [{
+										"valueName" : "lpExtension",
+										"value" : "LP-ETH-CTP-1"
 									}
 								],
-								"lifecycleState": "INSTALLED",
-								"localIdList": [
-									{
-										"valueName": "lpLocalIdList",
-										"value": "LP-ETH-CTP-1"
+								"lifecycleState" : "INSTALLED",
+								"localIdList" : [{
+										"valueName" : "lpLocalIdList",
+										"value" : "LP-ETH-CTP-1"
 									}
 								],
-								"administrativeControl": "UNLOCK"
+								"administrativeControl" : "UNLOCK"
 							}
 						],
-						"nameList": [
-							{
-								"valueName": "ltpName",
-								"value": "LTP-ETH-CTP-1"
+						"nameList" : [{
+								"valueName" : "ltpName",
+								"value" : "LTP-ETH-CTP-1"
 							}
 						],
-						"_connectedLtpRef": "",
-						"extensionList": [
-							{
-								"valueName": "ltpExtension",
-								"value": "LTP-ETH-CTP-1"
+						"_connectedLtpRef" : "",
+						"extensionList" : [{
+								"valueName" : "ltpExtension",
+								"value" : "LTP-ETH-CTP-1"
 							}
 						],
-						"physicalPortReference": [
+						"physicalPortReference" : [
 							"slot 1 port 1"
 						],
-						"lifecycleState": "INSTALLED",
-						"_serverLtpRefList": [
-							"LTP-MWS-1"
+						"lifecycleState" : "INSTALLED",
+						"_serverLtpRefList" : [
+							"LTP-MWS-1",
+							"LTP-MWS-2"
 						],
-						"localIdList": [
-							{
-								"valueName": "ltpLocalIdList",
-								"value": "LTP-ETH-CTP-1"
+						"localIdList" : [{
+								"valueName" : "ltpLocalIdList",
+								"value" : "LTP-ETH-CTP-1"
 							}
 						],
-						"administrativeControl": "UNLOCK"
+						"administrativeControl" : "UNLOCK"
 					}
 				],
-				"labelList": [
-					{
-						"valueName": "neLabel",
-						"value": "Ceragon-12"
+				"labelList" : [{
+						"valueName" : "neLabel",
+						"value" : "Ceragon-12"
 					}
 				],
-				"uuid": "Ceragon-12",
-				"nameList": [
-					{
-						"valueName": "neName",
-						"value": "Ceragon-12"
+				"uuid" : "Ceragon-12",
+				"nameList" : [{
+						"valueName" : "neName",
+						"value" : "Ceragon-12"
 					}
 				],
-				"extensionList": [
-					{
-						"valueName": "neExtension",
-						"value": "Ceragon-12"
+				"extensionList" : [{
+						"valueName" : "neExtension",
+						"value" : "Ceragon-12"
 					}
 				],
-				"administrativeState": "UNLOCKED",
-				"lifecycleState": "INSTALLED",
-				"localIdList": [
-					{
-						"valueName": "neLocalIdList",
-						"value": "Ceragon-12"
+				"administrativeState" : "UNLOCKED",
+				"lifecycleState" : "INSTALLED",
+				"localIdList" : [{
+						"valueName" : "neLocalIdList",
+						"value" : "Ceragon-12"
 					}
 				],
-				"administrativeControl": "UNLOCK",
-				"operationalState": "ENABLED"
+				"administrativeControl" : "UNLOCK",
+				"operationalState" : "ENABLED"
 			},
 			"MW_AirInterface_Pac": [
 				{
