@@ -100,12 +100,12 @@ define(['app/mwtnSpectrum/mwtnSpectrum.module',
 
     var actualTxFrequencyCellTemplate = [
      '<div class="ui-grid-cell-contents" ng-class="{ \'green\': grid.getCellValue(row, col) === \'connected\'}"}>',
-     '  <span ng-class="{\'mismatch\': {{row.entity.plannedTxFrequency}} - grid.getCellValue(row, col) === 0}">{{grid.getCellValue(row, col)}}</span>',
+     '  <span ng-class="{\'mismatch\': {{row.entity.plannedTxFrequency}} === grid.getCellValue(row, col) }">{{grid.getCellValue(row, col)}}</span>',
      '</div>'].join('');
 
     var actualRxFrequencyCellTemplate = [
      '<div class="ui-grid-cell-contents" ng-class="{ \'green\': grid.getCellValue(row, col) === \'connected\'}"}>',
-     '  <span ng-class="{\'mismatch\': {{row.entity.plannedRxFrequency}} - grid.getCellValue(row, col) === 0}">{{grid.getCellValue(row, col)}}</span>',
+     '  <span ng-class="{\'mismatch\': {{row.entity.plannedRxFrequency}} === grid.getCellValue(row, col) }">{{grid.getCellValue(row, col)}}</span>',
      '</div>'].join('');
   
     $scope.gridOptions = JSON.parse(JSON.stringify($mwtnSpectrum.gridOptions));
