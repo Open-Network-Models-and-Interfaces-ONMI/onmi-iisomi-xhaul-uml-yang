@@ -43,6 +43,9 @@ var netConfDataFile = __dirname+test_cases["NetConfDataFile"];
 var parseDataFile = __dirname+test_cases["ParseDataFile"];
 var summaryReportFile = __dirname+test_cases["SummaryReportFile02"];
 
+var parseDataStream = "";
+var summaryReportStream = "";
+
 //var stream = fs.createReadStream(netConfDataFile);
 
 var Client = require('ssh2').Client;
@@ -67,7 +70,11 @@ var xmlhello1 = '<?xml version="1.0" encoding="UTF-8"?>'+
        sync.await(truncateFile(TestResultFile,sync.defers()));
        sync.await(truncateFile(netConfDataFile,sync.defers()));
        sync.await(truncateFile(parseDataFile,sync.defers()));
-       debug.write("[", true, fs.openSync(summaryReportFile, "w"));
+
+	   parseDataStream = fs.openSync(parseDataFile,'a+');
+	   debug.write("[", true, fs.openSync(summaryReportFile, "w"));
+	   summaryReportStream = fs.openSync(summaryReportFile,'a+');
+
 
        debug.write("Test executed on : " + Date() + " with MediatorIndex : " + mediatorIndex, true, fs.openSync(TestResultFile, "a+"));
 
@@ -101,16 +108,18 @@ var xmlhello1 = '<?xml version="1.0" encoding="UTF-8"?>'+
        for (var i = 0; i < yangArray.length; i++) {
 
 		   var yangModelName = yangArray[i];
-		   debug.write("YANG Model Name : " + yangModelName, true, fs.openSync(parseDataFile, "a+"));
+		   debug.write("YANG Model Name : " + yangModelName, true, parseDataStream);
 		   var neNodeName = test_cases["nodeName"];
 		   var yangObj = yang.parse(fs.readFileSync(__dirname+test_cases.YangDirectory + yangModelName + '.yang', 'utf8'));
 		   baseurl = restconf + '/topology/topology-netconf/node/' + neNodeName + '/yang-ext:mount/' + yangModelName + '';
 		   getLeafs(yangObj, yangModelName, flag);
        }
 
-	debug.write("]", true, fs.openSync(summaryReportFile, "a+"));
+	debug.write("]", true, summaryReportStream);
     debug.write("The Script has been executed successfully on " + Date(), true, fs.openSync(TestResultFile, "a+"));
     console.log("The Script has been executed successfully on " + Date());
+    fs.closeSync(parseDataStream);
+    fs.closeSync(summaryReportStream);
 	process.exit(0);
 
 });
@@ -157,27 +166,27 @@ function executeGetSet(url, leafData, chainType) {
     finalUrl = baseurl + ":" + url.substr(1);
 
 
-    debug.write("**********************************************", true, fs.openSync(parseDataFile, "a+"));
+    debug.write("**********************************************", true, parseDataStream);
 
-    debug.write(url, true, fs.openSync(parseDataFile, "a+"));
+    debug.write(url, true, parseDataStream);
 
     for (var i = 0; i < leafData.length; i++) {
 
-        debug.write("Configurable : "+leafData[i].config, true, fs.openSync(parseDataFile, "a+"));
-        debug.write("leaf name : "+leafData[i].leafName, true, fs.openSync(parseDataFile, "a+"));
-        debug.write("type of leaf : "+leafData[i].type, true, fs.openSync(parseDataFile, "a+"));
-        debug.write("CurrentValue : "+leafData[i].leafCurrentValue, true, fs.openSync(parseDataFile, "a+"));
-        debug.write("proposedValue : "+leafData[i].proposedValue, true, fs.openSync(parseDataFile, "a+"));
-        debug.write("parentNode : "+leafData[i].parentNode, true, fs.openSync(parseDataFile, "a+"));
-        debug.write("parentNodeType : "+leafData[i].parentNodeType, true, fs.openSync(parseDataFile, "a+"));
-        debug.write("#############################", true, fs.openSync(parseDataFile, "a+"));
+        debug.write("Configurable : "+leafData[i].config, true, parseDataStream);
+        debug.write("leaf name : "+leafData[i].leafName, true, parseDataStream);
+        debug.write("type of leaf : "+leafData[i].type, true, parseDataStream);
+        debug.write("CurrentValue : "+leafData[i].leafCurrentValue, true, parseDataStream);
+        debug.write("proposedValue : "+leafData[i].proposedValue, true, parseDataStream);
+        debug.write("parentNode : "+leafData[i].parentNode, true, parseDataStream);
+        debug.write("parentNodeType : "+leafData[i].parentNodeType, true, parseDataStream);
+        debug.write("#############################", true, parseDataStream);
 		var checkJson = "{\"Leaf Name\": \"" + leafData[i].leafName + "\", \"Parent Node\": \"" + leafData[i].parentNode + "\", \"Current Value\": \"" + leafData[i].leafCurrentValue + "\", \"Status\": \"Retrieved\"}";
 			
 		if(isValidJson(checkJson) && leafData[i].leafCurrentValue != null && leafData[i].leafCurrentValue != "" && comma_flag == false){
-			debug.write("{\"Leaf Name\": \"" + leafData[i].leafName + "\", \"Parent Node\": \"" + leafData[i].parentNode + "\", \"Current Value\": \"" + leafData[i].leafCurrentValue + "\", \"Status\": \"Retrieved\"}", true, fs.openSync(summaryReportFile, "a+"));
+			debug.write("{\"Leaf Name\": \"" + leafData[i].leafName + "\", \"Parent Node\": \"" + leafData[i].parentNode + "\", \"Current Value\": \"" + leafData[i].leafCurrentValue + "\", \"Status\": \"Retrieved\"}", true, summaryReportStream);
 			comma_flag = true;
 		}else if(isValidJson(checkJson) && leafData[i].leafCurrentValue != null && leafData[i].leafCurrentValue != "" ){
-			debug.write(", {\"Leaf Name\": \"" + leafData[i].leafName + "\", \"Parent Node\": \"" + leafData[i].parentNode + "\", \"Current Value\": \"" + leafData[i].leafCurrentValue + "\", \"Status\": \"Retrieved\"}", true, fs.openSync(summaryReportFile, "a+"));
+			debug.write(", {\"Leaf Name\": \"" + leafData[i].leafName + "\", \"Parent Node\": \"" + leafData[i].parentNode + "\", \"Current Value\": \"" + leafData[i].leafCurrentValue + "\", \"Status\": \"Retrieved\"}", true, summaryReportStream);
 		}
     }
 }
