@@ -99,174 +99,6 @@
 						"administrativeControl": "UNLOCK"
 					},
 					{
-						"uuid": "LTP-MWPS-2",
-						"_clientLtpRefList": [
-							"LTP-MWS-2"
-						],
-						"ltpDirection": "BIDIRECTIONAL",
-						"_peerLtpRef": "",
-						"administrativeState": "UNLOCKED",
-						"operationalState": "ENABLED",
-						"_ltpRefList": [
-							"LTP-MWS-2",
-							""
-						],
-						"labelList": [
-							{
-								"valueName": "ltpLabel",
-								"value": "LTP-MWPS-2"
-							}
-						],
-						"_lpList": [
-							{
-								"uuid": "LP-MWPS-2",
-								"layerProtocolName": "MWPS",
-								"configuredClientCapacity": "500",
-								"administrativeState": "UNLOCKED",
-								"operationalState": "ENABLED",
-								"terminationState": true,
-								"lpDirection": "BIDIRECTIONAL",
-								"labelList": [
-									{
-										"valueName": "lpLabel",
-										"value": "LP-MWPS-2"
-									}
-								],
-								"nameList": [
-									{
-										"valueName": "lpName",
-										"value": "LP-MWPS-2"
-									}
-								],
-								"extensionList": [
-									{
-										"valueName": "lpExtension",
-										"value": "LP-MWPS-2"
-									}
-								],
-								"lifecycleState": "INSTALLED",
-								"localIdList": [
-									{
-										"valueName": "lpLocalIdList",
-										"value": "LP-MWPS-2"
-									}
-								],
-								"administrativeControl": "UNLOCK"
-							}
-						],
-						"nameList": [
-							{
-								"valueName": "ltpName",
-								"value": "LTP-MWPS-2"
-							}
-						],
-						"_connectedLtpRef": "",
-						"extensionList": [
-							{
-								"valueName": "ltpExtension",
-								"value": "LTP-MWPS-2"
-							}
-						],
-						"physicalPortReference": [
-							"slot 2 port 2"
-						],
-						"lifecycleState": "INSTALLED",
-						"_serverLtpRefList": [
-							""
-						],
-						"localIdList": [
-							{
-								"valueName": "ltpLocalIdList",
-								"value": "LTP-MWPS-2"
-							}
-						],
-						"administrativeControl": "UNLOCK"
-					},
-					{
-						"uuid": "LTP-MWS-2",
-						"_clientLtpRefList": [
-							"LTP-ETH-CTP-1"
-						],
-						"ltpDirection": "BIDIRECTIONAL",
-						"_peerLtpRef": "",
-						"administrativeState": "UNLOCKED",
-						"operationalState": "ENABLED",
-						"_ltpRefList": [
-							"LTP-ETH-CTP-1",
-							"LTP-MWPS-2"
-						],
-						"labelList": [
-							{
-								"valueName": "ltpLabel",
-								"value": "LTP-MWS-2"
-							}
-						],
-						"_lpList": [
-							{
-								"uuid": "LP-MWS-2",
-								"layerProtocolName": "MWS",
-								"configuredClientCapacity": "500",
-								"administrativeState": "UNLOCKED",
-								"operationalState": "ENABLED",
-								"terminationState": false,
-								"lpDirection": "BIDIRECTIONAL",
-								"labelList": [
-									{
-										"valueName": "lpLabel",
-										"value": "LP-MWS-2"
-									}
-								],
-								"nameList": [
-									{
-										"valueName": "lpName",
-										"value": "LP-MWS-2"
-									}
-								],
-								"extensionList": [
-									{
-										"valueName": "lpExtension",
-										"value": "LP-MWS-2"
-									}
-								],
-								"lifecycleState": "INSTALLED",
-								"localIdList": [
-									{
-										"valueName": "lpLocalIdList",
-										"value": "LP-MWS-2"
-									}
-								],
-								"administrativeControl": "UNLOCK"
-							}
-						],
-						"nameList": [
-							{
-								"valueName": "ltpName",
-								"value": "LTP-MWS-2"
-							}
-						],
-						"_connectedLtpRef": "",
-						"extensionList": [
-							{
-								"valueName": "ltpExtension",
-								"value": "LTP-MWS-2"
-							}
-						],
-						"physicalPortReference": [
-							""
-						],
-						"lifecycleState": "INSTALLED",
-						"_serverLtpRefList": [
-							"LTP-MWPS-2"
-						],
-						"localIdList": [
-							{
-								"valueName": "ltpLocalIdList",
-								"value": "LTP-MWS-2"
-							}
-						],
-						"administrativeControl": "UNLOCK"
-					},
-					{
 						"uuid": "LTP-MWS-1",
 						"_clientLtpRefList": [
 							"LTP-ETH-CTP-1"
@@ -360,9 +192,7 @@
 						"administrativeState": "UNLOCKED",
 						"operationalState": "ENABLED",
 						"_ltpRefList": [
-							"LTP-MWS-2",
-							"LTP-MWS-1",
-							""
+							"LTP-MWS-1"
 						],
 						"labelList": [
 							{
@@ -425,8 +255,7 @@
 						],
 						"lifecycleState": "INSTALLED",
 						"_serverLtpRefList": [
-							"LTP-MWS-1",
-							"LTP-MWS-2"
+							"LTP-MWS-1"
 						],
 						"localIdList": [
 							{
@@ -495,7 +324,7 @@
 						"powerIsOn": true,
 						"txChannelBandwidth": 50000,
 						"atpcIsOn": false,
-						"airInterfaceName": "AirInterface#1",
+						"airInterfaceName": "Air interface ID not yet defined.",
 						"receiverIsOn": true,
 						"problemKindSeverityList": [
 							{
