@@ -94,4 +94,25 @@ public class TestSpectrumTask
             task.execute();
         }
     }
+
+    @Test
+    public void given_mos_and_fake_odl() throws Exception {
+        SpectrumTask task = new SpectrumTask(new MosAgent("http://10.50.250.4:8282/mos"), new RestfulODLCommunicator("10.50.250.4:8181")
+        {
+            @Override
+            public void set(String dn, Pair<String, Object>... values) {
+                System.out.println("setting " + Arrays.asList(values) + " to "
+                        + dn.replace("network-topology:network-topology/topology/topology-netconf/node/", "")
+                        .replace("/yang-ext:mount/MicrowaveModel-ObjectClasses-AirInterface:MW_AirInterface_Pac", "")
+                        .replace("/airInterfaceConfiguration", ""));
+            }
+        });
+        task.execute();
+    }
+
+    @Test
+    public void given_odl_all() throws Exception {
+        SpectrumTask task = new SpectrumTask(new MosAgent("http://10.50.250.4:8282/mos"), new RestfulODLCommunicator("10.50.250.4:8181"));
+        task.execute();
+    }
 }
