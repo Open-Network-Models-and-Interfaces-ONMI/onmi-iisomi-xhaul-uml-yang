@@ -268,16 +268,20 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 		LOG.info("We found the suitable device : {}", nodeKey);
 		// retrieve list of universal IDs which need to retrieve MWAirInterfacePac
 		List<UniversalId> universalIdList = retrieveUniversalId(xrNodeBroker);
+		LOG.debug("We found universalIds, the list is {} ",universalIdList);
 		if (universalIdList != null && universalIdList.size() > 0) {
 			for (UniversalId uuid : universalIdList) {
+				LOG.debug("Process uuid {} ",uuid);
 				ReadWriteTransaction airInterfaceTransaction = null;
 				try {
 					// read MWAirInterfacePac
 					airInterfaceTransaction = xrNodeBroker.newReadWriteTransaction();
 					InstanceIdentifier<MWAirInterfacePac> path = InstanceIdentifier.builder(MWAirInterfacePac.class, new MWAirInterfacePacKey(uuid)).build();
+					LOG.debug("Try to read from device ");
 					MWAirInterfacePac airInterfacePac = readNode(airInterfaceTransaction, path);
 
 					if (airInterfacePac != null) {
+						LOG.debug("We found the MWAirInterfacePac");
 						SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
 						dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));  
 						String newAirInterfaceName = "IF: "+dateFormat.format(new Date());
@@ -290,10 +294,14 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 						mWAirInterfacePacBuilder.setAirInterfaceConfiguration(configurationBuilder.build());
 
 						// store new information to config datastore
+						LOG.debug("Start merging data to device");
 						airInterfaceTransaction.merge(LogicalDatastoreType.CONFIGURATION, path, mWAirInterfacePacBuilder.build());
+						LOG.debug("Start submiting data to device");
 						airInterfaceTransaction.submit();
+						LOG.debug("Device was changed");
 
 					} else {
+						LOG.debug("We can't detect the MWAirInterfacePac");
 						// in case if there is nothing
 						airInterfaceTransaction.cancel();
 					}
@@ -303,6 +311,7 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 					if (airInterfaceTransaction != null) {
 						airInterfaceTransaction.cancel();
 					}
+					LOG.error(e.getMessage(),e);
 				}
 			}
 
@@ -343,11 +352,14 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 
 			if (networkElementOpt.isPresent()) {
 				NetworkElement networkElement = networkElementOpt.get();
+				LOG.debug("Network element. An uuid {}",networkElement.getUuid());
 				if (networkElement.getLtpRefList() != null) { // loop Logical Termination Point
 					for (LtpRefList ltp : networkElement.getLtpRefList()) {
+						LOG.debug("Logical Termination Point. An uuid {}",ltp.getUuid());
 						for (LpList lp : ltp.getLpList()) { // loop Layer Protocol
+							LOG.debug("Layer Protocol. An uuid {}",ltp.getUuid());
 							if (LAYER_PROTOCOL.equals(lp.getLayerProtocolName().getValue())) { //if it is MWPS we have one
-								LOG.info("UUID: "+lp.getKey().getUuid());
+								LOG.info("We found the MWPS, An uuid: "+lp.getKey().getUuid());
 								list.add(lp.getKey().getUuid());
 							}
 
@@ -361,6 +373,7 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 			if (networkElementTransaction != null) {
 				networkElementTransaction.close();
 			}
+			LOG.error(e.getMessage(),e);
 
 		}
 
