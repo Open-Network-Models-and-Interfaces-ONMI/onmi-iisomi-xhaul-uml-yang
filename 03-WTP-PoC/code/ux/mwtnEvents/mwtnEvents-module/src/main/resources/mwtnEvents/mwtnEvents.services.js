@@ -50,11 +50,12 @@ define(
                   // t: time in ONF format, e.g. 20161020081633.7Z
                   if (t.contains('-') 
                       || (t.length !== '20161020081633.7Z'.length && t.length !== '20161025221822.0+0000') 
-                      || (!t.endsWith('Z') && !t.endsWith('+0000')) {
+                      || (!t.endsWith('Z') && !t.endsWith('+0000'))) {
                     // return same values, if not ONF time format
-                    console.info('TimeFormatCheck', t.contains('-'), (t.length !== '20161020081633.7Z'.length && t.length !== '20161025221822.0+0000'), (!t.endsWith('Z') && !t.endsWith('+0000'))
+                    // console.info('TimeFormatCheck', t.contains('-'), (t.length !== '20161020081633.7Z'.length && t.length !== '20161025221822.0+0000'), (!t.endsWith('Z') && !t.endsWith('+0000'));
                     return t;
                   }
+                  20161025221822.0+0000
 
                   return [[t.slice(0,4), t.slice(4,6), t.slice(6, 8)].join('-'), 
                           [t.slice(8, 10), t.slice(10, 12), t.slice(12, 16)].join(':')].join(' ') + ' UTC';
