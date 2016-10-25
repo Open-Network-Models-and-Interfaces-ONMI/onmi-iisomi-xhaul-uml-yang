@@ -50,7 +50,7 @@ define(
                   // t: time in ONF format, e.g. 20161020081633.7Z
                   if (t.contains('-') || t.length !== '20161020081633.7Z'.length || !t.endsWith('Z')) {
                     // return same values, if not ONF time format
-                    // console.log(t.contains('-'), t.length !== '20161020081633.7Z'.length, !t.endsWith('Z'))
+                    console.info('TimeFormatCheck', t.contains('-'), t.length !== '20161020081633.7Z'.length, !t.endsWith('Z'))
                     return t;
                   }
                   return [[t.slice(0,4), t.slice(4,6), t.slice(6, 8)].join('-'), 
