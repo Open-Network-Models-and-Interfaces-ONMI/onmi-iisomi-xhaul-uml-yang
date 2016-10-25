@@ -83,8 +83,9 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 	private static final InstanceIdentifier<Topology> NETCONF_TOPO_IID = InstanceIdentifier
 						 .create(NetworkTopology.class)
 			     		 .child(Topology.class, new TopologyKey(new TopologyId(TopologyNetconf.QNAME.getLocalName())));
-	public static final String SUITABLE_CAPABILITY = "http://netconfcentral.org/ns/yuma-proc";
+	public static final String SUITABLE_CAPABILITY = "MicrowaveModel-ObjectClasses-AirInterface";
 	public static final String LAYER_PROTOCOL = "MWPS";
+	public static final String CONTROLLER_CONFIG = "controller-config";
 
 	private DataBroker dataBroker;
 	private BindingAwareBroker.RpcRegistration registration;
@@ -212,7 +213,10 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
      */
 	private boolean canProcessDevice(Node deviceNode) {
 		NetconfNode nnode = deviceNode.getAugmentation(NetconfNode.class);
-		if (nnode != null && nnode.getAvailableCapabilities() != null && nnode.getAvailableCapabilities().getAvailableCapability() != null) {
+		String deviceName = deviceNode.getKey().getNodeId().getValue();
+		if (nnode != null && !CONTROLLER_CONFIG.equalsIgnoreCase(deviceName) && nnode.getAvailableCapabilities() != null
+			&& nnode.getAvailableCapabilities().getAvailableCapability() != null) {
+
 			boolean hasCapability = false;
 			for (String capability : nnode.getAvailableCapabilities().getAvailableCapability()) {
 				if (capability.contains(SUITABLE_CAPABILITY)) {
