@@ -87,8 +87,18 @@ jq --version
 bower --version
 ```
 
-### Step #2 - Download, unpack and start OpenDaylight
+### Step #2 - OpenDaylight and database
 
+Example directory structure under user's home:
+```
+drwxrwxr-x  5 your_user_name your_user_name 4096 Okt 25 17:18 ./
+drwxr-xr-x 25 your_user_name your_user_name 4096 Okt 25 16:50 ../
+drwxrwxr-x 15 your_user_name your_user_name 4096 Okt 20 14:26 CENTENNIAL/
+drwxrwxr-x 14 your_user_name your_user_name 4096 Okt 25 20:04 distribution-karaf-0.4.2-Beryllium-SR2/
+drwxrwxr-x  6 your_user_name your_user_name 4096 Okt 25 17:18 elasticsearch-head/
+```
+
+#### Step #2.1 - Download, unpack and start OpenDaylight
 The 3. ONF MWTN PoC applications are developed for OpenDaylight Beryllium-SR2 release.
 
 ```
@@ -105,7 +115,11 @@ cd $ODL_KARAF_HOME
 ./bin/karaf
 ```
 
-### Step #3 Clone, build and install the applications.
+#### Step #2.2 - Install ElasticSearch  
+For installation and remote access of the persistent database ElasticSearch, 
+please follow the instructions in [Persistent database](./apps/persistentDatabase#installation)
+
+### Step #3 Clone, build and install the PoC applications.
 Open a new terminal and clone the ONF Git repository for the open source project 
 
 ```
@@ -113,7 +127,7 @@ git clone https://github.com/OpenNetworkingFoundation/CENTENNIAL.git
 cd CENTENNIAL/03-WTP-PoC/code
 ```
 
-For a robust web GUI it is nessesary to add a ["patch"](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/03-WTP-PoC/code/apps/dlux) to ODL DLUX.
+For a robust web GUI it is necessary to add a ["patch"](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/03-WTP-PoC/code/apps/dlux) to ODL DLUX.
 ```
 cp ./apps/dlux/loader.implementation-0.3.2-Beryllium-SR2.jar $ODL_KARAF_HOME/system/org/opendaylight/dlux/loader.implementation/0.3.2-Beryllium-SR2
 ```
@@ -142,10 +156,6 @@ cp -R ~/.m2/repository/com/hcl $ODL_KARAF_HOME/system/com
 cp -R ~/.m2/repository/com/highstreet $ODL_KARAF_HOME/system/com
 ```
 
-For remote access of the persistent database ElasticSearch, please consider the instructions in the following chapter:
- -* [Persistent database](./apps/persistentDatabase#installation)
-
-
 Install the karaf features with the following command:
 ```
 feature:install \
@@ -154,7 +164,7 @@ odl-l2switch-switch \
 odl-restconf-all \
 odl-mdsal-apidocs \
 odl-dlux-all \
-odl-toaster \
+odl-toaster
 ```
 Now you should be able to add the new bundles in the karaf console.
 ```
@@ -171,7 +181,7 @@ odl-mwtn-all
 It takes some time ...
 
 
-[Spectrum Management apllication](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/03-WTP-PoC/code/apps/spectrum):
+[Spectrum Management application](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/03-WTP-PoC/code/apps/spectrum):
 ```
 feature:repo-add mvn:com.highstreet.technologies.odl.app.spectrum/scheduler-features/1.0.0-SNAPSHOT/xml/features
 bundle:install -s mvn:net.iharder/base64/2.3.9
@@ -179,7 +189,7 @@ bundle:install -s mvn:com.github.briandilley.jsonrpc4j/jsonrpc4j/1.2.0
 bundle:install -s mvn:com.sun.jersey/jersey-client/1.17
 feature:install odl-scheduler odl-scheduler-api odl-scheduler-rest odl-scheduler-ui
 ```
-[Closed Loop Automation apllication](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/03-WTP-PoC/code/apps/closedLoopAutomation):
+[Closed Loop Automation application](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/03-WTP-PoC/code/apps/closedLoopAutomation):
 ```
 feature:repo-add mvn:com.highstreet.technologies.odl.app/closedLoopAutomation-features/0.3.0-SNAPSHOT/xml/features
 feature:install odl-closedLoopAutomation
