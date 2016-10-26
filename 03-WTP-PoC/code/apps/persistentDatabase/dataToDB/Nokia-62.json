@@ -470,753 +470,775 @@
 			"MW_AirInterface_Pac": [
 				{
 					"airInterfaceConfiguration": {
-						"rxChannelBandwidth": 60000,
-						"problemKindSeverityList": [
-							{
-								"problemKindName": "HighBER",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "LossOfESMC",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "VersionMismatch",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "Ais",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "LossOfCESoETHframe",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "FlashCardReAlignmentInProgress",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "ReplaceableUnitMissing",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "RxDivMissing",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "IncompatibleShifter",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "InternalCommunicationProblem",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "1588 OC/BC Sync Pkt LOS",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "1588 OC/BC Announce Pkt LOS",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "EarlyWarning",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "RPSPathFail",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "SynchronizationSignalFail",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "Low Input Voltage",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "1588 OC/BC Delay Response Pkt LOS",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "MptSubrackFanCommProblem",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "IncompatiblePower",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "RetimingBufferOverflow",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "FanFail",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "1588 TC Fail",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "LinkIdentifierMismatch",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "ThresholdCross",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "CommonLossAlarm",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "ReplaceableUnitProblem",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "RxFail",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "IncompatiblePTX",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "RFSwitchFail",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "URD",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "UAT",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "DemFail",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "Rx Problem",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "CombinerLossOfAlignment",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "BandwidthDegradeForProtectionSwitch",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "EthOAMLossOfContinuity",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "Degrade",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "EthOAMMisMergeCondition",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "RemoteDefectIndication",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "IncompatibleProtection",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "1588 OC/BC Clock Class Degrade",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "PowerSupplyFailure",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "StandByVersionMismatch",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "signalIsLost",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "LinkOamCriticalEvent",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "LinkOamOperStatusDown",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "FirmwareDownloadOnGoing",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "LossOfProtection",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "IncompatibleModulation",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "ClockFailure",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "RadioEncryptionMismatch",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "BatteryBFail",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "LossOfAlignment",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "EthOAMUnexpectedPeriod",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "DuplicatedAddressDetected",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "LossOfPoint",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "MemoryCardForbiddenToUse",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "Traffic Down",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "IncompatibleFrequency",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "URUS",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "LossOfFrame",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "SoftwareLicenceMismatch",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "EthOAMUnexpectedMepId",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "Traffic Loss",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "URU",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "BandwidthOverFlow",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "Tx Problem",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "SignalLabelMismatch",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "ReplaceableUnitTypeMismatch",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "ExcessiveEnvironmentalTemp",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "DialogFailure",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "LoopProblem",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "DemXpicLOS",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "PPPFail",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "HousekeepingAlarm",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "AtcpLoopProblem",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "FlashCardFailure",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "ServiceSelectiveDrop",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "UnconfiguredEquipmentPresent",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "Lag Port Down",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "SectionTraceMismatch",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "EthOAMRDI",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "RxDivFail",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "AtcpHighPowerTimeout",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "EthOAMUnexpectedLevel",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "BatteryAFail",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "LossOfMultiframe",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "CableLOS",
-								"problemKindSeverity": "major"
-							}
-						],
-						"txPower": 17,
-						"rxFrequency": 5960025,
-						"polarization": "not-specified",
-						"transmitterIsOn": true,
-						"cryptographicKey": "",
-						"radioSignalID": "61",
-						"adaptiveModulationIsOn": false,
-						"txChannelBandwidth": 60000,
-						"txFrequency": 6212065,
-						"atpcIsOn": false,
-						"airInterfaceName": "AirInterface#1",
-						"xpicIsOn": false,
-						"loopBackIsOn": false,
-						"modulationMin": 1024,
-						"encryptionIsOn": false
-					},
+    "mimoIsOn": false,
+    "alicIsOn": false,
+    "problemKindSeverityList": [
+      {
+        "problemKindName": "HighBER",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "LossOfESMC",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "VersionMismatch",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "Ais",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "LossOfCESoETHframe",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "FlashCardReAlignmentInProgress",
+        "problemKindSeverity": "warning"
+      },
+      {
+        "problemKindName": "ReplaceableUnitMissing",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "RxDivMissing",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "IncompatibleShifter",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "InternalCommunicationProblem",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "1588 OC/BC Sync Pkt LOS",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "1588 OC/BC Announce Pkt LOS",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "EarlyWarning",
+        "problemKindSeverity": "warning"
+      },
+      {
+        "problemKindName": "RPSPathFail",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "SynchronizationSignalFail",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "Low Input Voltage",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "1588 OC/BC Delay Response Pkt LOS",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "MptSubrackFanCommProblem",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "IncompatiblePower",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "RetimingBufferOverflow",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "FanFail",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "1588 TC Fail",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "LinkIdentifierMismatch",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "ThresholdCross",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "CommonLossAlarm",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "ReplaceableUnitProblem",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "RxFail",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "IncompatiblePTX",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "RFSwitchFail",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "URD",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "UAT",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "DemFail",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "Rx Problem",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "CombinerLossOfAlignment",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "BandwidthDegradeForProtectionSwitch",
+        "problemKindSeverity": "warning"
+      },
+      {
+        "problemKindName": "EthOAMLossOfContinuity",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "Degrade",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "EthOAMMisMergeCondition",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "RemoteDefectIndication",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "IncompatibleProtection",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "1588 OC/BC Clock Class Degrade",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "PowerSupplyFailure",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "StandByVersionMismatch",
+        "problemKindSeverity": "warning"
+      },
+      {
+        "problemKindName": "signalIsLost",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "LinkOamCriticalEvent",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "LinkOamOperStatusDown",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "FirmwareDownloadOnGoing",
+        "problemKindSeverity": "warning"
+      },
+      {
+        "problemKindName": "LossOfProtection",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "IncompatibleModulation",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "ClockFailure",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "RadioEncryptionMismatch",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "BatteryBFail",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "LossOfAlignment",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "EthOAMUnexpectedPeriod",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "DuplicatedAddressDetected",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "LossOfPoint",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "MemoryCardForbiddenToUse",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "Traffic Down",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "IncompatibleFrequency",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "URUS",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "LossOfFrame",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "SoftwareLicenceMismatch",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "EthOAMUnexpectedMepId",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "Traffic Loss",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "URU",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "BandwidthOverFlow",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "Tx Problem",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "SignalLabelMismatch",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "ReplaceableUnitTypeMismatch",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "ExcessiveEnvironmentalTemp",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "DialogFailure",
+        "problemKindSeverity": "warning"
+      },
+      {
+        "problemKindName": "LoopProblem",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "DemXpicLOS",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "PPPFail",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "HousekeepingAlarm",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "AtcpLoopProblem",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "FlashCardFailure",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "ServiceSelectiveDrop",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "UnconfiguredEquipmentPresent",
+        "problemKindSeverity": "warning"
+      },
+      {
+        "problemKindName": "Lag Port Down",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "SectionTraceMismatch",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "EthOAMRDI",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "RxDivFail",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "AtcpHighPowerTimeout",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "EthOAMUnexpectedLevel",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "BatteryAFail",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "LossOfMultiframe",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "CableLOS",
+        "problemKindSeverity": "major"
+      }
+    ],
+    "txPower": 17,
+    "transmitterIsOn": true,
+    "cryptographicKey": "",
+    "modulationIsOn": true,
+    "maintenanceTimer": -1,
+    "adaptiveModulationIsOn": false,
+    "txFrequency": 6330665,
+    "autoFreqSelectRange": -1,
+    "autoFreqSelectIsOn": false,
+    "xpicIsOn": false,
+    "loopBackIsOn": false,
+    "modulationMin": 1024,
+    "encryptionIsOn": false,
+    "rxChannelBandwidth": 60000,
+    "modulationMax": -1,
+    "rxFrequency": 6078625,
+    "polarization": "not-specified",
+    "atpcThreshUpper": 99,
+    "radioSignalID": "61",
+    "atpcThreshLower": 99,
+    "powerIsOn": true,
+    "txChannelBandwidth": 60000,
+    "atpcIsOn": false,
+    "airInterfaceName": "AirInterface#1",
+    "receiverIsOn": true
+  },
 					"revision": "2016-08-11",
 					"layerProtocol": "LP-MWPS-1"
 				},
 				{
 					"airInterfaceConfiguration": {
-						"rxChannelBandwidth": 30000,
-						"problemKindSeverityList": [
-							{
-								"problemKindName": "HighBER",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "LossOfESMC",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "VersionMismatch",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "Ais",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "LossOfCESoETHframe",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "FlashCardReAlignmentInProgress",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "ReplaceableUnitMissing",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "RxDivMissing",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "IncompatibleShifter",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "InternalCommunicationProblem",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "1588 OC/BC Sync Pkt LOS",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "1588 OC/BC Announce Pkt LOS",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "EarlyWarning",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "RPSPathFail",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "SynchronizationSignalFail",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "Low Input Voltage",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "1588 OC/BC Delay Response Pkt LOS",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "MptSubrackFanCommProblem",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "IncompatiblePower",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "RetimingBufferOverflow",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "FanFail",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "1588 TC Fail",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "LinkIdentifierMismatch",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "ThresholdCross",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "CommonLossAlarm",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "ReplaceableUnitProblem",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "RxFail",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "IncompatiblePTX",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "RFSwitchFail",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "URD",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "UAT",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "DemFail",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "Rx Problem",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "CombinerLossOfAlignment",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "BandwidthDegradeForProtectionSwitch",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "EthOAMLossOfContinuity",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "Degrade",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "EthOAMMisMergeCondition",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "RemoteDefectIndication",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "IncompatibleProtection",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "1588 OC/BC Clock Class Degrade",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "PowerSupplyFailure",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "StandByVersionMismatch",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "signalIsLost",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "LinkOamCriticalEvent",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "LinkOamOperStatusDown",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "FirmwareDownloadOnGoing",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "LossOfProtection",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "IncompatibleModulation",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "ClockFailure",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "RadioEncryptionMismatch",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "BatteryBFail",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "LossOfAlignment",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "EthOAMUnexpectedPeriod",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "DuplicatedAddressDetected",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "LossOfPoint",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "MemoryCardForbiddenToUse",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "Traffic Down",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "IncompatibleFrequency",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "URUS",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "LossOfFrame",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "SoftwareLicenceMismatch",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "EthOAMUnexpectedMepId",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "Traffic Loss",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "URU",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "BandwidthOverFlow",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "Tx Problem",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "SignalLabelMismatch",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "ReplaceableUnitTypeMismatch",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "ExcessiveEnvironmentalTemp",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "DialogFailure",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "LoopProblem",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "DemXpicLOS",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "PPPFail",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "HousekeepingAlarm",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "AtcpLoopProblem",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "FlashCardFailure",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "ServiceSelectiveDrop",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "UnconfiguredEquipmentPresent",
-								"problemKindSeverity": "warning"
-							},
-							{
-								"problemKindName": "Lag Port Down",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "SectionTraceMismatch",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "EthOAMRDI",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "RxDivFail",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "AtcpHighPowerTimeout",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "EthOAMUnexpectedLevel",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "BatteryAFail",
-								"problemKindSeverity": "minor"
-							},
-							{
-								"problemKindName": "LossOfMultiframe",
-								"problemKindSeverity": "major"
-							},
-							{
-								"problemKindName": "CableLOS",
-								"problemKindSeverity": "major"
-							}
-						],
-						"txPower": 17,
-						"rxFrequency": 5741000,
-						"polarization": "not-specified",
-						"transmitterIsOn": true,
-						"cryptographicKey": "",
-						"radioSignalID": "62",
-						"adaptiveModulationIsOn": false,
-						"txChannelBandwidth": 30000,
-						"txFrequency": 5804000,
-						"atpcIsOn": false,
-						"airInterfaceName": "AirInterface#2",
-						"xpicIsOn": false,
-						"loopBackIsOn": false,
-						"modulationMin": 1024,
-						"encryptionIsOn": false
-					},
+    "mimoIsOn": false,
+    "alicIsOn": false,
+    "problemKindSeverityList": [
+      {
+        "problemKindName": "HighBER",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "LossOfESMC",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "VersionMismatch",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "Ais",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "LossOfCESoETHframe",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "FlashCardReAlignmentInProgress",
+        "problemKindSeverity": "warning"
+      },
+      {
+        "problemKindName": "ReplaceableUnitMissing",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "RxDivMissing",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "IncompatibleShifter",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "InternalCommunicationProblem",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "1588 OC/BC Sync Pkt LOS",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "1588 OC/BC Announce Pkt LOS",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "EarlyWarning",
+        "problemKindSeverity": "warning"
+      },
+      {
+        "problemKindName": "RPSPathFail",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "SynchronizationSignalFail",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "Low Input Voltage",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "1588 OC/BC Delay Response Pkt LOS",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "MptSubrackFanCommProblem",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "IncompatiblePower",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "RetimingBufferOverflow",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "FanFail",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "1588 TC Fail",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "LinkIdentifierMismatch",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "ThresholdCross",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "CommonLossAlarm",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "ReplaceableUnitProblem",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "RxFail",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "IncompatiblePTX",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "RFSwitchFail",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "URD",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "UAT",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "DemFail",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "Rx Problem",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "CombinerLossOfAlignment",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "BandwidthDegradeForProtectionSwitch",
+        "problemKindSeverity": "warning"
+      },
+      {
+        "problemKindName": "EthOAMLossOfContinuity",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "Degrade",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "EthOAMMisMergeCondition",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "RemoteDefectIndication",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "IncompatibleProtection",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "1588 OC/BC Clock Class Degrade",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "PowerSupplyFailure",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "StandByVersionMismatch",
+        "problemKindSeverity": "warning"
+      },
+      {
+        "problemKindName": "signalIsLost",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "LinkOamCriticalEvent",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "LinkOamOperStatusDown",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "FirmwareDownloadOnGoing",
+        "problemKindSeverity": "warning"
+      },
+      {
+        "problemKindName": "LossOfProtection",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "IncompatibleModulation",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "ClockFailure",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "RadioEncryptionMismatch",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "BatteryBFail",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "LossOfAlignment",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "EthOAMUnexpectedPeriod",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "DuplicatedAddressDetected",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "LossOfPoint",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "MemoryCardForbiddenToUse",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "Traffic Down",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "IncompatibleFrequency",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "URUS",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "LossOfFrame",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "SoftwareLicenceMismatch",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "EthOAMUnexpectedMepId",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "Traffic Loss",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "URU",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "BandwidthOverFlow",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "Tx Problem",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "SignalLabelMismatch",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "ReplaceableUnitTypeMismatch",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "ExcessiveEnvironmentalTemp",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "DialogFailure",
+        "problemKindSeverity": "warning"
+      },
+      {
+        "problemKindName": "LoopProblem",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "DemXpicLOS",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "PPPFail",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "HousekeepingAlarm",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "AtcpLoopProblem",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "FlashCardFailure",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "ServiceSelectiveDrop",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "UnconfiguredEquipmentPresent",
+        "problemKindSeverity": "warning"
+      },
+      {
+        "problemKindName": "Lag Port Down",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "SectionTraceMismatch",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "EthOAMRDI",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "RxDivFail",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "AtcpHighPowerTimeout",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "EthOAMUnexpectedLevel",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "BatteryAFail",
+        "problemKindSeverity": "minor"
+      },
+      {
+        "problemKindName": "LossOfMultiframe",
+        "problemKindSeverity": "major"
+      },
+      {
+        "problemKindName": "CableLOS",
+        "problemKindSeverity": "major"
+      }
+    ],
+    "txPower": 17,
+    "transmitterIsOn": true,
+    "cryptographicKey": "",
+    "modulationIsOn": true,
+    "maintenanceTimer": -1,
+    "adaptiveModulationIsOn": false,
+    "txFrequency": 5834000,
+    "autoFreqSelectRange": -1,
+    "autoFreqSelectIsOn": false,
+    "xpicIsOn": false,
+    "loopBackIsOn": false,
+    "modulationMin": 1024,
+    "encryptionIsOn": false,
+    "rxChannelBandwidth": 30000,
+    "modulationMax": -1,
+    "rxFrequency": 5771000,
+    "polarization": "not-specified",
+    "atpcThreshUpper": 99,
+    "radioSignalID": "62",
+    "atpcThreshLower": 99,
+    "powerIsOn": true,
+    "txChannelBandwidth": 30000,
+    "atpcIsOn": false,
+    "airInterfaceName": "AirInterface#2",
+    "receiverIsOn": true
+  },
 					"revision": "2016-08-11",
 					"layerProtocol": "LP-MWPS-2"
 				}
