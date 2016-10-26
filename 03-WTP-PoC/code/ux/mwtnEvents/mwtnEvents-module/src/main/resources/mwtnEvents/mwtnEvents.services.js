@@ -56,7 +56,9 @@ define(
                       }
                     }
                   }
-                  return t;
+                  console.info('check', t);
+                  return new Date().toISOString().slice(0,21).replace('T', ' ') + ' UTC';
+                  // return t;
                 };
                 
                 service.formatData = function(event) {
