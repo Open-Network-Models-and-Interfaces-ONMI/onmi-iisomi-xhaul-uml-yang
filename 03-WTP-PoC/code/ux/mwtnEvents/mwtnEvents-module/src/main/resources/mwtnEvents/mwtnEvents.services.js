@@ -56,6 +56,7 @@ define(
                       }
                     }
                   }
+                  return t;
                 };
                 
                 service.formatData = function(event) {
