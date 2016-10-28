@@ -23,8 +23,9 @@ define(['app/mwtnSpectrum/mwtnSpectrum.module',
     };
 
     $scope.execute = function() {
+      $scope.interference.alarmStatus = 'raised';
       $mwtnSpectrum.execute().then(function(success) {
-        $scope.interference.alarmStatus = 'raised';
+        $scope.interference.alarmStatus = 'cleared';
       }, function(error) {
         $scope.interference.alarmStatus = 'cleared';
       });
@@ -56,6 +57,7 @@ define(['app/mwtnSpectrum/mwtnSpectrum.module',
     $scope.processing = false;
     $scope.refresh = function() {
       $scope.processing = true;
+      $scope.interference.alarmStatus = 'cleared';
       $mwtnSpectrum.refresh().then(function(success){
         $scope.processing = false;
         $scope.gridOptions.data = success.airInterfaces;
