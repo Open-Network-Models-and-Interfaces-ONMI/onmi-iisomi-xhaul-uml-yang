@@ -77,15 +77,17 @@ These instructions should also work on other Debian derivative distributions.
       ```
 
 The setup can be verified with the following commands:
-```
-java -version
-mvn --version
-git --version
-node --version
-npm --version
-jq --version
-bower --version
-```
+
+package | min. Version
+------- | -----------
+java -version | 1.8
+mvn --version | 3.3.9
+git --version | 2.7.4
+node --version | 6.7.0
+npm --version | 3.10.3
+jq --version | 1.5
+bower --version | 1.7.9
+
 
 ### Step #2 - OpenDaylight and database
 
@@ -98,7 +100,7 @@ drwxrwxr-x 14 your_user_name your_user_name 4096 Okt 25 20:04 distribution-karaf
 drwxrwxr-x  6 your_user_name your_user_name 4096 Okt 25 17:18 elasticsearch-head/
 ```
 
-#### Step #2.1 - Download, unpack and start OpenDaylight
+#### Step #2.1 - Download Karaf/ Opendaylight package and unpack
 The 3. ONF MWTN PoC applications are developed for OpenDaylight Beryllium-SR2 release.
 
 ```
@@ -107,26 +109,42 @@ tar -xvzf distribution-karaf-0.4.2-Beryllium-SR2.tar.gz
 cd distribution-karaf-0.4.2-Beryllium-SR2/
 ```
 The folder "distribution-karaf-0.4.2-Beryllium-SR2/" is also called "$ODL_KARAF_HOME" in the following sections.
-You may would like to add an environment variable to /etc/environment: $ODL_KARAF_HOME="/home/your_user_name/distribution-karaf-0.4.2-Beryllium-SR2".
+Add an environment variable with an editor to the end of ~/.profile and ~/.bashrc
 
+```
+export ODL_KARAF_HOME="$HOME/distribution-karaf-0.4.2-Beryllium-SR2"
+```
+ Activate the change with
+```
+. .profile
+```
+
+#### Step #2.2 - Download CENTENNIAL applications 
+Clone the ONF Git repository for the open source project 
+
+```
+cd ~
+git clone https://github.com/OpenNetworkingFoundation/CENTENNIAL.git
+cd CENTENNIAL/03-WTP-PoC/code
+```
+
+#### Step #2.3 -  Start Karaf and install ElasticSearch  
 Start karaf with:
 ```
 cd $ODL_KARAF_HOME
 ./bin/karaf
 ```
 
-#### Step #2.2 - Install ElasticSearch  
 For installation and remote access of the persistent database ElasticSearch, 
 please follow the instructions in [Persistent database](./apps/persistentDatabase#installation)
 
-### Step #3 Clone, build and install the PoC applications.
-Open a new terminal and clone the ONF Git repository for the open source project 
-
+### Step #3 Modify, build, install and start the PoC applications and OpenDaylight
+Karaf is not running for the next steps. In Karaf CLI shutdown and confirm (yes) if necessary.
 ```
-git clone https://github.com/OpenNetworkingFoundation/CENTENNIAL.git
-cd CENTENNIAL/03-WTP-PoC/code
+shutdown
 ```
 
+#### Step #3.1 - Patch  
 For a robust web GUI it is necessary to add a ["patch"](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/03-WTP-PoC/code/apps/dlux) to ODL DLUX.
 ```
 cp ./apps/dlux/loader.implementation-0.3.2-Beryllium-SR2.jar $ODL_KARAF_HOME/system/org/opendaylight/dlux/loader.implementation/0.3.2-Beryllium-SR2
@@ -139,6 +157,7 @@ bower install
 cd ../../../../../../../
 ```
 
+#### Step #3.2 - Build  
 Build the applications for the 3. ONF MWTN PoC at folder 'CENTENNIAL/03-WTP-PoC/code'.
 ```
 mvn clean install -DskipTests
@@ -154,6 +173,13 @@ cp -R ~/.m2/repository/org/opendaylight/mwtn $ODL_KARAF_HOME/system/org/opendayl
 cp -R ~/.m2/repository/cn/com/zte $ODL_KARAF_HOME/system/cn/com
 cp -R ~/.m2/repository/com/hcl $ODL_KARAF_HOME/system/com
 cp -R ~/.m2/repository/com/highstreet $ODL_KARAF_HOME/system/com
+```
+
+#### Step #3.3 - Install and run  
+Start karaf with clean:
+```
+cd $ODL_KARAF_HOME
+./bin/karaf clean
 ```
 
 Install the karaf features with the following command:
@@ -193,4 +219,10 @@ feature:install odl-scheduler odl-scheduler-api odl-scheduler-rest odl-scheduler
 ```
 feature:repo-add mvn:com.highstreet.technologies.odl.app/closedLoopAutomation-features/0.3.0-SNAPSHOT/xml/features
 feature:install odl-closedLoopAutomation
+```
+
+Subsequent starts are without clean:
+```
+cd $ODL_KARAF_HOME
+./bin/karaf
 ```

@@ -147,7 +147,7 @@ They Base_Mediator source are located in *03-WTP_PoC/code/Base_Mediator*.
 
 1. Preparation
     Login as user "compila".
-    Add to user compila's ".profile" two additional variables at the end of the file which are pointing to the YUMA location and to the ONF PoC location.
+    Add to user compila's ".profile" and ".bashrc" two additional variables at the end of the file which are pointing to the YUMA location and to the ONF PoC location.
     ```  
     export YUMA="$HOME/app/poc2-md/open-yuma"
     export ONFPOC="$HOME/app/CENTENNIAL/03-WTP-PoC"
