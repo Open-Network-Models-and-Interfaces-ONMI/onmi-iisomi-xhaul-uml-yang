@@ -43,7 +43,7 @@ The configuration file is available after ```feature:install elasticsearch``` in
 HINT1: In case you do not find the configuration file in your karaf home directory, please continue with step 2.  
 HINT2: For activation of new ES YAML configurations do shutdown and restart Karaf. (shutdown + <yes>, ./bin/karaf).
 
-#### Step 3.1: Remote access
+#### Step 3.1: Remote access and database location
 
 ElasticSearch binds to localhost by default. In order to allow remote access to the database the configuration file must be modified.
 In the ElasticSearch default configuration there is only access over the localhost.
@@ -52,7 +52,13 @@ Please add the following line to the configuration file to have local (localhost
 ```
 network.host: 0.0.0.0
 ```
-Important: For activation of new configuration do shutdown and restart Karaf.  
+
+Please add the following line to shift the database to /etc:
+```
+path.data: etc
+```
+
+HINT: For activation of new configuration do shutdown and restart Karaf.  
 For further information about the configuration of elastic search please see [ES modules-network settings](https://www.elastic.co/guide/en/elasticsearch/reference/2.0/modules-network.html).
 
 #### Step 3.2: Add head plugin to access database content (ES Version 1.x 2.x)

@@ -135,8 +135,8 @@ cd $ODL_KARAF_HOME
 ./bin/karaf
 ```
 
-For installation and remote access of the persistent database ElasticSearch, 
-please follow the instructions in [Persistent database](./apps/persistentDatabase#installation)
+For installation and remote access of the persistent database ElasticSearch,   
+please follow the instructions in [Install persistent database](./apps/persistentDatabase#installation)
 
 ### Step #3 Modify, build, install and start the PoC applications and OpenDaylight
 Karaf is not running for the next steps. In Karaf CLI shutdown and confirm (yes) if necessary.
@@ -206,6 +206,10 @@ odl-mwtn-all
 ```
 It takes some time ...
 
+**Application for event handling**
+```
+feature:install odl-mwt-nodediscovery  
+```
 
 [Spectrum Management application](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/03-WTP-PoC/code/apps/spectrum):
 ```
