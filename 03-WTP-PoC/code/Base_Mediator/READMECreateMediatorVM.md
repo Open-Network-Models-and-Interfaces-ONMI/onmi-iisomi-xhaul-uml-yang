@@ -17,7 +17,12 @@ The mediator created by this installation is similar to the structure of the poc
 ##### Installation steps:
 1. Create server  
 	Do a normal Ubuntu Server installation.   
-	The user "*compila*" is used as admin account and later on to install OpenYuma
+	The user "*compila*" is used as with "compila+" as admin account and later on to install OpenYuma.  
+	To create this user use the following commands and use the defaults and password: 
+	```
+	  sudo adduser compila  
+	  sudo adduser compila sudo 
+	```
 
 2. Install additional packages needed for downloading software from git and as prerequisite for OpenYuma  
 	```
@@ -142,7 +147,7 @@ They Base_Mediator source are located in *03-WTP_PoC/code/Base_Mediator*.
 
 1. Preparation
     Login as user "compila".
-    Add to user compila's ".profile" two additional variables at the end of the file which are pointing to the YUMA location and to the ONF PoC location.
+    Add to user compila's ".profile" and ".bashrc" two additional variables at the end of the file which are pointing to the YUMA location and to the ONF PoC location.
     ```  
     export YUMA="$HOME/app/poc2-md/open-yuma"
     export ONFPOC="$HOME/app/CENTENNIAL/03-WTP-PoC"
@@ -166,10 +171,10 @@ They Base_Mediator source are located in *03-WTP_PoC/code/Base_Mediator*.
     Here are the single steps as command line:    
 	```  
     cd
-    cd Download
+    cd Downloads
     wget https://sourceforge.net/projects/net-snmp/files/net-snmp/5.7.3/net-snmp-5.7.3.zip/download
     cd ../app
-    unzip ~/Download/download
+    unzip ~/Downloads/download
     cd net-snmp-5.7.3
     ./configure
     sudo ln -s  /usr/lib/x86_64-linux-gnu/libperl.so.5.22.1 /usr/lib/x86_64-linux-gnu/libperl.so
@@ -196,5 +201,12 @@ They Base_Mediator source are located in *03-WTP_PoC/code/Base_Mediator*.
     Verify if the configuration is correct for the actually used *directory structure* and *user name*.  
     If not matching the individual configurations have to be adapted accordingly.
 
-4. Follow the steps in the Base_Mediator README [How to install:For a mediator VM that was previously downloaded from the FTP server:](README.md) to finish and run the Base mediator
+4. Further preparation  
+
+    Create the directory for the new yang description:
+	```  
+    sudo mkdir /usr/share/yuma/modules/CENTENNIAL
+	```  
+    
+    Go back and follow the steps in the Base_Mediator README [How to install:For a mediator VM that was previously downloaded from the FTP server:](README.md) to finish and run the Base mediator
 

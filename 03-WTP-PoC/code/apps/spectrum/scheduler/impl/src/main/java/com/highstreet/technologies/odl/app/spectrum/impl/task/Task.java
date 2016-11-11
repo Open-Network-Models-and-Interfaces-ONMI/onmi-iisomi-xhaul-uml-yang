@@ -7,14 +7,12 @@
  */
 package com.highstreet.technologies.odl.app.spectrum.impl.task;
 
-import java.util.concurrent.ThreadPoolExecutor;
-
 /**
  * Created by olinchy on 16-9-14.
  */
 public interface Task
 {
-    void executeIn(ThreadPoolExecutor executor);
+    void execute();
 
 
 }

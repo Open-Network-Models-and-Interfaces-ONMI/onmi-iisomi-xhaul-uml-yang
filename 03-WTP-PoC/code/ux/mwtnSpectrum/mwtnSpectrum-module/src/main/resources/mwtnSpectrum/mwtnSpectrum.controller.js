@@ -23,8 +23,9 @@ define(['app/mwtnSpectrum/mwtnSpectrum.module',
     };
 
     $scope.execute = function() {
+      $scope.interference.alarmStatus = 'raised';
       $mwtnSpectrum.execute().then(function(success) {
-        $scope.interference.alarmStatus = 'raised';
+        $scope.interference.alarmStatus = 'cleared';
       }, function(error) {
         $scope.interference.alarmStatus = 'cleared';
       });
@@ -56,6 +57,7 @@ define(['app/mwtnSpectrum/mwtnSpectrum.module',
     $scope.processing = false;
     $scope.refresh = function() {
       $scope.processing = true;
+      $scope.interference.alarmStatus = 'cleared';
       $mwtnSpectrum.refresh().then(function(success){
         $scope.processing = false;
         $scope.gridOptions.data = success.airInterfaces;
@@ -100,7 +102,7 @@ define(['app/mwtnSpectrum/mwtnSpectrum.module',
 
     var actualTxFrequencyCellTemplate = [
      '<div class="ui-grid-cell-contents" ng-class="{ \'green\': grid.getCellValue(row, col) === \'connected\'}"}>',
-     '  <span ng-class="{\'mismatch\': {{row.entity.plannedRxFrequency}} !== grid.getCellValue(row, col) }">{{grid.getCellValue(row, col)}}</span>',
+     '  <span ng-class="{\'mismatch\': {{row.entity.plannedTxFrequency}} !== grid.getCellValue(row, col) }">{{grid.getCellValue(row, col)}}</span>',
      '</div>'].join('');
 
     var actualRxFrequencyCellTemplate = [

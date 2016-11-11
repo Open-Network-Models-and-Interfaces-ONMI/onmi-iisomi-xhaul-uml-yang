@@ -9,15 +9,37 @@
 define(['app/mwtnTopology/mwtnTopology.module'],function(mwtnTopologyApp) {
 
 
-  mwtnTopologyApp.register.factory('$mwtnTopology', function($http, ENV) {
-    var service = {
-      base: ENV.getBaseURL("MD_SAL") + "/restconf/"
+  mwtnTopologyApp.register.factory('$mwtnTopology', function($q, $mwtnCommons, $mwtnDatabase, $mwtnLog) {
+    var service = {};
+
+    service.getRequiredNetworkElements = $mwtnCommons.getRequiredNetworkElements;
+    service.gridOptions = $mwtnCommons.gridOptions;
+    service.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
+
+    service.getNodes = function(docType) {
+
+      var request = {
+          method: 'POST',
+          docType: docType,
+          command: '_search',
+          from : 0,
+          size : 999,
+          sort : undefined,
+          filter : undefined,
+          query : {
+            match_all : {}
+          } 
+      };
+      console.log(docType, JSON.stringify(request));
+
+      var deferred = $q.defer();
+      $mwtnDatabase.genericRequest(request).then(function(success) {
+        deferred.resolve(success);
+      }, function(error) {
+        deferred.reject(error);
+      });
+      return deferred.promise;
     };
-
-    /*
-     * You can define all of your REST API interactions here.
-     */
-
     return service;
   });
 

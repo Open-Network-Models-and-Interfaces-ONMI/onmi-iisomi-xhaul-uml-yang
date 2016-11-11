@@ -16,18 +16,35 @@ import com.highstreet.technologies.odl.app.spectrum.impl.meta.Successful;
 import com.highstreet.technologies.odl.app.spectrum.impl.primitive.JsonUtil;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by olinchy on 9/23/16.
  */
 public class RestfulODLCommunicator implements Communicator
 {
-    private static String odlPath = "http://localhost:8181/restconf/operational/";
-    private static String odlPath_config = "http://localhost:8181/restconf/config/";
-    private static Client client = Client.create();
 
+    private String spec_path = "";
+    private String spec_config = "";
+
+    private static Client client = Client.create();
+    private static final Logger logger = LoggerFactory.getLogger(RestfulODLCommunicator.class);
+
+
+    public RestfulODLCommunicator(String request) {
+        String odlPath = "http://%s/restconf/operational/";
+        this.spec_path = String.format(odlPath, request);
+        String odlPath_config = "http://%s/restconf/config/";
+        this.spec_config = String.format(odlPath_config, request);
+    }
+
+    public RestfulODLCommunicator() {
+        this("localhost:8181");
+    }
 
     @Override
     public Result<JsonNode> ls(String path, String targetName)
@@ -35,7 +52,7 @@ public class RestfulODLCommunicator implements Communicator
         try
         {
             ArrayList<JsonNode> res = new ArrayList<>();
-            WebResource resource = client.resource(odlPath + path);
+            WebResource resource = client.resource(spec_path + path);
             String get = resource.get(String.class);
             JsonUtil.toNode(get).findValues(targetName).forEach(res::add);
             return new Successful<>(res);
@@ -49,7 +66,7 @@ public class RestfulODLCommunicator implements Communicator
     @Override
     public Object get(String dn, String attrName)
     {
-        WebResource resource = client.resource(odlPath + dn);
+        WebResource resource = client.resource(spec_path + dn);
         JsonNode node = JsonUtil.toNode(resource.get(String.class)).findValue(attrName);
         return node.asText();
     }
@@ -57,7 +74,7 @@ public class RestfulODLCommunicator implements Communicator
     @Override
     public void set(String dn, Pair<String, Object>... values)
     {
-        WebResource resource = client.resource(odlPath_config + dn);
+        WebResource resource = client.resource(spec_config + dn);
         JsonNode node = JsonUtil.toNode(resource.get(String.class));
         try
         {
@@ -66,6 +83,7 @@ public class RestfulODLCommunicator implements Communicator
                 ((ObjectNode) node.get("airInterfaceConfiguration")).put(value.first(), JsonUtil.toNode(value.second()));
             }
             resource.accept("application/json").type("application/json").put(node.toString());
+            logger.info("setting " + Arrays.toString(values) + " to " + dn);
         } catch (Exception e)
         {
             e.printStackTrace();
