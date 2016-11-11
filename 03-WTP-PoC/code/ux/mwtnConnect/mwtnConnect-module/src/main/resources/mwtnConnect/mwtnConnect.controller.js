@@ -46,6 +46,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
     $scope.requiredNesGridOptions = JSON.parse(JSON.stringify($mwtnCommons.gridOptions));
     $scope.requiredNesGridOptions.rowHeight  = 44;
     $scope.requiredNesGridOptions.columnDefs = [
+       { field: 'connectionStatus', type: 'string', displayName: 'Connection status',  headerCellClass: $scope.highlightFilteredHeader, width : 160, cellTemplate: requiredNesConnectionStatusCellTemplate },
        { field: 'id', type: 'number', displayName: 'Id',  headerCellClass: $scope.highlightFilteredHeader, width : 50, cellClass: 'number', pinnedLeft : true , sort: {
          direction: uiGridConstants.ASC,
          ignoreSort: false,
@@ -54,10 +55,9 @@ define(['app/mwtnConnect/mwtnConnect.module',
        { field: 'name', type: 'string', displayName: 'Name',  headerCellClass: $scope.highlightFilteredHeader, width : 150 },
        { field: 'ipaddress',  type: 'number', displayName: 'IP address',  headerCellClass: $scope.highlightFilteredHeader, width : 140, cellClass: 'number' },
        { field: 'port',  type: 'number', displayName: 'Port',  headerCellClass: $scope.highlightFilteredHeader, width : 80, cellClass: 'number' },
-       { field: 'username', type: 'string', displayName: 'User name',  headerCellClass: $scope.highlightFilteredHeader, width : 100 },
-       { field: 'password', type: 'string', displayName: 'Password',  headerCellClass: $scope.highlightFilteredHeader, width : 100 },
+       { field: 'username', type: 'string', displayName: 'User name',  headerCellClass: $scope.highlightFilteredHeader, width : 100, visible: false },
+       { field: 'password', type: 'string', displayName: 'Password',  headerCellClass: $scope.highlightFilteredHeader, width : 100, visible: false },
        { field: 'radioSignalIds', type: 'string', displayName: 'Radio signal ids',  headerCellClass: $scope.highlightFilteredHeader, width : 150 },
-       { field: 'connectionStatus', type: 'string', displayName: 'Connection status',  headerCellClass: $scope.highlightFilteredHeader, width : 160, cellTemplate: requiredNesConnectionStatusCellTemplate },
        {
          name : 'actions',
          enableSorting : false,
@@ -123,6 +123,17 @@ define(['app/mwtnConnect/mwtnConnect.module',
         });
       }
     };
+    var setValues = function(ane) {
+      if ($scope.requiredNesGridOptions.data) {
+        $scope.requiredNesGridOptions.data.map(function(rne) {
+          if (rne.name === ane['node-id']) {
+            rne.connectionStatus = ane['netconf-node-topology:connection-status'];
+            rne.ipaddress = ane['netconf-node-topology:host'];
+            rne.port = ane['netconf-node-topology:port'];
+          }
+        });
+      }
+    };
     var getActualNetworkElements = function() {
       // aneHash = [];
       if ($scope.requiredNesGridOptions.data) {
@@ -143,7 +154,8 @@ define(['app/mwtnConnect/mwtnConnect.module',
               });
             }
             if (isKnown(ne['node-id'])) {
-              setConnectionStatus(ne['node-id'], ne['netconf-node-topology:connection-status']);
+              // setConnectionStatus(ne['node-id'], ne['netconf-node-topology:connection-status']);
+              setValues(ne);
             } else {
               $scope.unknownNesGridOptions.data.push(ne);
             }

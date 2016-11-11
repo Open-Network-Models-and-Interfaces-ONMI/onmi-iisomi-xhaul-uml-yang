@@ -7,7 +7,8 @@
  */
 
 define([ 'angularAMD', 'app/routingConfig', 'app/core/core.services',
-    'common/config/env.module' ], function(ng) {
+    'common/config/env.module' ,
+    'app/mwtnCommons/mwtnCommons.module'], function(ng) {
   var mwtnEventsApp = angular.module('app.mwtnEvents', [ 'app.core',
       'ui.router.state', 'config' ]);
 

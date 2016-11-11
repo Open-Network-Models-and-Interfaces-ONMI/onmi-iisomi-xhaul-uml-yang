@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
@@ -82,8 +83,9 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 	private static final InstanceIdentifier<Topology> NETCONF_TOPO_IID = InstanceIdentifier
 						 .create(NetworkTopology.class)
 			     		 .child(Topology.class, new TopologyKey(new TopologyId(TopologyNetconf.QNAME.getLocalName())));
-	public static final String SUITABLE_CAPABILITY = "http://netconfcentral.org/ns/yuma-proc";
+	public static final String SUITABLE_CAPABILITY = "MicrowaveModel-ObjectClasses-AirInterface";
 	public static final String LAYER_PROTOCOL = "MWPS";
+	public static final String CONTROLLER_CONFIG = "controller-config";
 
 	private DataBroker dataBroker;
 	private BindingAwareBroker.RpcRegistration registration;
@@ -211,7 +213,10 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
      */
 	private boolean canProcessDevice(Node deviceNode) {
 		NetconfNode nnode = deviceNode.getAugmentation(NetconfNode.class);
-		if (nnode != null && nnode.getAvailableCapabilities() != null && nnode.getAvailableCapabilities().getAvailableCapability() != null) {
+		String deviceName = deviceNode.getKey().getNodeId().getValue();
+		if (nnode != null && !CONTROLLER_CONFIG.equalsIgnoreCase(deviceName) && nnode.getAvailableCapabilities() != null
+			&& nnode.getAvailableCapabilities().getAvailableCapability() != null) {
+
 			boolean hasCapability = false;
 			for (String capability : nnode.getAvailableCapabilities().getAvailableCapability()) {
 				if (capability.contains(SUITABLE_CAPABILITY)) {
@@ -267,18 +272,23 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 		LOG.info("We found the suitable device : {}", nodeKey);
 		// retrieve list of universal IDs which need to retrieve MWAirInterfacePac
 		List<UniversalId> universalIdList = retrieveUniversalId(xrNodeBroker);
+		LOG.debug("We found universalIds, the list is {} ",universalIdList);
 		if (universalIdList != null && universalIdList.size() > 0) {
 			for (UniversalId uuid : universalIdList) {
+				LOG.debug("Process uuid {} ",uuid);
 				ReadWriteTransaction airInterfaceTransaction = null;
 				try {
 					// read MWAirInterfacePac
 					airInterfaceTransaction = xrNodeBroker.newReadWriteTransaction();
 					InstanceIdentifier<MWAirInterfacePac> path = InstanceIdentifier.builder(MWAirInterfacePac.class, new MWAirInterfacePacKey(uuid)).build();
+					LOG.debug("Try to read from device ");
 					MWAirInterfacePac airInterfacePac = readNode(airInterfaceTransaction, path);
 
 					if (airInterfacePac != null) {
-						SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M hh:mm:ss");
-						String newAirInterfaceName = "AirInterface "+dateFormat.format(new Date());
+						LOG.debug("We found the MWAirInterfacePac");
+						SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+						dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));  
+						String newAirInterfaceName = "IF: "+dateFormat.format(new Date());
 						LOG.info("Old AirInterfaceName: {} - New AirInterfaceName: {}",airInterfacePac.getAirInterfaceConfiguration().getAirInterfaceName(), newAirInterfaceName);
 
 						// modify AirInterface name.
@@ -288,10 +298,14 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 						mWAirInterfacePacBuilder.setAirInterfaceConfiguration(configurationBuilder.build());
 
 						// store new information to config datastore
+						LOG.debug("Start merging data to device");
 						airInterfaceTransaction.merge(LogicalDatastoreType.CONFIGURATION, path, mWAirInterfacePacBuilder.build());
+						LOG.debug("Start submiting data to device");
 						airInterfaceTransaction.submit();
+						LOG.debug("Device was changed");
 
 					} else {
+						LOG.debug("We can't detect the MWAirInterfacePac");
 						// in case if there is nothing
 						airInterfaceTransaction.cancel();
 					}
@@ -301,6 +315,7 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 					if (airInterfaceTransaction != null) {
 						airInterfaceTransaction.cancel();
 					}
+					LOG.error(e.getMessage(),e);
 				}
 			}
 
@@ -341,11 +356,14 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 
 			if (networkElementOpt.isPresent()) {
 				NetworkElement networkElement = networkElementOpt.get();
+				LOG.debug("Network element. An uuid {}",networkElement.getUuid());
 				if (networkElement.getLtpRefList() != null) { // loop Logical Termination Point
 					for (LtpRefList ltp : networkElement.getLtpRefList()) {
+						LOG.debug("Logical Termination Point. An uuid {}",ltp.getUuid());
 						for (LpList lp : ltp.getLpList()) { // loop Layer Protocol
+							LOG.debug("Layer Protocol. An uuid {}",ltp.getUuid());
 							if (LAYER_PROTOCOL.equals(lp.getLayerProtocolName().getValue())) { //if it is MWPS we have one
-								LOG.info("UUID: "+lp.getKey().getUuid());
+								LOG.info("We found the MWPS, An uuid: "+lp.getKey().getUuid());
 								list.add(lp.getKey().getUuid());
 							}
 
@@ -359,6 +377,7 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 			if (networkElementTransaction != null) {
 				networkElementTransaction.close();
 			}
+			LOG.error(e.getMessage(),e);
 
 		}
 
@@ -374,10 +393,10 @@ public class ClosedLoopAutomationImpl implements AutoCloseable, ClosedLoopAutoma
 		switch (option) {
 			case _5seconds: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 5, TimeUnit.SECONDS);
 			case _30seconds: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 30, TimeUnit.SECONDS);
-			case _1minute: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 1, TimeUnit.MINUTES);
-			case _2minutes: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 2, TimeUnit.MINUTES);
-			case _30minutes: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 30, TimeUnit.MINUTES);
-			case _1hour: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 1, TimeUnit.HOURS);
+			case _1minute: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 60, TimeUnit.SECONDS);
+			case _2minutes: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 120, TimeUnit.SECONDS);
+			case _30minutes: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 1800, TimeUnit.SECONDS);
+			case _1hour: return scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),10, 3600, TimeUnit.SECONDS);
 			default: {
 				throw new IllegalArgumentException("Wrong option");
 			}

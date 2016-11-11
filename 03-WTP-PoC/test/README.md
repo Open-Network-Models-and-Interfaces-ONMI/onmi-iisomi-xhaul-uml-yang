@@ -1,18 +1,21 @@
-ONF WTWG PoC 3 Microwave Transport Network Test Automation
+ONF Wireless-Transport Project PoC3: Test Automation Framework
 ==============================================
 
-This document describes how to use the ONF Microwave Transport Network Test
+This document describes how to use the ONF WTP PoC3 Microwave Transport Network Test
 Automation Framework:
   - The framework is based on Node.js, the well-known runtime environment for
     JavaScript. Mocha, Chai, and SuperTest provide the testing stack, while
-    Grunt is used to automate tasks.
-  - The framework could also be used to create a Test Environment, acting as a
-    network simulator, actually composed of one OpenDaylight SDN controller
-    and many NETCONF SDN mediators emulating Network Elements.
+    Grunt is used to automate tasks. The framework comprises a number of test scripts.
+  - The framework could also be leveraged to create a simulated test environment,
+    acting as a network simulator,  composed of one OpenDaylight SDN controller and many
+    NETCONF SDN mediators emulating Network Elements.
+  - The framework includes a simple GUI to run the developed automated tests scripts on a
+    defined static network topology
+	
 
 To install all the required dependencies check first [INSTALL.md].
 
-Install Node.js packages
+Installing Node.js packages
 ------------------------
 
 To install all the required Node.js packages (pls check package.json file):
@@ -29,29 +32,72 @@ npm ls
 (should return an errorless installed module tree)
 ```
 
-Run the Test Scripts
+The working directory for the Test Automation Framework (./) is assumed to be:
+
+
+```
+CENTENNIAL/03-WTP-PoC/test
+```
+
+
+Running the Test Scripts
 ----------------------------------
 
-To run the automated tests under node js:
+
+To run the automated test scripts directly via cmd terminal, under "./automated_tests" folder:
 
 ```
 node <test_case>
 ```
 
-Logfiles produced by the scripts can be found under folder: ./automated_tests/logs.
 
-Static configuration values for all the scripts are to be set in ./config.json file.
+To run the automated test scripts via the Automated Test GUI, under "./":
+
+```
+npm start
+(then access http://localhost:3000/ from browser)
+```
+
+Accessing the Test Results
+----------------------------------
+
+Logfiles produced by the scripts can be found under folder: "./automated_tests/logs/"
+
+There are:
+
+"parseData.log", containing details for all the discovered YANG models attributes in the automated tests.
+
+"TestResult.log", containing actions log details for the script that has been run.
+
+"client.log", containing client details logs.
+
+"summaryReportXX.log", containing summary reports for GET/SET actions.
 
 
-Script <01-standalone-YANG-parser.js> DOES NOT require the mounted DVM03 resource in place and can be executed from a terminal (see file header for purpose description).
-For the above script only, ./automated_test/input/test-cases.json file must be set to specify the YANG models/containers to be parsed.
+Static configuration values for all the scripts are to be set in "./config.json" file. PoC Topology must be set in this file.
 
-Script <02-netconfserver-YANG-parser.js> requires the mounted DVM03 resource in place (see file header for purpose description).
-
-Script <03-netconfserver-YANG.js> requires the mounted DVM03 resource in place (see file header for purpose description).
+Test Cases configuration values for all the scripts "./automated_test/input/test-cases.json" (file content is self-explanatory).
 
 
-In order to mount the PoC3 netconf server (DVM03) it is possible to leverage the script: './test-env/base-mediator/mediator-mount.sh ./config.json' after having filled properly the ./config.json file
+Automated Test scripts details
+----------------------------------
+
+Script <01-standalone-YANG-parser.js> DOES NOT require the mounted mediator (or DVM03) resource in place (see file header for purpose description).
+
+Script <02-netconfserver-YANG-parser.js> requires the mounted mediator (or DVM03) resource in place (see file header for purpose description).
+
+Script <03-netconfserver-YANG.js> requires the mounted mediator (or DVM03) resource in place (see file header for purpose description).
+
+
+In order to mount a PoC3 DVM03 chosen topology it is possible to leverage a provided script:
+
+
+```
+./test-env/base-mediator/mediator-mount.sh ./config.json
+
+```
+
+after having filled properly the "./config.json" file
 
 
 

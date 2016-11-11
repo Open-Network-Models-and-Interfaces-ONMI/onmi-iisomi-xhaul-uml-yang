@@ -42,17 +42,17 @@ public class TestSpectrumTask_next_frequency
 
         Object current = "100";
 
-        Assert.assertThat(current = getter.next(new DN("/Ems/1"), "txFrequency", current).second(), is("200"));
-        Assert.assertThat(current = getter.next(new DN("/Ems/1"), "txFrequency", current).second(), is("300"));
-        Assert.assertThat(current = getter.next(new DN("/Ems/1"), "txFrequency", current).second(), is("400"));
-        Assert.assertThat(current = getter.next(new DN("/Ems/1"), "txFrequency", current).second(), is("500"));
-        Assert.assertThat(current = getter.next(new DN("/Ems/1"), "txFrequency", current).second(), is("400"));
-        Assert.assertThat(current = getter.next(new DN("/Ems/1"), "txFrequency", current).second(), is("300"));
-        Assert.assertThat(current = getter.next(new DN("/Ems/1"), "txFrequency", current).second(), is("200"));
-        Assert.assertThat(current = getter.next(new DN("/Ems/1"), "txFrequency", current).second(), is("100"));
-        Assert.assertThat(current = getter.next(new DN("/Ems/1"), "txFrequency", current).second(), is("200"));
-        Assert.assertThat(current = getter.next(new DN("/Ems/1"), "txFrequency", current).second(), is("300"));
-        Assert.assertThat(getter.next(new DN("/Ems/1"), "txFrequency", current).second(), is("400"));
+        Assert.assertThat(current = getter.next(new DN("/Ems/1"), "aa", "txFrequency", current).second(), is("200"));
+        Assert.assertThat(current = getter.next(new DN("/Ems/1"), "aa", "txFrequency", current).second(), is("300"));
+        Assert.assertThat(current = getter.next(new DN("/Ems/1"), "aa", "txFrequency", current).second(), is("400"));
+        Assert.assertThat(current = getter.next(new DN("/Ems/1"), "aa", "txFrequency", current).second(), is("500"));
+        Assert.assertThat(current = getter.next(new DN("/Ems/1"), "aa", "txFrequency", current).second(), is("400"));
+        Assert.assertThat(current = getter.next(new DN("/Ems/1"), "aa", "txFrequency", current).second(), is("300"));
+        Assert.assertThat(current = getter.next(new DN("/Ems/1"), "aa", "txFrequency", current).second(), is("200"));
+        Assert.assertThat(current = getter.next(new DN("/Ems/1"), "aa", "txFrequency", current).second(), is("100"));
+        Assert.assertThat(current = getter.next(new DN("/Ems/1"), "aa", "txFrequency", current).second(), is("200"));
+        Assert.assertThat(current = getter.next(new DN("/Ems/1"), "aa", "txFrequency", current).second(), is("300"));
+        Assert.assertThat(getter.next(new DN("/Ems/1"), "aa", "txFrequency", current).second(), is("400"));
 
 
     }

@@ -30,7 +30,7 @@ import static com.highstreet.technologies.odl.app.spectrum.impl.primitive.JsonUt
  */
 public class MosAgent implements DataAgent
 {
-    private static final Logger logger = LoggerFactory.getLogger(JsonUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(MosAgent.class);
     private static JsonRpcHttpClient client;
     private static String sessionId;
 

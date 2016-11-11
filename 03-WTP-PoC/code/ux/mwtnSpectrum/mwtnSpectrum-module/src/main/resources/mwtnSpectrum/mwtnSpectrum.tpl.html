@@ -11,23 +11,34 @@
 		<div clase="col-md-12">
 		    <hr/>
 			<button class="btn btn-lg btn-block" ng-click="execute()" ng-class="{'btn-danger':interference.alarmStatus !== 'cleared', 'btn-success':interference.alarmStatus === 'cleared' }">
-			    <br/><br/>
-				<i class="fa" ng-class="{'fa-exclamation-triangle':interference.alarmStatus !== 'cleared', 'fa-question-circle-o':interference.alarmStatus === 'cleared' }" aria-hidden="true"></i>
-				<span ng-show="interference.alarmStatus !== 'cleared'">{{'MWTN_INTERFERENCE_ALARM!' | translate}}</span>
-				<span ng-show="interference.alarmStatus === 'cleared'">{{'MWTN_INTERFERENCE_ALARM?' | translate}}</span>
-				<br/><br/><br/>
+				<div class="container" >
+					<div class="row alarm">
+						<div class="col-md-2 text-left">
+						  <img ng-show="interference.alarmStatus !== 'cleared'" src="src/app/mwtnSpectrum/images/bluelight.gif" ></img>
+						</div>
+						<div class="col-md-8">
+						    </br></br>
+							<i class="fa" ng-class="{'fa-exclamation-triangle':interference.alarmStatus !== 'cleared', 'fa-question-circle-o':interference.alarmStatus === 'cleared' }" aria-hidden="true"></i>
+							<span ng-show="interference.alarmStatus !== 'cleared'">{{'MWTN_INTERFERENCE_ALARM!' | translate}}</span>
+							<span ng-show="interference.alarmStatus === 'cleared'">{{'MWTN_INTERFERENCE_ALARM?' | translate}}</span>
+						</div>
+						<div class="col-md-2">
+						  <img  ng-show="interference.alarmStatus !== 'cleared'" src="src/app/mwtnSpectrum/images/bluelight.gif" ></img>
+						</div>
+					</div>
+				</div>
 			</button>
 			<hr/>
 		</div>
 	</div>
-	<div class="row">
+<!-- 	<div class="row">
 		<div clase="col-md-12">
 			<button class="btn btn-success" ng-click="clear()">
                <i class="fa fa-magic" aria-hidden="true"></i>
 				<span>{{'MWTN_CLEAR' | translate}}</span>
 			</button>
 		</div>
-	</div>
+	</div>  -->
 	<div class="row">
 		<div clase="col-md-12 text-right">
 			<button class="btn btn-primary pull-right" ng-click="refresh()">
