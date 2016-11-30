@@ -161,7 +161,7 @@ static char* cb_get_runtime_pureEthernetStructureStatus_segmentIsReservedForTdm(
 static char* cb_get_runtime_pureEthernetStructureStatus_operationalStatus(val_value_t *element);
 
 static char* cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_value(val_value_t *element);
-static char* cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_timeStamp(val_value_t *element);
+static char* cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_timestamp(val_value_t *element);
 static char* cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemName(val_value_t *element);
 static char* cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemSeverity(val_value_t *element);
 
@@ -6818,15 +6818,18 @@ char* cb_get_runtime_element_value(val_value_t *element, const char* moduleName)
 		{
 			if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_timeStamp) == 0)
 			{
-				return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_timeStamp(element);
+				return cb_get_runtime_ethernetContainerCurrentProblem_timeStamp(element);
+				//return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_timeStamp(element);
 			}
 			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemName) == 0)
 			{
-				return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemName(element);
+				return cb_get_runtime_ethernetContainerCurrentProblem_problemName(element);
+				//return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemName(element);
 			}
 			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemSeverity) == 0)
 			{
-				return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemSeverity(element);
+				return cb_get_runtime_ethernetContainerCurrentProblem_problemSeverity(element);
+				//return cb_get_runtime_pureEthernetStructureCurrentProblemList_problem_problemSeverity(element);
 			}
 		}
 
@@ -6849,7 +6852,7 @@ char* cb_get_runtime_element_value(val_value_t *element, const char* moduleName)
 			{
 				return cb_get_runtime_ethernetContainerCurrentPerformance_elapsedTime(element);
 			}
-			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_timestamp) == 0)
+			else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_timeStamp) == 0)
 			{
 				return cb_get_runtime_ethernetContainerCurrentPerformance_timestamp(element);
 			}

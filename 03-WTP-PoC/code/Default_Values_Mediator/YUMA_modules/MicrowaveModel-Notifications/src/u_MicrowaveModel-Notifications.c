@@ -505,6 +505,13 @@ static void generateNotification()
 {
 	xmlChar buffer[256];
 	int n = 0, freq = 0, attrValChangedcounter = 0, problemNotificationCounter;
+	int nr = 0;
+	char nr_extension[20];
+	int cleared[21];
+
+	for (int t=0; t < 20; t++) {
+		cleared[t] = 0;
+	}
 
 	xmlChar dateAndTime[256];
 
@@ -536,29 +543,47 @@ static void generateNotification()
     		millisec /= 100;
     	}
 
-    	sprintf(dateAndTime, "%04d%02d%02d%02d%02d%02d.%01dZ", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec,
-    			millisec/100);
+    	sprintf(dateAndTime, "%04d%02d%02d%02d%02d%02d.%01dZ", 
+			tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, 
+			tm.tm_hour, tm.tm_min, tm.tm_sec, millisec/100);
 
-    	sprintf(evalPath, "/data/MW_Notifications/problemNotification/problemName");
+	if (nr == 0) {
+		sprintf(nr_extension,"");
+	} else {
+    		sprintf(nr_extension, "%d", nr);
+	}
+
+    	sprintf(evalPath, "/data/MW_Notifications/problemNotification/problemName%d",nr);
     	resultString = get_value_from_xpath(evalPath);
 
     	if (resultString)
     	{
-    		sprintf(evalPath, "/data/MW_Notifications/problemNotification/objIdRef");
+    		sprintf(evalPath, "/data/MW_Notifications/problemNotification/objIdRef%s",nr_extension);
     		char* objIdRef = get_value_from_xpath(evalPath);
+		char* severity;
 
-    		sprintf(evalPath, "/data/MW_Notifications/problemNotification/severity");
-			char* severity = get_value_from_xpath(evalPath);
+		if (cleared[nr] == 0) {
+    			sprintf(evalPath, "/data/MW_Notifications/problemNotification/severity%s",nr_extension);
+			severity = get_value_from_xpath(evalPath);
+			cleared[nr] = 1;
+		} else {
+    			sprintf(evalPath, "/data/MW_Notifications/problemNotification/cleared%s",nr_extension);
+			severity = get_value_from_xpath(evalPath);
+			cleared[nr] = 0;
+		}
 
     		u_MicrowaveModel_Notifications_ProblemNotification_send(problemNotificationCounter++,
-    				dateAndTime,
-					objIdRef,
-					resultString,
-					severity);
+    				dateAndTime, objIdRef,	resultString, severity);
     		free(objIdRef);
     		free(severity);
     		free(resultString);
-    	}
+		nr++;
+		if (nr >= 20) {
+			nr = 0;
+		}
+    	} else {
+        	nr = 0;
+        }		
 
     	sprintf(evalPath, "/data/MW_Notifications/attributeValueChangedNotification/attributeName");
 		resultString = get_value_from_xpath(evalPath);
