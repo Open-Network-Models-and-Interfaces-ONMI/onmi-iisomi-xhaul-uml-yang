@@ -154,7 +154,25 @@
          <localEndPointId>268451969</localEndPointId>
          <remoteEndPointId>268451969</remoteEndPointId>
       </airInterfaceStatus>
-      <airInterfaceCurrentProblems/>
+
+      <airInterfaceCurrentProblems>
+         <currentProblemList>
+            <sequenceNumber>1</sequenceNumber>
+            <timeStamp>20160822133005.0Z</timeStamp>
+            <problemName>signalIsLost</problemName>
+            <problemSeverity>critical</problemSeverity>
+         </currentProblemList>
+         <currentProblemList>
+            <sequenceNumber>2</sequenceNumber>
+            <timeStamp>20160822133105.0Z</timeStamp>
+            <problemName>radioIsFaulty</problemName>
+            <problemSeverity>warning</problemSeverity>
+         </currentProblemList>
+      </airInterfaceCurrentProblems>
+
+
+
+
       <airInterfaceCurrentPerformance>
          <currentPerformanceDataList>
             <objectClass/>
@@ -2355,19 +2373,19 @@
          </problemKindSeverityList>
       </ethernetContainerConfiguration>
       <ethernetContainerStatus>
-         <lastStatusChange>20161120140000.0Z+1</lastStatusChange>
+         <lastStatusChange>20161120140000.0Z</lastStatusChange>
       </ethernetContainerStatus>
       <ethernetContainerCurrentProblems>
          <currentProblemList>
             <sequenceNumber>1</sequenceNumber>
-            <timeStamp>20160822133005.0</timeStamp>
-            <problemName>capacityIsLowerThanConfigured</problemName>
+            <timeStamp>20160822133005.0Z</timeStamp>
+            <problemName>framingIsFaulty</problemName>
             <problemSeverity>critical</problemSeverity>
          </currentProblemList>
          <currentProblemList>
             <sequenceNumber>2</sequenceNumber>
-            <timeStamp>20160822133105.0</timeStamp>
-            <problemName>capacityIsEqualToMinimumValue</problemName>
+            <timeStamp>20160822133105.0Z</timeStamp>
+            <problemName>containerIsDown</problemName>
             <problemSeverity>warning</problemSeverity>
          </currentProblemList>
       </ethernetContainerCurrentProblems>
@@ -2378,7 +2396,7 @@
             <administrativeState>LOCKED</administrativeState>
             <suspectIntervalFlag>false</suspectIntervalFlag>
             <elapsedTime>0</elapsedTime>
-            <timestamp>20101120140000.0Z+1</timestamp>
+            <timestamp>20101120140000.0Z</timestamp>
             <performanceData>
                <txEthernetBytesMaxS>-1</txEthernetBytesMaxS>
                <txEthernetBytesMaxM>-1</txEthernetBytesMaxM>
@@ -2392,7 +2410,7 @@
             <administrativeState>LOCKED</administrativeState>
             <suspectIntervalFlag>false</suspectIntervalFlag>
             <elapsedTime>0</elapsedTime>
-            <timestamp>20101120140000.0Z+1</timestamp>
+            <timestamp>20101120140000.0Z</timestamp>
             <performanceData>
                <txEthernetBytesMaxS>-1</txEthernetBytesMaxS>
                <txEthernetBytesMaxM>-1</txEthernetBytesMaxM>
@@ -2404,7 +2422,7 @@
       <ethernetContainerHistoricalPerformances>
          <historicalPerformanceDataList>
             <historyDataId>historyDataId_1</historyDataId>
-            <periodEndTime>20161120140000.0Z+1</periodEndTime>
+            <periodEndTime>20161120140000.0Z</periodEndTime>
             <granularityPeriod>PERIOD_15MIN</granularityPeriod>
             <suspectIntervalFlag>false</suspectIntervalFlag>
             <performanceData>
@@ -2416,7 +2434,7 @@
          </historicalPerformanceDataList>
          <historicalPerformanceDataList>
             <historyDataId>historyDataId_2</historyDataId>
-            <periodEndTime>20161120140000.0Z+1</periodEndTime>
+            <periodEndTime>20161120140000.0Z</periodEndTime>
             <granularityPeriod>PERIOD_24HOURS</granularityPeriod>
             <suspectIntervalFlag>false</suspectIntervalFlag>
             <performanceData>
@@ -2741,15 +2759,40 @@
       </_ltpRefList>
    </NetworkElement>
    <MW_Notifications>
-      <notificationTimeout>0</notificationTimeout>
+      <notificationTimeout>20</notificationTimeout>
       <problemNotification>
+
          <problemName>signalIsLost</problemName>
-         <objIdRef>MW_AirInterface_Pac[layerProtocol=LP-MWPS-ifIndex1]</objIdRef>
-         <severity>non-alarmed</severity>
+         <objIdRef>LP-MWPS-ifIndex1</objIdRef>
+         <severity>critical</severity>
+         <cleared>critical</cleared>
+
+         <problemName1>rslIsExceeded</problemName1>
+         <objIdRef1>LP-MWPS-ifIndex1</objIdRef1>
+         <severity1>major</severity1>
+         <cleared1>major</cleared1>
+
+         <problemName2>temperatureIsExceeded</problemName2>
+         <objIdRef2>LP-MWPS-ifIndex1</objIdRef2>
+         <severity2>minor</severity2>
+         <cleared2>minor</cleared2>
+
+         <problemName3>modemIsFaulty</problemName3>
+         <objIdRef3>LP-MWPS-ifIndex1</objIdRef3>
+         <severity3>warning</severity3>
+         <cleared3>warning</cleared3>
+
+         <problemName4>modulationIsDownShifted</problemName4>
+         <objIdRef4>LP-MWPS-ifIndex1</objIdRef4>
+         <severity4>warning</severity4>
+         <cleared4>non-alarmed</cleared4>
+
+
+
       </problemNotification>
       <attributeValueChangedNotification>
-         <attributeName>modulationCur</attributeName>
-         <objIdRef>MW_AirInterface_Pac[layerProtocol=LP-MWPS-ifIndex1]/airInterfaceStatus</objIdRef>
+         <attributeName>airInterfaceStatus/modulationCur</attributeName>
+         <objIdRef>LP-MWPS-ifIndex1</objIdRef>
          <newValue>128</newValue>
       </attributeValueChangedNotification>
    </MW_Notifications>
