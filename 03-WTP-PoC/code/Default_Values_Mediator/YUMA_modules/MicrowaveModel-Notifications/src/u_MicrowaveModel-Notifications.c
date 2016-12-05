@@ -553,7 +553,7 @@ static void generateNotification()
     		sprintf(nr_extension, "%d", nr);
 	}
 
-    	sprintf(evalPath, "/data/MW_Notifications/problemNotification/problemName%d",nr);
+    	sprintf(evalPath, "/data/MW_Notifications/problemNotification/problemName%s",nr_extension);
     	resultString = get_value_from_xpath(evalPath);
 
     	if (resultString)
