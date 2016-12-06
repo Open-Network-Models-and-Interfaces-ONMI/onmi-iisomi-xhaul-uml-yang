@@ -1,6 +1,11 @@
 # CENTENNIAL
 Microwave and Millimeterwave PoC Applications
 
+The repository is under preparetion for the 4th PoC.  
+OpenDaylight applications are prepared for Boron SR1.  
+Models needs to be modified for ONF TR 532.  
+[sko] 2016-12-06
+
 ## 03-WTP-PoC
 Repository for the 3. ONF wireless transport project (WTP) proof of concept (PoC). 
 
