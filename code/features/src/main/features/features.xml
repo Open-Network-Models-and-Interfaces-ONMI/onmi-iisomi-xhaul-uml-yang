@@ -70,14 +70,4 @@
 		<configfile finalname="${configfile.directory}/netconfconnector.xml">mvn:org.opendaylight.mwtn/netconfconnector-impl/${project.version}/xml/config</configfile>
 	</feature>
 
-	<feature name='odl-mwt-nodediscovery' version='${project.version}'
-		description='OpenDaylight :: MicrowaveTransport :: nodediscovery'>
-		<feature version='${project.version}'>odl-mwt-netconfconnector</feature>
-		<feature version="${openflow.plugin.version}">odl-openflowplugin-southbound</feature>
-		<bundle>mvn:org.opendaylight.mwtn/nediscovery-api/{{VERSION}}</bundle>
-		<bundle>mvn:org.opendaylight.mwtn/nediscovery-impl/{{VERSION}}</bundle>
-		<configfile finalname="${configfile.directory}/nediscovery.xml">mvn:org.opendaylight.mwtn/nediscovery-impl/${project.version}/xml/config</configfile>
-	</feature>
-
-
 </features>

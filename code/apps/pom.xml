@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.opennetworking.otwg.wtp</groupId>
-        <artifactId>poc03</artifactId>
-        <version>0.3.0-SNAPSHOT</version>
+        <artifactId>wtp-boron</artifactId>
+        <version>0.4.0-SNAPSHOT</version>
     </parent>
 
     <groupId>org.opennetworking.otwg.wtp</groupId>
@@ -26,7 +26,7 @@
         <module>commons/configuration</module>
         <module>devicemodel</module>
         <!-- Added by Avadh - after migrating 2.PoC to Beryllium SR2 -->
-        <module>nediscovery</module>
+        <!--module>nediscovery</module-->
         <module>websocketmanager</module>
         <module>eventmanager</module>
         <module>netconfconnector</module>
@@ -34,7 +34,6 @@
         <!-- 3. PoC -->
         <module>closedLoopAutomation</module>
         <module>spectrum/scheduler</module>
- 
     </modules>
 
 </project>
