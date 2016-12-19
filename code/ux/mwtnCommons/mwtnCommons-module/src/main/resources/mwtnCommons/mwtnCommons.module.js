@@ -10,10 +10,13 @@ define(['angularAMD',
         'app/routingConfig', 
         'app/core/core.services', 
         'common/config/env.module',
-        'app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min', 
+        'app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min',
+        'app/mwtnCommons/bower_components/lodash/dist/lodash.min',
+        'app/mwtnCommons/bower_components/angular-simple-logger/dist/angular-simple-logger.min',
+        'app/mwtnCommons/bower_components/angular-google-maps/dist/angular-google-maps.min',        
         'ui-bootstrap'], 
         function(ng) {
-  var mwtnCommonsApp = angular.module('app.mwtnCommons', ['ui.grid', 'ui.bootstrap', 'app.core', 'ui.router.state','config', 'pascalprecht.translate']);
+  var mwtnCommonsApp = angular.module('app.mwtnCommons', ['app.core', 'ui.grid', 'ui.bootstrap', 'uiGmapgoogle-maps', 'ui.router.state','config', 'pascalprecht.translate']);
 
   mwtnCommonsApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $httpProvider, $translateProvider, $translatePartialLoaderProvider) {
     mwtnCommonsApp.register = {

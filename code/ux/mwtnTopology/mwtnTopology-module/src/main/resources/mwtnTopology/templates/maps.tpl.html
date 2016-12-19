@@ -1,3 +1,42 @@
+<ui-gmap-google-map bounds="map.bounds"
+                    center="map.center"
+                    control="map.control"
+                    dragging="map.dragging"
+                    events="map.events"
+                    options="map.options"
+                    zoom="map.zoom">
+
+            <ui-gmap-markers
+                models="mapObjects.sites.models"
+                idkey="marker.id"
+                coords="'self'"
+                options="'options'"
+                icon="'icon'"
+                doCluster="doGoogleCluster"
+                events="mapObjects.sites.events"
+                >
+            </ui-gmap-markers>
+            
+             <!--  siteLinks -->
+            <ui-gmap-polylines
+                models="mapObjects.siteLinks.models"
+                events="mapObjects.siteLinks.events"
+                path="'path'"
+                stroke="'stroke'"
+                geodesic="'geodesic'"
+                editable="'editable'"
+                draggable="'draggable'"
+                static="true"
+                visible="mapObjects.siteLinks.visible"
+                zindex="'zIndex'"
+                >
+            </ui-gmap-polylines>
+                       
+</ui-gmap-google-map>
+
+
+<!-- 
   <sigma-topology drag-nodes="true" topology-data="topologyData" trigger-resize-sigma="triggerResizeSigma" panel="panel"
    topology-custfunc="topologyCustfunc">
   </sigma-toppology> 
+ -->
