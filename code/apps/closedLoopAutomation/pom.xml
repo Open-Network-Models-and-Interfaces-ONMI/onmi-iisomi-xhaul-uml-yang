@@ -103,7 +103,6 @@ and is available at http://www.eclipse.org/legal/epl-v10.html INTERNAL
       The following configuration is necessary for maven-site-plugin to
       correctly identify the correct deployment path for OpenDaylight Maven
       sites.
-  -->
   <url>${odl.site.url}/${project.groupId}/${stream}/</url>
 
   <distributionManagement>
@@ -112,4 +111,5 @@ and is available at http://www.eclipse.org/legal/epl-v10.html INTERNAL
       <url>${nexus.site.url}/</url>
     </site>
   </distributionManagement>
+  -->
 </project>
