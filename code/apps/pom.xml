@@ -11,7 +11,7 @@
     <groupId>org.opennetworking.otwg.wtp</groupId>
     <artifactId>apps</artifactId>
 
-    <name>ODL :: Microwave Transport Network :: 3. POC Apps</name>
+    <name>ONF :: Wireless :: 4th POC Apps</name>
     <packaging>pom</packaging>
 
     <prerequisites>
@@ -20,18 +20,16 @@
 
 
     <modules>
-        <!-- modified Wipro Apps from 2. PoC -->
+        <!-- modified Wipro Apps from 2nd PoC -->
         <module>commons/config-parent</module>
         <module>commons/binding-parent</module>
         <module>commons/configuration</module>
         <module>devicemodel</module>
-        <!-- Added by Avadh - after migrating 2.PoC to Beryllium SR2 -->
-        <!--module>nediscovery</module-->
         <module>websocketmanager</module>
         <module>eventmanager</module>
         <module>netconfconnector</module>
 
-        <!-- 3. PoC -->
+        <!-- 3rd PoC -->
         <module>closedLoopAutomation</module>
         <module>spectrum/scheduler</module>
     </modules>
