@@ -1,5 +1,5 @@
 # Code
-A common folder to share code for the 3. ONF MWTN PoC.
+A common folder to share code for the 4th ONF Wireless PoC.
 
 According to the software architecture ODL internal applications are stored in folder "apps" (applications), while the ODL DLUX client applications are stored in folder "ux" (user experience).
 
@@ -96,23 +96,23 @@ Example directory structure under user's home:
 drwxrwxr-x  5 your_user_name your_user_name 4096 Okt 25 17:18 ./
 drwxr-xr-x 25 your_user_name your_user_name 4096 Okt 25 16:50 ../
 drwxrwxr-x 15 your_user_name your_user_name 4096 Okt 20 14:26 CENTENNIAL/
-drwxrwxr-x 14 your_user_name your_user_name 4096 Okt 25 20:04 distribution-karaf-0.4.2-Beryllium-SR2/
+drwxrwxr-x 14 your_user_name your_user_name 4096 Okt 25 20:04 distribution-karaf-0.5.1-Boron-SR1/
 drwxrwxr-x  6 your_user_name your_user_name 4096 Okt 25 17:18 elasticsearch-head/
 ```
 
 #### Step #2.1 - Download Karaf/ Opendaylight package and unpack
-The 3. ONF MWTN PoC applications are developed for OpenDaylight Beryllium-SR2 release.
+The 4th ONF Wireless PoC applications are developed for OpenDaylight Boron-SR1 release.
 
 ```
-wget https://nexus.opendaylight.org/content/groups/public/org/opendaylight/integration/distribution-karaf/0.4.2-Beryllium-SR2/distribution-karaf-0.4.2-Beryllium-SR2.tar.gz
-tar -xvzf distribution-karaf-0.4.2-Beryllium-SR2.tar.gz
-cd distribution-karaf-0.4.2-Beryllium-SR2/
+wget https://nexus.opendaylight.org/content/groups/public/org/opendaylight/integration/distribution-karaf/0.5.1-Boron-SR1/distribution-karaf-0.5.1-Boron-SR1.tar.gz
+tar -xvzf distribution-karaf-0.5.1-Boron-SR1.tar.gz
+cd distribution-karaf-0.5.1-Boron-SR1/
 ```
-The folder "distribution-karaf-0.4.2-Beryllium-SR2/" is also called "$ODL_KARAF_HOME" in the following sections.
+The folder "distribution-karaf-0.5.1-Boron-SR1/" is also called "$ODL_KARAF_HOME" in the following sections.
 Add an environment variable with an editor to the end of ~/.profile and ~/.bashrc
 
 ```
-export ODL_KARAF_HOME="$HOME/distribution-karaf-0.4.2-Beryllium-SR2"
+export ODL_KARAF_HOME="$HOME/distribution-karaf-0.5.1-Boron-SR1"
 ```
  Activate the change with
 ```
@@ -147,7 +147,7 @@ shutdown
 #### Step #3.1 - Patch  
 For a robust web GUI it is necessary to add a ["patch"](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/code/apps/dlux) to ODL DLUX.
 ```
-cp ./apps/dlux/loader.implementation-0.3.2-Beryllium-SR2.jar $ODL_KARAF_HOME/system/org/opendaylight/dlux/loader.implementation/0.3.2-Beryllium-SR2
+cp ./apps/dlux/loader.implementation-0.4.1-Boron-SR1.jar $ODL_KARAF_HOME/system/org/opendaylight/dlux/loader.implementation/0.4.1-Boron-SR1
 ```
 
 Install necessary web components.
@@ -158,7 +158,7 @@ cd ../../../../../../../
 ```
 
 #### Step #3.2 - Build  
-Build the applications for the 3. ONF MWTN PoC at folder 'CENTENNIAL/code'.
+Build the applications for the 4th ONF Wireless PoC at folder 'CENTENNIAL/code'.
 ```
 mvn clean install -DskipTests
 ```
