@@ -21,11 +21,31 @@ define(['app/mwtnTopology/mwtnTopology.module',
         'app/mwtnTopology/mwtnTopology.services', 
         'app/mwtnCommons/mwtnCommons.services'], function(mwtnTopologyApp) {
 
-  mwtnTopologyApp.register.controller('mwtnTopologyCtrl', ['$scope', '$rootScope', '$mwtnTopology', '$mwtnLog', 'uiGridConstants', 
-                                             function($scope, $rootScope, $mwtnTopology, $mwtnLog, uiGridConstants) {
+  mwtnTopologyApp.register.controller('mwtnTopologyCtrl', ['$scope', '$rootScope', '$mwtnTopology', '$mwtnLog', 'uiGridConstants', 'uiGmapGoogleMapApi',
+                                             function($scope, $rootScope, $mwtnTopology, $mwtnLog, uiGridConstants, uiGmapGoogleMapApi) {
 
     $rootScope['section_logo'] = 'src/app/mwtnTopology/images/mwtnTopology.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
+    // now with google maps
+    $scope.map = { center: { latitude: 45, longitude: -73 }, 
+                   zoom: 8,
+                   options: {}
+    };
+    
+    $scope.mapObjects = {
+        sites: {models : []}, 
+        siteLinkss: {models : []}   
+    }
+    
+    uiGmapGoogleMapApi.then(function(maps) {
+      $scope.map.options.mapTypeId = maps.MapTypeId.SATELLITE;
+      console.log('google.maps is ready')
+    });
+    
+    // check if something is needed below
+    
+    
+    
     $scope.topologyData = { nodes: [], edges: []};
     $scope.sigma = null;
 
@@ -56,7 +76,7 @@ define(['app/mwtnTopology/mwtnTopology.module',
               {
                 id: 'mwps-map',
                 label : 'Map',
-                template : 'src/app/mwtnTopology/templates/topology.tpl.html'
+                template : 'src/app/mwtnTopology/templates/maps.tpl.html'
               },
               {
                 id: 'mwps-grid',
@@ -75,7 +95,7 @@ define(['app/mwtnTopology/mwtnTopology.module',
               {
                 id: 'ethernet-map',
                 label : 'Map',
-                template : 'src/app/mwtnTopology/templates/topology.tpl.html'
+                template : 'src/app/mwtnTopology/templates/maps.tpl.html'
               },
               {
                 id: 'ethernet-grid',
@@ -248,6 +268,50 @@ define(['app/mwtnTopology/mwtnTopology.module',
         return;
         
       }
+      $scope.sigma.graph.clear();
+      $scope.sites.map(function(site){
+        var node = JSON.parse(JSON.stringify(site));
+        node.id = 'site' + node.id;
+        node.label = node.name;
+        node.x = 1000*node.longitude;
+        node.y = -1000*node.latitude; // Math.cos(node.latitude);
+        node.size = 16;
+        node.color = '#dddddd';
+        if (!contains($scope.topologyData.nodes, node.id)) {
+          $scope.sigma.graph.addNode(node);
+        }
+      });
+      
+      $scope.mapObjects.sites.models = $scope.sites.map(function(site){
+        return {
+          id: site.id,
+          latitude: site.latitude,
+          longitude: site.longitude,
+          title: site.name
+        };       
+      });
+      
+      $scope.neNodes.map(function(ne){
+        var node = JSON.parse(JSON.stringify(ne));
+        var pos = getNodePos(node); 
+        node.id = 'ne' + node.id;
+        node.x = pos.x;
+        node.y = pos.y;
+        node.size = 8;
+        node.color = '#888888';        
+        if (!contains($scope.topologyData.nodes, node.id)) {
+          $scope.sigma.graph.addNode(node);
+        }
+      })
+      $scope.siteLinks.map(function(link){
+        var edge = JSON.parse(JSON.stringify(link));
+        edge.source = 'site' + edge.source;
+        edge.target = 'site' + edge.target;
+        edge.label = 'RadioSignals: ??, ??';
+        if (!contains($scope.topologyData.edges, edge.id)) {
+          $scope.sigma.graph.addEdge(edge);
+        }
+      });
       // sites
       $scope.gridOptionsNodes.columnDefs = getColumnDefs($scope.sites);
       $scope.gridOptionsNodes.data = $scope.sites;
@@ -256,6 +320,11 @@ define(['app/mwtnTopology/mwtnTopology.module',
       $scope.gridOptionsLinks.columnDefs = getColumnDefs($scope.siteLinks);
       $scope.gridOptionsLinks.data = $scope.siteLinks;
       
+    };
+
+    var updateMwps = function() {
+      console.log('updateMwps');
+    
       $scope.sigma.graph.clear();
       $scope.sites.map(function(site){
         var node = JSON.parse(JSON.stringify(site));
@@ -281,23 +350,19 @@ define(['app/mwtnTopology/mwtnTopology.module',
           $scope.sigma.graph.addNode(node);
         }
       })
-      $scope.siteLinks.map(function(link){
-        var edge = JSON.parse(JSON.stringify(link));
-        edge.source = 'site' + edge.source;
-        edge.target = 'site' + edge.target;
-        edge.label = 'RadioSignals: ??, ??';
-        if (!contains($scope.topologyData.edges, edge.id)) {
-          $scope.sigma.graph.addEdge(edge);
-        }
-      });
-    };
 
-    var updateMwps = function() {
-      console.log('updateMwps');
-      
       // nodes
       $scope.gridOptionsNodes.columnDefs = getColumnDefs($scope.mwpsNodes);
       $scope.gridOptionsNodes.data =  $scope.mwpsNodes;
+
+      // links
+      $scope.gridOptionsLinks.columnDefs = getColumnDefs($scope.mwpsLinks);
+      $scope.gridOptionsLinks.data =  $scope.mwpsLinks;
+
+    };
+
+    var initMwps = function() {
+      console.log('initMwps');
       
       // links
       var mwpsLinksObj = {};
@@ -330,9 +395,6 @@ define(['app/mwtnTopology/mwtnTopology.module',
             }
           }
         });
-        $scope.gridOptionsLinks.columnDefs = getColumnDefs($scope.mwpsLinks);
-        $scope.gridOptionsLinks.data =  $scope.mwpsLinks;
-        
         
         if (!siteLinksObj[mwps.radioSignalId]) {
           siteLinksObj[mwps.radioSignalId] = [];
@@ -404,6 +466,8 @@ define(['app/mwtnTopology/mwtnTopology.module',
   
   $scope.topologyCustfunc = function(sigmaIstance, getSlowDownNum, dragListener, resize){
     $scope.sigma = sigmaIstance;
+    
+    if (!$scope.initDone) {
     initTables();
     $mwtnTopology.getNodes('site').then(function(success){
 
@@ -445,20 +509,24 @@ define(['app/mwtnTopology/mwtnTopology.module',
           });
         });
         sortById($scope.mwpsNodes);
-        updateMwps();
+        initMwps();
         updateSite();
+        $scope.initDone = true;
         
       }, function(error){
         $scope.getRequiredNetworkElements = [];
         $scope.neNodes = [];
         $scope.mwpsNodes = [];
+        $scope.initDone = false;
       });
 
     }, function(error) {
       $scope.error = 'Cannot get data from server.';
       $scope.sites = [];
       $scope.gridOptionsNodes.data = [];
+      $scope.initDone = false;
     });
+    }
   };
 
   }]);

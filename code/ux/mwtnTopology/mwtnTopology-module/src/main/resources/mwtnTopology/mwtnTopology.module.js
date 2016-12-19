@@ -11,7 +11,7 @@ define(['angularAMD',
         'app/core/core.services', 
         'common/config/env.module',
         'app/mwtnCommons/mwtnCommons.module'], function(ng) {
-  var mwtnTopologyApp = angular.module('app.mwtnTopology', ['app.core', 'ui.router.state', 'ui.grid', 'ui.bootstrap', 'config']);
+  var mwtnTopologyApp = angular.module('app.mwtnTopology', ['app.core', 'ui.router.state', 'ui.grid', 'ui.bootstrap', 'uiGmapgoogle-maps', 'config']);
 
   mwtnTopologyApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $translateProvider) {
     mwtnTopologyApp.register = {
