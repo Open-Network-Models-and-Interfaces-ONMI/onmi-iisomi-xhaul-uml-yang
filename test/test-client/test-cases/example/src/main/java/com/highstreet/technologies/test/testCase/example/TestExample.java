@@ -106,7 +106,7 @@ public class TestExample {
 
 		
 		// Start
-		String out = String.format("START Test for %2s",
+		String out = String.format("START Test for %1s",
 				address.getAttribute().getAttribute());
 		System.out.println(out);
 
