@@ -107,7 +107,6 @@ public class TestExample {
 		
 		// Start
 		String out = String.format("START Test for %2s",
-				getTimeAsIso8601(),
 				address.getAttribute().getAttribute());
 		System.out.println(out);
 
