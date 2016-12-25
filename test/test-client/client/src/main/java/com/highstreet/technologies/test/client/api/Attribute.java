@@ -8,6 +8,7 @@
 
 package com.highstreet.technologies.test.client.api;
 
+import com.highstreet.technologies.test.client.enums.AttributeNames;
 import com.highstreet.technologies.test.client.enums.ConditionalPackage;
 import com.highstreet.technologies.test.client.enums.SubObjectClass;
 
