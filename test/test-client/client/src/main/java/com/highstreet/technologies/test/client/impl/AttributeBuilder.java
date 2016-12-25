@@ -6,12 +6,13 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package com.highstreet.technologies.test.client.builder;
+package com.highstreet.technologies.test.client.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.highstreet.technologies.test.client.api.Attribute;
 import com.highstreet.technologies.test.client.api.Builder;
+import com.highstreet.technologies.test.client.enums.AttributeNames;
 import com.highstreet.technologies.test.client.enums.ConditionalPackage;
 import com.highstreet.technologies.test.client.enums.SubObjectClass;
 
@@ -30,8 +31,8 @@ public class AttributeBuilder implements Builder<Attribute> {
 		this.subObjectClass = subObjectClass;
 	}
 
-	public AttributeBuilder setAttribute(String attribute) {
-		this.attribute = attribute;
+	public AttributeBuilder setAttribute(AttributeNames attributeName) {
+		this.attribute = attributeName.getLabelId();
 		return this;
 	}
 

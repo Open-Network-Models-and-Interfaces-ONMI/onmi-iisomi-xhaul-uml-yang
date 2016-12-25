@@ -8,10 +8,20 @@
 
 package com.highstreet.technologies.test.client.api;
 
+
+import javax.ws.rs.core.MultivaluedHashMap;
+
+import com.highstreet.technologies.test.client.enums.Layer;
+
 public interface TestClient {
 	
-	public Result get(Address address);
+	public Result get(Attribute attribute);
 	
-	public Result set(Address address, Value<?> value);	  
-	
+	public Result set(Attribute attribute, Value<?> value);	  
+
+	public RestConfServer getRestConfServer();	  
+
+	public Node getNode();	  
+
+	public MultivaluedHashMap<Layer, String> getLayerProtocolIds();
 }

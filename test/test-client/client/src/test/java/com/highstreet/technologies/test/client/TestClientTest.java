@@ -11,18 +11,17 @@ package com.highstreet.technologies.test.client;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.highstreet.technologies.test.client.api.Address;
 import com.highstreet.technologies.test.client.api.Attribute;
 import com.highstreet.technologies.test.client.api.Node;
 import com.highstreet.technologies.test.client.api.RestConfServer;
 import com.highstreet.technologies.test.client.api.Value;
-import com.highstreet.technologies.test.client.builder.AddressBuilder;
-import com.highstreet.technologies.test.client.builder.AttributeBuilder;
-import com.highstreet.technologies.test.client.builder.NodeBuilder;
-import com.highstreet.technologies.test.client.builder.RestConfServerBuilder;
-import com.highstreet.technologies.test.client.builder.ValueBuilder;
+import com.highstreet.technologies.test.client.enums.AttributeNames;
 import com.highstreet.technologies.test.client.enums.ConditionalPackage;
 import com.highstreet.technologies.test.client.enums.SubObjectClass;
+import com.highstreet.technologies.test.client.impl.AttributeBuilder;
+import com.highstreet.technologies.test.client.impl.NodeBuilder;
+import com.highstreet.technologies.test.client.impl.RestConfServerBuilder;
+import com.highstreet.technologies.test.client.impl.ValueBuilder;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -63,7 +62,6 @@ public class TestClientTest extends TestCase {
 		assertEquals("createRestConfServerObject", rcs, createRestConfServerObject().toJsonString());
 		assertEquals("createNodeObject", node, createNodeObject().toJsonString());
 		assertEquals("createAttributeObject", attribute, createAttributeObject().toJsonString());
-		assertEquals("createAddressObject", address, createAddressObject().toJsonString());
 		
 		assertEquals("createStringValueObject", "{\"value\":\"string-value\"}", createStringValueObject().toJsonString());
 		assertEquals("createIntegerValueObject", "{\"value\":-123456}", createIntegerValueObject().toJsonString());
@@ -94,22 +92,11 @@ public class TestClientTest extends TestCase {
 	private Attribute createAttributeObject() {
 
 		return new AttributeBuilder(ConditionalPackage.MW_AirInterface_Pac, "layerProtocol", SubObjectClass.airInterfaceConfiguration)
-                .setAttribute("airInterfaceName")
+                .setAttribute(AttributeNames.airInterfaceName_airInterfaceConfiguration)
                 .build();
 		
 	}
 	
-	private Address createAddressObject() {
-		
-		RestConfServer rcs = createRestConfServerObject();
-		Node n = createNodeObject();
-		Attribute a = createAttributeObject();
-		
-		return new AddressBuilder(rcs, n, a)
-                .build();
-		
-	}
-
 	private Value<String> createStringValueObject() {
 		Value<String> string = (Value<String>) new ValueBuilder("string-value")
 				.build();

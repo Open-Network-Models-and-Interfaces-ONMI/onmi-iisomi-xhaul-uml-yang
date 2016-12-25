@@ -1,47 +1,48 @@
+/*
+ * Copyright (c) 2016 highstreet technologies GmbH and others.  All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v1.0 which accompanies this distribution,
+ * and is available at http://www.eclipse.org/legal/epl-v10.html
+ */
+
 package com.highstreet.technologies.test.client.enums;
 
 public enum SubObjectClass {
-	
-    airInterfaceCapacity,
+    airInterfaceCapability,
     airInterfaceConfiguration,
-    airInterfaceStatus,
+    airInterfaceCurrentPerformance,
     airInterfaceCurrentProblems,
-    airInterfaceCurrentPerformances,
-    airInterfaceHistoricalPerformances,
-    
-    airInterfaceDiversityCapacity,
+    airInterfaceDiversityCapability,
     airInterfaceDiversityConfiguration,
-    airInterfaceDiversityStatus,
+    airInterfaceDiversityCurrentPerformance,
     airInterfaceDiversityCurrentProblems,
-    airInterfaceDiversityCurrentPerformances,
     airInterfaceDiversityHistoricalPerformances,
-
-    pureEthernetStructureCapacity,
-    pureEthernetStructureConfiguration,
-    pureEthernetStructureStatus,
-    pureEthernetStructureCurrentProblems,
-    pureEthernetStructureCurrentPerformances,
-    pureEthernetStructureHistoricalPerformances,
-
-    hybridStructureCapacity,
-    hybridStructureConfiguration,
-    hybridStructureStatus,
-    hybridStructureCurrentProblems,
-    hybridStructureCurrentPerformances,
-    hybridStructureHistoricalPerformances,
-
-    ethernetContainerCapacity,
+    airInterfaceDiversityStatus,
+    airInterfaceHistoricalPerformances,
+    airInterfaceStatus,
+    ethernetContainerCapability,
     ethernetContainerConfiguration,
-    ethernetContainerStatus,
+    ethernetContainerCurrentPerformance,
     ethernetContainerCurrentProblems,
-    ethernetContainerCurrentPerformances,
     ethernetContainerHistoricalPerformances,
-
-    tdmContainerCapacity,
+    ethernetContainerStatus,
+    hybridMwStructureCapability,
+    hybridMwStructureConfiguration,
+    hybridMwStructureCurrentPerformance,
+    hybridMwStructureCurrentProblems,
+    hybridMwStructureHistoricalPerformances,
+    hybridMwStructureStatus,
+    pureEthernetStructureCapability,
+    pureEthernetStructureConfiguration,
+    pureEthernetStructureCurrentPerformance,
+    pureEthernetStructureCurrentProblems,
+    pureEthernetStructureHistoricalPerformances,
+    pureEthernetStructureStatus,
+    tdmContainerCapability,
     tdmContainerConfiguration,
-    tdmContainerStatus,
+    tdmContainerCurrentPerformance,
     tdmContainerCurrentProblems,
-    tdmContainerCurrentPerformances,
-    tdmContainerHistoricalPerformances
-    
+    tdmContainerHistoricalPerformances,
+    tdmContainerStatus
 }
