@@ -12,16 +12,16 @@ Please see the [example implementation](https://github.com/OpenNetworkingFoundat
 
 Create a Test Client:
 ```
-TestClient validationClient = new TestClient();
+TestClient validationClient = new TestClientBuilder(restConfServer, node).build();
 ```
 
 Perform a GET request:
 ```
-Result getResult = validationClient.get(address);
+Result getResult = validationClient.get(attribute);
 ```
 
 Perform a GET request:
 ```
-Result setResult = validationClient.set(address, value);
+Result setResult = validationClient.set(attribute, value);
 ```
 Please not the a set() will perform a HTTP-PUT.
