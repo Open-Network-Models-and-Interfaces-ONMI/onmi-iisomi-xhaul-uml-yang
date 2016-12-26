@@ -8,6 +8,9 @@
 
 package com.highstreet.technologies.test.client.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.highstreet.technologies.test.client.api.Builder;
@@ -16,17 +19,19 @@ import com.highstreet.technologies.test.client.api.Node;
 public class NodeBuilder implements Builder<Node> {
 
 	private final String nodeId; // required
-	private final String ipAddress; // required
+	private String ipAddress; // optional
 	private int port; // optional
 	private String user; // optional
 	private String password; // optional
+	private List<String> expectedNetconfCapabilities;
 
-	public NodeBuilder(String nodeId, String ipAddress) {
+	public NodeBuilder(String nodeId) {
 		this.nodeId = nodeId;
-		this.ipAddress = ipAddress;
+		this.ipAddress = "127.0.0.1";
 		this.port = 830;
 		this.user = "admin";
 		this.password = "admin";
+		this.expectedNetconfCapabilities = new ArrayList<String>();
 	}
 
 	public NodeBuilder(Node node) {
@@ -35,6 +40,12 @@ public class NodeBuilder implements Builder<Node> {
 		this.port = node.getPort();
 		this.user = node.getUser();
 		this.password = node.getPassword();
+		this.expectedNetconfCapabilities = node.getExpectedNetconfCapabilities();
+	}
+
+	public NodeBuilder setIpAddress(String ipAddress) {
+		this.ipAddress = ipAddress;
+		return this;
 	}
 
 	public NodeBuilder setPort(int port) {
@@ -49,6 +60,11 @@ public class NodeBuilder implements Builder<Node> {
 
 	public NodeBuilder setPassword(String password) {
 		this.password = password;
+		return this;
+	}
+
+	public NodeBuilder setExpectedNetconfCapabilities(List<String> expectedNetconfCapabilities) {
+		this.expectedNetconfCapabilities = expectedNetconfCapabilities;
 		return this;
 	}
 
@@ -80,6 +96,7 @@ public class NodeBuilder implements Builder<Node> {
     	private final int port; // required
     	private final String user; // required
     	private final String password; // required
+    	private final List<String> expectedNetconfCapabilities; // required
 
     	private NodeImpl(NodeBuilder builder) {
     		this.nodeId = builder.nodeId;
@@ -87,6 +104,7 @@ public class NodeBuilder implements Builder<Node> {
     		this.port = builder.port;
     		this.user = builder.user;
     		this.password = builder.password;
+    		this.expectedNetconfCapabilities = builder.expectedNetconfCapabilities;
     	}
 
     	@Override
@@ -115,6 +133,11 @@ public class NodeBuilder implements Builder<Node> {
 		}
 
 		@Override
+		public List<String> getExpectedNetconfCapabilities() {
+			return this.expectedNetconfCapabilities;
+		}
+
+		@Override
 		public String toJsonString() {
 			ObjectMapper mapper = new ObjectMapper();
 			try {
@@ -124,5 +147,6 @@ public class NodeBuilder implements Builder<Node> {
 			}
 			return "{'error':'No JSON representation for a Node object.'}";
 		}
+
     }
 }

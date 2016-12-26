@@ -54,9 +54,8 @@ public class TestClientTest extends TestCase {
 	public void testApp() {
 
 		final String rcs = "{\"ipAddress\":\"127.0.0.1\",\"port\":8181,\"scheme\":\"http\",\"user\":\"admin\",\"password\":\"admin\"}";
-		final String node = "{\"nodeId\":\"NetConfServer\",\"ipAddress\":\"127.0.0.1\",\"port\":830,\"user\":\"admin\",\"password\":\"admin\"}";
+		final String node = "{\"nodeId\":\"NetConfServer\",\"ipAddress\":\"127.0.0.1\",\"port\":830,\"user\":\"admin\",\"password\":\"admin\",\"expectedNetconfCapabilities\":[]}";
 		final String attribute = "{\"conditionalPackage\":\"MW_AirInterface_Pac\",\"layerProtocol\":\"layerProtocol\",\"subObjectClass\":\"airInterfaceConfiguration\",\"attribute\":\"airInterfaceName\"}";
-		final String address = "{\"node\":" + node + ",\"attribute\":" + attribute + ",\"restConfServer\":" + rcs + "}";
 		final String list = "[\"item1\",\"item2\"]";
 		
 		assertEquals("createRestConfServerObject", rcs, createRestConfServerObject().toJsonString());
@@ -81,7 +80,8 @@ public class TestClientTest extends TestCase {
 
 	private Node createNodeObject() {
 
-		return new NodeBuilder("NetConfServer", "127.0.0.1")
+		return new NodeBuilder("NetConfServer")
+				.setIpAddress("127.0.0.1")
                 .setPort(830)
                 .setUser("admin")
                 .setPassword("admin")

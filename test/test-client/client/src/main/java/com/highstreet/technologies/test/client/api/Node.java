@@ -8,6 +8,8 @@
 
 package com.highstreet.technologies.test.client.api;
 
+import java.util.List;
+
 public interface Node {
 	
     public String getNodeId();
@@ -19,6 +21,8 @@ public interface Node {
 	public String getUser();
 
 	public String getPassword();
+	
+	public List<String> getExpectedNetconfCapabilities();
 	
 	public String toJsonString();
 
