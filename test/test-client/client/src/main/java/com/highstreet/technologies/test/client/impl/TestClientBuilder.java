@@ -13,6 +13,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import javax.ws.rs.core.MultivaluedHashMap;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -69,6 +70,147 @@ public class TestClientBuilder implements Builder<TestClient> {
 		if (testClient.getNode() == null) {
 			throw new IllegalStateException("Node must be set.");
 		}
+		restConfServerConnectionTest();
+	}
+
+	private JSONObject mountPointTest() {
+		
+		CloseableHttpClient httpclient = TestClientImpl.getRestConfClient(this.restConfServer);
+
+		try {
+            String path = "/restconf/operational/network-topology:network-topology/topology/topology-netconf/node/" + this.node.getNodeId();
+        	
+            URI uri = new URIBuilder(TestClientImpl.getTarget(this.restConfServer).toURI())
+            		.setPath(path)
+            		.build();
+            HttpGet httpget = new HttpGet(uri);
+            httpget.setHeader("Content-Type", "application/json");
+            httpget.setHeader("Accept", "application/json");
+
+			// Create a custom response handler
+			ResponseHandler<JSONObject> responseHandler = new ResponseHandler<JSONObject>() {
+
+				@Override
+				public JSONObject handleResponse(final HttpResponse response) throws ClientProtocolException, IOException {
+					int status = response.getStatusLine().getStatusCode();
+					String reason = response.getStatusLine().getReasonPhrase();
+					
+					if (status >= 200 && status < 300) {
+						HttpEntity entity = response.getEntity();
+						return new JSONObject(EntityUtils.toString(entity));
+					} else {
+						JSONObject error = new JSONObject();
+						error.put("status", status);
+						error.put("reason", reason);
+						return error;
+					}
+				}
+			};
+			JSONObject result = httpclient.execute(httpget, responseHandler);
+			if (!result.has("status")) {
+				// perform some checks
+				JSONObject mountPoint = result.getJSONArray("node").getJSONObject(0);
+				String connectionStatus = (String) mountPoint.get("netconf-node-topology:connection-status");
+				if (!connectionStatus.equals("connected")) {
+					System.out.println(String.format("ERROR: Connection status is '%1s', but expected status is 'connected'.", connectionStatus));
+				}
+				
+				String capabilities = mountPoint.getJSONObject("netconf-node-topology:available-capabilities").getJSONArray("available-capability").toString();
+				for (String capability : this.node.getExpectedNetconfCapabilities()) {
+					Boolean found = capabilities.contains(capability);
+					if (!found) {
+						System.out.println("WARNING: Capability not found! " + capability);
+					}
+				}
+				
+			} else {
+				// error
+				JSONObject checks = new JSONObject();
+				checks.put("description", this.node.getNodeId() + " not mounted?! ");
+				checks.put("expected-mountpoint", new JSONObject(this.node.toJsonString()));
+ 				result.put("suggestion", checks);
+				System.out.println(result.toString(1));
+			}
+			return result;
+			
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				httpclient.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	private JSONObject restConfServerConnectionTest() {
+
+		CloseableHttpClient httpclient = TestClientImpl.getRestConfClient(this.restConfServer);
+
+		try {
+            String path = "/restconf/operational/network-topology:network-topology/topology/topology-netconf/node/controller-config";
+        	
+            URI uri = new URIBuilder(TestClientImpl.getTarget(this.restConfServer).toURI())
+            		.setPath(path)
+            		.build();
+            HttpGet httpget = new HttpGet(uri);
+            httpget.setHeader("Content-Type", "application/json");
+            httpget.setHeader("Accept", "application/json");
+
+			// Create a custom response handler
+			ResponseHandler<JSONObject> responseHandler = new ResponseHandler<JSONObject>() {
+
+				@Override
+				public JSONObject handleResponse(final HttpResponse response) throws ClientProtocolException, IOException {
+					int status = response.getStatusLine().getStatusCode();
+					String reason = response.getStatusLine().getReasonPhrase();
+					
+					if (status >= 200 && status < 300) {
+						HttpEntity entity = response.getEntity();
+						return new JSONObject(EntityUtils.toString(entity));
+					} else {
+						JSONObject error = new JSONObject();
+						error.put("status", status);
+						error.put("reason", reason);
+						return error;
+					}
+				}
+			};
+			JSONObject result = httpclient.execute(httpget, responseHandler);
+			if (!result.has("status")) {
+				result = this.mountPointTest();
+			} else {
+				// error
+				JSONObject checks = new JSONObject();
+				checks.put("description", "RestConf connection to OpendayLight failed! ");
+				checks.put("check#1", "ping " + this.restConfServer.getIpAddress());
+				checks.put("check#2", "User credentials: see https://wiki.opendaylight.org/view/AAA:Changing_Account_Passwords" );
+				checks.put("check#3", "Please paste into browser address field" + path );
+				result.put("please-check", checks);
+				System.out.println(result.toString(1));
+			}
+			return result;
+			
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				httpclient.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -90,11 +232,11 @@ public class TestClientBuilder implements Builder<TestClient> {
     		this.node = builder.node;
     	}
 
-    	private HttpHost getTarget(RestConfServer server) {
+    	private static HttpHost getTarget(RestConfServer server) {
             return new HttpHost(server.getIpAddress(), server.getPort(), server.getScheme().toString());
     	}
     	
-    	private CloseableHttpClient getRestConfClient(RestConfServer server) {
+    	private static CloseableHttpClient getRestConfClient(RestConfServer server) {
             HttpHost target = getTarget(server);
             
             CredentialsProvider credsProvider = new BasicCredentialsProvider();
@@ -107,7 +249,7 @@ public class TestClientBuilder implements Builder<TestClient> {
             // Generate BASIC scheme object and add it to the local
             // auth cache
             BasicScheme basicAuth = new BasicScheme();
-            authCache.put(this.getTarget(server), basicAuth);
+            authCache.put(TestClientImpl.getTarget(server), basicAuth);
 
             // Add AuthCache to the execution context
             HttpClientContext localContext = HttpClientContext.create();
@@ -121,7 +263,7 @@ public class TestClientBuilder implements Builder<TestClient> {
 
     	private JSONObject getObject(Attribute attribute) {
 
-    		CloseableHttpClient httpclient = this.getRestConfClient(this.restConfServer);
+    		CloseableHttpClient httpclient = TestClientImpl.getRestConfClient(this.restConfServer);
 
     		try {
 
@@ -171,14 +313,14 @@ public class TestClientBuilder implements Builder<TestClient> {
     	@Override
 		public Result get(Attribute attribute) {
 
-    		CloseableHttpClient httpclient = this.getRestConfClient(this.restConfServer);
+    		CloseableHttpClient httpclient = TestClientImpl.getRestConfClient(this.restConfServer);
 
     		String pathTemplate = "/restconf/operational/network-topology:network-topology/topology/topology-netconf/node/%1s/yang-ext:mount/MicrowaveModel-ObjectClasses-AirInterface:%2s/%3s/%4s";
             String path = String.format(pathTemplate, node.getNodeId(), attribute.getConditionalPackage(), attribute.getLayerProtocol(), attribute.getSubObjectClass());
             
             try {
             	
-                URI uri = new URIBuilder(this.getTarget(this.restConfServer).toURI())
+                URI uri = new URIBuilder(TestClientImpl.getTarget(this.restConfServer).toURI())
                 		.setPath(path)
                 		.build();
                 HttpGet httpget = new HttpGet(uri);
@@ -243,7 +385,7 @@ public class TestClientBuilder implements Builder<TestClient> {
 		@Override
 		public Result set(Attribute attribute, Value<?> value) {
 			
-    		CloseableHttpClient httpclient = this.getRestConfClient(this.restConfServer);
+    		CloseableHttpClient httpclient = TestClientImpl.getRestConfClient(this.restConfServer);
 
     		JSONObject newValue = this.getObject(attribute);
 			newValue.getJSONObject(attribute.getSubObjectClass().toString()).put(attribute.getAttribute(), value.getValue());
@@ -253,7 +395,7 @@ public class TestClientBuilder implements Builder<TestClient> {
 	        
 			try {
 	        	
-	            URI uri = new URIBuilder(this.getTarget(this.restConfServer).toURI())
+	            URI uri = new URIBuilder(TestClientImpl.getTarget(this.restConfServer).toURI())
 	            		.setPath(path)
 	            		.build();
 	            HttpPut  httpPut = new HttpPut(uri);
@@ -321,13 +463,13 @@ public class TestClientBuilder implements Builder<TestClient> {
 
 		@Override
 		public MultivaluedHashMap<Layer, String> getLayerProtocolIds() {
-			CloseableHttpClient httpclient = this.getRestConfClient(this.restConfServer);
+			CloseableHttpClient httpclient = TestClientImpl.getRestConfClient(this.restConfServer);
 	        
 			try {
 	            String pathTemplate = "/restconf/operational/network-topology:network-topology/topology/topology-netconf/node/%1s/yang-ext:mount/CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement";
 	            String path = String.format(pathTemplate, node.getNodeId());
 	        	
-	            URI uri = new URIBuilder(this.getTarget(this.restConfServer).toURI())
+	            URI uri = new URIBuilder(TestClientImpl.getTarget(this.restConfServer).toURI())
 	            		.setPath(path)
 	            		.build();
 	            HttpGet httpget = new HttpGet(uri);

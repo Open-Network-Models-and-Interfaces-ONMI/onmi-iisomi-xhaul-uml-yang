@@ -10,6 +10,7 @@ package com.highstreet.technologies.test.testCase.example;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -43,7 +44,7 @@ public class TestExample {
 		final String odlIpAddress = "192.168.1.106";
 		final int odlRestConfPort = 8181;
 		final Protocol oldScheme = Protocol.http;
-		final String odlUser = "admin";
+		final String odlUser = "test-client";
 		final String odlPassword = "admin";
 		
 		return new RestConfServerBuilder(odlIpAddress, odlRestConfPort)
@@ -60,11 +61,41 @@ public class TestExample {
 		final int mediatorPort = 830;
 		final String mediatorUser = "compila";
 		final String mediatorPassword = "compila+";
+		final ArrayList<String> expectedNetconfCapabilities = new ArrayList<String>();
+
+		expectedNetconfCapabilities.add("urn:ietf:params:netconf:capability:notification:1.0");
+
+		expectedNetconfCapabilities.add("(uri:onf:G_874_1_model-Imported_Data_Types?revision=2016-07-10)G_874_1_model-Imported_Data_Types");
+		expectedNetconfCapabilities.add("(uri:onf:G_874_1_model-Imported_Information_Object_Classes-X_721?revision=2016-07-10)G_874_1_model-Imported_Information_Object_Classes-X_721");
+		expectedNetconfCapabilities.add("(uri:onf:G_874_1_model-Imported_Information_Object_Classes-X_739?revision=2016-07-10)G_874_1_model-Imported_Information_Object_Classes-X_739");
+		expectedNetconfCapabilities.add("(uri:onf:G_874_1_model-Imported_Information_Object_Classes-Q_822?revision=2016-08-11)G_874_1_model-Imported_Information_Object_Classes-Q_822");
+		expectedNetconfCapabilities.add("(uri:onf:G_874_1_model-Type_Definitions?revision=2016-07-10)G_874_1_model-Type_Definitions");
+		expectedNetconfCapabilities.add("(uri:onf:G_874_1_model-Object_Classes?revision=2016-07-10)G_874_1_model-Object_Classes");
+
+		expectedNetconfCapabilities.add("(uri:onf:CoreModel-CoreFoundationModule-TypeDefinitions?revision=2016-07-01)CoreModel-CoreFoundationModule-TypeDefinitions");
+		expectedNetconfCapabilities.add("(uri:onf:CoreModel-CoreFoundationModule-StateModel?revision=2016-08-09)CoreModel-CoreFoundationModule-StateModel");
+		expectedNetconfCapabilities.add("(uri:onf:CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages?revision=2016-07-10)CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages");
+		expectedNetconfCapabilities.add("(uri:onf:CoreModel-CoreNetworkModule-TypeDefinitions?revision=2016-07-10)CoreModel-CoreNetworkModule-TypeDefinitions");
+		expectedNetconfCapabilities.add("(uri:onf:CoreModel-CoreNetworkModule-ObjectClasses?revision=2016-08-11)CoreModel-CoreNetworkModule-ObjectClasses");
+
+		expectedNetconfCapabilities.add("(uri:onf:MicrowaveModel-Notifications?revision=2016-08-09)MicrowaveModel-Notifications");
+		expectedNetconfCapabilities.add("(uri:onf:MicrowaveModel-TypeDefinitions?revision=2016-09-02)MicrowaveModel-TypeDefinitions");
+		expectedNetconfCapabilities.add("(uri:onf:MicrowaveModel-ObjectClasses-SuperClasses?revision=2016-08-09)MicrowaveModel-ObjectClasses-SuperClasses");
+		expectedNetconfCapabilities.add("(uri:onf:MicrowaveModel-ObjectClasses-AirInterface?revision=2016-09-01)MicrowaveModel-ObjectClasses-AirInterface");
+		// expectedNetconfCapabilities.add("(uri:onf:MicrowaveModel-ObjectClasses-AirInterfaceDiversity?revision=2016-09-02)MicrowaveModel-ObjectClasses-AirInterfaceDiversity");
 		
-		return new NodeBuilder(mediatorName, mediatorIp)
+		expectedNetconfCapabilities.add("(uri:onf:MicrowaveModel-ObjectClasses-PureEthernetStructure?revision=2016-09-02)MicrowaveModel-ObjectClasses-PureEthernetStructure");
+		// expectedNetconfCapabilities.add("(uri:onf:MicrowaveModel-ObjectClasses-HybridMwStructure?revision=2016-09-02)MicrowaveModel-ObjectClasses-HybridMwStructure");
+
+		expectedNetconfCapabilities.add("(uri:onf:MicrowaveModel-ObjectClasses-EthernetContainer?revision=2016-09-02)MicrowaveModel-ObjectClasses-EthernetContainer");
+		// expectedNetconfCapabilities.add("(uri:onf:MicrowaveModel-ObjectClasses-TdmContainer?revision=2016-09-02)MicrowaveModel-ObjectClasses-TdmContainer");
+		
+		return new NodeBuilder(mediatorName)
+				.setIpAddress(mediatorIp)
 				.setPort(mediatorPort)
 				.setUser(mediatorUser)
 				.setPassword(mediatorPassword)
+				.setExpectedNetconfCapabilities(expectedNetconfCapabilities)
 				.build();
 	}
 
@@ -77,6 +108,13 @@ public class TestExample {
 	
 	private static void runTestCaseAirInterfaceName() {
 
+		// select an interesting attribute of the wireless model
+		final AttributeNames attributeName = AttributeNames.airInterfaceName_airInterfaceConfiguration;
+
+		// Start
+		String out = String.format("START Test for %1s", attributeName);
+		System.out.println(out);
+
 		// create TestClient to get access to RestConf GET and SET methods
 		final RestConfServer restConfServer = createRestConfServer();
 		final Node node = createNode();
@@ -88,13 +126,7 @@ public class TestExample {
 		final List<String> airInterfaces = layerProtocols.get(Layer.AIRINTERFACE);
 
 		final String layerProtocol = airInterfaces.get(airInterfaces.size() - 1);
-		final AttributeNames attributeName = AttributeNames.airInterfaceName_airInterfaceConfiguration;
 		final Attribute attribute = attributeName.getAttribute(layerProtocol);
-
-		// Start
-		String out = String.format("START Test for %1s",
-				attribute.getAttribute());
-		System.out.println(out);
 
 		// read the interesting value
 		Result getResult = validationClient.get(attribute);
