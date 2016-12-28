@@ -11,8 +11,6 @@ define(['angularAMD',
         'app/core/core.services', 
         'common/config/env.module',
         'app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min',
-        'app/mwtnCommons/bower_components/lodash/dist/lodash.min',
-        'app/mwtnCommons/bower_components/angular-simple-logger/dist/angular-simple-logger.min',
         'app/mwtnCommons/bower_components/angular-google-maps/dist/angular-google-maps.min',        
         'ui-bootstrap'], 
         function(ng) {
