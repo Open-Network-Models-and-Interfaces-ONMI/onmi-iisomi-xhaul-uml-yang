@@ -57,7 +57,8 @@ define(['app/mwtnTopology/mwtnTopology.module',
               {
                 id: 'site-map',
                 label : 'Map',
-                template : 'src/app/mwtnTopology/templates/maps.tpl.html'
+                template : 'src/app/mwtnTopology/templates/maps.tpl.html',
+                status: true
               },
               {
                 id: 'site-grid',
