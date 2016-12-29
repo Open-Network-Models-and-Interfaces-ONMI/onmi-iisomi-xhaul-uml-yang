@@ -57,7 +57,7 @@
 		</div>
 
 		<div class="row">
-			<div ng-class="{ 'col-md-12': containers.length === 1, 'col-md-6': containers.length === 2, 'col-md-4': containers.length === 3 , 'col-md-3': containers.length > 3 }" ng-repeat="container in containers">
+			<div ng-class="{ 'col-md-12': containers.length === 1, 'col-md-6': containers.length === 2, 'col-md-4': containers.length > 2 }" ng-repeat="container in containers">
 				<div uib-accordion-group class="panel-primary"
 					is-open="status['container' + separator + container.layerProtocol]">
 					<uib-accordion-heading>
@@ -83,7 +83,7 @@
 		</div>
 
 		<div class="row">
-			<div ng-class="{ 'col-md-12': structures.length === 1, 'col-md-6': structures.length === 2, 'col-md-4': structures.length === 3 , 'col-md-3': structures.length > 3 }" ng-repeat="structure in structures">
+			<div ng-class="{ 'col-md-12': structures.length === 1, 'col-md-6': structures.length === 2, 'col-md-4': structures.length > 2 }" ng-repeat="structure in structures">
 				<div uib-accordion-group class="panel-primary"
 					is-open="status['structure' + separator + structure.layerProtocol]">
 					<uib-accordion-heading>
@@ -109,7 +109,7 @@
 		</div>
 
 		<div class="row">
-			<div ng-class="{ 'col-md-12': airinterfaces.length === 1, 'col-md-6': airinterfaces.length === 2, 'col-md-4': airinterfaces.length === 3 , 'col-md-3': airinterfaces.length > 3 }" ng-repeat="airinterface in airinterfaces">
+			<div ng-class="{ 'col-md-12': airinterfaces.length === 1, 'col-md-6': airinterfaces.length === 2, 'col-md-4': airinterfaces.length > 2}" ng-repeat="airinterface in airinterfaces">
 				<div uib-accordion-group class="panel-primary"
 					is-open="status['airinterface' + separator + airinterface.layerProtocol]">
 					<uib-accordion-heading>
