@@ -2,6 +2,37 @@ var fs = require('fs');
 var util = require('./util.js');
 var database = require('./config.json');
 
+var siteLinks = {};
+var mwpsLinks = {};
+
+var analyseSiteLink = function(ne) {
+  Object.keys(ne).map(function(node){
+    ne[node]['MW_AirInterface_Pac'].map(function(mwps){
+      var siteId = ne[node].siteRef;
+      var id = mwps.airInterfaceConfiguration.radioSignalID;
+
+      if (!mwpsLinks[id]) {
+        mwpsLinks[id] = {mwps:[], siteLink: []}; 
+      }
+      mwpsLinks[id].siteLink.push(siteId);
+      mwpsLinks[id].mwps.push({node:node, mwpsId: mwps.layerProtocol});
+      if (mwpsLinks[id].siteLink.length === 2) {
+        mwpsLinks[id].siteLink.sort(function(a, b){
+          if (a < b) return -1;
+          if (a > b) return 1;
+          return 0;
+        });
+        var siteLinkId = mwpsLinks[id].siteLink.join('-');
+        if (!siteLinks[siteLinkId]) {
+          siteLinks[siteLinkId] = {id: siteLinkId, sites: mwpsLinks[id].siteLink}; 
+          util.createEntry(database, 'site-link', siteLinkId, siteLinks[siteLinkId], function(status, data, response) {
+            console.info('site-link', siteLinkId, 'created', status);
+          });
+        } 
+      }
+    });
+  });
+};
 
 var createHit = function(item, i, done) {
   util.createEntry(database, item._type, item._id, item._source, function(status, data) {
@@ -26,6 +57,9 @@ var modifyDatabase = function(database) {
         var json = JSON.parse(contents);
         var docType = Object.keys(json)[0];
         console.log(docType);
+        if (docType === 'required-networkelement') {
+          analyseSiteLink(json[docType]);
+        }
         var array = Object.keys(json[docType]).map(function(key){
           return {
             _id : key,
@@ -59,3 +93,4 @@ util.checkDatabase(database, function(dbStatus) {
     });
   }
 });
+
