@@ -1,9 +1,5 @@
-<!-- no tab for layers just site layer
 <uib-tabset id="mwtnTopology" active="activeTab" >
     <uib-tab index="$index" heading="{{ layer.label | translate}}" ng-repeat="layer in layers">
-   </uib-tab>
-</uib-tabset>
- -->
     
  		<uib-accordion close-others="oneAtATime">
 
@@ -19,6 +15,9 @@
  
         </uib-accordion>   
     
+   </uib-tab>
+</uib-tabset>
+
 <hr />
 <div class="owl">
 	<span>ONF Wireless for Opendaylight Boron-SR1 - Build: @buildtime@</span>

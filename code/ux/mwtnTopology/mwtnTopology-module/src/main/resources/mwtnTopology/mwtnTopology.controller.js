@@ -25,31 +25,14 @@ define(['app/mwtnTopology/mwtnTopology.module',
                                              function($scope, $rootScope, $mwtnTopology, $mwtnLog, uiGridConstants, uiGmapGoogleMapApi) {
 
     $rootScope['section_logo'] = 'src/app/mwtnTopology/images/mwtnTopology.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
-
-    // now with google maps
-    $scope.map = { center: { latitude: 45, longitude: -73 }, 
-                   zoom: 8,
-                   options: {}
-    };
-    
-    $scope.mapObjects = {
-        sites: {models : []}, 
-        siteLinkss: {models : []}   
-    }
-    
-    uiGmapGoogleMapApi.then(function(maps) {
-      $scope.map.options.mapTypeId = maps.MapTypeId.SATELLITE;
-      console.log('google.maps is ready')
-    });
-    
-    // check if something is needed below
-    
-    
-    
-    $scope.topologyData = { nodes: [], edges: []};
-    $scope.sigma = null;
-
+   
+    // number of accordion tabs open at time
     $scope.oneAtATime = true;
+    
+    // global object to store data from database
+    $scope.data = {};
+    
+    // definitions of tabs and accordions
     $scope.layers = [
         {
           label : 'Site',
@@ -70,45 +53,275 @@ define(['app/mwtnTopology/mwtnTopology.module',
                 label : 'Site links',
                 template : 'src/app/mwtnTopology/templates/links.tpl.html'
               } ]
-        },
-        {
-          label : 'Microwave / Miiiimeterwave',
-          section : [
-              {
-                id: 'mwps-map',
-                label : 'Map',
-                template : 'src/app/mwtnTopology/templates/maps.tpl.html'
-              },
-              {
-                id: 'mwps-grid',
-                label : 'Air interfaces',
-                template : 'src/app/mwtnTopology/templates/nodes.tpl.html'
-              },
-              {
-                id:'mwpslinks-grid',
-                label : 'MWR links',
-                template : 'src/app/mwtnTopology/templates/links.tpl.html'
-              } ]
-        },
-        {
-          label : 'Ethernet',
-          section : [
-              {
-                id: 'ethernet-map',
-                label : 'Map',
-                template : 'src/app/mwtnTopology/templates/maps.tpl.html'
-              },
-              {
-                id: 'ethernet-grid',
-                label : 'Ports (ETH-CTPs)',
-                template : 'src/app/mwtnTopology/templates/nodes.tpl.html'
-              },
-              {
-                id:'ethernetlinks-grid',
-                label : 'Ethernet connections',
-                template : 'src/app/mwtnTopology/templates/links.tpl.html'
-              } ]
+//        },
+//        {
+//          label : 'Microwave / Miiiimeterwave',
+//          section : [
+//              {
+//                id: 'mwps-map',
+//                label : 'Map',
+//                template : 'src/app/mwtnTopology/templates/maps.tpl.html'
+//              },
+//              {
+//                id: 'mwps-grid',
+//                label : 'Air interfaces',
+//                template : 'src/app/mwtnTopology/templates/nodes.tpl.html'
+//              },
+//              {
+//                id:'mwpslinks-grid',
+//                label : 'MWR links',
+//                template : 'src/app/mwtnTopology/templates/links.tpl.html'
+//              } ]
+//        },
+//        {
+//          label : 'Ethernet',
+//          section : [
+//              {
+//                id: 'ethernet-map',
+//                label : 'Map',
+//                template : 'src/app/mwtnTopology/templates/maps.tpl.html'
+//              },
+//              {
+//                id: 'ethernet-grid',
+//                label : 'Ports (ETH-CTPs)',
+//                template : 'src/app/mwtnTopology/templates/nodes.tpl.html'
+//              },
+//              {
+//                id:'ethernetlinks-grid',
+//                label : 'Ethernet connections',
+//                template : 'src/app/mwtnTopology/templates/links.tpl.html'
+//              } ]
         } ];
+
+    // global objects for map
+    $scope.mapObjects = {
+        map: { center: { latitude: 45, longitude: -73 }, 
+            zoom: 8,
+            options: {},
+            exists: false
+        },
+        sites: {
+        	models : [],
+            draw: function(){
+    	        $scope.mapObjects.sites.models = $scope.data.sites.map(function(site){
+    	            return {
+    	              id: site.id,
+    	              latitude: site.latitude,
+    	              longitude: site.longitude,
+    	              title: site.name,
+    	              icon: $scope.mapObjects.sites.getIcon('#ffffff', 3, 0.5, 10)
+    	            };       
+    	        });
+            },
+        	events : {
+	          click : function(marker, eventName, model, args) {
+	              console.info('htLog:', marker, eventName, model, args);
+	              // TODO switch to selected
+	          },
+              mouseover : function(marker, eventName, model, args) {
+                // console.info('htLog:', marker, eventName, model, args);
+                model.show = true;
+                $scope.mapObjects.sites.tooltipOptions.content = '<b>' + model.title + '</b>';
+                $scope.mapObjects.sites.tooltip = model;
+              },
+              mouseout : function(marker, eventName, model, args) {
+                // console.info('htLog:', marker, eventName, model, args);
+                model.show = false;
+                $scope.mapObjects.sites.tooltip = model;
+              }
+	        },
+        	getIcon : function(color, weight, opacity, scale) {
+                var icon = $scope.mapObjects.sites.icon;
+                icon.strokeColor = color;
+                icon.fillColor = color;
+                icon.strokeWeight = weight;
+                icon.fillOpacity = opacity;
+                icon.scale = scale;
+                return icon;
+            },
+            tooltipOptions : {
+    	      boxClass: 'infobox',
+    	      boxStyle: {
+    	        backgroundColor: 'white',
+    	        border: '2px solid #337ab7',
+    	        borderRadius: '5px',
+    	        padding: '5px 2px 5px 15px',
+    	        width: '200px',
+    	        height: '100'
+    	      },
+    	      content: 'hello',
+    	      disableAutoPan: true,
+    	      maxWidth: 0,
+
+    	      zIndex: null,
+    	      // closeBoxMargin: '10px',
+    	      // closeBoxURL: 'http://www.google.com/intl/en_us/mapfiles/close.gif',
+
+    	      isHidden: false,
+    	      pane: 'floatPane',
+    	      enableEventPropagation: false
+    	    },
+    	    tooltip : {show: false}
+
+        }, 
+        siteLinks: {
+        	models : [],
+            draw: function(){
+    	        $scope.mapObjects.siteLinks.models = $scope.data.siteLinks.map(function(link){
+		        	var pointA = $scope.data.sites.filter(function(site){
+		        		return site.id.toString() === link.sites[0].toString();
+		        	});
+		        	var pointB = $scope.data.sites.filter(function(site){
+		        		return site.id.toString() === link.sites[1].toString();
+		        	});
+		        	var path = [
+    	                        {
+    	                          latitude : pointA[0].latitude,
+    	                          longitude : pointA[0].longitude
+    	                        }, {
+    	                          latitude : pointB[0].latitude,
+    	                          longitude : pointB[0].longitude
+    	                        }
+    	                      ];
+                    return {
+                        id : link.id,
+//                        index : siteLink._index,
+//                        siteLinkId : siteLink._source.id,
+                        path : path,
+                        stroke : {
+                          color : '#ffffff',
+                          weight : 3
+                        },
+                        editable : false,
+                        draggable : false,
+                        geodesic : true,
+                        visible : true,
+                        options : {
+                          zIndex : 16,
+                          title : link.id + ': ' + pointA[0].name + '-' + pointB[0].name
+                        }
+                    };
+    	        });
+            },
+        	events : {
+	              click : function(marker, eventName, model, args) {
+                      console.info('htLog:', marker, eventName, model, args);
+                      // TODO switch to selected
+                  },
+        	      mouseover : function(line, eventName, model, args) {
+        	    	  var event = JSON.parse(JSON.stringify(args));
+                      model.stroke.weight = 6;
+                      model.show = true;
+                      model.latitude = event['0'].latLng.lat;
+                      model.longitude = event['0'].latLng.lng;
+                      $scope.mapObjects.sites.tooltipOptions.content = '<b>' + model.options.title + '</b>';
+                      $scope.mapObjects.sites.tooltip = model;
+        	      },
+        	      mouseout : function(line, eventName, model, args) {
+        	          // console.log('htLog:', line, eventName, model, args);
+        	          model.stroke.weight = 3;
+                      model.show = false;
+                      $scope.mapObjects.sites.tooltipOptions.content = '<b>' + model.options.title + '</b>';
+                      $scope.mapObjects.sites.tooltip = model;
+        	      }
+  	        }
+        }   
+    };
+
+    
+ /*
+  * $scope.map.bounds = {
+    northeast: {
+        latitude: myBounds.getNorthEast().lat(),
+        longitude: myBounds.getNorthEast().lng()
+    },
+    southwest: {
+        latitude: myBounds.getSouthWest().lat(),
+        longitude: myBounds.getSouthWest().lng()
+    }
+};
+*/
+    // draw map, when loaded
+    uiGmapGoogleMapApi.then(function(maps) {
+        $scope.mapObjects.map.options.mapTypeId = maps.MapTypeId.HYBRID;
+        $scope.mapObjects.map.exists = true;
+        $scope.mapObjects.sites.icon = {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 12,
+            fillColor: '#2677FF',
+            fillOpacity: 1,
+            strokeColor: '#ffffff',
+            strokeOpacity: 1,
+            strokeWeight: 6
+        };
+        $scope.mapObjects.sites.draw();
+        $scope.mapObjects.siteLinks.draw();
+        
+    }, function(error){
+    	console.error('Something wrong with maps.', error)
+    });
+    
+
+    // get sites and update map and grid
+    var updateSite = function() {
+        console.log('updateSite', $scope.mapObjects.map.exists);
+  
+	    $mwtnTopology.getNodes('site').then(function(success){
+	
+	        var hits = success.data.hits.hits;
+	        $scope.data.sites = hits.map(function(hit){
+	          return hit._source
+	        });
+	        sortById($scope.data.sites);
+
+	        // show sites and on map
+	        if ($scope.mapObjects.map.exists) {
+	        	$scope.mapObjects.sites.draw();
+	        }
+
+	        // sites
+	        $scope.gridOptionsNodes.columnDefs = getColumnDefs($scope.data.sites);
+	        $scope.gridOptionsNodes.data = $scope.data.sites;
+	        
+		    $mwtnTopology.getNodes('site-link').then(function(success){
+		    	
+		        var hits = success.data.hits.hits;
+		        $scope.data.siteLinks = hits.map(function(hit){
+		          return hit._source
+		        });
+		        sortById($scope.data.siteLinks);
+
+		        if ($scope.mapObjects.map.exists) {
+		        	$scope.mapObjects.siteLinks.draw();
+		        }
+
+		        // sitelinks
+		        var mapped = $scope.data.siteLinks.map(function(link){
+		        	var pointA = $scope.data.sites.filter(function(site){
+		        		return site.id.toString() === link.sites[0].toString();
+		        	});
+		        	var pointB = $scope.data.sites.filter(function(site){
+		        		return site.id.toString() === link.sites[1].toString();
+		        	});
+		        	return {
+		        		id: link.id,
+		        		siteA: pointA[0].name,
+		        		siteB: pointB[0].name,
+		        		length: $mwtnTopology.getDistance(pointA[0].latitude, pointA[0].longitude, pointB[0].latitude, pointB[0].longitude)
+		        	};
+		        });
+		        $scope.gridOptionsLinks.columnDefs = getColumnDefs(mapped);
+		        $scope.gridOptionsLinks.data = mapped;
+		    });
+	    });
+    };
+    
+    
+    
+    // check if something is needed below
+    $scope.topologyData = { nodes: [], edges: []};
+    $scope.sigma = null;
+
     
     $scope.highlightFilteredHeader = $mwtnTopology.highlightFilteredHeader;
     
@@ -261,67 +474,6 @@ define(['app/mwtnTopology/mwtnTopology.module',
       return {x: 1000*x, y: -1000*y};
     };
     
-    var updateSite = function() {
-      console.log('updateSite');
-  
-      if (!$scope.sites) {
-        console.log('no sites');
-        return;
-        
-      }
-      $scope.sigma.graph.clear();
-      $scope.sites.map(function(site){
-        var node = JSON.parse(JSON.stringify(site));
-        node.id = 'site' + node.id;
-        node.label = node.name;
-        node.x = 1000*node.longitude;
-        node.y = -1000*node.latitude; // Math.cos(node.latitude);
-        node.size = 16;
-        node.color = '#dddddd';
-        if (!contains($scope.topologyData.nodes, node.id)) {
-          $scope.sigma.graph.addNode(node);
-        }
-      });
-      
-      $scope.mapObjects.sites.models = $scope.sites.map(function(site){
-        return {
-          id: site.id,
-          latitude: site.latitude,
-          longitude: site.longitude,
-          title: site.name
-        };       
-      });
-      
-      $scope.neNodes.map(function(ne){
-        var node = JSON.parse(JSON.stringify(ne));
-        var pos = getNodePos(node); 
-        node.id = 'ne' + node.id;
-        node.x = pos.x;
-        node.y = pos.y;
-        node.size = 8;
-        node.color = '#888888';        
-        if (!contains($scope.topologyData.nodes, node.id)) {
-          $scope.sigma.graph.addNode(node);
-        }
-      })
-      $scope.siteLinks.map(function(link){
-        var edge = JSON.parse(JSON.stringify(link));
-        edge.source = 'site' + edge.source;
-        edge.target = 'site' + edge.target;
-        edge.label = 'RadioSignals: ??, ??';
-        if (!contains($scope.topologyData.edges, edge.id)) {
-          $scope.sigma.graph.addEdge(edge);
-        }
-      });
-      // sites
-      $scope.gridOptionsNodes.columnDefs = getColumnDefs($scope.sites);
-      $scope.gridOptionsNodes.data = $scope.sites;
-      
-      // sitelinks
-      $scope.gridOptionsLinks.columnDefs = getColumnDefs($scope.siteLinks);
-      $scope.gridOptionsLinks.data = $scope.siteLinks;
-      
-    };
 
     var updateMwps = function() {
       console.log('updateMwps');
@@ -444,6 +596,7 @@ define(['app/mwtnTopology/mwtnTopology.module',
     ETHERNET:2
   };
 
+  // check UI events
   $scope.$watch('activeTab', function(newValue, oldValue){
     if (newValue !== oldValue) {
       initTables();
