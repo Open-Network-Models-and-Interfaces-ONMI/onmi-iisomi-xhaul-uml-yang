@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Mit XMLSpy v2006 sp2 U bearbeitet (http://www.altova.com) von Martin Skorupski (Ingenieurbüro für Informationstechnik · ibit) -->
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_0tU-YNyQEeW6C_FaABjU5w/14">
+<!-- Changes made on the mircoware.uml 
+    - remove Package: AssociationToCore
+    - add feature names for "conditions" if not exists
+-->
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_NDJbQJNqEeWP45fAG0gIqg/12">
 	<!-- output defintions -->
 	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
 	<!-- parameter -->
@@ -12,6 +15,7 @@
 	<xsl:key name="classPriority" match="class" use="@id"/>
 	<xsl:key name="attRef" match="ownedAttribute" use="@xmi:id"/>
 	<xsl:key name="obsoleteRefs" match="OpenModel_Profile:Obsolete" use="@base_Element"/>
+    <!-- templates -->
 	<xsl:template match="packagedElement[ @xmi:type = 'uml:Signal' ]">
 		<xsl:if test="$showObsolete = 'true' or fn:not( key('obsoleteRefs', @xmi:id) )">
 			<xsl:call-template name="log">
@@ -103,16 +107,40 @@
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="packagedElement[ @xmi:type = 'uml:Package']">
-		<xsl:if test="$showObsolete = 'true' or fn:not( key('obsoleteRefs', @xmi:id) )">
+        <xsl:choose>
+		<xsl:when test="@name = 'AssociationToCore'" />
+		<xsl:when test="@name = 'ExplanatoryOnly'" />
+		<xsl:when test="$showObsolete = 'true' or fn:not( key('obsoleteRefs', @xmi:id) )">
 			<xsl:call-template name="log">
 				<xsl:with-param name="message">
-					<xsl:value-of select="@name"/>
+					  <xsl:value-of select="@name"/> 
 				</xsl:with-param>
 			</xsl:call-template>
 			<xsl:copy>
 				<xsl:apply-templates select="* | @* | text()"/>
 			</xsl:copy>
-		</xsl:if>
+		</xsl:when>
+        </xsl:choose>
+	</xsl:template>
+	<!-- 
+    add feature names for "conditions" if not exists -->
+	<xsl:template match="@condition">
+        <xsl:variable name="apos" select="&quot;'&quot;"/>
+        <xsl:attribute name="condition"> 
+        <xsl:for-each select="fn:tokenize(.,'&#xD;')">
+            <xsl:choose>
+                <xsl:when test="position() eq 1 and fn:starts-with(., fn:concat('Feature ', $apos))">
+                    <xsl:for-each select="fn:tokenize(., $apos)">
+                        <xsl:if test="position() eq 2">
+                            <xsl:sequence select="."/>
+                            <xsl:text>&#xD;</xsl:text>
+                        </xsl:if>
+                    </xsl:for-each>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:for-each>
+        <xsl:value-of select="."/>
+        </xsl:attribute>
 	</xsl:template>
 	<!-- ensure that generalization to ONF::LocalClass are removed
              This template should be removed after the MicrowaveModel.uml was updated -->
