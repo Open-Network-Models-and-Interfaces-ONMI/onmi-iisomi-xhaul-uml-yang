@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- A stylesheet to prune and refactor the ONF Core Model 1.1 for a configuration API between microwave devices and SDN-Controllers -->
-<!-- Changes made on the ONF Core Model 1.1 
+<!-- A stylesheet to prune and refactor the ONF Core Model 1.2 for a configuration API between microwave devices and SDN-Controllers -->
+<!-- Changes made on the ONF Core Model 1.1 -> 1.2 
        - remove package CoreModel::ExplanatoryFiguresUsedIndDocumentsAndSlides
        - remove package CoreModel::CoreModelEnhancements
-       - remove package CoreModel::CoreNetworkModule::TypeDefinitions::TopologyPacs
-       - remove package CoreModel::CoreNetworkModule::ObjectClasses::TopologyPacs
-       - remove package CoreModel::CoreNetworkModule::Diagrams::TopologyPacs
+       - remove package CoreModel::CoreNetworkModule::TypeDefinitions::Topology
+       - remove package CoreModel::CoreNetworkModule::ObjectClasses::Topology
+       - remove package CoreModel::CoreNetworkModule::Diagrams::Topology
        - remove obsolete type definition CoreModel::CoreNetworkModule::TypeDefinitions::OperationalState
        - remove obsolete type definition CoreModel::CoreNetworkModule::TypeDefinitions::Directionality
        - remove obsolete property CoreModel::CoreNetworkModule::ObjectClasses::NetworkElement::_ltppList
@@ -33,19 +33,51 @@
        - correct CoreModel::CoreFoundationModel::StateModel::ObjectClasses::State_Pac::adminsatratveState -> administrativeState
        - add yang key definitions according to keys.xml
 -->
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_0tU-YNyQEeW6C_FaABjU5w/14">
+<!-- additional changes for CoreModel 1.2 
+       - remove CoreModel::CoreOperationsModel::Pattern::ObjectClasses::OperationSet::abortAfterDurationWithActionRule, because it has no type
+       - remove CoreModel::CoreOperationsModel::Examples, no YANG vor explainations
+       - add feature names for "conditions" if not exists
+       - remove assozaiation northbound of NetworkElement
+       - remove _layerProtocolParameterSpec, because cooresponding type has no attributes defined
+       - remove _serverSpec, , because cooresponding type has no attributes defined
+       - remove _ownedMappingInteractionRule, because cooresponding type has no attributes defined
+       - remove _ltpSpec, because cooresponding type has no attributes defined
+       - remove _nameAndValueAuthority, _globalClass and _localClass from DataType NameAndValue for simplification
+       - remove LTP::_port, because related type has no attributes
+       - remove Class Address, because it is abstract
+       - remove AddressElement::_address, avoiding circular dependency
+       - remove _desiredOutcomeConstraints, because of key issues ;(
+       - remove 'empty' classes: SpecificClassStructure, SpecificPattern, Ltp
+       - remove FruNonFruRules
+ -->
+<xsl:stylesheet version="2.0" 
+xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:fn="http://www.w3.org/2005/xpath-functions" 
+
+xmlns:xmi="http://www.omg.org/spec/XMI/20131001" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_NDJbQJNqEeWP45fAG0gIqg/12" 
+xmlns:RootElement="http:///schemas/RootElement/_7S2aYHpQEeaVjtpstJMDXA/37" 
+xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" 
+xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" 
+>
 	<!-- output defintions -->
 	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
 	<!-- key definitions -->
-	<xsl:key name="openAttributeRef" match="OpenModel_Profile:OpenModelAttribute" use="@base_StructuralFeature"/>
+	<xsl:key name="openAttributeRef" match="OpenModel_Profile:OpenModelAttribute" use="@xmi:id"/>
 	<xsl:key name="ownedAttributeRef" match="ownedAttribute" use="@xmi:id"/>
 	<xsl:key name="keyRef" match="key" use="@base_StructuralFeature"/>
-	<xsl:variable name="keyLookupDoc" select="document('keys.xml')"/>
-	<xsl:variable name="thisLookupDoc" select="document('../input/CoreModel.uml')"/>
+	<xsl:variable name="keyLookupDoc" select="fn:document('keys.xml')"/>
+	<xsl:variable name="thisLookupDoc" select="fn:document('../input/CoreModel.uml')"/>
 	<!-- tempates -->
 	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'ExplanatoryFiguresUsedIndDocumentsAndSlides' ]"/>
 	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'CoreModelEnhancements' ]"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'TopologyPacs' ]"/>
+	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'Topology' ]"/>
+	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'Examples' ]"/>
+	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'FruNonFruRules' ]"/>
+	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'EquipmentToFunction' ]"/>
+
 	<xsl:template match="packagedElement[@xmi:type='uml:Enumeration' and @name = 'OperationalState' and fn:starts-with( ./ownedComment/body, 'OBSOLETE' )]"/>
 	<xsl:template match="packagedElement[@xmi:type='uml:Enumeration' and @name = 'Directionality' and fn:starts-with( ./ownedComment/body, 'OBSOLETE' )]"/>
 	<xsl:template match="ownedAttribute[@name = '_ltppList' and fn:starts-with( ./ownedComment/body, 'OBSOLETE' )]"/>
@@ -54,6 +86,16 @@
 	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'Link' ]"/>
 	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'LinkPort' ]"/>
 	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'FcRoute' ]"/>
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'Address' ]"/>
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'DesiredOutcomeConstraints' ]"/>
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'ElementConstraints' ]"/>
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'OutcomeElementConstraints' ]"/>
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'SpecificClassStructure' ]"/>
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'SpecificPattern' ]"/>
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'Ltp' ]"/>
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'FdAndLinkRuleSet' ]"/>
+
+	<xsl:template match="packagedElement[@xmi:type='uml:Association' and @name = 'NcdControlsNes' ]"/>
 	<xsl:template match="ownedAttribute[@name = '_nameAndValueAuthorityRef']"/>
 	<xsl:template match="ownedAttribute[@name = '_globalClassRef']"/>
 	<xsl:template match="ownedAttribute[@name = '_localClassRef']"/>
@@ -64,8 +106,15 @@
 	<xsl:template match="ownedAttribute[@name = '_configurationAndSwitchControlRef']"/>
 	<xsl:template match="ownedAttribute[@name = '_configurationAndSwitchControl']"/>
 	<xsl:template match="ownedAttribute[@name = '_profileProxyRefList']"/>
-	<xsl:template match="ownedAttribute[@name = '_ltpSpec']"/>
-	<xsl:template match="ownedAttribute[@name = '_lpSpec']"/>
+	<xsl:template match="ownedAttribute[@name = 'abortAfterDurationWithActionRule']"/>
+	<xsl:template match="ownedAttribute[@name = '_ownedMappingInteractionRule']"/>
+	<xsl:template match="packagedElement[@xmi:type='uml:DataType' and @name = 'NameAndValue']/ownedAttribute[@name = '_nameAndValueAuthority' or @name = '_globalClass' or @name = '_localClass']"/>
+    <xsl:template match="ownedAttribute[@name = '_port']"/>
+    <xsl:template match="ownedAttribute[@name = '_address']"/>
+    <xsl:template match="ownedAttribute[@name = '_desiredOutcomeConstraints']"/>
+    <xsl:template match="ownedAttribute[@name = '_fdRuleSet']"/>
+    <xsl:template match="*[fn:ends-with(@name, 'Spec')]"/>
+	
 	<!-- 
     define type for CoreModel::CoreNetworkModule::ObjectClasses::LayerProtocol::terminationState - set to Boolean -->
 	<xsl:template match="ownedAttribute[@name = 'terminationState' ]">
@@ -100,9 +149,9 @@
 	<xsl:template match="OpenModel_Profile:OpenModelAttribute">
 		<xsl:if test="key('ownedAttributeRef', @base_StructuralFeature)">
 			<OpenModel_Profile:OpenModelAttribute>
-				<xsl:copy-of select="@*"/>
+    			<xsl:apply-templates select="* | @* | text()"/>
 				<xsl:if test="key('keyRef',  @base_StructuralFeature, $keyLookupDoc)">
-					<xsl:attribute name="partOfObjectKey" select="1"/>
+					<xsl:attribute name="partOfObjectKey" select="key('keyRef',  @base_StructuralFeature, $keyLookupDoc)/@value"/>
 				</xsl:if>
 			</OpenModel_Profile:OpenModelAttribute>
 		</xsl:if>
@@ -112,21 +161,47 @@
 		<xsl:copy>
 			<xsl:apply-templates select="* | @* | text()"/>
 			<xsl:for-each select="$keyLookupDoc/keys/key">
-				<xsl:if test="fn:not( key('openAttributeRef', @base_StructuralFeature, $thisLookupDoc) )">
-					<OpenModel_Profile:OpenModelAttribute xmi:id="{@id}" base_StructuralFeature="{@base_StructuralFeature}" partOfObjectKey="1"/>
+				<xsl:if test="fn:not( key('openAttributeRef', @id, $thisLookupDoc) )">
+					<OpenModel_Profile:OpenModelAttribute xmi:id="{@id}" base_StructuralFeature="{@base_StructuralFeature}" partOfObjectKey="{@value}"/>
 				</xsl:if>
 			</xsl:for-each>
 		</xsl:copy>
 	</xsl:template>
-  <!-- 
+	<!-- 
+    add feature names for "conditions" if not exists -->
+    <!--
+# In protection context if LTP of protection where entire LTP is to be excluded from use for protection.
+# In protection context if server of protection where entire server is to be excluded from use for protection.
+# In protection context if server of protection where entire server is to be excluded from use for protection.
+# In protection context where the FcPort is to be excluded from use for protection.
+    -->
+	<xsl:template match="@condition">
+        <xsl:attribute name="condition"> 
+        <xsl:for-each select="fn:tokenize(.,'&#xD;')">
+            <xsl:choose>
+                <xsl:when test="position() eq 1 and fn:starts-with(., 'In protection context if LTP')">
+                    <xsl:text>protection-exclude-ltp&#xD;</xsl:text>
+                </xsl:when>
+                <xsl:when test="position() eq 1 and fn:starts-with(., 'In protection context if server')">
+                    <xsl:text>protection-exclude-server&#xD;</xsl:text>
+                </xsl:when>
+                <xsl:when test="position() eq 1 and fn:starts-with(., 'In protection context where the FcPort')">
+                    <xsl:text>protection-exclude-fc-port&#xD;</xsl:text>
+                </xsl:when>
+            </xsl:choose>
+        </xsl:for-each>
+        <xsl:value-of select="."/>
+        </xsl:attribute>
+	</xsl:template>
+    <!-- 
     correct CoreModel::CoreFoundationModel::StateModel::ObjectClasses::State_Pac::adminsatratveState -> administrativeState -->
-  <xsl:template match="ownedAttribute[@name = 'adminsatratveState' ]">
-    <xsl:copy>
-      <xsl:apply-templates select="@*"/>
-      <xsl:attribute name="name">administrativeState</xsl:attribute>
-      <xsl:apply-templates select="* | text()"/>
-    </xsl:copy>
-  </xsl:template>
+    <xsl:template match="ownedAttribute[@name = 'adminsatratveState' ]">
+      <xsl:copy>
+        <xsl:apply-templates select="@*"/>
+        <xsl:attribute name="name">administrativeState</xsl:attribute>
+        <xsl:apply-templates select="* | text()"/>
+      </xsl:copy>
+    </xsl:template>
 	<!-- 
     rename CoreModel to CoreModelForMicrowave 
 	<xsl:template match="@name[. = 'CoreModel']">
