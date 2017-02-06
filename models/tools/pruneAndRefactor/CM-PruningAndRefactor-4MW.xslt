@@ -68,53 +68,287 @@ xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML"
 	<xsl:key name="openAttributeRef" match="OpenModel_Profile:OpenModelAttribute" use="@xmi:id"/>
 	<xsl:key name="ownedAttributeRef" match="ownedAttribute" use="@xmi:id"/>
 	<xsl:key name="keyRef" match="key" use="@base_StructuralFeature"/>
+	<xsl:param name="tool">core-model</xsl:param>
 	<xsl:variable name="keyLookupDoc" select="fn:document('keys.xml')"/>
 	<xsl:variable name="thisLookupDoc" select="fn:document('../input/CoreModel.uml')"/>
 	<!-- tempates -->
-	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'ExplanatoryFiguresUsedIndDocumentsAndSlides' ]"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'CoreModelEnhancements' ]"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'Topology' ]"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'Examples' ]"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'FruNonFruRules' ]"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'EquipmentToFunction' ]"/>
+	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'ExplanatoryFiguresUsedIndDocumentsAndSlides' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'CoreModelEnhancements' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'Topology' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'Examples' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'FruNonFruRules' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'EquipmentToFunction' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'EquipmentSpecification' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+	<xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'CoreSpecificationModel' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
 
-	<xsl:template match="packagedElement[@xmi:type='uml:Enumeration' and @name = 'OperationalState' and fn:starts-with( ./ownedComment/body, 'OBSOLETE' )]"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:Enumeration' and @name = 'Directionality' and fn:starts-with( ./ownedComment/body, 'OBSOLETE' )]"/>
-	<xsl:template match="ownedAttribute[@name = '_ltppList' and fn:starts-with( ./ownedComment/body, 'OBSOLETE' )]"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'SdnController' ]"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'NetworkControlDomain' ]"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'Link' ]"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'LinkPort' ]"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'FcRoute' ]"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'Address' ]"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'DesiredOutcomeConstraints' ]"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'ElementConstraints' ]"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'OutcomeElementConstraints' ]"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'SpecificClassStructure' ]"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'SpecificPattern' ]"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'Ltp' ]"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'FdAndLinkRuleSet' ]"/>
+	<xsl:template match="packagedElement[@xmi:type='uml:Enumeration' and @name = 'OperationalState' and fn:starts-with( ./ownedComment/body, 'OBSOLETE' )]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
 
-	<xsl:template match="packagedElement[@xmi:type='uml:Association' and @name = 'NcdControlsNes' ]"/>
-	<xsl:template match="ownedAttribute[@name = '_nameAndValueAuthorityRef']"/>
-	<xsl:template match="ownedAttribute[@name = '_globalClassRef']"/>
-	<xsl:template match="ownedAttribute[@name = '_localClassRef']"/>
-	<xsl:template match="ownedAttribute[@name = '_linkRefList']"/>
-	<xsl:template match="ownedAttribute[@name = '_fcRouteRefList']"/>
-	<xsl:template match="ownedAttribute[@name = '_configurationAndSwitchControlList']"/>
-	<xsl:template match="ownedAttribute[@name = '_fcSpecRef']"/>
-	<xsl:template match="ownedAttribute[@name = '_configurationAndSwitchControlRef']"/>
-	<xsl:template match="ownedAttribute[@name = '_configurationAndSwitchControl']"/>
-	<xsl:template match="ownedAttribute[@name = '_profileProxyRefList']"/>
-	<xsl:template match="ownedAttribute[@name = 'abortAfterDurationWithActionRule']"/>
-	<xsl:template match="ownedAttribute[@name = '_ownedMappingInteractionRule']"/>
-	<xsl:template match="packagedElement[@xmi:type='uml:DataType' and @name = 'NameAndValue']/ownedAttribute[@name = '_nameAndValueAuthority' or @name = '_globalClass' or @name = '_localClass']"/>
-    <xsl:template match="ownedAttribute[@name = '_port']"/>
-    <xsl:template match="ownedAttribute[@name = '_address']"/>
-    <xsl:template match="ownedAttribute[@name = '_desiredOutcomeConstraints']"/>
-    <xsl:template match="ownedAttribute[@name = '_fdRuleSet']"/>
-    <xsl:template match="*[fn:ends-with(@name, 'Spec')]"/>
-	
+	<xsl:template match="packagedElement[@xmi:type='uml:Enumeration' and @name = 'Directionality' and fn:starts-with( ./ownedComment/body, 'OBSOLETE' )]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="ownedAttribute[@name = '_ltppList' and fn:starts-with( ./ownedComment/body, 'OBSOLETE' )]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'SdnController' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'NetworkControlDomain' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'Link' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'LinkPort' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'FcRoute' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'Address' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'DesiredOutcomeConstraints' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'ElementConstraints' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'OutcomeElementConstraints' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'SpecificClassStructure' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'SpecificPattern' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'Ltp' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'FdAndLinkRuleSet' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="packagedElement[@xmi:type='uml:Association' and @name = 'NcdControlsNes' ]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="ownedAttribute[@name = '_nameAndValueAuthorityRef']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="ownedAttribute[@name = '_globalClassRef']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="ownedAttribute[@name = '_localClassRef']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="ownedAttribute[@name = '_linkRefList']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="ownedAttribute[@name = '_fcRouteRefList']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="ownedAttribute[@name = '_configurationAndSwitchControlList']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="ownedAttribute[@name = '_fcSpecRef']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="ownedAttribute[@name = '_configurationAndSwitchControlRef']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="ownedAttribute[@name = '_configurationAndSwitchControl']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="ownedAttribute[@name = '_profileProxyRefList']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="ownedAttribute[@name = 'abortAfterDurationWithActionRule']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="ownedAttribute[@name = '_ownedMappingInteractionRule']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+	<xsl:template match="packagedElement[@xmi:type='uml:DataType' and @name = 'NameAndValue']/ownedAttribute[@name = '_nameAndValueAuthority' or @name = '_globalClass' or @name = '_localClass']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+    <xsl:template match="ownedAttribute[@name = '_port']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+    <xsl:template match="ownedAttribute[@name = '_address']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+    <xsl:template match="ownedAttribute[@name = '_desiredOutcomeConstraints']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+    <xsl:template match="ownedAttribute[@name = '_fdRuleSet']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+   <!-- modifications in equipement model -->
+    <xsl:template match="ownedAttribute[@name = '_addressedByHolder']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+    <xsl:template match="ownedAttribute[@name = '_encapsulatedNonFru']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+    <xsl:template match="ownedAttribute[@name = '_nonFruSupportPosition']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+    <xsl:template match="ownedAttribute[@name = '_supportConstraints']">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
+    <!-- remove spec model -->
+    <xsl:template match="*[fn:ends-with(@name, 'Spec')]">
+		<xsl:call-template name="removed">
+			<xsl:with-param name="object" select="."/>
+		</xsl:call-template>
+    </xsl:template>
+
 	<!-- 
     define type for CoreModel::CoreNetworkModule::ObjectClasses::LayerProtocol::terminationState - set to Boolean -->
 	<xsl:template match="ownedAttribute[@name = 'terminationState' ]">
@@ -152,6 +386,9 @@ xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML"
     			<xsl:apply-templates select="* | @* | text()"/>
 				<xsl:if test="key('keyRef',  @base_StructuralFeature, $keyLookupDoc)">
 					<xsl:attribute name="partOfObjectKey" select="key('keyRef',  @base_StructuralFeature, $keyLookupDoc)/@value"/>
+                    <xsl:call-template name="setAsKey">
+			            <xsl:with-param name="object" select="key('ownedAttributeRef', @base_StructuralFeature)"/>
+		            </xsl:call-template>
 				</xsl:if>
 			</OpenModel_Profile:OpenModelAttribute>
 		</xsl:if>
@@ -283,5 +520,56 @@ xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML"
 			<xsl:apply-templates select="* | @* | text() "/>
 		</xsl:copy>
 	</xsl:template>
+	<xsl:template match="*" mode="ancestor">
+        <xsl:for-each select="ancestor::*">
+            <xsl:value-of select="@name" />
+            <xsl:text>/</xsl:text>
+        </xsl:for-each>	
+	</xsl:template>
+	<!-- functions -->
+	<xsl:template name="removed">
+		<xsl:param name="object"></xsl:param>
+		<xsl:call-template name="log">
+			<xsl:with-param name="message">
+                <xsl:for-each select="0 to xs:integer(fn:string-length('packagedElement') - fn:string-length(fn:name($object)) - 1)">
+                    <xsl:text> </xsl:text>
+                </xsl:for-each>
+                <xsl:value-of select="fn:name($object)" />
+                <xsl:text>: </xsl:text>
+                <xsl:apply-templates select="$object" mode="ancestor" />
+                <xsl:value-of select="$object/@name" />
+                <xsl:text> removed!</xsl:text>
+			</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="setAsKey">
+		<xsl:param name="object"></xsl:param>
+		<xsl:call-template name="log">
+			<xsl:with-param name="message">
+                <xsl:for-each select="0 to xs:integer(fn:string-length('packagedElement') - fn:string-length(fn:name($object)) - 1)">
+                    <xsl:text> </xsl:text>
+                </xsl:for-each>
+                <xsl:value-of select="fn:name($object)" />
+                <xsl:text>: </xsl:text>
+                <xsl:apply-templates select="$object" mode="ancestor" />
+                <xsl:value-of select="$object/@name" />
+                <xsl:text> set as key!</xsl:text>
+			</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+	<xsl:template name="log">
+		<xsl:param name="level">INFO </xsl:param>
+		<xsl:param name="message"/>
+		<xsl:message>
+			<xsl:sequence select="fn:string(fn:adjust-dateTime-to-timezone(xs:dateTime( fn:current-dateTime() ), xs:dayTimeDuration('PT0H') ) )"/>
+			<xsl:text> | </xsl:text>
+			<xsl:value-of select="$tool"/>
+			<xsl:text> | </xsl:text>
+			<xsl:value-of select="$level"/>
+			<xsl:text> | </xsl:text>
+			<xsl:value-of select="$message"/>
+		</xsl:message>
+	</xsl:template>
+
 </xsl:stylesheet>
 

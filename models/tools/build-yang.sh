@@ -32,6 +32,7 @@ function post-processing {
   sed -i -e "s/core-model:signal-ref-pt\//core-model:signal-ref-pt\/core-model:ltp/g" $1;
   sed -i -e "s/core-model:fd-and-link-rule\//core-model:fd-and-link-rule\/core-model:rule-type/g" $1;
   sed -i -e "s/grouping fc-port {/list forwarding-construct {\n                key 'uuid';\n                uses forwarding-construct;\n            }\n            grouping fc-port {/g" $1;
+  sed -i -e "s/grouping holder {/list equipment {\n                    key 'uuid';\n                    uses equipment;\n                }\n                grouping holder {/g" $1;
 
   # g.874.1
   sed -i -e "s/prefix g.874.1-model;/prefix g.874.1-model;\n\n    import core-model {\n        prefix core-model;\n    }\n\n/g" $1;
@@ -77,9 +78,9 @@ xslt="G.874.1-PruningAndRefactor-4MW.xslt";
 java -jar $par/saxon9he.jar -s:$input/$in -xsl:$par/$xslt -o:"$project/$out";
 log "$project/$out generated!";
 
-  in="G.874.1-ForMicrowave.xml";
+  in="G.874.1.xml";
 xslt="uml2CentralisedDatabase.xslt";
- out="G.874.1-ForMicrowave.json";
+ out="G.874.1.json";
 java -jar $par/saxon9he.jar -s:"$project/$in" -xsl:$par/$xslt -o:"$project/$out";
 log "$project/$out generated!";
 
