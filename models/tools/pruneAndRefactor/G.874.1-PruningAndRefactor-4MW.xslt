@@ -22,6 +22,7 @@
      - define type for G.874.1-model::Imported Information Object Classes::X.739::«X.739» Scanner::granularityPeriod - set to ENUM ::= {15min, 24h}
      - use attribute G.874.1-model::Imported Information Object Classes::X.739::«X.739» Scanner::scannerId as yang key
      - use attribute G.874.1-model::Imported Information Object Classes::Q.822::«Q.822» HistoryData::historyDataId as yang key
+     - modify default values: FALSE to false; TRUE to true
 -->
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_0tU-YNyQEeW6C_FaABjU5w/14">
 	<!-- output definitions -->
@@ -112,6 +113,16 @@
     use attribute G.874.1-model::Imported Information Object Classes::X.739::«X.739» Scanner::scannerId as yang key  -->
 	<xsl:template match="OpenModel_Profile:OpenModelAttribute">
 		<xsl:message>why not here?</xsl:message>
+	</xsl:template>
+    <!--
+    modify default values: FALSE to false; TRUE to true -->
+	<xsl:template match="defaultValue">
+      <defaultValue>
+        <xsl:copy-of select="@*"/>
+        <xsl:if test="@value">
+          <xsl:attribute name="value"><xsl:value-of select="fn:lower-case(@value)"/></xsl:attribute>
+        </xsl:if>
+      </defaultValue>
 	</xsl:template>
 	<!-- 
     check for wrong charset  -->

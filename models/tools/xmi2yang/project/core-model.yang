@@ -1699,18 +1699,6 @@ module core-model {
                         uses holder;
                         description "none";
                     }
-                    leaf addressed-by-holder {
-                        type leafref {
-                            path '/core-model:equipment/core-model:encapsulated-non-fru/core-model:contained-holder/core-model:uuid';
-                        }
-                        description "none";
-                    }
-                    leaf-list encapsulated-non-fru {
-                        type leafref {
-                            path '/core-model:equipment/core-model:encapsulated-non-fru/core-model:uuid';
-                        }
-                        description "none";
-                    }
                     list exposed-cable {
                         key 'uuid';
                         uses cable;
@@ -1756,11 +1744,6 @@ module core-model {
                         uses physical-rating;
                         description "none";
                     }
-                    list non-fru-support-position {
-                        key 'supported-non-fru';
-                        uses non-fru-support-position;
-                        description "none";
-                    }
                     leaf is-field-replaceable {
                         type boolean;
                         default "true";
@@ -1790,16 +1773,20 @@ module core-model {
                         Note: The model is currently constrained to inside plant.
                         Lifecycle : Experimental";
                 }
+                list equipment {
+                    key 'uuid';
+                    uses equipment;
+                }
                 grouping holder {
                     leaf-list connector {
                         type leafref {
-                            path '/core-model:equipment/core-model:encapsulated-non-fru/core-model:exposed-cable/core-model:connector/core-model:uuid';
+                            path '/core-model:equipment/core-model:exposed-cable/core-model:connector/core-model:uuid';
                         }
                         description "none";
                     }
                     leaf occupying-fru {
                         type leafref {
-                            path '/core-model:equipment/core-model:encapsulated-non-fru/core-model:uuid';
+                            path '/core-model:equipment/core-model:uuid';
                         }
                         description "The FRU that is occupying the holder. 
                             A holder may be unoccupied. 
@@ -1829,10 +1816,9 @@ module core-model {
                         uses physical-rating;
                         description "none";
                     }
-                    list supported-equipment {
-                        key 'fru-details';
+                    leaf-list supported-equipment {
+                        type string;
                         min-elements 1;
-                        uses supported-equipment;
                         description "none";
                     }
                     container expected-holder {
@@ -1909,88 +1895,6 @@ module core-model {
 
 
         /***********************
-        * package equipment-specification
-        **********************/ 
-            /***********************
-            * package object-classes
-            **********************/ 
-                grouping support-constraints {
-                    leaf-list constrained-supported-non-fru {
-                        type leafref {
-                            path '/core-model:equipment/core-model:encapsulated-non-fru/core-model:non-fru-support-position/core-model:supported-non-fru/core-model:non-fru-details';
-                        }
-                        description "none";
-                    }
-                    leaf-list constrained-supported-fru {
-                        type leafref {
-                            path '/core-model:equipment/core-model:encapsulated-non-fru/core-model:contained-holder/core-model:supported-equipment/core-model:fru-details';
-                        }
-                        description "none";
-                    }
-                    description "Rules related to how both non-FRU and FRU presence restricts the potential for additonal equipments to be installed.
-                        An FRU type installed in one holder may limit the FRU types that can be installed in another holder etc.
-                        Lifecycle : Experimental";
-                }
-                grouping supported-non-fru {
-                    leaf non-fru-details {
-                        type leafref {
-                            path '/core-model:equipment/core-model:encapsulated-non-fru/core-model:uuid';
-                        }
-                        description "none";
-                    }
-                    leaf-list blocked-non-fru-position {
-                        type leafref {
-                            path '/core-model:equipment/core-model:encapsulated-non-fru/core-model:non-fru-support-position/core-model:supported-non-fru';
-                        }
-                        min-elements 1;
-                        description "none";
-                    }
-                    leaf-list support-constraints {
-                        type leafref {
-                            path '/core-model:support-constraints/core-model:constrained-supported-non-fru';
-                        }
-                        description "none";
-                    }
-                    description "The non-FRU equipment types supported by the a non-FRU support position.
-                        Lifecycle : Experimental";
-                }
-                grouping non-fru-support-position {
-                    list supported-non-fru {
-                        key 'non-fru-details';
-                        min-elements 1;
-                        uses supported-non-fru;
-                        description "none";
-                    }
-                    description "Equivalent to the holder for the FRU, represents in the specification a place where one or more types of non-FRU could be present. 
-                        Unlike the holder what is present is fixed whilt the equipment is in the field.
-                        Lifecycle : Experimental";
-                }
-                grouping supported-equipment {
-                    leaf fru-details {
-                        type leafref {
-                            path '/core-model:equipment/core-model:encapsulated-non-fru/core-model:uuid';
-                        }
-                        description "none";
-                    }
-                    leaf-list support-constraints {
-                        type leafref {
-                            path '/core-model:support-constraints/core-model:constrained-supported-non-fru';
-                        }
-                        description "none";
-                    }
-                    leaf-list holder {
-                        type leafref {
-                            path '/core-model:equipment/core-model:encapsulated-non-fru/core-model:contained-holder/core-model:uuid';
-                        }
-                        min-elements 1;
-                        description "none";
-                    }
-                    description "The FRU equipment types supported by the holder.
-                        Lifecycle : Experimental";
-                }
-
-
-        /***********************
         * package expected-and-actual
         **********************/ 
             /***********************
@@ -2026,7 +1930,7 @@ module core-model {
                 grouping pin {
                     leaf position {
                         type leafref {
-                            path '/core-model:equipment/core-model:encapsulated-non-fru/core-model:exposed-cable/core-model:connector/core-model:position/core-model:relative-position';
+                            path '/core-model:equipment/core-model:exposed-cable/core-model:connector/core-model:position/core-model:relative-position';
                         }
                         description "none";
                     }
@@ -2042,7 +1946,7 @@ module core-model {
                 grouping pin-group {
                     leaf-list pin {
                         type leafref {
-                            path '/core-model:equipment/core-model:encapsulated-non-fru/core-model:exposed-cable/core-model:connector/core-model:pin/core-model:position';
+                            path '/core-model:equipment/core-model:exposed-cable/core-model:connector/core-model:pin/core-model:position';
                         }
                         min-elements 1;
                         description "none";
@@ -2104,7 +2008,7 @@ module core-model {
                 grouping elemental-signals {
                     leaf-list pin {
                         type leafref {
-                            path '/core-model:equipment/core-model:encapsulated-non-fru/core-model:exposed-cable/core-model:connector/core-model:pin/core-model:position';
+                            path '/core-model:equipment/core-model:exposed-cable/core-model:connector/core-model:pin/core-model:position';
                         }
                         min-elements 1;
                         description "none";
@@ -2114,162 +2018,6 @@ module core-model {
                 }
                 grouping group-of-pins {
                     description "A group of pins from one or more connectors relevant for some purpose.
-                        Lifecycle : Experimental";
-                }
-
-
-
-    /***********************
-    * package core-specification-model
-    **********************/ 
-        /***********************
-        * package fc-capability
-        **********************/ 
-            /***********************
-            * package object-classes
-            **********************/ 
-                container multi-switched-uni-flow {
-                    list ingress-port-set {
-                        key 'uuid';
-                        min-elements 1;
-                        uses ingress-port-set;
-                        description "none";
-                    }
-                    list egress-port-set {
-                        key 'uuid';
-                        min-elements 1;
-                        uses egress-port-set;
-                        description "none";
-                    }
-                    leaf casc {
-                        type string;
-                        description "none";
-                    }
-                    leaf ingress-fc-port-set {
-                        type leafref {
-                            path '/core-model:multi-switched-uni-flow/core-model:ingress-port-set/core-model:uuid';
-                        }
-                        description "none";
-                    }
-                    leaf egress-fc-port-set {
-                        type leafref {
-                            path '/core-model:multi-switched-uni-flow/core-model:egress-port-set/core-model:uuid';
-                        }
-                        description "none";
-                    }
-                    uses local-class;
-                    description "A switched unidirection forwarding element that can take one or more inputs and switch to one or more outputs.
-                        The switch can also be open (high impedance)
-                        Lifecycle : Preliminary";
-                }
-                grouping ingress-port-set {
-                    uses local-class;
-                    description "The grouping of FC ingress ports that have the same behavior and relationship to the switch etc.
-                        Will carry rules for the grouping.
-                        Lifecycle : Preliminary";
-                }
-                grouping egress-port-set {
-                    uses local-class;
-                    description "The grouping of FC egress ports that have the same behavior and relationship to the switch etc.
-                        Will carry rules for the grouping.
-                        Lifecycle : Preliminary";
-                }
-                container control-rule {
-                    uses local-class;
-                    description "A rule the describes the bounds of the behavior of a CASC.
-                        Lifecycle : Experimental";
-                }
-                container ltp-association-rule {
-                    uses local-class;
-                    description "Rules for the association from the port spec to LTPs identifying restrictions of use.
-                        Lifecycle : Preliminary";
-                }
-
-
-        /***********************
-        * package forwarding-domain-and-link-capability
-        **********************/ 
-            /***********************
-            * package object-classes
-            **********************/ 
-                container fd-and-link-rule {
-                    leaf rule-type {
-                        type rule-type;
-                        description "none";
-                    }
-                    leaf forwarding-rule {
-                        type forwarding-rule;
-                        description "none";
-                    }
-                    leaf-list complex-rule-qualifier {
-                        type to-be-defined;
-                        description "Provides restrictions (such as same channel).";
-                    }
-                    leaf fc-port-role {
-                        type to-be-defined;
-                        description "Indicates the port role to which the rule applies. 
-                            If an FD carries a port role that role applies also to the associated Link rules.";
-                    }
-                    leaf fc-port-direction {
-                        type to-be-defined;
-                        description "none";
-                    }
-                    leaf override-priority {
-                        type int64;
-                        description "none";
-                    }
-                    description "Set of 'AND' rules related to creation of FCs across the FD/Link (i.e all rules have to be met for the FC creation to be allowed).
-                        Lifecycle : Experimental";
-                }
-
-            /***********************
-            * package type-definitions
-            **********************/ 
-                typedef forwarding-rule {
-                    type enumeration {
-                        enum cannot-forward-across-fd-link {
-                            description "LTPs referenced by the FD (or indirectly by the Link between FDs) cannot have FCs created between them.
-                                This rule overrides all others.";
-                        }
-                        enum must-forward-across-fd-link {
-                            description "LTPs referenced by the FD (or indirectly by the Link between FDs) MUST have FCs created between them.
-                                This rule overrides all others except the CANNOT_FORWARD... rule.";
-                        }
-                        enum may-forward-across-fd-link {
-                            description "LTPs referenced by the FD (or indirectly by the Link between FDs) may have FCs created between them.
-                                FCs may not be created between points that are not related by this rule either directly in an FD or indirectly via a Link linking two or more FDs.
-                                For a Link points in an FD at one end of the Link can be connected to points in an FD at an other end of the Link.";
-                        }
-                    }
-                    description "Rule that restricts the creation/deletion of an FC between points grouped by FD or related by the Link between FDs.
-                        Lifecycle : Experimental";
-                }
-                typedef rule-type {
-                    type enumeration {
-                        enum forwarding {
-                            description "The rule relates to creation of FCs.";
-                        }
-                        enum cost {
-                            description "The rule relates to forwarding cost.";
-                        }
-                        enum risk {
-                            description "The rule relates to forwarding risk.";
-                        }
-                    }
-                    description "Indicates the focus of the rule.
-                        Lifecycle : Experimental";
-                }
-
-
-        /***********************
-        * package ltp-capability
-        **********************/ 
-            /***********************
-            * package object-classes
-            **********************/ 
-                container mapping-interaction-rule {
-                    description "The specification of the interaction between the support for different client layer protocols signals.
-                        For example an LP that support 20 layer protocol X signals and 5 layer protocol Y signals may be such that a particular layer protocol X instance being used eliminates the posibility of using a particular layer protocol Y instance being used.
                         Lifecycle : Experimental";
                 }
 
