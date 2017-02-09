@@ -55,8 +55,7 @@ Node.prototype.buildChild = function (att, type) {
 
         if(typeof att.type === "object"){
             if(att.type.name === "integer"){
-                // console.log('###', JSON.stringify(att, null, ' '));
-                att.type.name = "int64";
+                att.type.name = Util.getIntegerType(att);
             }
         }
 

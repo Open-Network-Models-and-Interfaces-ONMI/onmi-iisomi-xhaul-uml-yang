@@ -1,5 +1,5 @@
 module: core-model
-   +--rw network-element* [uuid]
+   +--rw network-element
    |  +--rw fd* [uuid]
    |  |  +--rw layer-protocol-name*      layer-protocol-name
    |  |  +--rw lower-level-fd*           -> /network-element/fd/uuid
@@ -21,7 +21,7 @@ module: core-model
    |  |  |  +--rw value?        string
    |  |  +--ro operational-state?        operational-state
    |  |  +--rw administrative-control?   administrative-control
-   |  |  +--ro adminisatratve-state?     administrative-state
+   |  |  +--ro administrative-state?     administrative-state
    |  |  +--rw lifecycle-state?          lifecycle-state
    |  +--rw ltp* [uuid]
    |  |  +--rw server-ltp*                -> /network-element/ltp/uuid
@@ -57,7 +57,7 @@ module: core-model
    |  |  |  |  |  |  +--rw value?        string
    |  |  |  |  |  +--ro operational-state?        operational-state
    |  |  |  |  |  +--rw administrative-control?   administrative-control
-   |  |  |  |  |  +--ro adminisatratve-state?     administrative-state
+   |  |  |  |  |  +--ro administrative-state?     administrative-state
    |  |  |  |  |  +--rw lifecycle-state?          lifecycle-state
    |  |  |  |  +--rw global-pac
    |  |  |  |  |  +--rw local-id* [value-name]
@@ -75,7 +75,7 @@ module: core-model
    |  |  |  |  |  |  +--rw value?        string
    |  |  |  |  |  +--ro operational-state?        operational-state
    |  |  |  |  |  +--rw administrative-control?   administrative-control
-   |  |  |  |  |  +--ro adminisatratve-state?     administrative-state
+   |  |  |  |  |  +--ro administrative-state?     administrative-state
    |  |  |  |  |  +--rw lifecycle-state?          lifecycle-state
    |  |  |  |  +--rw is-frozen?                            boolean
    |  |  |  |  +--rw is-coordinated-switching-both-ends?   boolean
@@ -97,7 +97,7 @@ module: core-model
    |  |  |  |  +--rw value?        string
    |  |  |  +--ro operational-state?              operational-state
    |  |  |  +--rw administrative-control?         administrative-control
-   |  |  |  +--ro adminisatratve-state?           administrative-state
+   |  |  |  +--ro administrative-state?           administrative-state
    |  |  |  +--rw lifecycle-state?                lifecycle-state
    |  |  +--rw connected-ltp?             -> /network-element/ltp/uuid
    |  |  +--rw peer-ltp?                  -> /network-element/ltp/uuid
@@ -119,12 +119,12 @@ module: core-model
    |  |  |  +--rw value?        string
    |  |  +--ro operational-state?         operational-state
    |  |  +--rw administrative-control?    administrative-control
-   |  |  +--ro adminisatratve-state?      administrative-state
+   |  |  +--ro administrative-state?      administrative-state
    |  |  +--rw lifecycle-state?           lifecycle-state
    |  +--rw local-id* [value-name]
    |  |  +--rw value-name    string
    |  |  +--rw value?        string
-   |  +--rw uuid                      universal-id
+   |  +--rw uuid?                     universal-id
    |  +--rw name* [value-name]
    |  |  +--rw value-name    string
    |  |  +--rw value?        string
@@ -136,7 +136,7 @@ module: core-model
    |  |  +--rw value?        string
    |  +--ro operational-state?        operational-state
    |  +--rw administrative-control?   administrative-control
-   |  +--ro adminisatratve-state?     administrative-state
+   |  +--ro administrative-state?     administrative-state
    |  +--rw lifecycle-state?          lifecycle-state
    +--rw forwarding-construct* [uuid]
    |  +--rw layer-protocol-name?      layer-protocol-name
@@ -165,7 +165,7 @@ module: core-model
    |  |  |  +--rw value?        string
    |  |  +--ro operational-state?               operational-state
    |  |  +--rw administrative-control?          administrative-control
-   |  |  +--ro adminisatratve-state?            administrative-state
+   |  |  +--ro administrative-state?            administrative-state
    |  |  +--rw lifecycle-state?                 lifecycle-state
    |  +--rw fc-switch* [uuid]
    |  |  +--rw hold-off-time?                               int64
@@ -199,7 +199,7 @@ module: core-model
    |  |  |  |  |  +--rw value?        string
    |  |  |  |  +--ro operational-state?        operational-state
    |  |  |  |  +--rw administrative-control?   administrative-control
-   |  |  |  |  +--ro adminisatratve-state?     administrative-state
+   |  |  |  |  +--ro administrative-state?     administrative-state
    |  |  |  |  +--rw lifecycle-state?          lifecycle-state
    |  |  |  +--rw global-pac
    |  |  |  |  +--rw local-id* [value-name]
@@ -217,7 +217,7 @@ module: core-model
    |  |  |  |  |  +--rw value?        string
    |  |  |  |  +--ro operational-state?        operational-state
    |  |  |  |  +--rw administrative-control?   administrative-control
-   |  |  |  |  +--ro adminisatratve-state?     administrative-state
+   |  |  |  |  +--ro administrative-state?     administrative-state
    |  |  |  |  +--rw lifecycle-state?          lifecycle-state
    |  |  |  +--rw is-frozen?                            boolean
    |  |  |  +--rw is-coordinated-switching-both-ends?   boolean
@@ -247,7 +247,7 @@ module: core-model
    |  |  |  +--rw value?        string
    |  |  +--ro operational-state?                           operational-state
    |  |  +--rw administrative-control?                      administrative-control
-   |  |  +--ro adminisatratve-state?                        administrative-state
+   |  |  +--ro administrative-state?                        administrative-state
    |  |  +--rw lifecycle-state?                             lifecycle-state
    |  +--rw forwarding-direction?     forwarding-direction
    |  +--rw is-protection-lock-out?   boolean {protection-exclude-server}?
@@ -268,7 +268,7 @@ module: core-model
    |  |  +--rw value?        string
    |  +--ro operational-state?        operational-state
    |  +--rw administrative-control?   administrative-control
-   |  +--ro adminisatratve-state?     administrative-state
+   |  +--ro administrative-state?     administrative-state
    |  +--rw lifecycle-state?          lifecycle-state
    +--rw operation-envelope
    |  +--rw operation-set* [effort-and-action]
@@ -329,7 +329,7 @@ module: core-model
       |  |  +--rw value?        string
       |  +--ro operational-state?        operational-state
       |  +--rw administrative-control?   administrative-control
-      |  +--ro adminisatratve-state?     administrative-state
+      |  +--ro administrative-state?     administrative-state
       |  +--rw lifecycle-state?          lifecycle-state
       +--rw contained-holder* [uuid]
       |  +--rw connector*                    -> /equipment/exposed-cable/connector/uuid
@@ -364,7 +364,7 @@ module: core-model
       |  |  +--rw holder-category?      holder-category
       |  |  +--rw is-captive?           boolean
       |  |  +--rw is-guided?            boolean
-      |  |  +--rw is-quantised-space?   boolean
+      |  |  +--rw is-quantized-space?   boolean
       |  +--rw physical-rating
       |  |  +--rw thermal-rating?   to-be-defined
       |  |  +--rw power-rating?     to-be-defined
@@ -386,7 +386,7 @@ module: core-model
       |  |  +--rw value?        string
       |  +--ro operational-state?            operational-state
       |  +--rw administrative-control?       administrative-control
-      |  +--ro adminisatratve-state?         administrative-state
+      |  +--ro administrative-state?         administrative-state
       |  +--rw lifecycle-state?              lifecycle-state
       +--rw exposed-cable* [uuid]
       |  +--rw connector* [uuid]
@@ -433,7 +433,7 @@ module: core-model
       |  |  |  +--rw value?        string
       |  |  +--ro operational-state?        operational-state
       |  |  +--rw administrative-control?   administrative-control
-      |  |  +--ro adminisatratve-state?     administrative-state
+      |  |  +--ro administrative-state?     administrative-state
       |  |  +--rw lifecycle-state?          lifecycle-state
       |  +--rw manufactured-thing
       |  |  +--rw manufacturer-properties
@@ -452,9 +452,9 @@ module: core-model
       |  |  +--rw operator-augmented-equipment-type
       |  |     +--rw asset-type-identifier?   string
       |  +--rw physical-characteristics
-      |  |  +--rw weight-characeristics?   to-be-defined
-      |  |  +--rw fire-characteristics?    to-be-defined
-      |  |  +--rw materials?               to-be-defined
+      |  |  +--rw weight-characteristics?   to-be-defined
+      |  |  +--rw fire-characteristics?     to-be-defined
+      |  |  +--rw materials?                to-be-defined
       |  +--rw mechanical-features
       |  +--rw spatial-properties-of-type
       |  |  +--rw height?   to-be-defined
@@ -475,7 +475,7 @@ module: core-model
       |  |  +--rw value?        string
       |  +--ro operational-state?            operational-state
       |  +--rw administrative-control?       administrative-control
-      |  +--ro adminisatratve-state?         administrative-state
+      |  +--ro administrative-state?         administrative-state
       |  +--rw lifecycle-state?              lifecycle-state
       +--rw manufactured-thing
       |  +--rw manufacturer-properties
@@ -502,12 +502,12 @@ module: core-model
       |  +--rw temperature?   to-be-defined
       +--rw function-enablers
       |  +--rw power-state?   to-be-defined
-      +--rw mechanicall-functions
+      +--rw mechanical-functions
       |  +--rw rotation-speed?   to-be-defined
       +--rw physical-characteristics
-      |  +--rw weight-characeristics?   to-be-defined
-      |  +--rw fire-characteristics?    to-be-defined
-      |  +--rw materials?               to-be-defined
+      |  +--rw weight-characteristics?   to-be-defined
+      |  +--rw fire-characteristics?     to-be-defined
+      |  +--rw materials?                to-be-defined
       +--rw swapability
       |  +--rw is-hot-swappable?   boolean
       +--rw category
@@ -567,7 +567,7 @@ module: core-model
       |  +--rw value?        string
       +--ro operational-state?            operational-state
       +--rw administrative-control?       administrative-control
-      +--ro adminisatratve-state?         administrative-state
+      +--ro administrative-state?         administrative-state
       +--rw lifecycle-state?              lifecycle-state
 module: microwave-model
    +--rw mw-air-interface-pac

@@ -857,6 +857,7 @@ function parseOpenModelatt(xmi){
         flag = 1;
         key = xmi.attributes()["partOfObjectKey"];
     }
+    console.info('####', JSON.stringify(xmi.attributes()));
     var inv;
     if(xmi.attributes()["isInvariant"]){
         inv = xmi.attributes()["isInvariant"];
@@ -865,6 +866,16 @@ function parseOpenModelatt(xmi){
     var avcNot;
     if(xmi.attributes()["attributeValueChangeNotification"]){
         avcNot = xmi.attributes()["attributeValueChangeNotification"];
+        flag = 1;
+    }
+    var unsigned;
+    if(xmi.attributes()["unsigned"]){
+        unsigned = xmi.attributes()["unsigned"];
+        flag = 1;
+    }
+    var bitLength;
+    if(xmi.attributes()["bitLength"]){
+         bitLength = xmi.attributes()["bitLength"];
         flag = 1;
     }
     if(flag == 0){
@@ -879,6 +890,8 @@ function parseOpenModelatt(xmi){
                 avcNot !== undefined ? openModelAtt[i].attributeValueChangeNotification = avcNot : null;
                 key !== undefined ? openModelAtt[i].key = key : null;
                 units !== undefined ? openModelAtt[i].units = units : null;
+                unsigned !== undefined ? openModelAtt[i].unsigned = unsigned : null;
+                bitLength !== undefined ? openModelAtt[i].bitLength = bitLength : null;
             }
         }
         if(i == openModelAtt.length){
@@ -1923,6 +1936,8 @@ function obj2yang(ele){
                     break;
                 }
             }
+            console.info('###',ele[i].name);
+            if (ele[i].name === 'NetworkElement') obj.nodeType = "container";
             /*if(ele[i].key.length != 0){
                 obj.nodeType = "list";
             }*/
@@ -1965,7 +1980,7 @@ function obj2yang(ele){
                     break;
                 }
             }
-            //newobj.nodeType = "list";//
+            
             if(newobj.nodeType !== "list"){
                 newobj["ordered-by"] = undefined;
             }
