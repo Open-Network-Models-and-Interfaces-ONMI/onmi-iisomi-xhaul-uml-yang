@@ -3,18 +3,21 @@ module core-model {
     prefix core-model;
     organization "ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project";
     contact "WG Web: <https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport>
-        WG List:  <mailto:wireless-transport@login.opennetworking.org>
-        WG Chair: Lyndon Ong
-                  <mailto:lyong@ciena.com>
-        WG Chair: Giorgio Cazzaniga
-                  <mailto:giorgio.cazzaniga@sm-optics.com>';
-        Editor:   Martin Skorupski
-                  <mailto:martin.skorupski@highstreet-technologies.com>";
-    description "none";
-    revision 2017-02-05 {
-        description "This module contains a collection of YANG definitions for managing wireless networks.";
+             WG List:  <mailto:wireless-transport@login.opennetworking.org>
+             WG Chair: Lyndon Ong
+                       <mailto:lyong@ciena.com>
+             WG Chair: Giorgio Cazzaniga
+                       <mailto:giorgio.cazzaniga@sm-optics.com>
+             Editors:  Thorsten Heinze
+                       <mailto:thorsten.heinze@telefonica.com>
+                       Martin Skorupski
+                       <mailto:martin.skorupski@highstreet-technologies.com>";
+    description "This module contains a collection of YANG definitions for managing wireless networks.";
+    revision 2017-02-17 {
+        description "Initial version";
         reference "ONF TR 532: A YANG Data Model for Wireless Networks.";
     }
+
     /***********************
     * package core-network-model
     **********************/ 
@@ -199,8 +202,8 @@ module core-model {
                         Lifecycle : Preliminary";
                 }
                 typedef protection-type {
-                    status obsolete;
                     type string;
+                    status obsolete;
                     description "Identifies the type of protection of an FcSwitch.";
                 }
 
@@ -442,7 +445,8 @@ module core-model {
                         description "Indicates which points are selected by the switch.
                             Depending on the switch spec (via Fcspec)
                             - more than one FcPort can be selected at any one time (e.g. egress switch, ingress packet switch)
-                            - zero FcPorts can  be selected. For an ingress switch this indicates that the switch common (egress) is 'high impedance'.";
+                            - zero FcPorts can  be selected. For an ingress switch this indicates that the switch common (egress) is 'high impedance'
+.";
                     }
                     leaf-list profile-proxy {
                         type string;
@@ -596,6 +600,7 @@ module core-model {
                     The FC object can be used to represent many different structures including point-to-point (P2P), point-to-multipoint (P2MP), rooted-multipoint (RMP) and multipoint-to-multipoint (MP2MP) bridge and selector structures for linear, ring or mesh protection schemes.";
             }
             container network-element {
+        presence  "";
                 list fd {
                     key 'uuid';
                     uses forwarding-domain;
@@ -625,6 +630,7 @@ module core-model {
             list forwarding-construct {
                 key 'uuid';
                 uses forwarding-construct;
+                description "none";
             }
             grouping fc-port {
                 leaf-list ltp {
@@ -1250,6 +1256,7 @@ module core-model {
                     description "Lifecycle : Experimental";
                 }
                 container operation-envelope {
+        presence  "";
                     list operation-set {
                         key 'effort-and-action';
                         min-elements 1;
@@ -1775,7 +1782,8 @@ module core-model {
                 list equipment {
                     key 'uuid';
                     uses equipment;
-                }
+                                description "none";
+}
                 grouping holder {
                     leaf-list connector {
                         type leafref {
