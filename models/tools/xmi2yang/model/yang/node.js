@@ -55,7 +55,11 @@ Node.prototype.buildChild = function (att, type) {
 
         if(typeof att.type === "object"){
             if(att.type.name === "integer"){
-                att.type.name = Util.getIntegerType(att);
+                if (att.bitLength) {
+                    att.type.length = att.bitLength.replace(/[^0-9]/g, '');;
+                }
+                att.type.unsigned = att.unsigned;
+                att.type.name = att.type.getTypeName();
             }
         }
 
@@ -99,8 +103,7 @@ Node.prototype.buildChild = function (att, type) {
             }
             break;
         case "typedef":
-            //obj = new Type(att.type, att.id,undefined,undefined,undefined, att.description, undefined, att.fileName);
-	    obj = new Type(att.type, att.id, undefined, att.valueRange, undefined, att.description, att.units, att.fileName);
+	          obj = new Type(att.type, att.id, undefined, att.valueRange, undefined, undefined, att.units, att.description, att.fileName);
             break;
         case "enum":
             this.name = this.name.replace(/[^\w\.-]+/g,'_');
@@ -118,6 +121,10 @@ Node.prototype.buildUses = function (att) {
 };
 //create yang element string
 Node.prototype.writeNode = function (layer) {
+    // ignore obsolete
+//    if (this.status === 'obsolete') 
+//       return '';
+    
     var PRE = '';
     var k = layer;
     while (k-- > 0) {
@@ -201,8 +208,9 @@ Node.prototype.writeNode = function (layer) {
     if ((typeof this.description == 'string')&&(this.description)) {
         this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g, "\'");
-
     }
+    
+    
     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
     var order="";
     /*if(this["ordered-by"] != undefined && this.nodeType == "list"){
@@ -369,10 +377,10 @@ Node.prototype.writeNode = function (layer) {
             minele +
             maxele +
             order +
-            status +
             child +
             Util.yangifyName(uses) +
             defvalue +
+            status +
             descript + PRE + "}\r\n";
     }
     return s;
