@@ -26,10 +26,10 @@ function rpc(name, descrip, feature, status, fileName) {
 }
 rpc.prototype.buildChild = function (att, type, rpcType) {
     if(type == "leaf" || type == "leaf-list"){
-        //translate the "integer" to "uint32"
+        //translate the "integer" to "int64"
         switch(att.type){
             case "integer":
-                att.type = Util.getIntegerType(att);
+                att.type = int64;
                 break;
             default:
                 break;
