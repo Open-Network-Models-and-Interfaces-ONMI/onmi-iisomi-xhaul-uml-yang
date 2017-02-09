@@ -857,7 +857,6 @@ function parseOpenModelatt(xmi){
         flag = 1;
         key = xmi.attributes()["partOfObjectKey"];
     }
-    console.info('####', JSON.stringify(xmi.attributes()));
     var inv;
     if(xmi.attributes()["isInvariant"]){
         inv = xmi.attributes()["isInvariant"];
@@ -876,7 +875,6 @@ function parseOpenModelatt(xmi){
     var bitLength;
     if(xmi.attributes()["bitLength"]){
         bitLength = xmi.attributes()["bitLength"];
-        console.log('yippy', bitLength);
         flag = 1;
     }
     if(flag == 0){
@@ -896,7 +894,7 @@ function parseOpenModelatt(xmi){
             }
         }
         if(i == openModelAtt.length){
-            var att = new OpenModelObject(id, "attribute", vr, cond, sup, inv, avcNot, undefined, undefined, passBR, undefined, undefined, undefined, key, units, currentFileName);
+            var att = new OpenModelObject(id, "attribute", vr, cond, sup, inv, avcNot, undefined, undefined, passBR, undefined, undefined, undefined, key, units, currentFileName, unsigned, bitLength);
             openModelAtt.push(att);
         }
     }
@@ -1647,6 +1645,12 @@ function obj2yang(ele){
                         if(openModelAtt[k].valueRange){
                             ele[i].attribute[j].valueRange = openModelAtt[k].valueRange;
                         }
+                        if(openModelAtt[k].unsigned){
+                            ele[i].attribute[j].unsigned = openModelAtt[k].unsigned;
+                        }
+                        if(openModelAtt[k].bitLength){
+                            ele[i].attribute[j].bitLength = openModelAtt[k].bitLength;
+                        }
                         break;
                     }
                 }
@@ -1747,11 +1751,11 @@ function obj2yang(ele){
                     }
                 }
                 if(ele[i].attribute[j].type.split("+")[0] == "leafref"){
-                    ele[i].attribute[j].type = new Type("leafref", ele[i].attribute[j].id, ele[i].attribute[j].type.split("+")[1], vr, "", "", units, ele[i].fileName);
+                    ele[i].attribute[j].type = new Type("leafref", ele[i].attribute[j].id, ele[i].attribute[j].type.split("+")[1], vr, undefined, undefined, units, "", ele[i].fileName);
                 }else if(ele[i].attribute[j].nodeType == "leaf" || ele[i].attribute[j].nodeType == "leaf-list"){
-                    ele[i].attribute[j].type = new Type(ele[i].attribute[j].type, ele[i].attribute[j].id, undefined, vr, "", "", units, ele[i].fileName);
+                    ele[i].attribute[j].type = new Type(ele[i].attribute[j].type, ele[i].attribute[j].id, undefined, vr, undefined, undefined, units, "", ele[i].fileName);
                 }/*else{
-                 ele[i].attribute[j].type = new Type(ele[i].attribute[j].type, ele[i].attribute[j].id, undefined, vr, "", "", units, ele[i].fileName);
+                 ele[i].attribute[j].type = new Type(ele[i].attribute[j].type, ele[i].attribute[j].id, undefined, vr, undefined, undefined, units, "", ele[i].fileName);
                 }*/
                 if(ele[i].attribute[j].type.range != undefined){
                     var regex  = /[^0-9/./*]/;
@@ -1937,7 +1941,6 @@ function obj2yang(ele){
                     break;
                 }
             }
-            console.info('###',ele[i].name);
             if (ele[i].name === 'NetworkElement') obj.nodeType = "container";
             /*if(ele[i].key.length != 0){
                 obj.nodeType = "list";
