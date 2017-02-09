@@ -31,8 +31,15 @@ function post-processing {
   sed -i -e "s/core-model:pin-group\//core-model:pin-group\/core-model:pin/g" $1;
   sed -i -e "s/core-model:signal-ref-pt\//core-model:signal-ref-pt\/core-model:ltp/g" $1;
   sed -i -e "s/core-model:fd-and-link-rule\//core-model:fd-and-link-rule\/core-model:rule-type/g" $1;
-  sed -i -e "s/grouping fc-port {/list forwarding-construct {\n                key 'uuid';\n                uses forwarding-construct;\n            }\n            grouping fc-port {/g" $1;
-  sed -i -e "s/grouping holder {/list equipment {\n                    key 'uuid';\n                    uses equipment;\n                }\n                grouping holder {/g" $1;
+  sed -i -e "s/container network-element {/container network-element {\n                presence  \"\";/g" $1;
+  sed -i -e "s/container operation-envelope {/container operation-envelope {\n                    presence  \"\";/g" $1;
+  sed -i -e "s/container mw-air-interface-pac {/container mw-air-interface-pac {\n                presence  \"\";/g" $1;
+  sed -i -e "s/container mw-air-interface-diversity-pac {/container mw-air-interface-diversity-pac {\n                presence  \"\";/g" $1;
+  sed -i -e "s/container mw-ethernet-container-pac {/container mw-ethernet-container-pac {\n                presence  \"\";/g" $1;
+  sed -i -e "s/container mw-tdm-container-pac {/container mw-tdm-container-pac {\n                presence  \"\";/g" $1;
+
+  sed -i -e "s/grouping fc-port {/list forwarding-construct {\n                key 'uuid';\n                uses forwarding-construct;\n                description \"none\";\n            }\n            grouping fc-port {/g" $1;
+  sed -i -e "s/grouping holder {/list equipment {\n                    key 'uuid';\n                    uses equipment;\n                                description \"none\";\n}\n                grouping holder {/g" $1;
   # spelling
 
 #2017-02-09T06:14:17.078Z |   spelling | INFO  | adminisatratve better administrative,administrate,administratrix,administration,administrator,administrable
@@ -133,6 +140,7 @@ done
 log "Yang modules checked!";
 
 pyang -f tree *.yang >> MicrowaveModel.tree.txt
+pyang --lint *.yang
 log "Tree view generated!";
 
 # End
