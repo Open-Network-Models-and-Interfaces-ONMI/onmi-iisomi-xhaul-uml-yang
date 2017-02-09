@@ -40,10 +40,6 @@ module.exports = {
       if (!level) level = 'INFO ';
       console.info([date, tool, level, message].join(' | '));
     },
-    getIntegerType : function(attributeInto) {
-        console.log('attributeInto', JSON.stringify(attributeInto));
-        return 'int64';
-    },
     spellCheck : function(s) {
         translate(s)
             .replace(/[0-9]/g, '-')
@@ -55,7 +51,7 @@ module.exports = {
             .split('-').map(function(word){
                 if (SpellChecker.isMisspelled(word)) {
                     var correction = SpellChecker.getCorrectionsForMisspelling(word);
-                    module.exports.log([word, correction].join(' better? '), '  spelling');
+                    module.exports.log([word, correction].join(' better? '), '  spelling', 'WARN ');
              }
         });
     },
@@ -74,7 +70,7 @@ module.exports = {
         
         // logging
         if (str !== yang)
-            module.exports.log([translate(str), translate(yang)].join(' >> '), '   yangify');
+            module.exports.log([translate(str), translate(yang)].join(' >> '), '   yangify', 'INFO ');
         
         // spell checker
         if (isSpellcheckerOn) {
