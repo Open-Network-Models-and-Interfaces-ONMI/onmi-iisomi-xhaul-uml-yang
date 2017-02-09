@@ -10,7 +10,7 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-function OpenModelObject(id, type, vr, cond, sup, inv, avcNot, dNot, cNot, passBR, opex, opid, ato, key, units, fileName){
+function OpenModelObject(id, type, vr, cond, sup, inv, avcNot, dNot, cNot, passBR, opex, opid, ato, key, units, fileName, unsigned, bitLength){
     this.id = id;
     this.type = type;
     this.valueRange = vr;
@@ -28,5 +28,7 @@ function OpenModelObject(id, type, vr, cond, sup, inv, avcNot, dNot, cNot, passB
     this["isAtomic"] = ato;
     this.units = units;
     this.fileName = fileName;
+    this.unsigned = unsigned;
+    this.bitLength = bitLength;
 }
 module.exports=OpenModelObject;
