@@ -13,17 +13,33 @@
 
 var Util = require('./util.js');
 
-function type(name, id, path, range, length, descrip, units, fileName) {
+function type(name, id, path, range, length, unsigned, units, descrip, fileName) {
     this.name = name;
     this.id = id;
     this.description = descrip;
     this.path = path;
     this.range = range;
     this.length = length;
-    this.children = [];
+    this.unsigned = unsigned;
     this.units = units;
     this.fileName = fileName;
-}
+    this.children = [];
+};
+type.prototype.getTypeName = function() {
+    if (this.name !== 'integer') {
+        return this.name;
+    }
+    var result = 'int';
+    if (this.length) {
+      result = result + this.length;
+    } else {
+      result = result + '64';
+    }
+    if (this.unsinged) {
+        result = 'u' + result;
+    }
+    return result;
+};
 type.prototype.writeNode = function (layer) {
     var PRE = '';
     var k = layer;
