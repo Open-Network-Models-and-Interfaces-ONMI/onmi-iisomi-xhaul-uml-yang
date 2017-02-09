@@ -29,7 +29,7 @@ rpc.prototype.buildChild = function (att, type, rpcType) {
         //translate the "integer" to "uint32"
         switch(att.type){
             case "integer":
-                att.type = "uint64";
+                att.type = Util.getIntegerType(att);
                 break;
             default:
                 break;

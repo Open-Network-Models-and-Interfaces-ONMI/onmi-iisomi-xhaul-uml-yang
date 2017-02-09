@@ -595,8 +595,7 @@ module core-model {
                     At a low level of the recursion, a FC represents a cross-connection within an NE. It may also represent a fragment of a cross-connection under certain circumstances.
                     The FC object can be used to represent many different structures including point-to-point (P2P), point-to-multipoint (P2MP), rooted-multipoint (RMP) and multipoint-to-multipoint (MP2MP) bridge and selector structures for linear, ring or mesh protection schemes.";
             }
-            list network-element {
-                key 'uuid';
+            container network-element {
                 list fd {
                     key 'uuid';
                     uses forwarding-domain;
@@ -1048,7 +1047,7 @@ module core-model {
                         description "The administrativeControl state provides control of the availability of specific resources without modification to the provisioning of those resources.
                             The value is the current control target. The actual administrativeState may or may not be at target.";
                     }
-                    leaf adminisatratve-state {
+                    leaf administrative-state {
                         type administrative-state;
                         config false;
                         description "Shows whether or not the client has permission to use or has a prohibition against using the resource.
@@ -1325,7 +1324,7 @@ module core-model {
                 /***********************
                 * package object-classes
                 **********************/ 
-                    grouping conector-in-holder {
+                    grouping connector-in-holder {
                         leaf connector-on-equipment-for-holder {
                             type leafref {
                                 path '/core-model:connector-on-equipment-for-holder/core-model:uuid';
@@ -1359,9 +1358,9 @@ module core-model {
                             Lifecycle : Experimental";
                     }
                     grouping connector-on-equipment-for-holder {
-                        leaf conector-in-holder {
+                        leaf connector-in-holder {
                             type leafref {
-                                path '/core-model:conector-in-holder/core-model:uuid';
+                                path '/core-model:connector-in-holder/core-model:uuid';
                             }
                             description "none";
                         }
@@ -1497,7 +1496,7 @@ module core-model {
                             type boolean;
                             description "none";
                         }
-                        leaf is-quantised-space {
+                        leaf is-quantized-space {
                             type boolean;
                             description "none";
                         }
@@ -1549,7 +1548,7 @@ module core-model {
                             Lifecycle : Experimental";
                     }
                     grouping physical-characteristics {
-                        leaf weight-characeristics {
+                        leaf weight-characteristics {
                             type to-be-defined;
                             description "none";
                         }
@@ -1724,7 +1723,7 @@ module core-model {
                         uses function-enablers;
                         description "none";
                     }
-                    container mechanicall-functions {
+                    container mechanical-functions {
                         uses mechanical-functions;
                         description "none";
                     }
