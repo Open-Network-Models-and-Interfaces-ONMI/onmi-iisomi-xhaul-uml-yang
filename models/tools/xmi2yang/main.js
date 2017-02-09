@@ -875,7 +875,8 @@ function parseOpenModelatt(xmi){
     }
     var bitLength;
     if(xmi.attributes()["bitLength"]){
-         bitLength = xmi.attributes()["bitLength"];
+        bitLength = xmi.attributes()["bitLength"];
+        console.log('yippy', bitLength);
         flag = 1;
     }
     if(flag == 0){

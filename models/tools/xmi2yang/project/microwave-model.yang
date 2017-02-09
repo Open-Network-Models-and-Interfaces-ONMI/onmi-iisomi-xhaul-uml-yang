@@ -1720,6 +1720,9 @@ module microwave-model {
                 }
                 description "Aggregated performance information of the structure of a hybrid microwave for a pre-defined measurement interval.";
             }
+            feature hybrid-microwave {
+                description "Feature 'hybrid-microwave' is mandatory for device types transporting Ethernet + TDM.";
+            }
 
         /***********************
         * package ethernet-container
@@ -2038,9 +2041,6 @@ module microwave-model {
                     description "none";
                 }
                 description "Aggregated performance information of the TDM container for a pre-defined measurement interval.";
-            }
-            feature hybrid-microwave {
-                description "Feature 'hybrid-microwave' is mandatory for device types transporting Ethernet + TDM.";
             }
 
         /***********************
