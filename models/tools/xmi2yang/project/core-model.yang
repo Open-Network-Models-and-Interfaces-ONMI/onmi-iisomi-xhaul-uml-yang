@@ -17,7 +17,6 @@ module core-model {
         description "Initial version";
         reference "ONF TR 532: A YANG Data Model for Wireless Networks.";
     }
-
     /***********************
     * package core-network-model
     **********************/ 
@@ -600,7 +599,7 @@ module core-model {
                     The FC object can be used to represent many different structures including point-to-point (P2P), point-to-multipoint (P2MP), rooted-multipoint (RMP) and multipoint-to-multipoint (MP2MP) bridge and selector structures for linear, ring or mesh protection schemes.";
             }
             container network-element {
-        presence  "";
+                presence  "";
                 list fd {
                     key 'uuid';
                     uses forwarding-domain;
@@ -1256,7 +1255,7 @@ module core-model {
                     description "Lifecycle : Experimental";
                 }
                 container operation-envelope {
-        presence  "";
+                    presence  "";
                     list operation-set {
                         key 'effort-and-action';
                         min-elements 1;
