@@ -29,7 +29,7 @@ fi
 
 for x in ${!MODELS[@]}; do
     y=${MODELS[$x]##*/}
-    z=${y%%.*}
+    z=${y%%.yang*}
     echo "converting '${z}' to yin"
     pyang -p ${SRC} -f yin -o ${DST}/${z}.yin ${SRC}/${z}.yang
 done
