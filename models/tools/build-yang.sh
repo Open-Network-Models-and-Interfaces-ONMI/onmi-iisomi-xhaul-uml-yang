@@ -7,7 +7,7 @@
 # Author: Martin Skorupski <martin.skorupski@highstreet-technologies.com>
 #
   input="./input";                      # input folder with *.uml files
-    par="./pruneAndRefactor";           # source folder for pruning and refactoring 
+    par="./pruneAndRefactor";           # source folder for pruning and refactoring
 project="./xmi2yang/project"; # project folder of xmi2yang tool
 
 function log {
@@ -15,7 +15,7 @@ function log {
     tool="build-yang";
     info="INFO ";
     echo "$time | $tool | $info | $1";
-}  
+}
 
 function post-processing {
   # core-model
@@ -33,10 +33,6 @@ function post-processing {
   sed -i -e "s/core-model:fd-and-link-rule\//core-model:fd-and-link-rule\/core-model:rule-type/g" $1;
   sed -i -e "s/container network-element {/container network-element {\n                presence  \"\";/g" $1;
   sed -i -e "s/container operation-envelope {/container operation-envelope {\n                    presence  \"\";/g" $1;
-  sed -i -e "s/container mw-air-interface-pac {/container mw-air-interface-pac {\n                presence  \"\";/g" $1;
-  sed -i -e "s/container mw-air-interface-diversity-pac {/container mw-air-interface-diversity-pac {\n                presence  \"\";/g" $1;
-  sed -i -e "s/container mw-ethernet-container-pac {/container mw-ethernet-container-pac {\n                presence  \"\";/g" $1;
-  sed -i -e "s/container mw-tdm-container-pac {/container mw-tdm-container-pac {\n                presence  \"\";/g" $1;
 
   sed -i -e "s/grouping fc-port {/list forwarding-construct {\n                key 'uuid';\n                uses forwarding-construct;\n                description \"none\";\n            }\n            grouping fc-port {/g" $1;
   sed -i -e "s/grouping holder {/list equipment {\n                    key 'uuid';\n                    uses equipment;\n                                description \"none\";\n}\n                grouping holder {/g" $1;
@@ -65,6 +61,11 @@ function post-processing {
   sed -i -e "s/prefix microwave-model;/prefix microwave-model;\n\n    import core-model {\n        prefix core-model;\n    }/g" $1;
   sed -i -e "s/type integer/type int32/g" $1; # MEGA hack - check with Thorsten....
 
+  # turn mandatory top level microwave containers into presence containers
+  names="(mw-air-interface-pac|mw-air-interface-diversity-pac|mw-ethernet-container-pac|mw-tdm-container-pac)"
+  # taking into account that optional if-feature statement must stay first
+  perl -0777 -i -pe "s/(container\s+${names}\s+{\s*\n(\s+if-feature\s.*;\s*\n)?)(\s+)/\1\4presence \"\";\n\4/g" $1
+
   log "  Post processed: $1";
 }
 
@@ -76,7 +77,7 @@ log "Start";
 rm -f "$project"/*.yang;
 rm -f "$project"/*.xml;
 rm -f  "$project"/*.txt;
-cp "$project"/config.txt.owl "$project"/config.txt 
+cp "$project"/config.txt.owl "$project"/config.txt
 log "Folder $project cleaned!";
 
 
@@ -135,7 +136,7 @@ for item in ${files[*]}
 do
   post-processing "$item"
   log "  $item";
-  pyang "$item"; 
+  pyang "$item";
 done
 log "Yang modules checked!";
 
