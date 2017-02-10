@@ -11,18 +11,21 @@ module microwave-model {
 
     organization "ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project";
     contact "WG Web: <https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport>
-        WG List:  <mailto:wireless-transport@login.opennetworking.org>
-        WG Chair: Lyndon Ong
-                  <mailto:lyong@ciena.com>
-        WG Chair: Giorgio Cazzaniga
-                  <mailto:giorgio.cazzaniga@sm-optics.com>';
-        Editor:   Martin Skorupski
-                  <mailto:martin.skorupski@highstreet-technologies.com>";
-    description "none";
-    revision 2017-02-05 {
-        description "This module contains a collection of YANG definitions for managing wireless networks.";
+             WG List:  <mailto:wireless-transport@login.opennetworking.org>
+             WG Chair: Lyndon Ong
+                       <mailto:lyong@ciena.com>
+             WG Chair: Giorgio Cazzaniga
+                       <mailto:giorgio.cazzaniga@sm-optics.com>
+             Editors:  Thorsten Heinze
+                       <mailto:thorsten.heinze@telefonica.com>
+                       Martin Skorupski
+                       <mailto:martin.skorupski@highstreet-technologies.com>";
+    description "This module contains a collection of YANG definitions for managing wireless networks.";
+    revision 2017-02-10 {
+        description "Initial version";
         reference "ONF TR 532: A YANG Data Model for Wireless Networks.";
     }
+
     /***********************
     * package type-definitions
     **********************/ 
@@ -73,7 +76,7 @@ module microwave-model {
                 description "To be set on  'true', if the distance between transmitted and received frequency is variable.";
             }
             leaf duplex-distance {
-                type int64;
+                type int32;
                 units "kHz";
                 default "-1";
                 config false;
@@ -100,56 +103,56 @@ module microwave-model {
                 description "Indentifies the transmissionMode for internal reference.";
             }
             leaf channel-bandwidth {
-                type int64;
+                type int32;
                 units "kHz";
                 default "-1";
                 config false;
                 description "Bandwidth of the transmit channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;";
             }
             leaf modulation-scheme {
-                type int64;
+                type int16;
                 units "symbols";
                 default "-1";
                 config false;
                 description "Modulation scheme, which is base to the other characteristics described in the same transmissionModeType data type. The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK->'2' or 256QAM->'256').";
             }
             leaf code-rate {
-                type int64;
+                type int8;
                 units "%";
                 default "-1";
                 config false;
                 description "Code rate of the coding scheme in % (Net bit rate ≤ Gross bit rate · code rate).";
             }
             leaf tx-power-min {
-                type int64;
+                type int8;
                 units "dBm";
                 default "99";
                 config false;
                 description "Value of the minimum transmit power the modem can operate in dBm.";
             }
             leaf tx-power-max {
-                type int64;
+                type int8;
                 units "dBm";
                 default "99";
                 config false;
                 description "Value of the maximum transmit power the modem can operate in dBm.";
             }
             leaf rx-threshold {
-                type int64;
+                type int16;
                 units "dBm";
                 default "99";
                 config false;
                 description "Value of the receive level required to decode the received signal with a Bit Error Rate of 1e-6 or less.";
             }
             leaf am-upshift-level {
-                type int64;
+                type int8;
                 units "dBm";
                 default "99";
                 config false;
                 description "Value of the receive level that has to be exceeded to shift into a higher modulation scheme.";
             }
             leaf am-downshift-level {
-                type int64;
+                type int8;
                 units "dBm";
                 default "99";
                 config false;
@@ -200,287 +203,287 @@ module microwave-model {
         }
         grouping air-interface-performance-type {
             leaf es {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "Number of errored seconds.";
             }
             leaf ses {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "Number of severely errored seconds.";
             }
             leaf cses {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "Number of consecutive severely errored seconds.";
             }
             leaf unavailability {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "Total time of unavailability in seconds.";
             }
             leaf tx-level-min {
-                type int64;
+                type int8;
                 units "dBm";
                 default "99";
                 config false;
                 description "Minimum transmit power. Signed integers are required.";
             }
             leaf tx-level-max {
-                type int64;
+                type int8;
                 units "dBm";
                 default "99";
                 config false;
                 description "Maximum transmit power. Signed integers are required.";
             }
             leaf tx-level-avg {
-                type int64;
+                type int8;
                 units "dBm";
                 default "99";
                 config false;
                 description "Averaged transmit power. Signed integers are required.";
             }
             leaf rx-level-min {
-                type int64;
+                type int8;
                 units "dBm";
                 default "99";
                 config false;
                 description "Minimum receive level. Signed integers are required.";
             }
             leaf rx-level-max {
-                type int64;
+                type int8;
                 units "dBm";
                 default "99";
                 config false;
                 description "Maximum receive level. Signed integers are required.";
             }
             leaf rx-level-avg {
-                type int64;
+                type int8;
                 units "dBm";
                 default "99";
                 config false;
                 description "Averaged receive level. Signed integers are required.";
             }
             leaf time2states {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "Sum of all seconds the transmitter operated in e.g. BPSK.";
             }
             leaf time4states-s {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "none";
             }
             leaf time4states {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "none";
             }
             leaf time8states {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "none";
             }
             leaf time16states-s {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "none";
             }
             leaf time16states {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "none";
             }
             leaf time32states {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "none";
             }
             leaf time64states {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "none";
             }
             leaf time128states {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "none";
             }
             leaf time256states {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "none";
             }
             leaf time512states {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "none";
             }
             leaf time512states-l {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "none";
             }
             leaf time1024states {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "none";
             }
             leaf time1024states-l {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "none";
             }
             leaf time2048states {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "none";
             }
             leaf time2048states-l {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "none";
             }
             leaf time4096states {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "none";
             }
             leaf time4096states-l {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "none";
             }
             leaf time8192states {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "none";
             }
             leaf time8192states-l {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
                 description "none";
             }
             leaf snir-min {
-                type int64;
+                type int8;
                 units "dB";
                 default "-99";
                 config false;
                 description "Minimum signal to (noise+interference) ratio.";
             }
             leaf snir-max {
-                type int64;
+                type int8;
                 units "dB";
                 default "-99";
                 config false;
                 description "Maximum signal to (noise+interference) ratio.";
             }
             leaf snir-avg {
-                type int64;
+                type int8;
                 units "dB";
                 default "-99";
                 config false;
                 description "Averaged signal to (noise+interference) ratio.";
             }
             leaf xpd-min {
-                type int64;
+                type int8;
                 units "dB";
                 default "-99";
                 config false;
                 description "Minimum cross polarization discrimination.";
             }
             leaf xpd-max {
-                type int64;
+                type int8;
                 units "dB";
                 default "-99";
                 config false;
                 description "Maximum cross polarization discrimination.";
             }
             leaf xpd-avg {
-                type int64;
+                type int8;
                 units "dB";
                 default "-99";
                 config false;
                 description "Averaged cross polarization discrimination.";
             }
             leaf rf-temp-min {
-                type int64;
+                type int8;
                 units "C";
                 default "-99";
                 config false;
                 description "Lowest temperature (in degree Celsius) of the radio module inside the outdoor unit.";
             }
             leaf rf-temp-max {
-                type int64;
+                type int8;
                 units "C";
                 default "-99";
                 config false;
                 description "Highest temperature (in degree Celsius) of the radio module inside the outdoor unit.";
             }
             leaf rf-temp-avg {
-                type int64;
+                type int8;
                 units "C";
                 default "-99";
                 config false;
                 description "Averaged temperature (in degree Celsius) of the radio module inside the outdoor unit.";
             }
             leaf defect-blocks-sum {
-                type int64;
+                type int16;
                 units "blocks";
                 default "-1";
                 config false;
                 description "Total number of blocks that were defect after receiving and could not be corrected by the FEC.";
             }
             leaf time-period {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
@@ -536,7 +539,7 @@ module microwave-model {
                 description "Names to be chosen from the following list: 'spaceDiversity', 'frequencyDiversity'";
             }
             leaf number-of-air-interfaces-max {
-                type int64;
+                type int8;
                 units "air interfaces";
                 default "1";
                 config false;
@@ -582,21 +585,21 @@ module microwave-model {
         }
         grouping air-interface-diversity-performance-type {
             leaf snir-min {
-                type int64;
+                type int8;
                 units "dB";
                 default "-99";
                 config false;
                 description "Minimum signal to (noise+interference) ratio of the combined signals.";
             }
             leaf snir-max {
-                type int64;
+                type int8;
                 units "dB";
                 default "-99";
                 config false;
                 description "Maximum signal to (noise+interference) ratio of the combined signals.";
             }
             leaf snir-avg {
-                type int64;
+                type int8;
                 units "dB";
                 default "-99";
                 config false;
@@ -630,14 +633,14 @@ module microwave-model {
                 description "Names to be chosen from the following list: 'e1','t1','j1','e3','ds3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'";
             }
             leaf tdm-segment-size {
-                type int64;
+                type int32;
                 units "kbit/s";
                 default "-1";
                 config false;
                 description "Size of the TDM segment in kbit/s. Values to be chosen from the following list: '2048','1544','34000','44736 ','155520','614400','1228800','2457600','3072000','4915200','6144000' or '9830400;";
             }
             leaf max-number-of-segments-reservable {
-                type int64;
+                type int8;
                 units "segments";
                 default "-1";
                 config false;
@@ -697,7 +700,7 @@ module microwave-model {
                 description "Names to be chosen from the following list: 'ethernet','e1','t1','j1','e3','ds3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'";
             }
             leaf number-of-time-slots-required {
-                type int64;
+                type int16;
                 units "timeslots";
                 default "-1";
                 config false;
@@ -723,7 +726,7 @@ module microwave-model {
                 description "Names to be chosen from the following list: 'e1','t1','j1','e3','t3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'";
             }
             leaf tdm-container-size {
-                type int64;
+                type int32;
                 units "kbit/s";
                 default "-1";
                 config false;
@@ -737,14 +740,14 @@ module microwave-model {
                 description "none";
             }
             leaf segment-id-ref {
-                type int64;
+                type int16;
                 description "Combinations of structureId and segmentId must be unique inside the device to assure that every resource is used just once.";
             }
             description "Identifies the segments, which are used to transport the container.";
         }
         grouping segment-status-type {
             leaf segment-status-type-id {
-                type int64;
+                type int16;
                 config false;
                 description "none";
             }
@@ -760,13 +763,13 @@ module microwave-model {
                 description "Current operational status of each segment.";
             }
             leaf obsolete-priority-class {
-                type int64;
+                type int8;
                 default "-1";
                 config false;
                 description "PriorityClass as inherited from the associated Container::ContainerConfiguration::priorityClass. In case the device is capable of adapting the sequence, in which segments are being dropped in case of decreasing capacity of the air interface, priorityClass shall be considered, while calculating the dropOrderRank.";
             }
             leaf obsolete-drop-order-rank {
-                type int64;
+                type int16;
                 default "-1";
                 config false;
                 description "In case the device is NOT capable of adapting the sequence, in which segments are being dropped in case of decreasing capacity of the air interface, dropOrderRank is number of segments minus sequence number of the segment. In case the device is capable of adapting the sequence, dropOrderRank has to be calculated by the device in dependency to the assigned priorityClass. 
@@ -798,7 +801,7 @@ module microwave-model {
         }
         grouping container-performance-type {
             leaf tx-ethernet-bytes-max-s {
-                type int64;
+                type int32;
                 units "Bytes/s";
                 default "-1";
                 config false;
@@ -819,7 +822,7 @@ module microwave-model {
                 description "Total number of Bytes of Ethernet traffic (before header compression) transmitted (in direction out of the device) during the measurement period. Field to be left blank for all types of TDM containers.";
             }
             leaf time-period {
-                type int64;
+                type int32;
                 units "s";
                 default "-1";
                 config false;
@@ -853,6 +856,7 @@ module microwave-model {
         * package air-interface
         **********************/ 
             container mw-air-interface-pac {
+                presence  "";
                 leaf layer-protocol {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
@@ -898,28 +902,28 @@ module microwave-model {
                     description "This parameter indicates the equipment type. Instead of uploading the complete set of capabilities, capabilities of the same equipment type could be reused. Should be unique for a combination of modem, radio and their respective firmware.";
                 }
                 leaf tx-frequency-min {
-                    type int64;
+                    type int32;
                     units "kHz";
                     default "-1";
                     config false;
                     description "Value of the minimum transmit frequency tunable at the air interface.";
                 }
                 leaf tx-frequency-max {
-                    type int64;
+                    type int32;
                     units "kHz";
                     default "-1";
                     config false;
                     description "Value of the maximum transmit frequency tunable at the air interface.";
                 }
                 leaf rx-frequency-min {
-                    type int64;
+                    type int32;
                     units "kHz";
                     default "-1";
                     config false;
                     description "Value of the minimum receive frequency tunable at the air interface.";
                 }
                 leaf rx-frequency-max {
-                    type int64;
+                    type int32;
                     units "kHz";
                     default "-1";
                     config false;
@@ -936,7 +940,7 @@ module microwave-model {
                     description "In case the device is capable of MIMO, this field shall contain a 'true'.";
                 }
                 leaf mimo-channels {
-                    type int64;
+                    type int8;
                     units "channels";
                     default "1";
                     config false;
@@ -953,7 +957,7 @@ module microwave-model {
                     description "In case the microwave radio is capable of ATPC, this field shall contain a 'true'.";
                 }
                 leaf atpc-range {
-                    type int64;
+                    type int8;
                     units "dB";
                     config false;
                     description "Extent of the ATPC range.";
@@ -1004,25 +1008,25 @@ module microwave-model {
                     description "The radioSignalId is transmitted on the air interface so the remote site of the link synchronizes on the correct transmitter. The local radio MUST NOT synchronize on a radio signal with a different radioSignalId. The link ID is neither an ID necessary to span the model nor an ID referencing external data. It is just some sort of name of the link transmitted so the correct remote site can be identified in an interference situation. The value zero might be used to make the microwave to disable the link ID check.";
                 }
                 leaf tx-frequency {
-                    type int64;
+                    type int32;
                     units "kHz";
                     default "-1";
                     description "Center frequency of the transmit channel. The values to be configured have to exactly match the values listed in the international agreement referenced in channelPlanID. In case of automated selection of the transmit frequency this field shall describe the lowest center frequency selectable.";
                 }
                 leaf rx-frequency {
-                    type int64;
+                    type int32;
                     units "kHz";
                     default "-1";
                     description "Center frequency of the receive channel.";
                 }
                 leaf tx-channel-bandwidth {
-                    type int64;
+                    type int32;
                     units "kHz";
                     default "-1";
                     description "Bandwidth of the transmit channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;";
                 }
                 leaf rx-channel-bandwidth {
-                    type int64;
+                    type int32;
                     units "kHz";
                     default "-1";
                     description "Bandwidth of the receive channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;";
@@ -1047,7 +1051,7 @@ module microwave-model {
                         ";
                 }
                 leaf tx-power {
-                    type int64;
+                    type int8;
                     units "dBm";
                     default "99";
                     description "Transmit power to be configured on the microwave link. Signed Byte is required. The actually operated transmit power might be lower depending on adaptive modulation and ATPC.";
@@ -1057,13 +1061,13 @@ module microwave-model {
                     description "Adaptive Modulation. Activation of adaptive modulation shall be expressed as a 'true'.";
                 }
                 leaf modulation-min {
-                    type int64;
+                    type int16;
                     units "symbols";
                     default "-1";
                     description "Minimum modulation to be configured (in case adaptive modulation is not used, this value represents also the fixed modulation). The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.";
                 }
                 leaf modulation-max {
-                    type int64;
+                    type int16;
                     units "symbols";
                     default "-1";
                     description "Maximum modulation to be configured. The value of this field is only relevant, if Adaptive Modulation has been activated. The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.";
@@ -1085,13 +1089,13 @@ module microwave-model {
                     description "ATPC. Activation of Automated Transmit Power Control shall be expressed as a 'true'.";
                 }
                 leaf atpc-thresh-upper {
-                    type int64;
+                    type int16;
                     units "dBm";
                     default "99";
                     description "If the receive level is higher than the upper threshold value, the transmitter is notified to decrease transmit power.";
                 }
                 leaf atpc-thresh-lower {
-                    type int64;
+                    type int16;
                     units "dBm";
                     default "99";
                     description "If the receive level is lower than the lower threshold value, the transmitter is notified to increase transmit power.";
@@ -1101,7 +1105,7 @@ module microwave-model {
                     description "Activation of automatically selecting the transmit frequency in unlicensed bands shall be expressed as a 'true'.";
                 }
                 leaf auto-freq-select-range {
-                    type int64;
+                    type int8;
                     units "channels";
                     default "-1";
                     description "Number of transmit channels (starting at the center frequency defined in txFrequency and with channel bandwidth according to txChannelBandwidth) that define the range within the transmit frequency can automatically been chosen. ";
@@ -1125,7 +1129,7 @@ module microwave-model {
                     description "Maintenance Feature. The currently configured type of looping back of the air interface header shall be expressed here. The received header is returned to the remote site.";
                 }
                 leaf maintenance-timer {
-                    type int64;
+                    type int32;
                     units "s";
                     default "-1";
                     description "Time of existence of any maintenance configuration (e.g. the loop back of microwave header information). Valid values are defined in AirInterface::AirInterfaceCapability::maintenanceTimerRange.";
@@ -1140,63 +1144,63 @@ module microwave-model {
             }
             grouping air-interface-status {
                 leaf tx-frequency-cur {
-                    type int64;
+                    type int32;
                     units "kHz";
                     default "-1";
                     config false;
                     description "Center frequency of the currently operated transmit channel.";
                 }
                 leaf rx-frequency-cur {
-                    type int64;
+                    type int32;
                     units "kHz";
                     default "-1";
                     config false;
                     description "Center frequency of the currently operated receive channel.";
                 }
                 leaf tx-level-cur {
-                    type int64;
+                    type int8;
                     units "dBm";
                     default "99";
                     config false;
                     description "Current transmit level.";
                 }
                 leaf rx-level-cur {
-                    type int64;
+                    type int8;
                     units "dBm";
                     default "99";
                     config false;
                     description "Current receive level.";
                 }
                 leaf modulation-cur {
-                    type int64;
+                    type int16;
                     units "symbols";
                     default "-1";
                     config false;
                     description "Currently operated modulation on transmit path. The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.";
                 }
                 leaf code-rate-cur {
-                    type int64;
+                    type int8;
                     units "%";
                     default "-1";
                     config false;
                     description "Code rate of the currently operated coding scheme (Net bit rate ≤ Gross bit rate · code rate).";
                 }
                 leaf snir-cur {
-                    type int64;
+                    type int8;
                     units "dB";
                     default "-99";
                     config false;
                     description "Currently measured signal to (noise+interference) ratio.";
                 }
                 leaf xpd-cur {
-                    type int64;
+                    type int8;
                     units "dB";
                     default "-99";
                     config false;
                     description "Currently measured cross polarization discrimination.";
                 }
                 leaf rf-temp-cur {
-                    type int64;
+                    type int8;
                     units "Celsius";
                     default "-99";
                     config false;
@@ -1362,6 +1366,7 @@ module microwave-model {
         * package air-interface-diversity
         **********************/ 
             container mw-air-interface-diversity-pac {
+                presence  "";
                 leaf layer-protocol {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
@@ -1436,7 +1441,7 @@ module microwave-model {
             }
             grouping air-interface-diversity-status {
                 leaf snir-cur {
-                    type int64;
+                    type int8;
                     units "dB";
                     default "-99";
                     config false;
@@ -1665,7 +1670,7 @@ module microwave-model {
                     description "TDM frame to be applied.";
                 }
                 leaf number-of-tdm-segments-to-be-reserved {
-                    type int64;
+                    type int16;
                     default "-1";
                     description "Allows to configure the number of segments reserved for TDM frames of the type specified in HybridMwStructure::HybridMwStructureConfiguration::structureType";
                 }
@@ -1728,6 +1733,7 @@ module microwave-model {
         * package ethernet-container
         **********************/ 
             container mw-ethernet-container-pac {
+                presence  "";
                 leaf layer-protocol {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
@@ -1929,6 +1935,7 @@ module microwave-model {
         **********************/ 
             container mw-tdm-container-pac {
                 if-feature hybrid-microwave;
+                presence  "";
                 leaf layer-protocol {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
@@ -2048,7 +2055,7 @@ module microwave-model {
         **********************/ 
             grouping mw-current-problem {
                 leaf sequence-number {
-                    type int64;
+                    type int32;
                     config false;
                     description "Unique sequence number of the current problem object.";
                 }
@@ -2076,7 +2083,7 @@ module microwave-model {
         }
         grouping object-creation-notification {
             leaf counter {
-                type int64;
+                type int32;
                 default "-1";
                 description "Counts object creation notifications.";
             }
@@ -2102,7 +2109,7 @@ module microwave-model {
         }
         grouping object-deletion-notification {
             leaf counter {
-                type int64;
+                type int32;
                 default "-1";
                 description "Counts object deletion notifications.";
             }
@@ -2123,7 +2130,7 @@ module microwave-model {
         }
         grouping attribute-value-changed-notification {
             leaf counter {
-                type int64;
+                type int32;
                 default "-1";
                 description "Counts attribute value changed notifications.";
             }
@@ -2154,7 +2161,7 @@ module microwave-model {
         }
         grouping problem-notification {
             leaf counter {
-                type int64;
+                type int32;
                 default "-1";
                 description "Counts problem notifications";
             }
