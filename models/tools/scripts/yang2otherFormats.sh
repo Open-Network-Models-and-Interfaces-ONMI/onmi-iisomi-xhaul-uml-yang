@@ -19,16 +19,16 @@ DIR_YIN_ODL=./yin-odl
 
 
 echo "Converting YANG to YIN"
-mkdir ${DIR_YIN}
+mkdir -p ${DIR_YIN}
 ${DIR_SCRIPTS}/yang2yin.sh ${DIR_YANG} ${DIR_YIN}
 echo ""
 
 echo "Converting YANG to YANG-ODL"
-mkdir ${DIR_YANG_ODL}
-${DIR_SCRIPTS}/yang2odl.sh ${DIR_YANG} ${DIR_YANG_ODL}
+mkdir -p ${DIR_YANG_ODL}
+#${DIR_SCRIPTS}/yang2odl.sh ${DIR_YANG} ${DIR_YANG_ODL}
 echo ""
 
 echo "Converting YANG-ODL to YIN-ODL"
-mkdir ${DIR_YIN_ODL}
-${DIR_SCRIPTS}/yang2yin.sh ${DIR_YANG_ODL} ${DIR_YIN_ODL}
+mkdir -p ${DIR_YIN_ODL}
+#${DIR_SCRIPTS}/yang2yin.sh ${DIR_YANG_ODL} ${DIR_YIN_ODL}
 echo ""

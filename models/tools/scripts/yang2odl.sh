@@ -30,7 +30,7 @@ fi
 
 for x in ${!MODELS[@]}; do
     y=${MODELS[$x]##*/}
-    z=${y%%.*}
+    z=${y%%.yang*}
     echo "converting '${z}'"
     cp -f ${SRC}/${z}.yang ${DST}/${z}@${REVISIONS[$x]}.yang
 done

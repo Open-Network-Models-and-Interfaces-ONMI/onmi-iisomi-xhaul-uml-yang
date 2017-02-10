@@ -1,0 +1,2681 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="core-model"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:core-model="urn:onf:params:xml:ns:yang:CoreModel">
+  <namespace uri="urn:onf:params:xml:ns:yang:CoreModel"/>
+  <prefix value="core-model"/>
+  <organization>
+    <text>ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project</text>
+  </organization>
+  <contact>
+    <text>WG Web: &lt;https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport&gt;
+WG List:  &lt;mailto:wireless-transport@login.opennetworking.org&gt;
+WG Chair: Lyndon Ong
+          &lt;mailto:lyong@ciena.com&gt;
+WG Chair: Giorgio Cazzaniga
+          &lt;mailto:giorgio.cazzaniga@sm-optics.com&gt;
+Editors:  Thorsten Heinze
+          &lt;mailto:thorsten.heinze@telefonica.com&gt;
+          Martin Skorupski
+          &lt;mailto:martin.skorupski@highstreet-technologies.com&gt;</text>
+  </contact>
+  <description>
+    <text>This module contains a collection of YANG definitions for managing wireless networks.</text>
+  </description>
+  <revision date="2017-02-10">
+    <description>
+      <text>Initial version</text>
+    </description>
+    <reference>
+      <text>ONF TR 532: A YANG Data Model for Wireless Networks.</text>
+    </reference>
+  </revision>
+  <typedef name="protection-reason">
+    <type name="enumeration">
+      <enum name="wait-to-revert">
+        <description>
+          <text>The resource is selected as control is waiting to restore to a preferred resource.</text>
+        </description>
+      </enum>
+      <enum name="signal-degrade">
+        <description>
+          <text>The resource is selected as the best preferred resource is in signal degrade.</text>
+        </description>
+      </enum>
+      <enum name="signal-fail">
+        <description>
+          <text>The resource is selected as the best preferred resource is in signal fail.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The cause of the current protection state.
+Lifecycle : Preliminary</text>
+    </description>
+  </typedef>
+  <typedef name="route-selection-control">
+    <type name="enumeration">
+      <enum name="normal">
+        <description>
+          <text>No administrative control applied to the switch.</text>
+        </description>
+      </enum>
+      <enum name="manual">
+        <description>
+          <text>Resource temporarily chosen by control configuration where the resource is not the preferred resource.
+Preferred resource has highest priority.
+Temporarily overrides reversion.
+If this resource fails will switch to best available resource. 
+If resource selected is shared and another FC requires the resource then the selection control will change to Normal and switch to best available based upon normal rules.
+If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
+Can be returned to NORMAL by configuration action.</text>
+        </description>
+      </enum>
+      <enum name="forced">
+        <description>
+          <text>Resource temporarily chosen by control configuration where the resource is not the preferred resource.
+Preferred resource has highest priority.
+Temporarily overrides reversion.
+If this resource fails will NOT switch. 
+If resource selected is shared and another FC requires the resource through a FORCE on that FC and the FC is of a higher FcPriority then the selection control will change to NORMAL and switch to best available based upon normal rules.
+If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
+Can be returned to NORMAL by configuration action.</text>
+        </description>
+      </enum>
+      <enum name="lock-out">
+        <description>
+          <text>The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of.
+This overrides all other protection control states including forced.
+If the item is locked out then it cannot be used under any circumstances.
+Note: Only relevant when part of a protection scheme.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Possible degrees of administrative control applied to the Route selection.
+Lifecycle : Preliminary</text>
+    </description>
+  </typedef>
+  <typedef name="route-selection-reason">
+    <type name="enumeration">
+      <enum name="wait-to-revert">
+        <description>
+          <text>The resource is selected as control is waiting to restore to a preferred resource.</text>
+        </description>
+      </enum>
+      <enum name="signal-degrade">
+        <description>
+          <text>The resource is selected as the best preferred resource is in signal degrade.</text>
+        </description>
+      </enum>
+      <enum name="signal-fail">
+        <description>
+          <text>The resource is selected as the best preferred resource is in signal fail.</text>
+        </description>
+      </enum>
+      <enum name="normal">
+        <description>
+          <text>No administrative control applied to the switch.</text>
+        </description>
+      </enum>
+      <enum name="manual">
+        <description>
+          <text>Resource temporarily chosen by control configuration where the resource is not the preferred resource.
+Preferred resource has highest priority.
+Temporarily overrides reversion.
+If this resource fails will switch to best available resource. 
+If resource selected is shared and another FC requires the resource then the selection control will change to Normal and switch to best available based upon normal rules.
+If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
+Can be returned to NORMAL by configuration action.</text>
+        </description>
+      </enum>
+      <enum name="forced">
+        <description>
+          <text>Resource temporarily chosen by control configuration where the resource is not the preferred resource.
+Preferred resource has highest priority.
+Temporarily overrides reversion.
+If this resource fails will NOT switch. 
+If resource selected is shared and another FC requires the resource through a FORCE on that FC and the FC is of a higher FcPriority then the selection control will change to NORMAL and switch to best available based upon normal rules.
+If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
+Can be returned to NORMAL by configuration action.</text>
+        </description>
+      </enum>
+      <enum name="lock-out">
+        <description>
+          <text>The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of.
+This overrides all other protection control states including forced.
+If the item is locked out then it cannot be used under any circumstances.
+Note: Only relevant when part of a protection scheme.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The cause of the current route selection.
+Lifecycle : Preliminary</text>
+    </description>
+  </typedef>
+  <typedef name="switch-control">
+    <type name="enumeration">
+      <enum name="normal">
+        <description>
+          <text>No administrative control applied to the switch.</text>
+        </description>
+      </enum>
+      <enum name="manual">
+        <description>
+          <text>Resource temporarily chosen by control configuration where the resource is not the preferred resource.
+Preferred resource has highest priority.
+Temporarily overrides reversion.
+If this resource fails will switch to best available resource. 
+If resource selected is shared and another FC requires the resource then the selection control will change to Normal and switch to best available based upon normal rules.
+If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
+Can be returned to NORMAL by configuration action.</text>
+        </description>
+      </enum>
+      <enum name="forced">
+        <description>
+          <text>Resource temporarily chosen by control configuration where the resource is not the preferred resource.
+Preferred resource has highest priority.
+Temporarily overrides reversion.
+If this resource fails will NOT switch. 
+If resource selected is shared and another FC requires the resource through a FORCE on that FC and the FC is of a higher FcPriority then the selection control will change to NORMAL and switch to best available based upon normal rules.
+If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
+Can be returned to NORMAL by configuration action.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Lifecycle : Preliminary</text>
+    </description>
+  </typedef>
+  <typedef name="switch-state-reason">
+    <type name="enumeration">
+      <enum name="wait-to-revert">
+        <description>
+          <text>The resource is selected as control is waiting to restore to a preferred resource.</text>
+        </description>
+      </enum>
+      <enum name="signal-degrade">
+        <description>
+          <text>The resource is selected as the best preferred resource is in signal degrade.</text>
+        </description>
+      </enum>
+      <enum name="signal-fail">
+        <description>
+          <text>The resource is selected as the best preferred resource is in signal fail.</text>
+        </description>
+      </enum>
+      <enum name="normal">
+        <description>
+          <text>No administrative control applied to the switch.</text>
+        </description>
+      </enum>
+      <enum name="manual">
+        <description>
+          <text>Resource temporarily chosen by control configuration where the resource is not the preferred resource.
+Preferred resource has highest priority.
+Temporarily overrides reversion.
+If this resource fails will switch to best available resource. 
+If resource selected is shared and another FC requires the resource then the selection control will change to Normal and switch to best available based upon normal rules.
+If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
+Can be returned to NORMAL by configuration action.</text>
+        </description>
+      </enum>
+      <enum name="forced">
+        <description>
+          <text>Resource temporarily chosen by control configuration where the resource is not the preferred resource.
+Preferred resource has highest priority.
+Temporarily overrides reversion.
+If this resource fails will NOT switch. 
+If resource selected is shared and another FC requires the resource through a FORCE on that FC and the FC is of a higher FcPriority then the selection control will change to NORMAL and switch to best available based upon normal rules.
+If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
+Can be returned to NORMAL by configuration action.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Explains the reason for the current switch state.
+Lifecycle : Preliminary</text>
+    </description>
+  </typedef>
+  <typedef name="reversion-mode">
+    <type name="enumeration">
+      <enum name="revertive">
+        <description>
+          <text>An FC switched to a lower priority (non-preferred) resource will revert to a higher priority (preferred) resource when that recovers (potentially after some hold-off time).</text>
+        </description>
+      </enum>
+      <enum name="non-revertive">
+        <description>
+          <text>An FC switched to a lower priority (non-preferred) resource will not revert to a higher priority (preferred) resource when that recovers.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The reversion mode associated with protection.
+Lifecycle : Experimental</text>
+    </description>
+  </typedef>
+  <grouping name="global-pac">
+    <uses name="global-class"/>
+    <description>
+      <text>Provides the properties of a GlobalClass via composition.
+Lifecycle : Preliminary</text>
+    </description>
+  </grouping>
+  <grouping name="local-pac">
+    <uses name="local-class"/>
+    <description>
+      <text>Provides the properties of a LocalClass via composition.
+Lifecycle : Preliminary</text>
+    </description>
+  </grouping>
+  <typedef name="protection-type">
+    <type name="string"/>
+    <status value="obsolete"/>
+    <description>
+      <text>Identifies the type of protection of an FcSwitch.</text>
+    </description>
+  </typedef>
+  <typedef name="layer-protocol-name">
+    <type name="string"/>
+    <description>
+      <text>Provides a controlled list of layer protocol names and indicates the naming authority.
+Note that it is expected that attributes will be added to this structure to convey the naming authority name, the name of the layer protocol using a human readable string and any particular standard reference.
+Layer protocol names include:
+-    Layer 1 (L1): OTU, ODU
+-    Layer 2 (L2): Carrier Grade Ethernet (ETY, ETH), MPLS-TP (MT)
+Lifecycle : Preliminary</text>
+    </description>
+  </typedef>
+  <typedef name="port-role">
+    <type name="string"/>
+    <description>
+      <text>The role of a port in the context of the function of the forwarding entity that it bounds.
+Lifecycle : Preliminary</text>
+    </description>
+  </typedef>
+  <typedef name="port-direction">
+    <type name="enumeration">
+      <enum name="bidirectional">
+        <description>
+          <text>The Port has both an INPUT flow and an OUTPUT flow defined.</text>
+        </description>
+      </enum>
+      <enum name="input">
+        <description>
+          <text>The Port only has definition for a flow into the Forwarding entity (i.e. an ingress flow).</text>
+        </description>
+      </enum>
+      <enum name="output">
+        <description>
+          <text>The Port only has definition for a flow out of the Forwarding entity (i.e. an egress flow).</text>
+        </description>
+      </enum>
+      <enum name="unidentified-or-unknown">
+        <description>
+          <text>Not a normal state. The system is unable to determine the correct value.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The orientation of flow at the Port of a Forwarding entity</text>
+    </description>
+  </typedef>
+  <typedef name="forwarding-direction">
+    <type name="enumeration">
+      <enum name="bidirectional">
+        <description>
+          <text>The Forwarding entity supports both BIDIRECTIONAL flows at all Ports (i.e. all Ports have both an INPUT flow and an OUTPUT flow defined).</text>
+        </description>
+      </enum>
+      <enum name="unidirectional">
+        <description>
+          <text>The Forwarding entity has Ports that are either INPUT or OUTPUT. It has no BIDIRECTIONAL Ports.</text>
+        </description>
+      </enum>
+      <enum name="undefined-or-unknown">
+        <description>
+          <text>Not a normal state. The system is unable to determine the correct value.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The directionality of a Forwarding entity.</text>
+    </description>
+  </typedef>
+  <typedef name="termination-direction">
+    <type name="enumeration">
+      <enum name="bidirectional">
+        <description>
+          <text>A Termination with both SINK and SOURCE flows.</text>
+        </description>
+      </enum>
+      <enum name="sink">
+        <description>
+          <text>The flow is up the layer stack from the server side to the client side. 
+Considering an example of a Termination function within the termination entity, a SINK flow:
+- will arrive at at the base of the termination function (the server side) where it is essentially at an INPUT to the termination component
+- then will be decoded and deconstructed 
+- then relevant parts of the flow will be sent out of the termination function (the client side) where it is essentially at an OUTPUT from the termination component
+A SINK termination is one that only supports a SINK flow.
+A SINK termiation can be bound to an OUTPUT Port of a Forwarding entity</text>
+        </description>
+      </enum>
+      <enum name="source">
+        <description>
+          <text>The flow is down the layer stack from the server side to the client side. 
+Considering an example of a Termination function within the termination entity, a SOURCE flow:
+- will arrive at at the top of the termination function (the client side) where it is essentially at an INPUT to the termination component
+- then will be assembled with various overheads etc and will be coded 
+- then coded form of the assembly of flow will be sent out of the termination function (the server side) where it is essentially at an OUTPUT from the termination component
+A SOURCE termination is one that only supports a SOURCE flow.
+A SOURCE termiation can be bound to an INPUT Port of a Forwarding entity</text>
+        </description>
+      </enum>
+      <enum name="undefined-or-unknown">
+        <description>
+          <text>Not a normal state. The system is unable to determine the correct value.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The directionality of a termination entity.</text>
+    </description>
+  </typedef>
+  <typedef name="extended-termination-direction">
+    <type name="enumeration">
+      <enum name="bidirectional">
+        <description>
+          <text>A Termination with both SINK and SOURCE flows.</text>
+        </description>
+      </enum>
+      <enum name="sink">
+        <description>
+          <text>The flow is up the layer stack from the server side to the client side. 
+Considering an example of a Termination function within the termination entity, a SINK flow:
+- will arrive at at the base of the termination function (the server side) where it is essentially at an INPUT to the termination component
+- then will be decoded and deconstructed 
+- then relevant parts of the flow will be sent out of the termination function (the client side) where it is essentially at an OUTPUT from the termination component
+A SINK termination is one that only supports a SINK flow.
+A SINK termiation can be bound to an OUTPUT Port of a Forwarding entity</text>
+        </description>
+      </enum>
+      <enum name="source">
+        <description>
+          <text>The flow is down the layer stack from the server side to the client side. 
+Considering an example of a Termination function within the termination entity, a SOURCE flow:
+- will arrive at at the top of the termination function (the client side) where it is essentially at an INPUT to the termination component
+- then will be assembled with various overheads etc and will be coded 
+- then coded form of the assembly of flow will be sent out of the termination function (the server side) where it is essentially at an OUTPUT from the termination component
+A SOURCE termination is one that only supports a SOURCE flow.
+A SOURCE termiation can be bound to an INPUT Port of a Forwarding entity</text>
+        </description>
+      </enum>
+      <enum name="undefined-or-unknown">
+        <description>
+          <text>Not a normal state. The system is unable to determine the correct value.</text>
+        </description>
+      </enum>
+      <enum name="contra-direction-sink">
+        <description>
+          <text>The essential flow of the Termination entity is SINK (i.e. up the layer stack) but the INPUT flow of the Termination entity was provided by a SOURCE OUTPUT or taken from a SOURCE INPUT (duplicating the input signal) hence reversing the flow orientation from down the layer stack to up the layer stack.</text>
+        </description>
+      </enum>
+      <enum name="contra-direction-source">
+        <description>
+          <text>The essential flow of the Termination entity is SOURCE (i.e. down the layer stack) but the OUTPUT flow of the Termination entity was fed to (and replaces) a SINK OUTPUT or was fed to a SINK INPUT (replacing the normal flow) hence reversing the flow orientation from down the layer stack to up the layer stack.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Extended to include contra-direction considerations. Only applies to LP and elements of LP not to LTP.
+Lifecycle : Experimental</text>
+    </description>
+  </typedef>
+  <typedef name="termination-state">
+    <type name="enumeration">
+      <enum name="lp-can-never-terminate">
+        <description>
+          <text>A non-flexible case that can never be terminated.</text>
+        </description>
+      </enum>
+      <enum name="lt-not-terminated">
+        <description>
+          <text>A flexible termination that can terminate but is currently not terminated.</text>
+        </description>
+      </enum>
+      <enum name="terminated-server-to-client-flow">
+        <description>
+          <text>A flexible termination that is currently terminated for server to client flow only.</text>
+        </description>
+      </enum>
+      <enum name="terminated-client-to-server-flow">
+        <description>
+          <text>A flexible termination that is currently terminated for client to server flow only.</text>
+        </description>
+      </enum>
+      <enum name="terminated-bidirectional">
+        <description>
+          <text>A flexible termination that is currently terminated in both directions of flow.</text>
+        </description>
+      </enum>
+      <enum name="lt-permenantly-terminated">
+        <description>
+          <text>A non-flexible termination that is always terminated (in both directions of flow for a bidirectional case and in the one direction of flow for both unidirectional cases).</text>
+        </description>
+      </enum>
+      <enum name="termination-state-unknown">
+        <description>
+          <text>There TerminationState cannot be determined.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Provides support for the range of behaviours and specific states that an LP can take with respect to termination of the signal.
+Indicates to what degree the LayerTermination is terminated.
+Lifecycle : Experimental</text>
+    </description>
+  </typedef>
+  <grouping name="configuration-and-switch-controller">
+    <leaf name="switch-rule">
+      <type name="to-be-defined"/>
+      <description>
+        <text>A sketch of the presence of complex rules governing the switch behavior.</text>
+      </description>
+    </leaf>
+    <leaf-list name="fc-switch">
+      <type name="leafref">
+        <path value="/core-model:forwarding-construct/core-model:fc-switch/core-model:uuid"/>
+      </type>
+      <description>
+        <text>The switch being controlled.</text>
+      </description>
+    </leaf-list>
+    <container name="control-parameters">
+      <uses name="control-parameters-pac"/>
+      <description>
+        <text>The control parameters to be applied if local parameters are used rather than profiles</text>
+      </description>
+    </container>
+    <leaf-list name="profile-proxy">
+      <type name="string"/>
+      <description>
+        <text>Applied profiles.</text>
+      </description>
+    </leaf-list>
+    <container name="local-pac">
+      <uses name="local-pac"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="global-pac">
+      <uses name="global-pac"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <leaf name="is-frozen">
+      <type name="boolean"/>
+      <description>
+        <text>Temporarily prevents any switch action to be taken and, as such, freezes the current state. 
+Until the freeze is cleared, additional near-end external commands are rejected and fault condition changes and received APS messages are ignored.
+All administrative controls of any aspect of protection are rejected.</text>
+      </description>
+    </leaf>
+    <leaf name="is-coordinated-switching-both-ends">
+      <type name="boolean"/>
+      <description>
+        <text>The C&amp;SC is operating such that switching at both ends of each flow acorss the FC is coordinated at both ingress and egress ends.</text>
+      </description>
+    </leaf>
+    <leaf-list name="subordinate-controller">
+      <type name="leafref">
+        <path value="/core-model:network-element/core-model:ltp/core-model:lp/core-model:config-and-switch-controller/core-model:switch-rule"/>
+      </type>
+      <description>
+        <text>A C&amp;SC that is fully or partially subordinate this C&amp;SC. 
+A peer is considered as partially subordinate in that the peer will respond to requests for action from this C&amp;SC but will also make requests for action to be carried out by this C&amp;SC.
+Where there is a peer relationship each controller in the peering will see the other controller as subordinate.</text>
+      </description>
+    </leaf-list>
+    <description>
+      <text>Represents the capability to control and coordinate switches, to add/delete/modify FCs and to add/delete/modify LTPs/LPs so as to realize a protection scheme.
+Lifecycle : Preliminary</text>
+    </description>
+  </grouping>
+  <grouping name="control-parameters-pac">
+    <leaf name="reversion-mode">
+      <type name="reversion-mode"/>
+      <description>
+        <text>Indcates whether the protection scheme is revertive or non-revertive.</text>
+      </description>
+    </leaf>
+    <leaf name="wait-to-revert-time">
+      <type name="int64"/>
+      <default value="15"/>
+      <description>
+        <text>If the protection system is revertive, this attribute specifies the time, in minutes, to wait after a fault clears on a higher priority (preferred) resource before reverting to the preferred resource.</text>
+      </description>
+    </leaf>
+    <leaf name="prot-type">
+      <type name="protection-type"/>
+      <description>
+        <text>Indicates the protection scheme that is used for the ProtectionGroup.</text>
+      </description>
+    </leaf>
+    <leaf name="hold-off-time">
+      <type name="int64"/>
+      <description>
+        <text>This attribute indicates the time, in milliseconds, between declaration of signal degrade or signal fail, and the initialization of the protection switching algorithm.</text>
+      </description>
+    </leaf>
+    <leaf name="network-scheme-specification">
+      <type name="string"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>A list of control parameters to apply to a switch.
+Lifecycle : Preliminary</text>
+    </description>
+  </grouping>
+  <grouping name="fc-switch">
+    <leaf name="hold-off-time">
+      <type name="int64"/>
+      <description>
+        <text>Moved to ControlParameter_Pac... This attribute indicates the time, in seconds, between declaration of unacceptable quality of signal on the currently selected FcPort, and the initialization of the protection switching algorithm. </text>
+      </description>
+    </leaf>
+    <leaf name="prot-type">
+      <type name="protection-type"/>
+      <description>
+        <text>Indicates the protection scheme that is used for the ProtectionGroup.</text>
+      </description>
+    </leaf>
+    <leaf name="reversion-mode">
+      <type name="reversion-mode"/>
+      <description>
+        <text>Moved to ControlParameter_Pac... This attribute whether or not the protection scheme is revertive or non-revertive. </text>
+      </description>
+    </leaf>
+    <leaf-list name="selected-fc-port">
+      <type name="leafref">
+        <path value="/core-model:forwarding-construct/core-model:fc-port/core-model:uuid"/>
+      </type>
+      <description>
+        <text>Indicates which points are selected by the switch.
+Depending on the switch spec (via Fcspec)
+- more than one FcPort can be selected at any one time (e.g. egress switch, ingress packet switch)
+- zero FcPorts can  be selected. For an ingress switch this indicates that the switch common (egress) is 'high impedance'
+.</text>
+      </description>
+    </leaf-list>
+    <leaf-list name="profile-proxy">
+      <type name="string"/>
+      <description>
+        <text>Provides a set of predefined values for switch control in place of the direct values available via the FcSwitch or via _configurationAndSwitchControl.</text>
+      </description>
+    </leaf-list>
+    <container name="internal-configuration-and-switch-control">
+      <uses name="configuration-and-switch-controller"/>
+      <description>
+        <text>A switch controller encapsulated in the FcSwitch.</text>
+      </description>
+    </container>
+    <leaf name="switch-control">
+      <type name="switch-control"/>
+      <description>
+        <text>Degree of administrative control applied to the switch selection.</text>
+      </description>
+    </leaf>
+    <leaf name="switch-selects-ports">
+      <type name="port-direction"/>
+      <description>
+        <text>Indicates whether the switch selects from ingress to the FC or to egress of the FC, or both.</text>
+      </description>
+    </leaf>
+    <leaf name="switch-selection-reason">
+      <type name="switch-state-reason"/>
+      <config value="false"/>
+      <description>
+        <text>The reason for the current switch selection.</text>
+      </description>
+    </leaf>
+    <container name="control-parameters">
+      <uses name="control-parameters-pac"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <leaf name="wait-to-restore-time">
+      <type name="int64"/>
+      <description>
+        <text>Moved to ControlParameter_Pac and changed to waitToRevert... If the protection system is revertive, this attribute specifies the amount of time, in seconds, to wait after the preferred FcPort returns to an acceptable state of operation (e.g. a fault has cleared) before restoring traffic to that preferred FcPort.</text>
+      </description>
+    </leaf>
+    <uses name="local-class"/>
+    <description>
+      <text>The FcSwitch class models the switched forwarding of traffic (traffic flow) between FcPorts and is present where there is protection functionality in the FC. 
+If an FC exposes protection (having two or more FcPorts that provide alternative identical inputs/outputs), the FC will have one or more associated FcSwitch objects to represent the alternative flow choices visible at the edge of the FC.
+The FC switch represents and defines a protection switch structure encapsulated in the FC. 
+Essentially performs one of the functions of the Protection Group in a traditional model. It associates to 2 or more FcPorts each playing the role of a Protection Unit. 
+One or more protection, i.e. standby/backup, FcPorts provide protection for one or more working (i.e. regular/main/preferred) FcPorts where either protection or working can feed one or more protected FcPort.
+The switch may be used in revertive or non-revertive (symmetric) mode. When in revertive mode it may define a waitToRestore time.
+It may be used in one of several modes including source switch, destination switched, source and destination switched etc (covering cases such as 1+1 and 1:1).
+It may be locked out (prevented from switching), force switched or manual switched.
+It will indicate switch state and change of state.
+The switch can be switched away from all sources such that it becomes open and hence two coordinated switches can both feed the same LTP so long as at least one of the two is switched away from all sources (is 'open').
+The ability for a Switch to be 'high impedance' allows bidirectional ForwardingConstructs to be overlaid on the same bidirectional LTP where the appropriate control is enabled to prevent signal conflict.
+This ability allows multiple alternate routes to be present that otherwise would be in conflict.</text>
+    </description>
+  </grouping>
+  <grouping name="forwarding-domain">
+    <leaf-list name="layer-protocol-name">
+      <type name="layer-protocol-name"/>
+      <min-elements value="1"/>
+      <description>
+        <text>One or more protocol layers at which the FD represents the opportunity to enable forwarding between LTP that bound it.</text>
+      </description>
+    </leaf-list>
+    <leaf-list name="lower-level-fd">
+      <type name="leafref">
+        <path value="/core-model:network-element/core-model:fd/core-model:uuid"/>
+      </type>
+      <description>
+        <text>The FD class supports a recursive aggregation relationship (HigherLevelFdEncompassesLowerLevelFds) such that the internal construction of an FD can be exposed as multiple lower level FDs and associated Links (partitioning).
+The aggregated FDs and Links form an interconnected topology that provides and describes the capability of the aggregating FD.
+Note that the model actually represents aggregation of lower level FDs into higher level FDs as views rather than FD partition, and supports multiple views. 
+Aggregation allow reallocation of capacity from lower level FDs to different higher level FDs as if the network is reorganized  (as the association is aggregation not composition).</text>
+      </description>
+    </leaf-list>
+    <leaf-list name="fc">
+      <type name="leafref">
+        <path value="/core-model:forwarding-construct/core-model:uuid"/>
+      </type>
+      <description>
+        <text>An FD aggregares one or more FCs. A aggregated FC connects LTPs that bound the FD.</text>
+      </description>
+    </leaf-list>
+    <leaf-list name="ltp">
+      <type name="leafref">
+        <path value="/core-model:network-element/core-model:ltp/core-model:uuid"/>
+      </type>
+      <description>
+        <text>An instance of FD is associated with zero or more LTP objects. 
+The LTPs that bound the FD provide capacity for forwarding.</text>
+      </description>
+    </leaf-list>
+    <leaf-list name="lower-level-link">
+      <type name="string"/>
+      <description>
+        <text>The FD encompasses Links that interconnect lower level FDs and collect links that are wholly within the bounds of the FD.
+See also _lowerLevelFd.</text>
+      </description>
+    </leaf-list>
+    <uses name="global-class"/>
+    <description>
+      <text>The ForwardingDomain (FD) class models the topological component that represents the opportunity to enable forwarding (of specific transport characteristic information at one or more protocol layers) between points represented by the LTP in the model.
+The FD object provides the context for and constrains the formation, adjustment and removal of FCs and hence offers the potential to enable forwarding. 
+The LTPs available are those defined at the boundary of the FD.
+At a lower level of recursion an FD could represent a fabric (switch matrix) in a Network Element (NE). 
+An NE can encompass more than one switch matrix and hence more than one FD. The FD representing a switch matrix can be further partitioned.
+The FD corresponds to a subnetwork [ITU-T G.800], FlowDomain [TMF 612] and a MultiLayerSubNetwork (MLSN) [TMF 612]. As in the TMF concept of MLSN and unlike the ITU-T concet of subnetwork model the FD can support more than one layer-protocol.</text>
+    </description>
+  </grouping>
+  <grouping name="forwarding-construct">
+    <leaf name="layer-protocol-name">
+      <type name="layer-protocol-name"/>
+      <description>
+        <text>The layerProtocol at which the FC enables the potential for forwarding.</text>
+      </description>
+    </leaf>
+    <leaf-list name="lower-level-fc">
+      <type name="leafref">
+        <path value="/core-model:forwarding-construct/core-model:uuid"/>
+      </type>
+      <description>
+        <text>An FC object supports a recursive aggregation relationship such that the internal construction of an FC can be exposed as multiple lower level FC objects (partitioning).
+Aggregation is used as for the FD to allow changes in hierarchy. 
+FC aggregation reflects FD aggregation. 
+The FC represents a Cross-Connection in an NE. The Cross-Connection in an NE is not necessarily the lowest level of FC partitioning.
+</text>
+      </description>
+    </leaf-list>
+    <leaf-list name="fc-route">
+      <type name="string"/>
+      <description>
+        <text>An FC object can have zero or more routes, each of which is defined as a list of lower level FC objects describing the flow across the network.</text>
+      </description>
+    </leaf-list>
+    <list name="fc-port">
+      <key value="uuid"/>
+      <min-elements value="2"/>
+      <uses name="fc-port"/>
+      <description>
+        <text>The association of the FC to LTPs is made via FcPorts (essentially the ports of the FC).</text>
+      </description>
+    </list>
+    <list name="fc-switch">
+      <key value="uuid"/>
+      <uses name="fc-switch"/>
+      <description>
+        <text>If an FC exposes protection (having two FcPorts that provide alternative identical inputs/outputs), the FC will have one or more associated FcSwitch objects.
+The arrangement of switches for a particular instance is described by a referenced FcSpec</text>
+      </description>
+    </list>
+    <leaf name="forwarding-direction">
+      <type name="forwarding-direction"/>
+      <description>
+        <text>The directionality of the ForwardingConstruct. 
+Is applicable to simple ForwardingConstructs where all FcPorts are BIDIRECTIONAL (the ForwardingConstruct will be BIDIRECTIONAL) or UNIDIRECTIONAL (the ForwardingConstruct will be UNIDIRECTIONAL). 
+Is not present in more complex cases.</text>
+      </description>
+    </leaf>
+    <leaf name="is-protection-lock-out">
+      <if-feature name="protection-exclude-server"/>
+      <type name="boolean"/>
+      <description>
+        <text>The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of.
+This overrides all other protection control states including forced.
+If the item is locked out then it cannot be used under any circumstances.
+Note: Only relevant when part of a protection scheme.</text>
+      </description>
+    </leaf>
+    <leaf name="service-priority">
+      <type name="int64"/>
+      <description>
+        <text>Relevant where 'service' FCs are competing for server resources.
+Used to determine which signal FC is allocated resource. 
+The priority of the 'service' with respect to other 'services'. 
+Lower numeric value means higher priority. 
+Covers cases such as preemptable.</text>
+      </description>
+    </leaf>
+    <leaf-list name="supported-link">
+      <type name="string"/>
+      <description>
+        <text>An FC that spans between LTPs that terminate the LayerProtocol usually supports one or more links in the client layer.</text>
+      </description>
+    </leaf-list>
+    <uses name="global-class"/>
+    <description>
+      <text>The ForwardingConstruct (FC) class models enabled constrained potential for forwarding between two or more LTPs at a particular specific layerProtocol.
+Like the LTP, the FC supports any transport protocol including all circuit and packet forms.
+It is used to effect forwarding of transport characteristic (layer protocol) information.
+An FC can be in only one FD.
+The ForwardingConstruct is a Forwarding entity.
+At a low level of the recursion, a FC represents a cross-connection within an NE. It may also represent a fragment of a cross-connection under certain circumstances.
+The FC object can be used to represent many different structures including point-to-point (P2P), point-to-multipoint (P2MP), rooted-multipoint (RMP) and multipoint-to-multipoint (MP2MP) bridge and selector structures for linear, ring or mesh protection schemes.</text>
+    </description>
+  </grouping>
+  <container name="network-element">
+    <presence value=""/>
+    <list name="fd">
+      <key value="uuid"/>
+      <uses name="forwarding-domain"/>
+      <description>
+        <text>Represents the FD that is completely within the boundary of the NE.
+At a low level of recursion, an FD (within a network element (NE)) represents a switch matrix (i.e., a fabric). 
+Note that an NE can encompass multiple switch matrices (FDs) and the FD representing the switch matrix can be further partitioned.
+Where an FD is referenced by the NeEncompassesFd association, any FDs that it encompasses (i.e., that are associated with it by HigherLevelFdEncompassesLowerLevelFds), must also be encompassed by the NE and hence must have the NeEncompassesFd association.
+</text>
+      </description>
+    </list>
+    <list name="ltp">
+      <key value="uuid"/>
+      <uses name="logical-termination-point"/>
+      <description>
+        <text>An NE has associated LTPs that are at its boundary.
+The NeEncompassesFd association occurs for FDs that are within the bounds of the NetworkElement definition such that the FD is bounded by LTPs, all of which are on the boundary of the NetworkElement or are within the NetworkElement. 
+An LTP can be independent of an NE.</text>
+      </description>
+    </list>
+    <uses name="global-class"/>
+    <description>
+      <text>The Network Element (NE) class represents a network element (traditional NE) in the data plane.
+A data plane network element is essentially a consolidation of capabilities that can be viewed and controlled through a 'single' management-control port.
+In the direct interface from an SDN controller to a network element in the data plane, the NetworkElement object defines the scope of control for the resources within the network element
+For example internal transfer of user information between the external terminations (ports of the NE), encapsulation, multiplexing/demultiplexing, and OAM functions, etc. 
+The NetworkElement provides the scope of the naming space for identifying objects representing the resources within the data plane network element.
+NE is really a product bundling or some view of management scope, management access, session. 
+The NE is not directly part of topology but brings meaning to the FD context and the LTP context (and hence the links). 
+Lifecycle : LikelyToChange</text>
+    </description>
+  </container>
+  <list name="forwarding-construct">
+    <key value="uuid"/>
+    <uses name="forwarding-construct"/>
+    <description>
+      <text>none</text>
+    </description>
+  </list>
+  <grouping name="fc-port">
+    <leaf-list name="ltp">
+      <type name="leafref">
+        <path value="/core-model:network-element/core-model:ltp/core-model:uuid"/>
+      </type>
+      <max-elements value="2"/>
+      <description>
+        <text>The FcPort may be associated with more than one LTP when the FcPort is bidirectional and the LTPs are unidirectional.
+Multiple Ltp
+- Bidirectional FcPort to two Uni Ltps
+Zero Ltp
+- BreakBeforeMake transition
+- Planned Ltp not yet in place
+- Off-network LTP referenced through other mechanism</text>
+      </description>
+    </leaf-list>
+    <leaf name="role">
+      <type name="port-role"/>
+      <description>
+        <text>Each FcPort of the FC has a role (e.g., working, protection, protected, symmetric, hub, spoke, leaf, root) in the context of the FC with respect to the FC function. </text>
+      </description>
+    </leaf>
+    <leaf name="fc-port-direction">
+      <type name="port-direction"/>
+      <description>
+        <text>The orientation of defined flow at the FcPort.</text>
+      </description>
+    </leaf>
+    <leaf name="is-protection-lock-out">
+      <if-feature name="protection-exclude-fc-port"/>
+      <type name="boolean"/>
+      <description>
+        <text>The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of.
+This overrides all other protection control states including forced.
+If the item is locked out then it cannot be used under any circumstances.
+Note: Only relevant when part of a protection scheme.</text>
+      </description>
+    </leaf>
+    <leaf name="selection-priority">
+      <type name="int64"/>
+      <description>
+        <text>The preference priority of the resource in the protection scheme for a particular FC. 
+The lower the value the higher the priority.
+A lower value of selection priority is preferred
+If two resources have the same value they are of equal priory.
+There is no preference between equal priorities.
+If a resource with the lowest value selection priority fails then the next lowest value available (may be the same value) is picked.
+Hence on failure of the current resource the next best available will be selected.
+If there are several equal values the choice is essentially arbitrary).
+If the scheme is revertive then when a resource of higher priority than the currently selected resource recovers it will be selected.
+This is equivalent to working/protection but allows for all static scheme types with n:m capability. 
+In simple schemes 0 = working and 1 = protecting.</text>
+      </description>
+    </leaf>
+    <leaf name="is-internal-port">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>The FcPort is not exposed and cannot have associated LTPs.
+This form of FcPort is used to enable chaining of FcSwitches or FcRoutes in complex network protection scenarios.</text>
+      </description>
+    </leaf>
+    <leaf-list name="fc-route-feeds-fc-port-egress">
+      <type name="string"/>
+      <description>
+        <text>Identifies which route(s) currently actively forward to the FcPort to exit the FC to an LTP (or for an internal FcPort to propagate to the next internal switch/route).</text>
+      </description>
+    </leaf-list>
+    <uses name="local-class"/>
+    <description>
+      <text>The association of the FC to LTPs is made via FcPorts.
+The FcPort class models the access to the FC function. 
+The traffic forwarding between the associated FcPorts of the FC depends upon the type of FC and may be associated with FcSwitch object instances.  
+In cases where there is resilience, the FcPort may convey the resilience role of the access to the FC. 
+It can represent a protected (resilient/reliable) point or a protecting (unreliable working or protection) point.
+The FcPort replaces the Protection Unit of a traditional protection model. 
+The ForwardingConstruct can be considered as a component and the FcPort as a Port on that component.</text>
+    </description>
+  </grouping>
+  <grouping name="layer-protocol">
+    <leaf name="layer-protocol-name">
+      <type name="layer-protocol-name"/>
+      <description>
+        <text>Indicate the specific layer-protocol described by the LayerProtocol entity.</text>
+      </description>
+    </leaf>
+    <leaf name="configured-client-capacity">
+      <type name="to-be-defined"/>
+      <description>
+        <text>Provides a summarized view of the client capacity that is configurable for use.
+Note the client LTP association should provide all necessary detail hence this attribute is questionable.</text>
+      </description>
+    </leaf>
+    <leaf name="lp-direction">
+      <type name="termination-direction"/>
+      <description>
+        <text>The overall directionality of the LP. 
+- A BIDIRECTIONAL LP will have some SINK and/or SOURCE flows.
+- A SINK LP can only contain elements with SINK flows or CONTRA_DIRECTION_SOURCE flows
+- A SOURCE LP can only contain SOURCE flows or CONTRA_DIRECTION_SINK flows</text>
+      </description>
+    </leaf>
+    <leaf name="termination-state">
+      <type name="termination-state"/>
+      <description>
+        <text>Indicates whether the layer is terminated and if so how.</text>
+      </description>
+    </leaf>
+    <list name="config-and-switch-controller">
+      <key value="switch-rule"/>
+      <uses name="configuration-and-switch-controller"/>
+      <description>
+        <text>A switch controller external to the LayerProtocol.
+The controller will coordinate one or more switches in one or more FCs related to the LayerProtocol</text>
+      </description>
+    </list>
+    <leaf name="is-protection-lock-out">
+      <if-feature name="protection-exclude-ltp"/>
+      <type name="boolean"/>
+      <description>
+        <text>The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of.
+This overrides all other protection control states including forced.
+If the item is locked out then it cannot be used under any circumstances.
+Note: Only relevant when part of a protection scheme.</text>
+      </description>
+    </leaf>
+    <leaf name="fc-blocks-signal-to-lp">
+      <type name="string"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <uses name="local-class"/>
+    <description>
+      <text>The projection of an LTP into each transport layer is represented by a LayerProtocol (LP) instance. A LayerProtocol instances can be used for controlling termination and monitoring functionality. It can also be used for controlling the adaptation (i.e. encapsulation and/or multiplexing of client signal), tandem connection monitoring, traffic conditioning and/or shaping functionality at an intermediate point along a connection. Where the client - server relationship is fixed 1:1 and immutable, the layers can be encapsulated in a single LTP instance. Where there is a n:1 relationship between client and server, the layers must be split over two separate instances of LTP. </text>
+    </description>
+  </grouping>
+  <grouping name="logical-termination-point">
+    <leaf-list name="server-ltp">
+      <type name="leafref">
+        <path value="/core-model:network-element/core-model:ltp/core-model:uuid"/>
+      </type>
+      <description>
+        <text>References contained LTPs representing servers of this LTP in an inverse multiplexing configuration (e.g. VCAT).</text>
+      </description>
+    </leaf-list>
+    <leaf-list name="client-ltp">
+      <type name="leafref">
+        <path value="/core-model:network-element/core-model:ltp/core-model:uuid"/>
+      </type>
+      <description>
+        <text>References contained LTPs representing client traffic of this LTP for normal cases of multiplexing.</text>
+      </description>
+    </leaf-list>
+    <list name="lp">
+      <key value="uuid"/>
+      <min-elements value="1"/>
+      <uses name="layer-protocol"/>
+      <description>
+        <text>Ordered list of LayerProtocols that this LTP is comprised of where the first entry in the list is the lowest server layer (e.g. physical).</text>
+      </description>
+    </list>
+    <leaf name="connected-ltp">
+      <type name="leafref">
+        <path value="/core-model:network-element/core-model:ltp/core-model:uuid"/>
+      </type>
+      <description>
+        <text>Applicable in a simple context where two LTPs are associated via a non-adjustable enabled forwarding.
+Reduces clutter removing the need for two additional LTPs and an FC with a pair of FcPorts.</text>
+      </description>
+    </leaf>
+    <leaf name="peer-ltp">
+      <type name="leafref">
+        <path value="/core-model:network-element/core-model:ltp/core-model:uuid"/>
+      </type>
+      <description>
+        <text>References contained LTPs representing the reversal of orientation of flow where two LTPs are associated via a non-adjustable enabled forwarding and where the referenced LTP is fully dependent on the this LTP.</text>
+      </description>
+    </leaf>
+    <leaf-list name="physical-port-reference">
+      <type name="string"/>
+      <description>
+        <text>One or more text labels for the unmodelled physical port associated with the LTP.
+In many cases there is no associated physical port.</text>
+      </description>
+    </leaf-list>
+    <leaf-list name="ltp-in-other-view">
+      <type name="leafref">
+        <path value="/core-model:network-element/core-model:ltp/core-model:uuid"/>
+      </type>
+      <description>
+        <text>References one or more LTPs in other views that represent this LTP. 
+The referencing LTP is the provider of capability.</text>
+      </description>
+    </leaf-list>
+    <leaf name="ltp-direction">
+      <type name="termination-direction"/>
+      <description>
+        <text>The overall directionality of the LTP. 
+- A BIDIRECTIONAL LTP must have at least some LPs that are BIDIRECTIONAL but may also have some SINK and/or SOURCE LPs.
+- A SINK LTP can only contain SINK LPs
+- A SOURCE LTP can only contain SOURCE LPs</text>
+      </description>
+    </leaf>
+    <uses name="global-class"/>
+    <description>
+      <text>The LogicalTerminationPoint (LTP) class encapsulates the termination and adaptation functions of one or more transport layers represented by instances of LayerProtocol.
+The encapsulated transport layers have a simple fixed 1:1 client-server relationship defined by association end ordering.
+The structure of LTP supports all transport protocols including circuit and packet forms.</text>
+    </description>
+  </grouping>
+  <feature name="protection-exclude-server">
+    <description>
+      <text>In protection context if server of protection where entire server is to be excluded from use for protection.</text>
+    </description>
+  </feature>
+  <feature name="protection-exclude-fc-port">
+    <description>
+      <text>In protection context where the FcPort is to be excluded from use for protection.</text>
+    </description>
+  </feature>
+  <feature name="protection-exclude-ltp">
+    <description>
+      <text>In protection context if LTP of protection where entire LTP is to be excluded from use for protection.</text>
+    </description>
+  </feature>
+  <typedef name="date-and-time">
+    <type name="string"/>
+    <description>
+      <text>This primitive type defines the date and time according to the following structure:
+'yyyyMMddhhmmss.s[Z|{+|-}HHMm]' where:
+yyyy    '0000'..'9999'    year
+MM        '01'..'12'            month
+dd        '01'..'31'            day
+hh        '00'..'23'            hour
+mm        '00'..'59'            minute
+ss        '00'..'59'            second
+s        '.0'..'.9'            tenth of second (set to '.0' if EMS or NE cannot support this granularity)
+Z        'Z'                    indicates UTC (rather than local time)
+{+|-}    '+' or '-'            delta from UTC
+HH        '00'..'23'            time zone difference in hours
+Mm        '00'..'59'            time zone difference in minutes.</text>
+    </description>
+  </typedef>
+  <typedef name="bit-string">
+    <type name="string"/>
+    <description>
+      <text>This primitive type defines a bit oriented string.
+The size of the BitString will be defined in the valueRange property of the attribute; according to ASN.1 (X.680).
+The semantic of each bit position will be defined in the Documentation field of the attribute.</text>
+    </description>
+  </typedef>
+  <typedef name="real">
+    <type name="string"/>
+    <description>
+      <text>This primitive type maps to the 'realnumber' defined in Recommendation X.680.</text>
+    </description>
+  </typedef>
+  <typedef name="printable-string">
+    <type name="string"/>
+    <description>
+      <text>A string that only includes printable characters.</text>
+    </description>
+  </typedef>
+  <typedef name="to-be-defined">
+    <type name="string"/>
+    <description>
+      <text>This type is used when the actual type of the attrbute is expected to be complex but where the type has not yet been developed. 
+This type should only be used for attributes that are experimental.</text>
+    </description>
+  </typedef>
+  <grouping name="name">
+    <list name="name">
+      <key value="value-name"/>
+      <min-elements value="1"/>
+      <uses name="name-and-value"/>
+      <description>
+        <text>List of names.</text>
+      </description>
+    </list>
+    <description>
+      <text>Name: A property of an entity with a value that is unique in some namespace but may change during the life of the entity. A name carries no semantics with respect to the purpose of the entity.</text>
+    </description>
+  </grouping>
+  <grouping name="global-class">
+    <list name="local-id">
+      <key value="value-name"/>
+      <uses name="name-and-value"/>
+      <description>
+        <text>An identifier that is unique in the context of some scope that is less than the global scope.
+(consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)</text>
+      </description>
+    </list>
+    <leaf name="uuid">
+      <type name="universal-id"/>
+      <description>
+        <text>UUID: An identifier that is universally unique
+(consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself globally unique, and immutable. An identifier carries no semantics with respect to the purpose or state of the entity)
+The uuid should be treated as opaque by the user.</text>
+      </description>
+    </leaf>
+    <uses name="name"/>
+    <uses name="label"/>
+    <uses name="extension"/>
+    <uses name="state-pac"/>
+    <description>
+      <text>Represents a type of thing (an Entity) that has instances which can exist in their own right (independently of any others).
+Entity: Has identity, defined boundary, properties, functionality and lifecycle in a global context.
+(consider in the context of a Class: (usage) The representation of a thing that may be an entity or an inseparable Entity Feature).</text>
+    </description>
+  </grouping>
+  <grouping name="local-class">
+    <list name="local-id">
+      <key value="value-name"/>
+      <min-elements value="1"/>
+      <uses name="name-and-value"/>
+      <description>
+        <text>An identifier that is unique in the context of some scope that is less than the global scope.
+(consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)</text>
+      </description>
+    </list>
+    <leaf name="uuid">
+      <type name="universal-id"/>
+      <description>
+        <text>A global identifier for the LocalClass, which is used as reference.</text>
+      </description>
+    </leaf>
+    <uses name="name"/>
+    <uses name="label"/>
+    <uses name="extension"/>
+    <uses name="state-pac"/>
+    <description>
+      <text>A LocalClass represents a Feature of an Entity. It is inseparable from a GlobalClass but is a distinct feature of that GlobalClass such that the instances of LocalClass are able to have associations to other instances..
+Feature of an Entity: An inseparable, externally distinguishable part of an entity.
+The mandatory LocalId of the LocalClass instance is unique in the context of the GlobalClass from which it is inseparable.
+(consider in the context of a Class: (usage) The representation of a thing that may be an entity or an inseparable feature of an entity)
+</text>
+    </description>
+  </grouping>
+  <grouping name="label">
+    <list name="label">
+      <key value="value-name"/>
+      <uses name="name-and-value"/>
+      <description>
+        <text>List of labels.</text>
+      </description>
+    </list>
+    <description>
+      <text>A property of an entity with a value that is not expected to be unique and is allowed to change. A label carries no semantics with respect to the purpose of the entity and has no effect on the entity behavior or state.</text>
+    </description>
+  </grouping>
+  <grouping name="extension">
+    <list name="extension">
+      <key value="value-name"/>
+      <uses name="name-and-value"/>
+      <description>
+        <text>List of simple name-value extensions.</text>
+      </description>
+    </list>
+    <description>
+      <text>Extension provides an opportunity to define properties not declared in the class that extend the class enabling a realization with simple ad-hoc extension of standard classes to be conformant.</text>
+    </description>
+  </grouping>
+  <grouping name="universal-id-authority">
+    <leaf name="uuid">
+      <type name="universal-id"/>
+      <description>
+        <text>The UUID for the UUID authority.</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Represents the authority that controls the allocation of UUIDs.
+Lifecycle : Preliminary</text>
+    </description>
+  </grouping>
+  <grouping name="name-and-value-authority">
+    <leaf name="uuid">
+      <type name="universal-id"/>
+      <description>
+        <text>The UUID for the NameValueAuthority.</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Represents the authority that controls the legal values for the names and values of a name/value attribute.
+Lifecycle : Preliminary</text>
+    </description>
+  </grouping>
+  <grouping name="conditional-package">
+    <uses name="extension"/>
+    <uses name="label"/>
+    <description>
+      <text>The base class for conditional packages.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="name-and-value">
+    <leaf name="value-name">
+      <type name="string"/>
+      <description>
+        <text>The name of the value. The value need not have a name.</text>
+      </description>
+    </leaf>
+    <leaf name="value">
+      <type name="string"/>
+      <description>
+        <text>The value.</text>
+      </description>
+    </leaf>
+    <description>
+      <text>A scoped name-value pair.</text>
+    </description>
+  </grouping>
+  <typedef name="universal-id">
+    <type name="string"/>
+    <description>
+      <text>The universal ID value where the mechanism for generation is defined by some authority not directly referenced in the structure.
+A example structure is [IETF RFC4122].</text>
+    </description>
+  </typedef>
+  <grouping name="address">
+    <leaf name="address-name">
+      <type name="string"/>
+      <description>
+        <text>The name of the address (to allow the specific hierarchy to be distinguished from others for the same entity).</text>
+      </description>
+    </leaf>
+    <list name="address-element">
+      <key value="uuid"/>
+      <uses name="address-element"/>
+      <description>
+        <text>The elements of the address that form the recursive scope narrowing.</text>
+      </description>
+    </list>
+    <description>
+      <text>A description of location via a hierarchy of narrowing contexts.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="local-id-and-class">
+    <leaf name="class-of-instance">
+      <type name="string"/>
+      <description>
+        <text>The class to which the name refers.</text>
+      </description>
+    </leaf>
+    <container name="local-id">
+      <uses name="name-and-value"/>
+      <description>
+        <text>The localId of the entity.</text>
+      </description>
+    </container>
+    <description>
+      <text>The localId and the class of entity that it identifies.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="name-and-class">
+    <leaf name="class-of-instance">
+      <type name="string"/>
+      <description>
+        <text>The class to which the name refers.</text>
+      </description>
+    </leaf>
+    <container name="name">
+      <uses name="name-and-value"/>
+      <description>
+        <text>If the element is a name.</text>
+      </description>
+    </container>
+    <description>
+      <text>The name and the class of entity that it names.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="address-element">
+    <leaf name="address-element-name">
+      <type name="string"/>
+      <description>
+        <text>The name of the address element (e.g. 'shelf' as an element of a shelf/slot/port addressing scheme).
+The remainder of the structure has the reference for the shelf.
+</text>
+      </description>
+    </leaf>
+    <container name="local-id">
+      <uses name="local-id-and-class"/>
+      <description>
+        <text>If the element is a localId (where the element above in the hierarchy must be the context in which the specific localId is relevant).</text>
+      </description>
+    </container>
+    <leaf name="uuid">
+      <type name="universal-id"/>
+      <description>
+        <text>If the element is a uuid (where this element could be the top of a hierarchy but may also be at some level in the hierarchy where address navigation is considered necessary to assist in location of the UUID).</text>
+      </description>
+    </leaf>
+    <container name="name">
+      <uses name="name-and-class"/>
+      <description>
+        <text>If the element is a name.</text>
+      </description>
+    </container>
+    <leaf name="arbitrary-element">
+      <type name="string"/>
+      <description>
+        <text>Where the element is from some external model that is not formally represented in this model.</text>
+      </description>
+    </leaf>
+    <description>
+      <text>One element of a hierarchy of elements.
+Note that the element must have one and only one value chosen from a list of potential value types.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="state-pac">
+    <leaf name="operational-state">
+      <type name="operational-state"/>
+      <config value="false"/>
+      <description>
+        <text>The operational state is used to indicate whether or not the resource is installed and working.</text>
+      </description>
+    </leaf>
+    <leaf name="administrative-control">
+      <type name="administrative-control"/>
+      <description>
+        <text>The administrativeControl state provides control of the availability of specific resources without modification to the provisioning of those resources.
+The value is the current control target. The actual administrativeState may or may not be at target.</text>
+      </description>
+    </leaf>
+    <leaf name="administrative-state">
+      <type name="administrative-state"/>
+      <config value="false"/>
+      <description>
+        <text>Shows whether or not the client has permission to use or has a prohibition against using the resource.
+The administrative state expresses usage permissions for specific resources without modification to the provisioning of those resources.</text>
+      </description>
+    </leaf>
+    <leaf name="lifecycle-state">
+      <type name="lifecycle-state"/>
+      <description>
+        <text>Used to track the planned deployment, allocation to clients and withdrawal of resources.</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Provides general state attributes.
+Lifecycle : Preliminary</text>
+    </description>
+  </grouping>
+  <typedef name="operational-state">
+    <type name="enumeration">
+      <enum name="disabled">
+        <description>
+          <text>The resource is unable to meet the SLA of the user of the resource. If no (explicit) SLA is defined the resource is disabled if it is totally inoperable and unable to provide service to the user.</text>
+        </description>
+      </enum>
+      <enum name="enabled">
+        <description>
+          <text>The resource is partially or fully operable and available for use.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The possible values of the operationalState.
+Lifecycle : Preliminary</text>
+    </description>
+  </typedef>
+  <typedef name="administrative-state">
+    <type name="enumeration">
+      <enum name="locked">
+        <description>
+          <text>Users are administratively prohibited from making use of the resource.</text>
+        </description>
+      </enum>
+      <enum name="unlocked">
+        <description>
+          <text>Users are allowed to use the resource.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The possible values of the administrativeState.
+Lifecycle : Preliminary</text>
+    </description>
+  </typedef>
+  <typedef name="administrative-control">
+    <type name="enumeration">
+      <enum name="unlock">
+        <description>
+          <text>The intention is for the entity to become unlocked.
+The entity may already be UNLOCKED.</text>
+        </description>
+      </enum>
+      <enum name="lock-passive">
+        <description>
+          <text>The intention is for the entity to become locked but no effort is expected to move to the Locked state (the state will be achieved once all users stop using the resource). 
+The entity may be LOCKED.</text>
+        </description>
+      </enum>
+      <enum name="lock-active">
+        <description>
+          <text>The intention is for the entity to become locked and it is expected that effort will be made to move to the Locked state (users will be actively removed). 
+The entity may already be LOCKED.</text>
+        </description>
+      </enum>
+      <enum name="lock-immediate">
+        <description>
+          <text>The intention is for the entity to become locked and it is expected to move to the Locked state immediately (users will be force removed). 
+The entity may already be LOCKED.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Reflects the current control action when the entity is not in the desired state.
+The possible values of the current target administrative state.
+Lifecycle : Experimental</text>
+    </description>
+  </typedef>
+  <typedef name="extended-admin-state">
+    <type name="enumeration">
+      <enum name="locked">
+        <description>
+          <text>Users are administratively prohibited from making use of the resource.</text>
+        </description>
+      </enum>
+      <enum name="unlocked">
+        <description>
+          <text>Users are allowed to use the resource.</text>
+        </description>
+      </enum>
+      <enum name="shutting-down-active">
+        <description>
+          <text>The entity is administratively restricted to existing instances of use only. There are specific actions to remove existing uses. There may be no new instances of use enabled. This corresponds to a control of LOCK_ACTIVE.</text>
+        </description>
+      </enum>
+      <enum name="shutting-down-passive">
+        <description>
+          <text>The entity is administratively restricted to existing instances of use only. There may be no new instances of use enabled. This corresponds to a control of LOCK_PASSIVE.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Possible extensions to AdministrativeState.
+Lifecycle : Experimental</text>
+    </description>
+  </typedef>
+  <typedef name="lifecycle-state">
+    <type name="enumeration">
+      <enum name="planned">
+        <description>
+          <text>The resource is planned but is not present in the network.</text>
+        </description>
+      </enum>
+      <enum name="potential">
+        <description>
+          <text>The supporting resources are present in the network but are shared with other clients; or require further configuration before they can be used; or both.o    When a potential resource is configured and allocated to a client it is moved to the 'installed' state for that client.o    If the potential resource has been consumed (e.g. allocated to another client) it is moved to the 'planned' state for all other clients.</text>
+        </description>
+      </enum>
+      <enum name="installed">
+        <description>
+          <text>The resource is present in the network and is capable of providing the service expected.</text>
+        </description>
+      </enum>
+      <enum name="pending-removal">
+        <description>
+          <text>The resource has been marked for removal.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The possible values of the lifecycleState.
+Lifecycle : Experimental</text>
+    </description>
+  </typedef>
+  <typedef name="action-verbs">
+    <type name="enumeration">
+      <enum name="create-post-add">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="set-update-put-modify-write-add">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="get-read">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="delete-remove">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="test-type">
+    <type name="string"/>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="activity-directive">
+    <type name="enumeration">
+      <enum name="structure-is-not">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="new-structure-and-values">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="incremental-structure-and-values">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="only-values-in-existing-structure">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="defined-by-verb">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="action-effort">
+    <type name="enumeration">
+      <enum name="best-effort">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="exact-match">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="pause-resume-rule">
+    <type name="enumeration">
+      <enum name="no-pause-possible">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <grouping name="general-directives">
+    <description>
+      <text>Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="necessary-initial-condition-constraints">
+    <leaf name="is-not">
+      <type name="boolean"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="operation-details">
+    <leaf name="action-verb">
+      <type name="action-verbs"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <list name="necessary-initialcondition-constraints">
+      <key value="is-not"/>
+      <uses name="necessary-initial-condition-constraints"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <description>
+      <text>Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <container name="operation-envelope">
+    <presence value=""/>
+    <list name="operation-set">
+      <key value="effort-and-action"/>
+      <min-elements value="1"/>
+      <uses name="operation-set"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <container name="generaldirectives">
+      <uses name="general-directives"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="operationidentifiers">
+      <uses name="operation-identifiers"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <description>
+      <text>Lifecycle : Experimental</text>
+    </description>
+  </container>
+  <grouping name="operation-identifiers">
+    <description>
+      <text>Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="operation-set">
+    <leaf-list name="after-operation-set">
+      <type name="leafref">
+        <path value="/core-model:operation-envelope/core-model:operation-set/core-model:effort-and-action"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf-list>
+    <leaf-list name="before-operation-set">
+      <type name="leafref">
+        <path value="/core-model:operation-envelope/core-model:operation-set/core-model:effort-and-action"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf-list>
+    <leaf name="effort-and-action">
+      <type name="action-effort"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="pause-resume-rule">
+      <type name="pause-resume-rule"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf-list name="operationset">
+      <type name="leafref">
+        <path value="/core-model:operation-envelope/core-model:operation-set/core-model:effort-and-action"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf-list>
+    <leaf name="is-short-lived">
+      <type name="boolean"/>
+      <default value="true"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <list name="operation-details">
+      <key value="action-verb"/>
+      <min-elements value="1"/>
+      <uses name="operation-details"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="connector-in-holder">
+    <leaf name="connector-on-equipment-for-holder">
+      <type name="leafref">
+        <path value="/core-model:connector-on-equipment-for-holder/core-model:uuid"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <uses name="connector"/>
+    <description>
+      <text>A rule class (an abstract specialization of Connector) that represents a connector that are only accessible to an equipment inserted in the holder.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="connector-cable-end">
+    <leaf name="connector-on-equipment-for-cable">
+      <type name="leafref">
+        <path value="/core-model:connector-on-equipment-for-cable/core-model:uuid"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <uses name="connector"/>
+    <description>
+      <text>A rule class (an abstract specialization of Connector) that represents a connector on the end of a cable.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="connector-on-equipment-for-cable">
+    <leaf name="connector-cable-end">
+      <type name="leafref">
+        <path value="/core-model:connector-cable-end/core-model:uuid"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <uses name="connector"/>
+    <description>
+      <text>A rule class (an abstract specialization of Connector) that represents a connector exposed on an equipment such that a cable may be plugged in.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="connector-on-equipment-for-holder">
+    <leaf name="connector-in-holder">
+      <type name="leafref">
+        <path value="/core-model:connector-in-holder/core-model:uuid"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <uses name="connector"/>
+    <description>
+      <text>A rule class (an abstract specialization of Connector) that represents a connector on an equipment that is intended to mate with a connector in a holder.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="function-enablers">
+    <leaf name="power-state">
+      <type name="to-be-defined"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Represents the dynamic aspects of the properties that relate to the motive force that directly enable functionality to emerge from the equipment.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="mechanical-functions">
+    <leaf name="rotation-speed">
+      <type name="to-be-defined"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Represents the dynamic aspects of the mechanical functions of the equipment.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="physical-properties">
+    <leaf name="temperature">
+      <type name="to-be-defined"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Represents the dynamic aspects of the physical environmental properties of the equipment.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="holder-monitors">
+    <leaf name="is-active">
+      <type name="boolean"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="is-actual-mismatch-with-expected">
+      <type name="boolean"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="aggregate-function">
+      <type name="string"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Represents the dynamic state of the holder instance. 
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="location">
+    <container name="equipment-location">
+      <uses name="address"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="geographical-location">
+      <uses name="address"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <description>
+      <text>Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="category">
+    <leaf name="category">
+      <type name="equipment-category"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Represents the form of the equipment.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="equipment-instance">
+    <leaf name="manufacture-date">
+      <type name="string"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="serial-number">
+      <type name="string"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="asset-instance-identifier">
+      <type name="string"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Represents the per instance invariant properties of the equipment.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="equipment-type">
+    <leaf name="description">
+      <type name="string"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="model-identifier">
+      <type name="string"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="part-type-identifier">
+      <type name="string"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="type-name">
+      <type name="string"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="version">
+      <type name="string"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Represents the invariant properties of the equipment that define and characterise the type.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="holder-structure">
+    <leaf name="holder-category">
+      <type name="holder-category"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="is-captive">
+      <type name="boolean"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="is-guided">
+      <type name="boolean"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="is-quantized-space">
+      <type name="boolean"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Represents the form of the holder.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="manufactured-thing">
+    <container name="manufacturer-properties">
+      <uses name="manufacturer-properties"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="equipment-type">
+      <uses name="equipment-type"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="equipment-instance">
+      <uses name="equipment-instance"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="operator-augmented-equipment-type">
+      <uses name="operator-augmented-equipment-type"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <description>
+      <text>Collects all invariant aspects of a manufactured thing.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="manufacturer-properties">
+    <leaf name="manufacturer-identifier">
+      <type name="string"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="manufacturer-name">
+      <type name="string"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Represents the properties of the manufacturer.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="mechanical-features">
+    <description>
+      <text>Represents the invariant characteristics of dynamic mechanical features of a physical thing.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="operator-augmented-equipment-type">
+    <leaf name="asset-type-identifier">
+      <type name="string"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Represents the invariant properties of the equipment asset allocated by the operator that define and characterise the type.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="physical-characteristics">
+    <leaf name="weight-characteristics">
+      <type name="to-be-defined"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="fire-characteristics">
+      <type name="to-be-defined"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="materials">
+      <type name="to-be-defined"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Represents the invariant physical characteristics (including composition and physical robustness) of the type.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="physical-rating">
+    <leaf name="thermal-rating">
+      <type name="to-be-defined"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="power-rating">
+      <type name="to-be-defined"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Represents the invariant physical operational boundaries for the equipment/holder type.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="position">
+    <leaf name="relative-position">
+      <type name="to-be-defined"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Represents the invariant relative position of the holder (with respect to some frame of reference in an equipment) or connector on an equipment or pin in a connector.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="spatial-properties-of-type">
+    <leaf name="height">
+      <type name="to-be-defined"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="width">
+      <type name="to-be-defined"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="length">
+      <type name="to-be-defined"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Represents the basic invariant spatial properties of a physical thing.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="swapability">
+    <leaf name="is-hot-swappable">
+      <type name="boolean"/>
+      <default value="true"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Represents the degree of field replacement that is possible for the equipment type.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="cable">
+    <list name="connector">
+      <key value="uuid"/>
+      <min-elements value="1"/>
+      <uses name="connector"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <container name="manufactured-thing">
+      <uses name="manufactured-thing"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="physical-characteristics">
+      <uses name="physical-characteristics"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="mechanical-features">
+      <uses name="mechanical-features"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="spatial-properties-of-type">
+      <uses name="spatial-properties-of-type"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <uses name="global-class"/>
+    <description>
+      <text>Basic model representing a cable with connectors fitted where the cable is 'short' (e.g.  patch cord, in-station cabling).
+This is intentionally a very basic representation of a cable. 
+In a more sophisticated representation cable ends might be represented that then associate to the attached connector. 
+At this point it is assumed that the basic model is sufficient.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="connector">
+    <leaf name="connector">
+      <type name="string"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <list name="pin">
+      <key value="position"/>
+      <min-elements value="1"/>
+      <uses name="pin"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <leaf name="orientation">
+      <type name="connector-and-pin-orientation"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <container name="manufactured-thing">
+      <uses name="manufactured-thing"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="position">
+      <uses name="position"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="mechanical-features">
+      <uses name="mechanical-features"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="pin-layout">
+      <uses name="pin-layout"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <leaf name="connector-type">
+      <type name="to-be-defined"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <uses name="local-class"/>
+    <uses name="group-of-pins"/>
+    <description>
+      <text>Represents a connector that may be fully exposed (e.g. to plug in a cable or on the end of a cable) or partially exposed (e.g. backplane to plug in another piece of equipment such as a module).
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="equipment">
+    <list name="connector">
+      <key value="uuid"/>
+      <uses name="connector"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <list name="contained-holder">
+      <key value="uuid"/>
+      <uses name="holder"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <list name="exposed-cable">
+      <key value="uuid"/>
+      <uses name="cable"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <container name="manufactured-thing">
+      <uses name="manufactured-thing"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="spatial-properties-of-type">
+      <uses name="spatial-properties-of-type"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="mechanical-features">
+      <uses name="mechanical-features"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="physical-properties">
+      <uses name="physical-properties"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="function-enablers">
+      <uses name="function-enablers"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="mechanical-functions">
+      <uses name="mechanical-functions"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="physical-characteristics">
+      <uses name="physical-characteristics"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="swapability">
+      <uses name="swapability"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="category">
+      <uses name="category"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="physical-rating">
+      <uses name="physical-rating"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <leaf name="is-field-replaceable">
+      <type name="boolean"/>
+      <default value="true"/>
+      <config value="false"/>
+      <description>
+        <text>Indicates whether or not the equipment can be removed and replaced 'in the field' (i.e. in a deployment) by normal operations personnel. 
+</text>
+      </description>
+    </leaf>
+    <leaf-list name="function-block">
+      <type name="string"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf-list>
+    <container name="expected-equipment">
+      <uses name="expected-equipment"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="actual-equipment">
+      <uses name="actual-equipment"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="location">
+      <uses name="location"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <uses name="global-class"/>
+    <description>
+      <text>Represents any relevant physical thing. 
+Can be either field replaceable or not field replaceable.
+Note: The model is currently constrained to inside plant.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <list name="equipment">
+    <key value="uuid"/>
+    <uses name="equipment"/>
+    <description>
+      <text>none</text>
+    </description>
+  </list>
+  <grouping name="holder">
+    <leaf-list name="connector">
+      <type name="leafref">
+        <path value="/core-model:equipment/core-model:exposed-cable/core-model:connector/core-model:uuid"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf-list>
+    <leaf name="occupying-fru">
+      <type name="leafref">
+        <path value="/core-model:equipment/core-model:uuid"/>
+      </type>
+      <description>
+        <text>The FRU that is occupying the holder. 
+A holder may be unoccupied. 
+An FRU may occupy more hat one holder (using or blocking are intentionally not distinguished here).</text>
+      </description>
+    </leaf>
+    <container name="spatial-properties-of-type">
+      <uses name="spatial-properties-of-type"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="holder-monitors">
+      <uses name="holder-monitors"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="holder-location">
+      <uses name="address"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="position">
+      <uses name="position"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="holder-structure">
+      <uses name="holder-structure"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="physical-rating">
+      <uses name="physical-rating"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <leaf-list name="supported-equipment">
+      <type name="string"/>
+      <min-elements value="1"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf-list>
+    <container name="expected-holder">
+      <uses name="expected-holder"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="actual-holder">
+      <uses name="actual-holder"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <uses name="local-class"/>
+    <description>
+      <text>Represents a space in an equipment in which another equipment can be fitted in the field.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <typedef name="connector-and-pin-orientation">
+    <type name="enumeration">
+      <enum name="male">
+        <description>
+          <text>The connecting elements are dominantly protrusions.</text>
+        </description>
+      </enum>
+      <enum name="female">
+        <description>
+          <text>The connecting elements are dominantly indentations.</text>
+        </description>
+      </enum>
+      <enum name="symmetric-neutral">
+        <description>
+          <text>The pin (and housing) orientation combination is such that it is symmetric so a connector is compatible with itself.
+The connecting element may be a surface rather than protrusions or indentations.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Most connector schems are asymmetric such that there are two orientations of the connector where a mating is only possible between two connectors of different orientations. 
+A multi-pin connector may have a mix of pin orientations. In this case it is expected that the dominant orientation of pin is chosen for the connector orientation.
+Lifecycle : Experimental</text>
+    </description>
+  </typedef>
+  <typedef name="equipment-category">
+    <type name="enumeration">
+      <enum name="subrack">
+        <description>
+          <text>An assembly with holders designed to accommodate CIRCUIT_PACKs. 
+The assembly is designed to be mounted in a RACK.</text>
+        </description>
+      </enum>
+      <enum name="circuit-pack">
+        <description>
+          <text>An assembly with connectors compatible with those in a holder.
+The assembly is designed to be mounted in a holder (SLOT) of a SUBRACK.
+May also support holders (SLOTs) for SMALL_FORMFACTOR_PLUGGABLEs</text>
+        </description>
+      </enum>
+      <enum name="small-formfactor-pluggable">
+        <description>
+          <text>A small assembly (compared to a CIRCUIT_PACK) with connectors compatible with those in a holder.
+The assembly is designed to be mounted in a holder (SLOT) of a CIRCUIT_PACK or STAND_ALONE_UNIT.</text>
+        </description>
+      </enum>
+      <enum name="stand-alone-unit">
+        <description>
+          <text>An assembly with connectors for cabling and potentially with holders.
+The assembly is designed to be mounted in a freeform environment (on a table or simple mechanical cabinet).
+May support holders (SLOTs) for CIRCUIT_PACKs or for SMALL_FORMFACTOR_PLUGGABLEs</text>
+        </description>
+      </enum>
+      <enum name="rack">
+        <description>
+          <text>A mechanical assembly with cabling and predefined mounting points for particular SUBRACK types.
+The assembly is designed to be mounted on the floor in a row with other RACKs.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The form of equipment.
+Lifecycle : Experimental</text>
+    </description>
+  </typedef>
+  <typedef name="holder-category">
+    <type name="enumeration">
+      <enum name="slot">
+        <description>
+          <text>A guided holder with fixed connectors.
+The guided holder is designed to take a particular form of CIRCUIT_PACK or SMALL_FORMFACTOR_PLUGGABLE</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The form of holder.
+Lifecycle : Experimental</text>
+    </description>
+  </typedef>
+  <grouping name="actual-holder">
+    <description>
+      <text>A holder in the ActualEquipment.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="expected-holder">
+    <description>
+      <text>A definition of a holder expected in the ActualEquipment (i.e. an ActualHolder) as part of the constraints provided by the ExpectedEquipment.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="actual-equipment">
+    <description>
+      <text>The equipment that is actually present in the physical network.
+It will expose all dynamic properties and some critical static properties.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="expected-equipment">
+    <description>
+      <text>A definition of the restrictions on the equipment that is expected to be present in the physical network at a particular 'place'.
+The expected equipment will state the type and may constrain any other invariant properties. 
+It may also provide desired ranges for dynami properties.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="pin">
+    <leaf name="position">
+      <type name="leafref">
+        <path value="/core-model:equipment/core-model:exposed-cable/core-model:connector/core-model:position/core-model:relative-position"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="orientation">
+      <type name="connector-and-pin-orientation"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>An individual physical connection point (male or female).
+May be capable of carrying electrical or optical signals. 
+A pin may have more than one wire/fiber attached but is such that all attached things get exactly the same signal set.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="pin-group">
+    <leaf-list name="pin">
+      <type name="leafref">
+        <path value="/core-model:equipment/core-model:exposed-cable/core-model:connector/core-model:pin/core-model:position"/>
+      </type>
+      <min-elements value="1"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf-list>
+    <uses name="port"/>
+    <uses name="group-of-pins"/>
+    <description>
+      <text>A group of pins that together provide signal group where any one pin removed from the group will prevent the signals of the signal group from flowing successfully.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="pin-layout">
+    <list name="position">
+      <key value="relative-position"/>
+      <min-elements value="1"/>
+      <uses name="position"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <description>
+      <text>The structuring of pins in a connector.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="port">
+    <description>
+      <text>A conceptual access point for a group of signals (where that group of signals cannot be separated).
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="signal-ref-pt">
+    <leaf name="ltp">
+      <type name="leafref">
+        <path value="/core-model:network-element/core-model:ltp/core-model:uuid"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf-list name="elemental-signals">
+      <type name="leafref">
+        <path value="/core-model:support-constraints/core-model:pin"/>
+      </type>
+      <min-elements value="1"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf-list>
+    <description>
+      <text>A single coherent signal as processed by a single LTP.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="signal-ref-pt-group">
+    <leaf name="pin-group">
+      <type name="leafref">
+        <path value="/core-model:pin-group/core-model:pin"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf-list name="signal-ref-pt">
+      <type name="leafref">
+        <path value="/core-model:signal-ref-pt/core-model:ltp"/>
+      </type>
+      <min-elements value="1"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf-list>
+    <uses name="port"/>
+    <description>
+      <text>A physical indivisible group of signals.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="elemental-signals">
+    <leaf-list name="pin">
+      <type name="leafref">
+        <path value="/core-model:equipment/core-model:exposed-cable/core-model:connector/core-model:pin/core-model:position"/>
+      </type>
+      <min-elements value="1"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf-list>
+    <description>
+      <text>The elemental (sub-atomic) parts of an 'indivisible' signal where processing in the LTP is required to extract the elemental signals.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+  <grouping name="group-of-pins">
+    <description>
+      <text>A group of pins from one or more connectors relevant for some purpose.
+Lifecycle : Experimental</text>
+    </description>
+  </grouping>
+</module>
