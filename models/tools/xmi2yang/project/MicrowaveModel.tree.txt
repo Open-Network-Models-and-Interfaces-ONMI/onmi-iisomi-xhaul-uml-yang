@@ -570,8 +570,8 @@ module: core-model
       +--ro administrative-state?         administrative-state
       +--rw lifecycle-state?              lifecycle-state
 module: microwave-model
-   +--rw mw-air-interface-pac!
-   |  +--rw layer-protocol?                          -> /core-model:network-element/ltp/lp/uuid
+   +--rw mw-air-interface-pac* [layer-protocol]
+   |  +--rw layer-protocol                           -> /core-model:network-element/ltp/lp/uuid
    |  +--ro air-interface-capability
    |  |  +--ro type-of-equipment?               string
    |  |  +--ro tx-frequency-min?                int32
@@ -769,17 +769,17 @@ module: microwave-model
    |  +--rw air-interface-list*         -> /core-model:network-element/ltp/uuid
    |  +--rw sort-of-co-channel-group?   string
    |  +--rw logicalterminationpoint*    -> /core-model:network-element/ltp/uuid
-   +--rw mw-air-interface-hsb-end-point-pac
+   +--rw mw-air-interface-hsb-end-point-pac* [endpoint]
    |  +--rw role?       role-type
-   |  +--rw endpoint?   -> /core-model:forwarding-construct/fc-port/uuid
-   +--rw mw-air-interface-hsb-fc-switch-pac
+   |  +--rw endpoint    -> /core-model:forwarding-construct/fc-port/uuid
+   +--rw mw-air-interface-hsb-fc-switch-pac* [fcswitch]
    |  +--rw prot-type?                                            protection-type
    |  +--rw air-interface-hsb-configuration-is-faulty-severity?   severity-type
    |  +--rw air-interface-hsb-is-partly-down-severity?            severity-type
    |  +--rw air-interface-hsb-is-down-severity?                   severity-type
-   |  +--rw fcswitch?                                             -> /core-model:forwarding-construct/fc-switch/uuid
-   +--rw mw-air-interface-diversity-pac!
-   |  +--rw layer-protocol?                                    -> /core-model:network-element/ltp/lp/uuid
+   |  +--rw fcswitch                                              -> /core-model:forwarding-construct/fc-switch/uuid
+   +--rw mw-air-interface-diversity-pac* [layer-protocol]
+   |  +--rw layer-protocol                                     -> /core-model:network-element/ltp/lp/uuid
    |  +--ro air-interface-diversity-capability
    |  |  +--ro available-kinds-of-diversity* [diversity-name]
    |  |  |  +--ro diversity-name                  string
@@ -829,8 +829,8 @@ module: microwave-model
    |        +--ro granularity-period?      granularity-period-type
    |        +--ro object-class?            object-identifier
    |        +--ro name-binding?            object-identifier
-   +--rw mw-pure-ethernet-structure-pac {pure-ethernet}?
-   |  +--rw layer-protocol?                                    -> /core-model:network-element/ltp/lp/uuid
+   +--rw mw-pure-ethernet-structure-pac* [layer-protocol] {pure-ethernet}?
+   |  +--rw layer-protocol                                     -> /core-model:network-element/ltp/lp/uuid
    |  +--ro pure-ethernet-structure-capability
    |  |  +--ro structure-id?       core-model:universal-id
    |  |  +--ro supported-alarms?   string
@@ -872,8 +872,8 @@ module: microwave-model
    |        +--ro granularity-period?      granularity-period-type
    |        +--ro object-class?            object-identifier
    |        +--ro name-binding?            object-identifier
-   +--rw mw-hybrid-mw-structure-pac {hybrid-microwave}?
-   |  +--rw layer-protocol?                                -> /core-model:network-element/ltp/lp/uuid
+   +--rw mw-hybrid-mw-structure-pac* [layer-protocol] {hybrid-microwave}?
+   |  +--rw layer-protocol                                 -> /core-model:network-element/ltp/lp/uuid
    |  +--ro hybrid-mw-structure-capability
    |  |  +--ro structure-id?                         core-model:universal-id
    |  |  +--ro supported-tdm-structure-types-list* [tdm-structure-name]
@@ -924,8 +924,8 @@ module: microwave-model
    |        +--ro granularity-period?      granularity-period-type
    |        +--ro object-class?            object-identifier
    |        +--ro name-binding?            object-identifier
-   +--rw mw-ethernet-container-pac!
-   |  +--rw layer-protocol?                               -> /core-model:network-element/ltp/lp/uuid
+   +--rw mw-ethernet-container-pac* [layer-protocol]
+   |  +--rw layer-protocol                                -> /core-model:network-element/ltp/lp/uuid
    |  +--ro ethernet-container-capability
    |  |  +--ro bundling-is-avail?             boolean
    |  |  +--ro packet-compression-is-avail?   boolean
@@ -992,8 +992,8 @@ module: microwave-model
    |        +--ro granularity-period?      granularity-period-type
    |        +--ro object-class?            object-identifier
    |        +--ro name-binding?            object-identifier
-   +--rw mw-tdm-container-pac! {hybrid-microwave}?
-      +--rw layer-protocol?                          -> /core-model:network-element/ltp/lp/uuid
+   +--rw mw-tdm-container-pac* [layer-protocol] {hybrid-microwave}?
+      +--rw layer-protocol                           -> /core-model:network-element/ltp/lp/uuid
       +--ro tdm-container-capability
       |  +--ro supported-tdm-container-types-list* [tdm-container-name]
       |  |  +--ro tdm-container-name    string

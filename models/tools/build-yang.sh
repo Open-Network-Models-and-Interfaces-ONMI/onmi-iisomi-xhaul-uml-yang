@@ -37,21 +37,11 @@ function post-processing {
   sed -i -e "s/grouping fc-port {/list forwarding-construct {\n                key 'uuid';\n                uses forwarding-construct;\n                description \"none\";\n            }\n            grouping fc-port {/g" $1;
   sed -i -e "s/grouping holder {/list equipment {\n                    key 'uuid';\n                    uses equipment;\n                                description \"none\";\n}\n                grouping holder {/g" $1;
   # spelling
-
-#2017-02-09T06:14:17.078Z |   spelling | INFO  | adminisatratve better administrative,administrate,administratrix,administration,administrator,administrable
-#2017-02-09T06:14:17.149Z |   spelling | INFO  | conector better connector,convector,corrector,connection,reconnect,collector,Concorde,connected
-#2017-02-09T06:14:17.230Z |   spelling | INFO  | quantised better quantized,quantified,quarantined,antiquated,quantile,quantizer,quantize
-#2017-02-09T06:14:17.271Z |   spelling | INFO  | characeristics better characteristics,characteristic,characterizes,characterizations,charismatics,characterized,Eucharistic
-#2017-02-09T06:14:19.552Z |   spelling | INFO  | permenantly better permanently,permanent,temperamentally,experimentally,permanency,predominant,developmental
-#2017-02-09T06:14:19.884Z |   spelling | INFO  | mechanicall better mechanical,mechanically,mechanicals,mechanic all,mechanic-all,mechanical l,mechanistically,mechanochemically,mechanic,mechanistic,technicality,nontechnical
   sed -i -e 's/adminisatratve/administrative/g' $1;
   sed -i -e 's/conector/connector/g' $1;
   sed -i -e 's/quantised/quantized/g' $1;
   sed -i -e 's/characeristics/characteristics/g' $1;
   sed -i -e 's/mechanicall/mechanical/g' $1;
-
-
-
 
   # g.874.1
   sed -i -e "s/prefix g.874.1-model;/prefix g.874.1-model;\n\n    import core-model {\n        prefix core-model;\n    }\n\n/g" $1;
@@ -62,9 +52,9 @@ function post-processing {
   sed -i -e "s/type integer/type int32/g" $1; # MEGA hack - check with Thorsten....
 
   # turn mandatory top level microwave containers into presence containers
-  names="(mw-air-interface-pac|mw-air-interface-diversity-pac|mw-ethernet-container-pac|mw-tdm-container-pac)"
+  # names="(mw-air-interface-pac|mw-air-interface-diversity-pac|mw-ethernet-container-pac|mw-tdm-container-pac)"
   # taking into account that optional if-feature statement must stay first
-  perl -0777 -i -pe "s/(container\s+${names}\s+{\s*\n(\s+if-feature\s.*;\s*\n)?)(\s+)/\1\4presence \"\";\n\4/g" $1
+  # perl -0777 -i -pe "s/(list\s+${names}\s+{\s*\n(\s+if-feature\s.*;\s*\n)?)(\s+)/\1\4presence \"\";\n\4/g" $1
 
   log "  Post processed: $1";
 }
@@ -146,3 +136,4 @@ log "Tree view generated!";
 
 # End
 log "End";
+
