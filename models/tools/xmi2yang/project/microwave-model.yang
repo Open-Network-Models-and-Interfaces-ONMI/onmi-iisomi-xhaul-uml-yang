@@ -21,11 +21,10 @@ module microwave-model {
                        Martin Skorupski
                        <mailto:martin.skorupski@highstreet-technologies.com>";
     description "This module contains a collection of YANG definitions for managing wireless networks.";
-    revision 2017-02-10 {
+    revision 2017-02-13 {
         description "Initial version";
         reference "ONF TR 532: A YANG Data Model for Wireless Networks.";
     }
-
     /***********************
     * package type-definitions
     **********************/ 
@@ -855,8 +854,8 @@ module microwave-model {
         /***********************
         * package air-interface
         **********************/ 
-            container mw-air-interface-pac {
-                presence  "";
+            list mw-air-interface-pac {
+                key 'layer-protocol';
                 leaf layer-protocol {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
@@ -1323,7 +1322,8 @@ module microwave-model {
         /***********************
         * package air-interface-hsb
         **********************/ 
-            container mw-air-interface-hsb-end-point-pac {
+            list mw-air-interface-hsb-end-point-pac {
+                key 'endpoint';
                 leaf role {
                     type role-type;
                     description "none";
@@ -1336,7 +1336,8 @@ module microwave-model {
                 }
                 description "The EndPoint (EP) object class models the access to the FC function. Each EndPoint instance has a role (e.g., working, protection, protected, hub, spoke, leaf, root, etc.) with respect to the FC function. The association of the FC to LTPs is made via EndPoints (essentially the ports of the FC) where each EndPoint (EP) of the FC has a role in the context of the FC. The traffic forwarding between the associated End PointsEPs of the FC depends upon the type of FC and may be associated with FCSwitch object instances. In cases where there is protection conveys the protecting role of the access to the FC.  The EP replaces the Protection Unit of a traditional protection model. It represents a protected (resilient/reliable) point or a protecting (unreliable working or protection) point.";
             }
-            container mw-air-interface-hsb-fc-switch-pac {
+            list mw-air-interface-hsb-fc-switch-pac {
+                key 'fcswitch';
                 leaf prot-type {
                     type protection-type;
                     description "Indicates the protection scheme that is used for the ProtectionGroup.";
@@ -1365,8 +1366,8 @@ module microwave-model {
         /***********************
         * package air-interface-diversity
         **********************/ 
-            container mw-air-interface-diversity-pac {
-                presence  "";
+            list mw-air-interface-diversity-pac {
+                key 'layer-protocol';
                 leaf layer-protocol {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
@@ -1493,8 +1494,9 @@ module microwave-model {
         /***********************
         * package pure-ethernet-structure
         **********************/ 
-            container mw-pure-ethernet-structure-pac {
+            list mw-pure-ethernet-structure-pac {
                 if-feature pure-ethernet;
+                key 'layer-protocol';
                 leaf layer-protocol {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
@@ -1604,8 +1606,9 @@ module microwave-model {
         /***********************
         * package hybrid-mw-structure
         **********************/ 
-            container mw-hybrid-mw-structure-pac {
+            list mw-hybrid-mw-structure-pac {
                 if-feature hybrid-microwave;
+                key 'layer-protocol';
                 leaf layer-protocol {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
@@ -1732,8 +1735,8 @@ module microwave-model {
         /***********************
         * package ethernet-container
         **********************/ 
-            container mw-ethernet-container-pac {
-                presence  "";
+            list mw-ethernet-container-pac {
+                key 'layer-protocol';
                 leaf layer-protocol {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
@@ -1933,9 +1936,9 @@ module microwave-model {
         /***********************
         * package tdm-container
         **********************/ 
-            container mw-tdm-container-pac {
+            list mw-tdm-container-pac {
                 if-feature hybrid-microwave;
-                presence  "";
+                key 'layer-protocol';
                 leaf layer-protocol {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';

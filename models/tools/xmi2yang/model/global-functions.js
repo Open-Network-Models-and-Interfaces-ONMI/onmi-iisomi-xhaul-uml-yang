@@ -43,10 +43,6 @@ if (!String.prototype.featureDescription) {
   };
 }
 
-
-
-
-
 module.exports = {
     version: '2.0'    
 };

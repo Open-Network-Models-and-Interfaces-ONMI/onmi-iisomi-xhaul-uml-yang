@@ -1942,7 +1942,8 @@ function obj2yang(ele){
                 }
             }
             if (ele[i].name === 'NetworkElement') obj.nodeType = "container";
-            /*if(ele[i].key.length != 0){
+            if (ele[i].name.startsWith('MW_') && ele[i].name.endsWith('_Pac')) obj.nodeType = "list";
+                      /*if(ele[i].key.length != 0){
                 obj.nodeType = "list";
             }*/
             if(k == association.length){
