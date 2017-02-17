@@ -36,7 +36,7 @@ function Class(name, id, type, comment, nodeType, path, config, isOrdered, fileN
     this.attribute = [];
     this.key = [];
     this.keyid = [];
-    
+
 }
 Class.prototype.isEnum = function(){
     var result;
@@ -185,13 +185,12 @@ Class.prototype.buildGeneral = function(gen){
     this.generalization.push(obj);
 };
 Class.prototype.buildOperate = function(para){
-    var arr = [];
+    // var arr = [];
     var type;
     var isLeaf;
-    var nodeType;
-    var id;
-    var input = [];
-    var output = [];
+    // var nodeType;
+    // var input = [];
+    // var output = [];
     var id = para.attributes()['xmi:id'];
     var name = para.attributes().name;
     if(para.attributes().type){

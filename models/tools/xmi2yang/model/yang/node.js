@@ -39,7 +39,7 @@ function Node(name, descrip, type, maxEle, minEle, id, config, isOrdered, featur
 Node.prototype.buildChild = function (att, type) {
     if(type == "leaf" || type == "leaf-list"){
         //translate the "integer" to "uint32"
-       var t;
+        // var t;
         /*if(typeof att.type == "object"){
             t = att.type.name;
         }else if(typeof type == "string"){
@@ -56,7 +56,7 @@ Node.prototype.buildChild = function (att, type) {
         if(typeof att.type === "object"){
             if(att.type.name === "integer"){
                 if (att.bitLength) {
-                    att.type.length = att.bitLength.replace(/[^0-9]/g, '');;
+                    att.type.length = att.bitLength.replace(/[^0-9]/g, '');
                 }
                 att.type.unsigned = att.unsigned;
                 att.type.name = att.type.getTypeName();
@@ -103,7 +103,7 @@ Node.prototype.buildChild = function (att, type) {
             }
             break;
         case "typedef":
-	          obj = new Type(att.type, att.id, undefined, att.valueRange, undefined, undefined, att.units, att.description, att.fileName);
+            obj = new Type(att.type, att.id, undefined, att.valueRange, undefined, undefined, att.units, att.description, att.fileName);
             break;
         case "enum":
             this.name = this.name.replace(/[^\w\.-]+/g,'_');
@@ -122,9 +122,9 @@ Node.prototype.buildUses = function (att) {
 //create yang element string
 Node.prototype.writeNode = function (layer) {
     // ignore obsolete
-//    if (this.status === 'obsolete') 
+//    if (this.status === 'obsolete')
 //       return '';
-    
+
     var PRE = '';
     var k = layer;
     while (k-- > 0) {
@@ -200,7 +200,7 @@ Node.prototype.writeNode = function (layer) {
                 break;
         }
     }
-    
+
     var name = this.nodeType + " " + Util.yangifyName(this.name);
     if(!this.description){
         this.description = "none";
@@ -209,8 +209,8 @@ Node.prototype.writeNode = function (layer) {
         this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g, "\'");
     }
-    
-    
+
+
     this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
     var order="";
     /*if(this["ordered-by"] != undefined && this.nodeType == "list"){
@@ -223,7 +223,7 @@ Node.prototype.writeNode = function (layer) {
     if(this["ordered-by"] == true && this.nodeType == "list"){
         order = PRE + "\tordered-by user" + ";\r\n";
     }
-    
+
     var maxele;
     var minele;
     var defvalue;
@@ -255,8 +255,8 @@ Node.prototype.writeNode = function (layer) {
                 // remove duplicates
                 var keys = this.key.filter(function(item, index, self) {
                   return self.indexOf(item) === index;
-                }).map(function(item) { 
-                  return Util.yangifyName(item); 
+                }).map(function(item) {
+                  return Util.yangifyName(item);
                 });
                 Key = PRE + "\tkey '" + keys.join(" ") + "';\r\n";
             }

@@ -37,7 +37,6 @@ Package.prototype.writeNode = function (layer) {
     //var name = "container " + this.name;
     var name = "/***********************\r\n* package " + this.name + "\r\n**********************/";
     name = name.replace(/\r\n/g, '\r\n' + PRE);
-    var descript;
     if(!this.description){
         this.description = "none";
     }
@@ -45,7 +44,7 @@ Package.prototype.writeNode = function (layer) {
         this.description = this.description.replace(/\r+\n\s*/g, '\r\n' + PRE + '\t\t');
         this.description = this.description.replace(/\"/g,"\'");
     }
-    this.description ? descript = PRE + "\tdescription \"" + this.description + "\";\r\n" : descript = "";
+    // var descript = this.description ? PRE + "\tdescription \"" + this.description + "\";\r\n" : "";
     var children = "";
     var sub;
     if (this.children) {
