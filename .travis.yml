@@ -1,0 +1,17 @@
+sudo: false
+
+language: python
+python:
+  - '3.6'
+
+env:
+  - NODE_JS_VERSION="7.5"
+
+install:
+  - nvm install $NODE_JS_VERSION
+  - npm install -g eslint jshint
+
+  - pip install git+https://github.com/coala/coala-bears.git@zimmermann/yang
+
+script:
+  - coala --ci --disable-caching
