@@ -49,6 +49,7 @@
        - remove _desiredOutcomeConstraints, because of key issues ;(
        - remove 'empty' classes: SpecificClassStructure, SpecificPattern, Ltp
        - remove FruNonFruRules
+	   - add high-level description
  -->
 <xsl:stylesheet version="2.0" 
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
@@ -317,7 +318,18 @@ xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML"
 		</xsl:call-template>
     </xsl:template>
 
-   <!-- modifications in equipement model -->
+	<!-- add high-level description -->
+	<xsl:template match="uml:Package[@xmi:id = '_oGqilVLNEeO75dO39GbF8Q']">
+		<xsl:copy>
+			<xsl:apply-templates select="@*"/>
+                <ownedComment xmi:type="uml:Comment" xmi:id="_uHEawDdIEeOHDrwRRcUeVQ" annotatedElement="../@xmi:id">
+                    <body>This module contains a collection of YANG definitions for managing wireless networks.</body>
+                </ownedComment>
+			<xsl:apply-templates select="* | text()"/>
+		</xsl:copy>
+	</xsl:template>
+
+    <!-- modifications in equipement model -->
     <xsl:template match="ownedAttribute[@name = '_addressedByHolder']">
 		<xsl:call-template name="removed">
 			<xsl:with-param name="object" select="."/>
