@@ -645,7 +645,7 @@ module: microwave-model
    |  |  +--ro snir-cur?                 int8
    |  |  +--ro xpd-cur?                  int8
    |  |  +--ro rf-temp-cur?              int8
-   |  |  +--ro last-status-change?       core-model:date-and-time
+   |  |  +--ro last-status-change?       yang:date-and-time
    |  |  +--ro radio-power-is-up?        boolean
    |  |  +--ro link-is-up?               boolean
    |  |  +--ro xpic-is-up?               boolean
@@ -660,7 +660,7 @@ module: microwave-model
    |  |  +--ro current-problem-list* [sequence-number]
    |  |     +--ro problem-name?       string
    |  |     +--ro sequence-number     int32
-   |  |     +--ro time-stamp?         core-model:date-and-time
+   |  |     +--ro time-stamp?         yang:date-and-time
    |  |     +--ro problem-severity?   severity-type
    |  +--ro air-interface-current-performance
    |  |  +--ro current-performance-data-list* [scanner-id]
@@ -760,7 +760,7 @@ module: microwave-model
    |        |  +--ro time-period?         int32
    |        +--ro suspect-interval-flag?   boolean
    |        +--ro history-data-id          string
-   |        +--ro period-end-time?         core-model:date-and-time
+   |        +--ro period-end-time?         yang:date-and-time
    |        +--ro granularity-period?      granularity-period-type
    |        +--ro object-class?            object-identifier
    |        +--ro name-binding?            object-identifier
@@ -796,12 +796,12 @@ module: microwave-model
    |  +--ro air-interface-diversity-status
    |  |  +--ro snir-cur?                         int8
    |  |  +--ro air-interface-diversity-status?   air-interface-diversity-status-type
-   |  |  +--ro last-status-change?               core-model:date-and-time
+   |  |  +--ro last-status-change?               yang:date-and-time
    |  +--ro air-interface-diversity-current-problems
    |  |  +--ro current-problem-list* [sequence-number]
    |  |     +--ro problem-name?       string
    |  |     +--ro sequence-number     int32
-   |  |     +--ro time-stamp?         core-model:date-and-time
+   |  |     +--ro time-stamp?         yang:date-and-time
    |  |     +--ro problem-severity?   severity-type
    |  +--ro air-interface-diversity-current-performance
    |  |  +--ro current-performance-data-list* [scanner-id]
@@ -825,7 +825,7 @@ module: microwave-model
    |        |  +--ro snir-avg?   int8
    |        +--ro suspect-interval-flag?   boolean
    |        +--ro history-data-id          string
-   |        +--ro period-end-time?         core-model:date-and-time
+   |        +--ro period-end-time?         yang:date-and-time
    |        +--ro granularity-period?      granularity-period-type
    |        +--ro object-class?            object-identifier
    |        +--ro name-binding?            object-identifier
@@ -845,12 +845,12 @@ module: microwave-model
    |  |  |  +--ro operational-status?            core-model:operational-state
    |  |  |  +--ro obsolete-priority-class?       int8
    |  |  |  +--ro obsolete-drop-order-rank?      int16
-   |  |  +--ro last-status-change?    core-model:date-and-time
+   |  |  +--ro last-status-change?    yang:date-and-time
    |  +--ro pure-ethernet-structure-current-problems
    |  |  +--ro current-problem-list* [sequence-number]
    |  |     +--ro problem-name?       string
    |  |     +--ro sequence-number     int32
-   |  |     +--ro time-stamp?         core-model:date-and-time
+   |  |     +--ro time-stamp?         yang:date-and-time
    |  |     +--ro problem-severity?   severity-type
    |  +--ro pure-ethernet-structure-current-performance
    |  |  +--ro current-performance-data-list* [scanner-id]
@@ -868,7 +868,7 @@ module: microwave-model
    |        +--ro performance-data?        structure-performance-type
    |        +--ro suspect-interval-flag?   boolean
    |        +--ro history-data-id          string
-   |        +--ro period-end-time?         core-model:date-and-time
+   |        +--ro period-end-time?         yang:date-and-time
    |        +--ro granularity-period?      granularity-period-type
    |        +--ro object-class?            object-identifier
    |        +--ro name-binding?            object-identifier
@@ -897,12 +897,12 @@ module: microwave-model
    |  |  |  +--ro operational-status?            core-model:operational-state
    |  |  |  +--ro obsolete-priority-class?       int8
    |  |  |  +--ro obsolete-drop-order-rank?      int16
-   |  |  +--ro last-status-change?    core-model:date-and-time
+   |  |  +--ro last-status-change?    yang:date-and-time
    |  +--ro hybrid-mw-structure-current-problems
    |  |  +--ro current-problem-list* [sequence-number]
    |  |     +--ro problem-name?       string
    |  |     +--ro sequence-number     int32
-   |  |     +--ro time-stamp?         core-model:date-and-time
+   |  |     +--ro time-stamp?         yang:date-and-time
    |  |     +--ro problem-severity?   severity-type
    |  +--ro hybrid-mw-structure-current-performance
    |  |  +--ro current-performance-data-list* [scanner-id]
@@ -920,7 +920,7 @@ module: microwave-model
    |        +--ro performance-data?        structure-performance-type
    |        +--ro suspect-interval-flag?   boolean
    |        +--ro history-data-id          string
-   |        +--ro period-end-time?         core-model:date-and-time
+   |        +--ro period-end-time?         yang:date-and-time
    |        +--ro granularity-period?      granularity-period-type
    |        +--ro object-class?            object-identifier
    |        +--ro name-binding?            object-identifier
@@ -957,12 +957,12 @@ module: microwave-model
    |  |     +--rw problem-kind-name        string
    |  |     +--rw problem-kind-severity?   severity-type
    |  +--ro ethernet-container-status
-   |  |  +--ro last-status-change?   core-model:date-and-time
+   |  |  +--ro last-status-change?   yang:date-and-time
    |  +--ro ethernet-container-current-problems
    |  |  +--ro current-problem-list* [sequence-number]
    |  |     +--ro problem-name?       string
    |  |     +--ro sequence-number     int32
-   |  |     +--ro time-stamp?         core-model:date-and-time
+   |  |     +--ro time-stamp?         yang:date-and-time
    |  |     +--ro problem-severity?   severity-type
    |  +--ro ethernet-container-current-performance
    |  |  +--ro current-performance-data-list* [scanner-id]
@@ -988,7 +988,7 @@ module: microwave-model
    |        |  +--ro time-period?               int32
    |        +--ro suspect-interval-flag?   boolean
    |        +--ro history-data-id          string
-   |        +--ro period-end-time?         core-model:date-and-time
+   |        +--ro period-end-time?         yang:date-and-time
    |        +--ro granularity-period?      granularity-period-type
    |        +--ro object-class?            object-identifier
    |        +--ro name-binding?            object-identifier
@@ -1011,12 +1011,12 @@ module: microwave-model
       |     +--rw problem-kind-name        string
       |     +--rw problem-kind-severity?   severity-type
       +--ro tdm-container-status
-      |  +--ro last-status-change?   core-model:date-and-time
+      |  +--ro last-status-change?   yang:date-and-time
       +--ro tdm-container-current-problems
       |  +--ro current-problem-list* [sequence-number]
       |     +--ro problem-name?       string
       |     +--ro sequence-number     int32
-      |     +--ro time-stamp?         core-model:date-and-time
+      |     +--ro time-stamp?         yang:date-and-time
       |     +--ro problem-severity?   severity-type
       +--ro tdm-container-current-performance
       |  +--ro current-performance-data-list* [scanner-id]
@@ -1042,29 +1042,29 @@ module: microwave-model
             |  +--ro time-period?               int32
             +--ro suspect-interval-flag?   boolean
             +--ro history-data-id          string
-            +--ro period-end-time?         core-model:date-and-time
+            +--ro period-end-time?         yang:date-and-time
             +--ro granularity-period?      granularity-period-type
             +--ro object-class?            object-identifier
             +--ro name-binding?            object-identifier
 notifications:
    +---n object-creation-notification
    |  +--ro counter?         int32
-   |  +--ro time-stamp?      core-model:date-and-time
+   |  +--ro time-stamp?      yang:date-and-time
    |  +--ro object-id-ref?   core-model:universal-id
    |  +--ro object-type?     string
    +---n object-deletion-notification
    |  +--ro counter?         int32
-   |  +--ro time-stamp?      core-model:date-and-time
+   |  +--ro time-stamp?      yang:date-and-time
    |  +--ro object-id-ref?   core-model:universal-id
    +---n attribute-value-changed-notification
    |  +--ro counter?          int32
-   |  +--ro time-stamp?       core-model:date-and-time
+   |  +--ro time-stamp?       yang:date-and-time
    |  +--ro object-id-ref?    core-model:universal-id
    |  +--ro attribute-name?   string
    |  +--ro new-value?        string
    +---n problem-notification
       +--ro counter?         int32
-      +--ro time-stamp?      core-model:date-and-time
+      +--ro time-stamp?      yang:date-and-time
       +--ro object-id-ref?   core-model:universal-id
       +--ro problem?         string
       +--ro severity?        severity-type
