@@ -11,6 +11,7 @@
  *
  ****************************************************************************************************/
 var Type = require("./yang/type.js");
+var Node = require("./yang/node.js");
 var Attribute = require("./OwnedAttribute.js");
 
 function Class(name, id, type, comment, nodeType, path, config, isOrdered, fileName){
