@@ -1450,7 +1450,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
             <defaultValue xmi:type="uml:LiteralString" xmi:id="_6eaS8LicEeatZpIHijZVeg" value="Kind of co-channel group not specified."/>
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_8QgfIKwZEeaK38AermeaCw" name="_logicalterminationpoint" association="_8Qf4EKwZEeaK38AermeaCw">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_8QgfIKwZEeaK38AermeaCw" name="_logicalTerminationPoint" association="_8Qf4EKwZEeaK38AermeaCw">
             <type xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_eEpDMFX4EeOVGaP4lO41SQ"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_GQbPcKwbEeaK38AermeaCw"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_GQe50KwbEeaK38AermeaCw" value="*"/>
@@ -1940,7 +1940,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
             <defaultValue xmi:type="uml:LiteralString" xmi:id="_w0UWwLidEeatZpIHijZVeg" value="No Ethernet Flow associated yet."/>
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEBy0afEeas2eqI3oKNtg" name="segmentsIDList" type="_Nd1F4MKuEeWwLJhHQlOGSQ" isUnique="false">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEBy0afEeas2eqI3oKNtg" name="segmentsIdList" type="_Nd1F4MKuEeWwLJhHQlOGSQ" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4uEBzEafEeas2eqI3oKNtg" annotatedElement="_4uEBy0afEeas2eqI3oKNtg">
               <body>Lists the segments used for transporting this Ethernet container. In case EthernetContainer::ContainerCapability::bundlingIsAvail==0, all TypeDefinitions::segmentIdType::structureId must be identical in the list.</body>
             </ownedComment>
