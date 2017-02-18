@@ -19,6 +19,8 @@ function log {
 
 function post-processing {
   # core-model
+  # sed -i -e "s/prefix core-model;/prefix core-model;\n\n    import ietf-yang-types {\n        prefix yang;\n    }\n/g" $1;
+  sed -i -e "s/type core-model:date-and-time;/type yang:date-and-time;/g" $1;
   sed -i -e 's/name,uuid/uuid/g' $1;
   sed -i -e 's/uuid,name/uuid/g' $1;
   sed -i -e "s/key 'uuid name';/key 'uuid';/g" $1;
@@ -44,10 +46,18 @@ function post-processing {
   sed -i -e 's/mechanicall/mechanical/g' $1;
 
   # g.874.1
-  sed -i -e "s/prefix g.874.1-model;/prefix g.874.1-model;\n\n    import core-model {\n        prefix core-model;\n    }\n\n/g" $1;
+  sed -i -e "s/type core-model:date-and-time;/type yang:date-and-time;/g" $1;
+  sed -i -e "s/prefix g.874.1-model;/prefix g.874.1-model;\n    import ietf-yang-types {\n        prefix yang;\n    }\n/g" $1;
+  sed -i -e "s/prefix g.874.1-model;/prefix g.874.1-model;\n\n    import core-model {\n        prefix core-model;\n    }/g" $1;
 
   # microwave-model
-  sed -i -e "s/prefix microwave-model;/prefix microwave-model;\n    import g.874.1-model {\n        prefix g;\n    }\n/g" $1;
+  sed -i -e "s/type core-model:date-and-time;/type yang:date-and-time;/g" $1;
+  sed -i -e "s/20101120140000.0Z+1/2017-01-01T00:00:00.0Z/g" $1;
+  sed -i -e "s/_format:.*/ \";/g" $1;
+
+
+  sed -i -e "s/prefix microwave-model;/prefix microwave-model;\n    import ietf-yang-types {\n        prefix yang;\n    }\n/g" $1;
+  sed -i -e "s/prefix microwave-model;/prefix microwave-model;\n    import g.874.1-model {\n        prefix g;\n    }/g" $1;
   sed -i -e "s/prefix microwave-model;/prefix microwave-model;\n\n    import core-model {\n        prefix core-model;\n    }/g" $1;
   sed -i -e "s/type integer/type int32/g" $1; # MEGA hack - check with Thorsten....
 
@@ -126,12 +136,11 @@ for item in ${files[*]}
 do
   post-processing "$item"
   log "  $item";
-  pyang "$item";
+  pyang --lint "$item";
 done
 log "Yang modules checked!";
 
 pyang -f tree *.yang >> MicrowaveModel.tree.txt
-pyang --lint *.yang
 log "Tree view generated!";
 
 # End
