@@ -25,10 +25,10 @@ echo ""
 
 echo "Converting YANG to YANG-ODL"
 mkdir -p ${DIR_YANG_ODL}
-#${DIR_SCRIPTS}/yang2odl.sh ${DIR_YANG} ${DIR_YANG_ODL}
+${DIR_SCRIPTS}/yang2odl.sh ${DIR_YANG} ${DIR_YANG_ODL}
 echo ""
 
 echo "Converting YANG-ODL to YIN-ODL"
 mkdir -p ${DIR_YIN_ODL}
-#${DIR_SCRIPTS}/yang2yin.sh ${DIR_YANG_ODL} ${DIR_YIN_ODL}
+${DIR_SCRIPTS}/yang2yin.sh ${DIR_YANG_ODL} ${DIR_YIN_ODL}
 echo ""
