@@ -8,7 +8,7 @@
  *
  * This tool is developed according to the mapping rules defined in onf2015.261_Mapping_Gdls_UML-YANG.08 by OpenNetworkFoundation(ONF) IMP group.
  *
- * file: \model\yang\leaf.js
+ * file: \model\yang\package.js
  *
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
