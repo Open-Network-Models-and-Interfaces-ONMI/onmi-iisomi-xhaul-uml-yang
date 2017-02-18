@@ -675,26 +675,26 @@ module: microwave-model
    |  |     |  +--ro rx-level-min?        int8
    |  |     |  +--ro rx-level-max?        int8
    |  |     |  +--ro rx-level-avg?        int8
-   |  |     |  +--ro time2states?         int32
-   |  |     |  +--ro time4states-s?       int32
-   |  |     |  +--ro time4states?         int32
-   |  |     |  +--ro time8states?         int32
-   |  |     |  +--ro time16states-s?      int32
-   |  |     |  +--ro time16states?        int32
-   |  |     |  +--ro time32states?        int32
-   |  |     |  +--ro time64states?        int32
-   |  |     |  +--ro time128states?       int32
-   |  |     |  +--ro time256states?       int32
-   |  |     |  +--ro time512states?       int32
-   |  |     |  +--ro time512states-l?     int32
-   |  |     |  +--ro time1024states?      int32
-   |  |     |  +--ro time1024states-l?    int32
-   |  |     |  +--ro time2048states?      int32
-   |  |     |  +--ro time2048states-l?    int32
-   |  |     |  +--ro time4096states?      int32
-   |  |     |  +--ro time4096states-l?    int32
-   |  |     |  +--ro time8192states?      int32
-   |  |     |  +--ro time8192states-l?    int32
+   |  |     |  +--ro time2-states?        int32
+   |  |     |  +--ro time4-states-s?      int32
+   |  |     |  +--ro time4-states?        int32
+   |  |     |  +--ro time8-states?        int32
+   |  |     |  +--ro time16-states-s?     int32
+   |  |     |  +--ro time16-states?       int32
+   |  |     |  +--ro time32-states?       int32
+   |  |     |  +--ro time64-states?       int32
+   |  |     |  +--ro time128-states?      int32
+   |  |     |  +--ro time256-states?      int32
+   |  |     |  +--ro time512-states?      int32
+   |  |     |  +--ro time512-states-l?    int32
+   |  |     |  +--ro time1024-states?     int32
+   |  |     |  +--ro time1024-states-l?   int32
+   |  |     |  +--ro time2048-states?     int32
+   |  |     |  +--ro time2048-states-l?   int32
+   |  |     |  +--ro time4096-states?     int32
+   |  |     |  +--ro time4096-states-l?   int32
+   |  |     |  +--ro time8192-states?     int32
+   |  |     |  +--ro time8192-states-l?   int32
    |  |     |  +--ro snir-min?            int8
    |  |     |  +--ro snir-max?            int8
    |  |     |  +--ro snir-avg?            int8
@@ -727,26 +727,26 @@ module: microwave-model
    |        |  +--ro rx-level-min?        int8
    |        |  +--ro rx-level-max?        int8
    |        |  +--ro rx-level-avg?        int8
-   |        |  +--ro time2states?         int32
-   |        |  +--ro time4states-s?       int32
-   |        |  +--ro time4states?         int32
-   |        |  +--ro time8states?         int32
-   |        |  +--ro time16states-s?      int32
-   |        |  +--ro time16states?        int32
-   |        |  +--ro time32states?        int32
-   |        |  +--ro time64states?        int32
-   |        |  +--ro time128states?       int32
-   |        |  +--ro time256states?       int32
-   |        |  +--ro time512states?       int32
-   |        |  +--ro time512states-l?     int32
-   |        |  +--ro time1024states?      int32
-   |        |  +--ro time1024states-l?    int32
-   |        |  +--ro time2048states?      int32
-   |        |  +--ro time2048states-l?    int32
-   |        |  +--ro time4096states?      int32
-   |        |  +--ro time4096states-l?    int32
-   |        |  +--ro time8192states?      int32
-   |        |  +--ro time8192states-l?    int32
+   |        |  +--ro time2-states?        int32
+   |        |  +--ro time4-states-s?      int32
+   |        |  +--ro time4-states?        int32
+   |        |  +--ro time8-states?        int32
+   |        |  +--ro time16-states-s?     int32
+   |        |  +--ro time16-states?       int32
+   |        |  +--ro time32-states?       int32
+   |        |  +--ro time64-states?       int32
+   |        |  +--ro time128-states?      int32
+   |        |  +--ro time256-states?      int32
+   |        |  +--ro time512-states?      int32
+   |        |  +--ro time512-states-l?    int32
+   |        |  +--ro time1024-states?     int32
+   |        |  +--ro time1024-states-l?   int32
+   |        |  +--ro time2048-states?     int32
+   |        |  +--ro time2048-states-l?   int32
+   |        |  +--ro time4096-states?     int32
+   |        |  +--ro time4096-states-l?   int32
+   |        |  +--ro time8192-states?     int32
+   |        |  +--ro time8192-states-l?   int32
    |        |  +--ro snir-min?            int8
    |        |  +--ro snir-max?            int8
    |        |  +--ro snir-avg?            int8
@@ -765,10 +765,10 @@ module: microwave-model
    |        +--ro object-class?            object-identifier
    |        +--ro name-binding?            object-identifier
    +--rw co-channel-group
-   |  +--rw co-channel-group-id?        core-model:universal-id
-   |  +--rw air-interface-list*         -> /core-model:network-element/ltp/uuid
-   |  +--rw sort-of-co-channel-group?   string
-   |  +--rw logicalterminationpoint*    -> /core-model:network-element/ltp/uuid
+   |  +--rw co-channel-group-id?         core-model:universal-id
+   |  +--rw air-interface-list*          -> /core-model:network-element/ltp/uuid
+   |  +--rw sort-of-co-channel-group?    string
+   |  +--rw logical-termination-point*   -> /core-model:network-element/ltp/uuid
    +--rw mw-air-interface-hsb-end-point-pac* [endpoint]
    |  +--rw role?       role-type
    |  +--rw endpoint    -> /core-model:forwarding-construct/fc-port/uuid
@@ -929,28 +929,28 @@ module: microwave-model
    |  +--ro ethernet-container-capability
    |  |  +--ro bundling-is-avail?             boolean
    |  |  +--ro packet-compression-is-avail?   boolean
-   |  |  +--ro layer2compression-is-avail?    boolean
+   |  |  +--ro layer2-compression-is-avail?   boolean
    |  |  +--ro vlan-compression-is-avail?     boolean
-   |  |  +--ro q-in-qcompression-is-avail?    boolean
+   |  |  +--ro q-in-q-compression-is-avail?   boolean
    |  |  +--ro mpls-compression-is-avail?     boolean
-   |  |  +--ro ipv4compression-is-avail?      boolean
-   |  |  +--ro ipv6compression-is-avail?      boolean
-   |  |  +--ro layer4compression-is-avail?    boolean
+   |  |  +--ro ipv4-compression-is-avail?     boolean
+   |  |  +--ro ipv6-compression-is-avail?     boolean
+   |  |  +--ro layer4-compression-is-avail?   boolean
    |  |  +--ro encryption-is-avail?           boolean
    |  |  +--ro supported-alarms?              string
    |  +--rw ethernet-container-configuration
    |  |  +--rw container-id?                 string
-   |  |  +--rw segments-idlist* [structure-id-ref segment-id-ref]
+   |  |  +--rw segments-id-list* [structure-id-ref segment-id-ref]
    |  |  |  +--rw structure-id-ref    core-model:universal-id
    |  |  |  +--rw segment-id-ref      int16
    |  |  +--rw packet-compression-is-on?     boolean
-   |  |  +--rw layer2compression-is-on?      boolean
+   |  |  +--rw layer2-compression-is-on?     boolean
    |  |  +--rw vlan-compression-is-on?       boolean
-   |  |  +--rw q-in-qcompression-is-on?      boolean
+   |  |  +--rw q-in-q-compression-is-on?     boolean
    |  |  +--rw mpls-compression-is-on?       boolean
-   |  |  +--rw ipv4compression-is-on?        boolean
-   |  |  +--rw ipv6compression-is-on?        boolean
-   |  |  +--rw layer4compression-is-on?      boolean
+   |  |  +--rw ipv4-compression-is-on?       boolean
+   |  |  +--rw ipv6-compression-is-on?       boolean
+   |  |  +--rw layer4-compression-is-on?     boolean
    |  |  +--rw encryption-is-on?             boolean
    |  |  +--rw cryptographic-key?            string
    |  |  +--rw problem-kind-severity-list* [problem-kind-name]

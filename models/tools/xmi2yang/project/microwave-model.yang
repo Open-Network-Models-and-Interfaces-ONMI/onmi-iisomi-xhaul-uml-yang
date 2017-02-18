@@ -278,140 +278,140 @@ module microwave-model {
                 config false;
                 description "Averaged receive level. Signed integers are required.";
             }
-            leaf time2states {
+            leaf time2-states {
                 type int32;
                 units "s";
                 default -1;
                 config false;
                 description "Sum of all seconds the transmitter operated in e.g. BPSK.";
             }
-            leaf time4states-s {
+            leaf time4-states-s {
                 type int32;
                 units "s";
                 default -1;
                 config false;
                 description "none";
             }
-            leaf time4states {
+            leaf time4-states {
                 type int32;
                 units "s";
                 default -1;
                 config false;
                 description "none";
             }
-            leaf time8states {
+            leaf time8-states {
                 type int32;
                 units "s";
                 default -1;
                 config false;
                 description "none";
             }
-            leaf time16states-s {
+            leaf time16-states-s {
                 type int32;
                 units "s";
                 default -1;
                 config false;
                 description "none";
             }
-            leaf time16states {
+            leaf time16-states {
                 type int32;
                 units "s";
                 default -1;
                 config false;
                 description "none";
             }
-            leaf time32states {
+            leaf time32-states {
                 type int32;
                 units "s";
                 default -1;
                 config false;
                 description "none";
             }
-            leaf time64states {
+            leaf time64-states {
                 type int32;
                 units "s";
                 default -1;
                 config false;
                 description "none";
             }
-            leaf time128states {
+            leaf time128-states {
                 type int32;
                 units "s";
                 default -1;
                 config false;
                 description "none";
             }
-            leaf time256states {
+            leaf time256-states {
                 type int32;
                 units "s";
                 default -1;
                 config false;
                 description "none";
             }
-            leaf time512states {
+            leaf time512-states {
                 type int32;
                 units "s";
                 default -1;
                 config false;
                 description "none";
             }
-            leaf time512states-l {
+            leaf time512-states-l {
                 type int32;
                 units "s";
                 default -1;
                 config false;
                 description "none";
             }
-            leaf time1024states {
+            leaf time1024-states {
                 type int32;
                 units "s";
                 default -1;
                 config false;
                 description "none";
             }
-            leaf time1024states-l {
+            leaf time1024-states-l {
                 type int32;
                 units "s";
                 default -1;
                 config false;
                 description "none";
             }
-            leaf time2048states {
+            leaf time2048-states {
                 type int32;
                 units "s";
                 default -1;
                 config false;
                 description "none";
             }
-            leaf time2048states-l {
+            leaf time2048-states-l {
                 type int32;
                 units "s";
                 default -1;
                 config false;
                 description "none";
             }
-            leaf time4096states {
+            leaf time4096-states {
                 type int32;
                 units "s";
                 default -1;
                 config false;
                 description "none";
             }
-            leaf time4096states-l {
+            leaf time4096-states-l {
                 type int32;
                 units "s";
                 default -1;
                 config false;
                 description "none";
             }
-            leaf time8192states {
+            leaf time8192-states {
                 type int32;
                 units "s";
                 default -1;
                 config false;
                 description "none";
             }
-            leaf time8192states-l {
+            leaf time8192-states-l {
                 type int32;
                 units "s";
                 default -1;
@@ -744,7 +744,7 @@ module microwave-model {
             }
             description "none";
         }
-        grouping segment-idtype {
+        grouping segment-id-type {
             leaf structure-id-ref {
                 type core-model:universal-id;
                 description "none";
@@ -1348,7 +1348,7 @@ module microwave-model {
                     default "Kind of co-channel group not specified.";
                     description "Type of group of air interfaces with the same transmit and receive frequency. The values shall be chosen from the following _list:'XPIC', 'MIMO', 'ALIC';";
                 }
-                leaf-list logicalterminationpoint {
+                leaf-list logical-termination-point {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:uuid';
                     }
@@ -1831,7 +1831,7 @@ module microwave-model {
                     config false;
                     description "In case packet compression can be activated, but not configured to a certain type, packetCompressionAvail shall be set on 'true', but none of the compression level specific booleans.";
                 }
-                leaf layer2compression-is-avail {
+                leaf layer2-compression-is-avail {
                     type boolean;
                     default false;
                     config false;
@@ -1843,7 +1843,7 @@ module microwave-model {
                     config false;
                     description "Packet compression on VLAN layer available at the device.";
                 }
-                leaf q-in-qcompression-is-avail {
+                leaf q-in-q-compression-is-avail {
                     type boolean;
                     default false;
                     config false;
@@ -1855,19 +1855,19 @@ module microwave-model {
                     config false;
                     description "Packet compression on mpls layer available at the device.";
                 }
-                leaf ipv4compression-is-avail {
+                leaf ipv4-compression-is-avail {
                     type boolean;
                     default false;
                     config false;
                     description "Packet compression on layer 3 for IPv4 available at the device.";
                 }
-                leaf ipv6compression-is-avail {
+                leaf ipv6-compression-is-avail {
                     type boolean;
                     default false;
                     config false;
                     description "Packet compression on layer 3 for IPv6 available at the device.";
                 }
-                leaf layer4compression-is-avail {
+                leaf layer4-compression-is-avail {
                     type boolean;
                     default false;
                     config false;
@@ -1893,10 +1893,10 @@ module microwave-model {
                     default "No Ethernet Flow associated yet.";
                     description "ContainterID in Netconf must be the same as EthernetPortID in OpenFlow so a connection can be made between the two items, which separately exist in the controller.";
                 }
-                list segments-idlist {
+                list segments-id-list {
                     key 'structure-id-ref segment-id-ref';
                     min-elements 1;
-                    uses segment-idtype;
+                    uses segment-id-type;
                     description "Lists the segments used for transporting this Ethernet container. In case EthernetContainer::ContainerCapability::bundlingIsAvail==0, all TypeDefinitions::segmentIdType::structureId must be identical in the list.";
                 }
                 leaf packet-compression-is-on {
@@ -1904,7 +1904,7 @@ module microwave-model {
                     default false;
                     description "In case packet compression is activated, but no type is activated, it is assumed that the device chooses the optimum.";
                 }
-                leaf layer2compression-is-on {
+                leaf layer2-compression-is-on {
                     type boolean;
                     default false;
                     description "Packet compression on layer 2 configured at the device.";
@@ -1914,7 +1914,7 @@ module microwave-model {
                     default false;
                     description "Packet compression on VLAN layer configured at the device.";
                 }
-                leaf q-in-qcompression-is-on {
+                leaf q-in-q-compression-is-on {
                     type boolean;
                     default false;
                     description "Packet compression on layer of a second VLAN configured at the device.";
@@ -1924,17 +1924,17 @@ module microwave-model {
                     default false;
                     description "Packet compression on MPLS layer configured at the device.";
                 }
-                leaf ipv4compression-is-on {
+                leaf ipv4-compression-is-on {
                     type boolean;
                     default false;
                     description "Packet compression on layer 3 for IPv4 configured at the device.";
                 }
-                leaf ipv6compression-is-on {
+                leaf ipv6-compression-is-on {
                     type boolean;
                     default false;
                     description "Packet compression on layer 3 for IPv6 configured at the device.";
                 }
-                leaf layer4compression-is-on {
+                leaf layer4-compression-is-on {
                     type boolean;
                     default false;
                     description "Packet compression on layer 4 (TCP and UDP header) configured at the device.";
@@ -2066,7 +2066,7 @@ module microwave-model {
                     description "Type of TDM container.";
                 }
                 container segment-id {
-                    uses segment-idtype;
+                    uses segment-id-type;
                     description "Multiplicity = 1; One segment per TDM container; Type of segment must match type of container;";
                 }
                 list problem-kind-severity-list {
@@ -2114,6 +2114,9 @@ module microwave-model {
                     description "none";
                 }
                 description "Aggregated performance information of the TDM container for a pre-defined measurement interval.";
+            }
+            feature hybrid-microwave {
+                description "Feature 'hybrid-microwave' is mandatory for device types transporting Ethernet + TDM.";
             }
 
         /***********************

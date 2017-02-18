@@ -63,6 +63,8 @@ module.exports = {
         // yangify rules
         var yang = str
             .replace( /([a-z])([A-Z])/g, '$1-$2' ) // insert dashes
+            .replace( /([0-9])([A-Z])/g, '$1-$2' ) // insert dashes
+            .replace( /([A-Z])([A-Z])([a-z])/g, '$1-$2$3' ) // insert dashes
             .toLowerCase()                         // lowercase everything
             .replace( /^_/, '')                    // remove leading underscore
             .replace( /:_/g, ':')                  // and leading underscores in path segments

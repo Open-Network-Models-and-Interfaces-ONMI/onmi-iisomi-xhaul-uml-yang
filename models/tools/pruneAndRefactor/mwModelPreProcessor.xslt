@@ -174,6 +174,24 @@
 			<xsl:apply-templates select="* | @* | text()"/>
 		</xsl:copy>
 	</xsl:template>
+    <!-- 
+    correct MicrowaveModel::ObjectClasses::EthernetContainer::EthernetContainerConfiguration::segmentsIDList -> segmentsIDList -->
+    <xsl:template match="ownedAttribute[@name = 'segmentsIDList' ]">
+      <xsl:copy>
+        <xsl:apply-templates select="@*"/>
+        <xsl:attribute name="name">segmentsIdList</xsl:attribute>
+        <xsl:apply-templates select="* | text()"/>
+      </xsl:copy>
+    </xsl:template>
+    <!-- 
+    correct _logicalterminationpoint -> _logicalTerminationPoint -->
+    <xsl:template match="ownedAttribute[@name = '_logicalterminationpoint' ]">
+      <xsl:copy>
+        <xsl:apply-templates select="@*"/>
+        <xsl:attribute name="name">_logicalTerminationPoint</xsl:attribute>
+        <xsl:apply-templates select="* | text()"/>
+      </xsl:copy>
+    </xsl:template>
 	<!-- ensure that generalization to ONF::LocalClass are removed
              This template should be removed after the MicrowaveModel.uml was updated -->
 	<xsl:template match="generalization[general/@href = '../OnfModel-CoreModel/CoreModel.uml#_k5nWYI2wEeO38ZmbECnvbg' ]">
