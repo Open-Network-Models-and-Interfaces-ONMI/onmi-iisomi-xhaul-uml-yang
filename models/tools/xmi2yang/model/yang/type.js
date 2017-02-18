@@ -24,7 +24,7 @@ function type(name, id, path, range, length, unsigned, units, descrip, fileName)
     this.units = units;
     this.fileName = fileName;
     this.children = [];
-};
+}
 type.prototype.getTypeName = function() {
     if (this.name !== 'integer') {
         return this.name;
@@ -88,7 +88,7 @@ type.prototype.writeNode = function (layer) {
     var s = "";
     if(this.path || this.range || this.children.length){
         s = " {\r\n";
-        var regex  = /[^0-9/./*]/;
+        // var regex  = /[^0-9/./*]/;
         if(this.range){
             /*if(regex.test(this.range) == true){
                 if(this.range.indexOf('*') !== -1){

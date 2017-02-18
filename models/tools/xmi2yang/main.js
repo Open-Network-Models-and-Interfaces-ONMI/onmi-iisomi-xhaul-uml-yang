@@ -14,7 +14,7 @@
 var xmlreader = require('xmlreader'),
     fs = require('fs'),
     CLASS = require('./model/ObjectClass.js'),
-    OpenModelObject = require('./model/OpenModelObject.js');
+    OpenModelObject = require('./model/OpenModelObject.js'),
     assoc = require('./model/Association.js'),
     Node = require('./model/yang/node.js'),
     Feature = require('./model/yang/feature.js'),
@@ -31,11 +31,11 @@ var openModelAtt = [];//The array of openmodelprofile
 var openModelclass = [];//The array of openmodelprofile
 var openModelnotification = [];
 var association = [];//The array of xmi:type="uml:Association" of UML
-var yang = [];//The array of yang element translated from UML
+// var yang = [];//The array of yang element translated from UML
 var Grouping = [];//The array of grouping type
 var modName = [];//The array of package name
 var yangModule = [];//The array of yang files name
-var keylist = [];
+// var keylist = [];
 //var keyId = [];//The array of key
 var isInstantiated = [];//The array of case that the class is composited by the other class
 var packages = [];
@@ -47,7 +47,7 @@ var specReference = [];
 var augment = [];
 var config = {};
 
-var result = main_Entrance();
+/* var result = */ main_Entrance();
 
 function main_Entrance(){
     try{
@@ -363,9 +363,9 @@ function addPath(id, Class){
     }
 }
 
-function addKey(){
+function addKey(){ // eslint-disable-line no-unused-vars
     for(var i = 0; i < Class.length; i++){
-        var flag = 0;
+        // var flag = 0;
         //search every class,if class's generalization's value is keylist's id,the class will have a key
         if (Class[i].generalization.length !== 0) {
             for(var j = 0; j < Class[i].generalization.length; j++){
@@ -424,14 +424,14 @@ function buildGeneralization(Class){
 
 function inheritKey(general) {
     var keyLength,
-        newnode,
+        // newnode,
         newkey,
         newkeyid;
     if(general.class2.key.length != 0){
         general.class2.key instanceof Array ? keyLength = general.class2.key.length : keyLength = 1;
         for(var i = 0; i < keyLength; i++){
-            keyLength == 1 ? newkey = general.class2.key : general.class2.key[i];
-            keyLength == 1 ? newkeyid = general.class2.keyid : general.class2.keyid[i];
+            newkey = keyLength == 1 ? general.class2.key : general.class2.key[i];
+            newkeyid = keyLength == 1 ? general.class2.keyid : general.class2.keyid[i];
             if(general.class2.key instanceof Array){
                 newkey = general.class2.key[0];
                 newkeyid = general.class2.keyid[0];
@@ -912,20 +912,20 @@ function parseOpenModelclass(xmi){
         return;
     }
     var cond,
-        sup,
-        opex,
-        opid,
-        ato;
+        sup;
+        // opex,
+        // opid,
+        // ato;
     if(xmi.attributes()["operation exceptions"]){
-        opex = true;
+        // opex = true;
         flag = 1;
     }
     if(xmi.attributes()["isOperationIdempotent"]){
-        opid = true;
+        // opid = true;
         flag = 1;
     }
     if(xmi.attributes()["isAtomic"]){
-        ato = true;
+        // ato = true;
         flag = 1;
     }
     if(xmi.attributes()["condition"] && xmi.attributes()["condition"] != "none"){
@@ -1185,7 +1185,7 @@ function createClass(obj, nodeType) {
                 var id = att.attributes()["xmi:id"];
                 var specTargetFlag = false;
                 var specReferenceFlag = false;
-                var definedBySpecFlag = false;
+                // var definedBySpecFlag = false;
                 for(var j = 0; j < specTarget.length; j++){
                     if(id == specTarget[j]){
                         specTargetFlag = true;
@@ -1211,7 +1211,7 @@ function createClass(obj, nodeType) {
                 }
                 for(var j = 0; j < definedBySpec.length; j++){
                     if(id == definedBySpec[j]){
-                        definedBySpecFlag = true;
+                        // definedBySpecFlag = true;
                         break;
                     }
                 }
@@ -1610,18 +1610,18 @@ function obj2yang(ele){
                     }
                 }
                 var vr = "",
-                    units = "",
-                    inv = "",
-                    avcNot = "",
-                    dNot = "",
-                    cNot = "";
+                    units = "";
+                    // inv = "",
+                    // avcNot = "",
+                    // dNot = "",
+                    // cNot = "";
                 for(var k = 0; k < openModelAtt.length; k++){
                     if(openModelAtt[k].id === ele[i].attribute[j].id){
                         units = openModelAtt[k].units;
                         vr = openModelAtt[k].valueRange;
                         if(openModelAtt[k].condition != undefined){
                             for(var m = 0; m < feat.length; m++){
-                                if(feat[m].name === openModelAtt[k].condition.featureName() && 
+                                if(feat[m].name === openModelAtt[k].condition.featureName() &&
                                     feat[m].fileName === openModelAtt[k].fileName){
                                     break;
                                 }
@@ -1959,7 +1959,7 @@ function obj2yang(ele){
             newobj = new Node(ele[i].name, undefined, "notification", undefined, undefined, obj.id, obj.config, obj["ordered-by"], undefined, undefined, ele[i].fileName);
             //newobj.uses.push(obj.name);
             newobj.uses.push(obj.name);
-            
+
         } else if(ele[i].name == "Context") {
         //else if(ele[i].isAbstract == false && ele[i].nodeType == "grouping"){
             flag=false;
@@ -1985,7 +1985,7 @@ function obj2yang(ele){
                     break;
                 }
             }
-            
+
             if(newobj.nodeType !== "list"){
                 newobj["ordered-by"] = undefined;
             }
