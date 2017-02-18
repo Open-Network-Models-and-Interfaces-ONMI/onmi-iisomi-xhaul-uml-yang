@@ -51,12 +51,6 @@ leaf.prototype.writeNode = function (layer) {
     var status = "";
     this.status ? status = PRE + "\tstatus " + this.status + ";\r\n" : status = "";
     
-    var defvalue;
-    if(typeof this.defaultValue == 'number'){
-        this.defaultValue ? defvalue = PRE + "\tdefault " + this.defaultValue + ";\r\n" : defvalue = "";
-    }else {
-        this.defaultValue ? defvalue = PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : defvalue = "";
-    }
     var type = "";
     if (this.type instanceof Type) {
         type = this.type.writeNode(layer + 1);
@@ -72,6 +66,13 @@ leaf.prototype.writeNode = function (layer) {
     //need delete later
     if(this.type == undefined){
         type = "";
+    }
+    
+    var defvalue;
+    if (!type.contains('string') && !type.contains('date-and-time')) {
+        this.defaultValue ? defvalue = PRE + "\tdefault " + this.defaultValue + ";\r\n" : defvalue = "";
+    } else {
+        this.defaultValue ? defvalue = PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : defvalue = "";
     }
     var units;
     if(this.units != undefined && this.units != ""){
