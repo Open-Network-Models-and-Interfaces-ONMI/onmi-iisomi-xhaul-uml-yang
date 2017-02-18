@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><xmi:XMI xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_sozXgFo1EeaGOO_VQ0dx_g/16" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:version="20131001" xsi:schemaLocation="http:///schemas/OpenModel_Profile/_sozXgFo1EeaGOO_VQ0dx_g/16 ../OpenModelProfile/OpenModel_Profile.profile.uml#_so5eIFo1EeaGOO_VQ0dx_g">
-  <uml:Model xmi:id="_H_Vv8HfbEeWiOPc9pTMjTg" name="MicrowaveModel">
+  <uml:Model xmi:id="_H_Vv8HfbEeWiOPc9pTMjTg" name="MicrowaveModel"><ownedComment xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_NDJbQJNqEeWP45fAG0gIqg/12" xmi:type="uml:Comment" xmi:id="_uHEawDdIEeOHDrwRRcUeVQ" annotatedElement="../@xmi:id"><body>This module contains a collection of YANG definitions for managing wireless networks.</body></ownedComment>
     <packagedElement xmi:type="uml:Package" xmi:id="_M857cJONEeW90a4S7M6WEw" name="TypeDefinitions" URI="">
       <packagedElement xmi:type="uml:Enumeration" xmi:id="_3CZ3UIsDEead4ersMrOjBQ" name="LoopBackType">
         <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_8M0twIsDEead4ersMrOjBQ" name="NON"/>
@@ -37,7 +37,7 @@
             <body>To be set on  'true', if the distance between transmitted and received frequency is variable.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_dw6JYNmEEeWNurTV5r0nnA"/>
+          <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_dw6JYNmEEeWNurTV5r0nnA"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_BEr_wIMEEeWMcJAvkeTn2w" name="duplexDistance" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_BEr_wYMEEeWMcJAvkeTn2w" annotatedElement="_BEr_wIMEEeWMcJAvkeTn2w">
@@ -53,7 +53,7 @@
             <body>In case the microwave radio is capable of automatically selecting the transmit frequency in unlicensed bands, this field shall contain a 'true'.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_OwlIUNmFEeWNurTV5r0nnA"/>
+          <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_OwlIUNmFEeWNurTV5r0nnA"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_nwbvcPXREeW9zIqh2WHHww" name="transmissionModeList" type="_zG34sPXQEeW9zIqh2WHHww" isUnique="false" isReadOnly="true">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_v8ZrUPXREeW9zIqh2WHHww" value="1"/>
@@ -132,7 +132,7 @@
             <body>In case this air interface type is capable of XPIC, this field shall contain a 'true'. This information shall purely relate to capabilities of the equipment type, but not to the operational capability of a specific hardware composition on site. Means for example that this attribute might contain a 'true' statement, even if an additional cable would have been required to actually operate XPIC in a specific case.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_sp2eINmFEeWNurTV5r0nnA"/>
+          <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_sp2eINmFEeWNurTV5r0nnA"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Enumeration" xmi:id="_e85NsI99EeWFluv9KLLl5A" name="PolarizationType">
@@ -153,7 +153,7 @@
             <body>Severity of this type of alarm.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralString" xmi:id="_jYWt4mnuEeaZwMagYjVCHQ" value="warning"/>
-          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_KuKVgLiREeaQVsjMEL9uqw" type="_eIml0JH1EeWUdbnmmNiTAA" instance="_ICIPMJH7EeWUdbnmmNiTAA"/>
+          <defaultValue value="warning" xmi:type="uml:InstanceValue" xmi:id="_KuKVgLiREeaQVsjMEL9uqw" type="_eIml0JH1EeWUdbnmmNiTAA" instance="_ICIPMJH7EeWUdbnmmNiTAA"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:DataType" xmi:id="_umuZUMXjEeW3xsRKtpCLuA" name="AirInterfaceCurrentProblemType">
@@ -513,7 +513,7 @@
             <body>Severity of this type of alarm.</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralString" xmi:id="_2kMRZ2zzEeaf-__BRLM84g" value="warning"/>
-          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_DZqNILiREeaQVsjMEL9uqw" type="_eIml0JH1EeWUdbnmmNiTAA" instance="_ICIPMJH7EeWUdbnmmNiTAA"/>
+          <defaultValue value="warning" xmi:type="uml:InstanceValue" xmi:id="_DZqNILiREeaQVsjMEL9uqw" type="_eIml0JH1EeWUdbnmmNiTAA" instance="_ICIPMJH7EeWUdbnmmNiTAA"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:DataType" xmi:id="_z1XWgMXlEeWJ6KZuc0h_vw" name="AirInterfaceDiversityCurrentProblemType">
@@ -605,7 +605,7 @@
           <ownedComment xmi:type="uml:Comment" xmi:id="_PYJsMHWlEeaAu9iKePKrBw" annotatedElement="_LPgp5Wz0Eeaf-__BRLM84g">
             <body>Severity of this type of alarm.</body>
           </ownedComment>
-          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_Uj2BMLiREeaQVsjMEL9uqw" type="_eIml0JH1EeWUdbnmmNiTAA" instance="_ICIPMJH7EeWUdbnmmNiTAA"/>
+          <defaultValue value="warning" xmi:type="uml:InstanceValue" xmi:id="_Uj2BMLiREeaQVsjMEL9uqw" type="_eIml0JH1EeWUdbnmmNiTAA" instance="_ICIPMJH7EeWUdbnmmNiTAA"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:DataType" xmi:id="_UC0gAMXnEeWJ6KZuc0h_vw" name="StructureCurrentProblemType">
@@ -668,14 +668,14 @@
             <body>Shall be set to '1', if this container type requires bandwidth (times slots) reserved for TDM transport.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_ZQTogE2iEeaiLc1v1_HItw"/>
+          <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_ZQTogE2iEeaiLc1v1_HItw"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_IzCGMNyCEeW-SfXlFFFI0Q" name="bundlingIsAvail" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_6MXC4HWvEeaAu9iKePKrBw" annotatedElement="_IzCGMNyCEeW-SfXlFFFI0Q">
             <body>If it is possible to combine transport resources of several radio links to transport this container type, this attribute shall be set to '1'.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_-HLVkNyDEeW-SfXlFFFI0Q"/>
+          <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_-HLVkNyDEeW-SfXlFFFI0Q"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:DataType" xmi:id="_rgbigEdjEeax2rWez10Siw" name="TdmContainerType">
@@ -720,14 +720,14 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jsyLQNrfEeWcA7plcJPZ7A" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_js0AcNrfEeWcA7plcJPZ7A" value="1"/>
-          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_ImUUQNrfEeWcA7plcJPZ7A"/>
+          <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_ImUUQNrfEeWcA7plcJPZ7A"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_ZA94EMUCEeW3xsRKtpCLuA" name="operationalStatus" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_ZA94EcUCEeW3xsRKtpCLuA" annotatedElement="_ZA94EMUCEeW3xsRKtpCLuA">
             <body>Current operational status of each segment.</body>
           </ownedComment>
           <type xmi:type="uml:Enumeration" href="../OnfModel-CoreModel/CoreModel.uml#_lNclkLEtEeSZUdYfPSdgew"/>
-          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_1j9zMLiREeaQVsjMEL9uqw">
+          <defaultValue value="disabled" xmi:type="uml:InstanceValue" xmi:id="_1j9zMLiREeaQVsjMEL9uqw">
             <type xmi:type="uml:Enumeration" href="../OnfModel-CoreModel/CoreModel.uml#_lNclkLEtEeSZUdYfPSdgew"/>
             <instance xmi:type="uml:EnumerationLiteral" href="../OnfModel-CoreModel/CoreModel.uml#_oVoegLEtEeSZUdYfPSdgew"/>
           </defaultValue>
@@ -762,7 +762,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
           <ownedComment xmi:type="uml:Comment" xmi:id="_RF3LMHWlEeaAu9iKePKrBw" annotatedElement="_OMQH02z0Eeaf-__BRLM84g">
             <body>Severity of this type of alarm.</body>
           </ownedComment>
-          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_Z9AeQLiREeaQVsjMEL9uqw" type="_eIml0JH1EeWUdbnmmNiTAA" instance="_ICIPMJH7EeWUdbnmmNiTAA"/>
+          <defaultValue value="warning" xmi:type="uml:InstanceValue" xmi:id="_Z9AeQLiREeaQVsjMEL9uqw" type="_eIml0JH1EeWUdbnmmNiTAA" instance="_ICIPMJH7EeWUdbnmmNiTAA"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:DataType" xmi:id="__h1n4MXpEeWJ6KZuc0h_vw" name="ContainerCurrentProblemType">
@@ -907,14 +907,14 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
               <body>In case the device is capable of adaptive modulation, this field shall contain a 'true'.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_v88cANmEEeWNurTV5r0nnA"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_v88cANmEEeWNurTV5r0nnA"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_qXBrkH2eEeWaPP5xsIT8pQ" name="mimoIsAvail" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_vjQf4H2eEeWaPP5xsIT8pQ" annotatedElement="_qXBrkH2eEeWaPP5xsIT8pQ">
               <body>In case the device is capable of MIMO, this field shall contain a 'true'.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_LjW-YNmFEeWNurTV5r0nnA"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_LjW-YNmFEeWNurTV5r0nnA"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_qysT4H2eEeWaPP5xsIT8pQ" name="mimoChannels" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4vVN4H2eEeWaPP5xsIT8pQ" annotatedElement="_qysT4H2eEeWaPP5xsIT8pQ">
@@ -930,14 +930,14 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
               <body>In case the microwave radio is capable of Adjacent Link Interference Cancelation (canceling of interference cause by transmitters located at the same site), this field shall contain a 'true'.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_M9VpENmFEeWNurTV5r0nnA"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_M9VpENmFEeWNurTV5r0nnA"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_iRRtgHftEeW-h9gN8LYm4Q" name="atpcIsAvail" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_iRRtgXftEeW-h9gN8LYm4Q" annotatedElement="_iRRtgHftEeW-h9gN8LYm4Q">
               <body>In case the microwave radio is capable of ATPC, this field shall contain a 'true'.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_NtnPcNmFEeWNurTV5r0nnA"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_NtnPcNmFEeWNurTV5r0nnA"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_ErwNYHfdEeW-h9gN8LYm4Q" name="atpcRange" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_5IGCUHfvEeW-h9gN8LYm4Q" annotatedElement="_ErwNYHfdEeW-h9gN8LYm4Q">
@@ -946,14 +946,14 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4cDwANdYEeWh34zIULwh8w" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4cFlMNdYEeWh34zIULwh8w" value="1"/>
-            <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_bjYFYNmFEeWNurTV5r0nnA"/>
+            <defaultValue value="0" xmi:type="uml:LiteralInteger" xmi:id="_bjYFYNmFEeWNurTV5r0nnA"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEBpEafEeas2eqI3oKNtg" name="encryptionIsAvail" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4uEBpUafEeas2eqI3oKNtg" annotatedElement="_4uEBpEafEeas2eqI3oKNtg">
               <body>Shall be marked 'true', if payload encryption is available.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_4uEBpkafEeas2eqI3oKNtg"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_4uEBpkafEeas2eqI3oKNtg"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_UxjEkIMHEeWMcJAvkeTn2w" name="supportedLoopBackKindList" type="_3CZ3UIsDEead4ersMrOjBQ" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_9HqMsIMHEeWMcJAvkeTn2w" annotatedElement="_UxjEkIMHEeWMcJAvkeTn2w">
@@ -961,7 +961,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2JdnsIsEEead4ersMrOjBQ" value="1"/>
             <upperValue xmi:type="uml:LiteralInteger" xmi:id="_28BtEIsEEead4ersMrOjBQ" value="2"/>
-            <defaultValue xmi:type="uml:InstanceValue" xmi:id="_p9m5YIsFEead4ersMrOjBQ" type="_3CZ3UIsDEead4ersMrOjBQ" instance="_8M0twIsDEead4ersMrOjBQ"/>
+            <defaultValue value="non" xmi:type="uml:InstanceValue" xmi:id="_p9m5YIsFEead4ersMrOjBQ" type="_3CZ3UIsDEead4ersMrOjBQ" instance="_8M0twIsDEead4ersMrOjBQ"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_I1FYsMWZEeW3xsRKtpCLuA" name="maintenanceTimerRange" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_I1FYscWZEeW3xsRKtpCLuA" annotatedElement="_I1FYsMWZEeW3xsRKtpCLuA">
@@ -1049,7 +1049,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2lJcQNdZEeWh34zIULwh8w" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2lKqYNdZEeWh34zIULwh8w" value="1"/>
-            <defaultValue xmi:type="uml:InstanceValue" xmi:id="_O1EksLiKEeaQVsjMEL9uqw" type="_e85NsI99EeWFluv9KLLl5A" instance="_KwZ9kNosEeWvuIR3H1ItUQ"/>
+            <defaultValue value="not-specified" xmi:type="uml:InstanceValue" xmi:id="_O1EksLiKEeaQVsjMEL9uqw" type="_e85NsI99EeWFluv9KLLl5A" instance="_KwZ9kNosEeWvuIR3H1ItUQ"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_p4eR8Hf5EeW-M8kopGJqEA" name="powerIsOn" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_p4eR8Xf5EeW-M8kopGJqEA" annotatedElement="_p4eR8Hf5EeW-M8kopGJqEA">
@@ -1067,7 +1067,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2lO70NdZEeWh34zIULwh8w" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2lQJ8NdZEeWh34zIULwh8w" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_w7HCgNmGEeWNurTV5r0nnA"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_w7HCgNmGEeWNurTV5r0nnA"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_q_XcwEgnEeathrAE0htMiA" name="receiverIsOn" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_q_YD0EgnEeathrAE0htMiA" annotatedElement="_q_XcwEgnEeathrAE0htMiA">
@@ -1095,7 +1095,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2lT0UNdZEeWh34zIULwh8w" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2lVpgNdZEeWh34zIULwh8w" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_CDLzMNmGEeWNurTV5r0nnA"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_CDLzMNmGEeWNurTV5r0nnA"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_dM_BUHf6EeW-M8kopGJqEA" name="modulationMin" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_B9bWAHWxEeaAu9iKePKrBw" annotatedElement="_dM_BUHf6EeW-M8kopGJqEA">
@@ -1122,7 +1122,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2lc-QNdZEeWh34zIULwh8w" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2leMYNdZEeWh34zIULwh8w" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_PG_AsNmGEeWNurTV5r0nnA"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_PG_AsNmGEeWNurTV5r0nnA"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_7t4fIH2dEeWaPP5xsIT8pQ" name="mimoIsOn" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_LAYY0H2eEeWaPP5xsIT8pQ" annotatedElement="_7t4fIH2dEeWaPP5xsIT8pQ">
@@ -1131,7 +1131,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2lid0NdZEeWh34zIULwh8w" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2lk6ENdZEeWh34zIULwh8w" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_RL2bcNmGEeWNurTV5r0nnA"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_RL2bcNmGEeWNurTV5r0nnA"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_FmWHMHf6EeW-M8kopGJqEA" name="alicIsOn" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_FmWHMXf6EeW-M8kopGJqEA" annotatedElement="_FmWHMHf6EeW-M8kopGJqEA">
@@ -1140,7 +1140,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2ln9YNdZEeWh34zIULwh8w" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2lpLgNdZEeWh34zIULwh8w" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_SYRyUNmGEeWNurTV5r0nnA"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_SYRyUNmGEeWNurTV5r0nnA"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_9Hz0oHf5EeW-M8kopGJqEA" name="atpcIsOn" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_9Hz0oXf5EeW-M8kopGJqEA" annotatedElement="_9Hz0oHf5EeW-M8kopGJqEA">
@@ -1149,7 +1149,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2lrAsNdZEeWh34zIULwh8w" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2lsO0NdZEeWh34zIULwh8w" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_TOPJ8NmGEeWNurTV5r0nnA"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_TOPJ8NmGEeWNurTV5r0nnA"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_pR7yMHgAEeW-M8kopGJqEA" name="atpcThreshUpper" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_pR7yMXgAEeW-M8kopGJqEA" annotatedElement="_pR7yMHgAEeW-M8kopGJqEA">
@@ -1176,7 +1176,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2l0KoNdZEeWh34zIULwh8w" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2l1YwNdZEeWh34zIULwh8w" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_VekN0NmGEeWNurTV5r0nnA"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_VekN0NmGEeWNurTV5r0nnA"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_yH9XMIMCEeWMcJAvkeTn2w" name="autoFreqSelectRange" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_yH9XMYMCEeWMcJAvkeTn2w" annotatedElement="_yH9XMIMCEeWMcJAvkeTn2w">
@@ -1203,7 +1203,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4uEB0kafEeas2eqI3oKNtg" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4uEB00afEeas2eqI3oKNtg" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_4uEB1EafEeas2eqI3oKNtg"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_4uEB1EafEeas2eqI3oKNtg"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_Sk5JQE56EeaCk6G-lyG1OQ" name="cryptographicKey" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_GwJeIHWxEeaAu9iKePKrBw" annotatedElement="_Sk5JQE56EeaCk6G-lyG1OQ">
@@ -1218,7 +1218,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2l8tgNdZEeWh34zIULwh8w" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2l97oNdZEeWh34zIULwh8w" value="1"/>
-            <defaultValue xmi:type="uml:InstanceValue" xmi:id="_i6gqEIsFEead4ersMrOjBQ" type="_3CZ3UIsDEead4ersMrOjBQ" instance="_8M0twIsDEead4ersMrOjBQ"/>
+            <defaultValue value="non" xmi:type="uml:InstanceValue" xmi:id="_i6gqEIsFEead4ersMrOjBQ" type="_3CZ3UIsDEead4ersMrOjBQ" instance="_8M0twIsDEead4ersMrOjBQ"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_7-oTwCd5EeaJA6AVLNrv_w" name="maintenanceTimer" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_NNgakCd6EeaJA6AVLNrv_w" annotatedElement="_7-oTwCd5EeaJA6AVLNrv_w">
@@ -1326,21 +1326,21 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
               <body>If the radio unit has power and is switched on, this shall be expressed as a 'true'.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_GTbngNoiEeWvuIR3H1ItUQ"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_GTbngNoiEeWvuIR3H1ItUQ"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_5JBPUHizEeWfutScSwFT9A" name="linkIsUp" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_5JBPUXizEeWfutScSwFT9A" annotatedElement="_5JBPUHizEeWfutScSwFT9A">
               <body>If connection is established to the remote site with the same linkID, this shall be expressed as a 'true'.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_RiruMNoiEeWvuIR3H1ItUQ"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_RiruMNoiEeWvuIR3H1ItUQ"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_ESRbsHi0EeWfutScSwFT9A" name="xpicIsUp" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_ESRbsXi0EeWfutScSwFT9A" annotatedElement="_ESRbsHi0EeWfutScSwFT9A">
               <body>If XPIC is currently actually working (not just configured), this shall be expressed as a 'true'.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_ShMk4NoiEeWvuIR3H1ItUQ"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_ShMk4NoiEeWvuIR3H1ItUQ"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_DVaQwIL6EeWMcJAvkeTn2w" name="mimoIsUp" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_DVaQwYL6EeWMcJAvkeTn2w" annotatedElement="_DVaQwIL6EeWMcJAvkeTn2w">
@@ -1349,7 +1349,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Lt_sANdfEeWh34zIULwh8w" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_LuA6INdfEeWh34zIULwh8w" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_UYonoNoiEeWvuIR3H1ItUQ"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_UYonoNoiEeWvuIR3H1ItUQ"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_Hte-UHi0EeWfutScSwFT9A" name="alicIsUp" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_Hte-UXi0EeWfutScSwFT9A" annotatedElement="_Hte-UHi0EeWfutScSwFT9A">
@@ -1358,7 +1358,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_OFPQMNdfEeWh34zIULwh8w" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OFQeUNdfEeWh34zIULwh8w" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_WvlQ4NoiEeWvuIR3H1ItUQ"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_WvlQ4NoiEeWvuIR3H1ItUQ"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_VimCgMjNEeWYRsWW_rqpgw" name="atpcIsUp" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_VimCgcjNEeWYRsWW_rqpgw" annotatedElement="_VimCgMjNEeWYRsWW_rqpgw">
@@ -1367,7 +1367,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XRvcANdfEeWh34zIULwh8w" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XRwqINdfEeWh34zIULwh8w" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_Xn6AANoiEeWvuIR3H1ItUQ"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_Xn6AANoiEeWvuIR3H1ItUQ"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_-PXKsIL-EeWMcJAvkeTn2w" name="autoFreqSelectIsUp" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_-PXKsYL-EeWMcJAvkeTn2w" annotatedElement="_-PXKsIL-EeWMcJAvkeTn2w">
@@ -1376,7 +1376,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_a03kgNdfEeWh34zIULwh8w" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_a04LkNdfEeWh34zIULwh8w" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_YWlD4NoiEeWvuIR3H1ItUQ"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_YWlD4NoiEeWvuIR3H1ItUQ"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_S9prAHi0EeWfutScSwFT9A" name="loopBackKindUp" type="_3CZ3UIsDEead4ersMrOjBQ" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_S9prAXi0EeWfutScSwFT9A" annotatedElement="_S9prAHi0EeWfutScSwFT9A">
@@ -1384,7 +1384,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nzSiwNdfEeWh34zIULwh8w" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nzTw4NdfEeWh34zIULwh8w" value="1"/>
-            <defaultValue xmi:type="uml:InstanceValue" xmi:id="_7_5aIIsFEead4ersMrOjBQ" type="_3CZ3UIsDEead4ersMrOjBQ" instance="_8M0twIsDEead4ersMrOjBQ"/>
+            <defaultValue value="non" xmi:type="uml:InstanceValue" xmi:id="_7_5aIIsFEead4ersMrOjBQ" type="_3CZ3UIsDEead4ersMrOjBQ" instance="_8M0twIsDEead4ersMrOjBQ"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_pEsgcFQHEeaCXY7nSBqs6w" name="localEndPointId" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_W1a4kHWxEeaAu9iKePKrBw" annotatedElement="_pEsgcFQHEeaCXY7nSBqs6w">
@@ -1465,7 +1465,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_CXKgNpRbEeWMYJZn43K_Aw" name="role" type="_01_dYJReEeWxIPEwZQ_gmw" isUnique="false">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CXKgN5RbEeWMYJZn43K_Aw" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CXKgOJRbEeWMYJZn43K_Aw" value="1"/>
-            <defaultValue xmi:type="uml:InstanceValue" xmi:id="_caYmALiZEeatZpIHijZVeg" type="_01_dYJReEeWxIPEwZQ_gmw" instance="_4qiGAJReEeWxIPEwZQ_gmw"/>
+            <defaultValue value="working" xmi:type="uml:InstanceValue" xmi:id="_caYmALiZEeatZpIHijZVeg" type="_01_dYJReEeWxIPEwZQ_gmw" instance="_4qiGAJReEeWxIPEwZQ_gmw"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_dglVQLYgEeWOio-Gg6Q2sw" name="_endpoint" isUnique="false" association="_dgjgELYgEeWOio-Gg6Q2sw">
             <type xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_b_lUAFYgEeOVGaP4lO41SQ"/>
@@ -1481,25 +1481,25 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <ownedComment xmi:type="uml:Comment" xmi:id="_CXNjiZRbEeWMYJZn43K_Aw" annotatedElement="_CXNjiJRbEeWMYJZn43K_Aw">
               <body>Indicates the protection scheme that is used for the ProtectionGroup.</body>
             </ownedComment>
-            <defaultValue xmi:type="uml:InstanceValue" xmi:id="_RrTNILiZEeatZpIHijZVeg" type="_DaB5IJRgEeWxIPEwZQ_gmw" instance="_GpwkgJRgEeWxIPEwZQ_gmw"/>
+            <defaultValue value="hsb" xmi:type="uml:InstanceValue" xmi:id="_RrTNILiZEeatZpIHijZVeg" type="_DaB5IJRgEeWxIPEwZQ_gmw" instance="_GpwkgJRgEeWxIPEwZQ_gmw"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_80BlAJ2gEeWSuvrh9KcclQ" name="airInterfaceHsbConfigurationIsFaultySeverity" type="_eIml0JH1EeWUdbnmmNiTAA" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_h0Ng4J2mEeWSuvrh9KcclQ" annotatedElement="_80BlAJ2gEeWSuvrh9KcclQ">
               <body>The level of severity of an airInterfaceHsbConfigurationIsFaulty alarm shall be chosen from an enumeration.</body>
             </ownedComment>
-            <defaultValue xmi:type="uml:InstanceValue" xmi:id="_oQYV4LiUEeaw5M2M6YngFA" type="_eIml0JH1EeWUdbnmmNiTAA" instance="_ICIPMJH7EeWUdbnmmNiTAA"/>
+            <defaultValue value="warning" xmi:type="uml:InstanceValue" xmi:id="_oQYV4LiUEeaw5M2M6YngFA" type="_eIml0JH1EeWUdbnmmNiTAA" instance="_ICIPMJH7EeWUdbnmmNiTAA"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_r382sJ2mEeWSuvrh9KcclQ" name="airInterfaceHsbIsPartlyDownSeverity" type="_eIml0JH1EeWUdbnmmNiTAA" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_6l_YcJ2mEeWSuvrh9KcclQ" annotatedElement="_r382sJ2mEeWSuvrh9KcclQ">
               <body>The level of severity for one link out of the HSB configuration being down shall be chosen from an enumeration.</body>
             </ownedComment>
-            <defaultValue xmi:type="uml:InstanceValue" xmi:id="_rT2G4LiUEeaw5M2M6YngFA" type="_eIml0JH1EeWUdbnmmNiTAA" instance="_ICIPMJH7EeWUdbnmmNiTAA"/>
+            <defaultValue value="warning" xmi:type="uml:InstanceValue" xmi:id="_rT2G4LiUEeaw5M2M6YngFA" type="_eIml0JH1EeWUdbnmmNiTAA" instance="_ICIPMJH7EeWUdbnmmNiTAA"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_sRGWgJ2mEeWSuvrh9KcclQ" name="airInterfaceHsbIsDownSeverity" type="_eIml0JH1EeWUdbnmmNiTAA" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_7GbMAJ2mEeWSuvrh9KcclQ" annotatedElement="_sRGWgJ2mEeWSuvrh9KcclQ">
               <body>The level of severity of the total HSB configuration being down shall be chosen from an enumeration.</body>
             </ownedComment>
-            <defaultValue xmi:type="uml:InstanceValue" xmi:id="_tpGHALiUEeaw5M2M6YngFA" type="_eIml0JH1EeWUdbnmmNiTAA" instance="_ICIPMJH7EeWUdbnmmNiTAA"/>
+            <defaultValue value="warning" xmi:type="uml:InstanceValue" xmi:id="_tpGHALiUEeaw5M2M6YngFA" type="_eIml0JH1EeWUdbnmmNiTAA" instance="_ICIPMJH7EeWUdbnmmNiTAA"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_FS83ILYhEeWOio-Gg6Q2sw" name="_fcswitch" association="_FS7B8LYhEeWOio-Gg6Q2sw">
             <type xmi:type="uml:Class" href="../OnfModel-CoreModel/CoreModel.uml#_a97NQFYhEeOVGaP4lO41SQ"/>
@@ -1583,7 +1583,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <ownedComment xmi:type="uml:Comment" xmi:id="_EKZYcZOXEeWz-6sqLzUedw" annotatedElement="_EKZYcJOXEeWz-6sqLzUedw">
               <body>Status of the air interface bundle. </body>
             </ownedComment>
-            <defaultValue xmi:type="uml:InstanceValue" xmi:id="_t_3lELiQEeaQVsjMEL9uqw" type="_DUJs8JOXEeWz-6sqLzUedw" instance="_DUJs-5OXEeWz-6sqLzUedw"/>
+            <defaultValue value="group-down" xmi:type="uml:InstanceValue" xmi:id="_t_3lELiQEeaQVsjMEL9uqw" type="_DUJs8JOXEeWz-6sqLzUedw" instance="_DUJs-5OXEeWz-6sqLzUedw"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_VcK2UK4yEeWxIavXll_b0A" name="lastStatusChange" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_VcK2Ua4yEeWxIavXll_b0A" annotatedElement="_VcK2UK4yEeWxIavXll_b0A">
@@ -1859,70 +1859,70 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
               <body>This attribute has to be set on 'true', if the device allows combining resources from several air interfaces for transporting this Ethernet container.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_96g-okanEeas2eqI3oKNtg"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_96g-okanEeas2eqI3oKNtg"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEBp0afEeas2eqI3oKNtg" name="packetCompressionIsAvail" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4uEBqEafEeas2eqI3oKNtg" annotatedElement="_4uEBp0afEeas2eqI3oKNtg">
               <body>In case packet compression can be activated, but not configured to a certain type, packetCompressionAvail shall be set on 'true', but none of the compression level specific booleans.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_4uEBqUafEeas2eqI3oKNtg"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_4uEBqUafEeas2eqI3oKNtg"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEBqkafEeas2eqI3oKNtg" name="layer2CompressionIsAvail" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4uEBq0afEeas2eqI3oKNtg" annotatedElement="_4uEBqkafEeas2eqI3oKNtg">
               <body>Packet compression on layer 2 available at the device.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_4uEBrEafEeas2eqI3oKNtg"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_4uEBrEafEeas2eqI3oKNtg"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEBrUafEeas2eqI3oKNtg" name="vlanCompressionIsAvail" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4uEBrkafEeas2eqI3oKNtg" annotatedElement="_4uEBrUafEeas2eqI3oKNtg">
               <body>Packet compression on VLAN layer available at the device.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_4uEBr0afEeas2eqI3oKNtg"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_4uEBr0afEeas2eqI3oKNtg"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEBsEafEeas2eqI3oKNtg" name="qInQCompressionIsAvail" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4uEBsUafEeas2eqI3oKNtg" annotatedElement="_4uEBsEafEeas2eqI3oKNtg">
               <body>Packet compression on layer of a second VLAN available at the device.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_4uEBskafEeas2eqI3oKNtg"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_4uEBskafEeas2eqI3oKNtg"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEBs0afEeas2eqI3oKNtg" name="mplsCompressionIsAvail" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4uEBtEafEeas2eqI3oKNtg" annotatedElement="_4uEBs0afEeas2eqI3oKNtg">
               <body>Packet compression on mpls layer available at the device.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_4uEBtUafEeas2eqI3oKNtg"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_4uEBtUafEeas2eqI3oKNtg"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEBtkafEeas2eqI3oKNtg" name="ipv4CompressionIsAvail" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4uEBt0afEeas2eqI3oKNtg" annotatedElement="_4uEBtkafEeas2eqI3oKNtg">
               <body>Packet compression on layer 3 for IPv4 available at the device.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_4uEBuEafEeas2eqI3oKNtg"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_4uEBuEafEeas2eqI3oKNtg"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEBuUafEeas2eqI3oKNtg" name="ipv6CompressionIsAvail" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4uEBukafEeas2eqI3oKNtg" annotatedElement="_4uEBuUafEeas2eqI3oKNtg">
               <body>Packet compression on layer 3 for IPv6 available at the device.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_4uEBu0afEeas2eqI3oKNtg"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_4uEBu0afEeas2eqI3oKNtg"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEBvEafEeas2eqI3oKNtg" name="layer4CompressionIsAvail" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4uEBvUafEeas2eqI3oKNtg" annotatedElement="_4uEBvEafEeas2eqI3oKNtg">
               <body>Packet compression on layer 4 (TCP and UDP header) available at the device.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_4uEBvkafEeas2eqI3oKNtg"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_4uEBvkafEeas2eqI3oKNtg"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_4uPM8E58EeaCk6G-lyG1OQ" name="encryptionIsAvail" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4uPM8U58EeaCk6G-lyG1OQ" annotatedElement="_4uPM8E58EeaCk6G-lyG1OQ">
               <body>Shall be marked 'true', if Ethernet payload encryption is available.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_4uPM8k58EeaCk6G-lyG1OQ"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_4uPM8k58EeaCk6G-lyG1OQ"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEBv0afEeas2eqI3oKNtg" name="supportedAlarms" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4uEBwEafEeas2eqI3oKNtg" annotatedElement="_4uEBv0afEeas2eqI3oKNtg">
@@ -1954,7 +1954,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4uEB10afEeas2eqI3oKNtg" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4uEB2EafEeas2eqI3oKNtg" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_4uEB2UafEeas2eqI3oKNtg"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_4uEB2UafEeas2eqI3oKNtg"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEB2kafEeas2eqI3oKNtg" name="layer2CompressionIsOn" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4uEB20afEeas2eqI3oKNtg" annotatedElement="_4uEB2kafEeas2eqI3oKNtg">
@@ -1963,7 +1963,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4uEB3EafEeas2eqI3oKNtg" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4uEB3UafEeas2eqI3oKNtg" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_4uEB3kafEeas2eqI3oKNtg"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_4uEB3kafEeas2eqI3oKNtg"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEB30afEeas2eqI3oKNtg" name="vlanCompressionIsOn" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4uEB4EafEeas2eqI3oKNtg" annotatedElement="_4uEB30afEeas2eqI3oKNtg">
@@ -1972,7 +1972,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4uEB4UafEeas2eqI3oKNtg" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4uEB4kafEeas2eqI3oKNtg" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_4uEB40afEeas2eqI3oKNtg"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_4uEB40afEeas2eqI3oKNtg"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEB5EafEeas2eqI3oKNtg" name="qInQCompressionIsOn" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4uEB5UafEeas2eqI3oKNtg" annotatedElement="_4uEB5EafEeas2eqI3oKNtg">
@@ -1981,7 +1981,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4uEB5kafEeas2eqI3oKNtg" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4uEB50afEeas2eqI3oKNtg" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_4uEB6EafEeas2eqI3oKNtg"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_4uEB6EafEeas2eqI3oKNtg"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEB6UafEeas2eqI3oKNtg" name="mplsCompressionIsOn" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4uEB6kafEeas2eqI3oKNtg" annotatedElement="_4uEB6UafEeas2eqI3oKNtg">
@@ -1990,7 +1990,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4uEB60afEeas2eqI3oKNtg" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4uEB7EafEeas2eqI3oKNtg" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_4uEB7UafEeas2eqI3oKNtg"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_4uEB7UafEeas2eqI3oKNtg"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEB7kafEeas2eqI3oKNtg" name="ipv4CompressionIsOn" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4uEB70afEeas2eqI3oKNtg" annotatedElement="_4uEB7kafEeas2eqI3oKNtg">
@@ -1999,7 +1999,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4uEB8EafEeas2eqI3oKNtg" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4uEB8UafEeas2eqI3oKNtg" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_4uEB8kafEeas2eqI3oKNtg"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_4uEB8kafEeas2eqI3oKNtg"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEB80afEeas2eqI3oKNtg" name="ipv6CompressionIsOn" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4uEB9EafEeas2eqI3oKNtg" annotatedElement="_4uEB80afEeas2eqI3oKNtg">
@@ -2008,7 +2008,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4uEB9UafEeas2eqI3oKNtg" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4uEB9kafEeas2eqI3oKNtg" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_4uEB90afEeas2eqI3oKNtg"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_4uEB90afEeas2eqI3oKNtg"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_4uEB-EafEeas2eqI3oKNtg" name="layer4CompressionIsOn" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_4uEB-UafEeas2eqI3oKNtg" annotatedElement="_4uEB-EafEeas2eqI3oKNtg">
@@ -2017,7 +2017,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4uEB-kafEeas2eqI3oKNtg" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4uEB-0afEeas2eqI3oKNtg" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_4uEB_EafEeas2eqI3oKNtg"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_4uEB_EafEeas2eqI3oKNtg"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_uI7bIE58EeaCk6G-lyG1OQ" name="encryptionIsOn" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_uI7bIU58EeaCk6G-lyG1OQ" annotatedElement="_uI7bIE58EeaCk6G-lyG1OQ">
@@ -2026,7 +2026,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uI7bIk58EeaCk6G-lyG1OQ" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uI7bI058EeaCk6G-lyG1OQ" value="1"/>
-            <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_uI7bJE58EeaCk6G-lyG1OQ"/>
+            <defaultValue value="false" xmi:type="uml:LiteralBoolean" xmi:id="_uI7bJE58EeaCk6G-lyG1OQ"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_psRpoE58EeaCk6G-lyG1OQ" name="cryptographicKey" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_A09nMHWzEeaAu9iKePKrBw" annotatedElement="_psRpoE58EeaCk6G-lyG1OQ">
@@ -2202,7 +2202,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
               <body>Severity of the alarm.</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralString" xmi:id="_qInZ8qT4EeapooeghKN-dA" value="warning"/>
-            <defaultValue xmi:type="uml:InstanceValue" xmi:id="_75t0ULiREeaQVsjMEL9uqw" type="_eIml0JH1EeWUdbnmmNiTAA" instance="_ICIPMJH7EeWUdbnmmNiTAA"/>
+            <defaultValue value="warning" xmi:type="uml:InstanceValue" xmi:id="_75t0ULiREeaQVsjMEL9uqw" type="_eIml0JH1EeWUdbnmmNiTAA" instance="_ICIPMJH7EeWUdbnmmNiTAA"/>
           </ownedAttribute>
         </packagedElement>
       </packagedElement>
@@ -2329,7 +2329,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
           <ownedComment xmi:type="uml:Comment" xmi:id="_W7yFUOSgEeWPy7zR4LSehQ" annotatedElement="_R0nUIOMUEeWM2vUDE3Xqhw">
             <body>Severity of the problem according to AirInterface::AirInterfaceConfiguration::problemSeverityList, AirInterfaceDiversity::AirInterfaceDiversityConfiguration::problemSeverityList, Structure::StructureConfiguration::problemSeverityList, PureEthernetStructure::PureEthernetStructureConfiguration::problemSeverityList, HybridMwStructure::HybridMwStructureConfiguration::problemSeverityList, Container::ContainerConfiguration::problemSeverityList, EthernetContainer::EthernetContainerConfiguration::problemSeverityList or TdmContainer::TdmContainerConfiguration::problemSeverityList</body>
           </ownedComment>
-          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_E7hEoLiVEeaw5M2M6YngFA" type="_eIml0JH1EeWUdbnmmNiTAA" instance="_ICIPMJH7EeWUdbnmmNiTAA"/>
+          <defaultValue value="warning" xmi:type="uml:InstanceValue" xmi:id="_E7hEoLiVEeaw5M2M6YngFA" type="_eIml0JH1EeWUdbnmmNiTAA" instance="_ICIPMJH7EeWUdbnmmNiTAA"/>
         </ownedAttribute>
       </packagedElement>
     </packagedElement>
