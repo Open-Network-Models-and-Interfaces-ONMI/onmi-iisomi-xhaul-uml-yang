@@ -9,11 +9,13 @@
 	<!-- parameter -->
 	<xsl:param name="tool">  p+r-mwim</xsl:param>
 	<xsl:param name="showObsolete">false</xsl:param>
-	<xsl:variable name="lookupDoc" select="document('PriorityLookup.xml')"/>
+	<xsl:variable name="lookupDoc" select="fn:document('PriorityLookup.xml')"/>
+	<xsl:variable name="previousLookupDoc" select="fn:document('../input/previousMicrowaveModel.uml')"/>
 	<!-- keys -->
 	<xsl:key name="attributePriority" match="attribute" use="@id"/>
 	<xsl:key name="classPriority" match="class" use="@id"/>
 	<xsl:key name="attRef" match="ownedAttribute" use="@xmi:id"/>
+	<xsl:key name="idRef" match="*" use="@xmi:id"/>
 	<xsl:key name="obsoleteRefs" match="OpenModel_Profile:Obsolete" use="@base_Element"/>
     <!-- templates -->
 	<xsl:template match="packagedElement[ @xmi:type = 'uml:Signal' ]">
@@ -141,6 +143,36 @@
         </xsl:for-each>
         <xsl:value-of select="."/>
         </xsl:attribute>
+	</xsl:template>
+	<!-- add high-level description -->
+	<xsl:template match="uml:Model">
+		<xsl:copy>
+			<xsl:apply-templates select="@*"/>
+                <ownedComment xmi:type="uml:Comment" xmi:id="_uHEawDdIEeOHDrwRRcUeVQ" annotatedElement="../@xmi:id">
+                    <body>This module contains a collection of YANG definitions for managing wireless networks.</body>
+                </ownedComment>
+			<xsl:apply-templates select="* | text()"/>
+		</xsl:copy>
+	</xsl:template>
+	<!-- ensure that "missing" default values are added from the previous uml  -->
+	<xsl:template match="defaultValue">
+		<xsl:copy>
+            <xsl:choose>
+                <xsl:when test="@xmi:id = '_1j9zMLiREeaQVsjMEL9uqw'">
+                    <xsl:attribute name="value">disabled</xsl:attribute>
+                </xsl:when>
+                <xsl:when test="@xmi:id = '_bjYFYNmFEeWNurTV5r0nnA'">
+                    <xsl:attribute name="value">0</xsl:attribute>
+                </xsl:when>
+                <xsl:when test="key('idRef', @instance)/@name">
+                    <xsl:attribute name="value"><xsl:value-of select="fn:replace( fn:lower-case( key('idRef', @instance)/@name), '_', '-' )"></xsl:value-of></xsl:attribute>
+                </xsl:when>
+                <xsl:when test="fn:not(@value) and fn:not(key('idRef', @instance)/@name) and fn:not( key('idRef', @xmi:id, $previousLookupDoc)/@value and @xmi:type = 'uml:LiteralBoolean' )">
+                    <xsl:attribute name="value">false</xsl:attribute>
+                </xsl:when>
+            </xsl:choose>
+			<xsl:apply-templates select="* | @* | text()"/>
+		</xsl:copy>
 	</xsl:template>
 	<!-- ensure that generalization to ONF::LocalClass are removed
              This template should be removed after the MicrowaveModel.uml was updated -->
