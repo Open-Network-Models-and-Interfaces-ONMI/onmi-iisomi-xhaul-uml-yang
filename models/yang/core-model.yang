@@ -13,7 +13,7 @@ module core-model {
                        Martin Skorupski
                        <mailto:martin.skorupski@highstreet-technologies.com>";
     description "This module contains a collection of YANG definitions for managing wireless networks.";
-    revision 2017-02-10 {
+    revision 2017-02-17 {
         description "Initial version";
         reference "ONF TR 532: A YANG Data Model for Wireless Networks.";
     }
@@ -406,7 +406,7 @@ module core-model {
                     }
                     leaf wait-to-revert-time {
                         type int64;
-                        default "15";
+                        default 15;
                         description "If the protection system is revertive, this attribute specifies the time, in minutes, to wait after a fault clears on a higher priority (preferred) resource before reverting to the preferred resource.";
                     }
                     leaf prot-type {
@@ -444,8 +444,7 @@ module core-model {
                         description "Indicates which points are selected by the switch.
                             Depending on the switch spec (via Fcspec)
                             - more than one FcPort can be selected at any one time (e.g. egress switch, ingress packet switch)
-                            - zero FcPorts can  be selected. For an ingress switch this indicates that the switch common (egress) is 'high impedance'
-.";
+                            - zero FcPorts can  be selected. For an ingress switch this indicates that the switch common (egress) is 'high impedance'.";
                     }
                     leaf-list profile-proxy {
                         type string;
@@ -1304,7 +1303,7 @@ module core-model {
                     }
                     leaf is-short-lived {
                         type boolean;
-                        default "true";
+                        default true;
                         description "none";
                     }
                     list operation-details {
@@ -1608,7 +1607,7 @@ module core-model {
                     grouping swapability {
                         leaf is-hot-swappable {
                             type boolean;
-                            default "true";
+                            default true;
                             description "none";
                         }
                         description "Represents the degree of field replacement that is possible for the equipment type.
@@ -1751,7 +1750,7 @@ module core-model {
                     }
                     leaf is-field-replaceable {
                         type boolean;
-                        default "true";
+                        default true;
                         config false;
                         description "Indicates whether or not the equipment can be removed and replaced 'in the field' (i.e. in a deployment) by normal operations personnel. 
                             ";

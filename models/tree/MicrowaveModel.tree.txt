@@ -570,8 +570,8 @@ module: core-model
       +--ro administrative-state?         administrative-state
       +--rw lifecycle-state?              lifecycle-state
 module: microwave-model
-   +--rw mw-air-interface-pac!
-   |  +--rw layer-protocol?                          -> /core-model:network-element/ltp/lp/uuid
+   +--rw mw-air-interface-pac* [layer-protocol]
+   |  +--rw layer-protocol                           -> /core-model:network-element/ltp/lp/uuid
    |  +--ro air-interface-capability
    |  |  +--ro type-of-equipment?               string
    |  |  +--ro tx-frequency-min?                int32
@@ -645,7 +645,7 @@ module: microwave-model
    |  |  +--ro snir-cur?                 int8
    |  |  +--ro xpd-cur?                  int8
    |  |  +--ro rf-temp-cur?              int8
-   |  |  +--ro last-status-change?       core-model:date-and-time
+   |  |  +--ro last-status-change?       yang:date-and-time
    |  |  +--ro radio-power-is-up?        boolean
    |  |  +--ro link-is-up?               boolean
    |  |  +--ro xpic-is-up?               boolean
@@ -660,7 +660,7 @@ module: microwave-model
    |  |  +--ro current-problem-list* [sequence-number]
    |  |     +--ro problem-name?       string
    |  |     +--ro sequence-number     int32
-   |  |     +--ro time-stamp?         core-model:date-and-time
+   |  |     +--ro time-stamp?         yang:date-and-time
    |  |     +--ro problem-severity?   severity-type
    |  +--ro air-interface-current-performance
    |  |  +--ro current-performance-data-list* [scanner-id]
@@ -675,26 +675,26 @@ module: microwave-model
    |  |     |  +--ro rx-level-min?        int8
    |  |     |  +--ro rx-level-max?        int8
    |  |     |  +--ro rx-level-avg?        int8
-   |  |     |  +--ro time2states?         int32
-   |  |     |  +--ro time4states-s?       int32
-   |  |     |  +--ro time4states?         int32
-   |  |     |  +--ro time8states?         int32
-   |  |     |  +--ro time16states-s?      int32
-   |  |     |  +--ro time16states?        int32
-   |  |     |  +--ro time32states?        int32
-   |  |     |  +--ro time64states?        int32
-   |  |     |  +--ro time128states?       int32
-   |  |     |  +--ro time256states?       int32
-   |  |     |  +--ro time512states?       int32
-   |  |     |  +--ro time512states-l?     int32
-   |  |     |  +--ro time1024states?      int32
-   |  |     |  +--ro time1024states-l?    int32
-   |  |     |  +--ro time2048states?      int32
-   |  |     |  +--ro time2048states-l?    int32
-   |  |     |  +--ro time4096states?      int32
-   |  |     |  +--ro time4096states-l?    int32
-   |  |     |  +--ro time8192states?      int32
-   |  |     |  +--ro time8192states-l?    int32
+   |  |     |  +--ro time2-states?        int32
+   |  |     |  +--ro time4-states-s?      int32
+   |  |     |  +--ro time4-states?        int32
+   |  |     |  +--ro time8-states?        int32
+   |  |     |  +--ro time16-states-s?     int32
+   |  |     |  +--ro time16-states?       int32
+   |  |     |  +--ro time32-states?       int32
+   |  |     |  +--ro time64-states?       int32
+   |  |     |  +--ro time128-states?      int32
+   |  |     |  +--ro time256-states?      int32
+   |  |     |  +--ro time512-states?      int32
+   |  |     |  +--ro time512-states-l?    int32
+   |  |     |  +--ro time1024-states?     int32
+   |  |     |  +--ro time1024-states-l?   int32
+   |  |     |  +--ro time2048-states?     int32
+   |  |     |  +--ro time2048-states-l?   int32
+   |  |     |  +--ro time4096-states?     int32
+   |  |     |  +--ro time4096-states-l?   int32
+   |  |     |  +--ro time8192-states?     int32
+   |  |     |  +--ro time8192-states-l?   int32
    |  |     |  +--ro snir-min?            int8
    |  |     |  +--ro snir-max?            int8
    |  |     |  +--ro snir-avg?            int8
@@ -727,26 +727,26 @@ module: microwave-model
    |        |  +--ro rx-level-min?        int8
    |        |  +--ro rx-level-max?        int8
    |        |  +--ro rx-level-avg?        int8
-   |        |  +--ro time2states?         int32
-   |        |  +--ro time4states-s?       int32
-   |        |  +--ro time4states?         int32
-   |        |  +--ro time8states?         int32
-   |        |  +--ro time16states-s?      int32
-   |        |  +--ro time16states?        int32
-   |        |  +--ro time32states?        int32
-   |        |  +--ro time64states?        int32
-   |        |  +--ro time128states?       int32
-   |        |  +--ro time256states?       int32
-   |        |  +--ro time512states?       int32
-   |        |  +--ro time512states-l?     int32
-   |        |  +--ro time1024states?      int32
-   |        |  +--ro time1024states-l?    int32
-   |        |  +--ro time2048states?      int32
-   |        |  +--ro time2048states-l?    int32
-   |        |  +--ro time4096states?      int32
-   |        |  +--ro time4096states-l?    int32
-   |        |  +--ro time8192states?      int32
-   |        |  +--ro time8192states-l?    int32
+   |        |  +--ro time2-states?        int32
+   |        |  +--ro time4-states-s?      int32
+   |        |  +--ro time4-states?        int32
+   |        |  +--ro time8-states?        int32
+   |        |  +--ro time16-states-s?     int32
+   |        |  +--ro time16-states?       int32
+   |        |  +--ro time32-states?       int32
+   |        |  +--ro time64-states?       int32
+   |        |  +--ro time128-states?      int32
+   |        |  +--ro time256-states?      int32
+   |        |  +--ro time512-states?      int32
+   |        |  +--ro time512-states-l?    int32
+   |        |  +--ro time1024-states?     int32
+   |        |  +--ro time1024-states-l?   int32
+   |        |  +--ro time2048-states?     int32
+   |        |  +--ro time2048-states-l?   int32
+   |        |  +--ro time4096-states?     int32
+   |        |  +--ro time4096-states-l?   int32
+   |        |  +--ro time8192-states?     int32
+   |        |  +--ro time8192-states-l?   int32
    |        |  +--ro snir-min?            int8
    |        |  +--ro snir-max?            int8
    |        |  +--ro snir-avg?            int8
@@ -760,26 +760,26 @@ module: microwave-model
    |        |  +--ro time-period?         int32
    |        +--ro suspect-interval-flag?   boolean
    |        +--ro history-data-id          string
-   |        +--ro period-end-time?         core-model:date-and-time
+   |        +--ro period-end-time?         yang:date-and-time
    |        +--ro granularity-period?      granularity-period-type
    |        +--ro object-class?            object-identifier
    |        +--ro name-binding?            object-identifier
    +--rw co-channel-group
-   |  +--rw co-channel-group-id?        core-model:universal-id
-   |  +--rw air-interface-list*         -> /core-model:network-element/ltp/uuid
-   |  +--rw sort-of-co-channel-group?   string
-   |  +--rw logicalterminationpoint*    -> /core-model:network-element/ltp/uuid
-   +--rw mw-air-interface-hsb-end-point-pac
+   |  +--rw co-channel-group-id?         core-model:universal-id
+   |  +--rw air-interface-list*          -> /core-model:network-element/ltp/uuid
+   |  +--rw sort-of-co-channel-group?    string
+   |  +--rw logical-termination-point*   -> /core-model:network-element/ltp/uuid
+   +--rw mw-air-interface-hsb-end-point-pac* [endpoint]
    |  +--rw role?       role-type
-   |  +--rw endpoint?   -> /core-model:forwarding-construct/fc-port/uuid
-   +--rw mw-air-interface-hsb-fc-switch-pac
+   |  +--rw endpoint    -> /core-model:forwarding-construct/fc-port/uuid
+   +--rw mw-air-interface-hsb-fc-switch-pac* [fcswitch]
    |  +--rw prot-type?                                            protection-type
    |  +--rw air-interface-hsb-configuration-is-faulty-severity?   severity-type
    |  +--rw air-interface-hsb-is-partly-down-severity?            severity-type
    |  +--rw air-interface-hsb-is-down-severity?                   severity-type
-   |  +--rw fcswitch?                                             -> /core-model:forwarding-construct/fc-switch/uuid
-   +--rw mw-air-interface-diversity-pac!
-   |  +--rw layer-protocol?                                    -> /core-model:network-element/ltp/lp/uuid
+   |  +--rw fcswitch                                              -> /core-model:forwarding-construct/fc-switch/uuid
+   +--rw mw-air-interface-diversity-pac* [layer-protocol]
+   |  +--rw layer-protocol                                     -> /core-model:network-element/ltp/lp/uuid
    |  +--ro air-interface-diversity-capability
    |  |  +--ro available-kinds-of-diversity* [diversity-name]
    |  |  |  +--ro diversity-name                  string
@@ -796,12 +796,12 @@ module: microwave-model
    |  +--ro air-interface-diversity-status
    |  |  +--ro snir-cur?                         int8
    |  |  +--ro air-interface-diversity-status?   air-interface-diversity-status-type
-   |  |  +--ro last-status-change?               core-model:date-and-time
+   |  |  +--ro last-status-change?               yang:date-and-time
    |  +--ro air-interface-diversity-current-problems
    |  |  +--ro current-problem-list* [sequence-number]
    |  |     +--ro problem-name?       string
    |  |     +--ro sequence-number     int32
-   |  |     +--ro time-stamp?         core-model:date-and-time
+   |  |     +--ro time-stamp?         yang:date-and-time
    |  |     +--ro problem-severity?   severity-type
    |  +--ro air-interface-diversity-current-performance
    |  |  +--ro current-performance-data-list* [scanner-id]
@@ -825,12 +825,12 @@ module: microwave-model
    |        |  +--ro snir-avg?   int8
    |        +--ro suspect-interval-flag?   boolean
    |        +--ro history-data-id          string
-   |        +--ro period-end-time?         core-model:date-and-time
+   |        +--ro period-end-time?         yang:date-and-time
    |        +--ro granularity-period?      granularity-period-type
    |        +--ro object-class?            object-identifier
    |        +--ro name-binding?            object-identifier
-   +--rw mw-pure-ethernet-structure-pac {pure-ethernet}?
-   |  +--rw layer-protocol?                                    -> /core-model:network-element/ltp/lp/uuid
+   +--rw mw-pure-ethernet-structure-pac* [layer-protocol] {pure-ethernet}?
+   |  +--rw layer-protocol                                     -> /core-model:network-element/ltp/lp/uuid
    |  +--ro pure-ethernet-structure-capability
    |  |  +--ro structure-id?       core-model:universal-id
    |  |  +--ro supported-alarms?   string
@@ -845,12 +845,12 @@ module: microwave-model
    |  |  |  +--ro operational-status?            core-model:operational-state
    |  |  |  +--ro obsolete-priority-class?       int8
    |  |  |  +--ro obsolete-drop-order-rank?      int16
-   |  |  +--ro last-status-change?    core-model:date-and-time
+   |  |  +--ro last-status-change?    yang:date-and-time
    |  +--ro pure-ethernet-structure-current-problems
    |  |  +--ro current-problem-list* [sequence-number]
    |  |     +--ro problem-name?       string
    |  |     +--ro sequence-number     int32
-   |  |     +--ro time-stamp?         core-model:date-and-time
+   |  |     +--ro time-stamp?         yang:date-and-time
    |  |     +--ro problem-severity?   severity-type
    |  +--ro pure-ethernet-structure-current-performance
    |  |  +--ro current-performance-data-list* [scanner-id]
@@ -868,12 +868,12 @@ module: microwave-model
    |        +--ro performance-data?        structure-performance-type
    |        +--ro suspect-interval-flag?   boolean
    |        +--ro history-data-id          string
-   |        +--ro period-end-time?         core-model:date-and-time
+   |        +--ro period-end-time?         yang:date-and-time
    |        +--ro granularity-period?      granularity-period-type
    |        +--ro object-class?            object-identifier
    |        +--ro name-binding?            object-identifier
-   +--rw mw-hybrid-mw-structure-pac {hybrid-microwave}?
-   |  +--rw layer-protocol?                                -> /core-model:network-element/ltp/lp/uuid
+   +--rw mw-hybrid-mw-structure-pac* [layer-protocol] {hybrid-microwave}?
+   |  +--rw layer-protocol                                 -> /core-model:network-element/ltp/lp/uuid
    |  +--ro hybrid-mw-structure-capability
    |  |  +--ro structure-id?                         core-model:universal-id
    |  |  +--ro supported-tdm-structure-types-list* [tdm-structure-name]
@@ -897,12 +897,12 @@ module: microwave-model
    |  |  |  +--ro operational-status?            core-model:operational-state
    |  |  |  +--ro obsolete-priority-class?       int8
    |  |  |  +--ro obsolete-drop-order-rank?      int16
-   |  |  +--ro last-status-change?    core-model:date-and-time
+   |  |  +--ro last-status-change?    yang:date-and-time
    |  +--ro hybrid-mw-structure-current-problems
    |  |  +--ro current-problem-list* [sequence-number]
    |  |     +--ro problem-name?       string
    |  |     +--ro sequence-number     int32
-   |  |     +--ro time-stamp?         core-model:date-and-time
+   |  |     +--ro time-stamp?         yang:date-and-time
    |  |     +--ro problem-severity?   severity-type
    |  +--ro hybrid-mw-structure-current-performance
    |  |  +--ro current-performance-data-list* [scanner-id]
@@ -920,49 +920,49 @@ module: microwave-model
    |        +--ro performance-data?        structure-performance-type
    |        +--ro suspect-interval-flag?   boolean
    |        +--ro history-data-id          string
-   |        +--ro period-end-time?         core-model:date-and-time
+   |        +--ro period-end-time?         yang:date-and-time
    |        +--ro granularity-period?      granularity-period-type
    |        +--ro object-class?            object-identifier
    |        +--ro name-binding?            object-identifier
-   +--rw mw-ethernet-container-pac!
-   |  +--rw layer-protocol?                               -> /core-model:network-element/ltp/lp/uuid
+   +--rw mw-ethernet-container-pac* [layer-protocol]
+   |  +--rw layer-protocol                                -> /core-model:network-element/ltp/lp/uuid
    |  +--ro ethernet-container-capability
    |  |  +--ro bundling-is-avail?             boolean
    |  |  +--ro packet-compression-is-avail?   boolean
-   |  |  +--ro layer2compression-is-avail?    boolean
+   |  |  +--ro layer2-compression-is-avail?   boolean
    |  |  +--ro vlan-compression-is-avail?     boolean
-   |  |  +--ro q-in-qcompression-is-avail?    boolean
+   |  |  +--ro q-in-q-compression-is-avail?   boolean
    |  |  +--ro mpls-compression-is-avail?     boolean
-   |  |  +--ro ipv4compression-is-avail?      boolean
-   |  |  +--ro ipv6compression-is-avail?      boolean
-   |  |  +--ro layer4compression-is-avail?    boolean
+   |  |  +--ro ipv4-compression-is-avail?     boolean
+   |  |  +--ro ipv6-compression-is-avail?     boolean
+   |  |  +--ro layer4-compression-is-avail?   boolean
    |  |  +--ro encryption-is-avail?           boolean
    |  |  +--ro supported-alarms?              string
    |  +--rw ethernet-container-configuration
    |  |  +--rw container-id?                 string
-   |  |  +--rw segments-idlist* [structure-id-ref segment-id-ref]
+   |  |  +--rw segments-id-list* [structure-id-ref segment-id-ref]
    |  |  |  +--rw structure-id-ref    core-model:universal-id
    |  |  |  +--rw segment-id-ref      int16
    |  |  +--rw packet-compression-is-on?     boolean
-   |  |  +--rw layer2compression-is-on?      boolean
+   |  |  +--rw layer2-compression-is-on?     boolean
    |  |  +--rw vlan-compression-is-on?       boolean
-   |  |  +--rw q-in-qcompression-is-on?      boolean
+   |  |  +--rw q-in-q-compression-is-on?     boolean
    |  |  +--rw mpls-compression-is-on?       boolean
-   |  |  +--rw ipv4compression-is-on?        boolean
-   |  |  +--rw ipv6compression-is-on?        boolean
-   |  |  +--rw layer4compression-is-on?      boolean
+   |  |  +--rw ipv4-compression-is-on?       boolean
+   |  |  +--rw ipv6-compression-is-on?       boolean
+   |  |  +--rw layer4-compression-is-on?     boolean
    |  |  +--rw encryption-is-on?             boolean
    |  |  +--rw cryptographic-key?            string
    |  |  +--rw problem-kind-severity-list* [problem-kind-name]
    |  |     +--rw problem-kind-name        string
    |  |     +--rw problem-kind-severity?   severity-type
    |  +--ro ethernet-container-status
-   |  |  +--ro last-status-change?   core-model:date-and-time
+   |  |  +--ro last-status-change?   yang:date-and-time
    |  +--ro ethernet-container-current-problems
    |  |  +--ro current-problem-list* [sequence-number]
    |  |     +--ro problem-name?       string
    |  |     +--ro sequence-number     int32
-   |  |     +--ro time-stamp?         core-model:date-and-time
+   |  |     +--ro time-stamp?         yang:date-and-time
    |  |     +--ro problem-severity?   severity-type
    |  +--ro ethernet-container-current-performance
    |  |  +--ro current-performance-data-list* [scanner-id]
@@ -988,12 +988,12 @@ module: microwave-model
    |        |  +--ro time-period?               int32
    |        +--ro suspect-interval-flag?   boolean
    |        +--ro history-data-id          string
-   |        +--ro period-end-time?         core-model:date-and-time
+   |        +--ro period-end-time?         yang:date-and-time
    |        +--ro granularity-period?      granularity-period-type
    |        +--ro object-class?            object-identifier
    |        +--ro name-binding?            object-identifier
-   +--rw mw-tdm-container-pac! {hybrid-microwave}?
-      +--rw layer-protocol?                          -> /core-model:network-element/ltp/lp/uuid
+   +--rw mw-tdm-container-pac* [layer-protocol] {hybrid-microwave}?
+      +--rw layer-protocol                           -> /core-model:network-element/ltp/lp/uuid
       +--ro tdm-container-capability
       |  +--ro supported-tdm-container-types-list* [tdm-container-name]
       |  |  +--ro tdm-container-name    string
@@ -1011,12 +1011,12 @@ module: microwave-model
       |     +--rw problem-kind-name        string
       |     +--rw problem-kind-severity?   severity-type
       +--ro tdm-container-status
-      |  +--ro last-status-change?   core-model:date-and-time
+      |  +--ro last-status-change?   yang:date-and-time
       +--ro tdm-container-current-problems
       |  +--ro current-problem-list* [sequence-number]
       |     +--ro problem-name?       string
       |     +--ro sequence-number     int32
-      |     +--ro time-stamp?         core-model:date-and-time
+      |     +--ro time-stamp?         yang:date-and-time
       |     +--ro problem-severity?   severity-type
       +--ro tdm-container-current-performance
       |  +--ro current-performance-data-list* [scanner-id]
@@ -1042,29 +1042,29 @@ module: microwave-model
             |  +--ro time-period?               int32
             +--ro suspect-interval-flag?   boolean
             +--ro history-data-id          string
-            +--ro period-end-time?         core-model:date-and-time
+            +--ro period-end-time?         yang:date-and-time
             +--ro granularity-period?      granularity-period-type
             +--ro object-class?            object-identifier
             +--ro name-binding?            object-identifier
 notifications:
    +---n object-creation-notification
    |  +--ro counter?         int32
-   |  +--ro time-stamp?      core-model:date-and-time
+   |  +--ro time-stamp?      yang:date-and-time
    |  +--ro object-id-ref?   core-model:universal-id
    |  +--ro object-type?     string
    +---n object-deletion-notification
    |  +--ro counter?         int32
-   |  +--ro time-stamp?      core-model:date-and-time
+   |  +--ro time-stamp?      yang:date-and-time
    |  +--ro object-id-ref?   core-model:universal-id
    +---n attribute-value-changed-notification
    |  +--ro counter?          int32
-   |  +--ro time-stamp?       core-model:date-and-time
+   |  +--ro time-stamp?       yang:date-and-time
    |  +--ro object-id-ref?    core-model:universal-id
    |  +--ro attribute-name?   string
    |  +--ro new-value?        string
    +---n problem-notification
       +--ro counter?         int32
-      +--ro time-stamp?      core-model:date-and-time
+      +--ro time-stamp?      yang:date-and-time
       +--ro object-id-ref?   core-model:universal-id
       +--ro problem?         string
       +--ro severity?        severity-type
