@@ -59,7 +59,7 @@ module.exports = {
         if (isSpellcheckerOn === undefined) {
           isSpellcheckerOn = true;
         }
-        
+
         // yangify rules
         var yang = str
             .replace( /([a-z])([A-Z])/g, '$1-$2' ) // insert dashes
@@ -67,11 +67,11 @@ module.exports = {
             .replace( /^_/, '')                    // remove leading underscore
             .replace( /:_/g, ':')                  // and leading underscores in path segments
             .replace( /_/g, '-');                  // convert underscore to dash
-        
+
         // logging
         if (str !== yang)
             module.exports.log([translate(str), translate(yang)].join(' >> '), '   yangify', 'INFO ');
-        
+
         // spell checker
         if (isSpellcheckerOn) {
           module.exports.spellCheck(yang);
