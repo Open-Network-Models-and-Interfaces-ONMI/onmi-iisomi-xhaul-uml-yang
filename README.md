@@ -1,4 +1,6 @@
 # CENTENNIAL
+
+[![Join the chat at https://gitter.im/OpenNetworkingFoundation/CENTENNIAL](https://badges.gitter.im/OpenNetworkingFoundation/CENTENNIAL.svg)](https://gitter.im/OpenNetworkingFoundation/CENTENNIAL?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Microwave and Millimeterwave PoC Applications
 
 The repository is under preparetion for the 4th PoC.  
