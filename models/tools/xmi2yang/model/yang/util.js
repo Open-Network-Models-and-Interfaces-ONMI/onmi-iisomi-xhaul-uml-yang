@@ -30,7 +30,7 @@ var translate = function(s) {
       .replace(/\n/g, '')
       .replace(/\r/g, '')
       .replace(/\t/g, '')
-      .replace(/\'/g, '')
+      .replace(/\'/g, '');
 };
 
 module.exports = {

@@ -51,10 +51,10 @@ Class.prototype.buildEnum = function(obj) {
     var enumComment;
     var enumValue;
     var enumNode;
-    if(literal == undefined){
+    if(literal === undefined){
         return;
     }
-    if (literal.array != undefined) {
+    if (literal.array !==d) {
         // More than one enumerated value
         for (var i = 0; i < literal.array.length; i++) {
             enumValue = literal.array[i].attributes().name;
@@ -111,7 +111,8 @@ Class.prototype.buildEnum = function(obj) {
         }
         console.log("d");
     }*/
-}
+};
+
 Class.prototype.buildAttribute = function(att){
     var id = att.attributes()['xmi:id'];
     var name;

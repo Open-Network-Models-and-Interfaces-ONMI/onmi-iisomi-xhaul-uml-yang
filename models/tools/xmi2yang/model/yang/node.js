@@ -83,10 +83,10 @@ Node.prototype.buildChild = function (att, type) {
                 obj.buildUses(att);
                 //if (att.config) {
                 if (att.key) {
-                    if(att.key.length != 0){
+                    if(att.key.length !== 0){
                         //console.log("!");
                     }
-                    if(obj.key.length != 0){
+                    if(obj.key.length !== 0){
                         console.log("!");
                     }
                     obj.key = att.key;
@@ -139,7 +139,7 @@ Node.prototype.writeNode = function (layer) {
         case "Example":
         case "LikelyToChange":
         case "Faulty":
-            if((this.description == undefined)){
+            if((this.description === undefined)){
                 this.description = "Lifecycle : " + this.status;
             }
             else{
@@ -220,7 +220,7 @@ Node.prototype.writeNode = function (layer) {
             order = PRE + "\tordered-by system" + ";\r\n";
         }
     }*/
-    if(this["ordered-by"] == true && this.nodeType == "list"){
+    if(this["ordered-by"] === true && this.nodeType === "list"){
         order = PRE + "\tordered-by user" + ";\r\n";
     }
 
@@ -241,16 +241,16 @@ Node.prototype.writeNode = function (layer) {
     } else {
         conf = "";
     }*/
-    if((this.nodeType == "container" || this.nodeType == "list")&&(this.config == false)){
+    if((this.nodeType === "container" || this.nodeType === "list")&&(this.config === false)){
         conf = PRE + "\tconfig " + this.config + ";\r\n";
     }
-    if (this.nodeType == "list") {
+    if (this.nodeType === "list") {
         this["max-elements"] ? maxele = PRE + "\tmax-elements " + this["max-elements"] + ";\r\n" : maxele = "";
         this["min-elements"] ? minele = PRE + "\tmin-elements " + this["min-elements"] + ";\r\n" : minele = "";
-        if (this["max-elements"] == "*") {
+        if (this["max-elements"] === "*") {
             maxele = "";
         }
-        if(this.key.array != undefined || this.key.length != 0){
+        if(this.key.array !== undefined || this.key.length !== 0){
             if(this.key[0]){
                 // remove duplicates
                 var keys = this.key.filter(function(item, index, self) {
@@ -261,7 +261,7 @@ Node.prototype.writeNode = function (layer) {
                 Key = PRE + "\tkey '" + keys.join(" ") + "';\r\n";
             }
         }else{
-            console.warn("Warning: There is no key in the node " + this.name + ' (' + this.id + ')' + " in \'" + this.fileName + "\'!")
+            console.warn("Warning: There is no key in the node " + this.name + ' (' + this.id + ')' + " in \'" + this.fileName + "\'!");
         }
         /*if (typeof this.key=="string") {
             Key = PRE + "\tkey '" + this.key + "';\r\n";

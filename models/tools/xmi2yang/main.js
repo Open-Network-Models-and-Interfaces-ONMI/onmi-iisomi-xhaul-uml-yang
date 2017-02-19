@@ -254,7 +254,7 @@ function readConfig(){
                     }
                     if(dateArray[2] > day[dateArray[1]] || dateArray[2] < 1) {
                         if (!(dateArray[0] % 4 == 0 && dateArray[1] == 2 && dateArray[2] == 29)) {
-                            console.warn("The revision date is invalid, day is not consistent with month. Please check the config.txt file")
+                            console.warn("The revision date is invalid, day is not consistent with month. Please check the config.txt file");
                             throw (e1);
                         }
                     }
@@ -273,7 +273,7 @@ function readConfig(){
                         for (var k in o)
                             if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
                         return fmt;
-                    }
+                    };
                     var currentData = new Date().Format("yyyy-MM-dd");
                     config.revision.date = currentData;
                 }
@@ -339,7 +339,7 @@ function addPath(id, Class){
             }
             for(var j = 0; j < augment.length; j++){
                 if(augment[j].uses == path.split('/')[0].split(":")[1]){
-                    if(Class.instancePathFlag != false){
+                    if(Class.instancePathFlag !== false){
                         Class.instancePathFlag == true;
                     }
                     path = path.replace(path.split('/')[0], augment[j].name);
@@ -1942,6 +1942,8 @@ function obj2yang(ele){
                 }
             }
             if (ele[i].name === 'NetworkElement') obj.nodeType = "container";
+            if (ele[i].name === 'Equipment_Pac') obj.nodeType = "list";
+            if (ele[i].name === 'Holder_Pac') obj.nodeType = "list";
             if (ele[i].name.startsWith('MW_') && ele[i].name.endsWith('_Pac')) obj.nodeType = "list";
                       /*if(ele[i].key.length != 0){
                 obj.nodeType = "list";
@@ -2066,7 +2068,7 @@ function createFeature(obj, path) {
 
 function datatypeExe(id){
     for(var i = 0; i < Class.length; i++){
-        if(Class[i].id = id){
+        if(Class[i].id === id){
             if(Class[i].attribute.length == 1 && Class[i].generalization.length == 0){
                 if(Class[i].nodeType == "enumeration"){
                     return "enumeration," + i;

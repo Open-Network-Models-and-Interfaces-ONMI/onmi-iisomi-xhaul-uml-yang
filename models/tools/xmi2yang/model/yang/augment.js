@@ -89,6 +89,6 @@ Augment.prototype.writeNode = function (layer){
         Util.yangifyName(uses) +
         description + PRE + "}\r\n";
     return s;
-}
+};
 
 module.exports = Augment;
