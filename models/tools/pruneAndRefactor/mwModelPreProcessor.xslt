@@ -10,7 +10,6 @@
 	<xsl:param name="tool">  p+r-mwim</xsl:param>
 	<xsl:param name="showObsolete">false</xsl:param>
 	<xsl:variable name="lookupDoc" select="fn:document('PriorityLookup.xml')"/>
-	<xsl:variable name="previousLookupDoc" select="fn:document('../input/previousMicrowaveModel.uml')"/>
 	<!-- keys -->
 	<xsl:key name="attributePriority" match="attribute" use="@id"/>
 	<xsl:key name="classPriority" match="class" use="@id"/>
@@ -167,7 +166,7 @@
                 <xsl:when test="key('idRef', @instance)/@name">
                     <xsl:attribute name="value"><xsl:value-of select="fn:replace( fn:lower-case( key('idRef', @instance)/@name), '_', '-' )"></xsl:value-of></xsl:attribute>
                 </xsl:when>
-                <xsl:when test="fn:not(@value) and fn:not(key('idRef', @instance)/@name) and fn:not( key('idRef', @xmi:id, $previousLookupDoc)/@value and @xmi:type = 'uml:LiteralBoolean' )">
+                <xsl:when test="fn:not(@value) and fn:not(key('idRef', @instance)/@name) and @xmi:type = 'uml:LiteralBoolean' ">
                     <xsl:attribute name="value">false</xsl:attribute>
                 </xsl:when>
             </xsl:choose>
