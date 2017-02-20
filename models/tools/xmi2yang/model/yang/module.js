@@ -33,19 +33,17 @@ Module.prototype.writeNode = function (layer) {
         PRE += '\t';
     }
     var name = "module " + this.name;
-    var namespace;
-    this.namespace == "" || this.namespace == undefined ? namespace = PRE + "\tnamespace ;\r\n" : namespace = PRE + "\tnamespace \"" + this.namespace + "\";\r\n";
+    var namespace = this.namespace === "" || this.namespace === undefined ? PRE + "\tnamespace ;\r\n" : PRE + "\tnamespace \"" + this.namespace + "\";\r\n";
     var imp = "";
-    if (this.import == [] || this.import == undefined) {
-        imp = ""
+    if (this.import === [] || this.import === undefined) {
+        imp = "";
     } else {
         for (var i = 0; i < this.import.length; i++) {
             var impname = Util.yangifyName(this.import[i]);
             imp += PRE + "\timport " + impname + " {\r\n" + PRE + "\t\tprefix " + impname + ";\r\n" + PRE + "\t}\r\n";
         }
     }
-    var pref;
-    this.prefix == "" || this.prefix == undefined ? pref = PRE + "\tprefix ;\r\n" : pref = PRE + "\tprefix " + this.prefix + ";\r\n";
+    var pref = this.prefix === "" || this.prefix === undefined ? PRE + "\tprefix ;\r\n" : PRE + "\tprefix " + this.prefix + ";\r\n";
     var org;
     if(!this.organization){
         this.organization = "ONF (Open Networking Foundation) IMP Working Group";
@@ -91,12 +89,12 @@ Module.prototype.writeNode = function (layer) {
         this.revision += "\r\nreference \"RFC 6020 and RFC 6087\";";
     }else */
     var revision = "";
-    if(typeof this.revision == "object"){
-        for(var i in this.revision){
-            if(i == "date"){
+    if(typeof this.revision === "object"){
+        for(var index in this.revision){
+            if(index === "date"){
                 continue;
             }
-            revision += "\r\n" + i + " \"" + this.revision[i] + "\";";
+            revision += "\r\n" + index + " \"" + this.revision[index] + "\";";
         }
         /*revision += "\r\ndescription \"" + this.revision.description + "\";";
         revision += "\r\nreference \"" + this.revision.reference + "\";";*/
@@ -117,14 +115,14 @@ Module.prototype.writeNode = function (layer) {
     var sub;
     if (this.children) {
         for (var i = 0; i < this.children.length; i++) {
-            if(sub != undefined){
+            if(sub !== undefined){
                 this.children[i - 1] = this.children[i];
             }
-            if(this.children[i].name == "Interfaces"){
+            if(this.children[i].name === "Interfaces"){
                 sub = this.children[i];
             }
         }
-        if(sub != undefined){
+        if(sub !== undefined){
             this.children[this.children.length - 1] = sub;
         }
         for (var i = 0; i < this.children.length; i++) {

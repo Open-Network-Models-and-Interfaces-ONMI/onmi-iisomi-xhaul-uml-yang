@@ -25,7 +25,7 @@ function Package(name, id, path, comment, fileName) {
     this.uses = [];
 }
 Package.prototype.writeNode = function (layer) {
-    if(this.children.length == 0){
+    if(this.children.length === 0){
         return "";
     }
     var PRE = '';
@@ -49,25 +49,25 @@ Package.prototype.writeNode = function (layer) {
     var sub;
     if (this.children) {
         for (var i = 0; i < this.children.length; i++) {
-            if(sub != undefined){
+            if(sub !== undefined){
                 this.children[i - 1] = this.children[i];
             }
             if(this.children[i].name == "Interfaces"){
                 sub = this.children[i];
             }
         }
-        if(sub != undefined){
+        if(sub !== undefined){
             this.children[this.children.length - 1] = sub;
 
         }
-        for (var i = 0; i < this.children.length; i++) {
-            children += this.children[i].writeNode(layer + 1);
-        }
+        this.children.map(function(child){
+            children += child.writeNode(layer + 1);
+        });
     }
     var uses = "";
-    for(var i = 0; i < this.uses.length; i++){
-        uses += PRE + "\tuses " + this.uses[i].name + ";\r\n";
-    }
+    this.uses.map(function(use){
+        uses += PRE + "\tuses " + use.name + ";\r\n";
+    });
     var s = PRE + Util.yangifyName(name) + " \r\n" +
         children +
         Util.yangifyName(uses) +

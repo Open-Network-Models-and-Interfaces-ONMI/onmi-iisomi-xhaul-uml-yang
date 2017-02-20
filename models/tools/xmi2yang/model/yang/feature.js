@@ -34,8 +34,8 @@ function feature(id, condition, path, fileName){
     this.path = path;
     this.description = description;
     this.fileName = fileName;
-    this.status;
-    this.reference;
+    this.status = undefined;
+    this.reference = undefined;
 }
 feature.prototype.writeNode = function(layer){
     var PRE = '';

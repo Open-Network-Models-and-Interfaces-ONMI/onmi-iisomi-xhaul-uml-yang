@@ -78,15 +78,15 @@ function main_Entrance(){
                     }
                     currentFileName = undefined;
                     if(!num){
-                        console.log("There is no .xml file in 'project' directory! Please check your files path")
+                        console.log("There is no .xml file in 'project' directory! Please check your files path");
                     }else{
                         //addKey();//deal with the key for every class
                         //if the class's value of aggregation is opposite,the class don't need to be instantiated individually
                         buildGeneralization(Class);
 
-                        for(var i = 0; i < generalization.length; i++) {
-                            inheritKey(generalization[i]);
-                        }
+                        generalization.map(function(gen){
+                            inheritKey(gen);
+                        });
                         for(var i = 0; i < Class.length; i++){
                             pflag = Class[i].id;
                             var path = addPath(Class[i].id, Class[i]);
@@ -340,7 +340,7 @@ function addPath(id, Class){
             for(var j = 0; j < augment.length; j++){
                 if(augment[j].uses === path.split('/')[0].split(":")[1]){
                     if(Class.instancePathFlag !== false){
-                        Class.instancePathFlag === true;
+                        Class.instancePathFlag == true; // [sko] ???
                     }
                     path = path.replace(path.split('/')[0], augment[j].name);
                     break;
@@ -353,7 +353,7 @@ function addPath(id, Class){
         for(var j = 0; j < augment.length; j++){
             if(augment[j].usesId === id && Class.fileName === augment[j].fileName){
                 if(Class.instancePathFlag !== false){
-                    Class.instancePathFlag === true;
+                    Class.instancePathFlag == true; // [sko] ???
                 }
                 path = augment[j].name;
                 break;
@@ -399,7 +399,7 @@ function addKey(){ // eslint-disable-line no-unused-vars
 }
 
 function buildGeneralization(Class){
-    var gen = new Object();
+    var gen = {};
     for(var i = 0; i < Class.length; i++){
         for(var j = 0; j < Class[i].generalization.length; j++){
             for(var k = 0; k < Class.length; k++){
@@ -410,7 +410,7 @@ function buildGeneralization(Class){
                         }
                     }
                     if(m === generalization.length){
-                        var gen = new Object();
+                        gen = {};
                         gen.class1 = Class[i];
                         gen.class2 = Class[k];
                         generalization.push(gen);
@@ -428,7 +428,7 @@ function inheritKey(general) {
         newkey,
         newkeyid;
     if(general.class2.key.length !== 0){
-        general.class2.key instanceof Array ? keyLength = general.class2.key.length : keyLength = 1;
+        keyLength = general.class2.key instanceof Array ? general.class2.key.length : 1;
         for(var i = 0; i < keyLength; i++){
             newkey = keyLength === 1 ? general.class2.key : general.class2.key[i];
             newkeyid = keyLength === 1 ? general.class2.keyid : general.class2.keyid[i];
@@ -538,7 +538,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                             newxmi = xmi[key].array ? xmi[key].array : xmi[key];      //newxmi: the array in OpenModel_Profile:OpenModelAttribute
                             var len = xmi[key].array ? xmi[key].array.length : 1;     //OpenModel_Profile:the number of array object in OpenModelAttribute
                             for(var i = 0; i < len; i++){
-                                len === 1 ? obj = newxmi : obj = newxmi[i];
+                                obj = len === 1 ? newxmi : newxmi[i];
                                 parseOpenModelatt(obj);
                             }
                             break;
@@ -546,7 +546,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                             newxmi = xmi[key].array ? xmi[key].array : xmi[key];
                             var len = xmi[key].array ? xmi[key].array.length : 1;
                             for(var i = 0; i < len; i++){
-                                len === 1 ? obj = newxmi : obj = newxmi[i];
+                                obj = len === 1 ? newxmi : newxmi[i];
                                 parseOpenModelclass(obj);
                             }
                             break;
@@ -554,7 +554,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                             newxmi = xmi[key].array ? xmi[key].array : xmi[key];
                             var len = xmi[key].array ? xmi[key].array.length : 1;
                             for(var i = 0; i < len; i++){
-                                len === 1 ? obj = newxmi : obj = newxmi[i];
+                                obj = len === 1 ? newxmi : newxmi[i];
                                 parseOpenModelnotification(obj);
                             }
                             break;
@@ -562,7 +562,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                             newxmi = xmi[key].array ? xmi[key].array : xmi[key];
                             var len = xmi[key].array ? xmi[key].array.length : 1;
                             for(var i = 0; i < len; i++){
-                                len === 1 ? obj = newxmi : obj = newxmi[i];
+                                obj = len === 1 ? newxmi : newxmi[i];
                                 parseOpenModelatt(obj);
                             }
                             break;
@@ -570,7 +570,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                             newxmi = xmi[key].array ? xmi[key].array : xmi[key];
                             var len = xmi[key].array ? xmi[key].array.length : 1;
                             for(var i = 0; i < len; i++){
-                                len === 1 ? obj = newxmi : obj = newxmi[i];
+                                obj = len === 1 ? newxmi : newxmi[i];
                                 //createLifecycle(obj, "current");
                                 createLifecycle(obj, "Preliminary");
                             }
@@ -579,7 +579,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                             newxmi = xmi[key].array ? xmi[key].array : xmi[key];
                             var len = xmi[key].array ? xmi[key].array.length : 1;
                             for(var i = 0; i < len; i++){
-                                len === 1 ? obj = newxmi : obj = newxmi[i];
+                                obj = len === 1 ? newxmi : newxmi[i];
                                 createLifecycle(obj, "current");
                             }
                             break;
@@ -587,7 +587,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                             newxmi = xmi[key].array ? xmi[key].array : xmi[key];
                             var len = xmi[key].array ? xmi[key].array.length : 1;
                             for(var i = 0; i < len; i++){
-                                len === 1 ? obj = newxmi : obj = newxmi[i];
+                                obj = len === 1 ? newxmi : newxmi[i];
                                 createLifecycle(obj, "obsolete");
                             }
                             break;
@@ -595,7 +595,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                             newxmi = xmi[key].array ? xmi[key].array : xmi[key];
                             var len = xmi[key].array ? xmi[key].array.length : 1;
                             for(var i = 0; i < len; i++){
-                                len === 1 ? obj = newxmi : obj = newxmi[i];
+                                obj = len === 1 ? newxmi : newxmi[i];
                                 createLifecycle(obj, "deprecated");
                             }
                             break;
@@ -603,7 +603,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                             newxmi = xmi[key].array ? xmi[key].array : xmi[key];
                             var len = xmi[key].array ? xmi[key].array.length : 1;
                             for(var i = 0; i < len; i++){
-                                len === 1 ? obj = newxmi : obj = newxmi[i];
+                                obj = len === 1 ? newxmi : newxmi[i];
                                 //createLifecycle(obj, "deprecated");
                                 createLifecycle(obj, "Experimental");
                             }
@@ -612,7 +612,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                             newxmi = xmi[key].array ? xmi[key].array : xmi[key];
                             var len = xmi[key].array ? xmi[key].array.length : 1;
                             for(var i = 0; i < len; i++){
-                                len === 1 ? obj = newxmi : obj = newxmi[i];
+                                obj = len === 1 ? newxmi : newxmi[i];
                                 createLifecycle(obj, "Example");
                             }
                             break;
@@ -620,7 +620,7 @@ function parseModule(filename){                     //XMLREADER read xml files
                             newxmi = xmi[key].array ? xmi[key].array : xmi[key];
                             var len = xmi[key].array ? xmi[key].array.length : 1;
                             for(var i = 0; i < len; i++){
-                                len === 1 ? obj = newxmi : obj = newxmi[i];
+                                obj = len === 1 ? newxmi : newxmi[i];
                                 //createLifecycle(obj, "deprecated");
                                 createLifecycle(obj, "LikelyToChange");
                             }
@@ -629,8 +629,8 @@ function parseModule(filename){                     //XMLREADER read xml files
                             newxmi = xmi[key].array ? xmi[key].array : xmi[key];
                             var len = xmi[key].array ? xmi[key].array.length : 1;
                             for(var i = 0; i < len; i++){
-                                len === 1 ? obj = newxmi : obj = newxmi[i];
-                                if(obj.attributes()["passedByRef"] === "false"){
+                                obj = len === 1 ? newxmi : newxmi[i];
+                                if(obj.attributes().passedByRef === "false"){
                                     obj.psBR = false;
                                 }else{
                                     obj.psBR = true;
@@ -642,24 +642,24 @@ function parseModule(filename){                     //XMLREADER read xml files
                             newxmi = xmi[key].array ? xmi[key].array : xmi[key];
                             var len = xmi[key].array ? xmi[key].array.length : 1;
                             for(var i = 0; i < len; i++){
-                                len === 1 ? obj = newxmi : obj = newxmi[i];
-                                specTarget.push(obj.attributes()["base_StructuralFeature"]);
+                                obj = len === 1 ? newxmi : newxmi[i];
+                                specTarget.push(obj.attributes().base_StructuralFeature);
                             }
                             break;
                         case "SpecReference":
                             newxmi = xmi[key].array ? xmi[key].array : xmi[key];
                             var len = xmi[key].array ? xmi[key].array.length : 1;
                             for(var i = 0; i < len; i++){
-                                len === 1 ? obj = newxmi : obj = newxmi[i];
-                                specReference.push(obj.attributes()["base_StructuralFeature"]);
+                                obj = len === 1 ? newxmi : newxmi[i];
+                                specReference.push(obj.attributes().base_StructuralFeature);
                             }
                             break;
                         case "DefinedBySpec":
                             newxmi = xmi[key].array ? xmi[key].array : xmi[key];
                             var len = xmi[key].array ? xmi[key].array.length : 1;
                             for(var i = 0; i < len; i++){
-                                len === 1 ? obj = newxmi : obj = newxmi[i];
-                                definedBySpec.push(obj.attributes()["base_StructuralFeature"]);
+                                obj = len === 1 ? newxmi : newxmi[i];
+                                definedBySpec.push(obj.attributes().base_StructuralFeature);
                             }
                             break;
                         default :
@@ -714,7 +714,7 @@ function parseUmlModel(xmi){                    //parse umlmodel
     mainmod = mainmod.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g, "");   //remove the special character in the end
     mainmod = mainmod.replace(/[^\w\.-]+/g, '_');                     //not "A-Za-z0-9"->"_"
     modName.push(mainmod);
-    if (xmi["ownedComment"]) {
+    if (xmi.ownedComment) {
         comment = parseComment(xmi);
         /*if(xmi['ownedComment'].array){
             //comment += xmi['ownedComment'].array[0].body.text();
@@ -747,13 +747,12 @@ function parseUmlModel(xmi){                    //parse umlmodel
     }
     for(var i = 0; i < len; i++){
         len === 1 ? newxmi =xmi.packagedElement : newxmi = xmi.packagedElement.array[i];
-        if(newxmi.attributes().name === "Imports"){
-            var impLen;
+        if(newxmi.attributes().name === "Imports"){            
             var impObj;
             var imp;
-            newxmi.packageImport.array ? impLen = newxmi.packageImport.array.length : impLen = 1;
+            var impLen = newxmi.packageImport.array ? newxmi.packageImport.array.length : 1;
             for(var j = 0; j < impLen; j++){
-                impLen === 1 ? impObj = newxmi.packageImport : impObj = newxmi.packageImport.array[j];
+                impObj = impLen === 1 ? newxmi.packageImport : newxmi.packageImport.array[j];
                 imp = impObj.importedPackage.attributes().href.split('/').pop().split('.')[0];
                 m.import.push(imp);
             }
@@ -776,7 +775,7 @@ function parsePackage(xmi){
         xmi.attributes().name?mainmod=xmi.attributes().name:console.error("ERROR:The attribute 'name' of tag 'xmi:id=" + xmi.attributes()["xmi:id"] + "' in " + filename + " is empty!");
         mainmod=mainmod.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g, "");   //remove the special character in the end
         mainmod=mainmod.replace(/[^\w\.-]+/g, '_');                     //not "A-Za-z0-9"->"_"
-        if (xmi["ownedComment"]) {
+        if (xmi.ownedComment) {
             comment = parseComment(xmi);
             /*if(xmi['ownedComment'].array){
                 comment += xmi['ownedComment'].array[0].body.text();
@@ -797,14 +796,14 @@ function parsePackage(xmi){
             xmi.packagedElement.array ? len = xmi.packagedElement.array.length : len = 1;
         }
         for(var i = 0; i < len; i++){
-            len === 1 ? newxmi = xmi.packagedElement : newxmi = xmi.packagedElement.array[i];
+            newxmi = len === 1 ? xmi.packagedElement : xmi.packagedElement.array[i];
             parsePackage(newxmi);
         }
         modName.pop();
         if(xmi.attributes()["xmi:type"] === "uml:Interface"){
-            xmi.ownedOperation.array ? len = xmi.ownedOperation.array.length : len = 1;
+            len = xmi.ownedOperation.array ? xmi.ownedOperation.array.length : 1;
             for(var i = 0; i < len; i++){
-                len === 1 ? newxmi = xmi.ownedOperation : newxmi = xmi.ownedOperation.array[i];
+                newxmi = len === 1 ? xmi.ownedOperation : xmi.ownedOperation.array[i];
                 createClass(newxmi, "rpc");
             }
         }
@@ -817,10 +816,10 @@ function parsePackage(xmi){
 function parseOpenModelatt(xmi){
     var flag = 0;
     var id;
-    if(xmi.attributes()["base_StructuralFeature"]){
-        id = xmi.attributes()["base_StructuralFeature"]
-    }else if(xmi.attributes()["base_Parameter"]){
-        id = xmi.attributes()["base_Parameter"]
+    if(xmi.attributes().base_StructuralFeature){
+        id = xmi.attributes().base_StructuralFeature
+    }else if(xmi.attributes().base_Parameter){
+        id = xmi.attributes().base_Parameter
     }
     else{
         return;
@@ -903,10 +902,10 @@ function parseOpenModelatt(xmi){
 function parseOpenModelclass(xmi){
     var flag = 0;
     var id;
-    if(xmi.attributes()["base_Class"]){
-        id = xmi.attributes()["base_Class"]
-    }else if(xmi.attributes()["base_Operation"]){
-        id = xmi.attributes()["base_Operation"];
+    if(xmi.attributes().base_Class){
+        id = xmi.attributes().base_Class
+    }else if(xmi.attributes().base_Operation){
+        id = xmi.attributes().base_Operation;
     }
     else{
         return;
@@ -974,23 +973,23 @@ function parseOpenModelnotification(xmi){
 function createLifecycle(xmi, str){              //创建lifecycle
     var id;
     var nodetype;
-    if(xmi.attributes()["base_Parameter"]){
-        id = xmi.attributes()["base_Parameter"];
+    if(xmi.attributes().base_Parameter){
+        id = xmi.attributes().base_Parameter;
         nodetype = "attribute";
-    }else if(xmi.attributes()["base_StructuralFeature"]){
-        id = xmi.attributes()["base_StructuralFeature"];
+    }else if(xmi.attributes().base_StructuralFeature){
+        id = xmi.attributes().base_StructuralFeature;
         nodetype = "attribute";
-    }else if(xmi.attributes()["base_Operation"]){
-        id = xmi.attributes()["base_Operation"];
+    }else if(xmi.attributes().base_Operation){
+        id = xmi.attributes().base_Operation;
         nodetype = "class";
-    }else if(xmi.attributes()["base_Class"]){
-        id = xmi.attributes()["base_Class"];
+    }else if(xmi.attributes().base_Class){
+        id = xmi.attributes().base_Class;
         nodetype = "class";
-    }else if(xmi.attributes()["base_DataType"]){
-        id = xmi.attributes()["base_DataType"];
+    }else if(xmi.attributes().base_DataType){
+        id = xmi.attributes().base_DataType;
         nodetype = "class";
-    }else if(xmi.attributes()["base_Element"]){
-        id = xmi.attributes()["base_Element"];
+    }else if(xmi.attributes().base_Element){
+        id = xmi.attributes().base_Element;
         nodetype = "attribute";   //attribute or class
     }else{
         return;
@@ -1051,7 +1050,7 @@ function createElement(xmi){
                     var namespace="\"urn:ONF:"+modName.join("-")+"\"";
 
                     var comment = "";
-                    if (xmi["ownedComment"]) {
+                    if (xmi.ownedComment) {
                         if(xmi['ownedComment'].array){
                             //comment="";
                             comment += xmi['ownedComment'].array[0].body.text();
@@ -1127,12 +1126,12 @@ function createClass(obj, nodeType) {
             path = modName.join("-");
         }*/
         path = modName.join("-");
-        if (obj["ownedComment"]) {
+        if (obj.ownedComment) {
             var comment = parseComment(obj);
 
             /*var len;
             var comment = "";
-            obj["ownedComment"].array ? len = obj["ownedComment"].array.length : len = 1;
+            obj.ownedComment.array ? len = obj.ownedComment.array.length : len = 1;
             if(obj['ownedComment'].array){
                 comment = "";
                 comment += obj['ownedComment'].array[0].body.text();
