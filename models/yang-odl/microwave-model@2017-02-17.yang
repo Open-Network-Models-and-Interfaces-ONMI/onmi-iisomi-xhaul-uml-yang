@@ -1,5 +1,5 @@
 module microwave-model {
-    namespace "urn:onf:params:xml:ns:yang:MicrowaveModel";
+    namespace "urn:onf:params:xml:ns:yang:microwave-model";
     prefix microwave-model;
 
     import core-model {
@@ -30,7 +30,7 @@ module microwave-model {
     }
     /***********************
     * package type-definitions
-    **********************/ 
+    **********************/
         typedef loop-back-type {
             type enumeration {
                 enum non {
@@ -784,7 +784,7 @@ module microwave-model {
                 type int16;
                 default -1;
                 config false;
-                description "In case the device is NOT capable of adapting the sequence, in which segments are being dropped in case of decreasing capacity of the air interface, dropOrderRank is number of segments minus sequence number of the segment. In case the device is capable of adapting the sequence, dropOrderRank has to be calculated by the device in dependency to the assigned priorityClass. 
+                description "In case the device is NOT capable of adapting the sequence, in which segments are being dropped in case of decreasing capacity of the air interface, dropOrderRank is number of segments minus sequence number of the segment. In case the device is capable of adapting the sequence, dropOrderRank has to be calculated by the device in dependency to the assigned priorityClass.
                     _unique: within Structure::StructureStatus::segmentStatusList";
             }
             description "none";
@@ -864,10 +864,10 @@ module microwave-model {
 
     /***********************
     * package object-classes
-    **********************/ 
+    **********************/
         /***********************
         * package air-interface
-        **********************/ 
+        **********************/
             list mw-air-interface-pac {
                 key 'layer-protocol';
                 leaf layer-protocol {
@@ -1359,7 +1359,7 @@ module microwave-model {
 
         /***********************
         * package air-interface-hsb
-        **********************/ 
+        **********************/
             list mw-air-interface-hsb-end-point-pac {
                 key 'endpoint';
                 leaf role {
@@ -1408,7 +1408,7 @@ module microwave-model {
 
         /***********************
         * package air-interface-diversity
-        **********************/ 
+        **********************/
             list mw-air-interface-diversity-pac {
                 key 'layer-protocol';
                 leaf layer-protocol {
@@ -1537,7 +1537,7 @@ module microwave-model {
 
         /***********************
         * package pure-ethernet-structure
-        **********************/ 
+        **********************/
             list mw-pure-ethernet-structure-pac {
                 if-feature pure-ethernet;
                 key 'layer-protocol';
@@ -1649,7 +1649,7 @@ module microwave-model {
 
         /***********************
         * package hybrid-mw-structure
-        **********************/ 
+        **********************/
             list mw-hybrid-mw-structure-pac {
                 if-feature hybrid-microwave;
                 key 'layer-protocol';
@@ -1778,7 +1778,7 @@ module microwave-model {
 
         /***********************
         * package ethernet-container
-        **********************/ 
+        **********************/
             list mw-ethernet-container-pac {
                 key 'layer-protocol';
                 leaf layer-protocol {
@@ -1998,7 +1998,7 @@ module microwave-model {
 
         /***********************
         * package tdm-container
-        **********************/ 
+        **********************/
             list mw-tdm-container-pac {
                 if-feature hybrid-microwave;
                 key 'layer-protocol';
@@ -2118,7 +2118,7 @@ module microwave-model {
 
         /***********************
         * package super-classes
-        **********************/ 
+        **********************/
             grouping mw-current-problem {
                 leaf sequence-number {
                     type int32;
@@ -2143,7 +2143,7 @@ module microwave-model {
 
     /***********************
     * package notifications
-    **********************/ 
+    **********************/
         notification object-creation-notification {
             uses object-creation-notification;
             description "none";
