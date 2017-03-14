@@ -27,7 +27,7 @@ module g.874.1-model {
     }
     /***********************
     * package object-classes
-    **********************/ 
+    **********************/
         grouping otn-current-data {
             leaf timestamp {
                 type date-and-time;
@@ -48,7 +48,7 @@ module g.874.1-model {
 
     /***********************
     * package type-definitions
-    **********************/ 
+    **********************/
         typedef directionality {
             type enumeration {
                 enum sink {
@@ -545,14 +545,14 @@ module g.874.1-model {
 
     /***********************
     * package illustrative-object-diagrams
-    **********************/ 
+    **********************/
 
     /***********************
     * package imported-information-object-classes
-    **********************/ 
+    **********************/
         /***********************
         * package q.822
-        **********************/ 
+        **********************/
             grouping q.822-current-data {
                 leaf suspect-interval-flag {
                     type boolean;
@@ -584,7 +584,7 @@ module g.874.1-model {
 
         /***********************
         * package x.739
-        **********************/ 
+        **********************/
             grouping x.739-scanner {
                 leaf scanner-id {
                     type string;
@@ -604,7 +604,7 @@ module g.874.1-model {
 
         /***********************
         * package x.721
-        **********************/ 
+        **********************/
             grouping x.721-top {
                 leaf object-class {
                     type object-identifier;
@@ -621,7 +621,7 @@ module g.874.1-model {
 
     /***********************
     * package imported-data-types
-    **********************/ 
+    **********************/
         typedef object-instance {
             type string;
             description "none";
