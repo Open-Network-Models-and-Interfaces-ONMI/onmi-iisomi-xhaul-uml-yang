@@ -1,0 +1,631 @@
+module g.874.1-model {
+    namespace "urn:onf:params:xml:ns:yang:G.874.1-model";
+    prefix g.874.1-model;
+
+    import core-model {
+        prefix core-model;
+    }
+    import ietf-yang-types {
+        prefix yang;
+    }
+
+    organization "ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project";
+    contact "WG Web: <https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport>
+             WG List:  <mailto:wireless-transport@login.opennetworking.org>
+             WG Chair: Lyndon Ong
+                       <mailto:lyong@ciena.com>
+             WG Chair: Giorgio Cazzaniga
+                       <mailto:giorgio.cazzaniga@sm-optics.com>
+             Editors:  Thorsten Heinze
+                       <mailto:thorsten.heinze@telefonica.com>
+                       Martin Skorupski
+                       <mailto:martin.skorupski@highstreet-technologies.com>";
+    description "none";
+    revision 2017-02-17 {
+        description "none";
+        reference "ONF TR 532: A YANG Data Model.";
+    }
+    /***********************
+    * package object-classes
+    **********************/
+        grouping otn-current-data {
+            leaf timestamp {
+                type date-and-time;
+                description "none";
+            }
+            uses q.822-current-data;
+            description "none";
+        }
+        grouping otn-history-data {
+            leaf suspect-interval-flag {
+                type boolean;
+                default false;
+                description "none";
+            }
+            uses q.822-history-data;
+            description "none";
+        }
+
+    /***********************
+    * package type-definitions
+    **********************/
+        typedef directionality {
+            type enumeration {
+                enum sink {
+                    description "none";
+                }
+                enum source {
+                    description "none";
+                }
+                enum bidirectional {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef gcc-access {
+            type enumeration {
+                enum gcc1 {
+                    description "none";
+                }
+                enum gcc2 {
+                    description "none";
+                }
+                enum gcc1-and-gcc2 {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef operational-state {
+            type enumeration {
+                enum enabled {
+                    description "none";
+                }
+                enum disabled {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef oper-type {
+            type enumeration {
+                enum revertive {
+                    description "none";
+                }
+                enum non-revertive {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef ext-cmd-operation {
+            type enumeration {
+                enum exercise {
+                    description "none";
+                }
+                enum manual-switch {
+                    description "none";
+                }
+                enum forced-switch {
+                    description "none";
+                }
+                enum lockout {
+                    description "none";
+                }
+                enum release-of-manual-switch {
+                    description "none";
+                }
+                enum release-of-forced-switch {
+                    description "none";
+                }
+                enum release-of-lockout {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef administrative-state {
+            type enumeration {
+                enum unlocked {
+                    description "none";
+                }
+                enum locked {
+                    description "none";
+                }
+                enum shutting-down {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef octk-nim-kbit-rate {
+            type enumeration {
+                enum 2.5-g {
+                    description "none";
+                }
+                enum 10-g {
+                    description "none";
+                }
+                enum 40-g {
+                    description "none";
+                }
+                enum 100-g {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef tim-det-mo {
+            type enumeration {
+                enum dapi {
+                    description "none";
+                }
+                enum sapi {
+                    description "none";
+                }
+                enum both {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef octk-nim-problem-list {
+            type enumeration {
+                enum los-p {
+                    description "none";
+                }
+                enum oci {
+                    description "none";
+                }
+                enum ssf-p {
+                    description "none";
+                }
+                enum ssf-o {
+                    description "none";
+                }
+                enum ssf {
+                    description "none";
+                }
+                enum tim {
+                    description "none";
+                }
+                enum deg {
+                    description "none";
+                }
+                enum bdi {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef tcm-monitoring {
+            type enumeration {
+                enum intrusive {
+                    description "none";
+                }
+                enum non-intrusive {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef tcm-mode {
+            type enumeration {
+                enum operational {
+                    description "none";
+                }
+                enum transparent {
+                    description "none";
+                }
+                enum monitor {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef opsmnk-ttp-kbit-rate {
+            type enumeration {
+                enum 40-g {
+                    description "none";
+                }
+                enum 100-g {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef opsmnk-ttp-problem-list {
+            type enumeration {
+                enum los {
+                    description "none";
+                }
+                enum lol {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef opsn-ttp-problem-list {
+            type enumeration {
+                enum los {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef otm-n-kbit-rates {
+            type enumeration {
+                enum 2.5-g {
+                    description "none";
+                }
+                enum 10-g {
+                    description "none";
+                }
+                enum 40-g {
+                    description "none";
+                }
+                enum 2.5-10-g {
+                    description "none";
+                }
+                enum 10-40-g {
+                    description "none";
+                }
+                enum 2.5-10-40-g {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef domain-interface {
+            type enumeration {
+                enum intra-domain {
+                    description "none";
+                }
+                enum inter-domain {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef otm-n-optical-reach {
+            type enumeration {
+                enum intra-office {
+                    description "none";
+                }
+                enum shorthaul {
+                    description "none";
+                }
+                enum longhaul {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef apr-status {
+            type enumeration {
+                enum on {
+                    description "none";
+                }
+                enum off {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef otsn-ttp-problem-list {
+            type enumeration {
+                enum bdi-p {
+                    description "none";
+                }
+                enum bdi-o {
+                    description "none";
+                }
+                enum bdi {
+                    description "none";
+                }
+                enum tim {
+                    description "none";
+                }
+                enum los-p {
+                    description "none";
+                }
+                enum los-o {
+                    description "none";
+                }
+                enum los {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef otuk-ctp-adaptation {
+            type enumeration {
+                enum regular {
+                    description "none";
+                }
+                enum none {
+                    description "none";
+                }
+                enum vendor-specific {
+                    description "none";
+                }
+                enum functionally-standardized {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef otuk-ctp-kbit-rate {
+            type enumeration {
+                enum 2.5-g {
+                    description "none";
+                }
+                enum 10-g {
+                    description "none";
+                }
+                enum 40-g {
+                    description "none";
+                }
+                enum 100-g {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef otuk-ctp-problem-list {
+            type enumeration {
+                enum lof {
+                    description "none";
+                }
+                enum ais {
+                    description "none";
+                }
+                enum lom {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef otuk-ttp-problem-list {
+            type enumeration {
+                enum tim {
+                    description "none";
+                }
+                enum deg {
+                    description "none";
+                }
+                enum bdi {
+                    description "none";
+                }
+                enum ssf {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef monitored-direction {
+            type enumeration {
+                enum sink {
+                    description "none";
+                }
+                enum source {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef deg-thr-type {
+            type enumeration {
+                enum percentage {
+                    description "none";
+                }
+                enum number-errored-blocks {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef link-type {
+            type enumeration {
+                enum dwdm {
+                    description "none";
+                }
+                enum cwdm {
+                    description "none";
+                }
+                enum no-wdm {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef application-identifier-type {
+            type enumeration {
+                enum standard {
+                    description "none";
+                }
+                enum proprietary {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef printable-string {
+            type string;
+            description "none";
+        }
+        typedef date-and-time {
+            type string;
+            description "none";
+        }
+        typedef aps-channel {
+            type enumeration {
+                enum path {
+                    description "none";
+                }
+                enum tcm1 {
+                    description "none";
+                }
+                enum tcm2 {
+                    description "none";
+                }
+                enum tcm3 {
+                    description "none";
+                }
+                enum tcm4 {
+                    description "none";
+                }
+                enum tcm5 {
+                    description "none";
+                }
+                enum tcm6 {
+                    description "none";
+                }
+                enum section {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef bit-string {
+            type string;
+            description "none";
+        }
+        typedef delay-measurement-role {
+            type enumeration {
+                enum controller {
+                    description "none";
+                }
+                enum responder {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef resize-operation-type {
+            type enumeration {
+                enum increase-bw {
+                    description "none";
+                }
+                enum decrease-bw {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef granularity-period-type {
+            type enumeration {
+                enum unknown {
+                    description "none";
+                }
+                enum period-15min {
+                    description "none";
+                }
+                enum period-24hours {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+
+    /***********************
+    * package illustrative-object-diagrams
+    **********************/
+
+    /***********************
+    * package imported-information-object-classes
+    **********************/
+        /***********************
+        * package q.822
+        **********************/
+            grouping q.822-current-data {
+                leaf suspect-interval-flag {
+                    type boolean;
+                    description "none";
+                }
+                leaf elapsed-time {
+                    type int64;
+                    description "none";
+                }
+                uses x.739-scanner;
+                description "none";
+            }
+            grouping q.822-history-data {
+                leaf history-data-id {
+                    type string;
+                    description "none";
+                }
+                leaf period-end-time {
+                    type yang:date-and-time;
+                    description "none";
+                }
+                leaf granularity-period {
+                    type granularity-period-type;
+                    description "none";
+                }
+                uses x.721-top;
+                description "none";
+            }
+
+        /***********************
+        * package x.739
+        **********************/
+            grouping x.739-scanner {
+                leaf scanner-id {
+                    type string;
+                    description "none";
+                }
+                leaf granularity-period {
+                    type granularity-period-type;
+                    description "none";
+                }
+                leaf administrative-state {
+                    type core-model:administrative-state;
+                    description "none";
+                }
+                uses x.721-top;
+                description "none";
+            }
+
+        /***********************
+        * package x.721
+        **********************/
+            grouping x.721-top {
+                leaf object-class {
+                    type object-identifier;
+                    description "none";
+                }
+                leaf name-binding {
+                    type object-identifier;
+                    description "none";
+                }
+                description "none";
+            }
+
+
+    /***********************
+    * package imported-data-types
+    **********************/
+        typedef object-instance {
+            type string;
+            description "none";
+        }
+        typedef name {
+            type string;
+            description "none";
+        }
+        typedef object-identifier {
+            type string;
+            description "none";
+        }
+        typedef generalized-time {
+            type string;
+            description "none";
+        }
+        typedef time-period {
+            type string;
+            description "none";
+        }
+
+}
