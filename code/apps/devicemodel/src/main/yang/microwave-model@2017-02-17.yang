@@ -1,0 +1,2254 @@
+module microwave-model {
+    namespace "urn:onf:params:xml:ns:yang:MicrowaveModel";
+    prefix microwave-model;
+
+    import core-model {
+        prefix core-model;
+    }
+    import g.874.1-model {
+        prefix g;
+    }
+    import ietf-yang-types {
+        prefix yang;
+    }
+
+    organization "ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project";
+    contact "WG Web: <https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport>
+             WG List:  <mailto:wireless-transport@login.opennetworking.org>
+             WG Chair: Lyndon Ong
+                       <mailto:lyong@ciena.com>
+             WG Chair: Giorgio Cazzaniga
+                       <mailto:giorgio.cazzaniga@sm-optics.com>
+             Editors:  Thorsten Heinze
+                       <mailto:thorsten.heinze@telefonica.com>
+                       Martin Skorupski
+                       <mailto:martin.skorupski@highstreet-technologies.com>";
+    description "none";
+    revision 2017-02-17 {
+        description "none";
+        reference "ONF TR 532: A YANG Data Model for Wireless Networks.";
+    }
+    /***********************
+    * package type-definitions
+    **********************/
+        typedef loop-back-type {
+            type enumeration {
+                enum non {
+                    description "none";
+                }
+                enum if {
+                    description "none";
+                }
+                enum rf {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef severity-type {
+            type enumeration {
+                enum non-alarmed {
+                    description "none";
+                }
+                enum warning {
+                    description "none";
+                }
+                enum minor {
+                    description "none";
+                }
+                enum major {
+                    description "none";
+                }
+                enum critical {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        grouping channel-plan-type {
+            leaf supported-channel-plan {
+                type string;
+                default "Channel plan name not defined.";
+                config false;
+                description "none";
+            }
+            leaf duplex-distance-is-variable {
+                type boolean;
+                default false;
+                config false;
+                description "none";
+            }
+            leaf duplex-distance {
+                type int32;
+                units "kHz";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf auto-freq-select-is-avail {
+                type boolean;
+                default false;
+                config false;
+                description "none";
+            }
+            list transmission-mode-list {
+                key 'transmission-mode-id';
+                config false;
+                min-elements 1;
+                uses transmission-mode-type;
+                description "none";
+            }
+            description "none";
+        }
+        grouping transmission-mode-type {
+            leaf transmission-mode-id {
+                type core-model:universal-id;
+                config false;
+                description "none";
+            }
+            leaf channel-bandwidth {
+                type int32;
+                units "kHz";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf modulation-scheme {
+                type int16;
+                units "symbols";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf code-rate {
+                type int8;
+                units "%";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf tx-power-min {
+                type int8;
+                units "dBm";
+                default 99;
+                config false;
+                description "none";
+            }
+            leaf tx-power-max {
+                type int8;
+                units "dBm";
+                default 99;
+                config false;
+                description "none";
+            }
+            leaf rx-threshold {
+                type int16;
+                units "dBm";
+                default 99;
+                config false;
+                description "none";
+            }
+            leaf am-upshift-level {
+                type int8;
+                units "dBm";
+                default 99;
+                config false;
+                description "none";
+            }
+            leaf am-downshift-level {
+                type int8;
+                units "dBm";
+                default 99;
+                config false;
+                description "none";
+            }
+            leaf xpic-is-avail {
+                type boolean;
+                default false;
+                config false;
+                description "none";
+            }
+            description "none";
+        }
+        typedef polarization-type {
+            type enumeration {
+                enum not-specified {
+                    description "none";
+                }
+                enum horizontal {
+                    description "none";
+                }
+                enum vertical {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        grouping air-interface-problem-severity-type {
+            leaf problem-kind-name {
+                type string;
+                default "Problem kind name not defined.";
+                description "none";
+            }
+            leaf problem-kind-severity {
+                type severity-type;
+                default warning;
+                description "none";
+            }
+            description "none";
+        }
+        grouping air-interface-current-problem-type {
+            leaf problem-name {
+                type string;
+                default "Problem name not specified.";
+                config false;
+                description "none";
+            }
+            uses mw-current-problem;
+            description "none";
+        }
+        grouping air-interface-performance-type {
+            leaf es {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf ses {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf cses {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf unavailability {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf tx-level-min {
+                type int8;
+                units "dBm";
+                default 99;
+                config false;
+                description "none";
+            }
+            leaf tx-level-max {
+                type int8;
+                units "dBm";
+                default 99;
+                config false;
+                description "none";
+            }
+            leaf tx-level-avg {
+                type int8;
+                units "dBm";
+                default 99;
+                config false;
+                description "none";
+            }
+            leaf rx-level-min {
+                type int8;
+                units "dBm";
+                default 99;
+                config false;
+                description "none";
+            }
+            leaf rx-level-max {
+                type int8;
+                units "dBm";
+                default 99;
+                config false;
+                description "none";
+            }
+            leaf rx-level-avg {
+                type int8;
+                units "dBm";
+                default 99;
+                config false;
+                description "none";
+            }
+            leaf time2-states {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time4-states-s {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time4-states {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time8-states {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time16-states-s {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time16-states {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time32-states {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time64-states {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time128-states {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time256-states {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time512-states {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time512-states-l {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time1024-states {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time1024-states-l {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time2048-states {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time2048-states-l {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time4096-states {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time4096-states-l {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time8192-states {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time8192-states-l {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf snir-min {
+                type int8;
+                units "dB";
+                default -99;
+                config false;
+                description "none";
+            }
+            leaf snir-max {
+                type int8;
+                units "dB";
+                default -99;
+                config false;
+                description "none";
+            }
+            leaf snir-avg {
+                type int8;
+                units "dB";
+                default -99;
+                config false;
+                description "none";
+            }
+            leaf xpd-min {
+                type int8;
+                units "dB";
+                default -99;
+                config false;
+                description "none";
+            }
+            leaf xpd-max {
+                type int8;
+                units "dB";
+                default -99;
+                config false;
+                description "none";
+            }
+            leaf xpd-avg {
+                type int8;
+                units "dB";
+                default -99;
+                config false;
+                description "none";
+            }
+            leaf rf-temp-min {
+                type int8;
+                units "C";
+                default -99;
+                config false;
+                description "none";
+            }
+            leaf rf-temp-max {
+                type int8;
+                units "C";
+                default -99;
+                config false;
+                description "none";
+            }
+            leaf rf-temp-avg {
+                type int8;
+                units "C";
+                default -99;
+                config false;
+                description "none";
+            }
+            leaf defect-blocks-sum {
+                type int16;
+                units "blocks";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time-period {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            description "none";
+        }
+        grouping air-interface-current-performance-type {
+            container performance-data {
+                config false;
+                uses air-interface-performance-type;
+                description "none";
+            }
+            uses g:otn-current-data;
+            description "none";
+        }
+        grouping air-interface-historical-performance-type {
+            container performance-data {
+                config false;
+                uses air-interface-performance-type;
+                description "none";
+            }
+            uses g:otn-history-data;
+            description "none";
+        }
+        typedef protection-type {
+            type enumeration {
+                enum hsb {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef role-type {
+            type enumeration {
+                enum working {
+                    description "none";
+                }
+                enum protection {
+                    description "none";
+                }
+                enum protected {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        grouping diversity-type {
+            leaf diversity-name {
+                type string;
+                default "Diversity name not defined.";
+                config false;
+                description "none";
+            }
+            leaf number-of-air-interfaces-max {
+                type int8;
+                units "air interfaces";
+                default 1;
+                config false;
+                description "none";
+            }
+            description "none";
+        }
+        typedef air-interface-diversity-status-type {
+            type enumeration {
+                enum group-down {
+                    description "none";
+                }
+                enum not-all-ai-active {
+                    description "none";
+                }
+                enum all-ai-active {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        grouping air-interface-diversity-problem-severity-type {
+            leaf problem-kind-name {
+                type string;
+                default "Problem kind name not defined.";
+                description "none";
+            }
+            leaf problem-kind-severity {
+                type severity-type;
+                default warning;
+                description "none";
+            }
+            description "none";
+        }
+        grouping air-interface-diversity-current-problem-type {
+            leaf problem-name {
+                type string;
+                default "Problem name not specified.";
+                config false;
+                description "none";
+            }
+            uses mw-current-problem;
+            description "none";
+        }
+        grouping air-interface-diversity-performance-type {
+            leaf snir-min {
+                type int8;
+                units "dB";
+                default -99;
+                config false;
+                description "none";
+            }
+            leaf snir-max {
+                type int8;
+                units "dB";
+                default -99;
+                config false;
+                description "none";
+            }
+            leaf snir-avg {
+                type int8;
+                units "dB";
+                default -99;
+                config false;
+                description "none";
+            }
+            description "none";
+        }
+        grouping air-interface-diversity-current-performance-type {
+            container performance-data {
+                config false;
+                uses air-interface-diversity-performance-type;
+                description "none";
+            }
+            uses g:otn-current-data;
+            description "none";
+        }
+        grouping air-interface-diversity-historical-performance-type {
+            container performance-data {
+                config false;
+                uses air-interface-diversity-performance-type;
+                description "none";
+            }
+            uses g:otn-history-data;
+            description "none";
+        }
+        grouping tdm-structure-type {
+            leaf tdm-structure-name {
+                type string;
+                default "TDM structure name not defined.";
+                config false;
+                description "none";
+            }
+            leaf tdm-segment-size {
+                type int32;
+                units "kbit/s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf max-number-of-segments-reservable {
+                type int8;
+                units "segments";
+                default -1;
+                config false;
+                description "none";
+            }
+            description "none";
+        }
+        grouping structure-problem-severity-type {
+            leaf problem-kind-name {
+                type string;
+                default "Problem kind name not defined.";
+                description "none";
+            }
+            leaf problem-kind-severity {
+                type severity-type;
+                default warning;
+                description "none";
+            }
+            description "none";
+        }
+        grouping structure-current-problem-type {
+            leaf problem-name {
+                type string;
+                default "Problem name not specified.";
+                config false;
+                description "none";
+            }
+            uses mw-current-problem;
+            description "none";
+        }
+        typedef structure-performance-type {
+            type int32;
+            description "none";
+        }
+        grouping structure-current-performance-type {
+            leaf performance-data {
+                type structure-performance-type;
+                config false;
+                description "none";
+            }
+            uses g:otn-current-data;
+            description "none";
+        }
+        grouping structure-historical-performance-type {
+            leaf performance-data {
+                type structure-performance-type;
+                config false;
+                description "none";
+            }
+            uses g:otn-history-data;
+            description "none";
+        }
+        grouping container-type {
+            leaf container-name {
+                type string;
+                default "Container name not yet defined.";
+                config false;
+                description "none";
+            }
+            leaf number-of-time-slots-required {
+                type int16;
+                units "timeslots";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf tdm-time-slots-is-required {
+                type boolean;
+                default false;
+                config false;
+                description "none";
+            }
+            leaf bundling-is-avail {
+                type boolean;
+                default false;
+                config false;
+                description "none";
+            }
+            description "none";
+        }
+        grouping tdm-container-type {
+            leaf tdm-container-name {
+                type string;
+                default "TDM container name not defined.";
+                config false;
+                description "none";
+            }
+            leaf tdm-container-size {
+                type int32;
+                units "kbit/s";
+                default -1;
+                config false;
+                description "none";
+            }
+            description "none";
+        }
+        grouping segment-id-type {
+            leaf structure-id-ref {
+                type core-model:universal-id;
+                description "none";
+            }
+            leaf segment-id-ref {
+                type int16;
+                description "none";
+            }
+            description "none";
+        }
+        grouping segment-status-type {
+            leaf segment-status-type-id {
+                type int16;
+                config false;
+                description "none";
+            }
+            leaf segment-is-reserved-for-tdm {
+                type boolean;
+                default false;
+                config false;
+                description "none";
+            }
+            leaf operational-status {
+                type core-model:operational-state;
+                default disabled;
+                config false;
+                description "none";
+            }
+            leaf obsolete-priority-class {
+                type int8;
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf obsolete-drop-order-rank {
+                type int16;
+                default -1;
+                config false;
+                description "none";
+            }
+            description "none";
+        }
+        grouping container-problem-severity-type {
+            leaf problem-kind-name {
+                type string;
+                default "Problem kind name not defined.";
+                description "none";
+            }
+            leaf problem-kind-severity {
+                type severity-type;
+                default warning;
+                description "none";
+            }
+            description "none";
+        }
+        grouping container-current-problem-type {
+            leaf problem-name {
+                type string;
+                default "Problem name not specified.";
+                config false;
+                description "none";
+            }
+            uses mw-current-problem;
+            description "none";
+        }
+        grouping container-performance-type {
+            leaf tx-ethernet-bytes-max-s {
+                type int32;
+                units "Bytes/s";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf tx-ethernet-bytes-max-m {
+                type int64;
+                units "Bytes/min";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf tx-ethernet-bytes-sum {
+                type int64;
+                units "Bytes";
+                default -1;
+                config false;
+                description "none";
+            }
+            leaf time-period {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "none";
+            }
+            description "none";
+        }
+        grouping container-current-performance-type {
+            container performance-data {
+                config false;
+                uses container-performance-type;
+                description "none";
+            }
+            uses g:otn-current-data;
+            description "none";
+        }
+        grouping container-historical-performance-type {
+            container performance-data {
+                config false;
+                uses container-performance-type;
+                description "none";
+            }
+            uses g:otn-history-data;
+            description "none";
+        }
+
+    /***********************
+    * package object-classes
+    **********************/
+        /***********************
+        * package air-interface
+        **********************/
+            list mw-air-interface-pac {
+                key 'layer-protocol';
+                leaf layer-protocol {
+                    type leafref {
+                        path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
+                    }
+                    description "none";
+                }
+                container air-interface-capability {
+                    config false;
+                    uses air-interface-capability;
+                    description "none";
+                }
+                container air-interface-configuration {
+                    uses air-interface-configuration;
+                    description "none";
+                }
+                container air-interface-status {
+                    config false;
+                    uses air-interface-status;
+                    description "none";
+                }
+                container air-interface-current-problems {
+                    config false;
+                    uses air-interface-current-problems;
+                    description "none";
+                }
+                container air-interface-current-performance {
+                    config false;
+                    uses air-interface-current-performance;
+                    description "none";
+                }
+                container air-interface-historical-performances {
+                    config false;
+                    uses air-interface-historical-performances;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping air-interface-capability {
+                leaf type-of-equipment {
+                    type string;
+                    default "Type of equipment not yet defined.";
+                    config false;
+                    description "none";
+                }
+                leaf tx-frequency-min {
+                    type int32;
+                    units "kHz";
+                    default -1;
+                    config false;
+                    description "none";
+                }
+                leaf tx-frequency-max {
+                    type int32;
+                    units "kHz";
+                    default -1;
+                    config false;
+                    description "none";
+                }
+                leaf rx-frequency-min {
+                    type int32;
+                    units "kHz";
+                    default -1;
+                    config false;
+                    description "none";
+                }
+                leaf rx-frequency-max {
+                    type int32;
+                    units "kHz";
+                    default -1;
+                    config false;
+                    description "none";
+                }
+                leaf adaptive-modulation-is-avail {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf mimo-is-avail {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf mimo-channels {
+                    type int8;
+                    units "channels";
+                    default 1;
+                    config false;
+                    description "none";
+                }
+                leaf alic-is-avail {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf atpc-is-avail {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf atpc-range {
+                    type int8;
+                    units "dB";
+                    default 0;
+                    config false;
+                    description "none";
+                }
+                leaf encryption-is-avail {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf-list supported-loop-back-kind-list {
+                    type loop-back-type;
+                    config false;
+                    min-elements 1;
+                    max-elements 2;
+                    description "none";
+                }
+                leaf maintenance-timer-range {
+                    type string;
+                    units "s";
+                    default "Range of the maintenance timer not yet defined.";
+                    config false;
+                    description "none";
+                }
+                leaf supported-alarms {
+                    type string;
+                    default "Supported alarms not yet defined.";
+                    config false;
+                    description "none";
+                }
+                list supported-channel-plan-list {
+                    key 'supported-channel-plan';
+                    config false;
+                    min-elements 1;
+                    uses channel-plan-type;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping air-interface-configuration {
+                leaf air-interface-name {
+                    type string;
+                    default "Air interface ID not yet defined.";
+                    description "none";
+                }
+                leaf radio-signal-id {
+                    type string;
+                    default "Radio signal ID not yet defined.";
+                    description "none";
+                }
+                leaf tx-frequency {
+                    type int32;
+                    units "kHz";
+                    default -1;
+                    description "none";
+                }
+                leaf rx-frequency {
+                    type int32;
+                    units "kHz";
+                    default -1;
+                    description "none";
+                }
+                leaf tx-channel-bandwidth {
+                    type int32;
+                    units "kHz";
+                    default -1;
+                    description "none";
+                }
+                leaf rx-channel-bandwidth {
+                    type int32;
+                    units "kHz";
+                    default -1;
+                    description "none";
+                }
+                leaf polarization {
+                    type polarization-type;
+                    default not-specified;
+                    description "none";
+                }
+                leaf power-is-on {
+                    type boolean;
+                    default true;
+                    description "none";
+                }
+                leaf transmitter-is-on {
+                    type boolean;
+                    default false;
+                    description "none";
+                }
+                leaf receiver-is-on {
+                    type boolean;
+                    default true;
+                    description "none";
+                }
+                leaf tx-power {
+                    type int8;
+                    units "dBm";
+                    default 99;
+                    description "none";
+                }
+                leaf adaptive-modulation-is-on {
+                    type boolean;
+                    default false;
+                    description "none";
+                }
+                leaf modulation-min {
+                    type int16;
+                    units "symbols";
+                    default -1;
+                    description "none";
+                }
+                leaf modulation-max {
+                    type int16;
+                    units "symbols";
+                    default -1;
+                    description "none";
+                }
+                leaf xpic-is-on {
+                    type boolean;
+                    default false;
+                    description "none";
+                }
+                leaf mimo-is-on {
+                    type boolean;
+                    default false;
+                    description "none";
+                }
+                leaf alic-is-on {
+                    type boolean;
+                    default false;
+                    description "none";
+                }
+                leaf atpc-is-on {
+                    type boolean;
+                    default false;
+                    description "none";
+                }
+                leaf atpc-thresh-upper {
+                    type int16;
+                    units "dBm";
+                    default 99;
+                    description "none";
+                }
+                leaf atpc-thresh-lower {
+                    type int16;
+                    units "dBm";
+                    default 99;
+                    description "none";
+                }
+                leaf auto-freq-select-is-on {
+                    type boolean;
+                    default false;
+                    description "none";
+                }
+                leaf auto-freq-select-range {
+                    type int8;
+                    units "channels";
+                    default -1;
+                    description "none";
+                }
+                leaf modulation-is-on {
+                    type boolean;
+                    default true;
+                    description "none";
+                }
+                leaf encryption-is-on {
+                    type boolean;
+                    default false;
+                    description "none";
+                }
+                leaf cryptographic-key {
+                    type string;
+                    default "Cryptographic key not yet defined.";
+                    description "none";
+                }
+                leaf loop-back-kind-on {
+                    type loop-back-type;
+                    default non;
+                    description "none";
+                }
+                leaf maintenance-timer {
+                    type int32;
+                    units "s";
+                    default -1;
+                    description "none";
+                }
+                list problem-kind-severity-list {
+                    key 'problem-kind-name';
+                    min-elements 6;
+                    uses air-interface-problem-severity-type;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping air-interface-status {
+                leaf tx-frequency-cur {
+                    type int32;
+                    units "kHz";
+                    default -1;
+                    config false;
+                    description "none";
+                }
+                leaf rx-frequency-cur {
+                    type int32;
+                    units "kHz";
+                    default -1;
+                    config false;
+                    description "none";
+                }
+                leaf tx-level-cur {
+                    type int8;
+                    units "dBm";
+                    default 99;
+                    config false;
+                    description "none";
+                }
+                leaf rx-level-cur {
+                    type int8;
+                    units "dBm";
+                    default 99;
+                    config false;
+                    description "none";
+                }
+                leaf modulation-cur {
+                    type int16;
+                    units "symbols";
+                    default -1;
+                    config false;
+                    description "none";
+                }
+                leaf code-rate-cur {
+                    type int8;
+                    units "%";
+                    default -1;
+                    config false;
+                    description "none";
+                }
+                leaf snir-cur {
+                    type int8;
+                    units "dB";
+                    default -99;
+                    config false;
+                    description "none";
+                }
+                leaf xpd-cur {
+                    type int8;
+                    units "dB";
+                    default -99;
+                    config false;
+                    description "none";
+                }
+                leaf rf-temp-cur {
+                    type int8;
+                    units "Celsius";
+                    default -99;
+                    config false;
+                    description "none";
+                }
+                leaf last-status-change {
+                    type yang:date-and-time;
+                    default "2017-01-01T00:00:00.0Z";
+                    config false;
+                    description "none";
+                }
+                leaf radio-power-is-up {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf link-is-up {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf xpic-is-up {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf mimo-is-up {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf alic-is-up {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf atpc-is-up {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf auto-freq-select-is-up {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf loop-back-kind-up {
+                    type loop-back-type;
+                    default non;
+                    config false;
+                    description "none";
+                }
+                leaf local-end-point-id {
+                    type string;
+                    default "not-supported";
+                    config false;
+                    description "none";
+                }
+                leaf remote-end-point-id {
+                    type string;
+                    default "not-supported";
+                    config false;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping air-interface-current-problems {
+                list current-problem-list {
+                    key 'sequence-number';
+                    config false;
+                    uses air-interface-current-problem-type;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping air-interface-current-performance {
+                list current-performance-data-list {
+                    key 'scanner-id';
+                    config false;
+                    min-elements 1;
+                    max-elements 2;
+                    uses air-interface-current-performance-type;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping air-interface-historical-performances {
+                list historical-performance-data-list {
+                    key 'history-data-id';
+                    config false;
+                    uses air-interface-historical-performance-type;
+                    description "none";
+                }
+                description "none";
+            }
+            container co-channel-group {
+                leaf co-channel-group-id {
+                    type core-model:universal-id;
+                    description "none";
+                }
+                leaf-list air-interface-list {
+                    type leafref {
+                        path '/core-model:network-element/core-model:ltp/core-model:uuid';
+                    }
+                    description "none";
+                }
+                leaf sort-of-co-channel-group {
+                    type string;
+                    default "Kind of co-channel group not specified.";
+                    description "none";
+                }
+                leaf-list logical-termination-point {
+                    type leafref {
+                        path '/core-model:network-element/core-model:ltp/core-model:uuid';
+                    }
+                    description "none";
+                }
+                description "none";
+            }
+
+        /***********************
+        * package air-interface-hsb
+        **********************/
+            list mw-air-interface-hsb-end-point-pac {
+                key 'endpoint';
+                leaf role {
+                    type role-type;
+                    default working;
+                    description "none";
+                }
+                leaf endpoint {
+                    type leafref {
+                        path '/core-model:forwarding-construct/core-model:fc-port/core-model:uuid';
+                    }
+                    description "none";
+                }
+                description "none";
+            }
+            list mw-air-interface-hsb-fc-switch-pac {
+                key 'fcswitch';
+                leaf prot-type {
+                    type protection-type;
+                    default hsb;
+                    description "none";
+                }
+                leaf air-interface-hsb-configuration-is-faulty-severity {
+                    type severity-type;
+                    default warning;
+                    description "none";
+                }
+                leaf air-interface-hsb-is-partly-down-severity {
+                    type severity-type;
+                    default warning;
+                    description "none";
+                }
+                leaf air-interface-hsb-is-down-severity {
+                    type severity-type;
+                    default warning;
+                    description "none";
+                }
+                leaf fcswitch {
+                    type leafref {
+                        path '/core-model:forwarding-construct/core-model:fc-switch/core-model:uuid';
+                    }
+                    description "none";
+                }
+                description "none";
+            }
+
+        /***********************
+        * package air-interface-diversity
+        **********************/
+            list mw-air-interface-diversity-pac {
+                key 'layer-protocol';
+                leaf layer-protocol {
+                    type leafref {
+                        path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
+                    }
+                    description "none";
+                }
+                container air-interface-diversity-capability {
+                    config false;
+                    uses air-interface-diversity-capability;
+                    description "none";
+                }
+                container air-interface-diversity-configuration {
+                    uses air-interface-diversity-configuration;
+                    description "none";
+                }
+                container air-interface-diversity-status {
+                    config false;
+                    uses air-interface-diversity-status;
+                    description "none";
+                }
+                container air-interface-diversity-current-problems {
+                    config false;
+                    uses air-interface-diversity-current-problems;
+                    description "none";
+                }
+                container air-interface-diversity-current-performance {
+                    config false;
+                    uses air-interface-diversity-current-performance;
+                    description "none";
+                }
+                container air-interface-diversity-historical-performances {
+                    config false;
+                    uses air-interface-diversity-historical-performances;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping air-interface-diversity-capability {
+                list available-kinds-of-diversity {
+                    key 'diversity-name';
+                    config false;
+                    uses diversity-type;
+                    description "none";
+                }
+                leaf supported-alarms {
+                    type string;
+                    default "Supported alarms not yet defined.";
+                    config false;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping air-interface-diversity-configuration {
+                container air-interface-diversity {
+                    uses diversity-type;
+                    description "none";
+                }
+                leaf-list air-interface-ltp-list {
+                    type leafref {
+                        path '/core-model:network-element/core-model:ltp/core-model:uuid';
+                    }
+                    min-elements 2;
+                    description "none";
+                }
+                list problem-kind-severity-list {
+                    key 'problem-kind-name';
+                    min-elements 3;
+                    uses air-interface-diversity-problem-severity-type;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping air-interface-diversity-status {
+                leaf snir-cur {
+                    type int8;
+                    units "dB";
+                    default -99;
+                    config false;
+                    description "none";
+                }
+                leaf air-interface-diversity-status {
+                    type air-interface-diversity-status-type;
+                    default group-down;
+                    config false;
+                    description "none";
+                }
+                leaf last-status-change {
+                    type yang:date-and-time;
+                    default "2017-01-01T00:00:00.0Z";
+                    config false;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping air-interface-diversity-current-problems {
+                list current-problem-list {
+                    key 'sequence-number';
+                    config false;
+                    uses air-interface-diversity-current-problem-type;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping air-interface-diversity-current-performance {
+                list current-performance-data-list {
+                    key 'scanner-id';
+                    config false;
+                    min-elements 1;
+                    max-elements 2;
+                    uses air-interface-diversity-current-performance-type;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping air-interface-diversity-historical-performances {
+                list historical-performance-data-list {
+                    key 'history-data-id';
+                    config false;
+                    uses air-interface-diversity-historical-performance-type;
+                    description "none";
+                }
+                description "none";
+            }
+
+        /***********************
+        * package pure-ethernet-structure
+        **********************/
+            list mw-pure-ethernet-structure-pac {
+                if-feature pure-ethernet;
+                key 'layer-protocol';
+                leaf layer-protocol {
+                    type leafref {
+                        path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
+                    }
+                    description "none";
+                }
+                container pure-ethernet-structure-capability {
+                    config false;
+                    uses pure-ethernet-structure-capability;
+                    description "none";
+                }
+                container pure-ethernet-structure-configuration {
+                    uses pure-ethernet-structure-configuration;
+                    description "none";
+                }
+                container pure-ethernet-structure-status {
+                    config false;
+                    uses pure-ethernet-structure-status;
+                    description "none";
+                }
+                container pure-ethernet-structure-current-problems {
+                    config false;
+                    uses pure-ethernet-structure-current-problems;
+                    description "none";
+                }
+                container pure-ethernet-structure-current-performance {
+                    config false;
+                    uses pure-ethernet-structure-current-performance;
+                    description "none";
+                }
+                container pure-ethernet-structure-historical-performances {
+                    config false;
+                    uses pure-ethernet-structure-historical-performances;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping pure-ethernet-structure-capability {
+                leaf structure-id {
+                    type core-model:universal-id;
+                    config false;
+                    description "none";
+                }
+                leaf supported-alarms {
+                    type string;
+                    default "Supported alarms not yet defined.";
+                    config false;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping pure-ethernet-structure-configuration {
+                list problem-kind-severity-list {
+                    key 'problem-kind-name';
+                    uses structure-problem-severity-type;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping pure-ethernet-structure-status {
+                container segment-status-list {
+                    config false;
+                    uses segment-status-type;
+                    description "none";
+                }
+                leaf last-status-change {
+                    type yang:date-and-time;
+                    default "2017-01-01T00:00:00.0Z";
+                    config false;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping pure-ethernet-structure-current-problems {
+                list current-problem-list {
+                    key 'sequence-number';
+                    config false;
+                    uses structure-current-problem-type;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping pure-ethernet-structure-current-performance {
+                list current-performance-data-list {
+                    key 'scanner-id';
+                    config false;
+                    min-elements 1;
+                    max-elements 2;
+                    uses structure-current-performance-type;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping pure-ethernet-structure-historical-performances {
+                list historical-performance-data-list {
+                    key 'history-data-id';
+                    config false;
+                    uses structure-historical-performance-type;
+                    description "none";
+                }
+                description "none";
+            }
+            feature pure-ethernet {
+                description "none";
+            }
+
+        /***********************
+        * package hybrid-mw-structure
+        **********************/
+            list mw-hybrid-mw-structure-pac {
+                if-feature hybrid-microwave;
+                key 'layer-protocol';
+                leaf layer-protocol {
+                    type leafref {
+                        path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
+                    }
+                    description "none";
+                }
+                container hybrid-mw-structure-capability {
+                    config false;
+                    uses hybrid-mw-structure-capability;
+                    description "none";
+                }
+                container hybrid-mw-structure-configuration {
+                    uses hybrid-mw-structure-configuration;
+                    description "none";
+                }
+                container hybrid-mw-structure-status {
+                    config false;
+                    uses hybrid-mw-structure-status;
+                    description "none";
+                }
+                container hybrid-mw-structure-current-problems {
+                    config false;
+                    uses hybrid-mw-structure-current-problems;
+                    description "none";
+                }
+                container hybrid-mw-structure-current-performance {
+                    config false;
+                    uses hybrid-mw-structure-current-performance;
+                    description "none";
+                }
+                container hybrid-mw-structure-historical-performances {
+                    config false;
+                    uses hybrid-mw-structure-historical-performances;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping hybrid-mw-structure-capability {
+                leaf structure-id {
+                    type core-model:universal-id;
+                    config false;
+                    description "none";
+                }
+                list supported-tdm-structure-types-list {
+                    key 'tdm-structure-name';
+                    config false;
+                    min-elements 1;
+                    uses tdm-structure-type;
+                    description "none";
+                }
+                leaf supported-alarms {
+                    type string;
+                    default "Supported alarms not yet defined.";
+                    config false;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping hybrid-mw-structure-configuration {
+                container structure-type {
+                    uses tdm-structure-type;
+                    description "none";
+                }
+                leaf number-of-tdm-segments-to-be-reserved {
+                    type int16;
+                    default -1;
+                    description "none";
+                }
+                list problem-kind-severity-list {
+                    key 'problem-kind-name';
+                    uses structure-problem-severity-type;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping hybrid-mw-structure-status {
+                list segment-status-list {
+                    key 'segment-status-type-id';
+                    config false;
+                    uses segment-status-type;
+                    description "none";
+                }
+                leaf last-status-change {
+                    type yang:date-and-time;
+                    default "2017-01-01T00:00:00.0Z";
+                    config false;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping hybrid-mw-structure-current-problems {
+                list current-problem-list {
+                    key 'sequence-number';
+                    config false;
+                    uses structure-current-problem-type;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping hybrid-mw-structure-current-performance {
+                list current-performance-data-list {
+                    key 'scanner-id';
+                    config false;
+                    min-elements 1;
+                    max-elements 2;
+                    uses structure-current-performance-type;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping hybrid-mw-structure-historical-performances {
+                list historical-performance-data-list {
+                    key 'history-data-id';
+                    config false;
+                    uses structure-historical-performance-type;
+                    description "none";
+                }
+                description "none";
+            }
+            feature hybrid-microwave {
+                description "none";
+            }
+
+        /***********************
+        * package ethernet-container
+        **********************/
+            list mw-ethernet-container-pac {
+                key 'layer-protocol';
+                leaf layer-protocol {
+                    type leafref {
+                        path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
+                    }
+                    description "none";
+                }
+                container ethernet-container-capability {
+                    config false;
+                    uses ethernet-container-capability;
+                    description "none";
+                }
+                container ethernet-container-configuration {
+                    uses ethernet-container-configuration;
+                    description "none";
+                }
+                container ethernet-container-status {
+                    config false;
+                    uses ethernet-container-status;
+                    description "none";
+                }
+                container ethernet-container-current-problems {
+                    config false;
+                    uses ethernet-container-current-problems;
+                    description "none";
+                }
+                container ethernet-container-current-performance {
+                    config false;
+                    uses ethernet-container-current-performance;
+                    description "none";
+                }
+                container ethernet-container-historical-performances {
+                    config false;
+                    uses ethernet-container-historical-performances;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping ethernet-container-capability {
+                leaf bundling-is-avail {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf packet-compression-is-avail {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf layer2-compression-is-avail {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf vlan-compression-is-avail {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf q-in-q-compression-is-avail {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf mpls-compression-is-avail {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf ipv4-compression-is-avail {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf ipv6-compression-is-avail {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf layer4-compression-is-avail {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf encryption-is-avail {
+                    type boolean;
+                    default false;
+                    config false;
+                    description "none";
+                }
+                leaf supported-alarms {
+                    type string;
+                    default "Supported alarms not yet defined.";
+                    config false;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping ethernet-container-configuration {
+                leaf container-id {
+                    type string;
+                    default "No Ethernet Flow associated yet.";
+                    description "none";
+                }
+                list segments-id-list {
+                    key 'structure-id-ref segment-id-ref';
+                    min-elements 1;
+                    uses segment-id-type;
+                    description "none";
+                }
+                leaf packet-compression-is-on {
+                    type boolean;
+                    default false;
+                    description "none";
+                }
+                leaf layer2-compression-is-on {
+                    type boolean;
+                    default false;
+                    description "none";
+                }
+                leaf vlan-compression-is-on {
+                    type boolean;
+                    default false;
+                    description "none";
+                }
+                leaf q-in-q-compression-is-on {
+                    type boolean;
+                    default false;
+                    description "none";
+                }
+                leaf mpls-compression-is-on {
+                    type boolean;
+                    default false;
+                    description "none";
+                }
+                leaf ipv4-compression-is-on {
+                    type boolean;
+                    default false;
+                    description "none";
+                }
+                leaf ipv6-compression-is-on {
+                    type boolean;
+                    default false;
+                    description "none";
+                }
+                leaf layer4-compression-is-on {
+                    type boolean;
+                    default false;
+                    description "none";
+                }
+                leaf encryption-is-on {
+                    type boolean;
+                    default false;
+                    description "none";
+                }
+                leaf cryptographic-key {
+                    type string;
+                    default "Cryptographic key not yet defined.";
+                    description "none";
+                }
+                list problem-kind-severity-list {
+                    key 'problem-kind-name';
+                    min-elements 2;
+                    uses container-problem-severity-type;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping ethernet-container-status {
+                leaf last-status-change {
+                    type yang:date-and-time;
+                    default "2017-01-01T00:00:00.0Z";
+                    config false;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping ethernet-container-current-problems {
+                list current-problem-list {
+                    key 'sequence-number';
+                    config false;
+                    uses container-current-problem-type;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping ethernet-container-current-performance {
+                list current-performance-data-list {
+                    key 'scanner-id';
+                    config false;
+                    min-elements 1;
+                    max-elements 2;
+                    uses container-current-performance-type;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping ethernet-container-historical-performances {
+                list historical-performance-data-list {
+                    key 'history-data-id';
+                    config false;
+                    uses container-historical-performance-type;
+                    description "none";
+                }
+                description "none";
+            }
+
+        /***********************
+        * package tdm-container
+        **********************/
+            list mw-tdm-container-pac {
+                if-feature hybrid-microwave;
+                key 'layer-protocol';
+                leaf layer-protocol {
+                    type leafref {
+                        path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
+                    }
+                    description "none";
+                }
+                container tdm-container-capability {
+                    config false;
+                    uses tdm-container-capability;
+                    description "none";
+                }
+                container tdm-container-configuration {
+                    uses tdm-container-configuration;
+                    description "none";
+                }
+                container tdm-container-status {
+                    config false;
+                    uses tdm-container-status;
+                    description "none";
+                }
+                container tdm-container-current-problems {
+                    config false;
+                    uses tdm-container-current-problems;
+                    description "none";
+                }
+                container tdm-container-current-performance {
+                    config false;
+                    uses tdm-container-current-performance;
+                    description "none";
+                }
+                container tdm-container-historical-performances {
+                    config false;
+                    uses tdm-container-historical-performances;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping tdm-container-capability {
+                list supported-tdm-container-types-list {
+                    key 'tdm-container-name';
+                    config false;
+                    min-elements 1;
+                    uses tdm-container-type;
+                    description "none";
+                }
+                leaf supported-alarms {
+                    type string;
+                    default "Supported alarms not yet defined.";
+                    config false;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping tdm-container-configuration {
+                leaf container-id {
+                    type string;
+                    default "No TDM Flow associated yet.";
+                    description "none";
+                }
+                container container-type {
+                    uses tdm-container-type;
+                    description "none";
+                }
+                container segment-id {
+                    uses segment-id-type;
+                    description "none";
+                }
+                list problem-kind-severity-list {
+                    key 'problem-kind-name';
+                    min-elements 2;
+                    uses container-problem-severity-type;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping tdm-container-status {
+                leaf last-status-change {
+                    type yang:date-and-time;
+                    default "2017-01-01T00:00:00.0Z";
+                    config false;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping tdm-container-current-problems {
+                list current-problem-list {
+                    key 'sequence-number';
+                    config false;
+                    uses container-current-problem-type;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping tdm-container-current-performance {
+                list current-performance-data-list {
+                    key 'scanner-id';
+                    config false;
+                    min-elements 1;
+                    max-elements 2;
+                    uses container-current-performance-type;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping tdm-container-historical-performances {
+                list historical-performance-data-list {
+                    key 'history-data-id';
+                    config false;
+                    uses container-historical-performance-type;
+                    description "none";
+                }
+                description "none";
+            }
+
+        /***********************
+        * package super-classes
+        **********************/
+            grouping mw-current-problem {
+                leaf sequence-number {
+                    type int32;
+                    config false;
+                    description "none";
+                }
+                leaf time-stamp {
+                    type yang:date-and-time;
+                    default "2017-01-01T00:00:00.0Z";
+                    config false;
+                    description "none";
+                }
+                leaf problem-severity {
+                    type severity-type;
+                    default warning;
+                    config false;
+                    description "none";
+                }
+                description "none";
+            }
+
+
+    /***********************
+    * package notifications
+    **********************/
+        notification object-creation-notification {
+            uses grouping-object-creation-notification;
+            description "none";
+        }
+        grouping grouping-object-creation-notification {
+            leaf counter {
+                type int32;
+                default -1;
+                description "none";
+            }
+            leaf time-stamp {
+                type yang:date-and-time;
+                default "2017-01-01T00:00:00.0Z";
+                description "none";
+            }
+            leaf object-id-ref {
+                type core-model:universal-id;
+                description "none";
+            }
+            leaf object-type {
+                type string;
+                default "Type of created object not specified.";
+                description "none";
+            }
+            description "none";
+        }
+        notification object-deletion-notification {
+            uses grouping-object-deletion-notification;
+            description "none";
+        }
+        grouping grouping-object-deletion-notification {
+            leaf counter {
+                type int32;
+                default -1;
+                description "none";
+            }
+            leaf time-stamp {
+                type yang:date-and-time;
+                default "2017-01-01T00:00:00.0Z";
+                description "none";
+            }
+            leaf object-id-ref {
+                type core-model:universal-id;
+                description "none";
+            }
+            description "none";
+        }
+        notification attribute-value-changed-notification {
+            uses grouping-attribute-value-changed-notification;
+            description "none";
+        }
+        grouping grouping-attribute-value-changed-notification {
+            leaf counter {
+                type int32;
+                default -1;
+                description "none";
+            }
+            leaf time-stamp {
+                type yang:date-and-time;
+                default "2017-01-01T00:00:00.0Z";
+                description "none";
+            }
+            leaf object-id-ref {
+                type core-model:universal-id;
+                description "none";
+            }
+            leaf attribute-name {
+                type string;
+                default "Attribute name not specified.";
+                description "none";
+            }
+            leaf new-value {
+                type string;
+                default "New value not specified.";
+                description "none";
+            }
+            description "none";
+        }
+        notification problem-notification {
+            uses grouping-problem-notification;
+            description "none";
+        }
+        grouping grouping-problem-notification {
+            leaf counter {
+                type int32;
+                default -1;
+                description "none";
+            }
+            leaf time-stamp {
+                type yang:date-and-time;
+                default "2017-01-01T00:00:00.0Z";
+                description "none";
+            }
+            leaf object-id-ref {
+                type core-model:universal-id;
+                description "none";
+            }
+            leaf problem {
+                type string;
+                default "Problem name not specified.";
+                description "none";
+            }
+            leaf severity {
+                type severity-type;
+                default warning;
+                description "none";
+            }
+            description "none";
+        }
+
+}
