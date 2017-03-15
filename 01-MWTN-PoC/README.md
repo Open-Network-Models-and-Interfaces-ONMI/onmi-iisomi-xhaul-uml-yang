@@ -1,2 +1,0 @@
-# CENTENNIAL
-Microwave PoC Applications
