@@ -37,10 +37,10 @@ module microwave-model {
                     description "none";
                 }
                 enum if {
-                    description "Intermediate Frequency on the interface between indoor and outdoor unit.";
+                    description "removed";
                 }
                 enum rf {
-                    description "Radio Frequency on the interface between outdoor unit and outdoor unit at the remote site.";
+                    description "removed";
                 }
             }
             description "none";
@@ -63,33 +63,33 @@ module microwave-model {
                     description "none";
                 }
             }
-            description "According to ITU-T M.3160";
+            description "removed";
         }
         grouping channel-plan-type-g {
             leaf supported-channel-plan {
                 type string;
                 default "Channel plan name not defined.";
                 config false;
-                description "Unique name (e.g. ECC/REC/(01)04_Annex 5) of a document, which describes a frequency grid that can be adjusted at the air interface. Corresponding channel plans to be delivered by the hardware vendor and to be stored by the operator in an controller/application attached database.";
+                description "removed";
             }
             leaf duplex-distance-is-variable {
                 type boolean;
                 default false;
                 config false;
-                description "To be set on  'true', if the distance between transmitted and received frequency is variable.";
+                description "removed";
             }
             leaf duplex-distance {
                 type int32;
                 units "kHz";
                 default -1;
                 config false;
-                description "Distance between transmitted and received frequency.";
+                description "removed";
             }
             leaf auto-freq-select-is-avail {
                 type boolean;
                 default false;
                 config false;
-                description "In case the microwave radio is capable of automatically selecting the transmit frequency in unlicensed bands, this field shall contain a 'true'.";
+                description "removed";
             }
             list transmission-mode-list {
                 key 'transmission-mode-id';
@@ -104,69 +104,69 @@ module microwave-model {
             leaf transmission-mode-id {
                 type core-model:universal-id;
                 config false;
-                description "Indentifies the transmissionMode for internal reference.";
+                description "removed";
             }
             leaf channel-bandwidth {
                 type int32;
                 units "kHz";
                 default -1;
                 config false;
-                description "Bandwidth of the transmit channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;";
+                description "removed";
             }
             leaf modulation-scheme {
                 type int16;
                 units "symbols";
                 default -1;
                 config false;
-                description "Modulation scheme, which is base to the other characteristics described in the same transmissionModeType data type. The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK->'2' or 256QAM->'256').";
+                description "removed";
             }
             leaf code-rate {
                 type int8;
                 units "%";
                 default -1;
                 config false;
-                description "Code rate of the coding scheme in % (Net bit rate ? Gross bit rate ? code rate).";
+                description "removed";
             }
             leaf tx-power-min {
                 type int8;
                 units "dBm";
                 default 99;
                 config false;
-                description "Value of the minimum transmit power the modem can operate in dBm.";
+                description "removed";
             }
             leaf tx-power-max {
                 type int8;
                 units "dBm";
                 default 99;
                 config false;
-                description "Value of the maximum transmit power the modem can operate in dBm.";
+                description "removed";
             }
             leaf rx-threshold {
                 type int16;
                 units "dBm";
                 default 99;
                 config false;
-                description "Value of the receive level required to decode the received signal with a Bit Error Rate of 1e-6 or less.";
+                description "removed";
             }
             leaf am-upshift-level {
                 type int8;
                 units "dBm";
                 default 99;
                 config false;
-                description "Value of the receive level that has to be exceeded to shift into a higher modulation scheme.";
+                description "removed";
             }
             leaf am-downshift-level {
                 type int8;
                 units "dBm";
                 default 99;
                 config false;
-                description "Value of the receive level that has to be exceeded for not shifting into a lower modulation scheme.";
+                description "removed";
             }
             leaf xpic-is-avail {
                 type boolean;
                 default false;
                 config false;
-                description "In case this air interface type is capable of XPIC, this field shall contain a 'true'. This information shall purely relate to capabilities of the equipment type, but not to the operational capability of a specific hardware composition on site. Means for example that this attribute might contain a 'true' statement, even if an additional cable would have been required to actually operate XPIC in a specific case.";
+                description "removed";
             }
             description "none";
         }
@@ -188,12 +188,12 @@ module microwave-model {
             leaf problem-kind-name {
                 type string;
                 default "Problem kind name not defined.";
-                description "Name of the alarm according to AirInterface::AirInterfaceCapability::supportedAlarms";
+                description "removed";
             }
             leaf problem-kind-severity {
                 type severity-type;
                 default warning;
-                description "Severity of this type of alarm.";
+                description "removed";
             }
             description "none";
         }
@@ -202,7 +202,7 @@ module microwave-model {
                 type string;
                 default "Problem name not specified.";
                 config false;
-                description "Name of the alarm according to AirInterface::AirInterfaceCapability::supportedAlarms";
+                description "removed";
             }
             uses mw-current-problem-g;
             description "none";
@@ -213,77 +213,77 @@ module microwave-model {
                 units "s";
                 default -1;
                 config false;
-                description "Number of errored seconds.";
+                description "removed";
             }
             leaf ses {
                 type int32;
                 units "s";
                 default -1;
                 config false;
-                description "Number of severely errored seconds.";
+                description "removed";
             }
             leaf cses {
                 type int32;
                 units "s";
                 default -1;
                 config false;
-                description "Number of consecutive severely errored seconds.";
+                description "removed";
             }
             leaf unavailability {
                 type int32;
                 units "s";
                 default -1;
                 config false;
-                description "Total time of unavailability in seconds.";
+                description "removed";
             }
             leaf tx-level-min {
                 type int8;
                 units "dBm";
                 default 99;
                 config false;
-                description "Minimum transmit power. Signed integers are required.";
+                description "removed";
             }
             leaf tx-level-max {
                 type int8;
                 units "dBm";
                 default 99;
                 config false;
-                description "Maximum transmit power. Signed integers are required.";
+                description "removed";
             }
             leaf tx-level-avg {
                 type int8;
                 units "dBm";
                 default 99;
                 config false;
-                description "Averaged transmit power. Signed integers are required.";
+                description "removed";
             }
             leaf rx-level-min {
                 type int8;
                 units "dBm";
                 default 99;
                 config false;
-                description "Minimum receive level. Signed integers are required.";
+                description "removed";
             }
             leaf rx-level-max {
                 type int8;
                 units "dBm";
                 default 99;
                 config false;
-                description "Maximum receive level. Signed integers are required.";
+                description "removed";
             }
             leaf rx-level-avg {
                 type int8;
                 units "dBm";
                 default 99;
                 config false;
-                description "Averaged receive level. Signed integers are required.";
+                description "removed";
             }
             leaf time2-states {
                 type int32;
                 units "s";
                 default -1;
                 config false;
-                description "Sum of all seconds the transmitter operated in e.g. BPSK.";
+                description "removed";
             }
             leaf time4-states-s {
                 type int32;
@@ -423,79 +423,79 @@ module microwave-model {
                 units "dB";
                 default -99;
                 config false;
-                description "Minimum signal to (noise+interference) ratio.";
+                description "removed";
             }
             leaf snir-max {
                 type int8;
                 units "dB";
                 default -99;
                 config false;
-                description "Maximum signal to (noise+interference) ratio.";
+                description "removed";
             }
             leaf snir-avg {
                 type int8;
                 units "dB";
                 default -99;
                 config false;
-                description "Averaged signal to (noise+interference) ratio.";
+                description "removed";
             }
             leaf xpd-min {
                 type int8;
                 units "dB";
                 default -99;
                 config false;
-                description "Minimum cross polarization discrimination.";
+                description "removed";
             }
             leaf xpd-max {
                 type int8;
                 units "dB";
                 default -99;
                 config false;
-                description "Maximum cross polarization discrimination.";
+                description "removed";
             }
             leaf xpd-avg {
                 type int8;
                 units "dB";
                 default -99;
                 config false;
-                description "Averaged cross polarization discrimination.";
+                description "removed";
             }
             leaf rf-temp-min {
                 type int8;
                 units "C";
                 default -99;
                 config false;
-                description "Lowest temperature (in degree Celsius) of the radio module inside the outdoor unit.";
+                description "removed";
             }
             leaf rf-temp-max {
                 type int8;
                 units "C";
                 default -99;
                 config false;
-                description "Highest temperature (in degree Celsius) of the radio module inside the outdoor unit.";
+                description "removed";
             }
             leaf rf-temp-avg {
                 type int8;
                 units "C";
                 default -99;
                 config false;
-                description "Averaged temperature (in degree Celsius) of the radio module inside the outdoor unit.";
+                description "removed";
             }
             leaf defect-blocks-sum {
                 type int16;
                 units "blocks";
                 default -1;
                 config false;
-                description "Total number of blocks that were defect after receiving and could not be corrected by the FEC.";
+                description "removed";
             }
             leaf time-period {
                 type int32;
                 units "s";
                 default -1;
                 config false;
-                description "Total length of the measurement period.";
+                description "removed";
             }
-            description "Consolidated performance information of the air interface.";
+            description "removed";
         }
         grouping air-interface-current-performance-type-g {
             container performance-data {
@@ -504,7 +504,7 @@ module microwave-model {
                 description "none";
             }
             uses g:otn-current-data-g;
-            description "Turns performance information into current performance information by inheriting from OTN_CurrentData.";
+            description "removed";
         }
         grouping air-interface-historical-performance-type-g {
             container performance-data {
@@ -513,7 +513,7 @@ module microwave-model {
                 description "none";
             }
             uses g:otn-history-data-g;
-            description "Turns performance information into historical performance information by inheriting from OTN_HistoryData.";
+            description "removed";
         }
         typedef protection-type {
             type enumeration {
@@ -542,27 +542,27 @@ module microwave-model {
                 type string;
                 default "Diversity name not defined.";
                 config false;
-                description "Names to be chosen from the following list: 'spaceDiversity', 'frequencyDiversity'";
+                description "removed";
             }
             leaf number-of-air-interfaces-max {
                 type int8;
                 units "air interfaces";
                 default 1;
                 config false;
-                description "Maximum number of air interfaces that could be part of this kind of diversity.";
+                description "removed";
             }
             description "none";
         }
         typedef air-interface-diversity-status-type {
             type enumeration {
                 enum group-down {
-                    description "All air interfaces that are members of the diversity configuration are down.";
+                    description "removed";
                 }
                 enum not-all-ai-active {
-                    description "At least one, but not all of the air interfaces that are part of the diversity configuration is not working.";
+                    description "removed";
                 }
                 enum all-ai-active {
-                    description "All air interfaces that are part of the diversity configuration are working.";
+                    description "removed";
                 }
             }
             description "none";
@@ -571,12 +571,12 @@ module microwave-model {
             leaf problem-kind-name {
                 type string;
                 default "Problem kind name not defined.";
-                description "Name of the alarm according to AirInterfaceDiversity::AirInterfaceDiversityCapability::supportedAlarms";
+                description "removed";
             }
             leaf problem-kind-severity {
                 type severity-type;
                 default warning;
-                description "Severity of this type of alarm.";
+                description "removed";
             }
             description "none";
         }
@@ -585,7 +585,7 @@ module microwave-model {
                 type string;
                 default "Problem name not specified.";
                 config false;
-                description "Name of the alarm according to AirInterfaceDiversity::AirInterfaceDiversityCapability::supportedAlarms";
+                description "removed";
             }
             uses mw-current-problem-g;
             description "none";
@@ -596,23 +596,23 @@ module microwave-model {
                 units "dB";
                 default -99;
                 config false;
-                description "Minimum signal to (noise+interference) ratio of the combined signals.";
+                description "removed";
             }
             leaf snir-max {
                 type int8;
                 units "dB";
                 default -99;
                 config false;
-                description "Maximum signal to (noise+interference) ratio of the combined signals.";
+                description "removed";
             }
             leaf snir-avg {
                 type int8;
                 units "dB";
                 default -99;
                 config false;
-                description "Average signal to (noise+interference) ratio of the combined signals.";
+                description "removed";
             }
-            description "Consolidated performance information of the air interface diversity group.";
+            description "removed";
         }
         grouping air-interface-diversity-current-performance-type-g {
             container performance-data {
@@ -621,7 +621,7 @@ module microwave-model {
                 description "none";
             }
             uses g:otn-current-data-g;
-            description "Turns performance information into current performance information by inheriting from OTN_CurrentData.";
+            description "removed";
         }
         grouping air-interface-diversity-historical-performance-type-g {
             container performance-data {
@@ -630,28 +630,28 @@ module microwave-model {
                 description "none";
             }
             uses g:otn-history-data-g;
-            description "Turns performance information into historical performance information by inheriting from OTN_HistoryData.";
+            description "removed";
         }
         grouping tdm-structure-type-g {
             leaf tdm-structure-name {
                 type string;
                 default "TDM structure name not defined.";
                 config false;
-                description "Names to be chosen from the following list: 'e1','t1','j1','e3','ds3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'";
+                description "removed";
             }
             leaf tdm-segment-size {
                 type int32;
                 units "kbit/s";
                 default -1;
                 config false;
-                description "Size of the TDM segment in kbit/s. Values to be chosen from the following list: '2048','1544','34000','44736 ','155520','614400','1228800','2457600','3072000','4915200','6144000' or '9830400;";
+                description "removed";
             }
             leaf max-number-of-segments-reservable {
                 type int8;
                 units "segments";
                 default -1;
                 config false;
-                description "Device specific maximum number of segments (not depending on current air interface configuration) that can be reserved for this type of segment on a single air interface.";
+                description "removed";
             }
             description "none";
         }
@@ -659,12 +659,12 @@ module microwave-model {
             leaf problem-kind-name {
                 type string;
                 default "Problem kind name not defined.";
-                description "Name of the alarm according to Structure::StructureCapability::supportedAlarms";
+                description "removed";
             }
             leaf problem-kind-severity {
                 type severity-type;
                 default warning;
-                description "Severity of this type of alarm.";
+                description "removed";
             }
             description "none";
         }
@@ -673,14 +673,14 @@ module microwave-model {
                 type string;
                 default "Problem name not specified.";
                 config false;
-                description "Name of the alarm according to Structure::StructureCapability::supportedAlarms";
+                description "removed";
             }
             uses mw-current-problem-g;
             description "none";
         }
         typedef structure-performance-type {
             type int32;
-            description "Consolidated performance information of the Structure.";
+            description "removed";
         }
         grouping structure-current-performance-type-g {
             leaf performance-data {
@@ -689,7 +689,7 @@ module microwave-model {
                 description "none";
             }
             uses g:otn-current-data-g;
-            description "Turns performance information into current performance information by inheriting from OTN_CurrentData.";
+            description "removed";
         }
         grouping structure-historical-performance-type-g {
             leaf performance-data {
@@ -698,33 +698,33 @@ module microwave-model {
                 description "none";
             }
             uses g:otn-history-data-g;
-            description "Turns performance information into historical performance information by inheriting from OTN_HistoryData.";
+            description "removed";
         }
         grouping container-type-g {
             leaf container-name {
                 type string;
                 default "Container name not yet defined.";
                 config false;
-                description "Names to be chosen from the following list: 'ethernet','e1','t1','j1','e3','ds3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'";
+                description "removed";
             }
             leaf number-of-time-slots-required {
                 type int16;
                 units "timeslots";
                 default -1;
                 config false;
-                description "Number of time slots required for transporting this type of container. Value must be calculated by the vendor after defining the timeSlotCapacity. For containers of fixed size: numberOfTimeSlotsRequired = required bandwidth of the container divided by timeSlotCapacity. For containers of variable size the minimum (most probably 1) is to be stated.";
+                description "removed";
             }
             leaf tdm-time-slots-is-required {
                 type boolean;
                 default false;
                 config false;
-                description "Shall be set to '1', if this container type requires bandwidth (times slots) reserved for TDM transport.";
+                description "removed";
             }
             leaf bundling-is-avail {
                 type boolean;
                 default false;
                 config false;
-                description "If it is possible to combine transport resources of several radio links to transport this container type, this attribute shall be set to '1'.";
+                description "removed";
             }
             description "none";
         }
@@ -733,14 +733,14 @@ module microwave-model {
                 type string;
                 default "TDM container name not defined.";
                 config false;
-                description "Names to be chosen from the following list: 'e1','t1','j1','e3','t3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'";
+                description "removed";
             }
             leaf tdm-container-size {
                 type int32;
                 units "kbit/s";
                 default -1;
                 config false;
-                description "Capacity required for transporting this type of container (in kbit/s). Values to be chosen from the following list: '2048','1544','34000','44736 ','155520','614400','1228800','2457600','3072000','4915200','6144000' or '9830400;";
+                description "removed";
             }
             description "none";
         }
@@ -751,9 +751,9 @@ module microwave-model {
             }
             leaf segment-id-ref {
                 type int16;
-                description "Combinations of structureId and segmentId must be unique inside the device to assure that every resource is used just once.";
+                description "removed";
             }
-            description "Identifies the segments, which are used to transport the container.";
+            description "removed";
         }
         grouping segment-status-type-g {
             leaf segment-status-type-id {
@@ -765,27 +765,25 @@ module microwave-model {
                 type boolean;
                 default false;
                 config false;
-                description "The number of segments, which is configured by Structure::StructureConfiguration::tdmReservedNumberOfSegements, has to be reserved for TDM. Starting from the lowest index value, these segments have to be marked with a 'true' in segmentIsReservedForTdm.
-                    ";
+                description "removed";
             }
             leaf operational-status {
                 type core-model:operational-state;
                 default disabled;
                 config false;
-                description "Current operational status of each segment.";
+                description "removed";
             }
             leaf obsolete-priority-class {
                 type int8;
                 default -1;
                 config false;
-                description "PriorityClass as inherited from the associated Container::ContainerConfiguration::priorityClass. In case the device is capable of adapting the sequence, in which segments are being dropped in case of decreasing capacity of the air interface, priorityClass shall be considered, while calculating the dropOrderRank.";
+                description "removed";
             }
             leaf obsolete-drop-order-rank {
                 type int16;
                 default -1;
                 config false;
-                description "In case the device is NOT capable of adapting the sequence, in which segments are being dropped in case of decreasing capacity of the air interface, dropOrderRank is number of segments minus sequence number of the segment. In case the device is capable of adapting the sequence, dropOrderRank has to be calculated by the device in dependency to the assigned priorityClass. 
-                    _unique: within Structure::StructureStatus::segmentStatusList";
+                description "removed";
             }
             description "none";
         }
@@ -793,12 +791,12 @@ module microwave-model {
             leaf problem-kind-name {
                 type string;
                 default "Problem kind name not defined.";
-                description "Name of the alarm according to Container::ContainerCapability::supportedAlarms";
+                description "removed";
             }
             leaf problem-kind-severity {
                 type severity-type;
                 default warning;
-                description "Severity of this type of alarm.";
+                description "removed";
             }
             description "none";
         }
@@ -807,7 +805,7 @@ module microwave-model {
                 type string;
                 default "Problem name not specified.";
                 config false;
-                description "Name of the alarm according to Container::ContainerCapability::supportedAlarms";
+                description "removed";
             }
             uses mw-current-problem-g;
             description "none";
@@ -818,30 +816,30 @@ module microwave-model {
                 units "Bytes/s";
                 default -1;
                 config false;
-                description "Counts the number of Bytes of Ethernet traffic (before header compression) transmitted within a second and keeps the highest value within the measurement period. Field to be left blank for all types of TDM containers.";
+                description "removed";
             }
             leaf tx-ethernet-bytes-max-m {
                 type int64;
                 units "Bytes/min";
                 default -1;
                 config false;
-                description "Counts the number of Bytes of Ethernet traffic (before header compression) transmitted within a minute and keeps the highest value with in the measurement period. Field to be left blank for all types of TDM containers.";
+                description "removed";
             }
             leaf tx-ethernet-bytes-sum {
                 type int64;
                 units "Bytes";
                 default -1;
                 config false;
-                description "Total number of Bytes of Ethernet traffic (before header compression) transmitted (in direction out of the device) during the measurement period. Field to be left blank for all types of TDM containers.";
+                description "removed";
             }
             leaf time-period {
                 type int32;
                 units "s";
                 default -1;
                 config false;
-                description "Total length of the measurement period in seconds.";
+                description "removed";
             }
-            description "Consolidated performance information of the Container.";
+            description "removed";
         }
         grouping container-current-performance-type-g {
             container performance-data {
@@ -850,7 +848,7 @@ module microwave-model {
                 description "none";
             }
             uses g:otn-current-data-g;
-            description "Turns performance information into current performance information by inheriting from OTN_CurrentData.";
+            description "removed";
         }
         grouping container-historical-performance-type-g {
             container performance-data {
@@ -859,7 +857,7 @@ module microwave-model {
                 description "none";
             }
             uses g:otn-history-data-g;
-            description "Turns performance information into historical performance information by inheriting from OTN_HistoryData.";
+            description "removed";
         }
 
     /***********************
@@ -874,7 +872,7 @@ module microwave-model {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
                     }
-                    description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
+                    description "removed";
                 }
                 container air-interface-capability {
                     config false;
@@ -912,264 +910,263 @@ module microwave-model {
                     type string;
                     default "Type of equipment not yet defined.";
                     config false;
-                    description "This parameter indicates the equipment type. Instead of uploading the complete set of capabilities, capabilities of the same equipment type could be reused. Should be unique for a combination of modem, radio and their respective firmware.";
+                    description "removed";
                 }
                 leaf tx-frequency-min {
                     type int32;
                     units "kHz";
                     default -1;
                     config false;
-                    description "Value of the minimum transmit frequency tunable at the air interface.";
+                    description "removed";
                 }
                 leaf tx-frequency-max {
                     type int32;
                     units "kHz";
                     default -1;
                     config false;
-                    description "Value of the maximum transmit frequency tunable at the air interface.";
+                    description "removed";
                 }
                 leaf rx-frequency-min {
                     type int32;
                     units "kHz";
                     default -1;
                     config false;
-                    description "Value of the minimum receive frequency tunable at the air interface.";
+                    description "removed";
                 }
                 leaf rx-frequency-max {
                     type int32;
                     units "kHz";
                     default -1;
                     config false;
-                    description "Value of the maximum receive frequency tunable at the air interface.";
+                    description "removed";
                 }
                 leaf adaptive-modulation-is-avail {
                     type boolean;
                     default false;
                     config false;
-                    description "In case the device is capable of adaptive modulation, this field shall contain a 'true'.";
+                    description "removed";
                 }
                 leaf mimo-is-avail {
                     type boolean;
                     default false;
                     config false;
-                    description "In case the device is capable of MIMO, this field shall contain a 'true'.";
+                    description "removed";
                 }
                 leaf mimo-channels {
                     type int8;
                     units "channels";
                     default 1;
                     config false;
-                    description "Maximum number (n) of spatial multiplexing streams that can be conveyed by an n x n MIMO configuration.";
+                    description "removed";
                 }
                 leaf alic-is-avail {
                     type boolean;
                     default false;
                     config false;
-                    description "In case the microwave radio is capable of Adjacent Link Interference Cancelation (canceling of interference cause by transmitters located at the same site), this field shall contain a 'true'.";
+                    description "removed";
                 }
                 leaf atpc-is-avail {
                     type boolean;
                     default false;
                     config false;
-                    description "In case the microwave radio is capable of ATPC, this field shall contain a 'true'.";
+                    description "removed";
                 }
                 leaf atpc-range {
                     type int8;
                     units "dB";
                     default 0;
                     config false;
-                    description "Extent of the ATPC range.";
+                    description "removed";
                 }
                 leaf encryption-is-avail {
                     type boolean;
                     default false;
                     config false;
-                    description "Shall be marked 'true', if payload encryption is available.";
+                    description "removed";
                 }
                 leaf-list supported-loop-back-kind-list {
                     type loop-back-type;
                     config false;
                     min-elements 1;
                     max-elements 2;
-                    description "List of supported kinds of looping back of header information to the remote site.";
+                    description "removed";
                 }
                 leaf maintenance-timer-range {
                     type string;
                     units "s";
                     default "Range of the maintenance timer not yet defined.";
                     config false;
-                    description "Available time periods for maintenance configurations (e.g. the loop back of microwave header information) to be described. Concrete values shall be separated by commas (e.g. '10, 60, 360'). Ranges shall be expressed as two values separated by a minus (e.g. '10-360').";
+                    description "removed";
                 }
                 leaf supported-alarms {
                     type string;
                     default "Supported alarms not yet defined.";
                     config false;
-                    description "Available alarms to be listed. Mandatory:'signalIsLost','rslIsExceeded','temperatureIsExceeded','modemIsFaulty','radioIsFaulty' and 'modulationIsDownShifted'. Further alarms might be added by the device. Names are to be separated by commas.";
+                    description "removed";
                 }
                 list supported-channel-plan-list {
                     key 'supported-channel-plan';
                     config false;
                     min-elements 1;
                     uses channel-plan-type-g;
-                    description "List of channel spacing that are supported by the device.";
+                    description "removed";
                 }
-                description "Describes the 'analog' capabilities of modem and transmitter of the microwave device. Value ranges of attributes are not independently (e.g. min. and max. transmit power depends on modulation). Legal combinations of values are expressed in transmissionModeTypes.";
+                description "removed";
             }
             grouping air-interface-configuration-g {
                 leaf air-interface-name {
                     type string;
                     default "Air interface ID not yet defined.";
-                    description "Operator specific microwave link ID (often used for coding area, type of element and sequential number).";
+                    description "removed";
                 }
                 leaf radio-signal-id {
                     type string;
                     default "Radio signal ID not yet defined.";
-                    description "The radioSignalId is transmitted on the air interface so the remote site of the link synchronizes on the correct transmitter. The local radio MUST NOT synchronize on a radio signal with a different radioSignalId. The link ID is neither an ID necessary to span the model nor an ID referencing external data. It is just some sort of name of the link transmitted so the correct remote site can be identified in an interference situation. The value zero might be used to make the microwave to disable the link ID check.";
+                    description "removed";
                 }
                 leaf tx-frequency {
                     type int32;
                     units "kHz";
                     default -1;
-                    description "Center frequency of the transmit channel. The values to be configured have to exactly match the values listed in the international agreement referenced in channelPlanID. In case of automated selection of the transmit frequency this field shall describe the lowest center frequency selectable.";
+                    description "removed";
                 }
                 leaf rx-frequency {
                     type int32;
                     units "kHz";
                     default -1;
-                    description "Center frequency of the receive channel.";
+                    description "removed";
                 }
                 leaf tx-channel-bandwidth {
                     type int32;
                     units "kHz";
                     default -1;
-                    description "Bandwidth of the transmit channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;";
+                    description "removed";
                 }
                 leaf rx-channel-bandwidth {
                     type int32;
                     units "kHz";
                     default -1;
-                    description "Bandwidth of the receive channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;";
+                    description "removed";
                 }
                 leaf polarization {
                     type polarization-type;
                     default not-specified;
-                    description "Allows documenting the polarization of the air interface.";
+                    description "removed";
                 }
                 leaf power-is-on {
                     type boolean;
                     default true;
-                    description "Power ON. Activation of the entire radio in a split mount configuration shall be expressed as a 'true'.";
+                    description "removed";
                 }
                 leaf transmitter-is-on {
                     type boolean;
                     default false;
-                    description "Activation of the transmitter inside the radio shall be expressed as a 'true'.";
+                    description "removed";
                 }
                 leaf receiver-is-on {
                     type boolean;
                     default true;
-                    description "Maintenance Feature. Activation of the receiver inside the radio shall be expressed as a 'true'. Attribute shall also be used for RX main and RX diversity squelches in case of diversity configurations.
-                        ";
+                    description "removed";
                 }
                 leaf tx-power {
                     type int8;
                     units "dBm";
                     default 99;
-                    description "Transmit power to be configured on the microwave link. Signed Byte is required. The actually operated transmit power might be lower depending on adaptive modulation and ATPC.";
+                    description "removed";
                 }
                 leaf adaptive-modulation-is-on {
                     type boolean;
                     default false;
-                    description "Adaptive Modulation. Activation of adaptive modulation shall be expressed as a 'true'.";
+                    description "removed";
                 }
                 leaf modulation-min {
                     type int16;
                     units "symbols";
                     default -1;
-                    description "Minimum modulation to be configured (in case adaptive modulation is not used, this value represents also the fixed modulation). The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.";
+                    description "removed";
                 }
                 leaf modulation-max {
                     type int16;
                     units "symbols";
                     default -1;
-                    description "Maximum modulation to be configured. The value of this field is only relevant, if Adaptive Modulation has been activated. The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.";
+                    description "removed";
                 }
                 leaf xpic-is-on {
                     type boolean;
                     default false;
-                    description "Activation of Cross Polarization Interference Cancelation shall be expressed as a 'true'. In case XPIC is not available for the current combination of channel bandwidth and modulation or the hardware in general, this parameter shall always be set to 'false'.";
+                    description "removed";
                 }
                 leaf mimo-is-on {
                     type boolean;
                     default false;
-                    description "Activation of Multiple Input Multiple Output (MIMO) shall be expressed as a 'true'.";
+                    description "removed";
                 }
                 leaf alic-is-on {
                     type boolean;
                     default false;
-                    description "Activation of Adjacent Link Interference Cancelation (ALIC) shall be expressed as a 'true'.";
+                    description "removed";
                 }
                 leaf atpc-is-on {
                     type boolean;
                     default false;
-                    description "ATPC. Activation of Automated Transmit Power Control shall be expressed as a 'true'.";
+                    description "removed";
                 }
                 leaf atpc-thresh-upper {
                     type int16;
                     units "dBm";
                     default 99;
-                    description "If the receive level is higher than the upper threshold value, the transmitter is notified to decrease transmit power.";
+                    description "removed";
                 }
                 leaf atpc-thresh-lower {
                     type int16;
                     units "dBm";
                     default 99;
-                    description "If the receive level is lower than the lower threshold value, the transmitter is notified to increase transmit power.";
+                    description "removed";
                 }
                 leaf auto-freq-select-is-on {
                     type boolean;
                     default false;
-                    description "Activation of automatically selecting the transmit frequency in unlicensed bands shall be expressed as a 'true'.";
+                    description "removed";
                 }
                 leaf auto-freq-select-range {
                     type int8;
                     units "channels";
                     default -1;
-                    description "Number of transmit channels (starting at the center frequency defined in txFrequency and with channel bandwidth according to txChannelBandwidth) that define the range within the transmit frequency can automatically been chosen. ";
+                    description "removed";
                 }
                 leaf modulation-is-on {
                     type boolean;
                     default true;
-                    description "Maintenance Feature. De-activation of the modulation of the carrier signal for fault management shall be expressed as a 'false'.";
+                    description "removed";
                 }
                 leaf encryption-is-on {
                     type boolean;
                     default false;
-                    description "Activates encryption of the payload.";
+                    description "removed";
                 }
                 leaf cryptographic-key {
                     type string;
                     default "Cryptographic key not yet defined.";
-                    description "Key for transforming plaintext into ciphertext data.";
+                    description "removed";
                 }
                 leaf loop-back-kind-on {
                     type loop-back-type;
                     default none;
-                    description "Maintenance Feature. The currently configured type of looping back of the air interface header shall be expressed here. The received header is returned to the remote site.";
+                    description "removed";
                 }
                 leaf maintenance-timer {
                     type int32;
                     units "s";
                     default -1;
-                    description "Time of existence of any maintenance configuration (e.g. the loop back of microwave header information). Valid values are defined in AirInterface::AirInterfaceCapability::maintenanceTimerRange.";
+                    description "removed";
                 }
                 list problem-kind-severity-list {
                     key 'problem-kind-name';
                     min-elements 6;
                     uses air-interface-problem-severity-type-g;
-                    description "Severity of the problem to be configured.";
+                    description "removed";
                 }
-                description "Configuration of the radio link.";
+                description "removed";
             }
             grouping air-interface-status-g {
                 leaf tx-frequency-cur {
@@ -1177,131 +1174,131 @@ module microwave-model {
                     units "kHz";
                     default -1;
                     config false;
-                    description "Center frequency of the currently operated transmit channel.";
+                    description "removed";
                 }
                 leaf rx-frequency-cur {
                     type int32;
                     units "kHz";
                     default -1;
                     config false;
-                    description "Center frequency of the currently operated receive channel.";
+                    description "removed";
                 }
                 leaf tx-level-cur {
                     type int8;
                     units "dBm";
                     default 99;
                     config false;
-                    description "Current transmit level.";
+                    description "removed";
                 }
                 leaf rx-level-cur {
                     type int8;
                     units "dBm";
                     default 99;
                     config false;
-                    description "Current receive level.";
+                    description "removed";
                 }
                 leaf modulation-cur {
                     type int16;
                     units "symbols";
                     default -1;
                     config false;
-                    description "Currently operated modulation on transmit path. The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.";
+                    description "removed";
                 }
                 leaf code-rate-cur {
                     type int8;
                     units "%";
                     default -1;
                     config false;
-                    description "Code rate of the currently operated coding scheme (Net bit rate ? Gross bit rate ? code rate).";
+                    description "removed";
                 }
                 leaf snir-cur {
                     type int8;
                     units "dB";
                     default -99;
                     config false;
-                    description "Currently measured signal to (noise+interference) ratio.";
+                    description "removed";
                 }
                 leaf xpd-cur {
                     type int8;
                     units "dB";
                     default -99;
                     config false;
-                    description "Currently measured cross polarization discrimination.";
+                    description "removed";
                 }
                 leaf rf-temp-cur {
                     type int8;
                     units "Celsius";
                     default -99;
                     config false;
-                    description "Current temperature (in degree Celsius) of the radio module inside the outdoor unit.";
+                    description "removed";
                 }
                 leaf last-status-change {
                     type yang:date-and-time;
                     default "2017-01-01T00:00:00.0Z";
                     config false;
-                    description "Time the Air Interface entered its current operational status.  ";
+                    description "removed";
                 }
                 leaf radio-power-is-up {
                     type boolean;
                     default false;
                     config false;
-                    description "If the radio unit has power and is switched on, this shall be expressed as a 'true'.";
+                    description "removed";
                 }
                 leaf link-is-up {
                     type boolean;
                     default false;
                     config false;
-                    description "If connection is established to the remote site with the same linkID, this shall be expressed as a 'true'.";
+                    description "removed";
                 }
                 leaf xpic-is-up {
                     type boolean;
                     default false;
                     config false;
-                    description "If XPIC is currently actually working (not just configured), this shall be expressed as a 'true'.";
+                    description "removed";
                 }
                 leaf mimo-is-up {
                     type boolean;
                     default false;
                     config false;
-                    description "If MIMO is currently actually working (not just configured), this shall be expressed as a 'true'.";
+                    description "removed";
                 }
                 leaf alic-is-up {
                     type boolean;
                     default false;
                     config false;
-                    description "If Adjacent Link Interference Cancelation (ALIC) is currently actually working (not just configured), this shall be expressed as a 'true'.";
+                    description "removed";
                 }
                 leaf atpc-is-up {
                     type boolean;
                     default false;
                     config false;
-                    description "If ATPC is currently actually working (not just configured), this shall be expressed as a 'true'.";
+                    description "removed";
                 }
                 leaf auto-freq-select-is-up {
                     type boolean;
                     default false;
                     config false;
-                    description "If automated frequency selection is currently actually working (not just configured), this shall be expressed as a 'true'.";
+                    description "removed";
                 }
                 leaf loop-back-kind-up {
                     type loop-back-type;
                     default none;
                     config false;
-                    description "The currently active (not just configured) type of looping back of the air interface header shall be expressed here. The received header is returned to the remote site.";
+                    description "removed";
                 }
                 leaf local-end-point-id {
                     type string;
                     default "not-supported";
                     config false;
-                    description "The value of the localEndPointId is a vendor specific identifier of the air interface, used by the node to discover a microwave radio link.";
+                    description "removed";
                 }
                 leaf remote-end-point-id {
                     type string;
                     default "not-supported";
                     config false;
-                    description "The value of the remoteEndPointId is a vendor specific identifier or the airinterface at the remote side, used to by the node to discover a microwave radio link.";
+                    description "removed";
                 }
-                description "Measurements of current values on the air interface and operational status of the device.";
+                description "removed";
             }
             grouping air-interface-current-problems-g {
                 list current-problem-list {
@@ -1319,9 +1316,9 @@ module microwave-model {
                     min-elements 1;
                     max-elements 2;
                     uses air-interface-current-performance-type-g;
-                    description "At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.";
+                    description "removed";
                 }
-                description "Aggregated performance information of the air interface at a particular moment.";
+                description "removed";
             }
             grouping air-interface-historical-performances-g {
                 list historical-performance-data-list {
@@ -1330,7 +1327,7 @@ module microwave-model {
                     uses air-interface-historical-performance-type-g;
                     description "none";
                 }
-                description "Aggregated performance information of the air interface for a pre-defined measurement interval.";
+                description "removed";
             }
             container co-channel-group {
                 leaf co-channel-group-id {
@@ -1341,12 +1338,12 @@ module microwave-model {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:uuid';
                     }
-                    description "List of air interfaces, which are part of the co-channel (XPIC, MIMO, ALIC) group.";
+                    description "removed";
                 }
                 leaf sort-of-co-channel-group {
                     type string;
                     default "Kind of co-channel group not specified.";
-                    description "Type of group of air interfaces with the same transmit and receive frequency. The values shall be chosen from the following _list:'XPIC', 'MIMO', 'ALIC';";
+                    description "removed";
                 }
                 leaf-list logical-termination-point {
                     type leafref {
@@ -1354,7 +1351,7 @@ module microwave-model {
                     }
                     description "none";
                 }
-                description "Required for configuring XPIC, MIMO and ALIC.";
+                description "removed";
             }
 
         /***********************
@@ -1373,29 +1370,29 @@ module microwave-model {
                     }
                     description "none";
                 }
-                description "The EndPoint (EP) object class models the access to the FC function. Each EndPoint instance has a role (e.g., working, protection, protected, hub, spoke, leaf, root, etc.) with respect to the FC function. The association of the FC to LTPs is made via EndPoints (essentially the ports of the FC) where each EndPoint (EP) of the FC has a role in the context of the FC. The traffic forwarding between the associated End PointsEPs of the FC depends upon the type of FC and may be associated with FCSwitch object instances. In cases where there is protection conveys the protecting role of the access to the FC.  The EP replaces the Protection Unit of a traditional protection model. It represents a protected (resilient/reliable) point or a protecting (unreliable working or protection) point.";
+                description "removed";
             }
             list mw-air-interface-hsb-fc-switch-pac {
                 key 'fcswitch';
                 leaf prot-type {
                     type protection-type;
                     default hsb;
-                    description "Indicates the protection scheme that is used for the ProtectionGroup.";
+                    description "removed";
                 }
                 leaf air-interface-hsb-configuration-is-faulty-severity {
                     type severity-type;
                     default warning;
-                    description "The level of severity of an airInterfaceHsbConfigurationIsFaulty alarm shall be chosen from an enumeration.";
+                    description "removed";
                 }
                 leaf air-interface-hsb-is-partly-down-severity {
                     type severity-type;
                     default warning;
-                    description "The level of severity for one link out of the HSB configuration being down shall be chosen from an enumeration.";
+                    description "removed";
                 }
                 leaf air-interface-hsb-is-down-severity {
                     type severity-type;
                     default warning;
-                    description "The level of severity of the total HSB configuration being down shall be chosen from an enumeration.";
+                    description "removed";
                 }
                 leaf fcswitch {
                     type leafref {
@@ -1403,7 +1400,7 @@ module microwave-model {
                     }
                     description "none";
                 }
-                description "Represents and defines a protection switch structure encapsulated in the forwarding construct. Essentially performs the function of Protection Group. Associates to 2 or more Endpoints each playing the role of a Protection Unit. One or more protection EndPoints (standby/backup) provide protection for one or more working (i.e. regular/main/preferred) Endpoints where either protection or working can feed one or more protected Endpoint. May be used in revertive or non-revertive (symmetric) mode. When in revertive mode may define waitToRestore time. May be used in one of several modes including source switch, destination switched, source and destination switched etc (covering cases such as  1+1 ane 1:1).  May be lockout (prevented from switching), force switched or manual switched. Will indicate switch state and change of state.";
+                description "removed";
             }
 
         /***********************
@@ -1415,7 +1412,7 @@ module microwave-model {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
                     }
-                    description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
+                    description "removed";
                 }
                 container air-interface-diversity-capability {
                     config false;
@@ -1453,33 +1450,33 @@ module microwave-model {
                     key 'diversity-name';
                     config false;
                     uses diversity-type-g;
-                    description "Available types of diversity to be listed.";
+                    description "removed";
                 }
                 leaf supported-alarms {
                     type string;
                     default "Supported alarms not yet defined.";
                     config false;
-                    description "Available alarms to be listed. Mandatory:'airInterfaceDiversityConfigurationIsPartlyDown' (at least one air interface is down, but not all of them) and 'airInterfaceDiversityConfigurationIsDown' (all air interfaces are down). Further alarms might be added by the device. Names are to be separated by commas.";
+                    description "removed";
                 }
-                description "Describes the capabilities in implementing different types of air interface diversity.";
+                description "removed";
             }
             grouping air-interface-diversity-configuration-g {
                 container air-interface-diversity {
                     uses diversity-type-g;
-                    description "Type of air interface diversity configured at the link.";
+                    description "removed";
                 }
                 leaf-list air-interface-ltp-list {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:uuid';
                     }
                     min-elements 2;
-                    description "_multiplicity:2-ThisAirInterfaceDiversity::AirInterfaceDiversityConfiguration::airInterfaceDiversity::diversityType::numberOfAirInterfacesMax";
+                    description "removed";
                 }
                 list problem-kind-severity-list {
                     key 'problem-kind-name';
                     min-elements 3;
                     uses air-interface-diversity-problem-severity-type-g;
-                    description "Severity of the problem to be configured.";
+                    description "removed";
                 }
                 description "none";
             }
@@ -1489,19 +1486,19 @@ module microwave-model {
                     units "dB";
                     default -99;
                     config false;
-                    description "Currently measured signal to (noise+interference) ratio of the combined signals.";
+                    description "removed";
                 }
                 leaf air-interface-diversity-status {
                     type air-interface-diversity-status-type;
                     default group-down;
                     config false;
-                    description "Status of the air interface bundle. ";
+                    description "removed";
                 }
                 leaf last-status-change {
                     type yang:date-and-time;
                     default "2017-01-01T00:00:00.0Z";
                     config false;
-                    description "Time the Diversity Group entered its current operational status.  ";
+                    description "removed";
                 }
                 description "none";
             }
@@ -1521,9 +1518,9 @@ module microwave-model {
                     min-elements 1;
                     max-elements 2;
                     uses air-interface-diversity-current-performance-type-g;
-                    description "At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.";
+                    description "removed";
                 }
-                description "Aggregated performance information of the air interface diversity configuration at a particular moment.";
+                description "removed";
             }
             grouping air-interface-diversity-historical-performances-g {
                 list historical-performance-data-list {
@@ -1532,7 +1529,7 @@ module microwave-model {
                     uses air-interface-diversity-historical-performance-type-g;
                     description "none";
                 }
-                description "Aggregated performance information of the air interface diversity configuration for a pre-defined measurement interval.";
+                description "removed";
             }
 
         /***********************
@@ -1545,7 +1542,7 @@ module microwave-model {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
                     }
-                    description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
+                    description "removed";
                 }
                 container pure-ethernet-structure-capability {
                     config false;
@@ -1576,27 +1573,27 @@ module microwave-model {
                     uses pure-ethernet-structure-historical-performances-g;
                     description "none";
                 }
-                description "The pureEthernetStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting Ethernet traffic only.";
+                description "removed";
             }
             grouping pure-ethernet-structure-capability-g {
                 leaf structure-id {
                     type core-model:universal-id;
                     config false;
-                    description "Identifies the Structure for bundling and container.";
+                    description "removed";
                 }
                 leaf supported-alarms {
                     type string;
                     default "Supported alarms not yet defined.";
                     config false;
-                    description "Available alarms to be listed. Mandatory:non. Names are to be separated by commas. Further alarms might be added by the device.";
+                    description "removed";
                 }
-                description "Describes the logical structuring of the physical capacity provided by a pure Ethernet microwave device. Segmentation is not available. No fixed segment size. No TDM transport.";
+                description "removed";
             }
             grouping pure-ethernet-structure-configuration-g {
                 list problem-kind-severity-list {
                     key 'problem-kind-name';
                     uses structure-problem-severity-type-g;
-                    description "Severity of the type of problem to be configured.";
+                    description "removed";
                 }
                 description "none";
             }
@@ -1604,13 +1601,13 @@ module microwave-model {
                 container segment-status-list {
                     config false;
                     uses segment-status-type-g;
-                    description "Status of the Ethernet transport segment. Always just one segment.";
+                    description "removed";
                 }
                 leaf last-status-change {
                     type yang:date-and-time;
                     default "2017-01-01T00:00:00.0Z";
                     config false;
-                    description "Time and date of the last update of the status information.  ";
+                    description "removed";
                 }
                 description "none";
             }
@@ -1630,9 +1627,9 @@ module microwave-model {
                     min-elements 1;
                     max-elements 2;
                     uses structure-current-performance-type-g;
-                    description "At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.";
+                    description "removed";
                 }
-                description "Aggregated performance information of the structure of an pure Ethernet microwave at a particular moment.";
+                description "removed";
             }
             grouping pure-ethernet-structure-historical-performances-g {
                 list historical-performance-data-list {
@@ -1641,7 +1638,7 @@ module microwave-model {
                     uses structure-historical-performance-type-g;
                     description "none";
                 }
-                description "Aggregated performance information of the structure of an pure Ethernet microwave for a pre-defined measurement interval.";
+                description "removed";
             }
             feature pure-ethernet {
                 description "Feature 'pure-ethernet' is mandatory for device types transporting pure Ethernet.";
@@ -1657,7 +1654,7 @@ module microwave-model {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
                     }
-                    description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
+                    description "removed";
                 }
                 container hybrid-mw-structure-capability {
                     config false;
@@ -1688,43 +1685,43 @@ module microwave-model {
                     uses hybrid-mw-structure-historical-performances-g;
                     description "none";
                 }
-                description "The HybridMwStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting TDM and Ethernet traffic.";
+                description "removed";
             }
             grouping hybrid-mw-structure-capability-g {
                 leaf structure-id {
                     type core-model:universal-id;
                     config false;
-                    description "Identifies the Structure for bundling and container.";
+                    description "removed";
                 }
                 list supported-tdm-structure-types-list {
                     key 'tdm-structure-name';
                     config false;
                     min-elements 1;
                     uses tdm-structure-type-g;
-                    description "Lists the TDM frame types that are supported.";
+                    description "removed";
                 }
                 leaf supported-alarms {
                     type string;
                     default "Supported alarms not yet defined.";
                     config false;
-                    description "Available alarms to be listed. Mandatory:non. Names are to be separated by commas. Further alarms might be added by the device.";
+                    description "removed";
                 }
-                description "Describes the logical structuring of the physical capacity provided by a hybrid microwave device (TDM + Ethernet). Segmentation is available. TDM transport is available.";
+                description "removed";
             }
             grouping hybrid-mw-structure-configuration-g {
                 container structure-type {
                     uses tdm-structure-type-g;
-                    description "TDM frame to be applied.";
+                    description "removed";
                 }
                 leaf number-of-tdm-segments-to-be-reserved {
                     type int16;
                     default -1;
-                    description "Allows to configure the number of segments reserved for TDM frames of the type specified in HybridMwStructure::HybridMwStructureConfiguration::structureType";
+                    description "removed";
                 }
                 list problem-kind-severity-list {
                     key 'problem-kind-name';
                     uses structure-problem-severity-type-g;
-                    description "Severity of the type of problem to be configured.";
+                    description "removed";
                 }
                 description "none";
             }
@@ -1733,13 +1730,13 @@ module microwave-model {
                     key 'segment-status-type-id';
                     config false;
                     uses segment-status-type-g;
-                    description "Status of each segment (all TDM and one Ethernet). Multiplicity = HybridMwStructure::StructureConfiguration::tdmReservedNumberOfSegments + 1";
+                    description "removed";
                 }
                 leaf last-status-change {
                     type yang:date-and-time;
                     default "2017-01-01T00:00:00.0Z";
                     config false;
-                    description "Time and date of the last update of the status information.  ";
+                    description "removed";
                 }
                 description "none";
             }
@@ -1759,9 +1756,9 @@ module microwave-model {
                     min-elements 1;
                     max-elements 2;
                     uses structure-current-performance-type-g;
-                    description "At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.";
+                    description "removed";
                 }
-                description "Aggregated performance information of the structure of a hybrid microwave at a particular moment.";
+                description "removed";
             }
             grouping hybrid-mw-structure-historical-performances-g {
                 list historical-performance-data-list {
@@ -1770,7 +1767,7 @@ module microwave-model {
                     uses structure-historical-performance-type-g;
                     description "none";
                 }
-                description "Aggregated performance information of the structure of a hybrid microwave for a pre-defined measurement interval.";
+                description "removed";
             }
             feature hybrid-microwave {
                 description "Feature 'hybrid-microwave' is mandatory for device types transporting Ethernet + TDM.";
@@ -1785,7 +1782,7 @@ module microwave-model {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
                     }
-                    description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
+                    description "removed";
                 }
                 container ethernet-container-capability {
                     config false;
@@ -1823,67 +1820,67 @@ module microwave-model {
                     type boolean;
                     default false;
                     config false;
-                    description "This attribute has to be set on 'true', if the device allows combining resources from several air interfaces for transporting this Ethernet container.";
+                    description "removed";
                 }
                 leaf packet-compression-is-avail {
                     type boolean;
                     default false;
                     config false;
-                    description "In case packet compression can be activated, but not configured to a certain type, packetCompressionAvail shall be set on 'true', but none of the compression level specific booleans.";
+                    description "removed";
                 }
                 leaf layer2-compression-is-avail {
                     type boolean;
                     default false;
                     config false;
-                    description "Packet compression on layer 2 available at the device.";
+                    description "removed";
                 }
                 leaf vlan-compression-is-avail {
                     type boolean;
                     default false;
                     config false;
-                    description "Packet compression on VLAN layer available at the device.";
+                    description "removed";
                 }
                 leaf q-in-q-compression-is-avail {
                     type boolean;
                     default false;
                     config false;
-                    description "Packet compression on layer of a second VLAN available at the device.";
+                    description "removed";
                 }
                 leaf mpls-compression-is-avail {
                     type boolean;
                     default false;
                     config false;
-                    description "Packet compression on mpls layer available at the device.";
+                    description "removed";
                 }
                 leaf ipv4-compression-is-avail {
                     type boolean;
                     default false;
                     config false;
-                    description "Packet compression on layer 3 for IPv4 available at the device.";
+                    description "removed";
                 }
                 leaf ipv6-compression-is-avail {
                     type boolean;
                     default false;
                     config false;
-                    description "Packet compression on layer 3 for IPv6 available at the device.";
+                    description "removed";
                 }
                 leaf layer4-compression-is-avail {
                     type boolean;
                     default false;
                     config false;
-                    description "Packet compression on layer 4 (TCP and UDP header) available at the device.";
+                    description "removed";
                 }
                 leaf encryption-is-avail {
                     type boolean;
                     default false;
                     config false;
-                    description "Shall be marked 'true', if Ethernet payload encryption is available.";
+                    description "removed";
                 }
                 leaf supported-alarms {
                     type string;
                     default "Supported alarms not yet defined.";
                     config false;
-                    description "Available alarms to be listed. Mandatory:'framingIsFaulty' and 'containerIsDown'. Further alarms might be added by the device.";
+                    description "removed";
                 }
                 description "none";
             }
@@ -1891,69 +1888,69 @@ module microwave-model {
                 leaf container-id {
                     type string;
                     default "No Ethernet Flow associated yet.";
-                    description "ContainterID in Netconf must be the same as EthernetPortID in OpenFlow so a connection can be made between the two items, which separately exist in the controller.";
+                    description "removed";
                 }
                 list segments-id-list {
                     key 'structure-id-ref segment-id-ref';
                     min-elements 1;
                     uses segment-id-type-g;
-                    description "Lists the segments used for transporting this Ethernet container. In case EthernetContainer::ContainerCapability::bundlingIsAvail==0, all TypeDefinitions::segmentIdType::structureId must be identical in the list.";
+                    description "removed";
                 }
                 leaf packet-compression-is-on {
                     type boolean;
                     default false;
-                    description "In case packet compression is activated, but no type is activated, it is assumed that the device chooses the optimum.";
+                    description "removed";
                 }
                 leaf layer2-compression-is-on {
                     type boolean;
                     default false;
-                    description "Packet compression on layer 2 configured at the device.";
+                    description "removed";
                 }
                 leaf vlan-compression-is-on {
                     type boolean;
                     default false;
-                    description "Packet compression on VLAN layer configured at the device.";
+                    description "removed";
                 }
                 leaf q-in-q-compression-is-on {
                     type boolean;
                     default false;
-                    description "Packet compression on layer of a second VLAN configured at the device.";
+                    description "removed";
                 }
                 leaf mpls-compression-is-on {
                     type boolean;
                     default false;
-                    description "Packet compression on MPLS layer configured at the device.";
+                    description "removed";
                 }
                 leaf ipv4-compression-is-on {
                     type boolean;
                     default false;
-                    description "Packet compression on layer 3 for IPv4 configured at the device.";
+                    description "removed";
                 }
                 leaf ipv6-compression-is-on {
                     type boolean;
                     default false;
-                    description "Packet compression on layer 3 for IPv6 configured at the device.";
+                    description "removed";
                 }
                 leaf layer4-compression-is-on {
                     type boolean;
                     default false;
-                    description "Packet compression on layer 4 (TCP and UDP header) configured at the device.";
+                    description "removed";
                 }
                 leaf encryption-is-on {
                     type boolean;
                     default false;
-                    description "Activates encryption of the Ethernet payload.";
+                    description "removed";
                 }
                 leaf cryptographic-key {
                     type string;
                     default "Cryptographic key not yet defined.";
-                    description "Key for transforming plaintext into cipher text data.";
+                    description "removed";
                 }
                 list problem-kind-severity-list {
                     key 'problem-kind-name';
                     min-elements 2;
                     uses container-problem-severity-type-g;
-                    description "Severity of the problem to be configured.";
+                    description "removed";
                 }
                 description "none";
             }
@@ -1962,7 +1959,7 @@ module microwave-model {
                     type yang:date-and-time;
                     default "2017-01-01T00:00:00.0Z";
                     config false;
-                    description "Time the Container entered its current operational status.  ";
+                    description "removed";
                 }
                 description "none";
             }
@@ -1984,7 +1981,7 @@ module microwave-model {
                     uses container-current-performance-type-g;
                     description "none";
                 }
-                description "Aggregated performance information of the Ethernet container at a particular moment.";
+                description "removed";
             }
             grouping ethernet-container-historical-performances-g {
                 list historical-performance-data-list {
@@ -1993,7 +1990,7 @@ module microwave-model {
                     uses container-historical-performance-type-g;
                     description "none";
                 }
-                description "Aggregated performance information of the Ethernet container for a pre-defined measurement interval.";
+                description "removed";
             }
 
         /***********************
@@ -2006,7 +2003,7 @@ module microwave-model {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
                     }
-                    description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
+                    description "removed";
                 }
                 container tdm-container-capability {
                     config false;
@@ -2045,35 +2042,35 @@ module microwave-model {
                     config false;
                     min-elements 1;
                     uses tdm-container-type-g;
-                    description "Lists the TDM containers that are supported.";
+                    description "removed";
                 }
                 leaf supported-alarms {
                     type string;
                     default "Supported alarms not yet defined.";
                     config false;
-                    description "Available alarms to be listed. Mandatory:'framingIsFaulty' and 'containerIsDown'. Further alarms might be added by the device.";
+                    description "removed";
                 }
-                description "Bundling is not available.";
+                description "removed";
             }
             grouping tdm-container-configuration-g {
                 leaf container-id {
                     type string;
                     default "No TDM Flow associated yet.";
-                    description "ContainterID in Netconf must be the same as TDM Flow ID so a connection can be made between the two items, which separately exist in the controller.";
+                    description "removed";
                 }
                 container container-type {
                     uses tdm-container-type-g;
-                    description "Type of TDM container.";
+                    description "removed";
                 }
                 container segment-id {
                     uses segment-id-type-g;
-                    description "Multiplicity = 1; One segment per TDM container; Type of segment must match type of container;";
+                    description "removed";
                 }
                 list problem-kind-severity-list {
                     key 'problem-kind-name';
                     min-elements 2;
                     uses container-problem-severity-type-g;
-                    description "Severity of the problem to be configured.";
+                    description "removed";
                 }
                 description "none";
             }
@@ -2082,7 +2079,7 @@ module microwave-model {
                     type yang:date-and-time;
                     default "2017-01-01T00:00:00.0Z";
                     config false;
-                    description "Time the Container entered its current operational status.  ";
+                    description "removed";
                 }
                 description "none";
             }
@@ -2102,9 +2099,9 @@ module microwave-model {
                     min-elements 1;
                     max-elements 2;
                     uses container-current-performance-type-g;
-                    description "At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.";
+                    description "removed";
                 }
-                description "Aggregated performance information of the TDM container at a particular moment.";
+                description "removed";
             }
             grouping tdm-container-historical-performances-g {
                 list historical-performance-data-list {
@@ -2113,7 +2110,7 @@ module microwave-model {
                     uses container-historical-performance-type-g;
                     description "none";
                 }
-                description "Aggregated performance information of the TDM container for a pre-defined measurement interval.";
+                description "removed";
             }
 
         /***********************
@@ -2123,19 +2120,19 @@ module microwave-model {
                 leaf sequence-number {
                     type int32;
                     config false;
-                    description "Unique sequence number of the current problem object.";
+                    description "removed";
                 }
                 leaf time-stamp {
                     type yang:date-and-time;
                     default "2017-01-01T00:00:00.0Z";
                     config false;
-                    description "Time and date of the problem.  ";
+                    description "removed";
                 }
                 leaf problem-severity {
                     type severity-type;
                     default warning;
                     config false;
-                    description "Severity of the alarm.";
+                    description "removed";
                 }
                 description "none";
             }
@@ -2152,7 +2149,7 @@ module microwave-model {
             leaf counter {
                 type int32;
                 default -1;
-                description "Counts object creation notifications.";
+                description "removed";
             }
             leaf time-stamp {
                 type yang:date-and-time;
@@ -2161,14 +2158,14 @@ module microwave-model {
             }
             leaf object-id-ref {
                 type core-model:universal-id;
-                description "ID of the affected MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac.";
+                description "removed";
             }
             leaf object-type {
                 type string;
                 default "Type of created object not specified.";
-                description "Type of Object to be chosen from the following list of values: 'MW_AirInterface_Pac', 'MW_AirInterfaceDiversity_Pac', 'MW_Structure_Pac', 'MW_PureEthernetStructure_Pac', 'MW_HybridMwStructure_Pac', 'MW_Container_Pac', 'MW_EthernetContainer_Pac' or 'MW_TdmContainer_Pac'.";
+                description "removed";
             }
-            description "To be sent when a new MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac has to be instancieted in the controller.";
+            description "removed";
         }
         notification object-deletion-notification {
             uses object-deletion-notification-g;
@@ -2178,7 +2175,7 @@ module microwave-model {
             leaf counter {
                 type int32;
                 default -1;
-                description "Counts object deletion notifications.";
+                description "removed";
             }
             leaf time-stamp {
                 type yang:date-and-time;
@@ -2187,9 +2184,9 @@ module microwave-model {
             }
             leaf object-id-ref {
                 type core-model:universal-id;
-                description "ID of the affected MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac.";
+                description "removed";
             }
-            description "To be sent when a new MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac instance has to be deleted in the controller.";
+            description "removed";
         }
         notification attribute-value-changed-notification {
             uses attribute-value-changed-notification-g;
@@ -2199,7 +2196,7 @@ module microwave-model {
             leaf counter {
                 type int32;
                 default -1;
-                description "Counts attribute value changed notifications.";
+                description "removed";
             }
             leaf time-stamp {
                 type yang:date-and-time;
@@ -2208,19 +2205,19 @@ module microwave-model {
             }
             leaf object-id-ref {
                 type core-model:universal-id;
-                description "ID of the affected MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac.";
+                description "removed";
             }
             leaf attribute-name {
                 type string;
                 default "Attribute name not specified.";
-                description "Name of the attribute that has been changed.";
+                description "removed";
             }
             leaf new-value {
                 type string;
                 default "New value not specified.";
-                description "Attribute value converted to a string (xml, json, ...)";
+                description "removed";
             }
-            description "To be sent when an attribute has changed and one or more controllers have to update their data.";
+            description "removed";
         }
         notification problem-notification {
             uses problem-notification-g;
@@ -2230,7 +2227,7 @@ module microwave-model {
             leaf counter {
                 type int32;
                 default -1;
-                description "Counts problem notifications";
+                description "removed";
             }
             leaf time-stamp {
                 type yang:date-and-time;
@@ -2239,19 +2236,19 @@ module microwave-model {
             }
             leaf object-id-ref {
                 type core-model:universal-id;
-                description "ID of the affected MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac.";
+                description "removed";
             }
             leaf problem {
                 type string;
                 default "Problem name not specified.";
-                description "Name of the problem according to AirInterface::AirInterfaceCapability::supportedAlarms or AirInterfaceDiversity::AirInterfaceDiversityCapability::supportedAlarms or Structure::StructureCapability::supportedAlarms or PureEthernetStructure::PureEthernetStructureCapability::supportedAlarms or HybridMwStructure::HybridMwStructureCapability::supportedAlarms or Container::ContainerCapability::supportedAlarms or EthernetContainer::EthernetContainerCapability::supportedAlarms or TdmContainer::TdmContainerCapability::supportedAlarms.";
+                description "removed";
             }
             leaf severity {
                 type severity-type;
                 default warning;
-                description "Severity of the problem according to AirInterface::AirInterfaceConfiguration::problemSeverityList, AirInterfaceDiversity::AirInterfaceDiversityConfiguration::problemSeverityList, Structure::StructureConfiguration::problemSeverityList, PureEthernetStructure::PureEthernetStructureConfiguration::problemSeverityList, HybridMwStructure::HybridMwStructureConfiguration::problemSeverityList, Container::ContainerConfiguration::problemSeverityList, EthernetContainer::EthernetContainerConfiguration::problemSeverityList or TdmContainer::TdmContainerConfiguration::problemSeverityList";
+                description "removed";
             }
-            description "To be sent when a problem occurs at a MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac.";
+            description "removed";
         }
 
 }

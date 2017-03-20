@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module name="microwave-model"
         xmlns="urn:ietf:params:xml:ns:yang:yin:1"
-        xmlns:microwave-model="urn:onf:params:xml:ns:yang:MicrowaveModel"
-        xmlns:core-model="urn:onf:params:xml:ns:yang:CoreModel"
-        xmlns:g="urn:onf:params:xml:ns:yang:G.874.1-model"
+        xmlns:microwave-model="urn:onf:params:xml:ns:yang:microwave-model"
+        xmlns:core-model="urn:onf:params:xml:ns:yang:core-model"
+        xmlns:g="urn:onf:params:xml:ns:yang:g.874.1-model"
         xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types">
-  <namespace uri="urn:onf:params:xml:ns:yang:MicrowaveModel"/>
+  <namespace uri="urn:onf:params:xml:ns:yang:microwave-model"/>
   <prefix value="microwave-model"/>
   <import module="core-model">
     <prefix value="core-model"/>
@@ -34,7 +34,7 @@ Editors:  Thorsten Heinze
   <description>
     <text>This module contains a collection of YANG definitions for managing wireless networks.</text>
   </description>
-  <revision date="2017-02-17">
+  <revision date="2017-03-20">
     <description>
       <text>Initial version</text>
     </description>
@@ -44,7 +44,7 @@ Editors:  Thorsten Heinze
   </revision>
   <typedef name="loop-back-type">
     <type name="enumeration">
-      <enum name="non">
+      <enum name="none">
         <description>
           <text>none</text>
         </description>
@@ -96,7 +96,7 @@ Editors:  Thorsten Heinze
       <text>According to ITU-T M.3160</text>
     </description>
   </typedef>
-  <grouping name="channel-plan-type">
+  <grouping name="channel-plan-type-g">
     <leaf name="supported-channel-plan">
       <type name="string"/>
       <default value="Channel plan name not defined."/>
@@ -134,7 +134,7 @@ Editors:  Thorsten Heinze
       <key value="transmission-mode-id"/>
       <config value="false"/>
       <min-elements value="1"/>
-      <uses name="transmission-mode-type"/>
+      <uses name="transmission-mode-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -143,7 +143,7 @@ Editors:  Thorsten Heinze
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="transmission-mode-type">
+  <grouping name="transmission-mode-type-g">
     <leaf name="transmission-mode-id">
       <type name="core-model:universal-id"/>
       <config value="false"/>
@@ -175,7 +175,7 @@ Editors:  Thorsten Heinze
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Code rate of the coding scheme in % (Net bit rate ≤ Gross bit rate · code rate).</text>
+        <text>Code rate of the coding scheme in % (Net bit rate ? Gross bit rate ? code rate).</text>
       </description>
     </leaf>
     <leaf name="tx-power-min">
@@ -257,7 +257,7 @@ Editors:  Thorsten Heinze
       <text>none</text>
     </description>
   </typedef>
-  <grouping name="air-interface-problem-severity-type">
+  <grouping name="air-interface-problem-severity-type-g">
     <leaf name="problem-kind-name">
       <type name="string"/>
       <default value="Problem kind name not defined."/>
@@ -276,7 +276,7 @@ Editors:  Thorsten Heinze
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="air-interface-current-problem-type">
+  <grouping name="air-interface-current-problem-type-g">
     <leaf name="problem-name">
       <type name="string"/>
       <default value="Problem name not specified."/>
@@ -285,12 +285,12 @@ Editors:  Thorsten Heinze
         <text>Name of the alarm according to AirInterface::AirInterfaceCapability::supportedAlarms</text>
       </description>
     </leaf>
-    <uses name="mw-current-problem"/>
+    <uses name="mw-current-problem-g"/>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="air-interface-performance-type">
+  <grouping name="air-interface-performance-type-g">
     <leaf name="es">
       <type name="int32"/>
       <units name="s"/>
@@ -664,28 +664,28 @@ Editors:  Thorsten Heinze
       <text>Consolidated performance information of the air interface.</text>
     </description>
   </grouping>
-  <grouping name="air-interface-current-performance-type">
+  <grouping name="air-interface-current-performance-type-g">
     <container name="performance-data">
       <config value="false"/>
-      <uses name="air-interface-performance-type"/>
+      <uses name="air-interface-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
-    <uses name="g:otn-current-data"/>
+    <uses name="g:otn-current-data-g"/>
     <description>
       <text>Turns performance information into current performance information by inheriting from OTN_CurrentData.</text>
     </description>
   </grouping>
-  <grouping name="air-interface-historical-performance-type">
+  <grouping name="air-interface-historical-performance-type-g">
     <container name="performance-data">
       <config value="false"/>
-      <uses name="air-interface-performance-type"/>
+      <uses name="air-interface-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
-    <uses name="g:otn-history-data"/>
+    <uses name="g:otn-history-data-g"/>
     <description>
       <text>Turns performance information into historical performance information by inheriting from OTN_HistoryData.</text>
     </description>
@@ -724,7 +724,7 @@ Editors:  Thorsten Heinze
       <text>none</text>
     </description>
   </typedef>
-  <grouping name="diversity-type">
+  <grouping name="diversity-type-g">
     <leaf name="diversity-name">
       <type name="string"/>
       <default value="Diversity name not defined."/>
@@ -768,7 +768,7 @@ Editors:  Thorsten Heinze
       <text>none</text>
     </description>
   </typedef>
-  <grouping name="air-interface-diversity-problem-severity-type">
+  <grouping name="air-interface-diversity-problem-severity-type-g">
     <leaf name="problem-kind-name">
       <type name="string"/>
       <default value="Problem kind name not defined."/>
@@ -787,7 +787,7 @@ Editors:  Thorsten Heinze
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="air-interface-diversity-current-problem-type">
+  <grouping name="air-interface-diversity-current-problem-type-g">
     <leaf name="problem-name">
       <type name="string"/>
       <default value="Problem name not specified."/>
@@ -796,12 +796,12 @@ Editors:  Thorsten Heinze
         <text>Name of the alarm according to AirInterfaceDiversity::AirInterfaceDiversityCapability::supportedAlarms</text>
       </description>
     </leaf>
-    <uses name="mw-current-problem"/>
+    <uses name="mw-current-problem-g"/>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="air-interface-diversity-performance-type">
+  <grouping name="air-interface-diversity-performance-type-g">
     <leaf name="snir-min">
       <type name="int8"/>
       <units name="dB"/>
@@ -833,33 +833,33 @@ Editors:  Thorsten Heinze
       <text>Consolidated performance information of the air interface diversity group.</text>
     </description>
   </grouping>
-  <grouping name="air-interface-diversity-current-performance-type">
+  <grouping name="air-interface-diversity-current-performance-type-g">
     <container name="performance-data">
       <config value="false"/>
-      <uses name="air-interface-diversity-performance-type"/>
+      <uses name="air-interface-diversity-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
-    <uses name="g:otn-current-data"/>
+    <uses name="g:otn-current-data-g"/>
     <description>
       <text>Turns performance information into current performance information by inheriting from OTN_CurrentData.</text>
     </description>
   </grouping>
-  <grouping name="air-interface-diversity-historical-performance-type">
+  <grouping name="air-interface-diversity-historical-performance-type-g">
     <container name="performance-data">
       <config value="false"/>
-      <uses name="air-interface-diversity-performance-type"/>
+      <uses name="air-interface-diversity-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
-    <uses name="g:otn-history-data"/>
+    <uses name="g:otn-history-data-g"/>
     <description>
       <text>Turns performance information into historical performance information by inheriting from OTN_HistoryData.</text>
     </description>
   </grouping>
-  <grouping name="tdm-structure-type">
+  <grouping name="tdm-structure-type-g">
     <leaf name="tdm-structure-name">
       <type name="string"/>
       <default value="TDM structure name not defined."/>
@@ -890,7 +890,7 @@ Editors:  Thorsten Heinze
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="structure-problem-severity-type">
+  <grouping name="structure-problem-severity-type-g">
     <leaf name="problem-kind-name">
       <type name="string"/>
       <default value="Problem kind name not defined."/>
@@ -909,7 +909,7 @@ Editors:  Thorsten Heinze
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="structure-current-problem-type">
+  <grouping name="structure-current-problem-type-g">
     <leaf name="problem-name">
       <type name="string"/>
       <default value="Problem name not specified."/>
@@ -918,7 +918,7 @@ Editors:  Thorsten Heinze
         <text>Name of the alarm according to Structure::StructureCapability::supportedAlarms</text>
       </description>
     </leaf>
-    <uses name="mw-current-problem"/>
+    <uses name="mw-current-problem-g"/>
     <description>
       <text>none</text>
     </description>
@@ -929,7 +929,7 @@ Editors:  Thorsten Heinze
       <text>Consolidated performance information of the Structure.</text>
     </description>
   </typedef>
-  <grouping name="structure-current-performance-type">
+  <grouping name="structure-current-performance-type-g">
     <leaf name="performance-data">
       <type name="structure-performance-type"/>
       <config value="false"/>
@@ -937,12 +937,12 @@ Editors:  Thorsten Heinze
         <text>none</text>
       </description>
     </leaf>
-    <uses name="g:otn-current-data"/>
+    <uses name="g:otn-current-data-g"/>
     <description>
       <text>Turns performance information into current performance information by inheriting from OTN_CurrentData.</text>
     </description>
   </grouping>
-  <grouping name="structure-historical-performance-type">
+  <grouping name="structure-historical-performance-type-g">
     <leaf name="performance-data">
       <type name="structure-performance-type"/>
       <config value="false"/>
@@ -950,12 +950,12 @@ Editors:  Thorsten Heinze
         <text>none</text>
       </description>
     </leaf>
-    <uses name="g:otn-history-data"/>
+    <uses name="g:otn-history-data-g"/>
     <description>
       <text>Turns performance information into historical performance information by inheriting from OTN_HistoryData.</text>
     </description>
   </grouping>
-  <grouping name="container-type">
+  <grouping name="container-type-g">
     <leaf name="container-name">
       <type name="string"/>
       <default value="Container name not yet defined."/>
@@ -993,7 +993,7 @@ Editors:  Thorsten Heinze
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="tdm-container-type">
+  <grouping name="tdm-container-type-g">
     <leaf name="tdm-container-name">
       <type name="string"/>
       <default value="TDM container name not defined."/>
@@ -1015,7 +1015,7 @@ Editors:  Thorsten Heinze
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="segment-id-type">
+  <grouping name="segment-id-type-g">
     <leaf name="structure-id-ref">
       <type name="core-model:universal-id"/>
       <description>
@@ -1032,7 +1032,7 @@ Editors:  Thorsten Heinze
       <text>Identifies the segments, which are used to transport the container.</text>
     </description>
   </grouping>
-  <grouping name="segment-status-type">
+  <grouping name="segment-status-type-g">
     <leaf name="segment-status-type-id">
       <type name="int16"/>
       <config value="false"/>
@@ -1078,7 +1078,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="container-problem-severity-type">
+  <grouping name="container-problem-severity-type-g">
     <leaf name="problem-kind-name">
       <type name="string"/>
       <default value="Problem kind name not defined."/>
@@ -1097,7 +1097,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="container-current-problem-type">
+  <grouping name="container-current-problem-type-g">
     <leaf name="problem-name">
       <type name="string"/>
       <default value="Problem name not specified."/>
@@ -1106,12 +1106,12 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <text>Name of the alarm according to Container::ContainerCapability::supportedAlarms</text>
       </description>
     </leaf>
-    <uses name="mw-current-problem"/>
+    <uses name="mw-current-problem-g"/>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="container-performance-type">
+  <grouping name="container-performance-type-g">
     <leaf name="tx-ethernet-bytes-max-s">
       <type name="int32"/>
       <units name="Bytes/s"/>
@@ -1152,28 +1152,28 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>Consolidated performance information of the Container.</text>
     </description>
   </grouping>
-  <grouping name="container-current-performance-type">
+  <grouping name="container-current-performance-type-g">
     <container name="performance-data">
       <config value="false"/>
-      <uses name="container-performance-type"/>
+      <uses name="container-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
-    <uses name="g:otn-current-data"/>
+    <uses name="g:otn-current-data-g"/>
     <description>
       <text>Turns performance information into current performance information by inheriting from OTN_CurrentData.</text>
     </description>
   </grouping>
-  <grouping name="container-historical-performance-type">
+  <grouping name="container-historical-performance-type-g">
     <container name="performance-data">
       <config value="false"/>
-      <uses name="container-performance-type"/>
+      <uses name="container-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
-    <uses name="g:otn-history-data"/>
+    <uses name="g:otn-history-data-g"/>
     <description>
       <text>Turns performance information into historical performance information by inheriting from OTN_HistoryData.</text>
     </description>
@@ -1190,41 +1190,41 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     </leaf>
     <container name="air-interface-capability">
       <config value="false"/>
-      <uses name="air-interface-capability"/>
+      <uses name="air-interface-capability-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="air-interface-configuration">
-      <uses name="air-interface-configuration"/>
+      <uses name="air-interface-configuration-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="air-interface-status">
       <config value="false"/>
-      <uses name="air-interface-status"/>
+      <uses name="air-interface-status-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="air-interface-current-problems">
       <config value="false"/>
-      <uses name="air-interface-current-problems"/>
+      <uses name="air-interface-current-problems-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="air-interface-current-performance">
       <config value="false"/>
-      <uses name="air-interface-current-performance"/>
+      <uses name="air-interface-current-performance-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="air-interface-historical-performances">
       <config value="false"/>
-      <uses name="air-interface-historical-performances"/>
+      <uses name="air-interface-historical-performances-g"/>
       <description>
         <text>none</text>
       </description>
@@ -1233,7 +1233,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </list>
-  <grouping name="air-interface-capability">
+  <grouping name="air-interface-capability-g">
     <leaf name="type-of-equipment">
       <type name="string"/>
       <default value="Type of equipment not yet defined."/>
@@ -1366,7 +1366,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <key value="supported-channel-plan"/>
       <config value="false"/>
       <min-elements value="1"/>
-      <uses name="channel-plan-type"/>
+      <uses name="channel-plan-type-g"/>
       <description>
         <text>List of channel spacing that are supported by the device.</text>
       </description>
@@ -1375,7 +1375,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>Describes the 'analog' capabilities of modem and transmitter of the microwave device. Value ranges of attributes are not independently (e.g. min. and max. transmit power depends on modulation). Legal combinations of values are expressed in transmissionModeTypes.</text>
     </description>
   </grouping>
-  <grouping name="air-interface-configuration">
+  <grouping name="air-interface-configuration-g">
     <leaf name="air-interface-name">
       <type name="string"/>
       <default value="Air interface ID not yet defined."/>
@@ -1564,7 +1564,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     </leaf>
     <leaf name="loop-back-kind-on">
       <type name="loop-back-type"/>
-      <default value="non"/>
+      <default value="none"/>
       <description>
         <text>Maintenance Feature. The currently configured type of looping back of the air interface header shall be expressed here. The received header is returned to the remote site.</text>
       </description>
@@ -1580,7 +1580,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     <list name="problem-kind-severity-list">
       <key value="problem-kind-name"/>
       <min-elements value="6"/>
-      <uses name="air-interface-problem-severity-type"/>
+      <uses name="air-interface-problem-severity-type-g"/>
       <description>
         <text>Severity of the problem to be configured.</text>
       </description>
@@ -1589,7 +1589,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>Configuration of the radio link.</text>
     </description>
   </grouping>
-  <grouping name="air-interface-status">
+  <grouping name="air-interface-status-g">
     <leaf name="tx-frequency-cur">
       <type name="int32"/>
       <units name="kHz"/>
@@ -1641,7 +1641,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Code rate of the currently operated coding scheme (Net bit rate ≤ Gross bit rate · code rate).</text>
+        <text>Code rate of the currently operated coding scheme (Net bit rate ? Gross bit rate ? code rate).</text>
       </description>
     </leaf>
     <leaf name="snir-cur">
@@ -1737,7 +1737,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     </leaf>
     <leaf name="loop-back-kind-up">
       <type name="loop-back-type"/>
-      <default value="non"/>
+      <default value="none"/>
       <config value="false"/>
       <description>
         <text>The currently active (not just configured) type of looping back of the air interface header shall be expressed here. The received header is returned to the remote site.</text>
@@ -1763,11 +1763,11 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>Measurements of current values on the air interface and operational status of the device.</text>
     </description>
   </grouping>
-  <grouping name="air-interface-current-problems">
+  <grouping name="air-interface-current-problems-g">
     <list name="current-problem-list">
       <key value="sequence-number"/>
       <config value="false"/>
-      <uses name="air-interface-current-problem-type"/>
+      <uses name="air-interface-current-problem-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -1776,13 +1776,13 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="air-interface-current-performance">
+  <grouping name="air-interface-current-performance-g">
     <list name="current-performance-data-list">
       <key value="scanner-id"/>
       <config value="false"/>
       <min-elements value="1"/>
       <max-elements value="2"/>
-      <uses name="air-interface-current-performance-type"/>
+      <uses name="air-interface-current-performance-type-g"/>
       <description>
         <text>At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.</text>
       </description>
@@ -1791,11 +1791,11 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>Aggregated performance information of the air interface at a particular moment.</text>
     </description>
   </grouping>
-  <grouping name="air-interface-historical-performances">
+  <grouping name="air-interface-historical-performances-g">
     <list name="historical-performance-data-list">
       <key value="history-data-id"/>
       <config value="false"/>
-      <uses name="air-interface-historical-performance-type"/>
+      <uses name="air-interface-historical-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -1913,41 +1913,41 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     </leaf>
     <container name="air-interface-diversity-capability">
       <config value="false"/>
-      <uses name="air-interface-diversity-capability"/>
+      <uses name="air-interface-diversity-capability-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="air-interface-diversity-configuration">
-      <uses name="air-interface-diversity-configuration"/>
+      <uses name="air-interface-diversity-configuration-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="air-interface-diversity-status">
       <config value="false"/>
-      <uses name="air-interface-diversity-status"/>
+      <uses name="air-interface-diversity-status-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="air-interface-diversity-current-problems">
       <config value="false"/>
-      <uses name="air-interface-diversity-current-problems"/>
+      <uses name="air-interface-diversity-current-problems-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="air-interface-diversity-current-performance">
       <config value="false"/>
-      <uses name="air-interface-diversity-current-performance"/>
+      <uses name="air-interface-diversity-current-performance-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="air-interface-diversity-historical-performances">
       <config value="false"/>
-      <uses name="air-interface-diversity-historical-performances"/>
+      <uses name="air-interface-diversity-historical-performances-g"/>
       <description>
         <text>none</text>
       </description>
@@ -1956,11 +1956,11 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </list>
-  <grouping name="air-interface-diversity-capability">
+  <grouping name="air-interface-diversity-capability-g">
     <list name="available-kinds-of-diversity">
       <key value="diversity-name"/>
       <config value="false"/>
-      <uses name="diversity-type"/>
+      <uses name="diversity-type-g"/>
       <description>
         <text>Available types of diversity to be listed.</text>
       </description>
@@ -1977,9 +1977,9 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>Describes the capabilities in implementing different types of air interface diversity.</text>
     </description>
   </grouping>
-  <grouping name="air-interface-diversity-configuration">
+  <grouping name="air-interface-diversity-configuration-g">
     <container name="air-interface-diversity">
-      <uses name="diversity-type"/>
+      <uses name="diversity-type-g"/>
       <description>
         <text>Type of air interface diversity configured at the link.</text>
       </description>
@@ -1996,7 +1996,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     <list name="problem-kind-severity-list">
       <key value="problem-kind-name"/>
       <min-elements value="3"/>
-      <uses name="air-interface-diversity-problem-severity-type"/>
+      <uses name="air-interface-diversity-problem-severity-type-g"/>
       <description>
         <text>Severity of the problem to be configured.</text>
       </description>
@@ -2005,7 +2005,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="air-interface-diversity-status">
+  <grouping name="air-interface-diversity-status-g">
     <leaf name="snir-cur">
       <type name="int8"/>
       <units name="dB"/>
@@ -2035,11 +2035,11 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="air-interface-diversity-current-problems">
+  <grouping name="air-interface-diversity-current-problems-g">
     <list name="current-problem-list">
       <key value="sequence-number"/>
       <config value="false"/>
-      <uses name="air-interface-diversity-current-problem-type"/>
+      <uses name="air-interface-diversity-current-problem-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2048,13 +2048,13 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="air-interface-diversity-current-performance">
+  <grouping name="air-interface-diversity-current-performance-g">
     <list name="current-performance-data-list">
       <key value="scanner-id"/>
       <config value="false"/>
       <min-elements value="1"/>
       <max-elements value="2"/>
-      <uses name="air-interface-diversity-current-performance-type"/>
+      <uses name="air-interface-diversity-current-performance-type-g"/>
       <description>
         <text>At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.</text>
       </description>
@@ -2063,11 +2063,11 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>Aggregated performance information of the air interface diversity configuration at a particular moment.</text>
     </description>
   </grouping>
-  <grouping name="air-interface-diversity-historical-performances">
+  <grouping name="air-interface-diversity-historical-performances-g">
     <list name="historical-performance-data-list">
       <key value="history-data-id"/>
       <config value="false"/>
-      <uses name="air-interface-diversity-historical-performance-type"/>
+      <uses name="air-interface-diversity-historical-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2089,41 +2089,41 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     </leaf>
     <container name="pure-ethernet-structure-capability">
       <config value="false"/>
-      <uses name="pure-ethernet-structure-capability"/>
+      <uses name="pure-ethernet-structure-capability-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="pure-ethernet-structure-configuration">
-      <uses name="pure-ethernet-structure-configuration"/>
+      <uses name="pure-ethernet-structure-configuration-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="pure-ethernet-structure-status">
       <config value="false"/>
-      <uses name="pure-ethernet-structure-status"/>
+      <uses name="pure-ethernet-structure-status-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="pure-ethernet-structure-current-problems">
       <config value="false"/>
-      <uses name="pure-ethernet-structure-current-problems"/>
+      <uses name="pure-ethernet-structure-current-problems-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="pure-ethernet-structure-current-performance">
       <config value="false"/>
-      <uses name="pure-ethernet-structure-current-performance"/>
+      <uses name="pure-ethernet-structure-current-performance-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="pure-ethernet-structure-historical-performances">
       <config value="false"/>
-      <uses name="pure-ethernet-structure-historical-performances"/>
+      <uses name="pure-ethernet-structure-historical-performances-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2132,7 +2132,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>The pureEthernetStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting Ethernet traffic only.</text>
     </description>
   </list>
-  <grouping name="pure-ethernet-structure-capability">
+  <grouping name="pure-ethernet-structure-capability-g">
     <leaf name="structure-id">
       <type name="core-model:universal-id"/>
       <config value="false"/>
@@ -2152,10 +2152,10 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>Describes the logical structuring of the physical capacity provided by a pure Ethernet microwave device. Segmentation is not available. No fixed segment size. No TDM transport.</text>
     </description>
   </grouping>
-  <grouping name="pure-ethernet-structure-configuration">
+  <grouping name="pure-ethernet-structure-configuration-g">
     <list name="problem-kind-severity-list">
       <key value="problem-kind-name"/>
-      <uses name="structure-problem-severity-type"/>
+      <uses name="structure-problem-severity-type-g"/>
       <description>
         <text>Severity of the type of problem to be configured.</text>
       </description>
@@ -2164,10 +2164,10 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="pure-ethernet-structure-status">
+  <grouping name="pure-ethernet-structure-status-g">
     <container name="segment-status-list">
       <config value="false"/>
-      <uses name="segment-status-type"/>
+      <uses name="segment-status-type-g"/>
       <description>
         <text>Status of the Ethernet transport segment. Always just one segment.</text>
       </description>
@@ -2184,11 +2184,11 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="pure-ethernet-structure-current-problems">
+  <grouping name="pure-ethernet-structure-current-problems-g">
     <list name="current-problem-list">
       <key value="sequence-number"/>
       <config value="false"/>
-      <uses name="structure-current-problem-type"/>
+      <uses name="structure-current-problem-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2197,13 +2197,13 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="pure-ethernet-structure-current-performance">
+  <grouping name="pure-ethernet-structure-current-performance-g">
     <list name="current-performance-data-list">
       <key value="scanner-id"/>
       <config value="false"/>
       <min-elements value="1"/>
       <max-elements value="2"/>
-      <uses name="structure-current-performance-type"/>
+      <uses name="structure-current-performance-type-g"/>
       <description>
         <text>At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.</text>
       </description>
@@ -2212,11 +2212,11 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>Aggregated performance information of the structure of an pure Ethernet microwave at a particular moment.</text>
     </description>
   </grouping>
-  <grouping name="pure-ethernet-structure-historical-performances">
+  <grouping name="pure-ethernet-structure-historical-performances-g">
     <list name="historical-performance-data-list">
       <key value="history-data-id"/>
       <config value="false"/>
-      <uses name="structure-historical-performance-type"/>
+      <uses name="structure-historical-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2243,41 +2243,41 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     </leaf>
     <container name="hybrid-mw-structure-capability">
       <config value="false"/>
-      <uses name="hybrid-mw-structure-capability"/>
+      <uses name="hybrid-mw-structure-capability-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="hybrid-mw-structure-configuration">
-      <uses name="hybrid-mw-structure-configuration"/>
+      <uses name="hybrid-mw-structure-configuration-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="hybrid-mw-structure-status">
       <config value="false"/>
-      <uses name="hybrid-mw-structure-status"/>
+      <uses name="hybrid-mw-structure-status-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="hybrid-mw-structure-current-problems">
       <config value="false"/>
-      <uses name="hybrid-mw-structure-current-problems"/>
+      <uses name="hybrid-mw-structure-current-problems-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="hybrid-mw-structure-current-performance">
       <config value="false"/>
-      <uses name="hybrid-mw-structure-current-performance"/>
+      <uses name="hybrid-mw-structure-current-performance-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="hybrid-mw-structure-historical-performances">
       <config value="false"/>
-      <uses name="hybrid-mw-structure-historical-performances"/>
+      <uses name="hybrid-mw-structure-historical-performances-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2286,7 +2286,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>The HybridMwStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting TDM and Ethernet traffic.</text>
     </description>
   </list>
-  <grouping name="hybrid-mw-structure-capability">
+  <grouping name="hybrid-mw-structure-capability-g">
     <leaf name="structure-id">
       <type name="core-model:universal-id"/>
       <config value="false"/>
@@ -2298,7 +2298,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <key value="tdm-structure-name"/>
       <config value="false"/>
       <min-elements value="1"/>
-      <uses name="tdm-structure-type"/>
+      <uses name="tdm-structure-type-g"/>
       <description>
         <text>Lists the TDM frame types that are supported.</text>
       </description>
@@ -2315,9 +2315,9 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>Describes the logical structuring of the physical capacity provided by a hybrid microwave device (TDM + Ethernet). Segmentation is available. TDM transport is available.</text>
     </description>
   </grouping>
-  <grouping name="hybrid-mw-structure-configuration">
+  <grouping name="hybrid-mw-structure-configuration-g">
     <container name="structure-type">
-      <uses name="tdm-structure-type"/>
+      <uses name="tdm-structure-type-g"/>
       <description>
         <text>TDM frame to be applied.</text>
       </description>
@@ -2331,7 +2331,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     </leaf>
     <list name="problem-kind-severity-list">
       <key value="problem-kind-name"/>
-      <uses name="structure-problem-severity-type"/>
+      <uses name="structure-problem-severity-type-g"/>
       <description>
         <text>Severity of the type of problem to be configured.</text>
       </description>
@@ -2340,11 +2340,11 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="hybrid-mw-structure-status">
+  <grouping name="hybrid-mw-structure-status-g">
     <list name="segment-status-list">
       <key value="segment-status-type-id"/>
       <config value="false"/>
-      <uses name="segment-status-type"/>
+      <uses name="segment-status-type-g"/>
       <description>
         <text>Status of each segment (all TDM and one Ethernet). Multiplicity = HybridMwStructure::StructureConfiguration::tdmReservedNumberOfSegments + 1</text>
       </description>
@@ -2361,11 +2361,11 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="hybrid-mw-structure-current-problems">
+  <grouping name="hybrid-mw-structure-current-problems-g">
     <list name="current-problem-list">
       <key value="sequence-number"/>
       <config value="false"/>
-      <uses name="structure-current-problem-type"/>
+      <uses name="structure-current-problem-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2374,13 +2374,13 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="hybrid-mw-structure-current-performance">
+  <grouping name="hybrid-mw-structure-current-performance-g">
     <list name="current-performance-data-list">
       <key value="scanner-id"/>
       <config value="false"/>
       <min-elements value="1"/>
       <max-elements value="2"/>
-      <uses name="structure-current-performance-type"/>
+      <uses name="structure-current-performance-type-g"/>
       <description>
         <text>At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.</text>
       </description>
@@ -2389,11 +2389,11 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>Aggregated performance information of the structure of a hybrid microwave at a particular moment.</text>
     </description>
   </grouping>
-  <grouping name="hybrid-mw-structure-historical-performances">
+  <grouping name="hybrid-mw-structure-historical-performances-g">
     <list name="historical-performance-data-list">
       <key value="history-data-id"/>
       <config value="false"/>
-      <uses name="structure-historical-performance-type"/>
+      <uses name="structure-historical-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2419,41 +2419,41 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     </leaf>
     <container name="ethernet-container-capability">
       <config value="false"/>
-      <uses name="ethernet-container-capability"/>
+      <uses name="ethernet-container-capability-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="ethernet-container-configuration">
-      <uses name="ethernet-container-configuration"/>
+      <uses name="ethernet-container-configuration-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="ethernet-container-status">
       <config value="false"/>
-      <uses name="ethernet-container-status"/>
+      <uses name="ethernet-container-status-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="ethernet-container-current-problems">
       <config value="false"/>
-      <uses name="ethernet-container-current-problems"/>
+      <uses name="ethernet-container-current-problems-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="ethernet-container-current-performance">
       <config value="false"/>
-      <uses name="ethernet-container-current-performance"/>
+      <uses name="ethernet-container-current-performance-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="ethernet-container-historical-performances">
       <config value="false"/>
-      <uses name="ethernet-container-historical-performances"/>
+      <uses name="ethernet-container-historical-performances-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2462,7 +2462,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </list>
-  <grouping name="ethernet-container-capability">
+  <grouping name="ethernet-container-capability-g">
     <leaf name="bundling-is-avail">
       <type name="boolean"/>
       <default value="false"/>
@@ -2555,7 +2555,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="ethernet-container-configuration">
+  <grouping name="ethernet-container-configuration-g">
     <leaf name="container-id">
       <type name="string"/>
       <default value="No Ethernet Flow associated yet."/>
@@ -2566,7 +2566,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     <list name="segments-id-list">
       <key value="structure-id-ref segment-id-ref"/>
       <min-elements value="1"/>
-      <uses name="segment-id-type"/>
+      <uses name="segment-id-type-g"/>
       <description>
         <text>Lists the segments used for transporting this Ethernet container. In case EthernetContainer::ContainerCapability::bundlingIsAvail==0, all TypeDefinitions::segmentIdType::structureId must be identical in the list.</text>
       </description>
@@ -2644,7 +2644,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     <list name="problem-kind-severity-list">
       <key value="problem-kind-name"/>
       <min-elements value="2"/>
-      <uses name="container-problem-severity-type"/>
+      <uses name="container-problem-severity-type-g"/>
       <description>
         <text>Severity of the problem to be configured.</text>
       </description>
@@ -2653,7 +2653,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="ethernet-container-status">
+  <grouping name="ethernet-container-status-g">
     <leaf name="last-status-change">
       <type name="yang:date-and-time"/>
       <default value="2017-01-01T00:00:00.0Z"/>
@@ -2666,11 +2666,11 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="ethernet-container-current-problems">
+  <grouping name="ethernet-container-current-problems-g">
     <list name="current-problem-list">
       <key value="sequence-number"/>
       <config value="false"/>
-      <uses name="container-current-problem-type"/>
+      <uses name="container-current-problem-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2679,13 +2679,13 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="ethernet-container-current-performance">
+  <grouping name="ethernet-container-current-performance-g">
     <list name="current-performance-data-list">
       <key value="scanner-id"/>
       <config value="false"/>
       <min-elements value="1"/>
       <max-elements value="2"/>
-      <uses name="container-current-performance-type"/>
+      <uses name="container-current-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2694,11 +2694,11 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>Aggregated performance information of the Ethernet container at a particular moment.</text>
     </description>
   </grouping>
-  <grouping name="ethernet-container-historical-performances">
+  <grouping name="ethernet-container-historical-performances-g">
     <list name="historical-performance-data-list">
       <key value="history-data-id"/>
       <config value="false"/>
-      <uses name="container-historical-performance-type"/>
+      <uses name="container-historical-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2720,41 +2720,41 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     </leaf>
     <container name="tdm-container-capability">
       <config value="false"/>
-      <uses name="tdm-container-capability"/>
+      <uses name="tdm-container-capability-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="tdm-container-configuration">
-      <uses name="tdm-container-configuration"/>
+      <uses name="tdm-container-configuration-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="tdm-container-status">
       <config value="false"/>
-      <uses name="tdm-container-status"/>
+      <uses name="tdm-container-status-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="tdm-container-current-problems">
       <config value="false"/>
-      <uses name="tdm-container-current-problems"/>
+      <uses name="tdm-container-current-problems-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="tdm-container-current-performance">
       <config value="false"/>
-      <uses name="tdm-container-current-performance"/>
+      <uses name="tdm-container-current-performance-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="tdm-container-historical-performances">
       <config value="false"/>
-      <uses name="tdm-container-historical-performances"/>
+      <uses name="tdm-container-historical-performances-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2763,12 +2763,12 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </list>
-  <grouping name="tdm-container-capability">
+  <grouping name="tdm-container-capability-g">
     <list name="supported-tdm-container-types-list">
       <key value="tdm-container-name"/>
       <config value="false"/>
       <min-elements value="1"/>
-      <uses name="tdm-container-type"/>
+      <uses name="tdm-container-type-g"/>
       <description>
         <text>Lists the TDM containers that are supported.</text>
       </description>
@@ -2785,7 +2785,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>Bundling is not available.</text>
     </description>
   </grouping>
-  <grouping name="tdm-container-configuration">
+  <grouping name="tdm-container-configuration-g">
     <leaf name="container-id">
       <type name="string"/>
       <default value="No TDM Flow associated yet."/>
@@ -2794,13 +2794,13 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       </description>
     </leaf>
     <container name="container-type">
-      <uses name="tdm-container-type"/>
+      <uses name="tdm-container-type-g"/>
       <description>
         <text>Type of TDM container.</text>
       </description>
     </container>
     <container name="segment-id">
-      <uses name="segment-id-type"/>
+      <uses name="segment-id-type-g"/>
       <description>
         <text>Multiplicity = 1; One segment per TDM container; Type of segment must match type of container;</text>
       </description>
@@ -2808,7 +2808,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     <list name="problem-kind-severity-list">
       <key value="problem-kind-name"/>
       <min-elements value="2"/>
-      <uses name="container-problem-severity-type"/>
+      <uses name="container-problem-severity-type-g"/>
       <description>
         <text>Severity of the problem to be configured.</text>
       </description>
@@ -2817,7 +2817,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="tdm-container-status">
+  <grouping name="tdm-container-status-g">
     <leaf name="last-status-change">
       <type name="yang:date-and-time"/>
       <default value="2017-01-01T00:00:00.0Z"/>
@@ -2830,11 +2830,11 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="tdm-container-current-problems">
+  <grouping name="tdm-container-current-problems-g">
     <list name="current-problem-list">
       <key value="sequence-number"/>
       <config value="false"/>
-      <uses name="container-current-problem-type"/>
+      <uses name="container-current-problem-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2843,13 +2843,13 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="tdm-container-current-performance">
+  <grouping name="tdm-container-current-performance-g">
     <list name="current-performance-data-list">
       <key value="scanner-id"/>
       <config value="false"/>
       <min-elements value="1"/>
       <max-elements value="2"/>
-      <uses name="container-current-performance-type"/>
+      <uses name="container-current-performance-type-g"/>
       <description>
         <text>At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.</text>
       </description>
@@ -2858,11 +2858,11 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>Aggregated performance information of the TDM container at a particular moment.</text>
     </description>
   </grouping>
-  <grouping name="tdm-container-historical-performances">
+  <grouping name="tdm-container-historical-performances-g">
     <list name="historical-performance-data-list">
       <key value="history-data-id"/>
       <config value="false"/>
-      <uses name="container-historical-performance-type"/>
+      <uses name="container-historical-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2871,7 +2871,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>Aggregated performance information of the TDM container for a pre-defined measurement interval.</text>
     </description>
   </grouping>
-  <grouping name="mw-current-problem">
+  <grouping name="mw-current-problem-g">
     <leaf name="sequence-number">
       <type name="int32"/>
       <config value="false"/>
@@ -2900,12 +2900,12 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     </description>
   </grouping>
   <notification name="object-creation-notification">
-    <uses name="object-creation-notification"/>
+    <uses name="object-creation-notification-g"/>
     <description>
       <text>none</text>
     </description>
   </notification>
-  <grouping name="object-creation-notification">
+  <grouping name="object-creation-notification-g">
     <leaf name="counter">
       <type name="int32"/>
       <default value="-1"/>
@@ -2938,12 +2938,12 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     </description>
   </grouping>
   <notification name="object-deletion-notification">
-    <uses name="object-deletion-notification"/>
+    <uses name="object-deletion-notification-g"/>
     <description>
       <text>none</text>
     </description>
   </notification>
-  <grouping name="object-deletion-notification">
+  <grouping name="object-deletion-notification-g">
     <leaf name="counter">
       <type name="int32"/>
       <default value="-1"/>
@@ -2969,12 +2969,12 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     </description>
   </grouping>
   <notification name="attribute-value-changed-notification">
-    <uses name="attribute-value-changed-notification"/>
+    <uses name="attribute-value-changed-notification-g"/>
     <description>
       <text>none</text>
     </description>
   </notification>
-  <grouping name="attribute-value-changed-notification">
+  <grouping name="attribute-value-changed-notification-g">
     <leaf name="counter">
       <type name="int32"/>
       <default value="-1"/>
@@ -3014,12 +3014,12 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     </description>
   </grouping>
   <notification name="problem-notification">
-    <uses name="problem-notification"/>
+    <uses name="problem-notification-g"/>
     <description>
       <text>none</text>
     </description>
   </notification>
-  <grouping name="problem-notification">
+  <grouping name="problem-notification-g">
     <leaf name="counter">
       <type name="int32"/>
       <default value="-1"/>
