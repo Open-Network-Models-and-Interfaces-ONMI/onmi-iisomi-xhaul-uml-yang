@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module name="g.874.1-model"
         xmlns="urn:ietf:params:xml:ns:yang:yin:1"
-        xmlns:g.874.1-model="urn:onf:params:xml:ns:yang:G.874.1-model"
-        xmlns:core-model="urn:onf:params:xml:ns:yang:CoreModel"
+        xmlns:g.874.1-model="urn:onf:params:xml:ns:yang:g.874.1-model"
+        xmlns:core-model="urn:onf:params:xml:ns:yang:core-model"
         xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types">
-  <namespace uri="urn:onf:params:xml:ns:yang:G.874.1-model"/>
+  <namespace uri="urn:onf:params:xml:ns:yang:g.874.1-model"/>
   <prefix value="g.874.1-model"/>
   <import module="core-model">
     <prefix value="core-model"/>
@@ -30,7 +30,7 @@ Editors:  Thorsten Heinze
   <description>
     <text>&lt;p&gt;Version 2.02; outcome of the 10/2013 Nuremberg meeting.&lt;br&gt;Version 2.03; updates for Geneva 03-2014&lt;br&gt;Version 2.04; updates for Shanghai 09-2014&lt;br&gt;Version 2.05; input to Geneva 11-2014&lt;br&gt;Version 2.06; output from Geneva 11-2014&lt;br&gt;Version 2.07; using OpenProfile 3-2015&lt;br&gt;Version 2.08; output from Geneva 06-2015&lt;/p&gt;</text>
   </description>
-  <revision date="2017-02-17">
+  <revision date="2017-03-20">
     <description>
       <text>Initial version</text>
     </description>
@@ -38,19 +38,19 @@ Editors:  Thorsten Heinze
       <text>ONF TR 532: A YANG Data Model for Wireless Networks.</text>
     </reference>
   </revision>
-  <grouping name="otn-current-data">
+  <grouping name="otn-current-data-g">
     <leaf name="timestamp">
       <type name="date-and-time"/>
       <description>
         <text>The timestamp associated with when the current data was collected.</text>
       </description>
     </leaf>
-    <uses name="q.822-current-data"/>
+    <uses name="q.822-current-data-g"/>
     <description>
       <text>This object class is an abstract class from which the OTN layer-specific CurrentData object classes are inherited. This object class is a subclass of the Q.822 CurrentData object class, which in turn is a subclass of X.739 Scanner object class. It inherits the following attributes: scannerId, operationalState, granularityPeriod, administrativeState, suspectIntervalFlag, elapsedTime, observedObjectClass, and observedObjectInstance.</text>
     </description>
   </grouping>
-  <grouping name="otn-history-data">
+  <grouping name="otn-history-data-g">
     <leaf name="suspect-interval-flag">
       <type name="boolean"/>
       <default value="false"/>
@@ -58,7 +58,7 @@ Editors:  Thorsten Heinze
         <text>This attribute indicates that the data collected during the interval is suspect.</text>
       </description>
     </leaf>
-    <uses name="q.822-history-data"/>
+    <uses name="q.822-history-data-g"/>
     <description>
       <text>This object class is an abstract class from which the OTN layer-specific HistoryData object classes are inherited. </text>
     </description>
@@ -205,7 +205,7 @@ Editors:  Thorsten Heinze
       <text>For more information on Administrative State, See ITU-T Recs. X.731 and M.3100.</text>
     </description>
   </typedef>
-  <typedef name="octk-nim-kbit-rate">
+  <typedef name="oc-tk-nim-k-bit-rate">
     <type name="enumeration">
       <enum name="2.5-g">
         <description>
@@ -254,7 +254,7 @@ Editors:  Thorsten Heinze
       <text>List of modes for trace identifier mismatch detection.</text>
     </description>
   </typedef>
-  <typedef name="octk-nim-problem-list">
+  <typedef name="oc-tk-nim-problem-list">
     <type name="enumeration">
       <enum name="los-p">
         <description>
@@ -340,7 +340,7 @@ Editors:  Thorsten Heinze
       <text>List of value modes for the sink side of the tandem connection monitoring function.</text>
     </description>
   </typedef>
-  <typedef name="opsmnk-ttp-kbit-rate">
+  <typedef name="ops-mnk-ttp-k-bit-rate">
     <type name="enumeration">
       <enum name="40-g">
         <description>
@@ -357,7 +357,7 @@ Editors:  Thorsten Heinze
       <text>Provides an enumeration with the meaning of each 'k' value.</text>
     </description>
   </typedef>
-  <typedef name="opsmnk-ttp-problem-list">
+  <typedef name="ops-mnk-ttp-problem-list">
     <type name="enumeration">
       <enum name="los">
         <description>
@@ -374,7 +374,7 @@ Editors:  Thorsten Heinze
       <text>The valid list of problems for the entity.</text>
     </description>
   </typedef>
-  <typedef name="opsn-ttp-problem-list">
+  <typedef name="op-sn-ttp-problem-list">
     <type name="enumeration">
       <enum name="los">
         <description>
@@ -386,7 +386,7 @@ Editors:  Thorsten Heinze
       <text>The valid list of problems for the entity.</text>
     </description>
   </typedef>
-  <typedef name="otm-n-kbit-rates">
+  <typedef name="otm-n-k-bit-rates">
     <type name="enumeration">
       <enum name="2.5-g">
         <description>
@@ -479,7 +479,7 @@ Editors:  Thorsten Heinze
       <text>The enumeration of the options for the Automatic Power Reduction Status.</text>
     </description>
   </typedef>
-  <typedef name="otsn-ttp-problem-list">
+  <typedef name="ot-sn-ttp-problem-list">
     <type name="enumeration">
       <enum name="bdi-p">
         <description>
@@ -521,7 +521,7 @@ Editors:  Thorsten Heinze
       <text>The valid list of problems for the entity.</text>
     </description>
   </typedef>
-  <typedef name="otuk-ctp-adaptation">
+  <typedef name="ot-uk-ctp-adaptation">
     <type name="enumeration">
       <enum name="regular">
         <description>
@@ -548,7 +548,7 @@ Editors:  Thorsten Heinze
       <text>The adaptation options for OTUk_ConnectionTermationPoints.</text>
     </description>
   </typedef>
-  <typedef name="otuk-ctp-kbit-rate">
+  <typedef name="ot-uk-ctp-k-bit-rate">
     <type name="enumeration">
       <enum name="2.5-g">
         <description>
@@ -575,7 +575,7 @@ Editors:  Thorsten Heinze
       <text>Provides an enumeration with the meaning of each 'k' value.</text>
     </description>
   </typedef>
-  <typedef name="otuk-ctp-problem-list">
+  <typedef name="ot-uk-ctp-problem-list">
     <type name="enumeration">
       <enum name="lof">
         <description>
@@ -597,7 +597,7 @@ Editors:  Thorsten Heinze
       <text>The valid list of problems for the entity.</text>
     </description>
   </typedef>
-  <typedef name="otuk-ttp-problem-list">
+  <typedef name="ot-uk-ttp-problem-list">
     <type name="enumeration">
       <enum name="tim">
         <description>
@@ -817,12 +817,12 @@ The semantic of each bit position will be defined in the Documentation field of 
           <text>none</text>
         </description>
       </enum>
-      <enum name="period-15min">
+      <enum name="period-15-min">
         <description>
           <text>none</text>
         </description>
       </enum>
-      <enum name="period-24hours">
+      <enum name="period-24-hours">
         <description>
           <text>none</text>
         </description>
@@ -832,7 +832,7 @@ The semantic of each bit position will be defined in the Documentation field of 
       <text>The enumeration with the options for granularity period of the performance data.</text>
     </description>
   </typedef>
-  <grouping name="q.822-current-data">
+  <grouping name="q.822-current-data-g">
     <leaf name="suspect-interval-flag">
       <type name="boolean"/>
       <description>
@@ -845,12 +845,12 @@ The semantic of each bit position will be defined in the Documentation field of 
         <text>none</text>
       </description>
     </leaf>
-    <uses name="x.739-scanner"/>
+    <uses name="x.739-scanner-g"/>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="q.822-history-data">
+  <grouping name="q.822-history-data-g">
     <leaf name="history-data-id">
       <type name="string"/>
       <description>
@@ -869,12 +869,12 @@ The semantic of each bit position will be defined in the Documentation field of 
         <text>none</text>
       </description>
     </leaf>
-    <uses name="x.721-top"/>
+    <uses name="x.721-top-g"/>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="x.739-scanner">
+  <grouping name="x.739-scanner-g">
     <leaf name="scanner-id">
       <type name="string"/>
       <description>
@@ -893,12 +893,12 @@ The semantic of each bit position will be defined in the Documentation field of 
         <text>none</text>
       </description>
     </leaf>
-    <uses name="x.721-top"/>
+    <uses name="x.721-top-g"/>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="x.721-top">
+  <grouping name="x.721-top-g">
     <leaf name="object-class">
       <type name="object-identifier"/>
       <description>

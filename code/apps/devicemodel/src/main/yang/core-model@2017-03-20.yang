@@ -1,0 +1,1700 @@
+module core-model {
+    namespace "urn:onf:params:xml:ns:yang:core-model";
+    prefix core-model;
+    organization "ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project";
+    contact "WG Web: <https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport>
+             WG List:  <mailto:wireless-transport@login.opennetworking.org>
+             WG Chair: Lyndon Ong
+                       <mailto:lyong@ciena.com>
+             WG Chair: Giorgio Cazzaniga
+                       <mailto:giorgio.cazzaniga@sm-optics.com>
+             Editors:  Thorsten Heinze
+                       <mailto:thorsten.heinze@telefonica.com>
+                       Martin Skorupski
+                       <mailto:martin.skorupski@highstreet-technologies.com>";
+    description "This module contains a collection of YANG definitions for managing wireless networks.";
+    revision 2017-03-20 {
+        description "Initial version";
+        reference "ONF TR 532: A YANG Data Model for Wireless Networks.";
+    }
+    /***********************
+    * package core-network-model
+    **********************/ 
+        /***********************
+        * package type-definitions
+        **********************/ 
+            /***********************
+            * package resilience
+            **********************/ 
+                typedef protection-reason {
+                    type enumeration {
+                        enum wait-to-revert {
+                            description "removed";
+                        }
+                        enum signal-degrade {
+                            description "removed";
+                        }
+                        enum signal-fail {
+                            description "removed";
+                        }
+                    }
+                    description "removed";
+                }
+                typedef route-selection-control {
+                    type enumeration {
+                        enum normal {
+                            description "removed";
+                        }
+                        enum manual {
+                            description "removed";
+                        }
+                        enum forced {
+                            description "removed";
+                        }
+                        enum lock-out {
+                            description "removed";
+                        }
+                    }
+                    description "removed";
+                }
+                typedef route-selection-reason {
+                    type enumeration {
+                        enum wait-to-revert {
+                            description "removed";
+                        }
+                        enum signal-degrade {
+                            description "removed";
+                        }
+                        enum signal-fail {
+                            description "removed";
+                        }
+                        enum normal {
+                            description "removed";
+                        }
+                        enum manual {
+                            description "removed";
+                        }
+                        enum forced {
+                            description "removed";
+                        }
+                        enum lock-out {
+                            description "removed";
+                        }
+                    }
+                    description "removed";
+                }
+                typedef switch-control {
+                    type enumeration {
+                        enum normal {
+                            description "removed";
+                        }
+                        enum manual {
+                            description "removed";
+                        }
+                        enum forced {
+                            description "removed";
+                        }
+                    }
+                    description "none";
+                }
+                typedef switch-state-reason {
+                    type enumeration {
+                        enum wait-to-revert {
+                            description "removed";
+                        }
+                        enum signal-degrade {
+                            description "removed";
+                        }
+                        enum signal-fail {
+                            description "removed";
+                        }
+                        enum normal {
+                            description "removed";
+                        }
+                        enum manual {
+                            description "removed";
+                        }
+                        enum forced {
+                            description "removed";
+                        }
+                    }
+                    description "removed";
+                }
+                typedef reversion-mode {
+                    type enumeration {
+                        enum revertive {
+                            description "removed";
+                        }
+                        enum non-revertive {
+                            description "removed";
+                        }
+                    }
+                    description "removed";
+                }
+                grouping global-pac-g {
+                    uses global-class-g;
+                    description "removed";
+                }
+                grouping local-pac-g {
+                    uses local-class-g;
+                    description "removed";
+                }
+                typedef protection-type {
+                    type string;
+                    description "removed";
+                }
+
+            typedef layer-protocol-name {
+                type string;
+                description "removed";
+            }
+            typedef port-role {
+                type string;
+                description "removed";
+            }
+            typedef port-direction {
+                type enumeration {
+                    enum bidirectional {
+                        description "removed";
+                    }
+                    enum input {
+                        description "removed";
+                    }
+                    enum output {
+                        description "removed";
+                    }
+                    enum unidentified-or-unknown {
+                        description "removed";
+                    }
+                }
+                description "removed";
+            }
+            typedef forwarding-direction {
+                type enumeration {
+                    enum bidirectional {
+                        description "removed";
+                    }
+                    enum unidirectional {
+                        description "removed";
+                    }
+                    enum undefined-or-unknown {
+                        description "removed";
+                    }
+                }
+                description "removed";
+            }
+            typedef termination-direction {
+                type enumeration {
+                    enum bidirectional {
+                        description "removed";
+                    }
+                    enum sink {
+                        description "removed";
+                    }
+                    enum source {
+                        description "removed";
+                    }
+                    enum undefined-or-unknown {
+                        description "removed";
+                    }
+                }
+                description "removed";
+            }
+            typedef extended-termination-direction {
+                type enumeration {
+                    enum bidirectional {
+                        description "removed";
+                    }
+                    enum sink {
+                        description "removed";
+                    }
+                    enum source {
+                        description "removed";
+                    }
+                    enum undefined-or-unknown {
+                        description "removed";
+                    }
+                    enum contra-direction-sink {
+                        description "removed";
+                    }
+                    enum contra-direction-source {
+                        description "removed";
+                    }
+                }
+                description "removed";
+            }
+            typedef termination-state {
+                type enumeration {
+                    enum lp-can-never-terminate {
+                        description "removed";
+                    }
+                    enum lt-not-terminated {
+                        description "removed";
+                    }
+                    enum terminated-server-to-client-flow {
+                        description "removed";
+                    }
+                    enum terminated-client-to-server-flow {
+                        description "removed";
+                    }
+                    enum terminated-bidirectional {
+                        description "removed";
+                    }
+                    enum lt-permenantly-terminated {
+                        description "removed";
+                    }
+                    enum termination-state-unknown {
+                        description "removed";
+                    }
+                }
+                description "removed";
+            }
+
+        /***********************
+        * package object-classes
+        **********************/ 
+            /***********************
+            * package resilience
+            **********************/ 
+                grouping configuration-and-switch-controller-g {
+                    leaf switch-rule {
+                        type to-be-defined;
+                        description "removed";
+                    }
+                    leaf-list fc-switch {
+                        type leafref {
+                            path '/forwarding-construct/fc-switch/uuid';
+                        }
+                        description "removed";
+                    }
+                    container control-parameters {
+                        uses control-parameters-pac-g;
+                        description "removed";
+                    }
+                    leaf-list profile-proxy {
+                        type string;
+                        description "removed";
+                    }
+                    container local-pac {
+                        uses local-pac-g;
+                        description "none";
+                    }
+                    container global-pac {
+                        uses global-pac-g;
+                        description "none";
+                    }
+                    leaf is-frozen {
+                        type boolean;
+                        description "removed";
+                    }
+                    leaf is-coordinated-switching-both-ends {
+                        type boolean;
+                        description "removed";
+                    }
+                    leaf-list subordinate-controller {
+                        type leafref {
+                            path '/network-element/ltp/lp/config-and-switch-controller/switch-rule';
+                        }
+                        description "removed";
+                    }
+                    description "removed";
+                }
+                grouping control-parameters-pac-g {
+                    leaf reversion-mode {
+                        type reversion-mode;
+                        description "removed";
+                    }
+                    leaf wait-to-revert-time {
+                        type int64;
+                        default 15;
+                        description "removed";
+                    }
+                    leaf prot-type {
+                        type protection-type;
+                        description "removed";
+                    }
+                    leaf hold-off-time {
+                        type int64;
+                        description "removed";
+                    }
+                    leaf network-scheme-specification {
+                        type string;
+                        description "none";
+                    }
+                    description "removed";
+                }
+                grouping fc-switch-g {
+                    leaf hold-off-time {
+                        type int64;
+                        description "removed";
+                    }
+                    leaf prot-type {
+                        type protection-type;
+                        description "removed";
+                    }
+                    leaf reversion-mode {
+                        type reversion-mode;
+                        description "removed";
+                    }
+                    leaf-list selected-fc-port {
+                        type leafref {
+                            path '/forwarding-construct/fc-port/uuid';
+                        }
+                        description "removed";
+                    }
+                    leaf-list profile-proxy {
+                        type string;
+                        description "removed";
+                    }
+                    container internal-configuration-and-switch-control {
+                        uses configuration-and-switch-controller-g;
+                        description "removed";
+                    }
+                    leaf switch-control {
+                        type switch-control;
+                        description "removed";
+                    }
+                    leaf switch-selects-ports {
+                        type port-direction;
+                        description "removed";
+                    }
+                    leaf switch-selection-reason {
+                        type switch-state-reason;
+                        config false;
+                        description "removed";
+                    }
+                    container control-parameters {
+                        uses control-parameters-pac-g;
+                        description "none";
+                    }
+                    leaf wait-to-restore-time {
+                        type int64;
+                        description "removed";
+                    }
+                    uses local-class-g;
+                    description "removed";
+                }
+
+            grouping forwarding-domain-g {
+                leaf-list layer-protocol-name {
+                    type layer-protocol-name;
+                    min-elements 1;
+                    description "removed";
+                }
+                leaf-list lower-level-fd {
+                    type leafref {
+                        path '/network-element/fd/uuid';
+                    }
+                    description "removed";
+                }
+                leaf-list fc {
+                    type leafref {
+                        path '/forwarding-construct/uuid';
+                    }
+                    description "removed";
+                }
+                leaf-list ltp {
+                    type leafref {
+                        path '/network-element/ltp/uuid';
+                    }
+                    description "removed";
+                }
+                leaf-list lower-level-link {
+                    type string;
+                    description "removed";
+                }
+                uses global-class-g;
+                description "removed";
+            }
+            grouping forwarding-construct-g {
+                leaf layer-protocol-name {
+                    type layer-protocol-name;
+                    description "removed";
+                }
+                leaf-list lower-level-fc {
+                    type leafref {
+                        path '/forwarding-construct/uuid';
+                    }
+                    description "removed";
+                }
+                leaf-list fc-route {
+                    type string;
+                    description "removed";
+                }
+                list fc-port {
+                    key 'uuid';
+                    min-elements 2;
+                    uses fc-port-g;
+                    description "removed";
+                }
+                list fc-switch {
+                    key 'uuid';
+                    uses fc-switch-g;
+                    description "removed";
+                }
+                leaf forwarding-direction {
+                    type forwarding-direction;
+                    description "removed";
+                }
+                leaf is-protection-lock-out {
+                    if-feature protection-exclude-server;
+                    type boolean;
+                    description "removed";
+                }
+                leaf service-priority {
+                    type int64;
+                    description "removed";
+                }
+                leaf-list supported-link {
+                    type string;
+                    description "removed";
+                }
+                uses global-class-g;
+                description "removed";
+            }
+            container network-element {
+                presence  "";
+                list fd {
+                    key 'uuid';
+                    uses forwarding-domain-g;
+                    description "removed";
+                }
+                list ltp {
+                    key 'uuid';
+                    uses logical-termination-point-g;
+                    description "removed";
+                }
+                uses global-class-g;
+                description "removed";
+            }
+            list forwarding-construct {
+                key 'uuid';
+                uses forwarding-construct-g;
+                description "none";
+            }
+            grouping fc-port-g {
+                leaf-list ltp {
+                    type leafref {
+                        path '/network-element/ltp/uuid';
+                    }
+                    max-elements 2;
+                    description "removed";
+                }
+                leaf role {
+                    type port-role;
+                    description "removed";
+                }
+                leaf fc-port-direction {
+                    type port-direction;
+                    description "removed";
+                }
+                leaf is-protection-lock-out {
+                    if-feature protection-exclude-fc-port;
+                    type boolean;
+                    description "removed";
+                }
+                leaf selection-priority {
+                    type int64;
+                    description "removed";
+                }
+                leaf is-internal-port {
+                    type boolean;
+                    config false;
+                    description "removed";
+                }
+                leaf-list fc-route-feeds-fc-port-egress {
+                    type string;
+                    description "removed";
+                }
+                uses local-class-g;
+                description "removed";
+            }
+            grouping layer-protocol-g {
+                leaf layer-protocol-name {
+                    type layer-protocol-name;
+                    description "removed";
+                }
+                leaf configured-client-capacity {
+                    type to-be-defined;
+                    description "removed";
+                }
+                leaf lp-direction {
+                    type termination-direction;
+                    description "removed";
+                }
+                leaf termination-state {
+                    type termination-state;
+                    description "removed";
+                }
+                list config-and-switch-controller {
+                    key 'switch-rule';
+                    uses configuration-and-switch-controller-g;
+                    description "removed";
+                }
+                leaf is-protection-lock-out {
+                    if-feature protection-exclude-ltp;
+                    type boolean;
+                    description "removed";
+                }
+                leaf fc-blocks-signal-to-lp {
+                    type string;
+                    description "none";
+                }
+                uses local-class-g;
+                description "removed";
+            }
+            grouping logical-termination-point-g {
+                leaf-list server-ltp {
+                    type leafref {
+                        path '/network-element/ltp/uuid';
+                    }
+                    description "removed";
+                }
+                leaf-list client-ltp {
+                    type leafref {
+                        path '/network-element/ltp/uuid';
+                    }
+                    description "removed";
+                }
+                list lp {
+                    key 'uuid';
+                    min-elements 1;
+                    uses layer-protocol-g;
+                    description "removed";
+                }
+                leaf connected-ltp {
+                    type leafref {
+                        path '/network-element/ltp/uuid';
+                    }
+                    description "removed";
+                }
+                leaf peer-ltp {
+                    type leafref {
+                        path '/network-element/ltp/uuid';
+                    }
+                    description "removed";
+                }
+                leaf-list physical-port-reference {
+                    type string;
+                    description "removed";
+                }
+                leaf-list ltp-in-other-view {
+                    type leafref {
+                        path '/network-element/ltp/uuid';
+                    }
+                    description "removed";
+                }
+                leaf ltp-direction {
+                    type termination-direction;
+                    description "removed";
+                }
+                uses global-class-g;
+                description "removed";
+            }
+            feature protection-exclude-server {
+                description "In protection context if server of protection where entire server is to be excluded from use for protection.";
+            }
+            feature protection-exclude-fc-port {
+                description "In protection context where the FcPort is to be excluded from use for protection.";
+            }
+            feature protection-exclude-ltp {
+                description "In protection context if LTP of protection where entire LTP is to be excluded from use for protection.";
+            }
+
+        /***********************
+        * package diagrams
+        **********************/ 
+
+        /***********************
+        * package associations
+        **********************/ 
+
+
+    /***********************
+    * package core-foundation-model
+    **********************/ 
+        /***********************
+        * package type-definitions
+        **********************/ 
+            typedef date-and-time {
+                type string;
+                description "removed";
+            }
+            typedef bit-string {
+                type string;
+                description "removed";
+            }
+            typedef real {
+                type string;
+                description "removed";
+            }
+            typedef printable-string {
+                type string;
+                description "removed";
+            }
+            typedef to-be-defined {
+                type string;
+                description "removed";
+            }
+
+        /***********************
+        * package super-classes-and-common-packages
+        **********************/ 
+            /***********************
+            * package object-classes
+            **********************/ 
+                grouping name-g {
+                    list name {
+                        key 'value-name';
+                        min-elements 1;
+                        uses name-and-value-g;
+                        description "removed";
+                    }
+                    description "removed";
+                }
+                grouping global-class-g {
+                    list local-id {
+                        key 'value-name';
+                        uses name-and-value-g;
+                        description "removed";
+                    }
+                    leaf uuid {
+                        type universal-id;
+                        description "removed";
+                    }
+                    uses name-g;
+                    uses label-g;
+                    uses extension-g;
+                    uses state-pac-g;
+                    description "removed";
+                }
+                grouping local-class-g {
+                    list local-id {
+                        key 'value-name';
+                        min-elements 1;
+                        uses name-and-value-g;
+                        description "removed";
+                    }
+                    leaf uuid {
+                        type universal-id;
+                        description "A global identifier for the LocalClass, which is used as reference.";
+                    }
+                    uses name-g;
+                    uses label-g;
+                    uses extension-g;
+                    uses state-pac-g;
+                    description "removed";
+                }
+                grouping label-g {
+                    list label {
+                        key 'value-name';
+                        uses name-and-value-g;
+                        description "removed";
+                    }
+                    description "removed";
+                }
+                grouping extension-g {
+                    list extension {
+                        key 'value-name';
+                        uses name-and-value-g;
+                        description "removed";
+                    }
+                    description "removed";
+                }
+                grouping universal-id-authority-g {
+                    leaf uuid {
+                        type universal-id;
+                        description "removed";
+                    }
+                    description "removed";
+                }
+                grouping name-and-value-authority-g {
+                    leaf uuid {
+                        type universal-id;
+                        description "removed";
+                    }
+                    description "removed";
+                }
+                grouping conditional-package-g {
+                    uses extension-g;
+                    uses label-g;
+                    description "removed";
+                }
+
+            /***********************
+            * package type-definitions
+            **********************/ 
+                grouping name-and-value-g {
+                    leaf value-name {
+                        type string;
+                        description "removed";
+                    }
+                    leaf value {
+                        type string;
+                        description "removed";
+                    }
+                    description "removed";
+                }
+                typedef universal-id {
+                    type string;
+                    description "removed";
+                }
+                grouping address-g {
+                    leaf address-name {
+                        type string;
+                        description "removed";
+                    }
+                    list address-element {
+                        key 'uuid';
+                        uses address-element-g;
+                        description "removed";
+                    }
+                    description "removed";
+                }
+                grouping local-id-and-class-g {
+                    leaf class-of-instance {
+                        type string;
+                        description "removed";
+                    }
+                    container local-id {
+                        uses name-and-value-g;
+                        description "removed";
+                    }
+                    description "removed";
+                }
+                grouping name-and-class-g {
+                    leaf class-of-instance {
+                        type string;
+                        description "removed";
+                    }
+                    container name {
+                        uses name-and-value-g;
+                        description "removed";
+                    }
+                    description "removed";
+                }
+                grouping address-element-g {
+                    leaf address-element-name {
+                        type string;
+                        description "removed";
+                    }
+                    container local-id {
+                        uses local-id-and-class-g;
+                        description "removed";
+                    }
+                    leaf uuid {
+                        type universal-id;
+                        description "removed";
+                    }
+                    container name {
+                        uses name-and-class-g;
+                        description "removed";
+                    }
+                    leaf arbitrary-element {
+                        type string;
+                        description "removed";
+                    }
+                    description "removed";
+                }
+
+
+        /***********************
+        * package state-model
+        **********************/ 
+            /***********************
+            * package object-classes
+            **********************/ 
+                grouping state-pac-g {
+                    leaf operational-state {
+                        type operational-state;
+                        config false;
+                        description "removed";
+                    }
+                    leaf administrative-control {
+                        type administrative-control;
+                        description "removed";
+                    }
+                    leaf administrative-state {
+                        type administrative-state;
+                        config false;
+                        description "removed";
+                    }
+                    leaf lifecycle-state {
+                        type lifecycle-state;
+                        description "removed";
+                    }
+                    description "removed";
+                }
+
+            /***********************
+            * package type-definitions
+            **********************/ 
+                typedef operational-state {
+                    type enumeration {
+                        enum disabled {
+                            description "removed";
+                        }
+                        enum enabled {
+                            description "removed";
+                        }
+                    }
+                    description "removed";
+                }
+                typedef administrative-state {
+                    type enumeration {
+                        enum locked {
+                            description "removed";
+                        }
+                        enum unlocked {
+                            description "removed";
+                        }
+                    }
+                    description "removed";
+                }
+                typedef administrative-control {
+                    type enumeration {
+                        enum unlock {
+                            description "removed";
+                        }
+                        enum lock-passive {
+                            description "removed";
+                        }
+                        enum lock-active {
+                            description "removed";
+                        }
+                        enum lock-immediate {
+                            description "removed";
+                        }
+                    }
+                    description "removed
+                        removed";
+                }
+                typedef extended-admin-state {
+                    type enumeration {
+                        enum locked {
+                            description "removed";
+                        }
+                        enum unlocked {
+                            description "removed";
+                        }
+                        enum shutting-down-active {
+                            description "removed";
+                        }
+                        enum shutting-down-passive {
+                            description "removed";
+                        }
+                    }
+                    description "removed";
+                }
+                typedef lifecycle-state {
+                    type enumeration {
+                        enum planned {
+                            description "removed";
+                        }
+                        enum potential {
+                            description "removed";
+                        }
+                        enum installed {
+                            description "removed";
+                        }
+                        enum pending-removal {
+                            description "removed";
+                        }
+                    }
+                    description "removed";
+                }
+
+
+
+    /***********************
+    * package core-operations-model
+    **********************/ 
+        /***********************
+        * package pattern
+        **********************/ 
+            /***********************
+            * package data-types
+            **********************/ 
+                typedef action-verbs {
+                    type enumeration {
+                        enum create-post-add {
+                            description "none";
+                        }
+                        enum set-update-put-modify-write-add {
+                            description "none";
+                        }
+                        enum get-read {
+                            description "none";
+                        }
+                        enum delete-remove {
+                            description "none";
+                        }
+                    }
+                    description "none";
+                }
+                typedef test-type {
+                    type string;
+                    description "none";
+                }
+                typedef activity-directive {
+                    type enumeration {
+                        enum structure-is-not {
+                            description "none";
+                        }
+                        enum new-structure-and-values {
+                            description "none";
+                        }
+                        enum incremental-structure-and-values {
+                            description "none";
+                        }
+                        enum only-values-in-existing-structure {
+                            description "none";
+                        }
+                        enum defined-by-verb {
+                            description "none";
+                        }
+                    }
+                    description "none";
+                }
+
+            /***********************
+            * package diagrams
+            **********************/ 
+                typedef action-effort {
+                    type enumeration {
+                        enum best-effort {
+                            description "none";
+                        }
+                        enum exact-match {
+                            description "none";
+                        }
+                    }
+                    description "none";
+                }
+                typedef pause-resume-rule {
+                    type enumeration {
+                        enum no-pause-possible {
+                            description "none";
+                        }
+                    }
+                    description "none";
+                }
+
+            /***********************
+            * package object-classes
+            **********************/ 
+                grouping general-directives-g {
+                    description "none";
+                }
+                grouping necessary-initial-condition-constraints-g {
+                    leaf is-not {
+                        type boolean;
+                        description "none";
+                    }
+                    description "none";
+                }
+                grouping operation-details-g {
+                    leaf action-verb {
+                        type action-verbs;
+                        description "none";
+                    }
+                    list necessary-initialcondition-constraints {
+                        key 'is-not';
+                        uses necessary-initial-condition-constraints-g;
+                        description "none";
+                    }
+                    description "none";
+                }
+                container operation-envelope {
+                    presence  "";
+                    list operation-set {
+                        key 'effort-and-action';
+                        min-elements 1;
+                        uses operation-set-g;
+                        description "none";
+                    }
+                    container generaldirectives {
+                        uses general-directives-g;
+                        description "none";
+                    }
+                    container operationidentifiers {
+                        uses operation-identifiers-g;
+                        description "none";
+                    }
+                    description "none";
+                }
+                grouping operation-identifiers-g {
+                    description "none";
+                }
+                grouping operation-set-g {
+                    leaf-list after-operation-set {
+                        type action-effort;
+                        description "none";
+                    }
+                    leaf-list before-operation-set {
+                        type action-effort;
+                        description "none";
+                    }
+                    leaf effort-and-action {
+                        type action-effort;
+                        description "none";
+                    }
+                    leaf pause-resume-rule {
+                        type pause-resume-rule;
+                        description "none";
+                    }
+                    leaf-list operationset {
+                        type action-effort;
+                        description "none";
+                    }
+                    leaf is-short-lived {
+                        type boolean;
+                        default true;
+                        description "none";
+                    }
+                    list operation-details {
+                        key 'action-verb';
+                        min-elements 1;
+                        uses operation-details-g;
+                        description "none";
+                    }
+                    description "none";
+                }
+
+
+
+    /***********************
+    * package core-physical-model-initial
+    **********************/ 
+        /***********************
+        * package rule-models
+        **********************/ 
+            /***********************
+            * package connector-rules
+            **********************/ 
+                /***********************
+                * package object-classes
+                **********************/ 
+                    grouping connector-in-holder-g {
+                        leaf connector-on-equipment-for-holder {
+                            type universal-id;
+                            description "none";
+                        }
+                        uses connector-g;
+                        description "removed";
+                    }
+                    grouping connector-cable-end-g {
+                        leaf connector-on-equipment-for-cable {
+                            type universal-id;
+                            description "none";
+                        }
+                        uses connector-g;
+                        description "removed";
+                    }
+                    grouping connector-on-equipment-for-cable-g {
+                        leaf connector-cable-end {
+                            type universal-id;
+                            description "none";
+                        }
+                        uses connector-g;
+                        description "removed";
+                    }
+                    grouping connector-on-equipment-for-holder-g {
+                        leaf connector-in-holder {
+                            type universal-id;
+                            description "none";
+                        }
+                        uses connector-g;
+                        description "removed";
+                    }
+
+
+
+        /***********************
+        * package equipment-detail
+        **********************/ 
+            /***********************
+            * package object-classes
+            **********************/ 
+                /***********************
+                * package dynamic-details
+                **********************/ 
+                    grouping function-enablers-g {
+                        leaf power-state {
+                            type to-be-defined;
+                            description "none";
+                        }
+                        description "removed";
+                    }
+                    grouping mechanical-functions-g {
+                        leaf rotation-speed {
+                            type to-be-defined;
+                            description "none";
+                        }
+                        description "removed";
+                    }
+                    grouping physical-properties-g {
+                        leaf temperature {
+                            type to-be-defined;
+                            description "none";
+                        }
+                        description "removed";
+                    }
+                    grouping holder-monitors-g {
+                        leaf is-active {
+                            type boolean;
+                            description "none";
+                        }
+                        leaf is-actual-mismatch-with-expected {
+                            type boolean;
+                            description "none";
+                        }
+                        leaf aggregate-function {
+                            type string;
+                            description "none";
+                        }
+                        description "removed";
+                    }
+                    grouping location-g {
+                        container equipment-location {
+                            uses address-g;
+                            description "none";
+                        }
+                        container geographical-location {
+                            uses address-g;
+                            description "none";
+                        }
+                        description "none";
+                    }
+
+                /***********************
+                * package invariant-details
+                **********************/ 
+                    grouping category-g {
+                        leaf category {
+                            type equipment-category;
+                            description "none";
+                        }
+                        description "removed";
+                    }
+                    grouping equipment-instance-g {
+                        leaf manufacture-date {
+                            type string;
+                            description "none";
+                        }
+                        leaf serial-number {
+                            type string;
+                            description "none";
+                        }
+                        leaf asset-instance-identifier {
+                            type string;
+                            description "none";
+                        }
+                        description "removed";
+                    }
+                    grouping equipment-type-g {
+                        leaf description {
+                            type string;
+                            description "none";
+                        }
+                        leaf model-identifier {
+                            type string;
+                            description "none";
+                        }
+                        leaf part-type-identifier {
+                            type string;
+                            description "none";
+                        }
+                        leaf type-name {
+                            type string;
+                            description "none";
+                        }
+                        leaf version {
+                            type string;
+                            description "none";
+                        }
+                        description "removed";
+                    }
+                    grouping holder-structure-g {
+                        leaf holder-category {
+                            type holder-category;
+                            description "none";
+                        }
+                        leaf is-captive {
+                            type boolean;
+                            description "none";
+                        }
+                        leaf is-guided {
+                            type boolean;
+                            description "none";
+                        }
+                        leaf is-quantized-space {
+                            type boolean;
+                            description "none";
+                        }
+                        description "removed";
+                    }
+                    grouping manufactured-thing-g {
+                        container manufacturer-properties {
+                            uses manufacturer-properties-g;
+                            description "none";
+                        }
+                        container equipment-type {
+                            uses equipment-type-g;
+                            description "none";
+                        }
+                        container equipment-instance {
+                            uses equipment-instance-g;
+                            description "none";
+                        }
+                        container operator-augmented-equipment-type {
+                            uses operator-augmented-equipment-type-g;
+                            description "none";
+                        }
+                        description "removed";
+                    }
+                    grouping manufacturer-properties-g {
+                        leaf manufacturer-identifier {
+                            type string;
+                            description "none";
+                        }
+                        leaf manufacturer-name {
+                            type string;
+                            description "none";
+                        }
+                        description "removed";
+                    }
+                    grouping mechanical-features-g {
+                        description "removed";
+                    }
+                    grouping operator-augmented-equipment-type-g {
+                        leaf asset-type-identifier {
+                            type string;
+                            description "none";
+                        }
+                        description "removed";
+                    }
+                    grouping physical-characteristics-g {
+                        leaf weight-characteristics {
+                            type to-be-defined;
+                            description "none";
+                        }
+                        leaf fire-characteristics {
+                            type to-be-defined;
+                            description "none";
+                        }
+                        leaf materials {
+                            type to-be-defined;
+                            description "none";
+                        }
+                        description "removed";
+                    }
+                    grouping physical-rating-g {
+                        leaf thermal-rating {
+                            type to-be-defined;
+                            description "none";
+                        }
+                        leaf power-rating {
+                            type to-be-defined;
+                            description "none";
+                        }
+                        description "removed";
+                    }
+                    grouping position-g {
+                        leaf relative-position {
+                            type to-be-defined;
+                            description "none";
+                        }
+                        description "removed";
+                    }
+                    grouping spatial-properties-of-type-g {
+                        leaf height {
+                            type to-be-defined;
+                            description "none";
+                        }
+                        leaf width {
+                            type to-be-defined;
+                            description "none";
+                        }
+                        leaf length {
+                            type to-be-defined;
+                            description "none";
+                        }
+                        description "removed";
+                    }
+                    grouping swapability-g {
+                        leaf is-hot-swappable {
+                            type boolean;
+                            default true;
+                            description "none";
+                        }
+                        description "removed";
+                    }
+
+
+
+        /***********************
+        * package equipment-pattern-structure
+        **********************/ 
+            /***********************
+            * package object-classes
+            **********************/ 
+                grouping cable-g {
+                    list connector {
+                        key 'uuid';
+                        min-elements 1;
+                        uses connector-g;
+                        description "none";
+                    }
+                    container manufactured-thing {
+                        uses manufactured-thing-g;
+                        description "none";
+                    }
+                    container physical-characteristics {
+                        uses physical-characteristics-g;
+                        description "none";
+                    }
+                    container mechanical-features {
+                        uses mechanical-features-g;
+                        description "none";
+                    }
+                    container spatial-properties-of-type {
+                        uses spatial-properties-of-type-g;
+                        description "none";
+                    }
+                    uses global-class-g;
+                    description "removed";
+                }
+                grouping connector-g {
+                    leaf connector {
+                        type string;
+                        description "none";
+                    }
+                    list pin {
+                        key 'position';
+                        min-elements 1;
+                        uses pin-g;
+                        description "none";
+                    }
+                    leaf orientation {
+                        type connector-and-pin-orientation;
+                        description "none";
+                    }
+                    container manufactured-thing {
+                        uses manufactured-thing-g;
+                        description "none";
+                    }
+                    container position {
+                        uses position-g;
+                        description "none";
+                    }
+                    container mechanical-features {
+                        uses mechanical-features-g;
+                        description "none";
+                    }
+                    container pin-layout {
+                        uses pin-layout-g;
+                        description "none";
+                    }
+                    leaf connector-type {
+                        type to-be-defined;
+                        description "none";
+                    }
+                    uses local-class-g;
+                    uses group-of-pins-g;
+                    description "removed";
+                }
+                grouping equipment-g {
+                    list connector {
+                        key 'uuid';
+                        uses connector-g;
+                        description "none";
+                    }
+                    list contained-holder {
+                        key 'uuid';
+                        uses holder-g;
+                        description "none";
+                    }
+                    list exposed-cable {
+                        key 'uuid';
+                        uses cable-g;
+                        description "none";
+                    }
+                    container manufactured-thing {
+                        uses manufactured-thing-g;
+                        description "none";
+                    }
+                    container spatial-properties-of-type {
+                        uses spatial-properties-of-type-g;
+                        description "none";
+                    }
+                    container mechanical-features {
+                        uses mechanical-features-g;
+                        description "none";
+                    }
+                    container physical-properties {
+                        uses physical-properties-g;
+                        description "none";
+                    }
+                    container function-enablers {
+                        uses function-enablers-g;
+                        description "none";
+                    }
+                    container mechanical-functions {
+                        uses mechanical-functions-g;
+                        description "none";
+                    }
+                    container physical-characteristics {
+                        uses physical-characteristics-g;
+                        description "none";
+                    }
+                    container swapability {
+                        uses swapability-g;
+                        description "none";
+                    }
+                    container category {
+                        uses category-g;
+                        description "none";
+                    }
+                    container physical-rating {
+                        uses physical-rating-g;
+                        description "none";
+                    }
+                    leaf is-field-replaceable {
+                        type boolean;
+                        default true;
+                        config false;
+                        description "removed";
+                    }
+                    leaf-list function-block {
+                        type string;
+                        description "none";
+                    }
+                    container expected-equipment {
+                        uses expected-equipment-g;
+                        description "none";
+                    }
+                    container actual-equipment {
+                        uses actual-equipment-g;
+                        description "none";
+                    }
+                    container location {
+                        uses location-g;
+                        description "none";
+                    }
+                    uses global-class-g;
+                    description "removed";
+                }
+                list equipment {
+                    key 'uuid';
+                    uses equipment-g;
+                                description "none";
+}
+                grouping holder-g {
+                    leaf-list connector {
+                        type leafref {
+                            path '/equipment/exposed-cable/connector/uuid';
+                        }
+                        description "none";
+                    }
+                    leaf occupying-fru {
+                        type leafref {
+                            path '/equipment/uuid';
+                        }
+                        description "removed";
+                    }
+                    container spatial-properties-of-type {
+                        uses spatial-properties-of-type-g;
+                        description "none";
+                    }
+                    container holder-monitors {
+                        uses holder-monitors-g;
+                        description "none";
+                    }
+                    container holder-location {
+                        uses address-g;
+                        description "none";
+                    }
+                    container position {
+                        uses position-g;
+                        description "none";
+                    }
+                    container holder-structure {
+                        uses holder-structure-g;
+                        description "none";
+                    }
+                    container physical-rating {
+                        uses physical-rating-g;
+                        description "none";
+                    }
+                    leaf-list supported-equipment {
+                        type string;
+                        min-elements 1;
+                        description "none";
+                    }
+                    container expected-holder {
+                        uses expected-holder-g;
+                        description "none";
+                    }
+                    container actual-holder {
+                        uses actual-holder-g;
+                        description "none";
+                    }
+                    uses local-class-g;
+                    description "removed";
+                }
+
+            /***********************
+            * package data-types
+            **********************/ 
+                typedef connector-and-pin-orientation {
+                    type enumeration {
+                        enum male {
+                            description "removed";
+                        }
+                        enum female {
+                            description "removed";
+                        }
+                        enum symmetric-neutral {
+                            description "removed";
+                        }
+                    }
+                    description "removed";
+                }
+                typedef equipment-category {
+                    type enumeration {
+                        enum subrack {
+                            description "removed";
+                        }
+                        enum circuit-pack {
+                            description "removed";
+                        }
+                        enum small-formfactor-pluggable {
+                            description "removed";
+                        }
+                        enum stand-alone-unit {
+                            description "removed";
+                        }
+                        enum rack {
+                            description "removed";
+                        }
+                    }
+                    description "removed";
+                }
+                typedef holder-category {
+                    type enumeration {
+                        enum slot {
+                            description "removed";
+                        }
+                    }
+                    description "removed";
+                }
+
+
+        /***********************
+        * package expected-and-actual
+        **********************/ 
+            /***********************
+            * package object-classes
+            **********************/ 
+                grouping actual-holder-g {
+                    description "removed";
+                }
+                grouping expected-holder-g {
+                    description "removed";
+                }
+                grouping actual-equipment-g {
+                    description "removed";
+                }
+                grouping expected-equipment-g {
+                    description "removed";
+                }
+
+
+        /***********************
+        * package connector-and-pin
+        **********************/ 
+            /***********************
+            * package object-classes
+            **********************/ 
+                grouping pin-g {
+                    leaf position {
+                        type leafref {
+                            path '/equipment/exposed-cable/connector/position/relative-position';
+                        }
+                        description "none";
+                    }
+                    leaf orientation {
+                        type connector-and-pin-orientation;
+                        description "none";
+                    }
+                    description "removed";
+                }
+                grouping pin-group-g {
+                    leaf-list pin {
+                        type leafref {
+                            path '/equipment/exposed-cable/connector/pin/position';
+                        }
+                        min-elements 1;
+                        description "none";
+                    }
+                    uses port-g;
+                    uses group-of-pins-g;
+                    description "removed";
+                }
+                grouping pin-layout-g {
+                    list position {
+                        key 'relative-position';
+                        min-elements 1;
+                        uses position-g;
+                        description "none";
+                    }
+                    description "removed";
+                }
+                grouping port-g {
+                    description "removed";
+                }
+                grouping signal-ref-pt-g {
+                    leaf ltp {
+                        type leafref {
+                            path '/network-element/ltp/uuid';
+                        }
+                        description "none";
+                    }
+                    leaf-list elemental-signals {
+                        type universal-id;
+                        min-elements 1;
+                        description "none";
+                    }
+                    description "removed";
+                }
+                grouping signal-ref-pt-group-g {
+                    leaf pin-group {
+                        type universal-id;
+                        description "none";
+                    }
+                    leaf-list signal-ref-pt {
+                        type universal-id;
+                        min-elements 1;
+                        description "none";
+                    }
+                    uses port-g;
+                    description "removed";
+                }
+                grouping elemental-signals-g {
+                    leaf-list pin {
+                        type leafref {
+                            path '/equipment/exposed-cable/connector/pin/position';
+                        }
+                        min-elements 1;
+                        description "none";
+                    }
+                    description "removed";
+                }
+                grouping group-of-pins-g {
+                    description "removed";
+                }
+
+
+
+}

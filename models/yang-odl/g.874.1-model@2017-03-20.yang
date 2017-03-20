@@ -20,7 +20,7 @@ module g.874.1-model {
                        <mailto:thorsten.heinze@telefonica.com>
                        Martin Skorupski
                        <mailto:martin.skorupski@highstreet-technologies.com>";
-    description "<p>Version 2.02; outcome of the 10/2013 Nuremberg meeting.<br>Version 2.03; updates for Geneva 03-2014<br>Version 2.04; updates for Shanghai 09-2014<br>Version 2.05; input to Geneva 11-2014<br>Version 2.06; output from Geneva 11-2014<br>Version 2.07; using OpenProfile 3-2015<br>Version 2.08; output from Geneva 06-2015</p>";
+    description "removed";
     revision 2017-03-20 {
         description "Initial version";
         reference "ONF TR 532: A YANG Data Model for Wireless Networks.";
@@ -31,19 +31,19 @@ module g.874.1-model {
         grouping otn-current-data-g {
             leaf timestamp {
                 type date-and-time;
-                description "The timestamp associated with when the current data was collected.";
+                description "removed";
             }
             uses q.822-current-data-g;
-            description "This object class is an abstract class from which the OTN layer-specific CurrentData object classes are inherited. This object class is a subclass of the Q.822 CurrentData object class, which in turn is a subclass of X.739 Scanner object class. It inherits the following attributes: scannerId, operationalState, granularityPeriod, administrativeState, suspectIntervalFlag, elapsedTime, observedObjectClass, and observedObjectInstance.";
+            description "removed";
         }
         grouping otn-history-data-g {
             leaf suspect-interval-flag {
                 type boolean;
                 default false;
-                description "This attribute indicates that the data collected during the interval is suspect.";
+                description "removed";
             }
             uses q.822-history-data-g;
-            description "This object class is an abstract class from which the OTN layer-specific HistoryData object classes are inherited. ";
+            description "removed";
         }
 
     /***********************
@@ -61,7 +61,7 @@ module g.874.1-model {
                     description "none";
                 }
             }
-            description "The enumeration with the options for directionality of the termination point.";
+            description "removed";
         }
         typedef gcc-access {
             type enumeration {
@@ -75,7 +75,7 @@ module g.874.1-model {
                     description "none";
                 }
             }
-            description "This enumeration indicates the GCC access represented by the entity.";
+            description "removed";
         }
         typedef operational-state {
             type enumeration {
@@ -86,7 +86,7 @@ module g.874.1-model {
                     description "none";
                 }
             }
-            description "The list of valid operational states for the connection.";
+            description "removed";
         }
         typedef oper-type {
             type enumeration {
@@ -97,7 +97,7 @@ module g.874.1-model {
                     description "none";
                 }
             }
-            description "The operation type associated with the protection mechanism (either non-revertive or revertive).";
+            description "removed";
         }
         typedef ext-cmd-operation {
             type enumeration {
@@ -123,7 +123,7 @@ module g.874.1-model {
                     description "none";
                 }
             }
-            description "This enumeration contains the options for the actions that instruct the protection system for performing specific protection switching operations.";
+            description "removed";
         }
         typedef administrative-state {
             type enumeration {
@@ -137,7 +137,7 @@ module g.874.1-model {
                     description "none";
                 }
             }
-            description "For more information on Administrative State, See ITU-T Recs. X.731 and M.3100.";
+            description "removed";
         }
         typedef oc-tk-nim-k-bit-rate {
             type enumeration {
@@ -154,7 +154,7 @@ module g.874.1-model {
                     description "none";
                 }
             }
-            description "Provides an enumeration with the meaning of each 'k' value.";
+            description "removed";
         }
         typedef tim-det-mo {
             type enumeration {
@@ -168,36 +168,36 @@ module g.874.1-model {
                     description "none";
                 }
             }
-            description "List of modes for trace identifier mismatch detection.";
+            description "removed";
         }
         typedef oc-tk-nim-problem-list {
             type enumeration {
                 enum los-p {
-                    description "Loss of Signal -- Payload";
+                    description "removed";
                 }
                 enum oci {
-                    description "Open Connection Indicator";
+                    description "removed";
                 }
                 enum ssf-p {
-                    description "Server Signal Failure -- Payload -- can not co-exist with SSF or SSF-O";
+                    description "removed";
                 }
                 enum ssf-o {
-                    description "Server Signal Failure -- Overhead; can not co-exist with SSF or SSF-P";
+                    description "removed";
                 }
                 enum ssf {
-                    description "Server Signal Failure; can not co-exist with SSF-P or SSF-O";
+                    description "removed";
                 }
                 enum tim {
-                    description "Trail Trace Identifier Mismatch";
+                    description "removed";
                 }
                 enum deg {
-                    description "Signal Degraded";
+                    description "removed";
                 }
                 enum bdi {
-                    description "Backward Defect Indication";
+                    description "removed";
                 }
             }
-            description "The valid list of problems for the entity.";
+            description "removed";
         }
         typedef tcm-monitoring {
             type enumeration {
@@ -208,7 +208,7 @@ module g.874.1-model {
                     description "none";
                 }
             }
-            description "Monitoring types for the tandem connection monitoring function.";
+            description "removed";
         }
         typedef tcm-mode {
             type enumeration {
@@ -222,7 +222,7 @@ module g.874.1-model {
                     description "none";
                 }
             }
-            description "List of value modes for the sink side of the tandem connection monitoring function.";
+            description "removed";
         }
         typedef ops-mnk-ttp-k-bit-rate {
             type enumeration {
@@ -233,26 +233,26 @@ module g.874.1-model {
                     description "none";
                 }
             }
-            description "Provides an enumeration with the meaning of each 'k' value.";
+            description "removed";
         }
         typedef ops-mnk-ttp-problem-list {
             type enumeration {
                 enum los {
-                    description "Loss of Signal";
+                    description "removed";
                 }
                 enum lol {
-                    description "Loss of Lane Alignment";
+                    description "removed";
                 }
             }
-            description "The valid list of problems for the entity.";
+            description "removed";
         }
         typedef op-sn-ttp-problem-list {
             type enumeration {
                 enum los {
-                    description "Loss of Signal";
+                    description "removed";
                 }
             }
-            description "The valid list of problems for the entity.";
+            description "removed";
         }
         typedef otm-n-k-bit-rates {
             type enumeration {
@@ -275,7 +275,7 @@ module g.874.1-model {
                     description "none";
                 }
             }
-            description "Provides an enumeration with the meaning of each 'k' value.";
+            description "removed";
         }
         typedef domain-interface {
             type enumeration {
@@ -286,7 +286,7 @@ module g.874.1-model {
                     description "none";
                 }
             }
-            description "This enumeration provides the options for the interface associated with OTMn.";
+            description "removed";
         }
         typedef otm-n-optical-reach {
             type enumeration {
@@ -300,7 +300,7 @@ module g.874.1-model {
                     description "none";
                 }
             }
-            description "The valid options for reach of the optical cable.";
+            description "removed";
         }
         typedef apr-status {
             type enumeration {
@@ -311,50 +311,50 @@ module g.874.1-model {
                     description "none";
                 }
             }
-            description "The enumeration of the options for the Automatic Power Reduction Status.";
+            description "removed";
         }
         typedef ot-sn-ttp-problem-list {
             type enumeration {
                 enum bdi-p {
-                    description "BDI-P (Backward Defect Indication - Payload); not co-exist with BDI-O or BDI";
+                    description "removed";
                 }
                 enum bdi-o {
-                    description "BDI-O (Backward Defect Indication - Overhead); not co-exist with BDI-P or BDI";
+                    description "removed";
                 }
                 enum bdi {
-                    description "BDI (Backward Defect Indication); not co-exist with BDI-P or BDI-O";
+                    description "removed";
                 }
                 enum tim {
-                    description "TIM (Trail Trace Identifier Mismatch);";
+                    description "removed";
                 }
                 enum los-p {
-                    description "-P (Loss of Signal - Payload); not co-exist with LOS-O or LOS";
+                    description "removed";
                 }
                 enum los-o {
-                    description "LOS-O (Loss of Signal - Overhead); not co-exist with LOS-P or LOS";
+                    description "removed";
                 }
                 enum los {
-                    description "LOS (Loss of Signal); not co-exist with LOS-P or LOS-O. ";
+                    description "removed";
                 }
             }
-            description "The valid list of problems for the entity.";
+            description "removed";
         }
         typedef ot-uk-ctp-adaptation {
             type enumeration {
                 enum regular {
-                    description "i.e. OPSM/OTUk-a, OCh[r]/OTUk-a";
+                    description "removed";
                 }
                 enum none {
-                    description "i.e. OPSM/OTUk-b, OCh[r]/OTUk-b";
+                    description "removed";
                 }
                 enum vendor-specific {
-                    description "i.e. OCh[r]/OTUk-v";
+                    description "removed";
                 }
                 enum functionally-standardized {
-                    description "i.e. OCh[r]/OTUkV";
+                    description "removed";
                 }
             }
-            description "The adaptation options for OTUk_ConnectionTermationPoints.";
+            description "removed";
         }
         typedef ot-uk-ctp-k-bit-rate {
             type enumeration {
@@ -371,38 +371,38 @@ module g.874.1-model {
                     description "none";
                 }
             }
-            description "Provides an enumeration with the meaning of each 'k' value.";
+            description "removed";
         }
         typedef ot-uk-ctp-problem-list {
             type enumeration {
                 enum lof {
-                    description "Loss of Frame";
+                    description "removed";
                 }
                 enum ais {
-                    description "Alarm Indication Signal";
+                    description "removed";
                 }
                 enum lom {
-                    description "Loss of MultiFrame";
+                    description "removed";
                 }
             }
-            description "The valid list of problems for the entity.";
+            description "removed";
         }
         typedef ot-uk-ttp-problem-list {
             type enumeration {
                 enum tim {
-                    description "Trail Trace Identifier Mismatch";
+                    description "removed";
                 }
                 enum deg {
-                    description "Signal Degraded";
+                    description "removed";
                 }
                 enum bdi {
-                    description "Backward Defect Indication";
+                    description "removed";
                 }
                 enum ssf {
-                    description "Server Signal Failure";
+                    description "removed";
                 }
             }
-            description "The valid list of problems for the entity.";
+            description "removed";
         }
         typedef monitored-direction {
             type enumeration {
@@ -413,18 +413,18 @@ module g.874.1-model {
                     description "none";
                 }
             }
-            description "The enumeration with the options for directionality for nonintrusive monitoring.";
+            description "removed";
         }
         typedef deg-thr-type {
             type enumeration {
                 enum percentage {
-                    description "<p>Choice of % or Number of errored blocks</p>";
+                    description "removed";
                 }
                 enum number-errored-blocks {
-                    description "<p>Number of % or blocks</p>";
+                    description "removed";
                 }
             }
-            description "<p>The value of the threshold can be provisioned in terms of number of errored blocks or in terms of percentage of errored blocks. For percentage-based specification, in order to support provision of less than 1%, the specification consists of two fields. The first field indicates the granularity of percentage. For examples, in 1%, in 0.1%, or in 0.01%, etc. The second field indicates the multiple of the granularity. For number of errored block based, the value is a positive integer.</p>";
+            description "removed";
         }
         typedef link-type {
             type enumeration {
@@ -457,19 +457,7 @@ module g.874.1-model {
         }
         typedef date-and-time {
             type string;
-            description "This primitive type defines the date and time according to the following structure:
-                'yyyyMMddhhmmss.s[Z|{+|-}HHMm]' where:
-                yyyy    '0000'..'9999'    year
-                MM        '01'..'12'            month
-                dd        '01'..'31'            day
-                hh        '00'..'23'            hour
-                mm        '00'..'59'            minute
-                ss        '00'..'59'            second
-                s        '.0'..'.9'            tenth of second (set to '.0' if EMS or NE cannot support this granularity)
-                Z        'Z'                    indicates UTC (rather than local time)
-                {+|-}    '+' or '-'            delta from UTC
-                HH        '00'..'23'            time zone difference in hours
-                Mm        '00'..'59'            time zone difference in minutes.";
+            description "removed";
         }
         typedef aps-channel {
             type enumeration {
@@ -502,9 +490,7 @@ module g.874.1-model {
         }
         typedef bit-string {
             type string;
-            description "This primitive type defines a bit oriented string.
-                The size of the BitString will be defined in the valueRange property of the attribute; according to ASN.1 (X.680).
-                The semantic of each bit position will be defined in the Documentation field of the attribute.";
+            description "removed";
         }
         typedef delay-measurement-role {
             type enumeration {
@@ -520,10 +506,10 @@ module g.874.1-model {
         typedef resize-operation-type {
             type enumeration {
                 enum increase-bw {
-                    description "Increase Bandwidth";
+                    description "removed";
                 }
                 enum decrease-bw {
-                    description "Decrease Bandwidth";
+                    description "removed";
                 }
             }
             description "none";
@@ -556,7 +542,7 @@ module g.874.1-model {
             grouping q.822-current-data-g {
                 leaf suspect-interval-flag {
                     type boolean;
-                    description "This attribute is used to indicate that the performance data for the current period may not be reliable. Some reasons for this to occur are:- Suspect data were detected by the actual resource doing data collection.- Transition of the administrativeState attribute to/from the 'lock' state.- Transition of the operationalState to/from the 'disabled' state.- Scheduler setting that inhibits the collection function.- The performance counters were reset during the interval.- The currentData (or subclass) object instance was created during the monitoring period.";
+                    description "removed";
                 }
                 leaf elapsed-time {
                     type int64;
@@ -608,14 +594,13 @@ module g.874.1-model {
             grouping x.721-top-g {
                 leaf object-class {
                     type object-identifier;
-                    description "ObjectClass ::= CHOICE{    globalForm    [0] OBJECT IDENTIFIER,
-                        localForm    [1] INTEGER}";
+                    description "removed";
                 }
                 leaf name-binding {
                     type object-identifier;
                     description "none";
                 }
-                description "This is the top level of managed object class hierarchy and every other managed object class is a specialization of either this generic class (top) or a specialization of subclass of top. The parameter miscellaneousError is to be used when a processing failure has occurred and the error condition encountered does not match any of object's defined specific error types.";
+                description "removed";
             }
 
 
@@ -640,7 +625,7 @@ module g.874.1-model {
         }
         typedef time-period {
             type string;
-            description "This primitive Type is imported from X.739.";
+            description "removed";
         }
 
 }

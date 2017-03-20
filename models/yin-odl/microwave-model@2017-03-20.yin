@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module name="microwave-model"
         xmlns="urn:ietf:params:xml:ns:yang:yin:1"
-        xmlns:microwave-model="urn:onf:params:xml:ns:yang:MicrowaveModel"
-        xmlns:core-model="urn:onf:params:xml:ns:yang:CoreModel"
-        xmlns:g="urn:onf:params:xml:ns:yang:G.874.1-model">
-  <namespace uri="urn:onf:params:xml:ns:yang:MicrowaveModel"/>
+        xmlns:microwave-model="urn:onf:params:xml:ns:yang:microwave-model"
+        xmlns:core-model="urn:onf:params:xml:ns:yang:core-model"
+        xmlns:g="urn:onf:params:xml:ns:yang:g.874.1-model"
+        xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types">
+  <namespace uri="urn:onf:params:xml:ns:yang:microwave-model"/>
   <prefix value="microwave-model"/>
   <import module="core-model">
     <prefix value="core-model"/>
@@ -33,7 +34,7 @@ Editors:  Thorsten Heinze
   <description>
     <text>This module contains a collection of YANG definitions for managing wireless networks.</text>
   </description>
-  <revision date="2017-02-17">
+  <revision date="2017-03-20">
     <description>
       <text>Initial version</text>
     </description>
@@ -43,19 +44,19 @@ Editors:  Thorsten Heinze
   </revision>
   <typedef name="loop-back-type">
     <type name="enumeration">
-      <enum name="non">
+      <enum name="none">
         <description>
           <text>none</text>
         </description>
       </enum>
       <enum name="if">
         <description>
-          <text>Intermediate Frequency on the interface between indoor and outdoor unit.</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="rf">
         <description>
-          <text>Radio Frequency on the interface between outdoor unit and outdoor unit at the remote site.</text>
+          <text>removed</text>
         </description>
       </enum>
     </type>
@@ -92,16 +93,16 @@ Editors:  Thorsten Heinze
       </enum>
     </type>
     <description>
-      <text>According to ITU-T M.3160</text>
+      <text>removed</text>
     </description>
   </typedef>
-  <grouping name="channel-plan-type">
+  <grouping name="channel-plan-type-g">
     <leaf name="supported-channel-plan">
       <type name="string"/>
       <default value="Channel plan name not defined."/>
       <config value="false"/>
       <description>
-        <text>Unique name (e.g. ECC/REC/(01)04_Annex 5) of a document, which describes a frequency grid that can be adjusted at the air interface. Corresponding channel plans to be delivered by the hardware vendor and to be stored by the operator in an controller/application attached database.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="duplex-distance-is-variable">
@@ -109,7 +110,7 @@ Editors:  Thorsten Heinze
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>To be set on  'true', if the distance between transmitted and received frequency is variable.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="duplex-distance">
@@ -118,7 +119,7 @@ Editors:  Thorsten Heinze
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Distance between transmitted and received frequency.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="auto-freq-select-is-avail">
@@ -126,14 +127,14 @@ Editors:  Thorsten Heinze
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>In case the microwave radio is capable of automatically selecting the transmit frequency in unlicensed bands, this field shall contain a 'true'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <list name="transmission-mode-list">
       <key value="transmission-mode-id"/>
       <config value="false"/>
       <min-elements value="1"/>
-      <uses name="transmission-mode-type"/>
+      <uses name="transmission-mode-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -142,12 +143,12 @@ Editors:  Thorsten Heinze
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="transmission-mode-type">
+  <grouping name="transmission-mode-type-g">
     <leaf name="transmission-mode-id">
       <type name="core-model:universal-id"/>
       <config value="false"/>
       <description>
-        <text>Indentifies the transmissionMode for internal reference.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="channel-bandwidth">
@@ -156,7 +157,7 @@ Editors:  Thorsten Heinze
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Bandwidth of the transmit channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="modulation-scheme">
@@ -165,7 +166,7 @@ Editors:  Thorsten Heinze
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Modulation scheme, which is base to the other characteristics described in the same transmissionModeType data type. The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256').</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="code-rate">
@@ -174,7 +175,7 @@ Editors:  Thorsten Heinze
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Code rate of the coding scheme in % (Net bit rate ≤ Gross bit rate · code rate).</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="tx-power-min">
@@ -183,7 +184,7 @@ Editors:  Thorsten Heinze
       <default value="99"/>
       <config value="false"/>
       <description>
-        <text>Value of the minimum transmit power the modem can operate in dBm.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="tx-power-max">
@@ -192,7 +193,7 @@ Editors:  Thorsten Heinze
       <default value="99"/>
       <config value="false"/>
       <description>
-        <text>Value of the maximum transmit power the modem can operate in dBm.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="rx-threshold">
@@ -201,7 +202,7 @@ Editors:  Thorsten Heinze
       <default value="99"/>
       <config value="false"/>
       <description>
-        <text>Value of the receive level required to decode the received signal with a Bit Error Rate of 1e-6 or less.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="am-upshift-level">
@@ -210,7 +211,7 @@ Editors:  Thorsten Heinze
       <default value="99"/>
       <config value="false"/>
       <description>
-        <text>Value of the receive level that has to be exceeded to shift into a higher modulation scheme.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="am-downshift-level">
@@ -219,7 +220,7 @@ Editors:  Thorsten Heinze
       <default value="99"/>
       <config value="false"/>
       <description>
-        <text>Value of the receive level that has to be exceeded for not shifting into a lower modulation scheme.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="xpic-is-avail">
@@ -227,7 +228,7 @@ Editors:  Thorsten Heinze
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>In case this air interface type is capable of XPIC, this field shall contain a 'true'. This information shall purely relate to capabilities of the equipment type, but not to the operational capability of a specific hardware composition on site. Means for example that this attribute might contain a 'true' statement, even if an additional cable would have been required to actually operate XPIC in a specific case.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
@@ -256,47 +257,47 @@ Editors:  Thorsten Heinze
       <text>none</text>
     </description>
   </typedef>
-  <grouping name="air-interface-problem-severity-type">
+  <grouping name="air-interface-problem-severity-type-g">
     <leaf name="problem-kind-name">
       <type name="string"/>
       <default value="Problem kind name not defined."/>
       <description>
-        <text>Name of the alarm according to AirInterface::AirInterfaceCapability::supportedAlarms</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="problem-kind-severity">
       <type name="severity-type"/>
       <default value="warning"/>
       <description>
-        <text>Severity of this type of alarm.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="air-interface-current-problem-type">
+  <grouping name="air-interface-current-problem-type-g">
     <leaf name="problem-name">
       <type name="string"/>
       <default value="Problem name not specified."/>
       <config value="false"/>
       <description>
-        <text>Name of the alarm according to AirInterface::AirInterfaceCapability::supportedAlarms</text>
+        <text>removed</text>
       </description>
     </leaf>
-    <uses name="mw-current-problem"/>
+    <uses name="mw-current-problem-g"/>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="air-interface-performance-type">
+  <grouping name="air-interface-performance-type-g">
     <leaf name="es">
       <type name="int32"/>
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Number of errored seconds.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="ses">
@@ -305,7 +306,7 @@ Editors:  Thorsten Heinze
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Number of severely errored seconds.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="cses">
@@ -314,7 +315,7 @@ Editors:  Thorsten Heinze
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Number of consecutive severely errored seconds.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="unavailability">
@@ -323,7 +324,7 @@ Editors:  Thorsten Heinze
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Total time of unavailability in seconds.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="tx-level-min">
@@ -332,7 +333,7 @@ Editors:  Thorsten Heinze
       <default value="99"/>
       <config value="false"/>
       <description>
-        <text>Minimum transmit power. Signed integers are required.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="tx-level-max">
@@ -341,7 +342,7 @@ Editors:  Thorsten Heinze
       <default value="99"/>
       <config value="false"/>
       <description>
-        <text>Maximum transmit power. Signed integers are required.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="tx-level-avg">
@@ -350,7 +351,7 @@ Editors:  Thorsten Heinze
       <default value="99"/>
       <config value="false"/>
       <description>
-        <text>Averaged transmit power. Signed integers are required.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="rx-level-min">
@@ -359,7 +360,7 @@ Editors:  Thorsten Heinze
       <default value="99"/>
       <config value="false"/>
       <description>
-        <text>Minimum receive level. Signed integers are required.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="rx-level-max">
@@ -368,7 +369,7 @@ Editors:  Thorsten Heinze
       <default value="99"/>
       <config value="false"/>
       <description>
-        <text>Maximum receive level. Signed integers are required.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="rx-level-avg">
@@ -377,7 +378,7 @@ Editors:  Thorsten Heinze
       <default value="99"/>
       <config value="false"/>
       <description>
-        <text>Averaged receive level. Signed integers are required.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="time2-states">
@@ -386,7 +387,7 @@ Editors:  Thorsten Heinze
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Sum of all seconds the transmitter operated in e.g. BPSK.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="time4-states-s">
@@ -566,7 +567,7 @@ Editors:  Thorsten Heinze
       <default value="-99"/>
       <config value="false"/>
       <description>
-        <text>Minimum signal to (noise+interference) ratio.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="snir-max">
@@ -575,7 +576,7 @@ Editors:  Thorsten Heinze
       <default value="-99"/>
       <config value="false"/>
       <description>
-        <text>Maximum signal to (noise+interference) ratio.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="snir-avg">
@@ -584,7 +585,7 @@ Editors:  Thorsten Heinze
       <default value="-99"/>
       <config value="false"/>
       <description>
-        <text>Averaged signal to (noise+interference) ratio.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="xpd-min">
@@ -593,7 +594,7 @@ Editors:  Thorsten Heinze
       <default value="-99"/>
       <config value="false"/>
       <description>
-        <text>Minimum cross polarization discrimination.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="xpd-max">
@@ -602,7 +603,7 @@ Editors:  Thorsten Heinze
       <default value="-99"/>
       <config value="false"/>
       <description>
-        <text>Maximum cross polarization discrimination.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="xpd-avg">
@@ -611,7 +612,7 @@ Editors:  Thorsten Heinze
       <default value="-99"/>
       <config value="false"/>
       <description>
-        <text>Averaged cross polarization discrimination.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="rf-temp-min">
@@ -620,7 +621,7 @@ Editors:  Thorsten Heinze
       <default value="-99"/>
       <config value="false"/>
       <description>
-        <text>Lowest temperature (in degree Celsius) of the radio module inside the outdoor unit.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="rf-temp-max">
@@ -629,7 +630,7 @@ Editors:  Thorsten Heinze
       <default value="-99"/>
       <config value="false"/>
       <description>
-        <text>Highest temperature (in degree Celsius) of the radio module inside the outdoor unit.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="rf-temp-avg">
@@ -638,7 +639,7 @@ Editors:  Thorsten Heinze
       <default value="-99"/>
       <config value="false"/>
       <description>
-        <text>Averaged temperature (in degree Celsius) of the radio module inside the outdoor unit.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="defect-blocks-sum">
@@ -647,7 +648,7 @@ Editors:  Thorsten Heinze
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Total number of blocks that were defect after receiving and could not be corrected by the FEC.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="time-period">
@@ -656,37 +657,37 @@ Editors:  Thorsten Heinze
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Total length of the measurement period.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
-      <text>Consolidated performance information of the air interface.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="air-interface-current-performance-type">
+  <grouping name="air-interface-current-performance-type-g">
     <container name="performance-data">
       <config value="false"/>
-      <uses name="air-interface-performance-type"/>
+      <uses name="air-interface-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
-    <uses name="g:otn-current-data"/>
+    <uses name="g:otn-current-data-g"/>
     <description>
-      <text>Turns performance information into current performance information by inheriting from OTN_CurrentData.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="air-interface-historical-performance-type">
+  <grouping name="air-interface-historical-performance-type-g">
     <container name="performance-data">
       <config value="false"/>
-      <uses name="air-interface-performance-type"/>
+      <uses name="air-interface-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
-    <uses name="g:otn-history-data"/>
+    <uses name="g:otn-history-data-g"/>
     <description>
-      <text>Turns performance information into historical performance information by inheriting from OTN_HistoryData.</text>
+      <text>removed</text>
     </description>
   </grouping>
   <typedef name="protection-type">
@@ -723,13 +724,13 @@ Editors:  Thorsten Heinze
       <text>none</text>
     </description>
   </typedef>
-  <grouping name="diversity-type">
+  <grouping name="diversity-type-g">
     <leaf name="diversity-name">
       <type name="string"/>
       <default value="Diversity name not defined."/>
       <config value="false"/>
       <description>
-        <text>Names to be chosen from the following list: 'spaceDiversity', 'frequencyDiversity'</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="number-of-air-interfaces-max">
@@ -738,7 +739,7 @@ Editors:  Thorsten Heinze
       <default value="1"/>
       <config value="false"/>
       <description>
-        <text>Maximum number of air interfaces that could be part of this kind of diversity.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
@@ -749,17 +750,17 @@ Editors:  Thorsten Heinze
     <type name="enumeration">
       <enum name="group-down">
         <description>
-          <text>All air interfaces that are members of the diversity configuration are down.</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="not-all-ai-active">
         <description>
-          <text>At least one, but not all of the air interfaces that are part of the diversity configuration is not working.</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="all-ai-active">
         <description>
-          <text>All air interfaces that are part of the diversity configuration are working.</text>
+          <text>removed</text>
         </description>
       </enum>
     </type>
@@ -767,47 +768,47 @@ Editors:  Thorsten Heinze
       <text>none</text>
     </description>
   </typedef>
-  <grouping name="air-interface-diversity-problem-severity-type">
+  <grouping name="air-interface-diversity-problem-severity-type-g">
     <leaf name="problem-kind-name">
       <type name="string"/>
       <default value="Problem kind name not defined."/>
       <description>
-        <text>Name of the alarm according to AirInterfaceDiversity::AirInterfaceDiversityCapability::supportedAlarms</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="problem-kind-severity">
       <type name="severity-type"/>
       <default value="warning"/>
       <description>
-        <text>Severity of this type of alarm.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="air-interface-diversity-current-problem-type">
+  <grouping name="air-interface-diversity-current-problem-type-g">
     <leaf name="problem-name">
       <type name="string"/>
       <default value="Problem name not specified."/>
       <config value="false"/>
       <description>
-        <text>Name of the alarm according to AirInterfaceDiversity::AirInterfaceDiversityCapability::supportedAlarms</text>
+        <text>removed</text>
       </description>
     </leaf>
-    <uses name="mw-current-problem"/>
+    <uses name="mw-current-problem-g"/>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="air-interface-diversity-performance-type">
+  <grouping name="air-interface-diversity-performance-type-g">
     <leaf name="snir-min">
       <type name="int8"/>
       <units name="dB"/>
       <default value="-99"/>
       <config value="false"/>
       <description>
-        <text>Minimum signal to (noise+interference) ratio of the combined signals.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="snir-max">
@@ -816,7 +817,7 @@ Editors:  Thorsten Heinze
       <default value="-99"/>
       <config value="false"/>
       <description>
-        <text>Maximum signal to (noise+interference) ratio of the combined signals.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="snir-avg">
@@ -825,46 +826,46 @@ Editors:  Thorsten Heinze
       <default value="-99"/>
       <config value="false"/>
       <description>
-        <text>Average signal to (noise+interference) ratio of the combined signals.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
-      <text>Consolidated performance information of the air interface diversity group.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="air-interface-diversity-current-performance-type">
+  <grouping name="air-interface-diversity-current-performance-type-g">
     <container name="performance-data">
       <config value="false"/>
-      <uses name="air-interface-diversity-performance-type"/>
+      <uses name="air-interface-diversity-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
-    <uses name="g:otn-current-data"/>
+    <uses name="g:otn-current-data-g"/>
     <description>
-      <text>Turns performance information into current performance information by inheriting from OTN_CurrentData.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="air-interface-diversity-historical-performance-type">
+  <grouping name="air-interface-diversity-historical-performance-type-g">
     <container name="performance-data">
       <config value="false"/>
-      <uses name="air-interface-diversity-performance-type"/>
+      <uses name="air-interface-diversity-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
-    <uses name="g:otn-history-data"/>
+    <uses name="g:otn-history-data-g"/>
     <description>
-      <text>Turns performance information into historical performance information by inheriting from OTN_HistoryData.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="tdm-structure-type">
+  <grouping name="tdm-structure-type-g">
     <leaf name="tdm-structure-name">
       <type name="string"/>
       <default value="TDM structure name not defined."/>
       <config value="false"/>
       <description>
-        <text>Names to be chosen from the following list: 'e1','t1','j1','e3','ds3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="tdm-segment-size">
@@ -873,7 +874,7 @@ Editors:  Thorsten Heinze
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Size of the TDM segment in kbit/s. Values to be chosen from the following list: '2048','1544','34000','44736 ','155520','614400','1228800','2457600','3072000','4915200','6144000' or '9830400;</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="max-number-of-segments-reservable">
@@ -882,42 +883,42 @@ Editors:  Thorsten Heinze
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Device specific maximum number of segments (not depending on current air interface configuration) that can be reserved for this type of segment on a single air interface.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="structure-problem-severity-type">
+  <grouping name="structure-problem-severity-type-g">
     <leaf name="problem-kind-name">
       <type name="string"/>
       <default value="Problem kind name not defined."/>
       <description>
-        <text>Name of the alarm according to Structure::StructureCapability::supportedAlarms</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="problem-kind-severity">
       <type name="severity-type"/>
       <default value="warning"/>
       <description>
-        <text>Severity of this type of alarm.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="structure-current-problem-type">
+  <grouping name="structure-current-problem-type-g">
     <leaf name="problem-name">
       <type name="string"/>
       <default value="Problem name not specified."/>
       <config value="false"/>
       <description>
-        <text>Name of the alarm according to Structure::StructureCapability::supportedAlarms</text>
+        <text>removed</text>
       </description>
     </leaf>
-    <uses name="mw-current-problem"/>
+    <uses name="mw-current-problem-g"/>
     <description>
       <text>none</text>
     </description>
@@ -925,10 +926,10 @@ Editors:  Thorsten Heinze
   <typedef name="structure-performance-type">
     <type name="int32"/>
     <description>
-      <text>Consolidated performance information of the Structure.</text>
+      <text>removed</text>
     </description>
   </typedef>
-  <grouping name="structure-current-performance-type">
+  <grouping name="structure-current-performance-type-g">
     <leaf name="performance-data">
       <type name="structure-performance-type"/>
       <config value="false"/>
@@ -936,12 +937,12 @@ Editors:  Thorsten Heinze
         <text>none</text>
       </description>
     </leaf>
-    <uses name="g:otn-current-data"/>
+    <uses name="g:otn-current-data-g"/>
     <description>
-      <text>Turns performance information into current performance information by inheriting from OTN_CurrentData.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="structure-historical-performance-type">
+  <grouping name="structure-historical-performance-type-g">
     <leaf name="performance-data">
       <type name="structure-performance-type"/>
       <config value="false"/>
@@ -949,18 +950,18 @@ Editors:  Thorsten Heinze
         <text>none</text>
       </description>
     </leaf>
-    <uses name="g:otn-history-data"/>
+    <uses name="g:otn-history-data-g"/>
     <description>
-      <text>Turns performance information into historical performance information by inheriting from OTN_HistoryData.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="container-type">
+  <grouping name="container-type-g">
     <leaf name="container-name">
       <type name="string"/>
       <default value="Container name not yet defined."/>
       <config value="false"/>
       <description>
-        <text>Names to be chosen from the following list: 'ethernet','e1','t1','j1','e3','ds3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="number-of-time-slots-required">
@@ -969,7 +970,7 @@ Editors:  Thorsten Heinze
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Number of time slots required for transporting this type of container. Value must be calculated by the vendor after defining the timeSlotCapacity. For containers of fixed size: numberOfTimeSlotsRequired = required bandwidth of the container divided by timeSlotCapacity. For containers of variable size the minimum (most probably 1) is to be stated.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="tdm-time-slots-is-required">
@@ -977,7 +978,7 @@ Editors:  Thorsten Heinze
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>Shall be set to '1', if this container type requires bandwidth (times slots) reserved for TDM transport.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="bundling-is-avail">
@@ -985,20 +986,20 @@ Editors:  Thorsten Heinze
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>If it is possible to combine transport resources of several radio links to transport this container type, this attribute shall be set to '1'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="tdm-container-type">
+  <grouping name="tdm-container-type-g">
     <leaf name="tdm-container-name">
       <type name="string"/>
       <default value="TDM container name not defined."/>
       <config value="false"/>
       <description>
-        <text>Names to be chosen from the following list: 'e1','t1','j1','e3','t3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="tdm-container-size">
@@ -1007,14 +1008,14 @@ Editors:  Thorsten Heinze
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Capacity required for transporting this type of container (in kbit/s). Values to be chosen from the following list: '2048','1544','34000','44736 ','155520','614400','1228800','2457600','3072000','4915200','6144000' or '9830400;</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="segment-id-type">
+  <grouping name="segment-id-type-g">
     <leaf name="structure-id-ref">
       <type name="core-model:universal-id"/>
       <description>
@@ -1024,14 +1025,14 @@ Editors:  Thorsten Heinze
     <leaf name="segment-id-ref">
       <type name="int16"/>
       <description>
-        <text>Combinations of structureId and segmentId must be unique inside the device to assure that every resource is used just once.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
-      <text>Identifies the segments, which are used to transport the container.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="segment-status-type">
+  <grouping name="segment-status-type-g">
     <leaf name="segment-status-type-id">
       <type name="int16"/>
       <config value="false"/>
@@ -1044,8 +1045,7 @@ Editors:  Thorsten Heinze
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>The number of segments, which is configured by Structure::StructureConfiguration::tdmReservedNumberOfSegements, has to be reserved for TDM. Starting from the lowest index value, these segments have to be marked with a 'true' in segmentIsReservedForTdm.
-</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="operational-status">
@@ -1053,7 +1053,7 @@ Editors:  Thorsten Heinze
       <default value="disabled"/>
       <config value="false"/>
       <description>
-        <text>Current operational status of each segment.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="obsolete-priority-class">
@@ -1061,7 +1061,7 @@ Editors:  Thorsten Heinze
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>PriorityClass as inherited from the associated Container::ContainerConfiguration::priorityClass. In case the device is capable of adapting the sequence, in which segments are being dropped in case of decreasing capacity of the air interface, priorityClass shall be considered, while calculating the dropOrderRank.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="obsolete-drop-order-rank">
@@ -1069,55 +1069,54 @@ Editors:  Thorsten Heinze
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>In case the device is NOT capable of adapting the sequence, in which segments are being dropped in case of decreasing capacity of the air interface, dropOrderRank is number of segments minus sequence number of the segment. In case the device is capable of adapting the sequence, dropOrderRank has to be calculated by the device in dependency to the assigned priorityClass. 
-_unique: within Structure::StructureStatus::segmentStatusList</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="container-problem-severity-type">
+  <grouping name="container-problem-severity-type-g">
     <leaf name="problem-kind-name">
       <type name="string"/>
       <default value="Problem kind name not defined."/>
       <description>
-        <text>Name of the alarm according to Container::ContainerCapability::supportedAlarms</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="problem-kind-severity">
       <type name="severity-type"/>
       <default value="warning"/>
       <description>
-        <text>Severity of this type of alarm.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="container-current-problem-type">
+  <grouping name="container-current-problem-type-g">
     <leaf name="problem-name">
       <type name="string"/>
       <default value="Problem name not specified."/>
       <config value="false"/>
       <description>
-        <text>Name of the alarm according to Container::ContainerCapability::supportedAlarms</text>
+        <text>removed</text>
       </description>
     </leaf>
-    <uses name="mw-current-problem"/>
+    <uses name="mw-current-problem-g"/>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="container-performance-type">
+  <grouping name="container-performance-type-g">
     <leaf name="tx-ethernet-bytes-max-s">
       <type name="int32"/>
       <units name="Bytes/s"/>
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Counts the number of Bytes of Ethernet traffic (before header compression) transmitted within a second and keeps the highest value within the measurement period. Field to be left blank for all types of TDM containers.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="tx-ethernet-bytes-max-m">
@@ -1126,7 +1125,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Counts the number of Bytes of Ethernet traffic (before header compression) transmitted within a minute and keeps the highest value with in the measurement period. Field to be left blank for all types of TDM containers.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="tx-ethernet-bytes-sum">
@@ -1135,7 +1134,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Total number of Bytes of Ethernet traffic (before header compression) transmitted (in direction out of the device) during the measurement period. Field to be left blank for all types of TDM containers.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="time-period">
@@ -1144,37 +1143,37 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Total length of the measurement period in seconds.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
-      <text>Consolidated performance information of the Container.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="container-current-performance-type">
+  <grouping name="container-current-performance-type-g">
     <container name="performance-data">
       <config value="false"/>
-      <uses name="container-performance-type"/>
+      <uses name="container-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
-    <uses name="g:otn-current-data"/>
+    <uses name="g:otn-current-data-g"/>
     <description>
-      <text>Turns performance information into current performance information by inheriting from OTN_CurrentData.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="container-historical-performance-type">
+  <grouping name="container-historical-performance-type-g">
     <container name="performance-data">
       <config value="false"/>
-      <uses name="container-performance-type"/>
+      <uses name="container-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
-    <uses name="g:otn-history-data"/>
+    <uses name="g:otn-history-data-g"/>
     <description>
-      <text>Turns performance information into historical performance information by inheriting from OTN_HistoryData.</text>
+      <text>removed</text>
     </description>
   </grouping>
   <list name="mw-air-interface-pac">
@@ -1184,46 +1183,46 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <path value="/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid"/>
       </type>
       <description>
-        <text>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</text>
+        <text>removed</text>
       </description>
     </leaf>
     <container name="air-interface-capability">
       <config value="false"/>
-      <uses name="air-interface-capability"/>
+      <uses name="air-interface-capability-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="air-interface-configuration">
-      <uses name="air-interface-configuration"/>
+      <uses name="air-interface-configuration-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="air-interface-status">
       <config value="false"/>
-      <uses name="air-interface-status"/>
+      <uses name="air-interface-status-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="air-interface-current-problems">
       <config value="false"/>
-      <uses name="air-interface-current-problems"/>
+      <uses name="air-interface-current-problems-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="air-interface-current-performance">
       <config value="false"/>
-      <uses name="air-interface-current-performance"/>
+      <uses name="air-interface-current-performance-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="air-interface-historical-performances">
       <config value="false"/>
-      <uses name="air-interface-historical-performances"/>
+      <uses name="air-interface-historical-performances-g"/>
       <description>
         <text>none</text>
       </description>
@@ -1232,13 +1231,13 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </list>
-  <grouping name="air-interface-capability">
+  <grouping name="air-interface-capability-g">
     <leaf name="type-of-equipment">
       <type name="string"/>
       <default value="Type of equipment not yet defined."/>
       <config value="false"/>
       <description>
-        <text>This parameter indicates the equipment type. Instead of uploading the complete set of capabilities, capabilities of the same equipment type could be reused. Should be unique for a combination of modem, radio and their respective firmware.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="tx-frequency-min">
@@ -1247,7 +1246,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Value of the minimum transmit frequency tunable at the air interface.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="tx-frequency-max">
@@ -1256,7 +1255,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Value of the maximum transmit frequency tunable at the air interface.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="rx-frequency-min">
@@ -1265,7 +1264,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Value of the minimum receive frequency tunable at the air interface.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="rx-frequency-max">
@@ -1274,7 +1273,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Value of the maximum receive frequency tunable at the air interface.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="adaptive-modulation-is-avail">
@@ -1282,7 +1281,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>In case the device is capable of adaptive modulation, this field shall contain a 'true'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="mimo-is-avail">
@@ -1290,7 +1289,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>In case the device is capable of MIMO, this field shall contain a 'true'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="mimo-channels">
@@ -1299,7 +1298,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="1"/>
       <config value="false"/>
       <description>
-        <text>Maximum number (n) of spatial multiplexing streams that can be conveyed by an n x n MIMO configuration.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="alic-is-avail">
@@ -1307,7 +1306,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>In case the microwave radio is capable of Adjacent Link Interference Cancelation (canceling of interference cause by transmitters located at the same site), this field shall contain a 'true'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="atpc-is-avail">
@@ -1315,7 +1314,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>In case the microwave radio is capable of ATPC, this field shall contain a 'true'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="atpc-range">
@@ -1324,7 +1323,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="0"/>
       <config value="false"/>
       <description>
-        <text>Extent of the ATPC range.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="encryption-is-avail">
@@ -1332,7 +1331,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>Shall be marked 'true', if payload encryption is available.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf-list name="supported-loop-back-kind-list">
@@ -1341,7 +1340,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <min-elements value="1"/>
       <max-elements value="2"/>
       <description>
-        <text>List of supported kinds of looping back of header information to the remote site.</text>
+        <text>removed</text>
       </description>
     </leaf-list>
     <leaf name="maintenance-timer-range">
@@ -1350,7 +1349,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="Range of the maintenance timer not yet defined."/>
       <config value="false"/>
       <description>
-        <text>Available time periods for maintenance configurations (e.g. the loop back of microwave header information) to be described. Concrete values shall be separated by commas (e.g. '10, 60, 360'). Ranges shall be expressed as two values separated by a minus (e.g. '10-360').</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="supported-alarms">
@@ -1358,35 +1357,35 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="Supported alarms not yet defined."/>
       <config value="false"/>
       <description>
-        <text>Available alarms to be listed. Mandatory:'signalIsLost','rslIsExceeded','temperatureIsExceeded','modemIsFaulty','radioIsFaulty' and 'modulationIsDownShifted'. Further alarms might be added by the device. Names are to be separated by commas.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <list name="supported-channel-plan-list">
       <key value="supported-channel-plan"/>
       <config value="false"/>
       <min-elements value="1"/>
-      <uses name="channel-plan-type"/>
+      <uses name="channel-plan-type-g"/>
       <description>
-        <text>List of channel spacing that are supported by the device.</text>
+        <text>removed</text>
       </description>
     </list>
     <description>
-      <text>Describes the 'analog' capabilities of modem and transmitter of the microwave device. Value ranges of attributes are not independently (e.g. min. and max. transmit power depends on modulation). Legal combinations of values are expressed in transmissionModeTypes.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="air-interface-configuration">
+  <grouping name="air-interface-configuration-g">
     <leaf name="air-interface-name">
       <type name="string"/>
       <default value="Air interface ID not yet defined."/>
       <description>
-        <text>Operator specific microwave link ID (often used for coding area, type of element and sequential number).</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="radio-signal-id">
       <type name="string"/>
       <default value="Radio signal ID not yet defined."/>
       <description>
-        <text>The radioSignalId is transmitted on the air interface so the remote site of the link synchronizes on the correct transmitter. The local radio MUST NOT synchronize on a radio signal with a different radioSignalId. The link ID is neither an ID necessary to span the model nor an ID referencing external data. It is just some sort of name of the link transmitted so the correct remote site can be identified in an interference situation. The value zero might be used to make the microwave to disable the link ID check.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="tx-frequency">
@@ -1394,7 +1393,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <units name="kHz"/>
       <default value="-1"/>
       <description>
-        <text>Center frequency of the transmit channel. The values to be configured have to exactly match the values listed in the international agreement referenced in channelPlanID. In case of automated selection of the transmit frequency this field shall describe the lowest center frequency selectable.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="rx-frequency">
@@ -1402,7 +1401,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <units name="kHz"/>
       <default value="-1"/>
       <description>
-        <text>Center frequency of the receive channel.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="tx-channel-bandwidth">
@@ -1410,7 +1409,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <units name="kHz"/>
       <default value="-1"/>
       <description>
-        <text>Bandwidth of the transmit channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="rx-channel-bandwidth">
@@ -1418,36 +1417,35 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <units name="kHz"/>
       <default value="-1"/>
       <description>
-        <text>Bandwidth of the receive channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="polarization">
       <type name="polarization-type"/>
       <default value="not-specified"/>
       <description>
-        <text>Allows documenting the polarization of the air interface.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="power-is-on">
       <type name="boolean"/>
       <default value="true"/>
       <description>
-        <text>Power ON. Activation of the entire radio in a split mount configuration shall be expressed as a 'true'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="transmitter-is-on">
       <type name="boolean"/>
       <default value="false"/>
       <description>
-        <text>Activation of the transmitter inside the radio shall be expressed as a 'true'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="receiver-is-on">
       <type name="boolean"/>
       <default value="true"/>
       <description>
-        <text>Maintenance Feature. Activation of the receiver inside the radio shall be expressed as a 'true'. Attribute shall also be used for RX main and RX diversity squelches in case of diversity configurations.
-</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="tx-power">
@@ -1455,14 +1453,14 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <units name="dBm"/>
       <default value="99"/>
       <description>
-        <text>Transmit power to be configured on the microwave link. Signed Byte is required. The actually operated transmit power might be lower depending on adaptive modulation and ATPC.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="adaptive-modulation-is-on">
       <type name="boolean"/>
       <default value="false"/>
       <description>
-        <text>Adaptive Modulation. Activation of adaptive modulation shall be expressed as a 'true'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="modulation-min">
@@ -1470,7 +1468,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <units name="symbols"/>
       <default value="-1"/>
       <description>
-        <text>Minimum modulation to be configured (in case adaptive modulation is not used, this value represents also the fixed modulation). The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="modulation-max">
@@ -1478,35 +1476,35 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <units name="symbols"/>
       <default value="-1"/>
       <description>
-        <text>Maximum modulation to be configured. The value of this field is only relevant, if Adaptive Modulation has been activated. The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="xpic-is-on">
       <type name="boolean"/>
       <default value="false"/>
       <description>
-        <text>Activation of Cross Polarization Interference Cancelation shall be expressed as a 'true'. In case XPIC is not available for the current combination of channel bandwidth and modulation or the hardware in general, this parameter shall always be set to 'false'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="mimo-is-on">
       <type name="boolean"/>
       <default value="false"/>
       <description>
-        <text>Activation of Multiple Input Multiple Output (MIMO) shall be expressed as a 'true'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="alic-is-on">
       <type name="boolean"/>
       <default value="false"/>
       <description>
-        <text>Activation of Adjacent Link Interference Cancelation (ALIC) shall be expressed as a 'true'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="atpc-is-on">
       <type name="boolean"/>
       <default value="false"/>
       <description>
-        <text>ATPC. Activation of Automated Transmit Power Control shall be expressed as a 'true'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="atpc-thresh-upper">
@@ -1514,7 +1512,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <units name="dBm"/>
       <default value="99"/>
       <description>
-        <text>If the receive level is higher than the upper threshold value, the transmitter is notified to decrease transmit power.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="atpc-thresh-lower">
@@ -1522,14 +1520,14 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <units name="dBm"/>
       <default value="99"/>
       <description>
-        <text>If the receive level is lower than the lower threshold value, the transmitter is notified to increase transmit power.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="auto-freq-select-is-on">
       <type name="boolean"/>
       <default value="false"/>
       <description>
-        <text>Activation of automatically selecting the transmit frequency in unlicensed bands shall be expressed as a 'true'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="auto-freq-select-range">
@@ -1537,35 +1535,35 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <units name="channels"/>
       <default value="-1"/>
       <description>
-        <text>Number of transmit channels (starting at the center frequency defined in txFrequency and with channel bandwidth according to txChannelBandwidth) that define the range within the transmit frequency can automatically been chosen. </text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="modulation-is-on">
       <type name="boolean"/>
       <default value="true"/>
       <description>
-        <text>Maintenance Feature. De-activation of the modulation of the carrier signal for fault management shall be expressed as a 'false'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="encryption-is-on">
       <type name="boolean"/>
       <default value="false"/>
       <description>
-        <text>Activates encryption of the payload.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="cryptographic-key">
       <type name="string"/>
       <default value="Cryptographic key not yet defined."/>
       <description>
-        <text>Key for transforming plaintext into ciphertext data.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="loop-back-kind-on">
       <type name="loop-back-type"/>
-      <default value="non"/>
+      <default value="none"/>
       <description>
-        <text>Maintenance Feature. The currently configured type of looping back of the air interface header shall be expressed here. The received header is returned to the remote site.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="maintenance-timer">
@@ -1573,29 +1571,29 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <units name="s"/>
       <default value="-1"/>
       <description>
-        <text>Time of existence of any maintenance configuration (e.g. the loop back of microwave header information). Valid values are defined in AirInterface::AirInterfaceCapability::maintenanceTimerRange.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <list name="problem-kind-severity-list">
       <key value="problem-kind-name"/>
       <min-elements value="6"/>
-      <uses name="air-interface-problem-severity-type"/>
+      <uses name="air-interface-problem-severity-type-g"/>
       <description>
-        <text>Severity of the problem to be configured.</text>
+        <text>removed</text>
       </description>
     </list>
     <description>
-      <text>Configuration of the radio link.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="air-interface-status">
+  <grouping name="air-interface-status-g">
     <leaf name="tx-frequency-cur">
       <type name="int32"/>
       <units name="kHz"/>
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Center frequency of the currently operated transmit channel.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="rx-frequency-cur">
@@ -1604,7 +1602,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Center frequency of the currently operated receive channel.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="tx-level-cur">
@@ -1613,7 +1611,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="99"/>
       <config value="false"/>
       <description>
-        <text>Current transmit level.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="rx-level-cur">
@@ -1622,7 +1620,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="99"/>
       <config value="false"/>
       <description>
-        <text>Current receive level.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="modulation-cur">
@@ -1631,7 +1629,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Currently operated modulation on transmit path. The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="code-rate-cur">
@@ -1640,7 +1638,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Code rate of the currently operated coding scheme (Net bit rate ≤ Gross bit rate · code rate).</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="snir-cur">
@@ -1649,7 +1647,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="-99"/>
       <config value="false"/>
       <description>
-        <text>Currently measured signal to (noise+interference) ratio.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="xpd-cur">
@@ -1658,7 +1656,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="-99"/>
       <config value="false"/>
       <description>
-        <text>Currently measured cross polarization discrimination.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="rf-temp-cur">
@@ -1667,7 +1665,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="-99"/>
       <config value="false"/>
       <description>
-        <text>Current temperature (in degree Celsius) of the radio module inside the outdoor unit.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="last-status-change">
@@ -1675,7 +1673,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="2017-01-01T00:00:00.0Z"/>
       <config value="false"/>
       <description>
-        <text>Time the Air Interface entered its current operational status.  </text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="radio-power-is-up">
@@ -1683,7 +1681,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>If the radio unit has power and is switched on, this shall be expressed as a 'true'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="link-is-up">
@@ -1691,7 +1689,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>If connection is established to the remote site with the same linkID, this shall be expressed as a 'true'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="xpic-is-up">
@@ -1699,7 +1697,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>If XPIC is currently actually working (not just configured), this shall be expressed as a 'true'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="mimo-is-up">
@@ -1707,7 +1705,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>If MIMO is currently actually working (not just configured), this shall be expressed as a 'true'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="alic-is-up">
@@ -1715,7 +1713,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>If Adjacent Link Interference Cancelation (ALIC) is currently actually working (not just configured), this shall be expressed as a 'true'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="atpc-is-up">
@@ -1723,7 +1721,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>If ATPC is currently actually working (not just configured), this shall be expressed as a 'true'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="auto-freq-select-is-up">
@@ -1731,15 +1729,15 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>If automated frequency selection is currently actually working (not just configured), this shall be expressed as a 'true'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="loop-back-kind-up">
       <type name="loop-back-type"/>
-      <default value="non"/>
+      <default value="none"/>
       <config value="false"/>
       <description>
-        <text>The currently active (not just configured) type of looping back of the air interface header shall be expressed here. The received header is returned to the remote site.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="local-end-point-id">
@@ -1747,7 +1745,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="not-supported"/>
       <config value="false"/>
       <description>
-        <text>The value of the localEndPointId is a vendor specific identifier of the air interface, used by the node to discover a microwave radio link.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="remote-end-point-id">
@@ -1755,18 +1753,18 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="not-supported"/>
       <config value="false"/>
       <description>
-        <text>The value of the remoteEndPointId is a vendor specific identifier or the airinterface at the remote side, used to by the node to discover a microwave radio link.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
-      <text>Measurements of current values on the air interface and operational status of the device.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="air-interface-current-problems">
+  <grouping name="air-interface-current-problems-g">
     <list name="current-problem-list">
       <key value="sequence-number"/>
       <config value="false"/>
-      <uses name="air-interface-current-problem-type"/>
+      <uses name="air-interface-current-problem-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -1775,32 +1773,32 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="air-interface-current-performance">
+  <grouping name="air-interface-current-performance-g">
     <list name="current-performance-data-list">
       <key value="scanner-id"/>
       <config value="false"/>
       <min-elements value="1"/>
       <max-elements value="2"/>
-      <uses name="air-interface-current-performance-type"/>
+      <uses name="air-interface-current-performance-type-g"/>
       <description>
-        <text>At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.</text>
+        <text>removed</text>
       </description>
     </list>
     <description>
-      <text>Aggregated performance information of the air interface at a particular moment.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="air-interface-historical-performances">
+  <grouping name="air-interface-historical-performances-g">
     <list name="historical-performance-data-list">
       <key value="history-data-id"/>
       <config value="false"/>
-      <uses name="air-interface-historical-performance-type"/>
+      <uses name="air-interface-historical-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
     </list>
     <description>
-      <text>Aggregated performance information of the air interface for a pre-defined measurement interval.</text>
+      <text>removed</text>
     </description>
   </grouping>
   <container name="co-channel-group">
@@ -1815,14 +1813,14 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <path value="/core-model:network-element/core-model:ltp/core-model:uuid"/>
       </type>
       <description>
-        <text>List of air interfaces, which are part of the co-channel (XPIC, MIMO, ALIC) group.</text>
+        <text>removed</text>
       </description>
     </leaf-list>
     <leaf name="sort-of-co-channel-group">
       <type name="string"/>
       <default value="Kind of co-channel group not specified."/>
       <description>
-        <text>Type of group of air interfaces with the same transmit and receive frequency. The values shall be chosen from the following _list:'XPIC', 'MIMO', 'ALIC';</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf-list name="logical-termination-point">
@@ -1834,7 +1832,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       </description>
     </leaf-list>
     <description>
-      <text>Required for configuring XPIC, MIMO and ALIC.</text>
+      <text>removed</text>
     </description>
   </container>
   <list name="mw-air-interface-hsb-end-point-pac">
@@ -1855,7 +1853,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       </description>
     </leaf>
     <description>
-      <text>The EndPoint (EP) object class models the access to the FC function. Each EndPoint instance has a role (e.g., working, protection, protected, hub, spoke, leaf, root, etc.) with respect to the FC function. The association of the FC to LTPs is made via EndPoints (essentially the ports of the FC) where each EndPoint (EP) of the FC has a role in the context of the FC. The traffic forwarding between the associated End PointsEPs of the FC depends upon the type of FC and may be associated with FCSwitch object instances. In cases where there is protection conveys the protecting role of the access to the FC.  The EP replaces the Protection Unit of a traditional protection model. It represents a protected (resilient/reliable) point or a protecting (unreliable working or protection) point.</text>
+      <text>removed</text>
     </description>
   </list>
   <list name="mw-air-interface-hsb-fc-switch-pac">
@@ -1864,28 +1862,28 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <type name="protection-type"/>
       <default value="hsb"/>
       <description>
-        <text>Indicates the protection scheme that is used for the ProtectionGroup.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="air-interface-hsb-configuration-is-faulty-severity">
       <type name="severity-type"/>
       <default value="warning"/>
       <description>
-        <text>The level of severity of an airInterfaceHsbConfigurationIsFaulty alarm shall be chosen from an enumeration.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="air-interface-hsb-is-partly-down-severity">
       <type name="severity-type"/>
       <default value="warning"/>
       <description>
-        <text>The level of severity for one link out of the HSB configuration being down shall be chosen from an enumeration.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="air-interface-hsb-is-down-severity">
       <type name="severity-type"/>
       <default value="warning"/>
       <description>
-        <text>The level of severity of the total HSB configuration being down shall be chosen from an enumeration.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="fcswitch">
@@ -1897,7 +1895,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       </description>
     </leaf>
     <description>
-      <text>Represents and defines a protection switch structure encapsulated in the forwarding construct. Essentially performs the function of Protection Group. Associates to 2 or more Endpoints each playing the role of a Protection Unit. One or more protection EndPoints (standby/backup) provide protection for one or more working (i.e. regular/main/preferred) Endpoints where either protection or working can feed one or more protected Endpoint. May be used in revertive or non-revertive (symmetric) mode. When in revertive mode may define waitToRestore time. May be used in one of several modes including source switch, destination switched, source and destination switched etc (covering cases such as  1+1 ane 1:1).  May be lockout (prevented from switching), force switched or manual switched. Will indicate switch state and change of state.</text>
+      <text>removed</text>
     </description>
   </list>
   <list name="mw-air-interface-diversity-pac">
@@ -1907,46 +1905,46 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <path value="/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid"/>
       </type>
       <description>
-        <text>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</text>
+        <text>removed</text>
       </description>
     </leaf>
     <container name="air-interface-diversity-capability">
       <config value="false"/>
-      <uses name="air-interface-diversity-capability"/>
+      <uses name="air-interface-diversity-capability-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="air-interface-diversity-configuration">
-      <uses name="air-interface-diversity-configuration"/>
+      <uses name="air-interface-diversity-configuration-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="air-interface-diversity-status">
       <config value="false"/>
-      <uses name="air-interface-diversity-status"/>
+      <uses name="air-interface-diversity-status-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="air-interface-diversity-current-problems">
       <config value="false"/>
-      <uses name="air-interface-diversity-current-problems"/>
+      <uses name="air-interface-diversity-current-problems-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="air-interface-diversity-current-performance">
       <config value="false"/>
-      <uses name="air-interface-diversity-current-performance"/>
+      <uses name="air-interface-diversity-current-performance-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="air-interface-diversity-historical-performances">
       <config value="false"/>
-      <uses name="air-interface-diversity-historical-performances"/>
+      <uses name="air-interface-diversity-historical-performances-g"/>
       <description>
         <text>none</text>
       </description>
@@ -1955,13 +1953,13 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </list>
-  <grouping name="air-interface-diversity-capability">
+  <grouping name="air-interface-diversity-capability-g">
     <list name="available-kinds-of-diversity">
       <key value="diversity-name"/>
       <config value="false"/>
-      <uses name="diversity-type"/>
+      <uses name="diversity-type-g"/>
       <description>
-        <text>Available types of diversity to be listed.</text>
+        <text>removed</text>
       </description>
     </list>
     <leaf name="supported-alarms">
@@ -1969,18 +1967,18 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="Supported alarms not yet defined."/>
       <config value="false"/>
       <description>
-        <text>Available alarms to be listed. Mandatory:'airInterfaceDiversityConfigurationIsPartlyDown' (at least one air interface is down, but not all of them) and 'airInterfaceDiversityConfigurationIsDown' (all air interfaces are down). Further alarms might be added by the device. Names are to be separated by commas.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
-      <text>Describes the capabilities in implementing different types of air interface diversity.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="air-interface-diversity-configuration">
+  <grouping name="air-interface-diversity-configuration-g">
     <container name="air-interface-diversity">
-      <uses name="diversity-type"/>
+      <uses name="diversity-type-g"/>
       <description>
-        <text>Type of air interface diversity configured at the link.</text>
+        <text>removed</text>
       </description>
     </container>
     <leaf-list name="air-interface-ltp-list">
@@ -1989,29 +1987,29 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       </type>
       <min-elements value="2"/>
       <description>
-        <text>_multiplicity:2-ThisAirInterfaceDiversity::AirInterfaceDiversityConfiguration::airInterfaceDiversity::diversityType::numberOfAirInterfacesMax</text>
+        <text>removed</text>
       </description>
     </leaf-list>
     <list name="problem-kind-severity-list">
       <key value="problem-kind-name"/>
       <min-elements value="3"/>
-      <uses name="air-interface-diversity-problem-severity-type"/>
+      <uses name="air-interface-diversity-problem-severity-type-g"/>
       <description>
-        <text>Severity of the problem to be configured.</text>
+        <text>removed</text>
       </description>
     </list>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="air-interface-diversity-status">
+  <grouping name="air-interface-diversity-status-g">
     <leaf name="snir-cur">
       <type name="int8"/>
       <units name="dB"/>
       <default value="-99"/>
       <config value="false"/>
       <description>
-        <text>Currently measured signal to (noise+interference) ratio of the combined signals.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="air-interface-diversity-status">
@@ -2019,7 +2017,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="group-down"/>
       <config value="false"/>
       <description>
-        <text>Status of the air interface bundle. </text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="last-status-change">
@@ -2027,18 +2025,18 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="2017-01-01T00:00:00.0Z"/>
       <config value="false"/>
       <description>
-        <text>Time the Diversity Group entered its current operational status.  </text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="air-interface-diversity-current-problems">
+  <grouping name="air-interface-diversity-current-problems-g">
     <list name="current-problem-list">
       <key value="sequence-number"/>
       <config value="false"/>
-      <uses name="air-interface-diversity-current-problem-type"/>
+      <uses name="air-interface-diversity-current-problem-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2047,32 +2045,32 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="air-interface-diversity-current-performance">
+  <grouping name="air-interface-diversity-current-performance-g">
     <list name="current-performance-data-list">
       <key value="scanner-id"/>
       <config value="false"/>
       <min-elements value="1"/>
       <max-elements value="2"/>
-      <uses name="air-interface-diversity-current-performance-type"/>
+      <uses name="air-interface-diversity-current-performance-type-g"/>
       <description>
-        <text>At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.</text>
+        <text>removed</text>
       </description>
     </list>
     <description>
-      <text>Aggregated performance information of the air interface diversity configuration at a particular moment.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="air-interface-diversity-historical-performances">
+  <grouping name="air-interface-diversity-historical-performances-g">
     <list name="historical-performance-data-list">
       <key value="history-data-id"/>
       <config value="false"/>
-      <uses name="air-interface-diversity-historical-performance-type"/>
+      <uses name="air-interface-diversity-historical-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
     </list>
     <description>
-      <text>Aggregated performance information of the air interface diversity configuration for a pre-defined measurement interval.</text>
+      <text>removed</text>
     </description>
   </grouping>
   <list name="mw-pure-ethernet-structure-pac">
@@ -2083,60 +2081,60 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <path value="/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid"/>
       </type>
       <description>
-        <text>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</text>
+        <text>removed</text>
       </description>
     </leaf>
     <container name="pure-ethernet-structure-capability">
       <config value="false"/>
-      <uses name="pure-ethernet-structure-capability"/>
+      <uses name="pure-ethernet-structure-capability-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="pure-ethernet-structure-configuration">
-      <uses name="pure-ethernet-structure-configuration"/>
+      <uses name="pure-ethernet-structure-configuration-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="pure-ethernet-structure-status">
       <config value="false"/>
-      <uses name="pure-ethernet-structure-status"/>
+      <uses name="pure-ethernet-structure-status-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="pure-ethernet-structure-current-problems">
       <config value="false"/>
-      <uses name="pure-ethernet-structure-current-problems"/>
+      <uses name="pure-ethernet-structure-current-problems-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="pure-ethernet-structure-current-performance">
       <config value="false"/>
-      <uses name="pure-ethernet-structure-current-performance"/>
+      <uses name="pure-ethernet-structure-current-performance-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="pure-ethernet-structure-historical-performances">
       <config value="false"/>
-      <uses name="pure-ethernet-structure-historical-performances"/>
+      <uses name="pure-ethernet-structure-historical-performances-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <description>
-      <text>The pureEthernetStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting Ethernet traffic only.</text>
+      <text>removed</text>
     </description>
   </list>
-  <grouping name="pure-ethernet-structure-capability">
+  <grouping name="pure-ethernet-structure-capability-g">
     <leaf name="structure-id">
       <type name="core-model:universal-id"/>
       <config value="false"/>
       <description>
-        <text>Identifies the Structure for bundling and container.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="supported-alarms">
@@ -2144,31 +2142,31 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="Supported alarms not yet defined."/>
       <config value="false"/>
       <description>
-        <text>Available alarms to be listed. Mandatory:non. Names are to be separated by commas. Further alarms might be added by the device.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
-      <text>Describes the logical structuring of the physical capacity provided by a pure Ethernet microwave device. Segmentation is not available. No fixed segment size. No TDM transport.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="pure-ethernet-structure-configuration">
+  <grouping name="pure-ethernet-structure-configuration-g">
     <list name="problem-kind-severity-list">
       <key value="problem-kind-name"/>
-      <uses name="structure-problem-severity-type"/>
+      <uses name="structure-problem-severity-type-g"/>
       <description>
-        <text>Severity of the type of problem to be configured.</text>
+        <text>removed</text>
       </description>
     </list>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="pure-ethernet-structure-status">
+  <grouping name="pure-ethernet-structure-status-g">
     <container name="segment-status-list">
       <config value="false"/>
-      <uses name="segment-status-type"/>
+      <uses name="segment-status-type-g"/>
       <description>
-        <text>Status of the Ethernet transport segment. Always just one segment.</text>
+        <text>removed</text>
       </description>
     </container>
     <leaf name="last-status-change">
@@ -2176,18 +2174,18 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="2017-01-01T00:00:00.0Z"/>
       <config value="false"/>
       <description>
-        <text>Time and date of the last update of the status information.  </text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="pure-ethernet-structure-current-problems">
+  <grouping name="pure-ethernet-structure-current-problems-g">
     <list name="current-problem-list">
       <key value="sequence-number"/>
       <config value="false"/>
-      <uses name="structure-current-problem-type"/>
+      <uses name="structure-current-problem-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2196,32 +2194,32 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="pure-ethernet-structure-current-performance">
+  <grouping name="pure-ethernet-structure-current-performance-g">
     <list name="current-performance-data-list">
       <key value="scanner-id"/>
       <config value="false"/>
       <min-elements value="1"/>
       <max-elements value="2"/>
-      <uses name="structure-current-performance-type"/>
+      <uses name="structure-current-performance-type-g"/>
       <description>
-        <text>At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.</text>
+        <text>removed</text>
       </description>
     </list>
     <description>
-      <text>Aggregated performance information of the structure of an pure Ethernet microwave at a particular moment.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="pure-ethernet-structure-historical-performances">
+  <grouping name="pure-ethernet-structure-historical-performances-g">
     <list name="historical-performance-data-list">
       <key value="history-data-id"/>
       <config value="false"/>
-      <uses name="structure-historical-performance-type"/>
+      <uses name="structure-historical-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
     </list>
     <description>
-      <text>Aggregated performance information of the structure of an pure Ethernet microwave for a pre-defined measurement interval.</text>
+      <text>removed</text>
     </description>
   </grouping>
   <feature name="pure-ethernet">
@@ -2237,69 +2235,69 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <path value="/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid"/>
       </type>
       <description>
-        <text>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</text>
+        <text>removed</text>
       </description>
     </leaf>
     <container name="hybrid-mw-structure-capability">
       <config value="false"/>
-      <uses name="hybrid-mw-structure-capability"/>
+      <uses name="hybrid-mw-structure-capability-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="hybrid-mw-structure-configuration">
-      <uses name="hybrid-mw-structure-configuration"/>
+      <uses name="hybrid-mw-structure-configuration-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="hybrid-mw-structure-status">
       <config value="false"/>
-      <uses name="hybrid-mw-structure-status"/>
+      <uses name="hybrid-mw-structure-status-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="hybrid-mw-structure-current-problems">
       <config value="false"/>
-      <uses name="hybrid-mw-structure-current-problems"/>
+      <uses name="hybrid-mw-structure-current-problems-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="hybrid-mw-structure-current-performance">
       <config value="false"/>
-      <uses name="hybrid-mw-structure-current-performance"/>
+      <uses name="hybrid-mw-structure-current-performance-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="hybrid-mw-structure-historical-performances">
       <config value="false"/>
-      <uses name="hybrid-mw-structure-historical-performances"/>
+      <uses name="hybrid-mw-structure-historical-performances-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <description>
-      <text>The HybridMwStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting TDM and Ethernet traffic.</text>
+      <text>removed</text>
     </description>
   </list>
-  <grouping name="hybrid-mw-structure-capability">
+  <grouping name="hybrid-mw-structure-capability-g">
     <leaf name="structure-id">
       <type name="core-model:universal-id"/>
       <config value="false"/>
       <description>
-        <text>Identifies the Structure for bundling and container.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <list name="supported-tdm-structure-types-list">
       <key value="tdm-structure-name"/>
       <config value="false"/>
       <min-elements value="1"/>
-      <uses name="tdm-structure-type"/>
+      <uses name="tdm-structure-type-g"/>
       <description>
-        <text>Lists the TDM frame types that are supported.</text>
+        <text>removed</text>
       </description>
     </list>
     <leaf name="supported-alarms">
@@ -2307,45 +2305,45 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="Supported alarms not yet defined."/>
       <config value="false"/>
       <description>
-        <text>Available alarms to be listed. Mandatory:non. Names are to be separated by commas. Further alarms might be added by the device.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
-      <text>Describes the logical structuring of the physical capacity provided by a hybrid microwave device (TDM + Ethernet). Segmentation is available. TDM transport is available.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="hybrid-mw-structure-configuration">
+  <grouping name="hybrid-mw-structure-configuration-g">
     <container name="structure-type">
-      <uses name="tdm-structure-type"/>
+      <uses name="tdm-structure-type-g"/>
       <description>
-        <text>TDM frame to be applied.</text>
+        <text>removed</text>
       </description>
     </container>
     <leaf name="number-of-tdm-segments-to-be-reserved">
       <type name="int16"/>
       <default value="-1"/>
       <description>
-        <text>Allows to configure the number of segments reserved for TDM frames of the type specified in HybridMwStructure::HybridMwStructureConfiguration::structureType</text>
+        <text>removed</text>
       </description>
     </leaf>
     <list name="problem-kind-severity-list">
       <key value="problem-kind-name"/>
-      <uses name="structure-problem-severity-type"/>
+      <uses name="structure-problem-severity-type-g"/>
       <description>
-        <text>Severity of the type of problem to be configured.</text>
+        <text>removed</text>
       </description>
     </list>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="hybrid-mw-structure-status">
+  <grouping name="hybrid-mw-structure-status-g">
     <list name="segment-status-list">
       <key value="segment-status-type-id"/>
       <config value="false"/>
-      <uses name="segment-status-type"/>
+      <uses name="segment-status-type-g"/>
       <description>
-        <text>Status of each segment (all TDM and one Ethernet). Multiplicity = HybridMwStructure::StructureConfiguration::tdmReservedNumberOfSegments + 1</text>
+        <text>removed</text>
       </description>
     </list>
     <leaf name="last-status-change">
@@ -2353,18 +2351,18 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="2017-01-01T00:00:00.0Z"/>
       <config value="false"/>
       <description>
-        <text>Time and date of the last update of the status information.  </text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="hybrid-mw-structure-current-problems">
+  <grouping name="hybrid-mw-structure-current-problems-g">
     <list name="current-problem-list">
       <key value="sequence-number"/>
       <config value="false"/>
-      <uses name="structure-current-problem-type"/>
+      <uses name="structure-current-problem-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2373,32 +2371,32 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="hybrid-mw-structure-current-performance">
+  <grouping name="hybrid-mw-structure-current-performance-g">
     <list name="current-performance-data-list">
       <key value="scanner-id"/>
       <config value="false"/>
       <min-elements value="1"/>
       <max-elements value="2"/>
-      <uses name="structure-current-performance-type"/>
+      <uses name="structure-current-performance-type-g"/>
       <description>
-        <text>At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.</text>
+        <text>removed</text>
       </description>
     </list>
     <description>
-      <text>Aggregated performance information of the structure of a hybrid microwave at a particular moment.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="hybrid-mw-structure-historical-performances">
+  <grouping name="hybrid-mw-structure-historical-performances-g">
     <list name="historical-performance-data-list">
       <key value="history-data-id"/>
       <config value="false"/>
-      <uses name="structure-historical-performance-type"/>
+      <uses name="structure-historical-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
     </list>
     <description>
-      <text>Aggregated performance information of the structure of a hybrid microwave for a pre-defined measurement interval.</text>
+      <text>removed</text>
     </description>
   </grouping>
   <feature name="hybrid-microwave">
@@ -2413,46 +2411,46 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <path value="/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid"/>
       </type>
       <description>
-        <text>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</text>
+        <text>removed</text>
       </description>
     </leaf>
     <container name="ethernet-container-capability">
       <config value="false"/>
-      <uses name="ethernet-container-capability"/>
+      <uses name="ethernet-container-capability-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="ethernet-container-configuration">
-      <uses name="ethernet-container-configuration"/>
+      <uses name="ethernet-container-configuration-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="ethernet-container-status">
       <config value="false"/>
-      <uses name="ethernet-container-status"/>
+      <uses name="ethernet-container-status-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="ethernet-container-current-problems">
       <config value="false"/>
-      <uses name="ethernet-container-current-problems"/>
+      <uses name="ethernet-container-current-problems-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="ethernet-container-current-performance">
       <config value="false"/>
-      <uses name="ethernet-container-current-performance"/>
+      <uses name="ethernet-container-current-performance-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="ethernet-container-historical-performances">
       <config value="false"/>
-      <uses name="ethernet-container-historical-performances"/>
+      <uses name="ethernet-container-historical-performances-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2461,13 +2459,13 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </list>
-  <grouping name="ethernet-container-capability">
+  <grouping name="ethernet-container-capability-g">
     <leaf name="bundling-is-avail">
       <type name="boolean"/>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>This attribute has to be set on 'true', if the device allows combining resources from several air interfaces for transporting this Ethernet container.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="packet-compression-is-avail">
@@ -2475,7 +2473,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>In case packet compression can be activated, but not configured to a certain type, packetCompressionAvail shall be set on 'true', but none of the compression level specific booleans.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="layer2-compression-is-avail">
@@ -2483,7 +2481,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>Packet compression on layer 2 available at the device.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="vlan-compression-is-avail">
@@ -2491,7 +2489,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>Packet compression on VLAN layer available at the device.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="q-in-q-compression-is-avail">
@@ -2499,7 +2497,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>Packet compression on layer of a second VLAN available at the device.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="mpls-compression-is-avail">
@@ -2507,7 +2505,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>Packet compression on mpls layer available at the device.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="ipv4-compression-is-avail">
@@ -2515,7 +2513,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>Packet compression on layer 3 for IPv4 available at the device.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="ipv6-compression-is-avail">
@@ -2523,7 +2521,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>Packet compression on layer 3 for IPv6 available at the device.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="layer4-compression-is-avail">
@@ -2531,7 +2529,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>Packet compression on layer 4 (TCP and UDP header) available at the device.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="encryption-is-avail">
@@ -2539,7 +2537,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="false"/>
       <config value="false"/>
       <description>
-        <text>Shall be marked 'true', if Ethernet payload encryption is available.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="supported-alarms">
@@ -2547,129 +2545,129 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="Supported alarms not yet defined."/>
       <config value="false"/>
       <description>
-        <text>Available alarms to be listed. Mandatory:'framingIsFaulty' and 'containerIsDown'. Further alarms might be added by the device.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="ethernet-container-configuration">
+  <grouping name="ethernet-container-configuration-g">
     <leaf name="container-id">
       <type name="string"/>
       <default value="No Ethernet Flow associated yet."/>
       <description>
-        <text>ContainterID in Netconf must be the same as EthernetPortID in OpenFlow so a connection can be made between the two items, which separately exist in the controller.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <list name="segments-id-list">
       <key value="structure-id-ref segment-id-ref"/>
       <min-elements value="1"/>
-      <uses name="segment-id-type"/>
+      <uses name="segment-id-type-g"/>
       <description>
-        <text>Lists the segments used for transporting this Ethernet container. In case EthernetContainer::ContainerCapability::bundlingIsAvail==0, all TypeDefinitions::segmentIdType::structureId must be identical in the list.</text>
+        <text>removed</text>
       </description>
     </list>
     <leaf name="packet-compression-is-on">
       <type name="boolean"/>
       <default value="false"/>
       <description>
-        <text>In case packet compression is activated, but no type is activated, it is assumed that the device chooses the optimum.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="layer2-compression-is-on">
       <type name="boolean"/>
       <default value="false"/>
       <description>
-        <text>Packet compression on layer 2 configured at the device.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="vlan-compression-is-on">
       <type name="boolean"/>
       <default value="false"/>
       <description>
-        <text>Packet compression on VLAN layer configured at the device.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="q-in-q-compression-is-on">
       <type name="boolean"/>
       <default value="false"/>
       <description>
-        <text>Packet compression on layer of a second VLAN configured at the device.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="mpls-compression-is-on">
       <type name="boolean"/>
       <default value="false"/>
       <description>
-        <text>Packet compression on MPLS layer configured at the device.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="ipv4-compression-is-on">
       <type name="boolean"/>
       <default value="false"/>
       <description>
-        <text>Packet compression on layer 3 for IPv4 configured at the device.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="ipv6-compression-is-on">
       <type name="boolean"/>
       <default value="false"/>
       <description>
-        <text>Packet compression on layer 3 for IPv6 configured at the device.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="layer4-compression-is-on">
       <type name="boolean"/>
       <default value="false"/>
       <description>
-        <text>Packet compression on layer 4 (TCP and UDP header) configured at the device.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="encryption-is-on">
       <type name="boolean"/>
       <default value="false"/>
       <description>
-        <text>Activates encryption of the Ethernet payload.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="cryptographic-key">
       <type name="string"/>
       <default value="Cryptographic key not yet defined."/>
       <description>
-        <text>Key for transforming plaintext into cipher text data.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <list name="problem-kind-severity-list">
       <key value="problem-kind-name"/>
       <min-elements value="2"/>
-      <uses name="container-problem-severity-type"/>
+      <uses name="container-problem-severity-type-g"/>
       <description>
-        <text>Severity of the problem to be configured.</text>
+        <text>removed</text>
       </description>
     </list>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="ethernet-container-status">
+  <grouping name="ethernet-container-status-g">
     <leaf name="last-status-change">
       <type name="yang:date-and-time"/>
       <default value="2017-01-01T00:00:00.0Z"/>
       <config value="false"/>
       <description>
-        <text>Time the Container entered its current operational status.  </text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="ethernet-container-current-problems">
+  <grouping name="ethernet-container-current-problems-g">
     <list name="current-problem-list">
       <key value="sequence-number"/>
       <config value="false"/>
-      <uses name="container-current-problem-type"/>
+      <uses name="container-current-problem-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2678,32 +2676,32 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="ethernet-container-current-performance">
+  <grouping name="ethernet-container-current-performance-g">
     <list name="current-performance-data-list">
       <key value="scanner-id"/>
       <config value="false"/>
       <min-elements value="1"/>
       <max-elements value="2"/>
-      <uses name="container-current-performance-type"/>
+      <uses name="container-current-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
     </list>
     <description>
-      <text>Aggregated performance information of the Ethernet container at a particular moment.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="ethernet-container-historical-performances">
+  <grouping name="ethernet-container-historical-performances-g">
     <list name="historical-performance-data-list">
       <key value="history-data-id"/>
       <config value="false"/>
-      <uses name="container-historical-performance-type"/>
+      <uses name="container-historical-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
     </list>
     <description>
-      <text>Aggregated performance information of the Ethernet container for a pre-defined measurement interval.</text>
+      <text>removed</text>
     </description>
   </grouping>
   <list name="mw-tdm-container-pac">
@@ -2714,46 +2712,46 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <path value="/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid"/>
       </type>
       <description>
-        <text>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</text>
+        <text>removed</text>
       </description>
     </leaf>
     <container name="tdm-container-capability">
       <config value="false"/>
-      <uses name="tdm-container-capability"/>
+      <uses name="tdm-container-capability-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="tdm-container-configuration">
-      <uses name="tdm-container-configuration"/>
+      <uses name="tdm-container-configuration-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="tdm-container-status">
       <config value="false"/>
-      <uses name="tdm-container-status"/>
+      <uses name="tdm-container-status-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="tdm-container-current-problems">
       <config value="false"/>
-      <uses name="tdm-container-current-problems"/>
+      <uses name="tdm-container-current-problems-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="tdm-container-current-performance">
       <config value="false"/>
-      <uses name="tdm-container-current-performance"/>
+      <uses name="tdm-container-current-performance-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="tdm-container-historical-performances">
       <config value="false"/>
-      <uses name="tdm-container-historical-performances"/>
+      <uses name="tdm-container-historical-performances-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2762,14 +2760,14 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </list>
-  <grouping name="tdm-container-capability">
+  <grouping name="tdm-container-capability-g">
     <list name="supported-tdm-container-types-list">
       <key value="tdm-container-name"/>
       <config value="false"/>
       <min-elements value="1"/>
-      <uses name="tdm-container-type"/>
+      <uses name="tdm-container-type-g"/>
       <description>
-        <text>Lists the TDM containers that are supported.</text>
+        <text>removed</text>
       </description>
     </list>
     <leaf name="supported-alarms">
@@ -2777,63 +2775,63 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="Supported alarms not yet defined."/>
       <config value="false"/>
       <description>
-        <text>Available alarms to be listed. Mandatory:'framingIsFaulty' and 'containerIsDown'. Further alarms might be added by the device.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
-      <text>Bundling is not available.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="tdm-container-configuration">
+  <grouping name="tdm-container-configuration-g">
     <leaf name="container-id">
       <type name="string"/>
       <default value="No TDM Flow associated yet."/>
       <description>
-        <text>ContainterID in Netconf must be the same as TDM Flow ID so a connection can be made between the two items, which separately exist in the controller.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <container name="container-type">
-      <uses name="tdm-container-type"/>
+      <uses name="tdm-container-type-g"/>
       <description>
-        <text>Type of TDM container.</text>
+        <text>removed</text>
       </description>
     </container>
     <container name="segment-id">
-      <uses name="segment-id-type"/>
+      <uses name="segment-id-type-g"/>
       <description>
-        <text>Multiplicity = 1; One segment per TDM container; Type of segment must match type of container;</text>
+        <text>removed</text>
       </description>
     </container>
     <list name="problem-kind-severity-list">
       <key value="problem-kind-name"/>
       <min-elements value="2"/>
-      <uses name="container-problem-severity-type"/>
+      <uses name="container-problem-severity-type-g"/>
       <description>
-        <text>Severity of the problem to be configured.</text>
+        <text>removed</text>
       </description>
     </list>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="tdm-container-status">
+  <grouping name="tdm-container-status-g">
     <leaf name="last-status-change">
       <type name="yang:date-and-time"/>
       <default value="2017-01-01T00:00:00.0Z"/>
       <config value="false"/>
       <description>
-        <text>Time the Container entered its current operational status.  </text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="tdm-container-current-problems">
+  <grouping name="tdm-container-current-problems-g">
     <list name="current-problem-list">
       <key value="sequence-number"/>
       <config value="false"/>
-      <uses name="container-current-problem-type"/>
+      <uses name="container-current-problem-type-g"/>
       <description>
         <text>none</text>
       </description>
@@ -2842,40 +2840,40 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="tdm-container-current-performance">
+  <grouping name="tdm-container-current-performance-g">
     <list name="current-performance-data-list">
       <key value="scanner-id"/>
       <config value="false"/>
       <min-elements value="1"/>
       <max-elements value="2"/>
-      <uses name="container-current-performance-type"/>
+      <uses name="container-current-performance-type-g"/>
       <description>
-        <text>At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.</text>
+        <text>removed</text>
       </description>
     </list>
     <description>
-      <text>Aggregated performance information of the TDM container at a particular moment.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="tdm-container-historical-performances">
+  <grouping name="tdm-container-historical-performances-g">
     <list name="historical-performance-data-list">
       <key value="history-data-id"/>
       <config value="false"/>
-      <uses name="container-historical-performance-type"/>
+      <uses name="container-historical-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
     </list>
     <description>
-      <text>Aggregated performance information of the TDM container for a pre-defined measurement interval.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="mw-current-problem">
+  <grouping name="mw-current-problem-g">
     <leaf name="sequence-number">
       <type name="int32"/>
       <config value="false"/>
       <description>
-        <text>Unique sequence number of the current problem object.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="time-stamp">
@@ -2883,7 +2881,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="2017-01-01T00:00:00.0Z"/>
       <config value="false"/>
       <description>
-        <text>Time and date of the problem.  </text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="problem-severity">
@@ -2891,7 +2889,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="warning"/>
       <config value="false"/>
       <description>
-        <text>Severity of the alarm.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
@@ -2899,17 +2897,17 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     </description>
   </grouping>
   <notification name="object-creation-notification">
-    <uses name="object-creation-notification"/>
+    <uses name="object-creation-notification-g"/>
     <description>
       <text>none</text>
     </description>
   </notification>
-  <grouping name="object-creation-notification">
+  <grouping name="object-creation-notification-g">
     <leaf name="counter">
       <type name="int32"/>
       <default value="-1"/>
       <description>
-        <text>Counts object creation notifications.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="time-stamp">
@@ -2922,32 +2920,32 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     <leaf name="object-id-ref">
       <type name="core-model:universal-id"/>
       <description>
-        <text>ID of the affected MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="object-type">
       <type name="string"/>
       <default value="Type of created object not specified."/>
       <description>
-        <text>Type of Object to be chosen from the following list of values: 'MW_AirInterface_Pac', 'MW_AirInterfaceDiversity_Pac', 'MW_Structure_Pac', 'MW_PureEthernetStructure_Pac', 'MW_HybridMwStructure_Pac', 'MW_Container_Pac', 'MW_EthernetContainer_Pac' or 'MW_TdmContainer_Pac'.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
-      <text>To be sent when a new MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac has to be instancieted in the controller.</text>
+      <text>removed</text>
     </description>
   </grouping>
   <notification name="object-deletion-notification">
-    <uses name="object-deletion-notification"/>
+    <uses name="object-deletion-notification-g"/>
     <description>
       <text>none</text>
     </description>
   </notification>
-  <grouping name="object-deletion-notification">
+  <grouping name="object-deletion-notification-g">
     <leaf name="counter">
       <type name="int32"/>
       <default value="-1"/>
       <description>
-        <text>Counts object deletion notifications.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="time-stamp">
@@ -2960,25 +2958,25 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     <leaf name="object-id-ref">
       <type name="core-model:universal-id"/>
       <description>
-        <text>ID of the affected MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
-      <text>To be sent when a new MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac instance has to be deleted in the controller.</text>
+      <text>removed</text>
     </description>
   </grouping>
   <notification name="attribute-value-changed-notification">
-    <uses name="attribute-value-changed-notification"/>
+    <uses name="attribute-value-changed-notification-g"/>
     <description>
       <text>none</text>
     </description>
   </notification>
-  <grouping name="attribute-value-changed-notification">
+  <grouping name="attribute-value-changed-notification-g">
     <leaf name="counter">
       <type name="int32"/>
       <default value="-1"/>
       <description>
-        <text>Counts attribute value changed notifications.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="time-stamp">
@@ -2991,39 +2989,39 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     <leaf name="object-id-ref">
       <type name="core-model:universal-id"/>
       <description>
-        <text>ID of the affected MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="attribute-name">
       <type name="string"/>
       <default value="Attribute name not specified."/>
       <description>
-        <text>Name of the attribute that has been changed.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="new-value">
       <type name="string"/>
       <default value="New value not specified."/>
       <description>
-        <text>Attribute value converted to a string (xml, json, ...)</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
-      <text>To be sent when an attribute has changed and one or more controllers have to update their data.</text>
+      <text>removed</text>
     </description>
   </grouping>
   <notification name="problem-notification">
-    <uses name="problem-notification"/>
+    <uses name="problem-notification-g"/>
     <description>
       <text>none</text>
     </description>
   </notification>
-  <grouping name="problem-notification">
+  <grouping name="problem-notification-g">
     <leaf name="counter">
       <type name="int32"/>
       <default value="-1"/>
       <description>
-        <text>Counts problem notifications</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="time-stamp">
@@ -3036,25 +3034,25 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     <leaf name="object-id-ref">
       <type name="core-model:universal-id"/>
       <description>
-        <text>ID of the affected MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="problem">
       <type name="string"/>
       <default value="Problem name not specified."/>
       <description>
-        <text>Name of the problem according to AirInterface::AirInterfaceCapability::supportedAlarms or AirInterfaceDiversity::AirInterfaceDiversityCapability::supportedAlarms or Structure::StructureCapability::supportedAlarms or PureEthernetStructure::PureEthernetStructureCapability::supportedAlarms or HybridMwStructure::HybridMwStructureCapability::supportedAlarms or Container::ContainerCapability::supportedAlarms or EthernetContainer::EthernetContainerCapability::supportedAlarms or TdmContainer::TdmContainerCapability::supportedAlarms.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="severity">
       <type name="severity-type"/>
       <default value="warning"/>
       <description>
-        <text>Severity of the problem according to AirInterface::AirInterfaceConfiguration::problemSeverityList, AirInterfaceDiversity::AirInterfaceDiversityConfiguration::problemSeverityList, Structure::StructureConfiguration::problemSeverityList, PureEthernetStructure::PureEthernetStructureConfiguration::problemSeverityList, HybridMwStructure::HybridMwStructureConfiguration::problemSeverityList, Container::ContainerConfiguration::problemSeverityList, EthernetContainer::EthernetContainerConfiguration::problemSeverityList or TdmContainer::TdmContainerConfiguration::problemSeverityList</text>
+        <text>removed</text>
       </description>
     </leaf>
     <description>
-      <text>To be sent when a problem occurs at a MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac.</text>
+      <text>removed</text>
     </description>
   </grouping>
 </module>

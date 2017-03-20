@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module name="g.874.1-model"
         xmlns="urn:ietf:params:xml:ns:yang:yin:1"
-        xmlns:g.874.1-model="urn:onf:params:xml:ns:yang:G.874.1-model"
-        xmlns:core-model="urn:onf:params:xml:ns:yang:CoreModel">
-  <namespace uri="urn:onf:params:xml:ns:yang:G.874.1-model"/>
+        xmlns:g.874.1-model="urn:onf:params:xml:ns:yang:g.874.1-model"
+        xmlns:core-model="urn:onf:params:xml:ns:yang:core-model"
+        xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types">
+  <namespace uri="urn:onf:params:xml:ns:yang:g.874.1-model"/>
   <prefix value="g.874.1-model"/>
   <import module="core-model">
     <prefix value="core-model"/>
@@ -27,9 +28,9 @@ Editors:  Thorsten Heinze
           &lt;mailto:martin.skorupski@highstreet-technologies.com&gt;</text>
   </contact>
   <description>
-    <text>&lt;p&gt;Version 2.02; outcome of the 10/2013 Nuremberg meeting.&lt;br&gt;Version 2.03; updates for Geneva 03-2014&lt;br&gt;Version 2.04; updates for Shanghai 09-2014&lt;br&gt;Version 2.05; input to Geneva 11-2014&lt;br&gt;Version 2.06; output from Geneva 11-2014&lt;br&gt;Version 2.07; using OpenProfile 3-2015&lt;br&gt;Version 2.08; output from Geneva 06-2015&lt;/p&gt;</text>
+    <text>removed</text>
   </description>
-  <revision date="2017-02-17">
+  <revision date="2017-03-20">
     <description>
       <text>Initial version</text>
     </description>
@@ -37,29 +38,29 @@ Editors:  Thorsten Heinze
       <text>ONF TR 532: A YANG Data Model for Wireless Networks.</text>
     </reference>
   </revision>
-  <grouping name="otn-current-data">
+  <grouping name="otn-current-data-g">
     <leaf name="timestamp">
       <type name="date-and-time"/>
       <description>
-        <text>The timestamp associated with when the current data was collected.</text>
+        <text>removed</text>
       </description>
     </leaf>
-    <uses name="q.822-current-data"/>
+    <uses name="q.822-current-data-g"/>
     <description>
-      <text>This object class is an abstract class from which the OTN layer-specific CurrentData object classes are inherited. This object class is a subclass of the Q.822 CurrentData object class, which in turn is a subclass of X.739 Scanner object class. It inherits the following attributes: scannerId, operationalState, granularityPeriod, administrativeState, suspectIntervalFlag, elapsedTime, observedObjectClass, and observedObjectInstance.</text>
+      <text>removed</text>
     </description>
   </grouping>
-  <grouping name="otn-history-data">
+  <grouping name="otn-history-data-g">
     <leaf name="suspect-interval-flag">
       <type name="boolean"/>
       <default value="false"/>
       <description>
-        <text>This attribute indicates that the data collected during the interval is suspect.</text>
+        <text>removed</text>
       </description>
     </leaf>
-    <uses name="q.822-history-data"/>
+    <uses name="q.822-history-data-g"/>
     <description>
-      <text>This object class is an abstract class from which the OTN layer-specific HistoryData object classes are inherited. </text>
+      <text>removed</text>
     </description>
   </grouping>
   <typedef name="directionality">
@@ -81,7 +82,7 @@ Editors:  Thorsten Heinze
       </enum>
     </type>
     <description>
-      <text>The enumeration with the options for directionality of the termination point.</text>
+      <text>removed</text>
     </description>
   </typedef>
   <typedef name="gcc-access">
@@ -103,7 +104,7 @@ Editors:  Thorsten Heinze
       </enum>
     </type>
     <description>
-      <text>This enumeration indicates the GCC access represented by the entity.</text>
+      <text>removed</text>
     </description>
   </typedef>
   <typedef name="operational-state">
@@ -120,7 +121,7 @@ Editors:  Thorsten Heinze
       </enum>
     </type>
     <description>
-      <text>The list of valid operational states for the connection.</text>
+      <text>removed</text>
     </description>
   </typedef>
   <typedef name="oper-type">
@@ -137,7 +138,7 @@ Editors:  Thorsten Heinze
       </enum>
     </type>
     <description>
-      <text>The operation type associated with the protection mechanism (either non-revertive or revertive).</text>
+      <text>removed</text>
     </description>
   </typedef>
   <typedef name="ext-cmd-operation">
@@ -179,7 +180,7 @@ Editors:  Thorsten Heinze
       </enum>
     </type>
     <description>
-      <text>This enumeration contains the options for the actions that instruct the protection system for performing specific protection switching operations.</text>
+      <text>removed</text>
     </description>
   </typedef>
   <typedef name="administrative-state">
@@ -201,10 +202,10 @@ Editors:  Thorsten Heinze
       </enum>
     </type>
     <description>
-      <text>For more information on Administrative State, See ITU-T Recs. X.731 and M.3100.</text>
+      <text>removed</text>
     </description>
   </typedef>
-  <typedef name="octk-nim-kbit-rate">
+  <typedef name="oc-tk-nim-k-bit-rate">
     <type name="enumeration">
       <enum name="2.5-g">
         <description>
@@ -228,7 +229,7 @@ Editors:  Thorsten Heinze
       </enum>
     </type>
     <description>
-      <text>Provides an enumeration with the meaning of each 'k' value.</text>
+      <text>removed</text>
     </description>
   </typedef>
   <typedef name="tim-det-mo">
@@ -250,54 +251,54 @@ Editors:  Thorsten Heinze
       </enum>
     </type>
     <description>
-      <text>List of modes for trace identifier mismatch detection.</text>
+      <text>removed</text>
     </description>
   </typedef>
-  <typedef name="octk-nim-problem-list">
+  <typedef name="oc-tk-nim-problem-list">
     <type name="enumeration">
       <enum name="los-p">
         <description>
-          <text>Loss of Signal -- Payload</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="oci">
         <description>
-          <text>Open Connection Indicator</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="ssf-p">
         <description>
-          <text>Server Signal Failure -- Payload -- can not co-exist with SSF or SSF-O</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="ssf-o">
         <description>
-          <text>Server Signal Failure -- Overhead; can not co-exist with SSF or SSF-P</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="ssf">
         <description>
-          <text>Server Signal Failure; can not co-exist with SSF-P or SSF-O</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="tim">
         <description>
-          <text>Trail Trace Identifier Mismatch</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="deg">
         <description>
-          <text>Signal Degraded</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="bdi">
         <description>
-          <text>Backward Defect Indication</text>
+          <text>removed</text>
         </description>
       </enum>
     </type>
     <description>
-      <text>The valid list of problems for the entity.</text>
+      <text>removed</text>
     </description>
   </typedef>
   <typedef name="tcm-monitoring">
@@ -314,7 +315,7 @@ Editors:  Thorsten Heinze
       </enum>
     </type>
     <description>
-      <text>Monitoring types for the tandem connection monitoring function.</text>
+      <text>removed</text>
     </description>
   </typedef>
   <typedef name="tcm-mode">
@@ -336,10 +337,10 @@ Editors:  Thorsten Heinze
       </enum>
     </type>
     <description>
-      <text>List of value modes for the sink side of the tandem connection monitoring function.</text>
+      <text>removed</text>
     </description>
   </typedef>
-  <typedef name="opsmnk-ttp-kbit-rate">
+  <typedef name="ops-mnk-ttp-k-bit-rate">
     <type name="enumeration">
       <enum name="40-g">
         <description>
@@ -353,39 +354,39 @@ Editors:  Thorsten Heinze
       </enum>
     </type>
     <description>
-      <text>Provides an enumeration with the meaning of each 'k' value.</text>
+      <text>removed</text>
     </description>
   </typedef>
-  <typedef name="opsmnk-ttp-problem-list">
+  <typedef name="ops-mnk-ttp-problem-list">
     <type name="enumeration">
       <enum name="los">
         <description>
-          <text>Loss of Signal</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="lol">
         <description>
-          <text>Loss of Lane Alignment</text>
+          <text>removed</text>
         </description>
       </enum>
     </type>
     <description>
-      <text>The valid list of problems for the entity.</text>
+      <text>removed</text>
     </description>
   </typedef>
-  <typedef name="opsn-ttp-problem-list">
+  <typedef name="op-sn-ttp-problem-list">
     <type name="enumeration">
       <enum name="los">
         <description>
-          <text>Loss of Signal</text>
+          <text>removed</text>
         </description>
       </enum>
     </type>
     <description>
-      <text>The valid list of problems for the entity.</text>
+      <text>removed</text>
     </description>
   </typedef>
-  <typedef name="otm-n-kbit-rates">
+  <typedef name="otm-n-k-bit-rates">
     <type name="enumeration">
       <enum name="2.5-g">
         <description>
@@ -419,7 +420,7 @@ Editors:  Thorsten Heinze
       </enum>
     </type>
     <description>
-      <text>Provides an enumeration with the meaning of each 'k' value.</text>
+      <text>removed</text>
     </description>
   </typedef>
   <typedef name="domain-interface">
@@ -436,7 +437,7 @@ Editors:  Thorsten Heinze
       </enum>
     </type>
     <description>
-      <text>This enumeration provides the options for the interface associated with OTMn.</text>
+      <text>removed</text>
     </description>
   </typedef>
   <typedef name="otm-n-optical-reach">
@@ -458,7 +459,7 @@ Editors:  Thorsten Heinze
       </enum>
     </type>
     <description>
-      <text>The valid options for reach of the optical cable.</text>
+      <text>removed</text>
     </description>
   </typedef>
   <typedef name="apr-status">
@@ -475,79 +476,79 @@ Editors:  Thorsten Heinze
       </enum>
     </type>
     <description>
-      <text>The enumeration of the options for the Automatic Power Reduction Status.</text>
+      <text>removed</text>
     </description>
   </typedef>
-  <typedef name="otsn-ttp-problem-list">
+  <typedef name="ot-sn-ttp-problem-list">
     <type name="enumeration">
       <enum name="bdi-p">
         <description>
-          <text>BDI-P (Backward Defect Indication - Payload); not co-exist with BDI-O or BDI</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="bdi-o">
         <description>
-          <text>BDI-O (Backward Defect Indication - Overhead); not co-exist with BDI-P or BDI</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="bdi">
         <description>
-          <text>BDI (Backward Defect Indication); not co-exist with BDI-P or BDI-O</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="tim">
         <description>
-          <text>TIM (Trail Trace Identifier Mismatch);</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="los-p">
         <description>
-          <text>-P (Loss of Signal - Payload); not co-exist with LOS-O or LOS</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="los-o">
         <description>
-          <text>LOS-O (Loss of Signal - Overhead); not co-exist with LOS-P or LOS</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="los">
         <description>
-          <text>LOS (Loss of Signal); not co-exist with LOS-P or LOS-O. </text>
+          <text>removed</text>
         </description>
       </enum>
     </type>
     <description>
-      <text>The valid list of problems for the entity.</text>
+      <text>removed</text>
     </description>
   </typedef>
-  <typedef name="otuk-ctp-adaptation">
+  <typedef name="ot-uk-ctp-adaptation">
     <type name="enumeration">
       <enum name="regular">
         <description>
-          <text>i.e. OPSM/OTUk-a, OCh[r]/OTUk-a</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="none">
         <description>
-          <text>i.e. OPSM/OTUk-b, OCh[r]/OTUk-b</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="vendor-specific">
         <description>
-          <text>i.e. OCh[r]/OTUk-v</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="functionally-standardized">
         <description>
-          <text>i.e. OCh[r]/OTUkV</text>
+          <text>removed</text>
         </description>
       </enum>
     </type>
     <description>
-      <text>The adaptation options for OTUk_ConnectionTermationPoints.</text>
+      <text>removed</text>
     </description>
   </typedef>
-  <typedef name="otuk-ctp-kbit-rate">
+  <typedef name="ot-uk-ctp-k-bit-rate">
     <type name="enumeration">
       <enum name="2.5-g">
         <description>
@@ -571,56 +572,56 @@ Editors:  Thorsten Heinze
       </enum>
     </type>
     <description>
-      <text>Provides an enumeration with the meaning of each 'k' value.</text>
+      <text>removed</text>
     </description>
   </typedef>
-  <typedef name="otuk-ctp-problem-list">
+  <typedef name="ot-uk-ctp-problem-list">
     <type name="enumeration">
       <enum name="lof">
         <description>
-          <text>Loss of Frame</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="ais">
         <description>
-          <text>Alarm Indication Signal</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="lom">
         <description>
-          <text>Loss of MultiFrame</text>
+          <text>removed</text>
         </description>
       </enum>
     </type>
     <description>
-      <text>The valid list of problems for the entity.</text>
+      <text>removed</text>
     </description>
   </typedef>
-  <typedef name="otuk-ttp-problem-list">
+  <typedef name="ot-uk-ttp-problem-list">
     <type name="enumeration">
       <enum name="tim">
         <description>
-          <text>Trail Trace Identifier Mismatch</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="deg">
         <description>
-          <text>Signal Degraded</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="bdi">
         <description>
-          <text>Backward Defect Indication</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="ssf">
         <description>
-          <text>Server Signal Failure</text>
+          <text>removed</text>
         </description>
       </enum>
     </type>
     <description>
-      <text>The valid list of problems for the entity.</text>
+      <text>removed</text>
     </description>
   </typedef>
   <typedef name="monitored-direction">
@@ -637,24 +638,24 @@ Editors:  Thorsten Heinze
       </enum>
     </type>
     <description>
-      <text>The enumeration with the options for directionality for nonintrusive monitoring.</text>
+      <text>removed</text>
     </description>
   </typedef>
   <typedef name="deg-thr-type">
     <type name="enumeration">
       <enum name="percentage">
         <description>
-          <text>&lt;p&gt;Choice of % or Number of errored blocks&lt;/p&gt;</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="number-errored-blocks">
         <description>
-          <text>&lt;p&gt;Number of % or blocks&lt;/p&gt;</text>
+          <text>removed</text>
         </description>
       </enum>
     </type>
     <description>
-      <text>&lt;p&gt;The value of the threshold can be provisioned in terms of number of errored blocks or in terms of percentage of errored blocks. For percentage-based specification, in order to support provision of less than 1%, the specification consists of two fields. The first field indicates the granularity of percentage. For examples, in 1%, in 0.1%, or in 0.01%, etc. The second field indicates the multiple of the granularity. For number of errored block based, the value is a positive integer.&lt;/p&gt;</text>
+      <text>removed</text>
     </description>
   </typedef>
   <typedef name="link-type">
@@ -705,19 +706,7 @@ Editors:  Thorsten Heinze
   <typedef name="date-and-time">
     <type name="string"/>
     <description>
-      <text>This primitive type defines the date and time according to the following structure:
-'yyyyMMddhhmmss.s[Z|{+|-}HHMm]' where:
-yyyy    '0000'..'9999'    year
-MM        '01'..'12'            month
-dd        '01'..'31'            day
-hh        '00'..'23'            hour
-mm        '00'..'59'            minute
-ss        '00'..'59'            second
-s        '.0'..'.9'            tenth of second (set to '.0' if EMS or NE cannot support this granularity)
-Z        'Z'                    indicates UTC (rather than local time)
-{+|-}    '+' or '-'            delta from UTC
-HH        '00'..'23'            time zone difference in hours
-Mm        '00'..'59'            time zone difference in minutes.</text>
+      <text>removed</text>
     </description>
   </typedef>
   <typedef name="aps-channel">
@@ -770,9 +759,7 @@ Mm        '00'..'59'            time zone difference in minutes.</text>
   <typedef name="bit-string">
     <type name="string"/>
     <description>
-      <text>This primitive type defines a bit oriented string.
-The size of the BitString will be defined in the valueRange property of the attribute; according to ASN.1 (X.680).
-The semantic of each bit position will be defined in the Documentation field of the attribute.</text>
+      <text>removed</text>
     </description>
   </typedef>
   <typedef name="delay-measurement-role">
@@ -796,12 +783,12 @@ The semantic of each bit position will be defined in the Documentation field of 
     <type name="enumeration">
       <enum name="increase-bw">
         <description>
-          <text>Increase Bandwidth</text>
+          <text>removed</text>
         </description>
       </enum>
       <enum name="decrease-bw">
         <description>
-          <text>Decrease Bandwidth</text>
+          <text>removed</text>
         </description>
       </enum>
     </type>
@@ -816,12 +803,12 @@ The semantic of each bit position will be defined in the Documentation field of 
           <text>none</text>
         </description>
       </enum>
-      <enum name="period-15min">
+      <enum name="period-15-min">
         <description>
           <text>none</text>
         </description>
       </enum>
-      <enum name="period-24hours">
+      <enum name="period-24-hours">
         <description>
           <text>none</text>
         </description>
@@ -831,11 +818,11 @@ The semantic of each bit position will be defined in the Documentation field of 
       <text>The enumeration with the options for granularity period of the performance data.</text>
     </description>
   </typedef>
-  <grouping name="q.822-current-data">
+  <grouping name="q.822-current-data-g">
     <leaf name="suspect-interval-flag">
       <type name="boolean"/>
       <description>
-        <text>This attribute is used to indicate that the performance data for the current period may not be reliable. Some reasons for this to occur are:- Suspect data were detected by the actual resource doing data collection.- Transition of the administrativeState attribute to/from the 'lock' state.- Transition of the operationalState to/from the 'disabled' state.- Scheduler setting that inhibits the collection function.- The performance counters were reset during the interval.- The currentData (or subclass) object instance was created during the monitoring period.</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="elapsed-time">
@@ -844,12 +831,12 @@ The semantic of each bit position will be defined in the Documentation field of 
         <text>none</text>
       </description>
     </leaf>
-    <uses name="x.739-scanner"/>
+    <uses name="x.739-scanner-g"/>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="q.822-history-data">
+  <grouping name="q.822-history-data-g">
     <leaf name="history-data-id">
       <type name="string"/>
       <description>
@@ -868,12 +855,12 @@ The semantic of each bit position will be defined in the Documentation field of 
         <text>none</text>
       </description>
     </leaf>
-    <uses name="x.721-top"/>
+    <uses name="x.721-top-g"/>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="x.739-scanner">
+  <grouping name="x.739-scanner-g">
     <leaf name="scanner-id">
       <type name="string"/>
       <description>
@@ -892,17 +879,16 @@ The semantic of each bit position will be defined in the Documentation field of 
         <text>none</text>
       </description>
     </leaf>
-    <uses name="x.721-top"/>
+    <uses name="x.721-top-g"/>
     <description>
       <text>none</text>
     </description>
   </grouping>
-  <grouping name="x.721-top">
+  <grouping name="x.721-top-g">
     <leaf name="object-class">
       <type name="object-identifier"/>
       <description>
-        <text>ObjectClass ::= CHOICE{    globalForm    [0] OBJECT IDENTIFIER,
-localForm    [1] INTEGER}</text>
+        <text>removed</text>
       </description>
     </leaf>
     <leaf name="name-binding">
@@ -912,7 +898,7 @@ localForm    [1] INTEGER}</text>
       </description>
     </leaf>
     <description>
-      <text>This is the top level of managed object class hierarchy and every other managed object class is a specialization of either this generic class (top) or a specialization of subclass of top. The parameter miscellaneousError is to be used when a processing failure has occurred and the error condition encountered does not match any of object's defined specific error types.</text>
+      <text>removed</text>
     </description>
   </grouping>
   <typedef name="object-instance">
@@ -942,7 +928,7 @@ localForm    [1] INTEGER}</text>
   <typedef name="time-period">
     <type name="string"/>
     <description>
-      <text>This primitive Type is imported from X.739.</text>
+      <text>removed</text>
     </description>
   </typedef>
 </module>
