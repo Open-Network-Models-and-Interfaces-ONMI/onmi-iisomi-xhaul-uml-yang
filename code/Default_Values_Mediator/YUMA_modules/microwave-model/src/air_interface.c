@@ -487,7 +487,6 @@ static status_t attach_transmission_mode_list(val_value_t *parentval)
 	const xmlChar *k_mw_air_interface_pac_layer_protocol_key = VAL_STRING(agt_get_key_value(parentval, &lastkey));
 	const xmlChar *k_mw_air_interface_pac_layer_protocol_supportedChannelPlan_key = VAL_STRING(agt_get_key_value(parentval, &lastkey));
 
-
 	res = cb_get_all_transmission_mode_id_list_keys(k_mw_air_interface_pac_layer_protocol_key, k_mw_air_interface_pac_layer_protocol_supportedChannelPlan_key, transmission_mode_id_list, &num_of_transmission_mode_id_list_keys);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_all_transmission_mode_id_list_keys failed!");
 
@@ -1090,7 +1089,7 @@ static status_t attach_co_channel_group_list_entry(val_value_t *parentval, const
 	status_t res = NO_ERR;
 
 	/*
-	 * Creating the root element for the module: CoChannelGroup
+	 * Creating the root element for the module: co-channel-group
 	 */
 	val_value_t *co_channel_group_val = NULL;
 
@@ -1104,7 +1103,7 @@ static status_t attach_co_channel_group_list_entry(val_value_t *parentval, const
 	val_add_child(co_channel_group_val, parentval);
 
 	/*
-	 * Create coChannelGroupId leaf
+	 * Create co-channel-group-id leaf
 	 */
 	val_value_t  *coChannelGroupId_val = NULL;
 
@@ -1118,46 +1117,72 @@ static status_t attach_co_channel_group_list_entry(val_value_t *parentval, const
 	YUMA_ASSERT(NULL == coChannelGroupId_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_microwave_model_N_co_channel_group_id);
 
-	char* airInterfaceList_entries[MAX_NUMBER_OF_CO_CHANNEL_GROUP_AIR_INTERFACE_LIST_ENTRIES];
-	int number_of_co_channel_group_airInterfaceList_entries_id_keys;
+    /*
+     * Create air-interface-list leaf
+     */
+	char* air_interface_list_entries[MAX_NUMBER_OF_CO_CHANNEL_GROUP_AIR_INTERFACE_LIST_ENTRIES];
+	int number_of_co_channel_group_air_interface_list_entries_keys;
 
-	res = cb_get_all_co_channel_group_air_interface_list_id_keys(co_channel_group_list_key_entry, airInterfaceList_entries, &number_of_co_channel_group_airInterfaceList_entries_id_keys);
+	res = cb_get_all_co_channel_group_air_interface_list_keys(air_interface_list_entries, &number_of_co_channel_group_air_interface_list_entries_keys);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_all_co_channel_group_air_interface_list_id_keys failed!");
 
-	for (int i=0; i<number_of_co_channel_group_airInterfaceList_entries_id_keys; ++i)
+	for (int i=0; i<number_of_co_channel_group_air_interface_list_entries_keys; ++i)
 	{
-		/*
-		 * Create airInterfaceList leaf-list entry
-		 */
-		val_value_t  *airInterfaceList_val = NULL;
+		val_value_t  *air_interface_list_val = NULL;
 
 		res = create_and_init_child_element(y_microwave_model_M_microwave_model,
 				y_microwave_model_N_air_interface_list,
 				co_channel_group_val,
-				&airInterfaceList_val,
-				airInterfaceList_entries[i],
+				&air_interface_list_val,
+				air_interface_list_entries[i],
 				y_microwave_model_M_microwave_model,
 				false);
-		YUMA_ASSERT(NULL == airInterfaceList_val, return ERR_INTERNAL_VAL ,
+		YUMA_ASSERT(NULL == air_interface_list_val, return ERR_INTERNAL_VAL ,
 					"create_and_init_child_element failed for element=%s", y_microwave_model_N_air_interface_list);
 
-		free(airInterfaceList_entries[i]);
+		free(air_interface_list_entries[i]);
 	}
 
 	/*
-	 * Create sortOfCoChannelGroup leaf
+	 * Create sort-of-co-channel-group leaf
 	 */
-	val_value_t  *sortOfCoChannelGroup_val = NULL;
+	val_value_t  *sort_of_co_channel_group_val = NULL;
 
 	res = create_and_init_child_element(y_microwave_model_M_microwave_model,
 			y_microwave_model_N_sort_of_co_channel_group,
 			co_channel_group_val,
-			&sortOfCoChannelGroup_val,
+			&sort_of_co_channel_group_val,
 			NULL,
 			y_microwave_model_M_microwave_model,
 			false);
-	YUMA_ASSERT(NULL == sortOfCoChannelGroup_val, return ERR_INTERNAL_VAL ,
+	YUMA_ASSERT(NULL == sort_of_co_channel_group_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_microwave_model_N_sort_of_co_channel_group);
+
+	/*
+	 * Create logical-termination-point
+	 */
+    char* logical_termination_point_entries[MAX_NUMBER_OF_CO_CHANNEL_GROUP_LOGICAL_TERMINATION_POINT_ENTRIES];
+    int number_logical_termination_point_entries_keys;
+
+    res = cb_get_all_co_channel_group_logical_termination_point_keys(logical_termination_point_entries, &number_logical_termination_point_entries_keys);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_all_co_channel_group_air_interface_list_id_keys failed!");
+
+    for (int i=0; i<number_logical_termination_point_entries_keys; ++i)
+    {
+        val_value_t  *logical_termination_point_val = NULL;
+
+        res = create_and_init_child_element(y_microwave_model_M_microwave_model,
+                y_microwave_model_N_logical_termination_point,
+                co_channel_group_val,
+                &logical_termination_point_val,
+                logical_termination_point_entries[i],
+                y_microwave_model_M_microwave_model,
+                false);
+        YUMA_ASSERT(NULL == logical_termination_point_val, return ERR_INTERNAL_VAL ,
+                    "create_and_init_child_element failed for element=%s", y_microwave_model_N_logical_termination_point);
+
+        free(logical_termination_point_entries[i]);
+    }
 
 	return NO_ERR;
 }
@@ -1197,7 +1222,7 @@ status_t build_air_interface_attributes_tree (void)
      */
     cfg_template_t* runningcfg;
     runningcfg = cfg_get_config_id(NCX_CFGID_RUNNING);
-    YUMA_ASSERT(!runningcfg || !runningcfg->root, return ERR_INTERNAL_VAL, "No running config available in u_MicrowaveModel_ObjectClasses_MwConnection_init2!");
+    YUMA_ASSERT(!runningcfg || !runningcfg->root, return ERR_INTERNAL_VAL, "No running config available in u_microwave_model_init2!");
 
     /*
      * Creating the mw_air_interface_pac list and attach it to the running config

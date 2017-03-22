@@ -346,9 +346,6 @@ static status_t get_pure_eth_structure_current_problem_list(ses_cb_t *scb, getcb
 	val_value_t *lastkey = NULL;
 	const xmlChar *k_mw_pure_ethernet_structure_pac_layer_protocol = VAL_STRING(agt_get_key_value(dst_val, &lastkey));
 
-    //the layer_protocol value that we have here is of form: LP-MWS-index
-    //if we search for the problem kind in the AirInterface model, we need to translate this index in the form: LP-MWPS-index
-
     char ifIndex[1000];
     char new_layer_protocol[3000];
     int foundIfIndex = 0;
@@ -357,7 +354,7 @@ static status_t get_pure_eth_structure_current_problem_list(ses_cb_t *scb, getcb
 
     sprintf(new_layer_protocol, "%s%s", LP_MWPS_PREFIX, ifIndex);
 
-	res = dvm_cb_get_all_pure_eth_structure_current_problem_list_keys((foundIfIndex == 0) ? k_mw_pure_ethernet_structure_pac_layer_protocol : new_layer_protocol, pure_eth_structure_current_problem_list_keys_entries, &num_of_pure_eth_structure_current_problem_list_keys);
+	res = cb_get_all_pure_eth_structure_current_problem_list_keys((foundIfIndex == 0) ? k_mw_pure_ethernet_structure_pac_layer_protocol : new_layer_protocol, pure_eth_structure_current_problem_list_keys_entries, &num_of_pure_eth_structure_current_problem_list_keys);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_all_air_interface_current_problem_list_keys failed!");
 
 	for (int i=0; i<num_of_pure_eth_structure_current_problem_list_keys; ++i)
@@ -422,12 +419,7 @@ static status_t attach_current_problem_list_entry(val_value_t* parentval, const 
 	YUMA_ASSERT(NULL == timeStamp_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_microwave_model_N_time_stamp);
 
-//    res = add_virtual_leaf(currentProblemList_val,
-//                            y_microwave_model_N_time_stamp,
-//                            microwave_model_mw_pure_ethernet_structure_pac_pure_ethernet_structure_current_problems_current_problem_list_time_stamp_get);
-//    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_microwave_model_N_time_stamp);
-
-    /*
+	/*
      * Create problemName virtual leaf with callback attached
      */
 	val_value_t  *problemName_val = NULL;
@@ -441,11 +433,6 @@ static status_t attach_current_problem_list_entry(val_value_t* parentval, const 
 			true);
 	YUMA_ASSERT(NULL == problemName_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_microwave_model_N_problem_name);
-
-//    res = add_virtual_leaf(currentProblemList_val,
-//                            y_microwave_model_N_problem_name,
-//                            microwave_model_mw_pure_ethernet_structure_pac_pure_ethernet_structure_current_problems_current_problem_list_problem_name_get);
-//    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_microwave_model_N_problem_name);
 
     /*
      * Create problemSeverity virtual leaf with callback attached
@@ -462,11 +449,6 @@ static status_t attach_current_problem_list_entry(val_value_t* parentval, const 
 	YUMA_ASSERT(NULL == problemSeverity_val, return ERR_INTERNAL_VAL ,
 				"create_and_init_child_element failed for element=%s", y_microwave_model_N_problem_severity);
 
-//    res = add_virtual_leaf(currentProblemList_val,
-//                            y_microwave_model_N_problem_severity,
-//                            microwave_model_mw_pure_ethernet_structure_pac_pure_ethernet_structure_current_problems_current_problem_list_problem_severity_get);
-//    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not add virtual leaf=%s", y_microwave_model_N_problem_severity);
-
 	return NO_ERR;
 }
 
@@ -482,7 +464,7 @@ status_t build_pure_ethernet_structure_attributes_tree (void)
     YUMA_ASSERT(!runningcfg || !runningcfg->root, return ERR_INTERNAL_VAL, "No running config available in u_microwave_model_init2!");
 
     /*
-     * Creating the mw_pure_ethernet_structure_pac list and attach it to the running config
+     * Creating the mw-pure-ethernet-structure-pac list and attach it to the running config
      */
     res = build_attributes_tree_and_attach_to_running_cfg(runningcfg);
     YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "Could not build the tree for the running config");

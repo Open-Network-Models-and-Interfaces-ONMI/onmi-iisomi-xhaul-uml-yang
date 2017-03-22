@@ -17,7 +17,9 @@ clean:
 	  cd $$dir && $(MAKE) clean && cd ..;\
         done
 
-.PHONY: all clean
+install:
+
+.PHONY: all clean install
 
 
 # prevent the make program from choking on all the symbols

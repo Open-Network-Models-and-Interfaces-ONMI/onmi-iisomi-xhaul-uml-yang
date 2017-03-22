@@ -219,7 +219,7 @@
       <modulation-is-on>true</modulation-is-on>
       <encryption-is-on>false</encryption-is-on>
       <cryptographic-key>Cryptographic key not yet defined.</cryptographic-key>
-      <loop-back-kind-on>non</loop-back-kind-on>
+      <loop-back-kind-on>none</loop-back-kind-on>
       <maintenance-timer>2</maintenance-timer>
       <problem-kind-severity-list>
         <problem-kind-name>signalIsLost</problem-kind-name>
@@ -264,7 +264,7 @@
       <alic-is-up>false</alic-is-up>
       <atpc-is-up>true</atpc-is-up>
       <auto-freq-select-is-up>false</auto-freq-select-is-up>
-      <loop-back-kind-up>non</loop-back-kind-up>
+      <loop-back-kind-up>none</loop-back-kind-up>
       <local-end-point-id>not-supported</local-end-point-id>
       <remote-end-point-id>not-supported</remote-end-point-id>
     </air-interface-status>
@@ -288,7 +288,7 @@
         <timestamp>2017-03-01T10:05:00.0+00:00</timestamp>
         <suspect-interval-flag>false</suspect-interval-flag>
         <elapsed-time>0</elapsed-time>
-        <granularity-period>period-24hours</granularity-period>
+        <granularity-period>period-24-hours</granularity-period>
         <administrative-state>unlocked</administrative-state>
         <object-class>DVM PM_AIR_INTERFACE</object-class>
         <name-binding>DVM PM_AIR_INTERFACE</name-binding>
@@ -341,7 +341,7 @@
         <timestamp>2017-03-01T10:05:00.0+00:00</timestamp>
         <suspect-interval-flag>false</suspect-interval-flag>
         <elapsed-time>0</elapsed-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <administrative-state>unlocked</administrative-state>
         <object-class>DVM PM_AIR_INTERFACE</object-class>
         <name-binding>DVM PM_AIR_INTERFACE</name-binding>
@@ -395,7 +395,7 @@
         <history-data-id>PM_RADIO_24H_1</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T00:00:00.0+00:00</period-end-time>
-        <granularity-period>period-24hours</granularity-period>
+        <granularity-period>period-24-hours</granularity-period>
         <object-class>DVM PM_AIR_INTERFACE</object-class>
         <name-binding>DVM PM_AIR_INTERFACE</name-binding>
         <performance-data>
@@ -446,7 +446,7 @@
         <history-data-id>PM_RADIO_15M_01</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T10:00:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_AIR_INTERFACE</object-class>
         <name-binding>DVM PM_AIR_INTERFACE</name-binding>
         <performance-data>
@@ -497,7 +497,7 @@
         <history-data-id>PM_RADIO_15M_2</history-data-id>
         <suspect-interval-flag>true</suspect-interval-flag>
         <period-end-time>2017-03-01T09:45:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_AIR_INTERFACE</object-class>
         <name-binding>DVM PM_AIR_INTERFACE</name-binding>
         <performance-data>
@@ -548,7 +548,7 @@
         <history-data-id>PM_RADIO_15M_3</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T09:30:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_AIR_INTERFACE</object-class>
         <name-binding>DVM PM_AIR_INTERFACE</name-binding>
         <performance-data>
@@ -599,7 +599,7 @@
         <history-data-id>PM_RADIO_15M_4</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T09:15:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_AIR_INTERFACE</object-class>
         <name-binding>DVM PM_AIR_INTERFACE</name-binding>
         <performance-data>
@@ -650,7 +650,7 @@
         <history-data-id>PM_RADIO_15M_5</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T09:00:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_AIR_INTERFACE</object-class>
         <name-binding>DVM PM_AIR_INTERFACE</name-binding>
         <performance-data>
@@ -701,7 +701,7 @@
         <history-data-id>PM_RADIO_15M_6</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T08:45:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_AIR_INTERFACE</object-class>
         <name-binding>DVM PM_AIR_INTERFACE</name-binding>
         <performance-data>
@@ -752,7 +752,7 @@
         <history-data-id>PM_RADIO_15M_7</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T08:30:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_AIR_INTERFACE</object-class>
         <name-binding>DVM PM_AIR_INTERFACE</name-binding>
         <performance-data>
@@ -803,7 +803,7 @@
         <history-data-id>PM_RADIO_15M_8</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T08:15:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_AIR_INTERFACE</object-class>
         <name-binding>DVM PM_AIR_INTERFACE</name-binding>
         <performance-data>
@@ -854,7 +854,7 @@
         <history-data-id>PM_RADIO_15M_9</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T08:00:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_AIR_INTERFACE</object-class>
         <name-binding>DVM PM_AIR_INTERFACE</name-binding>
         <performance-data>
@@ -905,7 +905,7 @@
         <history-data-id>PM_RADIO_15M_10</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T07:45:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_AIR_INTERFACE</object-class>
         <name-binding>DVM PM_AIR_INTERFACE</name-binding>
         <performance-data>
@@ -956,7 +956,7 @@
         <history-data-id>PM_RADIO_15M_11</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T07:30:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_AIR_INTERFACE</object-class>
         <name-binding>DVM PM_AIR_INTERFACE</name-binding>
         <performance-data>
@@ -1007,7 +1007,7 @@
         <history-data-id>PM_RADIO_15M_12</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T07:15:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_AIR_INTERFACE</object-class>
         <name-binding>DVM PM_AIR_INTERFACE</name-binding>
         <performance-data>
@@ -1058,7 +1058,7 @@
         <history-data-id>PM_RADIO_15M_13</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T07:00:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_AIR_INTERFACE</object-class>
         <name-binding>DVM PM_AIR_INTERFACE</name-binding>
         <performance-data>
@@ -1109,7 +1109,7 @@
         <history-data-id>PM_RADIO_15M_14</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T06:45:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_AIR_INTERFACE</object-class>
         <name-binding>DVM PM_AIR_INTERFACE</name-binding>
         <performance-data>
@@ -1160,7 +1160,7 @@
         <history-data-id>PM_RADIO_15M_15</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T06:30:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_AIR_INTERFACE</object-class>
         <name-binding>DVM PM_AIR_INTERFACE</name-binding>
         <performance-data>
@@ -1211,7 +1211,7 @@
         <history-data-id>PM_RADIO_15M_16</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T06:15:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_AIR_INTERFACE</object-class>
         <name-binding>DVM PM_AIR_INTERFACE</name-binding>
         <performance-data>
@@ -1260,27 +1260,123 @@
       </historical-performance-data-list>
     </air-interface-historical-performances>
   </mw-air-interface-pac>
-  <mw-pure-ethernet-structure-pac>
+  <co-channel-group>
+    <co-channel-group-id>CO-CHANNEL-GROUP-1</co-channel-group-id>
+    <air-interface-list>LTP-MWPS-TTP-RADIO</air-interface-list>
+    <sort-of-co-channel-group>XPIC</sort-of-co-channel-group>
+    <logical-termination-point>LTP-MWPS-TTP-RADIO</logical-termination-point>
+  </co-channel-group>
+  <mw-hybrid-mw-structure-pac>
     <layer-protocol>LP-MWS-RADIO</layer-protocol>
-    <pure-ethernet-structure-capability>
-      <structure-id>LP-MWS-RADIO-STRUCTURE-1AAA</structure-id>
+    <hybrid-mw-structure-capability>
+      <structure-id>LP-MWS-RADIO-HYBDRID-STRUCTURE</structure-id>
+      <supported-tdm-structure-types-list>
+        <tdm-structure-name>e1</tdm-structure-name>
+        <tdm-segment-size>2048</tdm-segment-size>
+        <max-number-of-segments-reservable>100</max-number-of-segments-reservable>
+      </supported-tdm-structure-types-list>
       <supported-alarms>Supported alarms not yet defined.</supported-alarms>
-    </pure-ethernet-structure-capability>
-    <pure-ethernet-structure-configuration/>
-    <pure-ethernet-structure-status>
+    </hybrid-mw-structure-capability>
+    <hybrid-mw-structure-configuration>
+      <structure-type>
+        <tdm-structure-name>e1</tdm-structure-name>
+        <tdm-segment-size>2048</tdm-segment-size>
+        <max-number-of-segments-reservable>100</max-number-of-segments-reservable>
+      </structure-type>
+      <number-of-tdm-segments-to-be-reserved>2</number-of-tdm-segments-to-be-reserved>
+    </hybrid-mw-structure-configuration>
+    <hybrid-mw-structure-status>
       <segment-status-list>
-        <segment-status-type-id>0</segment-status-type-id>
+        <segment-status-type-id>1</segment-status-type-id>
+        <segment-is-reserved-for-tdm>true</segment-is-reserved-for-tdm>
+        <operational-status>enabled</operational-status>
+        <obsolete-priority-class>1</obsolete-priority-class>
+        <obsolete-drop-order-rank>1</obsolete-drop-order-rank>
+      </segment-status-list>
+      <segment-status-list>
+        <segment-status-type-id>2</segment-status-type-id>
+        <segment-is-reserved-for-tdm>true</segment-is-reserved-for-tdm>
+        <operational-status>enabled</operational-status>
+        <obsolete-priority-class>2</obsolete-priority-class>
+        <obsolete-drop-order-rank>1</obsolete-drop-order-rank>
+      </segment-status-list>
+      <segment-status-list>
+        <segment-status-type-id>3</segment-status-type-id>
         <segment-is-reserved-for-tdm>false</segment-is-reserved-for-tdm>
-        <operational-status>disabled</operational-status>
+        <operational-status>enabled</operational-status>
         <obsolete-priority-class>-1</obsolete-priority-class>
-        <obsolete-drop-order-rank>-1</obsolete-drop-order-rank>
+        <obsolete-drop-order-rank>0</obsolete-drop-order-rank>
       </segment-status-list>
       <last-status-change>2017-01-01T00:00:00.0Z</last-status-change>
-    </pure-ethernet-structure-status>
-    <pure-ethernet-structure-current-problems/>
-    <pure-ethernet-structure-current-performance/>
-    <pure-ethernet-structure-historical-performances/>
-  </mw-pure-ethernet-structure-pac>
+    </hybrid-mw-structure-status>
+    <hybrid-mw-structure-current-problems>
+      <current-problem-list>
+        <sequence-number>1</sequence-number>
+        <problem-name>unknownProblem1</problem-name>
+        <time-stamp>2017-01-01T00:00:00.0+00:00</time-stamp>
+        <problem-severity>critical</problem-severity>
+      </current-problem-list>
+      <current-problem-list>
+        <sequence-number>2</sequence-number>
+        <problem-name>unknownProblem2</problem-name>
+        <time-stamp>2017-01-01T00:00:00.0Z</time-stamp>
+        <problem-severity>warning</problem-severity>
+      </current-problem-list>
+    </hybrid-mw-structure-current-problems>
+    <hybrid-mw-structure-current-performance>
+      <current-performance-data-list>
+        <scanner-id>PM_HYBRID_STRUCTURE_24H_CURRENT</scanner-id>
+        <performance-data>86400</performance-data>
+        <timestamp>2017-03-01T10:05:00.0+00:00</timestamp>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <elapsed-time>0</elapsed-time>
+        <granularity-period>period-24-hours</granularity-period>
+        <administrative-state>unlocked</administrative-state>
+        <object-class>DVM PM_HYBRID_STRUCTURE</object-class>
+        <name-binding>DVM PM_HYBRID_STRUCTURE</name-binding>
+      </current-performance-data-list>
+      <current-performance-data-list>
+        <scanner-id>PM_HYBRID_STRUCTURE_15M_CURRENT</scanner-id>
+        <performance-data>900</performance-data>
+        <timestamp>2017-03-01T10:05:00.0+00:00</timestamp>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <elapsed-time>0</elapsed-time>
+        <granularity-period>period-15-min</granularity-period>
+        <administrative-state>unlocked</administrative-state>
+        <object-class>DVM PM_HYBRID_STRUCTURE</object-class>
+        <name-binding>DVM PM_HYBRID_STRUCTURE</name-binding>
+      </current-performance-data-list>
+    </hybrid-mw-structure-current-performance>
+    <hybrid-mw-structure-historical-performances>
+      <historical-performance-data-list>
+        <history-data-id>PM_HYBRID_STRUCTURE_24H_1</history-data-id>
+        <performance-data>300</performance-data>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T00:00:00.0+00:00</period-end-time>
+        <granularity-period>period-24-hours</granularity-period>
+        <object-class>DVM PM_HYBRID_STRUCTURE</object-class>
+        <name-binding>DVM PM_HYBRID_STRUCTURE</name-binding>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_RADIO_15M_01</history-data-id>
+        <performance-data>100</performance-data>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T10:00:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_HYBRID_STRUCTURE</object-class>
+        <name-binding>DVM PM_HYBRID_STRUCTURE</name-binding>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_RADIO_15M_2</history-data-id>
+        <performance-data>200</performance-data>
+        <suspect-interval-flag>true</suspect-interval-flag>
+        <period-end-time>2017-03-01T09:45:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_HYBRID_STRUCTURE</object-class>
+        <name-binding>DVM PM_HYBRID_STRUCTURE</name-binding>
+      </historical-performance-data-list>
+    </hybrid-mw-structure-historical-performances>
+  </mw-hybrid-mw-structure-pac>
   <mw-ethernet-container-pac>
     <layer-protocol>LP-ETH-CTP-ETH-CONTAINER</layer-protocol>
     <ethernet-container-capability>
@@ -1331,7 +1427,7 @@
         <history-data-id>PM_ETH_CONTAINER_RADIO_15M_001</history-data-id>
         <suspect-interval-flag>true</suspect-interval-flag>
         <period-end-time>2017-03-01T07:30:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_ETH_CONTAINER</object-class>
         <name-binding>DVM PM_ETH_CONTAINER</name-binding>
         <performance-data>
@@ -1345,7 +1441,7 @@
         <history-data-id>PM_ETH_CONTAINER_RADIO_15M_002</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T07:45:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_ETH_CONTAINER</object-class>
         <name-binding>DVM PM_ETH_CONTAINER</name-binding>
         <performance-data>
@@ -1359,7 +1455,7 @@
         <history-data-id>PM_ETH_CONTAINER_RADIO_15M_003</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T08:00:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_ETH_CONTAINER</object-class>
         <name-binding>DVM PM_ETH_CONTAINER</name-binding>
         <performance-data>
@@ -1373,7 +1469,7 @@
         <history-data-id>PM_ETH_CONTAINER_RADIO_15M_004</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T08:15:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_ETH_CONTAINER</object-class>
         <name-binding>DVM PM_ETH_CONTAINER</name-binding>
         <performance-data>
@@ -1387,7 +1483,7 @@
         <history-data-id>PM_ETH_CONTAINER_RADIO_15M_005</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T08:30:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_ETH_CONTAINER</object-class>
         <name-binding>DVM PM_ETH_CONTAINER</name-binding>
         <performance-data>
@@ -1401,7 +1497,7 @@
         <history-data-id>PM_ETH_CONTAINER_RADIO_15M_006</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T08:45:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_ETH_CONTAINER</object-class>
         <name-binding>DVM PM_ETH_CONTAINER</name-binding>
         <performance-data>
@@ -1415,7 +1511,7 @@
         <history-data-id>PM_ETH_CONTAINER_RADIO_15M_007</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T09:00:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_ETH_CONTAINER</object-class>
         <name-binding>DVM PM_ETH_CONTAINER</name-binding>
         <performance-data>
@@ -1429,7 +1525,7 @@
         <history-data-id>PM_ETH_CONTAINER_RADIO_15M_008</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T09:15:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_ETH_CONTAINER</object-class>
         <name-binding>DVM PM_ETH_CONTAINER</name-binding>
         <performance-data>
@@ -1443,7 +1539,7 @@
         <history-data-id>PM_ETH_CONTAINER_RADIO_15M_009</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T09:30:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_ETH_CONTAINER</object-class>
         <name-binding>DVM PM_ETH_CONTAINER</name-binding>
         <performance-data>
@@ -1457,7 +1553,7 @@
         <history-data-id>PM_ETH_CONTAINER_RADIO_15M_010</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T09:45:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_ETH_CONTAINER</object-class>
         <name-binding>DVM PM_ETH_CONTAINER</name-binding>
         <performance-data>
@@ -1471,7 +1567,7 @@
         <history-data-id>PM_ETH_CONTAINER_RADIO_15M_011</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T10:00:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_ETH_CONTAINER</object-class>
         <name-binding>DVM PM_ETH_CONTAINER</name-binding>
         <performance-data>
@@ -1485,7 +1581,7 @@
         <history-data-id>PM_ETH_CONTAINER_RADIO_15M_024</history-data-id>
         <suspect-interval-flag>false</suspect-interval-flag>
         <period-end-time>2017-03-01T00:00:00.0+00:00</period-end-time>
-        <granularity-period>period-15min</granularity-period>
+        <granularity-period>period-15-min</granularity-period>
         <object-class>DVM PM_ETH_CONTAINER</object-class>
         <name-binding>DVM PM_ETH_CONTAINER</name-binding>
         <performance-data>
@@ -1497,6 +1593,386 @@
       </historical-performance-data-list>
     </ethernet-container-historical-performances>
   </mw-ethernet-container-pac>
+  <mw-tdm-container-pac>
+    <layer-protocol>LP-TDM-CTP-TDM-CONTAINER-01</layer-protocol>
+    <tdm-container-capability>
+      <supported-tdm-container-types-list>
+        <tdm-container-name>e1</tdm-container-name>
+        <tdm-container-size>2048</tdm-container-size>
+      </supported-tdm-container-types-list>
+      <supported-alarms>Supported alarms not yet defined.</supported-alarms>
+    </tdm-container-capability>
+    <tdm-container-configuration>
+      <container-id>CONTAINER-TYPE-TDM</container-id>
+      <container-type>
+        <tdm-container-name>e1</tdm-container-name>
+        <tdm-container-size>2048</tdm-container-size>
+      </container-type>
+      <segment-id>
+        <structure-id-ref>MD_LP_MWS_RADIO_UUID</structure-id-ref>
+        <segment-id-ref>1</segment-id-ref>
+      </segment-id>
+      <problem-kind-severity-list>
+        <problem-kind-name>alarm1</problem-kind-name>
+        <problem-kind-severity>critical</problem-kind-severity>
+      </problem-kind-severity-list>
+      <problem-kind-severity-list>
+        <problem-kind-name>alarm2</problem-kind-name>
+        <problem-kind-severity>critical</problem-kind-severity>
+      </problem-kind-severity-list>
+    </tdm-container-configuration>
+    <tdm-container-status>
+      <last-status-change>2017-01-01T00:00:00.0Z</last-status-change>
+    </tdm-container-status>
+    <tdm-container-current-problems/>
+    <tdm-container-current-performance/>
+    <tdm-container-historical-performances>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_001</history-data-id>
+        <suspect-interval-flag>true</suspect-interval-flag>
+        <period-end-time>2017-03-01T07:30:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_002</history-data-id>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T07:45:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_003</history-data-id>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T08:00:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_004</history-data-id>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T08:15:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_005</history-data-id>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T08:30:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_006</history-data-id>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T08:45:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_007</history-data-id>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T09:00:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_008</history-data-id>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T09:15:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_009</history-data-id>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T09:30:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_010</history-data-id>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T09:45:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_024</history-data-id>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T00:00:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+    </tdm-container-historical-performances>
+  </mw-tdm-container-pac>
+  <mw-tdm-container-pac>
+    <layer-protocol>LP-TDM-CTP-TDM-CONTAINER-02</layer-protocol>
+    <tdm-container-capability>
+      <supported-tdm-container-types-list>
+        <tdm-container-name>e1</tdm-container-name>
+        <tdm-container-size>2048</tdm-container-size>
+      </supported-tdm-container-types-list>
+      <supported-alarms>Supported alarms not yet defined.</supported-alarms>
+    </tdm-container-capability>
+    <tdm-container-configuration>
+      <container-id>CONTAINER-TYPE-TDM</container-id>
+      <container-type>
+        <tdm-container-name>e1</tdm-container-name>
+        <tdm-container-size>2048</tdm-container-size>
+      </container-type>
+      <segment-id>
+        <structure-id-ref>MD_LP_MWS_RADIO_UUID</structure-id-ref>
+        <segment-id-ref>1</segment-id-ref>
+      </segment-id>
+      <problem-kind-severity-list>
+        <problem-kind-name>alarm1</problem-kind-name>
+        <problem-kind-severity>critical</problem-kind-severity>
+      </problem-kind-severity-list>
+      <problem-kind-severity-list>
+        <problem-kind-name>alarm2</problem-kind-name>
+        <problem-kind-severity>critical</problem-kind-severity>
+      </problem-kind-severity-list>
+    </tdm-container-configuration>
+    <tdm-container-status>
+      <last-status-change>2017-01-01T00:00:00.0Z</last-status-change>
+    </tdm-container-status>
+    <tdm-container-current-problems/>
+    <tdm-container-current-performance/>
+    <tdm-container-historical-performances>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_001</history-data-id>
+        <suspect-interval-flag>true</suspect-interval-flag>
+        <period-end-time>2017-03-01T07:30:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_002</history-data-id>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T07:45:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_003</history-data-id>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T08:00:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_004</history-data-id>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T08:15:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_005</history-data-id>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T08:30:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_006</history-data-id>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T08:45:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_007</history-data-id>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T09:00:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_008</history-data-id>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T09:15:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_009</history-data-id>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T09:30:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_010</history-data-id>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T09:45:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+      <historical-performance-data-list>
+        <history-data-id>PM_TDM_CONTAINER_15M_024</history-data-id>
+        <suspect-interval-flag>false</suspect-interval-flag>
+        <period-end-time>2017-03-01T00:00:00.0+00:00</period-end-time>
+        <granularity-period>period-15-min</granularity-period>
+        <object-class>DVM PM_TDM_CONTAINER</object-class>
+        <name-binding>DVM PM_TDM_CONTAINER</name-binding>
+        <performance-data>
+          <tx-ethernet-bytes-max-s>-1</tx-ethernet-bytes-max-s>
+          <tx-ethernet-bytes-max-m>-1</tx-ethernet-bytes-max-m>
+          <tx-ethernet-bytes-sum>0</tx-ethernet-bytes-sum>
+          <time-period>900</time-period>
+        </performance-data>
+      </historical-performance-data-list>
+    </tdm-container-historical-performances>
+  </mw-tdm-container-pac>
   <network-element>
     <local-id>
       <value-name>ne-local-id</value-name>
@@ -1614,6 +2090,116 @@
         <extension>
           <value-name>lp-extension</value-name>
           <value>LP-ETH-CTP-ETH-CONTAINER</value>
+        </extension>
+        <operational-state>enabled</operational-state>
+        <administrative-control>unlock</administrative-control>
+        <administrative-state>unlocked</administrative-state>
+        <lifecycle-state>installed</lifecycle-state>
+        <layer-protocol-name/>
+        <configured-client-capacity/>
+        <lp-direction>bidirectional</lp-direction>
+        <termination-state>terminated-server-to-client-flow</termination-state>
+        <is-protection-lock-out>false</is-protection-lock-out>
+        <fc-blocks-signal-to-lp/>
+      </lp>
+      <ltp-in-other-view>LTP-MWS-RADIO</ltp-in-other-view>
+      <ltp-direction>bidirectional</ltp-direction>
+    </ltp>
+    <ltp>
+      <local-id>
+        <value-name>ltp-local-id</value-name>
+        <value>TDM-CONTAINER</value>
+      </local-id>
+      <uuid>LTP-TDM-CTP-TDM-CONTAINER-01</uuid>
+      <name>
+        <value-name>ltp-name</value-name>
+        <value>LTP-TDM-CTP-TDM-CONTAINER-01</value>
+      </name>
+      <label>
+        <value-name>ltp-label</value-name>
+        <value>LTP-TDM-CTP-TDM-CONTAINER-01</value>
+      </label>
+      <extension>
+        <value-name>ltp-extension</value-name>
+        <value>LTP-TDM-CTP-TDM-CONTAINER-01</value>
+      </extension>
+      <operational-state>enabled</operational-state>
+      <administrative-control>unlock</administrative-control>
+      <administrative-state>unlocked</administrative-state>
+      <lifecycle-state>installed</lifecycle-state>
+      <server-ltp>LTP-MWS-RADIO</server-ltp>
+      <lp>
+        <local-id>
+          <value-name>lp-local-id</value-name>
+          <value>TDM-CONTAINER</value>
+        </local-id>
+        <uuid>LP-TDM-CTP-TDM-CONTAINER-01</uuid>
+        <name>
+          <value-name>lp-name</value-name>
+          <value>LP-TDM-CTP-TDM-CONTAINER-01</value>
+        </name>
+        <label>
+          <value-name>lp-label</value-name>
+          <value>LP-TDM-CTP-TDM-CONTAINER-01</value>
+        </label>
+        <extension>
+          <value-name>lp-extension</value-name>
+          <value>LP-TDM-CTP-TDM-CONTAINER-01</value>
+        </extension>
+        <operational-state>enabled</operational-state>
+        <administrative-control>unlock</administrative-control>
+        <administrative-state>unlocked</administrative-state>
+        <lifecycle-state>installed</lifecycle-state>
+        <layer-protocol-name/>
+        <configured-client-capacity/>
+        <lp-direction>bidirectional</lp-direction>
+        <termination-state>terminated-server-to-client-flow</termination-state>
+        <is-protection-lock-out>false</is-protection-lock-out>
+        <fc-blocks-signal-to-lp/>
+      </lp>
+      <ltp-in-other-view>LTP-MWS-RADIO</ltp-in-other-view>
+      <ltp-direction>bidirectional</ltp-direction>
+    </ltp>
+    <ltp>
+      <local-id>
+        <value-name>ltp-local-id</value-name>
+        <value>TDM-CONTAINER</value>
+      </local-id>
+      <uuid>LTP-TDM-CTP-TDM-CONTAINER-02</uuid>
+      <name>
+        <value-name>ltp-name</value-name>
+        <value>LTP-TDM-CTP-TDM-CONTAINER-02</value>
+      </name>
+      <label>
+        <value-name>ltp-label</value-name>
+        <value>LTP-TDM-CTP-TDM-CONTAINER-02</value>
+      </label>
+      <extension>
+        <value-name>ltp-extension</value-name>
+        <value>LTP-TDM-CTP-TDM-CONTAINER-02</value>
+      </extension>
+      <operational-state>enabled</operational-state>
+      <administrative-control>unlock</administrative-control>
+      <administrative-state>unlocked</administrative-state>
+      <lifecycle-state>installed</lifecycle-state>
+      <server-ltp>LTP-MWS-RADIO</server-ltp>
+      <lp>
+        <local-id>
+          <value-name>lp-local-id</value-name>
+          <value>TDM-CONTAINER</value>
+        </local-id>
+        <uuid>LP-TDM-CTP-TDM-CONTAINER-02</uuid>
+        <name>
+          <value-name>lp-name</value-name>
+          <value>LP-TDM-CTP-TDM-CONTAINER-02</value>
+        </name>
+        <label>
+          <value-name>lp-label</value-name>
+          <value>LP-TDM-CTP-TDM-CONTAINER-02</value>
+        </label>
+        <extension>
+          <value-name>lp-extension</value-name>
+          <value>LP-TDM-CTP-TDM-CONTAINER-02</value>
         </extension>
         <operational-state>enabled</operational-state>
         <administrative-control>unlock</administrative-control>
