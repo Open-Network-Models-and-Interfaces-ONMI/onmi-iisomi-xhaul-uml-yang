@@ -11,8 +11,6 @@ This distribution is based on the Default Value Mediator available from the CENT
 ### How to install:
 #### For a mediator VM that was previously downloaded from the FTP server:
 
-0. Please follow the instruchtions of the [Base_Mediator](https://github.com/OpenNetworkingFoundation/CENTENNIAL/blob/master/code/Base_Mediator/README.md).
-
 1. Make sure you copy the files from *YANG_files/CENTENNIAL* into */usr/share/yuma/modules/CENTENNIAL*
 
 	```
