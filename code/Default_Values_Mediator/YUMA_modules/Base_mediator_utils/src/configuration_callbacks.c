@@ -6,66 +6,65 @@
  */
 
 #include "configuration_callbacks.h"
-#include "y_MicrowaveModel-ObjectClasses-AirInterface.h"
-#include "y_MicrowaveModel-ObjectClasses-EthernetContainer.h"
+#include "y_microwave-model.h"
 
-static status_t cb_send_to_device_airInterfaceConfiguration_airInterfaceName(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_radioSignalID(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_txFrequency(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_rxFrequency(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_txChannelBandwidth(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_rxChannelBandwidth(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_polarization(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_powerIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_transmitterIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_receiverIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_txPower(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_adaptiveModulationIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_modulationMin(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_modulationMax(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_xpicIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_mimoIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_alicIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_atpcIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_atpcThreshUpper(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_atpcThreshLower(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_autoFreqSelectIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_autoFreqSelectRange(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_modulationIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_encryptionIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_cryptographicKey(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_loopBackIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_airInterfaceConfiguration_maintenanceTimer(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
+static status_t cb_send_to_device_air_interface_configuration_air_interface_name(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_radio_signal_id(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_tx_frequency(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_rx_frequency(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_tx_channel_bandwidth(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_rx_channel_bandwidth(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_polarization(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_power_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_transmitter_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_receiver_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_tx_power(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_adaptive_modulation_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_modulation_min(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_modulation_max(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_xpic_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_mimo_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_alic_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_atpc_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_atpc_thresh_upper(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_atpc_thresh_lower(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_auto_freq_select_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_auto_freq_select_range(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_modulation_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_encryption_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_cryptographic_key(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_loop_back_kind_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_air_interface_configuration_maintenance_timer(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
 
-static status_t cb_send_to_device_airInterfaceConfiguration_problemKindName(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol, const char* k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
-static status_t cb_send_to_device_airInterfaceConfiguration_problemKindSeverity(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol, const char* k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
+static status_t cb_send_to_device_air_interface_configuration_problem_kind_name(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol, const xmlChar* k_mw_air_interface_pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
+static status_t cb_send_to_device_air_interface_configuration_problem_kind_severity(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol, const xmlChar* k_mw_air_interface_pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
 
-static status_t cb_send_to_device_pureEthernetStructureConfiguration_problemKindName(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol, const char* k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
-static status_t cb_send_to_device_pureEthernetStructureConfiguration_problemKindSeverity(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol, const char* k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
+static status_t cb_send_to_device_pure_ethernet_structure_configuration_problem_kind_name(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol, const xmlChar* k_mw_air_interface_pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
+static status_t cb_send_to_device_pure_ethernet_structure_configuration_problem_kind_severity(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol, const xmlChar* k_mw_air_interface_pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
 
-status_t cb_send_to_device_ethernetContainerConfiguration_element_value(val_value_t *element, const char* k_MW_EthernetContainer_Pac_layerProtocol);
-static status_t cb_send_to_device_ethernetContainerConfiguration_containerID(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_ethernetContainerConfiguration_structureIdRef(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_ethernetContainerConfiguration_segmentIdRef(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_ethernetContainerConfiguration_packetCompressionIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_ethernetContainerConfiguration_layer2CompressionIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_ethernetContainerConfiguration_vlanCompressionIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_ethernetContainerConfiguration_qInQCompressionIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_ethernetContainerConfiguration_mplsCompressionIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_ethernetContainerConfiguration_ipv4CompressionIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_ethernetContainerConfiguration_ipv6CompressionIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_ethernetContainerConfiguration_layer4CompressionIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_ethernetContainerConfiguration_encryptionIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
-static status_t cb_send_to_device_ethernetContainerConfiguration_cryptographicKey(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol);
+status_t cb_send_to_device_ethernet_container_configuration_element_value(val_value_t *element, const xmlChar* k_mw_ethernet_container_pac_layer_protocol);
+static status_t cb_send_to_device_ethernet_container_configuration_container_id(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_ethernet_container_configuration_structure_id_ref(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_ethernet_container_configuration_segment_id_ref(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_ethernet_container_configuration_packet_compression_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_ethernet_container_configuration_layer2_compression_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_ethernet_container_configuration_vlan_compression_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_ethernet_container_configuration_q_in_q_compression_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_ethernet_container_configuration_mpls_compression_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_ethernet_container_configuration_ipv4_compression_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_ethernet_container_configuration_ipv6_compression_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_ethernet_container_configuration_layer4_compression_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_ethernet_container_configuration_encryption_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
+static status_t cb_send_to_device_ethernet_container_configuration_cryptographic_key(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol);
 
-static status_t cb_send_to_device_ethernetContainerConfiguration_problemKindName(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol, const char *k_MW_EthernetContainer_Pac_ethernetContainerConfiguration_problemKindSeverityList_problemKindName);
-static status_t cb_send_to_device_ethernetContainerConfiguration_problemKindSeverity( val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol, const char *k_MW_EthernetContainer_Pac_ethernetContainerConfiguration_problemKindSeverityList_problemKindName);
+static status_t cb_send_to_device_ethernet_container_configuration_problem_kind_name(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol, const xmlChar *k_mw_ethernet_container_pac_ethernetContainerConfiguration_problemKindSeverityList_problemKindName);
+static status_t cb_send_to_device_ethernet_container_configuration_problem_kind_severity( val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol, const xmlChar *k_mw_ethernet_container_pac_ethernetContainerConfiguration_problemKindSeverityList_problemKindName);
 
 
 
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_element_value
+* FUNCTION cb_send_to_device_air_interface_configuration_element_value
 *
 * Callback function for setting the value of the specific element on the device
 *
@@ -75,136 +74,136 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_problemKindSeve
 * RETURNS:
 * error status
 ********************************************************************/
-status_t cb_send_to_device_airInterfaceConfiguration_element_value(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+status_t cb_send_to_device_air_interface_configuration_element_value(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
-	if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_airInterfaceName) == 0)
+	if (strcmp(element->name, y_microwave_model_N_air_interface_name) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_airInterfaceName(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_air_interface_name(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_radioSignalID) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_radio_signal_id) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_radioSignalID(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_radio_signal_id(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txFrequency) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_tx_frequency) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_txFrequency(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_tx_frequency(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxFrequency) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_rx_frequency) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_rxFrequency(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_rx_frequency(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txChannelBandwidth) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_tx_channel_bandwidth) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_txChannelBandwidth(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_tx_channel_bandwidth(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_rxChannelBandwidth) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_rx_channel_bandwidth) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_rxChannelBandwidth(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_rx_channel_bandwidth(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_polarization) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_polarization) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_polarization(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_polarization(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_powerIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_power_is_on) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_powerIsOn(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_power_is_on(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_transmitterIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_transmitter_is_on) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_transmitterIsOn(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_transmitter_is_on(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_receiverIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_receiver_is_on) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_receiverIsOn(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_receiver_is_on(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_txPower) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_tx_power) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_txPower(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_tx_power(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_adaptiveModulationIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_adaptive_modulation_is_on) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_adaptiveModulationIsOn(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_adaptive_modulation_is_on(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_modulationMin) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_modulation_min) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_modulationMin(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_modulation_min(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_modulationMax) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_modulation_max) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_modulationMax(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_modulation_max(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_xpicIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_xpic_is_on) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_xpicIsOn(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_xpic_is_on(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_mimoIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_mimo_is_on) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_mimoIsOn(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_mimo_is_on(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_alicIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_alic_is_on) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_alicIsOn(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_alic_is_on(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_atpcIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_atpc_is_on) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_atpcIsOn(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_atpc_is_on(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_atpcThreshUpper) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_atpc_thresh_upper) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_atpcThreshUpper(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_atpc_thresh_upper(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_atpcThreshLower) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_atpc_thresh_lower) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_atpcThreshLower(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_atpc_thresh_lower(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_autoFreqSelectIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_auto_freq_select_is_on) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_autoFreqSelectIsOn(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_auto_freq_select_is_on(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_autoFreqSelectRange) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_auto_freq_select_range) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_autoFreqSelectRange(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_auto_freq_select_range(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_modulationIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_modulation_is_on) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_modulationIsOn(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_modulation_is_on(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_encryptionIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_encryption_is_on) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_encryptionIsOn(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_encryption_is_on(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_cryptographicKey) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_cryptographic_key) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_cryptographicKey(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_cryptographic_key(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_loopBackIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_loop_back_kind_on) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_loopBackIsOn(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_loop_back_kind_on(element, k_mw_air_interface_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_maintenanceTimer) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_maintenance_timer) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_maintenanceTimer(element, k_MW_AirInterface_Pac_layerProtocol);
+		return cb_send_to_device_air_interface_configuration_maintenance_timer(element, k_mw_air_interface_pac_layer_protocol);
 	}
 
 	return NO_ERR;
 }
 
-status_t cb_send_to_device_airInterfaceConfiguration_problemKindSeverityList_element_value(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol, const char* k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName)
+status_t cb_send_to_device_air_interface_configuration_problem_kind_severity_list_element_value(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol, const xmlChar* k_mw_air_interface_pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName)
 {
-	if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemKindName) == 0)
+	if (strcmp(element->name, y_microwave_model_N_problem_kind_name) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_problemKindName(element, k_MW_AirInterface_Pac_layerProtocol, k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
+		return cb_send_to_device_air_interface_configuration_problem_kind_name(element, k_mw_air_interface_pac_layer_protocol, k_mw_air_interface_pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemKindSeverity) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_problem_kind_severity) == 0)
 	{
-		return cb_send_to_device_airInterfaceConfiguration_problemKindSeverity(element, k_MW_AirInterface_Pac_layerProtocol, k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
+		return cb_send_to_device_air_interface_configuration_problem_kind_severity(element, k_mw_air_interface_pac_layer_protocol, k_mw_air_interface_pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
 	}
 
 	return NO_ERR;
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_airInterfaceName
+* FUNCTION cb_send_to_device_air_interface_configuration_air_interface_name
 *
 * Callback function for setting the value of airInterfaceName leaf to the device
 *
@@ -214,7 +213,7 @@ status_t cb_send_to_device_airInterfaceConfiguration_problemKindSeverityList_ele
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_airInterfaceName(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_air_interface_name(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -226,9 +225,9 @@ static status_t cb_send_to_device_airInterfaceConfiguration_airInterfaceName(val
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_radioSignalID
+* FUNCTION cb_send_to_device_air_interface_configuration_radio_signal_id
 *
-* Callback function for setting the value of radioSignalID leaf to the device
+* Callback function for setting the value of radioSignalId leaf to the device
 *
 * INPUTS:
 * val_value_t *element - the element for which we want to set the value
@@ -236,7 +235,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_airInterfaceName(val
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_radioSignalID(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_radio_signal_id(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -248,7 +247,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_radioSignalID(val_va
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_txFrequency
+* FUNCTION cb_send_to_device_air_interface_configuration_tx_frequency
 *
 * Callback function for setting the value of txFrequency leaf to the device
 *
@@ -258,7 +257,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_radioSignalID(val_va
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_txFrequency(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_tx_frequency(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -270,7 +269,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_txFrequency(val_valu
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_rxFrequency
+* FUNCTION cb_send_to_device_air_interface_configuration_rx_frequency
 *
 * Callback function for setting the value of rxFrequency leaf to the device
 *
@@ -280,7 +279,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_txFrequency(val_valu
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_rxFrequency(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_rx_frequency(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -292,7 +291,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_rxFrequency(val_valu
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_txChannelBandwidth
+* FUNCTION cb_send_to_device_air_interface_configuration_tx_channel_bandwidth
 *
 * Callback function for setting the value of txChannelBandwidth leaf to the device
 *
@@ -302,7 +301,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_rxFrequency(val_valu
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_txChannelBandwidth(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_tx_channel_bandwidth(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -314,7 +313,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_txChannelBandwidth(v
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_rxChannelBandwidth
+* FUNCTION cb_send_to_device_air_interface_configuration_rx_channel_bandwidth
 *
 * Callback function for setting the value of rxChannelBandwidth leaf to the device
 *
@@ -324,7 +323,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_txChannelBandwidth(v
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_rxChannelBandwidth(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_rx_channel_bandwidth(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -336,7 +335,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_rxChannelBandwidth(v
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_polarization
+* FUNCTION cb_send_to_device_air_interface_configuration_polarization
 *
 * Callback function for setting the value of polarization leaf to the device
 *
@@ -346,7 +345,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_rxChannelBandwidth(v
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_polarization(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_polarization(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -358,7 +357,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_polarization(val_val
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_powerIsOn
+* FUNCTION cb_send_to_device_air_interface_configuration_power_is_on
 *
 * Callback function for setting the value of powerIsOn leaf to the device
 *
@@ -368,7 +367,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_polarization(val_val
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_powerIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_power_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -380,7 +379,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_powerIsOn(val_value_
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_transmitterIsOn
+* FUNCTION cb_send_to_device_air_interface_configuration_transmitter_is_on
 *
 * Callback function for setting the value of transmitterIsOn leaf to the device
 *
@@ -390,7 +389,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_powerIsOn(val_value_
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_transmitterIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_transmitter_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -402,7 +401,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_transmitterIsOn(val_
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_receiverIsOn
+* FUNCTION cb_send_to_device_air_interface_configuration_receiver_is_on
 *
 * Callback function for setting the value of receiverIsOn leaf to the device
 *
@@ -412,7 +411,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_transmitterIsOn(val_
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_receiverIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_receiver_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -424,7 +423,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_receiverIsOn(val_val
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_txPower
+* FUNCTION cb_send_to_device_air_interface_configuration_tx_power
 *
 * Callback function for setting the value of txPower leaf to the device
 *
@@ -434,7 +433,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_receiverIsOn(val_val
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_txPower(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_tx_power(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -446,7 +445,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_txPower(val_value_t 
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_adaptiveModulationIsOn
+* FUNCTION cb_send_to_device_air_interface_configuration_adaptive_modulation_is_on
 *
 * Callback function for setting the value of adaptiveModulationIsOn leaf to the device
 *
@@ -456,7 +455,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_txPower(val_value_t 
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_adaptiveModulationIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_adaptive_modulation_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -468,7 +467,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_adaptiveModulationIs
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_modulationMin
+* FUNCTION cb_send_to_device_air_interface_configuration_modulation_min
 *
 * Callback function for setting the value of modulationMin leaf to the device
 *
@@ -478,7 +477,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_adaptiveModulationIs
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_modulationMin(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_modulation_min(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -490,7 +489,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_modulationMin(val_va
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_modulationMax
+* FUNCTION cb_send_to_device_air_interface_configuration_modulation_max
 *
 * Callback function for setting the value of modulationMax leaf to the device
 *
@@ -500,7 +499,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_modulationMin(val_va
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_modulationMax(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_modulation_max(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -512,7 +511,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_modulationMax(val_va
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_xpicIsOn
+* FUNCTION cb_send_to_device_air_interface_configuration_xpic_is_on
 *
 * Callback function for setting the value of xpicIsOn leaf to the device
 *
@@ -522,7 +521,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_modulationMax(val_va
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_xpicIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_xpic_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -534,7 +533,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_xpicIsOn(val_value_t
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_mimoIsOn
+* FUNCTION cb_send_to_device_air_interface_configuration_mimo_is_on
 *
 * Callback function for setting the value of mimoIsOn leaf to the device
 *
@@ -544,7 +543,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_xpicIsOn(val_value_t
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_mimoIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_mimo_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -556,7 +555,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_mimoIsOn(val_value_t
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_alicIsOn
+* FUNCTION cb_send_to_device_air_interface_configuration_alic_is_on
 *
 * Callback function for setting the value of alicIsOn leaf to the device
 *
@@ -566,7 +565,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_mimoIsOn(val_value_t
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_alicIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_alic_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -578,7 +577,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_alicIsOn(val_value_t
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_atpcIsOn
+* FUNCTION cb_send_to_device_air_interface_configuration_atpc_is_on
 *
 * Callback function for setting the value of atpcIsOn leaf to the device
 *
@@ -588,7 +587,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_alicIsOn(val_value_t
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_atpcIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_atpc_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -600,7 +599,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_atpcIsOn(val_value_t
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_atpcThreshUpper
+* FUNCTION cb_send_to_device_air_interface_configuration_atpc_thresh_upper
 *
 * Callback function for setting the value of atpcThreshUpper leaf to the device
 *
@@ -610,7 +609,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_atpcIsOn(val_value_t
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_atpcThreshUpper(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_atpc_thresh_upper(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -622,7 +621,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_atpcThreshUpper(val_
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_atpcThreshLower
+* FUNCTION cb_send_to_device_air_interface_configuration_atpc_thresh_lower
 *
 * Callback function for setting the value of atpcThreshLower leaf to the device
 *
@@ -632,7 +631,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_atpcThreshUpper(val_
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_atpcThreshLower(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_atpc_thresh_lower(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -644,7 +643,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_atpcThreshLower(val_
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_autoFreqSelectIsOn
+* FUNCTION cb_send_to_device_air_interface_configuration_auto_freq_select_is_on
 *
 * Callback function for setting the value of autoFreqSelectIsOn leaf to the device
 *
@@ -654,7 +653,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_atpcThreshLower(val_
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_autoFreqSelectIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_auto_freq_select_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -666,7 +665,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_autoFreqSelectIsOn(v
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_autoFreqSelectRange
+* FUNCTION cb_send_to_device_air_interface_configuration_auto_freq_select_range
 *
 * Callback function for setting the value of autoFreqSelectRange leaf to the device
 *
@@ -676,7 +675,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_autoFreqSelectIsOn(v
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_autoFreqSelectRange(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_auto_freq_select_range(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -688,7 +687,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_autoFreqSelectRange(
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_modulationIsOn
+* FUNCTION cb_send_to_device_air_interface_configuration_modulation_is_on
 *
 * Callback function for setting the value of modulationIsOn leaf to the device
 *
@@ -698,7 +697,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_autoFreqSelectRange(
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_modulationIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_modulation_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -710,7 +709,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_modulationIsOn(val_v
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_encryptionIsOn
+* FUNCTION cb_send_to_device_air_interface_configuration_encryption_is_on
 *
 * Callback function for setting the value of encryptionIsOn leaf to the device
 *
@@ -720,7 +719,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_modulationIsOn(val_v
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_encryptionIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_encryption_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -732,7 +731,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_encryptionIsOn(val_v
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_cryptographicKey
+* FUNCTION cb_send_to_device_air_interface_configuration_cryptographic_key
 *
 * Callback function for setting the value of cryptographicKey leaf to the device
 *
@@ -742,7 +741,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_encryptionIsOn(val_v
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_cryptographicKey(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_cryptographic_key(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -754,9 +753,9 @@ static status_t cb_send_to_device_airInterfaceConfiguration_cryptographicKey(val
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_loopBackIsOn
+* FUNCTION cb_send_to_device_air_interface_configuration_loop_back_kind_on
 *
-* Callback function for setting the value of loopBackIsOn leaf to the device
+* Callback function for setting the value of loopBackKindOn leaf to the device
 *
 * INPUTS:
 * val_value_t *element - the element for which we want to set the value
@@ -764,7 +763,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_cryptographicKey(val
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_loopBackIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_loop_back_kind_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -776,7 +775,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_loopBackIsOn(val_val
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_maintenanceTimer
+* FUNCTION cb_send_to_device_air_interface_configuration_maintenance_timer
 *
 * Callback function for setting the value of maintenanceTimer leaf to the device
 *
@@ -786,7 +785,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_loopBackIsOn(val_val
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_maintenanceTimer(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_air_interface_configuration_maintenance_timer(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -798,7 +797,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_maintenanceTimer(val
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_problemKindName
+* FUNCTION cb_send_to_device_air_interface_configuration_problem_kind_name
 *
 * Callback function for setting the value of problemKindName leaf to the device
 *
@@ -808,7 +807,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_maintenanceTimer(val
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_problemKindName(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol, const char* k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName)
+static status_t cb_send_to_device_air_interface_configuration_problem_kind_name(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol, const xmlChar* k_mw_air_interface_pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -820,7 +819,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_problemKindName(val_
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_airInterfaceConfiguration_problemKindSeverity
+* FUNCTION cb_send_to_device_air_interface_configuration_problem_kind_severity
 *
 * Callback function for setting the value of problemKindSeverity leaf to the device
 *
@@ -830,7 +829,7 @@ static status_t cb_send_to_device_airInterfaceConfiguration_problemKindName(val_
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_airInterfaceConfiguration_problemKindSeverity(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol, const char* k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName)
+static status_t cb_send_to_device_air_interface_configuration_problem_kind_severity(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol, const xmlChar* k_mw_air_interface_pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -841,22 +840,22 @@ static status_t cb_send_to_device_airInterfaceConfiguration_problemKindSeverity(
 	return NO_ERR;
 }
 
-status_t cb_send_to_device_pureEthernetStructureConfiguration_problemKindSeverityList_element_value(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol, const char* k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName)
+status_t cb_send_to_device_pure_ethernet_structure_configuration_problem_kind_severity_list_element_value(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol, const xmlChar* k_mw_air_interface_pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName)
 {
-    if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemKindName) == 0)
+    if (strcmp(element->name, y_microwave_model_N_problem_kind_name) == 0)
     {
-        return cb_send_to_device_pureEthernetStructureConfiguration_problemKindName(element, k_MW_AirInterface_Pac_layerProtocol, k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
+        return cb_send_to_device_pure_ethernet_structure_configuration_problem_kind_name(element, k_mw_air_interface_pac_layer_protocol, k_mw_air_interface_pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
     }
-    else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_AirInterface_N_problemKindSeverity) == 0)
+    else if (strcmp(element->name, y_microwave_model_N_problem_kind_severity) == 0)
     {
-        return cb_send_to_device_pureEthernetStructureConfiguration_problemKindSeverity(element, k_MW_AirInterface_Pac_layerProtocol, k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
+        return cb_send_to_device_pure_ethernet_structure_configuration_problem_kind_severity(element, k_mw_air_interface_pac_layer_protocol, k_mw_air_interface_pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName);
     }
 
     return NO_ERR;
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_pureEthernetStructureConfiguration_problemKindName
+* FUNCTION cb_send_to_device_pure_ethernet_structure_configuration_problem_kind_name
 *
 * Callback function for setting the value of problemKindName leaf to the device
 *
@@ -866,7 +865,7 @@ status_t cb_send_to_device_pureEthernetStructureConfiguration_problemKindSeverit
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_pureEthernetStructureConfiguration_problemKindName(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol, const char* k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName)
+static status_t cb_send_to_device_pure_ethernet_structure_configuration_problem_kind_name(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol, const xmlChar* k_mw_air_interface_pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName)
 {
     YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
     /*
@@ -878,7 +877,7 @@ static status_t cb_send_to_device_pureEthernetStructureConfiguration_problemKind
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_pureEthernetStructureConfiguration_problemKindSeverity
+* FUNCTION cb_send_to_device_pure_ethernet_structure_configuration_problem_kind_severity
 *
 * Callback function for setting the value of problemKindSeverity leaf to the device
 *
@@ -888,7 +887,7 @@ static status_t cb_send_to_device_pureEthernetStructureConfiguration_problemKind
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_pureEthernetStructureConfiguration_problemKindSeverity(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol, const char* k_MW_AirInterface_Pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName)
+static status_t cb_send_to_device_pure_ethernet_structure_configuration_problem_kind_severity(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol, const xmlChar* k_mw_air_interface_pac_airInterfaceConfiguration_problemKindSeverityList_problemKindName)
 {
     YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
     /*
@@ -900,7 +899,7 @@ static status_t cb_send_to_device_pureEthernetStructureConfiguration_problemKind
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_ethernetContainerConfiguration_element_value
+* FUNCTION cb_send_to_device_ethernet_container_configuration_element_value
 *
 * Callback function for setting the value of the specific element on the device
 *
@@ -910,81 +909,81 @@ static status_t cb_send_to_device_pureEthernetStructureConfiguration_problemKind
 * RETURNS:
 * error status
 ********************************************************************/
-status_t cb_send_to_device_ethernetContainerConfiguration_element_value(val_value_t *element, const char* k_MW_EthernetContainer_Pac_layerProtocol)
+status_t cb_send_to_device_ethernet_container_configuration_element_value(val_value_t *element, const xmlChar* k_mw_ethernet_container_pac_layer_protocol)
 {
-	if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_containerID) == 0)
+	if (strcmp(element->name, y_microwave_model_N_container_id) == 0)
 	{
-		return cb_send_to_device_ethernetContainerConfiguration_containerID(element, k_MW_EthernetContainer_Pac_layerProtocol);
+		return cb_send_to_device_ethernet_container_configuration_container_id(element, k_mw_ethernet_container_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_structureIdRef) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_structure_id_ref) == 0)
 	{
-		return cb_send_to_device_ethernetContainerConfiguration_structureIdRef(element, k_MW_EthernetContainer_Pac_layerProtocol);
+		return cb_send_to_device_ethernet_container_configuration_structure_id_ref(element, k_mw_ethernet_container_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_segmentIdRef) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_segment_id_ref) == 0)
 	{
-		return cb_send_to_device_ethernetContainerConfiguration_segmentIdRef(element, k_MW_EthernetContainer_Pac_layerProtocol);
+		return cb_send_to_device_ethernet_container_configuration_segment_id_ref(element, k_mw_ethernet_container_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_packetCompressionIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_packet_compression_is_on) == 0)
 	{
-		return cb_send_to_device_ethernetContainerConfiguration_packetCompressionIsOn(element, k_MW_EthernetContainer_Pac_layerProtocol);
+		return cb_send_to_device_ethernet_container_configuration_packet_compression_is_on(element, k_mw_ethernet_container_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_layer2CompressionIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_layer2_compression_is_on) == 0)
 	{
-		return cb_send_to_device_ethernetContainerConfiguration_layer2CompressionIsOn(element, k_MW_EthernetContainer_Pac_layerProtocol);
+		return cb_send_to_device_ethernet_container_configuration_layer2_compression_is_on(element, k_mw_ethernet_container_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_vlanCompressionIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_vlan_compression_is_on) == 0)
 	{
-		return cb_send_to_device_ethernetContainerConfiguration_vlanCompressionIsOn(element, k_MW_EthernetContainer_Pac_layerProtocol);
+		return cb_send_to_device_ethernet_container_configuration_vlan_compression_is_on(element, k_mw_ethernet_container_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_qInQCompressionIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_q_in_q_compression_is_on) == 0)
 	{
-		return cb_send_to_device_ethernetContainerConfiguration_qInQCompressionIsOn(element, k_MW_EthernetContainer_Pac_layerProtocol);
+		return cb_send_to_device_ethernet_container_configuration_q_in_q_compression_is_on(element, k_mw_ethernet_container_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_mplsCompressionIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_mpls_compression_is_on) == 0)
 	{
-		return cb_send_to_device_ethernetContainerConfiguration_mplsCompressionIsOn(element, k_MW_EthernetContainer_Pac_layerProtocol);
+		return cb_send_to_device_ethernet_container_configuration_mpls_compression_is_on(element, k_mw_ethernet_container_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ipv4CompressionIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_ipv4_compression_is_on) == 0)
 	{
-		return cb_send_to_device_ethernetContainerConfiguration_ipv4CompressionIsOn(element, k_MW_EthernetContainer_Pac_layerProtocol);
+		return cb_send_to_device_ethernet_container_configuration_ipv4_compression_is_on(element, k_mw_ethernet_container_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_ipv6CompressionIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_ipv6_compression_is_on) == 0)
 	{
-		return cb_send_to_device_ethernetContainerConfiguration_ipv6CompressionIsOn(element, k_MW_EthernetContainer_Pac_layerProtocol);
+		return cb_send_to_device_ethernet_container_configuration_ipv6_compression_is_on(element, k_mw_ethernet_container_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_layer4CompressionIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_layer4_compression_is_on) == 0)
 	{
-		return cb_send_to_device_ethernetContainerConfiguration_layer4CompressionIsOn(element, k_MW_EthernetContainer_Pac_layerProtocol);
+		return cb_send_to_device_ethernet_container_configuration_layer4_compression_is_on(element, k_mw_ethernet_container_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_encryptionIsOn) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_encryption_is_on) == 0)
 	{
-		return cb_send_to_device_ethernetContainerConfiguration_encryptionIsOn(element, k_MW_EthernetContainer_Pac_layerProtocol);
+		return cb_send_to_device_ethernet_container_configuration_encryption_is_on(element, k_mw_ethernet_container_pac_layer_protocol);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_cryptographicKey) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_cryptographic_key) == 0)
 	{
-		return cb_send_to_device_ethernetContainerConfiguration_cryptographicKey(element, k_MW_EthernetContainer_Pac_layerProtocol);
+		return cb_send_to_device_ethernet_container_configuration_cryptographic_key(element, k_mw_ethernet_container_pac_layer_protocol);
 	}
 	return NO_ERR;
 }
 
-status_t cb_send_to_device_ethernetContainerConfiguration_problemKindSeverityList_element_value(val_value_t *element, const char* k_MW_EthernetContainer_Pac_layerProtocol, const char* k_MW_EthernetContainer_Pac_ethernetContainerConfiguration_problemKindSeverityList_problemKindName)
+status_t cb_send_to_device_ethernet_container_configuration_problem_kind_severity_list_element_value(val_value_t *element, const xmlChar* k_mw_ethernet_container_pac_layer_protocol, const xmlChar* k_mw_ethernet_container_pac_ethernetContainerConfiguration_problemKindSeverityList_problemKindName)
 {
-	if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_problemKindName) == 0)
+	if (strcmp(element->name, y_microwave_model_N_problem_kind_name) == 0)
 	{
-		return cb_send_to_device_ethernetContainerConfiguration_problemKindName(element, k_MW_EthernetContainer_Pac_layerProtocol, k_MW_EthernetContainer_Pac_ethernetContainerConfiguration_problemKindSeverityList_problemKindName);
+		return cb_send_to_device_ethernet_container_configuration_problem_kind_name(element, k_mw_ethernet_container_pac_layer_protocol, k_mw_ethernet_container_pac_ethernetContainerConfiguration_problemKindSeverityList_problemKindName);
 	}
-	else if (strcmp(element->name, y_MicrowaveModel_ObjectClasses_EthernetContainer_N_problemKindSeverity) == 0)
+	else if (strcmp(element->name, y_microwave_model_N_problem_kind_severity) == 0)
 	{
-		return cb_send_to_device_ethernetContainerConfiguration_problemKindSeverity(element, k_MW_EthernetContainer_Pac_layerProtocol, k_MW_EthernetContainer_Pac_ethernetContainerConfiguration_problemKindSeverityList_problemKindName);
+		return cb_send_to_device_ethernet_container_configuration_problem_kind_severity(element, k_mw_ethernet_container_pac_layer_protocol, k_mw_ethernet_container_pac_ethernetContainerConfiguration_problemKindSeverityList_problemKindName);
 	}
 
 	return NO_ERR;
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_ethernetContainerConfiguration_containerID
+* FUNCTION cb_send_to_device_ethernet_container_configuration_container_id
 *
-* Callback function for setting the value of containerID leaf to the device
+* Callback function for setting the value of containerId leaf to the device
 *
 * INPUTS:
 * val_value_t *element - the element for which we want to set the value
@@ -992,7 +991,7 @@ status_t cb_send_to_device_ethernetContainerConfiguration_problemKindSeverityLis
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_ethernetContainerConfiguration_containerID(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_ethernet_container_configuration_container_id(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -1004,7 +1003,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_containerID(val
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_ethernetContainerConfiguration_structureIdRef
+* FUNCTION cb_send_to_device_ethernet_container_configuration_structure_id_ref
 *
 * Callback function for setting the value of structureIdRef leaf to the device
 *
@@ -1014,7 +1013,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_containerID(val
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_ethernetContainerConfiguration_structureIdRef(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_ethernet_container_configuration_structure_id_ref(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -1026,7 +1025,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_structureIdRef(
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_ethernetContainerConfiguration_segmentIdRef
+* FUNCTION cb_send_to_device_ethernet_container_configuration_segment_id_ref
 *
 * Callback function for setting the value of segmentIdRef leaf to the device
 *
@@ -1036,7 +1035,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_structureIdRef(
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_ethernetContainerConfiguration_segmentIdRef(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_ethernet_container_configuration_segment_id_ref(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -1048,7 +1047,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_segmentIdRef(va
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_ethernetContainerConfiguration_packetCompressionIsOn
+* FUNCTION cb_send_to_device_ethernet_container_configuration_packet_compression_is_on
 *
 * Callback function for setting the value of packetCompressionIsOn leaf to the device
 *
@@ -1058,7 +1057,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_segmentIdRef(va
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_ethernetContainerConfiguration_packetCompressionIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_ethernet_container_configuration_packet_compression_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -1070,9 +1069,9 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_packetCompressi
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_ethernetContainerConfiguration_layer2CompressionIsOn
+* FUNCTION cb_send_to_device_ethernet_container_configuration_layer2_compression_is_on
 *
-* Callback function for setting the value of layer2CompressionIsOn leaf to the device
+* Callback function for setting the value of layer2_compression_is_on leaf to the device
 *
 * INPUTS:
 * val_value_t *element - the element for which we want to set the value
@@ -1080,7 +1079,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_packetCompressi
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_ethernetContainerConfiguration_layer2CompressionIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_ethernet_container_configuration_layer2_compression_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -1092,7 +1091,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_layer2Compressi
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_ethernetContainerConfiguration_vlanCompressionIsOn
+* FUNCTION cb_send_to_device_ethernet_container_configuration_vlan_compression_is_on
 *
 * Callback function for setting the value of vlanCompressionIsOn leaf to the device
 *
@@ -1102,7 +1101,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_layer2Compressi
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_ethernetContainerConfiguration_vlanCompressionIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_ethernet_container_configuration_vlan_compression_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -1114,7 +1113,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_vlanCompression
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_ethernetContainerConfiguration_qInQCompressionIsOn
+* FUNCTION cb_send_to_device_ethernet_container_configuration_q_in_q_compression_is_on
 *
 * Callback function for setting the value of qInQCompressionIsOn leaf to the device
 *
@@ -1124,7 +1123,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_vlanCompression
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_ethernetContainerConfiguration_qInQCompressionIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_ethernet_container_configuration_q_in_q_compression_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -1136,7 +1135,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_qInQCompression
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_ethernetContainerConfiguration_mplsCompressionIsOn
+* FUNCTION cb_send_to_device_ethernet_container_configuration_mpls_compression_is_on
 *
 * Callback function for setting the value of mplsCompressionIsOn leaf to the device
 *
@@ -1146,7 +1145,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_qInQCompression
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_ethernetContainerConfiguration_mplsCompressionIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_ethernet_container_configuration_mpls_compression_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -1158,9 +1157,9 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_mplsCompression
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_ethernetContainerConfiguration_ipv4CompressionIsOn
+* FUNCTION cb_send_to_device_ethernet_container_configuration_ipv4_compression_is_on
 *
-* Callback function for setting the value of ipv4CompressionIsOn leaf to the device
+* Callback function for setting the value of ipv4_compression_is_on leaf to the device
 *
 * INPUTS:
 * val_value_t *element - the element for which we want to set the value
@@ -1168,7 +1167,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_mplsCompression
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_ethernetContainerConfiguration_ipv4CompressionIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_ethernet_container_configuration_ipv4_compression_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -1180,9 +1179,9 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_ipv4Compression
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_ethernetContainerConfiguration_ipv6CompressionIsOn
+* FUNCTION cb_send_to_device_ethernet_container_configuration_ipv6_compression_is_on
 *
-* Callback function for setting the value of ipv6CompressionIsOn leaf to the device
+* Callback function for setting the value of ipv6_compression_is_on leaf to the device
 *
 * INPUTS:
 * val_value_t *element - the element for which we want to set the value
@@ -1190,7 +1189,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_ipv4Compression
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_ethernetContainerConfiguration_ipv6CompressionIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_ethernet_container_configuration_ipv6_compression_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -1202,9 +1201,9 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_ipv6Compression
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_ethernetContainerConfiguration_layer4CompressionIsOn
+* FUNCTION cb_send_to_device_ethernet_container_configuration_layer4_compression_is_on
 *
-* Callback function for setting the value of layer4CompressionIsOn leaf to the device
+* Callback function for setting the value of layer4_compression_is_on leaf to the device
 *
 * INPUTS:
 * val_value_t *element - the element for which we want to set the value
@@ -1212,7 +1211,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_ipv6Compression
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_ethernetContainerConfiguration_layer4CompressionIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_ethernet_container_configuration_layer4_compression_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -1224,7 +1223,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_layer4Compressi
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_ethernetContainerConfiguration_encryptionIsOn
+* FUNCTION cb_send_to_device_ethernet_container_configuration_encryption_is_on
 *
 * Callback function for setting the value of encryptionIsOn leaf to the device
 *
@@ -1234,7 +1233,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_layer4Compressi
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_ethernetContainerConfiguration_encryptionIsOn(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_ethernet_container_configuration_encryption_is_on(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -1246,7 +1245,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_encryptionIsOn(
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_ethernetContainerConfiguration_cryptographicKey
+* FUNCTION cb_send_to_device_ethernet_container_configuration_cryptographic_key
 *
 * Callback function for setting the value of cryptographicKey leaf to the device
 *
@@ -1256,7 +1255,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_encryptionIsOn(
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_ethernetContainerConfiguration_cryptographicKey(val_value_t *element, const char* k_MW_AirInterface_Pac_layerProtocol)
+static status_t cb_send_to_device_ethernet_container_configuration_cryptographic_key(val_value_t *element, const xmlChar* k_mw_air_interface_pac_layer_protocol)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -1268,7 +1267,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_cryptographicKe
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_ethernetContainerConfiguration_problemKindName
+* FUNCTION cb_send_to_device_ethernet_container_configuration_problem_kind_name
 *
 * Callback function for setting the value of problemKindName leaf to the device
 *
@@ -1278,10 +1277,10 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_cryptographicKe
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_ethernetContainerConfiguration_problemKindName(
+static status_t cb_send_to_device_ethernet_container_configuration_problem_kind_name(
                                        val_value_t *element,
-                                       const char* k_MW_AirInterface_Pac_layerProtocol,
-                                       const char *k_MW_EthernetContainer_Pac_ethernetContainerConfiguration_problemKindSeverityList_problemKindName)
+                                       const xmlChar* k_mw_air_interface_pac_layer_protocol,
+                                       const xmlChar *k_mw_ethernet_container_pac_ethernetContainerConfiguration_problemKindSeverityList_problemKindName)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*
@@ -1293,7 +1292,7 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_problemKindName
 }
 
 /********************************************************************
-* FUNCTION cb_send_to_device_ethernetContainerConfiguration_problemKindSeverity
+* FUNCTION cb_send_to_device_ethernet_container_configuration_problem_kind_severity
 *
 * Callback function for setting the value of problemKindSeverity leaf to the device
 *
@@ -1303,10 +1302,10 @@ static status_t cb_send_to_device_ethernetContainerConfiguration_problemKindName
 * RETURNS:
 * error status
 ********************************************************************/
-static status_t cb_send_to_device_ethernetContainerConfiguration_problemKindSeverity(
+static status_t cb_send_to_device_ethernet_container_configuration_problem_kind_severity(
                                        val_value_t *element,
-                                       const char* k_MW_AirInterface_Pac_layerProtocol,
-                                       const char *k_MW_EthernetContainer_Pac_ethernetContainerConfiguration_problemKindSeverityList_problemKindName)
+                                       const xmlChar* k_mw_air_interface_pac_layer_protocol,
+                                       const xmlChar *k_mw_ethernet_container_pac_ethernetContainerConfiguration_problemKindSeverityList_problemKindName)
 {
 	YUMA_ASSERT(NULL == element, return ERR_INTERNAL_VAL, "NULL element received!");
 	/*

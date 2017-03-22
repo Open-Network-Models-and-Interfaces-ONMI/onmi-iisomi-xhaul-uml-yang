@@ -1,5 +1,5 @@
 module g.874.1-model {
-    namespace "urn:onf:params:xml:ns:yang:G.874.1-model";
+    namespace "urn:onf:params:xml:ns:yang:g.874.1-model";
     prefix g.874.1-model;
 
     import core-model {
@@ -21,28 +21,28 @@ module g.874.1-model {
                        Martin Skorupski
                        <mailto:martin.skorupski@highstreet-technologies.com>";
     description "<p>Version 2.02; outcome of the 10/2013 Nuremberg meeting.<br>Version 2.03; updates for Geneva 03-2014<br>Version 2.04; updates for Shanghai 09-2014<br>Version 2.05; input to Geneva 11-2014<br>Version 2.06; output from Geneva 11-2014<br>Version 2.07; using OpenProfile 3-2015<br>Version 2.08; output from Geneva 06-2015</p>";
-    revision 2017-02-17 {
+    revision 2017-03-20 {
         description "Initial version";
         reference "ONF TR 532: A YANG Data Model for Wireless Networks.";
     }
     /***********************
     * package object-classes
     **********************/ 
-        grouping otn-current-data {
+        grouping otn-current-data-g {
             leaf timestamp {
                 type date-and-time;
                 description "The timestamp associated with when the current data was collected.";
             }
-            uses q.822-current-data;
+            uses q.822-current-data-g;
             description "This object class is an abstract class from which the OTN layer-specific CurrentData object classes are inherited. This object class is a subclass of the Q.822 CurrentData object class, which in turn is a subclass of X.739 Scanner object class. It inherits the following attributes: scannerId, operationalState, granularityPeriod, administrativeState, suspectIntervalFlag, elapsedTime, observedObjectClass, and observedObjectInstance.";
         }
-        grouping otn-history-data {
+        grouping otn-history-data-g {
             leaf suspect-interval-flag {
                 type boolean;
                 default false;
                 description "This attribute indicates that the data collected during the interval is suspect.";
             }
-            uses q.822-history-data;
+            uses q.822-history-data-g;
             description "This object class is an abstract class from which the OTN layer-specific HistoryData object classes are inherited. ";
         }
 
@@ -139,7 +139,7 @@ module g.874.1-model {
             }
             description "For more information on Administrative State, See ITU-T Recs. X.731 and M.3100.";
         }
-        typedef octk-nim-kbit-rate {
+        typedef oc-tk-nim-k-bit-rate {
             type enumeration {
                 enum 2.5-g {
                     description "none";
@@ -170,7 +170,7 @@ module g.874.1-model {
             }
             description "List of modes for trace identifier mismatch detection.";
         }
-        typedef octk-nim-problem-list {
+        typedef oc-tk-nim-problem-list {
             type enumeration {
                 enum los-p {
                     description "Loss of Signal -- Payload";
@@ -224,7 +224,7 @@ module g.874.1-model {
             }
             description "List of value modes for the sink side of the tandem connection monitoring function.";
         }
-        typedef opsmnk-ttp-kbit-rate {
+        typedef ops-mnk-ttp-k-bit-rate {
             type enumeration {
                 enum 40-g {
                     description "none";
@@ -235,7 +235,7 @@ module g.874.1-model {
             }
             description "Provides an enumeration with the meaning of each 'k' value.";
         }
-        typedef opsmnk-ttp-problem-list {
+        typedef ops-mnk-ttp-problem-list {
             type enumeration {
                 enum los {
                     description "Loss of Signal";
@@ -246,7 +246,7 @@ module g.874.1-model {
             }
             description "The valid list of problems for the entity.";
         }
-        typedef opsn-ttp-problem-list {
+        typedef op-sn-ttp-problem-list {
             type enumeration {
                 enum los {
                     description "Loss of Signal";
@@ -254,7 +254,7 @@ module g.874.1-model {
             }
             description "The valid list of problems for the entity.";
         }
-        typedef otm-n-kbit-rates {
+        typedef otm-n-k-bit-rates {
             type enumeration {
                 enum 2.5-g {
                     description "none";
@@ -313,7 +313,7 @@ module g.874.1-model {
             }
             description "The enumeration of the options for the Automatic Power Reduction Status.";
         }
-        typedef otsn-ttp-problem-list {
+        typedef ot-sn-ttp-problem-list {
             type enumeration {
                 enum bdi-p {
                     description "BDI-P (Backward Defect Indication - Payload); not co-exist with BDI-O or BDI";
@@ -339,7 +339,7 @@ module g.874.1-model {
             }
             description "The valid list of problems for the entity.";
         }
-        typedef otuk-ctp-adaptation {
+        typedef ot-uk-ctp-adaptation {
             type enumeration {
                 enum regular {
                     description "i.e. OPSM/OTUk-a, OCh[r]/OTUk-a";
@@ -356,7 +356,7 @@ module g.874.1-model {
             }
             description "The adaptation options for OTUk_ConnectionTermationPoints.";
         }
-        typedef otuk-ctp-kbit-rate {
+        typedef ot-uk-ctp-k-bit-rate {
             type enumeration {
                 enum 2.5-g {
                     description "none";
@@ -373,7 +373,7 @@ module g.874.1-model {
             }
             description "Provides an enumeration with the meaning of each 'k' value.";
         }
-        typedef otuk-ctp-problem-list {
+        typedef ot-uk-ctp-problem-list {
             type enumeration {
                 enum lof {
                     description "Loss of Frame";
@@ -387,7 +387,7 @@ module g.874.1-model {
             }
             description "The valid list of problems for the entity.";
         }
-        typedef otuk-ttp-problem-list {
+        typedef ot-uk-ttp-problem-list {
             type enumeration {
                 enum tim {
                     description "Trail Trace Identifier Mismatch";
@@ -533,10 +533,10 @@ module g.874.1-model {
                 enum unknown {
                     description "none";
                 }
-                enum period-15min {
+                enum period-15-min {
                     description "none";
                 }
-                enum period-24hours {
+                enum period-24-hours {
                     description "none";
                 }
             }
@@ -553,7 +553,7 @@ module g.874.1-model {
         /***********************
         * package q.822
         **********************/ 
-            grouping q.822-current-data {
+            grouping q.822-current-data-g {
                 leaf suspect-interval-flag {
                     type boolean;
                     description "This attribute is used to indicate that the performance data for the current period may not be reliable. Some reasons for this to occur are:- Suspect data were detected by the actual resource doing data collection.- Transition of the administrativeState attribute to/from the 'lock' state.- Transition of the operationalState to/from the 'disabled' state.- Scheduler setting that inhibits the collection function.- The performance counters were reset during the interval.- The currentData (or subclass) object instance was created during the monitoring period.";
@@ -562,10 +562,10 @@ module g.874.1-model {
                     type int64;
                     description "none";
                 }
-                uses x.739-scanner;
+                uses x.739-scanner-g;
                 description "none";
             }
-            grouping q.822-history-data {
+            grouping q.822-history-data-g {
                 leaf history-data-id {
                     type string;
                     description "none";
@@ -578,14 +578,14 @@ module g.874.1-model {
                     type granularity-period-type;
                     description "none";
                 }
-                uses x.721-top;
+                uses x.721-top-g;
                 description "none";
             }
 
         /***********************
         * package x.739
         **********************/ 
-            grouping x.739-scanner {
+            grouping x.739-scanner-g {
                 leaf scanner-id {
                     type string;
                     description "none";
@@ -598,14 +598,14 @@ module g.874.1-model {
                     type core-model:administrative-state;
                     description "none";
                 }
-                uses x.721-top;
+                uses x.721-top-g;
                 description "none";
             }
 
         /***********************
         * package x.721
         **********************/ 
-            grouping x.721-top {
+            grouping x.721-top-g {
                 leaf object-class {
                     type object-identifier;
                     description "ObjectClass ::= CHOICE{    globalForm    [0] OBJECT IDENTIFIER,

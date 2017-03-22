@@ -9,11 +9,9 @@
 # Put only the directories that build object files in the list
 
 # make all targets
-DIRS = YUMA_modules/MicrowaveModel-ObjectClasses-AirInterface \
-       YUMA_modules/CoreModel-CoreNetworkModule-ObjectClasses \
-       YUMA_modules/MicrowaveModel-ObjectClasses-EthernetContainer \
-       YUMA_modules/MicrowaveModel-ObjectClasses-PureEthernetStructure \
-       YUMA_modules/MicrowaveModel-Notifications
+DIRS = YUMA_modules/Base_mediator_utils \
+       YUMA_modules/microwave-model \
+       YUMA_modules/core-model
 
 #################### PLATFORM DEFINITIONS ############
 

@@ -16,8 +16,8 @@
 
     User SIL header
     module microwave-model
-    revision 2017-02-17
-    namespace urn:onf:params:xml:ns:yang:MicrowaveModel
+    revision 2017-03-20
+    namespace urn:onf:params:xml:ns:yang:microwave-model
     organization ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project
 
  */

@@ -16,7 +16,7 @@
 
     Yuma SIL header
     module core-model
-    revision 2017-02-17
+    revision 2017-03-20
     namespace urn:onf:params:xml:ns:yang:core-model
     organization ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project
 
@@ -35,7 +35,7 @@ extern "C" {
 #endif
 
 #define y_core_model_M_core_model (const xmlChar *)"core-model"
-#define y_core_model_R_core_model (const xmlChar *)"2017-02-17"
+#define y_core_model_R_core_model (const xmlChar *)"2017-03-20"
 
 #define y_core_model_N_action_verb (const xmlChar *)"action-verb"
 #define y_core_model_N_actual_equipment (const xmlChar *)"actual-equipment"

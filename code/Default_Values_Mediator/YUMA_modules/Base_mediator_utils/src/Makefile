@@ -1,15 +1,12 @@
 TARGET=../bin
 LIB_INST=../lib
 
-YUMA_HOME = /home/compila/app/poc2-md/open-yuma/netconf
+YUMA_HOME = /usr/include/yuma
 
 CINC = -I../include \
-		-I../../MicrowaveModel-ObjectClasses-AirInterface/src \
-		-I../../MicrowaveModel-ObjectClasses-PureEthernetStructure/src \
-		-I../../MicrowaveModel-ObjectClasses-EthernetContainer/src \
-		-I../../CoreModel-CoreNetworkModule-ObjectClasses/src \
-		-I../../DVM_utils/src \
-		-I$(YUMA_HOME)/src/agt -I$(YUMA_HOME)/src/ncx \
+		-I../../microwave-model/src \
+		-I../../core-model/src \
+		-I$(YUMA_HOME)/agt -I$(YUMA_HOME)/ncx \
 		-I/usr/include -I/usr/include/libxml2 \
      	-I/usr/include/libxml2/libxml \
      	-I/usr/include/yuma/platform
