@@ -1,4 +1,4 @@
-## Default Values Mediator for Telefonica SDN Trial.
+## Default Values Mediator
 
 ### Overview:
 This is a NETCONF Server, based on OpenYuma, that implements the **_microwave-model_** and **_core-model_**, YANG model, offering a default values Mediator that takes as an input an XML file containing values for the majority of the YANG attributes. This provides a simple way of configuring the attributes, by simply modifying the desired value in the XML file and then just restarting the mediator.
@@ -11,11 +11,13 @@ This distribution is based on the Default Value Mediator available from the CENT
 ### How to install:
 #### For a mediator VM that was previously downloaded from the FTP server:
 
+0. Please follow the instruchtions of the [Base_Mediator](https://github.com/OpenNetworkingFoundation/CENTENNIAL/blob/master/code/Base_Mediator/README.md).
+
 1. Make sure you copy the files from *YANG_files/CENTENNIAL* into */usr/share/yuma/modules/CENTENNIAL*
 
 	```
 	sudo rm /usr/share/yuma/modules/CENTENNIAL/*.yang
-	sudo cp /home/compila/app/CENTENNIAL/code/Default_Values_Mediator/YANG_files/CENTENNIAL/*.yang /usr/share/yuma/modules/CENTENNIAL
+	sudo cp ~~/home/compila/app/CENTENNIAL/code/Default_Values_Mediator/YANG_files/CENTENNIAL/*.yang /usr/share/yuma/modules/CENTENNIAL
 	```
 
 2.      a. Overwrite */home/compila/app/poc2-md/open-yuma/netconf/src/agt/agt_val.c* with the **agt_val.c** file that is available here.
