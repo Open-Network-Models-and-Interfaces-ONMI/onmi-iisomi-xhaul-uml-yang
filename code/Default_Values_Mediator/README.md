@@ -15,7 +15,7 @@ This distribution is based on the Default Value Mediator available from the CENT
 
 	```
 	sudo rm /usr/share/yuma/modules/CENTENNIAL/*.yang
-	sudo cp ~~/home/compila/app/CENTENNIAL/code/Default_Values_Mediator/YANG_files/CENTENNIAL/*.yang /usr/share/yuma/modules/CENTENNIAL
+	sudo cp /home/compila/app/CENTENNIAL/code/Default_Values_Mediator/YANG_files/CENTENNIAL/*.yang /usr/share/yuma/modules/CENTENNIAL
 	```
 
 2.      a. Overwrite */home/compila/app/poc2-md/open-yuma/netconf/src/agt/agt_val.c* with the **agt_val.c** file that is available here.
