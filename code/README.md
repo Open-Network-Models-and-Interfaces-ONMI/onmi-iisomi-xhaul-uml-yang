@@ -221,7 +221,7 @@ feature:install odl-scheduler odl-scheduler-api odl-scheduler-rest odl-scheduler
 ```
 [Closed Loop Automation application](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/code/apps/closedLoopAutomation):
 ```
-feature:repo-add mvn:com.highstreet.technologies.odl.app/closedLoopAutomation-features/0.3.0-SNAPSHOT/xml/features
+feature:repo-add mvn:com.highstreet.technologies.odl.app/closedLoopAutomation-features/0.4.0-SNAPSHOT/xml/features
 feature:install odl-closedLoopAutomation
 ```
 
