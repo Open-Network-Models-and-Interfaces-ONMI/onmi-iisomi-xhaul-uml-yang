@@ -213,7 +213,7 @@ feature:install odl-mwt-nodediscovery
 
 [Spectrum Management application](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/code/apps/spectrum):
 ```
-feature:repo-add mvn:com.highstreet.technologies.odl.app.spectrum/scheduler-features/1.0.0-SNAPSHOT/xml/features
+feature:repo-add mvn:com.highstreet.technologies.odl.app.spectrum/scheduler-features/0.4.0-SNAPSHOT/xml/features
 bundle:install -s mvn:net.iharder/base64/2.3.9
 bundle:install -s mvn:com.github.briandilley.jsonrpc4j/jsonrpc4j/1.2.0
 bundle:install -s mvn:com.sun.jersey/jersey-client/1.17
