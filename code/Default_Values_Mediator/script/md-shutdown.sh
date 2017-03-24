@@ -28,11 +28,11 @@ function usage()
     echo "usage:" $(basename $0) "[option] | [-h|--help]"
     echo "where option is:"
     echo "  -n|--name <name>                         # Network element name. Default: [$name]"
-    echo "  -a|--controller-ipaddress <ip-adddress>  # SDH controller ip address. Default: [$ctrladdr]"
-    echo "  -p|--controller-port <port>              # SDH controller RESTconf port. Default: [$ctrlport]"
+    echo "  -a|--controller-ipaddress <ip-adddress>  # SDN controller ip address. Default: [$ctrladdr]"
+    echo "  -p|--controller-port <port>              # SDN controller RESTconf port. Default: [$ctrlport]"
     echo "  -s|--show                                # show configured parameters (defaults)"
-    echo "  -u|--controller-user <user>              # SDH controller user name. Default: [$ctrluser]"
-    echo "  -w|--controller-password <pwd>           # SDH controller password. Default: [$ctrlpwrd]"
+    echo "  -u|--controller-user <user>              # SDN controller user name. Default: [$ctrluser]"
+    echo "  -w|--controller-password <pwd>           # SDN controller password. Default: [$ctrlpwrd]"
     echo ""
 }
 
@@ -42,10 +42,10 @@ function show_config_parameters()
     echo "$(basename $0) configured parameters:"
     echo "  Mediation device eth interface name ................ [$mdevif]"
     echo "  Network element name ............................... [$name]"
-    echo "  SDH controller ip address .......................... [$ctrladdr]"
-    echo "  SDH controller RESTconf port ....................... [$ctrlport]"
-    echo "  SDH controller user name ........................... [$ctrluser]"
-    echo "  SDH controller password ............................ [$ctrlpwrd]"
+    echo "  SDN controller ip address .......................... [$ctrladdr]"
+    echo "  SDN controller RESTconf port ....................... [$ctrlport]"
+    echo "  SDN controller user name ........................... [$ctrluser]"
+    echo "  SDN controller password ............................ [$ctrlpwrd]"
     echo ""
 }
 
@@ -105,7 +105,7 @@ echo "---------------------------------"
 echo " MD Stop"
 echo "---------------------------------"
 
-echo "> SDH controller logout:  request sent..."
+echo "> SDN controller logout:  request sent..."
 retcode=$(php -f $PHP_DIR/logout.php "$ctrladdr" "$ctrlport" "$ctrluser" "$ctrlpwrd" "$name" &) # > /dev/null 2>&1 &)
 echo ">" $retcode
 
