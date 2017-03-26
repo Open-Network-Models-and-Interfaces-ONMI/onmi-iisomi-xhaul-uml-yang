@@ -34,7 +34,7 @@ Editors:  Thorsten Heinze
   <description>
     <text>This module contains a collection of YANG definitions for managing wireless networks.</text>
   </description>
-  <revision date="2017-03-20">
+  <revision date="2017-03-24">
     <description>
       <text>Initial version</text>
     </description>
@@ -1804,7 +1804,14 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>Aggregated performance information of the air interface for a pre-defined measurement interval.</text>
     </description>
   </grouping>
-  <container name="co-channel-group">
+  <list name="co-channel-group">
+    <key value="co-channel-group-id"/>
+    <uses name="co-channel-group-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </list>
+  <grouping name="co-channel-group-g">
     <leaf name="co-channel-group-id">
       <type name="core-model:universal-id"/>
       <description>
@@ -1837,7 +1844,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     <description>
       <text>Required for configuring XPIC, MIMO and ALIC.</text>
     </description>
-  </container>
+  </grouping>
   <list name="mw-air-interface-hsb-end-point-pac">
     <key value="endpoint"/>
     <leaf name="role">
