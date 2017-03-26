@@ -24,7 +24,7 @@ function type(name, id, path, range, length, unsigned, units, descrip, fileName)
     this.units = units;
     this.fileName = fileName;
     this.children = [];
-};
+}
 
 type.prototype.getTypeName = function() {
     if (this.name !== 'integer') {
@@ -114,14 +114,14 @@ type.prototype.writeNode = function (layer) {
         }
         if (this.children.length) {
             if(typeof this.children[0] == "object"){                //enum
-                for(var i = 0; i < this.children.length; i++){
-                    s += this.children[i].writeNode(layer + 1);
-                }
+                this.children.map(function(child){
+                    s += child.writeNode(layer + 1);
+                });
             }else{
-                for (var i = 0; i < this.children.length; i++) {
-                    s += PRE + "\t";
-                    s += this.children[i] + ";\r\n";
-                }
+                this.children.map(function(child){
+                  s += PRE + "\t";
+                  s += child + ";\r\n";
+                });
             }
         }
         if(this.path){
