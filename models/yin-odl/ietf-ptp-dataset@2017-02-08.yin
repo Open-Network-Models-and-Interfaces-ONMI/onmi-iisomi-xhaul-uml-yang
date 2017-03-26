@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ietf-ptp-dataset"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ptp-dataset="urn:ietf:params:xml:ns:yang:ietf-ptp-dataset">
+  <namespace uri="urn:ietf:params:xml:ns:yang:ietf-ptp-dataset"/>
+  <prefix value="ptp-dataset"/>
+  <organization>
+    <text>IETF TICTOC Working Group</text>
+  </organization>
+  <contact>
+    <text>WG Web:   http://tools.ietf.org/wg/tictoc/
+WG List:  &lt;mailto:tictoc@ietf.org&gt;
+WG Chair: Karen O'Donoghue
+          &lt;mailto:odonoghue@isoc.org&gt;
+WG Chair: Yaakov Stein
+          &lt;mailto: Yaakov_s@rad.com&gt;
+Editor:   Yuanlong Jiang
+          &lt;mailto:jiangyuanlong@huawei.com&gt;
+Editor:   Rodney Cummings
+          &lt;mailto:rodney.cummings@ni.com&gt;</text>
+  </contact>
+  <description>
+    <text>This YANG module defines a data model for the configuration
+of IEEE 1588-2008 clocks, and also for retrieval of the state
+data of IEEE 1588-2008 clocks.</text>
+  </description>
+  <revision date="2017-02-08">
+    <description>
+      <text>Version 4.0</text>
+    </description>
+    <reference>
+      <text>draft-ietf-tictoc-1588v2-yang</text>
+    </reference>
+  </revision>
+  <typedef name="delay-mechanism-enumeration">
+    <type name="enumeration">
+      <enum name="E2E">
+        <value value="1"/>
+        <description>
+          <text>The port uses the delay request-response
+mechanism.</text>
+        </description>
+      </enum>
+      <enum name="P2P">
+        <value value="2"/>
+        <description>
+          <text>The port uses the peer delay mechanism.</text>
+        </description>
+      </enum>
+      <enum name="DISABLED">
+        <value value="254"/>
+        <description>
+          <text>The port does not implement any delay
+mechanism.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The propagation delay measuring option used by the
+port. Values for this enumeration are specified
+by the IEEE 1588 standard exclusively.</text>
+    </description>
+    <reference>
+      <text>IEEE Std 1588-2008: 8.2.5.4.4</text>
+    </reference>
+  </typedef>
+  <typedef name="port-state-enumeration">
+    <type name="enumeration">
+      <enum name="INITIALIZING">
+        <value value="1"/>
+        <description>
+          <text>The port is initializing its data sets, hardware, and
+communication facilities.</text>
+        </description>
+      </enum>
+      <enum name="FAULTY">
+        <value value="2"/>
+        <description>
+          <text>The port is in the fault state.</text>
+        </description>
+      </enum>
+      <enum name="DISABLED">
+        <value value="3"/>
+        <description>
+          <text>The port is disabled, and is not communicating PTP
+messages (other than possibly PTP management
+messages).</text>
+        </description>
+      </enum>
+      <enum name="LISTENING">
+        <value value="4"/>
+        <description>
+          <text>The port is listening for an Announce message.</text>
+        </description>
+      </enum>
+      <enum name="PRE_MASTER">
+        <value value="5"/>
+        <description>
+          <text>The port is in the pre-master state.</text>
+        </description>
+      </enum>
+      <enum name="MASTER">
+        <value value="6"/>
+        <description>
+          <text>The port is behaving as a master port.</text>
+        </description>
+      </enum>
+      <enum name="PASSIVE">
+        <value value="7"/>
+        <description>
+          <text>The port is in the passive state.</text>
+        </description>
+      </enum>
+      <enum name="UNCALIBRATED">
+        <value value="8"/>
+        <description>
+          <text>A master port has been selected, but the port is still
+in the uncalibrated state.</text>
+        </description>
+      </enum>
+      <enum name="SLAVE">
+        <value value="9"/>
+        <description>
+          <text>The port is synchronizing to the selected
+master port.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The current state of the protocol engine associated
+with the port.  Values for this enumeration are specified
+by the IEEE 1588 standard exclusively.</text>
+    </description>
+    <reference>
+      <text>IEEE Std 1588-2008: 8.2.5.3.1, 9.2.5</text>
+    </reference>
+  </typedef>
+  <typedef name="time-interval-type">
+    <type name="int64"/>
+    <description>
+      <text>Derived data type for time interval,
+represented in units of nanoseconds and
+multipled by 2^16</text>
+    </description>
+    <reference>
+      <text>IEEE Std 1588-2008: 5.3.2</text>
+    </reference>
+  </typedef>
+  <typedef name="clock-identity-type">
+    <type name="binary">
+      <length value="8"/>
+    </type>
+    <description>
+      <text>Derived data type to identify a clock</text>
+    </description>
+    <reference>
+      <text>IEEE Std 1588-2008: 5.3.4</text>
+    </reference>
+  </typedef>
+  <grouping name="port-identity-grouping">
+    <description>
+      <text>Derived data type to identify a port, which contains
+two members: clockIdentity and portNumber.</text>
+    </description>
+    <reference>
+      <text>IEEE Std 1588-2008: 5.3.5</text>
+    </reference>
+    <leaf name="clock-identity">
+      <type name="clock-identity-type"/>
+      <description>
+        <text>Identity of the clock</text>
+      </description>
+    </leaf>
+    <leaf name="port-number">
+      <type name="uint16"/>
+      <description>
+        <text>Port number</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="clock-quality-grouping">
+    <description>
+      <text>Derived data type for quality of a clock, which contains
+clockClass, clockAccuracy and offsetScaledLogVariance.</text>
+    </description>
+    <reference>
+      <text>IEEE Std 1588-2008: 5.3.7</text>
+    </reference>
+    <leaf name="clock-class">
+      <type name="uint8"/>
+      <default value="248"/>
+      <description>
+        <text>The clockClass denotes the traceability of the time
+or frequency distributed by the clock.</text>
+      </description>
+    </leaf>
+    <leaf name="clock-accuracy">
+      <type name="uint8"/>
+      <description>
+        <text>The clockAccuracy indicates the expected accuracy
+of the clock.</text>
+      </description>
+    </leaf>
+    <leaf name="offset-scaled-log-variance">
+      <type name="uint16"/>
+      <description>
+        <text>The offsetScaledLogVariance provides an
+estimate of the variations of the clock
+from a linear timescale when it is not synchronized
+to another clock using the protocol.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="default-ds-entry">
+    <description>
+      <text>Collection of members of the default data set.</text>
+    </description>
+    <leaf name="two-step-flag">
+      <type name="boolean"/>
+      <description>
+        <text>When set, the clock is a two-step clock; otherwise,
+the clock is a one-step clock.</text>
+      </description>
+    </leaf>
+    <leaf name="clock-identity">
+      <type name="clock-identity-type"/>
+      <description>
+        <text>The clockIdentity of the local clock</text>
+      </description>
+    </leaf>
+    <leaf name="number-ports">
+      <type name="uint16"/>
+      <description>
+        <text>The number of PTP ports on the device.</text>
+      </description>
+    </leaf>
+    <container name="clock-quality">
+      <description>
+        <text>The clockQuality of the local clock.</text>
+      </description>
+      <uses name="clock-quality-grouping"/>
+    </container>
+    <leaf name="priority1">
+      <type name="uint8"/>
+      <description>
+        <text>The priority1 attribute of the local clock.</text>
+      </description>
+    </leaf>
+    <leaf name="priority2">
+      <type name="uint8"/>
+      <description>
+        <text>The priority2 attribute of the local clock. </text>
+      </description>
+    </leaf>
+    <leaf name="domain-number">
+      <type name="uint8"/>
+      <description>
+        <text>The domain number of the current syntonization
+domain.</text>
+      </description>
+    </leaf>
+    <leaf name="slave-only">
+      <type name="boolean"/>
+      <description>
+        <text>When set, the clock is a slave-only clock.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="current-ds-entry">
+    <description>
+      <text>Collection of members of current data set.</text>
+    </description>
+    <leaf name="steps-removed">
+      <type name="uint16"/>
+      <default value="0"/>
+      <description>
+        <text>The number of communication paths traversed
+between the local clock and the grandmaster clock.</text>
+      </description>
+    </leaf>
+    <leaf name="offset-from-master">
+      <type name="time-interval-type"/>
+      <description>
+        <text>The current value of the time difference between
+a master and a slave clock as computed by the slave.</text>
+      </description>
+    </leaf>
+    <leaf name="mean-path-delay">
+      <type name="time-interval-type"/>
+      <description>
+        <text>The current value of the mean propagation time between
+a master and a slave clock as computed by the slave.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="parent-ds-entry">
+    <description>
+      <text>Collection of members of the parent data set.</text>
+    </description>
+    <container name="parent-port-identity">
+      <description>
+        <text>The portIdentity of the port on the master</text>
+      </description>
+      <uses name="port-identity-grouping"/>
+    </container>
+    <leaf name="parent-stats">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>When set, the values of
+observedParentOffsetScaledLogVariance and
+observedParentClockPhaseChangeRate of parentDS
+have been measured and are valid.</text>
+      </description>
+    </leaf>
+    <leaf name="observed-parent-offset-scaled-log-variance">
+      <type name="uint16"/>
+      <default value="0xFFFF"/>
+      <description>
+        <text>An estimate of the parent clock's PTP variance
+as observed by the slave clock.</text>
+      </description>
+    </leaf>
+    <leaf name="observed-parent-clock-phase-change-rate">
+      <type name="int32"/>
+      <description>
+        <text>An estimate of the parent clock's phase change rate
+as observed by the slave clock.</text>
+      </description>
+    </leaf>
+    <leaf name="grandmaster-identity">
+      <type name="binary">
+        <length value="8"/>
+      </type>
+      <description>
+        <text>The clockIdentity attribute of the grandmaster clock.</text>
+      </description>
+    </leaf>
+    <container name="grandmaster-clock-quality">
+      <description>
+        <text>The clockQuality of the grandmaster clock.</text>
+      </description>
+      <uses name="clock-quality-grouping"/>
+    </container>
+    <leaf name="grandmaster-priority1">
+      <type name="uint8"/>
+      <description>
+        <text>The priority1 attribute of the grandmaster clock.</text>
+      </description>
+    </leaf>
+    <leaf name="grandmaster-priority2">
+      <type name="uint8"/>
+      <description>
+        <text>The priority2 attribute of the grandmaster clock.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="time-properties-ds-entry">
+    <description>
+      <text>Collection of members of the timeProperties data set.</text>
+    </description>
+    <leaf name="current-utc-offset-valid">
+      <type name="boolean"/>
+      <description>
+        <text>When set, the current UTC offset is valid.</text>
+      </description>
+    </leaf>
+    <leaf name="current-utc-offset">
+      <type name="int16"/>
+      <description>
+        <text>The offset between TAI and UTC when the epoch of the
+PTP system is the PTP epoch, i.e., when ptp-timescale
+is TRUE; otherwise, the value has no meaning.</text>
+      </description>
+    </leaf>
+    <leaf name="leap59">
+      <type name="boolean"/>
+      <description>
+        <text>When set, the last minute of the current UTC day
+contains 59 seconds.</text>
+      </description>
+    </leaf>
+    <leaf name="leap61">
+      <type name="boolean"/>
+      <description>
+        <text>When set, the last minute of the current UTC day
+contains 61 seconds.</text>
+      </description>
+    </leaf>
+    <leaf name="time-traceable">
+      <type name="boolean"/>
+      <description>
+        <text>When set, the timescale and the currentUtcOffset are
+   traceable to a primary reference.</text>
+      </description>
+    </leaf>
+    <leaf name="frequency-traceable">
+      <type name="boolean"/>
+      <description>
+        <text>When set, the frequency determining the timescale
+is traceable to a primary reference.</text>
+      </description>
+    </leaf>
+    <leaf name="ptp-timescale">
+      <type name="boolean"/>
+      <description>
+        <text>When set, the clock timescale of the grandmaster
+    clock is PTP; otherwise, the timescale is ARB
+   (arbitrary).</text>
+      </description>
+    </leaf>
+    <leaf name="time-source">
+      <type name="uint8"/>
+      <description>
+        <text>The source of time used by the grandmaster clock.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="port-ds-entry">
+    <description>
+      <text>Collection of members of the port data set.</text>
+    </description>
+    <container name="port-identity">
+      <description>
+        <text>The portIdentity attribute of the local port.</text>
+      </description>
+      <uses name="port-identity-grouping"/>
+    </container>
+    <leaf name="port-state">
+      <type name="port-state-enumeration"/>
+      <default value="INITIALIZING"/>
+      <description>
+        <text>Current state associated with the port.</text>
+      </description>
+    </leaf>
+    <leaf name="log-min-delay-req-interval">
+      <type name="int8"/>
+      <description>
+        <text>The base-two logarithm of the minDelayReqInterval
+(the minimum permitted mean time interval between
+successive Delay_Req messages).</text>
+      </description>
+    </leaf>
+    <leaf name="peer-mean-path-delay">
+      <type name="time-interval-type"/>
+      <default value="0"/>
+      <description>
+        <text>An estimate of the current one-way propagation delay
+on the link when the delayMechanism is P2P; otherwise,
+it is zero.</text>
+      </description>
+    </leaf>
+    <leaf name="log-announce-interval">
+      <type name="int8"/>
+      <description>
+        <text>The base-two logarithm of the mean
+announceInterval (mean time interval between
+successive Announce messages).</text>
+      </description>
+    </leaf>
+    <leaf name="announce-receipt-timeout">
+      <type name="uint8"/>
+      <description>
+        <text>The number of announceInterval that have to pass
+without receipt of an Announce message before the
+occurrence of the event ANNOUNCE_RECEIPT_TIMEOUT_
+EXPIRES.</text>
+      </description>
+    </leaf>
+    <leaf name="log-sync-interval">
+      <type name="int8"/>
+      <description>
+        <text>The base-two logarithm of the mean SyncInterval
+for multicast messages.  The rates for unicast
+transmissions are negotiated separately on a per port
+basis and are not constrained by this attribute.</text>
+      </description>
+    </leaf>
+    <leaf name="delay-mechanism">
+      <type name="delay-mechanism-enumeration"/>
+      <description>
+        <text>The propagation delay measuring option used by the
+port in computing meanPathDelay.</text>
+      </description>
+    </leaf>
+    <leaf name="log-min-pdelay-req-interval">
+      <type name="int8"/>
+      <description>
+        <text>The base-two logarithm of the
+minPdelayReqInterval (minimum permitted mean time
+interval between successive Pdelay_Req messages).</text>
+      </description>
+    </leaf>
+    <leaf name="version-number">
+      <type name="uint8"/>
+      <description>
+        <text>The PTP version in use on the port.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="transparent-clock-default-ds-entry">
+    <description>
+      <text>Collection of members of the transparentClockDefault data
+ set (default data set for a transparent clock).</text>
+    </description>
+    <leaf name="clock-identity">
+      <type name="clock-identity-type"/>
+      <description>
+        <text>The clockIdentity of the transparent clock.</text>
+      </description>
+    </leaf>
+    <leaf name="number-ports">
+      <type name="uint16"/>
+      <description>
+        <text>The number of PTP ports on the device.</text>
+      </description>
+    </leaf>
+    <leaf name="delay-mechanism">
+      <type name="delay-mechanism-enumeration"/>
+      <description>
+        <text>The propagation delay measuring option
+used by the transparent clock.</text>
+      </description>
+    </leaf>
+    <leaf name="primary-domain">
+      <type name="uint8"/>
+      <default value="0"/>
+      <description>
+        <text>The domainNumber of the primary syntonization domain.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <grouping name="transparent-clock-port-ds-entry">
+    <description>
+      <text>Collection of members of the transparentClockPort data
+set (port data set for a transparent clock).</text>
+    </description>
+    <container name="port-identity">
+      <description>
+        <text>The portIdentity of the local port.</text>
+      </description>
+      <uses name="port-identity-grouping"/>
+    </container>
+    <leaf name="log-min-pdelay-req-interval">
+      <type name="int8"/>
+      <description>
+        <text>The logarithm to the base 2 of the
+minPdelayReqInterval (minimum permitted mean time
+interval between successive Pdelay_Req messages).</text>
+      </description>
+    </leaf>
+    <leaf name="faulty-flag">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>When set, the port is faulty.</text>
+      </description>
+    </leaf>
+    <leaf name="peer-mean-path-delay">
+      <type name="time-interval-type"/>
+      <default value="0"/>
+      <description>
+        <text>An estimate of the current one-way propagation delay
+on the link when the delayMechanism is P2P; otherwise,
+it is zero.</text>
+      </description>
+    </leaf>
+  </grouping>
+  <list name="instance-list">
+    <key value="instance-number"/>
+    <description>
+      <text>List of one or more PTP datasets in the device, one for
+each domain (see IEEE 1588-2008 subclause 6.3).
+Each PTP dataset represents a distinct instance of
+PTP implementation in the device (i.e. distinct
+Ordinary Clock or Boundary Clock).</text>
+    </description>
+    <leaf name="instance-number">
+      <type name="uint16"/>
+      <description>
+        <text>The instance number of the current PTP instance</text>
+      </description>
+    </leaf>
+    <container name="default-ds">
+      <description>
+        <text>The default data set of the clock.</text>
+      </description>
+      <uses name="default-ds-entry"/>
+    </container>
+    <container name="current-ds">
+      <description>
+        <text>The current data set of the clock.</text>
+      </description>
+      <uses name="current-ds-entry"/>
+    </container>
+    <container name="parent-ds">
+      <description>
+        <text>The parent data set of the clock.</text>
+      </description>
+      <uses name="parent-ds-entry"/>
+    </container>
+    <container name="time-properties-ds">
+      <description>
+        <text>The timeProperties data set of the clock.</text>
+      </description>
+      <uses name="time-properties-ds-entry"/>
+    </container>
+    <list name="port-ds-list">
+      <key value="port-number"/>
+      <description>
+        <text>List of port data sets of the clock.</text>
+      </description>
+      <leaf name="port-number">
+        <type name="leafref">
+          <path value="../port-identity/port-number"/>
+        </type>
+        <description>
+          <text>Refers to the portNumber memer of
+portDS.portIdentity.</text>
+        </description>
+      </leaf>
+      <uses name="port-ds-entry"/>
+    </list>
+  </list>
+  <container name="transparent-clock-default-ds">
+    <description>
+      <text>The members of the transparentClockDefault Data Set</text>
+    </description>
+    <uses name="transparent-clock-default-ds-entry"/>
+  </container>
+  <list name="transparent-clock-port-ds-list">
+    <key value="port-number"/>
+    <description>
+      <text>List of transparentClockPort data sets
+of the transparent clock.</text>
+    </description>
+    <leaf name="port-number">
+      <type name="leafref">
+        <path value="../port-identity/port-number"/>
+      </type>
+      <description>
+        <text>Refers to the portNumber memer
+of transparentClockPortDS.portIdentity.</text>
+      </description>
+    </leaf>
+    <uses name="transparent-clock-port-ds-entry"/>
+  </list>
+</module>
