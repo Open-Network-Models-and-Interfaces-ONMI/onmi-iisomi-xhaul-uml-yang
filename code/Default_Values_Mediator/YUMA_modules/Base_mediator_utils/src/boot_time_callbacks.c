@@ -171,7 +171,7 @@ status_t cb_get_all_co_channel_group_id_keys(xmlChar **keys_list, int *num_of_ke
 * Get an array representing the leaf-list entries of airInterfaceList leaf-list
 *
 * INPUTS:
-*
+* xmlChar *co_channel_key - the key of the current structure
 * OUTPUTS:
 * xmlChar** keys_list - an array of strings containing the list of keys
 * int* num_of_keys - the number of keys found (actually the number of interfaces found in the group)
@@ -179,10 +179,10 @@ status_t cb_get_all_co_channel_group_id_keys(xmlChar **keys_list, int *num_of_ke
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t cb_get_all_co_channel_group_air_interface_list_keys(xmlChar **keys_list, int *num_of_keys)
+status_t cb_get_all_co_channel_group_air_interface_list_keys(const xmlChar *co_channel_key, xmlChar **keys_list, int *num_of_keys)
 {
     const xmlChar evalPath[1000];
-    sprintf((xmlChar*)evalPath, "/data/co-channel-group/air-interface-list");
+    sprintf((xmlChar*)evalPath, "/data/co-channel-group[co-channel-group-id=\"%s\"]/air-interface-list", co_channel_key);
 
     return get_list_from_xpath(evalPath, keys_list, num_of_keys);
 }
@@ -193,7 +193,7 @@ status_t cb_get_all_co_channel_group_air_interface_list_keys(xmlChar **keys_list
 * Get an array representing the leaf-list entries of airInterfaceList leaf-list
 *
 * INPUTS:
-*
+* xmlChar *co_channel_key - the key of the current structure
 * OUTPUTS:
 * xmlChar** keys_list - an array of strings containing the list of keys
 * int* num_of_keys - the number of keys found (actually the number of interfaces found in the group)
@@ -201,14 +201,13 @@ status_t cb_get_all_co_channel_group_air_interface_list_keys(xmlChar **keys_list
 * RETURNS:
 *     error status
 ********************************************************************/
-status_t cb_get_all_co_channel_group_logical_termination_point_keys(xmlChar **keys_list, int *num_of_keys)
+status_t cb_get_all_co_channel_group_logical_termination_point_keys(const xmlChar *co_channel_key, xmlChar **keys_list, int *num_of_keys)
 {
     const xmlChar evalPath[1000];
-    sprintf((xmlChar*)evalPath, "/data/co-channel-group/logical-termination-point");
+    sprintf((xmlChar*)evalPath, "/data/co-channel-group[co-channel-group-id=\"%s\"]/logical-termination-point", co_channel_key);
 
     return get_list_from_xpath(evalPath, keys_list, num_of_keys);
 }
-
 
 /********************************************************************
 * FUNCTION cb_get_all_ethernet_container_pac_keys

@@ -16,7 +16,7 @@
 
     Yuma SIL header
     module microwave-model
-    revision 2017-03-20
+    revision 2017-03-24
     namespace urn:onf:params:xml:ns:yang:microwave-model
     organization ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project
 
@@ -35,7 +35,7 @@ extern "C" {
 #endif
 
 #define y_microwave_model_M_microwave_model (const xmlChar *)"microwave-model"
-#define y_microwave_model_R_microwave_model (const xmlChar *)"2017-03-20"
+#define y_microwave_model_R_microwave_model (const xmlChar *)"2017-03-24"
 
 #define y_microwave_model_N_adaptive_modulation_is_avail (const xmlChar *)"adaptive-modulation-is-avail"
 #define y_microwave_model_N_adaptive_modulation_is_on (const xmlChar *)"adaptive-modulation-is-on"

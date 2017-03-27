@@ -1123,7 +1123,7 @@ static status_t attach_co_channel_group_list_entry(val_value_t *parentval, const
 	char* air_interface_list_entries[MAX_NUMBER_OF_CO_CHANNEL_GROUP_AIR_INTERFACE_LIST_ENTRIES];
 	int number_of_co_channel_group_air_interface_list_entries_keys;
 
-	res = cb_get_all_co_channel_group_air_interface_list_keys(air_interface_list_entries, &number_of_co_channel_group_air_interface_list_entries_keys);
+	res = cb_get_all_co_channel_group_air_interface_list_keys(co_channel_group_list_key_entry, air_interface_list_entries, &number_of_co_channel_group_air_interface_list_entries_keys);
 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_all_co_channel_group_air_interface_list_id_keys failed!");
 
 	for (int i=0; i<number_of_co_channel_group_air_interface_list_entries_keys; ++i)
@@ -1164,7 +1164,7 @@ static status_t attach_co_channel_group_list_entry(val_value_t *parentval, const
     char* logical_termination_point_entries[MAX_NUMBER_OF_CO_CHANNEL_GROUP_LOGICAL_TERMINATION_POINT_ENTRIES];
     int number_logical_termination_point_entries_keys;
 
-    res = cb_get_all_co_channel_group_logical_termination_point_keys(logical_termination_point_entries, &number_logical_termination_point_entries_keys);
+    res = cb_get_all_co_channel_group_logical_termination_point_keys(co_channel_group_list_key_entry, logical_termination_point_entries, &number_logical_termination_point_entries_keys);
     YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "cb_get_all_co_channel_group_air_interface_list_id_keys failed!");
 
     for (int i=0; i<number_logical_termination_point_entries_keys; ++i)
