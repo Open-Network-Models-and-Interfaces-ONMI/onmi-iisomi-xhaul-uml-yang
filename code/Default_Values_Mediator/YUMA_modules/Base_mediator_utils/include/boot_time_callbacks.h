@@ -22,8 +22,8 @@ status_t cb_get_all_transmission_mode_id_list_keys(const xmlChar *air_interface_
 status_t cb_get_all_problem_kind_severity_list_keys(const xmlChar *air_interface_pac_key, xmlChar **keys_list, int *num_of_keys);
 
 status_t cb_get_all_co_channel_group_id_keys(xmlChar **co_channel_group_id_keys_list, int *num_of_keys);
-status_t cb_get_all_co_channel_group_air_interface_list_keys(xmlChar **keys_list, int *num_of_keys);
-status_t cb_get_all_co_channel_group_logical_termination_point_keys(xmlChar **keys_list, int *num_of_keys);
+status_t cb_get_all_co_channel_group_air_interface_list_keys(const xmlChar *co_channel_key, xmlChar **keys_list, int *num_of_keys);
+status_t cb_get_all_co_channel_group_logical_termination_point_keys(const xmlChar *co_channel_key, xmlChar **keys_list, int *num_of_keys);
 
 /*
  * pure-ethernet-structure
