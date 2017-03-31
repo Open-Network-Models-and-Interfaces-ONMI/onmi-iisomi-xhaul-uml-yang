@@ -206,11 +206,6 @@ odl-mwtn-all
 ```
 It takes some time ...
 
-**Application for event handling**
-```
-feature:install odl-mwt-nodediscovery  
-```
-
 [Spectrum Management application](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/code/apps/spectrum):
 ```
 feature:repo-add mvn:com.highstreet.technologies.odl.app.spectrum/scheduler-features/0.4.0-SNAPSHOT/xml/features
