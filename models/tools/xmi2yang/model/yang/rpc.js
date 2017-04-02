@@ -104,11 +104,11 @@ rpc.prototype.writeNode = function (layer) {
         case "Example":
         case "LikelyToChange":
         case "Faulty":
-            if((this.description == undefined)){
+            if((this.description === undefined)){
                 this.description = "Lifecycle : " + this.status;
             }
             else{
-                this.description += "\r\n"+"Lifecycle : " + this.status;
+                this.description += "; "+"Lifecycle : " + this.status;
             }
             break;
         case "current":

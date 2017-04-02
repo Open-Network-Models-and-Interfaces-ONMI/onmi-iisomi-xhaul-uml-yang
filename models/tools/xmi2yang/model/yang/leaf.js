@@ -68,11 +68,13 @@ leaf.prototype.writeNode = function (layer) {
         type = "";
     }
     
-    var defvalue;
-    if (!type.contains('string') && !type.contains('date-and-time')) {
-        this.defaultValue ? defvalue = PRE + "\tdefault " + this.defaultValue + ";\r\n" : defvalue = "";
-    } else {
-        this.defaultValue ? defvalue = PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : defvalue = "";
+    var defvalue = '';
+    if (this.defaultValue) {
+      if (!type.contains('string') && !type.contains('date-and-time') && !this.defaultValue.contains(' ')) {
+        defvalue = PRE + "\tdefault " + Util.yangifyName(this.defaultValue) + ";\r\n";
+      } else {
+        defvalue = PRE + "\tdefault \"" + this.defaultValue + "\";\r\n";
+      }
     }
     var units;
     if(this.units != undefined && this.units != ""){

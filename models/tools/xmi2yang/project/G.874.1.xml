@@ -871,12 +871,12 @@
         </ownedComment>
         <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_FLzNR-6vEeCjNNLZCc6mew" name="BDI_P">
           <ownedComment xmi:type="uml:Comment" xmi:id="_FLzNSO6vEeCjNNLZCc6mew" annotatedElement="_FLzNR-6vEeCjNNLZCc6mew">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_0tU-YNyQEeW6C_FaABjU5w/14">BDI-P (Backward Defect Indication - Payload); not co-exist with BDI-O or BDI</body>
+            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_NDJbQJNqEeWP45fAG0gIqg/12" xmlns:RootElement="http:///schemas/RootElement/_7S2aYHpQEeaVjtpstJMDXA/37">BDI-P (Backward Defect Indication - Payload); not co-exist with BDI-O or BDI</body>
           </ownedComment>
         </ownedLiteral>
         <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_FLzNSe6vEeCjNNLZCc6mew" name="BDI_O">
           <ownedComment xmi:type="uml:Comment" xmi:id="_FLzNSu6vEeCjNNLZCc6mew" annotatedElement="_FLzNSe6vEeCjNNLZCc6mew">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_0tU-YNyQEeW6C_FaABjU5w/14">BDI-O (Backward Defect Indication - Overhead); not co-exist with BDI-P or BDI</body>
+            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_NDJbQJNqEeWP45fAG0gIqg/12" xmlns:RootElement="http:///schemas/RootElement/_7S2aYHpQEeaVjtpstJMDXA/37">BDI-O (Backward Defect Indication - Overhead); not co-exist with BDI-P or BDI</body>
           </ownedComment>
         </ownedLiteral>
         <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_FLzNS-6vEeCjNNLZCc6mew" name="BDI">
@@ -891,12 +891,12 @@
         </ownedLiteral>
         <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_O5UbcO6vEeCjNNLZCc6mew" name="LOS_P">
           <ownedComment xmi:type="uml:Comment" xmi:id="_bscvsO6vEeCjNNLZCc6mew" annotatedElement="_O5UbcO6vEeCjNNLZCc6mew">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_0tU-YNyQEeW6C_FaABjU5w/14">-P (Loss of Signal - Payload); not co-exist with LOS-O or LOS</body>
+            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_NDJbQJNqEeWP45fAG0gIqg/12" xmlns:RootElement="http:///schemas/RootElement/_7S2aYHpQEeaVjtpstJMDXA/37">-P (Loss of Signal - Payload); not co-exist with LOS-O or LOS</body>
           </ownedComment>
         </ownedLiteral>
         <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_PlMC8O6vEeCjNNLZCc6mew" name="LOS_O">
           <ownedComment xmi:type="uml:Comment" xmi:id="_ac3-MO6vEeCjNNLZCc6mew" annotatedElement="_PlMC8O6vEeCjNNLZCc6mew">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_0tU-YNyQEeW6C_FaABjU5w/14">LOS-O (Loss of Signal - Overhead); not co-exist with LOS-P or LOS</body>
+            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_NDJbQJNqEeWP45fAG0gIqg/12" xmlns:RootElement="http:///schemas/RootElement/_7S2aYHpQEeaVjtpstJMDXA/37">LOS-O (Loss of Signal - Overhead); not co-exist with LOS-P or LOS</body>
           </ownedComment>
         </ownedLiteral>
         <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_QbFwMO6vEeCjNNLZCc6mew" name="LOS">
@@ -1507,7 +1507,7 @@ The semantic of each bit position will be defined in the Documentation field of 
           <generalization xmi:type="uml:Generalization" xmi:id="_ChbwgMeJEeSfd5vyUJsimg" general="_7wb90ceIEeSfd5vyUJsimg"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_M8IDNceIEeSfd5vyUJsimg" name="suspectIntervalFlag" visibility="public">
             <ownedComment xmi:type="uml:Comment" xmi:id="_M8IDNseIEeSfd5vyUJsimg" annotatedElement="_M8IDNceIEeSfd5vyUJsimg">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_0tU-YNyQEeW6C_FaABjU5w/14">This attribute is used to indicate that the performance data for the current period may not be reliable. Some reasons for this to occur are:- Suspect data were detected by the actual resource doing data collection.- Transition of the administrativeState attribute to/from the 'lock' state.- Transition of the operationalState to/from the 'disabled' state.- Scheduler setting that inhibits the collection function.- The performance counters were reset during the interval.- The currentData (or subclass) object instance was created during the monitoring period.</body>
+              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_NDJbQJNqEeWP45fAG0gIqg/12" xmlns:RootElement="http:///schemas/RootElement/_7S2aYHpQEeaVjtpstJMDXA/37">This attribute is used to indicate that the performance data for the current period may not be reliable. Some reasons for this to occur are:- Suspect data were detected by the actual resource doing data collection.- Transition of the administrativeState attribute to/from the 'lock' state.- Transition of the operationalState to/from the 'disabled' state.- Scheduler setting that inhibits the collection function.- The performance counters were reset during the interval.- The currentData (or subclass) object instance was created during the monitoring period.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
             <defaultValue xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_0tU-YNyQEeW6C_FaABjU5w/14" xmi:type="uml:LiteralBoolean" xmi:id="_M8IDN8eIEeSfd5vyUJsimg"/>

@@ -10,7 +10,7 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-/* var gf = */ require('../global-functions.js');
+/* var gf = */ require('./util.js');
 
 function feature(id, condition, path, fileName){
     // according to the UML-Yang guideline the "name" is the first line of a "condition" and all
