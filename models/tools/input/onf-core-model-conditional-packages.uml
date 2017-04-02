@@ -74,10 +74,10 @@
           <ownedAttribute xmi:type="uml:Property" xmi:id="_5z06cPaNEeaW9u5N6usiTA" name="_networkElement" visibility="private" association="_5zx3IPaNEeaW9u5N6usiTA">
             <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_oGqnr1LNEeO75dO39GbF8Q"/>
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_8cqIcPaOEeaW9u5N6usiTA" name="_networkElementCapability" visibility="private" type="_1_TVYPaMEeaW9u5N6usiTA" aggregation="composite" association="_8cnFIPaOEeaW9u5N6usiTA"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_8cqIcPaOEeaW9u5N6usiTA" name="_networkElementCapability" visibility="private" type="_1_TVYPaMEeaW9u5N6usiTA" isReadOnly="true" aggregation="composite" association="_8cnFIPaOEeaW9u5N6usiTA"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_9N6mQPaOEeaW9u5N6usiTA" name="_networkElementConfiguration" visibility="private" type="_Pu6HIPaNEeaW9u5N6usiTA" aggregation="composite" association="_9N5YIPaOEeaW9u5N6usiTA"/>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_94z9YPaOEeaW9u5N6usiTA" name="_networkElementStatus" visibility="private" type="_g5u0YPaNEeaW9u5N6usiTA" aggregation="composite" association="_94w6EPaOEeaW9u5N6usiTA"/>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_-imhQvaOEeaW9u5N6usiTA" name="_networkElementCurrentProblems" visibility="private" type="_Pu6HIfaNEeaW9u5N6usiTA" aggregation="composite" association="_-il6MPaOEeaW9u5N6usiTA"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_94z9YPaOEeaW9u5N6usiTA" name="_networkElementStatus" visibility="private" type="_g5u0YPaNEeaW9u5N6usiTA" isReadOnly="true" aggregation="composite" association="_94w6EPaOEeaW9u5N6usiTA"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-imhQvaOEeaW9u5N6usiTA" name="_networkElementCurrentProblems" visibility="private" type="_Pu6HIfaNEeaW9u5N6usiTA" isReadOnly="true" aggregation="composite" association="_-il6MPaOEeaW9u5N6usiTA"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_1_TVYPaMEeaW9u5N6usiTA" name="NetworkElementCapability">
           <ownedAttribute xmi:type="uml:Property" xmi:id="_FuRNAParEeaW9u5N6usiTA" name="supportedAlarms" visibility="private" isReadOnly="true">
@@ -117,10 +117,10 @@
           <ownedAttribute xmi:type="uml:Property" xmi:id="_92PqMfaREeaW9u5N6usiTA" name="_equipment" visibility="private" association="_92OcEPaREeaW9u5N6usiTA">
             <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_8SXNej-HEeaRI-H69PghuA"/>
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_CDGk0vaVEeaW9u5N6usiTA" name="_equipmentCapability" visibility="private" type="_g5u0YfaNEeaW9u5N6usiTA" aggregation="composite" association="_CDF9wPaVEeaW9u5N6usiTA"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_CDGk0vaVEeaW9u5N6usiTA" name="_equipmentCapability" visibility="private" type="_g5u0YfaNEeaW9u5N6usiTA" isReadOnly="true" aggregation="composite" association="_CDF9wPaVEeaW9u5N6usiTA"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_eC20QvaVEeaW9u5N6usiTA" name="_equipmentConfiguration" visibility="private" type="_OGWN4PaNEeaW9u5N6usiTA" aggregation="composite" association="_eC2NMPaVEeaW9u5N6usiTA"/>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_vVSlY_aVEeaW9u5N6usiTA" name="_equipmentStatus" visibility="private" type="_gJH6APaREeaW9u5N6usiTA" aggregation="composite" association="_vVSlYPaVEeaW9u5N6usiTA"/>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_4WaAkvaVEeaW9u5N6usiTA" name="_equipmentCurrentProblems" visibility="private" type="_kRHqIPaREeaW9u5N6usiTA" aggregation="composite" association="_4WZZgPaVEeaW9u5N6usiTA"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_vVSlY_aVEeaW9u5N6usiTA" name="_equipmentStatus" visibility="private" type="_gJH6APaREeaW9u5N6usiTA" isReadOnly="true" aggregation="composite" association="_vVSlYPaVEeaW9u5N6usiTA"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_4WaAkvaVEeaW9u5N6usiTA" name="_equipmentCurrentProblems" visibility="private" type="_kRHqIPaREeaW9u5N6usiTA" isReadOnly="true" aggregation="composite" association="_4WZZgPaVEeaW9u5N6usiTA"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_g5u0YfaNEeaW9u5N6usiTA" name="EquipmentCapability">
           <ownedAttribute xmi:type="uml:Property" xmi:id="__dB4cPaqEeaW9u5N6usiTA" name="supportedAlarms" visibility="private" isReadOnly="true">
@@ -154,10 +154,10 @@
           <ownedAttribute xmi:type="uml:Property" xmi:id="_TNk0IfaSEeaW9u5N6usiTA" name="_holder" visibility="private" association="_TNi-8PaSEeaW9u5N6usiTA">
             <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_8SXNjj-HEeaRI-H69PghuA"/>
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_iOdj8vaTEeaW9u5N6usiTA" name="_holderCapability" visibility="private" type="_gtTvsPaSEeaW9u5N6usiTA" aggregation="composite" association="_iOc84PaTEeaW9u5N6usiTA"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_iOdj8vaTEeaW9u5N6usiTA" name="_holderCapability" visibility="private" type="_gtTvsPaSEeaW9u5N6usiTA" isReadOnly="true" aggregation="composite" association="_iOc84PaTEeaW9u5N6usiTA"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_wGiuEvaTEeaW9u5N6usiTA" name="_holderConfiguration" visibility="private" type="_g8TN8PaSEeaW9u5N6usiTA" aggregation="composite" association="_wGiHAPaTEeaW9u5N6usiTA"/>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_AoVFYvaUEeaW9u5N6usiTA" name="_holderCurrentProblems" visibility="private" type="_hJQE0PaSEeaW9u5N6usiTA" aggregation="composite" association="_AoUeUPaUEeaW9u5N6usiTA"/>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_PK9BUPaUEeaW9u5N6usiTA" name="_holderStatus" visibility="private" type="_hDSmwPaSEeaW9u5N6usiTA" aggregation="composite" association="_PK8aQPaUEeaW9u5N6usiTA"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_PK9BUPaUEeaW9u5N6usiTA" name="_holderStatus" visibility="private" type="_hDSmwPaSEeaW9u5N6usiTA" isReadOnly="true" aggregation="composite" association="_PK8aQPaUEeaW9u5N6usiTA"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_AoVFYvaUEeaW9u5N6usiTA" name="_holderCurrentProblems" visibility="private" type="_hJQE0PaSEeaW9u5N6usiTA" isReadOnly="true" aggregation="composite" association="_AoUeUPaUEeaW9u5N6usiTA"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_gtTvsPaSEeaW9u5N6usiTA" name="HolderCapability">
           <ownedAttribute xmi:type="uml:Property" xmi:id="_p0qB0PaqEeaW9u5N6usiTA" name="supportedAlarms" visibility="private" isReadOnly="true">
@@ -188,13 +188,13 @@
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_444DsBd_EeegALpYen9G6g" name="Connector">
         <packagedElement xmi:type="uml:Class" xmi:id="_444DsRd_EeegALpYen9G6g" name="Connector_Pac">
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_eDZ5QBeDEeegALpYen9G6g" name="_connector" association="_eDYEEBeDEeegALpYen9G6g">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_eDZ5QBeDEeegALpYen9G6g" name="_connector" visibility="private" association="_eDYEEBeDEeegALpYen9G6g">
             <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_8SXNcD-HEeaRI-H69PghuA"/>
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_pbAOMReEEeegALpYen9G6g" name="_connectorCapability" type="_444Dtxd_EeegALpYen9G6g" aggregation="composite" association="_pa_AEBeEEeegALpYen9G6g"/>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_zOQQ8heEEeegALpYen9G6g" name="_connectorConfiguration" type="_444Duhd_EeegALpYen9G6g" aggregation="composite" association="_zOPp4BeEEeegALpYen9G6g"/>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_45IwIBeEEeegALpYen9G6g" name="_connectorStatus" type="_444Dvxd_EeegALpYen9G6g" aggregation="composite" association="_45HiABeEEeegALpYen9G6g"/>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_-kvoEheEEeegALpYen9G6g" name="_connectorCurrentProblems" type="_444DwBd_EeegALpYen9G6g" aggregation="composite" association="_-kvBABeEEeegALpYen9G6g"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_pbAOMReEEeegALpYen9G6g" name="_connectorCapability" visibility="private" type="_444Dtxd_EeegALpYen9G6g" isReadOnly="true" aggregation="composite" association="_pa_AEBeEEeegALpYen9G6g"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_zOQQ8heEEeegALpYen9G6g" name="_connectorConfiguration" visibility="private" type="_444Duhd_EeegALpYen9G6g" aggregation="composite" association="_zOPp4BeEEeegALpYen9G6g"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_45IwIBeEEeegALpYen9G6g" name="_connectorStatus" visibility="private" type="_444Dvxd_EeegALpYen9G6g" isReadOnly="true" aggregation="composite" association="_45HiABeEEeegALpYen9G6g"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_-kvoEheEEeegALpYen9G6g" name="_connectorCurrentProblems" visibility="private" type="_444DwBd_EeegALpYen9G6g" isReadOnly="true" aggregation="composite" association="_-kvBABeEEeegALpYen9G6g"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_444Dtxd_EeegALpYen9G6g" name="ConnectorCapability">
           <ownedAttribute xmi:type="uml:Property" xmi:id="_444DuBd_EeegALpYen9G6g" name="supportedAlarms" visibility="private" isReadOnly="true">
@@ -243,32 +243,7 @@ Please see also ConnectorConfiguration::remoteEndPoint</body>
         </packagedElement>
       </packagedElement>
     </packagedElement>
-    <packagedElement xmi:type="uml:Package" xmi:id="_5OLMgPaJEeaW9u5N6usiTA" name="Diagrams">
-      <packagedElement xmi:type="uml:Association" xmi:id="_pa_AEBeEEeegALpYen9G6g" name="_hasConnectorCapability" memberEnd="_pbAOMReEEeegALpYen9G6g _pbA1QBeEEeegALpYen9G6g">
-        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_pa_nIBeEEeegALpYen9G6g" source="org.eclipse.papyrus">
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pbAOMBeEEeegALpYen9G6g" key="nature" value="UML_Nature"/>
-        </eAnnotations>
-        <ownedEnd xmi:type="uml:Property" xmi:id="_pbA1QBeEEeegALpYen9G6g" name="_connector_pac" type="_444DsRd_EeegALpYen9G6g" association="_pa_AEBeEEeegALpYen9G6g"/>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_zOPp4BeEEeegALpYen9G6g" name="hasConnectorConfiguration" memberEnd="_zOQQ8heEEeegALpYen9G6g _zORfEBeEEeegALpYen9G6g">
-        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zOQQ8BeEEeegALpYen9G6g" source="org.eclipse.papyrus">
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_zOQQ8ReEEeegALpYen9G6g" key="nature" value="UML_Nature"/>
-        </eAnnotations>
-        <ownedEnd xmi:type="uml:Property" xmi:id="_zORfEBeEEeegALpYen9G6g" name="_connector_pac" type="_444DsRd_EeegALpYen9G6g" association="_zOPp4BeEEeegALpYen9G6g"/>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_45HiABeEEeegALpYen9G6g" name="hasConnectorStatus" memberEnd="_45IwIBeEEeegALpYen9G6g _45JXMBeEEeegALpYen9G6g">
-        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_45IJEBeEEeegALpYen9G6g" source="org.eclipse.papyrus">
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_45IJEReEEeegALpYen9G6g" key="nature" value="UML_Nature"/>
-        </eAnnotations>
-        <ownedEnd xmi:type="uml:Property" xmi:id="_45JXMBeEEeegALpYen9G6g" name="_connector_pac" type="_444DsRd_EeegALpYen9G6g" association="_45HiABeEEeegALpYen9G6g"/>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_-kvBABeEEeegALpYen9G6g" name="hasConnectorCurrentProblems" memberEnd="_-kvoEheEEeegALpYen9G6g _-kw2MBeEEeegALpYen9G6g">
-        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-kvoEBeEEeegALpYen9G6g" source="org.eclipse.papyrus">
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_-kvoEReEEeegALpYen9G6g" key="nature" value="UML_Nature"/>
-        </eAnnotations>
-        <ownedEnd xmi:type="uml:Property" xmi:id="_-kw2MBeEEeegALpYen9G6g" name="_connector_pac" type="_444DsRd_EeegALpYen9G6g" association="_-kvBABeEEeegALpYen9G6g"/>
-      </packagedElement>
-    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_5OLMgPaJEeaW9u5N6usiTA" name="Diagrams"/>
     <packagedElement xmi:type="uml:Package" xmi:id="_8IawEPaJEeaW9u5N6usiTA" name="Associations">
       <packagedElement xmi:type="uml:Association" xmi:id="_5zx3IPaNEeaW9u5N6usiTA" name="hasNetworkElement_Pac" memberEnd="_5z06cPaNEeaW9u5N6usiTA _5z39wPaNEeaW9u5N6usiTA">
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_5z0TYPaNEeaW9u5N6usiTA" source="org.eclipse.papyrus">
@@ -345,6 +320,18 @@ Please see also ConnectorConfiguration::remoteEndPoint</body>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nAIjsBeDEeegALpYen9G6g" value="1"/>
         </ownedEnd>
       </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_iOc84PaTEeaW9u5N6usiTA" name="hasHolderCapability" memberEnd="_iOdj8vaTEeaW9u5N6usiTA _iOeyEPaTEeaW9u5N6usiTA">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_iOdj8PaTEeaW9u5N6usiTA" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_iOdj8faTEeaW9u5N6usiTA" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_iOeyEPaTEeaW9u5N6usiTA" name="_holder_pac" type="_dECKoPaMEeaW9u5N6usiTA" association="_iOc84PaTEeaW9u5N6usiTA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_wGiHAPaTEeaW9u5N6usiTA" name="hasHolderConfiguration" memberEnd="_wGiuEvaTEeaW9u5N6usiTA _wGjVIPaTEeaW9u5N6usiTA">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_wGiuEPaTEeaW9u5N6usiTA" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wGiuEfaTEeaW9u5N6usiTA" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_wGjVIPaTEeaW9u5N6usiTA" name="_holder_pac" type="_dECKoPaMEeaW9u5N6usiTA" association="_wGiHAPaTEeaW9u5N6usiTA"/>
+      </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_PK8aQPaUEeaW9u5N6usiTA" name="hasHolderStatus" memberEnd="_PK9BUPaUEeaW9u5N6usiTA _PK9oYPaUEeaW9u5N6usiTA">
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_PK8aQfaUEeaW9u5N6usiTA" source="org.eclipse.papyrus">
           <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_PK8aQvaUEeaW9u5N6usiTA" key="nature" value="UML_Nature"/>
@@ -357,27 +344,39 @@ Please see also ConnectorConfiguration::remoteEndPoint</body>
         </eAnnotations>
         <ownedEnd xmi:type="uml:Property" xmi:id="_AoWTgPaUEeaW9u5N6usiTA" name="_holder_pac" type="_dECKoPaMEeaW9u5N6usiTA" association="_AoUeUPaUEeaW9u5N6usiTA"/>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_wGiHAPaTEeaW9u5N6usiTA" name="hasHolderConfiguration" memberEnd="_wGiuEvaTEeaW9u5N6usiTA _wGjVIPaTEeaW9u5N6usiTA">
-        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_wGiuEPaTEeaW9u5N6usiTA" source="org.eclipse.papyrus">
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_wGiuEfaTEeaW9u5N6usiTA" key="nature" value="UML_Nature"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_eDYEEBeDEeegALpYen9G6g" name="hasConnector_Pac" memberEnd="_eDZ5QBeDEeegALpYen9G6g _eDbHYBeDEeegALpYen9G6g">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_eDZSMBeDEeegALpYen9G6g" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eDZSMReDEeegALpYen9G6g" key="nature" value="UML_Nature"/>
         </eAnnotations>
-        <ownedEnd xmi:type="uml:Property" xmi:id="_wGjVIPaTEeaW9u5N6usiTA" name="_holder_pac" type="_dECKoPaMEeaW9u5N6usiTA" association="_wGiHAPaTEeaW9u5N6usiTA"/>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_eDbHYBeDEeegALpYen9G6g" name="_connector_pac" type="_444DsRd_EeegALpYen9G6g" aggregation="composite" association="_eDYEEBeDEeegALpYen9G6g">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lB4HQBeDEeegALpYen9G6g"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lB7KkBeDEeegALpYen9G6g" value="1"/>
+        </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_iOc84PaTEeaW9u5N6usiTA" name="hasHolderCapability" memberEnd="_iOdj8vaTEeaW9u5N6usiTA _iOeyEPaTEeaW9u5N6usiTA">
-        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_iOdj8PaTEeaW9u5N6usiTA" source="org.eclipse.papyrus">
-          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_iOdj8faTEeaW9u5N6usiTA" key="nature" value="UML_Nature"/>
+      <packagedElement xmi:type="uml:Association" xmi:id="_pa_AEBeEEeegALpYen9G6g" name="hasConnectorCapability" memberEnd="_pbAOMReEEeegALpYen9G6g _pbA1QBeEEeegALpYen9G6g">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_pa_nIBeEEeegALpYen9G6g" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pbAOMBeEEeegALpYen9G6g" key="nature" value="UML_Nature"/>
         </eAnnotations>
-        <ownedEnd xmi:type="uml:Property" xmi:id="_iOeyEPaTEeaW9u5N6usiTA" name="_holder_pac" type="_dECKoPaMEeaW9u5N6usiTA" association="_iOc84PaTEeaW9u5N6usiTA"/>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_pbA1QBeEEeegALpYen9G6g" name="_connector_pac" type="_444DsRd_EeegALpYen9G6g" association="_pa_AEBeEEeegALpYen9G6g"/>
       </packagedElement>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_eDYEEBeDEeegALpYen9G6g" name="hasConnector_Pac" memberEnd="_eDZ5QBeDEeegALpYen9G6g _eDbHYBeDEeegALpYen9G6g">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_eDZSMBeDEeegALpYen9G6g" source="org.eclipse.papyrus">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eDZSMReDEeegALpYen9G6g" key="nature" value="UML_Nature"/>
-      </eAnnotations>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_eDbHYBeDEeegALpYen9G6g" name="connector_pac" type="_444DsRd_EeegALpYen9G6g" aggregation="composite" association="_eDYEEBeDEeegALpYen9G6g">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lB4HQBeDEeegALpYen9G6g"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lB7KkBeDEeegALpYen9G6g" value="1"/>
-      </ownedEnd>
+      <packagedElement xmi:type="uml:Association" xmi:id="_zOPp4BeEEeegALpYen9G6g" name="hasConnectorConfiguration" memberEnd="_zOQQ8heEEeegALpYen9G6g _zORfEBeEEeegALpYen9G6g">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zOQQ8BeEEeegALpYen9G6g" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_zOQQ8ReEEeegALpYen9G6g" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_zORfEBeEEeegALpYen9G6g" name="_connector_pac" type="_444DsRd_EeegALpYen9G6g" association="_zOPp4BeEEeegALpYen9G6g"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_45HiABeEEeegALpYen9G6g" name="hasConnectorStatus" memberEnd="_45IwIBeEEeegALpYen9G6g _45JXMBeEEeegALpYen9G6g">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_45IJEBeEEeegALpYen9G6g" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_45IJEReEEeegALpYen9G6g" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_45JXMBeEEeegALpYen9G6g" name="_connector_pac" type="_444DsRd_EeegALpYen9G6g" association="_45HiABeEEeegALpYen9G6g"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_-kvBABeEEeegALpYen9G6g" name="hasConnectorCurrentProblems" memberEnd="_-kvoEheEEeegALpYen9G6g _-kw2MBeEEeegALpYen9G6g">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_-kvoEBeEEeegALpYen9G6g" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_-kvoEReEEeegALpYen9G6g" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_-kw2MBeEEeegALpYen9G6g" name="_connector_pac" type="_444DsRd_EeegALpYen9G6g" association="_-kvBABeEEeegALpYen9G6g"/>
+      </packagedElement>
     </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_nC1rYPazEeaW9u5N6usiTA">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_nC6j5_azEeaW9u5N6usiTA" source="PapyrusVersion">
@@ -464,7 +463,7 @@ Please see also ConnectorConfiguration::remoteEndPoint</body>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_47QpVhd_EeegALpYen9G6g" base_StructuralFeature="_444DwRd_EeegALpYen9G6g"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_NZGKAReBEeegALpYen9G6g" base_StructuralFeature="_NZGKABeBEeegALpYen9G6g"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_RDCPsReCEeegALpYen9G6g" base_StructuralFeature="_RDCPsBeCEeegALpYen9G6g"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_eDagUBeDEeegALpYen9G6g" base_StructuralFeature="_eDZ5QBeDEeegALpYen9G6g"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_eDagUBeDEeegALpYen9G6g" base_StructuralFeature="_eDZ5QBeDEeegALpYen9G6g" partOfObjectKey="1"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_ensSEBeDEeegALpYen9G6g" base_StructuralFeature="_eDbHYBeDEeegALpYen9G6g"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_pbAOMheEEeegALpYen9G6g" base_StructuralFeature="_pbAOMReEEeegALpYen9G6g"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_pbA1QReEEeegALpYen9G6g" base_StructuralFeature="_pbA1QBeEEeegALpYen9G6g"/>
