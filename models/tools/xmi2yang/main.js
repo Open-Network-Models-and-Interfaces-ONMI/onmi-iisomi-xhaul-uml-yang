@@ -11,6 +11,12 @@
 *
 ****************************************************************************************************/
 
+var generationForODL = false;
+process.argv.map(function(val, index){console.log('val', index, val)});
+if (process.argv.length > 2) {
+    generationForODL = process.argv[2];
+};
+
 var xmlreader = require('xmlreader'),
     fs = require('fs'),
     CLASS = require('./model/ObjectClass.js'),
@@ -21,6 +27,7 @@ var xmlreader = require('xmlreader'),
     Uses = require('./model/yang/uses.js'),
     Module = require('./model/yang/module.js'),
     Type = require('./model/yang/type.js'),
+    Util = require('./model/yang/util.js'),
     RPC = require('./model/yang/rpc.js'),
     Package = require('./model/yang/package.js'),
     Augment = require('./model/yang/augment.js');
@@ -182,12 +189,27 @@ function main_Entrance(){
                         obj2yang(Class);//the function is used to mapping to yang
                         // print every yangModules whose children attribute is not empty to yang files.
                         crossRefer(yangModule);
+                        var data = fs.readFileSync("./project/config.txt", {encoding: 'utf8'});
+                        var revision;
+                        if (data && generationForODL === true) {
+                          data = data.substring(data.indexOf("{\""))
+                              .replace(/",\r?\n*/g, "\",")
+                              .replace(/],\r?\n*/g, "],")
+                              .replace(/},\r?\n*/g, "},")
+                              .replace(/\r?\n/g, "<br>")
+                              .replace(/(<br>)*$/g, "");
+                           revision = JSON.parse(data).revision.date;
+                        }
                         for(var i = 0; i < yangModule.length; i++) {
                             if (yangModule[i].children.length > 0) {
                                 (function () {
                                     try {
                                         var st = writeYang(yangModule[i]);//print the module to yang file
-                                        var path = './project/' + yangModule[i].name +  '.yang';
+                                        var path = './project/' + yangModule[i].name;
+                                        if (generationForODL === true && revision !== undefined) {
+                                          path = path + '@' + revision;
+                                        }
+                                        path = path + '.yang';
                                         fs.writeFile(path, st, function(error){
                                             if(error){
                                                 console.log(error.stack);
@@ -198,7 +220,7 @@ function main_Entrance(){
                                         console.log(e.stack);
                                         throw(e.message);
                                     }
-                                    console.log("write " + yangModule[i].name + ".yang successfully!");
+                                    console.log('generationForODL', generationForODL, "write " + path + " successfully!");
                                 })();
                             }
                         }
@@ -971,7 +993,8 @@ function parseOpenModelnotification(xmi){
     openModelnotification.push(id);
 }
 
-function createLifecycle(xmi, str){              //创建lifecycle
+function createLifecycle(xmi, str){              
+    return;
     var id;
     var nodetype;
     if(xmi.attributes()["base_Parameter"]){
@@ -1942,7 +1965,12 @@ function obj2yang(ele){
                 }
             }
             if (ele[i].name === 'NetworkElement') obj.nodeType = "container";
+            if (ele[i].name === 'Equipment_Pac') obj.nodeType = "list";
+            if (ele[i].name === 'Holder_Pac') obj.nodeType = "list";
+            if (ele[i].name === 'Connector_Pac') obj.nodeType = "list";
+            if (ele[i].name === 'Ethernet_Pac') obj.nodeType = "list";
             if (ele[i].name.startsWith('MW_') && ele[i].name.endsWith('_Pac')) obj.nodeType = "list";
+            if (ele[i].name.startsWith('ET') && ele[i].name.endsWith('_Pac')) obj.nodeType = "list";
                       /*if(ele[i].key.length != 0){
                 obj.nodeType = "list";
             }*/

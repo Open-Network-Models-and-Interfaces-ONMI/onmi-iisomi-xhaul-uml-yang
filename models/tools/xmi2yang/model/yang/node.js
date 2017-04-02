@@ -139,11 +139,11 @@ Node.prototype.writeNode = function (layer) {
         case "Example":
         case "LikelyToChange":
         case "Faulty":
-            if((this.description == undefined)){
+            if((this.description === undefined)){
                 this.description = "Lifecycle : " + this.status;
             }
             else{
-                this.description += "\r\n" + "Lifecycle : " + this.status;
+                this.description += "; " + "Lifecycle : " + this.status;
             }
             break;
         case "current":
@@ -202,6 +202,10 @@ Node.prototype.writeNode = function (layer) {
     }
 
     var name = this.nodeType + " " + Util.yangifyName(this.name);
+    if (this.nodeType === 'grouping') {
+      // add postfix "-g" to grouping names (see issue #215)
+      name = name + '-g';
+    }
     if(!this.description){
         this.description = "none";
     }
@@ -258,6 +262,12 @@ Node.prototype.writeNode = function (layer) {
                 }).map(function(item) {
                   return Util.yangifyName(item);
                 });
+                var uuidFound = keys.filter(function(key){
+                  return key === 'uuid';
+                }).length === 1;
+                if (uuidFound) {
+                  keys = ['uuid'];
+                }
                 Key = PRE + "\tkey '" + keys.join(" ") + "';\r\n";
             }
         }else{
@@ -313,7 +323,8 @@ Node.prototype.writeNode = function (layer) {
                             break;
                     }
                 }
-                uses += PRE + "\tuses " + this.uses[i] + ";\r\n";
+                uses += PRE + "\tuses " + this.uses[i] + "-g;\r\n";       // add postfix "-g" to grouping names (see issue #215)
+
             }
         }
     }else if (typeof this.uses == "string") {
@@ -352,7 +363,7 @@ Node.prototype.writeNode = function (layer) {
                     break;
             }
         }
-        uses = PRE + "\tuses " + this.uses + ";\r\n";
+        uses = PRE + "\tuses " + this.uses + "-g;\r\n"; // add postfix "-g" to grouping names (see issue #215)
     }else if(typeof this.uses[i] == "object"){
         this.uses[i].writeNode(layer + 1);
     }

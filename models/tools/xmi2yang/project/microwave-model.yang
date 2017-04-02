@@ -1,5 +1,5 @@
 module microwave-model {
-    namespace "urn:onf:params:xml:ns:yang:MicrowaveModel";
+    namespace "urn:onf:params:xml:ns:yang:microwave-model";
     prefix microwave-model;
 
     import core-model {
@@ -24,7 +24,7 @@ module microwave-model {
                        Martin Skorupski
                        <mailto:martin.skorupski@highstreet-technologies.com>";
     description "This module contains a collection of YANG definitions for managing wireless networks.";
-    revision 2017-02-17 {
+    revision 2017-03-20 {
         description "Initial version";
         reference "ONF TR 532: A YANG Data Model for Wireless Networks.";
     }
@@ -33,7 +33,7 @@ module microwave-model {
     **********************/ 
         typedef loop-back-type {
             type enumeration {
-                enum non {
+                enum none {
                     description "none";
                 }
                 enum if {
@@ -65,7 +65,7 @@ module microwave-model {
             }
             description "According to ITU-T M.3160";
         }
-        grouping channel-plan-type {
+        grouping channel-plan-type-g {
             leaf supported-channel-plan {
                 type string;
                 default "Channel plan name not defined.";
@@ -95,12 +95,12 @@ module microwave-model {
                 key 'transmission-mode-id';
                 config false;
                 min-elements 1;
-                uses transmission-mode-type;
+                uses transmission-mode-type-g;
                 description "none";
             }
             description "none";
         }
-        grouping transmission-mode-type {
+        grouping transmission-mode-type-g {
             leaf transmission-mode-id {
                 type core-model:universal-id;
                 config false;
@@ -125,7 +125,7 @@ module microwave-model {
                 units "%";
                 default -1;
                 config false;
-                description "Code rate of the coding scheme in % (Net bit rate ≤ Gross bit rate · code rate).";
+                description "Code rate of the coding scheme in % (Net bit rate ? Gross bit rate ? code rate).";
             }
             leaf tx-power-min {
                 type int8;
@@ -184,7 +184,7 @@ module microwave-model {
             }
             description "none";
         }
-        grouping air-interface-problem-severity-type {
+        grouping air-interface-problem-severity-type-g {
             leaf problem-kind-name {
                 type string;
                 default "Problem kind name not defined.";
@@ -197,17 +197,17 @@ module microwave-model {
             }
             description "none";
         }
-        grouping air-interface-current-problem-type {
+        grouping air-interface-current-problem-type-g {
             leaf problem-name {
                 type string;
                 default "Problem name not specified.";
                 config false;
                 description "Name of the alarm according to AirInterface::AirInterfaceCapability::supportedAlarms";
             }
-            uses mw-current-problem;
+            uses mw-current-problem-g;
             description "none";
         }
-        grouping air-interface-performance-type {
+        grouping air-interface-performance-type-g {
             leaf es {
                 type int32;
                 units "s";
@@ -497,22 +497,22 @@ module microwave-model {
             }
             description "Consolidated performance information of the air interface.";
         }
-        grouping air-interface-current-performance-type {
+        grouping air-interface-current-performance-type-g {
             container performance-data {
                 config false;
-                uses air-interface-performance-type;
+                uses air-interface-performance-type-g;
                 description "none";
             }
-            uses g:otn-current-data;
+            uses g:otn-current-data-g;
             description "Turns performance information into current performance information by inheriting from OTN_CurrentData.";
         }
-        grouping air-interface-historical-performance-type {
+        grouping air-interface-historical-performance-type-g {
             container performance-data {
                 config false;
-                uses air-interface-performance-type;
+                uses air-interface-performance-type-g;
                 description "none";
             }
-            uses g:otn-history-data;
+            uses g:otn-history-data-g;
             description "Turns performance information into historical performance information by inheriting from OTN_HistoryData.";
         }
         typedef protection-type {
@@ -537,7 +537,7 @@ module microwave-model {
             }
             description "none";
         }
-        grouping diversity-type {
+        grouping diversity-type-g {
             leaf diversity-name {
                 type string;
                 default "Diversity name not defined.";
@@ -567,7 +567,7 @@ module microwave-model {
             }
             description "none";
         }
-        grouping air-interface-diversity-problem-severity-type {
+        grouping air-interface-diversity-problem-severity-type-g {
             leaf problem-kind-name {
                 type string;
                 default "Problem kind name not defined.";
@@ -580,17 +580,17 @@ module microwave-model {
             }
             description "none";
         }
-        grouping air-interface-diversity-current-problem-type {
+        grouping air-interface-diversity-current-problem-type-g {
             leaf problem-name {
                 type string;
                 default "Problem name not specified.";
                 config false;
                 description "Name of the alarm according to AirInterfaceDiversity::AirInterfaceDiversityCapability::supportedAlarms";
             }
-            uses mw-current-problem;
+            uses mw-current-problem-g;
             description "none";
         }
-        grouping air-interface-diversity-performance-type {
+        grouping air-interface-diversity-performance-type-g {
             leaf snir-min {
                 type int8;
                 units "dB";
@@ -614,25 +614,25 @@ module microwave-model {
             }
             description "Consolidated performance information of the air interface diversity group.";
         }
-        grouping air-interface-diversity-current-performance-type {
+        grouping air-interface-diversity-current-performance-type-g {
             container performance-data {
                 config false;
-                uses air-interface-diversity-performance-type;
+                uses air-interface-diversity-performance-type-g;
                 description "none";
             }
-            uses g:otn-current-data;
+            uses g:otn-current-data-g;
             description "Turns performance information into current performance information by inheriting from OTN_CurrentData.";
         }
-        grouping air-interface-diversity-historical-performance-type {
+        grouping air-interface-diversity-historical-performance-type-g {
             container performance-data {
                 config false;
-                uses air-interface-diversity-performance-type;
+                uses air-interface-diversity-performance-type-g;
                 description "none";
             }
-            uses g:otn-history-data;
+            uses g:otn-history-data-g;
             description "Turns performance information into historical performance information by inheriting from OTN_HistoryData.";
         }
-        grouping tdm-structure-type {
+        grouping tdm-structure-type-g {
             leaf tdm-structure-name {
                 type string;
                 default "TDM structure name not defined.";
@@ -655,7 +655,7 @@ module microwave-model {
             }
             description "none";
         }
-        grouping structure-problem-severity-type {
+        grouping structure-problem-severity-type-g {
             leaf problem-kind-name {
                 type string;
                 default "Problem kind name not defined.";
@@ -668,39 +668,39 @@ module microwave-model {
             }
             description "none";
         }
-        grouping structure-current-problem-type {
+        grouping structure-current-problem-type-g {
             leaf problem-name {
                 type string;
                 default "Problem name not specified.";
                 config false;
                 description "Name of the alarm according to Structure::StructureCapability::supportedAlarms";
             }
-            uses mw-current-problem;
+            uses mw-current-problem-g;
             description "none";
         }
         typedef structure-performance-type {
             type int32;
             description "Consolidated performance information of the Structure.";
         }
-        grouping structure-current-performance-type {
+        grouping structure-current-performance-type-g {
             leaf performance-data {
                 type structure-performance-type;
                 config false;
                 description "none";
             }
-            uses g:otn-current-data;
+            uses g:otn-current-data-g;
             description "Turns performance information into current performance information by inheriting from OTN_CurrentData.";
         }
-        grouping structure-historical-performance-type {
+        grouping structure-historical-performance-type-g {
             leaf performance-data {
                 type structure-performance-type;
                 config false;
                 description "none";
             }
-            uses g:otn-history-data;
+            uses g:otn-history-data-g;
             description "Turns performance information into historical performance information by inheriting from OTN_HistoryData.";
         }
-        grouping container-type {
+        grouping container-type-g {
             leaf container-name {
                 type string;
                 default "Container name not yet defined.";
@@ -728,7 +728,7 @@ module microwave-model {
             }
             description "none";
         }
-        grouping tdm-container-type {
+        grouping tdm-container-type-g {
             leaf tdm-container-name {
                 type string;
                 default "TDM container name not defined.";
@@ -744,7 +744,7 @@ module microwave-model {
             }
             description "none";
         }
-        grouping segment-id-type {
+        grouping segment-id-type-g {
             leaf structure-id-ref {
                 type core-model:universal-id;
                 description "none";
@@ -755,7 +755,7 @@ module microwave-model {
             }
             description "Identifies the segments, which are used to transport the container.";
         }
-        grouping segment-status-type {
+        grouping segment-status-type-g {
             leaf segment-status-type-id {
                 type int16;
                 config false;
@@ -789,7 +789,7 @@ module microwave-model {
             }
             description "none";
         }
-        grouping container-problem-severity-type {
+        grouping container-problem-severity-type-g {
             leaf problem-kind-name {
                 type string;
                 default "Problem kind name not defined.";
@@ -802,17 +802,17 @@ module microwave-model {
             }
             description "none";
         }
-        grouping container-current-problem-type {
+        grouping container-current-problem-type-g {
             leaf problem-name {
                 type string;
                 default "Problem name not specified.";
                 config false;
                 description "Name of the alarm according to Container::ContainerCapability::supportedAlarms";
             }
-            uses mw-current-problem;
+            uses mw-current-problem-g;
             description "none";
         }
-        grouping container-performance-type {
+        grouping container-performance-type-g {
             leaf tx-ethernet-bytes-max-s {
                 type int32;
                 units "Bytes/s";
@@ -843,22 +843,22 @@ module microwave-model {
             }
             description "Consolidated performance information of the Container.";
         }
-        grouping container-current-performance-type {
+        grouping container-current-performance-type-g {
             container performance-data {
                 config false;
-                uses container-performance-type;
+                uses container-performance-type-g;
                 description "none";
             }
-            uses g:otn-current-data;
+            uses g:otn-current-data-g;
             description "Turns performance information into current performance information by inheriting from OTN_CurrentData.";
         }
-        grouping container-historical-performance-type {
+        grouping container-historical-performance-type-g {
             container performance-data {
                 config false;
-                uses container-performance-type;
+                uses container-performance-type-g;
                 description "none";
             }
-            uses g:otn-history-data;
+            uses g:otn-history-data-g;
             description "Turns performance information into historical performance information by inheriting from OTN_HistoryData.";
         }
 
@@ -878,36 +878,36 @@ module microwave-model {
                 }
                 container air-interface-capability {
                     config false;
-                    uses air-interface-capability;
+                    uses air-interface-capability-g;
                     description "none";
                 }
                 container air-interface-configuration {
-                    uses air-interface-configuration;
+                    uses air-interface-configuration-g;
                     description "none";
                 }
                 container air-interface-status {
                     config false;
-                    uses air-interface-status;
+                    uses air-interface-status-g;
                     description "none";
                 }
                 container air-interface-current-problems {
                     config false;
-                    uses air-interface-current-problems;
+                    uses air-interface-current-problems-g;
                     description "none";
                 }
                 container air-interface-current-performance {
                     config false;
-                    uses air-interface-current-performance;
+                    uses air-interface-current-performance-g;
                     description "none";
                 }
                 container air-interface-historical-performances {
                     config false;
-                    uses air-interface-historical-performances;
+                    uses air-interface-historical-performances-g;
                     description "none";
                 }
                 description "none";
             }
-            grouping air-interface-capability {
+            grouping air-interface-capability-g {
                 leaf type-of-equipment {
                     type string;
                     default "Type of equipment not yet defined.";
@@ -1010,12 +1010,12 @@ module microwave-model {
                     key 'supported-channel-plan';
                     config false;
                     min-elements 1;
-                    uses channel-plan-type;
+                    uses channel-plan-type-g;
                     description "List of channel spacing that are supported by the device.";
                 }
                 description "Describes the 'analog' capabilities of modem and transmitter of the microwave device. Value ranges of attributes are not independently (e.g. min. and max. transmit power depends on modulation). Legal combinations of values are expressed in transmissionModeTypes.";
             }
-            grouping air-interface-configuration {
+            grouping air-interface-configuration-g {
                 leaf air-interface-name {
                     type string;
                     default "Air interface ID not yet defined.";
@@ -1154,7 +1154,7 @@ module microwave-model {
                 }
                 leaf loop-back-kind-on {
                     type loop-back-type;
-                    default non;
+                    default none;
                     description "Maintenance Feature. The currently configured type of looping back of the air interface header shall be expressed here. The received header is returned to the remote site.";
                 }
                 leaf maintenance-timer {
@@ -1166,12 +1166,12 @@ module microwave-model {
                 list problem-kind-severity-list {
                     key 'problem-kind-name';
                     min-elements 6;
-                    uses air-interface-problem-severity-type;
+                    uses air-interface-problem-severity-type-g;
                     description "Severity of the problem to be configured.";
                 }
                 description "Configuration of the radio link.";
             }
-            grouping air-interface-status {
+            grouping air-interface-status-g {
                 leaf tx-frequency-cur {
                     type int32;
                     units "kHz";
@@ -1212,7 +1212,7 @@ module microwave-model {
                     units "%";
                     default -1;
                     config false;
-                    description "Code rate of the currently operated coding scheme (Net bit rate ≤ Gross bit rate · code rate).";
+                    description "Code rate of the currently operated coding scheme (Net bit rate ? Gross bit rate ? code rate).";
                 }
                 leaf snir-cur {
                     type int8;
@@ -1285,7 +1285,7 @@ module microwave-model {
                 }
                 leaf loop-back-kind-up {
                     type loop-back-type;
-                    default non;
+                    default none;
                     config false;
                     description "The currently active (not just configured) type of looping back of the air interface header shall be expressed here. The received header is returned to the remote site.";
                 }
@@ -1303,31 +1303,31 @@ module microwave-model {
                 }
                 description "Measurements of current values on the air interface and operational status of the device.";
             }
-            grouping air-interface-current-problems {
+            grouping air-interface-current-problems-g {
                 list current-problem-list {
                     key 'sequence-number';
                     config false;
-                    uses air-interface-current-problem-type;
+                    uses air-interface-current-problem-type-g;
                     description "none";
                 }
                 description "none";
             }
-            grouping air-interface-current-performance {
+            grouping air-interface-current-performance-g {
                 list current-performance-data-list {
                     key 'scanner-id';
                     config false;
                     min-elements 1;
                     max-elements 2;
-                    uses air-interface-current-performance-type;
+                    uses air-interface-current-performance-type-g;
                     description "At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.";
                 }
                 description "Aggregated performance information of the air interface at a particular moment.";
             }
-            grouping air-interface-historical-performances {
+            grouping air-interface-historical-performances-g {
                 list historical-performance-data-list {
                     key 'history-data-id';
                     config false;
-                    uses air-interface-historical-performance-type;
+                    uses air-interface-historical-performance-type-g;
                     description "none";
                 }
                 description "Aggregated performance information of the air interface for a pre-defined measurement interval.";
@@ -1419,40 +1419,40 @@ module microwave-model {
                 }
                 container air-interface-diversity-capability {
                     config false;
-                    uses air-interface-diversity-capability;
+                    uses air-interface-diversity-capability-g;
                     description "none";
                 }
                 container air-interface-diversity-configuration {
-                    uses air-interface-diversity-configuration;
+                    uses air-interface-diversity-configuration-g;
                     description "none";
                 }
                 container air-interface-diversity-status {
                     config false;
-                    uses air-interface-diversity-status;
+                    uses air-interface-diversity-status-g;
                     description "none";
                 }
                 container air-interface-diversity-current-problems {
                     config false;
-                    uses air-interface-diversity-current-problems;
+                    uses air-interface-diversity-current-problems-g;
                     description "none";
                 }
                 container air-interface-diversity-current-performance {
                     config false;
-                    uses air-interface-diversity-current-performance;
+                    uses air-interface-diversity-current-performance-g;
                     description "none";
                 }
                 container air-interface-diversity-historical-performances {
                     config false;
-                    uses air-interface-diversity-historical-performances;
+                    uses air-interface-diversity-historical-performances-g;
                     description "none";
                 }
                 description "none";
             }
-            grouping air-interface-diversity-capability {
+            grouping air-interface-diversity-capability-g {
                 list available-kinds-of-diversity {
                     key 'diversity-name';
                     config false;
-                    uses diversity-type;
+                    uses diversity-type-g;
                     description "Available types of diversity to be listed.";
                 }
                 leaf supported-alarms {
@@ -1463,9 +1463,9 @@ module microwave-model {
                 }
                 description "Describes the capabilities in implementing different types of air interface diversity.";
             }
-            grouping air-interface-diversity-configuration {
+            grouping air-interface-diversity-configuration-g {
                 container air-interface-diversity {
-                    uses diversity-type;
+                    uses diversity-type-g;
                     description "Type of air interface diversity configured at the link.";
                 }
                 leaf-list air-interface-ltp-list {
@@ -1478,12 +1478,12 @@ module microwave-model {
                 list problem-kind-severity-list {
                     key 'problem-kind-name';
                     min-elements 3;
-                    uses air-interface-diversity-problem-severity-type;
+                    uses air-interface-diversity-problem-severity-type-g;
                     description "Severity of the problem to be configured.";
                 }
                 description "none";
             }
-            grouping air-interface-diversity-status {
+            grouping air-interface-diversity-status-g {
                 leaf snir-cur {
                     type int8;
                     units "dB";
@@ -1505,31 +1505,31 @@ module microwave-model {
                 }
                 description "none";
             }
-            grouping air-interface-diversity-current-problems {
+            grouping air-interface-diversity-current-problems-g {
                 list current-problem-list {
                     key 'sequence-number';
                     config false;
-                    uses air-interface-diversity-current-problem-type;
+                    uses air-interface-diversity-current-problem-type-g;
                     description "none";
                 }
                 description "none";
             }
-            grouping air-interface-diversity-current-performance {
+            grouping air-interface-diversity-current-performance-g {
                 list current-performance-data-list {
                     key 'scanner-id';
                     config false;
                     min-elements 1;
                     max-elements 2;
-                    uses air-interface-diversity-current-performance-type;
+                    uses air-interface-diversity-current-performance-type-g;
                     description "At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.";
                 }
                 description "Aggregated performance information of the air interface diversity configuration at a particular moment.";
             }
-            grouping air-interface-diversity-historical-performances {
+            grouping air-interface-diversity-historical-performances-g {
                 list historical-performance-data-list {
                     key 'history-data-id';
                     config false;
-                    uses air-interface-diversity-historical-performance-type;
+                    uses air-interface-diversity-historical-performance-type-g;
                     description "none";
                 }
                 description "Aggregated performance information of the air interface diversity configuration for a pre-defined measurement interval.";
@@ -1549,36 +1549,36 @@ module microwave-model {
                 }
                 container pure-ethernet-structure-capability {
                     config false;
-                    uses pure-ethernet-structure-capability;
+                    uses pure-ethernet-structure-capability-g;
                     description "none";
                 }
                 container pure-ethernet-structure-configuration {
-                    uses pure-ethernet-structure-configuration;
+                    uses pure-ethernet-structure-configuration-g;
                     description "none";
                 }
                 container pure-ethernet-structure-status {
                     config false;
-                    uses pure-ethernet-structure-status;
+                    uses pure-ethernet-structure-status-g;
                     description "none";
                 }
                 container pure-ethernet-structure-current-problems {
                     config false;
-                    uses pure-ethernet-structure-current-problems;
+                    uses pure-ethernet-structure-current-problems-g;
                     description "none";
                 }
                 container pure-ethernet-structure-current-performance {
                     config false;
-                    uses pure-ethernet-structure-current-performance;
+                    uses pure-ethernet-structure-current-performance-g;
                     description "none";
                 }
                 container pure-ethernet-structure-historical-performances {
                     config false;
-                    uses pure-ethernet-structure-historical-performances;
+                    uses pure-ethernet-structure-historical-performances-g;
                     description "none";
                 }
                 description "The pureEthernetStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting Ethernet traffic only.";
             }
-            grouping pure-ethernet-structure-capability {
+            grouping pure-ethernet-structure-capability-g {
                 leaf structure-id {
                     type core-model:universal-id;
                     config false;
@@ -1592,18 +1592,18 @@ module microwave-model {
                 }
                 description "Describes the logical structuring of the physical capacity provided by a pure Ethernet microwave device. Segmentation is not available. No fixed segment size. No TDM transport.";
             }
-            grouping pure-ethernet-structure-configuration {
+            grouping pure-ethernet-structure-configuration-g {
                 list problem-kind-severity-list {
                     key 'problem-kind-name';
-                    uses structure-problem-severity-type;
+                    uses structure-problem-severity-type-g;
                     description "Severity of the type of problem to be configured.";
                 }
                 description "none";
             }
-            grouping pure-ethernet-structure-status {
+            grouping pure-ethernet-structure-status-g {
                 container segment-status-list {
                     config false;
-                    uses segment-status-type;
+                    uses segment-status-type-g;
                     description "Status of the Ethernet transport segment. Always just one segment.";
                 }
                 leaf last-status-change {
@@ -1614,31 +1614,31 @@ module microwave-model {
                 }
                 description "none";
             }
-            grouping pure-ethernet-structure-current-problems {
+            grouping pure-ethernet-structure-current-problems-g {
                 list current-problem-list {
                     key 'sequence-number';
                     config false;
-                    uses structure-current-problem-type;
+                    uses structure-current-problem-type-g;
                     description "none";
                 }
                 description "none";
             }
-            grouping pure-ethernet-structure-current-performance {
+            grouping pure-ethernet-structure-current-performance-g {
                 list current-performance-data-list {
                     key 'scanner-id';
                     config false;
                     min-elements 1;
                     max-elements 2;
-                    uses structure-current-performance-type;
+                    uses structure-current-performance-type-g;
                     description "At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.";
                 }
                 description "Aggregated performance information of the structure of an pure Ethernet microwave at a particular moment.";
             }
-            grouping pure-ethernet-structure-historical-performances {
+            grouping pure-ethernet-structure-historical-performances-g {
                 list historical-performance-data-list {
                     key 'history-data-id';
                     config false;
-                    uses structure-historical-performance-type;
+                    uses structure-historical-performance-type-g;
                     description "none";
                 }
                 description "Aggregated performance information of the structure of an pure Ethernet microwave for a pre-defined measurement interval.";
@@ -1661,36 +1661,36 @@ module microwave-model {
                 }
                 container hybrid-mw-structure-capability {
                     config false;
-                    uses hybrid-mw-structure-capability;
+                    uses hybrid-mw-structure-capability-g;
                     description "none";
                 }
                 container hybrid-mw-structure-configuration {
-                    uses hybrid-mw-structure-configuration;
+                    uses hybrid-mw-structure-configuration-g;
                     description "none";
                 }
                 container hybrid-mw-structure-status {
                     config false;
-                    uses hybrid-mw-structure-status;
+                    uses hybrid-mw-structure-status-g;
                     description "none";
                 }
                 container hybrid-mw-structure-current-problems {
                     config false;
-                    uses hybrid-mw-structure-current-problems;
+                    uses hybrid-mw-structure-current-problems-g;
                     description "none";
                 }
                 container hybrid-mw-structure-current-performance {
                     config false;
-                    uses hybrid-mw-structure-current-performance;
+                    uses hybrid-mw-structure-current-performance-g;
                     description "none";
                 }
                 container hybrid-mw-structure-historical-performances {
                     config false;
-                    uses hybrid-mw-structure-historical-performances;
+                    uses hybrid-mw-structure-historical-performances-g;
                     description "none";
                 }
                 description "The HybridMwStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting TDM and Ethernet traffic.";
             }
-            grouping hybrid-mw-structure-capability {
+            grouping hybrid-mw-structure-capability-g {
                 leaf structure-id {
                     type core-model:universal-id;
                     config false;
@@ -1700,7 +1700,7 @@ module microwave-model {
                     key 'tdm-structure-name';
                     config false;
                     min-elements 1;
-                    uses tdm-structure-type;
+                    uses tdm-structure-type-g;
                     description "Lists the TDM frame types that are supported.";
                 }
                 leaf supported-alarms {
@@ -1711,9 +1711,9 @@ module microwave-model {
                 }
                 description "Describes the logical structuring of the physical capacity provided by a hybrid microwave device (TDM + Ethernet). Segmentation is available. TDM transport is available.";
             }
-            grouping hybrid-mw-structure-configuration {
+            grouping hybrid-mw-structure-configuration-g {
                 container structure-type {
-                    uses tdm-structure-type;
+                    uses tdm-structure-type-g;
                     description "TDM frame to be applied.";
                 }
                 leaf number-of-tdm-segments-to-be-reserved {
@@ -1723,16 +1723,16 @@ module microwave-model {
                 }
                 list problem-kind-severity-list {
                     key 'problem-kind-name';
-                    uses structure-problem-severity-type;
+                    uses structure-problem-severity-type-g;
                     description "Severity of the type of problem to be configured.";
                 }
                 description "none";
             }
-            grouping hybrid-mw-structure-status {
+            grouping hybrid-mw-structure-status-g {
                 list segment-status-list {
                     key 'segment-status-type-id';
                     config false;
-                    uses segment-status-type;
+                    uses segment-status-type-g;
                     description "Status of each segment (all TDM and one Ethernet). Multiplicity = HybridMwStructure::StructureConfiguration::tdmReservedNumberOfSegments + 1";
                 }
                 leaf last-status-change {
@@ -1743,31 +1743,31 @@ module microwave-model {
                 }
                 description "none";
             }
-            grouping hybrid-mw-structure-current-problems {
+            grouping hybrid-mw-structure-current-problems-g {
                 list current-problem-list {
                     key 'sequence-number';
                     config false;
-                    uses structure-current-problem-type;
+                    uses structure-current-problem-type-g;
                     description "none";
                 }
                 description "none";
             }
-            grouping hybrid-mw-structure-current-performance {
+            grouping hybrid-mw-structure-current-performance-g {
                 list current-performance-data-list {
                     key 'scanner-id';
                     config false;
                     min-elements 1;
                     max-elements 2;
-                    uses structure-current-performance-type;
+                    uses structure-current-performance-type-g;
                     description "At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.";
                 }
                 description "Aggregated performance information of the structure of a hybrid microwave at a particular moment.";
             }
-            grouping hybrid-mw-structure-historical-performances {
+            grouping hybrid-mw-structure-historical-performances-g {
                 list historical-performance-data-list {
                     key 'history-data-id';
                     config false;
-                    uses structure-historical-performance-type;
+                    uses structure-historical-performance-type-g;
                     description "none";
                 }
                 description "Aggregated performance information of the structure of a hybrid microwave for a pre-defined measurement interval.";
@@ -1789,36 +1789,36 @@ module microwave-model {
                 }
                 container ethernet-container-capability {
                     config false;
-                    uses ethernet-container-capability;
+                    uses ethernet-container-capability-g;
                     description "none";
                 }
                 container ethernet-container-configuration {
-                    uses ethernet-container-configuration;
+                    uses ethernet-container-configuration-g;
                     description "none";
                 }
                 container ethernet-container-status {
                     config false;
-                    uses ethernet-container-status;
+                    uses ethernet-container-status-g;
                     description "none";
                 }
                 container ethernet-container-current-problems {
                     config false;
-                    uses ethernet-container-current-problems;
+                    uses ethernet-container-current-problems-g;
                     description "none";
                 }
                 container ethernet-container-current-performance {
                     config false;
-                    uses ethernet-container-current-performance;
+                    uses ethernet-container-current-performance-g;
                     description "none";
                 }
                 container ethernet-container-historical-performances {
                     config false;
-                    uses ethernet-container-historical-performances;
+                    uses ethernet-container-historical-performances-g;
                     description "none";
                 }
                 description "none";
             }
-            grouping ethernet-container-capability {
+            grouping ethernet-container-capability-g {
                 leaf bundling-is-avail {
                     type boolean;
                     default false;
@@ -1887,7 +1887,7 @@ module microwave-model {
                 }
                 description "none";
             }
-            grouping ethernet-container-configuration {
+            grouping ethernet-container-configuration-g {
                 leaf container-id {
                     type string;
                     default "No Ethernet Flow associated yet.";
@@ -1896,7 +1896,7 @@ module microwave-model {
                 list segments-id-list {
                     key 'structure-id-ref segment-id-ref';
                     min-elements 1;
-                    uses segment-id-type;
+                    uses segment-id-type-g;
                     description "Lists the segments used for transporting this Ethernet container. In case EthernetContainer::ContainerCapability::bundlingIsAvail==0, all TypeDefinitions::segmentIdType::structureId must be identical in the list.";
                 }
                 leaf packet-compression-is-on {
@@ -1952,12 +1952,12 @@ module microwave-model {
                 list problem-kind-severity-list {
                     key 'problem-kind-name';
                     min-elements 2;
-                    uses container-problem-severity-type;
+                    uses container-problem-severity-type-g;
                     description "Severity of the problem to be configured.";
                 }
                 description "none";
             }
-            grouping ethernet-container-status {
+            grouping ethernet-container-status-g {
                 leaf last-status-change {
                     type yang:date-and-time;
                     default "2017-01-01T00:00:00.0Z";
@@ -1966,31 +1966,31 @@ module microwave-model {
                 }
                 description "none";
             }
-            grouping ethernet-container-current-problems {
+            grouping ethernet-container-current-problems-g {
                 list current-problem-list {
                     key 'sequence-number';
                     config false;
-                    uses container-current-problem-type;
+                    uses container-current-problem-type-g;
                     description "none";
                 }
                 description "none";
             }
-            grouping ethernet-container-current-performance {
+            grouping ethernet-container-current-performance-g {
                 list current-performance-data-list {
                     key 'scanner-id';
                     config false;
                     min-elements 1;
                     max-elements 2;
-                    uses container-current-performance-type;
+                    uses container-current-performance-type-g;
                     description "none";
                 }
                 description "Aggregated performance information of the Ethernet container at a particular moment.";
             }
-            grouping ethernet-container-historical-performances {
+            grouping ethernet-container-historical-performances-g {
                 list historical-performance-data-list {
                     key 'history-data-id';
                     config false;
-                    uses container-historical-performance-type;
+                    uses container-historical-performance-type-g;
                     description "none";
                 }
                 description "Aggregated performance information of the Ethernet container for a pre-defined measurement interval.";
@@ -2010,41 +2010,41 @@ module microwave-model {
                 }
                 container tdm-container-capability {
                     config false;
-                    uses tdm-container-capability;
+                    uses tdm-container-capability-g;
                     description "none";
                 }
                 container tdm-container-configuration {
-                    uses tdm-container-configuration;
+                    uses tdm-container-configuration-g;
                     description "none";
                 }
                 container tdm-container-status {
                     config false;
-                    uses tdm-container-status;
+                    uses tdm-container-status-g;
                     description "none";
                 }
                 container tdm-container-current-problems {
                     config false;
-                    uses tdm-container-current-problems;
+                    uses tdm-container-current-problems-g;
                     description "none";
                 }
                 container tdm-container-current-performance {
                     config false;
-                    uses tdm-container-current-performance;
+                    uses tdm-container-current-performance-g;
                     description "none";
                 }
                 container tdm-container-historical-performances {
                     config false;
-                    uses tdm-container-historical-performances;
+                    uses tdm-container-historical-performances-g;
                     description "none";
                 }
                 description "none";
             }
-            grouping tdm-container-capability {
+            grouping tdm-container-capability-g {
                 list supported-tdm-container-types-list {
                     key 'tdm-container-name';
                     config false;
                     min-elements 1;
-                    uses tdm-container-type;
+                    uses tdm-container-type-g;
                     description "Lists the TDM containers that are supported.";
                 }
                 leaf supported-alarms {
@@ -2055,29 +2055,29 @@ module microwave-model {
                 }
                 description "Bundling is not available.";
             }
-            grouping tdm-container-configuration {
+            grouping tdm-container-configuration-g {
                 leaf container-id {
                     type string;
                     default "No TDM Flow associated yet.";
                     description "ContainterID in Netconf must be the same as TDM Flow ID so a connection can be made between the two items, which separately exist in the controller.";
                 }
                 container container-type {
-                    uses tdm-container-type;
+                    uses tdm-container-type-g;
                     description "Type of TDM container.";
                 }
                 container segment-id {
-                    uses segment-id-type;
+                    uses segment-id-type-g;
                     description "Multiplicity = 1; One segment per TDM container; Type of segment must match type of container;";
                 }
                 list problem-kind-severity-list {
                     key 'problem-kind-name';
                     min-elements 2;
-                    uses container-problem-severity-type;
+                    uses container-problem-severity-type-g;
                     description "Severity of the problem to be configured.";
                 }
                 description "none";
             }
-            grouping tdm-container-status {
+            grouping tdm-container-status-g {
                 leaf last-status-change {
                     type yang:date-and-time;
                     default "2017-01-01T00:00:00.0Z";
@@ -2086,31 +2086,31 @@ module microwave-model {
                 }
                 description "none";
             }
-            grouping tdm-container-current-problems {
+            grouping tdm-container-current-problems-g {
                 list current-problem-list {
                     key 'sequence-number';
                     config false;
-                    uses container-current-problem-type;
+                    uses container-current-problem-type-g;
                     description "none";
                 }
                 description "none";
             }
-            grouping tdm-container-current-performance {
+            grouping tdm-container-current-performance-g {
                 list current-performance-data-list {
                     key 'scanner-id';
                     config false;
                     min-elements 1;
                     max-elements 2;
-                    uses container-current-performance-type;
+                    uses container-current-performance-type-g;
                     description "At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.";
                 }
                 description "Aggregated performance information of the TDM container at a particular moment.";
             }
-            grouping tdm-container-historical-performances {
+            grouping tdm-container-historical-performances-g {
                 list historical-performance-data-list {
                     key 'history-data-id';
                     config false;
-                    uses container-historical-performance-type;
+                    uses container-historical-performance-type-g;
                     description "none";
                 }
                 description "Aggregated performance information of the TDM container for a pre-defined measurement interval.";
@@ -2119,7 +2119,7 @@ module microwave-model {
         /***********************
         * package super-classes
         **********************/ 
-            grouping mw-current-problem {
+            grouping mw-current-problem-g {
                 leaf sequence-number {
                     type int32;
                     config false;
@@ -2145,10 +2145,10 @@ module microwave-model {
     * package notifications
     **********************/ 
         notification object-creation-notification {
-            uses object-creation-notification;
+            uses object-creation-notification-g;
             description "none";
         }
-        grouping object-creation-notification {
+        grouping object-creation-notification-g {
             leaf counter {
                 type int32;
                 default -1;
@@ -2171,10 +2171,10 @@ module microwave-model {
             description "To be sent when a new MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac has to be instancieted in the controller.";
         }
         notification object-deletion-notification {
-            uses object-deletion-notification;
+            uses object-deletion-notification-g;
             description "none";
         }
-        grouping object-deletion-notification {
+        grouping object-deletion-notification-g {
             leaf counter {
                 type int32;
                 default -1;
@@ -2192,10 +2192,10 @@ module microwave-model {
             description "To be sent when a new MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac instance has to be deleted in the controller.";
         }
         notification attribute-value-changed-notification {
-            uses attribute-value-changed-notification;
+            uses attribute-value-changed-notification-g;
             description "none";
         }
-        grouping attribute-value-changed-notification {
+        grouping attribute-value-changed-notification-g {
             leaf counter {
                 type int32;
                 default -1;
@@ -2223,10 +2223,10 @@ module microwave-model {
             description "To be sent when an attribute has changed and one or more controllers have to update their data.";
         }
         notification problem-notification {
-            uses problem-notification;
+            uses problem-notification-g;
             description "none";
         }
-        grouping problem-notification {
+        grouping problem-notification-g {
             leaf counter {
                 type int32;
                 default -1;
