@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="onf-core-model-conditional-packages"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:onf-core-model-conditional-packages="urn:onf:params:xml:ns:yang:onf-core-model-conditional-packages"
+        xmlns:core-model="urn:onf:params:xml:ns:yang:core-model"
+        xmlns:microwave-model="urn:onf:params:xml:ns:yang:microwave-model">
+  <namespace uri="urn:onf:params:xml:ns:yang:onf-core-model-conditional-packages"/>
+  <prefix value="onf-core-model-conditional-packages"/>
+  <import module="core-model">
+    <prefix value="core-model"/>
+  </import>
+  <import module="microwave-model">
+    <prefix value="microwave-model"/>
+  </import>
+  <organization>
+    <text>ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project</text>
+  </organization>
+  <contact>
+    <text>WG Web: &lt;https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport&gt;
+WG List:  &lt;mailto:wireless-transport@login.opennetworking.org&gt;
+WG Chair: Lyndon Ong
+          &lt;mailto:lyong@ciena.com&gt;
+WG Chair: Giorgio Cazzaniga
+          &lt;mailto:giorgio.cazzaniga@sm-optics.com&gt;
+Editors:  Thorsten Heinze
+          &lt;mailto:thorsten.heinze@telefonica.com&gt;
+          Martin Skorupski
+          &lt;mailto:martin.skorupski@highstreet-technologies.com&gt;</text>
+  </contact>
+  <description>
+    <text>This model adds conditional packages to the ONF CoreModel in order to support fault management for object classes NetworkElement, Equipment and Holder.</text>
+  </description>
+  <revision date="2017-04-02">
+    <description>
+      <text>Initial version</text>
+    </description>
+    <reference>
+      <text>ONF TR 532: A YANG Data Model for Wireless Networks.</text>
+    </reference>
+  </revision>
+  <grouping name="current-problem-type-g">
+    <leaf name="problem-name">
+      <type name="string"/>
+      <default value="not-specified"/>
+      <config value="false"/>
+      <description>
+        <text>Name of the alarm according capability::supportedAlarms.</text>
+      </description>
+    </leaf>
+    <uses name="microwave-model:mw-current-problem-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="network-element-current-problem-type-g">
+    <leaf name="problem-name">
+      <type name="string"/>
+      <default value="not-specified"/>
+      <config value="false"/>
+      <description>
+        <text>Name of the alarm according capability::supportedAlarms.</text>
+      </description>
+    </leaf>
+    <leaf name="object-reference">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>An explaining string of the related object class. This is necesseary, because the current problem list of the NetworkElement object class acts as a container for all alarms, where its object classes are not modeled.</text>
+      </description>
+    </leaf>
+    <uses name="microwave-model:mw-current-problem-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="problem-severity-type-g">
+    <leaf name="problem-type-name">
+      <type name="string"/>
+      <description>
+        <text>Name of the alarm according to Capability::supportedAlarms</text>
+      </description>
+    </leaf>
+    <leaf name="problem-type-severity">
+      <type name="microwave-model:severity-type"/>
+      <description>
+        <text>Severity of this type of alarm.</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <typedef name="processing-type">
+    <type name="enumeration">
+      <enum name="done">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="processing">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <container name="network-element-pac">
+    <leaf name="network-element">
+      <type name="leafref">
+        <path value="/core-model:network-element/core-model:uuid"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <container name="network-element-capability">
+      <uses name="network-element-capability-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="network-element-configuration">
+      <uses name="network-element-configuration-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="network-element-status">
+      <uses name="network-element-status-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="network-element-current-problems">
+      <uses name="network-element-current-problems-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <description>
+      <text>none</text>
+    </description>
+  </container>
+  <grouping name="network-element-capability-g">
+    <leaf-list name="supported-alarms">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf-list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="network-element-configuration-g">
+    <list name="problem-type-severity-list">
+      <key value="problem-type-name"/>
+      <uses name="problem-severity-type-g"/>
+      <description>
+        <text>Severity of the problem to be configured.</text>
+      </description>
+    </list>
+    <leaf name="trigger-refresh">
+      <type name="boolean"/>
+      <description>
+        <text>A trigger to instuct the netconf server to refresh its internal database/cache. It is primary used for alarms status, but could used for anything else too. It is assumed that the refresh mechanismn takes somes time. In order to indictate the process to the controller a refreshStatus attribute is used.</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="network-element-status-g">
+    <leaf name="refresh-status">
+      <type name="processing-type"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="network-element-current-problems-g">
+    <list name="current-problem-list">
+      <key value="sequence-number"/>
+      <config value="false"/>
+      <uses name="network-element-current-problem-type-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <list name="equipment-pac">
+    <key value="equipment"/>
+    <leaf name="equipment">
+      <type name="leafref">
+        <path value="/core-model:equipment/core-model:uuid"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <container name="equipment-capability">
+      <uses name="equipment-capability-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="equipment-configuration">
+      <uses name="equipment-configuration-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="equipment-status">
+      <uses name="equipment-status-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="equipment-current-problems">
+      <uses name="equipment-current-problems-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <description>
+      <text>none</text>
+    </description>
+  </list>
+  <grouping name="equipment-capability-g">
+    <leaf-list name="supported-alarms">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>Available alarms to be listed. Names are to be separated by commas.</text>
+      </description>
+    </leaf-list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="equipment-configuration-g">
+    <list name="problem-type-severity-list">
+      <key value="problem-type-name"/>
+      <uses name="problem-severity-type-g"/>
+      <description>
+        <text>Severity of the problem to be configured.</text>
+      </description>
+    </list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="equipment-status-g">
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="equipment-current-problems-g">
+    <list name="current-problem-list">
+      <key value="sequence-number"/>
+      <config value="false"/>
+      <uses name="current-problem-type-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <list name="holder-pac">
+    <key value="holder"/>
+    <leaf name="holder">
+      <type name="leafref">
+        <path value="/core-model:equipment/core-model:contained-holder/core-model:uuid"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <container name="holder-capability">
+      <uses name="holder-capability-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="holder-configuration">
+      <uses name="holder-configuration-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="holder-current-problems">
+      <uses name="holder-current-problems-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="holder-status">
+      <uses name="holder-status-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <description>
+      <text>none</text>
+    </description>
+  </list>
+  <grouping name="holder-capability-g">
+    <leaf-list name="supported-alarms">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>Available alarms to be listed. Names are to be separated by commas.</text>
+      </description>
+    </leaf-list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="holder-configuration-g">
+    <list name="problem-type-severity-list">
+      <key value="problem-type-name"/>
+      <uses name="problem-severity-type-g"/>
+      <description>
+        <text>Severity of the problem to be configured.</text>
+      </description>
+    </list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="holder-status-g">
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="holder-current-problems-g">
+    <list name="current-problem-list">
+      <key value="sequence-number"/>
+      <config value="false"/>
+      <uses name="current-problem-type-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <container name="connector-pac">
+    <leaf name="connector">
+      <type name="leafref">
+        <path value="/core-model:equipment/core-model:exposed-cable/core-model:connector/core-model:uuid"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <container name="connector-capability">
+      <uses name="connector-capability-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="connector-configuration">
+      <uses name="connector-configuration-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="connector-status">
+      <uses name="connector-status-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="connector-current-problems">
+      <uses name="connector-current-problems-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <description>
+      <text>none</text>
+    </description>
+  </container>
+  <grouping name="connector-capability-g">
+    <leaf-list name="supported-alarms">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>Available alarms to be listed. Names are to be separated by commas.</text>
+      </description>
+    </leaf-list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="connector-configuration-g">
+    <list name="problem-type-severity-list">
+      <key value="problem-type-name"/>
+      <uses name="problem-severity-type-g"/>
+      <description>
+        <text>Severity of the problem to be configured.</text>
+      </description>
+    </list>
+    <leaf name="remote-end-point">
+      <type name="string"/>
+      <description>
+        <text>A network wide identifier of the remote connector. The value is used for topology discovery. 
+Please see also ConnectorStatus::localEndPoint.</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="connector-status-g">
+    <leaf name="local-end-point">
+      <type name="string"/>
+      <description>
+        <text>A network wide global identifier of the this connector, which can be used to discover the physical connectivitiy.
+The value should contain the network element name, because the network element software can assume that the network element name is unique in the network. 
+The value should be formated:
+&lt;connector:uuid&gt;@&lt;network-element-name&gt;
+
+Please see also ConnectorConfiguration::remoteEndPoint</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="connector-current-problems-g">
+    <list name="current-problem-list">
+      <key value="sequence-number"/>
+      <config value="false"/>
+      <uses name="current-problem-type-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+</module>
