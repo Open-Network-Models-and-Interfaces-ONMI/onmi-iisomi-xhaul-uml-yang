@@ -117,6 +117,7 @@ Editors:  Thorsten Heinze
       </description>
     </leaf>
     <container name="network-element-capability">
+      <config value="false"/>
       <uses name="network-element-capability-g"/>
       <description>
         <text>none</text>
@@ -129,12 +130,14 @@ Editors:  Thorsten Heinze
       </description>
     </container>
     <container name="network-element-status">
+      <config value="false"/>
       <uses name="network-element-status-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="network-element-current-problems">
+      <config value="false"/>
       <uses name="network-element-current-problems-g"/>
       <description>
         <text>none</text>
@@ -210,6 +213,7 @@ Editors:  Thorsten Heinze
       </description>
     </leaf>
     <container name="equipment-capability">
+      <config value="false"/>
       <uses name="equipment-capability-g"/>
       <description>
         <text>none</text>
@@ -222,12 +226,14 @@ Editors:  Thorsten Heinze
       </description>
     </container>
     <container name="equipment-status">
+      <config value="false"/>
       <uses name="equipment-status-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="equipment-current-problems">
+      <config value="false"/>
       <uses name="equipment-current-problems-g"/>
       <description>
         <text>none</text>
@@ -290,6 +296,7 @@ Editors:  Thorsten Heinze
       </description>
     </leaf>
     <container name="holder-capability">
+      <config value="false"/>
       <uses name="holder-capability-g"/>
       <description>
         <text>none</text>
@@ -301,14 +308,16 @@ Editors:  Thorsten Heinze
         <text>none</text>
       </description>
     </container>
-    <container name="holder-current-problems">
-      <uses name="holder-current-problems-g"/>
+    <container name="holder-status">
+      <config value="false"/>
+      <uses name="holder-status-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
-    <container name="holder-status">
-      <uses name="holder-status-g"/>
+    <container name="holder-current-problems">
+      <config value="false"/>
+      <uses name="holder-current-problems-g"/>
       <description>
         <text>none</text>
       </description>
@@ -359,7 +368,8 @@ Editors:  Thorsten Heinze
       <text>none</text>
     </description>
   </grouping>
-  <container name="connector-pac">
+  <list name="connector-pac">
+    <key value="connector"/>
     <leaf name="connector">
       <type name="leafref">
         <path value="/core-model:equipment/core-model:exposed-cable/core-model:connector/core-model:uuid"/>
@@ -369,6 +379,7 @@ Editors:  Thorsten Heinze
       </description>
     </leaf>
     <container name="connector-capability">
+      <config value="false"/>
       <uses name="connector-capability-g"/>
       <description>
         <text>none</text>
@@ -381,12 +392,14 @@ Editors:  Thorsten Heinze
       </description>
     </container>
     <container name="connector-status">
+      <config value="false"/>
       <uses name="connector-status-g"/>
       <description>
         <text>none</text>
       </description>
     </container>
     <container name="connector-current-problems">
+      <config value="false"/>
       <uses name="connector-current-problems-g"/>
       <description>
         <text>none</text>
@@ -395,7 +408,7 @@ Editors:  Thorsten Heinze
     <description>
       <text>none</text>
     </description>
-  </container>
+  </list>
   <grouping name="connector-capability-g">
     <leaf-list name="supported-alarms">
       <type name="string"/>
