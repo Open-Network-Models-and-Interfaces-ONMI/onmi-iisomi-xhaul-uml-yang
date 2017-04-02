@@ -1,0 +1,88 @@
+module onf-ethernet-conditional-packages {
+    namespace "urn:onf:params:xml:ns:yang:onf-ethernet-conditional-packages";
+    prefix onf-ethernet-conditional-packages;
+    import core-model {
+        prefix core-model;
+    }
+    organization "ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project";
+    contact "WG Web: <https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport>
+             WG List:  <mailto:wireless-transport@login.opennetworking.org>
+             WG Chair: Lyndon Ong
+                       <mailto:lyong@ciena.com>
+             WG Chair: Giorgio Cazzaniga
+                       <mailto:giorgio.cazzaniga@sm-optics.com>
+             Editors:  Thorsten Heinze
+                       <mailto:thorsten.heinze@telefonica.com>
+                       Martin Skorupski
+                       <mailto:martin.skorupski@highstreet-technologies.com>";
+    description "This model adds conditional packages to the ONF CoreModel in order address Ethernet use cases.";
+    revision 2017-04-02 {
+        description "Initial version";
+        reference "ONF TR 532: A YANG Data Model for Wireless Networks.";
+    }
+    /***********************
+    * package object-classes
+    **********************/ 
+        list ethernet-pac {
+            key 'layer-protocol';
+            leaf layer-protocol {
+                type leafref {
+                    path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
+                }
+                description "none";
+            }
+            container ethernet-capability {
+                config false;
+                uses ethernet-capability-g;
+                description "none";
+            }
+            container ethernet-configuration {
+                uses ethernet-configuration-g;
+                description "none";
+            }
+            container ethernet-status {
+                config false;
+                uses ethernet-status-g;
+                description "none";
+            }
+            container ethernet-current-problems {
+                config false;
+                uses ethernet-current-problems-g;
+                description "none";
+            }
+            container ethernet-current-performance {
+                config false;
+                uses ethernet-current-performance-g;
+                description "none";
+            }
+            container ethernet-historical-performances {
+                config false;
+                uses ethernet-historical-performances-g;
+                description "none";
+            }
+            description "none";
+        }
+        grouping ethernet-capability-g {
+            description "none";
+        }
+        grouping ethernet-configuration-g {
+            leaf vlan-id {
+                type int16;
+                description "value = 0: frames on ingress must be untagged, frames on egress get untagged; value = any other positive integer < 4096: frames on ingress must be tagged with this VLAN ID, frames on egress either already have or get this VLAN ID attached;";
+            }
+            description "none";
+        }
+        grouping ethernet-status-g {
+            description "none";
+        }
+        grouping ethernet-current-problems-g {
+            description "none";
+        }
+        grouping ethernet-current-performance-g {
+            description "none";
+        }
+        grouping ethernet-historical-performances-g {
+            description "none";
+        }
+
+}
