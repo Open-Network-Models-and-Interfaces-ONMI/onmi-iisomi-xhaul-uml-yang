@@ -57,16 +57,22 @@ These instructions should also work on other Debian derivative distributions.
   - git: the version control system.
 
       ```
-      sudo apt-get install git
+      sudo add-apt-repository ppa:git-core/ppa -y
+      sudo apt-get update
+      sudo apt-get install git -y
       ```
 
   - node.js: the JavaScript runtime environment.
 
       ```
-      sudo apt-get install nodejs npm jq --
+      curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+      sudo apt-get install -y nodejs
+      sudo apt-get install npm jq --
+      sudo npm install -g npm
       sudo update-alternatives --install /usr/bin/node node /usr/bin/nodejs 150
       sudo update-alternatives --config node
       sudo ln -s /usr/bin/nodejs /usr/bin/node
+      
       ```
       Please see also the instrucion for the [test automation app](https://github.com/OpenNetworkingFoundation/CENTENNIAL/blob/master/test/INSTALL.md).
 
