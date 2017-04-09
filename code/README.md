@@ -190,13 +190,9 @@ cd $ODL_KARAF_HOME
 
 Install the karaf features with the following command:
 ```
-feature:install \
-odl-netconf-connector-all \
-odl-l2switch-switch \
-odl-restconf-all \
-odl-mdsal-apidocs \
-odl-dlux-all \
-odl-toaster
+feature:install odl-netconf-connector-all odl-l2switch-switch
+feature:install odl-netconf-topology
+feature:install odl-restconf-all odl-mdsal-apidocs odl-dlux-all odl-toaster
 ```
 Now you should be able to add the new bundles in the karaf console.
 ```
@@ -205,10 +201,8 @@ feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/0.4.0-SNAPSHOT/xml/featur
 ```
  ... and install them:
 ```
-feature:install \
-elasticsearch \
-odl-mwt-models \
-odl-mwtn-all
+feature:install elasticsearch 
+feature:install odl-mwt-models odl-mwtn-all
 ```
 It takes some time ...
 
