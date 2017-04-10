@@ -65,14 +65,13 @@ These instructions should also work on other Debian derivative distributions.
   - node.js: the JavaScript runtime environment.
 
       ```
-      curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-      sudo apt-get install -y nodejs
-      sudo apt-get install npm jq --
-      sudo npm install -g npm
+      sudo apt-get install nodejs npm jq --
       sudo update-alternatives --install /usr/bin/node node /usr/bin/nodejs 150
       sudo update-alternatives --config node
       sudo ln -s /usr/bin/nodejs /usr/bin/node
-      
+      curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+      sudo apt-get install -y nodejs
+      sudo npm install -g npm
       ```
       Please see also the instrucion for the [test automation app](https://github.com/OpenNetworkingFoundation/CENTENNIAL/blob/master/test/INSTALL.md).
 
