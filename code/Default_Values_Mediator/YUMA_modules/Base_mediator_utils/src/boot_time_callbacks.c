@@ -387,18 +387,18 @@ status_t key_get_all_name_list_by_uuid(xmlChar** nested_key, int num_of_nested_k
     }
     else
     {
-        len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/name/value");
+        len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/name/value-name");
         return get_list_from_xpath(evalPath, keys_list, num_of_keys);
     }
 
     if (num_of_nested_key-- && (tot_len<MAX_XPATH_LEN))
     {
-        len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/lp[uuid=\"%s\"]/name/value", nested_key[1]);
+        len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/lp[uuid=\"%s\"]/name/value-name", nested_key[1]);
         tot_len += len;
     }
     else
     {
-        len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/name/value");
+        len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/name/value-name");
         return get_list_from_xpath(evalPath, keys_list, num_of_keys);
     }
 
@@ -427,18 +427,18 @@ status_t key_get_all_label_list_by_uuid(xmlChar** nested_key, int num_of_nested_
     }
     else
     {
-        len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/label/value");
+        len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/label/value-name");
         return get_list_from_xpath(evalPath, keys_list, num_of_keys);
     }
 
     if (num_of_nested_key-- && (tot_len<MAX_XPATH_LEN))
     {
-        len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/lp[uuid=\"%s\"]/label/value", nested_key[1]);
+        len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/lp[uuid=\"%s\"]/label/value-name", nested_key[1]);
         tot_len += len;
     }
     else
     {
-        len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/label/value");
+        len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/label/value-name");
         return get_list_from_xpath(evalPath, keys_list, num_of_keys);
     }
 
@@ -467,18 +467,18 @@ status_t key_get_all_extension_list_by_uuid(xmlChar** nested_key, int num_of_nes
     }
     else
     {
-        len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/extension/value");
+        len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/extension/value-name");
         return get_list_from_xpath(evalPath, keys_list, num_of_keys);
     }
 
     if (num_of_nested_key-- && (tot_len<MAX_XPATH_LEN))
     {
-        len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/lp[uuid=\"%s\"]/extension/value", nested_key[1]);
+        len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/lp[uuid=\"%s\"]/extension/value-name", nested_key[1]);
         tot_len += len;
     }
     else
     {
-        len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/extension/value");
+        len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/extension/value-name");
         return get_list_from_xpath(evalPath, keys_list, num_of_keys);
     }
 
@@ -507,18 +507,18 @@ status_t key_get_all_localid_list_by_uuid(xmlChar** nested_key, int num_of_neste
      }
      else
      {
-         len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/local-id/value");
+         len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/local-id/value-name");
          return get_list_from_xpath(evalPath, keys_list, num_of_keys);
      }
 
      if (num_of_nested_key-- && (tot_len<MAX_XPATH_LEN))
      {
-         len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/lp[uuid=\"%s\"]/local-id/value", nested_key[1]);
+         len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/lp[uuid=\"%s\"]/local-id/value-name", nested_key[1]);
          tot_len += len;
      }
      else
      {
-         len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/local-id/value");
+         len = snprintf((char*)evalPath+tot_len, MAX_XPATH_LEN-tot_len, "/local-id/value-name");
          return get_list_from_xpath(evalPath, keys_list, num_of_keys);
      }
 
