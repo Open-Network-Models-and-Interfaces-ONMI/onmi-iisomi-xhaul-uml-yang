@@ -74,7 +74,7 @@ The NETCONF server can be also started running the script files located in the d
     The configuration is stored in the file $HOME/.mdevconf.
     The command line option -h shows the usage of the script:
 
-      usage: md-install.sh \[option\] | \[-h|--help\]
+      usage: md-install.sh [option] | [-h|--help]
       where option is:
       
         -e|--md-eth-interface <name>             # Mediation device eth interface name. Default: [eth0]
@@ -102,7 +102,7 @@ The NETCONF server can be also started running the script files located in the d
 
     This script is used to start the mediation device and register (log in) it to the SDH controller.
     The command line option -h and -s are provided also for this script.
-    The arguments passed to this script are stored in the file .mdevconf by updating the contentis set by md-install.sh.
+    The arguments passed to this script are stored in the file $HOME/.mdevconf by updating the contentis set by md-install.sh.
     The script must be run with superuser privileges.
     In order to use the environment variable DVM_CONFIG_FILE the following syntax is suggested:
 
@@ -114,7 +114,7 @@ The NETCONF server can be also started running the script files located in the d
     This script is used to stop the mediation device and deregister (log out) it from the SDH controller.
     The command line option -h and -s are provided also for this script.
     The script must be run with superuser privileges.
-    The arguments passed to this script are NOT stored in the file .mdevconf.
+    The arguments passed to this script are NOT stored in the file $HOME/.mdevconf.
 
   Since RESTconf call invoked in order to log in (log out) the mediation device to (from) the SDH controller are embedded in a PHP script, could be necessary install the following packages:
 

@@ -1980,11 +1980,11 @@
     </tdm-container-historical-performances>
   </mw-tdm-container-pac>
   <network-element>
+    <uuid>DVM-72</uuid>
     <local-id>
       <value-name>ne-local-id</value-name>
       <value>DVM-72</value>
     </local-id>
-    <uuid>DVM-72</uuid>
     <name>
       <value-name>ne-name</value-name>
       <value>DVM-72</value>
@@ -1994,19 +1994,35 @@
       <value>DVM-72</value>
     </label>
     <extension>
-      <value-name>ne-extension</value-name>
-      <value>DVM-72</value>
+      <value-name>neIpAddress</value-name>
+      <value>10.10.10.10</value>
+    </extension>
+    <extension>
+      <value-name>neType</value-name>
+      <value>DVM-TST</value>
+    </extension>
+    <extension>
+      <value-name>webUri</value-name>
+      <value>http://10.10.10.10/index.html</value>
+    </extension>
+    <extension>
+      <value-name>cliAddress</value-name>
+      <value>cli@10.10.10.10</value>
+    </extension>
+    <extension>
+      <value-name>appCommand</value-name>
+      <value>nothingToDo.exe --ne 10.10.10.10</value>
     </extension>
     <operational-state>enabled</operational-state>
     <administrative-control>unlock</administrative-control>
     <administrative-state>unlocked</administrative-state>
     <lifecycle-state>installed</lifecycle-state>
     <ltp>
+      <uuid>LTP-MWPS-TTP-RADIO</uuid>
       <local-id>
         <value-name>ltp-local-id</value-name>
         <value>RADIO</value>
       </local-id>
-      <uuid>LTP-MWPS-TTP-RADIO</uuid>
       <name>
         <value-name>ltp-name</value-name>
         <value>LTP-MWPS-TTP-RADIO</value>
@@ -2025,11 +2041,11 @@
       <lifecycle-state>installed</lifecycle-state>
       <client-ltp>LTP-MWS-RADIO</client-ltp>
       <lp>
+        <uuid>LP-MWPS-TTP-RADIO</uuid>
         <local-id>
           <value-name>lp-local-id</value-name>
           <value>RADIO</value>
         </local-id>
-        <uuid>LP-MWPS-TTP-RADIO</uuid>
         <name>
           <value-name>lp-name</value-name>
           <value>LP-MWPS-TTP-RADIO</value>
@@ -2039,8 +2055,16 @@
           <value>LP-MWPS-TTP-RADIO</value>
         </label>
         <extension>
-          <value-name>lp-extension</value-name>
-          <value>LP-MWPS-TTP-RADIO</value>
+          <value-name>capability</value-name>
+          <value>urn:onf:params:xml:ns:yang:microwave-model?module=microwave-model</value>
+        </extension>
+        <extension>
+          <value-name>revision</value-name>
+          <value>2017-03-24</value>
+        </extension>
+        <extension>
+          <value-name>conditional-package</value-name>
+          <value>mw-air-interface-pac</value>
         </extension>
         <operational-state>enabled</operational-state>
         <administrative-control>unlock</administrative-control>
@@ -2057,11 +2081,11 @@
       <ltp-direction>bidirectional</ltp-direction>
     </ltp>
     <ltp>
+      <uuid>LTP-ETH-CTP-ETH-CONTAINER</uuid>
       <local-id>
         <value-name>ltp-local-id</value-name>
         <value>ETH-CONTAINER</value>
       </local-id>
-      <uuid>LTP-ETH-CTP-ETH-CONTAINER</uuid>
       <name>
         <value-name>ltp-name</value-name>
         <value>LTP-ETH-CTP-ETH-CONTAINER</value>
@@ -2080,11 +2104,11 @@
       <lifecycle-state>installed</lifecycle-state>
       <server-ltp>LTP-MWS-RADIO</server-ltp>
       <lp>
+        <uuid>LP-ETH-CTP-ETH-CONTAINER</uuid>
         <local-id>
           <value-name>lp-local-id</value-name>
           <value>ETH-CONTAINER</value>
         </local-id>
-        <uuid>LP-ETH-CTP-ETH-CONTAINER</uuid>
         <name>
           <value-name>lp-name</value-name>
           <value>LP-ETH-CTP-ETH-CONTAINER</value>
@@ -2094,8 +2118,16 @@
           <value>LP-ETH-CTP-ETH-CONTAINER</value>
         </label>
         <extension>
-          <value-name>lp-extension</value-name>
-          <value>LP-ETH-CTP-ETH-CONTAINER</value>
+          <value-name>capability</value-name>
+          <value>urn:onf:params:xml:ns:yang:microwave-model?module=microwave-model</value>
+        </extension>
+        <extension>
+          <value-name>revision</value-name>
+          <value>2017-03-24</value>
+        </extension>
+        <extension>
+          <value-name>conditional-package</value-name>
+          <value>mw-ethernet-container-pac</value>
         </extension>
         <operational-state>enabled</operational-state>
         <administrative-control>unlock</administrative-control>
@@ -2112,66 +2144,74 @@
       <ltp-direction>bidirectional</ltp-direction>
     </ltp>
     <ltp>
-      <local-id>
-        <value-name>ltp-local-id</value-name>
-        <value>TDM-CONTAINER</value>
-      </local-id>
       <uuid>LTP-TDM-CTP-TDM-CONTAINER-01</uuid>
-      <name>
-        <value-name>ltp-name</value-name>
-        <value>LTP-TDM-CTP-TDM-CONTAINER-01</value>
-      </name>
-      <label>
-        <value-name>ltp-label</value-name>
-        <value>LTP-TDM-CTP-TDM-CONTAINER-01</value>
-      </label>
-      <extension>
-        <value-name>ltp-extension</value-name>
-        <value>LTP-TDM-CTP-TDM-CONTAINER-01</value>
-      </extension>
-      <operational-state>enabled</operational-state>
-      <administrative-control>unlock</administrative-control>
-      <administrative-state>unlocked</administrative-state>
-      <lifecycle-state>installed</lifecycle-state>
-      <server-ltp>LTP-MWS-RADIO</server-ltp>
-      <lp>
-        <local-id>
-          <value-name>lp-local-id</value-name>
-          <value>TDM-CONTAINER</value>
-        </local-id>
-        <uuid>LP-TDM-CTP-TDM-CONTAINER-01</uuid>
-        <name>
-          <value-name>lp-name</value-name>
-          <value>LP-TDM-CTP-TDM-CONTAINER-01</value>
-        </name>
-        <label>
-          <value-name>lp-label</value-name>
-          <value>LP-TDM-CTP-TDM-CONTAINER-01</value>
-        </label>
-        <extension>
-          <value-name>lp-extension</value-name>
-          <value>LP-TDM-CTP-TDM-CONTAINER-01</value>
-        </extension>
-        <operational-state>enabled</operational-state>
-        <administrative-control>unlock</administrative-control>
-        <administrative-state>unlocked</administrative-state>
-        <lifecycle-state>installed</lifecycle-state>
-        <layer-protocol-name/>
-        <configured-client-capacity/>
-        <lp-direction>bidirectional</lp-direction>
-        <termination-state>terminated-server-to-client-flow</termination-state>
-        <is-protection-lock-out>false</is-protection-lock-out>
-        <fc-blocks-signal-to-lp/>
-      </lp>
-      <ltp-in-other-view>LTP-MWS-RADIO</ltp-in-other-view>
-      <ltp-direction>bidirectional</ltp-direction>
-    </ltp>
-    <ltp>
       <local-id>
         <value-name>ltp-local-id</value-name>
         <value>TDM-CONTAINER</value>
       </local-id>
+      <name>
+        <value-name>ltp-name</value-name>
+        <value>LTP-TDM-CTP-TDM-CONTAINER-01</value>
+      </name>
+      <label>
+        <value-name>ltp-label</value-name>
+        <value>LTP-TDM-CTP-TDM-CONTAINER-01</value>
+      </label>
+      <extension>
+        <value-name>ltp-extension</value-name>
+        <value>LTP-TDM-CTP-TDM-CONTAINER-01</value>
+      </extension>
+      <operational-state>enabled</operational-state>
+      <administrative-control>unlock</administrative-control>
+      <administrative-state>unlocked</administrative-state>
+      <lifecycle-state>installed</lifecycle-state>
+      <server-ltp>LTP-MWS-RADIO</server-ltp>
+      <lp>
+        <uuid>LP-TDM-CTP-TDM-CONTAINER-01</uuid>
+        <local-id>
+          <value-name>lp-local-id</value-name>
+          <value>TDM-CONTAINER</value>
+        </local-id>
+        <name>
+          <value-name>lp-name</value-name>
+          <value>LP-TDM-CTP-TDM-CONTAINER-01</value>
+        </name>
+        <label>
+          <value-name>lp-label</value-name>
+          <value>LP-TDM-CTP-TDM-CONTAINER-01</value>
+        </label>
+        <extension>
+          <value-name>capability</value-name>
+          <value>urn:onf:params:xml:ns:yang:microwave-model?module=microwave-model</value>
+        </extension>
+        <extension>
+          <value-name>revision</value-name>
+          <value>2017-03-24</value>
+        </extension>
+        <extension>
+          <value-name>conditional-package</value-name>
+          <value>mw-tdm-container-pac</value>
+        </extension>
+        <operational-state>enabled</operational-state>
+        <administrative-control>unlock</administrative-control>
+        <administrative-state>unlocked</administrative-state>
+        <lifecycle-state>installed</lifecycle-state>
+        <layer-protocol-name/>
+        <configured-client-capacity/>
+        <lp-direction>bidirectional</lp-direction>
+        <termination-state>terminated-server-to-client-flow</termination-state>
+        <is-protection-lock-out>false</is-protection-lock-out>
+        <fc-blocks-signal-to-lp/>
+      </lp>
+      <ltp-in-other-view>LTP-MWS-RADIO</ltp-in-other-view>
+      <ltp-direction>bidirectional</ltp-direction>
+    </ltp>
+    <ltp>
       <uuid>LTP-TDM-CTP-TDM-CONTAINER-02</uuid>
+      <local-id>
+        <value-name>ltp-local-id</value-name>
+        <value>TDM-CONTAINER</value>
+      </local-id>
       <name>
         <value-name>ltp-name</value-name>
         <value>LTP-TDM-CTP-TDM-CONTAINER-02</value>
@@ -2190,11 +2230,11 @@
       <lifecycle-state>installed</lifecycle-state>
       <server-ltp>LTP-MWS-RADIO</server-ltp>
       <lp>
+        <uuid>LP-TDM-CTP-TDM-CONTAINER-02</uuid>
         <local-id>
           <value-name>lp-local-id</value-name>
           <value>TDM-CONTAINER</value>
         </local-id>
-        <uuid>LP-TDM-CTP-TDM-CONTAINER-02</uuid>
         <name>
           <value-name>lp-name</value-name>
           <value>LP-TDM-CTP-TDM-CONTAINER-02</value>
@@ -2204,8 +2244,16 @@
           <value>LP-TDM-CTP-TDM-CONTAINER-02</value>
         </label>
         <extension>
-          <value-name>lp-extension</value-name>
-          <value>LP-TDM-CTP-TDM-CONTAINER-02</value>
+          <value-name>capability</value-name>
+          <value>urn:onf:params:xml:ns:yang:microwave-model?module=microwave-model</value>
+        </extension>
+        <extension>
+          <value-name>revision</value-name>
+          <value>2017-03-24</value>
+        </extension>
+        <extension>
+          <value-name>conditional-package</value-name>
+          <value>mw-tdm-container-pac</value>
         </extension>
         <operational-state>enabled</operational-state>
         <administrative-control>unlock</administrative-control>
@@ -2222,11 +2270,11 @@
       <ltp-direction>bidirectional</ltp-direction>
     </ltp>
     <ltp>
+      <uuid>LTP-MWS-RADIO</uuid>
       <local-id>
         <value-name>ltp-local-id</value-name>
         <value>RADIO</value>
       </local-id>
-      <uuid>LTP-MWS-RADIO</uuid>
       <name>
         <value-name>ltp-name</value-name>
         <value>LTP-MWS-RADIO</value>
@@ -2246,11 +2294,11 @@
       <server-ltp>LTP-MWPS-TTP-RADIO</server-ltp>
       <client-ltp>LTP-ETH-CTP-ETH-CONTAINER</client-ltp>
       <lp>
+        <uuid>LP-MWS-RADIO</uuid>
         <local-id>
           <value-name>lp-local-id</value-name>
           <value>RADIO</value>
         </local-id>
-        <uuid>LP-MWS-RADIO</uuid>
         <name>
           <value-name>lp-name</value-name>
           <value>LP-MWS-RADIO</value>
@@ -2260,8 +2308,16 @@
           <value>LP-MWS-RADIO</value>
         </label>
         <extension>
-          <value-name>lp-extension</value-name>
-          <value>LP-MWS-RADIO</value>
+          <value-name>capability</value-name>
+          <value>urn:onf:params:xml:ns:yang:microwave-model?module=microwave-model</value>
+        </extension>
+        <extension>
+          <value-name>revision</value-name>
+          <value>2017-03-24</value>
+        </extension>
+        <extension>
+          <value-name>conditional-package</value-name>
+          <value>mw-hybrid-mw-structure-pac</value>
         </extension>
         <operational-state>enabled</operational-state>
         <administrative-control>unlock</administrative-control>

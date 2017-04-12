@@ -37,12 +37,12 @@ static void key_free (xmlChar** key_list, int num_of_entries)
 
 static status_t attach_name_and_value_entry(val_value_t *parentval, const xmlChar* value, const xmlChar* valueName)
 {
-	status_t res = NO_ERR;
+    status_t res = NO_ERR;
 
-	/*
-	 * Creating valueName leaf (it is the key)
-	 */
-	val_value_t  *valueName_val = NULL;
+    /*
+     * Creating valueName leaf (it is the key)
+     */
+    val_value_t  *valueName_val = NULL;
 
     res = create_and_init_child_element(y_core_model_M_core_model,
             y_core_model_N_value_name,
@@ -51,13 +51,13 @@ static status_t attach_name_and_value_entry(val_value_t *parentval, const xmlCha
             valueName,
             y_core_model_M_core_model,
             false);
-	YUMA_ASSERT(NULL == valueName_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_core_model_N_value_name);
+    YUMA_ASSERT(NULL == valueName_val, return ERR_INTERNAL_VAL ,
+                "create_and_init_child_element failed for element=%s", y_core_model_N_value_name);
 
-	/*
-	 * Creating value leaf
-	 */
-	val_value_t  *value_val = NULL;
+    /*
+     * Creating value leaf
+     */
+    val_value_t  *value_val = NULL;
 
     res = create_and_init_child_element(y_core_model_M_core_model,
             y_core_model_N_value,
@@ -66,37 +66,32 @@ static status_t attach_name_and_value_entry(val_value_t *parentval, const xmlCha
             value,
             y_core_model_M_core_model,
             false);
-	YUMA_ASSERT(NULL == value_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_core_model_N_value);
+    YUMA_ASSERT(NULL == value_val, return ERR_INTERNAL_VAL ,
+                "create_and_init_child_element failed for element=%s", y_core_model_N_value);
 
-	return res;
+    return res;
 }
 
 static status_t attach_local_id_list_elements(const xmlChar* prefix, val_value_t *parentval, xmlChar** keys, int num_of_entries)
 {
     status_t res = NO_ERR;
 
-    /*
-     * Creating localIdList list entry
-     */
-    val_value_t  *localIdList_val = NULL;
-
-    res = create_and_init_child_element(y_core_model_M_core_model,
-            y_core_model_N_local_id,
-            parentval,
-            &localIdList_val,
-            NULL,
-            y_core_model_M_core_model,
-            false);
-
-    YUMA_ASSERT(NULL == localIdList_val, return ERR_INTERNAL_VAL ,
-                "create_and_init_child_element failed for element=%s", y_core_model_N_local_id);
-
     for (int i=0; i<num_of_entries; ++i)
     {
-        xmlChar valueName[64];
-        snprintf ((char*)valueName, sizeof(valueName), "%s-local-id", prefix);
-        res = attach_name_and_value_entry(localIdList_val, keys[i], valueName);
+        /* Creating localIdList list entry */
+        val_value_t  *localIdList_val = NULL;
+        res = create_and_init_child_element(y_core_model_M_core_model,
+                y_core_model_N_local_id,
+                parentval,
+                &localIdList_val,
+                NULL,
+                y_core_model_M_core_model,
+                false);
+
+        YUMA_ASSERT(NULL == localIdList_val, return ERR_INTERNAL_VAL ,
+                    "create_and_init_child_element failed for element=%s", y_core_model_N_local_id);
+
+        res = attach_name_and_value_entry(localIdList_val, NULL, keys[i]);
         YUMA_ASSERT(res != NO_ERR, key_free(keys, num_of_entries); return ERR_INTERNAL_VAL , "attach_name_and_value_entry failed");
     }
 
@@ -107,61 +102,53 @@ static status_t attach_local_id_list_elements(const xmlChar* prefix, val_value_t
 
 static status_t attach_name_list_elements(const xmlChar* prefix, val_value_t *parentval, xmlChar** keys, int num_of_entries)
 {
-	status_t res = NO_ERR;
-	val_value_t  *nameList_val = NULL;
+    status_t res = NO_ERR;
 
-    /*
-     * Creating name list entry
-     */
-    res = create_and_init_child_element(y_core_model_M_core_model,
-            y_core_model_N_name,
-            parentval,
-            &nameList_val,
-            NULL,
-            y_core_model_M_core_model,
-            false);
+    for (int i=0; i<num_of_entries; ++i)
+    {
+        /* Creating name list entry */
+        val_value_t  *nameList_val = NULL;
+        res = create_and_init_child_element(y_core_model_M_core_model,
+                y_core_model_N_name,
+                parentval,
+                &nameList_val,
+                NULL,
+                y_core_model_M_core_model,
+                false);
 
-	YUMA_ASSERT(NULL == nameList_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_core_model_N_name);
+        YUMA_ASSERT(NULL == nameList_val, return ERR_INTERNAL_VAL ,
+                "create_and_init_child_element failed for element=%s", y_core_model_N_name);
 
-	for (int i=0; i<num_of_entries; ++i)
-	{
-	    xmlChar valueName[64];
-	    snprintf ((char*)valueName, sizeof(valueName), "%s-name", prefix);
-		res = attach_name_and_value_entry(nameList_val, keys[i], valueName);
-		YUMA_ASSERT(res != NO_ERR, key_free(keys, num_of_entries); return ERR_INTERNAL_VAL , "attach_name_and_value_entry failed");
-	}
+        res = attach_name_and_value_entry(nameList_val, NULL, keys[i]);
+        YUMA_ASSERT(res != NO_ERR, key_free(keys, num_of_entries); return ERR_INTERNAL_VAL , "attach_name_and_value_entry failed");
+    }
 
-	key_free(keys, num_of_entries);
+    key_free(keys, num_of_entries);
 
-	return NO_ERR;
+    return NO_ERR;
 }
 
 static status_t attach_label_list_elements(const xmlChar* prefix, val_value_t *parentval, xmlChar** keys, int num_of_entries)
 {
-	status_t res = NO_ERR;
-	val_value_t  *labelList_val = NULL;
+    status_t res = NO_ERR;
 
-    /*
-     * Creating label list entry
-     */
-    res = create_and_init_child_element(y_core_model_M_core_model,
-            y_core_model_N_label,
-            parentval,
-            &labelList_val,
-            NULL,
-            y_core_model_M_core_model,
-            false);
-	YUMA_ASSERT(NULL == labelList_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_core_model_N_label);
+    for (int i=0; i<num_of_entries; ++i)
+    {
+        /* Creating label list entry */
+        val_value_t  *labelList_val = NULL;
+        res = create_and_init_child_element(y_core_model_M_core_model,
+                y_core_model_N_label,
+                parentval,
+                &labelList_val,
+                NULL,
+                y_core_model_M_core_model,
+                false);
+        YUMA_ASSERT(NULL == labelList_val, return ERR_INTERNAL_VAL ,
+                    "create_and_init_child_element failed for element=%s", y_core_model_N_label);
 
-	for (int i=0; i<num_of_entries; ++i)
-	{
-        xmlChar valueName[64];
-        snprintf ((char*)valueName, sizeof(valueName), "%s-label", prefix);
-        res = attach_name_and_value_entry(labelList_val, keys[i], valueName);
-		YUMA_ASSERT(res != NO_ERR, key_free(keys, num_of_entries); return ERR_INTERNAL_VAL , "attach_name_and_value_entry failed");
-	}
+        res = attach_name_and_value_entry(labelList_val, NULL, keys[i]);
+        YUMA_ASSERT(res != NO_ERR, key_free(keys, num_of_entries); return ERR_INTERNAL_VAL , "attach_name_and_value_entry failed");
+    }
 
     key_free(keys, num_of_entries);
 
@@ -170,44 +157,39 @@ static status_t attach_label_list_elements(const xmlChar* prefix, val_value_t *p
 
 static status_t attach_extension_list_elements(const xmlChar* prefix, val_value_t *parentval, xmlChar** keys, int num_of_entries)
 {
-	status_t res = NO_ERR;
+    status_t res = NO_ERR;
 
-	/*
-	 * Creating extension list entry
-	 */
-	val_value_t  *extensionList_val = NULL;
+    for (int i=0; i<num_of_entries; ++i)
+    {
+        /*Creating extension list entry */
+        val_value_t  *extensionList_val = NULL;
+        res = create_and_init_child_element(y_core_model_M_core_model,
+                y_core_model_N_extension,
+                parentval,
+                &extensionList_val,
+                NULL,
+                y_core_model_M_core_model,
+                false);
+        YUMA_ASSERT(NULL == extensionList_val, return ERR_INTERNAL_VAL ,
+                "create_and_init_child_element failed for element=%s", y_core_model_N_extension);
 
-    res = create_and_init_child_element(y_core_model_M_core_model,
-            y_core_model_N_extension,
-            parentval,
-            &extensionList_val,
-            NULL,
-            y_core_model_M_core_model,
-            false);
-	YUMA_ASSERT(NULL == extensionList_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_core_model_N_extension);
+        res = attach_name_and_value_entry(extensionList_val, NULL, keys[i]);
+        YUMA_ASSERT(res != NO_ERR, key_free(keys, num_of_entries); return ERR_INTERNAL_VAL , "attach_name_and_value_entry failed");
+    }
 
-	for (int i=0; i<num_of_entries; ++i)
-	{
-        xmlChar valueName[64];
-        snprintf ((char*)valueName, sizeof(valueName), "%s-extension", prefix);
-        res = attach_name_and_value_entry(extensionList_val, keys[i], valueName);
-		YUMA_ASSERT(res != NO_ERR, key_free(keys, num_of_entries); return ERR_INTERNAL_VAL , "attach_name_and_value_entry failed");
-	}
+    key_free(keys, num_of_entries);
 
-	key_free(keys, num_of_entries);
-
-	return NO_ERR;
+    return NO_ERR;
 }
 
 static status_t attach_state_pac_elements(val_value_t *parentval)
 {
-	status_t res = NO_ERR;
+    status_t res = NO_ERR;
 
-	/*
-	 * Creating operational-state leaf
-	 */
-	val_value_t  *operationalState_val = NULL;
+    /*
+     * Creating operational-state leaf
+     */
+    val_value_t  *operationalState_val = NULL;
 
     res = create_and_init_child_element(y_core_model_M_core_model,
             y_core_model_N_operational_state,
@@ -216,13 +198,13 @@ static status_t attach_state_pac_elements(val_value_t *parentval)
             NULL,
             y_core_model_M_core_model,
             false);
-	YUMA_ASSERT(NULL == operationalState_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_core_model_N_operational_state);
+    YUMA_ASSERT(NULL == operationalState_val, return ERR_INTERNAL_VAL ,
+                "create_and_init_child_element failed for element=%s", y_core_model_N_operational_state);
 
-	/*
-	 * Creating administrative-control leaf
-	 */
-	val_value_t  *administrativeControl_val = NULL;
+    /*
+     * Creating administrative-control leaf
+     */
+    val_value_t  *administrativeControl_val = NULL;
 
     res = create_and_init_child_element(y_core_model_M_core_model,
             y_core_model_N_administrative_control,
@@ -231,13 +213,13 @@ static status_t attach_state_pac_elements(val_value_t *parentval)
             NULL,
             y_core_model_M_core_model,
             false);
-	YUMA_ASSERT(NULL == administrativeControl_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_core_model_N_administrative_control);
+    YUMA_ASSERT(NULL == administrativeControl_val, return ERR_INTERNAL_VAL ,
+                "create_and_init_child_element failed for element=%s", y_core_model_N_administrative_control);
 
-	/*
-	 * Creating administratives-state leaf
-	 */
-	val_value_t  *administrativeState_val = NULL;
+    /*
+     * Creating administratives-state leaf
+     */
+    val_value_t  *administrativeState_val = NULL;
 
     res = create_and_init_child_element(y_core_model_M_core_model,
             y_core_model_N_administrative_state,
@@ -246,13 +228,13 @@ static status_t attach_state_pac_elements(val_value_t *parentval)
             NULL,
             y_core_model_M_core_model,
             false);
-	YUMA_ASSERT(NULL == administrativeState_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_core_model_N_administrative_state);
+    YUMA_ASSERT(NULL == administrativeState_val, return ERR_INTERNAL_VAL ,
+                "create_and_init_child_element failed for element=%s", y_core_model_N_administrative_state);
 
-	/*
-	 * Creating lifecycle-state leaf
-	 */
-	val_value_t  *lifecycleState_val = NULL;
+    /*
+     * Creating lifecycle-state leaf
+     */
+    val_value_t  *lifecycleState_val = NULL;
 
     res = create_and_init_child_element(y_core_model_M_core_model,
             y_core_model_N_lifecycle_state,
@@ -261,10 +243,10 @@ static status_t attach_state_pac_elements(val_value_t *parentval)
             NULL,
             y_core_model_M_core_model,
             false);
-	YUMA_ASSERT(NULL == administrativeState_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_core_model_N_lifecycle_state);
+    YUMA_ASSERT(NULL == administrativeState_val, return ERR_INTERNAL_VAL ,
+                "create_and_init_child_element failed for element=%s", y_core_model_N_lifecycle_state);
 
-	return res;
+    return res;
 }
 
 static status_t attach_class_elements(xmlChar** nested_key, int num_of_nested_key, val_value_t *parentval, const xmlChar* uuid, const xmlChar* prefix)
@@ -272,11 +254,6 @@ static status_t attach_class_elements(xmlChar** nested_key, int num_of_nested_ke
     status_t res = NO_ERR;
     xmlChar *entry_list[MAX_NUMBER_OF_CORE_MODEL_VALUES];
     int num_of_entries = 0;
-
-    res = key_get_all_localid_list_by_uuid(nested_key, num_of_nested_key, uuid, entry_list, &num_of_entries);
-    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "key_get_all_localid_list_by_uuid failed!");
-    res = attach_local_id_list_elements(prefix, parentval, entry_list, num_of_entries);
-    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_local_id_list_elements failed ");
 
     val_value_t  *uuid_val = NULL;
     res = create_and_init_child_element(y_core_model_M_core_model,
@@ -288,6 +265,11 @@ static status_t attach_class_elements(xmlChar** nested_key, int num_of_nested_ke
             false);
     YUMA_ASSERT(NULL == uuid_val, return ERR_INTERNAL_VAL ,
                 "create_and_init_child_element failed for element=%s", y_core_model_N_uuid);
+
+    res = key_get_all_localid_list_by_uuid(nested_key, num_of_nested_key, uuid, entry_list, &num_of_entries);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "key_get_all_localid_list_by_uuid failed!");
+    res = attach_local_id_list_elements(prefix, parentval, entry_list, num_of_entries);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_local_id_list_elements failed ");
 
     res = key_get_all_name_list_by_uuid(nested_key, num_of_nested_key, uuid, entry_list, &num_of_entries);
     YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "key_get_all_name_by_uuid failed!");
@@ -312,48 +294,48 @@ static status_t attach_class_elements(xmlChar** nested_key, int num_of_nested_ke
 
 static status_t attach_server_and_client_list_elements(xmlChar** nested_key, int num_of_nested_key, val_value_t *parentval)
 {
-	status_t res = NO_ERR;
+    status_t res = NO_ERR;
 
-	xmlChar* server_ltp_leaf_list[MAX_NUMBER_OF_SERVER_CLIENT_REF_ENTRIES];
-	xmlChar* client_ltp_leaf_list[MAX_NUMBER_OF_SERVER_CLIENT_REF_ENTRIES];
-	int num_of_entries;
+    xmlChar* server_ltp_leaf_list[MAX_NUMBER_OF_SERVER_CLIENT_REF_ENTRIES];
+    xmlChar* client_ltp_leaf_list[MAX_NUMBER_OF_SERVER_CLIENT_REF_ENTRIES];
+    int num_of_entries;
 
-	val_value_t *lastkey = NULL;
-	const xmlChar *k_ltpRefList_uuid_key = VAL_STRING(agt_get_key_value(parentval, &lastkey));
+    val_value_t *lastkey = NULL;
+    const xmlChar *k_ltpRefList_uuid_key = VAL_STRING(agt_get_key_value(parentval, &lastkey));
 
-	num_of_entries = 0;  /* take care */
-	res = key_get_server_by_uuid(nested_key, num_of_nested_key, k_ltpRefList_uuid_key, server_ltp_leaf_list, &num_of_entries);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "key_get_server_by_uuid failed!");
+    num_of_entries = 0;  /* take care */
+    res = key_get_server_by_uuid(nested_key, num_of_nested_key, k_ltpRefList_uuid_key, server_ltp_leaf_list, &num_of_entries);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "key_get_server_by_uuid failed!");
 
-	for (int i=0; i<num_of_entries; ++i)
-	{
-		/*
-		 * Creating _serverLtpRefList leaf-list
-		 */
-		val_value_t  *_serverLtpRefList_val = NULL;
+    for (int i=0; i<num_of_entries; ++i)
+    {
+        /*
+         * Creating _serverLtpRefList leaf-list
+         */
+        val_value_t  *_serverLtpRefList_val = NULL;
 
-	    res = create_and_init_child_element(y_core_model_M_core_model,
-	            y_core_model_N_server_ltp,
-	            parentval,
-	            &_serverLtpRefList_val,
-	            server_ltp_leaf_list[i],
-	            y_core_model_M_core_model,
-	            false);
-		YUMA_ASSERT(NULL == _serverLtpRefList_val, key_free(server_ltp_leaf_list, num_of_entries); return ERR_INTERNAL_VAL ,
-					"create_and_init_child_element failed for element=%s", y_core_model_N_server_ltp);
-	}
-	key_free(server_ltp_leaf_list, num_of_entries);
+        res = create_and_init_child_element(y_core_model_M_core_model,
+                y_core_model_N_server_ltp,
+                parentval,
+                &_serverLtpRefList_val,
+                server_ltp_leaf_list[i],
+                y_core_model_M_core_model,
+                false);
+        YUMA_ASSERT(NULL == _serverLtpRefList_val, key_free(server_ltp_leaf_list, num_of_entries); return ERR_INTERNAL_VAL ,
+                    "create_and_init_child_element failed for element=%s", y_core_model_N_server_ltp);
+    }
+    key_free(server_ltp_leaf_list, num_of_entries);
 
-	num_of_entries = 0;  /* take care */
-	res = key_get_client_by_uuid(nested_key, num_of_nested_key, k_ltpRefList_uuid_key, client_ltp_leaf_list, &num_of_entries);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "key_get_client_by_uuid failed!");
+    num_of_entries = 0;  /* take care */
+    res = key_get_client_by_uuid(nested_key, num_of_nested_key, k_ltpRefList_uuid_key, client_ltp_leaf_list, &num_of_entries);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "key_get_client_by_uuid failed!");
 
-	for (int i=0; i<num_of_entries; ++i)
-	{
-		/*
-		 * Creating _clientLtpRefList leaf-list
-		 */
-		val_value_t  *_clientLtpRefList_val = NULL;
+    for (int i=0; i<num_of_entries; ++i)
+    {
+        /*
+         * Creating _clientLtpRefList leaf-list
+         */
+        val_value_t  *_clientLtpRefList_val = NULL;
 
         res = create_and_init_child_element(y_core_model_M_core_model,
                 y_core_model_N_client_ltp,
@@ -362,22 +344,22 @@ static status_t attach_server_and_client_list_elements(xmlChar** nested_key, int
                 client_ltp_leaf_list[i],
                 y_core_model_M_core_model,
                 false);
-		YUMA_ASSERT(NULL == _clientLtpRefList_val, key_free(client_ltp_leaf_list, num_of_entries); return ERR_INTERNAL_VAL ,
-					"create_and_init_child_element failed for element=%s", y_core_model_N_client_ltp);
-	}
-	key_free(client_ltp_leaf_list, num_of_entries);
+        YUMA_ASSERT(NULL == _clientLtpRefList_val, key_free(client_ltp_leaf_list, num_of_entries); return ERR_INTERNAL_VAL ,
+                    "create_and_init_child_element failed for element=%s", y_core_model_N_client_ltp);
+    }
+    key_free(client_ltp_leaf_list, num_of_entries);
 
-	return NO_ERR;
+    return NO_ERR;
 }
 
 static status_t attach_lp_list_elements(xmlChar** nested_key, int num_of_nested_key, val_value_t *parentval, xmlChar* lpUuid)
 {
-	status_t res = NO_ERR;
+    status_t res = NO_ERR;
 
-	/*
-	 * Creating lp list entry
-	 */
-	val_value_t  *lp_list_val = NULL;
+    /*
+     * Creating lp list entry
+     */
+    val_value_t  *lp_list_val = NULL;
 
     res = create_and_init_child_element(y_core_model_M_core_model,
             y_core_model_N_lp,
@@ -386,19 +368,19 @@ static status_t attach_lp_list_elements(xmlChar** nested_key, int num_of_nested_
             NULL,
             y_core_model_M_core_model,
             false);
-	YUMA_ASSERT(NULL == lp_list_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_core_model_N_lp);
+    YUMA_ASSERT(NULL == lp_list_val, return ERR_INTERNAL_VAL ,
+                "create_and_init_child_element failed for element=%s", y_core_model_N_lp);
 
-	nested_key[num_of_nested_key++] = lpUuid;
+    nested_key[num_of_nested_key++] = lpUuid;
 
     /* local-class: it contains the key hence it must be create before of all other objects */
     res = attach_class_elements(nested_key, num_of_nested_key, lp_list_val, lpUuid, (const xmlChar*)"lp");
     YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_class_elements failed");
 
-	/*
-	 * Creating layer-protocol-name leaf
-	 */
-	val_value_t  *layer_protocol_name_val = NULL;
+    /*
+     * Creating layer-protocol-name leaf
+     */
+    val_value_t  *layer_protocol_name_val = NULL;
 
     res = create_and_init_child_element(y_core_model_M_core_model,
             y_core_model_N_layer_protocol_name,
@@ -407,13 +389,13 @@ static status_t attach_lp_list_elements(xmlChar** nested_key, int num_of_nested_
             NULL,
             y_core_model_M_core_model,
             false);
-	YUMA_ASSERT(NULL == layer_protocol_name_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_core_model_N_layer_protocol_name);
+    YUMA_ASSERT(NULL == layer_protocol_name_val, return ERR_INTERNAL_VAL ,
+                "create_and_init_child_element failed for element=%s", y_core_model_N_layer_protocol_name);
 
-	/*
-	 * Creating configured-client-capacity leaf
-	 */
-	val_value_t  *configured_client_capacity_val = NULL;
+    /*
+     * Creating configured-client-capacity leaf
+     */
+    val_value_t  *configured_client_capacity_val = NULL;
 
     res = create_and_init_child_element(y_core_model_M_core_model,
             y_core_model_N_configured_client_capacity,
@@ -422,13 +404,13 @@ static status_t attach_lp_list_elements(xmlChar** nested_key, int num_of_nested_
             NULL,
             y_core_model_M_core_model,
             false);
-	YUMA_ASSERT(NULL == configured_client_capacity_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_core_model_N_configured_client_capacity);
+    YUMA_ASSERT(NULL == configured_client_capacity_val, return ERR_INTERNAL_VAL ,
+                "create_and_init_child_element failed for element=%s", y_core_model_N_configured_client_capacity);
 
-	/*
-	 * Creating lp-direction leaf
-	 */
-	val_value_t  *lp_direction_val = NULL;
+    /*
+     * Creating lp-direction leaf
+     */
+    val_value_t  *lp_direction_val = NULL;
 
     res = create_and_init_child_element(y_core_model_M_core_model,
             y_core_model_N_lp_direction,
@@ -437,13 +419,13 @@ static status_t attach_lp_list_elements(xmlChar** nested_key, int num_of_nested_
             NULL,
             y_core_model_M_core_model,
             false);
-	YUMA_ASSERT(NULL == lp_direction_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_core_model_N_lp_direction);
+    YUMA_ASSERT(NULL == lp_direction_val, return ERR_INTERNAL_VAL ,
+                "create_and_init_child_element failed for element=%s", y_core_model_N_lp_direction);
 
-	/*
-	 * Creating termination-state leaf
-	 */
-	val_value_t  *termination_state_val = NULL;
+    /*
+     * Creating termination-state leaf
+     */
+    val_value_t  *termination_state_val = NULL;
 
     res = create_and_init_child_element(y_core_model_M_core_model,
             y_core_model_N_termination_state,
@@ -452,14 +434,14 @@ static status_t attach_lp_list_elements(xmlChar** nested_key, int num_of_nested_
             NULL,
             y_core_model_M_core_model,
             false);
-	YUMA_ASSERT(NULL == termination_state_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_core_model_N_termination_state);
+    YUMA_ASSERT(NULL == termination_state_val, return ERR_INTERNAL_VAL ,
+                "create_and_init_child_element failed for element=%s", y_core_model_N_termination_state);
 
     /*
      * Creating config-and-switch-controller leaf
      */
 
-	/* FIXME: it is a structured type!!! */
+    /* FIXME: it is a structured type!!! */
 #if 0
     val_value_t  *config_and_switch_controller_val = NULL;
 
@@ -505,7 +487,7 @@ static status_t attach_lp_list_elements(xmlChar** nested_key, int num_of_nested_
     YUMA_ASSERT(NULL == fc_blocks_signal_to_lp, return ERR_INTERNAL_VAL ,
                 "create_and_init_child_element failed for element=%s", y_core_model_N_fc_blocks_signal_to_lp);
 
-	return NO_ERR;
+    return NO_ERR;
 }
 
 static status_t attach_ltp_physical_port_reference_list_elements(xmlChar** nested_key, int num_of_nested_key, val_value_t *parentval)
@@ -544,23 +526,23 @@ static status_t attach_ltp_physical_port_reference_list_elements(xmlChar** neste
 
 static status_t attach_ltp_in_other_view_list_elements(xmlChar** nested_key, int num_of_nested_key, val_value_t *parentval)
 {
-	status_t res = NO_ERR;
+    status_t res = NO_ERR;
 
-	xmlChar* ltp_ref_leaf_list[MAX_NUMBER_OF_SERVER_CLIENT_REF_ENTRIES];
-	int num_of_entries;
+    xmlChar* ltp_ref_leaf_list[MAX_NUMBER_OF_SERVER_CLIENT_REF_ENTRIES];
+    int num_of_entries;
 
-	val_value_t *lastkey = NULL;
-	xmlChar *k_ltpRefList_uuid_key = VAL_STRING(agt_get_key_value(parentval, &lastkey));
+    val_value_t *lastkey = NULL;
+    xmlChar *k_ltpRefList_uuid_key = VAL_STRING(agt_get_key_value(parentval, &lastkey));
 
-	res = key_get_all_ltp_in_other_view(nested_key, num_of_nested_key, k_ltpRefList_uuid_key, ltp_ref_leaf_list, &num_of_entries);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "key_get_all_ltp_ref_leaf_list_elements_for_ltp failed!");
+    res = key_get_all_ltp_in_other_view(nested_key, num_of_nested_key, k_ltpRefList_uuid_key, ltp_ref_leaf_list, &num_of_entries);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "key_get_all_ltp_ref_leaf_list_elements_for_ltp failed!");
 
-	for (int i=0; i<num_of_entries; ++i)
-	{
-		/*
-		 * Creating _ltpRefList leaf-list
-		 */
-		val_value_t  *ltp_in_other_view_val = NULL;
+    for (int i=0; i<num_of_entries; ++i)
+    {
+        /*
+         * Creating _ltpRefList leaf-list
+         */
+        val_value_t  *ltp_in_other_view_val = NULL;
 
         res = create_and_init_child_element(y_core_model_M_core_model,
                 y_core_model_N_ltp_in_other_view,
@@ -569,21 +551,21 @@ static status_t attach_ltp_in_other_view_list_elements(xmlChar** nested_key, int
                 ltp_ref_leaf_list[i],
                 y_core_model_M_core_model,
                 false);
-		YUMA_ASSERT(NULL == ltp_in_other_view_val, key_free(ltp_ref_leaf_list, num_of_entries); return ERR_INTERNAL_VAL ,
-					"create_and_init_child_element failed for element=%s", y_core_model_N_ltp_in_other_view);
-	}
-	key_free(ltp_ref_leaf_list, num_of_entries);
-	return NO_ERR;
+        YUMA_ASSERT(NULL == ltp_in_other_view_val, key_free(ltp_ref_leaf_list, num_of_entries); return ERR_INTERNAL_VAL ,
+                    "create_and_init_child_element failed for element=%s", y_core_model_N_ltp_in_other_view);
+    }
+    key_free(ltp_ref_leaf_list, num_of_entries);
+    return NO_ERR;
 }
 
 static status_t attach_ltp_list_elements(xmlChar** nested_key, int num_of_nested_key, val_value_t *parentval, xmlChar* ltpUuid)
 {
-	status_t res = NO_ERR;
+    status_t res = NO_ERR;
 
-	/*
-	 * Creating ltpRefList list entry
-	 */
-	val_value_t  *ltp_list_val = NULL;
+    /*
+     * Creating ltpRefList list entry
+     */
+    val_value_t  *ltp_list_val = NULL;
 
     res = create_and_init_child_element(y_core_model_M_core_model,
             y_core_model_N_ltp,
@@ -592,10 +574,10 @@ static status_t attach_ltp_list_elements(xmlChar** nested_key, int num_of_nested
             NULL,
             y_core_model_M_core_model,
             false);
-	YUMA_ASSERT(NULL == ltp_list_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_core_model_N_ltp);
+    YUMA_ASSERT(NULL == ltp_list_val, return ERR_INTERNAL_VAL ,
+                "create_and_init_child_element failed for element=%s", y_core_model_N_ltp);
 
-	nested_key[num_of_nested_key++] = ltpUuid;
+    nested_key[num_of_nested_key++] = ltpUuid;
     /* global-class: it contains the key hence it must be create before of all other objects */
     res = attach_class_elements(nested_key, num_of_nested_key, ltp_list_val, ltpUuid, (const xmlChar*)"ltp");
     YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_class_elements failed");
@@ -609,26 +591,26 @@ static status_t attach_ltp_list_elements(xmlChar** nested_key, int num_of_nested
     /*
      * Creating Lp list
      */
- 	xmlChar* lp_ref_uuid_list[MAX_NUMBER_OF_LTP_REF_ENTRIES];
- 	int num_of_entries;
+     xmlChar* lp_ref_uuid_list[MAX_NUMBER_OF_LTP_REF_ENTRIES];
+     int num_of_entries;
 
- 	res = key_get_lp_list_by_ltp(nested_key, num_of_nested_key, ltpUuid, lp_ref_uuid_list, &num_of_entries);
- 	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "key_get_lp_list_by_ltp failed!");
+     res = key_get_lp_list_by_ltp(nested_key, num_of_nested_key, ltpUuid, lp_ref_uuid_list, &num_of_entries);
+     YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL, "key_get_lp_list_by_ltp failed!");
 
- 	for (int i=0; i<num_of_entries; ++i)
- 	{
- 		res = attach_lp_list_elements(nested_key, num_of_nested_key, ltp_list_val, lp_ref_uuid_list[i]);
- 		YUMA_ASSERT(res != NO_ERR, key_free(lp_ref_uuid_list, num_of_entries); return ERR_INTERNAL_VAL ,
- 		            "attach_lp_list_elements failed ");
- 	}
- 	key_free(lp_ref_uuid_list, num_of_entries);
+     for (int i=0; i<num_of_entries; ++i)
+     {
+         res = attach_lp_list_elements(nested_key, num_of_nested_key, ltp_list_val, lp_ref_uuid_list[i]);
+         YUMA_ASSERT(res != NO_ERR, key_free(lp_ref_uuid_list, num_of_entries); return ERR_INTERNAL_VAL ,
+                     "attach_lp_list_elements failed ");
+     }
+     key_free(lp_ref_uuid_list, num_of_entries);
 
 
 #ifdef EMPTY_CONNECTED_LTP_DOES_NOT_RESULT_IN_A_VALIDATE_ERROR
-	/*
-	 * Creating connected-Ltp leaf
-	 */
-	val_value_t  *connected_ltp_val = NULL;
+    /*
+     * Creating connected-Ltp leaf
+     */
+    val_value_t  *connected_ltp_val = NULL;
 
     res = create_and_init_child_element(y_core_model_M_core_model,
             y_core_model_N_connected_ltp,
@@ -637,15 +619,15 @@ static status_t attach_ltp_list_elements(xmlChar** nested_key, int num_of_nested
             NULL,
             y_core_model_M_core_model,
             false);
-	YUMA_ASSERT(NULL == connected_ltp_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_core_model_N_connected_ltp);
+    YUMA_ASSERT(NULL == connected_ltp_val, return ERR_INTERNAL_VAL ,
+                "create_and_init_child_element failed for element=%s", y_core_model_N_connected_ltp);
 #endif
 
 #ifdef EMPTY_PEER_LTP_DOES_NOT_RESULT_IN_A_VALIDATE_ERROR
-	/*
-	 * Creating peer-ltp leaf
-	 */
-	val_value_t  *peer_ltp_val = NULL;
+    /*
+     * Creating peer-ltp leaf
+     */
+    val_value_t  *peer_ltp_val = NULL;
 
     res = create_and_init_child_element(y_core_model_M_core_model,
             y_core_model_N_peer_ltp,
@@ -654,26 +636,26 @@ static status_t attach_ltp_list_elements(xmlChar** nested_key, int num_of_nested
             NULL,
             y_core_model_M_core_model,
             false);
-	YUMA_ASSERT(NULL == peer_ltp_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_core_model_N_peer_ltp);
+    YUMA_ASSERT(NULL == peer_ltp_val, return ERR_INTERNAL_VAL ,
+                "create_and_init_child_element failed for element=%s", y_core_model_N_peer_ltp);
 #endif
 
-	/*
-	 * Creating physical-port-reference leaf-list
-	 */
+    /*
+     * Creating physical-port-reference leaf-list
+     */
     res = attach_ltp_physical_port_reference_list_elements(nested_key, num_of_nested_key, ltp_list_val);
     YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_ltp_physical_port_reference_list_elements failed");
 
     /*
      * Creating ltp-in-other-view leaf-list
      */
-	res = attach_ltp_in_other_view_list_elements(nested_key, num_of_nested_key, ltp_list_val);
-	YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_ltp_in_other_view_list_elements failed");
+    res = attach_ltp_in_other_view_list_elements(nested_key, num_of_nested_key, ltp_list_val);
+    YUMA_ASSERT(res != NO_ERR, return ERR_INTERNAL_VAL , "attach_ltp_in_other_view_list_elements failed");
 
-	/*
-	 * Creating ltp-direction leaf
-	 */
-	val_value_t  *ltp_direction_val = NULL;
+    /*
+     * Creating ltp-direction leaf
+     */
+    val_value_t  *ltp_direction_val = NULL;
 
     res = create_and_init_child_element(y_core_model_M_core_model,
             y_core_model_N_ltp_direction,
@@ -682,10 +664,10 @@ static status_t attach_ltp_list_elements(xmlChar** nested_key, int num_of_nested
             NULL,
             y_core_model_M_core_model,
             false);
-	YUMA_ASSERT(NULL == ltp_direction_val, return ERR_INTERNAL_VAL ,
-				"create_and_init_child_element failed for element=%s", y_core_model_N_ltp_direction);
+    YUMA_ASSERT(NULL == ltp_direction_val, return ERR_INTERNAL_VAL ,
+                "create_and_init_child_element failed for element=%s", y_core_model_N_ltp_direction);
 
-	return NO_ERR;
+    return NO_ERR;
 }
 
 static status_t build_network_element_tree_and_attach_to_running_cfg(cfg_template_t *runningcfg)
@@ -704,11 +686,11 @@ static status_t build_network_element_tree_and_attach_to_running_cfg(cfg_templat
     val_value_t *network_element_val = NULL;
 
     res = create_root_element_for_module(y_core_model_M_core_model,
-    		y_core_model_R_core_model,
-    		y_core_model_N_network_element,
-    		&network_element_val);
+            y_core_model_R_core_model,
+            y_core_model_N_network_element,
+            &network_element_val);
     YUMA_ASSERT(NULL == network_element_val, return ERR_INTERNAL_VAL ,
-    		"create_root_element_for_module failed for element=%s", y_core_model_N_network_element);
+            "create_root_element_for_module failed for element=%s", y_core_model_N_network_element);
 
     val_add_child(network_element_val, runningcfg->root);
 
@@ -739,8 +721,8 @@ static status_t build_network_element_tree_and_attach_to_running_cfg(cfg_templat
 
     for (int i=0; i<num_of_entries; ++i)
     {
-    	res = attach_ltp_list_elements(nested_key, num_of_nested_key, network_element_val, ltp_uuid_list[i]);
-    	YUMA_ASSERT(res != NO_ERR, key_free(ltp_uuid_list, num_of_entries); return ERR_INTERNAL_VAL , "attach_ltp_list_elements failed ");
+        res = attach_ltp_list_elements(nested_key, num_of_nested_key, network_element_val, ltp_uuid_list[i]);
+        YUMA_ASSERT(res != NO_ERR, key_free(ltp_uuid_list, num_of_entries); return ERR_INTERNAL_VAL , "attach_ltp_list_elements failed ");
     }
 
     key_free(ltp_uuid_list, num_of_entries);
