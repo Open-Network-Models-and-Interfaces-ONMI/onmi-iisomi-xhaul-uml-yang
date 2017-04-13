@@ -3,7 +3,7 @@
   <mw-air-interface-pac>
     <layer-protocol>LP-MWPS-TTP-RADIO</layer-protocol>
     <air-interface-capability>
-      <type-of-equipment>ALFO80HD (High)</type-of-equipment>
+      <type-of-equipment>DEFAULT-VALUE-MEDIATOR</type-of-equipment>
       <tx-frequency-min>81000000</tx-frequency-min>
       <tx-frequency-max>86000000</tx-frequency-max>
       <rx-frequency-min>71000000</rx-frequency-min>
@@ -2070,7 +2070,7 @@
         <administrative-control>unlock</administrative-control>
         <administrative-state>unlocked</administrative-state>
         <lifecycle-state>installed</lifecycle-state>
-        <layer-protocol-name/>
+        <layer-protocol-name>MWPS</layer-protocol-name>
         <configured-client-capacity/>
         <lp-direction>bidirectional</lp-direction>
         <termination-state>terminated-server-to-client-flow</termination-state>
@@ -2133,7 +2133,7 @@
         <administrative-control>unlock</administrative-control>
         <administrative-state>unlocked</administrative-state>
         <lifecycle-state>installed</lifecycle-state>
-        <layer-protocol-name/>
+        <layer-protocol-name>ETH</layer-protocol-name>
         <configured-client-capacity/>
         <lp-direction>bidirectional</lp-direction>
         <termination-state>terminated-server-to-client-flow</termination-state>
@@ -2196,7 +2196,7 @@
         <administrative-control>unlock</administrative-control>
         <administrative-state>unlocked</administrative-state>
         <lifecycle-state>installed</lifecycle-state>
-        <layer-protocol-name/>
+        <layer-protocol-name>TDM</layer-protocol-name>
         <configured-client-capacity/>
         <lp-direction>bidirectional</lp-direction>
         <termination-state>terminated-server-to-client-flow</termination-state>
@@ -2259,7 +2259,7 @@
         <administrative-control>unlock</administrative-control>
         <administrative-state>unlocked</administrative-state>
         <lifecycle-state>installed</lifecycle-state>
-        <layer-protocol-name/>
+        <layer-protocol-name>TDM</layer-protocol-name>
         <configured-client-capacity/>
         <lp-direction>bidirectional</lp-direction>
         <termination-state>terminated-server-to-client-flow</termination-state>
@@ -2323,7 +2323,7 @@
         <administrative-control>unlock</administrative-control>
         <administrative-state>unlocked</administrative-state>
         <lifecycle-state>installed</lifecycle-state>
-        <layer-protocol-name/>
+        <layer-protocol-name>MWS</layer-protocol-name>
         <configured-client-capacity/>
         <lp-direction>bidirectional</lp-direction>
         <termination-state>terminated-server-to-client-flow</termination-state>
