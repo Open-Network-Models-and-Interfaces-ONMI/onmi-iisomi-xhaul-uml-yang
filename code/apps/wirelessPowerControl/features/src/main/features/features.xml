@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vi: set et smarttab sw=4 tabstop=4: -->
+<!--
+Copyright © 2016 highstreet technologies GmbH and others. All rights reserved.
+
+This program and the accompanying materials are made available under the
+terms of the Eclipse Public License v1.0 which accompanies this distribution,
+and is available at http://www.eclipse.org/legal/epl-v10.html
+-->
+<features name="odl-wirelessPowerControl-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
+  <repository>mvn:org.opendaylight.yangtools/features-yangtools/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.controller/features-mdsal/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.mdsal.model/features-mdsal-model/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.netconf/features-restconf/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.dlux/features-dlux/{{VERSION}}/xml/features</repository>
+
+  <feature name='odl-wirelessPowerControl' version='${project.version}' description='OpenDaylight :: wirelessPowerControl'>
+    <feature version='${mdsal.version}'>odl-mdsal-broker</feature>
+    <feature version='${mdsal.model.version}'>odl-mdsal-models</feature>
+    <feature version='${project.version}'>odl-mwt-models</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.app/wirelessPowerControl-impl/{{VERSION}}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.app/wirelessPowerControl-api/{{VERSION}}</bundle>
+    <configfile finalname="etc/opendaylight/karaf/wirelessPowerControl-config.xml">mvn:com.highstreet.technologies.odl.app/wirelessPowerControl-controller-config/{{VERSION}}/xml/config</configfile>
+  </feature>
+
+</features>
