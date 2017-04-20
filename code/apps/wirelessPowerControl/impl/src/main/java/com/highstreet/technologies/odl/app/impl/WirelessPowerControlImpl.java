@@ -29,7 +29,6 @@ import org.opendaylight.controller.md.sal.common.api.data.TransactionChain;
 import org.opendaylight.controller.md.sal.common.api.data.TransactionChainListener;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker;
 import org.opendaylight.controller.sal.binding.api.RpcProviderRegistry;
-import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.typedefinitions.rev160902.ChannelPlanType;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.UniversalId;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.MwAirInterfacePac;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.MwAirInterfacePacBuilder;
@@ -486,8 +485,8 @@ class TimerJob implements Runnable {
 
 	@Override
 	public void run() {
-//		LOG.info("Timer start ");
-//		impl.processNetworkDevices();
-//		LOG.info("Timer end ");
+		LOG.info("Timer start ");
+		impl.processNetworkDevices();
+		LOG.info("Timer end ");
 	}
 }
