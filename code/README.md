@@ -34,13 +34,12 @@ These instructions should also work on other Debian derivative distributions.
       sudo update-alternatives --set javac /usr/lib/jvm/jdk1.8.0_60/bin/javac
       ```
       
-      Add the following lines at the end of the profile file 
-      ```
-      sudo vi /etc/profile
+      Add the following two lines at the end of the profile file 
       ```
       export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_60 
       export PATH=$PATH:$JAVA_HOME/bin       
-      
+      ```
+      ... and activate the profile.
       ```
       source /etc/profile
       ```
