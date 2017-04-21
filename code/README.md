@@ -20,16 +20,38 @@ These instructions should also work on other Debian derivative distributions.
 ### Step #1 Preparations
 
   - java-jdk: the Java development kit.
+  
+    Java8 is mandatory, below one of thousend procedures to install java8 on ubuntu.
 
       ```
-      sudo add-apt-repository ppa:webupd8team/java
-      sudo apt-get update
-      sudo apt-get install oracle-java8-installer
-      sudo apt-get install oracle-java8-set-default
-      export JAVA_HOME="/usr/lib/jvm/java-8-oracle"
+      wget http://www.java.net/download/jdk8u60/archive/b07/binaries/jdk-8u60-ea-bin-b07-linux-x64-17_mar_2015.tar.gzsudo tar -xzvf jdk-8u60-ea-bin-b07-linux-x64-17_mar_2015.tar.gz
+      sudo mkdir /usr/lib/jvm
+      sudo mv ~/jdk1.8.0_60/ /usr/lib/jvm/
+      sudo chown -R root:root /usr/lib/jvm/jdk1.8.0_60/
+      sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/jdk1.8.0_60/bin/java" 0
+      sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/lib/jvm/jdk1.8.0_60/bin/javac" 0
+      sudo update-alternatives --set java /usr/lib/jvm/jdk1.8.0_60/bin/java
+      sudo update-alternatives --set javac /usr/lib/jvm/jdk1.8.0_60/bin/javac
       ```
-      Feel free to add the JAVA_HOME variable to /etc/environment.
       
+      Add the following lines at the end of the profile file 
+      ```
+      sudo vi /etc/profile
+      ```
+      export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_60 
+      export PATH=$PATH:$JAVA_HOME/bin       
+      
+      ```
+      source /etc/profile
+      ```
+      
+      Verify java installation : 
+      ```
+      update-alternatives --list java
+      update-alternatives --list javac
+      echo $JAVA_HOME
+      java -version
+      ```
       
   - maven: the Apache build manager for Java projects.
            Follow the [maven installation](https://maven.apache.org/install.html) instructions.
@@ -109,7 +131,7 @@ drwxrwxr-x  6 your_user_name your_user_name 4096 Okt 25 17:18 elasticsearch-head
 The 4th ONF Wireless PoC applications are developed for OpenDaylight Boron-SR1 release.
 
 ```
-wget https://nexus.opendaylight.org/content/groups/public/org/opendaylight/integration/distribution-karaf/0.5.1-Boron-SR1/distribution-karaf-0.5.1-Boron-SR1.tar.gz
+wget https://nexus.opendaylight.org/groups/public/org/opendaylight/integration/distribution-karaf/0.5.1-Boron-SR1/distribution-karaf-0.5.1-Boron-SR1.tar.gz
 tar -xvzf distribution-karaf-0.5.1-Boron-SR1.tar.gz
 cd distribution-karaf-0.5.1-Boron-SR1/
 ```
