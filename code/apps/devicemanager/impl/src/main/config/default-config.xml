@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<snapshot>
+    <required-capabilities>
+        <capability>urn:opendaylight:params:xml:ns:yang:devicemanager:api?module=devicemanager-api&amp;revision=2017-03-17</capability>
+        <capability>urn:opendaylight:params:xml:ns:yang:devicemanager:impl?module=devicemanager-impl&amp;revision=2017-03-17</capability>
+        <capability>urn:opendaylight:params:xml:ns:yang:websocketmanager?module=websocketmanager&amp;revision=2015-01-05</capability>
+        <capability>urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding?module=opendaylight-md-sal-binding&amp;revision=2013-10-28</capability>
+    </required-capabilities>
+    <configuration>
+        <data xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+            <modules xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
+                <module>
+                    <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:devicemanager:impl">prefix:devicemanager-impl</type>
+                    <name>devicemanager-default</name>
+                    <broker>
+                        <type
+                            xmlns:binding="urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding">binding:binding-broker-osgi-registry</type>
+                        <name>binding-osgi-broker</name>
+                    </broker>
+                    <notification-service>
+                        <type
+                            xmlns:binding="urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding">
+                            binding:binding-notification-service
+                        </type>
+                        <name>binding-notification-broker</name>
+                    </notification-service>
+                    <data-broker>
+                        <type
+                            xmlns:binding="urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding">binding:binding-async-data-broker
+                        </type>
+                        <name>binding-data-broker</name>
+                    </data-broker>
+                </module>
+            </modules>
+            <services xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
+                <service>
+                    <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:devicemanager:api">prefix:devicemanager-api</type>
+                    <instance>
+                        <name>devicemanager-service</name>
+                        <provider>/modules/module[type='devicemanager-impl'][name='devicemanager-default']
+                        </provider>
+                    </instance>
+                </service>
+            </services>
+        </data>
+    </configuration>
+</snapshot>
+
