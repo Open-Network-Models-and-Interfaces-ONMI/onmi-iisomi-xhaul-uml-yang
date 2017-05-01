@@ -1491,7 +1491,6 @@ define(
 
           var processLTPs = function(item, i, callback) {
             var ltp = new LogicalTerminationPoint(item);
-            console.warn(i, ltp.getId());
             ltp.getLayerProtocols().map(
               /**
                * A function processing a layer-protocol object
@@ -1499,8 +1498,7 @@ define(
                */
               function(lp) {
                 var conditionalPackage = lp.getConditionalPackage(true);
-                // console.log(conditionalPackage);
-                if (conditionalPackage) {
+                if (conditionalPackage !== '') {
                   if (requiredNode[conditionalPackage] === undefined) {
                     // create missing pac array
                     requiredNode[conditionalPackage] = [];
@@ -1525,6 +1523,7 @@ define(
                   });
                 } else {
                   $mwtnLog.info({component: COMPONENT, message: 'The condtional package ' + conditionalPackage + ' is not supported (yet)!'});
+                  return callback();
                 }
             });
 
