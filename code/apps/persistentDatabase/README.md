@@ -9,7 +9,7 @@ The following lists shows some examples of such data:
  * planning status of nodes, links and paths
  * required configurations
  * site information (e.g. name, geographical location, postal address, owner, ...)
-* logs
+* logs and events
 * statistics
 
 ## Elasticsearch
@@ -58,37 +58,122 @@ Please add the following line to shift the database to /etc:
 path.data: etc
 ```
 
-HINT: For activation of new configuration do shutdown and restart Karaf.  
-For further information about the configuration of elastic search please see [ES modules-network settings](https://www.elastic.co/guide/en/elasticsearch/reference/2.0/modules-network.html).
-
-#### Step 3.2: Add head plugin to access database content (ES Version 1.x 2.x)
-
-Add the following line to the ES configuration file $ODL_KARAF_HOME/etc/elasticsearch.yml to configure ES to the right plugin path.
+Please add the following line to have the plugins in /etc
 ```
 path.plugins: etc/elasticsearch-plugins
 ```
-For activation of new yaml configuration do shutdown and restart Karaf.
 
-Clone the plugin git-repository of head plugin and copy full content into folder within karaf for plugins.
+HINT: For activation of new configuration do shutdown and restart Karaf.  
+For further information about the configuration of elastic search please see [ES modules-network settings](https://www.elastic.co/guide/en/elasticsearch/reference/2.0/modules-network.html).
+
+#### Step 3.2: Add head and delete-by-query plugin to access database content (ES Version 1.x 2.x)
+
+Plugins are in the *plugins* directory of persistentDatabase. Unzip into the elasticsearch plugins directory.
 ```
-cd ~
-git clone https://github.com/mobz/elasticsearch-head
 mkdir $ODL_KARAF_HOME/etc/elasticsearch-plugins/
-cp -r elasticsearch-head/ $ODL_KARAF_HOME/etc/elasticsearch-plugins/
-mv $ODL_KARAF_HOME/etc/elasticsearch-plugins/elasticsearch-head $ODL_KARAF_HOME/etc/elasticsearch-plugins/head
+unzip ~/SDN-Projects/code/apps/persistentDatabase/plugins/head.zip -d $ODL_KARAF_HOME/etc/elasticsearch-plugins
+unzip ~/SDN-Projects/code/apps/persistentDatabase/plugins/delete-by-query.zip -d $ODL_KARAF_HOME/etc/elasticsearch-plugins
 ```
 
-### Step 4: Fill the database
-Karaf has to be started and the ElasticSearch is installed, activated and well configured.
+HINT: Restart database to activate plugins.
 
-Open a Terminal window and change to the *CENTENNIAL/code/apps/persistentDatabase/* directory. 
+### Step 4: database configuration
+
+#### Step 4.1: index config, mwtn
+
+Precondition: Karaf has to be started and the ElasticSearch is installed, activated and well configured.
+
+Open a Terminal window and change to the *SDN-Project/code/apps/persistentDatabase/* directory. 
 
 The right IP address has to be filled into the 'host' attribute in the *config.json* file.
 It must be the IP address of the system, where OpenDaylight is running. 
 (On ODL Server with configuration above "localhost" would be OK).
 ```
-node initDatabase.js
+./installAll.sh
 ```
 
 Verification: At ODL Server open Browser and use this URL: "http://localhost:9200/_plugin/head/".  
 From a remote server use IP or DNS name instead. The "head"-plugin reports some cluster and content information.
+
+#### Step 4.2: index sdnevents
+        
+
+Prereq:
+  1. elasticdump: 	https://www.npmjs.com/package/elasticdump
+     
+     Short version to install if npm available:
+  
+         npm install elasticdump -g
+        
+  2. jq: https://stedolan.github.io/jq/manual/
+  3. curl: (ubuntu repo)
+  4. unzip: (ubuntu repo)
+  
+
+#### Step 4.2.1: Create V1 Mapping and alias for a new index
+
+Prereq: 
+  1. Elasticsearch is running
+  2. index sdnevents is not existing and no alias with this name exists.
+
+Initialize the index *sdnevents_v1* with correct mapping and set the alias to *sdnevents*.
+Open a Terminal window and change to the *SDN-Project/code/apps/persistentDatabase/sdnecents/* directory.
+Make sure that elasticsearch is running and the index is not existing for the first time of execution. 
+Execute the script manageSdnevents.sh:
+```
+./manageSdnevents.sh
+```
+Check with head plugin if index has been created.
+Here are the most important command for a manual approach:
+
+```
+curl -H "Content-Type: application/json" --data @sdneventsMapping.json http://localhost:9200/sdnevents_v1
+curl -H "Content-Type: application/json" --data @sdneventsV1Alias.json http://localhost:9200/sdnevents_v1
+```
+
+#### Step 4.2.2: Migrate Mapping from Vn -> Vn+1
+
+Prereq: 
+  1. Elasticsearch is running
+  2. index sdnevents_vN with alias sdnevents exists. 
+    
+This step is only indicated for specific maintenance reasons:  
+
+  * if there are changes in the mapping
+  * any other need to create a new index version.
+  
+Execute the script manageSdnevents.sh to create a new sdnevents_v(N+1) an copy all date to this new index and change the alias.
+
+```
+cd indexSdnevents
+./manageSdnevents.sh
+```
+
+### Step 5: database maintenance/ reconfiguration
+
+#### Step 5.1: Delete and renew index mwtn
+
+ATTENTION: Custom configurations during runtime are deleted by this action. 
+
+Prereq: 
+  1. Elasticsearch is running
+  2. head plugin installed 
+
+Step 1 Delete index:
+  * Open head plugin: 
+  * In the Overview Tab select Actions->Delete... at index *mwtn*
+  * Confirm according to the description
+  
+Step 2 Re-create:
+  * Configuration info in *activeConfig* directory is used. 
+  * execute initial mwtn script
+  ```
+  cd indexMwtn
+  node initDatabase.js
+  ```
+Step 3 Verify
+  * Use head plugin to verify if the index has been created.
+  
+
+
+

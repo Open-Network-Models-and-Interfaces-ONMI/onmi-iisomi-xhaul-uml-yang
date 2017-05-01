@@ -1,0 +1,163 @@
+{
+    "site": {
+        "1": {
+            "id": "site-1",
+            "name": "South-west",
+            "location": {
+                "lat": 40.456797,
+                "lon": -74.455802
+            },
+            "amsl-ground": 18,
+            "references": {
+                "site-links": [
+                    "site-1:site-2",
+                    "site-1:site-8"
+                ],
+                "network-elements": [
+                    "Nokia-A",
+                    "Ericsson-A",
+                    "NEC-Z"
+                ]
+            }
+        },
+        "2": {
+            "id": "site-2",
+            "name": "West",
+            "location": {
+                "lat": 40.465636,
+                "lon": -74.463204
+            },
+            "amsl-ground": 37,
+            "references": {
+                "site-links": [
+                    "site-1:site-2",
+                    "site-2:site-3"
+                ],
+                "network-elements": [
+                    "NEC-A",
+                    "Aviat-A",
+                    "ADVA-A"
+                ]
+            }
+        },
+        "3": {
+            "id": "site-3",
+            "name": "North-west",
+            "location": {
+                "lat": 40.4758699,
+                "lon": -74.460222
+            },
+            "amsl-ground": 37,
+            "references": {
+                "site-links": [
+                    "site-2:site-3",
+                    "site-3:site-4"
+                ],
+                "network-elements": [
+                    "Aviat-Z",
+                    "Ceragon-A"
+                ]
+            }
+        },
+        "4": {
+            "id": "site-4",
+            "name": "North",
+            "location": {
+                "lat": 40.481500,
+                "lon": -74.448603
+            },
+            "amsl-ground": 37,
+            "references": {
+                "site-links": [
+                    "site-3:site-4",
+                    "site-4:site-5"
+                ],
+                "network-elements": [
+                    "Ceragon-Z",
+                    "DragonWave-A",
+                    "Huawei-A"
+                ]
+            }
+        },
+        "5": {
+            "id": "site-5",
+            "name": "North-east",
+            "location": {
+                "lat": 40.479232,
+                "lon": -74.435153
+            },
+            "amsl-ground": 32,
+            "references": {
+                "site-links": [
+                    "site-4:site-5",
+                    "site-5:site-6"
+                ],
+                "network-elements": [
+                    "DragonWave-Z",
+                    "Fujitsu-A",
+                    "Huawei-Z"
+                ]
+            }
+        },
+        "6": {
+            "id": "site-6",
+            "name": "East",
+            "location": {
+                "lat": 40.470392,
+                "lon": -74.427751
+            },
+            "amsl-ground": 25,
+            "references": {
+                "site-links": [
+                    "site-5:site-6",
+                    "site-6:site-7"
+                ],
+                "network-elements": [
+                    "Fujitsu-Z",
+                    "SIAE-A"
+                ]
+            }
+        },
+        "7": {
+            "id": "site-7",
+            "name": "South-east",
+            "location": {
+                "lat": 40.460160,
+                "lon": -74.430733
+            },
+            "amsl-ground": 28,
+            "references": {
+                "site-links": [
+                    "site-6:site-7",
+                    "site-7:site-8"
+                ],
+                "network-elements": [
+                    "SIAE-Z",
+                    "ZTE-ZTE-Z",
+                    "NEC-Z",
+                    "ADVA-Z"
+                ]
+            }
+        },
+        "8": {
+            "id": "site-8",
+            "name": "South",
+            "location": {
+                "lat": 40.454529,
+                "lon": -74.442352
+            },
+            "amsl-ground": 2,
+            "references": {
+                "site-links": [
+                    "site-7:site-8",
+                    "site-1:site-8"
+                ],
+                "network-elements": [
+                    "Nokia-Z",
+                    "Ericsson-Z",
+                    "ZTE-Z"
+                ]
+            }
+        }
+    }
+}

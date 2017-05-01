@@ -1,0 +1,100 @@
+{
+	"mappings": {
+		"faultlog": {
+			"properties": {
+				"fault": {
+					"properties": {
+						"nodeName": {
+							"index": "not_analyzed",
+							"type": "string"
+						},
+						"severity": {
+							"index": "not_analyzed",
+							"type": "string"
+						},
+						"timeStamp": {
+							"index": "not_analyzed",
+							"type": "string"
+						},
+						"problem": {
+							"index": "not_analyzed",
+							"type": "string"
+						},
+						"counter": {
+							"index": "not_analyzed",
+							"type": "string"
+						},
+						"objectId": {
+							"index": "not_analyzed",
+							"type": "string"
+						}
+					}
+				}
+			}
+		},
+		"faultcurrent": {
+			"properties": {
+				"faultCurrent": {
+					"properties": {
+						"nodeName": {
+							"index": "not_analyzed",
+							"type": "string"
+						},
+						"severity": {
+							"index": "not_analyzed",
+							"type": "string"
+						},
+						"timeStamp": {
+							"index": "not_analyzed",
+							"type": "string"
+						},
+						"problem": {
+							"index": "not_analyzed",
+							"type": "string"
+						},
+						"counter": {
+							"index": "not_analyzed",
+							"type": "string"
+						},
+						"objectId": {
+							"index": "not_analyzed",
+							"type": "string"
+						}
+					}
+				}
+			}
+		},
+		"eventlog": {
+			"properties": {
+				"event": {
+					"properties": {
+						"nodeName": {
+							"index": "not_analyzed",
+							"type": "string"
+						},
+						"timeStamp": {
+							"index": "not_analyzed",
+							"type": "string"
+						},
+						"newValue": {
+							"index": "not_analyzed",
+							"type": "string"
+						},
+						"attributeName": {
+							"index": "not_analyzed",
+							"type": "string"
+						},
+						"counter": {
+							"index": "not_analyzed",
+							"type": "string"
+						},
+						"objectId": {
+							"index": "not_analyzed",
+							"type": "string"
+						}
+					}
+				}
+			}
+		}
+	}
+}

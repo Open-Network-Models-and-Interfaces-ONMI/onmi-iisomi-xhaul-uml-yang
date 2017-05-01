@@ -1,0 +1,8 @@
+{
+  "host" : "localhost",
+  "port" : "9200",
+  "index" : "mwtn",
+  "docTypes" : ["site","schema-information","required-networkelement"],
+  "in" : "activeConfig",
+  "out" : "../activeFromDB/dataFromDB"
+}
