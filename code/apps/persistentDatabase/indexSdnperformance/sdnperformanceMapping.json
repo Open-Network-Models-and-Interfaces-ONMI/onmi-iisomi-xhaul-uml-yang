@@ -1,0 +1,92 @@
+{
+    "mappings":
+    {
+        "historicalperformance24h":
+        {
+            "properties":
+            {
+                "node-name":
+                {
+                    "index": "not_analyzed",
+                    "type": "string"
+                },
+                "time-stamp":
+                {
+                    "index": "not_analyzed",
+                    "type": "string"
+                },
+                "suspect-interval-flag":
+                {
+                    "type": "boolean"
+                },
+                "scanner-id":
+                {
+                    "index": "not_analyzed",
+                    "type": "string"
+                },
+                "uuid-interface":
+                {
+                    "index": "not_analyzed",
+                    "type": "string"
+                },
+                 "layer-protocol-name": {
+                    "index": "not_analyzed",
+                    "type": "string"
+                },
+                "granularity-period":
+                {
+                    "index": "not_analyzed",
+                    "type": "string"
+                },
+                "radio-signal-id": {
+                    "index": "not_analyzed",
+                    "type": "string"
+                }
+            }
+        },
+
+        "historicalperformance15min":
+        {
+            "properties":
+            {
+                "node-name":
+                {
+                    "index": "not_analyzed",
+                    "type": "string"
+                },
+                "time-stamp":
+                {
+                    "index": "not_analyzed",
+                    "type": "string"
+                },
+                "suspect-interval-flag":
+                {
+                    "type": "boolean"
+                },
+                "scanner-id":
+                {
+                    "index": "not_analyzed",
+                    "type": "string"
+                },
+                "uuid-interface":
+                {
+                    "index": "not_analyzed",
+                    "type": "string"
+                },
+                 "layer-protocol-name": {
+                    "index": "not_analyzed",
+                    "type": "string"
+                },
+                "granularity-period":
+                {
+                    "index": "not_analyzed",
+                    "type": "string"
+                },
+                "radio-signal-id": {
+                    "index": "not_analyzed",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

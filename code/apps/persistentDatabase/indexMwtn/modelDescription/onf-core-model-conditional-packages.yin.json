@@ -1,0 +1,79 @@
+{
+	"module": {
+		"name": "onf-core-model-conditional-packages",
+		"onf-core-model-conditional-packages": {
+			"equipment-pac": {
+				"type": "list",
+				"key": "equipment",
+				"equipment-capability": {
+					"name": "equipment-capability",
+					"local-name": "capability",
+					"type": "container"
+				},
+				"equipment-configuration": {
+					"name": "equipment-configuration",
+					"local-name": "configuration",
+					"type": "container"
+				},
+				"equipment-status": {
+					"name": "equipment-status",
+					"local-name": "status",
+					"type": "container"
+				},
+				"equipment-current-problems": {
+					"name": "equipment-current-problems",
+					"local-name": "current-problems",
+					"type": "container"
+				}
+			},
+			"holder-pac": {
+				"type": "list",
+				"key": "holder",
+				"holder-capability": {
+					"name": "holder-capability",
+					"local-name": "capability",
+					"type": "container"
+				},
+				"holder-configuration": {
+					"name": "holder-configuration",
+					"local-name": "configuration",
+					"type": "container"
+				},
+				"holder-status": {
+					"name": "holder-status",
+					"local-name": "status",
+					"type": "container"
+				},
+				"holder-current-problems": {
+					"name": "holder-current-problems",
+					"local-name": "current-problems",
+					"type": "container"
+				}
+			},
+			"connector-pac": {
+				"type": "list",
+				"key": "connector",
+				"connector-capability": {
+					"name": "connector-capability",
+					"local-name": "capability",
+					"type": "container"
+				},
+				"connector-configuration": {
+					"name": "connector-configuration",
+					"local-name": "configuration",
+					"type": "container"
+				},
+				"connector-status": {
+					"name": "connector-status",
+					"local-name": "status",
+					"type": "container"
+				},
+				"connector-current-problems": {
+					"name": "connector-current-problems",
+					"local-name": "current-problems",
+					"type": "container"
+				}
+			}
+		}
+	}
+}

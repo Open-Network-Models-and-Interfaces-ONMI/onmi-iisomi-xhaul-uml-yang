@@ -1,0 +1,51 @@
+{
+    "settings": {
+       "analysis": {
+          "analyzer": {
+             "standard": {
+                 "type": "whitespace"
+             }
+          }
+       }
+    },
+    "mappings": {
+        "required-networkelement": {
+            "date_detection": false
+        },
+        "site": {
+            "properties": {
+                "id": {
+                    "index": "not_analyzed",
+                    "type": "string"
+                },
+                "name": {
+                    "index": "not_analyzed",
+                    "type": "string"
+                },
+                "location": {
+                    "geohash": true,
+                    "geohash_precision": 10,
+                    "type": "geo_point",
+                    "lat_lon": true,
+                    "geohash_prefix": true
+                }
+            }
+        },
+        "site-link": {
+            "properties": {
+                "id": {
+                    "index": "not_analyzed",
+                    "type": "string"
+                },
+                 "siteZ": {
+                    "index": "not_analyzed",
+                    "type": "string"
+                },
+                "siteA": {
+                    "index": "not_analyzed",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
