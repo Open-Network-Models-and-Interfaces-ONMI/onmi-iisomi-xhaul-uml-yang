@@ -11,23 +11,23 @@ define(['app/mwtnLog/mwtnLog.module',
         'app/mwtnCommons/mwtnCommons.module'], 
         function(mwtnLogApp) {
     
-  mwtnLogApp.register.controller('mwtnLogCtrl', ['uiGridConstants', '$uibModal', '$scope', '$rootScope', '$mwtnCommons', '$mwtnLogView', '$mwtnLog' ,
-                                                 function(uiGridConstants, $uibModal, $scope, $rootScope, $mwtnCommons, $mwtnLogView,  $mwtnLog) {
+  mwtnLogApp.register.controller('mwtnLogCtrl', ['uiGridConstants', '$uibModal', '$scope', '$rootScope', '$mwtnLogView', '$mwtnLog' ,
+                                                 function(uiGridConstants, $uibModal, $scope, $rootScope,  $mwtnLogView,  $mwtnLog) {
 
     var COMPONENT = 'mwtnLogCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnLogCtrl started!'});
-    $mwtnLog.error({component: COMPONENT, message: 'Just a test of logging an error.'});
-    $mwtnLog.warning({component: COMPONENT, message: 'Just a test of logging a warning.'});
-    $mwtnLog.debug({component: COMPONENT, message: 'Just a test of logging debug information.'});
+    // $mwtnLog.error({component: COMPONENT, message: 'Just a test of logging an error.'});
+    // $mwtnLog.warning({component: COMPONENT, message: 'Just a test of logging a warning.'});
+    // $mwtnLog.debug({component: COMPONENT, message: 'Just a test of logging debug information.'});
     
-    $rootScope['section_logo'] = 'src/app/mwtnLog/images/mwtnLog.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
+    $rootScope.section_logo = 'src/app/mwtnLog/images/mwtnLog.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
-    $scope.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
+    $scope.highlightFilteredHeader = $mwtnLogView.highlightFilteredHeader;
  
     var rowTemplate = '<div ng-click="grid.appScope.fnOne(row)" ng-repeat="col in colContainer.renderedColumns track by col.colDef.name" ng-class="[\'ui-grid-cell\', row.entity.type]" ui-grid-cell></div>';
-    var iconCell = '<div class="ui-grid-cell-contents tooltip-uigrid" title="TOOLTIP"><i ng-class="{\'fa\':true, \'{{COL_FIELD}}\':true}" aria-hidden="true"></i></div>'
+    var iconCell = '<div class="ui-grid-cell-contents tooltip-uigrid" title="TOOLTIP"><i ng-class="{\'fa\':true, \'{{COL_FIELD}}\':true}" aria-hidden="true"></i></div>';
       
-    $scope.gridOptions = JSON.parse(JSON.stringify($mwtnCommons.gridOptions));
+    $scope.gridOptions = JSON.parse(JSON.stringify($mwtnLogView.gridOptions));
     $scope.gridOptions.rowTemplate = rowTemplate;
     $scope.gridOptions.columnDefs = [
        // { field: 'id', type: 'number', displayName: 'No.',  headerCellClass: $scope.highlightFilteredHeader, width : 50, cellClass: 'number', pinnedLeft : true },
@@ -57,24 +57,26 @@ define(['app/mwtnLog/mwtnLog.module',
         controller: 'ClearLogCtrl',
         size: 'lg',
         resolve: {
-          items: function () {
-            return undefined;
+          now: function () {
+            return new Date().toISOString();
           }
         }
       });
 
       modalInstance.result.then(function () {
-        var i = 0;
-        $scope.gridOptions.data.map(function(item){
-          // console.log('delete:', i++, item.id, item.type);
-          $mwtnLogView.deleteLogEntry(item.id).then(function(deleted){
-            // console.log('delete', JSON.stringify(deleted));
+        var spec = {
+            functionId : 'mwtn',
+            docType : 'log',
+            query: {
+              match_all: {}
+            }
+          };
+          $mwtnLogView.deleteDocType(spec).then(function(deleted){
+            $scope.gridOptions.data = [];
+            $mwtnLog.info({component: COMPONENT, message: 'Log cleared!'});
           }, function(error){
-            console.error(JSON.stringify(error));
+            $mwtnLog.error({component: COMPONENT, message:JSON.stringify(error)});
           });
-        });
-        $scope.gridOptions.data = [];
-        $mwtnLog.info({component: COMPONENT, message: 'Log cleared!'});
       }, function () {
         $mwtnLog.info({component: COMPONENT, message: 'Mount dismissed!'});
       });
@@ -129,12 +131,13 @@ define(['app/mwtnLog/mwtnLog.module',
       }, function(error){
         console.error(JSON.stringify(error));
       });      
-    }
+    };
     $scope.refreshLog();
 
   }]);
 
-  mwtnLogApp.register.controller('ClearLogCtrl', ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
+  mwtnLogApp.register.controller('ClearLogCtrl', ['$scope', '$uibModalInstance',
+                                                  function ($scope, $uibModalInstance) {
 
     $scope.ok = function () {
       $uibModalInstance.close('ok');

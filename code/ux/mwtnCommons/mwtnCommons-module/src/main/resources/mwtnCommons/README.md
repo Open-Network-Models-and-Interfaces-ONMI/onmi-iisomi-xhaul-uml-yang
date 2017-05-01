@@ -21,3 +21,14 @@ Additional [angular.js](https://angularjs.org/) feature and implementations are 
 bower install
 ```
 Please see [bower.io](https://bower.io/) for further information about bower.
+
+## angular-chart.js
+
+* Open app/mwtnCommons/bower_components/angular-chart.js/dist/angular-chart
+* Locate 
+   else if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['angular', 'chart'], factory);
+  }
+
+  * change  define(['angular', 'chart'], factory); to  define(['angular', 'app/mwtnCommons/bower_components/chart.js/dist/Chart'], factory);

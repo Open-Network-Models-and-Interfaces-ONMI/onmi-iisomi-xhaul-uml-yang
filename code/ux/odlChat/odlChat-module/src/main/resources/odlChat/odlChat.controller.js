@@ -12,7 +12,7 @@ define(
 
       var main = function($scope, $rootScope, $odlChat) {
 
-        $rootScope['section_logo'] = 'src/app/odlChat/logo_chat.gif';
+        $rootScope.section_logo = 'src/app/odlChat/logo_chat.gif';
 
         $scope.collection = [];
         $scope.chat = {
@@ -31,19 +31,19 @@ define(
                 if ($scope.collection.length > 20) {
                   $scope.collection.shift();
                 }
-                ;
+                
                 $scope.chat.message = info;
               });
-            }
+            };
             notificatinSocket.onerror = function(error) {
               console.log("Socket error: " + JSON.stringify(error));
-            }
+            };
             notificatinSocket.onopen = function(event) {
               console.log("Socket connection opened.");
-            }
+            };
             notificatinSocket.onclose = function(event) {
               console.log("Socket connection closed.");
-            }
+            };
             // if there is a problem on socket creation we get
             // exception (i.e. when socket address is incorrect)
           } catch (e) {
@@ -55,7 +55,7 @@ define(
           $odlChat.send(chat, function(info) {
             console.log(info);
           });
-        }
+        };
 
         var path = "/opendaylight-inventory:nodes/opendaylight-inventory:node[opendaylight-inventory:id='odlChat']";
         $odlChat.register(path, function(socketLocation) {

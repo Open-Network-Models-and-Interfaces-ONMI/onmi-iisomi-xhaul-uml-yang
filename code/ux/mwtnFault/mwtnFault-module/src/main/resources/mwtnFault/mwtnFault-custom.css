@@ -1,0 +1,84 @@
+/**
+ *  Add your application related css here
+ */
+.mwtn span {
+  color: white;
+}
+.mwtn a span {
+  color: white;
+}
+.margin5 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.Critical {
+  color: red;
+}
+.Major {
+  color: orange;
+}
+.Minor {
+  color: yellow;
+}
+.Warning {
+  color: #428bca;
+}
+.cleared {
+  color: lightgreen;
+}
+
+.mwtnFaultGrid {
+  height: 600px;
+  background-color: white;
+}
+
+.mwtnFaultGrid span {
+  color: #393939;
+}
+.ht-pagination span {
+  color: #393939;
+}
+.ht-pagination span.dark {
+  color: #393939;
+}
+.dark {
+  color: #393939;
+}
+
+
+
+.mwtnFaultGrid div.debug {
+  color: #393939;
+  background-color: white;
+}
+.mwtnFaultGrid div.error {
+  color: #ff0000;
+  background-color: #ffeeee;
+  font-weight: bold;
+}
+
+.mwtnFaultGrid div.info {
+  color: #3276b1;
+  background-color: #eeeeff;
+}
+
+.mwtnFaultGrid div.warning {
+  color: #ffa500;
+  background-color: #ffeedd;
+}
+
+.rotated {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+
+h3.modal-title {
+  color: #393939;
+}
+
+.modal-body span {
+  color: #393939;
+} 

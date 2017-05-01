@@ -1,0 +1,17 @@
+
+<div class="modal-header">
+	<h3 class="modal-title" id="modal-title">{{'Clear Log Confirmation' | translate}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+	<p>
+	  <span>All alarm log entries will be deleted.</span>
+	</p>
+	<p>Please make sure, you have exported the log entries, otherwise they will get lost.</p>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" type="button" ng-click="ok()">
+       <i class="pull-left fa fa-spinner fa-pulse" ng-show="processing"></i>
+	     <span>{{'Clear log' | translate}}</span>
+	</button>
+	<button class="btn btn-warning" type="button" ng-click="cancel()">{{'Cancel' | translate}}</button>
+</div>

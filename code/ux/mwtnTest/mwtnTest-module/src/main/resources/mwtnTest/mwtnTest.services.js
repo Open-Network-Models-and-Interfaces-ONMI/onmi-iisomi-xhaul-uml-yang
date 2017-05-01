@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 HCL Inc. and others.  All rights reserved.
+ * @copyright 2017 highstreet technologies and others.  All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -8,7 +8,7 @@
 
 define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnTest/mwtnTest.module'],function(mwtnTestApp) {
 
-  mwtnTestApp.register.factory('$mwtnTest', function($mwtnCommons, $mwtnLog) {
+  mwtnTestApp.register.factory('$mwtnTest', function($mwtnCommons, $mwtnDatabase, $mwtnLog) {
 
     var COMPONENT = '$mwtnTest';
     $mwtnLog.info({component: COMPONENT, message: '$mwtnTest started!'});
@@ -17,8 +17,13 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnTest/mwtnTest.module'],fu
     
     service.separator = $mwtnCommons.separator;
     service.parts = $mwtnCommons.parts;
-    service.getActualNetworkElements = $mwtnCommons.getActualNetworkElements;
+    service.getMountPoints = $mwtnCommons.getMountPoints;
     service.getPacParts = $mwtnCommons.getPacParts;
+    service.yangify = $mwtnCommons.yangify;
+    service.yangifyObject = $mwtnCommons.yangifyObject;
+    service.getModules = $mwtnDatabase.getModules;
+    service.getPartGlobalId = $mwtnCommons.getPartGlobalId;
+    service.getPartLocalId = $mwtnCommons.getPartLocalId;
       
     return service;
   });

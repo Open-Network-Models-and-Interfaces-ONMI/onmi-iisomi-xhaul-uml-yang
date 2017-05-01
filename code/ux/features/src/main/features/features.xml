@@ -9,8 +9,8 @@
   <feature name="odl-mwtn-ux-all" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: All">
     <feature version="${netconf.version}">odl-netconf-connector-all</feature>
     <feature version="${restconf.version}">odl-restconf-all</feature>
-    <feature version="${l2switch.version}">odl-l2switch-switch</feature>
-    <feature version="${mdsal.version}">odl-mdsal-apidocs</feature>
+    <!--<feature version="${l2switch.version}">odl-l2switch-switch</feature>-->
+    <!-- <feature version="${mdsal.version}">odl-mdsal-apidocs</feature> -->
 
     <feature version="${project.version}">odl-mwtn-ux-connect</feature>
     <feature version="${project.version}">odl-mwtn-ux-config</feature>

@@ -1,9 +1,19 @@
 /**
  *  Add your application related css here
- */
- 
+ */ 
+.owl .uib-tab a {
+    border: 1px solid #000;
+    background-color: white;
+    color: #3276b1;
+}
+
+.owl .uib-tab.active a {
+    background-color: #3276b1;
+    color: white;
+}
+
 .mwtnLogGrid {
-  height: 725px;
+  height: 600px;
   background-color: white;
 }
 

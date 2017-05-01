@@ -14,7 +14,7 @@ define(['angularAMD',
   var mwtnConnectApp = angular.module('app.mwtnConnect', [ 'ui.grid', 'ui.bootstrap', 'app.core',
       'ui.router.state', 'config', 'ui.grid.exporter',
       'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.grid.selection',
-      'ui.grid.resizeColumns' ]);
+      'ui.grid.resizeColumns', 'angular-clipboard' ]);
 
   mwtnConnectApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $translateProvider) {
 

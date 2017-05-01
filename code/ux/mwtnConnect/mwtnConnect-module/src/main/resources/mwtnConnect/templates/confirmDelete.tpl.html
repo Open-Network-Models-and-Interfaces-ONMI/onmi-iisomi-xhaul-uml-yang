@@ -1,0 +1,23 @@
+<div class="modal-header">
+	<h3 class="modal-title" id="modal-title">{{'MWTN_DELETE' | translate}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+	<div class="container" style="max-width: 600px;">
+		<div class="row">
+			<div class="col-md-12">
+				<span>Delete {{node.id}} from the planning database.</span>
+				<br/>
+				<span>All the planning data for this network element will be lost.</span>
+			</div>
+		</div>    
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-danger" type="button" ng-click="ok()">
+		<i class="fa fa-trash" aria-hidden="true"></i>
+		<span>{{'MWTN_DELETE' | translate}}</span>
+	</button>
+	<button class="btn btn-warning" type="button" ng-click="cancel()">
+		<span>{{'MWTN_CANCEL' | translate}}</span>
+	</button>
+</div>

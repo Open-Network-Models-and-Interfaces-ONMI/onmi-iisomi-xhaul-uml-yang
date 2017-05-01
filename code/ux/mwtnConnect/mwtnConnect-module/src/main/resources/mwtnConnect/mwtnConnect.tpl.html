@@ -1,4 +1,4 @@
-
+<alarm-status></alarm-status>
 <uib-accordion close-others="oneAtATime">
 
 <div uib-accordion-group class="panel-primary"
@@ -44,7 +44,10 @@
 		<div class="row">
 			<div class="col-md-6 text-right">
 					<br />
-					<button type="button" class="btn btn-primary" ng-click="mount()">Mount!</button>
+				 <button type="button" class="btn btn-primary" ng-click="mount()">
+				  <i class="fa fa-spinner" ng-class="{'fa-pulse':processing}" ng-show="processing" aria-hidden="true"></i>
+				  <span>{{'MWTN_MOUNT' | translate}}</span>
+				 </button>
 			</div>
 		</div>
 		<div class="row">
@@ -56,9 +59,91 @@
 		</div>
 	</div>
 </div>
+
+<div uib-accordion-group class="panel-default"
+  is-open="status.connectionStatusLog">
+  <uib-accordion-heading>
+      <i class="pull-left fa" ng-class="{'fa-chevron-down': status.connectionStatusLog, 'fa-chevron-right': !status.connectionStatusLog}"></i>
+      <span>{{'MWTN_CONNECTION_STATUS_LOG' | translate}}</span>
+      <i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner.connectionStatusLog"></i>
+  </uib-accordion-heading>
+  
+    <div id="mwtnConnectGridConnectionStatusLog" 
+         ui-grid="gridOptionsConnectionStatusLog"
+         ui-grid-pagination 
+         ui-grid-exporter 
+         ui-grid-selection 
+         ui-grid-pinning 
+         ui-grid-resize-columns 
+         ui-grid-move-columns class="mwtnConnectGrid">
+    </div>
+    
+    <div class="ht-pagination">
+      <button class="btn btn-default"
+            ng-disabled="paginationOptions.pageNumber === 1"
+            ng-click="gridApi.pagination.seek(1)"
+            ng-class="{'cancelCursor':paginationOptions.pageNumber === 1}"
+            role="menuitem" type="button" title="Page to first" aria-label="Page to first">
+        <i class="fa fa-step-backward "></i>
+      </button>
+      <button class="btn btn-default"
+            ng-disabled="paginationOptions.pageNumber === 1"
+            ng-class="{'cancelCursor':paginationOptions.pageNumber === 1}"
+            ng-click="gridApi.pagination.previousPage()"
+
+            role="menuitem" type="button" title="Previous Page" aria-label="Previous Page">
+        <i class="fa fa-play fa-rotate-180 "></i>
+      </button>
+      <input class="btn btn-default" style="text-align:right;"  border="1" 
+           ng-model="paginationOptions.pageNumber"
+           ng-change="seekPage(paginationOptions.pageNumber)"
+           type="text" style="width:20px;"/>
+      <span class="dark">&nbsp;/ {{ gridApi.pagination.getTotalPages() }}</span>
+
+      <button class="btn btn-default" role="menuitem" type="button" title="Next Page" aria-label="Next Page"
+            ng-disabled="gridApi.pagination.pageNumber === gridApi.pagination.getTotalPages()"
+            ng-click="gridApi.pagination.nextPage()">
+          <i class="fa fa-play "></i>
+      </button>
+      <button class="btn btn-default" ng-disabled="gridApi.pagination.pageNumber === gridApi.pagination.getTotalPages()"
+            ng-click="gridApi.pagination.seek(gridApi.pagination.getTotalPages())"
+            role="menuitem" type="button" title="Page to last" aria-label="Page to last">
+        <i class="fa fa-step-forward "></i>
+      </button>
+    
+      <select 
+        class="btn btn-default" name="repeatSelect" id="repeatSelect" 
+        ng-init="gridOptionsConnectionStatusLog.paginationPageSize = gridOptionsConnectionStatusLog.paginationPageSizes[0]" 
+        ng-model="gridOptionsConnectionStatusLog.paginationPageSize" 
+        ng-options="option for option in gridOptionsConnectionStatusLog.paginationPageSizes"></select>
+    
+      <span class="dark"> items per page </span>
+
+      <span class="pull-right dark">{{ paginationStatusMessage() }}</span>
+    
+    </div>
+
+    <div class="text-right">
+     <!-- 
+     <button type="button" id="clearLog" class="btn btn-warning" ng-click="clearLog()">
+      <i class="fa fa-times" aria-hidden="true"></i>
+      <span>Clear log...</span>
+     </button>
+      see gird menu Export ...
+     <button type="button" id="saveLog" class="btn btn-default" ng-click="saveLog()">
+      <i class="fa fa-save" aria-hidden="true"></i>
+      <span>Save...</span>
+     </button>  -->
+     <button type="button" id="refreshLog" class="btn btn-primary" ng-click="refreshLog()">
+      <span>{{'MWTN_REFRESH' | translate}}</span>
+     </button> 
+    </div>
+  
+</div>
+
 </uib-accordion>
 
 <hr />
 <div class="owl">
-	<span>ONF Wireless for Opendaylight Boron-SR1 - Build: @buildtime@</span>
+	<span class="white">ONF Wireless for OpenDaylight Boron-SR1 - Build: @buildtime@</span>
 </div>
