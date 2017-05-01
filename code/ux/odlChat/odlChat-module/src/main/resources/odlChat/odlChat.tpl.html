@@ -16,29 +16,29 @@
  <div class="row">
   <div class="col-md-11">
    <p>
-    <span>The beauty of WebSockets within OpenDaylight.</span>
+    <span class="white">The beauty of WebSockets within OpenDaylight.</span>
    </p>
    <p>
-    <span>Useful links:</span>
+    <span class="white">Useful links:</span>
    <ul>
     <li>
-     <a href="https://github.com/opendaylight/docs/blob/master/manuals/developer-guide/src/main/asciidoc/controller/websocket-notifications.adoc">
-      <span>https://github.com/opendaylight/docs/blob/master/manuals/developer-guide/src/main/asciidoc/controller/websocket-notifications.adoc</span>
+     <a href="https://wiki.opendaylight.org/view/OpenDaylight_Controller:MD-SAL:Restconf:Change_event_notification_subscription">
+      <span class="white">https://wiki.opendaylight.org/view/OpenDaylight_Controller:MD-SAL:Restconf:Change_event_notification_subscription</span>
      </a>
     </li>
     <li>
      <a href="https://wiki.opendaylight.org/view/OpenDaylight_DLUX:Create_application_with_archetype">
-      <span>https://wiki.opendaylight.org/view/OpenDaylight_DLUX:Create_application_with_archetype</span>
+      <span class="white">https://wiki.opendaylight.org/view/OpenDaylight_DLUX:Create_application_with_archetype</span>
      </a>
     </li>
    </ul>
    </p>
    <p>
-    <span>Code:</span>
+    <span class="white">Code:</span>
    <ul>
     <li>
-     <a href="https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/03-WTN-PoC/code/apps/odlChat">
-      <span>https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/03-WTN-PoC/code/apps/odlChat</span>
+     <a href="https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/code/ux/odlChat">
+      <span class="white">https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/code/ux/odlChat</span>
      </a>
     </li>
    </ul>
@@ -56,10 +56,10 @@
 
  <div class="row" ng-repeat="tweet in collection">
   <div class="col-md-2 text-right">
-   <span>{{tweet.nickname}}:</span>
+   <span class="white">{{tweet.nickname}}:</span>
   </div>
   <div class="col-md-8">
-   <span>
+   <span class="white">
     <b>{{tweet.message}}</b>
    </span>
   </div>
@@ -82,22 +82,21 @@
    <input class="form-control" type="text" step="1" ng-model="chat.message" />
   </div>
   <div class="col-md-1">
-   <button class="btn btn-primary" type="submit" ng-click="send(chat)">{{'Send' | translate}}</button>
+   <button class="btn btn-primary" type="submit" ng-click="send(chat)">{{'MWTN_SEND' | translate}}</button>
   </div>
  </div>
 
  <div class="row">
   <div class="col-md-2 text-right">
-   <span>{{'Nickname' | translate}} </span>
+   <span class="white">{{'MWTN_NICKNAME' | translate}} </span>
   </div>
   <div class="col-md-8 text-right">
-   <span>{{'Message' | translate}} </span>
+   <span class="white">{{'MWTN_MESSAGE' | translate}} </span>
   </div>
   <div class="col-md-1"></div>
  </div>
 </div>
-
 <hr />
 <div class="owl">
-	<span>ONF Wireless for Opendaylight Boron-SR1 - Build: @buildtime@</span>
+ <span class="white">ONF Wireless for OpenDaylight Boron-SR1 - Build: @buildtime@</span>
 </div>

@@ -4,7 +4,7 @@
 </div>
 <div class="modal-body" id="modal-body">
 
-	<div class="owl container" style="max-width: 600px;">
+	<div class="container" style="max-width: 600px;">
 
 		<div class="row">
 			<div class="col-md-12">
@@ -14,7 +14,7 @@
 
 		<div class="row">
 			<div class="col-md-4 text-right">
-				<span>{{'Name' | translate}}</span>
+				<span>{{'MWTN_NAME' | translate}}</span>
 			</div>
 			<div class="col-md-4">
 				<input class="form-control" type="text" ng-model="netconfServer['node-id']"></input>
@@ -23,7 +23,7 @@
 
 		<div class="row">
 			<div class="col-md-4 text-right">
-				<span>{{'IP address' | translate}}</span>
+				<span>{{'MWTN_IPADDRESS' | translate}}</span>
 			</div>
 			<div class="col-md-4">
 				<input class="form-control" type="text" ng-model="netconfServer['netconf-node-topology:host']"></input>
@@ -32,7 +32,7 @@
 
 		<div class="row">
 			<div class="col-md-4 text-right">
-				<span>{{'NetConf port' | translate}}</span>
+				<span>{{'MWTN_NETCONF_PORT' | translate}}</span>
 			</div>
 			<div class="col-md-4">
 				<input class="form-control" type="text" ng-model="netconfServer['netconf-node-topology:port']"></input>
@@ -41,7 +41,7 @@
 
 		<div class="row">
 			<div class="col-md-4 text-right">
-				<span>{{'User name' | translate}}</span>
+				<span>{{'MWTN_USERNAME' | translate}}</span>
 			</div>
 			<div class="col-md-4">
 				<input class="form-control" type="text" ng-model="netconfServer.username"></input>
@@ -50,27 +50,26 @@
 
 		<div class="row">
 			<div class="col-md-4 text-right">
-				<span>{{'Password' | translate}}</span>
+				<span>{{'MWTN_PASSWORD' | translate}}</span>
 			</div>
 			<div class="col-md-4">
-				<input class="form-control" type="text" ng-model="netconfServer.password"></input>
+				<input class="form-control" type="password" ng-model="netconfServer.password"></input>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col-md-4 text-right">
-				<span>{{'Site' | translate}}</span>
+				<span>{{'MWTN_SITE' | translate}}</span>
 			</div>
 			<div class="col-md-4">
-
 				<div class="form-group">
-				  <select class="form-control" ng-model="netconfServer.site">
-				    <option ng-repeat="site in sites" value="{{site.id}}">{{site.name}}</option>
-				  </select>
+					<input list="sites" class="form-control" ng-model="netconfServer.site">
+                    <datalist id="sites">
+				      <option ng-repeat="site in sites" value="{{site.id}}" >{{site.name}}</option>
+                    </datalist>
 				</div>
 			</div>
 		</div>
-
       
 	</div>
 </div>

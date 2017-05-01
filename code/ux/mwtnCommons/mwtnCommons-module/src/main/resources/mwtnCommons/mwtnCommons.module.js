@@ -6,15 +6,18 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-define(['angularAMD', 
-        'app/routingConfig', 
-        'app/core/core.services', 
+define(['angularAMD',
+        'app/routingConfig',
+        'app/core/core.services',
         'common/config/env.module',
         'app/mwtnCommons/bower_components/angular-ui-grid/ui-grid.min',
-        'app/mwtnCommons/bower_components/angular-google-maps/dist/angular-google-maps.min',        
-        'ui-bootstrap'], 
+        'app/mwtnCommons/bower_components/chart.js/dist/Chart',
+        'app/mwtnCommons/bower_components/angular-chart.js/dist/angular-chart',
+        'app/mwtnCommons/bower_components/angular-clipboard/angular-clipboard',
+        'ui-bootstrap', 
+        'app/mwtnCommons/bower_components/json-formatter/dist/json-formatter.min'],
         function(ng) {
-  var mwtnCommonsApp = angular.module('app.mwtnCommons', ['app.core', 'ui.grid', 'ui.bootstrap', 'uiGmapgoogle-maps', 'ui.router.state','config', 'pascalprecht.translate']);
+  var mwtnCommonsApp = angular.module('app.mwtnCommons', ['app.core','chart.js', 'ui.router.state', 'ui.grid', 'ui.bootstrap', 'jsonFormatter', 'config', 'pascalprecht.translate', 'angular-clipboard']);
 
   mwtnCommonsApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $httpProvider, $translateProvider, $translatePartialLoaderProvider) {
     mwtnCommonsApp.register = {

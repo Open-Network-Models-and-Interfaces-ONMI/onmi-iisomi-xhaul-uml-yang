@@ -13,6 +13,10 @@ define(['app/mwtnLog/mwtnLog.module','app/mwtnCommons/mwtnCommons.services'],fun
     var service = {};
 
     service.checkModules = $mwtnCommons.checkModules;
+    service.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
+    service.gridOptions = $mwtnCommons.gridOptions;
+    service.formatTimeStamp = $mwtnCommons.formatTimeStamp;
+    service.deleteDocType = $mwtnDatabase.deleteDocType;
     
     service.getAllLogEntries = function(from, size) {
       var sort = [ {
@@ -21,25 +25,15 @@ define(['app/mwtnLog/mwtnLog.module','app/mwtnCommons/mwtnCommons.services'],fun
         }
       }];
       var deferred = $q.defer();
-      $mwtnDatabase.getAllData('log', from, size, sort).then(function(success){
+      $mwtnDatabase.getAllData('mwtn', 'log', from, size, sort).then(function(success){
         deferred.resolve(success);
       }, function(error){
         $mwtnLog.error({component: '$mwtnLogView.getAllLogEntries', message: JSON.stringify(error.data)});
-        deferred.reject(error)
+        deferred.reject(error);
       });
       return deferred.promise;
     };
 
-    service.deleteLogEntry = function(id) {
-      var deferred = $q.defer();
-      $mwtnDatabase.deleteDoc('log', id).then(function(deleted){
-        deferred.resolve(deleted);
-      }, function(error){
-        $mwtnLog.error({component: '$mwtnLogView.deleteLogEntry', message: JSON.stringify(error.data)});
-        deferred.reject(error)
-      });
-      return deferred.promise;
-    };
     return service;
   });
 });

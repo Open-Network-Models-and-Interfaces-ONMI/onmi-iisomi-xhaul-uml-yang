@@ -1,0 +1,21 @@
+<div class="modal-header">
+	<h3 class="modal-title" id="modal-title">{{'MWTN_HIDE' | translate}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+	<div class="container" style="max-width: 600px;">
+		<div class="row">
+			<div class="col-md-12">
+				<span>Remove {{node.id}} from the list of required network elements.</span>
+			</div>
+		</div>    
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" type="button" ng-click="ok()">
+		<i class="fa fa-times" aria-hidden="true"></i>
+		<span>{{'MWTN_HIDE' | translate}}</span>
+   </button>
+	<button class="btn btn-warning" type="button" ng-click="cancel()">
+		<span>{{'MWTN_CANCEL' | translate}}</span>
+	</button>
+</div>

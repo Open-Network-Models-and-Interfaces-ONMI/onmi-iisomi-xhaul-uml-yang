@@ -20,7 +20,7 @@ define(
                   'uiGridConstants',
                   function($scope, $rootScope, $mwtnEvents, uiGridConstants) {
 
-                    $rootScope['section_logo'] = 'src/app/mwtnEvents/images/mwtnEvents.png';
+                    $rootScope.section_logo = 'src/app/mwtnEvents/images/mwtnEvents.png';
 
                     $scope.status = {alarms:true};
                     $scope.oneATime = true;
@@ -67,73 +67,86 @@ define(
                       { field: 'counter',  type: 'number', displayName: 'Counter',  headerCellClass: $scope.highlightFilteredHeader, width: 90 },
                       { field: 'nodeName',  type: 'string', displayName: 'NetworkElement',  headerCellClass: $scope.highlightFilteredHeader, width: 170 },
                       { field: 'objectId',  type: 'string', displayName: 'Object',  headerCellClass: $scope.highlightFilteredHeader, width: 400 },
-                      { field: 'objectType',  type: 'string', displayName: 'Object',  headerCellClass: $scope.highlightFilteredHeader, width: 400 },
-                      { field: 'action',  type: 'string', displayName: 'Object',  headerCellClass: $scope.highlightFilteredHeader, width: 100 }
+                      { field: 'objectType',  type: 'string', displayName: 'Type',  headerCellClass: $scope.highlightFilteredHeader, width: 400 },
+                      { field: 'action',  type: 'string', displayName: 'Action',  headerCellClass: $scope.highlightFilteredHeader, width: 100 }
                       
                     ];
 
                     var listenToNotifications = function() {
-                      try {
-                        var url = $mwtnEvents.getMmwtnWebSocketUrl();
-                        var notificationSocket = new WebSocket(url);
+                      $mwtnEvents.getMmwtnWebSocketUrl().then(function(success){
+                        
+                        try {
+                          var notificationSocket = new WebSocket(success);
 
-                        notificationSocket.onmessage = function(event) {
-                          // we process our received event here
-                          if (typeof event.data === 'string') {
-                            // console.log("Client Received:\n" + event.data);
-                            // console.log("---------------------------");
-                            $mwtnEvents.formatData(event).then(function(formated) {
-                              switch (formated.notifType) {
-                              case 'ProblemNotification':
-                                $scope.gridOptionsAlarms.data.push(formated);
-                                break;
-                              case 'AttributeValueChangedNotification':
-                                $scope.gridOptionsAVC.data.push(formated);
-                                break;
-                              case 'ObjectCreationNotification':
-                              case 'ObjectDeletionNotification':
-                                $scope.gridOptionsObject.data.push(formated);
-                                break;
-                              default:
-                                console.error('Missing implementation for', formated.notifType);
-                              }
-                            }, function(error) {
-                              // do nothing
-                            });
-                          }
-                        };
-
-                        notificationSocket.onerror = function(error) {
-                          console.log("Socket error: " + error);
-                        };
-
-                        notificationSocket.onopen = function(event) {
-                          console.log("Socket connection opened.");
-                          console.log("---------------------------");
-
-                          function subscribe() {
-                            if (notificationSocket.readyState === notificationSocket.OPEN) {
-                              var data = {
-                                'data' : 'scopes',
-                                'scopes' : [ "ObjectCreationNotification",
-                                    "ObjectDeletionNotification",
-                                    "AttributeValueChangedNotification",
-                                    "ProblemNotification" ]
-                              };
-                              notificationSocket.send(JSON.stringify(data));
+                          notificationSocket.onmessage = function(event) {
+                            // we process our received event here
+                            if (typeof event.data === 'string') {
+                              // console.log("Client Received:\n" + event.data);
+                              // console.log("---------------------------");
+                              $mwtnEvents.formatData(event).then(function(formated) {
+                                switch (formated.notifType) {
+                                case 'ProblemNotification':
+                                  $scope.gridOptionsAlarms.data.push(formated);
+                                  break;
+                                case 'AttributeValueChangedNotification':
+                                  $scope.gridOptionsAVC.data.push(formated);
+                                  break;                                
+                                case 'ObjectCreationNotification':
+                                  formated.action = 'created';
+                                  if (formated.nodeName === 'SDN-Controller') {
+                                    formated.objectType = 'NETCONF session';
+                                  }
+                                  $scope.gridOptionsObject.data.push(formated);
+                                  break;
+                                case 'ObjectDeletionNotification':
+                                  formated.action = 'deleted';
+                                  if (formated.nodeName === 'SDN-Controller') {
+                                    formated.objectType = 'NETCONF session';
+                                  }
+                                  $scope.gridOptionsObject.data.push(formated);
+                                  break;
+                                default:
+                                  console.error('Missing implementation for', formated.notifType);
+                                }
+                              }, function(error) {
+                                // do nothing
+                              });
                             }
-                          }
-                          subscribe();
-                        };
+                          };
 
-                        notificationSocket.onclose = function(event) {
-                          console.log("Socket connection closed.");
+                          notificationSocket.onerror = function(error) {
+                            console.log("Socket error: " + error);
+                          };
+
+                          notificationSocket.onopen = function(event) {
+                            console.log("Socket connection opened.");
+                            console.log("---------------------------");
+
+                            function subscribe() {
+                              if (notificationSocket.readyState === notificationSocket.OPEN) {
+                                var data = {
+                                  'data' : 'scopes',
+                                  'scopes' : [ "ObjectCreationNotification",
+                                      "ObjectDeletionNotification",
+                                      "AttributeValueChangedNotification",
+                                      "ProblemNotification" ]
+                                };
+                                notificationSocket.send(JSON.stringify(data));
+                              }
+                            }
+                            subscribe();
+                          };
+
+                          notificationSocket.onclose = function(event) {
+                            console.log("Socket connection closed.");
+                          };
+                        } catch (e) {
+                          console.error("Error when creating WebSocket.\n" + e);
                         }
-                      } catch (e) {
-                        $scope.error("Error when creating WebSocket.\n" + e);
-                      }
+                      }, function(error){
+                        console.error("Error when creating WebSocket.\n" + error);
+                      });
                     };
-
                     listenToNotifications();
                   } ]);
 

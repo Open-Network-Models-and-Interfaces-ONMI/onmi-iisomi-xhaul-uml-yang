@@ -10,8 +10,9 @@ define(['angularAMD',
         'app/routingConfig', 
         'app/core/core.services', 
         'common/config/env.module',
-        'app/mwtnCommons/mwtnCommons.module'], function(ng) {
-  var mwtnTestApp = angular.module('app.mwtnTest', ['ui.grid', 'ui.bootstrap', 'app.core', 'ui.router.state', 'config']);
+        'app/mwtnCommons/mwtnCommons.module',
+        'app/mwtnCommons/bower_components/angular-clipboard/angular-clipboard'], function(ng) {
+  var mwtnTestApp = angular.module('app.mwtnTest', ['ui.grid', 'ui.bootstrap', 'app.core', 'ui.router.state', 'config', 'angular-clipboard']);
 
   mwtnTestApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $translateProvider) {
     mwtnTestApp.register = {
@@ -19,7 +20,6 @@ define(['angularAMD',
       directive : $compileProvider.directive,
       factory : $provide.factory,
       service : $provide.service
-
     };
 
     NavHelperProvider.addControllerUrl('app/mwtnTest/mwtnTest.controller');
@@ -40,8 +40,8 @@ define(['angularAMD',
         url: 'mwtnTest',
         access: access.admin,
         views : {
-            'content' : {
-                templateUrl: 'src/app/mwtnTest/mwtnTest.tpl.html',
+            content : {
+                templateUrl: 'src/app/mwtnTest/templates/frame.tpl.html',
                 controller: 'mwtnTestCtrl'
             }
         }

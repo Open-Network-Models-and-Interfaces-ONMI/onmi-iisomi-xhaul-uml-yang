@@ -1,0 +1,22 @@
+<script src="src/app/mwtnCommons/xml2json.js"></script>
+<div class="text-right margin5 mwtn">
+  <a href="{{link}}" title="{{'MWTN_NODES' | translate}}">
+    <span>{{ 'MWTN_NODES' | translate }}:</span>
+    <i class="fa fa-signal cleared" aria-hidden="true"></i>
+    <span> {{nodeCount}} </span>
+    <span> || </span>
+  </a> 
+  <a href="{{link}}" title="{{'MWTN_NODES' | translate}}">
+   <span>{{ 'MWTN_ALARM_STATUS' | translate }}:</span>
+  </a> 
+  <a href="{{link}}" ng-repeat="(key, value) in alarmStatus" title="{{key}}">
+    <span ng-show="$index !== 0"> | </span>
+    <i class="fa fa-exclamation-triangle" ng-class="{ {{key}} : value !== 0, 'cleared': value === 0}" aria-hidden="true" ></i>
+    <span> {{value}} </span>
+  </a> 
+  <a href="{{link}}" title="{{key}}">
+    <span> | </span>
+    <span>{{ 'MWTN_SUM' | translate }}: </span>
+    <span> {{getAlarmStatusSum()}} </span>
+  </a> 
+</div>

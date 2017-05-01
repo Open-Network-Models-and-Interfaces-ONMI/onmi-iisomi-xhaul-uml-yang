@@ -17,7 +17,7 @@ define(['app/odlChat/odlChat.module'],function(odlChatApp) {
       };
       $http(request).then(function successCallback(response) {
         console.log(response.headers('Location'));
-        callback(response.headers('Location'))
+        callback(response.headers('Location'));
       }, function errorCallback(response) {
         console.error(JSON.stringify(response));
         callback();
