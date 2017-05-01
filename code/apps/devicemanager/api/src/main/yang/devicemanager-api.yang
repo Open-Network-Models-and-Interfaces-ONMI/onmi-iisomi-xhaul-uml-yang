@@ -1,0 +1,21 @@
+module devicemanager-api {
+
+    yang-version 1;
+    namespace "urn:opendaylight:params:xml:ns:yang:devicemanager:api";
+    prefix "devicemanager-api";
+
+    import config { prefix config; revision-date 2013-04-05; }
+    description
+        "DeviceManager Api Module";
+
+    revision "2017-03-17" {
+        description
+            "Initial revision";
+    }
+
+    identity devicemanager-api {
+        base config:service-type;
+        config:java-class org.opendaylight.mwtn.devicemanager.api.DeviceManagerService;
+    }
+}
+

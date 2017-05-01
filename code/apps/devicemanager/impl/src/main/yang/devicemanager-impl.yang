@@ -1,0 +1,64 @@
+/*
+ * Copyright (c) 2017 highstreet technologies GmbH and others.  All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v1.0 which accompanies this distribution,
+ * and is available at http://www.eclipse.org/legal/epl-v10.html
+ */
+module devicemanager-impl {
+    yang-version 1;
+    namespace "urn:opendaylight:params:xml:ns:yang:devicemanager:impl";
+    prefix "devicemanager-impl";
+
+    import config { prefix config; revision-date 2013-04-05; }
+    import opendaylight-md-sal-binding { prefix mdsal; revision-date 2013-10-28;}
+    import devicemanager-api { prefix devicemanager-api; revision-date 2017-03-17;}
+
+    description
+        "Device Manager Impl Module";
+
+    revision "2017-03-17" {
+        description
+            "Initial revision";
+    }
+
+    identity devicemanager-impl {
+        base config:module-type;
+        config:provided-service devicemanager-api:devicemanager-api;
+        config:java-name-prefix DeviceManagerImpl;
+    }
+
+    augment "/config:modules/config:module/config:configuration" {
+        case devicemanager-impl {
+            when "/config:modules/config:module/config:type = 'devicemanager-impl'";
+            container broker {
+                uses config:service-ref {
+                    refine type {
+                        mandatory true;
+                        config:required-identity mdsal:binding-broker-osgi-registry;
+                    }
+                }
+            }
+
+
+            container notification-service {
+               uses config:service-ref {
+                   refine type {
+                       mandatory true;
+                       config:required-identity mdsal:binding-notification-service;
+                   }
+               }
+            }
+
+            container data-broker {
+                uses config:service-ref {
+                    refine type {
+                        mandatory false;
+                        config:required-identity mdsal:binding-async-data-broker;
+                    }
+                }
+            }
+
+        }
+    }
+}
