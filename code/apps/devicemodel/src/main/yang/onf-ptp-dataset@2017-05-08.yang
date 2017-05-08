@@ -22,7 +22,7 @@ module onf-ptp-dataset {
                        Martin Skorupski
                        <mailto:martin.skorupski@highstreet-technologies.com>";
     description "This module contains a collection of YANG definitions to extent ptp-dataset.";
-    revision 2017-04-12 {
+    revision 2017-05-08 {
         description "Initial version";
         reference "A YANG Data Model extending ptp-dataset.";
     }
@@ -115,9 +115,8 @@ module onf-ptp-dataset {
             type leafref {
                 path '/core-model:network-element/core-model:ltp/core-model:uuid';
             }
-            config false;
             description
-                "A reference to a LTP of layer-protocol-name 'ETH', which is used 
+                "A reference to a LTP of layer-protocol-name 'ETY' or 'MWPS', which is used 
                  to discover the PTP topology.";
         }
 
