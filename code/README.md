@@ -130,7 +130,7 @@ drwxrwxr-x  6 your_user_name your_user_name 4096 Okt 25 17:18 elasticsearch-head
 The 4th ONF Wireless PoC applications are developed for OpenDaylight Boron-SR1 release.
 
 ```
-wget https://nexus.opendaylight.org/groups/public/org/opendaylight/integration/distribution-karaf/0.5.1-Boron-SR1/distribution-karaf-0.5.1-Boron-SR1.tar.gz
+wget https://nexus.opendaylight.org/content/repositories/public/org/opendaylight/integration/distribution-karaf/0.5.1-Boron-SR1/distribution-karaf-0.5.1-Boron-SR1.tar.gz
 tar -xvzf distribution-karaf-0.5.1-Boron-SR1.tar.gz
 cd distribution-karaf-0.5.1-Boron-SR1/
 ```
