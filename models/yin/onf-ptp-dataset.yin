@@ -32,7 +32,7 @@ Editors:  Alfons Mittermaier
   <description>
     <text>This module contains a collection of YANG definitions to extent ptp-dataset.</text>
   </description>
-  <revision date="2017-04-12">
+  <revision date="2017-05-08">
     <description>
       <text>Initial version</text>
     </description>
@@ -133,9 +133,8 @@ Chapter 7.4.2</text>
       <type name="leafref">
         <path value="/core-model:network-element/core-model:ltp/core-model:uuid"/>
       </type>
-      <config value="false"/>
       <description>
-        <text>A reference to a LTP of layer-protocol-name 'ETH', which is used 
+        <text>A reference to a LTP of layer-protocol-name 'ETY' or 'MWPS', which is used 
 to discover the PTP topology.</text>
       </description>
     </leaf>
