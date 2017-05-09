@@ -8,30 +8,63 @@
 package com.highstreet.technologies.odl.app.impl;
 
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
+import org.opendaylight.controller.sal.binding.api.BindingAwareBroker;
+import org.opendaylight.controller.sal.binding.api.BindingAwareProvider;
+import org.opendaylight.controller.sal.binding.api.RpcProviderRegistry;
+import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ReRoutingFCRouteProvider {
+public class ReRoutingFCRouteProvider implements BindingAwareProvider, AutoCloseable
+{
+    public ReRoutingFCRouteProvider(BundleContext bundleContext, RpcProviderRegistry rpcProviderRegistry)
+    {
+        this.bundleContext = bundleContext;
+        this.rpcProviderRegistry = rpcProviderRegistry;
+    }
 
     private static final Logger LOG = LoggerFactory.getLogger(ReRoutingFCRouteProvider.class);
+    private BundleContext bundleContext;
+    private RpcProviderRegistry rpcProviderRegistry;
+    private DataBroker dataBroker;
 
-    private final DataBroker dataBroker;
-
-    public ReRoutingFCRouteProvider(final DataBroker dataBroker) {
+    public ReRoutingFCRouteProvider(final DataBroker dataBroker)
+    {
         this.dataBroker = dataBroker;
     }
+
+    private static Object lock = new Object();
+
+    public ReRoutingRPC getImpl()
+    {
+        return impl;
+    }
+
+    private ReRoutingRPC impl;
 
     /**
      * Method called when the blueprint container is created.
      */
-    public void init() {
+    public void init()
+    {
         LOG.info("ReRoutingFCRouteProvider Session Initiated");
     }
 
     /**
      * Method called when the blueprint container is destroyed.
      */
-    public void close() {
+    public void close()
+    {
         LOG.info("ReRoutingFCRouteProvider Closed");
+    }
+
+    @Override
+    public void onSessionInitiated(
+            BindingAwareBroker.ProviderContext providerContext)
+    {
+        synchronized (lock)
+        {
+            impl = new ReRoutingRPC(providerContext, this.rpcProviderRegistry);
+        }
     }
 }
