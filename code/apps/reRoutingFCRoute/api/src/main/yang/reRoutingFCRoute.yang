@@ -6,4 +6,29 @@ module reRoutingFCRoute {
     revision "2017-05-09" {
         description "Initial revision of reRoutingFCRoute model";
     }
+
+    rpc createFCRoute{
+        input {
+            leaf src {
+                type string;
+            }
+            leaf dst {
+                type string;
+            }
+            leaf vlanid {
+                type int8;
+            }
+        }
+        output {
+            leaf uuid {
+                type string;
+            }
+            leaf status {
+                type enumeration {
+                    enum successful;
+                    enum failure;
+                }
+            }
+        }
+    }
 }
