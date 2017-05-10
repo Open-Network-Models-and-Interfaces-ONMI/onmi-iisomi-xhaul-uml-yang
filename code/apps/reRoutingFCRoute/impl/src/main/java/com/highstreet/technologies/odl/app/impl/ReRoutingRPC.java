@@ -7,14 +7,18 @@
  */
 package com.highstreet.technologies.odl.app.impl;
 
+import org.opendaylight.controller.md.sal.binding.api.DataBroker;
+import org.opendaylight.controller.md.sal.binding.api.MountPointService;
 import org.opendaylight.controller.md.sal.common.api.data.AsyncTransaction;
 import org.opendaylight.controller.md.sal.common.api.data.TransactionChainListener;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker;
 import org.opendaylight.controller.sal.binding.api.RpcProviderRegistry;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.reroutingfcroute.rev170509.CreateFCRouteInput;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.reroutingfcroute.rev170509.CreateFCRouteOutput;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.reroutingfcroute.rev170509.CreateFCRouteOutputBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.reroutingfcroute.rev170509.ReRoutingFCRouteService;
 import org.opendaylight.yangtools.yang.common.RpcResult;
+import org.opendaylight.yangtools.yang.common.RpcResultBuilder;
 
 import java.util.concurrent.Future;
 
@@ -25,14 +29,28 @@ public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, Re
 {
     public ReRoutingRPC(BindingAwareBroker.ProviderContext providerContext, RpcProviderRegistry rpcProviderRegistry)
     {
-
+        this.dataBroker = providerContext.getSALService(DataBroker.class);
+        this.mountService = providerContext.getSALService(MountPointService.class);
+        this.registration = rpcProviderRegistry.addRpcImplementation(ReRoutingFCRouteService.class, this);
     }
+
+    private final DataBroker dataBroker;
+    private final MountPointService mountService;
+    private final BindingAwareBroker.RpcRegistration<ReRoutingFCRouteService> registration;
 
     @Override
     public Future<RpcResult<CreateFCRouteOutput>> createFCRoute(
             CreateFCRouteInput input)
     {
-        return null;
+        // select route according input
+
+        // get data of every network-element from that route and store origin data
+
+        // handle every network-element (add client-ltp\fc\lp)
+
+        CreateFCRouteOutputBuilder builder = new CreateFCRouteOutputBuilder();
+        builder.setUuid("fc_route_1");
+        return RpcResultBuilder.success(builder.build()).buildFuture();
     }
 
     @Override
