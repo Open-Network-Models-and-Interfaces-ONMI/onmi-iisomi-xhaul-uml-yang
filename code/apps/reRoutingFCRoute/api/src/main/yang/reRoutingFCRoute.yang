@@ -27,7 +27,7 @@ module reRoutingFCRoute {
                 type string;
             }
             leaf vlanid {
-                type int8;
+                type int32;
             }
         }
         output {

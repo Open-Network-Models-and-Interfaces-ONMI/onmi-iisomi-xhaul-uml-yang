@@ -9,6 +9,7 @@ package com.highstreet.technologies.odl.app.impl;
 
 import com.google.common.base.Optional;
 import com.google.common.util.concurrent.CheckedFuture;
+import com.highstreet.technologies.odl.app.impl.policy.Policies;
 import com.highstreet.technologies.odl.app.impl.topology.Graph;
 import com.highstreet.technologies.odl.app.impl.topology.Vertex;
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
@@ -31,6 +32,8 @@ import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
 import org.opendaylight.yangtools.yang.common.RpcResult;
 import org.opendaylight.yangtools.yang.common.RpcResultBuilder;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Future;
 
@@ -58,7 +61,15 @@ public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, Re
             CreateFCRouteInput input)
     {
 
-        List<List<Vertex>> routes = Graph.instance().routes(new Vertex(input.getSrc()), new Vertex(input.getDst()));
+        List<List<Vertex>> paths = Graph.instance().routes(new Vertex(input.getSrc()), new Vertex(input.getDst()));
+        for (List<Vertex> path : paths)
+        {
+            if (Policies.consent(path))
+            {
+                create_fc_route_on(path, input.getVlanid());
+            }
+        }
+
         // select route according input
 //        List<LogicalTerminationPoint> routes = selectRoute(input);
 
@@ -89,6 +100,35 @@ public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, Re
         CreateFCRouteOutputBuilder builder = new CreateFCRouteOutputBuilder();
         builder.setUuid("fc_route_1");
         return RpcResultBuilder.success(builder.build()).buildFuture();
+    }
+
+    private void create_fc_route_on(List<Vertex> path, int vlanid)
+    {
+        createFCs(sortVertexByNE(path));
+    }
+
+    private void createFCs(HashMap<String, List<Vertex>> verticesUnderNe)
+    {
+
+    }
+
+    private HashMap<String, List<Vertex>> sortVertexByNE(List<Vertex> path)
+    {
+        HashMap<String, List<Vertex>> verticesInOneNe = new HashMap<>();
+        for (Vertex vertex : path)
+        {
+            List<Vertex> vertices;
+            String uuidOfNe = vertex.getNEUUid();
+            if (verticesInOneNe.containsKey(uuidOfNe))
+                vertices = verticesInOneNe.get(uuidOfNe);
+            else
+            {
+                vertices = new ArrayList<>();
+                verticesInOneNe.put(uuidOfNe, vertices);
+            }
+            vertices.add(vertex);
+        }
+        return verticesInOneNe;
     }
 
     @Override
