@@ -7,6 +7,17 @@ module reRoutingFCRoute {
         description "Initial revision of reRoutingFCRoute model";
     }
 
+    rpc start {
+        output {
+            leaf status {
+                type enumeration {
+                    enum successful;
+                    enum failure;
+                }
+            }
+        }
+    }
+
     rpc createFCRoute{
         input {
             leaf src {
