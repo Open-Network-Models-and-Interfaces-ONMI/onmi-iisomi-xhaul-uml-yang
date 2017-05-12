@@ -43,4 +43,9 @@ public class Vertex
                 "name='" + name + '\'' +
                 '}';
     }
+
+    public String getNEUUid()
+    {
+        return null;
+    }
 }
