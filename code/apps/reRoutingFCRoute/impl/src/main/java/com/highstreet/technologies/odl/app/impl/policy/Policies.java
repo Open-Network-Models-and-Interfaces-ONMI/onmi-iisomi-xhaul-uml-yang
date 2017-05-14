@@ -16,8 +16,16 @@ import java.util.List;
  */
 public class Policies
 {
+    private static Policy[] policies = new Policy[]{};
     public static boolean consent(List<Vertex> path)
     {
+        for (Policy policy : policies)
+        {
+            if (!policy.consent(path))
+            {
+                return false;
+            }
+        }
         return true;
     }
 }
