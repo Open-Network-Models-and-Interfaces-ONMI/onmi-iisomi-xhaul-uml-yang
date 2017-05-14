@@ -18,6 +18,6 @@ public class Policies
 {
     public static boolean consent(List<Vertex> path)
     {
-        return false;
+        return true;
     }
 }

@@ -48,4 +48,9 @@ public class Vertex
     {
         return null;
     }
+
+    public String getLTPUUid()
+    {
+        return null;
+    }
 }

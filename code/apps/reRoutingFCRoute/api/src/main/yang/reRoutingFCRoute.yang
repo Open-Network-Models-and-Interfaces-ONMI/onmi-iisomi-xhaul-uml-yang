@@ -31,6 +31,12 @@ module reRoutingFCRoute {
             }
         }
         output {
+            leaf status {
+                type enumeration {
+                    enum successful;
+                    enum failure;
+                }
+            }
             leaf uuid {
                 type string;
             }

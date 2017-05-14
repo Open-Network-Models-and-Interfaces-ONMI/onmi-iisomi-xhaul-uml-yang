@@ -12,29 +12,37 @@ import com.google.common.util.concurrent.CheckedFuture;
 import com.highstreet.technologies.odl.app.impl.policy.Policies;
 import com.highstreet.technologies.odl.app.impl.topology.Graph;
 import com.highstreet.technologies.odl.app.impl.topology.Vertex;
-import org.opendaylight.controller.md.sal.binding.api.DataBroker;
-import org.opendaylight.controller.md.sal.binding.api.MountPointService;
-import org.opendaylight.controller.md.sal.binding.api.ReadOnlyTransaction;
+import org.opendaylight.controller.md.sal.binding.api.*;
 import org.opendaylight.controller.md.sal.common.api.data.AsyncTransaction;
 import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
 import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
 import org.opendaylight.controller.md.sal.common.api.data.TransactionChainListener;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker;
 import org.opendaylight.controller.sal.binding.api.RpcProviderRegistry;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.LayerProtocolName;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.NetworkElement;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.UniversalId;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.logical.termination.point.g.LpBuilder;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.logical.termination.point.g.LpKey;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.network.element.Ltp;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.network.element.LtpBuilder;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.network.element.LtpKey;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.network.topology.topology.topology.types.TopologyNetconf;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.reroutingfcroute.rev170509.*;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NetworkTopology;
+import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NodeId;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.TopologyId;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.Topology;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.TopologyKey;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node;
+import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.NodeKey;
 import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
 import org.opendaylight.yangtools.yang.common.RpcResult;
 import org.opendaylight.yangtools.yang.common.RpcResultBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.Future;
 
 /**
@@ -42,6 +50,11 @@ import java.util.concurrent.Future;
  */
 public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, ReRoutingFCRouteService
 {
+    private static final LayerProtocolName LAYER_PROTOCOL_NAME = new LayerProtocolName("ETH");
+    private static final Logger logger = LoggerFactory.getLogger(ReRoutingRPC.class);
+    private HashMap<MountPoint, NetworkElement> currentNeOnPath = new HashMap<>();
+    private CreateFCRouteInput currentInput;
+
     public ReRoutingRPC(BindingAwareBroker.ProviderContext providerContext, RpcProviderRegistry rpcProviderRegistry)
     {
         this.dataBroker = providerContext.getSALService(DataBroker.class);
@@ -60,56 +73,126 @@ public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, Re
     public Future<RpcResult<CreateFCRouteOutput>> createFCRoute(
             CreateFCRouteInput input)
     {
-
+        CreateFCRouteOutputBuilder builder = new CreateFCRouteOutputBuilder();
         List<List<Vertex>> paths = Graph.instance().routes(new Vertex(input.getSrc()), new Vertex(input.getDst()));
-        for (List<Vertex> path : paths)
+        try
         {
-            if (Policies.consent(path))
+            currentInput = input;
+            for (List<Vertex> path : paths)
             {
-                create_fc_route_on(path, input.getVlanid());
+                if (Policies.consent(path))
+                {
+                    create_fc_route_on(path, input.getVlanid());
+                }
             }
+            builder.setUuid("fc_route_1");
+        } catch (Exception e)
+        {
+            currentNeOnPath.clear();
+            currentInput = null;
+            logger.warn("create fc-route caught exception!", e);
         }
 
-        // select route according input
-//        List<LogicalTerminationPoint> routes = selectRoute(input);
-
-        // get data of every network-element from that route and store origin data
-
-        // handle every network-element (add client-ltp\fc\lp)
-
-//        try
-//        {
-//            Optional<Topology> optTopology = topology.checkedGet();
-//            List<Node> nodeList = optTopology.get().getNode();
-//            for (Node node : nodeList)
-//            { // loop all nodes from topology
-//                LOG.info("Node : {}", node.getKey().getNodeId());
-//                if (canProcessDevice(node))
-//                { // check if we can process it
-//                    processNode(node.getKey());
-//                }
-//            }
-//        }
-//        catch (Exception e)
-//        {
-//            LOG.error(e.getMessage(), e);
-//            return false;
-//        }
-//        return true;
-
-        CreateFCRouteOutputBuilder builder = new CreateFCRouteOutputBuilder();
-        builder.setUuid("fc_route_1");
+//        builder.setStatus()
         return RpcResultBuilder.success(builder.build()).buildFuture();
     }
 
-    private void create_fc_route_on(List<Vertex> path, int vlanid)
+    private void create_fc_route_on(List<Vertex> path, int vlanid) throws ReadFailedException
     {
-        createFCs(sortVertexByNE(path));
+        createFCs(sortVertexByNE(path), vlanid);
     }
 
-    private void createFCs(HashMap<String, List<Vertex>> verticesUnderNe)
+    private void createFCs(HashMap<String, List<Vertex>> verticesUnderNe, int vlanid) throws ReadFailedException
     {
+        for (Map.Entry<String, List<Vertex>> entry : verticesUnderNe.entrySet())
+        {
+            Optional<MountPoint> opMountP = mountService.getMountPoint(
+                    InstanceIdentifier.create(Topology.class).child(Node.class, new NodeKey(new NodeId(entry.getKey()))));
+            if (!opMountP.isPresent())
+            {
+                throw new IllegalArgumentException(" ne " + entry.getKey() + " is not mounted!");
+            }
+            NetworkElement ne = getNe(opMountP.get());
+            // save it
+            currentNeOnPath.put(opMountP.get(), ne);
 
+            // start the creation of fc
+            // add client ltps
+            ArrayList<String> clientLtpsInFC = new ArrayList<>();
+            entry.getValue().forEach(vertex -> addClientLtpTo(ne, vlanid, clientLtpsInFC, vertex));
+            // add fc into fd
+            ne.getFd().get(0).getFc().add(new UniversalId(buildFcName(clientLtpsInFC)));
+
+            // submit to network element
+            ReadWriteTransaction neCommitTrans = opMountP.get().getService(DataBroker.class).get().newReadWriteTransaction();
+            neCommitTrans.put(LogicalDatastoreType.OPERATIONAL, InstanceIdentifier.create(NetworkElement.class), ne);
+
+            neCommitTrans.submit();
+        }
+    }
+
+    private String buildFcName(ArrayList<String> clientLtpsInFC)
+    {
+//        String fcName = "FC-LTP-ETY-1.1.1-ETH-23- LTP-ETC-1.3.1-ETH-23"
+        StringBuilder fcName = new StringBuilder("FC");
+        for (String ltpName : clientLtpsInFC)
+        {
+            fcName.append("-").append(ltpName);
+        }
+        return fcName.toString();
+    }
+
+    private void addClientLtpTo(NetworkElement ne, int vlanid, ArrayList<String> clientLtpsInFC, Vertex vertex)
+    {
+        String ltpName = vertex.getLTPUUid();
+        String clientLtpName = ltpFrom(ltpName, vlanid);
+        String lpName = lpFrom(clientLtpName, vlanid);
+
+        clientLtpsInFC.add(clientLtpName);
+
+        // add clien ltp to ltp
+        Ltp serverLTP = null;
+        for (Ltp ltp : ne.getLtp())
+        {
+            if (ltp.getKey().getUuid().getValue().equalsIgnoreCase(ltpName))
+            {
+                serverLTP = ltp;
+                break;
+            }
+        }
+        serverLTP.getClientLtp().add(new UniversalId(clientLtpName));
+        // add client ltp to ltps
+        LtpBuilder clientLtpBuilder = new LtpBuilder();
+        clientLtpBuilder.setKey(new LtpKey(new UniversalId(clientLtpName)));
+        clientLtpBuilder.setServerLtp(Arrays.asList(new UniversalId(serverLTP.getKey().getUuid())));
+        // add lp to client ltp
+        LpBuilder lpBuilder = new LpBuilder();
+        lpBuilder.setKey(new LpKey(new UniversalId(lpName)));
+        lpBuilder.setLayerProtocolName(new LayerProtocolName(LAYER_PROTOCOL_NAME));
+        clientLtpBuilder.setLp(Arrays.asList(lpBuilder.build()));
+
+        ne.getLtp().add(clientLtpBuilder.build());
+    }
+
+    private String lpFrom(String ltpName, int vlanid)
+    {
+        return String.format(ltpName + "-%1$s-%2$d", LAYER_PROTOCOL_NAME, vlanid);
+    }
+
+    private String ltpFrom(String ltpName, int vlanid)
+    {
+        return ltpName + "-LP-1";
+    }
+
+    private NetworkElement getNe(MountPoint mountPoint) throws ReadFailedException
+    {
+        DataBroker neDataBroker = mountPoint.getService(DataBroker.class).get();
+        InstanceIdentifier<NetworkElement> path = InstanceIdentifier.create(NetworkElement.class);
+        ReadOnlyTransaction networkElementTransaction = neDataBroker.newReadOnlyTransaction();
+        Optional<NetworkElement> networkElementOpt = networkElementTransaction.read(LogicalDatastoreType.OPERATIONAL, path).checkedGet();
+        if (networkElementOpt.isPresent())
+            return networkElementOpt.get();
+        return null;
     }
 
     private HashMap<String, List<Vertex>> sortVertexByNE(List<Vertex> path)
@@ -150,47 +233,11 @@ public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, Re
                 Graph.instance(topology.getLink());
             }
             builder.setStatus(StartOutput.Status.Successful);
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             builder.setStatus(StartOutput.Status.Failure);
         }
         return RpcResultBuilder.success(builder.build()).buildFuture();
-    }
-
-    private <T> T get_under_node(String path, Class<T> clazz)
-    {
-        // nodeid_obj
-//        String[] ids = path.split("_");
-//        String nodeUUid = ids[0];
-//        String ltpUUid = ids[1];
-//
-//        ReadOnlyTransaction transaction = dataBroker.newReadOnlyTransaction();
-//        InstanceIdentifier<Node> instanceIdentifierNode =
-//                create(NetworkTopology.class)
-//                        .child(Topology.class, new TopologyKey(new TopologyId(TopologyNetconf.QNAME.getLocalName())))
-//                        .child(Node.class, new NodeKey(new NodeId(nodeUUid)));
-//        CheckedFuture<Optional<Node>, ReadFailedException> checked = transaction.read(
-//                LogicalDatastoreType.OPERATIONAL, instanceIdentifierNode);
-//
-//        Optional<Node> optional = checked.checkedGet();
-//        if (optional.isPresent())
-//        {
-//            InstanceIdentifier<Ltp> idLtp = create(NetworkElement.class).child(Ltp.class, new LtpKey(
-//                    new UniversalId(ltpUUid)));
-//            Optional<MountPoint> mountPoint = mountService.getMountPoint(instanceIdentifierNode);
-//            DataBroker mountPointBroker = mountPoint.get().getService(DataBroker.class).get();
-//
-//            ReadOnlyTransaction ltpTrans = mountPointBroker.newReadOnlyTransaction();
-//            ltpTrans.read(LogicalDatastoreType.CONFIGURATION, idLtp).checkedGet().get().getKey();
-//        }
-//
-        return null;
-    }
-
-    private <T> T get_under(Node node, String uuid, Class<T> clazz)
-    {
-        return null;
     }
 
     @Override
@@ -212,5 +259,33 @@ public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, Re
             org.opendaylight.controller.md.sal.common.api.data.TransactionChain<?, ?> transactionChain)
     {
 
+    }
+
+    private void reRoute()
+    {
+        // clear current
+        for (Map.Entry<MountPoint, NetworkElement> entry : currentNeOnPath.entrySet())
+        {
+            NetworkElement ne = entry.getValue();
+            MountPoint mountPoint = entry.getKey();
+
+            // clear fc
+            ne.getFd().get(0).getFc().clear();
+            // clear client ltp
+            Iterator<Ltp> iterator = ne.getLtp().iterator();
+            while (iterator.hasNext())
+            {
+                Ltp ltp = iterator.next();
+                if (ltp.getClientLtp().size() > 0)
+                    ltp.getClientLtp().clear();
+                else if (ltp.getServerLtp().size() > 0)
+                    iterator.remove();
+            }
+            ReadWriteTransaction neTrans = mountPoint.getService(DataBroker.class).get().newReadWriteTransaction();
+            neTrans.put(LogicalDatastoreType.OPERATIONAL, InstanceIdentifier.create(NetworkElement.class), ne);
+            neTrans.submit();
+        }
+        // re create
+        createFCRoute(currentInput);
     }
 }
