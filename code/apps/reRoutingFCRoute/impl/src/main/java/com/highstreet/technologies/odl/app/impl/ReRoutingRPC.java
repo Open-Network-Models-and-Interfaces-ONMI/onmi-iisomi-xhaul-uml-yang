@@ -96,7 +96,6 @@ public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, Re
             builder.setUuid("");
         }
 
-//        builder.setStatus()
         return RpcResultBuilder.success(builder.build()).buildFuture();
     }
 
