@@ -246,7 +246,10 @@ public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, Re
     @Override
     public void close() throws Exception
     {
-
+        if (this.registration != null)
+        {
+            this.registration.close();
+        }
     }
 
     @Override
