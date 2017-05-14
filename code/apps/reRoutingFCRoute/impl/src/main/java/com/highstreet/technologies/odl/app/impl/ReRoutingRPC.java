@@ -70,6 +70,22 @@ public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, Re
     private final BindingAwareBroker.RpcRegistration<ReRoutingFCRouteService> registration;
 
     @Override
+    public Future<RpcResult<CreateFCRouteForTestOutput>> createFCRouteForTest(CreateFCRouteForTestInput input)
+    {
+        CreateFCRouteForTestOutputBuilder builder = new CreateFCRouteForTestOutputBuilder();
+        try
+        {
+            processNe("zte", Arrays.asList(new Vertex("ZTE-1-LTP-ETY-1.1.1"), new Vertex("ZTE-1-LTP-ETY-1.1.2")), 23);
+            builder.setStatus(CreateFCRouteForTestOutput.Status.Successful);
+        } catch (ReadFailedException e)
+        {
+            builder.setStatus(CreateFCRouteForTestOutput.Status.Failure);
+            logger.warn("test failed", e);
+        }
+        return RpcResultBuilder.success(builder.build()).buildFuture();
+    }
+
+    @Override
     public Future<RpcResult<CreateFCRouteOutput>> createFCRoute(
             CreateFCRouteInput input)
     {
@@ -108,29 +124,34 @@ public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, Re
     {
         for (Map.Entry<String, List<Vertex>> entry : verticesUnderNe.entrySet())
         {
-            Optional<MountPoint> opMountP = mountService.getMountPoint(
-                    InstanceIdentifier.create(Topology.class).child(Node.class, new NodeKey(new NodeId(entry.getKey()))));
-            if (!opMountP.isPresent())
-            {
-                throw new IllegalArgumentException(" ne " + entry.getKey() + " is not mounted!");
-            }
-            NetworkElement ne = getNe(opMountP.get());
-            // save it
-            currentNeOnPath.put(opMountP.get(), ne);
-
-            // start the creation of fc
-            // add client ltps
-            ArrayList<String> clientLtpsInFC = new ArrayList<>();
-            entry.getValue().forEach(vertex -> addClientLtpTo(ne, vlanid, clientLtpsInFC, vertex));
-            // add fc into fd
-            ne.getFd().get(0).getFc().add(new UniversalId(buildFcName(clientLtpsInFC)));
-
-            // submit to network element
-            ReadWriteTransaction neCommitTrans = opMountP.get().getService(DataBroker.class).get().newReadWriteTransaction();
-            neCommitTrans.put(LogicalDatastoreType.OPERATIONAL, InstanceIdentifier.create(NetworkElement.class), ne);
-
-            neCommitTrans.submit();
+            processNe(entry.getKey(), entry.getValue(), vlanid);
         }
+    }
+
+    private void processNe(String neid, List<Vertex> vertices, int vlanid) throws ReadFailedException
+    {
+        Optional<MountPoint> opMountP = mountService.getMountPoint(
+                InstanceIdentifier.create(Topology.class).child(Node.class, new NodeKey(new NodeId(neid))));
+        if (!opMountP.isPresent())
+        {
+            throw new IllegalArgumentException(" ne " + neid + " is not mounted!");
+        }
+        NetworkElement ne = getNe(opMountP.get());
+        // save it
+        currentNeOnPath.put(opMountP.get(), ne);
+
+        // start the creation of fc
+        // add client ltps
+        ArrayList<String> clientLtpsInFC = new ArrayList<>();
+        vertices.forEach(vertex -> addClientLtpTo(ne, vlanid, clientLtpsInFC, vertex));
+        // add fc into fd
+        ne.getFd().get(0).getFc().add(new UniversalId(buildFcName(clientLtpsInFC)));
+
+        // submit to network element
+        ReadWriteTransaction neCommitTrans = opMountP.get().getService(DataBroker.class).get().newReadWriteTransaction();
+        neCommitTrans.put(LogicalDatastoreType.OPERATIONAL, InstanceIdentifier.create(NetworkElement.class), ne);
+
+        neCommitTrans.submit();
     }
 
     private String buildFcName(ArrayList<String> clientLtpsInFC)
