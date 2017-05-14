@@ -86,11 +86,14 @@ public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, Re
                 }
             }
             builder.setUuid("fc_route_1");
+            builder.setStatus(CreateFCRouteOutput.Status.Successful);
         } catch (Exception e)
         {
             currentNeOnPath.clear();
             currentInput = null;
             logger.warn("create fc-route caught exception!", e);
+            builder.setStatus(CreateFCRouteOutput.Status.Failure);
+            builder.setUuid("");
         }
 
 //        builder.setStatus()
