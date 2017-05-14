@@ -42,4 +42,23 @@ module reRoutingFCRoute {
             }
         }
     }
+
+    rpc createFCRouteForTest {
+        input {
+            leaf vlanid {
+                type int32;
+            }
+        }
+        output {
+            leaf status {
+                type enumeration {
+                    enum successful;
+                    enum failure;
+                }
+            }
+            leaf uuid {
+                type string;
+            }
+        }
+    }
 }
