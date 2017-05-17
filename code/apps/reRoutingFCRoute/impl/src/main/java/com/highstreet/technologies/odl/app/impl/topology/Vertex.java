@@ -20,6 +20,12 @@ public class Vertex
     private String name;
 
     @Override
+    public int hashCode()
+    {
+        return name != null ? name.hashCode() : 0;
+    }
+
+    @Override
     public boolean equals(Object o)
     {
         if (this == o) return true;
@@ -28,12 +34,6 @@ public class Vertex
         Vertex vertex = (Vertex) o;
 
         return name != null ? name.equals(vertex.name) : vertex.name == null;
-    }
-
-    @Override
-    public int hashCode()
-    {
-        return name != null ? name.hashCode() : 0;
     }
 
     @Override

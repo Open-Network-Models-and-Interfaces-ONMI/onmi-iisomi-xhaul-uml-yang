@@ -20,15 +20,21 @@ public class ACMAlarmNotificationsHandler implements MicrowaveModelNotifications
     private static final Logger LOG = LoggerFactory.getLogger(ACMAlarmNotificationsHandler.class);
 
     @Override
+    public void onAttributeValueChangedNotification(AttributeValueChangedNotification notification)
+    {
+        LOG.info("onAttributeValueChangedNotification");
+    }
+
+    @Override
     public void onObjectCreationNotification(ObjectCreationNotification notification)
     {
         LOG.info("onObjectCreationNotification");
     }
 
     @Override
-    public void onAttributeValueChangedNotification(AttributeValueChangedNotification notification)
+    public void onObjectDeletionNotification(ObjectDeletionNotification notification)
     {
-        LOG.info("onAttributeValueChangedNotification");
+        LOG.info("onObjectDeletionNotification");
     }
 
     @Override
@@ -36,11 +42,5 @@ public class ACMAlarmNotificationsHandler implements MicrowaveModelNotifications
     {
         // TODO: 14/05/2017 add alarm handling code here
         LOG.info("onProblemNotification");
-    }
-
-    @Override
-    public void onObjectDeletionNotification(ObjectDeletionNotification notification)
-    {
-        LOG.info("onObjectDeletionNotification");
     }
 }

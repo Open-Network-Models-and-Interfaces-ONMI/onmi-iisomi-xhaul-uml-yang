@@ -50,24 +50,22 @@ import java.util.concurrent.Future;
  */
 public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, ReRoutingFCRouteService
 {
-    private static final LayerProtocolName LAYER_PROTOCOL_NAME = new LayerProtocolName("ETH");
-    private static final Logger logger = LoggerFactory.getLogger(ReRoutingRPC.class);
-    private HashMap<MountPoint, NetworkElement> currentNeOnPath = new HashMap<>();
-    private CreateFCRouteInput currentInput;
-
     public ReRoutingRPC(BindingAwareBroker.ProviderContext providerContext, RpcProviderRegistry rpcProviderRegistry)
     {
         this.dataBroker = providerContext.getSALService(DataBroker.class);
         this.mountService = providerContext.getSALService(MountPointService.class);
         this.registration = rpcProviderRegistry.addRpcImplementation(ReRoutingFCRouteService.class, this);
     }
-
+    private static final LayerProtocolName LAYER_PROTOCOL_NAME = new LayerProtocolName("ETH");
+    private static final Logger logger = LoggerFactory.getLogger(ReRoutingRPC.class);
     private static final InstanceIdentifier<Topology> NETCONF_TOPO_IID = InstanceIdentifier
             .create(NetworkTopology.class)
             .child(Topology.class, new TopologyKey(new TopologyId(TopologyNetconf.QNAME.getLocalName())));
     private final DataBroker dataBroker;
     private final MountPointService mountService;
     private final BindingAwareBroker.RpcRegistration<ReRoutingFCRouteService> registration;
+    private HashMap<MountPoint, NetworkElement> currentNeOnPath = new HashMap<>();
+    private CreateFCRouteInput currentInput;
 
     @Override
     public Future<RpcResult<CreateFCRouteForTestOutput>> createFCRouteForTest(CreateFCRouteForTestInput input)
@@ -77,7 +75,8 @@ public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, Re
         {
             processNe("zte", Arrays.asList(new Vertex("ZTE-1-LTP-ETY-1.1.1"), new Vertex("ZTE-1-LTP-ETY-1.1.2")), 23);
             builder.setStatus(CreateFCRouteForTestOutput.Status.Successful);
-        } catch (ReadFailedException e)
+        }
+        catch (ReadFailedException e)
         {
             builder.setStatus(CreateFCRouteForTestOutput.Status.Failure);
             logger.warn("test failed", e);
@@ -103,7 +102,8 @@ public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, Re
             }
             builder.setUuid("fc_route_1");
             builder.setStatus(CreateFCRouteOutput.Status.Successful);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             currentNeOnPath.clear();
             currentInput = null;
@@ -115,17 +115,31 @@ public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, Re
         return RpcResultBuilder.success(builder.build()).buildFuture();
     }
 
-    private void create_fc_route_on(List<Vertex> path, int vlanid) throws ReadFailedException
+    @Override
+    public Future<RpcResult<StartOutput>> start()
     {
-        createFCs(sortVertexByNE(path), vlanid);
-    }
-
-    private void createFCs(HashMap<String, List<Vertex>> verticesUnderNe, int vlanid) throws ReadFailedException
-    {
-        for (Map.Entry<String, List<Vertex>> entry : verticesUnderNe.entrySet())
+        StartOutputBuilder builder = new StartOutputBuilder();
+        try
         {
-            processNe(entry.getKey(), entry.getValue(), vlanid);
+            ReadOnlyTransaction transaction = dataBroker.newReadOnlyTransaction();
+            CheckedFuture<Optional<Topology>, ReadFailedException> futureTopo = transaction.read(
+                    LogicalDatastoreType.OPERATIONAL, NETCONF_TOPO_IID);
+
+            Optional<Topology> opTopo = futureTopo.get();
+            if (opTopo.isPresent())
+            {
+                Topology topology = opTopo.get();
+
+                // build graph by links
+                Graph.instance(topology.getLink());
+            }
+            builder.setStatus(StartOutput.Status.Successful);
         }
+        catch (Exception e)
+        {
+            builder.setStatus(StartOutput.Status.Failure);
+        }
+        return RpcResultBuilder.success(builder.build()).buildFuture();
     }
 
     private void processNe(String neid, List<Vertex> vertices, int vlanid) throws ReadFailedException
@@ -148,21 +162,23 @@ public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, Re
         ne.getFd().get(0).getFc().add(new UniversalId(buildFcName(clientLtpsInFC)));
 
         // submit to network element
-        ReadWriteTransaction neCommitTrans = opMountP.get().getService(DataBroker.class).get().newReadWriteTransaction();
+        ReadWriteTransaction neCommitTrans = opMountP.get().getService(
+                DataBroker.class).get().newReadWriteTransaction();
         neCommitTrans.put(LogicalDatastoreType.OPERATIONAL, InstanceIdentifier.create(NetworkElement.class), ne);
 
         neCommitTrans.submit();
     }
 
-    private String buildFcName(ArrayList<String> clientLtpsInFC)
+    private NetworkElement getNe(MountPoint mountPoint) throws ReadFailedException
     {
-//        String fcName = "FC-LTP-ETY-1.1.1-ETH-23- LTP-ETC-1.3.1-ETH-23"
-        StringBuilder fcName = new StringBuilder("FC");
-        for (String ltpName : clientLtpsInFC)
-        {
-            fcName.append("-").append(ltpName);
-        }
-        return fcName.toString();
+        DataBroker neDataBroker = mountPoint.getService(DataBroker.class).get();
+        InstanceIdentifier<NetworkElement> path = InstanceIdentifier.create(NetworkElement.class);
+        ReadOnlyTransaction networkElementTransaction = neDataBroker.newReadOnlyTransaction();
+        Optional<NetworkElement> networkElementOpt = networkElementTransaction.read(
+                LogicalDatastoreType.OPERATIONAL, path).checkedGet();
+        if (networkElementOpt.isPresent())
+            return networkElementOpt.get();
+        return null;
     }
 
     private void addClientLtpTo(NetworkElement ne, int vlanid, ArrayList<String> clientLtpsInFC, Vertex vertex)
@@ -197,9 +213,15 @@ public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, Re
         ne.getLtp().add(clientLtpBuilder.build());
     }
 
-    private String lpFrom(String ltpName, int vlanid)
+    private String buildFcName(ArrayList<String> clientLtpsInFC)
     {
-        return String.format(ltpName + "-%1$s-%2$d", LAYER_PROTOCOL_NAME, vlanid);
+//        String fcName = "FC-LTP-ETY-1.1.1-ETH-23- LTP-ETC-1.3.1-ETH-23"
+        StringBuilder fcName = new StringBuilder("FC");
+        for (String ltpName : clientLtpsInFC)
+        {
+            fcName.append("-").append(ltpName);
+        }
+        return fcName.toString();
     }
 
     private String ltpFrom(String ltpName, int vlanid)
@@ -207,60 +229,9 @@ public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, Re
         return ltpName + "-LP-1";
     }
 
-    private NetworkElement getNe(MountPoint mountPoint) throws ReadFailedException
+    private String lpFrom(String ltpName, int vlanid)
     {
-        DataBroker neDataBroker = mountPoint.getService(DataBroker.class).get();
-        InstanceIdentifier<NetworkElement> path = InstanceIdentifier.create(NetworkElement.class);
-        ReadOnlyTransaction networkElementTransaction = neDataBroker.newReadOnlyTransaction();
-        Optional<NetworkElement> networkElementOpt = networkElementTransaction.read(LogicalDatastoreType.OPERATIONAL, path).checkedGet();
-        if (networkElementOpt.isPresent())
-            return networkElementOpt.get();
-        return null;
-    }
-
-    private HashMap<String, List<Vertex>> sortVertexByNE(List<Vertex> path)
-    {
-        HashMap<String, List<Vertex>> verticesInOneNe = new HashMap<>();
-        for (Vertex vertex : path)
-        {
-            List<Vertex> vertices;
-            String uuidOfNe = vertex.getNEUUid();
-            if (verticesInOneNe.containsKey(uuidOfNe))
-                vertices = verticesInOneNe.get(uuidOfNe);
-            else
-            {
-                vertices = new ArrayList<>();
-                verticesInOneNe.put(uuidOfNe, vertices);
-            }
-            vertices.add(vertex);
-        }
-        return verticesInOneNe;
-    }
-
-    @Override
-    public Future<RpcResult<StartOutput>> start()
-    {
-        StartOutputBuilder builder = new StartOutputBuilder();
-        try
-        {
-            ReadOnlyTransaction transaction = dataBroker.newReadOnlyTransaction();
-            CheckedFuture<Optional<Topology>, ReadFailedException> futureTopo = transaction.read(
-                    LogicalDatastoreType.OPERATIONAL, NETCONF_TOPO_IID);
-
-            Optional<Topology> opTopo = futureTopo.get();
-            if (opTopo.isPresent())
-            {
-                Topology topology = opTopo.get();
-
-                // build graph by links
-                Graph.instance(topology.getLink());
-            }
-            builder.setStatus(StartOutput.Status.Successful);
-        } catch (Exception e)
-        {
-            builder.setStatus(StartOutput.Status.Failure);
-        }
-        return RpcResultBuilder.success(builder.build()).buildFuture();
+        return String.format(ltpName + "-%1$s-%2$d", LAYER_PROTOCOL_NAME, vlanid);
     }
 
     @Override
@@ -313,5 +284,37 @@ public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, Re
         }
         // re create
         createFCRoute(currentInput);
+    }
+
+    private void create_fc_route_on(List<Vertex> path, int vlanid) throws ReadFailedException
+    {
+        createFCs(sortVertexByNE(path), vlanid);
+    }
+
+    private void createFCs(HashMap<String, List<Vertex>> verticesUnderNe, int vlanid) throws ReadFailedException
+    {
+        for (Map.Entry<String, List<Vertex>> entry : verticesUnderNe.entrySet())
+        {
+            processNe(entry.getKey(), entry.getValue(), vlanid);
+        }
+    }
+
+    private HashMap<String, List<Vertex>> sortVertexByNE(List<Vertex> path)
+    {
+        HashMap<String, List<Vertex>> verticesInOneNe = new HashMap<>();
+        for (Vertex vertex : path)
+        {
+            List<Vertex> vertices;
+            String uuidOfNe = vertex.getNEUUid();
+            if (verticesInOneNe.containsKey(uuidOfNe))
+                vertices = verticesInOneNe.get(uuidOfNe);
+            else
+            {
+                vertices = new ArrayList<>();
+                verticesInOneNe.put(uuidOfNe, vertices);
+            }
+            vertices.add(vertex);
+        }
+        return verticesInOneNe;
     }
 }
