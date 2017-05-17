@@ -23,24 +23,21 @@ public class ReRoutingFCRouteProvider implements BindingAwareProvider, AutoClose
         this.rpcProviderRegistry = rpcProviderRegistry;
     }
 
-    private static final Logger LOG = LoggerFactory.getLogger(ReRoutingFCRouteProvider.class);
-    private BundleContext bundleContext;
-    private RpcProviderRegistry rpcProviderRegistry;
-    private DataBroker dataBroker;
-
     public ReRoutingFCRouteProvider(final DataBroker dataBroker)
     {
         this.dataBroker = dataBroker;
     }
-
+    private static final Logger LOG = LoggerFactory.getLogger(ReRoutingFCRouteProvider.class);
     private static Object lock = new Object();
+    private BundleContext bundleContext;
+    private RpcProviderRegistry rpcProviderRegistry;
+    private DataBroker dataBroker;
+    private ReRoutingRPC impl;
 
     public ReRoutingRPC getImpl()
     {
         return impl;
     }
-
-    private ReRoutingRPC impl;
 
     /**
      * Method called when the blueprint container is created.

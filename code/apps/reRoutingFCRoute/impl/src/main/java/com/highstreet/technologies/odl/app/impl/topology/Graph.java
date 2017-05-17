@@ -26,15 +26,6 @@ public class Graph
         init();
     }
 
-    public static Graph instance()
-    {
-        return graph;
-    }
-
-    private static Graph graph;
-    private final List<Vertex> vertices;
-    private boolean[][] matrix;
-
     private void init()
     {
         this.matrix = new boolean[vertices.size()][vertices.size()];
@@ -45,6 +36,18 @@ public class Graph
                 matrix[i][j] = false;
             }
         }
+    }
+    private static Graph graph;
+    private final List<Vertex> vertices;
+    private boolean[][] matrix;
+
+    public static Graph instance()
+    {
+        return graph;
+    }
+
+    public static void instance(List<Link> links)
+    {
     }
 
     public void add(Vertex source, Vertex target)
@@ -97,9 +100,5 @@ public class Graph
             }
         }
         return results;
-    }
-
-    public static void instance(List<Link> links)
-    {
     }
 }
