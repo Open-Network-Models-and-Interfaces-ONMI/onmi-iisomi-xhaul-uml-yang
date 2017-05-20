@@ -43,15 +43,5 @@
 		<configfile finalname="${configfile.directory}/eventmanager.xml">mvn:org.opendaylight.mwtn/eventmanager-impl/${project.version}/xml/config
         </configfile>
 	</feature>
-	<feature name="odl-mwt-netconfconnector" version="${project.version}" description="OpenDaylight :: MicrowaveTransport :: odl-mwt-netconfconnector">
-		<feature version="${project.version}">odl-mwt-event</feature>
-		<bundle>mvn:com.fasterxml.jackson.core/jackson-core/${jackson.version}</bundle>
-		<bundle>mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.version}</bundle>
-		<bundle>mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}</bundle>
-		<bundle>mvn:com.sun.jersey/jersey-client/${jersey.version}</bundle>
-		<bundle>mvn:org.opendaylight.mwtn/netconfconnector-api/{{VERSION}}</bundle>
-		<bundle>mvn:org.opendaylight.mwtn/netconfconnector-impl/{{VERSION}}</bundle>
-		<configfile finalname="${configfile.directory}/netconfconnector.xml">mvn:org.opendaylight.mwtn/netconfconnector-impl/${project.version}/xml/config</configfile>
-	</feature>
 </features>
 
