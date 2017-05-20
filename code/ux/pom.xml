@@ -26,18 +26,26 @@
   </properties>
 
   <modules>
+
     <module>mwtnCommons</module>
     <module>mwtnConnect</module>
-    <module>mwtnTopology</module>
-    <module>mwtnCompare</module>
     <module>mwtnConfig</module>
+    <module>mwtnCompare</module>
+    <module>mwtnFault</module>
+    <module>mwtnPerformanceCurrent</module>
+    <module>mwtnPerformanceHistory</module>
+    <module>mwtnPerformanceLink</module>
+    <!-- sko not updated to core-model 1.2
+    <module>mwtnTopology</module>
     <module>mwtnSpectrum</module>
     <module>mwtnClosedLoop</module>
+    -->
     <module>mwtnEvents</module>
     <module>mwtnTest</module>
     <module>mwtnLog</module>
     <module>odlChat</module>
     <module>features</module>
+    
   </modules>
 
   <build>

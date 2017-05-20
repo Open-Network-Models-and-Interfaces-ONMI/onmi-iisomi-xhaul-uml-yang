@@ -1,11 +1,19 @@
+<alarm-status></alarm-status>
 <div id="mwtnCompare">
 	<div class="owl container" style="width: 100%">
 		<div class="row"  ng-show="neSelection.length === 0">
-		 <span>Sorry, no Microwave devices connected to OpenDaylight.</span>
+            <p>
+                <span>{{ 'MWTN_NO_DEVICES_CONNECTED' | translate }}</span>
+                <span>Please check</span>
+                <a href="#/mwtnConnect" class="white">
+                    <span>MWTN Connect</span>
+                </a>
+                <span>.</span>
+            </p>
 		</div>
 		<div class="row" ng-show="neSelection.length > 0">
 			<div class="col-md-2 text-right radio">
-				<span>{{'Select planned NetworkElement' | translate}}</span>
+				<span class="white">{{'Select planned NetworkElement' | translate}}</span>
 			</div>
 			<div class="col-md-4">
 				<div class="form-group">
@@ -16,17 +24,17 @@
 				</div>
 			</div>
 			<div class="col-md-2 text-right" >
-			  <span ng-class="{'connected':connectionStatus === 'connected'}">{{'MWTN_CONNECTIONSTATUS' | translate}}: </span><br/>
-			  <span ng-class="{'match':match.numberOfLTPs}">{{'MWTN_NUMBEROFLTPS' | translate}}: </span><br/>
-			  <span ng-class="{'match':match.radioSignalIds}">{{'MWTN_RADIOSIGNALIDS' | translate}}: </span>
+			  <span class="white" ng-class="{'connected':connectionStatus === 'connected'}">{{'MWTN_CONNECTIONSTATUS' | translate}}: </span><br/>
+			  <span class="white" ng-class="{'match':match.numberOfLTPs}">{{'MWTN_NUMBEROFLTPS' | translate}}: </span><br/>
+			  <span class="white" ng-class="{'match':match.radioSignalIds}">{{'MWTN_RADIOSIGNALIDS' | translate}}: </span>
             </div>
 			<div class="col-md-2">
 			  <i ng-show="connectionStatus === 'connected'" class="fa fa-signal" aria-hidden="true" ng-class="{'connected':connectionStatus === 'connected'}"></i>	
-              <span ng-class="{'connected':connectionStatus === 'connected'}">{{connectionStatus}}</span><br/>
+              <span class="white" ng-class="{'connected':connectionStatus === 'connected'}">{{connectionStatus}}</span><br/>
 			  <i ng-class="{'match':match.numberOfLTPs}" ng-show="match.numberOfLTPs" class="fa fa-check-square-o" aria-hidden="true"></i>	
-              <span ng-class="{'match':match.numberOfLTPs}">{{match.numberOfLTPsStatus}}</span><br/>
+              <span class="white" ng-class="{'match':match.numberOfLTPs}">{{match.numberOfLTPsStatus}}</span><br/>
 			  <i ng-class="{'match':match.radioSignalIds}" ng-show="match.radioSignalIds" class="fa fa-check-square-o" aria-hidden="true"></i>	
-              <span ng-class="{'match':match.radioSignalIds}">{{match.radioSignalIdsStatus}}</span>
+              <span class="white" ng-class="{'match':match.radioSignalIds}">{{match.radioSignalIdsStatus}}</span>
             </div>
 			<div class="col-md-2 text-right">
 				<div class="form-group">
@@ -37,7 +45,7 @@
 
 		</div>
 	</div>
-	<div class="container" style="width: 100%">
+	<div class="owl container" style="width: 100%">
 	    <hr/>
 		<div class="row">
 		<uib-accordion close-others="oneATime">
@@ -46,7 +54,7 @@
 			is-open="status.ne">
 			<uib-accordion-heading>
 			    <i class="pull-left fa" ng-class="{'fa-chevron-down': status.ne, 'fa-chevron-right': !status.ne}"></i>
-			    <span>{{'NetworkElement' | translate}} '{{requiredNetworkElement.NetworkElement.nameList[0].value}}'</span>
+			    <span >{{'NetworkElement' | translate}} '{{requiredNetworkElement.NetworkElement.nameList[0].value}}'</span>
 			    <i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner.ne"></i>
 			</uib-accordion-heading>
 
@@ -218,7 +226,7 @@
 			is-open="status['container' + separator + mwClient.layerProtocol]">
 			<uib-accordion-heading>
 			    <i class="pull-left fa" ng-class="{'fa-chevron-down': status[['container', mwClient.layerProtocol].join(separator)], 'fa-chevron-right': !status['container' + separator + container.layerProtocol]}"></i>
-			    <span>Container ETH-CTP '{{mwClient.layerProtocol}}'</span>
+			    <span>Container ETH '{{mwClient.layerProtocol}}'</span>
 			    <i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner[['container', mwClient.layerProtocol].join(separator)]"></i>
 			</uib-accordion-heading>
 
@@ -295,7 +303,7 @@
 <i class="pull-left" ng-class="{'icon-angle-down': ne.NetworkElement[0].open, 'icon-angle-right': !ne.NetworkElement[0].open}"></i> <span>
  {{ 'Network element' | translate}}
  <span></uib-accordion-heading>
-
+1
 
 
 
@@ -317,17 +325,12 @@
   <i class="pull-left" ng-class="{'icon-angle-down': mwClient.open, 'icon-angle-right': !mwClient.open}"></i> <span>
    LTP ({{mwClient.layerProtocol}})
    <span></uib-accordion-heading>
-
-
-
-
     </div>
     </uib-accordion>
     <div>
 </div>    
 </div>
-
 <hr />
 <div class="owl">
-	<span>ONF Wireless for Opendaylight Boron-SR1 - Build: @buildtime@</span>
+	<span class="white">ONF Wireless for OpenDaylight Boron-SR1 - Build: @buildtime@</span>
 </div>

@@ -18,14 +18,19 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnConfig/mwtnConfig.module'
     
     service.separator = $mwtnCommons.separator;
     service.parts = $mwtnCommons.parts;
-    service.getActualNetworkElements = $mwtnCommons.getActualNetworkElements;
+    service.getMountPoints = $mwtnCommons.getMountPoints;
     service.getLayer = $mwtnCommons.getLayer;
     service.getType = $mwtnCommons.getType;
     service.getPacParts = $mwtnCommons.getPacParts;
+    service.getSchema = $mwtnDatabase.getSchema;
+    service.gridOptions = $mwtnCommons.gridOptions;
+    service.layerProtocolNameOrder = $mwtnCommons.layerProtocolNameOrder;
+    service.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
     service.setPacParts = $mwtnCommons.setPacParts;
     service.setPacPartLists = $mwtnCommons.setPacPartLists;
-    service.getSchema = $mwtnDatabase.getSchema;
     service.checkModules = $mwtnCommons.checkModules;
+    service.yangifyObject = $mwtnCommons.yangifyObject;
+    service.getModules = $mwtnDatabase.getModules;
     
     service.getAttributes = function(object, schema){
       var keys = Object.keys(object);
@@ -40,14 +45,14 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnConfig/mwtnConfig.module'
             value: object[parameter],
             order: schema[parameter]['order-number'],
             unit:  schema[parameter].unit,
-          }
+          };
         } else {
           return {
             name: parameter,
             value: object[parameter],
             order: 0,
             unit:  '',
-          }
+          };
         }
       });
     };

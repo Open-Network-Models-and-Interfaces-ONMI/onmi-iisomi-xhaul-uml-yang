@@ -44,7 +44,6 @@ define(['app/mwtnTest/mwtnTest.module',
         'MicrowaveModel-ObjectClasses-AirInterface:MW_AirInterface_Pac' : 14
       };
 
-
       $scope.modules = success;
       $scope.orderedPacs = [];
       $scope.parts = [];
@@ -71,58 +70,12 @@ define(['app/mwtnTest/mwtnTest.module',
           }
         });
       });
-      console.log(JSON.stringify($scope.parts));
     }, function(error){
       $scope.modules = undefined;
       $scope.orderedPacs = undefined;
       $scope.parts = undefined;
     });
-
-    $mwtnTest.getMountPoints().then(function(mountpoints){
-      initNodeList(mountpoints);
-    }, function(error){
-      $scope.networkElements = [];
-    });
-    
-    var order = {
-        'MWPS': 6,
-        'MWS': 5,
-        'ETC': 4,
-        'TDM': 3,
-        'ETY': 2,
-        'ETH-CTP': 1,
-        'ETH': 1,
-    };
-    
-    /**
-     * A function which scanns the mountpoints for connected network-elements and adds it to networkElements.
-     * @param {{"onfAirInterfaceRevision": string, "node-id": string, "netconf-node-topology:connection-status": string}[]} mountpoints An array of mountpoints from OpenDaylight.
-     */    
-    var initNodeList = function(mountpoints) {
-      $scope.loading = true;
-      $scope.mountPoints = mountpoints;
-      $scope.networkElements = mountpoints.filter(function(mountpoint){
-        return mountpoint['netconf-node-topology:connection-status'] === 'connected';
-      }).map(function(mountpoint){
-        return {id:mountpoint['node-id'], revision:mountpoint.onfAirInterfaceRevision};  
-      }).sort(function(a, b){
-        if(a.id < b.id) return -1;
-        if(a.id > b.id) return 1;
-        return 0;
-      });
-      
-      $scope.networkElement = undefined;
-      // select one of the nodes
-      var select = parseInt(Math.random()*$scope.networkElements.length);
-      if (select !== undefined && $scope.networkElements[select]) {
-        $scope.networkElement = $scope.networkElements[select].id; 
-        $scope.mountpoint = $scope.mountPoints.filter(function(mountpoint){
-          return mountpoint['node-id'] === $scope.networkElement;
-        })[0];
-      }
-      $scope.loading = false;
-    };
-        
+            
     /**
      * @function updateNe 
      * A function, which updates onfNetworkElement by new data.
@@ -132,26 +85,27 @@ define(['app/mwtnTest/mwtnTest.module',
       if (!data) return;
       // update onfNetworkElement
       switch ($scope.mountpoint.onfCoreModelRevision) {
-      case '2016-03-23':
-        $scope.onfNetworkElement = JSON.parse(JSON.stringify(data['network-element'][0]));
-        $scope.onfLtps = data['network-element'][0].ltp;
-        $scope.onfNetworkElement.ltp = undefined;
-        break;
-      case '2016-08-09':
-      case '2016-08-11':
-      case '2017-02-17':
-      case '2017-03-20':
-        // console.log(JSON.stringify(data));
-        $scope.onfNetworkElement = new OnfNetworkElement(data['network-element']);
-        $scope.onfLtps = $scope.onfNetworkElement.getLogicalTerminationPoints();
-        // $scope.onfNetworkElement.ltp = undefined;
-        break;
-      default:
-        $mwtnLog.info({component: COMPONENT, message: ['The ONF CoreModel revision', $scope.mountpoint.onfCoreModelRevision, ' is not supported (yet)!'].join(' ')});
-        $scope.onfNetworkElement = {};
-        $scope.onfLtps = {};
+        case '2016-03-23':
+          $scope.onfNetworkElement = JSON.parse(JSON.stringify(data['network-element'][0]));
+          $scope.onfLtps = data['network-element'][0].ltp;
+          $scope.onfNetworkElement.ltp = undefined;
+          break;
+        case '2016-08-09':
+        case '2016-08-11':
+        case '2017-02-17':
+        case '2017-03-20':
+          // console.log(JSON.stringify(data));        
+          $scope.onfNetworkElement = new OnfNetworkElement(data['network-element']);
+          $scope.onfLtps = $scope.onfNetworkElement.getLogicalTerminationPoints();
+          // $scope.onfNetworkElement.ltp = undefined;
+          break;
+        default:
+          $mwtnLog.info({component: COMPONENT, message: ['The ONF CoreModel revision', $scope.mountpoint.onfCoreModelRevision, ' is not supported (yet)!'].join(' ')});
+          $scope.onfNetworkElement = {};
+          $scope.onfLtps = {};
       }
       
+      var order = $mwtnTest.layerProtocolNameOrder;
       // update onfLTPs
       $scope.onfLtps.sort(function(a, b){
         if(order[a.getLayer()] < order[b.getLayer()]) return -1;
@@ -181,7 +135,7 @@ define(['app/mwtnTest/mwtnTest.module',
               }
               $scope.pacs[conditionalPackage].push(template);
             } else {
-              $mwtnLog.info({component: COMPONENT, message: 'The condtional package ' + conditionalPackage + ' is not supported (yet)!'});
+              $mwtnLog.info({component: COMPONENT, message: 'No conditional package for  ' + ltp.getLabel() });
             }
         });
       });
@@ -331,6 +285,9 @@ define(['app/mwtnTest/mwtnTest.module',
           break;
         case 'neCurrentProblems':
           updateNetworkElementCurrentProblems(data);
+        case 'clock':
+          // console.warn('yea clock', JSON.stringify(data));
+          $scope.clock = data;
           break;
         case 'ltp':
           updateLtp(data);
@@ -407,6 +364,7 @@ define(['app/mwtnTest/mwtnTest.module',
           updatePart(spec, success);
           $scope.spinner[key] = false;
         }, function(error){
+          $scope.myClipboard.data = 'Opps!'; 
           updatePart(spec, error);
           $scope.spinner[key] = false;
         });
@@ -419,7 +377,21 @@ define(['app/mwtnTest/mwtnTest.module',
         }
       });
     }, true);
-    
+
+        // var spec = {
+        //   nodeId: $scope.networkElementId,
+        //   revision: $scope.revision,
+        //   pacId: 'clock'
+        // };
+        // $mwtnTest.getPacParts(spec).then(function(success){
+        //   $scope.collapseAll();
+        //   updatePart(spec, $mwtnTest.yangifyObject(success));
+        // }, function(error){
+        //   $scope.collapseAll();
+        //   updatePart(spec, error);
+        // });
+
+
     $scope.collapseAll = function() {
       // close all groups
       Object.keys($scope.status).map(function(group){
@@ -438,6 +410,7 @@ define(['app/mwtnTest/mwtnTest.module',
         $scope.structures = [];
         $scope.containers = [];
         $scope.onfLtps = [];
+        $scope.clock = undefined;
 
         $scope.networkElementId = neId;
         $scope.revision = $scope.mountPoints.filter(function(mountpoint){
@@ -446,11 +419,12 @@ define(['app/mwtnTest/mwtnTest.module',
           return mountpoint.onfCoreModelRevision;
         })[0];
 
+        // network element alarms
         var neAlarms = $scope.mountPoints.filter(function(mountpoint){
           return mountpoint['node-id'] === neId;
         }).map(function(mountpoint){
           return mountpoint.onfCapabilities.filter(function(cap){
-            return cap.module === 'MicrowaveModel-NetworkElement-CurrentProblemList' || cap.module === 'Onf-CoreModel-ConditionalPackages';
+            return cap.module === 'MicrowaveModel-NetworkElement-CurrentProblemList' || cap.module === 'onf-core-model-conditional-packages';
           });
         });
         if (neAlarms.length === 1 && neAlarms[0].length === 1 ) {
@@ -473,6 +447,23 @@ define(['app/mwtnTest/mwtnTest.module',
           $scope.collapseAll();
           updatePart(spec, error);
         });
+
+        // ptp-clock
+        var ptpClock = $scope.mountPoints.filter(function(mountpoint){
+          return mountpoint['node-id'] === neId;
+        }).map(function(mountpoint){
+          return mountpoint.onfCapabilities.filter(function(cap){
+            return cap.module === 'onf-ptp-dataset';
+          });
+        });
+        if (ptpClock.length === 1 && ptpClock[0].length === 1 ) {
+          $translate('MWTN_LOADING').then(function (translation) {
+            $scope.clock = translation;
+          });
+        } else {
+          $scope.clock = undefined;
+        }
+        
       }
     });
 

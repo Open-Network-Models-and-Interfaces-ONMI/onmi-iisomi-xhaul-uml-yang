@@ -11,14 +11,20 @@ define(['app/mwtnConfig/mwtnConfig.module',
         'app/mwtnConfig/mwtnConfig.directives'],
         function(mwtnConfigApp) {
 
-  mwtnConfigApp.register.controller('mwtnConfigCtrl', ['$uibModal', '$scope', '$rootScope', '$q', '$mwtnLog', '$mwtnConfig',  
-                                                       function($uibModal, $scope, $rootScope, $q, $mwtnLog, $mwtnConfig) {
+  mwtnConfigApp.register.controller('mwtnConfigCtrl', ['$uibModal', '$scope', '$rootScope', '$q', '$filter', '$mwtnLog', '$mwtnConfig', 'OnfNetworkElement','LogicalTerminationPoint',  
+                                                       function($uibModal, $scope, $rootScope, $q, $filter, $mwtnLog, $mwtnConfig, OnfNetworkElement,LogicalTerminationPoint) {
 
     var COMPONENT = 'mwtnConfigCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnConfigCtrl started!'});
 
-    $rootScope['section_logo'] = 'src/app/mwtnConfig/images/mwtnConfig.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
+    $rootScope.section_logo = 'src/app/mwtnConfig/images/mwtnConfig.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
     $scope.parts = $mwtnConfig.parts;
+    
+     var pacTemplate = {
+        'layer-protocol': 'unknown'           
+    };
+    
+    //todo: remove
     var initPac = {
         layerProtocol: 'unknown'              
     };
@@ -33,118 +39,153 @@ define(['app/mwtnConfig/mwtnConfig.module',
     });
     $scope.path = {};
     
-    var initNodeList = function(nodes){
-      $scope.networkElements = [];
-      if (nodes.length > 0) {
-        nodes.map(function(ne) {
-          // revision detection should go to commons
-          if (ne['netconf-node-topology:connection-status'] === 'connected' && ne['netconf-node-topology:available-capabilities'] && ne['netconf-node-topology:available-capabilities']['available-capability']) {
-            ne['netconf-node-topology:available-capabilities']['available-capability'].map(function(cap){
-              if (cap.contains('CoreModel-CoreNetworkModule-ObjectClasses')) {
-                ne.onfCoreModelRevision = cap.split('?revision=')[1].substring(0,10);
-              } else if (cap.contains('MicrowaveModel-ObjectClasses-AirInterface')) {
-                ne.onfAirIinterfaceRevision = cap.split('?revision=')[1].substring(0,10);
-              }  else if (!ne.onfAirIinterfaceRevision && cap.contains('MicrowaveModel-ObjectClasses')) {
-                ne.onfAirIinterfaceRevision = cap.split('?revision=')[1].substring(0,10);
-              } 
-            });
-            if (ne.onfAirIinterfaceRevision) {
-              $scope.networkElements.push({id:ne['node-id'], revision:ne.onfAirIinterfaceRevision});
-            }
-          }
-        });
-        $scope.networkElements.sort(function(a, b){
-          if(a.id < b.id) return -1;
-          if(a.id > b.id) return 1;
-          return 0;
-        });
+    $scope.loading = false;
+    $scope.unexpected = false;
+    
+    var initNodeList = function(mountpoints){
+      $scope.loading = true;
+      $scope.mountPoints = mountpoints;
+      $scope.networkElements = mountpoints.filter(function(mountpoint){
+        return mountpoint['netconf-node-topology:connection-status'] === 'connected';
+      }).map(function(mountpoint){
+        return {id:mountpoint['node-id'], revision:mountpoint.onfAirInterfaceRevision};  
+      }).sort(function(a, b){
+        if(a.id < b.id) return -1;
+        if(a.id > b.id) return 1;
+        return 0;
+      });
         
         // select one of the nodes
-        var select = parseInt(Math.random()*$scope.networkElements.length);
-        // console.log($scope.networkElements.length, JSON.stringify($scope.networkElements));
-        $scope.networkElement = $scope.networkElements[select].id;
+      var select = parseInt(Math.random()*$scope.networkElements.length);
+      console.log('slect', select);
+      if (select) {
+        $scope.networkElement = $scope.networkElements[select].id; 
+        $scope.mountpoint = $scope.mountPoints.filter(function(mountpoint){
+          return mountpoint['node-id'] === $scope.networkElement;
+        })[0];
       }
+      $scope.loading = false;
     };
+
+    $scope.getType = $mwtnConfig.getType;
+    $scope.neCurrentProblemsGridOptions = JSON.parse(JSON.stringify($mwtnConfig.gridOptions));
+    $scope.highlightFilteredHeader = $mwtnConfig.highlightFilteredHeader;
     
-    $mwtnConfig.getActualNetworkElements().then(function(nodes){
-      initNodeList(nodes);
+    
+    $mwtnConfig.getMountPoints().then(function(mountpoints){
+      initNodeList(mountpoints);
     }, function(error){
       $scope.networkElements = [];
     });
     
-    var order = {
-        'MWPS':1,
-        'MWS':2,
-        'ETH-CTP':3
-    };
-    
+    var order = $mwtnConfig.layerProtocolNameOrder;
+
     var updateNe = function(data) {
       if (!data) return;
-
       // update onfNetworkElement
       switch (data.revision) {
       case '2016-03-23':
-        $scope.onfNetworkElement = JSON.parse(JSON.stringify(data.NetworkElement[0]));
-        $scope.onfLtps = data.NetworkElement[0]._ltpRefList;
-        $scope.onfNetworkElement._ltpRefList = undefined;
+        $scope.onfNetworkElement = JSON.parse(JSON.stringify(data['network-element'][0]));
+        $scope.onfLtps = data['network-element'][0].ltp;
+        $scope.onfNetworkElement.ltp = undefined;
+        break;
+      case '2016-08-09':
+      case '2016-08-11':
+      case '2017-02-17':
+      case '2017-03-20':
+      case '2017-03-24':
+        // console.log(JSON.stringify(data));
+        $scope.onfNetworkElement = new OnfNetworkElement(data['network-element']);
+        $scope.onfLtps = $scope.onfNetworkElement.getLogicalTerminationPoints();
+        // $scope.onfNetworkElement.ltp = undefined;
         break;
       default:
-        $scope.onfNetworkElement = JSON.parse(JSON.stringify(data.NetworkElement));
-        $scope.onfLtps = data.NetworkElement._ltpRefList;
-        $scope.onfNetworkElement._ltpRefList = undefined;
+        $mwtnLog.info({component: COMPONENT, message: ['The ONF CoreModel revision', $scope.mountpoint.onfCoreModelRevision, ' is not supported (yet)!'].join(' ')});
+        $scope.onfNetworkElement = {};
+        $scope.onfLtps = {};
       }
       
       // update onfLTPs
       $scope.onfLtps.sort(function(a, b){
-        if(order[a._lpList[0].layerProtocolName] < order[b._lpList[0].layerProtocolName]) return -1;
-        if(order[a._lpList[0].layerProtocolName] > order[b._lpList[0].layerProtocolName]) return 1;
-        if(a._lpList[0].uuid < b._lpList[0].uuid) return -1;
-        if(a._lpList[0].uuid > b._lpList[0].uuid) return 1;
+        if(order[a.getLayer()] < order[b.getLayer()]) return -1;
+        if(order[a.getLayer()] > order[b.getLayer()]) return 1;
+        if(a.getId() < b.getId()) return -1;
+        if(a.getId() > b.getId()) return 1;
         return 0;
       });
       
       // calculate conditional packages
-      $scope.airinterfaces = [];
-      $scope.structures = [];
-      $scope.containers = [];
-      $scope.onfLtps.map(function(ltp){
-        var lpId = ltp._lpList[0].uuid;
-        switch (ltp._lpList[0].layerProtocolName) {
-          case "MWPS":
-            var init = JSON.parse(JSON.stringify(initPac));
-            init.layerProtocol = lpId;
-            $scope.airinterfaces.push(init);
-            break;
-          case "MWS":
-            var init = JSON.parse(JSON.stringify(initPac));
-            init.layerProtocol = lpId;
-            $scope.structures.push(init);
-            break;
-          case "ETH-CTP":
-            var init = JSON.parse(JSON.stringify(initPac));
-            init.layerProtocol = lpId;
-            $scope.containers.push(init);
-            break;
-          default:
-            $mwtnLog.info({component: COMPONENT, message: 'The layerProtocol ' + ltp._lpList[0].layerProtocolName + ' is not supported (yet)!'});
-        }
-      });
-      
-      // sort the groups
-      ['airinterfaces', 'structures', 'containers'].map(function(pacs){
-        $scope[pacs].sort(function(a, b){
-          if(a.layerProtocol < b.layerProtocol) return -1;
-          if(a.layerProtocol > b.layerProtocol) return 1;
-          return 0;
+      $scope.pacs = {};
+      $scope.onfLtps.map(function(ltp) {
+        ltp.getLayerProtocols().map(
+          /**
+           * A function processing a layer-protocol object
+           * @param {LayerProtocol} lp A layer-protocol object
+           */
+          function(lp) {
+            var template = JSON.parse(JSON.stringify(pacTemplate));
+            template['layer-protocol'] = lp.getId();
+            var conditionalPackage = lp.getConditionalPackage(true);
+            // console.log(conditionalPackage);
+            if (conditionalPackage) {
+              if ($scope.pacs[conditionalPackage] === undefined) {
+                // create missing pac array
+                $scope.pacs[conditionalPackage] = [];
+              }
+              $scope.pacs[conditionalPackage].push(template);
+            } else {
+              $mwtnLog.info({component: COMPONENT, message: 'The condtional package ' + conditionalPackage + ' is not supported (yet)!'});
+            }
         });
       });
+      
+      // sort the conditional packages
+      if ($scope.orderedPacs) {
+        $scope.orderedPacs.filter(function(item){
+          return $scope.pacs[item] !== undefined;
+        }).map(function(item){
+          $scope.pacs[item].sort(function(a, b){
+            if(a['layer-protocol'] < b['layer-protocol']) return -1;
+            if(a['layer-protocol'] > b['layer-protocol']) return 1;
+            return 0;
+          });
+        });
+      }
       data.revision = undefined;
     };
 
-    var updateLtp = function(data) {
+    var updateNetworkElementCurrentProblems = function(data) {
+      if (!data) return;
+      $scope.neCurrentProblems = data;
+      var enable = $scope.neCurrentProblems.NetworkElementCurrentProblems.currentProblemList.length > 10;
+      $scope.neCurrentProblemsGridOptions.columnDefs = Object.keys($scope.neCurrentProblems.NetworkElementCurrentProblems.currentProblemList[0]).map(function(field){
+        var type = $scope.getType($scope.neCurrentProblems.NetworkElementCurrentProblems.currentProblemList[0][field]);
+        var labelId = ['mwtn', field].join('_').toUpperCase();
+        var displayName = $filter('translate')(labelId);
+        var visible = true;
+        if (labelId.contains('$$') || labelId === 'MWTN_SPEC') {
+          visible = false;
+        }
+        
+        return {
+          field: field,
+          type: type,
+          displayName: displayName,
+          enableSorting: enable, 
+          enableFiltering:enable,
+          headerCellClass: $scope.highlightFilteredHeader,
+          cellClass: type,
+          visible: visible,
+          width: '200'
+        };
+      });
+      $scope.neCurrentProblemsGridOptions.data = $scope.neCurrentProblems.NetworkElementCurrentProblems.currentProblemList;
+    };
+
+   var updateLtp = function(data) {
       $scope.onfLtps.map(function(ltp){
-        if (ltp.uuid === data.data._ltpRefList[0].uuid) {
-          ltp = data.data._ltpRefList[0];
+        if (ltp.getData().uuid === data.data.ltp[0].uuid) {
+          ltp = new LogicalTerminationPoint(data.data.ltp[0]);
         }
       });
     };
@@ -221,6 +262,9 @@ define(['app/mwtnConfig/mwtnConfig.module',
       case 'ne':
         updateNe(data);
         break;
+      case 'neCurrentProblems':
+        updateNetworkElementCurrentProblems(data);
+        break;
       case 'ltp':
         updateLtp(data);
         break;
@@ -256,8 +300,8 @@ define(['app/mwtnConfig/mwtnConfig.module',
     };
         
     var getLayerByListId = function(listId) {
-      var lists = ['airinterfaces', 'structures', 'containers'];
-      var layers = ['MWPS', 'MWS', 'ETH-CTP'];
+      var lists = ['airinterfaces', 'structures', 'containers', 'conatiners']; // TODO TDM
+      var layers = ['MWPS', 'MWS', 'ETH', 'TDM'];
       return layers[lists.indexOf(listId)];
     };
     
@@ -281,7 +325,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
         }
       });
 
-      modalInstance.result.then(function (object) {
+      modalInstance.result.then(function(object) {
         // update
         var spec = {
           nodeId: $scope.networkElementId,
@@ -293,7 +337,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
         };
         $mwtnConfig.getPacParts(spec).then(function(success){
           // console.log('3', success);
-          updatePart(spec, success);
+          updatePart(spec, $mwtnConfig.yangifyObject(success));
         }, function(error){
           updatePart(spec, error);
         });
@@ -333,9 +377,10 @@ define(['app/mwtnConfig/mwtnConfig.module',
             partId: info[2]
           };
           $mwtnConfig.getPacParts(spec).then(function(success){
+
             // console.log('4', success);
             $scope.spinner[key] = false;
-            updatePart(spec, success);
+            updatePart(spec, $mwtnConfig.yangifyObject(success));
           }, function(error){
             $scope.spinner[key] = false;
             updatePart(spec, error);
@@ -355,6 +400,14 @@ define(['app/mwtnConfig/mwtnConfig.module',
       });
     };
     
+    var clearNetworkElementData = function() {
+      $scope.onfNetworkElement = undefined;
+      $scope.onfLtps = [];
+      $scope.airinterfaces = [];
+      $scope.structures = [];
+      $scope.containers = [];
+    };
+    
     $scope.$watch('networkElement', function(neId, oldValue) {
       if (neId && neId !== '' && neId !== oldValue) {
         var revision;
@@ -364,16 +417,34 @@ define(['app/mwtnConfig/mwtnConfig.module',
         $scope.networkElementId = neId;
         $scope.revision = revision;
 
+        var neAlarms = $scope.mountPoints.filter(function(mountpoint){
+          return mountpoint['node-id'] === neId;
+        }).map(function(mountpoint){
+          return mountpoint.onfCapabilities.filter(function(cap){
+            return cap.module === 'MicrowaveModel-NetworkElement-CurrentProblemList' || cap.module === 'onf-core-model-conditional-packages';
+          });
+        });
+        if (neAlarms.length === 1 && neAlarms[0].length === 1 ) {
+          $scope.neCurrentProblems = 'loading...';
+        } else {
+          $scope.neCurrentProblems = undefined;
+        }
+
         var spec = {
           nodeId: neId,
           revision: revision,
           pacId: 'ne'
         };
+        clearNetworkElementData();
+        $scope.loading = true;
+        $scope.unexpected = false;
         $mwtnConfig.getPacParts(spec).then(function(success){
-          $scope.collapseAll();
-          updatePart(spec, success);
+          $scope.loading = true;
+          $scope.jsonData=success;
+          updatePart(spec, $mwtnConfig.yangifyObject(success));
         }, function(error){
-          $scope.collapseAll();
+          $scope.loading = false;
+          $scope.unexpected = true;
           updatePart(spec, error);
         });
         $scope.path = spec;
@@ -382,13 +453,13 @@ define(['app/mwtnConfig/mwtnConfig.module',
 
   }]);
 
-  mwtnConfigApp.register.controller('ShowListCtrl', ['$scope', '$uibModalInstance', '$uibModal', '$filter', '$mwtnCommons', 'listData', 
-                                                     function ($scope, $uibModalInstance, $uibModal, $filter, $mwtnCommons, listData) {
+  mwtnConfigApp.register.controller('ShowListCtrl', ['$scope', '$uibModalInstance', '$uibModal', '$filter', '$mwtnConfig', 'listData', 
+                                                     function ($scope, $uibModalInstance, $uibModal, $filter, $mwtnConfig, listData) {
 
     $scope.path = listData.path;
     $scope.listData = listData.listData;
-    $scope.gridOptions = JSON.parse(JSON.stringify($mwtnCommons.gridOptions));
-    $scope.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
+    $scope.gridOptions = JSON.parse(JSON.stringify($mwtnConfig.gridOptions));
+    $scope.highlightFilteredHeader = $mwtnConfig.highlightFilteredHeader;
 
 //    $scope.gridOptions.rowTemplate = rowTemplate;
     
@@ -400,10 +471,8 @@ define(['app/mwtnConfig/mwtnConfig.module',
         // path, grid.getCellValue(row, col)
         return ['<button ng-click="grid.appScope.showArray(grid.appScope.path, grid.getCellValue(row, col), row.entity)" class="btn btn-primary">{{\'MWTN_SHOWLIST\' | translate}}: {{grid.getCellValue(row, col).length}}  {{\'MWTN_ITEMS\'| translate}}...</button>'
                 ].join('');
-        break;
       case 'object':
         return ['<button ng-click="grid.appScope.showObject(grid.appScope.path, grid.getCellValue(row, col), row.entity)" class="btn btn-primary">{{\'MWTN_SHOWOBJECT\' | translate}}...</button>'].join('');
-        break;
       default:
         return undefined;
       }
@@ -470,7 +539,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
       }, function () {
         // $mwtnLog.info({component: COMPONENT, message: 'Creation of new planned NetworkElement dismissed!'});
       });
-    }
+    };
     
     $scope.showObject = function(path, objValue, row) {
       $scope.path =  path;
@@ -497,7 +566,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
       }, function () {
         // $mwtnLog.info({component: COMPONENT, message: 'Creation of new planned NetworkElement dismissed!'});
       });
-    }
+    };
 
 }]);
 
@@ -529,10 +598,8 @@ define(['app/mwtnConfig/mwtnConfig.module',
         // path, grid.getCellValue(row, col)
         return ['<button ng-click="grid.appScope.showArray(grid.appScope.path, grid.getCellValue(row, col), row.entity)" class="btn btn-primary">{{\'MWTN_SHOWLIST\' | translate}}: {{grid.getCellValue(row, col).length}}  {{\'MWTN_ITEMS\'| translate}}...</button>'
                 ].join('');
-        break;
       case 'object':
         return ['<button ng-click="grid.appScope.showObject(grid.appScope.path, grid.getCellValue(row, col), row.entity)" class="btn btn-primary">{{\'MWTN_SHOWOBJECT\' | translate}}...</button>'].join('');
-        break;
       default:
         return undefined;
       }
@@ -608,7 +675,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
       }, function () {
         // $mwtnLog.info({component: COMPONENT, message: 'Creation of new planned NetworkElement dismissed!'});
       });
-    }
+    };
     
     $scope.showObject = function(path, objValue, row) {
       $scope.path =  path;
@@ -635,7 +702,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
       }, function () {
         // $mwtnLog.info({component: COMPONENT, message: 'Creation of new planned NetworkElement dismissed!'});
       });
-    }
+    };
 
   }]);
 
@@ -658,14 +725,14 @@ define(['app/mwtnConfig/mwtnConfig.module',
               value: $scope.objValue[parameter],
               order: $scope.schema[parameter]['order-number'],
               unit:  $scope.schema[parameter].unit,
-            }
+            };
           } else {
             return {
               name: parameter,
               value: $scope.objValue[parameter],
               order: 0,
               unit:  '',
-            }
+            };
           }
         });
         
@@ -704,7 +771,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
         var result = controlTypes[umlTypes.indexOf(umlType)];
         if (!result) {
           console.log(umlType);
-          result = 'text'
+          result = 'text';
         }
         return result;
       };
@@ -740,7 +807,7 @@ define(['app/mwtnConfig/mwtnConfig.module',
               value: $scope.object.data[parameter],
               order: 0,
               unit:  '',
-            }
+            };
           }
         });
         

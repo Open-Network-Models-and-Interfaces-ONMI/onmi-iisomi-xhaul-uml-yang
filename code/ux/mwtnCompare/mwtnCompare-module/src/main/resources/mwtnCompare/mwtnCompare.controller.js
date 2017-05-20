@@ -15,7 +15,7 @@ define(['app/mwtnCompare/mwtnCompare.module',
   mwtnCompareApp.register.controller('mwtnCompareCtrl', ['$scope', '$rootScope', '$mwtnCompare', '$mwtnLog', 'orderByFilter', 'OnfNetworkElement', 'MicrowavePhysicalSection', 'MicrowaveSection',  
                                                          function($scope, $rootScope, $mwtnCompare, $mwtnLog, orderBy, OnfNetworkElement, MicrowavePhysicalSection, MicrowaveSection) {
 
-    $rootScope['section_logo'] = 'src/app/mwtnCompare/images/mwtnCompare.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
+    $rootScope.section_logo = 'src/app/mwtnCompare/images/mwtnCompare.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
     var rOnfNe;
     var aOnfNe;
@@ -118,8 +118,8 @@ define(['app/mwtnCompare/mwtnCompare.module',
       $scope.neSelection = [];
       if (nodes.length > 0) {
         nodes.map(function(ne) {
-          if (ne._source.onfAirIinterfaceRevision) {
-            $scope.neSelection.push({id:ne._id, revision:ne._source.onfAirIinterfaceRevision});
+          if (ne._source.onfAirInterfaceRevision) {
+            $scope.neSelection.push({id:ne._id, revision:ne._source.onfAirInterfaceRevision});
             
           }
         });
@@ -168,7 +168,7 @@ define(['app/mwtnCompare/mwtnCompare.module',
             var key = 'ne';
             var spec = {
                 nodeId: $scope.selection,
-                revision: $scope.requiredNetworkElement.onfAirIinterfaceRevision,
+                revision: $scope.requiredNetworkElement.onfAirInterfaceRevision,
                 pacId: key,
               };
               $mwtnCompare.getPacParts(spec).then(function(success){
@@ -351,7 +351,6 @@ define(['app/mwtnCompare/mwtnCompare.module',
           }
       }
       return orderBy(compares, 'order', false);
-;
     };
     
     var updateNe = function(data) {
@@ -368,7 +367,7 @@ define(['app/mwtnCompare/mwtnCompare.module',
         
         var spec = {
           nodeId: $scope.selection,
-          revision: $scope.requiredNetworkElement.onfAirIinterfaceRevision,
+          revision: $scope.requiredNetworkElement.onfAirInterfaceRevision,
           pacId: 'airinterface',
           layerProtocolId: mwpsLtp._lpList[0].uuid,
           partId: 'Configuration'
@@ -423,7 +422,7 @@ define(['app/mwtnCompare/mwtnCompare.module',
             $scope.match.mapping[rOnfNe.getLpByLtpRef(rMws[0]).uuid] = aOnfNe.getLpByLtpRef(aMws[0]).uuid;
           }
         });
-     };
+     }
     };
 
     var updateStructure = function(spec, data) {
@@ -482,7 +481,7 @@ define(['app/mwtnCompare/mwtnCompare.module',
           var info = key.split($scope.separator);
           var spec = {
             nodeId: $scope.selection,
-            revision: $scope.requiredNetworkElement.onfAirIinterfaceRevision,
+            revision: $scope.requiredNetworkElement.onfAirInterfaceRevision,
             pacId: info[0],
             requiredLayerProtocolId: info[1],
             layerProtocolId: $scope.match.mapping[info[1]],
@@ -490,11 +489,11 @@ define(['app/mwtnCompare/mwtnCompare.module',
           };
 
           if ($scope.connectionStatus !== 'connected') {
-            updatePart(spec, undefined)
+            updatePart(spec, undefined);
             return;
           }
           if (info.length > 1 && !$scope.match.mapping[info[1]]) {
-            updatePart(spec, undefined)
+            updatePart(spec, undefined);
             return;
           } 
 
