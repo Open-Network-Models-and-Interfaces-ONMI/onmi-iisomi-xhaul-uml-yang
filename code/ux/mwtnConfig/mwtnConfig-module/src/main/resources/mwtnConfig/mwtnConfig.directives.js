@@ -6,7 +6,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-define([ 'app/mwtnConfig/mwtnConfig.module',], function(mwtnConfigApp) {
+define(['app/mwtnConfig/mwtnConfig.module'], function(mwtnConfigApp) {
 
   mwtnConfigApp.register.directive('parameters', function() {
     return {
@@ -66,7 +66,7 @@ define([ 'app/mwtnConfig/mwtnConfig.module',], function(mwtnConfigApp) {
 
         $scope.showArray = function(path, attribute) {
           $scope.path = path;
-          $scope.path.attribute = attribute.name,
+          $scope.path.attribute = attribute.name;
           $scope.listData = attribute.value; // which is an array
           var modalInstance = $uibModal.open({
             animation: true,

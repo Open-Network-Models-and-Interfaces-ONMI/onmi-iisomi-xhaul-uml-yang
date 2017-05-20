@@ -1,30 +1,21 @@
-<div id="mwtnConfig">
-	<div class="owl container" style="width: 100%">
-		<div class="row"  ng-show="networkElements.length === 0">
-		 <span>Sorry, no Microwave devices connected to OpenDaylight.</span>
-		</div>
-		<div class="row" ng-show="networkElements.length > 0">
-			<div class="col-md-2 text-right radio">
-				<span>{{'Select NetworkElement' | translate}}</span>
-			</div>
-			<div class="col-md-4">
-				<div class="form-group">
-					<select class="form-control" ng-model="networkElement">
-						<option ng-repeat="ne in networkElements" value="{{ne.id}}">{{ne.id}}
-							(revision: {{ne.revision}})</option>
-					</select>
-				</div>
-			</div>
-			<div class="col-md-6 text-right">
-				<div class="form-group">
-					<button type="button" class="btn btn-default"
-						ng-click="collapseAll()">{{'Collapse all' | translate}}</button>
-				</div>
-			</div>
+<alarm-status></alarm-status>
+<mwtn-select-network-element></mwtn-select-network-element>
 
-		</div>
-	</div>
-	<div class="container" style="width: 100%"  ng-show="networkElements.length > 0">
+<div id="mwtnConfig">
+  
+  <div class="container" style="width: 100%"  ng-hide="networkElements.length > 0 && onfNetworkElement">
+    <div ng-show="loading">
+      <i class="fa fa-spinner fa-pulse mwtnLight" aria-hidden="true"></i>
+      <span>{{ 'MWTN_LOADING' | translate }}</span>
+    </div>
+    <div ng-show="unexpected">
+      <div class="owl">
+        <span>UNEXPECTED BEHAVIOR: Even the NETCONF server is connected and supports the correct control and management interface, there is not a valid response. Please check the NETCONF interface of the node. </span>
+      </div>
+      <pre>{{error | json}}</pre>
+    </div>
+  </div>
+  <div class="container" style="width: 100%"  ng-show="networkElements.length > 0 && onfNetworkElement">
 		<uib-accordion close-others="oneAtATime">
 
 		<div class="row">
@@ -33,29 +24,49 @@
 					is-open="status.ne">
 					<uib-accordion-heading>
 					    <i class="pull-left fa" ng-class="{'fa-chevron-down': status.ne, 'fa-chevron-right': !status.ne}"></i>
-					    <span>{{'NetworkElement' | translate}} '{{onfNetworkElement.nameList[0].value}}'</span>
+					    <span>{{'MWTN_NETWORKELEMENT' | translate}} '{{onfNetworkElement.getName()}}'</span>
 						<i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner.ne"></i>
 					</uib-accordion-heading>
 
-						<div class="container" style="width:100%" path="path" parameters="onfNetworkElement" >
+						<div class="container" style="width:100%" path="path" parameters="onfNetworkElement.getData()" >
 						</div>
+				
 					
+					<div uib-accordion-group class="panel-default"
+			      is-open="status.neCurrentProblems" ng-show="neCurrentProblems">
+			      <uib-accordion-heading>
+			          <i class="pull-left fa" ng-class="{'fa-chevron-down': status.neCurrentProblems, 'fa-chevron-right': !status.neCurrentProblems}"></i>
+			          <span>{{'MWTN_CURRENT_PROBLEM_LIST' | translate}}</span>
+			          <i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner.neCurrentProblems"></i>
+			      </uib-accordion-heading>
+            <div id="neCurrentProblemsGrid" 
+                 ui-grid="neCurrentProblemsGridOptions" 
+                 ui-grid-exporter 
+                 ui-grid-selection 
+                 ui-grid-pinning 
+                 ui-grid-resize-columns 
+                 ui-grid-move-columns
+                 class="mwtnNeCurrentProblemsGrid"></div>
+			    </div>
+					
+
 					<div ng-repeat="ltp in onfLtps" uib-accordion-group
 						class="panel-default"
 						heading=""
-						is-open="status['ltp' + separator + ltp.uuid]">
+						is-open="status['ltp' + separator + ltp.getData().uuid]">
 						<uib-accordion-heading>
-						    <i class="pull-left fa" ng-class="{'fa-chevron-down': status['ltp' + separator + ltp.uuid], 'fa-chevron-right': !status['ltp' + separator + ltp.uuid]}"></i>
-						    <span>{{'LTP' | translate}}({{ltp._lpList[0].layerProtocolName}}) '{{ltp.uuid}}' -> '{{ltp._lpList[0].uuid}}'</span>
-						    <i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner[ ['ltp', ltp.uuid].join(separator)]"></i>
+						    <i class="pull-left fa" ng-class="{'fa-chevron-down': status['ltp' + separator + ltp.getData().uuid], 'fa-chevron-right': !status['ltp' + separator + ltp.getData().uuid]}"></i>
+						    <span>{{'LTP' | translate}}({{ltp.getLayerProtocols()[0].getItuLabel().toUpperCase()}}) -> '{{ltp.getId()}}'</span>
+						    <i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner[ ['ltp', ltp.getData().uuid].join(separator)]"></i>
 						</uib-accordion-heading>
-						<div class="container" style="width:100%" path="path" parameters="ltp" >
+						<div class="container" style="width:100%" path="path" parameters="ltp.getData()" >
+						
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
+		
 		<div class="row">
 			<div ng-class="{ 'col-md-12': containers.length === 1, 'col-md-6': containers.length === 2, 'col-md-4': containers.length > 2 }" ng-repeat="container in containers">
 				<div uib-accordion-group class="panel-primary"
@@ -109,7 +120,7 @@
 		</div>
 
 		<div class="row">
-			<div ng-class="{ 'col-md-12': airinterfaces.length === 1, 'col-md-6': airinterfaces.length === 2, 'col-md-4': airinterfaces.length > 2}" ng-repeat="airinterface in airinterfaces">
+			<div ng-class="{ 'col-md-12': airinterfaces.length === 1, 'col-md-6': airinterfaces.length === 2, 'col-md-4': airinterfaces.length > 2 }" ng-repeat="airinterface in airinterfaces">
 				<div uib-accordion-group class="panel-primary"
 					is-open="status['airinterface' + separator + airinterface.layerProtocol]">
 					<uib-accordion-heading>
@@ -137,8 +148,8 @@
 		</uib-accordion>
 	</div>
 </div>
-
+<!--<pre>{{jsonData | json}}</pre>-->
 <hr />
 <div class="owl">
-	<span>ONF Wireless for Opendaylight Boron-SR1 - Build: @buildtime@</span>
+	<span class="white">ONF Wireless for OpenDaylight Boron-SR1 - Build: @buildtime@</span>
 </div>

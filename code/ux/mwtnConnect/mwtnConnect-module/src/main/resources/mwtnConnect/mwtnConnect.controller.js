@@ -48,7 +48,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
       '<a class="vCenter" ng-class="{attention: grid.appScope.hover}" >',
       '<button class="btn btn-primary" ng-click="grid.appScope.connect(row.entity)">Connect</button>',
       '<button class="btn btn-default" ng-click="grid.appScope.disconnect(row.entity)">Disconnect</button>',
-      '<button class="btn btn-default" ng-click="grid.appScope.showDetails(row.entity)">Details...</button>',
+      '<button class="btn btn-default" ng-click="grid.appScope.showDetails(row.entity)"><i class="fa fa-info-circle" aria-hidden="true"></i></button>',
       '</a>' ].join('<span>&nbsp;</span>');
     $scope.requiredNesGridOptions = JSON.parse(JSON.stringify($mwtnConnect.gridOptions));
     $scope.requiredNesGridOptions.rowHeight  = 44;
@@ -66,15 +66,15 @@ define(['app/mwtnConnect/mwtnConnect.module',
         }},
        { field: 'ipaddress',  type: 'number', displayName: 'IP address',  headerCellClass: $scope.highlightFilteredHeader, width : 140, cellClass: 'number' },
        { field: 'port',  type: 'number', displayName: 'Port',  headerCellClass: $scope.highlightFilteredHeader, width : 80, cellClass: 'number' },
-       // { field: 'username', type: 'string', displayName: 'User name',  headerCellClass: $scope.highlightFilteredHeader, width : 100, visible: false },
-       // { field: 'password', type: 'string', displayName: 'Password',  headerCellClass: $scope.highlightFilteredHeader, width : 100, visible: false },
+       { field: 'username', type: 'string', displayName: 'User name',  headerCellClass: $scope.highlightFilteredHeader, width : 100, visible: false },
+       { field: 'password', type: 'string', displayName: 'Password',  headerCellClass: $scope.highlightFilteredHeader, width : 100, visible: false },
        { field: 'radioSignalIds', type: 'string', displayName: 'Radio signal ids',  headerCellClass: $scope.highlightFilteredHeader, width : 150 },
        {
          name : 'actions',
          enableSorting : false,
          enableFiltering: false,
          cellTemplate: requiredNesActionCellTemplate,
-         width : 350,
+         width : 280,
          pinnedRight : true
        }
      ];
@@ -86,6 +86,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
      '<i class="pull-left fa fa-spinner fa-pulse" ng-show="row.entity.spinner"></i>',
      '<span class="white">{{ "MWTN_MAKE_KNOWN" | translate }}<span>',
      '</button>',
+     '<button class="btn btn-default" ng-click="grid.appScope.showDetails(row.entity, false)"><i class="fa fa-info-circle" aria-hidden="true"></i></button>',
      '</a>' ].join('<span>&nbsp;</span>');
     $scope.unknownNesGridOptions = JSON.parse(JSON.stringify($mwtnConnect.gridOptions));
     $scope.unknownNesGridOptions.rowHeight  = 44;
@@ -104,7 +105,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
         enableSorting : false,
         enableFiltering: false,
         cellTemplate: unknownNesActionCellTemplate,
-        width : 300,
+        width : 330,
         pinnedRight : true
       }
     ];
@@ -321,10 +322,13 @@ define(['app/mwtnConnect/mwtnConnect.module',
         ne.connectionStatus = 'unknown';
       });
     };
-    
-    $scope.showDetails = function(ne) {
-
+        
+    $scope.showDetails = function(ne, required) {
       $scope.currentNetworkElement = ne;
+      $scope.currentNetworkElement.required = required;
+      if (required !== false) {
+        $scope.currentNetworkElement.required = true;
+      }
       var modalInstance = $uibModal.open({
         animation: true,
         ariaLabelledBy: 'modal-title',
@@ -961,6 +965,13 @@ define(['app/mwtnConnect/mwtnConnect.module',
           }
         }
     };
+
+    var nodeId = $scope.data.ne.name || $scope.data.ne['node-id'];
+    $mwtnConnect.getMountPoint(nodeId).then(function(success){
+      $scope.data.mountpoint = success;
+    }, function(error){
+      $scope.data.mountpoint = undefined;
+    });
     
     if (currentNetworkElement.webUri && currentNetworkElement.webUri !== '') {
       $scope.data.web.supported = true;

@@ -17,13 +17,13 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnTest/mwtnTest.module'],fu
     
     service.separator = $mwtnCommons.separator;
     service.parts = $mwtnCommons.parts;
-    service.getMountPoints = $mwtnCommons.getMountPoints;
     service.getPacParts = $mwtnCommons.getPacParts;
     service.yangify = $mwtnCommons.yangify;
     service.yangifyObject = $mwtnCommons.yangifyObject;
     service.getModules = $mwtnDatabase.getModules;
     service.getPartGlobalId = $mwtnCommons.getPartGlobalId;
     service.getPartLocalId = $mwtnCommons.getPartLocalId;
+    service.layerProtocolNameOrder = $mwtnCommons.layerProtocolNameOrder;
       
     return service;
   });

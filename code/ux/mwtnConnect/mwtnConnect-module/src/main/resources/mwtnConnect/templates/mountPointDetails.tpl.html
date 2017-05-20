@@ -1,7 +1,49 @@
 <div class="modal-header">
-	<h3 class="modal-title" id="modal-title">{{ data.ne.name }}</h3>
+	<h3 class="modal-title" id="modal-title">{{ data.ne.name }}{{ data.ne['node-id'] }}</h3>
 </div>
-<div class="modal-body" id="modal-body" >
+<div class="modal-body" id="modal-body" ng-hide="data.ne.required">
+  <div class="row">
+    <div class="col-md-2 text-right">
+      <span>{{'MWTN_NETWORKELEMENT' | translate}}</span>
+    </div>
+    <div class="col-md-10">
+      <b>{{data.ne['node-id']}}</b>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 text-right">
+      <span>{{'MWTN_IPADDRESS' | translate}}</span>
+    </div>
+    <div class="col-md-10">
+      <b>{{data.ne['netconf-node-topology:host']}}</b>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 text-right">
+      <span>{{'MWTN_PORT' | translate}}</span>
+    </div>
+    <div class="col-md-10">
+      <b>{{data.ne['netconf-node-topology:port']}}</b>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 text-right">
+      <span>{{'MWTN_USERNAME' | translate}}</span>
+    </div>
+    <div class="col-md-10">
+      <b>{{data.mountpoint['netconf-node-topology:username']}}</b>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 text-right">
+      <span>{{'MWTN_PASSWORD' | translate}}</span>
+    </div>
+    <div class="col-md-10">
+      <b>{{data.mountpoint['netconf-node-topology:password']}}</b>
+    </div>
+  </div>
+</div>
+<div class="modal-body" id="modal-body" ng-show="data.ne.required">
   <!-- web -->
   <div ng-show="data.web.supported">
       <p>
@@ -19,7 +61,6 @@
   <div ng-show="!data.web.supported">
       <p>The network element does not support a native web user interface.</p>
   </div>
-  
   <!-- terminal -->
   <hr/>
   <div ng-show="data.terminal.supported">
@@ -57,6 +98,8 @@
     </div>
   </div>
   
+</div>
+<div class="modal-body" id="modal-body">
   <!-- yang capabilites -->
   <hr/>
   <h3>{{ 'MWTN_YANG_CAPABILITIES' | translate }}</h3>
@@ -68,11 +111,11 @@
   </div>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-danger" type="button" ng-click="delete(data.ne)">
+	<button class="btn btn-danger" type="button" ng-show="data.ne.required" ng-click="delete(data.ne)">
     <i class="fa fa-trash" aria-hidden="true"></i>
     <span>{{'MWTN_DELETE' | translate}}...</span>
   </button>
-	<button class="btn btn-warning" type="button" ng-click="hide(data.ne)">
+	<button class="btn btn-warning" type="button" ng-show="data.ne.required" ng-click="hide(data.ne)">
     <i class="fa fa-times" aria-hidden="true"></i>
     <span>{{'MWTN_HIDE' | translate}}...</span>
   </button>
