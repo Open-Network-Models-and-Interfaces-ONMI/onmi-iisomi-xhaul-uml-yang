@@ -9,10 +9,11 @@
 	<repository>mvn:org.opendaylight.openflowplugin/features-openflowplugin/${openflow.plugin.version}/xml/features </repository>
 	<feature name="odl-mwtn-all" version="${project.version}" description="OpenDaylight :: MWTN :: All">
 		<!-- <feature version="${project.version}">odl-mwtn-apps-all</feature> -->
-		<feature version="${project.version}">odl-mdsal-models</feature>
+		<feature version="${mdsal.model.version}">odl-mdsal-models</feature>
+		<feature version="${project.version}">odl-mwt-models</feature>		
 		<feature version="${project.version}">odl-mwt-websocketmanager</feature>
-		<feature version="${project.version}">odl-mwt-devicemanager</feature>
 		<feature version="${project.version}">odl-mwt-event</feature>
+		<feature version="${project.version}">odl-mwt-devicemanager</feature>
 		<feature version="${project.version}">odl-mwtn-ux-all</feature>
 	</feature>
 	<feature name="odl-mwt-models" version="${project.version}" description="OpenDaylight :: MicrowaveTransport :: Device model">
