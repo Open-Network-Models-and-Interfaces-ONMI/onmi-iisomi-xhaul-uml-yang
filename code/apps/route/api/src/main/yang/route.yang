@@ -7,7 +7,27 @@ module route {
         description "Initial revision of route model";
     }
 
-    rpc start {
+    grouping fc_desc {
+        list fc {
+            key 'nodeName';
+            leaf nodeName {
+                type string;
+            }
+            leaf aEnd {
+                type string;
+            }
+            leaf zEnd {
+                type string;
+            }
+        }
+    }
+    rpc create {
+        input {
+            uses fc_desc;
+            leaf vlanid {
+                type int32;
+            }
+        }
         output {
             leaf status {
                 type enumeration {
@@ -17,16 +37,19 @@ module route {
             }
         }
     }
-
-    rpc create {
+    rpc switchTo {
         input {
-            leaf name {
-                type string;
+            uses fc_desc;
+            leaf vlanid {
+                type int32;
             }
         }
         output {
-            leaf greeting {
-                type string;
+            leaf status {
+                type enumeration {
+                    enum successful;
+                    enum failure;
+                }
             }
         }
     }
