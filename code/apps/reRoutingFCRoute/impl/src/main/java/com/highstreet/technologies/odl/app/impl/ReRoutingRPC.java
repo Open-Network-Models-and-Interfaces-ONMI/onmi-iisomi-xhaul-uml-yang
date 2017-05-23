@@ -13,12 +13,9 @@ import com.highstreet.technologies.odl.app.impl.policy.Policies;
 import com.highstreet.technologies.odl.app.impl.topology.Graph;
 import com.highstreet.technologies.odl.app.impl.topology.Vertex;
 import org.opendaylight.controller.md.sal.binding.api.*;
-import org.opendaylight.controller.md.sal.common.api.data.AsyncTransaction;
 import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
 import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
-import org.opendaylight.controller.md.sal.common.api.data.TransactionChainListener;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker;
-import org.opendaylight.controller.sal.binding.api.RpcProviderRegistry;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.LayerProtocolName;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.NetworkElement;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.UniversalId;
@@ -48,14 +45,15 @@ import java.util.concurrent.Future;
 /**
  * Created by olinchy on 5/9/17.
  */
-public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, ReRoutingFCRouteService
+public class ReRoutingRPC implements ReRoutingFCRouteService
 {
-    public ReRoutingRPC(BindingAwareBroker.ProviderContext providerContext, RpcProviderRegistry rpcProviderRegistry)
+    public ReRoutingRPC(BindingAwareBroker.ProviderContext providerContext)
     {
         this.dataBroker = providerContext.getSALService(DataBroker.class);
         this.mountService = providerContext.getSALService(MountPointService.class);
-        this.registration = rpcProviderRegistry.addRpcImplementation(ReRoutingFCRouteService.class, this);
+//        this.registration = rpcProviderRegistry.addRpcImplementation(ReRoutingFCRouteService.class, this);
     }
+
     private static final LayerProtocolName LAYER_PROTOCOL_NAME = new LayerProtocolName("ETH");
     private static final Logger logger = LoggerFactory.getLogger(ReRoutingRPC.class);
     private static final InstanceIdentifier<Topology> NETCONF_TOPO_IID = InstanceIdentifier
@@ -63,7 +61,7 @@ public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, Re
             .child(Topology.class, new TopologyKey(new TopologyId(TopologyNetconf.QNAME.getLocalName())));
     private final DataBroker dataBroker;
     private final MountPointService mountService;
-    private final BindingAwareBroker.RpcRegistration<ReRoutingFCRouteService> registration;
+    //    private final BindingAwareBroker.RpcRegistration<ReRoutingFCRouteService> registration;
     private HashMap<MountPoint, NetworkElement> currentNeOnPath = new HashMap<>();
     private CreateFCRouteInput currentInput;
 
@@ -232,30 +230,6 @@ public class ReRoutingRPC implements AutoCloseable, TransactionChainListener, Re
     private String lpFrom(String ltpName, int vlanid)
     {
         return String.format(ltpName + "-%1$s-%2$d", LAYER_PROTOCOL_NAME, vlanid);
-    }
-
-    @Override
-    public void close() throws Exception
-    {
-        if (this.registration != null)
-        {
-            this.registration.close();
-        }
-    }
-
-    @Override
-    public void onTransactionChainFailed(
-            org.opendaylight.controller.md.sal.common.api.data.TransactionChain<?, ?> transactionChain,
-            AsyncTransaction<?, ?> asyncTransaction, Throwable throwable)
-    {
-
-    }
-
-    @Override
-    public void onTransactionChainSuccessful(
-            org.opendaylight.controller.md.sal.common.api.data.TransactionChain<?, ?> transactionChain)
-    {
-
     }
 
     private void reRoute()

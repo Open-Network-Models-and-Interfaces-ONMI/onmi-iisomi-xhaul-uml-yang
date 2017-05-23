@@ -7,45 +7,31 @@
  */
 package com.highstreet.technologies.odl.app.impl;
 
-import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker;
 import org.opendaylight.controller.sal.binding.api.BindingAwareProvider;
-import org.opendaylight.controller.sal.binding.api.RpcProviderRegistry;
-import org.osgi.framework.BundleContext;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.reroutingfcroute.rev170509.ReRoutingFCRouteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
+
 public class ReRoutingFCRouteProvider implements BindingAwareProvider, AutoCloseable
 {
-    public ReRoutingFCRouteProvider(BundleContext bundleContext, RpcProviderRegistry rpcProviderRegistry)
+    static
     {
-        this.bundleContext = bundleContext;
-        this.rpcProviderRegistry = rpcProviderRegistry;
+        Authenticator.setDefault(new Authenticator()
+        {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication()
+            {
+                return new PasswordAuthentication("admin", "admin".toCharArray());
+            }
+        });
     }
 
-    public ReRoutingFCRouteProvider(final DataBroker dataBroker)
-    {
-        this.dataBroker = dataBroker;
-    }
     private static final Logger LOG = LoggerFactory.getLogger(ReRoutingFCRouteProvider.class);
-    private static Object lock = new Object();
-    private BundleContext bundleContext;
-    private RpcProviderRegistry rpcProviderRegistry;
-    private DataBroker dataBroker;
-    private ReRoutingRPC impl;
-
-    public ReRoutingRPC getImpl()
-    {
-        return impl;
-    }
-
-    /**
-     * Method called when the blueprint container is created.
-     */
-    public void init()
-    {
-        LOG.info("ReRoutingFCRouteProvider Session Initiated");
-    }
+    private BindingAwareBroker.RpcRegistration<ReRoutingFCRouteService> reroutingService;
 
     /**
      * Method called when the blueprint container is destroyed.
@@ -53,15 +39,17 @@ public class ReRoutingFCRouteProvider implements BindingAwareProvider, AutoClose
     public void close()
     {
         LOG.info("ReRoutingFCRouteProvider Closed");
+        if (reroutingService != null)
+        {
+            reroutingService.close();
+        }
     }
 
     @Override
     public void onSessionInitiated(
             BindingAwareBroker.ProviderContext providerContext)
     {
-        synchronized (lock)
-        {
-            impl = new ReRoutingRPC(providerContext, this.rpcProviderRegistry);
-        }
+        reroutingService = providerContext.addRpcImplementation(
+                ReRoutingFCRouteService.class, new ReRoutingRPC(providerContext));
     }
 }
