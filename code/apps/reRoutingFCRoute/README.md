@@ -7,7 +7,6 @@ mvn archetype:generate -DarchetypeGroupId=org.opendaylight.controller -Darchetyp
 -DarchetypeVersion=1.2.1-Boron-SR1
 ```
 
-
 #### copy modules build from code:
 
 ```
@@ -19,12 +18,20 @@ cp -R ~/.m2/repository/com/hcl $ODL_KARAF_HOME/system/com
 cp -R ~/.m2/repository/com/highstreet $ODL_KARAF_HOME/system/com
 
 ```
-
-
 #### start app re-routing
 ````
-feature:repo-add mvn:com.highstreet.technologies.odl.app/reRoutingFCRoute-features/0.4.0-SNAPSHOT/xml/features
-feature:install odl-reRoutingFCRoute
+feature:install odl-netconf-connector-all odl-l2switch-switch
+feature:install odl-netconf-topology
+feature:install odl-restconf-all odl-mdsal-apidocs odl-dlux-all odl-toaster
+
+feature:repo-add mvn:org.apache.karaf.decanter/apache-karaf-decanter/1.1.0/xml/features
+feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/0.4.0-SNAPSHOT/xml/features
+
+feature:install elasticsearch 
+feature:install odl-mwt-models odl-mwtn-all
+
+feature:repo-add mvn:com.highstreet.technologies.odl.app/route-features/0.4.0-SNAPSHOT/xml/features
+feature:install odl-route
 ````
 
 #### start default value mediator 
@@ -53,6 +60,21 @@ cp ./code/Default_Values_Mediator/ncxconst.h ../OpenYuma/netconf/src/ncx/
 cp ./code/Default_Values_Mediator/config/dvm-data.xml ~/
 cd ../OpenYuma
 make clean && make && sudo make install
+````
+
+#### set ssh port
+Open sshd_config file :
+````
+sudo gedit /etc/ssh/sshd_config
+````
+Add following contents (after "Port 22" in line 5) :
+````
+Port 830
+Subsystem netconf /usr/sbin/netconf-subsystem
+````
+Restart ssh server :
+````
+sudo /etc/init.d/ssh restart
 ````
 
 #### How to run the DVM for Telefonica SDN Trial:
@@ -123,5 +145,23 @@ The NETCONF server can be also started running the script files located in the d
 
   Since RESTconf call invoked in order to log in (log out) the mediation device to (from) the SDH controller are embedded in a PHP script, could be necessary install the following packages:
 
-    sudo apt-get install php5-curl
-    sudo apt-get install php5-cli
+    # on ubuntu 17.04
+    sudo apt-get install php7.0-curl php7.0-cli
+    
+#### mount DVM on ODL
+using system user and password for DVM when running DVM foreground
+
+#### log level for odl
+````
+log:set TRACE org.opendaylight.netconf
+log:set DEBUG org.opendaylight.mwtn
+````
+
+#### debugging the controller
+````
+cd $ODL_KARAF_HOME
+./bin/karaf debug
+````
+
+#### ps:
+donot forget to add registry into ProviderContext in provider.onSessionInitiated 

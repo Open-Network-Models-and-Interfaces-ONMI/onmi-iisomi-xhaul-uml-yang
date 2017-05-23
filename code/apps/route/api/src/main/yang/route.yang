@@ -1,0 +1,33 @@
+module route {
+    yang-version 1;
+    namespace "urn:opendaylight:params:xml:ns:yang:route";
+    prefix "route";
+
+    revision "2015-01-05" {
+        description "Initial revision of route model";
+    }
+
+    rpc start {
+        output {
+            leaf status {
+                type enumeration {
+                    enum successful;
+                    enum failure;
+                }
+            }
+        }
+    }
+
+    rpc create {
+        input {
+            leaf name {
+                type string;
+            }
+        }
+        output {
+            leaf greeting {
+                type string;
+            }
+        }
+    }
+}
