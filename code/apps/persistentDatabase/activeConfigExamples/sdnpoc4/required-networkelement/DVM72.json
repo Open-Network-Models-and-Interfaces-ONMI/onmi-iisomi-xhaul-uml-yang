@@ -1,27 +1,27 @@
 {
 	"required-networkelement": {
-		"DVM-72": {
+		"Sim31": {
 			"nodeId": "DVM-72",
-			"siteRef": "site-2",
+			"siteRef": "site-1",
 			"onfCoreModelRevision": "2017-03-20",
 			"onfAirInterfaceRevision": "2017-03-24",
 			"connect": {
-				"mountId": "DVM-72",
+				"mountId": "Sim31",
 				"host": "127.0.0.1",
-				"port": 830,
-				"username": "odl",
-				"password": "odl"
+				"port": 2222,
+				"username": "admin",
+				"password": "admin"
 			},
 			"network-element": {
 				"administrative-state": "unlocked",
 				"administrative-control": "unlock",
 				"name": [{
 					"value-name": "ne-name",
-					"value": "DVM-72"
+					"value": "NE12"
 				}],
 				"local-id": [{
 					"value-name": "ne-local-id",
-					"value": "DVM-72"
+					"value": "NE12"
 				}],
 				"extension": [{
 					"value-name": "neIpAddress",
@@ -29,7 +29,7 @@
 				},
 				{
 					"value-name": "ne-extension",
-					"value": "DVM-72"
+					"value": "NE12"
 				},
 				{
 					"value-name": "cliAddress",
@@ -45,14 +45,14 @@
 				},
 				{
 					"value-name": "neExtension",
-					"value": "DVM-72"
+					"value": "NE12"
 				}],
 				"lifecycle-state": "installed",
-				"uuid": "DVM-72",
+				"uuid": "NE12",
 				"operational-state": "enabled",
 				"label": [{
 					"value-name": "ne-label",
-					"value": "DVM-72"
+					"value": "NE12"
 				}],
 				"ltp": [{
 					"uuid": "LTP-MWS-RADIO",

@@ -130,7 +130,7 @@ public class RouteRPC implements RouteService
 
         clientLtpsInFC.add(clientLtpName);
 
-        // add clien ltp to ltp
+        // add client ltp to ltp
         Ltp serverLTP = null;
         for (Ltp ltp : ne.getLtp())
         {

@@ -7,6 +7,12 @@ mvn archetype:generate -DarchetypeGroupId=org.opendaylight.controller -Darchetyp
 -DarchetypeVersion=1.2.1-Boron-SR1
 ```
 
+#### patch the odl
+````
+cp ./apps/dlux/loader.implementation-0.4.1-Boron-SR1.jar $ODL_KARAF_HOME/system/org/opendaylight/dlux/loader.implementation/0.4.1-Boron-SR1
+
+````
+
 #### copy modules build from code:
 
 ```
