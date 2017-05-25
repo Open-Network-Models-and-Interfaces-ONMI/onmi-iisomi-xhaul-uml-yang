@@ -19,12 +19,16 @@ import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.network.element.Ltp;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.network.element.LtpBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.network.element.LtpKey;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.network.topology.topology.topology.types.TopologyNetconf;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.*;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.fc_desc.Fc;
-import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev130712.NodeId;
-import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev130712.network.topology.Topology;
-import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev130712.network.topology.topology.Node;
-import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev130712.network.topology.topology.NodeKey;
+import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NetworkTopology;
+import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NodeId;
+import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.TopologyId;
+import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.Topology;
+import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.TopologyKey;
+import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node;
+import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.NodeKey;
 import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
 import org.opendaylight.yangtools.yang.common.RpcResult;
 import org.opendaylight.yangtools.yang.common.RpcResultBuilder;
@@ -73,7 +77,9 @@ public class RouteRPC implements RouteService
     private void process(Fc fc, int vlanId)
     {
         Optional<MountPoint> opMountP = mountPointService.getMountPoint(
-                InstanceIdentifier.create(Topology.class).child(Node.class, new NodeKey(new NodeId(fc.getNodeName()))));
+                InstanceIdentifier.create(NetworkTopology.class).child(Topology.class, new TopologyKey(
+                        new TopologyId(TopologyNetconf.QNAME.getLocalName()))).child(Node.class, new NodeKey(
+                        new NodeId(fc.getNodeName()))));
         if (!opMountP.isPresent())
         {
             throw new IllegalArgumentException(" ne " + fc.getNodeName() + " is not mounted!");
@@ -98,7 +104,8 @@ public class RouteRPC implements RouteService
             neCommitTrans.put(LogicalDatastoreType.OPERATIONAL, InstanceIdentifier.create(NetworkElement.class), ne);
 
             neCommitTrans.submit();
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             LOG.warn(e.getMessage(), e);
         }
@@ -167,5 +174,4 @@ public class RouteRPC implements RouteService
     {
         return String.format(ltpName + "-%1$s-%2$d", LAYER_PROTOCOL_NAME, vlanid);
     }
-
 }
