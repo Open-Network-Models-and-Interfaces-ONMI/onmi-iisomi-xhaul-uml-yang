@@ -87,7 +87,7 @@ The mediator created by this installation is similar to the structure of the poc
     rwxr-xr-x  1 root root   18848 Sep 20 13:21 netconf-subsystem*
     rwxr-xr-x  1 root root   13864 Sep 20 13:21 netconfd*
 	```  
-    c. In /usr/share/Yuma:
+    c. In /usr/share/yuma:
 	```  
     drwxr-xr-x   7 root root  4096 Sep 20 13:18 modules/
     drwxr-xr-x   3 root root  4096 Sep 20 11:25 src/
