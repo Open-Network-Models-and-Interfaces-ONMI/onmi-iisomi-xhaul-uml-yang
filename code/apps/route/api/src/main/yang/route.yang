@@ -21,6 +21,14 @@ module route {
             }
         }
     }
+    grouping status_g {
+        leaf status {
+            type enumeration {
+                enum successful;
+                enum failure;
+            }
+        }
+    }
     rpc create {
         input {
             uses fc_desc;
@@ -29,28 +37,37 @@ module route {
             }
         }
         output {
-            leaf status {
-                type enumeration {
-                    enum successful;
-                    enum failure;
-                }
-            }
+            uses status_g;
         }
     }
-    rpc switchTo {
+    rpc create_follow_topo {
         input {
-            uses fc_desc;
             leaf vlanid {
                 type int32;
             }
         }
         output {
-            leaf status {
-                type enumeration {
-                    enum successful;
-                    enum failure;
-                }
+            uses status_g;
+        }
+    }
+    rpc switch_follow_topo {
+        input {
+            leaf vlanid {
+                type int32;
             }
+        }
+        output {
+            uses status_g;
+        }
+    }
+    rpc restore_follow_topo {
+        input {
+            leaf vlanid {
+                type int32;
+            }
+        }
+        output {
+            uses status_g;
         }
     }
 }
