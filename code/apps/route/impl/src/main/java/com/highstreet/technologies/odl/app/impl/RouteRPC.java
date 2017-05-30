@@ -41,8 +41,7 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 import static org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType.OPERATIONAL;
-import static org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.CreateOutput.Status.Failure;
-import static org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.CreateOutput.Status.Successful;
+import static org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.StatusG.Status.Successful;
 
 /**
  * Created by olinchy on 5/22/17.
@@ -61,11 +60,30 @@ public class RouteRPC implements RouteService
     private final MountPointService mountPointService;
 
     @Override
-    public Future<RpcResult<SwitchToOutput>> switchTo(SwitchToInput input)
+    public Future<RpcResult<RestoreFollowTopoOutput>> restoreFollowTopo(
+            RestoreFollowTopoInput input)
     {
-        input.getFc().forEach((fc -> process(fc, input.getVlanid())));
-        SwitchToOutputBuilder builder = new SwitchToOutputBuilder();
-        builder.setStatus(SwitchToOutput.Status.Successful);
+        RestoreFollowTopoOutputBuilder builder = new RestoreFollowTopoOutputBuilder();
+        builder.setStatus(Successful);
+        return RpcResultBuilder.success(builder.build()).buildFuture();
+    }
+
+    @Override
+    public Future<RpcResult<CreateFollowTopoOutput>> createFollowTopo(
+            CreateFollowTopoInput input)
+    {
+        CreateFollowTopoOutputBuilder builder = new CreateFollowTopoOutputBuilder();
+        builder.setStatus(Successful);
+        return RpcResultBuilder.success(builder.build()).buildFuture();
+    }
+
+    @Override
+    public Future<RpcResult<SwitchFollowTopoOutput>> switchFollowTopo(
+            SwitchFollowTopoInput input)
+    {
+
+        SwitchFollowTopoOutputBuilder builder = new SwitchFollowTopoOutputBuilder();
+        builder.setStatus(Successful);
         return RpcResultBuilder.success(builder.build()).buildFuture();
     }
 
@@ -86,7 +104,7 @@ public class RouteRPC implements RouteService
         catch (Exception e)
         {
             LOG.warn("creating LtpPath caught exception", e);
-            builder.setStatus(Failure);
+            builder.setStatus(CreateOutput.Status.Failure);
         }
 
         builder.setStatus(Successful);
