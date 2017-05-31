@@ -84,3 +84,16 @@ cd $ODL_KARAF_HOME
 ````
 git clone https://github.com/Melacon/WirelessTransportEmulator.git
 ````
+#### after replacing jar in ODL
+- refresh repository and re-install app
+````
+feature:uninstall odl-route
+feature:repo-refresh mvn:com.highstreet.technologies.odl.app/route-features/0.4.0-SNAPSHOT/xml/features
+feature:install odl-route
+shutdown
+````
+- after restarting
+````
+log:set DEBUG org.opendaylight.mwtn
+log:set TRACE org.opendaylight.netconf
+````
