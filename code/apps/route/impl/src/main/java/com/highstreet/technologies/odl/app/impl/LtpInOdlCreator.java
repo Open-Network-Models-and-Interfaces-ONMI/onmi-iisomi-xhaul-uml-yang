@@ -31,6 +31,7 @@ public class LtpInOdlCreator
         builder.setNodeReference(new UniversalId(nodeName));
         builder.setKey(new LogicalTerminationPointListKey(clientLtpName));
         builder.setLtpIndex(clientLtpName);
+        builder.setLtpReference(new UniversalId(clientLtpName));
         return builder.build();
     }
 }
