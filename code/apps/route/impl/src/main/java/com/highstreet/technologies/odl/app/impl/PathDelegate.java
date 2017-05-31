@@ -22,6 +22,7 @@ import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType.CONFIGURATION;
 
@@ -33,21 +34,21 @@ public class PathDelegate
     public PathDelegate(DataBroker dataBroker, CreateInput input)
     {
         this.dataBroker = dataBroker;
-        initPathBuilder(input);
+        this.input = input;
+        initPathBuilder();
     }
 
-    private void initPathBuilder(CreateInput input)
+    private void initPathBuilder()
     {
         this.pathBuilder = new LtpPathListBuilder();
         pathBuilder.setForwardingDirection(ForwardingDirection.Bidirectional);
         pathBuilder.setLayerProtocolName(LayerProtocolNameEnumeration.ETH);
-        String pathName;
-        pathBuilder.setKey(new LtpPathListKey(pathName = "ltpPath_" + input.getVlanid()));
-        pathBuilder.setPathId(String.valueOf(input.getVlanid()));
-        pathBuilder.setPathName(pathName);
+        String pathId;
+        pathBuilder.setKey(new LtpPathListKey(pathId = UUID.randomUUID().toString()));
+        pathBuilder.setPathId(pathId);
     }
-
     private static InstanceIdentifier<LtpPath> LTP_PATH_ID = InstanceIdentifier.create(LtpPath.class);
+    private CreateInput input;
     private DataBroker dataBroker;
     private LtpPathListBuilder pathBuilder;
 
@@ -60,11 +61,21 @@ public class PathDelegate
 
     public void commit() throws TransactionCommitFailedException
     {
+        pathBuilder.setPathName(valueAt(pathBuilder.getLogicalTerminationPointList(), 0) + "_" + valueAt(
+                pathBuilder.getLogicalTerminationPointList(), -1) + "_" + input.getVlanid());
         ReadWriteTransaction transaction = dataBroker.newReadWriteTransaction();
         transaction.put(
                 CONFIGURATION, LTP_PATH_ID.child(LtpPathList.class, pathBuilder.getKey()),
                 pathBuilder.build());
 
         transaction.submit().checkedGet();
+    }
+
+    private String valueAt(List<LogicalTerminationPointList> listT, int index)
+    {
+        if (index == -1 || index >= listT.size())
+            index = listT.size() - 1;
+
+        return listT.get(index).getLtpReference().getValue();
     }
 }
