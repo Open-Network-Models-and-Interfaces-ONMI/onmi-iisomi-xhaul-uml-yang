@@ -14,8 +14,12 @@ import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.NetworkElement;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.NetworkElementBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.UniversalId;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.local._class.g.LocalId;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.local._class.g.LocalIdBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.logical.termination.point.g.LpBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.logical.termination.point.g.LpKey;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.name.g.Name;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.name.g.NameBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.network.element.FdBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.network.element.Ltp;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.network.element.LtpBuilder;
@@ -44,7 +48,6 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 import static org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType.CONFIGURATION;
-import static org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType.OPERATIONAL;
 import static org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.StatusG.Status.Successful;
 
 /**
@@ -169,7 +172,7 @@ public class RouteRPC implements RouteService
         InstanceIdentifier<NetworkElement> path = InstanceIdentifier.create(NetworkElement.class);
         ReadOnlyTransaction networkElementTransaction = neDataBroker.newReadOnlyTransaction();
         Optional<NetworkElement> networkElementOpt = networkElementTransaction.read(
-                OPERATIONAL, path).checkedGet();
+                CONFIGURATION, path).checkedGet();
         if (networkElementOpt.isPresent())
             return networkElementOpt.get();
         return null;
@@ -177,8 +180,8 @@ public class RouteRPC implements RouteService
 
     private String addClientLtpTo(NetworkElementBuilder ne, int vlanid, String ltpName)
     {
-        String clientLtpName = ltpFrom(ltpName);
-        String lpName = lpFrom(clientLtpName, vlanid);
+        String clientLtpName = nameFrom(ltpName, LAYER_PROTOCOL_NAME.getValue(), vlanid);
+        String lpName = nameFrom(clientLtpName, "LP", 1);
 
         // add client ltp to ltp
         Ltp serverLTP = null;
@@ -203,11 +206,18 @@ public class RouteRPC implements RouteService
         // add client ltp to ltps
         LtpBuilder clientLtpBuilder = new LtpBuilder();
         clientLtpBuilder.setKey(new LtpKey(new UniversalId(clientLtpName)));
+        clientLtpBuilder.setName(new ArrayList<>());
+        clientLtpBuilder.getName().add(toName(clientLtpName));
         clientLtpBuilder.setServerLtp(Arrays.asList(new UniversalId(serverLTP.getKey().getUuid())));
         // add lp to client ltp
         LpBuilder lpBuilder = new LpBuilder();
         lpBuilder.setKey(new LpKey(new UniversalId(lpName)));
-        lpBuilder.setLayerProtocolName(new LayerProtocolName(LAYER_PROTOCOL_NAME));
+        lpBuilder.setLayerProtocolName(LAYER_PROTOCOL_NAME);
+        lpBuilder.setName(new ArrayList<>());
+        lpBuilder.getName().add(toName(lpName));
+
+        lpBuilder.setLocalId(new ArrayList<>());
+        lpBuilder.getLocalId().add(toLocalId(lpName));
         clientLtpBuilder.setLp(Arrays.asList(lpBuilder.build()));
 
         ne.getLtp().add(clientLtpBuilder.build());
@@ -216,9 +226,17 @@ public class RouteRPC implements RouteService
         return clientLtpName;
     }
 
+    private LocalId toLocalId(String name)
+    {
+        LocalIdBuilder builder = new LocalIdBuilder();
+        builder.setValue(name);
+        builder.setValueName("vLocalId");
+        return builder.build();
+    }
+
     private String buildFcName(ArrayList<LogicalTerminationPointList> clientLtpsInFC)
     {
-//        String fcName = "FC-LTP-ETY-1.1.1-ETH-23- LTP-ETC-1.3.1-ETH-23"
+//        String fcName = "FC-LTP-ETY-1.1.1-ETH-23-LTP-ETC-1.3.1-ETH-23"
         StringBuilder fcName = new StringBuilder("FC");
         for (LogicalTerminationPointList ltp : clientLtpsInFC)
         {
@@ -227,13 +245,16 @@ public class RouteRPC implements RouteService
         return fcName.toString();
     }
 
-    private String ltpFrom(String ltpName)
+    private String nameFrom(String ltpName, String mediator, int vlanId)
     {
-        return ltpName + "-LP-1";
+        return String.format(ltpName + "-%1$s-%2$d", mediator, vlanId);
     }
 
-    private String lpFrom(String ltpName, int vlanid)
+    private Name toName(String name)
     {
-        return String.format(ltpName + "-%1$s-%2$d", LAYER_PROTOCOL_NAME.getValue(), vlanid);
+        NameBuilder nameBuilder = new NameBuilder();
+        nameBuilder.setValue(name);
+        nameBuilder.setValueName("vName");
+        return nameBuilder.build();
     }
 }
