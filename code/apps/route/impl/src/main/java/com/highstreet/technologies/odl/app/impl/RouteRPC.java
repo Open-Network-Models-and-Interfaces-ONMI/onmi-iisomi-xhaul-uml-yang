@@ -12,9 +12,11 @@ import org.opendaylight.controller.md.sal.binding.api.*;
 import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.LayerProtocolName;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.NetworkElement;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.NetworkElementBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.UniversalId;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.logical.termination.point.g.LpBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.logical.termination.point.g.LpKey;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.network.element.FdBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.network.element.Ltp;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.network.element.LtpBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.network.element.LtpKey;
@@ -37,9 +39,11 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Future;
 
+import static org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType.CONFIGURATION;
 import static org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType.OPERATIONAL;
 import static org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.StatusG.Status.Successful;
 
@@ -125,22 +129,29 @@ public class RouteRPC implements RouteService
         try
         {
             NetworkElement ne = getNe(opMountP.get());
+            NetworkElementBuilder neBuilder = new NetworkElementBuilder(ne);
 
             LtpInOdlCreator ltpInOdlCreator = new LtpInOdlCreator(fc.getNodeName());
 
             // start the creation of fc
             // add client ltps
             clientLtpsInFC = new ArrayList<>();
-            clientLtpsInFC.add(ltpInOdlCreator.create(addClientLtpTo(ne, vlanId, fc.getAEnd()), fc.getAEnd()));
-            clientLtpsInFC.add(ltpInOdlCreator.create(addClientLtpTo(ne, vlanId, fc.getZEnd()), fc.getZEnd()));
+            clientLtpsInFC.add(ltpInOdlCreator.create(addClientLtpTo(neBuilder, vlanId, fc.getAEnd()), fc.getAEnd()));
+            clientLtpsInFC.add(ltpInOdlCreator.create(addClientLtpTo(neBuilder, vlanId, fc.getZEnd()), fc.getZEnd()));
 
             // add fc into fd
-            ne.getFd().get(0).getFc().add(new UniversalId(buildFcName(clientLtpsInFC)));
+            FdBuilder fdBuilder = new FdBuilder(neBuilder.getFd().remove(0));
+            if (fdBuilder.getFc() == null)
+                fdBuilder.setFc(new ArrayList<>());
+
+            fdBuilder.getFc().add(new UniversalId(buildFcName(clientLtpsInFC)));
+
+            neBuilder.getFd().add(fdBuilder.build());
 
             // submit to network element
             ReadWriteTransaction neCommitTrans = opMountP.get().getService(
                     DataBroker.class).get().newReadWriteTransaction();
-            neCommitTrans.put(OPERATIONAL, InstanceIdentifier.create(NetworkElement.class), ne);
+            neCommitTrans.put(CONFIGURATION, InstanceIdentifier.create(NetworkElement.class), neBuilder.build());
 
             neCommitTrans.submit();
         }
@@ -164,22 +175,31 @@ public class RouteRPC implements RouteService
         return null;
     }
 
-    private String addClientLtpTo(NetworkElement ne, int vlanid, String ltpName)
+    private String addClientLtpTo(NetworkElementBuilder ne, int vlanid, String ltpName)
     {
         String clientLtpName = ltpFrom(ltpName);
         String lpName = lpFrom(clientLtpName, vlanid);
 
         // add client ltp to ltp
         Ltp serverLTP = null;
-        for (Ltp ltp : ne.getLtp())
+        Iterator<Ltp> iterator = ne.getLtp().iterator();
+        while (iterator.hasNext())
         {
-            if (ltp.getKey().getUuid().getValue().equalsIgnoreCase(ltpName))
+            Ltp temp = iterator.next();
+            if (temp.getUuid().getValue().equalsIgnoreCase(ltpName))
             {
-                serverLTP = ltp;
+                iterator.remove();
+                serverLTP = temp;
                 break;
             }
         }
-        serverLTP.getClientLtp().add(new UniversalId(clientLtpName));
+
+        LtpBuilder serverBuilder = new LtpBuilder(serverLTP);
+
+        if (serverBuilder.getClientLtp() == null)
+            serverBuilder.setClientLtp(new ArrayList<>());
+        serverBuilder.getClientLtp().add(new UniversalId(clientLtpName));
+
         // add client ltp to ltps
         LtpBuilder clientLtpBuilder = new LtpBuilder();
         clientLtpBuilder.setKey(new LtpKey(new UniversalId(clientLtpName)));
@@ -191,6 +211,7 @@ public class RouteRPC implements RouteService
         clientLtpBuilder.setLp(Arrays.asList(lpBuilder.build()));
 
         ne.getLtp().add(clientLtpBuilder.build());
+        ne.getLtp().add(serverBuilder.build());
 
         return clientLtpName;
     }
@@ -201,7 +222,7 @@ public class RouteRPC implements RouteService
         StringBuilder fcName = new StringBuilder("FC");
         for (LogicalTerminationPointList ltp : clientLtpsInFC)
         {
-            fcName.append("-").append(ltp.getKey().toString());
+            fcName.append("-").append(ltp.getKey().getLtpIndex());
         }
         return fcName.toString();
     }
@@ -213,6 +234,6 @@ public class RouteRPC implements RouteService
 
     private String lpFrom(String ltpName, int vlanid)
     {
-        return String.format(ltpName + "-%1$s-%2$d", LAYER_PROTOCOL_NAME, vlanid);
+        return String.format(ltpName + "-%1$s-%2$d", LAYER_PROTOCOL_NAME.getValue(), vlanid);
     }
 }
