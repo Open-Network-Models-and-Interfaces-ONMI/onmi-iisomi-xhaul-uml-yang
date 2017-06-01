@@ -8,6 +8,7 @@
 package com.highstreet.technologies.odl.app.impl;
 
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.UniversalId;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.network.element.Ltp;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.ltp.path.rev170526.ltp.path.ltp.path.list.LogicalTerminationPointList;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.ltp.path.rev170526.ltp.path.ltp.path.list.LogicalTerminationPointListBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.ltp.path.rev170526.ltp.path.ltp.path.list.LogicalTerminationPointListKey;
@@ -17,22 +18,19 @@ import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.ltp.path.rev17052
  */
 public class LtpInOdlCreator
 {
-    public LtpInOdlCreator(String nodeName)
+    public LtpInOdlCreator()
     {
-        this.nodeName = nodeName;
     }
 
-    private final String nodeName;
+    private int index = 0;
 
-    public LogicalTerminationPointList create(String clientLtpName, String serverLtpName)
+    public LogicalTerminationPointList create(String neName, String clientLtpName, Ltp serverLtp)
     {
-        clientLtpName = nodeName + "_" + clientLtpName;
-        serverLtpName = nodeName + "_" + serverLtpName;
         LogicalTerminationPointListBuilder builder = new LogicalTerminationPointListBuilder();
-        builder.setPhysicalPortReference(serverLtpName);
-        builder.setNodeReference(new UniversalId(nodeName));
-        builder.setKey(new LogicalTerminationPointListKey(clientLtpName));
-        builder.setLtpIndex(clientLtpName);
+        builder.setPhysicalPortReference(serverLtp.getPhysicalPortReference().get(0));
+        builder.setNodeReference(new UniversalId(neName));
+        builder.setLtpIndex(String.valueOf(index++));
+        builder.setKey(new LogicalTerminationPointListKey(builder.getLtpIndex()));
         builder.setLtpReference(new UniversalId(clientLtpName));
         return builder.build();
     }

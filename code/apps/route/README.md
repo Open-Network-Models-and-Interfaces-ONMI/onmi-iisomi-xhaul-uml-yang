@@ -97,6 +97,11 @@ shutdown
 log:set DEBUG org.opendaylight.mwtn
 log:set TRACE org.opendaylight.netconf
 ````
+- start emulator
+````
+sudo wtemulator --config=config.json --topo=topology.json --xml=yang/microwave-model-config.xml
+````
+
 #### usage of route app
 
 - using route/create in YANG UI for testing
