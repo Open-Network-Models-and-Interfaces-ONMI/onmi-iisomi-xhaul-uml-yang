@@ -100,12 +100,13 @@ public class RouteRPC implements RouteService
     {
         CreateOutputBuilder builder = new CreateOutputBuilder();
 
+        LtpInOdlCreator ltpInOdlCreator = new LtpInOdlCreator();
         try
         {
             PathDelegate holder = new PathDelegate(dataBroker, input);
 
             input.getFc().forEach(
-                    (fc -> holder.add(process(fc, input.getVlanid()))));
+                    (fc -> holder.add(process(fc, input.getVlanid(), ltpInOdlCreator))));
             holder.commit();
         }
         catch (Exception e)
@@ -118,7 +119,7 @@ public class RouteRPC implements RouteService
         return RpcResultBuilder.success(builder.build()).buildFuture();
     }
 
-    private List<LogicalTerminationPointList> process(Fc fc, int vlanId)
+    private List<LogicalTerminationPointList> process(Fc fc, Integer vlanId, LtpInOdlCreator ltpInOdlCreator)
     {
         Optional<MountPoint> opMountP = mountPointService.getMountPoint(
                 InstanceIdentifier.create(NetworkTopology.class).child(Topology.class, new TopologyKey(
@@ -134,13 +135,11 @@ public class RouteRPC implements RouteService
             NetworkElement ne = getNe(opMountP.get());
             NetworkElementBuilder neBuilder = new NetworkElementBuilder(ne);
 
-            LtpInOdlCreator ltpInOdlCreator = new LtpInOdlCreator(fc.getNodeName());
-
             // start the creation of fc
             // add client ltps
             clientLtpsInFC = new ArrayList<>();
-            clientLtpsInFC.add(ltpInOdlCreator.create(addClientLtpTo(neBuilder, vlanId, fc.getAEnd()), fc.getAEnd()));
-            clientLtpsInFC.add(ltpInOdlCreator.create(addClientLtpTo(neBuilder, vlanId, fc.getZEnd()), fc.getZEnd()));
+            clientLtpsInFC.add(addClientLtpTo(neBuilder, vlanId, fc.getAEnd(), ltpInOdlCreator));
+            clientLtpsInFC.add(addClientLtpTo(neBuilder, vlanId, fc.getZEnd(), ltpInOdlCreator));
 
             // add fc into fd
             FdBuilder fdBuilder = new FdBuilder(neBuilder.getFd().remove(0));
@@ -178,7 +177,9 @@ public class RouteRPC implements RouteService
         return null;
     }
 
-    private String addClientLtpTo(NetworkElementBuilder ne, int vlanid, String ltpName)
+    private LogicalTerminationPointList addClientLtpTo(
+            NetworkElementBuilder ne, int vlanid, String ltpName,
+            LtpInOdlCreator ltpInOdlCreator)
     {
         String clientLtpName = nameFrom(ltpName, LAYER_PROTOCOL_NAME.getValue(), vlanid);
         String lpName = nameFrom(clientLtpName, "LP", 1);
@@ -223,26 +224,18 @@ public class RouteRPC implements RouteService
         ne.getLtp().add(clientLtpBuilder.build());
         ne.getLtp().add(serverBuilder.build());
 
-        return clientLtpName;
-    }
-
-    private LocalId toLocalId(String name)
-    {
-        LocalIdBuilder builder = new LocalIdBuilder();
-        builder.setValue(name);
-        builder.setValueName("vLocalId");
-        return builder.build();
+        return ltpInOdlCreator.create(ne.getName().get(0).getValue(), clientLtpName, serverLTP);
     }
 
     private String buildFcName(ArrayList<LogicalTerminationPointList> clientLtpsInFC)
     {
-//        String fcName = "FC-LTP-ETY-1.1.1-ETH-23-LTP-ETC-1.3.1-ETH-23"
-        StringBuilder fcName = new StringBuilder("FC");
+//        String fcName = "LTP-ETY-1.1.1-ETH-23,LTP-ETC-1.3.1-ETH-23"
+        StringBuilder fcName = new StringBuilder("");
         for (LogicalTerminationPointList ltp : clientLtpsInFC)
         {
-            fcName.append("-").append(ltp.getKey().getLtpIndex());
+            fcName.append(ltp.getKey().getLtpIndex()).append(",");
         }
-        return fcName.toString();
+        return fcName.deleteCharAt(fcName.length() - 1).toString();
     }
 
     private String nameFrom(String ltpName, String mediator, int vlanId)
@@ -256,5 +249,13 @@ public class RouteRPC implements RouteService
         nameBuilder.setValue(name);
         nameBuilder.setValueName("vName");
         return nameBuilder.build();
+    }
+
+    private LocalId toLocalId(String name)
+    {
+        LocalIdBuilder builder = new LocalIdBuilder();
+        builder.setValue(name);
+        builder.setValueName("vLocalId");
+        return builder.build();
     }
 }
