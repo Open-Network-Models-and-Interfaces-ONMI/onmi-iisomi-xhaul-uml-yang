@@ -233,7 +233,7 @@ public class RouteRPC implements RouteService
         StringBuilder fcName = new StringBuilder("");
         for (LogicalTerminationPointList ltp : clientLtpsInFC)
         {
-            fcName.append(ltp.getKey().getLtpIndex()).append(",");
+            fcName.append(ltp.getLtpReference().getValue()).append(",");
         }
         return fcName.deleteCharAt(fcName.length() - 1).toString();
     }
