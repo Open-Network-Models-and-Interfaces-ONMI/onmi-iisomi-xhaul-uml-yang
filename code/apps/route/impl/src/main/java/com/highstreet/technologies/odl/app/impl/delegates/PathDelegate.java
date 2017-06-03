@@ -48,7 +48,6 @@ public class PathDelegate
     }
     private static InstanceIdentifier<LtpPath> LTP_PATH_ID = InstanceIdentifier.create(LtpPath.class);
     private final Integer vlanId;
-    private String pathId;
     private DataBroker dataBroker;
     private LtpPathListBuilder pathBuilder;
 
@@ -69,8 +68,6 @@ public class PathDelegate
                 pathBuilder.build());
 
         transaction.submit().checkedGet();
-
-        this.pathId = pathBuilder.getKey().getPathId();
     }
 
     private String valueAt(List<LogicalTerminationPointList> listT, int index)
