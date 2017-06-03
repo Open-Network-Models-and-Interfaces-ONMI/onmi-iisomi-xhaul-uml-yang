@@ -87,6 +87,7 @@ git clone https://github.com/Melacon/WirelessTransportEmulator.git
 #### after replacing jar in ODL
 - refresh repository and re-install app
 ````
+cp -R ~/.m2/repository/com/highstreet $ODL_KARAF_HOME/system/com
 feature:uninstall odl-route
 feature:repo-refresh mvn:com.highstreet.technologies.odl.app/route-features/0.4.0-SNAPSHOT/xml/features
 feature:install odl-route

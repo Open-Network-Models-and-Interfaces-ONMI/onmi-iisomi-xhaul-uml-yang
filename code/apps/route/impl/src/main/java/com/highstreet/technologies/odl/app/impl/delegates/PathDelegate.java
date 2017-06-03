@@ -5,7 +5,7 @@
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
-package com.highstreet.technologies.odl.app.impl;
+package com.highstreet.technologies.odl.app.impl.delegates;
 
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.binding.api.ReadWriteTransaction;
@@ -17,7 +17,6 @@ import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.ltp.path.rev17052
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.ltp.path.rev170526.ltp.path.LtpPathListBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.ltp.path.rev170526.ltp.path.LtpPathListKey;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.ltp.path.rev170526.ltp.path.ltp.path.list.LogicalTerminationPointList;
-import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.CreateInput;
 import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
 
 import java.util.ArrayList;
@@ -31,10 +30,10 @@ import static org.opendaylight.controller.md.sal.common.api.data.LogicalDatastor
  */
 public class PathDelegate
 {
-    public PathDelegate(DataBroker dataBroker, CreateInput input)
+    public PathDelegate(DataBroker dataBroker, Integer vlanId)
     {
         this.dataBroker = dataBroker;
-        this.input = input;
+        this.vlanId = vlanId;
         initPathBuilder();
     }
 
@@ -48,7 +47,8 @@ public class PathDelegate
         pathBuilder.setPathId(pathId);
     }
     private static InstanceIdentifier<LtpPath> LTP_PATH_ID = InstanceIdentifier.create(LtpPath.class);
-    private CreateInput input;
+    private final Integer vlanId;
+    private String pathId;
     private DataBroker dataBroker;
     private LtpPathListBuilder pathBuilder;
 
@@ -62,13 +62,15 @@ public class PathDelegate
     public void commit() throws TransactionCommitFailedException
     {
         pathBuilder.setPathName(valueAt(pathBuilder.getLogicalTerminationPointList(), 0) + "_" + valueAt(
-                pathBuilder.getLogicalTerminationPointList(), -1) + "_" + input.getVlanid());
+                pathBuilder.getLogicalTerminationPointList(), -1) + "_" + vlanId);
         ReadWriteTransaction transaction = dataBroker.newReadWriteTransaction();
         transaction.put(
                 CONFIGURATION, LTP_PATH_ID.child(LtpPathList.class, pathBuilder.getKey()),
                 pathBuilder.build());
 
         transaction.submit().checkedGet();
+
+        this.pathId = pathBuilder.getKey().getPathId();
     }
 
     private String valueAt(List<LogicalTerminationPointList> listT, int index)
@@ -77,5 +79,14 @@ public class PathDelegate
             index = listT.size() - 1;
 
         return listT.get(index).getLtpReference().getValue();
+    }
+
+    public void clear() throws TransactionCommitFailedException
+    {
+        ReadWriteTransaction transaction = dataBroker.newReadWriteTransaction();
+        transaction.delete(
+                CONFIGURATION, LTP_PATH_ID.child(LtpPathList.class, pathBuilder.getKey()));
+
+        transaction.submit().checkedGet();
     }
 }

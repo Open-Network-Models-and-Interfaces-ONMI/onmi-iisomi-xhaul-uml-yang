@@ -40,6 +40,16 @@ module route {
             uses status_g;
         }
     }
+    rpc delete {
+        input {
+            leaf vlanid {
+                type int32;
+            }
+        }
+        output {
+            uses status_g;
+        }
+    }
     rpc create_follow_topo {
         input {
             leaf vlanid {
