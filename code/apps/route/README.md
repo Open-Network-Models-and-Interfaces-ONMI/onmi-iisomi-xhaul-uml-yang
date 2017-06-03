@@ -108,3 +108,5 @@ sudo wtemulator --config=config.json --topo=topology.json --xml=yang/microwave-m
 - using route/create in YANG UI for testing
 - it provide api can add up fcs in list for representing ltp-path
 - after creating a ltp-path, it shows new ltp-path under "ltp-path" in YANG UI
+
+- delete path and FCs in Network Element using delete(vlanId)
