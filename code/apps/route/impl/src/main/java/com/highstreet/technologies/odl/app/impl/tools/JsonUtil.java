@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URL;
@@ -70,6 +71,18 @@ public class JsonUtil
     }
 
     public static <T> T toObject(URL content, Class<T> clazz)
+    {
+        try
+        {
+            return mapper.readValue(content, clazz);
+        } catch (IOException e)
+        {
+            LOG.warn("read value failed !", e);
+            return null;
+        }
+    }
+
+    public static <T> T toObject(File content, Class<T> clazz)
     {
         try
         {

@@ -7,7 +7,9 @@
  */
 package com.highstreet.technologies.odl.app.impl;
 
+import com.highstreet.technologies.odl.app.impl.delegates.PredefinePath;
 import com.highstreet.technologies.odl.app.impl.tools.FC2Executor;
+import com.highstreet.technologies.odl.app.impl.tools.JsonUtil;
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.binding.api.MountPointService;
 import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
@@ -36,6 +38,14 @@ public class RouteRPC implements RouteService
 
     private static final Logger LOG = LoggerFactory.getLogger(RouteRPC.class);
     private static HashMap<Integer, PathHolder> toClear = new HashMap<>();
+    private static PredefinePath predefinePath;
+
+    static
+    {
+        predefinePath = JsonUtil.toObject(
+                RouteRPC.class.getClassLoader().getResource("toplogy.json"), PredefinePath.class);
+    }
+
     private final DataBroker dataBroker;
     private FC2Executor fc2Executor;
 
@@ -52,7 +62,11 @@ public class RouteRPC implements RouteService
     public Future<RpcResult<CreateFollowTopoOutput>> createFollowTopo(
             CreateFollowTopoInput input)
     {
+
         CreateFollowTopoOutputBuilder builder = new CreateFollowTopoOutputBuilder();
+        int vlanId = input.getVlanid();
+//        predefinePath.paths;
+
         builder.setStatus(Successful);
         return RpcResultBuilder.success(builder.build()).buildFuture();
     }
