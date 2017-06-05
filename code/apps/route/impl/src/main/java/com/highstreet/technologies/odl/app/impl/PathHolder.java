@@ -41,9 +41,9 @@ public class PathHolder
         pathDelegate.commit();
     }
 
-    public void clear() throws TransactionCommitFailedException
+    public void clear(int vlanId) throws TransactionCommitFailedException
     {
-        list.forEach(NeExecutor::clear);
+        list.forEach(neExecutor -> neExecutor.clear(vlanId));
         pathDelegate.clear();
     }
 
