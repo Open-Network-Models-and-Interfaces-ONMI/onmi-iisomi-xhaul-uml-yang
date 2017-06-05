@@ -34,10 +34,7 @@ import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import static com.highstreet.technologies.odl.app.impl.tools.MountPointServiceHolder.getMountPoint;
 import static org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType.CONFIGURATION;
@@ -90,8 +87,7 @@ public class NeExecutor
                 CONFIGURATION, path).checkedGet();
         if (networkElementOpt.isPresent())
         {
-            this.neBuilder = new NetworkElementBuilder(networkElementOpt.get());
-            this.oldNe = networkElementTransaction.read(CONFIGURATION, path).checkedGet().get();
+            this.neBuilder = new NetworkElementBuilder(oldNe = networkElementOpt.get());
         }
     }
 
@@ -176,6 +172,7 @@ public class NeExecutor
         builder.setValueName("vLocalId");
         return builder.build();
     }
+
     private static final Logger LOG = LoggerFactory.getLogger(NeExecutor.class);
     private static final LayerProtocolName LAYER_PROTOCOL_NAME = new LayerProtocolName("ETH");
     private final MountPoint mountPoint;
@@ -189,9 +186,36 @@ public class NeExecutor
         return ltp;
     }
 
-    public void clear()
+    public void clear(int vlanId)
     {
         this.neBuilder = new NetworkElementBuilder(oldNe);
+
+        // remove fc in fd
+        FdBuilder fdBuilder = new FdBuilder(neBuilder.getFd().get(0));
+        fdBuilder.getFc().removeIf(fcName -> fcName.getValue().contains(LAYER_PROTOCOL_NAME.getValue() + "-" + vlanId));
+        neBuilder.setFd(Collections.singletonList(fdBuilder.build()));
+
+        // remove ltp created by vlan
+        neBuilder.getLtp().removeIf(
+                ltp1 -> ltp1.getUuid().getValue().endsWith(LAYER_PROTOCOL_NAME.getValue() + "-" + vlanId));
+
+        // remove all client ltp
+        ArrayList<Ltp> ltpList = new ArrayList<>();
+        for (Ltp ltp : neBuilder.getLtp())
+        {
+            LtpBuilder ltpBuilder = new LtpBuilder(ltp);
+            if (ltpBuilder.getClientLtp() != null)
+            {
+                ltpBuilder.getClientLtp().removeIf(
+                        uuid -> uuid.getValue().endsWith(LAYER_PROTOCOL_NAME.getValue() + "-" + vlanId));
+                ltpList.add(ltpBuilder.build());
+                ltpBuilder.getLp().removeIf(
+                        lp -> lp.getKey().getUuid().getValue().contains(LAYER_PROTOCOL_NAME.getValue() + "-" + vlanId));
+            }
+        }
+
+        neBuilder.setLtp(ltpList);
+
         commit();
     }
 

@@ -75,7 +75,7 @@ public class RouteRPC implements RouteService
         Integer vlanid = input.getVlanid();
         try
         {
-            toClear.remove(vlanid).clear();
+            toClear.remove(vlanid).clear(input.getVlanid());
         }
         catch (Exception e)
         {
