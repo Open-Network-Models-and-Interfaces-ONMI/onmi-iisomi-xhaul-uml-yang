@@ -7,6 +7,7 @@
  */
 package com.highstreet.technologies.odl.app.impl;
 
+import com.highstreet.technologies.odl.app.impl.delegates.FC;
 import com.highstreet.technologies.odl.app.impl.delegates.PredefinePath;
 import com.highstreet.technologies.odl.app.impl.tools.FC2Executor;
 import com.highstreet.technologies.odl.app.impl.tools.JsonUtil;
@@ -14,15 +15,20 @@ import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.binding.api.MountPointService;
 import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.*;
-import org.opendaylight.yangtools.yang.common.RpcError;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.fc_desc.Fc;
 import org.opendaylight.yangtools.yang.common.RpcResult;
 import org.opendaylight.yangtools.yang.common.RpcResultBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.Future;
 
+import static org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.StatusG.Status;
+import static org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.StatusG.Status.Failure;
 import static org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.StatusG.Status.Successful;
 
 /**
@@ -54,7 +60,9 @@ public class RouteRPC implements RouteService
             RestoreFollowTopoInput input)
     {
         RestoreFollowTopoOutputBuilder builder = new RestoreFollowTopoOutputBuilder();
-        builder.setStatus(Successful);
+        builder.setStatus(switchTo(
+                input.getVlanid(),
+                Arrays.asList(predefinePath.paths.get(String.valueOf(input.getVlanid())).main_ltps)));
         return RpcResultBuilder.success(builder.build()).buildFuture();
     }
 
@@ -62,12 +70,12 @@ public class RouteRPC implements RouteService
     public Future<RpcResult<CreateFollowTopoOutput>> createFollowTopo(
             CreateFollowTopoInput input)
     {
-
         CreateFollowTopoOutputBuilder builder = new CreateFollowTopoOutputBuilder();
         int vlanId = input.getVlanid();
-//        predefinePath.paths;
+        ArrayList<Fc> listFc = new ArrayList<>();
+        Arrays.stream(predefinePath.paths.get(String.valueOf(vlanId)).main_ltps).forEach(fc -> listFc.add(fc.toFc()));
 
-        builder.setStatus(Successful);
+        builder.setStatus(this.create(vlanId, listFc));
         return RpcResultBuilder.success(builder.build()).buildFuture();
     }
 
@@ -75,9 +83,9 @@ public class RouteRPC implements RouteService
     public Future<RpcResult<SwitchFollowTopoOutput>> switchFollowTopo(
             SwitchFollowTopoInput input)
     {
-
         SwitchFollowTopoOutputBuilder builder = new SwitchFollowTopoOutputBuilder();
-        builder.setStatus(Successful);
+        builder.setStatus(
+                switchTo(input.getVlanid(), Arrays.asList(predefinePath.paths.get(input.getVlanid()).main_ltps)));
         return RpcResultBuilder.success(builder.build()).buildFuture();
     }
 
@@ -86,20 +94,7 @@ public class RouteRPC implements RouteService
             DeleteInput input)
     {
         DeleteOutputBuilder builder = new DeleteOutputBuilder();
-        Integer vlanid = input.getVlanid();
-        try
-        {
-            toClear.remove(vlanid).clear(input.getVlanid());
-        }
-        catch (Exception e)
-        {
-            LOG.warn("execute delete caught exception", e);
-            builder.setStatus(CreateOutput.Status.Failure);
-            return RpcResultBuilder.success(builder.build()).withError(
-                    RpcError.ErrorType.APPLICATION, e.getMessage()).buildFuture();
-        }
-
-        builder.setStatus(Successful);
+        builder.setStatus(this.delete(input.getVlanid()));
         return RpcResultBuilder.success(builder.build()).buildFuture();
     }
 
@@ -108,16 +103,52 @@ public class RouteRPC implements RouteService
             CreateInput input)
     {
         CreateOutputBuilder builder = new CreateOutputBuilder();
+        builder.setStatus(this.create(input.getVlanid(), input.getFc()));
+        return RpcResultBuilder.success(builder.build()).buildFuture();
+    }
 
-        PathHolder pathHolder = new PathHolder(dataBroker, input.getVlanid());
+    private Status switchTo(int vlanId, List<FC> list)
+    {
+        Status deleteOrigin = this.delete(vlanId);
+        if (deleteOrigin.equals(Successful))
+        {
+            ArrayList<Fc> listFc = new ArrayList<>();
+            list.forEach(
+                    fc -> listFc.add(fc.toFc()));
+            return this.create(vlanId, listFc);
+        }
+        else
+        {
+            return Failure;
+        }
+    }
+
+    public Status delete(int vlanId)
+    {
         try
         {
-            input.getFc().forEach(
+            toClear.remove(vlanId).clear(vlanId);
+        }
+        catch (Exception e)
+        {
+            LOG.warn("execute delete caught exception", e);
+            return Failure;
+        }
+
+        return Successful;
+    }
+
+    private Status create(int vlanId, List<Fc> fcList)
+    {
+        PathHolder pathHolder = new PathHolder(dataBroker, vlanId);
+        try
+        {
+            fcList.forEach(
                     fc ->
                     {
                         try
                         {
-                            pathHolder.add(fc2Executor.to(fc, input.getVlanid(), pathHolder.getLtpCreator()));
+                            pathHolder.add(fc2Executor.to(fc, vlanId, pathHolder.getLtpCreator()));
                         }
                         catch (ReadFailedException e)
                         {
@@ -129,13 +160,10 @@ public class RouteRPC implements RouteService
         catch (Exception e)
         {
             LOG.warn("creating LtpPath caught exception", e);
-            builder.setStatus(CreateOutput.Status.Failure);
-            return RpcResultBuilder.success(builder.build()).withError(
-                    RpcError.ErrorType.APPLICATION, e.getMessage()).buildFuture();
+            return Failure;
         }
-        toClear.put(input.getVlanid(), pathHolder);
+        toClear.put(vlanId, pathHolder);
 
-        builder.setStatus(Successful);
-        return RpcResultBuilder.success(builder.build()).buildFuture();
+        return Successful;
     }
 }
