@@ -1,7 +1,7 @@
 /* Basic initialization of index mwtn
 */
 
-var activeConfig='../activeConfig';
+var activeConfig='../activeConfigExamples/sdnpoc4'
 var fs = require('fs');
 var util = require('./util.js');
 var database = require(activeConfig+'/config.json');

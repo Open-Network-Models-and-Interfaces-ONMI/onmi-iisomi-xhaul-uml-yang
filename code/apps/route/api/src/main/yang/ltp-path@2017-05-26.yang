@@ -1,0 +1,138 @@
+module ltp-path {
+  namespace "urn:onf:params:xml:ns:yang:ltp-path";
+  prefix ltp-path;
+
+  import core-model {
+    prefix core-model;
+  }
+
+  organization
+   "ONF (Open Networking Foundation) Open Transport Working Group -
+    Wireless Transport Project";
+  contact 
+    "WG Web: <https://www.opennetworking.org/technical-communities/areas/
+              specification/1931-optical-transport>
+     WG List:  <mailto:wireless-transport@login.opennetworking.org>
+     WG Chair: Lyndon Ong
+               <mailto:lyong@ciena.com>
+     WG Chair: Giorgio Cazzaniga
+               <mailto:giorgio.cazzaniga@sm-optics.com>
+     Editor:   Martin Skorupski
+               <mailto:martin.skorupski@highstreet-technologies.com>";
+  description 
+    "This module contains a collection of YANG definitions describing a 
+     telecommunication network path.";
+ 
+  revision 2017-05-26 {
+    description "Initial version";
+    reference "ltp-path, ONF core-model 1.2";
+  }
+
+  typedef layer-protocol-name-enumeration {
+    type enumeration {
+      enum ETH {
+        value 1;
+        description
+          "Identifying the layer of Ethernet.";
+      }
+      enum PTP {
+        value 2;
+        description
+          "Identifying the layer or the Precision Time Protocol.";
+       }
+    }
+
+    description
+      "The propagation of the layer protocol name.";
+  }
+
+  container ltp-path {
+    description
+      "Listing all the path-identifiers, used by RESTCONF interfaces to
+       address an entry in the ltp-path-list.";
+
+    leaf-list path-identifier {
+      type leafref {
+        path '/ltp-path/ltp-path-list/path-id';
+      }
+      description 
+        "List of reference values for existing path entries.";
+    }
+
+    list ltp-path-list {
+
+      key "path-id";
+
+      description
+        "A list of path found in the network.";
+
+      leaf path-id {
+        type string;
+        description
+          "A unique identifier of a path. It migth be beneficial to use the 
+           format as defined in RFC 4122 
+           (https://www.ietf.org/rfc/rfc4122.txt).";
+      }
+
+      leaf path-name {
+        type string;
+        description
+          "The human readable name of a path. It should include start 
+           and end point.";
+      }
+
+      leaf forwarding-direction {
+        type core-model:forwarding-direction;
+        description
+          "Defines the directionality of the path.";
+      }
+
+      leaf layer-protocol-name {
+        type layer-protocol-name-enumeration;
+        description
+          "Defines the layer of the path. Please see ONF CoreModel for 
+           further details.";
+      }
+
+      list logical-termination-point-list {
+
+        key "ltp-index";
+        min-elements 2;
+
+        description
+          "An ordered list of logical-termination points, defining the path.";
+
+        leaf ltp-index {
+          type string;
+          description
+            "The index of the LTP with in the list. The LTP with the highest
+             index is the end-point of the path. The LTP with the lowest
+             index is the start-point of the path.";
+        }
+
+        leaf ltp-reference {
+          type leafref {
+            path '/core-model:network-element/core-model:ltp/core-model:uuid';
+          }
+          description
+            "The reference value of a network-elements LTP.";
+        }
+
+        leaf physical-port-reference {
+          type string;
+          description
+            "A text label for the unmodelled physical port associated with 
+             the LTP. In many cases there is no associated physical port.";
+        }
+    
+        leaf node-reference {
+          type leafref {
+            path '/core-model:network-element/core-model:uuid';
+          }
+          description
+            "A reference value identifying a network-element.";
+        }
+      }
+   }
+  }
+}
