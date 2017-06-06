@@ -1,0 +1,178 @@
+
+<div class="container">
+  <form role="form">
+    <!-- SITE NORMAL -->
+    <div class="row">
+      <div class="col-md-2">
+        <b>{{'SITE' | translate}}, {{'SHAPE' | translate}}</b>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">{{'TYPE' | translate}}:</div>
+      <div class="col-md-2">
+        <select class="form-control" ng-model="profile.site.shape.type">
+          <option ng-repeat="type in shape.types" value="{{type}}">{{type | uppercase | translate}}</option>
+        </select>
+      </div>
+      <div class="col-md-1">
+        <span>{{shape.types.indexOf(profile.site.shape.type)}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">{{'SCALE' | translate}}:</div>
+      <div class="col-md-2">
+        <input type="range" min="0" max="50" class="input bar" ng-model="profile.site.shape.scale"></input>
+      </div>
+      <div class="col-md-1">
+        <span>{{profile.site.shape.scale}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">{{'ROTATION' | translate}}:</div>
+      <div class="col-md-2">
+        <input type="range" min="0" max="360" step="5" class="bar" ng-model="profile.site.shape.rotation"></input>
+      </div>
+      <div class="col-md-1">
+        <span>{{profile.site.shape.rotation}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">{{'Z_INDEX' | translate}}:</div>
+      <div class="col-md-2">
+        <input type="range" min="0" max="100" step="1" class="bar" ng-model="profile.site.shape.zIndex"></input>
+      </div>
+      <div class="col-md-1">
+        <span>{{profile.site.shape.zIndex}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <b>{{'SITE' | translate}}, {{'NORMAL' | translate}}, {{'STROKE' | translate}}</b>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">{{'COLOR' | translate}}:</div>
+      <div class="col-md-2">
+        <input class="form-control" type="color" ng-model="profile.site.normal.stroke.color"></input>
+      </div>
+      <div class="col-md-1">
+        <span>{{profile.site.normal.stroke.color}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">{{'OPACITY' | translate}}:</div>
+      <div class="col-md-2">
+        <input type="range" min="0" max="1" step="0.1" class="bar" ng-model="profile.site.normal.stroke.opacity"></input>
+      </div>
+      <div class="col-md-1">
+        <span>{{profile.site.normal.stroke.opacity}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">{{'WIDTH' | translate}}:</div>
+      <div class="col-md-2">
+        <input type="range" min="0" max="10" class="bar" ng-model="profile.site.normal.stroke.width"></input>
+      </div>
+      <div class="col-md-1">
+        <span>{{profile.site.normal.stroke.width}}</span>
+      </div>
+    </div>
+    <!--  not supported for gSymbols 
+                                    <div class="row">
+                                        <div class="col-md-2 text-right">{{'TYPE' | translate}}:</div>
+                                        <div class="col-md-2">
+                                            <select class="form-control" ng-model="profile.site.normal.stroke.type">
+                                                <option ng-repeat="type in stroke.types" value="{{type}}">{{type | uppercase | translate}}</option>
+                                            </select>
+                                        </div>
+                                    </div> -->
+    <div class="row">
+      <div class="col-md-2">
+        <b>{{'SITE' | translate}}, {{'NORMAL' | translate}}, {{'FILL' | translate}}</b>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">{{'COLOR' | translate}}:</div>
+      <div class="col-md-2">
+        <input class="form-control" type="color" ng-model="profile.site.normal.fill.color"></input>
+      </div>
+      <div class="col-md-1">
+        <span>{{profile.site.normal.fill.color}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">{{'OPACITY' | translate}}:</div>
+      <div class="col-md-2">
+        <input type="range" min="0" max="1" step="0.1" class="bar" ng-model="profile.site.normal.fill.opacity"></input>
+      </div>
+      <div class="col-md-1">
+        <span>{{profile.site.normal.fill.opacity}}</span>
+      </div>
+    </div>
+    <!-- SITE HOVER -->
+    <div class="row">
+      <div class="col-md-2">
+        <b>{{'SITE' | translate}}, {{'HOVER' | translate}}, {{'STROKE' | translate}}</b>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">{{'COLOR' | translate}}:</div>
+      <div class="col-md-2">
+        <input class="form-control" type="color" ng-model="profile.site.hover.stroke.color"></input>
+      </div>
+      <div class="col-md-1">
+        <span>{{profile.site.hover.stroke.color}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">{{'OPACITY' | translate}}:</div>
+      <div class="col-md-2">
+        <input type="range" min="0" max="1" step="0.1" class="bar" ng-model="profile.site.hover.stroke.opacity"></input>
+      </div>
+      <div class="col-md-1">
+        <span>{{profile.site.hover.stroke.opacity}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">{{'WIDTH' | translate}}:</div>
+      <div class="col-md-2">
+        <input type="range" min="0" max="10" class="bar" ng-model="profile.site.hover.stroke.width"></input>
+      </div>
+      <div class="col-md-1">
+        <span>{{profile.site.hover.stroke.width}}</span>
+      </div>
+    </div>
+    <!-- not supported by gSymbol 
+                                    <div class="row">
+                                        <div class="col-md-2 text-right">{{'TYPE' | translate}}:</div>
+                                        <div class="col-md-2">
+                                            <select class="form-control" ng-model="profile.site.hover.stroke.type">
+                                                <option ng-repeat="type in stroke.types" value="{{type}}">{{type | uppercase | translate}}</option>
+                                            </select>
+                                        </div>
+                                    </div> -->
+    <div class="row">
+      <div class="col-md-2">
+        <b>{{'SITE' | translate}}, {{'HOVER' | translate}}, {{'FILL' | translate}}</b>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">{{'COLOR' | translate}}:</div>
+      <div class="col-md-2">
+        <input class="form-control" type="color" ng-model="profile.site.hover.fill.color"></input>
+      </div>
+      <div class="col-md-1">
+        <span>{{profile.site.hover.fill.color}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">{{'OPACITY' | translate}}:</div>
+      <div class="col-md-2">
+        <input type="range" min="0.0" max="1.0" step="0.1" class="bar" ng-model="profile.site.hover.fill.opacity"></input>
+      </div>
+      <div class="col-md-1">
+        <span>{{profile.site.hover.fill.opacity}}</span>
+      </div>
+    </div>
+  </form>
+</div>

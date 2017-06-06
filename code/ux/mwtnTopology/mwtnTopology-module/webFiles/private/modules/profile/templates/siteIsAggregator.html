@@ -1,0 +1,38 @@
+
+<div class="container">
+  <form role="form">
+    <!-- SITE NORMAL -->
+    <div class="row">
+      <div class="col-md-2">
+        <b>{{'SITE' | translate}}, {{'SHAPE' | translate}}</b>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">{{'SCALE' | translate}}:</div>
+      <div class="col-md-2">
+        <input type="range" min="0" max="50" class="input bar" ng-model="profile.siteIsAggregator.shape.scale"></input>
+      </div>
+      <div class="col-md-1">
+        <span>{{profile.siteIsAggregator.shape.scale}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">{{'ROTATION' | translate}}:</div>
+      <div class="col-md-2">
+        <input type="range" min="0" max="360" step="5" class="bar" ng-model="profile.siteIsAggregator.shape.rotation"></input>
+      </div>
+      <div class="col-md-1">
+        <span>{{profile.siteIsAggregator.shape.rotation}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2 text-right">{{'Z_INDEX' | translate}}:</div>
+      <div class="col-md-2">
+        <input type="range" min="0" max="100" step="1" class="bar" ng-model="profile.siteIsAggregator.shape.zIndex"></input>
+      </div>
+      <div class="col-md-1">
+        <span>{{profile.siteIsAggregator.shape.zIndex}}</span>
+      </div>
+    </div>
+  </form>
+</div>

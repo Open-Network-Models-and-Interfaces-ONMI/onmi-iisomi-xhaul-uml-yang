@@ -1,0 +1,114 @@
+<uib-alert type="{{status.type}}" ng-show="status.message"> <i ng-show="status.isWorking" class="fa fa-spinner fa-pulse"></i> <b>
+  <span>{{status.message}}</span>
+</b> </uib-alert>
+<div ng-show="!status.message">
+  <p>
+    <span>Sitelink name: </span>
+    <b>{{siteLink._source.name}}</b>
+    <a href="/ux/#/siteLinks/{{siteLinkIndex}}/{{siteLinkIdHigh}}/{{siteLinkIdLow}}" target="htSolutions">
+      <span class="glyphicon glyphicon glyphicon-info-sign"></span>
+    </a>
+    <span title="{{'DELETE'}}" class="pointer glyphicon glyphicon-trash" aria-hidden="true" ng-show="true" ng-click="removeSiteLink()"></span>
+  <hr />
+  <span>Length: </span>
+  <b> {{siteLink._source.length | number:3 }} </b>
+  <span> km</span>
+  </p>
+  <table>
+    <caption class="text-left">
+      <b>{{'SITE' | translate}} A</b>
+    </caption>
+    <tbody>
+      <tr>
+        <td class="text-right" style="padding-right: 5px;">{{'SITE_ID' | translate}}:</td>
+        <td class="text-left">
+          <b>{{sites[0]._source.id.siteId}}</b>
+          <a href="/ux/#/sites/{{siteLinkIndex}}/{{sites[0]._source.id.siteId}}" target="htSolutions">
+            <span class="glyphicon glyphicon glyphicon-info-sign"></span>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right" style="padding-right: 5px;">{{'SITE_NAME' | translate}}:</td>
+        <td class="text-left">
+          <b>{{sites[0]._source.siteName}}</b>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right" style="padding-right: 5px;">Lat/Lon:</td>
+        <td class="text-left">
+            <b>{{sites[0]._source.geoLocation.location.lat | coordinateFilter:'toDMS':'lat'}} | {{sites[0]._source.geoLocation.location.lon | coordinateFilter:'toDMS':'lon'}}</b>
+          <a href="/ux/modules/networkMap/map.html#/{{siteLinkIndex}}?site={{sites[0]._source.id.siteId}}" target="htNetworkMap">
+            <span class="glyphicon glyphicon-map-marker"></span>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right" style="padding-right: 5px;">Azimuth:</td>
+        <td class="text-left">
+          <b> {{siteLink._source.azimuthA | number:1 }} </b>
+          <span> °</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <caption class="text-left">
+      <b>{{'SITE' | translate}} B</b>
+    </caption>
+    <tbody>
+      <tr>
+        <td class="text-right" style="padding-right: 5px;">{{'SITE_ID' | translate}}:</td>
+        <td class="text-left">
+          <b>{{sites[1]._source.id.siteId}}</b>
+          <a href="/ux/#/sites/{{siteLinkIndex}}/{{sites[0]._source.id.siteId}}" target="htSolutions">
+            <span class="glyphicon glyphicon glyphicon-info-sign"></span>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right" style="padding-right: 5px;">Site-Name:</td>
+        <td class="text-left">
+          <b>{{sites[1]._source.siteName}}</b>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right" style="padding-right: 5px;">Lat/Lon:</td>
+        <td class="text-left">
+            <b>{{sites[1]._source.geoLocation.location.lat | coordinateFilter:'toDMS':'lat'}} | {{sites[1]._source.geoLocation.location.lon | coordinateFilter:'toDMS':'lon'}}</b>
+          <a href="/ux/modules/networkMap/map.html#/{{siteLinkIndex}}?site={{sites[1]._source.id.siteId}}" target="htNetworkMap">
+            <span class="glyphicon glyphicon-map-marker"></span>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td class="text-right" style="padding-right: 5px;">Azimuth:</td>
+        <td class="text-left">
+          <b> {{siteLink._source.azimuthB | number:1 }} </b>
+          <span> °</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    <br />
+    <b>{{'MWR_LINK_REVISIONS' | translate}} ({{siteLink._source.mwrLinkRevisionVariants.length}})</b>
+    <span style="color: #337ab7;" class="pointer glyphicon glyphicon-plus-sign" aria-hidden="true" ng-click="createMwrLink()" ng-show="showNewMwrLinkButton"></span>
+  </p>
+  <ol ng-show="siteLink._source.mwrLinkRevisionVariants.length">
+    <li ng-repeat="mwrLinkRevision in siteLink._source.mwrLinkRevisionVariants">
+      <a
+        href="/ux/#/mwrLinkRevision/{{siteLinkIndex}}/{{mwrLinkRevision.siteLinkId.high}}/{{mwrLinkRevision.siteLinkId.low}}/{{mwrLinkRevision.mwrLinkId}}/{{mwrLinkRevision.revision}}"
+        title="{{'MWR_LINK_REVISION' | translate}}" target="htSolutions"
+      >
+        <span>{{mwrLinkRevision.mwrLinkId}}</span>
+        <span>{{mwrLinkRevision.revision}}</span>
+        <!--                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>  -->
+      </a>
+    </li>
+  </ol>
+  <a href="/ux/#/engineer/{{siteLinkIndex}}/{{siteLinkIdHigh}}/{{siteLinkIdLow}}" class="btn btn-default" target="htSolutions">
+    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+    <span>{{'ENGINEER' | translate}}!</span>
+  </a>
+</div>

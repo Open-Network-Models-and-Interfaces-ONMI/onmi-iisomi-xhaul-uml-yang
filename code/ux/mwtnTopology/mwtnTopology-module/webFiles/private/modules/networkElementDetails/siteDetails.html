@@ -1,0 +1,22 @@
+<div class="htProfile">
+  <div class="container">
+    <ht-header headline="SITE" object-id="{{siteId}}"></ht-header>
+    <div class="row">
+      <div class="col-md-12">
+        <accordion close-others="oneAtATime" class="text-left">
+          <accordion-group ng-repeat="group in groups" is-open="group.open">
+            <accordion-heading>
+              <div class="pointer">
+                <i class="pull-left glyphicon btn-accordion" ng-class="{'glyphicon-chevron-down': group.open, 'glyphicon-chevron-right': !group.open}"></i>
+                <span class="left10" ng-bind="group.labelId | translate"></span>
+              </div>
+            </accordion-heading>
+            <div ng-include src="group.templateUrl"></div>
+          </accordion-group>
+        </accordion>
+      </div>
+    </div>
+    <hr style="clear: both" />
+    <ht-footer></ht-footer>
+  </div>
+</div>

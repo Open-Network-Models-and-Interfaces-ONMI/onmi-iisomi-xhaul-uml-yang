@@ -1,0 +1,110 @@
+<div class="container">
+ <div class="row">
+  <div class="col-md-6">
+   <div class="container">
+    <div class="row">
+     <div class="col-md-2">
+      <span>{{'SITESTART' | translate}}:</span>
+     </div>
+     <div class="col-md-2">
+      <b>{{path.model.startNe.siteRef}}</b>
+      <a href="/ux/#/sites/{{dbIndex}}/{{path.model.startNe.siteRef}}" target="htSolutions">
+       <span class="glyphicon glyphicon-info-sign"></span>
+      </a>
+      <a href="/ux/modules/networkMap/map.html#/{{dbIndex}}?site={{path.model.startNe.siteRef}}" target="htNetworkMap">
+       <span class="glyphicon glyphicon-map-marker"></span>
+      </a>
+     </div>
+    </div>
+    <div class="row">
+     <div class="col-md-2">
+      <span>{{'NESTART' | translate}}:</span>
+     </div>
+     <div class="col-md-2">
+      <b>{{path.model.startNe.id.networkElementId}}</b>
+      <a href="/ux/#/networkElements/{{dbIndex}}/{{path.model.startNe.id.networkElementId}}" target="htSolutions">
+       <span class="glyphicon glyphicon-info-sign"></span>
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="col-md-6">
+   <div class="container">
+    <div class="row">
+     <div class="col-md-2">
+      <span>{{'SITEEND' | translate}}:</span>
+     </div>
+     <div class="col-md-2">
+      <b>{{path.model.endNe.siteRef}}</b>
+      <a href="/ux/#/sites/{{dbIndex}}/{{path.model.endNe.siteRef}}" target="htSolutions">
+       <span class="glyphicon glyphicon-info-sign"></span>
+      </a>
+      <a href="/ux/modules/networkMap/map.html#/{{dbIndex}}?site={{path.model.endNe.siteRef}}" target="htNetworkMap">
+       <span class="glyphicon glyphicon-map-marker"></span>
+      </a>
+     </div>
+    </div>
+    <div class="row">
+     <div class="col-md-2">
+      <span>{{'NEEND' | translate}}:</span>
+     </div>
+     <div class="col-md-2">
+      <b>{{path.model.endNe.id.networkElementId}}</b>
+      <a href="/ux/#/networkElements/{{dbIndex}}/{{path.model.endNe.id.networkElementId}}" target="htSolutions">
+       <span class="glyphicon glyphicon-info-sign"></span>
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+<table class="table table-striped table-hover">
+ <content>
+  <span>{{'PATHSEGMENTS' | translate}}</span>
+    <a
+     href="/ux/modules/networkMap/map.html#/{{dbIndex}}?path={{pathId}}"
+     target="htNetworkMap">
+     <span class="glyphicon glyphicon-map-marker"></span>
+    </a> 
+ </content>
+ <thead>
+  <tr>
+   <th>{{'INDEX' | translate}}</th>
+   <th>{{'ID' | translate}}</th>
+   <th>{{'SITE_LINKS' | translate}}</th>
+   <th>{{'MWR_LINKS' | translate}}</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr ng-repeat="pathSegment in path.model.pathSegments">
+   <th>{{$index+1}}</th>
+   <td>{{pathSegment.pathSegmentId}}</td>
+   <td>
+    <span>{{pathSegment.references.siteStartReference.siteId}}</span>
+    <a href="/ux/#/sites/{{dbIndex}}/{{pathSegment.references.siteStartReference.siteId}}" target="htSolutions">
+     <span class="glyphicon glyphicon-info-sign"></span>
+    </a>
+    <span> -> </span>
+    <span>{{pathSegment.references.siteEndReference.siteId}}</span>
+    <a href="/ux/#/sites/{{dbIndex}}/{{pathSegment.references.siteEndReference.siteId}}" target="htSolutions">
+     <span class="glyphicon glyphicon-info-sign"></span>
+    </a>
+    <a
+     href="/ux/modules/networkMap/map.html#/{{dbIndex}}?sitelink={{pathSegment.references.usedMWRLinkRevisionReference.siteLinkId.high}}-{{pathSegment.references.usedMWRLinkRevisionReference.siteLinkId.low}}"
+     target="htNetworkMap">
+     <span class="glyphicon glyphicon-map-marker"></span>
+    </a>
+   </td>
+   <td>
+    <span>{{pathSegment.references.usedMWRLinkRevisionReference.mwrLinkId}}-{{pathSegment.references.usedMWRLinkRevisionReference.revision}}</span>
+    <a
+     href="/ux/#/mwrLinkRevision/{{dbIndex}}/{{pathSegment.references.usedMWRLinkRevisionReference.siteLinkId.high}}/{{pathSegment.references.usedMWRLinkRevisionReference.siteLinkId.low}}/{{pathSegment.references.usedMWRLinkRevisionReference.mwrLinkId}}/{{pathSegment.references.usedMWRLinkRevisionReference.revision}}"
+     target="htSolutions">
+     <span class="glyphicon glyphicon-info-sign"></span>
+    </a>
+   </td>
+  </tr>
+ </tbody>
+</table>

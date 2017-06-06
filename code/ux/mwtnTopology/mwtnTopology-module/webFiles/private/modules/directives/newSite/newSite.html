@@ -1,0 +1,88 @@
+<div class="container" style="width: 320px;">
+  <div class="row">
+    <div class="col-md-12">
+      <span>{{'NEW_SITE' | translate}}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5 text-right">
+      <span class="htStaticValue">{{'NAME' | translate}}: </span>
+    </div>
+    <div class="col-md-5">
+      <input class="form-control input-sm" type="text" placeholder="site name" ng-model="newSite.siteName">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5 text-right">
+      <span class="htStaticValue">{{'LAT' | translate}}: </span>
+    </div>
+    <div class="col-md-5">
+      <input class="form-control input-sm text-right" type="number" min="-90" max="90" step="0.000001" placeholder="latitude" ng-model="newSite.geoLocation.location.lat">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5 text-right">
+      <span class="htStaticValue">{{'LNG' | translate}}: </span>
+    </div>
+    <div class="col-md-5">
+      <input class="form-control input-sm text-right" type="number" min="-180" max="180" step="0.000001" placeholder="longitude" ng-model="newSite.geoLocation.location.lon">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5 text-right">
+      <span class="htStaticValue">{{'AMSL_GRD' | translate}}: </span>
+    </div>
+    <div class="col-md-5">
+      <input class="form-control input-sm text-right" type="number" min="-40" max="4000" step="0.01" placeholder="above mean sea level"
+        ng-model="newSite.geoLocation.amslGrd"
+      >
+    </div>
+    <div class="col-md-2">
+      <span class="htStaticValue">m</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <button type="button" class="btn btn-default" ng-click="cancelSite();">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        <span>{{'BTN_CANCEL' | translate}}</span>
+      </button>
+    </div>
+    <div class="col-md-6 text-right">
+      <button type="button" class="btn btn-primary" ng-click="createSite();">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        <span>{{'BTN_CREATE_SITE' | translate}}</span>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <span>Elevation Courtesy of </span>
+      <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>
+      <img src="https://developer.mapquest.com/content/osm/mq_logo.png">
+    </div>
+  </div>
+  <div class="row" ng-show="status.message">
+    <div class="col-md-12">
+      <hr />
+      <uib-alert type="{{status.type}}"> <i ng-show="status.isWorking" class="fa fa-spinner fa-pulse"></i> <b>
+        <span>{{status.message}}</span>
+      </b> </uib-alert>
+    </div>
+  </div>
+</div>

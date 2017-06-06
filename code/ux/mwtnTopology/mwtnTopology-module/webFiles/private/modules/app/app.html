@@ -1,0 +1,44 @@
+<div class="htDashboard">
+    <div class="container">
+        <ht-header headline="DASH_BOARD"></ht-header>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>{{'APPS' | translate}}</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4" ng-repeat="app in apps">
+                <div class="panel panel-primary">
+                    <div class="panel-body text-center">
+                        <div ng-include src="app.templateUrl"></div>
+                    </div>
+                    <div class="panel-footer">
+                        <a href="{{app.link}}" target="{{app.target}}">{{app.label | translate}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <hr/>
+            <div class="col-md-12">
+                <h4>{{'UTILITIES' | translate}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2" ng-repeat="utility in utilities">
+                <div class="panel panel-primary">
+                    <div class="panel-body text-center">
+                        <a href="{{utility.link}}" target="{{utility.target}}">
+                        <i class="utility {{utility.icon}}"></i>
+                        </a>
+                    </div>
+                    <div class="panel-footer">
+                        <a href="{{utility.link}}" target="{{utility.target}}">{{utility.label | translate}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr style="clear: both" />
+        <ht-footer></ht-footer>
+    </div>
+</div>

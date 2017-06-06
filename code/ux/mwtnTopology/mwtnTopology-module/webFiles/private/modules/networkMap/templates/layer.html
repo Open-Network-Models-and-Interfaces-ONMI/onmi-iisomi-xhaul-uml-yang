@@ -1,0 +1,11 @@
+<form class="form-horizontal ng-pristine ng-valid left20" role="form">
+    <label ng-repeat="(key, layer) in layers.baseLayers" class="radio" for="id{{$index}}">
+        <input type="radio" ng-click="layers.changeLayer(key);" ng-checked="options.mapTypeId === key" ng-value="layer.name" id="id{{$index}}">
+        <span class="margin-left-5;">{{layer.name | translate}}</span>
+    </label>
+    <hr />
+    <label ng-repeat="overlay in layers.overlays" class="checkbox" for="id{{overlay.name}}">
+        <input type="checkbox" ng-model="overlay.visible" name="group" id="id{{overlay.name}}" />
+        <span>{{overlay.name | translate}} </span>
+    </label>
+</form>
