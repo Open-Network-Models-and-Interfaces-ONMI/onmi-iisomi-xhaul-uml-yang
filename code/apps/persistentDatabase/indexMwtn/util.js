@@ -1,3 +1,80 @@
+/*
+ * @copyright 2017 highstreet technologies GmbH and others. All rights reserved.
+ *
+ * @license
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v1.0 which accompanies this distribution,
+ * and is available at {@link http://www.eclipse.org/legal/epl-v10.html} 
+ */
+
+if (!String.prototype.contains) {
+    /**
+     * An extension to String, which checks whether another string is contained.
+     * @param {string} find A string to be checked, whether it is contained in 'this'.
+     * @return {boolean} True, if 'this' contains param 'find', otherwise false.
+     */
+    String.prototype.contains = function (find) {
+        return this.indexOf(find) > -1;
+    };
+}
+
+if (!String.prototype.format) {
+    /**
+     * An extension to String, which replaces certain patterns by arguments.
+     * @see {@link https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format|javascript-equivalent-to-printf-string-format}
+     * @return {string} Formated string.
+     */
+    String.prototype.format = function () {
+        var args = arguments;
+        return this.replace(/{(\d+)}/g, function (match, number) {
+            return typeof args[number] !== 'undefined' ? args[number] : match
+                ;
+        });
+    };
+}
+
+if (!String.prototype.replaceAll) {
+    /**
+     * An extension to String, which replaces certain patterns by arguments.
+     * @see {@link https://stackoverflow.com/questions/1144783/how-to-replace-all-occurrences-of-a-string-in-javascript|how-to-replace-all-occurrences-of-a-string-in-javascript}
+     * @param {string} find - The string which should be replaced.
+     * @param {string} replace - The string which should replace 'find'.
+     * @return {string} String where 'find' is replaced by 'replace'.
+     */
+    String.prototype.replaceAll = function (find, replace) {
+        return this.replace(new RegExp(find, 'g'), replace);
+    }
+}
+
+if (!Array.prototype.contains) {
+    /**
+     * An extension to Array checking whether an array of primitive types contains a given value.
+     * @param {string|number|boolean|null|undefined} find An object which should be removed from the array.
+     * @return {boolean} True, if 'this' contains param 'find', otherwise false..
+     */
+    Array.prototype.contains = function (find) {
+        return this.indexOf(find) > -1;
+    };
+}
+
+if (!Array.prototype.clean) {
+    /**
+     * An extension to Array removing defined values from an array.
+     * @see {@link https://gist.github.com/waynegraham/3684627|Array.clean()}
+     * @param {Object} deleteValue An object which should be removed from the array.
+     * @return {Array} An array without 'deleteValue'.
+     */
+    Array.prototype.clean = function (deleteValue) {
+        for (var i = 0; i < this.length; i++) { // TODO swtich to .map() ?
+            if (this[i] === deleteValue) {
+                this.splice(i, 1);
+                i--;
+            }
+        }
+        return this;
+    };
+}
+
 var http = require('http');
 
 module.exports = {
@@ -134,8 +211,12 @@ module.exports = {
         body += d;
       });
       response.on('end', function() {
-        var data = JSON.parse(body);
-        callback(response.statusMessage, data);
+        if (body.startsWith('No h')) {
+          callback('Error', undefined);
+        } else {
+          var data = JSON.parse(body);
+          callback(response.statusMessage, data);
+        }
       });
     });  
     req.on('error', function(e) {
