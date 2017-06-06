@@ -103,7 +103,7 @@ define(
       $scope.spec = data.spec;
       $mwtnCommons.getConditionalPackagePart($scope.spec).then(function (success) {
         
-        var getControlType = function(type) { 
+        var getControlType = function(type) {
           var result = 'text'
           switch (type) {
             case 'boolean':

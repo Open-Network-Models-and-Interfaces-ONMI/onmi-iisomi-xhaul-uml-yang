@@ -56,6 +56,7 @@
       ### -->
 
       <div class="owl container">
+
         <!-- TODO exception case: current pm -->
         <div class="row" ng-repeat="(oKey, oValue) in value.value track by $index" ng-if="oValue.value === undefined">
           <div class="column col-md-2 text-right">
@@ -70,7 +71,7 @@
        <div class="row" ng-repeat="(oKey, oValue) in value.value track by $index" ng-if="oValue.value !== undefined">
           <!-- oValue.type !== 'object'' && oValue.type !== 'array' -->
           <div class="column col-md-2 text-right" ng-if="oValue.type !== 'object' && oValue.type !== 'array'">
-            <span class="owl-dark">{{xxxoValue.labelId || xxxoKey.replace('onf-ptp-dataset:' ,'') | translate}}</span>
+            <span class="owl-dark">{{oValue.labelId || oKey.replace('onf-ptp-dataset:' ,'') | translate}}</span>
           </div>
           <div class="column col-md-5" ng-if="oValue.type !== 'object' && oValue.type !== 'array'">
             <b>{{oValue.value || oValue}}</b>
@@ -79,7 +80,7 @@
 
           <!-- oValue.type === 'array'' -->
           <div class="column col-md-2 text-right" ng-if="oValue.type === 'array'">
-            <span class="owl-dark">{{xxxoValue.labelId || xxxoKey.replace('onf-ptp-dataset:' ,'') | translate}}</span>
+            <span class="owl-dark">{{oValue.labelId || oKey.replace('onf-ptp-dataset:' ,'') | translate}}</span>
           </div>
           <div class="column col-md-5" ng-if="oValue.type === 'array'">
             <json-formatter json="oValue.value" open="1"></json-formatter>
@@ -87,7 +88,7 @@
 
           <!-- oValue.type === 'object' -->
           <div class="column col-md-2 text-right" ng-if="oValue.type === 'object'">
-            <span class="owl-dark">{{xxxoValue.labelId || xxxoKey.replace('onf-ptp-dataset:' ,'') | translate}}</span>
+            <span class="owl-dark">{{oValue.labelId || oKey.replace('onf-ptp-dataset:' ,'') | translate}}</span>
           </div>
           <div class="column col-md-5" ng-if="oValue.type === 'object'">
             <json-formatter json="oValue.value" open="1"></json-formatter>
