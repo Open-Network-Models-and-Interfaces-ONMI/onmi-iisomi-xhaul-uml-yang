@@ -3,8 +3,10 @@ package org.opendaylight.mwtn.performancemanager.impl.database.service;
 import org.opendaylight.mwtn.base.database.HtDataBaseReaderAndWriter;
 import org.opendaylight.mwtn.base.database.HtDatabaseClientAbstract;
 import org.opendaylight.mwtn.base.netconf.AllPm;
+import org.opendaylight.mwtn.base.netconf.NetconfTimeStamp;
 import org.opendaylight.mwtn.performancemanager.impl.database.types.EsHistoricalPerformance15Minutes;
 import org.opendaylight.mwtn.performancemanager.impl.database.types.EsHistoricalPerformance24Hours;
+import org.opendaylight.mwtn.performancemanager.impl.database.types.EsHistoricalPerformanceLogEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +18,7 @@ public class MicrowaveHistoricalPerformanceWriterService {
     private HtDatabaseClientAbstract client;
     private HtDataBaseReaderAndWriter<EsHistoricalPerformance15Minutes> historicalPerformance15mRW;
     private HtDataBaseReaderAndWriter<EsHistoricalPerformance24Hours> historicalPerformance24hRW;
-
+    private HtDataBaseReaderAndWriter<EsHistoricalPerformanceLogEntry> historicalPerformanceLogRW;
 
     public MicrowaveHistoricalPerformanceWriterService(String esIndex,
             String esNodeserverName, String esClusterName, String esNodeName,
@@ -31,6 +33,7 @@ public class MicrowaveHistoricalPerformanceWriterService {
             client = new HtDatabaseClientAbstract(esIndex, esNodeserverName, esClusterName, esNodeName);
             historicalPerformance15mRW = new HtDataBaseReaderAndWriter<>(client, EsHistoricalPerformance15Minutes.ESDATATYPENAME, EsHistoricalPerformance15Minutes.class);
             historicalPerformance24hRW = new HtDataBaseReaderAndWriter<>(client, EsHistoricalPerformance24Hours.ESDATATYPENAME, EsHistoricalPerformance24Hours.class);
+            historicalPerformanceLogRW = new HtDataBaseReaderAndWriter<>(client, EsHistoricalPerformanceLogEntry.ESDATATYPENAME, EsHistoricalPerformanceLogEntry.class);
 
         } catch (Exception e) {
             client = null;
@@ -52,6 +55,16 @@ public class MicrowaveHistoricalPerformanceWriterService {
         LOG.debug("Write 24h done");
 
     }
+
+    public void writePMLog(String mountpointName, String layerProtocolName, String msg) {
+
+        LOG.debug("Write PM Log: {}", msg);
+        EsHistoricalPerformanceLogEntry logEntry = new EsHistoricalPerformanceLogEntry(mountpointName,layerProtocolName,NetconfTimeStamp.getTimeStamp().getValue() , msg );
+        historicalPerformanceLogRW.doWrite(logEntry);
+        LOG.debug("Write PM Log done");
+
+    }
+
 
     static public boolean isAvailable(MicrowaveHistoricalPerformanceWriterService s) {
 

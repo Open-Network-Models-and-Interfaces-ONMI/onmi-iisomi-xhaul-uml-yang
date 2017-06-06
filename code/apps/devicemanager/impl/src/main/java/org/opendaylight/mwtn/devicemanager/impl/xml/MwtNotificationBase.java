@@ -10,7 +10,7 @@ package org.opendaylight.mwtn.devicemanager.impl.xml;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.xml.bind.annotation.XmlElement;
-import org.opendaylight.mwtn.base.netconf.NetconfTimeStamp;
+import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
 
 public class MwtNotificationBase {
 
@@ -25,10 +25,10 @@ public class MwtNotificationBase {
         // For Jaxb
     }
 
-    public MwtNotificationBase(String nodeName, String counter, String timeStamp, String objectId) {
+    public MwtNotificationBase(String nodeName, String counter, InternalDateAndTime timeStamp, String objectId) {
         this.nodeName = nodeName;
         this.counter = counter;
-        this.timeStamp = NetconfTimeStamp.getTimeStampFromNetconf(timeStamp);
+        this.timeStamp = timeStamp.getValue();
         this.objectId = objectId;
         if (this.objectId == null) {
             this.objectId = EMPTY;
@@ -55,6 +55,10 @@ public class MwtNotificationBase {
         return objectId;
     }
 
+    /**
+     * Type for the Database to document the the same name that is used in the websockets.
+     * @return String with type name of child class
+     */
     @JsonProperty("type")
     public String getType() {
         return this.getClass().getSimpleName();

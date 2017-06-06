@@ -26,7 +26,7 @@ public abstract class ONFCoreNetworkElementBase implements ONFCoreNetworkElement
     protected ONFCoreNetworkElementBase(String mountPointNodeName,
             DataBroker netconfNodeDataBroker,
             Capabilities capabilities ) {
-
+        LOG.info("Create ONFCoreNetworkElementBase");
         this.mountPointNodeName = mountPointNodeName;
         this.netconfNodeDataBroker = netconfNodeDataBroker;
         this.capabilities = capabilities;

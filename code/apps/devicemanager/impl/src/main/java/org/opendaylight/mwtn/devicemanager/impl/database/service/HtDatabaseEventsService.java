@@ -139,6 +139,11 @@ public class HtDatabaseEventsService {
         }
     }
 
+    /**
+     * Remove all entries for one node
+     * @param nodeName contains the mountpointname
+     * @return number of deleted entries
+     */
     public int clearFaultsCurrentOfNode(String nodeName) {
         if (client == null) {
             LOG.debug("No DB, can not delete for node: {}", nodeName);
@@ -156,6 +161,22 @@ public class HtDatabaseEventsService {
         return faults.size();
         */
     }
+
+    /**
+     * Remove all entries for one node
+     * @param nodeName contains the mountpointname
+     * @return number of deleted entries
+     */
+    public int clearFaultsCurrentOfNodeWithObjectId(String nodeName, String objectId) {
+        if (client == null) {
+            LOG.debug("No DB, can not delete for node: {}", nodeName);
+            return -1;
+        }
+        LOG.debug("Remove from currentlog all faults for node/objectId: {}/{}", nodeName, objectId);
+        return eventRWFaultCurrent.doRemoveByQuery(EsFaultCurrent.getQueryForOneNodeAndObjectId(nodeName, objectId));
+
+    }
+
 
     private void writeVersionInfo(HtDataBaseReaderAndWriter<EsVersionInfo> pEventRWVersionInfo,
             String configurationId) {

@@ -1,8 +1,9 @@
 package org.opendaylight.mwtn.base.netconf;
 
 import org.opendaylight.controller.md.sal.binding.api.MountPoint;
+import org.opendaylight.mwtn.deviceMonitor.impl.DeviceMonitorSupport;
 
-public interface ONFCoreNetworkElementRepresentation {
+public interface ONFCoreNetworkElementRepresentation extends DeviceMonitorSupport {
 
        public void initialReadFromNetworkElement();
 

@@ -24,6 +24,7 @@ public class HtDatabaseConfigService {
 
     private HtDatabaseClientAbstract client;
     private HtDataBaseReaderAndWriter<HtConfiguration> configurationRW;
+    private HtDataBaseReaderAndWriter<HtConfigurationEcompConnector> configurationEcompConnectorRW;
 
     public HtDatabaseConfigService() {
         LOG.info("HtConfigService start.");
@@ -31,6 +32,7 @@ public class HtDatabaseConfigService {
         try {
             client = new HtDatabaseClientAbstract("config", "localhost");
             configurationRW = new HtDataBaseReaderAndWriter<>(client, HtConfiguration.ESDATATYPENAME, HtConfiguration.class);
+            configurationEcompConnectorRW = new HtDataBaseReaderAndWriter<>(client, HtConfigurationEcompConnector.ESDATATYPENAME, HtConfigurationEcompConnector.class);
             LOG.info("HtConfigService {} finished with configuration.", HtDatabaseConfigService.class);
         } catch (UnknownHostException e) {
 
@@ -55,5 +57,24 @@ public class HtDatabaseConfigService {
         LOG.info("HtConfigService got from {} the configuration {}", configurationId, String.valueOf(htConfiguration));
         return htConfiguration;
     }
+
+    public HtConfigurationEcompConnector getHtConfigurationEcompConnector(String configurationId) {
+
+        LOG.info("HtConfigService read from {}", configurationId);
+
+        HtConfigurationEcompConnector htConfiguration = new HtConfigurationEcompConnector();
+        htConfiguration.setEsId(configurationId);
+
+        try {
+            htConfiguration = configurationEcompConnectorRW.doRead(htConfiguration);
+        } catch (NullPointerException e) {
+            LOG.warn("HtConfigurationEcompConnector problem reading {}", configurationId);
+            htConfiguration = null;
+        }
+
+        LOG.info("HtConfigService got from {} the configuration {}", configurationId, String.valueOf(htConfiguration));
+        return htConfiguration;
+    }
+
 
 }
