@@ -49,7 +49,7 @@ public class RouteRPC implements RouteService
     static
     {
         predefinePath = JsonUtil.toObject(
-                RouteRPC.class.getClassLoader().getResource("toplogy.json"), PredefinePath.class);
+                RouteRPC.class.getClassLoader().getResource("topology.json"), PredefinePath.class);
     }
 
     private final DataBroker dataBroker;
