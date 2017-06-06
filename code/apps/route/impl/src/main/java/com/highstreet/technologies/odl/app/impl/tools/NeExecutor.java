@@ -9,10 +9,8 @@ package com.highstreet.technologies.odl.app.impl.tools;
 
 import com.google.common.base.Optional;
 import com.highstreet.technologies.odl.app.impl.delegates.LtpInOdlCreator;
-import org.opendaylight.controller.md.sal.binding.api.DataBroker;
-import org.opendaylight.controller.md.sal.binding.api.MountPoint;
-import org.opendaylight.controller.md.sal.binding.api.ReadOnlyTransaction;
-import org.opendaylight.controller.md.sal.binding.api.ReadWriteTransaction;
+import com.highstreet.technologies.odl.app.impl.listener.ACMListener;
+import org.opendaylight.controller.md.sal.binding.api.*;
 import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.LayerProtocolName;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.NetworkElement;
@@ -47,9 +45,13 @@ public class NeExecutor
     public NeExecutor(Fc fc, Integer vlanid, LtpInOdlCreator ltpCreator)
     {
         mountPoint = getMountPoint(fc.getNodeName());
+        notificationService = mountPoint.getService(NotificationService.class).get();
+        notificationService.registerNotificationListener(new ACMListener(fc.getNodeName()));
         dataBroker = mountPoint.getService(DataBroker.class).get();
         process(fc, vlanid, ltpCreator);
     }
+
+    private final NotificationService notificationService;
 
     private List<LogicalTerminationPointList> process(Fc fc, Integer vlanId, LtpInOdlCreator ltpInOdlCreator)
     {
