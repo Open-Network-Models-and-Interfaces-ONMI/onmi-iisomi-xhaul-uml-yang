@@ -14,8 +14,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.opendaylight.mwtn.impl.utils.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UserDto {
+    private static final Logger LOG = LoggerFactory.getLogger(UserDto.class);
+
 	private String userId;
 	private HashMap<String, Boolean> hmScopes;
 
@@ -32,13 +36,12 @@ public class UserDto {
 	}
 
 	public void setScopes(JSONArray jsonScopes) {
-		hmScopes = new HashMap<String, Boolean>();
+		hmScopes = new HashMap<>();
 		for (int i = 0; jsonScopes != null && i < jsonScopes.length(); i++) {
 			try {
 				hmScopes.put(jsonScopes.getString(i), true);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOG.warn("Something wrong: {}", e);
 			}
 		}
 	}
@@ -60,7 +63,7 @@ public class UserDto {
 			}
 			jsonResponse.put(Utils.MSG_KEY_DATA, jsonArrayRes);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.warn("Something wrong: {}", e);
 		}
 		return jsonResponse;
 	}

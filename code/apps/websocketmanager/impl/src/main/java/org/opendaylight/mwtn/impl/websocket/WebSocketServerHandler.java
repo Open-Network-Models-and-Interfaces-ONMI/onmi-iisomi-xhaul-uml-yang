@@ -88,7 +88,7 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 						sendBroadcast(ctx, xmlEvent);
 					}
 				} catch (Exception ioe) {
-					System.out.println(ioe.getMessage());
+					LOG.warn(ioe.getMessage());
 				}
 			}
 		}
@@ -98,7 +98,7 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 		try {
 			ctx.channel().write(new TextWebSocketFrame(message));
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.warn(e.getMessage());
 		}
 		ctx.channel().flush();
 	}

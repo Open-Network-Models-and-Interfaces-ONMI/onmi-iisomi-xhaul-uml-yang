@@ -24,74 +24,73 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 public class WebsocketmanagerProvider implements BindingAwareProvider, AutoCloseable, Runnable {
 
-	private static final Logger LOG = LoggerFactory.getLogger(WebsocketmanagerProvider.class);
-	private Thread webserverThread;
-	private final int port = 8085;
-	private final ServerBootstrap bootstrap = new ServerBootstrap();
-	private final EventLoopGroup bossGroup = new NioEventLoopGroup();
-	private final EventLoopGroup workerGroup = new NioEventLoopGroup();
-	private RpcRegistration<WebsocketmanagerService> websocketService;
+    private static final Logger LOG = LoggerFactory.getLogger(WebsocketmanagerProvider.class);
+    private static final int PORT = 8085;
 
-	@Override
-	public void onSessionInitiated(ProviderContext session) {
-		LOG.info("WebsocketmanagerProvider Session Initiated");
-		webserverThread = new Thread(this);
-		webserverThread.start();
-		websocketService = session.addRpcImplementation(WebsocketmanagerService.class, new WebsocketImpl());
-	}
+    private Thread webserverThread;
+    private final ServerBootstrap bootstrap = new ServerBootstrap();
+    private final EventLoopGroup bossGroup = new NioEventLoopGroup();
+    private final EventLoopGroup workerGroup = new NioEventLoopGroup();
+    private RpcRegistration<WebsocketmanagerService> websocketService;
 
-	@Override
-	public void close() throws Exception {
-		LOG.info("WebsocketmanagerProvider Closed");
-		closeWebsocketServer();
-		if (websocketService != null) {
-			websocketService.close();
-		}
-	}
+    @Override
+    public void onSessionInitiated(ProviderContext session) {
+        LOG.info("WebsocketmanagerProvider Session Initiated");
+        webserverThread = new Thread(this);
+        webserverThread.start();
+        websocketService = session.addRpcImplementation(WebsocketmanagerService.class, new WebsocketImpl());
+    }
 
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		try {
-			startWebSocketServer();
-		} catch (Exception e) {
-			LOG.error("Exception occured while starting webSocket server {}");
-		}
-	}
+    @Override
+    public void close() throws Exception {
+        LOG.info("WebsocketmanagerProvider Closed");
+        closeWebsocketServer();
+        if (websocketService != null) {
+            websocketService.close();
+        }
+    }
 
-	private void closeWebsocketServer() {
-		if (bossGroup != null) {
-			try {
-				bossGroup.shutdownGracefully();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		if (workerGroup != null) {
-			try {
-				workerGroup.shutdownGracefully();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+    @Override
+    public void run() {
+        // TODO Auto-generated method stub
+        try {
+            startWebSocketServer();
+        } catch (Exception e) {
+            LOG.warn("Exception occured while starting webSocket server {}",e);
+        }
+    }
 
-	public void startWebSocketServer() throws Exception {
-		try {
-			bootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
-					.childHandler(new WebSocketServerInitializer());
-			Channel channel = bootstrap.bind(port).sync().channel();
-			LOG.info("Web socket server started at port " + port + '.');
-			LOG.info("Open your browser and navigate to http://localhost:" + port + '/');
-			channel.closeFuture().sync();
-		} catch (Exception e) {
-			LOG.error("Exception in start websocket server ======== " + e.toString());
-		} finally {
-			bossGroup.shutdownGracefully();
-			workerGroup.shutdownGracefully();
-		}
-	}
+    private void closeWebsocketServer() {
+        if (bossGroup != null) {
+            try {
+                bossGroup.shutdownGracefully();
+            } catch (Exception e) {
+                LOG.warn("Exception occured while starting webSocket server {}",e);
+            }
+        }
+        if (workerGroup != null) {
+            try {
+                workerGroup.shutdownGracefully();
+            } catch (Exception e) {
+                LOG.warn("Exception occured while starting webSocket server {}",e);
+            }
+        }
+    }
+
+    public void startWebSocketServer() throws Exception {
+        try {
+            bootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
+                    .childHandler(new WebSocketServerInitializer());
+            Channel channel = bootstrap.bind(PORT).sync().channel();
+            LOG.info("Web socket server started at port " + PORT + '.');
+            LOG.info("Open your browser and navigate to http://localhost:" + PORT + '/');
+            channel.closeFuture().sync();
+        } catch (Exception e) {
+            LOG.warn("Exception in start websocket server ======== " + e.toString());
+        } finally {
+            bossGroup.shutdownGracefully();
+            workerGroup.shutdownGracefully();
+        }
+    }
 
 }
