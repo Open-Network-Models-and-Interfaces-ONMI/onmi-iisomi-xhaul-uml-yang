@@ -68,7 +68,7 @@
     <feature version="${elasticsearch.version}">elasticsearch</feature>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnCommons-bundle/${project.version}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/${project.version}</bundle>
-    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnConfig-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnBrowser-bundle/${project.version}</bundle>
   </feature>
 
   <feature name="odl-mwtn-ux-compare" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Comparision">
@@ -114,7 +114,7 @@
     <feature version="${elasticsearch.version}">elasticsearch</feature>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnCommons-bundle/${project.version}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/${project.version}</bundle>
-    <bundle>mvn:com.hcl.odl.dlux/mwtnTest-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnTest-bundle/${project.version}</bundle>
   </feature>
 
   <feature name="odl-mwtn-ux-log" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Log">
