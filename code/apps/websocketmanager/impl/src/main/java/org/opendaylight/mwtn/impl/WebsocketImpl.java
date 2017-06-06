@@ -9,7 +9,6 @@
 package org.opendaylight.mwtn.impl;
 
 import java.util.concurrent.Future;
-
 import org.opendaylight.mwtn.impl.websocket.WebSocketServerHandler;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.websocketmanager.rev150105.WebsocketEventInput;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.websocketmanager.rev150105.WebsocketEventOutput;
@@ -17,20 +16,25 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.websocke
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.websocketmanager.rev150105.WebsocketmanagerService;
 import org.opendaylight.yangtools.yang.common.RpcResult;
 import org.opendaylight.yangtools.yang.common.RpcResultBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WebsocketImpl implements WebsocketmanagerService {
 
-	@Override
-	public Future<RpcResult<WebsocketEventOutput>> websocketEvent(WebsocketEventInput input) {
-		try {
-			WebsocketEventOutputBuilder outputBuilder = new WebsocketEventOutputBuilder();
+    private static final Logger LOG = LoggerFactory.getLogger(WebsocketImpl.class);
 
-			WebSocketServerHandler.sendMessage(input.getNodeName(), input.getEventType(), input.getXmlEvent());
-			outputBuilder.setResponse("OK");
-			return RpcResultBuilder.success(outputBuilder.build()).buildFuture();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+    @Override
+    public Future<RpcResult<WebsocketEventOutput>> websocketEvent(WebsocketEventInput input) {
+        LOG.debug("Send message '{}'", input);
+        try {
+            WebsocketEventOutputBuilder outputBuilder = new WebsocketEventOutputBuilder();
+
+            WebSocketServerHandler.sendMessage(input.getNodeName(), input.getEventType(), input.getXmlEvent());
+            outputBuilder.setResponse("OK");
+            return RpcResultBuilder.success(outputBuilder.build()).buildFuture();
+        } catch (Exception e) {
+            LOG.warn("Socketproblem: {}", e);
+        }
+        return null;
+    }
 }
