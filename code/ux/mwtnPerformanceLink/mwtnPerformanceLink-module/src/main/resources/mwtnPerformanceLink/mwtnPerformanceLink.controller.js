@@ -10,7 +10,8 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
         'app/mwtnPerformanceLink/mwtnPerformanceLink.services'],
         function(mwtnPerformanceLinkApp) {
 
-  mwtnPerformanceLinkApp.register.controller('mwtnPerformanceLinkCtrl', ['$scope', '$rootScope','$window', '$mwtnLog', '$mwtnPerformanceLink','uiGridConstants',  function($scope, $rootScope, $window, $mwtnLog, $mwtnPerformanceLink,uiGridConstants) {
+  mwtnPerformanceLinkApp.register.controller('mwtnPerformanceLinkCtrl', ['$scope', '$rootScope','$window', '$translate', '$mwtnLog', '$mwtnPerformanceLink','uiGridConstants',  
+                                                                function($scope, $rootScope, $window, $translate, $mwtnLog, $mwtnPerformanceLink,uiGridConstants) {
 
     var COMPONENT = 'mwtnPerformanceLink';
     $mwtnLog.info({component: COMPONENT, message: 'mwtn Link Performance started!'});
@@ -18,8 +19,6 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
     $rootScope.section_logo = 'src/app/mwtnPerformanceLink/images/mwtnPerformance.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
    
    var globalFilter;
-
-  
 
    //time selector
    $scope.timePeriod="15 minutes";
@@ -206,7 +205,7 @@ $scope.gridOptionsReceiveLevel={
     enableGridMenu: true,
     columnDefs : [
       { field: 'layerProtocol',  type: 'string', displayName: 'Layer Protocol Name',  width: 90, visible:false},
-      { field: 'id',  type: 'string', displayName: 'Interface',  width: 200, visible:false},
+      { field: 'id',  type: 'string', displayName: $translate.instant('MWTN_LTP'),  width: 200, visible:false},
       { field: 'radiosignal',  type: 'string', displayName: 'Radio Signal Id',  width: 90},
       { field: 'scannerId',  type: 'string', displayName: 'Scanner Id',  width: 90},
       { field: 'timestamp',  type: 'string', displayName: 'End time',  width : 200 },
@@ -239,7 +238,7 @@ $scope.gridOptionsTransmissionLevel={
     enableGridMenu: true,
     columnDefs : [
       { field: 'layerProtocol',  type: 'string', displayName: 'Layer Protocol Name',  width: 90, visible:false},
-      { field: 'id',  type: 'string', displayName: 'Interface',  width: 200, visible:false},
+      { field: 'id',  type: 'string', displayName: $translate.instant('MWTN_LTP'),  width: 200, visible:false},
       { field: 'radiosignal',  type: 'string', displayName: 'Radio Signal Id',  width: 90},
       { field: 'scannerId',  type: 'string', displayName: 'Scanner Id',  width: 90},
       { field: 'timestamp',  type: 'string', displayName: 'End time',  width : 200},
@@ -272,7 +271,7 @@ $scope.gridOptionsTransmissionLevel={
     enableGridMenu: true,
     columnDefs : [
       { field: 'layerProtocol',  type: 'string', displayName: 'Layer Protocol Name',  width: 90, visible:false},
-      { field: 'id',  type: 'string', displayName: 'Interface',  width: 200, visible:false},
+      { field: 'id',  type: 'string', displayName: $translate.instant('MWTN_LTP'),  width: 200, visible:false},
       { field: 'radiosignal',  type: 'string', displayName: 'Radio Signal Id',  width: 90},
       { field: 'scannerId',  type: 'string', displayName: 'Scanner Id',  width: 90},
       { field: 'timestamp',  type: 'string', displayName: 'End time',  width : 200 },
@@ -372,7 +371,7 @@ $scope.gridOptionsTemperature={
      enableGridMenu: true,
      columnDefs : [
        { field: 'layerProtocol',  type: 'string', displayName: 'Layer Protocol Name',  width: 90, visible:false},
-       { field: 'id',  type: 'string', displayName: 'Interface',  width: 200, visible:false},
+       { field: 'id',  type: 'string', displayName: $translate.instant('MWTN_LTP'),  width: 200, visible:false},
        { field: 'radiosignal',  type: 'string', displayName: 'Radio Signal Id',  width: 90},
        { field: 'scannerId',  type: 'string', displayName: 'Scanner Id',  width: 90},
        { field: 'timestamp',  type: 'string', displayName: 'End time',  width : 200 },
@@ -405,18 +404,18 @@ $scope.gridOptionsTemperature={
      enableSorting:false,
      enableGridMenu: true,
      columnDefs : [
-       { field: 'layerProtocol',  type: 'string', displayName: 'Layer Protocol Name',  width: 90, visible:false},
-       { field: 'id',  type: 'string', displayName: 'Interface',  width: 200, visible:false},
+       { field: 'layerProtocol',  type: 'string', displayName: 'Layer Protocol Name',  width: 90, visible: false},
+       { field: 'id',  type: 'string', displayName: 'Termination point',  width: 200, visible:false},
        { field: 'radiosignal',  type: 'string', displayName: 'Radio Signal Id',  width: 90},
        { field: 'scannerId',  type: 'string', displayName: 'Scanner Id',  width: 90},
        { field: 'timestamp',  type: 'string', displayName: 'End time',  width : 200},
        { field: 'suspectInterval',  type: 'string', displayName: 'Suspect Interval Flag',  width: 100},
-       { field: 'snirMina',  type: 'string', displayName: 'Snir min A  [dB]',  width: 90 },
-       { field: 'snirAvga',  type: 'string', displayName: 'Snir avg A [dB]',  width: 90},
-       { field: 'snirMaxa',  type: 'string', displayName: 'Snir max A [dB]',  width: 90 },
-       { field: 'snirMinb',  type: 'string', displayName: 'Snir min B [dB]',  width: 90 },
-       { field: 'snirAvgb',  type: 'string', displayName: 'Snir avg B [dB]',  width: 90},
-       { field: 'snirMaxb',  type: 'string', displayName: 'Snir max B [dB]',  width: 90 }
+        { field: 'snirMin', type: 'string', displayName: [$translate.instant('MWTN_SNIR_MIN'),'A','[dB]'].join(' '), width: 90 },
+        { field: 'snirAvg', type: 'string', displayName: [$translate.instant('MWTN_SNIR_AVG'),'A','[dB]'].join(' '), width: 90 },
+        { field: 'snirMax', type: 'string', displayName: [$translate.instant('MWTN_SNIR_MAX'),'A','[dB]'].join(' '), width: 90 },
+        { field: 'snirMin', type: 'string', displayName: [$translate.instant('MWTN_SNIR_MIN'),'B','[dB]'].join(' '), width: 90 },
+        { field: 'snirAvg', type: 'string', displayName: [$translate.instant('MWTN_SNIR_AVG'),'B','[dB]'].join(' '), width: 90 },
+        { field: 'snirMax', type: 'string', displayName: [$translate.instant('MWTN_SNIR_MAX'),'B','[dB]'].join(' '), width: 90 }
     ],
     data: 'snir',
     onRegisterApi: function(gridApi) {
@@ -440,7 +439,7 @@ $scope.gridOptionsTemperature={
      enableGridMenu: true,
      columnDefs : [
        { field: 'layerProtocol',  type: 'string', displayName: 'Layer Protocol Name',  width: 90, visible:false},
-       { field: 'id',  type: 'string', displayName: 'Interface',  width: 200, visible:false},
+       { field: 'id',  type: 'string', displayName: $translate.instant('MWTN_LTP'),  width: 200, visible:false},
        { field: 'radiosignal',  type: 'string', displayName: 'Radio Signal Id',  width: 90},
        { field: 'scannerId',  type: 'string', displayName: 'Scanner Id',  width: 90},
        { field: 'timestamp',  type: 'string', displayName: 'End time',  width : 200},
@@ -488,7 +487,7 @@ $scope.gridOptionsTemperature={
                   lookupMap.set(entry._source['time-stamp'], index); //add timestamp and index to map
                   var item = {
                     timestamp: $mwtnPerformanceLink.formatTimeStamp(entry._source['time-stamp']),
-                    id:entry._source['uuid-interface'],
+                    id: $scope.onfNetworkElement.getLpById(entry._source['uuid-interface']).getLabel() || entry._source['uuid-interface'],
                     layerProtocol: entry._source['layer-protocol-name'],
                     suspectInterval: entry._source['suspect-interval-flag'],
                     scannerId: entry._source['scanner-id'],

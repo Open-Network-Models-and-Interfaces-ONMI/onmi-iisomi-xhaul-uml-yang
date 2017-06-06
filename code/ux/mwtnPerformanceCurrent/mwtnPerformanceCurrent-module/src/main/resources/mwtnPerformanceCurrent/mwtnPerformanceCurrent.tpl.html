@@ -3,15 +3,15 @@
 
 <div class="owl container" ng-show="networkElements.lenght !== 0" style="width: 100%">
 	<div class="row">
-		<div class="col-md-2 text-right radio">
-			<span class="white">{{'Select Layer Protocol' }}</span>
-		</div>
-		<div class="col-md-4">
+		<div class="col-md-3">
 			<div class="form-group">
 				<select class="form-control" ng-model="layerProtocol">
 					<option ng-repeat="protocol in layerProtocols">{{protocol}}</option>
 				</select>
 			</div>
+		</div>
+		<div class="col-md-2">
+			<span class="white">{{'Select Layer Protocol' }}</span>
 		</div>
 	</div>
 	<div class="row" ng-show="layerProtocol === 'MWPS' ">
@@ -72,8 +72,8 @@
 			</div>
 			<div uib-accordion-group class="panel-primary" is-open="status.snir">
 				<uib-accordion-heading> <i class="pull-left fa" ng-class="{'fa-chevron-down': status.snir, 'fa-chevron-right': !status.snir}"></i>
-					<span>Single to Noise Interference</span>
-					<i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner.snir"></i>
+                <span>{{'MWTN_SINR' | translate}}</span>
+				<i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner.snir"></i>
 				</uib-accordion-heading>
 
 				<div ui-grid="gridOptionsSnir" ui-grid-pagination ui-grid-exporter ui-grid-selection ui-grid-pinning ui-grid-resize-columns

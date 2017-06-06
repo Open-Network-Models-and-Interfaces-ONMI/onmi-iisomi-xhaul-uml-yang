@@ -11,8 +11,8 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
   'app/mwtnPerformanceHistory/mwtnPerformanceHistory.services'],
   function (mwtnPerformanceHistoryoryApp) {
 
-    mwtnPerformanceHistoryoryApp.register.controller('mwtnPerformanceHistoryCtrl', ['$scope', '$rootScope', '$window', '$mwtnLog', '$mwtnPerformanceHistory', 'uiGridConstants', 'OnfNetworkElement',
-      function ($scope, $rootScope, $window, $mwtnLog, $mwtnPerformanceHistory, uiGridConstants, OnfNetworkElement) {
+    mwtnPerformanceHistoryoryApp.register.controller('mwtnPerformanceHistoryCtrl', ['$scope', '$rootScope', '$window', '$translate', '$mwtnLog', '$mwtnPerformanceHistory', 'uiGridConstants', 'OnfNetworkElement',
+      function ($scope, $rootScope, $window, $translate,$mwtnLog, $mwtnPerformanceHistory, uiGridConstants, OnfNetworkElement) {
 
       var COMPONENT = 'mwtnPerformanceHistory';
       $mwtnLog.info({ component: COMPONENT, message: 'mwtn historical Performance started!' });
@@ -53,7 +53,7 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
         enableGridMenu: true,
         columnDefs: [
           { field: 'layerProtocol', type: 'string', displayName: 'Layer Protocol Name', width: 90, visible: false },
-          { field: 'id', type: 'string', displayName: 'Interface', width: 200, visible: false },
+          { field: 'id', type: 'string', displayName: $translate.instant('MWTN_LTP'), width: 200, visible: false },
           { field: 'radiosignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
           { field: 'scannerId', type: 'string', displayName: 'Scanner Id', width: 90 },
           {
@@ -94,7 +94,7 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
         enableGridMenu: true,
         columnDefs: [
           { field: 'layerProtocol', type: 'string', displayName: 'Layer Protocol Name', width: 90, visible: false },
-          { field: 'id', type: 'string', displayName: 'Interface', width: 200, visible: false },
+          { field: 'id', type: 'string', displayName: $translate.instant('MWTN_LTP'), width: 200, visible: false },
           { field: 'radiosignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
           { field: 'scannerId', type: 'string', displayName: 'Scanner Id', width: 90 },
           {
@@ -133,7 +133,7 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
         enableGridMenu: true,
         columnDefs: [
           { field: 'layerProtocol', type: 'string', displayName: 'Layer Protocol Name', width: 90, visible: false },
-          { field: 'id', type: 'string', displayName: 'Interface', width: 200, visible: false },
+          { field: 'id', type: 'string', displayName: $translate.instant('MWTN_LTP'), width: 200, visible: false },
           { field: 'radiosignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
           { field: 'scannerId', type: 'string', displayName: 'Scanner Id', width: 90 },
           {
@@ -172,7 +172,7 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
         enableGridMenu: true,
         columnDefs: [
           { field: 'layerProtocol', type: 'string', displayName: 'Layer Protocol Name', width: 90, visible: false },
-          { field: 'id', type: 'string', displayName: 'Interface', width: 200, visible: false },
+          { field: 'id', type: 'string', displayName: $translate.instant('MWTN_LTP'), width: 200, visible: false },
           { field: 'radiosignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
           { field: 'scannerId', type: 'string', displayName: 'Scanner Id', width: 90 },
           {
@@ -246,7 +246,7 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
         enableGridMenu: true,
         columnDefs: [
           { field: 'layerProtocol', type: 'string', displayName: 'Layer Protocol Name', width: 90, visible: false },
-          { field: 'id', type: 'string', displayName: 'Interface', width: 200, visible: false },
+          { field: 'id', type: 'string', displayName: $translate.instant('MWTN_LTP'), width: 200, visible: false },
           { field: 'radiosignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
           { field: 'scannerId', type: 'string', displayName: 'Scanner Id', width: 90 },
           {
@@ -286,7 +286,7 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
         enableGridMenu: true,
         columnDefs: [
           { field: 'layerProtocol', type: 'string', displayName: 'Layer Protocol Name', width: 90, visible: false },
-          { field: 'id', type: 'string', displayName: 'Interface', width: 200, visible: false },
+          { field: 'id', type: 'string', displayName: $translate.instant('MWTN_LTP'), width: 200, visible: false },
           { field: 'radiosignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
           { field: 'scannerId', type: 'string', displayName: 'Scanner Id', width: 90 },
           {
@@ -296,10 +296,9 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
             }
           },
           { field: 'suspectInterval', type: 'string', displayName: 'Suspect Interval Flag', width: 100 },
-          { field: 'snirMin', type: 'string', displayName: 'Snir min  [dB]', width: 90 },
-          { field: 'snirAvg', type: 'string', displayName: 'Snir avg  [dB]', width: 90 },
-          { field: 'snirMax', type: 'string', displayName: 'Snir max  [dB]', width: 90 }
-
+          { field: 'snirMin', type: 'string', displayName: [$translate.instant('MWTN_SNIR_MIN'),'[dB]'].join(' '), width: 90 },
+          { field: 'snirAvg', type: 'string', displayName: [$translate.instant('MWTN_SNIR_AVG'),'[dB]'].join(' '), width: 90 },
+          { field: 'snirMax', type: 'string', displayName: [$translate.instant('MWTN_SNIR_MAX'),'[dB]'].join(' '), width: 90 }
         ],
         data: 'snir',
         onRegisterApi: function (gridApi) {
@@ -326,7 +325,7 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
         enableGridMenu: true,
         columnDefs: [
           { field: 'layerProtocol', type: 'string', displayName: 'Layer Protocol Name', width: 90, visible: false },
-          { field: 'id', type: 'string', displayName: 'Interface', width: 200, visible: false },
+          { field: 'id', type: 'string', displayName: $translate.instant('MWTN_LTP'), width: 200, visible: false },
           { field: 'radiosignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
           { field: 'scannerId', type: 'string', displayName: 'Scanner Id', width: 90 },
           {
@@ -366,7 +365,7 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
         enableGridMenu: true,
         columnDefs: [
           { field: 'layerProtocol', type: 'string', displayName: 'Layer Protocol Name', width: 90, visible: false },
-          { field: 'id', type: 'string', displayName: 'Interface', width: 200, visible: false },
+          { field: 'id', type: 'string', displayName: $translate.instant('MWTN_LTP'), width: 200, visible: false },
           { field: 'radiosignal', type: 'string', displayName: 'Radio Signal Id', width: 90, visible: false },
           { field: 'scannerId', type: 'string', displayName: 'Scanner Id', width: 90 },
           {
@@ -627,7 +626,7 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
             response.data.hits.hits.map(function (entry) {
               var item = {
                 timestamp: $mwtnPerformanceHistory.formatTimeStamp(entry._source['time-stamp']),
-                id: entry._source['uuid-interface'],
+                id: $scope.onfNetworkElement.getLpById(entry._source['uuid-interface']).getLabel() || entry._source['uuid-interface'],
                 layerProtocol: entry._source['layer-protocol-name'],
                 suspectInterval: entry._source['suspect-interval-flag'],
                 scannerId: entry._source['scanner-id'],
@@ -649,7 +648,7 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
             response.data.hits.hits.map(function (entry) {
               var item = {
                 timestamp: $mwtnPerformanceHistory.formatTimeStamp(entry._source['time-stamp']),
-                id: entry._source['uuid-interface'],
+                id: $scope.onfNetworkElement.getLpById(entry._source['uuid-interface']).getLabel() || entry._source['uuid-interface'],
                 layerProtocol: entry._source['layer-protocol-name'],
                 suspectInterval: entry._source['suspect-interval-flag'],
                 scannerId: entry._source['scanner-id'],
@@ -673,7 +672,7 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
             response.data.hits.hits.map(function (entry) {
               var item = {
                 timestamp: $mwtnPerformanceHistory.formatTimeStamp(entry._source['time-stamp']),
-                id: entry._source['uuid-interface'],
+                id: $scope.onfNetworkElement.getLpById(entry._source['uuid-interface']).getLabel() || entry._source['uuid-interface'],
                 layerProtocol: entry._source['layer-protocol-name'],
                 suspectInterval: entry._source['suspect-interval-flag'],
                 scannerId: entry._source['scanner-id'],
@@ -697,7 +696,7 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
             response.data.hits.hits.map(function (entry) {
               var item = {
                 timestamp: $mwtnPerformanceHistory.formatTimeStamp(entry._source['time-stamp']),
-                id: entry._source['uuid-interface'],
+                id: $scope.onfNetworkElement.getLpById(entry._source['uuid-interface']).getLabel() || entry._source['uuid-interface'],
                 layerProtocol: entry._source['layer-protocol-name'],
                 suspectInterval: entry._source['suspect-interval-flag'],
                 scannerId: entry._source['scanner-id'],
@@ -754,7 +753,7 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
             response.data.hits.hits.map(function (entry) {
               var item = {
                 timestamp: $mwtnPerformanceHistory.formatTimeStamp(entry._source['time-stamp']),
-                id: entry._source['uuid-interface'],
+                id: $scope.onfNetworkElement.getLpById(entry._source['uuid-interface']).getLabel() || entry._source['uuid-interface'],
                 layerProtocol: entry._source['layer-protocol-name'],
                 suspectInterval: entry._source['suspect-interval-flag'],
                 scannerId: entry._source['scanner-id'],
@@ -778,7 +777,7 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
             response.data.hits.hits.map(function (entry) {
               var item = {
                 timestamp: $mwtnPerformanceHistory.formatTimeStamp(entry._source['time-stamp']),
-                id: entry._source['uuid-interface'],
+                id: $scope.onfNetworkElement.getLpById(entry._source['uuid-interface']).getLabel() || entry._source['uuid-interface'],
                 layerProtocol: entry._source['layer-protocol-name'],
                 suspectInterval: entry._source['suspect-interval-flag'],
                 scannerId: entry._source['scanner-id'],
@@ -802,7 +801,7 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
             response.data.hits.hits.map(function (entry) {
               var item = {
                 timestamp: $mwtnPerformanceHistory.formatTimeStamp(entry._source['time-stamp']),
-                id: entry._source['uuid-interface'],
+                id: $scope.onfNetworkElement.getLpById(entry._source['uuid-interface']).getLabel() || entry._source['uuid-interface'],
                 layerProtocol: entry._source['layer-protocol-name'],
                 suspectInterval: entry._source['suspect-interval-flag'],
                 scannerId: entry._source['scanner-id'],
@@ -829,7 +828,7 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
             response.data.hits.hits.map(function (entry) {
               var item = {
                 timestamp: $mwtnPerformanceHistory.formatTimeStamp(entry._source['time-stamp']),
-                id: entry._source['uuid-interface'],
+                id: $scope.onfNetworkElement.getLpById(entry._source['uuid-interface']).getLabel() || entry._source['uuid-interface'],
                 layerProtocol: entry._source['layer-protocol-name'],
                 suspectInterval: entry._source['suspect-interval-flag'],
                 scannerId: entry._source['scanner-id'],

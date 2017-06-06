@@ -11,15 +11,15 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
   'app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.services'],
   function (mwtnPerformanceCurrentApp) {
 
-    mwtnPerformanceCurrentApp.register.controller('mwtnPerformanceCurrentCtrl', ['$scope', '$rootScope', '$window', '$mwtnLog', '$mwtnPerformanceCurrent', 'uiGridConstants', 
-                                                 function ($scope, $rootScope, $window, $mwtnLog, $mwtnPerformanceCurrent, uiGridConstants) {
+    mwtnPerformanceCurrentApp.register.controller('mwtnPerformanceCurrentCtrl', ['$scope', '$rootScope', '$window', '$translate', '$mwtnLog', '$mwtnPerformanceCurrent', 'uiGridConstants', 'OnfNetworkElement', 
+                                                 function ($scope, $rootScope, $window, $translate, $mwtnLog, $mwtnPerformanceCurrent, uiGridConstants, OnfNetworkElement) {
 
       var COMPONENT = 'mwtnPerformanceCurrent';
       $mwtnLog.info({ component: COMPONENT, message: 'mwtnPerformanceCurrent started!' });
 
       $rootScope.section_logo = 'src/app/mwtnPerformanceCurrent/images/mwtnPerformance.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
-      var radiosignalMap = new Map(); //holds uuid/singalid
+      var radioSignalMap = new Map(); //holds uuid/singalid
 
       var initPac = {
         layerProtocol: 'unknown'
@@ -89,7 +89,8 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
         if (Object.keys(data)[0].startsWith('air-interface-current-performance')) {
 
           $scope.jsonvalue.push(data);
-
+          var label = new OnfNetworkElement($scope.onfNetworkElement).getLpById(data['layer-protocol']).getLabel() || data['layer-protocol'];
+          var radioSignal = radioSignalMap.get(data['layer-protocol'])
           var list = data['air-interface-current-performance']['current-performance-data-list'] || data['air-interface-current-performance']['current-performance-data']; 
           list.map(function(item) {
 
@@ -104,13 +105,12 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
                   elapsedTime: checkData(item['elapsed-time']),
                   suspectInterval: item['suspect-interval-flag'],
                   scannerId: item['scanner-id'],
-                  id: data['layer-protocol'],
+                  id: label,
                   period: item['granularity-period'],
                   es: item['performance-data'].es,
                   ses: item['performance-data'].ses,
                   uas: item['performance-data'].unavailability,
-                  layerProtocol: $scope.layerProtocol,
-                  radiosignal: radiosignalMap.get(data['layer-protocol'])
+                  radioSignal: radioSignal
                 });
                 break;
 
@@ -120,13 +120,12 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
                   elapsedTime: checkData(item['elapsed-time']),
                   suspectInterval: item['suspect-interval-flag'],
                   scannerId: item['scanner-id'],
-                  id: data['layer-protocol'],
+                  id: label,
                   period: item['granularity-period'],
                   rxmin: checkData(item['performance-data']['rx-level-min']),
                   rxmax: checkData(item['performance-data']['rx-level-max']),
                   rxavg: checkData(item['performance-data']['rx-level-avg']),
-                  layerProtocol: $scope.layerProtocol,
-                  radiosignal: radiosignalMap.get(data['layer-protocol'])
+                  radioSignal: radioSignal
                 });
                 break;
 
@@ -137,13 +136,12 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
                   elapsedTime: checkData(item['elapsed-time']),
                   suspectInterval: item['suspect-interval-flag'],
                   scannerId: item['scanner-id'],
-                  id: data['layer-protocol'],
+                  id: label,
                   period: item['granularity-period'],
                   txmin: checkData(item['performance-data']['tx-level-min']),
                   txmax: checkData(item['performance-data']['tx-level-max']),
                   txavg: checkData(item['performance-data']['tx-level-avg']),
-                  layerProtocol: $scope.layerProtocol,
-                  radiosignal: radiosignalMap.get(data['layer-protocol'])
+                  radioSignal: radioSignal
                 });
 
                 break;
@@ -156,7 +154,7 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
                     elapsedTime: checkData(item['elapsed-time']),
                     suspectInterval: item['suspect-interval-flag'],
                     scannerId: item['scanner-id'],
-                    id: data['layer-protocol'],
+                    id: label,
                     period: item['granularity-period'],
                     time2S: checkData(item['performance-data']['time2-states-s']),
                     time2: checkData(item['performance-data']['time2-states']),
@@ -194,8 +192,7 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
                     time8192S: checkData(item['performance-data']['time8192-states-s']),
                     time8192: checkData(item['performance-data']['time8192-states']),
                     time8192L: checkData(item['performance-data']['time8192-states-l']),
-                    radiosignal: radiosignalMap.get(data['layer-protocol']),
-                    layerProtocol: $scope.layerProtocol
+                    radioSignal: radioSignal
                   });
 
                 break;
@@ -207,13 +204,12 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
                   elapsedTime: checkData(item['elapsed-time']),
                   suspectInterval: item['suspect-interval-flag'],
                   scannerId: item['scanner-id'],
-                  id: data['layer-protocol'],
+                  id: label,
                   period: item['granularity-period'],
                   rfTempMin: item['performance-data']['rf-temp-min'],
                   rfTempAvg: item['performance-data']['rf-temp-avg'],
                   rfTempMax: item['performance-data']['rf-temp-max'],
-                  radiosignal: radiosignalMap.get(data['layer-protocol']),
-                  layerProtocol: $scope.layerProtocol
+                  radioSignal: radioSignal
                 });
                 break;
 
@@ -224,13 +220,12 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
                   elapsedTime: checkData(item['elapsed-time']),
                   suspectInterval: item['suspect-interval-flag'],
                   scannerId: item['scanner-id'],
-                  id: data['layer-protocol'],
+                  id: label,
                   period: item['granularity-period'],
                   snirMin: item['performance-data']['snir-min'],
                   snirAvg: item['performance-data']['snir-avg'],
                   snirMax: item['performance-data']['snir-max'],
-                  radiosignal: radiosignalMap.get(data['layer-protocol']),
-                  layerProtocol: $scope.layerProtocol
+                  radioSignal: radioSignal
                 }
                 );
 
@@ -244,13 +239,12 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
                   elapsedTime: checkData(item['elapsed-time']),
                   suspectInterval: item['suspect-interval-flag'],
                   scannerId: item['scanner-id'],
-                  id: data['layer-protocol'],
+                  id: label,
                   period: item['granularity-period'],
                   xpdMin: item['performance-data']['xpd-min'],
                   xpdAvg: item['performance-data']['xpd-avg'],
                   xpdMax: item['performance-data']['xpd-max'],
-                  radiosignal: radiosignalMap.get(data['layer-protocol']),
-                  layerProtocol: $scope.layerProtocol
+                  radioSignal: radioSignal
                 });
 
                 break;
@@ -263,6 +257,7 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
 
       var updateContainer = function (lpId, part, data) {
         // console.log(JSON.stringify(data), lpId);
+        var label = new OnfNetworkElement($scope.onfNetworkElement).getLpById(data['layer-protocol']).getLabel() || data['layer-protocol'];
 
         if (Object.keys(data)[0].contains('ethernet-container')) {
           $scope.ethernetJsonValue.push(data);
@@ -279,8 +274,7 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
               txEthernetBytesMaxS: checkData(item['performance-data']['tx-ethernet-bytes-max-s']),
               txEthernetBytesMaxM: checkData(item['performance-data']['tx-ethernet-bytes-max-m']),
               txEthernetBytesSum: checkData(item['performance-data']['tx-ethernet-bytes-sum']),
-              id: data['layer-protocol'],
-              layerProtocol: $scope.layerProtocol
+              id: label
             });
           });
         }
@@ -300,9 +294,9 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
         enableFiltering: true,
         enableGridMenu: true,
         columnDefs: [
-          { field: 'layerProtocol', type: 'string', displayName: 'Layer Protocol Name', width: 90 },
-          { field: 'id', type: 'string', displayName: 'Interface', width: 200 },
-          { field: 'radiosignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
+          
+          { field: 'id', type: 'string', displayName: $translate.instant('MWTN_LP'), width: 300 },
+          { field: 'radioSignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
           { field: 'scannerId', type: 'string', displayName: 'Scanner Id', width: 90 },
           {
             field: 'timestamp', type: 'string', displayName: 'Request time', width: 200, sort: {
@@ -328,9 +322,9 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
         enableFiltering: true,
         enableGridMenu: true,
         columnDefs: [
-          { field: 'layerProtocol', type: 'string', displayName: 'Layer Protocol Name', width: 90 },
-          { field: 'id', type: 'string', displayName: 'Interface', width: 200 },
-          { field: 'radiosignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
+          
+          { field: 'id', type: 'string', displayName: $translate.instant('MWTN_LP'), width: 300 },
+          { field: 'radioSignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
           { field: 'scannerId', type: 'string', displayName: 'Scanner Id', width: 90 },
           {
             field: 'timestamp', type: 'string', displayName: 'Request time', width: 200, sort: {
@@ -357,9 +351,9 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
         enableFiltering: true,
         enableGridMenu: true,
         columnDefs: [
-          { field: 'layerProtocol', type: 'string', displayName: 'Layer Protocol Name', width: 90 },
-          { field: 'id', type: 'string', displayName: 'Interface', width: 200 },
-          { field: 'radiosignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
+          
+          { field: 'id', type: 'string', displayName: $translate.instant('MWTN_LP'), width: 300 },
+          { field: 'radioSignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
           { field: 'scannerId', type: 'string', displayName: 'Scanner Id', width: 90 },
           {
             field: 'timestamp', type: 'string', displayName: 'Request time', width: 200, sort: {
@@ -386,9 +380,9 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
         enableFiltering: true,
         enableGridMenu: true,
         columnDefs: [
-          { field: 'layerProtocol', type: 'string', displayName: 'Layer Protocol Name', width: 90 },
-          { field: 'id', type: 'string', displayName: 'Interface', width: 200 },
-          { field: 'radiosignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
+          
+          { field: 'id', type: 'string', displayName: $translate.instant('MWTN_LP'), width: 300 },
+          { field: 'radioSignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
           { field: 'scannerId', type: 'string', displayName: 'Scanner Id', width: 90 },
           {
             field: 'timestamp', type: 'string', displayName: 'Request time', width: 200, sort: {
@@ -450,9 +444,9 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
         enableFiltering: true,
         enableGridMenu: true,
         columnDefs: [
-          { field: 'layerProtocol', type: 'string', displayName: 'Layer Protocol Name', width: 90 },
-          { field: 'id', type: 'string', displayName: 'Interface', width: 200 },
-          { field: 'radiosignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
+          
+          { field: 'id', type: 'string', displayName: $translate.instant('MWTN_LP'), width: 300 },
+          { field: 'radioSignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
           { field: 'scannerId', type: 'string', displayName: 'Scanner Id', width: 90 },
           {
             field: 'timestamp', type: 'string', displayName: 'Request time', width: 200, sort: {
@@ -479,9 +473,9 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
         enableFiltering: true,
         enableGridMenu: true,
         columnDefs: [
-          { field: 'layerProtocol', type: 'string', displayName: 'Layer Protocol Name', width: 90 },
-          { field: 'id', type: 'string', displayName: 'Interface', width: 200 },
-          { field: 'radiosignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
+          { field: 'layerProtocol', type: 'string', displayName: 'Layer Protocol Name', width: 90, visible: false},
+          { field: 'id', type: 'string', displayName: $translate.instant('MWTN_LP'), width: 300 },
+          { field: 'radioSignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
           { field: 'scannerId', type: 'string', displayName: 'Scanner Id', width: 90 },
           {
             field: 'timestamp', type: 'string', displayName: 'Request time', width: 200, sort: {
@@ -492,10 +486,9 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
           { field: 'elapsedTime', type: 'string', displayName: 'Elapsed Time', width: 100 },
           { field: 'period', type: 'string', displayName: 'Period', width: 200 },
           { field: 'suspectInterval', type: 'string', displayName: 'Suspect Interval Flag', width: 100 },
-          { field: 'snirMin', type: 'string', displayName: 'Snir min  [dB]', width: 90 },
-          { field: 'snirAvg', type: 'string', displayName: 'Snir avg  [dB]', width: 90 },
-          { field: 'snirMax', type: 'string', displayName: 'Snir max  [dB]', width: 90 }
-
+          { field: 'snirMin', type: 'string', displayName: [$translate.instant('MWTN_SNIR_MIN'),'[dB]'].join(' '), width: 90 },
+          { field: 'snirAvg', type: 'string', displayName: [$translate.instant('MWTN_SNIR_AVG'),'[dB]'].join(' '), width: 90 },
+          { field: 'snirMax', type: 'string', displayName: [$translate.instant('MWTN_SNIR_MAX'),'[dB]'].join(' '), width: 90 }
         ],
         data: 'snir'
       }
@@ -508,9 +501,9 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
         enableFiltering: true,
         enableGridMenu: true,
         columnDefs: [
-          { field: 'layerProtocol', type: 'string', displayName: 'Layer Protocol Name', width: 90 },
-          { field: 'id', type: 'string', displayName: 'Interface', width: 200 },
-          { field: 'radiosignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
+          
+          { field: 'id', type: 'string', displayName: $translate.instant('MWTN_LP'), width: 300 },
+          { field: 'radioSignal', type: 'string', displayName: 'Radio Signal Id', width: 90 },
           { field: 'scannerId', type: 'string', displayName: 'Scanner Id', width: 90 },
           {
             field: 'timestamp', type: 'string', displayName: 'Request time', width: 200, sort: {
@@ -537,8 +530,8 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
         enableFiltering: true,
         enableGridMenu: true,
         columnDefs: [
-          { field: 'layerProtocol', type: 'string', displayName: 'Layer Protocol Name', width: 90 },
-          { field: 'id', type: 'string', displayName: 'Interface', width: 200 },
+          
+          { field: 'id', type: 'string', displayName: $translate.instant('MWTN_LP'), width: 300 },
           { field: 'scannerId', type: 'string', displayName: 'Scanner Id', width: 90 },
           {
             field: 'timestamp', type: 'string', displayName: 'Request time', width: 200, sort: {
@@ -655,10 +648,10 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
                 layerProtocolId: airInterface.layerProtocol
               };
 
-              //get radiosignalID and add it to map
+              //get radioSignalID and add it to map
               $mwtnPerformanceCurrent.getPacParts(airIterfaceSpec).then(function (data) {
                 var yangfiedObj = $mwtnPerformanceCurrent.yangifyObject(data);
-                radiosignalMap.set(yangfiedObj['layer-protocol'], yangfiedObj['air-interface-configuration']['radio-signal-id']);
+                radioSignalMap.set(yangfiedObj['layer-protocol'], yangfiedObj['air-interface-configuration']['radio-signal-id']);
               });
             });
 
