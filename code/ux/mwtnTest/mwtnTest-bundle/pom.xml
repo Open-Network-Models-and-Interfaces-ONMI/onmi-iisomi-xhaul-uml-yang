@@ -4,7 +4,7 @@
  <modelVersion>4.0.0</modelVersion>
  <parent>
   <artifactId>mwtnTest</artifactId>
-  <groupId>com.hcl.odl.dlux</groupId>
+  <groupId>com.highstreet.technologies.odl.dlux</groupId>
   <version>0.4.0-SNAPSHOT</version>
  </parent>
  <artifactId>mwtnTest-bundle</artifactId>
@@ -32,7 +32,7 @@
    <version>${dlux.loader.version}</version>
   </dependency>
   <dependency>
-   <groupId>com.hcl.odl.dlux</groupId>
+   <groupId>com.highstreet.technologies.odl.dlux</groupId>
    <artifactId>mwtnTest-module</artifactId>
    <version>0.4.0-SNAPSHOT</version>
   </dependency>
@@ -61,7 +61,7 @@
       <phase>generate-resources</phase>
       <configuration>
        <outputDirectory>${project.build.directory}/generated-resources</outputDirectory>
-       <groupId>com.hcl.odl.dlux</groupId>
+       <groupId>com.highstreet.technologies.odl.dlux</groupId>
        <includeArtifactIds>mwtnTest-module</includeArtifactIds>
        <excludes>META-INF\/**</excludes>
        <excludeTransitive>true</excludeTransitive>
