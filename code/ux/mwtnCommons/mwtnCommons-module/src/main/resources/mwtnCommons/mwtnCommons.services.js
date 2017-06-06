@@ -93,42 +93,443 @@ define(
       };
     });
 
+    mwtnCommonsApp.register.controller('openConfigViewController', ['$scope', '$uibModalInstance', '$mwtnGlobal', '$mwtnCommons', '$mwtnDatabase', '$mwtnLog', 'valueData', 
+      function ($scope, $uibModalInstance, $mwtnGlobal, $mwtnCommons, $mwtnDatabase, $mwtnLog, data) {
+
+      var vm = this;
+      var COMPONENT = 'openConfigViewController';
+0
+      $scope.getType = $mwtnGlobal.getType;
+      $scope.spec = data.spec;
+      $mwtnCommons.getConditionalPackagePart($scope.spec).then(function (success) {
+        
+        var getControlType = function(type) { 
+          var result = 'text'
+          switch (type) {
+            case 'boolean':
+              result = 'checkbox';
+              break;
+            case 'number':
+              result = 'number';
+              break;
+            case 'string':
+            case 'array':
+            case 'object':
+              break;
+           default:
+              var message = 'Check control type for ' + type;
+              $mwtnLog.warning({ component: COMPONENT, message: message });
+          }
+          return result;
+        };
+
+        success.layerProtocol = $scope.spec.layerProtocolId;
+        $scope.configuredData = success;
+        $scope.newData = $scope.configuredData[$scope.spec.partId];
+
+        $scope.viewData = $mwtnGlobal.getViewData($scope.configuredData[$scope.spec.partId], $scope.ne);
+        $mwtnDatabase.getSchema().then(function(schema){
+          var ordered = {};
+          var clone = JSON.parse(JSON.stringify($scope.viewData));
+          var keys = Object.keys(clone).map(function(key){
+            if ($mwtnGlobal.getType(key) !== 'string') {
+              console.log('key', key);
+              return;
+            }
+            var item = clone[key];
+            if (!schema[key]) {
+              var message = 'No schema information for ' + key;
+              $mwtnLog.warning({ component: COMPONENT, message: message });
+              item['order-number'] = $mwtnCommons.getOrderNumber(97, item);
+              item.description = 'No description available.';
+              item.visible = true;
+              return key;
+            }
+            if (schema[key].controlType === undefined) {
+              item.controlType = getControlType(item.type);
+            } else {
+              item.controlType = schema[key].controlType;
+            }
+            item.unit = schema[key].unit;
+            item.description = schema[key].description;
+            item['order-number'] = $mwtnCommons.getOrderNumber(schema[key]['order-number'], item);
+            if (item.description === undefined || item.description === '') {
+              item.description = 'No description available.';
+            }
+            // hide complex types for now -> TODO
+            if (item.type === 'array' || item.type === 'object') {
+              item.visible = false;
+            }
+            return key;
+          }).sort(function(a,b){
+            if (clone[a]['order-number'] < clone[b]['order-number']) return -1;
+            if (clone[a]['order-number'] > clone[b]['order-number']) return 1;
+            return 0;
+          }).map(function(key){
+            ordered[key] = clone[key];
+          });
+          $scope.viewData = ordered;
+        }, function(error){
+          // ignore;
+        });
+                  
+      }, function (error) {
+        $scope.configuredData = undefined;
+        $mwtnLog.error({ component: COMPONENT, message: 'Requesting conditional package of ' + JSON.stringify($scope.spec) + ' failed!' });
+      });
+
+      $scope.ok = function () {
+        $scope.processing = true;
+        Object.keys($scope.viewData).map(function(key){
+          $scope.newData[key] = $scope.viewData[key].value;
+        });
+
+        $mwtnCommons.setConditionalPackagePart($scope.spec, $scope.newData).then(function(success){
+          $scope.applied = {text: 'Applied: ' + new Date().toISOString(), class:'mwtnSuccess'};
+          $scope.processing = false;
+        }, function(error){
+          $scope.applied = {text: 'Error: ' + new Date().toISOString(), class:'mwtnError'};
+          $scope.processing = false;
+          $mwtnLog.error({component: COMPONENT, message: JSON.stringify(error)});
+        });
+
+      };
+    
+      $scope.cancel = function () {
+        $uibModalInstance.close($scope.newData);
+      };
+
+    }]);
+
+    mwtnCommonsApp.register.controller('mwtnJsonViewerController', ['$scope', '$uibModal', '$mwtnGlobal', '$mwtnCommons', '$mwtnDatabase', '$mwtnLog',
+      function ($scope, $uibModal, $mwtnGlobal, $mwtnCommons, $mwtnDatabase, $mwtnLog) {
+        var vm = this;
+        var COMPONENT = 'mwtnJsonViewerController';
+        if ($scope.data) {
+          $scope.replace = false;
+          if ($scope.path && $scope.path.endsWith('-configuration') ) {
+            $scope.replace = true;
+          }
+          $scope.viewData = $mwtnGlobal.getViewData($scope.data, $scope.ne);
+          var path = [undefined, undefined, undefined];
+          if ($scope.path) {
+            path = $scope.path.split($mwtnCommons.separator);
+          }
+          $scope.spec = {
+            nodeId: $scope.networkElement,
+            revision: '2017-03-20',
+            pacId: path[0],
+            layer: '???',
+            layerProtocolId: path[1],
+            partId: path[2],
+            config: true
+          };
+
+          $scope.openConfigView = function(){
+            var modalInstance = $uibModal.open({
+              animation: true,
+              ariaLabelledBy: 'modal-title',
+              ariaDescribedBy: 'modal-body',
+              templateUrl: 'src/app/mwtnCommons/templates/openConfigView.html',
+              controller: 'openConfigViewController',
+              size: 'huge',
+              resolve: {
+                valueData: function () {
+                  return {spec:$scope.spec};
+                }
+              }
+            });
+            modalInstance.result.then(function(object) {
+              // update fetch new data from ODL
+              $mwtnCommons.getPacParts($scope.spec).then(function(success){
+                // intermedite step to display something, even processing fails or takes time
+                $scope.viewData = $mwtnGlobal.getViewData(success[$scope.spec.partId], $scope.ne);
+                // now the nice way ;)
+                $scope.viewData = processData($scope.schema);
+              }, function(error){
+                // ignore;
+              });
+            }, function () {
+                // ignore;
+            });
+          };
+          $scope.myClipboard = {
+            data: [$scope.data],
+            supported: true,
+            getJson: function () {
+              return JSON.stringify(this.data, null, ' ');
+            },
+            copyToClipboard: function () {
+              var message = 'Copied to clipboard! ' + this.getJson();
+              $mwtnLog.info({ component: COMPONENT, message: message });
+            },
+            error: function (err) {
+              $mwtnLog.error({ component: COMPONENT, message: err });
+            }
+          };
+
+          var processData = function(schema) {
+            var ordered = {};
+            var clone = JSON.parse(JSON.stringify($scope.viewData));
+            var keys = Object.keys(clone).map(function(key){
+              if ($mwtnGlobal.getType(key) !== 'string') {
+                console.log('key', key);
+                return;
+              }
+              var item = clone[key];
+              if (!schema[key]) {
+                var message = 'No schema information for ' + key;
+                $mwtnLog.warning({ component: COMPONENT, message: message });
+                item['order-number'] = $mwtnCommons.getOrderNumber(97, item);
+                item.description = 'No description available.';
+                item.visible = true;
+                return key;
+              }
+              item.unit = schema[key].unit;
+              item.description = schema[key].description;
+              item['order-number'] = $mwtnCommons.getOrderNumber(schema[key]['order-number'], item);
+              if (item.description === undefined || item.description === '') {
+                item.description = 'No description available.';
+              }
+              return key;
+            }).sort(function(a,b){
+              if (clone[a]['order-number'] < clone[b]['order-number']) return -1;
+              if (clone[a]['order-number'] > clone[b]['order-number']) return 1;
+              return 0;
+            }).map(function(key){
+              ordered[key] = clone[key];
+            });
+            return ordered;
+          };
+
+          $mwtnDatabase.getSchema().then(function(schema){
+            $scope.schema = schema;
+            $scope.viewData = processData($scope.schema);
+          }, function(error){
+            // ignore;
+          });
+        }
+    }]);
+    
+    mwtnCommonsApp.register.directive('mwtnJsonViewer', function () {
+      return {
+        restrict: 'E',
+        scope: {
+          data: '=',
+          path: '=',
+          ne: '=', // flag if ne class
+          networkElement: '='
+        },
+        controller: 'mwtnJsonViewerController',
+        controllerAs: 'vm',
+        templateUrl: 'src/app/mwtnCommons/templates/mwtnJsonViewer.tpl.html'
+      };
+    });
+
+    mwtnCommonsApp.register.controller('showGridCellDetailController', ['$scope', '$uibModalInstance', '$mwtnGlobal', 'valueData', 
+                                              function ($scope, $uibModalInstance, $mwtnGlobal, valueData) {
+
+      $scope.networkElement = valueData.networkElement;
+      $scope.path = valueData.path;
+      $scope.type = $mwtnGlobal.getType(valueData.value);
+      $scope.value = valueData.value;
+      // $scope.gridOptions = JSON.parse(JSON.stringify($mwtnCommons.gridOptions));
+      // $scope.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
+
+      console.log('valueData', JSON.stringify(valueData));
+
+      // $scope.ok = function () {
+      //   $scope.processing = true;
+      //   $mwtnCommons.setPacPartLists($scope.path, $scope.listData).then(function(success){
+      //     $scope.applied = {text: 'Applied: ' + new Date().toISOString(), class:'mwtnSuccess'};
+      //     $scope.processing = false;
+      //   }, function(error){
+      //     $scope.applied = {text: 'Error: ' + new Date().toISOString(), class:'mwtnError'};
+      //     $scope.processing = false;
+      //     $mwtnLog.error({component: COMPONENT, message: JSON.stringify(error)});
+      //   });
+
+      // };
+    
+      $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+      };
+
+    }]);
+
+    mwtnCommonsApp.register.controller('mwtnGridController', ['$scope', '$filter', '$uibModal', '$mwtnGlobal', '$mwtnCommons', '$mwtnLog',
+      function ($scope, $filter, $uibModal, $mwtnGlobal, $mwtnCommons, $mwtnLog) {
+        var vm = this;
+        var COMPONENT = 'mwtnGridController';
+
+        var data = JSON.parse(JSON.stringify($scope.data));
+        if (!data) {
+          var message = 'No data to be displayed!";'
+          $mwtnLog.info({ component: COMPONENT, message: message });
+          data = [{'message':message}];
+        }
+
+        if ($mwtnGlobal.getType(data) !== 'array')  {
+          var message = 'Data must be of type "array"!';
+          $mwtnLog.info({ component: COMPONENT, message: message });
+          data = [{'message':message}];
+        }
+
+        if (data.length === 0)  {
+          var message = 'Data list must have at least one entry!';
+          $mwtnLog.info({ component: COMPONENT, message: message });
+          data = [{'message':message}];
+        }
+
+        if ($mwtnGlobal.getType(data[0]) !== 'object')  {
+          data = data.map(function(item){
+            return {value: item};
+          });
+        }
+
+        $scope.gridOptions = JSON.parse(JSON.stringify($mwtnCommons.gridOptions));
+        $scope.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
+
+        $scope.getTableHeight = function() {
+          var rowHeight = 30; 
+          var headerHeight = 40; 
+          var maxCount = 12;
+          var rowCount = $scope.gridOptions.data.length + 2;
+          if (rowCount > maxCount) {
+            return {
+                height: (maxCount * rowHeight + headerHeight) + 'px'
+            };
+          }
+          return {}; // use auto-resize faeture
+        };
+
+        var getCellTemplate = function(field) {
+          var object = ['transmission-mode-list', 'performance-data'];
+          if (object.contains(field)) {
+            console.warn(JSON.stringify(field));
+            return ['<div class="ui-grid-cell-contents">',
+                    '<i class="fa fa-info-circle" aria-hidden="true"',
+                    ' ng-click="grid.appScope.show(grid.getCellValue(row, col))"',
+                    ' style="color: rgb(66, 139, 202); cursor: pointer;"></i> ',
+                    '{{grid.getCellValue(row, col)}}</div>'].join('');
+          }
+          return '<div class="ui-grid-cell-contents">{{grid.getCellValue(row, col)}}</div>';
+        };
+        $scope.show = function(value){
+          // console.warn(JSON.stringify(value));
+          var type = $mwtnGlobal.getType(value);
+          // if (type === 'object')
+          var modalInstance = $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'src/app/mwtnCommons/templates/showGridCellDetail.html',
+            controller: 'showGridCellDetailController',
+            size: 'huge',
+            resolve: {
+              valueData: function () {
+                return {networkElement: $scope.networkElement, path:$scope.path, value:value};
+              }
+            }
+          });
+        };
+        var enable = data.length > 10;
+        $scope.gridOptions.columnDefs = Object.keys(data[0]).map(function (field) {
+          var type = $mwtnGlobal.getType(data[0][field]);
+          var labelId = $mwtnGlobal.getLabelId(field);
+          var displayName = $filter('translate')(labelId);
+          var visible = $mwtnGlobal.getVisibilityOf(field);
+          if (labelId.contains('$$') || labelId === 'MWTN_SPEC') {
+            visible = false;
+          }
+          return {
+            field: field,
+            type: type,
+            displayName: displayName,
+            enableSorting: true,
+            enableFiltering: enable,
+            headerCellClass: $scope.highlightFilteredHeader,
+            cellTemplate: getCellTemplate(field),
+            cellClass: type,
+            visible: visible
+          };
+        });
+        if ($scope.gridOptions.data.length < 10) {
+          $scope.gridOptions.minRowsToShow =  data.length; // 10 is default
+        } 
+        $scope.gridOptions.data = data;
+        // .sort(function(a, b){
+        //           if (a.type === 'object') return -1;
+        //           if (a.type === 'array' ) return -2;
+        //           return 0;
+        //         })
+
+        $scope.myClipboard = {
+          data: $scope.data,
+          supported: true,
+          getJson: function () {
+            return JSON.stringify(this.data, null, ' ');
+          },
+          copyToClipboard: function () {
+            var message = 'Copied to clipboard! ' + this.getJson();
+            $mwtnLog.info({ component: COMPONENT, message: message });
+          },
+          error: function (err) {
+            $mwtnLog.error({ component: COMPONENT, message: err });
+          }
+        };
+    }]);
+
+    mwtnCommonsApp.register.directive('mwtnGrid', function () {
+      return {
+        restrict: 'E',
+        scope: {
+          data: '=',
+          path: '=',
+          networkElement: '='
+        },
+        controller: 'mwtnGridController',
+        controllerAs: 'vm',
+        templateUrl: 'src/app/mwtnCommons/templates/mwtnGrid.tpl.html'
+      };
+    });
+
     mwtnCommonsApp.register.controller('mwtnSelectNetworkElementController', ['$scope', '$mwtnCommons', function ($scope, $mwtnCommons) {
       var vm = this;
 
       /**
        * A function which scanns the mountpoints for connected network-elements and adds it to networkElements.
        * @param {{"onfAirInterfaceRevision": string, "node-id": string, "netconf-node-topology:connection-status": string}[]} mountpoints An array of mountpoints from OpenDaylight.
-       */    
-      var initNodeList = function(mountpoints) {
+       */
+      var initNodeList = function (mountpoints) {
         $scope.loading = true;
         $scope.mountPoints = mountpoints;
-        $scope.networkElements = mountpoints.filter(function(mountpoint){
+        $scope.networkElements = mountpoints.filter(function (mountpoint) {
           return mountpoint['netconf-node-topology:connection-status'] === 'connected';
-        }).map(function(mountpoint){
-          return {id:mountpoint['node-id'], revision:mountpoint.onfAirInterfaceRevision};  
-        }).sort(function(a, b){
-          if(a.id < b.id) return -1;
-          if(a.id > b.id) return 1;
+        }).map(function (mountpoint) {
+          return { id: mountpoint['node-id'], revision: mountpoint.onfAirInterfaceRevision };
+        }).sort(function (a, b) {
+          if (a.id < b.id) return -1;
+          if (a.id > b.id) return 1;
           return 0;
         });
-        
+
         $scope.networkElement = undefined;
         // select one of the nodes
-        var select = parseInt(Math.random()*$scope.networkElements.length);
+        var select = parseInt(Math.random() * $scope.networkElements.length);
         if (select !== undefined && $scope.networkElements[select]) {
-          $scope.networkElement = $scope.networkElements[select].id; 
-          $scope.mountpoint = $scope.mountPoints.filter(function(mountpoint){
+          $scope.networkElement = $scope.networkElements[select].id;
+          $scope.mountpoint = $scope.mountPoints.filter(function (mountpoint) {
             return mountpoint['node-id'] === $scope.networkElement;
           })[0];
-          
+
         }
         $scope.loading = false;
       };
 
-      $mwtnCommons.getMountPoints().then(function(mountpoints){
+      $mwtnCommons.getMountPoints().then(function (mountpoints) {
         initNodeList(mountpoints);
-      }, function(error){
+      }, function (error) {
         $scope.networkElements = [];
       });
     }]);
@@ -142,7 +543,94 @@ define(
       };
     });
 
-    mwtnCommonsApp.register.factory('$mwtnCommons', function ($http, $q, ENV, $mwtnLog, $mwtnDatabase, LogicalTerminationPoint) {
+    mwtnCommonsApp.register.factory('$mwtnGlobal', function () {
+      var service = {};
+
+      /** 
+       * Returns false, if parameter/attribute should be in visible
+       * @param {string} field - a json to be analyzed
+       * @return {boolean} true, if the parameter should be visible, otherwise false.
+       */
+      service.getVisibilityOf = function(field) {
+        var hide = ['name-binding', 'object-class'];
+        return !hide.contains(field);
+      };
+
+      /** 
+       * Returns the (json) type of a value
+       * @param {*} value - a json to be analyzed
+       * @return type of json
+       */
+      service.getType = function (value) {
+        var result = typeof value;
+        if (result === 'object' && JSON.stringify(value).substring(0, 1) === '[') {
+          result = 'array';
+        } else if (result === 'object' && value === null) {
+          result = 'null';
+        } else if (result === 'object' && value['value-name'] && value.value) {
+          result = 'name-value';
+        }
+        return result;
+      };
+
+      service.getLabelId = function (string) {
+        return ['mwtn', string].join('_').replaceAll('-', '_').toUpperCase();
+      };
+
+      var isIntesting = function(key) {
+        var instesting = ['name', 'local-id', 'label', 'extension', 'physical-port-reference', 'lp', 'server-ltp', 'client-ltp', 'layer-protocol-name'];
+        return instesting.contains(key);
+      }
+      /**
+       * Returns a simplfies json  for display
+       * @param {*} data - the json to be simplified
+       * @param {boolean} ne - control parameter for finetuning
+       * @return a simplfied json for display
+       */
+      service.getViewData = function (data, ne) {
+        var viewData = JSON.parse(JSON.stringify(data));
+        if (ne) {
+          viewData.ltp = undefined; 
+          viewData.fd = undefined;
+        }
+        Object.keys(viewData).map(function (key) {
+          var type = service.getType(viewData[key]);
+          var viewValue = { 
+            value: viewData[key], 
+            type: type, 
+            labelId: service.getLabelId(key),
+            visible: service.getVisibilityOf(key)
+          };
+          viewData[key] = viewValue;
+          if (type === 'array') {
+            if (key === 'extension') {
+              viewValue.value.map(function (item) {
+                viewData[item['value-name']] = { value: item.value, type: 'string', labelId:service.getLabelId(item['value-name']) };
+              });
+              viewData[key] = undefined;
+            } else if (viewValue.value.length === 1 && isIntesting(key)) {
+              // console.warn(key, JSON.stringify(viewData[key]));
+              var valueType = service.getType(viewValue.value[0]);
+              viewData[key].value = viewValue.value[0];
+              viewData[key].type = valueType;
+
+              if (valueType === 'object') {
+                viewData[key].value = service.getViewData(viewValue.value);
+              } else if (valueType === 'name-value') {
+                viewData[key].value = viewValue.value.value;
+                //viewData[key].type = 'string';
+              }
+            } else if (type === 'object') {
+              viewData[key].value = service.getViewData(viewValue.value);
+            }
+          }
+        });
+        return viewData;
+      };
+      return service;
+    });
+
+    mwtnCommonsApp.register.factory('$mwtnCommons', function ($http, $q, ENV, $mwtnGlobal, $mwtnLog, $mwtnDatabase, LogicalTerminationPoint) {
 
       var COMPONENT = '$mwtnCommons';
 
@@ -179,15 +667,33 @@ define(
         'sdn-controller': [],
         modules: {},
         layerProtocolNameOrder: {
-              'MWPS': 6,
-              'MWS': 5,
-              'ETC': 4,
-              'TDM': 3,
-              'ETY': 2,
-              'ETH-CTP': 1,
-              'ETH': 1,
-          }
+          'MWPS': 6,
+          'MWS': 5,
+          'ETC': 4,
+          'TDM': 3,
+          'ETY': 2,
+          'ETH-CTP': 1,
+          'ETH': 1,
+        }
       };
+
+      service.getOrderNumber = function(proposal, item){
+        var result = proposal;
+        if (item.type === 'array') {
+          proposal = 99;
+        } else if (item.type === 'object') {
+          proposal = 98;
+        } else if (item.labelId === 'MWTN_LOCAL_ID') {
+          proposal = -1;
+        } else if (item.labelId === 'MWTN_LABEL') {
+          proposal = -2;
+        } else if (item.labelId === 'MWTN_NAME') {
+          proposal = -3;
+        } else if (item.labelId === 'MWTN_UUID') {
+          proposal = -4;
+        }
+        return proposal;
+      }
 
       /**
        * A function to get the global-identifier of a condtional package subClass by a specifcation object of such subClass and a local-name.
@@ -355,18 +861,10 @@ define(
       service.getData = function (callback) {
         return callback('$mwtnCommons registered to this application.');
       };
-      /* 
-       * returns the (json) type of a value
-       */
-      service.getType = function (value) {
-        var result = typeof value;
-        if (result === 'object' && JSON.stringify(value).substring(0, 1) === '[') {
-          result = 'array';
-        } else if (result === 'object' && value === null) {
-          result = 'null';
-        }
-        return result;
-      };
+
+      service.getType = $mwtnGlobal.getType;
+      service.getViewData = $mwtnGlobal.getViewData;
+
       service.getLayer = function (pacId) {
         console.warn('@depricated', '$mwtnCommons.getLayer()');
         switch (pacId) {
@@ -557,6 +1055,15 @@ define(
               deferred.reject(error);
             });
             break;
+          case 'forwardingDomain':
+            console.warn('fd', JSON.stringify(spec));
+            service.getForwardingDomain(spec.nodeId, 'eth-switch').then(function (success) {
+              deferred.resolve(success);
+            }, function (error) {
+              $mwtnLog.error({ component: COMPONENT, message: 'Requesting forwarding domain for ' + spec.nodeId + ' failed!' });
+              deferred.reject(error);
+            });
+            break;
           case 'ltp':
             var ltpKey = 'ltp';
             switch (spec.revision) {
@@ -655,14 +1162,20 @@ define(
           case 'airinterface':
           case 'structure':
           case 'container':
-            if (spec.partId) {
+          // 4th PoC
+          case 'microwave-model:mw-air-interface-pac':
+          case 'microwave-model:mw-air-interface-diversity-pac':
+          case 'microwave-model:mw-pure-ethernet-structure-pac':
+          case 'microwave-model:mw-hybrid-mw-structure-pac':
+          case 'microwave-model:mw-tdm-container-pac':
+          case 'microwave-model:mw-ethernet-container-pac':
+          case 'onf-ethernet-conditional-packages:ethernet-pac':
               service.setConditionalPackagePart(spec, data).then(function (success) {
                 deferred.resolve(success);
               }, function (error) {
                 $mwtnLog.error({ component: COMPONENT, message: 'Modification of ' + JSON.stringify(spec) + ' failed!' });
                 deferred.reject(errorMsg);
               });
-            }
             break;
           default:
             $mwtnLog.error({ component: COMPONENT, message: 'Modification of ' + spec.pacId + ' not supported!' });
@@ -697,14 +1210,20 @@ define(
           case 'airinterface':
           case 'structure':
           case 'container':
-            if (spec.partId === 'Configuration') {
+          // 4th PoC
+          case 'microwave-model:mw-air-interface-pac':
+          case 'microwave-model:mw-air-interface-diversity-pac':
+          case 'microwave-model:mw-pure-ethernet-structure-pac':
+          case 'microwave-model:mw-hybrid-mw-structure-pac':
+          case 'microwave-model:mw-tdm-container-pac':
+          case 'microwave-model:mw-ethernet-container-pac':
+          case 'onf-ethernet-conditional-packages:ethernet-pac':
               service.setConditionalPackagePartList(spec, listData).then(function (success) {
                 deferred.resolve(success);
               }, function (error) {
                 $mwtnLog.error({ component: COMPONENT, message: 'Modification of ' + JSON.stringify(spec) + ' failed!' });
                 deferred.reject(errorMsg);
               });
-            }
             break;
           default:
             $mwtnLog.error({ component: COMPONENT, message: 'Modification of ' + spec.pacId + ' not supported!' });
@@ -978,6 +1497,9 @@ define(
           // return 'config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector/' + neId; // depricated 
           return 'config/network-topology:network-topology/topology/topology-netconf/node/' + neId;
         },
+        forwardingDomain: function (neId, fdUuid) {
+          return 'operational/network-topology:network-topology/topology/topology-netconf/node/' + neId + '/yang-ext:mount/core-model:network-element/fd/' +fdUuid;
+        },
         clock: function (neId, revision) {
           return 'operational/network-topology:network-topology/topology/topology-netconf/node/' + neId + '/yang-ext:mount/ietf-ptp-dataset:instance-list/1';
         },
@@ -1041,7 +1563,7 @@ define(
           .replace(/RefList+$/, '')                // endling "List" was removed
           .replace(/List+$/, '')                   // endling "List" was removed
           .replace(/([a-z])([A-Z])/g, '$1-$2')    // insert dashes
-          .replace(/([0-9])([a-zA-Z])/g, '$1-$2') // insert dashes
+          .replace(/([0-9])([a-zA-Z])/g, '$1-$2')       // insert dashes
           .replace(/([A-Z])([A-Z])([a-z])/g, '$1-$2$3') // insert dashes
           .toLowerCase()                            // lowercase everything
           .replace(/^_/, '')                       // remove leading underscore
@@ -1050,15 +1572,29 @@ define(
 
         // catch "wrong" UML labels
         var exceptions = {
-          'current-performance-data': 'current-performance-data-list',
+          'air-interface':'air-interface-list',
+          'air-interface-ltp':'air-interface-ltp-list',
           'air-interface-capability': 'air-interface-capability-list',
           'air-interface-current-problem': 'air-interface-current-problem-list',
+          'container-capability': 'container-capability-list',
+          'current-performance-data':'current-performance-data-list',
+          'current-problem':'current-problem-list',
+          'historical-performance-data':'historical-performance-data-list',
+          'problem-kind-severity':'problem-kind-severity-list',
+          'pure-ethernet-structure-capability':'pure-ethernet-structure-capability-list',
+          'segment-status':'segment-status-list',
+          'segments-id':'segments-id-list',
           'structure-capability': 'structure-capability-list',
           'structure-current-problem': 'structure-current-problem-list',
-          'container-capability': 'container-capability-list',
+          'supported-tdm-container-types':'supported-tdm-container-types-list',
+          'supported-tdm-structure-types':'supported-tdm-structure-types-list',
+          'supported-channel-plan':'supported-channel-plan-list',
+          'supported-loop-back-kind':'transmission-mode-list',
+          'transmission-mode':'transmission-mode-list'
         };
         if (exceptions[result]) {
-          // result=exceptions[result]; // TODO is this needed or not - maybe depend on revision?
+          console.warn(result, '.>', exceptions[result]);
+          result=exceptions[result];
         }
 
         // catch modulation value difference
@@ -1112,6 +1648,7 @@ define(
         var type = service.getType(jsonObject);
         switch (type) {
           case 'object':
+          case 'name-value':
             result = {};
             Object.keys(jsonObject).map(function (key) {
               result[service.yangify(key)] = service.yangifyObject(jsonObject[key]);
@@ -1196,7 +1733,30 @@ define(
         return deferred.promise;
       };
 
-      service.getClock = function (neId, revision) {
+      service.getForwardingDomain = function(neId, fdUuid) {
+        var url = [service.base,
+        service.url.forwardingDomain(neId, fdUuid)].join('');
+        var request = {
+          method: 'GET',
+          url: url
+        };
+        var taskId = [neId, 'ONF:ForwardingDomain received'].join(' ');
+
+        var deferred = $q.defer();
+        console.time(taskId);
+        $http(request).then(function (success) {
+          console.timeEnd(taskId);
+          //  deferred.resolve(service.yangifyObject(success.data));
+          deferred.resolve(success.data);
+        }, function (error) {
+          console.timeEnd(taskId);
+          $mwtnLog.info({ component: '$mwtnCommons.getForwardingDomain', message: JSON.stringify(error.data) });
+          deferred.reject(error);
+        });
+        return deferred.promise;
+      };
+
+      service.getClock = function(neId, revision) {
         var url = [service.base,
         service.url.clock(neId, revision)].join('');
         var request = {
@@ -1358,9 +1918,13 @@ define(
         }
 
         var ids = getIdsByRevision(spec.revision, spec.pacId, spec.partId);
+        var operation = 'operational';
+        if (spec.config === true) {
+          operation = 'config';
+        }
 
-        var url = [service.base,
-          'operational/network-topology:network-topology/topology/topology-netconf/node/',
+        var url = [service.base, operation,
+          '/network-topology:network-topology/topology/topology-netconf/node/',
         spec.nodeId,
           '/yang-ext:mount/', ids.pacId, '/',
         spec.layerProtocolId, '/',
@@ -1413,19 +1977,9 @@ define(
           },
           data: body
         };
-        //  var request = {
-        //      method : 'PATCH',
-        //      url : url,
-        //      headers: {
-        //        'Content-Type': 'application/yang.patch+json'
-        //      },
-        //      data : body
-        //    };
-        // console.log(JSON.stringify(request));
 
         var taskId = [spec.nodeId, spec.layerProtocolId, spec.pacId, 'data received'].join(' ');
         console.time(taskId);
-
         $http(request).then(function (success) {
           console.timeEnd(taskId);
           success.data.revision = spec.revision;
@@ -2360,7 +2914,7 @@ define(
       return ActualNetworkElement;
     });
 
-    mwtnCommonsApp.register.factory('LogicalTerminationPoint', function ($mwtnLog) {
+    mwtnCommonsApp.register.factory('LogicalTerminationPoint', function ($mwtnGlobal, $mwtnLog) {
       // Sub-Class LayerProtocol
       /**
         * An object representing an LP.
@@ -2383,7 +2937,7 @@ define(
           'mws-ctp': { 'capability': 'uri:onf:MicrowaveModel-ObjectClasses-PureEthernetStructure?module=MicrowaveModel-ObjectClasses-PureEthernetStructure', 'revision': '2016-09-02', 'conditional-package': 'MW_PureEthernetStructure_Pac' },
           'mwps-ctp': { 'capability': 'uri:onf:MicrowaveModel-ObjectClasses-AirInterface?module=MicrowaveModel-ObjectClasses-AirInterface', 'revision': '2016-09-01', 'conditional-package': 'MW_AirInterface_Pac' },
           // 'mws-ctp': { 'capability': 'urn:onf:params:xml:ns:yang:microwave-model?module=microwave-model', 'revision': '2017-03-24', 'conditional-package': 'mw-air-interface-diversity-pac' },
-          
+
           'eth-ctp': { 'capability': 'urn:onf:params:xml:ns:yang:onf-ethernet-conditional-packages?module=onf-ethernet-conditional-packages', 'revision': '2017-04-02', 'conditional-package': 'ethernet-pac' },
           // 3rd PoC
           'mwps-ttp': { 'capability': 'uri:onf:MicrowaveModel-ObjectClasses-AirInterface?module=MicrowaveModel-ObjectClasses-AirInterface', 'revision': '2016-09-01', 'conditional-package': 'MW_AirInterface_Pac' },
@@ -2396,7 +2950,7 @@ define(
           data.extension = [];
         }
         this.data = data;
-        
+
         // methods
         this.getData = function () {
           return this.data;
@@ -2405,13 +2959,13 @@ define(
           return this.getData().uuid;
         };
         this.getLabel = function () {
-          return ['LP(', this.getItuLabel(true), '): ', this.getId()].join('');
+          return ['LP(', this.getItuLabel(true).toUpperCase(), '): ', this.getId()].join('');
         };
         this.getLayer = function () {
           var layer = this.getData()['layer-protocol-name'];
           if (layer === 'ETH-CTP') {
             layer = 'ETC';
-          } 
+          }
           return layer;
         };
         this.getTerminationState = function (abstract) {
@@ -2451,7 +3005,7 @@ define(
           // check hardcoded alternatives
           var ituLabel = this.getItuLabel();
           if (!defaultMapping[ituLabel]) {
-            console.warn('No default mapping found for ' +  ituLabel );
+            console.warn('No default mapping found for ' + ituLabel);
             return '';
           }
           return defaultMapping[ituLabel][key];
@@ -2539,28 +3093,73 @@ define(
       return LogicalTerminationPoint;
     });
 
-    mwtnCommonsApp.register.factory('OnfNetworkElement', function (LogicalTerminationPoint) {
+    mwtnCommonsApp.register.factory('PtpClock', function (PtpPort) {
+      var PtpClock = function (data) {
+        var COMPONENT = "PtpClock";
+        this.data = data['instance-list'][0];
+        if (!this.data['port-ds-list'] || this.data['port-ds-list'].length === 0) {
+          this.ptpPorts = [];
+          var message = ['The PTP clock', data['instance-number'], 'dose not support a single PTP port.'].join(' ');
+          console.info({ component: COMPONENT, message: message });
+        } else {
+          this.ptpPorts = this.data['port-ds-list'].map(function(ptpPort) {
+            return new PtpPort(ptpPort);
+          });
+        }
+
+        this.getData = function () {
+          return this.data;
+          // return JSON.parse(JSON.stringify(this.data).replaceAll('onf-ptp-dataset:', ''));
+        };
+        this.getPtpPorts = function () {
+          return this.ptpPorts;
+        };
+      };
+      return PtpClock;
+    });
+
+    mwtnCommonsApp.register.factory('PtpPort', function () {
+      var PtpPort = function (data) {
+        this.getData = function () {
+          return this.data;
+        };
+      };
+      return PtpPort;
+    });
+
+    mwtnCommonsApp.register.factory('OnfNetworkElement', function ($mwtnGlobal, LogicalTerminationPoint) {
       // Classes
       // Class OnfNetworkElement
       var OnfNetworkElement = function (data) {
+        var COMPONENT = "OnfNetworkElement";
         this.data = data;
         // console.log(JSON.stringify(data));
-        this.logicalTerminationPoints = this.data.ltp.map(function (logicalTerminationPoint) {
-          return new LogicalTerminationPoint(logicalTerminationPoint);
-        });
+        if (!this.data.ltp || this.data.ltp.length === 0) {
+          this.logicalTerminationPoints = [];
+          var message = ['The network-element', data.uuid, 'dose not support a single LTP. No LTP -> no SDN integration via ONF core-model.'].join(' ');
+          // TODO $mwtnLog -> Unknown provider: $mwtnlogProvider <- $mwtnlog <- OnfNetworkElement [sko] Dont get it ;(
+          console.error({ component: COMPONENT, message: message });
+        } else {
+          this.logicalTerminationPoints = this.data.ltp.map(function (logicalTerminationPoint) {
+            return new LogicalTerminationPoint(logicalTerminationPoint);
+          });
+        }
 
         this.getData = function () {
           return this.data;
         };
+        this.getForwardingDomain = function () {
+          return this.getData().fd;
+        };
         this.getName = function () {
-          return this.data.name[0].value;
+          return this.getData().name[0].value || this.getData().uuid;
         };
         this.getLogicalTerminationPoints = function () {
           return this.logicalTerminationPoints;
         };
         this.getLtp = function (id) {
           var result = this.getLogicalTerminationPoints().filter(function (ltp) {
-            return ltp.getId() === id; 
+            return ltp.getId() === id;
           });
           if (result.length === 1) {
             return result[0];

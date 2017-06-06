@@ -1,0 +1,69 @@
+
+<div class="modal-header">
+	<h3 class="modal-title" id="modal-title">{{'MWTN_CONFIGURATION' | translate}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+	<div class="container" style="width:100%">
+		<div class="row">
+			<div class="col-md-3 text-right" >
+			{{'MWTN_NETWORKELEMENT' | translate}}
+			</div>
+			<div class="col-md-9">
+			<b>{{spec.nodeId}}</b>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3 text-right" >
+			{{'MWTN_CONDITIONAL_PACKAGE' | translate}}
+			</div>
+			<div class="col-md-9">
+			<b>{{spec.pacId}}</b>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3 text-right" >
+			{{'MWTN_LP' | translate}}
+			</div>
+			<div class="col-md-9">
+			<b>{{spec.layerProtocolId}}</b>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3 text-right" >
+			{{'MWTN_SUBOBJECT' | translate}}
+			</div>
+			<div class="col-md-9">
+			<b>{{spec.partId}}</b>
+			</div>
+			<hr />
+		</div>
+		<div class="row">
+
+			<div ng-repeat="(key, item) in viewData" ng-if="item.visible === true">
+
+        <!-- text, number, combo -->
+      	<div class="col-md-3 text-right radio">{{item.labelId | translate}}</div>
+				<div ng-class="{'col-md-2':item.unit, 'col-md-3':!item.unit}" class="form-group" ng-if="item.controlType !== 'checkbox' && getType(item.controlType) !== 'array'">
+				  <input class="form-control" type="{{item.controlType}}" ng-model="item.value"></input> 
+				</div>
+				<div class="col-md-3 checkbox" ng-if="item.controlType === 'checkbox'"><input type="checkbox" ng-model="item.value" /></div> 
+				<div ng-class="{'col-md-2':item.unit, 'col-md-3':!item.unit}" class="form-group" ng-if="getType(item.controlType) === 'array'">
+				  <select class="form-control" ng-model="item.value">
+				    <option ng-repeat="option in item.controlType track by $index" value="{{option}}">{{option}}</option>
+          </select>
+				</div>
+				<div class="col-md-1 radio" ng-if="item.unit">
+          <span class="owl-dark">{{item.unit}}</span>
+        </div>
+
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+    <div class="{{applied.class}}", ng-show="applied">{{applied.text}}</div>
+		<button class="btn btn-primary" type="button" ng-click="ok()">
+	    <span style="color: white;">{{'MWTN_APPLY' | translate}}</span>
+	    <i class="pull-right fa fa-spinner fa-pulse" ng-show="processing"></i>
+	</button>
+	<button class="btn btn-warning" type="button" ng-click="cancel()">{{'MWTN_CLOSE' | translate}}</button>
+</div>
