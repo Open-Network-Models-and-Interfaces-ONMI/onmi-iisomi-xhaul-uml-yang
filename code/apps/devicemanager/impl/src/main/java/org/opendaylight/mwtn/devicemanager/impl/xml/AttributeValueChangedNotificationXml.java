@@ -10,11 +10,12 @@ package org.opendaylight.mwtn.devicemanager.impl.xml;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.notifications.rev160809.AttributeValueChangedNotification;
+import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
 
 @XmlRootElement(name = "AttributeValueChangedNotification")
-public class AttributeValueChangedNotificationXml extends MwtNotificationBase {
+public class AttributeValueChangedNotificationXml extends MwtNotificationBase implements GetEventType {
+
+    private static String EVENTTYPE =  "AttributeValueChangedNotification";
 
     @XmlElement(name = "attributeName")
     private String attributeName;
@@ -26,20 +27,20 @@ public class AttributeValueChangedNotificationXml extends MwtNotificationBase {
 
     }
 
-    public AttributeValueChangedNotificationXml(String nodeName, AttributeValueChangedNotification notification) {
-        super(nodeName, notification.getCounter().toString(), notification.getTimeStamp().getValue(),
-// Avadh                notification.getObjectId().getValue());
-                notification.getObjectIdRef().getValue());
-        this.attributeName = notification.getAttributeName();
-        this.newValue = notification.getNewValue();
-    }
-
-    public AttributeValueChangedNotificationXml(String nodeName, org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.AttributeValueChangedNotification notification) {
-        super(nodeName, notification.getCounter().toString(), notification.getTimeStamp().getValue(),
-// Avadh                notification.getObjectId().getValue());
-                notification.getObjectIdRef().getValue());
-        this.attributeName = notification.getAttributeName();
-        this.newValue = notification.getNewValue();
+    /**
+     * Normalized notification
+     * @param nodeName name of mountpoint
+     * @param counter of notification
+     * @param timeStamp from ne
+     * @param objectIdRef from ne
+     * @param attributeName from ne
+     * @param newValue from ne
+     */
+    public AttributeValueChangedNotificationXml(String nodeName, String counter, InternalDateAndTime timeStamp, String objectIdRef,
+            String attributeName, String newValue) {
+        super(nodeName, counter, timeStamp, objectIdRef);
+        this.attributeName = attributeName;
+        this.newValue = newValue;
     }
 
     public String getAttributeName() {
@@ -48,6 +49,11 @@ public class AttributeValueChangedNotificationXml extends MwtNotificationBase {
 
     public String getNewValue() {
         return newValue;
+    }
+
+    @Override
+    public String getEventType() {
+        return EVENTTYPE;
     }
 
 }

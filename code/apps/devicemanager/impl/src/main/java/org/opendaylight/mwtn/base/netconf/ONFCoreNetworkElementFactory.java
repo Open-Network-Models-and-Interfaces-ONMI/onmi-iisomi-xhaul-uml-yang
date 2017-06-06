@@ -6,10 +6,10 @@ import org.opendaylight.controller.md.sal.binding.api.ReadTransaction;
 import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
 import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
 import org.opendaylight.mwtn.devicemanager.impl.database.service.HtDatabaseEventsService;
-import org.opendaylight.mwtn.devicemanager.impl.xml.XmlMapper;
+import org.opendaylight.mwtn.devicemanager.impl.xml.WebSocketServiceClient;
+import org.opendaylight.mwtn.ecompConnector.impl.EventProviderClient;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.NetconfNode;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.NetconfNodeConnectionStatus.ConnectionStatus;
-import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.websocketmanager.rev150105.WebsocketmanagerService;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node;
 import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
 import org.slf4j.Logger;
@@ -25,9 +25,8 @@ public class ONFCoreNetworkElementFactory {
     private static final Logger LOG = LoggerFactory.getLogger(ONFCoreNetworkElementFactory.class);
 
     public static ONFCoreNetworkElementRepresentation create( String mountPointNodeName,
-            DataBroker dataBroker, WebsocketmanagerService websocketmanagerService,
-            XmlMapper xmlMapper, HtDatabaseEventsService databaseService, InstanceIdentifier<Node> instanceIdentifier,
-            DataBroker mountpointDataBroker ) {
+            DataBroker dataBroker, WebSocketServiceClient webSocketService, HtDatabaseEventsService databaseService, InstanceIdentifier<Node> instanceIdentifier,
+            DataBroker mountpointDataBroker, EventProviderClient ecompProvider ) {
 
         ReadTransaction tx=dataBroker.newReadOnlyTransaction();
         ONFCoreNetworkElementRepresentation res = null;
@@ -44,9 +43,9 @@ public class ONFCoreNetworkElementFactory {
 
                         LOG.info("Mountpoint {} capabilities {}",mountPointNodeName, capabilities);
 
-                        res = ONFCoreNetworkElement10.build(mountPointNodeName, capabilities, mountpointDataBroker, websocketmanagerService, xmlMapper, databaseService );
+                        res = ONFCoreNetworkElement10.build(mountPointNodeName, capabilities, mountpointDataBroker, webSocketService, databaseService, ecompProvider);
                         if (res == null) {
-                            res = ONFCoreNetworkElement12.build(mountPointNodeName, capabilities, mountpointDataBroker, websocketmanagerService, xmlMapper, databaseService);
+                            res = ONFCoreNetworkElement12.build(mountPointNodeName, capabilities, mountpointDataBroker, webSocketService, databaseService, ecompProvider);
                         }
                     }
                 }

@@ -2,6 +2,7 @@ package org.opendaylight.mwtn.devicemanager.impl.database.types;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.opendaylight.mwtn.base.database.EsObject;
@@ -16,7 +17,7 @@ public class EsFaultCurrent extends EsObject {
 
     public static final String ESDATATYPENAME = "faultcurrent";
     private static final Pattern pattern = Pattern.compile(".*\\[layerProtocol=(.*)\\]");
-    private static final String NOALARM = "NonAlarmed";
+    //private static final String NOALARM = "NonAlarmed";
 
     private ProblemNotificationXml faultCurrent;
 
@@ -30,13 +31,21 @@ public class EsFaultCurrent extends EsObject {
     }
 
     public boolean isNoAlarmIndication() {
-        return NOALARM.contentEquals(faultCurrent.getSeverity());
+        return faultCurrent.getSeverity().isNoAlarmIndication();
     }
 
     public static QueryBuilder getQueryForOneNode( String nodeName) {
         return QueryBuilders.termQuery("faultCurrent.nodeName", nodeName);
     }
 
+    public static QueryBuilder getQueryForOneNodeAndObjectId( String nodeName, String objectId) {
+        BoolQueryBuilder bq = QueryBuilders.boolQuery();
+        bq.must(QueryBuilders.termQuery("faultCurrent.nodeName", nodeName));
+        bq.must(QueryBuilders.termQuery("faultCurrent.objectId", objectId));
+        return bq;
+        //return QueryBuilders.termQuery("faultCurrent.objectId", objectId);
+
+    }
 
     public static String getEsdatatypename() {
         return ESDATATYPENAME;

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
+import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
+import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.UniversalId;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.logical.termination.point.g.Lp;
@@ -69,8 +71,9 @@ public class WrapMwAirInterfacePac12 {
         } else {
             for ( AirInterfaceCurrentProblemTypeG problem : airProblems.getCurrentProblemList()) {
                 resultList.add(new ProblemNotificationXml(mountPointNodeName, interfacePacUuid.getValue(),
-                        problem.getProblemName(), problem.getProblemSeverity().toString(),
-                        problem.getSequenceNumber().toString(), problem.getTimeStamp().getValue()));
+                        problem.getProblemName(), InternalSeverity.valueOf(problem.getProblemSeverity()),
+                        problem.getSequenceNumber().toString(), InternalDateAndTime.valueOf(problem.getTimeStamp())));
+
             }
         }
         return resultList;

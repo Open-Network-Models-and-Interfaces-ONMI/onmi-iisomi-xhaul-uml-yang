@@ -1,10 +1,10 @@
-/*
-* Copyright (c) 2016 Wipro Ltd. and others. All rights reserved.
-*
-* This program and the accompanying materials are made available under the
-* terms of the Eclipse Public License v1.0 which accompanies this distribution,
-* and is available at http://www.eclipse.org/legal/epl-v10.html
-*/
+/**
+ * Copyright (c) 2017 highstreet technologies GmbH
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v1.0 which accompanies this distribution,
+ * and is available at http://www.eclipse.org/legal/epl-v10.html
+ */
 
 package org.opendaylight.mwtn.devicemanager.impl;
 
@@ -25,11 +25,14 @@ import org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElementFactory;
 import org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElementRepresentation;
 import org.opendaylight.mwtn.config.impl.HtConfiguration;
 import org.opendaylight.mwtn.config.impl.HtDatabaseConfigService;
+import org.opendaylight.mwtn.deviceMonitor.impl.DeviceMonitorImpl;
 import org.opendaylight.mwtn.devicemanager.api.DeviceManagerService;
 import org.opendaylight.mwtn.devicemanager.impl.database.service.HtDatabaseEventsService;
 import org.opendaylight.mwtn.devicemanager.impl.listener.NetconfSubscriptionManagerOfDeviceManager;
 import org.opendaylight.mwtn.devicemanager.impl.listener.ODLEventListener;
+import org.opendaylight.mwtn.devicemanager.impl.xml.WebSocketServiceClient;
 import org.opendaylight.mwtn.devicemanager.impl.xml.XmlMapper;
+import org.opendaylight.mwtn.ecompConnector.impl.EventProviderClient;
 import org.opendaylight.mwtn.performancemanager.impl.PerformanceManagerImpl;
 import org.opendaylight.mwtn.performancemanager.impl.database.service.MicrowaveHistoricalPerformanceWriterService;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.netconf.notification._1._0.rev080714.CreateSubscriptionInputBuilder;
@@ -66,8 +69,9 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
     private ProviderContext session;
     private DataBroker dataBroker;
 
-    private WebsocketmanagerService websocketmanagerService;
-    private XmlMapper xmlMapper;
+    private WebSocketServiceClient webSocketService;
+    //private WebsocketmanagerService websocketmanagerService;
+    //private XmlMapper xmlMapper;
     private HtDatabaseEventsService databaseClientEvents;
     private MicrowaveHistoricalPerformanceWriterService databaseClientHistoricalPerformance;
     private ODLEventListener odlEventListener;
@@ -76,17 +80,28 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
     //private HashMap<String, MicrowaveEventListener> microwaveEventListeners;
     private final HashMap<String, ONFCoreNetworkElementRepresentation> networkElementRepresentations = new HashMap<>();
     private PerformanceManagerImpl performanceManager;
+    private EventProviderClient ecompProvider;
+    private DeviceMonitorImpl deviceMonitor;
+
 
     @Override
     public void onSessionInitiated(ProviderContext pSession) {
-        LOG.info("EventManagerImpl Session Initiated");
+        LOG.info("Session Initiated start");
         this.session = pSession;
         this.dataBroker = pSession.getSALService(DataBroker.class);
-        this.websocketmanagerService = pSession.getRpcService(WebsocketmanagerService.class);
-        this.xmlMapper = new XmlMapper();
+
+        this.webSocketService = new WebSocketServiceClient(
+                pSession.getRpcService(WebsocketmanagerService.class),
+                new XmlMapper());
+
+        //this.websocketmanagerService = pSession.getRpcService(WebsocketmanagerService.class);
+        //this.xmlMapper = new XmlMapper();
 
         // Get configuration data from database on localhost server
         HtDatabaseConfigService htConfigurationService = new HtDatabaseConfigService();
+
+        //ECOMP
+        this.ecompProvider = new EventProviderClient(htConfigurationService);
 
         //EM
         HtConfiguration configurationEvenManager = htConfigurationService.getHtConfiguration(MYCONFIGURATIONID);
@@ -99,7 +114,7 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
             this.databaseClientEvents = new HtDatabaseEventsService(configurationEvenManager.getIndex(), configurationEvenManager.getHost(),
                     configurationEvenManager.getCluster(), configurationEvenManager.getNode(), MYCONFIGURATIONID);
 
-            this.odlEventListener = new ODLEventListener(MYDBKEYNAME, websocketmanagerService, xmlMapper, databaseClientEvents);
+            this.odlEventListener = new ODLEventListener(MYDBKEYNAME, webSocketService, databaseClientEvents, ecompProvider);
             this.netconfSubscriptionManager = new NetconfSubscriptionManagerOfDeviceManager(this, dataBroker);
             this.netconfSubscriptionManager.register();
 
@@ -118,7 +133,10 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
             this.performanceManager = new PerformanceManagerImpl(60, databaseClientHistoricalPerformance);
         }
 
+        //DeviceMonitor
+        this.deviceMonitor = new DeviceMonitorImpl(odlEventListener);
 
+        LOG.info("Session Initiated end");
     }
 
     @Override
@@ -127,10 +145,13 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
         if (performanceManager != null) {
             performanceManager.close();
         }
+        this.deviceMonitor.close();
     }
 
     @Override
-    public void startListenerOnNode(String mountPointNodeName) {
+    public void startListenerOnNode(NodeId nNodeId, NetconfNode nNode) {
+
+        String mountPointNodeName = nNodeId.getValue();
         LOG.info("Starting Event listener on Netconf device :: Name : {}", mountPointNodeName);
 
         MountPointService mountService = session.getSALService(MountPointService.class);
@@ -171,7 +192,9 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
 
         //MicrowaveEventListener microwaveEventListener = new MicrowaveEventListener(mountPointNodeName, websocketmanagerService, xmlMapper, databaseClientEvents);
         ONFCoreNetworkElementRepresentation ne = ONFCoreNetworkElementFactory.create(
-                mountPointNodeName, dataBroker, websocketmanagerService, xmlMapper, databaseClientEvents, instanceIdentifier, netconfNodeDataBroker);
+                mountPointNodeName, dataBroker, webSocketService,
+                databaseClientEvents, instanceIdentifier, netconfNodeDataBroker,
+                ecompProvider);
         networkElementRepresentations.put(mountPointNodeName, ne);
         ne.doRegisterMicrowaveEventListener(mountPoint);
 
@@ -184,19 +207,19 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
 
         //Register netconf stream
         {
-	        final String streamName = "NETCONF";
-	        final Optional<RpcConsumerRegistry> optionalRpcConsumerService = mountPoint.getService(RpcConsumerRegistry.class);
-	        final RpcConsumerRegistry rpcConsumerRegitry = optionalRpcConsumerService.get();
-	        final NotificationsService rpcService = rpcConsumerRegitry.getRpcService(NotificationsService.class);
+            final String streamName = "NETCONF";
+            final Optional<RpcConsumerRegistry> optionalRpcConsumerService = mountPoint.getService(RpcConsumerRegistry.class);
+            final RpcConsumerRegistry rpcConsumerRegitry = optionalRpcConsumerService.get();
+            final NotificationsService rpcService = rpcConsumerRegitry.getRpcService(NotificationsService.class);
 
-	        final CreateSubscriptionInputBuilder createSubscriptionInputBuilder = new CreateSubscriptionInputBuilder();
-	        createSubscriptionInputBuilder.setStream(new StreamNameType(streamName));
-	        LOG.info("Event listener triggering notification stream {} for node {}", streamName, mountPointNodeName);
-	        try {
-	            rpcService.createSubscription(createSubscriptionInputBuilder.build());  //  <----- Problem hier
-	        } catch (NullPointerException e) {
-	            LOG.error("createSubscription failed", e);
-	        }
+            final CreateSubscriptionInputBuilder createSubscriptionInputBuilder = new CreateSubscriptionInputBuilder();
+            createSubscriptionInputBuilder.setStream(new StreamNameType(streamName));
+            LOG.info("Event listener triggering notification stream {} for node {}", streamName, mountPointNodeName);
+            try {
+                rpcService.createSubscription(createSubscriptionInputBuilder.build());  //  <----- Problem hier
+            } catch (NullPointerException e) {
+                LOG.warn("createSubscription failed", e.getMessage());
+            }
         }
 
         //-- Read data from NE
@@ -204,11 +227,14 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
         //-- Register NE to performance manager
         performanceManager.registration(mountPointNodeName, ne);
 
+        deviceMonitor.deviceConnectIndication(mountPointNodeName, ne);
+
         LOG.info("Starting Event listener on Netconf device :: Name : {} finished", mountPointNodeName);
     }
 
     @Override
-    public void removeListenerOnNode(String mountPointNodeName) {
+    public void removeListenerOnNode(NodeId nNodeId, NetconfNode nNode) {
+        String mountPointNodeName = nNodeId.getValue();
         LOG.info("Removing NetworkElementRepresetations for device :: Name : {}", mountPointNodeName);
         ONFCoreNetworkElementRepresentation ne = networkElementRepresentations.remove(mountPointNodeName);
         if (ne != null) {
@@ -217,10 +243,41 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
         } else {
             LOG.warn("No related microwaveEventListener");
         }
+        deviceMonitor.deviceDisconnectIndication(mountPointNodeName);
         odlEventListener.deRegistration(mountPointNodeName);
         performanceManager.deRegistration(mountPointNodeName);
     }
 
+    @Override
+    public void mountpointNodeCreation(NodeId nNodeId, NetconfNode nNode) {
+        LOG.info("mountpointNodeCreation {} {}", nNodeId.getValue(), nNode.getConnectionStatus());
+        String mountPointNodeName = nNodeId.getValue();
+        deviceMonitor.createMountpointIndication(mountPointNodeName);
+    }
+
+    @Override
+    public void mountpointNodeRemoved(NodeId nNodeId) {
+        LOG.info("mountpointNodeRemoved {}", nNodeId.getValue());
+        String mountPointNodeName = nNodeId.getValue();
+        deviceMonitor.removeMountpointIndication(mountPointNodeName);
+    }
+
+    /* Old implementation */
+    @Override
+    public void startListenerOnNode(String mountPointNodeName) {
+        LOG.info("Depreciated startListenerOnNode {}", mountPointNodeName);
+    }
+
+    /* Old implementation */
+    @Override
+    public void removeListenerOnNode(String mountPointNodeName) {
+        LOG.info("Depreciated removeListenerOnNode {}", mountPointNodeName);
+    }
+
+
+    /*-----------------------------------------------------------------------------------------------------------------------------
+     * Informational
+     */
 
     // Referenz: https://github.com/opendaylight/coretutorials/blob/master/ncmount/impl/src/main/java/ncmount/impl/NcmountProvider.java
     // Keyzeile: NetconfNode nnode=node.getAugmentation(NetconfNode.class);

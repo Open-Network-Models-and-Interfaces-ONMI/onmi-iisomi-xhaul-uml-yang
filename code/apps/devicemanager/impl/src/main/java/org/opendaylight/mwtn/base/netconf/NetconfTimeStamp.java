@@ -12,11 +12,12 @@ import org.slf4j.LoggerFactory;
 
 public class NetconfTimeStamp {
     private static final Logger LOG = LoggerFactory.getLogger(NetconfTimeStamp.class);
-    private static TimeZone TIMEZONEUTC = TimeZone.getTimeZone("GMT");
-    private static SimpleDateFormat dateFormatResult;
+
+    private static final TimeZone TIMEZONEUTC = TimeZone.getTimeZone("GMT");
+    private static final SimpleDateFormat dateFormatResult = init("yyyyMMddHHmmss.S'Z'",TIMEZONEUTC);
+    private static final SimpleDateFormat dateFormatConvert = init("yyyy-MM-dd HH:mm:ss.S", TIMEZONEUTC);
     private static int MILLISECONDSDIGITS = 1; //Digits of milliseconds  in dateFormatResult
     private static String MILLISECONDZEROS = "0"; //String with zeros for milliseconds in dateFormatResult
-    private static SimpleDateFormat dateFormatConvert;
     /*
     private static final Pattern dateNetconfPatter[] = {
             // 10 Groups, 1-7,9+10, ISO8601
@@ -36,34 +37,67 @@ public class NetconfTimeStamp {
             // Always 10 Groups,
             //          1:Year   2:Month   3:day     4:Hour   5:minute      6:optional sec 7:optional ms 8:optioal Z or 9:offset signedhour 10:min
             .compile("(\\d{4})-?(\\d{2})-?(\\d{2})T?(\\d{2}):?(\\d{2})(?:(?::?)(\\d{2}))?(?:.(\\d+))?(?:(Z)|([+-]\\d{2}):?(\\d{2}))");
+
+
+    /* ------------------------------------
+     * Construct
+     */
+
+    /**
+     * Do not provide public constructor for this static module
+     */
+
+    private NetconfTimeStamp() {
+    }
+
     /**
      * Static initialization
-     */
+     *//*
     private static void doInit() {
         LOG.debug("Init begin");
         //dateFormatResult =new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        dateFormatResult =new SimpleDateFormat("yyyyMMddHHmmss.S'Z'"); //Netconf
+        dateFormatResult =new SimpleDateFormat("yyyyMMddHHmmss.S'Z'"); //Netconf 1.0 format
         dateFormatResult.setTimeZone(TIMEZONEUTC);
         dateFormatConvert =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
         dateFormatConvert.setTimeZone(TIMEZONEUTC);
         LOG.debug("Init end");
+    }*/
+
+    private static SimpleDateFormat init(String format, TimeZone zone ) {
+        SimpleDateFormat dateFormat;
+        dateFormat = new SimpleDateFormat(format);
+        dateFormat.setTimeZone(zone);
+        return dateFormat;
     }
-    //------------------------------------
-    //No public constructor
-    private NetconfTimeStamp() {
-    }
+
+    /* ------------------------------------
+     * Public function
+     */
+
     /**
-     * Get actual timestamp in
-     * @return DateAndTime Date in this YANG Format
+     * Get actual timestamp as NETCONF specific type NETCONF/YANG 1.0 Format
+     * @return String with Date in NETCONF/YANG Format Version 1.0.
+     */
+    public static String getTimeStampAsNetconfString() {
+        /*if (dateFormatResult == null) {
+            doInit();
+        }*/
+        return getRightFormattedDate(new Date().getTime());
+    }
+
+    /**
+     * Get actual timestamp as NETCONF specific type NETCONF/YANG 1.0 Format
+     * @return DateAndTime Type 1.0. Date in NETCONF/YANG Format Version 1.0.
      */
     public static DateAndTime getTimeStamp() {
-        if (dateFormatResult == null) {
+        /*if (dateFormatResult == null) {
             doInit();
-        }
+        }*/
         //Time in GMT
-        return DateAndTime.getDefaultInstance(getRightFormattedDate(new Date().getTime()));
+        return DateAndTime.getDefaultInstance(getTimeStampAsNetconfString());
     }
-    /**
+
+    /*
      * Input ist in folgenden Formaten, die über Netconf empfangen wurden möglich:
      *
      * Format1
@@ -102,10 +136,43 @@ public class NetconfTimeStamp {
      * @param netconfTime as String according the formats given above
      * @return String in ISO8601 Format for database and presentation.
      */
+
+    /**
+    * Return the String with a NETCONF time converted to long
+    * @param netconfTime as String according the formats given above
+    * @return Epoch milliseconds
+    * @throws IllegalArgumentException In case of no compliant time format definition for the string
+    * @throws ParseException Time parsing failed
+    */
+   public static long getTimeStampFromNetconfAsMilliseconds( String netconfTime ) throws IllegalArgumentException, ParseException {
+       /*if (dateFormatResult == null) {
+           doInit();
+       }*/
+       Matcher m;
+       {
+           m = dateNetconfPatter.matcher(netconfTime);
+           //According to spezified matches there have to be 10 parameter
+           if (m.matches() && m.groupCount() == 10) {
+               //Convert now
+                  long utcMillis = dateFormatConvert.parse(getTimeAsNormalizedString(m, m.group(6), m.group(7))).getTime()
+                               - getTimezoneOffsetMilliseconds(m.group(9), m.group(10));
+                  return utcMillis;
+           } else {
+               throw new IllegalArgumentException("No pattern for NETCONF data string: "+netconfTime);
+           }
+       }
+   }
+
+   /**
+    * Deliver String result.
+    * @param netconfTime as String according the formats given above
+    * @return If successful: String in ISO8601 Format for database and presentation.
+    * If "wrong formed input" the Input string with the prefix "Mailformed date" is delivered back.
+    */
     public static String getTimeStampFromNetconf( String netconfTime ) {
-        if (dateFormatResult == null) {
+        /*if (dateFormatResult == null) {
             doInit();
-        }
+        }*/
         Matcher m;
         {
             m = dateNetconfPatter.matcher(netconfTime);
@@ -190,6 +257,9 @@ public class NetconfTimeStamp {
      * @return String
      */
     private static String getRightFormattedDate( long dateMillis ) {
+        /*if (dateFormatResult == null) {
+            doInit();
+        }*/
         long tenthOfSeconds = dateMillis % 1000/100L; //Extract 100 milliseconds
         long base = dateMillis / 1000L * 1000L; //Cut milliseconds to 000
         Date newDate = new Date( base + tenthOfSeconds);

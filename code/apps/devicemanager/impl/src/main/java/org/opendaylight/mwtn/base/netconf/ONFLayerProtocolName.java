@@ -5,10 +5,13 @@ import org.slf4j.LoggerFactory;
 
 public enum ONFLayerProtocolName {
 
-    MWAirInterface("MWPS"),
-    EthernetContainer("ETH-CTP"),
-    TDMContainer("TDM"),
-    EthernetStructure("MWS"),
+    MWAirInterface("MWPS"),                    //V1.0 + V1.2
+    EthernetContainer10("ETH-CTP"),            //V1.0
+    EthernetContainer12("ETC"),                //V1.2
+    EthernetPhysical("ETY"),                //V1.2
+    TDMContainer("TDM"),                    //V1.2
+    Structure("MWS"),                        //V1.0 + V1.2
+    Ethernet("ETH"),                        //V1.2
     Unknown("");
 
     private static final Logger LOG = LoggerFactory.getLogger(ONFLayerProtocolName.class);
