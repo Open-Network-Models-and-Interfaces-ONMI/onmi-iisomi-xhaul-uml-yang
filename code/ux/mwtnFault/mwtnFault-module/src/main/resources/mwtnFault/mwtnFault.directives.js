@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 highstreet technologies GmbH and others.  All rights reserved.
+ * Copyright (c) 2017 highstreet technologies GmbH and others.  All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -11,7 +11,7 @@ define([ 'app/mwtnCommons/mwtnCommons.module'], function(mwtnCommonsApp) {
     return {
       restrict : 'E',
       templateUrl : 'src/app/mwtnFault/templates/alarmStatus.tpl.html',
-      controller :  ['$scope', '$mwtnCommons', '$mwtnDatabase', function($scope, $mwtnCommons, $mwtnDatabase){
+      controller :  ['$scope', '$mwtnCommons', '$mwtnDatabase', '$timeout', function($scope, $mwtnCommons, $mwtnDatabase, $timeout){
         
         $scope.link = '#/mwtnFault';
           
@@ -78,7 +78,7 @@ define([ 'app/mwtnCommons/mwtnCommons.module'], function(mwtnCommonsApp) {
                   $mwtnCommons.formatData(event).then(function(formated) {
                     switch (formated.notifType) {
                     case 'ProblemNotification':
-                      update();
+                      $timeout(function(){update();}, 500);
                       break;
                     case 'AttributeValueChangedNotification':
                     case 'ObjectCreationNotification':
