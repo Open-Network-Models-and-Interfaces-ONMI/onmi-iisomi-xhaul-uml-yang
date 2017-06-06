@@ -1,0 +1,104 @@
+<div class="htProfile">
+    <div class="container">
+        <ht-header headline="PROFILE"></ht-header>
+        <div class="row">
+            <div class="col-md-2">
+              <uib-tabset vertical="true" type="pills">
+                <uib-tab ng-repeat="(key, value) in profile" 
+                     heading="{{key | uppercase | translate}}"
+                     active="value.active" 
+                     disable="false"
+                     select="selected(key)"></uib-tab>
+              </uib-tabset>
+            </div>
+            <div class="col-md-5">
+              <div ng-include="object.url" class="view-animate"></div>
+            </div>
+            <div class="col-md-5">
+                <p>{{'EXAMPLE' | translate}}</p>
+                <ui-gmap-google-map 
+                  bounds="map.bounds" 
+                  center="map.center" 
+                  control="map.control" 
+                  dragging="map.dragging" 
+                  events="map.events"
+                  options="map.options" 
+                  zoom="map.zoom">
+                  
+                  <ui-gmap-markers 
+                    models="mapObjects.sites.models" 
+                    idkey="marker.id" 
+                    coords="'self'" 
+                    options="'options'" 
+                    icon="'icon'" 
+                    doCluster="false"
+                    events="mapObjects.sites.events" 
+                    doRebuildAll="true">
+                  </ui-gmap-markers> 
+               
+                  <!--  siteLinks -->
+                  <ui-gmap-polylines
+                    models="mapObjects.siteLinks.models"
+                    events="mapObjects.siteLinks.events"
+                    path="'path'" 
+                    stroke="'stroke'" 
+                    geodesic="'geodesic'" 
+                    editable="'editable'" 
+                    draggable="'draggable'" 
+                    static="true"
+                    icons="'icons'"
+                    visible="mapObjects.siteLinks.visible"
+                    zindex="'zIndex'">
+                  </ui-gmap-polylines>
+
+                  <!--  paths -->
+                  <ui-gmap-polylines
+                    models="mapObjects.paths.models"
+                    events='mapObjects.paths.events'
+                    path="'path'" 
+                    stroke="'stroke'" 
+                    icons="'icons'"
+                    geodesic="true" 
+                    editable="false" 
+                    draggable="false" 
+                    static="true"
+                    visible="mapObjects.paths.visible"
+                    zindex="'zIndex'">
+                  </ui-gmap-polylines>
+
+               </ui-gmap-google-map>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <button class="btn btn-default" ng-click="restoreDefaults();">
+                    <span class="glyphicon glyphicon-grain" aria-hidden="true"></span>
+                    <span>{{'RESTORE_DEFAULTS' | translate}}</span>
+                </button>
+                <button id="copy-button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+                    <span>{{'COPY_TO_CLIPBOARD' | translate}}</span>
+                </button>
+                <button class="btn btn-default" ng-click="openPaste()">
+                    <span class="glyphicon glyphicon-import" aria-hidden="true"></span>
+                    <span>{{'PASTE_FROM_CLIPBOARD' | translate}}</span>
+                </button>
+            </div>
+            <div class="col-md-4 text-right">
+                <button class="btn btn-primary" ng-click="apply();">
+                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                    <span>{{'APPLY' | translate}}</span>
+                </button>
+            </div>
+        </div>
+        <!-- 
+        <div class="row">
+            <div class="col-md-12">
+                <pre>{{profile | json}}</pre>
+            </div>
+        </div>
+         -->
+        <hr style="clear: both" />
+        <ht-footer></ht-footer>
+    </div>
+</div>

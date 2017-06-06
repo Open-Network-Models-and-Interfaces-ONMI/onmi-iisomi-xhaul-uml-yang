@@ -1,0 +1,17 @@
+<div>
+	<!-- Display a loading indicator as long as google isn't initialized. -->
+	<div ng-if="!vm.googleIsReady">Loading</div>
+
+	<uib-tabset id="mwtnTopology" active="activeTab" ng-if="vm.googleIsReady">
+
+		<uib-tab index="0" heading="{{'Site' | translate}}">
+			<mwtn-topology-site-view  />
+		</uib-tab>
+
+	</uib-tabset>
+
+	<hr />
+	<div class="owl">
+		<span>ONF Wireless for Opendaylight Boron-SR1 - Build: @buildtime@</span>
+	</div>
+</div>

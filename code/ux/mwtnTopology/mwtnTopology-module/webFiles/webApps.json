@@ -1,0 +1,25 @@
+{
+  "version":"0.2.0",
+  "webapps":[
+    {
+      "name":"ux",
+      "description":"Static and private web content",
+      "route":"/ux"
+    },
+    {
+      "name":"swagger-ui",
+      "description":"Swagger-ui for api documentation and test",
+      "route":"/swagger-ui"
+    },
+    {
+      "name":"swagger-editor",
+      "description":"Swagger-editor",
+      "route":"/swagger-editor"
+    },
+    {
+      "name":"root",
+      "description":"Static and public web content.",
+      "route":"/"
+    }
+  ]
+}

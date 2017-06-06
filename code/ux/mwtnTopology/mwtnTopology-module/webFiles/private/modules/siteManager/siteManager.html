@@ -1,0 +1,268 @@
+<div class="htProfile">
+  <div class="container">
+    <ht-header headline="SITE_MANAGER"></ht-header>
+    <div ng-show="newSite">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-5">
+                <h3>{{'ADDRESS' | translate}}</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1 text-right">
+                <span class="htStaticValue">{{'ID' | translate}}: </span>
+              </div>
+              <div class="col-md-3">
+                <input class="form-control input-sm" type="text" placeholder="site id" ng-model="newSite.id.siteId">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1 text-right">
+                <span class="htStaticValue">{{'NAME' | translate}}: </span>
+              </div>
+              <div class="col-md-3">
+                <input class="form-control input-sm" type="text" placeholder="site name" ng-model="newSite.siteName">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1 text-right">
+                <span class="htStaticValue">{{'OWNER' | translate}}: </span>
+              </div>
+              <div class="col-md-3">
+                <input class="form-control input-sm" type="text" placeholder="site owner" ng-model="newSite.owner">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1 text-right">
+                <span class="htStaticValue">{{'STREET' | translate}}: </span>
+              </div>
+              <div class="col-md-3">
+                <input class="form-control input-sm" type="text" placeholder="street" ng-model="newSite.address.street">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1 text-right">
+                <span class="htStaticValue">{{'CITY' | translate}}: </span>
+              </div>
+              <div class="col-md-1">
+                <input class="form-control input-sm" type="text" placeholder="zip" ng-model="newSite.address.zip">
+              </div>
+              <div class="col-md-2">
+                <input class="form-control input-sm" type="text" placeholder="city" ng-model="newSite.address.city">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-3">
+                <h3>{{'GEO_LOCATION' | translate}}</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 text-right">
+                <span class="htStaticValue">{{'LAT' | translate}}: </span>
+              </div>
+              <div class="col-md-2">
+                <input class="form-control input-sm text-right" type="number" min="-90" max="90" step="0.000001" placeholder="latitude"
+                  ng-model="newSite.geoLocation.location.lat"
+                >
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 text-right">
+                <span class="htStaticValue">{{'LNG' | translate}}: </span>
+              </div>
+              <div class="col-md-2">
+                <input class="form-control input-sm text-right" type="number" min="-180" max="180" step="0.000001" placeholder="longitude"
+                  ng-model="newSite.geoLocation.location.lon"
+                >
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2 text-right">
+                <span class="htStaticValue">{{'AMSL_GRD' | translate}}: </span>
+              </div>
+              <div class="col-md-2">
+                <input class="form-control input-sm text-right" type="number" min="-40" max="4000" step="0.01" placeholder="above mean sea level"
+                  ng-model="newSite.geoLocation.amslGrd"
+                >
+              </div>
+              <div class="col-md-1">
+                <span class="htStaticValue">m</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h3>{{'MOUNTING_POSITIONS' | translate}}</h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th rowspan="2">
+                  <span>{{'ID' | translate}} </span>
+                </th>
+                <th colspan="2">
+                  <span>{{'OPTIONS' | translate}} </span>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <span>{{'DIA' | translate}} [mm]</span>
+                </th>
+                <th>
+                  <span>{{'AZIMUTH' | translate}} [°]</span>
+                </th>
+                <th>
+                  <span>{{'CENTER_LINE' | translate}} [m]</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="mp in newSite.antennaResources.antennamountingpositions">
+                <td>
+                  <span> {{mp.antennaSupportId}}-{{mp.id}}</span>
+                </td>
+                <td>
+                  <span> {{mp.diameter.lowerBound | number:1}} - {{mp.diameter.upperBound | number:1}}</span>
+                </td>
+                <td>
+                  <span> {{mp.azimuth.lowerBound | number:1}} - {{mp.azimuth.upperBound | number:1}}</span>
+                </td>
+                <td>
+                  <span> {{mp.centerline.lowerBound | number:1}} - {{mp.centerline.upperBound | number:1}}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <hr />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <button type="button" class="btn btn-default" ng-click="cancelSite();">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            <span>{{'BTN_CANCEL' | translate}}</span>
+          </button>
+        </div>
+        <div class="col-md-6 text-right">
+          <button type="button" class="btn btn-primary" ng-click="createSite();">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            <span>{{'BTN_CREATE_SITE' | translate}}</span>
+          </button>
+        </div>
+      </div>
+      <div class="row" ng-show="debug">
+        <div class="col-md-12">
+          <pre>{{newSite | json}}</pre>
+        </div>
+      </div>
+    </div>
+    <div ng-show="!newSite">
+      <div class="row">
+        <div class="col-md-12">
+          <div ng-show="!gridOptions.data.length">{{ 'ZERO_RECORDS' | translate }}</div>
+          <div ng-show="gridOptions.data.length" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection ui-grid-pinning ui-grid-resize-columns ui-grid-move-columns class="siteManagerGrid"></div>
+          <uib-progressbar ng-show="gridOptions.data.length && gridOptions.data.length < progressbar.max" animate="false" max="progressbar.max" value="progressbar.value"><span style="color:white; white-space:nowrap;">{{gridOptions.data.length}} / {{progressbar.max}}</span></uib-progressbar>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <hr style="clear: both" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div ng-controller="FileUploadController" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
+            <div ng-show="uploader.isHTML5">
+              <!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
+              <div nv-file-drop="" uploader="uploader"">
+                <div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone">
+                  <span>Drop zone for </span>
+                  <b>new site</b>
+                  <span> data file (&lt;site-id&gt;.xlsx) </span>
+                  <span ng-show="failed" style="color: #dd0000;">{{errorMessage}}</span>
+                  <br />
+                  <br />
+                  <input type="file" nv-file-select="" uploader="uploader" />
+                  <div ng-show="uploader.queue.length" style="background-color: white; margin: 20px 0px;">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th width="50%">Name</th>
+                          <th ng-show="uploader.isHTML5">Size</th>
+                          <th ng-show="uploader.isHTML5">Progress</th>
+                          <th>Status</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat="item in uploader.queue">
+                          <td>
+                            <strong>{{ item.file.name }}</strong>
+                          </td>
+                          <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                          <td ng-show="uploader.isHTML5">
+                            <div class="progress" style="margin-bottom: 0;">
+                              <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <span ng-show="item.isSuccess">
+                              <i class="glyphicon glyphicon-ok"></i>
+                            </span>
+                            <span ng-show="item.isCancel">
+                              <i class="glyphicon glyphicon-ban-circle"></i>
+                            </span>
+                            <span ng-show="item.isError">
+                              <i class="glyphicon glyphicon-remove"></i>
+                            </span>
+                          </td>
+                          <td nowrap>
+                            <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()"
+                              ng-disabled="item.isReady || item.isUploading || item.isSuccess"
+                            >
+                              <span class="glyphicon glyphicon-upload"></span>
+                              <span>Upload</span>
+                            </button>
+                            <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                              <span class="glyphicon glyphicon-ban-circle"></span>
+                              <span>Cancel</span>
+                            </button>
+                            <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                              <span class="glyphicon glyphicon-trash"></span>
+                              <span>Remove</span>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div>
+                      <div>
+                        <div>Queue progress:</div>
+                        <div class="progress" style="">
+                          <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr style="clear: both" />
+    <ht-footer></ht-footer>
+  </div>
+</div>

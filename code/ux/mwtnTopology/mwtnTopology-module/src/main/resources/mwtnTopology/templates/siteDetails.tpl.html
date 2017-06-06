@@ -1,0 +1,47 @@
+<div>
+  <uib-alert type="{{status.type}}" ng-show="status.message">
+    <i ng-show="status.isWorking" class="fa fa-spinner fa-pulse"></i>
+    <b><span>{{status.message}}</span></b>
+  </uib-alert>
+  <div ng-show="!status.message">
+    <p>
+      <span>{{'MWTN_SITE_ID' | translate}}: </span>
+      <b>{{vm.site.id}}</b>
+      <hr />
+      <span>{{'MWTN_SITE_NAME' | translate}}: </span>
+      <b>{{vm.site.name}}</b>
+      <br />
+      <span>{{'MWTN_LAT_LON' | translate}}</span>
+      <b>{{ vm.site.location.lat | coordinateFilter:'toDMS':'lat'}} | {{ vm.site.location.lng | coordinateFilter:'toDMS':'lon'}}</b>
+      <br />
+      <span>{{'MWTN_AMSL_GRD' | translate}}: </span>
+      <b> {{vm.site.amslGround | number:2 }} </b>
+      <span> [m]</span>
+    </p>
+    <p>
+      <b>Site-Links ({{vm.site.siteLinks.length}}): </b>
+      <span style="color: #337ab7;" class="pointer glyphicon glyphicon-plus-sign" aria-hidden="true" ng-class="{'selected-site' : createNewLinkMode}"
+        ng-show="showNewLinkButton" ng-click="toggleCreateNewLinkMode()"></span>
+      <p />
+      <table class='table table-striped' ng-show="vm.site.siteLinks.length">
+        <thead>
+          <tr>
+            <th class='text-left'>Site-Link-Name</th>
+            <th class='text-right'>Azimuth A [°]</th>
+            <th class='text-right'>Azimuth B [°]</th>
+            <th class='text-right'>Length [km]</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat='siteLink in vm.site.siteLinks'>
+            <td class='text-left'>
+              <a href='/ux/#/siteLinks/{{siteIndex}}/{{siteLink._source.id.high}}/{{siteLink._source.id.low}}' target='htSolutions'>{{siteLink.id}}</a>
+            </td>
+            <td class='text-right'>{{ siteLink.siteA }}</td>
+            <td class='text-right'>{{ siteLink.siteZ }}</td>
+            <td class='text-right'>{{ 0 }}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>

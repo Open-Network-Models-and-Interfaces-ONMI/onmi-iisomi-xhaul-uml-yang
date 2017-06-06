@@ -1,0 +1,209 @@
+###
+# get outer bounding box for all sites.
+POST http://03-wtp-poc:9200/mwtn/site/_search HTTP/1.1
+content-type: application/json
+
+{
+  "aggregations": {
+    "top": {
+      "max": {
+        "field": "location.lat"
+      }
+    },
+    "right": {
+      "max": {
+        "field": "location.lon"
+      }
+    },
+    "bottom": {
+      "min": {
+        "field": "location.lat"
+      }
+    },
+    "left": {
+      "min": {
+        "field": "location.lon"
+      }
+    }
+  },
+  "size": 0
+}
+
+###
+# get sites in bounding box
+POST http://03-wtp-poc:9200/mwtn/site/_search HTTP/1.1
+content-type: application/json
+
+{
+  "query": {
+    "geo_bounding_box": {
+      "location": {
+        "top": -10.681254175812176,
+        "right": -48.3738302863769,
+        "bottom": -10.736012963621369,
+        "left": -48.433356043212834
+      }
+    }
+  },
+  "size": 100
+}
+
+###
+# get single site by id
+POST http://03-wtp-poc:9200/mwtn/site/_search HTTP/1.1
+content-type: application/json
+
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "id": "vivsp"
+          }
+        }
+      ]
+    }
+  }
+}
+
+###
+# get sites with site links
+POST http://03-wtp-poc:9200/mwtn/site/_search HTTP/1.1
+content-type: application/json
+
+{
+  "query": {
+    "bool": {
+      "must": {
+        "exists": {
+          "field": "references.site-links"
+        }
+      }
+    }
+  },
+  "size": 100
+}
+
+###
+# get the first 3 site links
+POST http://03-wtp-poc:9200/mwtn/site-link/_search HTTP/1.1
+content-type: application/json
+
+{
+  "query": {
+    "match_all": {}
+  },
+  "size": 3
+}
+
+###
+# get site links where siteA or siteZ refers to a list ob site ids.
+POST http://03-wtp-poc:9200/mwtn/site-link/_search HTTP/1.1
+content-type: application/json
+
+{
+  "query": {
+    "bool": {
+      "filter": {
+        "term": {
+          "siteA": "atdrj"
+        }
+      }
+    }
+  }
+}
+
+###
+# get site links where siteLinkId is one of the ids in given List.
+POST http://03-wtp-poc:9200/mwtn/site-link/_search
+content-type: application/json
+
+{
+  "query": {
+    "bool": {
+      "should": [
+        {"term": {"id" : "aaapb:aacal"}},
+        {"term": {"id" : "site-6:site-7"}},
+        {"term": {"id" : "site-7:site-8"}}
+      ]
+    }
+  }
+}
+
+###
+# get the first 3 site links
+POST http://03-wtp-poc:9200/mwtn/site/_search HTTP/1.1
+content-type: application/json
+
+{
+  "query": {
+    "match_all": {}
+  },
+  "sort" : {
+    "name": {
+      "order": "asc"
+    }
+  },
+  "size": 30
+}
+
+###
+# get the first 3 site links
+POST http://03-wtp-poc:9200/mwtn/site/_search HTTP/1.1
+content-type: application/json
+
+{
+  "query": {
+    "match_all": {}
+  },
+  "sort" : {
+    "_script" : {  
+      "script" : {
+        "lang": "expression",
+        "inline" : "doc['references'].value['site-links'].length"
+      } ,  
+      "type" : "number",  
+      "order" : "desc"  
+    }  
+  },
+  "size": 30
+}
+
+
+###
+# get the first 3 site links
+POST http://03-wtp-poc:9200/mwtn/site/_search HTTP/1.1
+content-type: application/json
+
+{
+  "from":0,
+  "size":10,
+  "sort": {
+     "id":{
+        "order":"asc"
+    }
+  },
+  "query":{
+    "regexp":{
+      "name":".*00.*"
+    }
+  }
+}
+
+
+###
+# get the first 3 site links
+GET http://03-wtp-poc:9200/mwtn/site/_search HTTP/1.1
+content-type: application/json
+
+{
+  "query": {
+    "function_score": {
+      "script_score": {
+        "script": "Math.pow(2, 2)",
+        "lang": "groovy"
+      }
+    }
+  }
+}

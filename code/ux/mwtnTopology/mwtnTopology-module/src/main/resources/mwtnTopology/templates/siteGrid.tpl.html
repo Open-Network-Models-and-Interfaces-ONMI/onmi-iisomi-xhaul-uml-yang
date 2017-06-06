@@ -1,0 +1,9 @@
+<!--<h1 style="color:#000">Here is the sites grid</h1>-->
+<div class="checkbox">
+    <label>
+        <input type="checkbox" ng-model="vm.showAllSites">
+        Show all sites
+    </label>
+</div>
+
+<div class="mwtnTopologyGrid" ui-grid="vm.gridOptions" ui-grid-pagination ui-grid-pinning ui-grid-selection ui-grid-resize-columns ui-grid-move-columns></div>

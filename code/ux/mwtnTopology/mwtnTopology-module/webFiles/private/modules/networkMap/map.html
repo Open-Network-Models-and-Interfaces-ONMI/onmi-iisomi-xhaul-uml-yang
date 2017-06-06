@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html ng-app="htNetworkMap">
+  <head>
+    <!-- TODO needed for IE11 - check internet discussion from time to time -->
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+
+    <title>htNetworkMap</title>
+
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/bower_components/components-font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/ht-solutions.min.css">
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=false"></script>
+
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-base64/angular-base64.js"></script>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="/bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src='/bower_components/angular-google-maps/dist/angular-google-maps.js'></script>
+    <script src="/bower_components/angular-simple-logger/dist/angular-simple-logger.min.js"></script>
+    <script src="/bower_components/angular-touch/angular-touch.min.js"></script>
+    <script src="/bower_components/angular-translate/angular-translate.min.js"></script>
+    <script src="/bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+    <script src="/bower_components/angular-ui-grid/ui-grid.min.js"></script>
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src='/bower_components/lodash/lodash.min.js'></script>
+    <script src='/bower_components/angular-geohash/dist/angular-geohash.min.js'></script>
+
+    <script src="/scripts/tooltip.js"></script>
+    <script src="/ux/scripts/ht-solutions.map.js"></script>
+    <script src="/scripts/coordinateFilter.js"></script>
+  </head>
+  <body ng-controller="mapCtrl">
+        <ui-gmap-google-map 
+                    bounds="map.bounds"
+                    center="map.center"
+                    control="map.control"
+                    dragging="map.dragging"
+                    events="map.events"
+                    options="map.options"
+                    zoom="map.zoom">
+
+            <ui-gmap-map-control 
+                template="templates/control.html" 
+                position="top-left" 
+                controller="mapControlCtrl" 
+                index="-1">
+            </ui-gmap-map-control>
+
+            <ui-gmap-markers 
+                models="mapObjects.clusters.models" 
+                idkey="marker.id"
+                control="mapObjects.clusters.control" 
+                coords="'self'" 
+                options="'options'" 
+                icon="'icon'" 
+                doCluster="false" 
+                events="mapObjects.clusters.events">
+            </ui-gmap-markers>
+            
+            <ui-gmap-markers 
+                models="mapObjects.sites.models" 
+                idkey="marker.id" 
+                coords="'self'" 
+                options="'options'" 
+                icon="'icon'" 
+                doCluster="doGoogleCluster" 
+                events="mapObjects.sites.events"
+                >
+            </ui-gmap-markers>
+            <ui-gmap-circle 
+                ng-repeat="c in mapObjects.sites.circles track by c.id" 
+                center="c.center" 
+                stroke="c.stroke" 
+                fill="c.fill" 
+                radius="c.radius"
+                visible="c.visible" 
+                geodesic="c.geodesic" 
+                editable="c.editable" 
+                draggable="c.draggable" 
+                clickable="c.clickable" 
+                control="c.control"></ui-gmap-circle>
+                
+            <ui-gmap-markers 
+                models="mapObjects.newSite.model" 
+                idkey="marker.id" 
+                coords="'self'" 
+                options="'options'" 
+                icon="'icon'" 
+                doCluster="false" 
+                events="mapObjects.newSite.events">
+            </ui-gmap-markers>
+            
+            <ui-gmap-markers 
+                models="mapObjects.selectedSites.models" 
+                idkey="marker.id" 
+                coords="'self'" 
+                options="'options'" 
+                icon="'icon'" 
+                doCluster="false" 
+                events="mapObjects.selectedSites.events">
+            </ui-gmap-markers>
+            
+            <!--  siteLinks -->
+            <ui-gmap-polylines
+                models="mapObjects.siteLinks.models"
+                events="mapObjects.siteLinks.events"
+                path="'path'" 
+                stroke="'stroke'" 
+                geodesic="'geodesic'" 
+                editable="'editable'" 
+                draggable="'draggable'" 
+                static="true"
+                visible="mapObjects.siteLinks.visible"
+                zindex="'zIndex'"
+                >
+            </ui-gmap-polylines>
+            
+            <!--  paths -->
+            <ui-gmap-polylines
+                models="mapObjects.paths.models"
+                events='mapObjects.paths.events'
+                path="'path'" 
+                stroke="'stroke'" 
+                icons="'icons'"
+                geodesic="'geodesic'" 
+                editable="'editable'" 
+                draggable="'draggable'" 
+                static="true"
+                visible="mapObjects.paths.visible"
+                zindex="'zIndex'"
+                >
+            </ui-gmap-polylines>
+
+            <ui-gmap-polylines
+                models="mapObjects.newSiteLink.models"
+                events='mapObjects.newSiteLink.events'
+                path="'path'" 
+                stroke="'stroke'" 
+                geodesic="'geodesic'" 
+                editable="'editable'" 
+                draggable="'draggable'" 
+                static="true"
+                options="'options'" 
+                zindex="'zIndex'"
+                >
+            </ui-gmap-polylines>
+
+            <!-- density -->
+            <ui-gmap-polygons
+                idKey="'id'"
+                models="mapObjects.urban.models"
+                path="'geometry'"
+                stroke="{ color: '#FF0000', weight: 1 }"
+                clickable="false"
+                draggable="false"
+                editable="false"
+                geodesic="true"
+                icons=""
+                visible="mapObjects.urban.visible"
+                fit="false"
+                events="mapObjects.urban.events"
+                static="true"
+                control="{}"
+                chunk="{}"
+                cleanchunk="{}"
+                doRebuildAll="false"
+                fill="{color: '#FF0000', opacity: 0.2}"
+                zindex="0">
+             </ui-gmap-polygons>
+            <ui-gmap-polygons
+                idKey="'id'"
+                models="mapObjects.suburban.models"
+                path="'geometry'"
+                stroke="{ color: '#FFFF00', weight: 1 }"
+                clickable="false"
+                draggable="false"
+                editable="false"
+                geodesic="true"
+                icons=""
+                visible="mapObjects.suburban.visible"
+                fit="false"
+                events="mapObjects.suburban.events"
+                static="true"
+                control="{}"
+                chunk="{}"
+                cleanchunk="{}"
+                doRebuildAll="false"
+                fill="{color: '#FFFF00', opacity: 0.2}"
+                zindex="0">
+             </ui-gmap-polygons>
+
+        </ui-gmap-google-map>
+        
+  </body>
+</html>

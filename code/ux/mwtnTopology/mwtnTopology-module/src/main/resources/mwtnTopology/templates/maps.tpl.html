@@ -1,3 +1,4 @@
+<!--
 <ui-gmap-google-map bounds="mapObjects.map.bounds"
                     center="mapObjects.map.center"
                     control="mapObjects.map.control"
@@ -17,14 +18,15 @@
                 events="mapObjects.sites.events"
                 >
             </ui-gmap-markers>
-            
-            <ui-gmap-window 
-                coords="mapObjects.sites.tooltip" 
-                options="mapObjects.sites.tooltipOptions" 
+
+            <ui-gmap-window
+                coords="mapObjects.sites.tooltip"
+                options="mapObjects.sites.tooltipOptions"
                 show="mapObjects.sites.tooltip.show">
-            </ui-gmap-window>
-            
-             <!--  siteLinks -->
+            </ui-gmap-window>-->
+
+            <!--  siteLinks -->
+<!--
             <ui-gmap-polylines
                 models="mapObjects.siteLinks.models"
                 events="mapObjects.siteLinks.events"
@@ -38,12 +40,20 @@
                 zindex="'zIndex'"
                 >
             </ui-gmap-polylines>
-                       
-</ui-gmap-google-map>
 
+</ui-gmap-google-map>-->
 
-<!-- 
+<map center="{{mapObjects.map.center}}"
+     map-type-id=“MapTypeId.HYBRID”
+     street-view-control="false">
+
+     <marker data-ng-repeat="mapObjects.sites.models"
+             position="{{}}"
+      />
+</map>
+
+<!--
   <sigma-topology drag-nodes="true" topology-data="topologyData" trigger-resize-sigma="triggerResizeSigma" panel="panel"
    topology-custfunc="topologyCustfunc">
-  </sigma-toppology> 
+  </sigma-toppology>
  -->

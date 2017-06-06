@@ -1,0 +1,79 @@
+<div>
+  <uib-alert type="{{status.type}}" ng-show="status.message"> <i ng-show="status.isWorking" class="fa fa-spinner fa-pulse"></i> 
+    <b><span>{{status.message}}</span></b> 
+  </uib-alert>
+  <div ng-show="!status.message">
+    <p>
+      <span>Sitelink name: </span>
+      <b>{{vm.link.name || 'tbd.'}}</b>
+      
+      <span>Length: </span>
+      <b> {{vm.link.length || 0 | number:3 }} </b>
+      <span> km</span>
+    </p>
+    <table>
+      <caption class="text-left">
+        <b>{{'SITE' | translate}} A</b>
+      </caption>
+      <tbody>
+        <tr>
+          <td class="text-right" style="padding-right: 5px;">{{'SITE_ID' | translate}}:</td>
+          <td class="text-left">
+            <b>{{vm.link.siteA.id}}</b>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right" style="padding-right: 5px;">{{'SITE_NAME' | translate}}:</td>
+          <td class="text-left">
+            <b>{{vm.link.siteA.name}}</b>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right" style="padding-right: 5px;">Lat/Lon:</td>
+          <td class="text-left">
+            <b>{{vm.link.siteA.location.lat | coordinateFilter:'toDMS':'lat'}} | {{vm.link.siteA.location.lng | coordinateFilter:'toDMS':'lon'}}</b>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right" style="padding-right: 5px;">Azimuth:</td>
+          <td class="text-left">
+            <b> {{vm.link.azimuthA || 0 | number:1 }} </b>
+            <span> °</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <caption class="text-left">
+        <b>{{'SITE' | translate}} Z</b>
+      </caption>
+      <tbody>
+        <tr>
+          <td class="text-right" style="padding-right: 5px;">{{'SITE_ID' | translate}}:</td>
+          <td class="text-left">
+            <b>{{vm.link.siteZ.id}}</b>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right" style="padding-right: 5px;">Site-Name:</td>
+          <td class="text-left">
+            <b>{{vm.link.siteZ.name}}</b>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right" style="padding-right: 5px;">Lat/Lon:</td>
+          <td class="text-left">
+            <b>{{vm.link.siteZ.location.lat | coordinateFilter:'toDMS':'lat'}} | {{vm.link.siteZ.location.lng | coordinateFilter:'toDMS':'lon'}}</b>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right" style="padding-right: 5px;">Azimuth:</td>
+          <td class="text-left">
+            <b> {{vm.link.azimuthB || 0 | number:1 }} </b>
+            <span> °</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

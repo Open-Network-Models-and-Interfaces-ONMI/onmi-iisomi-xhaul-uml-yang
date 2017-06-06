@@ -1,0 +1,55 @@
+<div class="container" style="width: 240px;">
+  <div class="row">
+    <div class="col-md-12">
+      <span>{{'NEW_SITELINK' | translate}}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5 text-right">
+      <span class="htStaticValue">{{'SITEA' | translate}}: </span>
+    </div>
+    <div class="col-md-7">
+      <input class="form-control input-sm" type="text" placeholder="enter value" ng-model="sites[0]">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5 text-right">
+      <span class="htStaticValue">{{'SITEB' | translate}}: </span>
+    </div>
+    <div class="col-md-7">
+      <input class="form-control input-sm" type="text" placeholder="enter value" ng-model="sites[1]">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <button type="button" class="btn btn-default" ng-click="cancelLosLink();">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        <span>{{'BTN_CANCEL' | translate}}</span>
+      </button>
+    </div>
+    <div class="col-md-6 text-right">
+      <button type="button" class="btn btn-primary" ng-click="createLosLink();">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        <span>{{'BTN_CREATE_LOSLINK' | translate}}</span>
+      </button>
+    </div>
+  </div>
+  <div class="row" ng-show="status.message">
+    <div class="col-md-12">
+      <hr />
+      <uib-alert type="{{status.type}}"> <i ng-show="status.isWorking" class="fa fa-spinner fa-pulse"></i> <b>
+        <span>{{status.message}}</span>
+      </b> </uib-alert>
+    </div>
+  </div>
+</div>

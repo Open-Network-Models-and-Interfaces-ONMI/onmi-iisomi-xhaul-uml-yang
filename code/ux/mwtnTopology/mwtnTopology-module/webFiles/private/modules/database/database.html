@@ -1,0 +1,21 @@
+<div class="htDatabase">
+  <div class="container">
+    <ht-header headline="DATABASE"></ht-header>
+    <div class="row">
+      <tabset>
+          <tab ng-repeat="docType in docTypes" 
+               heading="{{docType.label | translate}} ({{docType.count}})"
+               active="docType.active" 
+               disable="docType.disabled"
+               select="docType.getContent()"></tab>
+      </tabset>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div ui-grid="gridOptions" ui-grid-exporter ui-grid-selection ui-grid-pinning ui-grid-resize-columns ui-grid-move-columns class="siteManagerGrid"></div>
+      </div>
+    </div>
+    <hr style="clear: both" />
+    <ht-footer></ht-footer>
+  </div>
+</div>

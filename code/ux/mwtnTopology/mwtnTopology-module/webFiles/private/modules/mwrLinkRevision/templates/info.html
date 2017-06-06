@@ -1,0 +1,136 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2 text-right">
+      <span>{{'MWRLINK' | translate}}: </span>
+    </div>
+    <div class="col-md-4">
+      <b>
+        <span>{{mwrLinkId}}</span>
+      </b>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 text-right">
+      <span>{{'SITELINK' | translate}}: </span>
+    </div>
+    <div class="col-md-4">
+      <span>{{siteLinkIdHigh}}-{{siteLinkIdLow}}</span>
+      <a href="/ux/#/siteLinks/{{dbIndex}}/{{siteLinkIdHigh}}/{{siteLinkIdLow}}" target="htSolutions">
+        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+      </a>
+      <a href="/ux/modules/networkMap/map.html#/{{dbIndex}}?sitelink={{siteLinkIdHigh}}-{{siteLinkIdLow}}" target="htNetworkMap">
+        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 text-right">
+      <span>{{'REVISION' | translate}}: </span>
+    </div>
+    <div class="col-md-4">
+      <b>
+        <span>{{revision}}</span>
+      </b>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 text-right">
+      <span>{{'LNK_REVTYP' | translate}}: </span>
+    </div>
+    <div class="col-md-4">
+      <b>
+        <span>{{mwrLinkRevision.revisionType}}</span>
+      </b>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 text-right">
+      <span>{{'LNK_REVSTAT' | translate}}: </span>
+    </div>
+    <div class="col-md-4">
+      <b>
+        <span>{{mwrLinkRevision.revisionStatus}}</span>
+      </b>
+    </div>
+    <div class="col-md-4">
+      <a href="/ux/#/revisionStatus/{{dbIndex}}/{{siteLinkIdHigh}}/{{siteLinkIdLow}}/{{mwrLinkId}}/{{revision}}">
+        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+        <span>{{'SHOW_DETAILS' | translate}}</span>
+      </a>
+    </div>
+  </div>
+  <div class="row" ng-show="mwrLinkRevision.reuseResultNewLink">
+    <div class="col-md-2 text-right">
+      <b><span>{{'GOES_TO' | translate}}:</span></b>
+    </div>
+    <div class="col-md-10">
+    <span>{{mwrLinkRevision.reuseResultNewLink.passIdentification}}</span><br/>
+    <span>{{mwrLinkRevision.reuseResultNewLink.linkRef.siteLinkId.high}}-{{mwrLinkRevision.reuseResultNewLink.linkRef.siteLinkId.low}}-{{mwrLinkRevision.reuseResultNewLink.linkRef.mwrLinkId}}-{{mwrLinkRevision.reuseResultNewLink.linkRef.revision}}</span>
+      <a href="/ux/#/mwrLinkRevision/{{dbIndex}}/{{mwrLinkRevision.reuseResultNewLink.linkRef.siteLinkId.high}}/{{mwrLinkRevision.reuseResultNewLink.linkRef.siteLinkId.low}}/{{mwrLinkRevision.reuseResultNewLink.linkRef.mwrLinkId}}/{{mwrLinkRevision.reuseResultNewLink.linkRef.revision}}">
+        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+      </a>
+    </div>
+  </div>
+  <div class="row" ng-show="mwrLinkRevision.reuseResultDeconstuctedLink">
+    <div class="col-md-2 text-right">
+      <b><span>{{'COMES_FROM' | translate}}:</span></b>
+    </div>
+    <div class="col-md-10">
+    <span>{{mwrLinkRevision.reuseResultDeconstuctedLink.passIdentification}}</span><br/>
+    <span>{{mwrLinkRevision.reuseResultDeconstuctedLink.linkRef.siteLinkId.high}}-{{mwrLinkRevision.reuseResultDeconstuctedLink.linkRef.siteLinkId.low}}-{{mwrLinkRevision.reuseResultDeconstuctedLink.linkRef.mwrLinkId}}-{{mwrLinkRevision.reuseResultDeconstuctedLink.linkRef.revision}}</span>
+      <a href="/ux/#/mwrLinkRevision/{{dbIndex}}/{{mwrLinkRevision.reuseResultDeconstuctedLink.linkRef.siteLinkId.high}}/{{mwrLinkRevision.reuseResultDeconstuctedLink.linkRef.siteLinkId.low}}/{{mwrLinkRevision.reuseResultDeconstuctedLink.linkRef.mwrLinkId}}/{{mwrLinkRevision.reuseResultDeconstuctedLink.linkRef.revision}}">
+        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 col-md-offset-2 text-center">
+      <b>
+        <span>{{'SITE' | translate}} A</span>
+      </b>
+    </div>
+    <div class="col-md-4 text-center">
+      <b>
+        <span>{{'SITE' | translate}} B</span>
+      </b>
+    </div>
+  </div>
+  <div class="row">
+    <!-- latitude -->
+    <div class="col-md-2 text-right">
+      <span>{{'SITE_NAME' | translate}}: </span>
+    </div>
+    <div class="col-md-3">
+      <b>{{mwrLinkRevision.spa.siteRef.siteId}}</b>
+      <a href="/ux/#/sites/{{dbIndex}}/{{mwrLinkRevision.spa.siteRef.siteId}}" target="htSolutions">
+        <span class="glyphicon glyphicon glyphicon-info-sign"></span>
+      </a>
+      <a href="/ux/modules/networkMap/map.html#/{{dbIndex}}?site={{mwrLinkRevision.spa.siteRef.siteId}}" target="htNetworkMap">
+        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="col-md-3">
+      <b>{{mwrLinkRevision.spb.siteRef.siteId}}</b>
+      <a href="/ux/#/sites/{{dbIndex}}/{{mwrLinkRevision.spb.siteRef.siteId}}" target="htSolutions">
+        <span class="glyphicon glyphicon glyphicon-info-sign"></span>
+      </a>
+      <a href="/ux/modules/networkMap/map.html#/{{dbIndex}}?site={{mwrLinkRevision.spb.siteRef.siteId}}" target="htNetworkMap">
+        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="col-md-1">
+      <span> </span>
+    </div>
+  </div>
+</div>
+<div class="text-right">
+  <a class="btn btn-default" role="button" href="/ux/#/linkcalculator/{{dbIndex}}/{{siteLinkIdHigh}}/{{siteLinkIdLow}}/{{mwrLinkId}}/{{revision}}/0">
+    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+    <span>{{'LINKCALCULATION' | translate}}...</span>
+  </a>
+</div>

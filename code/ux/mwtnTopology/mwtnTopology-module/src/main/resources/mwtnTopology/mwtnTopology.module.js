@@ -6,46 +6,50 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-define(['angularAMD', 
-        'app/routingConfig', 
-        'app/core/core.services', 
+define(['angularAMD',
+        'app/routingConfig',
+        'app/core/core.services',
         'common/config/env.module',
         'app/mwtnCommons/mwtnCommons.module'], function(ng) {
-  var mwtnTopologyApp = angular.module('app.mwtnTopology', ['app.core', 'ui.router.state', 'ui.grid', 'ui.bootstrap', 'uiGmapgoogle-maps', 'config']);
 
-  mwtnTopologyApp.config(function($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $translateProvider) {
+  var mwtnTopologyApp = angular.module('app.mwtnTopology', ['app.core', 'ui.router.state', 'ui.grid', 'ui.grid.pinning', 'ui.grid.selection', 'ui.bootstrap', 'config']);
+
+  mwtnTopologyApp.config(function ($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $translateProvider) {
+    // AF/MF: Warum? (Remove as soon as possible)
     mwtnTopologyApp.register = {
-      controller : $controllerProvider.register,
-      directive : $compileProvider.directive,
-      factory : $provide.factory,
-      service : $provide.service
-
+      controller: $controllerProvider.register,
+      directive: $compileProvider.directive,
+      factory: $provide.factory,
+      service: $provide.service
     };
 
 
     NavHelperProvider.addControllerUrl('app/mwtnTopology/mwtnTopology.controller');
     NavHelperProvider.addToMenu('mwtnTopology', {
-     "link" : "#/mwtnTopology",
-     "active" : "main.mwtnTopology",
-     "title" : "MWTN Topology",
-     "icon" : "fa fa-heart",  // Add navigation icon css class here
-     "page" : {
-        "title" : "MWTN Topology",
-        "description" : "mwtnTopology"
-     }
+      "link": "#/mwtnTopology",
+      "active": "main.mwtnTopology",
+      "title": "MWTN Topology",
+      "icon": "fa fa-heart",  // Add navigation icon css class here
+      "page": {
+        "title": "MWTN Topology",
+        "description": "mwtnTopology"
+      }
     });
 
     var access = routingConfig.accessLevels;
 
     $stateProvider.state('main.mwtnTopology', {
-        url: 'mwtnTopology',
-        access: access.admin,
-        views : {
-            'content' : {
-                templateUrl: 'src/app/mwtnTopology/mwtnTopology.tpl.html',
-                controller: 'mwtnTopologyCtrl'
-            }
+      url: 'mwtnTopology?top&bottom&right&left&lat&lng&zoom$site&siteLink&sitePath',
+      reloadOnSearch: false,
+      access: access.admin,
+      params: {
+        internal: false
+      },
+      views: {
+        content: {
+          template: '<mwtn-topology-frame />'
         }
+      }
     });
 
   });
