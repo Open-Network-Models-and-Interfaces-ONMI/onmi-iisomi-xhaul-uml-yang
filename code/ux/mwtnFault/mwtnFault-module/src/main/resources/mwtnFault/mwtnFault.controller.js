@@ -131,7 +131,7 @@ define(['app/mwtnFault/mwtnFault.module',
                 case 'ProblemNotification':
                   formated.icon = getIconFromSeverity(formated.severity);
                   $scope.gridOptionsAlarmNotifications.data.push(formated);
-                  $scope.refreshCurrentProblemList();
+                  $timeout(function(){$scope.refreshCurrentProblemList();}, 500);
                   break;
                 case 'AttributeValueChangedNotification':
                 case 'ObjectCreationNotification':
