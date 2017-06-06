@@ -24,7 +24,8 @@ These instructions should also work on other Debian derivative distributions.
     Java8 is mandatory, below one of thousend procedures to install java8 on ubuntu.
 
       ```
-      wget http://www.java.net/download/jdk8u60/archive/b07/binaries/jdk-8u60-ea-bin-b07-linux-x64-17_mar_2015.tar.gzsudo tar -xzvf jdk-8u60-ea-bin-b07-linux-x64-17_mar_2015.tar.gz
+      wget http://www.java.net/download/jdk8u60/archive/b07/binaries/jdk-8u60-ea-bin-b07-linux-x64-17_mar_2015.tar.gz
+      sudo tar -xzvf jdk-8u60-ea-bin-b07-linux-x64-17_mar_2015.tar.gz
       sudo mkdir /usr/lib/jvm
       sudo mv ~/jdk1.8.0_60/ /usr/lib/jvm/
       sudo chown -R root:root /usr/lib/jvm/jdk1.8.0_60/
@@ -78,9 +79,7 @@ These instructions should also work on other Debian derivative distributions.
   - git: the version control system.
 
       ```
-      sudo add-apt-repository ppa:git-core/ppa -y
-      sudo apt-get update
-      sudo apt-get install git -y
+      sudo apt-get install git
       ```
 
   - node.js: the JavaScript runtime environment.
