@@ -46,6 +46,7 @@ public class PathDelegate
         pathBuilder.setKey(new LtpPathListKey(pathId = UUID.randomUUID().toString()));
         pathBuilder.setPathId(pathId);
     }
+
     private static InstanceIdentifier<LtpPath> LTP_PATH_ID = InstanceIdentifier.create(LtpPath.class);
     private final Integer vlanId;
     private DataBroker dataBroker;

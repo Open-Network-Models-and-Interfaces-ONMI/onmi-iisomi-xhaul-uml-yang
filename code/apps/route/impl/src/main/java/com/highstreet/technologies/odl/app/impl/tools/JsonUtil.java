@@ -32,7 +32,6 @@ import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_ENUMS_US
 public class JsonUtil
 {
     private static final Logger LOG = LoggerFactory.getLogger(JsonUtil.class);
-
     private static ObjectMapper mapper;
 
     static
@@ -44,38 +43,13 @@ public class JsonUtil
         mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
     }
 
-    public static String toString(Object obj) throws Exception
-    {
-        StringWriter sw = new StringWriter();
-        JsonGenerator gen = null;
-        try
-        {
-            gen = new JsonFactory().createJsonGenerator(sw);
-            mapper.writeValue(gen, obj);
-        } catch (IOException e)
-        {
-            LOG.warn("toString caught exception!", e);
-            return "";
-        } finally
-        {
-            assert gen != null;
-            try
-            {
-                gen.close();
-            } catch (IOException e)
-            {
-                throw new Exception(e);
-            }
-        }
-        return sw.toString();
-    }
-
     public static <T> T toObject(URL content, Class<T> clazz)
     {
         try
         {
             return mapper.readValue(content, clazz);
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             LOG.warn("read value failed !", e);
             return null;
@@ -87,16 +61,12 @@ public class JsonUtil
         try
         {
             return mapper.readValue(content, clazz);
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             LOG.warn("read value failed !", e);
             return null;
         }
-    }
-
-    public static ObjectNode newObjNode()
-    {
-        return new ObjectMapper().createObjectNode();
     }
 
     public static ArrayNode newArrayNode()
@@ -104,21 +74,55 @@ public class JsonUtil
         return new ObjectMapper().createArrayNode();
     }
 
+    public static JsonNode toNode(Object o) throws Exception
+    {
+        return toNode(toString(o));
+    }
+
     public static JsonNode toNode(String content)
     {
         try
         {
             return mapper.readTree(content);
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             LOG.warn("toNode failed !", e);
             return newObjNode();
         }
     }
 
-    public static JsonNode toNode(Object o) throws Exception
+    public static String toString(Object obj) throws Exception
     {
-        return toNode(toString(o));
+        StringWriter sw = new StringWriter();
+        JsonGenerator gen = null;
+        try
+        {
+            gen = new JsonFactory().createJsonGenerator(sw);
+            mapper.writeValue(gen, obj);
+        }
+        catch (IOException e)
+        {
+            LOG.warn("toString caught exception!", e);
+            return "";
+        }
+        finally
+        {
+            assert gen != null;
+            try
+            {
+                gen.close();
+            }
+            catch (IOException e)
+            {
+                throw new Exception(e);
+            }
+        }
+        return sw.toString();
     }
 
+    public static ObjectNode newObjNode()
+    {
+        return new ObjectMapper().createObjectNode();
+    }
 }

@@ -18,6 +18,7 @@ import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.UniversalId;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.local._class.g.LocalId;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.local._class.g.LocalIdBuilder;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.logical.termination.point.g.Lp;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.logical.termination.point.g.LpBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.logical.termination.point.g.LpKey;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.name.g.Name;
@@ -27,7 +28,12 @@ import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.network.element.LtpBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.network.element.LtpKey;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.ltp.path.rev170526.ltp.path.ltp.path.list.LogicalTerminationPointList;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.MwAirInterfacePac;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.MwAirInterfacePacKey;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.RestoreFollowTopoInputBuilder;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.SwitchFollowTopoInputBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.fc_desc.Fc;
+import org.opendaylight.yangtools.yang.binding.ChildOf;
 import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +41,9 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 
 import static com.highstreet.technologies.odl.app.impl.tools.MountPointServiceHolder.getMountPoint;
+import static com.highstreet.technologies.odl.app.impl.tools.RPCHolder.rpc;
 import static org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType.CONFIGURATION;
+import static org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType.OPERATIONAL;
 
 /**
  * Created by odl on 17-6-3.
@@ -44,14 +52,12 @@ public class NeExecutor
 {
     public NeExecutor(Fc fc, Integer vlanid, LtpInOdlCreator ltpCreator)
     {
-        mountPoint = getMountPoint(fc.getNodeName());
-        notificationService = mountPoint.getService(NotificationService.class).get();
-        notificationService.registerNotificationListener(new ACMListener(fc.getNodeName()));
+        MountPoint mountPoint = getMountPoint(fc.getNodeName());
         dataBroker = mountPoint.getService(DataBroker.class).get();
+        mountPoint.getService(NotificationService.class).get().registerNotificationListener(new ACMListener(this));
         process(fc, vlanid, ltpCreator);
+        this.vlanId = vlanid;
     }
-
-    private final NotificationService notificationService;
 
     private List<LogicalTerminationPointList> process(Fc fc, Integer vlanId, LtpInOdlCreator ltpInOdlCreator)
     {
@@ -177,7 +183,8 @@ public class NeExecutor
 
     private static final Logger LOG = LoggerFactory.getLogger(NeExecutor.class);
     private static final LayerProtocolName LAYER_PROTOCOL_NAME = new LayerProtocolName("ETH");
-    private final MountPoint mountPoint;
+    private static boolean IS_MAIN = true;
+    private final Integer vlanId;
     private final DataBroker dataBroker;
     private ArrayList<LogicalTerminationPointList> ltp = new ArrayList<>();
     private NetworkElementBuilder neBuilder;
@@ -228,5 +235,66 @@ public class NeExecutor
         neCommitTrans.put(CONFIGURATION, InstanceIdentifier.create(NetworkElement.class), neBuilder.build());
 
         neCommitTrans.submit();
+    }
+
+    public <T extends ChildOf<MwAirInterfacePac>> T getUnderAirPac(
+            String lpId_airInterface, Class<T> tClass) throws ReadFailedException
+    {
+        ReadOnlyTransaction transaction = dataBroker.newReadOnlyTransaction();
+        InstanceIdentifier<T> mwAirInterfaceConfigurationIID = InstanceIdentifier
+                .builder(MwAirInterfacePac.class, new MwAirInterfacePacKey(new UniversalId(lpId_airInterface)))
+                .child(tClass)
+                .build();
+
+        Optional<T> op = transaction.read(
+                OPERATIONAL, mwAirInterfaceConfigurationIID).checkedGet();
+        return op.isPresent() ? op.get() : null;
+    }
+
+    public boolean isLtpOfThisOnPath(String lpName)
+    {
+        for (LogicalTerminationPointList logicalTerminationPointList : ltp)
+        {
+            if (logicalTerminationPointList.getLtpReference().getValue().equalsIgnoreCase(
+                    getLtpNameByLp(lpName)))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String getLtpNameByLp(String lpId_airInterface)
+    {
+        for (Ltp ltp1 : neBuilder.getLtp())
+        {
+            for (Lp lp : ltp1.getLp())
+            {
+                if (lp.getKey().getUuid().getValue().equalsIgnoreCase(lpId_airInterface))
+                {
+                    return ltp1.getKey().getUuid().getValue();
+                }
+            }
+        }
+        return null;
+    }
+
+    public void reportSwitch()
+    {
+
+        if (IS_MAIN)
+        {
+            SwitchFollowTopoInputBuilder builder = new SwitchFollowTopoInputBuilder();
+            builder.setVlanid(vlanId);
+            rpc.switchFollowTopo(builder.build());
+        }
+        else
+        {
+            RestoreFollowTopoInputBuilder builder = new RestoreFollowTopoInputBuilder();
+            builder.setVlanid(vlanId);
+            rpc.restoreFollowTopo(builder.build());
+        }
+
+        IS_MAIN = !IS_MAIN;
     }
 }
