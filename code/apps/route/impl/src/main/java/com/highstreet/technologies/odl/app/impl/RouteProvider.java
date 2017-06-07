@@ -16,11 +16,10 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.re
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static com.highstreet.technologies.odl.app.impl.tools.RPCHolder.rpc;
+
 public class RouteProvider
 {
-    private static final Logger LOG = LoggerFactory.getLogger(RouteProvider.class);
-    private final DataBroker dataBroker;
-
     public RouteProvider(
             final DataBroker dataBroker, final RpcProviderRegistry rpcRegistry, final MountPointService mountService)
     {
@@ -29,6 +28,8 @@ public class RouteProvider
         this.mountService = mountService;
     }
 
+    private static final Logger LOG = LoggerFactory.getLogger(RouteProvider.class);
+    private final DataBroker dataBroker;
     private final RpcProviderRegistry rpcRegistry;
     private final MountPointService mountService;
     private BindingAwareBroker.RpcRegistration<RouteService> service;
@@ -39,7 +40,8 @@ public class RouteProvider
     public void init()
     {
         LOG.info("RouteProvider Session Initiated");
-        service = rpcRegistry.addRpcImplementation(RouteService.class, new RouteRPC(dataBroker, mountService));
+        service = rpcRegistry.addRpcImplementation(
+                RouteService.class, rpc = new RouteRPC(dataBroker, mountService));
         MountPointServiceHolder.setMountPointService(mountService);
     }
 
