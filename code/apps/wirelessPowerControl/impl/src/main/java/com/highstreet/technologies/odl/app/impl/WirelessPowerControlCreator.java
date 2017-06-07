@@ -1,5 +1,5 @@
 /*
- * Copyright © 2016 highstreet technologies GmbH and others.  All rights reserved.
+ * Copyright (c) 2017 Frinx s.r.o. and others.  All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -14,9 +14,6 @@ import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Created by lbeles on 11.10.2016.
- */
 public class WirelessPowerControlCreator implements BindingAwareProvider, AutoCloseable {
     private static final Logger LOG = LoggerFactory.getLogger(WirelessPowerControlCreator.class);
 
