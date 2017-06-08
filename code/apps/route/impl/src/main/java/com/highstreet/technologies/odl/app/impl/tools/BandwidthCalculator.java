@@ -18,7 +18,7 @@ public class BandwidthCalculator
 {
     public BandwidthCalculator(Integer txChannelBandwidth, Short modulationCur, Byte codeRateCur)
     {
-        this.result = txChannelBandwidth * log2(modulationCur) * codeRateCur / 1.15;
+        this.result = txChannelBandwidth * log2(modulationCur) * ((double) codeRateCur / (double) 100) / 1.15;
     }
 
     private static DecimalFormat df = new DecimalFormat("#.00");
