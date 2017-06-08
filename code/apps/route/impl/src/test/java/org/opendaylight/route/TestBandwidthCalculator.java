@@ -11,6 +11,8 @@ import com.highstreet.technologies.odl.app.impl.tools.BandwidthCalculator;
 import com.highstreet.technologies.odl.app.impl.tools.Unit;
 import org.junit.Test;
 
+import static com.highstreet.technologies.odl.app.impl.tools.Unit.*;
+
 /**
  * Created by odl on 17-6-8.
  */
@@ -21,8 +23,8 @@ public class TestBandwidthCalculator
     {
         BandwidthCalculator bc = new BandwidthCalculator(56000, (short) 64, (byte) 90);
         System.out.println(bc.calc());
-        System.out.println(bc.calc(Unit.m_bits_s));
-        System.out.println(bc.calc(Unit.m_byte_s));
-        System.out.println(bc.calc(Unit.k_bits_s));
+        System.out.println(bc.calc(m_bits_s) + " " + m_bits_s.name());
+        System.out.println(bc.calc(Unit.m_byte_s) + " " + m_byte_s.name());
+        System.out.println(bc.calc(Unit.k_bits_s) + " " + k_bits_s.name());
     }
 }
