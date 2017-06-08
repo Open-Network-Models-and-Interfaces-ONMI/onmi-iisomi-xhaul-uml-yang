@@ -7,6 +7,7 @@
  */
 package com.highstreet.technologies.odl.app.impl.listener;
 
+import com.highstreet.technologies.odl.app.impl.tools.BandwidthCalculator;
 import com.highstreet.technologies.odl.app.impl.tools.NeExecutor;
 import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.*;
@@ -57,7 +58,6 @@ public class ACMListener implements MicrowaveModelListener
         {
             if (notification.getAttributeName().equalsIgnoreCase("modulationCur"))
             {
-                String newValue = notification.getNewValue();
                 String lpId_airInterface = notification.getObjectIdRef().getValue();
                 if (ne.isLtpOfThisOnPath(lpId_airInterface))
                 {
@@ -66,8 +66,9 @@ public class ACMListener implements MicrowaveModelListener
                     AirInterfaceStatus airInterfaceStatus = ne.getUnderAirPac(
                             lpId_airInterface, AirInterfaceStatus.class);
 
-                    Double txCapacity = airInterfaceConfiguration.getTxChannelBandwidth() * (Math.log(
-                            Double.valueOf(newValue)) / Math.log(2.0)) * airInterfaceStatus.getCodeRateCur() / 1.15;
+                    Double txCapacity = new BandwidthCalculator(
+                            airInterfaceConfiguration.getTxChannelBandwidth(), airInterfaceStatus.getModulationCur(),
+                            airInterfaceStatus.getCodeRateCur()).calc();
                     if (txCapacity < Double.valueOf(properties.getProperty("BANDWIDTH")))
                     {
                         ne.reportSwitch();
