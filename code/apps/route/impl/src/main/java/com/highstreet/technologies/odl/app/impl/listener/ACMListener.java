@@ -86,20 +86,17 @@ public class ACMListener implements MicrowaveModelListener
     public void onObjectCreationNotification(
             ObjectCreationNotification notification)
     {
-
     }
 
     @Override
     public void onObjectDeletionNotification(
             ObjectDeletionNotification notification)
     {
-
     }
 
     @Override
     public void onProblemNotification(
             ProblemNotification notification)
     {
-        LOG.info("receiving alarm: " + notification.toString());
     }
 }
