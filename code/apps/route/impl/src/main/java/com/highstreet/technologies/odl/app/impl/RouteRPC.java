@@ -85,7 +85,9 @@ public class RouteRPC implements RouteService
     {
         SwitchFollowTopoOutputBuilder builder = new SwitchFollowTopoOutputBuilder();
         builder.setStatus(
-                switchTo(input.getVlanid(), Arrays.asList(predefinePath.paths.get(input.getVlanid()).main_ltps)));
+                switchTo(
+                        input.getVlanid(),
+                        Arrays.asList(predefinePath.paths.get(String.valueOf(input.getVlanid())).backup_ltps)));
         return RpcResultBuilder.success(builder.build()).buildFuture();
     }
 
