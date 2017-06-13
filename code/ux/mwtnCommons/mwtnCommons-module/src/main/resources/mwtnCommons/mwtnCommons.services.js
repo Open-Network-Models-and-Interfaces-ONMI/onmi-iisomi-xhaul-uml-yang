@@ -170,7 +170,7 @@ define(
           });
           $scope.viewData = ordered;
         }, function(error){
-          // ignore;
+          $scope.empty = true;
         });
                   
       }, function (error) {
@@ -299,6 +299,10 @@ define(
             }).map(function(key){
               ordered[key] = clone[key];
             });
+            $scope.info = false;
+            if (Object.keys(ordered).length === 0) {
+              $scope.info = 'An empty object is displayed. Please check if the NetConf server has send an empty object.';
+            }
             return ordered;
           };
 
@@ -318,7 +322,8 @@ define(
           data: '=',
           path: '=',
           ne: '=', // flag if ne class
-          networkElement: '='
+          networkElement: '=',
+          noButtons: '='
         },
         controller: 'mwtnJsonViewerController',
         controllerAs: 'vm',
@@ -362,7 +367,10 @@ define(
         var vm = this;
         var COMPONENT = 'mwtnGridController';
 
+        $scope.info = false;
+
         var data = JSON.parse(JSON.stringify($scope.data));
+        console.warn(JSON.stringify(data));
         if (!data) {
           var message = 'No data to be displayed!";'
           $mwtnLog.info({ component: COMPONENT, message: message });
@@ -1260,8 +1268,9 @@ define(
                 pacKey = 'microwave-model-object-classes-air-interface:mw-air-interface-pac';
               }
               var configKey = 'air-interface-configuration';
+              var radioSignalIds = [];
               if (yangifiedObj[pacKey]) {
-                var radioSignalIds = yangifiedObj[pacKey].filter(
+                radioSignalIds = yangifiedObj[pacKey].filter(
                   function (mwps) {
                     return mwps[configKey] && mwps[configKey]['radio-signal-id'];
                   }
@@ -1269,7 +1278,7 @@ define(
                   function (mwps) {
                     return mwps[configKey]['radio-signal-id'];
                   }
-                  );
+                ).sort();
               }
               return {
                 id: service.getNodeIntIdFromNodeId(yangifiedObj['node-id']),
@@ -1278,7 +1287,7 @@ define(
                 port: yangifiedObj.connect.port,
                 username: yangifiedObj.connect.username,
                 password: yangifiedObj.connect.password,
-                radioSignalIds: JSON.stringify(radioSignalIds.sort()),
+                radioSignalIds: JSON.stringify(radioSignalIds),
                 connectionStatus: 'disconnected'
               };
             });
@@ -1951,6 +1960,152 @@ define(
         return deferred.promise;
       };
 
+      service.getPtpPort = function (spec) {
+        var deferred = $q.defer();
+        if (!spec.networkElement || !spec.value) {
+          deferred.reject('ignore');
+          return deferred.promise;
+        }
+
+        var operation = 'config';
+        var url = [service.base, operation,
+          '/network-topology:network-topology/topology/topology-netconf/node/',
+        spec.networkElement,
+          '/yang-ext:mount/ietf-ptp-dataset:instance-list/1/port-ds-list/',
+        spec.value['port-number']].join('');
+        var request = {
+          method: 'GET',
+          url: url
+        };
+        console.warn(JSON.stringify(request));
+
+        var taskId = [spec.networkElement, spec.value['port-number'], 'data received'].join(' ');
+        console.time(taskId);
+        $http(request).then(function (success) {
+          console.timeEnd(taskId);
+          console.warn(JSON.stringify(success.data));
+          deferred.resolve(success.data);
+        }, function (error) {
+          console.timeEnd(taskId);
+          $mwtnLog.info({ component: '$mwtnCommons.getPtpPort', message: JSON.stringify(error.data) });
+          deferred.reject(error);
+        });
+        return deferred.promise;
+      };
+
+      service.setPtpPort = function (spec, data) {
+        var deferred = $q.defer();
+        if (!spec.networkElement || !spec.value) {
+          deferred.reject('ignore');
+          return deferred.promise;
+        }
+
+        var operation = 'config';
+        var url = [service.base, operation,
+          '/network-topology:network-topology/topology/topology-netconf/node/',
+        spec.networkElement,
+          '/yang-ext:mount/ietf-ptp-dataset:instance-list/1/port-ds-list/',
+        spec.value['port-number']].join('');
+
+        var body = {'port-ds-list': data};
+
+        var request = {
+          method: 'PUT',
+          url: url,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          data: body
+        };
+
+        var taskId = [spec.networkElement, spec.value['port-number'], 'data received'].join(' ');
+        console.time(taskId);
+        $http(request).then(function (success) {
+          console.timeEnd(taskId);
+          deferred.resolve(success.data);
+          // deferred.resolve(service.yangifyObject(success.data));
+        }, function (error) {
+          console.timeEnd(taskId);
+          $mwtnLog.error({ component: '$mwtnCommons.setPtpPort', message: JSON.stringify(error.data) });
+          deferred.reject(error);
+        });
+        return deferred.promise;
+      };
+
+
+      service.getPtpDefaultDs = function (spec) {
+        var deferred = $q.defer();
+        if (!spec.networkElement || !spec.value) {
+          deferred.reject('ignore');
+          return deferred.promise;
+        }
+
+        var operation = 'config';
+        var url = [service.base, operation,
+          '/network-topology:network-topology/topology/topology-netconf/node/',
+        spec.networkElement,
+          '/yang-ext:mount/ietf-ptp-dataset:instance-list/1/default-ds/'].join('');
+        var request = {
+          method: 'GET',
+          url: url
+        };
+        console.warn(JSON.stringify(request));
+
+        var taskId = [spec.networkElement, 'default-ds', 'data received'].join(' ');
+        console.time(taskId);
+        $http(request).then(function (success) {
+          console.timeEnd(taskId);
+          console.warn(JSON.stringify(success.data));
+          deferred.resolve(success.data);
+        }, function (error) {
+          console.timeEnd(taskId);
+          $mwtnLog.info({ component: '$mwtnCommons.getPtpPort', message: JSON.stringify(error.data) });
+          deferred.reject(error);
+        });
+        return deferred.promise;
+      };
+
+      service.setPtpDefaultDs = function (spec, data) {
+        var deferred = $q.defer();
+        if (!spec.networkElement || !spec.value) {
+          deferred.reject('ignore');
+          return deferred.promise;
+        }
+
+        var operation = 'config';
+        var url = [service.base, operation,
+          '/network-topology:network-topology/topology/topology-netconf/node/',
+        spec.networkElement,
+          '/yang-ext:mount/ietf-ptp-dataset:instance-list/1/default-ds/'].join('');
+
+        var body = {'default-ds': data};
+
+        var request = {
+          method: 'PUT',
+          url: url,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          data: body
+        };
+
+        var taskId = [spec.networkElement, 'default-ds', 'data received'].join(' ');
+        console.time(taskId);
+        $http(request).then(function (success) {
+          console.timeEnd(taskId);
+          deferred.resolve(success.data);
+          // deferred.resolve(service.yangifyObject(success.data));
+        }, function (error) {
+          console.timeEnd(taskId);
+          $mwtnLog.error({ component: '$mwtnCommons.setPtpPort', message: JSON.stringify(error.data) });
+          deferred.reject(error);
+        });
+        return deferred.promise;
+      };
+
+
       service.setConditionalPackagePart = function (spec, data) {
         var deferred = $q.defer();
         if (!spec.partId) {
@@ -1992,6 +2147,7 @@ define(
         });
         return deferred.promise;
       };
+
       // pureEthernetStructureConfiguration/problemKindSeverityList/value1
       // {
       //   "problemKindSeverityList": [
@@ -3138,7 +3294,7 @@ define(
           this.logicalTerminationPoints = [];
           var message = ['The network-element', data.uuid, 'dose not support a single LTP. No LTP -> no SDN integration via ONF core-model.'].join(' ');
           // TODO $mwtnLog -> Unknown provider: $mwtnlogProvider <- $mwtnlog <- OnfNetworkElement [sko] Dont get it ;(
-          console.error({ component: COMPONENT, message: message });
+          console.warn({ component: COMPONENT, message: message });
         } else {
           this.logicalTerminationPoints = this.data.ltp.map(function (logicalTerminationPoint) {
             return new LogicalTerminationPoint(logicalTerminationPoint);
