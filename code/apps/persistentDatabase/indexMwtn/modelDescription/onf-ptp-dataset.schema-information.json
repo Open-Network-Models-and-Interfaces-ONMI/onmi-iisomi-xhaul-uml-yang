@@ -5,36 +5,14 @@
             "type": "uint16",
             "order-number": 1,
             "is-read-only": true,
-            "unit": "sdf",
             "description": ["There is only one clock per device in the 4th PoC - value 1 should be used as instance-number."]
-        },
-        "default-ds": {
-            "id": "default-ds",
-            "type": "",
-            "order-number": 2,
-            "is-read-only": true,
-            "description": [""]
         },
         "two-step-flag": {
             "id": "two-step-flag",
-            "type": "",
-            "order-number": 3,
+            "type": "boolean",
+            "order-number": 80,
             "is-read-only": true,
             "description": ["Indicates whether PTP clock is a two-step clock"]
-        },
-        "clock-identity": {
-            "id": "clock-identity",
-            "type": "",
-            "order-number": 4,
-            "is-read-only": true,
-            "description": ["ID of local PTP clock in IEEE EUI-64 format"]
-        },
-        "number-ports": {
-            "id": "number-ports",
-            "type": "",
-            "order-number": 5,
-            "is-read-only": true,
-            "description": ["Number of PTP ports on the device"]
         },
         "clock-quality": {
             "id": "clock-quality",
@@ -66,29 +44,35 @@
         },
         "priority1": {
             "id": "priority1",
-            "type": "",
+            "type": "number",
+            "min": 0,
+            "max": 255,
             "order-number": 10,
-            "is-read-only": false,
+            "is-read-only": true,
             "description": ["Priority 1 acc. to IEEE 1588-2008, 7.6.2.2"]
         },
         "priority2": {
             "id": "priority2",
-            "type": "",
+            "type": "number",
+            "min": 0,
+            "max": 255,
             "order-number": 11,
             "is-read-only": false,
             "description": ["Priority 2 acc. to IEEE 1588-2008, 7.6.2.3"]
         },
         "domain-number": {
             "id": "domain-number",
-            "type": "",
+            "type": "number",
+            "min": 24,
+            "max": 43,
             "order-number": 12,
-            "is-read-only": true,
+            "is-read-only": false,
             "description": ["PTP domain number acc. to IEEE 1588-2008, 7.1. See ptpDS.domainNumber."]
         },
         "slave-only": {
             "id": "slave-only",
-            "type": "",
-            "order-number": 13,
+            "type": "boolean",
+            "order-number": 81,
             "is-read-only": false,
             "description": ["Indicates whether PTP clock may only operate as SC. See IEEE 1588-2008, 9.2."]
         },
@@ -136,20 +120,6 @@
             "is-read-only": true,
             "description": [""]
         },
-        "clock-identity": {
-            "id": "clock-identity",
-            "type": "",
-            "order-number": 20,
-            "is-read-only": true,
-            "description": ["ID of master clock"]
-        },
-        "port-number": {
-            "id": "port-number",
-            "type": "",
-            "order-number": 21,
-            "is-read-only": true,
-            "description": ["Port number on master clock"]
-        },
         "parent-stats": {
             "id": "parent-stats",
             "type": "",
@@ -169,7 +139,6 @@
             "type": "",
             "order-number": 24,
             "is-read-only": true,
-            "unit": "???",
             "description": ["Estimate of parent's clock PTP phase change rate as observed by slave clock acc. to IEEE 1588-2008, 7.6.4.4."]
         },
         "grandmaster-identity": {
@@ -185,29 +154,6 @@
             "order-number": 26,
             "is-read-only": true,
             "description": [""]
-        },
-        "clock-class": {
-            "id": "clock-class",
-            "type": "",
-            "order-number": 27,
-            "is-read-only": true,
-            "description": ["Grandmaster's clock Class acc. to IEEE 1588-2008, 7.6.2.4 and ITU-T G.8275.1, 6.4"]
-        },
-        "clock-accuracy": {
-            "id": "clock-accuracy",
-            "type": "",
-            "order-number": 28,
-            "is-read-only": true,
-            "unit": "???",
-            "description": ["Grandmaster's clock accuracy acc. to IEEE 1588-2008, 7.6.2.5 and ITU-T G.8275.1, 6.3.5"]
-        },
-        "offset-scaled-log-variance": {
-            "id": "offset-scaled-log-variance",
-            "type": "",
-            "order-number": 29,
-            "is-read-only": true,
-            "unit": "???",
-            "description": ["Grandmaster's offset of scaled log variance acc. to IEEE 1588-2008, 7.6.3.5 and ITU-T G.8275.1, 6.3.5"]
         },
         "grandmaster-priority1": {
             "id": "grandmaster-priority1",
@@ -286,34 +232,6 @@
             "is-read-only": true,
             "description": ["Time source used by grandmaster. See IEEE 1588-2008, 7.6.2.6."]
         },
-        "port-ds-list": {
-            "id": "port-ds-list",
-            "type": "",
-            "order-number": 41,
-            "is-read-only": true,
-            "description": [""]
-        },
-        "port-identity": {
-            "id": "port-identity",
-            "type": "",
-            "order-number": 42,
-            "is-read-only": true,
-            "description": [""]
-        },
-        "clock-identity": {
-            "id": "clock-identity",
-            "type": "",
-            "order-number": 43,
-            "is-read-only": true,
-            "description": ["ID of the local clock"]
-        },
-        "port-number": {
-            "id": "port-number",
-            "type": "",
-            "order-number": 44,
-            "is-read-only": true,
-            "description": ["Port number of this port on the local clock"]
-        },
         "port-state": {
             "id": "port-state",
             "type": "",
@@ -326,11 +244,10 @@
             "type": "",
             "order-number": 46,
             "is-read-only": true,
-            "unit": "???",
             "description": ["Minimum permitted mean time interval between successive Delay_Req messages"]
         },
-        "peer-mean-mean-path-delay": {
-            "id": "peer-mean-mean-path-delay",
+        "peer-mean-path-delay": {
+            "id": "peer-mean-path-delay",
             "type": "",
             "order-number": 47,
             "is-read-only": true,
@@ -342,7 +259,6 @@
             "type": "",
             "order-number": 48,
             "is-read-only": true,
-            "unit": "???",
             "description": ["Mean time interval between successive Announce messages"]
         },
         "announce-receipt-timeout": {
@@ -357,22 +273,15 @@
             "type": "",
             "order-number": 50,
             "is-read-only": true,
-            "unit": "???",
             "description": ["Mean SyncInterval for multicast messages"]
         },
         "delay-mechanism": {
             "id": "delay-mechanism",
-            "type": "",
+            "type": "string",
+            "controlType": "text",
             "order-number": 51,
             "is-read-only": true,
             "description": ["Delay mechanism acc. to IEEE 1588-2008, 8.2.5.4.4."]
-        },
-        "log-min-pdelay-req-interval": {
-            "id": "log-min-pdelay-req-interval",
-            "type": "",
-            "order-number": 52,
-            "is-read-only": false,
-            "description": ["Not applicable with this profile"]
         },
         "version-number": {
             "id": "version-number",
@@ -388,32 +297,18 @@
             "is-read-only": true,
             "description": [""]
         },
-        "clock-identity": {
-            "id": "clock-identity",
-            "type": "",
-            "order-number": 55,
-            "is-read-only": true,
-            "description": ["ID of transparent clock"]
-        },
         "number-ports": {
             "id": "number-ports",
             "type": "",
-            "order-number": 56,
+            "order-number": -6,
             "is-read-only": true,
             "description": ["Number of ports of the device"]
-        },
-        "delay-mechanism": {
-            "id": "delay-mechanism",
-            "type": "",
-            "order-number": 57,
-            "is-read-only": false,
-            "description": ["End-to-end transparent clock or peer-to-peer transparent clock"]
         },
         "primary-domain": {
             "id": "primary-domain",
             "type": "",
             "order-number": 58,
-            "is-read-only": false,
+            "is-read-only": true,
             "description": ["Domain number of primary syntonization domain acc. to IEEE 1588-2008, 10.1"]
         },
         "transparent-clock-port-ds-list": {
@@ -422,27 +317,6 @@
             "order-number": 59,
             "is-read-only": true,
             "description": [""]
-        },
-        "port-identity": {
-            "id": "port-identity",
-            "type": "",
-            "order-number": 60,
-            "is-read-only": true,
-            "description": [""]
-        },
-        "clock-identity": {
-            "id": "clock-identity",
-            "type": "",
-            "order-number": 61,
-            "is-read-only": true,
-            "description": ["ID of local clock"]
-        },
-        "port-number": {
-            "id": "port-number",
-            "type": "",
-            "order-number": 62,
-            "is-read-only": true,
-            "description": ["Number of this port"]
         },
         "log-min-pdelay-req-interval": {
             "id": "log-min-pdelay-req-interval",
@@ -458,21 +332,6 @@
             "is-read-only": true,
             "description": ["Indicates whether port is faulty."]
         },
-        "peer-mean-mean-path-delay": {
-            "id": "peer-mean-mean-path-delay",
-            "type": "",
-            "order-number": 65,
-            "is-read-only": true,
-            "unit": "ns*2^16",
-            "description": ["Not applicable with this profile"]
-        },
-        "instance-number": {
-            "id": "instance-number",
-            "type": "",
-            "order-number": 67,
-            "is-read-only": true,
-            "description": [""]
-        },
         "default-ds": {
             "id": "default-ds",
             "type": "",
@@ -482,31 +341,21 @@
         },
         "local-priority": {
             "id": "local-priority",
-            "type": "",
+            "type": "number",
+            "min": 1,
+            "max": 255,
             "order-number": 69,
-            "is-read-only": false,
+            "is-read-only": true,
             "description": ["See ITU-T G.8275.1, 6.3.2."]
         },
         "max-steps-removed": {
             "id": "max-steps-removed",
-            "type": "",
+            "type": "number",
+            "min": 1,
+            "max": 255,
             "order-number": 70,
             "is-read-only": true,
             "description": ["See ITU-T G.8275.1, 6.3."]
-        },
-        "multicast-mac-address": {
-            "id": "multicast-mac-address",
-            "type": "",
-            "order-number": 71,
-            "is-read-only": true,
-            "description": ["In 4th PoC the value is fixed."]
-        },
-        "designated-enabled": {
-            "id": "designated-enabled",
-            "type": "",
-            "order-number": 72,
-            "is-read-only": false,
-            "description": ["A PTP Clock needs to be enabled by management."]
         },
         "port-ds-list": {
             "id": "port-ds-list",
@@ -515,17 +364,10 @@
             "is-read-only": true,
             "description": [""]
         },
-        "port-identity": {
-            "id": "port-identity",
-            "type": "",
-            "order-number": 74,
-            "is-read-only": true,
-            "description": [""]
-        },
         "clock-identity": {
             "id": "clock-identity",
             "type": "",
-            "order-number": 75,
+            "order-number": -10,
             "is-read-only": true,
             "description": ["ID of the local clock"]
         },
@@ -536,40 +378,58 @@
             "is-read-only": true,
             "description": ["Port number of this port on the local clock"]
         },
-        "master-only": {
-            "id": "master-only",
-            "type": "",
-            "order-number": 77,
+        "onf-ptp-dataset:master-only": {
+            "id": "onf-ptp-dataset:master-only",
+            "type": "boolean",
+            "order-number": 83,
             "is-read-only": false,
             "description": ["Indicates that port can only be a master."]
         },
-        "local-priority": {
-            "id": "local-priority",
-            "type": "",
-            "order-number": 78,
-            "is-read-only": true,
+        "onf-ptp-dataset:local-priority": {
+            "id": "onf-ptp-dataset:local-priority",
+            "type": "number",
+            "min":1,
+            "max":255,
+            "order-number": -2,
+            "is-read-only": false,
             "description": ["Local priority as used for Alternate BMCA. See ITU-T G.8275.1, 6.3.2."]
         },
-        "designated-enabled": {
-            "id": "designated-enabled",
-            "type": "",
-            "order-number": 79,
+        "onf-ptp-dataset:designated-enabled": {
+            "id": "onf-ptp-dataset:designated-enabled",
+            "type": "boolean",
+            "order-number": 82,
             "is-read-only": false,
             "description": ["A PTP Port needs to be enabled by management acc. to IEEE 1588-2008, 9.2."]
         },
-        "delay-asymmetry": {
-            "id": "delay-asymmetry",
-            "type": "",
+        "onf-ptp-dataset:delay-asymmetry": {
+            "id": "onf-ptp-dataset:delay-asymmetry",
+            "type": "number",
             "order-number": 80,
             "is-read-only": true,
             "description": ["Known path asymmetry in ns acc. to IEEE 1588-2008, 7.4.2."]
         },
-        "physical-port-identity": {
-            "id": "physical-port-identity",
-            "type": "",
+        "onf-ptp-dataset:logical-termination-point": {
+            "id": "onf-ptp-dataset:logical-termination-point ",
+            "type": "string",
             "order-number": 81,
             "is-read-only": true,
             "description": [""]
+        },
+        "onf-ptp-dataset:multicast-mac-address": {
+            "id": "onf-ptp-dataset:multicast-mac-address",
+            "type": "",
+            "order-number": -5,
+            "is-read-only": true,
+            "description": ["In 4th PoC the value is fixed."]
+        },
+        "onf-ptp-dataset:max-steps-removed": {
+            "id": "onf-ptp-dataset:max-steps-removed",
+            "type": "number",
+            "min":1,
+            "max":255,
+            "order-number": 70,
+            "is-read-only": false,
+            "description": ["See ITU-T G.8275.1, 6.3."]
         }
     }
 }
