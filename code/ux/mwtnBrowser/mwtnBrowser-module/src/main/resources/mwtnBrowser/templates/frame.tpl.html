@@ -1,7 +1,7 @@
 <alarm-status></alarm-status>
 <mwtn-select-network-element></mwtn-select-network-element>
 
-<div class="owl container" ng-show="networkElements.lenght !== 0" style="width: 100%;">
+<div class="owl container" ng-show="networkElements.length !== 0" style="width: 100%;">
   <div class="row">
     <uib-accordion close-others="oneAtATime">
       <div class="col-md-12">
@@ -55,9 +55,13 @@
             <i class="fa fa-spinner fa-pulse" ng-show="spinner.clock"></i>
           </uib-accordion-heading>
 
-          <mwtn-json-viewer network-element="networkElement" data="clock.getData()" ng-if="clock.getData() && !spinner.clock"></mwtn-json-viewer>
+          <!-- <mwtn-json-viewer network-element="networkElement" data="clock.getData()" ng-if="clock.getData() && !spinner.clock"></mwtn-json-viewer> -->
+          <mwtn-ptp-clock-viewer network-element="networkElement" data="clock.getData()" ng-if="clock.getData() && !spinner.clock"></mwtn-ptp-clock-viewer>
         </div>
+
+
       </div>
+
 
     </uib-accordion>
   </div>

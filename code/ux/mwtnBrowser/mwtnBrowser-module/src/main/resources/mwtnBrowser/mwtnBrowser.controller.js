@@ -11,6 +11,657 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
         'app/mwtnBrowser/mwtnBrowser.services'],
         function(mwtnBrowserApp) {
 
+
+    var keyStr = "ABCDEFGHIJKLMNOP" +
+          "QRSTUVWXYZabcdef" +
+          "ghijklmnopqrstuv" +
+          "wxyz0123456789+/" +
+          "=";
+
+    var  decode64 = function(input) {
+      var output = "";
+      var chr1, chr2, chr3 = "";
+      var enc1, enc2, enc3, enc4 = "";
+      var i = 0;
+
+      // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
+      console.warn(input);
+      var base64test = /[^A-Za-z0-9\+\/\=]/g;
+      if (base64test.exec(input)) {
+          console.error("There were invalid base64 characters in the input text.\n" +
+                "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
+                "Expect errors in decoding.");
+      }
+      input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+
+      do {
+          enc1 = keyStr.indexOf(input.charAt(i++));
+          enc2 = keyStr.indexOf(input.charAt(i++));
+          enc3 = keyStr.indexOf(input.charAt(i++));
+          enc4 = keyStr.indexOf(input.charAt(i++));
+          chr1 = (enc1 << 2) | (enc2 >> 4);
+          chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+          chr3 = ((enc3 & 3) << 6) | enc4;
+
+          output = output + String.fromCharCode(chr1);
+
+          if (enc3 != 64) {
+            output = output + String.fromCharCode(chr2);
+          }
+          if (enc4 != 64) {
+            output = output + String.fromCharCode(chr3);
+          }
+
+          chr1 = chr2 = chr3 = "";
+          enc1 = enc2 = enc3 = enc4 = "";
+
+      } while (i < input.length);
+      return unescape(output);
+    }
+
+    var getControlType = function(type) {
+      var result = 'text'
+      switch (type) {
+        case 'boolean':
+          result = 'checkbox';
+          break;
+        case 'number':
+          result = 'number';
+          break;
+        case 'string':
+        case 'array':
+        case 'object':
+          break;
+        default:
+          var message = 'Check control type for ' + type;
+          $mwtnLog.warning({ component: COMPONENT, message: message });
+      }
+      return result;
+    };
+
+    mwtnBrowserApp.register.controller('ptpDefaultDsViewController', ['$scope', '$uibModalInstance', '$mwtnGlobal', '$mwtnCommons', '$mwtnDatabase', '$mwtnLog', 'defaultDs', 
+      function ($scope, $uibModalInstance, $mwtnGlobal, $mwtnCommons, $mwtnDatabase, $mwtnLog, defaultDs) {
+
+      var vm = this;
+      var COMPONENT = 'ptpDefaultDsViewController';
+      $scope.data = defaultDs;
+
+      $scope.getType = $mwtnGlobal.getType;
+
+
+      $mwtnCommons.getPtpDefaultDs(defaultDs).then(function (success) {
+
+        $scope.configuredData = success;
+        $scope.viewData = $mwtnGlobal.getViewData($scope.configuredData['default-ds']);
+
+        $mwtnDatabase.getSchema().then(function(schema){
+          var ordered = {};
+          var clone = JSON.parse(JSON.stringify($scope.viewData));
+          var keys = Object.keys(clone).map(function(key){
+            if ($mwtnGlobal.getType(key) !== 'string') {
+              console.log('key', key);
+              return;
+            }
+            var item = clone[key];
+            if (!schema[key]) {
+              var message = 'No schema information for ' + key;
+              $mwtnLog.warning({ component: COMPONENT, message: message });
+              item['order-number'] = $mwtnCommons.getOrderNumber(97, item);
+              item.description = 'No description available.';
+              item.visible = true;
+              return key;
+            }
+            if (schema[key].controlType === undefined) {
+              item.controlType = getControlType(item.type);
+            } else {
+              item.controlType = schema[key].controlType;
+            }
+            item.unit = schema[key].unit;
+            item['is-read-only'] = schema[key]['is-read-only'];
+            if (schema[key].min) {
+              item.min = schema[key].min;
+            }
+            if (schema[key].max) {
+              item.max = schema[key].max;
+              if (item.unit) {
+                item.unit = schema[key].min + '..' + schema[key].max + ' ' + item.unit;
+              } else {
+                item.unit = schema[key].min + '..' + schema[key].max;
+              }
+            }
+
+
+            item['order-number'] = $mwtnCommons.getOrderNumber(schema[key]['order-number'], item);
+            item.description = schema[key].description;
+            if (item.description === undefined || item.description === '') {
+              item.description = 'No description available.';
+            }
+            // hide complex types for now -> TODO
+            if (item.type === 'array' || item.type === 'object') {
+              item.visible = false;
+            }
+            return key;
+          }).sort(function(a,b){
+            if (clone[a]['order-number'] < clone[b]['order-number']) return -1;
+            if (clone[a]['order-number'] > clone[b]['order-number']) return 1;
+            return 0;
+          }).map(function(key){
+            ordered[key] = clone[key];
+          });
+          $scope.viewData = ordered;
+        }, function(error){
+          $scope.empty = true;
+        });
+                  
+      }, function (error) {
+        $scope.configuredData = undefined;
+        $mwtnLog.error({ component: COMPONENT, message: 'Requesting PTP default ds ' + JSON.stringify($scope.data) + ' failed!' });
+      });
+
+      $scope.$watch('viewData', function(newValue, oldValue) {
+        if (oldValue && newValue !== oldValue) {
+          Object.keys(newValue).filter(function(key){
+            return newValue[key]['is-read-only'] !== true && newValue[key].controlType === 'number' ;
+          }).map(function(key){
+            if (newValue[key].value < newValue[key].min) newValue[key].value = newValue[key].min;
+            if (newValue[key].value > newValue[key].max) newValue[key].value = newValue[key].max;
+            if (!newValue[key].value) newValue[key].value = newValue[key].min;
+          });
+        }
+      }, true);
+
+      $scope.newData = {};
+      $scope.ok = function () {
+        $scope.processing = true;
+        $scope.newData = {};
+        Object.keys($scope.viewData).map(function(key){
+          $scope.newData[key] = $scope.viewData[key].value;
+        });
+
+        $mwtnCommons.setPtpDefaultDs($scope.data, $scope.newData).then(function(success){
+          $scope.applied = {text: 'Applied: ' + new Date().toISOString(), class:'mwtnSuccess'};
+          $scope.processing = false;
+        }, function(error){
+          $scope.applied = {text: 'Error: ' + new Date().toISOString(), class:'mwtnError'};
+          $scope.processing = false;
+          $mwtnLog.error({component: COMPONENT, message: JSON.stringify(error)});
+        });
+
+      };
+    
+      $scope.cancel = function () {
+        $uibModalInstance.close($scope.newData);
+      };
+
+      // events
+
+
+    }]);
+
+    mwtnBrowserApp.register.controller('ptpPortConfigViewController', ['$scope', '$uibModalInstance', '$mwtnGlobal', '$mwtnCommons', '$mwtnDatabase', '$mwtnLog', 'valueData', 
+      function ($scope, $uibModalInstance, $mwtnGlobal, $mwtnCommons, $mwtnDatabase, $mwtnLog, data) {
+
+      var vm = this;
+      var COMPONENT = 'ptpPortConfigViewController';
+
+      $scope.data = data;
+
+      $scope.getType = $mwtnGlobal.getType;
+      console.warn(JSON.stringify(data));
+      $mwtnCommons.getPtpPort(data).then(function (success) {
+        
+        $scope.configuredData = success;
+        
+        $scope.viewData = $mwtnGlobal.getViewData($scope.configuredData['port-ds-list'][0]);
+        $mwtnDatabase.getSchema().then(function(schema){
+          var ordered = {};
+          var clone = JSON.parse(JSON.stringify($scope.viewData));
+          var keys = Object.keys(clone).map(function(key){
+            if ($mwtnGlobal.getType(key) !== 'string') {
+              console.log('key', key);
+              return;
+            }
+            var item = clone[key];
+            if (!schema[key]) {
+              var message = 'No schema information for ' + key;
+              $mwtnLog.warning({ component: COMPONENT, message: message });
+              item['order-number'] = $mwtnCommons.getOrderNumber(97, item);
+              item.description = 'No description available.';
+              item.visible = true;
+              return key;
+            }
+            if (schema[key].controlType === undefined) {
+              item.controlType = getControlType(item.type);
+            } else {
+              item.controlType = schema[key].controlType;
+            }
+            item.unit = schema[key].unit;
+            console.warn(key, schema[key]['is-read-only']);
+            item['is-read-only'] = schema[key]['is-read-only'];
+            if (schema[key].min) {
+              item.min = schema[key].min;
+            }
+            if (schema[key].max) {
+              item.max = schema[key].max;
+              if (item.unit) {
+                item.unit = schema[key].min + '..' + schema[key].max + ' ' + item.unit;
+              } else {
+                item.unit = schema[key].min + '..' + schema[key].max;
+              }
+            }
+
+
+            item['order-number'] = $mwtnCommons.getOrderNumber(schema[key]['order-number'], item);
+            item.description = schema[key].description;
+            if (item.description === undefined || item.description === '') {
+              item.description = 'No description available.';
+            }
+            // hide complex types for now -> TODO
+            if (item.type === 'array' || item.type === 'object') {
+              item.visible = false;
+            }
+            return key;
+          }).sort(function(a,b){
+            if (clone[a]['order-number'] < clone[b]['order-number']) return -1;
+            if (clone[a]['order-number'] > clone[b]['order-number']) return 1;
+            return 0;
+          }).map(function(key){
+            ordered[key] = clone[key];
+          });
+          $scope.viewData = ordered;
+        }, function(error){
+          $scope.empty = true;
+        });
+                  
+      }, function (error) {
+        $scope.configuredData = undefined;
+        $mwtnLog.error({ component: COMPONENT, message: 'Requesting PTP port ' + JSON.stringify($scope.data) + ' failed!' });
+      });
+
+      $scope.$watch('viewData', function(newValue, oldValue) {
+        if (oldValue && newValue !== oldValue) {
+          Object.keys(newValue).filter(function(key){
+            return newValue[key]['is-read-only'] !== true && newValue[key].controlType === 'number' ;
+          }).map(function(key){
+            if (newValue[key].value < newValue[key].min) newValue[key].value = newValue[key].min;
+            if (newValue[key].value > newValue[key].max) newValue[key].value = newValue[key].max;
+            if (!newValue[key].value) newValue[key].value = newValue[key].min;
+          });
+        }
+      }, true);
+
+      $scope.newData = {};
+      $scope.ok = function () {
+        $scope.processing = true;
+        $scope.newData = {};
+        Object.keys($scope.viewData).map(function(key){
+          $scope.newData[key] = $scope.viewData[key].value;
+        });
+
+        $mwtnCommons.setPtpPort($scope.data, $scope.newData).then(function(success){
+          $scope.applied = {text: 'Applied: ' + new Date().toISOString(), class:'mwtnSuccess'};
+          $scope.processing = false;
+        }, function(error){
+          $scope.applied = {text: 'Error: ' + new Date().toISOString(), class:'mwtnError'};
+          $scope.processing = false;
+          $mwtnLog.error({component: COMPONENT, message: JSON.stringify(error)});
+        });
+
+      };
+    
+      $scope.cancel = function () {
+        $uibModalInstance.close($scope.newData);
+      };
+
+      // events
+
+
+    }]);
+
+    mwtnBrowserApp.register.controller('mwtnPtpPortsController', ['$scope', '$filter', '$uibModal', '$mwtnGlobal', '$mwtnCommons', '$mwtnLog',
+      function ($scope, $filter, $uibModal, $mwtnGlobal, $mwtnCommons, $mwtnLog) {
+        var vm = this;
+        var COMPONENT = 'mwtnPtpPortsController';
+
+        $scope.info = false;
+        var data = JSON.parse(JSON.stringify($scope.data));
+        if (!data) {
+          var message = 'No data to be displayed!";'
+          $mwtnLog.info({ component: COMPONENT, message: message });
+          data = [{'message':message}];
+        }
+
+        if ($mwtnGlobal.getType(data) !== 'array')  {
+          var message = 'Data must be of type "array"!';
+          $mwtnLog.info({ component: COMPONENT, message: message });
+          data = [{'message':message}];
+        }
+
+        if (data.length === 0)  {
+          var message = 'Data list must have at least one entry!';
+          $mwtnLog.info({ component: COMPONENT, message: message });
+          data = [{'message':message}];
+        }
+
+        if ($mwtnGlobal.getType(data[0]) !== 'object')  {
+          data = data.map(function(item){
+            return {value: item};
+          });
+        }
+
+        $scope.ptpPorts = [];
+
+        $scope.gridOptions = JSON.parse(JSON.stringify($mwtnCommons.gridOptions));
+        $scope.gridOptions.data = 'ptpPorts';
+        $scope.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
+
+        $scope.getTableHeight = function() {
+          var rowHeight = 30; 
+          var headerHeight = 40; 
+          var maxCount = 12;
+          var rowCount = $scope.gridOptions.data.length + 2;
+          if (rowCount > maxCount) {
+            return {
+                height: (maxCount * rowHeight + headerHeight) + 'px'
+            };
+          }
+          return {}; // use auto-resize faeture
+        };
+
+        var getCellTemplate = function(field) {
+          var object = ['transmission-mode-list', 'performance-data'];
+          if (object.contains(field)) {
+            return ['<div class="ui-grid-cell-contents">',
+                    '<i class="fa fa-info-circle pointer" aria-hidden="true"',
+                    ' ng-click="grid.appScope.show(grid.getCellValue(row, col))"></i> ',
+                    '{{grid.getCellValue(row, col)}}</div>'].join('');
+          } else if (field === 'action') {
+            return [
+              '<a class="vCenter" ng-class="{attention: grid.appScope.hover, hidden: onfAirInterfaceRevision}" >',
+              '  <i class="fa fa-pencil-square-o pointer" aria-hidden="true"  ng-click="grid.appScope.show(row.entity)"></i>',
+              '</a>' ].join('<span>&nbsp;</span>');
+          } else {
+            return '<div class="ui-grid-cell-contents">{{grid.getCellValue(row, col)}}</div>';
+          }
+        };
+
+        $scope.show = function(value){
+          var type = $mwtnGlobal.getType(value);
+          // if (type === 'object')
+          var modalInstance = $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'src/app/mwtnBrowser/templates/ptpPortConfigView.tpl.html',
+            controller: 'ptpPortConfigViewController',
+            size: 'huge',
+            resolve: {
+              valueData: function () {
+                return {networkElement: $scope.networkElement, value:value};
+              }
+            }
+          });
+          modalInstance.result.then(function(object) {
+            console.warn(JSON.stringify(object));
+            $scope.ptpPorts.map(function(row, index){
+              if (row['port-number'] === object['port-number']) {
+                console.log($scope.ptpPorts[index]['onf-ptp-dataset:master-only']);
+                $scope.ptpPorts[index] = object;
+                console.log($scope.ptpPorts[index]['onf-ptp-dataset:master-only']);
+              };
+            });
+          }, function () {
+              // ignore;
+          });
+        };
+
+        var enable = data.length > 10;
+        $scope.gridOptions.columnDefs = Object.keys(data[0]).map(function (field) {
+          var type = $mwtnGlobal.getType(data[0][field]);
+          var labelId = $mwtnGlobal.getLabelId(field);
+          var displayName = $filter('translate')(labelId);
+          var visible = $mwtnGlobal.getVisibilityOf(field);
+          if (labelId.contains('$$') || labelId === 'MWTN_SPEC') {
+            visible = false;
+          }
+          return {
+            field: field,
+            type: type,
+            displayName: displayName,
+            enableSorting: true,
+            enableFiltering: enable,
+            headerCellClass: $scope.highlightFilteredHeader,
+            cellTemplate: getCellTemplate(field),
+            cellClass: type,
+            visible: visible
+          };
+        });
+        $scope.gridOptions.columnDefs.push({
+            field: 'action',
+            displayName: 'Action',
+            enableSorting: false,
+            enableFiltering: false,
+            headerCellClass: $scope.highlightFilteredHeader,
+            cellTemplate: getCellTemplate('action'),
+            width: 100,
+            visible: true,  
+            pinnedRight : true
+
+          });
+        if ($scope.gridOptions.data.length < 10) {
+          $scope.gridOptions.minRowsToShow =  data.length; // 10 is default
+        } 
+        $scope.ptpPorts = data.map(function(item){
+          item.action = '';
+          return item;
+        });
+        // .sort(function(a, b){
+        //           if (a.type === 'object') return -1;
+        //           if (a.type === 'array' ) return -2;
+        //           return 0;
+        //         })
+
+        $scope.myClipboard = {
+          data: $scope.data,
+          supported: true,
+          getJson: function () {
+            return JSON.stringify(this.data, null, ' ');
+          },
+          copyToClipboard: function () {
+            var message = 'Copied to clipboard! ' + this.getJson();
+            $mwtnLog.info({ component: COMPONENT, message: message });
+          },
+          error: function (err) {
+            $mwtnLog.error({ component: COMPONENT, message: err });
+          }
+        };
+    }]);
+
+    mwtnBrowserApp.register.directive('mwtnPtpPorts', function () {
+      return {
+        restrict: 'E',
+        scope: {
+          data: '=',
+          path: '=',
+          networkElement: '='
+        },
+        controller: 'mwtnPtpPortsController',
+        controllerAs: 'vm',
+        templateUrl: 'src/app/mwtnBrowser/templates/mwtnPtpPorts.tpl.html'
+      };
+    });
+
+    mwtnBrowserApp.register.controller('mwtnPtpClockViewerController', ['$scope', '$timeout', '$uibModal', '$mwtnGlobal', '$mwtnCommons', '$mwtnDatabase', '$mwtnLog', '$mwtnBrowser',
+      function ($scope, $timeout, $uibModal, $mwtnGlobal, $mwtnCommons, $mwtnDatabase, $mwtnLog, $mwtnBrowser) {
+        var vm = this;
+        var COMPONENT = 'mwtnPtpClockViewerController';
+        if ($scope.data) {
+          $scope.replace = false;
+          if ($scope.path && $scope.path.endsWith('-configuration') ) {
+            $scope.replace = true;
+          }
+          $scope.viewData = $mwtnGlobal.getViewData($scope.data, $scope.ne);
+          var path = [undefined, undefined, undefined];
+          if ($scope.path) {
+            path = $scope.path.split($mwtnCommons.separator);
+          }
+          // $scope.spec = {
+          //   nodeId: $scope.networkElement,
+          //   revision: '2017-03-20',
+          //   pacId: path[0],
+          //   layer: '???',
+          //   layerProtocolId: path[1],
+          //   partId: path[2],
+          //   config: true
+          // };
+
+          // $scope.openConfigView = function(){
+          //   var modalInstance = $uibModal.open({
+          //     animation: true,
+          //     ariaLabelledBy: 'modal-title',
+          //     ariaDescribedBy: 'modal-body',
+          //     templateUrl: 'src/app/mwtnCommons/templates/openConfigView.html',
+          //     controller: 'openConfigViewController',
+          //     size: 'huge',
+          //     resolve: {
+          //       valueData: function () {
+          //         return {spec:$scope.spec};
+          //       }
+          //     }
+          //   });
+          //   modalInstance.result.then(function(object) {
+          //     // update fetch new data from ODL
+          //     $mwtnCommons.getPacParts($scope.spec).then(function(success){
+          //       // intermedite step to display something, even processing fails or takes time
+          //       $scope.viewData = $mwtnGlobal.getViewData(success[$scope.spec.partId], $scope.ne);
+          //       // now the nice way ;)
+          //       $scope.viewData = processData($scope.schema);
+          //     }, function(error){
+          //       // ignore;
+          //     });
+          //   }, function () {
+          //       // ignore;
+          //   });
+          // };
+          $scope.myClipboard = {
+            data: [$scope.data],
+            supported: true,
+            getJson: function () {
+              return JSON.stringify(this.data, null, ' ');
+            },
+            copyToClipboard: function () {
+              var message = 'Copied to clipboard! ' + this.getJson();
+              $mwtnLog.info({ component: COMPONENT, message: message });
+            },
+            error: function (err) {
+              $mwtnLog.error({ component: COMPONENT, message: err });
+            }
+          };
+
+          var processData = function(schema) {
+            var ordered = {};
+            var clone = JSON.parse(JSON.stringify($scope.viewData));
+            var keys = Object.keys(clone).map(function(key){
+              if ($mwtnGlobal.getType(key) !== 'string') {
+                console.log('key', key);
+                return;
+              }
+              var item = clone[key];
+              if (!schema[key]) {
+                var message = 'No schema information for ' + key;
+                $mwtnLog.warning({ component: COMPONENT, message: message });
+                item['order-number'] = $mwtnCommons.getOrderNumber(97, item);
+                item.description = 'No description available.';
+                item.visible = true;
+                return key;
+              }
+              item.unit = schema[key].unit;
+              item.description = schema[key].description;
+              item['order-number'] = $mwtnCommons.getOrderNumber(schema[key]['order-number'], item);
+              if (item.description === undefined || item.description === '') {
+                item.description = 'No description available.';
+              }
+              return key;
+            }).sort(function(a,b){
+              if (clone[a]['order-number'] < clone[b]['order-number']) return -1;
+              if (clone[a]['order-number'] > clone[b]['order-number']) return 1;
+              return 0;
+            }).map(function(key){
+              if ($mwtnGlobal.getType( clone[key].value ) === 'object') {
+                Object.keys(clone[key].value).filter(function(subKey){
+                  return subKey.endsWith('-identity');
+                }).map(function(subKey){
+                  var clockId = clone[key].value[subKey];
+                  if ($mwtnGlobal.getType(clockId) === 'object') {
+                    if (clockId['clock-identity']) {
+                      var ascii = decode64(clockId['clock-identity']);
+                      clone[key].value[subKey]['clock-identity'] = [clone[key].value[subKey]['clock-identity'], '(ascii:', ascii, ')'].join(' ');
+                    }
+                  } else {
+                    var ascii = decode64(clone[key].value[subKey]);
+                    clone[key].value[subKey] = [clone[key].value[subKey], '(ascii:', ascii, ')'].join(' ');
+                  }
+                });
+                ordered[key] = clone[key];
+              } else {
+                ordered[key] = clone[key];
+              }
+            });
+            $scope.info = false;
+            if (Object.keys(ordered).length === 0) {
+              $scope.info = 'An empty object is displayed. Please check if the NetConf server has send an empty object.';
+            }
+            return ordered;
+          };
+
+
+          $mwtnDatabase.getSchema().then(function(schema){
+            $scope.schema = schema;
+            $scope.viewData = processData($scope.schema);
+          }, function(error){
+            // ignore;
+          });
+        }
+
+        $scope.show = function(value){
+          var type = $mwtnGlobal.getType(value);
+          var modalInstance = $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'src/app/mwtnBrowser/templates/ptpDefaultDsConfigView.tpl.html',
+            controller: 'ptpDefaultDsViewController',
+            size: 'huge',
+            resolve: {
+              defaultDs: function () {
+                return {networkElement: $scope.networkElement, value:value};
+              }
+            }
+          });
+          modalInstance.result.then(function(object) {
+            $mwtnBrowser.refreshPTP();
+          }, function () {
+              // ignore;
+          });
+        };
+    }]);
+    
+    mwtnBrowserApp.register.directive('mwtnPtpClockViewer', function () {
+      return {
+        restrict: 'E',
+        scope: {
+          data: '=',
+          path: '=',
+          ne: '=', // flag if ne class
+          networkElement: '='
+        },
+        controller: 'mwtnPtpClockViewerController',
+        controllerAs: 'vm',
+        templateUrl: 'src/app/mwtnBrowser/templates/mwtnPtpClockViewer.tpl.html'
+      };
+    });
+
+
   mwtnBrowserApp.register.controller('mwtnBrowserCtrl', ['$scope', '$rootScope', '$mwtnLog', '$mwtnBrowser', '$translate', 'OnfNetworkElement', 'PtpClock', 'LogicalTerminationPoint', 
     function($scope, $rootScope, $mwtnLog, $mwtnBrowser, $translate, OnfNetworkElement, PtpClock, LogicalTerminationPoint) {
 

@@ -25,7 +25,10 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnBrowser/mwtnBrowser.modul
     service.getPartLocalId = $mwtnCommons.getPartLocalId;
     service.getViewData = $mwtnCommons.getViewData;
     service.layerProtocolNameOrder = $mwtnCommons.layerProtocolNameOrder;
-      
+    
+    service.refreshPTP = function() {
+      console.error('refresh ptp');
+    }
     return service;
   });
 
