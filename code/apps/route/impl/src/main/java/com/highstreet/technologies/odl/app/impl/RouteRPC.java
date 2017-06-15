@@ -11,9 +11,13 @@ import com.highstreet.technologies.odl.app.impl.delegates.FC;
 import com.highstreet.technologies.odl.app.impl.delegates.PredefinePath;
 import com.highstreet.technologies.odl.app.impl.tools.FC2Executor;
 import com.highstreet.technologies.odl.app.impl.tools.JsonUtil;
+import com.highstreet.technologies.odl.app.impl.tools.MountPointServiceHolder;
+import com.highstreet.technologies.odl.app.impl.tools.NeExecutor;
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.binding.api.MountPointService;
 import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.mw.air._interface.pac.AirInterfaceConfiguration;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.mw.air._interface.pac.AirInterfaceStatus;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.*;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.fc_desc.Fc;
 import org.opendaylight.yangtools.yang.common.RpcResult;
@@ -27,6 +31,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Future;
 
+import static org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType.CONFIGURATION;
+import static org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType.OPERATIONAL;
 import static org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.StatusG.Status;
 import static org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.StatusG.Status.Failure;
 import static org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.StatusG.Status.Successful;
@@ -43,6 +49,7 @@ public class RouteRPC implements RouteService
     }
 
     private static final Logger LOG = LoggerFactory.getLogger(RouteRPC.class);
+    public static HashMap<String, NeExecutor> ne_map = new HashMap<>();
     private static HashMap<Integer, PathHolder> toClear = new HashMap<>();
     private static PredefinePath predefinePath;
 
@@ -54,6 +61,31 @@ public class RouteRPC implements RouteService
 
     private final DataBroker dataBroker;
     private FC2Executor fc2Executor;
+
+    @Override
+    public Future<RpcResult<Void>> readAirInterface(
+            ReadAirInterfaceInput input)
+    {
+        String lpName = input.getLpId();
+        String nodeName = input.getNodeName();
+        NeExecutor executor = ne_map.computeIfAbsent(
+                nodeName, n -> new NeExecutor(MountPointServiceHolder.getMountPoint(n), nodeName));
+        try
+        {
+            AirInterfaceConfiguration airInterfaceConfiguration = executor.getUnderAirPac(
+                    lpName, AirInterfaceConfiguration.class, CONFIGURATION);
+            AirInterfaceStatus airInterfaceStatus = executor.getUnderAirPac(
+                    lpName, AirInterfaceStatus.class, OPERATIONAL);
+            LOG.info(airInterfaceConfiguration.toString());
+            LOG.info(airInterfaceStatus != null ? airInterfaceStatus.toString() : "airInterfaceStatus is null");
+        }
+        catch (Exception e)
+        {
+            LOG.warn("", e);
+        }
+
+        return null;
+    }
 
     @Override
     public Future<RpcResult<RestoreFollowTopoOutput>> restoreFollowTopo(
