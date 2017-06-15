@@ -80,4 +80,15 @@ module route {
             uses status_g;
         }
     }
+    rpc read_airInterface {
+        input {
+            leaf lp_id {
+                type string;
+            }
+            leaf nodeName {
+                type string;
+            }
+        }
+    }
+
 }

@@ -7,6 +7,7 @@
  */
 package com.highstreet.technologies.odl.app.impl;
 
+import com.highstreet.technologies.odl.app.impl.tools.DataBrokerHolder;
 import com.highstreet.technologies.odl.app.impl.tools.MountPointServiceHolder;
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.binding.api.MountPointService;
@@ -43,6 +44,7 @@ public class RouteProvider
         service = rpcRegistry.addRpcImplementation(
                 RouteService.class, rpc = new RouteRPC(dataBroker, mountService));
         MountPointServiceHolder.setMountPointService(mountService);
+        DataBrokerHolder.setDataBroker(dataBroker);
     }
 
     /**
