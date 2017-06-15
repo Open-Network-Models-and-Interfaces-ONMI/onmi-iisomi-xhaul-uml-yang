@@ -11,9 +11,13 @@ import com.highstreet.technologies.odl.app.impl.delegates.FC;
 import com.highstreet.technologies.odl.app.impl.delegates.PredefinePath;
 import com.highstreet.technologies.odl.app.impl.tools.FC2Executor;
 import com.highstreet.technologies.odl.app.impl.tools.JsonUtil;
+import com.highstreet.technologies.odl.app.impl.tools.MountPointServiceHolder;
+import com.highstreet.technologies.odl.app.impl.tools.NeExecutor;
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.binding.api.MountPointService;
 import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.mw.air._interface.pac.AirInterfaceConfiguration;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.mw.air._interface.pac.AirInterfaceStatus;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.*;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.fc_desc.Fc;
 import org.opendaylight.yangtools.yang.common.RpcResult;
@@ -54,6 +58,30 @@ public class RouteRPC implements RouteService
 
     private final DataBroker dataBroker;
     private FC2Executor fc2Executor;
+
+    @Override
+    public Future<RpcResult<Void>> readAirInterface(
+            ReadAirInterfaceInput input)
+    {
+        String lpName = input.getLpId();
+        String nodeName = input.getNodeName();
+        NeExecutor executor = new NeExecutor(MountPointServiceHolder.getMountPoint(nodeName).getService(
+                DataBroker.class).get());
+        try
+        {
+            AirInterfaceConfiguration airInterfaceConfiguration = executor.getUnderAirPac(
+                    lpName, AirInterfaceConfiguration.class);
+            AirInterfaceStatus airInterfaceStatus = executor.getUnderAirPac(lpName, AirInterfaceStatus.class);
+            LOG.info(airInterfaceConfiguration.toString());
+            LOG.info(airInterfaceStatus.toString());
+        }
+        catch (ReadFailedException e)
+        {
+            LOG.warn("", e);
+        }
+
+        return null;
+    }
 
     @Override
     public Future<RpcResult<RestoreFollowTopoOutput>> restoreFollowTopo(
