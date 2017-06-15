@@ -31,6 +31,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Future;
 
+import static org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType.CONFIGURATION;
+import static org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType.OPERATIONAL;
 import static org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.StatusG.Status;
 import static org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.StatusG.Status.Failure;
 import static org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.StatusG.Status.Successful;
@@ -47,6 +49,7 @@ public class RouteRPC implements RouteService
     }
 
     private static final Logger LOG = LoggerFactory.getLogger(RouteRPC.class);
+    public static HashMap<String, NeExecutor> ne_map = new HashMap<>();
     private static HashMap<Integer, PathHolder> toClear = new HashMap<>();
     private static PredefinePath predefinePath;
 
@@ -65,17 +68,18 @@ public class RouteRPC implements RouteService
     {
         String lpName = input.getLpId();
         String nodeName = input.getNodeName();
-        NeExecutor executor = new NeExecutor(MountPointServiceHolder.getMountPoint(nodeName).getService(
-                DataBroker.class).get());
+        NeExecutor executor = ne_map.computeIfAbsent(
+                nodeName, n -> new NeExecutor(MountPointServiceHolder.getMountPoint(n), nodeName));
         try
         {
             AirInterfaceConfiguration airInterfaceConfiguration = executor.getUnderAirPac(
-                    lpName, AirInterfaceConfiguration.class);
-            AirInterfaceStatus airInterfaceStatus = executor.getUnderAirPac(lpName, AirInterfaceStatus.class);
+                    lpName, AirInterfaceConfiguration.class, CONFIGURATION);
+            AirInterfaceStatus airInterfaceStatus = executor.getUnderAirPac(
+                    lpName, AirInterfaceStatus.class, OPERATIONAL);
             LOG.info(airInterfaceConfiguration.toString());
-            LOG.info(airInterfaceStatus.toString());
+            LOG.info(airInterfaceStatus != null ? airInterfaceStatus.toString() : "airInterfaceStatus is null");
         }
-        catch (ReadFailedException e)
+        catch (Exception e)
         {
             LOG.warn("", e);
         }
