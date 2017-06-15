@@ -14,7 +14,7 @@ define(['app/mwtnClosedLoop/mwtnClosedLoop.module','app/mwtnClosedLoop/mwtnClose
     var COMPONENT = 'mwtnClosedLoopCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'Started!'});
 
-    $rootScope['section_logo'] = 'src/app/mwtnClosedLoop/images/mwtnClosedLoop.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
+    $rootScope.section_logo = 'src/app/mwtnClosedLoop/images/mwtnClosedLoop.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
     $scope.timerOptionList = [
         {id : '5seconds', name : "5 seconds"},
@@ -22,7 +22,7 @@ define(['app/mwtnClosedLoop/mwtnClosedLoop.module','app/mwtnClosedLoop/mwtnClose
         {id : '1minute', name : "One minute"},
         {id : '2minutes', name : "Two minutes"},
         {id : '30minutes', name : "30 minutes"},
-        {id : '1hour', name : "One hour"}]
+        {id : '1hour', name : "One hour"}];
 
     var clearMessages = function() {
       $scope.info = undefined;
