@@ -24,7 +24,7 @@ define(['app/mwtnClosedLoop/mwtnClosedLoop.module'],function(mwtnClosedLoopApp) 
           pNe._source.connectionStatus = 'disconnected';
           return pNe._id;
         });
-        $mwtnCommons.getActualNetworkElements(). then(function(mountpoints){
+        $mwtnCommons.getMountPoints(). then(function(mountpoints){
           var actualNodes = mountpoints.map(function(mountpoint){
             var pIndex = neIds.indexOf(mountpoint['node-id']);
             if (pIndex > -1) {
@@ -33,11 +33,13 @@ define(['app/mwtnClosedLoop/mwtnClosedLoop.module'],function(mwtnClosedLoopApp) 
             return {
               id: mountpoint['node-id'],
               connectionStatus: mountpoint['netconf-node-topology:connection-status']
-            }
+            };
           });
           var airInterfaces = [];
           pNes.map(function(hit){
             hit._source.MW_AirInterface_Pac.map(function(airinterface){
+              return airinterface.airInterfaceConfiguration;
+            }).map(function(airinterface){
               airInterfaces.push({
                 id: $mwtnCommons.getNodeIntIdFromNodeId(hit._source.nodeId),
                 name: hit._source.nodeId,
