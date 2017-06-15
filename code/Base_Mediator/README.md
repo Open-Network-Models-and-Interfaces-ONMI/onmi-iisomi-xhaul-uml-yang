@@ -1,5 +1,9 @@
 ## Base Mediator
 
+PROPOSAL: TO BE REMOVED
+Please see project ["WirelessTransportEmulator (WTE)"](https://github.com/Melacon/WirelessTransportEmulator).
+
+
 ### Overview:
 This is a NETCONF Server, based on OpenYuma, that implements the **_MicrowaveModel-ObjectClasses-AirInterface_** YANG model, offering a base Mediator providing callback functions for each YANG attribute, and an easy approach in order to modify them for getting the actual values from the Network Element (NE).
 

@@ -1,5 +1,8 @@
 # Closed loop automation
 
+WARNING: APP is currently not updated to ONF-TR-532.
+
+
 The application loops the mounted devices in the topology. 
 If the device is connected and has specified capability then application change its name.
 This action is triggered:
