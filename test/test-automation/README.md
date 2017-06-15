@@ -90,7 +90,7 @@ An example `test-cases.json` configuration file is shown below:
 ```
 
 Static configuration values for all the scripts are to be set in `./config.json` file.
-In particular, **PoC4 Topology must be set** in this file.
+In particular, **Test Network Topology** comprising the SDN controller and the NEs **must be set** in this file.
 
 An example `config.json` static configuration file is shown below:
 
