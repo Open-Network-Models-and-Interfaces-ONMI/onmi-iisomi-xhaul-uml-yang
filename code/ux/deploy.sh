@@ -2,13 +2,20 @@
 # build ux
 mvn clean install -DskipTests
 
-# deploy
+# clean
 rm -rf ~/.m2/repository/com/highstreet/technologies/odl/app/closedLoopAutomation-karaf/
 rm -rf ~/.m2/repository/com/highstreet/technologies/odl/app/spectrum/scheduler-karaf/
-rm -rf ~/.m2/repository/com/highstreet/technologies/odl/app/route-karaf/
 find ~/.m2/repository/org/opendaylight/mwtn/* -type d -name "*-module" -exec rm -rf {} \;
 find ~/.m2/repository/com/hcl/* -type d -name "*-module" -exec rm -rf {} \;
 find ~/.m2/repository/com/highstreet/* -type d -name "*-module" -exec rm -rf {} \;
+rm -rf $ODL_KARAF_HOME/cache/schema/tailf*.yang
+rm -rf $ODL_KARAF_HOME/cache/schema/yuma*.yang
+rm -rf $ODL_KARAF_HOME/data/log/*
+rm -rf $ODL_KARAF_HOME/system/org/opendaylight/mwtn
+rm -rf $ODL_KARAF_HOME/system/com/hcl 
+rm -rf $ODL_KARAF_HOME/system/com/highstreet 
+
+# deploy
 mkdir -p $ODL_KARAF_HOME/system/cn 
 mkdir -p $ODL_KARAF_HOME/system/cn/com 
 cp -R ~/.m2/repository/org/opendaylight/mwtn $ODL_KARAF_HOME/system/org/opendaylight 
