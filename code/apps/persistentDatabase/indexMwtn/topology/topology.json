@@ -1,0 +1,113 @@
+{
+  "network-elements" : [
+   {
+      "network-element" :
+      {
+        "uuid" : "ELVA-1-A",
+		"type" : "OpenYuma",
+        "interfaces" : [
+          {
+            "layer" : "MWPS",
+            "LTPs" :[{"id": "LTP-MWPS-ODU-A",
+					"supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
+					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
+					"conditional-package" : "mw-air-interface-pac"
+                     }]
+          },
+          {
+            "layer" : "MWS",
+            "LTPs" : [{"id" : "LTP-MWS-ODU-A",
+						"supportedAlarms" : "structureAlarm",
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-A"}],
+						"conditional-package" : "mw-hybrid-mw-structure-pac"
+						}]
+          },
+          {
+            "layer" : "ETC",
+            "LTPs" : [
+                      { "id" : "LTP-ETC-C1",
+                        "supportedAlarms" : "framingIsFaulty, containerIsDown", 
+                        "serverLTPs" : [{"id" : "LTP-MWS-ODU-A"}], 
+                        "conditional-package" : "mw-ethernet-container-pac"}]
+          },
+          {
+            "layer" : "ETY",
+            "LTPs" : [
+					  {"id" : "LTP-ETY-LAN-2", "physical-port-reference" : "shelf1:slot1:IDU:port-2"}]
+
+          },		  
+          {
+            "layer" : "ETH",
+            "LTPs" : [
+					  {"id" : "4-LAN-2-ETH-78", "serverLTPs" : [{"id" : "LTP-ETY-LAN-2"}], "conditional-package" : "ethernet-pac"},
+                      {"id" : "3-C1-ETH-78", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"}]
+			}
+			],
+		    "eth-cross-connections" : [
+				{"fcPorts" : [{"ltp" : "4-LAN-2-ETH-78", "vlan-id" : "78"}, {"ltp" : "3-C1-ETH-78", "vlan-id" : "78"}], "host" : true, "fcRoute" : "service78"}]			
+	  }	
+    },
+    {
+      "network-element" :
+      {
+        "uuid" : "ELVA-1-Z",
+		"type" : "OpenYuma",
+        "interfaces" : [
+          {
+            "layer" : "MWPS",
+            "LTPs" :[{"id": "LTP-MWPS-ODU-A",
+					"supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
+					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
+					"conditional-package" : "mw-air-interface-pac"
+                     }]
+          },
+          {
+            "layer" : "MWS",
+            "LTPs" : [{"id" : "LTP-MWS-ODU-A",
+						"supportedAlarms" : "structureAlarm",
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-A"}],
+						"conditional-package" : "mw-hybrid-mw-structure-pac"
+						}]
+          },
+          {
+            "layer" : "ETC",
+            "LTPs" : [
+                      { "id" : "LTP-ETC-C1",
+                        "supportedAlarms" : "framingIsFaulty, containerIsDown", 
+                        "serverLTPs" : [{"id" : "LTP-MWS-ODU-A"}], 
+                        "conditional-package" : "mw-ethernet-container-pac"}]
+          },
+          {
+            "layer" : "ETY",
+            "LTPs" : [
+					  {"id" : "LTP-ETY-LAN-2", "physical-port-reference" : "shelf1:slot1:IDU:port-2"}]
+
+          },		  
+          {
+            "layer" : "ETH",
+            "LTPs" : [
+					  {"id" : "4-LAN-2-ETH-78", "serverLTPs" : [{"id" : "LTP-ETY-LAN-2"}], "conditional-package" : "ethernet-pac"},
+                      {"id" : "3-C1-ETH-78", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"}]
+			}
+			],
+		    "eth-cross-connections" : [
+				{"fcPorts" : [{"ltp" : "4-LAN-2-ETH-78", "vlan-id" : "78"}, {"ltp" : "3-C1-ETH-78", "vlan-id" : "78"}], "host" : true, "fcRoute" : "service56"}]			
+	  }
+    }
+    ],
+	
+  "topologies" : {
+    "mwps" : {
+		"links" : [
+			[{"uuid" : "ELVA-1-A", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "121"}, {"uuid" : "ELVA-1-Z", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "121"}]		
+        ]
+    },
+	"ety" : {
+		"links" : [
+			[{"uuid" : "ELVA-1-A", "ltp" : "LTP-ETY-LAN-2", "vlan-id" : "78"}, {"uuid" : "ELVA-1-Z", "ltp" : "LTP-ETY-LAN-2", "vlan-id" : "78"}]			
+      ]
+    }
+  }
+}
+
+
