@@ -1,5 +1,8 @@
 # Spectrum
 
+WARNING: APP is currently not updated to ONF-TR-532.
+
+
 The devices gets connected (ODL connection status changed to “connected”). 
 The application should check the current configured frequencies/polarization. 
 With the information of the device name and the AirInterface.radioSignalIds it ask a SpectrumProviderService (maybe a simple file or database via a WebService) about the expected or planned frequencies. 

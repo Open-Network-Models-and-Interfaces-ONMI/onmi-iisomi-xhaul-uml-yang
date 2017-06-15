@@ -1,5 +1,9 @@
 ## Default Values Mediator
 
+PROPOSAL: TO BE REMOVED
+Please see project ["WirelessTransportEmulator (WTE)"](https://github.com/Melacon/WirelessTransportEmulator).
+
+
 ### Overview:
 This is a NETCONF Server, based on OpenYuma, that implements the **_microwave-model_** and **_core-model_**, YANG model, offering a default values Mediator that takes as an input an XML file containing values for the majority of the YANG attributes. This provides a simple way of configuring the attributes, by simply modifying the desired value in the XML file and then just restarting the mediator.
 
