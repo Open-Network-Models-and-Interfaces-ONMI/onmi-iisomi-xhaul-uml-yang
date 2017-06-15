@@ -11,6 +11,7 @@ import com.google.common.base.Optional;
 import com.highstreet.technologies.odl.app.impl.delegates.LtpInOdlCreator;
 import com.highstreet.technologies.odl.app.impl.listener.ACMListener;
 import org.opendaylight.controller.md.sal.binding.api.*;
+import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
 import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.LayerProtocolName;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.NetworkElement;
@@ -39,6 +40,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 import static com.highstreet.technologies.odl.app.impl.tools.MountPointServiceHolder.getMountPoint;
 import static com.highstreet.technologies.odl.app.impl.tools.RPCHolder.rpc;
@@ -51,11 +53,15 @@ public class NeExecutor
 {
     public NeExecutor(Fc fc, Integer vlanid, LtpInOdlCreator ltpCreator)
     {
-        MountPoint mountPoint = getMountPoint(fc.getNodeName());
-        dataBroker = mountPoint.getService(DataBroker.class).get();
-        mountPoint.getService(NotificationService.class).get().registerNotificationListener(new ACMListener(this));
-        process(fc, vlanid, ltpCreator);
+        this(getMountPoint(fc.getNodeName()), fc.getNodeName());
         this.vlanId = vlanid;
+        process(fc, vlanid, ltpCreator);
+    }
+
+    public NeExecutor(MountPoint mountPoint, String nodeName)
+    {
+        this.dataBroker = mountPoint.getService(DataBroker.class).get();
+        mountPoint.getService(NotificationService.class).get().registerNotificationListener(new ACMListener(nodeName));
     }
 
     private List<LogicalTerminationPointList> process(Fc fc, Integer vlanId, LtpInOdlCreator ltpInOdlCreator)
@@ -187,18 +193,15 @@ public class NeExecutor
         return builder.build();
     }
 
-    public NeExecutor(DataBroker dataBroker)
-    {
-        this.dataBroker = dataBroker;
-    }
     private static final Logger LOG = LoggerFactory.getLogger(NeExecutor.class);
     private static final LayerProtocolName LAYER_PROTOCOL_NAME = new LayerProtocolName("ETH");
     private static boolean IS_MAIN = true;
-    private final DataBroker dataBroker;
+    private DataBroker dataBroker;
     private Integer vlanId;
     private ArrayList<LogicalTerminationPointList> ltp = new ArrayList<>();
     private NetworkElementBuilder neBuilder;
     private NetworkElement oldNe;
+    private HashMap<String, LPInfo> lpMap = new HashMap<>();
 
     public List<LogicalTerminationPointList> getLtp()
     {
@@ -248,27 +251,18 @@ public class NeExecutor
     }
 
     public <T extends ChildOf<MwAirInterfacePac>> T getUnderAirPac(
-            String lpId_airInterface, Class<T> tClass) throws ReadFailedException
+            String lpId_airInterface, Class<T> tClass,
+            LogicalDatastoreType type) throws ReadFailedException, ExecutionException, InterruptedException
     {
-        ReadOnlyTransaction transaction = dataBroker.newReadOnlyTransaction();
-        try
+        try (ReadOnlyTransaction readOnlyTrans = dataBroker.newReadOnlyTransaction())
         {
             InstanceIdentifier<T> mwAirInterfaceConfigurationIID = InstanceIdentifier
                     .builder(MwAirInterfacePac.class, new MwAirInterfacePacKey(new UniversalId(lpId_airInterface)))
                     .child(tClass)
                     .build();
 
-            Optional<T> op = transaction.read(CONFIGURATION, mwAirInterfaceConfigurationIID).get();
+            Optional<T> op = readOnlyTrans.read(type, mwAirInterfaceConfigurationIID).get();
             return op.isPresent() ? op.get() : null;
-        }
-        catch (Exception e)
-        {
-            LOG.warn("read configuration of " + tClass.getSimpleName() + " failed!", e);
-            return null;
-        }
-        finally
-        {
-            transaction.close();
         }
     }
 

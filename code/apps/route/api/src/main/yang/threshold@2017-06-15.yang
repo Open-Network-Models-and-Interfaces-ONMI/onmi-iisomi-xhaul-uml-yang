@@ -26,18 +26,25 @@ module threshold {
     description "Initial version";
   }
 
-  container threshold-of-path {
-      leaf max-serialization-delay {
-        type uint64;
-        default 1;
-        description
-          "unit ms";
-      }
-      leaf minimum-bandwidth {
-        type uint64;
-        default 200000;
-        description
-          "unit kbit/s";
-      }
+  grouping threshold_g {
+        leaf max-serialization-delay {
+          type uint64;
+          default 1;
+          description
+            "unit ms";
+        }
+        leaf minimum-bandwidth {
+          type uint64;
+          default 200000;
+          description
+            "unit kbit/s";
+        }
   }
+
+  container threshold-of-path {
+        container threshold {
+            uses threshold_g;
+        }
+  }
+
 }
