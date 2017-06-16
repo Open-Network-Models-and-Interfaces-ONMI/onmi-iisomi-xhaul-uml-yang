@@ -126,7 +126,7 @@ public class RouteRPC implements RouteService
     public Future<RpcResult<DeleteOutput>> delete(
             DeleteInput input)
     {
-        DeleteOutputBuilder builder = new DeleteOutputBuilder();
+        9 DeleteOutputBuilder builder = new DeleteOutputBuilder();
         builder.setStatus(this.delete(input.getVlanid()));
         return RpcResultBuilder.success(builder.build()).buildFuture();
     }
