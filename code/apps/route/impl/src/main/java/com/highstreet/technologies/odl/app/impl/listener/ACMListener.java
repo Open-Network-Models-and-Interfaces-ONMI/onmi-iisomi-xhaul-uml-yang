@@ -34,27 +34,7 @@ public class ACMListener implements MicrowaveModelListener
     }
 
     private static final Logger LOG = LoggerFactory.getLogger(ACMListener.class);
-    private static double bandwidth;
-
-    static
-    {
-        ReadOnlyTransaction readOnlyTransaction = DataBrokerHolder.getDataBroker().newReadOnlyTransaction();
-        InstanceIdentifier<Threshold> instanceIdentifier = InstanceIdentifier.create(ThresholdOfPath.class).child(
-                Threshold.class);
-        try
-        {
-            Threshold threshold = readOnlyTransaction.read(CONFIGURATION, instanceIdentifier).get().get();
-            bandwidth = threshold.getMinimumBandwidth().doubleValue();
-        }
-        catch (Exception e)
-        {
-            LOG.warn("", e);
-        }
-        finally
-        {
-            readOnlyTransaction.close();
-        }
-    }
+    private static Double bandwidth;
 
     private final NeExecutor ne;
 
@@ -66,6 +46,10 @@ public class ACMListener implements MicrowaveModelListener
                    {
                        synchronized (ne)
                        {
+                           if (bandwidth == null)
+                           {
+                               readBandwidthThreshold();
+                           }
                            try
                            {
                                if (notification.getAttributeName().equalsIgnoreCase("modulationCur"))
@@ -95,6 +79,26 @@ public class ACMListener implements MicrowaveModelListener
                            }
                        }
                    }).start();
+    }
+
+    private void readBandwidthThreshold()
+    {
+        ReadOnlyTransaction readOnlyTransaction = DataBrokerHolder.getDataBroker().newReadOnlyTransaction();
+        InstanceIdentifier<Threshold> instanceIdentifier = InstanceIdentifier.create(ThresholdOfPath.class).child(
+                Threshold.class);
+        try
+        {
+            Threshold threshold = readOnlyTransaction.read(CONFIGURATION, instanceIdentifier).get().get();
+            bandwidth = threshold.getMinimumBandwidth().doubleValue();
+        }
+        catch (Exception e)
+        {
+            LOG.warn("", e);
+        }
+        finally
+        {
+            readOnlyTransaction.close();
+        }
     }
 
     @Override
