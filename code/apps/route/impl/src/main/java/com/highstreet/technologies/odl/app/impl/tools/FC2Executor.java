@@ -8,8 +8,6 @@
 package com.highstreet.technologies.odl.app.impl.tools;
 
 import com.highstreet.technologies.odl.app.impl.delegates.LtpInOdlCreator;
-import org.opendaylight.controller.md.sal.binding.api.DataBroker;
-import org.opendaylight.controller.md.sal.binding.api.MountPointService;
 import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.fc_desc.Fc;
 
@@ -18,15 +16,6 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.re
  */
 public class FC2Executor
 {
-    public FC2Executor(DataBroker dataBroker, MountPointService mountPointService)
-    {
-        this.dataBroker = dataBroker;
-        this.mountPointService = mountPointService;
-    }
-
-    private final MountPointService mountPointService;
-    private final DataBroker dataBroker;
-
     public NeExecutor to(Fc fc, Integer vlanid, LtpInOdlCreator ltpCreator) throws ReadFailedException
     {
         return new NeExecutor(fc, vlanid, ltpCreator);

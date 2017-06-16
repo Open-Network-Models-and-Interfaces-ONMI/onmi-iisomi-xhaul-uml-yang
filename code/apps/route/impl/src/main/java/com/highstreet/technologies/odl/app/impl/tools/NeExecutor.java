@@ -201,7 +201,6 @@ public class NeExecutor
     private ArrayList<LogicalTerminationPointList> ltp = new ArrayList<>();
     private NetworkElementBuilder neBuilder;
     private NetworkElement oldNe;
-    private HashMap<String, LPInfo> lpMap = new HashMap<>();
 
     public List<LogicalTerminationPointList> getLtp()
     {
