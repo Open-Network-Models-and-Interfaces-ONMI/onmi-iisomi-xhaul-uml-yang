@@ -402,23 +402,22 @@
           {
             "layer" : "ETY",
             "LTPs" : [
-                      {"id" : "4-LAN-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
-                      {"id" : "4-LAN-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
-					  {"id" : "4-LAN-3", "physical-port-reference" : "shelf1:slot1:IDU:LAN-3"},					  
-					  {"id" : "4-LAN-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
-					  {"id" : "4-LAN-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5}]
+                      {"id" : "268443716", "physical-port-reference" : "Ethernet: Slot 1, Port 4"},
+                      {"id" : "268443715", "physical-port-reference" : "Ethernet: Slot 1, Port 3"},					  
+                      {"id" : "268443714", "physical-port-reference" : "Ethernet: Slot 1, Port 2"},
+                      {"id" : "268443713", "physical-port-reference" : "Ethernet: Slot 1, Port 1", "ptp-port-number":5}]
           },		  
           {
             "layer" : "ETH",
-            "LTPs" : [{"id" : "4-LAN-5-ETH-13", "serverLTPs" : [{"id" : "4-LAN-5"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "4-LAN-4-ETH-24", "serverLTPs" : [{"id" : "4-LAN-4"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "3-ODU-A-ETH-13", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"},
+            "LTPs" : [{"id" : "268443713-ETH-13", "serverLTPs" : [{"id" : "268443713"}], "conditional-package" : "ethernet-pac"},
+                      {"id" : "268443713-ETH-24", "serverLTPs" : [{"id" : "268443713"}], "conditional-package" : "ethernet-pac"},
+                      {"id" : "3-ODU-A-ETH-13", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"},
                       {"id" : "3-ODU-A-ETH-24", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"}]
 			}
 			],
 		    "eth-cross-connections" : [
-	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-ODU-A-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
-	          {"fcPorts" : [{"ltp" : "4-LAN-4-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-ODU-A-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
+	          {"fcPorts" : [{"ltp" : "268443713-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-ODU-A-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
+	          {"fcPorts" : [{"ltp" : "268443713-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-ODU-A-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
 	          ],
 	        "ptp-clock" : [1]
 	  }	
@@ -428,7 +427,7 @@
       "network-element" :
       {
         "uuid" : "Ceragon-Z",
-		"type" : "OpenYuma",
+		    "type" : "OpenYuma",
         "interfaces" : [
           {
             "layer" : "MWPS",
@@ -467,17 +466,16 @@
           {
             "layer" : "ETY",
             "LTPs" : [
-                      {"id" : "4-LAN-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
-                      {"id" : "4-LAN-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
-					  {"id" : "4-LAN-3", "physical-port-reference" : "shelf1:slot1:IDU:LAN-3"},					  
-					  {"id" : "4-LAN-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
-					  {"id" : "4-LAN-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5}]
+                      {"id" : "268443716", "physical-port-reference" : "Ethernet: Slot 1, Port 4"},
+                      {"id" : "268443715", "physical-port-reference" : "Ethernet: Slot 1, Port 3"},					  
+                      {"id" : "268443714", "physical-port-reference" : "Ethernet: Slot 1, Port 2"},
+                      {"id" : "268443713", "physical-port-reference" : "Ethernet: Slot 1, Port 1", "ptp-port-number":2}]
           },		  
           {
             "layer" : "ETH",
-            "LTPs" : [{"id" : "4-LAN-5-ETH-13", "serverLTPs" : [{"id" : "4-LAN-5"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "4-LAN-4-ETH-24", "serverLTPs" : [{"id" : "4-LAN-4"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "3-ODU-A-ETH-13", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"},
+            "LTPs" : [{"id" : "268443713-ETH-13", "serverLTPs" : [{"id" : "268443713"}], "conditional-package" : "ethernet-pac"},
+                      {"id" : "268443713-ETH-24", "serverLTPs" : [{"id" : "268443713"}], "conditional-package" : "ethernet-pac"},
+                      {"id" : "3-ODU-A-ETH-13", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"},
                       {"id" : "3-ODU-A-ETH-24", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"}]
 			}
 			],
