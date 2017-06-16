@@ -2141,7 +2141,7 @@
             "layer": "ETH",
             "LTPs": [
               {
-                "id": "4-LAN-5-ETH-56",
+                "id": "LTP-ETY-LAN-5-ETH-56",
                 "serverLTPs": [
                   {
                     "id": "LTP-ETY-LAN-5"
@@ -2150,7 +2150,7 @@
                 "conditional-package": "ethernet-pac"
               },
               {
-                "id": "3-C1-ETH-56",
+                "id": "LTP-ETC-C1-ETH-56",
                 "serverLTPs": [
                   {
                     "id": "LTP-ETC-C1"
@@ -2165,11 +2165,11 @@
           {
             "fcPorts": [
               {
-                "ltp": "4-LAN-5-ETH-56",
+                "ltp": "LTP-ETY-LAN-5-ETH-56",
                 "vlan-id": "56"
               },
               {
-                "ltp": "3-C1-ETH-56",
+                "ltp": "LTP-ETC-C1-ETH-56",
                 "vlan-id": "56"
               }
             ],
@@ -2274,7 +2274,7 @@
             "layer": "ETH",
             "LTPs": [
               {
-                "id": "4-LAN-5-ETH-56",
+                "id": "LTP-ETY-LAN-5-ETH-56",
                 "serverLTPs": [
                   {
                     "id": "LTP-ETY-LAN-5"
@@ -2283,7 +2283,7 @@
                 "conditional-package": "ethernet-pac"
               },
               {
-                "id": "3-C1-ETH-56",
+                "id": "LTP-ETC-C1-ETH-56",
                 "serverLTPs": [
                   {
                     "id": "LTP-ETC-C1"
@@ -2298,11 +2298,11 @@
           {
             "fcPorts": [
               {
-                "ltp": "4-LAN-5-ETH-56",
+                "ltp": "LTP-ETY-LAN-5-ETH-56",
                 "vlan-id": "56"
               },
               {
-                "ltp": "3-C1-ETH-56",
+                "ltp": "LTP-ETC-C1-ETH-56",
                 "vlan-id": "56"
               }
             ],
@@ -4233,6 +4233,54 @@
       "links": [
         [
           {
+            "uuid": "Aviat-A",
+            "ltp": "LTP-MWPS-ODU-A",
+            "radio-signal-id": "21"
+          },
+          {
+            "uuid": "Aviat-Z",
+            "ltp": "LTP-MWPS-ODU-A",
+            "radio-signal-id": "21"
+          }
+        ],
+        [
+          {
+            "uuid": "Aviat-A",
+            "ltp": "LTP-MWPS-ODU-B",
+            "radio-signal-id": "22"
+          },
+          {
+            "uuid": "Aviat-Z",
+            "ltp": "LTP-MWPS-ODU-B",
+            "radio-signal-id": "22"
+          }
+        ],
+        [
+          {
+            "uuid": "Ceragon-A",
+            "ltp": "1-ODU-A",
+            "radio-signal-id": "31"
+          },
+          {
+            "uuid": "Ceragon-Z",
+            "ltp": "1-ODU-A",
+            "radio-signal-id": "31"
+          }
+        ],
+        [
+          {
+            "uuid": "Ceragon-A",
+            "ltp": "1-ODU-B",
+            "radio-signal-id": "32"
+          },
+          {
+            "uuid": "Ceragon-Z",
+            "ltp": "1-ODU-B",
+            "radio-signal-id": "32"
+          }
+        ],
+        [
+          {
             "uuid": "DragonWave-A",
             "ltp": "LTP-MWPS-ODU-A",
             "radio-signal-id": "41"
@@ -4257,6 +4305,42 @@
         ],
         [
           {
+            "uuid": "Fujitsu-A",
+            "ltp": "LTP-MWPS-ODU-A",
+            "radio-signal-id": "61"
+          },
+          {
+            "uuid": "Fujitsu-Z",
+            "ltp": "LTP-MWPS-ODU-A",
+            "radio-signal-id": "61"
+          }
+        ],
+        [
+          {
+            "uuid": "Fujitsu-A",
+            "ltp": "LTP-MWPS-ODU-B",
+            "radio-signal-id": "62"
+          },
+          {
+            "uuid": "Fujitsu-Z",
+            "ltp": "LTP-MWPS-ODU-B",
+            "radio-signal-id": "62"
+          }
+        ],
+        [
+          {
+            "uuid": "Huawei-A",
+            "ltp": "1-ODU-A",
+            "radio-signal-id": "71"
+          },
+          {
+            "uuid": "Huawei-Z",
+            "ltp": "1-ODU-A",
+            "radio-signal-id": "71"
+          }
+        ],
+        [
+          {
             "uuid": "Intracom-A",
             "ltp": "LTP-MWPS-ODU-A",
             "radio-signal-id": "131"
@@ -4265,54 +4349,6 @@
             "uuid": "Intracom-Z",
             "ltp": "LTP-MWPS-ODU-A",
             "radio-signal-id": "131"
-          }
-        ],
-        [
-          {
-            "uuid": "Fujitsu-A",
-            "ltp": "LTP-MWPS-ODU-A",
-            "radio-signal-id": "61"
-          },
-          {
-            "uuid": "Fujitsu-Z",
-            "ltp": "LTP-MWPS-ODU-A",
-            "radio-signal-id": "61"
-          }
-        ],
-        [
-          {
-            "uuid": "Fujitsu-A",
-            "ltp": "LTP-MWPS-ODU-B",
-            "radio-signal-id": "62"
-          },
-          {
-            "uuid": "Fujitsu-Z",
-            "ltp": "LTP-MWPS-ODU-B",
-            "radio-signal-id": "62"
-          }
-        ],
-        [
-          {
-            "uuid": "Aviat-A",
-            "ltp": "LTP-MWPS-ODU-A",
-            "radio-signal-id": "21"
-          },
-          {
-            "uuid": "Aviat-Z",
-            "ltp": "LTP-MWPS-ODU-A",
-            "radio-signal-id": "21"
-          }
-        ],
-        [
-          {
-            "uuid": "Aviat-A",
-            "ltp": "LTP-MWPS-ODU-B",
-            "radio-signal-id": "22"
-          },
-          {
-            "uuid": "Aviat-Z",
-            "ltp": "LTP-MWPS-ODU-B",
-            "radio-signal-id": "22"
           }
         ],
         [
@@ -4349,288 +4385,12 @@
             "uuid": "ZTE-Z",
             "ltp": "1-ODU-A",
             "radio-signal-id": "111"
-          }
-        ],
-        [
-          {
-            "uuid": "ZTE-A",
-            "ltp": "1-ODU-B",
-            "radio-signal-id": "112"
-          },
-          {
-            "uuid": "ZTE-Z",
-            "ltp": "1-ODU-B",
-            "radio-signal-id": "112"
-          }
-        ],
-        [
-          {
-            "uuid": "DragonWave-A",
-            "ltp": "LTP-MWPS-ODU-A",
-            "radio-signal-id": "41"
-          },
-          {
-            "uuid": "DragonWave-Z",
-            "ltp": "LTP-MWPS-ODU-A",
-            "radio-signal-id": "41"
-          }
-        ],
-        [
-          {
-            "uuid": "Ceragon-A",
-            "ltp": "1-ODU-A",
-            "radio-signal-id": "31"
-          },
-          {
-            "uuid": "Ceragon-Z",
-            "ltp": "1-ODU-A",
-            "radio-signal-id": "31"
-          }
-        ],
-        [
-          {
-            "uuid": "Ceragon-A",
-            "ltp": "1-ODU-B",
-            "radio-signal-id": "32"
-          },
-          {
-            "uuid": "Ceragon-Z",
-            "ltp": "1-ODU-B",
-            "radio-signal-id": "32"
-          }
-        ],
-        [
-          {
-            "uuid": "Nokia-A",
-            "ltp": "1-ODU-A",
-            "radio-signal-id": "91"
-          },
-          {
-            "uuid": "Nokia-Z",
-            "ltp": "1-ODU-A",
-            "radio-signal-id": "91"
-          }
-        ],
-        [
-          {
-            "uuid": "Nokia-A",
-            "ltp": "1-ODU-B",
-            "radio-signal-id": "92"
-          },
-          {
-            "uuid": "Nokia-Z",
-            "ltp": "1-ODU-B",
-            "radio-signal-id": "92"
-          }
-        ],
-        [
-          {
-            "uuid": "Huawei-A",
-            "ltp": "1-ODU-A",
-            "radio-signal-id": "71"
-          },
-          {
-            "uuid": "Huawei-Z",
-            "ltp": "1-ODU-A",
-            "radio-signal-id": "71"
-          }
-        ],
-        [
-          {
-            "uuid": "Huawei-A",
-            "ltp": "1-ODU-B",
-            "radio-signal-id": "72"
-          },
-          {
-            "uuid": "Huawei-Z",
-            "ltp": "1-ODU-B",
-            "radio-signal-id": "72"
-          }
-        ],
-        [
-          {
-            "uuid": "Fujitsu-A",
-            "ltp": "1-ODU-A",
-            "radio-signal-id": "61"
-          },
-          {
-            "uuid": "Fujitsu-Z",
-            "ltp": "1-ODU-A",
-            "radio-signal-id": "61"
-          }
-        ],
-        [
-          {
-            "uuid": "Fujitsu-A",
-            "ltp": "1-ODU-B",
-            "radio-signal-id": "62"
-          },
-          {
-            "uuid": "Fujitsu-Z",
-            "ltp": "1-ODU-B",
-            "radio-signal-id": "62"
-          }
-        ],
-        [
-          {
-            "uuid": "DragonWave-A",
-            "ltp": "LTP-ETY-LAN-2",
-            "vlan-id": "56"
-          },
-          {
-            "uuid": "Aviat-A",
-            "ltp": "LTP-ETY-LAN-5",
-            "vlan-id": "56"
-          }
-        ],
-        [
-          {
-            "uuid": "Intracom-A",
-            "ltp": "LTP-ETY-LAN-2",
-            "vlan-id": "56"
-          },
-          {
-            "uuid": "DragonWave-Z",
-            "ltp": "LTP-ETY-LAN-2",
-            "vlan-id": "56"
-          }
-        ],
-        [
-          {
-            "uuid": "Intracom-Z",
-            "ltp": "LTP-ETY-LAN-2",
-            "vlan-id": "56"
-          },
-          {
-            "uuid": "Fujitsu-Z",
-            "ltp": "LTP-ETY-LAN-5",
-            "vlan-id": "56"
-          }
-        ],
-        [
-          {
-            "uuid": "Fujitsu-A",
-            "ltp": "LTP-ETY-LAN-5",
-            "vlan-id": "56"
-          },
-          {
-            "uuid": "Aviat-Z",
-            "ltp": "LTP-ETY-LAN-5",
-            "vlan-id": "56"
           }
         ]
       ]
     },
     "ety": {
       "links": [
-        [
-          {
-            "uuid": "SIAE-A",
-            "ltp": "4-LAN-5",
-            "vlan-id": "24"
-          },
-          {
-            "uuid": "SIAE-Z",
-            "ltp": "4-LAN-5",
-            "vlan-id": "24"
-          }
-        ],
-        [
-          {
-            "uuid": "ZTE-A",
-            "ltp": "4-GbE-15",
-            "vlan-id": "24"
-          },
-          {
-            "uuid": "ZTE-Z",
-            "ltp": "4-GbE-15",
-            "vlan-id": "24"
-          }
-        ],
-        [
-          {
-            "uuid": "DragonWave-A",
-            "ltp": "4-port-2",
-            "vlan-id": "24"
-          },
-          {
-            "uuid": "DragonWave-Z",
-            "ltp": "4-port-2",
-            "vlan-id": "24"
-          }
-        ],
-        [
-          {
-            "uuid": "ELVA-1-A",
-            "ltp": "LTP-ETY-LAN-2",
-            "vlan-id": "78"
-          },
-          {
-            "uuid": "ELVA-1-Z",
-            "ltp": "LTP-ETY-LAN-2",
-            "vlan-id": "78"
-          }
-        ],
-        [
-          {
-            "uuid": "Ceragon-A",
-            "ltp": "268443713",
-            "vlan-id": "24"
-          },
-          {
-            "uuid": "Ceragon-Z",
-            "ltp": "268443713",
-            "vlan-id": "24"
-          }
-        ],
-        [
-          {
-            "uuid": "Nokia-A",
-            "ltp": "4-LAN-5",
-            "vlan-id": "24"
-          },
-          {
-            "uuid": "Nokia-Z",
-            "ltp": "4-LAN-5",
-            "vlan-id": "24"
-          }
-        ],
-        [
-          {
-            "uuid": "Huawei-A",
-            "ltp": "4-LAN-5",
-            "vlan-id": "24"
-          },
-          {
-            "uuid": "Huawei-Z",
-            "ltp": "4-LAN-5",
-            "vlan-id": "24"
-          }
-        ],
-        [
-          {
-            "uuid": "Fujitsu-A",
-            "ltp": "4-LAN-5",
-            "vlan-id": "24"
-          },
-          {
-            "uuid": "Fujitsu-Z",
-            "ltp": "4-LAN-5",
-            "vlan-id": "24"
-          }
-        ],
-        [
-          {
-            "uuid": "DragonWave-A",
-            "ltp": "LTP-ETY-LAN-2",
-            "vlan-id": "56"
-          },
-          {
-            "uuid": "Aviat-A",
-            "ltp": "LTP-ETY-LAN-5",
-            "vlan-id": "56"
-          }
-        ],
         [
           {
             "uuid": "Intracom-A",
