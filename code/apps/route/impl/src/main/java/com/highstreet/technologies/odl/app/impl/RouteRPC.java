@@ -14,7 +14,6 @@ import com.highstreet.technologies.odl.app.impl.tools.JsonUtil;
 import com.highstreet.technologies.odl.app.impl.tools.MountPointServiceHolder;
 import com.highstreet.technologies.odl.app.impl.tools.NeExecutor;
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
-import org.opendaylight.controller.md.sal.binding.api.MountPointService;
 import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.mw.air._interface.pac.AirInterfaceConfiguration;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.mw.air._interface.pac.AirInterfaceStatus;
@@ -42,10 +41,10 @@ import static org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.r
  */
 public class RouteRPC implements RouteService
 {
-    public RouteRPC(DataBroker dataBroker, MountPointService mountPointService)
+    public RouteRPC(DataBroker dataBroker)
     {
         this.dataBroker = dataBroker;
-        fc2Executor = new FC2Executor(dataBroker, mountPointService);
+        fc2Executor = new FC2Executor();
     }
 
     private static final Logger LOG = LoggerFactory.getLogger(RouteRPC.class);
