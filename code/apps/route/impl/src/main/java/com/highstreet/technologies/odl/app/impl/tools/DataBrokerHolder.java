@@ -16,13 +16,13 @@ public class DataBrokerHolder
 {
     private static DataBroker dataBroker;
 
-    public static void setDataBroker(DataBroker dataBroker)
-    {
-        DataBrokerHolder.dataBroker = dataBroker;
-    }
-
     public static DataBroker getDataBroker()
     {
         return dataBroker;
+    }
+
+    public static void setDataBroker(DataBroker dataBroker)
+    {
+        DataBrokerHolder.dataBroker = dataBroker;
     }
 }

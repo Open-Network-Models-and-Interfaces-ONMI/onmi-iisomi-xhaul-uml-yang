@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>03-WTP-PoC Test Automation Framework</title>
+<meta http-equiv="cache-control" content="max-age=0" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="pragma" content="no-cache" />
+<link rel="stylesheet" type="text/css" href="stylesheets/wstyle.css">
+<script src="/javascripts/jquery-3.1.1.min.js"></script>
+<style>
+	.invisiable{
+		display:none;
+	}
+	#snackbar {
+		visibility: hidden;
+		min-width: 250px;
+		margin-left: -125px;
+		font-size: 16px;
+		font-weight: bold;
+		color: #fff;
+		text-align: center;
+		border-radius: 2px;
+		padding: 16px;
+		position: fixed;
+		z-index: 1;
+		left: 50%;
+		bottom: 30px;
+	}
+
+	#snackbar.show {
+		visibility: visible;
+		-webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+		animation: fadein 0.5s, fadeout 0.5s 2.5s;
+	}
+
+
+	@-webkit-keyframes fadein {
+		from {bottom: 0; opacity: 0;}
+		to {bottom: 30px; opacity: 1;}
+	}
+
+	@keyframes fadein {
+		from {bottom: 0; opacity: 0;}
+		to {bottom: 30px; opacity: 1;}
+	}
+
+	@-webkit-keyframes fadeout {
+		from {bottom: 30px; opacity: 1;}
+		to {bottom: 0; opacity: 0;}
+	}
+
+	@keyframes fadeout {
+		from {bottom: 30px; opacity: 1;}
+		to {bottom: 0; opacity: 0;}
+	}
+
+</style>
+</head>
+<body style ="background-color: #393939; margin:0px;">
+	<div style="background-color: #3A3A3C;"><img  src="images/logo_opendaylight.gif" style="height:55px;"> <label style="font-weight: bold;color:white;font-size: 35px;">ONF 04-WTP-PoC Test Automation Framework</label></div>
+	<div style="background-color: #EE2E24;height:6px;"></div>
+	<div style="background-color: #58585A;height:6px;"></div>
+	<div class="main-container" style="padding: 45px;">
+		
+		<div style="float:left;">
+			<label style="color:white;font-weight: bold;">Select Mediator : </label><select id="mediatorList"></select>
+			<script>
+				$.get({
+				  url: "/gettopology", 
+				  cache: false
+				}).then(function(data){
+					var mediatorData = JSON.parse(data.jsonData);
+					for(var i =0; i < mediatorData.length; i++){
+					  var element = mediatorData[i];
+					  if(element['type'] != "controller-wipro"){
+						$("#mediatorList").append('<option value="'+element["name"]+'keyvalue:'+i+'">'+element["name"]+'</option>');
+					  }
+					}
+				});
+				
+			</script>
+			<br><br>
+			<label style="color:white; font-weight: bold;">Select Script :  </label>
+			<select id="scriptList">
+				<option value="01-standalone-YANG-parser.js">01-standalone-YANG-parser.js</option>
+				<option value="02-netconfserver-YANG-parser.js">02-netconfserver-YANG-parser.js</option>
+				<option value="03-netconfserver-YANG.js">03-netconfserver-YANG.js</option>
+				<option value="04-netconfserver-YANG.js">04-netconf-YANG-ConfigurableData.js</option>
+			</select>
+			<br><br>
+
+			<button onclick = "onClicksaveBtn()" id="btn1">Execute</button>
+			<button onclick = "location.reload(true)" id="reset">Reset</button>
+			<br>
+			<div id="shellresult" style="color:white;height:15px;padding-top:5px;position:relative;"></div> <br>
+			<Label id="resultLogLabel" style="color:white;">Result Log </Label> <br>
+			<textarea id="resultLog" rows="18", cols="65" style="margin-top:5px;"></textarea>
+			</div>
+			<div style="float:right;margin-top: 30px;">
+			<div class="caption tableview nar-hide">Summary Report</div>	
+			<div id="table" class="tableview nar-hide" style="overflow-y:scroll;max-height:400px">
+			  
+			</div>
+
+		</div>
+		<script>
+			
+			
+			var myVar = null;
+			var ajaxexe = null;
+			var onClickBtn1 = function(){
+
+				$("#shellresult").html("Executing script....");$("#shellresult").attr("title","");$('#btn1').prop('disabled', true);$('#resultLog').val("");$('#resultLogLabel').html('Result Log ');
+			  var getLog = function () {
+				
+				  $.get({
+					  url: "getlog", 
+					  cache: false
+					}).then(function(data){
+					   $('#resultLog').val(data.message);
+						var textarea = document.getElementById('resultLog');
+						textarea.scrollTop = textarea.scrollHeight;
+						if(data.message.indexOf("The Script has been executed successfully") > -1){
+							 $("#shellresult").html("The Script has been executed successfully !");
+					   		$("#shellresult").attr("title","The Script has been executed successfully");
+				     	  		  var script_dropdown = document.getElementById('scriptList');
+							if(script_dropdown.value == "04-netconfserver-YANG.js"){
+								
+							}else{$("#btn1").removeAttr("disabled");}
+	
+							
+
+							 clearInterval(myVar);
+				  			$("#reset").html("Reset"); ajaxexe= null;showsummaryTable();
+						}
+
+					});
+				  
+			  };
+
+
+			  var mediator_dropdown = document.getElementById('mediatorList');
+			  var script_dropdown = document.getElementById('scriptList');
+			  $("#table").html("");
+			  myVar = setInterval(function(){ getLog() }, 3000);
+
+			 ajaxexe = $.ajax({
+				  url: "executescript?jsfile=" + script_dropdown.value+"&mediatorNameandId=" + $( "#mediatorList" ).val()+"&execute=true",
+				  cache: false
+				}).done(function(data){
+				   if(data.status == false){
+				    $("#shellresult").html(data.messageObj.toString().substr(0,50).replace(/(\r\n|\n|\r)/gm,"")+"...");
+				     $("#btn1").removeAttr("disabled");/*Enable Execute btn*/
+				    $("#shellresult").attr("title",data.messageObj.toString().replace(/(\r\n|\n|\r)/gm,""));
+				  
+				   }else{
+					   $("#shellresult").html("The Script has been executed successfully !");
+					   $("#shellresult").attr("title","The Script has been executed successfully");
+				     	   $("#btn1").removeAttr("disabled");/*Enable Execute btn*/
+				   }
+				
+				 // $('#btn1').prop('disabled', false);
+				  clearInterval(myVar);
+				  getLog();
+				  $("#reset").html("Reset"); ajaxexe= null;showsummaryTable();
+				}).abort();  
+			
+			};
+
+			var onClicksaveBtn = function(){
+				var script_dropdown = document.getElementById('scriptList');
+				if(script_dropdown.value == "04-netconfserver-YANG.js"){
+					saveConfigAndExecute();
+				}else{
+					onClickBtn1();
+				}
+			};
+
+			var onClickreset = function(){
+			   if(myVar != null){ 
+				 clearInterval(myVar); 
+			   }
+			   if(ajaxexe != null){
+				 ajaxexe.abort();
+				 ajaxexe= null;
+			   }else{
+				 $("#shellresult").html("");$('#resultLog').val("");
+			   }      
+				$(".tableview").addClass("nar-hide");
+				$("#table").html("");
+			  $('#btn1').prop('disabled', false);$("#reset").html("Reset");
+            
+  		    }
+			var showsummaryTable = function(){
+				$(".tableview").removeClass("nar-hide");
+				var summaryFileName = "";
+				var script_dropdown = document.getElementById('scriptList');
+				if(script_dropdown.value == "01-standalone-YANG-parser.js"){
+					summaryFileName = "SummaryReportFile01";
+				}else if(script_dropdown.value == "02-netconfserver-YANG-parser.js"){
+					summaryFileName = "SummaryReportFile02";
+				}else if(script_dropdown.value == "03-netconfserver-YANG.js"){
+					summaryFileName = "SummaryReportFile03";
+				}else if(script_dropdown.value == "04-netconfserver-YANG.js"){
+					summaryFileName = "SummaryReportFile04";
+				}else{
+					return;
+				}
+				
+				$.get({
+				  url: "/getjsonFile?jsonfile="+summaryFileName, 
+				  cache: false
+				}).then(function(data){
+					$("#table").html("");
+					try{
+						var header = JSON.parse(data.jsonData);
+						if(header.length <= 0){
+							$("#table").html('<div style="font-size: larger;margin-left: 220px;margin-top: 30px;">No data available!</div>');
+							return;
+						}
+						if(script_dropdown.value == "04-netconfserver-YANG.js"){
+							var headerObj = header[0];
+							var headerItem = '<div class="header-row row">';
+							for(var ele in headerObj){
+								if(ele == "Config Values"){
+									for(var ele2 in headerObj[ele][0]){
+											headerItem = headerItem + '<span class="cell primary">'+ele2+'</span>';
+									}
+
+								}else{
+									headerItem = headerItem + '<span class="cell primary">'+ele+'</span>';
+
+								}
+
+
+							}
+							headerItem = headerItem + "</div>";
+							$("#table").append(headerItem);
+							for(var i =0 ; i < header.length; i++){
+								var headereach = header[i];
+
+								for(var subeleObj in headereach){
+									var urlString = headereach["URL"];
+									if(subeleObj == "Config Values"){
+										var row =  '<div class = "row" style="height:25px;border-bottom-width: 2px;border-bottom-style: solid;border-color: orange;"></div>';
+										$("#table").append(row);
+										for(var j = 0 ; j < headereach[subeleObj].length; j++){
+											var validationFlag = true;
+											var row =  '<div class="row">';
+											var urlsubString = urlString.substr(urlString.indexOf("yang-ext:mount")+15);
+											if(j == 0){
+												row = row + '<span class="cell primary urlclass">'+urlsubString+'</span>';
+											}else{
+												row = row + '<span class="cell primary urlclass">'+'</span>';
+											}
+
+
+											for(var eachLeaf in headereach[subeleObj][j]){
+												
+												if(eachLeaf == 'Status' && headereach[subeleObj][j][eachLeaf].trim() == 'Validation Passed'){ row = row + '<span class="cell primary"  style="color: green;">'+headereach[subeleObj][j][eachLeaf]+'</span>'; }else if(eachLeaf == 'Status'){ row = row + '<span class="cell primary"  style="color: red;">'+headereach[subeleObj][j][eachLeaf]+'</span>'; }else  { row = row + '<span class="cell primary">'+headereach[subeleObj][j][eachLeaf]+'</span>';}
+
+											}
+											row =  row + "</div>";
+
+											$("#table").append(row);
+										}
+									}
+
+								}
+
+
+							}
+
+
+
+						}else{
+							var headerObj = header[0];
+							var headerItem = '<div class="header-row row">';
+							for(var ele in headerObj){
+								headerItem = headerItem + '<span class="cell primary">'+ele+'</span>';
+							}
+							headerItem = headerItem + "</div>";
+							$("#table").append(headerItem);
+
+							for(var i =0 ; i < header.length; i++){
+								var headereach = header[i];
+								var row =  '<div class="row">';
+								for(var subeleObj in headereach){
+									row = row + '<span class="cell primary">'+headereach[subeleObj]+'</span>';
+								}
+								row = row + "</div>";
+								$("#table").append(row);
+							}
+						}
+
+					}catch(e){
+						$("#table").html('<div style="font-size: larger;margin-left: 220px;margin-top: 30px;">No data available!</div>');
+					}
+				});
+				
+				
+			};
+
+			var toastmessage = function(message, errorFlag) {
+				// Get the snackbar DIV
+				var x = document.getElementById("snackbar");
+				if(errorFlag != null && errorFlag == true){
+					$('#snackbar').css('background-color', '#EE2E24');
+				}else{
+					$('#snackbar').css('background-color', '#027d24');
+				}
+				x.innerHTML = message;
+				x.className = "show";
+				setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+			};
+
+			var saveConfigAndExecute = function(){
+				var xml = $('textarea#resultLog').val();
+
+				$.post( "/configxml/post", { xmlData: xml , operation: "set" })
+						.done(function( data ) {
+							if(data.responseData == 'error' ){
+								toastmessage('Error while saving data !');
+							}else if(data.responseData == 'xml_invalid'){
+								toastmessage('XML is not valid !', true);
+							}else if(data.responseData == 'OK'){
+								toastmessage('XML is saved !');
+								onClickBtn1();
+							}
+						});
+			};
+
+			$(function() {
+			var getConf = function() {
+					if($( "#scriptList" ).val() == '04-netconfserver-YANG.js' ){
+						$(".tableview").addClass("nar-hide");
+						$('#resultLog').val('');
+						$('#shellresult').html('Fetching configurational XML...');
+						var mediator_dropdown = document.getElementById('mediatorList');
+						var script_dropdown = document.getElementById('scriptList');
+						$('#btn1').prop('disabled', true);
+						ajaxexe = $.get({
+							url: "executescript?jsfile=" + script_dropdown.value+"&mediatorNameandId=" + $( "#mediatorList" ).val(),
+							cache: false
+						}).then(function(data){
+							if(data.status == true){
+								$.get({
+								 url: "configxml?operation=get",
+								 cache: false
+								 }).then(function(data){
+								 var xmlData = data.jsonData;
+									if(xmlData.toString().trim() == ''){
+										$('#shellresult').html('Could not fetch data from Mediator(DVM).');
+										$('#btn1').prop('disabled', true);
+									}else{
+										$('#resultLog').val(xmlData);
+										$('#resultLogLabel').html('Config Test Data');
+									}
+
+								 });
+							}else{
+								toastmessage("Can not fetch Config XML !");
+							}
+
+						}).always(function() {
+							$('#btn1').prop('disabled', false);
+							$('#shellresult').html('');
+						});
+
+
+					}else {
+						
+						$('#resultLogLabel').html('Result Log ');
+						$(".tableview").addClass("nar-hide");
+						$('#resultLog').val('');
+						$('#shellresult').html('');
+						$('#btn1').prop('disabled', false);
+
+
+					}
+				};
+
+
+				$( "#scriptList" ).change( function(){ clearInterval(myVar); getConf();});
+				$( "#mediatorList" ).change( function(){ clearInterval(myVar);  getConf();});
+			});
+		</script>
+		<div id="snackbar" style="background-color: #027d24;">Toast notification message..</div>
+	</div>
+
+
+</body>
+</html>
