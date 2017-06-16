@@ -1,0 +1,176 @@
+{
+    "controller-wipro": { 
+        "ip": "localhost",
+        "port": "8181",
+        "user": "admin",
+        "passwd": "admin",
+        "image": "distribution-wipro",
+        "version": "master",
+        "url":"http://github.com/OpenNetworkingFoundation/CENTENNIAL" 
+    },
+    "base-mediator": {
+        "ip": "10.0.0.204",
+        "port": "830",
+        "user": "compila",
+        "passwd": "compila+",
+        "image": "mediator-ceragon",
+        "version": "master",
+        "url": "http://github.com/OpenNetworkingFoundation/CENTENNIAL"
+    },
+    "wte-1": {
+        "ip": "127.0.0.253",
+        "port": "12001",
+        "user": "admin",
+        "passwd": "admin",
+        "image": "mediator-ceragon",
+        "version": "master",
+        "url": "http://github.com/OpenNetworkingFoundation/CENTENNIAL"
+    },
+    "wte-2": {
+        "ip": "127.0.0.253",
+        "port": "12002",
+        "user": "admin",
+        "passwd": "admin",
+        "image": "mediator-ceragon",
+        "version": "master",
+        "url": "http://github.com/OpenNetworkingFoundation/CENTENNIAL"
+    },
+    "wte-3": {
+        "ip": "127.0.0.253",
+        "port": "12003",
+        "user": "admin",
+        "passwd": "admin",
+        "image": "mediator-ceragon",
+        "version": "master",
+        "url": "http://github.com/OpenNetworkingFoundation/CENTENNIAL"
+    },
+    "model": {
+        "path": "../models/yang",
+        "list" : [{
+            "main" : "MicrowaveModel-ObjectClasses-AirInterface",
+            "rev" : "2016-09-01",
+            "deps" : [
+                "MicrowaveModel-TypeDefinitions",
+                "CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages",
+                "CoreModel-CoreNetworkModule-ObjectClasses",
+		"CoreModel-CoreFoundationModule-TypeDefinitions"
+            ]
+        },
+        {
+            "main" : "MicrowaveModel-ObjectClasses-AirInterfaceDiversity",
+            "rev" : "2016-09-02",
+            "deps" : [
+                "MicrowaveModel-TypeDefinitions",
+                "CoreModel-CoreNetworkModule-ObjectClasses",
+		"CoreModel-CoreFoundationModule-TypeDefinitions"
+            ]
+        },
+        {
+            "main" : "MicrowaveModel-ObjectClasses-AirInterfaceHsb",
+            "rev" : "2016-08-09",
+            "deps" : [
+                "MicrowaveModel-TypeDefinitions",
+                "CoreModel-CoreNetworkModule-ObjectClasses",
+		"CoreModel-CoreFoundationModule-TypeDefinitions"
+            ]
+        },
+        {
+            "main" : "MicrowaveModel-ObjectClasses-EthernetContainer",
+            "rev" : "2016-09-02",
+            "deps" : [
+                "MicrowaveModel-TypeDefinitions",
+                "CoreModel-CoreNetworkModule-ObjectClasses",
+		"CoreModel-CoreFoundationModule-TypeDefinitions"
+            ]
+        },
+        {
+            "main" : "MicrowaveModel-ObjectClasses-HybridMwStructure",
+            "rev" : "2016-09-02",
+            "deps" : [
+                "MicrowaveModel-TypeDefinitions",
+                "CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages",
+                "CoreModel-CoreNetworkModule-ObjectClasses",
+		"CoreModel-CoreFoundationModule-TypeDefinitions"
+            ]
+        },
+        {
+            "main" : "MicrowaveModel-ObjectClasses-PureEthernetStructure",
+            "rev" : "2016-09-02",
+            "deps" : [
+                "MicrowaveModel-TypeDefinitions",
+                "CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages",
+                "CoreModel-CoreNetworkModule-ObjectClasses",
+		"CoreModel-CoreFoundationModule-TypeDefinitions"
+            ]
+        },
+        {
+            "main" : "MicrowaveModel-ObjectClasses-TdmContainer",
+            "rev" : "2016-09-02",
+            "deps" : [
+                "MicrowaveModel-TypeDefinitions",
+                "CoreModel-CoreNetworkModule-ObjectClasses",
+		"CoreModel-CoreFoundationModule-TypeDefinitions"
+            ]
+        },
+        {
+            "main" : "MicrowaveModel-ObjectClasses-SuperClasses",
+            "rev" : "2016-08-09",
+            "deps" : [
+		"CoreModel-CoreFoundationModule-TypeDefinitions"
+            ]
+        },
+        {
+            "main" : "CoreModel-CoreNetworkModule-ObjectClasses",
+            "rev" : "2016-03-27",
+            "deps" : [
+                "CoreModel-CoreNetworkModule-TypeDefinitions",
+                "CoreModel-CoreFoundationModule-SuperClassesAndCommonPackages",
+                "CoreModel-CoreFoundationModule-StateModel"
+            ]
+        }]
+    },
+    "topology": [
+        {
+            "type": "controller-wipro",
+            "ip": "localhost",
+            "name": "controller-config"
+        },
+        {
+            "type": "base-mediator",
+            "ip": "10.0.0.204",
+            "name": "Simulator-99", 
+            "config" : {
+                "ne" : "Simulator-99",
+                "event" : "10"
+            }
+        },
+        {
+            "type": "wte-1",
+            "ip": "127.0.0.253",
+            "name": "Simulator-1", 
+            "config" : {
+                "ne" : "Simulator-1",
+                "event" : "10"
+            }
+        },
+        {
+            "type": "wte-2",
+            "ip": "127.0.0.253",
+            "name": "Simulator-2", 
+            "config" : {
+                "ne" : "Simulator-2",
+                "event" : "10"
+            }
+        },
+        {
+            "type": "wte-3",
+            "ip": "127.0.0.253",
+            "name": "Simulator-3", 
+            "config" : {
+                "ne" : "Simulator-3",
+                "event" : "10"
+            }
+        }
+    ]
+}
+

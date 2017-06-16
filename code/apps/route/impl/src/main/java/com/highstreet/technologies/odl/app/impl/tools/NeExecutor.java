@@ -53,15 +53,15 @@ public class NeExecutor
 {
     public NeExecutor(Fc fc, Integer vlanid, LtpInOdlCreator ltpCreator)
     {
-        this(getMountPoint(fc.getNodeName()), fc.getNodeName());
+        this(getMountPoint(fc.getNodeName()));
         this.vlanId = vlanid;
         process(fc, vlanid, ltpCreator);
     }
 
-    public NeExecutor(MountPoint mountPoint, String nodeName)
+    public NeExecutor(MountPoint mountPoint)
     {
         this.dataBroker = mountPoint.getService(DataBroker.class).get();
-        mountPoint.getService(NotificationService.class).get().registerNotificationListener(new ACMListener(nodeName));
+        mountPoint.getService(NotificationService.class).get().registerNotificationListener(new ACMListener(this));
     }
 
     private List<LogicalTerminationPointList> process(Fc fc, Integer vlanId, LtpInOdlCreator ltpInOdlCreator)
@@ -201,7 +201,6 @@ public class NeExecutor
     private ArrayList<LogicalTerminationPointList> ltp = new ArrayList<>();
     private NetworkElementBuilder neBuilder;
     private NetworkElement oldNe;
-    private HashMap<String, LPInfo> lpMap = new HashMap<>();
 
     public List<LogicalTerminationPointList> getLtp()
     {
