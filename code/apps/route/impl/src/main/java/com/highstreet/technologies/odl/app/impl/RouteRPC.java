@@ -69,7 +69,7 @@ public class RouteRPC implements RouteService
         String lpName = input.getLpId();
         String nodeName = input.getNodeName();
         NeExecutor executor = ne_map.computeIfAbsent(
-                nodeName, n -> new NeExecutor(MountPointServiceHolder.getMountPoint(n), nodeName));
+                nodeName, n -> new NeExecutor(MountPointServiceHolder.getMountPoint(n)));
         try
         {
             AirInterfaceConfiguration airInterfaceConfiguration = executor.getUnderAirPac(
