@@ -504,7 +504,7 @@ define(
 
     mwtnCommonsApp.register.controller('mwtnSelectNetworkElementController', ['$scope', '$mwtnCommons', function ($scope, $mwtnCommons) {
       var vm = this;
-
+      
       /**
        * A function which scanns the mountpoints for connected network-elements and adds it to networkElements.
        * @param {{"onfAirInterfaceRevision": string, "node-id": string, "netconf-node-topology:connection-status": string}[]} mountpoints An array of mountpoints from OpenDaylight.
@@ -530,7 +530,6 @@ define(
           $scope.mountpoint = $scope.mountPoints.filter(function (mountpoint) {
             return mountpoint['node-id'] === $scope.networkElement;
           })[0];
-
         }
         $scope.loading = false;
       };
@@ -1084,7 +1083,7 @@ define(
               deferred.resolve(success);
             }, function (error) {
               $mwtnLog.error({ component: COMPONENT, message: 'Requesting clock for ' + spec.nodeId + ' failed!' });
-              deferred.reject(error);
+              deferred.reject();
             });
             break;
           case 'forwardingDomain':
