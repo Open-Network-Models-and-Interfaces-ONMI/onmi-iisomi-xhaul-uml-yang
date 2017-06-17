@@ -8,13 +8,13 @@
         "interfaces" : [
           {
             "layer" : "MWPS",
-            "LTPs" :[{"id": "1-ODU-A",
+            "LTPs" :[{"id": "LTP-MWPS-ODU-A",
 					"supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
 					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
 					"conditional-package" : "mw-air-interface-pac",
 					"ptp-port-number": 1
                      },
-					{"id" : "1-ODU-B",
+					{"id" : "LTP-MWPS-ODU-B",
 				     "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
                      "physical-port-reference" : "shelf1:slot1:IDU:ODU-B",
                      "conditional-package" : "mw-air-interface-pac" 
@@ -22,46 +22,44 @@
           },
           {
             "layer" : "MWS",
-            "LTPs" : [{"id" : "2-ODU-A",
+            "LTPs" : [{"id" : "LTP-MWS-ODU-A",
 						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-A"}],
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-A"}],
 						"conditional-package" : "mw-hybrid-mw-structure-pac"
 						},
-                      {"id" : "2-ODU-B",
+                      {"id" : "LTP-MWS-ODU-B",
 						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-B"}],
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-B"}],
 						"conditional-package" : "mw-hybrid-mw-structure-pac"}]
           },
           {
             "layer" : "ETC",
             "LTPs" : [
-                      { "id" : "3-ODU-A",
+                      { "id" : "LTP-ETC-C1",
                         "supportedAlarms" : "framingIsFaulty, containerIsDown", 
-                        "serverLTPs" : [{"id" : "2-ODU-A"}, {"id" : "2-ODU-B"}], 
+                        "serverLTPs" : [{"id" : "LTP-MWS-ODU-A"}, {"id" : "LTP-MWS-ODU-B"}], 
                         "conditional-package" : "mw-ethernet-container-pac"}]
           },
           {
             "layer" : "ETY",
             "LTPs" : [
-                      {"id" : "4-LAN-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
-                      {"id" : "4-LAN-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
-					  {"id" : "4-LAN-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
-					  {"id" : "4-LAN-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5},
-					  {"id" : "4-LAN-6", "physical-port-reference" : "shelf1:slot1:IDU:LAN-6"},
-					  {"id" : "4-LAN-C", "physical-port-reference" : "shelf1:slot1:IDU:LAN-C"},
-					  {"id" : "4-LAN-D", "physical-port-reference" : "shelf1:slot1:IDU:LAN-D"}]
+                      {"id" : "TTP-LAN-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
+                      {"id" : "TTP-LAN-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
+					  {"id" : "TTP-LAN-3", "physical-port-reference" : "shelf1:slot1:IDU:LAN-3"},					  
+					  {"id" : "TTP-LAN-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
+					  {"id" : "TTP-LAN-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5}]
           },		  
           {
             "layer" : "ETH",
-            "LTPs" : [{"id" : "4-LAN-5-ETH-13", "serverLTPs" : [{"id" : "4-LAN-5"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "4-LAN-4-ETH-24", "serverLTPs" : [{"id" : "4-LAN-4"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "3-ODU-A-ETH-13", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"},
-                      {"id" : "3-ODU-A-ETH-24", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"}]
+            "LTPs" : [{"id" : "4-LAN-5-ETH-13", "serverLTPs" : [{"id" : "TTP-LAN-5"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "4-LAN-5-ETH-24", "serverLTPs" : [{"id" : "TTP-LAN-5"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "3-C1-ETH-13", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"},
+                      {"id" : "3-C1-ETH-24", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"}]
 			}
 			],
 		    "eth-cross-connections" : [
-	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-ODU-A-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
-	          {"fcPorts" : [{"ltp" : "4-LAN-4-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-ODU-A-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
+	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-C1-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
+	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-C1-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
 	          ],
 	        "ptp-clock" : [1]
 	  }	
@@ -75,13 +73,13 @@
         "interfaces" : [
           {
             "layer" : "MWPS",
-            "LTPs" :[{"id": "1-ODU-A",
+            "LTPs" :[{"id": "LTP-MWPS-ODU-A",
 					"supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
 					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
 					"conditional-package" : "mw-air-interface-pac",
 					"ptp-port-number": 1
                      },
-					{"id" : "1-ODU-B",
+					{"id" : "LTP-MWPS-ODU-B",
 				     "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
                      "physical-port-reference" : "shelf1:slot1:IDU:ODU-B",
                      "conditional-package" : "mw-air-interface-pac" 
@@ -89,46 +87,44 @@
           },
           {
             "layer" : "MWS",
-            "LTPs" : [{"id" : "2-ODU-A",
+            "LTPs" : [{"id" : "LTP-MWS-ODU-A",
 						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-A"}],
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-A"}],
 						"conditional-package" : "mw-hybrid-mw-structure-pac"
 						},
-                      {"id" : "2-ODU-B",
+                      {"id" : "LTP-MWS-ODU-B",
 						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-B"}],
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-B"}],
 						"conditional-package" : "mw-hybrid-mw-structure-pac"}]
           },
           {
             "layer" : "ETC",
             "LTPs" : [
-                      { "id" : "3-ODU-A",
+                      { "id" : "LTP-ETC-C1",
                         "supportedAlarms" : "framingIsFaulty, containerIsDown", 
-                        "serverLTPs" : [{"id" : "2-ODU-A"}, {"id" : "2-ODU-B"}], 
+                        "serverLTPs" : [{"id" : "LTP-MWS-ODU-A"}, {"id" : "LTP-MWS-ODU-B"}], 
                         "conditional-package" : "mw-ethernet-container-pac"}]
           },
           {
             "layer" : "ETY",
             "LTPs" : [
-                      {"id" : "4-LAN-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
-                      {"id" : "4-LAN-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
-					  {"id" : "4-LAN-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
-					  {"id" : "4-LAN-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5},
-					  {"id" : "4-LAN-6", "physical-port-reference" : "shelf1:slot1:IDU:LAN-6"},
-					  {"id" : "4-LAN-C", "physical-port-reference" : "shelf1:slot1:IDU:LAN-C"},
-					  {"id" : "4-LAN-D", "physical-port-reference" : "shelf1:slot1:IDU:LAN-D"}]
+                      {"id" : "TTP-LAN-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
+                      {"id" : "TTP-LAN-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
+					  {"id" : "TTP-LAN-3", "physical-port-reference" : "shelf1:slot1:IDU:LAN-3"},					  
+					  {"id" : "TTP-LAN-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
+					  {"id" : "TTP-LAN-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5"}]
           },		  
           {
             "layer" : "ETH",
-            "LTPs" : [{"id" : "4-LAN-5-ETH-13", "serverLTPs" : [{"id" : "4-LAN-5"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "4-LAN-4-ETH-24", "serverLTPs" : [{"id" : "4-LAN-4"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "3-ODU-A-ETH-13", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"},
-                      {"id" : "3-ODU-A-ETH-24", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"}]
+            "LTPs" : [{"id" : "4-LAN-5-ETH-13", "serverLTPs" : [{"id" : "TTP-LAN-5"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "4-LAN-5-ETH-24", "serverLTPs" : [{"id" : "TTP-LAN-5"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "3-C1-ETH-13", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"},
+                      {"id" : "3-C1-ETH-24", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"}]
 			}
 			],
 		    "eth-cross-connections" : [
-	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-ODU-A-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
-	          {"fcPorts" : [{"ltp" : "4-LAN-4-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-ODU-A-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
+	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-C1-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
+	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-C1-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
 	          ],
 	        "ptp-clock" : [1]
 	  }
@@ -142,58 +138,49 @@
         "interfaces" : [
           {
             "layer" : "MWPS",
-            "LTPs" :[{"id": "1-ODU-A",
+            "LTPs" :[{"id": "LTP-MWPS-ODU-A",
 					"supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
 					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
 					"conditional-package" : "mw-air-interface-pac",
 					"ptp-port-number": 1
-                     },
-					{"id" : "1-ODU-B",
-				     "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-                     "physical-port-reference" : "shelf1:slot1:IDU:ODU-B",
-                     "conditional-package" : "mw-air-interface-pac" 
-					 }]
+                     }]
           },
           {
             "layer" : "MWS",
-            "LTPs" : [{"id" : "2-ODU-A",
+            "LTPs" : [{"id" : "LTP-MWS-ODU-A",
 						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-A"}],
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-A"}],
 						"conditional-package" : "mw-hybrid-mw-structure-pac"
-						},
-                      {"id" : "2-ODU-B",
-						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-B"}],
-						"conditional-package" : "mw-hybrid-mw-structure-pac"}]
+						}]
           },
           {
             "layer" : "ETC",
             "LTPs" : [
-                      { "id" : "3-ODU-A",
+                      { "id" : "LTP-ETC-C1",
                         "supportedAlarms" : "framingIsFaulty, containerIsDown", 
-                        "serverLTPs" : [{"id" : "2-ODU-A"}, {"id" : "2-ODU-B"}], 
+                        "serverLTPs" : [{"id" : "LTP-MWS-ODU-A"}], 
                         "conditional-package" : "mw-ethernet-container-pac"}]
           },
           {
             "layer" : "ETY",
             "LTPs" : [
-					  {"id" : "4-GbE-11", "physical-port-reference" : "shelf1-slot:1-RCMUC-port:1"},
-                      {"id" : "4-GbE-12", "physical-port-reference" : "shelf1-slot:1-RCMUC-port:2"},
-					  {"id" : "4-GbE-13", "physical-port-reference" : "shelf1-slot:1-RCMUC-port:3", "ptp-port-number":3},
-					  {"id" : "4-GbE-14", "physical-port-reference" : "shelf1-slot:1-RCMUC-port:4"},
-					  {"id" : "4-GbE-15", "physical-port-reference" : "shelf1-slot:1-RCMUC-port:5"}]
+					  {"id" : "LTP-ETY-GbE-1-1", "physical-port-reference" : "shelf1-slot:1-RCMUC-port:1"},
+                      {"id" : "LTP-ETY-GbE-1-2", "physical-port-reference" : "shelf1-slot:1-RCMUC-port:2"},
+					  {"id" : "LTP-ETY-GbE-1-3", "physical-port-reference" : "shelf1-slot:1-RCMUC-port:3", "ptp-port-number":3},
+					  {"id" : "LTP-ETY-GbE-1-4", "physical-port-reference" : "shelf1-slot:1-RCMUC-port:4"},
+					  {"id" : "LTP-ETY-GbE-1-5", "physical-port-reference" : "shelf1-slot:1-RCMUC-port:5"}]
           },		  
           {
             "layer" : "ETH",
-            "LTPs" : [{"id" : "4-GbE-12-ETH-13", "serverLTPs" : [{"id" : "4-GbE-12"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "4-GbE-13-ETH-24", "serverLTPs" : [{"id" : "4-GbE-13"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "3-ODU-A-ETH-13", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"},
-                      {"id" : "3-ODU-A-ETH-24", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"}]
+            "LTPs" : [{"id" : "4-GbE-15-ETH-13", "serverLTPs" : [{"id" : "LTP-ETY-GbE-1-5"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "4-GbE-15-ETH-24", "serverLTPs" : [{"id" : "LTP-ETY-GbE-1-5"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "3-C1-ETH-13", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"},
+                      {"id" : "3-C1-ETH-24", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"}]
 			}
 			],
 		    "eth-cross-connections" : [
-	          {"fcPorts" : [{"ltp" : "4-GbE-12-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-ODU-A-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
-	          {"fcPorts" : [{"ltp" : "4-GbE-13-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-ODU-A-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
+	          {"fcPorts" : [{"ltp" : "4-GbE-15-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-C1-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
+	          {"fcPorts" : [{"ltp" : "4-GbE-15-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-C1-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
 	          ],
 	        "ptp-clock" : [1]
 	  }	
@@ -207,158 +194,54 @@
         "interfaces" : [
           {
             "layer" : "MWPS",
-            "LTPs" :[{"id": "1-ODU-A",
+            "LTPs" :[{"id": "LTP-MWPS-ODU-A",
 					"supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
 					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
 					"conditional-package" : "mw-air-interface-pac",
 					"ptp-port-number": 1
-                     },
-					{"id" : "1-ODU-B",
-				     "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-                     "physical-port-reference" : "shelf1:slot1:IDU:ODU-B",
-                     "conditional-package" : "mw-air-interface-pac" 
-					 }]
+                     }]
           },
           {
             "layer" : "MWS",
-            "LTPs" : [{"id" : "2-ODU-A",
+            "LTPs" : [{"id" : "LTP-MWS-ODU-A",
 						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-A"}],
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-A"}],
 						"conditional-package" : "mw-hybrid-mw-structure-pac"
-						},
-                      {"id" : "2-ODU-B",
-						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-B"}],
-						"conditional-package" : "mw-hybrid-mw-structure-pac"}]
+						}]
           },
           {
             "layer" : "ETC",
             "LTPs" : [
-                      { "id" : "3-ODU-A",
+                      { "id" : "LTP-ETC-C1",
                         "supportedAlarms" : "framingIsFaulty, containerIsDown", 
-                        "serverLTPs" : [{"id" : "2-ODU-A"}, {"id" : "2-ODU-B"}], 
+                        "serverLTPs" : [{"id" : "LTP-MWS-ODU-A"}], 
                         "conditional-package" : "mw-ethernet-container-pac"}]
           },
           {
             "layer" : "ETY",
             "LTPs" : [
-					  {"id" : "4-GbE-11", "physical-port-reference" : "shelf1-slot:1-RCMUC-port:1"},
-                      {"id" : "4-GbE-12", "physical-port-reference" : "shelf1-slot:1-RCMUC-port:2"},
-					  {"id" : "4-GbE-13", "physical-port-reference" : "shelf1-slot:1-RCMUC-port:3", "ptp-port-number":3},
-					  {"id" : "4-GbE-14", "physical-port-reference" : "shelf1-slot:1-RCMUC-port:4"},
-					  {"id" : "4-GbE-15", "physical-port-reference" : "shelf1-slot:1-RCMUC-port:5"}]
+					  {"id" : "LTP-ETY-GbE-1-1", "physical-port-reference" : "shelf1-slot:1-RCMUC-port:1"},
+                      {"id" : "LTP-ETY-GbE-1-2", "physical-port-reference" : "shelf1-slot:1-RCMUC-port:2"},
+					  {"id" : "LTP-ETY-GbE-1-3", "physical-port-reference" : "shelf1-slot:1-RCMUC-port:3"},
+					  {"id" : "LTP-ETY-GbE-1-4", "physical-port-reference" : "shelf1-slot:1-RCMUC-port:4"},
+					  {"id" : "LTP-ETY-GbE-1-5", "physical-port-reference" : "shelf1-slot:1-RCMUC-port:5", "ptp-port-number":5}]
           },		  
           {
             "layer" : "ETH",
-            "LTPs" : [{"id" : "4-GbE-12-ETH-13", "serverLTPs" : [{"id" : "4-GbE-12"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "4-GbE-13-ETH-24", "serverLTPs" : [{"id" : "4-GbE-13"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "3-ODU-A-ETH-13", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"},
-                      {"id" : "3-ODU-A-ETH-24", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"}]
+            "LTPs" : [{"id" : "4-GbE-15-ETH-13", "serverLTPs" : [{"id" : "LTP-ETY-GbE-1-5"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "4-GbE-15-ETH-24", "serverLTPs" : [{"id" : "LTP-ETY-GbE-1-5"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "3-C1-ETH-13", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"},
+                      {"id" : "3-C1-ETH-24", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"}]
 			}
 			],
 		    "eth-cross-connections" : [
-	          {"fcPorts" : [{"ltp" : "4-GbE-12-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-ODU-A-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
-	          {"fcPorts" : [{"ltp" : "4-GbE-13-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-ODU-A-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
+	          {"fcPorts" : [{"ltp" : "4-GbE-15-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-C1-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
+	          {"fcPorts" : [{"ltp" : "4-GbE-15-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-C1-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
 	          ],
 	        "ptp-clock" : [1]
 	  }	
     },
-	
-   {
-      "network-element" :
-      {
-        "uuid" : "DragonWave-A",
-		"type" : "OpenYuma",
-        "interfaces" : [
-          {
-            "layer" : "MWPS",
-            "LTPs" :[{"id": "1-ODU-A",
-					"supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
-					"conditional-package" : "mw-air-interface-pac"
-                     }]
-          },
-          {
-            "layer" : "MWS",
-            "LTPs" : [{"id" : "2-ODU-A",
-						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-A"}],
-						"conditional-package" : "mw-hybrid-mw-structure-pac"
-						}]
-          },
-          {
-            "layer" : "ETC",
-            "LTPs" : [
-                      { "id" : "3-ODU-A",
-                        "supportedAlarms" : "framingIsFaulty, containerIsDown", 
-                        "serverLTPs" : [{"id" : "2-ODU-A"}], 
-                        "conditional-package" : "mw-ethernet-container-pac"}]
-          },
-          {
-            "layer" : "ETY",
-            "LTPs" : [
-					  {"id" : "4-port-2", "physical-port-reference" : "shelf1:slot1:IDU:port-2"}]
-
-          },		  
-          {
-            "layer" : "ETH",
-            "LTPs" : [
-					  {"id" : "4-port-2-ETH-24", "serverLTPs" : [{"id" : "4-port-2"}], "conditional-package" : "ethernet-pac"},
-                      {"id" : "3-ODU-A-ETH-24", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"}]
-			}
-			],
-		    "eth-cross-connections" : [
-				{"fcPorts" : [{"ltp" : "4-port-2-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-ODU-A-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}]			
-	  }	
-    },
-    {
-      "network-element" :
-      {
-        "uuid" : "DragonWave-Z",
-		"type" : "OpenYuma",
-        "interfaces" : [
-          {
-            "layer" : "MWPS",
-            "LTPs" :[{"id": "1-ODU-A",
-					"supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
-					"conditional-package" : "mw-air-interface-pac"
-                     }]
-          },
-          {
-            "layer" : "MWS",
-            "LTPs" : [{"id" : "2-ODU-A",
-						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-A"}],
-						"conditional-package" : "mw-hybrid-mw-structure-pac"
-						}]
-          },
-          {
-            "layer" : "ETC",
-            "LTPs" : [
-                      { "id" : "3-ODU-A",
-                        "supportedAlarms" : "framingIsFaulty, containerIsDown", 
-                        "serverLTPs" :[{"id" : "2-ODU-A"}], 
-                        "conditional-package" : "mw-ethernet-container-pac"}]
-          },
-          {
-            "layer" : "ETY",
-            "LTPs" : [
-					  {"id" : "4-port-2", "physical-port-reference" : "shelf1:slot1:IDU:port-2"}
-					 ]
-          },		  
-          {
-            "layer" : "ETH",
-            "LTPs" : [
-					  {"id" : "4-port-2-ETH-24", "serverLTPs" : [{"id" : "4-port-2"}], "conditional-package" : "ethernet-pac"},
-                      {"id" : "3-ODU-A-ETH-24", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"}]
-			}
-			],
-		    "eth-cross-connections" : [
-				{"fcPorts" : [{"ltp" : "4-port-2-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-ODU-A-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}]					
-	  }
-    },
-	
+		
     {
       "network-element" :
       {
@@ -367,13 +250,13 @@
         "interfaces" : [
           {
             "layer" : "MWPS",
-            "LTPs" :[{"id": "1-ODU-A",
+            "LTPs" :[{"id": "LTP-MWPS-ODU-A",
 					"supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
 					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
 					"conditional-package" : "mw-air-interface-pac",
 					"ptp-port-number": 1
                      },
-					{"id" : "1-ODU-B",
+					{"id" : "LTP-MWPS-ODU-B",
 				     "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
                      "physical-port-reference" : "shelf1:slot1:IDU:ODU-B",
                      "conditional-package" : "mw-air-interface-pac" 
@@ -381,45 +264,45 @@
           },
           {
             "layer" : "MWS",
-            "LTPs" : [{"id" : "2-ODU-A",
+            "LTPs" : [{"id" : "LTP-MWS-ODU-A",
 						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-A"}],
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-A"}],
 						"conditional-package" : "mw-hybrid-mw-structure-pac"
 						},
-                      {"id" : "2-ODU-B",
+                      {"id" : "LTP-MWS-ODU-B",
 						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-B"}],
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-B"}],
 						"conditional-package" : "mw-hybrid-mw-structure-pac"}]
           },
           {
             "layer" : "ETC",
             "LTPs" : [
-                      { "id" : "3-ODU-A",
+                      { "id" : "LTP-ETC-C1",
                         "supportedAlarms" : "framingIsFaulty, containerIsDown", 
-                        "serverLTPs" : [{"id" : "2-ODU-A"}, {"id" : "2-ODU-B"}], 
+                        "serverLTPs" : [{"id" : "LTP-MWS-ODU-A"}, {"id" : "LTP-MWS-ODU-B"}], 
                         "conditional-package" : "mw-ethernet-container-pac"}]
           },
           {
             "layer" : "ETY",
             "LTPs" : [
-                      {"id" : "268443716", "physical-port-reference" : "Ethernet: Slot 1, Port 4"},
-                      {"id" : "268443715", "physical-port-reference" : "Ethernet: Slot 1, Port 3"},					  
-                      {"id" : "268443714", "physical-port-reference" : "Ethernet: Slot 1, Port 2"},
-                      {"id" : "268443713", "physical-port-reference" : "Ethernet: Slot 1, Port 1", "ptp-port-number":5}]
+                      {"id" : "LTP-ETY-LAN-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
+                      {"id" : "LTP-ETY-LAN-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
+					  {"id" : "LTP-ETY-LAN-3", "physical-port-reference" : "shelf1:slot1:IDU:LAN-3"},					  
+					  {"id" : "LTP-ETY-LAN-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
+					  {"id" : "LTP-ETY-LAN-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5}]
           },		  
           {
             "layer" : "ETH",
-            "LTPs" : [{"id" : "268443713-ETH-13", "serverLTPs" : [{"id" : "268443713"}], "conditional-package" : "ethernet-pac"},
-                      {"id" : "268443713-ETH-24", "serverLTPs" : [{"id" : "268443713"}], "conditional-package" : "ethernet-pac"},
-                      {"id" : "3-ODU-A-ETH-13", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"},
-                      {"id" : "3-ODU-A-ETH-24", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"}]
+            "LTPs" : [{"id" : "4-LAN-5-ETH-13", "serverLTPs" : [{"id" : "LTP-ETY-LAN-5"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "4-LAN-4-ETH-24", "serverLTPs" : [{"id" : "LTP-ETY-LAN-4"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "3-C1-ETH-13", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"},
+                      {"id" : "3-C1-ETH-24", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"}]
 			}
 			],
 		    "eth-cross-connections" : [
-	          {"fcPorts" : [{"ltp" : "268443713-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-ODU-A-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
-	          {"fcPorts" : [{"ltp" : "268443713-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-ODU-A-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
-	          ],
-	        "ptp-clock" : [1]
+	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-C1-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
+	          {"fcPorts" : [{"ltp" : "4-LAN-4-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-C1-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
+	          ]
 	  }	
     },
 
@@ -427,17 +310,17 @@
       "network-element" :
       {
         "uuid" : "Ceragon-Z",
-		    "type" : "OpenYuma",
+		"type" : "OpenYuma",
         "interfaces" : [
           {
             "layer" : "MWPS",
-            "LTPs" :[{"id": "1-ODU-A",
+            "LTPs" :[{"id": "LTP-MWPS-ODU-A",
 					"supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
 					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
 					"conditional-package" : "mw-air-interface-pac",
 					"ptp-port-number": 1
                      },
-					{"id" : "1-ODU-B",
+					{"id" : "LTP-MWPS-ODU-B",
 				     "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
                      "physical-port-reference" : "shelf1:slot1:IDU:ODU-B",
                      "conditional-package" : "mw-air-interface-pac" 
@@ -445,45 +328,45 @@
           },
           {
             "layer" : "MWS",
-            "LTPs" : [{"id" : "2-ODU-A",
+            "LTPs" : [{"id" : "LTP-MWS-ODU-A",
 						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-A"}],
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-A"}],
 						"conditional-package" : "mw-hybrid-mw-structure-pac"
 						},
-                      {"id" : "2-ODU-B",
+                      {"id" : "LTP-MWS-ODU-B",
 						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-B"}],
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-B"}],
 						"conditional-package" : "mw-hybrid-mw-structure-pac"}]
           },
           {
             "layer" : "ETC",
             "LTPs" : [
-                      { "id" : "3-ODU-A",
+                      { "id" : "LTP-ETC-C1",
                         "supportedAlarms" : "framingIsFaulty, containerIsDown", 
-                        "serverLTPs" : [{"id" : "2-ODU-A"}, {"id" : "2-ODU-B"}], 
+                        "serverLTPs" : [{"id" : "LTP-MWS-ODU-A"}, {"id" : "LTP-MWS-ODU-B"}], 
                         "conditional-package" : "mw-ethernet-container-pac"}]
           },
           {
             "layer" : "ETY",
             "LTPs" : [
-                      {"id" : "268443716", "physical-port-reference" : "Ethernet: Slot 1, Port 4"},
-                      {"id" : "268443715", "physical-port-reference" : "Ethernet: Slot 1, Port 3"},					  
-                      {"id" : "268443714", "physical-port-reference" : "Ethernet: Slot 1, Port 2"},
-                      {"id" : "268443713", "physical-port-reference" : "Ethernet: Slot 1, Port 1", "ptp-port-number":2}]
+                      {"id" : "LTP-ETY-LAN-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
+                      {"id" : "LTP-ETY-LAN-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
+					  {"id" : "LTP-ETY-LAN-3", "physical-port-reference" : "shelf1:slot1:IDU:LAN-3"},					  
+					  {"id" : "LTP-ETY-LAN-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
+					  {"id" : "LTP-ETY-LAN-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5}]
           },		  
           {
             "layer" : "ETH",
-            "LTPs" : [{"id" : "268443713-ETH-13", "serverLTPs" : [{"id" : "268443713"}], "conditional-package" : "ethernet-pac"},
-                      {"id" : "268443713-ETH-24", "serverLTPs" : [{"id" : "268443713"}], "conditional-package" : "ethernet-pac"},
-                      {"id" : "3-ODU-A-ETH-13", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"},
-                      {"id" : "3-ODU-A-ETH-24", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"}]
+            "LTPs" : [{"id" : "4-LAN-5-ETH-13", "serverLTPs" : [{"id" : "LTP-ETY-LAN-5"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "4-LAN-4-ETH-24", "serverLTPs" : [{"id" : "LTP-ETY-LAN-4"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "3-C1-ETH-13", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"},
+                      {"id" : "3-C1-ETH-24", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"}]
 			}
 			],
 		    "eth-cross-connections" : [
-	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-ODU-A-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
-	          {"fcPorts" : [{"ltp" : "4-LAN-4-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-ODU-A-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
-	          ],
-	        "ptp-clock" : [1]
+	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-C1-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
+	          {"fcPorts" : [{"ltp" : "4-LAN-4-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-C1-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
+	          ]
 	  }	
     },
 	
@@ -495,58 +378,49 @@
         "interfaces" : [
           {
             "layer" : "MWPS",
-            "LTPs" :[{"id": "1-ODU-A",
-					"supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
-					"conditional-package" : "mw-air-interface-pac",
-					"ptp-port-number": 1
-                     },
-					{"id" : "1-ODU-B",
-				     "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-                     "physical-port-reference" : "shelf1:slot1:IDU:ODU-B",
-                     "conditional-package" : "mw-air-interface-pac" 
-					 }]
+            "LTPs" :[{"id": "LTP-MWPS-ODU-A",
+                      "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
+                      "physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
+                      "conditional-package" : "mw-air-interface-pac",
+                      "ptp-port-number": 1
+                     }]
           },
           {
             "layer" : "MWS",
-            "LTPs" : [{"id" : "2-ODU-A",
+            "LTPs" : [{"id" : "LTP-MWS-ODU-A",
 						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-A"}],
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-A"}],
 						"conditional-package" : "mw-hybrid-mw-structure-pac"
-						},
-                      {"id" : "2-ODU-B",
-						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-B"}],
-						"conditional-package" : "mw-hybrid-mw-structure-pac"}]
+						}]
           },
           {
             "layer" : "ETC",
             "LTPs" : [
-                      { "id" : "3-ODU-A",
+                      { "id" : "LTP-ETC-C1",
                         "supportedAlarms" : "framingIsFaulty, containerIsDown", 
-                        "serverLTPs" : [{"id" : "2-ODU-A"}, {"id" : "2-ODU-B"}], 
+                        "serverLTPs" : [{"id" : "LTP-MWS-ODU-A"}], 
                         "conditional-package" : "mw-ethernet-container-pac"}]
           },
           {
             "layer" : "ETY",
             "LTPs" : [
-                      {"id" : "4-LAN-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
-                      {"id" : "4-LAN-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
-					  {"id" : "4-LAN-3", "physical-port-reference" : "shelf1:slot1:IDU:LAN-3"},					  
-					  {"id" : "4-LAN-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
-					  {"id" : "4-LAN-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5}]
+                      {"id" : "LTP-ETY-1-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
+                      {"id" : "LTP-ETY-1-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
+					  {"id" : "LTP-ETY-1-3", "physical-port-reference" : "shelf1:slot1:IDU:LAN-3"},					  
+					  {"id" : "LTP-ETY-1-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
+					  {"id" : "LTP-ETY-1-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5}]
           },		  
           {
             "layer" : "ETH",
-            "LTPs" : [{"id" : "4-LAN-5-ETH-13", "serverLTPs" : [{"id" : "4-LAN-5"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "4-LAN-4-ETH-24", "serverLTPs" : [{"id" : "4-LAN-4"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "3-ODU-A-ETH-13", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"},
-                      {"id" : "3-ODU-A-ETH-24", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"}]
+            "LTPs" : [{"id" : "4-LAN-5-ETH-13", "serverLTPs" : [{"id" : "LTP-ETY-1-5"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "4-LAN-4-ETH-24", "serverLTPs" : [{"id" : "LTP-ETY-1-4"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "3-C1-ETH-13", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"},
+                      {"id" : "3-C1-ETH-24", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"}]
 			}
 			],
 		    "eth-cross-connections" : [
-	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-ODU-A-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
-	          {"fcPorts" : [{"ltp" : "4-LAN-4-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-ODU-A-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
+	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-C1-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
+	          {"fcPorts" : [{"ltp" : "4-LAN-4-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-C1-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
 	          ],
 	        "ptp-clock" : [1]
 	  }	
@@ -560,58 +434,49 @@
         "interfaces" : [
           {
             "layer" : "MWPS",
-            "LTPs" :[{"id": "1-ODU-A",
+            "LTPs" :[{"id": "LTP-MWPS-ODU-A",
 					"supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
 					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
 					"conditional-package" : "mw-air-interface-pac",
 					"ptp-port-number": 1
-                     },
-					{"id" : "1-ODU-B",
-				     "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-                     "physical-port-reference" : "shelf1:slot1:IDU:ODU-B",
-                     "conditional-package" : "mw-air-interface-pac" 
-					 }]
+                     }]
           },
           {
             "layer" : "MWS",
-            "LTPs" : [{"id" : "2-ODU-A",
+            "LTPs" : [{"id" : "LTP-MWS-ODU-A",
 						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-A"}],
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-A"}],
 						"conditional-package" : "mw-hybrid-mw-structure-pac"
-						},
-                      {"id" : "2-ODU-B",
-						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-B"}],
-						"conditional-package" : "mw-hybrid-mw-structure-pac"}]
+						}]
           },
           {
             "layer" : "ETC",
             "LTPs" : [
-                      { "id" : "3-ODU-A",
+                      { "id" : "LTP-ETC-C1",
                         "supportedAlarms" : "framingIsFaulty, containerIsDown", 
-                        "serverLTPs" : [{"id" : "2-ODU-A"}, {"id" : "2-ODU-B"}], 
+                        "serverLTPs" : [{"id" : "LTP-MWS-ODU-A"}], 
                         "conditional-package" : "mw-ethernet-container-pac"}]
           },
           {
             "layer" : "ETY",
             "LTPs" : [
-                      {"id" : "4-LAN-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
-                      {"id" : "4-LAN-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
-					  {"id" : "4-LAN-3", "physical-port-reference" : "shelf1:slot1:IDU:LAN-3"},					  
-					  {"id" : "4-LAN-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
-					  {"id" : "4-LAN-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5}]
+                      {"id" : "LTP-ETY-1-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
+                      {"id" : "LTP-ETY-1-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
+					  {"id" : "LTP-ETY-1-3", "physical-port-reference" : "shelf1:slot1:IDU:LAN-3"},					  
+					  {"id" : "LTP-ETY-1-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
+					  {"id" : "LTP-ETY-1-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5}]
           },		  
           {
             "layer" : "ETH",
-            "LTPs" : [{"id" : "4-LAN-5-ETH-13", "serverLTPs" : [{"id" : "4-LAN-5"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "4-LAN-4-ETH-24", "serverLTPs" : [{"id" : "4-LAN-4"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "3-ODU-A-ETH-13", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"},
-                      {"id" : "3-ODU-A-ETH-24", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"}]
+            "LTPs" : [{"id" : "4-LAN-3-ETH-13", "serverLTPs" : [{"id" : "LTP-ETY-1-3"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "4-LAN-3-ETH-24", "serverLTPs" : [{"id" : "LTP-ETY-1-3"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "3-C1-ETH-13", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"},
+                      {"id" : "3-C1-ETH-24", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"}]
 			}
 			],
 		    "eth-cross-connections" : [
-	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-ODU-A-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
-	          {"fcPorts" : [{"ltp" : "4-LAN-4-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-ODU-A-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
+	          {"fcPorts" : [{"ltp" : "4-LAN-3-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-C1-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
+	          {"fcPorts" : [{"ltp" : "4-LAN-3-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-C1-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
 	          ],
 	        "ptp-clock" : [1]
 	  }	
@@ -625,58 +490,49 @@
         "interfaces" : [
           {
             "layer" : "MWPS",
-            "LTPs" :[{"id": "1-ODU-A",
+            "LTPs" :[{"id": "LTP-MWPS-ODU-A",
 					"supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
 					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
 					"conditional-package" : "mw-air-interface-pac",
 					"ptp-port-number": 1
-                     },
-					{"id" : "1-ODU-B",
-				     "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-                     "physical-port-reference" : "shelf1:slot1:IDU:ODU-B",
-                     "conditional-package" : "mw-air-interface-pac" 
-					 }]
+                     }]
           },
           {
             "layer" : "MWS",
-            "LTPs" : [{"id" : "2-ODU-A",
+            "LTPs" : [{"id" : "LTP-MWS-ODU-A",
 						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-A"}],
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-A"}],
 						"conditional-package" : "mw-hybrid-mw-structure-pac"
-						},
-                      {"id" : "2-ODU-B",
-						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-B"}],
-						"conditional-package" : "mw-hybrid-mw-structure-pac"}]
+						}]
           },
           {
             "layer" : "ETC",
             "LTPs" : [
-                      { "id" : "3-ODU-A",
+                      { "id" : "LTP-ETC-C1",
                         "supportedAlarms" : "framingIsFaulty, containerIsDown", 
-                        "serverLTPs" : [{"id" : "2-ODU-A"}, {"id" : "2-ODU-B"}], 
+                        "serverLTPs" : [{"id" : "LTP-MWS-ODU-A"}], 
                         "conditional-package" : "mw-ethernet-container-pac"}]
           },
           {
             "layer" : "ETY",
             "LTPs" : [
-                      {"id" : "4-LAN-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
-                      {"id" : "4-LAN-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
-					  {"id" : "4-LAN-3", "physical-port-reference" : "shelf1:slot1:IDU:LAN-3"},					  
-					  {"id" : "4-LAN-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
-					  {"id" : "4-LAN-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5}]
+                      {"id" : "LTP-ETY-LAN-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
+                      {"id" : "LTP-ETY-LAN-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
+					  {"id" : "LTP-ETY-LAN-3", "physical-port-reference" : "shelf1:slot1:IDU:LAN-3"},					  
+					  {"id" : "LTP-ETY-LAN-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
+					  {"id" : "LTP-ETY-LAN-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5}]
           },		  
           {
             "layer" : "ETH",
-            "LTPs" : [{"id" : "4-LAN-5-ETH-13", "serverLTPs" : [{"id" : "4-LAN-5"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "4-LAN-4-ETH-24", "serverLTPs" : [{"id" : "4-LAN-4"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "3-ODU-A-ETH-13", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"},
-                      {"id" : "3-ODU-A-ETH-24", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"}]
+            "LTPs" : [{"id" : "4-LAN-5-ETH-13", "serverLTPs" : [{"id" : "LTP-ETY-LAN-5"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "4-LAN-4-ETH-24", "serverLTPs" : [{"id" : "LTP-ETY-LAN-4"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "3-C1-ETH-13", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"},
+                      {"id" : "3-C1-ETH-24", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"}]
 			}
 			],
 		    "eth-cross-connections" : [
-	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-ODU-A-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
-	          {"fcPorts" : [{"ltp" : "4-LAN-4-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-ODU-A-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
+	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-C1-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
+	          {"fcPorts" : [{"ltp" : "4-LAN-4-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-C1-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
 	          ],
 	        "ptp-clock" : [1]
 	  }	
@@ -690,13 +546,69 @@
         "interfaces" : [
           {
             "layer" : "MWPS",
-            "LTPs" :[{"id": "1-ODU-A",
+            "LTPs" :[{"id": "LTP-MWPS-ODU-A",
+					"supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
+					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
+					"conditional-package" : "mw-air-interface-pac",
+					"ptp-port-number": 1
+                     }]
+          },
+          {
+            "layer" : "MWS",
+            "LTPs" : [{"id" : "LTP-MWS-ODU-A",
+						"supportedAlarms" : "structureAlarm",
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-A"}],
+						"conditional-package" : "mw-hybrid-mw-structure-pac"
+						}]
+          },
+          {
+            "layer" : "ETC",
+            "LTPs" : [
+                      { "id" : "LTP-ETC-C1",
+                        "supportedAlarms" : "framingIsFaulty, containerIsDown", 
+                        "serverLTPs" : [{"id" : "LTP-MWS-ODU-A"}], 
+                        "conditional-package" : "mw-ethernet-container-pac"}]
+          },
+          {
+            "layer" : "ETY",
+            "LTPs" : [
+                      {"id" : "LTP-ETY-LAN-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
+                      {"id" : "LTP-ETY-LAN-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
+					  {"id" : "LTP-ETY-LAN-3", "physical-port-reference" : "shelf1:slot1:IDU:LAN-3"},					  
+					  {"id" : "LTP-ETY-LAN-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
+					  {"id" : "LTP-ETY-LAN-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5}]
+          },		  
+          {
+            "layer" : "ETH",
+            "LTPs" : [{"id" : "4-LAN-5-ETH-13", "serverLTPs" : [{"id" : "LTP-ETY-LAN-5"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "4-LAN-4-ETH-24", "serverLTPs" : [{"id" : "LTP-ETY-LAN-4"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "3-C1-ETH-13", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"},
+                      {"id" : "3-C1-ETH-24", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"}]
+			}
+			],
+		    "eth-cross-connections" : [
+	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-C1-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
+	          {"fcPorts" : [{"ltp" : "4-LAN-4-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-C1-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
+	          ],
+	        "ptp-clock" : [1]
+	  }		
+    },
+
+    {
+      "network-element" :
+      {
+        "uuid" : "Ericsson-A",
+		"type" : "OpenYuma",
+        "interfaces" : [
+          {
+            "layer" : "MWPS",
+            "LTPs" :[{"id": "LTP-MWPS-ODU-A",
 					"supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
 					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
 					"conditional-package" : "mw-air-interface-pac",
 					"ptp-port-number": 1
                      },
-					{"id" : "1-ODU-B",
+					{"id" : "LTP-MWPS-ODU-B",
 				     "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
                      "physical-port-reference" : "shelf1:slot1:IDU:ODU-B",
                      "conditional-package" : "mw-air-interface-pac" 
@@ -704,44 +616,40 @@
           },
           {
             "layer" : "MWS",
-            "LTPs" : [{"id" : "2-ODU-A",
+            "LTPs" : [{"id" : "LTP-MWS-ODU-A",
 						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-A"}],
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-A"}],
 						"conditional-package" : "mw-hybrid-mw-structure-pac"
-						},
-                      {"id" : "2-ODU-B",
-						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-B"}],
-						"conditional-package" : "mw-hybrid-mw-structure-pac"}]
+						}]
           },
           {
             "layer" : "ETC",
             "LTPs" : [
-                      { "id" : "3-ODU-A",
+                      { "id" : "LTP-ETC-C1",
                         "supportedAlarms" : "framingIsFaulty, containerIsDown", 
-                        "serverLTPs" : [{"id" : "2-ODU-A"}, {"id" : "2-ODU-B"}], 
+                        "serverLTPs" : [{"id" : "LTP-MWS-ODU-A"}], 
                         "conditional-package" : "mw-ethernet-container-pac"}]
           },
           {
             "layer" : "ETY",
             "LTPs" : [
-                      {"id" : "4-LAN-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
-                      {"id" : "4-LAN-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
-					  {"id" : "4-LAN-3", "physical-port-reference" : "shelf1:slot1:IDU:LAN-3"},					  
-					  {"id" : "4-LAN-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
-					  {"id" : "4-LAN-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5}]
+                      {"id" : "LTP-ETY-LAN-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
+                      {"id" : "LTP-ETY-LAN-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
+					  {"id" : "LTP-ETY-LAN-3", "physical-port-reference" : "shelf1:slot1:IDU:LAN-3"},					  
+					  {"id" : "LTP-ETY-LAN-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
+					  {"id" : "LTP-ETY-LAN-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5}]
           },		  
           {
             "layer" : "ETH",
-            "LTPs" : [{"id" : "4-LAN-5-ETH-13", "serverLTPs" : [{"id" : "4-LAN-5"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "4-LAN-4-ETH-24", "serverLTPs" : [{"id" : "4-LAN-4"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "3-ODU-A-ETH-13", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"},
-                      {"id" : "3-ODU-A-ETH-24", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"}]
+            "LTPs" : [{"id" : "4-LAN-5-ETH-13", "serverLTPs" : [{"id" : "LTP-ETY-LAN-5"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "4-LAN-4-ETH-24", "serverLTPs" : [{"id" : "LTP-ETY-LAN-4"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "3-C1-ETH-13", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"},
+                      {"id" : "3-C1-ETH-24", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"}]
 			}
 			],
 		    "eth-cross-connections" : [
-	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-ODU-A-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
-	          {"fcPorts" : [{"ltp" : "4-LAN-4-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-ODU-A-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
+	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-C1-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
+	          {"fcPorts" : [{"ltp" : "4-LAN-4-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-C1-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
 	          ],
 	        "ptp-clock" : [1]
 	  }	
@@ -750,18 +658,18 @@
     {
       "network-element" :
       {
-        "uuid" : "Fujitsu-A",
+        "uuid" : "Ericsson-Z",
 		"type" : "OpenYuma",
         "interfaces" : [
           {
             "layer" : "MWPS",
-            "LTPs" :[{"id": "1-ODU-A",
+            "LTPs" :[{"id": "LTP-MWPS-ODU-A",
 					"supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
 					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
 					"conditional-package" : "mw-air-interface-pac",
 					"ptp-port-number": 1
                      },
-					{"id" : "1-ODU-B",
+					{"id" : "LTP-MWPS-ODU-B",
 				     "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
                      "physical-port-reference" : "shelf1:slot1:IDU:ODU-B",
                      "conditional-package" : "mw-air-interface-pac" 
@@ -769,44 +677,100 @@
           },
           {
             "layer" : "MWS",
-            "LTPs" : [{"id" : "2-ODU-A",
+            "LTPs" : [{"id" : "LTP-MWS-ODU-A",
 						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-A"}],
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-A"}],
 						"conditional-package" : "mw-hybrid-mw-structure-pac"
 						},
-                      {"id" : "2-ODU-B",
+                      {"id" : "LTP-MWS-ODU-B",
 						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-B"}],
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-B"}],
 						"conditional-package" : "mw-hybrid-mw-structure-pac"}]
           },
           {
             "layer" : "ETC",
             "LTPs" : [
-                      { "id" : "3-ODU-A",
+                      { "id" : "LTP-ETC-C1",
                         "supportedAlarms" : "framingIsFaulty, containerIsDown", 
-                        "serverLTPs" : [{"id" : "2-ODU-A"}, {"id" : "2-ODU-B"}], 
+                        "serverLTPs" : [{"id" : "LTP-MWS-ODU-A"}, {"id" : "LTP-MWS-ODU-B"}], 
                         "conditional-package" : "mw-ethernet-container-pac"}]
           },
           {
             "layer" : "ETY",
             "LTPs" : [
-                      {"id" : "4-LAN-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
-                      {"id" : "4-LAN-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
-					  {"id" : "4-LAN-3", "physical-port-reference" : "shelf1:slot1:IDU:LAN-3"},					  
-					  {"id" : "4-LAN-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
-					  {"id" : "4-LAN-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5}]
+                      {"id" : "LTP-ETY-LAN-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
+                      {"id" : "LTP-ETY-LAN-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
+					  {"id" : "LTP-ETY-LAN-3", "physical-port-reference" : "shelf1:slot1:IDU:LAN-3"},					  
+					  {"id" : "LTP-ETY-LAN-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
+					  {"id" : "LTP-ETY-LAN-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5}]
           },		  
           {
             "layer" : "ETH",
-            "LTPs" : [{"id" : "4-LAN-5-ETH-13", "serverLTPs" : [{"id" : "4-LAN-5"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "4-LAN-4-ETH-24", "serverLTPs" : [{"id" : "4-LAN-4"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "3-ODU-A-ETH-13", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"},
-                      {"id" : "3-ODU-A-ETH-24", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"}]
+            "LTPs" : [{"id" : "4-LAN-5-ETH-13", "serverLTPs" : [{"id" : "LTP-ETY-LAN-5"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "4-LAN-4-ETH-24", "serverLTPs" : [{"id" : "LTP-ETY-LAN-4"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "3-C1-ETH-13", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"},
+                      {"id" : "3-C1-ETH-24", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"}]
 			}
 			],
 		    "eth-cross-connections" : [
-	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-ODU-A-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
-	          {"fcPorts" : [{"ltp" : "4-LAN-4-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-ODU-A-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
+	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-C1-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
+	          {"fcPorts" : [{"ltp" : "4-LAN-4-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-C1-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
+	          ],
+	        "ptp-clock" : [1]
+	  }	
+    },	
+	
+    {
+      "network-element" :
+      {
+        "uuid" : "NEC-A",
+		"type" : "OpenYuma",
+        "interfaces" : [
+          {
+            "layer" : "MWPS",
+            "LTPs" :[{"id": "LTP-MWPS-ODU-A",
+                      "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
+                      "physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
+                      "conditional-package" : "mw-air-interface-pac",
+                      "ptp-port-number": 1
+                     }]
+          },
+          {
+            "layer" : "MWS",
+            "LTPs" : [{"id" : "LTP-MWS-ODU-A",
+						"supportedAlarms" : "structureAlarm",
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-A"}],
+						"conditional-package" : "mw-hybrid-mw-structure-pac"
+						}]
+          },
+          {
+            "layer" : "ETC",
+            "LTPs" : [
+                      { "id" : "LTP-ETC-C1",
+                        "supportedAlarms" : "framingIsFaulty, containerIsDown", 
+                        "serverLTPs" : [{"id" : "LTP-MWS-ODU-A"}], 
+                        "conditional-package" : "mw-ethernet-container-pac"}]
+          },
+          {
+            "layer" : "ETY",
+            "LTPs" : [
+                      {"id" : "LTP-ETY-1-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
+                      {"id" : "LTP-ETY-1-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
+					  {"id" : "LTP-ETY-1-3", "physical-port-reference" : "shelf1:slot1:IDU:LAN-3"},					  
+					  {"id" : "LTP-ETY-1-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
+					  {"id" : "LTP-ETY-1-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5}]
+          },		  
+          {
+            "layer" : "ETH",
+            "LTPs" : [{"id" : "4-1-3-ETH-13", "serverLTPs" : [{"id" : "LTP-ETY-1-3"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "4-1-3-ETH-24", "serverLTPs" : [{"id" : "LTP-ETY-1-3"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "3-C1-ETH-13", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"},
+                      {"id" : "3-C1-ETH-24", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"}]
+			}
+			],
+		    "eth-cross-connections" : [
+	          {"fcPorts" : [{"ltp" : "4-1-3-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-C1-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
+	          {"fcPorts" : [{"ltp" : "4-1-3-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-C1-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
 	          ],
 	        "ptp-clock" : [1]
 	  }	
@@ -815,100 +779,87 @@
     {
       "network-element" :
       {
-        "uuid" : "Fujitsu-Z",
+        "uuid" : "NEC-Z",
 		"type" : "OpenYuma",
         "interfaces" : [
           {
             "layer" : "MWPS",
-            "LTPs" :[{"id": "1-ODU-A",
-					"supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
-					"conditional-package" : "mw-air-interface-pac",
-					"ptp-port-number": 1
-                     },
-					{"id" : "1-ODU-B",
-				     "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-                     "physical-port-reference" : "shelf1:slot1:IDU:ODU-B",
-                     "conditional-package" : "mw-air-interface-pac" 
-					 }]
+            "LTPs" :[{"id": "LTP-MWPS-ODU-A",
+                      "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
+                      "physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
+                      "conditional-package" : "mw-air-interface-pac",
+                      "ptp-port-number": 1
+                     }]
           },
           {
             "layer" : "MWS",
-            "LTPs" : [{"id" : "2-ODU-A",
+            "LTPs" : [{"id" : "LTP-MWS-ODU-A",
 						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-A"}],
+						"serverLTPs" : [{"id" : "LTP-MWPS-ODU-A"}],
 						"conditional-package" : "mw-hybrid-mw-structure-pac"
-						},
-                      {"id" : "2-ODU-B",
-						"supportedAlarms" : "structureAlarm",
-						"serverLTPs" : [{"id" : "1-ODU-B"}],
-						"conditional-package" : "mw-hybrid-mw-structure-pac"}]
+						}]
           },
           {
             "layer" : "ETC",
             "LTPs" : [
-                      { "id" : "3-ODU-A",
+                      { "id" : "LTP-ETC-C1",
                         "supportedAlarms" : "framingIsFaulty, containerIsDown", 
-                        "serverLTPs" : [{"id" : "2-ODU-A"}, {"id" : "2-ODU-B"}], 
+                        "serverLTPs" : [{"id" : "LTP-MWS-ODU-A"}], 
                         "conditional-package" : "mw-ethernet-container-pac"}]
           },
           {
             "layer" : "ETY",
             "LTPs" : [
-                      {"id" : "4-LAN-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
-                      {"id" : "4-LAN-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
-					  {"id" : "4-LAN-3", "physical-port-reference" : "shelf1:slot1:IDU:LAN-3"},					  
-					  {"id" : "4-LAN-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
-					  {"id" : "4-LAN-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5}]
+                      {"id" : "LTP-ETY-1-1", "physical-port-reference" : "shelf1:slot1:IDU:LAN-1"},
+                      {"id" : "LTP-ETY-1-2", "physical-port-reference" : "shelf1:slot1:IDU:LAN-2"},
+					  {"id" : "LTP-ETY-1-3", "physical-port-reference" : "shelf1:slot1:IDU:LAN-3"},					  
+					  {"id" : "LTP-ETY-1-4", "physical-port-reference" : "shelf1:slot1:IDU:LAN-4"},
+					  {"id" : "LTP-ETY-1-5", "physical-port-reference" : "shelf1:slot1:IDU:LAN-5", "ptp-port-number":5}]
           },		  
           {
             "layer" : "ETH",
-            "LTPs" : [{"id" : "4-LAN-5-ETH-13", "serverLTPs" : [{"id" : "4-LAN-5"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "4-LAN-4-ETH-24", "serverLTPs" : [{"id" : "4-LAN-4"}], "conditional-package" : "ethernet-pac"},
-					  {"id" : "3-ODU-A-ETH-13", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"},
-                      {"id" : "3-ODU-A-ETH-24", "serverLTPs" : [{"id" : "3-ODU-A"}], "conditional-package" : "ethernet-pac"}]
+            "LTPs" : [{"id" : "4-1-3-ETH-13", "serverLTPs" : [{"id" : "LTP-ETY-1-3"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "4-1-3-ETH-24", "serverLTPs" : [{"id" : "LTP-ETY-1-3"}], "conditional-package" : "ethernet-pac"},
+					  {"id" : "3-C1-ETH-13", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"},
+                      {"id" : "3-C1-ETH-24", "serverLTPs" : [{"id" : "LTP-ETC-C1"}], "conditional-package" : "ethernet-pac"}]
 			}
 			],
 		    "eth-cross-connections" : [
-	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-ODU-A-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
-	          {"fcPorts" : [{"ltp" : "4-LAN-4-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-ODU-A-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
+	          {"fcPorts" : [{"ltp" : "4-1-3-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-C1-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
+	          {"fcPorts" : [{"ltp" : "4-1-3-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-C1-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
 	          ],
 	        "ptp-clock" : [1]
 	  }	
-    }		
+    }
 	
     ],
 	
   "topologies" : {
     "mwps" : {
 		"links" : [
-			[{"uuid" : "SIAE-A", "ltp" : "1-ODU-A", "radio-signal-id" : "101"}, {"uuid" : "SIAE-Z", "ltp" : "1-ODU-A", "radio-signal-id" : "101"}],
-			[{"uuid" : "SIAE-A", "ltp" : "1-ODU-B", "radio-signal-id" : "102"}, {"uuid" : "SIAE-Z", "ltp" : "1-ODU-B", "radio-signal-id" : "102"}],
-			[{"uuid" : "ZTE-A", "ltp" : "1-ODU-A", "radio-signal-id" : "111"}, {"uuid" : "ZTE-Z", "ltp" : "1-ODU-A", "radio-signal-id" : "111"}],
-			[{"uuid" : "ZTE-A", "ltp" : "1-ODU-B", "radio-signal-id" : "112"}, {"uuid" : "ZTE-Z", "ltp" : "1-ODU-B", "radio-signal-id" : "112"}],
-			[{"uuid" : "DragonWave-A", "ltp" : "1-ODU-A", "radio-signal-id" : "41"}, {"uuid" : "DragonWave-Z", "ltp" : "1-ODU-A", "radio-signal-id" : "41"}],
-			[{"uuid" : "Ceragon-A", "ltp" : "1-ODU-A", "radio-signal-id" : "31"}, {"uuid" : "Ceragon-Z", "ltp" : "1-ODU-A", "radio-signal-id" : "31"}],
-			[{"uuid" : "Ceragon-A", "ltp" : "1-ODU-B", "radio-signal-id" : "32"}, {"uuid" : "Ceragon-Z", "ltp" : "1-ODU-B", "radio-signal-id" : "32"}],	
-			[{"uuid" : "Nokia-A", "ltp" : "1-ODU-A", "radio-signal-id" : "91"}, {"uuid" : "Nokia-Z", "ltp" : "1-ODU-A", "radio-signal-id" : "91"}],
-			[{"uuid" : "Nokia-A", "ltp" : "1-ODU-B", "radio-signal-id" : "92"}, {"uuid" : "Nokia-Z", "ltp" : "1-ODU-B", "radio-signal-id" : "92"}],
-			[{"uuid" : "Huawei-A", "ltp" : "1-ODU-A", "radio-signal-id" : "71"}, {"uuid" : "Huawei-Z", "ltp" : "1-ODU-A", "radio-signal-id" : "71"}],
-			[{"uuid" : "Huawei-A", "ltp" : "1-ODU-B", "radio-signal-id" : "72"}, {"uuid" : "Huawei-Z", "ltp" : "1-ODU-B", "radio-signal-id" : "72"}],
-			[{"uuid" : "Fujitsu-A", "ltp" : "1-ODU-A", "radio-signal-id" : "61"}, {"uuid" : "Fujitsu-Z", "ltp" : "1-ODU-A", "radio-signal-id" : "61"}],
-			[{"uuid" : "Fujitsu-A", "ltp" : "1-ODU-B", "radio-signal-id" : "62"}, {"uuid" : "Fujitsu-Z", "ltp" : "1-ODU-B", "radio-signal-id" : "62"}]			
+			[{"uuid" : "SIAE-A", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "101"}, {"uuid" : "SIAE-Z", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "101"}],
+			[{"uuid" : "SIAE-A", "ltp" : "LTP-MWPS-ODU-B", "radio-signal-id" : "102"}, {"uuid" : "SIAE-Z", "ltp" : "LTP-MWPS-ODU-B", "radio-signal-id" : "102"}],
+			[{"uuid" : "ZTE-A", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "111"}, {"uuid" : "ZTE-Z", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "111"}],
+			[{"uuid" : "Ceragon-A", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "31"}, {"uuid" : "Ceragon-Z", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "31"}],
+			[{"uuid" : "Ceragon-A", "ltp" : "LTP-MWPS-ODU-B", "radio-signal-id" : "32"}, {"uuid" : "Ceragon-Z", "ltp" : "LTP-MWPS-ODU-B", "radio-signal-id" : "32"}],	
+			[{"uuid" : "Nokia-A", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "91"}, {"uuid" : "Nokia-Z", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "91"}],
+			[{"uuid" : "Huawei-A", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "71"}, {"uuid" : "Huawei-Z", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "71"}],
+			[{"uuid" : "Ericsson-A", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "ERI1"}, {"uuid" : "Ericsson-Z", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "ERI1"}],
+			[{"uuid" : "Ericsson-A", "ltp" : "LTP-MWPS-ODU-B", "radio-signal-id" : "ERI2"}, {"uuid" : "Ericsson-Z", "ltp" : "LTP-MWPS-ODU-B", "radio-signal-id" : "ERI2"}],			
+			[{"uuid" : "NEC-A", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "81"}, {"uuid" : "NEC-Z", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "81"}]			
         ]
     },
-	"eth" : {
+	"ety" : {
 		"links" : [
-			[{"uuid" : "SIAE-A", "ltp" : "4-LAN-5", "vlan-id" : "30"}, {"uuid" : "SIAE-Z", "ltp" : "4-LAN-5", "vlan-id" : "30"}],
-			[{"uuid" : "ZTE-A", "ltp" : "4-GbE-15", "vlan-id" : "30"}, {"uuid" : "ZTE-Z", "ltp" : "4-GbE-15", "vlan-id" : "30"}],
-			[{"uuid" : "DragonWave-A", "ltp" : "4-port-2", "vlan-id" : "24"}, {"uuid" : "DragonWave-Z", "ltp" : "4-port-2", "vlan-id" : "24"}],
-			[{"uuid" : "Ceragon-A", "ltp" : "4-LAN-5", "vlan-id" : "30"}, {"uuid" : "Ceragon-Z", "ltp" : "4-LAN-5", "vlan-id" : "30"}],
-			[{"uuid" : "Nokia-A", "ltp" : "4-LAN-5", "vlan-id" : "30"}, {"uuid" : "Nokia-Z", "ltp" : "4-LAN-5", "vlan-id" : "30"}],
-			[{"uuid" : "Huawei-A", "ltp" : "4-LAN-5", "vlan-id" : "30"}, {"uuid" : "Huawei-Z", "ltp" : "4-LAN-5", "vlan-id" : "30"}],
-			[{"uuid" : "Fujitsu-A", "ltp" : "4-LAN-5", "vlan-id" : "30"}, {"uuid" : "Fujitsu-Z", "ltp" : "4-LAN-5", "vlan-id" : "30"}]			
+			[{"uuid" : "SIAE-A", "ltp" : "TTP-LAN-5", "vlan-id": "24"}, {"uuid" : "Huawei-Z", "ltp" : "LTP-ETY-LAN-5", "vlan-id": "24"}],
+			[{"uuid" : "SIAE-Z", "ltp" : "TTP-LAN-1", "vlan-id": "24"}, {"uuid" : "Ericsson-Z", "ltp" : "LTP-ETY-LAN-5", "vlan-id": "24"}],			
+			[{"uuid" : "ZTE-A", "ltp" : "LTP-ETY-GbE-1-2", "vlan-id": "24"}, {"uuid" : "Ceragon-A", "ltp" : "LTP-ETY-LAN-5", "vlan-id": "24"}],
+			[{"uuid" : "Nokia-A", "ltp" : "LTP-ETY-1-1", "vlan-id": "24"}, {"uuid" : "Ceragon-Z", "ltp" : "LTP-ETY-LAN-5", "vlan-id": "24"}],
+			[{"uuid" : "Huawei-A", "ltp" : "LTP-ETY-LAN-5", "vlan-id": "24"}, {"uuid" : "Nokia-Z", "ltp" : "LTP-ETY-1-3", "vlan-id": "24"}],
+			[{"uuid" : "Ericsson-A", "ltp" : "LTP-ETY-LAN-5", "vlan-id": "24"}, {"uuid" : "NEC-Z", "ltp" : "LTP-ETY-1-3", "vlan-id": "24"}],			
+			[{"uuid" : "NEC-A", "ltp" : "LTP-ETY-1-3", "vlan-id": "24"}, {"uuid" : "ZTE-Z", "ltp" : "LTP-ETY-GbE-1-2", "vlan-id": "24"}]			
       ]
     }
   }
 }
-
 

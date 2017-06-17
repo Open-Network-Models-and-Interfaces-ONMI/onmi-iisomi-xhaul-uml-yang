@@ -504,7 +504,7 @@ define(
 
     mwtnCommonsApp.register.controller('mwtnSelectNetworkElementController', ['$scope', '$mwtnCommons', function ($scope, $mwtnCommons) {
       var vm = this;
-
+      
       /**
        * A function which scanns the mountpoints for connected network-elements and adds it to networkElements.
        * @param {{"onfAirInterfaceRevision": string, "node-id": string, "netconf-node-topology:connection-status": string}[]} mountpoints An array of mountpoints from OpenDaylight.
@@ -530,7 +530,6 @@ define(
           $scope.mountpoint = $scope.mountPoints.filter(function (mountpoint) {
             return mountpoint['node-id'] === $scope.networkElement;
           })[0];
-
         }
         $scope.loading = false;
       };
@@ -713,11 +712,35 @@ define(
         var address = spec.pacId.split(':');
         var module = address[0];
         var pacName = address[1];
+
+        // check for unexpected issues
+        if (!module) {
+          console.error('not module', module, JSON.stringify(spec));
+          return;
+        }
+        if (!pacName) {
+          console.error('not pacName', pacName, JSON.stringify(spec));
+          return;
+        }
+        if (!service.modules[module]) {
+          console.error('not service.modules[module]', service.modules[module], JSON.stringify(spec));
+          return;
+        }
+        if (!service.modules[module][pacName]) {
+          console.error('not service.modules[module][pacName]', service.modules[module][pacName], JSON.stringify(spec));
+          return;
+        }
+        if (!service.modules[module]) {
+          console.error('not ervice.modules[module][pacName][subClass]', service.modules[module][pacName][subClass], JSON.stringify(spec));
+          return;
+        }
+        
         return Object.keys(service.modules[module][pacName]).filter(function (subClass) {
           return service.modules[module][pacName][subClass]['local-name'] === localName;
         }).map(function (subClass) {
           return service.modules[module][pacName][subClass].name;
         })[0];
+      
       };
 
       /**
@@ -1060,7 +1083,7 @@ define(
               deferred.resolve(success);
             }, function (error) {
               $mwtnLog.error({ component: COMPONENT, message: 'Requesting clock for ' + spec.nodeId + ' failed!' });
-              deferred.reject(error);
+              deferred.reject();
             });
             break;
           case 'forwardingDomain':
