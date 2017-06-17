@@ -42,7 +42,7 @@ public class RouteProvider
     {
         LOG.info("RouteProvider Session Initiated");
         service = rpcRegistry.addRpcImplementation(
-                RouteService.class, rpc = new RouteRPC(dataBroker, mountService));
+                RouteService.class, rpc = new RouteRPC(dataBroker));
         MountPointServiceHolder.setMountPointService(mountService);
         DataBrokerHolder.setDataBroker(dataBroker);
     }
