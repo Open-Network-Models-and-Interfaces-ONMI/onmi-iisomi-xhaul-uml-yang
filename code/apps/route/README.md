@@ -1,112 +1,52 @@
+## Basic Concept
+![Basic Concept](resources_readme/Re-route.png?raw=true "Basic Concept")
 
-#### commands for module creation
+- topology.json: route/impl/src/main/resources/topology.json
+    - not same as the topology.json provided by Martin.
+    - define the main and backup fc-path for creation and switch
+
+- apis: using these apis to run the tests for ethernet scenario
+    - create: create as any FCs as you want, and without taking care about the real path
+        - vlanid
+        - fc_desc
+            - nodeName: network-element's name
+            - aEnd: name of ltp
+            - zEnd: name of another ltp
+    - createFollowTopo: create FCs according to the topology.json, using vlanid as key.
+    - switchFollowTopo: switch to backup fc-path(delete current fc-path:vlanid and create topology.json:vlanid:backup)
+    - restoreFollowTopo: switch back to main fc-path(delete current fc-path:vlanid and create topology.json:vlanid:main)
+    - delete: delete specified fc-path(include all ltps, lps and fc)
+
+- ltp-path.yang: updated after fc-path creation or deletion
+
+- threshold.yang: setup the threshold of MSD and Bandwidth
+
+## Build and run
+- edit the route/impl/src/main/resources/topology.json first if you need
+- enter CENTENNIAL/code/apps/route and type
+`mvn clean install -DskipTests`
+- copy release to ODL
 ```
-mvn archetype:generate -DarchetypeGroupId=org.opendaylight.controller -DarchetypeArtifactId=opendaylight-startup-archetype \
--DarchetypeRepository=http://nexus.opendaylight.org/content/repositories/opendaylight.release/ \
--DarchetypeCatalog=http://nexus.opendaylight.org/content/repositories/opendaylight.release/archetype-catalog.xml \
--DarchetypeVersion=1.2.1-Boron-SR1
-```
-
-#### patch the odl
-````
-cp ./apps/dlux/loader.implementation-0.4.1-Boron-SR1.jar $ODL_KARAF_HOME/system/org/opendaylight/dlux/loader.implementation/0.4.1-Boron-SR1
-
-````
-
-#### copy modules build from code:
-
-```
-mkdir -p $ODL_KARAF_HOME/system/cn
-mkdir -p $ODL_KARAF_HOME/system/cn/com
-cp -R ~/.m2/repository/org/opendaylight/mwtn $ODL_KARAF_HOME/system/org/opendaylight
-cp -R ~/.m2/repository/cn/com/zte $ODL_KARAF_HOME/system/cn/com
-cp -R ~/.m2/repository/com/hcl $ODL_KARAF_HOME/system/com
 cp -R ~/.m2/repository/com/highstreet $ODL_KARAF_HOME/system/com
 ```
-#### setting up database
+- start karaf and install odl-route
 ```
-cd $ODL_KARAF_HOME
-./bin/karaf clean
-feature:repo-add mvn:org.apache.karaf.decanter/apache-karaf-decanter/1.1.0/xml/features
-feature:install elasticsearch
-```
-- config file
-````
-vim $ODL_KARAF_HOME/etc/elasticsearch.yml
-network.host: 0.0.0.0
-path.data: etc
-path.plugins: etc/elasticsearch-plugins
-````
-- enter path of CENTENNIAL
-```
-mkdir $ODL_KARAF_HOME/etc/elasticsearch-plugins/
-unzip ./code/apps/persistentDatabase/plugins/head.zip -d $ODL_KARAF_HOME/etc/elasticsearch-plugins
-unzip ./code/apps/persistentDatabase/plugins/delete-by-query.zip -d $ODL_KARAF_HOME/etc/elasticsearch-plugins
-```
-- restart odl and follow the instruction under code/apps/persistentDatabase
-- there is a wrong path define in indexMwtn/initDatabase.js
-- should be ../activeConfigExamples/sdnpoc4/config.json
-```
-sudo npm install elasticdump -g
-cd ./code/apps/persistentDatabase
-./installAll.sh
-```
-
-#### start app re-routing
-````
-feature:install odl-netconf-connector-all odl-l2switch-switch
-feature:install odl-netconf-topology
-feature:install odl-restconf-all odl-mdsal-apidocs odl-dlux-all odl-toaster
-
-feature:repo-add mvn:org.apache.karaf.decanter/apache-karaf-decanter/1.1.0/xml/features
-feature:install elasticsearch
-
-feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/0.4.0-SNAPSHOT/xml/features
-feature:install odl-mwt-models odl-mwtn-ux-all
-feature:install odl-mwt-event odl-mwt-websocketmanager odl-mwt-devicemanager
-
-feature:repo-add mvn:com.highstreet.technologies.odl.app/route-features/0.4.0-SNAPSHOT/xml/features
-feature:install odl-route
-````
-
-#### log level for odl
-````
-log:set TRACE org.opendaylight.netconf
-log:set DEBUG org.opendaylight.mwtn
-````
-
-#### debugging the controller
-````
-cd $ODL_KARAF_HOME
-./bin/karaf debug
-````
-#### using Wireless Transportation Emulator for debugging
-````
-git clone https://github.com/Melacon/WirelessTransportEmulator.git
-````
-#### after replacing jar in ODL
-- refresh repository and re-install app
-````
-cp -R ~/.m2/repository/com/highstreet $ODL_KARAF_HOME/system/com
-feature:uninstall odl-route
 feature:repo-refresh mvn:com.highstreet.technologies.odl.app/route-features/0.4.0-SNAPSHOT/xml/features
 feature:install odl-route
-shutdown
-````
-- after restarting
-````
-log:set DEBUG org.opendaylight.mwtn
-log:set TRACE org.opendaylight.netconf
-````
-- start emulator
-````
-sudo wtemulator --config=config.json --topo=topology.json --xml=yang/microwave-model-config.xml
-````
+```
 
-#### usage of route app
+## Using "route" to test your own device via yang-ui or restconf-api
 
-- using route/create in YANG UI for testing
-- it provide api can add up fcs in list for representing ltp-path
-- after creating a ltp-path, it shows new ltp-path under "ltp-path" in YANG UI
+  - test creating fc
+  - test deleting fc
+  - test creating fc-path
+    - create by 'create'
+    - create by 'createFollowTopo'
+  - test switching and restoring
 
-- delete path and FCs in Network Element using delete(vlanId)
+## Scenario of PoC4
+
+1. setup thresholds
+2. execute 'createFollowTopo:vlanid'
+3. reduce the AirInterfacePac/AirInterfaceStatus/modulationCur of any AirInterface on path and wait for the bandwidth reach threshold
+4. switch(to backup when currently main or to main when currently backup)
