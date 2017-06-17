@@ -7,7 +7,6 @@
  */
 package com.highstreet.technologies.odl.app.impl.listener;
 
-import com.highstreet.technologies.odl.app.impl.RouteRPC;
 import com.highstreet.technologies.odl.app.impl.tools.BandwidthCalculator;
 import com.highstreet.technologies.odl.app.impl.tools.DataBrokerHolder;
 import com.highstreet.technologies.odl.app.impl.tools.NeExecutor;
@@ -29,15 +28,60 @@ import static org.opendaylight.controller.md.sal.common.api.data.LogicalDatastor
  */
 public class ACMListener implements MicrowaveModelListener
 {
-    public ACMListener(String nodeName)
+    public ACMListener(NeExecutor ne)
     {
-        this.nodeName = nodeName;
+        this.ne = ne;
     }
 
     private static final Logger LOG = LoggerFactory.getLogger(ACMListener.class);
-    private static double bandwidth;
+    private static Double bandwidth;
 
-    static
+    private final NeExecutor ne;
+
+    @Override
+    public void onAttributeValueChangedNotification(
+            AttributeValueChangedNotification notification)
+    {
+        new Thread(() ->
+                   {
+                       synchronized (ne)
+                       {
+                           if (bandwidth == null)
+                           {
+                               readBandwidthThreshold();
+                           }
+                           try
+                           {
+                               if (notification.getAttributeName().equalsIgnoreCase("modulationCur"))
+                               {
+                                   String lpId_airInterface = notification.getObjectIdRef().getValue();
+                                   if (ne.isLtpOfThisOnPath(lpId_airInterface))
+                                   {
+                                       AirInterfaceConfiguration airInterfaceConfiguration = ne.getUnderAirPac(
+                                               lpId_airInterface, AirInterfaceConfiguration.class, CONFIGURATION);
+                                       AirInterfaceStatus airInterfaceStatus = ne.getUnderAirPac(
+                                               lpId_airInterface, AirInterfaceStatus.class, OPERATIONAL);
+
+                                       Double txCapacity = new BandwidthCalculator(
+                                               airInterfaceConfiguration.getTxChannelBandwidth(),
+                                               airInterfaceStatus.getModulationCur(),
+                                               airInterfaceStatus.getCodeRateCur()).calc();
+                                       if (txCapacity < bandwidth)
+                                       {
+                                           ne.reportSwitch();
+                                       }
+                                   }
+                               }
+                           }
+                           catch (Exception e)
+                           {
+                               LOG.warn("handling attribute change: " + notification + " caught exception!", e);
+                           }
+                       }
+                   }).start();
+    }
+
+    private void readBandwidthThreshold()
     {
         ReadOnlyTransaction readOnlyTransaction = DataBrokerHolder.getDataBroker().newReadOnlyTransaction();
         InstanceIdentifier<Threshold> instanceIdentifier = InstanceIdentifier.create(ThresholdOfPath.class).child(
@@ -57,46 +101,6 @@ public class ACMListener implements MicrowaveModelListener
         }
     }
 
-    private final String nodeName;
-
-    @Override
-    public void onAttributeValueChangedNotification(
-            AttributeValueChangedNotification notification)
-    {
-//        AttributeValueChangedNotification{getAttributeName=modulationCur, getCounter=8, getNewValue=64, getObjectIdRef=UniversalId [_value=LP-MWPS-AIR-5-1], getTimeStamp=DateAndTime [_value=2017-06-07T05:00:31.9397Z], augmentations={}}
-//        txCapacity = AirInterface::AirInterfaceConfiguration::txChannelBandwidth * log2(AirInterface::AirInterfaceStatus::modulationCur) * AirInterface::AirInterfaceStatus::informationRateCur / 1,15 ;
-//        txCapacity = txChannelBandwidth * log2(modulationCur) * informationRateCur / 1,15 ;
-        NeExecutor ne = RouteRPC.ne_map.get(nodeName);
-        if (ne == null)
-            return;
-        try
-        {
-            if (notification.getAttributeName().equalsIgnoreCase("modulationCur"))
-            {
-                String lpId_airInterface = notification.getObjectIdRef().getValue();
-                if (ne.isLtpOfThisOnPath(lpId_airInterface))
-                {
-                    AirInterfaceConfiguration airInterfaceConfiguration = ne.getUnderAirPac(
-                            lpId_airInterface, AirInterfaceConfiguration.class, CONFIGURATION);
-                    AirInterfaceStatus airInterfaceStatus = ne.getUnderAirPac(
-                            lpId_airInterface, AirInterfaceStatus.class, OPERATIONAL);
-
-                    Double txCapacity = new BandwidthCalculator(
-                            airInterfaceConfiguration.getTxChannelBandwidth(), airInterfaceStatus.getModulationCur(),
-                            airInterfaceStatus.getCodeRateCur()).calc();
-                    if (txCapacity < bandwidth)
-                    {
-                        ne.reportSwitch();
-                    }
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            LOG.warn("handling attribute change: " + notification + " caught exception!", e);
-        }
-    }
-
     @Override
     public void onObjectCreationNotification(
             ObjectCreationNotification notification)
@@ -113,28 +117,5 @@ public class ACMListener implements MicrowaveModelListener
     public void onProblemNotification(
             ProblemNotification notification)
     {
-        String lpId_airInterface = "airIntf1-LP-1";
-//        try
-//        {
-//            NeExecutor ne = RouteRPC.ne_map.get(nodeName);
-//            if (nodeName == null)
-//                return;
-//            AirInterfaceConfiguration airInterfaceConfiguration = ne.getUnderAirPac(
-//                    lpId_airInterface, AirInterfaceConfiguration.class, CONFIGURATION);
-//            AirInterfaceStatus airInterfaceStatus = ne.getUnderAirPac(
-//                    lpId_airInterface, AirInterfaceStatus.class, OPERATIONAL);
-//
-//            Double txCapacity = new BandwidthCalculator(
-//                    airInterfaceConfiguration.getTxChannelBandwidth(), airInterfaceStatus.getModulationCur(),
-//                    airInterfaceStatus.getCodeRateCur()).calc();
-//            if (txCapacity < bandwidth)
-//            {
-//                ne.reportSwitch();
-//            }
-//        }
-//        catch (Exception e)
-//        {
-//            LOG.warn("", e);
-//        }
     }
 }

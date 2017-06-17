@@ -82,7 +82,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
     var unknownNesActionCellTemplate = [
      '<a class="vCenter" ng-class="{attention: grid.appScope.hover, hidden: onfAirInterfaceRevision}" >',
      '<button class="btn btn-default" ng-show="row.entity[\'node-id\'] !== \'controller-config\'" ng-click="grid.appScope.unmount(row.entity)">Unmount</button>',
-     '<button class="btn btn-primary" ng-show="row.entity[\'node-id\'] !== \'controller-config\' && row.entity.onfAirInterfaceRevision" ng-click="grid.appScope.addToRequiredNetworkElements(row.entity)">',
+     '<button class="btn btn-primary" ng-show="row.entity[\'node-id\'] !== \'controller-config\' && row.entity.onfCoreModelRevision" ng-click="grid.appScope.addToRequiredNetworkElements(row.entity)">',
      '<i class="pull-left fa fa-spinner fa-pulse" ng-show="row.entity.spinner"></i>',
      '<span class="white">{{ "MWTN_MAKE_KNOWN" | translate }}<span>',
      '</button>',
