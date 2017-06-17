@@ -948,7 +948,11 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
           break;
         case 'clock':
           // console.warn('yea clock', JSON.stringify(data));
-          $scope.clock = new PtpClock(data);
+          if (data) {
+            $scope.clock = new PtpClock(data);
+          } else {
+            $scope.clock = undefined;
+          }
           break;
         case 'ltp':
           updateLtp(data);
@@ -1024,7 +1028,7 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
         });
       });
     }, true);
-    
+
     $scope.$watch('networkElement', function(neId, oldValue) {
       if (neId && neId !== '' && neId !== oldValue) {
 
