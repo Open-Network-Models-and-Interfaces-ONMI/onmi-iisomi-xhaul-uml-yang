@@ -143,12 +143,7 @@
 					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
 					"conditional-package" : "mw-air-interface-pac",
 					"ptp-port-number": 1
-                     },
-					{"id" : "LTP-MWPS-ODU-B",
-				     "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-                     "physical-port-reference" : "shelf1:slot1:IDU:ODU-B",
-                     "conditional-package" : "mw-air-interface-pac" 
-					 }]
+                     }]
           },
           {
             "layer" : "MWS",
@@ -208,12 +203,7 @@
 					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
 					"conditional-package" : "mw-air-interface-pac",
 					"ptp-port-number": 1
-                     },
-					{"id" : "LTP-MWPS-ODU-B",
-				     "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-                     "physical-port-reference" : "shelf1:slot1:IDU:ODU-B",
-                     "conditional-package" : "mw-air-interface-pac" 
-					 }]
+                     }]
           },
           {
             "layer" : "MWS",
@@ -320,8 +310,7 @@
 		    "eth-cross-connections" : [
 	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-C1-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
 	          {"fcPorts" : [{"ltp" : "4-LAN-4-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-C1-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
-	          ],
-	        "ptp-clock" : [1]
+	          ]
 	  }	
     },
 
@@ -385,8 +374,7 @@
 		    "eth-cross-connections" : [
 	          {"fcPorts" : [{"ltp" : "4-LAN-5-ETH-13", "vlan-id" : "13"}, {"ltp" : "3-C1-ETH-13", "vlan-id" : "13"}], "host" : true, "fcRoute" : "service13"},
 	          {"fcPorts" : [{"ltp" : "4-LAN-4-ETH-24", "vlan-id" : "24"}, {"ltp" : "3-C1-ETH-24", "vlan-id" : "24"}], "host" : true, "fcRoute" : "service24"}
-	          ],
-	        "ptp-clock" : [1]
+	          ]
 	  }	
     },
 	
@@ -399,16 +387,11 @@
           {
             "layer" : "MWPS",
             "LTPs" :[{"id": "LTP-MWPS-ODU-A",
-					"supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
-					"conditional-package" : "mw-air-interface-pac",
-					"ptp-port-number": 1
-                     },
-					{"id" : "LTP-MWPS-ODU-B",
-				     "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-                     "physical-port-reference" : "shelf1:slot1:IDU:ODU-B",
-                     "conditional-package" : "mw-air-interface-pac" 
-					 }]
+                      "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
+                      "physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
+                      "conditional-package" : "mw-air-interface-pac",
+                      "ptp-port-number": 1
+                     }]
           },
           {
             "layer" : "MWS",
@@ -468,12 +451,7 @@
 					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
 					"conditional-package" : "mw-air-interface-pac",
 					"ptp-port-number": 1
-                     },
-					{"id" : "LTP-MWPS-ODU-B",
-				     "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-                     "physical-port-reference" : "shelf1:slot1:IDU:ODU-B",
-                     "conditional-package" : "mw-air-interface-pac" 
-					 }]
+                     }]
           },
           {
             "layer" : "MWS",
@@ -533,12 +511,7 @@
 					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
 					"conditional-package" : "mw-air-interface-pac",
 					"ptp-port-number": 1
-                     },
-					{"id" : "LTP-MWPS-ODU-B",
-				     "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-                     "physical-port-reference" : "shelf1:slot1:IDU:ODU-B",
-                     "conditional-package" : "mw-air-interface-pac" 
-					 }]
+                     }]
           },
           {
             "layer" : "MWS",
@@ -598,12 +571,7 @@
 					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
 					"conditional-package" : "mw-air-interface-pac",
 					"ptp-port-number": 1
-                     },
-					{"id" : "LTP-MWPS-ODU-B",
-				     "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-                     "physical-port-reference" : "shelf1:slot1:IDU:ODU-B",
-                     "conditional-package" : "mw-air-interface-pac" 
-					 }]
+                     }]
           },
           {
             "layer" : "MWS",
@@ -789,16 +757,11 @@
           {
             "layer" : "MWPS",
             "LTPs" :[{"id": "LTP-MWPS-ODU-A",
-					"supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
-					"conditional-package" : "mw-air-interface-pac",
-					"ptp-port-number": 1
-                     },
-					{"id" : "LTP-MWPS-ODU-B",
-				     "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-                     "physical-port-reference" : "shelf1:slot1:IDU:ODU-B",
-                     "conditional-package" : "mw-air-interface-pac" 
-					 }]
+                      "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
+                      "physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
+                      "conditional-package" : "mw-air-interface-pac",
+                      "ptp-port-number": 1
+                     }]
           },
           {
             "layer" : "MWS",
@@ -854,16 +817,11 @@
           {
             "layer" : "MWPS",
             "LTPs" :[{"id": "LTP-MWPS-ODU-A",
-					"supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-					"physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
-					"conditional-package" : "mw-air-interface-pac",
-					"ptp-port-number": 1
-                     },
-					{"id" : "LTP-MWPS-ODU-B",
-				     "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
-                     "physical-port-reference" : "shelf1:slot1:IDU:ODU-B",
-                     "conditional-package" : "mw-air-interface-pac" 
-					 }]
+                      "supportedAlarms" : "signalIsLost, rslIsExceeded, temperatureIsExceeded, modemIsFaulty, radioIsFaulty, modulationIsDownShifted",
+                      "physical-port-reference" : "shelf1:slot1:IDU:ODU-A",
+                      "conditional-package" : "mw-air-interface-pac",
+                      "ptp-port-number": 1
+                     }]
           },
           {
             "layer" : "MWS",
@@ -922,8 +880,8 @@
 			[{"uuid" : "Ceragon-A", "ltp" : "LTP-MWPS-ODU-B", "radio-signal-id" : "32"}, {"uuid" : "Ceragon-Z", "ltp" : "LTP-MWPS-ODU-B", "radio-signal-id" : "32"}],	
 			[{"uuid" : "Nokia-A", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "91"}, {"uuid" : "Nokia-Z", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "91"}],
 			[{"uuid" : "Huawei-A", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "71"}, {"uuid" : "Huawei-Z", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "71"}],
-			[{"uuid" : "Ericsson-A", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "31"}, {"uuid" : "Ericsson-Z", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "31"}],
-			[{"uuid" : "Ericsson-A", "ltp" : "LTP-MWPS-ODU-B", "radio-signal-id" : "32"}, {"uuid" : "Ericsson-Z", "ltp" : "LTP-MWPS-ODU-B", "radio-signal-id" : "32"}],			
+			[{"uuid" : "Ericsson-A", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "ERI1"}, {"uuid" : "Ericsson-Z", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "ERI1"}],
+			[{"uuid" : "Ericsson-A", "ltp" : "LTP-MWPS-ODU-B", "radio-signal-id" : "ERI2"}, {"uuid" : "Ericsson-Z", "ltp" : "LTP-MWPS-ODU-B", "radio-signal-id" : "ERI2"}],			
 			[{"uuid" : "NEC-A", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "81"}, {"uuid" : "NEC-Z", "ltp" : "LTP-MWPS-ODU-A", "radio-signal-id" : "81"}]			
         ]
     },
