@@ -231,10 +231,10 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
         var normalIcon = {
           path: google.maps.SymbolPath.CIRCLE,
           scale: 10,
-          strokeColor: '#FF0000',
+          strokeColor: '#00ccff',
           strokeOpacity: 0.8,
           strokeWeight: 2,
-          fillColor: '#FF0000',
+          fillColor: '#00ccff',
           fillOpacity: 0.35,
           zIndex: 2
         };
@@ -406,7 +406,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
       },
       link: function (scope, element, attrs, mwtnTopologyMapController) {
 
-        var normalColor = "#FF0000";
+        var normalColor = "#00ccff";
         var selectedColor = "#00FD30";
 
         scope.$watch("selectedSiteLink", function (newSiteLinkId, oldSiteLinkId) {
