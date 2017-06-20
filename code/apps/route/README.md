@@ -31,7 +31,7 @@ cp -R ~/.m2/repository/com/highstreet $ODL_KARAF_HOME/system/com
 ```
 - start karaf and install odl-route
 ```
-feature:repo-refresh mvn:com.highstreet.technologies.odl.app/route-features/0.4.0-SNAPSHOT/xml/features
+feature:repo-add mvn:com.highstreet.technologies.odl.app/route-features/0.4.0-SNAPSHOT/xml/features
 feature:install odl-route
 ```
 
