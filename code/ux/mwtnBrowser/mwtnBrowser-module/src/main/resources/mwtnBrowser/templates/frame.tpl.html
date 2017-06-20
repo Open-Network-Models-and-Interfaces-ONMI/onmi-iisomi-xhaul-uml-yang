@@ -25,6 +25,7 @@
 
               <mwtn-grid network-element="networkElement" data="neCurrentProblems" ng-if="neCurrentProblems && !spinner.neCurrentProblems"></mwtn-grid>
             </div>
+
             <div uib-accordion-group class="panel-default" is-open="status.forwardingDomain" ng-show="forwardingDomain">
               <uib-accordion-heading>
                 <i class="fa" ng-class="{'fa-chevron-down': status.forwardingDomain, 'fa-chevron-right': !status.forwardingDomain}"></i>
@@ -33,6 +34,16 @@
               </uib-accordion-heading>
 
               <mwtn-json-viewer network-element="networkElement" data="forwardingDomain" ng-if="status.forwardingDomain"></mwtn-json-viewer>
+            </div>
+
+            <div uib-accordion-group class="panel-default" is-open="status.forwardingConstructs" ng-show="forwardingConstructs">
+              <uib-accordion-heading>
+                <i class="fa" ng-class="{'fa-chevron-down': status.forwardingConstructs, 'fa-chevron-right': !status.forwardingConstructs}"></i>
+                <span>{{'MWTN_FORWARDING_CONSTRUCTS' | translate}}</span>
+                <i class="fa fa-spinner fa-pulse" ng-show="spinner.forwardingConstructs"></i>
+              </uib-accordion-heading>
+
+              <mwtn-grid network-element="networkElement" data="forwardingConstructs" ng-if="forwardingConstructs && !spinner.forwardingConstructs"></mwtn-grid>
             </div>
 
             <div ng-repeat="ltp in onfLtps" ng-show="status.ne" uib-accordion-group class="panel-default" is-open="status['ltp' + separator + ltp.getData().uuid]">
