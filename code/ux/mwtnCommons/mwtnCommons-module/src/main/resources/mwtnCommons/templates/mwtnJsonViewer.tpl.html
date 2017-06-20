@@ -41,10 +41,17 @@
       <span class="owl-dark">{{value.unit}}</span>
     </div>
 
-    <!-- type- array -->
-    <div class="col col-md-12" ng-if="value.type === 'array'">
-      <span class="owl-dark" style="margin-top: 5px;">{{value.labelId | translate}}</span><br/>
+    <!-- type- array of objects -->
+    <div class="col col-md-12" ng-if="value.type === 'array' && value.value.length !== 0 && getType(value.value[0]) === 'object'">
+      <span class="owl-dark text-right" style="margin-top: 5px;">{{value.labelId | translate}}</span><br/>
       <mwtn-grid network-element="networkElement" data="value.value" path="path"></mwtn-grid>
+    </div>
+    <!-- type- array of non objects -->
+    <div class="col col-md-4 text-right" title="{{value.description}}" ng-if="value.type === 'array' && value.value.length !== 0 && getType(value.value[0]) !== 'object'">
+      <span class="owl-dark">{{value.labelId | translate}}</span>
+    </div>
+    <div class="col col-md-8 text-left" ng-if="value.type === 'array' && value.value.length !== 0 && getType(value.value[0]) !== 'object'">
+      <b>{{value.value}}</b>
     </div>
 
     <!-- type- object -->

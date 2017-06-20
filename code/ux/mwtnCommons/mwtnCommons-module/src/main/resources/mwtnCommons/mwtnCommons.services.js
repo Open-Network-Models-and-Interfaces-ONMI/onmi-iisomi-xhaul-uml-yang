@@ -1110,7 +1110,7 @@ define(
               method: 'GET',
               url: [service.url.actualNetworkElement(spec.nodeId, spec.revision), ltpKey, spec.layerProtocolId].join('/')
             };
-            console.info(odlRequest.url);
+            // console.info(odlRequest.url);
             service.genericRequest(odlRequest).then(function (success) {
               deferred.resolve(success);
             }, function (error) {
@@ -1158,7 +1158,9 @@ define(
             });
             break;
           case 'mountpoint':
+          case 'forwardingConstructs':
             // not needed (currently)
+            deferred.resolve();
             break;
           default:
             $mwtnLog.error({ component: COMPONENT, message: 'Requesting ' + spec.pacId + ' is not supported!' });
@@ -1532,6 +1534,9 @@ define(
         forwardingDomain: function (neId, fdUuid) {
           return 'operational/network-topology:network-topology/topology/topology-netconf/node/' + neId + '/yang-ext:mount/core-model:network-element/fd/' +fdUuid;
         },
+        forwardingConstruct: function (neId, fcUuid) {
+          return 'operational/network-topology:network-topology/topology/topology-netconf/node/' + neId + '/yang-ext:mount/core-model:forwarding-construct/' +fcUuid;
+        },
         clock: function (neId, revision) {
           return 'operational/network-topology:network-topology/topology/topology-netconf/node/' + neId + '/yang-ext:mount/ietf-ptp-dataset:instance-list/1';
         },
@@ -1784,6 +1789,29 @@ define(
           console.timeEnd(taskId);
           $mwtnLog.info({ component: '$mwtnCommons.getForwardingDomain', message: JSON.stringify(error.data) });
           deferred.reject(error);
+        });
+        return deferred.promise;
+      };
+
+      service.getForwardingConstruct = function(neId, fcUuid) {
+        var url = [service.base,
+        service.url.forwardingConstruct(neId, fcUuid)].join('');
+        var request = {
+          method: 'GET',
+          url: url
+        };
+        var taskId = [neId, fcUuid, 'ONF:ForwardingConstruct received'].join(' ');
+
+        var deferred = $q.defer();
+        console.time(taskId);
+        $http(request).then(function (success) {
+          console.timeEnd(taskId);
+          //  deferred.resolve(service.yangifyObject(success.data));
+          deferred.resolve(success.data);
+        }, function (error) {
+          console.timeEnd(taskId);
+          $mwtnLog.info({ component: '$mwtnCommons.getForwardingConstruct', message: JSON.stringify(error.data) });
+          deferred.reject();
         });
         return deferred.promise;
       };
@@ -3326,6 +3354,9 @@ define(
 
         this.getData = function () {
           return this.data;
+        };
+        this.getId = function () {
+          return this.getData().uuid;
         };
         this.getForwardingDomain = function () {
           return this.getData().fd;

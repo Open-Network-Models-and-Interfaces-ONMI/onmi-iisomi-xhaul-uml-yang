@@ -18,6 +18,7 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
           "wxyz0123456789+/" +
           "=";
 
+    
     var  decode64 = function(input) {
       var output = "";
       var chr1, chr2, chr3 = "";
@@ -662,8 +663,8 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
     });
 
 
-  mwtnBrowserApp.register.controller('mwtnBrowserCtrl', ['$scope', '$rootScope', '$mwtnLog', '$mwtnBrowser', '$translate', 'OnfNetworkElement', 'PtpClock', 'LogicalTerminationPoint', 
-    function($scope, $rootScope, $mwtnLog, $mwtnBrowser, $translate, OnfNetworkElement, PtpClock, LogicalTerminationPoint) {
+  mwtnBrowserApp.register.controller('mwtnBrowserCtrl', ['$scope', '$rootScope', '$mwtnLog', '$mwtnCommons', '$mwtnBrowser', '$translate', 'OnfNetworkElement', 'PtpClock', 'LogicalTerminationPoint', 
+    function($scope, $rootScope, $mwtnLog, $mwtnCommons, $mwtnBrowser, $translate, OnfNetworkElement, PtpClock, LogicalTerminationPoint) {
 
     var COMPONENT = 'mwtnBrowserCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnBrowserCtrl started!'});
@@ -749,8 +750,20 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
           $scope.onfNetworkElement = new OnfNetworkElement(data['network-element']);
           var fd = $scope.onfNetworkElement.getForwardingDomain();
           $scope.forwardingDomain = undefined;
+          $scope.forwardingConstructs = undefined;
           if (fd && fd.length > 0) {
             $scope.forwardingDomain = fd[0]; // $mwtnBrowser.getViewData(fd[0]);
+            $scope.forwardingConstructs = [];
+            fd[0].fc.map(function(id){
+              $mwtnCommons.getForwardingConstruct($scope.networkElement, id).then(function(fc){
+                var item = fc['forwarding-construct'][0];
+                $scope.forwardingConstructs.push( {
+                  uuid: item.uuid,
+                  'fc-port#1': $scope.onfNetworkElement.getLtp( item['fc-port'][0].ltp[0] ).getLabel(),
+                  'fc-port#2': $scope.onfNetworkElement.getLtp( item['fc-port'][1].ltp[0] ).getLabel()
+                });
+              });
+            });
           }
           $scope.onfLtps = $scope.onfNetworkElement.getLogicalTerminationPoints();
           // $scope.onfNetworkElement.ltp = undefined;
@@ -941,13 +954,12 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
           updateNe(data);
           break;
         case 'forwardingDomain':
-          console.warn('yea forwardingDomain', JSON.stringify(data));
+          // TODO $scope.forwardingDomain = new ForwardingDomain(data);
           break;
         case 'neCurrentProblems':
           updateNetworkElementCurrentProblems(data);
           break;
         case 'clock':
-          // console.warn('yea clock', JSON.stringify(data));
           if (data) {
             $scope.clock = new PtpClock(data);
           } else {
