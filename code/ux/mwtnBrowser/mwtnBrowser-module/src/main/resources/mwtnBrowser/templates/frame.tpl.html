@@ -44,6 +44,59 @@
               </uib-accordion-heading>
 
               <mwtn-grid network-element="networkElement" data="forwardingConstructs" ng-if="forwardingConstructs && !spinner.forwardingConstructs"></mwtn-grid>
+            
+              <!-- create fc -->
+              <div class="row">
+                <div class="col col-md-3">
+                  <label class="owl-dark" for="vlan">{{'MWTN_LTP1' | translate}}</label><br/>
+                  <select class="form-control" ng-model="fcCreation.ltp1">
+                    <option ng-repeat="ltp in forwardingDomain.ltp" value="{{ltp}}">{{ltp}}</option>
+                  </select>
+                </div>
+                <div class="col col-md-3">
+                  <label class="owl-dark" for="vlan">{{'MWTN_LTP2' | translate}}</label><br/>
+                  <select class="form-control" ng-model="fcCreation.ltp2">
+                    <option ng-repeat="ltp in forwardingDomain.ltp" value="{{ltp}}">{{ltp}}</option>
+                  </select>
+                </div>
+                <div class="col col-md-1 form-group">
+                  <label class="owl-dark" for="vlan">{{'MWTN_VLAN_ID' | translate}}</label><br/>
+                  <input class="form-control" type="number" value="42" id="example-number-input" ng-model="fcCreation.vlan">
+                </div>
+                <div class="col col-md-2">
+                  <label style="color:white;" for="create">create</label><br/>
+                  <button type="button" class="btn btn-warning" ng-click="createForwardingConstruct()">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                      <span style="color:white;">{{'MWTN_CREATE' | translate}}</span>
+                  </button>     
+                </div>
+                <div class="col col-md-3">
+                  <span class="owl-dark" ng-if="!fcCreation.error">{{fcCreation.info}}</span>
+                  <span class="error" ng-if="fcCreation.error">{{fcCreation.error}}</span>
+                </div>
+              </div>
+
+              <!-- delete fc -->
+              <div class="row">
+                <div class="col col-md-6 form-group">
+                  <label class="owl-dark" for="vlan">{{'MWTN_FC_UUID' | translate}}</label><br/>
+                  <select class="form-control" ng-model="fcDeletion.ltp">
+                    <option ng-repeat="fc in forwardingConstructs" value="{{fc.uuid}}">{{fc.uuid}}</option>
+                  </select>
+                </div>
+                <div class="col col-md-2 col-md-offset-1" >
+                  <label style="color:white;" for="delete">delete</label><br/>
+                  <button type="button" class="btn btn-danger" ng-click="deleteForwardingConstruct()">
+                      <i class="fa fa-times" aria-hidden="true"></i>
+                      <span style="color:white;">{{'MWTN_DELETE' | translate}}</span>
+                  </button>
+                </div>
+                <div class="col col-md-3">
+                  <span class="owl-dark" ng-if="!fcDeletion.error">{{fcDeletion.info}}</span>
+                  <span class="error" ng-if="fcDeletion.error">{{fcDeletion.error}}</span>
+                </div>
+              </div>
+        
             </div>
 
             <div ng-repeat="ltp in onfLtps" ng-show="status.ne" uib-accordion-group class="panel-default" is-open="status['ltp' + separator + ltp.getData().uuid]">

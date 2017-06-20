@@ -663,8 +663,8 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
     });
 
 
-  mwtnBrowserApp.register.controller('mwtnBrowserCtrl', ['$scope', '$rootScope', '$mwtnLog', '$mwtnCommons', '$mwtnBrowser', '$translate', 'OnfNetworkElement', 'PtpClock', 'LogicalTerminationPoint', 
-    function($scope, $rootScope, $mwtnLog, $mwtnCommons, $mwtnBrowser, $translate, OnfNetworkElement, PtpClock, LogicalTerminationPoint) {
+  mwtnBrowserApp.register.controller('mwtnBrowserCtrl', ['$scope', '$rootScope', '$mwtnLog', '$mwtnCommons', '$mwtnEthernet', '$mwtnBrowser', '$translate', 'OnfNetworkElement', 'PtpClock', 'LogicalTerminationPoint', 
+    function($scope, $rootScope, $mwtnLog, $mwtnCommons, $mwtnEthernet, $mwtnBrowser, $translate, OnfNetworkElement, PtpClock, LogicalTerminationPoint) {
 
     var COMPONENT = 'mwtnBrowserCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnBrowserCtrl started!'});
@@ -673,6 +673,66 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
     var pacTemplate = {
         'layer-protocol': 'unknown'           
     };
+
+    $scope.fcDeletion = {
+      nodeId: $scope.networkElementId, 
+      ltp:'', 
+      info: 'handle with care, no further warning, qualified user expected ;)'
+    };
+    $scope.deleteForwardingConstruct = function() {
+      $scope.fcDeletion.nodeId = $scope.networkElementId;
+      $scope.fcDeletion.info = 'Processing ...';
+      $scope.fcDeletion.error = undefined;
+      if ($scope.fcDeletion.ltp === undefined || $scope.fcDeletion.ltp === '') {
+        $scope.fcDeletion.error = 'Please select a valid LTP#1.!';
+        return;
+      }
+      $mwtnEthernet.deleteForwardingConstruct($scope.fcDeletion).then(function(success){
+        console.log(success);
+        $scope.fcDeletion.info = success;
+      }, function(error){
+        console.log(error);
+        $scope.fcDeletion.error = error;
+      });
+    }
+
+    $scope.fcCreation = {
+      nodeId: $scope.networkElementId, 
+      ltp1:'', 
+      ltp2:'', 
+      vlan:42, 
+      info:'handle with care, no further warning, qualified user expected ;)'
+    };
+    $scope.createForwardingConstruct = function() {
+      console.warn(JSON.stringify($scope.networkElementId));
+      console.warn(JSON.stringify($scope.networkElement));
+      $scope.fcCreation.nodeId = $scope.networkElementId;
+      $scope.fcCreation.info = 'Processing ...';
+      $scope.fcCreation.error = undefined;
+      if ($scope.fcCreation.ltp1 === undefined || $scope.fcCreation.ltp1 === '') {
+        $scope.fcCreation.error = 'Please select a valid LTP#1!';
+        return;
+      }
+      if ($scope.fcCreation.ltp2 === undefined || $scope.fcCreation.ltp2 === '') {
+        $scope.fcCreation.error = 'Please select a valid LTP#2!';
+        return;
+      }
+      if ($scope.fcCreation.vlan === undefined) {
+        $scope.fcCreation.error = 'Please select a valid vlan-id!';
+        return;
+      }
+      if ($scope.fcCreation.ltp1 === $scope.fcCreation.ltp2) {
+        $scope.fcCreation.error = 'Please select different LTPs. Loopback is not supported yet!';
+        return;
+      }
+      $mwtnEthernet.createForwardingConstruct($scope.fcCreation).then(function(success){
+        console.log(success);
+        $scope.fcCreation.info = success;
+      }, function(error){
+        console.log(error);
+        $scope.fcCreation.error = error;
+      });
+    }
 
     // get important infromation from yang modules
     $mwtnBrowser.getModules().then(function(success){

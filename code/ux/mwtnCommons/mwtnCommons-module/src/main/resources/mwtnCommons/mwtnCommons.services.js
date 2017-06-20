@@ -98,7 +98,7 @@ define(
 
       var vm = this;
       var COMPONENT = 'openConfigViewController';
-0
+
       $scope.getType = $mwtnGlobal.getType;
       $scope.spec = data.spec;
       $mwtnCommons.getConditionalPackagePart($scope.spec).then(function (success) {
@@ -2588,6 +2588,78 @@ define(
         });
         console.warn(data.timestamp, JSON.stringify(log));
       };
+      return service;
+    });
+
+    // Service log
+    mwtnCommonsApp.register.factory('$mwtnEthernet', function ($http, $q, ENV) {
+      var service = {};
+
+      service.base = ENV.getBaseURL("MD_SAL") + '/restconf';
+      service.url = {
+        create: service.base + '/operations/route:create',
+        delete: service.base + '/operations/route:delete'
+      };
+
+      service.createForwardingConstruct = function(spec) {
+        var deferred = $q.defer();
+
+        var request = {
+          method: 'POST',
+          url: service.url.create,
+          data: {
+                  input: {
+                      vlanid: spec.vlan,
+                      fc: [{
+                              nodeName: spec.nodeId,
+                              aEnd: spec.ltp1,
+                              zEnd: spec.ltp2
+                          }
+                      ]
+                  }
+          }
+        };
+        console.log(JSON.stringify(spec));
+        console.log(JSON.stringify(request));
+
+        var consoleId = 'create-forwarding-consturuct: ';
+        console.time(consoleId);
+        $http(request).then(function (success) {
+          console.timeEnd(consoleId);
+          console.log(JSON.stringify(success));
+          deferred.resolve(success.data.output.status);
+        }, function (error) {
+          console.timeEnd(consoleId);
+          // console.error(JSON.stringify(error.statusText));
+          deferred.reject(error.statusText);
+        });
+        return deferred.promise;
+      };
+      
+      service.deleteForwardingConstruct = function(spec) {
+        var deferred = $q.defer();
+        var request = {
+          method: 'POST',
+          url: service.url.delete,
+          data: {input:{vlanid:spec.ltp.slice(-2)}}
+        };
+        console.log(JSON.stringify(spec));
+        console.log(JSON.stringify(request));
+
+        var consoleId = 'delete-forwarding-consturuct: ';
+        console.time(consoleId);
+        $http(request).then(function (success) {
+          console.timeEnd(consoleId);
+          console.log(JSON.stringify(success));
+          deferred.resolve(success.data.output.status);
+        }, function (error) {
+          console.timeEnd(consoleId);
+          // console.error(JSON.stringify(error.statusText));
+          deferred.reject(error.statusText);
+        });
+        return deferred.promise;
+      };
+      
       return service;
     });
 
