@@ -814,16 +814,18 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
           if (fd && fd.length > 0) {
             $scope.forwardingDomain = fd[0]; // $mwtnBrowser.getViewData(fd[0]);
             $scope.forwardingConstructs = [];
-            fd[0].fc.map(function(id){
-              $mwtnCommons.getForwardingConstruct($scope.networkElement, id).then(function(fc){
-                var item = fc['forwarding-construct'][0];
-                $scope.forwardingConstructs.push( {
-                  uuid: item.uuid,
-                  'fc-port#1': $scope.onfNetworkElement.getLtp( item['fc-port'][0].ltp[0] ).getLabel(),
-                  'fc-port#2': $scope.onfNetworkElement.getLtp( item['fc-port'][1].ltp[0] ).getLabel()
+            if (fd[0].fc) {
+              fd[0].fc.map(function(id){
+                $mwtnCommons.getForwardingConstruct($scope.networkElement, id).then(function(fc){
+                  var item = fc['forwarding-construct'][0];
+                  $scope.forwardingConstructs.push( {
+                    uuid: item.uuid,
+                    'fc-port#1': $scope.onfNetworkElement.getLtp( item['fc-port'][0].ltp[0] ).getLabel(),
+                    'fc-port#2': $scope.onfNetworkElement.getLtp( item['fc-port'][1].ltp[0] ).getLabel()
+                  });
                 });
               });
-            });
+            }
           }
           $scope.onfLtps = $scope.onfNetworkElement.getLogicalTerminationPoints();
           // $scope.onfNetworkElement.ltp = undefined;
