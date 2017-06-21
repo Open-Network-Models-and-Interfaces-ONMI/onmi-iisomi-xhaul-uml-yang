@@ -52,8 +52,14 @@ define([ 'app/mwtnCommons/mwtnCommons.module'], function(mwtnCommonsApp) {
             }
           };
           $mwtnDatabase.getAggregations(functionId, docType, aggregations).then(function (success) {
-            success.data.aggregations['severity'].buckets.map(function(bucket){
+            var found = success.data.aggregations['severity'].buckets.map(function(bucket){
               $scope.alarmStatus[bucket.key] = bucket.doc_count;
+              return bucket.key;
+            });
+            Object.keys($scope.alarmStatus).map(function(key){
+              if (!found.contains(key)) {
+                $scope.alarmStatus[key] = 0;
+              }
             });
           }, function (error) {
             console.error(error);

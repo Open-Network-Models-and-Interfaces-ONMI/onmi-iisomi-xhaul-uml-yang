@@ -2887,6 +2887,28 @@ define(
         return deferred.promise;
       };
 
+      service.getAggregations = function (functionId, docType, aggregations) {
+        var deferred = $q.defer();
+        service.getBase(functionId).then(function (success) {
+          var databaseRequest = {
+            method: 'POST',
+            base: success.base,
+            index: success.index,
+            command: '_search',
+            docType: docType,
+            aggregation: aggregations
+          };
+          service.aggregationRequest(databaseRequest).then(function (success) {
+            deferred.resolve(success);
+          }, function (error) {
+            deferred.reject(error);
+          });
+        }, function (error) {
+          deferred.reject(error);
+        });
+        return deferred.promise;
+      };
+
       service.getData = function (docType, from, size, sort, filter, query) {
         var deferred = $q.defer();
         service.getBase('mwtn').then(function (success) {
