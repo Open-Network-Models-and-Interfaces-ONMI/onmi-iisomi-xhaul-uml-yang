@@ -39,30 +39,57 @@ define([ 'app/mwtnCommons/mwtnCommons.module'], function(mwtnCommonsApp) {
               return mountpoint['netconf-node-topology:connection-status'] === 'connected';
             }).length;
           });
-          Object.keys($scope.alarmStatus).map(function(severity) {
-            // usage of the ElasticSearch Count API
-            $mwtnDatabase.getBase('org.opendaylight.mwtn.eventmanager').then(function(success) {
-              var databaseRequest = {
-                base : success.base,
-                method : 'POST',
-                command: '_count',
-                index: success.index,
-                docType: 'faultcurrent',
-                query: {
-                  match: {
-                    'faultCurrent.severity': severity
-                  }
+          var functionId = 'org.opendaylight.mwtn.eventmanager';
+          var docType = 'faultcurrent';
+          var aggregations = {
+            "size":0,
+            "aggregations": {
+              "severity": {
+                "terms": {
+                  "field": "faultCurrent.severity"
                 }
-              };
-              $mwtnDatabase.genericRequest(databaseRequest).then(function(success){
-                $scope.alarmStatus[severity] = success.data.count;
-              }, function(error){
-                console.error('severity', severity, error);
-              });
-            }, function(error) {
-              console.error('severity', severity, error);
+              }
+            }
+          };
+          $mwtnDatabase.getAggregations(functionId, docType, aggregations).then(function (success) {
+            success.data.aggregations['severity'].buckets.map(function(bucket){
+              $scope.alarmStatus[bucket.key] = bucket.doc_count;
             });
+          }, function (error) {
+            console.error(error);
+            $scope.alarmStatus = {
+                Critical:0,
+                Major:0,
+                Minor:0,
+                Warning:0,
+            };
           });
+
+
+          // Object.keys($scope.alarmStatus).map(function(severity) {
+          //   // usage of the ElasticSearch Count API
+          //   $mwtnDatabase.getBase('org.opendaylight.mwtn.eventmanager').then(function(success) {
+          //     var databaseRequest = {
+          //       base : success.base,
+          //       method : 'POST',
+          //       command: '_count',
+          //       index: success.index,
+          //       docType: 'faultcurrent',
+          //       query: {
+          //         match: {
+          //           'faultCurrent.severity': severity
+          //         }
+          //       }
+          //     };
+          //     $mwtnDatabase.genericRequest(databaseRequest).then(function(success){
+          //       $scope.alarmStatus[severity] = success.data.count;
+          //     }, function(error){
+          //       console.error('severity', severity, error);
+          //     });
+          //   }, function(error) {
+          //     console.error('severity', severity, error);
+          //   });
+          // });
         };
         update();
         
