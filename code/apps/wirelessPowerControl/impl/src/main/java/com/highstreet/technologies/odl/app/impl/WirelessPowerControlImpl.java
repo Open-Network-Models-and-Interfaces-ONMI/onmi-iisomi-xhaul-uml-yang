@@ -87,12 +87,12 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 		this.registration = rpcProviderRegistry.addRpcImplementation(WirelessPowerControlService.class, this);
 
 		// config executor scheduler, where will be maximally one job.
-		scheduledExecutorService = Executors.newScheduledThreadPool(10);
-		try {
-			scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),15, 15, TimeUnit.SECONDS);
-		} catch (Exception e) {
-			LOG.error(e.getMessage(),e);
-		}
+//		scheduledExecutorService = Executors.newScheduledThreadPool(10);
+//		try {
+//			scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),15, 15, TimeUnit.SECONDS);
+//		} catch (Exception e) {
+//			LOG.error(e.getMessage(),e);
+//		}
 	}
 
 
@@ -151,8 +151,12 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 		try {
 			Optional<Topology> optTopology = topology.checkedGet();
 			List<Node> nodeList = optTopology.get().getNode();
+			LOG.info("Node List size : {}", nodeList.size());
 			for (Node node : nodeList) { // loop all nodes from topology
 				LOG.info("Node : {}", node.getKey().getNodeId());
+				if (node.getKey().getNodeId().getValue().contains("controller-config")) {
+					continue;
+				}
 				processNode(node.getKey());
 			}
 		} catch (Exception e) {
