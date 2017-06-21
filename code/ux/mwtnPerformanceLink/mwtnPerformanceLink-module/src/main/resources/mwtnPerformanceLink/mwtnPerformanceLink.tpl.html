@@ -1,17 +1,20 @@
 <alarm-status></alarm-status>
 <div class="owl container">
 
-<!--	input for link id
+<!--	input for link id 
   <div class="row">
 		 <div class="col-md-2 text-right radio">
-      <span>{{'Insert LinkId' }}</span>
+      <span>{{'MWTN_LINK_IDENTIFIER' | translate }}</span>
     </div>
     <div class="col-md-4">
       <div class="form-group">
-       <input type="text" ng-model="linkId"/> 
+			 <input list="linkIds" class="form-control" ng-model="linkId">
+       <datalist id="linkIds">
+			   <option ng-repeat="linkId in linkIds" value="{{linkId}}" >{{linkId}}</option>
+       </datalist>
       </div>
     </div>
-	</div>-->
+	</div> -->
 
   <div class="row">
 		<div class="col-md-2 text-right radio">
@@ -20,8 +23,7 @@
 		<div class="col-md-4">
 			<div class="form-group">
 				<select class="form-control" ng-model="networkElementA">
-					<option ng-repeat="ne in networkElements" value="{{ne.id}}">{{ne.id}}
-						(revision: {{ne.revision}})</option>
+					<option ng-repeat="ne in networkElements" value="{{ne.id}}">{{ne.id}}</option>
 				</select>
 			</div>
 		</div>
@@ -32,8 +34,7 @@
 		<div class="col-md-4">
 			<div class="form-group">
 				<select class="form-control" ng-model="networkElementB">
-					<option ng-repeat="ne in networkElements" value="{{ne.id}}">{{ne.id}}
-						(revision: {{ne.revision}})</option>
+					<option ng-repeat="ne in networkElements" value="{{ne.id}}">{{ne.id}}</option>
 				</select>
 			</div>
 		</div>
