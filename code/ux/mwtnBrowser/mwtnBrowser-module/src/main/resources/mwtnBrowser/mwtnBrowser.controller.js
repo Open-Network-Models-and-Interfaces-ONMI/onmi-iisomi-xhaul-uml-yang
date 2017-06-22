@@ -317,7 +317,7 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
                 height: (maxCount * rowHeight + headerHeight) + 'px'
             };
           }
-          return {}; // use auto-resize faeture
+          return {}; // use auto-resize feature
         };
 
         var getCellTemplate = function(field) {
