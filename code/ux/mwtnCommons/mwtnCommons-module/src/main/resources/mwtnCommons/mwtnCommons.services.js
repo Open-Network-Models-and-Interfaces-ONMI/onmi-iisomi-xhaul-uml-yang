@@ -7,6 +7,25 @@
  * and is available at {@link http://www.eclipse.org/legal/epl-v10.html} 
  */
 
+
+if (!String.prototype.base64ToHex) {
+  String.prototype.base64ToHex = function () {
+    var raw = atob(this);
+    return raw.map(function(item, index){
+      var _hex = raw.charCodeAt(inext).toString(16);
+      if (_hex.length !== 2) {
+        _hex = '0' + _hex;
+      }
+      return '0x' + _hex;
+    }).join(' ');
+    // for ( i = 0; i < raw.length; i++ ) {
+    //   var _hex = raw.charCodeAt(i).toString(16)
+    //   HEX += (_hex.length==2?_hex:'0'+_hex);
+    // }
+    // return HEX.toUpperCase();
+  };
+}
+
 if (!String.prototype.contains) {
   /**
    * An extension to String, which checks whether another string is contained.
@@ -637,36 +656,36 @@ define(
       return service;
     });
 
-    mwtnCommonsApp.register.factory('$mwtnCommons', function ($http, $q, ENV, $mwtnGlobal, $mwtnLog, $mwtnDatabase, LogicalTerminationPoint) {
+    /**
+      * Process an array of data synchronously.
+      * Please see https://gist.github.com/KevinTCoughlin/6901825 
+      * @param {Array} data An array of data.
+      * @param {function} processData A function that processes an item of data.
+      *        Signature: function(item, i, callback), where {@code item} is the i'th item,
+      *                   {@code i} is the loop index value and {@code calback} is the
+      *                    parameterless function to call on completion of processing an item.
+      * @param {function} done A callback function indecating that all items are processed.
+      */
+    var doSynchronousLoop = function (data, processData, done) {
+      if (data && data.length > 0) {
+        var loop = function (data, i, processData, done) {
+          processData(data[i], i, function () {
+            if (++i < data.length) {
+              loop(data, i, processData, done);
+            } else {
+              done();
+            }
+          });
+        };
+        loop(data, 0, processData, done);
+      } else {
+        done();
+      }
+    };
+
+    mwtnCommonsApp.register.factory('$mwtnCommons', function ($http, $q, ENV, $mwtnGlobal, $mwtnLog, $mwtnDatabase, LogicalTerminationPoint, PtpClock) {
 
       var COMPONENT = '$mwtnCommons';
-
-      /**
-        * Process an array of data synchronously.
-        * Please see https://gist.github.com/KevinTCoughlin/6901825 
-        * @param {Array} data An array of data.
-        * @param {function} processData A function that processes an item of data.
-        *        Signature: function(item, i, callback), where {@code item} is the i'th item,
-        *                   {@code i} is the loop index value and {@code calback} is the
-        *                    parameterless function to call on completion of processing an item.
-        * @param {function} done A callback function indecating that all items are processed.
-        */
-      var doSynchronousLoop = function (data, processData, done) {
-        if (data && data.length > 0) {
-          var loop = function (data, i, processData, done) {
-            processData(data[i], i, function () {
-              if (++i < data.length) {
-                loop(data, i, processData, done);
-              } else {
-                done();
-              }
-            });
-          };
-          loop(data, 0, processData, done);
-        } else {
-          done();
-        }
-      };
 
       var service = {
         base: ENV.getBaseURL("MD_SAL") + "/restconf/",
@@ -1079,7 +1098,7 @@ define(
             });
             break;
           case 'clock':
-            service.getClock(spec.nodeId, spec.revision).then(function (success) {
+            service.getPtpClockData(spec.nodeId, spec.revision).then(function (success) {
               deferred.resolve(success);
             }, function (error) {
               $mwtnLog.error({ component: COMPONENT, message: 'Requesting clock for ' + spec.nodeId + ' failed!' });
@@ -1816,7 +1835,7 @@ define(
         return deferred.promise;
       };
 
-      service.getClock = function(neId, revision) {
+      service.getPtpClockData = function(neId, revision) {
         var url = [service.base,
         service.url.clock(neId, revision)].join('');
         var request = {
@@ -1834,7 +1853,7 @@ define(
           deferred.resolve(success.data);
         }, function (error) {
           console.timeEnd(taskId);
-          $mwtnLog.info({ component: '$mwtnCommons.getClock', message: JSON.stringify(error.data) });
+          $mwtnLog.info({ component: '$mwtnCommons.getPtpClockData', message: JSON.stringify(error.data) });
           deferred.reject(error);
         });
         return deferred.promise;
@@ -2433,6 +2452,58 @@ define(
             // or server returns response with an error status.
             console.error(JSON.stringify(response));
           });
+      };
+
+      return service;
+    });
+
+    // Precision Time Protocol PTP
+    mwtnCommonsApp.register.factory('$mwtnPtp', function ($http, $q, $mwtnCommons, PtpClock) {
+      var key1 = 'netconf-node-topology:available-capabilities';
+      var key2 = 'available-capability';
+      var filterActivePtpClocks = function(mountpoints) {
+        return mountpoints.filter(function(mountpoint) {
+          if (!mountpoint) return false;
+          if (!mountpoint[key1]) return false;
+          if (!mountpoint[key1][key2]) return false;
+          if (mountpoint['netconf-node-topology:connection-status'] !== 'connected') return false;
+          var ptpCapability = mountpoint[key1][key2].filter(function(capability){
+            return capability.contains('ietf-ptp-dataset');
+          });
+          return ptpCapability.length > 0;
+        }).map(function(mountpoint){
+          return mountpoint['node-id'];
+        });
+      };
+      var ptpClocks = {};
+      var processData = function (nodeId, i, callback) {
+        $mwtnCommons.getPtpClockData(nodeId).then(
+          function (success) {
+            ptpClocks[nodeId] = new PtpClock(success);
+            callback();
+          },
+          function (error) {
+            console.error(error);
+            callback();
+          }
+        );
+      };
+
+      var service = {};
+      service.getPtpClocks = function() {
+        var deferred = $q.defer();
+
+        $mwtnCommons.getMountPoints().then(function (mountpoints) {
+          var ptpClockNodeIds = filterActivePtpClocks(mountpoints);
+          doSynchronousLoop(ptpClockNodeIds, processData, function () {
+            deferred.resolve(ptpClocks);
+          });
+        }, function (error) {
+          console.log(error);
+          deferred.reject();
+        });
+
+        return deferred.promise;
       };
 
       return service;
@@ -3224,7 +3295,11 @@ define(
       var LayerProtocol = function (data) {
         // take a guess, if termiation-state is not exposed
         if (data['termination-state'] === undefined) {
+
           data['termination-state'] = 'terminated-bidirectional';
+          if (data['layer-protocol-name'] = "ETH") {
+            data['termination-state'] = 'lp-can-never-terminate';
+          }
           $mwtnLog.warning({ component: 'LTP.getTerminationState', message: 'Check whether NE provided mandatory termination state. ' + data.uuid });
         }
 
@@ -3397,7 +3472,10 @@ define(
     mwtnCommonsApp.register.factory('PtpClock', function (PtpPort) {
       var PtpClock = function (data) {
         var COMPONENT = "PtpClock";
-        this.data = data['instance-list'][0];
+        this.data = {};
+        if (data && data['instance-list'] && data['instance-list'][0]) {
+          this.data = data['instance-list'][0];
+        }
         if (!this.data['port-ds-list'] || this.data['port-ds-list'].length === 0) {
           this.ptpPorts = [];
           var message = ['The PTP clock', data['instance-number'], 'dose not support a single PTP port.'].join(' ');
@@ -3412,6 +3490,17 @@ define(
           return this.data;
           // return JSON.parse(JSON.stringify(this.data).replaceAll('onf-ptp-dataset:', ''));
         };
+        this.getIdentity = function(hex) {
+          var defaultDs = this.getData()['default-ds'];
+          var result = 'ERROR: no clock identity found';
+          if (defaultDs && defaultDs['clock-identity']) {
+            result = defaultDs['clock-identity'];
+            if (hex) {
+              result = result.base64ToHex();
+            }
+          }
+          return result;
+        }
         this.getPtpPorts = function () {
           return this.ptpPorts;
         };
