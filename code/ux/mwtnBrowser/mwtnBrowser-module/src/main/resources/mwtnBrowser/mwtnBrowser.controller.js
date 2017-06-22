@@ -768,12 +768,20 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
             if (fd[0].fc) {
               fd[0].fc.map(function(id){
                 $mwtnCommons.getForwardingConstruct($scope.networkElement, id).then(function(fc){
-                  var item = fc['forwarding-construct'][0];
-                  $scope.forwardingConstructs.push( {
-                    uuid: item.uuid,
-                    'fc-port#1': $scope.onfNetworkElement.getLtp( item['fc-port'][0].ltp[0] ).getLabel(),
-                    'fc-port#2': $scope.onfNetworkElement.getLtp( item['fc-port'][1].ltp[0] ).getLabel()
-                  });
+
+                  // TODO make robust
+                  if (fc['forwarding-construct'] && fc['forwarding-construct'][0]) {
+                    var item = fc['forwarding-construct'][0];
+                    if (item['fc-port'] && 
+                        item['fc-port'][0] && && item['fc-port'][0].ltp && item['fc-port'][0].ltp[0]  && 
+                        item['fc-port'][1] && && item['fc-port'][1].ltp && item['fc-port'][1].ltp[0]) {
+                      $scope.forwardingConstructs.push( {
+                        uuid: item.uuid,
+                        'fc-port#1': $scope.onfNetworkElement.getLtp( item['fc-port'][0].ltp[0] ).getLabel(),
+                        'fc-port#2': $scope.onfNetworkElement.getLtp( item['fc-port'][1].ltp[0] ).getLabel()
+                      });
+                    }
+                  }
                 });
               });
             }

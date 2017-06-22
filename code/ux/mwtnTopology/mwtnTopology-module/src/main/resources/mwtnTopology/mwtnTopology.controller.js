@@ -610,20 +610,6 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
       });
     });
 
-    var ptpServiceTest = function() {
-      $mwtnPtp.getPtpClocks().then(function(success){
-        Object.keys(success).map(function(ptpClockNodeId){
-          console.warn(ptpClockNodeId, success[ptpClockNodeId].getIdentity(), success[ptpClockNodeId].getIdentity(true));
-        });
-      }, function(error){
-        console.error(JSON.stringify(error));
-      });
-    };
-    var timerName = 'Get network PTP information.'; 
-    console.time(timerName);
-    ptpServiceTest();
-    console.timeEnd(timerName);
-    
   }]);
 
   mwtnTopologyApp.directive('mwtnTopologyFrame', function () {
