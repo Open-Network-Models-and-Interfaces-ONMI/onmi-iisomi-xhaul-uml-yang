@@ -11,18 +11,12 @@
 if (!String.prototype.base64ToHex) {
   String.prototype.base64ToHex = function () {
     var raw = atob(this);
-    return raw.map(function(item, index){
-      var _hex = raw.charCodeAt(inext).toString(16);
-      if (_hex.length !== 2) {
-        _hex = '0' + _hex;
-      }
-      return '0x' + _hex;
-    }).join(' ');
-    // for ( i = 0; i < raw.length; i++ ) {
-    //   var _hex = raw.charCodeAt(i).toString(16)
-    //   HEX += (_hex.length==2?_hex:'0'+_hex);
-    // }
-    // return HEX.toUpperCase();
+    var result = [];
+    for ( i = 0; i < raw.length; i++ ) {
+      var _hex = raw.charCodeAt(i).toString(16)
+      result.push('0x' + ( _hex.length === 2 ? _hex:'0' + _hex));
+    }
+    return result.join(' ');
   };
 }
 
@@ -389,7 +383,6 @@ define(
         $scope.info = false;
 
         var data = JSON.parse(JSON.stringify($scope.data));
-        console.warn(JSON.stringify(data));
         if (!data) {
           var message = 'No data to be displayed!";'
           $mwtnLog.info({ component: COMPONENT, message: message });
@@ -427,7 +420,7 @@ define(
                 height: (maxCount * rowHeight + headerHeight) + 'px'
             };
           }
-          return {}; // use auto-resize faeture
+          return {}; // use auto-resize feature
         };
 
         var getCellTemplate = function(field) {
