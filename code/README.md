@@ -32,13 +32,21 @@ Environment for this test&demo configuration, recommended to use.
   - Best option but not required: $JAVA_HOME points to java (similar to: JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64)
   - SECURITY HINT: This configuration is not suitable to be public available via Internet.
 
+ODL is configured for 4th-PoC
+  - Database configured with sites and links
+  - Latest available 4th-Poc apps are installed including Web-GUI
+  - Log is enabled to show netconf mesasges and mwtn apps in => See $ODL_KARAF_HOME/data/log
+
+**ISSUEs**
+  - Other Browser than Google Chrome
+
 #### Step *1: Get tar file with karaf/ODL
 
   Use a browser for the download (Chrome).
-  - Copy into browser: [https://drive.google.com/file/d/0BwbcJFD90EFQbEVCaTMyS3ZOY1E/view?usp=sharing](https://drive.google.com/file/d/0BwbcJFD90EFQbEVCaTMyS3ZOY1E/view?usp=sharing)
+  - Copy into browser: [https://drive.google.com/file/d/0BwbcJFD90EFQbEVCaTMyS3ZOY1E/view?usp=sharing](https://drive.google.com/drive/folders/0BwbcJFD90EFQNEE5aXk5R1NPX3c)
   - Ignore Message about unknown format and select "Download".
   - Download should be into ~/Downloads (Reference download directory for this step-by-step instructions)
-  - Filename is: onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-13.tar.gz
+  - Filename is containing a date. Take the newest one. (onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-13.tar.gz)
 
 #### Step *2: Unpack tar-file
 
@@ -91,6 +99,8 @@ Environment for this test&demo configuration, recommended to use.
     feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/0.4.0-SNAPSHOT/xml/features
     feature:install elasticsearch
     feature:install odl-mwtn-all
+    feature:repo-add mvn:com.highstreet.technologies.odl.app/route-features/0.4.0-SNAPSHOT/xml/features
+    feature:install odl-route
 
   If no error occurred leave karaf command line and shutdown ODL with "logout".
 
@@ -220,6 +230,8 @@ For specific installation and remote access of database, please follow the instr
 
 For getting a basic running configuration that is also used for 4th PoC do follow the steps.
   - The configuration files are copied into the *activeConfig* directory.
+  - ES-Plugins are copied into the karaf /etc folder
+  Here are the steps:
 
      cd ~/CENTENNIAL/code/apps/persistentDatabase
      cp -r activeConfigExamples/sdnpoc4/* activeConfig
@@ -228,8 +240,7 @@ For getting a basic running configuration that is also used for 4th PoC do follo
      unzip -q ~/CENTENNIAL/code/apps/persistentDatabase/plugins/head.zip -d $ODL_KARAF_HOME/etc/elasticsearch-plugins/
      unzip -q ~/CENTENNIAL/code/apps/persistentDatabase/plugins/delete-by-query.zip -d $ODL_KARAF_HOME/etc/elasticsearch-plugins
 
-  - ES-Plugins are copied into the karaf /etc folder
-  - Karaf is started in karaf shell
+  - Starting karaf
 
      cd $ODL_KARAF_HOME
      ./bin/karaf clean

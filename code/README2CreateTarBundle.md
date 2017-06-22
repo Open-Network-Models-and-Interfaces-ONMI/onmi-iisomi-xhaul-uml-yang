@@ -5,8 +5,15 @@ Comprehensive How-to-create list for a ODL/Karaf bundle that can be used to be i
 #### Start configuration
 
 -ubuntu 16.04
--All ODL-Setup steps executed from README.MD Choice 2 Steps #1 - #3.1
 -odl-karaf boron
+
+-All ODL-Setup steps executed from README.MD Choice 2 Steps #1 - #3.1
+
+-During step #2.3 enable logging within karaf command line:
+
+     log:set DEBUG com.highstreet.technologies
+     log:set TRACE org.opendaylight.netconf
+
 
 #### build applications
 
@@ -18,9 +25,6 @@ echo $JAVA_HOME
 echo $JAVA_MAX_MEM
 echo $ODL_KARAF_HOME
 
-#### Install
-
-mvn clean install -DskipTests
 
 #### clean
 
@@ -32,12 +36,13 @@ find ~/.m2/repository/com/highstreet/* -type d -name "*-module" -exec rm -rf {} 
 rm -rf $ODL_KARAF_HOME/cache/schema/tailf*.yang
 rm -rf $ODL_KARAF_HOME/cache/schema/yuma*.yang
 
-#### rm -rf $ODL_KARAF_HOME/data/log/*
+#### remove
 
+rm $ODL_KARAF_HOME/etc/org.ops4j.pax.web.cfg
+rm -rf $ODL_KARAF_HOME/data/*
 rm -rf $ODL_KARAF_HOME/system/org/opendaylight/mwtn
 rm -rf $ODL_KARAF_HOME/system/com/hcl
 rm -rf $ODL_KARAF_HOME/system/com/highstreet
-
 
 #### deploy
 
@@ -48,13 +53,36 @@ cp -R ~/.m2/repository/cn/com/zte $ODL_KARAF_HOME/system/cn/com
 cp -R ~/.m2/repository/com/hcl $ODL_KARAF_HOME/system/com
 cp -R ~/.m2/repository/com/highstreet $ODL_KARAF_HOME/system/com
 
+#### Copy into new directory and create tar file
+
+TARDIR=onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-22
+mkdir $TARDIR
+cp -r distribution-karaf-0.5.1-Boron-SR1/* $TARDIR
+tar -czvf "$TARDIR.tar.gz" $TARDIR
+
+
+#### install in karaf console
 
 cd $ODL_KARAF_HOME
 ./bin/karaf clean
 
+    feature:install odl-netconf-topology
+    feature:install odl-netconf-connector-all
+    feature:install odl-restconf-all
+    feature:install odl-mdsal-apidocs
+    feature:install odl-dlux-all
+    feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/0.4.0-SNAPSHOT/xml/features
+    feature:install elasticsearch
+    feature:install odl-mwtn-all
+    feature:repo-add mvn:com.highstreet.technologies.odl.app/route-features/0.4.0-SNAPSHOT/xml/features
+    feature:install odl-route
 
+#### perform tests with DLUX UI
 
-# perform tests with DLUX UI
+-> if test successfully done deliver already created TAR package
+-> Link in Centennial anpassen
+
+..........................
 # remove all required nes
 # unmount all devices
 # close DLUX UI
@@ -83,8 +111,6 @@ rm -rf $ODL_KARAF_HOME/data/log/*
 # make sure that no hardcoded references are in karaf
 
 rm $ODL_KARAF_HOME/etc/org.ops4j.pax.web.cfg
-
-
 
 cd ..
 
