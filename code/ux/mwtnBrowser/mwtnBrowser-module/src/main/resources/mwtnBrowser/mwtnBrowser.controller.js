@@ -773,8 +773,8 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
                   if (fc['forwarding-construct'] && fc['forwarding-construct'][0]) {
                     var item = fc['forwarding-construct'][0];
                     if (item['fc-port'] && 
-                        item['fc-port'][0] && && item['fc-port'][0].ltp && item['fc-port'][0].ltp[0]  && 
-                        item['fc-port'][1] && && item['fc-port'][1].ltp && item['fc-port'][1].ltp[0]) {
+                        item['fc-port'][0] && item['fc-port'][0].ltp && item['fc-port'][0].ltp[0]  && 
+                        item['fc-port'][1] && item['fc-port'][1].ltp && item['fc-port'][1].ltp[0]) {
                       $scope.forwardingConstructs.push( {
                         uuid: item.uuid,
                         'fc-port#1': $scope.onfNetworkElement.getLtp( item['fc-port'][0].ltp[0] ).getLabel(),
