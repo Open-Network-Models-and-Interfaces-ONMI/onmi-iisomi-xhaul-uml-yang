@@ -76,6 +76,9 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 	private ScheduledExecutorService scheduledExecutorService;
 	private ScheduledFuture scheduledFuture;
 
+	private InstanceIdentifier<MwAirInterfacePac> pathAirInterface;
+	private DataBroker xrNodeBroker;
+
 	/**
 	 * Here everything are initialized. Databroker, executor scheduler for timer and registration for datatree changelistener.
 	 * @param providerContext
@@ -178,7 +181,7 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 		// try to mount the device
 		Preconditions.checkArgument(xrNodeOptional.isPresent(), "Unable to locate mountpoint: %s, not mounted yet or not configured", nodeKey.getNodeId().getValue());
 		final MountPoint xrNode = xrNodeOptional.get();
-		final DataBroker xrNodeBroker = xrNode.getService(DataBroker.class).get();
+		xrNodeBroker = xrNode.getService(DataBroker.class).get();
 
 
 		LOG.info("We found the suitable device : {}", nodeKey);
@@ -194,20 +197,14 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
                     InstanceIdentifier<MwEthernetContainerPac> pathEthernetContainer = InstanceIdentifier.builder(MwEthernetContainerPac.class, new MwEthernetContainerPacKey(uuid)).build();
                     MwEthernetContainerPac ethernetContainerPac = readEthernetContainer(mwTransaction, pathEthernetContainer);
 
-                    InstanceIdentifier<MwAirInterfacePac> pathAirInterface = InstanceIdentifier.builder(MwAirInterfacePac.class, new MwAirInterfacePacKey(uuid)).build();
+                    pathAirInterface = InstanceIdentifier.builder(MwAirInterfacePac.class, new MwAirInterfacePacKey(uuid)).build();
                     MwAirInterfacePac airInterfacePac = readAirInterface(mwTransaction, pathAirInterface);
+
 					mwTransaction.submit();
-
                     if (ethernetContainerPac != null && airInterfacePac != null) {
-                        WirelessPowerControlInputData input = prepareInputDataFake(ethernetContainerPac, airInterfacePac);
-						WirelessPowerCalculator calculator = new WirelessPowerCalculator(input,airInterfacePac);
-						while (calculator.isNeededChangeModulationAndPower()) {
-							LOG.info("We are going to change modulation: {} and power: {} ", calculator.getModulationMin(),calculator.getTxPower());
-							mwTransaction = xrNodeBroker.newReadWriteTransaction();
-							merge(mwTransaction, pathAirInterface, calculator.getAirInterfacePac());
-
-							Thread.sleep(1000); // we tune air interface step by step
-						}
+						WirelessPowerCalculator calculator = new WirelessPowerCalculator(airInterfacePac, ethernetContainerPac, this);
+						calculator.calc();
+						Thread.sleep(1000); // we tune air interface step by step
                     }
                 } catch (Exception e) {
 					// in case if something strange was happened
@@ -222,89 +219,9 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 		}
 	}
 
-	private WirelessPowerControlInputData prepareInputDataFake(MwEthernetContainerPac ethernetContainerPac, MwAirInterfacePac airInterfacePac) {
-		WirelessPowerControlInputData inputData = new WirelessPowerControlInputData();
 
-		// read the current throughput
-		Integer currentThroughput = 500;
-		inputData.setCurrentThroughput(currentThroughput);
-
-		// read the historical throughput
-		Integer historicalThroughput = 500;
-		inputData.setHistoricalThroughput(historicalThroughput);
-
-
-		// read data to calculate the current capacity
-		inputData.setTxChannelBandwidth(500000);
-		inputData.setModulationCur((short)64);
-		inputData.setCodeRateCur((byte)1);
-
-		//read data in order to tune down the power step by step,
-		inputData.setRxLevelCur((byte)10);
-
-		// read the current power
-		inputData.setTxPower((byte)100);
-
-		inputData.setModulationMin((short)1000);
-
-		// read rx Threshold
-		Short rxThreshold = (short)50;
-		inputData.setRxThreshold(rxThreshold);
-
-		return inputData;
-	}
-
-    private WirelessPowerControlInputData prepareInputData(MwEthernetContainerPac ethernetContainerPac, MwAirInterfacePac airInterfacePac) {
-        WirelessPowerControlInputData inputData = new WirelessPowerControlInputData();
-
-		// read the current throughput
-		Integer currentThroughput = ethernetContainerPac.getEthernetContainerCurrentPerformance().getCurrentPerformanceDataList().get(0).getPerformanceData().getTxEthernetBytesMaxS();
-		inputData.setCurrentThroughput(currentThroughput);
-
-		// read the historical throughput
-		Integer historicalThroughput = ethernetContainerPac.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().get(0).getPerformanceData().getTxEthernetBytesMaxS();
-		inputData.setHistoricalThroughput(historicalThroughput);
-
-
-		// read data to calculate the current capacity
-		inputData.setTxChannelBandwidth(airInterfacePac.getAirInterfaceConfiguration().getTxChannelBandwidth());
-        inputData.setModulationCur(airInterfacePac.getAirInterfaceStatus().getModulationCur());
-        inputData.setCodeRateCur(airInterfacePac.getAirInterfaceStatus().getCodeRateCur());
-
-		//read data in order to tune down the power step by step,
-        inputData.setRxLevelCur(airInterfacePac.getAirInterfaceStatus().getRxLevelCur());
-
-        // read current min and max modulation
-		inputData.setModulationMin(airInterfacePac.getAirInterfaceConfiguration().getModulationMin());
-        inputData.setModulationMax(airInterfacePac.getAirInterfaceConfiguration().getModulationMax());
-
-		// read the current power
-        inputData.setTxPower(airInterfacePac.getAirInterfaceConfiguration().getTxPower());
-
-
-		// read rx Threshold
-		Short rxThreshold = getRxThreshold(airInterfacePac, inputData.getTxChannelBandwidth(), inputData.getModulationCur(), inputData.getCodeRateCur());
-		inputData.setRxThreshold(rxThreshold);
-
-        return inputData;
-    }
-
-	private Short getRxThreshold(MwAirInterfacePac airInterfacePac,Integer txChannelBandwidth, Short modulationCur, Byte codeRateCur) {
-		for (SupportedChannelPlanList supportedChannelPlanList :  airInterfacePac.getAirInterfaceCapability().getSupportedChannelPlanList()) {
-			if (supportedChannelPlanList.getTransmissionModeList() == null) {
-				continue;
-			}
-			for (TransmissionModeList transmissionModeList : supportedChannelPlanList.getTransmissionModeList()) {
-				if (transmissionModeList.getChannelBandwidth().equals(txChannelBandwidth) &&  transmissionModeList.getModulationScheme().equals(modulationCur)
-					&& transmissionModeList.getCodeRate().equals(codeRateCur)) {
-					return transmissionModeList.getRxThreshold();
-				}
-			}
-		}
-		return null;
-	}
-
-	private void merge(ReadWriteTransaction mwTransaction, InstanceIdentifier<MwAirInterfacePac> pathAirInterface, MwAirInterfacePac output) {
+	public void merge(MwAirInterfacePac output) {
+		ReadWriteTransaction mwTransaction = xrNodeBroker.newReadWriteTransaction();
         // store new information to config datastore
         LOG.info("Start merging data to device");
         mwTransaction.merge(LogicalDatastoreType.CONFIGURATION, pathAirInterface, output);
