@@ -453,7 +453,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
               var polyline = new google.maps.Polyline({
                 map: mwtnTopologyMapController.map,
                 path: [siteLink.siteA.location, siteLink.siteZ.location],
-                strokeColor: '#FF0000',
+                strokeColor: '#00ccff',
                 strokeOpacity: 0.8,
                 strokeWeight: 3,
                 zIndex: 1
@@ -597,7 +597,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
     };
   });
 
-  mwtnTopologyApp.controller('mwtnTopologyFrameController', ['$scope', '$timeout', '$mwtnTopology', function ($scope, $timeout, $mwtnTopology) {
+  mwtnTopologyApp.controller('mwtnTopologyFrameController', ['$scope', '$timeout', '$mwtnTopology', "$mwtnPtp", function ($scope, $timeout, $mwtnTopology, $mwtnPtp) {
     var vm = this;
 
     // hide all tabs until the google api is fully loaded.
@@ -609,7 +609,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
         vm.googleIsReady = true;
       });
     });
-    
+
   }]);
 
   mwtnTopologyApp.directive('mwtnTopologyFrame', function () {

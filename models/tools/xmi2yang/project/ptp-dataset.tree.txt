@@ -1,0 +1,78 @@
+module: ietf-ptp-dataset
+   +--rw instance-list* [instance-number]
+   |  +--rw instance-number       uint16
+   |  +--rw default-ds
+   |  |  +--rw two-step-flag?                  boolean
+   |  |  +--ro clock-identity?                 clock-identity-type
+   |  |  +--ro number-ports?                   uint16
+   |  |  +--ro clock-quality
+   |  |  |  +--ro clock-class?                  uint8
+   |  |  |  +--ro clock-accuracy?               uint8
+   |  |  |  +--ro offset-scaled-log-variance?   uint16
+   |  |  +--rw priority1?                      uint8
+   |  |  +--rw priority2?                      uint8
+   |  |  +--rw domain-number?                  uint8
+   |  |  +--rw slave-only?                     boolean
+   |  |  +--rw ptp-ex:local-priority?          uint8
+   |  |  +--rw ptp-ex:max-steps-removed?       uint8
+   |  |  +--rw ptp-ex:multicast-mac-address?   yang:mac-address
+   |  |  +--rw ptp-ex:designated-enabled?      boolean
+   |  +--ro current-ds
+   |  |  +--ro steps-removed?        uint16
+   |  |  +--ro offset-from-master?   time-interval-type
+   |  |  +--ro mean-path-delay?      time-interval-type
+   |  +--ro parent-ds
+   |  |  +--ro parent-port-identity
+   |  |  |  +--ro clock-identity?   clock-identity-type
+   |  |  |  +--ro port-number?      uint16
+   |  |  +--ro parent-stats?                                 boolean
+   |  |  +--ro observed-parent-offset-scaled-log-variance?   uint16
+   |  |  +--ro observed-parent-clock-phase-change-rate?      int32
+   |  |  +--ro grandmaster-identity?                         binary
+   |  |  +--ro grandmaster-clock-quality
+   |  |  |  +--ro clock-class?                  uint8
+   |  |  |  +--ro clock-accuracy?               uint8
+   |  |  |  +--ro offset-scaled-log-variance?   uint16
+   |  |  +--ro grandmaster-priority1?                        uint8
+   |  |  +--ro grandmaster-priority2?                        uint8
+   |  +--ro time-properties-ds
+   |  |  +--ro current-utc-offset-valid?   boolean
+   |  |  +--ro current-utc-offset?         int16
+   |  |  +--ro leap59?                     boolean
+   |  |  +--ro leap61?                     boolean
+   |  |  +--ro time-traceable?             boolean
+   |  |  +--ro frequency-traceable?        boolean
+   |  |  +--ro ptp-timescale?              boolean
+   |  |  +--ro time-source?                uint8
+   |  +--rw port-ds-list* [port-number]
+   |     +--rw port-number                         -> ../port-identity/port-number
+   |     +--rw port-identity
+   |     |  +--rw clock-identity?   clock-identity-type
+   |     |  +--rw port-number?      uint16
+   |     +--ro port-state?                         port-state-enumeration
+   |     +--rw log-min-delay-req-interval?         int8
+   |     +--rw peer-mean-path-delay?               time-interval-type
+   |     +--rw log-announce-interval?              int8
+   |     +--rw announce-receipt-timeout?           uint8
+   |     +--rw log-sync-interval?                  int8
+   |     +--rw delay-mechanism?                    delay-mechanism-enumeration
+   |     +--rw log-min-pdelay-req-interval?        int8
+   |     +--ro version-number?                     uint8
+   |     +--rw ptp-ex:master-only?                 boolean
+   |     +--rw ptp-ex:local-priority?              uint8
+   |     +--rw ptp-ex:designated-enabled?          boolean
+   |     +--rw ptp-ex:delay-asymmetry?             int64
+   |     +--ro ptp-ex:logical-termination-point?   -> /core-model:network-element/ltp/uuid
+   +--ro transparent-clock-default-ds
+   |  +--ro clock-identity?    clock-identity-type
+   |  +--ro number-ports?      uint16
+   |  +--ro delay-mechanism?   delay-mechanism-enumeration
+   |  +--ro primary-domain?    uint8
+   +--ro transparent-clock-port-ds-list* [port-number]
+      +--ro port-number                    -> ../port-identity/port-number
+      +--ro port-identity
+      |  +--ro clock-identity?   clock-identity-type
+      |  +--ro port-number?      uint16
+      +--ro log-min-pdelay-req-interval?   int8
+      +--ro faulty-flag?                   boolean
+      +--ro peer-mean-path-delay?          time-interval-type

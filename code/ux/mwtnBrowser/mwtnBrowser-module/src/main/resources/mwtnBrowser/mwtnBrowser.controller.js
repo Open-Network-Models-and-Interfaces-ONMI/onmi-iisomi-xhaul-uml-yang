@@ -11,55 +11,6 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
         'app/mwtnBrowser/mwtnBrowser.services'],
         function(mwtnBrowserApp) {
 
-
-    var keyStr = "ABCDEFGHIJKLMNOP" +
-          "QRSTUVWXYZabcdef" +
-          "ghijklmnopqrstuv" +
-          "wxyz0123456789+/" +
-          "=";
-
-    
-    var  decode64 = function(input) {
-      var output = "";
-      var chr1, chr2, chr3 = "";
-      var enc1, enc2, enc3, enc4 = "";
-      var i = 0;
-
-      // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
-      console.warn(input);
-      var base64test = /[^A-Za-z0-9\+\/\=]/g;
-      if (base64test.exec(input)) {
-          console.error("There were invalid base64 characters in the input text.\n" +
-                "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
-                "Expect errors in decoding.");
-      }
-      input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
-
-      do {
-          enc1 = keyStr.indexOf(input.charAt(i++));
-          enc2 = keyStr.indexOf(input.charAt(i++));
-          enc3 = keyStr.indexOf(input.charAt(i++));
-          enc4 = keyStr.indexOf(input.charAt(i++));
-          chr1 = (enc1 << 2) | (enc2 >> 4);
-          chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
-          chr3 = ((enc3 & 3) << 6) | enc4;
-
-          output = output + String.fromCharCode(chr1);
-
-          if (enc3 != 64) {
-            output = output + String.fromCharCode(chr2);
-          }
-          if (enc4 != 64) {
-            output = output + String.fromCharCode(chr3);
-          }
-
-          chr1 = chr2 = chr3 = "";
-          enc1 = enc2 = enc3 = enc4 = "";
-
-      } while (i < input.length);
-      return unescape(output);
-    }
-
     var getControlType = function(type) {
       var result = 'text'
       switch (type) {
@@ -595,11 +546,11 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
                   var clockId = clone[key].value[subKey];
                   if ($mwtnGlobal.getType(clockId) === 'object') {
                     if (clockId['clock-identity']) {
-                      var ascii = decode64(clockId['clock-identity']);
+                      var ascii = clockId['clock-identity'].base64ToHex();
                       clone[key].value[subKey]['clock-identity'] = [clone[key].value[subKey]['clock-identity'], '(ascii:', ascii, ')'].join(' ');
                     }
                   } else {
-                    var ascii = decode64(clone[key].value[subKey]);
+                    var ascii = clone[key].value[subKey].base64ToHex();
                     clone[key].value[subKey] = [clone[key].value[subKey], '(ascii:', ascii, ')'].join(' ');
                   }
                 });
@@ -814,16 +765,26 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
           if (fd && fd.length > 0) {
             $scope.forwardingDomain = fd[0]; // $mwtnBrowser.getViewData(fd[0]);
             $scope.forwardingConstructs = [];
-            fd[0].fc.map(function(id){
-              $mwtnCommons.getForwardingConstruct($scope.networkElement, id).then(function(fc){
-                var item = fc['forwarding-construct'][0];
-                $scope.forwardingConstructs.push( {
-                  uuid: item.uuid,
-                  'fc-port#1': $scope.onfNetworkElement.getLtp( item['fc-port'][0].ltp[0] ).getLabel(),
-                  'fc-port#2': $scope.onfNetworkElement.getLtp( item['fc-port'][1].ltp[0] ).getLabel()
+            if (fd[0].fc) {
+              fd[0].fc.map(function(id){
+                $mwtnCommons.getForwardingConstruct($scope.networkElement, id).then(function(fc){
+
+                  // TODO make robust
+                  if (fc['forwarding-construct'] && fc['forwarding-construct'][0]) {
+                    var item = fc['forwarding-construct'][0];
+                    if (item['fc-port'] && 
+                        item['fc-port'][0] && item['fc-port'][0].ltp && item['fc-port'][0].ltp[0]  && 
+                        item['fc-port'][1] && item['fc-port'][1].ltp && item['fc-port'][1].ltp[0]) {
+                      $scope.forwardingConstructs.push( {
+                        uuid: item.uuid,
+                        'fc-port#1': $scope.onfNetworkElement.getLtp( item['fc-port'][0].ltp[0] ).getLabel(),
+                        'fc-port#2': $scope.onfNetworkElement.getLtp( item['fc-port'][1].ltp[0] ).getLabel()
+                      });
+                    }
+                  }
                 });
               });
-            });
+            }
           }
           $scope.onfLtps = $scope.onfNetworkElement.getLogicalTerminationPoints();
           // $scope.onfNetworkElement.ltp = undefined;

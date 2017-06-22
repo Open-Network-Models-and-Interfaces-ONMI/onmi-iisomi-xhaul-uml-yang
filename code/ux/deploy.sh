@@ -57,12 +57,12 @@ $ODL_KARAF_HOME/bin/client -u karaf "bundle:uninstall $names"
 declare -a bundles=(
     mvn:com.highstreet.technologies.odl.dlux/mwtnCommons-bundle/0.4.0-SNAPSHOT 
     mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/0.4.0-SNAPSHOT 
-    # mvn:com.highstreet.technologies.odl.dlux/mwtnConfig-bundle/0.4.0-SNAPSHOT // replaced by mwtnBrowser
-    mvn:com.highstreet.technologies.odl.dlux/mwtnBrowser-bundle/0.4.0-SNAPSHOT 
     mvn:com.highstreet.technologies.odl.dlux/mwtnFault-bundle/0.4.0-SNAPSHOT
     mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceCurrent-bundle/0.4.0-SNAPSHOT 
     mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceHistory-bundle/0.4.0-SNAPSHOT 
     mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceLink-bundle/0.4.0-SNAPSHOT 
+    # mvn:com.highstreet.technologies.odl.dlux/mwtnConfig-bundle/0.4.0-SNAPSHOT // replaced by mwtnBrowser
+    mvn:com.highstreet.technologies.odl.dlux/mwtnBrowser-bundle/0.4.0-SNAPSHOT 
     mvn:com.highstreet.technologies.odl.dlux/mwtnTopology-bundle/0.4.0-SNAPSHOT 
     # mvn:com.highstreet.technologies.odl.dlux/mwtnCompare-bundle/0.4.0-SNAPSHOT 
     # mvn:cn.com.zte.odl.dlux/mwtnSpectrum-bundle/0.4.0-SNAPSHOT
