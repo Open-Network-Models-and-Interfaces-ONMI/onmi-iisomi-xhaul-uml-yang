@@ -23,7 +23,7 @@ There are two choices:
 ### Choice 1: Installation for test&demo (tar package, pre-compiled and configured)
 
 Environment for this test&demo configuration, recommended to use.
-  - Ubuntu 16.04 LTS Desktop version
+  - Ubuntu 16.04 LTS Desktop version (64-bit)
   - Java 8, (Recommended: openJdk 8)
   - Browser: Google Chrome (Ubuntu or Windows version for external client)
   - VM with about 2-3 Cores and 4-6 GB RAM and 20 GB HD space
@@ -45,77 +45,65 @@ Environment for this test&demo configuration, recommended to use.
   Expand with tar in a directory of you choice under your home. Recommended is be ~/odl
   cd to selected directory. Create if necessary.
 
-  ```
-  cd ~/odl
-  tar -xvf ../Downloads/onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-13.tar.gz
-  ```
+    cd ~/odl
+    tar -xvf ../Downloads/onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-13.tar.gz
 
 #### Step *3: Setup environment variables
 
   Edit your ~/.profile an add at the end the entry for ODL/ karaf home directory
 
-   ```
-   cd ~
-   vi .profile
-   ```
+    cd ~
+    vi .profile
+
    Add at the end of .profile:
-   ```
-   export ODL_KARAF_HOME=$HOME/odl/onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-13
-   ```
+
+    export ODL_KARAF_HOME=$HOME/odl/onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-13
+
    To activate varable best option is to logout and login user again.
    Verify with:
-   ```
-   echo $ODL_KARAF_HOME
-   ```
+
+    echo $ODL_KARAF_HOME
 
 
 #### Step *4: Prepare
 
    If the file "$ODL_KARAF_HOME/etc/org.ops4j.pax.web.cfg" exists, remove it.
-   ```
-   rm $ODL_KARAF_HOME/etc/org.ops4j.pax.web.cfg
-   ```
 
+    rm $ODL_KARAF_HOME/etc/org.ops4j.pax.web.cfg
 
 #### Step *5:  Do a clean start to install
 
   In the shell command line do the following steps.
 
-  ```
-  cd $ODL_KARAF_HOME
-  ./bin/karaf clean
-   ```
+    cd $ODL_KARAF_HOME
+    ./bin/karaf clean
+
   Wait till command line is prompted, like "opendaylight-user@root>".
   Copy into the command line the following lines.
   Each command needs some time. Time to complete, about 5 minutes.
+  If there are problems (exceptions) do in line by line.
 
-   ```
-  feature:install odl-netconf-connector-all
-  feature:install odl-netconf-topology
-  feature:install odl-restconf-all
-  sleep 5000
-  feature:install odl-mdsal-apidocs
-  feature:install odl-dlux-all
-  feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/0.4.0-SNAPSHOT/xml/features
-  feature:install elasticsearch
-  feature:install odl-mwtn-all
-  bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnEvents-bundle/0.4.0-SNAPSHOT
-   ```
+    feature:install odl-netconf-topology
+    feature:install odl-netconf-connector-all
+    feature:install odl-restconf-all
+    feature:install odl-mdsal-apidocs
+    feature:install odl-dlux-all
+    feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/0.4.0-SNAPSHOT/xml/features
+    feature:install elasticsearch
+    feature:install odl-mwtn-all
+
   If no error occurred leave karaf command line and shutdown ODL with "logout".
 
-  ```
-  logout
-  ```
+     logout
+
   ODL is stopped now.
 
   **Hint: A second restart of ODL is necessary (see Step 5) to be able to login successfully.**
 
 #### Step *5: Do a restart
 
-  ```
-   cd $ODL_KARAF_HOME
-   ./bin/karaf
-  ```
+    cd $ODL_KARAF_HOME
+    ./bin/karaf
 
   After about 2-3 Minutes ODL start and you can connect with the browser.
   **HINT: If ODL is started via "./bin/karaf" it is always stopped if you leave the command line with logout.**
@@ -133,94 +121,60 @@ Environment for this test&demo configuration, recommended to use.
 
   - java-jdk: the Java development kit.
 
-    Java8 is mandatory, below one of thousend procedures to install java8 on ubuntu.
+   Java8 is mandatory, below one of thousands procedures to install java8 on ubuntu.
 
-      ```
-      wget http://www.java.net/download/jdk8u60/archive/b07/binaries/jdk-8u60-ea-bin-b07-linux-x64-17_mar_2015.tar.gz
-      sudo tar -xzvf jdk-8u60-ea-bin-b07-linux-x64-17_mar_2015.tar.gz
-      sudo mkdir /usr/lib/jvm
-      sudo mv ~/jdk1.8.0_60/ /usr/lib/jvm/
-      sudo chown -R root:root /usr/lib/jvm/jdk1.8.0_60/
-      sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/jdk1.8.0_60/bin/java" 0
-      sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/lib/jvm/jdk1.8.0_60/bin/javac" 0
-      sudo update-alternatives --set java /usr/lib/jvm/jdk1.8.0_60/bin/java
-      sudo update-alternatives --set javac /usr/lib/jvm/jdk1.8.0_60/bin/javac
-      ```
+    sudo apt-get install openjdk-8-jdk openjdk-8-doc openjdk-8-jre icedtea-8-plugin
 
-      Add the following two lines at the end of the profile file
-      ```
-      export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_60
-      export PATH=$PATH:$JAVA_HOME/bin
-      ```
-      ... and activate the profile.
-      ```
-      source /etc/profile
-      ```
+   Add the following two lines at the end of the profile file
 
-      Verify java installation :
-      ```
-      update-alternatives --list java
-      update-alternatives --list javac
-      echo $JAVA_HOME
-      java -version
-      ```
+    export JAVA_HOME=JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+    export PATH=$PATH:$JAVA_HOME/bin
 
-  - maven: the Apache build manager for Java projects.
-           Follow the [maven installation](https://maven.apache.org/install.html) instructions.
+   ... and activate by logout and login again and test it:
 
-       Here a short version.
+    echo $ODL_KARAF_HOME
 
-      ```
-      wget https://archive.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
-      sudo tar xzvf apache-maven-3.3.9-bin.tar.gz -C /usr/share/
-      sudo update-alternatives --install /usr/bin/mvn mvn /usr/share/apache-maven-3.3.9/bin/mvn 150
-      sudo update-alternatives --config mvn
-      export PATH=/usr/share/apache-maven-3.3.9/bin:$PATH
-      ```
 
-      Feel to update PATH variable in /etc/environment.
+   Verify java installation.
 
-      OpenDaylight requires specific maven settings. Please see  [ODL wiki](https://wiki.opendaylight.org/view/GettingStarted:Development_Environment_Setup#Edit_your_.7E.2F.m2.2Fsettings.xml)
+    echo $JAVA_HOME
+    java -version
 
-      ```
-      mkdir -p ~/.m2 && \
-      cp -n ~/.m2/settings.xml{,.orig} ; \
-      wget -q -O - https://raw.githubusercontent.com/opendaylight/odlparent/master/settings.xml > ~/.m2/settings.xml
-      ```
+  - maven, git: the version control system, CURL to access URLs
 
-  - git: the version control system.
+     sudo apt-get install maven
+     sudo apt-get install git
+     sudo apt install curl zip
 
-      ```
-      sudo apt-get install git
-      ```
 
-  - node.js: the JavaScript runtime environment.
+  OpenDaylight requires a specific maven repository configuration.  Please see  [ODL wiki](https://wiki.opendaylight.org/view/GettingStarted:Development_Environment_Setup#Edit_your_.7E.2F.m2.2Fsettings.xml).
 
-      ```
-      sudo apt-get install nodejs npm jq --
-      sudo update-alternatives --install /usr/bin/node node /usr/bin/nodejs 150
-      sudo update-alternatives --config node
-      sudo ln -s /usr/bin/nodejs /usr/bin/node
-      curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-      sudo apt-get install -y nodejs
-      sudo npm install -g npm
-      ```
-      Please see also the instrucion for the [test automation app](https://github.com/OpenNetworkingFoundation/CENTENNIAL/blob/master/test/INSTALL.md).
+     cd ~
+     if [ ! -d ~/.m2 ] ; then mkdir ~/.m2 ; fi
+     if [ -e ~/.m2/settings.xml ] ; then cp -n ~/.m2/settings.xml{,.orig} ; fi
+     wget -q -O - https://raw.githubusercontent.com/opendaylight/odlparent/master/settings.xml > ~/.m2/settings.xml
+
+  - node.js/ npm/ jq: the JavaScript runtime environment and tools
+
+    For ht standard purpose node 4.2.6 is sufficient.  if you use the "test automation app" you need a newer version. Please see also the instruction for the [test automation app](https://github.com/OpenNetworkingFoundation/CENTENNIAL/blob/master/test/INSTALL.md).
+
+        sudo apt-get install nodejs npm jq --
+        sudo ln -s /usr/bin/nodejs /usr/bin/node
+
 
   - bower: the package manager for the web components.
 
-      ```
-      sudo npm install -g bower
-      ```
+        sudo npm install -g bower
 
-The setup can be verified with the following commands:
+
+The setup can be verified with the following commands. Newer version are OK.
 
 package | min. Version
 ------- | -----------
 java -version | 1.8
 mvn --version | 3.3.9
 git --version | 2.7.4
-node --version | 6.7.0
+node --version | 4.2.6 (6.7.0)
 npm --version | 3.10.3
 jq --version | 1.5
 bower --version | 1.7.9
@@ -229,77 +183,92 @@ bower --version | 1.7.9
 #### Step #2 - OpenDaylight and database
 
 Example directory structure under user's home:
-```
-drwxrwxr-x  5 your_user_name your_user_name 4096 Okt 25 17:18 ./
-drwxr-xr-x 25 your_user_name your_user_name 4096 Okt 25 16:50 ../
-drwxrwxr-x 15 your_user_name your_user_name 4096 Okt 20 14:26 CENTENNIAL/
-drwxrwxr-x 14 your_user_name your_user_name 4096 Okt 25 20:04 distribution-karaf-0.5.1-Boron-SR1/
-drwxrwxr-x  6 your_user_name your_user_name 4096 Okt 25 17:18 elasticsearch-head/
-```
+
+    drwxrwxr-x  5 your_user_name your_user_name 4096 Okt 25 17:18 ./
+    drwxr-xr-x 25 your_user_name your_user_name 4096 Okt 25 16:50 ../
+    drwxrwxr-x 15 your_user_name your_user_name 4096 Okt 20 14:26 CENTENNIAL/
+    drwxrwxr-x 14 your_user_name your_user_name 4096 Okt 25 20:04 distribution-karaf-0.5.1-Boron-SR1/
 
 ##### Step #2.1 - Download Karaf/ Opendaylight package and unpack
+
 The 4th ONF Wireless PoC applications are developed for OpenDaylight Boron-SR1 release.
 
-```
-wget https://nexus.opendaylight.org/content/repositories/public/org/opendaylight/integration/distribution-karaf/0.5.1-Boron-SR1/distribution-karaf-0.5.1-Boron-SR1.tar.gz
-tar -xvzf distribution-karaf-0.5.1-Boron-SR1.tar.gz
-cd distribution-karaf-0.5.1-Boron-SR1/
-```
+    wget https://nexus.opendaylight.org/content/repositories/public/org/opendaylight/integration/distribution-karaf/0.5.1-Boron-SR1/distribution-karaf-0.5.1-Boron-SR1.tar.gz
+    tar -xvzf distribution-karaf-0.5.1-Boron-SR1.tar.gz
+    cd distribution-karaf-0.5.1-Boron-SR1/
+
 The folder "distribution-karaf-0.5.1-Boron-SR1/" is also called "$ODL_KARAF_HOME" in the following sections.
-Add an environment variable with an editor to the end of ~/.profile and ~/.bashrc
 
-```
-export ODL_KARAF_HOME="$HOME/distribution-karaf-0.5.1-Boron-SR1"
-```
- Activate the change with
-```
-. .profile
-```
+Add an environment variable with an editor to the end of ~/.profile
 
-##### Step #2.2 - Download CENTENNIAL applications
+    export ODL_KARAF_HOME="$HOME/distribution-karaf-0.5.1-Boron-SR1"
+
+ Activate the change with logout and login of your user. Verify it:
+
+     echo $ODL_KARAF_HOME
+
+
+##### Step #2.2 - Download CENTENNIAL applications sources
 Clone the ONF Git repository for the open source project
 
-```
-cd ~
-git clone https://github.com/OpenNetworkingFoundation/CENTENNIAL.git
-cd CENTENNIAL/code
-```
+    cd ~
+    git clone https://github.com/OpenNetworkingFoundation/CENTENNIAL.git
+    cd CENTENNIAL/code
 
-##### Step #2.3 -  Start Karaf and install ElasticSearch
-Start karaf with:
-```
-cd $ODL_KARAF_HOME
-./bin/karaf
-```
+##### Step #2.3 -  Install and configure ElasticSearch (ES) persistent database
+For specific installation and remote access of database, please follow the instructions in [Install persistent database](./apps/persistentDatabase#installation).
 
-For installation and remote access of the persistent database ElasticSearch,
-please follow the instructions in [Install persistent database](./apps/persistentDatabase#installation)
+For getting a basic running configuration that is also used for 4th PoC do follow the steps.
+  - The configuration files are copied into the *activeConfig* directory.
 
-#### Step #3 Modify, build, install and start the PoC applications and OpenDaylight
-Karaf is not running for the next steps. In Karaf CLI shutdown and confirm (yes) if necessary.
-```
-shutdown
-```
+     cd ~/CENTENNIAL/code/apps/persistentDatabase
+     cp -r activeConfigExamples/sdnpoc4/* activeConfig
+     cp ~/CENTENNIAL/code/apps/persistentDatabase/activeConfig/elasticsearch.yml $ODL_KARAF_HOME/etc
+     mkdir "$ODL_KARAF_HOME/etc/elasticsearch-plugins/"
+     unzip -q ~/CENTENNIAL/code/apps/persistentDatabase/plugins/head.zip -d $ODL_KARAF_HOME/etc/elasticsearch-plugins/
+     unzip -q ~/CENTENNIAL/code/apps/persistentDatabase/plugins/delete-by-query.zip -d $ODL_KARAF_HOME/etc/elasticsearch-plugins
+
+  - ES-Plugins are copied into the karaf /etc folder
+  - Karaf is started in karaf shell
+
+     cd $ODL_KARAF_HOME
+     ./bin/karaf clean
+
+  - In karaf shell install and start elasticsearch
+
+      feature:repo-add mvn:org.apache.karaf.decanter/apache-karaf-decanter/1.1.0/xml/features
+      feature:install elasticsearch
+
+  - The content and configuration from *activeConfig* is moved into the running database.
+    Wait till install of elasticsearch completed and open a second bash shell:
+
+       cd ~/CENTENNIAL/code/apps/persistentDatabase
+       ./installAll.sh
+
+  - Verify
+
+       curl http://127.0.0.1:9200/config/database/config
+
+   outputs like this with the configuration data as json
+
+        {"_index":"config","_type":"database","_id":"config","_version":1,"found":true,"_source":{"cluster":"sdnlabodl","ip-version":"ipv4","host":"localhost","port":9200,"transport-protocol":"http","index":"config"}}
+
+  - Stop and leave karaf, by changing into the karaf command line and enter "shutdown" and confirm.
+
+    shutdown
 
 ##### Step #3.1 - Patch
-For a robust web GUI it is necessary to add a ["patch"](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/code/apps/dlux) to ODL DLUX.
-```
-cp ./apps/dlux/loader.implementation-0.4.1-Boron-SR1.jar $ODL_KARAF_HOME/system/org/opendaylight/dlux/loader.implementation/0.4.1-Boron-SR1
-```
+For a robust web GUI it is necessary to add a ["patch"](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/code/apps/dlux) to ODL DLUX. Execute the install script:
 
-Install necessary web components.
-```
-cd ./ux/mwtnCommons/mwtnCommons-module/src/main/resources/mwtnCommons/
-bower install
-cd ../../../../../../../
-```
+    ~/CENTENNIAL/code/apps/dlux/installDlux.sh
 
 ##### Step #3.2 - Build
 Build the applications for the 4th ONF Wireless PoC at folder 'CENTENNIAL/code'.
-```
-mvn clean install -DskipTests
-```
-It takes some time (frist time 20min, in my case) ...
+
+    cd ~/CENTENNIAL/code
+    mvn clean install -DskipTests
+
+It takes some time (first time 20min, in my case) ...
 
 
 Copy manually the bundles into the karaf system folder.
@@ -312,7 +281,7 @@ cp -R ~/.m2/repository/com/hcl $ODL_KARAF_HOME/system/com
 cp -R ~/.m2/repository/com/highstreet $ODL_KARAF_HOME/system/com
 ```
 
-##### Step #3.3 - Install and run
+##### Step #3.3 - Clean install and run
 Start karaf with clean:
 ```
 cd $ODL_KARAF_HOME
