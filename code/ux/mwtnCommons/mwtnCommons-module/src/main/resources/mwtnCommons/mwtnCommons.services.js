@@ -218,6 +218,8 @@ define(
       function ($scope, $uibModal, $mwtnGlobal, $mwtnCommons, $mwtnDatabase, $mwtnLog) {
         var vm = this;
         var COMPONENT = 'mwtnJsonViewerController';
+        $scope.getType = $mwtnGlobal.getType;
+        
         if ($scope.data) {
           $scope.replace = false;
           if ($scope.path && $scope.path.endsWith('-configuration') ) {
