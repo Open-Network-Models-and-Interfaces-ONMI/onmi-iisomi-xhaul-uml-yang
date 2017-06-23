@@ -13,10 +13,7 @@ import com.highstreet.technologies.odl.app.impl.listener.ACMListener;
 import org.opendaylight.controller.md.sal.binding.api.*;
 import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
 import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.LayerProtocolName;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.NetworkElement;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.NetworkElementBuilder;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.UniversalId;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.*;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.local._class.g.LocalId;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.local._class.g.LocalIdBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.logical.termination.point.g.Lp;
@@ -153,6 +150,7 @@ public class NeExecutor
 
         lpBuilder.setLocalId(new ArrayList<>());
         lpBuilder.getLocalId().add(toLocalId(lpName));
+        lpBuilder.setTerminationState(TerminationState.LpCanNeverTerminate);
         clientLtpBuilder.setLp(Arrays.asList(lpBuilder.build()));
 
         ne.getLtp().add(clientLtpBuilder.build());
