@@ -108,21 +108,17 @@ public class WirelessPowerCalculator {
 
     public void mergeModulationMin(short modulationMin) {
         LOG.info("New modulation: {} ", modulationMin);
-        MwAirInterfacePacBuilder mWAirInterfacePacBuilder = new MwAirInterfacePacBuilder(air);
         AirInterfaceConfigurationBuilder configurationBuilder = new AirInterfaceConfigurationBuilder(air.getAirInterfaceConfiguration());
         configurationBuilder.setModulationMin(modulationMin);
-        mWAirInterfacePacBuilder.setAirInterfaceConfiguration(configurationBuilder.build());
-        impl.merge(mWAirInterfacePacBuilder.build());
+        impl.merge(configurationBuilder.build());
         wait3seconds();
     }
 
     public void mergeTxPower(byte txPower) {
         LOG.info("New power: {} ", txPower);
-        MwAirInterfacePacBuilder mWAirInterfacePacBuilder = new MwAirInterfacePacBuilder(air);
         AirInterfaceConfigurationBuilder configurationBuilder = new AirInterfaceConfigurationBuilder(air.getAirInterfaceConfiguration());
         configurationBuilder.setTxPower(txPower);
-        mWAirInterfacePacBuilder.setAirInterfaceConfiguration(configurationBuilder.build());
-        impl.merge(mWAirInterfacePacBuilder.build());
+        impl.merge(configurationBuilder.build());
         wait3seconds();
     }
 
