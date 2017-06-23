@@ -240,7 +240,7 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 	 */
 	private MwAirInterfacePac readAirInterface(ReadWriteTransaction xrNodeReadTx, InstanceIdentifier<MwAirInterfacePac> path) throws ReadFailedException {
 		Optional<MwAirInterfacePac> data;
-		data = xrNodeReadTx.read(LogicalDatastoreType.CONFIGURATION, path).checkedGet();
+		data = xrNodeReadTx.read(LogicalDatastoreType.OPERATIONAL, path).checkedGet();
 		if (data.isPresent()) {
 			return data.get();
 		}
@@ -256,7 +256,7 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
      */
     private MwEthernetContainerPac readEthernetContainer(ReadWriteTransaction xrNodeReadTx, InstanceIdentifier<MwEthernetContainerPac> path) throws ReadFailedException {
         Optional<MwEthernetContainerPac> data;
-        data = xrNodeReadTx.read(LogicalDatastoreType.CONFIGURATION, path).checkedGet();
+        data = xrNodeReadTx.read(LogicalDatastoreType.OPERATIONAL, path).checkedGet();
         if (data.isPresent()) {
             return data.get();
         }

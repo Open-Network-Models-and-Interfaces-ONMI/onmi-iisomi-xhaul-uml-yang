@@ -36,6 +36,9 @@ public class WirelessPowerCalculator {
     }
 
     public void calc() {
+        LOG.info("Current modulation: {} ", air.getAirInterfaceConfiguration().getModulationMin());
+        LOG.info("Current txPower: {} ", air.getAirInterfaceConfiguration().getTxPower());
+
         TransmissionModelContainer transmissionModelContainer = calculateTransmissionModel();
         TransmissionModelItem currentTransmissionMode = transmissionModelContainer.findTransmissionMode(air.getAirInterfaceStatus().getModulationCur(), air.getAirInterfaceStatus().getCodeRateCur());
 
@@ -54,16 +57,16 @@ public class WirelessPowerCalculator {
         ) {
             TransmissionModelItem newTransmissionMode = transmissionModelContainer.findTheLowestTransmissionMode(currentPerfCapacity3);
             Short modulationMin = newTransmissionMode.getInnerItem().getModulationScheme();
-            mergeModulationMin(modulationMin);
+            mergeModulationMin(modulationMin); // store new modulation
 
             int expectedRxLevel = newTransmissionMode.getInnerItem().getRxThreshold() + RX_LEVEL_QUARANTEE;
-
             byte txPowerMin = currentTransmissionMode.getInnerItem().getTxPowerMin();
-
             byte txPower = air.getAirInterfaceConfiguration().getTxPower();
-            while (getRemoteAirRxLevel() > expectedRxLevel && air.getAirInterfaceStatus().getTxLevelCur()  > txPowerMin) {
+
+            Simulator simulator = new Simulator(expectedRxLevel, true);
+            while (simulator.getRemoteAirRxLevel() > expectedRxLevel && air.getAirInterfaceStatus().getTxLevelCur()  > txPowerMin) {
                 txPower--;
-                mergeTxPower(txPower);
+                mergeTxPower(txPower); //store new power
             }
         }
 
@@ -74,9 +77,10 @@ public class WirelessPowerCalculator {
 
             int expectedRxLevel = newTransmissionMode.getInnerItem().getRxThreshold() + RX_LEVEL_QUARANTEE;
             byte txPowerMax = currentTransmissionMode.getInnerItem().getTxPowerMax();
-
             byte txPower = air.getAirInterfaceConfiguration().getTxPower();
-            while (getRemoteAirRxLevel() < expectedRxLevel && air.getAirInterfaceStatus().getTxLevelCur()  < txPowerMax) {
+
+            Simulator simulator = new Simulator(expectedRxLevel, false);
+            while (simulator.getRemoteAirRxLevel() < expectedRxLevel && air.getAirInterfaceStatus().getTxLevelCur()  < txPowerMax) {
                 txPower++;
                 mergeTxPower(txPower);
             }
@@ -84,11 +88,6 @@ public class WirelessPowerCalculator {
 
 
     }
-
-    private int getRemoteAirRxLevel() {
-        return 0;
-    }
-
 
     private TransmissionModelContainer calculateTransmissionModel() {
         TransmissionModelContainer transmissionModelContainer = new TransmissionModelContainer();
@@ -108,7 +107,7 @@ public class WirelessPowerCalculator {
 
 
     public void mergeModulationMin(short modulationMin) {
-        LOG.info("We are going to change modulation: {} ", modulationMin);
+        LOG.info("New modulation: {} ", modulationMin);
         MwAirInterfacePacBuilder mWAirInterfacePacBuilder = new MwAirInterfacePacBuilder(air);
         AirInterfaceConfigurationBuilder configurationBuilder = new AirInterfaceConfigurationBuilder(air.getAirInterfaceConfiguration());
         configurationBuilder.setModulationMin(modulationMin);
@@ -118,7 +117,7 @@ public class WirelessPowerCalculator {
     }
 
     public void mergeTxPower(byte txPower) {
-        LOG.info("We are going to change power: {} ", txPower);
+        LOG.info("New power: {} ", txPower);
         MwAirInterfacePacBuilder mWAirInterfacePacBuilder = new MwAirInterfacePacBuilder(air);
         AirInterfaceConfigurationBuilder configurationBuilder = new AirInterfaceConfigurationBuilder(air.getAirInterfaceConfiguration());
         configurationBuilder.setTxPower(txPower);
@@ -129,7 +128,7 @@ public class WirelessPowerCalculator {
 
     private void wait3seconds() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -197,4 +196,28 @@ class TransmissionModelItem   {
     public Double getCapacity() {
         return capacity;
     }
+}
+
+class Simulator {
+    private static final int COUNT_STEP = 3;
+    int currentStep;
+    int expectedRxLevel;
+    boolean isSimulateGreaterValue;
+
+    public Simulator(int expectedRxLevel, boolean isSimulateGreaterValue) {
+        this.expectedRxLevel = expectedRxLevel;
+        this.isSimulateGreaterValue = isSimulateGreaterValue;
+        this.currentStep = 1;
+    }
+
+    public int getRemoteAirRxLevel() {
+        currentStep++;
+        if (COUNT_STEP == currentStep) {
+            return isSimulateGreaterValue ? expectedRxLevel -1 :  expectedRxLevel + 1;
+        }
+        return isSimulateGreaterValue ? expectedRxLevel + 1 :  expectedRxLevel - 1;
+    }
+
+
+
 }
