@@ -165,6 +165,7 @@ public class HtDatabaseEventsService {
     /**
      * Remove all entries for one node
      * @param nodeName contains the mountpointname
+     * @param objectId of element to be deleted
      * @return number of deleted entries
      */
     public int clearFaultsCurrentOfNodeWithObjectId(String nodeName, String objectId) {

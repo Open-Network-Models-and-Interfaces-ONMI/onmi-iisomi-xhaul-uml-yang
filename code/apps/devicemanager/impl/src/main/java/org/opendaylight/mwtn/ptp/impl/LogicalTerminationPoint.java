@@ -7,7 +7,7 @@ package org.opendaylight.mwtn.ptp.impl;
  * Path list with logical-termination-point list
  "path" : [{
   "path-id": "4d778388-41c8-11e7-a919-92ebcb67fe33",
-  "path-name": "NE-10-ClockIdentity>>NE-12-ClockIdentity",
+  "path-name": "NE-10-ClockIdentity",
   "layer-protocol-name": "PTP",
   "directionality": "unidirectional",
   "logical-termination-point": [{
