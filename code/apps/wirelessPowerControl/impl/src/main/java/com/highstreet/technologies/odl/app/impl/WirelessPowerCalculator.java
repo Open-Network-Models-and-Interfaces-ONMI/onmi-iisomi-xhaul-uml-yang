@@ -36,8 +36,10 @@ public class WirelessPowerCalculator {
     }
 
     public void calc() {
+        byte txPower = air.getAirInterfaceConfiguration().getTxPower();
+
         LOG.info("Current modulation MIN: {} ", air.getAirInterfaceConfiguration().getModulationMin());
-        LOG.info("Current txPower: {} ", air.getAirInterfaceConfiguration().getTxPower());
+        LOG.info("Current txPower: {} ", txPower);
 
         TransmissionModelContainer transmissionModelContainer = calculateTransmissionModel();
         TransmissionModelItem currentTransmissionMode = transmissionModelContainer.findTransmissionMode(air.getAirInterfaceStatus().getModulationCur(), air.getAirInterfaceStatus().getCodeRateCur());
@@ -63,16 +65,18 @@ public class WirelessPowerCalculator {
             LOG.info("New trans. mode: {} ", newTransmissionMode.getInnerItem().getTransmissionModeId().getValue());
 
             Short modulationMin = newTransmissionMode.getInnerItem().getModulationScheme();
-            mergeModulationMin(modulationMin); // store new modulation
+            mergeAirConfiguration(modulationMin, txPower); // store new modulation
+            LOG.info("New modulationMin: {} ", modulationMin);
 
             int expectedRxLevel = newTransmissionMode.getInnerItem().getRxThreshold() + RX_LEVEL_QUARANTEE;
             byte txPowerMin = currentTransmissionMode.getInnerItem().getTxPowerMin();
-            byte txPower = air.getAirInterfaceConfiguration().getTxPower();
+
 
             Simulator simulator = new Simulator(expectedRxLevel, true);
             while (simulator.getRemoteAirRxLevel() > expectedRxLevel && air.getAirInterfaceStatus().getTxLevelCur()  > txPowerMin) {
                 txPower--;
-                mergeTxPower(txPower); //store new power
+                mergeAirConfiguration(modulationMin,txPower); //store new power
+                LOG.info("New power: {} ", txPower);
             }
         }
 
@@ -81,16 +85,17 @@ public class WirelessPowerCalculator {
             LOG.info("New trans. mode: {} ", newTransmissionMode.getInnerItem().getTransmissionModeId().getValue());
 
             Short modulationMin = newTransmissionMode.getInnerItem().getModulationScheme();
-            mergeModulationMin(modulationMin);
+            mergeAirConfiguration(modulationMin, txPower);
+            LOG.info("New modulationMin: {} ", modulationMin);
 
             int expectedRxLevel = newTransmissionMode.getInnerItem().getRxThreshold() + RX_LEVEL_QUARANTEE;
             byte txPowerMax = currentTransmissionMode.getInnerItem().getTxPowerMax();
-            byte txPower = air.getAirInterfaceConfiguration().getTxPower();
 
             Simulator simulator = new Simulator(expectedRxLevel, false);
             while (simulator.getRemoteAirRxLevel() < expectedRxLevel && air.getAirInterfaceStatus().getTxLevelCur()  < txPowerMax) {
                 txPower++;
-                mergeTxPower(txPower);
+                mergeAirConfiguration(modulationMin, txPower);
+                LOG.info("New power: {} ", txPower);
             }
         }
 
@@ -113,19 +118,10 @@ public class WirelessPowerCalculator {
         return transmissionModelContainer;
     }
 
-
-    public void mergeModulationMin(short modulationMin) {
-        LOG.info("New modulation MIN: {} ", modulationMin);
-        AirInterfaceConfigurationBuilder configurationBuilder = new AirInterfaceConfigurationBuilder(air.getAirInterfaceConfiguration());
-        configurationBuilder.setModulationMin(modulationMin);
-        impl.merge(configurationBuilder.build());
-        wait3seconds();
-    }
-
-    public void mergeTxPower(byte txPower) {
-        LOG.info("New power: {} ", txPower);
+    public void mergeAirConfiguration(short modulationMin, byte txPower) {
         AirInterfaceConfigurationBuilder configurationBuilder = new AirInterfaceConfigurationBuilder(air.getAirInterfaceConfiguration());
         configurationBuilder.setTxPower(txPower);
+        configurationBuilder.setModulationMin(modulationMin);
         impl.merge(configurationBuilder.build());
         wait3seconds();
     }
