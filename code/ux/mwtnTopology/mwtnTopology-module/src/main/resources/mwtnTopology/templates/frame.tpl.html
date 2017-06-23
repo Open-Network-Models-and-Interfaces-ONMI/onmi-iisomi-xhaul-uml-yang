@@ -2,12 +2,23 @@
 	<!-- Display a loading indicator as long as google isn't initialized. -->
 	<div ng-if="!vm.googleIsReady">Loading</div>
 
-	<uib-tabset id="mwtnTopology" active="activeTab" ng-if="vm.googleIsReady">
+	<uib-tabset id="mwtnTopology" active="vm.activeTab" ng-if="vm.googleIsReady">
 
 		<uib-tab index="0" heading="{{'Site' | translate}}">
 			<mwtn-topology-site-view  />
 		</uib-tab>
 
+    <uib-tab index="1" heading="{{'Physical' | translate}}">
+      <mwtn-topology-physical-view />
+    </uib-tab>
+
+    <uib-tab index="2" heading="{{'Ethernet' | translate}}">
+      <mwtn-topology-ethernet-view />
+    </uib-tab>
+
+    <uib-tab index="3" heading="{{'IEEE1588v2' | translate}}">
+      <mwtn-topology-ieee1588-view />
+    </uib-tab>
 	</uib-tabset>
 
 	<hr />

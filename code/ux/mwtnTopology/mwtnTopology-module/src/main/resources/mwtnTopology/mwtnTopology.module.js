@@ -39,7 +39,7 @@ define(['angularAMD',
     var access = routingConfig.accessLevels;
 
     $stateProvider.state('main.mwtnTopology', {
-      url: 'mwtnTopology?top&bottom&right&left&lat&lng&zoom$site&siteLink&sitePath',
+      url: 'mwtnTopology?view&top&bottom&right&left&lat&lng&zoom$site&siteLink&sitePath',
       reloadOnSearch: false,
       access: access.admin,
       params: {
