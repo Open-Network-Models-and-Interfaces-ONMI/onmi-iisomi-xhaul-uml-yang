@@ -1,0 +1,60 @@
+module wirelessPowerControl-impl-cfg {
+    yang-version 1;
+    namespace "urn:opendaylight:params:xml:ns:yang:wirelessPowerControl:impl";
+    prefix "pwc-impl";
+
+    import config { prefix config; revision-date 2013-04-05; }
+    // import wirelessPowerControl-cfg { prefix cfginst; revision-date 2016-09-19; }
+    import opendaylight-md-sal-dom {prefix sal; revision-date 2013-10-28; }
+    import opendaylight-md-sal-binding { prefix mdsal; revision-date 2013-10-28; }
+    import opendaylight-sal-binding-broker-impl {prefix binding-impl; revision-date 2013-10-28;}
+
+    organization "Frinx s.r.o";
+    contact "Lukas Beles <lbeles@frinx.io>";
+
+    description
+        "This module contains the base YANG definitions for the implementation of Power Control service.";
+
+    revision "2016-09-29" {
+        description
+            "Initial revision";
+    }
+
+    identity wireless-power-control-impl {
+        base config:module-type;
+        config:java-name-prefix wirelessPowerControlImpl;
+    }
+
+    augment "/config:modules/config:module/config:configuration" {
+        case wireless-power-control-impl {
+            when "/config:modules/config:module/config:type = 'wireless-power-control-impl'";
+
+            container broker {
+                uses config:service-ref {
+                    refine type {
+                        mandatory true;
+                        config:required-identity mdsal:binding-broker-osgi-registry;
+                    }
+                }
+            }
+
+            container listen-service {
+                uses config:service-ref {
+                    refine type {
+                        mandatory true;
+                        config:required-identity binding-impl:binding-new-notification-service;
+                    }
+                }
+            }
+
+            container rpc-registry {
+                uses config:service-ref {
+                    refine type {
+                        mandatory true;
+                        config:required-identity mdsal:binding-rpc-registry;
+                    }
+                }
+            }
+        }
+    }
+}

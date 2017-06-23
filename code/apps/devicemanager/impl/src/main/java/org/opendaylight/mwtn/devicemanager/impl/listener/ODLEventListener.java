@@ -59,6 +59,7 @@ public class ODLEventListener {
      * @param ownKeyName The name of this service, that is used in the database as identification key.
      * @param webSocketService service to direct messages to clients
      * @param databaseService service to write to the database
+     * @param ecompProvider to deliver problems to
      */
     public ODLEventListener(String ownKeyName, WebSocketServiceClient webSocketService,
             HtDatabaseEventsService databaseService, EventProviderClient ecompProvider) {
@@ -179,6 +180,7 @@ public class ODLEventListener {
 
     /**
      * Called on exit to remove everything for a node from the current list.
+     * @param nodeName to remove all problems for
      * @return Number of deleted objects
      */
     public int removeAllCurrentProblemsOfNode(String nodeName) {

@@ -73,6 +73,7 @@ public final class GenericTransactionUtils {
 
     /**
      * Deliver the data back or null. Warning
+     * @param <T> SubType of the DataObject to be handled
      * @param dataBroker for accessing data
      * @param dataStoreType to address datastore
      * @param iid id to access data
@@ -86,6 +87,7 @@ public final class GenericTransactionUtils {
 
     /**
      * Deliver the data back or null
+     * @param <T> SubType of the DataObject to be handled
      * @param dataBroker for accessing data
      * @param dataStoreType to address datastore
      * @param iid id to access data
