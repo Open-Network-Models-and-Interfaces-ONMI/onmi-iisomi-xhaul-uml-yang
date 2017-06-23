@@ -36,26 +36,32 @@ public class WirelessPowerCalculator {
     }
 
     public void calc() {
-        LOG.info("Current modulation: {} ", air.getAirInterfaceConfiguration().getModulationMin());
+        LOG.info("Current modulation MIN: {} ", air.getAirInterfaceConfiguration().getModulationMin());
         LOG.info("Current txPower: {} ", air.getAirInterfaceConfiguration().getTxPower());
 
         TransmissionModelContainer transmissionModelContainer = calculateTransmissionModel();
         TransmissionModelItem currentTransmissionMode = transmissionModelContainer.findTransmissionMode(air.getAirInterfaceStatus().getModulationCur(), air.getAirInterfaceStatus().getCodeRateCur());
 
-        Integer currentPerfCapacity1 = eth.getEthernetContainerCurrentPerformance().getCurrentPerformanceDataList().get(0).getPerformanceData().getTxEthernetBytesMaxS() * 8 /1000;
-        Integer currentPerfCapacity2 = eth.getEthernetContainerCurrentPerformance().getCurrentPerformanceDataList().get(1).getPerformanceData().getTxEthernetBytesMaxS() * 8 /1000;
-        Integer currentPerfCapacity3 = eth.getEthernetContainerCurrentPerformance().getCurrentPerformanceDataList().get(2).getPerformanceData().getTxEthernetBytesMaxS() * 8 /1000;
+        LOG.info("Current trans. mode: {} ", currentTransmissionMode.getInnerItem().getTransmissionModeId().getValue());
 
-        Integer histPerfCapacity1 = eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().get(0).getPerformanceData().getTxEthernetBytesMaxS() * 8 /1000;
-        Integer histPerfCapacity2 = eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().get(1).getPerformanceData().getTxEthernetBytesMaxS() * 8 /1000;
+        Integer currentPerfCapacity1 = eth.getEthernetContainerCurrentPerformance().getCurrentPerformanceDataList().get(0).getPerformanceData().getTxEthernetBytesMaxS() * 8;
+        Integer currentPerfCapacity2 = eth.getEthernetContainerCurrentPerformance().getCurrentPerformanceDataList().get(1).getPerformanceData().getTxEthernetBytesMaxS() * 8;
+        Integer currentPerfCapacity3 = eth.getEthernetContainerCurrentPerformance().getCurrentPerformanceDataList().get(2).getPerformanceData().getTxEthernetBytesMaxS() * 8;
 
-        if (histPerfCapacity1 < currentTransmissionMode.getCapacity() * THROUGHPUT_MARGIN_RATE_LOW &&
-                histPerfCapacity2 < currentTransmissionMode.getCapacity() * THROUGHPUT_MARGIN_RATE_LOW &&
-                currentPerfCapacity1 < currentTransmissionMode.getCapacity() * THROUGHPUT_MARGIN_RATE_LOW &&
-                currentPerfCapacity2 < currentTransmissionMode.getCapacity() * THROUGHPUT_MARGIN_RATE_LOW &&
-                currentPerfCapacity3 < currentTransmissionMode.getCapacity() * THROUGHPUT_MARGIN_RATE_LOW
+        Integer histPerfCapacity1 = eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().get(0).getPerformanceData().getTxEthernetBytesMaxS() * 8;
+        Integer histPerfCapacity2 = eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().get(1).getPerformanceData().getTxEthernetBytesMaxS() * 8;
+
+        int currentCapacity = (int) (currentTransmissionMode.getCapacity() * THROUGHPUT_MARGIN_RATE_LOW / 1000);
+        if (histPerfCapacity1 < currentCapacity &&
+                histPerfCapacity2 < currentCapacity &&
+                currentPerfCapacity1 < currentCapacity &&
+                currentPerfCapacity2 < currentCapacity &&
+                currentPerfCapacity3 < currentCapacity
         ) {
             TransmissionModelItem newTransmissionMode = transmissionModelContainer.findTheLowestTransmissionMode(currentPerfCapacity3);
+
+            LOG.info("New trans. mode: {} ", newTransmissionMode.getInnerItem().getTransmissionModeId().getValue());
+
             Short modulationMin = newTransmissionMode.getInnerItem().getModulationScheme();
             mergeModulationMin(modulationMin); // store new modulation
 
@@ -70,8 +76,10 @@ public class WirelessPowerCalculator {
             }
         }
 
-        if (currentPerfCapacity3 > currentTransmissionMode.getCapacity() * THROUGHPUT_MARGIN_RATE_LOW) {
+        if (currentPerfCapacity3 > currentCapacity) {
             TransmissionModelItem newTransmissionMode = transmissionModelContainer.findTheLowestTransmissionMode(currentPerfCapacity3);
+            LOG.info("New trans. mode: {} ", newTransmissionMode.getInnerItem().getTransmissionModeId().getValue());
+
             Short modulationMin = newTransmissionMode.getInnerItem().getModulationScheme();
             mergeModulationMin(modulationMin);
 
@@ -107,7 +115,7 @@ public class WirelessPowerCalculator {
 
 
     public void mergeModulationMin(short modulationMin) {
-        LOG.info("New modulation: {} ", modulationMin);
+        LOG.info("New modulation MIN: {} ", modulationMin);
         AirInterfaceConfigurationBuilder configurationBuilder = new AirInterfaceConfigurationBuilder(air.getAirInterfaceConfiguration());
         configurationBuilder.setModulationMin(modulationMin);
         impl.merge(configurationBuilder.build());
@@ -166,8 +174,8 @@ class TransmissionModelContainer {
 
 
 
-    private Double calculateCapacity(TransmissionModeList item) {
-        return item.getChannelBandwidth()*WirelessPowerCalculator.log2(item.getModulationScheme()) * item.getCodeRate();
+    private Integer calculateCapacity(TransmissionModeList item) {
+        return (int)(item.getChannelBandwidth()*WirelessPowerCalculator.log2(item.getModulationScheme()) * item.getCodeRate());
     }
 
     public void orderItems() {
@@ -177,19 +185,19 @@ class TransmissionModelContainer {
 
 class TransmissionModelItem   {
 
-    public TransmissionModelItem(TransmissionModeList innerItem, Double capacity) {
+    public TransmissionModelItem(TransmissionModeList innerItem, Integer capacity) {
         this.innerItem = innerItem;
         this.capacity = capacity;
     }
 
     private TransmissionModeList innerItem;
-    private Double capacity;
+    private Integer capacity;
 
     public TransmissionModeList getInnerItem() {
         return innerItem;
     }
 
-    public Double getCapacity() {
+    public Integer getCapacity() {
         return capacity;
     }
 }
@@ -203,7 +211,7 @@ class Simulator {
     public Simulator(int expectedRxLevel, boolean isSimulateGreaterValue) {
         this.expectedRxLevel = expectedRxLevel;
         this.isSimulateGreaterValue = isSimulateGreaterValue;
-        this.currentStep = 1;
+        this.currentStep = 0;
     }
 
     public int getRemoteAirRxLevel() {

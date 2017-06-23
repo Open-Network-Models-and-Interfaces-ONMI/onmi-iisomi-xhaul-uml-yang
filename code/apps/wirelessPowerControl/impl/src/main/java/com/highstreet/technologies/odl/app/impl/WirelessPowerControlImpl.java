@@ -225,12 +225,8 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 
 	public void merge(AirInterfaceConfiguration output) {
 		ReadWriteTransaction mwTransaction = xrNodeBroker.newReadWriteTransaction();
-        // store new information to config datastore
-        LOG.info("Start merging data to device");
         mwTransaction.merge(LogicalDatastoreType.CONFIGURATION, pathAirConfiguration, output);
-        LOG.info("Start submiting data to device");
         mwTransaction.submit();
-        LOG.info("Device was changed");
     }
 
 
