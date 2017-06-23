@@ -39,6 +39,7 @@ import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.r
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.MwEthernetContainerPacKey;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.air._interface.capability.g.SupportedChannelPlanList;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.channel.plan.type.g.TransmissionModeList;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.mw.air._interface.pac.AirInterfaceConfiguration;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.network.topology.topology.topology.types.TopologyNetconf;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.wirelesspowercontrol.rev160919.StartOutput;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.wirelesspowercontrol.rev160919.StartOutputBuilder;
@@ -76,7 +77,7 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 	private ScheduledExecutorService scheduledExecutorService;
 	private ScheduledFuture scheduledFuture;
 
-	private InstanceIdentifier<MwAirInterfacePac> pathAirInterface;
+	private InstanceIdentifier<AirInterfaceConfiguration> pathAirConfiguration;
 	private DataBroker xrNodeBroker;
 
 	/**
@@ -197,8 +198,10 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
                     InstanceIdentifier<MwEthernetContainerPac> pathEthernetContainer = InstanceIdentifier.builder(MwEthernetContainerPac.class, new MwEthernetContainerPacKey(uuid)).build();
                     MwEthernetContainerPac ethernetContainerPac = readEthernetContainer(mwTransaction, pathEthernetContainer);
 
-                    pathAirInterface = InstanceIdentifier.builder(MwAirInterfacePac.class, new MwAirInterfacePacKey(uuid)).build();
+					InstanceIdentifier<MwAirInterfacePac> pathAirInterface = InstanceIdentifier.builder(MwAirInterfacePac.class, new MwAirInterfacePacKey(uuid)).build();
                     MwAirInterfacePac airInterfacePac = readAirInterface(mwTransaction, pathAirInterface);
+
+					pathAirConfiguration = InstanceIdentifier.builder(MwAirInterfacePac.class, new MwAirInterfacePacKey(uuid)).build().child(AirInterfaceConfiguration.class);
 
 					mwTransaction.submit();
                     if (ethernetContainerPac != null && airInterfacePac != null) {
@@ -220,11 +223,11 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 	}
 
 
-	public void merge(MwAirInterfacePac output) {
+	public void merge(AirInterfaceConfiguration output) {
 		ReadWriteTransaction mwTransaction = xrNodeBroker.newReadWriteTransaction();
         // store new information to config datastore
         LOG.info("Start merging data to device");
-        mwTransaction.merge(LogicalDatastoreType.CONFIGURATION, pathAirInterface, output);
+        mwTransaction.merge(LogicalDatastoreType.CONFIGURATION, pathAirConfiguration, output);
         LOG.info("Start submiting data to device");
         mwTransaction.submit();
         LOG.info("Device was changed");
