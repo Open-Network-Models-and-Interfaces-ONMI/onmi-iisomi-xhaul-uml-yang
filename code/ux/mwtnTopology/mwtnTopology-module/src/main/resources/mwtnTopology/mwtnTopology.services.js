@@ -17,8 +17,48 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
     service.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
     service.getAllData = $mwtnDatabase.getAllData;
 
-    // public functions
+    /**
+      * Since not all browsers implement this we have our own utility that will
+      * convert from degrees into radians
+      *
+      * @param deg - The degrees to be converted into radians
+      * @return radians
+      */
+    var _toRad = function (deg) {
+      return deg * Math.PI / 180;
+    };
 
+    /**
+     * Since not all browsers implement this we have our own utility that will
+     * convert from radians into degrees
+     *
+     * @param rad - The radians to be converted into degrees
+     * @return degrees
+     */
+    _toDeg = function (rad) {
+      return rad * 180 / Math.PI;
+    };
+
+    // public functions
+    /**
+     * Calculate the bearing between two positions as a value from 0-360
+     *
+     * @param lat1 - The latitude of the first position
+     * @param lng1 - The longitude of the first position
+     * @param lat2 - The latitude of the second position
+     * @param lng2 - The longitude of the second position
+     *
+     * @return int - The bearing between 0 and 360
+     */
+    service.bearing = function (lat1, lng1, lat2, lng2) {
+        var dLon = (lng2 - lng1);
+        var y = Math.sin(dLon) * Math.cos(lat2);
+        var x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
+        var brng = _toDeg(Math.atan2(y, x));
+        return 360 - ((brng + 360) % 360);
+      },
+
+    
     /**
      * Gets the geospatial distance between two points
      * @param lat1 {number} The latitude of the first point.
@@ -29,10 +69,10 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
      */
     service.getDistance = function (lat1, lon1, lat2, lon2) {
       var R = 6371; // km
-      var φ1 = lat1.toRadians();
-      var φ2 = lat2.toRadians();
-      var Δφ = (lat2 - lat1).toRadians();
-      var Δλ = (lon2 - lon1).toRadians();
+      var φ1 = _toRad(lat1);
+      var φ2 = _toRad(lat2);
+      var Δφ = _toRad(lat2 - lat1);
+      var Δλ = _toRad(lon2 - lon1);
 
       var a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
         Math.cos(φ1) * Math.cos(φ2) *
@@ -586,7 +626,7 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
               var siteA = result.sites.find(function (site) { return site.id == linkDetails.siteA });
               var siteZ = result.sites.find(function (site) { return site.id == linkDetails.siteZ });
               if (result.total != 2 || !siteA || !siteZ) {
-                resultDefer.reject("Could not load Sites for link ".linkDetails.id);
+                resultDefer.reject("Could not load Sites for link "+linkDetails.id);
               } 
               linkDetails.siteA = siteA;
               linkDetails.siteZ = siteZ;
