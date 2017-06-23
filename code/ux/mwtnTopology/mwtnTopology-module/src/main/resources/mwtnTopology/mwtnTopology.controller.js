@@ -33,16 +33,51 @@ Array.prototype.or = function () {
   return this[i];
 };
 
+
+var eventsFabric = function () {
+  var topics = {};
+  var hOP = topics.hasOwnProperty;
+
+  return {
+    subscribe: function (topic, listener) {
+      // Create the topic's object if not yet created
+      if (!hOP.call(topics, topic)) topics[topic] = [];
+
+      // Add the listener to queue
+      var index = topics[topic].push(listener) - 1;
+
+      // Provide handle back for removal of topic
+      return {
+        remove: function () {
+          delete topics[topic][index];
+        }
+      };
+    },
+    publish: function (topic, info) {
+      // If the topic doesn't exist, or there's no listeners in queue, just leave
+      if (!hOP.call(topics, topic)) return;
+
+      // Cycle through topics queue, fire!
+      topics[topic].forEach(function (item) {
+        item(info != undefined ? info : {});
+      });
+    }
+  };
+};
+
 var lastOpenedInfoWindow = null; 
 
 define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
+  'app/mwtnCommons/bower_components/cytoscape/dist/cytoscape',
   'app/mwtnTopology/mwtnTopology.module',
   'app/mwtnTopology/mwtnTopology.services',
   'app/mwtnCommons/mwtnCommons.services'
-], function (_, mwtnTopologyApp) {
+], function (_, cytoscape, mwtnTopologyApp) {
 
   // remove '_' from global scope but use it here as '_'.
   _.noConflict();
+
+  /********************************************* Sites *************************/
 
   mwtnTopologyApp.directive('mwtnTopologyMap', ["$timeout", "$q", "$mwtnTopology", function ($timeout, $q, $mwtnTopology) {
     return {
@@ -597,8 +632,14 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
     };
   });
 
-  mwtnTopologyApp.controller('mwtnTopologyFrameController', ['$scope', '$timeout', '$mwtnTopology', "$mwtnPtp", function ($scope, $timeout, $mwtnTopology, $mwtnPtp) {
+  mwtnTopologyApp.controller('mwtnTopologyFrameController', ['$scope', '$timeout', '$state', '$mwtnTopology', function ($scope, $timeout, $state, $mwtnTopology) {
     var vm = this;
+
+    $scope.$watch(function () { return $state.params.view; }, function (newVal, oldVal, scope) {
+      if (newVal) {
+        vm.activeTab = newVal
+      }
+    });  
 
     // hide all tabs until the google api is fully loaded.
     // initialize with true is the promise is resolved === 1
@@ -609,7 +650,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
         vm.googleIsReady = true;
       });
     });
-
+    
   }]);
 
   mwtnTopologyApp.directive('mwtnTopologyFrame', function () {
@@ -1797,6 +1838,893 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
     };
   });
 
+
+  /********************************************* Physical *************************/
+
+    mwtnTopologyApp.controller('mwtnTopologyPhysicalViewController', ['$scope', '$q', '$timeout', '$state', '$mwtnTopology', function ($scope, $q, $timeout, $state, $mwtnTopology) {
+      var vm = this;
+      vm.status = {
+        graphIsOpen: false,
+        networkElementsIsOpen: false,
+        LinksIsOpen: false
+      };
+     
+
+    }]);
+
+    mwtnTopologyApp.directive('mwtnTopologyPhysicalView', function () {
+      return {
+        restrict: 'E',
+        controller: 'mwtnTopologyPhysicalViewController',
+        controllerAs: 'vm',
+        bindToController: true,
+        templateUrl: 'src/app/mwtnTopology/templates/physicalView.tpl.html',
+        scope: {
+         
+        }
+      };
+    });
+
+    mwtnTopologyApp.factory("mwtnTopologyPhysicalPathData", function () {
+      var colors = {
+        root: '#f54',
+        port: '#377',
+        device: '#252',
+        site: '#525',
+        edge: '#49a',
+        white: '#eed',
+        grey: '#555',
+        selected: '#ff0'
+      };
+
+      var styles = [{
+            selector: 'node',
+            css: {
+              'content': 'data(label)',
+              'text-valign': 'center',
+              'text-halign': 'center',
+              'background-color': '#666666',
+              'border-color': '#000000',
+              'border-width': '1px',
+              'color': '#ffffff'
+            }
+          },
+          {
+            selector: 'node[layer = "MWPS"]',
+            css: {
+              'content': 'data(label)',
+              'text-valign': 'center',
+              'text-halign': 'center',
+              'background-color': '#316ac5',
+              'border-color': '#000000',
+              'border-width': '1px',
+              'color': '#ffffff'
+            }
+          },
+          {
+            selector: 'node[layer = "ETH-TTP"]',
+            css: {
+              'content': 'data(label)',
+              'text-valign': 'center',
+              'text-halign': 'center',
+              'background-color': '#008800',
+              'border-color': '#004400',
+              'border-width': '1px',
+              'color': '#ffffff'
+            }
+          },
+          {
+            selector: '$node > node',
+            css: {
+              'shape': 'roundrectangle',
+              'padding-top': '10px',
+              'padding-left': '10px',
+              'padding-bottom': '10px',
+              'padding-right': '10px',
+              'text-valign': 'top',
+              'text-halign': 'center',
+              'background-color': '#eeeeee',
+              'color': '#444444',
+              'border-color': '#888888'
+            }
+          },
+          {
+            selector: '$node > node > node',
+            css: {
+              'shape': 'roundrectangle',
+              'padding-top': '10px',
+              'padding-left': '10px',
+              'padding-bottom': '10px',
+              'padding-right': '10px',
+              'text-valign': 'top',
+              'text-halign': 'center',
+              'background-color': '#fefefe',
+              'color': '#444444',
+              'border-color': '#888888'
+            }
+          },
+          {
+            selector: 'node[type = "device"]',
+            css: {
+              'background-color': '#eeeeee',
+              'border-color': '#888888',
+              'border-width': '1px',
+              'color': '#444444'
+            }
+          },
+          {
+            selector: 'node[active = "false"]',
+            css: {
+              'opacity': '0.3'
+            }
+          },
+          {
+            selector: 'edge',
+            css: {
+              'content': 'data(id)',
+              'target-arrow-shape': 'triangle',
+              'line-color': '#666666',
+              'color': '#000000'
+            }
+          },
+          {
+            selector: 'edge[layer = "MWPS"]',
+            css: {
+              'content': 'data(id)',
+              'target-arrow-shape': 'triangle',
+              'width': '5px',
+              'line-color': '#316ac5',
+              'color': '#000000'
+            }
+          },
+          {
+            selector: ':selected',
+            css: {
+              'background-color': 'black',
+              'line-color': 'black',
+              'target-arrow-color': 'black',
+              'source-arrow-color': 'black'
+            }
+          },
+          {
+            selector: 'edge[active = "false"]',
+            css: {
+              'opacity': '0.3'
+            }
+          }
+        ];
+      
+      var elements =  {
+        nodes: [
+          { data: { id: 'north', label : 'north' , type: 'site', latitude:'50,734916', longitude:'50,734916'}  },
+          { data: { id: 'north-east', label : 'north-east' , type: 'site', latitude:'50,733028', longitude:'50,733028'}  },
+          { data: { id: 'north-west', label : 'north-west' , type: 'site', latitude:'50,73023', longitude:'50,73023'}  },
+          { data: { id: 'east', label : 'east' , type: 'site', latitude:'50,725672', longitude:'50,725672'}  },
+          { data: { id: 'west', label : 'west' , type: 'site', latitude:'50,721914', longitude:'50,721914'}  },
+          { data: { id: 'south-east', label : 'south-east' , type: 'site', latitude:'50,717158', longitude:'50,717158'}  },
+          { data: { id: 'south-west', label : 'south-west' , type: 'site', latitude:'50,714359', longitude:'50,714359'}  },
+          { data: { id: 'south', label : 'south' , type: 'site', latitude:'50,712472', longitude:'50,712472'}  },
+          
+          { data: { id: 'ADVA-A', label : 'ADVA-A' , parent : 'west', type: 'device', active: 'false' , latitude:'west', longitude:'west'}  },
+          { data: { id: 'ADVA-B', label : 'ADVA-B' , parent : 'north-west', type: 'device', active: 'true' }  },
+          { data: { id: 'ADVA-Y', label : 'ADVA-Y' , parent : 'north-east', type: 'device', active: 'true' }  },
+          { data: { id: 'ADVA-Z', label : 'ADVA-Z' , parent : 'south', type: 'device', active: 'true' }  },
+          { data: { id: 'Aviat-A', label : 'Aviat-A' , parent : 'north-east', type: 'device', active: 'true' }  },
+          { data: { id: 'Aviat-Z', label : 'Aviat-Z' , parent : 'east', type: 'device', active: 'true' }  },
+          { data: { id: 'Ceragon-A', label : 'Ceragon-A' , parent : 'north-west', type: 'device', active: 'true' }  },
+          { data: { id: 'Ceragon-Z', label : 'Ceragon-Z' , parent : 'west', type: 'device', active: 'true' }  },
+          { data: { id: 'DragonWave-A', label : 'DragonWave-A' , parent : 'south-west', type: 'device', active: 'true' }  },
+          { data: { id: 'DragonWave-Z', label : 'DragonWave-Z' , parent : 'south', type: 'device', active: 'true' }  },
+          { data: { id: 'ELVA-1-A', label : 'ELVA-1-A' , parent : 'north', type: 'device', active: 'true' }  },
+          { data: { id: 'ELVA-1-Z', label : 'ELVA-1-Z' , parent : 'south-west', type: 'device', active: 'true' }  },
+          { data: { id: 'Ericsson-A', label : 'Ericsson-A' , parent : 'north-east', type: 'device', active: 'true' }  },
+          { data: { id: 'Ericsson-Z', label : 'Ericsson-Z' , parent : 'east', type: 'device', active: 'true' }  },
+          { data: { id: 'Fujitsu-A', label : 'Fujitsu-A' , parent : 'east', type: 'device', active: 'true' }  },
+          { data: { id: 'Fujitsu-Z', label : 'Fujitsu-Z' , parent : 'south-east', type: 'device', active: 'true' }  },
+          { data: { id: 'Huawei-A', label : 'Huawei-A' , parent : 'south-west', type: 'device', active: 'true' }  },
+          { data: { id: 'Huawei-Z', label : 'Huawei-Z' , parent : 'south', type: 'device', active: 'true' }  },
+          { data: { id: 'Intracom-A', label : 'Intracom-A' , parent : 'south', type: 'device', active: 'true' }  },
+          { data: { id: 'Intracom-Z', label : 'Intracom-Z' , parent : 'south-east', type: 'device', active: 'true' }  },
+          { data: { id: 'NEC-A', label : 'NEC-A' , parent : 'north', type: 'device', active: 'true' }  },
+          { data: { id: 'NEC-Z', label : 'NEC-Z' , parent : 'north-east', type: 'device', active: 'true' }  },
+          { data: { id: 'Nokia-A', label : 'Nokia-A' , parent : 'west', type: 'device', active: 'true' }  },
+          { data: { id: 'Nokia-Z', label : 'Nokia-Z' , parent : 'south-west', type: 'device', active: 'true' }  },
+          { data: { id: 'SIAE-A', label : 'SIAE-A' , parent : 'south', type: 'device', active: 'true' }  },
+          { data: { id: 'SIAE-Z', label : 'SIAE-Z' , parent : 'south-east', type: 'device', active: 'true' }  },
+          { data: { id: 'ZTE-A', label : 'ZTE-A' , parent : 'north-west', type: 'device', active: 'true' }  },
+          { data: { id: 'ZTE-Z', label : 'ZTE-Z' , parent : 'north', type: 'device', active: 'true' }  },
+          
+          { data: { id: 'Aviat-Z#5', label : '#5' , parent : 'Aviat-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,725672', longitude:'7,158488'}, position: { x: 1984, y: 390 } },
+          { data: { id: 'Aviat-Z#1', label : '#1' , parent : 'Aviat-Z' , type:'port', layer:'MWPS', active:'true', latitude:'50,725672', longitude:'7,158488'}, position: { x: 1984, y: 321 } },
+          { data: { id: 'Ericsson-Z#5', label : '#5' , parent : 'Ericsson-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,725672', longitude:'7,158488'}, position: { x: 1777, y: 393 } },
+          { data: { id: 'Ericsson-Z#1', label : '#1' , parent : 'Ericsson-Z' , type:'port', layer:'MWPS', active:'true', latitude:'50,725672', longitude:'7,158488'}, position: { x: 1777, y: 318 } },
+          { data: { id: 'Ericsson-Z#2', label : '#2' , parent : 'Ericsson-Z' , type:'port', layer:'MWPS', active:'true', latitude:'50,725672', longitude:'7,158488'}, position: { x: 1756, y: 336 } },
+          { data: { id: 'Fujitsu-A#5', label : '#5' , parent : 'Fujitsu-A' , type:'port', layer:'ETY', active:'true', latitude:'50,725672', longitude:'7,158488'}, position: { x: 1859, y: 567 } },
+          { data: { id: 'Fujitsu-A#1', label : '#1' , parent : 'Fujitsu-A' , type:'port', layer:'MWPS', active:'true', latitude:'50,725672', longitude:'7,158488'}, position: { x: 1845, y: 644 } },
+          { data: { id: 'Fujitsu-A#2', label : '#2' , parent : 'Fujitsu-A' , type:'port', layer:'MWPS', active:'true', latitude:'50,725672', longitude:'7,158488'}, position: { x: 1872, y: 644 } },
+          { data: { id: 'ELVA-1-A#2', label : '#2' , parent : 'ELVA-1-A' , type:'port', layer:'ETY', active:'true', latitude:'50,734916', longitude:'7,137636'}, position: { x: 895, y: 150 } },
+          { data: { id: 'ELVA-1-A#1', label : '#1' , parent : 'ELVA-1-A' , type:'port', layer:'MWPS', active:'true', latitude:'50,734916', longitude:'7,137636'}, position: { x: 815, y: 150 } },
+          { data: { id: 'NEC-A#3', label : '#3' , parent : 'NEC-A' , type:'port', layer:'ETY', active:'true', latitude:'50,734916', longitude:'7,137636'}, position: { x: 955, y: -52 } },
+          { data: { id: 'NEC-A#1', label : '#1' , parent : 'NEC-A' , type:'port', layer:'MWPS', active:'true', latitude:'50,734916', longitude:'7,137636'}, position: { x: 1035, y: -52 } },
+          { data: { id: 'ZTE-Z#4', label : '#4' , parent : 'ZTE-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,734916', longitude:'7,137636'}, position: { x: 707, y: -67 } },
+          { data: { id: 'ZTE-Z#5', label : '#5' , parent : 'ZTE-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,734916', longitude:'7,137636'}, position: { x: 747, y: -27 } },
+          { data: { id: 'ZTE-Z#1', label : '#1' , parent : 'ZTE-Z' , type:'port', layer:'MWPS', active:'true', latitude:'50,734916', longitude:'7,137636'}, position: { x: 667, y: -27 } },
+          { data: { id: 'ADVA-Y#1', label : '#1' , parent : 'ADVA-Y' , type:'port', layer:'ETY', active:'true', latitude:'50,733028', longitude:'7,151086'}, position: { x: 1392, y: 229 } },
+          { data: { id: 'ADVA-Y#2', label : '#2' , parent : 'ADVA-Y' , type:'port', layer:'ETY', active:'true', latitude:'50,733028', longitude:'7,151086'}, position: { x: 1449, y: 172 } },
+          { data: { id: 'ADVA-Y#3', label : '#3' , parent : 'ADVA-Y' , type:'port', layer:'ETY', active:'true', latitude:'50,733028', longitude:'7,151086'}, position: { x: 1392, y: 172 } },
+          { data: { id: 'ADVA-Y#4', label : '#4' , parent : 'ADVA-Y' , type:'port', layer:'ETY', active:'true', latitude:'50,733028', longitude:'7,151086'}, position: { x: 1449, y: 229 } },
+          { data: { id: 'Aviat-A#5', label : '#5' , parent : 'Aviat-A' , type:'port', layer:'ETY', active:'true', latitude:'50,733028', longitude:'7,151086'}, position: { x: 1654, y: -47 } },
+          { data: { id: 'Aviat-A#1', label : '#1' , parent : 'Aviat-A' , type:'port', layer:'MWPS', active:'true', latitude:'50,733028', longitude:'7,151086'}, position: { x: 1654, y: 22 } },
+          { data: { id: 'Ericsson-A#4', label : '#4' , parent : 'Ericsson-A' , type:'port', layer:'ETY', active:'true', latitude:'50,733028', longitude:'7,151086'}, position: { x: 1605, y: 229 } },
+          { data: { id: 'Ericsson-A#5', label : '#5' , parent : 'Ericsson-A' , type:'port', layer:'ETY', active:'true', latitude:'50,733028', longitude:'7,151086'}, position: { x: 1605, y: 172 } },
+          { data: { id: 'Ericsson-A#1', label : '#1' , parent : 'Ericsson-A' , type:'port', layer:'MWPS', active:'true', latitude:'50,733028', longitude:'7,151086'}, position: { x: 1671, y: 214 } },
+          { data: { id: 'Ericsson-A#2', label : '#2' , parent : 'Ericsson-A' , type:'port', layer:'MWPS', active:'true', latitude:'50,733028', longitude:'7,151086'}, position: { x: 1654, y: 235 } },
+          { data: { id: 'NEC-Z#3', label : '#3' , parent : 'NEC-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,733028', longitude:'7,151086'}, position: { x: 1392, y: 16 } },
+          { data: { id: 'NEC-Z#4', label : '#4' , parent : 'NEC-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,733028', longitude:'7,151086'}, position: { x: 1449, y: 16 } },
+          { data: { id: 'NEC-Z#2', label : '#2' , parent : 'NEC-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,733028', longitude:'7,151086'}, position: { x: 1449, y: -41 } },
+          { data: { id: 'NEC-Z#1', label : '#1' , parent : 'NEC-Z' , type:'port', layer:'MWPS', active:'true', latitude:'50,733028', longitude:'7,151086'}, position: { x: 1392, y: -41 } },
+          { data: { id: 'ADVA-B#1', label : '#1' , parent : 'ADVA-B' , type:'port', layer:'ETY', active:'true', latitude:'50,73023', longitude:'7,126017'}, position: { x: 380, y: 381 } },
+          { data: { id: 'ADVA-B#2', label : '#2' , parent : 'ADVA-B' , type:'port', layer:'ETY', active:'true', latitude:'50,73023', longitude:'7,126017'}, position: { x: 380, y: 301 } },
+          { data: { id: 'Ceragon-A#1', label : '#1' , parent : 'Ceragon-A' , type:'port', layer:'MWPS', active:'true', latitude:'50,73023', longitude:'7,126017'}, position: { x: 147, y: 375 } },
+          { data: { id: 'Ceragon-A#2', label : '#2' , parent : 'Ceragon-A' , type:'port', layer:'MWPS', active:'true', latitude:'50,73023', longitude:'7,126017'}, position: { x: 129, y: 354 } },
+          { data: { id: 'Ceragon-A#5', label : '#5' , parent : 'Ceragon-A' , type:'port', layer:'ETY', active:'true', latitude:'50,73023', longitude:'7,126017'}, position: { x: 195, y: 312 } },
+          { data: { id: 'ZTE-A#3', label : '#3' , parent : 'ZTE-A' , type:'port', layer:'ETY', active:'true', latitude:'50,73023', longitude:'7,126017'}, position: { x: 380, y: 168 } },
+          { data: { id: 'ZTE-A#4', label : '#4' , parent : 'ZTE-A' , type:'port', layer:'ETY', active:'true', latitude:'50,73023', longitude:'7,126017'}, position: { x: 345, y: 148 } },
+          { data: { id: 'ZTE-A#5', label : '#5' , parent : 'ZTE-A' , type:'port', layer:'ETY', active:'true', latitude:'50,73023', longitude:'7,126017'}, position: { x: 345, y: 108 } },
+          { data: { id: 'ZTE-A#1', label : '#1' , parent : 'ZTE-A' , type:'port', layer:'MWPS', active:'true', latitude:'50,73023', longitude:'7,126017'}, position: { x: 408, y: 99 } },
+          { data: { id: 'ADVA-Z#1', label : '#1' , parent : 'ADVA-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,712472', longitude:'7,143887'}, position: { x: 1139, y: 1001 } },
+          { data: { id: 'ADVA-Z#2', label : '#2' , parent : 'ADVA-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,712472', longitude:'7,143887'}, position: { x: 1196, y: 944 } },
+          { data: { id: 'ADVA-Z#3', label : '#3' , parent : 'ADVA-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,712472', longitude:'7,143887'}, position: { x: 1139, y: 944 } },
+          { data: { id: 'ADVA-Z#4', label : '#4' , parent : 'ADVA-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,712472', longitude:'7,143887'}, position: { x: 1196, y: 1001 } },
+          { data: { id: 'DragonWave-Z#2', label : '#2' , parent : 'DragonWave-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,712472', longitude:'7,143887'}, position: { x: 1133, y: 1252 } },
+          { data: { id: 'DragonWave-Z#1', label : '#1' , parent : 'DragonWave-Z' , type:'port', layer:'MWPS', active:'true', latitude:'50,712472', longitude:'7,143887'}, position: { x: 1053, y: 1252 } },
+          { data: { id: 'Huawei-Z#3', label : '#3' , parent : 'Huawei-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,712472', longitude:'7,143887'}, position: { x: 1046, y: 1094 } },
+          { data: { id: 'Huawei-Z#4', label : '#4' , parent : 'Huawei-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,712472', longitude:'7,143887'}, position: { x: 989, y: 1094 } },
+          { data: { id: 'Huawei-Z#5', label : '#5' , parent : 'Huawei-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,712472', longitude:'7,143887'}, position: { x: 1058, y: 1123 } },
+          { data: { id: 'Huawei-Z#1', label : '#1' , parent : 'Huawei-Z' , type:'port', layer:'MWPS', active:'true', latitude:'50,712472', longitude:'7,143887'}, position: { x: 978, y: 1123 } },
+          { data: { id: 'Intracom-A#2', label : '#2' , parent : 'Intracom-A' , type:'port', layer:'ETY', active:'true', latitude:'50,712472', longitude:'7,143887'}, position: { x: 1203, y: 1252 } },
+          { data: { id: 'Intracom-A#1', label : '#1' , parent : 'Intracom-A' , type:'port', layer:'MWPS', active:'true', latitude:'50,712472', longitude:'7,143887'}, position: { x: 1283, y: 1252 } },
+          { data: { id: 'SIAE-A#4', label : '#4' , parent : 'SIAE-A' , type:'port', layer:'ETY', active:'true', latitude:'50,712472', longitude:'7,143887'}, position: { x: 1289, y: 1094 } },
+          { data: { id: 'SIAE-A#5', label : '#5' , parent : 'SIAE-A' , type:'port', layer:'ETY', active:'true', latitude:'50,712472', longitude:'7,143887'}, position: { x: 1278, y: 1123 } },
+          { data: { id: 'SIAE-A#1', label : '#1' , parent : 'SIAE-A' , type:'port', layer:'MWPS', active:'true', latitude:'50,712472', longitude:'7,143887'}, position: { x: 1334, y: 1086 } },
+          { data: { id: 'SIAE-A#2', label : '#2' , parent : 'SIAE-A' , type:'port', layer:'MWPS', active:'true', latitude:'50,712472', longitude:'7,143887'}, position: { x: 1354, y: 1106 } },
+          { data: { id: 'Fujitsu-Z#5', label : '#5' , parent : 'Fujitsu-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,717158', longitude:'7,155506'}, position: { x: 1855, y: 821 } },
+          { data: { id: 'Fujitsu-Z#2', label : '#2' , parent : 'Fujitsu-Z' , type:'port', layer:'MWPS', active:'true', latitude:'50,717158', longitude:'7,155506'}, position: { x: 1868, y: 743 } },
+          { data: { id: 'Fujitsu-Z#1', label : '#1' , parent : 'Fujitsu-Z' , type:'port', layer:'MWPS', active:'true', latitude:'50,717158', longitude:'7,155506'}, position: { x: 1841, y: 743 } },
+          { data: { id: 'Intracom-Z#5', label : '#5' , parent : 'Intracom-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,717158', longitude:'7,155506'}, position: { x: 1755, y: 998 } },
+          { data: { id: 'Intracom-Z#1', label : '#1' , parent : 'Intracom-Z' , type:'port', layer:'MWPS', active:'true', latitude:'50,717158', longitude:'7,155506'}, position: { x: 1714, y: 1018 } },
+          { data: { id: 'SIAE-Z#4', label : '#4' , parent : 'SIAE-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,717158', longitude:'7,155506'}, position: { x: 1590, y: 784 } },
+          { data: { id: 'SIAE-Z#5', label : '#5' , parent : 'SIAE-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,717158', longitude:'7,155506'}, position: { x: 1647, y: 784 } },
+          { data: { id: 'SIAE-Z#2', label : '#2' , parent : 'SIAE-Z' , type:'port', layer:'MWPS', active:'true', latitude:'50,717158', longitude:'7,155506'}, position: { x: 1599, y: 847 } },
+          { data: { id: 'SIAE-Z#1', label : '#1' , parent : 'SIAE-Z' , type:'port', layer:'MWPS', active:'true', latitude:'50,717158', longitude:'7,155506'}, position: { x: 1581, y: 826 } },
+          { data: { id: 'DragonWave-A#2', label : '#2' , parent : 'DragonWave-A' , type:'port', layer:'ETY', active:'true', latitude:'50,714359', longitude:'7,130437'}, position: { x: 455, y: 1178 } },
+          { data: { id: 'DragonWave-A#1', label : '#1' , parent : 'DragonWave-A' , type:'port', layer:'MWPS', active:'true', latitude:'50,714359', longitude:'7,130437'}, position: { x: 535, y: 1178 } },
+          { data: { id: 'ELVA-1-Z#2', label : '#2' , parent : 'ELVA-1-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,714359', longitude:'7,130437'}, position: { x: 455, y: 878 } },
+          { data: { id: 'ELVA-1-Z#1', label : '#1' , parent : 'ELVA-1-Z' , type:'port', layer:'MWPS', active:'true', latitude:'50,714359', longitude:'7,130437'}, position: { x: 535, y: 878 } },
+          { data: { id: 'Huawei-A#5', label : '#5' , parent : 'Huawei-A' , type:'port', layer:'ETY', active:'true', latitude:'50,714359', longitude:'7,130437'}, position: { x: 605, y: 1028 } },
+          { data: { id: 'Huawei-A#1', label : '#1' , parent : 'Huawei-A' , type:'port', layer:'MWPS', active:'true', latitude:'50,714359', longitude:'7,130437'}, position: { x: 685, y: 1028 } },
+          { data: { id: 'Nokia-Z33', label : '33' , parent : 'Nokia-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,714359', longitude:'7,130437'}, position: { x: 385, y: 1028 } },
+          { data: { id: 'Nokia-Z31', label : '31' , parent : 'Nokia-Z' , type:'port', layer:'MWPS', active:'true', latitude:'50,714359', longitude:'7,130437'}, position: { x: 305, y: 1028 } },
+          { data: { id: 'ADVA-A#1', label : '#1' , parent : 'ADVA-A' , type:'port', layer:'ETY', active:'true', latitude:'50,721914', longitude:'7,120521'}, position: { x: 124, y: 564 } },
+          { data: { id: 'ADVA-A#2', label : '#2' , parent : 'ADVA-A' , type:'port', layer:'ETY', active:'true', latitude:'50,721914', longitude:'7,120521'}, position: { x: 124, y: 507 } },
+          { data: { id: 'Ceragon-Z#1', label : '#1' , parent : 'Ceragon-Z' , type:'port', layer:'MWPS', active:'true', latitude:'50,721914', longitude:'7,120521'}, position: { x: -96, y: 556 } },
+          { data: { id: 'Ceragon-Z#2', label : '#2' , parent : 'Ceragon-Z' , type:'port', layer:'MWPS', active:'true', latitude:'50,721914', longitude:'7,120521'}, position: { x: -117, y: 538 } },
+          { data: { id: 'Ceragon-Z#4', label : '#4' , parent : 'Ceragon-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,721914', longitude:'7,120521'}, position: { x: -159, y: 547 } },
+          { data: { id: 'Ceragon-Z#5', label : '#5' , parent : 'Ceragon-Z' , type:'port', layer:'ETY', active:'true', latitude:'50,721914', longitude:'7,120521'}, position: { x: -159, y: 604 } },
+          { data: { id: 'Nokia-A13', label : '13' , parent : 'Nokia-A' , type:'port', layer:'ETY', active:'true', latitude:'50,721914', longitude:'7,120521'}, position: { x: 40, y: 801 } },
+          { data: { id: 'Nokia-A34', label : '34' , parent : 'Nokia-A' , type:'port', layer:'ETY', active:'true', latitude:'50,721914', longitude:'7,120521'}, position: { x: 28, y: 772 } },
+          { data: { id: 'Nokia-A11', label : '11' , parent : 'Nokia-A' , type:'port', layer:'ETY', active:'true', latitude:'50,721914', longitude:'7,120521'}, position: { x: -29, y: 772 } },
+          { data: { id: 'Nokia-A31', label : '31' , parent : 'Nokia-A' , type:'port', layer:'MWPS', active:'true', latitude:'50,721914', longitude:'7,120521'}, position: { x: 28, y: 829 } },
+          
+          { data: { id: 'Spirent#1', label : '#1' , parent : 'Spirent' , type:'host', layer:'ETH-TTP', active:'true', service:'service13'  }, position: { x: 707, y: -167 } },
+          { data: { id: 'Spirent#2', label : '#2' , parent : 'Spirent' , type:'host', layer:'ETH-TTP', active:'true', service:'service24'  }, position: { x: -259, y: 547 } },
+          { data: { id: 'Spirent#3', label : '#3' , parent : 'Spirent' , type:'host', layer:'ETH-TTP', active:'true', service:'service13'  }, position: { x: 1292, y: 172 } },
+          { data: { id: 'Spirent#4', label : '#4' , parent : 'Spirent' , type:'host', layer:'ETH-TTP', active:'true', service:'service24'  }, position: { x: 1490, y: 784 } },
+          { data: { id: 'Spirent#5', label : '#5' , parent : 'Spirent' , type:'host', layer:'ETH-TTP', active:'true', service:'service56'  }, position: { x: 1754, y: -47 } },
+          { data: { id: 'Spirent#6', label : '#6' , parent : 'Spirent' , type:'host', layer:'ETH-TTP', active:'true', service:'service56'  }, position: { x: 455, y: 1278 } },
+          { data: { id: 'Spirent#7', label : '#7' , parent : 'Spirent' , type:'host', layer:'ETH-TTP', active:'true', service:'service78'  }, position: { x: 895, y: 250 } },
+          { data: { id: 'Spirent#8', label : '#8' , parent : 'Spirent' , type:'host', layer:'ETH-TTP', active:'true', service:'service78'  }, position: { x: 455, y: 778 } },
+
+
+        ],
+        edges: [
+          
+          { data: { id: '21', source: 'Aviat-A#1', target: 'Aviat-Z#1', label: '21' , length: '0' , azimuthAZ: '0' , azimuthZA: '180' , layer: 'MWPS' , active: 'true' }},
+          { data: { id: '31', source: 'Ceragon-A#1', target: 'Ceragon-Z#1', label: '31' ,length: '0' , azimuthAZ: '0' , azimuthZA: '180' , layer: 'MWPS' , active: 'true' } },
+          { data: { id: '32', source: 'Ceragon-A#2', target: 'Ceragon-Z#2', label: '32' ,length: '0' , azimuthAZ: '0' , azimuthZA: '180' , layer: 'MWPS' , active: 'true' } },
+          { data: { id: '41', source: 'DragonWave-A#1', target: 'DragonWave-Z#1', label: '41' ,length: '0' , azimuthAZ: '0' , azimuthZA: '180' , layer: 'MWPS' , active: 'true' } },
+          { data: { id: '121', source: 'ELVA-1-A#1', target: 'ELVA-1-Z#1', label: '121' ,length: '0' , azimuthAZ: '0' , azimuthZA: '180' , layer: 'MWPS' , active: 'true' } },
+          { data: { id: 'ERI1', source: 'Ericsson-A#1', target: 'Ericsson-Z#1', label: 'ERI1' ,length: '0' , azimuthAZ: '0' , azimuthZA: '180' , layer: 'MWPS' , active: 'true' } },
+          { data: { id: 'ERI2', source: 'Ericsson-A#2', target: 'Ericsson-Z#2', label: 'ERI2' ,length: '0' , azimuthAZ: '0' , azimuthZA: '180' , layer: 'MWPS' , active: 'true' } },
+          { data: { id: '61', source: 'Fujitsu-A#1', target: 'Fujitsu-Z#1', label: '61' ,length: '0' , azimuthAZ: '0' , azimuthZA: '180' , layer: 'MWPS' , active: 'true' } },
+          { data: { id: '62', source: 'Fujitsu-A#2', target: 'Fujitsu-Z#2', label: '62' ,length: '0' , azimuthAZ: '0' , azimuthZA: '180' , layer: 'MWPS' , active: 'true' } },
+          { data: { id: '71', source: 'Huawei-A#1', target: 'Huawei-Z#1', label: '71' ,length: '0' , azimuthAZ: '0' , azimuthZA: '180' , layer: 'MWPS' , active: 'true' } },
+          { data: { id: '131', source: 'Intracom-A#1', target: 'Intracom-Z#1', label: '131' ,length: '0' , azimuthAZ: '0' , azimuthZA: '180' , layer: 'MWPS' , active: 'true' } },
+          { data: { id: '81', source: 'NEC-A#1', target: 'NEC-Z#1', label: '81' ,length: '0' , azimuthAZ: '0' , azimuthZA: '180' , layer: 'MWPS' , active: 'true' } },
+          { data: { id: '82', source: 'Nokia-A31', target: 'Nokia-Z31', label: '82' ,length: '0' , azimuthAZ: '0' , azimuthZA: '180' , layer: 'MWPS' , active: 'true' } },
+          { data: { id: '101', source: 'SIAE-A#1', target: 'SIAE-Z#1', label: '101' ,length: '0' , azimuthAZ: '0' , azimuthZA: '180' , layer: 'MWPS' , active: 'true' } },
+          { data: { id: '102', source: 'SIAE-A#2', target: 'SIAE-Z#2', label: '102' ,length: '0' , azimuthAZ: '0' , azimuthZA: '180' , layer: 'MWPS' , active: 'true' } },
+          { data: { id: '111', source: 'ZTE-A#1', target: 'ZTE-Z#1', label: '111' ,length: '0' , azimuthAZ: '0' , azimuthZA: '180' , layer: 'MWPS' , active: 'true' } },
+          
+          { data: { id: 'ETY01', source: 'ADVA-A#1', target: 'Nokia-A34', label: 'ADVA-A#1-Nokia-A34' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY02', source: 'ADVA-A#2', target: 'ZTE-A#4', label: 'ADVA-A#2-ZTE-A#4' , layer: 'ETY' , active: 'false' } },
+          { data: { id: 'ETY03', source: 'ADVA-B#1', target: 'Nokia-A13', label: 'ADVA-B#1-Nokia-A13' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY04', source: 'ADVA-B#2', target: 'ZTE-A#3', label: 'ADVA-B#2-ZTE-A#3' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY05', source: 'ADVA-Y#1', target: 'Huawei-Z#4', label: 'ADVA-Y#1-Huawei-Z#4' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY06', source: 'ADVA-Y#2', target: 'NEC-Z#4', label: 'ADVA-Y#2-NEC-Z#4' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY07', source: 'ADVA-Y#3', target: 'Spirent#3', label: 'ADVA-Y#3-Spirent#3' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY08', source: 'ADVA-Y#4', target: 'Ericsson-A#4', label: 'ADVA-Y#4-Ericsson-A#4' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY09', source: 'ADVA-Z#1', target: 'Huawei-Z#3', label: 'ADVA-Z#1-Huawei-Z#3' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY10', source: 'ADVA-Z#2', target: 'NEC-Z#3', label: 'ADVA-Z#2-NEC-Z#3' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY11', source: 'ADVA-Z#4', target: 'SIAE-A#4', label: 'ADVA-Z#4-SIAE-A#4' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY12', source: 'Aviat-A#5', target: 'Spirent#5', label: 'Aviat-A#5-Spirent#5' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY13', source: 'Aviat-Z#5', target: 'Fujitsu-A#5', label: 'Aviat-Z#5-Fujitsu-A#5' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY14', source: 'Ceragon-A#5', target: 'ZTE-A#5', label: 'Ceragon-A#5-ZTE-A#5' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY15', source: 'Ceragon-Z#4', target: 'Spirent#2', label: 'Ceragon-Z#4-Spirent#2' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY16', source: 'Ceragon-Z#5', target: 'Nokia-A11', label: 'Ceragon-Z#5-Nokia-A11' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY17', source: 'DragonWave-A#2', target: 'Spirent#6', label: 'DragonWave-A#2-Spirent#6' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY18', source: 'DragonWave-Z#2', target: 'Intracom-A#2', label: 'DragonWave-Z#2-Intracom-A#2' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY19', source: 'ELVA-1-A#2', target: 'Spirent#7', label: 'ELVA-1-A#2-Spirent#7' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY20', source: 'ELVA-1-Z#2', target: 'Spirent#8', label: 'ELVA-1-Z#2-Spirent#8' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY21', source: 'Ericsson-A#5', target: 'NEC-Z#2', label: 'Ericsson-A#5-NEC-Z#2' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY22', source: 'Ericsson-Z#5', target: 'SIAE-Z#5', label: 'Ericsson-Z#5-SIAE-Z#5' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY23', source: 'Fujitsu-Z#5', target: 'Intracom-Z#5', label: 'Fujitsu-Z#5-Intracom-Z#5' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY24', source: 'Huawei-A#5', target: 'Nokia-Z33', label: 'Huawei-A#5-Nokia-Z33' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY25', source: 'Huawei-Z#5', target: 'SIAE-A#5', label: 'Huawei-Z#5-SIAE-A#5' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY26', source: 'NEC-A#3', target: 'ZTE-Z#5', label: 'NEC-A#3-ZTE-Z#5' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY27', source: 'SIAE-Z#4', target: 'Spirent#4', label: 'SIAE-Z#4-Spirent#4' , layer: 'ETY' , active: 'true' } },
+          { data: { id: 'ETY28', source: 'ZTE-Z#4', target: 'Spirent#1', label: 'Spirent#1-ZTE-Z#4' , layer: 'ETY' , active: 'true' } },
+
+        ]
+      };
+      
+      var events = eventsFabric();
+
+      var result = {
+        colors: colors,
+        elements: elements,
+        styles: styles,
+        events: events
+      };
+
+      var someMethodChangingTheElements = function () {
+        // @Martin: hier kannst Du die Elements ändern, anschließend mußt Du das Ereignis veröffentlichen
+        //          das Ereigniss wird in der Directive aufgefangen und die Grig wird neu gezeichnet
+
+        // Hinweis: Die Reihenfolge muss so bleiben und du kannst NUR result.elements ändern.
+
+        events.publish("elementsChanged", {
+          elements: result.elements
+        });
+      };
+
+      return result;
+    });
+  
+    mwtnTopologyApp.directive("mwtnTopologyPhysicalPathGraph", ["mwtnTopologyPhysicalPathData", function (pathGraphData) {
+
+          return {
+            restrict: 'E',
+            replace: true,
+            template: '<div style="height:500px;width: 100%;"></div>',
+            controller: function () {
+
+            },
+            scope: {
+
+            },
+            link: function (scope, element, attrs, ctrl) {
+
+              var cy = cytoscape({
+                container: element[0],
+
+                boxSelectionEnabled: false,
+                autounselectify: true,
+
+                style: pathGraphData.styles,
+                elements: pathGraphData.elements,
+                layout: {
+                  name: 'preset',
+                  padding: 5
+                }
+              });
+
+              // @ Martin: Hier wird das Ereignis aus dem Service aboniert.
+              //           Es ist möglich mehrere Ereignisse zu definieren.
+              pathGraphData.events.subscribe("elementsChanged", function (data) {
+                
+                // @Martin: cy aktualisiert sich mit Hilfe der Referenz auf die Elemente aus dem Service
+                cy.json({
+                  elements: pathGraphData.elements // oder data.elements
+                });
+              });
+
+              // pathGraphData.events.subscribe("styleChanged", function () {
+              //   cy.json({
+              //      style: pathGraphData.styles
+              //   });
+              // });
+
+        }
+      }
+    }]);
+
+    mwtnTopologyApp.controller("mwtnTopologyNetworkElementsGridController", ['$scope', '$timeout', '$state', '$mwtnCommons', '$mwtnTopology', 'uiGridConstants', 'mwtnTopologyPhysicalPathData', function ($scope, $timeout, $state, $mwtnCommons, $mwtnTopology, uiGridConstants, mwtnTopologyPhysicalPathData) {
+     var vm = this;
+
+     // The page number to show in the grid.
+     var paginationPage = 1;
+     // The page size.
+     var paginationPageSize = 10;
+     // The grid column object with current sorting informations.
+     var sortColumn = null;
+     // The grid column object with current sorting informations.
+     var gridFilters = [];
+     // caches all sites at the current grid page
+
+      vm.gridOptions = Object.assign({}, $mwtnCommons.gridOptions, {
+        showGridFooter: false, // disable the grid footer because the pagination component sets its own.
+        paginationPageSizes: [10, 25, 50, 100],
+        paginationPageSize: paginationPageSize,
+        useExternalPagination: true,
+        useExternalFiltering: true,
+        useExternalSorting: true,
+        totalItems: 0,
+        columnDefs: [{
+            field: "id",
+            type: "string",
+            displayName: "Id"
+          },
+          {
+            field: "layer",
+            type: "string",
+            displayName: "Layer"
+          },
+          {
+            field: "active",
+            type: "string",
+            displayName: "Active"
+          },
+          {
+            field: "latitude",
+            type: "string",
+            displayName: "Latitude"
+          },
+          {
+            field: "longitude",
+            type: "string",
+            displayName: "Longitude"
+          }
+        ],
+        data: [],
+        onRegisterApi: function (gridApi) {
+          // http://ui-grid.info/docs/#/api/ui.grid.core.api:PublicApi
+          vm.gridApi = gridApi;
+
+          vm.gridApi.core.on.sortChanged($scope, function (grid, sortColumns) {
+            // Save the current sort column for later use.
+            sortColumn = (!sortColumns || sortColumns.length === 0) ?
+              null :
+              sortColumns[0];
+            loadPage();
+          });
+
+          vm.gridApi.pagination.on.paginationChanged($scope, function (newPage, newPageSize) {
+            // Save the pagination informations for later use.
+            paginationPage = newPage;
+            paginationPageSize = newPageSize;
+            loadPage();
+          });
+
+          vm.gridApi.core.on.filterChanged($scope, function () {
+            // Save the all filters for later use.
+            var filters = [];
+            this.grid.columns.forEach(function (col, ind) {
+              if (col.filters[0] && col.filters[0].term) {
+                filters.push({
+                  field: col.field,
+                  term: col.filters[0].term
+                });
+              }
+            });
+            gridFilters = filters;
+            loadPage();
+          });
+
+          loadPage();
+        }
+      });
+
+      /**
+       * Calculates the page content of the grid and sets the values to the gridOprions.data object.
+       */
+      function loadPage() {
+
+        // extract all ports        
+        var ports = mwtnTopologyPhysicalPathData.elements.nodes.filter(function (node, ind, arr) {
+          return node && node.data && node.data.type === 'port';
+        }).reduce(function (acc, cur, ind, arr) {
+          if (cur.data) acc[cur.data.id] = cur.data;
+          return acc;
+        }, {});
+        
+        // get all port ids
+        var portIds = Object.keys(ports);
+
+        // apply the grid filters
+        var tempData = portIds.filter(function (portId, ind, arr) {
+          var port = ports[portId];
+          return gridFilters.map(function (filter) {
+            switch (filter.field) {
+              case "active":
+                return port[filter.field].toString().contains(filter.term);
+              default:
+                return port[filter.field].contains(filter.term);
+            }
+          }).and(true);
+        }).map(function (portId) {
+          var port = ports[portId];
+          var orderBy;
+
+          if (!sortColumn || !sortColumn.sort.direction) {
+            return {
+              id: port.id
+            }
+          }
+
+          switch (sortColumn.field) {
+            case "active":
+               orderBy = port[sortColumn.field] ? 1 : 0;
+               break;
+            default:
+              orderBy = port[sortColumn.field];
+              break;
+          }
+
+          return {
+            id: port.id,
+            orderBy: orderBy
+          };
+        });
+
+        if (sortColumn && sortColumn.sort.direction) {
+          tempData.sort(function (left, right) {
+            if (left === right || left.orderBy === right.orderBy) {
+              return 0;
+            }
+            if (left.orderBy > right.orderBy) {
+              return (sortColumn.sort.direction === uiGridConstants.ASC) ? 1 : -1;
+            }
+            return (sortColumn.sort.direction === uiGridConstants.ASC) ? -1 : 1;
+          });
+        }
+
+        var maxPageNumber = Math.max(1, Math.ceil(tempData.length / paginationPageSize));
+        var currentPage = Math.min(maxPageNumber, paginationPage);
+        var orderedPortsAtCurrentPage = tempData.slice((currentPage - 1) * paginationPageSize, currentPage * paginationPageSize);
+
+        portsAtCurrentPageCache = {};
+        var orderedData = [];
+
+        orderedPortsAtCurrentPage.forEach(function (orderedPort) {
+          var port = ports[orderedPort.id];
+          portsAtCurrentPageCache[port.id] = port;
+          orderedData.push({
+            id: orderedPort.id,
+            layer: port.layer,
+            active: port.active,
+            latitude: port.latitude.toLocaleString("en-US", {
+              minimumFractionDigits: 4
+            }),
+            longitude: port.longitude.toLocaleString("en-US", {
+              minimumFractionDigits: 4
+            })
+          });
+        });
+
+        $timeout(function () {
+          vm.gridOptions.data = orderedData;
+          vm.gridOptions.totalItems = tempData.length;
+        });
+      }
+
+      // subscribe to the elementsChanged event to reload the grid page if the data in the service has chenged      
+      mwtnTopologyPhysicalPathData.events.subscribe("elementsChanged", function (data){
+        loadPage();
+      });
+
+    }]);
+  
+    mwtnTopologyApp.directive("mwtnTopologyNetworkElementsGrid", [ function () {
+      return {
+        restrict: 'E',
+        replace: false,
+        controller: 'mwtnTopologyNetworkElementsGridController',
+        controllerAs: 'vm',
+        scope: {
+         
+        },
+        templateUrl: 'src/app/mwtnTopology/templates/networkElementsGrid.tpl.html'
+      };
+    }]);
+  
+    mwtnTopologyApp.controller("mwtnTopologyLinksGridController", ['$scope', '$timeout', '$state', '$mwtnCommons', '$mwtnTopology', 'uiGridConstants', 'mwtnTopologyPhysicalPathData', function ($scope, $timeout, $state, $mwtnCommons, $mwtnTopology, uiGridConstants, mwtnTopologyPhysicalPathData) {
+      var vm = this;
+
+      // The page number to show in the grid.
+      var paginationPage = 1;
+      // The page size.
+      var paginationPageSize = 10;
+      // The grid column object with current sorting informations.
+      var sortColumn = null;
+      // The grid column object with current sorting informations.
+      var gridFilters = [];
+      // caches all sites at the current grid page
+
+      vm.gridOptions = Object.assign({}, $mwtnCommons.gridOptions, {
+        showGridFooter: false, // disable the grid footer because the pagination component sets its own.
+        paginationPageSizes: [10, 25, 50, 100],
+        paginationPageSize: paginationPageSize,
+        useExternalPagination: true,
+        useExternalFiltering: true,
+        useExternalSorting: true,
+        totalItems: 0,
+        columnDefs: [{
+          field: "id",
+          type: "string",
+          displayName: "Id"
+        },
+        {
+          field: "source",
+           type: "string",
+           displayName: "PortA"
+        },
+        {
+          field: "target",
+          type: "string",
+          displayName: "PortZ"
+        },
+        {
+          field: "layer",
+          type: "string",
+          displayName: "Layer"
+        },
+        {
+          field: "length",
+          type: "string",
+          displayName: "Length"
+        },
+        {
+          field: "azimuthAZ",
+          type: "string",
+          displayName: "azimuthAZ"
+        },
+        {
+          field: "azimuthZA",
+          type: "string",
+          displayName: "azimuthZA"
+        }
+        ],
+        data: [],
+        onRegisterApi: function (gridApi) {
+          // http://ui-grid.info/docs/#/api/ui.grid.core.api:PublicApi
+          vm.gridApi = gridApi;
+
+          vm.gridApi.core.on.sortChanged($scope, function (grid, sortColumns) {
+            // Save the current sort column for later use.
+            sortColumn = (!sortColumns || sortColumns.length === 0) ?
+              null :
+              sortColumns[0];
+            loadPage();
+          });
+
+          vm.gridApi.pagination.on.paginationChanged($scope, function (newPage, newPageSize) {
+            // Save the pagination informations for later use.
+            paginationPage = newPage;
+            paginationPageSize = newPageSize;
+            loadPage();
+          });
+
+          vm.gridApi.core.on.filterChanged($scope, function () {
+            // Save the all filters for later use.
+            var filters = [];
+            this.grid.columns.forEach(function (col, ind) {
+              if (col.filters[0] && col.filters[0].term) {
+                filters.push({
+                  field: col.field,
+                  term: col.filters[0].term
+                });
+              }
+            });
+            gridFilters = filters;
+            loadPage();
+          });
+
+          loadPage();
+        }
+      });
+
+      /**
+       * Calculates the page content of the grid and sets the values to the gridOprions.data object.
+       */
+      function loadPage() {
+        // extract all ports        
+        var ports = mwtnTopologyPhysicalPathData.elements.nodes.filter(function (node, ind, arr) {
+          return node && node.data && node.data.type === 'port';
+        }).reduce(function (acc, cur, ind, arr) {
+          if (cur.data) acc[cur.data.id] = cur.data;
+          return acc;
+          }, {});
+        
+        // extract all links        
+        var links = mwtnTopologyPhysicalPathData.elements.edges.filter(function (node, ind, arr) {
+          return true; // node && node.data && node.data.type === 'port';
+        }).reduce(function (acc, cur, ind, arr) {
+          if (cur.data) {
+            acc[cur.data.id] = cur.data;
+            if (cur.data.layer === 'MWPS') {
+              var portA = ports[cur.data.source];
+              var portZ = ports[cur.data.target];
+            }  
+            acc[cur.data.id].length = $mwtnTopology
+          }
+          return acc;
+        }, {});
+
+        // get all link ids
+        var linkIds = Object.keys(links);
+
+        // apply the grid filters
+        var tempData = linkIds.filter(function (linkId, ind, arr) {
+          var link = links[linkId];
+          return gridFilters.map(function (filter) {
+            switch (filter.field) {
+              case "length":
+              case "azimuthAZ":
+              case "azimuthZA":
+                return true;  
+              default:
+                return link[filter.field].contains(filter.term);
+            }
+          }).and(true);
+        }).map(function (linkId) {
+          var link = links[linkId];
+          var orderBy;
+
+          if (!sortColumn || !sortColumn.sort.direction) {
+            return {
+              id: link.id
+            }
+          }
+
+          switch (sortColumn.field) {
+            case "length":
+            case "azimuthAZ":
+            case "azimuthZA":
+             
+              break;
+            default:
+              orderBy = link[sortColumn.field];
+              break;
+          }
+
+          return {
+            id: link.id,
+            orderBy: orderBy
+          };
+        });
+
+        if (sortColumn && sortColumn.sort.direction) {
+          tempData.sort(function (left, right) {
+            if (left === right || left.orderBy === right.orderBy) {
+              return 0;
+            }
+            if (left.orderBy > right.orderBy) {
+              return (sortColumn.sort.direction === uiGridConstants.ASC) ? 1 : -1;
+            }
+            return (sortColumn.sort.direction === uiGridConstants.ASC) ? -1 : 1;
+          });
+        }
+
+        var maxPageNumber = Math.max(1, Math.ceil(tempData.length / paginationPageSize));
+        var currentPage = Math.min(maxPageNumber, paginationPage);
+        var orderedLinksAtCurrentPage = tempData.slice((currentPage - 1) * paginationPageSize, currentPage * paginationPageSize);
+
+        linksAtCurrentPageCache = {};
+        var orderedData = [];
+
+        orderedLinksAtCurrentPage.forEach(function (orderedLink) {
+          var link = links[orderedLink.id];
+          linksAtCurrentPageCache[link.id] = link;
+          orderedData.push({
+            id: orderedLink.id,
+            source: link.source,
+            target: link.target,
+            layer: link.layer,
+            length: 0,
+            azimuthAZ: 0,
+            azimuthZA: 0
+          });
+        });
+
+        $timeout(function () {
+          vm.gridOptions.data = orderedData;
+          vm.gridOptions.totalItems = tempData.length;
+        });
+      }
+
+      // subscribe to the elementsChanged event to reload the grid page if the data in the service has chenged      
+      var subscription = mwtnTopologyPhysicalPathData.events.subscribe("elementsChanged", function (data) {
+        loadPage();
+        // to unsubscribe call subscription.remove();
+      });
+
+    }]);
+
+    mwtnTopologyApp.directive("mwtnTopologyLinksGrid", [function () {
+      return {
+        restrict: 'E',
+        replace: false,
+        controller: 'mwtnTopologyLinksGridController',
+        controllerAs: 'vm',
+        scope: {
+
+        },
+        templateUrl: 'src/app/mwtnTopology/templates/linksGrid.tpl.html'
+      };
+    }]);
+  /********************************************* Ethernet *************************/
+
+    mwtnTopologyApp.controller('mwtnTopologyEthernetViewController', ['$scope', '$q', '$timeout', '$state', '$mwtnTopology', function ($scope, $q, $timeout, $state, $mwtnTopology) {
+      var vm = this;
+      vm.status = {
+          topologyIsOpen: false,
+          portsOpen: false,
+          ethConnectionsIsOpen: false
+      }
+
+
+    }]);
+
+    mwtnTopologyApp.directive('mwtnTopologyEthernetView', function () {
+      return {
+          restrict: 'E',
+          controller: 'mwtnTopologyEthernetViewController',
+          controllerAs: 'vm',
+          bindToController: true,
+          templateUrl: 'src/app/mwtnTopology/templates/ethernetView.tpl.html',
+          scope: {
+           
+          }
+        };
+    });
+
+  /********************************************* IEEE 1588v2 (PTP) *************************/
+
+  mwtnTopologyApp.controller('mwtnTopologyIeee1588ViewController', ['$scope', '$q', '$timeout', '$state', '$mwtnTopology', function ($scope, $q, $timeout, $state, $mwtnTopology) {
+    var vm = this;
+    vm.status = {
+      topologyIsOpen: false,
+      portsOpen: false,
+      ethConnectionsIsOpen: false
+    }
+
+
+  }]);
+
+  mwtnTopologyApp.directive('mwtnTopologyIeee1588View', function () {
+    return {
+      restrict: 'E',
+      controller: 'mwtnTopologyIeee1588ViewController',
+      controllerAs: 'vm',
+      bindToController: true,
+      templateUrl: 'src/app/mwtnTopology/templates/ieee1588View.tpl.html',
+      scope: {
+
+      }
+    };
+  });
+  
   /**
    * The following controller isnt used anymore.
    * It may contain useful functions for later use.
