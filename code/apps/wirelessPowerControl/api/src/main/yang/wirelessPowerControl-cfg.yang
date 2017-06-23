@@ -1,0 +1,15 @@
+module wirelessPowerControl-cfg {
+    yang-version 1;
+    namespace "urn:opendaylight:params:xml:ns:yang:wirelessPowerControl:cfg";
+    prefix "cfginst";
+
+    organization "";
+    contact "Lukas Beles <lbeles@frinx.io>";
+
+    description
+        "This module contains the base YANG definitions for Power Control service.";
+
+    revision "2016-09-19" {
+        description "Initial revision";
+    }
+}
