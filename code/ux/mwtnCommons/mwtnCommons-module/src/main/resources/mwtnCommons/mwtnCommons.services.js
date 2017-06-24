@@ -3495,7 +3495,33 @@ define(
             }
           }
           return result;
-        }
+        };
+        this.getParent = function(hex) {
+          var parentDs = this.getData()['parent-ds'];
+          var key = 'parent-port-identity';
+          var result = '';
+          if (parentDs && parentDs[key] && parentDs[key]['clock-identity'] && parentDs[key]['port-number']) {
+            result = parentDs[key]['clock-identity'];
+            if (hex) {
+              result = result.base64ToHex();
+            }
+            result = [result, parentDs[key]['port-number']].join('#');
+          }
+          return result;
+        };
+        this.getGrandMaster = function(hex) {
+          var parentDs = this.getData()['parent-ds'];
+          // console.warn(JSON.stringify(parentDs));
+          var key = 'parent-port-identity';
+          var result = '';
+          if (parentDs && parentDs['grandmaster-identity']) {
+            result = parentDs['grandmaster-identity'];
+            if (hex) {
+              result = result.base64ToHex();
+            }
+          }
+          return result;
+        };
         this.getPtpPorts = function () {
           return this.ptpPorts;
         };
@@ -3505,8 +3531,27 @@ define(
 
     mwtnCommonsApp.register.factory('PtpPort', function () {
       var PtpPort = function (data) {
+        this.data = data;
         this.getData = function () {
           return this.data;
+        };
+        this.getId = function() {
+          return this.getData()['port-number'];
+        };
+        this.getNumber = function() {
+          return this.getData()['port-number'];
+        };
+        this.getState = function() {
+          return this.getData()['port-state'];
+        };
+        this.isSlave = function() {
+          return this.getData()['port-state'] === 'SLAVE';
+        };
+        this.isMaster = function() {
+          return this.getData()['port-state'] === 'MASTER';
+        };
+        this.getLogicalTerminationPointReference = function() {
+          return this.getData()['onf-ptp-dataset:logical-termination-point'];
         };
       };
       return PtpPort;

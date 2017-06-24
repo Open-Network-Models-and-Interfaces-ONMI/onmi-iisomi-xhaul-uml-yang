@@ -658,7 +658,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
       Object.assign(newParameters, tabParameters[newName] || {}, { tab: newName, internal: false });
 
       $state.go('main.mwtnTopology', newParameters, { notify: false });
-     console.log("activeTab: ", newName);
+      console.log("activeTab: ", newName);
     });
 
     $scope.$watch(function () { return $state.params.tab; }, function (newVal, oldVal, scope) {
@@ -1982,7 +1982,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
         'text-halign': 'center',
         'background-color': '#eeeeee',
         'color': '#444444',
-        'border-color':'#888888'
+        'border-color': '#888888'
       }
     },
     {
@@ -2335,7 +2335,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
         };
 
         var setDevicesActive = function (nodeIds) {
-          console.warn(nodeIds);
+          // console.warn(nodeIds);
           cy.nodes().filter(function (node) {
             node.data('active', 'false');
             return node.data('type') === 'device' && nodeIds.contains(node.data('id'));
@@ -2366,20 +2366,26 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           });
         };
 
+        var init = function () {
+          $mwtnCommons.getMountPoints().then(function (mountpoints) {
+            var filtered = filterActiveMountPoints(mountpoints);
+            setDevicesActive(filtered);
+            setPortAndEdgedActive();
+          }, function (error) {
+            setAllDevicesInactive();
+            setPortAndEdgedActive();
+          });
+        };
+        init();
+
         cy.on('tap', function (event) {
           if (event.target !== cy) {
             console.info('click', JSON.stringify(event.target.data()));
+          } else {
+            init();
           }
         });
 
-        $mwtnCommons.getMountPoints().then(function (mountpoints) {
-          var filtered = filterActiveMountPoints(mountpoints);
-          setDevicesActive(filtered);
-          setPortAndEdgedActive();
-        }, function (error) {
-          setAllDevicesInactive();
-          setPortAndEdgedActive();
-        });
       }
     }
   }]);
@@ -3752,56 +3758,8 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           'content': 'data(label)',
           'text-valign': 'center',
           'text-halign': 'center',
-          'background-color': '#666666',
+          'background-color': '#aaaaaa',
           'border-color': '#000000',
-          'border-width': '1px',
-          'color': '#ffffff'
-        }
-      },
-      {
-        selector: 'node[layer = "MWPS"]',
-        css: {
-          'content': 'data(label)',
-          'text-valign': 'center',
-          'text-halign': 'center',
-          'background-color': '#316ac5',
-          'border-color': '#000000',
-          'border-width': '1px',
-          'color': '#ffffff'
-        }
-      },
-      {
-        selector: 'node[layer = "ETC"]',
-        css: {
-          'content': 'data(label)',
-          'text-valign': 'center',
-          'text-halign': 'center',
-          'background-color': '#008800',
-          'border-color': '#004400',
-          'border-width': '1px',
-          'color': '#ffffff'
-        }
-      },
-      {
-        selector: 'node[layer = "ETH-TTP"]',
-        css: {
-          'content': 'data(label)',
-          'text-valign': 'center',
-          'text-halign': 'center',
-          'background-color': '#008800',
-          'border-color': '#004400',
-          'border-width': '1px',
-          'color': '#ffffff'
-        }
-      },
-      {
-        selector: 'node[layer = "PTP"]',
-        css: {
-          'content': 'data(label)',
-          'text-valign': 'center',
-          'text-halign': 'center',
-          'background-color': '#888888',
-          'border-color': '#880088',
           'border-width': '1px',
           'color': '#ffffff'
         }
@@ -3822,54 +3780,61 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
         }
       },
       {
-        selector: '$node > node > node',
+        selector: 'node[type = "site"]',
         css: {
           'shape': 'roundrectangle',
           'padding-top': '10px',
           'padding-left': '10px',
           'padding-bottom': '10px',
           'padding-right': '10px',
-          'text-valign': 'top',
+          'text-valign': 'center',
           'text-halign': 'center',
           'background-color': '#fefefe',
           'color': '#444444',
-          'border-color': '#888888'
-        }
-      },
-      {
-        selector: 'node[type = "device"]',
-        css: {
-          'background-color': '#eeeeee',
           'border-color': '#888888',
-          'border-width': '1px',
+          'font-weight': 'bold'
+        }
+      },
+      {
+        selector: 'node[type = "ptp-clock"][active = "true"]',
+        css: {
+          'background-color': '#316ac5',
+          'background-opacity': '0.2',
+          'border-color': '#316ac5',
+          'border-opacity': '0.8',
+          'border-width': '2px',
           'color': '#444444'
         }
       },
       {
-        selector: 'node[type = "ptp-clock"]',
+        selector: 'node[type = "port"][active = "true"]',
         css: {
-          'background-color': '#eeeeee',
-          'border-color': '#880088',
-          'border-width': '1px',
-          'color': '#444444'
-        }
-      },
-      {
-        selector: 'node[path = "true"]',
-        css: {
-          'background-color': '#ff00ff'
-        }
-      },
-      {
-        selector: '$node > node[path = "true"]',
-        css: {
-          'background-color': '#ffaaff'
+          'background-opacity': '1.0',
         }
       },
       {
         selector: 'node[active = "false"]',
         css: {
-          'opacity': '0.3'
+          'background-opacity': '0.3',
+          'border-opacity': '0.5'
+        }
+      },
+      {
+        selector: 'node[path = "true"]',
+        css: {
+          'background-color': '#ff00ff',
+          'background-opacity': '0.9',
+          'border-color': '#880088',
+        }
+      },
+      {
+        selector: '$node > node[path = "true"]',
+        css: {
+          'background-color': '#ff00ff',
+          'background-opacity': '0.3',
+          'border-color': '#ff00ff',
+          'border-opacity': '1.0',
+          'border-width': '2px',
         }
       },
       {
@@ -3878,17 +3843,21 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           'content': 'data(id)',
           'target-arrow-shape': 'triangle',
           'line-color': '#666666',
-          'color': '#000000'
+          'color': '#444444'
         }
       },
       {
-        selector: 'edge[layer = "PTP"]',
+        selector: 'edge[active = "false"]',
         css: {
-          'content': 'data(id)',
-          'target-arrow-shape': 'triangle',
-          'width': '5px',
-          'line-color': '#888888',
-          'color': '#000000'
+          'line-color': '#cccccc',
+          'text-opacity': '0.9'
+        }
+      },
+      {
+        selector: 'edge[path = "true"]',
+        css: {
+          'line-color': '#ff00ff',
+          'width': '5px'
         }
       },
       {
@@ -3899,20 +3868,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           'target-arrow-color': 'black',
           'source-arrow-color': 'black'
         }
-      },
-      {
-        selector: 'edge[path = "true"]',
-        css: {
-          'line-color': '#ff00ff'
-        }
-      },
-      {
-        selector: 'edge[active = "false"]',
-        css: {
-          'opacity': '0.3'
-        }
-      }
-    ];
+      }];
 
     var elements = {
       nodes: [
@@ -4027,7 +3983,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
     return result;
   });
 
-  mwtnTopologyApp.directive("mwtnTopologyIeee1588PathGraph", ["mwtnTopologyIeee1588PathData", function (mwtnTopologyIeee1588PathData) {
+  mwtnTopologyApp.directive("mwtnTopologyIeee1588PathGraph", ["mwtnTopologyIeee1588PathData", "$mwtnPtp", function (mwtnTopologyIeee1588PathData, $mwtnPtp) {
 
     return {
       restrict: 'E',
@@ -4087,6 +4043,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           var selector = "[id = '" + id + "']";
           cy.nodes(selector).map(function (node) {
             if (node.data('parentDs') && node.data('parentDs') != '') {
+              // console.warn('parentDs', node.data('parentDs'));
               var parentNode = node.data('parentDs').slice(0, -2);
               if (parentNode !== id) {
                 highlightPtpMaster(parentNode);
@@ -4102,14 +4059,109 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
               }
             }
           });
-        }
+        };
+
+        // var setDevicesActive = function (nodeIds) {
+        //   // console.warn(nodeIds);
+        //   cy.nodes().filter(function (node) {
+        //     node.data('active', 'false');
+        //     return node.data('type') === 'ptp-clock' && nodeIds.contains(node.data('id'));
+        //   }).map(function (node) {
+        //     node.data('active', 'true');
+        //   });
+        // };
+
+        var setAllDevicesInactive = function () {
+          cy.nodes().map(function (node) {
+            node.data('active', 'false');
+          });
+        };
+
+        var setPortAndEdgedActive = function () {
+          cy.edges().map(function (edge) {
+            var active = 'true';
+            edge.connectedNodes().map(function (port) {
+              // console.log('  node', JSON.stringify(edge.data()));
+              var parent = cy.getElementById(port.data('parent'));
+              if (parent.data('active') === 'false') {
+                port.data('active', 'false');
+                edge.data('active', 'false');
+              } else {
+                port.data('active', 'true');
+              }
+            });
+          });
+        };
+
+        var nodeId = function(base64) {
+          if (base64 === undefined || base64 === '') return '';
+
+          var selector = "[type = 'ptp-clock']";
+          var result = cy.nodes(selector).filter(function (graphClock) {
+            // console.error(base64, graphClock.data('base64'), graphClock.data('base64') === base64);
+            return graphClock.data('base64') === base64;
+          });
+          if (result.length === 0) {
+            console.warn('Clock', base64, 'not found!');
+            return '';
+          } else {
+            return result[0].id();
+          }
+        };
+
+        var init = function () {
+          setAllDevicesInactive();
+          $mwtnPtp.getPtpClocks().then(function (clocks) {
+            // setDevicesActive(Object.keys(clocks));
+            var hex = true;
+            // update clock ids first
+            Object.keys(clocks).map(function(key){
+              var clock = clocks[key];
+              var graphClock = cy.getElementById(key);
+              graphClock.data('active', 'true')
+              graphClock.data('base64', clock.getIdentity());
+              graphClock.data('hex', clock.getIdentity(hex));
+            });
+            // update rest
+            Object.keys(clocks).map(function(key){
+              var clock = clocks[key];
+              var graphClock = cy.getElementById(key);
+              var graphParentDs = nodeId(clock.getParent().slice(0, -2));
+              graphClock.data('parentDs', graphParentDs + clock.getParent().slice(-2));
+              graphClock.data('grandMaster', nodeId(clock.getGrandMaster()));
+
+              // clock.getPtpPorts().map(function(port){
+              //   // console.warn(port.getId(), port.getNumber(), port.getState(), port.isSlave(), port.isMaster(), port.getLogicalTerminationPointReference());
+              //   var portKey = [key, port.getNumber() < 10 ? '#' : '', port.getNumber()].join('');
+              //   var graphPort = cy.getElementById(portKey);
+              //   // console.warn(JSON.stringify(graphPort.data()));
+              //   if (graphPort === undefined) {
+              //     console.error('PtpPort not found in graph:' , portKey);
+              //   } else {
+              //     console.info('PtpPort found in graph:' , portKey);
+              //   }
+
+              // });
+            });
+            setPortAndEdgedActive();
+          }, function (error) {
+            setPortAndEdgedActive();
+            console.error(JSON.stringify(error));
+          });
+        };
+        init();
 
         cy.on('tap', function (event) {
           clearPtpPath();
           if (event.target !== cy) {
             if (event.target.data('type') === 'ptp-clock') {
               highlightPtpMaster(event.target.id());
+            } else if (event.target.data('type') === 'port') {
+              var parent = cy.getElementById(event.target.data('parent'));
+              highlightPtpMaster(parent.id());
             }
+          } else {
+            init();
           }
         });
 
@@ -4141,26 +4193,37 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
       columnDefs: [{
         field: "id",
         type: "string",
-        displayName: "Id"
+        displayName: "Node id",
+        width : 120
       },
       {
         field: "hex",
         type: "string",
-        displayName: "Hex"
+        displayName: "Clock identity in hex",
+        width : 300
       }, {
         field: "base64",
         type: "string",
-        displayName: "base64"
-      },
-      {
-        field: "active",
-        type: "string",
-        displayName: "Active"
+        displayName: "... in base64",
+        width : 150
       },
       {
         field: "parentDs",
         type: "string",
-        displayName: "parentDs"
+        displayName: "parentDs",
+        width : 150
+      },
+      {
+        field: "grandMaster",
+        type: "string",
+        displayName: "grandMaster",
+        width : 300
+      },
+      {
+        field: "active",
+        type: "string",
+        displayName: "Active",
+        width : 80
       }
       ],
       data: [],
@@ -4274,7 +4337,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
       var orderedData = [];
 
       orderedPortsAtCurrentPage.forEach(function (orderedPort) {
-        var port = ports[orderedPort.id];
+        var port = ports[orderedPort.id]; // TODO [sko] varible port should be renamed to clock
         portsAtCurrentPageCache[port.id] = port;
         orderedData.push({
           id: orderedPort.id,
@@ -4282,7 +4345,8 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           active: port.active,
           hex: port.hex,
           base64: port.base64,
-          parentDs: port.parentDs
+          parentDs: port.parentDs,
+          grandMaster: port.grandMaster
         });
       });
 
