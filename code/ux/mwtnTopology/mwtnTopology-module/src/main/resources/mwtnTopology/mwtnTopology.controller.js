@@ -2867,99 +2867,96 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
     };
 
     var styles = [
-      {
-        selector: 'node',
-        css: {
-          'content': 'data(label)',
-          'text-valign': 'center',
-          'text-halign': 'center',
-          'background-color': '#666666',
-          'border-color': '#000000',
-          'border-width': '1px',
-          'color': '#ffffff'
-        }
-      },
-      {
-        selector: 'node[layer = "MWPS"]',
-        css: {
-          'content': 'data(label)',
-          'text-valign': 'center',
-          'text-halign': 'center',
-          'background-color': '#316ac5',
-          'border-color': '#000000',
-          'border-width': '1px',
-          'color': '#ffffff'
-        }
-      },
-      {
-        selector: 'node[layer = "ETC"]',
-        css: {
-          'content': 'data(label)',
-          'text-valign': 'center',
-          'text-halign': 'center',
-          'background-color': '#008800',
-          'border-color': '#004400',
-          'border-width': '1px',
-          'color': '#ffffff'
-        }
-      },
-      {
-        selector: 'node[layer = "ETH-TTP"]',
-        css: {
-          'content': 'data(label)',
-          'text-valign': 'center',
-          'text-halign': 'center',
-          'background-color': '#008800',
-          'border-color': '#004400',
-          'border-width': '1px',
-          'color': '#ffffff'
-        }
-      },
-      {
-        selector: '$node > node',
-        css: {
-          'shape': 'roundrectangle',
-          'padding-top': '10px',
-          'padding-left': '10px',
-          'padding-bottom': '10px',
-          'padding-right': '10px',
-          'text-valign': 'top',
-          'text-halign': 'center',
-          'background-color': '#eeeeee',
-          'color': '#444444',
-          'border-color': '#888888'
-        }
-      },
-      {
-        selector: '$node > node > node',
-        css: {
-          'shape': 'roundrectangle',
-          'padding-top': '10px',
-          'padding-left': '10px',
-          'padding-bottom': '10px',
-          'padding-right': '10px',
-          'text-valign': 'top',
-          'text-halign': 'center',
-          'background-color': '#fefefe',
-          'color': '#444444',
-          'border-color': '#888888'
-        }
-      },
-      {
-        selector: 'node[type = "device"]',
-        css: {
-          'background-color': '#eeeeee',
-          'border-color': '#888888',
-          'border-width': '1px',
-          'color': '#444444'
-        }
-      },
-      {
-        selector: 'node[active = "false"]',
-        css: {
-          'opacity': '0.3'
-        }
-      },
+    {
+      selector: 'node',
+      css: {
+        'content': 'data(label)',
+        'text-valign': 'center',
+        'text-halign': 'center',
+        'background-color': '#666666',
+        'border-color':'#000000',
+        'border-width':'1px',
+        'color': '#ffffff'
+     }
+    },
+    {
+      selector: 'node[layer = "MWPS"]',
+      css: {
+        'content': 'data(label)',
+        'text-valign': 'center',
+        'text-halign': 'center',
+        'background-color': '#316ac5',
+        'border-color':'#000000',
+        'border-width':'1px',
+        'color': '#ffffff'
+     }
+    },
+    {
+      selector: 'node[layer = "ETH-TTP"]',
+      css: {
+        'content': 'data(label)',
+        'text-valign': 'center',
+        'text-halign': 'center',
+        'background-color': '#008800',
+        'border-color':'#004400',
+        'border-width':'1px',
+        'color': '#ffffff'
+     }
+    },
+    {
+      selector: '$node > node',
+      css: {
+        'shape': 'roundrectangle',
+        'padding-top': '10px',
+        'padding-left': '10px',
+        'padding-bottom': '10px',
+        'padding-right': '10px',
+        'text-valign': 'top',
+        'text-halign': 'center',
+        'background-color': '#eeeeee',
+        'color': '#444444',
+        'border-color':'#888888'
+      }
+    },
+    {
+      selector: 'node[type = "site"]',
+      css: {
+        'shape': 'roundrectangle',
+        'padding-top': '10px',
+        'padding-left': '10px',
+        'padding-bottom': '10px',
+        'padding-right': '10px',
+        'text-valign': 'center',
+        'text-halign': 'center',
+        'background-color': '#fefefe',
+        'color': '#444444',
+        'border-color': '#888888',
+        'font-weight':'bold'
+      }
+    },
+    {
+      selector: 'node[type = "device"][active = "true"]',
+      css: {
+        'background-color': '#316ac5',
+        'background-opacity': '0.3',
+        'border-color':'#316ac5',
+        'border-width':'2px',
+        'color': '#444444'
+     }
+    },
+    {
+      selector: 'node[type = "port"][active = "true"]',
+      css: {
+        'background-opacity': '1.0',
+     }
+    },
+     {
+      selector: 'node[active = "false"]',
+      css: {
+        'background-opacity': '0.3',
+        'border-opacity': '0.5'
+     }
+    },
       {
         selector: 'node[path = "true"]',
         css: {
@@ -2970,34 +2967,40 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
         }
       },
       {
-        selector: 'edge',
+        selector: '$node > node[path = "true"]',
         css: {
-          'content': 'data(id)',
-          'target-arrow-shape': 'triangle',
-          'line-color': '#666666',
-          'color': '#000000'
+          'background-color': '#FFA500',
+          'border-color': '#FFA500',
+          'border-width': '1px',
+          'color': '#444444'
         }
       },
-      {
-        selector: 'edge[layer = "MWPS"]',
-        css: {
-          'content': 'data(id)',
-          'target-arrow-shape': 'triangle',
-          'width': '5px',
-          'line-color': '#316ac5',
-          'color': '#000000'
-        }
-      },
-      {
-        selector: 'edge[layer = "ETC"]',
-        css: {
-          'content': 'data(id)',
-          'target-arrow-shape': 'triangle',
-          'width': '5px',
-          'line-color': '#008800',
-          'color': '#000000'
-        }
-      },
+    {
+      selector: 'edge',
+      css: {
+        'content': 'data(id)',
+        'target-arrow-shape': 'triangle',
+        'line-color': '#666666',
+        'color': '#444444'
+      }
+    },
+    {
+      selector: 'edge[active = "false"]',
+      css: {
+        'line-color': '#cccccc',
+        'text-opacity': '0.9'
+      }
+    },
+    {
+      selector: 'edge[layer = "ETC"]',
+      css: {
+        'content': 'data(id)',
+        'target-arrow-shape': 'triangle',
+        'width': '5px',
+        'line-color': '#316ac5',
+        'color': '#444444'
+      }
+    },
       {
         selector: 'edge[layer = "ETH"]',
         css: {
@@ -3007,18 +3010,16 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           'line-color': '#FFA500',
           'color': '#000000'
         }
-      },
+      },    {
+      selector: 'edge[layer = "ETC"][active = "false"]',
+      css: {
+        'line-color': '#C0D1EC',
+        'text-opacity': '0.9'
+     }
+    },
+
       {
-        selector: ':selected',
-        css: {
-          'background-color': 'black',
-          'line-color': 'black',
-          'target-arrow-color': 'black',
-          'source-arrow-color': 'black'
-        }
-      },
-      {
-        selector: 'edge[path = "false"][layer = "ETH"]',
+        selector: 'edge[layer = "ETH"][path = "false"]',
         css: {
           'opacity': '0.0'
         }
@@ -3030,13 +3031,17 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           'opacity': '1.0'
         }
       },
-      {
-        selector: 'edge[active = "false"]',
-        css: {
-          'opacity': '0.3'
-        }
+ 
+     {
+      selector: ':selected',
+      css: {
+        'background-color': 'black',
+        'line-color': 'black',
+        'target-arrow-color': 'black',
+        'source-arrow-color': 'black'
       }
-    ];
+    }
+      ];
 
     var elements = {
       nodes: [
@@ -3252,7 +3257,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
     return result;
   });
 
-  mwtnTopologyApp.directive("mwtnTopologyEthernetPathGraph", ["mwtnTopologyEthernetPathData", function (mwtnTopologyEthernetPathData) {
+  mwtnTopologyApp.directive("mwtnTopologyEthernetPathGraph", ["mwtnTopologyEthernetPathData", '$mwtnCommons', function (mwtnTopologyEthernetPathData, $mwtnCommons) {
 
     return {
       restrict: 'E',
@@ -3326,12 +3331,73 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           });
         };
 
+        var filterActiveMountPoints = function (mountpoints) {
+          return mountpoints.filter(function (mountpoint) {
+            if (!mountpoint) return false;
+            // console.warn(mountpoint['node-id'], mountpoint['netconf-node-topology:connection-status']);
+            return mountpoint['netconf-node-topology:connection-status'] === 'connected';
+          }).map(function (mountpoint) {
+            return mountpoint['node-id'];
+          });
+        };
+
+        var setDevicesActive = function (nodeIds) {
+          // console.warn(nodeIds);
+          cy.nodes().filter(function (node) {
+            node.data('active', 'false');
+            return node.data('type') === 'device' && nodeIds.contains(node.data('id'));
+          }).map(function (node) {
+            node.data('active', 'true');
+          });
+        };
+
+        var setAllDevicesInactive = function () {
+          cy.nodes().map(function (node) {
+            node.data('active', 'false');
+          });
+        };
+
+        var setPortAndEdgedActive = function () {
+          cy.edges().map(function (edge) {
+            var active = 'true';
+            edge.connectedNodes().map(function (port) {
+              // console.log('  node', JSON.stringify(edge.data()));
+              var parent = cy.getElementById(port.data('parent'));
+              if (parent.data('active') === 'false') {
+                port.data('active', 'false');
+                edge.data('active', 'false');
+              } else {
+                port.data('active', 'true');
+              }
+            });
+          });
+        };
+
+        var init = function () {
+          var timerName = 'init ethernet';
+          console.time(timerName);
+          $mwtnCommons.getMountPoints().then(function (mountpoints) {
+            var filtered = filterActiveMountPoints(mountpoints);
+            setDevicesActive(filtered);
+            setPortAndEdgedActive();
+            console.timeEnd(timerName);
+          }, function (error) {
+            setAllDevicesInactive();
+            setPortAndEdgedActive();
+            console.timeEnd(timerName);
+s          });
+          
+        };
+        init();
+
         cy.on('tap', function (event) {
           clearService();
           if (event.target !== cy) {
             if (event.target.data('service')) {
               highlightService(event.target.data('service'));
             }
+          } else {
+            init();
           }
         });
       }
