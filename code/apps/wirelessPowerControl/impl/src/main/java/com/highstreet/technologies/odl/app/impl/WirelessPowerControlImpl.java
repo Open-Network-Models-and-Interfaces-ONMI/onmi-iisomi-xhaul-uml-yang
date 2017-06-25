@@ -90,14 +90,14 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 		this.mountService = providerContext.getSALService(MountPointService.class);
 		this.registration = rpcProviderRegistry.addRpcImplementation(WirelessPowerControlService.class, this);
 
-		// config executor scheduler, where will be maximally one job.
-//		scheduledExecutorService = Executors.newScheduledThreadPool(10);
-//		try {
-//			scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),15, 15, TimeUnit.SECONDS);
-//		} catch (Exception e) {
-//			LOG.error(e.getMessage(),e);
-//		}
+		scheduledExecutorService = Executors.newScheduledThreadPool(10);
+		try {
+			scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),0, 15, TimeUnit.MINUTES);
+		} catch (Exception e) {
+			LOG.error(e.getMessage(),e);
+		}
 	}
+
 
 
 	/**
