@@ -12,7 +12,7 @@ define(['app/mwtnCommons/mwtnCommons.module',
   mwtnCommonsApp.register.controller('mwtnCommonsCtrl', ['$scope', '$rootScope', '$mwtnCommons', '$mwtnLog', 'FileReader', 
                                                          function($scope, $rootScope, $mwtnCommons, $mwtnLog, FileReader) {
 
-    $rootScope['section_logo'] = ''; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
+    $rootScope.section_logo = ''; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
     $scope.mwtnCommonsInfo = {};
 
