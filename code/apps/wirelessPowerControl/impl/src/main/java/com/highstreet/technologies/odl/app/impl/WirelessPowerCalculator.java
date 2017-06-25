@@ -48,7 +48,7 @@ public class WirelessPowerCalculator {
         lastTxEthernetBytesMaxS1 = histPerfCapacity1;
         lastTxEthernetBytesMaxS2 = histPerfCapacity2;
 
-        LOG.info("Historical Data have been changed. Algorithm will be applied");
+        LOG.info("Historical Data has been changed. Algorithm will be applied");
 
         byte txPower = air.getAirInterfaceConfiguration().getTxPower();
 
