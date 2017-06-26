@@ -43,42 +43,44 @@ public class ACMListener implements MicrowaveModelListener
             AttributeValueChangedNotification notification)
     {
         new Thread(() ->
-                   {
-                       synchronized (ne)
-                       {
-                           if (bandwidth == null)
-                           {
-                               readBandwidthThreshold();
-                           }
-                           try
-                           {
-                               if (notification.getAttributeName().equalsIgnoreCase("modulationCur"))
-                               {
-                                   String lpId_airInterface = notification.getObjectIdRef().getValue();
-                                   if (ne.isLtpOfThisOnPath(lpId_airInterface))
-                                   {
-                                       AirInterfaceConfiguration airInterfaceConfiguration = ne.getUnderAirPac(
-                                               lpId_airInterface, AirInterfaceConfiguration.class, CONFIGURATION);
-                                       AirInterfaceStatus airInterfaceStatus = ne.getUnderAirPac(
-                                               lpId_airInterface, AirInterfaceStatus.class, OPERATIONAL);
+        {
+            synchronized (ne)
+            {
+                if (bandwidth == null)
+                {
+                    readBandwidthThreshold();
+                }
+                try
+                {
+                    if (notification.getAttributeName().equalsIgnoreCase("modulationCur"))
+                    {
+                        LOG.info("received notification of value changed of modulationCur, changed to " + notification.getNewValue());
+                        String lpId_airInterface = notification.getObjectIdRef().getValue();
+                        if (ne.isLtpOfThisOnPath(lpId_airInterface))
+                        {
+                            AirInterfaceConfiguration airInterfaceConfiguration = ne.getUnderAirPac(
+                                    lpId_airInterface, AirInterfaceConfiguration.class, CONFIGURATION);
+                            AirInterfaceStatus airInterfaceStatus = ne.getUnderAirPac(
+                                    lpId_airInterface, AirInterfaceStatus.class, OPERATIONAL);
 
-                                       Double txCapacity = new BandwidthCalculator(
-                                               airInterfaceConfiguration.getTxChannelBandwidth(),
-                                               airInterfaceStatus.getModulationCur(),
-                                               airInterfaceStatus.getCodeRateCur()).calc();
-                                       if (txCapacity < bandwidth)
-                                       {
-                                           ne.reportSwitch();
-                                       }
-                                   }
-                               }
-                           }
-                           catch (Exception e)
-                           {
-                               LOG.warn("handling attribute change: " + notification + " caught exception!", e);
-                           }
-                       }
-                   }).start();
+                            Double txCapacity = new BandwidthCalculator(
+                                    airInterfaceConfiguration.getTxChannelBandwidth(),
+                                    airInterfaceStatus.getModulationCur(),
+                                    airInterfaceStatus.getCodeRateCur()).calc();
+                            LOG.info("new txCapacity is " + txCapacity);
+                            if (txCapacity < bandwidth)
+                            {
+                                LOG.info("new txCapacity is lower than bandwidth " + bandwidth);
+                                ne.reportSwitch();
+                            }
+                        }
+                    }
+                } catch (Exception e)
+                {
+                    LOG.warn("handling attribute change: " + notification + " caught exception!", e);
+                }
+            }
+        }).start();
     }
 
     private void readBandwidthThreshold()
@@ -90,12 +92,10 @@ public class ACMListener implements MicrowaveModelListener
         {
             Threshold threshold = readOnlyTransaction.read(CONFIGURATION, instanceIdentifier).get().get();
             bandwidth = threshold.getMinimumBandwidth().doubleValue();
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             LOG.warn("", e);
-        }
-        finally
+        } finally
         {
             readOnlyTransaction.close();
         }
