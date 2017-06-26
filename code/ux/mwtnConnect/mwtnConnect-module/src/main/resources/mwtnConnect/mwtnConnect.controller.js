@@ -154,6 +154,9 @@ define(['app/mwtnConnect/mwtnConnect.module',
       if ($scope.requiredNesGridOptions.data) {
 
         var getExtension = function(extensions, name) {
+          if (extensions === undefined) {
+            return undefined;
+          }
           var result = extensions.filter(function(ex){
             return ex['value-name'] === name;
           }).map(function(ex){
