@@ -27,7 +27,8 @@ public class LtpInOdlCreator
     public LogicalTerminationPointList create(String neName, String clientLtpName, Ltp serverLtp)
     {
         LogicalTerminationPointListBuilder builder = new LogicalTerminationPointListBuilder();
-        builder.setPhysicalPortReference(serverLtp.getPhysicalPortReference().get(0));
+        builder.setPhysicalPortReference(
+                serverLtp.getPhysicalPortReference() == null ? null : serverLtp.getPhysicalPortReference().get(0));
         builder.setNodeReference(new UniversalId(neName));
         builder.setLtpIndex(String.valueOf(index++));
         builder.setKey(new LogicalTerminationPointListKey(builder.getLtpIndex()));
