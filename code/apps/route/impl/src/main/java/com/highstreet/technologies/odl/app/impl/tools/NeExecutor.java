@@ -81,7 +81,7 @@ public class NeExecutor
 
             neBuilder.getFd().add(fdBuilder.build());
         }
-        catch (Exception e)
+        catch (Throwable e)
         {
             LOG.warn(e.getMessage(), e);
         }
@@ -127,6 +127,13 @@ public class NeExecutor
                 serverLTP = temp;
                 break;
             }
+        }
+        if (serverLTP == null)
+        {
+            StringBuffer serverNames = new StringBuffer();
+            ne.getLtp().forEach(sltp -> serverNames.append(sltp.getKey().getUuid().getValue()).append(" | "));
+            throw new IllegalArgumentException(
+                    "no proper server ltp found, input name is: " + ltpName + " and ltps from NE are: " + serverNames);
         }
 
         LtpBuilder serverBuilder = new LtpBuilder(serverLTP);
