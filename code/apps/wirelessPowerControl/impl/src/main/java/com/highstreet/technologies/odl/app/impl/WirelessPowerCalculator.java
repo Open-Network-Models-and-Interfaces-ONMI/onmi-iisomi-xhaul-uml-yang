@@ -10,7 +10,6 @@ package com.highstreet.technologies.odl.app.impl;
 import java.util.ArrayList;
 import java.util.List;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.MwAirInterfacePac;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.MwAirInterfacePacBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.MwEthernetContainerPac;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.air._interface.capability.g.SupportedChannelPlanList;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.channel.plan.type.g.TransmissionModeList;
@@ -19,6 +18,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class WirelessPowerCalculator {
+    private static Integer lastTxEthernetBytesMaxS1 = -1;
+    private static Integer lastTxEthernetBytesMaxS2 = -1;
     private static final Logger LOG = LoggerFactory.getLogger(WirelessPowerCalculator.class);
 
     public static final double THROUGHPUT_MARGIN_RATE_HIGH = 8/10.0; /* protecting margin level high */
@@ -36,6 +37,19 @@ public class WirelessPowerCalculator {
     }
 
     public void calc() {
+        eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().sort((t1, t2) -> t1.getPeriodEndTime().getValue().compareTo(t2.getPeriodEndTime().getValue()));
+
+        Integer histPerfCapacity1 = eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().get(0).getPerformanceData().getTxEthernetBytesMaxS() * 8;
+        Integer histPerfCapacity2 = eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().get(1).getPerformanceData().getTxEthernetBytesMaxS() * 8;
+
+        if (lastTxEthernetBytesMaxS1.equals(histPerfCapacity1) && lastTxEthernetBytesMaxS2.equals(histPerfCapacity2)) {
+            return;
+        }
+        lastTxEthernetBytesMaxS1 = histPerfCapacity1;
+        lastTxEthernetBytesMaxS2 = histPerfCapacity2;
+
+        LOG.info("Historical Data has been changed. Algorithm will be applied");
+
         byte txPower = air.getAirInterfaceConfiguration().getTxPower();
 
         LOG.info("Current modulation MIN: {} ", air.getAirInterfaceConfiguration().getModulationMin());
@@ -50,8 +64,7 @@ public class WirelessPowerCalculator {
         Integer currentPerfCapacity2 = eth.getEthernetContainerCurrentPerformance().getCurrentPerformanceDataList().get(1).getPerformanceData().getTxEthernetBytesMaxS() * 8;
         Integer currentPerfCapacity3 = eth.getEthernetContainerCurrentPerformance().getCurrentPerformanceDataList().get(2).getPerformanceData().getTxEthernetBytesMaxS() * 8;
 
-        Integer histPerfCapacity1 = eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().get(0).getPerformanceData().getTxEthernetBytesMaxS() * 8;
-        Integer histPerfCapacity2 = eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().get(1).getPerformanceData().getTxEthernetBytesMaxS() * 8;
+
 
         int currentCapacity = (int) (currentTransmissionMode.getCapacity() * THROUGHPUT_MARGIN_RATE_LOW / 1000);
         if (histPerfCapacity1 < currentCapacity &&
@@ -74,7 +87,9 @@ public class WirelessPowerCalculator {
 
             Simulator simulator = new Simulator(expectedRxLevel, true);
             while (simulator.getRemoteAirRxLevel() > expectedRxLevel && air.getAirInterfaceStatus().getTxLevelCur()  > txPowerMin) {
-                txPower--;
+                if (txPower > 0) {
+                    txPower--;
+                }
                 mergeAirConfiguration(modulationMin,txPower); //store new power
                 LOG.info("New power: {} ", txPower);
             }
@@ -93,7 +108,9 @@ public class WirelessPowerCalculator {
 
             Simulator simulator = new Simulator(expectedRxLevel, false);
             while (simulator.getRemoteAirRxLevel() < expectedRxLevel && air.getAirInterfaceStatus().getTxLevelCur()  < txPowerMax) {
-                txPower++;
+                if (txPower < 127) {
+                    txPower++;
+                }
                 mergeAirConfiguration(modulationMin, txPower);
                 LOG.info("New power: {} ", txPower);
             }
@@ -123,12 +140,12 @@ public class WirelessPowerCalculator {
         configurationBuilder.setTxPower(txPower);
         configurationBuilder.setModulationMin(modulationMin);
         impl.merge(configurationBuilder.build());
-        wait3seconds();
+        wait1seconds();
     }
 
-    private void wait3seconds() {
+    private void wait1seconds() {
         try {
-            Thread.sleep(3000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -148,6 +165,9 @@ class TransmissionModelContainer {
                 return item;
             }
         }
+        if (itemList.size() > 0) { // if we don't find, we select the first one
+            return itemList.get(0);
+        }
         return null;
     }
 
@@ -156,6 +176,9 @@ class TransmissionModelContainer {
             if (currentCapacity < item.getCapacity() * WirelessPowerCalculator.THROUGHPUT_MARGIN_RATE_HIGH) {
                 return item;
             }
+        }
+        if (itemList.size() > 0) { // if we don't find, we select the first one
+            return itemList.get(0);
         }
         return null;
     }
