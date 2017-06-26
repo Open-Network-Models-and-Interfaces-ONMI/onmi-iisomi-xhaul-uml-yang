@@ -877,9 +877,9 @@ define(
             }
           }
         }
-        console.info('check', t);
+        // console.info('check', t);
         // return new Date().toISOString().slice(0,21).replace('T', ' ') + ' UTC';
-        return t;
+        return t.replace('T', ' ').replace('Z', ' UTC');
       };
 
       service.formatData = function (event) {
