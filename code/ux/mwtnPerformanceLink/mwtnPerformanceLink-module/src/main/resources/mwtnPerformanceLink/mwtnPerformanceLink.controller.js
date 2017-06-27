@@ -30,6 +30,12 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
         $scope.availableLtpIdsA = ['Select LTP'];
         $scope.availableLtpIdsB = ['Select LTP'];
 
+        var formatTimeStamp = function(timeStamp) {
+          var result = $mwtnPerformanceLink.formatTimeStamp(timeStamp);
+          console.log(timeStamp, result);
+          return result;
+        };
+
         var initNodeList = function (nodes) {
           $scope.networkElements = [];
           nodes.map(function (ne) {
@@ -510,9 +516,10 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
               var lookupMap = new Map(); //add data based on timestamp
 
               dataA.data.hits.hits.map(function (entry, index) {
-                lookupMap.set(entry._source['time-stamp'], index); //add timestamp and index to map
+                var timeStamp = formatTimeStamp(entry._source['time-stamp']);
+                lookupMap.set(timeStamp, index); //add timestamp and index to map
                 var item = {
-                  timestamp: $mwtnPerformanceLink.formatTimeStamp(entry._source['time-stamp']),
+                  timestamp: timeStamp,
                   id: $scope.onfNetworkElement.getLpById(entry._source['uuid-interface']).getLabel() || entry._source['uuid-interface'],
                   layerProtocol: entry._source['layer-protocol-name'],
                   suspectInterval: entry._source['suspect-interval-flag'],
@@ -526,20 +533,21 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
               });
 
               dataB.data.hits.hits.map(function (entry) {
-                var index = lookupMap.get(entry._source['time-stamp']); //look for timestamp in map
+                var timeStamp = formatTimeStamp(entry._source['time-stamp']);
+                var index = lookupMap.get(timeStamp); //look for timestamp in map
                 if (index) { //if a timestamp was found
                   list[index].txminb = checkData(entry._source['performance-data']['tx-level-min']); //add data to b side of element
                   list[index].txavgb = checkData(entry._source['performance-data']['tx-level-avg']);
                   list[index].txmaxb = checkData(entry._source['performance-data']['tx-level-max']);
                 } else {
-                  if (list[0].timestamp === $mwtnPerformanceLink.formatTimeStamp(entry._source['time-stamp'])) { //look, if first element in list is same (first element in map is never found against an equals)
+                  if (list[0].timestamp === $mwtnPerformanceLink.formatTimeStamp(timeStamp)) { //look, if first element in list is same (first element in map is never found against an equals)
                     list[0].txminb = checkData(entry._source['performance-data']['tx-level-min']); //add data to b side of element
                     list[0].txavgb = checkData(entry._source['performance-data']['tx-level-avg']);
                     list[0].txmaxb = checkData(entry._source['performance-data']['tx-level-max']);
                   }
                   else { //add new element for b side to list
                     list.push({
-                      timestamp: $mwtnPerformanceLink.formatTimeStamp(entry._source['time-stamp']),
+                      timestamp: timeStamp,
                       id: entry._source['uuid-interface'],
                       layerProtocol: entry._source['layer-protocol-name'],
                       suspectInterval: entry._source['suspect-interval-flag'],
@@ -563,9 +571,10 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
               var lookupMap = new Map();
 
               dataA.data.hits.hits.map(function (entry, index) {
-                lookupMap.set(entry._source.timeStamp, index);
+                var timeStamp = formatTimeStamp(entry._source['time-stamp']);
+                lookupMap.set(timeStamp, index);
                 var item = {
-                  timestamp: $mwtnPerformanceLink.formatTimeStamp(entry._source['time-stamp']),
+                  timestamp: timeStamp,
                   id: entry._source['uuid-interface'],
                   layerProtocol: entry._source['layer-protocol-name'],
                   suspectInterval: entry._source['suspect-interval-flag'],
@@ -580,19 +589,20 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
               });
 
               dataB.data.hits.hits.map(function (entry) {
-                var index = lookupMap.get(entry._source['time-stamp']);
+                var timeStamp = formatTimeStamp(entry._source['time-stamp']);
+                var index = lookupMap.get(timeStamp);
                 if (index) {
                   list[index].rxminb = checkData(entry._source['performance-data']['rx-level-min']);
                   list[index].rxavgb = checkData(entry._source['performance-data']['rx-level-avg']);
                   list[index].rxmaxb = checkData(entry._source['performance-data']['rx-level-max']);
                 } else {
-                  if (list[0].timestamp === $mwtnPerformanceLink.formatTimeStamp(entry._source['time-stamp'])) {
+                  if (list[0].timestamp === $mwtnPerformanceLink.formatTimeStamp(timeStamp)) {
                     list[0].rxminb = checkData(entry._source['performance-data']['rx-level-min']);
                     list[0].rxavgb = checkData(entry._source['performance-data']['rx-level-avg']);
                     list[0].rxmaxb = checkData(entry._source['performance-data']['rx-level-max']);
                   } else {
                     list.push({
-                      timestamp: $mwtnPerformanceLink.formatTimeStamp(entry._source['time-stamp']),
+                      timestamp: timeStamp,
                       id: entry._source['uuid-interface'],
                       layerProtocol: entry._source['layer-protocol-name'],
                       suspectInterval: entry._source['suspect-interval-flag'],
@@ -620,9 +630,10 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
               var lookupMap = new Map();
 
               dataA.data.hits.hits.map(function (entry, index) {
-                lookupMap.set(entry._source['time-stamp'], index);
+                var timeStamp = formatTimeStamp(entry._source['time-stamp']);
+                lookupMap.set(timeStamp, index);
                 var item = {
-                  timestamp: $mwtnPerformanceLink.formatTimeStamp(entry._source['time-stamp']),
+                  timestamp: timeStamp,
                   id: entry._source['uuid-interface'],
                   layerProtocol: entry._source['layer-protocol-name'],
                   suspectInterval: entry._source['suspect-interval-flag'],
@@ -671,8 +682,8 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
               });
 
               dataB.data.hits.hits.map(function (entry) {
-
-                var index = lookupMap.get(entry._source['time-stamp']);
+                var timeStamp = formatTimeStamp(entry._source['time-stamp']);
+                var index = lookupMap.get(timeStamp);
                 if (index) {
 
                   list[index].time2Sb = checkData(entry._source['performance-data']['time2-states-s']);
@@ -712,7 +723,7 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
                   list[index].time8192b = checkData(entry._source['performance-data']['time8192-states']);
                   list[index].time8192Lb = checkData(entry._source['performance-data']['time8192-states-l']);
                 } else {
-                  if (list[0].timestamp === $mwtnPerformanceLink.formatTimeStamp(entry._source['time-stamp'])) {
+                  if (list[0].timestamp === $mwtnPerformanceLink.formatTimeStamp(timeStamp)) {
                     list[index].time2Sb = checkData(entry._source['performance-data']['time2-states-s']);
                     list[0].time2b = checkData(entry._source['performance-data']['time2-states']);
                     list[0].time2Lb = checkData(entry._source['performance-data']['time2-states-l']);
@@ -752,7 +763,7 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
                   }
                   else {
                     var item = {
-                      timestamp: $mwtnPerformanceLink.formatTimeStamp(entry._source['time-stamp']),
+                      timestamp: timeStamp,
                       id: entry._source['uuid-interface'],
                       layerProtocol: entry._source['layer-protocol-name'],
                       suspectInterval: entry._source['suspect-interval-flag'],
@@ -811,9 +822,10 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
               var lookupMap = new Map();
 
               dataA.data.hits.hits.map(function (entry, index) {
-                lookupMap.set(entry._source['time-stamp'], index);
+                var timeStamp = formatTimeStamp(entry._source['time-stamp']);
+                lookupMap.set(timeStamp, index);
                 var item = {
-                  'timestamp': $mwtnPerformanceLink.formatTimeStamp(entry._source['time-stamp']),
+                  'timestamp': $mwtnPerformanceLink.formatTimeStamp(timeStamp),
                   id: entry._source['uuid-interface'],
                   layerProtocol: entry._source['layer-protocol-name'],
                   suspectInterval: entry._source['suspect-interval-flag'],
@@ -828,19 +840,20 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
               });
 
               dataB.data.hits.hits.map(function (entry) {
-                var index = lookupMap.get(entry._source['time-stamp']);
+                var timeStamp = formatTimeStamp(entry._source['time-stamp']);
+                var index = lookupMap.get(timeStamp);
                 if (index) {
                   list[index].rfTempMinb = entry._source['performance-data']['rf-temp-min'];
                   list[index].rfTempMaxb = entry._source['performance-data']['rf-temp-max'];
                   list[index].rfTempAvgb = entry._source['performance-data']['rf-temp-avg'];
                 } else {
-                  if (list[0].timestamp === $mwtnPerformanceLink.formatTimeStamp(entry._source['time-stamp'])) {
+                  if (list[0].timestamp === $mwtnPerformanceLink.formatTimeStamp(timeStamp)) {
                     list[0].rfTempMinb = entry._source['performance-data']['rf-temp-min'];
                     list[0].rfTempMaxb = entry._source['performance-data']['rf-temp-max'];
                     list[0].rfTempAvgb = entry._source['performance-data']['rf-temp-avg'];
                   } else {
                     list.push({
-                      'timestamp': $mwtnPerformanceLink.formatTimeStamp(entry._source['time-stamp']),
+                      'timestamp': $mwtnPerformanceLink.formatTimeStamp(timeStamp),
                       id: entry._source['uuid-interface'],
                       layerProtocol: entry._source['layer-protocol-name'],
                       suspectInterval: entry._source['suspect-interval-flag'],
@@ -865,9 +878,10 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
               var lookupMap = new Map();
 
               dataA.data.hits.hits.map(function (entry, index) {
-                lookupMap.set(entry._source['time-stamp'], index);
+                var timeStamp = formatTimeStamp(entry._source['time-stamp']);
+                lookupMap.set(timeStamp, index);
                 var item = {
-                  'timestamp': $mwtnPerformanceLink.formatTimeStamp(entry._source['time-stamp']),
+                  'timestamp': $mwtnPerformanceLink.formatTimeStamp(timeStamp),
                   id: entry._source['uuid-interface'],
                   layerProtocol: entry._source['layer-protocol-name'],
                   suspectInterval: entry._source['suspect-interval-flag'],
@@ -882,21 +896,21 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
               });
 
               dataB.data.hits.hits.map(function (entry) {
-
-                var index = lookupMap.get(entry._source['time-stamp']);
+                var timeStamp = formatTimeStamp(entry._source['time-stamp']);  
+                var index = lookupMap.get(timeStamp);
                 if (index) {
                   list[index].snirMinb = entry._source['performance-data']['snir-min'];
                   list[index].snirMaxb = entry._source['performance-data']['snir-max'];
                   list[index].snirAvgb = entry._source['performance-data']['snir-max'];
                 }
                 else {
-                  if (list[0].timestamp === $mwtnPerformanceLink.formatTimeStamp(entry._source['time-stamp'])) {
+                  if (list[0].timestamp === $mwtnPerformanceLink.formatTimeStamp(timeStamp)) {
                     list[0].snirMinb = entry._source['performance-data']['snir-min'];
                     list[0].snirMaxb = entry._source['performance-data']['snir-max'];
                     list[0].snirAvgb = entry._source['performance-data']['snir-max'];
                   } else {
                     list.push({
-                      'timestamp': $mwtnPerformanceLink.formatTimeStamp(entry._source['time-stamp']),
+                      'timestamp': $mwtnPerformanceLink.formatTimeStamp(timeStamp),
                       id: entry._source['uuid-interface'],
                       layerProtocol: entry._source['layer-protocol-name'],
                       suspectInterval: entry._source['suspect-interval-flag'],
@@ -920,9 +934,10 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
               var lookupMap = new Map();
 
               dataA.data.hits.hits.map(function (entry, index) {
-                lookupMap.set(entry._source['time-stamp'], index);
+                var timeStamp = formatTimeStamp(entry._source['time-stamp']);
+                lookupMap.set(timeStamp, index);
                 var item = {
-                  'timestamp': $mwtnPerformanceLink.formatTimeStamp(entry._source['time-stamp']),
+                  'timestamp': $mwtnPerformanceLink.formatTimeStamp(timeStamp),
                   id: entry._source['uuid-interface'],
                   layerProtocol: entry._source['layer-protocol-name'],
                   suspectInterval: entry._source['suspect-interval-flag'],
@@ -939,15 +954,15 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
               });
 
               dataB.data.hits.hits.map(function (entry) {
-
-                var index = lookupMap.get(entry._source['time-stamp']);
+                var timeStamp = formatTimeStamp(entry._source['time-stamp']);
+                var index = lookupMap.get(timeStamp);
                 if (index) {
                   list[index].xpdMinb = entry._source['performance-data']['xpd-min'];
                   list[index].xpdMaxb = entry._source['performance-data']['xpd-max'];
                   list[index].xpdAvgb = entry._source['performance-data']['xpd-avg'];
                 }
                 else {
-                  if (list[0].timestamp === $mwtnPerformanceLink.formatTimeStamp(entry._source['time-stamp'])) {
+                  if (list[0].timestamp === $mwtnPerformanceLink.formatTimeStamp(timeStamp)) {
 
                     list[0].xpdMinb = entry._source['performance-data']['xpd-min'];
                     list[0].xpdMaxb = entry._source['performance-data']['xpd-max'];
@@ -955,7 +970,7 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
 
                   } else {
                     list.push({
-                      'timestamp': $mwtnPerformanceLink.formatTimeStamp(entry._source['time-stamp']),
+                      'timestamp': $mwtnPerformanceLink.formatTimeStamp(timeStamp),
                       id: entry._source['uuid-interface'],
                       layerProtocol: entry._source['layer-protocol-name'],
                       suspectInterval: entry._source['suspect-interval-flag'],

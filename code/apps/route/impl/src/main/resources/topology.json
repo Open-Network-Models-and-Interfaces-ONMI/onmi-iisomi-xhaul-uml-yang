@@ -3,36 +3,182 @@
     "13": {
       "main_ltps": [
         {
-          "node": "ZTE-A",
-          "aEnd": "LTP-ETY-GbE-1-2",
-          "zEnd": "LTP-ETC-AIR-5-1"
-        },
-        {
           "node": "ZTE-Z",
-          "aEnd": "LTP-ETC-AIR-5-1",
-          "zEnd": "LTP-ETY-GbE-1-4"
-        }
-      ],
-      "backup_ltps": [
-        {
-          "node": "ZTE-A",
-          "aEnd": "LTP-ETY-GbE-1-2",
-          "zEnd": "LTP-ETY-GbE-1-4"
-        },
-        {
-          "node": "ZTE-24",
-          "aEnd": "LTP-ETY-GbE-1-4",
+          "aEnd": "LTP-ETY-GbE-1-1",
           "zEnd": "LTP-ETC-AIR-5-1"
         },
         {
-          "node": "ZTE-23",
+          "node": "ZTE-A",
           "aEnd": "LTP-ETC-AIR-5-1",
           "zEnd": "LTP-ETY-GbE-1-2"
         },
         {
+          "node": "Ceragon-A",
+          "aEnd": "268443713",
+          "zEnd": "268562561"
+        },
+        {
+          "node": "Ceragon-Z",
+          "aEnd": "268562561",
+          "zEnd": "268443713"
+        },
+        {
+          "node": "Nokia-A",
+          "aEnd": "LTP-ETY-70101",
+          "zEnd": "LTP-ETC-541141"
+        },
+        {
+          "node": "Nokia-Z",
+          "aEnd": "LTP-ETC-551151",
+          "zEnd": "LTP-ETY-70103"
+        },
+        {
+          "node": "Huawei-A",
+          "aEnd": "LTP-ETY-7-3",
+          "zEnd": "LTP-ETY-TTP-3-1"
+        },
+        {
+          "node": "Huawei-Z",
+          "aEnd": "LTP-ETY-TTP-3-1",
+          "zEnd": "LTP-ETY-7-3"
+        },
+        {
+          "node": "SIAE-A",
+          "aEnd": "LTP-ETY-TTP-LAN-4",
+          "zEnd": "LTP-ETC-TTP-ODU-A"
+        },
+        {
+          "node": "SIAE-Z",
+          "aEnd": "LTP-ETC-TTP-ODU-A",
+          "zEnd": "LTP-ETY-TTP-LAN-4"
+        },
+        {
+          "node": "Ericsson-Z",
+          "aEnd": "ETY-2134638723",
+          "zEnd": "ETC-2132254948"
+        },
+        {
+          "node": "Ericsson-A",
+          "aEnd": "ETC-2132254948",
+          "zEnd": "ETY-2134638595"
+        },
+        {
+          "node": "ADVA-Y",
+          "aEnd": "ETY-1.1.NET.2",
+          "zEnd": "ETY-1.1.ACC.4"
+        }
+      ],
+      "backup_ltps": [
+        {
           "node": "ZTE-Z",
+          "aEnd": "LTP-ETY-GbE-1-1",
+          "zEnd": "LTP-ETY-GbE-1-2"
+        },
+        {
+          "node": "NEC-A",
+          "aEnd": "LTP-ETY-1-3",
+          "zEnd": "LTP-ETC-1-1"
+        },
+        {
+          "node": "NEC-Z",
+          "aEnd": "LTP-ETC-1-1",
+          "zEnd": "LTP-ETY-1-4"
+        },
+        {
+          "node": "ADVA-Y",
+          "aEnd": "ETY-1.1.NET.1",
+          "zEnd": "ETY-1.1.ACC.4"
+        }
+      ]
+    },
+    "24": {
+      "main_ltps": [
+        {
+          "node": "Ceragon-Z",
+          "aEnd": "268443714",
+          "zEnd": "268443713"
+        },
+        {
+          "node": "Nokia-A",
+          "aEnd": "LTP-ETY-70101",
+          "zEnd": "LTP-ETC-541141"
+        },
+        {
+          "node": "Nokia-Z",
+          "aEnd": "LTP-ETC-551151",
+          "zEnd": "LTP-ETY-70103"
+        },
+        {
+          "node": "Huawei-A",
+          "aEnd": "LTP-ETY-7-3",
+          "zEnd": "LTP-ETY-TTP-3-1"
+        },
+        {
+          "node": "Huawei-Z",
+          "aEnd": "LTP-ETY-TTP-3-1",
+          "zEnd": "LTP-ETY-7-3"
+        },
+        {
+          "node": "SIAE-A",
+          "aEnd": "LTP-ETY-TTP-LAN-4",
+          "zEnd": "LTP-ETC-TTP-ODU-A"
+        },
+        {
+          "node": "SIAE-Z",
+          "aEnd": "LTP-ETC-TTP-ODU-A",
+          "zEnd": "LTP-ETY-TTP-LAN-2"
+        }
+      ],
+      "backup_ltps": [
+        {
+          "node": "Ceragon-Z",
+          "aEnd": "268443714",
+          "zEnd": "268562561"
+        },
+        {
+          "node": "Ceragon-A",
+          "aEnd": "268562561",
+          "zEnd": "268443713"
+        },
+        {
+          "node": "ZTE-A",
           "aEnd": "LTP-ETY-GbE-1-2",
-          "zEnd": "LTP-ETY-GbE-1-4"
+          "zEnd": "LTP-ETC-AIR-5-1"
+        },
+        {
+          "node": "ZTE-Z",
+          "aEnd": "LTP-ETC-AIR-5-1",
+          "zEnd": "LTP-ETY-GbE-1-2"
+        },
+        {
+          "node": "NEC-A",
+          "aEnd": "LTP-ETY-1-3",
+          "zEnd": "LTP-ETC-1-1"
+        },
+        {
+          "node": "NEC-Z",
+          "aEnd": "LTP-ETC-1-1",
+          "zEnd": "LTP-ETY-1-4"
+        },
+        {
+          "node": "ADVA-Y",
+          "aEnd": "ETY-1.1.NET.1",
+          "zEnd": "ETY-1.1.NET.2"
+        },
+        {
+          "node": "Ericsson-A",
+          "aEnd": "ETY-2134638595",
+          "zEnd": "ETC-2132254948"
+        },
+        {
+          "node": "Ericsson-Z",
+          "aEnd": "ETC-2132254948",
+          "zEnd": "ETY-2134638723"
+        },
+        {
+          "node": "SIAE-Z",
+          "aEnd": "LTP-ETY-TTP-LAN-4",
+          "zEnd": "LTP-ETY-TTP-LAN-2"
         }
       ]
     }
