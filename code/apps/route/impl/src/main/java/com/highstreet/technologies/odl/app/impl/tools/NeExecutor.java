@@ -48,6 +48,8 @@ import static org.opendaylight.controller.md.sal.common.api.data.LogicalDatastor
  */
 public class NeExecutor
 {
+    private boolean isBroken = false;
+
     public NeExecutor(Fc fc, Integer vlanid, LtpInOdlCreator ltpCreator)
     {
         this(getMountPoint(fc.getNodeName()));
@@ -57,14 +59,23 @@ public class NeExecutor
 
     public NeExecutor(MountPoint mountPoint)
     {
-        this.dataBroker = mountPoint.getService(DataBroker.class).get();
-        mountPoint.getService(NotificationService.class).get().registerNotificationListener(new ACMListener(this));
+        if (mountPoint != null)
+        {
+            this.dataBroker = mountPoint.getService(DataBroker.class).get();
+            mountPoint.getService(NotificationService.class).get().registerNotificationListener(new ACMListener(this));
+        } else
+        {
+            this.isBroken = true;
+            LOG.warn("mount point is null");
+        }
     }
 
     private List<LogicalTerminationPointList> process(Fc fc, Integer vlanId, LtpInOdlCreator ltpInOdlCreator)
     {
         try
         {
+            if (isBroken)
+                return new ArrayList<>();
             getNe();
 
             // start the creation of fc
