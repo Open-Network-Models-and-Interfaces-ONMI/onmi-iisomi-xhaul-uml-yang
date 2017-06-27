@@ -4321,7 +4321,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
             console.error(JSON.stringify(error));
           });
         };
-        init();
+        // init();
 
         cy.on('tap', function (event) {
           clearPtpPath();
@@ -4333,7 +4333,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
               highlightPtpMaster(parent.id());
             }
           } else {
-            init();
+            // init();
           }
         });
 
