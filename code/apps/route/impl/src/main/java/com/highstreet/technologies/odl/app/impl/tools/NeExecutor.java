@@ -48,6 +48,8 @@ import static org.opendaylight.controller.md.sal.common.api.data.LogicalDatastor
  */
 public class NeExecutor
 {
+    private boolean isBroken = false;
+
     public NeExecutor(Fc fc, Integer vlanid, LtpInOdlCreator ltpCreator)
     {
         this(getMountPoint(fc.getNodeName()));
@@ -57,14 +59,23 @@ public class NeExecutor
 
     public NeExecutor(MountPoint mountPoint)
     {
-        this.dataBroker = mountPoint.getService(DataBroker.class).get();
-        mountPoint.getService(NotificationService.class).get().registerNotificationListener(new ACMListener(this));
+        if (mountPoint != null)
+        {
+            this.dataBroker = mountPoint.getService(DataBroker.class).get();
+            mountPoint.getService(NotificationService.class).get().registerNotificationListener(new ACMListener(this));
+        } else
+        {
+            this.isBroken = true;
+            LOG.warn("mount point is null");
+        }
     }
 
     private List<LogicalTerminationPointList> process(Fc fc, Integer vlanId, LtpInOdlCreator ltpInOdlCreator)
     {
         try
         {
+            if (isBroken)
+                return new ArrayList<>();
             getNe();
 
             // start the creation of fc
@@ -80,8 +91,7 @@ public class NeExecutor
             fdBuilder.getFc().add(new UniversalId(buildFcName(ltp)));
 
             neBuilder.getFd().add(fdBuilder.build());
-        }
-        catch (Throwable e)
+        } catch (Throwable e)
         {
             LOG.warn(e.getMessage(), e);
         }
@@ -101,8 +111,7 @@ public class NeExecutor
             {
                 this.neBuilder = new NetworkElementBuilder(oldNe = networkElementOpt.get());
             }
-        }
-        finally
+        } finally
         {
             networkElementTransaction.close();
         }
@@ -254,10 +263,16 @@ public class NeExecutor
     public void commit()
     {
         // submit to network element
-        ReadWriteTransaction neCommitTrans = dataBroker.newReadWriteTransaction();
-        neCommitTrans.put(CONFIGURATION, InstanceIdentifier.create(NetworkElement.class), neBuilder.build());
+        try
+        {
+            ReadWriteTransaction neCommitTrans = dataBroker.newReadWriteTransaction();
+            neCommitTrans.put(CONFIGURATION, InstanceIdentifier.create(NetworkElement.class), neBuilder.build());
 
-        neCommitTrans.submit();
+            neCommitTrans.submit();
+        } catch (Exception e)
+        {
+            LOG.warn("caught exception when commit to ne, skip it", e);
+        }
     }
 
     public <T extends ChildOf<MwAirInterfacePac>> T getUnderAirPac(
@@ -343,8 +358,7 @@ public class NeExecutor
             SwitchFollowTopoInputBuilder builder = new SwitchFollowTopoInputBuilder();
             builder.setVlanid(vlanId);
             rpc.switchFollowTopo(builder.build());
-        }
-        else
+        } else
         {
             RestoreFollowTopoInputBuilder builder = new RestoreFollowTopoInputBuilder();
             builder.setVlanid(vlanId);
