@@ -33,7 +33,6 @@ import java.util.concurrent.Future;
 import static org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType.CONFIGURATION;
 import static org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType.OPERATIONAL;
 import static org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.StatusG.Status;
-import static org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.StatusG.Status.Failure;
 import static org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.StatusG.Status.Successful;
 
 /**
@@ -142,18 +141,11 @@ public class RouteRPC implements RouteService
 
     private Status switchTo(int vlanId, List<FC> list)
     {
-        Status deleteOrigin = this.delete(vlanId);
-        if (deleteOrigin.equals(Successful))
-        {
-            ArrayList<Fc> listFc = new ArrayList<>();
-            list.forEach(
-                    fc -> listFc.add(fc.toFc()));
-            return this.create(vlanId, listFc);
-        }
-        else
-        {
-            return Failure;
-        }
+        this.delete(vlanId);
+        ArrayList<Fc> listFc = new ArrayList<>();
+        list.forEach(
+                fc -> listFc.add(fc.toFc()));
+        return this.create(vlanId, listFc);
     }
 
     public Status delete(int vlanId)
@@ -165,7 +157,6 @@ public class RouteRPC implements RouteService
         catch (Exception e)
         {
             LOG.warn("execute delete caught exception", e);
-            return Failure;
         }
 
         return Successful;
@@ -193,7 +184,6 @@ public class RouteRPC implements RouteService
         catch (Exception e)
         {
             LOG.warn("creating LtpPath caught exception", e);
-            return Failure;
         }
         toClear.put(vlanId, pathHolder);
 
