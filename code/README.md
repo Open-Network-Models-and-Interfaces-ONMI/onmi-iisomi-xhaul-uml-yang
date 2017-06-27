@@ -46,7 +46,7 @@ ODL is configured for 4th-PoC
   - Copy into browser: [https://drive.google.com/file/d/0BwbcJFD90EFQbEVCaTMyS3ZOY1E/view?usp=sharing](https://drive.google.com/drive/folders/0BwbcJFD90EFQNEE5aXk5R1NPX3c)
   - Ignore Message about unknown format and select "Download".
   - Download should be into ~/Downloads (Reference download directory for this step-by-step instructions)
-  - Filename is containing a date. Take the newest one. (onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-13.tar.gz)
+  - Filename is containing a date. Take the newest one. (onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-27.tar.gz)
 
 #### Step *2: Unpack tar-file
 
@@ -54,7 +54,7 @@ ODL is configured for 4th-PoC
   cd to selected directory. Create if necessary.
 
     cd ~/odl
-    tar -xvf ~/Downloads/onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-13.tar.gz
+    tar -xvf ~/Downloads/onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-27.tar.gz
 
 #### Step *3: Setup environment variables
 
@@ -65,7 +65,7 @@ ODL is configured for 4th-PoC
 
    Add at the end of .profile:
 
-    export ODL_KARAF_HOME=$HOME/odl/onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-13
+    export ODL_KARAF_HOME=$HOME/odl/onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-27
 
    To activate varable best option is to logout and login user again.
    Verify with:
