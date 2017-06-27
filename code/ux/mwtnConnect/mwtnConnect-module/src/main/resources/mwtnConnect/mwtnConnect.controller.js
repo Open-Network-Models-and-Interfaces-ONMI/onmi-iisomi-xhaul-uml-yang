@@ -171,6 +171,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
         }; 
 
         $scope.requiredNesGridOptions.data.map(function(rne) {
+          // TODO use filter! and avoid push?
           if (rne.name === ane['node-id']) {
             rne.connectionStatus = ane['netconf-node-topology:connection-status'];
             rne.ipaddress = ane['netconf-node-topology:host'];
@@ -201,7 +202,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
       // aneHash = [];
       if ($scope.requiredNesGridOptions.data) {
         $scope.requiredNesGridOptions.data.map(function(ne) {
-          ne.connectionStatus = 'disconnected';
+          // ne.connectionStatus = 'disconnected';
         });
       }
       $mwtnConnect.getMountPoints().then(function(mountpoints) {
@@ -559,8 +560,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
         var status = 'unknown';
         if (entry._source.event.type === 'ObjectCreationNotificationXml' ) {
           status = 'connected';
-        }
-        if (entry._source.event.type === 'ObjectDeletionNotificationXml' ) {
+        } else if (entry._source.event.type === 'ObjectDeletionNotificationXml' ) {
           status = 'disconnected';
         }
         return {
