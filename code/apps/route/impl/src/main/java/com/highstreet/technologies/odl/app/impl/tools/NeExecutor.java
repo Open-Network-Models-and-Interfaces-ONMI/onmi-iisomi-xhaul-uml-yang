@@ -214,35 +214,41 @@ public class NeExecutor
 
     public void clear(int vlanId)
     {
-        this.neBuilder = new NetworkElementBuilder(oldNe);
-
-        // remove fc in fd
-        FdBuilder fdBuilder = new FdBuilder(neBuilder.getFd().get(0));
-        fdBuilder.getFc().removeIf(fcName -> fcName.getValue().contains(LAYER_PROTOCOL_NAME.getValue() + "-" + vlanId));
-        neBuilder.setFd(Collections.singletonList(fdBuilder.build()));
-
-        // remove ltp created by vlan
-        neBuilder.getLtp().removeIf(
-                ltp1 -> ltp1.getUuid().getValue().endsWith(LAYER_PROTOCOL_NAME.getValue() + "-" + vlanId));
-
-        // remove all client ltp
-        ArrayList<Ltp> ltpList = new ArrayList<>();
-        for (Ltp ltp : neBuilder.getLtp())
+        try
         {
-            LtpBuilder ltpBuilder = new LtpBuilder(ltp);
-            if (ltpBuilder.getClientLtp() != null)
+            this.neBuilder = new NetworkElementBuilder(oldNe);
+
+            // remove fc in fd
+            FdBuilder fdBuilder = new FdBuilder(neBuilder.getFd().get(0));
+            fdBuilder.getFc().removeIf(fcName -> fcName.getValue().contains(LAYER_PROTOCOL_NAME.getValue() + "-" + vlanId));
+            neBuilder.setFd(Collections.singletonList(fdBuilder.build()));
+
+            // remove ltp created by vlan
+            neBuilder.getLtp().removeIf(
+                    ltp1 -> ltp1.getUuid().getValue().endsWith(LAYER_PROTOCOL_NAME.getValue() + "-" + vlanId));
+
+            // remove all client ltp
+            ArrayList<Ltp> ltpList = new ArrayList<>();
+            for (Ltp ltp : neBuilder.getLtp())
             {
-                ltpBuilder.getClientLtp().removeIf(
-                        uuid -> uuid.getValue().endsWith(LAYER_PROTOCOL_NAME.getValue() + "-" + vlanId));
-                ltpBuilder.getLp().removeIf(
-                        lp -> lp.getKey().getUuid().getValue().contains(LAYER_PROTOCOL_NAME.getValue() + "-" + vlanId));
+                LtpBuilder ltpBuilder = new LtpBuilder(ltp);
+                if (ltpBuilder.getClientLtp() != null)
+                {
+                    ltpBuilder.getClientLtp().removeIf(
+                            uuid -> uuid.getValue().endsWith(LAYER_PROTOCOL_NAME.getValue() + "-" + vlanId));
+                    ltpBuilder.getLp().removeIf(
+                            lp -> lp.getKey().getUuid().getValue().contains(LAYER_PROTOCOL_NAME.getValue() + "-" + vlanId));
+                }
+                ltpList.add(ltpBuilder.build());
             }
-            ltpList.add(ltpBuilder.build());
+
+            neBuilder.setLtp(ltpList);
+
+            commit();
+        } catch (Exception e)
+        {
+            LOG.warn("", e);
         }
-
-        neBuilder.setLtp(ltpList);
-
-        commit();
     }
 
     public void commit()
