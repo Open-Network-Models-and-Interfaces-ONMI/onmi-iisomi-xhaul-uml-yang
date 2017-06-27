@@ -89,7 +89,7 @@ ODL is configured for 4th-PoC
   Wait till command line is prompted, like "opendaylight-user@root>".
   Copy into the command line the following lines.
   Each command needs some time. Time to complete, about 5 minutes.
-  If there are problems (exceptions) do in line by line.
+  If there are problems (exceptions) do it line by line.
 
     feature:install odl-netconf-topology
     feature:install odl-netconf-connector-all
