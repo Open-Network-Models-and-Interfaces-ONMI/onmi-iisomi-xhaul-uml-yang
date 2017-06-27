@@ -80,8 +80,7 @@ public class NeExecutor
             fdBuilder.getFc().add(new UniversalId(buildFcName(ltp)));
 
             neBuilder.getFd().add(fdBuilder.build());
-        }
-        catch (Throwable e)
+        } catch (Throwable e)
         {
             LOG.warn(e.getMessage(), e);
         }
@@ -101,8 +100,7 @@ public class NeExecutor
             {
                 this.neBuilder = new NetworkElementBuilder(oldNe = networkElementOpt.get());
             }
-        }
-        finally
+        } finally
         {
             networkElementTransaction.close();
         }
@@ -254,10 +252,16 @@ public class NeExecutor
     public void commit()
     {
         // submit to network element
-        ReadWriteTransaction neCommitTrans = dataBroker.newReadWriteTransaction();
-        neCommitTrans.put(CONFIGURATION, InstanceIdentifier.create(NetworkElement.class), neBuilder.build());
+        try
+        {
+            ReadWriteTransaction neCommitTrans = dataBroker.newReadWriteTransaction();
+            neCommitTrans.put(CONFIGURATION, InstanceIdentifier.create(NetworkElement.class), neBuilder.build());
 
-        neCommitTrans.submit();
+            neCommitTrans.submit();
+        } catch (Exception e)
+        {
+            LOG.warn("caught exception when commit to ne, skip it", e);
+        }
     }
 
     public <T extends ChildOf<MwAirInterfacePac>> T getUnderAirPac(
@@ -343,8 +347,7 @@ public class NeExecutor
             SwitchFollowTopoInputBuilder builder = new SwitchFollowTopoInputBuilder();
             builder.setVlanid(vlanId);
             rpc.switchFollowTopo(builder.build());
-        }
-        else
+        } else
         {
             RestoreFollowTopoInputBuilder builder = new RestoreFollowTopoInputBuilder();
             builder.setVlanid(vlanId);
