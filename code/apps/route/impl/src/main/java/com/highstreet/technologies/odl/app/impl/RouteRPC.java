@@ -101,6 +101,10 @@ public class RouteRPC implements RouteService
     public Future<RpcResult<CreateFollowTopoOutput>> createFollowTopo(
             CreateFollowTopoInput input)
     {
+        // refresh topology.json before create
+        predefinePath = JsonUtil.toObject(
+                new File(System.getenv().get("ODL_KARAF_HOME") + File.separator + "data" + File.separator + "topology.json"), PredefinePath.class);
+
         CreateFollowTopoOutputBuilder builder = new CreateFollowTopoOutputBuilder();
         int vlanId = input.getVlanid();
         ArrayList<Fc> listFc = new ArrayList<>();
