@@ -18,8 +18,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class WirelessPowerCalculator {
-    private static Integer lastTxEthernetBytesMaxS1 = -1;
-    private static Integer lastTxEthernetBytesMaxS2 = -1;
+    private static Long lastTxEthernetBytesMaxS1 = -1l;
+    private static Long lastTxEthernetBytesMaxS2 = -1l;
     private static final Logger LOG = LoggerFactory.getLogger(WirelessPowerCalculator.class);
 
     public static final double THROUGHPUT_MARGIN_RATE_HIGH = 8/10.0; /* protecting margin level high */
@@ -40,8 +40,8 @@ public class WirelessPowerCalculator {
         LOG.info("WirelessPowerCalculator start");
         eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().sort((t1, t2) -> t1.getPeriodEndTime().getValue().compareTo(t2.getPeriodEndTime().getValue()));
 
-        Integer histPerfCapacity1 = eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().get(0).getPerformanceData().getTxEthernetBytesMaxS() * 8;
-        Integer histPerfCapacity2 = eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().get(1).getPerformanceData().getTxEthernetBytesMaxS() * 8;
+        Long histPerfCapacity1 = eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().get(0).getPerformanceData().getTxEthernetBytesSum() * 8;
+        Long histPerfCapacity2 = eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().get(1).getPerformanceData().getTxEthernetBytesSum() * 8;
 
 //        if (lastTxEthernetBytesMaxS1.equals(histPerfCapacity1) && lastTxEthernetBytesMaxS2.equals(histPerfCapacity2)) {
 //            return;
@@ -61,13 +61,13 @@ public class WirelessPowerCalculator {
 
         LOG.info("Current trans. mode: {} ", currentTransmissionMode.getInnerItem().getTransmissionModeId().getValue());
 
-        Integer currentPerfCapacity1 = eth.getEthernetContainerCurrentPerformance().getCurrentPerformanceDataList().get(0).getPerformanceData().getTxEthernetBytesMaxS() * 8;
-        Integer currentPerfCapacity2 = eth.getEthernetContainerCurrentPerformance().getCurrentPerformanceDataList().get(1).getPerformanceData().getTxEthernetBytesMaxS() * 8;
-        Integer currentPerfCapacity3 = eth.getEthernetContainerCurrentPerformance().getCurrentPerformanceDataList().get(2).getPerformanceData().getTxEthernetBytesMaxS() * 8;
+        Long currentPerfCapacity1 = eth.getEthernetContainerCurrentPerformance().getCurrentPerformanceDataList().get(0).getPerformanceData().getTxEthernetBytesSum() * 8;
+        Long currentPerfCapacity2 = eth.getEthernetContainerCurrentPerformance().getCurrentPerformanceDataList().get(1).getPerformanceData().getTxEthernetBytesSum() * 8;
+        Long currentPerfCapacity3 = eth.getEthernetContainerCurrentPerformance().getCurrentPerformanceDataList().get(2).getPerformanceData().getTxEthernetBytesSum() * 8;
 
 
 
-        int currentCapacity = (int) (currentTransmissionMode.getCapacity() * THROUGHPUT_MARGIN_RATE_LOW / 1000);
+        long currentCapacity = (int) (currentTransmissionMode.getCapacity() * THROUGHPUT_MARGIN_RATE_LOW);
         if (histPerfCapacity1 < currentCapacity &&
                 histPerfCapacity2 < currentCapacity &&
                 currentPerfCapacity1 < currentCapacity &&
@@ -172,7 +172,7 @@ class TransmissionModelContainer {
         return null;
     }
 
-    public TransmissionModelItem findTheLowestTransmissionMode(Integer currentCapacity) {
+    public TransmissionModelItem findTheLowestTransmissionMode(long currentCapacity) {
         for (TransmissionModelItem item : itemList) {
             if (currentCapacity < item.getCapacity() * WirelessPowerCalculator.THROUGHPUT_MARGIN_RATE_HIGH) {
                 return item;
