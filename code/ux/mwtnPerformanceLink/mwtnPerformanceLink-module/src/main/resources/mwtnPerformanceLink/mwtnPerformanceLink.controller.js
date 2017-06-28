@@ -32,7 +32,11 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
 
         var formatTimeStamp = function(timeStamp) {
           var result = $mwtnPerformanceLink.formatTimeStamp(timeStamp);
-          console.log(timeStamp, result);
+          // 2017-06-22 14:52:21.0 UTC -> 2017-06-22 14:52 UTC
+          var array = result.split(' ');
+          if (array && array.length === 3) {
+            result = [array[0], array[1].slice(0,-5), array[2]].join(' ');
+          }
           return result;
         };
 
@@ -1086,7 +1090,7 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
             tempSet.add($mwtnPerformanceLink.formatTimeStamp(item._source['time-stamp']));
           });
 
-          console.log(tempSet);
+          // console.log(tempSet);
           var tempArr = Array.from(tempSet); //create an array from unique timestamps
 
           tempArr.sort(function (a, b) { //sort it
@@ -3290,7 +3294,7 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
 
           //clear interface array
           var length = networkList.length;
-          networkList.splice(1, length);
+          networkList.slice(1, length);
 
           //request to get interfaces
           var aggr = {
