@@ -15,4 +15,12 @@ import java.util.HashMap;
 public class PredefinePath
 {
     public HashMap<String, Path> paths;
+
+    @Override
+    public String toString()
+    {
+        return "PredefinePath{" +
+                "paths=" + paths +
+                '}';
+    }
 }
