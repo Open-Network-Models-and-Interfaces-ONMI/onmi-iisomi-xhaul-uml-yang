@@ -37,14 +37,15 @@ public class WirelessPowerCalculator {
     }
 
     public void calc() {
+        LOG.info("WirelessPowerCalculator start");
         eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().sort((t1, t2) -> t1.getPeriodEndTime().getValue().compareTo(t2.getPeriodEndTime().getValue()));
 
         Integer histPerfCapacity1 = eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().get(0).getPerformanceData().getTxEthernetBytesMaxS() * 8;
         Integer histPerfCapacity2 = eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().get(1).getPerformanceData().getTxEthernetBytesMaxS() * 8;
 
-        if (lastTxEthernetBytesMaxS1.equals(histPerfCapacity1) && lastTxEthernetBytesMaxS2.equals(histPerfCapacity2)) {
-            return;
-        }
+//        if (lastTxEthernetBytesMaxS1.equals(histPerfCapacity1) && lastTxEthernetBytesMaxS2.equals(histPerfCapacity2)) {
+//            return;
+//        }
         lastTxEthernetBytesMaxS1 = histPerfCapacity1;
         lastTxEthernetBytesMaxS2 = histPerfCapacity2;
 
