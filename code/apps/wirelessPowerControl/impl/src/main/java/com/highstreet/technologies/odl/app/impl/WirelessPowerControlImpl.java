@@ -92,7 +92,7 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 
 		scheduledExecutorService = Executors.newScheduledThreadPool(10);
 		try {
-			scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),15, 15, TimeUnit.SECONDS);
+			scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),0, 15, TimeUnit.MINUTES);
 		} catch (Exception e) {
 			LOG.error(e.getMessage(),e);
 		}
