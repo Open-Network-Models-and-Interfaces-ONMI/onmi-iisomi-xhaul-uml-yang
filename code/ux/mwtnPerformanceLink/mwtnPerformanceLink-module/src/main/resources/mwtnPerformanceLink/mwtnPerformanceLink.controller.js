@@ -513,7 +513,7 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
 
 
         var processResponseForGrid = function (dataA, dataB, grid) {
-          console.log(grid);
+          // console.log(grid);
           switch (grid) {
             case "transmissionLevel":
               var list = [];
@@ -524,7 +524,7 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
                 lookupMap.set(timeStamp, index); //add timestamp and index to map
                 var item = {
                   timestamp: timeStamp,
-                  id: $scope.onfNetworkElement.getLpById(entry._source['uuid-interface']).getLabel() || entry._source['uuid-interface'],
+                  id: entry._source['uuid-interface'],
                   layerProtocol: entry._source['layer-protocol-name'],
                   suspectInterval: entry._source['suspect-interval-flag'],
                   scannerId: entry._source['scanner-id'],
@@ -3294,7 +3294,7 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
 
           //clear interface array
           var length = networkList.length;
-          networkList.slice(1, length);
+          networkList.splice(1, length);
 
           //request to get interfaces
           var aggr = {
