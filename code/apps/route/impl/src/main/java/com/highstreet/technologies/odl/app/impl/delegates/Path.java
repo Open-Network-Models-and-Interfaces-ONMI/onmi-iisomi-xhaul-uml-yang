@@ -7,6 +7,8 @@
  */
 package com.highstreet.technologies.odl.app.impl.delegates;
 
+import java.util.Arrays;
+
 /**
  * Created by odl on 17-6-5.
  */
@@ -14,4 +16,13 @@ public class Path
 {
     public FC[] main_ltps;
     public FC[] backup_ltps;
+
+    @Override
+    public String toString()
+    {
+        return "Path{" +
+                "main_ltps=" + Arrays.toString(main_ltps) +
+                ", backup_ltps=" + Arrays.toString(backup_ltps) +
+                '}';
+    }
 }

@@ -24,6 +24,7 @@ import org.opendaylight.yangtools.yang.common.RpcResultBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -54,7 +55,7 @@ public class RouteRPC implements RouteService
     static
     {
         predefinePath = JsonUtil.toObject(
-                RouteRPC.class.getClassLoader().getResource("topology.json"), PredefinePath.class);
+                new File(System.getenv().get("ODL_KARAF_HOME") + File.separator + "data" + File.separator + "topology.json"), PredefinePath.class);
     }
 
     private final DataBroker dataBroker;
