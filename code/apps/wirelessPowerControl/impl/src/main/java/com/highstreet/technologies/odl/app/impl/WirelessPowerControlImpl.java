@@ -92,7 +92,7 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 
 		scheduledExecutorService = Executors.newScheduledThreadPool(10);
 		try {
-			scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),0, 15, TimeUnit.MINUTES);
+			scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),15, 15, TimeUnit.SECONDS);
 		} catch (Exception e) {
 			LOG.error(e.getMessage(),e);
 		}
@@ -194,6 +194,7 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 				LOG.info("Process uuid {} ",uuid);
 				ReadWriteTransaction mwTransaction = null;
 				try {
+					LOG.info("Read data from device");
                     mwTransaction = xrNodeBroker.newReadWriteTransaction();
                     InstanceIdentifier<MwEthernetContainerPac> pathEthernetContainer = InstanceIdentifier.builder(MwEthernetContainerPac.class, new MwEthernetContainerPacKey(uuid)).build();
                     MwEthernetContainerPac ethernetContainerPac = readEthernetContainer(mwTransaction, pathEthernetContainer);
@@ -205,9 +206,10 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 
 					mwTransaction.submit();
                     if (ethernetContainerPac != null && airInterfacePac != null) {
+						LOG.info("We have all informations, we can start calculating");
 						WirelessPowerCalculator calculator = new WirelessPowerCalculator(airInterfacePac, ethernetContainerPac, this);
 						calculator.calc();
-						Thread.sleep(1000); // we tune air interface step by step
+						Thread.sleep(500); // we tune air interface step by step
                     }
                 } catch (Exception e) {
 					// in case if something strange was happened
