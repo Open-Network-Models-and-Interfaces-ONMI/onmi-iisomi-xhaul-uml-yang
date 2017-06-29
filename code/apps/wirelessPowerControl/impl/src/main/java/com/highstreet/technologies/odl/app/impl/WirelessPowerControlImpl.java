@@ -29,6 +29,7 @@ import org.opendaylight.controller.md.sal.common.api.data.TransactionChain;
 import org.opendaylight.controller.md.sal.common.api.data.TransactionChainListener;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker;
 import org.opendaylight.controller.sal.binding.api.RpcProviderRegistry;
+import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.yang.types.rev130715.Uuid;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.NetworkElement;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.UniversalId;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.logical.termination.point.g.Lp;
@@ -37,8 +38,6 @@ import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.r
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.MwAirInterfacePacKey;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.MwEthernetContainerPac;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.MwEthernetContainerPacKey;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.air._interface.capability.g.SupportedChannelPlanList;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.channel.plan.type.g.TransmissionModeList;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.mw.air._interface.pac.AirInterfaceConfiguration;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.network.topology.topology.topology.types.TopologyNetconf;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.wirelesspowercontrol.rev160919.StartOutput;
@@ -68,7 +67,8 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 	private static final InstanceIdentifier<Topology> NETCONF_TOPO_IID = InstanceIdentifier
 			.create(NetworkTopology.class)
 			.child(Topology.class, new TopologyKey(new TopologyId(TopologyNetconf.QNAME.getLocalName())));
-	public static final String LAYER_PROTOCOL = "ETC";
+	public static final String ETC_LAYER_PROTOCOL = "ETC";
+	public static final String MWPS_LAYER_PROTOCOL = "MWPS";
 
 	private DataBroker dataBroker;
 	private BindingAwareBroker.RpcRegistration registration;
@@ -77,7 +77,7 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 	private ScheduledExecutorService scheduledExecutorService;
 	private ScheduledFuture scheduledFuture;
 
-	private InstanceIdentifier<AirInterfaceConfiguration> pathAirConfiguration;
+	private List<InstanceIdentifier<AirInterfaceConfiguration>> pathAirConfigurationList;
 	private DataBroker xrNodeBroker;
 
 	/**
@@ -92,7 +92,7 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 
 		scheduledExecutorService = Executors.newScheduledThreadPool(10);
 		try {
-			scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),0, 15, TimeUnit.MINUTES);
+			scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(new TimerJob(this),0, 5, TimeUnit.MINUTES);
 		} catch (Exception e) {
 			LOG.error(e.getMessage(),e);
 		}
@@ -187,51 +187,54 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 
 		LOG.info("We found the suitable device : {}", nodeKey);
 		// retrieve list of universal IDs which need to retrieve MWAirInterfacePac
-		List<UniversalId> universalIdList = retrieveUniversalId(xrNodeBroker);
-		LOG.info("We found universalIds, the list is {} ",universalIdList);
-		if (universalIdList != null && universalIdList.size() > 0) {
-			for (UniversalId uuid : universalIdList) {
-				LOG.info("XX Process uuid {} ",uuid);
-				ReadWriteTransaction mwTransaction = null;
-				try {
-					LOG.info("Read data from device");
-                    mwTransaction = xrNodeBroker.newReadWriteTransaction();
-                    InstanceIdentifier<MwEthernetContainerPac> pathEthernetContainer = InstanceIdentifier.builder(MwEthernetContainerPac.class, new MwEthernetContainerPacKey(uuid)).build();
-                    MwEthernetContainerPac ethernetContainerPac = readEthernetContainer(mwTransaction, pathEthernetContainer);
-
-					LOG.info("ethernetContainerPac : {}", ethernetContainerPac);
-
-					InstanceIdentifier<MwAirInterfacePac> pathAirInterface = InstanceIdentifier.builder(MwAirInterfacePac.class, new MwAirInterfacePacKey(uuid)).build();
-                    MwAirInterfacePac airInterfacePac = readAirInterface(mwTransaction, pathAirInterface);
-
-					LOG.info("airInterfacePac : {}", airInterfacePac);
-
-					pathAirConfiguration = InstanceIdentifier.builder(MwAirInterfacePac.class, new MwAirInterfacePacKey(uuid)).build().child(AirInterfaceConfiguration.class);
-
-					mwTransaction.submit();
-                    if (ethernetContainerPac != null && airInterfacePac != null) {
-						LOG.info("We have all informations, we can start calculating");
-						WirelessPowerCalculator calculator = new WirelessPowerCalculator(airInterfacePac, ethernetContainerPac, this);
-						calculator.calc();
-						Thread.sleep(500); // we tune air interface step by step
-                    }
-                } catch (Exception e) {
-					// in case if something strange was happened
-					if (mwTransaction != null) {
-						mwTransaction.cancel();
-					}
-					LOG.error(e.getMessage(),e);
-					throw e;
-				}
+		DeviceUniversalIdContainer containerIds = retrieveUniversalId(xrNodeBroker);
+		if (containerIds.getMwpsUuidList().size() > 0 && containerIds.getEtcUuid() != null) {
+			LOG.info("ETC uuid {} ",containerIds.getEtcUuid());
+			for (UniversalId uuid : containerIds.getMwpsUuidList()) {
+				LOG.info("MWPS uuid {} ",uuid);
 			}
+			ReadWriteTransaction mwTransaction = null;
+			try {
+				LOG.info("Read ethernetContainerPac from {} ", containerIds.getEtcUuid());
+				mwTransaction = xrNodeBroker.newReadWriteTransaction();
+				InstanceIdentifier<MwEthernetContainerPac> pathEthernetContainer = InstanceIdentifier.builder(MwEthernetContainerPac.class, new MwEthernetContainerPacKey(containerIds.getEtcUuid())).build();
+				MwEthernetContainerPac ethernetContainerPac = readEthernetContainer(mwTransaction, pathEthernetContainer);
+				LOG.info("ethernetContainerPac : {}", ethernetContainerPac);
 
+				List<MwAirInterfacePac> mwAirInterfacePacList = new ArrayList<>();
+				pathAirConfigurationList = new ArrayList<>();
+				for (UniversalId uuid : containerIds.getMwpsUuidList()) {
+					InstanceIdentifier<MwAirInterfacePac> pathAirInterface = InstanceIdentifier.builder(MwAirInterfacePac.class, new MwAirInterfacePacKey(uuid)).build();
+					MwAirInterfacePac airInterfacePac = readAirInterface(mwTransaction, pathAirInterface);
+					mwAirInterfacePacList.add(airInterfacePac);
+
+					pathAirConfigurationList.add(InstanceIdentifier.builder(MwAirInterfacePac.class, new MwAirInterfacePacKey(uuid)).build().child(AirInterfaceConfiguration.class));
+
+					LOG.info("airInterfacePac of {} : {}", uuid, airInterfacePac);
+				}
+
+				mwTransaction.submit();
+				if (ethernetContainerPac != null && mwAirInterfacePacList.size() > 0) {
+					WirelessPowerCalculator calculator = new WirelessPowerCalculator(mwAirInterfacePacList, ethernetContainerPac, this);
+					calculator.calc();
+					Thread.sleep(500); // we tune air interface step by step
+				}
+			} catch (Exception e) {
+				// in case if something strange was happened
+				if (mwTransaction != null) {
+					mwTransaction.cancel();
+				}
+				LOG.error(e.getMessage(),e);
+				throw e;
+			}
 		}
+
 	}
 
 
-	public void merge(AirInterfaceConfiguration output) {
+	public void merge(AirInterfaceConfiguration output, int airInterfaceId) {
 		ReadWriteTransaction mwTransaction = xrNodeBroker.newReadWriteTransaction();
-        mwTransaction.merge(LogicalDatastoreType.CONFIGURATION, pathAirConfiguration, output);
+        mwTransaction.merge(LogicalDatastoreType.CONFIGURATION, pathAirConfigurationList.get(airInterfaceId), output);
         mwTransaction.submit();
     }
 
@@ -274,8 +277,9 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 	 * @param xrNodeBroker
 	 * @return
 	 */
-	private List<UniversalId> retrieveUniversalId(DataBroker xrNodeBroker) {
-		List<UniversalId> list = new ArrayList<>();
+	private DeviceUniversalIdContainer retrieveUniversalId(DataBroker xrNodeBroker) {
+		DeviceUniversalIdContainer container = new DeviceUniversalIdContainer();
+		List<UniversalId> mwpsList = new ArrayList<>();
 		ReadOnlyTransaction networkElementTransaction = null;
 		try {
 			// read network elements
@@ -291,11 +295,13 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 						LOG.debug("Logical Termination Point. An uuid {}",ltp.getUuid());
 						for (Lp lp : ltp.getLp()) { // loop Layer Protocol
 							LOG.debug("Layer Protocol. An uuid {}",ltp.getUuid());
-							if (LAYER_PROTOCOL.equals(lp.getLayerProtocolName().getValue())) { //if it is MWPS we have one
+							if (ETC_LAYER_PROTOCOL.equals(lp.getLayerProtocolName().getValue())) {
+								LOG.info("We found the ETC, An uuid: "+lp.getKey().getUuid());
+								container.setEtcUuid(lp.getKey().getUuid());
+							} else if (MWPS_LAYER_PROTOCOL.equals(lp.getLayerProtocolName().getValue())) {
 								LOG.info("We found the MWPS, An uuid: "+lp.getKey().getUuid());
-								list.add(lp.getKey().getUuid());
+								mwpsList.add(lp.getKey().getUuid());
 							}
-
 						}
 					}
 				}
@@ -310,7 +316,8 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 
 		}
 
-		return list;
+		container.setMwpsUuidList(mwpsList);
+		return container;
 	}
 }
 
@@ -330,5 +337,26 @@ class TimerJob implements Runnable {
 		LOG.info("Timer start ");
 		impl.processNetworkDevices();
 		LOG.info("Timer end ");
+	}
+}
+
+class DeviceUniversalIdContainer {
+	private UniversalId etcUuid;
+	private List<UniversalId> mwpsUuidList;
+
+	public UniversalId getEtcUuid() {
+		return etcUuid;
+	}
+
+	public void setEtcUuid(UniversalId etcUuid) {
+		this.etcUuid = etcUuid;
+	}
+
+	public List<UniversalId> getMwpsUuidList() {
+		return mwpsUuidList;
+	}
+
+	public void setMwpsUuidList(List<UniversalId> mwpsUuidList) {
+		this.mwpsUuidList = mwpsUuidList;
 	}
 }
