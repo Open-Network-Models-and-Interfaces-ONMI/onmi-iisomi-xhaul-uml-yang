@@ -191,7 +191,7 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 		LOG.info("We found universalIds, the list is {} ",universalIdList);
 		if (universalIdList != null && universalIdList.size() > 0) {
 			for (UniversalId uuid : universalIdList) {
-				LOG.info("Process uuid {} ",uuid);
+				LOG.info("XX Process uuid {} ",uuid);
 				ReadWriteTransaction mwTransaction = null;
 				try {
 					LOG.info("Read data from device");
@@ -199,8 +199,12 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
                     InstanceIdentifier<MwEthernetContainerPac> pathEthernetContainer = InstanceIdentifier.builder(MwEthernetContainerPac.class, new MwEthernetContainerPacKey(uuid)).build();
                     MwEthernetContainerPac ethernetContainerPac = readEthernetContainer(mwTransaction, pathEthernetContainer);
 
+					LOG.info("ethernetContainerPac : {}", ethernetContainerPac);
+
 					InstanceIdentifier<MwAirInterfacePac> pathAirInterface = InstanceIdentifier.builder(MwAirInterfacePac.class, new MwAirInterfacePacKey(uuid)).build();
                     MwAirInterfacePac airInterfacePac = readAirInterface(mwTransaction, pathAirInterface);
+
+					LOG.info("airInterfacePac : {}", airInterfacePac);
 
 					pathAirConfiguration = InstanceIdentifier.builder(MwAirInterfacePac.class, new MwAirInterfacePacKey(uuid)).build().child(AirInterfaceConfiguration.class);
 
