@@ -68,7 +68,7 @@ public class WirelessPowerControlImpl implements AutoCloseable, WirelessPowerCon
 	private static final InstanceIdentifier<Topology> NETCONF_TOPO_IID = InstanceIdentifier
 			.create(NetworkTopology.class)
 			.child(Topology.class, new TopologyKey(new TopologyId(TopologyNetconf.QNAME.getLocalName())));
-	public static final String LAYER_PROTOCOL = "MWPS";
+	public static final String LAYER_PROTOCOL = "ETC";
 
 	private DataBroker dataBroker;
 	private BindingAwareBroker.RpcRegistration registration;
