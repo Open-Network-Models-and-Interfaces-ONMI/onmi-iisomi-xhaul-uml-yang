@@ -1,8 +1,8 @@
-[javascript]
-bears = ESLintBear, JSHintBear #, HappinessLintBear
-eslint_config = .eslintrc
-jshint_config = .jshintrc
-files = models/**.js
+# [javascript]
+# bears = ESLintBear, JSHintBear #, HappinessLintBear
+# eslint_config = .eslintrc
+# jshint_config = .jshintrc
+# files = models/**.js
 
 [json]
 bears = JSONFormatBear
@@ -12,6 +12,6 @@ files = .eslintrc
 bears = YAMLLintBear
 files = .travis.yml
 
-# [yang]
-# bears = YANGBear
-# files = models/**.yang
+[yang]
+bears = YANGBear
+files = models/**.yang
