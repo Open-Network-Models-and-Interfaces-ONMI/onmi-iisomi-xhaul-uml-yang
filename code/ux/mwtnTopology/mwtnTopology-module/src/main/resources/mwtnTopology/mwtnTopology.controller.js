@@ -4233,16 +4233,6 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           });
         };
 
-        // var setDevicesActive = function (nodeIds) {
-        //   // console.warn(nodeIds);
-        //   cy.nodes().filter(function (node) {
-        //     node.data('active', 'false');
-        //     return node.data('type') === 'ptp-clock' && nodeIds.contains(node.data('id'));
-        //   }).map(function (node) {
-        //     node.data('active', 'true');
-        //   });
-        // };
-
         var setAllDevicesInactive = function () {
           cy.nodes().map(function (node) {
             node.data('active', 'false');
@@ -4263,22 +4253,6 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
               }
             });
           });
-        };
-
-        var nodeId = function (base64) {
-          if (base64 === undefined || base64 === '') return '';
-
-          var selector = "[type = 'ptp-clock']";
-          var result = cy.nodes(selector).filter(function (graphClock) {
-            // console.error(base64, graphClock.data('base64'), graphClock.data('base64') === base64);
-            return graphClock.data('base64') === base64;
-          });
-          if (result.length === 0) {
-            console.warn('Clock', base64, 'not found!');
-            return '';
-          } else {
-            return result[0].id();
-          }
         };
 
         var init = function () {
@@ -4323,14 +4297,43 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
         };
         // init();
 
+        var getNodeId = function (base64) {
+          if (base64 === undefined || base64 === '') return '';
+
+          var selector = "[type = 'ptp-clock']";
+          var result = cy.nodes(selector).filter(function (graphClock) {
+            // console.error(base64, graphClock.data('base64'), graphClock.data('base64') === base64);
+            return graphClock.data('base64') === base64;
+          });
+          if (result.length === 0) {
+            console.warn('Clock', base64, 'not found!');
+            return '';
+          } else {
+            return result[0].id();
+          }
+        };
+
+        var getParentClock = function(nodeId) {
+          $mwtnPtp.getParent(nodeId).then(function(parentPortIdentity){
+            var parentNode = getNodeId(parentPortIdentity['clock-identity']);
+            console.log(JSON.stringify(parentPortIdentity), parentNode);
+            if (parentNode) {
+              getParentClock(parentNode);
+            }
+          });
+        };
+
         cy.on('tap', function (event) {
+          console.log('tap');
           clearPtpPath();
           if (event.target !== cy) {
             if (event.target.data('type') === 'ptp-clock') {
-              highlightPtpMaster(event.target.id());
+              getParentClock(event.target.id());
+            //   highlightPtpMaster(event.target.id());
             } else if (event.target.data('type') === 'port') {
               var parent = cy.getElementById(event.target.data('parent'));
-              highlightPtpMaster(parent.id());
+              // highlightPtpMaster(parent.id());
+              getParentClock(event.target.id());
             }
           } else {
             // init();
@@ -4388,7 +4391,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
       {
         field: "grandMaster",
         type: "string",
-        displayName: "grandMaster",
+        displayName: "grandmaster",
         width: 300
       },
       {

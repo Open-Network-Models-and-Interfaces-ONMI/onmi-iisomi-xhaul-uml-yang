@@ -9,137 +9,121 @@ package com.highstreet.technologies.odl.app.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.g._874._1.model.rev170320.GranularityPeriodType;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.MwAirInterfacePac;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.MwEthernetContainerPac;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.air._interface.capability.g.SupportedChannelPlanList;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.channel.plan.type.g.TransmissionModeList;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.ethernet.container.current.performance.g.CurrentPerformanceDataList;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.ethernet.container.historical.performances.g.HistoricalPerformanceDataList;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.mw.air._interface.pac.AirInterfaceConfigurationBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class WirelessPowerCalculator {
-    private static Integer lastTxEthernetBytesMaxS1 = -1;
-    private static Integer lastTxEthernetBytesMaxS2 = -1;
+    private static boolean firstTime = true;
     private static final Logger LOG = LoggerFactory.getLogger(WirelessPowerCalculator.class);
 
     public static final double THROUGHPUT_MARGIN_RATE_HIGH = 8/10.0; /* protecting margin level high */
     public static final double THROUGHPUT_MARGIN_RATE_LOW = 5/10.0; /* protecting margin level low */
-    public static final int RX_LEVEL_QUARANTEE = 10;
 
-    private final MwAirInterfacePac air;
+    private final List<MwAirInterfacePac> airList;
     private final MwEthernetContainerPac eth;
     private WirelessPowerControlImpl impl;
 
-    public WirelessPowerCalculator(MwAirInterfacePac airInterfacePac, MwEthernetContainerPac ethernetContainerPac, WirelessPowerControlImpl impl) {
-        this.air = airInterfacePac;
+    public WirelessPowerCalculator(List<MwAirInterfacePac> mwAirInterfacePacList, MwEthernetContainerPac ethernetContainerPac, WirelessPowerControlImpl impl) {
+        this.airList = mwAirInterfacePacList;
         this.eth = ethernetContainerPac;
         this.impl = impl;
     }
 
     public void calc() {
-        eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().sort((t1, t2) -> t1.getPeriodEndTime().getValue().compareTo(t2.getPeriodEndTime().getValue()));
+        LOG.info("WirelessPowerCalculator start");
 
-        Integer histPerfCapacity1 = eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().get(0).getPerformanceData().getTxEthernetBytesMaxS() * 8;
-        Integer histPerfCapacity2 = eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList().get(1).getPerformanceData().getTxEthernetBytesMaxS() * 8;
+        List<HistoricalPerformanceDataList> historicalPerfomanceList = new ArrayList<>();
 
-        if (lastTxEthernetBytesMaxS1.equals(histPerfCapacity1) && lastTxEthernetBytesMaxS2.equals(histPerfCapacity2)) {
-            return;
+        for (HistoricalPerformanceDataList item : eth.getEthernetContainerHistoricalPerformances().getHistoricalPerformanceDataList()) {
+            if (GranularityPeriodType.Period15Min.equals(item.getGranularityPeriod())) {
+                historicalPerfomanceList.add(item);
+            }
         }
-        lastTxEthernetBytesMaxS1 = histPerfCapacity1;
-        lastTxEthernetBytesMaxS2 = histPerfCapacity2;
+        historicalPerfomanceList.sort((t1, t2) -> t2.getPeriodEndTime().getValue().compareTo(t1.getPeriodEndTime().getValue()));
+
+        if (!firstTime && historicalPerfomanceList.size() > 1) {
+            Long histPerfCapacity1 = historicalPerfomanceList.get(0).getPerformanceData().getTxEthernetBytesSum();
+            Long histPerfCapacity2 = historicalPerfomanceList.get(1).getPerformanceData().getTxEthernetBytesSum();
+            LOG.info("Historical capacity 1: {} bytes",histPerfCapacity1);
+            LOG.info("Historical capacity 2: {} bytes",histPerfCapacity1);
+            if (histPerfCapacity1.equals(histPerfCapacity2)) {
+                return;
+            }
+        }
 
         LOG.info("Historical Data has been changed. Algorithm will be applied");
 
-        byte txPower = air.getAirInterfaceConfiguration().getTxPower();
+        List<CurrentPerformanceDataList> currentPerfomanceList = new ArrayList<>();
+        for (CurrentPerformanceDataList item : eth.getEthernetContainerCurrentPerformance().getCurrentPerformanceDataList()) {
+            if (GranularityPeriodType.Period15Min.equals(item.getGranularityPeriod())) {
+                currentPerfomanceList.add(item);
+            }
+        }
 
-        LOG.info("Current modulation MIN: {} ", air.getAirInterfaceConfiguration().getModulationMin());
-        LOG.info("Current txPower: {} ", txPower);
+        if (currentPerfomanceList.isEmpty()) {
+            LOG.info("Current perfomance is empty");
+            return;
+        }
 
-        TransmissionModelContainer transmissionModelContainer = calculateTransmissionModel();
-        TransmissionModelItem currentTransmissionMode = transmissionModelContainer.findTransmissionMode(air.getAirInterfaceStatus().getModulationCur(), air.getAirInterfaceStatus().getCodeRateCur());
-
-        LOG.info("Current trans. mode: {} ", currentTransmissionMode.getInnerItem().getTransmissionModeId().getValue());
-
-        Integer currentPerfCapacity1 = eth.getEthernetContainerCurrentPerformance().getCurrentPerformanceDataList().get(0).getPerformanceData().getTxEthernetBytesMaxS() * 8;
-        Integer currentPerfCapacity2 = eth.getEthernetContainerCurrentPerformance().getCurrentPerformanceDataList().get(1).getPerformanceData().getTxEthernetBytesMaxS() * 8;
-        Integer currentPerfCapacity3 = eth.getEthernetContainerCurrentPerformance().getCurrentPerformanceDataList().get(2).getPerformanceData().getTxEthernetBytesMaxS() * 8;
-
-
-
-        int currentCapacity = (int) (currentTransmissionMode.getCapacity() * THROUGHPUT_MARGIN_RATE_LOW / 1000);
-        if (histPerfCapacity1 < currentCapacity &&
-                histPerfCapacity2 < currentCapacity &&
-                currentPerfCapacity1 < currentCapacity &&
-                currentPerfCapacity2 < currentCapacity &&
-                currentPerfCapacity3 < currentCapacity
-        ) {
-            TransmissionModelItem newTransmissionMode = transmissionModelContainer.findTheLowestTransmissionMode(currentPerfCapacity3);
-
-            LOG.info("New trans. mode: {} ", newTransmissionMode.getInnerItem().getTransmissionModeId().getValue());
-
-            Short modulationMin = newTransmissionMode.getInnerItem().getModulationScheme();
-            mergeAirConfiguration(modulationMin, txPower); // store new modulation
-            LOG.info("New modulationMin: {} ", modulationMin);
-
-            int expectedRxLevel = newTransmissionMode.getInnerItem().getRxThreshold() + RX_LEVEL_QUARANTEE;
-            byte txPowerMin = currentTransmissionMode.getInnerItem().getTxPowerMin();
+        Double currentPerfCapacity = currentPerfomanceList.get(0).getPerformanceData().getTxEthernetBytesSum() * 8 / 15 / 60 / 1000000.0;
+        LOG.debug("Current performance capacity of ETC: {} bytes per 15 min",currentPerfomanceList.get(0).getPerformanceData().getTxEthernetBytesSum());
+        LOG.debug("Current performance capacity of ETC: {} Mbs",currentPerfCapacity);
 
 
-            Simulator simulator = new Simulator(expectedRxLevel, true);
-            while (simulator.getRemoteAirRxLevel() > expectedRxLevel && air.getAirInterfaceStatus().getTxLevelCur()  > txPowerMin) {
+        double mwCapacityTotal = 0.0d;
+        for (MwAirInterfacePac air : airList) {
+            Double mwCapacity = air.getAirInterfaceConfiguration().getTxChannelBandwidth() * log2(air.getAirInterfaceStatus().getModulationCur()) * air.getAirInterfaceStatus().getCodeRateCur() / 100  / 1.15 / 1000 ;
+            mwCapacityTotal = mwCapacityTotal + mwCapacity;
+            LOG.debug("Air Interface capacity {} is: {} Mbs",air.getAirInterfaceConfiguration().getAirInterfaceName(), mwCapacity);
+        }
+
+        LOG.debug("Total MWCapacity: {} Mbs",mwCapacityTotal);
+        LOG.debug("Factor: {}",THROUGHPUT_MARGIN_RATE_HIGH);
+
+
+        if (currentPerfCapacity < mwCapacityTotal * THROUGHPUT_MARGIN_RATE_HIGH) {
+            int i = 0;
+            for (MwAirInterfacePac air : airList) {
+                byte txPower = air.getAirInterfaceConfiguration().getTxPower();
+                LOG.info("Current txPower {} is : {} ",air.getAirInterfaceConfiguration().getAirInterfaceName(),txPower);
                 if (txPower > 0) {
                     txPower--;
                 }
-                mergeAirConfiguration(modulationMin,txPower); //store new power
-                LOG.info("New power: {} ", txPower);
+                LOG.info("New txPower {} is : {} ",air.getAirInterfaceConfiguration().getAirInterfaceName(),txPower);
+                mergeAirConfiguration(txPower, air, i);
+                i++;
             }
-        }
-
-        if (currentPerfCapacity3 > currentCapacity) {
-            TransmissionModelItem newTransmissionMode = transmissionModelContainer.findTheLowestTransmissionMode(currentPerfCapacity3);
-            LOG.info("New trans. mode: {} ", newTransmissionMode.getInnerItem().getTransmissionModeId().getValue());
-
-            Short modulationMin = newTransmissionMode.getInnerItem().getModulationScheme();
-            mergeAirConfiguration(modulationMin, txPower);
-            LOG.info("New modulationMin: {} ", modulationMin);
-
-            int expectedRxLevel = newTransmissionMode.getInnerItem().getRxThreshold() + RX_LEVEL_QUARANTEE;
-            byte txPowerMax = currentTransmissionMode.getInnerItem().getTxPowerMax();
-
-            Simulator simulator = new Simulator(expectedRxLevel, false);
-            while (simulator.getRemoteAirRxLevel() < expectedRxLevel && air.getAirInterfaceStatus().getTxLevelCur()  < txPowerMax) {
+        } else {
+            int i = 0;
+            for (MwAirInterfacePac air : airList) {
+                byte txPower = air.getAirInterfaceConfiguration().getTxPower();
+                LOG.info("Current txPower {} is : {} ",air.getAirInterfaceConfiguration().getAirInterfaceName(),txPower);
                 if (txPower < 127) {
                     txPower++;
                 }
-                mergeAirConfiguration(modulationMin, txPower);
-                LOG.info("New power: {} ", txPower);
+                LOG.info("New txPower {} is : {} ",air.getAirInterfaceConfiguration().getAirInterfaceName(),txPower);
+                mergeAirConfiguration(txPower, air, i);
+                i++;
             }
         }
 
 
+        firstTime = false;
+
     }
 
-    private TransmissionModelContainer calculateTransmissionModel() {
-        TransmissionModelContainer transmissionModelContainer = new TransmissionModelContainer();
-        for (SupportedChannelPlanList supportedChannelPlanList :  air.getAirInterfaceCapability().getSupportedChannelPlanList()) {
-            if (supportedChannelPlanList.getTransmissionModeList() == null) {
-                continue;
-            }
-
-            for (TransmissionModeList transmissionModeList : supportedChannelPlanList.getTransmissionModeList()) {
-                transmissionModelContainer.add(transmissionModeList);
-            }
-        }
-
-        transmissionModelContainer.orderItems();
-        return transmissionModelContainer;
-    }
-
-    public void mergeAirConfiguration(short modulationMin, byte txPower) {
+    public void mergeAirConfiguration(byte txPower, MwAirInterfacePac air, int index) {
         AirInterfaceConfigurationBuilder configurationBuilder = new AirInterfaceConfigurationBuilder(air.getAirInterfaceConfiguration());
         configurationBuilder.setTxPower(txPower);
-        configurationBuilder.setModulationMin(modulationMin);
-        impl.merge(configurationBuilder.build());
+        impl.merge(configurationBuilder.build(), index);
         wait1seconds();
     }
 
@@ -154,93 +138,4 @@ public class WirelessPowerCalculator {
     public static double log2( double a) {
         return Math.log(a) / Math.log(2);
     }
-}
-
-class TransmissionModelContainer {
-    private List<TransmissionModelItem> itemList;
-
-    public TransmissionModelItem findTransmissionMode(Short modulationCur, Byte codeRateCur) {
-        for (TransmissionModelItem item : itemList) {
-            if (item.getInnerItem().getModulationScheme().equals(modulationCur) && item.getInnerItem().getCodeRate().equals(codeRateCur)) {
-                return item;
-            }
-        }
-        if (itemList.size() > 0) { // if we don't find, we select the first one
-            return itemList.get(0);
-        }
-        return null;
-    }
-
-    public TransmissionModelItem findTheLowestTransmissionMode(Integer currentCapacity) {
-        for (TransmissionModelItem item : itemList) {
-            if (currentCapacity < item.getCapacity() * WirelessPowerCalculator.THROUGHPUT_MARGIN_RATE_HIGH) {
-                return item;
-            }
-        }
-        if (itemList.size() > 0) { // if we don't find, we select the first one
-            return itemList.get(0);
-        }
-        return null;
-    }
-
-    public TransmissionModelContainer() {
-        itemList = new ArrayList<>();
-    }
-
-    public void add(TransmissionModeList item) {
-        itemList.add(new TransmissionModelItem(item,calculateCapacity(item)));
-    }
-
-
-
-    private Integer calculateCapacity(TransmissionModeList item) {
-        return (int)(item.getChannelBandwidth()*WirelessPowerCalculator.log2(item.getModulationScheme()) * item.getCodeRate());
-    }
-
-    public void orderItems() {
-        itemList.sort((transmissionModelItem, t1) -> transmissionModelItem.getCapacity().compareTo(t1.getCapacity()));
-    }
-}
-
-class TransmissionModelItem   {
-
-    public TransmissionModelItem(TransmissionModeList innerItem, Integer capacity) {
-        this.innerItem = innerItem;
-        this.capacity = capacity;
-    }
-
-    private TransmissionModeList innerItem;
-    private Integer capacity;
-
-    public TransmissionModeList getInnerItem() {
-        return innerItem;
-    }
-
-    public Integer getCapacity() {
-        return capacity;
-    }
-}
-
-class Simulator {
-    private static final int COUNT_STEP = 3;
-    int currentStep;
-    int expectedRxLevel;
-    boolean isSimulateGreaterValue;
-
-    public Simulator(int expectedRxLevel, boolean isSimulateGreaterValue) {
-        this.expectedRxLevel = expectedRxLevel;
-        this.isSimulateGreaterValue = isSimulateGreaterValue;
-        this.currentStep = 0;
-    }
-
-    public int getRemoteAirRxLevel() {
-        currentStep++;
-        if (COUNT_STEP == currentStep) {
-            return isSimulateGreaterValue ? expectedRxLevel -1 :  expectedRxLevel + 1;
-        }
-        return isSimulateGreaterValue ? expectedRxLevel + 1 :  expectedRxLevel - 1;
-    }
-
-
-
 }

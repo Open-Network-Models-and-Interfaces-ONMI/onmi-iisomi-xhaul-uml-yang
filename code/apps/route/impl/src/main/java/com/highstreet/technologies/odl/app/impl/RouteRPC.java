@@ -24,7 +24,6 @@ import org.opendaylight.yangtools.yang.common.RpcResultBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -55,7 +54,7 @@ public class RouteRPC implements RouteService
     static
     {
         predefinePath = JsonUtil.toObject(
-                new File(System.getenv().get("ODL_KARAF_HOME") + File.separator + "data" + File.separator + "topology.json"), PredefinePath.class);
+                RouteRPC.class.getClassLoader().getResource("topology.json"), PredefinePath.class);
     }
 
     private final DataBroker dataBroker;
@@ -101,16 +100,13 @@ public class RouteRPC implements RouteService
     public Future<RpcResult<CreateFollowTopoOutput>> createFollowTopo(
             CreateFollowTopoInput input)
     {
-        // refresh topology.json before create
-        predefinePath = JsonUtil.toObject(
-                new File(System.getenv().get("ODL_KARAF_HOME") + File.separator + "data" + File.separator + "topology.json"), PredefinePath.class);
-
         CreateFollowTopoOutputBuilder builder = new CreateFollowTopoOutputBuilder();
         int vlanId = input.getVlanid();
         ArrayList<Fc> listFc = new ArrayList<>();
         Arrays.stream(predefinePath.paths.get(String.valueOf(vlanId)).main_ltps).forEach(fc -> listFc.add(fc.toFc()));
 
         builder.setStatus(this.create(vlanId, listFc));
+        LOG.info("creation follow the topology finished");
         return RpcResultBuilder.success(builder.build()).buildFuture();
     }
 
@@ -123,6 +119,7 @@ public class RouteRPC implements RouteService
                 switchTo(
                         input.getVlanid(),
                         Arrays.asList(predefinePath.paths.get(String.valueOf(input.getVlanid())).backup_ltps)));
+        LOG.info("switch follow the topology finished");
         return RpcResultBuilder.success(builder.build()).buildFuture();
     }
 
@@ -132,6 +129,7 @@ public class RouteRPC implements RouteService
     {
         DeleteOutputBuilder builder = new DeleteOutputBuilder();
         builder.setStatus(this.delete(input.getVlanid()));
+        LOG.info("delete finished");
         return RpcResultBuilder.success(builder.build()).buildFuture();
     }
 
