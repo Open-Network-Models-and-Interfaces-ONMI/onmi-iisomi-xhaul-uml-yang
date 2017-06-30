@@ -2501,6 +2501,23 @@ define(
         return deferred.promise;
       };
 
+      service.getParent = function(nodeId) {
+        var deferred = $q.defer();
+        var request = {
+          method: 'GET',
+          url: 'operational/network-topology:network-topology/topology/topology-netconf/node/' + nodeId + '/yang-ext:mount/ietf-ptp-dataset:instance-list/1/parent-ds/parent-port-identity'
+        };
+
+        $mwtnCommons.genericRequest(request).then(function(success){
+          console.warn(JSON.stringify(success));
+          deferred.resolve(success.data['parent-port-identity']);
+        }, function(error) {
+          console.error(JSon.stringify(error));
+          deferred.reject();
+        });
+        return deferred.promise;
+      };
+
       return service;
     });
 
