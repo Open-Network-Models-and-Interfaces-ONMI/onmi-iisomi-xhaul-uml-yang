@@ -1101,9 +1101,6 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
             }
           });
 
-          console.log(tempArr);
-
-
           //process data according to grid
           switch (grid) {
             case 'receiveLevel': {
