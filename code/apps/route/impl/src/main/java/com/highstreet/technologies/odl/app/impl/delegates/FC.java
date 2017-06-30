@@ -27,4 +27,14 @@ public class FC
         fcBuilder.setZEnd(zEnd);
         return fcBuilder.build();
     }
+
+    @Override
+    public String toString()
+    {
+        return "FC{" +
+                "node='" + node + '\'' +
+                ", aEnd='" + aEnd + '\'' +
+                ", zEnd='" + zEnd + '\'' +
+                '}';
+    }
 }
