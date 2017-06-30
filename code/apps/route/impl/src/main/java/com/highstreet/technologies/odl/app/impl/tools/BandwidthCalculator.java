@@ -7,6 +7,9 @@
  */
 package com.highstreet.technologies.odl.app.impl.tools;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.DecimalFormat;
 
 import static com.google.common.math.DoubleMath.log2;
@@ -16,9 +19,12 @@ import static com.google.common.math.DoubleMath.log2;
  */
 public class BandwidthCalculator
 {
+    private static final Logger LOG = LoggerFactory.getLogger(BandwidthCalculator.class);
+
     public BandwidthCalculator(Integer txChannelBandwidth, Short modulationCur, Byte codeRateCur)
     {
-        this.result = txChannelBandwidth * log2(modulationCur) * ((double) codeRateCur / (double) 100) / 1.15;
+        LOG.info("bandwidth: " + txChannelBandwidth + " modulationCur: " + modulationCur + " codeRate: " + codeRateCur);
+        this.result = txChannelBandwidth * log2(modulationCur) * (0.8) / 1.15;
     }
 
     private static DecimalFormat df = new DecimalFormat("#.00");

@@ -26,4 +26,13 @@ public class TestJson
 
         System.out.println("");
     }
+
+    @Test
+    public void test_to_obj_from_file()
+    {
+        PredefinePath path = JsonUtil.toObject(
+                new File(System.getenv().get("ODL_KARAF_HOME") + File.separator + "data" + File.separator + "topology.json"), PredefinePath.class);
+        System.out.println(path);
+    }
+
 }

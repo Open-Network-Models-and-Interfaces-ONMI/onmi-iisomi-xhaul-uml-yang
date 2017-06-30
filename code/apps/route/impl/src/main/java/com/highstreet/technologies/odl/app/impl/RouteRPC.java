@@ -106,6 +106,7 @@ public class RouteRPC implements RouteService
         Arrays.stream(predefinePath.paths.get(String.valueOf(vlanId)).main_ltps).forEach(fc -> listFc.add(fc.toFc()));
 
         builder.setStatus(this.create(vlanId, listFc));
+        LOG.info("creation follow the topology finished");
         return RpcResultBuilder.success(builder.build()).buildFuture();
     }
 
@@ -118,6 +119,7 @@ public class RouteRPC implements RouteService
                 switchTo(
                         input.getVlanid(),
                         Arrays.asList(predefinePath.paths.get(String.valueOf(input.getVlanid())).backup_ltps)));
+        LOG.info("switch follow the topology finished");
         return RpcResultBuilder.success(builder.build()).buildFuture();
     }
 
@@ -127,6 +129,7 @@ public class RouteRPC implements RouteService
     {
         DeleteOutputBuilder builder = new DeleteOutputBuilder();
         builder.setStatus(this.delete(input.getVlanid()));
+        LOG.info("delete finished");
         return RpcResultBuilder.success(builder.build()).buildFuture();
     }
 
