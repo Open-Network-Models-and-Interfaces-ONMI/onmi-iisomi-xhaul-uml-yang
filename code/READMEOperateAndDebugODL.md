@@ -1,8 +1,8 @@
-# Operate and debug ODL for testing
+## Operate and debug ODL for testing
 
 ### Debug ODL
 
-#### Active or decative log point
+#### Activate or deactivate log point
 
 Getting Log info about a specific service:
 
@@ -19,6 +19,10 @@ For switching off logging set level to INFO to see the log point
 For deleting the log point for a package
 
     log:set DEFAULT org.opendaylight.netconf
+
+Configuration of logging is done here:
+
+    vi $ODL_KARAF_HOME/etc/org.ops4j.pax.logging.cfg
 
 #### View the log
 
