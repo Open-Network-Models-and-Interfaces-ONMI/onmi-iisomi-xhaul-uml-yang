@@ -230,6 +230,7 @@ For specific installation and remote access of database, please follow the instr
 For getting a basic running configuration that is also used for 4th PoC do follow the steps.
   - The configuration files are copied into the *activeConfig* directory.
   - ES-Plugins are copied into the karaf /etc folder
+
   Here are the steps:
 
      cd ~/CENTENNIAL/code/apps/persistentDatabase
@@ -241,23 +242,31 @@ For getting a basic running configuration that is also used for 4th PoC do follo
 
   - Starting karaf
 
-     cd $ODL_KARAF_HOME
-     ./bin/karaf clean
+    ```
+    cd $ODL_KARAF_HOME
+    ./bin/karaf clean
+    ```
 
   - In karaf shell install and start elasticsearch
 
-      feature:repo-add mvn:org.apache.karaf.decanter/apache-karaf-decanter/1.1.0/xml/features
-      feature:install elasticsearch
+    ```
+    feature:repo-add mvn:org.apache.karaf.decanter/apache-karaf-decanter/1.1.0/xml/features
+    feature:install elasticsearch
+    ```
 
   - The content and configuration from *activeConfig* is moved into the running database.
     Wait till install of elasticsearch completed and open a second bash shell:
 
-       cd ~/CENTENNIAL/code/apps/persistentDatabase
-       ./installAll.sh
+     ```
+     cd ~/CENTENNIAL/code/apps/persistentDatabase
+     ./installAll.sh
+     ```
 
   - Verify
 
-       curl http://127.0.0.1:9200/config/database/config
+     ```
+     curl http://127.0.0.1:9200/config/database/config
+     ```
 
    outputs like this with the configuration data as json
 
@@ -265,7 +274,9 @@ For getting a basic running configuration that is also used for 4th PoC do follo
 
   - Stop and leave karaf, by changing into the karaf command line and enter "shutdown" and confirm.
 
+    ```
     shutdown
+     ```
 
 ##### Step #3.1 - Patch
 For a robust web GUI it is necessary to add a ["patch"](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/code/apps/dlux) to ODL DLUX. Execute the install script:
