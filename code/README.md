@@ -54,7 +54,7 @@ ODL is configured for 4th-PoC
   cd to selected directory. Create if necessary.
 
     cd ~/odl
-    tar -xvf ~/Downloads/onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-27.tar.gz
+    tar -xf ~/Downloads/onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-27.tar.gz
 
 #### Step *3: Setup environment variables
 
