@@ -137,24 +137,24 @@ ODL is configured for 4th-PoC
 
    Add the following two lines at the end of the profile file
 
-    export JAVA_HOME=JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
     export PATH=$PATH:$JAVA_HOME/bin
 
    ... and activate by logout and login again and test it:
-
-    echo $ODL_KARAF_HOME
-
 
    Verify java installation.
 
     echo $JAVA_HOME
     java -version
 
-  - maven, git: the version control system, CURL to access URLs
+  - Some tools. maven,git, curl, zip for version control and access.
 
-     sudo apt-get install maven
-     sudo apt-get install git
-     sudo apt install curl zip
+  ```
+  sudo apt-get install maven
+  sudo apt-get install git
+  sudo apt install curl
+  sudo apt install zip
+  ```
 
 
   OpenDaylight requires a specific maven repository configuration.  Please see  [ODL wiki](https://wiki.opendaylight.org/view/GettingStarted:Development_Environment_Setup#Edit_your_.7E.2F.m2.2Fsettings.xml).
@@ -168,9 +168,8 @@ ODL is configured for 4th-PoC
 
     For ht standard purpose node 4.2.6 is sufficient.  if you use the "test automation app" you need a newer version. Please see also the instruction for the [test automation app](https://github.com/OpenNetworkingFoundation/CENTENNIAL/blob/master/test/INSTALL.md).
 
-        sudo apt-get install nodejs npm jq --
+        sudo apt-get install -y nodejs npm jq --
         sudo ln -s /usr/bin/nodejs /usr/bin/node
-
 
   - bower: the package manager for the web components.
 
