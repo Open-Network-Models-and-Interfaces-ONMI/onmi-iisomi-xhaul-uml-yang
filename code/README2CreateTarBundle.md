@@ -57,9 +57,9 @@ During step #2.3 enable logging within karaf command line:
 
 #### Copy into new directory and create tar file
 
-    TARDIR=onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-22
+    TARDIR=onf-wireless-4th-poc-karaf-0.5.3-Boron-SR3-2017-06-22
     mkdir $TARDIR
-    cp -r distribution-karaf-0.5.1-Boron-SR1/* $TARDIR
+    cp -r distribution-karaf-0.5.3-Boron-SR3/* $TARDIR
     tar -czvf "$TARDIR.tar.gz" $TARDIR
 
 
@@ -118,6 +118,6 @@ During step #2.3 enable logging within karaf command line:
 
     cd ..
 
-    mv onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-22
+    mv onf-wireless-4th-poc-karaf-0.5.3-Boron-SR3-2017-06-22
 
-    tar -czvf onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-22.tar.gz onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-22
+    tar -czvf onf-wireless-4th-poc-karaf-0.5.3-Boron-SR3-2017-06-22.tar.gz onf-wireless-4th-poc-karaf-0.5.3-Boron-SR3-2017-06-22

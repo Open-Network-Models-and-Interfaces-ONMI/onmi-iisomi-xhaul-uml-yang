@@ -46,7 +46,7 @@ ODL is configured for 4th-PoC
   - Copy into browser: [https://drive.google.com/file/d/0BwbcJFD90EFQbEVCaTMyS3ZOY1E/view?usp=sharing](https://drive.google.com/drive/folders/0BwbcJFD90EFQNEE5aXk5R1NPX3c)
   - Ignore Message about unknown format and select "Download".
   - Download should be into ~/Downloads (Reference download directory for this step-by-step instructions)
-  - Filename is containing a date. Take the newest one. (onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-27.tar.gz)
+  - Filename is containing a date. Take the newest one. (onf-wireless-4th-poc-karaf-0.5.3-Boron-SR3-2017-06-27.tar.gz)
 
 #### Step *2: Unpack tar-file
 
@@ -54,7 +54,7 @@ ODL is configured for 4th-PoC
   cd to selected directory. Create if necessary.
 
     cd ~/odl
-    tar -xf ~/Downloads/onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-27.tar.gz
+    tar -xf ~/Downloads/onf-wireless-4th-poc-karaf-0.5.3-Boron-SR3-2017-06-27.tar.gz
 
 #### Step *3: Setup environment variables
 
@@ -65,7 +65,7 @@ ODL is configured for 4th-PoC
 
    Add at the end of .profile:
 
-    export ODL_KARAF_HOME=$HOME/odl/onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-27
+    export ODL_KARAF_HOME=$HOME/odl/onf-wireless-4th-poc-karaf-0.5.3-Boron-SR3-2017-06-27
 
    To activate varable best option is to logout and login user again.
    Verify with:
@@ -196,21 +196,21 @@ Example directory structure under user's home:
     drwxrwxr-x  5 your_user_name your_user_name 4096 Okt 25 17:18 ./
     drwxr-xr-x 25 your_user_name your_user_name 4096 Okt 25 16:50 ../
     drwxrwxr-x 15 your_user_name your_user_name 4096 Okt 20 14:26 CENTENNIAL/
-    drwxrwxr-x 14 your_user_name your_user_name 4096 Okt 25 20:04 distribution-karaf-0.5.1-Boron-SR1/
+    drwxrwxr-x 14 your_user_name your_user_name 4096 Okt 25 20:04 distribution-karaf-0.5.3-Boron-SR3/
 
 ##### Step #2.1 - Download Karaf/ Opendaylight package and unpack
 
 The 4th ONF Wireless PoC applications are developed for OpenDaylight Boron-SR1 release.
 
-    wget https://nexus.opendaylight.org/content/repositories/public/org/opendaylight/integration/distribution-karaf/0.5.1-Boron-SR1/distribution-karaf-0.5.1-Boron-SR1.tar.gz
-    tar -xvzf distribution-karaf-0.5.1-Boron-SR1.tar.gz
-    cd distribution-karaf-0.5.1-Boron-SR1/
+    wget https://nexus.opendaylight.org/content/repositories/public/org/opendaylight/integration/distribution-karaf/0.5.3-Boron-SR3/distribution-karaf-0.5.3-Boron-SR3.tar.gz
+    tar -xvzf distribution-karaf-0.5.3-Boron-SR3.tar.gz
+    cd distribution-karaf-0.5.3-Boron-SR3/
 
-The folder "distribution-karaf-0.5.1-Boron-SR1/" is also called "$ODL_KARAF_HOME" in the following sections.
+The folder "distribution-karaf-0.5.3-Boron-SR3/" is also called "$ODL_KARAF_HOME" in the following sections.
 
 Add an environment variable with an editor to the end of ~/.profile
 
-    export ODL_KARAF_HOME="$HOME/distribution-karaf-0.5.1-Boron-SR1"
+    export ODL_KARAF_HOME="$HOME/distribution-karaf-0.5.3-Boron-SR3"
 
  Activate the change with logout and login of your user. Verify it:
 
