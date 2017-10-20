@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_sozXgFo1EeaGOO_VQ0dx_g/16" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenModel_Profile/_sozXgFo1EeaGOO_VQ0dx_g/16 /OpenModelProfile/OpenModel_Profile.profile.uml#_so5eIFo1EeaGOO_VQ0dx_g">
+  <uml:Model xmi:id="_eQdA8K6YEee8O__tgNTL6w" name="Onf-Otn-ConditionalPackages">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_QEyXAK6ZEee8O__tgNTL6w">
+      <body>This model adds conditional packages to the ONF CoreModel in order address OTN use cases.</body>
+    </ownedComment>
+    <packagedElement xmi:type="uml:Package" xmi:id="_Wk-GgK6ZEee8O__tgNTL6w" name="Imports">
+      <packageImport xmi:type="uml:PackageImport" xmi:id="_Wk-Gga6ZEee8O__tgNTL6w">
+        <importedPackage xmi:type="uml:Package" href="../OnfModel/CoreModel.uml#_oGqilVLNEeO75dO39GbF8Q"/>
+      </packageImport>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_YmmqQK6dEee8O__tgNTL6w" name="ObjectClasses">
+      <packagedElement xmi:type="uml:Package" xmi:id="_qrZh4K6cEee8O__tgNTL6w" name="OTS">
+        <packagedElement xmi:type="uml:Package" xmi:id="_-pYTQK6cEee8O__tgNTL6w" name="OTS-Termination">
+          <packagedElement xmi:type="uml:Package" xmi:id="_hkXPcK6dEee8O__tgNTL6w" name="OTS-Termination-Sink">
+            <packagedElement xmi:type="uml:Class" xmi:id="_YmmqQa6dEee8O__tgNTL6w" name="OTS-Termination-Sink_Pac">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_YmmqQq6dEee8O__tgNTL6w" name="_layerProtocol" visibility="private">
+                <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_gROecFYXEeOVGaP4lO41SQ"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YmmqQ66dEee8O__tgNTL6w" value="1"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_YmmqRK6dEee8O__tgNTL6w" value="1"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_WifykK6fEee8O__tgNTL6w" name="_otsTerminationSinkCapability" visibility="private" type="_YmmqS66dEee8O__tgNTL6w"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_YmmqRq6dEee8O__tgNTL6w" name="_otsTerminationSinkConfiguration" visibility="private" type="_YmmqTK6dEee8O__tgNTL6w" aggregation="composite"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_kLfX0K6fEee8O__tgNTL6w" name="_otsTerminationSinkStatus" visibility="private" type="_YmmqT66dEee8O__tgNTL6w"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_r4YLAK6fEee8O__tgNTL6w" name="_otsTerminationSinkCurrentProblems" visibility="private" type="_YmmqUK6dEee8O__tgNTL6w"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_39gJwK6fEee8O__tgNTL6w" name="_otsTerminationSinkCurrentPerformance" visibility="private" type="_YmmqUa6dEee8O__tgNTL6w"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_YmmqSq6dEee8O__tgNTL6w" name="_otsTerminationSinkHistoricalPerformances" visibility="private" type="_YmmqUq6dEee8O__tgNTL6w" isReadOnly="true" aggregation="composite"/>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_YmmqS66dEee8O__tgNTL6w" name="OtsTerminationSinkCapability"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_YmmqTK6dEee8O__tgNTL6w" name="OtsTerminationSinkConfiguration"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_YmmqT66dEee8O__tgNTL6w" name="OtsTerminationSinkStatus"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_YmmqUK6dEee8O__tgNTL6w" name="OtsTerminationSinkProblems"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_YmmqUa6dEee8O__tgNTL6w" name="OtsTerminationSinkCurrentPerformance"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_YmmqUq6dEee8O__tgNTL6w" name="OtsTerminationSinkHistoricalPerformances"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Package" xmi:id="_j0EBMK6dEee8O__tgNTL6w" name="OTS-Termination-Source">
+            <packagedElement xmi:type="uml:Class" xmi:id="_-wC4gK83Eee8O__tgNTL6w" name="OTS-Termination-Source_Pac">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_-wC4ga83Eee8O__tgNTL6w" name="_layerProtocol" visibility="private">
+                <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_gROecFYXEeOVGaP4lO41SQ"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-wC4gq83Eee8O__tgNTL6w" value="1"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-wC4g683Eee8O__tgNTL6w" value="1"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_-wC4hK83Eee8O__tgNTL6w" name="_otsTerminationSourceCapability" visibility="private" type="_K88TMK84Eee8O__tgNTL6w"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_-wC4ha83Eee8O__tgNTL6w" name="_otsTerminationSourceConfiguration" visibility="private" type="_Lqri8K84Eee8O__tgNTL6w" aggregation="composite"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_-wC4hq83Eee8O__tgNTL6w" name="_otsTerminationSinkStatus" visibility="private" type="_T4TrsK84Eee8O__tgNTL6w"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_-wC4h683Eee8O__tgNTL6w" name="_otsTerminationSourceCurrentProblems" visibility="private" type="_T4TrsK84Eee8O__tgNTL6w"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_-wC4iK83Eee8O__tgNTL6w" name="_otsTerminationSourceCurrentPerformance" visibility="private" type="_VqKD0K84Eee8O__tgNTL6w"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_-wC4ia83Eee8O__tgNTL6w" name="_otsTerminationSourceHistoricalPerformances" visibility="private" type="_WQ7v8K84Eee8O__tgNTL6w" isReadOnly="true" aggregation="composite"/>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_K88TMK84Eee8O__tgNTL6w" name="OtsTerminationSourceCapability"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_Lqri8K84Eee8O__tgNTL6w" name="OtsTerminationSourceConfiguration"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_T4TrsK84Eee8O__tgNTL6w" name="OtsTerminationSourceStatus"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_U7C7EK84Eee8O__tgNTL6w" name="OtsTerminationSourceProblems"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_VqKD0K84Eee8O__tgNTL6w" name="OtsTerminationSourceCurrentPerformance"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_WQ7v8K84Eee8O__tgNTL6w" name="OtsTerminationSourceHistoricalPerformances"/>
+          </packagedElement>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_wEyBYK6cEee8O__tgNTL6w" name="OMS">
+        <packagedElement xmi:type="uml:Package" xmi:id="_BwvFwK6dEee8O__tgNTL6w" name="OMS-Connection">
+          <packagedElement xmi:type="uml:Package" xmi:id="_V4slMLGgEeexxLCDMDR-sQ" name="OMS-Connection-Sink"/>
+          <packagedElement xmi:type="uml:Package" xmi:id="_w8C2wLGgEeexxLCDMDR-sQ" name="OMS-Connection-Source"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_EvKlwK6dEee8O__tgNTL6w" name="OMS-Termination">
+          <packagedElement xmi:type="uml:Package" xmi:id="_0m4w0LGgEeexxLCDMDR-sQ" name="OMS-Termination-Sink"/>
+          <packagedElement xmi:type="uml:Package" xmi:id="_0m9pULGgEeexxLCDMDR-sQ" name="OMS-Termination-Source"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_xvVesK6cEee8O__tgNTL6w" name="OCH">
+        <packagedElement xmi:type="uml:Package" xmi:id="_H8_zsK6dEee8O__tgNTL6w" name="OCH-Connection">
+          <packagedElement xmi:type="uml:Package" xmi:id="_5qWDoLGgEeexxLCDMDR-sQ" name="OCH-Connection-Sink"/>
+          <packagedElement xmi:type="uml:Package" xmi:id="_5qX40LGgEeexxLCDMDR-sQ" name="OCH-Connection-Source"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_H9BB0K6dEee8O__tgNTL6w" name="OCH-Termination">
+          <packagedElement xmi:type="uml:Package" xmi:id="_Bj4ywLGhEeexxLCDMDR-sQ" name="OCH-Termination-Sink"/>
+          <packagedElement xmi:type="uml:Package" xmi:id="_Bj6A4LGhEeexxLCDMDR-sQ" name="OCH-Termination-Source"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_3r-cQK6cEee8O__tgNTL6w" name="OTU">
+        <packagedElement xmi:type="uml:Package" xmi:id="_L8DqQK6dEee8O__tgNTL6w" name="OTU-Connection">
+          <packagedElement xmi:type="uml:Package" xmi:id="_L4f2ILGhEeexxLCDMDR-sQ" name="OTU-Connection-Sink"/>
+          <packagedElement xmi:type="uml:Package" xmi:id="_L4hrULGhEeexxLCDMDR-sQ" name="OTU-Connection-Source"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_L8E4YK6dEee8O__tgNTL6w" name="OTU-Termination">
+          <packagedElement xmi:type="uml:Package" xmi:id="_Xfl1ELGhEeexxLCDMDR-sQ" name="OTU-Termination-Sink"/>
+          <packagedElement xmi:type="uml:Package" xmi:id="_XfnqQLGhEeexxLCDMDR-sQ" name="OTU-Termination-Source"/>
+        </packagedElement>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_6Y58kK6cEee8O__tgNTL6w" name="ODU">
+        <packagedElement xmi:type="uml:Package" xmi:id="_PQMUgK6dEee8O__tgNTL6w" name="ODU-Connection">
+          <packagedElement xmi:type="uml:Package" xmi:id="_d4yLwLGhEeexxLCDMDR-sQ" name="ODU-Connection-Sink">
+            <packagedElement xmi:type="uml:Class" xmi:id="_claikLGlEeexxLCDMDR-sQ" name="ODU-Connection-Sink_Pac">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_claikbGlEeexxLCDMDR-sQ" name="_layerProtocol" visibility="private">
+                <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_gROecFYXEeOVGaP4lO41SQ"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_claikrGlEeexxLCDMDR-sQ" value="1"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_claik7GlEeexxLCDMDR-sQ" value="1"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_clailLGlEeexxLCDMDR-sQ" name="_oduConnectionSinkCapability" visibility="private" type="_lV5WMLGkEeexxLCDMDR-sQ"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_clailbGlEeexxLCDMDR-sQ" name="_oduConnectionSinkConfiguration" visibility="private" type="_mPkwMLGkEeexxLCDMDR-sQ" aggregation="composite"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_clailrGlEeexxLCDMDR-sQ" name="_oduConnectionSinkStatus" visibility="private" type="_nGKZ8LGkEeexxLCDMDR-sQ"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_clail7GlEeexxLCDMDR-sQ" name="_oduConnectionSinkCurrentProblems" visibility="private" type="_lDzrMLGlEeexxLCDMDR-sQ"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_claimLGlEeexxLCDMDR-sQ" name="_oduConnectionSinkCurrentPerformance" visibility="private" type="_l-GwQLGlEeexxLCDMDR-sQ"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_claimbGlEeexxLCDMDR-sQ" name="_oduConnectionSinkHistoricalPerformances" visibility="private" type="_m0GkILGlEeexxLCDMDR-sQ" isReadOnly="true" aggregation="composite"/>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_iJsqgLGlEeexxLCDMDR-sQ" name="OduConnectionSinkCapability"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_jIP9cLGlEeexxLCDMDR-sQ" name="OduConnectionSinkConfiguration"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_kAhpQLGlEeexxLCDMDR-sQ" name="OduConnectionSinkStatus"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_lDzrMLGlEeexxLCDMDR-sQ" name="OduConnectionSinkProblems"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_l-GwQLGlEeexxLCDMDR-sQ" name="OduConnectionSinkCurrentPerformance"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_m0GkILGlEeexxLCDMDR-sQ" name="OduConnectionSinkHistoricalPerformances"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Package" xmi:id="_d45ggLGhEeexxLCDMDR-sQ" name="ODU-Connection-Source">
+            <packagedElement xmi:type="uml:Class" xmi:id="_kjlIcLGkEeexxLCDMDR-sQ" name="ODU-Connection-Source_Pac">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_kjlIcbGkEeexxLCDMDR-sQ" name="_layerProtocol" visibility="private">
+                <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_gROecFYXEeOVGaP4lO41SQ"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kjlIcrGkEeexxLCDMDR-sQ" value="1"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kjlIc7GkEeexxLCDMDR-sQ" value="1"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_kjlIdLGkEeexxLCDMDR-sQ" name="_oduConnectionSourceCapability" visibility="private" type="_y2rskLGiEeexxLCDMDR-sQ"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_kjlIdbGkEeexxLCDMDR-sQ" name="_oduConnectionSourceConfiguration" visibility="private" type="_mPkwMLGkEeexxLCDMDR-sQ" aggregation="composite"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_kjlIdrGkEeexxLCDMDR-sQ" name="_oduConnectionSourceStatus" visibility="private" type="_nGKZ8LGkEeexxLCDMDR-sQ"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_kjlId7GkEeexxLCDMDR-sQ" name="_oduConnectionSourceCurrentProblems" visibility="private" type="_n52gsLGkEeexxLCDMDR-sQ"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_kjlIeLGkEeexxLCDMDR-sQ" name="_oduConnectionSourceCurrentPerformance" visibility="private" type="_o9YaQLGkEeexxLCDMDR-sQ"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_kjlIebGkEeexxLCDMDR-sQ" name="_oduConnectionSourceHistoricalPerformances" visibility="private" type="_qCBHELGkEeexxLCDMDR-sQ" isReadOnly="true" aggregation="composite"/>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_lV5WMLGkEeexxLCDMDR-sQ" name="OduConnectionSourceCapability"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_mPkwMLGkEeexxLCDMDR-sQ" name="OduConnectionSourceConfiguration">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_y4gCwLGoEeexxLCDMDR-sQ" name="oduType" visibility="private">
+                <ownedComment xmi:type="uml:Comment" xmi:id="_y4gCwbGoEeexxLCDMDR-sQ" annotatedElement="_y4gCwLGoEeexxLCDMDR-sQ">
+                  <body>This attribute specifies the type of the ODU termination point.</body>
+                </ownedComment>
+                <type xmi:type="uml:Enumeration" href="../TapiModel/TapiOdu.uml#_QRjOYITEEea405q5sHuNGg"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_y4gCwrGoEeexxLCDMDR-sQ" value="1"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_y4gCw7GoEeexxLCDMDR-sQ" value="1"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_z4pRILGoEeexxLCDMDR-sQ" name="oduRate" visibility="private">
+                <ownedComment xmi:type="uml:Comment" xmi:id="_z4pRIbGoEeexxLCDMDR-sQ" annotatedElement="_z4pRILGoEeexxLCDMDR-sQ">
+                  <body>This attribute indicates the rate of the ODU terminatino point. &#xD;
+&#xD;
+This attribute is Set at create; i.e., once created it cannot be changed directly. &#xD;
+In case of resizable ODU flex, its value can be changed via HAO (not directly on the attribute). &#xD;
+&#xD;
+&#xD;
+</body>
+                </ownedComment>
+                <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_0mDwwLGoEeexxLCDMDR-sQ" name="oduRateTolerance" visibility="private">
+                <ownedComment xmi:type="uml:Comment" xmi:id="_0mDwwbGoEeexxLCDMDR-sQ" annotatedElement="_0mDwwLGoEeexxLCDMDR-sQ">
+                  <body>This attribute indicates the rate tolerance of the ODU termination point. &#xD;
+Valid values are real value in the unit of ppm. &#xD;
+Standardized values are defined in Table 7-2/G.709.</body>
+                </ownedComment>
+                <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_lPZIwLGoEeexxLCDMDR-sQ" name="tributarySlotList" visibility="private">
+                <ownedComment xmi:type="uml:Comment" xmi:id="_lPZIwbGoEeexxLCDMDR-sQ" annotatedElement="_lPZIwLGoEeexxLCDMDR-sQ">
+                  <body>This attribute contains a set of distinct (i.e. unique) integers (e.g. 2, 3, 5, 9, 15 representing the tributary slots TS2, TS3, TS5, TS9 and TS15) which represents the resources occupied by the Low Order ODU Link Connection (e.g. carrying an ODUflex with a bit rate of 6.25G). &#xD;
+This attribute applies when the LO ODU_ ConnectionTerminationPoint connects with an HO ODU_TrailTerminationPoint object. &#xD;
+It will not apply if this ODU_ ConnectionTerminationPoint object directly connects to an OTU_TrailTerminationPoint object (i.e. OTU has no trib slots). &#xD;
+The upper bound of the integer allowed in this set is a function of the HO-ODU server layer to which the ODU connection has been mapped (adapted). &#xD;
+Thus, for example, M=8/32/80 for ODU2/ODU3/ODU4 server layers (respectively). Note that the value of this attribute can be changed only in the case of ODUflex and has to be through specific operations (i.e. not be changing the attribute tributarySlotList directly).</body>
+                </ownedComment>
+                <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lPZIwrGoEeexxLCDMDR-sQ"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lPZIw7GoEeexxLCDMDR-sQ" value="*"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_mKISsLGoEeexxLCDMDR-sQ" name="tributaryPortNumber" visibility="private">
+                <ownedComment xmi:type="uml:Comment" xmi:id="_mKISsbGoEeexxLCDMDR-sQ" annotatedElement="_mKISsLGoEeexxLCDMDR-sQ">
+                  <body>This attribute identifies the tributary port number that is associated with the ODU CTP.&#xD;
+</body>
+                </ownedComment>
+                <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_nBupELGoEeexxLCDMDR-sQ" name="acceptedMSI" visibility="private">
+                <ownedComment xmi:type="uml:Comment" xmi:id="_nBupEbGoEeexxLCDMDR-sQ" annotatedElement="_nBupELGoEeexxLCDMDR-sQ">
+                  <body>This attribute is applicable when the ODU CTP object instance represents a lower order ODU1 or ODU2 CTP Sink at the client layer of the ODU3P/ODU12 adaptation function or represents a lower order ODUj CTP Sink at the client layer of the ODUP/ODUj-21 adaptation function. This attribute is a 1-byte field that represents the accepted multiplex structure of the adaptation function. </body>
+                </ownedComment>
+                <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#byte"/>
+              </ownedAttribute>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_nGKZ8LGkEeexxLCDMDR-sQ" name="OduConnectionSourceStatus"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_n52gsLGkEeexxLCDMDR-sQ" name="OduConnectionSourceProblems"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_o9YaQLGkEeexxLCDMDR-sQ" name="OduConnectionSourceCurrentPerformance"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_qCBHELGkEeexxLCDMDR-sQ" name="OduConnectionSourceHistoricalPerformances"/>
+          </packagedElement>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_PQNioK6dEee8O__tgNTL6w" name="ODU-Termination">
+          <packagedElement xmi:type="uml:Package" xmi:id="_hidBILGhEeexxLCDMDR-sQ" name="ODU-Termination-Sink">
+            <packagedElement xmi:type="uml:Class" xmi:id="_ySWbALGjEeexxLCDMDR-sQ" name="ODU-Termination-Sink_Pac">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_ySWbAbGjEeexxLCDMDR-sQ" name="_layerProtocol" visibility="private">
+                <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_gROecFYXEeOVGaP4lO41SQ"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ySWbArGjEeexxLCDMDR-sQ" value="1"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ySWbA7GjEeexxLCDMDR-sQ" value="1"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_ySWbBLGjEeexxLCDMDR-sQ" name="_oduTerminationSinkCapability" visibility="private" type="_y-1tkLGjEeexxLCDMDR-sQ"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_ySWbBbGjEeexxLCDMDR-sQ" name="_oduTerminationSinkConfiguration" visibility="private" type="_0DXssLGjEeexxLCDMDR-sQ" aggregation="composite"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_ySWbBrGjEeexxLCDMDR-sQ" name="_oduTerminationSinkStatus" visibility="private" type="_1Bzq4LGjEeexxLCDMDR-sQ"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_ySWbB7GjEeexxLCDMDR-sQ" name="_oduTerminationSinkCurrentProblems" visibility="private" type="_1vl98LGjEeexxLCDMDR-sQ"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_ySWbCLGjEeexxLCDMDR-sQ" name="_oduTerminationSinkCurrentPerformance" visibility="private" type="_2ljVkLGjEeexxLCDMDR-sQ"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_ySWbCbGjEeexxLCDMDR-sQ" name="_oduTerminationSinkHistoricalPerformances" visibility="private" type="_3buIkLGjEeexxLCDMDR-sQ" isReadOnly="true" aggregation="composite"/>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_y-1tkLGjEeexxLCDMDR-sQ" name="OduTerminationSinkCapability"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_0DXssLGjEeexxLCDMDR-sQ" name="OduTerminationSinkConfiguration"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_1Bzq4LGjEeexxLCDMDR-sQ" name="OduTerminationSinkStatus"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_1vl98LGjEeexxLCDMDR-sQ" name="OduTerminationSinkProblems"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_2ljVkLGjEeexxLCDMDR-sQ" name="OduTerminationSinkCurrentPerformance"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_3buIkLGjEeexxLCDMDR-sQ" name="OduTerminationSinkHistoricalPerformances"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Package" xmi:id="_hiePQLGhEeexxLCDMDR-sQ" name="ODU-Termination-Source">
+            <packagedElement xmi:type="uml:Class" xmi:id="_y2rskLGiEeexxLCDMDR-sQ" name="ODU-Termination-Source_Pac">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_y2rskbGiEeexxLCDMDR-sQ" name="_layerProtocol" visibility="private">
+                <type xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_gROecFYXEeOVGaP4lO41SQ"/>
+                <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_y2rskrGiEeexxLCDMDR-sQ" value="1"/>
+                <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_y2rsk7GiEeexxLCDMDR-sQ" value="1"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_y2rslLGiEeexxLCDMDR-sQ" name="_oduTerminationSourceCapability" visibility="private" type="_rPgf0LGiEeexxLCDMDR-sQ"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_y2rslbGiEeexxLCDMDR-sQ" name="_oduTerminationSourceConfiguration" visibility="private" type="_lLRFcLGiEeexxLCDMDR-sQ" aggregation="composite"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_y2rslrGiEeexxLCDMDR-sQ" name="_oduTerminationSourceStatus" visibility="private" type="_fbAXALGiEeexxLCDMDR-sQ"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_y2rsl7GiEeexxLCDMDR-sQ" name="_oduTerminationSourceCurrentProblems" visibility="private" type="_ZFjQ0LGiEeexxLCDMDR-sQ"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_y2rsmLGiEeexxLCDMDR-sQ" name="_oduTerminationSourceCurrentPerformance" visibility="private" type="_PGm7cLGiEeexxLCDMDR-sQ"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_y2rsmbGiEeexxLCDMDR-sQ" name="_oduTerminationSourceHistoricalPerformances" visibility="private" type="_B_bp0LGiEeexxLCDMDR-sQ" isReadOnly="true" aggregation="composite"/>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_rPgf0LGiEeexxLCDMDR-sQ" name="OduTerminationSourceCapability"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_lLRFcLGiEeexxLCDMDR-sQ" name="OduTerminationSourceConfiguration">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_LKifwLGoEeexxLCDMDR-sQ" name="opuTributarySlotSize" visibility="private">
+                <ownedComment xmi:type="uml:Comment" xmi:id="_LKifwbGoEeexxLCDMDR-sQ" annotatedElement="_LKifwLGoEeexxLCDMDR-sQ">
+                  <body>This attribute is applicable for ODU2 and ODU3 CTP only. It indicates the slot size of the ODU CTP.</body>
+                </ownedComment>
+                <type xmi:type="uml:Enumeration" href="../TapiModel/TapiOdu.uml#_2ChJIITYEea405q5sHuNGg"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_M6YswLGoEeexxLCDMDR-sQ" name="autoPayloadType" visibility="private">
+                <ownedComment xmi:type="uml:Comment" xmi:id="_M6YswbGoEeexxLCDMDR-sQ" annotatedElement="_M6YswLGoEeexxLCDMDR-sQ">
+                  <body>This attribute is applicable when the ODU CTP object instance represents a lower order ODU CTP Source at the client layer of the ODUP/ODUj-21 adaptation function. The value of true of this attribute configures that the adaptation source function shall fall back to the payload type PT=20 if the conditions specified in 14.3.10.1/G.798 are satisfied. </body>
+                </ownedComment>
+                <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_OJVzMLGoEeexxLCDMDR-sQ" name="configuredClientType" visibility="private">
+                <ownedComment xmi:type="uml:Comment" xmi:id="_OJVzMbGoEeexxLCDMDR-sQ" annotatedElement="_OJVzMLGoEeexxLCDMDR-sQ">
+                  <body>This attribute configures the type of the client CTP of the server ODU TTP.</body>
+                </ownedComment>
+                <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_PHQ0ALGoEeexxLCDMDR-sQ" name="configuredMappingType" visibility="private">
+                <ownedComment xmi:type="uml:Comment" xmi:id="_PHQ0AbGoEeexxLCDMDR-sQ" annotatedElement="_PHQ0ALGoEeexxLCDMDR-sQ">
+                  <body>This attributes indicates the configured mapping type.</body>
+                </ownedComment>
+                <type xmi:type="uml:Enumeration" href="../TapiModel/TapiOdu.uml#_xwDcIITdEea405q5sHuNGg"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_P_FM0LGoEeexxLCDMDR-sQ" name="acceptedPayloadType" visibility="private">
+                <ownedComment xmi:type="uml:Comment" xmi:id="_P_FM0bGoEeexxLCDMDR-sQ" annotatedElement="_P_FM0LGoEeexxLCDMDR-sQ">
+                  <body>This attribute is applicable when the ODU CTP object instance represents a lower order ODU CTP Sink at the client layer of the ODUP/ODU[i]j or ODUP/ODUj-21 adaptation function. &#xD;
+This attribute is a 2-digit Hex code that indicates the new accepted payload type.&#xD;
+Valid values are defined in Table 15-8 of ITU-T Recommendation G.709 with one additional value UN_INTERPRETABLE.</body>
+                </ownedComment>
+                <type xmi:type="uml:DataType" href="../TapiModel/TapiOdu.uml#_lSSWAGZMEeeGDK6oTuc93w"/>
+              </ownedAttribute>
+            </packagedElement>
+            <packagedElement xmi:type="uml:Class" xmi:id="_fbAXALGiEeexxLCDMDR-sQ" name="OduTerminationSourceStatus"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_ZFjQ0LGiEeexxLCDMDR-sQ" name="OduTerminationSourceProblems"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_PGm7cLGiEeexxLCDMDR-sQ" name="OduTerminationSourceCurrentPerformance"/>
+            <packagedElement xmi:type="uml:Class" xmi:id="_B_bp0LGiEeexxLCDMDR-sQ" name="OduTerminationSourceHistoricalPerformances"/>
+          </packagedElement>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_eR5ycK6YEee8O__tgNTL6w">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_eTmbkK6YEee8O__tgNTL6w" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eTmbka6YEee8O__tgNTL6w" key="Version" value="0.2.4"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eTmbkq6YEee8O__tgNTL6w" key="Comment" value="Changes are listed in the Applied Comment."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eTmbk66YEee8O__tgNTL6w" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eTmblK6YEee8O__tgNTL6w" key="Date" value="2016-08-04"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eTmbla6YEee8O__tgNTL6w" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_eR7AkK6YEee8O__tgNTL6w" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="/OpenModelProfile/OpenModel_Profile.profile.uml#_so5eIFo1EeaGOO_VQ0dx_g"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="/OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_c5hbgK6eEee8O__tgNTL6w">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_c5iCkK6eEee8O__tgNTL6w" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
+    </profileApplication>
+  </uml:Model>
+  <OpenModel_Profile:OpenModelClass xmi:id="_YmnRUK6dEee8O__tgNTL6w" base_Class="_YmmqQa6dEee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_YmnRUa6dEee8O__tgNTL6w" base_StructuralFeature="_YmmqQq6dEee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Ymn4Ya6dEee8O__tgNTL6w" base_StructuralFeature="_YmmqRq6dEee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Ymn4Za6dEee8O__tgNTL6w" base_StructuralFeature="_YmmqSq6dEee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_Ymn4Zq6dEee8O__tgNTL6w" base_Class="_YmmqS66dEee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_Ymn4Z66dEee8O__tgNTL6w" base_Class="_YmmqTK6dEee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_Ymn4aa6dEee8O__tgNTL6w" base_Class="_YmmqT66dEee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_Ymn4aq6dEee8O__tgNTL6w" base_Class="_YmmqUK6dEee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_Ymn4a66dEee8O__tgNTL6w" base_Class="_YmmqUa6dEee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_YmofcK6dEee8O__tgNTL6w" base_Class="_YmmqUq6dEee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Wifyka6fEee8O__tgNTL6w" base_StructuralFeature="_WifykK6fEee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_kLf-4K6fEee8O__tgNTL6w" base_StructuralFeature="_kLfX0K6fEee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_r4YLAa6fEee8O__tgNTL6w" base_StructuralFeature="_r4YLAK6fEee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_39gJwa6fEee8O__tgNTL6w" base_StructuralFeature="_39gJwK6fEee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_-wC4iq83Eee8O__tgNTL6w" base_Class="_-wC4gK83Eee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_-wEGoK83Eee8O__tgNTL6w" base_StructuralFeature="_-wC4ga83Eee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_-wEGoa83Eee8O__tgNTL6w" base_StructuralFeature="_-wC4hK83Eee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_-wEGoq83Eee8O__tgNTL6w" base_StructuralFeature="_-wC4ha83Eee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_-wEGo683Eee8O__tgNTL6w" base_StructuralFeature="_-wC4hq83Eee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_-wEtsK83Eee8O__tgNTL6w" base_StructuralFeature="_-wC4h683Eee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_-wEtsa83Eee8O__tgNTL6w" base_StructuralFeature="_-wC4iK83Eee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_-wEtsq83Eee8O__tgNTL6w" base_StructuralFeature="_-wC4ia83Eee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_K88TMa84Eee8O__tgNTL6w" base_Class="_K88TMK84Eee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_LqsKAK84Eee8O__tgNTL6w" base_Class="_Lqri8K84Eee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_T4Trsa84Eee8O__tgNTL6w" base_Class="_T4TrsK84Eee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_U7DiIK84Eee8O__tgNTL6w" base_Class="_U7C7EK84Eee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_VqKq4K84Eee8O__tgNTL6w" base_Class="_VqKD0K84Eee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_WQ7v8a84Eee8O__tgNTL6w" base_Class="_WQ7v8K84Eee8O__tgNTL6w"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_B_dfALGiEeexxLCDMDR-sQ" base_Class="_B_bp0LGiEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_PGnigLGiEeexxLCDMDR-sQ" base_Class="_PGm7cLGiEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_ZFlGALGiEeexxLCDMDR-sQ" base_Class="_ZFjQ0LGiEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_fbA-ELGiEeexxLCDMDR-sQ" base_Class="_fbAXALGiEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_lLRsgLGiEeexxLCDMDR-sQ" base_Class="_lLRFcLGiEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_rPhG4LGiEeexxLCDMDR-sQ" base_Class="_rPgf0LGiEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_y2s6sLGiEeexxLCDMDR-sQ" base_Class="_y2rskLGiEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_y2uI0LGiEeexxLCDMDR-sQ" base_StructuralFeature="_y2rskbGiEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_y2uv4LGiEeexxLCDMDR-sQ" base_StructuralFeature="_y2rslLGiEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_y2vW8LGiEeexxLCDMDR-sQ" base_StructuralFeature="_y2rslbGiEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_y2vW8bGiEeexxLCDMDR-sQ" base_StructuralFeature="_y2rslrGiEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_y2v-ALGiEeexxLCDMDR-sQ" base_StructuralFeature="_y2rsl7GiEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_y2wlELGiEeexxLCDMDR-sQ" base_StructuralFeature="_y2rsmLGiEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_y2wlEbGiEeexxLCDMDR-sQ" base_StructuralFeature="_y2rsmbGiEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_ySXCELGjEeexxLCDMDR-sQ" base_Class="_ySWbALGjEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_ySYQMLGjEeexxLCDMDR-sQ" base_StructuralFeature="_ySWbAbGjEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_ySY3QLGjEeexxLCDMDR-sQ" base_StructuralFeature="_ySWbBLGjEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_ySZeULGjEeexxLCDMDR-sQ" base_StructuralFeature="_ySWbBbGjEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_ySZeUbGjEeexxLCDMDR-sQ" base_StructuralFeature="_ySWbBrGjEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_ySaFYLGjEeexxLCDMDR-sQ" base_StructuralFeature="_ySWbB7GjEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_ySascLGjEeexxLCDMDR-sQ" base_StructuralFeature="_ySWbCLGjEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_ySbTgLGjEeexxLCDMDR-sQ" base_StructuralFeature="_ySWbCbGjEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_y-1tkbGjEeexxLCDMDR-sQ" base_Class="_y-1tkLGjEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_0DYTwLGjEeexxLCDMDR-sQ" base_Class="_0DXssLGjEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_1B0R8LGjEeexxLCDMDR-sQ" base_Class="_1Bzq4LGjEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_1vl98bGjEeexxLCDMDR-sQ" base_Class="_1vl98LGjEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_2lj8oLGjEeexxLCDMDR-sQ" base_Class="_2ljVkLGjEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_3buvoLGjEeexxLCDMDR-sQ" base_Class="_3buIkLGjEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_kjlvgLGkEeexxLCDMDR-sQ" base_Class="_kjlIcLGkEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_kjnksLGkEeexxLCDMDR-sQ" base_StructuralFeature="_kjlIcbGkEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_kjoLwLGkEeexxLCDMDR-sQ" base_StructuralFeature="_kjlIdLGkEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_kjoLwbGkEeexxLCDMDR-sQ" base_StructuralFeature="_kjlIdbGkEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_kjoy0LGkEeexxLCDMDR-sQ" base_StructuralFeature="_kjlIdrGkEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_kjpZ4LGkEeexxLCDMDR-sQ" base_StructuralFeature="_kjlId7GkEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_kjqA8LGkEeexxLCDMDR-sQ" base_StructuralFeature="_kjlIeLGkEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_kjqoALGkEeexxLCDMDR-sQ" base_StructuralFeature="_kjlIebGkEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_lV59QLGkEeexxLCDMDR-sQ" base_Class="_lV5WMLGkEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_mPlXQLGkEeexxLCDMDR-sQ" base_Class="_mPkwMLGkEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_nGLBALGkEeexxLCDMDR-sQ" base_Class="_nGKZ8LGkEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_n53HwLGkEeexxLCDMDR-sQ" base_Class="_n52gsLGkEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_o9ZBULGkEeexxLCDMDR-sQ" base_Class="_o9YaQLGkEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_qCBHEbGkEeexxLCDMDR-sQ" base_Class="_qCBHELGkEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_clbJoLGlEeexxLCDMDR-sQ" base_Class="_claikLGlEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_clc-0LGlEeexxLCDMDR-sQ" base_StructuralFeature="_claikbGlEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_cldl4LGlEeexxLCDMDR-sQ" base_StructuralFeature="_clailLGlEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_cldl4bGlEeexxLCDMDR-sQ" base_StructuralFeature="_clailbGlEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_cleM8LGlEeexxLCDMDR-sQ" base_StructuralFeature="_clailrGlEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_cle0ALGlEeexxLCDMDR-sQ" base_StructuralFeature="_clail7GlEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_clfbELGlEeexxLCDMDR-sQ" base_StructuralFeature="_claimLGlEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_clfbEbGlEeexxLCDMDR-sQ" base_StructuralFeature="_claimbGlEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_iJtRkLGlEeexxLCDMDR-sQ" base_Class="_iJsqgLGlEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_jIP9cbGlEeexxLCDMDR-sQ" base_Class="_jIP9cLGlEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_kAiQULGlEeexxLCDMDR-sQ" base_Class="_kAhpQLGlEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_lDzrMbGlEeexxLCDMDR-sQ" base_Class="_lDzrMLGlEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_l-GwQbGlEeexxLCDMDR-sQ" base_Class="_l-GwQLGlEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_m0HLMLGlEeexxLCDMDR-sQ" base_Class="_m0GkILGlEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_LKjt4LGoEeexxLCDMDR-sQ" base_StructuralFeature="_LKifwLGoEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_M6YswrGoEeexxLCDMDR-sQ" base_StructuralFeature="_M6YswLGoEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_OJWaQLGoEeexxLCDMDR-sQ" base_StructuralFeature="_OJVzMLGoEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_PHRbELGoEeexxLCDMDR-sQ" base_StructuralFeature="_PHQ0ALGoEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_P_Fz4LGoEeexxLCDMDR-sQ" base_StructuralFeature="_P_FM0LGoEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_lPZv0LGoEeexxLCDMDR-sQ" base_StructuralFeature="_lPZIwLGoEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_mKI5wLGoEeexxLCDMDR-sQ" base_StructuralFeature="_mKISsLGoEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_nBupErGoEeexxLCDMDR-sQ" base_StructuralFeature="_nBupELGoEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_y4gp0LGoEeexxLCDMDR-sQ" base_StructuralFeature="_y4gCwLGoEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_z4pRIrGoEeexxLCDMDR-sQ" base_StructuralFeature="_z4pRILGoEeexxLCDMDR-sQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_0mDwwrGoEeexxLCDMDR-sQ" base_StructuralFeature="_0mDwwLGoEeexxLCDMDR-sQ"/>
+</xmi:XMI>
