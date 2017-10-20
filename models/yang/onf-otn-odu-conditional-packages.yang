@@ -158,6 +158,19 @@ module onf-otn-odu-conditional-packages {
             description "none";
         }
         grouping otn-odu-connection-capability-g {
+            container accepted-payload-type {
+                uses odu-payload-type-g;
+                description 
+                    "This attribute is applicable when the ODU CTP object 
+                     instance represents a lower order ODU CTP Sink at the 
+                     client layer of the ODUP/ODU[i]j or ODUP/ODUj-21 adaptation
+                     function. 
+                     This attribute is a 2-digit Hex code that indicates the new
+                     accepted payload type.
+                     Valid values are defined in Table 15-8 of ITU-T 
+                     Recommendation G.709 with one additional value 
+                     UN_INTERPRETABLE.";
+            }
             description "none";
         }
         grouping otn-odu-connection-configuration-g {
@@ -238,18 +251,11 @@ module onf-otn-odu-conditional-packages {
                 description 
                     "This attributes indicates the configured mapping type.";
             }
-            container accepted-payload-type {
-                uses odu-payload-type-g;
+            leaf configured-client-type {
+                type string;
                 description 
-                    "This attribute is applicable when the ODU CTP object 
-                     instance represents a lower order ODU CTP Sink at the 
-                     client layer of the ODUP/ODU[i]j or ODUP/ODUj-21 adaptation
-                     function. 
-                     This attribute is a 2-digit Hex code that indicates the new
-                     accepted payload type.
-                     Valid values are defined in Table 15-8 of ITU-T 
-                     Recommendation G.709 with one additional value 
-                     UN_INTERPRETABLE.";
+                    "This attribute configures the type of the client CTP of the
+                     server ODU TTP.";
             }
             description 
                "This Pac contains the attributes associated with the ODU-CTP.";
@@ -336,12 +342,6 @@ module onf-otn-odu-conditional-packages {
                              Valid values are real value in the unit of ppm. 
                              Standardized values are defined in Table 7-2/G.709.
                              ";
-            }
-            leaf configured-client-type {
-                type string;
-                description 
-                    "This attribute configures the type of the client CTP of the
-                     server ODU TTP.";
             }
             description "none";
         }
