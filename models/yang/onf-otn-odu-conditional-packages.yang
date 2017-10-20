@@ -235,12 +235,10 @@ module onf-otn-odu-conditional-packages {
             }
             leaf configured-mapping-type {
                 type mapping-type;
-                config false;
                 description 
                     "This attributes indicates the configured mapping type.";
             }
             container accepted-payload-type {
-                config false;
                 uses odu-payload-type-g;
                 description 
                     "This attribute is applicable when the ODU CTP object 

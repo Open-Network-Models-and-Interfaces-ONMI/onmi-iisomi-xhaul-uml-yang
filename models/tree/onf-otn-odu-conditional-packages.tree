@@ -1,0 +1,30 @@
+module: onf-otn-odu-conditional-packages
+   +--rw otn-odu-connection-pac* [layer-protocol]
+   |  +--rw layer-protocol                                -> /core-model:network-element/ltp/lp/uuid
+   |  +--ro otn-odu-connection-capability
+   |  +--rw otn-odu-connection-configuration
+   |  |  +--rw tributary-slot-list*       uint64
+   |  |  +--rw tributary-port-number?     uint64
+   |  |  +--rw accepted-m-si?             string
+   |  |  +--rw opu-tributary-slot-size?   odu-slot-size
+   |  |  +--rw auto-payload-type?         boolean
+   |  |  +--rw configured-mapping-type?   mapping-type
+   |  |  +--rw accepted-payload-type
+   |  |     +--rw named-payload-type?   odu-named-payload-type
+   |  |     +--rw hex-payload-type?     uint64
+   |  +--ro otn-odu-connection-status
+   |  +--ro otn-odu-connection-current-problems
+   |  +--ro otn-odu-connection-current-performance
+   |  +--ro otn-odu-connection-historical-performances
+   +--rw otn-odu-termination-pac* [layer-protocol]
+      +--rw layer-protocol                                 -> /core-model:network-element/ltp/lp/uuid
+      +--ro otn-odu-termination-capability
+      +--rw otn-odu-termination-configuration
+      |  +--rw odu-type?                 odu-type
+      |  +--rw odu-rate?                 uint64
+      |  +--rw odu-rate-tolerance?       uint64
+      |  +--rw configured-client-type?   string
+      +--ro otn-odu-termination-status
+      +--ro otn-odu-termination-current-problems
+      +--ro otn-odu-termination-current-performance
+      +--ro otn-odu-termination-historical-performances
