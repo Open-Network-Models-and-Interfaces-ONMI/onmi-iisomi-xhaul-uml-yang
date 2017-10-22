@@ -4,12 +4,12 @@
 mvn archetype:generate -DarchetypeGroupId=org.opendaylight.controller -DarchetypeArtifactId=opendaylight-startup-archetype \
 -DarchetypeRepository=http://nexus.opendaylight.org/content/repositories/opendaylight.release/ \
 -DarchetypeCatalog=http://nexus.opendaylight.org/content/repositories/opendaylight.release/archetype-catalog.xml \
--DarchetypeVersion=1.2.1-Boron-SR1
+-DarchetypeVersion=1.2.3-Boron-SR3
 ```
 
 #### patch the odl
 ````
-cp ./apps/dlux/loader.implementation-0.4.1-Boron-SR1.jar $ODL_KARAF_HOME/system/org/opendaylight/dlux/loader.implementation/0.4.1-Boron-SR1
+cp ./apps/dlux/loader.implementation-0.4.3-Boron-SR3.jar $ODL_KARAF_HOME/system/org/opendaylight/dlux/loader.implementation/0.4.3-Boron-SR3
 
 ````
 
