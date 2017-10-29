@@ -150,7 +150,7 @@ public class HtConfigurationEcompConnector extends EsObject {
      * @param fileName of configuration file
      * @return HtConfigurationEcompConnector
      */
-    private static @Nullable HtConfigurationEcompConnector readConfigurationFromFile(String fileName) {
+    public static @Nullable HtConfigurationEcompConnector readConfigurationFromFile(String fileName) {
 
         HtConfigurationEcompConnector fileConfiguration = null;
 
