@@ -88,7 +88,7 @@ public class EcompPrivateTester {
         httpTestClient.testIt(
                 //"https://plan.fritz.box:9092/ux/#",
                 "https://www.google.de",
-                "/home/herbert/odl/distribution-karaf-0.5.3-Boron-SR3/etc/clientkeystore",
+                "/home/herbert/odl/distribution-karaf-0.5.1-Boron-SR1/etc/clientkeystore",
                 "daylight2016"
         );/**/
 

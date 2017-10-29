@@ -17,6 +17,7 @@ define(['app/mwtnSpectrum/mwtnSpectrum.module',
     $mwtnLog.info({component: COMPONENT, message: 'mwtnSpectrumCtrl started!'});
 
     $rootScope.section_logo = 'src/app/mwtnSpectrum/images/mwtnSpectrum.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
+    $scope.odlKarafVersion = $mwtnSpectrum.odlKarafVersion; 
 
     $scope.interference = {
         alarmStatus: 'cleared'
@@ -96,7 +97,7 @@ define(['app/mwtnSpectrum/mwtnSpectrum.module',
 
     var requiredNesConnectionStatusCellTemplate = [
        '<div class="ui-grid-cell-contents" ng-class="{ \'green\': grid.getCellValue(row, col) === \'connected\'}"}>',
-       '  <i ng-show="grid.getCellValue(row, col) === \'connected\'" class="fa fa-signal" aria-hidden="true"></i>',
+       '  <i ng-show="grid.getCellValue(row, col) === \'connected\'" class="fa fa-link" aria-hidden="true"></i>',
        '  <span>{{grid.getCellValue(row, col)}}</span>',
        '</div>'].join('');
 

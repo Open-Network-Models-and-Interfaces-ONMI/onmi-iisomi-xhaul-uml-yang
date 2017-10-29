@@ -1,0 +1,40 @@
+{
+    "database" : {
+        "config" : {
+            "cluster" : "sdnlabodl",
+            "ip-version" : "ipv4",
+            "host" : "localhost",
+            "port" : 9200,
+            "transport-protocol" : "http",
+            "index" : "config"
+        },
+        "mwtn" : {
+            "cluster" : "sdnlabodl",
+            "ip-version" : "ipv4",
+            "host" : "localhost",
+            "port" : 9200,
+            "transport-protocol" : "http",
+            "node" : "sdnlabodln1",
+            "index" : "mwtn"
+        },
+        "org.opendaylight.mwtn.eventmanager" : {
+            "cluster" : "sdnlabodl",
+            "ip-version" : "ipv4",
+            "host" : "localhost",
+            "port" : 9200,
+            "transport-protocol" : "http",
+            "node" : "sdnlabodln1",
+            "index" : "sdnevents"
+        },
+        "org.opendaylight.mwtn.performancemanager" : {
+            "cluster" : "sdnlabodl",
+            "ip-version" : "ipv4",
+            "host" : "localhost",
+            "port" : 9200,
+            "transport-protocol" : "http",
+            "node" : "sdnlabodln1",
+            "index" : "sdnperformance"
+        }
+    }
+}
+

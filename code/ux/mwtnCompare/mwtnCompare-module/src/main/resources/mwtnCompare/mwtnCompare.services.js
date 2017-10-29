@@ -18,6 +18,7 @@ define(['app/mwtnCompare/mwtnCompare.module'],function(mwtnCompareApp) {
     service.getSchema = $mwtnDatabase.getSchema;
     service.getType = $mwtnCommons.getType;
     service.separator = $mwtnCommons.separator;
+    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
     
     return service;
   });

@@ -5,8 +5,8 @@
         on-copied="myClipboard.copyToClipboard()" on-error="myClipboard.error(err)">
         <i class="fa fa-clipboard" aria-hidden="true"></i>
       </button>
-      <button class="btn btn-default" type="button" ng-if="replace">
-        <i class="fa fa-pencil-square-o pointer" aria-hidden="true" ng-click="openConfigView()" ></i>
+      <button class="btn btn-default" type="button" ng-if="replace"  ng-click="openConfigView()">
+        <i class="fa fa-pencil-square-o pointer" aria-hidden="true" ></i>
       </button>
     <div>
   </div>
@@ -37,7 +37,7 @@
     <div class="col col-md-2 number" ng-if="value.type === 'number' && value.visible === true">
       <b>{{value.value}}</b>
     </div>
-    <div class="col col-md-2" ng-if="value.unit && value.visible === true">
+    <div class="col col-md-2 text-left" ng-if="value.unit && value.visible === true">
       <span class="owl-dark">{{value.unit}}</span>
     </div>
 

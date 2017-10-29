@@ -12,24 +12,23 @@ define(['angularAMD',
         'common/config/env.module',
         'app/mwtnCommons/mwtnCommons.module'], function(ng) {
 
-  var mwtnTopologyApp = angular.module('app.mwtnTopology', ['app.core', 'ui.router.state', 'ui.grid', 'ui.grid.pinning', 'ui.grid.selection', 'ui.bootstrap', 'config']);
+  var mwtnTopologyApp = angular.module('app.mwtnTopology', ['app.core', 'ui.router.state', 'ui.grid', 'ui.grid.pagination', 'ui.grid.selection', 'ui.bootstrap', 'config', 'app.mwtnCommons']);
 
   mwtnTopologyApp.config(function ($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $translateProvider) {
-    // AF/MF: Warum? (Remove as soon as possible)
-    mwtnTopologyApp.register = {
-      controller: $controllerProvider.register,
-      directive: $compileProvider.directive,
-      factory: $provide.factory,
-      service: $provide.service
-    };
-
+    // // AF/MF: Warum? (Remove as soon as possible)
+    // mwtnTopologyApp.register = {
+    //   controller: $controllerProvider.register,
+    //   directive: $compileProvider.directive,
+    //   factory: $provide.factory,
+    //   service: $provide.service
+    // };
 
     NavHelperProvider.addControllerUrl('app/mwtnTopology/mwtnTopology.controller');
     NavHelperProvider.addToMenu('mwtnTopology', {
       "link": "#/mwtnTopology/site",
       "active": "main.mwtnTopology",
       "title": "MWTN Topology",
-      "icon": "fa fa-heart",  // Add navigation icon css class here
+      "icon": "fa fa-connectdevelop",  // Add navigation icon css class here
       "page": {
         "title": "MWTN Topology",
         "description": "mwtnTopology"

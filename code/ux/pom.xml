@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.opendaylight.odlparent</groupId>
     <artifactId>odlparent</artifactId>
-      <version>1.7.3-Boron-SR3</version>
+    <version>1.7.3-Boron-SR3</version>
     <relativePath />
   </parent>
 
@@ -23,25 +23,51 @@
 
   <properties>
     <prefix>ONF :: Wireless :: </prefix>
+
+    <apache.felix.compendium>1.4.0</apache.felix.compendium>
+    <decanter.version>1.1.0</decanter.version>
+    <elasticsearch.version>2.2.0</elasticsearch.version>
+    <osgi.core.version>5.0.0</osgi.core.version>
+
+    <dlux.version>0.4.3-Boron-SR3</dlux.version>
+    <mdsal.version>1.4.3-Boron-SR3</mdsal.version>
+    <mdsal.model.version>0.9.3-Boron-SR3</mdsal.model.version>
+    <restconf.version>1.4.3-Boron-SR3</restconf.version>
+    <yangtools.version>1.0.3-Boron-SR3</yangtools.version>
+    <openflow.plugin.version>0.3.3-Boron-SR3</openflow.plugin.version>
+    <netconf.version>1.1.3-Boron-SR3</netconf.version>
+    <l2switch.version>0.4.3-Boron-SR3</l2switch.version>
+    <dlux.loader.version>0.4.3-Boron-SR3</dlux.loader.version>
+
+    <configfile.directory>etc/opendaylight/karaf</configfile.directory>
   </properties>
 
   <modules>
 
-    <module>mwtnCommons</module>
+    <module>mwtnCommons</module> 
     <module>mwtnConnect</module>
+    <module>onapAai</module>
+    <module>onapDcae</module>
+    <module>onapMso</module>
+
+    <module>ethService</module>
+    <module>otnBrowser</module>
+    
     <module>mwtnBrowser</module>
-    <!-- [sko] replaced by mwtnBrowser
-    <module>mwtnConfig</module> -->
     <module>mwtnFault</module>
     <module>mwtnPerformanceCurrent</module>
     <module>mwtnPerformanceHistory</module>
     <module>mwtnPerformanceLink</module>
+    <module>mwtnInventory</module>
     <module>mwtnTopology</module>    
-    <!-- sko not updated to core-model 1.2
+    <module>mwtnTdm</module>
+    
+    <!-- sko not updated to core-model 1.2 
     <module>mwtnCompare</module>
     <module>mwtnSpectrum</module>
-    <module>mwtnClosedLoop</module>
-    -->
+    <module>mwtnClosedLoop</module> -->
+    
+    <module>mwtnMediator</module>
     <module>mwtnEvents</module>
     <module>mwtnTest</module>
     <module>mwtnLog</module>

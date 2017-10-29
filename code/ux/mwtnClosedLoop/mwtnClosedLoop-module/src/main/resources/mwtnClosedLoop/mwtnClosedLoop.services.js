@@ -16,6 +16,7 @@ define(['app/mwtnClosedLoop/mwtnClosedLoop.module'],function(mwtnClosedLoopApp) 
     service.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
     service.getActualNetworkElement = $mwtnCommons.getActualNetworkElement;
     service.getPacParts = $mwtnCommons.getPacParts;
+    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
 
     service.refresh = function() {
       var deferred = $q.defer();

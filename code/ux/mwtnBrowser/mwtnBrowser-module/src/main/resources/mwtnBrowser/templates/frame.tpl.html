@@ -1,7 +1,7 @@
 <alarm-status></alarm-status>
 <mwtn-select-network-element></mwtn-select-network-element>
 
-<div class="owl container" ng-show="networkElements.length !== 0" style="width: 100%;">
+<div class="owl container" ng-if="networkElements.length !== 0 && networkElement" style="width: 100%;">
   <div class="row">
     <uib-accordion close-others="oneAtATime">
       <div class="col-md-12">
@@ -185,4 +185,7 @@
 
 </div>
 
-<mwtn-footer></mwtn-footer>
+<hr />
+<div class="owl">
+	<span class="white">ONF Wireless for {{odlKarafVersion}} - Build: @buildtime@</span>
+</div>

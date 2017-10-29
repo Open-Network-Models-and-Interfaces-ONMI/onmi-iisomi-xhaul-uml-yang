@@ -21,6 +21,7 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnPerformanceCurrent/mwtnPe
     service.getPacParts = $mwtnCommons.getPacParts;
     service.layerProtocolNameOrder = $mwtnCommons.layerProtocolNameOrder;
     service.formatTimeStamp = $mwtnCommons.formatTimeStamp;
+    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
     service.yangifyObject=$mwtnCommons.yangifyObject;
       
     return service;

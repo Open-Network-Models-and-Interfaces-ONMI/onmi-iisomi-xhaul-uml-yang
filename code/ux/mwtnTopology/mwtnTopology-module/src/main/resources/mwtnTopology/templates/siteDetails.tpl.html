@@ -1,13 +1,15 @@
-<div>
+<div class="owl">
   <uib-alert type="{{status.type}}" ng-show="status.message">
-    <i ng-show="status.isWorking" class="fa fa-spinner fa-pulse"></i>
+    <i ng-show="status.isWorking" class="fa fa-spinner fa-pulse" aria-hidden="true"></i>
     <b><span>{{status.message}}</span></b>
   </uib-alert>
   <div ng-show="!status.message">
     <p>
       <span>{{'MWTN_SITE_ID' | translate}}: </span>
       <b>{{vm.site.id}}</b>
-      <hr />
+    </p>
+    <hr />
+    <p>
       <span>{{'MWTN_SITE_NAME' | translate}}: </span>
       <b>{{vm.site.name}}</b>
       <br />
@@ -28,7 +30,7 @@
           <tr>
             <th class='text-left'>Site-Link-Name</th>
             <th class='text-right'>Azimuth A [°]</th>
-            <th class='text-right'>Azimuth B [°]</th>
+            <th class='text-right'>Azimuth Z [°]</th>
             <th class='text-right'>Length [km]</th>
           </tr>
         </thead>
@@ -37,9 +39,33 @@
             <td class='text-left'>
               <a href='/ux/#/siteLinks/{{siteIndex}}/{{siteLink._source.id.high}}/{{siteLink._source.id.low}}' target='htSolutions'>{{siteLink.id}}</a>
             </td>
-            <td class='text-right'>{{ siteLink.siteA }}</td>
-            <td class='text-right'>{{ siteLink.siteZ }}</td>
-            <td class='text-right'>{{ 0 }}</td>
+            <td class='text-right'>{{ siteLink.azimuthAz }}</td>
+            <td class='text-right'>{{ siteLink.azimuthZa }}</td>
+            <td class='text-right'>{{ siteLink.length }}</td>
+          </tr>
+        </tbody>
+      </table>
+    <p>
+      <b>Network elements ({{vm.site.plannedNetworkElements.length}}): </b>
+      <!--
+      <span style="color: #337ab7;" class="pointer glyphicon glyphicon-plus-sign" aria-hidden="true" ng-class="{'selected-site' : createNewLinkMode}"
+        ng-show="showNewLinkButton" ng-click="toggleCreateNewLinkMode()"></span> -->
+      <p />
+      <table class='table table-striped' ng-show="vm.site.plannedNetworkElements.length">
+        <thead>
+          <tr>
+            <th class='text-left'>{{'MWTN_ID' | translate}}</th>
+            <th class='text-left'>{{'MWTN_NAME' | translate}}</th>
+            <th class='text-left'>{{'MWTN_TYPE' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat='ne in vm.site.plannedNetworkElements'>
+            <td class='text-left'>
+              <a href='/ux/#/plannedNetworkElements/{{ne.id}}' target='htSolutions'>{{ne.id}}</a>
+            </td>
+            <td class='text-left'>{{ ne.name }}</td>
+            <td class='text-left'>{{ ne.type }}</td>
           </tr>
         </tbody>
       </table>

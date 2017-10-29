@@ -1,0 +1,440 @@
+swagger: '2.0'
+info:
+  title: htSolutions NBI
+  description: API to plan, build and run a transport network.
+  version: 1.0.0
+  contact:
+    name: Martin Skorupski
+    email: martin.skorupski@highstreet-technologies.com
+    url: http://highstreet-technologies.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: ms-server:9092
+schemes:
+  - https
+basePath: /api
+tags:
+  - name: Server
+    description: All about the API server.
+  - name: Sitelink
+    description: All about connectivity between two neighbor sites.
+  - name: User
+    description: Currently not supported ;(.
+  - name: Products
+    description: Currently not supported ;(.
+  - name: Estimates
+    description: Currently not supported ;(.
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /loslinks/{west}/{south}/{east}/{north}/{max-count}:
+    post:
+      summary: Sitelinks depending on bounding box
+      description: |
+        Returns all sitelinks within and crossing the bounding box defined 
+        by west, sourh, east and north. The 'max-count' value ensures that 
+        the interface is not overloaded.
+      tags:
+        - Sitelink
+      parameters:
+        - name: west
+          in: path
+          description: West component (min longitude) of bounding box.
+          required: true
+          type: number
+          format: double
+          minimum: -180
+          maximum: 180
+          default: -180
+        - name: south
+          in: path
+          description: South component (min latitude) of bounding box.
+          required: true
+          type: number
+          format: double
+          minimum: -90
+          maximum: 90
+          default: -90
+        - name: east
+          in: path
+          description: East component (min longitude) of bounding box.
+          required: true
+          type: number
+          format: double
+          minimum: -180
+          maximum: 180
+          default: 180
+        - name: north
+          in: path
+          description: North component (min latitude) of bounding box.
+          required: true
+          type: number
+          format: double
+          minimum: -90
+          maximum: 90
+          default: 90
+        - name: max-count
+          in: path
+          description: Maximal number of sitelinks which will be returned.
+          required: true
+          type: number
+          format: int32
+          minimum: 0
+          default: 50
+      responses:
+        '200':
+          description: An array of sitelinks.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Sitelink'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /server:
+    get:
+      summary: Global information of the server.
+      description: |
+        The server provides information about its features and data to guide
+        client applications.
+      tags:
+        - Server
+      responses:
+        '200':
+          description: An object with information for the client.
+          schema:
+            $ref: '#/definitions/Server'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /products:
+    get:
+      summary: Product Types
+      description: |
+        The Products endpoint returns information about the *Uber* products
+        offered at a given location. The response includes the display name
+        and other details about each product, and lists the products in the
+        proper display order.
+      parameters:
+        - name: latitude
+          in: query
+          description: Latitude component of location.
+          required: true
+          type: number
+          format: double
+        - name: longitude
+          in: query
+          description: Longitude component of location.
+          required: true
+          type: number
+          format: double
+      tags:
+        - Products
+      responses:
+        '200':
+          description: An array of products
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /estimates/price:
+    get:
+      summary: Price Estimates
+      description: >
+        The Price Estimates endpoint returns an estimated price range
+
+        for each product offered at a given location. The price estimate is
+
+        provided as a formatted string with the full price range and the
+        localized
+
+        currency symbol.<br><br>The response also includes low and high
+        estimates,
+
+        and the [ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) currency code
+        for
+
+        situations requiring currency conversion. When surge is active for
+        a particular
+
+        product, its surge_multiplier will be greater than 1, but the price
+        estimate
+
+        already factors in this multiplier.
+      parameters:
+        - name: start_latitude
+          in: query
+          description: Latitude component of start location.
+          required: true
+          type: number
+          format: double
+        - name: start_longitude
+          in: query
+          description: Longitude component of start location.
+          required: true
+          type: number
+          format: double
+        - name: end_latitude
+          in: query
+          description: Latitude component of end location.
+          required: true
+          type: number
+          format: double
+        - name: end_longitude
+          in: query
+          description: Longitude component of end location.
+          required: true
+          type: number
+          format: double
+      tags:
+        - Estimates
+      responses:
+        '200':
+          description: An array of price estimates by product
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PriceEstimate'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /estimates/time:
+    get:
+      summary: Time Estimates
+      description: 'The Time Estimates endpoint returns ETAs for all products offered at a given location, with the responses expressed as integers in seconds. We recommend that this endpoint be called every minute to provide the most accurate, up-to-date ETAs.'
+      parameters:
+        - name: start_latitude
+          in: query
+          description: Latitude component of start location.
+          required: true
+          type: number
+          format: double
+        - name: start_longitude
+          in: query
+          description: Longitude component of start location.
+          required: true
+          type: number
+          format: double
+        - name: customer_uuid
+          in: query
+          type: string
+          format: uuid
+          description: Unique customer identifier to be used for experience customization.
+        - name: product_id
+          in: query
+          type: string
+          description: 'Unique identifier representing a specific product for a given latitude & longitude.'
+      tags:
+        - Estimates
+      responses:
+        '200':
+          description: An array of products
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /me:
+    get:
+      summary: User Profile
+      description: The User Profile endpoint returns information about the Uber user that has authorized with the application.
+      tags:
+        - User
+      responses:
+        '200':
+          description: Profile information for a user
+          schema:
+            $ref: '#/definitions/Profile'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /history:
+    get:
+      summary: User Activity
+      description: "The User Activity endpoint returns data about a user's lifetime activity with Uber. The response will include pickup locations and times, dropoff locations and times, the distance of past requests, and information about which products were requested.<br><br>The history array in the response will have a maximum length based on the limit parameter. The response value count may exceed limit, therefore subsequent API requests may be necessary."
+      parameters:
+        - name: offset
+          in: query
+          type: integer
+          format: int32
+          description: Offset the list of returned results by this amount. Default is zero.
+        - name: limit
+          in: query
+          type: integer
+          format: int32
+          description: 'Number of items to retrieve. Default is 5, maximum is 100.'
+      tags:
+        - User
+      responses:
+        '200':
+          description: History information for the given user
+          schema:
+            $ref: '#/definitions/Activities'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  GeoLocation:
+    type: object
+    properties:
+      location: 
+        type: object
+        properties:
+          lat:
+            $ref: '#/definitions/Latitude'
+          lon:
+            $ref: '#/definitions/Longitude'
+  Latitude:
+    type: number
+    format: double
+    minimum: -90
+    maximum: 90
+  Longitude:
+    type: number
+    format: double
+    minimum: -180
+    maximum: 180
+  Server:
+    type: object
+    properties:
+      network_index:
+        type: string
+        description: Database index for the current network running on the server.
+  Sitelink:
+    type: object
+    description: |
+      A sitelink defines a direct connection between two sites, meaning that both
+      sites are neighbors.
+    properties: 
+      _source:
+        type: object
+        description: | 
+          Just a container object to be consitsten to return values from 
+          elasticsearch database responses.
+        properties:
+          id:
+            type: object
+            properties:
+              high:
+                type: string
+                description: The higher value of the site ids.
+              low:
+                type: string
+                description: The lower value of the site ids,
+          name:
+            type: string
+            description: Name of site A and name of site B seperated by character '-'.
+          geoLocationA:
+            $ref: '#/definitions/GeoLocation'
+          geoLocationB:
+            $ref: '#/definitions/GeoLocation'
+  Product:
+    type: object
+    properties:
+      product_id:
+        type: string
+        description: 'Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles.'
+      description:
+        type: string
+        description: Description of product.
+      display_name:
+        type: string
+        description: Display name of product.
+      capacity:
+        type: string
+        description: 'Capacity of product. For example, 4 people.'
+      image:
+        type: string
+        description: Image URL representing the product.
+  PriceEstimate:
+    type: object
+    properties:
+      product_id:
+        type: string
+        description: 'Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles'
+      currency_code:
+        type: string
+        description: '[ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) currency code.'
+      display_name:
+        type: string
+        description: Display name of product.
+      estimate:
+        type: string
+        description: 'Formatted string of estimate in local currency of the start location. Estimate could be a range, a single number (flat rate) or "Metered" for TAXI.'
+      low_estimate:
+        type: number
+        description: Lower bound of the estimated price.
+      high_estimate:
+        type: number
+        description: Upper bound of the estimated price.
+      surge_multiplier:
+        type: number
+        description: Expected surge multiplier. Surge is active if surge_multiplier is greater than 1. Price estimate already factors in the surge multiplier.
+  Profile:
+    type: object
+    properties:
+      first_name:
+        type: string
+        description: First name of the Uber user.
+      last_name:
+        type: string
+        description: Last name of the Uber user.
+      email:
+        type: string
+        description: Email address of the Uber user
+      picture:
+        type: string
+        description: Image URL of the Uber user.
+      promo_code:
+        type: string
+        description: Promo code of the Uber user.
+  Activity:
+    type: object
+    properties:
+      uuid:
+        type: string
+        description: Unique identifier for the activity
+  Activities:
+    type: object
+    properties:
+      offset:
+        type: integer
+        format: int32
+        description: Position in pagination.
+      limit:
+        type: integer
+        format: int32
+        description: Number of items to retrieve (100 max).
+      count:
+        type: integer
+        format: int32
+        description: Total number of items available.
+      history:
+        type: array
+        items:
+          $ref: '#/definitions/Activity'
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string

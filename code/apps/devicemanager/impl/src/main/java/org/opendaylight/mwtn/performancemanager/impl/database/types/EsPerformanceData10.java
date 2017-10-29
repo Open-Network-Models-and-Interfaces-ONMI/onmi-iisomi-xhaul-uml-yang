@@ -70,7 +70,7 @@ public class EsPerformanceData10 {
     @JsonGetter("tx-level-max")
     java.lang.Byte getTxLevelMax(){ return dataAirInterface != null ? dataAirInterface.getTxLevelMax() : null; }
 
-    @JsonGetter("txlvel-avg")
+    @JsonGetter("tx-level-avg")
     java.lang.Byte getTxLevelAvg(){ return dataAirInterface != null ? dataAirInterface.getTxLevelAvg() : null; }
 
     @JsonGetter("rx-level-min")

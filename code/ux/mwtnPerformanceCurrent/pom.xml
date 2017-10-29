@@ -11,18 +11,11 @@
     <groupId>com.highstreet.technologies.odl.dlux</groupId>
     <artifactId>mwtnPerformanceCurrent</artifactId>
     <version>0.4.0-SNAPSHOT</version>
- <name>${prefix} ${project.artifactId}</name>
+    <name>${prefix} ${project.artifactId}</name>
 
     <prerequisites>
         <maven>3.0</maven>
     </prerequisites>
-
-    <properties>
-        <osgi.core.version>5.0.0</osgi.core.version>
-        <apache.felix.compendium>1.4.0</apache.felix.compendium>
-        <dlux.loader.version>0.4.3-Boron-SR3</dlux.loader.version>
-    </properties>
-
 
   <modules>
     <module>mwtnPerformanceCurrent-module</module>

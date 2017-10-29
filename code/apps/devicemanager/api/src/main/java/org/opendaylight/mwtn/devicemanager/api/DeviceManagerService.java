@@ -13,11 +13,11 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev15
 
 public interface DeviceManagerService {
 
-    @Deprecated
-    public void startListenerOnNode(String nodeName);
+    /*@Deprecated
+    public void startListenerOnNode(String nodeName);*/
 
-    @Deprecated
-    public void removeListenerOnNode(String nodeName);
+    /*@Deprecated
+    public void removeListenerOnNode(String nodeName);*/
 
     /**
      * Managed device is disconnected from node/mountpoint

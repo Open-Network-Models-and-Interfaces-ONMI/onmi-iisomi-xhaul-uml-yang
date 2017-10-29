@@ -17,6 +17,7 @@ define(['app/mwtnTest/mwtnTest.module',
     var COMPONENT = 'mwtnTestCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnTestCtrl started!'});
     $rootScope.section_logo = 'src/app/mwtnTest/images/mwtnTest.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
+    $scope.odlKarafVersion = $mwtnTest.odlKarafVersion; 
 
     var pacTemplate = {
         'layer-protocol': 'unknown'           
@@ -84,7 +85,7 @@ define(['app/mwtnTest/mwtnTest.module',
     var updateNe = function(data) {
       if (!data) return;
       // update onfNetworkElement
-      switch ($scope.mountpoint.onfCoreModelRevision) {
+      switch ($scope.revision) {
         case '2016-03-23':
           $scope.onfNetworkElement = JSON.parse(JSON.stringify(data['network-element'][0]));
           $scope.onfLtps = data['network-element'][0].ltp;

@@ -26,7 +26,7 @@ define(['angularAMD',
 
     NavHelperProvider.addControllerUrl('app/mwtnPerformanceHistory/mwtnPerformanceHistory.controller');
     NavHelperProvider.addToMenu('mwtnPerformanceHistory', {
-     "link" : "#/mwtnPerformanceHistory",
+     "link" : "#/mwtnPerformanceHistory/",
      "active" : "main.mwtnPerformanceHistory",
      "title" : "MWTN PM History",
      "icon" : "fa fa-bar-chart",  // Add navigation icon css class here
@@ -39,7 +39,7 @@ define(['angularAMD',
     var access = routingConfig.accessLevels;
 
     $stateProvider.state('main.mwtnPerformanceHistory', {
-        url: 'mwtnPerformanceHistory',
+        url: 'mwtnPerformanceHistory/:nodeId',
         access: access.admin,
         views : {
             'content' : {

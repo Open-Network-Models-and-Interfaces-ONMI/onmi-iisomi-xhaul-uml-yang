@@ -1,0 +1,15 @@
+{
+  "name": "index-mwtn",
+  "version": "1.0.0",
+  "description": "fill elasticsearch database with static data",
+  "main": "initDatabase.js",
+  "dependencies": {
+    "elasticsearch": "^13.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node initDatabase.js"
+  },
+  "author": "martin.skorupski@highstreet-technologies.com",
+  "license": "ISC"
+}

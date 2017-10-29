@@ -1,0 +1,41 @@
+
+<form class="form-horizontal ng-pristine ng-valid" role="form">
+    <div class="control-group">
+        <div class="input-group">
+            <span class="input-group-addon text-right" style="width: 110px;">Latitude</span>
+            <input class="form-control ng-pristine ng-untouched ng-valid text-right" type="number" step="0.50" ng-model="map.center.latitude">
+            <br />
+            <span class="form-control input-group-addon text-right">{{map.center.latitude | coordinateFilter:'toDMS':'lat'}}</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="input-group">
+            <span class="input-group-addon text-right" style="width: 110px;">Longitude</span>
+            <input class="form-control ng-pristine ng-valid ng-touched text-right" type="number" step="0.50" ng-model="map.center.longitude" number-formater>
+            <br />
+            <span class="form-control input-group-addon text-right">{{map.center.longitude | coordinateFilter:'toDMS':'lon'}}</span>
+        </div>
+    </div>
+    <!--
+                <div class="control-group">
+                    <div class="input-group">
+                        <span class="input-group-addon text-right">Above mean sea level</span>
+                        <span class="input-group-addon text-left">{{map.center.amsl | number:1}} m</span>
+                    </div>
+                </div>
+-->
+    <div class="control-group">
+        <div class="input-group">
+            <span class="input-group-addon text-right" style="width: 110px;">Zoom</span>
+            <input class="form-control ng-pristine ng-untouched ng-valid text-right" type="number" ng-model="map.zoom" />
+        </div>
+    </div>
+    <div class="control-group">
+    <!-- 
+        <button type="button" class="form-control btn btn-default" ng-click="addMarker();">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <span>{{'BTN_ADD_SITE' | translate}}</span>
+        </button>
+         -->
+    </div>
+</form>

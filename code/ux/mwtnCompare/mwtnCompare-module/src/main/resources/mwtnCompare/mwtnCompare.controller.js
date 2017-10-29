@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 highstreet technologies GmbH and others. All rights reserved.
+ * Copyright (c) 2017 highstreet technologies GmbH and others. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -16,6 +16,7 @@ define(['app/mwtnCompare/mwtnCompare.module',
                                                          function($scope, $rootScope, $mwtnCompare, $mwtnLog, orderBy, OnfNetworkElement, MicrowavePhysicalSection, MicrowaveSection) {
 
     $rootScope.section_logo = 'src/app/mwtnCompare/images/mwtnCompare.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
+    $scope.odlKarafVersion = $mwtnCompare.odlKarafVersion;
 
     var rOnfNe;
     var aOnfNe;
@@ -128,10 +129,6 @@ define(['app/mwtnCompare/mwtnCompare.module',
           if(a.id > b.id) return 1;
           return 0;
         });
-        
-        // select one of the nodes
-        var select = parseInt(Math.random()*$scope.neSelection.length);
-        $scope.selection = $scope.neSelection[select].id;
       }
     };
     $scope.requiredNetworkElements = [];
@@ -183,19 +180,30 @@ define(['app/mwtnCompare/mwtnCompare.module',
         },function(error){
           $scope.connectionStatus = 'disconnected';
         });
+
         $scope.requiredNetworkElements.map(function(rne){
+          console.warn(JSON.stringify(rne._id, neId, rne._id === neId));
           if (rne._id === neId) {
             $scope.requiredNetworkElement = rne._source;
-            rOnfNe = new OnfNetworkElement(rne._source.NetworkElement);
+            rOnfNe = new OnfNetworkElement(rne._source['core-model:network-element']);
             $scope.match.setRequiredNumberOfLtps(rOnfNe.getNumberOfLtps());
             // required NE
             var rMwpsList = rOnfNe.getLTPMwpsList().map(function(mwpsLtp){
-              var rMwpsList = $scope.requiredNetworkElement.MW_AirInterface_Pac.map(function(mwps){
-                if (mwps.layerProtocol === mwpsLtp._lpList[0].uuid) {
+              var key = 'microwave-model:mw-air-interface-pac';
+              if ($scope.requiredNetworkElement.onfAirInterfaceRevision.contains('2016')) {
+                 key = 'MicrowaveModel-ObjectClasses-AirInterface:MW_AirInterface_Pac';
+              }
+              var rMwpsList = $scope.requiredNetworkElement[key].map(function(mwps){
+                if (mwps.layerProtocol === mwpsLtp.getLayerProtocols()[0].getId()) {
                   return new MicrowavePhysicalSection(mwps);
                 }
               });
-              return rMwpsList.clean(undefined)[0];
+              
+              if (rMwpsList) {
+                return rMwpsList.clean(undefined)[0];
+              } else {
+                return {};
+              }
             });
             
             var rRadioSignalIds = rMwpsList.map(function(rMwps){
@@ -357,20 +365,21 @@ define(['app/mwtnCompare/mwtnCompare.module',
 
       var rne = $scope.requiredNetworkElement;
       if (!data) {
-        rne.NetworkElement.compares = getCompares(rne.NetworkElement);
+        rne['core-model:network-element'].compares = getCompares(rne['core-model:network-element']);
         return;        
       }
-      rne.NetworkElement.compares = getCompares(rne.NetworkElement, data.NetworkElement);
-      aOnfNe = new OnfNetworkElement(data.NetworkElement);
+      rne['core-model:network-element'].compares = getCompares(rne['core-model:network-element'], data['core-model:network-element']);
+      console.error(JSON.stringify(data));
+      aOnfNe = new OnfNetworkElement(data['core-model:network-element']);
       $scope.match.setActualNumberOfLtps(aOnfNe.getNumberOfLtps());
       var aMwpsList = aOnfNe.getLTPMwpsList().map(function(mwpsLtp){
         
         var spec = {
           nodeId: $scope.selection,
           revision: $scope.requiredNetworkElement.onfAirInterfaceRevision,
-          pacId: 'airinterface',
-          layerProtocolId: mwpsLtp._lpList[0].uuid,
-          partId: 'Configuration'
+          pacId: 'microwave-model:mw-air-interface-pac',
+          layerProtocolId: mwpsLtp.getLayerProtocols()[0].getId(),
+          partId: 'configuration'
         };
 
         $mwtnCompare.getPacParts(spec).then(function(success){
@@ -381,8 +390,8 @@ define(['app/mwtnCompare/mwtnCompare.module',
         return mwpsLtp._lpList[0].uuid;
       });
       // console.log(aMwpsList)
-      var mwClient = rne.MW_EthernetContainer_Pac[0];
-      $scope.match.mapping[mwClient.layerProtocol] = aOnfNe.getLTPEthCtpList()[0]._lpList[0].uuid;
+      var mwClient = rne['microwave-model:mw-ethernet-container-pac'][0];
+      $scope.match.mapping[mwClient.layerProtocol] = aOnfNe.getLTPEthCtpList()[0].getLayerProtocols()[0].getId();
     };
 
     var addShowDescriptionEvent = function(obj) {
@@ -399,7 +408,7 @@ define(['app/mwtnCompare/mwtnCompare.module',
 
     var updateAirInterface = function(spec, data) {
       if (!data) {
-        $scope.requiredNetworkElement.MW_AirInterface_Pac.map(function(mwps){
+        $scope.requiredNetworkElement['microwave-model:mw-air-interface-pac'].map(function(mwps){
           mwps.compares = getCompares(mwps.airInterfaceConfiguration);
           addShowDescriptionEvent(mwps);
         });
@@ -407,7 +416,7 @@ define(['app/mwtnCompare/mwtnCompare.module',
         var actual = new MicrowavePhysicalSection(data);
         $scope.match.addActualRadioSignalId(actual.getRadioSignalId());
         // console.log(actual.getRadioSignalId());
-        $scope.requiredNetworkElement.MW_AirInterface_Pac.map(function(mwps){
+        $scope.requiredNetworkElement['microwave-model:mw-air-interface-pac'].map(function(mwps){
           var required = new MicrowavePhysicalSection(mwps);
           if (actual.getRadioSignalId() === required.getRadioSignalId()) {
             $scope.match.mapping[required.getLayerProtocolId()] = actual.getLayerProtocolId();

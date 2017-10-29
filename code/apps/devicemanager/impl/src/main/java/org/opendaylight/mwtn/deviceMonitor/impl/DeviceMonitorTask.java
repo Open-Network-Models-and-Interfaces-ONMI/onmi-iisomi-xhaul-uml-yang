@@ -43,8 +43,9 @@ public class DeviceMonitorTask implements Runnable {
 
     /**
      * Setup monitoring task
+     * @param mountPointName to monitor
+     * @param odlEventListener to forward problems to
      */
-
     public DeviceMonitorTask(String mountPointName, ODLEventListener odlEventListener) {
         LOG.debug("Init task {}", DeviceMonitorTask.class.getSimpleName());
 
@@ -104,7 +105,7 @@ public class DeviceMonitorTask implements Runnable {
 
     public void deviceConnectIndication(ONFCoreNetworkElementRepresentation neParam) {
         LOG.info("{} {} Connect {} and stop.", LOGMARKER, tickCounter, mountPointName);
-        clear(DeviceMonitorProblems.notConnected);
+        clear(DeviceMonitorProblems.connectionLossOAM);
         synchronized(lockNe) {
             this.ne = neParam;
         }
@@ -117,7 +118,7 @@ public class DeviceMonitorTask implements Runnable {
 
     public void deviceDisconnectIndication() {
         LOG.info("{} {} Disconnect {} and start.", LOGMARKER, tickCounter, mountPointName);
-        clear(DeviceMonitorProblems.notConnected);
+        clear(DeviceMonitorProblems.connectionLossOAM);
         synchronized(lockNe) {
             this.ne = null;
         }
@@ -182,7 +183,7 @@ public class DeviceMonitorTask implements Runnable {
      */
     private void clearRaiseIfConnected(Checker checker, DeviceMonitorProblems problem) {
         LOG.debug("{} check start {} problem {} Raised-status {}",LOGMARKER, tickCounter, problem.name(), currentProblems.contains(problem));
-        if (checker.checkIfReachableStates()) {
+        if (checker.isConnected()) {
             clear(problem);
         } else {
             raise(problem);
@@ -230,28 +231,29 @@ public class DeviceMonitorTask implements Runnable {
             synchronized (lockNe) {
                 neNullIndicator = ne == null;
             }
-            LOG.debug("{} start mountpoint {} tick {} ne==null {} tickout {}",LOGMARKER, mountPointName, tickCounter, neNullIndicator, disconnectSupervisionTickout);
+            LOG.debug("{} START mountpoint {} tick {} ne==null {} tickout {}",LOGMARKER, mountPointName, tickCounter, neNullIndicator, disconnectSupervisionTickout);
             if (neNullIndicator) { //NE not connected
                 LOG.debug("{} {} NE disconnected check {}", LOGMARKER, tickCounter, disconnectSupervisionTickout);
                 if (processDisconnectSupervisionAndCheckExceeded()) {
-                    raise(DeviceMonitorProblems.notConnected);
+                    raise(DeviceMonitorProblems.connectionLossOAM);
                 }
             } else {
-                clear(DeviceMonitorProblems.notConnected); //Always cleared
-
+                clear(DeviceMonitorProblems.connectionLossOAM); //Always cleared never raised
+                LOG.debug("{} {} Prepare check", LOGMARKER, tickCounter);
+                ne.prepareCheck();  // Prepare ne check
                 // Mediator check
                 LOG.debug("{} {} Mediator check", LOGMARKER, tickCounter);
-                clearRaiseIfConnected(checkConnectionToMediator, DeviceMonitorProblems.noConnectionMediator);
+                clearRaiseIfConnected(checkConnectionToMediator, DeviceMonitorProblems.connectionLossMediator);
 
                 // NE check
                 LOG.debug("{} {} Ne check", LOGMARKER, tickCounter);
-                clearRaiseIfConnected(checkConnectionToNe, DeviceMonitorProblems.noConnectionNe);
+                clearRaiseIfConnected(checkConnectionToNe, DeviceMonitorProblems.connectionLossNeOAM);
             }
         } catch (Exception e) {
             //Prevent stopping the task
             LOG.warn("{} {} (..something..) failed",LOGMARKER, tickCounter, e);
         }
-        LOG.debug("{} {} end", LOGMARKER, tickCounter++);
+        LOG.debug("{} {} END", LOGMARKER, tickCounter++);
 
     }
 

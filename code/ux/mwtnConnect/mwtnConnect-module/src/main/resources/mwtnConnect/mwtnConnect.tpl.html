@@ -5,7 +5,7 @@
 	is-open="status.requiredNes">
 	<uib-accordion-heading>
 	    <i class="pull-left fa" ng-class="{'fa-chevron-down': status.requiredNes, 'fa-chevron-right': !status.requiredNes}"></i>
-	    <span>{{'Required NetworkElements' | translate}}</span>
+	    <span>{{'MWTN_REQUIRED_NETWORK_ELEMENTS' | translate}}</span>
 	</uib-accordion-heading>
 	<div id="requiredNesGrid" ui-grid="requiredNesGridOptions"
 		ui-grid-exporter ui-grid-selection ui-grid-pinning
@@ -17,7 +17,7 @@
 	is-open="status.unkownNes">
 	<uib-accordion-heading>
 	    <i class="pull-left fa" ng-class="{'fa-chevron-down': status.unkownNes, 'fa-chevron-right': !status.unkownNes}"></i>
-	    <span>{{'Unknown NetworkElements' | translate}}</span>
+	    <span>{{'MWTN_UNKNOWN_NETWORK_ELEMENTS' | translate}}</span>
 	</uib-accordion-heading>
 	<div id="unknownNesGrid" ui-grid="unknownNesGridOptions"
 		ui-grid-exporter ui-grid-selection ui-grid-pinning
@@ -145,5 +145,5 @@
 
 <hr />
 <div class="owl">
-	<span class="white">ONF Wireless for OpenDaylight Boron-SR1 - Build: @buildtime@</span>
+	<span class="white">ONF Wireless for {{odlKarafVersion}} - Build: @buildtime@</span>
 </div>

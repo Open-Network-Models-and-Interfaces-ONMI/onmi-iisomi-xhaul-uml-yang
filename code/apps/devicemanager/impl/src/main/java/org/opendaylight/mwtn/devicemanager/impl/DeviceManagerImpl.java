@@ -9,6 +9,9 @@
 package org.opendaylight.mwtn.devicemanager.impl;
 
 import com.google.common.base.Optional;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,9 +24,11 @@ import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.ProviderContext;
 import org.opendaylight.controller.sal.binding.api.BindingAwareProvider;
 import org.opendaylight.controller.sal.binding.api.RpcConsumerRegistry;
+import org.opendaylight.mwtn.aotsMConnector.impl.AotsMProviderClient;
 import org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElementFactory;
 import org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElementRepresentation;
 import org.opendaylight.mwtn.config.impl.HtConfiguration;
+import org.opendaylight.mwtn.config.impl.HtConfigurationDevicemanager;
 import org.opendaylight.mwtn.config.impl.HtDatabaseConfigService;
 import org.opendaylight.mwtn.deviceMonitor.impl.DeviceMonitorImpl;
 import org.opendaylight.mwtn.devicemanager.api.DeviceManagerService;
@@ -32,7 +37,7 @@ import org.opendaylight.mwtn.devicemanager.impl.listener.NetconfSubscriptionMana
 import org.opendaylight.mwtn.devicemanager.impl.listener.ODLEventListener;
 import org.opendaylight.mwtn.devicemanager.impl.xml.WebSocketServiceClient;
 import org.opendaylight.mwtn.devicemanager.impl.xml.XmlMapper;
-import org.opendaylight.mwtn.ecompConnector.impl.EventProviderClient;
+import org.opendaylight.mwtn.ecompConnector.impl.EcompProviderClient;
 import org.opendaylight.mwtn.performancemanager.impl.PerformanceManagerImpl;
 import org.opendaylight.mwtn.performancemanager.impl.database.service.MicrowaveHistoricalPerformanceWriterService;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.netconf.notification._1._0.rev080714.CreateSubscriptionInputBuilder;
@@ -61,6 +66,8 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
     private static final String PMCONFIGURATIONID = "org.opendaylight.mwtn.performancemanager";
     private static final String MYDBKEYNAME = "SDN-Controller";
 
+
+
     //http://sendateodl:8181/restconf/operational/network-topology:network-topology/topology/topology-netconf
     private static final InstanceIdentifier<Topology> NETCONF_TOPO_IID = InstanceIdentifier
             .create(NetworkTopology.class)
@@ -79,14 +86,17 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
 
     //private HashMap<String, MicrowaveEventListener> microwaveEventListeners;
     private final HashMap<String, ONFCoreNetworkElementRepresentation> networkElementRepresentations = new HashMap<>();
-    private PerformanceManagerImpl performanceManager;
-    private EventProviderClient ecompProvider;
+    private PerformanceManagerImpl performanceManager = null;
+    private EcompProviderClient ecompProvider;
+	private AotsMProviderClient aotsMProvider;
     private DeviceMonitorImpl deviceMonitor;
-
 
     @Override
     public void onSessionInitiated(ProviderContext pSession) {
         LOG.info("Session Initiated start");
+
+        HtConfigurationDevicemanager config = HtConfigurationDevicemanager.getConfiguration();
+
         this.session = pSession;
         this.dataBroker = pSession.getSALService(DataBroker.class);
 
@@ -101,8 +111,11 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
         HtDatabaseConfigService htConfigurationService = new HtDatabaseConfigService();
 
         //ECOMP
-        this.ecompProvider = new EventProviderClient(htConfigurationService);
+        this.ecompProvider = new EcompProviderClient(htConfigurationService);
 
+        //AOTS-M
+        //this.aotsMProvider = null;
+        this.aotsMProvider = new AotsMProviderClient(htConfigurationService);
         //EM
         HtConfiguration configurationEvenManager = htConfigurationService.getHtConfiguration(MYCONFIGURATIONID);
         if (configurationEvenManager == null) {
@@ -113,28 +126,39 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
 
             this.databaseClientEvents = new HtDatabaseEventsService(configurationEvenManager.getIndex(), configurationEvenManager.getHost(),
                     configurationEvenManager.getCluster(), configurationEvenManager.getNode(), MYCONFIGURATIONID);
+           String hostname="";
+            try {
+				hostname = "-"+InetAddress.getLocalHost().getHostName();
+			} catch (UnknownHostException e) {
+				LOG.error("error getting hostname: "+e.getMessage());
+			}
+            this.odlEventListener = new ODLEventListener(MYDBKEYNAME+hostname, webSocketService, databaseClientEvents, ecompProvider, aotsMProvider,hostname);
 
-            this.odlEventListener = new ODLEventListener(MYDBKEYNAME, webSocketService, databaseClientEvents, ecompProvider);
-            this.netconfSubscriptionManager = new NetconfSubscriptionManagerOfDeviceManager(this, dataBroker);
-            this.netconfSubscriptionManager.register();
+
 
         }
 
         //PM
-        HtConfiguration configurationPM = htConfigurationService.getHtConfiguration(PMCONFIGURATIONID);
-        if (configurationPM == null) {
+        LOG.info("Performance manager enabled: {}",config.isPerformanceManagerEnabled());
+        if (config.isPerformanceManagerEnabled()) {
+            HtConfiguration configurationPM = htConfigurationService.getHtConfiguration(PMCONFIGURATIONID);
+            if (configurationPM == null) {
 
-            LOG.warn("No {} configuration available. Don't start performance manager", PMCONFIGURATIONID);
+                LOG.warn("No {} configuration available. Don't start performance manager", PMCONFIGURATIONID);
 
-        } else {
+            } else {
 
-            this.databaseClientHistoricalPerformance = new MicrowaveHistoricalPerformanceWriterService(configurationPM.getIndex(), configurationPM.getHost(),
-                    configurationPM.getCluster(), configurationPM.getNode(), PMCONFIGURATIONID);
-            this.performanceManager = new PerformanceManagerImpl(60, databaseClientHistoricalPerformance);
+                this.databaseClientHistoricalPerformance = new MicrowaveHistoricalPerformanceWriterService(configurationPM.getIndex(), configurationPM.getHost(),
+                        configurationPM.getCluster(), configurationPM.getNode(), PMCONFIGURATIONID);
+                this.performanceManager = new PerformanceManagerImpl(60, databaseClientHistoricalPerformance);
+            }
         }
-
-        //DeviceMonitor
+        //DeviceMonitor has to be available before netconfSubscriptionManager is configured
         this.deviceMonitor = new DeviceMonitorImpl(odlEventListener);
+
+        // netconfSubscriptionManager should be the last because calling back this service
+        this.netconfSubscriptionManager = new NetconfSubscriptionManagerOfDeviceManager(this, dataBroker);
+        this.netconfSubscriptionManager.register();
 
         LOG.info("Session Initiated end");
     }
@@ -145,6 +169,8 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
         if (performanceManager != null) {
             performanceManager.close();
         }
+        if(this.aotsMProvider!=null)
+        	this.aotsMProvider.close();
         this.deviceMonitor.close();
     }
 
@@ -194,7 +220,7 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
         ONFCoreNetworkElementRepresentation ne = ONFCoreNetworkElementFactory.create(
                 mountPointNodeName, dataBroker, webSocketService,
                 databaseClientEvents, instanceIdentifier, netconfNodeDataBroker,
-                ecompProvider);
+                ecompProvider,aotsMProvider);
         networkElementRepresentations.put(mountPointNodeName, ne);
         ne.doRegisterMicrowaveEventListener(mountPoint);
 
@@ -224,9 +250,11 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
 
         //-- Read data from NE
         ne.initialReadFromNetworkElement();
+        ne.sync();
         //-- Register NE to performance manager
-        performanceManager.registration(mountPointNodeName, ne);
-
+        if (performanceManager != null) {
+            performanceManager.registration(mountPointNodeName, ne);
+        }
         deviceMonitor.deviceConnectIndication(mountPointNodeName, ne);
 
         LOG.info("Starting Event listener on Netconf device :: Name : {} finished", mountPointNodeName);
@@ -245,35 +273,24 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
         }
         deviceMonitor.deviceDisconnectIndication(mountPointNodeName);
         odlEventListener.deRegistration(mountPointNodeName);
-        performanceManager.deRegistration(mountPointNodeName);
+        if (performanceManager != null) {
+            performanceManager.deRegistration(mountPointNodeName);
+        }
     }
 
     @Override
     public void mountpointNodeCreation(NodeId nNodeId, NetconfNode nNode) {
-        LOG.info("mountpointNodeCreation {} {}", nNodeId.getValue(), nNode.getConnectionStatus());
         String mountPointNodeName = nNodeId.getValue();
+        LOG.info("mountpointNodeCreation {} {}", nNodeId.getValue(), nNode.getConnectionStatus());
         deviceMonitor.createMountpointIndication(mountPointNodeName);
     }
 
     @Override
     public void mountpointNodeRemoved(NodeId nNodeId) {
-        LOG.info("mountpointNodeRemoved {}", nNodeId.getValue());
         String mountPointNodeName = nNodeId.getValue();
+        LOG.info("mountpointNodeRemoved {}", nNodeId.getValue());
         deviceMonitor.removeMountpointIndication(mountPointNodeName);
     }
-
-    /* Old implementation */
-    @Override
-    public void startListenerOnNode(String mountPointNodeName) {
-        LOG.info("Depreciated startListenerOnNode {}", mountPointNodeName);
-    }
-
-    /* Old implementation */
-    @Override
-    public void removeListenerOnNode(String mountPointNodeName) {
-        LOG.info("Depreciated removeListenerOnNode {}", mountPointNodeName);
-    }
-
 
     /*-----------------------------------------------------------------------------------------------------------------------------
      * Informational

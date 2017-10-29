@@ -1,0 +1,61 @@
+<div class="modal-header">
+	<h3 class="modal-title" id="modal-title">{{ data.el.Name }}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+  <div class="row">
+    <div class="col-md-3"><span>Name:</span></div>
+    <div class="col-md-9">
+    	<input type="text" class="form-control" ng-model="mediator.name" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3"><span>DeviceType:</div>
+    <div class="col-md-9">
+    	<select class="form-control" ng-model="mediator.devicetype" >
+    		<option ng-repeat="option in options.nedevicetype" value="{{option.Value}}">{{option.Name}}</option>
+    	</select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3"><span>IP address:</div>
+    <div class="col-md-9">
+    	<input type="text" ng-model="mediator.remoteip" class="form-control"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3"><span>TrapsPort:</div>
+    <div class="col-md-9">
+    	<input type="number" class="form-control" ng-model="mediator.trapsport" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3"><span>NetconfPort:</div>
+    <div class="col-md-9">
+    <input type="number" class="form-control" ng-model="mediator.ncport" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3"><span>NeModel:</div>
+    <div class="col-md-9">
+    	<select class="form-control" ng-model="mediator.nexml">
+    		<option ng-repeat="option in options.nexmlmodel" value="{{option}}">{{option}}</option>
+    	</select>
+    </div>
+  </div>
+  <div class="row">
+  	<div class="col-md-12">
+  		<span style="display:block;text-align:right;color:#0F0;">{{statusmessage}}</span>
+  		<span style="display:block;text-align:right;color:#F00;">{{errormessage}}</span>
+  	</div>
+  </div>
+
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" type="button" ng-click="ok()">
+    <span>{{'MWTN_MED_ADD' | translate}}</span>
+  </button>
+  <button class="btn btn-danger" type="button" ng-show="true" ng-click="cancel()">
+    <i class="fa fa-trash" aria-hidden="true"></i>
+    <span>{{'MWTN_CANCEL' | translate}}...</span>
+  </button>
+</div>

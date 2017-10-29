@@ -21,7 +21,7 @@ define(['angularAMD', 'app/routingConfig', 'app/core/core.services', 'common/con
 
     NavHelperProvider.addControllerUrl('app/mwtnCompare/mwtnCompare.controller');
     NavHelperProvider.addToMenu('mwtnCompare', {
-     "link" : "#/mwtnCompare",
+     "link" : "#/mwtnCompare/",
      "active" : "main.mwtnCompare",
      "title" : "MWTN Compare",
      "icon" : "fa fa-tags",  // Add navigation icon css class here
@@ -34,7 +34,7 @@ define(['angularAMD', 'app/routingConfig', 'app/core/core.services', 'common/con
     var access = routingConfig.accessLevels;
 
     $stateProvider.state('main.mwtnCompare', {
-        url: 'mwtnCompare',
+        url: 'mwtnCompare/:nodeId',
         access: access.admin,
         views : {
             'content' : {

@@ -16,15 +16,17 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnBrowser/mwtnBrowser.modul
     var service = {};
     
     service.separator = $mwtnCommons.separator;
+    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
     service.parts = $mwtnCommons.parts;
     service.getPacParts = $mwtnCommons.getPacParts;
-    service.yangify = $mwtnCommons.yangify;
-    service.yangifyObject = $mwtnCommons.yangifyObject;
     service.getModules = $mwtnDatabase.getModules;
     service.getPartGlobalId = $mwtnCommons.getPartGlobalId;
     service.getPartLocalId = $mwtnCommons.getPartLocalId;
     service.getViewData = $mwtnCommons.getViewData;
+    service.getForwardingConstruct = $mwtnCommons.getForwardingConstruct;
     service.layerProtocolNameOrder = $mwtnCommons.layerProtocolNameOrder;
+    service.yangify = $mwtnCommons.yangify;
+    service.yangifyObject = $mwtnCommons.yangifyObject;
     
     service.refreshPTP = function() {
       console.error('refresh ptp');

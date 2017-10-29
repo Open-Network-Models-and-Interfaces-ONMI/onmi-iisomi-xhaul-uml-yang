@@ -91,14 +91,14 @@ karaf_waittillstopped() {
         STEP="Create distribution"
         read -p "Press <Enter> to proceed with ... $STEP"
         echo "$STEP"
-        TARDIR="onf-wireless-4th-poc-karaf-0.5.3-Boron-SR3-$(date +'%Y-%m-%d')"
+        TARDIR="onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-$(date +'%Y-%m-%d')"
         echo "  Using directory: $HOME/$TARDIR"
         if [ -d $HOME/$TARDIR ] ; then
           echo "Directory exists. Do remove. Terminate"
         else
           cd ~
           mkdir $TARDIR
-          cp -r distribution-karaf-0.5.3-Boron-SR3/* $TARDIR
+          cp -r distribution-karaf-0.5.1-Boron-SR1/* $TARDIR
           
           echo "Creating tar file"
           tar -czvf "$TARDIR.tar.gz" $TARDIR

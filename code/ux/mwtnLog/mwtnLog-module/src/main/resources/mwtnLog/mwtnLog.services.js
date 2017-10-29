@@ -17,6 +17,7 @@ define(['app/mwtnLog/mwtnLog.module','app/mwtnCommons/mwtnCommons.services'],fun
     service.gridOptions = $mwtnCommons.gridOptions;
     service.formatTimeStamp = $mwtnCommons.formatTimeStamp;
     service.deleteDocType = $mwtnDatabase.deleteDocType;
+    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
     
     service.getAllLogEntries = function(from, size) {
       var sort = [ {

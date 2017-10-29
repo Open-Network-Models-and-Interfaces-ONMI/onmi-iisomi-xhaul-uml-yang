@@ -24,7 +24,7 @@ define(['angularAMD',
 
     NavHelperProvider.addControllerUrl('app/mwtnBrowser/mwtnBrowser.controller');
     NavHelperProvider.addToMenu('mwtnBrowser', {
-     "link" : "#/mwtnBrowser",
+     "link" : "#/mwtnBrowser/",
      "active" : "main.mwtnBrowser",
      "title" : "MWTN Config",
      "icon" : "fa fa-cogs",  // Add navigation icon css class here
@@ -37,7 +37,7 @@ define(['angularAMD',
     var access = routingConfig.accessLevels;
 
     $stateProvider.state('main.mwtnBrowser', {
-        url: 'mwtnBrowser',
+        url: 'mwtnBrowser/:nodeId',
         access: access.admin,
         views : {
             content : {

@@ -25,6 +25,39 @@ Content like here:
   keyStorePassword=daylight2016
   ```
 
+### Configuration "aotsmconnector.properties"
+
+Located in karaf under /etc
+Content like here:
+
+  ```
+  #Properties
+
+  #soapurladd=off
+  soapurladd=http://soapserver.fritz.box/addmobility.php
+  #http timeout in seconds
+  soapaddtimeout=10
+  
+  #soapurlinq=off
+  soapurlinq=http://soapserver.fritz.box/inquire.php
+  #http timeout in seconds
+  soapinqtimeout=10
+   
+  #credentials
+  userName=user
+  userPassword=passwd
+  systemuser=user
+  assignedto=anotheruserid
+
+  #smtp fallback
+  #comment out if off
+  smtpHost=smtp.xxx.tld
+  smtpPort=587
+  smtpUsername=user
+  smtpPassword=passwd
+  smtpSender=odl@xxx.tld
+  smtpReceivers=email1@example.com,email2@example.com
+  ```
 
 ### evel-test-collector
 

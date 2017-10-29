@@ -16,6 +16,7 @@ define(['app/mwtnClosedLoop/mwtnClosedLoop.module','app/mwtnClosedLoop/mwtnClose
 
     $rootScope.section_logo = 'src/app/mwtnClosedLoop/images/mwtnClosedLoop.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
+    $scope.odlKarafVersion = $mwtnClosedLoop.odlKarafVersion; 
     $scope.timerOptionList = [
         {id : '5seconds', name : "5 seconds"},
         {id : '30seconds', name : "30 seconds"},
@@ -33,7 +34,7 @@ define(['app/mwtnClosedLoop/mwtnClosedLoop.module','app/mwtnClosedLoop/mwtnClose
         clearMessages();
         $mwtnCommons.executeClosedLoopAutomation().then(function(message){
           $mwtnLog.info({component: 'mwtnClosedLoopCtrl', message: 'Closed loop automation was started'});
-          $scope.info = 'Closed loop automation was executed: ' + new Date().toISOString().replace('T', ' ').split('.')[0] + ' UTC';
+          $scope.info = 'Closed loop automation was executed: ' + new Date().toISOString().toHumanReadableTimeFormat();
           $scope.refresh();
         }, function(error){
           $mwtnLog.error({component: 'mwtnClosedLoopCtrl', message: 'Cannot execute Closed Loop Automation'});
@@ -128,7 +129,7 @@ define(['app/mwtnClosedLoop/mwtnClosedLoop.module','app/mwtnClosedLoop/mwtnClose
 
      var requiredNesConnectionStatusCellTemplate = [
         '<div class="ui-grid-cell-contents" ng-class="{ \'green\': grid.getCellValue(row, col) === \'connected\'}"}>',
-        '  <i ng-show="grid.getCellValue(row, col) === \'connected\'" class="fa fa-signal" aria-hidden="true"></i>',
+        '  <i ng-show="grid.getCellValue(row, col) === \'connected\'" class="fa fa-link" aria-hidden="true"></i>',
         '  <span>{{grid.getCellValue(row, col)}}</span>',
         '</div>'].join('');
 

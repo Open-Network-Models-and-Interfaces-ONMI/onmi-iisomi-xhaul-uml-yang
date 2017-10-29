@@ -1,29 +1,34 @@
 <alarm-status></alarm-status>
-<div>
+<div class="owl">
 	<!-- Display a loading indicator as long as google isn't initialized. -->
-	<div ng-if="!vm.googleIsReady">Loading</div>
+	<div class="bbg" ng-if="!vm.googleIsReady">
+		<i class="fa fa-spinner fa-pulse" aria-hidden="true"></i>
+		<span>{{'MWTN_LOADING' | translate}}</span>
+	</div>
 
 	<uib-tabset id="mwtnTopology" active="vm.activeTab" ng-if="vm.googleIsReady">
 
-		<uib-tab index="0" heading="{{'Site' | translate}}">
+		<uib-tab index="0" heading="{{'MWTN_SITE' | translate}}">
 			<mwtn-topology-site-view  />
 		</uib-tab>
 
-    <uib-tab index="1" heading="{{'Physical' | translate}}">
+    <uib-tab index="1" heading="{{'MWTN_AIR_INTERFACE' | translate}}">
       <mwtn-topology-physical-view />
     </uib-tab>
 
-    <uib-tab index="2" heading="{{'Ethernet' | translate}}">
+		<!-- [sko] no data for TST
+    <uib-tab index="2" heading="{{'MWTN_ETHERNET' | translate}}">
       <mwtn-topology-ethernet-view />
     </uib-tab>
 
-    <uib-tab index="3" heading="{{'IEEE1588v2' | translate}}">
+    <uib-tab index="3" heading="{{'MWTN_PTP' | translate}}">
       <mwtn-topology-ieee1588-view />
-    </uib-tab>
+    </uib-tab>  -->
+
 	</uib-tabset>
 
 	<hr />
 	<div class="owl">
-		<span>ONF Wireless for Opendaylight Boron-SR1 - Build: @buildtime@</span>
+		<span>ONF Wireless for {{odlKarafVersion}} - Build: @buildtime@</span>
 	</div>
 </div>

@@ -17,6 +17,7 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
         $mwtnLog.info({ component: COMPONENT, message: 'mwtn Link Performance started!' });
 
         $rootScope.section_logo = 'src/app/mwtnPerformanceLink/images/mwtnPerformance.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
+        $scope.odlKarafVersion = $mwtnPerformanceLink.odlKarafVersion; 
 
         var globalFilter;
 
@@ -66,9 +67,9 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
           });
 
           // select one of the nodes
-          var select = parseInt(Math.random() * $scope.networkElements.length);
-          $scope.networkElementA = $scope.networkElements[select].id;
-          $scope.networkElementB = $scope.networkElements[select].id;
+          // var select = parseInt(Math.random() * $scope.networkElements.length);
+          // $scope.networkElementA = $scope.networkElements[select].id;
+          // $scope.networkElementB = $scope.networkElements[select].id;
         };
 
         var initLinkIds = function () {
@@ -497,6 +498,7 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
             });
           }
         };
+        
         //sanitize -1 to no value
         var checkData = function (value) {
           if (value === -1 || value === undefined) return undefined;
@@ -504,13 +506,12 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
         };
 
         var calculateMissingTimestamp = function (lastTimestamp, missingNr) {
-
           var dateInMS = Date.parse(lastTimestamp);
-          var timestamp = new Date(dateInMS + ((missingNr * 15) * 60000)).toISOString();
-          timestamp = timestamp.replace('Z', ' UTC').replace('T', ' ').replace('.000', '.0');
-          return timestamp;
+          return new Date(dateInMS + ((missingNr * 15) * 60000))
+                      .toISOString()
+                      .toHumanReadableTimeFormat()
+                      .replace('.000', '.0');
         };
-
 
         var processResponseForGrid = function (dataA, dataB, grid) {
           // console.log(grid);
@@ -539,7 +540,7 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
               dataB.data.hits.hits.map(function (entry) {
                 var timeStamp = formatTimeStamp(entry._source['time-stamp']);
                 var index = lookupMap.get(timeStamp); //look for timestamp in map
-                if (index) { //if a timestamp was found
+                if (index !== undefined) { //if a timestamp was found
                   list[index].txminb = checkData(entry._source['performance-data']['tx-level-min']); //add data to b side of element
                   list[index].txavgb = checkData(entry._source['performance-data']['tx-level-avg']);
                   list[index].txmaxb = checkData(entry._source['performance-data']['tx-level-max']);
@@ -595,7 +596,7 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
               dataB.data.hits.hits.map(function (entry) {
                 var timeStamp = formatTimeStamp(entry._source['time-stamp']);
                 var index = lookupMap.get(timeStamp);
-                if (index) {
+                if (index !== undefined) {
                   list[index].rxminb = checkData(entry._source['performance-data']['rx-level-min']);
                   list[index].rxavgb = checkData(entry._source['performance-data']['rx-level-avg']);
                   list[index].rxmaxb = checkData(entry._source['performance-data']['rx-level-max']);
@@ -688,7 +689,7 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
               dataB.data.hits.hits.map(function (entry) {
                 var timeStamp = formatTimeStamp(entry._source['time-stamp']);
                 var index = lookupMap.get(timeStamp);
-                if (index) {
+                if (index !== undefined) {
 
                   list[index].time2Sb = checkData(entry._source['performance-data']['time2-states-s']);
                   list[index].time2b = checkData(entry._source['performance-data']['time2-states']);
@@ -846,7 +847,7 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
               dataB.data.hits.hits.map(function (entry) {
                 var timeStamp = formatTimeStamp(entry._source['time-stamp']);
                 var index = lookupMap.get(timeStamp);
-                if (index) {
+                if (index !== undefined) {
                   list[index].rfTempMinb = entry._source['performance-data']['rf-temp-min'];
                   list[index].rfTempMaxb = entry._source['performance-data']['rf-temp-max'];
                   list[index].rfTempAvgb = entry._source['performance-data']['rf-temp-avg'];
@@ -902,7 +903,7 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
               dataB.data.hits.hits.map(function (entry) {
                 var timeStamp = formatTimeStamp(entry._source['time-stamp']);  
                 var index = lookupMap.get(timeStamp);
-                if (index) {
+                if (index !== undefined) {
                   list[index].snirMinb = entry._source['performance-data']['snir-min'];
                   list[index].snirMaxb = entry._source['performance-data']['snir-max'];
                   list[index].snirAvgb = entry._source['performance-data']['snir-max'];
@@ -960,7 +961,7 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
               dataB.data.hits.hits.map(function (entry) {
                 var timeStamp = formatTimeStamp(entry._source['time-stamp']);
                 var index = lookupMap.get(timeStamp);
-                if (index) {
+                if (index !== undefined) {
                   list[index].xpdMinb = entry._source['performance-data']['xpd-min'];
                   list[index].xpdMaxb = entry._source['performance-data']['xpd-max'];
                   list[index].xpdAvgb = entry._source['performance-data']['xpd-avg'];

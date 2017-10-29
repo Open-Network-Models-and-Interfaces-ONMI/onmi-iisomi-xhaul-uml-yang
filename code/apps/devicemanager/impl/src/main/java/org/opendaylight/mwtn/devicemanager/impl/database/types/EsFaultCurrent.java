@@ -1,7 +1,5 @@
 package org.opendaylight.mwtn.devicemanager.impl.database.types;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -16,7 +14,6 @@ import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
 public class EsFaultCurrent extends EsObject {
 
     public static final String ESDATATYPENAME = "faultcurrent";
-    private static final Pattern pattern = Pattern.compile(".*\\[layerProtocol=(.*)\\]");
     //private static final String NOALARM = "NonAlarmed";
 
     private ProblemNotificationXml faultCurrent;
@@ -27,7 +24,7 @@ public class EsFaultCurrent extends EsObject {
 
     public void setProblem(ProblemNotificationXml fault) {
         this.faultCurrent = fault;
-        setEsId(genSpecificEsId(fault));
+        setEsId(fault.genSpecificEsId());
     }
 
     public boolean isNoAlarmIndication() {
@@ -50,32 +47,5 @@ public class EsFaultCurrent extends EsObject {
     public static String getEsdatatypename() {
         return ESDATATYPENAME;
     }
-
-    /**
-     * Create a specific ES id for the current log.
-     * @param fault is the input.
-     * @return a string with the generated ES Id
-     */
-    private static String genSpecificEsId(ProblemNotificationXml fault) {
-
-        String uuId;
-
-        Matcher matcher = pattern.matcher(fault.getObjectId());
-        if (matcher.matches() && matcher.groupCount() == 1) {
-            uuId = matcher.group(1);
-        } else {
-            uuId = fault.getObjectId();
-        }
-
-        StringBuffer strBuf = new StringBuffer();
-        strBuf.append(fault.getNodeName());
-        strBuf.append("/");
-        strBuf.append(uuId);
-        strBuf.append("/");
-        strBuf.append(fault.getProblem());
-        return strBuf.toString();
-    }
-
-
 
  }

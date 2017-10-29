@@ -11,8 +11,8 @@ define(['app/mwtnLog/mwtnLog.module',
         'app/mwtnCommons/mwtnCommons.module'], 
         function(mwtnLogApp) {
     
-  mwtnLogApp.register.controller('mwtnLogCtrl', ['uiGridConstants', '$uibModal', '$scope', '$rootScope', '$mwtnLogView', '$mwtnLog' ,
-                                                 function(uiGridConstants, $uibModal, $scope, $rootScope,  $mwtnLogView,  $mwtnLog) {
+  mwtnLogApp.register.controller('mwtnLogCtrl', ['uiGridConstants', '$uibModal', '$scope', '$rootScope', '$mwtnCommons', '$mwtnLogView', '$mwtnLog' ,
+                                                 function(uiGridConstants, $uibModal, $scope, $rootScope,  $mwtnCommons, $mwtnLogView,  $mwtnLog) {
 
     var COMPONENT = 'mwtnLogCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnLogCtrl started!'});
@@ -22,6 +22,7 @@ define(['app/mwtnLog/mwtnLog.module',
     
     $rootScope.section_logo = 'src/app/mwtnLog/images/mwtnLog.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
+    $scope.odlKarafVersion = $mwtnLogView.odlKarafVersion; 
     $scope.highlightFilteredHeader = $mwtnLogView.highlightFilteredHeader;
  
     var rowTemplate = '<div ng-click="grid.appScope.fnOne(row)" ng-repeat="col in colContainer.renderedColumns track by col.colDef.name" ng-class="[\'ui-grid-cell\', row.entity.type]" ui-grid-cell></div>';

@@ -1,0 +1,1123 @@
+<div class="htProfile">
+  <!-- from here -->
+  <div class="container">
+    <ht-header headline="LINKCALCULATION"></ht-header>
+    <div class="row" ng-show="mwrLink.exists">
+      <div class="col-md-12">
+        <span>... {{'FOR' | translate}} {{'MWR_LINK_REVISION'}}: </span>
+        <a
+          href="/ux/#/mwrLinkRevision/{{dbIndex}}/{{mwrLink.id.siteLinkId.high}}/{{mwrLink.id.siteLinkId.low}}/{{mwrLink.id.mwrLinkId}}/{{mwrLink.id.revision}}"
+          target="_self"
+        >
+          <b>{{mwrLink.id.siteLinkId.high}}-{{mwrLink.id.siteLinkId.low}}-{{mwrLink.id.mwrLinkId}}-{{mwrLink.id.revision}}</b>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-7 inputParams">
+        <h3>{{'INPUT_PARAMETERS' | translate}}</h3>
+        <uib-accordion close-others="false"> <uib-accordion-group is-open="locations.open" ng-show="mwrLink.exists"> <uib-accordion-heading>
+        <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': locations.open, 'glyphicon-chevron-right': !locations.open}"></i> <span
+          style="margin-left: 6px;"
+        >{{'LOCATIONS' | translate}}</span> </uib-accordion-heading>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-2 col-md-offset-2 text-center">
+              <b>
+                <span>{{'SITE' | translate}} A</span>
+              </b>
+            </div>
+            <div class="col-md-2 text-center">
+              <b>
+                <span>{{'SITE' | translate}} B</span>
+              </b>
+            </div>
+          </div>
+          <div class="row">
+            <!-- siteId -->
+            <div class="col-md-2 text-right">
+              <span>{{'SITE_ID' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <b>{{mwrLink.spa.siteRef.siteId}}</b>
+              <a href="/ux/#/sites/{{siteLinkIndex}}/{{mwrLink.spa.siteRef.siteId}}" target="htSolutions">
+                <span class="glyphicon glyphicon glyphicon-info-sign"></span>
+              </a>
+            </div>
+            <div class="col-md-2">
+              <b>{{mwrLink.spb.siteRef.siteId}}</b>
+              <a href="/ux/#/sites/{{siteLinkIndex}}/{{mwrLink.spb.siteRef.siteId}}" target="htSolutions">
+                <span class="glyphicon glyphicon glyphicon-info-sign"></span>
+              </a>
+            </div>
+            <div class="col-md-1">
+              <span> </span>
+            </div>
+          </div>
+          <div class="row" ng-show="(siteA._source.siteName !== mwrLink.spa.siteRef.siteId) || (siteB._source.siteName !== mwrLink.spb.siteRef.siteId)">
+            <!-- latitude -->
+            <div class="col-md-2 text-right">
+              <span class="htStaticValue">{{'SITE_NAME' | translate}}: </span>
+            </div>
+            <div class="col-md-2 text-left">
+              <b>{{siteA._source.siteName}}</b>
+            </div>
+            <div class="col-md-2 text-left">
+              <b>{{siteB._source.siteName}}</b>
+            </div>
+          </div>
+          <div class="row">
+            <!-- latitude -->
+            <div class="col-md-2 text-right">
+              <span class="htStaticValue">{{'LAT' | translate}}</span>
+              <span>/</span>
+              <span>{{'LNG' | translate}}: </span>
+            </div>
+            <div class="col-md-2  text-right noWrap">
+              <span>{{linkDefinition.sa.loc.location.lat | coordinateFilter:'toDMS':'lat'}}</span>
+              <a href="/ux/modules/networkMap/map.html#/{{dbIndex}}?site={{mwrLink.siteAId}}" target="htNetworkMap">
+                <span class="glyphicon glyphicon-map-marker" style="color: white;"></span>
+              </a>
+              <br />
+              <span>{{linkDefinition.sa.loc.location.lon | coordinateFilter:'toDMS':'lon'}}</span>
+              <a href="/ux/modules/networkMap/map.html#/{{dbIndex}}?site={{mwrLink.siteAId}}" target="htNetworkMap">
+                <span class="glyphicon glyphicon-map-marker"></span>
+              </a>
+              <br />
+            </div>
+            <div class="col-md-2  text-right  noWrap">
+              <span>{{linkDefinition.sb.loc.location.lat | coordinateFilter:'toDMS':'lat'}}</span>
+              <a href="/ux/modules/networkMap/map.html#/{{dbIndex}}?site={{mwrLink.siteBId}}" target="htNetworkMap">
+                <span class="glyphicon glyphicon-map-marker" style="color: white;"></span>
+              </a>
+              <br />
+              <span>{{linkDefinition.sb.loc.location.lon | coordinateFilter:'toDMS':'lon'}}</span>
+              <a href="/ux/modules/networkMap/map.html#/{{dbIndex}}?site={{mwrLink.siteBId}}" target="htNetworkMap">
+                <span class="glyphicon glyphicon-map-marker"></span>
+              </a>
+              <br />
+            </div>
+            <div class="col-md-1">
+              <span class="htStaticValue"></span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- aboveMeanSeaLevel -->
+            <div class="col-md-2 text-right">
+              <span class="htStaticValue">{{'AMSL_GRD' | translate}}: </span>
+            </div>
+            <div class="col-md-2 text-right">
+              <span class="htStaticValue">{{linkDefinition.sa.loc.amslGrd | number:2}}</span>
+            </div>
+            <div class="col-md-2 text-right">
+              <span class="htStaticValue">{{linkDefinition.sb.loc.amslGrd | number:2}}</span>
+            </div>
+            <div class="col-md-1">
+              <span class="htStaticValue">m</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- azimuth -->
+            <div class="col-md-2 text-right">
+              <span class="htStaticValue">{{'AZIMUTH' | translate}}: </span>
+            </div>
+            <div class="col-md-2 text-right">
+              <span class="htStaticValue">{{mwrLink.mwLinkDefinitionBuilder.sa.ant.currentAzimuth | number:1 }}</span>
+            </div>
+            <div class="col-md-2 text-right">
+              <span class="htStaticValue">{{mwrLink.mwLinkDefinitionBuilder.sb.ant.currentAzimuth | number:1 }}</span>
+            </div>
+            <div class="col-md-1">
+              <span class="htStaticValue">°</span>
+            </div>
+          </div>
+        </div>
+        </uib-accordion-group> <uib-accordion-group is-open="general.open"> <uib-accordion-heading> <i class="pull-left glyphicon"
+          ng-class="{'glyphicon-chevron-down': general.open, 'glyphicon-chevron-right': !general.open}"
+        ></i> <span style="margin-left: 6px;">{{'GENERAL' | translate}}</span> </uib-accordion-heading>
+        <div class="container">
+          <div class="row" ng-show="false">
+            <!-- Link Type -->
+            <div class="col-md-3 text-right vcenter">
+              <span>{{'LINK_TYPE' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <select class="form-control input" ng-model="linkDefinition.mWType" id="linkType">
+                <option value="SDH">SDH</option>
+                <option value="PDH">PDH</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <!-- band -->
+            <div class="col-md-3 text-right">
+              <span>{{'BAND' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <select class="form-control input" ng-model="linkDefinition.mwpA.mwChannel.band" id="antennaAParameters.mwChannel.band">
+                <option value="BAND6_2">{{'BAND6G2' | translate}}</option>
+                <option value="BAND6_8">{{'BAND6G8' | translate}}</option>
+                <option value="BAND7_2">{{'BAND7G2' | translate}}</option>
+                <option value="BAND7_5">{{'BAND7G5' | translate}}</option>
+                <option value="BAND13">{{'BAND13' | translate}}</option>
+                <option value="BAND15">{{'BAND15' | translate}}</option>
+                <option value="BAND18">{{'BAND18' | translate}}</option>
+                <option value="BAND23">{{'BAND23' | translate}}</option>
+                <option value="BAND26">{{'BAND26' | translate}}</option>
+                <option value="BAND28">{{'BAND28' | translate}}</option>
+                <option value="BAND32">{{'BAND32' | translate}}</option>
+                <option value="BAND38">{{'BAND38' | translate}}</option>
+                <option value="BAND42">{{'BAND42' | translate}}</option>
+                <option value="BAND80">{{'BAND80' | translate}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <!-- bandwidth -->
+            <div class="col-md-3 text-right">
+              <span>{{'BANDWIDTH' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <select class="form-control input" ng-model="linkDefinition.mwpA.mwChannel.bandwidth">
+                <option value="BW3M5">{{'BW3M5' | translate}}</option>
+                <option value="BW7">{{'BW7' | translate}}</option>
+                <option value="BW14">{{'BW14' | translate}}</option>
+                <option value="BW27M5">{{'BW27M5' | translate}}</option>
+                <option value="BW28">{{'BW28' | translate}}</option>
+                <option value="BW40">{{'BW40' | translate}}</option>
+                <option value="BW55">{{'BW55' | translate}}</option>
+                <option value="BW56">{{'BW56' | translate}}</option>
+                <option value="BW112">{{'BW112' | translate}}</option>
+                <option value="BW250">{{'BW250' | translate}}</option>
+                <option value="BW500">{{'BW500' | translate}}</option>
+                <option value="BW750">{{'BW750' | translate}}</option>
+                <option value="BW1000">{{'BW1000' | translate}}</option>
+                <option value="BW1250">{{'BW1250' | translate}}</option>
+                <option value="BW1500">{{'BW1500' | translate}}</option>
+                <option value="BW1750">{{'BW1750' | translate}}</option>
+                <option value="BW2000">{{'BW2000' | translate}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <!-- fieldMargin -->
+            <div class="col-md-3 text-right">
+              <span>{{'FIELD_MARGIN' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <input id="fieldMargin" class="form-control input" type="text" placeholder="enter value" ng-model="linkDefinition.fm">
+            </div>
+            <div class="col-md-1">
+              <span>dB</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- obstructionLoss -->
+            <div class="col-md-3 text-right">
+              <span>{{'OBSTRUCT_LOSS' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <input id="obstructionLoss" class="form-control input" type="text" placeholder="enter value" ng-model="linkDefinition.obstructionLoss">
+            </div>
+            <div class="col-md-1">
+              <span>dB</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- length -->
+            <div class="col-md-3 text-right">
+              <span class="htStaticValue">{{'LNK_LENGTH' | translate}}: </span>
+            </div>
+            <div class="col-md-2 text-right">
+              <input id="length" class="form-control input" type="text" placeholder="enter value" ng-model="linkDefinition.lenKm" ng-show="!mwrLink.exists">
+              <span class="htStaticValue" ng-show="mwrLink.exists">{{linkDefinition.lenKm | number:3}}</span>
+            </div>
+            <div class="col-md-1">
+              <span class="htStaticValue">km</span>
+            </div>
+          </div>
+        </div>
+        </uib-accordion-group> <uib-accordion-group is-open="radio.open"> <uib-accordion-heading> <i class="pull-left glyphicon"
+          ng-class="{'glyphicon-chevron-down': radio.open, 'glyphicon-chevron-right': !radio.open}"
+        ></i> <span style="margin-left: 6px;">{{'RADIO' | translate}}</span> </uib-accordion-heading>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-2 col-md-offset-2 text-center">
+              <b>
+                <span>{{'SITE' | translate}} A</span>
+              </b>
+            </div>
+            <div class="col-md-2 text-center">
+              <b>
+                <span>{{'SITE' | translate}} B</span>
+              </b>
+            </div>
+          </div>
+          <div class="row">
+            <!-- radio.name -->
+            <div class="col-md-2 text-right">
+              <span>{{'NAME' | translate}}: </span>
+            </div>
+            <div class="col-md-4">
+              <!-- 
+                        <input id="radio.name" class="form-control input" type="text" placeholder="enter value" ng-model="linkDefinition.radio.name">
+ -->
+              <select class="form-control input" ng-model="linkDefinition.radio.name">
+                <!--   -->
+                <option ng-repeat="row in tables.radio.rows | filter:searchRadio">{{row._source.model}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <!-- radio.tsl -->
+            <div class="col-md-2 text-right">
+              <span>{{'TSL' | translate}}: </span>
+            </div>
+            <div class="col-md-4">
+              <input id="radio.tsl" class="form-control input" type="text" placeholder="enter value" ng-model="linkDefinition.radio.currentTsl">
+            </div>
+            <div class="col-md-1">
+              <span>dBm</span>
+            </div>
+          </div>
+          <div class="row" ng-show="false">
+            <!-- radio.qam - read from radioDB-->
+            <div class="col-md-2 text-right">
+              <span>{{'QAM' | translate}}: </span>
+            </div>
+            <div class="col-md-4">
+              <input id="radio.qam" class="form-control input" type="text" placeholder="enter value" ng-model="linkDefinition.radio.currentQam">
+            </div>
+          </div>
+          <div class="row">
+            <!-- radio.modulationType -->
+            <div class="col-md-2 text-right">
+              <span>{{'REFERENCE_MODULATION' | translate}}: </span>
+            </div>
+            <div class="col-md-4">
+              <select class="form-control input" ng-options="value.id as value.name for value in possible.modulationTypes"
+                ng-model="linkDefinition.radio._currentModulation" id="radio.modulationType"
+              >
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <!-- radio.radioConfigurationA -->
+            <div class="col-md-2 text-right">
+              <span>{{'RAD_CONF' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <select class="form-control input" ng-options="value.id as value.name for value in possible.configuration"
+                ng-model="linkDefinition.radio._currentConfA"
+              >
+              </select>
+            </div>
+            <div class="col-md-2">
+              <select class="form-control input" ng-options="value.id as value.name for value in possible.configuration"
+                ng-model="linkDefinition.radio._currentConfB" id="radio.radioConfigurationB"
+              >
+              </select>
+            </div>
+          </div>
+        </div>
+        </uib-accordion-group> <uib-accordion-group is-open="antenna.open"> <uib-accordion-heading> <i class="pull-left glyphicon"
+          ng-class="{'glyphicon-chevron-down': antenna.open, 'glyphicon-chevron-right': !antenna.open}"
+        ></i> <span style="margin-left: 6px;">{{'FREQUENCY_PLAN' | translate}}</span> </uib-accordion-heading>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-2 col-md-offset-2 text-center">
+              <b>
+                <span>{{'SITE' | translate}} A</span>
+              </b>
+            </div>
+            <div class="col-md-2 text-center">
+              <b>
+                <span>{{'SITE' | translate}} B</span>
+              </b>
+            </div>
+          </div>
+          <div class="row">
+            <!-- channelNumber -->
+            <div class="col-md-2 text-right">
+              <span>{{'CHANNEL_NO' | translate}}: </span>
+            </div>
+            <div class="col-md-4">
+              <input class="form-control input" type="text" placeholder="enter value" ng-model="linkDefinition.mwpA.mwChannel.channel">
+            </div>
+          </div>
+          <div class="row">
+            <!-- bandhalf -->
+            <div class="col-md-2 text-right">
+              <span>{{'BANDHALF' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <select class="form-control input" ng-model="linkDefinition.mwpA.bandhalf">
+                <option value="LOW">{{'BANDHALF_LOW' | translate}}</option>
+                <option value="HIGH">{{'BANDHALF_HIGH' | translate}}</option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <select class="form-control input" ng-model="linkDefinition.mwpB.bandhalf">
+                <option value="LOW">{{'BANDHALF_LOW' | translate}}</option>
+                <option value="HIGH">{{'BANDHALF_HIGH' | translate}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <!-- polarization -->
+            <div class="col-md-2 text-right">
+              <span>{{'POL' | translate}}: </span>
+            </div>
+            <div class="col-md-4">
+              <select class="form-control input" ng-model="linkDefinition.mwpA.polarization">
+                <option value="H">{{'HORIZONTAL' | translate}}</option>
+                <option value="V">{{'VERTICAL' | translate}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        </uib-accordion-group> <uib-accordion-group is-open="antennas.open"> <uib-accordion-heading> <i class="pull-left glyphicon"
+          ng-class="{'glyphicon-chevron-down': antennas.open, 'glyphicon-chevron-right': !antennas.open}"
+        ></i> <span style="margin-left: 6px;">{{'ANTENNAS' | translate}}</span> </uib-accordion-heading>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-2 col-md-offset-2 text-center">
+              <b>
+                <span>{{'SITE' | translate}} A</span>
+              </b>
+            </div>
+            <div class="col-md-2 text-center">
+              <b>
+                <span>{{'SITE' | translate}} B</span>
+              </b>
+            </div>
+          </div>
+          <div class="row">
+            <!-- Name -->
+            <div class="col-md-2 text-right">
+              <span>{{'MODEL' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <!--
+                        <input class="form-control input" type="text" placeholder="enter value" ng-model="linkDefinition.mwSiteA.antennaModel.name">
+ -->
+              <select class="form-control input" ng-model="linkDefinition.sa.ant.name">
+                <!--   -->
+                <option ng-repeat="row in tables.antenna.rows | filter:searchAntennas">{{row._source.model}}</option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <!-- 
+                        <input class="form-control input" type="text" placeholder="enter value" ng-model="linkDefinition.mwSiteB.antennaModel.name">
+ -->
+              <select class="form-control input" ng-model="linkDefinition.sb.ant.name">
+                <!--  | filter:searchAntennas -->
+                <option ng-repeat="row in tables.antenna.rows | filter:searchAntennas">{{row._source.model}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <!-- mountingPosition -->
+            <div class="col-md-2 text-right">
+              <span>{{'MOUNTING_POSITION' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input text-right" type="number" step="0.1" placeholder="enter value" ng-model="mwrLink.spa.antPos">
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input  text-right" type="number" step="0.1" placeholder="enter value" ng-model="mwrLink.spa.antPos">
+            </div>
+            <div class="col-md-1">
+              <span>m</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- diameter -->
+            <div class="col-md-2 text-right">
+              <span>{{'DIA' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input text-right" type="number" step="0.1" placeholder="enter value" ng-model="linkDefinition.sa.ant.dia"
+                ng-readonly="mwrLink.exists"
+              >
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input text-right" type="number" step="0.1" placeholder="enter value" ng-model="linkDefinition.sb.ant.dia"
+                ng-readonly="mwrLink.exists"
+              >
+            </div>
+            <div class="col-md-1">
+              <span>m</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- antennaAltitude -->
+            <div class="col-md-2 text-right">
+              <span>{{'ALTITUDE' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input text-right" type="number" step="0.1" placeholder="enter value" ng-model="linkDefinition.sa.ant.currentHightCL">
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input text-right" type="number" step="0.1" placeholder="enter value" ng-model="linkDefinition.sb.ant.currentHightCL">
+            </div>
+            <div class="col-md-1">
+              <span>m</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- azimuth -->
+            <div class="col-md-2 text-right">
+              <span class="htStaticValue">{{'AZIMUTH' | translate}}: </span>
+            </div>
+            <div class="col-md-2 text-right">
+              <input class="form-control input  text-right" type="number" step="0.1" placeholder="enter value" ng-model="linkDefinition.sa.ant.currentAzimuth"
+                ng-show="!mwrLink.exists"
+              >
+              <span class="htStaticValue" ng-show="mwrLink.exists">{{linkDefinition.sa.ant.currentAzimuth | number:1}}</span>
+            </div>
+            <div class="col-md-2 text-right">
+              <input class="form-control input text-right" type="number" step="0.1" placeholder="enter value" ng-model="linkDefinition.sb.ant.currentAzimuth"
+                ng-show="!mwrLink.exists"
+              >
+              <span class="htStaticValue" ng-show="mwrLink.exists">{{linkDefinition.sb.ant.currentAzimuth | number:1}}</span>
+            </div>
+            <div class="col-md-1">
+              <span class="htStaticValue">°</span>
+            </div>
+          </div>
+        </div>
+        </uib-accordion-group> <uib-accordion-group is-open="waveguide.open"> <uib-accordion-heading> <i class="pull-left glyphicon"
+          ng-class="{'glyphicon-chevron-down': waveguide.open, 'glyphicon-chevron-right': !waveguide.open}"
+        ></i> <span style="margin-left: 6px;">{{'WAVEGUIDES' | translate}}</span> </uib-accordion-heading>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-2 col-md-offset-2 text-center">
+              <b>
+                <span>{{'SITE' | translate}} A</span>
+              </b>
+            </div>
+            <div class="col-md-2 text-center">
+              <b>
+                <span>{{'SITE' | translate}} B</span>
+              </b>
+            </div>
+          </div>
+          <div class="row">
+            <!-- Name -->
+            <div class="col-md-2 text-right">
+              <span>{{'NAME' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <!-- 
+                        <input class="form-control input" type="text" placeholder="enter value" ng-model="linkDefinition.mwSiteA.waveGuide.name">
+ -->
+              <select class="form-control input" ng-model="linkDefinition.sa.wg.name">
+                <!--   -->
+                <option ng-repeat="row in tables.waveguide.rows | filter:searchWG">{{row._source.model}}</option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <!--
+                        <input class="form-control input" type="text" placeholder="enter value" ng-model="linkDefinition.mwSiteB.waveGuide.name">
+ -->
+              <select class="form-control input" ng-model="linkDefinition.sb.wg.name">
+                <!--  | filter:searchWG -->
+                <option ng-repeat="row in tables.waveguide.rows | filter:searchWG">{{row._source.model}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <!-- length -->
+            <div class="col-md-2 text-right">
+              <span>{{'TYPE' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input" type="text" placeholder="enter value" ng-model="waveguides.siteA.type" ng-readonly="true">
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input" type="text" placeholder="enter value" ng-model="waveguides.siteB.type" ng-readonly="true">
+            </div>
+          </div>
+          <div class="row">
+            <!-- length -->
+            <div class="col-md-2 text-right">
+              <span>{{'WG_LENGTH' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input text-right" type="number" step="0.1" min="{{waveguides.siteA.min}}" max="{{waveguides.siteB.max}}"
+                placeholder="enter value" ng-model="linkDefinition.sa.wg.lengthM" ng-readonly="waveguides.siteA.type === 'FLEXIBLE'"
+              >
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input text-right" type="number" step="0.1" min="{{waveguides.siteB.min}}" max="{{waveguides.siteB.max}}"
+                placeholder="enter value" ng-model="linkDefinition.sb.wg.lengthM" ng-readonly="waveguides.siteB.type === 'FLEXIBLE'"
+              >
+            </div>
+            <div class="col-md-1">
+              <span>m</span>
+            </div>
+          </div>
+        </div>
+        </uib-accordion-group> <uib-accordion-group is-open="losses.open"> <uib-accordion-heading> <i class="pull-left glyphicon"
+          ng-class="{'glyphicon-chevron-down': losses.open, 'glyphicon-chevron-right': !losses.open}"
+        ></i> <span style="margin-left: 6px;">{{'ATTENUATION' | translate}}</span> </uib-accordion-heading>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-2 col-md-offset-2 text-center">
+              <b>
+                <span>{{'SITE' | translate}} A</span>
+              </b>
+            </div>
+            <div class="col-md-2 text-center">
+              <b>
+                <span>{{'SITE' | translate}} B</span>
+              </b>
+            </div>
+          </div>
+          <div class="row">
+            <!-- other -->
+            <div class="col-md-2 text-right">
+              <span>{{'LOSS_OTHER' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input" type="text" placeholder="enter value" ng-model="linkDefinition.sa.losses.other">
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input" type="text" placeholder="enter value" ng-model="linkDefinition.sb.losses.other">
+            </div>
+            <div class="col-md-1">
+              <span>dB</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- attenuationCom -->
+            <div class="col-md-2 text-right">
+              <span>{{'ATT_LOSS' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input" type="text" placeholder="enter value" ng-model="linkDefinition.sa.losses.attCom">
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input" type="text" placeholder="enter value" ng-model="linkDefinition.sb.losses.attCom">
+            </div>
+            <div class="col-md-1">
+              <span>dB</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- attenuationTx -->
+            <div class="col-md-2 text-right">
+              <span>{{'ATT_LOSS_TX' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input" type="text" placeholder="enter value" ng-model="linkDefinition.sa.losses.attTx">
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input" type="text" placeholder="enter value" ng-model="linkDefinition.sb.losses.attTx">
+            </div>
+            <div class="col-md-1">
+              <span>dB</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- attenuationRx -->
+            <div class="col-md-2 text-right">
+              <span>{{'ATT_LOSS_RX' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input" type="text" placeholder="enter value" ng-model="linkDefinition.sa.losses.attRx">
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input" type="text" placeholder="enter value" ng-model="linkDefinition.sb.losses.attRx">
+            </div>
+            <div class="col-md-1">
+              <span>dB</span>
+            </div>
+          </div>
+        </div>
+        </uib-accordion-group> <uib-accordion-group is-open="geoLocation.open" ng-show="!mwrLink.exists"> <uib-accordion-heading> <i
+          class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': geoLocation.open, 'glyphicon-chevron-right': !geoLocation.open}"
+        ></i> <span style="margin-left: 6px;">{{'GEO_LOCATION' | translate}}</span> </uib-accordion-heading>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-2 col-md-offset-2 text-center">
+              <b>
+                <span>{{'SITE' | translate}} A</span>
+              </b>
+            </div>
+            <div class="col-md-2 text-center">
+              <b>
+                <span>{{'SITE' | translate}} B</span>
+              </b>
+            </div>
+          </div>
+          <div class="row">
+            <!-- latitude -->
+            <div class="col-md-2 text-right">
+              <span>{{'LAT' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input text-right" type="text" placeholder="enter value" ng-model="linkDefinition.sa.loc.location.lat"
+                ng-readonly="mwrLink.exists"
+              >
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input text-right" type="text" placeholder="enter value" ng-model="linkDefinition.sb.loc.location.lat"
+                ng-readonly="mwrLink.exists"
+              >
+            </div>
+            <div class="col-md-1">
+              <span> </span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- longitude -->
+            <div class="col-md-2 text-right">
+              <span>{{'LNG' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input text-right" type="text" placeholder="enter value" ng-model="linkDefinition.sa.loc.location.lon"
+                ng-readonly="mwrLink.exists"
+              >
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input text-right" type="text" placeholder="enter value" ng-model="linkDefinition.sb.loc.location.lon"
+                ng-readonly="mwrLink.exists"
+              >
+            </div>
+            <div class="col-md-1">
+              <span> </span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- aboveMeanSeaLevel -->
+            <div class="col-md-2 text-right">
+              <span>{{'AMSL_GRD' | translate}}: </span>
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input text-right" type="text" placeholder="enter value" ng-model="linkDefinition.sa.loc.amslGrd"
+                ng-readonly="mwrLink.exists"
+              >
+            </div>
+            <div class="col-md-2">
+              <input class="form-control input text-right" type="text" placeholder="enter value" ng-model="linkDefinition.sb.loc.amslGrd"
+                ng-readonly="mwrLink.exists"
+              >
+            </div>
+            <div class="col-md-1">
+              <span>m</span>
+            </div>
+          </div>
+        </div>
+        </uib-accordion-group> </uib-accordion>
+      </div>
+      <div class="col-md-5" ng-show="result.message !== 'OK'">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-2">
+              <h3>{{'WARNING' | translate}}</h3>
+              <b>{{result.message}}</b>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6">
+            <p>{{'INPUT_PARAMETERS' | translate}}</p>
+              <pre>{{linkDefinition | json}}</pre>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6">
+              <p>{{'MWRLINK' | translate}}</p>
+              <pre>{{mwrLink | json}}</pre>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <p>{{'SITE' | translate}} A</p>
+              <pre>{{siteA | json}}</pre>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <p>{{'SITE' | translate}} B</p>
+              <pre>{{siteB | json}}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5" ng-show="result.output.linkCalculation">
+        <div class="container">
+          <h3>{{'RESULT' | translate}}</h3>
+          <div class="row">
+            <!-- radio -->
+            <div class="col-md-2 text-right">
+              <b>
+                <br />
+                <span>{{'KPIS' | translate}}</span>
+              </b>
+            </div>
+          </div>
+          <div class="row">
+            <!-- compositeFadeMargin -->
+            <div class="col-md-3 text-right">
+              <span>{{'CFM' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.cfm | number:3}}</span>
+            </div>
+            <div class="col-md-1">
+              <span>db</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- availability -->
+            <div class="col-md-3 text-right">
+              <!--  class="htResult" -->
+              <span>{{'AVL' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <!-- span class="htResult-alert alert-{{result.type || 'warning'}}" -->
+              <span>{{result.output.linkCalculation.avl | number:3}}</span>
+            </div>
+            <div class="col-md-1">
+              <!-- class="htResult" -->
+              <span>%</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- ses_wm -->
+            <div class="col-md-3 text-right">
+              <span>{{'SES_WM' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.ses_wm | number:0}}</span>
+            </div>
+            <div class="col-md-1">
+              <span>s</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- radio -->
+            <div class="col-md-2 text-right">
+              <b>
+                <br />
+                <span>{{'RADIO' | translate}}</span>
+              </b>
+            </div>
+          </div>
+          <div class="row">
+            <!-- receiveSignalLevel -->
+            <div class="col-md-3 text-right">
+              <span>{{'RSL' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.rsl | number:3}}</span>
+            </div>
+            <div class="col-md-1">
+              <span>dB</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- rxthrber6 -->
+            <div class="col-md-3 text-right">
+              <span>{{'RXTHRBER6' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.rxthrber6 | number:3}}</span>
+            </div>
+            <div class="col-md-1">
+              <span>dB</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- ptefd -->
+            <div class="col-md-3 text-right">
+              <span>{{'PTEFD' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.ptefd | number:3}}</span>
+            </div>
+            <div class="col-md-1">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- pns -->
+            <div class="col-md-3 text-right">
+              <span>{{'PNS' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.pns | number:3}}</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- ps_c -->
+            <div class="col-md-3 text-right">
+              <span>{{'PS_C' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.ps_c | number:3}}</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- pxpr -->
+            <div class="col-md-3 text-right">
+              <span>{{'PXPR' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.pxpr | number:3}}</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- pxp -->
+            <div class="col-md-3 text-right">
+              <span>{{'PXP' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.pxp | number:3}}</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- itu parameters -->
+            <div class="col-md-2 text-right">
+              <b>
+                <span>{{'ITU_PARAMETERS' | translate}} </span>
+              </b>
+            </div>
+          </div>
+          <div class="row">
+            <!-- k -->
+            <div class="col-md-3 text-right">
+              <span>{{'K_FACTOR' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.rv.k | number:3}}</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- alpha -->
+            <div class="col-md-3 text-right">
+              <span>{{'ALPHA' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.rv.alpha | number:3}}</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- itu parameters -->
+            <div class="col-md-2 text-right">
+              <b>
+                <span>{{'LOSSES' | translate}} </span>
+              </b>
+            </div>
+          </div>
+          <div class="row">
+            <!-- fsl -->
+            <div class="col-md-3 text-right">
+              <span>{{'LOSS_FSL' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.loss_fsl | number:3}}</span>
+            </div>
+            <div class="col-md-1">
+              <span>dB</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- o2 -->
+            <div class="col-md-3 text-right">
+              <span>{{'LOSS_O2' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.loss_o2 | number:3}}</span>
+            </div>
+            <div class="col-md-1">
+              <span>db/km</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- h2o -->
+            <div class="col-md-3 text-right">
+              <span>{{'LOSS_H2O' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.loss_h2o | number:3}}</span>
+            </div>
+            <div class="col-md-1">
+              <span>db/km</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- atmo -->
+            <div class="col-md-3 text-right">
+              <span>{{'LOSS_ATMO' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.loss_atmo | number:3}}</span>
+            </div>
+            <div class="col-md-1">
+              <span>dB</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- prop -->
+            <div class="col-md-3 text-right">
+              <span>{{'LOSS_PROP' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.loss_prop | number:3}}</span>
+            </div>
+            <div class="col-md-1">
+              <span>dB</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- geoAndPolarization -->
+            <div class="col-md-2 text-right">
+              <b>
+                <span>{{'GEO_AND_POLARIZATION' | translate}} </span>
+              </b>
+            </div>
+          </div>
+          <div class="row">
+            <!-- specificRainRate -->
+            <div class="col-md-3 text-right">
+              <span>{{'SPECIFIC_RAIN_RATE' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.srr | number:1}}</span>
+            </div>
+            <div class="col-md-1">
+              <span>%</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- specificRainLoss -->
+            <div class="col-md-3 text-right">
+              <span>{{'SPECIFIC_RAIN_LOSS' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.srl | number:1}}</span>
+            </div>
+            <div class="col-md-1">
+              <span>db/km</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- distanceFactor -->
+            <div class="col-md-3 text-right">
+              <span>{{'DISTANCE_FACTOR' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.df | number:3}}</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- effectivePathLength -->
+            <div class="col-md-3 text-right">
+              <span>{{'EFFECTIVE_PATH_LENGTH' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.epl | number:3}}</span>
+            </div>
+            <div class="col-md-1">
+              <span>km</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- exceededRainLoss -->
+            <div class="col-md-3 text-right">
+              <span>{{'EXCEEDED_RAIN_LOSS' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.rle | number:3}}</span>
+            </div>
+            <div class="col-md-1">
+              <span>dB</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- pointRefractionGrad -->
+            <div class="col-md-3 text-right">
+              <span>{{'INDEX_OF_REFRACTION' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.pointRefractionGrad | number:3}}</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- geoFactor -->
+            <div class="col-md-3 text-right">
+              <span>{{'GEOFACTOREXP8' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.geoFactor | number:3}}</span>
+            </div>
+            <div class="col-md-1">
+              <span>10 exp -8</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- pathIncl -->
+            <div class="col-md-3 text-right">
+              <span>{{'PATH_INCL' | translate}}: </span>
+            </div>
+            <div class="col-md-1 text-right">
+              <span>{{result.output.linkCalculation.geoAndPolarization.path_incl | number:3}}</span>
+            </div>
+            <div class="col-md-1">
+              <span>mrad</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5" ng-show="!result">
+        <div class="container">
+          <h3 class="error">{{'ERROR' | translate}}</h3>
+          <div class="row">
+            <!-- type -->
+            <div class="col-md-1 text-right">
+              <span>{{'TYPE' | translate}}: </span>
+            </div>
+            <div class="col-md-4">
+              <span>{{error}}</span>
+            </div>
+          </div>
+          <div class="row">
+            <!-- tag -->
+            <div class="col-md-1 text-right">
+              <span>{{'TAG' | translate}}: </span>
+            </div>
+            <div class="col-md-4">
+              <span>{{error.errors.error[0]['error-tag']}}</span>
+            </div>
+          </div>
+          <div class="row" ng-show="error.errors.error[0]['error-message']">
+            <!-- tag -->
+            <div class="col-md-1 text-right">
+              <span>{{'MESSAGE' | translate}}: </span>
+            </div>
+            <div class="col-md-4">
+              <span>{{error.errors.error[0]['error-message']}}</span>
+            </div>
+          </div>
+          <div class="row" ng-show="error.errors.error[0]['error-info']">
+            <!-- tag -->
+            <div class="col-md-1 text-right">
+              <span>{{'INFO' | translate}}: </span>
+            </div>
+            <div class="col-md-4">
+              <span>{{error.errors.error[0]['error-info']}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- to here -->
+    <hr style="clear: both" />
+    <ht-footer></ht-footer>
+  </div>
+</div>

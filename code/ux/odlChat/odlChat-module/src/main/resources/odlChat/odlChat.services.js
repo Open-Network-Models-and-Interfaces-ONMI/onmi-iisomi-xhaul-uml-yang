@@ -6,9 +6,9 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-define(['app/odlChat/odlChat.module'],function(odlChatApp) {
+define(['app/mwtnCommons/mwtnCommons.module', 'app/odlChat/odlChat.module'],function(odlChatApp) {
 
-  odlChatApp.register.factory('$odlChat', function($http, ENV) {
+  odlChatApp.register.factory('$odlChat', function($http, ENV, $mwtnCommons) {
 
     var createStream = function(streamName, callback) {
       var request = {
@@ -27,6 +27,7 @@ define(['app/odlChat/odlChat.module'],function(odlChatApp) {
     var service = {
       base : ENV.getBaseURL("MD_SAL") + "/restconf/",
     };
+    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
 
     service.getData = function(event, callback) {
 
@@ -93,7 +94,7 @@ define(['app/odlChat/odlChat.module'],function(odlChatApp) {
       $http(request).then(function successCallback(response) {
         callback('send successfully');
       }, function errorCallback(response) {
-        console.error(response);
+        console.error(JSON.stringify(response));
         callback('ERROR while sending ;(');
       });
     };

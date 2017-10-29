@@ -25,6 +25,24 @@ public enum InternalSeverity {
         return this.name();
     }
 
+    public String toNetconfString()
+    {
+    	switch(this)
+    	{
+    	case NonAlarmed:
+    		return "non-alarmed";
+    	case Warning:
+    		return "warning";
+    	case Minor:
+    		return "minor";
+    	case Major:
+    		return "major";
+    	case Critical:
+    		return "critical";
+    	}
+    	return "not-specified";
+    }
+
     public static InternalSeverity valueOf(org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.typedefinitions.rev160902.SeverityType severity) {
         switch( severity ) {
             case NonAlarmed:

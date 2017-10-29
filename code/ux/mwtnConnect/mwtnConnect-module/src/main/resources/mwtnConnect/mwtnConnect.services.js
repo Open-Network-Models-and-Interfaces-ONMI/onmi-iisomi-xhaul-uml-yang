@@ -31,6 +31,7 @@ define(['app/mwtnConnect/mwtnConnect.module','app/mwtnCommons/mwtnCommons.servic
     service.getSingleDocument = $mwtnDatabase.getSingleDocument;
     service.gridOptions = $mwtnCommons.gridOptions;
     service.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
+    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
     service.registerForOdlEvents = $mwtnCommons.registerForOdlEvents;
     service.separator = $mwtnCommons.separator;
     
@@ -44,7 +45,7 @@ define(['app/mwtnConnect/mwtnConnect.module','app/mwtnCommons/mwtnCommons.servic
         sort = [ { 'event.timeStamp' : {order : 'desc'}}];
       }
       if (!query) { //default filter value
-        query= {match: {'event.nodeName': 'SDN-Controller'}};
+        query= {prefix: {'event.nodeName': 'SDN-Controller'}};
       }
       return getFilteredSortedData(from, size, sort, query);
     };

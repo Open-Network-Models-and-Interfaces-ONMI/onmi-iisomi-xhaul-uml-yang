@@ -6,9 +6,17 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
+/** Type Definitions 
+ * @typedef {{id: string, siteLink: string, radio: string, polarization: string }} AirInterfaceLink
+ * @typedef {{id: string, siteA: string, siteZ: string, siteNameA: string, siteNameZ: string, airInterfaceLinks: AirInterfaceLink[] }} DbLink
+ * @typedef {{data: {hits: {hits: {_id: string, _index: string, _score: number, _source: DbLink, _type: string}[], max_score: number, total: number}}, status: number}} DbLinkResult */
 
-  mwtnTopologyApp.register.factory('$mwtnTopology', function ($q, $mwtnCommons, $mwtnDatabase, $mwtnLog) {
+define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
+// module.exports = function () {
+//   const mwtnTopologyApp = require('app/mwtnTopology/mwtnTopology.module');
+//   const mwtnTopologyCommons = require('app/mwtnCommons/mwtnCommons.service');
+
+  mwtnTopologyApp.factory('$mwtnTopology', function ($q, $mwtnCommons, $mwtnDatabase, $mwtnLog) {
     var service = {};
 
     // AF/MF: Obsolete - will removed soon. All data access function
@@ -16,6 +24,7 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
     service.gridOptions = $mwtnCommons.gridOptions;
     service.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
     service.getAllData = $mwtnDatabase.getAllData;
+    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
 
     /**
       * Since not all browsers implement this we have our own utility that will
@@ -35,7 +44,7 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
      * @param rad - The radians to be converted into degrees
      * @return degrees
      */
-    _toDeg = function (rad) {
+    var _toDeg = function (rad) {
       return rad * 180 / Math.PI;
     };
 
@@ -376,7 +385,7 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
       $mwtnDatabase.getFilteredData("mwtn", "site-link", chunkSiteLinkStartIndex, chunkSize, query).then(
         /**
          * Callback for the database request.
-         * @param result {{data: {hits: {hits: {_id: string, _index: string, _score: number, _source: {id: string, siteA: string, siteZ: string}, _type: string}[], max_score: number, total: number}}, status: number}} The database result.
+         * @param result {{data: {hits: {hits: {_id: string, _index: string, _score: number, _source: {id: string, siteA: string, siteZ: string, siteNameA: string, siteNameZ: string, airInterfaceLinks: {id: string, siteLink: string, radio: string, polarization: string }[] }, _type: string}[], max_score: number, total: number}}, status: number}} The database result.
          */
         function (result) {
           var hits = result && result.data && result.data.hits;
@@ -473,6 +482,59 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
     };
 
     /**
+     * Gets a promise which is resolved with an array of planned filtered by given network element ids.
+     * This function does not use chunks!
+     * @param neIds {string[]} The ids of the site links to return.
+     */
+    service.getPlannedNetworkElementsByIds = function (neIds) {
+      var resultDefer = $q.defer();
+
+      if (!neIds || neIds.length === 0) {
+        resultDefer.resolve([]);
+        return resultDefer.promise;
+      }
+
+      var query = {
+        bool: {
+          should: neIds.map(function (neId) {
+            return { term: { id: neId } };
+          })
+        }
+      };
+
+      $mwtnDatabase.getFilteredData("mwtn", "planned-network-elements", 0, neIds.length, query).then(
+        /**
+         * Callback for the database request.
+         * @param result {{data: {hits: {hits: {_id: string, _index: string, _score: number, _source: {id: string, name: string, type: string}, _type: string}[], max_score: number, total: number}}, status: number}} The database result.
+         */
+        function (result) {
+          var hits = result && result.data && result.data.hits;
+          if (!hits) {
+            resultDefer.reject("Invalid result.");
+            return;
+          }
+
+          if (hits.total === 0) {
+            resultDefer.resolve([]);
+            return;
+          }
+
+          var plannedNetworkElements = hits.hits.map(function (plannedNetworkElement) {
+            return {
+              id: plannedNetworkElement._source.id,
+              name: plannedNetworkElement._source.name,
+              type: plannedNetworkElement._source.radioType
+            };
+          });
+
+          resultDefer.resolve(plannedNetworkElements);
+        }, resultDefer.reject);
+
+      return resultDefer.promise;
+    };
+
+
+    /**
      * Gets a promise which is resolved with an array of site links filtered by given site link ids.
      * This function does not use chunks!
      * @param siteLinkIds {string[]} The ids of the site links to return.
@@ -514,7 +576,10 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
             return {
               id: siteLink._source.id,
               siteA: siteLink._source.siteA,
-              siteZ: siteLink._source.siteZ
+              siteZ: siteLink._source.siteZ,
+              azimuthAz: siteLink._source.azimuthAZ,
+              azimuthZa: siteLink._source.azimuthZA,
+              length: siteLink._source.length
             };
           });
 
@@ -564,7 +629,8 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
             },
             amslGround: site._source["amsl-ground"],
             references: {
-              siteLinks: site._source.references["site-links"]
+              siteLinks: site._source.references["site-links"],
+              networkElements: site._source.references["network-elements"]
             }
           };
           
@@ -575,7 +641,16 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
             function (result) {
               siteDetails.siteLinks = result;
               resultDefer.resolve(siteDetails);
-            })
+            });
+
+            service.getPlannedNetworkElementsByIds(siteDetails.references.networkElements).then(
+            /** Callback for the database request.
+             *  @param result {{id: string, name: string, type: string }[]}
+             */
+            function (result) {
+              siteDetails.plannedNetworkElements = result;
+              resultDefer.resolve(siteDetails);
+            });
         }
       );
       return resultDefer.promise;
@@ -604,7 +679,7 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
       $mwtnDatabase.getFilteredData("mwtn", "site-link", 0, 1, linkQuery).then(
         /**
         * Callback for the database request.
-       * @param result {{data: {hits: {hits: {_id: string, _index: string, _score: number, _source: {id: string, siteA: string, siteZ: string }, status: number}} The database result.
+       * @param result { DbLinkResult }  The database result.
         */
         function (result) {
           if (result.data.hits.total != 1) {
@@ -615,7 +690,13 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
           var linkDetails = {
             id: link._source.id,
             siteA: link._source.siteA,
-            siteZ: link._source.siteZ
+            siteZ: link._source.siteZ,
+            siteNameA: link._source.siteNameA,
+            siteNameZ: link._source.siteNameZ,
+            length: link._source.length,
+            azimuthA: link._source.azimuthAZ,
+            azimuthB: link._source.azimuthZA,
+            airInterfaceLinks: link._source.airInterfaceLinks
           };
 
           service.getSitesByIds([link._source.siteA, link._source.siteZ]).then(

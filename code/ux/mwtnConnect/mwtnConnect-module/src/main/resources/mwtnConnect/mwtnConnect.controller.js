@@ -11,14 +11,15 @@ define(['app/mwtnConnect/mwtnConnect.module',
         'app/mwtnCommons/mwtnCommons.module'], 
         function(mwtnConnectApp) {
 
-  mwtnConnectApp.register.controller('mwtnConnectCtrl', ['$scope', '$rootScope', '$timeout', '$window', '$q', 'uiGridConstants', '$uibModal', '$mwtnConnect', '$mwtnLog', 'NetConfServer',  
-                                                         function($scope, $rootScope, $timeout, $window, $q, uiGridConstants, $uibModal, $mwtnConnect, $mwtnLog, NetConfServer) {
+  mwtnConnectApp.register.controller('mwtnConnectCtrl', ['$scope', '$rootScope', '$timeout', '$window', '$q', 'uiGridConstants', '$uibModal', '$mwtnConnect', '$mwtnLog', '$onapAai', 'NetConfServer',  
+                                                         function($scope, $rootScope, $timeout, $window, $q, uiGridConstants, $uibModal, $mwtnConnect, $mwtnLog, $onapAai, NetConfServer) {
 
     var COMPONENT = 'mwtnConnectCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnConnectCtrl started!'});
 
-    $rootScope.section_logo = 'src/app/mwtnConnect/images/mwtnConnect.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
+    $rootScope.section_logo = 'src/app/mwtnConnect/images/sdncConnect.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
+    $scope.odlKarafVersion = $mwtnConnect.odlKarafVersion; 
     $scope.highlightFilteredHeader = $mwtnConnect.highlightFilteredHeader;
     
     $scope.oneAtATime = true;
@@ -29,7 +30,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
     
     var requiredNesConnectionStatusCellTemplate = [
       '<div class="ui-grid-cell-contents" ng-class="{ \'green\': grid.getCellValue(row, col) === \'connected\'}">',
-      '  <i ng-show="grid.getCellValue(row, col) === \'connected\'" class="fa fa-signal" aria-hidden="true"></i>',
+      '  <i ng-class="{\'fa fa-link\': grid.getCellValue(row, col) === \'connected\', \'fa fa-chain-broken\': grid.getCellValue(row, col) !== \'connected\'}" aria-hidden="true"></i>',
       '  <span>{{grid.getCellValue(row, col)}}</span>',
       '</div>'].join('');
     
@@ -45,11 +46,27 @@ define(['app/mwtnConnect/mwtnConnect.module',
    //    '<button class="btn btn-primary" ng-click="grid.appScope.edit(row.entity)"><i class="fa fa-pencil"></i></button>',
    //    '<button class="btn btn-default" ng-click="grid.appScope.delete(row.entity)"><i class="fa fa-times mwtnError"></i></button>',
     var requiredNesActionCellTemplate = [
-      '<a class="vCenter" ng-class="{attention: grid.appScope.hover}" >',
-      '<button class="btn btn-primary" ng-click="grid.appScope.connect(row.entity)">Connect</button>',
-      '<button class="btn btn-default" ng-click="grid.appScope.disconnect(row.entity)">Disconnect</button>',
-      '<button class="btn btn-default" ng-click="grid.appScope.showDetails(row.entity)"><i class="fa fa-info-circle" aria-hidden="true"></i></button>',
-      '</a>' ].join('<span>&nbsp;</span>');
+      '<span>&nbsp;&nbsp;</span>',
+      '<div class="btn-group">',
+      '  <button class="btn btn-primary" ng-click="grid.appScope.connect(row.entity)" title="Mount"><i class="fa fa-link" aria-hidden="true"></i></button>',
+      '  <button class="btn btn-warning" ng-click="grid.appScope.disconnect(row.entity)" title="Unmount"><i class="fa fa-chain-broken" aria-hidden="true"></i></button>',
+      '  <button class="btn btn-success" ng-click="grid.appScope.showDetails(row.entity)" title="Information"><i class="fa fa-info-circle" aria-hidden="true"></i></button>',
+      '<div class="btn-group">',
+      '<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>',
+      '</div>',
+      '  <a class="btn btn-primary" ng-href="#/mwtnFault/{{row.entity.name}}" title="Fault Management" target="fm">F</a>',
+      '  <a class="btn btn-primary" ng-href="#/mwtnBrowser/{{row.entity.name}}" title="Configuration Management" target="cm">C</a>',
+      '  <a class="btn btn-default" title="Accounting Management" target="am">A</a>',
+      '  <a class="btn btn-primary" ng-href="#/mwtnPerformanceHistory/{{row.entity.name}}" title="Performance Management" target="pm">P</a>',
+      '  <a class="btn btn-default" title="Security Management" target="sm">S</a>',      
+      '</div>',
+      '<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>',
+      '<div class="btn-group">',
+      '  <a class="btn btn-primary" ng-href="#/mwtnInventory/{{row.entity.name}}" title="Inventory Management" target="im">I</a>',
+      '</div>',
+      '<span>&nbsp;</span>'].join('');
+
+
     $scope.requiredNesGridOptions = JSON.parse(JSON.stringify($mwtnConnect.gridOptions));
     $scope.requiredNesGridOptions.rowHeight  = 44;
     $scope.requiredNesGridOptions.columnDefs = [
@@ -59,7 +76,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
       //    ignoreSort: false,
       //    priority: 0
       //   }},
-       { field: 'name', type: 'string', displayName: 'Name',  headerCellClass: $scope.highlightFilteredHeader, width : 150, cellTemplate: nameCellTemplate, pinnedLeft : true , sort: {
+       { field: 'name', type: 'string', displayName: 'Name',  headerCellClass: $scope.highlightFilteredHeader, width : 200, cellTemplate: nameCellTemplate, pinnedLeft : true , sort: {
          direction: uiGridConstants.ASC,
          ignoreSort: false,
          priority: 0
@@ -74,7 +91,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
          enableSorting : false,
          enableFiltering: false,
          cellTemplate: requiredNesActionCellTemplate,
-         width : 280,
+         width : 400,
          pinnedRight : true
        }
      ];
@@ -91,7 +108,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
     $scope.unknownNesGridOptions = JSON.parse(JSON.stringify($mwtnConnect.gridOptions));
     $scope.unknownNesGridOptions.rowHeight  = 44;
     $scope.unknownNesGridOptions.columnDefs = [
-      { field: 'node-id', type: 'string', displayName: 'Name',  headerCellClass: $scope.highlightFilteredHeader, width : 150, sort: {
+      { field: 'node-id', type: 'string', displayName: 'Name',  headerCellClass: $scope.highlightFilteredHeader, width : 200, sort: {
         direction: uiGridConstants.ASC,
         priority: 0
        }},
@@ -241,6 +258,13 @@ define(['app/mwtnConnect/mwtnConnect.module',
           // Network element alrady exists in database
           doc.required = true;
           $scope.unknownNesGridOptions.data[index].spinner = true;
+          // add to aai
+          $onapAai.createPnf(neId, doc).then(function(success){
+            // do nothing
+          }, function(error) {
+            // do nothing
+          });
+          // add to es
           $mwtnConnect.createSingleDocument('mwtn', 'required-networkelement', neId, doc).then(function(success){
             $timeout(function() {
               $scope.status.requiredNes =  true;
@@ -273,6 +297,13 @@ define(['app/mwtnConnect/mwtnConnect.module',
             $scope.unknownNesGridOptions.data[index].spinner = true;
             $mwtnConnect.addRequiredNetworkElement(netconfServer).then(function(success){
               $mwtnLog.info({component: COMPONENT, message: 'Adding to database: ' + JSON.stringify(netconfServer)});
+
+              $onapAai.createPnf(netconfServer['node-id'], success.config.data).then(function(success){
+                // do nothing
+              }, function(error) {
+                // do nothing
+              });
+
               $timeout(function() {
                 $scope.status.requiredNes =  true;
                 $scope.unknownNesGridOptions.data[index].spinner = false;
@@ -361,7 +392,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
         $mwtnLog.info({component: COMPONENT, message: 'Mointpoint details dismissed!'});
       });
     };
-    
+                  
     var removeFromNodeList = function(nodeId) {
       var index = $scope.unknownNesGridOptions.data.length;
       var found = false;
@@ -909,11 +940,11 @@ define(['app/mwtnConnect/mwtnConnect.module',
     });
   }]);
 
-  mwtnConnectApp.register.controller('MountPointDetailsCtrl', ['$scope', '$uibModalInstance', '$uibModal', '$mwtnConnect', '$mwtnLog', 'currentNetworkElement', 
-                                                                  function ($scope, $uibModalInstance, $uibModal, $mwtnConnect, $mwtnLog, currentNetworkElement) {
+  mwtnConnectApp.register.controller('MountPointDetailsCtrl', ['$scope', '$uibModalInstance', '$uibModal', '$mwtnConnect', '$mwtnLog', '$onapAai', 'currentNetworkElement', 
+                                                                  function ($scope, $uibModalInstance, $uibModal, $mwtnConnect, $mwtnLog, $onapAai, currentNetworkElement) {
 
     var COMPONENT = 'MountPointDetailsCtrl';
-    $mwtnLog.info({component: COMPONENT, message: 'MountPointDetailsCtrl started!'});
+    // $mwtnLog.info({component: COMPONENT, message: 'MountPointDetailsCtrl started!'});
 
     $scope.data = {
         ne: currentNetworkElement,
@@ -1069,6 +1100,13 @@ define(['app/mwtnConnect/mwtnConnect.module',
       });
 
       modalInstance.result.then(function(success) {
+        // delete from AAi
+        $onapAai.deletePnf(success).then(function(deleted){
+          $mwtnLog.info({component: COMPONENT, message: success + ' deleted from AAI.'});
+        }, function(error){
+          $mwtnLog.info({component: COMPONENT, message: 'Deletion from AAI failed: ' + success + '\n' + error});
+        });
+        // delete from ES
         $mwtnConnect.deleteSingleDocument('mwtn', 'required-networkelement', success).then(function(deleted){
           $mwtnLog.info({component: COMPONENT, message: success + ' deleted from database.'});
           $uibModalInstance.close({hide: success});

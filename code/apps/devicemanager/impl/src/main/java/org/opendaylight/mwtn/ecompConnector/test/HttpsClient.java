@@ -20,7 +20,7 @@ import javax.net.ssl.SSLPeerUnverifiedException;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-import org.opendaylight.mwtn.ecompConnector.impl.EventProviderClient;
+import org.opendaylight.mwtn.ecompConnector.impl.EcompProviderClient;
 
 /**
  * @author herbert
@@ -28,7 +28,7 @@ import org.opendaylight.mwtn.ecompConnector.impl.EventProviderClient;
  */
 public class HttpsClient{
 
-    private static final MyLogger LOG = MyLogger.getLogger(EventProviderClient.class);
+    private static final MyLogger LOG = MyLogger.getLogger(EcompProviderClient.class);
 
     void test() {
 

@@ -1,7 +1,7 @@
 /* Basic initialization of index mwtn
 */
 
-var activeConfig='../activeConfigExamples/sdnpoc4'
+var activeConfig='../activeConfig';
 var fs = require('fs');
 var util = require('./util.js');
 var database = require(activeConfig+'/config.json');
@@ -17,7 +17,9 @@ for (var i = 0; i < docs.length; i++) {
 
 var createHit = function(item, i, done) {
   util.createEntry(basicDB, item._type, item._id, item._source, function(status, data) {
-    // console.log(item._type, item._id, 'created', status);
+    if (status !== 'OK') {
+      console.log(item._type, item._id, 'created', status, JSON.stringify(data));
+    }
     done();
   });
 };
@@ -39,7 +41,7 @@ var modifyDatabase = function(database) {
           for (t = 0; t < Object.keys(json).length; t++ ) {
               docType = Object.keys(json)[t];
               workOn = '    -> File: '+file+'->'+docType+' Elements:'+Object.keys(json[docType]).length;
-              //console.log(workOn);
+              console.log(workOn);
               modifyDatabaseOneType(workOn, json, docType );
               /*
               var array = Object.keys(json[docType]).map(function(key) {

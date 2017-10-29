@@ -33,7 +33,7 @@ public class Capabilities {
         String theNameSpace = theCapability.getNamespace().toString();
 
         for (String capability : capabilities) {
-            //LOG.info("Check {} against {}", capability, theNameSpace);
+            LOG.info("Check {} against {}", capability, theNameSpace);
             if (capability.contains(theNameSpace)) {
                 return true;
             }

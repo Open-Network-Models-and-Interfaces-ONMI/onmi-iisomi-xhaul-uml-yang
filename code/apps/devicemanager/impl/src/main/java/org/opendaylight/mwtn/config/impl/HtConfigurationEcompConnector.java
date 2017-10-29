@@ -14,10 +14,15 @@ public class HtConfigurationEcompConnector extends EsObject {
 
     private static final Logger LOG = LoggerFactory.getLogger(HtConfigurationEcompConnector.class);
 
+    private static final String CONFIGURATIONID = "org.opendaylight.mwtn.eventprovider";
+    private static final String CONFIGURATIONFILE = "etc/eventprovider.properties";
+    private static final int TIMEPERIODSECONDS = 30;
+
     public static final String ESDATATYPENAME = "database";
     private static final String EMPTY = "empty";
 
-    private static final String FILECONTENTTEMPLATE = "#Properties for ecompConnector of devicemanager\n" +
+    private static final String FILECONTENTTEMPLATE =
+            "#Properties for ecompConnector of devicemanager\n" +
             "#Add parameters without additional spaces after equal sign.\n" +
             "\n" +
             "#Full URL of the receiver of all notifications\n" +
@@ -34,16 +39,27 @@ public class HtConfigurationEcompConnector extends EsObject {
             "userCredentials=admin:admin\n" +
             "\n" +
             "#SourceId as used in the messages\n" +
-            "sourceId=de305d54-75b4-431b-adb2-eb6b9e546014\n";
-
+            "sourceId=de305d54-75b4-431b-adb2-eb6b9e546014\n" +
+            "\n" +
+            "#heartBeat Time in seconds\n" +
+            "timerPeriodSeconds=30\n";
 
     private String eventReceiverUrl=EMPTY;
     private String userCredentials=EMPTY;
     private String sourceId = EMPTY;
     private String testCollector = EMPTY;
+    private Integer timerPeriodSeconds = TIMEPERIODSECONDS;
+
+    /*
+     * Constructor
+     */
 
     public HtConfigurationEcompConnector() {
     }
+
+    /*
+     * Setter
+     */
 
     public void setEventReceiverUrl(String eventReveicerUrl) {
         this.eventReceiverUrl = eventReveicerUrl;
@@ -61,6 +77,13 @@ public class HtConfigurationEcompConnector extends EsObject {
         this.testCollector = testCollector;
     }
 
+     public void setTimerPeriodSeconds(Integer timerPeriodSeconds) {
+        this.timerPeriodSeconds = timerPeriodSeconds;
+    }
+
+    /*
+     * Getter
+     */
 
     public String getEventReveicerUrl() {
         return eventReceiverUrl;
@@ -78,30 +101,84 @@ public class HtConfigurationEcompConnector extends EsObject {
         return testCollector.equals("yes");
     }
 
+    public Integer getTimerPeriodSeconds() {
+        return timerPeriodSeconds;
+    }
+
+    /*
+     * Print and read
+     */
+
     @Override
     public String toString() {
         return "HtConfigurationEcompConnector [eventReceiverUrl=" + eventReceiverUrl + ", userCredentials="
-                + userCredentials + ", sourceId=" + sourceId + ", testCollector=" + testCollector + "]";
+                + userCredentials + ", sourceId=" + sourceId + ", testCollector=" + testCollector
+                + ", timerPeriodSeconds=" + timerPeriodSeconds + "]";
     }
 
-    public static @Nullable HtConfigurationEcompConnector readConfigurationFromFile(String fileName) {
+    /**
+     * Get configuration for the service
+     * @param configurationService Access to DB configuration section
+     * @return HtConfigurationEcompConnector with configuration information
+     */
+    public static HtConfigurationEcompConnector getConfiguration(HtDatabaseConfigService configurationService) {
+
+        HtConfigurationEcompConnector configuration;
+
+        configuration = HtConfigurationEcompConnector.readConfigurationFromFile(CONFIGURATIONFILE);
+        if (configuration != null) {
+            LOG.info("Got configuration from File");
+
+        } else if (configurationService != null) {
+            configuration = readConfigurationFromDB(configurationService);
+        }
+
+        if (configuration == null) {
+            LOG.info("Use defaultconfigurtion and create default configuration file"+CONFIGURATIONFILE);
+            createDefaultConfigurationFromFile(CONFIGURATIONFILE);
+            configuration = HtConfigurationEcompConnector.readConfigurationFromFile(CONFIGURATIONFILE);
+        }
+
+        if (configuration == null) {
+            throw new IllegalArgumentException("No configuration available.");
+        }
+        return configuration;
+    }
+
+    /**
+     * Read configuration from FILE
+     * @param fileName of configuration file
+     * @return HtConfigurationEcompConnector
+     */
+    private static @Nullable HtConfigurationEcompConnector readConfigurationFromFile(String fileName) {
 
         HtConfigurationEcompConnector fileConfiguration = null;
 
         try {
             Properties properties = new Properties();
             File file = new File(fileName);
-            FileInputStream fileInput;
 
-            fileInput = new FileInputStream(file);
-            properties.load(fileInput);
-            fileInput.close();
+            if (file.exists()) {
+                FileInputStream fileInput;
 
-            fileConfiguration = new HtConfigurationEcompConnector();
-            fileConfiguration.setUserCredentials(properties.getProperty("userCredentials"));
-            fileConfiguration.setEventReceiverUrl(properties.getProperty("eventReceiverUrl"));
-            fileConfiguration.setSourceId(properties.getProperty("sourceId"));
-            fileConfiguration.setTestCollector(properties.getProperty("testCollector"));
+                fileInput = new FileInputStream(file);
+                properties.load(fileInput);
+                fileInput.close();
+
+                fileConfiguration = new HtConfigurationEcompConnector();
+                fileConfiguration.setUserCredentials(properties.getProperty("userCredentials"));
+                fileConfiguration.setEventReceiverUrl(properties.getProperty("eventReceiverUrl"));
+                fileConfiguration.setSourceId(properties.getProperty("sourceId"));
+                fileConfiguration.setTestCollector(properties.getProperty("testCollector"));
+
+                int timerPeriodSeconds;
+                try {
+                    timerPeriodSeconds = Integer.valueOf(properties.getProperty("timerPeriodSeconds"));
+                } catch (Exception e) {
+                    timerPeriodSeconds = TIMEPERIODSECONDS;
+                }
+                fileConfiguration.setTimerPeriodSeconds(timerPeriodSeconds);
+            }
         } catch (Exception e) {
             LOG.warn("(..something..) failed", e);
         }
@@ -109,16 +186,37 @@ public class HtConfigurationEcompConnector extends EsObject {
         return fileConfiguration;
     }
 
-    public static String createDefaultConfigurationFromFile( String filename ) {
+    /**
+     * Create a file with configuration information
+     * @param filename of config file
+     */
+    private static void createDefaultConfigurationFromFile( String filename ) {
         try{
             PrintWriter writer = new PrintWriter(filename, "UTF-8");
             writer.print(FILECONTENTTEMPLATE);
             writer.close();
-            return "Created: "+filename;
+            LOG.info("Created: "+filename);
         } catch (IOException e) {
-            return "Couldn't write file "+filename+" with reason: "+e.getMessage();
+            LOG.warn("Couldn't write configuration file "+filename+" with reason: "+e.getMessage());
         }
     }
 
+    /**
+     * Read configuration from database
+     * @param configurationService to access the config part of the database
+     * @return HtConfigurationEcompConnector
+     */
+    private static @Nullable HtConfigurationEcompConnector readConfigurationFromDB(HtDatabaseConfigService configurationService) {
+
+        if (configurationService == null) {
+            LOG.info("No configuration database Service available");
+        } else {
+            HtConfigurationEcompConnector newConfiguration = configurationService.getHtConfigurationEcompConnector(CONFIGURATIONID);
+            if (newConfiguration != null) {
+                return newConfiguration;
+            }
+        }
+        return null;
+    }
 
 }

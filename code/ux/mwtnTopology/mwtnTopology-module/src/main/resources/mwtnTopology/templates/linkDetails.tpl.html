@@ -5,8 +5,8 @@
   <div ng-show="!status.message">
     <p>
       <span>Sitelink name: </span>
-      <b>{{vm.link.name || 'tbd.'}}</b>
-      
+      <b>{{vm.link.name || vm.link.id }}</b>
+      <br/>      
       <span>Length: </span>
       <b> {{vm.link.length || 0 | number:3 }} </b>
       <span> km</span>
@@ -45,7 +45,7 @@
     </table>
     <table>
       <caption class="text-left">
-        <b>{{'SITE' | translate}} Z</b>
+        <b>{{'MWTN_SITE' | translate}} Z</b>
       </caption>
       <tbody>
         <tr>
@@ -72,6 +72,33 @@
             <b> {{vm.link.azimuthB || 0 | number:1 }} </b>
             <span> °</span>
           </td>
+        </tr>
+      </tbody>
+    </table> 
+    <br/>
+    <br/>
+    <table class='table table-striped' ng-show="vm.link.airInterfaceLinks && vm.link.airInterfaceLinks.length">
+       <caption class="text-left">
+        <b>{{'MWTN_AIR_INTERFACE_LINKS' | translate}}</b>
+      </caption>
+      <thead>
+        <tr>
+          <th>{{'MWTN_ID' | translate}}</th>
+          <th>{{'MWTN_RADIO' | translate}}</th>
+          <th>{{'MWTN_BAND' | translate}}</th>
+          <th>{{'MWTN_POLARIZATION' | translate}}</th>
+          <th>{{'MWTN_STATUS' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="airIf in vm.link.airInterfaceLinks">
+          <td> {{ airIf.id}} </td>
+          <td> {{ airIf.radio}} </td>
+          <td> {{ airIf.bandDesignator }} </td>
+          <td> {{ airIf.polarization }} </td>
+          <td> {{ airIf.mainStatus }} </td>
+
+          
         </tr>
       </tbody>
     </table>

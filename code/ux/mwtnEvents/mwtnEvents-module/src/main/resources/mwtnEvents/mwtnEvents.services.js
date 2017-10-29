@@ -15,6 +15,7 @@ define([ 'app/mwtnEvents/mwtnEvents.module' ], function(mwtnEventsApp) {
     service.gridOptions = $mwtnCommons.gridOptions;
     service.getMmwtnWebSocketUrl = $mwtnCommons.getMmwtnWebSocketUrl;
     service.formatData = $mwtnCommons.formatData;
+    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
     
     return service;
   });

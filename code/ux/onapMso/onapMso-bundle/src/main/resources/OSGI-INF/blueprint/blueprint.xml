@@ -1,0 +1,19 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    <reference id="httpService" availability="mandatory" activation="eager" interface="org.osgi.service.http.HttpService"/>
+    <reference id="loader" availability="mandatory" activation="eager" interface="org.opendaylight.dlux.loader.DluxModuleLoader"/>
+
+    <bean id="bundle" init-method="initialize" destroy-method="clean" class="org.opendaylight.dlux.loader.DluxModule">
+        <property name="httpService" ref="httpService"/>
+        <property name="loader" ref="loader"/>
+        <property name="moduleName" value="onapMso"/>
+        <property name="url" value="/src/app/onapMso"/>
+        <property name="directory" value="/onapMso"/>
+        <property name="requireJs" value="app/onapMso/onapMso.module"/>
+        <property name="angularJs" value="app.onapMso"/>
+        <property name="cssDependencies">
+            <list>
+                <value>src/app/onapMso/onapMso-custom.css</value>
+            </list>
+        </property>
+    </bean>
+</blueprint>

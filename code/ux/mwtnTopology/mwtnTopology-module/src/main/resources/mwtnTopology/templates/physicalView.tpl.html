@@ -1,17 +1,17 @@
 <uib-accordion close-others="false">
 
   <div uib-accordion-group="" class="panel-primary" is-open="vm.status.graphIsOpen" template-url="src/app/mwtnTopology/templates/accordeonHeader.tpl.html"
-    heading="{{'Graph' | translate }}">
+    heading="{{'MWTN_GRAPH' | translate }}">
     <mwtn-topology-physical-path-graph ng-if="vm.status.graphIsOpen" />
   </div>
 
   <div uib-accordion-group="" class="panel-primary" is-open="vm.status.networkElementsIsOpen" template-url="src/app/mwtnTopology/templates/accordeonHeader.tpl.html"
-    heading="{{'Network Elements' | translate}}">
+    heading="{{'MWTN_AIR_INTERFACES' | translate}}">
     <mwtn-topology-network-elements-grid />
   </div>
 
   <div uib-accordion-group="" class="panel-primary" is-open="vm.status.LinksIsOpen" template-url="src/app/mwtnTopology/templates/accordeonHeader.tpl.html"
-    heading="{{'Links' | translate}}">
+    heading="{{'MWTN_LINKS' | translate}}">
     <mwtn-topology-links-grid />
   </div>
 

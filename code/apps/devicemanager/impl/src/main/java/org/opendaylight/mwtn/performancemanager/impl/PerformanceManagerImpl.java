@@ -1,10 +1,7 @@
 package org.opendaylight.mwtn.performancemanager.impl;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
+import javax.annotation.Nullable;
+
 import org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElementRepresentation;
 import org.opendaylight.mwtn.performancemanager.impl.database.service.MicrowaveHistoricalPerformanceWriterService;
 import org.slf4j.Logger;
@@ -14,9 +11,7 @@ public class PerformanceManagerImpl {
 
     private static final Logger LOG = LoggerFactory.getLogger(PerformanceManagerImpl.class);
 
-    private final ConcurrentLinkedQueue<ONFCoreNetworkElementRepresentation> queue = new ConcurrentLinkedQueue<>();
-    private final ScheduledFuture<?> taskHandle;
-    private final ScheduledExecutorService scheduler;
+    private @Nullable PerformanceManagerTask task;
 
     public PerformanceManagerImpl(long seconds, MicrowaveHistoricalPerformanceWriterService databaseService) {
 
@@ -25,18 +20,11 @@ public class PerformanceManagerImpl {
         if (MicrowaveHistoricalPerformanceWriterService.isAvailable(databaseService)) {
 
             LOG.info("Do start of PM task");
-            this.scheduler = Executors.newSingleThreadScheduledExecutor();
-
-            //Runnable task = new PerformanceManagerTask(queue, databaseService);
-            Runnable task = new PerformanceManagerTask(queue, databaseService);
-            LOG.info("PM task created");
-            taskHandle = this.scheduler.scheduleAtFixedRate(task, 0, seconds, TimeUnit.SECONDS);
+            task = new PerformanceManagerTask(seconds, databaseService);
+            task.start();
             LOG.info("PM task scheduled");
 
-
         } else {
-            taskHandle = null;
-            scheduler = null;
             LOG.info("Database not available. Do not start PM task");
         }
 
@@ -45,33 +33,21 @@ public class PerformanceManagerImpl {
 
     public void close() {
         LOG.info("Close {}", PerformanceManagerImpl.class.getSimpleName());
-        if (taskHandle != null) {
-            taskHandle.cancel(true);
+        if (task != null) {
+            task.stop();
         }
-
-        try {
-           scheduler.awaitTermination(10, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            LOG.warn(e.toString());
-        }
-
     }
 
     public void registration(String mountPointNodeName, ONFCoreNetworkElementRepresentation ne) {
         LOG.debug("Register {}",mountPointNodeName);
-        queue.add(ne);
+        if (task != null)
+        	task.registration(mountPointNodeName, ne);
     }
 
     public void deRegistration(String mountPointNodeName) {
         LOG.debug("Deregister {}",mountPointNodeName);
-        for (ONFCoreNetworkElementRepresentation ne : queue) {
-            if (ne.getMountPointNodeName().equals(mountPointNodeName)) {
-                 queue.remove(ne);
-                 LOG.debug("Deleted {}",mountPointNodeName);
-                 return;
-            }
-        }
-        LOG.warn("Couldn't delete {}",mountPointNodeName);
+        if (task != null)
+        	task.deRegistration(mountPointNodeName);
     }
 
 }

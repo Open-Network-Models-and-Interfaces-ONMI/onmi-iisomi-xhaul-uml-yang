@@ -10,6 +10,7 @@ import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.binding.api.ReadOnlyTransaction;
 import org.opendaylight.controller.md.sal.binding.api.WriteTransaction;
 import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
+import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
 import org.opendaylight.controller.md.sal.common.api.data.TransactionCommitFailedException;
 import org.opendaylight.yangtools.yang.binding.DataObject;
 import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
@@ -49,27 +50,29 @@ public final class GenericTransactionUtils {
         }
     }
 
-    /**
+     /*
+     /**
      * Deliver the data back or null
      * @param dataBroker for accessing data
      * @param dataStoreType to address datastore
      * @param iid id to access data
      * @return Optional for the data
-     */
+     * /
     private static <T extends DataObject> Optional<T> readDataOptional(DataBroker dataBroker, LogicalDatastoreType dataStoreType, InstanceIdentifier<T> iid) {
 
         Preconditions.checkNotNull(dataBroker);
         ReadOnlyTransaction readTransaction = dataBroker.newReadOnlyTransaction();
         try {
-            Optional<T> optionalData = readTransaction.read(dataStoreType, iid).get();
+            CheckedFuture<Optional<T>, ReadFailedException> od = readTransaction.read(dataStoreType, iid);
+            Optional<T> optionalData = od.get();
             readTransaction.close();
             return optionalData;
-        } catch (CancellationException | ExecutionException | InterruptedException e) {
+        } catch (CancellationException | ExecutionException | InterruptedException | NoSuchElementException e) {
             logger.warn("Read transaction for identifier "+iid+" failed with error "+e.getMessage());
             readTransaction.close();
             return Optional.fromNullable(null);
         }
-    }
+    } /**/
 
     /**
      * Deliver the data back or null. Warning
@@ -81,8 +84,17 @@ public final class GenericTransactionUtils {
      */
     @Nullable
     public static <T extends DataObject> T readData(DataBroker dataBroker, LogicalDatastoreType dataStoreType, InstanceIdentifier<T> iid) {
-        return readDataOptional(dataBroker, dataStoreType, iid).orNull();
+        //return readDataOptional(dataBroker, dataStoreType, iid).orNull();
+        AtomicBoolean noErrorIndication = new AtomicBoolean();
+        AtomicReference<String> statusText = new AtomicReference<>();
 
+        T obj = readDataOptionalWithStatus(dataBroker, dataStoreType, iid, noErrorIndication, statusText);
+
+        if (! noErrorIndication.get()) {
+            logger.warn("Read transaction for identifier "+iid+" failed with error "+statusText.get());
+        }
+
+        return obj;
     }
 
     /**
@@ -91,30 +103,39 @@ public final class GenericTransactionUtils {
      * @param dataBroker for accessing data
      * @param dataStoreType to address datastore
      * @param iid id to access data
-     * @param noErrorIndication true if
-     * @param statusIndicator Outputs a String with status indications during the read.
+     * @param noErrorIndication (Output) true if data could be read and are available and is not null
+     * @param statusIndicator (Output) String with status indications during the read.
      * @return null or object
      */
     @Nullable
     public static <T extends DataObject> T readDataOptionalWithStatus(DataBroker dataBroker, LogicalDatastoreType dataStoreType, InstanceIdentifier<T> iid, AtomicBoolean noErrorIndication, AtomicReference<String> statusIndicator) {
 
-        noErrorIndication.set(true);
+        T data = null;
+        noErrorIndication.set(false);
         statusIndicator.set("Preconditions");
         Preconditions.checkNotNull(dataBroker);
         statusIndicator.set("Create Read Transaction");
         ReadOnlyTransaction readTransaction = dataBroker.newReadOnlyTransaction();
+
         try {
-            T optionalData = readTransaction.read(dataStoreType, iid).get().get();
-            readTransaction.close();
-            statusIndicator.set("Read transaction done");
-            return optionalData;
+            CheckedFuture<Optional<T>, ReadFailedException> od = readTransaction.read(dataStoreType, iid);
+            statusIndicator.set("Read done");
+            if (od != null) {
+                statusIndicator.set("Unwrap checkFuture done");
+                Optional<T> optionalData = od.get();
+                if (optionalData != null) {
+                    statusIndicator.set("Unwrap optional done");
+                  	data = optionalData.orNull();
+              		statusIndicator.set("Read transaction done");
+               		noErrorIndication.set(true);
+                }
+            }
         } catch (CancellationException | ExecutionException | InterruptedException | NoSuchElementException e) {
-            noErrorIndication.set(false);
             statusIndicator.set("Read transaction for identifier "+iid+" failed with error "+e.getMessage());
-            readTransaction.close();
-            return null;
         }
 
+        readTransaction.close();
+        return data;
     }
 
 

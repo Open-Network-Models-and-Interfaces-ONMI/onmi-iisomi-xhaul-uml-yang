@@ -17,6 +17,7 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnPerformanceLink/mwtnPerfo
     service.formatTimeStamp = $mwtnCommons.formatTimeStamp;
     service.getMountPoints = $mwtnCommons.getMountPoints;
     service.getAggregations = $mwtnDatabase.getAggregations;
+    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
 
     service.TimeStampToONFFormat = function (timestamp) {
       timestamp = timestamp.split('-').join('');

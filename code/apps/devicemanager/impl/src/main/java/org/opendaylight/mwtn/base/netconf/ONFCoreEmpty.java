@@ -61,6 +61,11 @@ public class ONFCoreEmpty implements ONFCoreNetworkElementRepresentation {
     }
 
     @Override
+    public void prepareCheck() {
+        //Do nothing here
+    }
+
+    @Override
     public boolean checkAndConnectionToMediatorIsOk() {
         return false;
     }
@@ -68,6 +73,10 @@ public class ONFCoreEmpty implements ONFCoreNetworkElementRepresentation {
     @Override
     public boolean checkAndConnectionToNeIsOk() {
         return false;
+    }
+
+    @Override
+    public void sync() {
     }
 
 }

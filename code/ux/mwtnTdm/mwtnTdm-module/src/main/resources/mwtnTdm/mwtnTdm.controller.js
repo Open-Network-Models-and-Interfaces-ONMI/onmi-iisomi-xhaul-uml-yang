@@ -88,11 +88,9 @@ define(['app/mwtnTdm/mwtnTdm.module',
             mountpoints.filter(function (mountpoint) {
               return mountpoint['netconf-node-topology:connection-status'] === 'connected';
             }).map(function (mountpoint) {
-              console.warn(1, mountpoint['node-id']);
               $mwtnTdm.getActualNetworkElement(mountpoint['node-id'], '2017-03-24').then(function (success) {
                 var onfNetworkElement = new OnfNetworkElement(success['network-element']);
                 var tdmLtps = onfNetworkElement.getLTPMwsList().filter(function (ltp) {
-                  console.warn(2, ltp.getId());
                   return ltp.getConditionalPackages()[0].contains('hybrid');
                 }).map(function (ltp) {
                   $scope.progress.max = $scope.progress.max + 1;

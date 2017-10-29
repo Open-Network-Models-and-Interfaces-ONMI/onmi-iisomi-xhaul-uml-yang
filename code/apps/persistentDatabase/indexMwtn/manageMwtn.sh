@@ -87,6 +87,8 @@ VERSION=${arrIN[1]//$BASEVER/ }
 
 case "$BASE" in
    error)
+     echo update installation
+     npm install
      echo "Version initialization"
      createIndex $BASENAME$BASESEP$BASEVER"1"
      createAlias

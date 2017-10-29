@@ -11,14 +11,12 @@ import org.opendaylight.mwtn.ecompConnector.impl.EcompSenderImpl;
 
 public class EcompTestClient {
 
-    private static final String CONFIGURATIONFILE = "eventprovider.properties";
-
     public static void main(String[] args) {
 
         System.out.println("Test program to verify ECOMP https connectivity");
 
         //Get configuration
-        HtConfigurationEcompConnector configuration = HtConfigurationEcompConnector.readConfigurationFromFile(CONFIGURATIONFILE);
+        HtConfigurationEcompConnector configuration = HtConfigurationEcompConnector.getConfiguration(null);
         if (configuration != null) {
 
             //Start services
@@ -49,13 +47,7 @@ public class EcompTestClient {
 
             }
 
-        } else {
-
-            //File missing
-            System.out.println("Configuration file "+CONFIGURATIONFILE+" is missing. Create a new one ....");
-
-            HtConfigurationEcompConnector.createDefaultConfigurationFromFile(CONFIGURATIONFILE);
         }
-    }
+   }
 
 }

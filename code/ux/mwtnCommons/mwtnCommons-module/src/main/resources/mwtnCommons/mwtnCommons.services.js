@@ -7,6 +7,11 @@
  * and is available at {@link http://www.eclipse.org/legal/epl-v10.html} 
  */
 
+if (!String.prototype.toHumanReadableTimeFormat) {
+  String.prototype.toHumanReadableTimeFormat = function () {
+    return this.replace(/T/g, ' ').replace(/Z/g, ' UTC').replace(/\+00:00/g, ' UTC');
+  };
+}
 
 if (!String.prototype.base64ToHex) {
   String.prototype.base64ToHex = function () {
@@ -94,7 +99,7 @@ define(
 
     mwtnCommonsApp.register.controller('mwtnFooterController', ['$scope', function ($scope) {
       var vm = this;
-      $scope.prefix = 'ONF Wireless for OpenDaylight Boron-SR1';
+      $scope.prefix = 'ONF Wireless for OpenDaylight Boron-SR3';
     }]);
 
     mwtnCommonsApp.register.directive('mwtnFooter', function () {
@@ -151,7 +156,9 @@ define(
             }
             var item = clone[key];
             if (!schema[key]) {
+              
               var message = 'No schema information for ' + key;
+              console.error(key, schema[key]);
               $mwtnLog.warning({ component: COMPONENT, message: message });
               item['order-number'] = $mwtnCommons.getOrderNumber(97, item);
               item.description = 'No description available.';
@@ -268,6 +275,7 @@ define(
                 // ignore;
             });
           };
+          
           $scope.myClipboard = {
             data: [$scope.data],
             supported: true,
@@ -294,7 +302,7 @@ define(
               var item = clone[key];
               if (!schema[key]) {
                 var message = 'No schema information for ' + key;
-                $mwtnLog.warning({ component: COMPONENT, message: message });
+                  $mwtnLog.warning({ component: COMPONENT, message: message });
                 item['order-number'] = $mwtnCommons.getOrderNumber(97, item);
                 item.description = 'No description available.';
                 item.visible = true;
@@ -417,12 +425,14 @@ define(
           var headerHeight = 40; 
           var maxCount = 12;
           var rowCount = $scope.gridOptions.data.length + 2;
+          var count = rowCount;
           if (rowCount > maxCount) {
-            return {
-                height: (maxCount * rowHeight + headerHeight) + 'px'
-            };
+            count = maxCount;
+            headerHeight = 31;
           }
-          return {}; // use auto-resize feature
+          return {
+              height: (count * rowHeight + headerHeight) + 'px'
+          };
         };
 
         var getCellTemplate = function(field) {
@@ -516,7 +526,7 @@ define(
       };
     });
 
-    mwtnCommonsApp.register.controller('mwtnSelectNetworkElementController', ['$scope', '$mwtnCommons', function ($scope, $mwtnCommons) {
+    mwtnCommonsApp.register.controller('mwtnSelectNetworkElementController', ['$scope', '$state','$mwtnCommons', function ($scope, $state, $mwtnCommons) {
       var vm = this;
       
       /**
@@ -536,8 +546,16 @@ define(
           return 0;
         });
 
+        
         $scope.networkElement = undefined;
+        if ($state.params.nodeId) {
+          
+        }
+        
+        console.error('nodeId', $state.params.nodeId);
+
         // select one of the nodes
+        /* dont do it in field applications!!!! 
         var select = parseInt(Math.random() * $scope.networkElements.length);
         if (select !== undefined && $scope.networkElements[select]) {
           $scope.networkElement = $scope.networkElements[select].id;
@@ -545,6 +563,7 @@ define(
             return mountpoint['node-id'] === $scope.networkElement;
           })[0];
         }
+        */
         $scope.loading = false;
       };
 
@@ -683,7 +702,8 @@ define(
       var COMPONENT = '$mwtnCommons';
 
       var service = {
-        base: ENV.getBaseURL("MD_SAL") + "/restconf/",
+        base: ENV.getBaseURL('MD_SAL') + "/restconf/",
+        odlKarafVersion: 'OpenDaylight Boron-SR3',
         database: {},
         'sdn-controller': [],
         modules: {},
@@ -878,8 +898,8 @@ define(
           }
         }
         // console.info('check', t);
-        // return new Date().toISOString().slice(0,21).replace('T', ' ') + ' UTC';
-        return t.replace('T', ' ').replace('Z', ' UTC');
+        // return new Date().toISOString().toHumanReadableTimeFormat();
+        return t.toHumanReadableTimeFormat();
       };
 
       service.formatData = function (event) {
@@ -1004,6 +1024,15 @@ define(
           '  <username xmlns="urn:opendaylight:netconf-node-topology">{3}</username>',
           '  <password xmlns="urn:opendaylight:netconf-node-topology">{4}</password>',
           '  <tcp-only xmlns="urn:opendaylight:netconf-node-topology">false</tcp-only>',
+
+          '  <!-- non-mandatory fields with default values, you can safely remove these if you do not wish to override any of these values-->',
+          '  <reconnect-on-changed-schema xmlns="urn:opendaylight:netconf-node-topology">false</reconnect-on-changed-schema>',
+          '  <connection-timeout-millis xmlns="urn:opendaylight:netconf-node-topology">20000</connection-timeout-millis>',
+          '  <max-connection-attempts xmlns="urn:opendaylight:netconf-node-topology">100</max-connection-attempts>',
+          '  <between-attempts-timeout-millis xmlns="urn:opendaylight:netconf-node-topology">2000</between-attempts-timeout-millis>',
+          '  <sleep-factor xmlns="urn:opendaylight:netconf-node-topology">1.5</sleep-factor>',
+
+          '  <!-- keepalive-delay set to 0 turns off keepalives-->',
           '  <keepalive-delay xmlns="urn:opendaylight:netconf-node-topology">120</keepalive-delay>',
           '</node>'].join('').format(mp.name, mp.ipaddress, mp.port, mp.username, mp.password);
 
@@ -3182,7 +3211,7 @@ define(
             from: 0,
             size: 999
           };
-          service.getAllData('mwtn', 'schema-information', 0, 999, undefined).then(function (success) {
+          service.getAllData('mwtn', 'schema-information', 0, 9999, undefined).then(function (success) {
             // console.log(JSON.stringify(data.data.hits.hits));
             schemaInformation = {};
             success.data.hits.hits.map(function (hit) {
@@ -3309,16 +3338,19 @@ define(
         if (data['termination-state'] === undefined) {
 
           data['termination-state'] = 'terminated-bidirectional';
-          if (data['layer-protocol-name'] = "ETH") {
+          if (data['layer-protocol-name'] === "ETH") {
             data['termination-state'] = 'lp-can-never-terminate';
           }
           $mwtnLog.warning({ component: 'LTP.getTerminationState', message: 'Check whether NE provided mandatory termination state. ' + data.uuid });
+        } else if (data['termination-state'] === false || data['termination-state'] === 'false' ) {
+          data['termination-state'] = 'terminated-bidirectional';
         }
 
         // console.log('in', JSON.stringify(data));
         var defaultMapping = {
           'ety-ttp': {},
-          'etc-ttp': { 'capability': 'urn:onf:params:xml:ns:yang:microwave-model?module=microwave-model', 'revision': '2017-03-24', 'conditional-package': 'mw-ethernet-container-pac' },
+          // [FFA 1709] 'etc-ttp': { 'capability': 'urn:onf:params:xml:ns:yang:microwave-model?module=microwave-model', 'revision': '2017-03-24', 'conditional-package': 'mw-ethernet-container-pac' },
+          'etc-ttp': { 'capability': 'uri:onf:MicrowaveModel-ObjectClasses-EthernetContainerl?module=MicrowaveModel-ObjectClasses-EthernetContainer', 'revision': '2016-09-02', 'conditional-package': 'MW_EthernetContainer_Pac' },
           'tdm-ctp': { 'capability': 'urn:onf:params:xml:ns:yang:microwave-model?module=microwave-model', 'revision': '2017-03-24', 'conditional-package': 'mw-tdm-container-pac' },
 
           // due to E/// 
@@ -3579,11 +3611,18 @@ define(
       // Class OnfNetworkElement
       var OnfNetworkElement = function (data) {
         var COMPONENT = "OnfNetworkElement";
+
         this.data = data;
+        if (!this.data) {
+          var message = ['No data received.'].join(' ');
+          console.warn({ component: COMPONENT, message: message });
+          return;
+        }
+
         // console.log(JSON.stringify(data));
         if (!this.data.ltp || this.data.ltp.length === 0) {
           this.logicalTerminationPoints = [];
-          var message = ['The network-element', data.uuid, 'dose not support a single LTP. No LTP -> no SDN integration via ONF core-model.'].join(' ');
+          var message = ['The network-element', data.uuid, 'does not support a single LTP. No LTP -> no SDN integration via ONF core-model.'].join(' ');
           // TODO $mwtnLog -> Unknown provider: $mwtnlogProvider <- $mwtnlog <- OnfNetworkElement [sko] Dont get it ;(
           console.warn({ component: COMPONENT, message: message });
         } else {
@@ -3664,15 +3703,9 @@ define(
           return result;
         };
         this.getLtpsByLayer = function (layerProtocolName) {
-          if (!this.data._ltpRefList) {
-            return [];
-          }
-          var ltpList = this.data._ltpRefList.map(function (ltp) {
-            if (ltp.lp[0]['layer-protocol-name'] === layerProtocolName) {
-              return ltp;
-            }
+          return this.getLogicalTerminationPoints().filter(function (ltp) {
+            return ltp.getLayer() === layerProtocolName;
           });
-          return ltpList.clean(null);
         };
         this.getLTPMwpsList = function () {
           return this.getLtpsByLayer('MWPS');
@@ -3692,23 +3725,23 @@ define(
 
     mwtnCommonsApp.register.factory('MicrowavePhysicalSection', function () {
       // Classes
-      // Class OnfNetworkElement
+      // Class MicrowavePhysicalSection
       var MicrowavePhysicalSection = function (data) {
         this.data = data;
         this.getData = function () {
           return this.data;
         };
         this.getLayerProtocolId = function () {
-          return this.data.layerProtocol;
+          return this.getData().layerProtocol;
         };
         this.getRadioSignalId = function () {
-          return this.data.airInterfaceConfiguration ? this.data.airInterfaceConfiguration.radioSignalID : -1;
+          return this.getData()['air-interface-configuration'] ? this.data['air-interface-configuration']['radio-signal-id'] : -1;
         };
         this.isLinkUp = function () {
-          return this.data.airInterfaceStatus.linkIsUp;
+          return this.getData()['air-interface-status']['link-is-up'];
         };
         this.isPowerOn = function () {
-          return this.data.airInterfaceConfiguration.powerIsOn;
+          return this.getData()['air-interface-configuration']['power-is-on'];
         };
         this.isActive = function () {
           return this.isPowerOn() && this.isLinkUp();

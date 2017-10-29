@@ -33,7 +33,6 @@ Array.prototype.or = function () {
   return this[i];
 };
 
-
 var eventsFabric = function () {
   var topics = {};
   var hOP = topics.hasOwnProperty;
@@ -67,12 +66,21 @@ var eventsFabric = function () {
 
 var lastOpenedInfoWindow = null;
 
+/*********************************************************************************************/
+
+/** @typedef  {{ id: string, siteA: string, siteZ: string, siteNameA: string, siteNameZ: string, airInterfaceLinks: {id: string, siteLink: string, radio: string, polarization: string }[]}} SiteLinkDetails */
+
 define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
   'app/mwtnCommons/bower_components/cytoscape/dist/cytoscape',
   'app/mwtnTopology/mwtnTopology.module',
   'app/mwtnTopology/mwtnTopology.services',
   'app/mwtnCommons/mwtnCommons.services'
 ], function (_, cytoscape, mwtnTopologyApp) {
+
+  // module.exports = function () {
+  //   const mwtnTopologyApp = require('app/mwtnTopology/mwtnTopology.module');
+  //   const mwtnTopologyService = require('app/mwtnTopology/mwtnTopology.services');
+  //   const cytoscape = require('cytoscape');
 
   // remove '_' from global scope but use it here as '_'.
   _.noConflict();
@@ -105,7 +113,8 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           rotateControl: false,
           streetViewControl: false,
           tilt: 0,
-          zoom: 0
+          zoom: 2,
+          minZoom: 2
         };
 
         // Wait at least one digest cycle before init the google map.
@@ -129,7 +138,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
             delete (scope.onZoomChangedListener);
           }
 
-          window.removeEventListener('resize', onBoundsChanged);
+          // window.removeEventListener('resize', onBoundsChanged);
 
         });
 
@@ -174,9 +183,9 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
             scope.onZoomChangedListener = ctrl.map.addListener('zoom_changed', function () {
               onBoundsChanged(true);
             });
-            window.addEventListener('resize', function () {
-              onBoundsChanged(false);
-            });
+            // window.addEventListener('resize', function () {
+            //   onBoundsChanged(false);
+            // });
 
             disbaleNotifications = false;
             mapApiReadyDefer.resolve();
@@ -251,7 +260,6 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
 
   mwtnTopologyApp.directive('mwtnTopologyMapSites', ['$compile', '$rootScope', function ($compile, $rootScope) {
 
-
     return {
       restrict: 'E',
       require: '^mwtnTopologyMap',
@@ -296,10 +304,8 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           zIndex: 2
         };
 
-
         scope.displayedSites = {};
         scope.knownSites = {};
-
 
         scope.$watch("selectedSite", function (newSiteId, oldSiteId) {
 
@@ -338,7 +344,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
             var marker = scope.displayedSites[siteId];
             if (marker) {
               marker.setMap(null);
-              delete marker;
+              //delete marker;
               delete scope.displayedSites[siteId];
             }
           });
@@ -347,7 +353,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
             var marker = scope.knownSites[siteId];
             if (marker) {
               marker.setMap(null);
-              delete marker;
+              //delete marker;
               delete scope.knownSites[siteId];
             }
           });
@@ -475,7 +481,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
             var polyline = scope.displayedSiteLinks[siteLinkId];
             if (polyline) {
               polyline.setMap(null);
-              delete polyline;
+              //delete polyline;
               delete scope.displayedSiteLinks[siteLinkId];
             }
           });
@@ -589,8 +595,10 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
   });
 
   mwtnTopologyApp.controller('mwtnTopologyLinkDetailsController', ['$scope', '$timeout', '$mwtnTopology', function ($scope, $timeout, $mwtnTopology) {
+    /** @type {{ link: SiteLinkDetails } & {[key: string]: any}} */
     var vm = this;
     vm.site = null;
+    vm.link = null;
 
     $scope.$watch(function () { return vm.linkId }, function (newLinkId, oldLinkId) {
       if (!newLinkId) return;
@@ -602,21 +610,23 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
       };
 
       // getLinkDetailsByLinkId
-      $mwtnTopology.getLinkDetailsByLinkId(newLinkId).then(function (linkDetails) {
-        vm.link = linkDetails;
+      $mwtnTopology.getLinkDetailsByLinkId(newLinkId).then(
+        /** @param {SiteLinkDetails} linkDetails*/
+        function (linkDetails) {
+          vm.link = linkDetails;
 
-        vm.status = {
-          message: undefined,
-          type: 'success',
-          isWorking: false
-        };
-      }, function (err) {
-        vm.status = {
-          message: err,
-          type: 'error',
-          isWorking: false
-        };
-      });
+          vm.status = {
+            message: undefined,
+            type: 'success',
+            isWorking: false
+          };
+        }, function (err) {
+          vm.status = {
+            message: err,
+            type: 'error',
+            isWorking: false
+          };
+        });
     });
 
   }]);
@@ -636,6 +646,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
     var vm = this;
 
     $rootScope.section_logo = 'src/app/mwtnTopology/images/mwtnTopology.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
+    $scope.odlKarafVersion = $mwtnTopology.odlKarafVersion;
 
     /** @type {{ [tabName: string] : { [parameterName : string] : any } }} */
     var tabParameters = {};
@@ -649,12 +660,14 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
     })(tabs || (tabs = {}));
 
     $scope.$watch(function () { return vm.activeTab; }, function (newVal, oldVal, scope) {
-      if (newVal == oldVal || newVal == null || oldVal == null) return;
+      if (newVal == null) return;
 
       var newName = tabs[newVal];
-      var oldName = tabs[oldVal];
 
-      tabParameters[oldName] = $state.params;
+      if (oldVal != null && tabs[oldVal]) {
+        var oldName = tabs[oldVal];
+        tabParameters[oldName] = $state.params;
+      }
 
       var newParameters = Object.keys($state.params).reduce(function (acc, cur, ind, arr) { acc[cur] = null; return acc; }, {});
       Object.assign(newParameters, tabParameters[newName] || {}, { tab: newName, internal: false });
@@ -664,6 +677,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
     });
 
     $scope.$watch(function () { return $state.params.tab; }, function (newVal, oldVal, scope) {
+      if (newVal == oldVal) return;
       if (newVal && !$state.params.internal) {
         vm.activeTab = tabs[newVal || "site"];
         console.log("navigationTab: ", vm.activeTab);
@@ -835,14 +849,18 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
 
     $scope.$watchCollection(function () { return [vm.status.siteMapIsOpen, vm.status.siteGridIsOpen, vm.status.siteLinkGridIsOpen, vm.status.sitePathGridIsOpen] }, function (newVal, oldVal) {
       if (newVal[1] || newVal[2] || newVal[3]) {
-        $window.dispatchEvent(new Event("resize"));
+        $timeout(function () {
+          $window.dispatchEvent(new Event("resize"));
+        });
       }
     });
 
     $scope.$watchCollection(function () { return [+$state.params.top, +$state.params.bottom, +$state.params.left, +$state.params.right, +$state.params.lat, +$state.params.lng, +$state.params.zoom]; }, function (newVal, oldVal, scope) {
+
       if (oldVal == null || oldVal === newVal) return; // ignore initial value
 
       if (!vm.status.siteMapIsOpen) {
+        console.log("open Site Map")
         vm.status.siteMapIsOpen = true;
         return;
       }
@@ -1390,18 +1408,18 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
       {
         field: "countLinks",
         type: "number",
-        displayName: "Count(SiteLinks)"
+        displayName: "Count (Links)"
       },
       {
         field: "countNetworkElements",
         type: "number",
-        displayName: "Count(Network Elements)"
+        displayName: "Count (Network elements)"
       },
       {
         field: "buttons",
         type: "string",
         displayName: "",
-        width: 80,
+        width: 40,
         enableFiltering: false,
         enableSorting: false,
         cellTemplate: buttonCellTemplate,
@@ -1668,7 +1686,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
         field: "buttons",
         type: "string",
         displayName: "",
-        width: 80,
+        width: 40,
         enableFiltering: false,
         enableSorting: false,
         cellTemplate: buttonCellTemplate,
@@ -1892,7 +1910,6 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
     };
   });
 
-
   /********************************************* Physical ***********************************/
 
   mwtnTopologyApp.controller('mwtnTopologyPhysicalViewController', ['$scope', '$q', '$timeout', '$state', '$window', '$mwtnTopology', function ($scope, $q, $timeout, $state, $window, $mwtnTopology) {
@@ -1905,7 +1922,9 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
 
     $scope.$watchCollection(function () { return [vm.status.graphIsOpen, vm.status.networkElementsIsOpen, vm.status.LinksIsOpen] }, function (newVal, oldVal) {
       if (newVal[1] || newVal[2]) {
-        $window.dispatchEvent(new Event("resize"));
+        $timeout(function () {
+          $window.dispatchEvent(new Event("resize"));
+        });
       }
     });
 
@@ -1956,18 +1975,6 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
         'text-halign': 'center',
         'background-color': '#316ac5',
         'border-color': '#000000',
-        'border-width': '1px',
-        'color': '#ffffff'
-      }
-    },
-    {
-      selector: 'node[layer = "ETH-TTP"]',
-      css: {
-        'content': 'data(label)',
-        'text-valign': 'center',
-        'text-halign': 'center',
-        'background-color': '#008800',
-        'border-color': '#004400',
         'border-width': '1px',
         'color': '#ffffff'
       }
@@ -2073,185 +2080,35 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
 
     var elements = {
       nodes: [
-        { data: { id: 'north', label: 'north', type: 'site', latitude: '50,734916', longitude: '50,734916' } },
-        { data: { id: 'north-east', label: 'north-east', type: 'site', latitude: '50,733028', longitude: '50,733028' } },
-        { data: { id: 'north-west', label: 'north-west', type: 'site', latitude: '50,73023', longitude: '50,73023' } },
-        { data: { id: 'east', label: 'east', type: 'site', latitude: '50,725672', longitude: '50,725672' } },
-        { data: { id: 'west', label: 'west', type: 'site', latitude: '50,721914', longitude: '50,721914' } },
-        { data: { id: 'south-east', label: 'south-east', type: 'site', latitude: '50,717158', longitude: '50,717158' } },
-        { data: { id: 'south-west', label: 'south-west', type: 'site', latitude: '50,714359', longitude: '50,714359' } },
-        { data: { id: 'south', label: 'south', type: 'site', latitude: '50,712472', longitude: '50,712472' } },
+        { data: { id: 'owl-north', label : 'owl-north' , type: 'site', latitude:40.479319, longitude:-74.437548}  },
+        { data: { id: 'owl-north-east', label : 'owl-north-east' , type: 'site', latitude:40.470480, longitude:-74.430146}  },
+        { data: { id: 'owl-north-west', label : 'owl-north-west' , type: 'site', latitude:40.460248, longitude:-74.433127}  },
+        { data: { id: 'owl-east', label : 'owl-east' , type: 'site', latitude:40.454616, longitude:-74.444747}  },
+        { data: { id: 'owl-west', label : 'owl-west' , type: 'site', latitude:40.456885, longitude:-74.458197}  },
+        { data: { id: 'owl-south-east', label : 'owl-south-east' , type: 'site', latitude:40.465724, longitude:-74.465599}  },
+        { data: { id: 'owl-south-west', label : 'owl-south-west' , type: 'site', latitude:40.475956, longitude:-74.462617}  },
+        { data: { id: 'owl-south', label : 'owl-south' , type: 'site', latitude:40.481588, longitude:-74.450998}  },
 
-        { data: { id: 'ADVA-A', label: 'ADVA-A', parent: 'west', type: 'device', active: 'false', latitude: 'west', longitude: 'west' } },
-        { data: { id: 'ADVA-B', label: 'ADVA-B', parent: 'north-west', type: 'device', active: 'true' } },
-        { data: { id: 'ADVA-Y', label: 'ADVA-Y', parent: 'north-east', type: 'device', active: 'true' } },
-        { data: { id: 'ADVA-Z', label: 'ADVA-Z', parent: 'south', type: 'device', active: 'true' } },
-        { data: { id: 'Aviat-A', label: 'Aviat-A', parent: 'north-east', type: 'device', active: 'true' } },
-        { data: { id: 'Aviat-Z', label: 'Aviat-Z', parent: 'east', type: 'device', active: 'true' } },
-        { data: { id: 'Ceragon-A', label: 'Ceragon-A', parent: 'north-west', type: 'device', active: 'true' } },
-        { data: { id: 'Ceragon-Z', label: 'Ceragon-Z', parent: 'west', type: 'device', active: 'true' } },
-        { data: { id: 'DragonWave-A', label: 'DragonWave-A', parent: 'south-west', type: 'device', active: 'true' } },
-        { data: { id: 'DragonWave-Z', label: 'DragonWave-Z', parent: 'south', type: 'device', active: 'true' } },
-        { data: { id: 'ELVA-1-A', label: 'ELVA-1-A', parent: 'north', type: 'device', active: 'true' } },
-        { data: { id: 'ELVA-1-Z', label: 'ELVA-1-Z', parent: 'south-west', type: 'device', active: 'true' } },
-        { data: { id: 'Ericsson-A', label: 'Ericsson-A', parent: 'north-east', type: 'device', active: 'true' } },
-        { data: { id: 'Ericsson-Z', label: 'Ericsson-Z', parent: 'east', type: 'device', active: 'true' } },
-        { data: { id: 'Fujitsu-A', label: 'Fujitsu-A', parent: 'east', type: 'device', active: 'true' } },
-        { data: { id: 'Fujitsu-Z', label: 'Fujitsu-Z', parent: 'south-east', type: 'device', active: 'true' } },
-        { data: { id: 'Huawei-A', label: 'Huawei-A', parent: 'south-west', type: 'device', active: 'true' } },
-        { data: { id: 'Huawei-Z', label: 'Huawei-Z', parent: 'south', type: 'device', active: 'true' } },
-        { data: { id: 'Intracom-A', label: 'Intracom-A', parent: 'south', type: 'device', active: 'true' } },
-        { data: { id: 'Intracom-Z', label: 'Intracom-Z', parent: 'south-east', type: 'device', active: 'true' } },
-        { data: { id: 'NEC-A', label: 'NEC-A', parent: 'north', type: 'device', active: 'true' } },
-        { data: { id: 'NEC-Z', label: 'NEC-Z', parent: 'north-east', type: 'device', active: 'true' } },
-        { data: { id: 'Nokia-A', label: 'Nokia-A', parent: 'west', type: 'device', active: 'true' } },
-        { data: { id: 'Nokia-Z', label: 'Nokia-Z', parent: 'south-west', type: 'device', active: 'true' } },
-        { data: { id: 'SIAE-A', label: 'SIAE-A', parent: 'south', type: 'device', active: 'true' } },
-        { data: { id: 'SIAE-Z', label: 'SIAE-Z', parent: 'south-east', type: 'device', active: 'true' } },
-        { data: { id: 'ZTE-A', label: 'ZTE-A', parent: 'north-west', type: 'device', active: 'true' } },
-        { data: { id: 'ZTE-Z', label: 'ZTE-Z', parent: 'north', type: 'device', active: 'true' } },
+        { data: { id: 'Ericsson-A1', label : 'Ericsson-A1' , parent : 'owl-west', type: 'device', active: 'true' , latitude:40.456885, longitude:-74.458197}  },
+        { data: { id: 'Ericsson-A2', label : 'Ericsson-A2' , parent : 'owl-north-west', type: 'device', active: 'true' , latitude:40.460248, longitude:-74.433127}  },
+        { data: { id: 'Ericsson-B1', label : 'Ericsson-B1' , parent : 'owl-north-west', type: 'device', active: 'true' , latitude:40.460248, longitude:-74.433127}  },
+        { data: { id: 'Ericsson-B2', label : 'Ericsson-B2' , parent : 'owl-north', type: 'device', active: 'true' , latitude:40.479319, longitude:-74.437548}  },
 
-        { data: { id: 'Aviat-Z#5', label: '#5', parent: 'Aviat-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,725672', longitude: '7,158488' }, position: { x: 1984, y: 390 } },
-        { data: { id: 'Aviat-Z#1', label: '#1', parent: 'Aviat-Z', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,725672', longitude: '7,158488' }, position: { x: 1984, y: 321 } },
-        { data: { id: 'Ericsson-Z#5', label: '#5', parent: 'Ericsson-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,725672', longitude: '7,158488' }, position: { x: 1777, y: 393 } },
-        { data: { id: 'Ericsson-Z#1', label: '#1', parent: 'Ericsson-Z', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,725672', longitude: '7,158488' }, position: { x: 1777, y: 318 } },
-        { data: { id: 'Ericsson-Z#2', label: '#2', parent: 'Ericsson-Z', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,725672', longitude: '7,158488' }, position: { x: 1756, y: 336 } },
-        { data: { id: 'Fujitsu-A#5', label: '#5', parent: 'Fujitsu-A', type: 'port', layer: 'ETY', active: 'true', latitude: '50,725672', longitude: '7,158488' }, position: { x: 1859, y: 567 } },
-        { data: { id: 'Fujitsu-A#1', label: '#1', parent: 'Fujitsu-A', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,725672', longitude: '7,158488' }, position: { x: 1845, y: 644 } },
-        { data: { id: 'Fujitsu-A#2', label: '#2', parent: 'Fujitsu-A', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,725672', longitude: '7,158488' }, position: { x: 1872, y: 644 } },
-        { data: { id: 'ELVA-1-A#2', label: '#2', parent: 'ELVA-1-A', type: 'port', layer: 'ETY', active: 'true', latitude: '50,734916', longitude: '7,137636' }, position: { x: 895, y: 150 } },
-        { data: { id: 'ELVA-1-A#1', label: '#1', parent: 'ELVA-1-A', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,734916', longitude: '7,137636' }, position: { x: 815, y: 150 } },
-        { data: { id: 'NEC-A#3', label: '#3', parent: 'NEC-A', type: 'port', layer: 'ETY', active: 'true', latitude: '50,734916', longitude: '7,137636' }, position: { x: 955, y: -52 } },
-        { data: { id: 'NEC-A#1', label: '#1', parent: 'NEC-A', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,734916', longitude: '7,137636' }, position: { x: 1035, y: -52 } },
-        { data: { id: 'ZTE-Z#4', label: '#4', parent: 'ZTE-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,734916', longitude: '7,137636' }, position: { x: 707, y: -67 } },
-        { data: { id: 'ZTE-Z#5', label: '#5', parent: 'ZTE-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,734916', longitude: '7,137636' }, position: { x: 747, y: -27 } },
-        { data: { id: 'ZTE-Z#1', label: '#1', parent: 'ZTE-Z', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,734916', longitude: '7,137636' }, position: { x: 667, y: -27 } },
-        { data: { id: 'ADVA-Y#1', label: '#1', parent: 'ADVA-Y', type: 'port', layer: 'ETY', active: 'true', latitude: '50,733028', longitude: '7,151086' }, position: { x: 1392, y: 229 } },
-        { data: { id: 'ADVA-Y#2', label: '#2', parent: 'ADVA-Y', type: 'port', layer: 'ETY', active: 'true', latitude: '50,733028', longitude: '7,151086' }, position: { x: 1449, y: 172 } },
-        { data: { id: 'ADVA-Y#3', label: '#3', parent: 'ADVA-Y', type: 'port', layer: 'ETY', active: 'true', latitude: '50,733028', longitude: '7,151086' }, position: { x: 1392, y: 172 } },
-        { data: { id: 'ADVA-Y#4', label: '#4', parent: 'ADVA-Y', type: 'port', layer: 'ETY', active: 'true', latitude: '50,733028', longitude: '7,151086' }, position: { x: 1449, y: 229 } },
-        { data: { id: 'Aviat-A#5', label: '#5', parent: 'Aviat-A', type: 'port', layer: 'ETY', active: 'true', latitude: '50,733028', longitude: '7,151086' }, position: { x: 1654, y: -47 } },
-        { data: { id: 'Aviat-A#1', label: '#1', parent: 'Aviat-A', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,733028', longitude: '7,151086' }, position: { x: 1654, y: 22 } },
-        { data: { id: 'Ericsson-A#4', label: '#4', parent: 'Ericsson-A', type: 'port', layer: 'ETY', active: 'true', latitude: '50,733028', longitude: '7,151086' }, position: { x: 1605, y: 229 } },
-        { data: { id: 'Ericsson-A#5', label: '#5', parent: 'Ericsson-A', type: 'port', layer: 'ETY', active: 'true', latitude: '50,733028', longitude: '7,151086' }, position: { x: 1605, y: 172 } },
-        { data: { id: 'Ericsson-A#1', label: '#1', parent: 'Ericsson-A', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,733028', longitude: '7,151086' }, position: { x: 1671, y: 214 } },
-        { data: { id: 'Ericsson-A#2', label: '#2', parent: 'Ericsson-A', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,733028', longitude: '7,151086' }, position: { x: 1654, y: 235 } },
-        { data: { id: 'NEC-Z#3', label: '#3', parent: 'NEC-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,733028', longitude: '7,151086' }, position: { x: 1392, y: 16 } },
-        { data: { id: 'NEC-Z#4', label: '#4', parent: 'NEC-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,733028', longitude: '7,151086' }, position: { x: 1449, y: 16 } },
-        { data: { id: 'NEC-Z#2', label: '#2', parent: 'NEC-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,733028', longitude: '7,151086' }, position: { x: 1449, y: -41 } },
-        { data: { id: 'NEC-Z#1', label: '#1', parent: 'NEC-Z', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,733028', longitude: '7,151086' }, position: { x: 1392, y: -41 } },
-        { data: { id: 'ADVA-B#1', label: '#1', parent: 'ADVA-B', type: 'port', layer: 'ETY', active: 'true', latitude: '50,73023', longitude: '7,126017' }, position: { x: 380, y: 381 } },
-        { data: { id: 'ADVA-B#2', label: '#2', parent: 'ADVA-B', type: 'port', layer: 'ETY', active: 'true', latitude: '50,73023', longitude: '7,126017' }, position: { x: 380, y: 301 } },
-        { data: { id: 'Ceragon-A#1', label: '#1', parent: 'Ceragon-A', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,73023', longitude: '7,126017' }, position: { x: 147, y: 375 } },
-        { data: { id: 'Ceragon-A#2', label: '#2', parent: 'Ceragon-A', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,73023', longitude: '7,126017' }, position: { x: 129, y: 354 } },
-        { data: { id: 'Ceragon-A#5', label: '#5', parent: 'Ceragon-A', type: 'port', layer: 'ETY', active: 'true', latitude: '50,73023', longitude: '7,126017' }, position: { x: 195, y: 312 } },
-        { data: { id: 'ZTE-A#3', label: '#3', parent: 'ZTE-A', type: 'port', layer: 'ETY', active: 'true', latitude: '50,73023', longitude: '7,126017' }, position: { x: 380, y: 168 } },
-        { data: { id: 'ZTE-A#4', label: '#4', parent: 'ZTE-A', type: 'port', layer: 'ETY', active: 'true', latitude: '50,73023', longitude: '7,126017' }, position: { x: 345, y: 148 } },
-        { data: { id: 'ZTE-A#5', label: '#5', parent: 'ZTE-A', type: 'port', layer: 'ETY', active: 'true', latitude: '50,73023', longitude: '7,126017' }, position: { x: 345, y: 108 } },
-        { data: { id: 'ZTE-A#1', label: '#1', parent: 'ZTE-A', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,73023', longitude: '7,126017' }, position: { x: 408, y: 99 } },
-        { data: { id: 'ADVA-Z#1', label: '#1', parent: 'ADVA-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,712472', longitude: '7,143887' }, position: { x: 1139, y: 1001 } },
-        { data: { id: 'ADVA-Z#2', label: '#2', parent: 'ADVA-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,712472', longitude: '7,143887' }, position: { x: 1196, y: 944 } },
-        { data: { id: 'ADVA-Z#3', label: '#3', parent: 'ADVA-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,712472', longitude: '7,143887' }, position: { x: 1139, y: 944 } },
-        { data: { id: 'ADVA-Z#4', label: '#4', parent: 'ADVA-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,712472', longitude: '7,143887' }, position: { x: 1196, y: 1001 } },
-        { data: { id: 'DragonWave-Z#2', label: '#2', parent: 'DragonWave-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,712472', longitude: '7,143887' }, position: { x: 1133, y: 1252 } },
-        { data: { id: 'DragonWave-Z#1', label: '#1', parent: 'DragonWave-Z', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,712472', longitude: '7,143887' }, position: { x: 1053, y: 1252 } },
-        { data: { id: 'Huawei-Z#3', label: '#3', parent: 'Huawei-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,712472', longitude: '7,143887' }, position: { x: 1046, y: 1094 } },
-        { data: { id: 'Huawei-Z#4', label: '#4', parent: 'Huawei-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,712472', longitude: '7,143887' }, position: { x: 989, y: 1094 } },
-        { data: { id: 'Huawei-Z#5', label: '#5', parent: 'Huawei-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,712472', longitude: '7,143887' }, position: { x: 1058, y: 1123 } },
-        { data: { id: 'Huawei-Z#1', label: '#1', parent: 'Huawei-Z', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,712472', longitude: '7,143887' }, position: { x: 978, y: 1123 } },
-        { data: { id: 'Intracom-A#2', label: '#2', parent: 'Intracom-A', type: 'port', layer: 'ETY', active: 'true', latitude: '50,712472', longitude: '7,143887' }, position: { x: 1203, y: 1252 } },
-        { data: { id: 'Intracom-A#1', label: '#1', parent: 'Intracom-A', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,712472', longitude: '7,143887' }, position: { x: 1283, y: 1252 } },
-        { data: { id: 'SIAE-A#4', label: '#4', parent: 'SIAE-A', type: 'port', layer: 'ETY', active: 'true', latitude: '50,712472', longitude: '7,143887' }, position: { x: 1289, y: 1094 } },
-        { data: { id: 'SIAE-A#5', label: '#5', parent: 'SIAE-A', type: 'port', layer: 'ETY', active: 'true', latitude: '50,712472', longitude: '7,143887' }, position: { x: 1278, y: 1123 } },
-        { data: { id: 'SIAE-A#1', label: '#1', parent: 'SIAE-A', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,712472', longitude: '7,143887' }, position: { x: 1334, y: 1086 } },
-        { data: { id: 'SIAE-A#2', label: '#2', parent: 'SIAE-A', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,712472', longitude: '7,143887' }, position: { x: 1354, y: 1106 } },
-        { data: { id: 'Fujitsu-Z#5', label: '#5', parent: 'Fujitsu-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,717158', longitude: '7,155506' }, position: { x: 1855, y: 821 } },
-        { data: { id: 'Fujitsu-Z#2', label: '#2', parent: 'Fujitsu-Z', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,717158', longitude: '7,155506' }, position: { x: 1868, y: 743 } },
-        { data: { id: 'Fujitsu-Z#1', label: '#1', parent: 'Fujitsu-Z', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,717158', longitude: '7,155506' }, position: { x: 1841, y: 743 } },
-        { data: { id: 'Intracom-Z#5', label: '#5', parent: 'Intracom-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,717158', longitude: '7,155506' }, position: { x: 1755, y: 998 } },
-        { data: { id: 'Intracom-Z#1', label: '#1', parent: 'Intracom-Z', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,717158', longitude: '7,155506' }, position: { x: 1714, y: 1018 } },
-        { data: { id: 'SIAE-Z#4', label: '#4', parent: 'SIAE-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,717158', longitude: '7,155506' }, position: { x: 1590, y: 784 } },
-        { data: { id: 'SIAE-Z#5', label: '#5', parent: 'SIAE-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,717158', longitude: '7,155506' }, position: { x: 1647, y: 784 } },
-        { data: { id: 'SIAE-Z#2', label: '#2', parent: 'SIAE-Z', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,717158', longitude: '7,155506' }, position: { x: 1599, y: 847 } },
-        { data: { id: 'SIAE-Z#1', label: '#1', parent: 'SIAE-Z', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,717158', longitude: '7,155506' }, position: { x: 1581, y: 826 } },
-        { data: { id: 'DragonWave-A#2', label: '#2', parent: 'DragonWave-A', type: 'port', layer: 'ETY', active: 'true', latitude: '50,714359', longitude: '7,130437' }, position: { x: 455, y: 1178 } },
-        { data: { id: 'DragonWave-A#1', label: '#1', parent: 'DragonWave-A', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,714359', longitude: '7,130437' }, position: { x: 535, y: 1178 } },
-        { data: { id: 'ELVA-1-Z#2', label: '#2', parent: 'ELVA-1-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,714359', longitude: '7,130437' }, position: { x: 455, y: 878 } },
-        { data: { id: 'ELVA-1-Z#1', label: '#1', parent: 'ELVA-1-Z', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,714359', longitude: '7,130437' }, position: { x: 535, y: 878 } },
-        { data: { id: 'Huawei-A#5', label: '#5', parent: 'Huawei-A', type: 'port', layer: 'ETY', active: 'true', latitude: '50,714359', longitude: '7,130437' }, position: { x: 605, y: 1028 } },
-        { data: { id: 'Huawei-A#1', label: '#1', parent: 'Huawei-A', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,714359', longitude: '7,130437' }, position: { x: 685, y: 1028 } },
-        { data: { id: 'Nokia-Z33', label: '33', parent: 'Nokia-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,714359', longitude: '7,130437' }, position: { x: 385, y: 1028 } },
-        { data: { id: 'Nokia-Z31', label: '31', parent: 'Nokia-Z', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,714359', longitude: '7,130437' }, position: { x: 305, y: 1028 } },
-        { data: { id: 'ADVA-A#1', label: '#1', parent: 'ADVA-A', type: 'port', layer: 'ETY', active: 'true', latitude: '50,721914', longitude: '7,120521' }, position: { x: 124, y: 564 } },
-        { data: { id: 'ADVA-A#2', label: '#2', parent: 'ADVA-A', type: 'port', layer: 'ETY', active: 'true', latitude: '50,721914', longitude: '7,120521' }, position: { x: 124, y: 507 } },
-        { data: { id: 'Ceragon-Z#1', label: '#1', parent: 'Ceragon-Z', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,721914', longitude: '7,120521' }, position: { x: -96, y: 556 } },
-        { data: { id: 'Ceragon-Z#2', label: '#2', parent: 'Ceragon-Z', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,721914', longitude: '7,120521' }, position: { x: -117, y: 538 } },
-        { data: { id: 'Ceragon-Z#4', label: '#4', parent: 'Ceragon-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,721914', longitude: '7,120521' }, position: { x: -159, y: 547 } },
-        { data: { id: 'Ceragon-Z#5', label: '#5', parent: 'Ceragon-Z', type: 'port', layer: 'ETY', active: 'true', latitude: '50,721914', longitude: '7,120521' }, position: { x: -159, y: 604 } },
-        { data: { id: 'Nokia-A13', label: '13', parent: 'Nokia-A', type: 'port', layer: 'ETY', active: 'true', latitude: '50,721914', longitude: '7,120521' }, position: { x: 40, y: 801 } },
-        { data: { id: 'Nokia-A34', label: '34', parent: 'Nokia-A', type: 'port', layer: 'ETY', active: 'true', latitude: '50,721914', longitude: '7,120521' }, position: { x: 28, y: 772 } },
-        { data: { id: 'Nokia-A11', label: '11', parent: 'Nokia-A', type: 'port', layer: 'ETY', active: 'true', latitude: '50,721914', longitude: '7,120521' }, position: { x: -29, y: 772 } },
-        { data: { id: 'Nokia-A31', label: '31', parent: 'Nokia-A', type: 'port', layer: 'MWPS', active: 'true', latitude: '50,721914', longitude: '7,120521' }, position: { x: 28, y: 829 } },
-
-        { data: { id: 'Spirent#1', label: '#1', parent: 'Spirent', type: 'host', layer: 'ETH-TTP', active: 'true', service: 'service13' }, position: { x: 707, y: -167 } },
-        { data: { id: 'Spirent#2', label: '#2', parent: 'Spirent', type: 'host', layer: 'ETH-TTP', active: 'true', service: 'service24' }, position: { x: -259, y: 547 } },
-        { data: { id: 'Spirent#3', label: '#3', parent: 'Spirent', type: 'host', layer: 'ETH-TTP', active: 'true', service: 'service13' }, position: { x: 1292, y: 172 } },
-        { data: { id: 'Spirent#4', label: '#4', parent: 'Spirent', type: 'host', layer: 'ETH-TTP', active: 'true', service: 'service24' }, position: { x: 1490, y: 784 } },
-        { data: { id: 'Spirent#5', label: '#5', parent: 'Spirent', type: 'host', layer: 'ETH-TTP', active: 'true', service: 'service56' }, position: { x: 1754, y: -47 } },
-        { data: { id: 'Spirent#6', label: '#6', parent: 'Spirent', type: 'host', layer: 'ETH-TTP', active: 'true', service: 'service56' }, position: { x: 455, y: 1278 } },
-        { data: { id: 'Spirent#7', label: '#7', parent: 'Spirent', type: 'host', layer: 'ETH-TTP', active: 'true', service: 'service78' }, position: { x: 895, y: 250 } },
-        { data: { id: 'Spirent#8', label: '#8', parent: 'Spirent', type: 'host', layer: 'ETH-TTP', active: 'true', service: 'service78' }, position: { x: 455, y: 778 } },
-
-
+        { data: { id: 'Ericsson-A1#1', label : '#1' , parent : 'Ericsson-A1' , type:'port', layer:'MWPS', active:'true', latitude:40.456885, longitude:-74.458197}, position: { x: 76, y: 1041 } },
+        { data: { id: 'Ericsson-A2#1', label : '#1' , parent : 'Ericsson-A2' , type:'port', layer:'MWPS', active:'true', latitude:40.460248, longitude:-74.433127}, position: { x: 1339, y: 1025 } },
+        { data: { id: 'Ericsson-B1#1', label : '#1' , parent : 'Ericsson-B1' , type:'port', layer:'MWPS', active:'true', latitude:40.460248, longitude:-74.433127}, position: { x: 1126, y: 1025 } },
+        { data: { id: 'Ericsson-B2#1', label : '#1' , parent : 'Ericsson-B2' , type:'port', layer:'MWPS', active:'true', latitude:40.479319, longitude:-74.437548}, position: { x: 1018, y: -113 } },
+        { data: { id: 'Ericsson-A2#2', label : '#2' , parent : 'Ericsson-A2' , type:'port', layer:'ETY', active:'true', latitude:40.460248, longitude:-74.433127}, position: { x: 1345, y: 1022 } },
+        { data: { id: 'Ericsson-B1#2', label : '#2' , parent : 'Ericsson-B1' , type:'port', layer:'ETY', active:'true', latitude:40.460248, longitude:-74.433127}, position: { x: 1111, y: 1040 } },
+                
       ],
       edges: [
 
-        { data: { id: '21', source: 'Aviat-A#1', target: 'Aviat-Z#1', label: '21', length: '0', azimuthAZ: '0', azimuthZA: '180', layer: 'MWPS', active: 'true' } },
-        { data: { id: '31', source: 'Ceragon-A#1', target: 'Ceragon-Z#1', label: '31', length: '0', azimuthAZ: '0', azimuthZA: '180', layer: 'MWPS', active: 'true' } },
-        { data: { id: '32', source: 'Ceragon-A#2', target: 'Ceragon-Z#2', label: '32', length: '0', azimuthAZ: '0', azimuthZA: '180', layer: 'MWPS', active: 'true' } },
-        { data: { id: '41', source: 'DragonWave-A#1', target: 'DragonWave-Z#1', label: '41', length: '0', azimuthAZ: '0', azimuthZA: '180', layer: 'MWPS', active: 'true' } },
-        { data: { id: '121', source: 'ELVA-1-A#1', target: 'ELVA-1-Z#1', label: '121', length: '0', azimuthAZ: '0', azimuthZA: '180', layer: 'MWPS', active: 'true' } },
-        { data: { id: 'ERI1', source: 'Ericsson-A#1', target: 'Ericsson-Z#1', label: 'ERI1', length: '0', azimuthAZ: '0', azimuthZA: '180', layer: 'MWPS', active: 'true' } },
-        { data: { id: 'ERI2', source: 'Ericsson-A#2', target: 'Ericsson-Z#2', label: 'ERI2', length: '0', azimuthAZ: '0', azimuthZA: '180', layer: 'MWPS', active: 'true' } },
-        { data: { id: '61', source: 'Fujitsu-A#1', target: 'Fujitsu-Z#1', label: '61', length: '0', azimuthAZ: '0', azimuthZA: '180', layer: 'MWPS', active: 'true' } },
-        { data: { id: '62', source: 'Fujitsu-A#2', target: 'Fujitsu-Z#2', label: '62', length: '0', azimuthAZ: '0', azimuthZA: '180', layer: 'MWPS', active: 'true' } },
-        { data: { id: '71', source: 'Huawei-A#1', target: 'Huawei-Z#1', label: '71', length: '0', azimuthAZ: '0', azimuthZA: '180', layer: 'MWPS', active: 'true' } },
-        { data: { id: '131', source: 'Intracom-A#1', target: 'Intracom-Z#1', label: '131', length: '0', azimuthAZ: '0', azimuthZA: '180', layer: 'MWPS', active: 'true' } },
-        { data: { id: '81', source: 'NEC-A#1', target: 'NEC-Z#1', label: '81', length: '0', azimuthAZ: '0', azimuthZA: '180', layer: 'MWPS', active: 'true' } },
-        { data: { id: '82', source: 'Nokia-A31', target: 'Nokia-Z31', label: '82', length: '0', azimuthAZ: '0', azimuthZA: '180', layer: 'MWPS', active: 'true' } },
-        { data: { id: '101', source: 'SIAE-A#1', target: 'SIAE-Z#1', label: '101', length: '0', azimuthAZ: '0', azimuthZA: '180', layer: 'MWPS', active: 'true' } },
-        { data: { id: '102', source: 'SIAE-A#2', target: 'SIAE-Z#2', label: '102', length: '0', azimuthAZ: '0', azimuthZA: '180', layer: 'MWPS', active: 'true' } },
-        { data: { id: '111', source: 'ZTE-A#1', target: 'ZTE-Z#1', label: '111', length: '0', azimuthAZ: '0', azimuthZA: '180', layer: 'MWPS', active: 'true' } },
+        { data: { id: 'ERIA', source: 'Ericsson-A1#1', target: 'Ericsson-A2#1', label: 'ERIA' , lentgh: '0' , azimuthAZ: '0' , azimuthZA: '180' , layer: 'MWPS' , active: 'true' } },
+        { data: { id: 'ERIB', source: 'Ericsson-B1#1', target: 'Ericsson-B2#1', label: 'ERIB' , lentgh: '0' , azimuthAZ: '0' , azimuthZA: '180' , layer: 'MWPS' , active: 'true' } },
 
-        { data: { id: 'ETY01', source: 'ADVA-A#1', target: 'Nokia-A34', label: 'ADVA-A#1-Nokia-A34', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY02', source: 'ADVA-A#2', target: 'ZTE-A#4', label: 'ADVA-A#2-ZTE-A#4', layer: 'ETY', active: 'false' } },
-        { data: { id: 'ETY03', source: 'ADVA-B#1', target: 'Nokia-A13', label: 'ADVA-B#1-Nokia-A13', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY04', source: 'ADVA-B#2', target: 'ZTE-A#3', label: 'ADVA-B#2-ZTE-A#3', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY05', source: 'ADVA-Y#1', target: 'Huawei-Z#4', label: 'ADVA-Y#1-Huawei-Z#4', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY06', source: 'ADVA-Y#2', target: 'NEC-Z#4', label: 'ADVA-Y#2-NEC-Z#4', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY07', source: 'ADVA-Y#3', target: 'Spirent#3', label: 'ADVA-Y#3-Spirent#3', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY08', source: 'ADVA-Y#4', target: 'Ericsson-A#4', label: 'ADVA-Y#4-Ericsson-A#4', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY09', source: 'ADVA-Z#1', target: 'Huawei-Z#3', label: 'ADVA-Z#1-Huawei-Z#3', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY10', source: 'ADVA-Z#2', target: 'NEC-Z#3', label: 'ADVA-Z#2-NEC-Z#3', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY11', source: 'ADVA-Z#4', target: 'SIAE-A#4', label: 'ADVA-Z#4-SIAE-A#4', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY12', source: 'Aviat-A#5', target: 'Spirent#5', label: 'Aviat-A#5-Spirent#5', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY13', source: 'Aviat-Z#5', target: 'Fujitsu-A#5', label: 'Aviat-Z#5-Fujitsu-A#5', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY14', source: 'Ceragon-A#5', target: 'ZTE-A#5', label: 'Ceragon-A#5-ZTE-A#5', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY15', source: 'Ceragon-Z#4', target: 'Spirent#2', label: 'Ceragon-Z#4-Spirent#2', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY16', source: 'Ceragon-Z#5', target: 'Nokia-A11', label: 'Ceragon-Z#5-Nokia-A11', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY17', source: 'DragonWave-A#2', target: 'Spirent#6', label: 'DragonWave-A#2-Spirent#6', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY18', source: 'DragonWave-Z#2', target: 'Intracom-A#2', label: 'DragonWave-Z#2-Intracom-A#2', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY19', source: 'ELVA-1-A#2', target: 'Spirent#7', label: 'ELVA-1-A#2-Spirent#7', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY20', source: 'ELVA-1-Z#2', target: 'Spirent#8', label: 'ELVA-1-Z#2-Spirent#8', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY21', source: 'Ericsson-A#5', target: 'NEC-Z#2', label: 'Ericsson-A#5-NEC-Z#2', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY22', source: 'Ericsson-Z#5', target: 'SIAE-Z#5', label: 'Ericsson-Z#5-SIAE-Z#5', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY23', source: 'Fujitsu-Z#5', target: 'Intracom-Z#5', label: 'Fujitsu-Z#5-Intracom-Z#5', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY24', source: 'Huawei-A#5', target: 'Nokia-Z33', label: 'Huawei-A#5-Nokia-Z33', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY25', source: 'Huawei-Z#5', target: 'SIAE-A#5', label: 'Huawei-Z#5-SIAE-A#5', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY26', source: 'NEC-A#3', target: 'ZTE-Z#5', label: 'NEC-A#3-ZTE-Z#5', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY27', source: 'SIAE-Z#4', target: 'Spirent#4', label: 'SIAE-Z#4-Spirent#4', layer: 'ETY', active: 'true' } },
-        { data: { id: 'ETY28', source: 'ZTE-Z#4', target: 'Spirent#1', label: 'Spirent#1-ZTE-Z#4', layer: 'ETY', active: 'true' } },
-
+        { data: { id: 'ETY01', source: 'Ericsson-A2#2', target: 'Ericsson-B1#2', label: 'Ericsson-A2#2-Ericsson-B1' , layer: 'ETY' , active: 'true' } },
+        
       ]
     };
 
@@ -2306,7 +2163,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           }
         });
 
-        // @ Martin: Hier wird das Ereignis aus dem Service aboniert.
+        // @Martin: Hier wird das Ereignis aus dem Service aboniert.
         //           Es ist möglich mehrere Ereignisse zu definieren.
         pathGraphData.events.subscribe("elementsChanged", function (data) {
 
@@ -2322,8 +2179,8 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
         //   });
         // });
         cy.viewport({
-          zoom: 0.5,
-          pan: { x: 150, y: 100 }
+          zoom: 0.50,
+          pan: { x: 100, y: 50 }
         });
 
         var filterActiveMountPoints = function (mountpoints) {
@@ -2368,6 +2225,13 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           });
         };
 
+        var setCss = function () {
+          var width = 5 / cy.zoom();
+          var stroke = 1 / cy.zoom();
+          cy.edges().css('width', width);
+          cy.nodes().css('border-width', stroke);
+        };
+
         var init = function () {
           $mwtnCommons.getMountPoints().then(function (mountpoints) {
             var filtered = filterActiveMountPoints(mountpoints);
@@ -2379,13 +2243,68 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           });
         };
         init();
+        setCss();
+
+        var orderLtps = function () {
+          var done = [];
+          var x = 0;
+          var y = 0;
+          var row = 0;
+          var offset = 100;
+          var selector = "[type = 'device']";
+          var devices = cy.nodes(selector).sort(function (a, b) {
+            if (a.children().length > b.children().length) return -1;
+            if (a.children().length < b.children().length) return 1;
+            return 0;
+          }).map(function (device) {
+            device.children().filter(function (ltp) {
+              return done.indexOf(ltp.id()) === -1;
+            }).map(function (ltp) {
+              ltp.position({ x: x, y: y });
+              y = y + offset;
+              var remeberX = x;
+              ltp.connectedEdges().map(function (edge) {
+                edge.connectedNodes().sort(function (a, b) {
+                  if (a.data("parent") === device.id()) return -1;
+                  return 1;
+                }).map(function (node) {
+                  // x = remeberX + 0 * offset;
+                  node.position({ x: x, y: y });
+                  x = x + 3 * offset;
+                  y = y + offset;
+                  done.push(node.id());
+                });
+                y = y - 2 * offset;
+
+              });
+              x = remeberX;
+              done.push(ltp.id());
+            });
+            y = row * 6 * offset;
+            x = x + 6 * offset;
+
+            if (x > 4000) {
+              row = row + 1;
+              x = 0;
+              y = row * 6 * offset;
+            }
+            return device;
+          });
+        };
 
         cy.on('tap', function (event) {
           if (event.target !== cy) {
             console.info('click', JSON.stringify(event.target.data()));
           } else {
-            init();
+            orderLtps();
+            // cy.zoom(0.1);
+            cy.fit();
+            cy.center();
           }
+        });
+
+        cy.on('zoom', function (event) {
+          setCss();
         });
 
       }
@@ -2421,22 +2340,47 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
       {
         field: "layer",
         type: "string",
-        displayName: "Layer"
+        displayName: "Layer",
+        width: 100,
       },
       {
         field: "active",
         type: "string",
-        displayName: "Active"
+        displayName: "Active",
+        width: 100,
       },
       {
         field: "latitude",
         type: "string",
-        displayName: "Latitude"
+        displayName: "Latitude",
+        visible: false
       },
       {
         field: "longitude",
         type: "string",
-        displayName: "Longitude"
+        displayName: "Longitude",
+        visible: false
+      },
+      {
+        field: "installed", // capacity in Mbit/s
+        type: "number",
+        displayName: "Installed [Mbit/s]",
+        className: "number",
+        width: 150
+      },
+      {
+        field: "configured", // capacity in Mbit/s
+        type: "number",
+        displayName: "Configured [Mbit/s]",
+        className: "number",
+        width: 150
+      },
+      {
+        field: "effective", // capacity in Mbit/s
+        type: "number",
+        displayName: "Effective [Mbit/s]",
+        className: "number",
+        width: 150
       }
       ],
       data: [],
@@ -2561,7 +2505,10 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           }),
           longitude: port.longitude.toLocaleString("en-US", {
             minimumFractionDigits: 4
-          })
+          }),
+          installed: 0,
+          configured: 0,
+          effective: 0
         });
       });
 
@@ -2710,9 +2657,9 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
             var portZ = ports[cur.data.target];
 
             // calculate length
-            cur.data.length = (portA && portZ) ? $mwtnTopology.getDistance(+portA.latitude.replace(',', '.'), +portA.longitude.replace(',', '.'), +portZ.latitude.replace(',', '.'), +portZ.longitude.replace(',', '.')) : 0;
-            cur.data.azimuthAZ = (portA && portZ) ? $mwtnTopology.bearing(+portA.latitude.replace(',', '.'), +portA.longitude.replace(',', '.'), +portZ.latitude.replace(',', '.'), +portZ.longitude.replace(',', '.')) : 0;
-            cur.data.azimuthZA = (portA && portZ) ? $mwtnTopology.bearing(+portZ.latitude.replace(',', '.'), +portZ.longitude.replace(',', '.'), +portA.latitude.replace(',', '.'), +portA.longitude.replace(',', '.')) : 0;
+            cur.data.length = (portA && portZ) ? $mwtnTopology.getDistance(portA.latitude, portA.longitude, portZ.latitude, portZ.longitude) : 0;
+            cur.data.azimuthAZ = (portA && portZ) ? $mwtnTopology.bearing(portA.latitude, portA.longitude, portZ.latitude, portZ.longitude) : 0;
+            cur.data.azimuthZA = (portA && portZ) ? $mwtnTopology.bearing(portZ.latitude, portZ.longitude, portA.latitude, portA.longitude) : 0;
 
           } else {
             cur.data.length = 0;
@@ -2825,6 +2772,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
       templateUrl: 'src/app/mwtnTopology/templates/linksGrid.tpl.html'
     };
   }]);
+
   /********************************************* Ethernet ***********************************/
 
   mwtnTopologyApp.controller('mwtnTopologyEthernetViewController', ['$scope', '$q', '$timeout', '$state', '$window', '$mwtnTopology', function ($scope, $q, $timeout, $state, $window, $mwtnTopology) {
@@ -2837,7 +2785,9 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
 
     $scope.$watchCollection(function () { return [vm.status.topologyIsOpen, vm.status.portsOpen, vm.status.ethConnectionsIsOpen] }, function (newVal, oldVal) {
       if (newVal[1] || newVal[2]) {
-        $window.dispatchEvent(new Event("resize"));
+        $timeout(function () {
+          $window.dispatchEvent(new Event("resize"));
+        });
       }
     });
 
@@ -3256,51 +3206,51 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
         { data: { id: 'ETY27', source: 'SIAE-Z#4', target: 'Spirent#4', label: 'SIAE-Z#4-Spirent#4' , layer: 'ETY' , active: 'true' } },
         { data: { id: 'ETY28', source: 'ZTE-Z#4', target: 'Spirent#1', label: 'Spirent#1-ZTE-Z#4' , layer: 'ETY' , active: 'true' } },
 
-        { data: { id: 'ADVA-Y#2-ETH-13<->ADVA-Y#3-ETH-13', source: 'ADVA-Y#2', target: 'ADVA-Y#3', label: 'service13' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service13' , rule: 'protection' } },
-        { data: { id: 'ADVA-Y#2-ETH-24<->ADVA-Y#4-ETH-24', source: 'ADVA-Y#2', target: 'ADVA-Y#4', label: 'service24' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service24' , rule: 'protection' } },
-        { data: { id: 'ADVA-Y#3-ETH-13<->ADVA-Y#4-ETH-13', source: 'ADVA-Y#3', target: 'ADVA-Y#4', label: 'service13' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service13' , rule: 'working' } },
-        { data: { id: 'Aviat-A#5-ETH-56<->Aviat-A#6-ETH-56', source: 'Aviat-A#5', target: 'Aviat-A#6', label: 'service56' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service56' , rule: 'working' } },
-        { data: { id: 'Aviat-Z#5-ETH-56<->Aviat-Z#6-ETH-56', source: 'Aviat-Z#5', target: 'Aviat-Z#6', label: 'service56' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service56' , rule: 'working' } },
-        { data: { id: 'Ceragon-A#5-ETH-13<->Ceragon-A#6-ETH-13', source: 'Ceragon-A#5', target: 'Ceragon-A#6', label: 'service13' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service13' , rule: 'working' } },
-        { data: { id: 'Ceragon-A#5-ETH-24<->Ceragon-A#6-ETH-24', source: 'Ceragon-A#5', target: 'Ceragon-A#6', label: 'service24' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service24' , rule: 'protection' } },
-        { data: { id: 'Ceragon-Z#4-ETH-24<->Ceragon-Z#5-ETH-24', source: 'Ceragon-Z#4', target: 'Ceragon-Z#5', label: 'service24' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service24' , rule: 'working' } },
-        { data: { id: 'Ceragon-Z#4-ETH-24<->Ceragon-Z#6-ETH-24', source: 'Ceragon-Z#4', target: 'Ceragon-Z#6', label: 'service24' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service24' , rule: 'protection' } },
-        { data: { id: 'Ceragon-Z#5-ETH-13<->Ceragon-Z#6-ETH-13', source: 'Ceragon-Z#5', target: 'Ceragon-Z#6', label: 'service13' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service13' , rule: 'working' } },
-        { data: { id: 'DragonWave-A#2-ETH-56<->DragonWave-A#6-ETH-56', source: 'DragonWave-A#2', target: 'DragonWave-A#6', label: 'service56' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service56' , rule: 'working' } },
-        { data: { id: 'DragonWave-Z#2-ETH-56<->DragonWave-Z#6-ETH-56', source: 'DragonWave-Z#2', target: 'DragonWave-Z#6', label: 'service56' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service56' , rule: 'working' } },
-        { data: { id: 'ELVA-1-A#2-ETH-78<->ELVA-1-A#6-ETH-78', source: 'ELVA-1-A#2', target: 'ELVA-1-A#6', label: 'service78' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service78' , rule: 'working' } },
-        { data: { id: 'ELVA-1-Z#2-ETH-78<->ELVA-1-Z#6-ETH-78', source: 'ELVA-1-Z#2', target: 'ELVA-1-Z#6', label: 'service78' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service78' , rule: 'working' } },
-        { data: { id: 'Ericsson-A#4-ETH-13<->Ericsson-A#6-ETH-13', source: 'Ericsson-A#4', target: 'Ericsson-A#6', label: 'service13' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service13' , rule: 'working' } },
-        { data: { id: 'Ericsson-A#4-ETH-24<->Ericsson-A#6-ETH-24', source: 'Ericsson-A#4', target: 'Ericsson-A#6', label: 'service24' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service24' , rule: 'protection' } },
-        { data: { id: 'Ericsson-Z#5-ETH-13<->Ericsson-Z#6-ETH-13', source: 'Ericsson-Z#5', target: 'Ericsson-Z#6', label: 'service13' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service13' , rule: 'working' } },
-        { data: { id: 'Ericsson-Z#5-ETH-24<->Ericsson-Z#6-ETH-24', source: 'Ericsson-Z#5', target: 'Ericsson-Z#6', label: 'service24' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service24' , rule: 'protection' } },
-        { data: { id: 'Fujitsu-A#5-ETH-56<->Fujitsu-A#6-ETH-56', source: 'Fujitsu-A#5', target: 'Fujitsu-A#6', label: 'service56' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service56' , rule: 'working' } },
-        { data: { id: 'Fujitsu-Z#5-ETH-56<->Fujitsu-Z#6-ETH-56', source: 'Fujitsu-Z#5', target: 'Fujitsu-Z#6', label: 'service56' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service56' , rule: 'working' } },
-        { data: { id: 'Huawei-A#5-ETH-13<->Huawei-A#6-ETH-13', source: 'Huawei-A#5', target: 'Huawei-A#6', label: 'service13' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service13' , rule: 'working' } },
-        { data: { id: 'Huawei-A#5-ETH-24<->Huawei-A#6-ETH-24', source: 'Huawei-A#5', target: 'Huawei-A#6', label: 'service24' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service24' , rule: 'working' } },
-        { data: { id: 'Huawei-Z#5-ETH-13<->Huawei-Z#6-ETH-13', source: 'Huawei-Z#5', target: 'Huawei-Z#6', label: 'service13' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service13' , rule: 'working' } },
-        { data: { id: 'Huawei-Z#5-ETH-24<->Huawei-Z#6-ETH-24', source: 'Huawei-Z#5', target: 'Huawei-Z#6', label: 'service24' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service24' , rule: 'working' } },
-        { data: { id: 'Intracom-A#2-ETH-56<->Intracom-A#6-ETH-56', source: 'Intracom-A#2', target: 'Intracom-A#6', label: 'service56' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service56' , rule: 'working' } },
-        { data: { id: 'Intracom-Z#5-ETH-56<->Intracom-Z#6-ETH-56', source: 'Intracom-Z#5', target: 'Intracom-Z#6', label: 'service56' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service56' , rule: 'working' } },
-        { data: { id: 'NEC-A#3-ETH-13<->NEC-A#6-ETH-13', source: 'NEC-A#3', target: 'NEC-A#6', label: 'service13' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service13' , rule: 'protection' } },
-        { data: { id: 'NEC-A#3-ETH-24<->NEC-A#6-ETH-24', source: 'NEC-A#3', target: 'NEC-A#6', label: 'service24' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service24' , rule: 'protection' } },
-        { data: { id: 'NEC-Z#4-ETH-13<->NEC-Z#6-ETH-13', source: 'NEC-Z#4', target: 'NEC-Z#6', label: 'service13' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service13' , rule: 'protection' } },
-        { data: { id: 'NEC-Z#4-ETH-24<->NEC-Z#6-ETH-24', source: 'NEC-Z#4', target: 'NEC-Z#6', label: 'service24' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service24' , rule: 'protection' } },
-        { data: { id: 'Nokia-A11-ETH-13<->Nokia-A#6-ETH-13', source: 'Nokia-A11', target: 'Nokia-A#6', label: 'service13' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service13' , rule: 'working' } },
-        { data: { id: 'Nokia-A11-ETH-24<->Nokia-A#6-ETH-24', source: 'Nokia-A11', target: 'Nokia-A#6', label: 'service24' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service24' , rule: 'working' } },
-        { data: { id: 'Nokia-Z33-ETH-13<->Nokia-Z#6-ETH-13', source: 'Nokia-Z33', target: 'Nokia-Z#6', label: 'service13' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service13' , rule: 'working' } },
-        { data: { id: 'Nokia-Z33-ETH-24<->Nokia-Z#6-ETH-24', source: 'Nokia-Z33', target: 'Nokia-Z#6', label: 'service24' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service24' , rule: 'working' } },
-        { data: { id: 'SIAE-A#5-ETH-13<->SIAE-A#6-ETH-13', source: 'SIAE-A#5', target: 'SIAE-A#6', label: 'service13' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service13' , rule: 'working' } },
-        { data: { id: 'SIAE-A#5-ETH-24<->SIAE-A#6-ETH-24', source: 'SIAE-A#5', target: 'SIAE-A#6', label: 'service24' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service24' , rule: 'working' } },
-        { data: { id: 'SIAE-Z#4-ETH-24<->SIAE-Z#6-ETH-24', source: 'SIAE-Z#4', target: 'SIAE-Z#6', label: 'service24' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service24' , rule: 'working' } },
-        { data: { id: 'SIAE-Z#4-ETH-24<->SIAE-Z#5-ETH-24', source: 'SIAE-Z#4', target: 'SIAE-Z#5', label: 'service24' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service24' , rule: 'protection' } },
-        { data: { id: 'SIAE-Z#5-ETH-13<->SIAE-Z#6-ETH-13', source: 'SIAE-Z#5', target: 'SIAE-Z#6', label: 'service13' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service13' , rule: 'working' } },
-        { data: { id: 'ZTE-A#5-ETH-13<->ZTE-A#6-ETH-13', source: 'ZTE-A#5', target: 'ZTE-A#6', label: 'service13' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service13' , rule: 'working' } },
-        { data: { id: 'ZTE-A#5-ETH-24<->ZTE-A#6-ETH-24', source: 'ZTE-A#5', target: 'ZTE-A#6', label: 'service24' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service24' , rule: 'protection' } },
-        { data: { id: 'ZTE-A#5-ETH-24<->ZTE-A#6-ETH-24', source: 'ZTE-A#5', target: 'ZTE-A#6', label: 'service24' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service24' , rule: 'protection' } },
-        { data: { id: 'ZTE-Z#4-ETH-13<->ZTE-Z#6-ETH-13', source: 'ZTE-Z#4', target: 'ZTE-Z#6', label: 'service13' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service13' , rule: 'working' } },
-        { data: { id: 'ZTE-Z#4-ETH-13<->ZTE-Z#5-ETH-13', source: 'ZTE-Z#4', target: 'ZTE-Z#5', label: 'service13' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service13' , rule: 'protection' } },
-        { data: { id: 'ZTE-Z#5-ETH-24<->ZTE-Z#6-ETH-24', source: 'ZTE-Z#5', target: 'ZTE-Z#6', label: 'service24' , layer: 'ETH' , active: 'true' , path: 'false'  , service: 'service24' , rule: 'protection' } },
+        {  data:  {  id:  'ADVA-Y#2-ETH-13<->ADVA-Y#3-ETH-13',  source:  'ADVA-Y#2',  target:  'ADVA-Y#3',  label:  'service13' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service13' ,  rule:  'protection'  }  },
+        {  data:  {  id:  'ADVA-Y#2-ETH-24<->ADVA-Y#4-ETH-24',  source:  'ADVA-Y#2',  target:  'ADVA-Y#4',  label:  'service24' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service24' ,  rule:  'protection'  }  },
+        {  data:  {  id:  'ADVA-Y#3-ETH-13<->ADVA-Y#4-ETH-13',  source:  'ADVA-Y#3',  target:  'ADVA-Y#4',  label:  'service13' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service13' ,  rule:  'working'  }  },
+        {  data:  {  id:  'Aviat-A#5-ETH-56<->Aviat-A#6-ETH-56',  source:  'Aviat-A#5',  target:  'Aviat-A#6',  label:  'service56' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service56' ,  rule:  'working'  }  },
+        {  data:  {  id:  'Aviat-Z#5-ETH-56<->Aviat-Z#6-ETH-56',  source:  'Aviat-Z#5',  target:  'Aviat-Z#6',  label:  'service56' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service56' ,  rule:  'working'  }  },
+        {  data:  {  id:  'Ceragon-A#5-ETH-13<->Ceragon-A#6-ETH-13',  source:  'Ceragon-A#5',  target:  'Ceragon-A#6',  label:  'service13' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service13' ,  rule:  'working'  }  },
+        {  data:  {  id:  'Ceragon-A#5-ETH-24<->Ceragon-A#6-ETH-24',  source:  'Ceragon-A#5',  target:  'Ceragon-A#6',  label:  'service24' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service24' ,  rule:  'protection'  }  },
+        {  data:  {  id:  'Ceragon-Z#4-ETH-24<->Ceragon-Z#5-ETH-24',  source:  'Ceragon-Z#4',  target:  'Ceragon-Z#5',  label:  'service24' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service24' ,  rule:  'working'  }  },
+        {  data:  {  id:  'Ceragon-Z#4-ETH-24<->Ceragon-Z#6-ETH-24',  source:  'Ceragon-Z#4',  target:  'Ceragon-Z#6',  label:  'service24' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service24' ,  rule:  'protection'  }  },
+        {  data:  {  id:  'Ceragon-Z#5-ETH-13<->Ceragon-Z#6-ETH-13',  source:  'Ceragon-Z#5',  target:  'Ceragon-Z#6',  label:  'service13' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service13' ,  rule:  'working'  }  },
+        {  data:  {  id:  'DragonWave-A#2-ETH-56<->DragonWave-A#6-ETH-56',  source:  'DragonWave-A#2',  target:  'DragonWave-A#6',  label:  'service56' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service56' ,  rule:  'working'  }  },
+        {  data:  {  id:  'DragonWave-Z#2-ETH-56<->DragonWave-Z#6-ETH-56',  source:  'DragonWave-Z#2',  target:  'DragonWave-Z#6',  label:  'service56' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service56' ,  rule:  'working'  }  },
+        {  data:  {  id:  'ELVA-1-A#2-ETH-78<->ELVA-1-A#6-ETH-78',  source:  'ELVA-1-A#2',  target:  'ELVA-1-A#6',  label:  'service78' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service78' ,  rule:  'working'  }  },
+        {  data:  {  id:  'ELVA-1-Z#2-ETH-78<->ELVA-1-Z#6-ETH-78',  source:  'ELVA-1-Z#2',  target:  'ELVA-1-Z#6',  label:  'service78' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service78' ,  rule:  'working'  }  },
+        {  data:  {  id:  'Ericsson-A#4-ETH-13<->Ericsson-A#6-ETH-13',  source:  'Ericsson-A#4',  target:  'Ericsson-A#6',  label:  'service13' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service13' ,  rule:  'working'  }  },
+        {  data:  {  id:  'Ericsson-A#4-ETH-24<->Ericsson-A#6-ETH-24',  source:  'Ericsson-A#4',  target:  'Ericsson-A#6',  label:  'service24' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service24' ,  rule:  'protection'  }  },
+        {  data:  {  id:  'Ericsson-Z#5-ETH-13<->Ericsson-Z#6-ETH-13',  source:  'Ericsson-Z#5',  target:  'Ericsson-Z#6',  label:  'service13' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service13' ,  rule:  'working'  }  },
+        {  data:  {  id:  'Ericsson-Z#5-ETH-24<->Ericsson-Z#6-ETH-24',  source:  'Ericsson-Z#5',  target:  'Ericsson-Z#6',  label:  'service24' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service24' ,  rule:  'protection'  }  },
+        {  data:  {  id:  'Fujitsu-A#5-ETH-56<->Fujitsu-A#6-ETH-56',  source:  'Fujitsu-A#5',  target:  'Fujitsu-A#6',  label:  'service56' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service56' ,  rule:  'working'  }  },
+        {  data:  {  id:  'Fujitsu-Z#5-ETH-56<->Fujitsu-Z#6-ETH-56',  source:  'Fujitsu-Z#5',  target:  'Fujitsu-Z#6',  label:  'service56' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service56' ,  rule:  'working'  }  },
+        {  data:  {  id:  'Huawei-A#5-ETH-13<->Huawei-A#6-ETH-13',  source:  'Huawei-A#5',  target:  'Huawei-A#6',  label:  'service13' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service13' ,  rule:  'working'  }  },
+        {  data:  {  id:  'Huawei-A#5-ETH-24<->Huawei-A#6-ETH-24',  source:  'Huawei-A#5',  target:  'Huawei-A#6',  label:  'service24' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service24' ,  rule:  'working'  }  },
+        {  data:  {  id:  'Huawei-Z#5-ETH-13<->Huawei-Z#6-ETH-13',  source:  'Huawei-Z#5',  target:  'Huawei-Z#6',  label:  'service13' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service13' ,  rule:  'working'  }  },
+        {  data:  {  id:  'Huawei-Z#5-ETH-24<->Huawei-Z#6-ETH-24',  source:  'Huawei-Z#5',  target:  'Huawei-Z#6',  label:  'service24' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service24' ,  rule:  'working'  }  },
+        {  data:  {  id:  'Intracom-A#2-ETH-56<->Intracom-A#6-ETH-56',  source:  'Intracom-A#2',  target:  'Intracom-A#6',  label:  'service56' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service56' ,  rule:  'working'  }  },
+        {  data:  {  id:  'Intracom-Z#5-ETH-56<->Intracom-Z#6-ETH-56',  source:  'Intracom-Z#5',  target:  'Intracom-Z#6',  label:  'service56' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service56' ,  rule:  'working'  }  },
+        {  data:  {  id:  'NEC-A#3-ETH-13<->NEC-A#6-ETH-13',  source:  'NEC-A#3',  target:  'NEC-A#6',  label:  'service13' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service13' ,  rule:  'protection'  }  },
+        {  data:  {  id:  'NEC-A#3-ETH-24<->NEC-A#6-ETH-24',  source:  'NEC-A#3',  target:  'NEC-A#6',  label:  'service24' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service24' ,  rule:  'protection'  }  },
+        {  data:  {  id:  'NEC-Z#4-ETH-13<->NEC-Z#6-ETH-13',  source:  'NEC-Z#4',  target:  'NEC-Z#6',  label:  'service13' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service13' ,  rule:  'protection'  }  },
+        {  data:  {  id:  'NEC-Z#4-ETH-24<->NEC-Z#6-ETH-24',  source:  'NEC-Z#4',  target:  'NEC-Z#6',  label:  'service24' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service24' ,  rule:  'protection'  }  },
+        {  data:  {  id:  'Nokia-A11-ETH-13<->Nokia-A#6-ETH-13',  source:  'Nokia-A11',  target:  'Nokia-A#6',  label:  'service13' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service13' ,  rule:  'working'  }  },
+        {  data:  {  id:  'Nokia-A11-ETH-24<->Nokia-A#6-ETH-24',  source:  'Nokia-A11',  target:  'Nokia-A#6',  label:  'service24' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service24' ,  rule:  'working'  }  },
+        {  data:  {  id:  'Nokia-Z33-ETH-13<->Nokia-Z#6-ETH-13',  source:  'Nokia-Z33',  target:  'Nokia-Z#6',  label:  'service13' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service13' ,  rule:  'working'  }  },
+        {  data:  {  id:  'Nokia-Z33-ETH-24<->Nokia-Z#6-ETH-24',  source:  'Nokia-Z33',  target:  'Nokia-Z#6',  label:  'service24' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service24' ,  rule:  'working'  }  },
+        {  data:  {  id:  'SIAE-A#5-ETH-13<->SIAE-A#6-ETH-13',  source:  'SIAE-A#5',  target:  'SIAE-A#6',  label:  'service13' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service13' ,  rule:  'working'  }  },
+        {  data:  {  id:  'SIAE-A#5-ETH-24<->SIAE-A#6-ETH-24',  source:  'SIAE-A#5',  target:  'SIAE-A#6',  label:  'service24' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service24' ,  rule:  'working'  }  },
+        {  data:  {  id:  'SIAE-Z#4-ETH-24<->SIAE-Z#6-ETH-24',  source:  'SIAE-Z#4',  target:  'SIAE-Z#6',  label:  'service24' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service24' ,  rule:  'working'  }  },
+        {  data:  {  id:  'SIAE-Z#4-ETH-24<->SIAE-Z#5-ETH-24',  source:  'SIAE-Z#4',  target:  'SIAE-Z#5',  label:  'service24' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service24' ,  rule:  'protection'  }  },
+        {  data:  {  id:  'SIAE-Z#5-ETH-13<->SIAE-Z#6-ETH-13',  source:  'SIAE-Z#5',  target:  'SIAE-Z#6',  label:  'service13' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service13' ,  rule:  'working'  }  },
+        {  data:  {  id:  'ZTE-A#5-ETH-13<->ZTE-A#6-ETH-13',  source:  'ZTE-A#5',  target:  'ZTE-A#6',  label:  'service13' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service13' ,  rule:  'working'  }  },
+        {  data:  {  id:  'ZTE-A#5-ETH-24<->ZTE-A#6-ETH-24',  source:  'ZTE-A#5',  target:  'ZTE-A#6',  label:  'service24' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service24' ,  rule:  'protection'  }  },
+        {  data:  {  id:  'ZTE-A#5-ETH-24<->ZTE-A#6-ETH-24',  source:  'ZTE-A#5',  target:  'ZTE-A#6',  label:  'service24' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service24' ,  rule:  'protection'  }  },
+        {  data:  {  id:  'ZTE-Z#4-ETH-13<->ZTE-Z#6-ETH-13',  source:  'ZTE-Z#4',  target:  'ZTE-Z#6',  label:  'service13' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service13' ,  rule:  'working'  }  },
+        {  data:  {  id:  'ZTE-Z#4-ETH-13<->ZTE-Z#5-ETH-13',  source:  'ZTE-Z#4',  target:  'ZTE-Z#5',  label:  'service13' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service13' ,  rule:  'protection'  }  },
+        {  data:  {  id:  'ZTE-Z#5-ETH-24<->ZTE-Z#6-ETH-24',  source:  'ZTE-Z#5',  target:  'ZTE-Z#6',  label:  'service24' ,  layer:  'ETH' ,  active:  'true' ,  path:  'false'  ,  service:  'service24' ,  rule:  'protection'  }  },
       ]
     };
 
@@ -3472,7 +3422,6 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
             setAllDevicesInactive();
             setPortAndEdgedActive();
             console.timeEnd(timerName);
-            s
           });
 
         };
@@ -3893,7 +3842,9 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
 
     $scope.$watchCollection(function () { return [vm.status.topologyIsOpen, vm.status.portsOpen, vm.status.ethConnectionsIsOpen] }, function (newVal, oldVal) {
       if (newVal[1] || newVal[2]) {
-        $window.dispatchEvent(new Event("resize"));
+        $timeout(function () {
+          $window.dispatchEvent(new Event("resize"));
+        });
       }
     });
   }]);
@@ -4053,22 +4004,22 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
         { data: { id: 'south-west', label: 'south-west', type: 'site', latitude: 50.714359, longitude: 7.130437 } },
         { data: { id: 'south', label: 'south', type: 'site', latitude: 50.712472, longitude: 7.143887 } },
 
-        { data: { id: 'ADVA-A', label : 'ADVA-A' , parent : 'west', type: 'ptp-clock', base64:'AIDq//6MFzA=', hex:'0x47 0x4D 0x30 0x30 0x30 0x30 0x30 0x31', active: 'true' , latitude:50.721914, longitude:7.120521, parentDs:'', path:'false'}  },
-        { data: { id: 'ADVA-B', label : 'ADVA-B' , parent : 'north-west', type: 'ptp-clock', base64:'AIDq//6MGDA=', hex:'0x47 0x4D 0x30 0x30 0x30 0x30 0x30 0x32', active: 'true' , latitude:50.730230, longitude:7.126017, parentDs:'', path:'false'}  },
-        { data: { id: 'ADVA-Y', label : 'ADVA-Y' , parent : 'north-east', type: 'ptp-clock', base64:'AIDqb0hQAAE=', hex:'0x53 0x4C 0x41 0x56 0x45 0x30 0x30 0x31', active: 'true' , latitude:50.733028, longitude:7.151086, parentDs:'NEC-Z#4', path:'false'}  },
-        { data: { id: 'ADVA-Z', label : 'ADVA-Z' , parent : 'south', type: 'ptp-clock', base64:'AIDqb0mAAAA=', hex:'0x53 0x4C 0x41 0x56 0x45 0x30 0x30 0x32', active: 'true' , latitude:50.712472, longitude:7.143887, parentDs:'Huawei-Z#3', path:'false'}  },
-        { data: { id: 'Ericsson-A', label : 'Ericsson-A' , parent : 'north-east', type: 'ptp-clock', base64:'BE4G//4jsio=', hex:'0x42 0x43 0x30 0x30 0x30 0x30 0x30 0x31', active: 'true' , latitude:50.733028, longitude:7.151086, parentDs:'NEC-Z#2', path:'false'}  },
-        { data: { id: 'Ericsson-Z', label : 'Ericsson-Z' , parent : 'east', type: 'ptp-clock', base64:'BE4G//4jtBA=', hex:'0x42 0x43 0x30 0x30 0x30 0x30 0x30 0x32', active: 'true' , latitude:50.725672, longitude:7.158488, parentDs:'Ericsson-A#6', path:'false'}  },
-        { data: { id: 'Huawei-A', label : 'Huawei-A' , parent : 'south-west', type: 'ptp-clock', base64:'ACWeIQAJq6A=', hex:'0x42 0x43 0x30 0x30 0x30 0x30 0x30 0x33', active: 'true' , latitude:50.714359, longitude:7.130437, parentDs:'Nokia-Z33', path:'false'}  },
-        { data: { id: 'Huawei-Z', label : 'Huawei-Z' , parent : 'south', type: 'ptp-clock', base64:'ACWeIQAJAm8=', hex:'0x42 0x43 0x30 0x30 0x30 0x30 0x30 0x34', active: 'true' , latitude:50.712472, longitude:7.143887, parentDs:'Huawei-A#6', path:'false'}  },
-        { data: { id: 'NEC-A', label : 'NEC-A' , parent : 'north', type: 'ptp-clock', base64:'jN+d//5XDuA=', hex:'0x42 0x43 0x30 0x30 0x30 0x30 0x30 0x35', active: 'true' , latitude:50.734916, longitude:7.137636, parentDs:'ZTE-Z#5', path:'false'}  },
-        { data: { id: 'NEC-Z', label : 'NEC-Z' , parent : 'north-east', type: 'ptp-clock', base64:'jN+d//5XDwA=', hex:'0x42 0x43 0x30 0x30 0x30 0x30 0x30 0x36', active: 'true' , latitude:50.733028, longitude:7.151086, parentDs:'NEC-A#6', path:'false'}  },
-        { data: { id: 'Nokia-A', label : 'Nokia-A' , parent : 'west', type: 'ptp-clock', base64:'ACGu//4Crac=', hex:'0x42 0x43 0x30 0x30 0x30 0x30 0x30 0x37', active: 'true' , latitude:50.721914, longitude:7.120521, parentDs:'ADVA-A#1', path:'false'}  },
-        { data: { id: 'Nokia-Z', label : 'Nokia-Z' , parent : 'south-west', type: 'ptp-clock', base64:'ACGu//4CrZY=', hex:'0x42 0x43 0x30 0x30 0x30 0x30 0x30 0x38', active: 'true' , latitude:50.714359, longitude:7.130437, parentDs:'Nokia-A#6', path:'false'}  },
-        { data: { id: 'SIAE-A', label : 'SIAE-A' , parent : 'south', type: 'ptp-clock', base64:'ALCs//4R6K8=', hex:'0x42 0x43 0x30 0x30 0x30 0x30 0x30 0x39', active: 'true' , latitude:50.712472, longitude:7.143887, parentDs:'Huawei-Z#5', path:'false'}  },
-        { data: { id: 'SIAE-Z', label : 'SIAE-Z' , parent : 'south-east', type: 'ptp-clock', base64:'ALCs//4RucQ=', hex:'0x42 0x43 0x30 0x30 0x30 0x30 0x31 0x30', active: 'true' , latitude:50.717158, longitude:7.155506, parentDs:'SIAE-A#6', path:'false'}  },
-        { data: { id: 'ZTE-A', label : 'ZTE-A' , parent : 'north-west', type: 'ptp-clock', base64:'DBJi//7Zdpo=', hex:'0x42 0x43 0x30 0x30 0x30 0x30 0x31 0x31', active: 'true' , latitude:50.730230, longitude:7.126017, parentDs:'ADVA-B#2', path:'false'}  },
-        { data: { id: 'ZTE-Z', label : 'ZTE-Z' , parent : 'north', type: 'ptp-clock', base64:'DBJi//7ZdqQ=', hex:'0x42 0x43 0x30 0x30 0x30 0x30 0x31 0x32', active: 'true' , latitude:50.734916, longitude:7.137636, parentDs:'ZTE-A#6', path:'false'}  },
+        {  data:  {  id:  'ADVA-A',  label :  'ADVA-A' ,  parent :  'west', type: 'ptp-clock', base64: 'AIDq//6MFzA=', hex: '0x47 0x4D 0x30 0x30 0x30 0x30 0x30 0x31', active: 'true' , latitude: 50.721914, longitude: 7.120521, parentDs: '', path: 'false' }   },
+        {  data:  {  id:  'ADVA-B',  label :  'ADVA-B' ,  parent :  'north-west', type: 'ptp-clock', base64: 'AIDq//6MGDA=', hex: '0x47 0x4D 0x30 0x30 0x30 0x30 0x30 0x32', active: 'true' , latitude: 50.730230, longitude: 7.126017, parentDs: '', path: 'false' }   },
+        {  data:  {  id:  'ADVA-Y',  label :  'ADVA-Y' ,  parent :  'north-east', type: 'ptp-clock', base64: 'AIDqb0hQAAE=', hex: '0x53 0x4C 0x41 0x56 0x45 0x30 0x30 0x31', active: 'true' , latitude: 50.733028, longitude: 7.151086, parentDs: 'NEC-Z#4', path: 'false' }   },
+        {  data:  {  id:  'ADVA-Z',  label :  'ADVA-Z' ,  parent :  'south', type: 'ptp-clock', base64: 'AIDqb0mAAAA=', hex: '0x53 0x4C 0x41 0x56 0x45 0x30 0x30 0x32', active: 'true' , latitude: 50.712472, longitude: 7.143887, parentDs: 'Huawei-Z#3', path: 'false' }   },
+        {  data:  {  id:  'Ericsson-A',  label :  'Ericsson-A' ,  parent :  'north-east', type: 'ptp-clock', base64: 'BE4G//4jsio=', hex: '0x42 0x43 0x30 0x30 0x30 0x30 0x30 0x31', active: 'true' , latitude: 50.733028, longitude: 7.151086, parentDs: 'NEC-Z#2', path: 'false' }   },
+        {  data:  {  id:  'Ericsson-Z',  label :  'Ericsson-Z' ,  parent :  'east', type: 'ptp-clock', base64: 'BE4G//4jtBA=', hex: '0x42 0x43 0x30 0x30 0x30 0x30 0x30 0x32', active: 'true' , latitude: 50.725672, longitude: 7.158488, parentDs: 'Ericsson-A#6', path: 'false' }   },
+        {  data:  {  id:  'Huawei-A',  label :  'Huawei-A' ,  parent :  'south-west', type: 'ptp-clock', base64: 'ACWeIQAJq6A=', hex: '0x42 0x43 0x30 0x30 0x30 0x30 0x30 0x33', active: 'true' , latitude: 50.714359, longitude: 7.130437, parentDs: 'Nokia-Z33', path: 'false' }   },
+        {  data:  {  id:  'Huawei-Z',  label :  'Huawei-Z' ,  parent :  'south', type: 'ptp-clock', base64: 'ACWeIQAJAm8=', hex: '0x42 0x43 0x30 0x30 0x30 0x30 0x30 0x34', active: 'true' , latitude: 50.712472, longitude: 7.143887, parentDs: 'Huawei-A#6', path: 'false' }   },
+        {  data:  {  id:  'NEC-A',  label :  'NEC-A' ,  parent :  'north', type: 'ptp-clock', base64: 'jN+d//5XDuA=', hex: '0x42 0x43 0x30 0x30 0x30 0x30 0x30 0x35', active: 'true' , latitude: 50.734916, longitude: 7.137636, parentDs: 'ZTE-Z#5', path: 'false' }   },
+        {  data:  {  id:  'NEC-Z',  label :  'NEC-Z' ,  parent :  'north-east', type: 'ptp-clock', base64: 'jN+d//5XDwA=', hex: '0x42 0x43 0x30 0x30 0x30 0x30 0x30 0x36', active: 'true' , latitude: 50.733028, longitude: 7.151086, parentDs: 'NEC-A#6', path: 'false' }   },
+        {  data:  {  id:  'Nokia-A',  label :  'Nokia-A' ,  parent :  'west', type: 'ptp-clock', base64: 'ACGu//4Crac=', hex: '0x42 0x43 0x30 0x30 0x30 0x30 0x30 0x37', active: 'true' , latitude: 50.721914, longitude: 7.120521, parentDs: 'ADVA-A#1', path: 'false' }   },
+        {  data:  {  id:  'Nokia-Z',  label :  'Nokia-Z' ,  parent :  'south-west', type: 'ptp-clock', base64: 'ACGu//4CrZY=', hex: '0x42 0x43 0x30 0x30 0x30 0x30 0x30 0x38', active: 'true' , latitude: 50.714359, longitude: 7.130437, parentDs: 'Nokia-A#6', path: 'false' }   },
+        {  data:  {  id:  'SIAE-A',  label :  'SIAE-A' ,  parent :  'south', type: 'ptp-clock', base64: 'ALCs//4R6K8=', hex: '0x42 0x43 0x30 0x30 0x30 0x30 0x30 0x39', active: 'true' , latitude: 50.712472, longitude: 7.143887, parentDs: 'Huawei-Z#5', path: 'false' }   },
+        {  data:  {  id:  'SIAE-Z',  label :  'SIAE-Z' ,  parent :  'south-east', type: 'ptp-clock', base64: 'ALCs//4RucQ=', hex: '0x42 0x43 0x30 0x30 0x30 0x30 0x31 0x30', active: 'true' , latitude: 50.717158, longitude: 7.155506, parentDs: 'SIAE-A#6', path: 'false' }   },
+        {  data:  {  id:  'ZTE-A',  label :  'ZTE-A' ,  parent :  'north-west', type: 'ptp-clock', base64: 'DBJi//7Zdpo=', hex: '0x42 0x43 0x30 0x30 0x30 0x30 0x31 0x31', active: 'true' , latitude: 50.730230, longitude: 7.126017, parentDs: 'ADVA-B#2', path: 'false' }   },
+        {  data:  {  id:  'ZTE-Z',  label :  'ZTE-Z' ,  parent :  'north', type: 'ptp-clock', base64: 'DBJi//7ZdqQ=', hex: '0x42 0x43 0x30 0x30 0x30 0x30 0x31 0x32', active: 'true' , latitude: 50.734916, longitude: 7.137636, parentDs: 'ZTE-A#6', path: 'false' }   },
 
         { data: { id: 'ADVA-A#1', label: '#1', parent: 'ADVA-A', type: 'port', layer: 'PTP', active: 'true', path: 'false', latitude: 50.721914, longitude: 7.120521 }, position: { x: 124, y: 564 } },
         { data: { id: 'ADVA-A#2', label: '#2', parent: 'ADVA-A', type: 'port', layer: 'PTP', active: 'true', path: 'false', latitude: 50.721914, longitude: 7.120521 }, position: { x: 124, y: 507 } },
@@ -4313,8 +4264,8 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           }
         };
 
-        var getParentClock = function(nodeId) {
-          $mwtnPtp.getParent(nodeId).then(function(parentPortIdentity){
+        var getParentClock = function (nodeId) {
+          $mwtnPtp.getParent(nodeId).then(function (parentPortIdentity) {
             var parentNode = getNodeId(parentPortIdentity['clock-identity']);
             console.log(JSON.stringify(parentPortIdentity), parentNode);
             if (parentNode) {
@@ -4329,7 +4280,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           if (event.target !== cy) {
             if (event.target.data('type') === 'ptp-clock') {
               getParentClock(event.target.id());
-            //   highlightPtpMaster(event.target.id());
+              //   highlightPtpMaster(event.target.id());
             } else if (event.target.data('type') === 'port') {
               var parent = cy.getElementById(event.target.data('parent'));
               // highlightPtpMaster(parent.id());
@@ -4739,724 +4690,6 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
       templateUrl: 'src/app/mwtnTopology/templates/ptpLinksGrid.tpl.html'
     };
   }]);
-
-  /**
-   * The following controller isnt used anymore.
-   * It may contain useful functions for later use.
-   * @MF: you can savely remove this code if you whish.
-   */
-  mwtnTopologyApp.register.controller('mwtnTopologyCtrl', ['$scope', '$rootScope', '$q', '$mwtnTopology', '$mwtnLog', 'uiGridConstants',
-    function ($scope, $rootScope, $q, $mwtnTopology, $mwtnLog, uiGridConstants) {
-
-      /* non-scope fields */
-      // template for the site icons
-      var siteIconTemplate = {
-        scale: 12,
-        fillColor: '#2677FF',
-        fillOpacity: 1,
-        strokeColor: '#ffffff',
-        strokeOpacity: 1,
-        strokeWeight: 6
-      };
-
-      /* $rootScope fields */
-      $rootScope.section_logo = 'src/app/mwtnTopology/images/mwtnTopology.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
-
-      /* $scope fields ($scope fields are automaticly watched by angular) */
-
-      // determines if the google api is finally loaded.
-      $scope.googleIsReady = false;
-
-      // receive a promise for indicating if the google maps api is finally loaded.
-      // $mwtnTopology.googleMapsApiPromise.then(function () {
-      //   siteIconTemplate.path = google.maps.SymbolPath.CIRCLE;
-      //   $scope.googleIsReady = true;
-      // });
-
-      // global object to store data from database
-      $scope.data = {};
-
-      // definitions of tabs and accordions
-      $scope.layers = [{
-        label: 'Site',
-        section: [{
-          id: 'site-map',
-          label: 'Map',
-          template: 'src/app/mwtnTopology/templates/maps.tpl.html',
-          status: true
-        },
-        {
-          id: 'site-grid',
-          label: 'Sites',
-          template: 'src/app/mwtnTopology/templates/nodes.tpl.html'
-        },
-        {
-          id: 'sitelink-grid',
-          label: 'Site links',
-          template: 'src/app/mwtnTopology/templates/links.tpl.html'
-        }
-        ]
-        //        },
-        //        {
-        //          label : 'Microwave / Miiiimeterwave',
-        //          section : [
-        //              {
-        //                id: 'mwps-map',
-        //                label : 'Map',
-        //                template : 'src/app/mwtnTopology/templates/maps.tpl.html'
-        //              },
-        //              {
-        //                id: 'mwps-grid',
-        //                label : 'Air interfaces',
-        //                template : 'src/app/mwtnTopology/templates/nodes.tpl.html'
-        //              },
-        //              {
-        //                id:'mwpslinks-grid',
-        //                label : 'MWR links',
-        //                template : 'src/app/mwtnTopology/templates/links.tpl.html'
-        //              } ]
-        //        },
-        //        {
-        //          label : 'Ethernet',
-        //          section : [
-        //              {
-        //                id: 'ethernet-map',
-        //                label : 'Map',
-        //                template : 'src/app/mwtnTopology/templates/maps.tpl.html'
-        //              },
-        //              {
-        //                id: 'ethernet-grid',
-        //                label : 'Ports (ETH-CTPs)',
-        //                template : 'src/app/mwtnTopology/templates/nodes.tpl.html'
-        //              },
-        //              {
-        //                id:'ethernetlinks-grid',
-        //                label : 'Ethernet connections',
-        //                template : 'src/app/mwtnTopology/templates/links.tpl.html'
-        //              } ]
-      }];
-
-      // global objects for map
-      // available options for $scope.mapObjects.map.options: https://developers.google.com/maps/documentation/javascript/3.exp/reference#MapOptions
-      $scope.mapObjects = {
-        map: {
-          center: "[45, -73]", //{ latitude: 45, longitude: -73 },
-          zoom: 8,
-          options: {
-            mapTypeId: "hybrid", // set the map type to hybrid (satellite + street name overlay)
-            streetViewControl: false // disable streetview control
-          },
-          exists: false,
-
-        },
-        sites: {
-          models: [],
-          events: {
-            click: function (marker, eventName, model, args) {
-              console.info('htLog:', marker, eventName, model, args);
-              // TODO switch to selected
-            },
-            mouseover: function (marker, eventName, model, args) {
-              // console.info('htLog:', marker, eventName, model, args);
-              model.show = true;
-              $scope.mapObjects.sites.tooltipOptions.content = '<b>' + model.title + '</b>';
-              $scope.mapObjects.sites.tooltip = model;
-            },
-            mouseout: function (marker, eventName, model, args) {
-              // console.info('htLog:', marker, eventName, model, args);
-              model.show = false;
-              $scope.mapObjects.sites.tooltip = model;
-            }
-          },
-          getIcon: function (color, weight, opacity, scale) {
-            var icon = $scope.mapObjects.sites.icon;
-            icon.strokeColor = color;
-            icon.fillColor = color;
-            icon.strokeWeight = weight;
-            icon.fillOpacity = opacity;
-            icon.scale = scale;
-            return icon;
-          },
-          tooltipOptions: {
-            boxClass: 'infobox',
-            boxStyle: {
-              backgroundColor: 'white',
-              border: '2px solid #337ab7',
-              borderRadius: '5px',
-              padding: '5px 2px 5px 15px',
-              width: '200px',
-              height: '100'
-            },
-            content: 'hello',
-            disableAutoPan: true,
-            maxWidth: 0,
-
-            zIndex: null,
-            // closeBoxMargin: '10px',
-            // closeBoxURL: 'http://www.google.com/intl/en_us/mapfiles/close.gif',
-
-            isHidden: false,
-            pane: 'floatPane',
-            enableEventPropagation: false
-          },
-          tooltip: {
-            show: false
-          }
-
-        },
-        siteLinks: {
-          models: [],
-          draw: function () {
-            // prevent nullreference with a ?:-operator => $scope.data.siteLinks may be undefined on first call of draw.
-            $scope.mapObjects.siteLinks.models = $scope.data.siteLinks ?
-              $scope.data.siteLinks.map(function (link) {
-                var pointA = $scope.data.sites.filter(function (site) {
-                  return site.id.toString() === link.sites[0].toString();
-                });
-                var pointB = $scope.data.sites.filter(function (site) {
-                  return site.id.toString() === link.sites[1].toString();
-                });
-                var path = [{
-                  latitude: pointA[0].latitude,
-                  longitude: pointA[0].longitude
-                }, {
-                  latitude: pointB[0].latitude,
-                  longitude: pointB[0].longitude
-                }];
-                return {
-                  id: link.id,
-                  //                        index : siteLink._index,
-                  //                        siteLinkId : siteLink._source.id,
-                  path: path,
-                  stroke: {
-                    color: '#ffffff',
-                    weight: 3
-                  },
-                  editable: false,
-                  draggable: false,
-                  geodesic: true,
-                  visible: true,
-                  options: {
-                    zIndex: 16,
-                    title: link.id + ': ' + pointA[0].name + '-' + pointB[0].name
-                  }
-                };
-              }) : [];
-          },
-          events: {
-            click: function (marker, eventName, model, args) {
-              console.info('htLog:', marker, eventName, model, args);
-              // TODO switch to selected
-            },
-            mouseover: function (line, eventName, model, args) {
-              var event = JSON.parse(JSON.stringify(args));
-              model.stroke.weight = 6;
-              model.show = true;
-              model.latitude = event['0'].latLng.lat;
-              model.longitude = event['0'].latLng.lng;
-              $scope.mapObjects.sites.tooltipOptions.content = '<b>' + model.options.title + '</b>';
-              $scope.mapObjects.sites.tooltip = model;
-            },
-            mouseout: function (line, eventName, model, args) {
-              // console.log('htLog:', line, eventName, model, args);
-              model.stroke.weight = 3;
-              model.show = false;
-              $scope.mapObjects.sites.tooltipOptions.content = '<b>' + model.options.title + '</b>';
-              $scope.mapObjects.sites.tooltip = model;
-            }
-          }
-        }
-      };
-
-      /*
-      $scope.map.bounds = {
-        northeast: {
-          latitude: myBounds.getNorthEast().lat(),
-          longitude: myBounds.getNorthEast().lng()
-        },
-        southwest: {
-          latitude: myBounds.getSouthWest().lat(),
-          longitude: myBounds.getSouthWest().lng()
-        }
-      };
-      */
-
-      // draw map, when loaded
-
-      /*
-      uiGmapGoogleMapApi.then(function (maps) {
-        // available options for $scope.mapObjects.map.options: https://developers.google.com/maps/documentation/javascript/3.exp/reference#MapOptions
-        $scope.mapObjects.map.options.mapTypeId = maps.MapTypeId.HYBRID;
-        $scope.mapObjects.map.options.streetViewControl = false;
-        $scope.mapObjects.map.exists = true;
-        $scope.mapObjects.sites.icon = {
-          path: google.maps.SymbolPath.CIRCLE,
-          scale: 12,
-          fillColor: '#2677FF',
-          fillOpacity: 1,
-          strokeColor: '#ffffff',
-          strokeOpacity: 1,
-          strokeWeight: 6
-        };
-
-        $scope.mapObjects.sites.draw();
-        $scope.mapObjects.siteLinks.draw();
-
-      }, function (error) {
-        console.error('Something wrong with maps.', error)
-      });
-      */
-
-      // get sites and update map and grid
-      var updateSite = function () {
-        console.log('updateSite', $scope.mapObjects.map.exists);
-
-        $mwtnTopology.getAllData('mwtn', 'site', 0, 9999, undefined).then(function (sites) {
-          // console.log(JSON.stringify(sites));
-          if (sites.data.hits.hits) {
-            var hits = sites.data.hits.hits;
-            $scope.data.sites = hits.map(function (hit) {
-              return hit._source
-            });
-            sortById($scope.data.sites);
-
-            // show sites and on map
-            if ($scope.mapObjects.map.exists) {
-              drawSites($scope.data.sites);
-            }
-
-            // sites
-            $scope.gridOptionsNodes.columnDefs = getColumnDefs($scope.data.sites);
-            $scope.gridOptionsNodes.data = $scope.data.sites;
-            $mwtnTopology.getAllData('mwtn', 'site-link', 0, 9999, undefined).then(function (sites) {
-
-              var hits = sites.data.hits.hits;
-              $scope.data.siteLinks = hits.map(function (hit) {
-                return hit._source
-              });
-              sortById($scope.data.siteLinks);
-
-              if ($scope.mapObjects.map.exists) {
-                $scope.mapObjects.siteLinks.draw();
-              }
-
-              // sitelinks
-              var mapped = $scope.data.siteLinks.map(function (link) {
-                var pointA = $scope.data.sites.filter(function (site) {
-                  return site.id.toString() === link.sites[0].toString();
-                });
-                var pointB = $scope.data.sites.filter(function (site) {
-                  return site.id.toString() === link.sites[1].toString();
-                });
-                return {
-                  id: link.id,
-                  siteA: pointA[0].name,
-                  siteB: pointB[0].name,
-                  length: $mwtnTopology.getDistance(pointA[0].latitude, pointA[0].longitude, pointB[0].latitude, pointB[0].longitude)
-                };
-              });
-              $scope.gridOptionsLinks.columnDefs = getColumnDefs(mapped);
-              $scope.gridOptionsLinks.data = mapped;
-            });
-          }
-        }, function (error) {
-          $scope.sites = [];
-        });
-
-      };
-
-      var drawSites = function (sites) {
-        $scope.mapObjects.sites.models = sites.map(function (site) {
-          return {
-            id: site.id,
-            position: "[" + site.latitude + "," + site.longitude + "]",
-            title: site.name,
-            icon: $scope.mapObjects.sites.getIcon('#ffffff', 3, 0.5, 10)
-          };
-        });
-      };
-
-      // check if something is needed below
-      $scope.topologyData = {
-        nodes: [],
-        edges: []
-      };
-      $scope.sigma = null;
-
-
-      $scope.highlightFilteredHeader = $mwtnTopology.highlightFilteredHeader;
-
-
-      // helper functions
-      var initTables = function () {
-        $scope.gridOptionsNodes = JSON.parse(JSON.stringify($mwtnTopology.gridOptions));
-        $scope.gridOptionsNodes.columnDefs = [];
-        $scope.gridOptionsNodes.data = [];
-
-        $scope.gridOptionsLinks = JSON.parse(JSON.stringify($mwtnTopology.gridOptions));
-        $scope.gridOptionsLinks.columnDefs = [];
-        $scope.gridOptionsLinks.data = [];
-      };
-
-      var sortById = function (array) {
-        // TODO impl
-        return array;
-      };
-
-      var getColumnDefs = function (array) {
-        if (!array || array.length === 0) {
-          return [];
-        }
-        return Object.keys(array[0]).map(function (key) {
-          var sort;
-          if (key === 'id') {
-            sort = {
-              direction: uiGridConstants.ASC,
-              ignoreSort: false,
-              priority: 0
-            };
-          }
-          return {
-            field: key,
-            type: 'string',
-            // displayName: key,
-            headerCellClass: $scope.highlightFilteredHeader,
-            width: '140',
-            sort: sort
-          };
-        });
-      };
-
-      var contains = function (array, objectId) {
-        var result = false;
-        array.map(function (item) {
-          if (item.id === objectId) {
-            result = true;
-          }
-        });
-        return result;
-      };
-
-      var getRemoteNes = function (nodeId) {
-        if (!$scope.mwpsLinks) {
-          return;
-        }
-        var result = $scope.mwpsLinks.map(function (link) {
-          if (link.source.slice(4, 6) - nodeId === 0) {
-            return link.target.slice(4, 6);
-          } else if (link.target.slice(4, 6) - nodeId === 0) {
-            return link.source.slice(4, 6);
-          }
-        });
-        // remove doublicates
-        result = result.filter(function (item, pos) {
-          return result.indexOf(item) == pos;
-        });
-        return result.clean(null);
-      };
-
-
-      var geoCalculation = {
-        distance: function (lat1, lon1, lat2, lon2) {
-          var R = 6371; // km
-          var φ1 = lat1.toRadians();
-          var φ2 = lat2.toRadians();
-          var Δφ = (lat2 - lat1).toRadians();
-          var Δλ = (lon2 - lon1).toRadians();
-
-          var a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-            Math.cos(φ1) * Math.cos(φ2) *
-            Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-          var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-          return (R * c);
-        },
-        azimuth: function (lat1, lon1, lat2, lon2) {
-          var φ1 = lat1.toRadians();
-          var φ2 = lat2.toRadians();
-          var Δλ = (lon2 - lon1).toRadians();
-
-          // see http://mathforum.org/library/drmath/view/55417.html
-          var y = Math.sin(Δλ) * Math.cos(φ2);
-          var x = Math.cos(φ1) * Math.sin(φ2) -
-            Math.sin(φ1) * Math.cos(φ2) * Math.cos(Δλ);
-          var θ = Math.atan2(y, x);
-
-          return ((θ.toDegrees() + 360) % 360);
-        }
-      };
-
-
-      var getNetworkElement = function (nodeId) {
-        var ne;
-        $scope.neNodes.map(function (node) {
-          if (node.id - nodeId === 0) {
-            ne = node;
-          }
-        });
-        return ne;
-      }
-      var getSite = function (siteId) {
-        var result;
-        $scope.sites.map(function (site) {
-          if (siteId - site.id === 0) {
-            result = site;
-          }
-        });
-        return result;
-      };
-
-      var getNodePos = function (node) {
-        var x = 0;
-        var y = 0;
-
-        if (!node) {
-          return {
-            x: 1000 * x,
-            y: -1000 * y
-          };
-        }
-
-        // short cut: in the PoC there is always only one remote NE0
-
-        if (!node.remotes || node.remotes.length === 0) {
-          var localSite = getSite(node.siteRef);
-          return {
-            x: 1000 * localSite.longitude,
-            y: -1000 * localSite.latitude
-          };
-        };
-
-        var remoteId = node.remotes[0];
-        var remoteNode = getNetworkElement(remoteId);
-
-        var localSite = getSite(node.siteRef);
-        var remoteSite = getSite(remoteNode.siteRef);
-
-        var RADIUS = 0.00009;
-
-        var azimuth = geoCalculation.azimuth(localSite.latitude, localSite.longitude, remoteSite.latitude, remoteSite.longitude);
-        x = localSite.longitude + Math.sin(azimuth.toRadians()) * RADIUS;
-        y = localSite.latitude + Math.cos(azimuth.toRadians()) * RADIUS;
-
-        // console.log(node.siteRef, remoteNode.siteRef, azimuth, JSON.stringify({x: x, y: -y}));
-        return {
-          x: 1000 * x,
-          y: -1000 * y
-        };
-      };
-
-
-      var updateMwps = function () {
-        console.log('updateMwps');
-
-        $scope.sigma.graph.clear();
-        $scope.sites.map(function (site) {
-          var node = JSON.parse(JSON.stringify(site));
-          node.id = 'site' + node.id;
-          node.label = node.name;
-          node.x = 1000 * node.longitude;
-          node.y = -1000 * node.latitude; // Math.cos(node.latitude);
-          node.size = 16;
-          node.color = '#dddddd';
-          if (!contains($scope.topologyData.nodes, node.id)) {
-            $scope.sigma.graph.addNode(node);
-          }
-        });
-        $scope.neNodes.map(function (ne) {
-          var node = JSON.parse(JSON.stringify(ne));
-          var pos = getNodePos(node);
-          node.id = 'ne' + node.id;
-          node.x = pos.x;
-          node.y = pos.y;
-          node.size = 8;
-          node.color = '#888888';
-          if (!contains($scope.topologyData.nodes, node.id)) {
-            $scope.sigma.graph.addNode(node);
-          }
-        })
-
-        // nodes
-        $scope.gridOptionsNodes.columnDefs = getColumnDefs($scope.mwpsNodes);
-        $scope.gridOptionsNodes.data = $scope.mwpsNodes;
-
-        // links
-        $scope.gridOptionsLinks.columnDefs = getColumnDefs($scope.mwpsLinks);
-        $scope.gridOptionsLinks.data = $scope.mwpsLinks;
-
-      };
-
-      var initMwps = function () {
-        console.log('initMwps');
-
-        // links
-        var mwpsLinksObj = {};
-        var siteLinksObj = {};
-        $scope.mwpsLinks = [];
-        $scope.siteLinks = [];
-
-        $scope.mwpsNodes.map(function (mwps) {
-          if (!mwpsLinksObj[mwps.radioSignalId]) {
-            mwpsLinksObj[mwps.radioSignalId] = [];
-          }
-          mwpsLinksObj[mwps.radioSignalId].push(mwps.id);
-          mwpsLinksObj[mwps.radioSignalId].sort();
-
-          Object.keys(mwpsLinksObj).map(function (key) {
-            var link = mwpsLinksObj[key];
-            if (link.length === 2) {
-              // console.log(JSON.stringify(link));
-              // {"id": "mwpsl11", "label": "MWPS-Ceragon-1", "source": "mwps111", "target": "mwps142", "size": 1, "color": "#dddddd", "radioSignalId":11 },
-
-              var id = 'rs' + key;
-              if (!contains($scope.mwpsLinks, id)) {
-                $scope.mwpsLinks.push({
-                  id: id,
-                  label: id,
-                  source: link[0],
-                  target: link[1],
-                  radioSignalId: key
-                });
-              }
-            }
-          });
-
-          if (!siteLinksObj[mwps.radioSignalId]) {
-            siteLinksObj[mwps.radioSignalId] = [];
-          }
-          siteLinksObj[mwps.radioSignalId].push(mwps.siteRef);
-          var a = JSON.parse(JSON.stringify(siteLinksObj[mwps.radioSignalId]));
-          siteLinksObj[mwps.radioSignalId] = a.filter(function (item, pos) {
-            return a.indexOf(item) == pos;
-          });
-          siteLinksObj[mwps.radioSignalId].sort();
-        });
-        Object.keys(siteLinksObj).map(function (key) {
-          var link = siteLinksObj[key];
-          var id = ['sl', link[0], link[1]].join('-');
-          if (!contains($scope.siteLinks, id)) {
-            var siteA = getSite(link[0]);
-            var siteB = getSite(link[1]);
-            $scope.siteLinks.push({
-              id: id,
-              source: link[0],
-              target: link[1],
-              siteA: siteA.name,
-              siteB: siteB.name,
-              distance: geoCalculation.distance(siteA.latitude, siteA.longitude, siteB.latitude, siteB.longitude),
-              azimuthAB: geoCalculation.azimuth(siteA.latitude, siteA.longitude, siteB.latitude, siteB.longitude),
-              azimuthBA: geoCalculation.azimuth(siteB.latitude, siteB.longitude, siteA.latitude, siteA.longitude)
-            });
-          }
-        });
-      };
-
-      var updateEthernet = function () {
-        console.log('updateEthernet');
-
-      };
-
-      // events
-      var SECTIONS = {
-        MAP: 0,
-        NODES: 1,
-        LINKS: 2
-      };
-      var LAYERS = {
-        SITE: 0,
-        MWPS: 1,
-        ETHERNET: 2
-      };
-
-      // check UI events
-      $scope.$watch('activeTab', function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-          initTables();
-          $scope.layers[newValue].section[SECTIONS.MAP].status = true;
-          switch (newValue) {
-            case LAYERS.SITE:
-              updateSite();
-              break;
-            case LAYERS.MWPS:
-              updateMwps();
-              break;
-            case LAYERS.ETHERNET:
-              updateEthernet();
-              break;
-          }
-        }
-      });
-
-      // start app
-      $scope.error = undefined;
-
-      $scope.topologyCustfunc = function (sigmaIstance, getSlowDownNum, dragListener, resize) {
-        $scope.sigma = sigmaIstance;
-
-        if (!$scope.initDone) {
-          initTables();
-          $mwtnTopology.getNodes('site').then(function (success) {
-
-            var hits = success.data.hits.hits;
-            $scope.sites = hits.map(function (hit) {
-              return hit._source
-            });
-            sortById($scope.sites);
-
-            $mwtnTopology.getRequiredNetworkElements(true).then(function (success) {
-              $scope.requiredNetworkElements = success;
-
-              $scope.neNodes = success.map(function (hit) {
-                var id = hit._source.nodeId.split('-')[1];
-                var remotes = getRemoteNes(id);
-                // console.log(id, remotes);
-                return {
-                  id: id,
-                  label: hit._source.nodeId,
-                  siteRef: parseInt(hit._source.siteRef),
-                  remotes: remotes
-                }
-              });
-
-              sortById($scope.neNodes);
-
-              $scope.mwpsNodes = [];
-              success.map(function (hit) {
-                hit._source.MW_AirInterface_Pac.map(function (mwps) {
-                  $scope.mwpsNodes.push({
-                    id: ['mwps', hit._source.nodeId.slice(-2), mwps.layerProtocol.slice(-1)].join(''),
-                    nodeId: hit._source.nodeId,
-                    localId: mwps.layerProtocol,
-                    label: [hit._source.nodeId, mwps.layerProtocol].join('-'),
-                    name: mwps.airInterfaceConfiguration.airInterfaceName,
-                    radioSignalId: mwps.airInterfaceConfiguration.radioSignalID,
-                    siteRef: hit._source.siteRef
-                  });
-                });
-              });
-              sortById($scope.mwpsNodes);
-              initMwps();
-              updateSite();
-              $scope.initDone = true;
-
-            }, function (error) {
-              $scope.getRequiredNetworkElements = [];
-              $scope.neNodes = [];
-              $scope.mwpsNodes = [];
-              $scope.initDone = false;
-            });
-
-          }, function (error) {
-            $scope.error = 'Cannot get data from server.';
-            $scope.sites = [];
-            $scope.gridOptionsNodes.data = [];
-            $scope.initDone = false;
-          });
-        }
-      };
-
-    }
-  ]);
 
   mwtnTopologyApp.filter('coordinateFilter', coordinateFilter);
 

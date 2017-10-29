@@ -14,6 +14,8 @@
 package org.opendaylight.mwtn.config.impl;
 
 import java.net.UnknownHostException;
+
+import org.opendaylight.mwtn.aotsMConnector.impl.HtConfigurationAotsConnector;
 import org.opendaylight.mwtn.base.database.HtDataBaseReaderAndWriter;
 import org.opendaylight.mwtn.base.database.HtDatabaseClientAbstract;
 import org.slf4j.Logger;
@@ -25,6 +27,7 @@ public class HtDatabaseConfigService {
     private HtDatabaseClientAbstract client;
     private HtDataBaseReaderAndWriter<HtConfiguration> configurationRW;
     private HtDataBaseReaderAndWriter<HtConfigurationEcompConnector> configurationEcompConnectorRW;
+    private HtDataBaseReaderAndWriter<HtConfigurationAotsConnector> configurationAotsConnectorRW;
 
     public HtDatabaseConfigService() {
         LOG.info("HtConfigService start.");
@@ -33,6 +36,7 @@ public class HtDatabaseConfigService {
             client = new HtDatabaseClientAbstract("config", "localhost");
             configurationRW = new HtDataBaseReaderAndWriter<>(client, HtConfiguration.ESDATATYPENAME, HtConfiguration.class);
             configurationEcompConnectorRW = new HtDataBaseReaderAndWriter<>(client, HtConfigurationEcompConnector.ESDATATYPENAME, HtConfigurationEcompConnector.class);
+            configurationAotsConnectorRW = new HtDataBaseReaderAndWriter<>(client, HtConfigurationAotsConnector.ESDATATYPENAME, HtConfigurationAotsConnector.class);
             LOG.info("HtConfigService {} finished with configuration.", HtDatabaseConfigService.class);
         } catch (UnknownHostException e) {
 
@@ -69,6 +73,23 @@ public class HtDatabaseConfigService {
             htConfiguration = configurationEcompConnectorRW.doRead(htConfiguration);
         } catch (NullPointerException e) {
             LOG.warn("HtConfigurationEcompConnector problem reading {}", configurationId);
+            htConfiguration = null;
+        }
+
+        LOG.info("HtConfigService got from {} the configuration {}", configurationId, String.valueOf(htConfiguration));
+        return htConfiguration;
+    }
+    public HtConfigurationAotsConnector getHtConfigurationAotsConnector(String configurationId) {
+
+        LOG.info("HtConfigService read from {}", configurationId);
+
+        HtConfigurationAotsConnector htConfiguration = new HtConfigurationAotsConnector();
+        htConfiguration.setEsId(configurationId);
+
+        try {
+            htConfiguration = configurationAotsConnectorRW.doRead(htConfiguration);
+        } catch (NullPointerException e) {
+            LOG.warn("HtConfigurationAotsConnector problem reading {}", configurationId);
             htConfiguration = null;
         }
 

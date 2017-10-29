@@ -77,6 +77,12 @@ if (!Array.prototype.clean) {
 
 var http = require('http');
 
+var elasticsearch = require('elasticsearch');
+var client = new elasticsearch.Client({
+    host: 'localhost:9200',
+    log: ''
+});
+
 module.exports = {
 
   checkDatabase : function(db, callback) {
@@ -190,40 +196,22 @@ module.exports = {
   },
   createEntry : function(db, docType, key, value, callback) {
 
-    var bodyString = JSON.stringify(value);
-  
-    var headers = {
-      'Content-Type': 'application/json',
-      'Content-Length': bodyString.length
-    };
-
-    var opts = {
-      host : db.host,
-      port : db.port,
-      method : 'PUT',
-      path : '/' + db.index + '/' + docType + '/' + key,
-      headers : headers
-    };
-
-    var req = http.request(opts, function(response) {
-      var body = '';
-      response.on('data', function(d) {
-        body += d;
-      });
-      response.on('end', function() {
-        if (body.startsWith('No h')) {
-          callback('Error', undefined);
-        } else {
-          var data = JSON.parse(body);
-          callback(response.statusMessage, data);
-        }
-      });
-    });  
-    req.on('error', function(e) {
-      console.log("Got error: " + e.message);
+    client.index({
+      index: db.index,
+      type: docType,
+      id: key,
+      body: value,
+      refresh: true
+    }, function (error, response) {
+      if (error){
+        console.error("error in method writeDB: " + error);
+        callback('Error', response);
+        return;
+      }
+      // console.log("callback from db request: " + JSON.stringify(response));
+      callback('OK', response);
+      return;
     });
-    req.write(bodyString);
-    req.end();
   },
 
   doSynchronousLoop : function (data, processData, done) {

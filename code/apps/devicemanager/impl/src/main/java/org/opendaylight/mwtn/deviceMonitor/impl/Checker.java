@@ -21,33 +21,11 @@ abstract class Checker {
     abstract boolean isReachableOnce();
 
     /**
-     * State machine to check the connection of one mountpoint
+     * Procedure to check the connection of one mountpoint
      * @return true if reachable, false if not
      */
-    boolean checkIfReachableStates() {
-        // Mediator check
-        if (! isReachableOnce()) { //First check
-            // If not successful give it a next try
-            return false;
-            /*
-            try {
-                Thread.sleep(10);
-                if (! isReachableOnce()) {  //Second check
-                    // If again not successful give it a next try
-                    Thread.sleep(10);
-                    if (! isReachableOnce()) {  //third check
-                        // If again not successful give it a next try
-                         //Raise Alarm condition
-                        //--> Notificator
-                        return false;
-                    }
-                }
-            } catch (InterruptedException e) {
-                //Do nothing, but stop task
-                LOG.info("Cancel Monitoring");
-            }*/
-        }
-        return true;
+    boolean isConnected() {
+        return isReachableOnce();
     }
 }
 

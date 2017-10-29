@@ -24,7 +24,7 @@ define(['angularAMD',
 
     NavHelperProvider.addControllerUrl('app/mwtnTest/mwtnTest.controller');
     NavHelperProvider.addToMenu('mwtnTest', {
-     "link" : "#/mwtnTest",
+     "link" : "#/mwtnTest/",
      "active" : "main.mwtnTest",
      "title" : "MWTN Test",
      "icon" : "fa fa-check-square-o",  // Add navigation icon css class here
@@ -37,7 +37,7 @@ define(['angularAMD',
     var access = routingConfig.accessLevels;
 
     $stateProvider.state('main.mwtnTest', {
-        url: 'mwtnTest',
+        url: 'mwtnTest/:nodeId',
         access: access.admin,
         views : {
             content : {

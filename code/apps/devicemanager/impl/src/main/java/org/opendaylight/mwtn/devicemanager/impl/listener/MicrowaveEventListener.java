@@ -9,6 +9,8 @@
 package org.opendaylight.mwtn.devicemanager.impl.listener;
 
 import java.util.List;
+
+import org.opendaylight.mwtn.aotsMConnector.impl.AotsMProviderClient;
 import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
 import org.opendaylight.mwtn.devicemanager.impl.database.service.HtDatabaseEventsService;
@@ -17,7 +19,7 @@ import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectCreationNotificationXm
 import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectDeletionNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.WebSocketServiceClient;
-import org.opendaylight.mwtn.ecompConnector.impl.EventProviderClient;
+import org.opendaylight.mwtn.ecompConnector.impl.EcompProviderClient;
 import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.notifications.rev160809.AttributeValueChangedNotification;
 import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.notifications.rev160809.MicrowaveModelNotificationsListener;
 import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.notifications.rev160809.ObjectCreationNotification;
@@ -37,15 +39,17 @@ public class MicrowaveEventListener implements MicrowaveModelNotificationsListen
     private final String nodeName;
     private final WebSocketServiceClient webSocketService;
     private final HtDatabaseEventsService databaseService;
-    private final EventProviderClient ecompProvider;
+    private final EcompProviderClient ecompProvider;
+	private final AotsMProviderClient aotsmClient;
 
     public MicrowaveEventListener(String nodeName, WebSocketServiceClient webSocketService,
-            HtDatabaseEventsService databaseService, EventProviderClient ecompProvider) {
+            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider,AotsMProviderClient aotsmClient) {
         super();
         this.nodeName = nodeName;
         this.webSocketService = webSocketService;
         this.databaseService = databaseService;
         this.ecompProvider = ecompProvider;
+        this.aotsmClient = aotsmClient;
 
     }
 
@@ -136,7 +140,12 @@ public class MicrowaveEventListener implements MicrowaveModelNotificationsListen
         databaseService.writeFaultLog(notificationXml);
         databaseService.updateFaultCurrent(notificationXml);
 
-        ecompProvider.sendProblemNotification(nodeName, notificationXml);
+        if (ecompProvider != null) {
+			ecompProvider.sendProblemNotification(nodeName, notificationXml);
+		}
+        if (aotsmClient != null) {
+        	aotsmClient.sendProblemNotification(nodeName, notificationXml);
+		}
 
         webSocketService.sendViaWebsockets(nodeName, notificationXml);
 
@@ -144,7 +153,7 @@ public class MicrowaveEventListener implements MicrowaveModelNotificationsListen
 
     private void initCurrentProblem(ProblemNotificationXml notificationXml) {
         databaseService.updateFaultCurrent(notificationXml);
-
+        this.aotsmClient.sendProblemNotification(this.nodeName, notificationXml);
     }
 
     /**

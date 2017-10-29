@@ -8,27 +8,27 @@
 
 package org.opendaylight.mwtn.base.netconf;
 
-import com.google.common.base.Optional;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.binding.api.MountPoint;
 import org.opendaylight.controller.md.sal.binding.api.NotificationService;
 import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
+import org.opendaylight.mwtn.aotsMConnector.impl.AotsMProviderClient;
 import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
 import org.opendaylight.mwtn.devicemanager.impl.database.service.HtDatabaseEventsService;
 import org.opendaylight.mwtn.devicemanager.impl.listener.MicrowaveEventListener;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.WebSocketServiceClient;
-import org.opendaylight.mwtn.ecompConnector.impl.EventProviderClient;
+import org.opendaylight.mwtn.ecompConnector.impl.EcompProviderClient;
 import org.opendaylight.mwtn.performancemanager.impl.database.types.EsHistoricalPerformance15Minutes;
 import org.opendaylight.mwtn.performancemanager.impl.database.types.EsHistoricalPerformance24Hours;
 import org.opendaylight.yang.gen.v1.uri.onf.coremodel.corefoundationmodule.superclassesandcommonpackages.rev160710.UniversalId;
@@ -54,6 +54,8 @@ import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.typedefinitions.rev16
 import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Optional;
 
 /**
  * Get information over NETCONF device according to ONF Coremodel. Read networkelement and conditional packages.
@@ -106,12 +108,12 @@ public class ONFCoreNetworkElement10 extends ONFCoreNetworkElementBase {
 
     public ONFCoreNetworkElement10(String mountPointNodeName, Capabilities capabilities,
             DataBroker netconfNodeDataBroker, WebSocketServiceClient webSocketService,
-            HtDatabaseEventsService databaseService, EventProviderClient ecompProvider ) {
+            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider ,AotsMProviderClient aotsmClient) {
 
         super(mountPointNodeName, netconfNodeDataBroker, capabilities );
 
         //Create MicrowaveService here
-        this.microwaveEventListener = new MicrowaveEventListener(mountPointNodeName, webSocketService, databaseService, ecompProvider);
+        this.microwaveEventListener = new MicrowaveEventListener(mountPointNodeName, webSocketService, databaseService, ecompProvider,aotsmClient);
 
         LOG.info("Create NE instance {}", ONFCoreNetworkElement10.class.getSimpleName());
     }
@@ -122,21 +124,19 @@ public class ONFCoreNetworkElement10 extends ONFCoreNetworkElementBase {
 
     public static ONFCoreNetworkElement10 build(String mountPointNodeName, Capabilities capabilities,
             DataBroker netconfNodeDataBroker, WebSocketServiceClient webSocketService,
-            HtDatabaseEventsService databaseService, EventProviderClient ecompProvider ) {
+            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider ,AotsMProviderClient aotsmClient) {
 
-        return checkType(capabilities) ? new ONFCoreNetworkElement10(mountPointNodeName, capabilities, netconfNodeDataBroker, webSocketService, databaseService, ecompProvider ) : null;
+        return checkType(capabilities) ? new ONFCoreNetworkElement10(mountPointNodeName, capabilities, netconfNodeDataBroker, webSocketService, databaseService, ecompProvider ,aotsmClient) : null;
 
     }
+
 
     /*------------------------------------------------------------------------
      * Functions
      */
 
-
-
-
     /**
-     * Have this as a separate function to avoid that reperesentatinon is not created because of exceptions are thrown.
+     * Have this as a separate function to avoid that representation is not created because of exceptions are thrown.
      */
     @Override
     public void initialReadFromNetworkElement() {
@@ -148,14 +148,78 @@ public class ONFCoreNetworkElement10 extends ONFCoreNetworkElementBase {
 
         //Step 2.1: access data broker within this mount point
         LOG.debug("DBRead start");
-        //Step 2.2: read ne from data store
-        optionalNe = readNetworkElement();
-        LOG.debug("Name: ", optionalNe == null ? "no NE" : optionalNe.getNameList().toString());
-        synchronized (pmLock) {
-            interfaceList.addAll( getLtpList(optionalNe) );
-        }
+        //Step 2.2: read NEtworkElement from data store and initialize class variables
+        readNetworkElementAndInterfaces();
 
         //Step 2.3: read the existing faults and add to DB
+        int problemsFound = readAllCurrentProblemsToDB();
+
+        LOG.info("Found info at {} for device {} number of problems: {}", mountPointNodeName, getUuId(), problemsFound);
+
+    }
+
+    /*------------------------------------------------------------
+     * private function to access database
+     */
+
+    /**
+     * Read from NetworkElement and verify LTPs have changed.
+     * If the NE has changed, update to the new structure.
+     * From initial state it changes also.
+     */
+    private synchronized boolean readNetworkElementAndInterfaces() {
+
+        LOG.debug("Update mountpoint if changed {}", mountPointNodeName);
+
+        //get NE data
+        synchronized (pmLock) {
+            boolean change = false;
+
+            optionalNe = GenericTransactionUtils.readData(netconfNodeDataBroker, LogicalDatastoreType.OPERATIONAL, NETWORKELEMENT_IID);
+            if (optionalNe == null) {
+                LOG.debug("Unable to read NE data for mountpoint {}", mountPointNodeName);
+                if (! interfaceList.isEmpty()) {
+                    interfaceList.clear();
+                    interfaceListIterator = null;
+                    change = true;
+                }
+            } else {
+                LOG.debug("Mountpoint '{}' NE-Name '{}'", mountPointNodeName, optionalNe.getNameList().toString());
+                List<LpList> actualInterfaceList = getLtpList(optionalNe);
+                if (! interfaceList.equals(actualInterfaceList) ) {
+                    LOG.debug("Mountpoint '{}' Update LTP List. Elements {}", mountPointNodeName, actualInterfaceList.size() );
+                    interfaceList.clear();
+                    interfaceList.addAll(actualInterfaceList);
+                    interfaceListIterator = null;
+                    change = true;
+                }
+            }
+            return change;
+        }
+    }
+
+    /**
+     * Get UUID as string from networkelemen
+     * @return UUID or EMPTY
+     */
+    private String getUuId() {
+        String uuid = EMPTY;
+
+        try {
+            uuid = optionalNe != null ? optionalNe.getUuid() != null ? optionalNe.getUuid().getValue() : EMPTY : EMPTY;
+        } catch (NullPointerException  e) {
+            //Unfortunately throws null pointer if not definied
+        }
+        return uuid;
+    }
+
+    /**
+     * Read current problems of AirInterfaces and EthernetContainer
+     * according to NE status into DB
+     * @return Number of problems
+     */
+    private int readAllCurrentProblemsToDB() {
+
         int problemsFound = 0;
 
         synchronized (pmLock) {
@@ -177,32 +241,19 @@ public class ONFCoreNetworkElement10 extends ONFCoreNetworkElementBase {
         }
 
         //Step 2.4: Read other problems from Mountpoint
-        if (isNetworkElementCurrentProblemsSupporting) {
+        if (isNetworkElementCurrentProblemsSupporting10) {
             problemsFound += readNetworkElementCurrentProblems();
         }
 
-        LOG.info("Found info at {} for device {} number of problems: {}", mountPointNodeName, getUuId(), problemsFound);
-
+        return problemsFound;
     }
 
-    private String getUuId() {
-        String uuid = EMPTY;
-
-        try {
-            uuid = optionalNe != null ? optionalNe.getUuid() != null ? optionalNe.getUuid().getValue() : EMPTY : EMPTY;
-        } catch (NullPointerException  e) {
-            //Unfortunately throws null pointer if not definied
-        }
-
-        return uuid;
-    }
-
-
-    /*------------------------------------------------------------
-     * private function to access database
-     */
-
-    /*karaf.log:2016-12-05 16:36:15,764 | INFO  | dispatcher-25390 | EventManagerImpl                 | 346 - org.opendaylight.mwtn.eventmanager-impl - 0.3.0.SNAPSHOT | DBRead
+    /**
+     * Read currentProblems of network elemement
+     * @return number of listed problems<br>
+     *
+     * <br>EXAMPLE from log:<br>
+     * karaf.log:2016-12-05 16:36:15,764 | INFO  | dispatcher-25390 | EventManagerImpl                 | 346 - org.opendaylight.mwtn.eventmanager-impl - 0.3.0.SNAPSHOT | DBRead
      * Currentproblems: NetworkElementCurrentProblems{getCurrentProblemList=[
      *   CurrentProblemList{
      *      getProblemName=powerLoss, getProblemSeverity=Critical, getSequenceNumber=1,
@@ -215,9 +266,10 @@ public class ONFCoreNetworkElement10 extends ONFCoreNetworkElementBase {
      *
      *          cpl(2),
      *             powerLoss[CurrentProblemList{getProblemName=powerLoss, getProblemSeverity=Critical, getSequenceNumber=1, getTimeStamp=DateAndTime [_value=20160822133005.0Z], augmentations={}}],
-     *             powerLoss[CurrentProblemList{getProblemName=powerLoss, getProblemSeverity=Minor, getSequenceNumber=2, getTimeStamp=DateAndTime [_value=20160822143005.0Z], augmentations={}}]*/
+     *             powerLoss[CurrentProblemList{getProblemName=powerLoss, getProblemSeverity=Minor, getSequenceNumber=2, getTimeStamp=DateAndTime [_value=20160822143005.0Z], augmentations={}}]
+     */
 
-    int readNetworkElementCurrentProblems() {
+    private int readNetworkElementCurrentProblems() {
 
         int problemsFound = 0;
         LOG.info("DBRead Get {} NetworkElementCurrentProblems", mountPointNodeName);
@@ -256,57 +308,79 @@ public class ONFCoreNetworkElement10 extends ONFCoreNetworkElementBase {
     }
 
 
+    /*
     /**
      * Read the NetworkElement part from database.
-     * @return Optional with NetworkElement or empty
-     */
+     * @return NetworkElement or null
+     * /
     private NetworkElement readNetworkElement() {
         //Step 2.2: construct data and the relative iid
         // The schema path to identify an instance is
         // <i>CoreModel-CoreNetworkModule-ObjectClasses/NetworkElement</i>
 
-        InstanceIdentifier<NetworkElement> networkElementIID = InstanceIdentifier
-                .builder(NetworkElement.class)
-                .build();
+        //InstanceIdentifier<NetworkElement> networkElementIID = InstanceIdentifier
+        //       .builder(NetworkElement.class)
+        //       .build();
 
         //Step 2.3: read to the config data store
-        return GenericTransactionUtils.readData(netconfNodeDataBroker, LogicalDatastoreType.OPERATIONAL, networkElementIID);
+        return GenericTransactionUtils.readData(netconfNodeDataBroker, LogicalDatastoreType.OPERATIONAL, NETWORKELEMENT_IID);
+    } */
+
+    /**
+     * Prepare check by updating NE state and reading all interfaces.
+     * @see org.opendaylight.mwtn.deviceMonitor.impl.DeviceMonitorSupport#prepareCheck()
+     */
+    @Override
+    public void prepareCheck() {
+        synchronized (dmLock) {
+            boolean change = readNetworkElementAndInterfaces();
+            if (change) {
+                int problems = microwaveEventListener.removeAllCurrentProblemsOfNode();
+                int problemsFound = readAllCurrentProblemsToDB();
+                LOG.info("Resync mountpoint {} for device {}. Removed {}. Current problems: {}", mountPointNodeName, getUuId(), problems, problemsFound);
+            }
+        }
     }
 
+    /**
+     * New implementation
+     * @see org.opendaylight.mwtn.deviceMonitor.impl.DeviceMonitorSupport#checkAndConnectionToMediatorIsOk()
+     */
     @Override
     public boolean checkAndConnectionToMediatorIsOk() {
-
-        //Read to the config data store
-        AtomicBoolean noErrorIndicator = new AtomicBoolean();
-        AtomicReference<String> status = new AtomicReference<>();
-
-        GenericTransactionUtils.readDataOptionalWithStatus(netconfNodeDataBroker, LogicalDatastoreType.OPERATIONAL, NETWORKELEMENT_IID, noErrorIndicator, status);
-        LOG.debug("Status noErrorIndicator: {} statusTxt:{}",noErrorIndicator.get(), status.get());
-        return noErrorIndicator.get();
+        synchronized (dmLock) {
+            return optionalNe != null;
+        }
     }
 
+    /**
+     * New implementation to interpret status with empty LTP List as notConnected => false
+     * @see org.opendaylight.mwtn.deviceMonitor.impl.DeviceMonitorSupport#checkAndConnectionToNeIsOk()
+     */
     @Override
     public boolean checkAndConnectionToNeIsOk() {
-
         synchronized (dmLock) {
+            return optionalNe != null && !interfaceList.isEmpty();
+        }
 
-            if (dmAirIfCurrentProblemsIID != null) {
-                //Read to the config data store
-                AtomicBoolean noErrorIndicator = new AtomicBoolean();
-                AtomicReference<String> status = new AtomicReference<>();
+    }
 
-                GenericTransactionUtils.readDataOptionalWithStatus(netconfNodeDataBroker, LogicalDatastoreType.OPERATIONAL, dmAirIfCurrentProblemsIID, noErrorIndicator, status);
-                LOG.debug("Status noErrorIndicator: {} statusTxt:{}",noErrorIndicator.get(), status.get());
-                return noErrorIndicator.get();
-            }
+    /* OLD:public boolean checkAndConnectionToNeIsOk() {
+        synchronized (dmLock) {
+           if (dmAirIfCurrentProblemsIID != null) {
+              //Read to the config data store
+              AtomicBoolean noErrorIndicator = new AtomicBoolean();
+              AtomicReference<String> status = new AtomicReference<>();
 
-
+              GenericTransactionUtils.readDataOptionalWithStatus(netconfNodeDataBroker, LogicalDatastoreType.OPERATIONAL, dmAirIfCurrentProblemsIID, noErrorIndicator, status);
+              LOG.debug("Status noErrorIndicator: {} statusTxt:{}",noErrorIndicator.get(), status.get());
+              return noErrorIndicator.get();
+           }
         }
 
         return true;
-    }
-
-
+        }
+    */
 
     /**
      * Get List of UUIDs for conditional packages from Networkelement<br>
@@ -319,7 +393,7 @@ public class ONFCoreNetworkElement10 extends ONFCoreNetworkElementBase {
      * @param ne Networkelement
      * @return Id List, never null.
      */
-    private List<LpList> getLtpList( NetworkElement ne ) {
+    private static List<LpList> getLtpList( @Nullable NetworkElement ne ) {
 
         List<LpList> res = new ArrayList<>();
 
@@ -377,26 +451,29 @@ public class ONFCoreNetworkElement10 extends ONFCoreNetworkElementBase {
         //Step 2.3: read to the config data store
         EthernetContainerCurrentProblems ethProblems = GenericTransactionUtils.readData(netconfNodeDataBroker, LogicalDatastoreType.OPERATIONAL, mwEthInterfaceIID);
         if (ethProblems == null) {
-            LOG.debug("DBRead EthProblems Id {} no CurrentProblemsList", interfacePacUuid.getValue());
+            LOG.debug("DBRead EthProblems Id {} no EthernetContainerCurrentProblems", interfacePacUuid.getValue());
+        } else if (ethProblems.getCurrentProblemList() == null) {
+            LOG.debug("DBRead Id {} empty CurrentProblemsList", interfacePacUuid.getValue());
         } else {
-            List<org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.objectclasses.ethernetcontainer.rev160902.ethernetcontainercurrentproblems.CurrentProblemList> ethProblemList = ethProblems.getCurrentProblemList();
-            LOG.debug("DBRead EthProblems input: {}",ethProblemList);
             List<ProblemNotificationXml> resultList = new ArrayList<>();
-            if (ethProblemList != null) {
-                for ( ContainerCurrentProblemType problem : ethProblemList) {
-                    resultList.add(new ProblemNotificationXml(mountPointNodeName, interfacePacUuid.getValue(),
-                            problem.getProblemName(), InternalSeverity.valueOf(problem.getProblemSeverity()),
-                            problem.getSequenceNumber().toString(), InternalDateAndTime.valueOf(problem.getTimeStamp())));
+            for ( ContainerCurrentProblemType problem : ethProblems.getCurrentProblemList()) {
+                resultList.add(new ProblemNotificationXml(mountPointNodeName, interfacePacUuid.getValue(),
+                        problem.getProblemName(), InternalSeverity.valueOf(problem.getProblemSeverity()),
+                        problem.getSequenceNumber().toString(), InternalDateAndTime.valueOf(problem.getTimeStamp())));
 
-                }
-                microwaveEventListener.initCurrentProblem(resultList);
             }
+            microwaveEventListener.initCurrentProblem(resultList);
             LOG.debug("DBRead EthProblems result: {}",resultList);
             problemsFound = resultList.size();
         }
         return problemsFound;
      }
 
+     /**
+      * Deliver for specific AirInterfacePac with key the related IId
+      * @param interfacePacUuid as UniversalId
+      * @return related InstanceIdentifier
+      */
      private InstanceIdentifier<AirInterfaceCurrentProblems> getMWAirInterfacePacIId(UniversalId interfacePacUuid) {
          InstanceIdentifier<AirInterfaceCurrentProblems> mwAirInterfaceIID = InstanceIdentifier
                  .builder(MWAirInterfacePac.class, new MWAirInterfacePacKey(interfacePacUuid))
@@ -418,22 +495,20 @@ public class ONFCoreNetworkElement10 extends ONFCoreNetworkElementBase {
          AirInterfaceCurrentProblems airProblems = GenericTransactionUtils.readData(netconfNodeDataBroker, LogicalDatastoreType.OPERATIONAL, mwAirInterfaceIID);
 
          if (airProblems == null) {
-             LOG.debug("DBRead AirProblems Id {} no CurrentProblemsList", interfacePacUuid);
+             LOG.debug("DBRead Id {} no AirInterfaceCurrentProblems", interfacePacUuid);
+         } else if (airProblems.getCurrentProblemList() == null) {
+             LOG.debug("DBRead Id {} no CurrentProblemList", interfacePacUuid);
          } else {
-             List<org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.objectclasses.airinterface.rev160901.airinterfacecurrentproblems.CurrentProblemList> airProblemList = airProblems.getCurrentProblemList();
-             LOG.debug("DBRead AirProblems input: {}",airProblemList);
-             if (airProblemList != null) {
-                 List<ProblemNotificationXml> resultList = new ArrayList<>();
-                 for ( AirInterfaceCurrentProblemType problem : airProblemList) {
-                     resultList.add(new ProblemNotificationXml(mountPointNodeName, interfacePacUuid.getValue(),
-                             problem.getProblemName(), InternalSeverity.valueOf(problem.getProblemSeverity()),
-                             problem.getSequenceNumber().toString(), InternalDateAndTime.valueOf(problem.getTimeStamp())));
+             List<ProblemNotificationXml> resultList = new ArrayList<>();
+             for ( AirInterfaceCurrentProblemType problem : airProblems.getCurrentProblemList()) {
+                 resultList.add(new ProblemNotificationXml(mountPointNodeName, interfacePacUuid.getValue(),
+                         problem.getProblemName(), InternalSeverity.valueOf(problem.getProblemSeverity()),
+                         problem.getSequenceNumber().toString(), InternalDateAndTime.valueOf(problem.getTimeStamp())));
 
-                 }
-                 microwaveEventListener.initCurrentProblem(resultList);
-                 LOG.debug("DBRead AirProblems result: {}",resultList);
-                 problemsFound = resultList.size();
              }
+             microwaveEventListener.initCurrentProblem(resultList);
+             LOG.debug("DBRead AirProblems result: {}",resultList);
+             problemsFound = resultList.size();
          }
          return problemsFound;
      }
@@ -453,23 +528,30 @@ public class ONFCoreNetworkElement10 extends ONFCoreNetworkElementBase {
                  .build();
          AirInterfaceConfiguration airConfiguration = GenericTransactionUtils.readData(netconfNodeDataBroker, LogicalDatastoreType.OPERATIONAL, mwAirInterfaceConfigurationIID);
 
-         //Step 2.2: construct data and the relative iid
-         InstanceIdentifier<AirInterfaceHistoricalPerformances> mwAirInterfaceHistoricalPerformanceIID = InstanceIdentifier
-                 .builder(MWAirInterfacePac.class, new MWAirInterfacePacKey(mwAirInterfacePacuuId))
-                 .child(AirInterfaceHistoricalPerformances.class)
-                 .build();
+         if (airConfiguration == null) {
+             LOG.debug("DBRead MWAirInterfacePac Id {} no AirInterfaceConfiguration", mwAirInterfacePacuuId);
 
-         //Step 2.3: read to the config data store
-         AirInterfaceHistoricalPerformances airHistoricalPerformanceData = GenericTransactionUtils.readData(netconfNodeDataBroker, LogicalDatastoreType.OPERATIONAL, mwAirInterfaceHistoricalPerformanceIID);
-
-         if (airHistoricalPerformanceData == null) {
-             LOG.debug("DBRead MWAirInterfacePac Id {} no HistoricalPerformances", mwAirInterfacePacuuId);
          } else {
-             List<org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.objectclasses.airinterface.rev160901.airinterfacehistoricalperformances.HistoricalPerformanceDataList> airHistPMList = airHistoricalPerformanceData.getHistoricalPerformanceDataList();
-             LOG.debug("DBRead MWAirInterfacePac Id {} Records intermediate: {}",mwAirInterfacePacuuId, airHistPMList.size());
-             if (airHistPMList != null) {
-                 for ( org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.typedefinitions.rev160902.AirInterfaceHistoricalPerformanceType pmRecord : airHistPMList) {
-                     resultList.add(new ExtendedAirInterfaceHistoricalPerformanceType(pmRecord, airConfiguration));
+
+             //Step 2.2: construct data and the relative iid
+             InstanceIdentifier<AirInterfaceHistoricalPerformances> mwAirInterfaceHistoricalPerformanceIID = InstanceIdentifier
+                     .builder(MWAirInterfacePac.class, new MWAirInterfacePacKey(mwAirInterfacePacuuId))
+                     .child(AirInterfaceHistoricalPerformances.class)
+                     .build();
+
+             //Step 2.3: read to the config data store
+             AirInterfaceHistoricalPerformances airHistoricalPerformanceData = GenericTransactionUtils.readData(netconfNodeDataBroker, LogicalDatastoreType.OPERATIONAL, mwAirInterfaceHistoricalPerformanceIID);
+
+             if (airHistoricalPerformanceData == null) {
+                 LOG.debug("DBRead MWAirInterfacePac Id {} no AirInterfaceHistoricalPerformances", mwAirInterfacePacuuId);
+
+             } else {
+                 List<org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.objectclasses.airinterface.rev160901.airinterfacehistoricalperformances.HistoricalPerformanceDataList> airHistPMList = airHistoricalPerformanceData.getHistoricalPerformanceDataList();
+                 LOG.debug("DBRead MWAirInterfacePac Id {} Records intermediate: {}",mwAirInterfacePacuuId, airHistPMList.size());
+                 if (airHistPMList != null) {
+                     for ( org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.typedefinitions.rev160902.AirInterfaceHistoricalPerformanceType pmRecord : airHistPMList) {
+                         resultList.add(new ExtendedAirInterfaceHistoricalPerformanceType(pmRecord, airConfiguration));
+                     }
                  }
              }
          }
@@ -496,7 +578,7 @@ public class ONFCoreNetworkElement10 extends ONFCoreNetworkElementBase {
          EthernetContainerHistoricalPerformances ethContainerHistoricalPerformanceData = GenericTransactionUtils.readData(netconfNodeDataBroker, LogicalDatastoreType.OPERATIONAL, ethContainerIID);
 
          if (ethContainerHistoricalPerformanceData == null) {
-             LOG.debug("DBRead {} Id {} no HistoricalPerformances", myName, ethContainerPacuuId);
+             LOG.debug("DBRead {} Id {} no EthernetContainerHistoricalPerformances", myName, ethContainerPacuuId);
          } else {
              List<org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.objectclasses.ethernetcontainer.rev160902.ethernetcontainerhistoricalperformances.HistoricalPerformanceDataList> airHistPMList = ethContainerHistoricalPerformanceData.getHistoricalPerformanceDataList();
              LOG.debug("DBRead {} Id {} Records intermediate: {}", myName, ethContainerPacuuId, airHistPMList.size());
@@ -578,27 +660,39 @@ public class ONFCoreNetworkElement10 extends ONFCoreNetworkElementBase {
         synchronized ( pmLock ) {
             interfaceListIterator = interfaceList.iterator();
         }
+    	LOG.debug("PM reset iterator");
     }
 
     @Override
     public boolean hasNext() {
+    	boolean res;
         synchronized ( pmLock ) {
-            return interfaceListIterator.hasNext();
+            res = interfaceListIterator != null ? interfaceListIterator.hasNext(): false;
         }
+    	LOG.debug("PM hasNext LTP {}", res);
+        return res;
     }
 
     @Override
     public void next() {
         synchronized ( pmLock ) {
-            pmLp = interfaceListIterator.next();
+            pmLp = interfaceListIterator != null ? interfaceListIterator.next() : null;
         }
+    	LOG.debug("PM next LTP {}", pmLp.getUuid().toString());
     }
 
     @Override
     public String pmStatusToString() {
+    	StringBuffer res = new StringBuffer();
         synchronized ( pmLock ) {
-            return pmLp == null ? "no interface" : pmLp.getLayerProtocolName().getValue();
+            res.append(pmLp == null ? "no interface" : pmLp.getLayerProtocolName().getValue());
+            for (LpList lp : interfaceList ) {
+            	res.append("IF:");
+            	res.append(lp.getLayerProtocolName().getValue());
+            	res.append(" ");
+            }
         }
+        return(res.toString());
     }
 
     @Override

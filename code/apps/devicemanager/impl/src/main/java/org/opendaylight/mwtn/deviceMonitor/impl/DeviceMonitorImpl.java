@@ -57,7 +57,8 @@ public class DeviceMonitorImpl implements DeviceMonitor {
      */
 
     /**
-     * Basisimplementierung Devicemonitoring
+     * Basic implementation of devicemonitoring
+     * @param odlEventListener as destination for problems
      */
     public DeviceMonitorImpl(ODLEventListener odlEventListener) {
         LOG.info("Construct {}", this.getClass().getSimpleName());
@@ -71,12 +72,14 @@ public class DeviceMonitorImpl implements DeviceMonitor {
      * Stop the service. Stop all running monitoring tasks.
      */
     @Override
-    public void close() {
+    synchronized public void close() {
         LOG.info("Close {}", this.getClass().getSimpleName());
 
-        for (Enumeration<String> e = queue.keys();queue.keys().hasMoreElements();) {
+        Enumeration<String> e = queue.keys();
+        while (e.hasMoreElements()) {
             deviceDisconnectIndication(e.nextElement());
         }
+
         scheduler.shutdown();
     }
 
@@ -85,9 +88,9 @@ public class DeviceMonitorImpl implements DeviceMonitor {
      */
 
     @Override
-    public void createMountpointIndication(String mountPointNodeName) {
+    synchronized public void createMountpointIndication(String mountPointNodeName) {
 
-        LOG.debug("Register for monitoring {}",mountPointNodeName);
+        LOG.debug("Register for monitoring {} {}",mountPointNodeName, mountPointNodeName.hashCode());
 
         LOG.info("Do start of DeviceMonitor task");
         //Runnable task = new PerformanceManagerTask(queue, databaseService);
@@ -97,16 +100,19 @@ public class DeviceMonitorImpl implements DeviceMonitor {
     }
 
     @Override
-    public void removeMountpointIndication(String mountPointNodeName) {
+    synchronized public void removeMountpointIndication(String mountPointNodeName) {
 
-        DeviceMonitorTask task = queue.get(mountPointNodeName);
+        if (queue.containsKey(mountPointNodeName)) {
+            DeviceMonitorTask task = queue.get(mountPointNodeName);
+            //Remove from here
+            queue.remove(mountPointNodeName);
 
-        //Clear all problems
-        task.removeMountpointIndication();
-
-        //Remove from here
-        queue.remove(mountPointNodeName);
-        LOG.debug("Task stopped: {}", mountPointNodeName);
+            //Clear all problems
+            task.removeMountpointIndication();
+            LOG.debug("Task stopped: {}", mountPointNodeName);
+        } else {
+            LOG.warn("Task not in queue anymore: {}", mountPointNodeName);
+        }
     }
 
     /*-------------------------------------------------------------
@@ -114,21 +120,27 @@ public class DeviceMonitorImpl implements DeviceMonitor {
      */
 
     @Override
-    public void deviceConnectIndication(String mountPointNodeName, ONFCoreNetworkElementRepresentation ne) {
+    synchronized public void deviceConnectIndication(String mountPointNodeName, ONFCoreNetworkElementRepresentation ne) {
 
         LOG.debug("Add ne to monitoring {}",mountPointNodeName);
-
-        DeviceMonitorTask task = queue.get(mountPointNodeName);
-        task.deviceConnectIndication(ne);
-
+        if (queue.containsKey(mountPointNodeName)) {
+            DeviceMonitorTask task = queue.get(mountPointNodeName);
+            task.deviceConnectIndication(ne);
+        } else {
+            LOG.warn("Task not in queue anymore: {} {} {}", mountPointNodeName, mountPointNodeName.hashCode(), queue.size());
+        }
     }
 
     @Override
-    public void deviceDisconnectIndication(String mountPointNodeName) {
-        LOG.debug("Deregister {}",mountPointNodeName);
+    synchronized public void deviceDisconnectIndication(String mountPointNodeName) {
 
-        DeviceMonitorTask task = queue.get(mountPointNodeName);
-        task.deviceDisconnectIndication();
+        LOG.debug("Deregister {}",mountPointNodeName);
+        if (queue.containsKey(mountPointNodeName)) {
+            DeviceMonitorTask task = queue.get(mountPointNodeName);
+            task.deviceDisconnectIndication();
+        } else {
+            LOG.warn("Task not in queue anymore: {}", mountPointNodeName);
+        }
 
     }
 

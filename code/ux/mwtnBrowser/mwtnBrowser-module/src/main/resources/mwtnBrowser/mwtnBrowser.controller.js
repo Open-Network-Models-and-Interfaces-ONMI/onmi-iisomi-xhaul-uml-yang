@@ -307,18 +307,18 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
         $scope.gridOptions.data = 'ptpPorts';
         $scope.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
 
-        $scope.getTableHeight = function() {
-          var rowHeight = 30; 
-          var headerHeight = 40; 
-          var maxCount = 12;
-          var rowCount = $scope.gridOptions.data.length + 2;
-          if (rowCount > maxCount) {
-            return {
-                height: (maxCount * rowHeight + headerHeight) + 'px'
-            };
-          }
-          return {}; // use auto-resize feature
-        };
+        // $scope.getTableHeight = function() {
+        //   var rowHeight = 30; 
+        //   var headerHeight = 40; 
+        //   var maxCount = 12;
+        //   var rowCount = $scope.gridOptions.data.length + 2;
+        //   if (rowCount > maxCount) {
+        //     return {
+        //         height: (maxCount * rowHeight + headerHeight) + 'px'
+        //     };
+        //   }
+        //   return {}; // use auto-resize feature
+        // };
 
         var getCellTemplate = function(field) {
           var object = ['transmission-mode-list', 'performance-data'];
@@ -457,58 +457,6 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
           if ($scope.path) {
             path = $scope.path.split($mwtnCommons.separator);
           }
-          // $scope.spec = {
-          //   nodeId: $scope.networkElement,
-          //   revision: '2017-03-20',
-          //   pacId: path[0],
-          //   layer: '???',
-          //   layerProtocolId: path[1],
-          //   partId: path[2],
-          //   config: true
-          // };
-
-          // $scope.openConfigView = function(){
-          //   var modalInstance = $uibModal.open({
-          //     animation: true,
-          //     ariaLabelledBy: 'modal-title',
-          //     ariaDescribedBy: 'modal-body',
-          //     templateUrl: 'src/app/mwtnCommons/templates/openConfigView.html',
-          //     controller: 'openConfigViewController',
-          //     size: 'huge',
-          //     resolve: {
-          //       valueData: function () {
-          //         return {spec:$scope.spec};
-          //       }
-          //     }
-          //   });
-          //   modalInstance.result.then(function(object) {
-          //     // update fetch new data from ODL
-          //     $mwtnCommons.getPacParts($scope.spec).then(function(success){
-          //       // intermedite step to display something, even processing fails or takes time
-          //       $scope.viewData = $mwtnGlobal.getViewData(success[$scope.spec.partId], $scope.ne);
-          //       // now the nice way ;)
-          //       $scope.viewData = processData($scope.schema);
-          //     }, function(error){
-          //       // ignore;
-          //     });
-          //   }, function () {
-          //       // ignore;
-          //   });
-          // };
-          $scope.myClipboard = {
-            data: [$scope.data],
-            supported: true,
-            getJson: function () {
-              return JSON.stringify(this.data, null, ' ');
-            },
-            copyToClipboard: function () {
-              var message = 'Copied to clipboard! ' + this.getJson();
-              $mwtnLog.info({ component: COMPONENT, message: message });
-            },
-            error: function (err) {
-              $mwtnLog.error({ component: COMPONENT, message: err });
-            }
-          };
 
           var processData = function(schema) {
             var ordered = {};
@@ -620,6 +568,7 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
     var COMPONENT = 'mwtnBrowserCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnBrowserCtrl started!'});
     $rootScope.section_logo = 'src/app/mwtnBrowser/images/mwtnBrowser.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
+    $scope.odlKarafVersion = $mwtnBrowser.odlKarafVersion; 
 
     var pacTemplate = {
         'layer-protocol': 'unknown'           
@@ -767,7 +716,7 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
             $scope.forwardingConstructs = [];
             if (fd[0].fc) {
               fd[0].fc.map(function(id){
-                $mwtnCommons.getForwardingConstruct($scope.networkElement, id).then(function(fc){
+                $mwtnBrowser.getForwardingConstruct($scope.networkElement, id).then(function(fc){
 
                   // TODO make robust
                   if (fc['forwarding-construct'] && fc['forwarding-construct'][0]) {
@@ -846,9 +795,12 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
     };
 
     var updateNetworkElementCurrentProblems = function(data) {
-      if (!data) return;
-      data.revision = undefined;
-      $scope.neCurrentProblems = data['network-element-current-problems']['current-problem-list'];
+      if (data && data['network-element-current-problems'] && data['network-element-current-problems']['current-problem-list'] ) {
+          data.revision = undefined;
+          $scope.neCurrentProblems = data['network-element-current-problems']['current-problem-list'];
+      } else {
+          $scope.neCurrentProblems = [];
+      }
     };
 
     var updateLtp = function(data) {
@@ -1078,6 +1030,7 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
         $scope.revision = $scope.mountPoints.filter(function(mountpoint){
           return mountpoint['node-id'] === neId;
         }).map(function(mountpoint){
+          $scope.mountpoint = mountpoint;
           return mountpoint.onfCoreModelRevision;
         })[0];
 

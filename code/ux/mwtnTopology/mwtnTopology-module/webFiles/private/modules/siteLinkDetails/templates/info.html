@@ -1,0 +1,181 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="container">
+        <div class="row">
+          <!-- aboveMeanSeaLevel -->
+          <div class="col-md-2 text-right">
+            <span>{{'LENGTH' | translate}}: </span>
+          </div>
+          <div class="col-md-2 text-right">
+            <b>{{siteLink.data._source.length | number:3 }}</b>
+          </div>
+          <div class="col-md-1">
+            <span>km</span>
+          </div>
+        </div>
+        <div class="row" ng-show="siteLink.data._source.getReusePlanDate">
+          <!-- getReusePlanDate -->
+          <div class="col-md-2 text-right">
+            <span>{{'REUSE' | translate}}: </span>
+          </div>
+          <div class="col-md-2 text-right">
+            <b>{{siteLink.data._source.getReusePlanDate | date:'yyyy-MM-dd' }}</b>
+          </div>
+          <div class="col-md-1">
+            <span> </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <hr />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2 col-md-offset-2 text-center">
+            <b>
+              <span>{{'SITE' | translate}} A</span>
+            </b>
+          </div>
+          <div class="col-md-2 text-center">
+            <b>
+              <span>{{'SITE' | translate}} B</span>
+            </b>
+          </div>
+        </div>
+        <div class="row">
+          <!-- siteId -->
+          <div class="col-md-2 text-right">
+            <span>{{'SITE_ID' | translate}}: </span>
+          </div>
+          <div class="col-md-2">
+            <b>{{sites[0]._source.id.siteId}}</b>
+            <a href="/ux/#/sites/{{siteLinkIndex}}/{{sites[0]._source.id.siteId}}" target="htSolutions">
+              <span class="glyphicon glyphicon glyphicon-info-sign"></span>
+            </a>
+          </div>
+          <div class="col-md-2">
+            <b>{{sites[1]._source.id.siteId}}</b>
+            <a href="/ux/#/sites/{{siteLinkIndex}}/{{sites[1]._source.id.siteId}}" target="htSolutions">
+              <span class="glyphicon glyphicon glyphicon-info-sign"></span>
+            </a>
+          </div>
+          <div class="col-md-1">
+            <span> </span>
+          </div>
+        </div>
+        <div class="row" ng-show="(sites[0]._source.id.siteId !== sites[0]._source.siteName) || (sites[1]._source.id.siteId !== sites[1]._source.siteName)">
+          <!-- siteName -->
+          <div class="col-md-2 text-right">
+            <span>{{'SITE_NAME' | translate}}: </span>
+          </div>
+          <div class="col-md-2">
+            <b>{{sites[0]._source.siteName}}</b>
+          </div>
+          <div class="col-md-2">
+            <b>{{sites[1]._source.siteName}}</b>
+          </div>
+          <div class="col-md-1">
+            <span> </span>
+          </div>
+        </div>
+        <div class="row">
+          <!-- longitude -->
+          <div class="col-md-2 text-right">
+            <span>{{'LAT_LNG' | translate}}: </span>
+          </div>
+          <div class="col-md-2 text-right">
+              <b>
+                <span>{{sites[0]._source.geoLocation.location.lat | coordinateFilter:'toDMS':'lat'}}</span>
+              </b>
+              <a href="/ux/modules/networkMap/map.html#/{{siteLinkIndex}}?site={{sites[0]._source.id.siteId}}" target="htNetworkMap">
+                <span class="glyphicon glyphicon-map-marker" style="color: white;"></span>
+              </a>
+              <br/>
+              <b>
+                <span>{{sites[0]._source.geoLocation.location.lon | coordinateFilter:'toDMS':'lon'}}</span>
+              </b>
+            <a href="/ux/modules/networkMap/map.html#/{{siteLinkIndex}}?site={{sites[0]._source.id.siteId}}" target="htNetworkMap">
+              <span class="glyphicon glyphicon-map-marker"></span>
+            </a>
+            <br/>
+          </div>
+          <div class="col-md-2 text-right">
+              <b>
+                <span>{{sites[1]._source.geoLocation.location.lat | coordinateFilter:'toDMS':'lat'}}</span>
+              </b>
+              <a href="/ux/modules/networkMap/map.html#/{{siteLinkIndex}}?site={{sites[1]._source.id.siteId}}" target="htNetworkMap">
+                <span class="glyphicon glyphicon-map-marker" style="color: white;"></span>
+              </a>
+              <br/>
+              <b>
+                <span>{{sites[1]._source.geoLocation.location.lon | coordinateFilter:'toDMS':'lon'}}</span>
+              </b>
+            <a href="/ux/modules/networkMap/map.html#/{{siteLinkIndex}}?site={{sites[1]._source.id.siteId}}" target="htNetworkMap">
+              <span class="glyphicon glyphicon-map-marker"></span>
+            </a>
+            <br/>
+          </div>
+          <div class="col-md-1">
+            <span> </span>
+          </div>
+        </div>
+        <div class="row">
+          <!-- azimuth -->
+          <div class="col-md-2 text-right">
+            <span>{{'AZIMUTH' | translate}}: </span>
+          </div>
+          <div class="col-md-2 text-right">
+            <span> {{siteLink.data._source.azimuthA | number:1 }} </span>
+          </div>
+          <div class="col-md-2 text-right">
+            <span> {{siteLink.data._source.azimuthB | number:1 }} </span>
+          </div>
+          <div class="col-md-1">
+            <span> °</span>
+          </div>
+        </div>
+        <div class="row" ng-show="siteLink.data._source.fiberPlanDateA || siteLink.data._source.fiberPlanDateB">
+          <!-- azimuth -->
+          <div class="col-md-2 text-right">
+            <span>{{'FIBER_PLAN_DATE' | translate}}: </span>
+          </div>
+          <div class="col-md-2">
+            <b> {{siteLink.data._source.fiberPlanDateA | date:'yyyy-MM-dd' }} </b>
+          </div>
+          <div class="col-md-2">
+            <b> {{siteLink.data._source.fiberPlanDateB | date:'yyyy-MM-dd' }} </b>
+          </div>
+          <div class="col-md-1">
+            <span> </span>
+          </div>
+        </div>
+        <div class="row">
+          <!-- azimuth -->
+          <div class="col-md-2 text-right">
+            <span>{{'NUMBER_OF_SITELINKS' | translate}}: </span>
+          </div>
+          <div class="col-md-2 text-right">
+            <span> {{siteLink.data._source.numSiteLinksA | number }} </span>
+          </div>
+          <div class="col-md-2 text-right">
+            <span> {{siteLink.data._source.numSiteLinksB | number }} </span>
+          </div>
+          <div class="col-md-1">
+            <span> </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="text-right">
+  <button class="btn btn-default" ng-click="removeSiteLink()">
+    <span class="glyphicon glyphicon-info-sign"></span>
+    <span> {{ 'DELETE' | translate }} </span>
+  </button>
+  <a href="/ux/#/engineer/{{siteLinkIndex}}/{{siteLinkIdHigh}}/{{siteLinkIdLow}}" class="btn btn-default" target="htSolutions">
+    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+    <span>{{'ENGINEER' | translate}}!</span>
+  </a>
+</div>

@@ -5,9 +5,10 @@ import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.binding.api.ReadTransaction;
 import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
 import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
+import org.opendaylight.mwtn.aotsMConnector.impl.AotsMProviderClient;
 import org.opendaylight.mwtn.devicemanager.impl.database.service.HtDatabaseEventsService;
 import org.opendaylight.mwtn.devicemanager.impl.xml.WebSocketServiceClient;
-import org.opendaylight.mwtn.ecompConnector.impl.EventProviderClient;
+import org.opendaylight.mwtn.ecompConnector.impl.EcompProviderClient;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.NetconfNode;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.NetconfNodeConnectionStatus.ConnectionStatus;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node;
@@ -26,7 +27,7 @@ public class ONFCoreNetworkElementFactory {
 
     public static ONFCoreNetworkElementRepresentation create( String mountPointNodeName,
             DataBroker dataBroker, WebSocketServiceClient webSocketService, HtDatabaseEventsService databaseService, InstanceIdentifier<Node> instanceIdentifier,
-            DataBroker mountpointDataBroker, EventProviderClient ecompProvider ) {
+            DataBroker mountpointDataBroker, EcompProviderClient ecompProvider,AotsMProviderClient aotsmClient ) {
 
         ReadTransaction tx=dataBroker.newReadOnlyTransaction();
         ONFCoreNetworkElementRepresentation res = null;
@@ -43,9 +44,9 @@ public class ONFCoreNetworkElementFactory {
 
                         LOG.info("Mountpoint {} capabilities {}",mountPointNodeName, capabilities);
 
-                        res = ONFCoreNetworkElement10.build(mountPointNodeName, capabilities, mountpointDataBroker, webSocketService, databaseService, ecompProvider);
+                        res = ONFCoreNetworkElement10.build(mountPointNodeName, capabilities, mountpointDataBroker, webSocketService, databaseService, ecompProvider,aotsmClient);
                         if (res == null) {
-                            res = ONFCoreNetworkElement12.build(mountPointNodeName, capabilities, mountpointDataBroker, webSocketService, databaseService, ecompProvider);
+                            res = ONFCoreNetworkElement12.build(mountPointNodeName, capabilities, mountpointDataBroker, webSocketService, databaseService, ecompProvider,aotsmClient);
                         }
                     }
                 }

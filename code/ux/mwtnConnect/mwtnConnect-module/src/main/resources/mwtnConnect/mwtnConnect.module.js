@@ -29,11 +29,11 @@ define(['angularAMD',
     NavHelperProvider.addToMenu('mwtnConnect', {
      "link" : "#/mwtnConnect",
      "active" : "main.mwtnConnect",
-     "title" : "MWTN Connect",
+     "title" : "SDN-C Connect",
      "icon" : "fa fa-plug",  // Add navigation icon css class here
      "page" : {
-        "title" : "MWTN Connect",
-        "description" : "mwtnConnect"
+        "title" : "SDN-C Connect",
+        "description" : "Connection supervision of physical network function to ONAP SDN-C-4-Wireless"
      }
     });
 

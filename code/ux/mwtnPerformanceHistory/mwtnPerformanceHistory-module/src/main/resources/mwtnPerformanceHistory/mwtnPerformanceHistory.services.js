@@ -18,6 +18,7 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnPerformanceHistory/mwtnPe
     service.getMountPoints = $mwtnCommons.getMountPoints;
     service.getPacParts = $mwtnCommons.getPacParts;
     service.layerProtocolNameOrder = $mwtnCommons.layerProtocolNameOrder;
+    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
     service.yangifyObject = $mwtnCommons.yangifyObject;
 
     service.TimeStampToONFFormat = function (timestamp) {

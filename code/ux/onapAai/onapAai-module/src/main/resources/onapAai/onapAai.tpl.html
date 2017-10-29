@@ -1,0 +1,12 @@
+<alarm-status></alarm-status>
+<pre ng-if="error">{{ error | json }}</pre>
+
+
+<div id="onapAaiGrid" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection ui-grid-pinning
+  ui-grid-resize-columns ui-grid-move-columns class="onapAaiGrid" ng-if="!error"></div>
+</div>
+
+<hr />
+<div class="owl">
+  <span class="white">ONF Wireless for {{odlKarafVersion}} - Build: @buildtime@</span>
+</div>

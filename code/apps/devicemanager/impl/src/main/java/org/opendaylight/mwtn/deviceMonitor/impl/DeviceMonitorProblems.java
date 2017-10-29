@@ -10,9 +10,21 @@ import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
 
 public enum DeviceMonitorProblems {
 
-    notConnected(InternalSeverity.Warning),
-    noConnectionMediator(InternalSeverity.Minor),
-    noConnectionNe(InternalSeverity.Critical);
+	/**
+	 * Mountpoint is not connected via NETCONF with NE/Mediator = ssh connection
+	 */
+    connectionLossOAM(InternalSeverity.Major),
+
+    /**
+     * Mountpoint is connected via Netconf to Mediator, but mediator is not responding.
+     * Connection state to NE is unknown.
+     */
+    connectionLossMediator(InternalSeverity.Major),
+
+    /** Mountpoint is connected via Netconf to Mediator.
+     * This connection is OK, but mediator <-> NE Connection is not OK
+     */
+    connectionLossNeOAM(InternalSeverity.Major);
 
     InternalSeverity severity;
 

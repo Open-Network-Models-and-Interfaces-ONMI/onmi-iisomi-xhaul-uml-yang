@@ -188,8 +188,17 @@ public class HtDatabaseEventsService {
         InputStream resourceStream = loader.getResourceAsStream(RESOURCENAME);
         try {
             props.load(resourceStream);
+
         } catch (IOException e1) {
         }
+        finally {
+        	try {
+        		if(resourceStream!=null)
+        			resourceStream.close();
+			} catch (IOException e) {
+				LOG.debug("failed to close stream");
+			}
+		}
 
         EsVersionInfo version = new EsVersionInfo();
         version.setEsId(configurationId);

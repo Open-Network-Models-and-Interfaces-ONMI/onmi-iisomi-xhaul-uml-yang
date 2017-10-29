@@ -20,7 +20,8 @@ define(['app/mwtnFault/mwtnFault.module',
     
     $rootScope.section_logo = 'src/app/mwtnFault/images/mwtnFault.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
-    $scope.date = new Date().toISOString().replace('T', ' ').replace('Z', ' UTC');
+    $scope.date = new Date().toISOString().toHumanReadableTimeFormat();
+    $scope.odlKarafVersion = $mwtnFault.odlKarafVersion; 
     $scope.highlightFilteredHeader = $mwtnFault.highlightFilteredHeader;
     $scope.oneATime = true;
     
@@ -559,23 +560,14 @@ define(['app/mwtnFault/mwtnFault.module',
             }
             break;
           case 'alarmNotifications':
-            // do nothing
+            $scope.spinner[key] = false;
             break;
           case 'alarmLog':
-            if (status[key]) {
-              $scope.spinner[key]=false;
-            }
-            $window.dispatchEvent(new Event("resize"));
-            var result = document.getElementsByClassName('ui-grid-pager-count-container')[0].childNodes[0].childNodes;
-
-            result.innerHTML = result.innerHTML + ' # {{maxCount}} #';
-            
-            console.info();
+            $scope.refreshLog();
             break;
           default:
-            console.error(key, 'is not implemented!');
+            $mwtnLog.error({component: COMPONENT, message: key + ' is not implemented!'});
           }
-
         }
       });   
     }, true);

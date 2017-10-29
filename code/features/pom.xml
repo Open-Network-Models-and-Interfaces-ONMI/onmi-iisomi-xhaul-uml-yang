@@ -107,23 +107,6 @@
             <type>xml</type>
             <classifier>config</classifier>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>eventmanager-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>eventmanager-impl</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>eventmanager-impl</artifactId>
-            <version>${project.version}</version>
-            <type>xml</type>
-            <classifier>config</classifier>
-        </dependency>
             <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>devicemanager-api</artifactId>
@@ -148,23 +131,6 @@
             </dependency> <dependency> <groupId>${project.groupId}</groupId> <artifactId>nediscovery-impl</artifactId>
             <version>${project.version}</version> <type>xml</type> <classifier>config</classifier>
             </dependency> -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>netconfconnector-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>netconfconnector-impl</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>netconfconnector-impl</artifactId>
-            <version>${project.version}</version>
-            <type>xml</type>
-            <classifier>config</classifier>
-        </dependency>
     </dependencies>
 
 

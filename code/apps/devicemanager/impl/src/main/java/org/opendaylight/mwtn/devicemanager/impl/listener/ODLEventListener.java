@@ -8,6 +8,9 @@
 
 package org.opendaylight.mwtn.devicemanager.impl.listener;
 
+import javax.annotation.Nullable;
+
+import org.opendaylight.mwtn.aotsMConnector.impl.AotsMProviderClient;
 import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
 import org.opendaylight.mwtn.base.netconf.NetconfTimeStamp;
@@ -16,7 +19,7 @@ import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectCreationNotificationXm
 import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectDeletionNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.WebSocketServiceClient;
-import org.opendaylight.mwtn.ecompConnector.impl.EventProviderClient;
+import org.opendaylight.mwtn.ecompConnector.impl.EcompProviderClient;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.ProblemNotification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +30,7 @@ import org.slf4j.LoggerFactory;
  * Specific example here is the registration or deregistration of a netconf device.
  * This service has an own eventcounter to apply to the ONF Coremodel netconf behaviour.
  *
- * Important: Websocket notificatin must be the last action.
+ * Important: Websocket notification must be the last action.
  *
  * @author herbert
  */
@@ -44,9 +47,11 @@ public class ODLEventListener {
     //private final WebsocketmanagerService websocketmanagerService;
     //private final XmlMapper xmlMapper;
     private final HtDatabaseEventsService databaseService;
-    private final EventProviderClient ecompProvider;
-
+    private final EcompProviderClient ecompProvider;
+	private final AotsMProviderClient aotsMProvider;
+	private final String hostname;
     private int eventNumber;
+
 
 
 
@@ -62,17 +67,18 @@ public class ODLEventListener {
      * @param ecompProvider to deliver problems to
      */
     public ODLEventListener(String ownKeyName, WebSocketServiceClient webSocketService,
-            HtDatabaseEventsService databaseService, EventProviderClient ecompProvider) {
+            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider, @Nullable AotsMProviderClient aotsMProvider,String host) {
         super();
 
         this.ownKeyName = ownKeyName;
-
+        this.hostname = host;
         this.webSocketService = webSocketService;
         //this.xmlMapper = xmlMapper;
         //this.websocketmanagerService = websocketmanagerService;
 
         this.databaseService = databaseService;
         this.ecompProvider = ecompProvider;
+        this.aotsMProvider = aotsMProvider;
 
         this.eventNumber = 0;
 
@@ -174,6 +180,8 @@ public class ODLEventListener {
         databaseService.updateFaultCurrent(notificationXml);
 
         ecompProvider.sendProblemNotification(ownKeyName, notificationXml);
+        if (aotsMProvider != null)
+        	aotsMProvider.sendProblemNotification(ownKeyName, notificationXml,false);//not a nealarm, its a sdncontroller alarm
 
         webSocketService.sendViaWebsockets(registrationName, notificationXml);
    }

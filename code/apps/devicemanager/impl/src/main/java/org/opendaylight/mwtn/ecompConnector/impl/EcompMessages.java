@@ -1,4 +1,5 @@
 /**
+        ecompProvider.sendProblemNotification(ownKeyName, notificationXml);
  * ECOMP Messages are generated an send to destination
  *
  * @author herbert

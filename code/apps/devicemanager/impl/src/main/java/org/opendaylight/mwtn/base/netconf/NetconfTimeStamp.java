@@ -14,10 +14,10 @@ public class NetconfTimeStamp {
     private static final Logger LOG = LoggerFactory.getLogger(NetconfTimeStamp.class);
 
     private static final TimeZone TIMEZONEUTC = TimeZone.getTimeZone("GMT");
-    private static final SimpleDateFormat dateFormatResult = init("yyyyMMddHHmmss.S'Z'",TIMEZONEUTC);
+    private static final SimpleDateFormat dateFormatResult = init("yyyy-MM-dd'T'HH:mm:ss.S'Z'",TIMEZONEUTC);
     private static final SimpleDateFormat dateFormatConvert = init("yyyy-MM-dd HH:mm:ss.S", TIMEZONEUTC);
-    private static int MILLISECONDSDIGITS = 1; //Digits of milliseconds  in dateFormatResult
-    private static String MILLISECONDZEROS = "0"; //String with zeros for milliseconds in dateFormatResult
+    private static int MILLISECONDSDIGITS = 3; //Digits of milliseconds  in dateFormatResult
+    private static String MILLISECONDZEROS = "000"; //String with zeros for milliseconds in dateFormatResult
     /*
     private static final Pattern dateNetconfPatter[] = {
             // 10 Groups, 1-7,9+10, ISO8601
@@ -63,7 +63,7 @@ public class NetconfTimeStamp {
         LOG.debug("Init end");
     }*/
 
-    private static SimpleDateFormat init(String format, TimeZone zone ) {
+    public static SimpleDateFormat init(String format, TimeZone zone ) {
         SimpleDateFormat dateFormat;
         dateFormat = new SimpleDateFormat(format);
         dateFormat.setTimeZone(zone);

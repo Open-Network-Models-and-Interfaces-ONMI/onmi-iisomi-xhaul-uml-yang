@@ -12,7 +12,7 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
   function (mwtnPerformanceHistoryoryApp) {
 
     mwtnPerformanceHistoryoryApp.register.controller('mwtnPerformanceHistoryCtrl', ['$scope', '$rootScope', '$window', '$translate', '$mwtnLog', '$mwtnPerformanceHistory', 'uiGridConstants', 'OnfNetworkElement',
-      function ($scope, $rootScope, $window, $translate,$mwtnLog, $mwtnPerformanceHistory, uiGridConstants, OnfNetworkElement) {
+      function ($scope, $rootScope, $window, $translate, $mwtnLog, $mwtnPerformanceHistory, uiGridConstants, OnfNetworkElement) {
 
       var COMPONENT = 'mwtnPerformanceHistory';
       $mwtnLog.info({ component: COMPONENT, message: 'mwtn historical Performance started!' });
@@ -21,16 +21,16 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
 
       var globalFilter;
 
-      //layer protocol selector
-      $scope.layerProtocol = 'MWPS';
-      $scope.layerProtocols = ['MWPS', 'ETC'];
+      $scope.odlKarafVersion = $mwtnPerformanceHistory.odlKarafVersion; 
+
+      $scope.selecteditem = {};
 
       //time selector
-      $scope.timePeriod = "15 minutes";
+      $scope.selecteditem.timePeriod = "15 minutes";
       $scope.timePeriods = ["15 minutes", "24 hours"];
 
       //interface selector
-      $scope.selectedLtpId = undefined;
+      $scope.selecteditem.selectedLtpId = undefined;
       $scope.availableLtpIds = [];
 
       //stateobject
@@ -618,7 +618,7 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
       };
 
       var processRequestInGrid = function (response, grid) {
-        console.log(grid.data);
+        // console.log(grid.data);
         switch (grid.data) {
           case "performance826":
             var list = [];
@@ -944,13 +944,13 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
         localQuery.query.bool.must.push({ prefix: { "layer-protocol-name": lpn } });
 
         //add interface selector to filter query
-        if ($scope.selectedLtpId) {
-          localQuery.query.bool.must.push({ prefix: { "uuid-interface": $scope.selectedLtpId } });
+        if ($scope.selecteditem.selectedLtpId) {
+          localQuery.query.bool.must.push({ prefix: { "uuid-interface": $scope.selecteditem.selectedLtpId } });
         }
 
         var selected15minPeriod = true;
-        if ($scope.timePeriod !== $scope.timePeriods[0]) selected15minPeriod = false;
-
+        if ($scope.selecteditem.timePeriod !== $scope.timePeriods[0]) selected15minPeriod = false;
+        console.warn('selected15minPeriod', selected15minPeriod);
         return $mwtnPerformanceHistory.getFilteredSortedData((pagenr - 1) * pagesize, pagesize, sort, localQuery, selected15minPeriod);
       };
 
@@ -973,10 +973,13 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
       $scope.status = { performance826: true, performanceEthernetContainer: false };
       $scope.spinner = {};
 
-      $scope.$watch('selectedLtpId', function (newValue, oldValue) {
-        if (newValue && oldValue !== "" && newValue !== oldValue && $scope.onfNetworkElement) {
-          //clear lists visible on screen
-          $scope.layerProtocol = $scope.onfNetworkElement.getLpById(newValue).getLayer();
+      $scope.$watch(function() {
+        return $scope.selecteditem;
+      }, function (newValue, oldValue) {
+        console.warn('selecteditem###', newValue, oldValue, $scope.networkElementId );
+
+        if (newValue.selectedLtpId && newValue.selectedLtpId !== oldValue.selectedLtpId && $scope.onfNetworkElement) {
+          $scope.layerProtocol = $scope.onfNetworkElement.getLpById(newValue.selectedLtpId).getLayer();
 
           $scope.performance826 = [];
           $scope.receiveLevel = [];
@@ -995,29 +998,29 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
           if (!isOneTabOpen) {
             $scope.status = { performance826: $scope.layerProtocol === 'MWPS', performanceEthernetContainer: $scope.layerProtocol === 'ETC' };
           }
-
-          chooseGrid(getKey($scope.status));
         }
 
+        chooseGrid(getKey($scope.status));
+
       }, true);
+      
 
       $scope.$watch('status', function (status, oldValue) {
+        console.warn('status', status, oldValue,$scope.networkElementId );
         if ($scope.networkElementId && status && status !== oldValue) {
           chooseGrid(getKey(status, oldValue));
         }
       }, true);
 
-      $scope.$watch('layerProtocol', function (status, oldValue) {
-        if ($scope.networkElementId && status && status !== oldValue) {
-          $scope.status = { performance826: $scope.layerProtocol === 'MWPS', performanceEthernetContainer: $scope.layerProtocol === 'ETC' };
-        }
-      }, true);
 
-      $scope.$watch('timePeriod', function (newValue, oldValue) {
-        if (newValue && oldValue !== "" && newValue !== oldValue) {
-          chooseGrid(getKey($scope.status));
-        }
-      }, true);
+      // $scope.$watch(function(){
+      //   $scope.selecteditem.timePeriod;
+      // }, function (newValue, oldValue) {
+      //   console.warn('timePeriod', status, oldValue,$scope.networkElementId );
+      //   if (newValue && oldValue !== "" && newValue !== oldValue) {
+      //     chooseGrid(getKey($scope.status));
+      //   }
+      // }, true);
 
       $scope.collapseAll = function () {
         // close all groups
@@ -1061,7 +1064,7 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
               return {key: ltp.getLayerProtocols()[0].getId(), label:ltp.getLabel()};
             });
             if ($scope.availableLtpIds.length > 0) {
-              $scope.selectedLtpId = $scope.availableLtpIds[0].key;
+              $scope.selecteditem.selectedLtpId = $scope.availableLtpIds[0].key;
             }
             break;
           default:
@@ -1081,8 +1084,10 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
 
       //get data on ne selection
       $scope.$watch('networkElement', function (neId, oldValue) {
+        console.warn('networkElement', neId, oldValue,$scope.networkElementId );
+        
         if (neId && neId !== '' && neId !== oldValue) {
-          $scope.selectedLtpId = undefined;
+          $scope.selecteditem.selectedLtpId = undefined;
           var revision;
           $scope.networkElements.map(function (ne) {
             if (ne.id === neId) revision = ne.revision;
@@ -1105,10 +1110,13 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
             revision: $scope.revision,
             pacId: 'ne'
           };
+          console.warn('PM HIstory getPacPMHistory', JSON.stringify(spec));
           $mwtnPerformanceHistory.getPacParts(spec).then(function(success){
             $scope.collapseAll();
+            // console.warn('PM HIstory getPacPMHistory', JSON.stringify(success));
             updatePart(spec, $mwtnPerformanceHistory.yangifyObject(success));
           }, function(error){
+            console.error(JSON.stringify(error));
             $scope.collapseAll();
             updatePart(spec, error);
           });

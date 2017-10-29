@@ -27,7 +27,7 @@ define(['angularAMD',
 
     NavHelperProvider.addControllerUrl('app/mwtnFault/mwtnFault.controller');
     NavHelperProvider.addToMenu('mwtnFault', {
-     "link" : "#/mwtnFault",
+     "link" : "#/mwtnFault/",
      "active" : "main.mwtnFault",
      "title" : "MWTN Fault",
      "icon" : "fa fa-bell",  // Add navigation icon css class here
@@ -40,7 +40,7 @@ define(['angularAMD',
     var access = routingConfig.accessLevels;
 
     $stateProvider.state('main.mwtnFault', {
-        url: 'mwtnFault',
+        url: 'mwtnFault/:nodeId',
         access: access.admin,
         views : {
             'content' : {

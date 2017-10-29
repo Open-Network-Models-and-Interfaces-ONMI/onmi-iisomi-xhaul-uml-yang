@@ -21,6 +21,7 @@ define(
                   function($scope, $rootScope, $mwtnEvents, uiGridConstants) {
 
                     $rootScope.section_logo = 'src/app/mwtnEvents/images/mwtnEvents.png';
+                    $scope.odlKarafVersion = $mwtnEvents.odlKarafVersion;
 
                     $scope.status = {alarms:true};
                     $scope.oneATime = true;
@@ -93,14 +94,14 @@ define(
                                   break;                                
                                 case 'ObjectCreationNotification':
                                   formated.action = 'created';
-                                  if (formated.nodeName === 'SDN-Controller') {
+                                  if (formated.nodeName.contains('SDN-Controller')) {
                                     formated.objectType = 'NETCONF session';
                                   }
                                   $scope.gridOptionsObject.data.push(formated);
                                   break;
                                 case 'ObjectDeletionNotification':
                                   formated.action = 'deleted';
-                                  if (formated.nodeName === 'SDN-Controller') {
+                                  if (formated.nodeName.contains('SDN-Controller')) {
                                     formated.objectType = 'NETCONF session';
                                   }
                                   $scope.gridOptionsObject.data.push(formated);

@@ -1,0 +1,21 @@
+<div class="htProfile">
+  <div class="container">
+    <ht-header headline="MBH_PLANNER"></ht-header>
+    <div class="row">
+      <div class="col-md-12">
+        <div ng-show="!gridOptions.data.length">{{ 'ZERO_RECORDS' | translate }}</div>
+        <div ng-show="gridOptions.data.length" 
+             ui-grid="gridOptions" 
+             ui-grid-exporter 
+             ui-grid-selection 
+             ui-grid-pinning 
+             ui-grid-resize-columns
+             ui-grid-move-columns 
+             class="siteManagerGrid"
+        ></div>
+      </div>
+    </div>
+    <hr style="clear: both" />
+    <ht-footer></ht-footer>
+  </div>
+</div>

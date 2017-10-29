@@ -23,4 +23,6 @@ public interface ONFCoreNetworkElementRepresentation extends DeviceMonitorSuppor
 
        public void doRegisterMicrowaveEventListener(MountPoint mountPoint);
 
+       public void sync();
+
 }
