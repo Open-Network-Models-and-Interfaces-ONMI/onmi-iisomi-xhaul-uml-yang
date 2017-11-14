@@ -137,8 +137,8 @@ Clone the Source Git repository for the open source project
 
 ```
 cd ~
-git clone https://git-highstreet-technologies.com/highstreet/SDN-Projects-Boron.git
-cd SDN-Projects-Boron/code
+git clone https://github.com/OpenNetworkingFoundation/CENTENNIAL.git
+cd CENTENNIAL/code
 ```
 #### Step #2.3 -  Prepare database configuration
 Copy the database setup template for a single node into the activeConfig.
