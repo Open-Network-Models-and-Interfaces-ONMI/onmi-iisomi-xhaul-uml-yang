@@ -8,9 +8,33 @@
   <repository>mvn:org.opendaylight.netconf/features-netconf-connector/${netconf.version}/xml/features </repository>
   <repository>mvn:org.opendaylight.openflowplugin/features-openflowplugin/${openflow.plugin.version}/xml/features </repository>
 
-  <feature name="onap-sdnr-all" version="${project.version}" description="OpenDaylight :: ONAP :: SDN-R :: All">
+  <repository>mvn:org.apache.karaf.decanter/apache-karaf-decanter/${decanter.version}/xml/features</repository>
+  <repository>mvn:org.opendaylight.mwtn/mwtn-parent/${project.version}/xml/features</repository>
+
+  <feature name="sdnr-wt-all" version="${project.version}" description="ONAP :: OpenDaylight :: SDN-R :: All">
+    <feature version="${mdsal.version}">odl-mdsal-clustering</feature>
+    <feature version="${netconf.version}">odl-netconf-clustered-topology</feature>
+    <!-- <feature version="${netconf.version}">odl-netconf-topology</feature> -->
+    <feature version="${restconf.version}">odl-restconf-all</feature>
+    <feature version="${mdsal.version}">odl-mdsal-apidocs</feature>
+    
+    <feature version="${elasticsearch.version}">elasticsearch</feature>
+
+    <feature version="${project.version}">sdnr-wt-apps-all</feature>
+    <feature version="${project.version}">sdnr-wt-ux-all</feature>
+  </feature>
+
+  <feature name="onap-sdnr-all" version="${project.version}" description="ONAP :: OpenDaylight :: SDN-R :: All">
     <feature version="${project.version}">odl-mwtn-apps-all</feature>
     <feature version="${project.version}">onap-sdnr-ux-all</feature>
+    <!-- <feature version="${project.version}">sdnr-ran-all</feature> -->
+  </feature>
+
+  <feature name="sdnr-wt-apps-all" version="${project.version}" description="ONAP :: SDN-R :: WT :: All apps">
+    <feature version="${project.version}">odl-mwt-models</feature>
+    <feature version="${project.version}">odl-mwt-websocketmanager</feature>
+    <feature version="${project.version}">odl-mwt-devicemanager</feature>
+    <!-- <feature version="${project.version}">odl-mwt-event</feature> -->
   </feature>
 
   <feature name="tst-mwtn-all" version="${project.version}" description="MicrowaveTransportNetwork :: TST">
