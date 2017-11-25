@@ -19,7 +19,10 @@
   <div class="row">
     <div class="col-md-3"><span>IP address:</div>
     <div class="col-md-9">
-    	<input type="text" ng-model="mediator.remoteip" class="form-control"/>
+    	<input type="text" ng-model="mediator.remoteip" class="form-control" style="display:inline-block;width:70%;"/>
+    	<span>&nbsp;:&nbsp;</span>
+    	<input type="text" ng-model="mediator.remoteport" class="form-control" style="display:inline-block;width:25%;float:right;"/>
+
     </div>
   </div>
   <div class="row">
@@ -41,6 +44,41 @@
     		<option ng-repeat="option in options.nexmlmodel" value="{{option}}">{{option}}</option>
     	</select>
     </div>
+  </div>
+  <hr class="row" />
+  <div class="row">
+	<uib-accordion close-others="oneAtATime">
+		<div uib-accordion-group class="panel-default"	is-open="false">
+		<uib-accordion-heading>
+		    <i class="pull-left fa" ng-class="{'fa-chevron-down': false, 'fa-chevron-right': true}"></i>
+		    <span>{{'ODL Connection Config' | translate}}</span>
+		</uib-accordion-heading>
+		<div class="" style="position:relative;">
+			<button class="btn btn-default" nc-click="odledit()" style="position:absolute;top:1rem;right:1rem;"><i class="fa fa-edit"></i></button>
+			<div class="row">
+				<div class="col-md-3"><span >Hostname:</span></div>
+				<div class="col-md-6"><input ng-disabled="!odlsavebtn.enabled" class="form-control" type="text" ng-model="odlconfig.Server" /></div>
+			</div>
+			<div class="row">
+				<div class="col-md-3"><span >Port:</span></div>
+				<div class="col-md-6"><input ng-disabled="!odlsavebtn.enabled" class="form-control" type="text" ng-model="odlconfig.Port" /></div>
+			</div>
+			<div class="row">
+				<div class="col-md-3"><span >Username:</span></div>
+				<div class="col-md-6"><input ng-disabled="!odlsavebtn.enabled" class="form-control" type="text" ng-model="odlconfig.User" /></div>
+			</div>
+			<div class="row">
+				<div class="col-md-3"><span >Password:</span></div>
+				<div class="col-md-6"><input ng-disabled="!odlsavebtn.enabled" class="form-control" type="text" ng-model="odlconfig.Password" /></div>
+			</div>
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-6"><button class="btn btn-default" ng-click="odlsave" ng-disabled="!odlsavebtn.enabled">Save</button></div>
+			</div>
+
+		</div>
+</div>
+	</uib-accordion>
   </div>
   <div class="row">
   	<div class="col-md-12">

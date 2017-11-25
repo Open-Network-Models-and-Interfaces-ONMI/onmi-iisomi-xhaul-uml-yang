@@ -97,7 +97,7 @@ define("mwtnInventory.service", ["require", "exports", "angularAMD"], function (
                     if (cur['netconf-node-topology:connection-status'] === 'connected')
                         acc.push(cur["node-id"]);
                     return acc;
-                }, []);
+                }, []).sort();
             });
         };
         /**

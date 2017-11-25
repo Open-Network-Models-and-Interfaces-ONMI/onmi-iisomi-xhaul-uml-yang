@@ -635,27 +635,32 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
     }
 
     // get important infromation from yang modules
+    console.error('help');
     $mwtnBrowser.getModules().then(function(success){
 
-      var pacOrder = {
-        'onf-ethernet-conditional-packages:ethernet-pac' : 1,
-        'microwave-model:mw-air-interface-diversity-pac' : 1,
-        'microwave-model:mw-air-interface-hsb-end-point-pac' : 1,
-        'microwave-model:mw-air-interface-hsb-fc-switch-pac' : 2,
-        'onf-core-model-conditional-packages:holder-pac' : 3,
-        'onf-core-model-conditional-packages:connector-pac' : 4,
-        'onf-core-model-conditional-packages:equipment-pac' : 5,
-        'microwave-model:mw-ethernet-container-pac' : 6,
-        'MicrowaveModel-ObjectClasses-EthernetContainer:MW_EthernetContainer_Pac' : 7,
-        'microwave-model:mw-ethernet-container-pac' : 8,
-        'microwave-model:mw-tdm-container-pac': 9,
-        'microwave-model:mw-pure-ethernet-structure-pac': 10,
-        'microwave-model:mw-hybrid-mw-structure-pac': 11,
-        'MicrowaveModel-ObjectClasses-PureEthernetStructure:MW_PureEthernetStructure_Pac' : 12,
-        'microwave-model:mw-air-interface-pac' : 13,
-        'MicrowaveModel-ObjectClasses-AirInterface:MW_AirInterface_Pac' : 14
-      };
+      var pacOrder = [
+        'onf-otn-odu-conditional-packages:otn-odu-termination-pac',
+        'onf-otn-odu-conditional-packages:otn-odu-connection-pac',
+        'onf-ethernet-conditional-packages:ethernet-pac',
+        'microwave-model:mw-air-interface-diversity-pac',
+        'microwave-model:mw-air-interface-hsb-end-point-pac',
+        'microwave-model:mw-air-interface-hsb-fc-switch-pac',
+        'onf-core-model-conditional-packages:holder-pac',
+        'onf-core-model-conditional-packages:connector-pac',
+        'onf-core-model-conditional-packages:equipment-pac',
+        'microwave-model:mw-ethernet-container-pac',
+        'MicrowaveModel-ObjectClasses-EthernetContainer:MW_EthernetContainer_Pac',
+        'microwave-model:mw-ethernet-container-pac',
+        'microwave-model:mw-tdm-container-pac',
+        'microwave-model:mw-pure-ethernet-structure-pac',
+        'microwave-model:mw-hybrid-mw-structure-pac',
+        'MicrowaveModel-ObjectClasses-PureEthernetStructure:MW_PureEthernetStructure_Pac',
+        'microwave-model:mw-air-interface-pac',
+        'MicrowaveModel-ObjectClasses-AirInterface:MW_AirInterface_Pac'
+      ];
 
+
+      console.error(JSON.stringify(success));
       $scope.modules = success;
       $scope.orderedPacs = [];
       $scope.parts = [];
@@ -666,10 +671,10 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
           $scope.orderedPacs.push([module, pacName].join(':'));
           // sort 
           $scope.orderedPacs.sort(function(a, b) {
-            if (!pacOrder[a]) console.warn(a);
-            if (!pacOrder[b]) console.warn(b);
-            if(pacOrder[a] > pacOrder[b]) return 1;
-            if(pacOrder[a] < pacOrder[b]) return -1;
+            if (!pacOrder.indexOf(a)) console.warn(a);
+            if (!pacOrder.indexOf(b)) console.warn(b);
+            if(pacOrder.indexOf(a) > pacOrder.indexOf(b)) return 1;
+            if(pacOrder.indexOf(a) < pacOrder.indexOf(b)) return -1;
             return 0;
           })
 
@@ -706,7 +711,8 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
         case '2016-08-11':
         case '2017-02-17':
         case '2017-03-20':
-          // console.log(JSON.stringify(data));        
+        case '2017-10-20':
+        // console.log(JSON.stringify(data));        
           $scope.onfNetworkElement = new OnfNetworkElement(data['network-element']);
           var fd = $scope.onfNetworkElement.getForwardingDomain();
           $scope.forwardingDomain = undefined;
@@ -773,6 +779,7 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
                 $scope.pacs[conditionalPackage] = [];
               }
               $scope.pacs[conditionalPackage].push(template);
+              console.error(conditionalPackage, JSON.stringify(template));
             } else {
               $mwtnLog.info({component: COMPONENT, message: 'No conditional package for  ' + ltp.getLabel() });
             }

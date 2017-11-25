@@ -13,7 +13,7 @@ define([ 'app/mwtnCommons/mwtnCommons.module'], function(mwtnCommonsApp) {
       templateUrl : 'src/app/mwtnFault/templates/alarmStatus.tpl.html',
       controller :  ['$scope', '$mwtnCommons', '$mwtnDatabase', '$timeout', function($scope, $mwtnCommons, $mwtnDatabase, $timeout){
         
-        $scope.link = '#/mwtnFault';
+        $scope.link = '#/pnfFault/';
           
         $scope.nodeCount = 0;
           

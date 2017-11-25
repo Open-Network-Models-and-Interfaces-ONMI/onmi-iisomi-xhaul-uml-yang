@@ -19,6 +19,10 @@
       <span>{{'MWTN_AMSL_GRD' | translate}}: </span>
       <b> {{vm.site.amslGround | number:2 }} </b>
       <span> [m]</span>
+      <br />
+      <span>{{'MWTN_TYPE' | translate}}: </span>
+      <b> {{vm.site.type || 'pyhsical-network-function' }} </b>
+      <span> </span>
     </p>
     <p>
       <b>Site-Links ({{vm.site.siteLinks.length}}): </b>
@@ -39,9 +43,9 @@
             <td class='text-left'>
               <a href='/ux/#/siteLinks/{{siteIndex}}/{{siteLink._source.id.high}}/{{siteLink._source.id.low}}' target='htSolutions'>{{siteLink.id}}</a>
             </td>
-            <td class='text-right'>{{ siteLink.azimuthAz }}</td>
-            <td class='text-right'>{{ siteLink.azimuthZa }}</td>
-            <td class='text-right'>{{ siteLink.length }}</td>
+            <td class='text-right'>{{ siteLink.azimuthAz | number : 1 }}</td>
+            <td class='text-right'>{{ siteLink.azimuthZa | number : 1 }}</td>
+            <td class='text-right'>{{ siteLink.length  | number : 3 }}</td>
           </tr>
         </tbody>
       </table>

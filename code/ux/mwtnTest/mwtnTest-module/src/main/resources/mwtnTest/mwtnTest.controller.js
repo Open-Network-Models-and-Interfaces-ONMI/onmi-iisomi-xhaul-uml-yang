@@ -27,6 +27,8 @@ define(['app/mwtnTest/mwtnTest.module',
     $mwtnTest.getModules().then(function(success){
 
       var pacOrder = {
+        'onf-otn-odu-conditional-packages:otn-odu-connection-pac' : 2,
+        'onf-otn-odu-conditional-packages:otn-odu-termination-pac' : 1,
         'onf-ethernet-conditional-packages:ethernet-pac' : 1,
         'microwave-model:mw-air-interface-diversity-pac' : 1,
         'microwave-model:mw-air-interface-hsb-end-point-pac' : 1,
@@ -317,7 +319,10 @@ define(['app/mwtnTest/mwtnTest.module',
         case 'microwave-model:mw-tdm-container-pac':
         case 'microwave-model:mw-ethernet-container-pac':
         case 'onf-ethernet-conditional-packages:ethernet-pac':
-          if (!spec.partId) {
+        // Poc 4.1
+        case 'onf-otn-odu-conditional-packages:otn-odu-connection-pac':
+        case 'onf-otn-odu-conditional-packages:otn-odu-termination-pac':
+        if (!spec.partId) {
             initPac(spec);
           } else {
             updateSubClassData(spec, data);

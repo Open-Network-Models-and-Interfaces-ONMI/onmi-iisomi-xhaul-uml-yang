@@ -6,17 +6,17 @@ define( ["require", "exports"], function (require, exports) {
         //$translatePartialLoaderProvider.addPart('app/mwtnInventory/locale/locale');
         NavHelperProvider.addControllerUrl('app/mwtnInventory/mwtnInventory.controller');
         NavHelperProvider.addToMenu('mwtnInventory', {
-            "link": "#/mwtnInventory/",
+            "link": "#/pnfInventory/",
             "active": "main.mwtnInventory",
-            "title": "MWTN Inventory",
+            "title": "pnf Inventory",
             "icon": "fa  fa-book",
             "page": {
-                "title": "MWTN Demo",
+                "title": "pnf Demo",
                 "description": "mwtnInventory"
             }
         });
         $stateProvider.state('main.mwtnInventory', {
-            url: 'mwtnInventory/:nodeId?',
+            url: 'pnfInventory/:nodeId?',
             access: 2,
             views: {
                 'content': {

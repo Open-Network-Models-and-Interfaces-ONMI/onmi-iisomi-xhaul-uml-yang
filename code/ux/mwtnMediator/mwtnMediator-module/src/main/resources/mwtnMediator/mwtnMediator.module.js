@@ -25,12 +25,12 @@ define(['angularAMD',
 
     NavHelperProvider.addControllerUrl('app/mwtnMediator/mwtnMediator.controller');
     NavHelperProvider.addToMenu('mwtnMediator', {
-     "link" : "#/mwtnMediator",
+     "link" : "#/pnfMediator",
      "active" : "main.mwtnMediator",
-     "title" : "MWTN Mediator",
+     "title" : "pnf Mediator",
      "icon" : "fa fa-globe",  // Add navigation icon css class here
      "page" : {
-        "title" : "MWTN Mediator",
+        "title" : "pnf Mediator",
         "description" : "mwtnMediator"
      }
     });
@@ -38,7 +38,7 @@ define(['angularAMD',
     var access = routingConfig.accessLevels;
 
     $stateProvider.state('main.mwtnMediator', {
-        url: 'mwtnMediator',
+        url: 'pnfMediator',
         access: access.admin,
         views : {
             content : {

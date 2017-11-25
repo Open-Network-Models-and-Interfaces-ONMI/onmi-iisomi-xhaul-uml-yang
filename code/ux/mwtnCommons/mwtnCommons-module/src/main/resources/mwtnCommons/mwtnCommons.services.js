@@ -1144,7 +1144,8 @@ define(
               case '2017-02-17':
               case '2017-03-20':
               case '2017-03-24':
-                ltpKey = 'ltp';
+              case '2017-10-20':
+              ltpKey = 'ltp';
                 break;
               default:
                 ltpKey = '_ltpRefList';
@@ -1180,6 +1181,9 @@ define(
           case 'microwave-model:mw-tdm-container-pac':
           case 'microwave-model:mw-ethernet-container-pac':
           case 'onf-ethernet-conditional-packages:ethernet-pac':
+          // PoC 4.1
+          case 'onf-otn-odu-conditional-packages:otn-odu-connection-pac':
+          case 'onf-otn-odu-conditional-packages:otn-odu-termination-pac':
             if (spec.partId) {
               service.getConditionalPackagePart(spec).then(function (success) {
                 success.layerProtocol = spec.layerProtocolId;
@@ -1246,6 +1250,9 @@ define(
           case 'microwave-model:mw-tdm-container-pac':
           case 'microwave-model:mw-ethernet-container-pac':
           case 'onf-ethernet-conditional-packages:ethernet-pac':
+          // PoC 4.1
+          case 'onf-otn-odu-conditional-packages:otn-odu-connection-pac':
+          case 'onf-otn-odu-conditional-packages:otn-odu-termination-pac':
               service.setConditionalPackagePart(spec, data).then(function (success) {
                 deferred.resolve(success);
               }, function (error) {
@@ -1294,7 +1301,10 @@ define(
           case 'microwave-model:mw-tdm-container-pac':
           case 'microwave-model:mw-ethernet-container-pac':
           case 'onf-ethernet-conditional-packages:ethernet-pac':
-              service.setConditionalPackagePartList(spec, listData).then(function (success) {
+          // PoC 4.1
+          case 'onf-otn-odu-conditional-packages:otn-odu-connection-pac':
+          case 'onf-otn-odu-conditional-packages:otn-odu-termination-pac':
+          service.setConditionalPackagePartList(spec, listData).then(function (success) {
                 deferred.resolve(success);
               }, function (error) {
                 $mwtnLog.error({ component: COMPONENT, message: 'Modification of ' + JSON.stringify(spec) + ' failed!' });
@@ -1594,7 +1604,8 @@ define(
             case "2017-02-17":
             case "2017-03-20":
             case "2017-03-24":
-              return [
+            case "2017-10-20":
+            return [
                 'operational/network-topology:network-topology/topology/topology-netconf/node/',
                 neId,
                 '/yang-ext:mount/core-model:network-element'].join('');
@@ -1615,15 +1626,15 @@ define(
                 '/yang-ext:mount/MicrowaveModel-NetworkElement-CurrentProblemList:NetworkElementCurrentProblems'].join('');
             case "2017-02-17":
             case "2017-03-20": // TODO sko equipmentAlarms check new yang file if agreed
-              return [
+            return [
                 'operational/network-topology:network-topology/topology/topology-netconf/node/',
                 neId,
-                '/yang-ext:mount/MicrowaveModel-NetworkElement-CurrentProblemList:NetworkElementCurrentProblems'].join('');
+                '/yang-ext:mount/onf-core-model-conditional-packages:network-element-pac/network-element-current-problems'].join('');
             default:
               return [
                 'operational/network-topology:network-topology/topology/topology-netconf/node/',
                 neId,
-                '/yang-ext:mount/MicrowaveModel-NetworkElement-CurrentProblemListCurrentProblems'].join('');
+                '/yang-ext:mount/onf-core-model-conditional-packages:network-element-pac/network-element-current-problems'].join('');
           }
         }
       };
@@ -2408,7 +2419,7 @@ define(
                   layerProtocolId: lp.getId()
                 };
                 spec.partId = service.getPartGlobalId(spec, 'configuration');
-                // console.log(JSON.stringify(spec));
+                console.error(JSON.stringify(spec));
                 service.getPacParts(spec).then(function (success) {
                   // console.log(JSON.stringify(success));
                   updatePart(spec, service.yangifyObject(success));
@@ -2638,7 +2649,7 @@ define(
           default:
             data.type = 'error';
             data.component = '$mwtnLog';
-            data.message = 'MWTN log service is called with wrong parameters.';
+            data.message = 'pnf log service is called with wrong parameters.';
         }
         // console.log(JSON.stringify(data));
         return data;
@@ -2749,6 +2760,7 @@ define(
       };
       
       service.deleteForwardingConstruct = function(spec) {
+      
         var deferred = $q.defer();
         var request = {
           method: 'POST',
@@ -3363,7 +3375,8 @@ define(
           'mwps-ttp': { 'capability': 'uri:onf:MicrowaveModel-ObjectClasses-AirInterface?module=MicrowaveModel-ObjectClasses-AirInterface', 'revision': '2016-09-01', 'conditional-package': 'MW_AirInterface_Pac' },
           'mws-ttp': { 'capability': 'uri:onf:MicrowaveModel-ObjectClasses-PureEthernetStructure?module=MicrowaveModel-ObjectClasses-PureEthernetStructure', 'revision': '2016-09-02', 'conditional-package': 'MW_PureEthernetStructure_Pac' },
           'eth-ctp-ctp': { 'capability': 'uri:onf:MicrowaveModel-ObjectClasses-EthernetContainerl?module=MicrowaveModel-ObjectClasses-EthernetContainer', 'revision': '2016-09-02', 'conditional-package': 'MW_EthernetContainer_Pac' },
-          'etc-ctp': { 'capability': 'uri:onf:MicrowaveModel-ObjectClasses-EthernetContainerl?module=MicrowaveModel-ObjectClasses-EthernetContainer', 'revision': '2016-09-02', 'conditional-package': 'MW_EthernetContainer_Pac' }
+          'etc-ctp': { 'capability': 'uri:onf:MicrowaveModel-ObjectClasses-EthernetContainerl?module=MicrowaveModel-ObjectClasses-EthernetContainer', 'revision': '2016-09-02', 'conditional-package': 'MW_EthernetContainer_Pac' },
+
         };
         // create empty extension, if not exists
         if (!data.extension) {
@@ -3425,7 +3438,6 @@ define(
           // check hardcoded alternatives
           var ituLabel = this.getItuLabel();
           if (!defaultMapping[ituLabel]) {
-            console.warn('No default mapping found for ' + ituLabel);
             return '';
           }
           return defaultMapping[ituLabel][key];
@@ -3486,6 +3498,9 @@ define(
         this.getId = function () {
           return this.getData().uuid;
         };
+        this.getName = function () {
+          return this.getData().name[0].value;
+        };
         this.getDirectionality = function () {
           return this.getData()['ltp-direction'];
         };
@@ -3505,6 +3520,7 @@ define(
           return this.layerProtocols;
         };
         this.getConditionalPackages = function () {
+          console.error(JSON.stringifythis.getLayerProtocols()());
           return this.getLayerProtocols().map(function (lp) {
             return lp.getConditionalPackage();
           });

@@ -21,12 +21,12 @@ define(['angularAMD', 'app/routingConfig', 'app/core/core.services', 'common/con
 
     NavHelperProvider.addControllerUrl('app/mwtnCompare/mwtnCompare.controller');
     NavHelperProvider.addToMenu('mwtnCompare', {
-     "link" : "#/mwtnCompare/",
+     "link" : "#/pnfCompare/",
      "active" : "main.mwtnCompare",
-     "title" : "MWTN Compare",
+     "title" : "pnf Compare",
      "icon" : "fa fa-tags",  // Add navigation icon css class here
      "page" : {
-        "title" : "MWTN Compare",
+        "title" : "pnf Compare",
         "description" : "mwtnCompare"
      }
     });
@@ -34,7 +34,7 @@ define(['angularAMD', 'app/routingConfig', 'app/core/core.services', 'common/con
     var access = routingConfig.accessLevels;
 
     $stateProvider.state('main.mwtnCompare', {
-        url: 'mwtnCompare/:nodeId',
+        url: 'pnfCompare/:nodeId',
         access: access.admin,
         views : {
             'content' : {

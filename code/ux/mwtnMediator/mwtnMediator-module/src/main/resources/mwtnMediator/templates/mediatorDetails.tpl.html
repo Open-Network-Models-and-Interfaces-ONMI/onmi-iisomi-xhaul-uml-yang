@@ -8,7 +8,7 @@
   </div>
   <div class="row">
      <div class="col-xs-3"><span>DeviceIP:</span></div>
-     <div class="col-xs-9"><span>{{data.el.DeviceIp}}</span></div>
+     <div class="col-xs-9"><span>{{data.el.DeviceIp}}:{{data.el.DevicePort}}</span></div>
   </div>
   <div class="row">
      <div class="col-xs-3"><span>TrapsPort:</span></div>
@@ -24,11 +24,22 @@
   </div>
   <div class="row">
      <div class="col-xs-3"><span>Status:</span></div>
-     <div class="col-xs-9"><span>{{data.el.PID}}</span></div>
+     <div class="col-xs-9">
+     	<span class="mwtnMediatorStatusRunning" ng-show="{{data.el.PID}}>0">running ({{data.el.PID}})</span>
+    	<span class="mwtnMediatorStatusNotRunning" ng-show="{{data.el.PID}}==0">stopped</span>
+    </div>
+  </div>
+   <div class="row">
+     <div class="col-xs-3"><span>Locked:</span></div>
+     <div class="col-xs-9"><span>{{data.el.IsLocked}}</span></div>
   </div>
   <div class="row">
      <div class="col-xs-3"><span>NetconfConnected:</span></div>
      <div class="col-xs-9"><span>{{data.el.IsNetConfConnected}}</span></div>
+  </div>
+  <div class="row">
+     <div class="col-xs-3"><span>NEConnected:</span></div>
+     <div class="col-xs-9"><span>{{data.el.IsNetworkElementConnected}}</span></div>
   </div>
   <div class="row">
      <div class="col-xs-3"><span>Firewall Configured:</span></div>
@@ -46,6 +57,10 @@
   </div>
 </div>
 <div class="modal-footer">
+	<button class="btn btn-default" type="button" ng-show="{{data.el.PID}}>0" ng-click="unlock()">
+	<i class="fa fa-lock" aria-hidden="true"></i>
+	<span>{{'Unlock' | translate}}</span>
+	</button>
 	<button class="btn btn-danger" type="button" ng-show="true" ng-click="delete()">
     <i class="fa fa-trash" aria-hidden="true"></i>
     <span>{{'MWTN_MED_DELETE' | translate}}...</span>

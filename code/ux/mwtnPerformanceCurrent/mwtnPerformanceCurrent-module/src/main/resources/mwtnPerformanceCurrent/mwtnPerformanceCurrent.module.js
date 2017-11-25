@@ -26,12 +26,12 @@ define(['angularAMD',
 
     NavHelperProvider.addControllerUrl('app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.controller');
     NavHelperProvider.addToMenu('mwtnPerformanceCurrent', {
-     "link" : "#/mwtnPerformanceCurrent",
+     "link" : "#/pnfPerformanceCurrent",
      "active" : "main.mwtnPerformanceCurrent",
-     "title" : "MWTN PM Current",
+     "title" : "pnf PM Current",
      "icon" : "fa fa-bar-chart",  // Add navigation icon css class here
      "page" : {
-        "title" : "MWTN PM Current",
+        "title" : "pnf PM Current",
         "description" : "mwtnPerformanceCurrent"
      }
     });
@@ -39,7 +39,7 @@ define(['angularAMD',
     var access = routingConfig.accessLevels;
 
     $stateProvider.state('main.mwtnPerformanceCurrent', {
-        url: 'mwtnPerformanceCurrent',
+        url: 'pnfPerformanceCurrent',
         access: access.admin,
         views : {
             'content' : {

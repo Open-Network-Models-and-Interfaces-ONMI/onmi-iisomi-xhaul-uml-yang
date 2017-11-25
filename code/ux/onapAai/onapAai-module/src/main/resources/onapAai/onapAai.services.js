@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 highstreet technologies GmbH and others.  All rights reserved.
+ * Copyright (c) 2017 highstreet technologies GmbH and others.  All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -8,9 +8,24 @@
 
 define(['app/onapAai/onapAai.module', 'app/mwtnCommons/mwtnCommons.services'], function (onapAaiApp) {
 
-  onapAaiApp.register.factory('$onapAai', function ($q, $http, ENV, Base64, $mwtnCommons, $mwtnDatabase, $mwtnLog) {
+  onapAaiApp.register.factory('$onapAai', function ($q, $http, ENV, Base64, $mwtnCommons, $mwtnDatabase, $mwtnLog, Device) {
 
     var service = {};
+
+    var functionId = "mwtn";
+    var docType = "device";
+    var from = 0;
+    var size = 9999;
+    var sort = undefined;
+    var deviceLookup = {};
+    $mwtnDatabase.getAllData(functionId, docType, from, size, sort).then(
+      function successCallback(response) {
+        response.data.hits.hits.map(function(device){
+          deviceLookup[device._id] = new Device(device._source);
+        });
+      }, function errorCallback(response) {
+        deviceLookup = {};
+      });
 
     service.checkModules = $mwtnCommons.checkModules;
     service.getMmwtnWebSocketUrl = $mwtnCommons.getMmwtnWebSocketUrl;
@@ -38,25 +53,25 @@ define(['app/onapAai/onapAai.module', 'app/mwtnCommons/mwtnCommons.services'], f
     // create or modify a pnf in aai
     service.createPnf = function (pnfId, doc) {
       var base = ENV.getBaseURL('MD_SAL').replace(':8181', ':8282');
-      var getIp = function(extension) {
-        return extension.filter(function(item){
+      var getIp = function (extension) {
+        return extension.filter(function (item) {
           return item['value-name'] === 'neIpAddress';
-        }).map(function(item){
+        }).map(function (item) {
           return item.value;
         })[0];
       }
 
-      var data = { 
-        "pnf-name": pnfId, 
-        "pnf-id": doc.connect.host + ':' + doc.connect.port, 
-        "equip-type": "tbd - where to find such info", 
-        "equip-model": "tbd - where to find such info", 
-        "equip-vendor": "tbd - where to find such info", 
-        "ipaddress-v4-oam": getIp(doc['core-model:network-element'].extension), 
-        "in-maint": false 
+      var device = deviceLookup[pnfId];
+      var data = {
+        "pnf-name": pnfId,
+        "pnf-id": doc.connect.host + ':' + doc.connect.port,
+        "equip-type": device.getType(),
+        "equip-model": device.getModel(),
+        "equip-vendor": device.getVendor(),
+        "ipaddress-v4-oam": getIp(doc['core-model:network-element'].extension) | doc.connect.host,
+        "in-maint": false
       };
-      console.warn(JSON.stringify(doc));
-
+      console.info('pnf', data);
       var request = {
         method: 'PUT',
         url: base + '/aai/aai/v8/network/pnfs/pnf/' + pnfId, // to es config
@@ -127,4 +142,37 @@ define(['app/onapAai/onapAai.module', 'app/mwtnCommons/mwtnCommons.services'], f
 
     return service;
   });
+
+  // Class Device
+  onapAaiApp.register.factory('Device', function () {
+    var Device = function (data) {
+      if (!data) {
+        data = {id:new Date(), type: 'unknown', name:'unknonw', model: 'unkonwn', vendor:'unknonw', version:'unkonwn'};
+      }
+      this.data = data;
+      this.getData = function () {
+        return this.data;
+      };
+      this.getId = function () {
+        return this.getData().id;
+      };
+      this.getType = function () {
+        return this.getData().type;
+      };
+      this.getName = function () {
+        return this.getData().name;
+      };
+      this.getModel = function () {
+        return this.getData().model;
+      };
+      this.getVendor = function () {
+        return this.getData().vendor;
+      };
+      this.getVersion = function () {
+        return this.getData().version;
+      };
+    };
+    return Device;
+  });
+
 });

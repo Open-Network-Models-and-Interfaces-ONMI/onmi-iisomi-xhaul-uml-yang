@@ -15,30 +15,21 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnMediator/mwtnMediator.mod
 
     var service = {};
 
-    // globals for this service
-    //service.url = 'http://192.168.11.44:7070/api';
-
     // import of mwtnCommons
     service.gridOptions = $mwtnCommons.gridOptions;
     service.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
     service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
     service.getAllData = $mwtnDatabase.getAllData;
     service.getFilteredSortedData = $mwtnDatabase.getFilteredSortedData;
+
     // service specific functions
     service.getServerData = function(id){
     	var deferred = $q.defer();
-    	/*var table=[{id:1,name:"Server 1",url:"http://192.168.11.44:7070"},
-    	    		{id:2,name:"Server 2",url:"http://192.168.11.45:7070"}];
-    	if(id===undefined)
-    		deferred.resolve(table);
-    	else
-    		deferred.resolve(table[id-1]);//idx=id-1
-    		*/
     	var functionid="mwtn";
     	var type="mediator-server";
     	var sort = [ { 'id' : {order : 'asc'}}];
 
-    	if(id===undefined)
+    	if(id===undefined)//get all
     		 $mwtnDatabase.getAllData(functionid,type,0,99,sort,null).then(function(success){
     			 	var list=[];
     			 	success.data.hits.hits.map(function(entry){
@@ -54,7 +45,7 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnMediator/mwtnMediator.mod
     	        $mwtnLog.error({component: 'private getAlldata', message: JSON.stringify(error.data)});
     	        deferred.reject(error);
     	      });
-    	else
+    	else //get by id
     		 $mwtnDatabase.getFilteredSortedData(functionid,type,0,99,sort,{'match':{'id':id}}).then(function(success){
     			 var list=[];
  			 	success.data.hits.hits.map(function(entry){
@@ -78,17 +69,35 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnMediator/mwtnMediator.mod
 
     service.addServer = function(name,url){
     	var deferred = $q.defer();
+    	var functionid="mwtn";
+    	var type="mediator-server";
     	//check params
 
     	//check if contains
     	//insert into db
+    	$mwtnDatabase.createSingleDocument(functionId, docType, id, data).then(function(success){
+    		var data={};
 
+    		deferred.resolve(data);
+		},function(error){
+			$mwtnLog.error({component: 'private addServer', message: JSON.stringify(error.data)});
+	        deferred.reject(error);
+		});
     	return deferred.promise;
     };
     service.removeServer = function(id){
     	var deferred = $q.defer();
+    	var functionid="mwtn";
+    	var type="mediator-server";
 
+    	$mwtnDatabase.deleteSingleDocument(functionId, docType, id).then(function(success){
+    		var data={};
 
+    		deferred.resolve(data);
+		},function(error){
+			$mwtnLog.error({component: 'private removeServer', message: JSON.stringify(error.data)});
+	        deferred.reject(error);
+		});
     	return deferred.promise;
     };
 

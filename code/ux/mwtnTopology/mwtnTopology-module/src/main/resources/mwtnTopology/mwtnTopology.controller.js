@@ -269,7 +269,6 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
         api: "="
       },
       link: function (scope, element, attrs, mwtnTopologyMapController) {
-
         // todo: shouild come from a service
         var normalIcon = {
           path: google.maps.SymbolPath.CIRCLE,
@@ -378,6 +377,14 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
 
           addedSiteIds.forEach(function (newSiteId) {
             var newSite = scope.sites[newSiteId];
+            var newSiteNormalIcon = Object.assign({}, normalIcon, {
+              fillColor: (newSite.type === 'data-center') ? "#ffff00": "#00ccff",
+              strokeColor: (newSite.type === 'data-center') ? "#ffff00" : "#00ccff"
+            });
+            var newSiteHighlightIcon = Object.assign({}, highlightIcon, { 
+              fillColor: (newSite.type === 'data-center') ? "#ffff00": "#00ccff",
+              strokeColor: (newSite.type === 'data-center') ? "#ffff00" : "#00ccff"
+             });
             if (newSite && !scope.displayedSites[newSiteId]) {
 
               // create the marker
@@ -385,7 +392,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
                 map: mwtnTopologyMapController.map,
                 position: newSite.location,
                 title: newSite.name,
-                icon: normalIcon
+                icon: newSiteNormalIcon
               });
 
               // add event listeners to the marker
@@ -419,11 +426,11 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
               });
 
               marker.addListener('mouseover', function () {
-                marker.setOptions({ icon: highlightIcon });
+                marker.setOptions({ icon: newSiteHighlightIcon });
               });
 
               marker.addListener('mouseout', function () {
-                marker.setOptions({ icon: normalIcon });
+                marker.setOptions({ icon: newSiteNormalIcon });
               });
 
               // store marker
@@ -488,18 +495,22 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
 
           addedSiteLinkIds.forEach(function (siteLinkId) {
             var siteLink = scope.siteLinks[siteLinkId];
+            //console.log(siteLink);
+            
             if (siteLink && !scope.displayedSiteLinks[siteLinkId]) {
 
               // create the poly line
               var polyline = new google.maps.Polyline({
                 map: mwtnTopologyMapController.map,
                 path: [siteLink.siteA.location, siteLink.siteZ.location],
-                strokeColor: '#00ccff',
+                strokeColor: siteLink.type === 'traffic' ? '#00ccff': '#ffff00',
                 strokeOpacity: 0.8,
-                strokeWeight: 3,
-                zIndex: 1
+                strokeWeight: siteLink.type === 'traffic' ? 4 : 2,
+                zIndex: 1,
+                geodesic: true
               });
-
+              //console.log(siteLink.type, polyline.strokeColor);
+              
               // add event listeners to the polyline
               polyline.addListener('click', function (event) {
                 // cloase all already opened windows
@@ -1095,7 +1106,8 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
                   vm.knownSiteLinks[currentSiteLink.id] = {
                     id: currentSiteLink.id,
                     siteA: siteA,
-                    siteZ: siteZ
+                    siteZ: siteZ,
+                    type: currentSiteLink.type
                   };
                   accumulator.push(currentSiteLink.id);
                 } else {
@@ -1154,7 +1166,8 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
                           vm.knownSiteLinks[currentSiteLink.id] = {
                             id: currentSiteLink.id,
                             siteA: siteA,
-                            siteZ: siteZ
+                            siteZ: siteZ,
+                            type: currentSiteLink.type
                           };
                           accumulator.push(currentSiteLink.id);
                         }
@@ -1647,7 +1660,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
         siteLink: link.id,
         internal: false
       }, { notify: false });
-      console.log(link);
+      //console.log(link);
     };
 
     // see http://ui-grid.info/docs/#/tutorial/317_custom_templates
@@ -1734,7 +1747,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
     });
 
     $scope.$watch("knownSiteLinks", function (newKnownSiteLinks, oldKnownSiteLinks) {
-      console.log("watch: knownSiteLinks");
+      // console.log("watch: knownSiteLinks");
       loadPage();
     }, true); // deep watch, maybe find a better solution; e.g. with an api object like the site in the map.
 
@@ -1820,7 +1833,8 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           id: link.id,
           name: link.name,
           siteIdA: link.siteA.id,
-          siteIdZ: link.siteZ.id
+          siteIdZ: link.siteZ.id,
+          type: link.type
         });
       });
 
@@ -1856,7 +1870,8 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
               id: link.id,
               name: link.name,
               siteA: sites[link.siteA],
-              siteZ: sites[link.siteZ]
+              siteZ: sites[link.siteZ],
+              type: link.type
             };
           });
           vm.gridOptions.data = result.links.map(function (link) {
@@ -1864,7 +1879,8 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
               id: link.id,
               name: link.name,
               siteIdA: link.siteA,
-              siteIdZ: link.siteZ
+              siteIdZ: link.siteZ,
+              type: link.type
             }
           });
           vm.gridOptions.totalItems = result.total;

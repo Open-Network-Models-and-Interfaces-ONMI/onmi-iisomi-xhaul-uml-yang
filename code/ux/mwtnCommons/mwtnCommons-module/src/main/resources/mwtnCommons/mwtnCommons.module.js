@@ -32,12 +32,12 @@ define(['angularAMD',
 
 //    NavHelperProvider.addControllerUrl('app/mwtnCommons/mwtnCommons.controller');
 //    NavHelperProvider.addToMenu('mwtnCommons', {
-//     "link" : "#/mwtnCommons",
+//     "link" : "#/pnfCommons",
 //     "active" : "main.mwtnCommons",
-//     "title" : "MWTN Commons",
+//     "title" : "pnf Commons",
 //     "icon" : "",  // Add navigation icon css class here
 //     "page" : {
-//        "title" : "MWTN Commons",
+//        "title" : "pnf Commons",
 //        "description" : "mwtnCommons"
 //     }
 //    });
@@ -45,7 +45,7 @@ define(['angularAMD',
     var access = routingConfig.accessLevels;
 
 //    $stateProvider.state('main.mwtnCommons', {
-//        url: 'mwtnCommons',
+//        url: 'pnfCommons',
 //        access: access.admin,
 //        views : {
 //            'content' : {

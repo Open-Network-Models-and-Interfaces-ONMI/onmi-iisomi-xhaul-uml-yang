@@ -25,12 +25,12 @@ define(['angularAMD',
 
     NavHelperProvider.addControllerUrl('app/mwtnTopology/mwtnTopology.controller');
     NavHelperProvider.addToMenu('mwtnTopology', {
-      "link": "#/mwtnTopology/site",
+      "link": "#/pnfTopology/site",
       "active": "main.mwtnTopology",
-      "title": "MWTN Topology",
+      "title": "pnf Topology",
       "icon": "fa fa-connectdevelop",  // Add navigation icon css class here
       "page": {
-        "title": "MWTN Topology",
+        "title": "pnf Topology",
         "description": "mwtnTopology"
       }
     });
@@ -38,7 +38,7 @@ define(['angularAMD',
     var access = routingConfig.accessLevels;
 
     $stateProvider.state('main.mwtnTopology', {
-      url: 'mwtnTopology/:tab?&top&bottom&right&left&lat&lng&zoom&site&siteLink&sitePath',
+      url: 'pnfTopology/:tab?&top&bottom&right&left&lat&lng&zoom&site&siteLink&sitePath',
       reloadOnSearch: false,
       access: access.admin,
       params: {

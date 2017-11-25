@@ -14,11 +14,14 @@
 				<button class="btn btn-default" ng-click="editMediatorServers()"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 			</div>
 			<div style="float:right;display:inline-block;">
+				<div class="checkbox" style="display:inline-block;">
+				  <label style="color:white;"><input type="checkbox" id="ckbx_mediatorAutorefresh" ng-click="onAutoRefreshChanged()" value="">AutoRefresh</label>
+				</div>
 				<button class="btn btn-default" ng-click="createNewMediator()"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-				<button class="btn btn-default" ng-click="refreshMediators()"><i class="fa fa-refresh" aria-hidden="true"></i></button>
-				
+				<button class="btn btn-default" id="btn_refreshMediators" ng-click="refreshMediators()"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+
 			</div>
-			
+
 		</div>
 	</div>
 	<div class="row">
@@ -28,12 +31,12 @@
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-			<div id="mwtnMediatorGrid" 
-				ui-grid="gridOptions" 
-				ui-grid-exporter 
-				ui-grid-selection 
-				ui-grid-pinning 
-				ui-grid-resize-columns 
+			<div id="mwtnMediatorGrid"
+				ui-grid="gridOptions"
+				ui-grid-exporter
+				ui-grid-selection
+				ui-grid-pinning
+				ui-grid-resize-columns
 				ui-grid-move-columns
 				class="mwtnMediatorGrid"></div>
 		</div>

@@ -60,7 +60,7 @@
                   </select>
                 </div>
                 <div class="col col-md-1 form-group">
-                  <label class="owl-dark" for="vlan">{{'MWTN_VLAN_ID' | translate}}</label><br/>
+                  <label class="owl-dark" for="vlan">{{'MWTN_SERVICE_ID' | translate}}</label><br/>
                   <input class="form-control" type="number" value="42" id="example-number-input" ng-model="fcCreation.vlan">
                 </div>
                 <div class="col col-md-2">
@@ -104,7 +104,7 @@
                 <i class="fa" ng-class="{'fa-chevron-down': status['ltp' + separator + ltp.getData().uuid], 'fa-chevron-right': !status['ltp' + separator + ltp.getData().uuid]}"></i>
                 <span>{{'MWTN_LTP' | translate}}(</span>
                 <b>{{ltp.getLayerProtocols()[0].getItuLabel().toUpperCase()}}</b>
-                <span>): {{ltp.getId()}}</span>
+                <span>): {{ltp.getName()}} (ID: {{ltp.getId()}})</span>
               </uib-accordion-heading>
 
               <mwtn-json-viewer network-element="networkElement" data="ltp.getData()" ng-if="status['ltp' + separator + ltp.getData().uuid]"></mwtn-json-viewer>
@@ -129,7 +129,7 @@
 
     </uib-accordion>
   </div>
-
+ 
   <div class="row" ng-repeat="orderedPac in orderedPacs" ng-if="pacs[orderedPac]">
     <uib-accordion close-others="oneAtATime">
       <div ng-class="{ 'col-md-12': pacs[orderedPac].length === 1, 'col-md-6': pacs[orderedPac].length !== 1 }" style="margin-top: 5px;"

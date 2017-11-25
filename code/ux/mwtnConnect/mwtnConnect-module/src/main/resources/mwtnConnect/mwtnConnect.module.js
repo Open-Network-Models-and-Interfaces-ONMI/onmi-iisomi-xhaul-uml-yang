@@ -27,12 +27,12 @@ define(['angularAMD',
 
     NavHelperProvider.addControllerUrl('app/mwtnConnect/mwtnConnect.controller');
     NavHelperProvider.addToMenu('mwtnConnect', {
-     "link" : "#/mwtnConnect",
+     "link" : "#/pnfConnect",
      "active" : "main.mwtnConnect",
      "title" : "SDN-C Connect",
      "icon" : "fa fa-plug",  // Add navigation icon css class here
      "page" : {
-        "title" : "SDN-C Connect",
+        "title" : "pnf Connect",
         "description" : "Connection supervision of physical network function to ONAP SDN-C-4-Wireless"
      }
     });
@@ -40,7 +40,7 @@ define(['angularAMD',
     var access = routingConfig.accessLevels;
 
     $stateProvider.state('main.mwtnConnect', {
-        url: 'mwtnConnect',
+        url: 'pnfConnect',
         access: access.admin,
         views : {
             'content' : {

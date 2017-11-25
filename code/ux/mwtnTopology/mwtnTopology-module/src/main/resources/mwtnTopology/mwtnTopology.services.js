@@ -181,6 +181,7 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
           sites.push({
             id: site._source.id,
             name: site._source.name,
+            type: site._source.type,
             location: {
               lat: site._source.location.lat,
               lng: site._source.location.lon
@@ -246,6 +247,7 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
           sites.push({
             id: site._source.id,
             name: site._source.name,
+            type: site._source.type,
             location: {
               lat: site._source.location.lat,
               lng: site._source.location.lon
@@ -334,6 +336,7 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
           sites.push({
             id: site._source.id,
             name: site._source.name,
+            type: site._source.type,
             location: {
               lat: site._source.location.lat,
               lng: site._source.location.lon
@@ -438,11 +441,13 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
                   return {
                     id: site._source.id,
                     name: site._source.name,
+                    type: site._source.type,
                     location: {
                       lat: site._source.location.lat,
                       lng: site._source.location.lon
                     },
                     amslGround: site._source["amsl-ground"],
+                    type: site._source.type,
                     references: {
                       siteLinks: site._source.references["site-links"]
                     }
@@ -454,6 +459,7 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
                     id: siteLink._source.id,
                     siteA: sites.find(function (site) { return site.id === siteLink._source.siteA; }) || additionalSites.find(function (site) { return site.id === siteLink._source.siteA; }),
                     siteZ: sites.find(function (site) { return site.id === siteLink._source.siteZ; }) || additionalSites.find(function (site) { return site.id === siteLink._source.siteZ; }),
+                    type: siteLink._source.type,
                     length: 5000 // AF/MF: the length will be served from the database in the next version.
                   };
                 });
@@ -470,6 +476,7 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
               id: siteLink._source.id,
               siteA: sites.find(function (site) { return site.id === siteLink._source.siteA; }),
               siteZ: sites.find(function (site) { return site.id === siteLink._source.siteZ; }),
+              type: siteLink._source.type,
               length: 5000 // AF/MF: the length will be served from the database in the next version.
             };
           });
@@ -579,7 +586,8 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
               siteZ: siteLink._source.siteZ,
               azimuthAz: siteLink._source.azimuthAZ,
               azimuthZa: siteLink._source.azimuthZA,
-              length: siteLink._source.length
+              length: siteLink._source.length,
+              type: siteLink._source.type
             };
           });
 
@@ -623,6 +631,7 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
           var siteDetails = {
             id: site._source.id,
             name: site._source.name,
+            type: site._source.type,
             location: {
               lat: site._source.location.lat,
               lng: site._source.location.lon
@@ -696,6 +705,8 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
             length: link._source.length,
             azimuthA: link._source.azimuthAZ,
             azimuthB: link._source.azimuthZA,
+            airInterfaceLinks: link._source.airInterfaceLinks,
+            type: link._source.type,
             airInterfaceLinks: link._source.airInterfaceLinks
           };
 
@@ -797,7 +808,8 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
           return {
             id: siteLink._source.id,
             siteA: siteLink._source.siteA,
-            siteZ: siteLink._source.siteZ
+            siteZ: siteLink._source.siteZ,
+            type: siteLink._source.type,
           };
         });
 
@@ -889,5 +901,5 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
     }
 
   });
-
+  
 });

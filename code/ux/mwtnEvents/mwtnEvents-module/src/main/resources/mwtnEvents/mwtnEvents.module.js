@@ -24,12 +24,12 @@ define([ 'angularAMD', 'app/routingConfig', 'app/core/core.services',
 
     NavHelperProvider.addControllerUrl('app/mwtnEvents/mwtnEvents.controller');
     NavHelperProvider.addToMenu('mwtnEvents', {
-      "link" : "#/mwtnEvents",
+      "link" : "#/pnfEvents",
       "active" : "main.mwtnEvents",
-      "title" : "MWTN Events",
+      "title" : "pnf Events",
       "icon" : "fa fa-bolt", // Add navigation icon css class here
       "page" : {
-        "title" : "MWTN Events",
+        "title" : "pnf Events",
         "description" : "Events"
       }
     });
