@@ -3,14 +3,14 @@
 </b> </uib-alert>
 <div ng-show="!status.message">
 <p>
-  <span>{{'SITE_ID' | translate}}: </span>
+  <span>{{'MWTN_SITE_ID' | translate}}: </span>
     <b>{{site.id.siteId}}</b>
   <a href="/ux/#/sites/{{siteIndex}}/{{site.id.siteId}}" target="htSolutions">
   <span class="glyphicon glyphicon-info-sign"></span>
   </a>
   <span class="pointer glyphicon glyphicon-trash" aria-hidden="true" ng-show="!site.siteLinks.length" ng-click="removeSite()"></span>
 <hr />
-  <span>{{'SITE_NAME' | translate}}: </span>
+  <span>{{'MWTN_NAME' | translate}}: </span>
     <b>{{site.siteName}}</b>
     <br/>
     

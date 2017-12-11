@@ -255,8 +255,8 @@ define( ["require", "exports", "mwtnInventory.service", "components/equipment", 
                                     var manufacturerProperties = manufacturedThing && manufacturedThing['manufacturer-properties'];
                                     var equipmentInstance = manufacturedThing && manufacturedThing['equipment-instance'];
                                     var card = {
-                                        name: cur.name,
-                                        label: cur.label,
+                                        name: cur.name || cur.uuid,
+                                        label: cur.label  || cur.uuid,
                                         uuid: cur.uuid,
                                         manufacturer: {
                                             version: equipmentType && equipmentType["version"],

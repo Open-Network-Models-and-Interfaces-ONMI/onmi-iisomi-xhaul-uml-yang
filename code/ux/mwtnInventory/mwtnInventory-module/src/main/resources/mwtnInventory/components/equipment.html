@@ -1,5 +1,5 @@
 <div uib-accordion-group="" class="panel-primary" template-url="src/app/mwtnTopology/templates/accordeonHeader.tpl.html"
- heading="{{equipment.uuid + ' | '+ equipment.name || equipment.label }}">
+ heading="{{equipment.uuid + ' | '+ equipment.name || equipment.label || equipment.uuid }}">
 	<div class="row">
 		<div class="col">
 			Manufacturer: <br /> <b> {{ equipment.manufacturer.id }} </b>

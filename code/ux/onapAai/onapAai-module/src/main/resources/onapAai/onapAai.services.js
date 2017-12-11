@@ -62,6 +62,7 @@ define(['app/onapAai/onapAai.module', 'app/mwtnCommons/mwtnCommons.services'], f
       }
 
       var device = deviceLookup[pnfId];
+      if (!device) device = new Device({"id":pnfId,"name":pnfId,"mediator-ipv4":"127.0.0.1","netconf-port":"830","oam-ipv4":"127.0.0.1","site":"unknown","controller":"this","controller-site":"unknown","vendor":"unknown","type":"unknown","model":"unknown","version":"0.0"});      
       var data = {
         "pnf-name": pnfId,
         "pnf-id": doc.connect.host + ':' + doc.connect.port,

@@ -43,9 +43,14 @@
           "zEnd": "LTP-ETY-TTP-LAN-4"
         },
         {
-          "node": "ADVA-Y",
-          "aEnd": "ETY-1.1.NET.2",
-          "zEnd": "ETY-1.1.ACC.4"
+          "node": "ADVA-EthSwitch-1",
+          "aEnd": "ETY-1.1.NET.1",
+          "zEnd": "ETY-1.1.ACC.1"
+        },
+        {
+          "node": "ADVA-EthSwitch-2",
+          "aEnd": "ETY-1.1.NET.1",
+          "zEnd": "ETY-1.1.ACC.1"
         }
       ],
       "backup_ltps": [
@@ -55,9 +60,14 @@
           "zEnd": "LTP-ETY-GbE-1-2"
         },
         {
-          "node": "ADVA-Y",
+          "node": "ADVA-EthSwitch-1",
           "aEnd": "ETY-1.1.NET.1",
-          "zEnd": "ETY-1.1.ACC.4"
+          "zEnd": "ETY-1.1.ACC.1"
+        },
+        {
+          "node": "ADVA-EthSwitch-2",
+          "aEnd": "ETY-1.1.NET.1",
+          "zEnd": "ETY-1.1.ACC.1"
         }
       ]
     },

@@ -54,7 +54,7 @@
 		    <span>{{'ODL Connection Config' | translate}}</span>
 		</uib-accordion-heading>
 		<div class="" style="position:relative;">
-			<button class="btn btn-default" nc-click="odledit()" style="position:absolute;top:1rem;right:1rem;"><i class="fa fa-edit"></i></button>
+			<button class="btn btn-default" ng-click="odledit()" style="position:absolute;top:1rem;right:1rem;"><i class="fa fa-edit"></i></button>
 			<div class="row">
 				<div class="col-md-3"><span >Hostname:</span></div>
 				<div class="col-md-6"><input ng-disabled="!odlsavebtn.enabled" class="form-control" type="text" ng-model="odlconfig.Server" /></div>
@@ -73,7 +73,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-3"></div>
-				<div class="col-md-6"><button class="btn btn-default" ng-click="odlsave" ng-disabled="!odlsavebtn.enabled">Save</button></div>
+				<div class="col-md-6"><button class="btn btn-default" ng-click="odlsave()" ng-disabled="!odlsavebtn.enabled">Save</button></div>
 			</div>
 
 		</div>

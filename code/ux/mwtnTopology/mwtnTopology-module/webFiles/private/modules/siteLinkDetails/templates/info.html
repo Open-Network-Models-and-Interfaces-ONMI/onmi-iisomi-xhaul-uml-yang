@@ -46,7 +46,7 @@
         <div class="row">
           <!-- siteId -->
           <div class="col-md-2 text-right">
-            <span>{{'SITE_ID' | translate}}: </span>
+            <span>{{'MWTN_SITE_ID' | translate}}: </span>
           </div>
           <div class="col-md-2">
             <b>{{sites[0]._source.id.siteId}}</b>
@@ -67,7 +67,7 @@
         <div class="row" ng-show="(sites[0]._source.id.siteId !== sites[0]._source.siteName) || (sites[1]._source.id.siteId !== sites[1]._source.siteName)">
           <!-- siteName -->
           <div class="col-md-2 text-right">
-            <span>{{'SITE_NAME' | translate}}: </span>
+            <span>{{'MWTN_NAME' | translate}}: </span>
           </div>
           <div class="col-md-2">
             <b>{{sites[0]._source.siteName}}</b>

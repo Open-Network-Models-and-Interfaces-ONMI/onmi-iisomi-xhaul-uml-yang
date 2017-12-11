@@ -438,6 +438,7 @@ define(['app/mwtnMediator/mwtnMediator.module',
     	//====handle events========
     	$scope.odledit = function(){
     		$scope.odlsavebtn.enabled=true;
+    		console.log("enable odl configs")
     		$scope.$apply();
     	}
     	$scope.odlsave = function(){
@@ -470,7 +471,7 @@ define(['app/mwtnMediator/mwtnMediator.module',
 				},function(err){
 					if(btn!==undefined)
 						btn.prop('disabled', false);
-					error(e);
+					error(err);
 
 				});
 
