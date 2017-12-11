@@ -2,7 +2,7 @@
   <uml:Model xmi:id="_H_Vv8HfbEeWiOPc9pTMjTg" name="MicrowaveModel"><ownedComment xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_NDJbQJNqEeWP45fAG0gIqg/12" xmi:type="uml:Comment" xmi:id="_uHEawDdIEeOHDrwRRcUeVQ" annotatedElement="../@xmi:id"><body>This module contains a collection of YANG definitions for managing wireless networks.</body></ownedComment>
     <packagedElement xmi:type="uml:Package" xmi:id="_M857cJONEeW90a4S7M6WEw" name="TypeDefinitions" URI="">
       <packagedElement xmi:type="uml:Enumeration" xmi:id="_3CZ3UIsDEead4ersMrOjBQ" name="LoopBackType">
-        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_8M0twIsDEead4ersMrOjBQ" name="NONE"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_8M0twIsDEead4ersMrOjBQ" name="NON"/>
         <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_87kDEIsDEead4ersMrOjBQ" name="IF">
           <ownedComment xmi:type="uml:Comment" xmi:id="_Tj6aQKsUEeaQ6dbCl6z1tg" annotatedElement="_87kDEIsDEead4ersMrOjBQ">
             <body>Intermediate Frequency on the interface between indoor and outdoor unit.</body>
@@ -83,7 +83,7 @@
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_jE7-EHf4EeW-h9gN8LYm4Q" name="codeRate" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_jE7-EXf4EeW-h9gN8LYm4Q" annotatedElement="_jE7-EHf4EeW-h9gN8LYm4Q">
-            <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_NDJbQJNqEeWP45fAG0gIqg/12" xmlns:RootElement="http:///schemas/RootElement/_7S2aYHpQEeaVjtpstJMDXA/37">Code rate of the coding scheme in % (Net bit rate ? Gross bit rate ? code rate).</body>
+            <body>Code rate of the coding scheme in % (Net bit rate ≤ Gross bit rate · code rate).</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
           <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_1m_kwEqCEea0H8IhxOWGxw" value="-1"/>
@@ -961,7 +961,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2JdnsIsEEead4ersMrOjBQ" value="1"/>
             <upperValue xmi:type="uml:LiteralInteger" xmi:id="_28BtEIsEEead4ersMrOjBQ" value="2"/>
-            <defaultValue value="none" xmi:type="uml:InstanceValue" xmi:id="_p9m5YIsFEead4ersMrOjBQ" type="_3CZ3UIsDEead4ersMrOjBQ" instance="_8M0twIsDEead4ersMrOjBQ"/>
+            <defaultValue value="non" xmi:type="uml:InstanceValue" xmi:id="_p9m5YIsFEead4ersMrOjBQ" type="_3CZ3UIsDEead4ersMrOjBQ" instance="_8M0twIsDEead4ersMrOjBQ"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_I1FYsMWZEeW3xsRKtpCLuA" name="maintenanceTimerRange" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_I1FYscWZEeW3xsRKtpCLuA" annotatedElement="_I1FYsMWZEeW3xsRKtpCLuA">
@@ -1218,7 +1218,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2l8tgNdZEeWh34zIULwh8w" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2l97oNdZEeWh34zIULwh8w" value="1"/>
-            <defaultValue value="none" xmi:type="uml:InstanceValue" xmi:id="_i6gqEIsFEead4ersMrOjBQ" type="_3CZ3UIsDEead4ersMrOjBQ" instance="_8M0twIsDEead4ersMrOjBQ"/>
+            <defaultValue value="non" xmi:type="uml:InstanceValue" xmi:id="_i6gqEIsFEead4ersMrOjBQ" type="_3CZ3UIsDEead4ersMrOjBQ" instance="_8M0twIsDEead4ersMrOjBQ"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_7-oTwCd5EeaJA6AVLNrv_w" name="maintenanceTimer" isUnique="false">
             <ownedComment xmi:type="uml:Comment" xmi:id="_NNgakCd6EeaJA6AVLNrv_w" annotatedElement="_7-oTwCd5EeaJA6AVLNrv_w">
@@ -1286,7 +1286,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_UYyBsHizEeWfutScSwFT9A" name="codeRateCur" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_UYyBsXizEeWfutScSwFT9A" annotatedElement="_UYyBsHizEeWfutScSwFT9A">
-              <body xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_NDJbQJNqEeWP45fAG0gIqg/12" xmlns:RootElement="http:///schemas/RootElement/_7S2aYHpQEeaVjtpstJMDXA/37">Code rate of the currently operated coding scheme (Net bit rate ? Gross bit rate ? code rate).</body>
+              <body>Code rate of the currently operated coding scheme (Net bit rate ≤ Gross bit rate · code rate).</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_gztncNpSEeWvuIR3H1ItUQ" value="1"/>
@@ -1384,7 +1384,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nzSiwNdfEeWh34zIULwh8w" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nzTw4NdfEeWh34zIULwh8w" value="1"/>
-            <defaultValue value="none" xmi:type="uml:InstanceValue" xmi:id="_7_5aIIsFEead4ersMrOjBQ" type="_3CZ3UIsDEead4ersMrOjBQ" instance="_8M0twIsDEead4ersMrOjBQ"/>
+            <defaultValue value="non" xmi:type="uml:InstanceValue" xmi:id="_7_5aIIsFEead4ersMrOjBQ" type="_3CZ3UIsDEead4ersMrOjBQ" instance="_8M0twIsDEead4ersMrOjBQ"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_pEsgcFQHEeaCXY7nSBqs6w" name="localEndPointId" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_W1a4kHWxEeaAu9iKePKrBw" annotatedElement="_pEsgcFQHEeaCXY7nSBqs6w">

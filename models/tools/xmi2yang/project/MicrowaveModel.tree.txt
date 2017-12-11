@@ -1,4 +1,143 @@
 module: core-model
+   +--rw network-element!
+   |  +--rw fd* [uuid]
+   |  |  +--rw layer-protocol-name*      layer-protocol-name
+   |  |  +--rw lower-level-fd*           -> /network-element/fd/uuid
+   |  |  +--rw fc*                       -> /forwarding-construct/uuid
+   |  |  +--rw ltp*                      -> /network-element/ltp/uuid
+   |  |  +--rw lower-level-link*         string
+   |  |  +--rw local-id* [value-name]
+   |  |  |  +--rw value-name    string
+   |  |  |  +--rw value?        string
+   |  |  +--rw uuid                      universal-id
+   |  |  +--rw name* [value-name]
+   |  |  |  +--rw value-name    string
+   |  |  |  +--rw value?        string
+   |  |  +--rw label* [value-name]
+   |  |  |  +--rw value-name    string
+   |  |  |  +--rw value?        string
+   |  |  +--rw extension* [value-name]
+   |  |  |  +--rw value-name    string
+   |  |  |  +--rw value?        string
+   |  |  +--ro operational-state?        operational-state
+   |  |  +--rw administrative-control?   administrative-control
+   |  |  +--ro administrative-state?     administrative-state
+   |  |  +--rw lifecycle-state?          lifecycle-state
+   |  +--rw ltp* [uuid]
+   |  |  +--rw server-ltp*                -> /network-element/ltp/uuid
+   |  |  +--rw client-ltp*                -> /network-element/ltp/uuid
+   |  |  +--rw lp* [uuid]
+   |  |  |  +--rw layer-protocol-name?            layer-protocol-name
+   |  |  |  +--rw configured-client-capacity?     to-be-defined
+   |  |  |  +--rw lp-direction?                   termination-direction
+   |  |  |  +--rw termination-state?              termination-state
+   |  |  |  +--rw config-and-switch-controller* [switch-rule]
+   |  |  |  |  +--rw switch-rule                           to-be-defined
+   |  |  |  |  +--rw fc-switch*                            -> /forwarding-construct/fc-switch/uuid
+   |  |  |  |  +--rw control-parameters
+   |  |  |  |  |  +--rw reversion-mode?                 reversion-mode
+   |  |  |  |  |  +--rw wait-to-revert-time?            int64
+   |  |  |  |  |  +--rw prot-type?                      protection-type
+   |  |  |  |  |  +--rw hold-off-time?                  int64
+   |  |  |  |  |  +--rw network-scheme-specification?   string
+   |  |  |  |  +--rw profile-proxy*                        string
+   |  |  |  |  +--rw local-pac
+   |  |  |  |  |  +--rw local-id* [value-name]
+   |  |  |  |  |  |  +--rw value-name    string
+   |  |  |  |  |  |  +--rw value?        string
+   |  |  |  |  |  +--rw uuid?                     universal-id
+   |  |  |  |  |  +--rw name* [value-name]
+   |  |  |  |  |  |  +--rw value-name    string
+   |  |  |  |  |  |  +--rw value?        string
+   |  |  |  |  |  +--rw label* [value-name]
+   |  |  |  |  |  |  +--rw value-name    string
+   |  |  |  |  |  |  +--rw value?        string
+   |  |  |  |  |  +--rw extension* [value-name]
+   |  |  |  |  |  |  +--rw value-name    string
+   |  |  |  |  |  |  +--rw value?        string
+   |  |  |  |  |  +--ro operational-state?        operational-state
+   |  |  |  |  |  +--rw administrative-control?   administrative-control
+   |  |  |  |  |  +--ro administrative-state?     administrative-state
+   |  |  |  |  |  +--rw lifecycle-state?          lifecycle-state
+   |  |  |  |  +--rw global-pac
+   |  |  |  |  |  +--rw local-id* [value-name]
+   |  |  |  |  |  |  +--rw value-name    string
+   |  |  |  |  |  |  +--rw value?        string
+   |  |  |  |  |  +--rw uuid?                     universal-id
+   |  |  |  |  |  +--rw name* [value-name]
+   |  |  |  |  |  |  +--rw value-name    string
+   |  |  |  |  |  |  +--rw value?        string
+   |  |  |  |  |  +--rw label* [value-name]
+   |  |  |  |  |  |  +--rw value-name    string
+   |  |  |  |  |  |  +--rw value?        string
+   |  |  |  |  |  +--rw extension* [value-name]
+   |  |  |  |  |  |  +--rw value-name    string
+   |  |  |  |  |  |  +--rw value?        string
+   |  |  |  |  |  +--ro operational-state?        operational-state
+   |  |  |  |  |  +--rw administrative-control?   administrative-control
+   |  |  |  |  |  +--ro administrative-state?     administrative-state
+   |  |  |  |  |  +--rw lifecycle-state?          lifecycle-state
+   |  |  |  |  +--rw is-frozen?                            boolean
+   |  |  |  |  +--rw is-coordinated-switching-both-ends?   boolean
+   |  |  |  |  +--rw subordinate-controller*               -> /network-element/ltp/lp/config-and-switch-controller/switch-rule
+   |  |  |  +--rw is-protection-lock-out?         boolean {protection-exclude-ltp}?
+   |  |  |  +--rw fc-blocks-signal-to-lp?         string
+   |  |  |  +--rw local-id* [value-name]
+   |  |  |  |  +--rw value-name    string
+   |  |  |  |  +--rw value?        string
+   |  |  |  +--rw uuid                            universal-id
+   |  |  |  +--rw name* [value-name]
+   |  |  |  |  +--rw value-name    string
+   |  |  |  |  +--rw value?        string
+   |  |  |  +--rw label* [value-name]
+   |  |  |  |  +--rw value-name    string
+   |  |  |  |  +--rw value?        string
+   |  |  |  +--rw extension* [value-name]
+   |  |  |  |  +--rw value-name    string
+   |  |  |  |  +--rw value?        string
+   |  |  |  +--ro operational-state?              operational-state
+   |  |  |  +--rw administrative-control?         administrative-control
+   |  |  |  +--ro administrative-state?           administrative-state
+   |  |  |  +--rw lifecycle-state?                lifecycle-state
+   |  |  +--rw connected-ltp?             -> /network-element/ltp/uuid
+   |  |  +--rw peer-ltp?                  -> /network-element/ltp/uuid
+   |  |  +--rw physical-port-reference*   string
+   |  |  +--rw ltp-in-other-view*         -> /network-element/ltp/uuid
+   |  |  +--rw ltp-direction?             termination-direction
+   |  |  +--rw local-id* [value-name]
+   |  |  |  +--rw value-name    string
+   |  |  |  +--rw value?        string
+   |  |  +--rw uuid                       universal-id
+   |  |  +--rw name* [value-name]
+   |  |  |  +--rw value-name    string
+   |  |  |  +--rw value?        string
+   |  |  +--rw label* [value-name]
+   |  |  |  +--rw value-name    string
+   |  |  |  +--rw value?        string
+   |  |  +--rw extension* [value-name]
+   |  |  |  +--rw value-name    string
+   |  |  |  +--rw value?        string
+   |  |  +--ro operational-state?         operational-state
+   |  |  +--rw administrative-control?    administrative-control
+   |  |  +--ro administrative-state?      administrative-state
+   |  |  +--rw lifecycle-state?           lifecycle-state
+   |  +--rw local-id* [value-name]
+   |  |  +--rw value-name    string
+   |  |  +--rw value?        string
+   |  +--rw uuid?                     universal-id
+   |  +--rw name* [value-name]
+   |  |  +--rw value-name    string
+   |  |  +--rw value?        string
+   |  +--rw label* [value-name]
+   |  |  +--rw value-name    string
+   |  |  +--rw value?        string
+   |  +--rw extension* [value-name]
+   |  |  +--rw value-name    string
+   |  |  +--rw value?        string
+   |  +--ro operational-state?        operational-state
+   |  +--rw administrative-control?   administrative-control
+   |  +--ro administrative-state?     administrative-state
+   |  +--rw lifecycle-state?          lifecycle-state
    +--rw forwarding-construct* [uuid]
    |  +--rw layer-protocol-name?      layer-protocol-name
    |  +--rw lower-level-fc*           -> /forwarding-construct/uuid
@@ -132,20 +271,19 @@ module: core-model
    |  +--ro administrative-state?     administrative-state
    |  +--rw lifecycle-state?          lifecycle-state
    +--rw operation-envelope!
-   |  +--rw operation-set*          action-effort
+   |  +--rw operation-set* [effort-and-action]
+   |  |  +--rw after-operation-set*    -> /operation-envelope/operation-set/effort-and-action
+   |  |  +--rw before-operation-set*   -> /operation-envelope/operation-set/effort-and-action
+   |  |  +--rw effort-and-action       action-effort
+   |  |  +--rw pause-resume-rule?      pause-resume-rule
+   |  |  +--rw operationset*           -> /operation-envelope/operation-set/effort-and-action
+   |  |  +--rw is-short-lived?         boolean
+   |  |  +--rw operation-details* [action-verb]
+   |  |     +--rw action-verb                               action-verbs
+   |  |     +--rw necessary-initialcondition-constraints* [is-not]
+   |  |        +--rw is-not    boolean
    |  +--rw generaldirectives
    |  +--rw operationidentifiers
-   +--rw operation-set!
-   |  +--rw after-operation-set*    action-effort
-   |  +--rw before-operation-set*   action-effort
-   |  +--rw effort-and-action?      action-effort
-   |  +--rw pause-resume-rule?      pause-resume-rule
-   |  +--rw operationset*           action-effort
-   |  +--rw is-short-lived?         boolean
-   |  +--rw operation-details* [action-verb]
-   |     +--rw action-verb                               action-verbs
-   |     +--rw necessary-initialcondition-constraints* [is-not]
-   |        +--rw is-not    boolean
    +--rw equipment* [uuid]
       +--rw connector* [uuid]
       |  +--rw connector?                string
@@ -930,79 +1068,3 @@ notifications:
       +--ro object-id-ref?   core-model:universal-id
       +--ro problem?         string
       +--ro severity?        severity-type
-module: onf-core-model-conditional-packages
-   +--rw network-element-pac
-   |  +--rw network-element?                    -> /core-model:network-element/uuid
-   |  +--ro network-element-capability
-   |  |  +--ro supported-alarms*   string
-   |  +--rw network-element-configuration
-   |  |  +--rw problem-type-severity-list* [problem-type-name]
-   |  |  |  +--rw problem-type-name        string
-   |  |  |  +--rw problem-type-severity?   microwave-model:severity-type
-   |  |  +--rw trigger-refresh?              boolean
-   |  +--ro network-element-status
-   |  |  +--ro refresh-status?   processing-type
-   |  +--ro network-element-current-problems
-   |     +--ro current-problem-list* [sequence-number]
-   |        +--ro problem-name?       string
-   |        +--ro object-reference?   string
-   |        +--ro sequence-number     int32
-   |        +--ro time-stamp?         yang:date-and-time
-   |        +--ro problem-severity?   severity-type
-   +--rw equipment-pac* [equipment]
-   |  +--rw equipment                     -> /core-model:equipment/uuid
-   |  +--ro equipment-capability
-   |  |  +--ro supported-alarms*   string
-   |  +--rw equipment-configuration
-   |  |  +--rw problem-type-severity-list* [problem-type-name]
-   |  |     +--rw problem-type-name        string
-   |  |     +--rw problem-type-severity?   microwave-model:severity-type
-   |  +--ro equipment-status
-   |  +--ro equipment-current-problems
-   |     +--ro current-problem-list* [sequence-number]
-   |        +--ro problem-name?       string
-   |        +--ro sequence-number     int32
-   |        +--ro time-stamp?         yang:date-and-time
-   |        +--ro problem-severity?   severity-type
-   +--rw holder-pac* [holder]
-   |  +--rw holder                     -> /core-model:equipment/contained-holder/uuid
-   |  +--ro holder-capability
-   |  |  +--ro supported-alarms*   string
-   |  +--rw holder-configuration
-   |  |  +--rw problem-type-severity-list* [problem-type-name]
-   |  |     +--rw problem-type-name        string
-   |  |     +--rw problem-type-severity?   microwave-model:severity-type
-   |  +--ro holder-status
-   |  +--ro holder-current-problems
-   |     +--ro current-problem-list* [sequence-number]
-   |        +--ro problem-name?       string
-   |        +--ro sequence-number     int32
-   |        +--ro time-stamp?         yang:date-and-time
-   |        +--ro problem-severity?   severity-type
-   +--rw connector-pac* [connector]
-      +--rw connector                     -> /core-model:equipment/exposed-cable/connector/uuid
-      +--ro connector-capability
-      |  +--ro supported-alarms*   string
-      +--rw connector-configuration
-      |  +--rw problem-type-severity-list* [problem-type-name]
-      |  |  +--rw problem-type-name        string
-      |  |  +--rw problem-type-severity?   microwave-model:severity-type
-      |  +--rw remote-end-point?             string
-      +--ro connector-status
-      |  +--ro local-end-point?   string
-      +--ro connector-current-problems
-         +--ro current-problem-list* [sequence-number]
-            +--ro problem-name?       string
-            +--ro sequence-number     int32
-            +--ro time-stamp?         yang:date-and-time
-            +--ro problem-severity?   severity-type
-module: onf-ethernet-conditional-packages
-   +--rw ethernet-pac* [layer-protocol]
-      +--rw layer-protocol                      -> /core-model:network-element/ltp/lp/uuid
-      +--ro ethernet-capability
-      +--rw ethernet-configuration
-      |  +--rw vlan-id?   int16
-      +--ro ethernet-status
-      +--ro ethernet-current-problems
-      +--ro ethernet-current-performance
-      +--ro ethernet-historical-performances

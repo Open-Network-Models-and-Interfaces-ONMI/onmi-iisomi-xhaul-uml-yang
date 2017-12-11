@@ -1,5 +1,5 @@
 module core-model {
-    namespace "urn:onf:params:xml:ns:yang:core-model";
+    namespace "urn:onf:params:xml:ns:yang:CoreModel";
     prefix core-model;
     organization "ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project";
     contact "WG Web: <https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport>
@@ -13,7 +13,7 @@ module core-model {
                        Martin Skorupski
                        <mailto:martin.skorupski@highstreet-technologies.com>";
     description "This module contains a collection of YANG definitions for managing wireless networks.";
-    revision 2017-03-20 {
+    revision 2017-02-17 {
         description "Initial version";
         reference "ONF TR 532: A YANG Data Model for Wireless Networks.";
     }
@@ -190,13 +190,13 @@ module core-model {
                     description "The reversion mode associated with protection.
                         Lifecycle : Experimental";
                 }
-                grouping global-pac-g {
-                    uses global-class-g;
+                grouping global-pac {
+                    uses global-class;
                     description "Provides the properties of a GlobalClass via composition.
                         Lifecycle : Preliminary";
                 }
-                grouping local-pac-g {
-                    uses local-class-g;
+                grouping local-pac {
+                    uses local-class;
                     description "Provides the properties of a LocalClass via composition.
                         Lifecycle : Preliminary";
                 }
@@ -351,7 +351,7 @@ module core-model {
             /***********************
             * package resilience
             **********************/ 
-                grouping configuration-and-switch-controller-g {
+                grouping configuration-and-switch-controller {
                     leaf switch-rule {
                         type to-be-defined;
                         description "A sketch of the presence of complex rules governing the switch behavior.";
@@ -363,7 +363,7 @@ module core-model {
                         description "The switch being controlled.";
                     }
                     container control-parameters {
-                        uses control-parameters-pac-g;
+                        uses control-parameters-pac;
                         description "The control parameters to be applied if local parameters are used rather than profiles";
                     }
                     leaf-list profile-proxy {
@@ -371,11 +371,11 @@ module core-model {
                         description "Applied profiles.";
                     }
                     container local-pac {
-                        uses local-pac-g;
+                        uses local-pac;
                         description "none";
                     }
                     container global-pac {
-                        uses global-pac-g;
+                        uses global-pac;
                         description "none";
                     }
                     leaf is-frozen {
@@ -399,7 +399,7 @@ module core-model {
                     description "Represents the capability to control and coordinate switches, to add/delete/modify FCs and to add/delete/modify LTPs/LPs so as to realize a protection scheme.
                         Lifecycle : Preliminary";
                 }
-                grouping control-parameters-pac-g {
+                grouping control-parameters-pac {
                     leaf reversion-mode {
                         type reversion-mode;
                         description "Indcates whether the protection scheme is revertive or non-revertive.";
@@ -424,7 +424,7 @@ module core-model {
                     description "A list of control parameters to apply to a switch.
                         Lifecycle : Preliminary";
                 }
-                grouping fc-switch-g {
+                grouping fc-switch {
                     leaf hold-off-time {
                         type int64;
                         description "Moved to ControlParameter_Pac... This attribute indicates the time, in seconds, between declaration of unacceptable quality of signal on the currently selected FcPort, and the initialization of the protection switching algorithm. ";
@@ -451,7 +451,7 @@ module core-model {
                         description "Provides a set of predefined values for switch control in place of the direct values available via the FcSwitch or via _configurationAndSwitchControl.";
                     }
                     container internal-configuration-and-switch-control {
-                        uses configuration-and-switch-controller-g;
+                        uses configuration-and-switch-controller;
                         description "A switch controller encapsulated in the FcSwitch.";
                     }
                     leaf switch-control {
@@ -468,14 +468,14 @@ module core-model {
                         description "The reason for the current switch selection.";
                     }
                     container control-parameters {
-                        uses control-parameters-pac-g;
+                        uses control-parameters-pac;
                         description "none";
                     }
                     leaf wait-to-restore-time {
                         type int64;
                         description "Moved to ControlParameter_Pac and changed to waitToRevert... If the protection system is revertive, this attribute specifies the amount of time, in seconds, to wait after the preferred FcPort returns to an acceptable state of operation (e.g. a fault has cleared) before restoring traffic to that preferred FcPort.";
                     }
-                    uses local-class-g;
+                    uses local-class;
                     description "The FcSwitch class models the switched forwarding of traffic (traffic flow) between FcPorts and is present where there is protection functionality in the FC. 
                         If an FC exposes protection (having two or more FcPorts that provide alternative identical inputs/outputs), the FC will have one or more associated FcSwitch objects to represent the alternative flow choices visible at the edge of the FC.
                         The FC switch represents and defines a protection switch structure encapsulated in the FC. 
@@ -490,7 +490,7 @@ module core-model {
                         This ability allows multiple alternate routes to be present that otherwise would be in conflict.";
                 }
 
-            grouping forwarding-domain-g {
+            grouping forwarding-domain {
                 leaf-list layer-protocol-name {
                     type layer-protocol-name;
                     min-elements 1;
@@ -523,7 +523,7 @@ module core-model {
                     description "The FD encompasses Links that interconnect lower level FDs and collect links that are wholly within the bounds of the FD.
                         See also _lowerLevelFd.";
                 }
-                uses global-class-g;
+                uses global-class;
                 description "The ForwardingDomain (FD) class models the topological component that represents the opportunity to enable forwarding (of specific transport characteristic information at one or more protocol layers) between points represented by the LTP in the model.
                     The FD object provides the context for and constrains the formation, adjustment and removal of FCs and hence offers the potential to enable forwarding. 
                     The LTPs available are those defined at the boundary of the FD.
@@ -531,7 +531,7 @@ module core-model {
                     An NE can encompass more than one switch matrix and hence more than one FD. The FD representing a switch matrix can be further partitioned.
                     The FD corresponds to a subnetwork [ITU-T G.800], FlowDomain [TMF 612] and a MultiLayerSubNetwork (MLSN) [TMF 612]. As in the TMF concept of MLSN and unlike the ITU-T concet of subnetwork model the FD can support more than one layer-protocol.";
             }
-            grouping forwarding-construct-g {
+            grouping forwarding-construct {
                 leaf layer-protocol-name {
                     type layer-protocol-name;
                     description "The layerProtocol at which the FC enables the potential for forwarding.";
@@ -553,12 +553,12 @@ module core-model {
                 list fc-port {
                     key 'uuid';
                     min-elements 2;
-                    uses fc-port-g;
+                    uses fc-port;
                     description "The association of the FC to LTPs is made via FcPorts (essentially the ports of the FC).";
                 }
                 list fc-switch {
                     key 'uuid';
-                    uses fc-switch-g;
+                    uses fc-switch;
                     description "If an FC exposes protection (having two FcPorts that provide alternative identical inputs/outputs), the FC will have one or more associated FcSwitch objects.
                         The arrangement of switches for a particular instance is described by a referenced FcSpec";
                 }
@@ -588,7 +588,7 @@ module core-model {
                     type string;
                     description "An FC that spans between LTPs that terminate the LayerProtocol usually supports one or more links in the client layer.";
                 }
-                uses global-class-g;
+                uses global-class;
                 description "The ForwardingConstruct (FC) class models enabled constrained potential for forwarding between two or more LTPs at a particular specific layerProtocol.
                     Like the LTP, the FC supports any transport protocol including all circuit and packet forms.
                     It is used to effect forwarding of transport characteristic (layer protocol) information.
@@ -601,7 +601,7 @@ module core-model {
                 presence  "";
                 list fd {
                     key 'uuid';
-                    uses forwarding-domain-g;
+                    uses forwarding-domain;
                     description "Represents the FD that is completely within the boundary of the NE.
                         At a low level of recursion, an FD (within a network element (NE)) represents a switch matrix (i.e., a fabric). 
                         Note that an NE can encompass multiple switch matrices (FDs) and the FD representing the switch matrix can be further partitioned.
@@ -610,12 +610,12 @@ module core-model {
                 }
                 list ltp {
                     key 'uuid';
-                    uses logical-termination-point-g;
+                    uses logical-termination-point;
                     description "An NE has associated LTPs that are at its boundary.
                         The NeEncompassesFd association occurs for FDs that are within the bounds of the NetworkElement definition such that the FD is bounded by LTPs, all of which are on the boundary of the NetworkElement or are within the NetworkElement. 
                         An LTP can be independent of an NE.";
                 }
-                uses global-class-g;
+                uses global-class;
                 description "The Network Element (NE) class represents a network element (traditional NE) in the data plane.
                     A data plane network element is essentially a consolidation of capabilities that can be viewed and controlled through a 'single' management-control port.
                     In the direct interface from an SDN controller to a network element in the data plane, the NetworkElement object defines the scope of control for the resources within the network element
@@ -627,10 +627,10 @@ module core-model {
             }
             list forwarding-construct {
                 key 'uuid';
-                uses forwarding-construct-g;
+                uses forwarding-construct;
                 description "none";
             }
-            grouping fc-port-g {
+            grouping fc-port {
                 leaf-list ltp {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:uuid';
@@ -684,7 +684,7 @@ module core-model {
                     type string;
                     description "Identifies which route(s) currently actively forward to the FcPort to exit the FC to an LTP (or for an internal FcPort to propagate to the next internal switch/route).";
                 }
-                uses local-class-g;
+                uses local-class;
                 description "The association of the FC to LTPs is made via FcPorts.
                     The FcPort class models the access to the FC function. 
                     The traffic forwarding between the associated FcPorts of the FC depends upon the type of FC and may be associated with FcSwitch object instances.  
@@ -693,7 +693,7 @@ module core-model {
                     The FcPort replaces the Protection Unit of a traditional protection model. 
                     The ForwardingConstruct can be considered as a component and the FcPort as a Port on that component.";
             }
-            grouping layer-protocol-g {
+            grouping layer-protocol {
                 leaf layer-protocol-name {
                     type layer-protocol-name;
                     description "Indicate the specific layer-protocol described by the LayerProtocol entity.";
@@ -716,7 +716,7 @@ module core-model {
                 }
                 list config-and-switch-controller {
                     key 'switch-rule';
-                    uses configuration-and-switch-controller-g;
+                    uses configuration-and-switch-controller;
                     description "A switch controller external to the LayerProtocol.
                         The controller will coordinate one or more switches in one or more FCs related to the LayerProtocol";
                 }
@@ -732,10 +732,10 @@ module core-model {
                     type string;
                     description "none";
                 }
-                uses local-class-g;
+                uses local-class;
                 description "The projection of an LTP into each transport layer is represented by a LayerProtocol (LP) instance. A LayerProtocol instances can be used for controlling termination and monitoring functionality. It can also be used for controlling the adaptation (i.e. encapsulation and/or multiplexing of client signal), tandem connection monitoring, traffic conditioning and/or shaping functionality at an intermediate point along a connection. Where the client - server relationship is fixed 1:1 and immutable, the layers can be encapsulated in a single LTP instance. Where there is a n:1 relationship between client and server, the layers must be split over two separate instances of LTP. ";
             }
-            grouping logical-termination-point-g {
+            grouping logical-termination-point {
                 leaf-list server-ltp {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:uuid';
@@ -751,7 +751,7 @@ module core-model {
                 list lp {
                     key 'uuid';
                     min-elements 1;
-                    uses layer-protocol-g;
+                    uses layer-protocol;
                     description "Ordered list of LayerProtocols that this LTP is comprised of where the first entry in the list is the lowest server layer (e.g. physical).";
                 }
                 leaf connected-ltp {
@@ -786,7 +786,7 @@ module core-model {
                         - A SINK LTP can only contain SINK LPs
                         - A SOURCE LTP can only contain SOURCE LPs";
                 }
-                uses global-class-g;
+                uses global-class;
                 description "The LogicalTerminationPoint (LTP) class encapsulates the termination and adaptation functions of one or more transport layers represented by instances of LayerProtocol.
                     The encapsulated transport layers have a simple fixed 1:1 client-server relationship defined by association end ordering.
                     The structure of LTP supports all transport protocols including circuit and packet forms.";
@@ -858,19 +858,19 @@ module core-model {
             /***********************
             * package object-classes
             **********************/ 
-                grouping name-g {
+                grouping name {
                     list name {
                         key 'value-name';
                         min-elements 1;
-                        uses name-and-value-g;
+                        uses name-and-value;
                         description "List of names.";
                     }
                     description "Name: A property of an entity with a value that is unique in some namespace but may change during the life of the entity. A name carries no semantics with respect to the purpose of the entity.";
                 }
-                grouping global-class-g {
+                grouping global-class {
                     list local-id {
                         key 'value-name';
-                        uses name-and-value-g;
+                        uses name-and-value;
                         description "An identifier that is unique in the context of some scope that is less than the global scope.
                             (consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)";
                     }
@@ -880,19 +880,19 @@ module core-model {
                             (consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself globally unique, and immutable. An identifier carries no semantics with respect to the purpose or state of the entity)
                             The uuid should be treated as opaque by the user.";
                     }
-                    uses name-g;
-                    uses label-g;
-                    uses extension-g;
-                    uses state-pac-g;
+                    uses name;
+                    uses label;
+                    uses extension;
+                    uses state-pac;
                     description "Represents a type of thing (an Entity) that has instances which can exist in their own right (independently of any others).
                         Entity: Has identity, defined boundary, properties, functionality and lifecycle in a global context.
                         (consider in the context of a Class: (usage) The representation of a thing that may be an entity or an inseparable Entity Feature).";
                 }
-                grouping local-class-g {
+                grouping local-class {
                     list local-id {
                         key 'value-name';
                         min-elements 1;
-                        uses name-and-value-g;
+                        uses name-and-value;
                         description "An identifier that is unique in the context of some scope that is less than the global scope.
                             (consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)";
                     }
@@ -900,33 +900,33 @@ module core-model {
                         type universal-id;
                         description "A global identifier for the LocalClass, which is used as reference.";
                     }
-                    uses name-g;
-                    uses label-g;
-                    uses extension-g;
-                    uses state-pac-g;
+                    uses name;
+                    uses label;
+                    uses extension;
+                    uses state-pac;
                     description "A LocalClass represents a Feature of an Entity. It is inseparable from a GlobalClass but is a distinct feature of that GlobalClass such that the instances of LocalClass are able to have associations to other instances..
                         Feature of an Entity: An inseparable, externally distinguishable part of an entity.
                         The mandatory LocalId of the LocalClass instance is unique in the context of the GlobalClass from which it is inseparable.
                         (consider in the context of a Class: (usage) The representation of a thing that may be an entity or an inseparable feature of an entity)
                         ";
                 }
-                grouping label-g {
+                grouping label {
                     list label {
                         key 'value-name';
-                        uses name-and-value-g;
+                        uses name-and-value;
                         description "List of labels.";
                     }
                     description "A property of an entity with a value that is not expected to be unique and is allowed to change. A label carries no semantics with respect to the purpose of the entity and has no effect on the entity behavior or state.";
                 }
-                grouping extension-g {
+                grouping extension {
                     list extension {
                         key 'value-name';
-                        uses name-and-value-g;
+                        uses name-and-value;
                         description "List of simple name-value extensions.";
                     }
                     description "Extension provides an opportunity to define properties not declared in the class that extend the class enabling a realization with simple ad-hoc extension of standard classes to be conformant.";
                 }
-                grouping universal-id-authority-g {
+                grouping universal-id-authority {
                     leaf uuid {
                         type universal-id;
                         description "The UUID for the UUID authority.";
@@ -934,7 +934,7 @@ module core-model {
                     description "Represents the authority that controls the allocation of UUIDs.
                         Lifecycle : Preliminary";
                 }
-                grouping name-and-value-authority-g {
+                grouping name-and-value-authority {
                     leaf uuid {
                         type universal-id;
                         description "The UUID for the NameValueAuthority.";
@@ -942,9 +942,9 @@ module core-model {
                     description "Represents the authority that controls the legal values for the names and values of a name/value attribute.
                         Lifecycle : Preliminary";
                 }
-                grouping conditional-package-g {
-                    uses extension-g;
-                    uses label-g;
+                grouping conditional-package {
+                    uses extension;
+                    uses label;
                     description "The base class for conditional packages.
                         Lifecycle : Experimental";
                 }
@@ -952,7 +952,7 @@ module core-model {
             /***********************
             * package type-definitions
             **********************/ 
-                grouping name-and-value-g {
+                grouping name-and-value {
                     leaf value-name {
                         type string;
                         description "The name of the value. The value need not have a name.";
@@ -968,44 +968,44 @@ module core-model {
                     description "The universal ID value where the mechanism for generation is defined by some authority not directly referenced in the structure.
                         A example structure is [IETF RFC4122].";
                 }
-                grouping address-g {
+                grouping address {
                     leaf address-name {
                         type string;
                         description "The name of the address (to allow the specific hierarchy to be distinguished from others for the same entity).";
                     }
                     list address-element {
                         key 'uuid';
-                        uses address-element-g;
+                        uses address-element;
                         description "The elements of the address that form the recursive scope narrowing.";
                     }
                     description "A description of location via a hierarchy of narrowing contexts.
                         Lifecycle : Experimental";
                 }
-                grouping local-id-and-class-g {
+                grouping local-id-and-class {
                     leaf class-of-instance {
                         type string;
                         description "The class to which the name refers.";
                     }
                     container local-id {
-                        uses name-and-value-g;
+                        uses name-and-value;
                         description "The localId of the entity.";
                     }
                     description "The localId and the class of entity that it identifies.
                         Lifecycle : Experimental";
                 }
-                grouping name-and-class-g {
+                grouping name-and-class {
                     leaf class-of-instance {
                         type string;
                         description "The class to which the name refers.";
                     }
                     container name {
-                        uses name-and-value-g;
+                        uses name-and-value;
                         description "If the element is a name.";
                     }
                     description "The name and the class of entity that it names.
                         Lifecycle : Experimental";
                 }
-                grouping address-element-g {
+                grouping address-element {
                     leaf address-element-name {
                         type string;
                         description "The name of the address element (e.g. 'shelf' as an element of a shelf/slot/port addressing scheme).
@@ -1013,7 +1013,7 @@ module core-model {
                             ";
                     }
                     container local-id {
-                        uses local-id-and-class-g;
+                        uses local-id-and-class;
                         description "If the element is a localId (where the element above in the hierarchy must be the context in which the specific localId is relevant).";
                     }
                     leaf uuid {
@@ -1021,7 +1021,7 @@ module core-model {
                         description "If the element is a uuid (where this element could be the top of a hierarchy but may also be at some level in the hierarchy where address navigation is considered necessary to assist in location of the UUID).";
                     }
                     container name {
-                        uses name-and-class-g;
+                        uses name-and-class;
                         description "If the element is a name.";
                     }
                     leaf arbitrary-element {
@@ -1040,7 +1040,7 @@ module core-model {
             /***********************
             * package object-classes
             **********************/ 
-                grouping state-pac-g {
+                grouping state-pac {
                     leaf operational-state {
                         type operational-state;
                         config false;
@@ -1231,24 +1231,24 @@ module core-model {
             /***********************
             * package object-classes
             **********************/ 
-                grouping general-directives-g {
+                grouping general-directives {
                     description "Lifecycle : Experimental";
                 }
-                grouping necessary-initial-condition-constraints-g {
+                grouping necessary-initial-condition-constraints {
                     leaf is-not {
                         type boolean;
                         description "none";
                     }
                     description "Lifecycle : Experimental";
                 }
-                grouping operation-details-g {
+                grouping operation-details {
                     leaf action-verb {
                         type action-verbs;
                         description "none";
                     }
                     list necessary-initialcondition-constraints {
                         key 'is-not';
-                        uses necessary-initial-condition-constraints-g;
+                        uses necessary-initial-condition-constraints;
                         description "none";
                     }
                     description "Lifecycle : Experimental";
@@ -1258,23 +1258,23 @@ module core-model {
                     list operation-set {
                         key 'effort-and-action';
                         min-elements 1;
-                        uses operation-set-g;
+                        uses operation-set;
                         description "none";
                     }
                     container generaldirectives {
-                        uses general-directives-g;
+                        uses general-directives;
                         description "none";
                     }
                     container operationidentifiers {
-                        uses operation-identifiers-g;
+                        uses operation-identifiers;
                         description "none";
                     }
                     description "Lifecycle : Experimental";
                 }
-                grouping operation-identifiers-g {
+                grouping operation-identifiers {
                     description "Lifecycle : Experimental";
                 }
-                grouping operation-set-g {
+                grouping operation-set {
                     leaf-list after-operation-set {
                         type leafref {
                             path '/core-model:operation-envelope/core-model:operation-set/core-model:effort-and-action';
@@ -1309,7 +1309,7 @@ module core-model {
                     list operation-details {
                         key 'action-verb';
                         min-elements 1;
-                        uses operation-details-g;
+                        uses operation-details;
                         description "none";
                     }
                     description "none";
@@ -1329,47 +1329,47 @@ module core-model {
                 /***********************
                 * package object-classes
                 **********************/ 
-                    grouping connector-in-holder-g {
+                    grouping connector-in-holder {
                         leaf connector-on-equipment-for-holder {
                             type leafref {
                                 path '/core-model:connector-on-equipment-for-holder/core-model:uuid';
                             }
                             description "none";
                         }
-                        uses connector-g;
+                        uses connector;
                         description "A rule class (an abstract specialization of Connector) that represents a connector that are only accessible to an equipment inserted in the holder.
                             Lifecycle : Experimental";
                     }
-                    grouping connector-cable-end-g {
+                    grouping connector-cable-end {
                         leaf connector-on-equipment-for-cable {
                             type leafref {
                                 path '/core-model:connector-on-equipment-for-cable/core-model:uuid';
                             }
                             description "none";
                         }
-                        uses connector-g;
+                        uses connector;
                         description "A rule class (an abstract specialization of Connector) that represents a connector on the end of a cable.
                             Lifecycle : Experimental";
                     }
-                    grouping connector-on-equipment-for-cable-g {
+                    grouping connector-on-equipment-for-cable {
                         leaf connector-cable-end {
                             type leafref {
                                 path '/core-model:connector-cable-end/core-model:uuid';
                             }
                             description "none";
                         }
-                        uses connector-g;
+                        uses connector;
                         description "A rule class (an abstract specialization of Connector) that represents a connector exposed on an equipment such that a cable may be plugged in.
                             Lifecycle : Experimental";
                     }
-                    grouping connector-on-equipment-for-holder-g {
+                    grouping connector-on-equipment-for-holder {
                         leaf connector-in-holder {
                             type leafref {
                                 path '/core-model:connector-in-holder/core-model:uuid';
                             }
                             description "none";
                         }
-                        uses connector-g;
+                        uses connector;
                         description "A rule class (an abstract specialization of Connector) that represents a connector on an equipment that is intended to mate with a connector in a holder.
                             Lifecycle : Experimental";
                     }
@@ -1385,7 +1385,7 @@ module core-model {
                 /***********************
                 * package dynamic-details
                 **********************/ 
-                    grouping function-enablers-g {
+                    grouping function-enablers {
                         leaf power-state {
                             type to-be-defined;
                             description "none";
@@ -1393,7 +1393,7 @@ module core-model {
                         description "Represents the dynamic aspects of the properties that relate to the motive force that directly enable functionality to emerge from the equipment.
                             Lifecycle : Experimental";
                     }
-                    grouping mechanical-functions-g {
+                    grouping mechanical-functions {
                         leaf rotation-speed {
                             type to-be-defined;
                             description "none";
@@ -1401,7 +1401,7 @@ module core-model {
                         description "Represents the dynamic aspects of the mechanical functions of the equipment.
                             Lifecycle : Experimental";
                     }
-                    grouping physical-properties-g {
+                    grouping physical-properties {
                         leaf temperature {
                             type to-be-defined;
                             description "none";
@@ -1409,7 +1409,7 @@ module core-model {
                         description "Represents the dynamic aspects of the physical environmental properties of the equipment.
                             Lifecycle : Experimental";
                     }
-                    grouping holder-monitors-g {
+                    grouping holder-monitors {
                         leaf is-active {
                             type boolean;
                             description "none";
@@ -1425,13 +1425,13 @@ module core-model {
                         description "Represents the dynamic state of the holder instance. 
                             Lifecycle : Experimental";
                     }
-                    grouping location-g {
+                    grouping location {
                         container equipment-location {
-                            uses address-g;
+                            uses address;
                             description "none";
                         }
                         container geographical-location {
-                            uses address-g;
+                            uses address;
                             description "none";
                         }
                         description "Lifecycle : Experimental";
@@ -1440,7 +1440,7 @@ module core-model {
                 /***********************
                 * package invariant-details
                 **********************/ 
-                    grouping category-g {
+                    grouping category {
                         leaf category {
                             type equipment-category;
                             description "none";
@@ -1448,7 +1448,7 @@ module core-model {
                         description "Represents the form of the equipment.
                             Lifecycle : Experimental";
                     }
-                    grouping equipment-instance-g {
+                    grouping equipment-instance {
                         leaf manufacture-date {
                             type string;
                             description "none";
@@ -1464,7 +1464,7 @@ module core-model {
                         description "Represents the per instance invariant properties of the equipment.
                             Lifecycle : Experimental";
                     }
-                    grouping equipment-type-g {
+                    grouping equipment-type {
                         leaf description {
                             type string;
                             description "none";
@@ -1488,7 +1488,7 @@ module core-model {
                         description "Represents the invariant properties of the equipment that define and characterise the type.
                             Lifecycle : Experimental";
                     }
-                    grouping holder-structure-g {
+                    grouping holder-structure {
                         leaf holder-category {
                             type holder-category;
                             description "none";
@@ -1508,27 +1508,27 @@ module core-model {
                         description "Represents the form of the holder.
                             Lifecycle : Experimental";
                     }
-                    grouping manufactured-thing-g {
+                    grouping manufactured-thing {
                         container manufacturer-properties {
-                            uses manufacturer-properties-g;
+                            uses manufacturer-properties;
                             description "none";
                         }
                         container equipment-type {
-                            uses equipment-type-g;
+                            uses equipment-type;
                             description "none";
                         }
                         container equipment-instance {
-                            uses equipment-instance-g;
+                            uses equipment-instance;
                             description "none";
                         }
                         container operator-augmented-equipment-type {
-                            uses operator-augmented-equipment-type-g;
+                            uses operator-augmented-equipment-type;
                             description "none";
                         }
                         description "Collects all invariant aspects of a manufactured thing.
                             Lifecycle : Experimental";
                     }
-                    grouping manufacturer-properties-g {
+                    grouping manufacturer-properties {
                         leaf manufacturer-identifier {
                             type string;
                             description "none";
@@ -1540,11 +1540,11 @@ module core-model {
                         description "Represents the properties of the manufacturer.
                             Lifecycle : Experimental";
                     }
-                    grouping mechanical-features-g {
+                    grouping mechanical-features {
                         description "Represents the invariant characteristics of dynamic mechanical features of a physical thing.
                             Lifecycle : Experimental";
                     }
-                    grouping operator-augmented-equipment-type-g {
+                    grouping operator-augmented-equipment-type {
                         leaf asset-type-identifier {
                             type string;
                             description "none";
@@ -1552,7 +1552,7 @@ module core-model {
                         description "Represents the invariant properties of the equipment asset allocated by the operator that define and characterise the type.
                             Lifecycle : Experimental";
                     }
-                    grouping physical-characteristics-g {
+                    grouping physical-characteristics {
                         leaf weight-characteristics {
                             type to-be-defined;
                             description "none";
@@ -1568,7 +1568,7 @@ module core-model {
                         description "Represents the invariant physical characteristics (including composition and physical robustness) of the type.
                             Lifecycle : Experimental";
                     }
-                    grouping physical-rating-g {
+                    grouping physical-rating {
                         leaf thermal-rating {
                             type to-be-defined;
                             description "none";
@@ -1580,7 +1580,7 @@ module core-model {
                         description "Represents the invariant physical operational boundaries for the equipment/holder type.
                             Lifecycle : Experimental";
                     }
-                    grouping position-g {
+                    grouping position {
                         leaf relative-position {
                             type to-be-defined;
                             description "none";
@@ -1588,7 +1588,7 @@ module core-model {
                         description "Represents the invariant relative position of the holder (with respect to some frame of reference in an equipment) or connector on an equipment or pin in a connector.
                             Lifecycle : Experimental";
                     }
-                    grouping spatial-properties-of-type-g {
+                    grouping spatial-properties-of-type {
                         leaf height {
                             type to-be-defined;
                             description "none";
@@ -1604,7 +1604,7 @@ module core-model {
                         description "Represents the basic invariant spatial properties of a physical thing.
                             Lifecycle : Experimental";
                     }
-                    grouping swapability-g {
+                    grouping swapability {
                         leaf is-hot-swappable {
                             type boolean;
                             default true;
@@ -1622,37 +1622,37 @@ module core-model {
             /***********************
             * package object-classes
             **********************/ 
-                grouping cable-g {
+                grouping cable {
                     list connector {
                         key 'uuid';
                         min-elements 1;
-                        uses connector-g;
+                        uses connector;
                         description "none";
                     }
                     container manufactured-thing {
-                        uses manufactured-thing-g;
+                        uses manufactured-thing;
                         description "none";
                     }
                     container physical-characteristics {
-                        uses physical-characteristics-g;
+                        uses physical-characteristics;
                         description "none";
                     }
                     container mechanical-features {
-                        uses mechanical-features-g;
+                        uses mechanical-features;
                         description "none";
                     }
                     container spatial-properties-of-type {
-                        uses spatial-properties-of-type-g;
+                        uses spatial-properties-of-type;
                         description "none";
                     }
-                    uses global-class-g;
+                    uses global-class;
                     description "Basic model representing a cable with connectors fitted where the cable is 'short' (e.g.  patch cord, in-station cabling).
                         This is intentionally a very basic representation of a cable. 
                         In a more sophisticated representation cable ends might be represented that then associate to the attached connector. 
                         At this point it is assumed that the basic model is sufficient.
                         Lifecycle : Experimental";
                 }
-                grouping connector-g {
+                grouping connector {
                     leaf connector {
                         type string;
                         description "none";
@@ -1660,7 +1660,7 @@ module core-model {
                     list pin {
                         key 'position';
                         min-elements 1;
-                        uses pin-g;
+                        uses pin;
                         description "none";
                     }
                     leaf orientation {
@@ -1668,84 +1668,84 @@ module core-model {
                         description "none";
                     }
                     container manufactured-thing {
-                        uses manufactured-thing-g;
+                        uses manufactured-thing;
                         description "none";
                     }
                     container position {
-                        uses position-g;
+                        uses position;
                         description "none";
                     }
                     container mechanical-features {
-                        uses mechanical-features-g;
+                        uses mechanical-features;
                         description "none";
                     }
                     container pin-layout {
-                        uses pin-layout-g;
+                        uses pin-layout;
                         description "none";
                     }
                     leaf connector-type {
                         type to-be-defined;
                         description "none";
                     }
-                    uses local-class-g;
-                    uses group-of-pins-g;
+                    uses local-class;
+                    uses group-of-pins;
                     description "Represents a connector that may be fully exposed (e.g. to plug in a cable or on the end of a cable) or partially exposed (e.g. backplane to plug in another piece of equipment such as a module).
                         Lifecycle : Experimental";
                 }
-                grouping equipment-g {
+                grouping equipment {
                     list connector {
                         key 'uuid';
-                        uses connector-g;
+                        uses connector;
                         description "none";
                     }
                     list contained-holder {
                         key 'uuid';
-                        uses holder-g;
+                        uses holder;
                         description "none";
                     }
                     list exposed-cable {
                         key 'uuid';
-                        uses cable-g;
+                        uses cable;
                         description "none";
                     }
                     container manufactured-thing {
-                        uses manufactured-thing-g;
+                        uses manufactured-thing;
                         description "none";
                     }
                     container spatial-properties-of-type {
-                        uses spatial-properties-of-type-g;
+                        uses spatial-properties-of-type;
                         description "none";
                     }
                     container mechanical-features {
-                        uses mechanical-features-g;
+                        uses mechanical-features;
                         description "none";
                     }
                     container physical-properties {
-                        uses physical-properties-g;
+                        uses physical-properties;
                         description "none";
                     }
                     container function-enablers {
-                        uses function-enablers-g;
+                        uses function-enablers;
                         description "none";
                     }
                     container mechanical-functions {
-                        uses mechanical-functions-g;
+                        uses mechanical-functions;
                         description "none";
                     }
                     container physical-characteristics {
-                        uses physical-characteristics-g;
+                        uses physical-characteristics;
                         description "none";
                     }
                     container swapability {
-                        uses swapability-g;
+                        uses swapability;
                         description "none";
                     }
                     container category {
-                        uses category-g;
+                        uses category;
                         description "none";
                     }
                     container physical-rating {
-                        uses physical-rating-g;
+                        uses physical-rating;
                         description "none";
                     }
                     leaf is-field-replaceable {
@@ -1760,18 +1760,18 @@ module core-model {
                         description "none";
                     }
                     container expected-equipment {
-                        uses expected-equipment-g;
+                        uses expected-equipment;
                         description "none";
                     }
                     container actual-equipment {
-                        uses actual-equipment-g;
+                        uses actual-equipment;
                         description "none";
                     }
                     container location {
-                        uses location-g;
+                        uses location;
                         description "none";
                     }
-                    uses global-class-g;
+                    uses global-class;
                     description "Represents any relevant physical thing. 
                         Can be either field replaceable or not field replaceable.
                         Note: The model is currently constrained to inside plant.
@@ -1779,10 +1779,10 @@ module core-model {
                 }
                 list equipment {
                     key 'uuid';
-                    uses equipment-g;
+                    uses equipment;
                                 description "none";
 }
-                grouping holder-g {
+                grouping holder {
                     leaf-list connector {
                         type leafref {
                             path '/core-model:equipment/core-model:exposed-cable/core-model:connector/core-model:uuid';
@@ -1798,27 +1798,27 @@ module core-model {
                             An FRU may occupy more hat one holder (using or blocking are intentionally not distinguished here).";
                     }
                     container spatial-properties-of-type {
-                        uses spatial-properties-of-type-g;
+                        uses spatial-properties-of-type;
                         description "none";
                     }
                     container holder-monitors {
-                        uses holder-monitors-g;
+                        uses holder-monitors;
                         description "none";
                     }
                     container holder-location {
-                        uses address-g;
+                        uses address;
                         description "none";
                     }
                     container position {
-                        uses position-g;
+                        uses position;
                         description "none";
                     }
                     container holder-structure {
-                        uses holder-structure-g;
+                        uses holder-structure;
                         description "none";
                     }
                     container physical-rating {
-                        uses physical-rating-g;
+                        uses physical-rating;
                         description "none";
                     }
                     leaf-list supported-equipment {
@@ -1827,14 +1827,14 @@ module core-model {
                         description "none";
                     }
                     container expected-holder {
-                        uses expected-holder-g;
+                        uses expected-holder;
                         description "none";
                     }
                     container actual-holder {
-                        uses actual-holder-g;
+                        uses actual-holder;
                         description "none";
                     }
-                    uses local-class-g;
+                    uses local-class;
                     description "Represents a space in an equipment in which another equipment can be fitted in the field.
                         Lifecycle : Experimental";
                 }
@@ -1905,20 +1905,20 @@ module core-model {
             /***********************
             * package object-classes
             **********************/ 
-                grouping actual-holder-g {
+                grouping actual-holder {
                     description "A holder in the ActualEquipment.
                         Lifecycle : Experimental";
                 }
-                grouping expected-holder-g {
+                grouping expected-holder {
                     description "A definition of a holder expected in the ActualEquipment (i.e. an ActualHolder) as part of the constraints provided by the ExpectedEquipment.
                         Lifecycle : Experimental";
                 }
-                grouping actual-equipment-g {
+                grouping actual-equipment {
                     description "The equipment that is actually present in the physical network.
                         It will expose all dynamic properties and some critical static properties.
                         Lifecycle : Experimental";
                 }
-                grouping expected-equipment-g {
+                grouping expected-equipment {
                     description "A definition of the restrictions on the equipment that is expected to be present in the physical network at a particular 'place'.
                         The expected equipment will state the type and may constrain any other invariant properties. 
                         It may also provide desired ranges for dynami properties.
@@ -1932,7 +1932,7 @@ module core-model {
             /***********************
             * package object-classes
             **********************/ 
-                grouping pin-g {
+                grouping pin {
                     leaf position {
                         type leafref {
                             path '/core-model:equipment/core-model:exposed-cable/core-model:connector/core-model:position/core-model:relative-position';
@@ -1948,7 +1948,7 @@ module core-model {
                         A pin may have more than one wire/fiber attached but is such that all attached things get exactly the same signal set.
                         Lifecycle : Experimental";
                 }
-                grouping pin-group-g {
+                grouping pin-group {
                     leaf-list pin {
                         type leafref {
                             path '/core-model:equipment/core-model:exposed-cable/core-model:connector/core-model:pin/core-model:position';
@@ -1956,26 +1956,26 @@ module core-model {
                         min-elements 1;
                         description "none";
                     }
-                    uses port-g;
-                    uses group-of-pins-g;
+                    uses port;
+                    uses group-of-pins;
                     description "A group of pins that together provide signal group where any one pin removed from the group will prevent the signals of the signal group from flowing successfully.
                         Lifecycle : Experimental";
                 }
-                grouping pin-layout-g {
+                grouping pin-layout {
                     list position {
                         key 'relative-position';
                         min-elements 1;
-                        uses position-g;
+                        uses position;
                         description "none";
                     }
                     description "The structuring of pins in a connector.
                         Lifecycle : Experimental";
                 }
-                grouping port-g {
+                grouping port {
                     description "A conceptual access point for a group of signals (where that group of signals cannot be separated).
                         Lifecycle : Experimental";
                 }
-                grouping signal-ref-pt-g {
+                grouping signal-ref-pt {
                     leaf ltp {
                         type leafref {
                             path '/core-model:network-element/core-model:ltp/core-model:uuid';
@@ -1992,7 +1992,7 @@ module core-model {
                     description "A single coherent signal as processed by a single LTP.
                         Lifecycle : Experimental";
                 }
-                grouping signal-ref-pt-group-g {
+                grouping signal-ref-pt-group {
                     leaf pin-group {
                         type leafref {
                             path '/core-model:pin-group/core-model:pin';
@@ -2006,11 +2006,11 @@ module core-model {
                         min-elements 1;
                         description "none";
                     }
-                    uses port-g;
+                    uses port;
                     description "A physical indivisible group of signals.
                         Lifecycle : Experimental";
                 }
-                grouping elemental-signals-g {
+                grouping elemental-signals {
                     leaf-list pin {
                         type leafref {
                             path '/core-model:equipment/core-model:exposed-cable/core-model:connector/core-model:pin/core-model:position';
@@ -2021,7 +2021,7 @@ module core-model {
                     description "The elemental (sub-atomic) parts of an 'indivisible' signal where processing in the LTP is required to extract the elemental signals.
                         Lifecycle : Experimental";
                 }
-                grouping group-of-pins-g {
+                grouping group-of-pins {
                     description "A group of pins from one or more connectors relevant for some purpose.
                         Lifecycle : Experimental";
                 }
