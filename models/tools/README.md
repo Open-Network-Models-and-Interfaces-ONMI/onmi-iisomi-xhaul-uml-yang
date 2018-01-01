@@ -83,8 +83,7 @@ sudo apt-get install unzip
 
 The following figure shows the process to download, prune and refactor UML modules and then to convert them into yang.
 
-![Process](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Process")
-
+![Process](src/main/docs/core-model-process.png "Process")
 
 ## Main scripts
 
