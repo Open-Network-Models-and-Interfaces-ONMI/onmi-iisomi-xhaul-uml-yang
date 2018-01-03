@@ -53,4 +53,4 @@ npm install
 cd ../../..
 
 echo "Modify UmlYangTools"
-cp -r ./src/main/xmi2yang/* -src/main/resources/EAGLE-Open-Model-Profile-and-Tools/UmlYangTools/xmi2yang
+cp -r ./src/main/xmi2yang/* ./src/main/resources/EAGLE-Open-Model-Profile-and-Tools/UmlYangTools/xmi2yang
