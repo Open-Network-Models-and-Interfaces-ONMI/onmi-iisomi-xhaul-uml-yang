@@ -9,7 +9,7 @@ if (!String.prototype.format) {
 
 var fs = require('fs');
 var path = require('path');
-var replaceing = require('./post-processing/find-replace.json');
+var replacing = require('./post-processing/find-replace.json');
 var rootLists = require('./post-processing/root-lists.json')['root-lists'];
 
 var whiteList = ['core-model.yang'];
@@ -40,8 +40,8 @@ var postProcess = function (filename) {
     Object.keys(rootLists).map(function (item) {
         var key = rootLists[item].key || 'uuid';
         var uses = rootLists[item].uses || item + '-g';
-        var desciption = rootLists[item].desciption || 'none';
-        var yangList = format.format(item, key, uses, desciption);
+        var description = rootLists[item].description || 'none';
+        var yangList = format.format(item, key, uses, description);
         add += yangList;
     });
 
@@ -51,9 +51,9 @@ var postProcess = function (filename) {
         var newFilename = [filename.slice(0, filename.length - extension.length), '@', revision, extension].join('');
 
         // replace leaf references
-        Object.keys(replaceing).map(function (find) {
+        Object.keys(replacing).map(function (find) {
             var regex = new RegExp(find, 'g');
-            data = data.replace(regex, replaceing[find]);
+            data = data.replace(regex, replacing[find]);
         });
 
         // add yang root elements at the end

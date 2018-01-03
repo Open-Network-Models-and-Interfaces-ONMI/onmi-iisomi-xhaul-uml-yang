@@ -10,12 +10,12 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-
 function Util(str){
 
 }
 Util.yangifyName = function(str) {
     if (str === str.toUpperCase()) {
+        // "BIDIRECTIONAL" to "bidirectional" instead of "b-i-d-i-r-e-c-t-i-o-n-a-l"
         return str.toLowerCase();
     }
     return str
