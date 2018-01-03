@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # Martin Skorupski. Copyright (c) 2017, highstreet technologies GmbH
 
+# Modify UmlYangTools
+cp -r ./src/main/xmi2yang/* ./src/main/resources/EAGLE-Open-Model-Profile-and-Tools/UmlYangTools/xmi2yang
+
 # Convert UML to YANG
 cd ./src/main/resources/EAGLE-Open-Model-Profile-and-Tools/UmlYangTools/xmi2yang
 
