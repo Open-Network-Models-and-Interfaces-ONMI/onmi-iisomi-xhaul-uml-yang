@@ -1,11 +1,15 @@
 {
   "root-lists":{
+      "adapter-property-spec":{},
     "aggregate-function":{},
 	"atomic-function":{},
     "cable":{},
 	"casc-port":{},
-	"casc-port-role-properties":{},
-	"composed-part":{},
+    "casc-port-role-properties":{},
+    "client-spec":{},
+    "composed-part":{},
+    "connection-spec":{},
+	"connection-point-and-adapter-spec":{},
 	"configuration-and-switch-controller-spec":{},
     "configuration-group-spec":{},
 	"constraint-domain":{},
@@ -43,13 +47,16 @@
 	"physical-characteristics":{},
 	"physical-properties":{},
 	"pin-group":{},
-	"pin-layout":{},
-	"resilient-function-block":{},
+    "pin-layout":{},
+    "provider-view-spec":{},
+    "resilient-function-block":{},
+    "pool-property-spec":{},
 	"signal-ref-pt-group":{},
 	"spatial-properties-of-type":{},
 	"swapability":{"uses":"swappability-g"},
 	"support-constraints":{},
 	"supported-non-fru-type":{},
+    "termination-spec":{},
     "view-mapping": {},
 
     "cd-port":{"key":"local-id"},
@@ -72,6 +79,7 @@
     "equipment-structure":{"key":"category"},
     "equipment-instance":{"key":"serial-number"},
     "equipment-type":{"key":"model-identifier"},
+    "lp-spec":{"key":"spec-target-class"},
     "manufactured-thing":{"key":"equipment-instance"},
     "manufacturer-properties":{"key":"manufacturer-identifier"},
     "network-scheme-specification":{"key":"scheme-name"},
@@ -81,6 +89,6 @@
     "pin":{"key":"position"},
     "profile-proxy":{"key":"profile-proxy-mode"},
 	"signal-ref-pt":{"key":"ltp"},
-	"specific-class-structure":{"key":"class-type-name"}
+    "specific-class-structure":{"key":"class-type-name"}
   }
 }

@@ -1,5 +1,6 @@
 {
     "type to-be-defined;'": "type string; // type to-be-defined;'",
+    "default \"LayerProtocol\"":"// default \"LayerProtocol\"",
     "/core-model:equipment-non-fru/core-model:uuid'": "/core-model:equipment/core-model:uuid'",
     "/core-model:conector-in-holder/core-model:local-id'": "/core-model:holder/core-model:local-id'",
     "/core-model:connector-on-equipment-for-cable/core-model:local-id'": "/core-model:connector/core-model:local-id'",
@@ -24,5 +25,7 @@
     "/core-model:manufactured-thing/core-model:operator-augmented-equipment-type'": "/core-model:operator-augmented-equipment-type/core-model:asset-type-identifier'",
     "/core-model:structure/core-model:category'": "/core-model:equipment-structure/core-model:category'",
     "/core-model:port-role-properties/core-model:uuid'": "/core-model:casc-port-role-properties/core-model:uuid'",
-    "/core-model:forwarding-spec/core-model:spec-target-class,uuid'": "/core-model:forwarding-spec/core-model:spec-target-class'"
+    "/core-model:forwarding-spec/core-model:spec-target-class,uuid'": "/core-model:forwarding-spec/core-model:spec-target-class'",
+    "/core-model:adapter-spec/core-model:uuid":"/core-model:connection-point-and-adapter-spec/core-model:uuid",
+    "/core-model:lp-spec/core-model:lp-spec":"/core-model:lp-spec/core-model:spec-target-class"
 }
