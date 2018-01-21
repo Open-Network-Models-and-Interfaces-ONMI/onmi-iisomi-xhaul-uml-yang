@@ -120,7 +120,7 @@ database_cleansetup() {
 
         echo "Wait 10 seconds till db wrote"
         sleep 10
-	read -p "Press <Enter> to shutdown..."
+    read -p "Press <Enter> to shutdown..."
 
         echo "stop karaf command"
         $ODL_KARAF_HOME/bin/stop
@@ -143,8 +143,8 @@ karaf_startup_1b() {
 # Start all servies
 karaf_startup_all() {
     # Please choose only one of the next two lines depending you the target system (clustered ODL vs. standalone ODL)
-    # ./karafcmd.sh "feature:install odl-netconf-clustered-topology" 
-    # ./karafcmd.sh "feature:install odl-netconf-topology" 
+    # ./karafcmd.sh "feature:install odl-netconf-clustered-topology"
+    # ./karafcmd.sh "feature:install odl-netconf-topology"
 
     ./karafcmd.sh  "feature:install odl-netconf-topology"
     ./karafcmd.sh  "feature:install odl-restconf-all"
@@ -158,15 +158,18 @@ karaf_startup_all() {
   # Wireless (mwtn: microwave transport network)
     ./karafcmd.sh "feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/0.4.0-SNAPSHOT/xml/features"
 
-    ./karafcmd.sh "feature:install odl-mwt-models"
-    ./karafcmd.sh "feature:install odl-mwt-devicemanager"
-    ./karafcmd.sh "feature:install odl-mwtn-all"
-    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnBrowser-bundle/0.4.0-SNAPSHOT"
-    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnFault-bundle/0.4.0-SNAPSHOT"
-    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnEvents-bundle/0.4.0-SNAPSHOT"
-    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceCurrent-bundle/0.4.0-SNAPSHOT"
-    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceHistory-bundle/0.4.0-SNAPSHOT"
-    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceLink-bundle/0.4.0-SNAPSHOT"
+    ./karafcmd.sh "feature:install onap-sdnr-all"
+
+#    ./karafcmd.sh "feature:install odl-mwt-models"
+#    ./karafcmd.sh "feature:install odl-mwt-devicemanager"
+#    ./karafcmd.sh "feature:install odl-mwtn-all"
+#    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnBrowser-bundle/0.4.0-SNAPSHOT"
+#    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnFault-bundle/0.4.0-SNAPSHOT"
+#    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnEvents-bundle/0.4.0-SNAPSHOT"
+#    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceCurrent-bundle/0.4.0-SNAPSHOT"
+#    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceHistory-bundle/0.4.0-SNAPSHOT"
+#    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceLink-bundle/0.4.0-SNAPSHOT"
+#    ./karafcmd.sh "bundle:install –s mvn:com.highstreet.technologies.odl.dlux/onapAai-bundle/0.4.0-SNAPSHOT"
 }
 
 #Param1 Optional Param2 Optional
@@ -183,7 +186,7 @@ karaf_cleanstart() {
     echo "Wait 30s till karaf and ssh is in a working level"
     sleep 30
     netstat -ant | grep 8101
-    echo "Provisioning $1" 
+    echo "Provisioning $1"
     if [ "$1" = "1b" ] ; then
       karaf_startup_1b
     else
@@ -292,8 +295,8 @@ prepare() {
             else
 
                echo "Patch DLUX"
-	       cd ./apps/dlux
-	       ./installDlux.sh
+           cd ./apps/dlux
+           ./installDlux.sh
                cd "$here"
 
                echo "Konfiguration file for elastic search"

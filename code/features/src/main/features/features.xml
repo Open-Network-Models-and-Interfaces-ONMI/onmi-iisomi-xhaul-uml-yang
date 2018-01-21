@@ -17,7 +17,7 @@
     <!-- <feature version="${netconf.version}">odl-netconf-topology</feature> -->
     <feature version="${restconf.version}">odl-restconf-all</feature>
     <feature version="${mdsal.version}">odl-mdsal-apidocs</feature>
-    
+
     <feature version="${elasticsearch.version}">elasticsearch</feature>
 
     <feature version="${project.version}">sdnr-wt-apps-all</feature>
@@ -56,6 +56,7 @@
     <feature version="${project.version}">odl-mwt-models</feature>
     <feature version="${project.version}">odl-mwt-websocketmanager</feature>
     <feature version="${project.version}">odl-mwt-devicemanager</feature>
+    <feature version="${project.version}">odl-mwt-template</feature>
     <!-- <feature version="${project.version}">odl-mwt-event</feature> -->
   </feature>
 
@@ -71,6 +72,13 @@
     <bundle>mvn:org.opendaylight.mwtn/websocketmanager-impl/{{VERSION}}</bundle>
     <configfile finalname="${configfile.directory}/websocketmgr.xml">mvn:org.opendaylight.mwtn/websocketmanager-impl/${project.version}/xml/config</configfile>
   </feature>
+
+  <feature name="odl-mwt-template" version="${project.version}" description="MicrowaveTransportNetwork :: Template">
+    <bundle>mvn:org.opendaylight.mwtn/template-api/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.mwtn/template-impl/{{VERSION}}</bundle>
+    <configfile finalname="${configfile.directory}/template.xml">mvn:org.opendaylight.mwtn/template-impl/${project.version}/xml/config</configfile>
+  </feature>
+
 
   <feature name="odl-mwt-devicemanager" version="${project.version}" description="MicrowaveTransportNetwork :: Device manager">
     <feature version="${mdsal.version}">odl-mdsal-broker</feature>
