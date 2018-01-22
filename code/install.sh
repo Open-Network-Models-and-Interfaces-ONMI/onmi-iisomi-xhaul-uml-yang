@@ -157,8 +157,8 @@ karaf_startup_all() {
 
   # Wireless (mwtn: microwave transport network)
     ./karafcmd.sh "feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/0.4.0-SNAPSHOT/xml/features"
-
     ./karafcmd.sh "feature:install onap-sdnr-all"
+#    ./karafcmd.sh "feature:install odl-mwt-template"
 
 #    ./karafcmd.sh "feature:install odl-mwt-models"
 #    ./karafcmd.sh "feature:install odl-mwt-devicemanager"

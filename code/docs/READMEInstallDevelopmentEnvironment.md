@@ -23,8 +23,8 @@ Capacity of the VM Server should be about 4 CPUs and 8 Gig of RAM and 50 Gig of 
 
 #### xrdp PPA install
 
-    1. Do the following steps and restart server if done.
-    Answer yes, if asked about overwritin etc/xrdp/xrdp.ini
+Do the following steps and restart server if done.
+Answer yes, if asked about overwriting etc/xrdp/xrdp.ini
 
     ```
     sudo add-apt-repository ppa:hermlnx/xrdp
@@ -33,18 +33,18 @@ Capacity of the VM Server should be about 4 CPUs and 8 Gig of RAM and 50 Gig of 
     sudo apt-get upgrade
     ```
 
-    2. Switch of extensive gui features. In ubuntu desktop goto menu on the left right corner
-    to **Applications-> Setting -> Windows Manager Tweaks**, select folder Compositor and
-    disable it by unchecking the option.
+2. Switch of extensive gui features. In ubuntu desktop goto menu on the left right corner <br/>
+   to **Applications-> Setting -> Windows Manager Tweaks**, select folder Compositor and
+   disable it by unchecking the option.
 
-    3. Improve performance (if required)
+3. Improve performance (if required)
 
-    Change configuration in /etc/xrdp/xrdp.ini
+  Change configuration in /etc/xrdp/xrdp.ini
       - Security level high to low
 
-    4. Restart server to activate xrdp.
+4. Restart server to activate xrdp.
 
-    5. Login with RPC application connect to server. Use defaults and enter existing user an password.
+5. Login with RPC application connect to server. Use defaults and enter existing user an password.
 
 
 #### Adaption for Windows Client:
@@ -55,7 +55,8 @@ Capacity of the VM Server should be about 4 CPUs and 8 Gig of RAM and 50 Gig of 
     ---
     >       <property name="&lt;Super&gt;Tab" type="string" value="empty"/>
     ```
-    Note that there may be two entries, and the first already has the value "empty". If this is the case, edit the second entry.
+    NOTE: There may be two entries, and the first already has the value "empty". If this is the case, edit the second entry.
+    NOTE: AltGr is not working in this configuration
 
 ### 1.2 Directory structure
 
@@ -71,7 +72,7 @@ Prereq:
     - Gerrit account [Create account](https://wiki.opendaylight.org/view/OpenDaylight_Controller:Gerrit_Setup)
 
 
-### 1.3 Install Java, eclipse, mvn, draw
+### 1.3 Install Java, eclipse, mvn, draw and tools
 
   According to CENTENNIAL/code/README.md
   - openjdk (sudo apt-get install)
@@ -93,38 +94,18 @@ Prereq:
 
   Add plugins from eclipse marketplace
     - "GitHub Flavored Markdown viewer plugin 1.8.3" (GFM)
-    -
+    - Elcipse YANG editor
 
-### 2. Create the app
+  Add chromium as browser
+    - See [details askubuntu](https://wiki.ubuntuusers.de/Chromium/Installation/)
 
-App creation starting point with the ODL example project: [OpenDaylight Controller:MD-SAL:Startup Project Archetype](https://wiki.opendaylight.org/view/OpenDaylight_Controller:MD-SAL:Startup_Project_Archetype)
 
-Create the application by using the related artifacts:
+### 2. Create app
 
-  ```
-  mvn archetype:generate -DarchetypeGroupId=org.opendaylight.controller -DarchetypeArtifactId=opendaylight-startup-archetype \
-    -DarchetypeRepository=http://nexus.opendaylight.org/content/repositories/opendaylight.release/ \
-    -DarchetypeCatalog=remote -DarchetypeVersion=1.2.3-Boron-SR3
-  ```
+See the documentation [create app documentation](READMECreateApp4Boron.md)
 
-Parameters are like this:
-  ```
-  groupId: eu.sendate.pathmanagement
-  artifactId: ethpathmanager
-  version: 0.1.0-SNAPSHOT
-  package: eu.sendate.pathmanagement
-  classPrefix: ${artifactId.substring(0,1).toUpperCase()}${artifactId.substring(1)}
-  copyright: sendate.eu
-  copyrightYear: 2018
-  ```
 
-Import to eclipse with eclipse -> File -> Import; Maven -> Existing Maven Projects
-Switch off eclipse->Project-> Build automatically
-
-=> Add RPC for hello world
-=> Change Copyright for new implementation
-
-### Remarks
+### 3. Remarks
 
   - Karaf Intro and Install
   - Simulators (Three times)

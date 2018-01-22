@@ -44,11 +44,12 @@ public class TemplateProvider implements MountpointChangeListener, BindingAwareP
 
     @Override
     public void onSessionInitiated(ProviderContext pSession) {
-        LOG.info("TemplateProvider Session Initiated");
-        templateService = session.addRpcImplementation(TemplateService.class, new TemplateServiceImpl());
 
         this.session = pSession;
         this.dataBroker = pSession.getSALService(DataBroker.class);
+
+        LOG.info("TemplateProvider Session Initiated");
+        templateService = session.addRpcImplementation(TemplateService.class, new TemplateServiceImpl());
 
         // netconfSubscriptionManager should be the last because calling back this service
         this.dataChangeHandleronfSubscriptionManager = new DataChangeHandler(this, dataBroker);
