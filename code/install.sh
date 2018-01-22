@@ -31,21 +31,22 @@ karaf_startup_all() {
     ./karafcmd.sh  "feature:install elasticsearch"
 
   # Wireless (mwtn: microwave transport network)
-    # Link to the repository
+    # Link to the repository with all DLUX and network applications
      ./karafcmd.sh "feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/0.4.0-SNAPSHOT/xml/features"
-#    ./karafcmd.sh "feature:install onap-sdnr-all"
-#    ./karafcmd.sh "feature:install odl-mwt-template"
 
+    # Network applications
      ./karafcmd.sh "feature:install odl-mwt-models"
      ./karafcmd.sh "feature:install odl-mwt-websocketmanager"
-     ./karafcmd.sh "feature:install odl-mwt-devicemanager"
+#    ./karafcmd.sh "feature:install odl-mwt-devicemanager"
+     ./karafcmd.sh "feature:install odl-mwt-template"
 
-#    ./karafcmd.sh "feature:install odl-mwtn-all"
-
+  # Manadatory DLUX bundles
      ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnCommons-bundle/0.4.0-SNAPSHOT"
      ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/onapAai-bundle/0.4.0-SNAPSHOT"
+  # Basic DLUX Bundles to connect and view model
      ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/0.4.0-SNAPSHOT"
      ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnBrowser-bundle/0.4.0-SNAPSHOT"
+  # Applicatoin specific DLUX Bundles
 #    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnFault-bundle/0.4.0-SNAPSHOT"
 #    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnEvents-bundle/0.4.0-SNAPSHOT"
 #    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceCurrent-bundle/0.4.0-SNAPSHOT"
@@ -53,20 +54,15 @@ karaf_startup_all() {
 #    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceLink-bundle/0.4.0-SNAPSHOT"
 }
 
+# Install from .m2 repository to karaf repository
+# Script syntax to copy frm .m2 to karaf: install_originM2Range "path within .m2" "application"
 install_originM2() {
     install_originM2Range "org/opendaylight" "mwtn"
     install_originM2Range "com" "highstreet"
 
-#    install_originM2Range "org/opendaylight" "apigateway"
-#    install_originM2Range "cn/com" "zte"
-#    install_originM2Range "com" "hcl"
-
-    #Old implementation
-    #cp -R ~/.m2/repository/org/opendaylight/mwtn $ODL_KARAF_HOME/system/org/opendaylight
+    # Example for alternate way to copy the content
     #mkdir -p $ODL_KARAF_HOME/system/cn/com
     #cp -R ~/.m2/repository/cn/com/zte $ODL_KARAF_HOME/system/cn/com
-    #cp -R ~/.m2/repository/com/hcl $ODL_KARAF_HOME/system/com
-    #cp -R ~/.m2/repository/com/highstreet $ODL_KARAF_HOME/system/com
 }
 
 

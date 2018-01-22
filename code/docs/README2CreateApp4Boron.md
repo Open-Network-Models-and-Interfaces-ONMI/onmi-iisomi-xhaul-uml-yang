@@ -1,20 +1,33 @@
 # Create app for ODL Boron and some backgrounds
 
-## Common information
+## Common information and workshop tasks
+
+### Overall
+
+  - Setup Single server development environment
+  - User's home and the tools to use
+  - Git/ Maven and co mvn command, .m2
+  + Hands on server setup (See README.md)
+  + Demo ODL, GUI and Simulators
+  + Demo Eclipse
 
 ### Karaf
 
-   - What does it do/ OSGi
+   - OSGi and what does Karaf do
    - How does it come and the directory structure
    - Bundles and Features
-   - Command line
+   - Start&stop
+   - command line
+   - Debug and log files
    - Problems
 
-### network applications
+### Network applications
 
-   - commons
+   - commons bundle and parents
    - Karaf / Yang and the device model
-   - DLUX
+   - DLUX, Angular JS, Chromium
+   - Clone myapp
+   - ODL Datamodel, Access the database and the Netconf model
 
 ## 1. Create app for ODL Boron
 
