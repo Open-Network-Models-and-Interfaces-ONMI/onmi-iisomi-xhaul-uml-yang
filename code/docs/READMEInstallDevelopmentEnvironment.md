@@ -56,7 +56,13 @@ Answer yes, if asked about overwriting etc/xrdp/xrdp.ini
     >       <property name="&lt;Super&gt;Tab" type="string" value="empty"/>
     ```
     NOTE: There may be two entries, and the first already has the value "empty". If this is the case, edit the second entry.
-    NOTE: AltGr is not working in this configuration
+
+#### Adding further tools
+
+Add chromium as browser
+    - See [details askubuntu](https://wiki.ubuntuusers.de/Chromium/Installation/)
+
+
 
 ### 1.2 Directory structure
 
@@ -95,9 +101,6 @@ Prereq:
   Add plugins from eclipse marketplace
     - "GitHub Flavored Markdown viewer plugin 1.8.3" (GFM)
     - Elcipse YANG editor
-
-  Add chromium as browser
-    - See [details askubuntu](https://wiki.ubuntuusers.de/Chromium/Installation/)
 
 
 ### 2. Create app
