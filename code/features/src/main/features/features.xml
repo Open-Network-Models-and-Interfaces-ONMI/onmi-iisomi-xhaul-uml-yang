@@ -62,8 +62,8 @@
 
   <feature name="odl-mwt-models" version="${project.version}" description="MicrowaveTransportNetwork :: Device model">
     <feature version="${mdsal.model.version}">odl-mdsal-models</feature>
-    <feature version="${mdsal.version}">odl-restconf-all</feature>
-    <feature version="${netconf.version}">odl-netconf-connector-all</feature>
+    <!--  <feature version="${mdsal.version}">odl-restconf-all</feature> -->
+    <!--  <feature version="${netconf.version}">odl-netconf-connector-all</feature> -->
     <bundle>mvn:org.opendaylight.mwtn/devicemodel/${project.version}</bundle>
   </feature>
 

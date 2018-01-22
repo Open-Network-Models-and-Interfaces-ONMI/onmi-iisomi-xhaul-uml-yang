@@ -13,13 +13,72 @@ ACTIVECONFIG=apps/persistentDatabase/activeConfig
 ELASTICSEARCHCONFIG=$ACTIVECONFIG/config/elasticsearch.json
 ELASTICSEARCHCONFIGYML=$ACTIVECONFIG/elasticsearch.yml
 
+# ----- Functions with specific configurations
 
-# ----- Functions
+# Start all servies
+karaf_startup_all() {
+    # Please choose only one of the next two lines depending you the target system (clustered ODL vs. standalone ODL)
+    # ./karafcmd.sh "feature:install odl-netconf-clustered-topology"
+    # ./karafcmd.sh "feature:install odl-netconf-topology"
+
+    ./karafcmd.sh  "feature:install odl-netconf-topology"
+    ./karafcmd.sh  "feature:install odl-restconf-all"
+    ./karafcmd.sh  "feature:install odl-mdsal-apidocs"
+    ./karafcmd.sh  "feature:install odl-dlux-all"
+
+  # persistent database (ElasticSearch)
+    ./karafcmd.sh  "feature:repo-add mvn:org.apache.karaf.decanter/apache-karaf-decanter/1.1.0/xml/features"
+    ./karafcmd.sh  "feature:install elasticsearch"
+
+  # Wireless (mwtn: microwave transport network)
+    # Link to the repository
+     ./karafcmd.sh "feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/0.4.0-SNAPSHOT/xml/features"
+#    ./karafcmd.sh "feature:install onap-sdnr-all"
+#    ./karafcmd.sh "feature:install odl-mwt-template"
+
+     ./karafcmd.sh "feature:install odl-mwt-models"
+     ./karafcmd.sh "feature:install odl-mwt-websocketmanager"
+     ./karafcmd.sh "feature:install odl-mwt-devicemanager"
+
+#    ./karafcmd.sh "feature:install odl-mwtn-all"
+
+     ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnCommons-bundle/0.4.0-SNAPSHOT"
+     ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/onapAai-bundle/0.4.0-SNAPSHOT"
+     ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/0.4.0-SNAPSHOT"
+     ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnBrowser-bundle/0.4.0-SNAPSHOT"
+#    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnFault-bundle/0.4.0-SNAPSHOT"
+#    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnEvents-bundle/0.4.0-SNAPSHOT"
+#    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceCurrent-bundle/0.4.0-SNAPSHOT"
+#    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceHistory-bundle/0.4.0-SNAPSHOT"
+#    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceLink-bundle/0.4.0-SNAPSHOT"
+}
+
+install_originM2() {
+    install_originM2Range "org/opendaylight" "mwtn"
+    install_originM2Range "com" "highstreet"
+
+#    install_originM2Range "org/opendaylight" "apigateway"
+#    install_originM2Range "cn/com" "zte"
+#    install_originM2Range "com" "hcl"
+
+    #Old implementation
+    #cp -R ~/.m2/repository/org/opendaylight/mwtn $ODL_KARAF_HOME/system/org/opendaylight
+    #mkdir -p $ODL_KARAF_HOME/system/cn/com
+    #cp -R ~/.m2/repository/cn/com/zte $ODL_KARAF_HOME/system/cn/com
+    #cp -R ~/.m2/repository/com/hcl $ODL_KARAF_HOME/system/com
+    #cp -R ~/.m2/repository/com/highstreet $ODL_KARAF_HOME/system/com
+}
+
+
+# ----- Common functions
 
 #check if tool is installed as prereq
 tool_check_installed() {
    hash $1 2>/dev/null || { echo >&2 "I require $1 but it's not installed.  Please install. Aborting."; exit 1; }
 }
+
+
+
 
 #check if karaf instance is running
 karaf_checkrunning() {
@@ -140,37 +199,6 @@ karaf_startup_1b() {
     cd $HERE
 }
 
-# Start all servies
-karaf_startup_all() {
-    # Please choose only one of the next two lines depending you the target system (clustered ODL vs. standalone ODL)
-    # ./karafcmd.sh "feature:install odl-netconf-clustered-topology"
-    # ./karafcmd.sh "feature:install odl-netconf-topology"
-
-    ./karafcmd.sh  "feature:install odl-netconf-topology"
-    ./karafcmd.sh  "feature:install odl-restconf-all"
-    ./karafcmd.sh  "feature:install odl-mdsal-apidocs"
-    ./karafcmd.sh  "feature:install odl-dlux-all"
-
-  # persistent database (ElasticSearch)
-    ./karafcmd.sh  "feature:repo-add mvn:org.apache.karaf.decanter/apache-karaf-decanter/1.1.0/xml/features"
-    ./karafcmd.sh  "feature:install elasticsearch"
-
-  # Wireless (mwtn: microwave transport network)
-    ./karafcmd.sh "feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/0.4.0-SNAPSHOT/xml/features"
-    ./karafcmd.sh "feature:install onap-sdnr-all"
-#    ./karafcmd.sh "feature:install odl-mwt-template"
-
-#    ./karafcmd.sh "feature:install odl-mwt-models"
-#    ./karafcmd.sh "feature:install odl-mwt-devicemanager"
-#    ./karafcmd.sh "feature:install odl-mwtn-all"
-#    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnBrowser-bundle/0.4.0-SNAPSHOT"
-#    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnFault-bundle/0.4.0-SNAPSHOT"
-#    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnEvents-bundle/0.4.0-SNAPSHOT"
-#    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceCurrent-bundle/0.4.0-SNAPSHOT"
-#    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceHistory-bundle/0.4.0-SNAPSHOT"
-#    ./karafcmd.sh "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceLink-bundle/0.4.0-SNAPSHOT"
-#    ./karafcmd.sh "bundle:install –s mvn:com.highstreet.technologies.odl.dlux/onapAai-bundle/0.4.0-SNAPSHOT"
-}
 
 #Param1 Optional Param2 Optional
 karaf_cleanstart() {
@@ -205,29 +233,11 @@ karaf_cleanstart() {
     echo "Ready"
 }
 
-
-
-
 # Install from dir $1 all subs with mask $2.
 # Example:   install_originM2Range "com/highstreet/technologies/solutions" "sdn4*"
 install_originM2Range() {
     mkdir -p $ODL_KARAF_HOME/system/$1
     cp -R $HOME/.m2/repository/$1/$2 $ODL_KARAF_HOME/system/$1
-}
-
-install_originM2() {
-    install_originM2Range "org/opendaylight" "mwtn"
-    install_originM2Range "org/opendaylight" "apigateway"
-    install_originM2Range "cn/com" "zte"
-    install_originM2Range "com" "hcl"
-    install_originM2Range "com" "highstreet"
-
-    #Old implementation
-    #cp -R ~/.m2/repository/org/opendaylight/mwtn $ODL_KARAF_HOME/system/org/opendaylight
-    #mkdir -p $ODL_KARAF_HOME/system/cn/com
-    #cp -R ~/.m2/repository/cn/com/zte $ODL_KARAF_HOME/system/cn/com
-    #cp -R ~/.m2/repository/com/hcl $ODL_KARAF_HOME/system/com
-    #cp -R ~/.m2/repository/com/highstreet $ODL_KARAF_HOME/system/com
 }
 
 install_originBuild() {

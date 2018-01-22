@@ -1,6 +1,7 @@
 #!/bin/bash
 # Setup tool
 # (c)2017 highstreet technologies GmbH
+# Setup a build and delivery environment.
 Version=1.0
 
 #--------------------------------------------------
