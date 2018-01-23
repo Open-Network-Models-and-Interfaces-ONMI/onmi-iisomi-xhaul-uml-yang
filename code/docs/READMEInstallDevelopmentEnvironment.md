@@ -25,7 +25,8 @@ Capacity of the VM Server should be about 4 CPUs and 8 Gig of RAM and 50 Gig of 
 #### xrdp PPA install
 
 Do the following steps and restart server if done.
-Answer yes, if asked about overwriting etc/xrdp/xrdp.ini
+
+1. Answer yes, if asked about overwriting etc/xrdp/xrdp.ini
 
     ```
     sudo add-apt-repository ppa:hermlnx/xrdp
@@ -41,9 +42,16 @@ Answer yes, if asked about overwriting etc/xrdp/xrdp.ini
 3. Improve performance (if required)
 
   Change configuration in /etc/xrdp/xrdp.ini
-      - Security level high to low
+      - Security level high to none
 
-4. Restart server to activate xrdp.
+4. Change sudo vi /etc/xrdp/sessman.ini and add change to '.thinclient_drives' (see the dot) 
+
+    [Chansrv]
+    ; drive redirection, defaults to xrdp_client if not set
+    FuseMountName=.thinclient_drives
+
+
+4. reboot server to activate xrdp configuration
 
 5. Login with RPC application connect to server. Use defaults and enter existing user an password.
 
