@@ -20,6 +20,7 @@ Capacity of the VM Server should be about 4 CPUs and 8 Gig of RAM and 50 Gig of 
   - xrdp : remote management GUI
     - For setup that supports copy and paste use the PPA Version 0.9.x
     - version standard repository version 0.6.x is basically also working.
+  - chromium
 
 #### xrdp PPA install
 
@@ -62,8 +63,6 @@ Answer yes, if asked about overwriting etc/xrdp/xrdp.ini
 Add chromium as browser
     - See [details askubuntu](https://wiki.ubuntuusers.de/Chromium/Installation/)
 
-
-
 ### 1.2 Directory structure
 
 home
@@ -78,9 +77,19 @@ Prereq:
     - Gerrit account [Create account](https://wiki.opendaylight.org/view/OpenDaylight_Controller:Gerrit_Setup)
 
 
-### 1.3 Install Java, eclipse, mvn, draw and tools
+### 1.3 Install setup ODL_KARAF_HOME, Java, eclipse, mvn, draw and tools
 
-  According to CENTENNIAL/code/README.md
+  Setup in home directory .bashrc like follows and logout/login to activate.
+
+     export ODL_KARAF_DIST="distribution-karaf-0.5.3-Boron-SR3"
+     export ODL_KARAF_HOME="$HOME/odl/$ODL_KARAF_DIST"
+     export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
+
+  Verify
+
+      echo $ODL_KARAF_HOME
+
+  According to step 2.2 [CENTENNIAL/code/README.md](../README.md)
   - openjdk (sudo apt-get install)
   - mvn, configure maven for ODL
   - bower

@@ -4,26 +4,43 @@
 
 ### Overall
 
+  - Demo ODL, GUI and Simulators
+  - [Opendaylight](http://5g-crosshaul.eu/wp-content/uploads/2016/10/UC3M_5tonic_SdnOdlDay_19Oct2016.pdf)
+    - Three slides: 6:MDSAL, 8:AppDev, 11:Karaf
   - Setup Single server development environment
+    - Follow [DevEnv](READMEInstallDevelopmentEnvironment.md)
+  - Demo Eclipse
   - User's home and the tools to use
-  - Git/ Maven and co mvn command, .m2
-  + Hands on server setup (See README.md)
-  + Demo ODL, GUI and Simulators
-  + Demo Eclipse
+  - Git/ Maven &co mvn command, .m2
+  - [Documentation Boron](http://docs.opendaylight.org/en/stable-boron/)
+  - Hands on server setup (See README.md)
 
 ### Karaf
 
    - OSGi and what does Karaf do
+     - [osgi](https://en.wikipedia.org/wiki/OSGi)
+     - [karaf](https://stackoverflow.com/questions/17350281/what-exactly-is-apache-karaf)
    - How does it come and the directory structure
+     - Opendaylight karaf [odlkaraf](https://nexus.opendaylight.org/content/groups/public/org/opendaylight/integration/distribution-karaf/)
+     - show setup
    - Bundles and Features
+     - related xml files
    - Start&stop
+     - commands start/stop/client
+     - command karaf
    - command line
+     - start and list features and bundles
    - Debug and log files
+     - see read me
    - Problems
+     - Startup timing
 
 ### Network applications
 
    - commons bundle and parents
+     - See CENTENNIAL/code/features (features-parent)
+     - binding-parent => Access of MDSAL
+     - config-parent => Push config xml file
    - Karaf / Yang and the device model
    - DLUX, Angular JS, Chromium
    - Clone myapp
