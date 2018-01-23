@@ -7,13 +7,11 @@
   - Demo ODL, GUI and Simulators
   - [Opendaylight](http://5g-crosshaul.eu/wp-content/uploads/2016/10/UC3M_5tonic_SdnOdlDay_19Oct2016.pdf)
     - Three slides: 6:MDSAL, 8:AppDev, 11:Karaf
-  - Setup Single server development environment
-    - Follow [DevEnv](READMEInstallDevelopmentEnvironment.md)
   - Demo Eclipse
   - User's home and the tools to use
   - Git/ Maven &co mvn command, .m2
-  - [Documentation Boron](http://docs.opendaylight.org/en/stable-boron/)
-  - Hands on server setup (See README.md)
+  - HANDS-ON: Setup Single server development environment
+    - Follow [DevEnv](READMEInstallDevelopmentEnvironment.md)
 
 ### Karaf
 
@@ -45,6 +43,8 @@
    - DLUX, Angular JS, Chromium
    - Clone myapp
    - ODL Datamodel, Access the database and the Netconf model
+   - [Documentation Boron](http://docs.opendaylight.org/en/stable-boron/)
+
 
 ## 1. Create app for ODL Boron
 
