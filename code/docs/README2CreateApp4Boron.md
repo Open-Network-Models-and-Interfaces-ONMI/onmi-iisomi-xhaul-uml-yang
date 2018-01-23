@@ -21,8 +21,11 @@
    - How does it come and the directory structure
      - Opendaylight karaf [odlkaraf](https://nexus.opendaylight.org/content/groups/public/org/opendaylight/integration/distribution-karaf/)
      - show setup
+         - Repository
+         - data log
    - Bundles and Features
      - related xml files
+   - clean start
    - Start&stop
      - commands start/stop/client
      - command karaf
@@ -44,6 +47,7 @@
    - Clone myapp
    - ODL Datamodel, Access the database and the Netconf model
    - [Documentation Boron](http://docs.opendaylight.org/en/stable-boron/)
+   - [ArchetypeRPCHelloWorld](https://wiki.opendaylight.org/view/OpenDaylight_Controller:MD-SAL:Startup_Project_Archetype)
 
 
 ## 1. Create app for ODL Boron
@@ -76,16 +80,188 @@ The template app is located here:
     │   └── src
     └── pom.xml
 
-Copy template to a new directory
+Use the commandline and copy template to a new directory and modify with vi
 
     cd ~/odl/CENTENNIAL/code/apps
     cp -r template myapp
 
 ### 1.3. Adapt myapp
 
-### 1.4. Change POM files
+Remove files which are recreated later
 
-### 1.5. Adapt install.sh script
+    cd myapp
+    rm -r target api/target impl/target
+    rm -r .settings/ api/.settings/ impl/.settings/
+    rm -r .project/ api/.project impl/.project
+
+Change with vi in the three pom.xml from template*->myapp*
+
+  Example:
+
+      <artifactId>myapp</artifactId>
+      <name>myapp</name>
+
+Adapt in the impl/pom.xml the dependency to the myapps-api project.
+
+Import into eclipse under the apps working set, that you see the new projects:
+  - myapp
+  - myapp-api
+  - myapp-impl
+
+Using eclipse do rename
+
+  - filename or partial filenames from "template" to "myapp"
+    - .yang file in myapp-api
+    - .yang file in myapp-impl
+  - bundle name in myapp-impl/src/main/java to org.opendaylight.mwtn.myapp
+
+Modify module name, namespace, prefix revision date of myapp-api yang file:
+
+    module myapp {
+        yang-version 1;
+        namespace "urn:opendaylight:params:xml:ns:yang:myapp";
+        prefix "myapp";
+
+        revision "2018-01-23" {
+            description "Initial revision of myapp model";
+        }
+
+        rpc hello-world {
+            input {
+                leaf name {
+                    type string;
+                }
+            }
+            output {
+                leaf greeting {
+                    type string;
+                }
+            }
+        }
+    }
+
+Similar with myapp-impl yang file. Adapt module name, namespace, prefix, revision date, java-name-prefix.
+
+    module myapp-impl {
+        yang-version 1;
+        namespace "urn:opendaylight:params:xml:ns:yang:myapp:impl";
+        prefix "myapp-impl";
+
+        import config { prefix config; revision-date 2013-04-05; }
+        import opendaylight-md-sal-binding { prefix md-sal-binding; revision-date 2013-10-28;}
+
+        description
+            "Service definition for myapp project";
+
+        revision "2018-01-23" {
+            description
+                "Initial myapp revision";
+        }
+
+        identity myapp {
+            base config:module-type;
+            config:java-name-prefix MyappImpl;
+        }
+
+        augment "/config:modules/config:module/config:configuration" {
+            case myapp {
+                when "/config:modules/config:module/config:type = 'myapp'";
+                container broker {
+                    uses config:service-ref {
+                        refine type {
+                            mandatory true;
+                            config:required-identity md-sal-binding:binding-broker-osgi-registry;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+Adapt Java classes using eclipse refactor
+
+  - TemplateAppProvider -> MyAppProvider
+  - TemplateServiceImpl -> MyAppServiceImpl
+
+HINT1: The enabled *eclipse -> project -> Build Automatically* option interferes with external Maven builds in the command line. You can see strange errors during maven build. If this is the case than disable it and try again. Basically handling is easier if option is switched on, but disable it before you use cli/maven.
+
+HINT2: After cli/maven build is done use F5 to see all generated files files.
+
+HINT3: If you feel that errors are all corrected, but the errors will not go away in eclipse use *eclipse -> projects -> clean* for the project.
+
+Enable  *eclipse -> project -> Build Automatically* or use maven build command below to build the app.<br/>
+
+    cd myapp
+    mvn clean install -DskipTests
+
+You see the new created sources with the timestamp in the package name.<br/>
+Open "MyAppImplModule" and fill the implementation with addapted code similar to the code in the "TemplateImplModule.java" in the function "createInstance()". The eclipse refactor has already renamed the code snippet to the right class name.
+
+Next steps:
+
+  - Remove the old package.
+  - Correct the imports where necessary
+
+If all errors are corrected, do a cli maven build. If you see this you are ready with this section.
+
+    [INFO] Reactor Summary:
+    [INFO]
+    [INFO] myapp-api .......................................... SUCCESS [  7.987 s]
+    [INFO] myapp-impl ......................................... SUCCESS [  5.124 s]
+    [INFO] myapp .............................................. SUCCESS [  2.443 s]
+    [INFO] ------------------------------------------------------------------------
+    [INFO] BUILD SUCCESS
+    [INFO] ------------------------------------------------------------------------
+
+
+In case of errors:
+
+  - Remove all targets
+    rm -r target api/target impl/target features/target
+
+  - Grep for all string "template" and replace
+    grep -r template
+
+  - Activate enough logging
+
+  - (!)Remove in the karaf the xml config file: rm $ODL_KARAF_HOME/etc/opendaylight/karaf/myapp.xml. New install of the feature/bundle is required to re-create this file.
+
+
+### 1.4 Test it
+
+Change to the code directory and stop a running karaf instance. If stopped install again and start by using the "imd" option:
+
+    cd ~/odl/CENTENNIAL/code
+    ./install.sg stop
+    ./install.sh imd
+
+Now step into to the karaf cli:
+
+    ./karafcmd.sh
+
+Add the new feature in the karaf command line:
+
+    feature:repo-add mvn:org.opendaylight.mwtn/myapp-features/0.4.0-SNAPSHOT/xml/features
+    feature:install odl-mwt-myapp
+    bundle:list
+
+You are done if you see something like this, especially the last line is important!
+
+    herbert@vm2-herbert:~/odl/distribution-karaf-0.5.3-Boron-SR3/data/log$ grep -ia "session i" *
+    2018-01-23 20:24:18,651 | INFO  | config-pusher    | TemplateProvider                 | 331 - org.opendaylight.mwtn.template-impl - 0.4.0.SNAPSHOT | TemplateProvider Session Initiated
+    2018-01-23 20:24:18,760 | INFO  | config-pusher    | WebsocketmanagerProvider         | 329 - org.opendaylight.mwtn.websocketmanager-impl - 0.4.0.SNAPSHOT | WebsocketmanagerProvider Session Initiated
+    2018-01-23 20:26:39,218 | INFO  | config-pusher    | MyAppProvider                    | 337 - org.opendaylight.mwtn.myapp-impl - 0.4.0.SNAPSHOT | TemplateProvider Session Initiated
+
+
+
+### 1.5. Change higher-level POM files
+
+  - code/feature.xml
+  - code/pom.xml
+
+### 1.6. Adapt install.sh script
+
+  - code/install.sh
 
 ## 2.0 Test and debug app
 
