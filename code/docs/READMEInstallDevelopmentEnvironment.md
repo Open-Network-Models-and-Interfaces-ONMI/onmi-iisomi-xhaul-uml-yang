@@ -44,7 +44,7 @@ Do the following steps and restart server if done.
   Change configuration in /etc/xrdp/xrdp.ini
       - Security level high to none
 
-4. Change sudo vi /etc/xrdp/sessman.ini and add change to '.thinclient_drives' (see the dot) 
+4. Change sudo vi /etc/xrdp/sessman.ini and add change to '.thinclient_drives' (see the dot)
 
     [Chansrv]
     ; drive redirection, defaults to xrdp_client if not set
@@ -70,6 +70,8 @@ Do the following steps and restart server if done.
 
 Add chromium as browser
     - See [details askubuntu](https://wiki.ubuntuusers.de/Chromium/Installation/)
+
+    sudo apt-get install chromium-browser chromium-browser-l10n chromium-codecs-ffmpeg
 
 ### 1.2 Directory structure
 

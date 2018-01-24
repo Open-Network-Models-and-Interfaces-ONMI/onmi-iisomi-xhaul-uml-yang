@@ -192,7 +192,7 @@ HINT3: If you feel that errors are all corrected, but the errors will not go awa
 Enable  *eclipse -> project -> Build Automatically* or use maven build command below to build the app.<br/>
 
     cd myapp
-    mvn clean install -DskipTests
+    mvn clean install -DskipTests -Dmaven.javadoc.skip=true
 
 You see the new created sources with the timestamp in the package name.<br/>
 Open "MyAppImplModule" and fill the implementation with addapted code similar to the code in the "TemplateImplModule.java" in the function "createInstance()". The eclipse refactor has already renamed the code snippet to the right class name.
