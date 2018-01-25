@@ -78,6 +78,9 @@ The template app is located here:
     ├── impl
     │   ├── pom.xml
     │   └── src
+    ├── features
+    │   ├── pom.xml
+    │   └── src
     └── pom.xml
 
 Use the commandline and copy template to a new directory and modify with vi
@@ -94,14 +97,15 @@ Remove files which are recreated later
     rm -r .settings/ api/.settings/ impl/.settings/
     rm -r .project/ api/.project impl/.project
 
-Change with vi in the three pom.xml from template*->myapp*
+Change with eclipse editor (or vi) within the directory tree the four pom.xml files from<br/>
+template_something to myapp_something
 
   Example:
 
       <artifactId>myapp</artifactId>
       <name>myapp</name>
 
-Adapt in the impl/pom.xml the dependency to the myapps-api project.
+Adapt in the impl/pom.xml and the features/pom.xml the dependency to the myapps-api project.
 
 Import into eclipse under the apps working set, that you see the new projects:
   - myapp
@@ -230,7 +234,7 @@ In case of errors:
 Change to the code directory and stop a running karaf instance. If stopped install again and start by using the "imd" option:
 
     cd ~/odl/CENTENNIAL/code
-    ./install.sg stop
+    ./install.sh stop
     ./install.sh imd
 
 Now step into to the karaf cli:
