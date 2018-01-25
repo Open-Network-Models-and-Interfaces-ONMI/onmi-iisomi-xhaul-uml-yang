@@ -211,13 +211,13 @@ If all errors are corrected, do a cli maven build. If you see this you are ready
 
     [INFO] Reactor Summary:
     [INFO]
-    [INFO] myapp-api .......................................... SUCCESS [  7.987 s]
-    [INFO] myapp-impl ......................................... SUCCESS [  5.124 s]
-    [INFO] myapp .............................................. SUCCESS [  2.443 s]
+    [INFO] myapp-api .......................................... SUCCESS [ 10.130 s]
+    [INFO] myapp-impl ......................................... SUCCESS [  4.644 s]
+    [INFO] ONF :: Wireless :: myapp-features .................. SUCCESS [  8.811 s]
+    [INFO] myapp .............................................. SUCCESS [  3.727 s]
     [INFO] ------------------------------------------------------------------------
     [INFO] BUILD SUCCESS
     [INFO] ------------------------------------------------------------------------
-
 
 In case of errors:
 
