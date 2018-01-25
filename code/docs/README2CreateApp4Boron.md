@@ -107,6 +107,7 @@ Import into eclipse under the apps working set, that you see the new projects:
   - myapp
   - myapp-api
   - myapp-impl
+  - myapp-features
 
 Using eclipse do rename
 
@@ -218,12 +219,9 @@ In case of errors:
 
   - Remove all targets
     rm -r target api/target impl/target features/target
-
   - Grep for all string "template" and replace
     grep -r template
-
   - Activate enough logging
-
   - (!)Remove in the karaf the xml config file: rm $ODL_KARAF_HOME/etc/opendaylight/karaf/myapp.xml. New install of the feature/bundle is required to re-create this file.
 
 
@@ -245,13 +243,16 @@ Add the new feature in the karaf command line:
     feature:install odl-mwt-myapp
     bundle:list
 
-You are done if you see something like this, especially the last line is important!
+You are done with this test if you see something like this, especially the last line is important!
 
     herbert@vm2-herbert:~/odl/distribution-karaf-0.5.3-Boron-SR3/data/log$ grep -ia "session i" *
     2018-01-23 20:24:18,651 | INFO  | config-pusher    | TemplateProvider                 | 331 - org.opendaylight.mwtn.template-impl - 0.4.0.SNAPSHOT | TemplateProvider Session Initiated
     2018-01-23 20:24:18,760 | INFO  | config-pusher    | WebsocketmanagerProvider         | 329 - org.opendaylight.mwtn.websocketmanager-impl - 0.4.0.SNAPSHOT | WebsocketmanagerProvider Session Initiated
     2018-01-23 20:26:39,218 | INFO  | config-pusher    | MyAppProvider                    | 337 - org.opendaylight.mwtn.myapp-impl - 0.4.0.SNAPSHOT | TemplateProvider Session Initiated
 
+Nect test is to access the RPC via restonf. This is done via ODLs APIDOC explorer.
+Use this link to open the application, enter login credentials admin, admin <br/>
+[odl apidoc](http://127.0.0.1:8181/apidoc/explorer/index.html)
 
 
 ### 1.5. Change higher-level POM files
