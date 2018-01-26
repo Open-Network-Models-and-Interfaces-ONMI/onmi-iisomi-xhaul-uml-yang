@@ -11,10 +11,17 @@ package org.opendaylight.mwtn.template;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.ProviderContext;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.RpcRegistration;
 import com.google.common.base.Optional;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
+import javax.annotation.Nonnull;
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.binding.api.MountPoint;
 import org.opendaylight.controller.md.sal.binding.api.MountPointService;
 import org.opendaylight.controller.sal.binding.api.BindingAwareProvider;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.logical.termination.point.g.Lp;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.NetconfNode;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.network.topology.topology.topology.types.TopologyNetconf;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.template.rev180119.TemplateService;
@@ -41,6 +48,7 @@ public class TemplateProvider implements MountpointChangeListener, BindingAwareP
     private ProviderContext session;
     private DataBroker dataBroker;
     private DataChangeHandler dataChangeHandleronfSubscriptionManager;
+    private final Map<String, ONFCoreNetworkElementRepresentation> neMap = new HashMap<>();
 
     @Override
     public void onSessionInitiated(ProviderContext pSession) {
@@ -67,6 +75,7 @@ public class TemplateProvider implements MountpointChangeListener, BindingAwareP
 
     @Override
     public void removeListenerOnNode(NodeId nNodeId, NetconfNode nNode) {
+        this.neMap.remove(nNodeId.getValue());
         LOG.info("Remove event listener on Netconf device :: Name : {}", nNodeId.getValue());
     }
 
@@ -105,6 +114,7 @@ public class TemplateProvider implements MountpointChangeListener, BindingAwareP
         DataBroker netconfNodeDataBroker = mountPoint.getService(DataBroker.class).get();
         LOG.info("Databroker service 1:{} 2:{}", dataBroker.hashCode(), netconfNodeDataBroker.hashCode());
 
+        neMap.put(mountPointNodeName, new ONFCoreNetworkElementRepresentation(mountPointNodeName, netconfNodeDataBroker));
 
     }
 
