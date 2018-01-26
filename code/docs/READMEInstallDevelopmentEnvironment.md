@@ -99,7 +99,7 @@ Prereq:
 
       echo $ODL_KARAF_HOME
 
-  According to step 2.2 [CENTENNIAL/code/README.md](../README.md)
+  According to step 2.2 [CENTENNIAL/code/README.md](../README.md#step-22---download-sdn-projects-boron-applications)
   - openjdk (sudo apt-get install)
   - mvn, configure maven for ODL
   - bower
