@@ -36,7 +36,7 @@ Do the following steps and restart server if done.
     ```
 
 2. Switch of extensive gui features. In ubuntu desktop goto menu on the left right corner <br/>
-   to **Applications-> Setting -> Windows Manager Tweaks**, select folder Compositor and
+   to **Applications-> Settings -> Windows Manager Tweaks**, select folder Compositor and
    disable it by unchecking the option.
 
 3. Improve performance (if required)
@@ -99,7 +99,7 @@ Prereq:
 
       echo $ODL_KARAF_HOME
 
-  According to step 2.2 [CENTENNIAL/code/README.md](../README.md)
+  According to step 2.2 [CENTENNIAL/code/README.md](../README.md#step-22---download-sdn-projects-boron-applications)
   - openjdk (sudo apt-get install)
   - mvn, configure maven for ODL
   - bower
