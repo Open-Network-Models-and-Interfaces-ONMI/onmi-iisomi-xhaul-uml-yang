@@ -36,7 +36,7 @@ Do the following steps and restart server if done.
     ```
 
 2. Switch of extensive gui features. In ubuntu desktop goto menu on the left right corner <br/>
-   to **Applications-> Setting -> Windows Manager Tweaks**, select folder Compositor and
+   to **Applications-> Settings -> Windows Manager Tweaks**, select folder Compositor and
    disable it by unchecking the option.
 
 3. Improve performance (if required)
