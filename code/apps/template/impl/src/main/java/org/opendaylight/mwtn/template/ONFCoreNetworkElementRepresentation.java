@@ -36,6 +36,7 @@ public class ONFCoreNetworkElementRepresentation {
             .builder(NetworkElement.class)
             .build();
 
+    //Example, for IID creation , not used in the code
     private static final InstanceIdentifier<Lp> NETWORKELEMENT_IIDLP = InstanceIdentifier
             .builder(NetworkElement.class)
             .child(Ltp.class, new LtpKey(new UniversalId("1")))
