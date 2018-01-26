@@ -14,8 +14,10 @@ import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.ptp.dataset.rev170208.InstanceList;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.ptp.dataset.rev170208.InstanceListKey;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.NetworkElement;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.UniversalId;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.logical.termination.point.g.Lp;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.network.element.Ltp;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.network.element.LtpKey;
 import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +35,13 @@ public class ONFCoreNetworkElementRepresentation {
     private static final InstanceIdentifier<NetworkElement> NETWORKELEMENT_IID = InstanceIdentifier
             .builder(NetworkElement.class)
             .build();
+
+    private static final InstanceIdentifier<Lp> NETWORKELEMENT_IIDLP = InstanceIdentifier
+            .builder(NetworkElement.class)
+            .child(Ltp.class, new LtpKey(new UniversalId("1")))
+            .child(Lp.class)
+            .build();
+
 
     private static final InstanceIdentifier<InstanceList> PTPINSTANCES_IID = InstanceIdentifier
             .builder(InstanceList.class, new InstanceListKey(1))
