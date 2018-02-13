@@ -115,7 +115,7 @@ The [prune-and-refactor.xslt](./src/main/prune-and-refactor/prune-and-refactor.x
 
 #### Removal of explanatory packages
 
-The current CoreModel.uml includes several packages, which are created as examples and should explain the model. Such packages must not be part of a data model and will be removed. The file [packagesBlackList.xml](./src/main/prune-and-refactor/packagesBlackList.xml/packagesBlackList.xml) lists all packages which will be removed.
+The current CoreModel.uml includes several packages, which are created as examples and should explain the model. Such packages must not be part of a data model and will be removed. The file [packagesBlackList.xml](./src/main/prune-and-refactor/packagesBlackList.xml) lists all packages which will be removed.
 
 #### Adding key definitions in UML
 
