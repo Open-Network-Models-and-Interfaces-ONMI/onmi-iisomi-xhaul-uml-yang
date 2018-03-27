@@ -1,0 +1,500 @@
+module: microwave-model
+    +--rw mw-air-interface-pac* [layer-protocol]
+    |  +--rw layer-protocol                           -> /core-model:network-element/ltp/lp/uuid
+    |  +--ro air-interface-capability
+    |  |  +--ro type-of-equipment?               string
+    |  |  +--ro tx-frequency-min?                int32
+    |  |  +--ro tx-frequency-max?                int32
+    |  |  +--ro rx-frequency-min?                int32
+    |  |  +--ro rx-frequency-max?                int32
+    |  |  +--ro adaptive-modulation-is-avail?    boolean
+    |  |  +--ro mimo-is-avail?                   boolean
+    |  |  +--ro mimo-channels?                   int8
+    |  |  +--ro alic-is-avail?                   boolean
+    |  |  +--ro atpc-is-avail?                   boolean
+    |  |  +--ro atpc-range?                      int8
+    |  |  +--ro encryption-is-avail?             boolean
+    |  |  +--ro supported-loop-back-kind-list*   loop-back-type
+    |  |  +--ro maintenance-timer-range?         string
+    |  |  +--ro supported-alarms?                string
+    |  |  +--ro supported-channel-plan-list* [supported-channel-plan]
+    |  |     +--ro supported-channel-plan         string
+    |  |     +--ro duplex-distance-is-variable?   boolean
+    |  |     +--ro duplex-distance?               int32
+    |  |     +--ro auto-freq-select-is-avail?     boolean
+    |  |     +--ro transmission-mode-list* [transmission-mode-id]
+    |  |        +--ro transmission-mode-id    core-model:universal-id
+    |  |        +--ro channel-bandwidth?      int32
+    |  |        +--ro modulation-scheme?      int16
+    |  |        +--ro code-rate?              int8
+    |  |        +--ro tx-power-min?           int8
+    |  |        +--ro tx-power-max?           int8
+    |  |        +--ro rx-threshold?           int16
+    |  |        +--ro am-upshift-level?       int8
+    |  |        +--ro am-downshift-level?     int8
+    |  |        +--ro xpic-is-avail?          boolean
+    |  +--rw air-interface-configuration
+    |  |  +--rw air-interface-name?           string
+    |  |  +--rw radio-signal-id?              string
+    |  |  +--rw tx-frequency?                 int32
+    |  |  +--rw rx-frequency?                 int32
+    |  |  +--rw tx-channel-bandwidth?         int32
+    |  |  +--rw rx-channel-bandwidth?         int32
+    |  |  +--rw polarization?                 polarization-type
+    |  |  +--rw power-is-on?                  boolean
+    |  |  +--rw transmitter-is-on?            boolean
+    |  |  +--rw receiver-is-on?               boolean
+    |  |  +--rw tx-power?                     int8
+    |  |  +--rw adaptive-modulation-is-on?    boolean
+    |  |  +--rw modulation-min?               int16
+    |  |  +--rw modulation-max?               int16
+    |  |  +--rw xpic-is-on?                   boolean
+    |  |  +--rw mimo-is-on?                   boolean
+    |  |  +--rw alic-is-on?                   boolean
+    |  |  +--rw atpc-is-on?                   boolean
+    |  |  +--rw atpc-thresh-upper?            int16
+    |  |  +--rw atpc-thresh-lower?            int16
+    |  |  +--rw auto-freq-select-is-on?       boolean
+    |  |  +--rw auto-freq-select-range?       int8
+    |  |  +--rw modulation-is-on?             boolean
+    |  |  +--rw encryption-is-on?             boolean
+    |  |  +--rw cryptographic-key?            string
+    |  |  +--rw loop-back-kind-on?            loop-back-type
+    |  |  +--rw maintenance-timer?            int32
+    |  |  +--rw problem-kind-severity-list* [problem-kind-name]
+    |  |     +--rw problem-kind-name        string
+    |  |     +--rw problem-kind-severity?   severity-type
+    |  +--ro air-interface-status
+    |  |  +--ro tx-frequency-cur?         int32
+    |  |  +--ro rx-frequency-cur?         int32
+    |  |  +--ro tx-level-cur?             int8
+    |  |  +--ro rx-level-cur?             int8
+    |  |  +--ro modulation-cur?           int16
+    |  |  +--ro code-rate-cur?            int8
+    |  |  +--ro snir-cur?                 int8
+    |  |  +--ro xpd-cur?                  int8
+    |  |  +--ro rf-temp-cur?              int8
+    |  |  +--ro last-status-change?       yang:date-and-time
+    |  |  +--ro radio-power-is-up?        boolean
+    |  |  +--ro link-is-up?               boolean
+    |  |  +--ro xpic-is-up?               boolean
+    |  |  +--ro mimo-is-up?               boolean
+    |  |  +--ro alic-is-up?               boolean
+    |  |  +--ro atpc-is-up?               boolean
+    |  |  +--ro auto-freq-select-is-up?   boolean
+    |  |  +--ro loop-back-kind-up?        loop-back-type
+    |  |  +--ro local-end-point-id?       string
+    |  |  +--ro remote-end-point-id?      string
+    |  +--ro air-interface-current-problems
+    |  |  +--ro current-problem-list* [sequence-number]
+    |  |     +--ro problem-name?       string
+    |  |     +--ro sequence-number     int32
+    |  |     +--ro time-stamp?         yang:date-and-time
+    |  |     +--ro problem-severity?   severity-type
+    |  +--ro air-interface-current-performance
+    |  |  +--ro current-performance-data-list* [scanner-id]
+    |  |     +--ro performance-data
+    |  |     |  +--ro es?                  int32
+    |  |     |  +--ro ses?                 int32
+    |  |     |  +--ro cses?                int32
+    |  |     |  +--ro unavailability?      int32
+    |  |     |  +--ro tx-level-min?        int8
+    |  |     |  +--ro tx-level-max?        int8
+    |  |     |  +--ro tx-level-avg?        int8
+    |  |     |  +--ro rx-level-min?        int8
+    |  |     |  +--ro rx-level-max?        int8
+    |  |     |  +--ro rx-level-avg?        int8
+    |  |     |  +--ro time2-states?        int32
+    |  |     |  +--ro time4-states-s?      int32
+    |  |     |  +--ro time4-states?        int32
+    |  |     |  +--ro time8-states?        int32
+    |  |     |  +--ro time16-states-s?     int32
+    |  |     |  +--ro time16-states?       int32
+    |  |     |  +--ro time32-states?       int32
+    |  |     |  +--ro time64-states?       int32
+    |  |     |  +--ro time128-states?      int32
+    |  |     |  +--ro time256-states?      int32
+    |  |     |  +--ro time512-states?      int32
+    |  |     |  +--ro time512-states-l?    int32
+    |  |     |  +--ro time1024-states?     int32
+    |  |     |  +--ro time1024-states-l?   int32
+    |  |     |  +--ro time2048-states?     int32
+    |  |     |  +--ro time2048-states-l?   int32
+    |  |     |  +--ro time4096-states?     int32
+    |  |     |  +--ro time4096-states-l?   int32
+    |  |     |  +--ro time8192-states?     int32
+    |  |     |  +--ro time8192-states-l?   int32
+    |  |     |  +--ro snir-min?            int8
+    |  |     |  +--ro snir-max?            int8
+    |  |     |  +--ro snir-avg?            int8
+    |  |     |  +--ro xpd-min?             int8
+    |  |     |  +--ro xpd-max?             int8
+    |  |     |  +--ro xpd-avg?             int8
+    |  |     |  +--ro rf-temp-min?         int8
+    |  |     |  +--ro rf-temp-max?         int8
+    |  |     |  +--ro rf-temp-avg?         int8
+    |  |     |  +--ro defect-blocks-sum?   int16
+    |  |     |  +--ro time-period?         int32
+    |  |     +--ro timestamp?               date-and-time
+    |  |     +--ro suspect-interval-flag?   boolean
+    |  |     +--ro elapsed-time?            int64
+    |  |     +--ro scanner-id               string
+    |  |     +--ro granularity-period?      granularity-period-type
+    |  |     +--ro administrative-state?    core-model:administrative-state
+    |  |     +--ro object-class?            object-identifier
+    |  |     +--ro name-binding?            object-identifier
+    |  +--ro air-interface-historical-performances
+    |     +--ro historical-performance-data-list* [history-data-id]
+    |        +--ro performance-data
+    |        |  +--ro es?                  int32
+    |        |  +--ro ses?                 int32
+    |        |  +--ro cses?                int32
+    |        |  +--ro unavailability?      int32
+    |        |  +--ro tx-level-min?        int8
+    |        |  +--ro tx-level-max?        int8
+    |        |  +--ro tx-level-avg?        int8
+    |        |  +--ro rx-level-min?        int8
+    |        |  +--ro rx-level-max?        int8
+    |        |  +--ro rx-level-avg?        int8
+    |        |  +--ro time2-states?        int32
+    |        |  +--ro time4-states-s?      int32
+    |        |  +--ro time4-states?        int32
+    |        |  +--ro time8-states?        int32
+    |        |  +--ro time16-states-s?     int32
+    |        |  +--ro time16-states?       int32
+    |        |  +--ro time32-states?       int32
+    |        |  +--ro time64-states?       int32
+    |        |  +--ro time128-states?      int32
+    |        |  +--ro time256-states?      int32
+    |        |  +--ro time512-states?      int32
+    |        |  +--ro time512-states-l?    int32
+    |        |  +--ro time1024-states?     int32
+    |        |  +--ro time1024-states-l?   int32
+    |        |  +--ro time2048-states?     int32
+    |        |  +--ro time2048-states-l?   int32
+    |        |  +--ro time4096-states?     int32
+    |        |  +--ro time4096-states-l?   int32
+    |        |  +--ro time8192-states?     int32
+    |        |  +--ro time8192-states-l?   int32
+    |        |  +--ro snir-min?            int8
+    |        |  +--ro snir-max?            int8
+    |        |  +--ro snir-avg?            int8
+    |        |  +--ro xpd-min?             int8
+    |        |  +--ro xpd-max?             int8
+    |        |  +--ro xpd-avg?             int8
+    |        |  +--ro rf-temp-min?         int8
+    |        |  +--ro rf-temp-max?         int8
+    |        |  +--ro rf-temp-avg?         int8
+    |        |  +--ro defect-blocks-sum?   int16
+    |        |  +--ro time-period?         int32
+    |        +--ro suspect-interval-flag?   boolean
+    |        +--ro history-data-id          string
+    |        +--ro period-end-time?         yang:date-and-time
+    |        +--ro granularity-period?      granularity-period-type
+    |        +--ro object-class?            object-identifier
+    |        +--ro name-binding?            object-identifier
+    +--rw co-channel-group* [co-channel-group-id]
+    |  +--rw co-channel-group-id          core-model:universal-id
+    |  +--rw air-interface-list*          -> /core-model:network-element/ltp/uuid
+    |  +--rw sort-of-co-channel-group?    string
+    |  +--rw logical-termination-point*   -> /core-model:network-element/ltp/uuid
+    +--rw mw-air-interface-hsb-end-point-pac* [endpoint]
+    |  +--rw role?       role-type
+    |  +--rw endpoint    -> /core-model:forwarding-construct/fc-port/uuid
+    +--rw mw-air-interface-hsb-fc-switch-pac* [fcswitch]
+    |  +--rw prot-type?                                            protection-type
+    |  +--rw air-interface-hsb-configuration-is-faulty-severity?   severity-type
+    |  +--rw air-interface-hsb-is-partly-down-severity?            severity-type
+    |  +--rw air-interface-hsb-is-down-severity?                   severity-type
+    |  +--rw fcswitch                                              -> /core-model:forwarding-construct/fc-switch/uuid
+    +--rw mw-air-interface-diversity-pac* [layer-protocol]
+    |  +--rw layer-protocol                                     -> /core-model:network-element/ltp/lp/uuid
+    |  +--ro air-interface-diversity-capability
+    |  |  +--ro available-kinds-of-diversity* [diversity-name]
+    |  |  |  +--ro diversity-name                  string
+    |  |  |  +--ro number-of-air-interfaces-max?   int8
+    |  |  +--ro supported-alarms?               string
+    |  +--rw air-interface-diversity-configuration
+    |  |  +--rw air-interface-diversity
+    |  |  |  +--ro diversity-name?                 string
+    |  |  |  +--ro number-of-air-interfaces-max?   int8
+    |  |  +--rw air-interface-ltp-list*       -> /core-model:network-element/ltp/uuid
+    |  |  +--rw problem-kind-severity-list* [problem-kind-name]
+    |  |     +--rw problem-kind-name        string
+    |  |     +--rw problem-kind-severity?   severity-type
+    |  +--ro air-interface-diversity-status
+    |  |  +--ro snir-cur?                         int8
+    |  |  +--ro air-interface-diversity-status?   air-interface-diversity-status-type
+    |  |  +--ro last-status-change?               yang:date-and-time
+    |  +--ro air-interface-diversity-current-problems
+    |  |  +--ro current-problem-list* [sequence-number]
+    |  |     +--ro problem-name?       string
+    |  |     +--ro sequence-number     int32
+    |  |     +--ro time-stamp?         yang:date-and-time
+    |  |     +--ro problem-severity?   severity-type
+    |  +--ro air-interface-diversity-current-performance
+    |  |  +--ro current-performance-data-list* [scanner-id]
+    |  |     +--ro performance-data
+    |  |     |  +--ro snir-min?   int8
+    |  |     |  +--ro snir-max?   int8
+    |  |     |  +--ro snir-avg?   int8
+    |  |     +--ro timestamp?               date-and-time
+    |  |     +--ro suspect-interval-flag?   boolean
+    |  |     +--ro elapsed-time?            int64
+    |  |     +--ro scanner-id               string
+    |  |     +--ro granularity-period?      granularity-period-type
+    |  |     +--ro administrative-state?    core-model:administrative-state
+    |  |     +--ro object-class?            object-identifier
+    |  |     +--ro name-binding?            object-identifier
+    |  +--ro air-interface-diversity-historical-performances
+    |     +--ro historical-performance-data-list* [history-data-id]
+    |        +--ro performance-data
+    |        |  +--ro snir-min?   int8
+    |        |  +--ro snir-max?   int8
+    |        |  +--ro snir-avg?   int8
+    |        +--ro suspect-interval-flag?   boolean
+    |        +--ro history-data-id          string
+    |        +--ro period-end-time?         yang:date-and-time
+    |        +--ro granularity-period?      granularity-period-type
+    |        +--ro object-class?            object-identifier
+    |        +--ro name-binding?            object-identifier
+    +--rw mw-pure-ethernet-structure-pac* [layer-protocol] {pure-ethernet}?
+    |  +--rw layer-protocol                                     -> /core-model:network-element/ltp/lp/uuid
+    |  +--ro pure-ethernet-structure-capability
+    |  |  +--ro structure-id?       core-model:universal-id
+    |  |  +--ro supported-alarms?   string
+    |  +--rw pure-ethernet-structure-configuration
+    |  |  +--rw problem-kind-severity-list* [problem-kind-name]
+    |  |     +--rw problem-kind-name        string
+    |  |     +--rw problem-kind-severity?   severity-type
+    |  +--ro pure-ethernet-structure-status
+    |  |  +--ro segment-status-list
+    |  |  |  +--ro segment-status-type-id?        int16
+    |  |  |  +--ro segment-is-reserved-for-tdm?   boolean
+    |  |  |  +--ro operational-status?            core-model:operational-state
+    |  |  |  +--ro obsolete-priority-class?       int8
+    |  |  |  +--ro obsolete-drop-order-rank?      int16
+    |  |  +--ro last-status-change?    yang:date-and-time
+    |  +--ro pure-ethernet-structure-current-problems
+    |  |  +--ro current-problem-list* [sequence-number]
+    |  |     +--ro problem-name?       string
+    |  |     +--ro sequence-number     int32
+    |  |     +--ro time-stamp?         yang:date-and-time
+    |  |     +--ro problem-severity?   severity-type
+    |  +--ro pure-ethernet-structure-current-performance
+    |  |  +--ro current-performance-data-list* [scanner-id]
+    |  |     +--ro performance-data?        structure-performance-type
+    |  |     +--ro timestamp?               date-and-time
+    |  |     +--ro suspect-interval-flag?   boolean
+    |  |     +--ro elapsed-time?            int64
+    |  |     +--ro scanner-id               string
+    |  |     +--ro granularity-period?      granularity-period-type
+    |  |     +--ro administrative-state?    core-model:administrative-state
+    |  |     +--ro object-class?            object-identifier
+    |  |     +--ro name-binding?            object-identifier
+    |  +--ro pure-ethernet-structure-historical-performances
+    |     +--ro historical-performance-data-list* [history-data-id]
+    |        +--ro performance-data?        structure-performance-type
+    |        +--ro suspect-interval-flag?   boolean
+    |        +--ro history-data-id          string
+    |        +--ro period-end-time?         yang:date-and-time
+    |        +--ro granularity-period?      granularity-period-type
+    |        +--ro object-class?            object-identifier
+    |        +--ro name-binding?            object-identifier
+    +--rw mw-hybrid-mw-structure-pac* [layer-protocol] {hybrid-microwave}?
+    |  +--rw layer-protocol                                 -> /core-model:network-element/ltp/lp/uuid
+    |  +--ro hybrid-mw-structure-capability
+    |  |  +--ro structure-id?                         core-model:universal-id
+    |  |  +--ro supported-tdm-structure-types-list* [tdm-structure-name]
+    |  |  |  +--ro tdm-structure-name                   string
+    |  |  |  +--ro tdm-segment-size?                    int32
+    |  |  |  +--ro max-number-of-segments-reservable?   int8
+    |  |  +--ro supported-alarms?                     string
+    |  +--rw hybrid-mw-structure-configuration
+    |  |  +--rw structure-type
+    |  |  |  +--ro tdm-structure-name?                  string
+    |  |  |  +--ro tdm-segment-size?                    int32
+    |  |  |  +--ro max-number-of-segments-reservable?   int8
+    |  |  +--rw number-of-tdm-segments-to-be-reserved?   int16
+    |  |  +--rw problem-kind-severity-list* [problem-kind-name]
+    |  |     +--rw problem-kind-name        string
+    |  |     +--rw problem-kind-severity?   severity-type
+    |  +--ro hybrid-mw-structure-status
+    |  |  +--ro segment-status-list* [segment-status-type-id]
+    |  |  |  +--ro segment-status-type-id         int16
+    |  |  |  +--ro segment-is-reserved-for-tdm?   boolean
+    |  |  |  +--ro operational-status?            core-model:operational-state
+    |  |  |  +--ro obsolete-priority-class?       int8
+    |  |  |  +--ro obsolete-drop-order-rank?      int16
+    |  |  +--ro last-status-change?    yang:date-and-time
+    |  +--ro hybrid-mw-structure-current-problems
+    |  |  +--ro current-problem-list* [sequence-number]
+    |  |     +--ro problem-name?       string
+    |  |     +--ro sequence-number     int32
+    |  |     +--ro time-stamp?         yang:date-and-time
+    |  |     +--ro problem-severity?   severity-type
+    |  +--ro hybrid-mw-structure-current-performance
+    |  |  +--ro current-performance-data-list* [scanner-id]
+    |  |     +--ro performance-data?        structure-performance-type
+    |  |     +--ro timestamp?               date-and-time
+    |  |     +--ro suspect-interval-flag?   boolean
+    |  |     +--ro elapsed-time?            int64
+    |  |     +--ro scanner-id               string
+    |  |     +--ro granularity-period?      granularity-period-type
+    |  |     +--ro administrative-state?    core-model:administrative-state
+    |  |     +--ro object-class?            object-identifier
+    |  |     +--ro name-binding?            object-identifier
+    |  +--ro hybrid-mw-structure-historical-performances
+    |     +--ro historical-performance-data-list* [history-data-id]
+    |        +--ro performance-data?        structure-performance-type
+    |        +--ro suspect-interval-flag?   boolean
+    |        +--ro history-data-id          string
+    |        +--ro period-end-time?         yang:date-and-time
+    |        +--ro granularity-period?      granularity-period-type
+    |        +--ro object-class?            object-identifier
+    |        +--ro name-binding?            object-identifier
+    +--rw mw-ethernet-container-pac* [layer-protocol]
+    |  +--rw layer-protocol                                -> /core-model:network-element/ltp/lp/uuid
+    |  +--ro ethernet-container-capability
+    |  |  +--ro bundling-is-avail?             boolean
+    |  |  +--ro packet-compression-is-avail?   boolean
+    |  |  +--ro layer2-compression-is-avail?   boolean
+    |  |  +--ro vlan-compression-is-avail?     boolean
+    |  |  +--ro q-in-q-compression-is-avail?   boolean
+    |  |  +--ro mpls-compression-is-avail?     boolean
+    |  |  +--ro ipv4-compression-is-avail?     boolean
+    |  |  +--ro ipv6-compression-is-avail?     boolean
+    |  |  +--ro layer4-compression-is-avail?   boolean
+    |  |  +--ro encryption-is-avail?           boolean
+    |  |  +--ro supported-alarms?              string
+    |  +--rw ethernet-container-configuration
+    |  |  +--rw container-id?                 string
+    |  |  +--rw segments-id-list* [structure-id-ref segment-id-ref]
+    |  |  |  +--rw structure-id-ref    core-model:universal-id
+    |  |  |  +--rw segment-id-ref      int16
+    |  |  +--rw packet-compression-is-on?     boolean
+    |  |  +--rw layer2-compression-is-on?     boolean
+    |  |  +--rw vlan-compression-is-on?       boolean
+    |  |  +--rw q-in-q-compression-is-on?     boolean
+    |  |  +--rw mpls-compression-is-on?       boolean
+    |  |  +--rw ipv4-compression-is-on?       boolean
+    |  |  +--rw ipv6-compression-is-on?       boolean
+    |  |  +--rw layer4-compression-is-on?     boolean
+    |  |  +--rw encryption-is-on?             boolean
+    |  |  +--rw cryptographic-key?            string
+    |  |  +--rw problem-kind-severity-list* [problem-kind-name]
+    |  |     +--rw problem-kind-name        string
+    |  |     +--rw problem-kind-severity?   severity-type
+    |  +--ro ethernet-container-status
+    |  |  +--ro last-status-change?   yang:date-and-time
+    |  +--ro ethernet-container-current-problems
+    |  |  +--ro current-problem-list* [sequence-number]
+    |  |     +--ro problem-name?       string
+    |  |     +--ro sequence-number     int32
+    |  |     +--ro time-stamp?         yang:date-and-time
+    |  |     +--ro problem-severity?   severity-type
+    |  +--ro ethernet-container-current-performance
+    |  |  +--ro current-performance-data-list* [scanner-id]
+    |  |     +--ro performance-data
+    |  |     |  +--ro tx-ethernet-bytes-max-s?   int32
+    |  |     |  +--ro tx-ethernet-bytes-max-m?   int64
+    |  |     |  +--ro tx-ethernet-bytes-sum?     int64
+    |  |     |  +--ro time-period?               int32
+    |  |     +--ro timestamp?               date-and-time
+    |  |     +--ro suspect-interval-flag?   boolean
+    |  |     +--ro elapsed-time?            int64
+    |  |     +--ro scanner-id               string
+    |  |     +--ro granularity-period?      granularity-period-type
+    |  |     +--ro administrative-state?    core-model:administrative-state
+    |  |     +--ro object-class?            object-identifier
+    |  |     +--ro name-binding?            object-identifier
+    |  +--ro ethernet-container-historical-performances
+    |     +--ro historical-performance-data-list* [history-data-id]
+    |        +--ro performance-data
+    |        |  +--ro tx-ethernet-bytes-max-s?   int32
+    |        |  +--ro tx-ethernet-bytes-max-m?   int64
+    |        |  +--ro tx-ethernet-bytes-sum?     int64
+    |        |  +--ro time-period?               int32
+    |        +--ro suspect-interval-flag?   boolean
+    |        +--ro history-data-id          string
+    |        +--ro period-end-time?         yang:date-and-time
+    |        +--ro granularity-period?      granularity-period-type
+    |        +--ro object-class?            object-identifier
+    |        +--ro name-binding?            object-identifier
+    +--rw mw-tdm-container-pac* [layer-protocol] {hybrid-microwave}?
+       +--rw layer-protocol                           -> /core-model:network-element/ltp/lp/uuid
+       +--ro tdm-container-capability
+       |  +--ro supported-tdm-container-types-list* [tdm-container-name]
+       |  |  +--ro tdm-container-name    string
+       |  |  +--ro tdm-container-size?   int32
+       |  +--ro supported-alarms?                     string
+       +--rw tdm-container-configuration
+       |  +--rw container-id?                 string
+       |  +--rw container-type
+       |  |  +--ro tdm-container-name?   string
+       |  |  +--ro tdm-container-size?   int32
+       |  +--rw segment-id
+       |  |  +--rw structure-id-ref?   core-model:universal-id
+       |  |  +--rw segment-id-ref?     int16
+       |  +--rw problem-kind-severity-list* [problem-kind-name]
+       |     +--rw problem-kind-name        string
+       |     +--rw problem-kind-severity?   severity-type
+       +--ro tdm-container-status
+       |  +--ro last-status-change?   yang:date-and-time
+       +--ro tdm-container-current-problems
+       |  +--ro current-problem-list* [sequence-number]
+       |     +--ro problem-name?       string
+       |     +--ro sequence-number     int32
+       |     +--ro time-stamp?         yang:date-and-time
+       |     +--ro problem-severity?   severity-type
+       +--ro tdm-container-current-performance
+       |  +--ro current-performance-data-list* [scanner-id]
+       |     +--ro performance-data
+       |     |  +--ro tx-ethernet-bytes-max-s?   int32
+       |     |  +--ro tx-ethernet-bytes-max-m?   int64
+       |     |  +--ro tx-ethernet-bytes-sum?     int64
+       |     |  +--ro time-period?               int32
+       |     +--ro timestamp?               date-and-time
+       |     +--ro suspect-interval-flag?   boolean
+       |     +--ro elapsed-time?            int64
+       |     +--ro scanner-id               string
+       |     +--ro granularity-period?      granularity-period-type
+       |     +--ro administrative-state?    core-model:administrative-state
+       |     +--ro object-class?            object-identifier
+       |     +--ro name-binding?            object-identifier
+       +--ro tdm-container-historical-performances
+          +--ro historical-performance-data-list* [history-data-id]
+             +--ro performance-data
+             |  +--ro tx-ethernet-bytes-max-s?   int32
+             |  +--ro tx-ethernet-bytes-max-m?   int64
+             |  +--ro tx-ethernet-bytes-sum?     int64
+             |  +--ro time-period?               int32
+             +--ro suspect-interval-flag?   boolean
+             +--ro history-data-id          string
+             +--ro period-end-time?         yang:date-and-time
+             +--ro granularity-period?      granularity-period-type
+             +--ro object-class?            object-identifier
+             +--ro name-binding?            object-identifier
+
+  notifications:
+    +---n object-creation-notification
+    |  +--ro counter?         int32
+    |  +--ro time-stamp?      yang:date-and-time
+    |  +--ro object-id-ref?   core-model:universal-id
+    |  +--ro object-type?     string
+    +---n object-deletion-notification
+    |  +--ro counter?         int32
+    |  +--ro time-stamp?      yang:date-and-time
+    |  +--ro object-id-ref?   core-model:universal-id
+    +---n attribute-value-changed-notification
+    |  +--ro counter?          int32
+    |  +--ro time-stamp?       yang:date-and-time
+    |  +--ro object-id-ref?    core-model:universal-id
+    |  +--ro attribute-name?   string
+    |  +--ro new-value?        string
+    +---n problem-notification
+       +--ro counter?         int32
+       +--ro time-stamp?      yang:date-and-time
+       +--ro object-id-ref?   core-model:universal-id
+       +--ro problem?         string
+       +--ro severity?        severity-type
