@@ -35,7 +35,7 @@ Versions of tools that we use today (April 2018):
 
 ### 2. Creating dist.conf file
 
-    cd $HOME/odl/SDN-Projects-Boron/code-Carbon-SR1
+    cd $HOME/odl/CENTENNIAL/code-Carbon-SR1
 
 Create the file "dist.conf" with VI or any editor. Adapt template:
 
