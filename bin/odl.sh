@@ -9,13 +9,10 @@
 #   2.6 New variant of install.sh
 Version=2.11
 
-# ----- Constants
+# ----- Constants not depending on variables specified by $CONFIG
 
 CONFIG=dist.conf
 ODLCMD=odl.cmd
-
-TARFILE_DLUXLOADER="apps/dlux/$ODL_KARAF_DIST.dluxloader.tar.gz"
-
 
 # ----- Functions
 
@@ -227,7 +224,7 @@ prepare() {
               echo "Could not find ODL_KARAF_HOME. Can not proceed if not existing."
            else
               echo "READY, create link dist"
-              ln -s $ODL_KARAF_HOME dist
+              ln -s "$ODL_KARAF_HOME" dist
               echo "Patch DLUX"
 	      installDluxPatch
            fi
@@ -426,7 +423,9 @@ else
    exit 1
 fi
 
+TARFILE_DLUXLOADER="apps/dlux/$ODL_KARAF_DIST.dluxloader.tar.gz"
 echo "Karaf home: $ODL_KARAF_HOME"
+
 here=$(pwd)
 echo "Executed here: $here"
 echo ""
