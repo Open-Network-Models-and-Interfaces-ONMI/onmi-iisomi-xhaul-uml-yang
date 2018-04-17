@@ -1,6 +1,13 @@
 #Setting up Carbon SR1 development environment
 
+HINT1: Not all applications, available under code/apps are integrated into code-Carbon-SR1/apps.
+HINT2: Modify the code under the *code* subdirectory. Modify in a way that it can be used in Boron and Carbon.
+
+This *code-Carbon-SR1* folder does compile the sources from *code* in a Opendayligh Cabron SR1 context.
+Mainly the pom.xml files are adapted. Sources are used from *code* referenced by a symbolic link.
+
 ##Recommended structure
+
    - $HOME/Downloads
    - $HOME/odl
       - WirelessTransportEmulator [from here: git MELACON](https://github.com/Melacon/WirelessTransportEmulator.git)
@@ -11,6 +18,7 @@ Working location for compiling Carbon code and managing the Carbon karaf contain
 Working directory for source code editing for Boron base is here: **$HOME/odl/CENTENNIAL/code**
 
 ## Steps
+
 ### 0. Do the installation of Java, maven, git npm and so on form the Boron/code description
 
 Versions of tools that we use today (April 2018):
@@ -29,17 +37,16 @@ Versions of tools that we use today (April 2018):
 
 ### 1. Download Carbon SR1 container
 
-
     cd $HOME/Downloads
     wget Carbon tar https://nexus.opendaylight.org/content/groups/public/org/opendaylight/integration/distribution-karaf/0.6.1-Carbon/distribution-karaf-0.6.1-Carbon.tar.gz
 
 ### 2. Creating dist.conf file
 
-    cd $HOME/odl/SDN-Projects-Boron/code-Carbon-SR1
+    cd $HOME/odl/CENTENNIAL/code-Carbon-SR1
 
 Create the file "dist.conf" with VI or any editor. Adapt template:
 
-    #Ownw configuration
+    #Own configuration
     #Mandatory
     ODL_KARAF_DIST="distribution-karaf-0.6.1-Carbon"
     ODL_KARAF_HOME=$HOME/odl/$ODL_KARAF_DIST

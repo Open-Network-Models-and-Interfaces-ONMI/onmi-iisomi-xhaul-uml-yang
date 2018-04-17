@@ -13,7 +13,7 @@ Please consider it as a "working document" or guidelines.
 ## Installation
 
 This chapter describes how to install the SDN-Controller OpenDaylight and the applications
-of the 4.  ONF Microwave Transport Network Proof-of-Concept on Ubuntu 16.04.
+of the 4.  ONF Microwave Transport Network Proof-of-Concept on Ubuntu 16.04.4
 These instructions should also work on other Debian derivative distributions.
 
 
