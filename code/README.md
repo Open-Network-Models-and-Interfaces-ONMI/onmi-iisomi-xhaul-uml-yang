@@ -133,8 +133,9 @@ odl
 
 
 #### Step #2.1 - Download Karaf/ Opendaylight package and unpack
-The 4th ONF Wireless PoC applications are developed for OpenDaylight Boron-SR3 release.
-Download it into the Download subdirectory.
+
+The updted 4th ONF Wireless PoC applications are developed for OpenDaylight Boron-SR3 release.
+Download into the Download subdirectory.
 
 ```
 cd
@@ -143,6 +144,14 @@ cd Downloads
 wget https://nexus.opendaylight.org/content/groups/public/org/opendaylight/integration/distribution-karaf/0.5.3-Boron-SR3/distribution-karaf-0.5.3-Boron-SR3.tar.gz
 cd ..
 ```
+
+For Carbon and additional distribution is required:
+
+```
+-rw-rw-r--  1 herbert herbert 426660403 Apr  5  2017 distribution-karaf-0.5.3-Boron-SR3.tar.gz
+-rw-rw-r--  1 herbert herbert 426480392 Jul 12  2017 distribution-karaf-0.6.1-Carbon.tar.gz
+```
+
 #### Step #2.2 - Download applications
 Clone the Source Git repository for the open source project
 
@@ -179,7 +188,7 @@ cd $REPO_ODL/code
 ./odl prepare
 ```
 
-#### Step #3.2 - Build the application
+#### Step #3.1 - Build the application
 
 Build the applications for the 4th ONF Wireless PoC:
 
@@ -189,7 +198,7 @@ mvn clean install -DskipTests
 ```
 It takes some time (frist time 20min, in my case) ...
 
-#### Step #3.3 - Install and run
+#### Step #3.2 - Install and run
 
 Install all apps and start karaf:
 
