@@ -24,7 +24,7 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
     service.gridOptions = $mwtnCommons.gridOptions;
     service.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
     service.getAllData = $mwtnDatabase.getAllData;
-    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
+    
 
     /**
       * Since not all browsers implement this we have our own utility that will
@@ -838,12 +838,127 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
       return coordinate.lat >= bounds.bottom && coordinate.lat <= bounds.top && isLongInRange;
     } 
 
+    service.getAllEdges = function () {
+      var edges = [];
+      return getGenericChunk("edge", edges).then(function () {
+        return edges;
+      });
+    };
+
+    /**
+     * Retrieves all nodes.
+     * @return a Promis containing an array of nodes
+     */
+    service.getAllNodes = function () {
+      var resultDefer = $q.defer();
+      var nodes = [];
+      getGenericChunk("node", nodes).then(function () {
+
+        // recreate the tree structure from the flat list
+        var finalNodes = nodes.reduce(
+          /** @param acc { Node[] } */
+          function (acc, cur, ind, arr) {
+            // the site will be added with the first device, so it can not be missing after the first device is in
+            if (!acc.some(node => node.data.type == "site" && node.data.id == cur.data.grandparent)) {
+              acc.push({
+                data: {
+                  type: "site",
+                  id: cur.data.grandparent,
+                  label: cur.data.grandparent,
+                  active: cur.data.active
+                }
+              });
+            }
+            if (!acc.some(node => node.data.type == "device" && node.data.id == cur.data.parent)) {
+              acc.push({
+                data: {
+                  _parent: cur.data.grandparent,
+                  type: "device",
+                  id: cur.data.parent,
+                  get parent() { return cur.data.grandparent },
+                  set parent(val) { debugger; },
+                  label: cur.data.parent,
+                  active: cur.data.active
+                }
+              });
+            }
+            acc.push({
+              data: Object.keys(cur.data).reduce(function (obj, key) {
+                if (key == 'grandparent') {
+                  obj['type'] = 'port'
+                } else {
+                  cur.data.hasOwnProperty(key) && (obj[key] = cur.data[key]);
+                }
+                return obj;
+              }, {}),
+              position: cur.position
+            });
+            return acc;
+          }, []);
+
+        resultDefer.resolve(finalNodes);
+      }, function (err) {
+        console.error(err);
+        resultDefer.reject(err);
+      });
+      return resultDefer.promise;
+    }
+
+    /** @param nodes {{id: string,position:{ x:number, y:number}}}[]} */
+    service.saveChangedNodes = function (nodes) {
+      return $mwtnDatabase.getBase('topology').then(function (base) {
+        var resultDefer = $q.when();
+
+        nodes.forEach(function (node) {
+          resultDefer = resultDefer.then(function () {
+            return $mwtnDatabase.genericRequest({
+              method: 'POST',
+              base: base.base,
+              index: base.index,
+              docType: 'node',
+              command: encodeURI(node.id) +'/_update',
+              data: { 
+                "doc": {
+                  "position": node.position
+                }
+              }
+            });
+          })
+        });
+        return resultDefer;
+      });
+    }
+
     // Start to initialize google maps api and save the returned promise.
     service.googleMapsApiPromise = initializeGoogleMapsApi();
 
     return service;
 
     // private helper functions of $mwtnTopology
+
+    function getGenericChunk(docType, target) {
+      var size = 30;
+      return $mwtnDatabase.getAllData('topology', docType, target.length || 0, size, undefined)
+        .then(function (result) {
+          if (result.status === 200 && result.data) {
+            var total = (result.data.hits && result.data.hits.total) || 0;
+            var hits = (total && result.data.hits.hits) || [];
+            hits.forEach(function (hit) {
+              target.push(hit._source || {});
+            });
+            if (total > target.length) {
+              return getGenericChunk(docType, target);
+            }
+            return $q.resolve(true);
+          } else {
+            return $q.reject("Could not load " + docType + ".");
+          }
+      }, function (err) {
+        resultDefer.reject(err);
+      });
+
+      return resultDefer.promise;
+    }
 
 
     /**
@@ -901,5 +1016,5 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
     }
 
   });
-  
+
 });

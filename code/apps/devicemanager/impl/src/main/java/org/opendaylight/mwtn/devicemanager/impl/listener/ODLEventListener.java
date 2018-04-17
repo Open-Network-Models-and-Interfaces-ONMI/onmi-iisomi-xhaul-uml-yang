@@ -8,9 +8,6 @@
 
 package org.opendaylight.mwtn.devicemanager.impl.listener;
 
-import javax.annotation.Nullable;
-
-import org.opendaylight.mwtn.aotsMConnector.impl.AotsMProviderClient;
 import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
 import org.opendaylight.mwtn.base.netconf.NetconfTimeStamp;
@@ -48,8 +45,6 @@ public class ODLEventListener {
     //private final XmlMapper xmlMapper;
     private final HtDatabaseEventsService databaseService;
     private final EcompProviderClient ecompProvider;
-	private final AotsMProviderClient aotsMProvider;
-	private final String hostname;
     private int eventNumber;
 
 
@@ -67,18 +62,14 @@ public class ODLEventListener {
      * @param ecompProvider to deliver problems to
      */
     public ODLEventListener(String ownKeyName, WebSocketServiceClient webSocketService,
-            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider, @Nullable AotsMProviderClient aotsMProvider,String host) {
+            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider) {
         super();
 
         this.ownKeyName = ownKeyName;
-        this.hostname = host;
         this.webSocketService = webSocketService;
-        //this.xmlMapper = xmlMapper;
-        //this.websocketmanagerService = websocketmanagerService;
 
         this.databaseService = databaseService;
         this.ecompProvider = ecompProvider;
-        this.aotsMProvider = aotsMProvider;
 
         this.eventNumber = 0;
 
@@ -180,8 +171,6 @@ public class ODLEventListener {
         databaseService.updateFaultCurrent(notificationXml);
 
         ecompProvider.sendProblemNotification(ownKeyName, notificationXml);
-        if (aotsMProvider != null)
-        	aotsMProvider.sendProblemNotification(ownKeyName, notificationXml,false);//not a nealarm, its a sdncontroller alarm
 
         webSocketService.sendViaWebsockets(registrationName, notificationXml);
    }

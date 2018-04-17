@@ -1,6 +1,7 @@
 # Create a delivery Tar bundle
 
 Comprehensive How-to-create list for a ODL/Karaf bundle that can be used to be installed as "Choice 1" refering to the README.MD.
+In the CENTENNIAL/bin directory the script *createTarBundle.sh* bases on this description.
 
 #### Start configuration
 
@@ -57,9 +58,9 @@ During step #2.3 enable logging within karaf command line:
 
 #### Copy into new directory and create tar file
 
-    TARDIR=onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-22
+    TARDIR=onf-wireless-4th-poc-karaf-0.5.3-Boron-SR3-2017-06-22
     mkdir $TARDIR
-    cp -r distribution-karaf-0.5.1-Boron-SR1/* $TARDIR
+    cp -r distribution-karaf-0.5.3-Boron-SR3/* $TARDIR
     tar -czvf "$TARDIR.tar.gz" $TARDIR
 
 
@@ -106,12 +107,11 @@ During step #2.3 enable logging within karaf command line:
 
     ./bin/karaf clean
     logout
-    
     rm -rf $ODL_KARAF_HOME/cache/schema/tailf*.yang
     rm -rf $ODL_KARAF_HOME/cache/schema/yuma*.yang
-    rm -rf $ODL_KARAF_HOME/data
-    rm $ODL_KARAF_HOME/etc/org.ops4j.pax.web.cfg
-    
+    rm -rf $ODL_KARAF_HOME/data/log/*
+
+
     # IMPORTANT!!!
     # make sure that no hardcoded references are in karaf
 
@@ -119,34 +119,6 @@ During step #2.3 enable logging within karaf command line:
 
     cd ..
 
-    mv onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-22
+    mv onf-wireless-4th-poc-karaf-0.5.3-Boron-SR3-2017-06-22
 
-    #OLDtar -czf onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-22.tar.gz onf-wireless-4th-poc-karaf-0.5.1-Boron-SR1-2017-06-22
-    
-#### Build command for complete bundle TEF
-
-    User: herbert Server buildtst
-    
-    cd ~/SDNProjects-Boron/code
-    git pull
-
-    cd ~/tst
-    ./build build
-    
-    cd ~/SDNProjects-Boron/code
-    ./install.sh ibb
-    
-    #test && ... stop
-    ./install.sh stop
-    
-    cd ~
-    #Remove some files 
-    rm -rf $ODL_KARAF_HOME/cache/schema/tailf*.yang
-    rm -rf $ODL_KARAF_HOME/cache/schema/yuma*.yang
-    rm -rf $ODL_KARAF_HOME/data
-    rm $ODL_KARAF_HOME/etc/org.ops4j.pax.web.cfg
-
-    # !! REPLACE 014 with actual build number
-    tar -czf distribution-karaf-0.5.3-Boron-SR3-TST-001.014.tar.gz distribution-karaf-0.5.3-Boron-SR3
-    
-    # Filezill ~/tst/builds/networkapps.xyz.tar and ~/distribution-karaf-0.5.3-Boron-SR3-TST-001.0xy.tar.gz
+    tar -czvf onf-wireless-4th-poc-karaf-0.5.3-Boron-SR3-2017-06-22.tar.gz onf-wireless-4th-poc-karaf-0.5.3-Boron-SR3-2017-06-22

@@ -21,8 +21,6 @@ define(['app/mwtnPerformanceHistory/mwtnPerformanceHistory.module',
 
       var globalFilter;
 
-      $scope.odlKarafVersion = $mwtnPerformanceHistory.odlKarafVersion; 
-
       $scope.selecteditem = {};
 
       //time selector

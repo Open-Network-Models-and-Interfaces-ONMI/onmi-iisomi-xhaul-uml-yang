@@ -568,7 +568,6 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
     var COMPONENT = 'mwtnBrowserCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnBrowserCtrl started!'});
     $rootScope.section_logo = 'src/app/mwtnBrowser/images/mwtnBrowser.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
-    $scope.odlKarafVersion = $mwtnBrowser.odlKarafVersion; 
 
     var pacTemplate = {
         'layer-protocol': 'unknown'           
@@ -659,8 +658,6 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
         'MicrowaveModel-ObjectClasses-AirInterface:MW_AirInterface_Pac'
       ];
 
-
-      console.error(JSON.stringify(success));
       $scope.modules = success;
       $scope.orderedPacs = [];
       $scope.parts = [];

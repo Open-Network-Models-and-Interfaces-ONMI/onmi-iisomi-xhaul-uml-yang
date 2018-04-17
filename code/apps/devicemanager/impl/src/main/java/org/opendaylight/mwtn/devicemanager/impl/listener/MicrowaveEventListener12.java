@@ -10,7 +10,6 @@ package org.opendaylight.mwtn.devicemanager.impl.listener;
 
 import java.util.List;
 
-import org.opendaylight.mwtn.aotsMConnector.impl.AotsMProviderClient;
 import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
 import org.opendaylight.mwtn.devicemanager.impl.database.service.HtDatabaseEventsService;
@@ -43,10 +42,9 @@ public class MicrowaveEventListener12 implements MicrowaveModelListener {
     //private final XmlMapper xmlMapper;
     private final HtDatabaseEventsService databaseService;
     private final EcompProviderClient ecompProvider;
-	private final AotsMProviderClient aotsmClient;
 
     public MicrowaveEventListener12(String nodeName, WebSocketServiceClient webSocketService,
-            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider,AotsMProviderClient aotsmClient) {
+            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider) {
         super();
         this.nodeName = nodeName;
         //this.websocketmanagerService = websocketmanagerService;
@@ -54,7 +52,6 @@ public class MicrowaveEventListener12 implements MicrowaveModelListener {
         this.webSocketService = webSocketService;
         this.databaseService = databaseService;
         this.ecompProvider = ecompProvider;
-        this.aotsmClient = aotsmClient;
     }
 
     @Override
@@ -140,8 +137,6 @@ public class MicrowaveEventListener12 implements MicrowaveModelListener {
         databaseService.updateFaultCurrent(notificationXml);
 
         ecompProvider.sendProblemNotification(nodeName, notificationXml);
-        if(aotsmClient!=null)
-        	this.aotsmClient.sendProblemNotification(nodeName, notificationXml);
 
         webSocketService.sendViaWebsockets(nodeName, notificationXml);
 
@@ -149,7 +144,6 @@ public class MicrowaveEventListener12 implements MicrowaveModelListener {
 
     private void initCurrentProblem(ProblemNotificationXml notificationXml) {
         databaseService.updateFaultCurrent(notificationXml);
-        this.aotsmClient.sendProblemNotification(this.nodeName, notificationXml);
     }
 
     /**

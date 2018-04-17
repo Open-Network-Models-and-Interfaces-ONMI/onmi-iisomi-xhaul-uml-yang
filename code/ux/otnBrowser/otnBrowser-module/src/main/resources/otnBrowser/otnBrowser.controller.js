@@ -18,9 +18,7 @@ define(['app/otnBrowser/otnBrowser.module',
 
         $rootScope.section_logo = 'src/app/otnBrowser/images/otnBrowser.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
-        $scope.odlKarafVersion = $otnBrowser.odlKarafVersion;
         $scope.highlightFilteredHeader = $otnBrowser.highlightFilteredHeader;
-
 
       }]);
 

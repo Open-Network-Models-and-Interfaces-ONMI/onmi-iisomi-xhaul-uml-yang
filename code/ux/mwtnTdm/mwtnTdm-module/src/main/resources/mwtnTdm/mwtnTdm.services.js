@@ -19,7 +19,7 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnTdm/mwtnTdm.module'],func
     service.getActualNetworkElement = $mwtnCommons.getActualNetworkElement;
     service.getMountPoints = $mwtnCommons.getMountPoints;
     service.getPacParts = $mwtnCommons.getPacParts;
-    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
+    
     service.parts = $mwtnCommons.parts;
     service.separator = $mwtnCommons.separator;
     service.yangify = $mwtnCommons.yangify;

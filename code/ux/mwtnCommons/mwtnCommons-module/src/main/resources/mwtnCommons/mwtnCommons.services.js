@@ -583,6 +583,19 @@ define(
       };
     });
 
+    // mwtnCommonsApp.register.factory('$notifying', function($rootScope) {
+    //   return {
+    //       subscribe: function(scope, callback) {
+    //           var handler = $rootScope.$on('notifying-service-event', callback);
+    //           scope.$on('$destroy', handler);
+    //       },
+
+    //       notify: function(text) {
+    //           $rootScope.$emit('notifying-service-event', text);
+    //       }
+    //   };
+    // });
+
     mwtnCommonsApp.register.factory('$mwtnGlobal', function () {
       var service = {};
 
@@ -2385,77 +2398,92 @@ define(
           'core-model:network-element': {},
         };
 
-        // get NetworkElement object from node
-        var spec = {
-          nodeId: requiredNode.nodeId,
-          revision: requiredNode.onfCoreModelRevision,
-          pacId: 'ne'
-        };
-
-        var updatePart = function (spec, data) {
-          data.layerProtocol = spec.layerProtocolId;
-          requiredNode[spec.pacId].push(data);
-        };
-
-        var processLTPs = function (item, i, callback) {
-          var ltp = new LogicalTerminationPoint(item);
-          ltp.getLayerProtocols().map(
-            /**
-             * A function processing a layer-protocol object
-             * @param {LayerProtocol} lp A layer-protocol object
-             */
-            function (lp) {
-              var conditionalPackage = lp.getConditionalPackage(true);
-              if (conditionalPackage !== '') {
-                if (requiredNode[conditionalPackage] === undefined) {
-                  // create missing pac array
-                  requiredNode[conditionalPackage] = [];
-                }
-                var spec = {
-                  nodeId: requiredNode.nodeId,
-                  revision: requiredNode.onfCoreModelRevision,
-                  pacId: conditionalPackage,
-                  layer: lp.getLayer(),
-                  layerProtocolId: lp.getId()
-                };
-                spec.partId = service.getPartGlobalId(spec, 'configuration');
-                console.error(JSON.stringify(spec));
-                service.getPacParts(spec).then(function (success) {
-                  // console.log(JSON.stringify(success));
-                  updatePart(spec, service.yangifyObject(success));
-                  return callback();
-                }, function (error) {
-                  updatePart(spec, error);
-                  $mwtnLog.error({ component: '$mwtnCommons.processLTPs bad data', message: JSON.stringify(error) });
-                  return callback();
-                });
-              } else {
-                $mwtnLog.info({ component: COMPONENT, message: 'No condtional package found: ' + ltp.getId() });
-                return callback();
-              }
-            });
-
-          // console.log(JSON.stringify(ltp.getData()));
-        };
-
         var deferred = $q.defer();
-        service.getPacParts(spec).then(function (success) {
-          success = service.yangifyObject(success);
-          requiredNode['core-model:network-element'] = success['network-element'];
-
-          doSynchronousLoop(success['network-element'].ltp, processLTPs, function () {
-            saveRequiredNetworkElement(requiredNode).then(function (success) {
-              deferred.resolve(success);
-            }, function (error) {
-              $mwtnLog.error({ component: '$mwtnCommons.saveRequiredNetworkElement', message: JSON.stringify(error.data) });
-              deferred.reject(error);
-            });
-          });
-
+        saveRequiredNetworkElement(requiredNode).then(function (success) {
+          deferred.resolve(success);
         }, function (error) {
-          $mwtnLog.error({ component: '$mwtnCommons.getPacParts', message: JSON.stringify(error.data) });
+          $mwtnLog.error({ component: '$mwtnCommons.saveRequiredNetworkElement', message: JSON.stringify(error.data) });
           deferred.reject(error);
         });
+
+        // [sko] much simplified du to ONAP concepts,  no device configuration needs to be stored in database.
+
+        // // get NetworkElement object from node
+        // var spec = {
+        //   nodeId: requiredNode.nodeId,
+        //   revision: requiredNode.onfCoreModelRevision,
+        //   pacId: 'ne'
+        // };
+
+        // var updatePart = function (spec, data) {
+        //   data.layerProtocol = spec.layerProtocolId;
+        //   requiredNode[spec.pacId].push(data);
+        // };
+
+        // var numberOfLtps = -1;
+        // var processLTPs = function (item, i, callback) {
+        //   var ltp = new LogicalTerminationPoint(item);
+        //   ltp.getLayerProtocols().map(
+        //     /**
+        //      * A function processing a layer-protocol object
+        //      * @param {LayerProtocol} lp A layer-protocol object
+        //      */
+        //     function (lp) {
+        //       var conditionalPackage = lp.getConditionalPackage(true);
+        //       if (conditionalPackage !== '') {
+        //         if (requiredNode[conditionalPackage] === undefined) {
+        //           // create missing pac array
+        //           requiredNode[conditionalPackage] = [];
+        //         }
+        //         var spec = {
+        //           nodeId: requiredNode.nodeId,
+        //           revision: requiredNode.onfCoreModelRevision,
+        //           pacId: conditionalPackage,
+        //           layer: lp.getLayer(),
+        //           layerProtocolId: lp.getId()
+        //         };
+        //         spec.partId = service.getPartGlobalId(spec, 'configuration');
+        //         // console.info(JSON.stringify(spec));
+        //         service.getPacParts(spec).then(function (success) {
+        //           // console.log(JSON.stringify(success));
+        //           spec.message = ['Process LTP', i+1, 'of', numberOfLtps].join(' ');
+        //           $notifying.notify(spec);
+        //           updatePart(spec, service.yangifyObject(success));
+        //           return callback();
+        //         }, function (error) {
+        //           spec.message = ['Process LTP', i+1, 'of', numberOfLtps].join(' ');
+        //           $notifying.notify(spec);
+        //           $mwtnLog.error({ component: '$mwtnCommons.processLTPs bad data', message: JSON.stringify(error) });
+        //           return callback();
+        //         });
+        //       } else {
+        //         $mwtnLog.info({ component: COMPONENT, message: 'No condtional package found: ' + ltp.getId() });
+        //         return callback();
+        //       }
+        //     });
+
+        //   // console.log(JSON.stringify(ltp.getData()));
+        // };
+
+        // service.getPacParts(spec).then(function (success) {
+        //   success = service.yangifyObject(success);
+        //   requiredNode['core-model:network-element'] = success['network-element'];
+        //   var id = success['network-element']['node-id'];
+        //   numberOfLtps = success['network-element'].ltp.length; 
+        //   doSynchronousLoop(success['network-element'].ltp, processLTPs, function () {
+        //     saveRequiredNetworkElement(requiredNode).then(function (success) {
+        //       $notifying.notify( { nodeId: id, message: 'finish'} );
+        //       deferred.resolve(success);
+        //     }, function (error) {
+        //       $mwtnLog.error({ component: '$mwtnCommons.saveRequiredNetworkElement', message: JSON.stringify(error.data) });
+        //       deferred.reject(error);
+        //     });
+        //   });
+
+        // }, function (error) {
+        //   $mwtnLog.error({ component: '$mwtnCommons.getPacParts', message: JSON.stringify(error.data) });
+        //   deferred.reject(error);
+        // });
         return deferred.promise;
       };
 
@@ -2790,68 +2818,76 @@ define(
     // Service Database (ElasticSerach)
     mwtnCommonsApp.register.factory('$mwtnDatabase', function ($http, $q, ENV) {
       var service = {
-        base: ENV.getBaseURL("MD_SAL").replace(':8181', ':9200'),
+        base: ENV.getBaseURL("MD_SAL") + '/database',
         index: 'mwtn',
         command: '_search',
         mwtn: 'todo'
       };
 
+      // TODO getBase is not needed anymore
       service.getBase = function (functionId) {
         var deferred = $q.defer();
-        var result = {};
-        if (!service.database) {
-          var databaseRequest = {
-            base: service.base,
-            index: 'config',
-            docType: 'database',
-            command: '_search',
-            method: 'GET',
-            from: 0,
-            size: 10
-          };
-          service.genericRequest(databaseRequest).then(function (success) {
-            service.database = success.data.hits.hits;
-            service.database.map(function (server) {
-              var src = server._source;
-              if (server._id === functionId) {
-                var ip = src.host;
-                if (ip === 'localhost') {
-                  ip = service.base.split('//')[1].split(':')[0];
-                }
-                result.base = [src['transport-protocol'], '://', ip, ':', src.port].join('');
-                result.index = src.index;
-              }
-            });
-            if (result.base) {
-              deferred.resolve(result);
-            } else {
-              console.error('Server settings not found!', functionId);
-              deferred.reject({});
-            }
-          }, function (error) {
-            console.log('Server settings not found!', functionId, JSON.stringify(error));
-            deferred.reject({});
-          });
-        } else {
-          service.database.map(function (server) {
-            var src = server._source;
-            if (server._id === functionId) {
-              var ip = src.host;
-              if (ip === 'localhost') {
-                ip = service.base.split('//')[1].split(':')[0];
-              }
-              result.base = [src['transport-protocol'], '://', ip, ':', src.port].join('');
-              result.index = src.index;
-            }
-          });
-          if (result.base) {
-            deferred.resolve(result);
-          } else {
-            console.log('Server settings not found!', functionId);
-            deferred.reject({});
-          }
-        }
+        
+        deferred.resolve({
+          base: service.base,
+          index: functionId
+        });
+
         return deferred.promise;
+
+
+        // if (!service.database) {
+        //   var databaseRequest = {
+        //     base: service.base,
+        //     index: 'config',
+        //     docType: 'database',
+        //     command: '_search',
+        //     method: 'GET',
+        //     from: 0,
+        //     size: 10
+        //   };
+        //   service.genericRequest(databaseRequest).then(function (success) {
+        //     service.database = success.data.hits.hits;
+        //     service.database.map(function (server) {
+        //       var src = server._source;
+        //       if (server._id === functionId) {
+        //         var ip = src.host;
+        //         if (ip === 'localhost') {
+        //           ip = service.base.split('//')[1].split(':')[0];
+        //         }
+        //         result.base = service.base;
+        //         result.index = src.index;
+        //       }
+        //     });
+        //     if (result.base) {
+        //       deferred.resolve(result);
+        //     } else {
+        //       console.error('Server settings not found!', functionId);
+        //       deferred.reject({});
+        //     }
+        //   }, function (error) {
+        //     console.log('Server settings not found!', functionId, JSON.stringify(error));
+        //     deferred.reject({});
+        //   });
+        // } else {
+        //   service.database.map(function (server) {
+        //     var src = server._source;
+        //     if (server._id === functionId) {
+        //       var ip = src.host;
+        //       if (ip === 'localhost') {
+        //         ip = service.base.split('//')[1].split(':')[0];
+        //       }
+        //       result.base = service.base;
+        //       result.index = src.index;
+        //     }
+        //   });
+        //   if (result.base) {
+        //     deferred.resolve(result);
+        //   } else {
+        //     console.log('Server settings not found!', functionId);
+        //     deferred.reject({});
+        //   }
+        // }
       };
 
       service.genericRequest = function (databaseRequest) {

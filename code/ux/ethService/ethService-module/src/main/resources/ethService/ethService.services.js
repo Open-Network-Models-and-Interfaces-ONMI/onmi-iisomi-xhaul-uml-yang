@@ -13,7 +13,7 @@ define(['app/ethService/ethService.module', 'app/mwtnCommons/mwtnCommons.service
     var service = {};
 
     service.checkModules = $mwtnCommons.checkModules;
-    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
+    
 
     return service;
   });

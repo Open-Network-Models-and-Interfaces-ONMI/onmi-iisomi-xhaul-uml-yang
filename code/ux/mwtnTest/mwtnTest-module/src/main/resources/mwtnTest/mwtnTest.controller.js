@@ -17,8 +17,7 @@ define(['app/mwtnTest/mwtnTest.module',
     var COMPONENT = 'mwtnTestCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnTestCtrl started!'});
     $rootScope.section_logo = 'src/app/mwtnTest/images/mwtnTest.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
-    $scope.odlKarafVersion = $mwtnTest.odlKarafVersion; 
-
+  
     var pacTemplate = {
         'layer-protocol': 'unknown'           
     };

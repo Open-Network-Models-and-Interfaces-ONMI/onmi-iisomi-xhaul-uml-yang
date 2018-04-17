@@ -18,7 +18,6 @@ define(['app/onapAai/onapAai.module',
 
         $rootScope.section_logo = 'src/app/onapAai/images/onapAai.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
-        $scope.odlKarafVersion = $onapAai.odlKarafVersion;
         $scope.highlightFilteredHeader = $onapAai.highlightFilteredHeader;
 
         // Grid

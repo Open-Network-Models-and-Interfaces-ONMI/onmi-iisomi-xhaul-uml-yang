@@ -108,24 +108,7 @@
             <type>xml</type>
             <classifier>config</classifier>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>template-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>template-impl</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>template-impl</artifactId>
-            <version>${project.version}</version>
-            <type>xml</type>
-            <classifier>config</classifier>
-        </dependency>
-        <dependency>
+            <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>devicemanager-api</artifactId>
             <version>${project.version}</version>

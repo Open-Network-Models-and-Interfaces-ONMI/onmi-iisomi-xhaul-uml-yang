@@ -10,7 +10,6 @@ package org.opendaylight.mwtn.devicemanager.impl.listener;
 
 import java.util.List;
 
-import org.opendaylight.mwtn.aotsMConnector.impl.AotsMProviderClient;
 import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
 import org.opendaylight.mwtn.devicemanager.impl.database.service.HtDatabaseEventsService;
@@ -40,16 +39,14 @@ public class MicrowaveEventListener implements MicrowaveModelNotificationsListen
     private final WebSocketServiceClient webSocketService;
     private final HtDatabaseEventsService databaseService;
     private final EcompProviderClient ecompProvider;
-	private final AotsMProviderClient aotsmClient;
 
     public MicrowaveEventListener(String nodeName, WebSocketServiceClient webSocketService,
-            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider,AotsMProviderClient aotsmClient) {
+            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider) {
         super();
         this.nodeName = nodeName;
         this.webSocketService = webSocketService;
         this.databaseService = databaseService;
         this.ecompProvider = ecompProvider;
-        this.aotsmClient = aotsmClient;
 
     }
 
@@ -143,9 +140,6 @@ public class MicrowaveEventListener implements MicrowaveModelNotificationsListen
         if (ecompProvider != null) {
 			ecompProvider.sendProblemNotification(nodeName, notificationXml);
 		}
-        if (aotsmClient != null) {
-        	aotsmClient.sendProblemNotification(nodeName, notificationXml);
-		}
 
         webSocketService.sendViaWebsockets(nodeName, notificationXml);
 
@@ -153,7 +147,6 @@ public class MicrowaveEventListener implements MicrowaveModelNotificationsListen
 
     private void initCurrentProblem(ProblemNotificationXml notificationXml) {
         databaseService.updateFaultCurrent(notificationXml);
-        this.aotsmClient.sendProblemNotification(this.nodeName, notificationXml);
     }
 
     /**

@@ -17,7 +17,7 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnPerformanceLink/mwtnPerfo
     service.formatTimeStamp = $mwtnCommons.formatTimeStamp;
     service.getMountPoints = $mwtnCommons.getMountPoints;
     service.getAggregations = $mwtnDatabase.getAggregations;
-    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
+    
 
     service.TimeStampToONFFormat = function (timestamp) {
       timestamp = timestamp.split('-').join('');
@@ -29,7 +29,7 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnPerformanceLink/mwtnPerfo
 
     service.getFilteredSortedData = function (from, size, sort, query, selected15minPeriod) {
 
-      var functionId = 'org.opendaylight.mwtn.performancemanager';
+      var functionId = 'sdnperformance';
       var docType = 'historicalperformance15min';
       if (selected15minPeriod === false) {
         docType = 'historicalperformance24h';
@@ -47,7 +47,7 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnPerformanceLink/mwtnPerfo
 
     service.getInterfaces = function (aggregation, selected15minPeriod) {
 
-      var functionId = 'org.opendaylight.mwtn.performancemanager';
+      var functionId = 'sdnperformance';
       var docType = 'historicalperformance15min';
       if (selected15minPeriod === false) {
         docType = 'historicalperformance24h';

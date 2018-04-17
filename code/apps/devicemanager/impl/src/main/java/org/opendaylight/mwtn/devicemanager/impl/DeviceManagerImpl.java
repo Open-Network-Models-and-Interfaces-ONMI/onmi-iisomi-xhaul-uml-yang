@@ -8,43 +8,39 @@
 
 package org.opendaylight.mwtn.devicemanager.impl;
 
-import com.google.common.base.Optional;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.binding.api.MountPoint;
 import org.opendaylight.controller.md.sal.binding.api.MountPointService;
-import org.opendaylight.controller.md.sal.binding.api.ReadTransaction;
-import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
-import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.ProviderContext;
 import org.opendaylight.controller.sal.binding.api.BindingAwareProvider;
 import org.opendaylight.controller.sal.binding.api.RpcConsumerRegistry;
-import org.opendaylight.mwtn.aotsMConnector.impl.AotsMProviderClient;
+import org.opendaylight.mwtn.base.database.HtDatabaseNode;
 import org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElementFactory;
 import org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElementRepresentation;
-import org.opendaylight.mwtn.config.impl.HtConfiguration;
-import org.opendaylight.mwtn.config.impl.HtConfigurationDevicemanager;
-import org.opendaylight.mwtn.config.impl.HtDatabaseConfigService;
+import org.opendaylight.mwtn.config.impl.EsConfig;
+import org.opendaylight.mwtn.config.impl.HtDevicemanagerConfiguration;
+import org.opendaylight.mwtn.config.impl.PmConfig;
 import org.opendaylight.mwtn.deviceMonitor.impl.DeviceMonitorImpl;
 import org.opendaylight.mwtn.devicemanager.api.DeviceManagerService;
 import org.opendaylight.mwtn.devicemanager.impl.database.service.HtDatabaseEventsService;
-import org.opendaylight.mwtn.devicemanager.impl.listener.NetconfSubscriptionManagerOfDeviceManager;
+import org.opendaylight.mwtn.devicemanager.impl.listener.NetconfChangeListener;
 import org.opendaylight.mwtn.devicemanager.impl.listener.ODLEventListener;
 import org.opendaylight.mwtn.devicemanager.impl.xml.WebSocketServiceClient;
 import org.opendaylight.mwtn.devicemanager.impl.xml.XmlMapper;
 import org.opendaylight.mwtn.ecompConnector.impl.EcompProviderClient;
+import org.opendaylight.mwtn.index.impl.IndexConfigService;
+import org.opendaylight.mwtn.index.impl.IndexMwtnService;
+import org.opendaylight.mwtn.index.impl.IndexUpdateService;
 import org.opendaylight.mwtn.performancemanager.impl.PerformanceManagerImpl;
 import org.opendaylight.mwtn.performancemanager.impl.database.service.MicrowaveHistoricalPerformanceWriterService;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.netconf.notification._1._0.rev080714.CreateSubscriptionInputBuilder;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.netconf.notification._1._0.rev080714.NotificationsService;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.netconf.notification._1._0.rev080714.StreamNameType;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.NetconfNode;
-import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.NetconfNodeConnectionStatus.ConnectionStatus;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.network.topology.topology.topology.types.TopologyNetconf;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.websocketmanager.rev150105.WebsocketmanagerService;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NetworkTopology;
@@ -58,12 +54,12 @@ import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Optional;
+
 
 public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProvider, AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(DeviceManagerImpl.class);
-    private static final String MYCONFIGURATIONID = "org.opendaylight.mwtn.eventmanager";
-    private static final String PMCONFIGURATIONID = "org.opendaylight.mwtn.performancemanager";
     private static final String MYDBKEYNAME = "SDN-Controller";
 
 
@@ -82,200 +78,236 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
     private HtDatabaseEventsService databaseClientEvents;
     private MicrowaveHistoricalPerformanceWriterService databaseClientHistoricalPerformance;
     private ODLEventListener odlEventListener;
-    private NetconfSubscriptionManagerOfDeviceManager netconfSubscriptionManager;
+    //private NetconfSubscriptionManagerOfDeviceManager netconfSubscriptionManager;
+    private NetconfChangeListener netconfChangeListener;
 
     //private HashMap<String, MicrowaveEventListener> microwaveEventListeners;
-    private final HashMap<String, ONFCoreNetworkElementRepresentation> networkElementRepresentations = new HashMap<>();
+    private final ConcurrentHashMap<String, ONFCoreNetworkElementRepresentation> networkElementRepresentations = new ConcurrentHashMap<>();
     private PerformanceManagerImpl performanceManager = null;
     private EcompProviderClient ecompProvider;
-	private AotsMProviderClient aotsMProvider;
     private DeviceMonitorImpl deviceMonitor;
+	private IndexUpdateService updateService;
+	private IndexConfigService configService;
+	private IndexMwtnService mwtnService;
+	private HtDatabaseNode htDatabase;
+	private Boolean initialized = false;
 
     @Override
     public void onSessionInitiated(ProviderContext pSession) {
         LOG.info("Session Initiated start");
 
-        HtConfigurationDevicemanager config = HtConfigurationDevicemanager.getConfiguration();
-
         this.session = pSession;
         this.dataBroker = pSession.getSALService(DataBroker.class);
 
+        //Get configuration
+        HtDevicemanagerConfiguration config = HtDevicemanagerConfiguration.getConfiguration();
+        EsConfig dbConfig=config.getEs();
+        LOG.debug("esConfig="+dbConfig.toString());
+        //Start database
+        htDatabase = HtDatabaseNode.start(dbConfig);
+
+        //Create DB index if not existing and if database is running.
+        this.configService = new IndexConfigService(htDatabase, dbConfig.getHost(),dbConfig.getCluster(), dbConfig.getNode());
+        this.mwtnService = new IndexMwtnService(htDatabase, dbConfig.getHost(),dbConfig.getCluster(), dbConfig.getNode());
+
+        //Websockets
         this.webSocketService = new WebSocketServiceClient(
                 pSession.getRpcService(WebsocketmanagerService.class),
                 new XmlMapper());
 
-        //this.websocketmanagerService = pSession.getRpcService(WebsocketmanagerService.class);
-        //this.xmlMapper = new XmlMapper();
-
-        // Get configuration data from database on localhost server
-        HtDatabaseConfigService htConfigurationService = new HtDatabaseConfigService();
-
         //ECOMP
-        this.ecompProvider = new EcompProviderClient(htConfigurationService);
+        this.ecompProvider = new EcompProviderClient(config.getEcomp());
 
-        //AOTS-M
-        //this.aotsMProvider = null;
-        this.aotsMProvider = new AotsMProviderClient(htConfigurationService);
         //EM
-        HtConfiguration configurationEvenManager = htConfigurationService.getHtConfiguration(MYCONFIGURATIONID);
-        if (configurationEvenManager == null) {
+        {
+            this.databaseClientEvents = new HtDatabaseEventsService(dbConfig.getHost(),dbConfig.getCluster(), dbConfig.getNode());
 
-            LOG.warn("No {} configuration available. Don't start event manager", MYCONFIGURATIONID);
-
-        } else {
-
-            this.databaseClientEvents = new HtDatabaseEventsService(configurationEvenManager.getIndex(), configurationEvenManager.getHost(),
-                    configurationEvenManager.getCluster(), configurationEvenManager.getNode(), MYCONFIGURATIONID);
-           String hostname="";
+            String myDbKeyNameExtended=MYDBKEYNAME;
             try {
-				hostname = "-"+InetAddress.getLocalHost().getHostName();
+				myDbKeyNameExtended += "-"+InetAddress.getLocalHost().getHostName();
 			} catch (UnknownHostException e) {
-				LOG.error("error getting hostname: "+e.getMessage());
+				LOG.info("Can not query hostname: "+e.getMessage());
 			}
-            this.odlEventListener = new ODLEventListener(MYDBKEYNAME+hostname, webSocketService, databaseClientEvents, ecompProvider, aotsMProvider,hostname);
-
-
-
+            this.odlEventListener = new ODLEventListener(myDbKeyNameExtended, webSocketService, databaseClientEvents, ecompProvider);
         }
 
         //PM
-        LOG.info("Performance manager enabled: {}",config.isPerformanceManagerEnabled());
-        if (config.isPerformanceManagerEnabled()) {
-            HtConfiguration configurationPM = htConfigurationService.getHtConfiguration(PMCONFIGURATIONID);
-            if (configurationPM == null) {
+        PmConfig configurationPM=config.getPm();
+        LOG.info("Performance manager configuration: {}",configurationPM);
+        if (!configurationPM.isPerformanceManagerEnabled()) {
 
-                LOG.warn("No {} configuration available. Don't start performance manager", PMCONFIGURATIONID);
-
-            } else {
-
-                this.databaseClientHistoricalPerformance = new MicrowaveHistoricalPerformanceWriterService(configurationPM.getIndex(), configurationPM.getHost(),
-                        configurationPM.getCluster(), configurationPM.getNode(), PMCONFIGURATIONID);
-                this.performanceManager = new PerformanceManagerImpl(60, databaseClientHistoricalPerformance);
-            }
+        	LOG.info("No configuration available. Don't start performance manager");
         }
+        else {
+
+        	this.databaseClientHistoricalPerformance = new MicrowaveHistoricalPerformanceWriterService(configurationPM.getHost(), configurationPM.getCluster(), configurationPM.getNode());
+        	this.performanceManager = new PerformanceManagerImpl(60, databaseClientHistoricalPerformance);
+        }
+
+        //DUS (Database update service)
+        LOG.debug("start db update service");
+        this.updateService = new IndexUpdateService(htDatabase, dbConfig.getHost(),dbConfig.getCluster(), dbConfig.getNode());
+        this.updateService.start();
+
+        //DM
         //DeviceMonitor has to be available before netconfSubscriptionManager is configured
+        LOG.debug("start DeviceMonitor Service");
         this.deviceMonitor = new DeviceMonitorImpl(odlEventListener);
 
-        // netconfSubscriptionManager should be the last because calling back this service
-        this.netconfSubscriptionManager = new NetconfSubscriptionManagerOfDeviceManager(this, dataBroker);
-        this.netconfSubscriptionManager.register();
+        // netconfSubscriptionManager should be the last one because this is a callback service
+        LOG.debug("start NetconfSubscriptionManager Service");
+        //this.netconfSubscriptionManager = new NetconfSubscriptionManagerOfDeviceManager(this, dataBroker);
+        //this.netconfSubscriptionManager.register();
+        this.netconfChangeListener = new NetconfChangeListener(this, dataBroker);
+        this.netconfChangeListener.register();
+
+        synchronized(initialized) {
+            initialized = true;
+        }
 
         LOG.info("Session Initiated end");
     }
 
     @Override
     public void close() throws Exception {
-        LOG.info("EventManagerImpl closing");
-        if (performanceManager != null) {
-            performanceManager.close();
-        }
-        if(this.aotsMProvider!=null)
-        	this.aotsMProvider.close();
-        this.deviceMonitor.close();
+        LOG.info("DeviceManagerImpl closing ...");
+
+        close(performanceManager);
+        close(deviceMonitor);
+        close(updateService, configService, mwtnService);
+        close(htDatabase);
+        close(netconfChangeListener);
+
+        LOG.info("DeviceManagerImpl closing done");
     }
 
+    /**
+     * Used to close all Services, that should support AutoCloseable Pattern
+     * @param toClose
+     * @throws Exception
+     */
+    private void close(AutoCloseable... toCloseList) throws Exception {
+    	for (int t=0; t < toCloseList.length; t++) {
+    		if (toCloseList[t] != null)
+    			toCloseList[t].close();
+    	}
+    }
+
+    /**
+     * For each mounted device a mountpoint is created and this listener is called.
+     */
     @Override
     public void startListenerOnNode(NodeId nNodeId, NetconfNode nNode) {
+    	synchronized(networkElementRepresentations) {
 
-        String mountPointNodeName = nNodeId.getValue();
-        LOG.info("Starting Event listener on Netconf device :: Name : {}", mountPointNodeName);
+    		String mountPointNodeName = nNodeId.getValue();
+    		LOG.info("Starting Event listener on Netconf device :: Name : {}", mountPointNodeName);
 
-        MountPointService mountService = session.getSALService(MountPointService.class);
+    		if (networkElementRepresentations.containsKey(mountPointNodeName)) {
+    			LOG.warn("Mountpoint {} already registered. Leave startup procedure.", mountPointNodeName);
+    		}
+    		if (!initialized) {
+    			LOG.warn("Devicemanager initialization still pending.");
+    		}
 
-        InstanceIdentifier<Node> instanceIdentifier = NETCONF_TOPO_IID.child(Node.class,
-                new NodeKey(new NodeId(mountPointNodeName)));
+    		MountPointService mountService = session.getSALService(MountPointService.class);
 
-        Optional<MountPoint> optionalMountPoint = null;
-        int timeout = 10000;
-        while ( !(optionalMountPoint = mountService.getMountPoint(instanceIdentifier)).isPresent() && timeout > 0) {
+    		InstanceIdentifier<Node> instanceIdentifier = NETCONF_TOPO_IID.child(Node.class,
+    				new NodeKey(new NodeId(mountPointNodeName)));
 
-            LOG.info("Event listener waiting for mount point for Netconf device :: Name : {}", mountPointNodeName);
-            try {
-                Thread.sleep(1000);
-                timeout -= 1000;
-            } catch (InterruptedException e) {
-                LOG.info("Event listener waiting for mount point for Netconf device :: Name : {} Time: {}", mountPointNodeName, timeout);
-            }
-        }
+    		Optional<MountPoint> optionalMountPoint = null;
+    		int timeout = 10000;
+    		while ( !(optionalMountPoint = mountService.getMountPoint(instanceIdentifier)).isPresent() && timeout > 0) {
 
-        if (!optionalMountPoint.isPresent()) {
-            LOG.warn("Event listener timeout while waiting for mount point for Netconf device :: Name : {} ", mountPointNodeName);
-            return;
-        }
+    			LOG.info("Event listener waiting for mount point for Netconf device :: Name : {}", mountPointNodeName);
+    			try {
+    				Thread.sleep(1000);
+    				timeout -= 1000;
+    			} catch (InterruptedException e) {
+    				LOG.info("Event listener waiting for mount point for Netconf device :: Name : {} Time: {}", mountPointNodeName, timeout);
+    			}
+    		}
 
-        //Mountpoint is present for sure
-        MountPoint mountPoint = optionalMountPoint.get();
+    		if (!optionalMountPoint.isPresent()) {
+    			LOG.warn("Event listener timeout while waiting for mount point for Netconf device :: Name : {} ", mountPointNodeName);
+    			return;
+    		}
 
-        DataBroker netconfNodeDataBroker = mountPoint.getService(DataBroker.class).get();
-        LOG.info("Databroker service 1:{} 2:{}", dataBroker.hashCode(), netconfNodeDataBroker.hashCode());
-        //getNodeInfoTest(dataBroker);
+    		//Mountpoint is present for sure
+    		MountPoint mountPoint = optionalMountPoint.get();
+
+    		DataBroker netconfNodeDataBroker = mountPoint.getService(DataBroker.class).get();
+    		LOG.info("Databroker service 1:{} 2:{}", dataBroker.hashCode(), netconfNodeDataBroker.hashCode());
+    		//getNodeInfoTest(dataBroker);
 
 
-        //Setup Service that monitors registration/ deregistration of session
-        odlEventListener.registration(mountPointNodeName);
+    		//Setup Service that monitors registration/ deregistration of session
+    		odlEventListener.registration(mountPointNodeName);
 
-        //Setup microwaveEventListener for Notificationservice
+    		//Setup microwaveEventListener for Notificationservice
 
-        //MicrowaveEventListener microwaveEventListener = new MicrowaveEventListener(mountPointNodeName, websocketmanagerService, xmlMapper, databaseClientEvents);
-        ONFCoreNetworkElementRepresentation ne = ONFCoreNetworkElementFactory.create(
-                mountPointNodeName, dataBroker, webSocketService,
-                databaseClientEvents, instanceIdentifier, netconfNodeDataBroker,
-                ecompProvider,aotsMProvider);
-        networkElementRepresentations.put(mountPointNodeName, ne);
-        ne.doRegisterMicrowaveEventListener(mountPoint);
+    		//MicrowaveEventListener microwaveEventListener = new MicrowaveEventListener(mountPointNodeName, websocketmanagerService, xmlMapper, databaseClientEvents);
+    		ONFCoreNetworkElementRepresentation ne = ONFCoreNetworkElementFactory.create(
+    				mountPointNodeName, dataBroker, webSocketService,
+    				databaseClientEvents, instanceIdentifier, netconfNodeDataBroker,
+    				ecompProvider);
+    		networkElementRepresentations.put(mountPointNodeName, ne);
+    		ne.doRegisterMicrowaveEventListener(mountPoint);
 
-        /*{ Shiftet to generic NE
-        final Optional<NotificationService> optionalNotificationService = mountPoint.getService(NotificationService.class);
-        final NotificationService notificationService = optionalNotificationService.get();
-        //notificationService.registerNotificationListener(microwaveEventListener);
-        notificationService.registerNotificationListener(ne.doRegisterMicrowaveEventListener());
-        }*/
+    		//Register netconf stream
+    		{
+    			final String streamName = "NETCONF";
+    			final Optional<RpcConsumerRegistry> optionalRpcConsumerService = mountPoint.getService(RpcConsumerRegistry.class);
+    			final RpcConsumerRegistry rpcConsumerRegitry = optionalRpcConsumerService.get();
+    			final NotificationsService rpcService = rpcConsumerRegitry.getRpcService(NotificationsService.class);
 
-        //Register netconf stream
-        {
-            final String streamName = "NETCONF";
-            final Optional<RpcConsumerRegistry> optionalRpcConsumerService = mountPoint.getService(RpcConsumerRegistry.class);
-            final RpcConsumerRegistry rpcConsumerRegitry = optionalRpcConsumerService.get();
-            final NotificationsService rpcService = rpcConsumerRegitry.getRpcService(NotificationsService.class);
+    			final CreateSubscriptionInputBuilder createSubscriptionInputBuilder = new CreateSubscriptionInputBuilder();
+    			createSubscriptionInputBuilder.setStream(new StreamNameType(streamName));
+    			LOG.info("Event listener triggering notification stream {} for node {}", streamName, mountPointNodeName);
+    			try {
+    				rpcService.createSubscription(createSubscriptionInputBuilder.build());  //  <----- Problem hier
+    			} catch (NullPointerException e) {
+    				LOG.warn("createSubscription failed", e.getMessage());
+    			}
+    		}
 
-            final CreateSubscriptionInputBuilder createSubscriptionInputBuilder = new CreateSubscriptionInputBuilder();
-            createSubscriptionInputBuilder.setStream(new StreamNameType(streamName));
-            LOG.info("Event listener triggering notification stream {} for node {}", streamName, mountPointNodeName);
-            try {
-                rpcService.createSubscription(createSubscriptionInputBuilder.build());  //  <----- Problem hier
-            } catch (NullPointerException e) {
-                LOG.warn("createSubscription failed", e.getMessage());
-            }
-        }
 
-        //-- Read data from NE
-        ne.initialReadFromNetworkElement();
-        ne.sync();
-        //-- Register NE to performance manager
-        if (performanceManager != null) {
-            performanceManager.registration(mountPointNodeName, ne);
-        }
-        deviceMonitor.deviceConnectIndication(mountPointNodeName, ne);
+    		//-- Read data from NE
+    		ne.initialReadFromNetworkElement();
+    		ne.sync();
+    		//-- Register NE to performance manager
+    		if (performanceManager != null) {
+    			performanceManager.registration(mountPointNodeName, ne);
+    		}
 
-        LOG.info("Starting Event listener on Netconf device :: Name : {} finished", mountPointNodeName);
+    		deviceMonitor.deviceConnectIndication(mountPointNodeName, ne);
+
+    		LOG.info("Starting Event listener on Netconf device :: Name : {} finished", mountPointNodeName);
+
+    	}
+
     }
 
     @Override
     public void removeListenerOnNode(NodeId nNodeId, NetconfNode nNode) {
         String mountPointNodeName = nNodeId.getValue();
         LOG.info("Removing NetworkElementRepresetations for device :: Name : {}", mountPointNodeName);
+
         ONFCoreNetworkElementRepresentation ne = networkElementRepresentations.remove(mountPointNodeName);
         if (ne != null) {
             int problems = ne.removeAllCurrentProblemsOfNode();
-            LOG.debug("Removed all {} problems from database at deregistration",problems);
+            LOG.debug("Removed all {} problems from database at deregistration for {}",problems, mountPointNodeName);
         } else {
-            LOG.warn("No related microwaveEventListener");
+            LOG.warn("No related ne object for mountpoint {} to deregister .", mountPointNodeName);
         }
-        deviceMonitor.deviceDisconnectIndication(mountPointNodeName);
-        odlEventListener.deRegistration(mountPointNodeName);
+        if (deviceMonitor != null)
+        	deviceMonitor.deviceDisconnectIndication(mountPointNodeName);
+        if (odlEventListener != null)
+        	odlEventListener.deRegistration(mountPointNodeName);
         if (performanceManager != null) {
             performanceManager.deRegistration(mountPointNodeName);
         }
+
     }
 
     @Override
@@ -290,55 +322,6 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
         String mountPointNodeName = nNodeId.getValue();
         LOG.info("mountpointNodeRemoved {}", nNodeId.getValue());
         deviceMonitor.removeMountpointIndication(mountPointNodeName);
-    }
-
-    /*-----------------------------------------------------------------------------------------------------------------------------
-     * Informational
-     */
-
-    // Referenz: https://github.com/opendaylight/coretutorials/blob/master/ncmount/impl/src/main/java/ncmount/impl/NcmountProvider.java
-    // Keyzeile: NetconfNode nnode=node.getAugmentation(NetconfNode.class);
-    public static void getNodeInfoTest(DataBroker dataBroker){
-        List<Node> nodes;
-        ReadTransaction tx=dataBroker.newReadOnlyTransaction();
-        try {
-            Optional<Topology> topoO = tx.read(LogicalDatastoreType.OPERATIONAL,NETCONF_TOPO_IID).checkedGet();
-            if (! topoO.isPresent()) {
-                LOG.error("XXX Can not read node config from datastore");
-                return;
-            } else {
-                Topology topo = topoO.get();
-                nodes=topo.getNode();
-
-                List<String> results=new ArrayList<>();
-                for (  Node node : nodes) {
-                    LOG.info("XXX Node: {}",node);
-                    results.add(node.getNodeId().getValue());
-                }
-
-                nodes=tx.read(LogicalDatastoreType.OPERATIONAL,NETCONF_TOPO_IID).checkedGet().get().getNode();
-
-                results=new ArrayList<>();
-                for (  Node node : nodes) {
-                    LOG.info("XXX Node: {}",node);
-                    NetconfNode nnode=node.getAugmentation(NetconfNode.class);
-                    if (nnode != null) {
-                        ConnectionStatus csts=nnode.getConnectionStatus();
-                        if (csts == ConnectionStatus.Connected) {
-                            List<String> capabilities=nnode.getAvailableCapabilities().getAvailableCapability();
-                            LOG.info("XXX Capabilities: {}",capabilities);
-                        }
-                    }
-                    results.add(node.getNodeId().getValue());
-                }
-            }
-        }
-        catch (  ReadFailedException e) {
-            LOG.error("XXX Failed1 to read node config from datastore",e);
-        }
-        catch (  IllegalStateException e) {
-            LOG.error("XXX Failed2 to read node config from datastore",e);
-        }
     }
 
 

@@ -4,8 +4,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import org.opendaylight.mwtn.config.impl.HtConfigurationEcompConnector;
-import org.opendaylight.mwtn.config.impl.HtDatabaseConfigService;
+
+import org.opendaylight.mwtn.config.impl.EcompConfig;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,16 +20,13 @@ public class EcompProviderClient {
     private final ScheduledFuture<?> taskHandle;
     private final ScheduledExecutorService scheduler;
 
-    private final HtConfigurationEcompConnector configuration;
-    private final HtDatabaseConfigService configurationService;
+    private final EcompConfig configuration;
     private final EcompSenderImpl ecompClient;
     private final EcompMessages ecompMessages;
 
-    public EcompProviderClient(HtDatabaseConfigService configurationService) {
+    public EcompProviderClient(EcompConfig config) {
 
-        this.configurationService = configurationService;
-        //Get configuration
-        this.configuration = HtConfigurationEcompConnector.getConfiguration(this.configurationService);
+        this.configuration = config;
 
         //Start services
         LOG.info("Configuration: "+configuration);

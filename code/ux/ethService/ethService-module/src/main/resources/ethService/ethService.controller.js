@@ -18,9 +18,7 @@ define(['app/ethService/ethService.module',
 
         $rootScope.section_logo = 'src/app/ethService/images/ethService.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
-        $scope.odlKarafVersion = $ethService.odlKarafVersion;
         $scope.highlightFilteredHeader = $ethService.highlightFilteredHeader;
-
 
       }]);
 

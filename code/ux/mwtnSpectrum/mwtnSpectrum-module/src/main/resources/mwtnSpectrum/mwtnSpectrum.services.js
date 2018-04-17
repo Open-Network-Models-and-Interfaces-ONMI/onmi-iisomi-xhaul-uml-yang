@@ -16,7 +16,7 @@ define(['app/mwtnSpectrum/mwtnSpectrum.module'],function(mwtnSpectrumApp) {
     service.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
     service.getActualNetworkElement = $mwtnCommons.getActualNetworkElement;
     service.getPacParts = $mwtnCommons.getPacParts;
-    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
+    
     
     service.execute = function() {
       var request = {

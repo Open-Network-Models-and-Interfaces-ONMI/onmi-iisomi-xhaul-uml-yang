@@ -22,6 +22,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 
 
 /**
+ * Interface, used by access one object
  * @author Herbert
  *
  */
@@ -41,8 +42,5 @@ public interface HtDataBase {
     public String doWrite( String dataTypeName, IsEsObject esId, String json);
 
     public boolean doRemove( String dataTypeName, IsEsObject esId );
-
-    public void doWriteMappingJson( String documentType, String jsonString);
-    public void doWriteMappingFromFile( String documentType, String fileName);
 
 }

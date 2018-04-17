@@ -23,7 +23,6 @@ class EcompProviderTask  implements Runnable {
 
     private void sendHeartbeat() {
          String postAnswer = ecompMessages.postHeartBeat();
-         LOG.debug( "Heartbeat answer {}: ",String.valueOf(postAnswer) );
     }
 
     @Override

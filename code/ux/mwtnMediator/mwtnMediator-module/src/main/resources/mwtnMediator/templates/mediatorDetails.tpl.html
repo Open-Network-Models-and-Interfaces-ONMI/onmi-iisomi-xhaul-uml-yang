@@ -50,6 +50,25 @@
      <div class="col-xs-9"><span>{{data.el.Autorun}}</span></div>
   </div>
   <div class="row">
+	<uib-accordion close-others="oneAtATime" class="acc-mediatorlog">
+		<div uib-accordion-group class="panel-default"	is-open="false">
+		<uib-accordion-heading>
+		    <i class="pull-left fa" ng-class="{'fa-chevron-down': false, 'fa-chevron-right': true}"></i>
+		    <span>{{'Logs' | translate}}</span>
+		</uib-accordion-heading>
+			<div id="mwtnLogGrid"
+				ui-grid="logGridOptions"
+				ui-grid-exporter
+				ui-grid-selection
+				ui-grid-pinning
+				ui-grid-resize-columns
+				ui-grid-move-columns
+				class="mwtnLogGrid"></div>
+
+</div>
+	</uib-accordion>
+  </div>
+  <div class="row">
   	<div class="col-md-12">
   		<span style="display:block;text-align:right;color:#0F0;">{{statusmessage}}</span>
   		<span style="display:block;text-align:right;color:#F00;">{{errormessage}}</span>

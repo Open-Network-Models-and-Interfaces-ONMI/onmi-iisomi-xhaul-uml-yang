@@ -16,7 +16,10 @@ interface IMwtnInventoryScope extends ng.IScope {
 }
 
 class MwtnInventoryCtrl {
-  constructor(private $scope: IMwtnInventoryScope, private $state, private $timeout, private mwtnInventoryService: InventoryService) {
+  constructor(private $rootScope, private $scope: IMwtnInventoryScope, private $state, private $timeout, private mwtnInventoryService: InventoryService) {
+    // todo: change this
+    $rootScope.section_logo = 'src/app/mwtnInventory/images/mwtnInventory.png';
+
     $scope.loading = false;
     $scope.message = "Empty";
     $scope.equipments = [];
@@ -31,12 +34,18 @@ class MwtnInventoryCtrl {
       const equipmentObjects = (await Promise.all(equimentIds.map(id => {
         return mwtnInventoryService.getEquipmentDetails(equipmentsRootId, id);
       }))).map(eq => (eq["equipment"][0]));
+
+      const equipmentConditionals = (await Promise.all(equimentIds.map(id => {
+        return mwtnInventoryService.getEquipmentConditionals(equipmentsRootId, id);
+      }))).map(eq => (eq["equipment-pac"][0]));
+      
       let results = await Promise.all(equipmentObjects.map(eq => {
         let fruNames: string[] = (eq["contained-holder"] || []).map(ch => ch["occupying-fru"]).filter(fru => !!fru);
         return getAllChildEquipments(equipmentsRootId, fruNames);
       }));
 
       return equipmentObjects.reduce((acc, cur, ind, arr) => {
+        let conditional = equipmentConditionals[ind] || null;
         // ensure ENVERY property can be null or undefined
         let manufacturedThing = cur['manufactured-thing'];
         let equipmentType = manufacturedThing && manufacturedThing['equipment-type'];
@@ -57,7 +66,7 @@ class MwtnInventoryCtrl {
             date: equipmentInstance && equipmentInstance['manufacture-date'] && Date.parse(equipmentInstance && equipmentInstance['manufacture-date']),
             serial: equipmentInstance && equipmentInstance['serial-number']
           },
-          // manufacturedThing: cur['manufactured-thing']
+          conditional: conditional
         };
         (results[ind].length ? card['children'] = results[ind] : null);
         acc.push(card);
@@ -104,5 +113,4 @@ class MwtnInventoryCtrl {
   }
 }
 
-mwtnInventory.controller('mwtnInventoryCtrl', ['$scope', '$state', '$timeout', 'mwtnInventoryService', MwtnInventoryCtrl]);
-
+mwtnInventory.controller('mwtnInventoryCtrl', ['$rootScope', '$scope', '$state', '$timeout', 'mwtnInventoryService', MwtnInventoryCtrl]);

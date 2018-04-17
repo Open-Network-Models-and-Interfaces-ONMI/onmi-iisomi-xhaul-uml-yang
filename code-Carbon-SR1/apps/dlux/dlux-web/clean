@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Extendd clean of DLUX if working on different angular versionsA
+# To be executed in dlux-web root
+
+rm -r target node_modules node_modules build vendor
+rm -r src/app src/assets src/common

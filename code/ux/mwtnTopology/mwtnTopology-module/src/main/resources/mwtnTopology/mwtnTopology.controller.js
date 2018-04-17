@@ -495,7 +495,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
 
           addedSiteLinkIds.forEach(function (siteLinkId) {
             var siteLink = scope.siteLinks[siteLinkId];
-            //console.log(siteLink);
+            console.log(siteLink);
             
             if (siteLink && !scope.displayedSiteLinks[siteLinkId]) {
 
@@ -509,7 +509,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
                 zIndex: 1,
                 geodesic: true
               });
-              //console.log(siteLink.type, polyline.strokeColor);
+              console.log(siteLink.type, polyline.strokeColor);
               
               // add event listeners to the polyline
               polyline.addListener('click', function (event) {
@@ -657,8 +657,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
     var vm = this;
 
     $rootScope.section_logo = 'src/app/mwtnTopology/images/mwtnTopology.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
-    $scope.odlKarafVersion = $mwtnTopology.odlKarafVersion;
-
+ 
     /** @type {{ [tabName: string] : { [parameterName : string] : any } }} */
     var tabParameters = {};
 
@@ -1660,7 +1659,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
         siteLink: link.id,
         internal: false
       }, { notify: false });
-      //console.log(link);
+      console.log(link);
     };
 
     // see http://ui-grid.info/docs/#/tutorial/317_custom_templates
@@ -1747,7 +1746,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
     });
 
     $scope.$watch("knownSiteLinks", function (newKnownSiteLinks, oldKnownSiteLinks) {
-      // console.log("watch: knownSiteLinks");
+      console.log("watch: knownSiteLinks");
       loadPage();
     }, true); // deep watch, maybe find a better solution; e.g. with an api object like the site in the map.
 
@@ -1959,199 +1958,193 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
     };
   });
 
-  mwtnTopologyApp.factory("mwtnTopologyPhysicalPathData", function () {
-    var colors = {
-      root: '#f54',
-      port: '#377',
-      device: '#252',
-      site: '#525',
-      edge: '#49a',
-      white: '#eed',
-      grey: '#555',
-      selected: '#ff0'
-    };
+  /** 
+   * Typedefinitions for the mwtnTopologyPhysicalPathData service.
+   * @typedef { { 'site' | 'device' |  'port' } } NodeLayerType
+   * @typedef { { x: number, y: number } } PositionType
+   * @typedef { { id: string, label: string, parent: string, grentparent: string, active: string, latitude: number, longitude: number  } } NodeDataVo
+   * @typedef { { data: NodeDataVo, position: PositionType  } } NodeVo
+   * @typedef { { id: string, label: string, parent: string, type: string, layer: NodeLayerType, active: boolean, latitude?: number, longitude?: number  } } NodeData
+   * @typedef { { data: NodeData, position: PositionType  } } Node
+   * @typedef { { id: string, source: string, target: string, label: string , lentgh: string, azimuthAZ: string , azimuthZA: string , layer: string , active: string } } EdgeData
+   * @typedef { { data: EdgeData } Edge
+   */
+  mwtnTopologyApp.factory("mwtnTopologyPhysicalPathData", ['$q','$mwtnTopology',
+    /** @param $q { ng.IQService } */
+    function ($q, $mwtnTopology) {
+      var colors = {
+        root: '#f54',
+        port: '#377',
+        device: '#252',
+        site: '#525',
+        edge: '#49a',
+        white: '#eed',
+        grey: '#555',
+        selected: '#ff0'
+      };
 
-    var styles = [{
-      selector: 'node',
-      css: {
-        'content': 'data(label)',
-        'text-valign': 'center',
-        'text-halign': 'center',
-        'background-color': '#666666',
-        'border-color': '#000000',
-        'border-width': '1px',
-        'color': '#ffffff'
-      }
-    },
-    {
-      selector: 'node[layer = "MWPS"]',
-      css: {
-        'content': 'data(label)',
-        'text-valign': 'center',
-        'text-halign': 'center',
-        'background-color': '#316ac5',
-        'border-color': '#000000',
-        'border-width': '1px',
-        'color': '#ffffff'
-      }
-    },
-    {
-      selector: '$node > node',
-      css: {
-        'shape': 'roundrectangle',
-        'padding-top': '10px',
-        'padding-left': '10px',
-        'padding-bottom': '10px',
-        'padding-right': '10px',
-        'text-valign': 'top',
-        'text-halign': 'center',
-        'background-color': '#eeeeee',
-        'color': '#444444',
-        'border-color': '#888888'
-      }
-    },
-    {
-      selector: 'node[type = "site"]',
-      css: {
-        'shape': 'roundrectangle',
-        'padding-top': '10px',
-        'padding-left': '10px',
-        'padding-bottom': '10px',
-        'padding-right': '10px',
-        'text-valign': 'center',
-        'text-halign': 'center',
-        'background-color': '#fefefe',
-        'color': '#444444',
-        'border-color': '#888888',
-        'font-weight': 'bold'
-      }
-    },
-    {
-      selector: 'node[type = "device"][active = "true"]',
-      css: {
-        'background-color': '#316ac5',
-        'background-opacity': '0.3',
-        'border-color': '#316ac5',
-        'border-width': '2px',
-        'color': '#444444'
-      }
-    },
-    {
-      selector: 'node[type = "port"][active = "true"]',
-      css: {
-        'background-opacity': '1.0',
-      }
-    },
-    {
-      selector: 'node[active = "false"]',
-      css: {
-        'background-opacity': '0.3',
-        'border-opacity': '0.5'
-      }
-    },
+      var styles = [
+        {
+          selector: 'node',
+          css: {
+            'content': 'data(label)',
+            'text-valign': 'center',
+            'text-halign': 'center',
+            'background-color': '#666666',
+            'border-color': '#000000',
+            'border-width': '1px',
+            'color': '#ffffff'
+          }
+        },
+        {
+          selector: 'node[layer = "MWPS"]',
+          css: {
+            'content': 'data(label)',
+            'text-valign': 'center',
+            'text-halign': 'center',
+            'background-color': '#316ac5',
+            'border-color': '#000000',
+            'border-width': '1px',
+            'color': '#ffffff'
+          }
+        },
+        {
+          selector: '$node > node',
+          css: {
+            'shape': 'roundrectangle',
+            'padding-top': '10px',
+            'padding-left': '10px',
+            'padding-bottom': '10px',
+            'padding-right': '10px',
+            'text-valign': 'top',
+            'text-halign': 'center',
+            'background-color': '#eeeeee',
+            'color': '#444444',
+            'border-color': '#888888'
+          }
+        },
+        {
+          selector: 'node[type = "site"]',
+          css: {
+            'shape': 'roundrectangle',
+            'padding-top': '10px',
+            'padding-left': '10px',
+            'padding-bottom': '10px',
+            'padding-right': '10px',
+            'text-valign': 'center',
+            'text-halign': 'center',
+            'background-color': '#fefefe',
+            'color': '#444444',
+            'border-color': '#888888',
+            'font-weight': 'bold'
+          }
+        },
+        {
+          selector: 'node[type = "device"][active = "true"]',
+          css: {
+            'background-color': '#316ac5',
+            'background-opacity': '0.3',
+            'border-color': '#316ac5',
+            'border-width': '2px',
+            'color': '#444444'
+          }
+        },
+        {
+          selector: 'node[type = "port"][active = "true"]',
+          css: {
+            'background-opacity': '1.0',
+          }
+        },
+        {
+          selector: 'node[active = "false"]',
+          css: {
+            'background-opacity': '0.3',
+            'border-opacity': '0.5'
+          }
+        },
 
-    {
-      selector: 'edge',
-      css: {
-        'content': 'data(id)',
-        'target-arrow-shape': 'triangle',
-        'line-color': '#666666',
-        'color': '#444444'
-      }
-    },
-    {
-      selector: 'edge[active = "false"]',
-      css: {
-        'line-color': '#cccccc',
-        'text-opacity': '0.9'
-      }
-    },
-    {
-      selector: 'edge[layer = "MWPS"]',
-      css: {
-        'content': 'data(id)',
-        'target-arrow-shape': 'triangle',
-        'width': '5px',
-        'line-color': '#316ac5',
-        'color': '#444444'
-      }
-    },
-    {
-      selector: 'edge[layer = "MWPS"][active = "false"]',
-      css: {
-        'line-color': '#C0D1EC',
-        'text-opacity': '0.9'
-      }
-    },
-    {
-      selector: ':selected',
-      css: {
-        'background-color': 'black',
-        'line-color': 'black',
-        'target-arrow-color': 'black',
-        'source-arrow-color': 'black'
-      }
-    }
-    ];
+        {
+          selector: 'edge',
+          css: {
+            'content': 'data(id)',
+            'target-arrow-shape': 'triangle',
+            'line-color': '#666666',
+            'color': '#444444'
+          }
+        },
+        {
+          selector: 'edge[active = "false"]',
+          css: {
+            'line-color': '#cccccc',
+            'text-opacity': '0.9'
+          }
+        },
+        {
+          selector: 'edge[layer = "MWPS"]',
+          css: {
+            'content': 'data(id)',
+            'target-arrow-shape': 'triangle',
+            'width': '5px',
+            'line-color': '#316ac5',
+            'color': '#444444'
+          }
+        },
+        {
+          selector: 'edge[layer = "MWPS"][active = "false"]',
+          css: {
+            'line-color': '#C0D1EC',
+            'text-opacity': '0.9'
+          }
+        },
+        {
+          selector: ':selected',
+          css: {
+            'background-color': 'black',
+            'line-color': 'black',
+            'target-arrow-color': 'black',
+            'source-arrow-color': 'black'
+          }
+        }
+      ];
 
-    var elements = {
-      nodes: [
-        { data: { id: 'owl-north', label : 'owl-north' , type: 'site', latitude:40.479319, longitude:-74.437548}  },
-        { data: { id: 'owl-north-east', label : 'owl-north-east' , type: 'site', latitude:40.470480, longitude:-74.430146}  },
-        { data: { id: 'owl-north-west', label : 'owl-north-west' , type: 'site', latitude:40.460248, longitude:-74.433127}  },
-        { data: { id: 'owl-east', label : 'owl-east' , type: 'site', latitude:40.454616, longitude:-74.444747}  },
-        { data: { id: 'owl-west', label : 'owl-west' , type: 'site', latitude:40.456885, longitude:-74.458197}  },
-        { data: { id: 'owl-south-east', label : 'owl-south-east' , type: 'site', latitude:40.465724, longitude:-74.465599}  },
-        { data: { id: 'owl-south-west', label : 'owl-south-west' , type: 'site', latitude:40.475956, longitude:-74.462617}  },
-        { data: { id: 'owl-south', label : 'owl-south' , type: 'site', latitude:40.481588, longitude:-74.450998}  },
+        var events = eventsFabric();
 
-        { data: { id: 'Ericsson-A1', label : 'Ericsson-A1' , parent : 'owl-west', type: 'device', active: 'true' , latitude:40.456885, longitude:-74.458197}  },
-        { data: { id: 'Ericsson-A2', label : 'Ericsson-A2' , parent : 'owl-north-west', type: 'device', active: 'true' , latitude:40.460248, longitude:-74.433127}  },
-        { data: { id: 'Ericsson-B1', label : 'Ericsson-B1' , parent : 'owl-north-west', type: 'device', active: 'true' , latitude:40.460248, longitude:-74.433127}  },
-        { data: { id: 'Ericsson-B2', label : 'Ericsson-B2' , parent : 'owl-north', type: 'device', active: 'true' , latitude:40.479319, longitude:-74.437548}  },
+      /** Heplerfunction to retrive all elements from the database and convert to the structure needed */
+      function getElements() {
+        var res = $q.defer();
 
-        { data: { id: 'Ericsson-A1#1', label : '#1' , parent : 'Ericsson-A1' , type:'port', layer:'MWPS', active:'true', latitude:40.456885, longitude:-74.458197}, position: { x: 76, y: 1041 } },
-        { data: { id: 'Ericsson-A2#1', label : '#1' , parent : 'Ericsson-A2' , type:'port', layer:'MWPS', active:'true', latitude:40.460248, longitude:-74.433127}, position: { x: 1339, y: 1025 } },
-        { data: { id: 'Ericsson-B1#1', label : '#1' , parent : 'Ericsson-B1' , type:'port', layer:'MWPS', active:'true', latitude:40.460248, longitude:-74.433127}, position: { x: 1126, y: 1025 } },
-        { data: { id: 'Ericsson-B2#1', label : '#1' , parent : 'Ericsson-B2' , type:'port', layer:'MWPS', active:'true', latitude:40.479319, longitude:-74.437548}, position: { x: 1018, y: -113 } },
-        { data: { id: 'Ericsson-A2#2', label : '#2' , parent : 'Ericsson-A2' , type:'port', layer:'ETY', active:'true', latitude:40.460248, longitude:-74.433127}, position: { x: 1345, y: 1022 } },
-        { data: { id: 'Ericsson-B1#2', label : '#2' , parent : 'Ericsson-B1' , type:'port', layer:'ETY', active:'true', latitude:40.460248, longitude:-74.433127}, position: { x: 1111, y: 1040 } },
-                
-      ],
-      edges: [
-
-        { data: { id: 'ERIA', source: 'Ericsson-A1#1', target: 'Ericsson-A2#1', label: 'ERIA' , lentgh: '0' , azimuthAZ: '0' , azimuthZA: '180' , layer: 'MWPS' , active: 'true' } },
-        { data: { id: 'ERIB', source: 'Ericsson-B1#1', target: 'Ericsson-B2#1', label: 'ERIB' , lentgh: '0' , azimuthAZ: '0' , azimuthZA: '180' , layer: 'MWPS' , active: 'true' } },
-
-        { data: { id: 'ETY01', source: 'Ericsson-A2#2', target: 'Ericsson-B1#2', label: 'Ericsson-A2#2-Ericsson-B1' , layer: 'ETY' , active: 'true' } },
+        $q.all([
+          $mwtnTopology.getAllNodes(),
+          $mwtnTopology.getAllEdges()
+         ]).then(function (results) {
+           res.resolve({ nodes: results[0], edges: results[1] });
+        });
         
-      ]
-    };
+        return res.promise;
+      }
 
-    var events = eventsFabric();
+      var result = {
+        colors: colors,
+        getElements: getElements,
+        styles: styles,
+        events: events
+      };
 
-    var result = {
-      colors: colors,
-      elements: elements,
-      styles: styles,
-      events: events
-    };
+      var someMethodChangingTheElements = function () {
+        // @Martin: hier kannst Du die Elements ändern, anschließend mußt Du das Ereignis veröffentlichen
+        //          das Ereigniss wird in der Directive aufgefangen und die Grig wird neu gezeichnet
 
-    var someMethodChangingTheElements = function () {
-      // @Martin: hier kannst Du die Elements ändern, anschließend mußt Du das Ereignis veröffentlichen
-      //          das Ereigniss wird in der Directive aufgefangen und die Grig wird neu gezeichnet
+        // Hinweis: Die Reihenfolge muss so bleiben und du kannst NUR result.elements ändern.
 
-      // Hinweis: Die Reihenfolge muss so bleiben und du kannst NUR result.elements ändern.
+        events.publish("elementsChanged", {
+          elements: result.elements
+        });
+      };
 
-      events.publish("elementsChanged", {
-        elements: result.elements
-      });
-    };
+      return result;
+    }]);
 
-    return result;
-  });
-
-  mwtnTopologyApp.directive("mwtnTopologyPhysicalPathGraph", ["mwtnTopologyPhysicalPathData", "$mwtnCommons", function (pathGraphData, $mwtnCommons) {
+    mwtnTopologyApp.directive("mwtnTopologyPhysicalPathGraph", ["mwtnTopologyPhysicalPathData", "$mwtnTopology", "$mwtnCommons", function (pathGraphData, $mwtnTopology, $mwtnCommons) {
 
     return {
       restrict: 'E',
@@ -2172,31 +2165,25 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           autounselectify: true,
 
           style: pathGraphData.styles,
-          elements: pathGraphData.elements,
+          elements: [],
           layout: {
             name: 'preset',
             padding: 5
           }
         });
 
-        // @Martin: Hier wird das Ereignis aus dem Service aboniert.
-        //           Es ist möglich mehrere Ereignisse zu definieren.
-        pathGraphData.events.subscribe("elementsChanged", function (data) {
-
-          // @Martin: cy aktualisiert sich mit Hilfe der Referenz auf die Elemente aus dem Service
-          cy.json({
-            elements: pathGraphData.elements // oder data.elements
-          });
-        });
-
-        // pathGraphData.events.subscribe("styleChanged", function () {
-        //   cy.json({
-        //      style: pathGraphData.styles
-        //   });
-        // });
         cy.viewport({
           zoom: 0.50,
           pan: { x: 100, y: 50 }
+        });
+  
+        pathGraphData.getElements().then(function (elements) {
+          cy.json({
+            elements: elements
+          });
+
+          // disable drag & drop
+          cy.nodes().ungrabify();
         });
 
         var filterActiveMountPoints = function (mountpoints) {
@@ -2258,6 +2245,7 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
             setPortAndEdgedActive();
           });
         };
+
         init();
         setCss();
 
@@ -2308,6 +2296,13 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
           });
         };
 
+        var dragedNodes = [];    
+        // add an event handler for 'tabdrag' for all ports 
+        cy.on('drag', 'node[type = "port"]', function (event) {
+          var id = event.target.data().id;
+          dragedNodes.indexOf(id) <= -1 && dragedNodes.push(id);
+        });
+
         cy.on('tap', function (event) {
           if (event.target !== cy) {
             console.info('click', JSON.stringify(event.target.data()));
@@ -2321,6 +2316,40 @@ define(['app/mwtnCommons/bower_components/lodash/dist/lodash',
 
         cy.on('zoom', function (event) {
           setCss();
+        });
+
+        // global keyboard event handler
+        function handleKey(e) {
+          if (!e.ctrlKey && !e.commandKey) return;
+          switch (e.which) {
+            case 69:
+              dragedNodes = [];
+              cy.nodes().grabify();
+              e.preventDefault();
+              return false;
+              break;
+            case 83:
+              cy.nodes().ungrabify();
+              e.preventDefault();
+              var modifiedNodes = dragedNodes.map(id => ({ id: id, position: cy.nodes().getElementById(id).position() }));
+              $mwtnTopology.saveChangedNodes(modifiedNodes);
+              console.log("dragedNodes", modifiedNodes);
+              return false;
+              break;
+            // default:
+            //   console.log(e.which);
+            //   e.preventDefault();
+            //   return false;
+            //   break;
+          }
+        }
+
+        // register global keyboard event handler
+        window.addEventListener('keydown', handleKey, false);
+
+        scope.$on('$destroy', function () {
+          // un-register global keyboard event handler
+          window.removeEventListener('keydown', handleKey, false);
         });
 
       }

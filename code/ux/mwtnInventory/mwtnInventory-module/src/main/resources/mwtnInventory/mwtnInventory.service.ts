@@ -11,19 +11,19 @@ class ExtensionResult {
 interface GenericGetRequest {
   url: string;
   method: "GET";
-} 
+}
 
 interface GenericPostRequest<T> {
   url: string;
   method: "POST";
   data: T
-} 
+}
 
 interface CommonService {
-  genericRequest<TResult>(request: GenericGetRequest ): ng.IPromise<ng.IHttpResponse<TResult>>;  
-  genericRequest<TRequest,TResult>(request:  GenericPostRequest<TRequest>): ng.IPromise<ng.IHttpResponse<TResult>>;
+  genericRequest<TResult>(request: GenericGetRequest): ng.IPromise<ng.IHttpResponse<TResult>>;
+  genericRequest<TRequest, TResult>(request: GenericPostRequest<TRequest>): ng.IPromise<ng.IHttpResponse<TResult>>;
   getMountPoints<TResult>(): ng.IPromise<TResult>;
-} 
+}
 
 export class InventoryService {
   constructor(private $q: ng.IQService, private $mwtnCommons: CommonService, private $mwtnDatabase, private $mwtnLog) {
@@ -97,12 +97,18 @@ export class InventoryService {
       if (result && result.status == 200 && result.data) {
         const topLevelEquipment = this.convertObject(result.data, 'top-level-equipment');
         const rootIdentifiers = topLevelEquipment && topLevelEquipment.extension && topLevelEquipment.extension.split(',');
-        return rootIdentifiers;
+        return rootIdentifiers && rootIdentifiers.map(identifier => identifier && identifier.trim());
       }
       return null;
     }, err => (null));
   }
 
+  /** 
+   * Requests the detail information for the given combination of 'nodeId' and 'equipmentIdentifier'.
+   * @param nodeId The id of the root node.
+   * @param identifier The identifier to request the details for.
+   * @returns A q.Promise containing an object with all the details.
+   * */
   public getEquipmentDetails(nodeId: string, identifier: string): ng.IPromise<{}> {
     const request: GenericGetRequest = {
       url: `operational/network-topology:network-topology/topology/topology-netconf/node/${nodeId}/yang-ext:mount/core-model:equipment/${identifier}`,
@@ -110,12 +116,29 @@ export class InventoryService {
     };
     return this.$mwtnCommons.genericRequest<ExtensionResult>(request).then((result) => {
       if (result && result.status == 200 && result.data) {
-        //console.log(result.data);
+        return this.convertObject(result.data);
+      }
+      return null;
+    }, err => (null));
+  }
+
+  /** 
+   * Requests the conditional information for the given combination of 'nodeId' and 'equipmentIdentifier'.
+   * @param nodeId The id of the root node.
+   * @param identifier The identifier to request the conditionals for.
+   * @returns A q.Promise containing an object with all the conditional informations.
+   * */
+  public getEquipmentConditionals(nodeId: string, identifier: string): ng.IPromise<{}> {
+    const request: GenericGetRequest = {
+      url: `operational/network-topology:network-topology/topology/topology-netconf/node/${nodeId}/yang-ext:mount/onf-core-model-conditional-packages:equipment-pac/${identifier}`,
+      method: "GET"
+    };
+    return this.$mwtnCommons.genericRequest<ExtensionResult>(request).then((result) => {
+      if (result && result.status == 200 && result.data) {
         return this.convertObject(result.data);
       }
       return null;
     }, err => (null));
   }
 }
-
-mwtnInventory.service('mwtnInventoryService', ["$q", "$mwtnCommons", "$mwtnDatabase", "$mwtnLog",  InventoryService ]);
+mwtnInventory.service('mwtnInventoryService', ["$q", "$mwtnCommons", "$mwtnDatabase", "$mwtnLog", InventoryService]);

@@ -13,8 +13,7 @@ define(
       var main = function($scope, $rootScope, $odlChat) {
 
         $rootScope.section_logo = 'src/app/odlChat/odlChat.png';
-        $scope.odlKarafVersion = $odlChat.odlKarafVersion;
-
+     
         $scope.collection = [];
         $scope.chat = {
           nickname : 'anonymous',

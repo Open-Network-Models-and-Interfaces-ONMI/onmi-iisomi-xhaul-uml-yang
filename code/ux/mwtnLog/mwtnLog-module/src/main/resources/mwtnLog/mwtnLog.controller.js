@@ -22,7 +22,6 @@ define(['app/mwtnLog/mwtnLog.module',
     
     $rootScope.section_logo = 'src/app/mwtnLog/images/mwtnLog.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
-    $scope.odlKarafVersion = $mwtnLogView.odlKarafVersion; 
     $scope.highlightFilteredHeader = $mwtnLogView.highlightFilteredHeader;
  
     var rowTemplate = '<div ng-click="grid.appScope.fnOne(row)" ng-repeat="col in colContainer.renderedColumns track by col.colDef.name" ng-class="[\'ui-grid-cell\', row.entity.type]" ui-grid-cell></div>';

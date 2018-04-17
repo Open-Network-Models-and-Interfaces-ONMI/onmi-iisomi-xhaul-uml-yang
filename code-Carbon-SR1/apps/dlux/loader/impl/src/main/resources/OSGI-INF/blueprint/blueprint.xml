@@ -1,0 +1,10 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    <bean id="loaderImpl" class="org.opendaylight.dlux.loader.implementation.DluxLoader"/>
+
+    <reference id="onBindService" availability="mandatory" activation="eager" interface="org.osgi.service.http.HttpService">
+      <reference-listener ref="loaderImpl" bind-method="onBindService" unbind-method="onUnbindService"/>
+    </reference>
+
+    <service id="serviceRegistration" interface="org.opendaylight.dlux.loader.DluxModuleLoader" ref="loaderImpl"/>
+
+</blueprint>

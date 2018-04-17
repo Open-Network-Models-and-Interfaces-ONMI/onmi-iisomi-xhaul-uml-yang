@@ -1,31 +1,31 @@
 # Code
+
 A common folder to share code for the 4th ONF Wireless PoC.
 
 According to the software architecture ODL internal applications are stored in folder "apps" (applications), while the ODL DLUX client applications are stored in folder "ux" (user experience).
 
 ## Software Architecture
-The following figure shows the proposed software architecture. 
+The following figure shows the proposed software architecture.
 Please consider it as a "working document" or guidelines.
 
-![Software architecture](software_architecture.png?raw=true "Software architecture")
+![Software architecture](docs/software_architecture.png?raw=true "Software architecture")
 
 ## Installation
 
-
 This chapter describes how to install the SDN-Controller OpenDaylight and the applications
-of the 4.  ONF Microwave Transport Network Proof-of-Concept on Ubuntu 16.04. 
+of the 4.  ONF Microwave Transport Network Proof-of-Concept on Ubuntu 16.04.
 These instructions should also work on other Debian derivative distributions.
 
 
 ### Step #1 Preparations
 
-  - java-jdk 8: the Java development kit.  - 
+  - java-jdk 8: the Java development kit.  -
 
       openJdk 8 is recommended. Here the install procedure: [ubuntu openjdk](https://wiki.ubuntuusers.de/Java/Installation/OpenJDK/)
       ```
       sudo apt-get update
-      [sko] can we delete this line? sudo apt-get install openjdk-8-jre icedtea-8-plugin 
-      sudo apt-get install openjdk-8-jdk openjdk-8-demo openjdk-8-doc openjdk-8-jre-headless openjdk-8-source 
+      [sko] can we delete this line? sudo apt-get install openjdk-8-jre icedtea-8-plugin
+      sudo apt-get install openjdk-8-jdk openjdk-8-demo openjdk-8-doc openjdk-8-jre-headless openjdk-8-source
       ```
       Add the JAVA_HOME variable to /etc/environment after install and run source.
       ```
@@ -33,37 +33,37 @@ These instructions should also work on other Debian derivative distributions.
       export ODL_KARAF_HOME="$HOME/distribution-karaf-0.5.3-Boron-SR3"
       source /etc/environment
       ```
-      
+
   - maven:  the Apache build manager for Java projects.
-       
+
       Is within the ubuntu repository.
 
       ```
       sudo apt-get install maven
       ```
 
-      OpenDaylight requires specific maven settings. Please see  [ODL wiki](https://wiki.opendaylight.org/view/GettingStarted:Development_Environment_Setup#Edit_your_.7E.2F.m2.2Fsettings.xml)      
-      
+      OpenDaylight requires specific maven settings. Please see  [ODL wiki](https://wiki.opendaylight.org/view/GettingStarted:Development_Environment_Setup#Edit_your_.7E.2F.m2.2Fsettings.xml)
+
       ```
       mkdir -p ~/.m2 && \
       if [ -e ~/.m2/settings.xml ] ; then ; cp -n ~/.m2/settings.xml{,.orig} ; fi && \
       wget -q -O - https://raw.githubusercontent.com/opendaylight/odlparent/master/settings.xml > ~/.m2/settings.xml
       ```
-       
+
   - git: the version control system.
 
       ```
       sudo apt-get install git
       ```
 
-  - node.js: the JavaScript runtime environment.  - 
+  - node.js: the JavaScript runtime environment.  -
 
       For ht standard purpose node 4.2.6 is ok.
       ```
       sudo apt-get install nodejs npm jq --
       sudo ln -s /usr/bin/nodejs /usr/bin/node
       ```
-      
+
       // [sko] There is no test automation app - shall we remove the next 5 lines
       Please see also the instrucion for the [test automation app](https://github.com/OpenNetworkingFoundation/CENTENNIAL/blob/master/test/INSTALL.md).
       For this specific extension a node 6.x has to be installed.
@@ -101,17 +101,39 @@ bower --version | 1.7.9
 
 ### Step #2 - OpenDaylight and database
 
-Example directory structure under user's home:
+Example directory structure under user's home.<br>
+  * ```REPO_ODL=$HOME/odl/CENTENNIAL``` points to root of the repository for this description.
+  * control of the compilation and karaf container is done in the ```code*``` directory using ```./odl``` command
+  * the specific environment is specified in ```dist.conf``` files. See related chapter how to configure
+  * after preparing the karaf containter the link ```dist``` points to the container
+  * ```distribution*``` subdirectories containing one or more karaf containers for running odl
+
+
 ```
-drwxrwxr-x  5 your_user_name your_user_name 4096 Okt 25 17:18 ./
-drwxr-xr-x 25 your_user_name your_user_name 4096 Okt 25 16:50 ../
-drwxrwxr-x 14 your_user_name your_user_name 4096 Okt 25 20:04 Downloads/
-drwxrwxr-x 15 your_user_name your_user_name 4096 Okt 20 14:26 SDN-Projects-Boron/
-drwxrwxr-x 14 your_user_name your_user_name 4096 Okt 25 20:04 distribution-karaf-0.5.1-Boron-SR1/
+Downloads
+odl
+├── CENTENNIAL
+│   ├── bin
+│   ├── code
+│   │   ├── dist -> /home/herbert/odl/distribution-karaf-0.5.3-Boron-SR3
+│   │   ├── dist.conf
+│   │   └── :
+│   ├── code-Carbon-SR1
+│   │   ├── dist -> /home/herbert/odl/distribution-karaf-0.6.1-Carbon
+│   │   ├── dist.conf
+│   │   └── :
+│   └── :
+├── distribution-karaf-0.6.1-Carbon
+│   ├── bin
+│   └── :
+└── distribution-karaf-0.5.3-Boron-SR3
+    ├── bin
+    └── :
 ```
 
+
 #### Step #2.1 - Download Karaf/ Opendaylight package and unpack
-The 4th ONF Wireless PoC applications are developed for OpenDaylight Boron-SR1 release.
+The 4th ONF Wireless PoC applications are developed for OpenDaylight Boron-SR3 release.
 Download it into the Download subdirectory.
 
 ```
@@ -121,120 +143,73 @@ cd Downloads
 wget https://nexus.opendaylight.org/content/groups/public/org/opendaylight/integration/distribution-karaf/0.5.3-Boron-SR3/distribution-karaf-0.5.3-Boron-SR3.tar.gz
 cd ..
 ```
-The folder "distribution-karaf-0.5.3-Boron-SR3/" is also called "$ODL_KARAF_HOME" in the following sections.
-Add an environment variable with an editor to the end of ~/.profile
-```
-export ODL_KARAF_DIST="distribution-karaf-0.5.3-Boron-SR3"
-export ODL_KARAF_HOME="$HOME/$ODL_KARAF_DIST"
-```
- Activate the change with
-```
-source .profile
-```
-
-#### Step #2.2 - Download SDN-Projects-Boron applications 
-Clone the Source Git repository for the open source project 
+#### Step #2.2 - Download applications
+Clone the Source Git repository for the open source project
 
 ```
 cd ~
 git clone https://github.com/OpenNetworkingFoundation/CENTENNIAL.git
-cd CENTENNIAL/code
+cd $REPO_ODL/code
 ```
-#### Step #2.3 -  Prepare database configuration
-Copy the database setup template for a single node into the activeConfig.
-If there are more database within you network change "sdnlabod" within the configuration files to a different name.
-If not changes the database cluster has the name "sdnlabodl".
+#### Step #2.3 -  Prepare dist.conf file
+
+Adapt the dist.conf file to your structure. Here the example for the structure used here:
+
 ```
-cd SDN-Projects-Boron/code/apps/persistantDatabase
-mkdir -p activeConfig
-cp -r activeConfigExamples/sdnlabodl/* activeConfig 
+#Typical configuration
+ODL_KARAF_DIST="distribution-karaf-0.5.3-Boron-SR3"
+ODL_KARAF_HOME=$HOME/odl/$ODL_KARAF_DIST
+ODL_KARAF_DISTGZ="$HOME/Downloads/"$ODL_KARAF_DIST".tar.gz"
+
+#In case the machine is slow it helps to add a delay after each command
+#ODL_KARAF_AFTERCMD_DELAY_SECONDS="0"
+
+#Ubuntu 16.04.4 openJava location
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 ```
 
-#### Step #2.4 -  Use install script
-If the install sript is used proceed here. 
-If not proceed with step 2.5.
-```
-cd SDN-Projects-Boron/code
-./install.sh prepare
-```
-If the database setup is done the script expects an enter to proceed.
-Befor doing this you can verify the setup with the broser: [Check database](http://localhost:9200/_plugin/head)
-Press enter if checked.
+#### Step #2.4 -  Use odl script
 
-Proceed with step 3.2
+If dist.conf files is prepared, do the prepare.
+  * karaf container is extracted
+  * dlux patch is installed
 
-#### Step #2.5 -  Start Karaf and install ElasticSearch  
-Start karaf with:
 ```
-cd $ODL_KARAF_HOME
-./bin/karaf
+cd $REPO_ODL/code
+./odl prepare
 ```
 
-For installation and remote access of the persistent database ElasticSearch,   
-please follow the instructions in [Install persistent database](./apps/persistentDatabase#installation)
+#### Step #3.2 - Build the application
 
-### Step #3 Modify, build, install and start the PoC applications and OpenDaylight
-Karaf is not running for the next steps. In Karaf CLI shutdown and confirm (yes) if necessary.
-```
-shutdown
-```
+Build the applications for the 4th ONF Wireless PoC:
 
-#### Step #3.1 - Patch  
-For a robust web GUI it is necessary to add a ["patch"](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/code/apps/dlux) to ODL DLUX.
 ```
-cp ./apps/dlux/loader.implementation-0.4.3-Boron-SR3.jar $ODL_KARAF_HOME/system/org/opendaylight/dlux/loader.implementation/0.4.3-Boron-SR3
-```
-
-#### Step #3.2 - Build  
-Build the applications for the 4th ONF Wireless PoC at folder 'CENTENNIAL/code'.
-```
+cd $REPO_ODL/code
 mvn clean install -DskipTests
 ```
 It takes some time (frist time 20min, in my case) ...
 
+#### Step #3.3 - Install and run
 
-Copy manually the bundles into the karaf system folder.
+Install all apps and start karaf:
+
 ```
-mkdir -p $ODL_KARAF_HOME/system/cn
-mkdir -p $ODL_KARAF_HOME/system/cn/com
-cp -R ~/.m2/repository/org/opendaylight/mwtn $ODL_KARAF_HOME/system/org/opendaylight
-cp -R ~/.m2/repository/cn/com/zte $ODL_KARAF_HOME/system/cn/com
-cp -R ~/.m2/repository/com/hcl $ODL_KARAF_HOME/system/com
-cp -R ~/.m2/repository/com/highstreet $ODL_KARAF_HOME/system/com
+cd $REPO_ODL/code
+./odl im
 ```
 
-#### Step #3.3 - Install and run  
-Start karaf with clean:
-```
-cd $ODL_KARAF_HOME
-./bin/karaf clean
-```
-
-Install the karaf features with the following command:
-```
-feature:install \
-odl-netconf-connector-all \
-odl-l2switch-switch \
-odl-restconf-all \
-odl-mdsal-apidocs \
-odl-dlux-all \
-odl-toaster
-```
-Now you should be able to add the new bundles in the karaf console.
-```
-feature:repo-add mvn:org.apache.karaf.decanter/apache-karaf-decanter/1.1.0/xml/features
-feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/0.4.0-SNAPSHOT/xml/features
-```
- ... and install them:
-```
-feature:install \
-elasticsearch \
-odl-mwt-models \
-odl-mwtn-all
-```
 It takes some time ...
 
+Further applications are installed via command line, started like follows:
+
+```
+cd $REPO_ODL/code
+./odl cli
+```
+Further apps:
+
 [Spectrum Management application](https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/code/apps/spectrum):
+
 ```
 feature:repo-add mvn:com.highstreet.technologies.odl.app.spectrum/scheduler-features/1.0.0-SNAPSHOT/xml/features
 bundle:install -s mvn:net.iharder/base64/2.3.9
@@ -248,8 +223,18 @@ feature:repo-add mvn:com.highstreet.technologies.odl.app/closedLoopAutomation-fe
 feature:install odl-closedLoopAutomation
 ```
 
-Subsequent starts are without clean:
+Subsequent stop:
+
 ```
-cd $ODL_KARAF_HOME
-./bin/karaf
+cd $REPO_ODL/code
+./odl stop
+
+```
+
+Subsequent start without clean:
+
+```
+cd $REPO_ODL/code
+./odl start
+
 ```

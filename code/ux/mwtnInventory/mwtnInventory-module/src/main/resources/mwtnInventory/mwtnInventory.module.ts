@@ -9,18 +9,18 @@ mwtnInventory.config(function ($stateProvider, $compileProvider, $controllerProv
 
   NavHelperProvider.addControllerUrl('app/mwtnInventory/mwtnInventory.controller');
   NavHelperProvider.addToMenu('mwtnInventory', {
-    "link": "#/mwtnInventory/",
+    "link": "#/pnfInventory/",
     "active": "main.mwtnInventory",
-    "title": "MWTN Inventory",
+    "title": "pnf Inventory",
     "icon": "fa  fa-book",  // Add navigation icon css class here
     "page": {
-      "title": "MWTN Demo",
+      "title": "pnf Inventory",
       "description": "mwtnInventory"
     }
   });
 
   $stateProvider.state('main.mwtnInventory', {
-    url: 'mwtnInventory/:nodeId?',
+    url: 'pnfInventory/:nodeId?',
     access: 2,
     views: {
       'content': {

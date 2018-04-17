@@ -13,7 +13,7 @@ define(['app/onapDcae/onapDcae.module', 'app/mwtnCommons/mwtnCommons.services'],
     var service = {};
 
     service.checkModules = $mwtnCommons.checkModules;
-    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
+    
     
     return service;
   });

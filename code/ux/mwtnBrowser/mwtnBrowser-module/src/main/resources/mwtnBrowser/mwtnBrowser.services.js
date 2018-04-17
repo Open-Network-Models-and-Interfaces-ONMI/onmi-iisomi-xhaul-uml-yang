@@ -16,7 +16,7 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnBrowser/mwtnBrowser.modul
     var service = {};
     
     service.separator = $mwtnCommons.separator;
-    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
+    
     service.parts = $mwtnCommons.parts;
     service.getPacParts = $mwtnCommons.getPacParts;
     service.getModules = $mwtnDatabase.getModules;

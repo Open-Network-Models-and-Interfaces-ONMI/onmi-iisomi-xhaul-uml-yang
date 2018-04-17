@@ -18,9 +18,7 @@ define(['app/onapMso/onapMso.module',
 
         $rootScope.section_logo = 'src/app/onapMso/images/onapMso.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
-        $scope.odlKarafVersion = $onapMso.odlKarafVersion;
         $scope.highlightFilteredHeader = $onapMso.highlightFilteredHeader;
-
 
       }]);
 

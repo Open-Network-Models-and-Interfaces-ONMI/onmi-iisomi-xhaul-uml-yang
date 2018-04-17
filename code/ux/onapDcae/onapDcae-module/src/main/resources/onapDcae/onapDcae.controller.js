@@ -18,8 +18,6 @@ define(['app/onapDcae/onapDcae.module',
 
         $rootScope.section_logo = 'src/app/onapDcae/images/onapDcae.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
-        $scope.odlKarafVersion = $onapDcae.odlKarafVersion;
-
       }]);
 
   });

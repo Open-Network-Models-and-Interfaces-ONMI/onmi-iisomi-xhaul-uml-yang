@@ -16,71 +16,63 @@
 
 package org.opendaylight.mwtn.devicemanager.impl.database.service;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+import org.json.JSONObject;
 import org.opendaylight.mwtn.base.database.HtDataBaseReaderAndWriter;
 import org.opendaylight.mwtn.base.database.HtDatabaseClientAbstract;
+import org.opendaylight.mwtn.base.database.IndexClientBuilder;
+import org.opendaylight.mwtn.base.internalTypes.Resources;
 import org.opendaylight.mwtn.devicemanager.impl.database.types.EsEventBase;
 import org.opendaylight.mwtn.devicemanager.impl.database.types.EsFaultCurrent;
 import org.opendaylight.mwtn.devicemanager.impl.database.types.EsFaultLog;
-import org.opendaylight.mwtn.devicemanager.impl.database.types.EsVersionInfo;
 import org.opendaylight.mwtn.devicemanager.impl.xml.AttributeValueChangedNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.MwtNotificationBase;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectCreationNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectDeletionNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
-import org.osgi.framework.FrameworkUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Event service, writing all events into the database into the appropriate index.
+ *
+ * @author herbert
+ */
 public class HtDatabaseEventsService {
     private static final Logger LOG = LoggerFactory.getLogger(HtDatabaseEventsService.class);
 
-    /** Filename in the resources with maven initialized version information  */
-    private static final String RESOURCENAME = "version.properties"; // could also be a constant
-
-    /* Mapping has to be prepared via configuration script.
-     * static private String mappingJsonEventLog="{\"eventlog\":{\"properties\":{\"event\":{\"properties\":{\"nodeName\":{\"type\":\"string\",\"index\":\"not_analyzed\"},\"timeStamp\":{\"type\":\"string\",\"index\":\"not_analyzed\"},\"newValue\":{\"type\":\"string\",\"index\":\"not_analyzed\"},\"attributeName\":{\"type\":\"string\",\"index\":\"not_analyzed\"},\"counter\":{\"type\":\"string\",\"index\":\"not_analyzed\"},\"objectId\":{\"type\":\"string\",\"index\":\"not_analyzed\"}}}}}}";
-     * static private String mappingJsonFaultCurrent="{\"faultcurrent\":{\"properties\":{\"faultCurrent\":{\"properties\":{\"nodeName\":{\"type\":\"string\"},\"severity\":{\"type\":\"string\",\"index\":\"not_analyzed\"},\"timeStamp\":{\"type\":\"string\",\"index\":\"not_analyzed\"},\"problem\":{\"type\":\"string\",\"index\":\"not_analyzed\"},\"counter\":{\"type\":\"string\",\"index\":\"not_analyzed\"},\"objectId\":{\"type\":\"string\",\"index\":\"not_analyzed\"}}}}}}";
-     * static private String mappingJsonFaultLog="{\"faultlog\":{\"properties\":{\"fault\":{\"properties\":{\"nodeName\":{\"type\":\"string\",\"index\":\"not_analyzed\"},\"severity\":{\"type\":\"string\",\"index\":\"not_analyzed\"},\"timeStamp\":{\"type\":\"string\",\"index\":\"not_analyzed\"},\"problem\":{\"type\":\"string\",\"index\":\"not_analyzed\"},\"counter\":{\"type\":\"string\",\"index\":\"not_analyzed\"},\"objectId\":{\"type\":\"string\",\"index\":\"not_analyzed\"}}}}}}";
-    */
+    ///** Filename in the resources with maven initialized version information  */
+    //private static final String RESOURCENAME = "version.properties"; // could also be a constant
+    ///** Index name to be used */
+    private static final String INDEX = "sdnevents";
+    private static final String MAPPING = "/elasticsearch/index/sdnevents/sdneventsMapping.json";
 
     private HtDatabaseClientAbstract client;
     private HtDataBaseReaderAndWriter<EsEventBase> eventRWEventLog;
     private HtDataBaseReaderAndWriter<EsFaultCurrent> eventRWFaultCurrent;
     private HtDataBaseReaderAndWriter<EsFaultLog> eventRWFaultLog;
-    private HtDataBaseReaderAndWriter<EsVersionInfo> eventRWVersionInfo;
 
 
     // --- Construct and initialize
 
-    public HtDatabaseEventsService(String esIndex, String esNodeserverName, String esClusterName,
-            String esNodeName, String configurationId) {
+    public HtDatabaseEventsService(String esNodeserverName, String esClusterName,
+    		String esNodeName) {
 
-        LOG.info("Create {} start", HtDatabaseEventsService.class);
+    	LOG.info("Create {} start", HtDatabaseEventsService.class);
+
+    	try {
+    		// Create control structure
+    		IndexClientBuilder clientBuilder = IndexClientBuilder.getBuilder(INDEX).setMappingSettingJsonFileName(MAPPING);
+    		client = clientBuilder.create(esNodeserverName, esClusterName, esNodeName);
+
+    		eventRWEventLog = new HtDataBaseReaderAndWriter<>(client, EsEventBase.ESDATATYPENAME, EsEventBase.class);
+    		eventRWFaultLog = new HtDataBaseReaderAndWriter<>(client, EsFaultLog.ESDATATYPENAME, EsFaultLog.class);
+    		eventRWFaultCurrent = new HtDataBaseReaderAndWriter<>(client, EsFaultCurrent.ESDATATYPENAME, EsFaultCurrent.class);
 
 
-        client = null;
-
-        try {
-            client = new HtDatabaseClientAbstract(esIndex, esNodeserverName, esClusterName, esNodeName);
-            eventRWEventLog = new HtDataBaseReaderAndWriter<>(client, EsEventBase.ESDATATYPENAME, EsEventBase.class);
-            eventRWFaultLog = new HtDataBaseReaderAndWriter<>(client, EsFaultLog.ESDATATYPENAME, EsFaultLog.class);
-            eventRWFaultCurrent = new HtDataBaseReaderAndWriter<>(client, EsFaultCurrent.ESDATATYPENAME, EsFaultCurrent.class);
-            eventRWVersionInfo = new HtDataBaseReaderAndWriter<>(client, EsVersionInfo.ESDATATYPENAME, EsVersionInfo.class);
-
-            writeVersionInfo(eventRWVersionInfo, configurationId);
-
-            //eventRWEventLog.setMapping(mappingJsonEventLog);
-            //eventRWFaultLog.setMapping(mappingJsonFaultLog);
-            //eventRWFaultCurrent.setMapping(mappingJsonFaultCurrent);
-
-        } catch (Exception e) {
-            LOG.error("Can not start database client. Exception: {}", e.getMessage());
-        }
-
-        LOG.info("Create {} finished. DB Service {} started.", HtDatabaseEventsService.class,  client != null ? "sucessfully" : "not" );
+    	} catch (Exception e) {
+    		LOG.error("Can not start database client. Exception: {}", e.getMessage());
+    	}
+    	LOG.info("Create {} finished. DB Service {} started.", HtDatabaseEventsService.class,  client != null ? "sucessfully" : "not" );
     }
 
     // --- Function
@@ -179,7 +171,7 @@ public class HtDatabaseEventsService {
     }
 
 
-    private void writeVersionInfo(HtDataBaseReaderAndWriter<EsVersionInfo> pEventRWVersionInfo,
+    /*private void writeVersionInfo(HtDataBaseReaderAndWriter<EsVersionInfo> pEventRWVersionInfo,
             String configurationId) {
 
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -209,6 +201,6 @@ public class HtDatabaseEventsService {
         LOG.info("Versioninfo: {}",version );
 
         pEventRWVersionInfo.doWrite(version);
-    }
+    }*/
 
 }

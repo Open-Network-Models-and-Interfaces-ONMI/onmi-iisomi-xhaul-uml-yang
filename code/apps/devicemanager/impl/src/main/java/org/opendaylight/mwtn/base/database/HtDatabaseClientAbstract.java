@@ -20,12 +20,16 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.security.InvalidParameterException;
 import java.util.List;
-import java.util.Properties;
+import java.util.Set;
+
 import org.elasticsearch.ElasticsearchException;
+import org.elasticsearch.action.admin.cluster.health.ClusterHealthResponse;
 import org.elasticsearch.action.admin.cluster.node.info.NodesInfoResponse;
+import org.elasticsearch.action.admin.indices.alias.IndicesAliasesResponse;
+import org.elasticsearch.action.admin.indices.analyze.AnalyzeResponse;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
+import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequestBuilder;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingResponse;
@@ -40,9 +44,11 @@ import org.elasticsearch.cluster.node.DiscoveryNode;
 import org.elasticsearch.common.bytes.BytesReference;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,55 +56,13 @@ import org.slf4j.LoggerFactory;
  * @author Herbert
  *
  */
-public class HtDatabaseClientAbstract implements HtDataBase {
+public class HtDatabaseClientAbstract implements HtDataBase, AutoCloseable {
 
-    private static final String PROPERTY_ES_CLUSTERNAME = "ES_CLUSTERNAME";
-    private static final String PROPERTY_ES_NODESERVERNAME = "ES_NODESERVERNAME";
-    private static final String PROPERTY_ES_NODENAME = "ES_NODENAME";
-    private static final String PROPERTY_ES_INDEX = "ES_INDEX";
+    private final Logger log = LoggerFactory.getLogger(HtDatabaseClientAbstract.class);
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
-
+    private static int DELAYSECONDS = 10;
     private TransportClient client;
-    private String esIndex;
-
-    /**
-     * Full database initialization via properties.
-     * @param properties Properties file with related properties
-     *                 The properties, defined by constants must contain entries for all properties
-     *                 PROPERTY_ES_INDEX Index in the database to be used
-     *                 PROPERTY_ES_NODESERVERNAME hostname or IP of hostiing server to contact.
-     *                 PROPERTY_ES_CLUSTERNAME name of the cluster. If empty cluster and nodename are sniffed.
-     *                 PROPERTY_ES_NODENAME name of the node within the cluster. If empty cluster and nodename are sniffed.
-     * @throws UnknownHostException Host not known
-     * @throws InvalidParameterException Index parameter not correct
-     */
-    public HtDatabaseClientAbstract(Properties properties) throws UnknownHostException, InvalidParameterException {
-
-        String esClusterName = properties.getProperty(PROPERTY_ES_CLUSTERNAME, "");
-        String esNodeName = properties.getProperty(PROPERTY_ES_NODENAME, "");
-        String esNodeserverName = properties.getProperty(PROPERTY_ES_NODESERVERNAME, "localhost");
-        this.esIndex = properties.getProperty(PROPERTY_ES_INDEX, "");
-
-        if (esIndex == null || esIndex.isEmpty()) {
-            throw new InvalidParameterException("Empty es index not allowed here");
-        }
-
-        Settings settings;
-        if (esClusterName.isEmpty() || esNodeName.isEmpty()) {
-            settings = Settings.settingsBuilder()
-                    .put("client.transport.ignore_cluster_name",true)
-                    .put("client.transport.sniff", true)
-                    .build();
-        } else {
-            settings = Settings.settingsBuilder()
-                .put("cluster.name", esClusterName)
-                .put("node.name", esNodeName)
-                .build();
-        }
-
-        constructor(esNodeserverName, settings);
-    }
+    private String esIndexAlias;
 
     /**
      * Full database initialization.
@@ -110,7 +74,7 @@ public class HtDatabaseClientAbstract implements HtDataBase {
      */
     public HtDatabaseClientAbstract(String esIndex, String esNodeserverName, String esClusterName, String esNodeName) throws UnknownHostException {
 
-        this.esIndex = esIndex;
+        this.esIndexAlias = esIndex;
 
         Settings settings = Settings.settingsBuilder()
                 .put("cluster.name", esClusterName)
@@ -118,6 +82,7 @@ public class HtDatabaseClientAbstract implements HtDataBase {
                 .build();
 
         this.client = constructor(esNodeserverName, settings);
+
     }
 
     /**
@@ -129,7 +94,7 @@ public class HtDatabaseClientAbstract implements HtDataBase {
 
     public HtDatabaseClientAbstract(String esIndex, String esNodeserverHostName) throws UnknownHostException {
 
-        this.esIndex = esIndex;
+        this.esIndexAlias = esIndex;
 
         Settings settings = Settings.settingsBuilder()
                 .put("client.transport.ignore_cluster_name",true)
@@ -159,7 +124,7 @@ public class HtDatabaseClientAbstract implements HtDataBase {
         logInfo.append("Create ES Client an localhost for Cluster '");
         logInfo.append(clusterName);
         logInfo.append("' for index '");
-        logInfo.append(esIndex);
+        logInfo.append(esIndexAlias);
         logInfo.append("' Nodelist: ");
         for (DiscoveryNode node : newClient.connectedNodes()) {
             logInfo.append("(");
@@ -170,11 +135,21 @@ public class HtDatabaseClientAbstract implements HtDataBase {
         // ------ Debug/ Info
 
         log.info("Starting Database service. Short wait.");
+
+		ClusterHealthResponse nodeStatus = newClient.admin().cluster().prepareHealth()
+				.setWaitForGreenStatus()
+				//.setWaitForYellowStatus()
+		        .setTimeout(TimeValue.timeValueSeconds(DELAYSECONDS))
+		        .get();
+		log.debug("Elasticsearch client started with status {}",nodeStatus.toString());
+
+		/*
         try {
             Thread.sleep(2500);                 //1000 milliseconds is one second.
         } catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
+        */
 
         List<DiscoveryNode> nodeList = newClient.connectedNodes();
 
@@ -204,12 +179,12 @@ public class HtDatabaseClientAbstract implements HtDataBase {
 
     @Override
     public String getNetworkIndex() {
-        return esIndex;
+        return esIndexAlias;
     }
 
     @Override
     public void setNetworkIndex(String es_index) {
-        this.esIndex = es_index;
+        this.esIndexAlias = es_index;
     }
 
     @Override
@@ -225,28 +200,29 @@ public class HtDatabaseClientAbstract implements HtDataBase {
      * Close function
      */
     public void close() {
+    	client.close();
     }
 
     /**
      * Create an ES index. Delete an existing index.
      */
-    public void doCreateIndex() {
-        log.info("Create index {}", esIndex);
+    public void doDeleteIndex() {
+        log.info("Remove index {}", esIndexAlias);
 
-        if (esIndex == null) {
+        if (esIndexAlias == null) {
             throw new IllegalArgumentException("Missing Index");
         }
 
         try {
 
             // Delete index
-            IndicesExistsResponse res = client.admin().indices().prepareExists(esIndex)
+            IndicesExistsResponse res = client.admin().indices().prepareExists(esIndexAlias)
                     .execute()
                     .actionGet();
 
             if (res.isExists()) {
-                log.info("Delete Index start: {}",esIndex);
-                DeleteIndexRequestBuilder delIdx = client.admin().indices().prepareDelete(esIndex);
+                log.info("Delete Index start: {}",esIndexAlias);
+                DeleteIndexRequestBuilder delIdx = client.admin().indices().prepareDelete(esIndexAlias);
                 delIdx.execute().actionGet();
                 log.info("Delete Index done.");
             }
@@ -257,18 +233,104 @@ public class HtDatabaseClientAbstract implements HtDataBase {
     }
 
     /**
+     * Verify if index already created
+     * @return boolean accordingly
+     */
+    public boolean isExistsIndex() {
+
+        if (esIndexAlias == null) {
+            throw new IllegalArgumentException("Missing Index");
+        }
+
+        log.debug("Check status of ES index: {}", esIndexAlias);
+
+        final IndicesExistsResponse indexStatus = client.admin()
+            .indices().
+            prepareExists(esIndexAlias).
+            execute().
+            actionGet();
+
+        return indexStatus.isExists();
+
+    }
+
+
+    /**
+     * Create and write the mapping and setting of the index
+     * @param jsonString with mapping and setting definition Object or null for no configuration
+     */
+    public void doCreateIndexWithMapping(JSONObject jsonIndexMappingSetting) {
+
+        if (esIndexAlias == null) {
+            throw new IllegalArgumentException("Missing Index");
+        }
+
+        try {
+        	String esIndexName = esIndexAlias+"_v1";
+            log.debug("Create not existing ES index: {} with alias:{}", esIndexName, esIndexAlias);
+
+            //Create index with mapping
+            CreateIndexRequestBuilder createIndexRequestBuilder = client.admin().indices().prepareCreate(esIndexName);
+
+            if(jsonIndexMappingSetting!=null) {
+                // Handle optional mappings if requested
+            	JSONObject jsonMapping = jsonIndexMappingSetting.optJSONObject("mappings");
+            	if (jsonMapping != null) {
+            		log.debug("Set mapping for index {} {}", esIndexAlias, jsonMapping);
+            		Set<?> keys = jsonMapping.keySet();
+            		log.debug("Found length:"+jsonMapping.length()+" keys:"+keys.size());
+            		for (Object key : keys) {
+            			String docType = (String)key;
+            			log.debug("Doctype:{} mapping:{}",docType,jsonMapping.getJSONObject(docType).toString());
+            			createIndexRequestBuilder.addMapping(docType, jsonMapping.getJSONObject(docType).toString());
+            		}
+            	} else {
+            		log.debug("No mapping requested for index {}", esIndexAlias);
+            	}
+                // Handle optional settings if requested
+            	JSONObject jsonSettings = jsonIndexMappingSetting.optJSONObject("settings");
+            	if (jsonSettings != null) {
+            		log.debug("Set setting for index {} {}", esIndexAlias, jsonSettings);
+            		createIndexRequestBuilder.setSettings(Settings.settingsBuilder().loadFromSource(jsonSettings.toString()));
+            	} else {
+            		log.debug("No settings requested for index {}", esIndexAlias);
+            	}
+            }
+
+
+            CreateIndexResponse createResponse = createIndexRequestBuilder.execute().actionGet();
+            log.debug("CreateIndex response {}",createResponse);
+
+            {
+            //Set Alias
+            log.debug("Set alias {} to index {}",esIndexAlias, esIndexName);
+            IndicesAliasesResponse setAliasResponse = client.admin().indices().prepareAliases().addAlias(esIndexName,esIndexAlias)
+            		.execute().actionGet();
+            log.debug("CreateIndex response {}",setAliasResponse);
+            }
+
+        } catch (ElasticsearchException e) {
+        	log.warn("ElasticsearchException: {}",e.getDetailedMessage());
+        }
+    }
+
+    /**
+     * Create Index with alias according to definition, but no mapping
+     */
+    public void doCreateIndex() {
+    	doCreateIndexWithMapping(null);
+    }
+
+    /**
      * Write a JSON mapping definition for a document from a file to ES
+     * Hint: A change of the mapping is not possible.
      * @param documentType Document type in focus
      * @param jsonString String with mapping definition in JSON Format
      */
 
-    @Override
-    public void doWriteMappingJson( String documentType, String jsonString) throws IllegalArgumentException {
+    public void doWriteMappingJson( String jsonString) throws IllegalArgumentException {
 
-
-        log.debug("Write mapping from json string for {} with content {}", documentType, jsonString);
-
-        if (esIndex == null) {
+        if (esIndexAlias == null) {
             throw new IllegalArgumentException("Missing Index");
         }
         if (jsonString == null) {
@@ -279,61 +341,55 @@ public class HtDatabaseClientAbstract implements HtDataBase {
 
         try {
             // MAPPING GOES HERE
-            log.debug("Check status of ES index: {}", esIndex);
+            log.debug("Check status of ES index: {}", esIndexAlias);
 
             final IndicesExistsResponse indexStatus = client.admin()
                 .indices().
-                prepareExists(esIndex).
+                prepareExists(esIndexAlias).
                 execute().
                 actionGet();
 
             if (indexStatus.isExists()) {
-                log.debug("ES index exists: {}", esIndex);
+                log.debug("ES index exists: {}", esIndexAlias);
                 // TODO: CHANGE Mapping is not working. This here works only for new datatypes
 
                 PutMappingResponse res= client.admin().indices()
-                .preparePutMapping(esIndex)
-                .setType(documentType)
+                .preparePutMapping(esIndexAlias)
                 .setSource(jsonString)
                 .execute()
                 .actionGet();
                 log.debug("Result: {}", res.toString());
 
             } else {
-                log.debug("Create not existing ES index: {}", esIndex);
+                log.debug("Create not existing ES index: {}", esIndexAlias);
 
-                CreateIndexRequestBuilder createIndexRequestBuilder = client.admin().indices().prepareCreate(esIndex);
+                CreateIndexRequestBuilder createIndexRequestBuilder = client.admin().indices().prepareCreate(esIndexAlias);
                 createIndexRequestBuilder
-                .addMapping(documentType, jsonString)
+                .addMapping(jsonString)
                 .execute()
                 .actionGet();
             }
-
-            // TODO [sko] HOW TO WRITE NEW MAPPPING TO EXISTING INDEX
 
         } catch (ElasticsearchException e) {
             log.warn(e.getDetailedMessage());
         }
     }
 
-
     /**
      * Write a Json mapping definition for a document from a file to ES
-     * @param documentType document type in focus.
      * @param fileName Filename with json definition.
      */
-    @Override
-    public void doWriteMappingFromFile( String documentType, String fileName) {
+    public void doWriteMappingFromFile(String fileName) {
 
 
-        log.info("Write mapping {} from File: {}", documentType, fileName);
+        log.info("Write mapping from File: {}", fileName);
 
-        if (esIndex == null) {
+        if (esIndexAlias == null) {
             throw new IllegalArgumentException("Missing Index");
         }
 
         if (fileName == null) {
-            log.warn("No mapping for {} specified in parameter file.", esIndex);
+            log.warn("No mapping for {} specified in parameter file.", esIndexAlias);
             return;
         }
 
@@ -345,32 +401,9 @@ public class HtDatabaseClientAbstract implements HtDataBase {
             log.warn("Can not read file: {}",e1.getMessage());
         }
 
-        doWriteMappingJson(documentType, content);
+        doWriteMappingJson(content);
 
     }
-
-    /**
-     * Write a bunch of mapping to ES
-     * @param docTypeAndFileName List with 2 String Array.
-     *      String[0] Contains the mapping dataType name
-     *      String[1] Contains the filename
-     */
-    public void doWriteMappings( List<String[]> docTypeAndFileName ) {
-
-        log.debug("Write Mappings: {}", docTypeAndFileName.size());
-        if (docTypeAndFileName != null) {
-            int t = 1;
-            for (String[] s : docTypeAndFileName) {
-                if (s.length == 2) {
-                    doWriteMappingFromFile( s[0], s[1]);
-                } else {
-                    log.warn("Wrong parameters number MAPPINGS. Entry: {}", t);
-                }
-                t++;
-            }
-        }
-    }
-
 
     /**
      * Write list with json objects from json files
@@ -416,14 +449,37 @@ public class HtDatabaseClientAbstract implements HtDataBase {
 
     @Override
     public String doWrite( String dataTypeName, IsEsObject esId, byte[] json) {
+       return doWrite(dataTypeName, esId.getEsId(), json);
+    }
 
-        if (esIndex == null) {
+    /**
+     * Write one object into Database
+     * @param dataTypeName
+     * @param id id of the object or null
+     * @param json Object as json
+     * @return esId of the Object
+     */
+    public String dowrite(String dataTypeName, String id, JSONObject json) {
+       return doWrite(dataTypeName, id, json.toString().getBytes());
+    }
+
+    /**
+     * Write one object into Database
+     * @param esId Database index or null
+     * @param dataTypeName Name of datatype
+     * @param json String in JSON format.
+     * @return esId of the object
+     */
+
+    public String doWrite( String dataTypeName, String esId, byte[] json) {
+
+        if (esIndexAlias == null) {
             throw new IllegalArgumentException("Missing Index");
         }
 
-        IndexRequestBuilder request = esId.getEsId() == null ?
-                client.prepareIndex(esIndex, dataTypeName) :
-                    client.prepareIndex(esIndex, dataTypeName, esId.getEsId());
+        IndexRequestBuilder request = esId == null || esId.isEmpty() ?
+                client.prepareIndex(esIndexAlias, dataTypeName) :
+                    client.prepareIndex(esIndexAlias, dataTypeName, esId);
 
                 IndexResponse response = null;
                 try {
@@ -441,16 +497,56 @@ public class HtDatabaseClientAbstract implements HtDataBase {
     }
 
     /**
+     * Write JSON Data. First level contains datatype, next level id
+     * Example
+     *      "datatype" : {
+     *           "id" : {
+     *             }
+     *           }
+     *
+     * @param da
+     */
+	public void doWriteJSONObject(JSONObject json) {
+
+		Set<?> docTypes = json.keySet();
+		log.debug("Found number of keys:"+json.length()+" keys:"+docTypes.size());
+		for (Object docTypeKey : docTypes) {
+			String docType = (String)docTypeKey;
+			JSONObject objects = json.optJSONObject(docType);
+			if (objects == null) {
+				log.debug("Skip json {} with class {}",docType, json.get(docType).getClass());
+			} else {
+				Set<?> ids = objects.keySet();
+				log.debug("write doctype {} with elements {}",docType,ids.size());
+				for (Object idKey : ids) {
+					String id = (String)idKey;
+
+					JSONObject jsonIdObject = objects.optJSONObject(id);
+					if (jsonIdObject == null) {
+						log.debug("Skip jsonsub {} with class {}",id, objects.get(id).getClass());
+					} else {
+						if (log.isTraceEnabled()) {
+							log.trace("Jsonsub object of id {} '{}'", id, jsonIdObject);
+						}
+						this.doWrite(docType, id, jsonIdObject.toString().getBytes());
+					}
+				}
+			}
+		}
+	}
+
+
+	/**
      * Remove Object from database
      */
     @Override
     public boolean doRemove( String dataTypeName, IsEsObject esId ) {
 
-        if (esIndex == null) {
+        if (esIndexAlias == null) {
             throw new IllegalArgumentException("Missing Index");
         }
 
-        DeleteResponse response = client.prepareDelete(esIndex, dataTypeName, esId.getEsId())
+        DeleteResponse response = client.prepareDelete(esIndexAlias, dataTypeName, esId.getEsId())
                 .execute()
                 .actionGet();
 
@@ -463,12 +559,12 @@ public class HtDatabaseClientAbstract implements HtDataBase {
     @Override
     public BytesReference doReadJsonData( String dataTypeName, IsEsObject esId ) {
 
-        log.debug("NetworkIndex: {}",esIndex);
+        log.debug("NetworkIndex: {}",esIndexAlias);
         if (esId.getEsId() == null) {
             throw new IllegalArgumentException("Read access to object without database Id");
         }
 
-        GetResponse response = client.prepareGet(esIndex, dataTypeName, esId.getEsId())
+        GetResponse response = client.prepareGet(esIndexAlias, dataTypeName, esId.getEsId())
                 //.setOperationThreaded(false)
                 .execute()
                 .actionGet();
@@ -480,9 +576,9 @@ public class HtDatabaseClientAbstract implements HtDataBase {
     @Override
     public SearchHit[] doReadByQueryJsonData( int start, int length, String dataTypeName, QueryBuilder qb ) {
 
-        log.debug("NetworkIndex: {}",esIndex);
+        log.debug("NetworkIndex: {}",esIndexAlias);
 
-        SearchResponse response1 = client.prepareSearch(esIndex)
+        SearchResponse response1 = client.prepareSearch(esIndexAlias)
                 .setTypes(dataTypeName)
                 .setQuery( qb )
                 .setFrom(start).setSize(length)
@@ -496,12 +592,12 @@ public class HtDatabaseClientAbstract implements HtDataBase {
     @Override
     public SearchHit[] doReadAllJsonData( int start, int length, String dataTypeName ) {
 
-        log.debug("NetworkIndex: {}",esIndex);
+        log.debug("NetworkIndex: {}",esIndexAlias);
 
         //Use query
         QueryBuilder qb = QueryBuilders.matchAllQuery();
 
-        SearchResponse response1 = client.prepareSearch(esIndex)
+        SearchResponse response1 = client.prepareSearch(esIndexAlias)
                 .setTypes(dataTypeName)
                 .setQuery( qb )
                 .setFrom(start).setSize(length)
@@ -511,6 +607,8 @@ public class HtDatabaseClientAbstract implements HtDataBase {
         return hits;
     }
 
+
+
     /**
      * Write Json datetype that is specified by file to ES
      * @param dataType    ES Datatype name
@@ -518,7 +616,7 @@ public class HtDatabaseClientAbstract implements HtDataBase {
      */
     public void writeJsonObjectsFromFile( String dataType, String fileName ) {
 
-        log.debug("Start: Index: '{}' ' datatype: '{}'  File: '{}'", esIndex, dataType, fileName);
+        log.debug("Start: Index: '{}' ' datatype: '{}'  File: '{}'", esIndexAlias, dataType, fileName);
 
         String content = null;
 
@@ -536,7 +634,7 @@ public class HtDatabaseClientAbstract implements HtDataBase {
         if (content != null) {
             IndexResponse response = null;
             try {
-                response = client.prepareIndex(esIndex, dataType)
+                response = client.prepareIndex(esIndexAlias, dataType)
                         .setSource(content)
                         .execute()
                         .actionGet();
@@ -562,4 +660,5 @@ public class HtDatabaseClientAbstract implements HtDataBase {
     @Override
     public void closeDb() {
     }
+
 }

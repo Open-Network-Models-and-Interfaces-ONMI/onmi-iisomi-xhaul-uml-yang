@@ -51,20 +51,14 @@ public class EcompSenderImpl implements EcompSender {
         this.basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));
 
         if (urlString != null && !urlString.equals("off")) {
-            try {
-                this.url = new URL(url);
-            } catch (MalformedURLException e1) {
-                LOG.warn("(..something..) failed", e1);
-            }
+        	try {
+        		this.url = new URL(url);
+        		setupSshTrustAll();
+        	} catch (MalformedURLException | KeyManagementException | NoSuchAlgorithmException e) {
+        		LOG.warn("ssh setup failed", e);
+        	}
         }
-
-        try {
-            setupSshTrustAll();
-        } catch (KeyManagementException | NoSuchAlgorithmException e) {
-            LOG.warn("(..something..) failed", e);
-        }
-
-        LOG.info("EcompSenderImpl intiated");
+        LOG.info("EcompSenderImpl setup ends");
     }
 
     /**
@@ -75,10 +69,13 @@ public class EcompSenderImpl implements EcompSender {
     public String sendEcompPost(String body) {
 
         if (url != null) {
+        	LOG.trace(body);
             try {
                 connection = openConnection(url, basicAuth, true);
                 if (connection != null) {
-                    return processPost(connection, body);
+                	String response=processPost(connection, body);
+                    LOG.trace( "Response {}: ",String.valueOf(response) );
+                    return response;
                 }
             } catch (IOException e) {
                 LOG.warn("Ecomp post failed", e.getMessage());
@@ -139,7 +136,7 @@ public class EcompSenderImpl implements EcompSender {
      */
     private static String processPost( URLConnection connection, String body ) throws IOException {
 
-        LOG.debug("Start send to {} ", connection.getURL().toString());
+        LOG.trace("Start send to {} ", connection.getURL().toString());
 
         //Send the message to destination
         try (OutputStream output = connection.getOutputStream()) {

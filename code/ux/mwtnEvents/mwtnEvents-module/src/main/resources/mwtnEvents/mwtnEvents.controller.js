@@ -21,7 +21,6 @@ define(
                   function($scope, $rootScope, $mwtnEvents, uiGridConstants) {
 
                     $rootScope.section_logo = 'src/app/mwtnEvents/images/mwtnEvents.png';
-                    $scope.odlKarafVersion = $mwtnEvents.odlKarafVersion;
 
                     $scope.status = {alarms:true};
                     $scope.oneATime = true;

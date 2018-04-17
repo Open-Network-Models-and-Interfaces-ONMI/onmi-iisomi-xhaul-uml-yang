@@ -11,22 +11,20 @@ define(['app/mwtnConnect/mwtnConnect.module',
         'app/mwtnCommons/mwtnCommons.module'], 
         function(mwtnConnectApp) {
 
-  mwtnConnectApp.register.controller('mwtnConnectCtrl', ['$scope', '$rootScope', '$timeout', '$window', '$q', 'uiGridConstants', '$uibModal', '$mwtnConnect', '$mwtnLog', '$onapAai', 'NetConfServer',  
-                                                         function($scope, $rootScope, $timeout, $window, $q, uiGridConstants, $uibModal, $mwtnConnect, $mwtnLog, $onapAai, NetConfServer) {
+  mwtnConnectApp.register.controller('mwtnConnectCtrl', ['$scope', '$rootScope', '$timeout', '$window', '$q', 'uiGridConstants', '$uibModal', '$mwtnConnect', '$mwtnLog', 'NetConfServer',  
+                                                         function($scope, $rootScope, $timeout, $window, $q, uiGridConstants, $uibModal, $mwtnConnect, $mwtnLog, NetConfServer) {
 
     var COMPONENT = 'mwtnConnectCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnConnectCtrl started!'});
 
-    $rootScope.section_logo = 'src/app/mwtnConnect/images/sdncConnect.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
+    $rootScope.section_logo = 'src/app/mwtnConnect/images/mwtnConnect.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
-    $scope.odlKarafVersion = $mwtnConnect.odlKarafVersion; 
     $scope.highlightFilteredHeader = $mwtnConnect.highlightFilteredHeader;
     
     $scope.oneAtATime = true;
     $scope.status = {requiredNes: true};
     $scope.spinner = {};
     $scope.spinner.TEST = true;
-
     
     var requiredNesConnectionStatusCellTemplate = [
       '<div class="ui-grid-cell-contents" ng-class="{ \'green\': grid.getCellValue(row, col) === \'connected\'}">',
@@ -85,7 +83,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
        { field: 'port',  type: 'number', displayName: 'Port',  headerCellClass: $scope.highlightFilteredHeader, width : 80, cellClass: 'number' },
        { field: 'username', type: 'string', displayName: 'User name',  headerCellClass: $scope.highlightFilteredHeader, width : 100, visible: false },
        { field: 'password', type: 'string', displayName: 'Password',  headerCellClass: $scope.highlightFilteredHeader, width : 100, visible: false },
-       { field: 'radioSignalIds', type: 'string', displayName: 'Radio signal ids',  headerCellClass: $scope.highlightFilteredHeader, width : 150 },
+       { field: 'radioSignalIds', type: 'string', displayName: 'Radio signal ids',  headerCellClass: $scope.highlightFilteredHeader, width : 150, visible: false},
        {
          name : 'actions',
          enableSorting : false,
@@ -259,11 +257,11 @@ define(['app/mwtnConnect/mwtnConnect.module',
           doc.required = true;
           $scope.unknownNesGridOptions.data[index].spinner = true;
           // add to aai
-          $onapAai.createPnf(neId, doc).then(function(success){
-            // do nothing
-          }, function(error) {
-            // do nothing
-          });
+          // $onapAai.createPnf(neId, doc).then(function(success){
+          //   // do nothing
+          // }, function(error) {
+          //   // do nothing
+          // });
           // add to es
           $mwtnConnect.createSingleDocument('mwtn', 'required-networkelement', neId, doc).then(function(success){
             $timeout(function() {
@@ -298,11 +296,11 @@ define(['app/mwtnConnect/mwtnConnect.module',
             $mwtnConnect.addRequiredNetworkElement(netconfServer).then(function(success){
               $mwtnLog.info({component: COMPONENT, message: 'Adding to database: ' + JSON.stringify(netconfServer)});
 
-              $onapAai.createPnf(netconfServer['node-id'], success.config.data).then(function(success){
-                // do nothing
-              }, function(error) {
-                // do nothing
-              });
+              // $onapAai.createPnf(netconfServer['node-id'], success.config.data).then(function(success){
+              //   // do nothing
+              // }, function(error) {
+              //   // do nothing
+              // });
 
               $timeout(function() {
                 $scope.status.requiredNes =  true;
@@ -940,8 +938,8 @@ define(['app/mwtnConnect/mwtnConnect.module',
     });
   }]);
 
-  mwtnConnectApp.register.controller('MountPointDetailsCtrl', ['$scope', '$uibModalInstance', '$uibModal', '$mwtnConnect', '$mwtnLog', '$onapAai', 'currentNetworkElement', 
-                                                                  function ($scope, $uibModalInstance, $uibModal, $mwtnConnect, $mwtnLog, $onapAai, currentNetworkElement) {
+  mwtnConnectApp.register.controller('MountPointDetailsCtrl', ['$scope', '$uibModalInstance', '$uibModal', '$mwtnConnect', '$mwtnLog', 'currentNetworkElement', 
+                                                                  function ($scope, $uibModalInstance, $uibModal, $mwtnConnect, $mwtnLog, currentNetworkElement) {
 
     var COMPONENT = 'MountPointDetailsCtrl';
     // $mwtnLog.info({component: COMPONENT, message: 'MountPointDetailsCtrl started!'});
@@ -1101,11 +1099,11 @@ define(['app/mwtnConnect/mwtnConnect.module',
 
       modalInstance.result.then(function(success) {
         // delete from AAi
-        $onapAai.deletePnf(success).then(function(deleted){
-          $mwtnLog.info({component: COMPONENT, message: success + ' deleted from AAI.'});
-        }, function(error){
-          $mwtnLog.info({component: COMPONENT, message: 'Deletion from AAI failed: ' + success + '\n' + error});
-        });
+        // $onapAai.deletePnf(success).then(function(deleted){
+        //   $mwtnLog.info({component: COMPONENT, message: success + ' deleted from AAI.'});
+        // }, function(error){
+        //   $mwtnLog.info({component: COMPONENT, message: 'Deletion from AAI failed: ' + success + '\n' + error});
+        // });
         // delete from ES
         $mwtnConnect.deleteSingleDocument('mwtn', 'required-networkelement', success).then(function(deleted){
           $mwtnLog.info({component: COMPONENT, message: success + ' deleted from database.'});

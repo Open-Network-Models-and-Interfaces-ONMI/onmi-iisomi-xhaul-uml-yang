@@ -15,7 +15,8 @@ import org.slf4j.LoggerFactory;
 
 public class EcompMessages {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EcompSenderImpl.class);
+    @SuppressWarnings("unused")
+	private static final Logger LOG = LoggerFactory.getLogger(EcompSenderImpl.class);
 
     private static final String ECOMP_NORMAL =  "NORMAL";
     private static final String ECOMP_MINOR =  "MINOR";
@@ -40,11 +41,8 @@ public class EcompMessages {
      * @return Result string with answer from server
      */
     public String postHeartBeat() {
-
         String epochTimeMicrosecondsString = getEpochTimeMicroseconds();
         String body = assembleHeartbeatFromTemplate(null, epochTimeMicrosecondsString, heartbeatsequence++).toString();
-
-        LOG.debug(body);
         return ecompSender.sendEcompPost( body);
     }
 
@@ -68,7 +66,6 @@ public class EcompMessages {
                 timeStamp, sequence,
                 nodeName, objId, problemName, severity ).toString();
 
-        LOG.debug(body);
         return ecompSender.sendEcompPost( body);
     }
 

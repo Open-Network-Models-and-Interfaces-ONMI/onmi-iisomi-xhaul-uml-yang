@@ -17,8 +17,7 @@ define(['app/mwtnSpectrum/mwtnSpectrum.module',
     $mwtnLog.info({component: COMPONENT, message: 'mwtnSpectrumCtrl started!'});
 
     $rootScope.section_logo = 'src/app/mwtnSpectrum/images/mwtnSpectrum.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
-    $scope.odlKarafVersion = $mwtnSpectrum.odlKarafVersion; 
-
+   
     $scope.interference = {
         alarmStatus: 'cleared'
     };
