@@ -1,0 +1,23 @@
+module template {
+    yang-version 1;
+    namespace "urn:opendaylight:params:xml:ns:yang:template";
+    prefix "template";
+
+    revision "2018-01-19" {
+        description "Initial revision of template model";
+    }
+
+    rpc hello-world {
+        input {
+            leaf name {
+                type string;
+            }
+        }
+        output {
+            leaf greeting {
+                type string;
+            }
+        }
+    }
+}
+
