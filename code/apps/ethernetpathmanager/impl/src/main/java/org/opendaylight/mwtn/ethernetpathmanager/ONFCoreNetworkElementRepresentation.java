@@ -1,7 +1,7 @@
 /**
  *
  */
-package org.opendaylight.mwtn.template;
+package org.opendaylight.mwtn.ethernetpathmanager;
 
 import java.util.ArrayList;
 import java.util.Collections;

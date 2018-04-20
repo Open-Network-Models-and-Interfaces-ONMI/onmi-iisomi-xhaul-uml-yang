@@ -6,7 +6,7 @@
 * and is available at http://www.eclipse.org/legal/epl-v10.html
 */
 
-package org.opendaylight.mwtn.template;
+package org.opendaylight.mwtn.ethernetpathmanager;
 
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.ProviderContext;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.RpcRegistration;
@@ -36,9 +36,9 @@ import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TemplateProvider implements MountpointChangeListener, BindingAwareProvider, AutoCloseable {
+public class EthernetPathManagerProvider implements MountpointChangeListener, BindingAwareProvider, AutoCloseable {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TemplateProvider.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EthernetPathManagerProvider.class);
 
     private static final InstanceIdentifier<Topology> NETCONF_TOPO_IID = InstanceIdentifier
             .create(NetworkTopology.class)
@@ -57,7 +57,7 @@ public class TemplateProvider implements MountpointChangeListener, BindingAwareP
         this.dataBroker = pSession.getSALService(DataBroker.class);
 
         LOG.info("TemplateProvider Session Initiated");
-        templateService = session.addRpcImplementation(TemplateService.class, new TemplateServiceImpl());
+        templateService = session.addRpcImplementation(TemplateService.class, new EthernetPathManagerServiceImpl());
 
         // netconfSubscriptionManager should be the last because calling back this service
         this.dataChangeHandleronfSubscriptionManager = new DataChangeHandler(this, dataBroker);

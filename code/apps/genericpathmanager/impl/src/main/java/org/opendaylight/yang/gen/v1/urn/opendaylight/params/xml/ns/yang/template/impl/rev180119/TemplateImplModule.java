@@ -1,6 +1,6 @@
 package org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.template.impl.rev180119;
 
-import org.opendaylight.mwtn.template.TemplateProvider;
+import org.opendaylight.mwtn.genericpathmanager.GenericPathManagerProvider;
 
 public class TemplateImplModule extends org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.template.impl.rev180119.AbstractTemplateImplModule {
     public TemplateImplModule(org.opendaylight.controller.config.api.ModuleIdentifier identifier, org.opendaylight.controller.config.api.DependencyResolver dependencyResolver) {
@@ -24,7 +24,7 @@ public class TemplateImplModule extends org.opendaylight.yang.gen.v1.urn.openday
 
     @Override
     public java.lang.AutoCloseable createInstance() {
-        TemplateProvider provider = new TemplateProvider();
+        GenericPathManagerProvider provider = new GenericPathManagerProvider();
         getBrokerDependency().registerProvider(provider);
         return provider;
     }

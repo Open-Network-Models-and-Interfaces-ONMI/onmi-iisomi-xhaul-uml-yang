@@ -6,7 +6,7 @@
 * and is available at http://www.eclipse.org/legal/epl-v10.html
 */
 
-package org.opendaylight.mwtn.template;
+package org.opendaylight.mwtn.genericpathmanager;
 
 import java.util.concurrent.Future;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.template.rev180119.HelloWorldInput;
@@ -18,9 +18,9 @@ import org.opendaylight.yangtools.yang.common.RpcResultBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TemplateServiceImpl implements TemplateService {
+public class GenericPathManagerServiceImpl implements TemplateService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TemplateServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GenericPathManagerServiceImpl.class);
 
     @Override
     public Future<RpcResult<HelloWorldOutput>> helloWorld(HelloWorldInput input) {

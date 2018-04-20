@@ -1,4 +1,4 @@
-package org.opendaylight.mwtn.template;
+package org.opendaylight.mwtn.ethernetpathmanager;
 
 import java.util.NoSuchElementException;
 import java.util.concurrent.CancellationException;
