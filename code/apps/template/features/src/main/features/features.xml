@@ -19,7 +19,7 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
   <feature name="odl-mwt-template" version="${project.version}" description="MicrowaveTransportNetwork :: template">
     <bundle>mvn:org.opendaylight.mwtn/template-api/{{VERSION}}</bundle>
     <bundle>mvn:org.opendaylight.mwtn/template-impl/{{VERSION}}</bundle>
-    <configfile finalname="${configfile.directory}/myapp.xml">mvn:org.opendaylight.mwtn/template-impl/${project.version}/xml/config</configfile>
+    <configfile finalname="${configfile.directory}/template.xml">mvn:org.opendaylight.mwtn/template-impl/${project.version}/xml/config</configfile>
   </feature>
 
 </features>

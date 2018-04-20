@@ -29,6 +29,10 @@ karaf_startup_all() {
     # Network applications
      karafcmd "feature:install odl-mwtn-all"
      #Give time to initialize database
+
+     karafcmd "feature:repo-add mvn:org.opendaylight.mwtn/genericpathmanager-features/0.4.0-SNAPSHOT/xml/features"
+     karafcmd "feature:install odl-mwt-genericpathmanager"
+
      sleep 20
 
      #karafcmd "feature:install odl-mwt-models"
