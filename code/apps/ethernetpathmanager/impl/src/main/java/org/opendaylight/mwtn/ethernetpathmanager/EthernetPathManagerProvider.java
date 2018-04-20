@@ -8,23 +8,19 @@
 
 package org.opendaylight.mwtn.ethernetpathmanager;
 
-import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.ProviderContext;
-import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.RpcRegistration;
-import com.google.common.base.Optional;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
-import javax.annotation.Nonnull;
+
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.binding.api.MountPoint;
 import org.opendaylight.controller.md.sal.binding.api.MountPointService;
+import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.ProviderContext;
+import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.RpcRegistration;
 import org.opendaylight.controller.sal.binding.api.BindingAwareProvider;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.logical.termination.point.g.Lp;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.NetconfNode;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.network.topology.topology.topology.types.TopologyNetconf;
-import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.template.rev180119.TemplateService;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.ethernetpathmanager.impl.rev180119.Ethernetpathmanager;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.ethernetpathmanager.rev180119.EthernetpathmanagerService;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NetworkTopology;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NodeId;
 import org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.TopologyId;
@@ -36,6 +32,8 @@ import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Optional;
+
 public class EthernetPathManagerProvider implements MountpointChangeListener, BindingAwareProvider, AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(EthernetPathManagerProvider.class);
@@ -44,7 +42,7 @@ public class EthernetPathManagerProvider implements MountpointChangeListener, Bi
             .create(NetworkTopology.class)
             .child(Topology.class, new TopologyKey(new TopologyId(TopologyNetconf.QNAME.getLocalName())));
 
-    private RpcRegistration<TemplateService> templateService;
+    private RpcRegistration<EthernetpathmanagerService> ethernetPathManagerService;
     private ProviderContext session;
     private DataBroker dataBroker;
     private DataChangeHandler dataChangeHandleronfSubscriptionManager;
@@ -56,8 +54,8 @@ public class EthernetPathManagerProvider implements MountpointChangeListener, Bi
         this.session = pSession;
         this.dataBroker = pSession.getSALService(DataBroker.class);
 
-        LOG.info("TemplateProvider Session Initiated");
-        templateService = session.addRpcImplementation(TemplateService.class, new EthernetPathManagerServiceImpl());
+        LOG.info("EthernetPathManagerProvider Session Initiated");
+        ethernetPathManagerService = session.addRpcImplementation(EthernetpathmanagerService.class, new EthernetPathManagerServiceImpl());
 
         // netconfSubscriptionManager should be the last because calling back this service
         this.dataChangeHandleronfSubscriptionManager = new DataChangeHandler(this, dataBroker);
@@ -67,9 +65,9 @@ public class EthernetPathManagerProvider implements MountpointChangeListener, Bi
 
     @Override
     public void close() throws Exception {
-        LOG.info("TemplateProvider Closed");
-        if (templateService != null) {
-            templateService.close();
+        LOG.info("EthernetPathManagerProvider Closed");
+        if (ethernetPathManagerService != null) {
+            ethernetPathManagerService.close();
         }
     }
 

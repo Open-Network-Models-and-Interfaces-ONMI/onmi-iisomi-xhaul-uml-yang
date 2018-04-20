@@ -1,10 +1,10 @@
-module template {
+module ethernetpathmanager {
     yang-version 1;
-    namespace "urn:opendaylight:params:xml:ns:yang:template";
-    prefix "template";
+    namespace "urn:opendaylight:params:xml:ns:yang:ethernetpathmanager";
+    prefix "ethernetpathmanager";
 
     revision "2018-01-19" {
-        description "Initial revision of template model";
+        description "Initial revision of ethernetpathmanager model";
     }
 
     rpc hello-world {

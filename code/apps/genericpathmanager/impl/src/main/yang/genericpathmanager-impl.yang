@@ -1,27 +1,27 @@
-module template-impl {
+module genericpathmanager-impl {
     yang-version 1;
-    namespace "urn:opendaylight:params:xml:ns:yang:template:impl";
-    prefix "template-impl";
+    namespace "urn:opendaylight:params:xml:ns:yang:genericpathmanager:impl";
+    prefix "genericpathmanager-impl";
 
     import config { prefix config; revision-date 2013-04-05; }
     import opendaylight-md-sal-binding { prefix md-sal-binding; revision-date 2013-10-28;}
 
     description
-        "Service definition for template project";
+        "Service definition for genericpathmanager project";
 
     revision "2018-01-19" {
         description
-            "Initial template revision";
+            "Initial genericpathmanager revision";
     }
 
-    identity template {
+    identity genericpathmanager {
         base config:module-type;
-        config:java-name-prefix TemplateImpl;
+        config:java-name-prefix GenericPathManagerImpl;
     }
 
     augment "/config:modules/config:module/config:configuration" {
-        case template {
-            when "/config:modules/config:module/config:type = 'template'";
+        case genericpathmanager {
+            when "/config:modules/config:module/config:type = 'genericpathmanager'";
             container broker {
                 uses config:service-ref {
                     refine type {

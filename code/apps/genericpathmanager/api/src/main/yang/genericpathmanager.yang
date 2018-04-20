@@ -1,10 +1,10 @@
-module template {
+module genericpathmanager {
     yang-version 1;
-    namespace "urn:opendaylight:params:xml:ns:yang:template";
-    prefix "template";
+    namespace "urn:opendaylight:params:xml:ns:yang:genericpathmanager";
+    prefix "genericpathmanager";
 
     revision "2018-01-19" {
-        description "Initial revision of template model";
+        description "Initial revision of genericpathmanager model";
     }
 
     rpc hello-world {

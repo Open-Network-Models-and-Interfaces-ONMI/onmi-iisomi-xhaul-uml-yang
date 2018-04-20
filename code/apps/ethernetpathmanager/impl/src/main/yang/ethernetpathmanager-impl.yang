@@ -1,27 +1,27 @@
-module template-impl {
+module ethernetpathmanager-impl {
     yang-version 1;
-    namespace "urn:opendaylight:params:xml:ns:yang:template:impl";
-    prefix "template-impl";
+    namespace "urn:opendaylight:params:xml:ns:yang:ethernetpathmanager:impl";
+    prefix "ethernetpathmanager-impl";
 
     import config { prefix config; revision-date 2013-04-05; }
     import opendaylight-md-sal-binding { prefix md-sal-binding; revision-date 2013-10-28;}
 
     description
-        "Service definition for template project";
+        "Service definition for ethernetpathmanager project";
 
     revision "2018-01-19" {
         description
-            "Initial template revision";
+            "Initial ethernetpathmanager revision";
     }
 
-    identity template {
+    identity ethernetpathmanager {
         base config:module-type;
-        config:java-name-prefix TemplateImpl;
+        config:java-name-prefix EthernetPathManagerImpl;
     }
 
     augment "/config:modules/config:module/config:configuration" {
-        case template {
-            when "/config:modules/config:module/config:type = 'template'";
+        case ethernetpathmanager {
+            when "/config:modules/config:module/config:type = 'ethernetpathmanager'";
             container broker {
                 uses config:service-ref {
                     refine type {
