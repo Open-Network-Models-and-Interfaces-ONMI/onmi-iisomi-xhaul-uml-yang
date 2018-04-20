@@ -16,10 +16,10 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
   <repository>mvn:org.opendaylight.netconf/features-restconf/{{VERSION}}/xml/features</repository>
   <repository>mvn:org.opendaylight.dlux/features-dlux/{{VERSION}}/xml/features</repository>
 
-  <feature name="odl-mwt-genericpathmanager" version="${project.version}" description="MicrowaveTransportNetwork :: genericpathmanager">
-    <bundle>mvn:org.opendaylight.mwtn/genericpathmanager-api/{{VERSION}}</bundle>
-    <bundle>mvn:org.opendaylight.mwtn/genericpathmanager-impl/{{VERSION}}</bundle>
-    <configfile finalname="${configfile.directory}/genericpathmanager.xml">mvn:org.opendaylight.mwtn/genericpathmanager-impl/${project.version}/xml/config</configfile>
+  <feature name="odl-mwt-ethernetpathmanager" version="${project.version}" description="MicrowaveTransportNetwork :: ethernetpathmanager">
+    <bundle>mvn:org.opendaylight.mwtn/ethernetpathmanager-api/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.mwtn/ethernetpathmanager-impl/{{VERSION}}</bundle>
+    <configfile finalname="${configfile.directory}/ethernetpathmanager.xml">mvn:org.opendaylight.mwtn/ethernetpathmanager-impl/${project.version}/xml/config</configfile>
   </feature>
 
 </features>
