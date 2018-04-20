@@ -19,7 +19,7 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
   <feature name="odl-mwt-ethernetpathmanager" version="${project.version}" description="MicrowaveTransportNetwork :: ethernetpathmanager">
     <bundle>mvn:org.opendaylight.mwtn/ethernetpathmanager-api/{{VERSION}}</bundle>
     <bundle>mvn:org.opendaylight.mwtn/ethernetpathmanager-impl/{{VERSION}}</bundle>
-    <configfile finalname="${configfile.directory}/myapp.xml">mvn:org.opendaylight.mwtn/ethernetpathmanager-impl/${project.version}/xml/config</configfile>
+    <configfile finalname="${configfile.directory}/ethernetpathmanager.xml">mvn:org.opendaylight.mwtn/ethernetpathmanager-impl/${project.version}/xml/config</configfile>
   </feature>
 
 </features>

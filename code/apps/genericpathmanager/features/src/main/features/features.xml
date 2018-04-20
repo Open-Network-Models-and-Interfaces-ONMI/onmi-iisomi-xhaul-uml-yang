@@ -19,7 +19,7 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
   <feature name="odl-mwt-genericpathmanager" version="${project.version}" description="MicrowaveTransportNetwork :: genericpathmanager">
     <bundle>mvn:org.opendaylight.mwtn/genericpathmanager-api/{{VERSION}}</bundle>
     <bundle>mvn:org.opendaylight.mwtn/genericpathmanager-impl/{{VERSION}}</bundle>
-    <configfile finalname="${configfile.directory}/myapp.xml">mvn:org.opendaylight.mwtn/genericpathmanager-impl/${project.version}/xml/config</configfile>
+    <configfile finalname="${configfile.directory}/genericpathmanager.xml">mvn:org.opendaylight.mwtn/genericpathmanager-impl/${project.version}/xml/config</configfile>
   </feature>
 
 </features>
