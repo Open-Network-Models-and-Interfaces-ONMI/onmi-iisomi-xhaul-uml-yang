@@ -231,13 +231,23 @@ In case of errors:
 
 ### 1.4 Test it
 
-Change to the code directory and stop a running karaf instance. If stopped install again and start by using the "imd" option:
+HINT1: At this point your .m2 repository needs to contain all jars of the applications in apps, features and ux. If not done before you need to compile everything with the following command:
+
+    cd ~/odl/CENTENNIAL/code
+    mvn clean install -DskipTests
+
+HINT2: If karaf container is already running you get a feedback that start is not possible. Use the stop command to stop it:
 
     cd ~/odl/CENTENNIAL/code
     ./install.sh stop
+
+HIN3: In new environment you should use the the ```./odl``` command insteadt of ```./install.sh```
+Change to the code directory and start the karaf container using the *imd* option:
+
+    cd ~/odl/CENTENNIAL/code
     ./install.sh imd
 
-Now step into to the karaf cli:
+To **Test it** step into to the karaf cli:
 
     ./karafcmd.sh
 
