@@ -13,6 +13,14 @@ module tapi-common {
         Copyright (c) 2018 Open Networking Foundation (ONF). All rights reserved.
         License: This module is distributed under the Apache License 2.0
         ";
+    revision 2018-04-24 {
+        description "ONF Transport API version 2.0.2
+        This YANG module has been generated from the TAPI UML Model using the IISOMI-Eagle xmi2yang mapping tool.
+        Changes in this revision: <https://github.com/OpenNetworkingFoundation/TAPI/blob/develop/CHANGE_LOG/change-log.2.0.2.md>";
+        reference "ONF-TR-527, ONF-TR-512, ONF-TR-531, RFC 6020, RFC 6087 and ONF TAPI UML model
+                  <https://github.com/OpenNetworkingFoundation/TAPI/tree/v2.0.2/UML>";
+    }
+
     revision 2018-03-07 {
         description "ONF Transport API version 2.0.2
         This YANG module has been generated from the TAPI UML Model using the IISOMI-Eagle xmi2yang mapping tool.
@@ -38,7 +46,7 @@ module tapi-common {
     /*************************
     * definitions of refrences
     *************************/
-    grouping service-interface-point-ref {
+    grouping service-interface-point-ref-g {
         leaf service-interface-point-id {
             type leafref {
                 path '/tapi-common:context/tapi-common:service-interface-point/tapi-common:uuid';
@@ -51,7 +59,7 @@ module tapi-common {
     /***********************
     * package object-classes
     **********************/ 
-        grouping admin-state-pac {
+        grouping admin-state-pac-g {
             leaf administrative-state {
                 type administrative-state;
                 description "none";
@@ -68,7 +76,7 @@ module tapi-common {
             }
             description "Provides state attributes that are applicable to an entity that can be administered. Such an entity also has operational and lifecycle aspects.";
         }
-        grouping global-class {
+        grouping global-class-g {
             leaf uuid {
                 type uuid;
                 description "UUID: An identifier that is universally unique within an identifier space, where the identifier space is itself globally unique, and immutable. An UUID carries no semantics with respect to the purpose or state of the entity.
@@ -78,12 +86,12 @@ module tapi-common {
             }
             list name {
                 key 'value-name';
-                uses name-and-value;
+                uses name-and-value-g;
                 description "List of names. A property of an entity with a value that is unique in some namespace but may change during the life of the entity. A name carries no semantics with respect to the purpose of the entity.";
             }
             description "The TAPI GlobalComponent serves as the super class for all TAPI entities that can be directly retrieved by their ID. As such, these are first class entities and their ID is expected to be globally unique. ";
         }
-        grouping lifecycle-state-pac {
+        grouping lifecycle-state-pac-g {
             leaf lifecycle-state {
                 type lifecycle-state;
                 config false;
@@ -91,19 +99,19 @@ module tapi-common {
             }
             description "Provides state attributes for an entity that has lifeccycle aspects only.";
         }
-        grouping local-class {
+        grouping local-class-g {
             leaf local-id {
                 type string;
                 description "none";
             }
             list name {
                 key 'value-name';
-                uses name-and-value;
+                uses name-and-value-g;
                 description "List of names. A property of an entity with a value that is unique in some namespace but may change during the life of the entity. A name carries no semantics with respect to the purpose of the entity.";
             }
             description "The TAPI GlobalComponent serves as the super class for all TAPI entities that can be directly retrieved by their ID. As such, these are first class entities and their ID is expected to be globally unique. ";
         }
-        grouping operational-state-pac {
+        grouping operational-state-pac-g {
             leaf operational-state {
                 type operational-state;
                 config false;
@@ -117,50 +125,50 @@ module tapi-common {
             description "Provides state attributes that are applicable to an entity that reflects operational aspects. Such an entity is expected to also have lifecycle aspects.";
         }
         container context {
-            uses tapi-context;
+            uses tapi-context-g;
             presence "Root container for all TAPI interaction";
             description "none";
         }
-        grouping tapi-context {
+        grouping tapi-context-g {
             list service-interface-point {
                 key 'uuid';
                 min-elements 2;
-                uses service-interface-point;
+                uses service-interface-point-g;
                 description "none";
             }
-            uses global-class;
+            uses global-class-g;
             description "The Network Control Domain (NCD) object class represents the scope of control that a particular SDN controller has with respect to a particular network, (i.e., encompassing a designated set of interconnected (virtual) network elements).";
         }
-        grouping resource-spec {
-            uses global-class;
+        grouping resource-spec-g {
+            uses global-class-g;
             description "none";
         }
-        grouping service-spec {
-            uses global-class;
+        grouping service-spec-g {
+            uses global-class-g;
             description "none";
         }
-        grouping service-interface-point {
+        grouping service-interface-point-g {
             leaf-list layer-protocol-name {
                 type layer-protocol-name;
                 config false;
                 min-elements 1;
                 description "Usage of layerProtocolName [>1]  in the ServiceInterfacePoint should be considered experimental";
             }
-            uses resource-spec;
-            uses admin-state-pac;
-            uses capacity-pac;
+            uses resource-spec-g;
+            uses admin-state-pac-g;
+            uses capacity-pac-g;
             description "The LogicalTerminationPoint (LTP) object class encapsulates the termination and adaptation functions of one or more transport layers. 
                 The structure of LTP supports all transport protocols including circuit and packet forms.";
         }
-        grouping capacity-pac {
+        grouping capacity-pac-g {
             container total-potential-capacity {
                 config false;
-                uses capacity;
+                uses capacity-g;
                 description "An optimistic view of the capacity of the TopologicalEntity assuming that any shared capacity is available to be taken.";
             }
             container available-capacity {
                 config false;
-                uses capacity;
+                uses capacity-g;
                 description "Capacity available to be assigned.";
             }
             description "The TopologicalEntity derives capacity from the underlying realization. 
@@ -170,7 +178,7 @@ module tapi-common {
                 Represents the capacity available to user (client) along with client interaction and usage. 
                 A TopologicalEntity may reflect one or more client protocols and one or more members for each profile.";
         }
-        grouping termination-pac {
+        grouping termination-pac-g {
             leaf termination-direction {
                 type termination-direction;
                 config false;
@@ -308,7 +316,7 @@ module tapi-common {
             }
             description "The possible values of the lifecycleState.";
         }
-        grouping name-and-value {
+        grouping name-and-value-g {
             leaf value-name {
                 type string;
                 description "The name of the value. The value need not have a name.";
@@ -430,36 +438,36 @@ module tapi-common {
                 Pattern: [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-' + '[0-9a-fA-F]{4}-[0-9a-fA-F]{12} 
                 Example of a UUID in string representation: f81d4fae-7dec-11d0-a765-00a0c91e6bf6";
         }
-        grouping capacity {
+        grouping capacity-g {
             container total-size {
-                uses capacity-value;
+                uses capacity-value-g;
                 description "Total capacity of the TopologicalEntity in MB/s. In case of bandwidthProfile, this is expected to same as the committedInformationRate.";
             }
             container bandwidth-profile {
-                uses bandwidth-profile;
+                uses bandwidth-profile-g;
                 description "none";
             }
             description "Information on capacity of a particular TopologicalEntity.";
         }
-        grouping bandwidth-profile {
+        grouping bandwidth-profile-g {
             leaf bw-profile-type {
                 type bandwidth-profile-type;
                 description "none";
             }
             container committed-information-rate {
-                uses capacity-value;
+                uses capacity-value-g;
                 description "none";
             }
             container committed-burst-size {
-                uses capacity-value;
+                uses capacity-value-g;
                 description "none";
             }
             container peak-information-rate {
-                uses capacity-value;
+                uses capacity-value-g;
                 description "none";
             }
             container peak-burst-size {
-                uses capacity-value;
+                uses capacity-value-g;
                 description "none";
             }
             leaf color-aware {
@@ -472,7 +480,7 @@ module tapi-common {
             }
             description "none";
         }
-        grouping capacity-value {
+        grouping capacity-value-g {
             leaf value {
                 type uint64;
                 description "none";
@@ -529,7 +537,7 @@ module tapi-common {
             }
             description "none";
         }
-        grouping time-range {
+        grouping time-range-g {
             leaf end-time {
                 type date-and-time;
                 description "none";
@@ -554,7 +562,7 @@ module tapi-common {
             }
             output {
                 container sip {
-                    uses service-interface-point;
+                    uses service-interface-point-g;
                     description "none";
                 }
             }
@@ -563,7 +571,7 @@ module tapi-common {
             description "none";
             output {
                 list sip {
-                    uses service-interface-point;
+                    uses service-interface-point-g;
                     description "none";
                 }
             }

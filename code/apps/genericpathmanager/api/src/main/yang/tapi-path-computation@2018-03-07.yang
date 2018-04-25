@@ -40,14 +40,14 @@ module tapi-path-computation {
                   <https://github.com/OpenNetworkingFoundation/TAPI/tree/v2.0.0/UML>";
     }
     augment "/tapi-common:context" {
-        uses path-computation-context;
+        uses path-computation-context-g;
         description "Augments the base TAPI Context with PathComputationService information";
     }
 
     /*************************
     * definitions of refrences
     *************************/
-    grouping path-ref {
+    grouping path-ref-g {
         leaf path-id {
             type leafref {
                 path '/tapi-common:context/tapi-path-computation:path/tapi-path-computation:uuid';
@@ -60,9 +60,9 @@ module tapi-path-computation {
     /***********************
     * package object-classes
     **********************/ 
-        grouping path {
+        grouping path-g {
             list link {
-                uses tapi-topology:link-ref;
+                uses tapi-topology:link-ref-g;
                 key 'topology-id link-id';
                 config false;
                 min-elements 1;
@@ -70,15 +70,15 @@ module tapi-path-computation {
             }
             container routing-constraint {
                 config false;
-                uses routing-constraint;
+                uses routing-constraint-g;
                 description "none";
             }
-            uses tapi-common:resource-spec;
+            uses tapi-common:resource-spec-g;
             description "Path is described by an ordered list of TE Links. A TE Link is defined by a pair of Node/NodeEdgePoint IDs. A Connection is realized by concatenating link resources (associated with a Link) and the lower-level connections (cross-connections) in the different nodes";
         }
-        grouping path-service-end-point {
+        grouping path-service-end-point-g {
             container service-interface-point {
-            	uses tapi-common:service-interface-point-ref;
+            	uses tapi-common:service-interface-point-ref-g;
                 config false;
                 description "none";
             }
@@ -97,7 +97,7 @@ module tapi-path-computation {
                 config false;
                 description "none";
             }
-            uses tapi-common:local-class;
+            uses tapi-common:local-class-g;
             description "The association of the FC to LTPs is made via EndPoints.
                 The EndPoint (EP) object class models the access to the FC function. 
                 The traffic forwarding between the associated EPs of the FC depends upon the type of FC and may be associated with FcSwitch object instances.  
@@ -106,9 +106,9 @@ module tapi-path-computation {
                 The EP replaces the Protection Unit of a traditional protection model. 
                 The ForwadingConstruct can be considered as a component and the EndPoint as a Port on that component";
         }
-        grouping path-computation-service {
+        grouping path-computation-service-g {
             list path {
-                uses path-ref;
+                uses path-ref-g;
                 key 'path-id';
                 config false;
                 min-elements 1;
@@ -118,25 +118,25 @@ module tapi-path-computation {
                 key 'local-id';
                 min-elements 2;
                 max-elements 2;
-                uses path-service-end-point;
+                uses path-service-end-point-g;
                 description "none";
             }
             container routing-constraint {
-                uses routing-constraint;
+                uses routing-constraint-g;
                 description "none";
             }
             container objective-function {
-                uses path-objective-function;
+                uses path-objective-function-g;
                 description "none";
             }
             container optimization-constraint {
-                uses path-optimization-constraint;
+                uses path-optimization-constraint-g;
                 description "none";
             }
-            uses tapi-common:service-spec;
+            uses tapi-common:service-spec-g;
             description "none";
         }
-        grouping path-objective-function {
+        grouping path-objective-function-g {
             leaf bandwidth-optimization {
                 type tapi-common:directive-value;
                 config false;
@@ -162,22 +162,22 @@ module tapi-path-computation {
                 config false;
                 description "none";
             }
-            uses tapi-common:local-class;
+            uses tapi-common:local-class-g;
             description "none";
         }
-        grouping path-optimization-constraint {
+        grouping path-optimization-constraint-g {
             leaf traffic-interruption {
                 type tapi-common:directive-value;
                 config false;
                 description "none";
             }
-            uses tapi-common:local-class;
+            uses tapi-common:local-class-g;
             description "none";
         }
-        grouping routing-constraint {
+        grouping routing-constraint-g {
             container requested-capacity {
                 config false;
-                uses tapi-common:capacity;
+                uses tapi-common:capacity-g;
                 description "none";
             }
             leaf service-level {
@@ -193,40 +193,40 @@ module tapi-path-computation {
             list cost-characteristic {
                 key 'cost-name';
                 config false;
-                uses tapi-topology:cost-characteristic;
+                uses tapi-topology:cost-characteristic-g;
                 description "The list of costs where each cost relates to some aspect of the TopologicalEntity.";
             }
             list latency-characteristic {
                 key 'traffic-property-name';
                 config false;
-                uses tapi-topology:latency-characteristic;
+                uses tapi-topology:latency-characteristic-g;
                 description "The effect on the latency of a queuing process. This only has significant effect for packet based systems and has a complex characteristic.";
             }
             list include-topology {
-                uses tapi-topology:topology-ref;
+                uses tapi-topology:topology-ref-g;
                 key 'topology-id';
                 config false;
                 description "none";
             }
             list avoid-topology {
-                uses tapi-topology:topology-ref;
+                uses tapi-topology:topology-ref-g;
                 key 'topology-id';
                 config false;
                 description "none";
             }
-            uses tapi-common:local-class;
+            uses tapi-common:local-class-g;
             description "none";
         }
-        grouping path-computation-context {
+        grouping path-computation-context-g {
             list path-comp-service {
                 key 'uuid';
-                uses path-computation-service;
+                uses path-computation-service-g;
                 description "none";
             }
             list path {
                 key 'uuid';
                 config false;
-                uses path;
+                uses path-g;
                 description "none";
             }
             description "none";
@@ -241,21 +241,21 @@ module tapi-path-computation {
                 list sep {
                     min-elements 2;
                     max-elements 2;
-                    uses path-service-end-point;
+                    uses path-service-end-point-g;
                     description "none";
                 }
                 container routing-constraint {
-                    uses routing-constraint;
+                    uses routing-constraint-g;
                     description "none";
                 }
                 container objective-function {
-                    uses path-objective-function;
+                    uses path-objective-function-g;
                     description "none";
                 }
             }
             output {
                 container service {
-                    uses path-computation-service;
+                    uses path-computation-service-g;
                     description "none";
                 }
             }
@@ -268,21 +268,21 @@ module tapi-path-computation {
                     description "none";
                 }
                 container routing-constraint {
-                    uses routing-constraint;
+                    uses routing-constraint-g;
                     description "none";
                 }
                 container optimization-constraint {
-                    uses path-optimization-constraint;
+                    uses path-optimization-constraint-g;
                     description "none";
                 }
                 container objective-function {
-                    uses path-objective-function;
+                    uses path-objective-function-g;
                     description "none";
                 }
             }
             output {
                 container service {
-                    uses path-computation-service;
+                    uses path-computation-service-g;
                     description "none";
                 }
             }
@@ -297,7 +297,7 @@ module tapi-path-computation {
             }
             output {
                 container service {
-                    uses path-computation-service;
+                    uses path-computation-service-g;
                     description "none";
                 }
             }

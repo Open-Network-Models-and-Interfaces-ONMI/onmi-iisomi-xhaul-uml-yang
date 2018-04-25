@@ -43,18 +43,18 @@ module tapi-connectivity {
                   <https://github.com/OpenNetworkingFoundation/TAPI/tree/v2.0.0/UML>";
     }
     augment "/tapi-common:context" {
-        uses connectivity-context;
+        uses connectivity-context-g;
         description "Augments the base TAPI Context with ConnectivityService information";
     }
     augment "/tapi-common:context/tapi-topology:topology/tapi-topology:node/tapi-topology:owned-node-edge-point" {
-        uses cep-list;
+        uses cep-list-g;
         description "none";
     }
 
     /*************************
     * definitions of references
     *************************/
-    grouping connectivity-service-ref {
+    grouping connectivity-service-ref-g {
         leaf connectivity-service-id {
             type leafref {
                 path '/tapi-common:context/tapi-connectivity:connectivity-service/tapi-connectivity:uuid';
@@ -64,8 +64,8 @@ module tapi-connectivity {
         description "none";
     }
 
-    grouping connectivity-service-end-point-ref {
-    	uses connectivity-service-ref;
+    grouping connectivity-service-end-point-ref-g {
+    	uses connectivity-service-ref-g;
     	leaf connectivity-service-end-point-id {
 	    	type leafref {
 	            path '/tapi-common:context/tapi-connectivity:connectivity-service/tapi-connectivity:end-point/tapi-connectivity:local-id';
@@ -74,8 +74,8 @@ module tapi-connectivity {
     	}
     	description "none";
     }
-    grouping connection-end-point-ref {
-        uses tapi-topology:owned-node-edge-point-ref;
+    grouping connection-end-point-ref-g {
+        uses tapi-topology:owned-node-edge-point-ref-g;
         leaf connection-end-point-id {
             type leafref {
                 path '/tapi-common:context/tapi-topology:topology/tapi-topology:node/tapi-topology:owned-node-edge-point/tapi-connectivity:connection-end-point/tapi-connectivity:uuid';
@@ -85,7 +85,7 @@ module tapi-connectivity {
         description "none";
     }
 
-    grouping connection-ref {
+    grouping connection-ref-g {
         leaf connection-id {
             type leafref {
                 path '/tapi-common:context/tapi-connectivity:connection/tapi-connectivity:uuid';
@@ -95,8 +95,8 @@ module tapi-connectivity {
         description "none";
     }
 
-    grouping switch-control-ref {
-        uses connection-ref;
+    grouping switch-control-ref-g {
+        uses connection-ref-g;
         leaf switch-control-id {
             type leafref {
                 path '/tapi-common:context/tapi-connectivity:connection/tapi-connectivity:switch-control/tapi-connectivity:uuid';
@@ -106,8 +106,8 @@ module tapi-connectivity {
         description "none";
     }
     
-    grouping route-ref {
-    	uses connection-ref;
+    grouping route-ref-g {
+    	uses connection-ref-g;
         leaf route-id {
             type leafref {
                 path '/tapi-common:context/tapi-connectivity:connection/tapi-connectivity:route/tapi-connectivity:local-id';
@@ -120,16 +120,16 @@ module tapi-connectivity {
     /***********************
     * package object-classes
     **********************/ 
-        grouping connection {
+        grouping connection-g {
             list connection-end-point {
-                uses connection-end-point-ref;
+                uses connection-end-point-ref-g;
                 key 'topology-id node-id owned-node-edge-point-id connection-end-point-id';
                 config false;
                 min-elements 2;
                 description "none";
             }
             list lower-connection {
-                uses connection-ref;
+                uses connection-ref-g;
                 key 'connection-id';
                 description "An Connection object supports a recursive aggregation relationship such that the internal construction of an Connection can be exposed as multiple lower level Connection objects (partitioning).
                     Aggregation is used as for the Node/Topology  to allow changes in hierarchy. 
@@ -139,13 +139,13 @@ module tapi-connectivity {
             list route {
                 key 'local-id';
                 config false;
-                uses route;
+                uses route-g;
                 description "none";
             }
             list switch-control {
                 key 'uuid';
                 config false;
-                uses switch-control;
+                uses switch-control-g;
                 description "none";
             }
             leaf direction {
@@ -158,30 +158,30 @@ module tapi-connectivity {
                 config false;
                 description "none";
             }
-            uses tapi-common:resource-spec;
-            uses tapi-common:operational-state-pac;
+            uses tapi-common:resource-spec-g;
+            uses tapi-common:operational-state-pac-g;
             description "The ForwardingConstruct (FC) object class models enabled potential for forwarding between two or more LTPs and like the LTP supports any transport protocol including all circuit and packet forms.
                 At the lowest level of recursion, a FC represents a cross-connection within an NE.";
         }
-        grouping connection-end-point {
+        grouping connection-end-point-g {
             leaf layer-protocol-name {
                 type tapi-common:layer-protocol-name;
                 config false;
                 description "none";
             }
             container connectivity-service-end-point {
-                uses connectivity-service-end-point-ref;
+                uses connectivity-service-end-point-ref-g;
                 description "none";
             }
             list parent-node-edge-point {
-                uses tapi-topology:owned-node-edge-point-ref;
+                uses tapi-topology:owned-node-edge-point-ref-g;
                 key 'topology-id node-id owned-node-edge-point-id';
                 config false;
                 min-elements 1;
                 description "none";
             }
             list client-node-edge-point {
-                uses tapi-topology:owned-node-edge-point-ref;
+                uses tapi-topology:owned-node-edge-point-ref-g;
                 key 'topology-id node-id owned-node-edge-point-id';
                 config false;
                 description "none";
@@ -196,13 +196,13 @@ module tapi-connectivity {
                 config false;
                 description "Each EP of the FC has a role (e.g., working, protection, protected, symmetric, hub, spoke, leaf, root)  in the context of the FC with respect to the FC function. ";
             }
-            uses tapi-common:resource-spec;
-            uses tapi-common:operational-state-pac;
-            uses tapi-common:termination-pac;
+            uses tapi-common:resource-spec-g;
+            uses tapi-common:operational-state-pac-g;
+            uses tapi-common:termination-pac-g;
             description "The LogicalTerminationPoint (LTP) object class encapsulates the termination and adaptation functions of one or more transport layers. 
                 The structure of LTP supports all transport protocols including circuit and packet forms.";
         }
-        grouping connectivity-constraint {
+        grouping connectivity-constraint-g {
             leaf service-type {
                 type service-type;
                 description "none";
@@ -217,44 +217,44 @@ module tapi-connectivity {
                 description "To distinguish if the resources are exclusive to the service  - for example between EPL(isExclusive=true) and EVPL (isExclusive=false), or between EPLAN (isExclusive=true) and EVPLAN (isExclusive=false)";
             }
             container requested-capacity {
-                uses tapi-common:capacity;
+                uses tapi-common:capacity-g;
                 description "none";
             }
             container schedule {
-                uses tapi-common:time-range;
+                uses tapi-common:time-range-g;
                 description "none";
             }
             list cost-characteristic {
                 key 'cost-name';
-                uses tapi-topology:cost-characteristic;
+                uses tapi-topology:cost-characteristic-g;
                 description "The list of costs where each cost relates to some aspect of the TopologicalEntity.";
             }
             list latency-characteristic {
                 key 'traffic-property-name';
-                uses tapi-topology:latency-characteristic;
+                uses tapi-topology:latency-characteristic-g;
                 description "The effect on the latency of a queuing process. This only has significant effect for packet based systems and has a complex characteristic.";
             }
             container coroute-inclusion {
-                uses connectivity-service-ref;
+                uses connectivity-service-ref-g;
                 description "none";
             }
             list diversity-exclusion {
-                uses connectivity-service-ref;
+                uses connectivity-service-ref-g;
                 key 'connectivity-service-id';
                 description "none";
             }
-            uses route-compute-policy;
+            uses route-compute-policy-g;
             description "none";
         }
-        grouping connectivity-service {
+        grouping connectivity-service-g {
             list end-point {
                 key 'local-id';
                 min-elements 2;
-                uses connectivity-service-end-point;
+                uses connectivity-service-end-point-g;
                 description "none";
             }
             list connection {
-                uses connection-ref;
+                uses connection-ref-g;
                 key 'connection-id';
                 config false;
                 description "none";
@@ -267,25 +267,25 @@ module tapi-connectivity {
                 type tapi-common:layer-protocol-name;
                 description "none";
             }
-            uses tapi-common:service-spec;
-            uses connectivity-constraint;
-            uses topology-constraint;
-            uses tapi-common:admin-state-pac;
-            uses resilience-constraint;
+            uses tapi-common:service-spec-g;
+            uses connectivity-constraint-g;
+            uses topology-constraint-g;
+            uses tapi-common:admin-state-pac-g;
+            uses resilience-constraint-g;
             description "The ForwardingConstruct (FC) object class models enabled potential for forwarding between two or more LTPs and like the LTP supports any transport protocol including all circuit and packet forms.
                 At the lowest level of recursion, a FC represents a cross-connection within an NE.";
         }
-        grouping connectivity-service-end-point {
+        grouping connectivity-service-end-point-g {
             leaf layer-protocol-name {
                 type tapi-common:layer-protocol-name;
                 description "none";
             }
             container service-interface-point {
-                uses tapi-common:service-interface-point-ref;
+                uses tapi-common:service-interface-point-ref-g;
                 description "none";
             }
             container capacity {
-                uses tapi-common:capacity;
+                uses tapi-common:capacity-g;
                 description "none";
             }
             leaf direction {
@@ -300,8 +300,8 @@ module tapi-connectivity {
                 type protection-role;
                 description "To specify the protection role of this Port when create or update ConnectivityService.";
             }
-            uses tapi-common:local-class;
-            uses tapi-common:admin-state-pac;
+            uses tapi-common:local-class-g;
+            uses tapi-common:admin-state-pac-g;
             description "The association of the FC to LTPs is made via EndPoints.
                 The EndPoint (EP) object class models the access to the FC function. 
                 The traffic forwarding between the associated EPs of the FC depends upon the type of FC and may be associated with FcSwitch object instances.  
@@ -310,42 +310,42 @@ module tapi-connectivity {
                 The EP replaces the Protection Unit of a traditional protection model. 
                 The ForwadingConstruct can be considered as a component and the EndPoint as a Port on that component";
         }
-        grouping route {
+        grouping route-g {
             list connection-end-point {
-                uses connection-end-point-ref;
+                uses connection-end-point-ref-g;
                 key 'topology-id node-id owned-node-edge-point-id connection-end-point-id';
                 config false;
                 min-elements 2;
                 description "none";
             }
-            uses tapi-common:local-class;
+            uses tapi-common:local-class-g;
             description "The FC Route (FcRoute) object class models the individual routes of an FC. 
                 The route of an FC object is represented by a list of FCs at a lower level. 
                 Note that depending on the service supported by an FC, an the FC can have multiple routes.";
         }
-        grouping connectivity-context {
+        grouping connectivity-context-g {
             list connectivity-service {
                 key 'uuid';
-                uses connectivity-service;
+                uses connectivity-service-g;
                 description "none";
             }
             list connection {
                 key 'uuid';
                 config false;
-                uses connection;
+                uses connection-g;
                 description "none";
             }
             description "none";
         }
-        grouping switch {
+        grouping switch-g {
             list selected-connection-end-point {
-                uses connection-end-point-ref;
+                uses connection-end-point-ref-g;
                 key 'topology-id node-id owned-node-edge-point-id connection-end-point-id';
                 min-elements 1;
                 description "none";
             }
             list selected-route {
-                uses route-ref;
+                uses route-ref-g;
                 key 'connection-id route-id';
                 min-elements 1;
                 description "none";
@@ -363,7 +363,7 @@ module tapi-connectivity {
                 type tapi-common:port-direction;
                 description "Indicates whether the switch selects from ingress to the FC or to egress of the FC, or both.";
             }
-            uses tapi-common:local-class;
+            uses tapi-common:local-class-g;
             description "The class models the switched forwarding of traffic (traffic flow) between FcPorts (ConnectionEndPoints) and is present where there is protection functionality in the FC (Connection). 
                 If an FC exposes protection (having two or more FcPorts that provide alternative identical inputs/outputs), the FC will have one or more associated FcSwitch objects to represent the alternative flow choices visible at the edge of the FC.
                 The FC switch represents and defines a protection switch structure encapsulated in the FC. 
@@ -377,24 +377,24 @@ module tapi-connectivity {
                 The ability for a Switch to be 'high impedance' allows bidirectional ForwardingConstructs to be overlaid on the same bidirectional LTP where the appropriate control is enabled to prevent signal conflict.
                 This ability allows multiple alternate routes to be present that otherwise would be in conflict.";
         }
-        grouping switch-control {
+        grouping switch-control-g {
             list sub-switch-control {
-                uses switch-control-ref;
+                uses switch-control-ref-g;
                 key 'connection-id switch-control-id';
                 description "none";
             }
             list switch {
                 key 'local-id';
-                uses switch;
+                uses switch-g;
                 description "none";
             }
-            uses tapi-common:resource-spec;
-            uses resilience-constraint;
+            uses tapi-common:resource-spec-g;
+            uses resilience-constraint-g;
             description "Represents the capability to control and coordinate switches, to add/delete/modify FCs and to add/delete/modify LTPs/LPs so as to realize a protection scheme.";
         }
-        grouping resilience-constraint {
+        grouping resilience-constraint-g {
             container resilience-type {
-                uses tapi-topology:resilience-type;
+                uses tapi-topology:resilience-type-g;
                 description "none";
             }
             leaf restoration-coordinate-type {
@@ -445,51 +445,51 @@ module tapi-connectivity {
             }
             description "A list of control parameters to apply to a switch.";
         }
-        grouping topology-constraint {
+        grouping topology-constraint-g {
             list include-topology {
-                uses tapi-topology:topology-ref;
+                uses tapi-topology:topology-ref-g;
                 key 'topology-id';
                 config false;
                 description "none";
             }
             list avoid-topology {
-                uses tapi-topology:topology-ref;
+                uses tapi-topology:topology-ref-g;
                 key 'topology-id';
                 config false;
                 description "none";
             }
             list include-path {
-                uses tapi-path-computation:path-ref;
+                uses tapi-path-computation:path-ref-g;
                 key 'path-id';
                 config false;
                 description "none";
             }
             list exclude-path {
-                uses tapi-path-computation:path-ref;
+                uses tapi-path-computation:path-ref-g;
                 key 'path-id';
                 config false;
                 description "none";
             }
             list include-link {
-                uses tapi-topology:link-ref;
+                uses tapi-topology:link-ref-g;
                 key 'topology-id link-id';
                 config false;
                 description "This is a loose constraint - that is it is unordered and could be a partial list ";
             }
             list exclude-link {
-                uses tapi-topology:link-ref;
+                uses tapi-topology:link-ref-g;
                 key 'topology-id link-id';
                 config false;
                 description "none";
             }
             list include-node {
-                uses tapi-topology:node-ref;
+                uses tapi-topology:node-ref-g;
                 key 'topology-id node-id';
                 config false;
                 description "This is a loose constraint - that is it is unordered and could be a partial list";
             }
             list exclude-node {
-                uses tapi-topology:node-ref;
+                uses tapi-topology:node-ref-g;
                 key 'topology-id node-id';
                 config false;
                 description "none";
@@ -501,15 +501,15 @@ module tapi-connectivity {
             }
             description "none";
         }
-        grouping cep-list {
+        grouping cep-list-g {
             list connection-end-point {
                 key 'uuid';
-                uses connection-end-point;
+                uses connection-end-point-g;
                 description "none";
             }
             description "none";
         }
-        grouping route-compute-policy {
+        grouping route-compute-policy-g {
             leaf route-objective-function {
                 type route-objective-function;
                 description "none";
@@ -699,7 +699,7 @@ module tapi-connectivity {
             }
             output {
                 container connection {
-                    uses connection;
+                    uses connection-g;
                     description "none";
                 }
             }
@@ -708,7 +708,7 @@ module tapi-connectivity {
             description "none";
             output {
                 list service {
-                    uses connectivity-service;
+                    uses connectivity-service-g;
                     description "none";
                 }
             }
@@ -723,7 +723,7 @@ module tapi-connectivity {
             }
             output {
                 container service {
-                    uses connectivity-service;
+                    uses connectivity-service-g;
                     description "none";
                 }
             }
@@ -734,19 +734,19 @@ module tapi-connectivity {
                 list end-point {
                     key 'local-id';
                     min-elements 2;
-                    uses connectivity-service-end-point;
+                    uses connectivity-service-end-point-g;
                     description "none";
                 }
                 container conn-constraint {
-                    uses connectivity-constraint;
+                    uses connectivity-constraint-g;
                     description "none";
                 }
                 container topo-constraint {
-                    uses topology-constraint;
+                    uses topology-constraint-g;
                     description "none";
                 }
                 list resilience-constraint {
-                    uses resilience-constraint;
+                    uses resilience-constraint-g;
                     description "none";
                 }
                 leaf state {
@@ -756,7 +756,7 @@ module tapi-connectivity {
             }
             output {
                 container service {
-                    uses connectivity-service;
+                    uses connectivity-service-g;
                     description "none";
                 }
             }
@@ -769,19 +769,19 @@ module tapi-connectivity {
                     description "none";
                 }
                 container end-point {
-                    uses connectivity-service-end-point;
+                    uses connectivity-service-end-point-g;
                     description "none";
                 }
                 container conn-constraint {
-                    uses connectivity-constraint;
+                    uses connectivity-constraint-g;
                     description "none";
                 }
                 container topo-constraint {
-                    uses topology-constraint;
+                    uses topology-constraint-g;
                     description "none";
                 }
                 list resilience-constraint {
-                    uses resilience-constraint;
+                    uses resilience-constraint-g;
                     description "none";
                 }
                 leaf state {
@@ -791,7 +791,7 @@ module tapi-connectivity {
             }
             output {
                 container service {
-                    uses connectivity-service;
+                    uses connectivity-service-g;
                     description "none";
                 }
             }
@@ -806,7 +806,7 @@ module tapi-connectivity {
             }
             output {
                 container service {
-                    uses connectivity-service;
+                    uses connectivity-service-g;
                     description "none";
                 }
             }

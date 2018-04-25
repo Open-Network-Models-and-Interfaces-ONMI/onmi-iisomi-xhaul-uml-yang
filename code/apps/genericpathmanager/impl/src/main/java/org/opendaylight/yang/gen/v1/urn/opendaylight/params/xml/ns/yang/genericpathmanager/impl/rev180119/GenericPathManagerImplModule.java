@@ -1,4 +1,7 @@
 package org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.genericpathmanager.impl.rev180119;
+
+import org.opendaylight.mwtn.genericpathmanager.GenericPathManagerProvider;
+
 public class GenericPathManagerImplModule extends org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.genericpathmanager.impl.rev180119.AbstractGenericPathManagerImplModule {
     public GenericPathManagerImplModule(org.opendaylight.controller.config.api.ModuleIdentifier identifier, org.opendaylight.controller.config.api.DependencyResolver dependencyResolver) {
         super(identifier, dependencyResolver);
@@ -15,8 +18,9 @@ public class GenericPathManagerImplModule extends org.opendaylight.yang.gen.v1.u
 
     @Override
     public java.lang.AutoCloseable createInstance() {
-        // TODO:implement
-        throw new java.lang.UnsupportedOperationException();
+        GenericPathManagerProvider provider = new GenericPathManagerProvider();
+        getBrokerDependency().registerProvider(provider);
+        return provider;
     }
 
 }
