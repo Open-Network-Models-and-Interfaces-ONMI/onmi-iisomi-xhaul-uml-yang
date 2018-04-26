@@ -35,6 +35,16 @@ karaf_startup_all() {
 
      sleep 20
 
+     karafcmd "feature:repo-add mvn:org.opendaylight.mwtn/ethernetpathmanager-features/0.4.0-SNAPSHOT/xml/features"
+     karafcmd "feature:install odl-mwt-ethernetpathmanager"
+
+     sleep 20
+
+     karafcmd "feature:repo-add mvn:org.opendaylight.mwtn/opticalpathmanager-features/0.4.0-SNAPSHOT/xml/features"
+     karafcmd "feature:install odl-mwt-opticalpathmanager"
+
+     sleep 20
+
      #karafcmd "feature:install odl-mwt-models"
      #karafcmd "feature:install odl-mwt-websocketmanager"
      #karafcmd "feature:install odl-mwt-devicemanager"
