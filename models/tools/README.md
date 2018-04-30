@@ -115,7 +115,7 @@ The [prune-and-refactor.xslt](./src/main/prune-and-refactor/prune-and-refactor.x
 
 #### Removal of explanatory packages
 
-The current CoreModel.uml includes several packages, which are created as examples and should explain the model. Such packages must not be part of a data model and will be removed. The file [packagesBlackList.xml](./home/demx8as6/workspace/onf/CENTENNIAL/models/tools/src/main/prune-and-refactor/packagesBlackList.xml/packagesBlackList.xml) lists all packages which will be removed.
+The current CoreModel.uml includes several packages, which are created as examples and should explain the model. Such packages must not be part of a data model and will be removed. The file [packagesBlackList.xml](./src/main/prune-and-refactor/packagesBlackList.xml) lists all packages which will be removed.
 
 #### Adding key definitions in UML
 
@@ -123,13 +123,13 @@ The yang "key" statement defines an index attribute to address entries in lists.
 
 Two cases must be distinguished.
 
-1. There is already an attribute in an object class, which could act as key (e.g. uuid of LogicalTerminationClass). In this case simply the attribute will be marked as "partOfObjectKey". The list of such attributes can defined in [keys.xml](-/src/main/prune-and-refactor/keys.xml).
+1. There is already an attribute in an object class, which could act as key (e.g. uuid of LogicalTerminationClass). In this case simply the attribute will be marked as "partOfObjectKey". The list of such attributes can defined in [keys.xml](./src/main/prune-and-refactor/keys.xml).
 
-2. An object class does not provide any attribute, which can work act as yang-key. In this case the object class will get a generalization tag from the GlobalClass. This way the object class will have an uuid attribute, which will be the yang-key. (Note - this is easy to implement to solve the problem, but also such object class, will now have all the other attributes of the GlobalClass. Alternatives could be: add automatically only a uuid attribute or manually change the CoreModel -> 1.4). Please see the list of such object classes: The list of such attributes can defined in [classesWithoutKey.xml](-/src/main/prune-and-refactor/classesWithoutKey.xml).
+2. An object class does not provide any attribute, which can work act as yang-key. In this case the object class will get a generalization tag from the GlobalClass. This way the object class will have an uuid attribute, which will be the yang-key. (Note - this is easy to implement to solve the problem, but also such object class, will now have all the other attributes of the GlobalClass. Alternatives could be: add automatically only a uuid attribute or manually change the CoreModel -> 1.4). Please see the list of such object classes: The list of such attributes can defined in [classesWithoutKey.xml](./src/main/prune-and-refactor/classesWithoutKey.xml).
 
 #### Removal of selected UML elements
 
-The [removed.xml](-/src/main/prune-and-refactor/removed.xml) provides a couple of Enums and Attributes and there reason, why they are removed from the CoreModel.
+The [removed.xml](./src/main/prune-and-refactor/removed.xml) provides a couple of Enums and Attributes and there reason, why they are removed from the CoreModel.
 
 #### Individual modification of attributes
 

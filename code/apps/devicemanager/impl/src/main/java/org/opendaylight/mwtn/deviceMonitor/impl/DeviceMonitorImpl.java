@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
  * @author herbert
  */
 
-public class DeviceMonitorImpl implements DeviceMonitor {
+public class DeviceMonitorImpl implements DeviceMonitor, AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(DeviceMonitorImpl.class);
 

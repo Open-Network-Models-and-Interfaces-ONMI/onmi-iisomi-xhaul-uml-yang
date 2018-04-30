@@ -16,7 +16,6 @@ define(['app/mwtnCompare/mwtnCompare.module',
                                                          function($scope, $rootScope, $mwtnCompare, $mwtnLog, orderBy, OnfNetworkElement, MicrowavePhysicalSection, MicrowaveSection) {
 
     $rootScope.section_logo = 'src/app/mwtnCompare/images/mwtnCompare.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
-    $scope.odlKarafVersion = $mwtnCompare.odlKarafVersion;
 
     var rOnfNe;
     var aOnfNe;

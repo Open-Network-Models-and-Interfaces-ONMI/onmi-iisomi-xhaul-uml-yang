@@ -21,7 +21,6 @@ define(['app/mwtnFault/mwtnFault.module',
     $rootScope.section_logo = 'src/app/mwtnFault/images/mwtnFault.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
     $scope.date = new Date().toISOString().toHumanReadableTimeFormat();
-    $scope.odlKarafVersion = $mwtnFault.odlKarafVersion; 
     $scope.highlightFilteredHeader = $mwtnFault.highlightFilteredHeader;
     $scope.oneATime = true;
     
@@ -521,7 +520,7 @@ define(['app/mwtnFault/mwtnFault.module',
 
       modalInstance.result.then(function (now) {
         var spec = {
-          functionId : 'org.opendaylight.mwtn.eventmanager',
+          functionId : 'sdnevents',
           docType : 'faultlog',
           query: {
             match_all: {}

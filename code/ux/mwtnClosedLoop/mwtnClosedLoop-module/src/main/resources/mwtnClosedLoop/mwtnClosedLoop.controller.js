@@ -16,7 +16,6 @@ define(['app/mwtnClosedLoop/mwtnClosedLoop.module','app/mwtnClosedLoop/mwtnClose
 
     $rootScope.section_logo = 'src/app/mwtnClosedLoop/images/mwtnClosedLoop.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
-    $scope.odlKarafVersion = $mwtnClosedLoop.odlKarafVersion; 
     $scope.timerOptionList = [
         {id : '5seconds', name : "5 seconds"},
         {id : '30seconds', name : "30 seconds"},

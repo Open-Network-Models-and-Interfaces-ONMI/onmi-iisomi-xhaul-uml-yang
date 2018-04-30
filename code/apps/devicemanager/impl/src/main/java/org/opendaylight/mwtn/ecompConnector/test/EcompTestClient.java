@@ -5,7 +5,7 @@
  */
 package org.opendaylight.mwtn.ecompConnector.test;
 
-import org.opendaylight.mwtn.config.impl.HtConfigurationEcompConnector;
+import org.opendaylight.mwtn.config.impl.EcompConfig;
 import org.opendaylight.mwtn.ecompConnector.impl.EcompMessages;
 import org.opendaylight.mwtn.ecompConnector.impl.EcompSenderImpl;
 
@@ -16,7 +16,7 @@ public class EcompTestClient {
         System.out.println("Test program to verify ECOMP https connectivity");
 
         //Get configuration
-        HtConfigurationEcompConnector configuration = HtConfigurationEcompConnector.getConfiguration(null);
+        EcompConfig configuration = EcompConfig.getDefaultConfiguration();
         if (configuration != null) {
 
             //Start services

@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
  */
 public class HtDataBaseReaderAndWriter<T extends IsEsObject> {
 
-    private static final Logger log = LoggerFactory.getLogger(HtDataBaseReaderAndWriter.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(HtDataBaseReaderAndWriter.class);
 
 
     private final HtDataBase db;
@@ -193,14 +193,6 @@ public class HtDataBaseReaderAndWriter<T extends IsEsObject> {
         } while (hits.length == iterateLength); //Do it until end indicated, because less hits than iterateLength allows.
 
         return res;
-    }
-
-    /**
-     * Create index and set mapping
-     * @param mappingJsonString String in JSON format with related mapping informatin
-     */
-    public void setMapping(String mappingJsonString) {
-        db.doWriteMappingJson(dataTypeName, mappingJsonString);
     }
 
 }

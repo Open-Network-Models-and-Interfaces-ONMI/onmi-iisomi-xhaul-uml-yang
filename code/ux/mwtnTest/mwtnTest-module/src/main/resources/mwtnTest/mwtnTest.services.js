@@ -21,7 +21,7 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnTest/mwtnTest.module'],fu
     service.getPartGlobalId = $mwtnCommons.getPartGlobalId;
     service.getPartLocalId = $mwtnCommons.getPartLocalId;
     service.layerProtocolNameOrder = $mwtnCommons.layerProtocolNameOrder;
-    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
+    
     service.separator = $mwtnCommons.separator;
     service.yangify = $mwtnCommons.yangify;
     service.yangifyObject = $mwtnCommons.yangifyObject;

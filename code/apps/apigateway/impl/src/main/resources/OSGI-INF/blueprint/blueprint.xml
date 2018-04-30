@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs">
+
+    <bean id="aaiServlet"
+        class="com.highstreet.technologies.apigateway.AaiServlet">
+    </bean>
+
+   <service interface="javax.servlet.http.HttpServlet" ref="aaiServlet">
+        <service-properties>
+            <entry key="alias" value="/aai" />
+        </service-properties>
+    </service>
+
+	<bean id="esServlet"
+        class="com.highstreet.technologies.apigateway.EsServlet">
+    </bean>
+
+   <service interface="javax.servlet.http.HttpServlet" ref="esServlet">
+        <service-properties>
+            <entry key="alias" value="/database" />
+        </service-properties>
+    </service>
+
+    <bean id="msServlet"
+        class="com.highstreet.technologies.apigateway.MSServlet">
+    </bean>
+
+   <service interface="javax.servlet.http.HttpServlet" ref="msServlet">
+        <service-properties>
+            <entry key="alias" value="/ms" />
+        </service-properties>
+    </service>
+</blueprint>

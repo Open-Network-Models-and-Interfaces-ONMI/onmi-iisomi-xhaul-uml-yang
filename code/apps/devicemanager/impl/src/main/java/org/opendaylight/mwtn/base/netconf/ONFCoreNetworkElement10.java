@@ -21,7 +21,6 @@ import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.binding.api.MountPoint;
 import org.opendaylight.controller.md.sal.binding.api.NotificationService;
 import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
-import org.opendaylight.mwtn.aotsMConnector.impl.AotsMProviderClient;
 import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
 import org.opendaylight.mwtn.devicemanager.impl.database.service.HtDatabaseEventsService;
@@ -108,12 +107,12 @@ public class ONFCoreNetworkElement10 extends ONFCoreNetworkElementBase {
 
     public ONFCoreNetworkElement10(String mountPointNodeName, Capabilities capabilities,
             DataBroker netconfNodeDataBroker, WebSocketServiceClient webSocketService,
-            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider ,AotsMProviderClient aotsmClient) {
+            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider) {
 
         super(mountPointNodeName, netconfNodeDataBroker, capabilities );
 
         //Create MicrowaveService here
-        this.microwaveEventListener = new MicrowaveEventListener(mountPointNodeName, webSocketService, databaseService, ecompProvider,aotsmClient);
+        this.microwaveEventListener = new MicrowaveEventListener(mountPointNodeName, webSocketService, databaseService, ecompProvider);
 
         LOG.info("Create NE instance {}", ONFCoreNetworkElement10.class.getSimpleName());
     }
@@ -124,9 +123,9 @@ public class ONFCoreNetworkElement10 extends ONFCoreNetworkElementBase {
 
     public static ONFCoreNetworkElement10 build(String mountPointNodeName, Capabilities capabilities,
             DataBroker netconfNodeDataBroker, WebSocketServiceClient webSocketService,
-            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider ,AotsMProviderClient aotsmClient) {
+            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider) {
 
-        return checkType(capabilities) ? new ONFCoreNetworkElement10(mountPointNodeName, capabilities, netconfNodeDataBroker, webSocketService, databaseService, ecompProvider ,aotsmClient) : null;
+        return checkType(capabilities) ? new ONFCoreNetworkElement10(mountPointNodeName, capabilities, netconfNodeDataBroker, webSocketService, databaseService, ecompProvider) : null;
 
     }
 

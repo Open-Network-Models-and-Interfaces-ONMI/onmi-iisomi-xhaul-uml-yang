@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<features name="odl-mwtn-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
-  <repository>mvn:com.highstreet.technologies.odl.dlux/mwtnFeatures/${project.version}/xml/features</repository>
-  <repository>mvn:org.opendaylight.yangtools/features-yangtools/${yangtools.version}/xml/features </repository>
+<!--
+       Top level feature bundling of network apps. Only in this file the APPS and UX/DLUX components are bundled.
+       * Due to startup timing problems the base packages are installed manually or by script as pre-requisite
+       * The features already loaded before loading of network apps are (loading again within feature is OK):
+                 ./karafcmd.sh  "feature:install odl-netconf-topology"
+    			 ./karafcmd.sh  "feature:install odl-restconf-all"
+			     ./karafcmd.sh  "feature:install odl-mdsal-apidocs"
+                 ./karafcmd.sh  "feature:install odl-dlux-all"
+ -->
+
+<features name="odl-mwtn-${project.version}"
+			xmlns="http://karaf.apache.org/xmlns/features/v1.2.0"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
+
+<!-- Other repositories -->
+  <!-- <repository>mvn:org.opendaylight.yangtools/features-yangtools/${yangtools.version}/xml/features </repository>
   <repository>mvn:org.opendaylight.controller/features-mdsal/${mdsal.version}/xml/features </repository>
   <repository>mvn:org.opendaylight.mdsal.model/features-mdsal-model/${mdsal.model.version}/xml/features </repository>
   <repository>mvn:org.opendaylight.netconf/features-restconf/${mdsal.version}/xml/features </repository>
   <repository>mvn:org.opendaylight.netconf/features-netconf-connector/${netconf.version}/xml/features </repository>
-  <repository>mvn:org.opendaylight.openflowplugin/features-openflowplugin/${openflow.plugin.version}/xml/features </repository>
+  <repository>mvn:org.opendaylight.openflowplugin/features-openflowplugin/${openflow.plugin.version}/xml/features </repository> -->
 
-  <repository>mvn:org.apache.karaf.decanter/apache-karaf-decanter/${decanter.version}/xml/features</repository>
-  <repository>mvn:org.opendaylight.mwtn/mwtn-parent/${project.version}/xml/features</repository>
+  <!-- <repository>mvn:org.apache.karaf.decanter/apache-karaf-decanter/${decanter.version}/xml/features</repository> -->
+  <!-- <repository>mvn:org.opendaylight.mwtn/mwtn-parent/${project.version}/xml/features</repository> -->
+  <repository>mvn:com.highstreet.technologies.apigateway/apigateway-features/${project.version}/xml/features</repository>
+  <repository>mvn:com.highstreet.technologies.odl.dlux/mwtnFeatures/${project.version}/xml/features</repository>
 
-  <feature name="sdnr-wt-all" version="${project.version}" description="ONAP :: OpenDaylight :: SDN-R :: All">
-    <feature version="${mdsal.version}">odl-mdsal-clustering</feature>
-    <feature version="${netconf.version}">odl-netconf-clustered-topology</feature>
-    <!-- <feature version="${netconf.version}">odl-netconf-topology</feature> -->
-    <feature version="${restconf.version}">odl-restconf-all</feature>
-    <feature version="${mdsal.version}">odl-mdsal-apidocs</feature>
-    
-    <feature version="${elasticsearch.version}">elasticsearch</feature>
-
-    <feature version="${project.version}">sdnr-wt-apps-all</feature>
-    <feature version="${project.version}">sdnr-wt-ux-all</feature>
-  </feature>
-
+<!--
+       Section 1: Customer and test features of highstreet network applications
+ -->
   <feature name="onap-sdnr-all" version="${project.version}" description="ONAP :: OpenDaylight :: SDN-R :: All">
     <feature version="${project.version}">odl-mwtn-apps-all</feature>
     <feature version="${project.version}">onap-sdnr-ux-all</feature>
@@ -37,32 +43,25 @@
     <!-- <feature version="${project.version}">odl-mwt-event</feature> -->
   </feature>
 
-  <feature name="tst-mwtn-all" version="${project.version}" description="MicrowaveTransportNetwork :: TST">
-    <feature version="${project.version}">odl-mwtn-apps-all</feature>
-    <feature version="${project.version}">tst-mwtn-ux-all</feature>
-  </feature>
-
-  <feature name="ht-mwtn-1b" version="${project.version}" description="MicrowaveTransportNetwork :: 1b">
-    <feature version="${project.version}">odl-mwtn-apps-all</feature>
-    <feature version="${project.version}">ht-mwtn-ux-1b</feature>
-  </feature>
-
+  <!-- Loaded by install script. All apps, and all UX GUIs -->
   <feature name="odl-mwtn-all" version="${project.version}" description="MicrowaveTransportNetwork :: All">
     <feature version="${project.version}">odl-mwtn-apps-all</feature>
     <feature version="${project.version}">odl-mwtn-ux-all</feature>
   </feature>
 
+  <!-- All apps, but no UX GUI -->
   <feature name="odl-mwtn-apps-all" version="${project.version}" description="MicrowaveTransportNetwork :: All apps">
+    <feature version="${project.version}">odl-ht-apigateway</feature>
     <feature version="${project.version}">odl-mwt-models</feature>
     <feature version="${project.version}">odl-mwt-websocketmanager</feature>
     <feature version="${project.version}">odl-mwt-devicemanager</feature>
-    <!-- <feature version="${project.version}">odl-mwt-event</feature> -->
   </feature>
 
+<!--
+       Section 2: Per app feature
+ -->
+
   <feature name="odl-mwt-models" version="${project.version}" description="MicrowaveTransportNetwork :: Device model">
-    <feature version="${mdsal.model.version}">odl-mdsal-models</feature>
-    <feature version="${mdsal.version}">odl-restconf-all</feature>
-    <feature version="${netconf.version}">odl-netconf-connector-all</feature>
     <bundle>mvn:org.opendaylight.mwtn/devicemodel/${project.version}</bundle>
   </feature>
 
@@ -73,23 +72,10 @@
   </feature>
 
   <feature name="odl-mwt-devicemanager" version="${project.version}" description="MicrowaveTransportNetwork :: Device manager">
-    <feature version="${mdsal.version}">odl-mdsal-broker</feature>
-    <feature version="${project.version}">odl-mwt-models</feature>
-    <feature version="${project.version}">odl-mwt-websocketmanager</feature>
     <bundle>mvn:org.opendaylight.mwtn/devicemanager-api/{{VERSION}}</bundle>
     <bundle>mvn:org.opendaylight.mwtn/devicemanager-impl/{{VERSION}}</bundle>
     <configfile finalname="${configfile.directory}/devicemanager.xml">mvn:org.opendaylight.mwtn/devicemanager-impl/${project.version}/xml/config</configfile>
   </feature>
 
-  <!--
-  <feature name="odl-mwt-event" version="${project.version}" description="MicrowaveTransportNetwork :: Event">
-    <feature version="${mdsal.version}">odl-mdsal-broker</feature>
-    <feature version="${project.version}">odl-mwt-models</feature>
-    <feature version="${project.version}">odl-mwt-websocketmanager</feature>
-    <bundle>mvn:org.opendaylight.mwtn/eventmanager-api/{{VERSION}}</bundle>
-    <bundle>mvn:org.opendaylight.mwtn/eventmanager-impl/{{VERSION}}</bundle>
-    <configfile finalname="${configfile.directory}/eventmanager.xml">mvn:org.opendaylight.mwtn/eventmanager-impl/${project.version}/xml/config</configfile>
-  </feature>
-  -->
 </features>
 

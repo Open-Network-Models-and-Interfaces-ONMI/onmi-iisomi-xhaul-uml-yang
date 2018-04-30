@@ -18,7 +18,7 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnPerformanceHistory/mwtnPe
     service.getMountPoints = $mwtnCommons.getMountPoints;
     service.getPacParts = $mwtnCommons.getPacParts;
     service.layerProtocolNameOrder = $mwtnCommons.layerProtocolNameOrder;
-    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
+    
     service.yangifyObject = $mwtnCommons.yangifyObject;
 
     service.TimeStampToONFFormat = function (timestamp) {
@@ -32,9 +32,9 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnPerformanceHistory/mwtnPe
     service.getFilteredSortedData = function (from, size, sort, query, selected15minPeriod) {
       var func = function () {
         if (selected15minPeriod) {
-          return $mwtnDatabase.getFilteredSortedData('org.opendaylight.mwtn.performancemanager', 'historicalperformance15min', from, size, sort, query);
+          return $mwtnDatabase.getFilteredSortedData('sdnperformance', 'historicalperformance15min', from, size, sort, query);
         } else {
-          return $mwtnDatabase.getFilteredSortedData('org.opendaylight.mwtn.performancemanager', 'historicalperformance24h', from, size, sort, query);
+          return $mwtnDatabase.getFilteredSortedData('sdnperformance', 'historicalperformance24h', from, size, sort, query);
         }
       };
       var deferred = $q.defer();

@@ -1,0 +1,36 @@
+<soapenv:Envelope 
+xmlns:q1="http://csi.att.com/CSI/Namespaces/ATTOneTicketingSystem/Types/Public/CommonDataModel.xsd" 
+xmlns:q0="http://csi.cingular.com/CSI/Namespaces/Container/Public/InquireMobilityTicketListRequest.xsd" 
+xmlns:mh="http://csi.cingular.com/CSI/Namespaces/Types/Public/MessageHeader.xsd" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xmlns:cdm="http://csi.cingular.com/CSI/Namespaces/Types/Public/CingularDataModel.xsd" 
+xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+	<soapenv:Header>
+		<mh:MessageHeader>
+			<mh:TrackingMessageHeader>
+				<cdm:version>209</cdm:version>
+				<cdm:messageId>sdnr:36-1504101836417</cdm:messageId>
+				<cdm:timeToLive>30000</cdm:timeToLive>
+				<cdm:dateTimeStamp>{systemTimestamp}</cdm:dateTimeStamp>
+			</mh:TrackingMessageHeader>
+			<mh:SecurityMessageHeader>
+				<cdm:userName>{aotsUsername}</cdm:userName>
+				<cdm:userPassword>{aotsUserpassword}</cdm:userPassword>
+			</mh:SecurityMessageHeader>
+			<mh:SequenceMessageHeader>
+				<cdm:sequenceNumber>1</cdm:sequenceNumber>
+				<cdm:totalInSequence>1</cdm:totalInSequence>
+			</mh:SequenceMessageHeader>
+		</mh:MessageHeader>
+	</soapenv:Header>
+	<soapenv:Body>
+		<q0:InquireMobilityTicketListRequest>
+			<q0:MobilityCoreTicketDetails>
+				<q1:ticketSeverity>{aotsSeverity}</q1:ticketSeverity>
+				<q1:submittedBy>{aotsSystemUser}</q1:submittedBy>
+			</q0:MobilityCoreTicketDetails>
+			<q0:externalTicketNumber>{aotsExternalTicketNumber}</q0:externalTicketNumber>
+		</q0:InquireMobilityTicketListRequest>
+	</soapenv:Body>
+</soapenv:Envelope>
+

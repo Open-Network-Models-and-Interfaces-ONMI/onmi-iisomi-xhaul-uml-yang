@@ -39,7 +39,7 @@ define([ 'app/mwtnCommons/mwtnCommons.module'], function(mwtnCommonsApp) {
               return mountpoint['netconf-node-topology:connection-status'] === 'connected';
             }).length;
           });
-          var functionId = 'org.opendaylight.mwtn.eventmanager';
+          var functionId = 'sdnevents';
           var docType = 'faultcurrent';
           var aggregations = {
             "size":0,
@@ -74,7 +74,7 @@ define([ 'app/mwtnCommons/mwtnCommons.module'], function(mwtnCommonsApp) {
 
           // Object.keys($scope.alarmStatus).map(function(severity) {
           //   // usage of the ElasticSearch Count API
-          //   $mwtnDatabase.getBase('org.opendaylight.mwtn.eventmanager').then(function(success) {
+          //   $mwtnDatabase.getBase('sdnevents').then(function(success) {
           //     var databaseRequest = {
           //       base : success.base,
           //       method : 'POST',

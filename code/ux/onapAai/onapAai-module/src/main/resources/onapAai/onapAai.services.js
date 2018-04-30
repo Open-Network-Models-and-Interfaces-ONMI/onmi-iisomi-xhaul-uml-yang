@@ -33,7 +33,7 @@ define(['app/onapAai/onapAai.module', 'app/mwtnCommons/mwtnCommons.services'], f
     service.formatData = $mwtnCommons.formatData;
     service.formatTimeStamp = $mwtnCommons.formatTimeStamp;
     service.deleteDocType = $mwtnDatabase.deleteDocType;
-    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
+    
 
     var transactionId = 1;
     var getHeaders = function () {

@@ -10,42 +10,4 @@
  <artifactId>mwtnConnect-module</artifactId>
  <name>${prefix} ${project.artifactId}</name>
  <packaging>jar</packaging>
-
- <properties>
-  <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
-  <buildtime>${maven.build.timestamp} UTC</buildtime>
- </properties>
-
- <build>
-  <plugins>
-   <plugin>
-    <groupId>com.google.code.maven-replacer-plugin</groupId>
-    <artifactId>replacer</artifactId>
-    <version>1.5.3</version>
-    <executions>
-     <execution>
-      <phase>test</phase>
-      <goals>
-       <goal>replace</goal>
-      </goals>
-     </execution>
-    </executions>
-    <configuration>
-     <basedir>${project.basedir}/target/classes</basedir>
-     <includes>
-      <include>**/*.html</include>
-      <include>**/*.js</include>
-      <include>**/*.css</include>
-     </includes>
-     <replacements>
-      <replacement>
-       <token>@buildtime@</token>
-       <value>${buildtime}</value>
-      </replacement>
-     </replacements>
-    </configuration>
-   </plugin>
-  </plugins>
- </build>
-
 </project>

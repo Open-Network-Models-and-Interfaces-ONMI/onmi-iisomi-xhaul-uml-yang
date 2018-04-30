@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features name="odl-mwtn-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
+
+<!--
+  => Only to be placed into feature-parents
+  <repository>mvn:org.apache.karaf.decanter/apache-karaf-decanter/${decanter.version}/xml/features</repository>
+ -->
+
+<!--
+    Section 2: UX basis feature, used by all features in section 3
+ -->
+
+  <feature name="sdnr-wt-ux-all" version="${project.version}" description="ONAP :: SDN-R :: WT :: UX :: All">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/onapAai-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnFault-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnBrowser-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnInventory-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnMediator-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/help-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="onap-sdnr-ux-all" version="${project.version}" description="ONAP :: OpenDaylight :: SDN-R :: UX :: All">
+    <feature version="${project.version}">odl-mwtn-ux-connect</feature>
+
+    <feature version="${project.version}">onap-sdnr-aai-ux</feature>
+    <feature version="${project.version}">onap-sdnr-dcae-ux</feature>
+    <feature version="${project.version}">onap-sdnr-mso-ux</feature>
+
+    <!--
+    <feature version="${project.version}">odl-eth-ux-service</feature>
+    <feature version="${project.version}">odl-otn-ux-config</feature> -->
+
+    <feature version="${project.version}">odl-mwtn-ux-fault</feature>
+    <feature version="${project.version}">odl-mwtn-ux-config</feature>
+    <feature version="${project.version}">odl-mwtn-ux-performance</feature>
+    <feature version="${project.version}">odl-mwtn-ux-inventory</feature>
+    <feature version="${project.version}">odl-mwtn-ux-topology</feature>
+    <!-- sko not ready yet
+    <feature version="${project.version}">odl-mwtn-ux-compare</feature>
+    <feature version="${project.version}">odl-mwtn-ux-spectrum</feature>
+    <feature version="${project.version}">odl-mwtn-ux-closed-loop</feature> -->
+    <feature version="${project.version}">odl-mwtn-ux-mediator</feature>
+    <feature version="${project.version}">odl-help-core</feature>
+
+    <!-- not needed
+    <feature version="${project.version}">odl-mwtn-ux-events</feature>
+    <feature version="${project.version}">odl-mwtn-ux-test</feature>
+    <feature version="${project.version}">odl-mwtn-ux-log</feature>
+    <feature version="${project.version}">odl-mwtn-ux-chat</feature> -->
+  </feature>
+
+  <feature name="tst-mwtn-ux-all" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Release TST">
+    <feature version="${project.version}">odl-mwtn-ux-connect</feature>
+    <feature version="${project.version}">odl-mwtn-ux-config</feature>
+    <feature version="${project.version}">odl-mwtn-ux-fault</feature>
+    <feature version="${project.version}">odl-mwtn-ux-performance</feature>
+    <feature version="${project.version}">odl-mwtn-ux-topology</feature>
+    <!-- no data to compare <feature version="${project.version}">odl-mwtn-ux-compare</feature> -->
+    <feature version="${project.version}">odl-mwtn-ux-tdm</feature>
+    <feature version="${project.version}">odl-mwtn-ux-test</feature>
+    <feature version="${project.version}">odl-mwtn-ux-log</feature>
+  </feature>
+
+  <feature name="ht-mwtn-ux-1b" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Release1b">
+    <feature version="${project.version}">odl-mwtn-ux-connect</feature>
+    <feature version="${project.version}">odl-mwtn-ux-fault</feature>
+    <feature version="${project.version}">odl-mwtn-ux-config</feature>
+    <feature version="${project.version}">odl-mwtn-ux-performance</feature>
+    <feature version="${project.version}">odl-mwtn-ux-inventory</feature>
+    <feature version="${project.version}">odl-mwtn-ux-mediator</feature>
+    <feature version="${project.version}">odl-mwtn-ux-test</feature>
+    <feature version="${project.version}">odl-mwtn-ux-log</feature>
+    <feature version="${project.version}">odl-ux-help</feature>
+  </feature>
+
+<!-- All UC features for test purpose -->
+  <feature name="odl-mwtn-ux-all" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: All">
+    <feature version="${project.version}">odl-mwtn-ux-connect</feature>
+
+    <feature version="${project.version}">onap-sdnr-aai-ux</feature>
+    <feature version="${project.version}">onap-sdnr-dcae-ux</feature>
+    <feature version="${project.version}">onap-sdnr-mso-ux</feature>
+
+    <feature version="${project.version}">odl-mwtn-ux-fault</feature>
+    <feature version="${project.version}">odl-mwtn-ux-performance</feature>
+    <feature version="${project.version}">odl-mwtn-ux-config</feature>
+    <feature version="${project.version}">odl-mwtn-ux-topology</feature>
+    <!-- sko not ready yet
+    <feature version="${project.version}">odl-mwtn-ux-inventroy</feature>
+    <feature version="${project.version}">odl-mwtn-ux-compare</feature>
+    <feature version="${project.version}">odl-mwtn-ux-spectrum</feature>
+    <feature version="${project.version}">odl-mwtn-ux-closed-loop</feature> -->
+    <feature version="${project.version}">odl-mwtn-ux-mediator</feature>
+    <feature version="${project.version}">odl-mwtn-ux-events</feature>
+    <feature version="${project.version}">odl-mwtn-ux-test</feature>
+    <feature version="${project.version}">odl-mwtn-ux-log</feature>
+    <feature version="${project.version}">odl-mwtn-ux-chat</feature>
+    <feature version="${project.version}">odl-ux-help</feature>
+  </feature>
+
+<!--
+    Section 2: UX basis feature, used by all features in section 3
+ -->
+
+  <feature name="odl-ux-commons" version="${project.version}" description="OpenDaylight :: UX :: Commons">
+    <bundle>mvn:com.highstreet.technologies.apigateway/apigateway-impl/${project.version}</bundle> 
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnCommons-bundle/${project.version}</bundle>
+  </feature>
+
+<!--
+    Section 3: Entry per GUI element/project
+ -->
+
+  <feature name="odl-mwtn-ux-connect" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Connect">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="onap-sdnr-aai-ux" version="${project.version}" description="ONAP :: AAI :: SDN-R :: UX">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/onapAai-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="onap-sdnr-dcae-ux" version="${project.version}" description="ONAP :: DCAE :: SDN-R :: UX">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/onapDcae-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="onap-sdnr-mso-ux" version="${project.version}" description="ONAP :: MSO :: SDN-R :: UX">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/onapMso-bundle/${project.version}</bundle>
+  </feature>
+
+  <!-- sko not needed
+  <feature name="odl-eth-ux-service" version="${project.version}" description="OpenDaylight :: ETH :: UX :: Service">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/ethService-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="odl-otn-ux-config" version="${project.version}" description="OpenDaylight :: OTN :: UX :: Configuration">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/otnBrowser-bundle/${project.version}</bundle>
+  </feature>
+  -->
+
+  <feature name="odl-mwtn-ux-fault" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Fault">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnFault-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="odl-mwtn-ux-config" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Configuration">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnBrowser-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="odl-mwtn-ux-performance" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Performance">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceCurrent-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceHistory-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceLink-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="odl-mwtn-ux-inventory" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Inventory">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnInventory-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="odl-mwtn-ux-topology" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Topology">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnTopology-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="odl-mwtn-ux-tdm" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: TDM">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnTdm-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="odl-ux-help" version="${project.version}" description="OpenDaylight :: UX :: Help">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/help-bundle/${project.version}</bundle>
+  </feature>
+
+<!--
+  <feature name="odl-mwtn-ux-compare" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Comparision">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnCompare-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="odl-mwtn-ux-spectrum" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Spectrum Management">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/${project.version}</bundle>
+    <bundle>mvn:cn.com.zte.odl.dlux/mwtnSpectrum-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="odl-mwtn-ux-closed-loop" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Closed Loop Automation">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnClosedLoop-bundle/${project.version}</bundle>
+  </feature>
+-->
+  <feature name="odl-mwtn-ux-events" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Events">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnEvents-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="odl-mwtn-ux-test" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Test">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnTest-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="odl-mwtn-ux-mediator" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Mediator">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnMediator-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="odl-mwtn-ux-log" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Log">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnLog-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="odl-mwtn-ux-chat" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Chat">
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/odlChat-bundle/${project.version}</bundle>
+  </feature>
+
+</features>

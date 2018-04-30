@@ -22,7 +22,6 @@ import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.binding.api.MountPoint;
 import org.opendaylight.controller.md.sal.binding.api.NotificationService;
 import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
-import org.opendaylight.mwtn.aotsMConnector.impl.AotsMProviderClient;
 import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
 import org.opendaylight.mwtn.devicemanager.impl.database.service.HtDatabaseEventsService;
@@ -73,12 +72,12 @@ import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.r
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.mw.hybrid.mw.structure.pac.HybridMwStructureCurrentProblems;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.mw.pure.ethernet.structure.pac.PureEthernetStructureCurrentProblems;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.mw.tdm.container.pac.TdmContainerCurrentProblems;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.onf.core.model.conditional.packages.rev170402.NetworkElementCurrentProblemsG;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.onf.core.model.conditional.packages.rev170402.NetworkElementPac;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.onf.core.model.conditional.packages.rev170402.network.element.pac.NetworkElementCurrentProblems;
 //import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.onf.core.model.conditional.packages.rev170402.NetworkElementPac;
 //import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.onf.core.model.conditional.packages.rev170402.network.element.pac.NetworkElementCurrentProblems;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.onf.ethernet.conditional.packages.rev170402.EthernetPac;
+import org.opendaylight.yangtools.concepts.ListenerRegistration;
 import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
 import org.opendaylight.yangtools.yang.common.QName;
 import org.slf4j.Logger;
@@ -137,6 +136,7 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
     /** Interface used for device monitoring (dm). If not null it contains the interface that is used for monitoring calls */
     private @Nullable InstanceIdentifier<AirInterfaceCurrentProblems> dmAirIfCurrentProblemsIID = null;
     private final boolean isNetworkElementCurrentProblemsSupporting12;
+    private ListenerRegistration<MicrowaveEventListener12> listenerRegistrationresult;
 
     /*-----------------------------------------------------------------------------
      * Construction
@@ -153,19 +153,19 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
      */
     private ONFCoreNetworkElement12(String mountPointNodeName, Capabilities capabilities,
             DataBroker netconfNodeDataBroker, WebSocketServiceClient webSocketService,
-            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider ,AotsMProviderClient aotsmClient) {
+            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider) {
 
         super(mountPointNodeName, netconfNodeDataBroker, capabilities );
 
         //Create MicrowaveService here
-        this.microwaveEventListener = new MicrowaveEventListener12(mountPointNodeName, webSocketService, databaseService, ecompProvider,aotsmClient);
+        this.microwaveEventListener = new MicrowaveEventListener12(mountPointNodeName, webSocketService, databaseService, ecompProvider);
         this.isNetworkElementCurrentProblemsSupporting12 = capabilities.isSupportingNamespace(NetworkElementPac.QNAME);
         LOG.debug("support necurrent-problem-list="+this.isNetworkElementCurrentProblemsSupporting12);
         LOG.info("Create NE instance {}", InstanceList.QNAME.getLocalName());
     }
 
     /**
-     * Check capabilites are matching the this specific implementation and create network element representation if so.
+     * Check capabilities are matching the this specific implementation and create network element representation if so.
      * @param mountPointNodeName as String
      * @param capabilities of the specific network element
      * @param netconfNodeDataBroker for the network element specific data
@@ -176,8 +176,8 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
      */
     public static @Nullable ONFCoreNetworkElement12 build(String mountPointNodeName, Capabilities capabilities,
             DataBroker netconfNodeDataBroker, WebSocketServiceClient webSocketService,
-            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider ,AotsMProviderClient aotsmClient) {
-        return checkType(capabilities) ? new ONFCoreNetworkElement12(mountPointNodeName, capabilities, netconfNodeDataBroker, webSocketService, databaseService, ecompProvider,aotsmClient ) : null;
+            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider) {
+        return checkType(capabilities) ? new ONFCoreNetworkElement12(mountPointNodeName, capabilities, netconfNodeDataBroker, webSocketService, databaseService, ecompProvider) : null;
     }
 
     /*-----------------------------------------------------------------------------
@@ -269,41 +269,49 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
      * Sychronization
      */
 
+    /**
+     * Query synchronization information out of NE
+     */
+
     @Override
     public void sync() {
         //ClockIdentityType vv;
         try {
             if (! capabilities.isSupportingNamespace(InstanceList.QNAME)) {
-                LOG.info("Mountpoint {} does not support PTP", mountPointNodeName);
+                LOG.debug("Mountpoint {} does not support PTP", mountPointNodeName);
             } else {
                 StringBuffer sb = new StringBuffer();
-                sb.append("NE "+mountPointNodeName+" does support synchronisation");
+                sb.append("NE "+mountPointNodeName+" does support synchronisation.\n");
                 InstanceList ptpInstance = readPTPClockInstances();
-                List<PortDsList> dsList =  ptpInstance==null?null:ptpInstance.getPortDsList();
-                if (dsList != null) {
-                    int t = 0;
-                    for (PortDsEntry portDs : ptpInstance.getPortDsList() ) {
-                        PortIdentity portId = portDs.getPortIdentity();
-                        if (portId != null) {
-                            sb.append("Port[");
-                            sb.append(portDs.getPortIdentity().getPortNumber());
-                            sb.append("]{ ClockId: ");
-                            sb.append(portDs.getPortIdentity().getClockIdentity());
-                            sb.append(", Portstate: ");
-                            sb.append(portDs.getPortState());
-                            sb.append("}, ");
-                        } else {
-                            sb.append("Incomplete port #"+t+", ");
-                        }
-                        t++;
-                    }
+                if (ptpInstance != null) {
+                	List<PortDsList> dsList = ptpInstance.getPortDsList();
+                	if (dsList != null) {
+                		int t = 0;
+                		for (PortDsEntry portDs : ptpInstance.getPortDsList() ) {
+                			PortIdentity portId = portDs.getPortIdentity();
+                			if (portId != null) {
+                				sb.append("Port[");
+                				sb.append(portId.getPortNumber());
+                				sb.append("]{ ClockId: ");
+                				sb.append(portId.getClockIdentity());
+                				sb.append(", Portstate: ");
+                				sb.append(portDs.getPortState());
+                				sb.append("}, ");
+                			} else {
+                				sb.append("Incomplete port #"+t+", ");
+                			}
+                			t++;
+                		}
+                	} else {
+                    	sb.append("dsList contains null");
+                	}
                 }
                 else
-                	LOG.debug(String.format("dsList is null (ptpInstance=%s,dslist=%s)",ptpInstance==null?"null":ptpInstance.toString(),dsList==null?"null":dsList.toString()));
-                LOG.info(sb.toString());
+                	sb.append("ptpInstance equals null");
+                LOG.trace(sb.toString());
             }
         } catch (Exception e) {
-            LOG.error("(..something..) failed: "+ e.getMessage()); // TODO => error pushed on bsc430
+            LOG.info("Inconsistent synchronisation structure: "+ e.getMessage());
         }
 
     }
@@ -407,80 +415,82 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
      */
     private List<ProblemNotificationXml> readAllCurrentProblemsToDB() {
 
-            //Step 2.3: read the existing faults and add to DB
-            List<ProblemNotificationXml> resultList = new ArrayList<>();
-            int idxStart; //Start index for debug messages
-            UniversalId uuid;
+    	//Step 2.3: read the existing faults and add to DB
+    	List<ProblemNotificationXml> resultList = new ArrayList<>();
+    	int idxStart; //Start index for debug messages
+    	UniversalId uuid;
 
-            synchronized(pmLock) {
-                for (Lp ltp : interfaceList) {
+    	synchronized(pmLock) {
+    		for (Lp ltp : interfaceList) {
 
-                    idxStart = resultList.size();
-                    uuid = ltp.getUuid();
-                    Class<?> lpClass = getLpExtension(ltp);
+    			idxStart = resultList.size();
+    			uuid = ltp.getUuid();
+    			Class<?> lpClass = getLpExtension(ltp);
 
-                    ONFLayerProtocolName lpName = ONFLayerProtocolName.valueOf(ltp.getLayerProtocolName());
-                    switch(lpName) {
-                        case MWAirInterface:
-                            readTheFaultsOfMwAirInterfacePac(uuid, resultList);
-                            synchronized (dmLock) {
-                                if (dmAirIfCurrentProblemsIID == null) {
-                                    dmAirIfCurrentProblemsIID = getMWAirInterfacePacIId(uuid);
-                                }
-                            }
-                            break;
+    			ONFLayerProtocolName lpName = ONFLayerProtocolName.valueOf(ltp.getLayerProtocolName());
+    			switch(lpName) {
+    			case MWAirInterface:
+    				readTheFaultsOfMwAirInterfacePac(uuid, resultList);
+    				synchronized (dmLock) {
+    					if (dmAirIfCurrentProblemsIID == null) {
+    						dmAirIfCurrentProblemsIID = getMWAirInterfacePacIId(uuid);
+    					}
+    				}
+    				break;
 
-                        case EthernetContainer12:
-                            readTheFaultsOfMwEthernetContainerPac(uuid, resultList);
-                            break;
+    			case EthernetContainer12:
+    				readTheFaultsOfMwEthernetContainerPac(uuid, resultList);
+    				break;
 
-                        case TDMContainer:
-                            readTheFaultsOfMwTdmContainerPac(uuid, resultList);
-                            break;
+    			case TDMContainer:
+    				readTheFaultsOfMwTdmContainerPac(uuid, resultList);
+    				break;
 
-                        case Structure:
-                            if (lpClass == MwHybridMwStructurePac.class) {
-                                readTheFaultsOfMwHybridMwStructurePac(uuid, resultList);
+    			case Structure:
+    				if (lpClass == MwHybridMwStructurePac.class) {
+    					readTheFaultsOfMwHybridMwStructurePac(uuid, resultList);
 
-                            } else if (lpClass == MwAirInterfaceDiversityPac.class) {
-                                readTheFaultsOfMwAirInterfaceDiversityPac(uuid, resultList);
+    				} else if (lpClass == MwAirInterfaceDiversityPac.class) {
+    					readTheFaultsOfMwAirInterfaceDiversityPac(uuid, resultList);
 
-                            } else if (lpClass == MwPureEthernetStructurePac.class) {
-                                readTheFaultsOfMwPureEthernetStructurePac(uuid, resultList);
+    				} else if (lpClass == MwPureEthernetStructurePac.class) {
+    					readTheFaultsOfMwPureEthernetStructurePac(uuid, resultList);
 
-                            } else {
-                                LOG.warn("Unassigned lp model {} class {}", lpName, lpClass);
-                            }
-                            break;
+    				} else {
+    					LOG.warn("Unassigned lp model {} class {}", lpName, lpClass);
+    				}
+    				break;
 
-                        case Ethernet:
-                            //No alarms supported
-                            break;
-                        case EthernetContainer10:
-                        default:
-                            LOG.warn("Unassigned or not expected lp in model {}", lpName);
-                    }
+    			case Ethernet:
+    				//No alarms supported
+    				break;
+    			case EthernetContainer10:
+    			default:
+    				LOG.warn("Unassigned or not expected lp in model {}", lpName);
+    			}
 
-                    debugResultList(uuid.getValue(), resultList, idxStart);
+    			debugResultList(uuid.getValue(), resultList, idxStart);
 
-                }
-            }
+    		}
+    	}
 
-            //Step 2.4: Read other problems from Mountpoint
-            if (isNetworkElementCurrentProblemsSupporting10) {
-                idxStart = resultList.size();
-                readNetworkElementCurrentProblems10(resultList);
-                debugResultList("CurrentProblems10", resultList, idxStart);
-            }
+    	//Step 2.4: Read other problems from mountpoint
+    	if (isNetworkElementCurrentProblemsSupporting10) {
+    		idxStart = resultList.size();
+    		readNetworkElementCurrentProblems10(resultList);
+    		debugResultList("CurrentProblems10", resultList, idxStart);
+    	}
 
-            //Step 2.5: Read other problems from Mountpoint
-            if (isNetworkElementCurrentProblemsSupporting12) {
-                idxStart = resultList.size();
-                readNetworkElementCurrentProblems12(resultList);
-                debugResultList("CurrentProblems12", resultList, idxStart);
-            }
+    	//Step 2.5: Read other problems from mountpoint
+    	if (isNetworkElementCurrentProblemsSupporting12) {
+    		idxStart = resultList.size();
+    		readNetworkElementCurrentProblems12(resultList);
+    		debugResultList("CurrentProblems12", resultList, idxStart);
+    	}
 
-            return resultList;
+    	return resultList;
+
+
     }
 
     /**
@@ -1123,8 +1133,8 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
     }
 
     /**
-     * Read problems of specific interfaces
-     *
+     * Read problems of specific interfaces.
+     * TODO Goal for future implementation without usage of explicit new. Key is generated by newInstance() function here to verify this approach.
      * @param uuId Universal index of Interfacepac
      * @return number of alarms
      * @throws SecurityException
@@ -1167,7 +1177,7 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
             }
         } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
                 | IllegalArgumentException | InvocationTargetException e) {
-            LOG.error("(..something..) failed", e);
+            LOG.warn("Could not reade instance of MwTdmContainerPacKey: ", e);
         }
         return resultList;
     }
@@ -1186,10 +1196,12 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
      */
     @Override
     public void doRegisterMicrowaveEventListener(MountPoint mountPoint) {
+        LOG.info("End registration listener for Mountpoint {}", mountPoint.getIdentifier().toString());
         final Optional<NotificationService> optionalNotificationService = mountPoint.getService(NotificationService.class);
         final NotificationService notificationService = optionalNotificationService.get();
         //notificationService.registerNotificationListener(microwaveEventListener);
-        notificationService.registerNotificationListener(microwaveEventListener);
+        listenerRegistrationresult = notificationService.registerNotificationListener(microwaveEventListener);
+        LOG.info("End registration listener for Mountpoint {} Listener: {} Result: {}", mountPoint.getIdentifier().toString(), optionalNotificationService, listenerRegistrationresult);
     }
 
 

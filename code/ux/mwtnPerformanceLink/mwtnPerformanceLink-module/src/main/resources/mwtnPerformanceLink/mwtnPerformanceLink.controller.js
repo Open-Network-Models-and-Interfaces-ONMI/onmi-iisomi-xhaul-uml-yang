@@ -17,8 +17,7 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
         $mwtnLog.info({ component: COMPONENT, message: 'mwtn Link Performance started!' });
 
         $rootScope.section_logo = 'src/app/mwtnPerformanceLink/images/mwtnPerformance.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
-        $scope.odlKarafVersion = $mwtnPerformanceLink.odlKarafVersion; 
-
+    
         var globalFilter;
 
         //time selector
@@ -73,7 +72,7 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
         };
 
         var initLinkIds = function () {
-          var functionId = 'org.opendaylight.mwtn.performancemanager';
+          var functionId = 'sdnperformance';
           var docType = 'historicalperformance15min';
           if ($scope.timePeriod !== $scope.timePeriods[0]) {
             docType = 'historicalperformance24h';
@@ -3072,7 +3071,7 @@ define(['app/mwtnPerformanceLink/mwtnPerformanceLink.module',
         $scope.$watch('linkId', function (newValue, oldValue) {
           if (newValue && oldValue !== "" && newValue !== oldValue) {
 
-            var functionId = 'org.opendaylight.mwtn.performancemanager';
+            var functionId = 'sdnperformance';
             var docType = 'historicalperformance15min';
             if ($scope.timePeriod !== $scope.timePeriods[0]) {
               docType = 'historicalperformance24h';

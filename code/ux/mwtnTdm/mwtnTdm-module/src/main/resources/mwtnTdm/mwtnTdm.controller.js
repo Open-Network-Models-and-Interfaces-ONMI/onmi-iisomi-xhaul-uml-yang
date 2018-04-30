@@ -16,8 +16,7 @@ define(['app/mwtnTdm/mwtnTdm.module',
 
         var COMPONENT = 'mwtnTdmCtrl';
         $rootScope.section_logo = 'src/app/mwtnTdm/images/mwtnTdm.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
-        $scope.odlKarafVersion = $mwtnTdm.odlKarafVersion; 
-
+ 
         $scope.highlightFilteredHeader = $mwtnTdm.highlightFilteredHeader;
         $scope.gridOptions = JSON.parse(JSON.stringify($mwtnTdm.gridOptions));
         $scope.gridOptions.onRegisterApi = function (gridApi) {

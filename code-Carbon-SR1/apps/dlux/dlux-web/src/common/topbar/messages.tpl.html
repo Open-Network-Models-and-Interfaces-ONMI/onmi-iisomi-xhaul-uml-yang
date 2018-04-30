@@ -1,0 +1,28 @@
+<li class="dropdown">
+    <a data-toggle="dropdown" class="dropdown-toggle" href="">
+        <i class="icon-envelope icon-animated-vertical"></i>
+    </a>
+    <ul class="dropdown-menu dropdown-messages">
+        <li ng-repeat="message in messages.latest">
+            <a href="#">
+               <!-- <img src="/avatars/{{message.img}}" class="msg-photo" alt="{{message.name}}'s Avatar"> Do not need it for now -->
+               <div>
+                    <strong>{{message.name}}</strong>
+                    <span class="pull-right text-muted">
+                        <em>{{message.time}}</em>
+                    </span>
+                </div>
+                <div>{{message.summary}}</div>
+            </a>
+        </li>
+
+        
+        <li>
+            <a href="#" class="text-center">
+                <strong>Read All Messages</strong>
+                <i class="icon-arrow-right"></i>
+            </a>
+        </li>
+
+    </ul>
+</li>

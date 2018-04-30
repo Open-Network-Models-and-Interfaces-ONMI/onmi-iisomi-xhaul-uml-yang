@@ -24,12 +24,12 @@ define(['angularAMD',
 
     NavHelperProvider.addControllerUrl('app/mwtnTest/mwtnTest.controller');
     NavHelperProvider.addToMenu('mwtnTest', {
-     "link" : "#/pnfTest/",
+     "link" : "#/mwtnTest/",
      "active" : "main.mwtnTest",
-     "title" : "pnf Test",
+     "title" : "MWTN Test",
      "icon" : "fa fa-check-square-o",  // Add navigation icon css class here
      "page" : {
-        "title" : "pnf Test",
+        "title" : "MWTN Test",
         "description" : "mwtnTest"
      }
     });
@@ -37,7 +37,7 @@ define(['angularAMD',
     var access = routingConfig.accessLevels;
 
     $stateProvider.state('main.mwtnTest', {
-        url: 'pnfTest/:nodeId',
+        url: 'mwtnTest/:nodeId',
         access: access.admin,
         views : {
             content : {

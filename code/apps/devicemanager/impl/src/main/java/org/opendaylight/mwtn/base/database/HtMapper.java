@@ -32,7 +32,7 @@ import com.fasterxml.jackson.databind.JsonNode;
  */
 public class HtMapper<T> {
 
-    private static final Logger log = LoggerFactory.getLogger(HtDatabaseClientAbstract.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(HtDatabaseClientAbstract.class);
 
     private final Class<? extends T> clazz;
 

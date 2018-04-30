@@ -9,6 +9,7 @@
 package org.opendaylight.mwtn.devicemanager.impl.listener;
 
 import java.util.Map.Entry;
+
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.binding.api.DataChangeListener;
 import org.opendaylight.controller.md.sal.common.api.data.AsyncDataBroker.DataChangeScope;
@@ -31,14 +32,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("deprecation")
-public class NetconfSubscriptionManagerOfDeviceManager implements DataChangeListener {
+public class NetconfSubscriptionManagerOfDeviceManager implements DataChangeListener, AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(NetconfSubscriptionManagerOfDeviceManager.class);
 
-    public static final InstanceIdentifier<Topology> NETCONF_TOPO_IID = InstanceIdentifier.create(NetworkTopology.class)
-            .child(Topology.class, new TopologyKey(new TopologyId(TopologyNetconf.QNAME.getLocalName())));
+    private static final InstanceIdentifier<Node> NETCONF_NODE_TOPO_IID = InstanceIdentifier.create(NetworkTopology.class)
+            .child(Topology.class, new TopologyKey(new TopologyId(TopologyNetconf.QNAME.getLocalName())))
+            .child(Node.class);
 
-    public static final String CONTROLLER = "controller-config";
+    private static final String CONTROLLER = "controller-config";
 
     private final DeviceManagerService deviceManagerService;
     private final DataBroker dataBroker;
@@ -51,9 +53,10 @@ public class NetconfSubscriptionManagerOfDeviceManager implements DataChangeList
 
     public void register() {
         dclReg = dataBroker.registerDataChangeListener(LogicalDatastoreType.OPERATIONAL,
-                NETCONF_TOPO_IID.child(Node.class), this, DataChangeScope.SUBTREE);
+        		NETCONF_NODE_TOPO_IID, this, DataChangeScope.SUBTREE);
     }
 
+    @Override
     public void close() {
         if (dclReg != null) {
             dclReg.close();
@@ -73,71 +76,75 @@ public class NetconfSubscriptionManagerOfDeviceManager implements DataChangeList
         	LOG.trace("OnDataChange, change {}", change);
         }
 
-        // Created
-        for (Entry<InstanceIdentifier<?>, DataObject> entry : change.getCreatedData().entrySet()) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("CreateKey: {}", entry.getKey().toString());
-            }
-            if (entry.getKey().getTargetType() == NetconfNode.class) {
-                NodeId nNodeId = entry.getKey().firstKeyOf(Node.class).getNodeId();
-                if (nNodeId != null && !nNodeId.getValue().equals(CONTROLLER)) {
-                    NetconfNode nNode = (NetconfNode) entry.getValue();
-                    deviceManagerService.mountpointNodeCreation(nNodeId, nNode);
-                }
-            }
-        }
+        try {
+        	// Created
+        	for (Entry<InstanceIdentifier<?>, DataObject> entry : change.getCreatedData().entrySet()) {
+        		if (LOG.isDebugEnabled()) {
+        			LOG.debug("CreateKey: {}", entry.getKey().toString());
+        		}
+        		if (entry.getKey().getTargetType() == NetconfNode.class) {
+        			NodeId nNodeId = entry.getKey().firstKeyOf(Node.class).getNodeId();
+        			if (nNodeId != null) {
+        				if (!nNodeId.getValue().equals(CONTROLLER)) {
+        					NetconfNode nNode = (NetconfNode) entry.getValue();
+        					deviceManagerService.mountpointNodeCreation(nNodeId, nNode);
+        				}
+        			}
+        		}
+        	}
 
-        // Removed
-        for (InstanceIdentifier<?> path : change.getRemovedPaths()) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("RemoveKey: {}", path.toString());
-            }
-            NodeId nNodeId = path.firstKeyOf(Node.class).getNodeId();
-            if (nNodeId != null && !nNodeId.getValue().equals(CONTROLLER)) {
-                deviceManagerService.mountpointNodeRemoved(nNodeId);
-            }
-        }
+			// Removed
+			for (InstanceIdentifier<?> path : change.getRemovedPaths()) {
+			    if (LOG.isDebugEnabled()) {
+			        LOG.debug("RemoveKey: {}", path.toString());
+			    }
+			    NodeId nNodeId = path.firstKeyOf(Node.class).getNodeId();
+			    if (nNodeId != null && !nNodeId.getValue().equals(CONTROLLER)) {
+			        deviceManagerService.mountpointNodeRemoved(nNodeId);
+			    }
+			}
 
 
-        // Updated
-        for (Entry<InstanceIdentifier<?>, DataObject> entry : change.getUpdatedData().entrySet()) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("UpdatedKey: {}", entry.getKey().toString());
-            }
+			// Updated
+			for (Entry<InstanceIdentifier<?>, DataObject> entry : change.getUpdatedData().entrySet()) {
+			    if (LOG.isDebugEnabled()) {
+			        LOG.debug("UpdatedKey: {}", entry.getKey().toString());
+			    }
 
-            if (entry.getKey().getTargetType() == NetconfNode.class) {
-                NodeId nodeId = entry.getKey().firstKeyOf(Node.class).getNodeId();
+			    if (entry.getKey().getTargetType() == NetconfNode.class) {
+			        NodeId nodeId = entry.getKey().firstKeyOf(Node.class).getNodeId();
 
-                if (nodeId != null && !nodeId.getValue().equals(CONTROLLER)) {
-                    NetconfNode nnode = (NetconfNode) entry.getValue();
-                    ConnectionStatus csts = nnode.getConnectionStatus();
+			        if (nodeId != null && !nodeId.getValue().equals(CONTROLLER)) {
+			            NetconfNode nnode = (NetconfNode) entry.getValue();
+			            ConnectionStatus csts = nnode.getConnectionStatus();
 
-                    switch (csts) {
-                        case Connected: {
-                            LOG.debug("NETCONF Node: {} is fully connected", nodeId.getValue());
-                            //deviceManagerService.startListenerOnNode(nodeId.getValue());
-                            deviceManagerService.startListenerOnNode(nodeId, nnode);
-                            break;
-                        }
+			            switch (csts) {
+			                case Connected: {
+			                    LOG.debug("NETCONF Node: {} is fully connected", nodeId.getValue());
+			                    //deviceManagerService.startListenerOnNode(nodeId.getValue());
+			                    deviceManagerService.startListenerOnNode(nodeId, nnode);
+			                    break;
+			                }
 
-                        case Connecting: {
-                            LOG.debug("NETCONF Node: {} was disconnected", nodeId.getValue());
-                            //deviceManagerService.removeListenerOnNode(nodeId.getValue());
-                            deviceManagerService.removeListenerOnNode(nodeId, nnode);
-                            break;
-                        }
-                        case UnableToConnect: {
-                            LOG.debug("NETCONF Node: {} connection failed", nodeId.getValue());
-                            //deviceManagerService.removeListenerOnNode(nodeId.getValue());
-                            deviceManagerService.removeListenerOnNode(nodeId, nnode);
-                            break;
-                        }
-                    }
-                }
+			                case Connecting: {
+			                    LOG.debug("NETCONF Node: {} was disconnected", nodeId.getValue());
+			                    //deviceManagerService.removeListenerOnNode(nodeId.getValue());
+			                    deviceManagerService.removeListenerOnNode(nodeId, nnode);
+			                    break;
+			                }
+			                case UnableToConnect: {
+			                    LOG.debug("NETCONF Node: {} connection failed", nodeId.getValue());
+			                    //deviceManagerService.removeListenerOnNode(nodeId.getValue());
+			                    deviceManagerService.removeListenerOnNode(nodeId, nnode);
+			                    break;
+			                }
+			            }
+			        }
 
-            }
-        }
+			    }
+			} //for
+		} catch (Exception e) {
+			LOG.error("Can not process event: ",e);
+		}
     }
-
-
 }

@@ -25,7 +25,6 @@ define(['app/mwtnPerformanceCurrent/mwtnPerformanceCurrent.module',
         layerProtocol: 'unknown'
       };
 
-      $scope.odlKarafVersion = $mwtnPerformanceCurrent.odlKarafVersion; 
       $scope.layerProtocol = 'MWPS';
       $scope.layerProtocols = ['MWPS', 'ETC'];
 

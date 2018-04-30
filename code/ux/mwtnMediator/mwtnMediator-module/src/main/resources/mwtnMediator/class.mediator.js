@@ -75,6 +75,21 @@ MediatorConfig.DEVICETYPE_ACTIONTEC_ECB6200 = 4;
 MediatorConfig.DEVICETYPE_ACTIONTEC_ECB6000 = 5;
 MediatorConfig.DEVICETYPE_COMMSCOPE_DAS = 6;
 
+function MediatorConfigStatus(obj){
+	this.Status=obj.Status;
+	this.Name=obj.Name;
+};
+MediatorConfigStatus.STATUS_OKAY = 1;
+MediatorConfigStatus.STATUS_CORRUPTED = 2;
+MediatorConfigStatus.STATUS_LOCKED = 3;
+MediatorConfigStatus.STATUS_REPAIRED = 4;
+MediatorConfigStatus.StatusTypes=[
+	{Value:MediatorConfigStatus.STATUS_OKAY,Name:"Okay"},
+	{Value:MediatorConfigStatus.STATUS_CORRUPTED,Name:"Corrupted"},
+	{Value:MediatorConfigStatus.STATUS_LOCKED,Name:"Locked"},
+	{Value:MediatorConfigStatus.STATUS_REPAIRED,Name:"Repaired"}
+];
+
 MediatorConfig.DeviceTypes=[
 {Value:MediatorConfig.DEVICETYPE_SIMULATOR,Name:"Simulator"},
 {Value:MediatorConfig.DEVICETYPE_DW_HORIZON_COMPACT_PLUS,Name:"DragonWave Compact Plus"},
@@ -243,6 +258,23 @@ MediatorServer.prototype.LoadNetworkElementXMLFiles = function(cb,cbError) {
 			cbError(err);
 	});
 }
+MediatorServer.prototype.LoadLogs = function(name,cb,cbError)
+{
+	var _self = this;
+	this.post("getlog&name="+name,function(response){
+		if (response.code == 1) {
+			if (cb !== undefined)
+				cb(response.data);
+		} else
+		{	_self.log(response.data);
+			if(cbError!==undefined)
+				cbError(response.data);
+		}
+	},function(err){
+		if(cbError!==undefined)
+			cbError(err);
+	});
+}
 MediatorServer.prototype.LoadAvailableNCPorts = function(cb,cbError)
 {
 	var _self = this;
@@ -339,6 +371,39 @@ MediatorServer.prototype.LoadConfigs = function(cb,cbError) {
 			_self.onConfigsReceived(response.data);
 			if (cb !== undefined)
 				cb(_self._mediatorConfigs);
+		} else {
+			_self.log(response.data);
+		}
+
+	},function(err){
+		if(cbError!==undefined)
+			cbError(err);
+	});
+}
+MediatorServer.prototype.Repair = function(cb,cbError)
+{
+	var _self = this;
+	this.post("repair", function(response) {
+		if (response.code == 1) {
+			if (cb !== undefined)
+				cb(response.data);
+		} else {
+			_self.log(response.data);
+			if(cbError!==undefined)
+				cbError(response.data);
+		}
+	},function(err){
+		if(cbError!==undefined)
+			cbError(err);
+	});
+}
+MediatorServer.prototype.LoadVersion = function(cb,cbError)
+{
+	var _self = this;
+	this.post("version", function(response) {
+		if (response.code == 1) {
+			if (cb !== undefined)
+				cb(response.data);
 		} else {
 			_self.log(response.data);
 		}

@@ -29,33 +29,25 @@ define(['angularAMD',
 
     $translatePartialLoaderProvider.addPart('app/mwtnCommons/locale/locale');
 
-
-//    NavHelperProvider.addControllerUrl('app/mwtnCommons/mwtnCommons.controller');
-//    NavHelperProvider.addToMenu('mwtnCommons', {
-//     "link" : "#/pnfCommons",
-//     "active" : "main.mwtnCommons",
-//     "title" : "pnf Commons",
-//     "icon" : "",  // Add navigation icon css class here
-//     "page" : {
-//        "title" : "pnf Commons",
-//        "description" : "mwtnCommons"
-//     }
-//    });
-
     var access = routingConfig.accessLevels;
 
-//    $stateProvider.state('main.mwtnCommons', {
-//        url: 'pnfCommons',
-//        access: access.admin,
-//        views : {
-//            'content' : {
-//                templateUrl: 'src/app/mwtnCommons/mwtnCommons.tpl.html',
-//                controller: 'mwtnCommonsCtrl'
-//            }
-//        }
-//    });
-
   });
+
+  mwtnCommonsApp.directive('htHeader', [ '$injector' ,function ($injector) {
+    return {
+       template: '<div class="ht-header"><div class="ht-header-right"><alarm-status ng-if="mwtnFaultExists"></alarm-status><help  ng-if="helpExists" link="{{helpLink}}" ></help></div></div>',
+      controller: ['$scope', function ($scope) {
+        $scope.helpExists = $injector.has('helpDirective');
+        $scope.mwtnFaultExists = $injector.has('alarmStatusDirective');
+      }],
+      restict: "EA",
+      replace: true,
+      scope: {
+        helpLink: "@"
+      }
+    };
+  }]);
+
 
   return mwtnCommonsApp;
 });

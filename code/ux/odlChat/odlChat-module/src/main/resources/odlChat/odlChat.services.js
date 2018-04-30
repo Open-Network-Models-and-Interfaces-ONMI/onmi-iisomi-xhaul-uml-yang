@@ -27,7 +27,7 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/odlChat/odlChat.module'],func
     var service = {
       base : ENV.getBaseURL("MD_SAL") + "/restconf/",
     };
-    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
+    
 
     service.getData = function(event, callback) {
 

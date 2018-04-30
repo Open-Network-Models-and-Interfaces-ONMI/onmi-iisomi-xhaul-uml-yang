@@ -5,7 +5,6 @@ package org.opendaylight.mwtn.base.netconf;
 
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.networkelement.currentproblemlist.rev161120.NetworkElementCurrentProblems;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.onf.core.model.conditional.packages.rev170402.NetworkElementPac;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

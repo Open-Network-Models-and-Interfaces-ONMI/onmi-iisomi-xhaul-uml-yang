@@ -18,7 +18,7 @@ define(['app/mwtnInventory/mwtnInventory.module','app/mwtnCommons/mwtnCommons.se
     service.formatData = $mwtnCommons.formatData;
     service.formatTimeStamp = $mwtnCommons.formatTimeStamp;
     service.deleteDocType = $mwtnDatabase.deleteDocType;
-    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
+    
     
     service.TimeStampToONFFormat=function(timestamp){
 
@@ -36,7 +36,7 @@ define(['app/mwtnInventory/mwtnInventory.module','app/mwtnCommons/mwtnCommons.se
         }
       }];
       var deferred = $q.defer();
-      $mwtnDatabase.getAllData('org.opendaylight.mwtn.eventmanager', 'faultlog', from, size, sort).then(function(success){
+      $mwtnDatabase.getAllData('sdnevents', 'faultlog', from, size, sort).then(function(success){
         deferred.resolve(success);
       }, function(error){
         $mwtnLog.error({component: '$mwtnInventory.getAllLogEntries', message: JSON.stringify(error.data)});
@@ -47,7 +47,7 @@ define(['app/mwtnInventory/mwtnInventory.module','app/mwtnCommons/mwtnCommons.se
 
     service.getAllLogEntriesWithSort= function(from, size, sort){
          var deferred = $q.defer();
-         $mwtnDatabase.getAllData('org.opendaylight.mwtn.eventmanager', 'faultlog', from, size, sort).then(function(success){
+         $mwtnDatabase.getAllData('sdnevents', 'faultlog', from, size, sort).then(function(success){
          deferred.resolve(success);
       }, function(error){
         $mwtnLog.error({component: '$mwtnInventory.getAllLogEntries', message: JSON.stringify(error.data)});
@@ -58,7 +58,7 @@ define(['app/mwtnInventory/mwtnInventory.module','app/mwtnCommons/mwtnCommons.se
 
     service.getFilteredSortedData=function(from, size, sort,query){
       var deferred = $q.defer();
-         $mwtnDatabase.getFilteredSortedData('org.opendaylight.mwtn.eventmanager', 'faultlog', from, size,sort, query).then(function(success){
+         $mwtnDatabase.getFilteredSortedData('sdnevents', 'faultlog', from, size,sort, query).then(function(success){
          deferred.resolve(success);
       }, function(error){
         $mwtnLog.error({component: '$mwtnInventory.getFilteredSortedData', message: JSON.stringify(error.data)});
@@ -70,7 +70,7 @@ define(['app/mwtnInventory/mwtnInventory.module','app/mwtnCommons/mwtnCommons.se
 
     service.getFilteredData= function(from, size, query){
          var deferred = $q.defer();
-         $mwtnDatabase.getFilteredData('org.opendaylight.mwtn.eventmanager', 'faultlog', from, size, query).then(function(success){
+         $mwtnDatabase.getFilteredData('sdnevents', 'faultlog', from, size, query).then(function(success){
          deferred.resolve(success);
       }, function(error){
         $mwtnLog.error({component: '$mwtnInventory.getFilteredData', message: JSON.stringify(error.data)});
@@ -86,7 +86,7 @@ define(['app/mwtnInventory/mwtnInventory.module','app/mwtnCommons/mwtnCommons.se
         }
       }];
       var deferred = $q.defer();
-      $mwtnDatabase.getAllData('org.opendaylight.mwtn.eventmanager', 'faultcurrent', from, size, sort).then(function(success){
+      $mwtnDatabase.getAllData('sdnevents', 'faultcurrent', from, size, sort).then(function(success){
         deferred.resolve(success);
       }, function(error){
         $mwtnLog.error({component: '$mwtnInventory.getAllCurrentLogEntries', message: JSON.stringify(error.data)});

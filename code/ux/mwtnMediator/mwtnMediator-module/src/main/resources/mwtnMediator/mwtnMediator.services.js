@@ -18,9 +18,10 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnMediator/mwtnMediator.mod
     // import of mwtnCommons
     service.gridOptions = $mwtnCommons.gridOptions;
     service.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
-    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
+    
     service.getAllData = $mwtnDatabase.getAllData;
     service.getFilteredSortedData = $mwtnDatabase.getFilteredSortedData;
+    service.logGridOptions = $mwtnCommons.gridOptions;
 
     // service specific functions
     service.getServerData = function(id){
@@ -66,17 +67,24 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnMediator/mwtnMediator.mod
 
 
     };
+    /*
+    service.getMaxId = function(){
+    	var deferred = $q.defer();
+    	$mwtnDatabase.getAllData(functionid,type,0,99,sort,{'match'}).then(function(success){
 
+    	return deferred.promise;
+    };
+    */
     service.addServer = function(name,url){
     	var deferred = $q.defer();
-    	var functionid="mwtn";
-    	var type="mediator-server";
+    	var functionId="mwtn";
+    	var docType="mediator-server";
     	//check params
-
+    	var data={name:name,url:url};
     	//check if contains
     	//insert into db
     	$mwtnDatabase.createSingleDocument(functionId, docType, id, data).then(function(success){
-    		var data={};
+
 
     		deferred.resolve(data);
 		},function(error){
@@ -87,12 +95,10 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/mwtnMediator/mwtnMediator.mod
     };
     service.removeServer = function(id){
     	var deferred = $q.defer();
-    	var functionid="mwtn";
-    	var type="mediator-server";
+    	var functionId="mwtn";
+    	var docType="mediator-server";
 
     	$mwtnDatabase.deleteSingleDocument(functionId, docType, id).then(function(success){
-    		var data={};
-
     		deferred.resolve(data);
 		},function(error){
 			$mwtnLog.error({component: 'private removeServer', message: JSON.stringify(error.data)});

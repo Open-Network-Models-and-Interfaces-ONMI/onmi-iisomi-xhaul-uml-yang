@@ -7,7 +7,7 @@ import org.opendaylight.mwtn.performancemanager.impl.database.service.MicrowaveH
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PerformanceManagerImpl {
+public class PerformanceManagerImpl implements AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(PerformanceManagerImpl.class);
 

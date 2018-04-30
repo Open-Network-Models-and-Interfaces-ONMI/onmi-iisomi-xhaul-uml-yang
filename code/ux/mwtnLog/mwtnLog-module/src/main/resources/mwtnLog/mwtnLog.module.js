@@ -27,12 +27,12 @@ define(['angularAMD',
 
     NavHelperProvider.addControllerUrl('app/mwtnLog/mwtnLog.controller');
     NavHelperProvider.addToMenu('mwtnLog', {
-     "link" : "#/pnfLog",
+     "link" : "#/mwtnLog",
      "active" : "main.mwtnLog",
-     "title" : "pnf Log",
+     "title" : "MWTN Log",
      "icon" : "fa fa-list",  // Add navigation icon css class here
      "page" : {
-        "title" : "pnf Log",
+        "title" : "MWTN Log",
         "description" : "mwtnLog"
      }
     });
@@ -40,7 +40,7 @@ define(['angularAMD',
     var access = routingConfig.accessLevels;
 
     $stateProvider.state('main.mwtnLog', {
-        url: 'pnfLog',
+        url: 'mwtnLog',
         access: access.admin,
         views : {
             'content' : {

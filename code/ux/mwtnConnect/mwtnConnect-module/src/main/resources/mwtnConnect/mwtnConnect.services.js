@@ -31,7 +31,7 @@ define(['app/mwtnConnect/mwtnConnect.module','app/mwtnCommons/mwtnCommons.servic
     service.getSingleDocument = $mwtnDatabase.getSingleDocument;
     service.gridOptions = $mwtnCommons.gridOptions;
     service.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
-    service.odlKarafVersion = $mwtnCommons.odlKarafVersion;
+    
     service.registerForOdlEvents = $mwtnCommons.registerForOdlEvents;
     service.separator = $mwtnCommons.separator;
     
@@ -52,7 +52,7 @@ define(['app/mwtnConnect/mwtnConnect.module','app/mwtnCommons/mwtnCommons.servic
     
     var getFilteredSortedData = function(from, size, sort, query){
       var deferred = $q.defer();
-      $mwtnDatabase.getFilteredSortedData('org.opendaylight.mwtn.eventmanager', 'eventlog', from, size, sort, query).then(function(success){
+      $mwtnDatabase.getFilteredSortedData('sdnevents', 'eventlog', from, size, sort, query).then(function(success){
         deferred.resolve(success);
       }, function(error){
         $mwtnLog.error({component: 'private getFilteredSortedData', message: JSON.stringify(error.data)});
