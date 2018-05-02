@@ -15,56 +15,37 @@ karaf_startup_all() {
     karafcmd  "feature:install odl-mdsal-apidocs"
     karafcmd  "feature:install odl-dlux-all"
 
-    # persistent database (ElasticSearch)
-    #  karafcmd  "feature:repo-add mvn:org.apache.karaf.decanter/apache-karaf-decanter/1.1.0/xml/features"
-    #  karafcmd  "feature:install elasticsearch"
-
-    # Logs and apps
+    # Activate logs
     karaf_enable_logs DEBUG
 
-    # Wireless (mwtn: microwave transport network)
+    # Wireless apps (mwtn: microwave transport network)
     # Link to the repository with all DLUX and network applications
-     karafcmd "feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/0.4.0-SNAPSHOT/xml/features"
+    karafcmd "feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/0.4.0-SNAPSHOT/xml/features"
+    # Network applications applications and DLUX bundles
+    karafcmd "feature:install odl-mwtn-all"
 
-    # Network applications
-     karafcmd "feature:install odl-mwtn-all"
-     #Give time to initialize database
+    #Give time to initialize database
+    sleep 10
 
-     karafcmd "feature:repo-add mvn:org.opendaylight.mwtn/genericpathmanager-features/0.4.0-SNAPSHOT/xml/features"
-     karafcmd "feature:install odl-mwt-genericpathmanager"
-
-     sleep 20
-
-     karafcmd "feature:repo-add mvn:org.opendaylight.mwtn/ethernetpathmanager-features/0.4.0-SNAPSHOT/xml/features"
-     karafcmd "feature:install odl-mwt-ethernetpathmanager"
-
-     sleep 20
-
-     karafcmd "feature:repo-add mvn:org.opendaylight.mwtn/opticalpathmanager-features/0.4.0-SNAPSHOT/xml/features"
-     karafcmd "feature:install odl-mwt-opticalpathmanager"
-
-     sleep 20
-
-     #karafcmd "feature:install odl-mwt-models"
-     #karafcmd "feature:install odl-mwt-websocketmanager"
-     #karafcmd "feature:install odl-mwt-devicemanager"
-     #karafcmd "feature:install odl-mwt-template"
-
-    # Manadatory DLUX bundles
-     #karafcmd "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnCommons-bundle/0.4.0-SNAPSHOT"
-     #karafcmd "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/onapAai-bundle/0.4.0-SNAPSHOT"
-    # Basic DLUX Bundles to connect and view model
-     #karafcmd "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/0.4.0-SNAPSHOT"
-     #karafcmd "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnBrowser-bundle/0.4.0-SNAPSHOT"
-    # Applicatoin specific DLUX Bundles
-     #    karafcmd "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnFault-bundle/0.4.0-SNAPSHOT"
-     #    karafcmd "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnEvents-bundle/0.4.0-SNAPSHOT"
-     #    karafcmd "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceCurrent-bundle/0.4.0-SNAPSHOT"
-     #    karafcmd "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceHistory-bundle/0.4.0-SNAPSHOT"
-     #    karafcmd "bundle:install -s mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceLink-bundle/0.4.0-SNAPSHOT"
+    #Add this applications only if in repository
+    if [ -d $HOME/.m2/repository/org/opendaylightxi/mwtn/genericpathmanager-features ] ; then
+       karafcmd "feature:repo-add mvn:org.opendaylight.mwtn/genericpathmanager-features/0.4.0-SNAPSHOT/xml/features"
+       karafcmd "feature:install odl-mwt-genericpathmanager"
+       sleep 20
+    fi
+    if [ -d $HOME/.m2/repository/org/opendaylightxi/mwtn/ethernetpathmanager-features ] ; then
+       karafcmd "feature:repo-add mvn:org.opendaylight.mwtn/ethernetpathmanager-features/0.4.0-SNAPSHOT/xml/features"
+       karafcmd "feature:install odl-mwt-ethernetpathmanager"
+       sleep 20
+    fi
+    if [ -d $HOME/.m2/repository/org/opendaylightxi/mwtn/opticalpathmanager-features ] ; then
+       karafcmd "feature:repo-add mvn:org.opendaylight.mwtn/opticalpathmanager-features/0.4.0-SNAPSHOT/xml/features"
+       karafcmd "feature:install odl-mwt-opticalpathmanager"
+       sleep 20
+    fi
 
     #If restart is required set RESTART to true
-     RESTART="true"
+    RESTART="true"
 }
 
 karaf_enable_logs() {

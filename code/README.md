@@ -4,6 +4,8 @@ A common folder to share code for the 4th ONF Wireless PoC.
 
 According to the software architecture ODL internal applications are stored in folder "apps" (applications), while the ODL DLUX client applications are stored in folder "ux" (user experience).
 
+As preparation for a future PoC actually the applications *ethernetpathmanager*, *genericpathmanager*, *opticalpathmanager* are developed. 
+
 ## Software Architecture
 The following figure shows the proposed software architecture.
 Please consider it as a "working document" or guidelines.
