@@ -1,25 +1,19 @@
 {
-	//tapi-topology:topology-g
 	"topology":{
-		//uses tapi-common:resource-spec-g;
 		"uuid":"756ac5b3-6576-4816-8553-d57f20ebdf6e",
 		"name": [{
 			"value-name":"name",
 			"value":"Telia-Demo"
 		}],
-		//uses node-g
 		"node":[{
-			//uses tapi-common:resource-spec-g
 			"uuid":"d122ab72-da7f-46c7-8855-1fecf8de746f",
 			"name": [{
 				"value-name":"name",
 				"value":"NE01"
 			}],
-			//uses tapi-common:admin-state-pac-g
 			"administrative-state":"UNLOCKED",
 			"operational-state":"ENABLED",
 			"lifecycle-state":"INSTALLED",
-			//uses tapi-common:capacity-pac-g
 			"total-potential-capacity":{
 				"total-size":{
 					"value":112,
@@ -32,20 +26,17 @@
 					"unit":"GBPS"
 				}
 			},
-			//uses transfer-cost-pac-g
 			"cost-characteristic":[{
 				"cost-name":"telia-cost",
 				"cost-value":"100",
 				"cost-algorithm":"String2Integer"
 			}],
-			//uses transfer-integrity-pac-g
 			"error-characteristic":"none",
 			"loss-characteristic":"none",
 			"repeat-delivery-characteristic":"none",
 			"delivery-order-characteristic":"ORDERED",
 			"unavailable-time-characteristic":"none",
 			"server-integrity-process-characteristic":"NSA",
-			//uses transfer-timing-pac-g
 			"latency-characteristic":[{
 				"traffic-property-name":"low-latency",
 				"fixed-latency-characteristic":"NO",
@@ -53,22 +44,17 @@
 				"jitter-characteristic":"unknown",
 				"wander-characteristic":"unknown"
 			}],
-			//owned-node-edge-point->node-edge-point-g
 			"owned-node-edge-point":[{
-				//uses tapi-common:resource-spec-g
 				"uuid":"89b427af-b59c-4986-a1db-01b99a6012ae",
 				"name": [{
 					"value-name":"name",
 					"value":"Port01"
 				}],
-				//uses tapi-common:admin-state-pac-g
 				"administrative-state":"UNLOCKED",
 				"operational-state":"ENABLED",
 				"lifecycle-state":"INSTALLED",
-				//uses tapi-common:termination-pac-g
 				"termination-direction":"BIDIRECTIONAL",
 				"termination-state":"LT_PERMENANTLY_TERMINATED",
-				//uses tapi-common:capacity-pac-g
 				"total-potential-capacity":{
 					"total-size":{
 						"value":112,
@@ -81,15 +67,16 @@
 						"unit":"GBPS"
 					}
 				},
-				//layer-protocol-name
 				"layer-protocol-name":"OTSiA",
-				//aggregated-node-edge-point
-				"aggregated-node-edge-point":[],
-				//mapped-service-interface-point
-				"mapped-service-interface-point":[],
-				//link-port-direction
+				"aggregated-node-edge-point":[{
+					"topology-id":"756ac5b3-6576-4816-8553-d57f20ebdf6e",
+					"node-id":"d122ab72-da7f-46c7-8855-1fecf8de746f",
+					"owned-node-edge-point-id":"89b427af-b59c-4986-a1db-01b99a6012ae"
+				}],
+				"mapped-service-interface-point":[{
+					"service-interface-point-id":"88387801-3b94-42fc-826e-3555ff66ec84"
+				}],
 				"link-port-direction":"BIDIRECTIONAL",
-				//link-port-role
 				"link-port-role":"LEAF",
 				"connection-end-point":[{
 					"layer-protocol-name":"OTSiA",
@@ -99,19 +86,16 @@
 				}]
 			}],
 			"aggregated-node-edge-point":[{
-				//uses owned-node-edge-point-ref-g
-				"topology-id":"756ac5b3-6576-4816-8553-d57f20ebdf6e",//type leafref, how to use this?
+				"topology-id":"756ac5b3-6576-4816-8553-d57f20ebdf6e",
 				"node-id":"d122ab72-da7f-46c7-8855-1fecf8de746f",
 				"owned-node-edge-point-id":"89b427af-b59c-4986-a1db-01b99a6012ae"
 			}],
 			"node-rule-group":[{
-				//uses tapi-common:resource-spec-g
 				"uuid":"b48b3bcb-003d-4ca4-974b-224cbc1d70bc",
 				"name": [{
 					"value-name":"name",
 					"value":"node-rule-group"
 				}],
-				//uses tapi-common:capacity-pac-g
 				"total-potential-capacity":{
 					"total-size":{
 						"value":112,
@@ -124,13 +108,11 @@
 						"unit":"GBPS"
 					}
 				},
-				//uses transfer-cost-pac-g
 				"cost-characteristic":[{
 					"cost-name":"telia-cost",
 					"cost-value":"100",
 					"cost-algorithm":"String2Integer"
 				}],
-				//uses transfer-timing-pac-g
 				"latency-characteristic":[{
 					"traffic-property-name":"low-latency",
 					"fixed-latency-characteristic":"NO",
@@ -138,51 +120,92 @@
 					"jitter-characteristic":"unknown",
 					"wander-characteristic":"unknown"
 				}],
-				//uses risk-parameter-pac-g
 				"risk-characteristic":[{
 					"risk-characteristic-name":"no-risk"
 				}],
-				//rule
 				"rule":[{
-					//uses tapi-common:local-class-g
 					"local-id":"rule-id-01",
 					"name":[{
 						"value-name":"name",
 						"value":"rule-01"
 					}],
-					//rule-type
-					"rule-type":"FORWARDING",// Ask Martin: options {FORWARDING, CAPACITY, COST, TIMING, RISK, GROUPING}
-					"forwarding-rule":"MAY_FORWARD_ACROSS_GROUP",// Ask Martin
+					"rule-type":"FORWARDING",
+					"forwarding-rule":"MAY_FORWARD_ACROSS_GROUP",
 					"override-priority":"1"
 				}],
-				//node-edge-point
 				"node-edge-point":[{
-					"topology-id":"756ac5b3-6576-4816-8553-d57f20ebdf6e",//type leafref
+					"topology-id":"756ac5b3-6576-4816-8553-d57f20ebdf6e",
 					"node-id":"d122ab72-da7f-46c7-8855-1fecf8de746f",
 					"owned-node-edge-point-id":"89b427af-b59c-4986-a1db-01b99a6012ae"
 				}],
-				//composed-rule-group
-				"composed-rule-group":[],
-				//inter-rule-group
-				"inter-rule-group":[]
+				"composed-rule-group":[{
+					"topology-id":"756ac5b3-6576-4816-8553-d57f20ebdf6e",
+					"node-id":"d122ab72-da7f-46c7-8855-1fecf8de746f",
+					"node-rule-group-id":"da854b6f-b528-4f53-8990-7412cf2b3429"
+				}],
+				"inter-rule-group":[{
+					"uuid":"165c5805-0cd4-4a48-ab55-1ef2e8154c0a",
+					"name":[{
+						"value-name":"name",
+						"value":"inter-rule-group"
+					}],
+					"total-potential-capacity":{
+						"total-size":{
+							"value":112,
+							"unit":"GBPS"
+						}
+					},
+					"available-capacity":{
+						"total-size":{
+							"value":112,
+							"unit":"GBPS"
+						}
+					},
+					"cost-characteristic":[{
+						"cost-name":"telia-cost",
+						"cost-value":"100",
+						"cost-algorithm":"String2Integer"
+					}],
+					"latency-characteristic":[{
+						"traffic-property-name":"low-latency",
+						"fixed-latency-characteristic":"NO",
+						"queing-latency-characteristic":"none",
+						"jitter-characteristic":"unknown",
+						"wander-characteristic":"unknown"
+					}],
+					"risk-characteristic":[{
+						"risk-characteristic-name":"no-risk"
+					}],
+					"rule":[{
+						"rule-type":"FORWARDING",
+						"forwarding-rule":"MAY_FORWARD_ACROSS_GROUP",
+						"override-priority":"1"
+					}],
+					"associated-node-rule-group":[{
+						"topology-id":"756ac5b3-6576-4816-8553-d57f20ebdf6e",
+						"node-id":"d122ab72-da7f-46c7-8855-1fecf8de746f",
+						"node-rule-group-id":"da854b6f-b528-4f53-8990-7412cf2b3429"
+					},{
+						"topology-id":"756ac5b3-6576-4816-8553-d57f20ebdf6e",
+						"node-id":"d122ab72-da7f-46c7-8855-1fecf8de746f",
+						"node-rule-group-id":"da854b6f-b528-4f53-8990-7412cf2b3429"
+					}]
+				}]
 			}],
 			"encap-topology":{
-				"topology-id":"756ac5b3-6576-4816-8553-d57f20ebdf6e"//type leafref
+				"topology-id":"756ac5b3-6576-4816-8553-d57f20ebdf6e"
 			},
 			"layer-protocol-name":["OTSiA", "OCH", "ODU", "ETH", "ETY"]
 		}],
 		"link":[{
-			//uses tapi-common:resource-spec-g
 			"uuid":"b48b3bcb-003d-4ca4-974b-224cbc1d70bc",
 			"name": [{
 				"value-name":"name",
-				"value":"node-rule-group"
+				"value":"link01"
 			}],
-			//uses tapi-common:admin-state-pac-g
 			"administrative-state":"UNLOCKED",
 			"operational-state":"ENABLED",
 			"lifecycle-state":"INSTALLED",
-			//uses tapi-common:capacity-pac-g
 			"total-potential-capacity":{
 				"total-size":{
 					"value":112,
@@ -195,20 +218,17 @@
 					"unit":"GBPS"
 				}
 			},
-			//uses transfer-cost-pac-g
 			"cost-characteristic":[{
 				"cost-name":"telia-cost",
 				"cost-value":"100",
 				"cost-algorithm":"String2Integer"
 			}],
-			//uses transfer-integrity-pac-g
 			"error-characteristic":"none",
 			"loss-characteristic":"none",
 			"repeat-delivery-characteristic":"none",
 			"delivery-order-characteristic":"ORDERED",
 			"unavailable-time-characteristic":"none",
 			"server-integrity-process-characteristic":"NSA",
-			//uses transfer-timing-pac-g
 			"latency-characteristic":[{
 				"traffic-property-name":"low-latency",
 				"fixed-latency-characteristic":"NO",
@@ -216,33 +236,26 @@
 				"jitter-characteristic":"unknown",
 				"wander-characteristic":"unknown"
 			}],
-			//uses risk-parameter-pac-g
 			"risk-characteristic":[{
 				"risk-characteristic-name":"no-risk"
 			}],
-			//uses validation-pac-g
 			"validation-mechanism":[{
 				"validation-mechanism":"strict-validation",
 				"layer-protocol-adjacency-validated":"validated",
 				"validation-robustness":"100%"
 			}],
-			//uses layer-protocol-transition-pac-g
 			"transitioned-layer-protocol-name":["ETH", "ODU", "OTSiA"],
-			//list node-edge-point
 			"node-edge-point":[{
-				"topology-id":"756ac5b3-6576-4816-8553-d57f20ebdf6e",//type leafref
+				"topology-id":"756ac5b3-6576-4816-8553-d57f20ebdf6e",
 				"node-id":"d122ab72-da7f-46c7-8855-1fecf8de746f",
 				"owned-node-edge-point-id":"89b427af-b59c-4986-a1db-01b99a6012ae"
 			},{
-				"topology-id":"756ac5b3-6576-4816-8553-d57f20ebdf6e",//type leafref
+				"topology-id":"756ac5b3-6576-4816-8553-d57f20ebdf6e",
 				"node-id":"d122ab72-da7f-46c7-8855-1fecf8de746f",
 				"owned-node-edge-point-id":"89b427af-b59c-4986-a1db-01b99a6012ae"
 			}],
-			//leaf-list layer-protocol-name
 			"layer-protocol-name":["OTSiA"],
-			//leaf direction
 			"direction":"BIDIRECTIONAL",
-			//container resilience-type
 			"resilience-type":{
 				"restoration-policy":"END_TO_END_RESTORATION",
 				"protection-type":"DYNAMIC_RESTORATION"
