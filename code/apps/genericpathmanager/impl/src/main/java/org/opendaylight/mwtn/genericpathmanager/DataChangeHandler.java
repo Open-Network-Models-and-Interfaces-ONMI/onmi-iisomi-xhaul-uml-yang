@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright © 2018 sendate.eu and others.  All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -42,12 +42,12 @@ public class DataChangeHandler implements DataChangeListener {
 
     public static final String CONTROLLER = "controller-config";
 
-    private final MountpointChangeListener deviceManagerService;
+    private final MountpointChangeListener genericPathManagerService;
     private final DataBroker dataBroker;
     private ListenerRegistration<DataChangeListener> dclReg;
 
-    public DataChangeHandler(MountpointChangeListener deviceManagerService, DataBroker dataBroker) {
-        this.deviceManagerService = deviceManagerService;
+    public DataChangeHandler(MountpointChangeListener genericPathManagerService, DataBroker dataBroker) {
+        this.genericPathManagerService = genericPathManagerService;
         this.dataBroker = dataBroker;
     }
 
@@ -81,7 +81,7 @@ public class DataChangeHandler implements DataChangeListener {
                 NodeId nNodeId = entry.getKey().firstKeyOf(Node.class).getNodeId();
                 if (nNodeId != null && !nNodeId.getValue().equals(CONTROLLER)) {
                     NetconfNode nNode = (NetconfNode) entry.getValue();
-                    deviceManagerService.mountpointNodeCreation(nNodeId, nNode);
+                    genericPathManagerService.mountpointNodeCreation(nNodeId, nNode);
                 }
             }
         }
@@ -93,7 +93,7 @@ public class DataChangeHandler implements DataChangeListener {
             }
             NodeId nNodeId = path.firstKeyOf(Node.class).getNodeId();
             if (nNodeId != null && !nNodeId.getValue().equals(CONTROLLER)) {
-                deviceManagerService.mountpointNodeRemoved(nNodeId);
+                genericPathManagerService.mountpointNodeRemoved(nNodeId);
             }
         }
 
@@ -115,20 +115,20 @@ public class DataChangeHandler implements DataChangeListener {
                         case Connected: {
                             LOG.debug("NETCONF Node: {} is fully connected", nodeId.getValue());
                             //deviceManagerService.startListenerOnNode(nodeId.getValue());
-                            deviceManagerService.startListenerOnNode(nodeId, nnode);
+                            genericPathManagerService.startListenerOnNode(nodeId, nnode);
                             break;
                         }
 
                         case Connecting: {
                             LOG.debug("NETCONF Node: {} was disconnected", nodeId.getValue());
                             //deviceManagerService.removeListenerOnNode(nodeId.getValue());
-                            deviceManagerService.removeListenerOnNode(nodeId, nnode);
+                            genericPathManagerService.removeListenerOnNode(nodeId, nnode);
                             break;
                         }
                         case UnableToConnect: {
                             LOG.debug("NETCONF Node: {} connection failed", nodeId.getValue());
                             //deviceManagerService.removeListenerOnNode(nodeId.getValue());
-                            deviceManagerService.removeListenerOnNode(nodeId, nnode);
+                            genericPathManagerService.removeListenerOnNode(nodeId, nnode);
                             break;
                         }
                     }

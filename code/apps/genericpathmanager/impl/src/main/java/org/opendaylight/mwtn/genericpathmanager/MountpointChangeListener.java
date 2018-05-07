@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright © 2018 sendate.eu and others.  All rights reserved.
  *
  * This program and the accompanying materials are made available under the
