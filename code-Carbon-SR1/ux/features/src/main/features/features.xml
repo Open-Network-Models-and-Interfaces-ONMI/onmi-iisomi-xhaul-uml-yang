@@ -20,7 +20,6 @@
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnBrowser-bundle/${project.version}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnInventory-bundle/${project.version}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnMediator-bundle/${project.version}</bundle>
-    <bundle>mvn:com.highstreet.technologies.odl.dlux/help-bundle/${project.version}</bundle>
   </feature>
 
   <feature name="onap-sdnr-ux-all" version="${project.version}" description="ONAP :: OpenDaylight :: SDN-R :: UX :: All">
@@ -44,7 +43,6 @@
     <feature version="${project.version}">odl-mwtn-ux-spectrum</feature>
     <feature version="${project.version}">odl-mwtn-ux-closed-loop</feature> -->
     <feature version="${project.version}">odl-mwtn-ux-mediator</feature>
-    <feature version="${project.version}">odl-help-core</feature>
 
     <!-- not needed
     <feature version="${project.version}">odl-mwtn-ux-events</feature>
@@ -74,7 +72,6 @@
     <feature version="${project.version}">odl-mwtn-ux-mediator</feature>
     <feature version="${project.version}">odl-mwtn-ux-test</feature>
     <feature version="${project.version}">odl-mwtn-ux-log</feature>
-    <feature version="${project.version}">odl-ux-help</feature>
   </feature>
 
 <!-- All UC features for test purpose -->
@@ -99,7 +96,6 @@
     <feature version="${project.version}">odl-mwtn-ux-test</feature>
     <feature version="${project.version}">odl-mwtn-ux-log</feature>
     <feature version="${project.version}">odl-mwtn-ux-chat</feature>
-    <feature version="${project.version}">odl-ux-help</feature>
   </feature>
 
 <!--
@@ -107,7 +103,7 @@
  -->
 
   <feature name="odl-ux-commons" version="${project.version}" description="OpenDaylight :: UX :: Commons">
-    <bundle>mvn:com.highstreet.technologies.apigateway/apigateway-impl/${project.version}</bundle> 
+    <bundle>mvn:com.highstreet.technologies.apigateway/apigateway-impl/${project.version}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnCommons-bundle/${project.version}</bundle>
   </feature>
 
@@ -184,11 +180,6 @@
     <feature version="${project.version}">odl-ux-commons</feature>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/${project.version}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnTdm-bundle/${project.version}</bundle>
-  </feature>
-
-  <feature name="odl-ux-help" version="${project.version}" description="OpenDaylight :: UX :: Help">
-    <feature version="${project.version}">odl-ux-commons</feature>
-    <bundle>mvn:com.highstreet.technologies.odl.dlux/help-bundle/${project.version}</bundle>
   </feature>
 
 <!--
