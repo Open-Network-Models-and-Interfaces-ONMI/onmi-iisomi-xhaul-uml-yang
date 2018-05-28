@@ -36,5 +36,15 @@ module opticalpathmanager {
         }
     }
 
+    rpc get-information {
+        input {
+        }
+        output {
+            leaf information {
+                type string;
+            }
+        }
+    }
+
 }
 

@@ -17,6 +17,9 @@ import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.path.computation.rev1
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.opticalpathmanager.rev180119.ComputeP2PPathInput;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.opticalpathmanager.rev180119.ComputeP2PPathOutput;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.opticalpathmanager.rev180119.ComputeP2PPathOutputBuilder;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.opticalpathmanager.rev180119.GetInformationInput;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.opticalpathmanager.rev180119.GetInformationOutput;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.opticalpathmanager.rev180119.GetInformationOutputBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.opticalpathmanager.rev180119.OpticalpathmanagerService;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.opticalpathmanager.rev180119.compute.p._2.p.path.output.ServiceBuilder;
 import org.opendaylight.yangtools.yang.common.RpcResult;
@@ -25,7 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class OpticalPathManagerServiceImpl implements OpticalpathmanagerService {
+public class OpticalPathManagerServiceImpl implements OpticalpathmanagerService, AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(OpticalPathManagerServiceImpl.class);
 
@@ -51,6 +54,17 @@ public class OpticalPathManagerServiceImpl implements OpticalpathmanagerService 
         output.setService(service.build());
 
 		return RpcResultBuilder.success(output.build()).buildFuture();
+	}
+
+	@Override
+	public void close() throws Exception {
+	}
+
+	@Override
+	public Future<RpcResult<GetInformationOutput>> getInformation(GetInformationInput input) {
+		GetInformationOutputBuilder outputBuilder = new GetInformationOutputBuilder();
+		outputBuilder.setInformation("TAPI - Optical path manager V1.00");
+		return RpcResultBuilder.success(outputBuilder.build()).buildFuture();
 	}
 
 
