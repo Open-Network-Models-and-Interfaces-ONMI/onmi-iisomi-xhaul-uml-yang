@@ -15,15 +15,21 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>opticalpathmanager-impl</artifactId>
     <packaging>bundle</packaging>
+
     <dependencies>
         <dependency>
-            <groupId>org.opendaylight.mwtn</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>devicemodel</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>opticalpathmanager-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>genericpathmanager-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

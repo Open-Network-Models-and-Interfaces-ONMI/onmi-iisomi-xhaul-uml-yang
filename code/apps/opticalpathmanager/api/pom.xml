@@ -19,5 +19,19 @@
     <properties>
         <!--<maven.javadoc.skip>true</maven.javadoc.skip>-->
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.opendaylight.mwtn</groupId>
+            <artifactId>devicemodel</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>genericpathmanager-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
 </project>
 

@@ -3,19 +3,35 @@ module genericpathmanager {
     namespace "urn:opendaylight:params:xml:ns:yang:genericpathmanager";
     prefix "genericpathmanager";
 
+    import tapi-path-computation {
+        prefix tapi-path-computation;
+    }
+
     revision "2018-01-19" {
         description "Initial revision of genericpathmanager model";
     }
 
-    rpc hello-world {
+    rpc compute-p-2-p-path {
         input {
-            leaf name {
-                type string;
+            list sep {
+                min-elements 2;
+                max-elements 2;
+                uses tapi-path-computation:path-service-end-point-g;
+                description "none";
+            }
+            container routing-constraint {
+                uses tapi-path-computation:routing-constraint-g;
+                description "none";
+            }
+            container objective-function {
+                uses tapi-path-computation:path-objective-function-g;
+                description "none";
             }
         }
         output {
-            leaf greeting {
-                type string;
+            container service {
+                uses tapi-path-computation:path-computation-service-g;
+                description "none";
             }
         }
     }
