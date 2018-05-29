@@ -41,13 +41,12 @@ public class OpticalPathManagerServiceImpl implements OpticalpathmanagerService,
  	@Override
 	public Future<RpcResult<ComputeP2PPathOutput>> computeP2PPath(ComputeP2PPathInput input) {
         LOG.debug("handle computeP2PPath");
-
         ComputeP2PPathOutputBuilder output = new ComputeP2PPathOutputBuilder();
 
         // Example ... odes not do anything
         ServiceBuilder service = new ServiceBuilder();
-        PathBuilder path = new PathBuilder();
-        Path p = path.build();
+        PathBuilder pathBuilder = new PathBuilder();
+        Path p = pathBuilder.build();
         List<Path> pathes = new ArrayList<Path>();
         pathes.add(p);
         service.setPath(pathes);
