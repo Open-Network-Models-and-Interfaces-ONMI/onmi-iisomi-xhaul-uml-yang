@@ -1,0 +1,361 @@
+module onf-otn-odu-conditional-packages {
+    namespace "urn:onf:params:xml:ns:yang:onf-otn-odu-conditional-packages";
+    prefix onf-otn-odu-conditional-packages;
+    import core-model {
+        prefix core-model;
+    }
+    organization "ONF (Open Networking Foundation) Open Transport Working Group";
+    contact "WG Web: <https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport>
+             WG Chair: Lyndon Ong
+                       <mailto:lyong@ciena.com>
+             Editors:  Mohit Chamania 
+                       <MChamania@advaoptical.com>
+                       Dzmitry Khomchanka
+                       <dzmitry.khomchanka@vpi-minsk.com>
+                       Martin Skorupski
+                       <mailto:martin.skorupski@highstreet-technologies.com>";
+    description "This model adds conditional packages to the ONF CoreModel 1.2 
+                 in order address OTN ODU use cases. It is a temorary model for 
+                 demontration purposes and bases on the ideas an concepts of
+                 TAPI. However, modifications for a pure southbound were
+                 nessesary.";
+    revision 2017-10-20 {
+        description "Initial version";
+        reference "ONF TR 512: Core Model.";
+    }
+    /***********************
+    * package type-definitions (copied from TAPI; revision: 2017-05-31)
+    **********************/ 
+        typedef mapping-type {
+            type enumeration {
+                enum amp {
+                    description "none";
+                }
+                enum bmp {
+                    description "none";
+                }
+                enum gfp-f {
+                    description "none";
+                }
+                enum gmp {
+                    description "none";
+                }
+                enum ttp-gfp-bmp {
+                    description "none";
+                }
+                enum null {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef odu-named-payload-type {
+            type enumeration {
+                enum unknown {
+                    description "none";
+                }
+                enum uninterpretable {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef odu-slot-size {
+            type enumeration {
+                enum 1-g-25 {
+                    description "none";
+                }
+                enum 2-g-5 {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef odu-type {
+            type enumeration {
+                enum odu-0 {
+                    description "none";
+                }
+                enum odu-1 {
+                    description "none";
+                }
+                enum odu-2 {
+                    description "none";
+                }
+                enum odu-2-e {
+                    description "none";
+                }
+                enum odu-3 {
+                    description "none";
+                }
+                enum odu-4 {
+                    description "none";
+                }
+                enum odu-flex {
+                    description "none";
+                }
+                enum odu-cn {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        grouping odu-payload-type-g {
+            leaf named-payload-type {
+                type odu-named-payload-type;
+                description "none";
+            }
+            leaf hex-payload-type {
+                type uint64;
+                description "none";
+            }
+            description "none";
+        }
+    /***********************
+    * package object-classes
+    **********************/ 
+
+        /***********************
+         * OTN ODU Connection (ODU-CTP)
+         **********************/ 
+        list otn-odu-connection-pac {
+            key 'layer-protocol';
+            leaf layer-protocol {
+                type leafref {
+                    path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
+                }
+                description "none";
+            }
+            container otn-odu-connection-capability {
+                config false;
+                uses otn-odu-connection-capability-g;
+                description "none";
+            }
+            container otn-odu-connection-configuration {
+                uses otn-odu-connection-configuration-g;
+                description "none";
+            }
+            container otn-odu-connection-status {
+                config false;
+                uses otn-odu-connection-status-g;
+                description "none";
+            }
+            container otn-odu-connection-current-problems {
+                config false;
+                uses otn-odu-connection-current-problems-g;
+                description "none";
+            }
+            container otn-odu-connection-current-performance {
+                config false;
+                uses otn-odu-connection-current-performance-g;
+                description "none";
+            }
+            container otn-odu-connection-historical-performances {
+                config false;
+                uses otn-odu-connection-historical-performances-g;
+                description "none";
+            }
+            description "none";
+        }
+        grouping otn-odu-connection-capability-g {
+            container accepted-payload-type {
+                uses odu-payload-type-g;
+                description 
+                    "This attribute is applicable when the ODU CTP object 
+                     instance represents a lower order ODU CTP Sink at the 
+                     client layer of the ODUP/ODU[i]j or ODUP/ODUj-21 adaptation
+                     function. 
+                     This attribute is a 2-digit Hex code that indicates the new
+                     accepted payload type.
+                     Valid values are defined in Table 15-8 of ITU-T 
+                     Recommendation G.709 with one additional value 
+                     UN_INTERPRETABLE.";
+            }
+            description "none";
+        }
+        grouping otn-odu-connection-configuration-g {
+            leaf-list tributary-slot-list {
+                type uint64;
+                description 
+                    "This attribute contains a set of distinct (i.e. unique) 
+                     integers (e.g. 2, 3, 5, 9, 15 representing the tributary 
+                     slots TS2, TS3, TS5, TS9 and TS15) which represents the 
+                     resources occupied by the Low Order ODU Link Connection 
+                     (e.g. carrying an ODUflex with a bit rate of 6.25G). 
+                     This attribute applies when the LO ODU_ConnectionTerminationPoint 
+                     connects with an HO ODU_TrailTerminationPoint object. 
+                     It will not apply if this ODU_ConnectionTerminationPoint 
+                     object directly connects to an OTU_TrailTerminationPoint 
+                     object (i.e. OTU has no trib slots). 
+                     The upper bound of the integer allowed in this set is a 
+                     function of the HO-ODU server layer to which the ODU 
+                     connection has been mapped (adapted). 
+                     Thus, for example, M=8/32/80 for ODU2/ODU3/ODU4 server 
+                     layers (respectively). Note that the value of this 
+                     attribute can be changed only in the case of ODUflex and 
+                     has to be through specific operations (i.e. not be changing
+                     the attribute tributarySlotList directly).";
+            }
+            leaf tributary-port-number {
+                type uint64;
+                description 
+                    "This attribute identifies the tributary port number that is
+                     associated with the ODU CTP. 
+                     range of type : The value range depends on the size of the 
+                     Tributary Port Number (TPN) field used which depends on th 
+                     server-layer ODU or OTU.
+                     In case of ODUk mapping into OTUk, there is no TPN field, 
+                     so the tributaryPortNumber shall be zero.
+                     In case of LO ODUj mapping over ODU1, ODU2 or ODU3, the TPN
+                     is encoded in a 6-bit field so the value range is 0-63. 
+                     See clause 14.4.1/G.709-2016.
+                     In case of LO ODUj mapping over ODU4, the TPN is encoded in 
+                     a 7-bit field so the value range is 0-127. 
+                     See clause 14.4.1.4/G.709-2016.
+                     In case of ODUk mapping over ODUCn, the TPN is encoded in a
+                     14-bit field so the value range is 0-16383. See clause 
+                     20.4.1.1/G.709-2016.
+                    ";
+            }
+            leaf accepted-m-si {
+                type string;
+                description 
+                    "This attribute is applicable when the ODU CTP object 
+                     instance represents a lower order ODU1 or ODU2 CTP Sink at 
+                     the client layer of the ODU3P/ODU12 adaptation function or 
+                     represents a lower order ODUj CTP Sink at the client layer 
+                     of the ODUP/ODUj-21 adaptation function. This attribute is 
+                     a 1-byte field that represents the accepted multiplex 
+                     structure of the adaptation function. ";
+            }
+            leaf opu-tributary-slot-size {
+                type odu-slot-size;
+                description 
+                    "This attribute is applicable for ODU2 and ODU3 CTP only.
+                     [sko] Why that? 
+                     It indicates the slot size of the ODU CTP.";
+            }
+            leaf auto-payload-type {
+                type boolean;
+                description 
+                    "This attribute is applicable when the ODU CTP object 
+                     instance represents a lower order ODU CTP Source at the 
+                     client layer of the ODUP/ODUj-21 adaptation function. The 
+                     value of true of this attribute configures that the 
+                     adaptation source function shall fall back to the payload 
+                     type PT=20 if the conditions specified in 14.3.10.1/G.798 
+                     are satisfied. ";
+            }
+            leaf configured-mapping-type {
+                type mapping-type;
+                description 
+                    "This attributes indicates the configured mapping type.";
+            }
+            leaf configured-client-type {
+                type string;
+                description 
+                    "This attribute configures the type of the client CTP of the
+                     server ODU TTP.";
+            }
+            description 
+               "This Pac contains the attributes associated with the ODU-CTP.";
+        }
+        grouping otn-odu-connection-status-g {
+            description "none";
+        }
+        grouping otn-odu-connection-current-problems-g {
+            description "none";
+        }
+        grouping otn-odu-connection-current-performance-g {
+            description "none";
+        }
+        grouping otn-odu-connection-historical-performances-g {
+            description "none";
+        }
+
+
+        /***********************
+         * OTN ODU Termination (ODU-TTP)
+         **********************/ 
+        list otn-odu-termination-pac {
+            key 'layer-protocol';
+            leaf layer-protocol {
+                type leafref {
+                    path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
+                }
+                description "none";
+            }
+            container otn-odu-termination-capability {
+                config false;
+                uses otn-odu-termination-capability-g;
+                description "none";
+            }
+            container otn-odu-termination-configuration {
+                uses otn-odu-termination-configuration-g;
+                description "none";
+            }
+            container otn-odu-termination-status {
+                config false;
+                uses otn-odu-termination-status-g;
+                description "none";
+            }
+            container otn-odu-termination-current-problems {
+                config false;
+                uses otn-odu-termination-current-problems-g;
+                description "none";
+            }
+            container otn-odu-termination-current-performance {
+                config false;
+                uses otn-odu-termination-current-performance-g;
+                description "none";
+            }
+            container otn-odu-termination-historical-performances {
+                config false;
+                uses otn-odu-termination-historical-performances-g;
+                description "none";
+            }
+            description "none";
+        }
+        grouping otn-odu-termination-capability-g {
+            description "none";
+        }
+        grouping otn-odu-termination-configuration-g {
+            leaf odu-type {
+                type odu-type;
+                description "This attribute specifies the type of the ODU 
+                             termination point.";
+            }
+            leaf odu-rate {
+                type uint64;
+                description "This attribute indicates the rate of the ODU 
+                             terminatinon point. 
+                             This attribute is Set at create; i.e., once created
+                             it cannot be changed directly. 
+                             In case of resizable ODU flex, its value can be 
+                             changed via HAO (not directly on the attribute).";
+            }
+            leaf odu-rate-tolerance {
+                type uint64;
+                units "ppm";
+                description "This attribute indicates the rate tolerance of the 
+                             ODU termination point. 
+                             Valid values are real value in the unit of ppm. 
+                             Standardized values are defined in Table 7-2/G.709.
+                             ";
+            }
+            description "none";
+        }
+        grouping otn-odu-termination-status-g {
+            description "none";
+        }
+        grouping otn-odu-termination-current-problems-g {
+            description "none";
+        }
+        grouping otn-odu-termination-current-performance-g {
+            description "none";
+        }
+        grouping otn-odu-termination-historical-performances-g {
+            description "none";
+        }
+
+}

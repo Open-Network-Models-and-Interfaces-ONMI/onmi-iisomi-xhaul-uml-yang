@@ -1,0 +1,125 @@
+module onf-ptp-dataset {
+    namespace "urn:onf:params:xml:ns:yang:onf-ptp-dataset";
+    prefix ptp-ex;
+
+    import ietf-yang-types {
+        prefix yang;
+    }
+    import core-model {
+        prefix core-model;
+    }
+    import ietf-ptp-dataset {
+        prefix ptp;
+    }
+
+    organization "ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project";
+    contact "WG Web: <https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport>
+             WG List:  <mailto:wireless-transport@login.opennetworking.org>
+             WG Chair: Lyndon Ong
+                       <mailto:lyong@ciena.com>
+             Editors:  Alfons Mittermaier
+                       <mailto:alfons.mittermaier@@highstreet-technologies.com>
+                       Martin Skorupski
+                       <mailto:martin.skorupski@highstreet-technologies.com>";
+    description "This module contains a collection of YANG definitions to extent ptp-dataset.";
+    revision 2017-05-08 {
+        description "Initial version";
+        reference "A YANG Data Model extending ptp-dataset.";
+    }
+
+    augment "/ptp:instance-list/ptp:default-ds" {
+        description
+            "Addition of data nodes for the default data set of the clock.";
+
+        leaf local-priority {
+            type uint8;
+            default 128;
+            description
+                "none";
+            reference 
+                "ITU-T G.8275.1 Precision time protocol telecom profile for phase/time 
+                 synchronization with full timing support from the network
+                 Chapter 6.3.2";
+        }
+
+        leaf max-steps-removed {
+            type uint8;
+            default 128;
+            description
+                "none";
+            reference 
+                "ITU-T G.8275.1 Precision time protocol telecom profile for phase/time 
+                 synchronization with full timing support from the network
+                 Chapter 6.3";
+        }
+
+        leaf multicast-mac-address {
+            type yang:mac-address;
+            description
+                "none";
+        }
+        
+        leaf designated-enabled {
+            type boolean;
+            default true;
+            description
+                "A PTP Clock needs to be enabled by management.";
+        }
+    }
+
+    augment "/ptp:instance-list/ptp:port-ds-list" {
+        description
+            "Addition of data nodes for the default data set of the clock.";
+
+        leaf master-only {
+            type boolean;
+            default true;
+            description
+                "Indicates that port can only be a master.";
+        }
+
+        leaf local-priority {
+            type uint8;
+            default 128;
+            description
+                "Local priority as used for alternate BMCA";
+            reference 
+                "ITU-T G.8275.1 Precision time protocol telecom profile for phase/time 
+                 synchronization with full timing support from the network
+                 Chapter 6.3.2";
+        }
+
+        leaf designated-enabled {
+            type boolean;
+            default true;
+            description
+                "A PTP Port needs to be enabled by management.";
+            reference 
+                "IEEE 1588-2008 IEEE Standard for a Precision Clock Synchronization Protocol 
+                 for Networked Measurement and Control Systems
+                 Chapter 9.2";
+        }
+
+        leaf delay-asymmetry {
+            type int64;
+            default 0;
+            description
+                "As per PTP	Known path asymmetry in ns.";
+            reference 
+                "ITU-T G.8275.1 Precision time protocol telecom profile for phase/time 
+                 synchronization with full timing support from the network
+                 Chapter 7.4.2";
+        }
+        
+        leaf logical-termination-point {
+            type leafref {
+                path '/core-model:network-element/core-model:ltp/core-model:uuid';
+            }
+            description
+                "A reference to a LTP of layer-protocol-name 'ETY' or 'MWPS', which is used 
+                 to discover the PTP topology.";
+        }
+
+    }
+
+}

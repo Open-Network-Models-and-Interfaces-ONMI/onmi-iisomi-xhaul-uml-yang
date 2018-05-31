@@ -1,0 +1,646 @@
+module g.874.1-model {
+    namespace "urn:onf:params:xml:ns:yang:g.874.1-model";
+    prefix g.874.1-model;
+
+    import core-model {
+        prefix core-model;
+    }
+    import ietf-yang-types {
+        prefix yang;
+    }
+
+    organization "ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project";
+    contact "WG Web: <https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport>
+             WG List:  <mailto:wireless-transport@login.opennetworking.org>
+             WG Chair: Lyndon Ong
+                       <mailto:lyong@ciena.com>
+             WG Chair: Giorgio Cazzaniga
+                       <mailto:giorgio.cazzaniga@sm-optics.com>
+             Editors:  Thorsten Heinze
+                       <mailto:thorsten.heinze@telefonica.com>
+                       Martin Skorupski
+                       <mailto:martin.skorupski@highstreet-technologies.com>";
+    description "<p>Version 2.02; outcome of the 10/2013 Nuremberg meeting.<br>Version 2.03; updates for Geneva 03-2014<br>Version 2.04; updates for Shanghai 09-2014<br>Version 2.05; input to Geneva 11-2014<br>Version 2.06; output from Geneva 11-2014<br>Version 2.07; using OpenProfile 3-2015<br>Version 2.08; output from Geneva 06-2015</p>";
+    revision 2017-03-20 {
+        description "Initial version";
+        reference "ONF TR 532: A YANG Data Model for Wireless Networks.";
+    }
+    /***********************
+    * package object-classes
+    **********************/ 
+        grouping otn-current-data-g {
+            leaf timestamp {
+                type date-and-time;
+                description "The timestamp associated with when the current data was collected.";
+            }
+            uses q.822-current-data-g;
+            description "This object class is an abstract class from which the OTN layer-specific CurrentData object classes are inherited. This object class is a subclass of the Q.822 CurrentData object class, which in turn is a subclass of X.739 Scanner object class. It inherits the following attributes: scannerId, operationalState, granularityPeriod, administrativeState, suspectIntervalFlag, elapsedTime, observedObjectClass, and observedObjectInstance.";
+        }
+        grouping otn-history-data-g {
+            leaf suspect-interval-flag {
+                type boolean;
+                default false;
+                description "This attribute indicates that the data collected during the interval is suspect.";
+            }
+            uses q.822-history-data-g;
+            description "This object class is an abstract class from which the OTN layer-specific HistoryData object classes are inherited. ";
+        }
+
+    /***********************
+    * package type-definitions
+    **********************/ 
+        typedef directionality {
+            type enumeration {
+                enum sink {
+                    description "none";
+                }
+                enum source {
+                    description "none";
+                }
+                enum bidirectional {
+                    description "none";
+                }
+            }
+            description "The enumeration with the options for directionality of the termination point.";
+        }
+        typedef gcc-access {
+            type enumeration {
+                enum gcc1 {
+                    description "none";
+                }
+                enum gcc2 {
+                    description "none";
+                }
+                enum gcc1-and-gcc2 {
+                    description "none";
+                }
+            }
+            description "This enumeration indicates the GCC access represented by the entity.";
+        }
+        typedef operational-state {
+            type enumeration {
+                enum enabled {
+                    description "none";
+                }
+                enum disabled {
+                    description "none";
+                }
+            }
+            description "The list of valid operational states for the connection.";
+        }
+        typedef oper-type {
+            type enumeration {
+                enum revertive {
+                    description "none";
+                }
+                enum non-revertive {
+                    description "none";
+                }
+            }
+            description "The operation type associated with the protection mechanism (either non-revertive or revertive).";
+        }
+        typedef ext-cmd-operation {
+            type enumeration {
+                enum exercise {
+                    description "none";
+                }
+                enum manual-switch {
+                    description "none";
+                }
+                enum forced-switch {
+                    description "none";
+                }
+                enum lockout {
+                    description "none";
+                }
+                enum release-of-manual-switch {
+                    description "none";
+                }
+                enum release-of-forced-switch {
+                    description "none";
+                }
+                enum release-of-lockout {
+                    description "none";
+                }
+            }
+            description "This enumeration contains the options for the actions that instruct the protection system for performing specific protection switching operations.";
+        }
+        typedef administrative-state {
+            type enumeration {
+                enum unlocked {
+                    description "none";
+                }
+                enum locked {
+                    description "none";
+                }
+                enum shutting-down {
+                    description "none";
+                }
+            }
+            description "For more information on Administrative State, See ITU-T Recs. X.731 and M.3100.";
+        }
+        typedef oc-tk-nim-k-bit-rate {
+            type enumeration {
+                enum 2.5-g {
+                    description "none";
+                }
+                enum 10-g {
+                    description "none";
+                }
+                enum 40-g {
+                    description "none";
+                }
+                enum 100-g {
+                    description "none";
+                }
+            }
+            description "Provides an enumeration with the meaning of each 'k' value.";
+        }
+        typedef tim-det-mo {
+            type enumeration {
+                enum dapi {
+                    description "none";
+                }
+                enum sapi {
+                    description "none";
+                }
+                enum both {
+                    description "none";
+                }
+            }
+            description "List of modes for trace identifier mismatch detection.";
+        }
+        typedef oc-tk-nim-problem-list {
+            type enumeration {
+                enum los-p {
+                    description "Loss of Signal -- Payload";
+                }
+                enum oci {
+                    description "Open Connection Indicator";
+                }
+                enum ssf-p {
+                    description "Server Signal Failure -- Payload -- can not co-exist with SSF or SSF-O";
+                }
+                enum ssf-o {
+                    description "Server Signal Failure -- Overhead; can not co-exist with SSF or SSF-P";
+                }
+                enum ssf {
+                    description "Server Signal Failure; can not co-exist with SSF-P or SSF-O";
+                }
+                enum tim {
+                    description "Trail Trace Identifier Mismatch";
+                }
+                enum deg {
+                    description "Signal Degraded";
+                }
+                enum bdi {
+                    description "Backward Defect Indication";
+                }
+            }
+            description "The valid list of problems for the entity.";
+        }
+        typedef tcm-monitoring {
+            type enumeration {
+                enum intrusive {
+                    description "none";
+                }
+                enum non-intrusive {
+                    description "none";
+                }
+            }
+            description "Monitoring types for the tandem connection monitoring function.";
+        }
+        typedef tcm-mode {
+            type enumeration {
+                enum operational {
+                    description "none";
+                }
+                enum transparent {
+                    description "none";
+                }
+                enum monitor {
+                    description "none";
+                }
+            }
+            description "List of value modes for the sink side of the tandem connection monitoring function.";
+        }
+        typedef ops-mnk-ttp-k-bit-rate {
+            type enumeration {
+                enum 40-g {
+                    description "none";
+                }
+                enum 100-g {
+                    description "none";
+                }
+            }
+            description "Provides an enumeration with the meaning of each 'k' value.";
+        }
+        typedef ops-mnk-ttp-problem-list {
+            type enumeration {
+                enum los {
+                    description "Loss of Signal";
+                }
+                enum lol {
+                    description "Loss of Lane Alignment";
+                }
+            }
+            description "The valid list of problems for the entity.";
+        }
+        typedef op-sn-ttp-problem-list {
+            type enumeration {
+                enum los {
+                    description "Loss of Signal";
+                }
+            }
+            description "The valid list of problems for the entity.";
+        }
+        typedef otm-n-k-bit-rates {
+            type enumeration {
+                enum 2.5-g {
+                    description "none";
+                }
+                enum 10-g {
+                    description "none";
+                }
+                enum 40-g {
+                    description "none";
+                }
+                enum 2.5-10-g {
+                    description "none";
+                }
+                enum 10-40-g {
+                    description "none";
+                }
+                enum 2.5-10-40-g {
+                    description "none";
+                }
+            }
+            description "Provides an enumeration with the meaning of each 'k' value.";
+        }
+        typedef domain-interface {
+            type enumeration {
+                enum intra-domain {
+                    description "none";
+                }
+                enum inter-domain {
+                    description "none";
+                }
+            }
+            description "This enumeration provides the options for the interface associated with OTMn.";
+        }
+        typedef otm-n-optical-reach {
+            type enumeration {
+                enum intra-office {
+                    description "none";
+                }
+                enum shorthaul {
+                    description "none";
+                }
+                enum longhaul {
+                    description "none";
+                }
+            }
+            description "The valid options for reach of the optical cable.";
+        }
+        typedef apr-status {
+            type enumeration {
+                enum on {
+                    description "none";
+                }
+                enum off {
+                    description "none";
+                }
+            }
+            description "The enumeration of the options for the Automatic Power Reduction Status.";
+        }
+        typedef ot-sn-ttp-problem-list {
+            type enumeration {
+                enum bdi-p {
+                    description "BDI-P (Backward Defect Indication - Payload); not co-exist with BDI-O or BDI";
+                }
+                enum bdi-o {
+                    description "BDI-O (Backward Defect Indication - Overhead); not co-exist with BDI-P or BDI";
+                }
+                enum bdi {
+                    description "BDI (Backward Defect Indication); not co-exist with BDI-P or BDI-O";
+                }
+                enum tim {
+                    description "TIM (Trail Trace Identifier Mismatch);";
+                }
+                enum los-p {
+                    description "-P (Loss of Signal - Payload); not co-exist with LOS-O or LOS";
+                }
+                enum los-o {
+                    description "LOS-O (Loss of Signal - Overhead); not co-exist with LOS-P or LOS";
+                }
+                enum los {
+                    description "LOS (Loss of Signal); not co-exist with LOS-P or LOS-O. ";
+                }
+            }
+            description "The valid list of problems for the entity.";
+        }
+        typedef ot-uk-ctp-adaptation {
+            type enumeration {
+                enum regular {
+                    description "i.e. OPSM/OTUk-a, OCh[r]/OTUk-a";
+                }
+                enum none {
+                    description "i.e. OPSM/OTUk-b, OCh[r]/OTUk-b";
+                }
+                enum vendor-specific {
+                    description "i.e. OCh[r]/OTUk-v";
+                }
+                enum functionally-standardized {
+                    description "i.e. OCh[r]/OTUkV";
+                }
+            }
+            description "The adaptation options for OTUk_ConnectionTermationPoints.";
+        }
+        typedef ot-uk-ctp-k-bit-rate {
+            type enumeration {
+                enum 2.5-g {
+                    description "none";
+                }
+                enum 10-g {
+                    description "none";
+                }
+                enum 40-g {
+                    description "none";
+                }
+                enum 100-g {
+                    description "none";
+                }
+            }
+            description "Provides an enumeration with the meaning of each 'k' value.";
+        }
+        typedef ot-uk-ctp-problem-list {
+            type enumeration {
+                enum lof {
+                    description "Loss of Frame";
+                }
+                enum ais {
+                    description "Alarm Indication Signal";
+                }
+                enum lom {
+                    description "Loss of MultiFrame";
+                }
+            }
+            description "The valid list of problems for the entity.";
+        }
+        typedef ot-uk-ttp-problem-list {
+            type enumeration {
+                enum tim {
+                    description "Trail Trace Identifier Mismatch";
+                }
+                enum deg {
+                    description "Signal Degraded";
+                }
+                enum bdi {
+                    description "Backward Defect Indication";
+                }
+                enum ssf {
+                    description "Server Signal Failure";
+                }
+            }
+            description "The valid list of problems for the entity.";
+        }
+        typedef monitored-direction {
+            type enumeration {
+                enum sink {
+                    description "none";
+                }
+                enum source {
+                    description "none";
+                }
+            }
+            description "The enumeration with the options for directionality for nonintrusive monitoring.";
+        }
+        typedef deg-thr-type {
+            type enumeration {
+                enum percentage {
+                    description "<p>Choice of % or Number of errored blocks</p>";
+                }
+                enum number-errored-blocks {
+                    description "<p>Number of % or blocks</p>";
+                }
+            }
+            description "<p>The value of the threshold can be provisioned in terms of number of errored blocks or in terms of percentage of errored blocks. For percentage-based specification, in order to support provision of less than 1%, the specification consists of two fields. The first field indicates the granularity of percentage. For examples, in 1%, in 0.1%, or in 0.01%, etc. The second field indicates the multiple of the granularity. For number of errored block based, the value is a positive integer.</p>";
+        }
+        typedef link-type {
+            type enumeration {
+                enum dwdm {
+                    description "none";
+                }
+                enum cwdm {
+                    description "none";
+                }
+                enum no-wdm {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef application-identifier-type {
+            type enumeration {
+                enum standard {
+                    description "none";
+                }
+                enum proprietary {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef printable-string {
+            type string;
+            description "none";
+        }
+        typedef date-and-time {
+            type string;
+            description "This primitive type defines the date and time according to the following structure:
+                'yyyyMMddhhmmss.s[Z|{+|-}HHMm]' where:
+                yyyy    '0000'..'9999'    year
+                MM        '01'..'12'            month
+                dd        '01'..'31'            day
+                hh        '00'..'23'            hour
+                mm        '00'..'59'            minute
+                ss        '00'..'59'            second
+                s        '.0'..'.9'            tenth of second (set to '.0' if EMS or NE cannot support this granularity)
+                Z        'Z'                    indicates UTC (rather than local time)
+                {+|-}    '+' or '-'            delta from UTC
+                HH        '00'..'23'            time zone difference in hours
+                Mm        '00'..'59'            time zone difference in minutes.";
+        }
+        typedef aps-channel {
+            type enumeration {
+                enum path {
+                    description "none";
+                }
+                enum tcm1 {
+                    description "none";
+                }
+                enum tcm2 {
+                    description "none";
+                }
+                enum tcm3 {
+                    description "none";
+                }
+                enum tcm4 {
+                    description "none";
+                }
+                enum tcm5 {
+                    description "none";
+                }
+                enum tcm6 {
+                    description "none";
+                }
+                enum section {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef bit-string {
+            type string;
+            description "This primitive type defines a bit oriented string.
+                The size of the BitString will be defined in the valueRange property of the attribute; according to ASN.1 (X.680).
+                The semantic of each bit position will be defined in the Documentation field of the attribute.";
+        }
+        typedef delay-measurement-role {
+            type enumeration {
+                enum controller {
+                    description "none";
+                }
+                enum responder {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+        typedef resize-operation-type {
+            type enumeration {
+                enum increase-bw {
+                    description "Increase Bandwidth";
+                }
+                enum decrease-bw {
+                    description "Decrease Bandwidth";
+                }
+            }
+            description "none";
+        }
+        typedef granularity-period-type {
+            type enumeration {
+                enum unknown {
+                    description "none";
+                }
+                enum period-15-min {
+                    description "none";
+                }
+                enum period-24-hours {
+                    description "none";
+                }
+            }
+            description "The enumeration with the options for granularity period of the performance data.";
+        }
+
+    /***********************
+    * package illustrative-object-diagrams
+    **********************/ 
+
+    /***********************
+    * package imported-information-object-classes
+    **********************/ 
+        /***********************
+        * package q.822
+        **********************/ 
+            grouping q.822-current-data-g {
+                leaf suspect-interval-flag {
+                    type boolean;
+                    description "This attribute is used to indicate that the performance data for the current period may not be reliable. Some reasons for this to occur are:- Suspect data were detected by the actual resource doing data collection.- Transition of the administrativeState attribute to/from the 'lock' state.- Transition of the operationalState to/from the 'disabled' state.- Scheduler setting that inhibits the collection function.- The performance counters were reset during the interval.- The currentData (or subclass) object instance was created during the monitoring period.";
+                }
+                leaf elapsed-time {
+                    type int64;
+                    description "none";
+                }
+                uses x.739-scanner-g;
+                description "none";
+            }
+            grouping q.822-history-data-g {
+                leaf history-data-id {
+                    type string;
+                    description "none";
+                }
+                leaf period-end-time {
+                    type yang:date-and-time;
+                    description "none";
+                }
+                leaf granularity-period {
+                    type granularity-period-type;
+                    description "none";
+                }
+                uses x.721-top-g;
+                description "none";
+            }
+
+        /***********************
+        * package x.739
+        **********************/ 
+            grouping x.739-scanner-g {
+                leaf scanner-id {
+                    type string;
+                    description "none";
+                }
+                leaf granularity-period {
+                    type granularity-period-type;
+                    description "none";
+                }
+                leaf administrative-state {
+                    type core-model:administrative-state;
+                    description "none";
+                }
+                uses x.721-top-g;
+                description "none";
+            }
+
+        /***********************
+        * package x.721
+        **********************/ 
+            grouping x.721-top-g {
+                leaf object-class {
+                    type object-identifier;
+                    description "ObjectClass ::= CHOICE{    globalForm    [0] OBJECT IDENTIFIER,
+                        localForm    [1] INTEGER}";
+                }
+                leaf name-binding {
+                    type object-identifier;
+                    description "none";
+                }
+                description "This is the top level of managed object class hierarchy and every other managed object class is a specialization of either this generic class (top) or a specialization of subclass of top. The parameter miscellaneousError is to be used when a processing failure has occurred and the error condition encountered does not match any of object's defined specific error types.";
+            }
+
+
+    /***********************
+    * package imported-data-types
+    **********************/ 
+        typedef object-instance {
+            type string;
+            description "none";
+        }
+        typedef name {
+            type string;
+            description "none";
+        }
+        typedef object-identifier {
+            type string;
+            description "none";
+        }
+        typedef generalized-time {
+            type string;
+            description "none";
+        }
+        typedef time-period {
+            type string;
+            description "This primitive Type is imported from X.739.";
+        }
+
+}
