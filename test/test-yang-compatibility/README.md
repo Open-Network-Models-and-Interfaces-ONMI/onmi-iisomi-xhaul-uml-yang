@@ -15,7 +15,7 @@ Scenario:
   * A new device connects to ODL.
   * ODL has all yang files already loaded.
 
-=> Test result: The device is working correctly
+=> Test result: The device and ODL are working properly.
 
 #### Answer to the why
 
