@@ -33,9 +33,20 @@ Additional yang files, added by the NE, are no problem if all agree and follow t
   * A new revision has to be compatible and contains all revision dates of the previouse yang-files with same module name and namspace
   * A new yang file uses a new, no conflicting module name and namespace and an actual date.
 
-### Capabilities used for ODL Test
+### Yang compatibility test
 
-#### ODL Boron and Carbon
+#### Test steps
+
+  * Have a stopped ODL instance with no existing mountpoints
+  * remove all files from *$ODL_KARAF_HOME/cache/schema* directory
+  * Copy all yang files in the repository into *$ODL_KARAF_HOME/cache/schema* directory
+  * Start ODL and install all features
+  * Mount device (Success if connected)
+  * Verify with config app that all expected parts are provided correctly. (Success if all visible)
+  * Force alarm/problem notification to ODL and verify in fault app that it is received. (Success if shown in the GUI)
+  * logs shouldn't show exceptions during startup Especially setup of NETCONF notification stream and subsequent NETCONF communications
+
+#### Capabilities ODL Boron and Carbon used for test
 
 The following capabilities are used by NETCONF devices for the test and good working. They cover all functions that are used by devicemanager in ODL.
 
