@@ -29,112 +29,70 @@ module core-model {
                 typedef protection-reason {
                     type enumeration {
                         enum wait-to-revert {
-                            description "The resource is selected as control is waiting to restore to a preferred resource.";
+                            description "removed";
                         }
                         enum signal-degrade {
-                            description "The resource is selected as the best preferred resource is in signal degrade.";
+                            description "removed";
                         }
                         enum signal-fail {
-                            description "The resource is selected as the best preferred resource is in signal fail.";
+                            description "removed";
                         }
                     }
-                    description "The cause of the current protection state.";
+                    description "removed";
                 }
                 typedef route-selection-control {
                     type enumeration {
                         enum normal {
-                            description "No administrative control applied to the switch.";
+                            description "removed";
                         }
                         enum manual {
-                            description "Resource temporarily chosen by control configuration where the resource is not the preferred resource.
-                                Preferred resource has highest priority.
-                                Temporarily overrides reversion.
-                                If this resource fails will switch to best available resource. 
-                                If resource selected is shared and another FC requires the resource then the selection control will change to Normal and switch to best available based upon normal rules.
-                                If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
-                                Can be returned to NORMAL by configuration action.";
+                            description "removed";
                         }
                         enum forced {
-                            description "Resource temporarily chosen by control configuration where the resource is not the preferred resource.
-                                Preferred resource has highest priority.
-                                Temporarily overrides reversion.
-                                If this resource fails will NOT switch. 
-                                If resource selected is shared and another FC requires the resource through a FORCE on that FC and the FC is of a higher FcPriority then the selection control will change to NORMAL and switch to best available based upon normal rules.
-                                If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
-                                Can be returned to NORMAL by configuration action.";
+                            description "removed";
                         }
                         enum lock-out {
-                            description "The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of.
-                                This overrides all other protection control states including forced.
-                                If the item is locked out then it cannot be used under any circumstances.
-                                Note: Only relevant when part of a protection scheme.";
+                            description "removed";
                         }
                     }
-                    description "Possible degrees of administrative control applied to the Route selection.";
+                    description "removed";
                 }
                 typedef route-selection-reason {
                     type enumeration {
                         enum wait-to-revert {
-                            description "The resource is selected as control is waiting to restore to a preferred resource.";
+                            description "removed";
                         }
                         enum signal-degrade {
-                            description "The resource is selected as the best preferred resource is in signal degrade.";
+                            description "removed";
                         }
                         enum signal-fail {
-                            description "The resource is selected as the best preferred resource is in signal fail.";
+                            description "removed";
                         }
                         enum normal {
-                            description "No administrative control applied to the switch.";
+                            description "removed";
                         }
                         enum manual {
-                            description "Resource temporarily chosen by control configuration where the resource is not the preferred resource.
-                                Preferred resource has highest priority.
-                                Temporarily overrides reversion.
-                                If this resource fails will switch to best available resource. 
-                                If resource selected is shared and another FC requires the resource then the selection control will change to Normal and switch to best available based upon normal rules.
-                                If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
-                                Can be returned to NORMAL by configuration action.";
+                            description "removed";
                         }
                         enum forced {
-                            description "Resource temporarily chosen by control configuration where the resource is not the preferred resource.
-                                Preferred resource has highest priority.
-                                Temporarily overrides reversion.
-                                If this resource fails will NOT switch. 
-                                If resource selected is shared and another FC requires the resource through a FORCE on that FC and the FC is of a higher FcPriority then the selection control will change to NORMAL and switch to best available based upon normal rules.
-                                If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
-                                Can be returned to NORMAL by configuration action.";
+                            description "removed";
                         }
                         enum lock-out {
-                            description "The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of.
-                                This overrides all other protection control states including forced.
-                                If the item is locked out then it cannot be used under any circumstances.
-                                Note: Only relevant when part of a protection scheme.";
+                            description "removed";
                         }
                     }
-                    description "The cause of the current route selection.";
+                    description "removed";
                 }
                 typedef switch-control {
                     type enumeration {
                         enum normal {
-                            description "No administrative control applied to the switch.";
+                            description "removed";
                         }
                         enum manual {
-                            description "Resource temporarily chosen by control configuration where the resource is not the preferred resource.
-                                Preferred resource has highest priority.
-                                Temporarily overrides reversion.
-                                If this resource fails will switch to best available resource. 
-                                If resource selected is shared and another FC requires the resource then the selection control will change to Normal and switch to best available based upon normal rules.
-                                If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
-                                Can be returned to NORMAL by configuration action.";
+                            description "removed";
                         }
                         enum forced {
-                            description "Resource temporarily chosen by control configuration where the resource is not the preferred resource.
-                                Preferred resource has highest priority.
-                                Temporarily overrides reversion.
-                                If this resource fails will NOT switch. 
-                                If resource selected is shared and another FC requires the resource through a FORCE on that FC and the FC is of a higher FcPriority then the selection control will change to NORMAL and switch to best available based upon normal rules.
-                                If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
-                                Can be returned to NORMAL by configuration action.";
+                            description "removed";
                         }
                     }
                     description "none";
@@ -142,196 +100,154 @@ module core-model {
                 typedef switch-state-reason {
                     type enumeration {
                         enum wait-to-revert {
-                            description "The resource is selected as control is waiting to restore to a preferred resource.";
+                            description "removed";
                         }
                         enum signal-degrade {
-                            description "The resource is selected as the best preferred resource is in signal degrade.";
+                            description "removed";
                         }
                         enum signal-fail {
-                            description "The resource is selected as the best preferred resource is in signal fail.";
+                            description "removed";
                         }
                         enum normal {
-                            description "No administrative control applied to the switch.";
+                            description "removed";
                         }
                         enum manual {
-                            description "Resource temporarily chosen by control configuration where the resource is not the preferred resource.
-                                Preferred resource has highest priority.
-                                Temporarily overrides reversion.
-                                If this resource fails will switch to best available resource. 
-                                If resource selected is shared and another FC requires the resource then the selection control will change to Normal and switch to best available based upon normal rules.
-                                If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
-                                Can be returned to NORMAL by configuration action.";
+                            description "removed";
                         }
                         enum forced {
-                            description "Resource temporarily chosen by control configuration where the resource is not the preferred resource.
-                                Preferred resource has highest priority.
-                                Temporarily overrides reversion.
-                                If this resource fails will NOT switch. 
-                                If resource selected is shared and another FC requires the resource through a FORCE on that FC and the FC is of a higher FcPriority then the selection control will change to NORMAL and switch to best available based upon normal rules.
-                                If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
-                                Can be returned to NORMAL by configuration action.";
+                            description "removed";
                         }
                     }
-                    description "Explains the reason for the current switch state.";
+                    description "removed";
                 }
                 typedef reversion-mode {
                     type enumeration {
                         enum revertive {
-                            description "An FC switched to a lower priority (non-preferred) resource will revert to a higher priority (preferred) resource when that recovers (potentially after some hold-off time).";
+                            description "removed";
                         }
                         enum non-revertive {
-                            description "An FC switched to a lower priority (non-preferred) resource will not revert to a higher priority (preferred) resource when that recovers.";
+                            description "removed";
                         }
                     }
-                    description "The reversion mode associated with protection.";
+                    description "removed";
                 }
                 grouping global-pac-g {
                     uses global-class-g;
-                    description "Provides the properties of a GlobalClass via composition.";
+                    description "removed";
                 }
                 grouping local-pac-g {
                     uses local-class-g;
-                    description "Provides the properties of a LocalClass via composition.";
+                    description "removed";
                 }
                 typedef protection-type {
                     type string;
-                    description "Identifies the type of protection of an FcSwitch.";
+                    description "removed";
                 }
 
             typedef layer-protocol-name {
                 type string;
-                description "Provides a controlled list of layer protocol names and indicates the naming authority.
-                    Note that it is expected that attributes will be added to this structure to convey the naming authority name, the name of the layer protocol using a human readable string and any particular standard reference.
-                    Layer protocol names include:
-                    -    Layer 1 (L1): OTU, ODU
-                    -    Layer 2 (L2): Carrier Grade Ethernet (ETY, ETH), MPLS-TP (MT)
-                    ";
+                description "removed";
             }
             typedef port-role {
                 type string;
-                description "The role of a port in the context of the function of the forwarding entity that it bounds.";
+                description "removed";
             }
             typedef port-direction {
                 type enumeration {
                     enum bidirectional {
-                        description "The Port has both an INPUT flow and an OUTPUT flow defined.";
+                        description "removed";
                     }
                     enum input {
-                        description "The Port only has definition for a flow into the Forwarding entity (i.e. an ingress flow).";
+                        description "removed";
                     }
                     enum output {
-                        description "The Port only has definition for a flow out of the Forwarding entity (i.e. an egress flow).";
+                        description "removed";
                     }
                     enum unidentified-or-unknown {
-                        description "Not a normal state. The system is unable to determine the correct value.";
+                        description "removed";
                     }
                 }
-                description "The orientation of flow at the Port of a Forwarding entity";
+                description "removed";
             }
             typedef forwarding-direction {
                 type enumeration {
                     enum bidirectional {
-                        description "The Forwarding entity supports both BIDIRECTIONAL flows at all Ports (i.e. all Ports have both an INPUT flow and an OUTPUT flow defined).";
+                        description "removed";
                     }
                     enum unidirectional {
-                        description "The Forwarding entity has Ports that are either INPUT or OUTPUT. It has no BIDIRECTIONAL Ports.";
+                        description "removed";
                     }
                     enum undefined-or-unknown {
-                        description "Not a normal state. The system is unable to determine the correct value.";
+                        description "removed";
                     }
                 }
-                description "The directionality of a Forwarding entity.";
+                description "removed";
             }
             typedef termination-direction {
                 type enumeration {
                     enum bidirectional {
-                        description "A Termination with both SINK and SOURCE flows.";
+                        description "removed";
                     }
                     enum sink {
-                        description "The flow is up the layer stack from the server side to the client side. 
-                            Considering an example of a Termination function within the termination entity, a SINK flow:
-                            - will arrive at at the base of the termination function (the server side) where it is essentially at an INPUT to the termination component
-                            - then will be decoded and deconstructed 
-                            - then relevant parts of the flow will be sent out of the termination function (the client side) where it is essentially at an OUTPUT from the termination component
-                            A SINK termination is one that only supports a SINK flow.
-                            A SINK termiation can be bound to an OUTPUT Port of a Forwarding entity";
+                        description "removed";
                     }
                     enum source {
-                        description "The flow is down the layer stack from the server side to the client side. 
-                            Considering an example of a Termination function within the termination entity, a SOURCE flow:
-                            - will arrive at at the top of the termination function (the client side) where it is essentially at an INPUT to the termination component
-                            - then will be assembled with various overheads etc and will be coded 
-                            - then coded form of the assembly of flow will be sent out of the termination function (the server side) where it is essentially at an OUTPUT from the termination component
-                            A SOURCE termination is one that only supports a SOURCE flow.
-                            A SOURCE termiation can be bound to an INPUT Port of a Forwarding entity";
+                        description "removed";
                     }
                     enum undefined-or-unknown {
-                        description "Not a normal state. The system is unable to determine the correct value.";
+                        description "removed";
                     }
                 }
-                description "The directionality of a termination entity.";
+                description "removed";
             }
             typedef extended-termination-direction {
                 type enumeration {
                     enum bidirectional {
-                        description "A Termination with both SINK and SOURCE flows.";
+                        description "removed";
                     }
                     enum sink {
-                        description "The flow is up the layer stack from the server side to the client side. 
-                            Considering an example of a Termination function within the termination entity, a SINK flow:
-                            - will arrive at at the base of the termination function (the server side) where it is essentially at an INPUT to the termination component
-                            - then will be decoded and deconstructed 
-                            - then relevant parts of the flow will be sent out of the termination function (the client side) where it is essentially at an OUTPUT from the termination component
-                            A SINK termination is one that only supports a SINK flow.
-                            A SINK termiation can be bound to an OUTPUT Port of a Forwarding entity";
+                        description "removed";
                     }
                     enum source {
-                        description "The flow is down the layer stack from the server side to the client side. 
-                            Considering an example of a Termination function within the termination entity, a SOURCE flow:
-                            - will arrive at at the top of the termination function (the client side) where it is essentially at an INPUT to the termination component
-                            - then will be assembled with various overheads etc and will be coded 
-                            - then coded form of the assembly of flow will be sent out of the termination function (the server side) where it is essentially at an OUTPUT from the termination component
-                            A SOURCE termination is one that only supports a SOURCE flow.
-                            A SOURCE termiation can be bound to an INPUT Port of a Forwarding entity";
+                        description "removed";
                     }
                     enum undefined-or-unknown {
-                        description "Not a normal state. The system is unable to determine the correct value.";
+                        description "removed";
                     }
                     enum contra-direction-sink {
-                        description "The essential flow of the Termination entity is SINK (i.e. up the layer stack) but the INPUT flow of the Termination entity was provided by a SOURCE OUTPUT or taken from a SOURCE INPUT (duplicating the input signal) hence reversing the flow orientation from down the layer stack to up the layer stack.";
+                        description "removed";
                     }
                     enum contra-direction-source {
-                        description "The essential flow of the Termination entity is SOURCE (i.e. down the layer stack) but the OUTPUT flow of the Termination entity was fed to (and replaces) a SINK OUTPUT or was fed to a SINK INPUT (replacing the normal flow) hence reversing the flow orientation from down the layer stack to up the layer stack.";
+                        description "removed";
                     }
                 }
-                description "Extended to include contra-direction considerations. Only applies to LP and elements of LP not to LTP.";
+                description "removed";
             }
             typedef termination-state {
                 type enumeration {
                     enum lp-can-never-terminate {
-                        description "A non-flexible case that can never be terminated.";
+                        description "removed";
                     }
                     enum lt-not-terminated {
-                        description "A flexible termination that can terminate but is currently not terminated.";
+                        description "removed";
                     }
                     enum terminated-server-to-client-flow {
-                        description "A flexible termination that is currently terminated for server to client flow only.";
+                        description "removed";
                     }
                     enum terminated-client-to-server-flow {
-                        description "A flexible termination that is currently terminated for client to server flow only.";
+                        description "removed";
                     }
                     enum terminated-bidirectional {
-                        description "A flexible termination that is currently terminated in both directions of flow.";
+                        description "removed";
                     }
                     enum lt-permenantly-terminated {
-                        description "A non-flexible termination that is always terminated (in both directions of flow for a bidirectional case and in the one direction of flow for both unidirectional cases).";
+                        description "removed";
                     }
                     enum termination-state-unknown {
-                        description "There TerminationState cannot be determined.";
+                        description "removed";
                     }
                 }
-                description "Provides support for the range of behaviours and specific states that an LP can take with respect to termination of the signal.
-                    Indicates to what degree the LayerTermination is terminated.";
+                description "removed";
             }
 
         /***********************
@@ -343,21 +259,21 @@ module core-model {
                 grouping configuration-and-switch-controller-g {
                     leaf switch-rule {
                         type to-be-defined;
-                        description "A sketch of the presence of complex rules governing the switch behavior.";
+                        description "removed";
                     }
                     leaf-list fc-switch {
                         type leafref {
                             path '/forwarding-construct/fc-switch/uuid';
                         }
-                        description "The switch being controlled.";
+                        description "removed";
                     }
                     container control-parameters {
                         uses control-parameters-pac-g;
-                        description "The control parameters to be applied if local parameters are used rather than profiles";
+                        description "removed";
                     }
                     leaf-list profile-proxy {
                         type string;
-                        description "Applied profiles.";
+                        description "removed";
                     }
                     container local-pac {
                         uses local-pac-g;
@@ -369,91 +285,83 @@ module core-model {
                     }
                     leaf is-frozen {
                         type boolean;
-                        description "Temporarily prevents any switch action to be taken and, as such, freezes the current state. 
-                            Until the freeze is cleared, additional near-end external commands are rejected and fault condition changes and received APS messages are ignored.
-                            All administrative controls of any aspect of protection are rejected.";
+                        description "removed";
                     }
                     leaf is-coordinated-switching-both-ends {
                         type boolean;
-                        description "The C&SC is operating such that switching at both ends of each flow acorss the FC is coordinated at both ingress and egress ends.";
+                        description "removed";
                     }
                     leaf-list subordinate-controller {
                         type leafref {
                             path '/network-element/ltp/lp/config-and-switch-controller/switch-rule';
                         }
-                        description "A C&SC that is fully or partially subordinate this C&SC. 
-                            A peer is considered as partially subordinate in that the peer will respond to requests for action from this C&SC but will also make requests for action to be carried out by this C&SC.
-                            Where there is a peer relationship each controller in the peering will see the other controller as subordinate.";
+                        description "removed";
                     }
-                    description "Represents the capability to control and coordinate switches, to add/delete/modify FCs and to add/delete/modify LTPs/LPs so as to realize a protection scheme.";
+                    description "removed";
                 }
                 grouping control-parameters-pac-g {
                     leaf reversion-mode {
                         type reversion-mode;
-                        description "Indcates whether the protection scheme is revertive or non-revertive.";
+                        description "removed";
                     }
                     leaf wait-to-revert-time {
                         type int64;
                         default 15;
-                        description "If the protection system is revertive, this attribute specifies the time, in minutes, to wait after a fault clears on a higher priority (preferred) resource before reverting to the preferred resource.";
+                        description "removed";
                     }
                     leaf prot-type {
                         type protection-type;
-                        description "Indicates the protection scheme that is used for the ProtectionGroup.";
+                        description "removed";
                     }
                     leaf hold-off-time {
                         type int64;
-                        description "This attribute indicates the time, in milliseconds, between declaration of signal degrade or signal fail, and the initialization of the protection switching algorithm.";
+                        description "removed";
                     }
                     leaf network-scheme-specification {
                         type string;
                         description "none";
                     }
-                    description "A list of control parameters to apply to a switch.";
+                    description "removed";
                 }
                 grouping fc-switch-g {
                     leaf hold-off-time {
                         type int64;
-                        description "Moved to ControlParameter_Pac... This attribute indicates the time, in seconds, between declaration of unacceptable quality of signal on the currently selected FcPort, and the initialization of the protection switching algorithm. ";
+                        description "removed";
                     }
                     leaf prot-type {
                         type protection-type;
-                        description "Indicates the protection scheme that is used for the ProtectionGroup.";
+                        description "removed";
                     }
                     leaf reversion-mode {
                         type reversion-mode;
-                        description "Moved to ControlParameter_Pac... This attribute whether or not the protection scheme is revertive or non-revertive. ";
+                        description "removed";
                     }
                     leaf-list selected-fc-port {
                         type leafref {
                             path '/forwarding-construct/fc-port/uuid';
                         }
-                        description "Indicates which points are selected by the switch.
-                            Depending on the switch spec (via Fcspec)
-                            - more than one FcPort can be selected at any one time (e.g. egress switch, ingress packet switch)
-                            - zero FcPorts can  be selected. For an ingress switch this indicates that the switch common (egress) is 'high impedance'
-.";
+                        description "removed";
                     }
                     leaf-list profile-proxy {
                         type string;
-                        description "Provides a set of predefined values for switch control in place of the direct values available via the FcSwitch or via _configurationAndSwitchControl.";
+                        description "removed";
                     }
                     container internal-configuration-and-switch-control {
                         uses configuration-and-switch-controller-g;
-                        description "A switch controller encapsulated in the FcSwitch.";
+                        description "removed";
                     }
                     leaf switch-control {
                         type switch-control;
-                        description "Degree of administrative control applied to the switch selection.";
+                        description "removed";
                     }
                     leaf switch-selects-ports {
                         type port-direction;
-                        description "Indicates whether the switch selects from ingress to the FC or to egress of the FC, or both.";
+                        description "removed";
                     }
                     leaf switch-selection-reason {
                         type switch-state-reason;
                         config false;
-                        description "The reason for the current switch selection.";
+                        description "removed";
                     }
                     container control-parameters {
                         uses control-parameters-pac-g;
@@ -461,156 +369,103 @@ module core-model {
                     }
                     leaf wait-to-restore-time {
                         type int64;
-                        description "Moved to ControlParameter_Pac and changed to waitToRevert... If the protection system is revertive, this attribute specifies the amount of time, in seconds, to wait after the preferred FcPort returns to an acceptable state of operation (e.g. a fault has cleared) before restoring traffic to that preferred FcPort.";
+                        description "removed";
                     }
                     uses local-class-g;
-                    description "The FcSwitch class models the switched forwarding of traffic (traffic flow) between FcPorts and is present where there is protection functionality in the FC. 
-                        If an FC exposes protection (having two or more FcPorts that provide alternative identical inputs/outputs), the FC will have one or more associated FcSwitch objects to represent the alternative flow choices visible at the edge of the FC.
-                        The FC switch represents and defines a protection switch structure encapsulated in the FC. 
-                        Essentially performs one of the functions of the Protection Group in a traditional model. It associates to 2 or more FcPorts each playing the role of a Protection Unit. 
-                        One or more protection, i.e. standby/backup, FcPorts provide protection for one or more working (i.e. regular/main/preferred) FcPorts where either protection or working can feed one or more protected FcPort.
-                        The switch may be used in revertive or non-revertive (symmetric) mode. When in revertive mode it may define a waitToRestore time.
-                        It may be used in one of several modes including source switch, destination switched, source and destination switched etc (covering cases such as 1+1 and 1:1).
-                        It may be locked out (prevented from switching), force switched or manual switched.
-                        It will indicate switch state and change of state.
-                        The switch can be switched away from all sources such that it becomes open and hence two coordinated switches can both feed the same LTP so long as at least one of the two is switched away from all sources (is 'open').
-                        The ability for a Switch to be 'high impedance' allows bidirectional ForwardingConstructs to be overlaid on the same bidirectional LTP where the appropriate control is enabled to prevent signal conflict.
-                        This ability allows multiple alternate routes to be present that otherwise would be in conflict.";
+                    description "removed";
                 }
 
             grouping forwarding-domain-g {
                 leaf-list layer-protocol-name {
                     type layer-protocol-name;
                     min-elements 1;
-                    description "One or more protocol layers at which the FD represents the opportunity to enable forwarding between LTP that bound it.";
+                    description "removed";
                 }
                 leaf-list lower-level-fd {
                     type leafref {
                         path '/network-element/fd/uuid';
                     }
-                    description "The FD class supports a recursive aggregation relationship (HigherLevelFdEncompassesLowerLevelFds) such that the internal construction of an FD can be exposed as multiple lower level FDs and associated Links (partitioning).
-                        The aggregated FDs and Links form an interconnected topology that provides and describes the capability of the aggregating FD.
-                        Note that the model actually represents aggregation of lower level FDs into higher level FDs as views rather than FD partition, and supports multiple views. 
-                        Aggregation allow reallocation of capacity from lower level FDs to different higher level FDs as if the network is reorganized  (as the association is aggregation not composition).";
+                    description "removed";
                 }
                 leaf-list fc {
                     type leafref {
                         path '/forwarding-construct/uuid';
                     }
-                    description "An FD aggregares one or more FCs. A aggregated FC connects LTPs that bound the FD.";
+                    description "removed";
                 }
                 leaf-list ltp {
                     type leafref {
                         path '/network-element/ltp/uuid';
                     }
-                    description "An instance of FD is associated with zero or more LTP objects. 
-                        The LTPs that bound the FD provide capacity for forwarding.";
+                    description "removed";
                 }
                 leaf-list lower-level-link {
                     type string;
-                    description "The FD encompasses Links that interconnect lower level FDs and collect links that are wholly within the bounds of the FD.
-                        See also _lowerLevelFd.";
+                    description "removed";
                 }
                 uses global-class-g;
-                description "The ForwardingDomain (FD) class models the topological component that represents the opportunity to enable forwarding (of specific transport characteristic information at one or more protocol layers) between points represented by the LTP in the model.
-                    The FD object provides the context for and constrains the formation, adjustment and removal of FCs and hence offers the potential to enable forwarding. 
-                    The LTPs available are those defined at the boundary of the FD.
-                    At a lower level of recursion an FD could represent a fabric (switch matrix) in a Network Element (NE). 
-                    An NE can encompass more than one switch matrix and hence more than one FD. The FD representing a switch matrix can be further partitioned.
-                    The FD corresponds to a subnetwork [ITU-T G.800], FlowDomain [TMF 612] and a MultiLayerSubNetwork (MLSN) [TMF 612]. As in the TMF concept of MLSN and unlike the ITU-T concet of subnetwork model the FD can support more than one layer-protocol.";
+                description "removed";
             }
             grouping forwarding-construct-g {
                 leaf layer-protocol-name {
                     type layer-protocol-name;
-                    description "The layerProtocol at which the FC enables the potential for forwarding.";
+                    description "removed";
                 }
                 leaf-list lower-level-fc {
                     type leafref {
                         path '/forwarding-construct/uuid';
                     }
-                    description "An FC object supports a recursive aggregation relationship such that the internal construction of an FC can be exposed as multiple lower level FC objects (partitioning).
-                        Aggregation is used as for the FD to allow changes in hierarchy. 
-                        FC aggregation reflects FD aggregation. 
-                        The FC represents a Cross-Connection in an NE. The Cross-Connection in an NE is not necessarily the lowest level of FC partitioning.
-                        ";
+                    description "removed";
                 }
                 leaf-list fc-route {
                     type string;
-                    description "An FC object can have zero or more routes, each of which is defined as a list of lower level FC objects describing the flow across the network.";
+                    description "removed";
                 }
                 list fc-port {
                     key 'uuid';
                     min-elements 2;
                     uses fc-port-g;
-                    description "The association of the FC to LTPs is made via FcPorts (essentially the ports of the FC).";
+                    description "removed";
                 }
                 list fc-switch {
                     key 'uuid';
                     uses fc-switch-g;
-                    description "If an FC exposes protection (having two FcPorts that provide alternative identical inputs/outputs), the FC will have one or more associated FcSwitch objects.
-                        The arrangement of switches for a particular instance is described by a referenced FcSpec";
+                    description "removed";
                 }
                 leaf forwarding-direction {
                     type forwarding-direction;
-                    description "The directionality of the ForwardingConstruct. 
-                        Is applicable to simple ForwardingConstructs where all FcPorts are BIDIRECTIONAL (the ForwardingConstruct will be BIDIRECTIONAL) or UNIDIRECTIONAL (the ForwardingConstruct will be UNIDIRECTIONAL). 
-                        Is not present in more complex cases.";
+                    description "removed";
                 }
                 leaf is-protection-lock-out {
                     if-feature protection-exclude-server;
                     type boolean;
-                    description "The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of.
-                        This overrides all other protection control states including forced.
-                        If the item is locked out then it cannot be used under any circumstances.
-                        Note: Only relevant when part of a protection scheme.";
+                    description "removed";
                 }
                 leaf service-priority {
                     type int64;
-                    description "Relevant where 'service' FCs are competing for server resources.
-                        Used to determine which signal FC is allocated resource. 
-                        The priority of the 'service' with respect to other 'services'. 
-                        Lower numeric value means higher priority. 
-                        Covers cases such as preemptable.";
+                    description "removed";
                 }
                 leaf-list supported-link {
                     type string;
-                    description "An FC that spans between LTPs that terminate the LayerProtocol usually supports one or more links in the client layer.";
+                    description "removed";
                 }
                 uses global-class-g;
-                description "The ForwardingConstruct (FC) class models enabled constrained potential for forwarding between two or more LTPs at a particular specific layerProtocol.
-                    Like the LTP, the FC supports any transport protocol including all circuit and packet forms.
-                    It is used to effect forwarding of transport characteristic (layer protocol) information.
-                    An FC can be in only one FD.
-                    The ForwardingConstruct is a Forwarding entity.
-                    At a low level of the recursion, a FC represents a cross-connection within an NE. It may also represent a fragment of a cross-connection under certain circumstances.
-                    The FC object can be used to represent many different structures including point-to-point (P2P), point-to-multipoint (P2MP), rooted-multipoint (RMP) and multipoint-to-multipoint (MP2MP) bridge and selector structures for linear, ring or mesh protection schemes.";
+                description "removed";
             }
             container network-element {
                 presence  "";
                 list fd {
                     key 'uuid';
                     uses forwarding-domain-g;
-                    description "Represents the FD that is completely within the boundary of the NE.
-                        At a low level of recursion, an FD (within a network element (NE)) represents a switch matrix (i.e., a fabric). 
-                        Note that an NE can encompass multiple switch matrices (FDs) and the FD representing the switch matrix can be further partitioned.
-                        Where an FD is referenced by the NeEncompassesFd association, any FDs that it encompasses (i.e., that are associated with it by HigherLevelFdEncompassesLowerLevelFds), must also be encompassed by the NE and hence must have the NeEncompassesFd association.
-                        ";
+                    description "removed";
                 }
                 list ltp {
                     key 'uuid';
                     uses logical-termination-point-g;
-                    description "An NE has associated LTPs that are at its boundary.
-                        The NeEncompassesFd association occurs for FDs that are within the bounds of the NetworkElement definition such that the FD is bounded by LTPs, all of which are on the boundary of the NetworkElement or are within the NetworkElement. 
-                        An LTP can be independent of an NE.";
+                    description "removed";
                 }
                 uses global-class-g;
-                description "The Network Element (NE) class represents a network element (traditional NE) in the data plane.
-                    A data plane network element is essentially a consolidation of capabilities that can be viewed and controlled through a 'single' management-control port.
-                    In the direct interface from an SDN controller to a network element in the data plane, the NetworkElement object defines the scope of control for the resources within the network element
-                    For example internal transfer of user information between the external terminations (ports of the NE), encapsulation, multiplexing/demultiplexing, and OAM functions, etc. 
-                    The NetworkElement provides the scope of the naming space for identifying objects representing the resources within the data plane network element.
-                    NE is really a product bundling or some view of management scope, management access, session. 
-                    The NE is not directly part of topology but brings meaning to the FD context and the LTP context (and hence the links). ";
+                description "removed";
             }
             list forwarding-construct {
                 key 'uuid';
@@ -623,160 +478,118 @@ module core-model {
                         path '/network-element/ltp/uuid';
                     }
                     max-elements 2;
-                    description "The FcPort may be associated with more than one LTP when the FcPort is bidirectional and the LTPs are unidirectional.
-                        Multiple Ltp
-                        - Bidirectional FcPort to two Uni Ltps
-                        Zero Ltp
-                        - BreakBeforeMake transition
-                        - Planned Ltp not yet in place
-                        - Off-network LTP referenced through other mechanism";
+                    description "removed";
                 }
                 leaf role {
                     type port-role;
-                    description "Each FcPort of the FC has a role (e.g., working, protection, protected, symmetric, hub, spoke, leaf, root) in the context of the FC with respect to the FC function. ";
+                    description "removed";
                 }
                 leaf fc-port-direction {
                     type port-direction;
-                    description "The orientation of defined flow at the FcPort.";
+                    description "removed";
                 }
                 leaf is-protection-lock-out {
                     if-feature protection-exclude-fc-port;
                     type boolean;
-                    description "The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of.
-                        This overrides all other protection control states including forced.
-                        If the item is locked out then it cannot be used under any circumstances.
-                        Note: Only relevant when part of a protection scheme.";
+                    description "removed";
                 }
                 leaf selection-priority {
                     type int64;
-                    description "The preference priority of the resource in the protection scheme for a particular FC. 
-                        The lower the value the higher the priority.
-                        A lower value of selection priority is preferred
-                        If two resources have the same value they are of equal priory.
-                        There is no preference between equal priorities.
-                        If a resource with the lowest value selection priority fails then the next lowest value available (may be the same value) is picked.
-                        Hence on failure of the current resource the next best available will be selected.
-                        If there are several equal values the choice is essentially arbitrary).
-                        If the scheme is revertive then when a resource of higher priority than the currently selected resource recovers it will be selected.
-                        This is equivalent to working/protection but allows for all static scheme types with n:m capability. 
-                        In simple schemes 0 = working and 1 = protecting.";
+                    description "removed";
                 }
                 leaf is-internal-port {
                     type boolean;
                     config false;
-                    description "The FcPort is not exposed and cannot have associated LTPs.
-                        This form of FcPort is used to enable chaining of FcSwitches or FcRoutes in complex network protection scenarios.";
+                    description "removed";
                 }
                 leaf-list fc-route-feeds-fc-port-egress {
                     type string;
-                    description "Identifies which route(s) currently actively forward to the FcPort to exit the FC to an LTP (or for an internal FcPort to propagate to the next internal switch/route).";
+                    description "removed";
                 }
                 uses local-class-g;
-                description "The association of the FC to LTPs is made via FcPorts.
-                    The FcPort class models the access to the FC function. 
-                    The traffic forwarding between the associated FcPorts of the FC depends upon the type of FC and may be associated with FcSwitch object instances.  
-                    In cases where there is resilience, the FcPort may convey the resilience role of the access to the FC. 
-                    It can represent a protected (resilient/reliable) point or a protecting (unreliable working or protection) point.
-                    The FcPort replaces the Protection Unit of a traditional protection model. 
-                    The ForwardingConstruct can be considered as a component and the FcPort as a Port on that component.";
+                description "removed";
             }
             grouping layer-protocol-g {
                 leaf layer-protocol-name {
                     type layer-protocol-name;
-                    description "Indicate the specific layer-protocol described by the LayerProtocol entity.";
+                    description "removed";
                 }
                 leaf configured-client-capacity {
                     type to-be-defined;
-                    description "Provides a summarized view of the client capacity that is configurable for use.
-                        Note the client LTP association should provide all necessary detail hence this attribute is questionable.";
+                    description "removed";
                 }
                 leaf lp-direction {
                     type termination-direction;
-                    description "The overall directionality of the LP. 
-                        - A BIDIRECTIONAL LP will have some SINK and/or SOURCE flows.
-                        - A SINK LP can only contain elements with SINK flows or CONTRA_DIRECTION_SOURCE flows
-                        - A SOURCE LP can only contain SOURCE flows or CONTRA_DIRECTION_SINK flows";
+                    description "removed";
                 }
                 leaf termination-state {
                     type termination-state;
-                    description "Indicates whether the layer is terminated and if so how.";
+                    description "removed";
                 }
                 list config-and-switch-controller {
                     key 'switch-rule';
                     uses configuration-and-switch-controller-g;
-                    description "A switch controller external to the LayerProtocol.
-                        The controller will coordinate one or more switches in one or more FCs related to the LayerProtocol";
+                    description "removed";
                 }
                 leaf is-protection-lock-out {
                     if-feature protection-exclude-ltp;
                     type boolean;
-                    description "The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of.
-                        This overrides all other protection control states including forced.
-                        If the item is locked out then it cannot be used under any circumstances.
-                        Note: Only relevant when part of a protection scheme.";
+                    description "removed";
                 }
                 leaf fc-blocks-signal-to-lp {
                     type string;
                     description "none";
                 }
                 uses local-class-g;
-                description "The projection of an LTP into each transport layer is represented by a LayerProtocol (LP) instance. A LayerProtocol instances can be used for controlling termination and monitoring functionality. It can also be used for controlling the adaptation (i.e. encapsulation and/or multiplexing of client signal), tandem connection monitoring, traffic conditioning and/or shaping functionality at an intermediate point along a connection. Where the client - server relationship is fixed 1:1 and immutable, the layers can be encapsulated in a single LTP instance. Where there is a n:1 relationship between client and server, the layers must be split over two separate instances of LTP. ";
+                description "removed";
             }
             grouping logical-termination-point-g {
                 leaf-list server-ltp {
                     type leafref {
                         path '/network-element/ltp/uuid';
                     }
-                    description "References contained LTPs representing servers of this LTP in an inverse multiplexing configuration (e.g. VCAT).";
+                    description "removed";
                 }
                 leaf-list client-ltp {
                     type leafref {
                         path '/network-element/ltp/uuid';
                     }
-                    description "References contained LTPs representing client traffic of this LTP for normal cases of multiplexing.";
+                    description "removed";
                 }
                 list lp {
                     key 'uuid';
                     min-elements 1;
                     uses layer-protocol-g;
-                    description "Ordered list of LayerProtocols that this LTP is comprised of where the first entry in the list is the lowest server layer (e.g. physical).";
+                    description "removed";
                 }
                 leaf connected-ltp {
                     type leafref {
                         path '/network-element/ltp/uuid';
                     }
-                    description "Applicable in a simple context where two LTPs are associated via a non-adjustable enabled forwarding.
-                        Reduces clutter removing the need for two additional LTPs and an FC with a pair of FcPorts.";
+                    description "removed";
                 }
                 leaf peer-ltp {
                     type leafref {
                         path '/network-element/ltp/uuid';
                     }
-                    description "References contained LTPs representing the reversal of orientation of flow where two LTPs are associated via a non-adjustable enabled forwarding and where the referenced LTP is fully dependent on the this LTP.";
+                    description "removed";
                 }
                 leaf-list physical-port-reference {
                     type string;
-                    description "One or more text labels for the unmodelled physical port associated with the LTP.
-                        In many cases there is no associated physical port.";
+                    description "removed";
                 }
                 leaf-list ltp-in-other-view {
                     type leafref {
                         path '/network-element/ltp/uuid';
                     }
-                    description "References one or more LTPs in other views that represent this LTP. 
-                        The referencing LTP is the provider of capability.";
+                    description "removed";
                 }
                 leaf ltp-direction {
                     type termination-direction;
-                    description "The overall directionality of the LTP. 
-                        - A BIDIRECTIONAL LTP must have at least some LPs that are BIDIRECTIONAL but may also have some SINK and/or SOURCE LPs.
-                        - A SINK LTP can only contain SINK LPs
-                        - A SOURCE LTP can only contain SOURCE LPs";
+                    description "removed";
                 }
                 uses global-class-g;
-                description "The LogicalTerminationPoint (LTP) class encapsulates the termination and adaptation functions of one or more transport layers represented by instances of LayerProtocol.
-                    The encapsulated transport layers have a simple fixed 1:1 client-server relationship defined by association end ordering.
-                    The structure of LTP supports all transport protocols including circuit and packet forms.";
+                description "removed";
             }
             feature protection-exclude-server {
                 description "In protection context if server of protection where entire server is to be excluded from use for protection.";
@@ -805,38 +618,23 @@ module core-model {
         **********************/ 
             typedef date-and-time {
                 type string;
-                description "This primitive type defines the date and time according to the following structure:
-                    'yyyyMMddhhmmss.s[Z|{+|-}HHMm]' where:
-                    yyyy    '0000'..'9999'    year
-                    MM        '01'..'12'            month
-                    dd        '01'..'31'            day
-                    hh        '00'..'23'            hour
-                    mm        '00'..'59'            minute
-                    ss        '00'..'59'            second
-                    s        '.0'..'.9'            tenth of second (set to '.0' if EMS or NE cannot support this granularity)
-                    Z        'Z'                    indicates UTC (rather than local time)
-                    {+|-}    '+' or '-'            delta from UTC
-                    HH        '00'..'23'            time zone difference in hours
-                    Mm        '00'..'59'            time zone difference in minutes.";
+                description "removed";
             }
             typedef bit-string {
                 type string;
-                description "This primitive type defines a bit oriented string.
-                    The size of the BitString will be defined in the valueRange property of the attribute; according to ASN.1 (X.680).
-                    The semantic of each bit position will be defined in the Documentation field of the attribute.";
+                description "removed";
             }
             typedef real {
                 type string;
-                description "This primitive type maps to the 'realnumber' defined in Recommendation X.680.";
+                description "removed";
             }
             typedef printable-string {
                 type string;
-                description "A string that only includes printable characters.";
+                description "removed";
             }
             typedef to-be-defined {
                 type string;
-                description "This type is used when the actual type of the attrbute is expected to be complex but where the type has not yet been developed. 
-                    This type should only be used for attributes that are experimental.";
+                description "removed";
             }
 
         /***********************
@@ -850,38 +648,32 @@ module core-model {
                         key 'value-name';
                         min-elements 1;
                         uses name-and-value-g;
-                        description "List of names.";
+                        description "removed";
                     }
-                    description "Name: A property of an entity with a value that is unique in some namespace but may change during the life of the entity. A name carries no semantics with respect to the purpose of the entity.";
+                    description "removed";
                 }
                 grouping global-class-g {
                     list local-id {
                         key 'value-name';
                         uses name-and-value-g;
-                        description "An identifier that is unique in the context of some scope that is less than the global scope.
-                            (consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)";
+                        description "removed";
                     }
                     leaf uuid {
                         type universal-id;
-                        description "UUID: An identifier that is universally unique
-                            (consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself globally unique, and immutable. An identifier carries no semantics with respect to the purpose or state of the entity)
-                            The uuid should be treated as opaque by the user.";
+                        description "removed";
                     }
                     uses name-g;
                     uses label-g;
                     uses extension-g;
                     uses state-pac-g;
-                    description "Represents a type of thing (an Entity) that has instances which can exist in their own right (independently of any others).
-                        Entity: Has identity, defined boundary, properties, functionality and lifecycle in a global context.
-                        (consider in the context of a Class: (usage) The representation of a thing that may be an entity or an inseparable Entity Feature).";
+                    description "removed";
                 }
                 grouping local-class-g {
                     list local-id {
                         key 'value-name';
                         min-elements 1;
                         uses name-and-value-g;
-                        description "An identifier that is unique in the context of some scope that is less than the global scope.
-                            (consider in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)";
+                        description "removed";
                     }
                     leaf uuid {
                         type universal-id;
@@ -891,46 +683,42 @@ module core-model {
                     uses label-g;
                     uses extension-g;
                     uses state-pac-g;
-                    description "A LocalClass represents a Feature of an Entity. It is inseparable from a GlobalClass but is a distinct feature of that GlobalClass such that the instances of LocalClass are able to have associations to other instances..
-                        Feature of an Entity: An inseparable, externally distinguishable part of an entity.
-                        The mandatory LocalId of the LocalClass instance is unique in the context of the GlobalClass from which it is inseparable.
-                        (consider in the context of a Class: (usage) The representation of a thing that may be an entity or an inseparable feature of an entity)
-                        ";
+                    description "removed";
                 }
                 grouping label-g {
                     list label {
                         key 'value-name';
                         uses name-and-value-g;
-                        description "List of labels.";
+                        description "removed";
                     }
-                    description "A property of an entity with a value that is not expected to be unique and is allowed to change. A label carries no semantics with respect to the purpose of the entity and has no effect on the entity behavior or state.";
+                    description "removed";
                 }
                 grouping extension-g {
                     list extension {
                         key 'value-name';
                         uses name-and-value-g;
-                        description "List of simple name-value extensions.";
+                        description "removed";
                     }
-                    description "Extension provides an opportunity to define properties not declared in the class that extend the class enabling a realization with simple ad-hoc extension of standard classes to be conformant.";
+                    description "removed";
                 }
                 grouping universal-id-authority-g {
                     leaf uuid {
                         type universal-id;
-                        description "The UUID for the UUID authority.";
+                        description "removed";
                     }
-                    description "Represents the authority that controls the allocation of UUIDs.";
+                    description "removed";
                 }
                 grouping name-and-value-authority-g {
                     leaf uuid {
                         type universal-id;
-                        description "The UUID for the NameValueAuthority.";
+                        description "removed";
                     }
-                    description "Represents the authority that controls the legal values for the names and values of a name/value attribute.";
+                    description "removed";
                 }
                 grouping conditional-package-g {
                     uses extension-g;
                     uses label-g;
-                    description "The base class for conditional packages.";
+                    description "removed";
                 }
 
             /***********************
@@ -939,78 +727,74 @@ module core-model {
                 grouping name-and-value-g {
                     leaf value-name {
                         type string;
-                        description "The name of the value. The value need not have a name.";
+                        description "removed";
                     }
                     leaf value {
                         type string;
-                        description "The value.";
+                        description "removed";
                     }
-                    description "A scoped name-value pair.";
+                    description "removed";
                 }
                 typedef universal-id {
                     type string;
-                    description "The universal ID value where the mechanism for generation is defined by some authority not directly referenced in the structure.
-                        A example structure is [IETF RFC4122].";
+                    description "removed";
                 }
                 grouping address-g {
                     leaf address-name {
                         type string;
-                        description "The name of the address (to allow the specific hierarchy to be distinguished from others for the same entity).";
+                        description "removed";
                     }
                     list address-element {
                         key 'uuid';
                         uses address-element-g;
-                        description "The elements of the address that form the recursive scope narrowing.";
+                        description "removed";
                     }
-                    description "A description of location via a hierarchy of narrowing contexts.";
+                    description "removed";
                 }
                 grouping local-id-and-class-g {
                     leaf class-of-instance {
                         type string;
-                        description "The class to which the name refers.";
+                        description "removed";
                     }
                     container local-id {
                         uses name-and-value-g;
-                        description "The localId of the entity.";
+                        description "removed";
                     }
-                    description "The localId and the class of entity that it identifies.";
+                    description "removed";
                 }
                 grouping name-and-class-g {
                     leaf class-of-instance {
                         type string;
-                        description "The class to which the name refers.";
+                        description "removed";
                     }
                     container name {
                         uses name-and-value-g;
-                        description "If the element is a name.";
+                        description "removed";
                     }
-                    description "The name and the class of entity that it names.";
+                    description "removed";
                 }
                 grouping address-element-g {
                     leaf address-element-name {
                         type string;
-                        description "The name of the address element (e.g. 'shelf' as an element of a shelf/slot/port addressing scheme).
-                            The remainder of the structure has the reference for the shelf.
-                            ";
+                        description "removed";
                     }
                     container local-id {
                         uses local-id-and-class-g;
-                        description "If the element is a localId (where the element above in the hierarchy must be the context in which the specific localId is relevant).";
+                        description "removed";
                     }
                     leaf uuid {
                         type universal-id;
-                        description "If the element is a uuid (where this element could be the top of a hierarchy but may also be at some level in the hierarchy where address navigation is considered necessary to assist in location of the UUID).";
+                        description "removed";
                     }
                     container name {
                         uses name-and-class-g;
-                        description "If the element is a name.";
+                        description "removed";
                     }
                     leaf arbitrary-element {
                         type string;
-                        description "Where the element is from some external model that is not formally represented in this model.";
+                        description "removed";
                     }
-                    description "One element of a hierarchy of elements.
-                        Note that the element must have one and only one value chosen from a list of potential value types.";
+                    description "removed";
                 }
 
 
@@ -1024,24 +808,22 @@ module core-model {
                     leaf operational-state {
                         type operational-state;
                         config false;
-                        description "The operational state is used to indicate whether or not the resource is installed and working.";
+                        description "removed";
                     }
                     leaf administrative-control {
                         type administrative-control;
-                        description "The administrativeControl state provides control of the availability of specific resources without modification to the provisioning of those resources.
-                            The value is the current control target. The actual administrativeState may or may not be at target.";
+                        description "removed";
                     }
                     leaf administrative-state {
                         type administrative-state;
                         config false;
-                        description "Shows whether or not the client has permission to use or has a prohibition against using the resource.
-                            The administrative state expresses usage permissions for specific resources without modification to the provisioning of those resources.";
+                        description "removed";
                     }
                     leaf lifecycle-state {
                         type lifecycle-state;
-                        description "Used to track the planned deployment, allocation to clients and withdrawal of resources.";
+                        description "removed";
                     }
-                    description "Provides general state attributes.";
+                    description "removed";
                 }
 
             /***********************
@@ -1050,80 +832,76 @@ module core-model {
                 typedef operational-state {
                     type enumeration {
                         enum disabled {
-                            description "The resource is unable to meet the SLA of the user of the resource. If no (explicit) SLA is defined the resource is disabled if it is totally inoperable and unable to provide service to the user.";
+                            description "removed";
                         }
                         enum enabled {
-                            description "The resource is partially or fully operable and available for use.";
+                            description "removed";
                         }
                     }
-                    description "The possible values of the operationalState.";
+                    description "removed";
                 }
                 typedef administrative-state {
                     type enumeration {
                         enum locked {
-                            description "Users are administratively prohibited from making use of the resource.";
+                            description "removed";
                         }
                         enum unlocked {
-                            description "Users are allowed to use the resource.";
+                            description "removed";
                         }
                     }
-                    description "The possible values of the administrativeState.";
+                    description "removed";
                 }
                 typedef administrative-control {
                     type enumeration {
                         enum unlock {
-                            description "The intention is for the entity to become unlocked.
-                                The entity may already be UNLOCKED.";
+                            description "removed";
                         }
                         enum lock-passive {
-                            description "The intention is for the entity to become locked but no effort is expected to move to the Locked state (the state will be achieved once all users stop using the resource). 
-                                The entity may be LOCKED.";
+                            description "removed";
                         }
                         enum lock-active {
-                            description "The intention is for the entity to become locked and it is expected that effort will be made to move to the Locked state (users will be actively removed). 
-                                The entity may already be LOCKED.";
+                            description "removed";
                         }
                         enum lock-immediate {
-                            description "The intention is for the entity to become locked and it is expected to move to the Locked state immediately (users will be force removed). 
-                                The entity may already be LOCKED.";
+                            description "removed";
                         }
                     }
-                    description "Reflects the current control action when the entity is not in the desired state.
-                        The possible values of the current target administrative state.";
+                    description "removed
+                        removed";
                 }
                 typedef extended-admin-state {
                     type enumeration {
                         enum locked {
-                            description "Users are administratively prohibited from making use of the resource.";
+                            description "removed";
                         }
                         enum unlocked {
-                            description "Users are allowed to use the resource.";
+                            description "removed";
                         }
                         enum shutting-down-active {
-                            description "The entity is administratively restricted to existing instances of use only. There are specific actions to remove existing uses. There may be no new instances of use enabled. This corresponds to a control of LOCK_ACTIVE.";
+                            description "removed";
                         }
                         enum shutting-down-passive {
-                            description "The entity is administratively restricted to existing instances of use only. There may be no new instances of use enabled. This corresponds to a control of LOCK_PASSIVE.";
+                            description "removed";
                         }
                     }
-                    description "Possible extensions to AdministrativeState.";
+                    description "removed";
                 }
                 typedef lifecycle-state {
                     type enumeration {
                         enum planned {
-                            description "The resource is planned but is not present in the network.";
+                            description "removed";
                         }
                         enum potential {
-                            description "The supporting resources are present in the network but are shared with other clients; or require further configuration before they can be used; or both.o    When a potential resource is configured and allocated to a client it is moved to the 'installed' state for that client.o    If the potential resource has been consumed (e.g. allocated to another client) it is moved to the 'planned' state for all other clients.";
+                            description "removed";
                         }
                         enum installed {
-                            description "The resource is present in the network and is capable of providing the service expected.";
+                            description "removed";
                         }
                         enum pending-removal {
-                            description "The resource has been marked for removal.";
+                            description "removed";
                         }
                     }
-                    description "The possible values of the lifecycleState.";
+                    description "removed";
                 }
 
 
@@ -1250,15 +1028,11 @@ module core-model {
                 }
                 grouping operation-set-g {
                     leaf-list after-operation-set {
-                        type leafref {
-                            path '/operation-envelope/operation-set/effort-and-action';
-                        }
+                        type action-effort;
                         description "none";
                     }
                     leaf-list before-operation-set {
-                        type leafref {
-                            path '/operation-envelope/operation-set/effort-and-action';
-                        }
+                        type action-effort;
                         description "none";
                     }
                     leaf effort-and-action {
@@ -1270,9 +1044,7 @@ module core-model {
                         description "none";
                     }
                     leaf-list operationset {
-                        type leafref {
-                            path '/operation-envelope/operation-set/effort-and-action';
-                        }
+                        type action-effort;
                         description "none";
                     }
                     leaf is-short-lived {
@@ -1309,7 +1081,7 @@ module core-model {
                             description "none";
                         }
                         uses connector-g;
-                        description "A rule class (an abstract specialization of Connector) that represents a connector that are only accessible to an equipment inserted in the holder.";
+                        description "removed";
                     }
                     grouping connector-cable-end-g {
                         leaf connector-on-equipment-for-cable {
@@ -1317,7 +1089,7 @@ module core-model {
                             description "none";
                         }
                         uses connector-g;
-                        description "A rule class (an abstract specialization of Connector) that represents a connector on the end of a cable.";
+                        description "removed";
                     }
                     grouping connector-on-equipment-for-cable-g {
                         leaf connector-cable-end {
@@ -1325,7 +1097,7 @@ module core-model {
                             description "none";
                         }
                         uses connector-g;
-                        description "A rule class (an abstract specialization of Connector) that represents a connector exposed on an equipment such that a cable may be plugged in.";
+                        description "removed";
                     }
                     grouping connector-on-equipment-for-holder-g {
                         leaf connector-in-holder {
@@ -1333,7 +1105,7 @@ module core-model {
                             description "none";
                         }
                         uses connector-g;
-                        description "A rule class (an abstract specialization of Connector) that represents a connector on an equipment that is intended to mate with a connector in a holder.";
+                        description "removed";
                     }
 
 
@@ -1352,21 +1124,21 @@ module core-model {
                             type to-be-defined;
                             description "none";
                         }
-                        description "Represents the dynamic aspects of the properties that relate to the motive force that directly enable functionality to emerge from the equipment.";
+                        description "removed";
                     }
                     grouping mechanical-functions-g {
                         leaf rotation-speed {
                             type to-be-defined;
                             description "none";
                         }
-                        description "Represents the dynamic aspects of the mechanical functions of the equipment.";
+                        description "removed";
                     }
                     grouping physical-properties-g {
                         leaf temperature {
                             type to-be-defined;
                             description "none";
                         }
-                        description "Represents the dynamic aspects of the physical environmental properties of the equipment.";
+                        description "removed";
                     }
                     grouping holder-monitors-g {
                         leaf is-active {
@@ -1381,7 +1153,7 @@ module core-model {
                             type string;
                             description "none";
                         }
-                        description "Represents the dynamic state of the holder instance. ";
+                        description "removed";
                     }
                     grouping location-g {
                         container equipment-location {
@@ -1403,7 +1175,7 @@ module core-model {
                             type equipment-category;
                             description "none";
                         }
-                        description "Represents the form of the equipment.";
+                        description "removed";
                     }
                     grouping equipment-instance-g {
                         leaf manufacture-date {
@@ -1418,7 +1190,7 @@ module core-model {
                             type string;
                             description "none";
                         }
-                        description "Represents the per instance invariant properties of the equipment.";
+                        description "removed";
                     }
                     grouping equipment-type-g {
                         leaf description {
@@ -1441,7 +1213,7 @@ module core-model {
                             type string;
                             description "none";
                         }
-                        description "Represents the invariant properties of the equipment that define and characterise the type.";
+                        description "removed";
                     }
                     grouping holder-structure-g {
                         leaf holder-category {
@@ -1460,7 +1232,7 @@ module core-model {
                             type boolean;
                             description "none";
                         }
-                        description "Represents the form of the holder.";
+                        description "removed";
                     }
                     grouping manufactured-thing-g {
                         container manufacturer-properties {
@@ -1479,7 +1251,7 @@ module core-model {
                             uses operator-augmented-equipment-type-g;
                             description "none";
                         }
-                        description "Collects all invariant aspects of a manufactured thing.";
+                        description "removed";
                     }
                     grouping manufacturer-properties-g {
                         leaf manufacturer-identifier {
@@ -1490,17 +1262,17 @@ module core-model {
                             type string;
                             description "none";
                         }
-                        description "Represents the properties of the manufacturer.";
+                        description "removed";
                     }
                     grouping mechanical-features-g {
-                        description "Represents the invariant characteristics of dynamic mechanical features of a physical thing.";
+                        description "removed";
                     }
                     grouping operator-augmented-equipment-type-g {
                         leaf asset-type-identifier {
                             type string;
                             description "none";
                         }
-                        description "Represents the invariant properties of the equipment asset allocated by the operator that define and characterise the type.";
+                        description "removed";
                     }
                     grouping physical-characteristics-g {
                         leaf weight-characteristics {
@@ -1515,7 +1287,7 @@ module core-model {
                             type to-be-defined;
                             description "none";
                         }
-                        description "Represents the invariant physical characteristics (including composition and physical robustness) of the type.";
+                        description "removed";
                     }
                     grouping physical-rating-g {
                         leaf thermal-rating {
@@ -1526,14 +1298,14 @@ module core-model {
                             type to-be-defined;
                             description "none";
                         }
-                        description "Represents the invariant physical operational boundaries for the equipment/holder type.";
+                        description "removed";
                     }
                     grouping position-g {
                         leaf relative-position {
                             type to-be-defined;
                             description "none";
                         }
-                        description "Represents the invariant relative position of the holder (with respect to some frame of reference in an equipment) or connector on an equipment or pin in a connector.";
+                        description "removed";
                     }
                     grouping spatial-properties-of-type-g {
                         leaf height {
@@ -1548,7 +1320,7 @@ module core-model {
                             type to-be-defined;
                             description "none";
                         }
-                        description "Represents the basic invariant spatial properties of a physical thing.";
+                        description "removed";
                     }
                     grouping swapability-g {
                         leaf is-hot-swappable {
@@ -1556,7 +1328,7 @@ module core-model {
                             default true;
                             description "none";
                         }
-                        description "Represents the degree of field replacement that is possible for the equipment type.";
+                        description "removed";
                     }
 
 
@@ -1591,10 +1363,7 @@ module core-model {
                         description "none";
                     }
                     uses global-class-g;
-                    description "Basic model representing a cable with connectors fitted where the cable is 'short' (e.g.  patch cord, in-station cabling).
-                        This is intentionally a very basic representation of a cable. 
-                        In a more sophisticated representation cable ends might be represented that then associate to the attached connector. 
-                        At this point it is assumed that the basic model is sufficient.";
+                    description "removed";
                 }
                 grouping connector-g {
                     leaf connector {
@@ -1633,7 +1402,7 @@ module core-model {
                     }
                     uses local-class-g;
                     uses group-of-pins-g;
-                    description "Represents a connector that may be fully exposed (e.g. to plug in a cable or on the end of a cable) or partially exposed (e.g. backplane to plug in another piece of equipment such as a module).";
+                    description "removed";
                 }
                 grouping equipment-g {
                     list connector {
@@ -1695,8 +1464,7 @@ module core-model {
                         type boolean;
                         default true;
                         config false;
-                        description "Indicates whether or not the equipment can be removed and replaced 'in the field' (i.e. in a deployment) by normal operations personnel. 
-                            ";
+                        description "removed";
                     }
                     leaf-list function-block {
                         type string;
@@ -1715,9 +1483,7 @@ module core-model {
                         description "none";
                     }
                     uses global-class-g;
-                    description "Represents any relevant physical thing. 
-                        Can be either field replaceable or not field replaceable.
-                        Note: The model is currently constrained to inside plant.";
+                    description "removed";
                 }
                 list equipment {
                     key 'uuid';
@@ -1735,9 +1501,7 @@ module core-model {
                         type leafref {
                             path '/equipment/uuid';
                         }
-                        description "The FRU that is occupying the holder. 
-                            A holder may be unoccupied. 
-                            An FRU may occupy more hat one holder (using or blocking are intentionally not distinguished here).";
+                        description "removed";
                     }
                     container spatial-properties-of-type {
                         uses spatial-properties-of-type-g;
@@ -1777,7 +1541,7 @@ module core-model {
                         description "none";
                     }
                     uses local-class-g;
-                    description "Represents a space in an equipment in which another equipment can be fitted in the field.";
+                    description "removed";
                 }
 
             /***********************
@@ -1786,54 +1550,44 @@ module core-model {
                 typedef connector-and-pin-orientation {
                     type enumeration {
                         enum male {
-                            description "The connecting elements are dominantly protrusions.";
+                            description "removed";
                         }
                         enum female {
-                            description "The connecting elements are dominantly indentations.";
+                            description "removed";
                         }
                         enum symmetric-neutral {
-                            description "The pin (and housing) orientation combination is such that it is symmetric so a connector is compatible with itself.
-                                The connecting element may be a surface rather than protrusions or indentations.";
+                            description "removed";
                         }
                     }
-                    description "Most connector schems are asymmetric such that there are two orientations of the connector where a mating is only possible between two connectors of different orientations. 
-                        A multi-pin connector may have a mix of pin orientations. In this case it is expected that the dominant orientation of pin is chosen for the connector orientation.";
+                    description "removed";
                 }
                 typedef equipment-category {
                     type enumeration {
                         enum subrack {
-                            description "An assembly with holders designed to accommodate CIRCUIT_PACKs. 
-                                The assembly is designed to be mounted in a RACK.";
+                            description "removed";
                         }
                         enum circuit-pack {
-                            description "An assembly with connectors compatible with those in a holder.
-                                The assembly is designed to be mounted in a holder (SLOT) of a SUBRACK.
-                                May also support holders (SLOTs) for SMALL_FORMFACTOR_PLUGGABLEs";
+                            description "removed";
                         }
                         enum small-formfactor-pluggable {
-                            description "A small assembly (compared to a CIRCUIT_PACK) with connectors compatible with those in a holder.
-                                The assembly is designed to be mounted in a holder (SLOT) of a CIRCUIT_PACK or STAND_ALONE_UNIT.";
+                            description "removed";
                         }
                         enum stand-alone-unit {
-                            description "An assembly with connectors for cabling and potentially with holders.
-                                The assembly is designed to be mounted in a freeform environment (on a table or simple mechanical cabinet).
-                                May support holders (SLOTs) for CIRCUIT_PACKs or for SMALL_FORMFACTOR_PLUGGABLEs";
+                            description "removed";
                         }
                         enum rack {
-                            description "A mechanical assembly with cabling and predefined mounting points for particular SUBRACK types.
-                                The assembly is designed to be mounted on the floor in a row with other RACKs.";
+                            description "removed";
                         }
                     }
-                    description "The form of equipment.";
+                    description "removed";
                 }
                 typedef holder-category {
                     type enumeration {
                         enum slot {
-                            description "A guided holder with fixed connectors.
-                                The guided holder is designed to take a particular form of CIRCUIT_PACK or SMALL_FORMFACTOR_PLUGGABLE";
+                            description "removed";
                         }
                     }
-                    description "The form of holder.";
+                    description "removed";
                 }
 
 
@@ -1844,19 +1598,16 @@ module core-model {
             * package object-classes
             **********************/ 
                 grouping actual-holder-g {
-                    description "A holder in the ActualEquipment.";
+                    description "removed";
                 }
                 grouping expected-holder-g {
-                    description "A definition of a holder expected in the ActualEquipment (i.e. an ActualHolder) as part of the constraints provided by the ExpectedEquipment.";
+                    description "removed";
                 }
                 grouping actual-equipment-g {
-                    description "The equipment that is actually present in the physical network.
-                        It will expose all dynamic properties and some critical static properties.";
+                    description "removed";
                 }
                 grouping expected-equipment-g {
-                    description "A definition of the restrictions on the equipment that is expected to be present in the physical network at a particular 'place'.
-                        The expected equipment will state the type and may constrain any other invariant properties. 
-                        It may also provide desired ranges for dynami properties.";
+                    description "removed";
                 }
 
 
@@ -1877,9 +1628,7 @@ module core-model {
                         type connector-and-pin-orientation;
                         description "none";
                     }
-                    description "An individual physical connection point (male or female).
-                        May be capable of carrying electrical or optical signals. 
-                        A pin may have more than one wire/fiber attached but is such that all attached things get exactly the same signal set.";
+                    description "removed";
                 }
                 grouping pin-group-g {
                     leaf-list pin {
@@ -1891,7 +1640,7 @@ module core-model {
                     }
                     uses port-g;
                     uses group-of-pins-g;
-                    description "A group of pins that together provide signal group where any one pin removed from the group will prevent the signals of the signal group from flowing successfully.";
+                    description "removed";
                 }
                 grouping pin-layout-g {
                     list position {
@@ -1900,10 +1649,10 @@ module core-model {
                         uses position-g;
                         description "none";
                     }
-                    description "The structuring of pins in a connector.";
+                    description "removed";
                 }
                 grouping port-g {
-                    description "A conceptual access point for a group of signals (where that group of signals cannot be separated).";
+                    description "removed";
                 }
                 grouping signal-ref-pt-g {
                     leaf ltp {
@@ -1917,7 +1666,7 @@ module core-model {
                         min-elements 1;
                         description "none";
                     }
-                    description "A single coherent signal as processed by a single LTP.";
+                    description "removed";
                 }
                 grouping signal-ref-pt-group-g {
                     leaf pin-group {
@@ -1930,7 +1679,7 @@ module core-model {
                         description "none";
                     }
                     uses port-g;
-                    description "A physical indivisible group of signals.";
+                    description "removed";
                 }
                 grouping elemental-signals-g {
                     leaf-list pin {
@@ -1940,10 +1689,10 @@ module core-model {
                         min-elements 1;
                         description "none";
                     }
-                    description "The elemental (sub-atomic) parts of an 'indivisible' signal where processing in the LTP is required to extract the elemental signals.";
+                    description "removed";
                 }
                 grouping group-of-pins-g {
-                    description "A group of pins from one or more connectors relevant for some purpose.";
+                    description "removed";
                 }
 
 
