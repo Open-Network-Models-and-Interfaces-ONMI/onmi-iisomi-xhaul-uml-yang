@@ -31,7 +31,12 @@
 		<maven.javadoc.skip>true</maven.javadoc.skip>
 	</properties>
 	<dependencies>
-		<dependency>
+        <dependency>
+           <groupId>org.opendaylight.mdsal.model</groupId>
+           <artifactId>ietf-topology</artifactId>
+           <!-- <version>${ietf.topology.version}</version> -->
+        </dependency>
+	    <dependency>
 			<groupId>org.opendaylight.mdsal.model</groupId>
 			<artifactId>yang-ext</artifactId>
 		</dependency>
