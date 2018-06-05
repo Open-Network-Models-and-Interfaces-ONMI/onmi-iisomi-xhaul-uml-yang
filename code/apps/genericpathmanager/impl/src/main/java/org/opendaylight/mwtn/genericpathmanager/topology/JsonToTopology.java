@@ -14,7 +14,6 @@ import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev180307.to
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev180307.topology.context.g.TopologyKey;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev180307.topology.g.Link;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev180307.topology.g.Node;
-import org.opendaylight.yangtools.yang.binding.DataContainer;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -30,8 +29,34 @@ import com.google.gson.JsonSyntaxException;
  * @since 01.06.2018
  */
 public class JsonToTopology{
+	/**
+	 * grouping topology-g {
+	 *     list node {
+	 *          key 'uuid';
+	 *          config false;
+	 *          uses node-g;
+	 *          description "none";
+	 *      }
+	 *      list link {
+	 *          key 'uuid';
+	 *          config false;
+	 *          uses link-g;
+	 *          description "none";
+	 *      }
+	 *      leaf-list layer-protocol-name {
+	 *          type tapi-common:layer-protocol-name;
+	 *          config false;
+	 *          min-elements 1;
+	 *          description "none";
+	 *      }
+	 *      uses tapi-common:resource-spec-g;
+	 *      description "The ForwardingDomain (FD) object class models the ForwardingDomain topological component which is used to effect forwarding of transport characteristic information and offers the potential to enable forwarding. 
+	 *          At the lowest level of recursion, an FD (within a network element (NE)) represents a switch matrix (i.e., a fabric). Note that an NE can encompass multiple switch matrices (FDs). ";
+     *  }
+     */
 
 	private TopologyBuilder			_builder;
+	private Topology				_topology;
 	private List<Node>				_nodes;
 	private List<Link>				_links;
 	private List<LayerProtocolName> _layerProtocolName;
@@ -76,28 +101,47 @@ public class JsonToTopology{
 		JsonObject jsonObj = (JsonObject) obj;
 		JsonObject topology = jsonObj.getAsJsonObject("topology");
 
+		/**
+		 * uses tapi-common:resource-spec-g;
+		 */
 		Uuid _uuid = Uuid.getDefaultInstance(topology.get("uuid").getAsString());
-
 		// UUID of the Topology
-		_builder.setUuid(_uuid);
-
+		this._builder.setUuid(_uuid);
 		// TopologyKey
-		_builder.setKey(new TopologyKey(_uuid));
-
+		this._builder.setKey(new TopologyKey(_uuid));
 		// Topology Name and Value
 		JsonToName _name = new JsonToName();
-		_builder.setName(_name.setNameFromJson(topology.getAsJsonArray("name")));
+		this._builder.setName(_name.setNameFromJson(topology.getAsJsonArray("name")));
 
+		/**
+		 * list node
+		 */
 		//Set Topology Nodes
-		_builder.setNode(this.setNodesFromJson(topology.getAsJsonArray("node")));
-		System.out.println("---------------------------------------");
+		this._builder.setNode(this.setNodesFromJson(topology.getAsJsonArray("node")));
+
+		/**
+		 * list link
+		 */
 		//Set Topology Links
-		_builder.setLink(this.setLinksFromJson(topology.getAsJsonArray("link")));
-		System.out.println("---------------------------------------");
+		this._builder.setLink(this.setLinksFromJson(topology.getAsJsonArray("link")));
+
+		/**
+		 * leaf-list layer-protocol-name
+		 */
 		//Set Topology LayerProtocolName
-		_builder.setLayerProtocolName(this.setLayerProtocolNameFromJson(topology.getAsJsonArray("layer-protocol-name")));
+		JsonToLayerProtocolName _lpn = new JsonToLayerProtocolName();
+		this._builder.setLayerProtocolName(_lpn.setLayerProtocolNameFromJson(topology.getAsJsonArray("layer-protocol-name")));
+
+		//Build the Topology Object
+		this._topology = this._builder.build();
 	}
 
+	/**
+	 * Translate the Json Node to Java Node Object
+	 * 
+	 * @param nodeArray
+	 * @return {@link List<Node>}
+	 */
 	public List<Node> setNodesFromJson(JsonArray nodeArray) {
 		this._nodes	= new ArrayList<>();
 
@@ -111,6 +155,12 @@ public class JsonToTopology{
 		return this._nodes;
 	}
 
+	/**
+	 * Translate the Json Link to Java Link Object
+	 * 
+	 * @param linkArray
+	 * @return {@link List<Link>}
+	 */
 	public List<Link> setLinksFromJson(JsonArray linkArray) {
 		this._links	= new ArrayList<>();
 		// Iterate over all the JsonArray elements
@@ -123,6 +173,12 @@ public class JsonToTopology{
 		return this._links;
 	}
 
+	/**
+	 * Translate the Json LayerProtocolName to Java LayerProtocolName Object
+	 * 
+	 * @param layerProtocolNameArray
+	 * @return {@link List<LayerProtocolName>}
+	 */
 	public List<LayerProtocolName> setLayerProtocolNameFromJson(JsonArray layerProtocolNameArray) {
 		this._layerProtocolName = new ArrayList<>();
 		// Iterate over all the JsonArray elements
@@ -133,56 +189,72 @@ public class JsonToTopology{
 		return this._layerProtocolName;
 	}
 
-	public void setNode(List<Node> nodes) {
-		this._nodes = nodes;
-	}
-
-	public void addNode(Node node) {
-		this._nodes.add(node);
-	}
-
-	public List<Node> getNodes() {
-		return this._nodes;
-	}
-
-	public void setLink(List<Link> links) {
-		this._links = links;
-	}
-
-	public void addLink(Link link) {
-		this._links.add(link);
-	}
-
-	public void setLayerProtocolNames(List<LayerProtocolName> listLayerProtocolName) {
-		this._layerProtocolName = listLayerProtocolName;
-	}
-
-	public void addLayerProtocolName(LayerProtocolName layerProtocolName) {
-		this._layerProtocolName.add(layerProtocolName);
-	}
-
+//	public void setNode(List<Node> nodes) {
+//		this._nodes = nodes;
+//	}
+//
+//	public void addNode(Node node) {
+//		this._nodes.add(node);
+//	}
+//
+//	public List<Node> getNodes() {
+//		return this._nodes;
+//	}
+//
+//	public void setLink(List<Link> links) {
+//		this._links = links;
+//	}
+//
+//	public void addLink(Link link) {
+//		this._links.add(link);
+//	}
+//
+//	public void setLayerProtocolNames(List<LayerProtocolName> listLayerProtocolName) {
+//		this._layerProtocolName = listLayerProtocolName;
+//	}
+//
+//	public void addLayerProtocolName(LayerProtocolName layerProtocolName) {
+//		this._layerProtocolName.add(layerProtocolName);
+//	}
+//
 	public static void main(String[] args) throws JsonIOException, JsonSyntaxException, FileNotFoundException {
 		File file = new File("src/main/resources/topology.json");
 		JsonToTopology _buildTopology = new JsonToTopology(file);
-		_buildTopology.getImplementedInterface();
+		_buildTopology.getTopology();
 	}
 
-	public Class<? extends DataContainer> getImplementedInterface() {
-		return Topology.class;
+	/**
+	 * Get the Topology Object
+	 * 
+	 * @return {@link Topology}
+	 */
+	public Topology getTopology() {
+		return this._topology;
 	}
 
-	public Topology geTopology() {
-		return _builder.build();
-	}
-
+	/**
+	 * Get the List of Node Objects
+	 * 
+	 * @return {@link List<Node>}
+	 */
 	public List<Node> getTopologyNodes() {
 		return this._nodes;
 	}
 
+	/**
+	 * Get the List of Link Objects
+	 * 
+	 * @return {@link List<Link>}
+	 */
 	public List<Link> getTopologyLinks() {
 		return this._links;
 	}
 
+	/**
+	 * Get the List of LayerProtocolName Objects
+	 * 
+	 * @return {@link List<LayerProtocolName>}
+	 */
 	public List<LayerProtocolName> getTopologyLayerProtocolNames() {
 		return this._layerProtocolName;
 	}

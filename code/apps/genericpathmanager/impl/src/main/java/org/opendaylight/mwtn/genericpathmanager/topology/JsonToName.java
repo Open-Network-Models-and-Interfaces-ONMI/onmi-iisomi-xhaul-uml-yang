@@ -11,7 +11,19 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+/**
+ * {@link JsonToName} class to which takes JsonObject as input and translates it into TAPI Name object.
+ * 
+ * @author <a href="mailto:hanif.kukkalli@highstreet-technologies.com">Hanif Kukkalli</a>
+ * @since 01.06.2018
+ */
 public class JsonToName {
+	/**
+	 * Translate the Json Name Object to Tapi-Common Java Name Object
+	 * 
+	 * @param nameArray
+	 * @return {@link List<Name>}
+	 */
 	public List<Name> setNameFromJson(JsonArray nameArray) {
 		List<Name> name = new ArrayList<>();
 

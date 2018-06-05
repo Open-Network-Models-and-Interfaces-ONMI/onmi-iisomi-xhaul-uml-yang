@@ -15,6 +15,12 @@ import com.google.gson.JsonObject;
  * @since 01.06.2018
  */
 public class JsonToLink {
+
+	/**
+	 * method to translate link of json into link of tapi-topology java object
+	 * @param linkObject
+	 * @return {@link Link}
+	 */
 	public Link getLinkFromJson(JsonObject linkObject) {
 		LinkBuilder _linkBuilder = new LinkBuilder();
 		Uuid _uuid = Uuid.getDefaultInstance(linkObject.get("uuid").getAsString());
