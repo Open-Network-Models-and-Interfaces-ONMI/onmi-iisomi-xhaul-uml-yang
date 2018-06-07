@@ -1,13 +1,31 @@
 package org.opendaylight.mwtn.genericpathmanager.topology;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.AdministrativeState;
+import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.LayerProtocolName;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.LifecycleState;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.OperationalState;
+import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.PortDirection;
+import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.PortRole;
+import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.TerminationDirection;
+import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.TerminationState;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.Uuid;
+import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev180307.node.edge.point.g.MappedServiceInterfacePoint;
+import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev180307.node.edge.point.g.MappedServiceInterfacePointBuilder;
+import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev180307.node.g.AggregatedNodeEdgePoint;
+import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev180307.node.g.AggregatedNodeEdgePointBuilder;
+import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev180307.node.g.OwnedNodeEdgePoint;
+import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev180307.node.g.OwnedNodeEdgePointBuilder;
+import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev180307.node.g.OwnedNodeEdgePointKey;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev180307.topology.g.Node;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev180307.topology.g.NodeBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev180307.topology.g.NodeKey;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 /**
@@ -72,8 +90,7 @@ public class JsonToNode {
 		_nodeBuilder.setUuid(_uuid);
 		_nodeBuilder.setKey(new NodeKey(_uuid));
 		// Node Name
-		JsonToName _name = new JsonToName();
-		_nodeBuilder.setName(_name.setNameFromJson(nodeObject.getAsJsonArray("name")));
+		_nodeBuilder.setName((new JsonToName()).setNameFromJson(nodeObject.getAsJsonArray("name")));
 
 		/**
 		 * uses tapi-common:admin-state-pac-g;
@@ -87,14 +104,13 @@ public class JsonToNode {
 		 */
 		JsonToCapacityParameters _tpc = new JsonToCapacityParameters();
 		_nodeBuilder.setTotalPotentialCapacity(_tpc.setTotalPotentialCapacityFromJson(nodeObject.getAsJsonObject("total-potential-capacity")));
-		_nodeBuilder.setAvailableCapacity(_tpc.setAvailableCapacityFromJson(nodeObject.getAsJsonObject("total-potential-capacity")));
+		_nodeBuilder.setAvailableCapacity(_tpc.setAvailableCapacityFromJson(nodeObject.getAsJsonObject("available-capacity")));
 
 		/**
 		 * uses transfer-cost-pac-g;
 		 * 		uses cost-characteristic-g;
 		 */
-		JsonToCostCharacteristic _cc = new JsonToCostCharacteristic();
-		_nodeBuilder.setCostCharacteristic(_cc.setCostCharacteristic(nodeObject.getAsJsonArray("cost-characteristic")));
+		_nodeBuilder.setCostCharacteristic((new JsonToCostCharacteristic()).setCostCharacteristic(nodeObject.getAsJsonArray("cost-characteristic")));
 		
 		/**
 		 * uses transfer-integrity-pac-g;
@@ -111,26 +127,100 @@ public class JsonToNode {
 		 * 		list latency-characteristic
 		 * 			uses latency-characteristic-g;
 		 */
-		JsonToLatencyCharacteristic _lc = new JsonToLatencyCharacteristic();
-		_nodeBuilder.setLatencyCharacteristic(_lc.setLatencyCharacteristic(nodeObject.getAsJsonArray("latency-characteristic")));
-		
+		_nodeBuilder.setLatencyCharacteristic((new JsonToLatencyCharacteristic()).setLatencyCharacteristic(nodeObject.getAsJsonArray("latency-characteristic")));
 		/**
 		 * list owned-node-edge-point
 		 */
+		_nodeBuilder.setOwnedNodeEdgePoint(this.setOwnedNodeEdgePoint(nodeObject.getAsJsonArray("owned-node-edge-point")));
 		/**
 		 * list aggregated-node-edge-point
 		 */
+		_nodeBuilder.setAggregatedNodeEdgePoint(getAggregatedNodeEdgePointFromJson(nodeObject.getAsJsonArray("aggregated-node-edge-point")));
 		/**
 		 * list node-rule-group
 		 */
+		
 		/**
 		 * container encap-topology
 		 */
+		
 		/**
 		 * leaf-list layer-protocol-name
 		 */
+		_nodeBuilder.setLayerProtocolName((new JsonToLayerProtocolName()).setLayerProtocolNameFromJson(nodeObject.getAsJsonArray("layer-protocol-name")));
 		return _nodeBuilder.build();
 	}
 
+	private List<OwnedNodeEdgePoint> setOwnedNodeEdgePoint(JsonArray array) {
+		List<OwnedNodeEdgePoint> _onep	= new ArrayList<>();
+		// Iterate over all the JsonArray elements
+		for(Iterator<JsonElement> iter = array.iterator(); iter.hasNext(); ) {
+			JsonObject _object = iter.next().getAsJsonObject();
+			OwnedNodeEdgePointBuilder _onepBuilder = new OwnedNodeEdgePointBuilder();
+			Uuid _uuid = Uuid.getDefaultInstance(_object.get("uuid").getAsString());
+			_onepBuilder.setUuid(_uuid);
+			_onepBuilder.setKey(new OwnedNodeEdgePointKey(_uuid));
+			// Name
+			_onepBuilder.setName((new JsonToName()).setNameFromJson(_object.getAsJsonArray("name")));
+
+			// "administrative-state"
+			_onepBuilder.setAdministrativeState(AdministrativeState.valueOf(_object.get("administrative-state").getAsString()));
+			// "operational-state"
+			_onepBuilder.setOperationalState(OperationalState.valueOf(_object.get("operational-state").getAsString()));
+			// "lifecycle-state"
+			_onepBuilder.setLifecycleState(LifecycleState.valueOf(_object.get("lifecycle-state").getAsString()));
+			// "termination-direction"
+			_onepBuilder.setTerminationDirection(TerminationDirection.valueOf(_object.get("termination-direction").getAsString()));
+			// "termination-state"
+			_onepBuilder.setTerminationState(TerminationState.valueOf(_object.get("termination-state").getAsString()));
+
+			// total potential capacity
+			// available capacity
+			JsonToCapacityParameters _tpc = new JsonToCapacityParameters();
+			_onepBuilder.setTotalPotentialCapacity(_tpc.setTotalPotentialCapacityFromJson(_object.getAsJsonObject("total-potential-capacity")));
+			_onepBuilder.setAvailableCapacity(_tpc.setAvailableCapacityFromJson(_object.getAsJsonObject("available-capacity")));
+
+			// layer-protocol-name
+			_onepBuilder.setLayerProtocolName(LayerProtocolName.valueOf(_object.get("layer-protocol-name").getAsString()));
+			// aggregated-node-edge-point
+			_onepBuilder.setAggregatedNodeEdgePoint((new JsonToAggregatedNodeEdgePoint()).setAggregatedNodeEdgePointFromJson(_object.getAsJsonArray("aggregated-node-edge-point")));
+			// mapped-service-interface-point
+			_onepBuilder.setMappedServiceInterfacePoint(this.getMappedServiceInterfacePoint(_object.getAsJsonArray("mapped-service-interface-point")));
+			// link-port-direction
+			_onepBuilder.setLinkPortDirection(PortDirection.valueOf(_object.get("link-port-direction").getAsString()));
+			// link-port-role
+			_onepBuilder.setLinkPortRole(PortRole.valueOf(_object.get("link-port-role").getAsString()));
+
+			_onep.add(_onepBuilder.build());
+		}
+		return _onep;
+	}
 	
+	private List<MappedServiceInterfacePoint> getMappedServiceInterfacePoint(JsonArray array) {
+		List<MappedServiceInterfacePoint> _msip	= new ArrayList<>();
+		// Iterate over all the JsonArray elements
+		for(Iterator<JsonElement> iter = array.iterator(); iter.hasNext(); ) {
+			JsonObject _object = iter.next().getAsJsonObject();
+			MappedServiceInterfacePointBuilder _builder = new MappedServiceInterfacePointBuilder();
+			// service-interface-point-id
+			_builder.setServiceInterfacePointId(Uuid.getDefaultInstance(_object.get("service-interface-point-id").getAsString()));
+			_msip.add(_builder.build());
+		}
+		return _msip;
+	}
+
+	private List<AggregatedNodeEdgePoint> getAggregatedNodeEdgePointFromJson(JsonArray array) {
+		List<AggregatedNodeEdgePoint> _list = new ArrayList<>();
+		for(Iterator<JsonElement> iter = array.iterator(); iter.hasNext(); ) {
+			JsonObject _object = iter.next().getAsJsonObject();
+			AggregatedNodeEdgePointBuilder _builder = new AggregatedNodeEdgePointBuilder();
+			
+			_builder.setNodeId(Uuid.getDefaultInstance(_object.get("node-id").getAsString()));
+			_builder.setOwnedNodeEdgePointId(Uuid.getDefaultInstance(_object.get("owned-node-edge-point-id").getAsString()));
+			_builder.setTopologyId(Uuid.getDefaultInstance(_object.get("topology-id").getAsString()));
+			_list.add(_builder.build());
+		}
+		return _list;
+	}
+
 }

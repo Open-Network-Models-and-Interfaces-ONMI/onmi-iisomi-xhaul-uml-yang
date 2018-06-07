@@ -129,8 +129,7 @@ public class JsonToTopology{
 		 * leaf-list layer-protocol-name
 		 */
 		//Set Topology LayerProtocolName
-		JsonToLayerProtocolName _lpn = new JsonToLayerProtocolName();
-		this._builder.setLayerProtocolName(_lpn.setLayerProtocolNameFromJson(topology.getAsJsonArray("layer-protocol-name")));
+		this._builder.setLayerProtocolName((new JsonToLayerProtocolName()).setLayerProtocolNameFromJson(topology.getAsJsonArray("layer-protocol-name")));
 
 		//Build the Topology Object
 		this._topology = this._builder.build();
@@ -148,9 +147,7 @@ public class JsonToTopology{
 		// Iterate over all the JsonArray elements
 		for(Iterator<JsonElement> iter = nodeArray.iterator(); iter.hasNext(); ) {
 			JsonObject nodeObject = iter.next().getAsJsonObject();
-			JsonToNode _node = new JsonToNode();
-			Node node = _node.getNodeFromJson(nodeObject);
-			this._nodes.add(node);
+			this._nodes.add((new JsonToNode()).getNodeFromJson(nodeObject));
 		}
 		return this._nodes;
 	}
@@ -166,27 +163,9 @@ public class JsonToTopology{
 		// Iterate over all the JsonArray elements
 		for(Iterator<JsonElement> iter = linkArray.iterator(); iter.hasNext(); ) {
 			JsonObject linkObject = iter.next().getAsJsonObject();
-			JsonToLink _link = new JsonToLink();
-			Link link = _link.getLinkFromJson(linkObject);
-			this._links.add(link);
+			this._links.add((new JsonToLink()).setLinkFromJson(linkObject));
 		}
 		return this._links;
-	}
-
-	/**
-	 * Translate the Json LayerProtocolName to Java LayerProtocolName Object
-	 * 
-	 * @param layerProtocolNameArray
-	 * @return {@link List<LayerProtocolName>}
-	 */
-	public List<LayerProtocolName> setLayerProtocolNameFromJson(JsonArray layerProtocolNameArray) {
-		this._layerProtocolName = new ArrayList<>();
-		// Iterate over all the JsonArray elements
-		for(Iterator<JsonElement> iter = layerProtocolNameArray.iterator(); iter.hasNext(); ) {
-			String lpnObject = iter.next().getAsString();
-			this._layerProtocolName.add(LayerProtocolName.valueOf(lpnObject));
-		}
-		return this._layerProtocolName;
 	}
 
 //	public void setNode(List<Node> nodes) {
