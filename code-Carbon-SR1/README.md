@@ -68,7 +68,7 @@ Should end without error indication
 
 ### 4. Prepare container
 
-The odl.sh script is replacing the older "install.sh" script collection. It will use the local settings, specified in dist.conf and can manage the karaf container specified by the configuration file.
+The *odl* script is replacing the older "install.sh" script collection. It will use the local settings, specified in dist.conf and can manage the karaf container specified by the configuration file. .
 
 The prepare command will create
    - The preconfigured karaf container
@@ -78,18 +78,19 @@ The prepare command will create
 Execute prepare:
 
      cd $HOME/odl/CENTENNIAL/code-Carbon-SR1
-     ./odl.sh prepare
+     ./odl prepare
 
 ### 5. Install the apps and Start the container
 
 Install from $HOME/.m2/repository into dist/system and install features.
 
-    ./odl.h im
+    ./odl im
 
 
-### Further commands of odl.sh
+### Further commands of odl script
 
-./odl.sh Commands:
+List of all ./odl commands:
+```
  a           for build all and install from M2
  build       build subsystem
  bower       for install bower
@@ -115,6 +116,4 @@ Install from $HOME/.m2/repository into dist/system and install features.
  restart     stop and start karaf
  repoclean   clean the repositories
  v           get Versions
-
-
-
+```
