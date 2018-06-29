@@ -24,7 +24,7 @@ public class JsonToLatencyCharacteristic {
 	 * @param lcArray
 	 * @return {@link List<LatencyCharacteristic>}
 	 */
-	public List<LatencyCharacteristic> setLatencyCharacteristic (JsonArray lcArray) {
+	public List<LatencyCharacteristic> getLatencyCharacteristic (JsonArray lcArray) {
 		List<LatencyCharacteristic> _lc = new ArrayList<>();
 		// Iterate over all the JsonArray elements
 		for(Iterator<JsonElement> iter = lcArray.iterator(); iter.hasNext(); ) {

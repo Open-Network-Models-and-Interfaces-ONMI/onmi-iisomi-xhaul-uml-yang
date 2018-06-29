@@ -90,7 +90,7 @@ public class JsonToNode {
 		_nodeBuilder.setUuid(_uuid);
 		_nodeBuilder.setKey(new NodeKey(_uuid));
 		// Node Name
-		_nodeBuilder.setName((new JsonToName()).setNameFromJson(nodeObject.getAsJsonArray("name")));
+		_nodeBuilder.setName((new JsonToName()).getNameFromJson(nodeObject.getAsJsonArray("name")));
 
 		/**
 		 * uses tapi-common:admin-state-pac-g;
@@ -103,14 +103,14 @@ public class JsonToNode {
 		 * uses tapi-common:capacity-pac-g;
 		 */
 		JsonToCapacityParameters _tpc = new JsonToCapacityParameters();
-		_nodeBuilder.setTotalPotentialCapacity(_tpc.setTotalPotentialCapacityFromJson(nodeObject.getAsJsonObject("total-potential-capacity")));
-		_nodeBuilder.setAvailableCapacity(_tpc.setAvailableCapacityFromJson(nodeObject.getAsJsonObject("available-capacity")));
+		_nodeBuilder.setTotalPotentialCapacity(_tpc.getTotalPotentialCapacityFromJson(nodeObject.getAsJsonObject("total-potential-capacity")));
+		_nodeBuilder.setAvailableCapacity(_tpc.getAvailableCapacityFromJson(nodeObject.getAsJsonObject("available-capacity")));
 
 		/**
 		 * uses transfer-cost-pac-g;
 		 * 		uses cost-characteristic-g;
 		 */
-		_nodeBuilder.setCostCharacteristic((new JsonToCostCharacteristic()).setCostCharacteristic(nodeObject.getAsJsonArray("cost-characteristic")));
+		_nodeBuilder.setCostCharacteristic((new JsonToCostCharacteristic()).getCostCharacteristic(nodeObject.getAsJsonArray("cost-characteristic")));
 		
 		/**
 		 * uses transfer-integrity-pac-g;
@@ -127,11 +127,11 @@ public class JsonToNode {
 		 * 		list latency-characteristic
 		 * 			uses latency-characteristic-g;
 		 */
-		_nodeBuilder.setLatencyCharacteristic((new JsonToLatencyCharacteristic()).setLatencyCharacteristic(nodeObject.getAsJsonArray("latency-characteristic")));
+		_nodeBuilder.setLatencyCharacteristic((new JsonToLatencyCharacteristic()).getLatencyCharacteristic(nodeObject.getAsJsonArray("latency-characteristic")));
 		/**
 		 * list owned-node-edge-point
 		 */
-		_nodeBuilder.setOwnedNodeEdgePoint(this.setOwnedNodeEdgePoint(nodeObject.getAsJsonArray("owned-node-edge-point")));
+		_nodeBuilder.setOwnedNodeEdgePoint(getOwnedNodeEdgePoint(nodeObject.getAsJsonArray("owned-node-edge-point")));
 		/**
 		 * list aggregated-node-edge-point
 		 */
@@ -139,7 +139,7 @@ public class JsonToNode {
 		/**
 		 * list node-rule-group
 		 */
-		
+		_nodeBuilder.setNodeRuleGroup((new JsonToNodeRuleGroup()).getNodeRuleGroupFromJson(nodeObject.getAsJsonArray("node-rule-group")));
 		/**
 		 * container encap-topology
 		 */
@@ -147,11 +147,11 @@ public class JsonToNode {
 		/**
 		 * leaf-list layer-protocol-name
 		 */
-		_nodeBuilder.setLayerProtocolName((new JsonToLayerProtocolName()).setLayerProtocolNameFromJson(nodeObject.getAsJsonArray("layer-protocol-name")));
+		_nodeBuilder.setLayerProtocolName((new JsonToLayerProtocolName()).getLayerProtocolNameFromJson(nodeObject.getAsJsonArray("layer-protocol-name")));
 		return _nodeBuilder.build();
 	}
 
-	private List<OwnedNodeEdgePoint> setOwnedNodeEdgePoint(JsonArray array) {
+	private List<OwnedNodeEdgePoint> getOwnedNodeEdgePoint(JsonArray array) {
 		List<OwnedNodeEdgePoint> _onep	= new ArrayList<>();
 		// Iterate over all the JsonArray elements
 		for(Iterator<JsonElement> iter = array.iterator(); iter.hasNext(); ) {
@@ -161,7 +161,7 @@ public class JsonToNode {
 			_onepBuilder.setUuid(_uuid);
 			_onepBuilder.setKey(new OwnedNodeEdgePointKey(_uuid));
 			// Name
-			_onepBuilder.setName((new JsonToName()).setNameFromJson(_object.getAsJsonArray("name")));
+			_onepBuilder.setName((new JsonToName()).getNameFromJson(_object.getAsJsonArray("name")));
 
 			// "administrative-state"
 			_onepBuilder.setAdministrativeState(AdministrativeState.valueOf(_object.get("administrative-state").getAsString()));
@@ -177,15 +177,15 @@ public class JsonToNode {
 			// total potential capacity
 			// available capacity
 			JsonToCapacityParameters _tpc = new JsonToCapacityParameters();
-			_onepBuilder.setTotalPotentialCapacity(_tpc.setTotalPotentialCapacityFromJson(_object.getAsJsonObject("total-potential-capacity")));
-			_onepBuilder.setAvailableCapacity(_tpc.setAvailableCapacityFromJson(_object.getAsJsonObject("available-capacity")));
+			_onepBuilder.setTotalPotentialCapacity(_tpc.getTotalPotentialCapacityFromJson(_object.getAsJsonObject("total-potential-capacity")));
+			_onepBuilder.setAvailableCapacity(_tpc.getAvailableCapacityFromJson(_object.getAsJsonObject("available-capacity")));
 
 			// layer-protocol-name
 			_onepBuilder.setLayerProtocolName(LayerProtocolName.valueOf(_object.get("layer-protocol-name").getAsString()));
 			// aggregated-node-edge-point
-			_onepBuilder.setAggregatedNodeEdgePoint((new JsonToAggregatedNodeEdgePoint()).setAggregatedNodeEdgePointFromJson(_object.getAsJsonArray("aggregated-node-edge-point")));
+			_onepBuilder.setAggregatedNodeEdgePoint((new JsonToAggregatedNodeEdgePoint()).getAggregatedNodeEdgePointFromJson(_object.getAsJsonArray("aggregated-node-edge-point")));
 			// mapped-service-interface-point
-			_onepBuilder.setMappedServiceInterfacePoint(this.getMappedServiceInterfacePoint(_object.getAsJsonArray("mapped-service-interface-point")));
+			_onepBuilder.setMappedServiceInterfacePoint(getMappedServiceInterfacePoint(_object.getAsJsonArray("mapped-service-interface-point")));
 			// link-port-direction
 			_onepBuilder.setLinkPortDirection(PortDirection.valueOf(_object.get("link-port-direction").getAsString()));
 			// link-port-role

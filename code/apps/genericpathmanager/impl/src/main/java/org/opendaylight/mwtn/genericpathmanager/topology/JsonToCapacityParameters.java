@@ -1,6 +1,7 @@
 package org.opendaylight.mwtn.genericpathmanager.topology;
 
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.CapacityUnit;
+import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.capacity.g.BandwidthProfile;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.capacity.g.TotalSize;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.capacity.g.TotalSizeBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.capacity.pac.g.AvailableCapacity;
@@ -23,8 +24,9 @@ public class JsonToCapacityParameters {
 	 * @param tpcObject
 	 * @return {@link TotalPotentialCapacity}
 	 */
-	public TotalPotentialCapacity setTotalPotentialCapacityFromJson(JsonObject tpcObject) {
+	public TotalPotentialCapacity getTotalPotentialCapacityFromJson(JsonObject tpcObject) {
 		TotalPotentialCapacityBuilder _builder = new TotalPotentialCapacityBuilder();
+		_builder.setBandwidthProfile(getBandwidthProfile(tpcObject));
 		_builder.setTotalSize(this.getTotalSize(tpcObject));
 		return _builder.build();
 	}
@@ -34,8 +36,9 @@ public class JsonToCapacityParameters {
 	 * @param availableCapObject
 	 * @return {@link AvailableCapacity}
 	 */
-	public AvailableCapacity setAvailableCapacityFromJson(JsonObject availableCapObject) {
+	public AvailableCapacity getAvailableCapacityFromJson(JsonObject availableCapObject) {
 		AvailableCapacityBuilder _builder = new AvailableCapacityBuilder();
+		_builder.setBandwidthProfile(getBandwidthProfile(availableCapObject));
 		_builder.setTotalSize(this.getTotalSize(availableCapObject));
 		return _builder.build();
 	}
@@ -52,5 +55,12 @@ public class JsonToCapacityParameters {
 		_sizeBuilder.setValue(_totalSize.get("value").getAsBigInteger());
 		_sizeBuilder.setUnit(CapacityUnit.valueOf(_totalSize.get("unit").getAsString()));
 		return _sizeBuilder.build();
+	}
+
+	private BandwidthProfile getBandwidthProfile(JsonObject object) {
+		if(object.getAsJsonObject("bandwidth-profile") != null) {
+			return (new JsonToBandwidthProfile()).getBandWidthProfile(object.getAsJsonObject("bandwidth-profile"));
+		}
+		return null;
 	}
 }

@@ -23,7 +23,7 @@ public class JsonToLayerProtocolName {
 	 * @param layerProtocolNameArray
 	 * @return {@link List<LayerProtocolName>}
 	 */
-	public List<LayerProtocolName> setLayerProtocolNameFromJson(JsonArray layerProtocolNameArray) {
+	public List<LayerProtocolName> getLayerProtocolNameFromJson(JsonArray layerProtocolNameArray) {
 		List<LayerProtocolName> _layerProtocolName = new ArrayList<>();
 		// Iterate over all the JsonArray elements
 		for(Iterator<JsonElement> iter = layerProtocolNameArray.iterator(); iter.hasNext(); ) {

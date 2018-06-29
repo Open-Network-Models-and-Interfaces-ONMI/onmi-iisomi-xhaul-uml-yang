@@ -24,7 +24,7 @@ public class JsonToCostCharacteristic {
 	 * @param ccArray
 	 * @return {@link List<CostCharacteristic>}
 	 */
-	public List<CostCharacteristic> setCostCharacteristic (JsonArray ccArray) {
+	public List<CostCharacteristic> getCostCharacteristic (JsonArray ccArray) {
 		List<CostCharacteristic> _cc = new ArrayList<>();
 		// Iterate over all the JsonArray elements
 		for(Iterator<JsonElement> iter = ccArray.iterator(); iter.hasNext(); ) {

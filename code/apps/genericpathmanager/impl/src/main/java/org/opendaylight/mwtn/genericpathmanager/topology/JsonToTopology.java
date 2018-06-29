@@ -71,7 +71,7 @@ public class JsonToTopology{
 	 */
 	public JsonToTopology(String jsonFilePath) throws JsonIOException, JsonSyntaxException, FileNotFoundException {
 		FileReader fileReader = new FileReader(jsonFilePath);
-		setJsonValues(fileReader);
+		readValues(fileReader);
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class JsonToTopology{
 	 */
 	public JsonToTopology(File jsonFile) throws JsonIOException, JsonSyntaxException, FileNotFoundException {
 		FileReader fileReader = new FileReader(jsonFile);
-		setJsonValues(fileReader);
+		readValues(fileReader);
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class JsonToTopology{
 	 * 
 	 * @param fileReader
 	 */
-	private void setJsonValues(FileReader fileReader) {
+	private void readValues(FileReader fileReader) {
 		// Object of TopologyBuilder
 		this._builder = new TopologyBuilder();
 
@@ -111,25 +111,25 @@ public class JsonToTopology{
 		this._builder.setKey(new TopologyKey(_uuid));
 		// Topology Name and Value
 		JsonToName _name = new JsonToName();
-		this._builder.setName(_name.setNameFromJson(topology.getAsJsonArray("name")));
+		this._builder.setName(_name.getNameFromJson(topology.getAsJsonArray("name")));
 
 		/**
 		 * list node
 		 */
 		//Set Topology Nodes
-		this._builder.setNode(this.setNodesFromJson(topology.getAsJsonArray("node")));
+		this._builder.setNode(this.getNodesFromJson(topology.getAsJsonArray("node")));
 
 		/**
 		 * list link
 		 */
 		//Set Topology Links
-		this._builder.setLink(this.setLinksFromJson(topology.getAsJsonArray("link")));
+		this._builder.setLink(this.getLinksFromJson(topology.getAsJsonArray("link")));
 
 		/**
 		 * leaf-list layer-protocol-name
 		 */
 		//Set Topology LayerProtocolName
-		this._builder.setLayerProtocolName((new JsonToLayerProtocolName()).setLayerProtocolNameFromJson(topology.getAsJsonArray("layer-protocol-name")));
+		this._builder.setLayerProtocolName((new JsonToLayerProtocolName()).getLayerProtocolNameFromJson(topology.getAsJsonArray("layer-protocol-name")));
 
 		//Build the Topology Object
 		this._topology = this._builder.build();
@@ -141,7 +141,7 @@ public class JsonToTopology{
 	 * @param nodeArray
 	 * @return {@link List<Node>}
 	 */
-	public List<Node> setNodesFromJson(JsonArray nodeArray) {
+	public List<Node> getNodesFromJson(JsonArray nodeArray) {
 		this._nodes	= new ArrayList<>();
 
 		// Iterate over all the JsonArray elements
@@ -158,12 +158,12 @@ public class JsonToTopology{
 	 * @param linkArray
 	 * @return {@link List<Link>}
 	 */
-	public List<Link> setLinksFromJson(JsonArray linkArray) {
+	public List<Link> getLinksFromJson(JsonArray linkArray) {
 		this._links	= new ArrayList<>();
 		// Iterate over all the JsonArray elements
 		for(Iterator<JsonElement> iter = linkArray.iterator(); iter.hasNext(); ) {
 			JsonObject linkObject = iter.next().getAsJsonObject();
-			this._links.add((new JsonToLink()).setLinkFromJson(linkObject));
+			this._links.add((new JsonToLink()).getLinkFromJson(linkObject));
 		}
 		return this._links;
 	}

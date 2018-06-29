@@ -25,7 +25,7 @@ public class JsonToAggregatedNodeEdgePoint {
 	 * @param {@link JsonArray}array
 	 * @return {@link List<AggregatedNodeEdgePoint>}
 	 */
-	public List<AggregatedNodeEdgePoint> setAggregatedNodeEdgePointFromJson(JsonArray array) {
+	public List<AggregatedNodeEdgePoint> getAggregatedNodeEdgePointFromJson(JsonArray array) {
 		List<AggregatedNodeEdgePoint> _list = new ArrayList<>();
 		for(Iterator<JsonElement> iter = array.iterator(); iter.hasNext(); ) {
 			JsonObject _object = iter.next().getAsJsonObject();

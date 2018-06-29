@@ -21,13 +21,13 @@ public class JsonToLink {
 	 * @param linkObject
 	 * @return {@link Link}
 	 */
-	public Link setLinkFromJson(JsonObject linkObject) {
+	public Link getLinkFromJson(JsonObject linkObject) {
 		LinkBuilder _linkBuilder = new LinkBuilder();
 		Uuid _uuid = Uuid.getDefaultInstance(linkObject.get("uuid").getAsString());
 		_linkBuilder.setUuid(_uuid);
 		_linkBuilder.setKey(new LinkKey(_uuid));
 		JsonToName _name = new JsonToName();
-		_linkBuilder.setName(_name.setNameFromJson(linkObject.getAsJsonArray("name")));
+		_linkBuilder.setName(_name.getNameFromJson(linkObject.getAsJsonArray("name")));
 		_linkBuilder.setAdministrativeState(AdministrativeState.valueOf(linkObject.get("administrative-state").getAsString()));
 
 		return _linkBuilder.build();
