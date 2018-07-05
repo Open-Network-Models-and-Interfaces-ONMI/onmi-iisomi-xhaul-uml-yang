@@ -2,6 +2,7 @@ package org.opendaylight.mwtn.performancemanager.impl.database.service;
 
 import org.opendaylight.mwtn.base.database.HtDataBaseReaderAndWriter;
 import org.opendaylight.mwtn.base.database.HtDatabaseClientAbstract;
+import org.opendaylight.mwtn.base.database.HtDatabaseNode;
 import org.opendaylight.mwtn.base.database.IndexClientBuilder;
 import org.opendaylight.mwtn.base.netconf.AllPm;
 import org.opendaylight.mwtn.base.netconf.NetconfTimeStamp;
@@ -23,14 +24,14 @@ public class MicrowaveHistoricalPerformanceWriterService {
     private HtDataBaseReaderAndWriter<EsHistoricalPerformance24Hours> historicalPerformance24hRW;
     private HtDataBaseReaderAndWriter<EsHistoricalPerformanceLogEntry> historicalPerformanceLogRW;
 
-    public MicrowaveHistoricalPerformanceWriterService(String esNodeserverName, String esClusterName, String esNodeName) {
+    public MicrowaveHistoricalPerformanceWriterService(HtDatabaseNode database) {
 
     	LOG.info("Create {} start", MicrowaveHistoricalPerformanceWriterService.class);
 
     	try {
 
     		IndexClientBuilder clientBuilder = IndexClientBuilder.getBuilder(INDEX).setMappingSettingJsonFileName(MAPPING);
-    		client = clientBuilder.create(esNodeserverName, esClusterName, esNodeName);
+    		client = clientBuilder.create(database);
 
     		historicalPerformance15mRW = new HtDataBaseReaderAndWriter<>(client, EsHistoricalPerformance15Minutes.ESDATATYPENAME, EsHistoricalPerformance15Minutes.class);
     		historicalPerformance24hRW = new HtDataBaseReaderAndWriter<>(client, EsHistoricalPerformance24Hours.ESDATATYPENAME, EsHistoricalPerformance24Hours.class);

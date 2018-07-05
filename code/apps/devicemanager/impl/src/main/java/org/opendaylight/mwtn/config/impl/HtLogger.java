@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.ConsoleAppender;
+import org.apache.log4j.Level;
 import org.apache.log4j.PatternLayout;
-import org.apache.log4j.Priority;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +14,7 @@ public class HtLogger {
 
 	private static final HashMap<String, Logger> mLogs=new HashMap<>();
 
-	public static void initConsole(Priority lvl)
+	public static void initConsole(Level lvl)
 	{
 		BasicConfigurator.configure();
 		org.apache.log4j.Logger.getRootLogger().getLoggerRepository().resetConfiguration();

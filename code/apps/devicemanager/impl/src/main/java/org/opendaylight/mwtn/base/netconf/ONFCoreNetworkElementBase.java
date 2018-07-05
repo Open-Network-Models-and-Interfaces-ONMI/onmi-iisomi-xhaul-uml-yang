@@ -45,7 +45,7 @@ public abstract class ONFCoreNetworkElementBase implements ONFCoreNetworkElement
      */
 
     @Override
-	public void sync() {
+	public void initSynchronizationExtension() {
     }
 
 

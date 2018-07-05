@@ -12,6 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -149,7 +150,18 @@ public class AaiServlet extends HttpServlet {
 
 		LOG.debug(method + " Request");
 		// String query = req.getQueryString();
-		String surl = MyProperties.getInstance().getAAIBaseUrl() + req.getRequestURI();
+		String uri=req.getRequestURI();
+		if(uri.startsWith("/"))
+			uri=uri.substring(1);
+		if(uri.startsWith("aai"))
+			uri=uri.substring("aai".length());
+		if(uri.startsWith("/"))
+			uri=uri.substring(1);
+		String base=MyProperties.getInstance().getAAIBaseUrl() ;
+		if(!base.endsWith("/"))
+			base+="/";
+
+		String surl =base+uri;
 		// if (query != null && query.length() > 0)
 		// surl += "?" + query;
 		LOG.debug("RemoteURL: " + surl);
@@ -178,6 +190,14 @@ public class AaiServlet extends HttpServlet {
 				v = url.getAuthority();
 			s += String.format("%s:%s;", h, v);
 			http.setRequestProperty(h, v);
+		}
+		Map<String,String> addHeaders=MyProperties.getInstance().getAAIHeaders();
+		if(addHeaders!=null)
+		{
+			for(Entry<String,String> entry:addHeaders.entrySet())
+			{
+				http.setRequestProperty(entry.getKey(), entry.getValue());
+			}
 		}
 		LOG.debug("Request Headers: " + s);
 		return http;

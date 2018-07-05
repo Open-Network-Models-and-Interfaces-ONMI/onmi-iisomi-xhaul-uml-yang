@@ -10,6 +10,7 @@ package org.opendaylight.mwtn.devicemanager.impl.xml;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
 import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
 
 @XmlRootElement(name = "AttributeValueChangedNotification")

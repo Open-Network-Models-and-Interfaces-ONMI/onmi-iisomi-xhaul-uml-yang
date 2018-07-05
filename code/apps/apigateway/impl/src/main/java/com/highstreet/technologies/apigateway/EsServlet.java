@@ -131,8 +131,11 @@ public class EsServlet extends HttpServlet {
 
 	@Override
 	protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// if(MyProperties.getInstance().corsEnabled())
-		// resp.addHeader("Access-Control-Allow-Origin","*");
+		if (MyProperties.getInstance().corsEnabled()) {
+			resp.addHeader("Access-Control-Allow-Origin", "*");
+			resp.addHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+			resp.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+		}
 		super.doOptions(req, resp);
 	}
 
@@ -228,6 +231,11 @@ public class EsServlet extends HttpServlet {
 				for (String v : entry.getValue()) {
 					resp.setHeader(entry.getKey(), v);
 					s += String.format("%s:%s;", entry.getKey(), v);
+				}
+				if (MyProperties.getInstance().corsEnabled()) {
+					resp.setHeader("Access-Control-Allow-Origin", "*");
+					//resp.setHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+					resp.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 				}
 
 			}

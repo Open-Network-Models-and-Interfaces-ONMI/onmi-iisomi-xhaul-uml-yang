@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features name="apigateway-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
+
+  <feature name="odl-ht-info" version="${project.version}" description="OpenDaylight :: Info :: Core">
+    <feature>http</feature>
+    <bundle>mvn:org.apache.commons/commons-compress/1.14</bundle>
+    <bundle>mvn:com.highstreet.technologies.info/info-impl/${project.version}</bundle>
+</feature>
+
+</features>

@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @XmlRootElement(name = "ProblemNotification")

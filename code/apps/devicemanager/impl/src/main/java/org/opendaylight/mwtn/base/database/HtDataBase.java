@@ -17,8 +17,8 @@ package org.opendaylight.mwtn.base.database;
 
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.bytes.BytesReference;
-import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.search.SearchHit;
 
 
 /**

@@ -6,17 +6,17 @@ module websocketmanager {
     revision "2015-01-05" {
         description "Initial revision of websocketmanager model";
     }
-    
+
      rpc websocket-event {
         input {
             leaf nodeName {
              	type string;
             }
-            
+
             leaf eventType {
              	type string;
             }
-            
+
             leaf xmlEvent {
              	type string;
             }
@@ -26,6 +26,13 @@ module websocketmanager {
                 type string;
             }
         }
+    }
+
+    notification messagePushed {
+      leaf message {
+        type string;
+      }
+
     }
 }
 

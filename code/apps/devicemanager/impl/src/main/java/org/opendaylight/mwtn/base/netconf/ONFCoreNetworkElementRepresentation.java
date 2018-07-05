@@ -1,6 +1,7 @@
 package org.opendaylight.mwtn.base.netconf;
 
 import org.opendaylight.controller.md.sal.binding.api.MountPoint;
+import org.opendaylight.mwtn.base.internalTypes.InventoryInformation;
 import org.opendaylight.mwtn.deviceMonitor.impl.DeviceMonitorSupport;
 
 public interface ONFCoreNetworkElementRepresentation extends DeviceMonitorSupport {
@@ -23,6 +24,10 @@ public interface ONFCoreNetworkElementRepresentation extends DeviceMonitorSuppor
 
        public void doRegisterMicrowaveEventListener(MountPoint mountPoint);
 
-       public void sync();
+       public void initSynchronizationExtension();
+
+       public InventoryInformation getInventoryInformation();
+
+       public InventoryInformation getInventoryInformation(String layerProtocolFilter);
 
 }

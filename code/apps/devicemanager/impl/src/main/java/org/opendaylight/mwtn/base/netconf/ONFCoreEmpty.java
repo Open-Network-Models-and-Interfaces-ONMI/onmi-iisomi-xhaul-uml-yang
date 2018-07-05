@@ -4,6 +4,7 @@
 package org.opendaylight.mwtn.base.netconf;
 
 import org.opendaylight.controller.md.sal.binding.api.MountPoint;
+import org.opendaylight.mwtn.base.internalTypes.InventoryInformation;
 
 /**
  * @author herbert
@@ -76,7 +77,17 @@ public class ONFCoreEmpty implements ONFCoreNetworkElementRepresentation {
     }
 
     @Override
-    public void sync() {
+    public void initSynchronizationExtension() {
     }
+
+	@Override
+	public InventoryInformation getInventoryInformation() {
+		return InventoryInformation.DEFAULT;
+	}
+
+	@Override
+	public InventoryInformation getInventoryInformation(String layerProtocolFilter) {
+		return InventoryInformation.DEFAULT;
+	}
 
 }

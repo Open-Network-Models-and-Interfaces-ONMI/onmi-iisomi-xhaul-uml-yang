@@ -23,11 +23,12 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import org.elasticsearch.ElasticsearchException;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthResponse;
 import org.elasticsearch.action.admin.cluster.node.info.NodesInfoResponse;
 import org.elasticsearch.action.admin.indices.alias.IndicesAliasesResponse;
-import org.elasticsearch.action.admin.indices.analyze.AnalyzeResponse;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequestBuilder;
@@ -61,7 +62,7 @@ public class HtDatabaseClientAbstract implements HtDataBase, AutoCloseable {
     private final Logger log = LoggerFactory.getLogger(HtDatabaseClientAbstract.class);
 
     private static int DELAYSECONDS = 10;
-    private TransportClient client;
+    private Client client;
     private String esIndexAlias;
 
     /**
@@ -80,10 +81,27 @@ public class HtDatabaseClientAbstract implements HtDataBase, AutoCloseable {
                 .put("cluster.name", esClusterName)
                 .put("node.name", esNodeName)
                 .build();
-
-        this.client = constructor(esNodeserverName, settings);
+        this.client = getClient(esNodeserverName, settings);
 
     }
+
+    /**
+     * Do not use the hostname for getting the client
+     * @param esIndex
+     * @param esClusterName
+     * @param esNodeName
+     * @throws UnknownHostException
+     */
+    public HtDatabaseClientAbstract(String esIndex, String esClusterName, String esNodeName) throws UnknownHostException {
+
+        this.esIndexAlias = esIndex;
+        Settings settings = Settings.settingsBuilder()
+                .put("cluster.name", esClusterName)
+                .put("node.name", esNodeName)
+                .build();
+        this.client = getClient(null, settings);
+    }
+
 
     /**
      * Simple database initialization. Query all ES configuration information from cluster node.
@@ -100,22 +118,45 @@ public class HtDatabaseClientAbstract implements HtDataBase, AutoCloseable {
                 .put("client.transport.ignore_cluster_name",true)
                 .put("client.transport.sniff", true)
                 .build();
+        this.client = getClient(esNodeserverHostName, settings);
+    }
 
-        this.client = constructor(esNodeserverHostName, settings);
+    /**
+     * Simple database initialization. Query all ES configuration information from cluster node.
+     * @param esIndex Database index
+     * @param database databse node descriptor
+     */
+    public HtDatabaseClientAbstract(String esIndex, HtDatabaseNode database)  {
+
+        this.esIndexAlias = esIndex;
+    	this.client = database.getClient();
     }
 
 
     /*----------------------------------
-     * single constructor function, used by all public constructors
+     * some constructing functions, used by public constructors
      */
+    /**
+     *
+     * @param esNodeserverName
+     * @param settings
+     * @return
+     * @throws UnknownHostException
+     */
+    private final TransportClient getClient(@Nullable String esNodeserverName, Settings settings) throws UnknownHostException {
 
-    private final TransportClient constructor(String esNodeserverName, Settings settings) throws UnknownHostException {
+    	TransportClient newClient = TransportClient.builder().settings(settings).build();
 
-        InetAddress nodeIp = InetAddress.getByName(esNodeserverName);
+        if (esNodeserverName != null) {
+    		InetAddress nodeIp = InetAddress.getByName(esNodeserverName);
+			newClient.addTransportAddress(new InetSocketTransportAddress(nodeIp, 9300));
+    	}
 
-        TransportClient newClient = TransportClient.builder().settings(settings).build()
-                .addTransportAddress(new InetSocketTransportAddress(nodeIp, 9300));
+        setup(newClient);
+        return newClient;
+    }
 
+    private void setup(TransportClient newClient) {
         NodesInfoResponse nodeInfos = newClient.admin().cluster().prepareNodesInfo().get();
         String clusterName = nodeInfos.getClusterName().value();
 
@@ -143,13 +184,6 @@ public class HtDatabaseClientAbstract implements HtDataBase, AutoCloseable {
 		        .get();
 		log.debug("Elasticsearch client started with status {}",nodeStatus.toString());
 
-		/*
-        try {
-            Thread.sleep(2500);                 //1000 milliseconds is one second.
-        } catch(InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
-        */
 
         List<DiscoveryNode> nodeList = newClient.connectedNodes();
 
@@ -169,7 +203,7 @@ public class HtDatabaseClientAbstract implements HtDataBase, AutoCloseable {
         });
 
         log.info("Database service started.");
-        return newClient;
+
     }
 
 

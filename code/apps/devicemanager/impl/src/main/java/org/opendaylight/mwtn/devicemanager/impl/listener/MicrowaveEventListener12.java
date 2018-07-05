@@ -10,15 +10,17 @@ package org.opendaylight.mwtn.devicemanager.impl.listener;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
+import org.opendaylight.mwtn.devicemanager.impl.ProviderClient;
 import org.opendaylight.mwtn.devicemanager.impl.database.service.HtDatabaseEventsService;
 import org.opendaylight.mwtn.devicemanager.impl.xml.AttributeValueChangedNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectCreationNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectDeletionNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.WebSocketServiceClient;
-import org.opendaylight.mwtn.ecompConnector.impl.EcompProviderClient;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.AttributeValueChangedNotification;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.MicrowaveModelListener;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.ObjectCreationNotification;
@@ -41,17 +43,19 @@ public class MicrowaveEventListener12 implements MicrowaveModelListener {
     //private final WebsocketmanagerService websocketmanagerService;
     //private final XmlMapper xmlMapper;
     private final HtDatabaseEventsService databaseService;
-    private final EcompProviderClient ecompProvider;
+    private final ProviderClient dcaeProvider;
+	private final @Nullable ProviderClient aotsmClient;
 
     public MicrowaveEventListener12(String nodeName, WebSocketServiceClient webSocketService,
-            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider) {
+            HtDatabaseEventsService databaseService, ProviderClient dcaeProvider,@Nullable ProviderClient aotsmClient) {
         super();
         this.nodeName = nodeName;
         //this.websocketmanagerService = websocketmanagerService;
         //this.xmlMapper = xmlMapper;
         this.webSocketService = webSocketService;
         this.databaseService = databaseService;
-        this.ecompProvider = ecompProvider;
+        this.dcaeProvider = dcaeProvider;
+        this.aotsmClient = aotsmClient;
     }
 
     @Override
@@ -136,7 +140,9 @@ public class MicrowaveEventListener12 implements MicrowaveModelListener {
         databaseService.writeFaultLog(notificationXml);
         databaseService.updateFaultCurrent(notificationXml);
 
-        ecompProvider.sendProblemNotification(nodeName, notificationXml);
+        dcaeProvider.sendProblemNotification(nodeName, notificationXml);
+        if(aotsmClient!=null)
+        	aotsmClient.sendProblemNotification(nodeName, notificationXml);
 
         webSocketService.sendViaWebsockets(nodeName, notificationXml);
 
@@ -144,6 +150,8 @@ public class MicrowaveEventListener12 implements MicrowaveModelListener {
 
     private void initCurrentProblem(ProblemNotificationXml notificationXml) {
         databaseService.updateFaultCurrent(notificationXml);
+        if(aotsmClient!=null)
+        	aotsmClient.sendProblemNotification(this.nodeName, notificationXml);
     }
 
     /**

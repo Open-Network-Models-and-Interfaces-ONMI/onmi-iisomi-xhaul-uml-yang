@@ -16,11 +16,10 @@
 
 package org.opendaylight.mwtn.devicemanager.impl.database.service;
 
-import org.json.JSONObject;
 import org.opendaylight.mwtn.base.database.HtDataBaseReaderAndWriter;
 import org.opendaylight.mwtn.base.database.HtDatabaseClientAbstract;
+import org.opendaylight.mwtn.base.database.HtDatabaseNode;
 import org.opendaylight.mwtn.base.database.IndexClientBuilder;
-import org.opendaylight.mwtn.base.internalTypes.Resources;
 import org.opendaylight.mwtn.devicemanager.impl.database.types.EsEventBase;
 import org.opendaylight.mwtn.devicemanager.impl.database.types.EsFaultCurrent;
 import org.opendaylight.mwtn.devicemanager.impl.database.types.EsFaultLog;
@@ -54,15 +53,14 @@ public class HtDatabaseEventsService {
 
     // --- Construct and initialize
 
-    public HtDatabaseEventsService(String esNodeserverName, String esClusterName,
-    		String esNodeName) {
+    public HtDatabaseEventsService(HtDatabaseNode database) {
 
     	LOG.info("Create {} start", HtDatabaseEventsService.class);
 
     	try {
     		// Create control structure
     		IndexClientBuilder clientBuilder = IndexClientBuilder.getBuilder(INDEX).setMappingSettingJsonFileName(MAPPING);
-    		client = clientBuilder.create(esNodeserverName, esClusterName, esNodeName);
+    		client = clientBuilder.create(database);
 
     		eventRWEventLog = new HtDataBaseReaderAndWriter<>(client, EsEventBase.ESDATATYPENAME, EsEventBase.class);
     		eventRWFaultLog = new HtDataBaseReaderAndWriter<>(client, EsFaultLog.ESDATATYPENAME, EsFaultLog.class);

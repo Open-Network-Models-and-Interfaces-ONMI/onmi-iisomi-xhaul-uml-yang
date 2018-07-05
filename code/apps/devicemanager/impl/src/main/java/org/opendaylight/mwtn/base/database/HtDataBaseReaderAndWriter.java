@@ -18,6 +18,7 @@ package org.opendaylight.mwtn.base.database;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;

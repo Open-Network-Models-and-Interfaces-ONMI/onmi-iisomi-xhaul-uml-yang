@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/app.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<h1>Information</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-6">
+			<table style="width:100%;">
+				<tr>
+					<td>akka.conf</td>
+					<td><button type="button" class="btn btn-primary" onClick="app.loadAkkaConf('#result');">Show</button></td>
+				</tr>
+				<tr>
+					<td>geo.conf</td>
+					<td><button type="button" class="btn btn-primary" onClick="app.loadGeoConf('#result');">Show</button></td>
+				</tr>
+				<tr>
+					<td>devicemanager.properties</td>
+					<td><button type="button" class="btn btn-primary" onClick="app.loadDevMgrProp('#result');">Show</button></td>
+				</tr>
+				<tr>
+					<td>elasticsearch.yml</td>
+					<td><button type="button" class="btn btn-primary" onClick="app.loadEsYml('#result');">Show</button></td>
+				</tr>
+				<tr>
+					<td>log.properties</td>
+					<td><button type="button" class="btn btn-primary" onClick="app.loadLogProp('#result');">Show</button></td>
+				</tr>
+				<tr>
+					<td>bundle.list</td>
+					<td><button type="button" class="btn btn-primary" onClick="app.loadBundleList('#result');">Show</button></td>
+				</tr>
+				<tr>
+					<td>download log</td>
+					<td>
+						<button type="button" class="btn btn-primary" onClick="app.createLogDL();">Var1</button>
+						<button type="button" class="btn btn-primary" onClick="app.createLogDLGet();">Var2</button>
+					</td>
+				</tr>
+				<tr>
+					<td>DB Backup: Create</td>
+					<td><button type="button" class="btn btn-primary" onClick="app.createDBBackup('#result');">Run</button></td>
+				</tr>
+				<tr>
+					<td>DB Backup: Restore</td>
+					<td><button type="button" class="btn btn-primary" onClick="app.restoreDBBackup('#result');">Run</button></td>
+				</tr>
+
+			</table>
+		</div>
+		<div class="col-6">
+			<textarea id="result" style="width:90%;height:500px;"></textarea>
+		</div>
+	</div>
+</div>
+</body>
+<script>
+var app;
+app=new Application();
+</script>
+</html>

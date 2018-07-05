@@ -8,9 +8,19 @@
 
 package org.opendaylight.mwtn.impl;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.ProviderContext;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.RpcRegistration;
 import org.opendaylight.controller.sal.binding.api.BindingAwareProvider;
+import org.opendaylight.mwtn.impl.WebsocketImpl.EventInputCallback;
+import org.opendaylight.mwtn.impl.utils.AkkaConfig;
+import org.opendaylight.mwtn.impl.utils.AkkaConfig.ClusterConfig;
+import org.opendaylight.mwtn.impl.utils.AkkaConfig.ClusterNodeInfo;
+import org.opendaylight.mwtn.impl.websocket.SyncWebSocketClient;
 import org.opendaylight.mwtn.impl.websocket.WebSocketServerInitializer;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.websocketmanager.rev150105.WebsocketmanagerService;
 import org.slf4j.Logger;
@@ -33,15 +43,64 @@ public class WebsocketmanagerProvider implements BindingAwareProvider, AutoClose
     private final EventLoopGroup workerGroup = new NioEventLoopGroup();
     private RpcRegistration<WebsocketmanagerService> websocketService;
 
+    private List<URI> clusterNodeClients=null;
+	private final EventInputCallback rpcEventInputCallback=new EventInputCallback() {
+
+		@Override
+		public void onMessagePushed(String message) throws Exception {
+
+			LOG.debug("onMessagePushed: "+message);
+			if(WebsocketmanagerProvider.this.clusterNodeClients!=null &&
+					WebsocketmanagerProvider.this.clusterNodeClients.size()>0)
+			{
+				SyncWebSocketClient client;
+				for(URI clientURI : WebsocketmanagerProvider.this.clusterNodeClients)
+				{
+					client=new SyncWebSocketClient(clientURI);
+					LOG.debug("try to push message to "+client.getURI());
+					client.openAndSendAndCloseSync(message);
+
+					//client.close();
+				}
+			}
+		}
+	};
+
     @Override
     public void onSessionInitiated(ProviderContext session) {
         LOG.info("WebsocketmanagerProvider Session Initiated");
         webserverThread = new Thread(this);
         webserverThread.start();
-        websocketService = session.addRpcImplementation(WebsocketmanagerService.class, new WebsocketImpl());
+        websocketService = session.addRpcImplementation(WebsocketmanagerService.class, new WebsocketImpl(rpcEventInputCallback));
+        AkkaConfig cfg =null;
+        try {
+			 cfg=AkkaConfig.load();
+			} catch (Exception e) {
+			LOG.warn("problem loading akka config: "+e.getMessage());
+		}
+        if(cfg!=null && cfg.isCluster())
+		{
+			this.initWSClients(cfg.getClusterConfig());
+		}
     }
 
-    @Override
+    private void initWSClients(ClusterConfig clusterConfig) {
+    	clusterNodeClients=new ArrayList<URI>();
+    	for(ClusterNodeInfo nodeConfig:clusterConfig.getSeedNodes())
+    	{
+    		if(clusterConfig.isMe(nodeConfig))
+    			continue;
+    		String url=String.format("ws://%s:%d/websocket", nodeConfig.getRemoteAddress(),PORT);
+    		try {
+    			LOG.debug("registering ws client for "+url);
+				clusterNodeClients.add(new URI(url));
+			} catch (URISyntaxException e) {
+				LOG.warn("problem instantiating wsclient for url: "+url);
+			}
+    	}
+	}
+
+	@Override
     public void close() throws Exception {
         LOG.info("WebsocketmanagerProvider Closed");
         closeWebsocketServer();

@@ -5,6 +5,7 @@ package org.opendaylight.mwtn.base.netconf;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.opendaylight.mwtn.performancemanager.impl.database.types.EsHistoricalPerformance15Minutes;
 import org.opendaylight.mwtn.performancemanager.impl.database.types.EsHistoricalPerformance24Hours;
 

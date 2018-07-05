@@ -26,8 +26,8 @@ public class IndexClientBuilder implements AutoCloseable {
     /** Location of configuration data **/
     private String modelDataDirectory = null;
 
-    private HtDatabaseClientAbstract client;
 	private final ScheduledExecutorService scheduler;
+    private HtDatabaseClientAbstract client;
     private HtDatabaseNode database;
 
 
@@ -51,33 +51,23 @@ public class IndexClientBuilder implements AutoCloseable {
     	return(this);
     }
 
+    /*
     public IndexClientBuilder setDatabase(HtDatabaseNode database) {
      	this.database = database;
     	return(this);
     }
+    */
 
     public HtDatabaseClientAbstract create(String esNodeserverName, String esClusterName,String esNodeName) {
-    	LOG.info("Create {} start", this.getClass().getSimpleName());
+    	LOG.info("Create {} start with name parameters server/cluster/node {} {} {}",
+    			this.getClass().getSimpleName(), esNodeserverName, esClusterName, esNodeName);
 
     	client = null;
 
     	try {
     		// Create control structure
     		client = new HtDatabaseClientAbstract(index, esNodeserverName, esClusterName, esNodeName);
-    		if (! client.isExistsIndex()) {
-    			LOG.info("Index not existing ... create index");
-
-    			// Initialisation 1
-    			if (mappingSettingFileName != null) {
-	  				JSONObject indexconfigdata=Resources.getJSONFile(mappingSettingFileName);
-	    			client.doCreateIndexWithMapping(indexconfigdata);
-    			} else
-    				client.doCreateIndex();
-
-    			// Initialisation 2 - start asynchron initialization and let it run
-       			scheduler.schedule(fillDatabase, 0, TimeUnit.SECONDS);
-
-    		}
+    		setupIndex();
     	} catch (Exception e) {
     		LOG.error("Can not start database client. Exception: {} {}", e.getMessage(), e.toString());
     	}
@@ -87,6 +77,15 @@ public class IndexClientBuilder implements AutoCloseable {
 
     }
 
+    public HtDatabaseClientAbstract create(HtDatabaseNode database) {
+		LOG.info("Create {} start with node", this.getClass().getSimpleName() );
+     	this.database = database;
+		client = new HtDatabaseClientAbstract(index, database);
+		setupIndex();
+       	return client;
+    }
+
+
     public void stop() {
 	   this.scheduler.shutdown();
     }
@@ -94,6 +93,22 @@ public class IndexClientBuilder implements AutoCloseable {
     @Override
     public void close() throws Exception {
 	   stop();
+    }
+
+    private void setupIndex() {
+		if (! client.isExistsIndex()) {
+			LOG.info("Index not existing ... create index");
+
+			// Initialisation 1
+			if (mappingSettingFileName != null) {
+  				JSONObject indexconfigdata=Resources.getJSONFile(mappingSettingFileName);
+    			client.doCreateIndexWithMapping(indexconfigdata);
+			} else
+				client.doCreateIndex();
+
+			// Initialisation 2 - start asynchron initialization and let it run
+   			scheduler.schedule(fillDatabase, 0, TimeUnit.SECONDS);
+		}
     }
 
     private final Runnable fillDatabase = new Runnable() {

@@ -10,7 +10,9 @@ import java.util.Set;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+
 import javax.annotation.Nullable;
+
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
 import org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElementRepresentation;
 import org.opendaylight.mwtn.devicemanager.impl.listener.ODLEventListener;

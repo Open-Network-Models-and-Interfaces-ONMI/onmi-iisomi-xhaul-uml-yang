@@ -1,11 +1,5 @@
 package org.opendaylight.mwtn.base.database;
 
-import org.elasticsearch.node.Node;
-import org.opendaylight.mwtn.base.internalTypes.Resources;
-import org.opendaylight.mwtn.config.impl.EsConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
 
 import java.io.File;
@@ -18,12 +12,22 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthResponse;
+import org.elasticsearch.client.Client;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.unit.TimeValue;
+import org.elasticsearch.node.Node;
+import org.opendaylight.mwtn.base.internalTypes.Resources;
+import org.opendaylight.mwtn.config.impl.AkkaConfig;
+import org.opendaylight.mwtn.config.impl.AkkaConfig.ClusterNodeInfo;
+import org.opendaylight.mwtn.config.impl.EsConfig;
+import org.opendaylight.mwtn.config.impl.GeoConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HtDatabaseNode implements AutoCloseable {
 
@@ -83,6 +87,10 @@ public class HtDatabaseNode implements AutoCloseable {
 		synchronized (initializedTarget) {
 			HtDatabaseNode.initializedTarget++;
 		}
+	}
+
+	public Client getClient() {
+		return node.client();
 	}
 
 
@@ -210,7 +218,7 @@ public class HtDatabaseNode implements AutoCloseable {
 		return false;
 	}
 
-	private static void checkorcreateConfigFile(EsConfig config) {
+	private static void checkorcreateConfigFile(EsConfig config, AkkaConfig akkaConfig,GeoConfig geoConfig) {
 		File f = new File(DBCONFIGFILENAME);
 		if (!f.exists()) {
 			LOGGER.debug("no " + DBCONFIGFILENAME + " found - extracting from resources");
@@ -220,9 +228,53 @@ public class HtDatabaseNode implements AutoCloseable {
 				Charset charset = StandardCharsets.UTF_8;
 				try {
 					Path p = f.toPath();
+					String hostName = "0.0.0.0"; //Default as initialisation value
+					if(akkaConfig!=null && akkaConfig.isCluster())
+					{
+						LOGGER.debug("cluster configuration found");
+						hostName=akkaConfig.getClusterConfig().getHostName(hostName);
+						String clusterDBName=akkaConfig.getClusterConfig().getDBClusterName(null);
+						String nodeName=String.format("node%d.%s",akkaConfig.getClusterConfig().getRoleMemberIndex(),clusterDBName);
+						if(clusterDBName!=null)
+						{
+							config.setCluster(clusterDBName);
+							config.setNode(nodeName);
+							LOGGER.info("set db name to "+clusterDBName+" nodename="+nodeName );
+						}
+						else
+							LOGGER.warn("unable to set correct db clustername");
+					}
 					String content = new String(Files.readAllBytes(p), charset);
 					content = content.replaceAll("\\$clustername", config.getCluster()).replaceAll("\\$nodename",
-							config.getNode());
+							config.getNode()).replaceAll("\\$hostname", hostName);
+
+					//add cluster configuration
+					if(akkaConfig!=null && akkaConfig.isCluster())
+					{
+						List<ClusterNodeInfo> seedNodes=akkaConfig.getClusterConfig().getSeedNodes();
+						String nodesJSONString="[\""+seedNodes.get(0).getRemoteAddress()+"\"";
+						for(int i=1;i<seedNodes.size();i++)
+							nodesJSONString+=",\""+seedNodes.get(i).getRemoteAddress()+"\"";
+						nodesJSONString+="]";
+						content+=System.lineSeparator()+String.format("discovery.zen.ping.unicast.hosts: %s",nodesJSONString);
+
+						if(geoConfig!=null)
+						{
+							LOGGER.debug("adding zone configuration");
+							content+=System.lineSeparator()+String.format("cluster.routing.allocation.awareness.force.zone.values: zone1,zone2");
+							content+=System.lineSeparator()+String.format("cluster.routing.allocation.awareness.attributes: zone");
+							if(geoConfig.isPrimary(akkaConfig.getClusterConfig().getRoleMember()))
+							{
+								content+=System.lineSeparator()+String.format("node.zone: zone1");
+								LOGGER.debug("setting zone to zone1");
+							}
+							else
+							{
+								content+=System.lineSeparator()+String.format("node.zone: zone2");
+								LOGGER.debug("setting zone to zone2");
+							}
+						}
+					}
 					Files.write(p, content.getBytes(charset));
 				} catch (IOException e) {
 					LOGGER.warn("problem replacing values in file: " + e.getMessage());
@@ -239,11 +291,15 @@ public class HtDatabaseNode implements AutoCloseable {
 	 * @return the node
 	 */
 	public static HtDatabaseNode start(EsConfig config) throws IllegalStateException {
+		return start(config,null,null);
+	}
+
+	public static HtDatabaseNode start(EsConfig config, AkkaConfig akkaConfig,GeoConfig geoConfig) {
 		if (isPortAvailable(ES_PORT)) {
 			LOGGER.info("ES Port not in use. Start internal ES.");
 			if (oneNode == null) {
 				checkorcreateplugins(pluginFolder);
-				checkorcreateConfigFile(config);
+				checkorcreateConfigFile(config,akkaConfig,geoConfig);
 				oneNode = new HtDatabaseNode();
 			} else
 				throw new IllegalStateException("Database is already started, but can only be started once. Stop here.");

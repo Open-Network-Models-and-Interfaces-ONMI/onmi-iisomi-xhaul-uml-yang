@@ -8,9 +8,11 @@
 
 package org.opendaylight.mwtn.devicemanager.impl.xml;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.xml.bind.annotation.XmlElement;
+
 import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MwtNotificationBase {
 

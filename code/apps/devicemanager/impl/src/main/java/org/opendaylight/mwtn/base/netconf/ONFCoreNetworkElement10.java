@@ -23,14 +23,16 @@ import org.opendaylight.controller.md.sal.binding.api.NotificationService;
 import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
 import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
+import org.opendaylight.mwtn.base.internalTypes.InventoryInformation;
+import org.opendaylight.mwtn.devicemanager.impl.ProviderClient;
 import org.opendaylight.mwtn.devicemanager.impl.database.service.HtDatabaseEventsService;
 import org.opendaylight.mwtn.devicemanager.impl.listener.MicrowaveEventListener;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.WebSocketServiceClient;
-import org.opendaylight.mwtn.ecompConnector.impl.EcompProviderClient;
 import org.opendaylight.mwtn.performancemanager.impl.database.types.EsHistoricalPerformance15Minutes;
 import org.opendaylight.mwtn.performancemanager.impl.database.types.EsHistoricalPerformance24Hours;
 import org.opendaylight.yang.gen.v1.uri.onf.coremodel.corefoundationmodule.superclassesandcommonpackages.rev160710.UniversalId;
+import org.opendaylight.yang.gen.v1.uri.onf.coremodel.corefoundationmodule.superclassesandcommonpackages.rev160710.extension.ExtensionList;
 import org.opendaylight.yang.gen.v1.uri.onf.coremodel.corenetworkmodule.objectclasses.rev160811.NetworkElement;
 import org.opendaylight.yang.gen.v1.uri.onf.coremodel.corenetworkmodule.objectclasses.rev160811.logicalterminationpoint.LpList;
 import org.opendaylight.yang.gen.v1.uri.onf.coremodel.corenetworkmodule.objectclasses.rev160811.networkelement.LtpRefList;
@@ -107,12 +109,12 @@ public class ONFCoreNetworkElement10 extends ONFCoreNetworkElementBase {
 
     public ONFCoreNetworkElement10(String mountPointNodeName, Capabilities capabilities,
             DataBroker netconfNodeDataBroker, WebSocketServiceClient webSocketService,
-            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider) {
+            HtDatabaseEventsService databaseService, ProviderClient dcaeProvider ,@Nullable ProviderClient aotsmClient) {
 
         super(mountPointNodeName, netconfNodeDataBroker, capabilities );
 
         //Create MicrowaveService here
-        this.microwaveEventListener = new MicrowaveEventListener(mountPointNodeName, webSocketService, databaseService, ecompProvider);
+        this.microwaveEventListener = new MicrowaveEventListener(mountPointNodeName, webSocketService, databaseService, dcaeProvider,aotsmClient);
 
         LOG.info("Create NE instance {}", ONFCoreNetworkElement10.class.getSimpleName());
     }
@@ -123,9 +125,9 @@ public class ONFCoreNetworkElement10 extends ONFCoreNetworkElementBase {
 
     public static ONFCoreNetworkElement10 build(String mountPointNodeName, Capabilities capabilities,
             DataBroker netconfNodeDataBroker, WebSocketServiceClient webSocketService,
-            HtDatabaseEventsService databaseService, EcompProviderClient ecompProvider) {
+            HtDatabaseEventsService databaseService, ProviderClient dcaeProvider ,@Nullable ProviderClient aotsmClient) {
 
-        return checkType(capabilities) ? new ONFCoreNetworkElement10(mountPointNodeName, capabilities, netconfNodeDataBroker, webSocketService, databaseService, ecompProvider) : null;
+        return checkType(capabilities) ? new ONFCoreNetworkElement10(mountPointNodeName, capabilities, netconfNodeDataBroker, webSocketService, databaseService, dcaeProvider ,aotsmClient) : null;
 
     }
 
@@ -222,19 +224,19 @@ public class ONFCoreNetworkElement10 extends ONFCoreNetworkElementBase {
         int problemsFound = 0;
 
         synchronized (pmLock) {
-            for (LpList ltp : interfaceList) {
-                if (ONFLayerProtocolName.MWAirInterface.is(ltp.getLayerProtocolName())) {
+            for (LpList lp : interfaceList) {
+                if (ONFLayerProtocolName.MWAirInterface.is(lp.getLayerProtocolName())) {
                     //if (ltp.getLayerProtocolName().getValue().contains("MWPS")) {
-                    problemsFound += readTheFaultsOfMWAirInterfacePac(ltp.getUuid());
+                    problemsFound += readTheFaultsOfMWAirInterfacePac(lp.getUuid());
                     synchronized (dmLock) {
                         if (dmAirIfCurrentProblemsIID == null) {
-                            dmAirIfCurrentProblemsIID = getMWAirInterfacePacIId(ltp.getUuid());
+                            dmAirIfCurrentProblemsIID = getMWAirInterfacePacIId(lp.getUuid());
                         }
                     }
                 }
-                if (ONFLayerProtocolName.EthernetContainer10.is(ltp.getLayerProtocolName())) {
+                if (ONFLayerProtocolName.EthernetContainer10.is(lp.getLayerProtocolName())) {
                     //if (ltp.getLayerProtocolName().getValue().contains("ETH")) {
-                    problemsFound += readTheFaultsOfMWEthernetContainerPac(ltp.getUuid());
+                    problemsFound += readTheFaultsOfMWEthernetContainerPac(lp.getUuid());
                 }
             }
         }
@@ -705,6 +707,64 @@ public class ONFCoreNetworkElement10 extends ONFCoreNetworkElementBase {
         final NotificationService notificationService = optionalNotificationService.get();
         notificationService.registerNotificationListener(microwaveEventListener);
     }
+
+    @Override
+	public @Nonnull InventoryInformation getInventoryInformation() {
+    	return this.getInventoryInformation(null);
+    }
+
+	@Override
+	public @Nonnull InventoryInformation getInventoryInformation(String layerProtocolFilter) {
+
+		String type=InventoryInformation.UNKNOWN;
+		String model=InventoryInformation.UNKNOWN;
+		String vendor=InventoryInformation.UNKNOWN;
+		String ipv4=InventoryInformation.UNKNOWN;
+		String ipv6=InventoryInformation.UNKNOWN;
+		List<String> uuids = new ArrayList<String>();
+		LOG.debug("request inventory information. filter:"+layerProtocolFilter);
+
+		if (optionalNe != null) {
+
+			//uuids
+			for(LpList lp : this.interfaceList)
+			{
+				if(layerProtocolFilter==null || layerProtocolFilter.isEmpty())
+					uuids.add(lp.getUuid().getValue());
+				else if(lp.getLayerProtocolName()!=null &&
+    					lp.getLayerProtocolName().getValue()!=null &&
+    					lp.getLayerProtocolName().getValue().equals(layerProtocolFilter))
+    				uuids.add(lp.getUuid().getValue());
+			}
+			//type
+			List<ExtensionList> extensions = optionalNe.getExtensionList();
+			if(extensions!=null)
+			{
+				for(ExtensionList e: extensions)
+				{
+					if(e.getValueName()!=null)
+					{
+						if(e.getValueName().equals("neIpAddress"))
+						{
+							ipv4=e.getValue();
+							LOG.debug("ip information found: "+ipv4);
+						}
+					}
+				}
+				if(ipv4==InventoryInformation.UNKNOWN)
+    			{
+    				LOG.debug("no ip information found");
+    			}
+			}
+			else
+    		{
+    			LOG.debug("extension list is null");
+    		}
+		}
+
+
+		return new InventoryInformation(type, model, vendor, ipv4, ipv6, uuids);
+	}
 
 
 }

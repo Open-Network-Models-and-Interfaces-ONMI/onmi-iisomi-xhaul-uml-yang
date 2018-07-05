@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.log4j.Priority;
+import org.apache.log4j.Level;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.opendaylight.mwtn.base.internalTypes.Resources;
@@ -48,7 +48,7 @@ public class ResTest {
 	}
 	public static void main(String[] args)
 	{
-		HtLogger.initConsole(Priority.DEBUG);
+		HtLogger.initConsole(Level.DEBUG);
 		JSONObject o=Resources.getJSONFile("/elasticsearch/index/sdnevents/sdneventsMapping.json");
 		System.out.println(o==null?"null":o.toString());
 

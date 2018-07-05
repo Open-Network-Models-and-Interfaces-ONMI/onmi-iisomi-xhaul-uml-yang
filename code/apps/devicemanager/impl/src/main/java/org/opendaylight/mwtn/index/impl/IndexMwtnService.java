@@ -26,14 +26,13 @@ public class IndexMwtnService implements AutoCloseable {
 
     // --- Construct and initialize
 
-    public IndexMwtnService(HtDatabaseNode database, String esNodeserverName, String esClusterName,String esNodeName) {
+    public IndexMwtnService(HtDatabaseNode database) {
     	LOG.info("Create {} start", this.getClass().getSimpleName());
 
     	IndexClientBuilder clientBuilder = IndexClientBuilder.getBuilder(INDEX)
-    			.setDatabase(database)
     			.setMappingSettingJsonFileName(MAPPING)
     			.setModelDataDirectory(MODELDATA);
-    	client = clientBuilder.create(esNodeserverName, esClusterName, esNodeName);
+    	client = clientBuilder.create(database);
     	LOG.info("Create {} finished. DB Service {} started.", this.getClass().getSimpleName(),  client != null ? "sucessfully" : "not" );
     }
 

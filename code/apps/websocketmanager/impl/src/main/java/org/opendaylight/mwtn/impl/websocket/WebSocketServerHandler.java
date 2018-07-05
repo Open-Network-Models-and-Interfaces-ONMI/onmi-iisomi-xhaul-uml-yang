@@ -49,6 +49,10 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 
 	private static final String WEBSOCKET_PATH = "/websocket";
 
+	public static final String KEY_NODENAME = "nodename";
+	public static final String KEY_EVENTTYPE = "eventtype";
+	public static final String KEY_XMLEVENT = "xmlevent";
+
 	private WebSocketServerHandshaker handshaker;
 
 	@Override
@@ -93,7 +97,20 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 			}
 		}
 	}
+	public static void sendMessage(String xmlEvent) {
+		if (hmChannelContexts != null && hmChannelContexts.size() > 0) {
+			for (Map.Entry<String, ChannelHandlerContext> entry : hmChannelContexts.entrySet()) {
+				ChannelHandlerContext ctx = entry.getValue();
 
+				try {
+					sendBroadcast(ctx, xmlEvent);
+
+				} catch (Exception ioe) {
+					LOG.warn(ioe.getMessage());
+				}
+			}
+		}
+	}
 	private static void sendBroadcast(ChannelHandlerContext ctx, String message) {
 		try {
 			ctx.channel().write(new TextWebSocketFrame(message));
@@ -149,28 +166,47 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
 		}
 
 		String request = ((TextWebSocketFrame) frame).text();
-		manageClientRequest(ctx, request);
-	}
-
-	private void manageClientRequest(ChannelHandlerContext ctx, String request) {
 		LOG.info(String.format("%s received %s", ctx.channel(), request));
+		if(!manageClientRequest(ctx, request));
+			manageClientRequest2(ctx, request);
+		}
+
+	/*
+	 * broadcast message to all your clients
+	 */
+	private void manageClientRequest2(ChannelHandlerContext ctx, String request) {
+		try {
+			JSONObject o=new JSONObject(request);
+			if(o.has(KEY_NODENAME) && o.has(KEY_EVENTTYPE) && o.has(KEY_EVENTTYPE))
+				sendMessage(o.getString(KEY_NODENAME),o.getString(KEY_EVENTTYPE),o.getString(KEY_XMLEVENT));
+		} catch (Exception e) {
+			LOG.warn("handle ws request failed:"+e.getMessage());
+		}
+	}
+	private boolean manageClientRequest(ChannelHandlerContext ctx, String request) {
+		boolean ret=false;
 		try {
 			JSONObject jsonMessage = new JSONObject(request);
-			String data = jsonMessage.getString(Utils.MSG_KEY_DATA);
-			if (data.equals(Utils.MSG_KEY_SCOPES)) {
-				String sessionId = String.valueOf(ctx.hashCode());
-				UserDto clientDto = new UserDto();
-				clientDto.setScopes(jsonMessage.getJSONArray(Utils.MSG_KEY_SCOPES));
-				clientDto.setUserId(sessionId);
-				hmClientScopes.put(sessionId, clientDto);
-				ctx.channel().write(new TextWebSocketFrame(
-						"You are connected to the Opendaylight Websocket server and scopes are : " + request + ""));
+			if(jsonMessage.has(Utils.MSG_KEY_DATA))
+			{
+				String data = jsonMessage.getString(Utils.MSG_KEY_DATA);
+				if (data.equals(Utils.MSG_KEY_SCOPES)) {
+					ret=true;
+					String sessionId = String.valueOf(ctx.hashCode());
+					UserDto clientDto = new UserDto();
+					clientDto.setScopes(jsonMessage.getJSONArray(Utils.MSG_KEY_SCOPES));
+					clientDto.setUserId(sessionId);
+					hmClientScopes.put(sessionId, clientDto);
+					ctx.channel().write(new TextWebSocketFrame(
+							"You are connected to the Opendaylight Websocket server and scopes are : " + request + ""));
+				}
 			}
 		} catch (Exception e) {
+			LOG.warn("problem set scope: "+e.getMessage());
 			ctx.channel().write(new TextWebSocketFrame("Your request to the Opendaylight Websocket server is >> "
 					+ request + " << which failed because of following exception >> " + e.toString()));
 		}
-
+		return ret;
 	}
 
 	private static void sendHttpResponse(ChannelHandlerContext ctx, FullHttpRequest req, FullHttpResponse res) {

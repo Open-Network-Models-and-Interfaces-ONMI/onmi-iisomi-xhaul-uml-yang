@@ -1,8 +1,5 @@
 package org.opendaylight.mwtn.performancemanager.impl.database.types;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import org.opendaylight.mwtn.base.netconf.ExtendedAirInterfaceHistoricalPerformanceType;
 import org.opendaylight.yang.gen.v1.uri.onf.g_874_1_model.object_classes.rev160710.OTNHistoryData;
 import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.typedefinitions.rev160902.AirInterfaceHistoricalPerformanceType;
@@ -11,6 +8,10 @@ import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.typedefinitions.rev16
 import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.typedefinitions.rev160902.ContainerPerformanceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EsPerformanceData10 {

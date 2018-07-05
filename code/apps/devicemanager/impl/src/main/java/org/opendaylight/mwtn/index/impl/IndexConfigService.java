@@ -24,11 +24,11 @@ public class IndexConfigService implements AutoCloseable {
 
     // --- Construct and initialize
 
-    public IndexConfigService(HtDatabaseNode database, String esNodeserverName, String esClusterName,String esNodeName) {
+    public IndexConfigService(HtDatabaseNode database) {
     	LOG.info("Create {} start", this.getClass().getSimpleName());
 
-    	IndexClientBuilder clientBuilder = IndexClientBuilder.getBuilder(INDEX).setDatabase(database).setModelDataDirectory(MODELDATA);
-    	client = clientBuilder.create(esNodeserverName, esClusterName, esNodeName);
+    	IndexClientBuilder clientBuilder = IndexClientBuilder.getBuilder(INDEX).setModelDataDirectory(MODELDATA);
+    	client = clientBuilder.create(database);
     	LOG.info("Create {} finished. DB Service {} started.", this.getClass().getSimpleName(),  client != null ? "sucessfully" : "not" );
     }
 

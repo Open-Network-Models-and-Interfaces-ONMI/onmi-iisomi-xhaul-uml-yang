@@ -1,10 +1,8 @@
 package org.opendaylight.mwtn.performancemanager.impl.database.types;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.opendaylight.mwtn.base.database.EsObject;
-import org.opendaylight.mwtn.base.netconf.NetconfTimeStamp;
 import org.opendaylight.mwtn.base.netconf.LinkIdentifyingObject;
+import org.opendaylight.mwtn.base.netconf.NetconfTimeStamp;
 import org.opendaylight.yang.gen.v1.uri.onf.coremodel.corenetworkmodule.objectclasses.rev160811.logicalterminationpoint.LpList;
 import org.opendaylight.yang.gen.v1.uri.onf.g_874_1_model.object_classes.rev160710.OTNHistoryData;
 import org.opendaylight.yang.gen.v1.uri.onf.g_874_1_model.type_definitions.rev160710.GranularityPeriodType;
@@ -12,6 +10,9 @@ import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.g._874._1.model.rev170320.OtnHistoryDataG;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class EsHistoricalPerformanceBase extends EsObject {
 

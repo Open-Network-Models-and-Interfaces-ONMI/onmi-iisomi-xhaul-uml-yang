@@ -1,0 +1,53 @@
+<soapenv:Envelope 
+xmlns:q1="http://csi.att.com/CSI/Namespaces/ATTOneTicketingSystem/Types/Public/CommonDataModel.xsd" 
+xmlns:q0="http://csi.cingular.com/CSI/Namespaces/Container/Public/AddMobilityTicketRequest.xsd" 
+xmlns:mh="http://csi.cingular.com/CSI/Namespaces/sdnr/InfrastructureCommon/Types/Public/MessageHeader.xsd" 
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xmlns:cdm="http://csi.att.com/CSI/Namespaces/sdnr/Types/Public/CommonDataModel.xsd" 
+xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+	<soapenv:Header>
+		<mh:MessageHeader>
+			<mh:TrackingMessageHeader>
+				<mh:infrastructureVersion>86</mh:infrastructureVersion>
+				<mh:applicationName>sdnr</mh:applicationName>
+				<mh:version>209</mh:version>
+				<mh:messageId>sdnr:37-1508173894848</mh:messageId>
+				<mh:timeToLive>30000</mh:timeToLive>
+				<mh:dateTimeStamp>{notificationTimestamp}</mh:dateTimeStamp>
+			</mh:TrackingMessageHeader>
+			<mh:SecurityMessageHeader>
+				<mh:userName>{aotsUsername}</mh:userName>
+				<mh:userPassword>{aotsUserpassword}</mh:userPassword>
+			</mh:SecurityMessageHeader>
+			<mh:SequenceMessageHeader>
+				<mh:sequenceNumber>1</mh:sequenceNumber>
+				<mh:totalInSequence>1</mh:totalInSequence>
+			</mh:SequenceMessageHeader>
+		</mh:MessageHeader>
+	</soapenv:Header>
+	<soapenv:Body>
+		<q0:AddMobilityTicketRequest>
+			<q0:TicketCoreDetails>
+				<q1:entryType>2</q1:entryType>
+				<q1:ticketSeverity>{aotsSeverity}</q1:ticketSeverity>
+				<q1:shortDescription>{notficationAlarm}</q1:shortDescription>
+				<q1:customerImpact>{aotsCustomerImpact}</q1:customerImpact>
+			</q0:TicketCoreDetails>
+			<q0:ProblemDetails>
+				<q1:problemCategory>Fault Management</q1:problemCategory>
+				<q1:problemSubCategory>SDN-R</q1:problemSubCategory>
+				<q1:problemDetail>{notficationAlarm}({notificationComponent})@{notificationNodename}</q1:problemDetail>
+			</q0:ProblemDetails>
+			<q0:EquipmentDetails>
+				<q1:equipmentId>{notificationEqId}</q1:equipmentId>
+			</q0:EquipmentDetails>
+			<q0:assignedTo>{aotsAssignedTo}</q0:assignedTo>
+			<q0:systemUser>{aotsSystemUser}</q0:systemUser>
+			<q0:workDone>done</q0:workDone>
+			<q0:callOrigin>TECH OPS</q0:callOrigin>
+			<q0:externalTicketNumber>{aotsExternalTicketNumber}</q0:externalTicketNumber>
+			<q0:plannedRestoralTime>{aotsPRT}</q0:plannedRestoralTime>
+			<q0:serviceImpactLevel>5</q0:serviceImpactLevel>
+		</q0:AddMobilityTicketRequest>
+	</soapenv:Body>
+</soapenv:Envelope>

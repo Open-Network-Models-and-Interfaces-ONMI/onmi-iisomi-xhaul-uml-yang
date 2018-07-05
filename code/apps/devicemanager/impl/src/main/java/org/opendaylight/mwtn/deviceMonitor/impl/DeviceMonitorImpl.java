@@ -8,6 +8,7 @@ import java.util.Enumeration;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+
 import org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElementRepresentation;
 import org.opendaylight.mwtn.devicemanager.impl.listener.ODLEventListener;
 import org.slf4j.Logger;
@@ -122,26 +123,25 @@ public class DeviceMonitorImpl implements DeviceMonitor, AutoCloseable {
     @Override
     synchronized public void deviceConnectIndication(String mountPointNodeName, ONFCoreNetworkElementRepresentation ne) {
 
-        LOG.debug("Add ne to monitoring {}",mountPointNodeName);
+        LOG.debug("ne changes to connected state {}",mountPointNodeName);
         if (queue.containsKey(mountPointNodeName)) {
             DeviceMonitorTask task = queue.get(mountPointNodeName);
             task.deviceConnectIndication(ne);
         } else {
-            LOG.warn("Task not in queue anymore: {} {} {}", mountPointNodeName, mountPointNodeName.hashCode(), queue.size());
+            LOG.warn("Monitoring task not in queue anymore: {} {} {}", mountPointNodeName, mountPointNodeName.hashCode(), queue.size());
         }
     }
 
     @Override
     synchronized public void deviceDisconnectIndication(String mountPointNodeName) {
 
-        LOG.debug("Deregister {}",mountPointNodeName);
+        LOG.debug("ne changes to disconnected state {}",mountPointNodeName);
         if (queue.containsKey(mountPointNodeName)) {
             DeviceMonitorTask task = queue.get(mountPointNodeName);
             task.deviceDisconnectIndication();
         } else {
-            LOG.warn("Task not in queue anymore: {}", mountPointNodeName);
+            LOG.warn("Monitoring task not in queue anymore: {} {} {}", mountPointNodeName, mountPointNodeName.hashCode(), queue.size());
         }
-
     }
 
     /*-------------------------------------------------------------
