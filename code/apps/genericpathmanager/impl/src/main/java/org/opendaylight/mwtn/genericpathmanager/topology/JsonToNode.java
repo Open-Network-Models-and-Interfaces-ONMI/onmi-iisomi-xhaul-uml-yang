@@ -86,11 +86,11 @@ public class JsonToNode {
 		/**
 		 * uses tapi-common:resource-spec-g;
 		 */
-		Uuid _uuid = Uuid.getDefaultInstance(nodeObject.get("uuid").getAsString());
+		Uuid _uuid = Uuid.getDefaultInstance(nodeObject.get(Constants.UUID).getAsString());
 		_nodeBuilder.setUuid(_uuid);
 		_nodeBuilder.setKey(new NodeKey(_uuid));
 		// Node Name
-		_nodeBuilder.setName((new JsonToName()).getNameFromJson(nodeObject.getAsJsonArray("name")));
+		_nodeBuilder.setName((new JsonToName()).getGlobalNameFromJson(nodeObject.getAsJsonArray("name")));
 
 		/**
 		 * uses tapi-common:admin-state-pac-g;
@@ -157,11 +157,11 @@ public class JsonToNode {
 		for(Iterator<JsonElement> iter = array.iterator(); iter.hasNext(); ) {
 			JsonObject _object = iter.next().getAsJsonObject();
 			OwnedNodeEdgePointBuilder _onepBuilder = new OwnedNodeEdgePointBuilder();
-			Uuid _uuid = Uuid.getDefaultInstance(_object.get("uuid").getAsString());
+			Uuid _uuid = Uuid.getDefaultInstance(_object.get(Constants.UUID).getAsString());
 			_onepBuilder.setUuid(_uuid);
 			_onepBuilder.setKey(new OwnedNodeEdgePointKey(_uuid));
 			// Name
-			_onepBuilder.setName((new JsonToName()).getNameFromJson(_object.getAsJsonArray("name")));
+			_onepBuilder.setName((new JsonToName()).getGlobalNameFromJson(_object.getAsJsonArray(Constants.NAME)));
 
 			// "administrative-state"
 			_onepBuilder.setAdministrativeState(AdministrativeState.valueOf(_object.get("administrative-state").getAsString()));

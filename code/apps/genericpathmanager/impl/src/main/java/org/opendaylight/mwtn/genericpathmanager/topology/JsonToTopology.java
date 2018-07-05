@@ -99,19 +99,19 @@ public class JsonToTopology{
 		JsonParser parser = new JsonParser();
 		Object obj = parser.parse(fileReader);
 		JsonObject jsonObj = (JsonObject) obj;
-		JsonObject topology = jsonObj.getAsJsonObject("topology");
+		JsonObject topology = jsonObj.getAsJsonObject(Constants.TOPOLOGY);
 
 		/**
 		 * uses tapi-common:resource-spec-g;
 		 */
-		Uuid _uuid = Uuid.getDefaultInstance(topology.get("uuid").getAsString());
+		Uuid _uuid = Uuid.getDefaultInstance(topology.get(Constants.UUID).getAsString());
 		// UUID of the Topology
 		this._builder.setUuid(_uuid);
 		// TopologyKey
 		this._builder.setKey(new TopologyKey(_uuid));
 		// Topology Name and Value
 		JsonToName _name = new JsonToName();
-		this._builder.setName(_name.getNameFromJson(topology.getAsJsonArray("name")));
+		this._builder.setName(_name.getGlobalNameFromJson(topology.getAsJsonArray("name")));
 
 		/**
 		 * list node

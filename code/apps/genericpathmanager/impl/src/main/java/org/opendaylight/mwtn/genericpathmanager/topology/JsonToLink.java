@@ -23,11 +23,11 @@ public class JsonToLink {
 	 */
 	public Link getLinkFromJson(JsonObject linkObject) {
 		LinkBuilder _linkBuilder = new LinkBuilder();
-		Uuid _uuid = Uuid.getDefaultInstance(linkObject.get("uuid").getAsString());
+		Uuid _uuid = Uuid.getDefaultInstance(linkObject.get(Constants.UUID).getAsString());
 		_linkBuilder.setUuid(_uuid);
 		_linkBuilder.setKey(new LinkKey(_uuid));
 		JsonToName _name = new JsonToName();
-		_linkBuilder.setName(_name.getNameFromJson(linkObject.getAsJsonArray("name")));
+		_linkBuilder.setName(_name.getGlobalNameFromJson(linkObject.getAsJsonArray(Constants.NAME)));
 		_linkBuilder.setAdministrativeState(AdministrativeState.valueOf(linkObject.get("administrative-state").getAsString()));
 
 		return _linkBuilder.build();
