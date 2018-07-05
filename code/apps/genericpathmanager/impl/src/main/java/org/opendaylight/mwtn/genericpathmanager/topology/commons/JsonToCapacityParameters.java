@@ -1,4 +1,4 @@
-package org.opendaylight.mwtn.genericpathmanager.topology;
+package org.opendaylight.mwtn.genericpathmanager.topology.commons;
 
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.CapacityUnit;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.capacity.g.BandwidthProfile;

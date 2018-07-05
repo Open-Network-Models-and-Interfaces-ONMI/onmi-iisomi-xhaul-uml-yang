@@ -1,9 +1,10 @@
-package org.opendaylight.mwtn.genericpathmanager.topology;
+package org.opendaylight.mwtn.genericpathmanager.topology.commons;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.opendaylight.mwtn.genericpathmanager.topology.constants.Constants;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev180307.ForwardingRule;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev180307.RuleType;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev180307.node.rule.group.g.Rule;

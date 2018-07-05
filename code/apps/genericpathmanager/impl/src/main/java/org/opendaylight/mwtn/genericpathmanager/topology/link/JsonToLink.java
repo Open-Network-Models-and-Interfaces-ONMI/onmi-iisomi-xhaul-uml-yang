@@ -1,5 +1,7 @@
-package org.opendaylight.mwtn.genericpathmanager.topology;
+package org.opendaylight.mwtn.genericpathmanager.topology.link;
 
+import org.opendaylight.mwtn.genericpathmanager.topology.commons.JsonToName;
+import org.opendaylight.mwtn.genericpathmanager.topology.constants.Constants;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.AdministrativeState;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.Uuid;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.topology.rev180307.topology.g.Link;

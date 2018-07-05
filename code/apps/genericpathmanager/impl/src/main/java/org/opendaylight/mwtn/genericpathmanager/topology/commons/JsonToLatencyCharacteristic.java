@@ -1,4 +1,4 @@
-package org.opendaylight.mwtn.genericpathmanager.topology;
+package org.opendaylight.mwtn.genericpathmanager.topology.commons;
 
 import java.util.ArrayList;
 import java.util.Iterator;

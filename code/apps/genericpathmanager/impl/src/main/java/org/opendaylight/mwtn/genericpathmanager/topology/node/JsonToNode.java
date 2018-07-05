@@ -1,9 +1,15 @@
-package org.opendaylight.mwtn.genericpathmanager.topology;
+package org.opendaylight.mwtn.genericpathmanager.topology.node;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.opendaylight.mwtn.genericpathmanager.topology.commons.JsonToCapacityParameters;
+import org.opendaylight.mwtn.genericpathmanager.topology.commons.JsonToCostCharacteristic;
+import org.opendaylight.mwtn.genericpathmanager.topology.commons.JsonToLatencyCharacteristic;
+import org.opendaylight.mwtn.genericpathmanager.topology.commons.JsonToLayerProtocolName;
+import org.opendaylight.mwtn.genericpathmanager.topology.commons.JsonToName;
+import org.opendaylight.mwtn.genericpathmanager.topology.constants.Constants;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.AdministrativeState;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.LayerProtocolName;
 import org.opendaylight.yang.gen.v1.urn.onf.otcc.yang.tapi.common.rev180307.LifecycleState;
