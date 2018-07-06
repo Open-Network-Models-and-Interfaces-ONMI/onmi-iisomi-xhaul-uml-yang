@@ -710,12 +710,13 @@ define(
       }
     };
 
-    mwtnCommonsApp.register.factory('$mwtnCommons', function ($http, $q, $mwtnGlobal, $mwtnLog, $mwtnDatabase, LogicalTerminationPoint, PtpClock) {
+    mwtnCommonsApp.register.factory('$mwtnCommons', function ($http, $q, ENV, $mwtnGlobal, $mwtnLog, $mwtnDatabase, LogicalTerminationPoint, PtpClock) {
 
       var COMPONENT = '$mwtnCommons';
 
       var service = {
-        base: window.location.origin + "/restconf/",
+        base: ENV.getBaseURL('MD_SAL') + "/restconf/",
+        odlKarafVersion: 'OpenDaylight Boron-SR3',
         database: {},
         'sdn-controller': [],
         modules: {},
@@ -882,20 +883,15 @@ define(
         });
       };
 
-      service.getMwtnWebSocketUrl = function () {
+      service.getMmwtnWebSocketUrl = function () {
         var deferred = $q.defer();
         service.getMainConroller().then(function (success) {
-
-          var protocol = window.location.protocol.replace(/http/g, 'ws');
-          var host = window.location.hostname;
-          var user = window.localStorage.odlUser;
-          if (user === undefined) user = 'admin' // ODL default user
-          var pw = window.localStorage.odlPass;
-          if (pw === undefined) pw = 'admin' // ODL default password
-  
-          var url = [protocol, '//', user, ':',pw, '@', host, ':8085/websocket'].join('');
-          console.info('url', url);
-
+          var src = success._source;
+          var ip = src.host;
+          if (ip === 'localhost') {
+            ip = service.base.split('//')[1].split(':')[0];
+          }
+          var url = ['ws://', src.username, ':', src.password, '@', ip, ':8085/websocket'].join('');
           deferred.resolve(url);
         }, function (error) {
           console.error('mainController', error);
@@ -1499,20 +1495,19 @@ define(
             var message = ['ODL', requiredTopology, 'not found!'].join(' ');
             $mwtnLog.error({ component: COMPONENT, message: message });
             deferred.reject(message);
-          } else if (topo[0].node) {
+          } else {
             var mwMountPoints = topo[0].node.filter(function (mountpoint) {
               return mountpoint['node-id'] !== 'controller-config';
             }).map(function (mountpoint) {
-              // console.info('mountpoint', JSON.stringify(mountpoint));
+              // console.log('mountpoint', JSON.stringify(mountpoint));
               var capId = 'netconf-node-topology:available-capabilities';
               if (mountpoint[capId] && mountpoint[capId]['available-capability']) {
                 var caps = mountpoint[capId]['available-capability'].filter(function (cap) {
-                  // console.info(JSON.stringify(cap));
-                  return cap.capability.contains('?revision=');
+                  return cap.contains('?revision=');
                 }).map(function (cap) {
                   return {
-                    module: cap.capability.split(')')[1],
-                    revision: cap.capability.split('?revision=')[1].substring(0, 10)
+                    module: cap.split(')')[1],
+                    revision: cap.split('?revision=')[1].substring(0, 10)
                   };
                 }).sort(function (a, b) {
                   if (a.module < b.module) return -1;
@@ -1545,15 +1540,7 @@ define(
                   $mwtnLog.error({ component: COMPONENT, message: 'More than 1 or no MicrowaveModel supported by ' + mountpoint['node-id'] });
                 }
               }
-              var clusterConneactionStatus = 'netconf-node-topology:clustered-connection-status';
-              if (mountpoint[clusterConneactionStatus] && mountpoint[clusterConneactionStatus]['netconf-master-node']) {
-                var value = mountpoint[clusterConneactionStatus]['netconf-master-node'];
-                value = value.substring(value.indexOf('@'));
-                mountpoint.client = value.substring(1, value.indexOf(':'));
-              } else {
-                mountpoint.client = window.location.hostname;
-              }
-            return mountpoint;
+              return mountpoint;
             });
             // console.log('mwMountPoints', JSON.stringify(mwMountPoints));
             deferred.resolve(mwMountPoints);
@@ -2756,10 +2743,10 @@ define(
     });
 
     // Service log
-    mwtnCommonsApp.register.factory('$mwtnEthernet', function ($http, $q) {
+    mwtnCommonsApp.register.factory('$mwtnEthernet', function ($http, $q, ENV) {
       var service = {};
 
-      service.base = window.location.origin + '/restconf';
+      service.base = ENV.getBaseURL("MD_SAL") + '/restconf';
       service.url = {
         create: service.base + '/operations/route:create',
         delete: service.base + '/operations/route:delete'
@@ -2829,9 +2816,9 @@ define(
     });
 
     // Service Database (ElasticSerach)
-    mwtnCommonsApp.register.factory('$mwtnDatabase', function ($http, $q) {
+    mwtnCommonsApp.register.factory('$mwtnDatabase', function ($http, $q, ENV) {
       var service = {
-        base: window.location.origin + '/database',
+        base: ENV.getBaseURL("MD_SAL") + '/database',
         index: 'mwtn',
         command: '_search',
         mwtn: 'todo'
@@ -2847,6 +2834,60 @@ define(
         });
 
         return deferred.promise;
+
+
+        // if (!service.database) {
+        //   var databaseRequest = {
+        //     base: service.base,
+        //     index: 'config',
+        //     docType: 'database',
+        //     command: '_search',
+        //     method: 'GET',
+        //     from: 0,
+        //     size: 10
+        //   };
+        //   service.genericRequest(databaseRequest).then(function (success) {
+        //     service.database = success.data.hits.hits;
+        //     service.database.map(function (server) {
+        //       var src = server._source;
+        //       if (server._id === functionId) {
+        //         var ip = src.host;
+        //         if (ip === 'localhost') {
+        //           ip = service.base.split('//')[1].split(':')[0];
+        //         }
+        //         result.base = service.base;
+        //         result.index = src.index;
+        //       }
+        //     });
+        //     if (result.base) {
+        //       deferred.resolve(result);
+        //     } else {
+        //       console.error('Server settings not found!', functionId);
+        //       deferred.reject({});
+        //     }
+        //   }, function (error) {
+        //     console.log('Server settings not found!', functionId, JSON.stringify(error));
+        //     deferred.reject({});
+        //   });
+        // } else {
+        //   service.database.map(function (server) {
+        //     var src = server._source;
+        //     if (server._id === functionId) {
+        //       var ip = src.host;
+        //       if (ip === 'localhost') {
+        //         ip = service.base.split('//')[1].split(':')[0];
+        //       }
+        //       result.base = service.base;
+        //       result.index = src.index;
+        //     }
+        //   });
+        //   if (result.base) {
+        //     deferred.resolve(result);
+        //   } else {
+        //     console.log('Server settings not found!', functionId);
+        //     deferred.reject({});
+        //   }
+        // }
       };
 
       service.genericRequest = function (databaseRequest) {
@@ -2876,7 +2917,7 @@ define(
           deferred.resolve(success);
         }, function (error) {
           console.timeEnd(consoleId);
-          console.warn(JSON.stringify(error));
+          console.error(JSON.stringify(error));
           deferred.reject(error);
         });
         return deferred.promise;
@@ -2898,7 +2939,7 @@ define(
           deferred.resolve(success);
         }, function (error) {
           console.timeEnd(consoleId);
-          console.warn(JSON.stringify(error));
+          console.error(JSON.stringify(error));
           deferred.reject(error);
         });
         return deferred.promise;
