@@ -348,10 +348,10 @@
 					]
 					}],
 					"rule":[{
-						"local-id":"rule-id-01",
+						"local-id":"rule-id-011",
 						"name":[{
 							"value-name":"name",
-							"value":"rule-01"
+							"value":"rule-011"
 						}],
 						"rule-type":"FORWARDING",
 						"forwarding-rule":"MAYFORWARDACROSSGROUP",
@@ -619,7 +619,7 @@
 					"local-id":"rule-id-02",
 					"name":[{
 						"value-name":"name",
-						"value":"rule-01"
+						"value":"rule-02"
 					}],
 					"rule-type":"FORWARDING",
 					"forwarding-rule":"MAYFORWARDACROSSGROUP",
@@ -715,9 +715,14 @@
 					]
 					}],
 					"rule":[{
+						"local-id":"rule-id-021",
+						"name":[{
+							"value-name":"name",
+							"value":"rule-021"
+						}],
 						"rule-type":"FORWARDING",
 						"forwarding-rule":"MAYFORWARDACROSSGROUP",
-						"override-priority":"1"
+						"override-priority":1
 					}],
 					"associated-node-rule-group":[{
 						"topology-id":"756ac5b3-6576-4816-8553-d57f20ebdf6e",
@@ -852,10 +857,10 @@
 					]
 				}],
 				"rule":[{
-					"local-id":"rule-id-01",
+					"local-id":"rule-id-03",
 					"name":[{
 						"value-name":"name",
-						"value":"rule-01"
+						"value":"rule-03"
 					}],
 					"rule-type":"FORWARDING",
 					"forwarding-rule":"MAYFORWARDACROSSGROUP",
@@ -909,9 +914,14 @@
 					]
 					}],
 					"rule":[{
+						"local-id":"rule-id-031",
+						"name":[{
+							"value-name":"name",
+							"value":"rule-031"
+						}],
 						"rule-type":"FORWARDING",
 						"forwarding-rule":"MAYFORWARDACROSSGROUP",
-						"override-priority":"1"
+						"override-priority":1
 					}],
 					"associated-node-rule-group":[{
 						"topology-id":"756ac5b3-6576-4816-8553-d57f20ebdf6e",
@@ -1046,10 +1056,10 @@
 					]
 				}],
 				"rule":[{
-					"local-id":"rule-id-01",
+					"local-id":"rule-id-04",
 					"name":[{
 						"value-name":"name",
-						"value":"rule-01"
+						"value":"rule-04"
 					}],
 					"rule-type":"FORWARDING",
 					"forwarding-rule":"MAYFORWARDACROSSGROUP",
@@ -1103,9 +1113,14 @@
 					]
 					}],
 					"rule":[{
+						"local-id":"rule-id-041",
+						"name":[{
+							"value-name":"name",
+							"value":"rule-041"
+						}],
 						"rule-type":"FORWARDING",
 						"forwarding-rule":"MAYFORWARDACROSSGROUP",
-						"override-priority":"1"
+						"override-priority":1
 					}],
 					"associated-node-rule-group":[{
 						"topology-id":"756ac5b3-6576-4816-8553-d57f20ebdf6e",
@@ -1240,10 +1255,10 @@
 					]
 				}],
 				"rule":[{
-					"local-id":"rule-id-01",
+					"local-id":"rule-id-05",
 					"name":[{
 						"value-name":"name",
-						"value":"rule-01"
+						"value":"rule-05"
 					}],
 					"rule-type":"FORWARDING",
 					"forwarding-rule":"MAYFORWARDACROSSGROUP",
@@ -1297,9 +1312,14 @@
 					]
 					}],
 					"rule":[{
+						"local-id":"rule-id-051",
+						"name":[{
+							"value-name":"name",
+							"value":"rule-051"
+						}],
 						"rule-type":"FORWARDING",
 						"forwarding-rule":"MAYFORWARDACROSSGROUP",
-						"override-priority":"1"
+						"override-priority":1
 					}],
 					"associated-node-rule-group":[{
 						"topology-id":"756ac5b3-6576-4816-8553-d57f20ebdf6e",
@@ -1382,8 +1402,8 @@
 			"layer-protocol-name":["OTSiA"],
 			"direction":"BIDIRECTIONAL",
 			"resilience-type":{
-				"restoration-policy":"END_TO_END_RESTORATION",
-				"protection-type":"DYNAMIC_RESTORATION"
+				"restoration-policy":"ENDTOENDRESTORATION",
+				"protection-type":"DYNAMICRESTORATION"
 			}
 		},
 		{
@@ -1450,8 +1470,8 @@
 			"layer-protocol-name":["OTSiA"],
 			"direction":"BIDIRECTIONAL",
 			"resilience-type":{
-				"restoration-policy":"END_TO_END_RESTORATION",
-				"protection-type":"DYNAMIC_RESTORATION"
+				"restoration-policy":"ENDTOENDRESTORATION",
+				"protection-type":"DYNAMICRESTORATION"
 			}
 		},
 		{
@@ -1518,8 +1538,8 @@
 			"layer-protocol-name":["OTSiA"],
 			"direction":"BIDIRECTIONAL",
 			"resilience-type":{
-				"restoration-policy":"END_TO_END_RESTORATION",
-				"protection-type":"DYNAMIC_RESTORATION"
+				"restoration-policy":"ENDTOENDRESTORATION",
+				"protection-type":"DYNAMICRESTORATION"
 			}
 		},
 		{
@@ -1586,8 +1606,8 @@
 			"layer-protocol-name":["OTSiA"],
 			"direction":"BIDIRECTIONAL",
 			"resilience-type":{
-				"restoration-policy":"END_TO_END_RESTORATION",
-				"protection-type":"DYNAMIC_RESTORATION"
+				"restoration-policy":"ENDTOENDRESTORATION",
+				"protection-type":"DYNAMICRESTORATION"
 			}
 		},
 		{
@@ -1654,8 +1674,8 @@
 			"layer-protocol-name":["OTSiA"],
 			"direction":"BIDIRECTIONAL",
 			"resilience-type":{
-				"restoration-policy":"END_TO_END_RESTORATION",
-				"protection-type":"DYNAMIC_RESTORATION"
+				"restoration-policy":"ENDTOENDRESTORATION",
+				"protection-type":"DYNAMICRESTORATION"
 			}
 		}],
 		"layer-protocol-name":["OTSiA", "OCH", "ODU", "ETH", "ETY"]
