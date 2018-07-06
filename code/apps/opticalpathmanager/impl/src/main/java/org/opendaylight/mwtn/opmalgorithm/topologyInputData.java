@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018 sendate.eu and others.  All rights reserved.
+ * Copyright (c) 2018 sendate.eu and others.  All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -22,10 +22,10 @@ class NetworkInputData
 	  {
 		  ArrayList<String> tmpLinkLabelList= new ArrayList<String>();
 		  ArrayList<Double> tmpLinkLengthList= new ArrayList<Double>();
-		  
+
 		  for (int i = 0; i < linkLabelList.length; i++)
 		  {
-			// this loop is to expand each link to list of LTPs, 
+			// this loop is to expand each link to list of LTPs,
 			// if length>0 then edge=src->dst =>src->amp->fiber->amp->dst & length=>0,0,length,0,0
 			// if both  are oeo => no changes
 			// if src = oeo => oeo->dst => oeo->mdx->amp->dst & length=0=>0,0,0
@@ -36,23 +36,23 @@ class NetworkInputData
 			  String[] strParts = el.split("-");
 			  String tmpPrefix = strParts[0]+":"+strParts[1];
 			  //initial edges
-			  
+
 			  tmpLinkLabelList.add(el);
 			  tmpLinkLengthList.add(curLength);
-			  
-			  
+
+
 			  //extension of edges to LTPs
 			  /*
 			  if(strParts[0].contains("oeo") && strParts[1].contains("oeo"))
 			  {
-				  
+
 				  tmpLinkLabelList.add(el);
 				  tmpLinkLengthList.add(curLength);
 				  //System.out.println("oeo-oeo: " + el);
 			  }
 			  else if (strParts[0].contains("oeo"))
 			  {
-				  
+
 				  tmpLinkLabelList.add(strParts[0]+"-"+tmpPrefix+"_mdx");
 				  tmpLinkLabelList.add(tmpPrefix+"_mdx"+"-"+tmpPrefix+"_amp");
 				  tmpLinkLabelList.add(tmpPrefix+"_amp"+"-"+strParts[1]);
@@ -63,7 +63,7 @@ class NetworkInputData
 			  }
 			  else if (strParts[1].contains("oeo"))
 			  {
-				  
+
 				  tmpLinkLabelList.add(strParts[0]+"-"+tmpPrefix+"_amp");
 				  tmpLinkLabelList.add(tmpPrefix+"_amp"+"-"+tmpPrefix+"_mdx");
 				  tmpLinkLabelList.add(tmpPrefix+"_mdx"+"-"+strParts[1]);
@@ -74,19 +74,19 @@ class NetworkInputData
 			  }
 			  else if(strParts[0].contains("ETY"))
 			  {
-				  
+
 				  tmpLinkLabelList.add(strParts[0]+"-"+tmpPrefix+"_mdx");
 				  tmpLinkLabelList.add(tmpPrefix+"_mdx"+"-"+tmpPrefix+"_amp");
 				  tmpLinkLabelList.add(tmpPrefix+"_amp"+"-"+strParts[1]);
 				  tmpLinkLengthList.add(0.0);
 				  tmpLinkLengthList.add(curLength);
 				  tmpLinkLengthList.add(0.0);
-				  
+
 				  //System.out.println("after ETY: " + strParts[0]+"-"+tmpPrefix+"_mdx");
 			  }
 			  else if (strParts[1].contains("ETY"))
 			  {
-				  
+
 				  tmpLinkLabelList.add(strParts[0]+"-"+tmpPrefix+"_amp");
 				  tmpLinkLabelList.add(tmpPrefix+"_amp"+"-"+tmpPrefix+"_mdx");
 				  tmpLinkLabelList.add(tmpPrefix+"_mdx"+"-"+strParts[1]);
@@ -100,22 +100,22 @@ class NetworkInputData
 				  //System.out.println("others");
 				  tmpLinkLabelList.add(strParts[0]+"-"+tmpPrefix+"_B_mdx");
 				  //System.out.println(strParts[0]+"-"+tmpPrefix+"_B_mdx");
-				  
+
 				  tmpLinkLabelList.add(tmpPrefix+"_B_mdx"+"-"+tmpPrefix+"_Bamp");
 				  //System.out.println(tmpPrefix+"_B_mdx"+"-"+tmpPrefix+"_Bamp");
-				  
+
 				  tmpLinkLabelList.add(tmpPrefix+"_Bamp"+"-"+tmpPrefix+"_fiber");
 				 // System.out.println(tmpPrefix+"_Bamp"+"-"+tmpPrefix+"_fiber");
-				  
+
 				  tmpLinkLabelList.add(tmpPrefix+"_fiber"+"-"+tmpPrefix+"_Pamp");
 				  //System.out.println(tmpPrefix+"_fiber"+"-"+tmpPrefix+"_Pamp");
-				  
+
 				  tmpLinkLabelList.add(tmpPrefix+"_Pamp"+"-"+tmpPrefix+"_P_mdx");
 				 // System.out.println(tmpPrefix+"_Pamp"+"-"+tmpPrefix+"_P_mdx");
-				  
+
 				  tmpLinkLabelList.add(tmpPrefix+"_P_mdx"+"-"+strParts[1]);
 				 // System.out.println(tmpPrefix+"_P_mdx"+"-"+strParts[1]);
-				  
+
 				  tmpLinkLengthList.add(0.0);
 				  tmpLinkLengthList.add(0.0);
 				  tmpLinkLengthList.add(curLength);
@@ -127,7 +127,7 @@ class NetworkInputData
 			//end of extension of edges to LTPs
 
 		  }
-		  
+
 		  ArrayList<String> curLinkLabellist= new ArrayList<String>();
 		  ArrayList<String> curNodeLabelList = new ArrayList<String>();
 		  ArrayList<Double> curLinkLengthList = new ArrayList<Double>();
@@ -136,14 +136,14 @@ class NetworkInputData
 		  ArrayList<Integer> curLinkSrcIdList = new ArrayList<Integer>();
 		  ArrayList<Integer> curLinkDstIdList = new ArrayList<Integer>();
 		  ArrayList<Boolean> curLinkOEOstate = new ArrayList<Boolean>();
-		  
+
 		  for (int i = 0; i < tmpLinkLabelList.size(); i++)
 		  {
 			  String el = tmpLinkLabelList.get(i);
 			  double curLength = tmpLinkLengthList.get(i);
 			  double curWeight = curLength;
 			  int curCapacity = linkCapacity;
-			  
+
 			  String[] strParts = el.split("-");
 			  String BAlinkLabel =  strParts[1]+"-"+strParts[0];
 			  String ABlinkLAbel =  strParts[0]+"-"+strParts[1];
@@ -159,16 +159,16 @@ class NetworkInputData
 			  */
 			  curLinkLabellist.add(ABlinkLAbel);
 			  curLinkLabellist.add(BAlinkLabel);
-			  
+
 			  curLinkLengthList.add(curLength);
 			  curLinkLengthList.add(curLength);
-			  
+
 			  curLinkWeightList.add(curWeight);
 			  curLinkWeightList.add(curWeight);
-			  
+
 			  curLinkCapacityList.add(curCapacity);
 			  curLinkCapacityList.add(curCapacity);
-			  
+
 			  if(strParts[0].contains("oeo") && strParts[1].contains("oeo"))
 			  {
 				  curLinkOEOstate.add(true);
@@ -177,9 +177,9 @@ class NetworkInputData
 			  else
 			  {
 				  curLinkOEOstate.add(false);
-				  curLinkOEOstate.add(false);				  
+				  curLinkOEOstate.add(false);
 			  }
-			  
+
 			  if(false == curNodeLabelList.contains(strParts[0]))
 			  {
 				  curNodeLabelList.add(strParts[0]);
@@ -188,29 +188,29 @@ class NetworkInputData
 			  {
 				  curNodeLabelList.add(strParts[1]);
 			  }
-			  
+
 			  curLinkSrcIdList.add(curNodeLabelList.indexOf(strParts[0]));
 			  curLinkSrcIdList.add(curNodeLabelList.indexOf(strParts[1]));
-			  
+
 			  curLinkDstIdList.add(curNodeLabelList.indexOf(strParts[1]));
-			  curLinkDstIdList.add(curNodeLabelList.indexOf(strParts[0]));			  
+			  curLinkDstIdList.add(curNodeLabelList.indexOf(strParts[0]));
 		  }
-		  
+
 		  this.ndLabel = curNodeLabelList;
 		  //this.ndLabel = new String[curNodeLabelList.size()];
 		  //curNodeLabelList.toArray(this.ndLabel);
-		  
+
 		  this.linkLabel = curLinkLabellist;
 		  //this.linkLabel = new String[curLinkLabellist.size()];
 		  //curLinkLabellist.toArray(this.linkLabel);
-		  
+
 		  this.linkLength = new double[curLinkLengthList.size()];
 		  this.linkWeight = new double[curLinkWeightList.size()];
 		  this.linkCapacity = new int[curLinkCapacityList.size()];
 		  this.srcId = new int[curLinkSrcIdList.size()];
 		  this.dstId = new int[curLinkDstIdList.size()];
 		  this.linkOEOstate = new boolean[curLinkOEOstate.size()];
-		  
+
 		  for(int i = 0; i < linkLength.length; i++)
 		  {
 			  this.linkLength[i] = curLinkLengthList.get(i);
@@ -220,7 +220,7 @@ class NetworkInputData
 			  this.dstId[i] = curLinkDstIdList.get(i);
 			  this.linkOEOstate[i] = curLinkOEOstate.get(i);
 		  }
-		  
+
 	  }
 	  public ArrayList<String> linkLabel;
 	  public ArrayList<String> ndLabel;

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2018 sendate.eu and others.  All rights reserved.
+ * Copyright (c) 2018 sendate.eu and others.  All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -22,11 +22,11 @@ import java.util.PriorityQueue;
 
 class NetEdge
 {
-    public NetEdge(double weight, String label, int srcId, int dstId, double linkLength, int linkCapacity,ArrayList<Integer> usedIndices,boolean isoeo) 
+    public NetEdge(double weight, String label, int srcId, int dstId, double linkLength, int linkCapacity,ArrayList<Integer> usedIndices,boolean isoeo)
     {
         this.goal = dstId; //dstId
         this.weight = weight;
-        
+
         this.label = label;
         this.snId = srcId;
         this.enId = dstId;
@@ -39,12 +39,12 @@ class NetEdge
         this.operTDindList = new ArrayList<Integer>();
         this.oeo = isoeo;
         this.edgeLTPlist = new ArrayList<MyLTP>();
-        
+
     }
-    
+
 	public double calcCurEdgeWeight(double weightIn)// update  weight during path calculation
 	{
-		//noiseIn = weightIn*h*fref;  
+		//noiseIn = weightIn*h*fref;
 		// several assumptions for now:
 		// in noise - h*f
 		// amp compensate loss
@@ -59,11 +59,11 @@ class NetEdge
 		//double noiseInit = h*fref;
 		double curNoiseIn = weightIn < Double.MAX_VALUE ? weightIn : 1.0;
 		double gain = Math.pow(10,0.1*alpha*this.length);
-		
+
 		//double noiseOut = this.oeo ? 1: Math.pow(10.0,0.1*curNoiseIn)+(NF*gain+1);//input noise is NOT amplified because gain is equal to loss of fiber
-		//if edge is just oeo, then no input weight - this will NOT work because here is the cur cumulative weight being searched 
+		//if edge is just oeo, then no input weight - this will NOT work because here is the cur cumulative weight being searched
 		double noiseOut = this.oeo ? 0*1+1*Math.pow(10.0,0.1*curNoiseIn) :  Math.pow(10.0,0.1*curNoiseIn)+(NF*gain+1);
-		
+
 		double curWeight = 10.0*Math.log10(noiseOut);
 		if(this.weight < 1 || this.weight > 10000)// user request either to include or exclude link from route
 		{
@@ -72,10 +72,10 @@ class NetEdge
 		}
 		return curWeight;
 	}
-	
+
 	public double calcCurEdgeNoiseOut(double noiseIn)// update  out noise along with route weight calculated
 	{
-		//noiseIn = weightIn*h*fref;  
+		//noiseIn = weightIn*h*fref;
 		// several assumptions for now:
 		// in noise - h*f
 		// amp compensate loss
@@ -93,12 +93,12 @@ class NetEdge
 		double curNoiseIn = noiseIn < Double.MAX_VALUE ? noiseIn : noiseInit;
 		double gain = Math.pow(10,0.1*alpha*this.length);
 		double loss = Math.pow(10,0.1*alpha*this.length); // gain is equal to fiber loss for now
-		
-		double noiseOut = this.oeo ? noiseInit : curNoiseIn/loss*gain + (NF*gain+1)*noiseInit;//if edge is just oeo, then no input noise and ASE 
-		
+
+		double noiseOut = this.oeo ? noiseInit : curNoiseIn/loss*gain + (NF*gain+1)*noiseInit;//if edge is just oeo, then no input noise and ASE
+
 		return noiseOut;
 	}
-	
+
     public int goal;
     public double weight;
     public String label; // edge (link or OMS) label
@@ -112,7 +112,7 @@ class NetEdge
     public ArrayList<Integer>  operTDindList; //list of TDs which routes exist, i.e. TDs are in operational state
     public boolean oeo;
     public ArrayList<MyLTP> edgeLTPlist;// list of cards (devices) within link
-    
+
 }
 
 class NetNode// this is upper level node - aggregation of LTPs (e.g. V1-ROADM-N1)
@@ -124,29 +124,29 @@ class NetNode// this is upper level node - aggregation of LTPs (e.g. V1-ROADM-N1
 		this.inConSrcIdList = new ArrayList<Integer>();
 		this.inConSrcIdList = inConSrcIdList;
 		this.outConDstIdList = new ArrayList<Integer>();
-		this.outConDstIdList = outConDstIdList;	
+		this.outConDstIdList = outConDstIdList;
 		this.length = 0;
-		
+
 		ArrayList<MyLTP> curNdLTPlist = new ArrayList<>();
-		curNdLTPlist.add(new MyLTP("ltp:"+String.valueOf(this.ndId), this.ndLabel + "_ltp"));// create one empty ltp per node 
+		curNdLTPlist.add(new MyLTP("ltp:"+String.valueOf(this.ndId), this.ndLabel + "_ltp"));// create one empty ltp per node
 		//MyLTP(String myltpID, String ltpLabel,ArrayList<MyLTP> clientLtpList,ArrayList<MyLTP> serverLtpList,ArrayList<OchSignal> inSignalList,ArrayList<OchSignal> outSignalList)
 		//MyLTP curLTP = new MyLTP("ltp:"+String.valueOf(ndId),ndLabel+"_ltp",);
 		//curNdLTPlist.add(curLTP);
-		
+
 		this.ndLTPlist = curNdLTPlist;
 	}
-	
+
 	public void createLTP(List<NetNode> curNodeList)
 	{
 		ArrayList<MyLTP> clientLtpList = new ArrayList<MyLTP>();
 		ArrayList<MyLTP> serverLtpList = new ArrayList<MyLTP>();
 		ArrayList<OchSignal> inSignalList = new ArrayList<OchSignal>();
 		ArrayList<OchSignal> outSignalList = new ArrayList<OchSignal>();
-		
+
 		for(int i : this.inConSrcIdList)
 		{
 			MyLTP curClientLTP = curNodeList.get(i).ndLTPlist.get(0);//get ltp of the node which is src for incoming connection
-			
+
 			clientLtpList.add(curClientLTP);
 			OchSignal curOchSig = new OchSignal();
 			curOchSig.Dst = this.ndLTPlist.get(0);
@@ -156,7 +156,7 @@ class NetNode// this is upper level node - aggregation of LTPs (e.g. V1-ROADM-N1
 		for(int i : this.outConDstIdList)
 		{
 			MyLTP curServerLTP = curNodeList.get(i).ndLTPlist.get(0);//get ltp of the node which is dst for outgoing connection
-			
+
 			serverLtpList.add(curServerLTP);
 			OchSignal curOchSig = new OchSignal();
 			curOchSig.Src = this.ndLTPlist.get(0);
@@ -169,9 +169,9 @@ class NetNode// this is upper level node - aggregation of LTPs (e.g. V1-ROADM-N1
 		this.ndLTPlist.get(0).clientLtpList = clientLtpList;
 		this.ndLTPlist.get(0).serverLtpList = serverLtpList;
 		this.setLTPparams(this.ndLTPlist.get(0));
-		
+
 	}
-	
+
 	public void printNode()
 	{
 		System.out.println("\n!-----------Node State after LTP creation------------!");
@@ -204,10 +204,10 @@ class NetNode// this is upper level node - aggregation of LTPs (e.g. V1-ROADM-N1
 					System.out.println("--------------from LTP: LTP in sig Src: " + curServerClientSig.Src.ltpLabel);
 				}
 			}
-			
+
 		}
 	}
-	
+
 	 void setLTPparams(MyLTP curLTP)
 	{
 		if(curLTP.ltpLabel.contains("fiber"))
@@ -258,13 +258,13 @@ class NetNode// this is upper level node - aggregation of LTPs (e.g. V1-ROADM-N1
 			curLTP.ltpType = "oeo";
 		}
 	}
-	
+
 public int ndId;
 public String ndLabel;
 public ArrayList<Integer> inConSrcIdList;//sources of incoming connections
 public ArrayList<Integer> outConDstIdList;//destinations for the outgoing connections
-public ArrayList<MyLTP> ndLTPlist;// list of cards (devices) within nodes 
-public double length;// for now it is required to test alg 
+public ArrayList<MyLTP> ndLTPlist;// list of cards (devices) within nodes
+public double length;// for now it is required to test alg
 
 }
 class OptNetwork
@@ -278,7 +278,7 @@ class OptNetwork
 		this.tdList = tdList;
 		this.gridDF = gridDF;
 	}
-	
+
 	public void PrintNetworkGraph()
 	{
 		for(int i = 0; i < this.nodeList.length; i++)
@@ -289,7 +289,7 @@ class OptNetwork
 			System.out.println("Node Label: "+tmpNode.ndLabel);
 			System.out.println("Connections from nodes: "+tmpNode.inConSrcIdList.toString());
 			System.out.println("Connections to nodes: "+tmpNode.outConDstIdList.toString());
-			
+
 		}
 	}
 
@@ -306,7 +306,7 @@ class OptNetwork
 		}
 		return tmpNd;
 	}
-	
+
 	public void calcRouteLengthWeight(Route curRoute)
 	{
 		LinkedList<Integer> tmpRoute = new LinkedList<Integer>();
@@ -316,14 +316,14 @@ class OptNetwork
 		curRoute.RouteCumulativeWeight = 0;
 		curRoute.RouteNoise = 0;
 		curRoute.RouteBAnoise = 0;
-		
+
 		for(int i = 0; i < tmpRoute.size() - 1; i++)
 		{
 			int tmpSnId = tmpRoute.get(i);
 			int tmpEnId = tmpRoute.get(i + 1);
-			
+
 			curRoute.RouteByNodes.add(findNodeByID(tmpSnId));
-			
+
 			for(int j = 0; j < this.edgeList.length; j++)
 			{
 				NetEdge tmpEdge = this.edgeList[j];
@@ -331,43 +331,43 @@ class OptNetwork
 				{
 					curRoute.RouteLength += tmpEdge.length;
 					curRoute.RouteWeight += tmpEdge.weight;
-					
+
 					curRoute.RouteByLinks.add(tmpEdge);
-					
+
 					curRoute.RouteCumulativeWeight =tmpEdge.calcCurEdgeWeight(curRoute.RouteCumulativeWeight);
-					
+
 					curRoute.RouteNoise = tmpEdge.calcCurEdgeNoiseOut(curRoute.RouteNoise);
-					//System.out.println(10*Math.log10(curRoute.RouteNoise*1000));	
-					
+					//System.out.println(10*Math.log10(curRoute.RouteNoise*1000));
+
 					break;
-				}				
+				}
 			}
 		}
-		
+
 		for(int i = tmpRoute.size() - 1; i > 0; i--)//reverse direction - just osnr calculation
 		{
 			int tmpSnId = tmpRoute.get(i);
 			int tmpEnId = tmpRoute.get(i - 1);
-			
+
 			for(int j = 0; j < this.edgeList.length; j++)
 			{
 				NetEdge tmpEdge = this.edgeList[j];
 				if(tmpSnId == tmpEdge.snId && tmpEnId == tmpEdge.enId)
 				{
 					curRoute.RouteByLinksReverse.add(tmpEdge);
-					
-					curRoute.RouteBAnoise = tmpEdge.calcCurEdgeNoiseOut(curRoute.RouteBAnoise);	
+
+					curRoute.RouteBAnoise = tmpEdge.calcCurEdgeNoiseOut(curRoute.RouteBAnoise);
 					break;
-				}				
+				}
 			}
 		}
-		
+
 		curRoute.RouteOsnr = 10.0*Math.log10(0.001/(curRoute.RouteNoise*12.5*Math.pow(10, 9)));
 		curRoute.RouteBAosnr = 10.0*Math.log10(0.001/(curRoute.RouteBAnoise*12.5*Math.pow(10, 9)));
 		curRoute.RouteByNodes.add(findNodeByID(tmpRoute.get(tmpRoute.size() - 1)));// this is added outside the loop because the loop covers[0,tmpRoute.size()-2]
 
 	}
-	
+
 	public void updateIndicesUsedByLinks(Route curRoute,double routeWidth)
 	{
 		LinkedList<Integer> tmpRoute = new LinkedList<Integer>();
@@ -385,9 +385,9 @@ class OptNetwork
 					if(false == tmpEdge.usedIndices.contains(curFreqIndex))//updating used indices here
 					{
 						//this.edgeList[j].usedIndices.add(curFreqIndex);
-						
+
               		  int indrange = (int) Math.round(routeWidth/2.0);
-            		  
+
               		  for(int klm = curFreqIndex-indrange;klm<curFreqIndex+indrange +1;klm++)// occupies more than one index, i.e. ch width  is more than df (grid spacing)//should also work for flex grid
               		  {
               			  if(-1<klm)
@@ -395,11 +395,11 @@ class OptNetwork
               				this.edgeList[j].usedIndices.add(klm);// that is too crude - width of adjacent channels shall be used
               			  }
               		  }
-						
+
 
 					}
 					break;
-				}				
+				}
 			}
 		}
 	}
@@ -418,7 +418,7 @@ class OptNetwork
 		double fref = ccc/(1.552e-6);
 		double NF = Math.pow(10, 0.1*6.0);
 		double noiseIn = h*fref;
-		
+
 		for (int i = 0; i < this.edgeList.length; i++)
 		{
 			NetEdge curEdge = this.edgeList[i];
@@ -430,7 +430,7 @@ class OptNetwork
 			curEdge.noiseOut = noiseOut;
 		}
 	}
-	
+
 	public void printEdgeWeight()
 	{
 		for(NetEdge el : this.edgeList)
@@ -443,7 +443,7 @@ class OptNetwork
 	public ArrayList<ArrayList<NetEdge>> excludeEdgesForAltRoutes(LinkedList<NetEdge> primaryRoute)
 	{
 		ArrayList<ArrayList<NetEdge>> EdgesToEcludeCol = new ArrayList<ArrayList<NetEdge>>();
-		
+
 		ArrayList<NetEdge> tmpEdgeListAll = new ArrayList<NetEdge>();
 		ArrayList<NetEdge> tmpEdgeListFrstAndLst = new ArrayList<NetEdge>();
 		for(int k = 0; k < primaryRoute.size(); k++)
@@ -452,16 +452,16 @@ class OptNetwork
 			tmpEdgeList.add(primaryRoute.get(k));
 			tmpEdgeListAll.add(primaryRoute.get(k));
 			EdgesToEcludeCol.add(new ArrayList<NetEdge>());
-			EdgesToEcludeCol.set(k, tmpEdgeList);	
+			EdgesToEcludeCol.set(k, tmpEdgeList);
 		}
-		
+
 		tmpEdgeListFrstAndLst.add(primaryRoute.get(0));
 		tmpEdgeListFrstAndLst.add(primaryRoute.get(primaryRoute.size()-1));
 		EdgesToEcludeCol.add(new ArrayList<NetEdge>());
 		EdgesToEcludeCol.set(EdgesToEcludeCol.size()-1, tmpEdgeListFrstAndLst);
 		EdgesToEcludeCol.add(new ArrayList<NetEdge>());
 		EdgesToEcludeCol.set(EdgesToEcludeCol.size()-1, tmpEdgeListAll);
-		
+
 		return EdgesToEcludeCol;
 	}
 
@@ -473,20 +473,20 @@ class OptNetwork
     	//int curTDrouteListSize = curTD.RouteList.size();
     	//----------------------------------------
     	int CurTDind = -1;
-    	
+
     	boolean duplicate = false;
-    	
-    	int MaxNumberOfIndices = this.networkCapacity < this.maxLinkCapacity ? this.networkCapacity : this.maxLinkCapacity;  
-    	
+
+    	int MaxNumberOfIndices = this.networkCapacity < this.maxLinkCapacity ? this.networkCapacity : this.maxLinkCapacity;
+
     	ArrayList<Integer> NetworkFreeIndices = new ArrayList<Integer>();
-        ArrayList<Integer> free_Indices = new ArrayList<Integer>(); 
-        
+        ArrayList<Integer> free_Indices = new ArrayList<Integer>();
+
         for(int i = 0; i < MaxNumberOfIndices; i++) {
-        	NetworkFreeIndices.add(i);    
+        	NetworkFreeIndices.add(i);
         	free_Indices.add(i);
         }
         //--------------------------------------------
-        
+
     	LinkedList<Integer> result = new LinkedList<Integer>();
 
         ArrayList<Location> locations = new ArrayList<Location>();
@@ -500,14 +500,14 @@ class OptNetwork
         while (false == location_queue.isEmpty())
         {
             int current = location_queue.poll();
-            
+
             if(goal == current && locations.get(current).weight < Double.MAX_VALUE )
             {
 
             	do
                   {
-            		
-                    ArrayList<Integer> usedIndices = locations.get(current).usedIndices;  
+
+                    ArrayList<Integer> usedIndices = locations.get(current).usedIndices;
                     free_Indices.removeAll(usedIndices);
             		if(false == free_Indices.isEmpty())
             		{
@@ -530,8 +530,8 @@ class OptNetwork
                   while (current != source);
 
                   result.addFirst(source);
-                  
-                  
+
+
                   for(Route el : curTD.RouteList)
                   {
                 	  if(result.equals(el.Route))
@@ -545,13 +545,13 @@ class OptNetwork
                   //-----------------------------
 //                  if (1 < curTD.Width)//recalculate free indices w/r/t ch width
 //                  {
-                	  
+
                 	  for(int m = 0; m < NetworkFreeIndices.size(); m++)
                 	  {
                 		  ArrayList<Integer> indexListRequired = new ArrayList<Integer>();
-                		  
+
                 		  int indrange = (int) Math.round(curTD.Width/2.0);
-                		  
+
                 		  for(int klm = m-indrange;klm<m+indrange +1;klm++)//should also work for flex grid
                 		  {
                 			  if(-1<klm)
@@ -568,21 +568,21 @@ class OptNetwork
                 	  }
 //                  }
                   //System.out.println(curTD.RouteList.size());
-                  
+
                   if(false == duplicate && 0 < result.size() && -1 < CurTDind)
                   {
-                	  
+
 	                  curTD.RouteList.add(new Route());
 	                  curTD.RouteList.get(curTD.RouteList.size()-1).FreqIndex = CurTDind;
-	
+
 	                  curTD.RouteList.get(curTD.RouteList.size()-1).Route = result;
                   }
-                  else 
+                  else
                   {
                 	  result = new LinkedList<Integer>();
                   }
                   //-------------------------------
-                  
+
                   return result;
             }
 
@@ -593,7 +593,7 @@ class OptNetwork
            {
         	   location_FreeIndices.add(el);
            }
-        		   
+
             for (NetEdge path : graph.get(current))
             {
             	//NetworkGraph.calcCurEdgeWeight(path);
@@ -603,25 +603,25 @@ class OptNetwork
 	            ArrayList<Integer> location_UsedIndices = new ArrayList<Integer>();//locations.get(current).usedIndices;
 	            location_UsedIndices.addAll(path.usedIndices);
 	            location_FreeIndices.removeAll(location_UsedIndices);
-             
+
               if (weight < locations.get(path.goal).weight && false == location_FreeIndices.isEmpty())//current location has free indices to assign
               {
 	                locations.get(path.goal).source = current;
 	                locations.get(path.goal).weight = weight;
-	                //locations.get(path.goal). = weight;      
+	                //locations.get(path.goal). = weight;
 	                //-----------------------------------------
 	                locations.get(path.goal).linkCapacity = path.linkCapacity;
 	                locations.get(path.goal).usedIndices.addAll(location_UsedIndices);
 	                //------------------------------------------
-	                location_queue.add(path.goal);           	  
+	                location_queue.add(path.goal);
               }
             }
         }
-       
+
         return result;
     }
-    
-	
+
+
 	private void buildOutputOchSignalTrail(ArrayList<OchSignal> curOutSigTrail, MyLTP curLTP , MyLTP nextLTP)
 	{
     	for(OchSignal outSig : curLTP.outSignalList)
@@ -637,7 +637,7 @@ class OptNetwork
 			{
 				curOutSigTrail.add(null);
 			}
-    	}	
+    	}
 	}
 	private void buildInputOchSignalTrail(ArrayList<OchSignal> curInSigTrail, MyLTP curLTP , MyLTP prevLTP)
 	{
@@ -655,8 +655,8 @@ class OptNetwork
 				curInSigTrail.add(null);
 			}
 		}
-	}	
-	
+	}
+
 	private void printSignalCalculated(MyLTP curLTP, OchSignal outSigCalculated, OchSignal inSig)
 	{
 		System.out.println("Cur LTP: " + curLTP.ltpLabel);
@@ -666,23 +666,23 @@ class OptNetwork
 		System.out.println("Cur LTP gain: " + String.valueOf(curLTP.gain));
 		System.out.println("Cur LTP NF: " + String.valueOf(curLTP.NF));
 		System.out.println("Cur LTP Power: " + String.valueOf(curLTP.power));
-		
+
 		if(null != inSig)
 		{
 			//inSig.printOchSignal("Input");
 		}
-		
+
 		else {System.out.println("InSignal : Null");}
 
 		outSigCalculated.printOchSignal("Calculated Output");
 	}
-	
+
 	private void printDataForRouteTobeAssessed(Route curRoute, int tdInd)
 	{
 		System.out.println(curRoute.Route.toString());
-    	
+
     	DecimalFormat decForm = new DecimalFormat("###.##");
-    	
+
     	System.out.println("AB: Rx Osnr = "+String.valueOf(decForm.format(curRoute.RouteOsnr)) + "(dB)");
     	System.out.println("BA: Rx Osnr = "+String.valueOf(decForm.format(curRoute.RouteBAosnr)) + "(dB)");
     	System.out.println("Route Length = "+String.valueOf(decForm.format(curRoute.RouteLength)) + "(km)");
@@ -691,7 +691,7 @@ class OptNetwork
     	{
     		NetEdge curEdge = curRoute.RouteByLinks.get(i);
     		curRouteLinkLabelList += curEdge.label + "\t";
-    		
+
     		System.out.println("\n"+curEdge.label + " : operating  TD IDs : " + curEdge.operTDindList.toString());
     		for(int j = 0; j < curEdge.operTDindList.size(); j++)
     		{
@@ -704,28 +704,28 @@ class OptNetwork
     			}
     		}
     	}
-    	
-    	
+
+
     	//System.out.println("\n"+curRouteLinkLabelList);
-    	ArrayList<String> routeDependency = new ArrayList<String>(); 
+    	ArrayList<String> routeDependency = new ArrayList<String>();
     	 double startTime = System.currentTimeMillis();
     	getDependency(curRoute.RouteByLinks.size()-1,curRoute,routeDependency,0);
 		 double endTime = System.currentTimeMillis();
          double dt = endTime - startTime;
     	System.out.println("\n"+"Dependency Tree: "+routeDependency);
     	System.out.println("\nDependency calc Time: "+String.valueOf(dt) + " ms.");
-    	
+
     	Route curRouteBAversion = curRoute.createBAversion(curRoute);
     	ArrayList<String> routeBAversionDependency = new ArrayList<String>();
     	getDependency(curRouteBAversion.RouteByLinks.size()-1,curRouteBAversion,routeBAversionDependency,0);
     	System.out.println("\n"+"Revers route - Dependency Tree: "+routeBAversionDependency);
 	}
-	
+
 	public void getDependency(int lnkInd,Route curRoute, ArrayList<String> lnkList, int dirFlag)
 	{
 		if(lnkInd<0)
 		return;
-		
+
 		NetEdge curLnkInRoute = curRoute.RouteByLinks.get(lnkInd);
 		if(1 == dirFlag)//backward
 		{
@@ -751,14 +751,14 @@ class OptNetwork
 		{
 			lnkList.add(0,tmpStr);
 		}
-		
+
 		for(int i = 0; i < curLnkInRoute.operTDindList.size(); i++)
 		{
 			int tmpAdjTDind = curLnkInRoute.operTDindList.get(i);
 			int adjDirFlag = 0;
 			Route tmpAdjRoute = this.tdList[tmpAdjTDind].OperationalRoute;
 			int adjLnkInd = tmpAdjRoute.RouteByLinks.size()-1;
-			
+
 			if(tmpAdjRoute.RouteByLinks.contains(curLnkInRoute))//forward route contains cur lnk
 			{
 				adjLnkInd = tmpAdjRoute.RouteByLinks.indexOf(curLnkInRoute);
@@ -768,48 +768,48 @@ class OptNetwork
 				adjLnkInd = tmpAdjRoute.RouteByLinksReverse.indexOf(curLnkInRoute);
 				adjDirFlag = 1;
 			}
-	
+
 			getDependency(adjLnkInd-1,tmpAdjRoute,lnkList,adjDirFlag);
-			
+
 		}
 		getDependency(lnkInd-1,curRoute,lnkList,dirFlag);// if used w/o for loop above - returns links for cur route
 		//for loop above should return dependency tree
 	}
-	
+
 	public void assessRoute(int tdInd, int routeId)// gets TD and route indices
 	{
 		 long startTime = System.currentTimeMillis();
-		 
-		ArrayList<Route> curTDrouteList = this.tdList[tdInd].RouteList; 
+
+		ArrayList<Route> curTDrouteList = this.tdList[tdInd].RouteList;
         if(-1 < routeId && routeId < curTDrouteList.size())
         {
         	Route curRoute = curTDrouteList.get(routeId);
-        	
+
         	this.printDataForRouteTobeAssessed(curRoute, tdInd);
-        	
+
         	ArrayList<OchSignal> curOutSigTrail = new ArrayList<OchSignal>();
         	ArrayList<OchSignal> curInSigTrail = new ArrayList<OchSignal>();
         	ArrayList<OchSignal> curOutSigBAtrail = new ArrayList<OchSignal>();
         	ArrayList<OchSignal> curInSigBAtrail = new ArrayList<OchSignal>();
-        	
+
         	int routeLTPcount =curRoute.RouteByNodes.size();
-        	
+
         	for(int i = 0; i < routeLTPcount; i++)
         	{
             	MyLTP curLTP = curRoute.RouteByNodes.get(i).ndLTPlist.get(0);
             	MyLTP nextLTP = i < routeLTPcount-1 ? curRoute.RouteByNodes.get(i+1).ndLTPlist.get(0) : null;
         		MyLTP prevLTP = 0 < i ? curRoute.RouteByNodes.get(i-1).ndLTPlist.get(0) : null;
-        		
+
         		this.buildOutputOchSignalTrail(curOutSigTrail,curLTP,nextLTP);
         		this.buildInputOchSignalTrail(curInSigTrail,curLTP,prevLTP);
         	}
-        	
+
         	for(int i = routeLTPcount-1; i >-1; i--)// calculating reverse route
         	{
             	MyLTP curLTP = curRoute.RouteByNodes.get(i).ndLTPlist.get(0);
         		MyLTP nextBAltp = 0 < i ? curRoute.RouteByNodes.get(i-1).ndLTPlist.get(0) : null;
         		MyLTP prevBAltp =  i < routeLTPcount-1 ? curRoute.RouteByNodes.get(i+1).ndLTPlist.get(0) : null;
-        		       		
+
         		this.buildOutputOchSignalTrail(curOutSigBAtrail,curLTP,nextBAltp);
         		this.buildInputOchSignalTrail(curInSigBAtrail,curLTP,prevBAltp);
         	}
@@ -817,27 +817,27 @@ class OptNetwork
         	OchSignal outSigCalculated = null;
         	OchSignal inBAsigCalculated = null;
         	OchSignal outBAsigCalculated = null;
-        	
+
         	ArrayList<OchSignal> outSigTrailCalculated = new ArrayList<OchSignal>();
         	ArrayList<OchSignal> outSigBAtrailCalculated = new ArrayList<OchSignal>();
-        	
-        	for(int i = 0; i < curInSigTrail.size(); i++) 
+
+        	for(int i = 0; i < curInSigTrail.size(); i++)
         	{
         		OchSignal inSig = curInSigTrail.get(i);
         		OchSignal outSig = curOutSigTrail.get(i);
-        		
+
         		MyLTP curLTP = curRoute.RouteByNodes.get(i).ndLTPlist.get(0);
-        		
+
         		outSigCalculated = curLTP.calcOutSignal(inSigCalculated, curRoute.FreqIndex);
         		inSigCalculated = outSigCalculated;
-        		
+
         		if(curLTP.ltpType == "oeo"&&outSig.Dst.ltpType=="oeo")
         		{
-            		inSigCalculated = null; //this is the input signal for Tx part of oeo 
+            		inSigCalculated = null; //this is the input signal for Tx part of oeo
         		}
-        		
+
         		this.printSignalCalculated(curLTP, outSigCalculated, inSig);
-        		
+
         		if(null != outSig)
         		{
             		outSigCalculated.Src = outSig.Src;
@@ -848,24 +848,24 @@ class OptNetwork
         			outSigCalculated.Src = curLTP;
         			outSigCalculated.Dst = null;
         		}
-        		
+
         		outSigTrailCalculated.add(outSigCalculated);
-        		
+
         		OchSignal inBAsig = curInSigBAtrail.get(i);
         		OchSignal outBAsig = curOutSigBAtrail.get(i);
-        		
+
         		MyLTP curBAltp = curRoute.RouteByNodes.get(curInSigTrail.size()-1-i).ndLTPlist.get(0);
-        		
+
         		outBAsigCalculated = curBAltp.calcOutSignal(inBAsigCalculated, curRoute.FreqIndex);
         		inBAsigCalculated = outBAsigCalculated;
-        		
+
         		if(curBAltp.ltpType == "oeo"&&outBAsig.Dst.ltpType=="oeo")
         		{
-        			inBAsigCalculated = null; //this is the input signal for Tx part of oeo 
+        			inBAsigCalculated = null; //this is the input signal for Tx part of oeo
         		}
-        		
+
         		//this.printSignalCalculated(curBAltp, outBAsigCalculated, inBAsig);
-        		
+
         		if(null != outBAsig)
         		{
         			outBAsigCalculated.Src = outBAsig.Src;
@@ -876,17 +876,17 @@ class OptNetwork
         			outBAsigCalculated.Src = curBAltp;
         			outBAsigCalculated.Dst = null;
         		}
-        		
+
         		outSigBAtrailCalculated.add(outBAsigCalculated);
-        		
+
         	}
         	/*
-        	for(int i = 0; i < curInSigTrail.size(); i++) 
+        	for(int i = 0; i < curInSigTrail.size(); i++)
         	{
         		outSigTrailCalculated.get(i).printOchSignal("Output");
-        		
+
         	}
-        	for(int i = 0; i < curInSigTrail.size(); i++) 
+        	for(int i = 0; i < curInSigTrail.size(); i++)
         	{
         		outSigBAtrailCalculated.get(i).printOchSignal("Output");
         	}
@@ -898,18 +898,18 @@ class OptNetwork
         else {
         	System.out.println("\n!---Route with given ID does not exist---!");
         }
-        
+
         long endTime = System.currentTimeMillis();
         long dt = endTime - startTime;
         System.out.println("\nAssessment Elapsed Time: "+String.valueOf(dt) + " ms.");
-        
+
 	}
-	
+
 	public NetEdge[] edgeList;
 	public NetNode[] nodeList;
 	public ConnectivityRequest[] tdList;
 	public int networkCapacity;
 	public int maxLinkCapacity;
 	public double gridDF;
-	
+
 	}
