@@ -67,13 +67,9 @@ MediatorConfig.prototype.getDeviceTypeString = function()
 	}
 	return "unknown";
 }
+/* enum for devicetypes */
 MediatorConfig.DEVICETYPE_SIMULATOR =0;
-MediatorConfig.DEVICETYPE_DW_HORIZON_COMPACT_PLUS = 1;
-MediatorConfig.DEVICETYPE_DW_HORIZON_QUANTUM = 2;
-MediatorConfig.DEVICETYPE_ELVA_1 = 3;
-MediatorConfig.DEVICETYPE_ACTIONTEC_ECB6200 = 4;
-MediatorConfig.DEVICETYPE_ACTIONTEC_ECB6000 = 5;
-MediatorConfig.DEVICETYPE_COMMSCOPE_DAS = 6;
+
 
 function MediatorConfigStatus(obj){
 	this.Status=obj.Status;
@@ -90,14 +86,9 @@ MediatorConfigStatus.StatusTypes=[
 	{Value:MediatorConfigStatus.STATUS_REPAIRED,Name:"Repaired"}
 ];
 
+/* Names for enum for devicetypes */
 MediatorConfig.DeviceTypes=[
-{Value:MediatorConfig.DEVICETYPE_SIMULATOR,Name:"Simulator"},
-{Value:MediatorConfig.DEVICETYPE_DW_HORIZON_COMPACT_PLUS,Name:"DragonWave Compact Plus"},
-{Value:MediatorConfig.DEVICETYPE_DW_HORIZON_QUANTUM,Name:"DragonWave Quantum"},
-{Value:MediatorConfig.DEVICETYPE_ELVA_1,Name:"ELVA-1"},
-{Value:MediatorConfig.DEVICETYPE_ACTIONTEC_ECB6200,Name:"ActionTEC ECB6200"},
-{Value:MediatorConfig.DEVICETYPE_ACTIONTEC_ECB6000,Name:"ActionTEC ECB6000"},
-{Value:MediatorConfig.DEVICETYPE_COMMSCOPE_DAS,Name:"CommScope DAS Switch"}];
+{Value:MediatorConfig.DEVICETYPE_SIMULATOR,Name:"Simulator"}];
 
 MediatorConfig.prototype.IsRunning = function() {
 	return this.PID > 0;
