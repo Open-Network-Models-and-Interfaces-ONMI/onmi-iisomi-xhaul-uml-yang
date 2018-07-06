@@ -7,14 +7,122 @@
 #   2.4 Update to Boron
 #   2.5 One feature to start apps
 #   2.6 New variant of install.sh
-Version=2.11
+#   2.12 CMDBIN, switch of DLUX for prepare
+#   2.13 Adapt ODLBIN to odl.sh and buildv2.sh,
+#        Fix "yes" answer for cluster distremove
+#        introduce cluster push
+#        kill command
+#   2.14 add compile command
+#   2.15 move im install script to odl.cmd
+#   2.16 Add $ODL_KARAF_STARTUP_SCRIPT_CLUSTER for cluster command
+#        cp for filecopy
+#   2.17 odl.cmd moved back into bin/odl.sh
+#        Added prepare with copy of etc/preload.cache.schema to cache/schema into startup
+#        status command delivers version information
+#   2.18 Add loop for cluster commands
+#   2.19 Change startup feature
+#        Add parent version variable ODLPARENT
+#   2.20 Added parameter KARAFSLEEPFORSTART
+Version=2.20
 
 # ----- Constants not depending on variables specified by $CONFIG
+ODLPARENT="0.5.1-SNAPSHOT"
+STARTFEATURE="odl-dev-all"
+KARAFSLEEPFORSTART=30
+ODLBIN=../bin
 
 CONFIG=dist.conf
-ODLCMD=odl.cmd
 
-# ----- Functions
+# ----- Functions to startup Vanilla ODL
+
+karaf_prepare() {
+    echo "Prepare"
+    echo $ODL_KARAF_HOME
+    ODLCACHESCHEMADIR="$ODL_KARAF_HOME/cache/schema"
+    ETCCACHESCHEMADIR="$ODL_KARAF_HOME/etc/preload.cache.schema"
+
+    if [ -d "$ETCCACHESCHEMADIR" ] ; then
+       echo "Handle YANG preload"
+       if [ -d "$ODLCACHESCHEMADIR" ] ; then
+       	 echo "Remove all files in YANG cache/schema directory"
+       	 rm $ODLCACHESCHEMADIR/*
+       else
+       	 echo "YANG cache/schema directory created"
+       	 mkdir -p $ODLCACHESCHEMADIR
+       fi
+       cp $ETCCACHESCHEMADIR/* $ODLCACHESCHEMADIR
+    fi
+}
+
+# Startup of single node (no clustering)
+karaf_startup_all() {
+    # Prepare
+    karaf_prepare
+    # Base
+    karafcmd  "feature:install odl-netconf-topology"
+    karafcmd  "feature:install odl-netconf-connector"
+    karafcmd  "feature:install odl-restconf-all"
+    karafcmd  "feature:install odl-mdsal-apidocs"
+
+    # Logs and apps
+    karaf_enable_logs
+    karaf_startup_apps
+}
+
+# Startup of clustered nodes (no clustering)
+karaf_startup_cluster_all() {
+    # Prepare
+    karaf_prepare
+    # Base
+    karafcmd "feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/$ODLPARENT/xml/features"
+    karafcmd  "feature:install odl-mwtn-cluster-preparation"
+
+    # Logs and apps
+    karaf_enable_logs DEBUG
+    karaf_startup_apps
+}
+
+# Sub functions
+
+karaf_startup_apps() {
+    # Wireless (mwtn: microwave transport network)
+    karafcmd "feature:repo-add mvn:org.opendaylight.mwtn/mwtn-parent/$ODLPARENT/xml/features"
+    karafcmd "feature:install $STARTFEATURE"
+
+    #If restart is required set RESTART to true
+    # RESTART="true"
+}
+
+karaf_enable_logs() {
+    if [ -z "$1" ] ; then
+      LOGLEVEL="INFO"
+    else
+      LOGLEVEL="$1"
+    fi
+    karafcmd "log:set $LOGLEVEL com.highstreet.technologies"
+    karafcmd "log:set $LOGLEVEL org.opendaylight.mwtn"
+    karafcmd "log:set $LOGLEVEL org.opendaylight.netconf"
+}
+
+karafcmd() {
+   echo "$@"
+   $ODL_KARAF_HOME/bin/client -u karaf "$@" 2> /dev/null
+   if [ ! -z "$ODL_KARAF_AFTERCMD_DELAY_SECONDS" ] ; then
+     echo "Pause $ODL_KARAF_AFTERCMD_DELAY_SECONDS seconds"
+     sleep "$ODL_KARAF_AFTERCMD_DELAY_SECONDS"
+   fi
+}
+
+install_originM2() {
+    #Network apps
+    cp -r ~/.m2/repository/org/opendaylight/mwtn $ODL_KARAF_HOME/system/org/opendaylight
+    cp -r ~/.m2/repository/com/highstreet $ODL_KARAF_HOME/system/com
+    #Additional package for feature odl-ht-info
+    mkdir -p $ODL_KARAF_HOME/system/org/apache/commons/commons-compress
+    cp -r ~/.m2/repository/org/apache/commons/commons-compress/1.14 $ODL_KARAF_HOME/system/org/apache/commons/commons-compress
+}
+
+# ----- Functions of script to implement commands
 
 #check if tool is installed as prereq
 
@@ -44,6 +152,8 @@ karaf_checkrunning() {
 }
 
 karaf_status() {
+   echo "Version information"
+   cat $ODL_KARAF_HOME/networkAppVersion.txt
    karaf_checkrunning
    echo "Karaf is running: $running"
 }
@@ -92,7 +202,7 @@ karaf_startifnotrunning() {
 
 
 # Start all servies
-# see $ODLCMD
+# see beginning of this script
 
 #Param1 Optional Param2 Optional
 karaf_cleanstart() {
@@ -104,11 +214,10 @@ karaf_cleanstart() {
     fi
     echo "Start karaf"
     $ODL_KARAF_HOME/bin/start clean
-
-    echo "Wait 15s till karaf and ssh is in a working level"
-    sleep 15 
+    echo "Wait $KARAFSLEEPFORSTART s till karaf and ssh is in a working level"
+    sleep $KARAFSLEEPFORSTART
     netstat -ant | grep 8101
-    echo "Provisioning $1" 
+    echo "Provisioning $1"
     if [ -z "$ODL_KARAF_STARTUP_SCRIPT" ] ; then  #Old scripting names
       if [ "$1" = "1b" ] ; then
         karaf_startup_1b
@@ -116,7 +225,18 @@ karaf_cleanstart() {
         karaf_startup_all
       fi
     else #Use startup script according to configuration
-      $ODL_KARAF_STARTUP_SCRIPT
+      if [ "$1"="cluster" ] ; then
+      	 echo "Cluster start command"
+      	 if [ -z "$ODL_KARAF_STARTUP_SCRIPT_CLUSTER" ] ; then
+      	    echo "Using normal startup script"
+      	 	$ODL_KARAF_STARTUP_SCRIPT
+      	 else
+      	    echo "Using cluster startup script"
+      	 	$ODL_KARAF_STARTUP_SCRIPT_CLUSTER
+         fi
+      else
+         $ODL_KARAF_STARTUP_SCRIPT
+      fi
     fi
     if [ "$1" = "x" -o "$2" = "x" -o "$RESTART" = "true" ] ; then
       echo "Executed with restart option .."
@@ -141,26 +261,13 @@ install_originM2Range() {
     cp -R $HOME/.m2/repository/$1/$2 $ODL_KARAF_HOME/system/$1
 }
 
-install_originM2() {
-    install_originM2Range "org/opendaylight" "mwtn"
-    install_originM2Range "org/opendaylight" "apigateway"
-    install_originM2Range "com" "highstreet"
-
-    #Old implementation
-    #cp -R ~/.m2/repository/org/opendaylight/mwtn $ODL_KARAF_HOME/system/org/opendaylight
-    #mkdir -p $ODL_KARAF_HOME/system/cn/com
-    #cp -R ~/.m2/repository/cn/com/zte $ODL_KARAF_HOME/system/cn/com
-    #cp -R ~/.m2/repository/com/hcl $ODL_KARAF_HOME/system/com
-    #cp -R ~/.m2/repository/com/highstreet $ODL_KARAF_HOME/system/com
-}
-
 install_tarFile() {
    if [ ! -e "$1" ] ; then
      echo "No tar file $1"
      exit 4
    else
      echo "Do install file $1 to karaf container"
-     tar -xf "$1" -C "$ODL_KARAF_HOME/system"
+     tar -xf "$1" -C "$ODL_KARAF_HOME"
      echo "Done"
    fi
 }
@@ -177,8 +284,7 @@ install_originBuild() {
 
    source $ODL_BUILD_HOME/builds/version.txt
    echo "Install Version $LASTBUILDTAR"
-   tar -xf "$ODL_BUILD_HOME/builds/$LASTBUILDTAR" -C "$ODL_KARAF_HOME/system"
-   mv "$ODL_KARAF_HOME/system/version.txt" "$ODL_KARAF_HOME/networkAppVersion.txt"
+   tar -xf "$ODL_BUILD_HOME/builds/$LASTBUILDTAR" -C "$ODL_KARAF_HOME"
    echo "Version info"
    cat $ODL_KARAF_HOME/networkAppVersion.txt
 }
@@ -197,40 +303,43 @@ clean_repository() {
    rm -r $ODL_KARAF_HOME/system/org/opendaylight/apigateway
 }
 
+# Parameter1 nodlux
 prepare() {
     #tool_check_installed unzip
     #tool_check_installed sshpass
     KARAFDISTBASENAME=$ODL_KARAF_DIST
     KARAFGZ=$ODL_KARAF_DISTGZ
+    NODLUX="nodlux"
 
     if [ ! -f "$KARAFGZ" ] ; then
-      echo "Could not find tar file with karaf distribution: $KARAFGZ"
-    else 
-      if [ ! -f "$TARFILE_DLUXLOADER" ] ; then
-         echo "Could not find tar with DLUX patch $TARFILE_DLUXLOADER"
+      echo "ERROR: Could not find tar file with karaf distribution: $KARAFGZ"
+    else
+      if [ "$1" != "$NODLUX" -a  ! -f "$TARFILE_DLUXLOADER" ] ; then
+         echo "WARN: Could not find tar with DLUX patch $TARFILE_DLUXLOADER. .. proceeding without Patching"
+      fi
+      if [ -d "$ODL_KARAF_HOME" ] ; then
+         echo "Found existing Karaf distribution at $ODL_KARAF_HOME. Can not proceed. Please remove or rename."
       else
-        if [ -d "$ODL_KARAF_HOME" ] ; then
-           echo "Found existing Karaf distribution at $ODL_KARAF_HOME. Can not proceed. Please remove or rename."
-        else
-           echo "Start installation $KARAFDISTBASENAME"
-           echo "Unpack karaf distribution"
-           cd $HOME
-           cd Downloads
-           tar -xzf $KARAFDISTBASENAME".tar.gz"
-           mv "$KARAFDISTBASENAME" "$ODL_KARAF_HOME"
-           cd "$here"
+         echo "Start installation $KARAFDISTBASENAME"
+         echo "Unpack karaf distribution"
+         cd $HOME
+         cd Downloads
+         tar -xzf $KARAFDISTBASENAME".tar.gz"
+         mv "$KARAFDISTBASENAME" "$ODL_KARAF_HOME"
+         cd "$here"
 
-           if ! [ -d "$ODL_KARAF_HOME" ] ; then
-              echo "Could not find ODL_KARAF_HOME. Can not proceed if not existing."
-           else
-              echo "READY, create link dist"
-              ln -s "$ODL_KARAF_HOME" dist
-              echo "Patch DLUX"
-	      installDluxPatch
-           fi
-        fi
-     fi
-  fi
+         if ! [ -d "$ODL_KARAF_HOME" ] ; then
+            echo "ERROR: Could not find ODL_KARAF_HOME. Can not proceed if not existing."
+         else
+            echo "READY, create link dist"
+            ln -s $ODL_KARAF_HOME dist
+            if [ "$1" != "$NODLUX" ] ; then
+               echo "Install DLUX patch"
+               installDluxPatch tar
+            fi
+         fi
+      fi
+    fi
 }
 
 show_env() {
@@ -242,7 +351,12 @@ show_env() {
 
 #Param1: Mandatory Param2:optional Param3:optional
 do_install() {
+
     echo "Install from $1 to Karaf"
+	if [ ! -d "$ODL_KARAF_HOME" ] ; then
+		echo "ERROR: Karaf not installed at $ODL_KARAF_HOME. Stop execution."
+		exit 2
+	fi
     sleep 2
     karaf_checkrunning
     if [ "$running" = "true" ]
@@ -256,8 +370,12 @@ do_install() {
              karaf_cleanstart $2 $3
              ;;
           m2)
-             install_originM2
-             karaf_cleanstart $2 $3
+             if [ "$(type -t install_originM2)" == "function" ] ; then
+             	install_originM2
+              	karaf_cleanstart $2 $3
+             else
+                echo "Error: Install function not defined. Exit."
+         	 fi
              ;;
           tar)
              install_tarFile $2
@@ -271,7 +389,7 @@ do_install() {
     fi
 }
 
-karaf_remove() {
+karaf_distremove() {
     echo "Remove karaf installation"
     karaf_checkrunning
     if [ "$running" = "true" ]
@@ -295,41 +413,80 @@ karaf_remove() {
     fi
 }
 
+# Par1 Install command
 installDluxPatch() {
-   if [ -f "$TARFILE_DLUXLOADER" ] ; then
-     echo "Install DLUX Patch from existing tar"
-     tar -xzf "$TARFILE_DLUXLOADER" -C "$ODL_KARAF_HOME/system"
-   else 
-     TARGETDIR="apps/dlux/loader/impl/target"
-     LOADERREPO="org/opendaylight/dlux"
-     if [ -d $TARGETDIR ] ; then
-       echo "Copy DLUX Patch from repository"
-       cp -r "$HOME/.m2/repository/$LOADERREPO/loader.implementation" "$ODL_KARAF_HOME/system/$LOADERREPO"
-     else
-       echo "ERROR No compiled DLUX Version or tarfile for repositiory found. "
-       echo " - Please compile dlux."
-       echo " - Install DLUX Patch with ./odl.sh dlux"
-       exit 1
-     fi
-  fi
+   #Default is the tar file
+   DLUXAPPHOME="apps/dlux"
+   TARGETDIR="$DLUXAPPHOME/loader/impl/target"
+   LOADERREPO="org/opendaylight/dlux"
+   LOADERNAME="loader.implementation"
+
+   case "$1" in
+     m2)
+       if [ -d $TARGETDIR ] ; then
+         echo "Copy DLUX Patch from repository"
+         cp -r "$HOME/.m2/repository/$LOADERREPO/loader.implementation" "$ODL_KARAF_HOME/system/$LOADERREPO"
+       else
+         echo "ERROR No compiled DLUX Version or tarfile for repositiory found. "
+         echo " - Please compile dlux."
+         echo " - Install DLUX Patch with $ODL/odl.sh dlux m2"
+       fi
+     ;;
+     tar)
+       if [ -f "$TARFILE_DLUXLOADER" ] ; then
+         echo "Install DLUX Patch from existing tar"
+         tar -xzf "$TARFILE_DLUXLOADER" -C "$ODL_KARAF_HOME/system"
+         echo "Done"
+       else
+         echo "DLUX tar file not found: $TARFILE_DLUXLOADER"
+       fi
+     ;;
+     create)
+       echo "Create tar file"
+       if [ -d $TARGETDIR ] ; then
+         HERE=$(pwd)
+
+         stringa=($(cd $TARGETDIR ; ls $LOADERNAME*jar))
+         if [[ ${stringa[0]} =~ $LOADERNAME-(.*).jar ]] ; then
+         	version="${BASH_REMATCH[1]}"
+            echo $version
+            M2INPUTNAME="$LOADERREPO/$LOADERNAME/$version"
+            TAROUTPUTNAME="$HERE/$DLUXAPPHOME/$ODL_KARAF_DIST.dluxloader.tar.gz"
+            echo "Creating file: $TAROUTPUTNAME"
+            echo "Reading from: $M2INPUTNAME"
+            cd "$HOME/.m2/repository"
+            tar -czf "$TAROUTPUTNAME" "$M2INPUTNAME"
+            echo Done
+         fi
+         cd $HERE
+       else
+         echo "ERROR No compiled DLUX Version for repositiory found. "
+         echo " - Please compile dlux."
+       fi
+     ;;
+     *)
+      echo "use $ODLBIN/odl.sh dlux [m2|tar|create] to install from m2-repository or install tar file or create tar file"
+     ;;
+   esac
 }
+
 # -----------------------------------------------------
 # -----  Cluster commands
 
 # P1: Passwd P2: Username P3:ServerIP P4, P5: Remote commands
 karafclustercmd() {
-  rcmd="cd $here ; ./odl.sh $4 $5"
+  rcmd="cd $here ; $ODLBIN/odl.sh $4 $5"
   cmd="sshpass -p$1 ssh -o StrictHostKeyChecking=no $2@$3 $rcmd"
-  echo "--------- Start Node: $3 -----------"
+  echo "--------- Begin at node: $3 -----------"
   $cmd
-  echo "--------- Ende Node: $3 ------------"
+  echo "--------- Ende at node: $3 ------------"
 }
 
 # P1: Passwd P2: Username P3:ServerIP P4, P5: Remote commands
 karafclustercmdnohup() {
   #Template: nohup myprogram > foo.out 2> foo.err < /dev/null &
   echo " Start install for node $3"
-  rcmd="cd $here ; nohup ./odl.sh $4 $5 &> odl.log < /dev/null &"
+  rcmd="cd $here ; nohup $ODLBIN/odl.sh $4 $5 &> odl.log < /dev/null &"
   cmd="sshpass -p$1 ssh -o StrictHostKeyChecking=no $2@$3 $rcmd"
   $cmd
   echo "Command executed in background. Result see odl.log."
@@ -337,11 +494,13 @@ karafclustercmdnohup() {
 
 karafclustercreate() {
 
-  read -p "Please enter password for user $USER: " -r -s USERPWD
-  echo 
+  if [ -z "$1" ] ; then
+    read -p "Please enter password for user $USER: " -r -s USERPWD
+    echo
+  fi
 
   for i in ${!ODL_CLUSTER_ARRAY[@]} ; do
-     rcmd="cd $here ; ./dist/bin/configure_cluster.sh $((i+1)) ${ODL_CLUSTER_ARRAY[@]}"
+     rcmd="cd $here ; $ODL_KARAF_HOME/bin/configure_cluster.sh $((i+1)) ${ODL_CLUSTER_ARRAY[@]}"
      cmd="sshpass -p$USERPWD ssh -o StrictHostKeyChecking=no $USER@${ODL_CLUSTER_ARRAY[$i]} $rcmd"
      echo "--------- Start Node: ${ODL_CLUSTER_ARRAY[$i]} ----------- CMD: $rcmd"
      $cmd
@@ -350,25 +509,109 @@ karafclustercreate() {
 
 }
 
+pause() {
+      read -p "($1) Hit enter ..." -r -s TMP
+      echo
+}
+
+#Destination is $ODL_BUILD_HOME
+#Source is $ODL_CLUSTER_REPO
+pushbuildinfo() {
+  if [ -z $ODL_CLUSTER_REPO ] ; then
+    echo "No cluster repository specified by ODL_CLUSTER_REPO. Can not proceed."
+  else
+    if [ -z "$ODL_BUILD_HOME" ] ; then
+      echo "No ODL_BUILD_HOME defined. Terminate" ; exit 2
+    fi
+    echo "Build home at $ODL_CLUSTER_REPO"
+    ODL_VERSION_FILE="$ODL_CLUSTER_REPO/builds/version.txt"
+    if [ ! -e $ODL_VERSION_FILE ] ; then
+      echo "No builds available Terminate." ; exit 2
+    fi
+
+    #Read version information
+    source $ODL_VERSION_FILE
+    echo "Prepare cluster with $BUILDTAG and prepare configuration files."
+    echo "Destination repository: $ODL_BUILD_HOME Source repository: $ODL_CLUSTER_REPO"
+    if [ -z "$1" ] ; then
+      read -p "Please enter password for user $USER: " -r -s USERPWD
+      echo
+    fi
+    for i in ${ODL_CLUSTER_ARRAY[@]} ; do
+    	echo "Copy to $i:$ODL_BUILD_HOME"
+   	  	sshpass -p$USERPWD ssh -o StrictHostKeyChecking=no $USER@$i "mkdir -p $ODL_BUILD_HOME/builds"
+      	sshpass -p$USERPWD scp "$ODL_CLUSTER_REPO/builds/$LASTBUILDTAR" "$i:$ODL_BUILD_HOME/builds"
+      	sshpass -p$USERPWD scp "$ODL_VERSION_FILE" "$i:$ODL_BUILD_HOME/builds"
+      	sshpass -p$USERPWD scp -r "$ODL_CLUSTER_REPO/bin" "$i:$ODL_BUILD_HOME"
+   	  	sshpass -p$USERPWD ssh -o StrictHostKeyChecking=no $USER@$i "mkdir -p $here"
+   	  	sshpass -p$USERPWD scp "$here/$CONFIG" "$i:$here"
+   	  	# sshpass -p$USERPWD scp "$here/$ODLCMD" "$i:$here"
+   	  	sshpass -p$USERPWD ssh -o StrictHostKeyChecking=no $USER@$i "cd $here ; chmod 755 $ODL_BUILD_HOME/bin/odl.sh ; if [ ! -e odl ] ; then ln -s $ODL_BUILD_HOME/bin/odl.sh odl ; fi"
+    done
+  fi
+}
+
+#Destination is $here/dist
+#Parameter $1 is sourcedirectory
+clusterfilecopy() {
+    if [ -z "$1" ] ; then
+      echo "ERROR: Need a path as parameter"
+    else
+      echo "Copy all files from directory $1/* to $here/dist/$1 on each node."
+      read -p "Please enter password for user $USER: " -r -s USERPWD
+      echo
+      for i in ${ODL_CLUSTER_ARRAY[@]} ; do
+      	  destpath="$i:$here/dist"
+    	  echo "Copy $here/$1 to $destpath"
+      	  sshpass -p$USERPWD scp -r "$1" "$destpath"
+      done
+	fi
+}
+
 karafclusterinfo() {
   echo "Using user $USER"
   echo "Cluster: ${ODL_CLUSTER_ARRAY[@]}"
 }
 
 karafcluster() {
+
+ CLUSTERCLI="TRUE"
+
+ while [ $CLUSTERCLI = "TRUE" ] ; do
+
    if [ -z "$ODL_CLUSTER_ARRAY" ] ; then
       echo "No cluster in '$ODL_CLUSTER_ARRAY' specified"
    else
       tool_check_installed sshpass
       echo "Cluster: ${ODL_CLUSTER_ARRAY[@]}"
+
+      if [ -z "$1" ] ; then
+       	 read -p "cluster cmd> " answer
+         set -- $answer
+      else 
+         CLUSTERCLI="FALSE"
+      fi
+      
       case "$1" in
+      	cp)
+      	   clusterfilecopy $2
+      	   ;;
         create)
-           karafclustercreate 
+           karafclustercreate
            ;;
         distremove)
-           echo "Change to forced mode."
-           set -- distremove force
-           function="karafclustercmd"
+       	   read -p "Confirm karaf cluster installation deletion. If you are sure type yes<enter> " answer
+           if [ "$answer" = "yes" ] ; then
+              echo "Change to forced mode."
+              set -- distremove force
+              function="karafclustercmd"
+           else
+           	  echo "Terminated by user"
+           fi
+           ;;
+        "" | exit)
+           CLUSTERCLI="FALSE"
+           function=""
            ;;
         info)
            karafclusterinfo
@@ -376,6 +619,10 @@ karafcluster() {
         im* | ib*)
            echo "Started on each node in background. See odl.log"
            function="karafclustercmdnohup"
+           set -- $1 cluster
+           ;;
+        push)
+           pushbuildinfo
            ;;
         *)
            function="karafclustercmd"
@@ -384,12 +631,24 @@ karafcluster() {
 
       if [ ! -z "$function" ] ; then
         read -p "Please enter password for user $USER: " -r -s USERPWD
-        echo 
+        echo
         for i in "${ODL_CLUSTER_ARRAY[@]}" ; do
           $function $USERPWD $USER $i $1 $2
         done
+        if [ "$1" = "prepare" ] ; then
+           read -p "Proceed with create (y/n): " answer
+           case "$answer" in
+           	  y*) karafclustercreate $USERPWD
+           	  ;;
+           esac
+        fi
       fi
    fi
+   if [ $CLUSTERCLI = "TRUE" ] ; then
+         set -- ""
+   fi
+
+done
 }
 
 # -----------------------------------------------------
@@ -402,7 +661,7 @@ if [ -f $CONFIG ] ; then
    source "$CONFIG"
 else
    script_command="Error: No $CONFIG file .. can not proceed. Create this file and specifiy the right versions:"
-   echo $script_command 
+   echo $script_command
    echo 'ODL_KARAF_DIST="distribution-karaf-0.6.1-Carbon"'
    echo 'ODL_KARAF_HOME=$HOME/odl/$ODL_KARAF_DIST'
    echo 'ODL_KARAF_DISTGZ="$HOME/Downloads/"$ODL_KARAF_DIST".tar.gz"'
@@ -415,13 +674,14 @@ else
 
    exit 1
 fi
-if [ -f $ODLCMD ] ; then
-   source $ODLCMD
-else
-   script_command="Error: No $ODLCMD file .. can not proceed"
-   echo $script_command
-   exit 1
-fi
+#Since 2.17 moved back to script
+#if [ -f $ODLCMD ] ; then
+#   source $ODLCMD
+#else
+#   script_command="Error: No $ODLCMD file .. can not proceed"
+#   echo $script_command
+#   exit 1
+#fi
 
 TARFILE_DLUXLOADER="apps/dlux/$ODL_KARAF_DIST.dluxloader.tar.gz"
 echo "Karaf home: $ODL_KARAF_HOME"
@@ -429,7 +689,7 @@ echo "Karaf home: $ODL_KARAF_HOME"
 here=$(pwd)
 echo "Executed here: $here"
 echo ""
-   
+
 if [ -z "$ODL_KARAF_HOME" -o -z "$ODL_KARAF_DIST" ]
 then
   echo "Missing ENV setting ODL_KARAF_HOME or ODL_KARAF_DIST. Can not execute."
@@ -451,7 +711,7 @@ case "$1" in
     else
       echo "Enter build subsystem at location $ODL_BUILD_HOME"
       shift
-      ../bin/buildv2.sh $@
+      $ODLBIN/buildv2.sh $@
     fi
     ;;
 
@@ -467,11 +727,16 @@ case "$1" in
 
   dlux)
     echo "Install DLUX Patch"
-    installDluxPatch
+    shift
+    installDluxPatch $@
     ;;
 
   env)
     show_env
+    ;;
+  kill)
+    echo "Kill ODL instance"
+    pkill -e -f "Dkaraf.home=.home.herbert.odl.$ODL_KARAF_DIST"
     ;;
   test)
     echo "Test a little bit"
@@ -483,6 +748,8 @@ case "$1" in
     cd $here
     echo "List2"
     ls
+
+    karaf_prepare
     ;;
   v)
     echo "List app versions"
@@ -505,7 +772,7 @@ case "$1" in
        karaf_startifnotrunning $2
     fi
     ;;
-    
+
   stop)
     echo "stop command"
     karaf_checkrunning
@@ -531,9 +798,14 @@ case "$1" in
     database_cleansetup
     ;;
 
+  untar)
+    echo "Extract karaf"
+    prepare nodlux
+    ;;
+
   prepare)
-    echo "Prepare"
-    prepare
+    echo "Prepare prepare"
+    prepare $2
     ;;
 
   a)
@@ -561,7 +833,7 @@ case "$1" in
     ;;
 
   distremove)
-    karaf_remove
+    karaf_distremove $2
     ;;
 
   ib)
@@ -584,11 +856,21 @@ case "$1" in
     karaf_cleanstart
     ;;
 
+  log)
+   vi dist/data/log/karaf.log
+   ;;
+
   migrate)
     echo "Migrate index$2 to index$3"
     elasticdump --input=http://localhost:9200/sdnevents_$2 --output=http://localhost:9200/sdnevents_$3 --type=data --limit=100000
     ;;
-
+  mvn)
+    echo "try to compile $2"
+    here=`pwd`
+    cd "$2"
+    mvn clean install -DskipTests
+    cd "$here"
+    ;;
   status)
     karaf_status
     ;;
@@ -603,25 +885,30 @@ case "$1" in
     fi
     echo "Commands:"
     echo " a           for build all and install from M2"
-    echo " build       build subsystem"
+    echo " build       enter build subsystem"
+    echo "                build, deliver"
     echo " bower       for install bower"
     echo " cli         start karaf command line"
-    echo " cluster xx  cluster commands"
-    echo "                status, ib, stop"
+    echo " cluster xx  cluster commands and all other commands"
+    echo "                status, ib, im, stop, push, distremove, cp"
     echo " env         List environment variables"
     echo " d           for devicemanager and install from M2"
     echo " dbclean     clean db and load with initial data"
     echo " debug       activate debug for netconf and mwtn"
     echo " distremove  remove existing karaf distribution"
-    echo " dlux        install DLUX patch"
+    echo " dlux        install DLUX patch. Use dlux [m2|tar|create] to install from m2-repository or install tar file or create tar file"
     echo " help        List this help"
     echo " ib          for install from Build-directory"
     echo " im          for install from M2-directory"
     echo " imd         for install from M2-directory. Delete logs before start command"
     echo " it fn       install tar file to container"
     echo " karafclean  start clean and install apps on karaf"
+    echo " kill        hard termination of ODL instance"
+    echo " log         vi karaf.log"
     echo " migrate     migrate Param1 Param2 Migrate on localhost"
-    echo " prepare     to install and prepare a karaf. Packed Version expected in Downloads"
+    echo " mvn [folder]  compile folder with maven with parameter -DskipTests"
+    echo " prepare [nodlux]  to install and prepare a karaf. tar version expected in Downloads."
+    echo " untar       to extract karaf."
     echo " test        do some testing"
     echo " start       start karaf"
     echo " status      display karaf status"
