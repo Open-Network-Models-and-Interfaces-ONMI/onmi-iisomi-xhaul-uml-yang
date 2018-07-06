@@ -1,11 +1,11 @@
 package org.opendaylight.mwtn.genericpathmanager.topology.impl;
 
-import static org.opendaylight.mwtn.genericpathmanager.topology.constants.Constants.LAYER_PROTOCOL_NAME;
-import static org.opendaylight.mwtn.genericpathmanager.topology.constants.Constants.LINK;
-import static org.opendaylight.mwtn.genericpathmanager.topology.constants.Constants.NAME;
-import static org.opendaylight.mwtn.genericpathmanager.topology.constants.Constants.NODE;
-import static org.opendaylight.mwtn.genericpathmanager.topology.constants.Constants.TOPOLOGY;
-import static org.opendaylight.mwtn.genericpathmanager.topology.constants.Constants.UUID;
+import static org.opendaylight.mwtn.genericpathmanager.topology.constants.TopologyConstants.LAYER_PROTOCOL_NAME;
+import static org.opendaylight.mwtn.genericpathmanager.topology.constants.TopologyConstants.LINK;
+import static org.opendaylight.mwtn.genericpathmanager.topology.constants.TopologyConstants.NAME;
+import static org.opendaylight.mwtn.genericpathmanager.topology.constants.TopologyConstants.NODE;
+import static org.opendaylight.mwtn.genericpathmanager.topology.constants.TopologyConstants.TOPOLOGY;
+import static org.opendaylight.mwtn.genericpathmanager.topology.constants.TopologyConstants.UUID;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,6 +1,6 @@
 package org.opendaylight.mwtn.genericpathmanager.topology.node;
 
-import static org.opendaylight.mwtn.genericpathmanager.topology.constants.Constants.*;
+import static org.opendaylight.mwtn.genericpathmanager.topology.constants.TopologyConstants.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;

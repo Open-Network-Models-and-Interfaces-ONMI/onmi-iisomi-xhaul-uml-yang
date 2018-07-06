@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.opendaylight.mwtn.genericpathmanager.topology.constants.Constants.*;
+import static org.opendaylight.mwtn.genericpathmanager.topology.constants.TopologyConstants.*;
 
 import org.opendaylight.mwtn.genericpathmanager.topology.commons.JsonToCapacityParameters;
 import org.opendaylight.mwtn.genericpathmanager.topology.commons.JsonToCostCharacteristic;

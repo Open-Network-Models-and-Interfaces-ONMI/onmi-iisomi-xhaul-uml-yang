@@ -1,6 +1,6 @@
 package org.opendaylight.mwtn.genericpathmanager.topology.constants;
 
-public class Constants {
+public class TopologyConstants {
 
 	public static final String ADMINISTRATIVE_STATE			= "administrative-state";
 	public static final String AGGREGATED_NODE_EDGE_POINT	= "aggregated-node-edge-point";

@@ -1,6 +1,6 @@
 package org.opendaylight.mwtn.genericpathmanager.topology.link;
 
-import static org.opendaylight.mwtn.genericpathmanager.topology.constants.Constants.*;
+import static org.opendaylight.mwtn.genericpathmanager.topology.constants.TopologyConstants.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -41,15 +41,12 @@ import com.google.gson.JsonObject;
  */
 public class JsonToLink {
 
-	ReadFromJSON read;
-
 	/**
 	 * method to translate link of json into link of tapi-topology java object
 	 * @param linkObject
 	 * @return {@link Link}
 	 */
 	public Link getLinkFromJson(JsonObject linkObject) {
-		read = new ReadFromJSON();
 		LinkBuilder builder = new LinkBuilder();
 		Uuid _uuid = Uuid.getDefaultInstance(linkObject.get(UUID).getAsString());
 		builder.setUuid(_uuid);
@@ -77,6 +74,7 @@ public class JsonToLink {
 
 		builder.setLatencyCharacteristic((new JsonToLatencyCharacteristic()).getLatencyCharacteristic(linkObject.getAsJsonArray(LATENCY_CHARACTERISTIC)));
 
+		ReadFromJSON read = new ReadFromJSON();
 		builder.setRiskCharacteristic(read.getRiskCharacteristic(linkObject.getAsJsonArray(RISK_CHARACTERISTIC)));
 
 		builder.setValidationMechanism(getValidationMechanism(linkObject.getAsJsonArray(VALIDATION_MECHANISM)));
