@@ -23,7 +23,8 @@
 #   2.19 Change startup feature
 #        Add parent version variable ODLPARENT
 #   2.20 Added parameter KARAFSLEEPFORSTART
-Version=2.20
+#   2.21 Typos fixed
+Version=2.21
 
 # ----- Constants not depending on variables specified by $CONFIG
 ODLPARENT="0.5.1-SNAPSHOT"
@@ -588,10 +589,10 @@ karafcluster() {
       if [ -z "$1" ] ; then
        	 read -p "cluster cmd> " answer
          set -- $answer
-      else 
+      else
          CLUSTERCLI="FALSE"
       fi
-      
+
       case "$1" in
       	cp)
       	   clusterfilecopy $2
@@ -660,12 +661,12 @@ if [ -f $CONFIG ] ; then
    echo "Load configuration"
    source "$CONFIG"
 else
-   script_command="Error: No $CONFIG file .. can not proceed. Create this file and specifiy the right versions:"
+   script_command="Error: No $CONFIG file .. can not proceed. Create this file and specify the right versions:"
    echo $script_command
    echo 'ODL_KARAF_DIST="distribution-karaf-0.6.1-Carbon"'
    echo 'ODL_KARAF_HOME=$HOME/odl/$ODL_KARAF_DIST'
    echo 'ODL_KARAF_DISTGZ="$HOME/Downloads/"$ODL_KARAF_DIST".tar.gz"'
-   echo 'ODL_BUILD_HOME="$HOME/build/att"'
+   echo 'ODL_BUILD_HOME="$HOME/build/acme"'
    echo 'ODL_KARAF_STARTUP_SCRIPT="karaf_startup_all"'
    echo 'export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"'
    echo
