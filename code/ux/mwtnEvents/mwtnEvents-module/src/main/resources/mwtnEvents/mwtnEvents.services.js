@@ -13,7 +13,7 @@ define([ 'app/mwtnEvents/mwtnEvents.module' ], function(mwtnEventsApp) {
     var service = {};
     
     service.gridOptions = $mwtnCommons.gridOptions;
-    service.getMmwtnWebSocketUrl = $mwtnCommons.getMmwtnWebSocketUrl;
+    service.getMwtnWebSocketUrl = $mwtnCommons.getMwtnWebSocketUrl;
     service.formatData = $mwtnCommons.formatData;
     
     

@@ -1,7 +1,7 @@
 <ht-header help-link='sdnr/pnfInventory/0.4.0/README.md'></ht-header>
 <div class="app-mwtnInventory">
   <div class="col-md-12 form-group">
-    <select class="form-control" ng-model="selectedMountPoint"  ng-options="x for x in activeMountPoints" ng-disabled="loading"> </select>
+    <select class="form-control" ng-model="selectedMountPoint"  ng-options="x for x in activeMountPoints | orderBy" ng-disabled="loading"> </select>
   </div>
   <div ng-if="!loading && equipments != null && equipments.length > 0" >
      <mwtn-equipment-group equipments="equipments" />

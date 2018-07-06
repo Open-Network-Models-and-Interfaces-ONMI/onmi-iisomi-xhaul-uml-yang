@@ -27,7 +27,7 @@ define(['app/mwtnConnect/mwtnConnect.module','app/mwtnCommons/mwtnCommons.servic
     service.getMountPoints = $mwtnCommons.getMountPoints;
     service.getActualNetworkElement = $mwtnCommons.getActualNetworkElement;
     service.getRequiredNetworkElements = $mwtnCommons.getRequiredNetworkElements;
-    service.getMmwtnWebSocketUrl = $mwtnCommons.getMmwtnWebSocketUrl;
+    service.getMwtnWebSocketUrl = $mwtnCommons.getMwtnWebSocketUrl;
     service.getSingleDocument = $mwtnDatabase.getSingleDocument;
     service.gridOptions = $mwtnCommons.gridOptions;
     service.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;

@@ -8,7 +8,7 @@
 
 define(['app/otnBrowser/otnBrowser.module', 'app/mwtnCommons/mwtnCommons.services'], function (otnBrowserApp) {
 
-  otnBrowserApp.register.factory('$otnBrowser', function ($q, $http, ENV, Base64, $mwtnCommons, $mwtnDatabase, $mwtnLog) {
+  otnBrowserApp.register.factory('$otnBrowser', function ($q, $http, Base64, $mwtnCommons, $mwtnDatabase, $mwtnLog) {
 
     var service = {};
 

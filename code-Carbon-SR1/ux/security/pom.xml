@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.highstreet.technologies.odl.dlux</groupId>
+        <artifactId>mwtn</artifactId>
+        <version>0.5.1-SNAPSHOT</version>
+        <relativePath>../</relativePath>
+    </parent>
+
+    <groupId>org.onap.sdnc.dluxapps</groupId>
+    <artifactId>security</artifactId>
+    <!-- <name> formatting is used by autorelease to parse and notify projects on
+       build failure. Please do not modify this unless you have a good reason. -->
+    <name>${prefix} ${project.artifactId}</name>
+    <version>0.5.1</version>
+    <packaging>pom</packaging>
+
+    <prerequisites>
+        <maven>3.0</maven>
+    </prerequisites>
+
+  <modules>
+    <module>security-module</module>
+    <module>security-bundle</module>
+  </modules>
+</project>

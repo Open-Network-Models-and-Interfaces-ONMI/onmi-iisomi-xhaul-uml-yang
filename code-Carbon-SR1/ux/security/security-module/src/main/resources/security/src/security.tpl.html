@@ -1,0 +1,50 @@
+<div id="security">
+   <h2>Users</h2>
+   <table class="table">
+     <thead>
+       <tr>
+         <th>UserID</th>
+         <th>Name</th>
+         <th>Description</th>
+         <th>Enabled</th>
+         <th>eMail</th>
+		     <th>Domain</th>
+         <th>Actions</th>
+       </tr>
+     </thead>
+     <tbody>
+       <tr ng-repeat="user in users">
+         <td>{{user.userid}}</td>
+		   	 <td>{{user.name}}</td>
+         <td>{{user.description}}</td>
+		   	 <td>{{user.enabled}}</td>
+				<td>{{user.email}}</td>
+				<td>{{user.domainid}}</td>
+				<td>
+          <button class="btn btn-sm btn-success" 
+                  ng-click="getCurrentUserById(user.userid)">Info</button></td>
+       </tr>
+     </tbody>
+   </table>
+<h2>Roles</h2>
+<table class="table">
+	<thead>
+		<tr>
+			<th>RoleID</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Domain</th>
+			<!-- <th>Actions</th> -->
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="role in roles">
+			<td>{{role.roleid}}</td>
+			<td>{{role.name}}</td>
+			<td>{{role.description}}</td>
+			<td>{{role.domainid}}</td>
+			<!-- <td><button class="btn btn-sm btn-success">Info</button></td> -->
+		</tr>
+	</tbody>
+</table>
+</div>

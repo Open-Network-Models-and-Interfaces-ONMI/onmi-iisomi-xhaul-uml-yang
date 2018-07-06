@@ -8,7 +8,7 @@
 
 define(['app/onapDcae/onapDcae.module', 'app/mwtnCommons/mwtnCommons.services'], function (onapDcaeApp) {
 
-  onapDcaeApp.register.factory('$onapDcae', function ($q, $http, ENV, Base64, $mwtnCommons, $mwtnDatabase, $mwtnLog) {
+  onapDcaeApp.register.factory('$onapDcae', function ($q, $http, Base64, $mwtnCommons, $mwtnDatabase, $mwtnLog) {
 
     var service = {};
 

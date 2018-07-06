@@ -8,7 +8,7 @@
 
 define(['app/onapAai/onapAai.module', 'app/mwtnCommons/mwtnCommons.services'], function (onapAaiApp) {
 
-  onapAaiApp.register.factory('$onapAai', function ($q, $http, ENV, Base64, $mwtnCommons, $mwtnDatabase, $mwtnLog, Device) {
+  onapAaiApp.register.factory('$onapAai', function ($q, $http, Base64, $mwtnCommons, $mwtnDatabase, $mwtnLog, Device) {
 
     var service = {};
 
@@ -28,7 +28,7 @@ define(['app/onapAai/onapAai.module', 'app/mwtnCommons/mwtnCommons.services'], f
       });
 
     service.checkModules = $mwtnCommons.checkModules;
-    service.getMmwtnWebSocketUrl = $mwtnCommons.getMmwtnWebSocketUrl;
+    service.getMwtnWebSocketUrl = $mwtnCommons.getMwtnWebSocketUrl;
     service.gridOptions = $mwtnCommons.gridOptions;
     service.formatData = $mwtnCommons.formatData;
     service.formatTimeStamp = $mwtnCommons.formatTimeStamp;
@@ -40,19 +40,13 @@ define(['app/onapAai/onapAai.module', 'app/mwtnCommons/mwtnCommons.services'], f
       return {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-
-        "Access-Control-Allow-Credentials": "true",
-        'Access-Control-Allow-Origin': '*',
-
-        'Authorization': 'Basic ' + Base64.encode('AAI:AAI'),
-        'X-FromAppId': 'SDNR',
         'X-TransactionId': transactionId++
       }
     };
 
     // create or modify a pnf in aai
     service.createPnf = function (pnfId, doc) {
-      var base = ENV.getBaseURL('MD_SAL').replace(':8181', ':8282');
+      var base = window.location.origin;
       var getIp = function (extension) {
         return extension.filter(function (item) {
           return item['value-name'] === 'neIpAddress';
@@ -75,7 +69,7 @@ define(['app/onapAai/onapAai.module', 'app/mwtnCommons/mwtnCommons.services'], f
       console.info('pnf', data);
       var request = {
         method: 'PUT',
-        url: base + '/aai/aai/v8/network/pnfs/pnf/' + pnfId, // to es config
+        url: base + '/aai/network/pnfs/pnf/' + pnfId, // to es config
         // withCredentials: true,
         headers: getHeaders(),
         data: data
@@ -91,11 +85,11 @@ define(['app/onapAai/onapAai.module', 'app/mwtnCommons/mwtnCommons.services'], f
     };
 
     service.deletePnf = function (pnfId) {
-      // curl -X DELETE http://localhost:8282/aai/aai/v8/network/pnfs/pnf/Ericsson-A1 --insecure -v -u AAI:AAI -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'X-FromAppId: SDNR' -H 'X-TransactionId: 9999'
-      var base = ENV.getBaseURL('MD_SAL').replace(':8181', ':8282');
+      // curl -X DELETE http://localhost:8282/aai/network/pnfs/pnf/Ericsson-A1 --insecure -v -u AAI:AAI -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'X-FromAppId: SDNR' -H 'X-TransactionId: 9999'
+      var base = window.location.origin;
       var request = {
         method: 'DELETE',
-        url: base + '/aai/aai/v8/network/pnfs/pnf/' + pnfId, // to es config
+        url: base + '/aai/network/pnfs/pnf/' + pnfId, // to es config
         // withCredentials: true,
         headers: getHeaders()
       };
@@ -110,25 +104,14 @@ define(['app/onapAai/onapAai.module', 'app/mwtnCommons/mwtnCommons.services'], f
     };
 
     service.getAaiPnfs = function () {
-      // curl https://10.31.1.61:8443/aai/v8/network/pnfs -k -v -u AAI:AAI -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'X-FromAppId: SDNR' -H 'X-TransactionId: 9999'
+      // curl https://10.31.1.55:8443/network/pnfs -k -v -u abc:def -H 'Content-Type: application/json' -H 'Accept: application/json' -H 'X-FromAppId: SDNR' -H 'X-TransactionId: 9999'
 
-      var base = ENV.getBaseURL('MD_SAL').replace(':8181', ':8282');
-      console.log(base);
+      var base = window.location.origin;
       var request = {
         method: 'GET',
-        url: base + '/aai/aai/v8/network/pnfs', // to es config
+        url: base + '/aai/network/pnfs', // to es config
         // withCredentials: true,
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-
-          "Access-Control-Allow-Credentials": "true",
-          'Access-Control-Allow-Origin': '*',
-
-          'Authorization': 'Basic ' + Base64.encode('AAI:AAI'),
-          'X-FromAppId': 'SDNR',
-          'X-TransactionId': 9999
-        },
+        headers: getHeaders(),
       };
 
       var deferred = $q.defer();

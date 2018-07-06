@@ -8,7 +8,7 @@
 
 define(['app/mwtnCommons/mwtnCommons.module', 'app/odlChat/odlChat.module'],function(odlChatApp) {
 
-  odlChatApp.register.factory('$odlChat', function($http, ENV, $mwtnCommons) {
+  odlChatApp.register.factory('$odlChat', function($http, $mwtnCommons) {
 
     var createStream = function(streamName, callback) {
       var request = {
@@ -25,7 +25,7 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/odlChat/odlChat.module'],func
     };
 
     var service = {
-      base : ENV.getBaseURL("MD_SAL") + "/restconf/",
+      base : window.location.origin + "/restconf/",
     };
     
 

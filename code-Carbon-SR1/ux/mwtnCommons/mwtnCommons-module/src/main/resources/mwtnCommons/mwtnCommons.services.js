@@ -710,12 +710,12 @@ define(
       }
     };
 
-    mwtnCommonsApp.register.factory('$mwtnCommons', function ($http, $q, ENV, $mwtnGlobal, $mwtnLog, $mwtnDatabase, LogicalTerminationPoint, PtpClock) {
+    mwtnCommonsApp.register.factory('$mwtnCommons', function ($http, $q, $mwtnGlobal, $mwtnLog, $mwtnDatabase, LogicalTerminationPoint, PtpClock) {
 
       var COMPONENT = '$mwtnCommons';
 
       var service = {
-        base: ENV.getBaseURL('MD_SAL') + "/restconf/",
+        base: window.location.origin + "/restconf/",
         database: {},
         'sdn-controller': [],
         modules: {},
@@ -882,15 +882,20 @@ define(
         });
       };
 
-      service.getMmwtnWebSocketUrl = function () {
+      service.getMwtnWebSocketUrl = function () {
         var deferred = $q.defer();
         service.getMainConroller().then(function (success) {
-          var src = success._source;
-          var ip = src.host;
-          if (ip === 'localhost') {
-            ip = service.base.split('//')[1].split(':')[0];
-          }
-          var url = ['ws://', src.username, ':', src.password, '@', ip, ':8085/websocket'].join('');
+
+          var protocol = window.location.protocol.replace(/http/g, 'ws');
+          var host = window.location.hostname;
+          var user = window.localStorage.odlUser;
+          if (user === undefined) user = 'admin' // ODL default user
+          var pw = window.localStorage.odlPass;
+          if (pw === undefined) pw = 'admin' // ODL default password
+  
+          var url = [protocol, '//', user, ':',pw, '@', host, ':8085/websocket'].join('');
+          console.info('url', url);
+
           deferred.resolve(url);
         }, function (error) {
           console.error('mainController', error);
@@ -1494,7 +1499,7 @@ define(
             var message = ['ODL', requiredTopology, 'not found!'].join(' ');
             $mwtnLog.error({ component: COMPONENT, message: message });
             deferred.reject(message);
-          } else {
+          } else if (topo[0].node) {
             var mwMountPoints = topo[0].node.filter(function (mountpoint) {
               return mountpoint['node-id'] !== 'controller-config';
             }).map(function (mountpoint) {
@@ -1540,7 +1545,15 @@ define(
                   $mwtnLog.error({ component: COMPONENT, message: 'More than 1 or no MicrowaveModel supported by ' + mountpoint['node-id'] });
                 }
               }
-              return mountpoint;
+              var clusterConneactionStatus = 'netconf-node-topology:clustered-connection-status';
+              if (mountpoint[clusterConneactionStatus] && mountpoint[clusterConneactionStatus]['netconf-master-node']) {
+                var value = mountpoint[clusterConneactionStatus]['netconf-master-node'];
+                value = value.substring(value.indexOf('@'));
+                mountpoint.client = value.substring(1, value.indexOf(':'));
+              } else {
+                mountpoint.client = window.location.hostname;
+              }
+            return mountpoint;
             });
             // console.log('mwMountPoints', JSON.stringify(mwMountPoints));
             deferred.resolve(mwMountPoints);
@@ -2743,10 +2756,10 @@ define(
     });
 
     // Service log
-    mwtnCommonsApp.register.factory('$mwtnEthernet', function ($http, $q, ENV) {
+    mwtnCommonsApp.register.factory('$mwtnEthernet', function ($http, $q) {
       var service = {};
 
-      service.base = ENV.getBaseURL("MD_SAL") + '/restconf';
+      service.base = window.location.origin + '/restconf';
       service.url = {
         create: service.base + '/operations/route:create',
         delete: service.base + '/operations/route:delete'
@@ -2816,9 +2829,9 @@ define(
     });
 
     // Service Database (ElasticSerach)
-    mwtnCommonsApp.register.factory('$mwtnDatabase', function ($http, $q, ENV) {
+    mwtnCommonsApp.register.factory('$mwtnDatabase', function ($http, $q) {
       var service = {
-        base: ENV.getBaseURL("MD_SAL") + '/database',
+        base: window.location.origin + '/database',
         index: 'mwtn',
         command: '_search',
         mwtn: 'todo'
@@ -2834,60 +2847,6 @@ define(
         });
 
         return deferred.promise;
-
-
-        // if (!service.database) {
-        //   var databaseRequest = {
-        //     base: service.base,
-        //     index: 'config',
-        //     docType: 'database',
-        //     command: '_search',
-        //     method: 'GET',
-        //     from: 0,
-        //     size: 10
-        //   };
-        //   service.genericRequest(databaseRequest).then(function (success) {
-        //     service.database = success.data.hits.hits;
-        //     service.database.map(function (server) {
-        //       var src = server._source;
-        //       if (server._id === functionId) {
-        //         var ip = src.host;
-        //         if (ip === 'localhost') {
-        //           ip = service.base.split('//')[1].split(':')[0];
-        //         }
-        //         result.base = service.base;
-        //         result.index = src.index;
-        //       }
-        //     });
-        //     if (result.base) {
-        //       deferred.resolve(result);
-        //     } else {
-        //       console.error('Server settings not found!', functionId);
-        //       deferred.reject({});
-        //     }
-        //   }, function (error) {
-        //     console.log('Server settings not found!', functionId, JSON.stringify(error));
-        //     deferred.reject({});
-        //   });
-        // } else {
-        //   service.database.map(function (server) {
-        //     var src = server._source;
-        //     if (server._id === functionId) {
-        //       var ip = src.host;
-        //       if (ip === 'localhost') {
-        //         ip = service.base.split('//')[1].split(':')[0];
-        //       }
-        //       result.base = service.base;
-        //       result.index = src.index;
-        //     }
-        //   });
-        //   if (result.base) {
-        //     deferred.resolve(result);
-        //   } else {
-        //     console.log('Server settings not found!', functionId);
-        //     deferred.reject({});
-        //   }
-        // }
       };
 
       service.genericRequest = function (databaseRequest) {
@@ -2917,7 +2876,7 @@ define(
           deferred.resolve(success);
         }, function (error) {
           console.timeEnd(consoleId);
-          console.error(JSON.stringify(error));
+          console.warn(JSON.stringify(error));
           deferred.reject(error);
         });
         return deferred.promise;
@@ -2939,7 +2898,7 @@ define(
           deferred.resolve(success);
         }, function (error) {
           console.timeEnd(consoleId);
-          console.error(JSON.stringify(error));
+          console.warn(JSON.stringify(error));
           deferred.reject(error);
         });
         return deferred.promise;

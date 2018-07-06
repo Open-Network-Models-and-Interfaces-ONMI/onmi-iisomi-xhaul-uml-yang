@@ -17,7 +17,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
     var COMPONENT = 'mwtnConnectCtrl';
     $mwtnLog.info({component: COMPONENT, message: 'mwtnConnectCtrl started!'});
 
-    $rootScope.section_logo = 'src/app/mwtnConnect/images/mwtnConnect.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
+    $rootScope.section_logo = 'src/app/mwtnConnect/images/sdncConnect.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
 
     $scope.highlightFilteredHeader = $mwtnConnect.highlightFilteredHeader;
     
@@ -74,13 +74,14 @@ define(['app/mwtnConnect/mwtnConnect.module',
       //    ignoreSort: false,
       //    priority: 0
       //   }},
-       { field: 'name', type: 'string', displayName: 'Name',  headerCellClass: $scope.highlightFilteredHeader, width : 200, cellTemplate: nameCellTemplate, pinnedLeft : true , sort: {
+       { field: 'name', type: 'string', displayName: 'Name',  headerCellClass: $scope.highlightFilteredHeader, width : 230, cellTemplate: nameCellTemplate, pinnedLeft : true , sort: {
          direction: uiGridConstants.ASC,
          ignoreSort: false,
          priority: 0
         }},
        { field: 'ipaddress',  type: 'number', displayName: 'IP address',  headerCellClass: $scope.highlightFilteredHeader, width : 140, cellClass: 'number' },
        { field: 'port',  type: 'number', displayName: 'Port',  headerCellClass: $scope.highlightFilteredHeader, width : 80, cellClass: 'number' },
+       { field: 'client',  type: 'number', displayName: 'Client',  headerCellClass: $scope.highlightFilteredHeader, width : 140 },
        { field: 'username', type: 'string', displayName: 'User name',  headerCellClass: $scope.highlightFilteredHeader, width : 100, visible: false },
        { field: 'password', type: 'string', displayName: 'Password',  headerCellClass: $scope.highlightFilteredHeader, width : 100, visible: false },
        { field: 'radioSignalIds', type: 'string', displayName: 'Radio signal ids',  headerCellClass: $scope.highlightFilteredHeader, width : 150, visible: false},
@@ -191,6 +192,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
             rne.connectionStatus = ane['netconf-node-topology:connection-status'];
             rne.ipaddress = ane['netconf-node-topology:host'];
             rne.port = ane['netconf-node-topology:port'];
+            rne.client = ane.client;
             
             rne.onfCapabilities = ane.onfCapabilities;
 
@@ -294,7 +296,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
           modalInstance.result.then(function (netconfServer) {
             $scope.unknownNesGridOptions.data[index].spinner = true;
             $mwtnConnect.addRequiredNetworkElement(netconfServer).then(function(success){
-              $mwtnLog.info({component: COMPONENT, message: 'Adding to database: ' + JSON.stringify(netconfServer)});
+              $mwtnLog.info({component: COMPONENT, message: 'Adding to database: ' + netconfServer['node-id']});
 
               // $onapAai.createPnf(netconfServer['node-id'], success.config.data).then(function(success){
               //   // do nothing
@@ -393,18 +395,11 @@ define(['app/mwtnConnect/mwtnConnect.module',
                   
     var removeFromNodeList = function(nodeId) {
       var index = $scope.unknownNesGridOptions.data.length;
-      var found = false;
-      while (--index) {
+      while (index--) {
         if ($scope.unknownNesGridOptions.data[index]['node-id'] === nodeId) {
           $scope.unknownNesGridOptions.data.splice(index, 1);
-          found = true;
-          break;
         } 
       }
-      if (!found) {
-        getActualNetworkElements(); 
-        $mwtnLog.info({component: COMPONENT, message: 'RemoveFromNodeList '+netConfServer['node-id']+' not found!'});
-     }
     };
     
     $scope.unmount = function(netConfServer) {
@@ -797,7 +792,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
     });
     
     var listenToEventManagerNotifications = function() {
-      $mwtnConnect.getMmwtnWebSocketUrl().then(function(success){
+      $mwtnConnect.getMwtnWebSocketUrl().then(function(success){
         try {
           var notificationSocket = new WebSocket(success);
 

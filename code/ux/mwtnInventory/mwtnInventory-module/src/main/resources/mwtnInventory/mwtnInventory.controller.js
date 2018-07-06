@@ -155,8 +155,8 @@ define("mwtnInventory.service", ["require", "exports", "angularAMD"], function (
                 if (result && result.status == 200 && result.data) {
                     return _this.convertObject(result.data);
                 }
-                return null;
-            }, function (err) { return (null); });
+                return {"equipment-pac":[]};
+            }, function (err) { return ({"equipment-pac":[]}); });
         };
         return InventoryService;
     }());
@@ -280,7 +280,7 @@ define( ["require", "exports", "mwtnInventory.service", "components/equipment", 
                             results = _a.sent();
                             return [2 /*return*/, equipmentObjects.reduce(function (acc, cur, ind, arr) {
                                     var conditional = equipmentConditionals[ind] || null;
-                                    // ensure ENVERY property can be null or undefined
+                                    // ensure EVERY property can be null or undefined
                                     var manufacturedThing = cur['manufactured-thing'];
                                     var equipmentType = manufacturedThing && manufacturedThing['equipment-type'];
                                     var manufacturerProperties = manufacturedThing && manufacturedThing['manufacturer-properties'];
@@ -308,7 +308,7 @@ define( ["require", "exports", "mwtnInventory.service", "components/equipment", 
                     }
                 });
             }); };
-            var pleaseSelect = "Please select a mount point";
+            var pleaseSelect = "... please select a mount point";
             var refresh = function (equipmentsRootId) { return __awaiter(_this, void 0, void 0, function () {
                 var rootIdentifiers, equipments, _a;
                 return __generator(this, function (_b) {

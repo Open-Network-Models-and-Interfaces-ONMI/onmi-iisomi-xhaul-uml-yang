@@ -30,11 +30,11 @@ define(['app/onapAai/onapAai.module',
           { field: 'equip-model', type: 'string', displayName: 'Model', headerCellClass: $scope.highlightFilteredHeader, width: 160 },
           { field: 'ipaddress-v4-oam', type: 'string', displayName: 'If OAM', headerCellClass: $scope.highlightFilteredHeader, width: 140 },
           { field: 'in-maint', type: 'string', displayName: 'Maintenance', headerCellClass: $scope.highlightFilteredHeader, width: 100 },
-          { field: 'interfaces', type: 'string', displayName: '#p-interfaces', headerCellClass: $scope.highlightFilteredHeader, width: 100, visible: false }
+          { field: 'interfaces', type: 'string', displayName: '#p-interfaces', headerCellClass: $scope.highlightFilteredHeader, width: 100, visible: false },
+          { field: 'resourceVersion', type: 'string', displayName: 'Resource version', headerCellClass: $scope.highlightFilteredHeader, width: 100, visible: false }
         ];
 
         $onapAai.getAaiPnfs().then(function(success){
-          console.log('success');
           $scope.gridOptions.data = success.data.pnf;
           $scope.gridOptions.data.map(function(item){
             item.interfaces = 1;

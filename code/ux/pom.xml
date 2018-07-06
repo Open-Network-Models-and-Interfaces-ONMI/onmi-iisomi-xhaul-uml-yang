@@ -51,7 +51,7 @@
     <module>mwtnConnect</module>
     <module>onapAai</module>
     <module>onapDcae</module>
-    <module>onapMso</module>
+    <module>onapSo</module>
 
     <!-- <module>ethService</module>
     <module>otnBrowser</module> -->
@@ -75,6 +75,8 @@
     <module>mwtnTest</module>
     <module>mwtnLog</module>
     <module>odlChat</module>
+
+    <module>help</module>
     <module>features</module>
 
   </modules>
@@ -95,7 +97,6 @@
           <skip>false</skip>
         </configuration>
       </plugin>
-
             <plugin>
                 <groupId>com.google.code.maven-replacer-plugin</groupId>
                 <artifactId>replacer</artifactId>
@@ -127,7 +128,7 @@
                     </replacements>
                 </configuration>
             </plugin>
-     </plugins>
+    </plugins>
   </build>
 
 </project>

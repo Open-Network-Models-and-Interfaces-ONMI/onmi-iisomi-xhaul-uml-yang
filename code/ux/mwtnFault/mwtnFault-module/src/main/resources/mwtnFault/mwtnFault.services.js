@@ -13,7 +13,7 @@ define(['app/mwtnFault/mwtnFault.module','app/mwtnCommons/mwtnCommons.services']
     var service = {};
 
     service.checkModules = $mwtnCommons.checkModules;
-    service.getMmwtnWebSocketUrl = $mwtnCommons.getMmwtnWebSocketUrl;
+    service.getMwtnWebSocketUrl = $mwtnCommons.getMwtnWebSocketUrl;
     service.gridOptions = $mwtnCommons.gridOptions;
     service.formatData = $mwtnCommons.formatData;
     service.formatTimeStamp = $mwtnCommons.formatTimeStamp;

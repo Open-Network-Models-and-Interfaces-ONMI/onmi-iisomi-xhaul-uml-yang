@@ -100,7 +100,7 @@ define([ 'app/mwtnCommons/mwtnCommons.module'], function(mwtnCommonsApp) {
         update();
         
         var listenToNotifications = function() {
-          $mwtnCommons.getMmwtnWebSocketUrl().then(function(success){
+          $mwtnCommons.getMwtnWebSocketUrl().then(function(success){
             try {
               var notificationSocket = new WebSocket(success);
 

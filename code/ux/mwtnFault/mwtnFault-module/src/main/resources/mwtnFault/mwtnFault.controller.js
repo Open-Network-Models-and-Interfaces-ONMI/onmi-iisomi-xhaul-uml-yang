@@ -117,7 +117,7 @@ define(['app/mwtnFault/mwtnFault.module',
       { field: 'severity',  type: 'string', displayName: 'Severity',  headerCellClass: $scope.highlightFilteredHeader, width : 100 }
     ];
     var listenToNotifications = function() {
-      $mwtnFault.getMmwtnWebSocketUrl().then(function(success){
+      $mwtnFault.getMwtnWebSocketUrl().then(function(success){
         try {
           var notificationSocket = new WebSocket(success);
 

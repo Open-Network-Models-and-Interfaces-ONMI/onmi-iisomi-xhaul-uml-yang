@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.onap.sdnc.dluxapps</groupId>
+        <artifactId>security</artifactId>
+        <version>0.5.1</version>
+    </parent>
+
+    <groupId>org.onap.sdnc.dluxapps</groupId>
+    <artifactId>security-bundle</artifactId>
+    <packaging>bundle</packaging>
+    <!-- <name> formatting is used by autorelease to parse and notify projects on
+         build failure. Please do not modify this unless you have a good reason. -->
+    <name>${prefix} ${project.artifactId}</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.opendaylight.dlux</groupId>
+            <artifactId>loader</artifactId>
+            <version>0.5.1-Carbon</version>
+        </dependency>
+        <dependency>
+            <groupId>org.onap.sdnc.dluxapps</groupId>
+            <artifactId>security-module</artifactId>
+            <version>0.5.1</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <resources>
+            <resource>
+                <directory>target/generated-resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <!--loader Resources-->
+                    <execution>
+                        <id>unpack-loader-resources</id>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/generated-resources</outputDirectory>
+                            <groupId>org.onap.sdnc.dluxapps</groupId>
+                            <includeArtifactIds>security-module</includeArtifactIds>
+                            <!-- <includes>security/src\/**</includes> -->
+                            <excludes>META-INF\/**</excludes>
+                            <excludeTransitive>true</excludeTransitive>
+                            <ignorePermissions>false</ignorePermissions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Import-Package>org.osgi.service.http,
+                            org.osgi.framework;version="1.0.0",
+                            org.opendaylight.dlux.loader
+                        </Import-Package>
+                        <Export-Package></Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

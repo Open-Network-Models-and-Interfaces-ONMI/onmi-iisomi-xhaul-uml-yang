@@ -73,7 +73,7 @@ define(
                     ];
 
                     var listenToNotifications = function() {
-                      $mwtnEvents.getMmwtnWebSocketUrl().then(function(success){
+                      $mwtnEvents.getMwtnWebSocketUrl().then(function(success){
                         
                         try {
                           var notificationSocket = new WebSocket(success);

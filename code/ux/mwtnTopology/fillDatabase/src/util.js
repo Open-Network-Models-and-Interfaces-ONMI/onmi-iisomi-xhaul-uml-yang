@@ -76,10 +76,11 @@ if (!Array.prototype.clean) {
 }
 
 var http = require('http');
+var database = require('./config.json');
 
 var elasticsearch = require('elasticsearch');
 var client = new elasticsearch.Client({
-  host: 'localhost:9200',
+  host: [database.host, database.port].join(':'), // 'localhost:9200',
   log: ''
 });
 
