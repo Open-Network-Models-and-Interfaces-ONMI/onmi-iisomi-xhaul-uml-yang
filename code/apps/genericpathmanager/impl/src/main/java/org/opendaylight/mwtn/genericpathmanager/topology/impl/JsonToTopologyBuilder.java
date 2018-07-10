@@ -3,7 +3,7 @@ package org.opendaylight.mwtn.genericpathmanager.topology.impl;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import org.opendaylight.mwtn.genericpathmanager.topology.api.JsonToTopology;
+import org.opendaylight.mwtn.genericpathmanager.JsonToTopology;
 
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;

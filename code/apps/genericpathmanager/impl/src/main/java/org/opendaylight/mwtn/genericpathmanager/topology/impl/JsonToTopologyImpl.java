@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.opendaylight.mwtn.genericpathmanager.topology.api.JsonToTopology;
+import org.opendaylight.mwtn.genericpathmanager.JsonToTopology;
 import org.opendaylight.mwtn.genericpathmanager.topology.commons.JsonToLayerProtocolName;
 import org.opendaylight.mwtn.genericpathmanager.topology.commons.JsonToName;
 import org.opendaylight.mwtn.genericpathmanager.topology.link.JsonToLink;
