@@ -1,0 +1,54 @@
+module tapi-otsi-extension {
+    namespace "urn:onf:otcc:yang:tapi-otsi-extension";
+    prefix tapi-otsi-extension;
+    import tapi-common {
+        prefix tapi-common;
+    }
+    import tapi-connectivity {
+        prefix tapi-connectivity;
+    }
+    import tapi-otsi {
+        prefix tapi-otsi;
+    }
+
+    organization "ONF OTCC (Open Transport Configuration & Control) Project";
+    contact "
+        Project Web: <https://wiki.opennetworking.org/display/OTCC/TAPI>
+        Project List: <mailto:transport-api@opennetworking.org>
+        Editor: Karthik Sethuraman
+                <mailto:karthik.sethuraman@necam.com>";
+    description "
+        This module contains experimental TAPI extension addressing disaggregated transponder and OMS in 
+        a multi-vendor optical domain.
+        Copyright (c) 2018 Open Networking Foundation (ONF). All rights reserved.
+        License: This module is distributed under the Apache License 2.0";
+    revision 2018-08-10 {
+        description "Initial version, which might be used as contribution to TAPI project.";
+    }
+
+    augment "/tapi-connectivity:create-connectivity-service/tapi-connectivity:input/tapi-connectivity:conn-constraint" {
+        uses optical-constraint-g;
+        description "Augments the base connectivity-service with optical routing constraint.";
+    }
+  
+    grouping optical-constraint-g {
+        description "none";
+        list include-optical-channel-characteristic {        
+            key 'local-id';
+           uses optical-constraint-channel-g;
+            description
+            "List of optical channel frequency that must be used when calculating the optical route.";
+        }
+        list exclude-optical-channel-characteristic {        
+            key 'local-id';
+            uses optical-constraint-channel-g;
+            description
+            "List of optical channel frequency that must not be used when calculating the optical route.";
+        }
+    }
+
+    grouping optical-constraint-channel-g {
+        uses tapi-common:local-class-g;
+        uses tapi-otsi:frequency-slot-g;
+    }
+}
