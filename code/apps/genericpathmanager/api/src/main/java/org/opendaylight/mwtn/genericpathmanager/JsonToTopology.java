@@ -1,4 +1,4 @@
-package org.opendaylight.mwtn.genericpathmanager.topology.api;
+package org.opendaylight.mwtn.genericpathmanager;
 
 import java.util.List;
 
