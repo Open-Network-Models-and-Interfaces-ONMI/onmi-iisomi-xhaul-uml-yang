@@ -51,4 +51,33 @@ module tapi-otsi-extension {
         uses tapi-common:local-class-g;
         uses tapi-otsi:frequency-slot-g;
     }
+
+    augment "/tapi-connectivity:create-connectivity-service/tapi-connectivity:output/tapi-connectivity:service" {
+        uses optical-quality-g;
+        description "Augments the base connectivity-service output with the optical-quality.";
+    }
+
+    grouping optical-quality-g {
+        description "none";
+
+        leaf power-loss {
+           type decimal64 {
+             fraction-digits 2;
+           }
+           units "dB";
+           description
+              "Caluculated loss of power for the selected service. In case of bidirectional services the value same 
+               value must be used for both directions.";
+        }
+
+        leaf osnr-penalty {
+           type decimal64 {
+             fraction-digits 2;
+           }
+           description
+              "Calculated OSNR panalty for the selected servcie. In case of bidirectional services the value same 
+               value must be used for both directions.";
+        }
+    }
+
 }
