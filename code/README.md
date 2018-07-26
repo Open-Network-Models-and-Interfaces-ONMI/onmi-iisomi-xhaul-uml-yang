@@ -48,7 +48,7 @@ These instructions should also work on other Debian derivative distributions.
 
       ```
       mkdir -p ~/.m2 && \
-      if [ -e ~/.m2/settings.xml ] ; then ; cp -n ~/.m2/settings.xml{,.orig} ; fi && \
+      if [ -e ~/.m2/settings.xml ] ; then cp -n ~/.m2/settings.xml{,.orig} ; fi && \
       wget -q -O - https://raw.githubusercontent.com/opendaylight/odlparent/master/settings.xml > ~/.m2/settings.xml
       ```
 
