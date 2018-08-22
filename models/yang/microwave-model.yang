@@ -11,7 +11,6 @@ module microwave-model {
     import ietf-yang-types {
         prefix yang;
     }
-
     organization "ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project";
     contact "WG Web: <https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport>
              WG List:  <mailto:wireless-transport@login.opennetworking.org>
@@ -21,25 +20,47 @@ module microwave-model {
                        <mailto:giorgio.cazzaniga@sm-optics.com>
              Editors:  Thorsten Heinze
                        <mailto:thorsten.heinze@telefonica.com>
-                       Martin Skorupski
-                       <mailto:martin.skorupski@highstreet-technologies.com>";
-    description "This module contains a collection of YANG definitions for managing wireless networks.";
+                       Shrikanth Malavalli Divakar
+                       <mailto:shrikanth.divakar@wipro.com>";					   
+    description "This module contains a collection of YANG definitions for managing wireless networks.
+        This model is for vendor agnostic management of wireless network elements.";
+    revision 2018-08-09 {
+        description "Version 1.1";
+        reference "ONF TR 532: A YANG Data Model for Wireless Networks.";
+    }
+	
     revision 2017-03-24 {
         description "Initial version";
         reference "ONF TR 532: A YANG Data Model for Wireless Networks.";
     }
+	
     /***********************
     * package type-definitions
     **********************/ 
         typedef loop-back-type {
             type enumeration {
+                enum rf-to-remote {
+                    description "Returning the header information of the remote site back to the remote site on the radio interface between both outdoor units.";
+                }
+                enum rf-to-local {
+                    description "Returning the header information of the local site back to the local site on the radio interface between both outdoor units.";
+                }
+                enum if-to-remote {
+                    description "Returning the header information of the remote site back to the remote site on the intermediate frequency interface between local indoor unit and outdoor unit.";
+                }
+                enum if-to-local {
+                    description "Returning the header information of the local site back to the local site on the intermediate frequency interface between local indoor unit and outdoor unit.";
+                }
                 enum none {
+					status deprecated;				
                     description "none";
                 }
                 enum if {
+					status deprecated;
                     description "Intermediate Frequency on the interface between indoor and outdoor unit.";
                 }
                 enum rf {
+					status deprecated;
                     description "Radio Frequency on the interface between outdoor unit and outdoor unit at the remote site.";
                 }
             }
@@ -68,7 +89,6 @@ module microwave-model {
         grouping channel-plan-type-g {
             leaf supported-channel-plan {
                 type string;
-                default "Channel plan name not defined.";
                 config false;
                 description "Unique name (e.g. ECC/REC/(01)04_Annex 5) of a document, which describes a frequency grid that can be adjusted at the air interface. Corresponding channel plans to be delivered by the hardware vendor and to be stored by the operator in an controller/application attached database.";
             }
@@ -78,11 +98,19 @@ module microwave-model {
                 config false;
                 description "To be set on  'true', if the distance between transmitted and received frequency is variable.";
             }
+            leaf-list duplex-distance-list {
+                type int32;
+                units "kHz";
+                config false;
+                min-elements 1;
+                description "Distance between transmitted and received frequency. To be filled with single value, in case duplex distance is not variable. To be filled with all configurable values, in case duplex distance is variable.";
+            }
             leaf duplex-distance {
                 type int32;
                 units "kHz";
                 default -1;
                 config false;
+				status deprecated;
                 description "Distance between transmitted and received frequency.";
             }
             leaf auto-freq-select-is-avail {
@@ -103,8 +131,13 @@ module microwave-model {
         grouping transmission-mode-type-g {
             leaf transmission-mode-id {
                 type core-model:universal-id;
-                config false;
                 description "Indentifies the transmissionMode for internal reference.";
+            }
+            leaf transmission-mode-name {
+                type string;
+                default "Name of the transmission mode not yet defined.";
+                config false;
+                description "Name of the transmission mode. BBBB-m*-i*/t*-r*. B=four digits of channel bandwidth in MHz. m*=required number of digits for modulation name. (i*/t*=code rate.) i*=required number of digits for number of information bits. t*=required number of digits for total bits. r*=required number of digits for rate reduction factor. Example: 028-4QAM-188/204-1";
             }
             leaf channel-bandwidth {
                 type int32;
@@ -125,7 +158,13 @@ module microwave-model {
                 units "%";
                 default -1;
                 config false;
-                description "Code rate of the coding scheme in % (Net bit rate ? Gross bit rate ? code rate).";
+                description "Code rate of the coding scheme in % (Net bit rate ≤ Gross bit rate · code rate).";
+            }
+            leaf symbol-rate-reduction-factor {
+                type int8;
+                default 1;
+                config false;
+                description "Reduction factor for the symbol rate. Example: value would be 4 for 1/4BPSK.";
             }
             leaf tx-power-min {
                 type int8;
@@ -184,10 +223,51 @@ module microwave-model {
             }
             description "none";
         }
+        typedef g826-type {
+            type enumeration {
+                enum es {
+                    description "Errored Seconds. Threshold cross alarm will relate to TypeDefinitions::AirInterfacePerformanceType::es .";
+                }
+                enum ses {
+                    description "Severely Errored Seconds. Threshold cross alarm will relate to TypeDefinitions::AirInterfacePerformanceType::ses .";
+                }
+                enum cses {
+                    description "Consecutive Severely Errored Seconds. Threshold cross alarm will relate to TypeDefinitions::AirInterfacePerformanceType::cses .";
+                }
+                enum not-specified {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+		
+        grouping threshold-cross-alarm-type-g {
+            leaf g826-value-kind {
+                type g826-type;
+                description "Kind of performance value that shall be equipped with a threshold alarm.";
+            }
+            leaf granularity-period {
+                type g:granularity-period-type;
+                description "Period of the performance data collection.";
+            }
+            leaf alarm-raising-threshold {
+                type int32;
+                units "s";
+                default -1;
+                description "Number of events required for raising the threshold cross alarm.";
+            }
+            leaf alarm-clearing-threshold {
+                type int32;
+                units "s";
+                default -1;
+                description "Number of events required for clearing the threshold cross alarm.";
+            }
+            description "Allows defining a threshold cross alarm.
+                ";
+        }
         grouping air-interface-problem-severity-type-g {
             leaf problem-kind-name {
                 type string;
-                default "Problem kind name not defined.";
                 description "Name of the alarm according to AirInterface::AirInterfaceCapability::supportedAlarms";
             }
             leaf problem-kind-severity {
@@ -205,6 +285,23 @@ module microwave-model {
                 description "Name of the alarm according to AirInterface::AirInterfaceCapability::supportedAlarms";
             }
             uses mw-current-problem-g;
+            description "none";
+        }
+        grouping time-x-states-type-g {
+            leaf transmission-mode {
+				type leafref{
+					path '/mw-air-interface-pac/air-interface-capability/supported-channel-plan-list/transmission-mode-list/transmission-mode-id';
+				}
+                config false;
+                description "Operated transmission mode.";
+            }
+            leaf time {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "Sum of all seconds the transmitter operated the transmission mode.";
+            }
             description "none";
         }
         grouping air-interface-performance-type-g {
@@ -278,11 +375,18 @@ module microwave-model {
                 config false;
                 description "Averaged receive level. Signed integers are required.";
             }
+            list time-x-states-list {
+                config false;
+                min-elements 1;
+                uses time-x-states-type-g;
+                description "Time period the transmitter operated in the respective transmission mode.";
+            }
             leaf time2-states {
                 type int32;
                 units "s";
                 default -1;
                 config false;
+				status deprecated;
                 description "Sum of all seconds the transmitter operated in e.g. BPSK.";
             }
             leaf time4-states-s {
@@ -297,6 +401,7 @@ module microwave-model {
                 units "s";
                 default -1;
                 config false;
+				status deprecated;				
                 description "none";
             }
             leaf time8-states {
@@ -304,6 +409,7 @@ module microwave-model {
                 units "s";
                 default -1;
                 config false;
+				status deprecated;				
                 description "none";
             }
             leaf time16-states-s {
@@ -311,6 +417,7 @@ module microwave-model {
                 units "s";
                 default -1;
                 config false;
+				status deprecated;				
                 description "none";
             }
             leaf time16-states {
@@ -318,6 +425,7 @@ module microwave-model {
                 units "s";
                 default -1;
                 config false;
+				status deprecated;				
                 description "none";
             }
             leaf time32-states {
@@ -325,6 +433,7 @@ module microwave-model {
                 units "s";
                 default -1;
                 config false;
+				status deprecated;				
                 description "none";
             }
             leaf time64-states {
@@ -339,6 +448,7 @@ module microwave-model {
                 units "s";
                 default -1;
                 config false;
+				status deprecated;				
                 description "none";
             }
             leaf time256-states {
@@ -346,6 +456,7 @@ module microwave-model {
                 units "s";
                 default -1;
                 config false;
+				status deprecated;				
                 description "none";
             }
             leaf time512-states {
@@ -353,6 +464,7 @@ module microwave-model {
                 units "s";
                 default -1;
                 config false;
+				status deprecated;				
                 description "none";
             }
             leaf time512-states-l {
@@ -360,6 +472,7 @@ module microwave-model {
                 units "s";
                 default -1;
                 config false;
+				status deprecated;
                 description "none";
             }
             leaf time1024-states {
@@ -367,6 +480,7 @@ module microwave-model {
                 units "s";
                 default -1;
                 config false;
+				status deprecated;				
                 description "none";
             }
             leaf time1024-states-l {
@@ -381,6 +495,7 @@ module microwave-model {
                 units "s";
                 default -1;
                 config false;
+				status deprecated;				
                 description "none";
             }
             leaf time2048-states-l {
@@ -395,6 +510,7 @@ module microwave-model {
                 units "s";
                 default -1;
                 config false;
+				status deprecated;				
                 description "none";
             }
             leaf time4096-states-l {
@@ -402,6 +518,7 @@ module microwave-model {
                 units "s";
                 default -1;
                 config false;
+				status deprecated;				
                 description "none";
             }
             leaf time8192-states {
@@ -409,6 +526,7 @@ module microwave-model {
                 units "s";
                 default -1;
                 config false;
+				status deprecated;				
                 description "none";
             }
             leaf time8192-states-l {
@@ -416,6 +534,7 @@ module microwave-model {
                 units "s";
                 default -1;
                 config false;
+				status deprecated;				
                 description "none";
             }
             leaf snir-min {
@@ -540,7 +659,6 @@ module microwave-model {
         grouping diversity-type-g {
             leaf diversity-name {
                 type string;
-                default "Diversity name not defined.";
                 config false;
                 description "Names to be chosen from the following list: 'spaceDiversity', 'frequencyDiversity'";
             }
@@ -570,7 +688,6 @@ module microwave-model {
         grouping air-interface-diversity-problem-severity-type-g {
             leaf problem-kind-name {
                 type string;
-                default "Problem kind name not defined.";
                 description "Name of the alarm according to AirInterfaceDiversity::AirInterfaceDiversityCapability::supportedAlarms";
             }
             leaf problem-kind-severity {
@@ -635,7 +752,6 @@ module microwave-model {
         grouping tdm-structure-type-g {
             leaf tdm-structure-name {
                 type string;
-                default "TDM structure name not defined.";
                 config false;
                 description "Names to be chosen from the following list: 'e1','t1','j1','e3','ds3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'";
             }
@@ -658,7 +774,6 @@ module microwave-model {
         grouping structure-problem-severity-type-g {
             leaf problem-kind-name {
                 type string;
-                default "Problem kind name not defined.";
                 description "Name of the alarm according to Structure::StructureCapability::supportedAlarms";
             }
             leaf problem-kind-severity {
@@ -678,23 +793,78 @@ module microwave-model {
             uses mw-current-problem-g;
             description "none";
         }
-        typedef structure-performance-type {
-            type int32;
+        grouping structure-performance-type-g {
+            leaf time-period {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "Total length of the measurement period in seconds.";
+            }
+            leaf es {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "Number of errored seconds. 1+0: Same value as for single air interface. 1+1 and Diversity: Value representing the combined signals.";
+            }
+            leaf ses {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "Number of severely errored seconds. 1+0: Same value as for single air interface. 1+1 and Diversity: Value representing the combined signals.";
+            }
+            leaf cses {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "Number of consecutive severely errored seconds. 1+0: Same value as for single air interface. 1+1 and Diversity: Value representing the combined signals.";
+            }
+            leaf unavailability {
+                type int32;
+                units "s";
+                default -1;
+                config false;
+                description "Total time of unavailability in seconds. 1+0: Same value as for single air interface. 1+1 and Diversity: Value representing the combined signals.";
+            }
+            leaf rx-level-min {
+                type int8;
+                units "dBm";
+                default 99;
+                config false;
+                description "Minimum receive level. 1+0: Same value as for single air interface. 1+1: Value representing the combined signals. Diversity: To be left on default value.";
+            }
+            leaf rx-level-max {
+                type int8;
+                units "dBm";
+                default 99;
+                config false;
+                description "Maximum receive level. 1+0: Same value as for single air interface. 1+1: Value representing the combined signals. Diversity: To be left on default value.";
+            }
+            leaf rx-level-avg {
+                type int8;
+                units "dBm";
+                default 99;
+                config false;
+                description "Averaged receive level. 1+0: Same value as for single air interface. 1+1: Value representing the combined signals. Diversity: To be left on default value.";
+            }
             description "Consolidated performance information of the Structure.";
         }
         grouping structure-current-performance-type-g {
-            leaf performance-data {
-                type structure-performance-type;
+            container performance-data {
                 config false;
+                uses structure-performance-type-g;
                 description "none";
             }
             uses g:otn-current-data-g;
             description "Turns performance information into current performance information by inheriting from OTN_CurrentData.";
         }
         grouping structure-historical-performance-type-g {
-            leaf performance-data {
-                type structure-performance-type;
+            container performance-data {
                 config false;
+                uses structure-performance-type-g;
                 description "none";
             }
             uses g:otn-history-data-g;
@@ -703,7 +873,6 @@ module microwave-model {
         grouping container-type-g {
             leaf container-name {
                 type string;
-                default "Container name not yet defined.";
                 config false;
                 description "Names to be chosen from the following list: 'ethernet','e1','t1','j1','e3','ds3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'";
             }
@@ -731,7 +900,6 @@ module microwave-model {
         grouping tdm-container-type-g {
             leaf tdm-container-name {
                 type string;
-                default "TDM container name not defined.";
                 config false;
                 description "Names to be chosen from the following list: 'e1','t1','j1','e3','t3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'";
             }
@@ -792,7 +960,6 @@ module microwave-model {
         grouping container-problem-severity-type-g {
             leaf problem-kind-name {
                 type string;
-                default "Problem kind name not defined.";
                 description "Name of the alarm according to Container::ContainerCapability::supportedAlarms";
             }
             leaf problem-kind-severity {
@@ -978,7 +1145,7 @@ module microwave-model {
                     units "dB";
                     default 0;
                     config false;
-                    description "Extent of the ATPC range.";
+                    description "Extent of the ATPC range. This value represents a device specific maximum value. The actual range of the ATPC at a specific link might be limited by the difference between configured transmit power (AirInterface::AirInterfaceConfiguration::txPower) and minimum transmit power of the device (TypeDefinitions::TransmissionModeType::txPowerMin).";
                 }
                 leaf encryption-is-avail {
                     type boolean;
@@ -1000,10 +1167,17 @@ module microwave-model {
                     config false;
                     description "Available time periods for maintenance configurations (e.g. the loop back of microwave header information) to be described. Concrete values shall be separated by commas (e.g. '10, 60, 360'). Ranges shall be expressed as two values separated by a minus (e.g. '10-360').";
                 }
+                leaf-list supported-alarm-list {
+                    type string;
+                    config false;
+                    min-elements 7;
+                    description "Available alarms to be listed. Mandatory:'signalIsLost','rslIsExceeded','signalIDMismatching','temperatureIsExceeded','modemIsFaulty','radioIsFaulty' and 'modulationIsDownShifted'. Further alarms might be added by the vendor.";
+                }
                 leaf supported-alarms {
                     type string;
                     default "Supported alarms not yet defined.";
                     config false;
+					status deprecated;
                     description "Available alarms to be listed. Mandatory:'signalIsLost','rslIsExceeded','temperatureIsExceeded','modemIsFaulty','radioIsFaulty' and 'modulationIsDownShifted'. Further alarms might be added by the device. Names are to be separated by commas.";
                 }
                 list supported-channel-plan-list {
@@ -1021,9 +1195,23 @@ module microwave-model {
                     default "Air interface ID not yet defined.";
                     description "Operator specific microwave link ID (often used for coding area, type of element and sequential number).";
                 }
+                leaf remote-air-interface-name {
+                    type string;
+                    default "Air interface ID at the remote site not yet defined.";
+                    description "Name of the air interface, which belongs to the same link, at the remote site.";
+                }
+                leaf expected-signal-id {
+                    type int16;
+                    description "If set on '0', the receiver ignores the signal ID of the received signal. If set on any other value, the receiver exclusively synchronizes on signals with the same signal ID.";
+                }
+                leaf transmitted-signal-id {
+                    type int16;
+                    description "Transmitted radio signal ID for synchronizing the receiver.";
+                }
                 leaf radio-signal-id {
                     type string;
                     default "Radio signal ID not yet defined.";
+					status deprecated;
                     description "The radioSignalId is transmitted on the air interface so the remote site of the link synchronizes on the correct transmitter. The local radio MUST NOT synchronize on a radio signal with a different radioSignalId. The link ID is neither an ID necessary to span the model nor an ID referencing external data. It is just some sort of name of the link transmitted so the correct remote site can be identified in an interference situation. The value zero might be used to make the microwave to disable the link ID check.";
                 }
                 leaf tx-frequency {
@@ -1038,10 +1226,19 @@ module microwave-model {
                     default -1;
                     description "Center frequency of the receive channel.";
                 }
+                container transmission-mode-min {
+                    uses transmission-mode-type-g;
+                    description "Minimum transmission mode to be configured (in case adaptive modulation is not used, this value represents also the fixed transmission mode).";
+                }
+                container transmission-mode-max {
+                    uses transmission-mode-type-g;
+                    description "Maximum transmission mode to be configured.";
+                }
                 leaf tx-channel-bandwidth {
                     type int32;
                     units "kHz";
                     default -1;
+					status deprecated;
                     description "Bandwidth of the transmit channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;";
                 }
                 leaf rx-channel-bandwidth {
@@ -1086,12 +1283,14 @@ module microwave-model {
                     type int16;
                     units "symbols";
                     default -1;
+					status deprecated;
                     description "Minimum modulation to be configured (in case adaptive modulation is not used, this value represents also the fixed modulation). The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.";
                 }
                 leaf modulation-max {
                     type int16;
                     units "symbols";
                     default -1;
+					status deprecated;
                     description "Maximum modulation to be configured. The value of this field is only relevant, if Adaptive Modulation has been activated. The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.";
                 }
                 leaf xpic-is-on {
@@ -1126,6 +1325,12 @@ module microwave-model {
                     default 99;
                     description "If the receive level is lower than the lower threshold value, the transmitter is notified to increase transmit power.";
                 }
+                leaf atpc-tx-power-min {
+                    type int8;
+                    units "dBm";
+                    default -99;
+                    description "Transmit power, which is not to be undercut, while operating ATPC.";
+                }
                 leaf auto-freq-select-is-on {
                     type boolean;
                     default false;
@@ -1151,6 +1356,17 @@ module microwave-model {
                     type string;
                     default "Cryptographic key not yet defined.";
                     description "Key for transforming plaintext into ciphertext data.";
+                }
+                leaf performance-monitoring-collection-is-on {
+                    type boolean;
+                    default false;
+                    description "Enables measurement, collection, storage and access to performance data.";
+                }
+                list threshold-cross-alarm-list {
+                    key 'g826-value-kind granularity-period';
+                    max-elements 6;
+                    uses threshold-cross-alarm-type-g;
+                    description "List of threshold cross alarms to be configured.";
                 }
                 leaf loop-back-kind-on {
                     type loop-back-type;
@@ -1200,11 +1416,19 @@ module microwave-model {
                     config false;
                     description "Current receive level.";
                 }
+                leaf transmission-mode-cur {
+					type leafref {
+						path '../../air-interface-capability/supported-channel-plan-list/transmission-mode-list/transmission-mode-id';
+					}    
+					config false;
+                    description "Currently operated transmission mode according to definitions in Capabilities.";
+                }
                 leaf modulation-cur {
                     type int16;
                     units "symbols";
                     default -1;
                     config false;
+					status deprecated;
                     description "Currently operated modulation on transmit path. The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.";
                 }
                 leaf code-rate-cur {
@@ -1212,7 +1436,14 @@ module microwave-model {
                     units "%";
                     default -1;
                     config false;
+					status deprecated;
                     description "Code rate of the currently operated coding scheme (Net bit rate ? Gross bit rate ? code rate).";
+                } 
+                leaf received-signal-id {
+                    type int16;
+                    default -1;
+                    config false;
+                    description "ID of the signal, which the receiver is currently synchronized on.";
                 }
                 leaf snir-cur {
                     type int8;
@@ -1332,12 +1563,7 @@ module microwave-model {
                 }
                 description "Aggregated performance information of the air interface for a pre-defined measurement interval.";
             }
-            list co-channel-group {
-                key 'co-channel-group-id';
-                uses co-channel-group-g;
-                description "none";
-            }
-            grouping co-channel-group-g {
+            container co-channel-group {
                 leaf co-channel-group-id {
                     type core-model:universal-id;
                     description "none";
@@ -1357,6 +1583,7 @@ module microwave-model {
                     type leafref {
                         path '/core-model:network-element/core-model:ltp/core-model:uuid';
                     }
+					status deprecated;
                     description "none";
                 }
                 description "Required for configuring XPIC, MIMO and ALIC.";
@@ -1460,10 +1687,17 @@ module microwave-model {
                     uses diversity-type-g;
                     description "Available types of diversity to be listed.";
                 }
+                leaf-list supported-alarm-list {
+                    type string;
+                    config false;
+                    min-elements 2;
+                    description "Available alarms to be listed. Mandatory:'airInterfaceDiversityConfigurationIsPartlyDown' (at least one air interface is down, but not all of them) and 'airInterfaceDiversityConfigurationIsDown' (all air interfaces are down). Further alarms might be added by the vendor.";
+                }
                 leaf supported-alarms {
                     type string;
                     default "Supported alarms not yet defined.";
                     config false;
+					status deprecated;
                     description "Available alarms to be listed. Mandatory:'airInterfaceDiversityConfigurationIsPartlyDown' (at least one air interface is down, but not all of them) and 'airInterfaceDiversityConfigurationIsDown' (all air interfaces are down). Further alarms might be added by the device. Names are to be separated by commas.";
                 }
                 description "Describes the capabilities in implementing different types of air interface diversity.";
@@ -1479,6 +1713,17 @@ module microwave-model {
                     }
                     min-elements 2;
                     description "_multiplicity:2-ThisAirInterfaceDiversity::AirInterfaceDiversityConfiguration::airInterfaceDiversity::diversityType::numberOfAirInterfacesMax";
+                }
+                leaf performance-monitoring-collection-is-on {
+                    type boolean;
+                    default false;
+                    description "Enables measurement, collection, storage and access to performance data.";
+                }
+                list threshold-cross-alarm-list {
+                    key 'g826-value-kind granularity-period';
+                    max-elements 6;
+                    uses threshold-cross-alarm-type-g;
+                    description "List of threshold cross alarms to be configured.";
                 }
                 list problem-kind-severity-list {
                     key 'problem-kind-name';
@@ -1589,15 +1834,26 @@ module microwave-model {
                     config false;
                     description "Identifies the Structure for bundling and container.";
                 }
+                leaf-list supported-alarm-list {
+                    type string;
+                    config false;
+                    description "Available alarms to be listed. Mandatory:non. Names are to be separated by commas. Further alarms might be added by the vendor.";
+                }
                 leaf supported-alarms {
                     type string;
                     default "Supported alarms not yet defined.";
                     config false;
+					status deprecated;
                     description "Available alarms to be listed. Mandatory:non. Names are to be separated by commas. Further alarms might be added by the device.";
                 }
                 description "Describes the logical structuring of the physical capacity provided by a pure Ethernet microwave device. Segmentation is not available. No fixed segment size. No TDM transport.";
             }
             grouping pure-ethernet-structure-configuration-g {
+                leaf performance-monitoring-collection-is-on {
+                    type boolean;
+                    default false;
+                    description "Enables measurement, collection, storage and access to performance data.";
+                }
                 list problem-kind-severity-list {
                     key 'problem-kind-name';
                     uses structure-problem-severity-type-g;
@@ -1708,23 +1964,39 @@ module microwave-model {
                     uses tdm-structure-type-g;
                     description "Lists the TDM frame types that are supported.";
                 }
+                leaf-list supported-alarm-list {
+                    type string;
+                    config false;
+                    description "Available alarms to be listed. Mandatory:non. Names are to be separated by commas. Further alarms might be added by the vendor.";
+                }
                 leaf supported-alarms {
                     type string;
                     default "Supported alarms not yet defined.";
                     config false;
+					status deprecated;
                     description "Available alarms to be listed. Mandatory:non. Names are to be separated by commas. Further alarms might be added by the device.";
                 }
                 description "Describes the logical structuring of the physical capacity provided by a hybrid microwave device (TDM + Ethernet). Segmentation is available. TDM transport is available.";
             }
             grouping hybrid-mw-structure-configuration-g {
+                container structure-kind {
+                    uses tdm-structure-type-g;
+                    description "TDM frame to be applied.";
+                }
                 container structure-type {
                     uses tdm-structure-type-g;
+					status deprecated;
                     description "TDM frame to be applied.";
                 }
                 leaf number-of-tdm-segments-to-be-reserved {
                     type int16;
                     default -1;
                     description "Allows to configure the number of segments reserved for TDM frames of the type specified in HybridMwStructure::HybridMwStructureConfiguration::structureType";
+                }
+                leaf performance-monitoring-collection-is-on {
+                    type boolean;
+                    default false;
+                    description "Enables measurement, collection, storage and access to performance data.";
                 }
                 list problem-kind-severity-list {
                     key 'problem-kind-name';
@@ -1884,10 +2156,17 @@ module microwave-model {
                     config false;
                     description "Shall be marked 'true', if Ethernet payload encryption is available.";
                 }
+                leaf-list supported-alarm-list {
+                    type string;
+                    config false;
+                    min-elements 2;
+                    description "Available alarms to be listed. Mandatory:'framingIsFaulty' and 'containerIsDown'. Further alarms might be added by the vendor.";
+                }
                 leaf supported-alarms {
                     type string;
                     default "Supported alarms not yet defined.";
                     config false;
+					status deprecated;
                     description "Available alarms to be listed. Mandatory:'framingIsFaulty' and 'containerIsDown'. Further alarms might be added by the device.";
                 }
                 description "none";
@@ -1953,6 +2232,11 @@ module microwave-model {
                     type string;
                     default "Cryptographic key not yet defined.";
                     description "Key for transforming plaintext into cipher text data.";
+                }
+                leaf performance-monitoring-collection-is-on {
+                    type boolean;
+                    default false;
+                    description "Enables measurement, collection, storage and access to performance data.";
                 }
                 list problem-kind-severity-list {
                     key 'problem-kind-name';
@@ -2042,7 +2326,7 @@ module microwave-model {
                     uses tdm-container-historical-performances-g;
                     description "none";
                 }
-                description "none";
+                description "The TdmContainer_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting TDM traffic.";
             }
             grouping tdm-container-capability-g {
                 list supported-tdm-container-types-list {
@@ -2052,10 +2336,17 @@ module microwave-model {
                     uses tdm-container-type-g;
                     description "Lists the TDM containers that are supported.";
                 }
+                leaf-list supported-alarm-list {
+                    type string;
+                    config false;
+                    min-elements 2;
+                    description "Available alarms to be listed. Mandatory:'framingIsFaulty' and 'containerIsDown'. Further alarms might be added by the vendor.";
+                }
                 leaf supported-alarms {
                     type string;
                     default "Supported alarms not yet defined.";
                     config false;
+					status deprecated;
                     description "Available alarms to be listed. Mandatory:'framingIsFaulty' and 'containerIsDown'. Further alarms might be added by the device.";
                 }
                 description "Bundling is not available.";
@@ -2073,6 +2364,11 @@ module microwave-model {
                 container segment-id {
                     uses segment-id-type-g;
                     description "Multiplicity = 1; One segment per TDM container; Type of segment must match type of container;";
+                }
+                leaf performance-monitoring-collection-is-on {
+                    type boolean;
+                    default false;
+                    description "Enables measurement, collection, storage and access to performance data.";
                 }
                 list problem-kind-severity-list {
                     key 'problem-kind-name';
