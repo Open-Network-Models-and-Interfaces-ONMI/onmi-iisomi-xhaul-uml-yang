@@ -64,7 +64,7 @@ Editors:  Thorsten Heinze
           <text>Resource temporarily chosen by control configuration where the resource is not the preferred resource.
 Preferred resource has highest priority.
 Temporarily overrides reversion.
-If this resource fails will switch to best available resource. 
+If this resource fails will switch to best available resource.
 If resource selected is shared and another FC requires the resource then the selection control will change to Normal and switch to best available based upon normal rules.
 If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
 Can be returned to NORMAL by configuration action.</text>
@@ -75,7 +75,7 @@ Can be returned to NORMAL by configuration action.</text>
           <text>Resource temporarily chosen by control configuration where the resource is not the preferred resource.
 Preferred resource has highest priority.
 Temporarily overrides reversion.
-If this resource fails will NOT switch. 
+If this resource fails will NOT switch.
 If resource selected is shared and another FC requires the resource through a FORCE on that FC and the FC is of a higher FcPriority then the selection control will change to NORMAL and switch to best available based upon normal rules.
 If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
 Can be returned to NORMAL by configuration action.</text>
@@ -121,7 +121,7 @@ Note: Only relevant when part of a protection scheme.</text>
           <text>Resource temporarily chosen by control configuration where the resource is not the preferred resource.
 Preferred resource has highest priority.
 Temporarily overrides reversion.
-If this resource fails will switch to best available resource. 
+If this resource fails will switch to best available resource.
 If resource selected is shared and another FC requires the resource then the selection control will change to Normal and switch to best available based upon normal rules.
 If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
 Can be returned to NORMAL by configuration action.</text>
@@ -132,7 +132,7 @@ Can be returned to NORMAL by configuration action.</text>
           <text>Resource temporarily chosen by control configuration where the resource is not the preferred resource.
 Preferred resource has highest priority.
 Temporarily overrides reversion.
-If this resource fails will NOT switch. 
+If this resource fails will NOT switch.
 If resource selected is shared and another FC requires the resource through a FORCE on that FC and the FC is of a higher FcPriority then the selection control will change to NORMAL and switch to best available based upon normal rules.
 If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
 Can be returned to NORMAL by configuration action.</text>
@@ -163,7 +163,7 @@ Note: Only relevant when part of a protection scheme.</text>
           <text>Resource temporarily chosen by control configuration where the resource is not the preferred resource.
 Preferred resource has highest priority.
 Temporarily overrides reversion.
-If this resource fails will switch to best available resource. 
+If this resource fails will switch to best available resource.
 If resource selected is shared and another FC requires the resource then the selection control will change to Normal and switch to best available based upon normal rules.
 If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
 Can be returned to NORMAL by configuration action.</text>
@@ -174,7 +174,7 @@ Can be returned to NORMAL by configuration action.</text>
           <text>Resource temporarily chosen by control configuration where the resource is not the preferred resource.
 Preferred resource has highest priority.
 Temporarily overrides reversion.
-If this resource fails will NOT switch. 
+If this resource fails will NOT switch.
 If resource selected is shared and another FC requires the resource through a FORCE on that FC and the FC is of a higher FcPriority then the selection control will change to NORMAL and switch to best available based upon normal rules.
 If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
 Can be returned to NORMAL by configuration action.</text>
@@ -212,7 +212,7 @@ Can be returned to NORMAL by configuration action.</text>
           <text>Resource temporarily chosen by control configuration where the resource is not the preferred resource.
 Preferred resource has highest priority.
 Temporarily overrides reversion.
-If this resource fails will switch to best available resource. 
+If this resource fails will switch to best available resource.
 If resource selected is shared and another FC requires the resource then the selection control will change to Normal and switch to best available based upon normal rules.
 If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
 Can be returned to NORMAL by configuration action.</text>
@@ -223,7 +223,7 @@ Can be returned to NORMAL by configuration action.</text>
           <text>Resource temporarily chosen by control configuration where the resource is not the preferred resource.
 Preferred resource has highest priority.
 Temporarily overrides reversion.
-If this resource fails will NOT switch. 
+If this resource fails will NOT switch.
 If resource selected is shared and another FC requires the resource through a FORCE on that FC and the FC is of a higher FcPriority then the selection control will change to NORMAL and switch to best available based upon normal rules.
 If the resource selected is then set to LOCK_OUT then the the selection control will change to NORMAL and switch to best available based upon normal rules.
 Can be returned to NORMAL by configuration action.</text>
@@ -344,10 +344,10 @@ Layer protocol names include:
       </enum>
       <enum name="sink">
         <description>
-          <text>The flow is up the layer stack from the server side to the client side. 
+          <text>The flow is up the layer stack from the server side to the client side.
 Considering an example of a Termination function within the termination entity, a SINK flow:
 - will arrive at at the base of the termination function (the server side) where it is essentially at an INPUT to the termination component
-- then will be decoded and deconstructed 
+- then will be decoded and deconstructed
 - then relevant parts of the flow will be sent out of the termination function (the client side) where it is essentially at an OUTPUT from the termination component
 A SINK termination is one that only supports a SINK flow.
 A SINK termiation can be bound to an OUTPUT Port of a Forwarding entity</text>
@@ -355,10 +355,10 @@ A SINK termiation can be bound to an OUTPUT Port of a Forwarding entity</text>
       </enum>
       <enum name="source">
         <description>
-          <text>The flow is down the layer stack from the server side to the client side. 
+          <text>The flow is down the layer stack from the server side to the client side.
 Considering an example of a Termination function within the termination entity, a SOURCE flow:
 - will arrive at at the top of the termination function (the client side) where it is essentially at an INPUT to the termination component
-- then will be assembled with various overheads etc and will be coded 
+- then will be assembled with various overheads etc and will be coded
 - then coded form of the assembly of flow will be sent out of the termination function (the server side) where it is essentially at an OUTPUT from the termination component
 A SOURCE termination is one that only supports a SOURCE flow.
 A SOURCE termiation can be bound to an INPUT Port of a Forwarding entity</text>
@@ -383,10 +383,10 @@ A SOURCE termiation can be bound to an INPUT Port of a Forwarding entity</text>
       </enum>
       <enum name="sink">
         <description>
-          <text>The flow is up the layer stack from the server side to the client side. 
+          <text>The flow is up the layer stack from the server side to the client side.
 Considering an example of a Termination function within the termination entity, a SINK flow:
 - will arrive at at the base of the termination function (the server side) where it is essentially at an INPUT to the termination component
-- then will be decoded and deconstructed 
+- then will be decoded and deconstructed
 - then relevant parts of the flow will be sent out of the termination function (the client side) where it is essentially at an OUTPUT from the termination component
 A SINK termination is one that only supports a SINK flow.
 A SINK termiation can be bound to an OUTPUT Port of a Forwarding entity</text>
@@ -394,10 +394,10 @@ A SINK termiation can be bound to an OUTPUT Port of a Forwarding entity</text>
       </enum>
       <enum name="source">
         <description>
-          <text>The flow is down the layer stack from the server side to the client side. 
+          <text>The flow is down the layer stack from the server side to the client side.
 Considering an example of a Termination function within the termination entity, a SOURCE flow:
 - will arrive at at the top of the termination function (the client side) where it is essentially at an INPUT to the termination component
-- then will be assembled with various overheads etc and will be coded 
+- then will be assembled with various overheads etc and will be coded
 - then coded form of the assembly of flow will be sent out of the termination function (the server side) where it is essentially at an OUTPUT from the termination component
 A SOURCE termination is one that only supports a SOURCE flow.
 A SOURCE termiation can be bound to an INPUT Port of a Forwarding entity</text>
@@ -508,7 +508,7 @@ Indicates to what degree the LayerTermination is terminated.</text>
     <leaf name="is-frozen">
       <type name="boolean"/>
       <description>
-        <text>Temporarily prevents any switch action to be taken and, as such, freezes the current state. 
+        <text>Temporarily prevents any switch action to be taken and, as such, freezes the current state.
 Until the freeze is cleared, additional near-end external commands are rejected and fault condition changes and received APS messages are ignored.
 All administrative controls of any aspect of protection are rejected.</text>
       </description>
@@ -524,7 +524,7 @@ All administrative controls of any aspect of protection are rejected.</text>
         <path value="/network-element/ltp/lp/config-and-switch-controller/switch-rule"/>
       </type>
       <description>
-        <text>A C&amp;SC that is fully or partially subordinate this C&amp;SC. 
+        <text>A C&amp;SC that is fully or partially subordinate this C&amp;SC.
 A peer is considered as partially subordinate in that the peer will respond to requests for action from this C&amp;SC but will also make requests for action to be carried out by this C&amp;SC.
 Where there is a peer relationship each controller in the peering will see the other controller as subordinate.</text>
       </description>
@@ -645,10 +645,10 @@ Depending on the switch spec (via Fcspec)
     </leaf>
     <uses name="local-class-g"/>
     <description>
-      <text>The FcSwitch class models the switched forwarding of traffic (traffic flow) between FcPorts and is present where there is protection functionality in the FC. 
+      <text>The FcSwitch class models the switched forwarding of traffic (traffic flow) between FcPorts and is present where there is protection functionality in the FC.
 If an FC exposes protection (having two or more FcPorts that provide alternative identical inputs/outputs), the FC will have one or more associated FcSwitch objects to represent the alternative flow choices visible at the edge of the FC.
-The FC switch represents and defines a protection switch structure encapsulated in the FC. 
-Essentially performs one of the functions of the Protection Group in a traditional model. It associates to 2 or more FcPorts each playing the role of a Protection Unit. 
+The FC switch represents and defines a protection switch structure encapsulated in the FC.
+Essentially performs one of the functions of the Protection Group in a traditional model. It associates to 2 or more FcPorts each playing the role of a Protection Unit.
 One or more protection, i.e. standby/backup, FcPorts provide protection for one or more working (i.e. regular/main/preferred) FcPorts where either protection or working can feed one or more protected FcPort.
 The switch may be used in revertive or non-revertive (symmetric) mode. When in revertive mode it may define a waitToRestore time.
 It may be used in one of several modes including source switch, destination switched, source and destination switched etc (covering cases such as 1+1 and 1:1).
@@ -674,7 +674,7 @@ This ability allows multiple alternate routes to be present that otherwise would
       <description>
         <text>The FD class supports a recursive aggregation relationship (HigherLevelFdEncompassesLowerLevelFds) such that the internal construction of an FD can be exposed as multiple lower level FDs and associated Links (partitioning).
 The aggregated FDs and Links form an interconnected topology that provides and describes the capability of the aggregating FD.
-Note that the model actually represents aggregation of lower level FDs into higher level FDs as views rather than FD partition, and supports multiple views. 
+Note that the model actually represents aggregation of lower level FDs into higher level FDs as views rather than FD partition, and supports multiple views.
 Aggregation allow reallocation of capacity from lower level FDs to different higher level FDs as if the network is reorganized  (as the association is aggregation not composition).</text>
       </description>
     </leaf-list>
@@ -691,7 +691,7 @@ Aggregation allow reallocation of capacity from lower level FDs to different hig
         <path value="/network-element/ltp/uuid"/>
       </type>
       <description>
-        <text>An instance of FD is associated with zero or more LTP objects. 
+        <text>An instance of FD is associated with zero or more LTP objects.
 The LTPs that bound the FD provide capacity for forwarding.</text>
       </description>
     </leaf-list>
@@ -705,9 +705,9 @@ See also _lowerLevelFd.</text>
     <uses name="global-class-g"/>
     <description>
       <text>The ForwardingDomain (FD) class models the topological component that represents the opportunity to enable forwarding (of specific transport characteristic information at one or more protocol layers) between points represented by the LTP in the model.
-The FD object provides the context for and constrains the formation, adjustment and removal of FCs and hence offers the potential to enable forwarding. 
+The FD object provides the context for and constrains the formation, adjustment and removal of FCs and hence offers the potential to enable forwarding.
 The LTPs available are those defined at the boundary of the FD.
-At a lower level of recursion an FD could represent a fabric (switch matrix) in a Network Element (NE). 
+At a lower level of recursion an FD could represent a fabric (switch matrix) in a Network Element (NE).
 An NE can encompass more than one switch matrix and hence more than one FD. The FD representing a switch matrix can be further partitioned.
 The FD corresponds to a subnetwork [ITU-T G.800], FlowDomain [TMF 612] and a MultiLayerSubNetwork (MLSN) [TMF 612]. As in the TMF concept of MLSN and unlike the ITU-T concet of subnetwork model the FD can support more than one layer-protocol.</text>
     </description>
@@ -725,8 +725,8 @@ The FD corresponds to a subnetwork [ITU-T G.800], FlowDomain [TMF 612] and a Mul
       </type>
       <description>
         <text>An FC object supports a recursive aggregation relationship such that the internal construction of an FC can be exposed as multiple lower level FC objects (partitioning).
-Aggregation is used as for the FD to allow changes in hierarchy. 
-FC aggregation reflects FD aggregation. 
+Aggregation is used as for the FD to allow changes in hierarchy.
+FC aggregation reflects FD aggregation.
 The FC represents a Cross-Connection in an NE. The Cross-Connection in an NE is not necessarily the lowest level of FC partitioning.
 </text>
       </description>
@@ -756,8 +756,8 @@ The arrangement of switches for a particular instance is described by a referenc
     <leaf name="forwarding-direction">
       <type name="forwarding-direction"/>
       <description>
-        <text>The directionality of the ForwardingConstruct. 
-Is applicable to simple ForwardingConstructs where all FcPorts are BIDIRECTIONAL (the ForwardingConstruct will be BIDIRECTIONAL) or UNIDIRECTIONAL (the ForwardingConstruct will be UNIDIRECTIONAL). 
+        <text>The directionality of the ForwardingConstruct.
+Is applicable to simple ForwardingConstructs where all FcPorts are BIDIRECTIONAL (the ForwardingConstruct will be BIDIRECTIONAL) or UNIDIRECTIONAL (the ForwardingConstruct will be UNIDIRECTIONAL).
 Is not present in more complex cases.</text>
       </description>
     </leaf>
@@ -775,9 +775,9 @@ Note: Only relevant when part of a protection scheme.</text>
       <type name="int64"/>
       <description>
         <text>Relevant where 'service' FCs are competing for server resources.
-Used to determine which signal FC is allocated resource. 
-The priority of the 'service' with respect to other 'services'. 
-Lower numeric value means higher priority. 
+Used to determine which signal FC is allocated resource.
+The priority of the 'service' with respect to other 'services'.
+Lower numeric value means higher priority.
 Covers cases such as preemptable.</text>
       </description>
     </leaf>
@@ -805,7 +805,7 @@ The FC object can be used to represent many different structures including point
       <uses name="forwarding-domain-g"/>
       <description>
         <text>Represents the FD that is completely within the boundary of the NE.
-At a low level of recursion, an FD (within a network element (NE)) represents a switch matrix (i.e., a fabric). 
+At a low level of recursion, an FD (within a network element (NE)) represents a switch matrix (i.e., a fabric).
 Note that an NE can encompass multiple switch matrices (FDs) and the FD representing the switch matrix can be further partitioned.
 Where an FD is referenced by the NeEncompassesFd association, any FDs that it encompasses (i.e., that are associated with it by HigherLevelFdEncompassesLowerLevelFds), must also be encompassed by the NE and hence must have the NeEncompassesFd association.
 </text>
@@ -816,7 +816,7 @@ Where an FD is referenced by the NeEncompassesFd association, any FDs that it en
       <uses name="logical-termination-point-g"/>
       <description>
         <text>An NE has associated LTPs that are at its boundary.
-The NeEncompassesFd association occurs for FDs that are within the bounds of the NetworkElement definition such that the FD is bounded by LTPs, all of which are on the boundary of the NetworkElement or are within the NetworkElement. 
+The NeEncompassesFd association occurs for FDs that are within the bounds of the NetworkElement definition such that the FD is bounded by LTPs, all of which are on the boundary of the NetworkElement or are within the NetworkElement.
 An LTP can be independent of an NE.</text>
       </description>
     </list>
@@ -825,9 +825,9 @@ An LTP can be independent of an NE.</text>
       <text>The Network Element (NE) class represents a network element (traditional NE) in the data plane.
 A data plane network element is essentially a consolidation of capabilities that can be viewed and controlled through a 'single' management-control port.
 In the direct interface from an SDN controller to a network element in the data plane, the NetworkElement object defines the scope of control for the resources within the network element
-For example internal transfer of user information between the external terminations (ports of the NE), encapsulation, multiplexing/demultiplexing, and OAM functions, etc. 
+For example internal transfer of user information between the external terminations (ports of the NE), encapsulation, multiplexing/demultiplexing, and OAM functions, etc.
 The NetworkElement provides the scope of the naming space for identifying objects representing the resources within the data plane network element.
-NE is really a product bundling or some view of management scope, management access, session. 
+NE is really a product bundling or some view of management scope, management access, session.
 The NE is not directly part of topology but brings meaning to the FD context and the LTP context (and hence the links). </text>
     </description>
   </container>
@@ -879,7 +879,7 @@ Note: Only relevant when part of a protection scheme.</text>
     <leaf name="selection-priority">
       <type name="int64"/>
       <description>
-        <text>The preference priority of the resource in the protection scheme for a particular FC. 
+        <text>The preference priority of the resource in the protection scheme for a particular FC.
 The lower the value the higher the priority.
 A lower value of selection priority is preferred
 If two resources have the same value they are of equal priory.
@@ -888,7 +888,7 @@ If a resource with the lowest value selection priority fails then the next lowes
 Hence on failure of the current resource the next best available will be selected.
 If there are several equal values the choice is essentially arbitrary).
 If the scheme is revertive then when a resource of higher priority than the currently selected resource recovers it will be selected.
-This is equivalent to working/protection but allows for all static scheme types with n:m capability. 
+This is equivalent to working/protection but allows for all static scheme types with n:m capability.
 In simple schemes 0 = working and 1 = protecting.</text>
       </description>
     </leaf>
@@ -909,11 +909,11 @@ This form of FcPort is used to enable chaining of FcSwitches or FcRoutes in comp
     <uses name="local-class-g"/>
     <description>
       <text>The association of the FC to LTPs is made via FcPorts.
-The FcPort class models the access to the FC function. 
-The traffic forwarding between the associated FcPorts of the FC depends upon the type of FC and may be associated with FcSwitch object instances.  
-In cases where there is resilience, the FcPort may convey the resilience role of the access to the FC. 
+The FcPort class models the access to the FC function.
+The traffic forwarding between the associated FcPorts of the FC depends upon the type of FC and may be associated with FcSwitch object instances.
+In cases where there is resilience, the FcPort may convey the resilience role of the access to the FC.
 It can represent a protected (resilient/reliable) point or a protecting (unreliable working or protection) point.
-The FcPort replaces the Protection Unit of a traditional protection model. 
+The FcPort replaces the Protection Unit of a traditional protection model.
 The ForwardingConstruct can be considered as a component and the FcPort as a Port on that component.</text>
     </description>
   </grouping>
@@ -934,7 +934,7 @@ Note the client LTP association should provide all necessary detail hence this a
     <leaf name="lp-direction">
       <type name="termination-direction"/>
       <description>
-        <text>The overall directionality of the LP. 
+        <text>The overall directionality of the LP.
 - A BIDIRECTIONAL LP will have some SINK and/or SOURCE flows.
 - A SINK LP can only contain elements with SINK flows or CONTRA_DIRECTION_SOURCE flows
 - A SOURCE LP can only contain SOURCE flows or CONTRA_DIRECTION_SINK flows</text>
@@ -1029,14 +1029,14 @@ In many cases there is no associated physical port.</text>
         <path value="/network-element/ltp/uuid"/>
       </type>
       <description>
-        <text>References one or more LTPs in other views that represent this LTP. 
+        <text>References one or more LTPs in other views that represent this LTP.
 The referencing LTP is the provider of capability.</text>
       </description>
     </leaf-list>
     <leaf name="ltp-direction">
       <type name="termination-direction"/>
       <description>
-        <text>The overall directionality of the LTP. 
+        <text>The overall directionality of the LTP.
 - A BIDIRECTIONAL LTP must have at least some LPs that are BIDIRECTIONAL but may also have some SINK and/or SOURCE LPs.
 - A SINK LTP can only contain SINK LPs
 - A SOURCE LTP can only contain SOURCE LPs</text>
@@ -1105,7 +1105,7 @@ The semantic of each bit position will be defined in the Documentation field of 
   <typedef name="to-be-defined">
     <type name="string"/>
     <description>
-      <text>This type is used when the actual type of the attrbute is expected to be complex but where the type has not yet been developed. 
+      <text>This type is used when the actual type of the attrbute is expected to be complex but where the type has not yet been developed.
 This type should only be used for attributes that are experimental.</text>
     </description>
   </typedef>
@@ -1421,19 +1421,19 @@ The entity may already be UNLOCKED.</text>
       </enum>
       <enum name="lock-passive">
         <description>
-          <text>The intention is for the entity to become locked but no effort is expected to move to the Locked state (the state will be achieved once all users stop using the resource). 
+          <text>The intention is for the entity to become locked but no effort is expected to move to the Locked state (the state will be achieved once all users stop using the resource).
 The entity may be LOCKED.</text>
         </description>
       </enum>
       <enum name="lock-active">
         <description>
-          <text>The intention is for the entity to become locked and it is expected that effort will be made to move to the Locked state (users will be actively removed). 
+          <text>The intention is for the entity to become locked and it is expected that effort will be made to move to the Locked state (users will be actively removed).
 The entity may already be LOCKED.</text>
         </description>
       </enum>
       <enum name="lock-immediate">
         <description>
-          <text>The intention is for the entity to become locked and it is expected to move to the Locked state immediately (users will be force removed). 
+          <text>The intention is for the entity to become locked and it is expected to move to the Locked state immediately (users will be force removed).
 The entity may already be LOCKED.</text>
         </description>
       </enum>
@@ -2115,8 +2115,8 @@ The possible values of the current target administrative state.</text>
     <uses name="global-class-g"/>
     <description>
       <text>Basic model representing a cable with connectors fitted where the cable is 'short' (e.g.  patch cord, in-station cabling).
-This is intentionally a very basic representation of a cable. 
-In a more sophisticated representation cable ends might be represented that then associate to the attached connector. 
+This is intentionally a very basic representation of a cable.
+In a more sophisticated representation cable ends might be represented that then associate to the attached connector.
 At this point it is assumed that the basic model is sufficient.</text>
     </description>
   </grouping>
@@ -2264,7 +2264,7 @@ At this point it is assumed that the basic model is sufficient.</text>
       <default value="true"/>
       <config value="false"/>
       <description>
-        <text>Indicates whether or not the equipment can be removed and replaced 'in the field' (i.e. in a deployment) by normal operations personnel. 
+        <text>Indicates whether or not the equipment can be removed and replaced 'in the field' (i.e. in a deployment) by normal operations personnel.
 </text>
       </description>
     </leaf>
@@ -2294,7 +2294,7 @@ At this point it is assumed that the basic model is sufficient.</text>
     </container>
     <uses name="global-class-g"/>
     <description>
-      <text>Represents any relevant physical thing. 
+      <text>Represents any relevant physical thing.
 Can be either field replaceable or not field replaceable.
 Note: The model is currently constrained to inside plant.</text>
     </description>
@@ -2320,8 +2320,8 @@ Note: The model is currently constrained to inside plant.</text>
         <path value="/equipment/uuid"/>
       </type>
       <description>
-        <text>The FRU that is occupying the holder. 
-A holder may be unoccupied. 
+        <text>The FRU that is occupying the holder.
+A holder may be unoccupied.
 An FRU may occupy more hat one holder (using or blocking are intentionally not distinguished here).</text>
       </description>
     </leaf>
@@ -2405,7 +2405,7 @@ The connecting element may be a surface rather than protrusions or indentations.
       </enum>
     </type>
     <description>
-      <text>Most connector schems are asymmetric such that there are two orientations of the connector where a mating is only possible between two connectors of different orientations. 
+      <text>Most connector schems are asymmetric such that there are two orientations of the connector where a mating is only possible between two connectors of different orientations.
 A multi-pin connector may have a mix of pin orientations. In this case it is expected that the dominant orientation of pin is chosen for the connector orientation.</text>
     </description>
   </typedef>
@@ -2413,7 +2413,7 @@ A multi-pin connector may have a mix of pin orientations. In this case it is exp
     <type name="enumeration">
       <enum name="subrack">
         <description>
-          <text>An assembly with holders designed to accommodate CIRCUIT_PACKs. 
+          <text>An assembly with holders designed to accommodate CIRCUIT_PACKs.
 The assembly is designed to be mounted in a RACK.</text>
         </description>
       </enum>
@@ -2480,7 +2480,7 @@ It will expose all dynamic properties and some critical static properties.</text
   <grouping name="expected-equipment-g">
     <description>
       <text>A definition of the restrictions on the equipment that is expected to be present in the physical network at a particular 'place'.
-The expected equipment will state the type and may constrain any other invariant properties. 
+The expected equipment will state the type and may constrain any other invariant properties.
 It may also provide desired ranges for dynami properties.</text>
     </description>
   </grouping>
@@ -2501,7 +2501,7 @@ It may also provide desired ranges for dynami properties.</text>
     </leaf>
     <description>
       <text>An individual physical connection point (male or female).
-May be capable of carrying electrical or optical signals. 
+May be capable of carrying electrical or optical signals.
 A pin may have more than one wire/fiber attached but is such that all attached things get exactly the same signal set.</text>
     </description>
   </grouping>

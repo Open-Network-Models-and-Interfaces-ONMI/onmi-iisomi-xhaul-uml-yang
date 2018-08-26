@@ -1,0 +1,571 @@
+module: core-model
+  +--rw network-element!
+  |  +--rw fd* [uuid]
+  |  |  +--rw layer-protocol-name*      layer-protocol-name
+  |  |  +--rw lower-level-fd*           -> /network-element/fd/uuid
+  |  |  +--rw fc*                       -> /forwarding-construct/uuid
+  |  |  +--rw ltp*                      -> /network-element/ltp/uuid
+  |  |  +--rw lower-level-link*         string
+  |  |  +--rw local-id* [value-name]
+  |  |  |  +--rw value-name    string
+  |  |  |  +--rw value?        string
+  |  |  +--rw uuid                      universal-id
+  |  |  +--rw name* [value-name]
+  |  |  |  +--rw value-name    string
+  |  |  |  +--rw value?        string
+  |  |  +--rw label* [value-name]
+  |  |  |  +--rw value-name    string
+  |  |  |  +--rw value?        string
+  |  |  +--rw extension* [value-name]
+  |  |  |  +--rw value-name    string
+  |  |  |  +--rw value?        string
+  |  |  +--ro operational-state?        operational-state
+  |  |  +--rw administrative-control?   administrative-control
+  |  |  +--ro administrative-state?     administrative-state
+  |  |  +--rw lifecycle-state?          lifecycle-state
+  |  +--rw ltp* [uuid]
+  |  |  +--rw server-ltp*                -> /network-element/ltp/uuid
+  |  |  +--rw client-ltp*                -> /network-element/ltp/uuid
+  |  |  +--rw lp* [uuid]
+  |  |  |  +--rw layer-protocol-name?            layer-protocol-name
+  |  |  |  +--rw configured-client-capacity?     to-be-defined
+  |  |  |  +--rw lp-direction?                   termination-direction
+  |  |  |  +--rw termination-state?              termination-state
+  |  |  |  +--rw config-and-switch-controller* [switch-rule]
+  |  |  |  |  +--rw switch-rule                           to-be-defined
+  |  |  |  |  +--rw fc-switch*                            -> /forwarding-construct/fc-switch/uuid
+  |  |  |  |  +--rw control-parameters
+  |  |  |  |  |  +--rw reversion-mode?                 reversion-mode
+  |  |  |  |  |  +--rw wait-to-revert-time?            int64
+  |  |  |  |  |  +--rw prot-type?                      protection-type
+  |  |  |  |  |  +--rw hold-off-time?                  int64
+  |  |  |  |  |  +--rw network-scheme-specification?   string
+  |  |  |  |  +--rw profile-proxy*                        string
+  |  |  |  |  +--rw local-pac
+  |  |  |  |  |  +--rw local-id* [value-name]
+  |  |  |  |  |  |  +--rw value-name    string
+  |  |  |  |  |  |  +--rw value?        string
+  |  |  |  |  |  +--rw uuid?                     universal-id
+  |  |  |  |  |  +--rw name* [value-name]
+  |  |  |  |  |  |  +--rw value-name    string
+  |  |  |  |  |  |  +--rw value?        string
+  |  |  |  |  |  +--rw label* [value-name]
+  |  |  |  |  |  |  +--rw value-name    string
+  |  |  |  |  |  |  +--rw value?        string
+  |  |  |  |  |  +--rw extension* [value-name]
+  |  |  |  |  |  |  +--rw value-name    string
+  |  |  |  |  |  |  +--rw value?        string
+  |  |  |  |  |  +--ro operational-state?        operational-state
+  |  |  |  |  |  +--rw administrative-control?   administrative-control
+  |  |  |  |  |  +--ro administrative-state?     administrative-state
+  |  |  |  |  |  +--rw lifecycle-state?          lifecycle-state
+  |  |  |  |  +--rw global-pac
+  |  |  |  |  |  +--rw local-id* [value-name]
+  |  |  |  |  |  |  +--rw value-name    string
+  |  |  |  |  |  |  +--rw value?        string
+  |  |  |  |  |  +--rw uuid?                     universal-id
+  |  |  |  |  |  +--rw name* [value-name]
+  |  |  |  |  |  |  +--rw value-name    string
+  |  |  |  |  |  |  +--rw value?        string
+  |  |  |  |  |  +--rw label* [value-name]
+  |  |  |  |  |  |  +--rw value-name    string
+  |  |  |  |  |  |  +--rw value?        string
+  |  |  |  |  |  +--rw extension* [value-name]
+  |  |  |  |  |  |  +--rw value-name    string
+  |  |  |  |  |  |  +--rw value?        string
+  |  |  |  |  |  +--ro operational-state?        operational-state
+  |  |  |  |  |  +--rw administrative-control?   administrative-control
+  |  |  |  |  |  +--ro administrative-state?     administrative-state
+  |  |  |  |  |  +--rw lifecycle-state?          lifecycle-state
+  |  |  |  |  +--rw is-frozen?                            boolean
+  |  |  |  |  +--rw is-coordinated-switching-both-ends?   boolean
+  |  |  |  |  +--rw subordinate-controller*               -> /network-element/ltp/lp/config-and-switch-controller/switch-rule
+  |  |  |  +--rw is-protection-lock-out?         boolean {protection-exclude-ltp}?
+  |  |  |  +--rw fc-blocks-signal-to-lp?         string
+  |  |  |  +--rw local-id* [value-name]
+  |  |  |  |  +--rw value-name    string
+  |  |  |  |  +--rw value?        string
+  |  |  |  +--rw uuid                            universal-id
+  |  |  |  +--rw name* [value-name]
+  |  |  |  |  +--rw value-name    string
+  |  |  |  |  +--rw value?        string
+  |  |  |  +--rw label* [value-name]
+  |  |  |  |  +--rw value-name    string
+  |  |  |  |  +--rw value?        string
+  |  |  |  +--rw extension* [value-name]
+  |  |  |  |  +--rw value-name    string
+  |  |  |  |  +--rw value?        string
+  |  |  |  +--ro operational-state?              operational-state
+  |  |  |  +--rw administrative-control?         administrative-control
+  |  |  |  +--ro administrative-state?           administrative-state
+  |  |  |  +--rw lifecycle-state?                lifecycle-state
+  |  |  +--rw connected-ltp?             -> /network-element/ltp/uuid
+  |  |  +--rw peer-ltp?                  -> /network-element/ltp/uuid
+  |  |  +--rw physical-port-reference*   string
+  |  |  +--rw ltp-in-other-view*         -> /network-element/ltp/uuid
+  |  |  +--rw ltp-direction?             termination-direction
+  |  |  +--rw local-id* [value-name]
+  |  |  |  +--rw value-name    string
+  |  |  |  +--rw value?        string
+  |  |  +--rw uuid                       universal-id
+  |  |  +--rw name* [value-name]
+  |  |  |  +--rw value-name    string
+  |  |  |  +--rw value?        string
+  |  |  +--rw label* [value-name]
+  |  |  |  +--rw value-name    string
+  |  |  |  +--rw value?        string
+  |  |  +--rw extension* [value-name]
+  |  |  |  +--rw value-name    string
+  |  |  |  +--rw value?        string
+  |  |  +--ro operational-state?         operational-state
+  |  |  +--rw administrative-control?    administrative-control
+  |  |  +--ro administrative-state?      administrative-state
+  |  |  +--rw lifecycle-state?           lifecycle-state
+  |  +--rw local-id* [value-name]
+  |  |  +--rw value-name    string
+  |  |  +--rw value?        string
+  |  +--rw uuid?                     universal-id
+  |  +--rw name* [value-name]
+  |  |  +--rw value-name    string
+  |  |  +--rw value?        string
+  |  +--rw label* [value-name]
+  |  |  +--rw value-name    string
+  |  |  +--rw value?        string
+  |  +--rw extension* [value-name]
+  |  |  +--rw value-name    string
+  |  |  +--rw value?        string
+  |  +--ro operational-state?        operational-state
+  |  +--rw administrative-control?   administrative-control
+  |  +--ro administrative-state?     administrative-state
+  |  +--rw lifecycle-state?          lifecycle-state
+  +--rw forwarding-construct* [uuid]
+  |  +--rw layer-protocol-name?      layer-protocol-name
+  |  +--rw lower-level-fc*           -> /forwarding-construct/uuid
+  |  +--rw fc-route*                 string
+  |  +--rw fc-port* [uuid]
+  |  |  +--rw ltp*                             -> /network-element/ltp/uuid
+  |  |  +--rw role?                            port-role
+  |  |  +--rw fc-port-direction?               port-direction
+  |  |  +--rw is-protection-lock-out?          boolean {protection-exclude-fc-port}?
+  |  |  +--rw selection-priority?              int64
+  |  |  +--ro is-internal-port?                boolean
+  |  |  +--rw fc-route-feeds-fc-port-egress*   string
+  |  |  +--rw local-id* [value-name]
+  |  |  |  +--rw value-name    string
+  |  |  |  +--rw value?        string
+  |  |  +--rw uuid                             universal-id
+  |  |  +--rw name* [value-name]
+  |  |  |  +--rw value-name    string
+  |  |  |  +--rw value?        string
+  |  |  +--rw label* [value-name]
+  |  |  |  +--rw value-name    string
+  |  |  |  +--rw value?        string
+  |  |  +--rw extension* [value-name]
+  |  |  |  +--rw value-name    string
+  |  |  |  +--rw value?        string
+  |  |  +--ro operational-state?               operational-state
+  |  |  +--rw administrative-control?          administrative-control
+  |  |  +--ro administrative-state?            administrative-state
+  |  |  +--rw lifecycle-state?                 lifecycle-state
+  |  +--rw fc-switch* [uuid]
+  |  |  +--rw hold-off-time?                               int64
+  |  |  +--rw prot-type?                                   protection-type
+  |  |  +--rw reversion-mode?                              reversion-mode
+  |  |  +--rw selected-fc-port*                            -> /forwarding-construct/fc-port/uuid
+  |  |  +--rw profile-proxy*                               string
+  |  |  +--rw internal-configuration-and-switch-control
+  |  |  |  +--rw switch-rule?                          to-be-defined
+  |  |  |  +--rw fc-switch*                            -> /forwarding-construct/fc-switch/uuid
+  |  |  |  +--rw control-parameters
+  |  |  |  |  +--rw reversion-mode?                 reversion-mode
+  |  |  |  |  +--rw wait-to-revert-time?            int64
+  |  |  |  |  +--rw prot-type?                      protection-type
+  |  |  |  |  +--rw hold-off-time?                  int64
+  |  |  |  |  +--rw network-scheme-specification?   string
+  |  |  |  +--rw profile-proxy*                        string
+  |  |  |  +--rw local-pac
+  |  |  |  |  +--rw local-id* [value-name]
+  |  |  |  |  |  +--rw value-name    string
+  |  |  |  |  |  +--rw value?        string
+  |  |  |  |  +--rw uuid?                     universal-id
+  |  |  |  |  +--rw name* [value-name]
+  |  |  |  |  |  +--rw value-name    string
+  |  |  |  |  |  +--rw value?        string
+  |  |  |  |  +--rw label* [value-name]
+  |  |  |  |  |  +--rw value-name    string
+  |  |  |  |  |  +--rw value?        string
+  |  |  |  |  +--rw extension* [value-name]
+  |  |  |  |  |  +--rw value-name    string
+  |  |  |  |  |  +--rw value?        string
+  |  |  |  |  +--ro operational-state?        operational-state
+  |  |  |  |  +--rw administrative-control?   administrative-control
+  |  |  |  |  +--ro administrative-state?     administrative-state
+  |  |  |  |  +--rw lifecycle-state?          lifecycle-state
+  |  |  |  +--rw global-pac
+  |  |  |  |  +--rw local-id* [value-name]
+  |  |  |  |  |  +--rw value-name    string
+  |  |  |  |  |  +--rw value?        string
+  |  |  |  |  +--rw uuid?                     universal-id
+  |  |  |  |  +--rw name* [value-name]
+  |  |  |  |  |  +--rw value-name    string
+  |  |  |  |  |  +--rw value?        string
+  |  |  |  |  +--rw label* [value-name]
+  |  |  |  |  |  +--rw value-name    string
+  |  |  |  |  |  +--rw value?        string
+  |  |  |  |  +--rw extension* [value-name]
+  |  |  |  |  |  +--rw value-name    string
+  |  |  |  |  |  +--rw value?        string
+  |  |  |  |  +--ro operational-state?        operational-state
+  |  |  |  |  +--rw administrative-control?   administrative-control
+  |  |  |  |  +--ro administrative-state?     administrative-state
+  |  |  |  |  +--rw lifecycle-state?          lifecycle-state
+  |  |  |  +--rw is-frozen?                            boolean
+  |  |  |  +--rw is-coordinated-switching-both-ends?   boolean
+  |  |  |  +--rw subordinate-controller*               -> /network-element/ltp/lp/config-and-switch-controller/switch-rule
+  |  |  +--rw switch-control?                              switch-control
+  |  |  +--rw switch-selects-ports?                        port-direction
+  |  |  +--ro switch-selection-reason?                     switch-state-reason
+  |  |  +--rw control-parameters
+  |  |  |  +--rw reversion-mode?                 reversion-mode
+  |  |  |  +--rw wait-to-revert-time?            int64
+  |  |  |  +--rw prot-type?                      protection-type
+  |  |  |  +--rw hold-off-time?                  int64
+  |  |  |  +--rw network-scheme-specification?   string
+  |  |  +--rw wait-to-restore-time?                        int64
+  |  |  +--rw local-id* [value-name]
+  |  |  |  +--rw value-name    string
+  |  |  |  +--rw value?        string
+  |  |  +--rw uuid                                         universal-id
+  |  |  +--rw name* [value-name]
+  |  |  |  +--rw value-name    string
+  |  |  |  +--rw value?        string
+  |  |  +--rw label* [value-name]
+  |  |  |  +--rw value-name    string
+  |  |  |  +--rw value?        string
+  |  |  +--rw extension* [value-name]
+  |  |  |  +--rw value-name    string
+  |  |  |  +--rw value?        string
+  |  |  +--ro operational-state?                           operational-state
+  |  |  +--rw administrative-control?                      administrative-control
+  |  |  +--ro administrative-state?                        administrative-state
+  |  |  +--rw lifecycle-state?                             lifecycle-state
+  |  +--rw forwarding-direction?     forwarding-direction
+  |  +--rw is-protection-lock-out?   boolean {protection-exclude-server}?
+  |  +--rw service-priority?         int64
+  |  +--rw supported-link*           string
+  |  +--rw local-id* [value-name]
+  |  |  +--rw value-name    string
+  |  |  +--rw value?        string
+  |  +--rw uuid                      universal-id
+  |  +--rw name* [value-name]
+  |  |  +--rw value-name    string
+  |  |  +--rw value?        string
+  |  +--rw label* [value-name]
+  |  |  +--rw value-name    string
+  |  |  +--rw value?        string
+  |  +--rw extension* [value-name]
+  |  |  +--rw value-name    string
+  |  |  +--rw value?        string
+  |  +--ro operational-state?        operational-state
+  |  +--rw administrative-control?   administrative-control
+  |  +--ro administrative-state?     administrative-state
+  |  +--rw lifecycle-state?          lifecycle-state
+  +--rw operation-envelope!
+  |  +--rw operation-set* [effort-and-action]
+  |  |  +--rw after-operation-set*    -> /operation-envelope/operation-set/effort-and-action
+  |  |  +--rw before-operation-set*   -> /operation-envelope/operation-set/effort-and-action
+  |  |  +--rw effort-and-action       action-effort
+  |  |  +--rw pause-resume-rule?      pause-resume-rule
+  |  |  +--rw operationset*           -> /operation-envelope/operation-set/effort-and-action
+  |  |  +--rw is-short-lived?         boolean
+  |  |  +--rw operation-details* [action-verb]
+  |  |     +--rw action-verb                               action-verbs
+  |  |     +--rw necessary-initialcondition-constraints* [is-not]
+  |  |        +--rw is-not    boolean
+  |  +--rw generaldirectives
+  |  +--rw operationidentifiers
+  +--rw equipment* [uuid]
+     +--rw connector* [uuid]
+     |  +--rw connector?                string
+     |  +--rw pin* [position]
+     |  |  +--rw position       -> /equipment/exposed-cable/connector/position/relative-position
+     |  |  +--rw orientation?   connector-and-pin-orientation
+     |  +--rw orientation?              connector-and-pin-orientation
+     |  +--rw manufactured-thing
+     |  |  +--rw manufacturer-properties
+     |  |  |  +--rw manufacturer-identifier?   string
+     |  |  |  +--rw manufacturer-name?         string
+     |  |  +--rw equipment-type
+     |  |  |  +--rw description?            string
+     |  |  |  +--rw model-identifier?       string
+     |  |  |  +--rw part-type-identifier?   string
+     |  |  |  +--rw type-name?              string
+     |  |  |  +--rw version?                string
+     |  |  +--rw equipment-instance
+     |  |  |  +--rw manufacture-date?            string
+     |  |  |  +--rw serial-number?               string
+     |  |  |  +--rw asset-instance-identifier?   string
+     |  |  +--rw operator-augmented-equipment-type
+     |  |     +--rw asset-type-identifier?   string
+     |  +--rw position
+     |  |  +--rw relative-position?   to-be-defined
+     |  +--rw mechanical-features
+     |  +--rw pin-layout
+     |  |  +--rw position* [relative-position]
+     |  |     +--rw relative-position    to-be-defined
+     |  +--rw connector-type?           to-be-defined
+     |  +--rw local-id* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--rw uuid                      universal-id
+     |  +--rw name* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--rw label* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--rw extension* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--ro operational-state?        operational-state
+     |  +--rw administrative-control?   administrative-control
+     |  +--ro administrative-state?     administrative-state
+     |  +--rw lifecycle-state?          lifecycle-state
+     +--rw contained-holder* [uuid]
+     |  +--rw connector*                    -> /equipment/exposed-cable/connector/uuid
+     |  +--rw occupying-fru?                -> /equipment/uuid
+     |  +--rw spatial-properties-of-type
+     |  |  +--rw height?   to-be-defined
+     |  |  +--rw width?    to-be-defined
+     |  |  +--rw length?   to-be-defined
+     |  +--rw holder-monitors
+     |  |  +--rw is-active?                          boolean
+     |  |  +--rw is-actual-mismatch-with-expected?   boolean
+     |  |  +--rw aggregate-function?                 string
+     |  +--rw holder-location
+     |  |  +--rw address-name?      string
+     |  |  +--rw address-element* [uuid]
+     |  |     +--rw address-element-name?   string
+     |  |     +--rw local-id
+     |  |     |  +--rw class-of-instance?   string
+     |  |     |  +--rw local-id
+     |  |     |     +--rw value-name?   string
+     |  |     |     +--rw value?        string
+     |  |     +--rw uuid                    universal-id
+     |  |     +--rw name
+     |  |     |  +--rw class-of-instance?   string
+     |  |     |  +--rw name
+     |  |     |     +--rw value-name?   string
+     |  |     |     +--rw value?        string
+     |  |     +--rw arbitrary-element?      string
+     |  +--rw position
+     |  |  +--rw relative-position?   to-be-defined
+     |  +--rw holder-structure
+     |  |  +--rw holder-category?      holder-category
+     |  |  +--rw is-captive?           boolean
+     |  |  +--rw is-guided?            boolean
+     |  |  +--rw is-quantized-space?   boolean
+     |  +--rw physical-rating
+     |  |  +--rw thermal-rating?   to-be-defined
+     |  |  +--rw power-rating?     to-be-defined
+     |  +--rw supported-equipment*          string
+     |  +--rw expected-holder
+     |  +--rw actual-holder
+     |  +--rw local-id* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--rw uuid                          universal-id
+     |  +--rw name* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--rw label* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--rw extension* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--ro operational-state?            operational-state
+     |  +--rw administrative-control?       administrative-control
+     |  +--ro administrative-state?         administrative-state
+     |  +--rw lifecycle-state?              lifecycle-state
+     +--rw exposed-cable* [uuid]
+     |  +--rw connector* [uuid]
+     |  |  +--rw connector?                string
+     |  |  +--rw pin* [position]
+     |  |  |  +--rw position       -> /equipment/exposed-cable/connector/position/relative-position
+     |  |  |  +--rw orientation?   connector-and-pin-orientation
+     |  |  +--rw orientation?              connector-and-pin-orientation
+     |  |  +--rw manufactured-thing
+     |  |  |  +--rw manufacturer-properties
+     |  |  |  |  +--rw manufacturer-identifier?   string
+     |  |  |  |  +--rw manufacturer-name?         string
+     |  |  |  +--rw equipment-type
+     |  |  |  |  +--rw description?            string
+     |  |  |  |  +--rw model-identifier?       string
+     |  |  |  |  +--rw part-type-identifier?   string
+     |  |  |  |  +--rw type-name?              string
+     |  |  |  |  +--rw version?                string
+     |  |  |  +--rw equipment-instance
+     |  |  |  |  +--rw manufacture-date?            string
+     |  |  |  |  +--rw serial-number?               string
+     |  |  |  |  +--rw asset-instance-identifier?   string
+     |  |  |  +--rw operator-augmented-equipment-type
+     |  |  |     +--rw asset-type-identifier?   string
+     |  |  +--rw position
+     |  |  |  +--rw relative-position?   to-be-defined
+     |  |  +--rw mechanical-features
+     |  |  +--rw pin-layout
+     |  |  |  +--rw position* [relative-position]
+     |  |  |     +--rw relative-position    to-be-defined
+     |  |  +--rw connector-type?           to-be-defined
+     |  |  +--rw local-id* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--rw uuid                      universal-id
+     |  |  +--rw name* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--rw label* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--rw extension* [value-name]
+     |  |  |  +--rw value-name    string
+     |  |  |  +--rw value?        string
+     |  |  +--ro operational-state?        operational-state
+     |  |  +--rw administrative-control?   administrative-control
+     |  |  +--ro administrative-state?     administrative-state
+     |  |  +--rw lifecycle-state?          lifecycle-state
+     |  +--rw manufactured-thing
+     |  |  +--rw manufacturer-properties
+     |  |  |  +--rw manufacturer-identifier?   string
+     |  |  |  +--rw manufacturer-name?         string
+     |  |  +--rw equipment-type
+     |  |  |  +--rw description?            string
+     |  |  |  +--rw model-identifier?       string
+     |  |  |  +--rw part-type-identifier?   string
+     |  |  |  +--rw type-name?              string
+     |  |  |  +--rw version?                string
+     |  |  +--rw equipment-instance
+     |  |  |  +--rw manufacture-date?            string
+     |  |  |  +--rw serial-number?               string
+     |  |  |  +--rw asset-instance-identifier?   string
+     |  |  +--rw operator-augmented-equipment-type
+     |  |     +--rw asset-type-identifier?   string
+     |  +--rw physical-characteristics
+     |  |  +--rw weight-characteristics?   to-be-defined
+     |  |  +--rw fire-characteristics?     to-be-defined
+     |  |  +--rw materials?                to-be-defined
+     |  +--rw mechanical-features
+     |  +--rw spatial-properties-of-type
+     |  |  +--rw height?   to-be-defined
+     |  |  +--rw width?    to-be-defined
+     |  |  +--rw length?   to-be-defined
+     |  +--rw local-id* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--rw uuid                          universal-id
+     |  +--rw name* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--rw label* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--rw extension* [value-name]
+     |  |  +--rw value-name    string
+     |  |  +--rw value?        string
+     |  +--ro operational-state?            operational-state
+     |  +--rw administrative-control?       administrative-control
+     |  +--ro administrative-state?         administrative-state
+     |  +--rw lifecycle-state?              lifecycle-state
+     +--rw manufactured-thing
+     |  +--rw manufacturer-properties
+     |  |  +--rw manufacturer-identifier?   string
+     |  |  +--rw manufacturer-name?         string
+     |  +--rw equipment-type
+     |  |  +--rw description?            string
+     |  |  +--rw model-identifier?       string
+     |  |  +--rw part-type-identifier?   string
+     |  |  +--rw type-name?              string
+     |  |  +--rw version?                string
+     |  +--rw equipment-instance
+     |  |  +--rw manufacture-date?            string
+     |  |  +--rw serial-number?               string
+     |  |  +--rw asset-instance-identifier?   string
+     |  +--rw operator-augmented-equipment-type
+     |     +--rw asset-type-identifier?   string
+     +--rw spatial-properties-of-type
+     |  +--rw height?   to-be-defined
+     |  +--rw width?    to-be-defined
+     |  +--rw length?   to-be-defined
+     +--rw mechanical-features
+     +--rw physical-properties
+     |  +--rw temperature?   to-be-defined
+     +--rw function-enablers
+     |  +--rw power-state?   to-be-defined
+     +--rw mechanical-functions
+     |  +--rw rotation-speed?   to-be-defined
+     +--rw physical-characteristics
+     |  +--rw weight-characteristics?   to-be-defined
+     |  +--rw fire-characteristics?     to-be-defined
+     |  +--rw materials?                to-be-defined
+     +--rw swapability
+     |  +--rw is-hot-swappable?   boolean
+     +--rw category
+     |  +--rw category?   equipment-category
+     +--rw physical-rating
+     |  +--rw thermal-rating?   to-be-defined
+     |  +--rw power-rating?     to-be-defined
+     +--ro is-field-replaceable?         boolean
+     +--rw function-block*               string
+     +--rw expected-equipment
+     +--rw actual-equipment
+     +--rw location
+     |  +--rw equipment-location
+     |  |  +--rw address-name?      string
+     |  |  +--rw address-element* [uuid]
+     |  |     +--rw address-element-name?   string
+     |  |     +--rw local-id
+     |  |     |  +--rw class-of-instance?   string
+     |  |     |  +--rw local-id
+     |  |     |     +--rw value-name?   string
+     |  |     |     +--rw value?        string
+     |  |     +--rw uuid                    universal-id
+     |  |     +--rw name
+     |  |     |  +--rw class-of-instance?   string
+     |  |     |  +--rw name
+     |  |     |     +--rw value-name?   string
+     |  |     |     +--rw value?        string
+     |  |     +--rw arbitrary-element?      string
+     |  +--rw geographical-location
+     |     +--rw address-name?      string
+     |     +--rw address-element* [uuid]
+     |        +--rw address-element-name?   string
+     |        +--rw local-id
+     |        |  +--rw class-of-instance?   string
+     |        |  +--rw local-id
+     |        |     +--rw value-name?   string
+     |        |     +--rw value?        string
+     |        +--rw uuid                    universal-id
+     |        +--rw name
+     |        |  +--rw class-of-instance?   string
+     |        |  +--rw name
+     |        |     +--rw value-name?   string
+     |        |     +--rw value?        string
+     |        +--rw arbitrary-element?      string
+     +--rw local-id* [value-name]
+     |  +--rw value-name    string
+     |  +--rw value?        string
+     +--rw uuid                          universal-id
+     +--rw name* [value-name]
+     |  +--rw value-name    string
+     |  +--rw value?        string
+     +--rw label* [value-name]
+     |  +--rw value-name    string
+     |  +--rw value?        string
+     +--rw extension* [value-name]
+     |  +--rw value-name    string
+     |  +--rw value?        string
+     +--ro operational-state?            operational-state
+     +--rw administrative-control?       administrative-control
+     +--ro administrative-state?         administrative-state
+     +--rw lifecycle-state?              lifecycle-state
