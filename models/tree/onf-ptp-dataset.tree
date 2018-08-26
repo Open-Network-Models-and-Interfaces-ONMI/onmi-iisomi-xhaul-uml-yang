@@ -1,0 +1,13 @@
+
+module: onf-ptp-dataset
+  augment /ptp:instance-list/ptp:default-ds:
+    +--rw local-priority?          uint8
+    +--rw max-steps-removed?       uint8
+    +--rw multicast-mac-address?   yang:mac-address
+    +--rw designated-enabled?      boolean
+  augment /ptp:instance-list/ptp:port-ds-list:
+    +--rw master-only?                 boolean
+    +--rw local-priority?              uint8
+    +--rw designated-enabled?          boolean
+    +--rw delay-asymmetry?             int64
+    +--rw logical-termination-point?   -> /core-model:network-element/ltp/uuid

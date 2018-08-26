@@ -1,13 +1,13 @@
 module: ltp-path
-   +--rw ltp-path
-      +--rw path-identifier*   -> /ltp-path/ltp-path-list/path-id
-      +--rw ltp-path-list* [path-id]
-         +--rw path-id                           string
-         +--rw path-name?                        string
-         +--rw forwarding-direction?             core-model:forwarding-direction
-         +--rw layer-protocol-name?              layer-protocol-name-enumeration
-         +--rw logical-termination-point-list* [ltp-index]
-            +--rw ltp-index                  string
-            +--rw ltp-reference?             -> /core-model:network-element/ltp/uuid
-            +--rw physical-port-reference?   string
-            +--rw node-reference?            -> /core-model:network-element/uuid
+  +--rw ltp-path
+     +--rw path-identifier*   -> /ltp-path/ltp-path-list/path-id
+     +--rw ltp-path-list* [path-id]
+        +--rw path-id                           string
+        +--rw path-name?                        string
+        +--rw forwarding-direction?             core-model:forwarding-direction
+        +--rw layer-protocol-name?              layer-protocol-name-enumeration
+        +--rw logical-termination-point-list* [ltp-index]
+           +--rw ltp-index                  string
+           +--rw ltp-reference?             -> /core-model:network-element/ltp/uuid
+           +--rw physical-port-reference?   string
+           +--rw node-reference?            -> /core-model:network-element/uuid

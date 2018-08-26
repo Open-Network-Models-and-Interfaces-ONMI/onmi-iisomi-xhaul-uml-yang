@@ -28,12 +28,21 @@ WG Chair: Giorgio Cazzaniga
           &lt;mailto:giorgio.cazzaniga@sm-optics.com&gt;
 Editors:  Thorsten Heinze
           &lt;mailto:thorsten.heinze@telefonica.com&gt;
-          Martin Skorupski
-          &lt;mailto:martin.skorupski@highstreet-technologies.com&gt;</text>
+          Shrikanth Malavalli Divakar
+          &lt;mailto:shrikanth.divakar@wipro.com&gt;</text>
   </contact>
   <description>
-    <text>This module contains a collection of YANG definitions for managing wireless networks.</text>
+    <text>This module contains a collection of YANG definitions for managing wireless networks.
+This model is for vendor agnostic management of wireless network elements.</text>
   </description>
+  <revision date="2018-08-09">
+    <description>
+      <text>Version 1.1</text>
+    </description>
+    <reference>
+      <text>ONF TR 532: A YANG Data Model for Wireless Networks.</text>
+    </reference>
+  </revision>
   <revision date="2017-03-24">
     <description>
       <text>Initial version</text>
@@ -44,17 +53,40 @@ Editors:  Thorsten Heinze
   </revision>
   <typedef name="loop-back-type">
     <type name="enumeration">
+      <enum name="rf-to-remote">
+        <description>
+          <text>Returning the header information of the remote site back to the remote site on the radio interface between both outdoor units.</text>
+        </description>
+      </enum>
+      <enum name="rf-to-local">
+        <description>
+          <text>Returning the header information of the local site back to the local site on the radio interface between both outdoor units.</text>
+        </description>
+      </enum>
+      <enum name="if-to-remote">
+        <description>
+          <text>Returning the header information of the remote site back to the remote site on the intermediate frequency interface between local indoor unit and outdoor unit.</text>
+        </description>
+      </enum>
+      <enum name="if-to-local">
+        <description>
+          <text>Returning the header information of the local site back to the local site on the intermediate frequency interface between local indoor unit and outdoor unit.</text>
+        </description>
+      </enum>
       <enum name="none">
+        <status value="deprecated"/>
         <description>
           <text>none</text>
         </description>
       </enum>
       <enum name="if">
+        <status value="deprecated"/>
         <description>
           <text>Intermediate Frequency on the interface between indoor and outdoor unit.</text>
         </description>
       </enum>
       <enum name="rf">
+        <status value="deprecated"/>
         <description>
           <text>Radio Frequency on the interface between outdoor unit and outdoor unit at the remote site.</text>
         </description>
@@ -99,7 +131,6 @@ Editors:  Thorsten Heinze
   <grouping name="channel-plan-type-g">
     <leaf name="supported-channel-plan">
       <type name="string"/>
-      <default value="Channel plan name not defined."/>
       <config value="false"/>
       <description>
         <text>Unique name (e.g. ECC/REC/(01)04_Annex 5) of a document, which describes a frequency grid that can be adjusted at the air interface. Corresponding channel plans to be delivered by the hardware vendor and to be stored by the operator in an controller/application attached database.</text>
@@ -113,11 +144,21 @@ Editors:  Thorsten Heinze
         <text>To be set on  'true', if the distance between transmitted and received frequency is variable.</text>
       </description>
     </leaf>
+    <leaf-list name="duplex-distance-list">
+      <type name="int32"/>
+      <units name="kHz"/>
+      <config value="false"/>
+      <min-elements value="1"/>
+      <description>
+        <text>Distance between transmitted and received frequency. To be filled with single value, in case duplex distance is not variable. To be filled with all configurable values, in case duplex distance is variable.</text>
+      </description>
+    </leaf-list>
     <leaf name="duplex-distance">
       <type name="int32"/>
       <units name="kHz"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>Distance between transmitted and received frequency.</text>
       </description>
@@ -146,9 +187,16 @@ Editors:  Thorsten Heinze
   <grouping name="transmission-mode-type-g">
     <leaf name="transmission-mode-id">
       <type name="core-model:universal-id"/>
-      <config value="false"/>
       <description>
         <text>Indentifies the transmissionMode for internal reference.</text>
+      </description>
+    </leaf>
+    <leaf name="transmission-mode-name">
+      <type name="string"/>
+      <default value="Name of the transmission mode not yet defined."/>
+      <config value="false"/>
+      <description>
+        <text>Name of the transmission mode. BBBB-m*-i*/t*-r*. B=four digits of channel bandwidth in MHz. m*=required number of digits for modulation name. (i*/t*=code rate.) i*=required number of digits for number of information bits. t*=required number of digits for total bits. r*=required number of digits for rate reduction factor. Example: 028-4QAM-188/204-1</text>
       </description>
     </leaf>
     <leaf name="channel-bandwidth">
@@ -175,7 +223,15 @@ Editors:  Thorsten Heinze
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>Code rate of the coding scheme in % (Net bit rate ? Gross bit rate ? code rate).</text>
+        <text>Code rate of the coding scheme in % (Net bit rate ≤ Gross bit rate · code rate).</text>
+      </description>
+    </leaf>
+    <leaf name="symbol-rate-reduction-factor">
+      <type name="int8"/>
+      <default value="1"/>
+      <config value="false"/>
+      <description>
+        <text>Reduction factor for the symbol rate. Example: value would be 4 for 1/4BPSK.</text>
       </description>
     </leaf>
     <leaf name="tx-power-min">
@@ -257,10 +313,70 @@ Editors:  Thorsten Heinze
       <text>none</text>
     </description>
   </typedef>
+  <typedef name="g826-type">
+    <type name="enumeration">
+      <enum name="es">
+        <description>
+          <text>Errored Seconds. Threshold cross alarm will relate to TypeDefinitions::AirInterfacePerformanceType::es .</text>
+        </description>
+      </enum>
+      <enum name="ses">
+        <description>
+          <text>Severely Errored Seconds. Threshold cross alarm will relate to TypeDefinitions::AirInterfacePerformanceType::ses .</text>
+        </description>
+      </enum>
+      <enum name="cses">
+        <description>
+          <text>Consecutive Severely Errored Seconds. Threshold cross alarm will relate to TypeDefinitions::AirInterfacePerformanceType::cses .</text>
+        </description>
+      </enum>
+      <enum name="not-specified">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <grouping name="threshold-cross-alarm-type-g">
+    <leaf name="g826-value-kind">
+      <type name="g826-type"/>
+      <description>
+        <text>Kind of performance value that shall be equipped with a threshold alarm.</text>
+      </description>
+    </leaf>
+    <leaf name="granularity-period">
+      <type name="g:granularity-period-type"/>
+      <description>
+        <text>Period of the performance data collection.</text>
+      </description>
+    </leaf>
+    <leaf name="alarm-raising-threshold">
+      <type name="int32"/>
+      <units name="s"/>
+      <default value="-1"/>
+      <description>
+        <text>Number of events required for raising the threshold cross alarm.</text>
+      </description>
+    </leaf>
+    <leaf name="alarm-clearing-threshold">
+      <type name="int32"/>
+      <units name="s"/>
+      <default value="-1"/>
+      <description>
+        <text>Number of events required for clearing the threshold cross alarm.</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Allows defining a threshold cross alarm.
+</text>
+    </description>
+  </grouping>
   <grouping name="air-interface-problem-severity-type-g">
     <leaf name="problem-kind-name">
       <type name="string"/>
-      <default value="Problem kind name not defined."/>
       <description>
         <text>Name of the alarm according to AirInterface::AirInterfaceCapability::supportedAlarms</text>
       </description>
@@ -286,6 +402,29 @@ Editors:  Thorsten Heinze
       </description>
     </leaf>
     <uses name="mw-current-problem-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="time-x-states-type-g">
+    <leaf name="transmission-mode">
+      <type name="leafref">
+        <path value="/mw-air-interface-pac/air-interface-capability/supported-channel-plan-list/transmission-mode-list/transmission-mode-id"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Operated transmission mode.</text>
+      </description>
+    </leaf>
+    <leaf name="time">
+      <type name="int32"/>
+      <units name="s"/>
+      <default value="-1"/>
+      <config value="false"/>
+      <description>
+        <text>Sum of all seconds the transmitter operated the transmission mode.</text>
+      </description>
+    </leaf>
     <description>
       <text>none</text>
     </description>
@@ -381,11 +520,20 @@ Editors:  Thorsten Heinze
         <text>Averaged receive level. Signed integers are required.</text>
       </description>
     </leaf>
+    <list name="time-x-states-list">
+      <config value="false"/>
+      <min-elements value="1"/>
+      <uses name="time-x-states-type-g"/>
+      <description>
+        <text>Time period the transmitter operated in the respective transmission mode.</text>
+      </description>
+    </list>
     <leaf name="time2-states">
       <type name="int32"/>
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>Sum of all seconds the transmitter operated in e.g. BPSK.</text>
       </description>
@@ -404,6 +552,7 @@ Editors:  Thorsten Heinze
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>none</text>
       </description>
@@ -413,6 +562,7 @@ Editors:  Thorsten Heinze
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>none</text>
       </description>
@@ -422,6 +572,7 @@ Editors:  Thorsten Heinze
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>none</text>
       </description>
@@ -431,6 +582,7 @@ Editors:  Thorsten Heinze
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>none</text>
       </description>
@@ -440,6 +592,7 @@ Editors:  Thorsten Heinze
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>none</text>
       </description>
@@ -458,6 +611,7 @@ Editors:  Thorsten Heinze
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>none</text>
       </description>
@@ -467,6 +621,7 @@ Editors:  Thorsten Heinze
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>none</text>
       </description>
@@ -476,6 +631,7 @@ Editors:  Thorsten Heinze
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>none</text>
       </description>
@@ -485,6 +641,7 @@ Editors:  Thorsten Heinze
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>none</text>
       </description>
@@ -494,6 +651,7 @@ Editors:  Thorsten Heinze
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>none</text>
       </description>
@@ -512,6 +670,7 @@ Editors:  Thorsten Heinze
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>none</text>
       </description>
@@ -530,6 +689,7 @@ Editors:  Thorsten Heinze
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>none</text>
       </description>
@@ -539,6 +699,7 @@ Editors:  Thorsten Heinze
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>none</text>
       </description>
@@ -548,6 +709,7 @@ Editors:  Thorsten Heinze
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>none</text>
       </description>
@@ -557,6 +719,7 @@ Editors:  Thorsten Heinze
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>none</text>
       </description>
@@ -727,7 +890,6 @@ Editors:  Thorsten Heinze
   <grouping name="diversity-type-g">
     <leaf name="diversity-name">
       <type name="string"/>
-      <default value="Diversity name not defined."/>
       <config value="false"/>
       <description>
         <text>Names to be chosen from the following list: 'spaceDiversity', 'frequencyDiversity'</text>
@@ -771,7 +933,6 @@ Editors:  Thorsten Heinze
   <grouping name="air-interface-diversity-problem-severity-type-g">
     <leaf name="problem-kind-name">
       <type name="string"/>
-      <default value="Problem kind name not defined."/>
       <description>
         <text>Name of the alarm according to AirInterfaceDiversity::AirInterfaceDiversityCapability::supportedAlarms</text>
       </description>
@@ -862,7 +1023,6 @@ Editors:  Thorsten Heinze
   <grouping name="tdm-structure-type-g">
     <leaf name="tdm-structure-name">
       <type name="string"/>
-      <default value="TDM structure name not defined."/>
       <config value="false"/>
       <description>
         <text>Names to be chosen from the following list: 'e1','t1','j1','e3','ds3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'</text>
@@ -893,7 +1053,6 @@ Editors:  Thorsten Heinze
   <grouping name="structure-problem-severity-type-g">
     <leaf name="problem-kind-name">
       <type name="string"/>
-      <default value="Problem kind name not defined."/>
       <description>
         <text>Name of the alarm according to Structure::StructureCapability::supportedAlarms</text>
       </description>
@@ -923,33 +1082,104 @@ Editors:  Thorsten Heinze
       <text>none</text>
     </description>
   </grouping>
-  <typedef name="structure-performance-type">
-    <type name="int32"/>
+  <grouping name="structure-performance-type-g">
+    <leaf name="time-period">
+      <type name="int32"/>
+      <units name="s"/>
+      <default value="-1"/>
+      <config value="false"/>
+      <description>
+        <text>Total length of the measurement period in seconds.</text>
+      </description>
+    </leaf>
+    <leaf name="es">
+      <type name="int32"/>
+      <units name="s"/>
+      <default value="-1"/>
+      <config value="false"/>
+      <description>
+        <text>Number of errored seconds. 1+0: Same value as for single air interface. 1+1 and Diversity: Value representing the combined signals.</text>
+      </description>
+    </leaf>
+    <leaf name="ses">
+      <type name="int32"/>
+      <units name="s"/>
+      <default value="-1"/>
+      <config value="false"/>
+      <description>
+        <text>Number of severely errored seconds. 1+0: Same value as for single air interface. 1+1 and Diversity: Value representing the combined signals.</text>
+      </description>
+    </leaf>
+    <leaf name="cses">
+      <type name="int32"/>
+      <units name="s"/>
+      <default value="-1"/>
+      <config value="false"/>
+      <description>
+        <text>Number of consecutive severely errored seconds. 1+0: Same value as for single air interface. 1+1 and Diversity: Value representing the combined signals.</text>
+      </description>
+    </leaf>
+    <leaf name="unavailability">
+      <type name="int32"/>
+      <units name="s"/>
+      <default value="-1"/>
+      <config value="false"/>
+      <description>
+        <text>Total time of unavailability in seconds. 1+0: Same value as for single air interface. 1+1 and Diversity: Value representing the combined signals.</text>
+      </description>
+    </leaf>
+    <leaf name="rx-level-min">
+      <type name="int8"/>
+      <units name="dBm"/>
+      <default value="99"/>
+      <config value="false"/>
+      <description>
+        <text>Minimum receive level. 1+0: Same value as for single air interface. 1+1: Value representing the combined signals. Diversity: To be left on default value.</text>
+      </description>
+    </leaf>
+    <leaf name="rx-level-max">
+      <type name="int8"/>
+      <units name="dBm"/>
+      <default value="99"/>
+      <config value="false"/>
+      <description>
+        <text>Maximum receive level. 1+0: Same value as for single air interface. 1+1: Value representing the combined signals. Diversity: To be left on default value.</text>
+      </description>
+    </leaf>
+    <leaf name="rx-level-avg">
+      <type name="int8"/>
+      <units name="dBm"/>
+      <default value="99"/>
+      <config value="false"/>
+      <description>
+        <text>Averaged receive level. 1+0: Same value as for single air interface. 1+1: Value representing the combined signals. Diversity: To be left on default value.</text>
+      </description>
+    </leaf>
     <description>
       <text>Consolidated performance information of the Structure.</text>
     </description>
-  </typedef>
+  </grouping>
   <grouping name="structure-current-performance-type-g">
-    <leaf name="performance-data">
-      <type name="structure-performance-type"/>
+    <container name="performance-data">
       <config value="false"/>
+      <uses name="structure-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
-    </leaf>
+    </container>
     <uses name="g:otn-current-data-g"/>
     <description>
       <text>Turns performance information into current performance information by inheriting from OTN_CurrentData.</text>
     </description>
   </grouping>
   <grouping name="structure-historical-performance-type-g">
-    <leaf name="performance-data">
-      <type name="structure-performance-type"/>
+    <container name="performance-data">
       <config value="false"/>
+      <uses name="structure-performance-type-g"/>
       <description>
         <text>none</text>
       </description>
-    </leaf>
+    </container>
     <uses name="g:otn-history-data-g"/>
     <description>
       <text>Turns performance information into historical performance information by inheriting from OTN_HistoryData.</text>
@@ -958,7 +1188,6 @@ Editors:  Thorsten Heinze
   <grouping name="container-type-g">
     <leaf name="container-name">
       <type name="string"/>
-      <default value="Container name not yet defined."/>
       <config value="false"/>
       <description>
         <text>Names to be chosen from the following list: 'ethernet','e1','t1','j1','e3','ds3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'</text>
@@ -996,7 +1225,6 @@ Editors:  Thorsten Heinze
   <grouping name="tdm-container-type-g">
     <leaf name="tdm-container-name">
       <type name="string"/>
-      <default value="TDM container name not defined."/>
       <config value="false"/>
       <description>
         <text>Names to be chosen from the following list: 'e1','t1','j1','e3','t3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'</text>
@@ -1070,7 +1298,7 @@ Editors:  Thorsten Heinze
       <default value="-1"/>
       <config value="false"/>
       <description>
-        <text>In case the device is NOT capable of adapting the sequence, in which segments are being dropped in case of decreasing capacity of the air interface, dropOrderRank is number of segments minus sequence number of the segment. In case the device is capable of adapting the sequence, dropOrderRank has to be calculated by the device in dependency to the assigned priorityClass. 
+        <text>In case the device is NOT capable of adapting the sequence, in which segments are being dropped in case of decreasing capacity of the air interface, dropOrderRank is number of segments minus sequence number of the segment. In case the device is capable of adapting the sequence, dropOrderRank has to be calculated by the device in dependency to the assigned priorityClass.
 _unique: within Structure::StructureStatus::segmentStatusList</text>
       </description>
     </leaf>
@@ -1081,7 +1309,6 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
   <grouping name="container-problem-severity-type-g">
     <leaf name="problem-kind-name">
       <type name="string"/>
-      <default value="Problem kind name not defined."/>
       <description>
         <text>Name of the alarm according to Container::ContainerCapability::supportedAlarms</text>
       </description>
@@ -1325,7 +1552,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="0"/>
       <config value="false"/>
       <description>
-        <text>Extent of the ATPC range.</text>
+        <text>Extent of the ATPC range. This value represents a device specific maximum value. The actual range of the ATPC at a specific link might be limited by the difference between configured transmit power (AirInterface::AirInterfaceConfiguration::txPower) and minimum transmit power of the device (TypeDefinitions::TransmissionModeType::txPowerMin).</text>
       </description>
     </leaf>
     <leaf name="encryption-is-avail">
@@ -1354,10 +1581,19 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <text>Available time periods for maintenance configurations (e.g. the loop back of microwave header information) to be described. Concrete values shall be separated by commas (e.g. '10, 60, 360'). Ranges shall be expressed as two values separated by a minus (e.g. '10-360').</text>
       </description>
     </leaf>
+    <leaf-list name="supported-alarm-list">
+      <type name="string"/>
+      <config value="false"/>
+      <min-elements value="7"/>
+      <description>
+        <text>Available alarms to be listed. Mandatory:'signalIsLost','rslIsExceeded','signalIDMismatching','temperatureIsExceeded','modemIsFaulty','radioIsFaulty' and 'modulationIsDownShifted'. Further alarms might be added by the vendor.</text>
+      </description>
+    </leaf-list>
     <leaf name="supported-alarms">
       <type name="string"/>
       <default value="Supported alarms not yet defined."/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>Available alarms to be listed. Mandatory:'signalIsLost','rslIsExceeded','temperatureIsExceeded','modemIsFaulty','radioIsFaulty' and 'modulationIsDownShifted'. Further alarms might be added by the device. Names are to be separated by commas.</text>
       </description>
@@ -1383,9 +1619,29 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <text>Operator specific microwave link ID (often used for coding area, type of element and sequential number).</text>
       </description>
     </leaf>
+    <leaf name="remote-air-interface-name">
+      <type name="string"/>
+      <default value="Air interface ID at the remote site not yet defined."/>
+      <description>
+        <text>Name of the air interface, which belongs to the same link, at the remote site.</text>
+      </description>
+    </leaf>
+    <leaf name="expected-signal-id">
+      <type name="int16"/>
+      <description>
+        <text>If set on '0', the receiver ignores the signal ID of the received signal. If set on any other value, the receiver exclusively synchronizes on signals with the same signal ID.</text>
+      </description>
+    </leaf>
+    <leaf name="transmitted-signal-id">
+      <type name="int16"/>
+      <description>
+        <text>Transmitted radio signal ID for synchronizing the receiver.</text>
+      </description>
+    </leaf>
     <leaf name="radio-signal-id">
       <type name="string"/>
       <default value="Radio signal ID not yet defined."/>
+      <status value="deprecated"/>
       <description>
         <text>The radioSignalId is transmitted on the air interface so the remote site of the link synchronizes on the correct transmitter. The local radio MUST NOT synchronize on a radio signal with a different radioSignalId. The link ID is neither an ID necessary to span the model nor an ID referencing external data. It is just some sort of name of the link transmitted so the correct remote site can be identified in an interference situation. The value zero might be used to make the microwave to disable the link ID check.</text>
       </description>
@@ -1406,10 +1662,23 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <text>Center frequency of the receive channel.</text>
       </description>
     </leaf>
+    <container name="transmission-mode-min">
+      <uses name="transmission-mode-type-g"/>
+      <description>
+        <text>Minimum transmission mode to be configured (in case adaptive modulation is not used, this value represents also the fixed transmission mode).</text>
+      </description>
+    </container>
+    <container name="transmission-mode-max">
+      <uses name="transmission-mode-type-g"/>
+      <description>
+        <text>Maximum transmission mode to be configured.</text>
+      </description>
+    </container>
     <leaf name="tx-channel-bandwidth">
       <type name="int32"/>
       <units name="kHz"/>
       <default value="-1"/>
+      <status value="deprecated"/>
       <description>
         <text>Bandwidth of the transmit channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;</text>
       </description>
@@ -1470,6 +1739,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <type name="int16"/>
       <units name="symbols"/>
       <default value="-1"/>
+      <status value="deprecated"/>
       <description>
         <text>Minimum modulation to be configured (in case adaptive modulation is not used, this value represents also the fixed modulation). The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.</text>
       </description>
@@ -1478,6 +1748,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <type name="int16"/>
       <units name="symbols"/>
       <default value="-1"/>
+      <status value="deprecated"/>
       <description>
         <text>Maximum modulation to be configured. The value of this field is only relevant, if Adaptive Modulation has been activated. The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.</text>
       </description>
@@ -1526,6 +1797,14 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <text>If the receive level is lower than the lower threshold value, the transmitter is notified to increase transmit power.</text>
       </description>
     </leaf>
+    <leaf name="atpc-tx-power-min">
+      <type name="int8"/>
+      <units name="dBm"/>
+      <default value="-99"/>
+      <description>
+        <text>Transmit power, which is not to be undercut, while operating ATPC.</text>
+      </description>
+    </leaf>
     <leaf name="auto-freq-select-is-on">
       <type name="boolean"/>
       <default value="false"/>
@@ -1562,6 +1841,21 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <text>Key for transforming plaintext into ciphertext data.</text>
       </description>
     </leaf>
+    <leaf name="performance-monitoring-collection-is-on">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>Enables measurement, collection, storage and access to performance data.</text>
+      </description>
+    </leaf>
+    <list name="threshold-cross-alarm-list">
+      <key value="g826-value-kind granularity-period"/>
+      <max-elements value="6"/>
+      <uses name="threshold-cross-alarm-type-g"/>
+      <description>
+        <text>List of threshold cross alarms to be configured.</text>
+      </description>
+    </list>
     <leaf name="loop-back-kind-on">
       <type name="loop-back-type"/>
       <default value="none"/>
@@ -1626,11 +1920,21 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <text>Current receive level.</text>
       </description>
     </leaf>
+    <leaf name="transmission-mode-cur">
+      <type name="leafref">
+        <path value="../../air-interface-capability/supported-channel-plan-list/transmission-mode-list/transmission-mode-id"/>
+      </type>
+      <config value="false"/>
+      <description>
+        <text>Currently operated transmission mode according to definitions in Capabilities.</text>
+      </description>
+    </leaf>
     <leaf name="modulation-cur">
       <type name="int16"/>
       <units name="symbols"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>Currently operated modulation on transmit path. The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK-&gt;'2' or 256QAM-&gt;'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme.</text>
       </description>
@@ -1640,8 +1944,17 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <units name="%"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>Code rate of the currently operated coding scheme (Net bit rate ? Gross bit rate ? code rate).</text>
+      </description>
+    </leaf>
+    <leaf name="received-signal-id">
+      <type name="int16"/>
+      <default value="-1"/>
+      <config value="false"/>
+      <description>
+        <text>ID of the signal, which the receiver is currently synchronized on.</text>
       </description>
     </leaf>
     <leaf name="snir-cur">
@@ -1804,14 +2117,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>Aggregated performance information of the air interface for a pre-defined measurement interval.</text>
     </description>
   </grouping>
-  <list name="co-channel-group">
-    <key value="co-channel-group-id"/>
-    <uses name="co-channel-group-g"/>
-    <description>
-      <text>none</text>
-    </description>
-  </list>
-  <grouping name="co-channel-group-g">
+  <container name="co-channel-group">
     <leaf name="co-channel-group-id">
       <type name="core-model:universal-id"/>
       <description>
@@ -1837,6 +2143,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <type name="leafref">
         <path value="/core-model:network-element/core-model:ltp/core-model:uuid"/>
       </type>
+      <status value="deprecated"/>
       <description>
         <text>none</text>
       </description>
@@ -1844,7 +2151,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     <description>
       <text>Required for configuring XPIC, MIMO and ALIC.</text>
     </description>
-  </grouping>
+  </container>
   <list name="mw-air-interface-hsb-end-point-pac">
     <key value="endpoint"/>
     <leaf name="role">
@@ -1972,10 +2279,19 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <text>Available types of diversity to be listed.</text>
       </description>
     </list>
+    <leaf-list name="supported-alarm-list">
+      <type name="string"/>
+      <config value="false"/>
+      <min-elements value="2"/>
+      <description>
+        <text>Available alarms to be listed. Mandatory:'airInterfaceDiversityConfigurationIsPartlyDown' (at least one air interface is down, but not all of them) and 'airInterfaceDiversityConfigurationIsDown' (all air interfaces are down). Further alarms might be added by the vendor.</text>
+      </description>
+    </leaf-list>
     <leaf name="supported-alarms">
       <type name="string"/>
       <default value="Supported alarms not yet defined."/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>Available alarms to be listed. Mandatory:'airInterfaceDiversityConfigurationIsPartlyDown' (at least one air interface is down, but not all of them) and 'airInterfaceDiversityConfigurationIsDown' (all air interfaces are down). Further alarms might be added by the device. Names are to be separated by commas.</text>
       </description>
@@ -2000,6 +2316,21 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <text>_multiplicity:2-ThisAirInterfaceDiversity::AirInterfaceDiversityConfiguration::airInterfaceDiversity::diversityType::numberOfAirInterfacesMax</text>
       </description>
     </leaf-list>
+    <leaf name="performance-monitoring-collection-is-on">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>Enables measurement, collection, storage and access to performance data.</text>
+      </description>
+    </leaf>
+    <list name="threshold-cross-alarm-list">
+      <key value="g826-value-kind granularity-period"/>
+      <max-elements value="6"/>
+      <uses name="threshold-cross-alarm-type-g"/>
+      <description>
+        <text>List of threshold cross alarms to be configured.</text>
+      </description>
+    </list>
     <list name="problem-kind-severity-list">
       <key value="problem-kind-name"/>
       <min-elements value="3"/>
@@ -2147,10 +2478,18 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <text>Identifies the Structure for bundling and container.</text>
       </description>
     </leaf>
+    <leaf-list name="supported-alarm-list">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>Available alarms to be listed. Mandatory:non. Names are to be separated by commas. Further alarms might be added by the vendor.</text>
+      </description>
+    </leaf-list>
     <leaf name="supported-alarms">
       <type name="string"/>
       <default value="Supported alarms not yet defined."/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>Available alarms to be listed. Mandatory:non. Names are to be separated by commas. Further alarms might be added by the device.</text>
       </description>
@@ -2160,6 +2499,13 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     </description>
   </grouping>
   <grouping name="pure-ethernet-structure-configuration-g">
+    <leaf name="performance-monitoring-collection-is-on">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>Enables measurement, collection, storage and access to performance data.</text>
+      </description>
+    </leaf>
     <list name="problem-kind-severity-list">
       <key value="problem-kind-name"/>
       <uses name="structure-problem-severity-type-g"/>
@@ -2310,10 +2656,18 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <text>Lists the TDM frame types that are supported.</text>
       </description>
     </list>
+    <leaf-list name="supported-alarm-list">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>Available alarms to be listed. Mandatory:non. Names are to be separated by commas. Further alarms might be added by the vendor.</text>
+      </description>
+    </leaf-list>
     <leaf name="supported-alarms">
       <type name="string"/>
       <default value="Supported alarms not yet defined."/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>Available alarms to be listed. Mandatory:non. Names are to be separated by commas. Further alarms might be added by the device.</text>
       </description>
@@ -2323,8 +2677,15 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     </description>
   </grouping>
   <grouping name="hybrid-mw-structure-configuration-g">
+    <container name="structure-kind">
+      <uses name="tdm-structure-type-g"/>
+      <description>
+        <text>TDM frame to be applied.</text>
+      </description>
+    </container>
     <container name="structure-type">
       <uses name="tdm-structure-type-g"/>
+      <status value="deprecated"/>
       <description>
         <text>TDM frame to be applied.</text>
       </description>
@@ -2334,6 +2695,13 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="-1"/>
       <description>
         <text>Allows to configure the number of segments reserved for TDM frames of the type specified in HybridMwStructure::HybridMwStructureConfiguration::structureType</text>
+      </description>
+    </leaf>
+    <leaf name="performance-monitoring-collection-is-on">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>Enables measurement, collection, storage and access to performance data.</text>
       </description>
     </leaf>
     <list name="problem-kind-severity-list">
@@ -2550,10 +2918,19 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <text>Shall be marked 'true', if Ethernet payload encryption is available.</text>
       </description>
     </leaf>
+    <leaf-list name="supported-alarm-list">
+      <type name="string"/>
+      <config value="false"/>
+      <min-elements value="2"/>
+      <description>
+        <text>Available alarms to be listed. Mandatory:'framingIsFaulty' and 'containerIsDown'. Further alarms might be added by the vendor.</text>
+      </description>
+    </leaf-list>
     <leaf name="supported-alarms">
       <type name="string"/>
       <default value="Supported alarms not yet defined."/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>Available alarms to be listed. Mandatory:'framingIsFaulty' and 'containerIsDown'. Further alarms might be added by the device.</text>
       </description>
@@ -2646,6 +3023,13 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <default value="Cryptographic key not yet defined."/>
       <description>
         <text>Key for transforming plaintext into cipher text data.</text>
+      </description>
+    </leaf>
+    <leaf name="performance-monitoring-collection-is-on">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>Enables measurement, collection, storage and access to performance data.</text>
       </description>
     </leaf>
     <list name="problem-kind-severity-list">
@@ -2767,7 +3151,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       </description>
     </container>
     <description>
-      <text>none</text>
+      <text>The TdmContainer_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting TDM traffic.</text>
     </description>
   </list>
   <grouping name="tdm-container-capability-g">
@@ -2780,10 +3164,19 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <text>Lists the TDM containers that are supported.</text>
       </description>
     </list>
+    <leaf-list name="supported-alarm-list">
+      <type name="string"/>
+      <config value="false"/>
+      <min-elements value="2"/>
+      <description>
+        <text>Available alarms to be listed. Mandatory:'framingIsFaulty' and 'containerIsDown'. Further alarms might be added by the vendor.</text>
+      </description>
+    </leaf-list>
     <leaf name="supported-alarms">
       <type name="string"/>
       <default value="Supported alarms not yet defined."/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>Available alarms to be listed. Mandatory:'framingIsFaulty' and 'containerIsDown'. Further alarms might be added by the device.</text>
       </description>
@@ -2812,6 +3205,13 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <text>Multiplicity = 1; One segment per TDM container; Type of segment must match type of container;</text>
       </description>
     </container>
+    <leaf name="performance-monitoring-collection-is-on">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>Enables measurement, collection, storage and access to performance data.</text>
+      </description>
+    </leaf>
     <list name="problem-kind-severity-list">
       <key value="problem-kind-name"/>
       <min-elements value="2"/>

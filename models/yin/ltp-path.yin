@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ltp-path"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:ltp-path="urn:onf:params:xml:ns:yang:ltp-path"
+        xmlns:core-model="urn:onf:params:xml:ns:yang:core-model">
+  <namespace uri="urn:onf:params:xml:ns:yang:ltp-path"/>
+  <prefix value="ltp-path"/>
+  <import module="core-model">
+    <prefix value="core-model"/>
+  </import>
+  <organization>
+    <text>ONF (Open Networking Foundation) Open Transport Working Group -
+Wireless Transport Project</text>
+  </organization>
+  <contact>
+    <text>WG Web: &lt;https://www.opennetworking.org/technical-communities/areas/
+         specification/1931-optical-transport&gt;
+WG List:  &lt;mailto:wireless-transport@login.opennetworking.org&gt;
+WG Chair: Lyndon Ong
+          &lt;mailto:lyong@ciena.com&gt;
+WG Chair: Giorgio Cazzaniga
+          &lt;mailto:giorgio.cazzaniga@sm-optics.com&gt;
+Editor:   Martin Skorupski
+          &lt;mailto:martin.skorupski@highstreet-technologies.com&gt;</text>
+  </contact>
+  <description>
+    <text>This module contains a collection of YANG definitions describing a
+telecommunication network path.</text>
+  </description>
+  <revision date="2017-05-26">
+    <description>
+      <text>Initial version</text>
+    </description>
+    <reference>
+      <text>ltp-path, ONF core-model 1.2</text>
+    </reference>
+  </revision>
+  <typedef name="layer-protocol-name-enumeration">
+    <type name="enumeration">
+      <enum name="ETH">
+        <value value="1"/>
+        <description>
+          <text>Identifying the layer of Ethernet.</text>
+        </description>
+      </enum>
+      <enum name="PTP">
+        <value value="2"/>
+        <description>
+          <text>Identifying the layer or the Precision Time Protocol.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The propagation of the layer protocol name.</text>
+    </description>
+  </typedef>
+  <container name="ltp-path">
+    <description>
+      <text>Listing all the path-identifiers, used by RESTCONF interfaces to
+address an entry in the ltp-path-list.</text>
+    </description>
+    <leaf-list name="path-identifier">
+      <type name="leafref">
+        <path value="/ltp-path/ltp-path-list/path-id"/>
+      </type>
+      <description>
+        <text>List of reference values for existing path entries.</text>
+      </description>
+    </leaf-list>
+    <list name="ltp-path-list">
+      <key value="path-id"/>
+      <description>
+        <text>A list of path found in the network.</text>
+      </description>
+      <leaf name="path-id">
+        <type name="string"/>
+        <description>
+          <text>A unique identifier of a path. It migth be beneficial to use the
+format as defined in RFC 4122
+(https://www.ietf.org/rfc/rfc4122.txt).</text>
+        </description>
+      </leaf>
+      <leaf name="path-name">
+        <type name="string"/>
+        <description>
+          <text>The human readable name of a path. It should include start
+and end point.</text>
+        </description>
+      </leaf>
+      <leaf name="forwarding-direction">
+        <type name="core-model:forwarding-direction"/>
+        <description>
+          <text>Defines the directionality of the path.</text>
+        </description>
+      </leaf>
+      <leaf name="layer-protocol-name">
+        <type name="layer-protocol-name-enumeration"/>
+        <description>
+          <text>Defines the layer of the path. Please see ONF CoreModel for
+further details.</text>
+        </description>
+      </leaf>
+      <list name="logical-termination-point-list">
+        <key value="ltp-index"/>
+        <min-elements value="2"/>
+        <description>
+          <text>An ordered list of logical-termination points, defining the path.</text>
+        </description>
+        <leaf name="ltp-index">
+          <type name="string"/>
+          <description>
+            <text>The index of the LTP with in the list. The LTP with the highest
+index is the end-point of the path. The LTP with the lowest
+index is the start-point of the path.</text>
+          </description>
+        </leaf>
+        <leaf name="ltp-reference">
+          <type name="leafref">
+            <path value="/core-model:network-element/core-model:ltp/core-model:uuid"/>
+          </type>
+          <description>
+            <text>The reference value of a network-elements LTP.</text>
+          </description>
+        </leaf>
+        <leaf name="physical-port-reference">
+          <type name="string"/>
+          <description>
+            <text>A text label for the unmodelled physical port associated with
+the LTP. In many cases there is no associated physical port.</text>
+          </description>
+        </leaf>
+        <leaf name="node-reference">
+          <type name="leafref">
+            <path value="/core-model:network-element/core-model:uuid"/>
+          </type>
+          <description>
+            <text>A reference value identifying a network-element.</text>
+          </description>
+        </leaf>
+      </list>
+    </list>
+  </container>
+</module>

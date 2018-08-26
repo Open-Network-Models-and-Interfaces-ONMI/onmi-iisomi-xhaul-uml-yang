@@ -170,7 +170,10 @@ Editors:  Thorsten Heinze
     <leaf name="trigger-refresh">
       <type name="boolean"/>
       <description>
-        <text>A trigger to instuct the netconf server to refresh its internal database/cache. It is primary used for alarms status, but could used for anything else too. It is assumed that the refresh mechanismn takes somes time. In order to indictate the process to the controller a refreshStatus attribute is used.</text>
+        <text>A trigger to instruct the netconf server to refresh its internal database/cache.
+It is primary used for alarms status, but could be used for anything else too.
+It is assumed that the refresh mechanism takes some time.
+In order to indicate the process to the controller a refreshStatus attribute is used.</text>
       </description>
     </leaf>
     <description>
@@ -432,7 +435,7 @@ Editors:  Thorsten Heinze
     <leaf name="remote-end-point">
       <type name="string"/>
       <description>
-        <text>A network wide identifier of the remote connector. The value is used for topology discovery. 
+        <text>A network wide identifier of the remote connector. The value is used for topology discovery.
 Please see also ConnectorStatus::localEndPoint.</text>
       </description>
     </leaf>
@@ -445,7 +448,7 @@ Please see also ConnectorStatus::localEndPoint.</text>
       <type name="string"/>
       <description>
         <text>A network wide global identifier of the this connector, which can be used to discover the physical connectivitiy.
-The value should contain the network element name, because the network element software can assume that the network element name is unique in the network. 
+The value should contain the network element name, because the network element software can assume that the network element name is unique in the network.
 The value should be formated:
 &lt;connector:uuid&gt;@&lt;network-element-name&gt;
 

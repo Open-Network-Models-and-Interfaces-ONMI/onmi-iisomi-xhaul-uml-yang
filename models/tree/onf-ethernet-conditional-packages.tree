@@ -1,0 +1,10 @@
+module: onf-ethernet-conditional-packages
+  +--rw ethernet-pac* [layer-protocol]
+     +--rw layer-protocol                      -> /core-model:network-element/ltp/lp/uuid
+     +--ro ethernet-capability
+     +--rw ethernet-configuration
+     |  +--rw vlan-id?   int16
+     +--ro ethernet-status
+     +--ro ethernet-current-problems
+     +--ro ethernet-current-performance
+     +--ro ethernet-historical-performances
