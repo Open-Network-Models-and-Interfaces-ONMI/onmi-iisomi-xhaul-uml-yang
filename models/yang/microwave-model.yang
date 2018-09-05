@@ -24,7 +24,7 @@ module microwave-model {
                        <mailto:shrikanth.divakar@wipro.com>";					   
     description "This module contains a collection of YANG definitions for managing wireless networks.
         This model is for vendor agnostic management of wireless network elements.";
-    revision 2018-08-09 {
+    revision 2018-09-05 {
         description "Version 1.1";
         reference "ONF TR 532: A YANG Data Model for Wireless Networks.";
     }
@@ -1563,7 +1563,12 @@ module microwave-model {
                 }
                 description "Aggregated performance information of the air interface for a pre-defined measurement interval.";
             }
-            container co-channel-group {
+            list co-channel-group {
+                key 'co-channel-group-id';
+                uses co-channel-group-g;
+                description "none";
+            }
+            grouping co-channel-group-g {
                 leaf co-channel-group-id {
                     type core-model:universal-id;
                     description "none";
