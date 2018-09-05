@@ -12,7 +12,7 @@ module microwave-model {
         prefix yang;
     }
     organization "ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project";
-    contact "WG Web: <https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport>
+    contact "WG Web: <https://www.opennetworking.org/software-defined-standards/models-apis/>
              WG List:  <mailto:wireless-transport@login.opennetworking.org>
              WG Chair: Lyndon Ong
                        <mailto:lyong@ciena.com>
@@ -1226,12 +1226,12 @@ module microwave-model {
                     default -1;
                     description "Center frequency of the receive channel.";
                 }
-                container transmission-mode-min {
-                    uses transmission-mode-type-g;
+                leaf transmission-mode-min {
+					type core-model:universal-id;
                     description "Minimum transmission mode to be configured (in case adaptive modulation is not used, this value represents also the fixed transmission mode).";
                 }
-                container transmission-mode-max {
-                    uses transmission-mode-type-g;
+                leaf transmission-mode-max {
+					type core-model:universal-id;
                     description "Maximum transmission mode to be configured.";
                 }
                 leaf tx-channel-bandwidth {
