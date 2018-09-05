@@ -35,7 +35,7 @@ Editors:  Thorsten Heinze
     <text>This module contains a collection of YANG definitions for managing wireless networks.
 This model is for vendor agnostic management of wireless network elements.</text>
   </description>
-  <revision date="2018-08-09">
+  <revision date="2018-09-05">
     <description>
       <text>Version 1.1</text>
     </description>
@@ -2117,7 +2117,14 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>Aggregated performance information of the air interface for a pre-defined measurement interval.</text>
     </description>
   </grouping>
-  <container name="co-channel-group">
+  <list name="co-channel-group">
+    <key value="co-channel-group-id"/>
+    <uses name="co-channel-group-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </list>
+  <grouping name="co-channel-group-g">
     <leaf name="co-channel-group-id">
       <type name="core-model:universal-id"/>
       <description>
@@ -2151,7 +2158,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     <description>
       <text>Required for configuring XPIC, MIMO and ALIC.</text>
     </description>
-  </container>
+  </grouping>
   <list name="mw-air-interface-hsb-end-point-pac">
     <key value="endpoint"/>
     <leaf name="role">

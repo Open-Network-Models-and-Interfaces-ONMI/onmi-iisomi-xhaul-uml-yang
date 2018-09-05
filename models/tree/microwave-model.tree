@@ -217,8 +217,8 @@ module: microwave-model
   |        +--ro granularity-period?      granularity-period-type
   |        +--ro object-class?            object-identifier
   |        +--ro name-binding?            object-identifier
-  +--rw co-channel-group
-  |  +--rw co-channel-group-id?         core-model:universal-id
+  +--rw co-channel-group* [co-channel-group-id]
+  |  +--rw co-channel-group-id          core-model:universal-id
   |  +--rw air-interface-list*          -> /core-model:network-element/ltp/uuid
   |  +--rw sort-of-co-channel-group?    string
   |  x--rw logical-termination-point*   -> /core-model:network-element/ltp/uuid
