@@ -20,7 +20,7 @@
     <text>ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project</text>
   </organization>
   <contact>
-    <text>WG Web: &lt;https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport&gt;
+    <text>WG Web: &lt;https://www.opennetworking.org/software-defined-standards/models-apis/&gt;
 WG List:  &lt;mailto:wireless-transport@login.opennetworking.org&gt;
 WG Chair: Lyndon Ong
           &lt;mailto:lyong@ciena.com&gt;
@@ -1662,18 +1662,18 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
         <text>Center frequency of the receive channel.</text>
       </description>
     </leaf>
-    <container name="transmission-mode-min">
-      <uses name="transmission-mode-type-g"/>
+    <leaf name="transmission-mode-min">
+      <type name="core-model:universal-id"/>
       <description>
         <text>Minimum transmission mode to be configured (in case adaptive modulation is not used, this value represents also the fixed transmission mode).</text>
       </description>
-    </container>
-    <container name="transmission-mode-max">
-      <uses name="transmission-mode-type-g"/>
+    </leaf>
+    <leaf name="transmission-mode-max">
+      <type name="core-model:universal-id"/>
       <description>
         <text>Maximum transmission mode to be configured.</text>
       </description>
-    </container>
+    </leaf>
     <leaf name="tx-channel-bandwidth">
       <type name="int32"/>
       <units name="kHz"/>

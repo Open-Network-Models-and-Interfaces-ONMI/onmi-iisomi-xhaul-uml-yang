@@ -45,32 +45,8 @@ module: microwave-model
   |  |  x--rw radio-signal-id?                           string
   |  |  +--rw tx-frequency?                              int32
   |  |  +--rw rx-frequency?                              int32
-  |  |  +--rw transmission-mode-min
-  |  |  |  +--rw transmission-mode-id?           core-model:universal-id
-  |  |  |  +--ro transmission-mode-name?         string
-  |  |  |  +--ro channel-bandwidth?              int32
-  |  |  |  +--ro modulation-scheme?              int16
-  |  |  |  +--ro code-rate?                      int8
-  |  |  |  +--ro symbol-rate-reduction-factor?   int8
-  |  |  |  +--ro tx-power-min?                   int8
-  |  |  |  +--ro tx-power-max?                   int8
-  |  |  |  +--ro rx-threshold?                   int16
-  |  |  |  +--ro am-upshift-level?               int8
-  |  |  |  +--ro am-downshift-level?             int8
-  |  |  |  +--ro xpic-is-avail?                  boolean
-  |  |  +--rw transmission-mode-max
-  |  |  |  +--rw transmission-mode-id?           core-model:universal-id
-  |  |  |  +--ro transmission-mode-name?         string
-  |  |  |  +--ro channel-bandwidth?              int32
-  |  |  |  +--ro modulation-scheme?              int16
-  |  |  |  +--ro code-rate?                      int8
-  |  |  |  +--ro symbol-rate-reduction-factor?   int8
-  |  |  |  +--ro tx-power-min?                   int8
-  |  |  |  +--ro tx-power-max?                   int8
-  |  |  |  +--ro rx-threshold?                   int16
-  |  |  |  +--ro am-upshift-level?               int8
-  |  |  |  +--ro am-downshift-level?             int8
-  |  |  |  +--ro xpic-is-avail?                  boolean
+  |  |  +--rw transmission-mode-min?                     core-model:universal-id
+  |  |  +--rw transmission-mode-max?                     core-model:universal-id
   |  |  x--rw tx-channel-bandwidth?                      int32
   |  |  +--rw rx-channel-bandwidth?                      int32
   |  |  +--rw polarization?                              polarization-type
