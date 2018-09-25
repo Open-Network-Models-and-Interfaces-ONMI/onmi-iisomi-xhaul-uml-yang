@@ -4,17 +4,17 @@
 <uib-accordion close-others="oneATime">
 
 <div uib-accordion-group class="panel-primary" is-open="status.currentProblemList">
-  <uib-accordion-heading> <i class="pull-left fa"
+  <uib-accordion-heading> 
+      <i class="pull-left fa"
     ng-class="{'fa-chevron-down': status.currentProblemList, 'fa-chevron-right': !status.currentProblemList}"></i>
-  <span>{{'MWTN_CURRENT_PROBLEM_LIST' | translate}}
-    ({{gridOptionsCurrentProblemList.data.length}})</span> 
+  <span>{{'MWTN_CURRENT_PROBLEM_LIST' | translate}} ({{gridOptionsCurrentProblemList.data.length}})</span> 
         <i class="pull-right fa fa-spinner fa-pulse" ng-show="spinner.currentProblemList"></i>
+        <button class = "pull-right" id="refreshList" style="font-size:15px" ng-click="$event.preventDefault(); $event.stopPropagation(); refreshList();" > <i class="pull-center fa fa-refresh"></i></button>
     </uib-accordion-heading>
-
 
   <div id="mwtnFaultGridCurrentProblemList" ui-grid="gridOptionsCurrentProblemList" ui-grid-exporter
     ui-grid-selection ui-grid-pinning ui-grid-resize-columns
-    ui-grid-move-columns class="mwtnFaultGrid"></div>
+    ui-grid-move-columns class="mwtnFaultGrid"></div>  
 </div>
 
 <div uib-accordion-group class="panel-primary" is-open="status.alarmNotifications">

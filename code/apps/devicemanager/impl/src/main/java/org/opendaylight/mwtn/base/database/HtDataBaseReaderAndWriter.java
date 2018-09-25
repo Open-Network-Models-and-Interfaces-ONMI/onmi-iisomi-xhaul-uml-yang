@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
@@ -156,9 +158,25 @@ public class HtDataBaseReaderAndWriter<T extends IsEsObject> {
      * @param object Object refrenced by idString
      * @return The Object if found or null
      */
-    public T doRead( IsEsObject object ) {
-        return mapper.getObjectFromJson( db.doReadJsonData( dataTypeName, object) );
+    public @Nullable T doRead( IsEsObject object ) {
+    	T res = mapper.getObjectFromJson( db.doReadJsonData( dataTypeName, object) );
+    	if (res != null)
+    		res.setEsId(object.getEsId());
+        return res;
     }
+
+    /**
+     * Read one object via the object class specific ID
+     * @param object Object refrenced by idString
+     * @return The Object if found or null
+     */
+    public @Nullable T doRead( String objectEsId ) {
+    	T res = mapper.getObjectFromJson( db.doReadJsonData( dataTypeName, objectEsId ) );
+    	if (res != null)
+    		res.setEsId(objectEsId);
+        return res;
+    }
+
 
     /**
      * Read all existing objects of a type

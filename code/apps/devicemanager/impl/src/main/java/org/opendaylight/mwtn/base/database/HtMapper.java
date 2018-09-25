@@ -20,6 +20,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import org.elasticsearch.common.bytes.BytesReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -98,9 +100,11 @@ public class HtMapper<T> {
      * @param json String with Objects JSON representation
      * @return The Object
      */
-    public T getObjectFromJson(byte[] json) {
+    public @Nullable T getObjectFromJson(byte[] json) {
 
-        if (json != null &&    mappingFailures < 10) {
+    	if (json == null)
+    		return null;
+    	else if (mappingFailures < 10) {
             try {
                 T object = objectMapperRead.readValue(json, clazz);
                 return object;
@@ -128,9 +132,9 @@ public class HtMapper<T> {
      * @param json Byte array with JSON Object representation
      * @return The Object
      */
-    public T getObjectFromJson(BytesReference json) {
+    public @Nullable T getObjectFromJson(BytesReference json) {
 
-        return getObjectFromJson(json.toBytes());
+        return json == null ? null : getObjectFromJson(json.toBytes());
 
     }
 

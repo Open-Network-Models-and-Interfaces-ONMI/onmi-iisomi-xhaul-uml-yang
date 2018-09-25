@@ -26,10 +26,10 @@ define(['angularAMD',
     NavHelperProvider.addToMenu('mwtnBrowser', {
      "link" : "#/pnfBrowser/",
      "active" : "main.mwtnBrowser",
-     "title" : "pnf Config",
+     "title" : "Configuration",
      "icon" : "fa fa-cogs",  // Add navigation icon css class here
      "page" : {
-        "title" : "pnf Config",
+        "title" : "Config",
         "description" : "mwtnBrowser"
      }
     });

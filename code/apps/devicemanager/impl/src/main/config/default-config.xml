@@ -12,11 +12,13 @@
                 <module>
                     <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:devicemanager:impl">prefix:devicemanager-impl</type>
                     <name>devicemanager-default</name>
+                    <!-- Inject the default instance of MD-SAL's core BA service-->
                     <broker>
                         <type
                             xmlns:binding="urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding">binding:binding-broker-osgi-registry</type>
                         <name>binding-osgi-broker</name>
                     </broker>
+		            <!-- Inject the default instance of MD-SAL's core BI service-->
                     <notification-service>
                         <type
                             xmlns:binding="urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding">
@@ -45,4 +47,3 @@
         </data>
     </configuration>
 </snapshot>
-

@@ -38,7 +38,7 @@ public class HtDatabaseNode implements AutoCloseable {
 	private static int MIN_PORT_NUMBER = 1024;
 	private static int MAX_PORT_NUMBER = 65535;
 	private static int ES_PORT = 9200;
-	private static int DELAYSECONDS = 30;
+	private static int DELAYSECONDS = 120;
 
 	private static String pluginFolder="etc/elasticsearch-plugins";
 
@@ -55,7 +55,7 @@ public class HtDatabaseNode implements AutoCloseable {
 		LOGGER.debug("Start elasticsearch service");
 		node = nodeBuilder().settings(Settings.builder().put("path.home", "etc").put("path.conf", "etc")).node();
 		LOGGER.info("Starting Database service. Wait {} s", DELAYSECONDS);
-		// Wait for green status but only wait for 2 seconds
+		// Wait for orange status for single node without redundancy
 		ClusterHealthResponse nodeStatus = node.client().admin().cluster().prepareHealth().setWaitForYellowStatus()
 				.setTimeout(TimeValue.timeValueSeconds(DELAYSECONDS)).get();
 
@@ -239,6 +239,7 @@ public class HtDatabaseNode implements AutoCloseable {
 						{
 							config.setCluster(clusterDBName);
 							config.setNode(nodeName);
+							config.save();
 							LOGGER.info("set db name to "+clusterDBName+" nodename="+nodeName );
 						}
 						else

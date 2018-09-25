@@ -17,5 +17,179 @@ module devicemanager-api {
         base config:service-type;
         config:java-class org.opendaylight.mwtn.devicemanager.api.DeviceManagerService;
     }
+
+    grouping maintenance-mode-g {
+		leaf mountpoint-name{
+			mandatory true;
+			type string;
+			description
+				"Mountpoint-name as key of node";
+		}
+		leaf node-name {
+			mandatory true;
+			type string;
+			description
+				"Node-name as node";
+		}
+		list filter {
+			container definition {
+				leaf object-id-ref {
+					mandatory true;
+					type string;
+					description
+						"object id to filter on";
+				}
+				leaf problem {
+					mandatory true;
+					type string;
+					description
+						"name of the problem to filter";
+				}
+			}
+			leaf description {
+				mandatory true;
+				type string;
+				description
+					"Node-name as node";
+			}
+			leaf start-date {
+				mandatory true;
+				type string;
+				description
+					"begin of maintenance-mode";
+			}
+			leaf end-date {
+				mandatory true;
+				type string;
+				description
+					"end of maintenance-mode";
+			}
+		}
+    }
+
+	rpc set-maintenance-mode{
+		description
+			"Set maintenance mode for network element";
+		input{
+			uses maintenance-mode-g;
+		}
+		output {
+			uses maintenance-mode-g;
+		}
+	}
+	rpc get-maintenance-mode{
+		description
+			"Get maintenance mode Configuration";
+		input{
+			leaf mountpoint-name{
+				mandatory true;
+				type string;
+				description
+					"Mountpoint-name as key of node";
+			}
+		}
+		output {
+			uses maintenance-mode-g;
+		}
+	}
+	rpc test-maintenance-mode{
+		description
+			"Send test pattern similar to notification that are test from algorithm";
+		input{
+			leaf mountpoint-name {
+				mandatory true;
+				type string;
+				description	"mountpoint for test";
+			}
+			leaf object-id-ref {
+				mandatory true;
+				type string;
+				description	"object id for test";
+			}
+			leaf problem-name {
+				mandatory true;
+				type string;
+				description	"problem for test";
+			}
+			leaf test-date {
+				mandatory true;
+				type string;
+				description	"point in time used for the test";
+			}
+
+		}
+		output {
+			leaf result-string {
+				mandatory true;
+				type string;
+				description	"Describin if mountpoint was found and result of maintenance mode testing";
+			}
+			uses maintenance-mode-g;
+		}
+	}
+    rpc show-required-network-element {
+        description
+          "Get information for required network element";
+
+        input {
+            leaf mountpoint-name {
+                mandatory true;
+                type string;
+                description
+                    "Mountpoint-name as key of the node to be displayed.";
+            }
+        }
+        output {
+            container required-network-element {
+                leaf mountpoint-name {
+                    type string;
+                    description
+                       "The name of the mountpoint";
+                }
+                leaf status {
+                    type string;
+                    description
+                        "Status: pre-provisoning, installed, end-of-life (Later enum)";
+                }
+                leaf description {
+                    type string;
+                    description "Device description";
+                }
+            }
+        }
+    }
+
+    rpc get-required-network-element-keys {
+        description
+          "Returns a list of netconf nodes for each data store space";
+
+        output {
+            leaf-list mountpoint-names {
+                type string;
+                description
+                  "List of required-network-element keys that are the mountpoint-names";
+            }
+        }
+    }
+    
+    rpc clear-current-fault-by-nodename {
+    	description
+    		"try to clear alarms and sync the alarm with the devices currently connected";
+    	input {
+    		leaf-list nodenames {
+    			type string;
+    			description
+    				"list of network-elements to clear alarms for nodenames, if list empty then all";
+    		}
+    	}
+    	output {
+    		leaf-list nodenames {
+    			type string;
+    			description
+    				"list of network-elements alarms cleared";
+    		}
+    	}
+    }
+
 }
 

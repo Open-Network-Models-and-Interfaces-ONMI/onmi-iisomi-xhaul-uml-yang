@@ -1,0 +1,20 @@
+<ht-header help-link='sdnr/maintenancemode/0.4.0/README.md'></ht-header>
+
+<uib-accordion close-others="oneAtATime">
+
+	<div uib-accordion-group class="panel-primary" is-open="status.requiredNes">
+		<uib-accordion-heading>
+			<i class="pull-left fa" ng-class="{'fa-chevron-down': status.requiredNes, 'fa-chevron-right': !status.requiredNes}"></i>
+			<span>{{'MWTN_MANAGE_MAINTENANCEMODE' | translate}}</span>
+		</uib-accordion-heading>
+		<div id="requiredNesGrid" ui-grid="maintainNesGridOptions" ui-grid-exporter ui-grid-edit ui-grid-selection ui-grid-pinning
+		 ui-grid-resize-columns ui-grid-move-columns class="requiredNesGrid">
+		</div>
+	</div>
+
+</uib-accordion>
+
+<hr />
+<div class="owl">
+	<span class="white">ONAP SDN-R | ONF Wireless for @distversion@ - Build: @buildtime@</span>
+</div>

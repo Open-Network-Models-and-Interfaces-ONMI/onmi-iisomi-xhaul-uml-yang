@@ -68,6 +68,7 @@ public class Resources {
 	{
 		return readFile(u.openStream());
 	}
+	@SuppressWarnings("unused")
 	private static String readFile(final File f) throws IOException
 	{
 		return readFile(new FileInputStream(f));

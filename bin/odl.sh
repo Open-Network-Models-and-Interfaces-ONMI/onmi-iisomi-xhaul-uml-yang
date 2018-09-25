@@ -70,7 +70,7 @@ karaf_startup_all() {
     karaf_startup_apps
 }
 
-# Startup of clustered nodes (no clustering)
+# Startup of clustered nodes
 karaf_startup_cluster_all() {
     # Prepare
     karaf_prepare
@@ -520,6 +520,7 @@ pause() {
 pushbuildinfo() {
   if [ -z $ODL_CLUSTER_REPO ] ; then
     echo "No cluster repository specified by ODL_CLUSTER_REPO. Can not proceed."
+    exit 1
   else
     if [ -z "$ODL_BUILD_HOME" ] ; then
       echo "No ODL_BUILD_HOME defined. Terminate" ; exit 2
@@ -892,6 +893,7 @@ case "$1" in
     echo " cli         start karaf command line"
     echo " cluster xx  cluster commands and all other commands"
     echo "                status, ib, im, stop, push, distremove, cp"
+    echo "                -cp dir: scp -r x/dir/* to clusternode/xx/dist/dir xx=$ODL_KARAF_HOME"
     echo " env         List environment variables"
     echo " d           for devicemanager and install from M2"
     echo " dbclean     clean db and load with initial data"

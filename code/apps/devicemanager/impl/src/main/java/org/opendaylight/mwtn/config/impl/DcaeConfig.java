@@ -143,4 +143,8 @@ public class DcaeConfig extends BaseSubConfig {
 		dcaeConfig = tmpConfig;
 		return dcaeConfig;
 	}
+
+	public static void clear() {
+		dcaeConfig=null;
+	}
 }

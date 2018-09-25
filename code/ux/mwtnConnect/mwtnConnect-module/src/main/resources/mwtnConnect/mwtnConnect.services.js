@@ -36,6 +36,8 @@ define(['app/mwtnConnect/mwtnConnect.module','app/mwtnCommons/mwtnCommons.servic
     service.separator = $mwtnCommons.separator;
     
     service.mount = $mwtnCommons.mount;
+    service.addMountNeToRequiredNes = $mwtnCommons.addMountNeToRequiredNes;
+    service.addMountNeToMaintenance = $mwtnCommons.addMountNeToMaintenance;
     service.unmount = $mwtnCommons.unmount;
     service.yangifyObject = $mwtnCommons.yangifyObject;
 

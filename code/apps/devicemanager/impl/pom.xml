@@ -292,6 +292,17 @@
             <groupId>com.typesafe.akka</groupId>
             <artifactId>akka-cluster_2.11</artifactId>
         </dependency>
+        <dependency>
+		   <groupId>org.ops4j.pax.logging</groupId>
+		   <artifactId>pax-logging-api</artifactId>
+		   <version>1.8.4</version>
+		</dependency>
+		<dependency>
+		   <groupId>org.ops4j.pax.logging</groupId>
+		   <artifactId>pax-logging-service</artifactId>
+		   <version>1.8.4</version>
+		   <!-- Note that this bundle declares a dependency on log4j -->
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>

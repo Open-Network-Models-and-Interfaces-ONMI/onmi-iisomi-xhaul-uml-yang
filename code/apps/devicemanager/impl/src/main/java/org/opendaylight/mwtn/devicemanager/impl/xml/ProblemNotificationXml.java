@@ -26,6 +26,10 @@ public class ProblemNotificationXml extends MwtNotificationBase implements GetEv
 
     private static String EVENTTYPE =  "ProblemNotification";
     private static final Pattern pattern = Pattern.compile(".*\\[layerProtocol=(.*)\\]");
+    /**
+     * The leading indication for notification or events that are not in the currentProblem data of the ONF Coremodel
+     */
+    private static final String NOCURRENTPROBLEMINDICATION = "#";
 
     @XmlElement(name = "problem")
     private String problem;
@@ -60,6 +64,10 @@ public class ProblemNotificationXml extends MwtNotificationBase implements GetEv
 
     public InternalSeverity getSeverity() {
         return severity;
+    }
+
+    public boolean isNotManagedAsCurrentProblem() {
+    	return problem.startsWith(NOCURRENTPROBLEMINDICATION);
     }
 
     /**

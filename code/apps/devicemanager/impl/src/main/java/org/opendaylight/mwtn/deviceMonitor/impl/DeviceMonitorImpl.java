@@ -9,6 +9,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
+import org.apache.lucene.analysis.util.CharArrayMap.EntrySet;
+import org.opendaylight.controller.md.sal.binding.api.DataBroker;
+import org.opendaylight.controller.md.sal.binding.api.MountPoint;
+import org.opendaylight.mwtn.base.internalTypes.InventoryInformation;
+import org.opendaylight.mwtn.base.netconf.AllPm;
 import org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElementRepresentation;
 import org.opendaylight.mwtn.devicemanager.impl.listener.ODLEventListener;
 import org.slf4j.Logger;
@@ -45,13 +50,15 @@ import org.slf4j.LoggerFactory;
  * @author herbert
  */
 
-public class DeviceMonitorImpl implements DeviceMonitor, AutoCloseable {
+public class DeviceMonitorImpl implements AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(DeviceMonitorImpl.class);
 
     private final ConcurrentHashMap<String, DeviceMonitorTask> queue;
     private final ScheduledExecutorService scheduler;
     private final ODLEventListener odlEventListener;
+    @SuppressWarnings("unused")
+	private final DataBroker dataBroker; //Future usage
 
     /*-------------------------------------------------------------
      * Construction/ destruction of service
@@ -61,12 +68,13 @@ public class DeviceMonitorImpl implements DeviceMonitor, AutoCloseable {
      * Basic implementation of devicemonitoring
      * @param odlEventListener as destination for problems
      */
-    public DeviceMonitorImpl(ODLEventListener odlEventListener) {
+    public DeviceMonitorImpl(DataBroker dataBroker, ODLEventListener odlEventListener) {
         LOG.info("Construct {}", this.getClass().getSimpleName());
 
         this.odlEventListener = odlEventListener;
+        this.dataBroker = dataBroker;
         this.queue = new ConcurrentHashMap<>();
-        this.scheduler = Executors.newScheduledThreadPool(1);
+        this.scheduler = Executors.newScheduledThreadPool(10);
     }
 
     /**
@@ -85,22 +93,55 @@ public class DeviceMonitorImpl implements DeviceMonitor, AutoCloseable {
     }
 
     /*-------------------------------------------------------------
-     * Register/ Deregister Mountpoint
+     * Start/ stop/ update service for Mountpoint
      */
 
-    @Override
-    synchronized public void createMountpointIndication(String mountPointNodeName) {
-
-        LOG.debug("Register for monitoring {} {}",mountPointNodeName, mountPointNodeName.hashCode());
-
-        LOG.info("Do start of DeviceMonitor task");
-        //Runnable task = new PerformanceManagerTask(queue, databaseService);
-        DeviceMonitorTask task = new DeviceMonitorTask(mountPointNodeName, this.odlEventListener);
-        queue.put(mountPointNodeName, task);
-        task.start(scheduler);
+    /**
+     * Notify of device state changes to "connected" for slave nodes
+     * @param mountPointNodeName name of mountpoint
+     */
+    synchronized public void deviceConnectSlaveIndication(String mountPointNodeName) {
+    	deviceConnectMasterIndication(mountPointNodeName, null);
     }
 
-    @Override
+    /**
+     * Notify of device state changes to "connected"
+     * @param mountPointNodeName name of mountpoint
+     * @param ne to monitor
+     */
+    synchronized public void deviceConnectMasterIndication(String mountPointNodeName, DeviceMonitoredNe ne) {
+
+        LOG.debug("ne changes to connected state {}",mountPointNodeName);
+        createMonitoringTask(mountPointNodeName);
+        if (queue.containsKey(mountPointNodeName)) {
+            DeviceMonitorTask task = queue.get(mountPointNodeName);
+            task.deviceConnectIndication(ne);
+        } else {
+            LOG.warn("Monitoring task not in queue: {} {} {}", mountPointNodeName, mountPointNodeName.hashCode(), queue.size());
+        }
+    }
+
+   /**
+    * Notify of device state change to "disconnected"
+    * Mountpoint supervision
+    * @param mountPointNodeName to deregister
+    */
+    synchronized public void deviceDisconnectIndication(String mountPointNodeName) {
+
+        LOG.debug("State changes to not connected state {}",mountPointNodeName);
+        createMonitoringTask(mountPointNodeName);
+        if (queue.containsKey(mountPointNodeName)) {
+            DeviceMonitorTask task = queue.get(mountPointNodeName);
+            task.deviceDisconnectIndication();
+        } else {
+            LOG.warn("Monitoring task not in queue: {} {} {}", mountPointNodeName, mountPointNodeName.hashCode(), queue.size());
+        }
+    }
+
+    /**
+     * removeMountpointIndication deregisters a mountpoint for registration services
+     * @param mountPointNodeName to deregister
+     */
     synchronized public void removeMountpointIndication(String mountPointNodeName) {
 
         if (queue.containsKey(mountPointNodeName)) {
@@ -112,40 +153,45 @@ public class DeviceMonitorImpl implements DeviceMonitor, AutoCloseable {
             task.removeMountpointIndication();
             LOG.debug("Task stopped: {}", mountPointNodeName);
         } else {
-            LOG.warn("Task not in queue anymore: {}", mountPointNodeName);
+            LOG.warn("Task not in queue: {}", mountPointNodeName);
         }
     }
 
-    /*-------------------------------------------------------------
-     * Register/ Deregister device
+    /**
+     * Referesh database by raising all alarms again.
      */
-
-    @Override
-    synchronized public void deviceConnectIndication(String mountPointNodeName, ONFCoreNetworkElementRepresentation ne) {
-
-        LOG.debug("ne changes to connected state {}",mountPointNodeName);
-        if (queue.containsKey(mountPointNodeName)) {
-            DeviceMonitorTask task = queue.get(mountPointNodeName);
-            task.deviceConnectIndication(ne);
-        } else {
-            LOG.warn("Monitoring task not in queue anymore: {} {} {}", mountPointNodeName, mountPointNodeName.hashCode(), queue.size());
-        }
-    }
-
-    @Override
-    synchronized public void deviceDisconnectIndication(String mountPointNodeName) {
-
-        LOG.debug("ne changes to disconnected state {}",mountPointNodeName);
-        if (queue.containsKey(mountPointNodeName)) {
-            DeviceMonitorTask task = queue.get(mountPointNodeName);
-            task.deviceDisconnectIndication();
-        } else {
-            LOG.warn("Monitoring task not in queue anymore: {} {} {}", mountPointNodeName, mountPointNodeName.hashCode(), queue.size());
-        }
-    }
+	public void refreshAlarmsInDb() {
+		synchronized(queue) {
+			for (DeviceMonitorTask task : queue.values()) {
+				task.refreshAlarms();
+			}
+		}
+	}
 
     /*-------------------------------------------------------------
      * Private functions
      */
+
+    /**
+     * createMountpoint registers a new mountpoint monitoring service
+     * @param mountPointNodeName name of mountpoint
+     */
+    synchronized private DeviceMonitorTask createMonitoringTask(String mountPointNodeName) {
+
+    	DeviceMonitorTask task;
+        LOG.debug("Register for monitoring {} {}",mountPointNodeName, mountPointNodeName.hashCode());
+
+        if (queue.containsKey(mountPointNodeName)) {
+        	LOG.info("Monitoring task exists");
+        	task = queue.get(mountPointNodeName);
+        } else {
+        	LOG.info("Do start of DeviceMonitor task");
+        	//Runnable task = new PerformanceManagerTask(queue, databaseService);
+        	task = new DeviceMonitorTask(mountPointNodeName, this.odlEventListener);
+        	queue.put(mountPointNodeName, task);
+        	task.start(scheduler);
+        }
+        return task;
+    }
 
 }

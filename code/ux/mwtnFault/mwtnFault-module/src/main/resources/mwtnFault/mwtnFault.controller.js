@@ -41,19 +41,23 @@ define(['app/mwtnFault/mwtnFault.module',
     // Current Problem List
     $scope.gridOptionsCurrentProblemList = JSON.parse(JSON.stringify($mwtnFault.gridOptions));
     $scope.gridOptionsCurrentProblemList.columnDefs = [
-     // { field: 'id', type: 'number', displayName: 'No.',  headerCellClass: $scope.highlightFilteredHeader, width : 50, cellClass: 'number', pinnedLeft : true },
-     { field: 'icon',  type: 'string', displayName: '',  headerCellClass: $scope.highlightFilteredHeader, width: 25, enableSorting: false, enableFiltering:false, cellTemplate: iconCell },
-     { field: 'timestamp',  type: 'string', displayName: 'Timestamp',  headerCellClass: $scope.highlightFilteredHeader, width : 200, sort: {
+      // { field: 'id', type: 'number', displayName: 'No.',  headerCellClass: $scope.highlightFilteredHeader, width : 50, cellClass: 'number', pinnedLeft : true },
+      { field: 'icon',  type: 'string', displayName: '',  headerCellClass: $scope.highlightFilteredHeader, width: 25, enableSorting: false, enableFiltering:false, cellTemplate: iconCell },
+      { field: 'timestamp',  type: 'string', displayName: 'Timestamp',  headerCellClass: $scope.highlightFilteredHeader, width : 200, sort: {
        direction: uiGridConstants.DESC,
        priority: 1
-     } },
-     { field: 'node',  type: 'string', displayName: 'Node name',  headerCellClass: $scope.highlightFilteredHeader, width: 200 },
-     { field: 'counter',  type: 'number', displayName: 'Counter',  headerCellClass: $scope.highlightFilteredHeader, width: 70, cellClass: 'number' },
-     { field: 'object',  type: 'string', displayName: 'Object Id',  headerCellClass: $scope.highlightFilteredHeader, width: 300 },
-     { field: 'problem',  type: 'string', displayName: 'Alarm type',  headerCellClass: $scope.highlightFilteredHeader, width : 200 },
-     { field: 'severity',  type: 'string', displayName: 'Severity',  headerCellClass: $scope.highlightFilteredHeader, width : 150 }
+      } },
+      { field: 'node',  type: 'string', displayName: 'Node name',  headerCellClass: $scope.highlightFilteredHeader, width: 200 },
+      { field: 'counter',  type: 'number', displayName: 'Counter',  headerCellClass: $scope.highlightFilteredHeader, width: 70, cellClass: 'number' },
+      { field: 'object',  type: 'string', displayName: 'Object Id',  headerCellClass: $scope.highlightFilteredHeader, width: 300 },
+      { field: 'problem',  type: 'string', displayName: 'Alarm type',  headerCellClass: $scope.highlightFilteredHeader, width : 200 },
+      { field: 'severity',  type: 'string', displayName: 'Severity',  headerCellClass: $scope.highlightFilteredHeader, width : 150 }
      
    ];
+    //Neetha
+   $scope.gridOptionsCurrentProblemList.onRegisterApi = function (gridApi) {
+      $scope.gridOptionsCurrentProblemList.gridApi = gridApi;
+   } // Neetha
     
     var processCurrentProblemEntries = function(logEntries) {
       if (logEntries.data.hits.hits) {
@@ -543,7 +547,46 @@ define(['app/mwtnFault/mwtnFault.module',
       });
     };    
 
-    
+    //Neetha
+    $scope.refreshList = function () {
+      var currentFilteredRows = $scope.gridOptionsCurrentProblemList.gridApi.core.getVisibleRows();
+      var length = currentFilteredRows.length;
+      var distinctList = [], flag = [];
+      for(var i = 0; i < length; i++) {
+        var node = currentFilteredRows[i].entity.node;
+        if(flag[node]) continue;
+        flag[node] = true;
+        distinctList.push(node);
+      }
+
+      var modalInstance = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'src/app/mwtnFault/templates/refreshListConfirmation.tpl.html',
+        controller: 'ClearCurrentFaultCtrl',
+        size: 'lg',
+        resolve: {
+          refreshList: function () {
+            return distinctList;
+          }
+        }
+      });
+
+      $scope.gridOptionsCurrentProblemList.clearFilters = function() {
+        $scope.gridOptionsCurrentProblemList.gridApi.grid.clearAllFilters();
+      };
+
+      modalInstance.result.then(function (success) {
+        $scope.gridOptionsCurrentProblemList.clearFilters();
+        $scope.gridOptionsCurrentProblemList.data = [];
+        $timeout(function(){$scope.refreshCurrentProblemList();}, 500);
+      }, function () {
+        $mwtnLog.info({ component: COMPONENT, message: 'Refresh List dismissed!' });
+      });
+    };
+    //Neetha
+
     // UI events 
     $scope.status = {currentProblemList: true};
     $scope.spinner = {currentProblemList: false};
@@ -592,6 +635,42 @@ define(['app/mwtnFault/mwtnFault.module',
     $scope.cancel = function () {
       $uibModalInstance.dismiss();
     };
+  }]);
+
+  //Neetha
+  mwtnFaultApp.register.controller('ClearCurrentFaultCtrl', ['$scope', '$uibModalInstance', '$mwtnFault', 'refreshList',"$q","$mwtnLog",
+  function ($scope, $uibModalInstance, $mwtnFault, refreshList,$q,$mwtnLog) {
+    $scope.processing = false;
+    $scope.newcount = refreshList.length;
+    $scope.yes = function () {
+      //console.log(refreshList);
+        //odlrequest -Start
+          var url = 'operations/devicemanager-api:clear-current-fault-by-nodename';
+          var request = {
+            method: 'POST',
+            url: url,
+            data: {
+              "devicemanager-api:input": {
+                "devicemanager-api:nodenames": refreshList
+              }
+            }
+          };
+          var deferred= $q.defer();
+          $mwtnFault.genericRequest(request).then(function(success){
+            deferred.resolve(success);
+          }, function (error) {
+            $mwtnLog.error({ component: COMPONENT + '.genericRequest', message: JSON.stringify(error.data) });
+            deferred.reject(error);
+          });
+            //odlrequest -End
+        $uibModalInstance.close(request);
+      $scope.processing = true;
+    };
+
+    $scope.no = function () {
+      $uibModalInstance.dismiss();
+    };
+   //Neetha 
   }]);
     
 });

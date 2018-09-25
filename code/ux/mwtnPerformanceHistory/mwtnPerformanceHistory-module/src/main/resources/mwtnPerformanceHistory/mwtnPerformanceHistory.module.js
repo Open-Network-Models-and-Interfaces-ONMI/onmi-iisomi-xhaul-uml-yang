@@ -28,10 +28,10 @@ define(['angularAMD',
     NavHelperProvider.addToMenu('mwtnPerformanceHistory', {
      "link" : "#/pnfPerformanceHistory/",
      "active" : "main.mwtnPerformanceHistory",
-     "title" : "pnf PM History",
+     "title" : "PM History",
      "icon" : "fa fa-bar-chart",  // Add navigation icon css class here
      "page" : {
-        "title" : "pnf PM History",
+        "title" : "PM History",
         "description" : "mwtnHistoricalPerformance"
      }
     });

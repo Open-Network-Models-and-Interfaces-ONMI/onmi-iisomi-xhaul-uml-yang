@@ -27,10 +27,10 @@ define(['angularAMD',
     NavHelperProvider.addToMenu('mwtnTopology', {
       "link": "#/pnfTopology/site",
       "active": "main.mwtnTopology",
-      "title": "pnf Topology",
+      "title": "Topology",
       "icon": "fa fa-connectdevelop",  // Add navigation icon css class here
       "page": {
-        "title": "pnf Topology",
+        "title": "Topology",
         "description": "mwtnTopology"
       }
     });

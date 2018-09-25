@@ -121,7 +121,11 @@ public class EsConfig extends BaseSubConfig {
 		c.cluster = this.cluster;
 		return c;
 	}
-
+	public void save()
+	{
+		this.config.setProperty(SECTION_MARKER_ES + "." + PROPERTY_KEY_CLUSTER, this.cluster);
+		super.save();
+	}
 	public static boolean isInstantiated() {
 		return esConfig != null;
 	}
@@ -151,6 +155,10 @@ public class EsConfig extends BaseSubConfig {
 		}
 		esConfig = tmpConfig;
 		return esConfig;
+	}
+
+	public static void clear() {
+		esConfig=null;
 	}
 
 }

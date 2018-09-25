@@ -144,4 +144,8 @@ public class PmConfig extends BaseSubConfig {
 		pmConfig = tmpConfig;
 		return pmConfig;
 	}
+
+	public static void clear() {
+		pmConfig=null;
+	}
 }

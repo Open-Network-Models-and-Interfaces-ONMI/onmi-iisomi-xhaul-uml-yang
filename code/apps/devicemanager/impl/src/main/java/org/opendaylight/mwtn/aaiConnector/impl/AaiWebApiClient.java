@@ -76,10 +76,13 @@ public class AaiWebApiClient extends BaseHTTPClient{
 			"    \"equip-model\": \"@model@\",\n" +
 			"    \"equip-vendor\": \"@vendor@\",\n" +
 			"    \"ipaddress-v4-oam\": \"@oamIp@\",\n" +
-			"    \"in-maint\": true,\n" +
+			"    \"in-maint\": false,\n" +
+			"    \"prov-status\":\"PROV\",\n"+
 			"    \"p-interfaces\": @interface-list@\n"+
 			"}\n" +
 			"";
+
+	private static final String CONTENT_TYPE_JSON = "application/json";
 
 	private static String getPnfTemplateFilled(String pnfId,String type,String model,String vendor,String oamIp,List<String> ifaces)
 	{
@@ -124,7 +127,7 @@ public class AaiWebApiClient extends BaseHTTPClient{
 	{
 		LOG.debug("registering "+pnfId +"(type="+type+", model="+model+", vendor="+vendor+",ip="+oamIp+")");
 		Map<String,String> headers = this.headers;
-		headers.put("Content-Type","application/json");
+		headers.put("Content-Type",CONTENT_TYPE_JSON);
 		headers.put("Accept","application/json");
 		BaseHTTPResponse response=null;
 		try {
@@ -142,7 +145,7 @@ public class AaiWebApiClient extends BaseHTTPClient{
 	{
 		LOG.debug("unregistering "+pnfId);
 		Map<String,String> headers = this.headers;
-		headers.put("Content-Type","application/json");
+		headers.put("Content-Type",CONTENT_TYPE_JSON);
 		headers.put("Accept","application/json");
 		BaseHTTPResponse response=null;
 		try {
@@ -161,7 +164,7 @@ public class AaiWebApiClient extends BaseHTTPClient{
 		BaseHTTPResponse response=null;
 		LOG.debug("check for "+pnfId);
 		Map<String,String> headers = this.headers;
-		headers.put("Content-Type","application/json");
+		headers.put("Content-Type",CONTENT_TYPE_JSON);
 		headers.put("Accept","application/json");
 		try {
 			String uri="network/pnfs/pnf/"+URLParamEncoder.encode( pnfId );

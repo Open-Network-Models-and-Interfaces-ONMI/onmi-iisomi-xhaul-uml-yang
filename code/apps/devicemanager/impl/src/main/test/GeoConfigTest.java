@@ -50,10 +50,25 @@ return "\n" +
 	}
 	public static void main(String[] args)
 	{
+		GeoConfig config;
 		try {
 			System.out.println("testing clusternode geo config1");
 			System.out.println("===========================");
-			GeoConfig config = GeoConfig.parse(getClusterGeoConfigContent());
+			config = GeoConfig.parse(getClusterGeoConfigContent());
+			System.out.println("succeeded: ");
+			System.out.println(config.toString());
+			System.out.println("primary roles:");
+			System.out.println(config.getPrimaryRoles().toString());
+			System.out.println("secondary roles:");
+			System.out.println(config.getSecondaryRoles().toString());
+
+		} catch (Exception e) {
+			System.out.println("failed: "+e.getMessage());
+		}
+		try {
+			System.out.println("testing clusternode geo config1");
+			System.out.println("===========================");
+			config = GeoConfig.load("/home/herbert/Nextcloud/captured-karaf-logs/geo.conf");
 			System.out.println("succeeded: ");
 			System.out.println(config.toString());
 			System.out.println("primary roles:");

@@ -38,6 +38,8 @@ define(['app/mwtnMediator/mwtnMediator.module',
     	'<span class="fa fa-check-circle-o mwtnMediatorCStatusIcon" style="color:green;" ng-show="grid.getCellValue(row, col).Netconf"></span>',
     	'<span class="fa fa-times-circle-o mwtnMediatorCStatusIcon" style="color:red;" ng-show="!grid.getCellValue(row, col).Netconf"></span>',
     	'<span class="fa fa-minus mwtnMediatorCStatusIcon" style="color:green;font-weight:bold;" ng-show="grid.getCellValue(row, col).Netconf"></span>',
+    	'<span class="mwtnMediatorCStatusIcon" style="font-size:1.6rem;margin-left: 0.2rem;margin-right: 0.2rem;color:green;font-weight:bold;" ng-show="grid.getCellValue(row, col).Netconf">{{grid.getCellValue(row, col).NetconfConnetionsString}}</span>',
+    	'<span class="fa fa-minus mwtnMediatorCStatusIcon" style="color:green;font-weight:bold;" ng-show="grid.getCellValue(row, col).Netconf"></span>',
     	'<span class="fa fa-ellipsis-h mwtnMediatorCStatusIcon" style="color:red;font-weight:bold;" ng-show="!grid.getCellValue(row, col).Netconf"></span>',
     	'<span class="fa fa-dot-circle-o mwtnMediatorCStatusIcon" style="font-size:3rem;color:#666;"></span>',
     	'<span class="fa fa-minus mwtnMediatorCStatusIcon" style="color:green;font-weight:bold;" ng-show="grid.getCellValue(row, col).NetworkElement"></span>',
@@ -49,8 +51,8 @@ define(['app/mwtnMediator/mwtnMediator.module',
 
    	var requiredNesActionCellTemplate = [
       '<a class="vCenter" ng-class="{attention: grid.appScope.hover}" >',
-      '<button class="btn btn-primary" ng-click="grid.appScope.startMediator(row.entity)">Start</button>',
-      '<button class="btn btn-default" ng-click="grid.appScope.stopMediator(row.entity)">Stop</button>',
+      '<button id="btn_startm_{{grid.getCellValue(row,col).Name}}" class="btn btn-primary" ng-click="grid.appScope.startMediator(row.entity)">Start&nbsp;<i class="fa fa-spinner fa-spin" style="display:none;"></i></button>',
+      '<button id="btn_stopm_{{grid.getCellValue(row,col).Name}}" class="btn btn-default" ng-click="grid.appScope.stopMediator(row.entity)">Stop</button>',
       '<button class="btn btn-default" ng-click="grid.appScope.showDetails(row.entity)"><i class="fa fa-info-circle" aria-hidden="true"></i></button>',
       '</a>' ].join('<span>&nbsp;</span>');
 
@@ -65,7 +67,7 @@ define(['app/mwtnMediator/mwtnMediator.module',
     	   enableSorting : false,
            enableFiltering: false,
            cellTemplate:connectionStatusCellTemplate,
-           width : 150
+           width : 200
        },
        {  name : 'actions',
           enableSorting : false,
@@ -191,19 +193,31 @@ define(['app/mwtnMediator/mwtnMediator.module',
 
     $scope.startMediator =  function(el)
     {
-    	var btn=$(this);
+    	var btnSel="#btn_startm_"+el.Name;
+    	var btn=$(btnSel);
     	if(btn!==undefined)
+    	{
     		btn.prop('disabled',true);
+    		btn.find('i').css({display:'inline-block'});
+    	}
     	console.log("starting mediator "+el.Name+" ...");
     	if(mediatorServer!==undefined)
     	{
+    		var delay=2000;
     		mediatorServer.StartMediator(el.Name,function(res){
-    			refreshMediator(el.Name);
+    			setTimeout(function(){
+    				refreshMediator(el.Name);		
+    			},delay);
     			//console.log(res);
     		},function(err){
-    			if(btn!==undefined)
-    	    		btn.prop('disabled',false);
-    		//	console.log("error starting mediator");
+    			setTimeout(function(){
+	    			if(btn!==undefined)
+	    			{
+	    				btn.prop('disabled',false);
+	    				btn.find('i').css({display:'none'});
+	    			}
+	    		//	console.log("error starting mediator");
+    			},delay);
     		});
     	}
     }

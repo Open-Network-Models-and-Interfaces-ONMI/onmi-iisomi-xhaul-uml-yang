@@ -29,10 +29,10 @@ define(['angularAMD',
     NavHelperProvider.addToMenu('mwtnLog', {
      "link" : "#/mwtnLog",
      "active" : "main.mwtnLog",
-     "title" : "Logs",
+     "title" : "Logging",
      "icon" : "fa fa-list",  // Add navigation icon css class here
      "page" : {
-        "title" : "Logs",
+        "title" : "Logging",
         "description" : "mwtnLog"
      }
     });

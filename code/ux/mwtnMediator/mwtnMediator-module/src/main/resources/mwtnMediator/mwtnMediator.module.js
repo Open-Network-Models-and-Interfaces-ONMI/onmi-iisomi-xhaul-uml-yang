@@ -27,10 +27,10 @@ define(['angularAMD',
     NavHelperProvider.addToMenu('mwtnMediator', {
      "link" : "#/pnfMediator",
      "active" : "main.mwtnMediator",
-     "title" : "pnf Mediator",
+     "title" : "Mediator",
      "icon" : "fa fa-globe",  // Add navigation icon css class here
      "page" : {
-        "title" : "pnf Mediator",
+        "title" : "Mediator",
         "description" : "mwtnMediator"
      }
     });

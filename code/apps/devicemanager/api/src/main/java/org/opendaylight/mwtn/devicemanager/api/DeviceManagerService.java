@@ -13,37 +13,28 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev15
 
 public interface DeviceManagerService {
 
-    /*@Deprecated
-    public void startListenerOnNode(String nodeName);*/
-
-    /*@Deprecated
-    public void removeListenerOnNode(String nodeName);*/
+	public enum Action {
+		ADD,
+		REMOVE,
+		UPDATE
+	}
+    /**
+     * Managed device is connected to node/mountpoint
+     * @param nNodeId id of the mountpoint
+     * @param nNode mountpoint contents
+     */
+    public void startListenerOnNodeForConnectedState(Action action, NodeId nNodeId, NetconfNode nNode);
 
     /**
      * Managed device is disconnected from node/mountpoint
      * @param nNodeId id of the mountpoint
      * @param nNode mountpoint contents
      */
-    public void removeListenerOnNode(NodeId nNodeId, NetconfNode nNode);
+    public void leaveConnectedState(NodeId nNodeId, NetconfNode nNode);
 
-    /**
-     * Managed device is connected to node/mountpoint
-     * @param nNodeId id of the mountpoint
-     * @param nNode mountpoint contents
-     */
-    public void startListenerOnNode(NodeId nNodeId, NetconfNode nNode);
-
-    /**
-     * Creation indication of node/mountpoint
-     * @param nNodeId id of the mountpoint
-     * @param nNode mountpoint contents
-     */
-    public void mountpointNodeCreation(NodeId nNodeId, NetconfNode nNode);
-
-    /**
+	/**
      * Removal indication of node/mountpoint
      * @param nNodeId id of the mountpoint
      */
     public void mountpointNodeRemoved(NodeId nNodeId);
-
 }

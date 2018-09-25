@@ -591,21 +591,31 @@ public class HtDatabaseClientAbstract implements HtDataBase, AutoCloseable {
      * Read Json Object from database
      */
     @Override
-    public BytesReference doReadJsonData( String dataTypeName, IsEsObject esId ) {
+    public @Nullable BytesReference doReadJsonData( String dataTypeName, IsEsObject esId ) {
 
-        log.debug("NetworkIndex: {}",esIndexAlias);
         if (esId.getEsId() == null) {
             throw new IllegalArgumentException("Read access to object without database Id");
         }
 
-        GetResponse response = client.prepareGet(esIndexAlias, dataTypeName, esId.getEsId())
+        return doReadJsonData(dataTypeName, esId.getEsId());
+    }
+
+    /**
+     * Read Json Object from database
+     */
+    @Override
+    public @Nullable BytesReference doReadJsonData( String dataTypeName, String esId ) {
+
+        log.debug("NetworkIndex: {}",esIndexAlias);
+
+        GetResponse response = client.prepareGet(esIndexAlias, dataTypeName, esId)
                 //.setOperationThreaded(false)
                 .execute()
                 .actionGet();
 
-        BytesReference json = response.getSourceAsBytesRef();
-        return json;
+        return response.isExists() ? response.getSourceAsBytesRef() : null;
     }
+
 
     @Override
     public SearchHit[] doReadByQueryJsonData( int start, int length, String dataTypeName, QueryBuilder qb ) {

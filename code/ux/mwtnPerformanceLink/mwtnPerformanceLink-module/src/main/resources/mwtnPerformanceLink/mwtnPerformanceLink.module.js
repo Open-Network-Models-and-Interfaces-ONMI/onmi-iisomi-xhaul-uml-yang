@@ -28,10 +28,10 @@ define(['angularAMD',
     NavHelperProvider.addToMenu('mwtnPerformanceLink', {
      "link" : "#/pnfPerformanceLink",
      "active" : "main.mwtnPerformanceLink",
-     "title" : "pnf PM Link",
+     "title" : "PM Link",
      "icon" : "fa fa-bar-chart",  // Add navigation icon css class here
      "page" : {
-        "title" : "pnf PM Link",
+        "title" : "PM Link",
         "description" : "mwtnLinkPerformance"
      }
     });

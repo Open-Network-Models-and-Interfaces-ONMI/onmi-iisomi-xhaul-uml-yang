@@ -6,6 +6,7 @@ function MediatorConfig(obj) {
 		this.DevicePort = 'DevicePort' in obj?obj.DevicePort:161;
 		this.TrapsPort = obj.TrapPort;
 		this.IsNetConfConnected = obj.IsNCConnected;
+		this.NetconfConnections = 'ncconnections' in obj?obj.ncconnections:[];
 		this.IsNetworkElementConnected = obj.IsNeConnected;
 		this.NeModel = obj.NeXMLFile;
 		this.NetconfPort = obj.NcPort;
@@ -21,6 +22,7 @@ function MediatorConfig(obj) {
 		this.DevicePort = 161;
 		this.TrapsPort = 0;
 		this.IsNetConfConnected = false;
+		this.NetconfConnections=[];
 		this.IsNetworkElementConnected = false;
 		this.NeModel = "";
 		this.NetconfPort = 0;
@@ -31,7 +33,9 @@ function MediatorConfig(obj) {
 		this.OpenDaylightConfigs=[];
 	}
 	this.DeviceTypeString = this.getDeviceTypeString();
-	this.ConnectionStatus = {Netconf:this.IsNetConfConnected,NetworkElement:this.IsNetworkElementConnected}
+	var n=this.NetconfConnections===undefined?"0":this.NetconfConnections.length;
+	var o=this.OpenDaylightConfigs===undefined?"0":this.OpenDaylightConfigs.length;
+	this.ConnectionStatus = {Netconf:this.IsNetConfConnected,NetworkElement:this.IsNetworkElementConnected,NetconfConnetionsString:""+n+"/"+o}
 
 }
 MediatorConfig.prototype.refreshData = function(obj)
@@ -44,6 +48,7 @@ MediatorConfig.prototype.refreshData = function(obj)
 		this.DevicePort = 'DevicePort' in obj?obj.DevicePort:161;
 		this.TrapsPort = obj.TrapPort;
 		this.IsNetConfConnected = obj.IsNCConnected;
+		this.NetconfConnections = 'ncconnections' in obj?obj.ncconnections:[];
 		this.IsNetworkElementConnected = obj.IsNeConnected;
 		this.NeModel = obj.NeXMLFile;
 		this.NetconfPort = obj.NcPort;
@@ -54,7 +59,9 @@ MediatorConfig.prototype.refreshData = function(obj)
 		this.OpenDaylightConfigs = obj.ODLConfig;
 	}
 	this.DeviceTypeString = this.getDeviceTypeString();
-	this.ConnectionStatus = {Netconf:this.IsNetConfConnected,NetworkElement:this.IsNetworkElementConnected}
+	var n=this.NetconfConnections===undefined?"0":this.NetconfConnections.length;
+	var o=this.OpenDaylightConfigs===undefined?"0":this.OpenDaylightConfigs.length;
+	this.ConnectionStatus = {Netconf:this.IsNetConfConnected,NetworkElement:this.IsNetworkElementConnected,NetconfConnetionsString:""+n+"/"+o}
 
 }
 MediatorConfig.prototype.getDeviceTypeString = function()
@@ -67,9 +74,7 @@ MediatorConfig.prototype.getDeviceTypeString = function()
 	}
 	return "unknown";
 }
-/* enum for devicetypes */
 MediatorConfig.DEVICETYPE_SIMULATOR =0;
-
 
 function MediatorConfigStatus(obj){
 	this.Status=obj.Status;
@@ -86,7 +91,6 @@ MediatorConfigStatus.StatusTypes=[
 	{Value:MediatorConfigStatus.STATUS_REPAIRED,Name:"Repaired"}
 ];
 
-/* Names for enum for devicetypes */
 MediatorConfig.DeviceTypes=[
 {Value:MediatorConfig.DEVICETYPE_SIMULATOR,Name:"Simulator"}];
 
@@ -494,6 +498,7 @@ MediatorServer.prototype.ClearLock = function(name, cb, cbError) {
 			cbError(err);
 	});
 }
+
 /*
  * do post request
  *

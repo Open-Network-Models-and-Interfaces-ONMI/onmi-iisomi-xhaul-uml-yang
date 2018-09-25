@@ -186,7 +186,16 @@ public class IniConfigurationFile {
 				throw new ConversionException(e.getMessage());
 			}
 		}
-
+		public long getLong(String key, long def) throws ConversionException {
+			String v = this.getProperty(key);
+			if (v == null || v.isEmpty())
+				return def;
+			try {
+				return Long.parseLong(v);
+			} catch (NumberFormatException e) {
+				throw new ConversionException(e.getMessage());
+			}
+		}
 		public boolean hasValues() {
 			return this.values.size()>0;
 		}
@@ -344,7 +353,7 @@ public class IniConfigurationFile {
 			}
 			bw.close();
 		} catch (Exception e) {
-
+			LOG.warn("problem saving value: "+e.getMessage());
 		}
 
 	}

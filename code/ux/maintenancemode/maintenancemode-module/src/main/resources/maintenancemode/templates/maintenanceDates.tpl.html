@@ -1,0 +1,61 @@
+<div class="modal-header">
+	<h3 class="modal-title" id="modal-title">Set Maintenance Start and End Dates</h3>
+</div>
+<div class="modal-body" id="modal-body">
+	<div class="container" style="max-width: 600px;">
+		<div class="row">
+			<div class="col-md-10 text-left">
+				<span>Enable / disable Activation State for {{currentNetworkElement.name}} </span>
+			</div>
+			<div class="col-md-1 text-left">
+				<input type="checkbox" class="form-control" ng-model="setstate"></input>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2 text-right">
+				<span>{{'MWTN_MANAGE_MM_STARTDATE' | translate}}</span>
+			</div>
+			<div class="col-md-4">
+				<input class="form-control" type="date" ng-model="startdate" required></input>
+			</div>
+			<div class="col-md-2 text-right">
+				<span>{{'MWTN_MANAGE_MM_STARTTIME' | translate}}</span>
+			</div>
+			<div class="col-md-3">
+				<input class="form-control" type="time" ng-model="addstarttime" required></input>
+			</div>
+			<div class="col-md-6 text-right">
+				<span>(Local Date and Time)</span>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-2 text-right">
+				<span>{{'MWTN_MANAGE_MM_ENDDATE' | translate}}</span>
+			</div>
+			<div class="col-md-4">
+				<input class="form-control" type="date" ng-model="enddate" required></input>
+			</div>
+			<div class="col-md-2 text-right">
+				<span>{{'MWTN_MANAGE_MM_ENDTIME' | translate}}</span>
+			</div>
+			<div class="col-md-3">
+				<input class="form-control" type="time" ng-model="addendtime" required></input>
+			</div>
+			<div class="col-md-6 text-right">
+				<span>(Local Date and Time)</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<br />
+				<span class="mwtnSuccess" style="color: darkgreen;">{{confirmSuccess}}</span>
+				<span class="mwtnError" style="color: red;">{{confirmError}}</span>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" type="button" ng-click="ok()">Confirm</button>
+	<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

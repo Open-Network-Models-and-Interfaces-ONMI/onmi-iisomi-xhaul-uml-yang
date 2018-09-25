@@ -8,11 +8,11 @@ define( ["require", "exports"], function (require, exports) {
         NavHelperProvider.addToMenu('mwtnInventory', {
             "link": "#/pnfInventory/",
             "active": "main.mwtnInventory",
-            "title": "pnf Inventory",
-            "icon": "fa  fa-book",
+            "title": "Inventory",
+            "icon": "fa fa-book",
             "page": {
-                "title": "pnf Inventory",
-                "description": "mwtnInventory"
+                "title": "Inventory",
+                "description": "Inventory management of physical network functions.s"
             }
         });
         $stateProvider.state('main.mwtnInventory', {

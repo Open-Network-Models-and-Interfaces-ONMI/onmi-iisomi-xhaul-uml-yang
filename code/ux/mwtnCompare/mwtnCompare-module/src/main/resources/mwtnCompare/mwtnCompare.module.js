@@ -23,10 +23,10 @@ define(['angularAMD', 'app/routingConfig', 'app/core/core.services', 'common/con
     NavHelperProvider.addToMenu('mwtnCompare', {
      "link" : "#/pnfCompare/",
      "active" : "main.mwtnCompare",
-     "title" : "pnf Compare",
+     "title" : "Compare",
      "icon" : "fa fa-tags",  // Add navigation icon css class here
      "page" : {
-        "title" : "pnf Compare",
+        "title" : "Compare",
         "description" : "mwtnCompare"
      }
     });

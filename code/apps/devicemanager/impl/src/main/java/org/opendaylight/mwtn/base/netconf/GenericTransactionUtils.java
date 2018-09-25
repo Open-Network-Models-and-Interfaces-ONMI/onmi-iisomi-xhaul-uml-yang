@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.annotation.Nullable;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.binding.api.ReadOnlyTransaction;
 import org.opendaylight.controller.md.sal.binding.api.WriteTransaction;
@@ -24,7 +25,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.CheckedFuture;
 
 public final class GenericTransactionUtils {
-    static final Logger logger = LoggerFactory.getLogger(GenericTransactionUtils.class);
+    static final Logger LOG = LoggerFactory.getLogger(GenericTransactionUtils.class);
 
     public static <T extends DataObject> boolean writeData(DataBroker dataBroker, LogicalDatastoreType logicalDatastoreType,
             InstanceIdentifier<T> iid, T dataObject, boolean isAdd) {
@@ -32,7 +33,7 @@ public final class GenericTransactionUtils {
         WriteTransaction modification = dataBroker.newWriteOnlyTransaction();
         if (isAdd) {
             if (dataObject == null) {
-                logger.warn("Invalid attempt to add a non-existent object to path {}", iid);
+                LOG.warn("Invalid attempt to add a non-existent object to path {}", iid);
                 return false;
             }
             modification.merge(logicalDatastoreType, iid, dataObject, true /*createMissingParents*/);
@@ -43,10 +44,10 @@ public final class GenericTransactionUtils {
         CheckedFuture<Void, TransactionCommitFailedException> commitFuture = modification.submit();
         try {
             commitFuture.checkedGet();
-            logger.debug("Transaction success for {} of object {}", isAdd ? "add" : "delete", dataObject);
+            LOG.debug("Transaction success for {} of object {}", isAdd ? "add" : "delete", dataObject);
             return true;
         } catch (Exception e) {
-            logger.warn("Transaction failed with error {} for {} of object {}", e.getMessage(), isAdd ? "add" : "delete", dataObject);
+            LOG.warn("Transaction failed with error {} for {} of object {}", e.getMessage(), isAdd ? "add" : "delete", dataObject);
             modification.cancel();
             return false;
         }
@@ -93,7 +94,7 @@ public final class GenericTransactionUtils {
         T obj = readDataOptionalWithStatus(dataBroker, dataStoreType, iid, noErrorIndication, statusText);
 
         if (! noErrorIndication.get()) {
-            logger.warn("Read transaction for identifier "+iid+" failed with error "+statusText.get());
+            LOG.warn("Read transaction for identifier "+iid+" failed with status "+statusText.get());
         }
 
         return obj;
@@ -112,32 +113,51 @@ public final class GenericTransactionUtils {
     @Nullable
     public static <T extends DataObject> T readDataOptionalWithStatus(DataBroker dataBroker, LogicalDatastoreType dataStoreType, InstanceIdentifier<T> iid, AtomicBoolean noErrorIndication, AtomicReference<String> statusIndicator) {
 
-        T data = null;
-        noErrorIndication.set(false);
-        statusIndicator.set("Preconditions");
-        Preconditions.checkNotNull(dataBroker);
-        statusIndicator.set("Create Read Transaction");
-        ReadOnlyTransaction readTransaction = dataBroker.newReadOnlyTransaction();
+    	T data = null;
+    	noErrorIndication.set(false);
 
-        try {
-            CheckedFuture<Optional<T>, ReadFailedException> od = readTransaction.read(dataStoreType, iid);
-            statusIndicator.set("Read done");
-            if (od != null) {
-                statusIndicator.set("Unwrap checkFuture done");
-                Optional<T> optionalData = od.get();
-                if (optionalData != null) {
-                    statusIndicator.set("Unwrap optional done");
-                  	data = optionalData.orNull();
-              		statusIndicator.set("Read transaction done");
-               		noErrorIndication.set(true);
-                }
-            }
-        } catch (CancellationException | ExecutionException | InterruptedException | NoSuchElementException e) {
-            statusIndicator.set("Read transaction for identifier "+iid+" failed with error "+e.getMessage());
-        }
+    	statusIndicator.set("Preconditions");
+    	Preconditions.checkNotNull(dataBroker);
 
-        readTransaction.close();
-        return data;
+    	int retry = 0;
+    	int retryDelayMilliseconds = 2000;
+    	int maxRetries = 5; //0 no Retry
+
+    	do {
+    		if (retry > 0) {
+        		try {
+        			LOG.debug("Sleep {}ms", retryDelayMilliseconds);
+        			Thread.sleep(retryDelayMilliseconds);
+        		} catch (InterruptedException e) {
+        			LOG.debug("Sleep interrupted",e);
+        		}
+    		}
+
+    		LOG.debug("Sending message with retry {} ", retry);
+    		statusIndicator.set("Create Read Transaction");
+    		ReadOnlyTransaction readTransaction = dataBroker.newReadOnlyTransaction();
+
+    		try {
+    			CheckedFuture<Optional<T>, ReadFailedException> od = readTransaction.read(dataStoreType, iid);
+    			statusIndicator.set("Read done");
+    			if (od != null) {
+    				statusIndicator.set("Unwrap checkFuture done");
+    				Optional<T> optionalData = od.get();
+    				if (optionalData != null) {
+    					statusIndicator.set("Unwrap optional done");
+    					data = optionalData.orNull();
+    					statusIndicator.set("Read transaction done");
+    					noErrorIndication.set(true);
+    				}
+    			}
+    		} catch (CancellationException | ExecutionException | InterruptedException | NoSuchElementException e) {
+    			statusIndicator.set(ExceptionUtils.getStackTrace(e));
+    		}
+    		readTransaction.close();
+
+    	} while (noErrorIndication.get() == false && retry++ < maxRetries);
+
+    	return data;
     }
 
 

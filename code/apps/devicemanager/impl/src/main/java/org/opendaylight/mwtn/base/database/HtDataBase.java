@@ -35,6 +35,7 @@ public interface HtDataBase {
     void closeDb();
 
     public BytesReference doReadJsonData( String dataTypeName, IsEsObject esId );
+	public BytesReference doReadJsonData(String dataTypeName, String esId);
     public SearchHit[] doReadAllJsonData( int start, int length, String dataTypeName );
     public SearchHit[] doReadByQueryJsonData( int start, int length, String dataTypeName, QueryBuilder query);
 

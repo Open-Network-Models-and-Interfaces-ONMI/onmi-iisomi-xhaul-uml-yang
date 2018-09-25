@@ -31,8 +31,16 @@ public class EsFaultCurrent extends EsObject {
         return faultCurrent.getSeverity().isNoAlarmIndication();
     }
 
+    /**
+     * TODO: termquery to matchquery, termquery with scoring, not exact matching
+     * @param nodeName
+     * @return
+     */
     public static QueryBuilder getQueryForOneNode( String nodeName) {
         return QueryBuilders.termQuery("faultCurrent.nodeName", nodeName);
+    }
+    public static QueryBuilder getQueryForAll() {
+    	return QueryBuilders.matchAllQuery();
     }
 
     public static QueryBuilder getQueryForOneNodeAndObjectId( String nodeName, String objectId) {
@@ -47,5 +55,4 @@ public class EsFaultCurrent extends EsObject {
     public static String getEsdatatypename() {
         return ESDATATYPENAME;
     }
-
  }

@@ -18,6 +18,7 @@ define(['app/mwtnFault/mwtnFault.module','app/mwtnCommons/mwtnCommons.services']
     service.formatData = $mwtnCommons.formatData;
     service.formatTimeStamp = $mwtnCommons.formatTimeStamp;
     service.deleteDocType = $mwtnDatabase.deleteDocType;
+    service.genericRequest= $mwtnCommons.genericRequest
     
     
     service.TimeStampToONFFormat=function(timestamp){

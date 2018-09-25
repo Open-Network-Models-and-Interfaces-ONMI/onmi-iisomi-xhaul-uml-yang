@@ -29,11 +29,11 @@ define(['angularAMD',
     NavHelperProvider.addToMenu('mwtnFault', {
      "link" : "#/pnfFault/",
      "active" : "main.mwtnFault",
-     "title" : "pnf Fault",
+     "title" : "Fault",
      "icon" : "fa fa-bell",  // Add navigation icon css class here
      "page" : {
-        "title" : "pnf Fault",
-        "description" : "mwtnFault"
+        "title" : "Fault",
+        "description" : "Fault or Alarm management of a device (physical network function - pnf)."
      }
     });
 

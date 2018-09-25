@@ -139,6 +139,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
       });
     };
     getRequiredNetworkElements();
+ 
     
     /**
      * A function, which returns a boolean, which indicates, whether a network
@@ -193,7 +194,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
             rne.ipaddress = ane['netconf-node-topology:host'];
             rne.port = ane['netconf-node-topology:port'];
             rne.client = ane.client;
-            
+
             rne.onfCapabilities = ane.onfCapabilities;
 
             var extensions = ['webUri', 'cliAddress', 'appCommand'];
@@ -229,7 +230,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
               // setConnectionStatus(ne['node-id'], ne['netconf-node-topology:connection-status']);
               setValues(mountpoint);
             } else {
-              // console.log('mountpoint', JSON.stringify(mountpoint));
+              console.log('mountpoint', JSON.stringify(mountpoint));
               $scope.unknownNesGridOptions.data.push(mountpoint);
             }
         });
@@ -245,17 +246,17 @@ define(['app/mwtnConnect/mwtnConnect.module',
      * @param {{'node-id': string, ipAddress: string, port: number, username: string, password: string}} netconfServer - A netConf server object with all connectivity parameters.
      */
     $scope.addToRequiredNetworkElements = function(netconfServer) {
-
       $scope.netconfServer = netconfServer;
       var neId = netconfServer['node-id'];
 
       var index = $scope.unknownNesGridOptions.data.map(function(item) { 
         return item['node-id']; 
       }).indexOf(netconfServer['node-id']);
-
+      console.log("has index: ", index);
       if (index !== -1 ) {
         $mwtnConnect.getSingleDocument('mwtn', 'required-networkelement', neId).then(function(doc){
-          // Network element alrady exists in database
+          console.log("This is the document: ", doc);
+          // Network element already exists in database
           doc.required = true;
           $scope.unknownNesGridOptions.data[index].spinner = true;
           // add to aai
@@ -297,7 +298,6 @@ define(['app/mwtnConnect/mwtnConnect.module',
             $scope.unknownNesGridOptions.data[index].spinner = true;
             $mwtnConnect.addRequiredNetworkElement(netconfServer).then(function(success){
               $mwtnLog.info({component: COMPONENT, message: 'Adding to database: ' + netconfServer['node-id']});
-
               // $onapAai.createPnf(netconfServer['node-id'], success.config.data).then(function(success){
               //   // do nothing
               // }, function(error) {
@@ -319,25 +319,103 @@ define(['app/mwtnConnect/mwtnConnect.module',
       }
     };
     
+    $scope.getValueType = function(x) {
+      return Object.prototype.toString.call(x)
+    };
+
+    var startdate = new Date (new Date().toDateString() + ' ' + '06:00');
+    var enddate = new Date (new Date().toDateString() + ' ' + '06:00');
+    enddate.setYear(enddate.getFullYear()+5);
+
     $scope.newMountingPoint = {
         name: 'new-netconf-server',
         ipaddress: '127.0.0.1',
         port: 830,
         username: 'admin',
-        password: 'admin'
+        password: 'admin',
+        required: false,
+        maintenancemode: false,
+        manage_mm_startdate: startdate,
+        manage_mm_enddate: enddate,
+        manage_mm_starttime: startdate,
+        manage_mm_endtime: enddate
     };
-    
+
     $scope.mount = function() {
       $scope.mountError = undefined;
       $scope.mountSuccess = undefined;
+      if($scope.newMountingPoint.maintenancemode){
+        if(!$scope.newMountingPoint.manage_mm_startdate){
+          $scope.mountError = 'Please enter the Start Date';
+          return;
+        }
+        if(!$scope.newMountingPoint.manage_mm_starttime) {
+          $scope.mountError = 'Please enter the Start Time';
+          return;
+        }
+        if(!$scope.newMountingPoint.manage_mm_enddate) {
+          $scope.mountError = 'Please enter the End Date';
+          return;
+        }
+        if(!$scope.newMountingPoint.manage_mm_endtime) {
+          $scope.mountError = 'Please enter the End Time';
+          return;
+        }
+
+        var updstartdate = new Date($scope.newMountingPoint.manage_mm_startdate.toDateString() + " " + $scope.newMountingPoint.manage_mm_starttime.toTimeString());
+        var updenddate =new Date($scope.newMountingPoint.manage_mm_enddate.toDateString() + " " + $scope.newMountingPoint.manage_mm_endtime.toTimeString());
+        var now = new Date();
+        // if((now.getTime() - updstartdate.getTime()) >= 0) {
+        //   $scope.mountError = 'Please enter the Start Date and Time greater than current time.';
+        //   return;
+        // }
+        if((updstartdate.getTime() - updenddate.getTime()) >= 0) {
+          $scope.mountError = 'Please enter the End Date and Time greater than Start Date and Time.';
+          return;
+        }
+      }
+
       $scope.processing = true;
+
       $mwtnConnect.mount($scope.newMountingPoint).then(function(success){
-        $scope.processing = false;
-        $scope.mountSuccess = ['NETCONF server', $scope.newMountingPoint.name, 'successfully mounted.'].join(' ');
+        if(!$scope.newMountingPoint.required && !$scope.newMountingPoint.maintenancemode) {
+          $scope.processing = false;
+          $scope.mountSuccess = ['NETCONF server', $scope.newMountingPoint.name, 'successfully mounted.'].join(' ');
+        } else if($scope.newMountingPoint.required) {
+          // Neetha
+          $mwtnConnect.addMountNeToRequiredNes($scope.newMountingPoint).then(function(success) {
+            if($scope.newMountingPoint.maintenancemode) {
+              $mwtnConnect.addMountNeToMaintenance($scope.newMountingPoint).then(function(success) {
+                $scope.processing = false;
+                $scope.mountSuccess = ['NETCONF server', $scope.newMountingPoint.name, 'successfully mounted and added to required elements and to Maintenancemode .'].join(' ');
+              }, function (error) {
+                $scope.processing = false;
+                $scope.mountError = ['NETCONF server', $scope.newMountingPoint.name, 'could not be saved in maintenance mode.'].join(' ');
+              });
+            } else {
+              $scope.processing = false;
+              $scope.mountSuccess = ['NETCONF server', $scope.newMountingPoint.name, 'successfully mounted and added to required network elements.'].join(' ');
+            }
+          }, function(error) {
+            $scope.processing = false;
+            $scope.mountError = ['NETCONF server', $scope.newMountingPoint.name, 'could not be mounted.'].join(' ');
+            console.log(JSON.stringify(error));
+          });
+        } else if($scope.newMountingPoint.maintenancemode) {
+            $mwtnConnect.addMountNeToMaintenance($scope.newMountingPoint).then(function(success){
+            $scope.processing = false;
+            $scope.mountSuccess = ['NETCONF server', $scope.newMountingPoint.name, 'successfully mounted and added to Maintenancemode .'].join(' ');
+          }, function(error) {
+            $scope.processing = false;
+            $scope.mountError = ['NETCONF server', $scope.newMountingPoint.name, 'could not be mounted.'].join(' ');
+            console.log(JSON.stringify(error));
+          });
+        }
       }, function(error){
         $scope.processing = false;
         $scope.mountError = ['NETCONF server', $scope.newMountingPoint.name, 'could not be mounted.'].join(' ');
       });
+
     };
     
     $scope.connect = function(ne) {
@@ -387,9 +465,9 @@ define(['app/mwtnConnect/mwtnConnect.module',
             }
           });
         }
-        $mwtnLog.info({component: COMPONENT, message: 'Mointpoint details closed'});
+        $mwtnLog.info({component: COMPONENT, message: 'Mountpoint details closed'});
       }, function (error) {
-        $mwtnLog.info({component: COMPONENT, message: 'Mointpoint details dismissed!'});
+        $mwtnLog.info({component: COMPONENT, message: 'Mountpoint details dismissed!'});
       });
     };
                   
@@ -405,10 +483,16 @@ define(['app/mwtnConnect/mwtnConnect.module',
     $scope.unmount = function(netConfServer) {
       netConfServer['netconf-node-topology:connection-status'] = 'disconnecting...';
       $mwtnConnect.unmount(netConfServer['node-id']).then(function(response) {
-        $mwtnLog.info({component: COMPONENT, message: 'Mounting point deleted: ' + netConfServer['node-id'] });
+        //Neetha
+        $mwtnConnect.deleteSingleDocument('mwtn', 'maintenancemode', netConfServer['node-id'] ).then(function(deleted){
+          $mwtnLog.info({component: COMPONENT, message: 'Deleted from Maintenance database' + netConfServer['node-id'] });
+        }, function(error){
+          $mwtnLog.info({component: COMPONENT, message: 'Deletion from Maintenancemode database failed: ' + error});
+        });
+        $mwtnLog.info({component: COMPONENT, message: 'Mounting point deleted 457: ' + netConfServer['node-id'] });
         removeFromNodeList(netConfServer['node-id']);
       }, function(error){
-        $mwtnLog.info({component: COMPONENT, message: 'Unmounting of '+netConfServer['node-id']+' failed!'});
+        $mwtnLog.info({component: COMPONENT, message: 'Unmounting of 460 '+netConfServer['node-id']+' failed!'});
         removeFromNodeList(netConfServer['node-id']);
       });
     };
@@ -758,7 +842,7 @@ define(['app/mwtnConnect/mwtnConnect.module',
       });
     }, true);
     
-    // odl events
+    // odl events 
     // actualNetworkElements - NE added/deleted
     var listenToActualNetworkElementsNotifications = function(socketLocation) {
       try {
@@ -872,7 +956,6 @@ define(['app/mwtnConnect/mwtnConnect.module',
         console.log(JSON.stringify(error));
       }
     );
-
     $scope.sites = [];
     var sort = [ {
       id : {
@@ -1106,11 +1189,21 @@ define(['app/mwtnConnect/mwtnConnect.module',
         }, function(error){
           $mwtnLog.info({component: COMPONENT, message: 'Deletion from database failed: ' + success + '\n' + error});
         });
+
+        //Neetha
+        if(ne.connectionStatus=='disconnected')
+        $mwtnConnect.deleteSingleDocument('mwtn', 'maintenancemode', success).then(function(deleted){
+          $mwtnLog.info({component: COMPONENT, message: success + ' deleted from maintenance database.'});
+          $uibModalInstance.close({hide: success});
+        }, function(error){
+          $mwtnLog.info({component: COMPONENT, message: 'Deletion from maintenance database failed: ' + error});
+        });
       }, function (error) {
         $mwtnLog.info({component: COMPONENT, message: 'Confirm delete dismissed!'});
       });
     };
-  
+
+    
     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel');
     };

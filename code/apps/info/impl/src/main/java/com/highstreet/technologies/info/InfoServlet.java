@@ -36,10 +36,13 @@ public class InfoServlet extends HttpServlet {
 	private static final String KARAFLOG_FILENAME = "etc/org.ops4j.pax.logging.cfg";
 	private static final String KARAFLOG_FOLDER = "data/log/";
 	private static final String BUNDLE_FOLDER = "data/cache/org.eclipse.osgi/bundles";
+	private static final String DEVMGR_STARTUPLOG = "etc/devicemanager.startup.log";
 
 	private static final String VERSIONTXT_FILENAME = "etc/version.txt";
 	private static final String KARAFLOG_TARGZ = "data/log/karaflog.tar.gz";
 	private static final String CHARSET = "UTF-8";
+	private static final String CONTENT_TYPE_PLAINTEXT="text/plain";
+	private static final String CONTENT_TYPE_JSON = "application/json";
 	private final Path basePath;
 
 	public InfoServlet() {
@@ -183,7 +186,7 @@ public class InfoServlet extends HttpServlet {
 		switch (uri) {
 		case "akka.conf":
 			try {
-				this.writeFileStream(AKKACONF_FILENAME, resp);
+				this.writeFileStream(AKKACONF_FILENAME, resp,CONTENT_TYPE_PLAINTEXT);
 			} catch (Exception e) {
 				LOG.warn("problem reading " + AKKACONF_FILENAME + ": " + e.getMessage());
 				resp.setStatus(500);
@@ -191,7 +194,7 @@ public class InfoServlet extends HttpServlet {
 			break;
 		case "geo.conf":
 			try {
-				this.writeFileStream(GEOCONF_FILENAME, resp);
+				this.writeFileStream(GEOCONF_FILENAME, resp,CONTENT_TYPE_PLAINTEXT);
 			} catch (Exception e) {
 				LOG.warn("problem reading " + GEOCONF_FILENAME + ": " + e.getMessage());
 				resp.setStatus(500);
@@ -200,20 +203,28 @@ public class InfoServlet extends HttpServlet {
 			break;
 		case "devmgr.prop":
 			try {
-				this.writeFileStream(DEVMGRCONF_FILENAME, resp);
+				this.writeFileStream(DEVMGRCONF_FILENAME, resp,CONTENT_TYPE_PLAINTEXT);
 			} catch (Exception e) {
 				LOG.warn("problem reading " + DEVMGRCONF_FILENAME + ": " + e.getMessage());
 				resp.setStatus(500);
 
 			}
 			break;
+		case "devmgr.startup":
+			try {
+				this.writeFileStream(DEVMGR_STARTUPLOG, resp,CONTENT_TYPE_PLAINTEXT);
+			} catch (Exception e) {
+				LOG.warn("problem reading " + DEVMGR_STARTUPLOG + ": " + e.getMessage());
+				resp.setStatus(500);
+			}
+			break;
+
 		case "es.yml":
 			try {
-				this.writeFileStream(DATABASECONF_FILENAME, resp);
+				this.writeFileStream(DATABASECONF_FILENAME, resp,CONTENT_TYPE_PLAINTEXT);
 			} catch (Exception e) {
 				LOG.warn("problem reading " + DATABASECONF_FILENAME + ": " + e.getMessage());
 				resp.setStatus(500);
-
 			}
 			break;
 		case "log.prop":
@@ -230,7 +241,7 @@ public class InfoServlet extends HttpServlet {
 			{
 				KarafBundleList list=new KarafBundleList(BUNDLE_FOLDER);
 				list.scan();
-				this.writeOutput(list.toJSON(),resp, "application/json");
+				this.writeOutput(list.toJSON(),resp, CONTENT_TYPE_JSON);
 			}
 			catch(IOException e)
 			{

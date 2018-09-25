@@ -83,8 +83,11 @@ public class HtDevicemanagerConfiguration {
 		return mObj;
 	}
 	public static HtDevicemanagerConfiguration getTestConfiguration() {
+		return getTestConfiguration(CONFIGURATIONTESTFILE);
+	}
+	public static HtDevicemanagerConfiguration getTestConfiguration(final String filename) {
 		if (mObjTest == null)
-			mObjTest = new HtDevicemanagerConfiguration(CONFIGURATIONTESTFILE);
+			mObjTest = new HtDevicemanagerConfiguration(filename);
 		return mObjTest;
 	}
 	private static IniConfigurationFile mConfig;
@@ -145,7 +148,9 @@ public class HtDevicemanagerConfiguration {
 	public PmConfig getPm() {
 		return PmConfig.getPm(mConfig, this.subconfigHandler);
 	}
-
+	public ToggleAlarmConfig getToggleAlarm() {
+		return ToggleAlarmConfig.getTa(mConfig, this.subconfigHandler);
+	}
 	private final ISubConfigHandler subconfigHandler = new ISubConfigHandler() {
 
 		@Override
@@ -156,6 +161,15 @@ public class HtDevicemanagerConfiguration {
 
 	public ISubConfigHandler getSubconfigHandler() {
 		return subconfigHandler;
+	}
+	public static void clear() {
+		mObj=null;
+		mObjTest=null;
+		DcaeConfig.clear();
+		AaiConfig.clear();
+		EsConfig.clear();
+		PmConfig.clear();
+		ToggleAlarmConfig.clear();
 	}
 
 

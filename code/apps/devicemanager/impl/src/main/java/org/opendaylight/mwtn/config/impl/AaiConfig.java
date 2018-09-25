@@ -383,4 +383,8 @@ public class AaiConfig extends BaseSubConfig {
 		return this.connectionTimeout;
 	}
 
+	public static void clear() {
+		aaiConfig=null;
+	}
+
 }

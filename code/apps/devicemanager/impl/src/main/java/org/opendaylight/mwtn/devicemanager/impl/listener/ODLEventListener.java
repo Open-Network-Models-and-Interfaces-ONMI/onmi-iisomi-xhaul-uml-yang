@@ -19,6 +19,7 @@ import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectCreationNotificationXm
 import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectDeletionNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.WebSocketServiceClient;
+import org.opendaylight.mwtn.maintenance.MaintenaceService;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.ProblemNotification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +46,7 @@ public class ODLEventListener {
 	private final ProviderClient dcaeProvider;
 	private final ProviderClient aotsMProvider;
 	private int eventNumber;
-
+	private final MaintenaceService maintenanceService;
 	/*---------------------------------------------------------------
 	 * Construct
 	 */
@@ -62,10 +63,11 @@ public class ODLEventListener {
 	 *            service to write to the database
 	 * @param dcaeProvider
 	 *            to deliver problems to
+	 * @param maintenanceService2
 	 */
 	public ODLEventListener(String ownKeyName, WebSocketServiceClient webSocketService,
 			HtDatabaseEventsService databaseService, ProviderClient dcaeProvider,
-			@Nullable ProviderClient aotsMProvider) {
+			@Nullable ProviderClient aotsMProvider, MaintenaceService maintenanceService) {
 		super();
 
 		this.ownKeyName = ownKeyName;
@@ -76,6 +78,7 @@ public class ODLEventListener {
 		this.aotsMProvider = aotsMProvider;
 
 		this.eventNumber = 0;
+		this.maintenanceService=maintenanceService;
 
 	}
 
@@ -147,10 +150,16 @@ public class ODLEventListener {
 		databaseService.writeFaultLog(notificationXml);
 		databaseService.updateFaultCurrent(notificationXml);
 
-		dcaeProvider.sendProblemNotification(ownKeyName, notificationXml);
-		if (aotsMProvider != null)
-			aotsMProvider.sendProblemNotification(ownKeyName, notificationXml, false);// not a nealarm, its a
-																						// sdncontroller alarm
+		if(!maintenanceService.isONFObjectInMaintenance(registrationName, notificationXml.getObjectId(), notificationXml.getProblem()))
+		{
+			dcaeProvider.sendProblemNotification(ownKeyName, notificationXml);
+			if (aotsMProvider != null)
+				aotsMProvider.sendProblemNotification(ownKeyName, notificationXml, false);// not a nealarm, its a
+		}// sdncontroller alarm
+		else
+		{
+			LOG.debug("Notification will not be sent to external services. Device "+registrationName+" is in maintenance mode");
+		}
 
 		webSocketService.sendViaWebsockets(registrationName, notificationXml);
 	}
@@ -167,12 +176,24 @@ public class ODLEventListener {
 	}
 
 	/*---------------------------------------------------------------
+	 * Get/Set
+	 */
+
+	/**
+	 * @return the ownKeyName
+	 */
+	public String getOwnKeyName() {
+		return ownKeyName;
+	}
+
+	/*---------------------------------------------------------------
 	 * Private
 	 */
 
 	private String popEvntNumberAsString() {
 		return String.valueOf(popEvntNumber());
 	}
+
 
 	private int popEvntNumber() {
 		return eventNumber++;

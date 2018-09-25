@@ -20,24 +20,28 @@ public class AkkaConfig {
 		@Override
 		public String toString() {
 			return "ClusterNodeInfo [protocol=" + protocol + ", clusterName=" + clusterName + ", remoteAdr=" + remoteAdr
-					+ ", port=" + port + "]";
+					+ ", port=" + port + ", seedNodeName=" + seedNodeName + "]";
 		}
 
 		private final String protocol;
 		private final String clusterName;
 		private final String remoteAdr;
 		private final int port;
+		private final String seedNodeName;
 
 		public String getRemoteAddress() {
 			return this.remoteAdr;
 		}
-
+		public String getSeedNodeName() {
+			return this.seedNodeName;
+		}
 		public ClusterNodeInfo(String s) throws Exception {
 			final String regex = "([a-z.]*):\\/\\/([a-zA-Z0-9-]*)@([a-zA-Z0-9.-]*):([0-9]*)";
 			final Pattern pattern = Pattern.compile(regex);
 			final Matcher matcher = pattern.matcher(s);
 			if (!matcher.find())
 				throw new Exception("invalid seedNode format");
+			this.seedNodeName = matcher.group();
 			this.protocol = matcher.group(1);
 			this.clusterName = matcher.group(2);
 			this.remoteAdr = matcher.group(3);
@@ -49,6 +53,7 @@ public class AkkaConfig {
 			this.clusterName=clustername;
 			this.remoteAdr=remoteadr;
 			this.port=port;
+			this.seedNodeName=this.protocol+"://"+this.clusterName+"@"+this.remoteAdr+":"+this.port;
 		}
 
 		public static ClusterNodeInfo defaultSingleNodeInfo() {
@@ -116,7 +121,7 @@ public class AkkaConfig {
 	public static class ClusterConfig {
 		@Override
 		public String toString() {
-			return "ClusterConfig [seedNodes=" + seedNodes + ", roles=" + roles + "]";
+			return "ClusterConfig [seedNodes=" + seedNodes + ", roles=" + roles + ", ismeInfo=" + ismeInfo + "]";
 		}
 
 		private final List<ClusterNodeInfo> seedNodes;
@@ -190,7 +195,20 @@ public class AkkaConfig {
 				r = defaultValue;
 			return r;
 		}
-
+		public String getClusterSeedNodeName() {
+			return this.getClusterSeedNodeName("");
+		}
+		public String getClusterSeedNodeName(String defaultValue) {
+			int idx=this.getRoleMemberIndex()-1;
+			String r=null;
+			if(this.seedNodes!=null && idx>=0 && this.seedNodes.size()>0 && this.seedNodes.size()>idx)
+			{
+				r=this.seedNodes.get(idx).seedNodeName;
+			}
+			if (r == null || r.isEmpty())
+				r = defaultValue;
+			return r;
+		}
 		public int getRoleMemberIndex() {
 
 			ClusterRoleInfo role=this.roles.get("member");

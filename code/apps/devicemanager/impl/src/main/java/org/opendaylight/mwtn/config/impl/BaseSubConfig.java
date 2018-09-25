@@ -10,7 +10,7 @@ public class BaseSubConfig {
 
 	private final Section subconfig;
 	private final ISubConfigHandler configHandler;
-	private final IniConfigurationFile config;
+	protected final IniConfigurationFile config;
 	protected Section getSubConfig() {
 		return this.subconfig;
 	}
@@ -74,6 +74,19 @@ public class BaseSubConfig {
 		int s;
 		try {
 			s=this.subconfig.getInt(key, def);
+		}
+		catch(ConversionException e)
+		{
+			s=def;
+		}
+		return s;
+	}
+	protected long getLong(String key, long def) {
+		if(this.subconfig==null)
+			return def;
+		long s;
+		try {
+			s=this.subconfig.getLong(key, def);
 		}
 		catch(ConversionException e)
 		{

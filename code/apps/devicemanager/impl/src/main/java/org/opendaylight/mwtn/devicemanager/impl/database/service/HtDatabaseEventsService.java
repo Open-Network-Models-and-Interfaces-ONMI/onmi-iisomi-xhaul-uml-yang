@@ -16,6 +16,11 @@
 
 package org.opendaylight.mwtn.devicemanager.impl.database.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import org.opendaylight.mwtn.base.database.HtDataBaseReaderAndWriter;
 import org.opendaylight.mwtn.base.database.HtDatabaseClientAbstract;
 import org.opendaylight.mwtn.base.database.HtDatabaseNode;
@@ -117,15 +122,19 @@ public class HtDatabaseEventsService {
             return;
         }
 
-        EsFaultCurrent eventProblem = new EsFaultCurrent();
-        eventProblem.setProblem(fault);
+        if (!fault.isNotManagedAsCurrentProblem()) {
+        	EsFaultCurrent eventProblem = new EsFaultCurrent();
+        	eventProblem.setProblem(fault);
 
-        if (eventProblem.isNoAlarmIndication()) {
-            LOG.debug("Remove fault from currentlog: {}",fault.toString());
-            eventRWFaultCurrent.doRemove(eventProblem);
+        	if (eventProblem.isNoAlarmIndication()) {
+        		LOG.debug("Remove from currentFaults: {}",fault.toString());
+        		eventRWFaultCurrent.doRemove(eventProblem);
+        	} else {
+        		LOG.debug("Write to currentFaults: {}",fault.toString());
+        		eventRWFaultCurrent.doWrite(eventProblem);
+        	}
         } else {
-            LOG.debug("Write fault to currentlog: {}",fault.toString());
-            eventRWFaultCurrent.doWrite(eventProblem);
+    		LOG.debug("Ingnore for currentFaults: {}",fault.toString());
         }
     }
 
@@ -139,17 +148,8 @@ public class HtDatabaseEventsService {
             LOG.debug("No DB, can not delete for node: {}", nodeName);
             return -1;
         }
-        LOG.debug("Remove from currentlog all faults for node: {}", nodeName);
+        LOG.debug("Remove from currentFaults all faults for node: {}", nodeName);
         return eventRWFaultCurrent.doRemoveByQuery(EsFaultCurrent.getQueryForOneNode(nodeName));
-        /*
-        List<EsFaultCurrent> faults = eventRWFaultCurrent.doReadAll();
-        for (EsFaultCurrent fault : faults) {
-            if (fault.getProblem().getNodeName().equals(nodeName)) {
-                eventRWFaultCurrent.doRemove(fault);
-            }
-        }
-        return faults.size();
-        */
     }
 
     /**
@@ -163,42 +163,31 @@ public class HtDatabaseEventsService {
             LOG.debug("No DB, can not delete for node: {}", nodeName);
             return -1;
         }
-        LOG.debug("Remove from currentlog all faults for node/objectId: {}/{}", nodeName, objectId);
+        LOG.debug("Remove from currentFaults all faults for node/objectId: {}/{}", nodeName, objectId);
         return eventRWFaultCurrent.doRemoveByQuery(EsFaultCurrent.getQueryForOneNodeAndObjectId(nodeName, objectId));
 
     }
 
+    /**
+     * Deliver list with all mountpoint/node-names in the database.
+     * @return List of all mountpoint/node-names the had active alarms.
+     */
+	public @Nonnull List<String> getAllNodesWithCurrentAlarms() {
+		if (client == null) {
+			LOG.debug("No DB, can not delete for all nodes");
+			return new ArrayList<String>();
+		}
+		LOG.debug("Remove from currentFaults faults for all node");
+		List<String> nodeNames = new ArrayList<String>();
 
-    /*private void writeVersionInfo(HtDataBaseReaderAndWriter<EsVersionInfo> pEventRWVersionInfo,
-            String configurationId) {
-
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        Properties props = new Properties();
-
-        InputStream resourceStream = loader.getResourceAsStream(RESOURCENAME);
-        try {
-            props.load(resourceStream);
-
-        } catch (IOException e1) {
-        }
-        finally {
-        	try {
-        		if(resourceStream!=null)
-        			resourceStream.close();
-			} catch (IOException e) {
-				LOG.debug("failed to close stream");
+		for (EsFaultCurrent fault : eventRWFaultCurrent.doReadAll()) {
+			String nodeName = fault.getProblem().getNodeName();
+			if (!nodeNames.contains(nodeName)) {
+				//this.clearFaultsCurrentOfNode(nodeName); -> Function shifted
+				nodeNames.add(nodeName);
 			}
 		}
-
-        EsVersionInfo version = new EsVersionInfo();
-        version.setEsId(configurationId);
-        version.setBundleVersion(FrameworkUtil.getBundle(getClass()).getVersion());
-        version.setVersion(props.getProperty("version", "unknown"));
-        version.setBuild(props.getProperty("build", "unknown"));
-
-        LOG.info("Versioninfo: {}",version );
-
-        pEventRWVersionInfo.doWrite(version);
-    }*/
+		return nodeNames;
+	}
 
 }

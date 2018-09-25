@@ -158,6 +158,20 @@ return "\n" +
 		} catch (Exception e) {
 			System.out.println("failed: "+e.getMessage());
 		}
+		try {
+			System.out.println("testing clusternode config1");
+			System.out.println("===========================");
+			cfg = AkkaConfig.load("/home/herbert/Nextcloud/captured-karaf-logs/akka.conf");
+			System.out.println("succeeded: ");
+			System.out.println(cfg.toString());
+			System.out.println(String.format("found %d cluster nodes",cfg.getClusterConfig().getSeedNodes().size()));
+			for(ClusterNodeInfo n : cfg.getClusterConfig().getSeedNodes())
+			{
+				System.out.println(n.toString());
+			}
+		} catch (Exception e) {
+			System.out.println("failed: "+e.getMessage());
+		}
 
 	}
 }

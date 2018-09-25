@@ -11,10 +11,10 @@ mwtnInventory.config(function ($stateProvider, $compileProvider, $controllerProv
   NavHelperProvider.addToMenu('mwtnInventory', {
     "link": "#/pnfInventory/",
     "active": "main.mwtnInventory",
-    "title": "pnf Inventory",
+    "title": "Inventory",
     "icon": "fa  fa-book",  // Add navigation icon css class here
     "page": {
-      "title": "pnf Inventory",
+      "title": "Inventory",
       "description": "mwtnInventory"
     }
   });

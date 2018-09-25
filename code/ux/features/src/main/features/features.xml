@@ -17,7 +17,10 @@
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/${project.version}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/onapAai-bundle/${project.version}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnFault-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/maintenancemode-bundle/${project.version}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnBrowser-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/emergency-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/security-bundle/${project.version}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnInventory-bundle/${project.version}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnMediator-bundle/${project.version}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/help-bundle/${project.version}</bundle>
@@ -35,10 +38,13 @@
     <feature version="${project.version}">odl-otn-ux-config</feature> -->
 
     <feature version="${project.version}">odl-mwtn-ux-fault</feature>
+    <feature version="${project.version}">odl-mwtn-ux-maintenancemode</feature>
     <feature version="${project.version}">odl-mwtn-ux-config</feature>
     <feature version="${project.version}">odl-mwtn-ux-performance</feature>
+    <feature version="${project.version}">odl-mwtn-ux-security</feature>
     <feature version="${project.version}">odl-mwtn-ux-inventory</feature>
     <feature version="${project.version}">odl-mwtn-ux-topology</feature>
+    <feature version="${project.version}">odl-mwtn-ux-emergency</feature>
     <!-- sko not ready yet
     <feature version="${project.version}">odl-mwtn-ux-compare</feature>
     <feature version="${project.version}">odl-mwtn-ux-spectrum</feature>
@@ -53,6 +59,18 @@
     <feature version="${project.version}">odl-mwtn-ux-chat</feature> -->
   </feature>
 
+  <feature name="tst-mwtn-ux-all" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Release TST">
+    <feature version="${project.version}">odl-mwtn-ux-connect</feature>
+    <feature version="${project.version}">odl-mwtn-ux-config</feature>
+    <feature version="${project.version}">odl-mwtn-ux-fault</feature>
+    <feature version="${project.version}">odl-mwtn-ux-performance</feature>
+    <feature version="${project.version}">odl-mwtn-ux-topology</feature>
+    <!-- no data to compare <feature version="${project.version}">odl-mwtn-ux-compare</feature> -->
+    <feature version="${project.version}">odl-mwtn-ux-tdm</feature>
+    <feature version="${project.version}">odl-mwtn-ux-test</feature>
+    <feature version="${project.version}">odl-mwtn-ux-log</feature>
+  </feature>
+
 <!-- PoC Specific feature for "poc180628" delivery -->
   <feature name="ht-mwtn-ux-poc180628" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Release1806">
     <feature version="${project.version}">odl-mwtn-ux-connect</feature>
@@ -62,7 +80,7 @@
     <feature version="${project.version}">odl-mwtn-ux-fault</feature>
     <feature version="${project.version}">odl-mwtn-ux-config</feature>
     <feature version="${project.version}">odl-mwtn-ux-performance</feature>
-    <bundle>mvn:org.onap.sdnc.dluxapps/security-bundle/${securityproject.version}</bundle>
+    <feature version="${project.version}">odl-mwtn-ux-security</feature>
     <feature version="${project.version}">odl-mwtn-ux-inventory</feature>
     <feature version="${project.version}">odl-mwtn-ux-topology</feature>
     <feature version="${project.version}">odl-mwtn-ux-mediator</feature>
@@ -79,10 +97,13 @@
     <feature version="${project.version}">onap-sdnr-so-ux</feature>
 
     <feature version="${project.version}">odl-mwtn-ux-fault</feature>
-    <feature version="${project.version}">odl-mwtn-ux-performance</feature>
+    <feature version="${project.version}">odl-mwtn-ux-maintenancemode</feature>
     <feature version="${project.version}">odl-mwtn-ux-config</feature>
-    <feature version="${project.version}">odl-mwtn-ux-topology</feature>
+    <feature version="${project.version}">odl-mwtn-ux-performance</feature>
+    <feature version="${project.version}">odl-mwtn-ux-security</feature>
     <feature version="${project.version}">odl-mwtn-ux-inventory</feature>
+    <feature version="${project.version}">odl-mwtn-ux-topology</feature>
+    <feature version="${project.version}">odl-mwtn-ux-emergency</feature>
     <!-- sko not ready yet
     <feature version="${project.version}">odl-mwtn-ux-compare</feature>
     <feature version="${project.version}">odl-mwtn-ux-spectrum</feature>
@@ -228,4 +249,19 @@
     <bundle>mvn:com.highstreet.technologies.odl.dlux/odlChat-bundle/${project.version}</bundle>
   </feature>
 
+  <feature name="odl-mwtn-ux-security" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: Security">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/security-bundle/${project.version}</bundle>
+  </feature>
+
+
+  <feature name="odl-mwtn-ux-emergency" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: emergency">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/emergency-bundle/${project.version}</bundle>
+  </feature>
+
+  <feature name="odl-mwtn-ux-maintenancemode" version="${project.version}" description="OpenDaylight :: MWTN :: UX :: maintenancemode">
+    <feature version="${project.version}">odl-ux-commons</feature>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/maintenancemode-bundle/${project.version}</bundle>
+  </feature>
 </features>

@@ -50,6 +50,8 @@ public class DcaeMessages {
 		}
 	};
 
+	private static final String CONTENT_TYPE_APPJSON = "application/json";
+
     //Configurable parameters
     private final DcaeSender dcaeSender;
     private final int heartbeatIntervallSeconds;
@@ -127,7 +129,7 @@ public class DcaeMessages {
                 	newHttpConnection.setRequestProperty("Authorization", basicAuth);
                 }
                 if (insertContentHeader) {
-                	newHttpConnection.setRequestProperty("Content-Type", "application/json;charset=" + charset);
+                	newHttpConnection.setRequestProperty("Content-Type", CONTENT_TYPE_APPJSON);
                 }
 
                 if (newHttpConnection instanceof HttpsURLConnection) {

@@ -1087,7 +1087,7 @@ define(
         };
         var deferred = $q.defer();
         $http(request).then(function (success) {
-          $mwtnLog.info({ component: COMPONENT, message: 'Mounting Point deleted: ' + nodeId });
+          $mwtnLog.info({ component: COMPONENT, message: 'Mounting Point deleted 1090: ' + nodeId });
           deferred.resolve(success.data);
         }, function (error) {
           $mwtnLog.info({ component: '$mwtnCommons.unmount', message: JSON.stringify(error.data) });
@@ -1106,15 +1106,15 @@ define(
           method: 'DELETE',
           url: url
         };
-        var deferred = $q.defer();
+        var deferred = $q.defer(); 
         $http(request).then(function (success) {
-          $mwtnLog.info({ component: COMPONENT, message: 'Mounting Point deleted: ' + nodeId });
+          $mwtnLog.info({ component: COMPONENT, message: 'Mounting Point deleted 1111: ' + nodeId });
           deferred.resolve(success.data);
         }, function (error) {
           // try the old way
           unmountDeprecated(nodeId).then(
             function (success) {
-              $mwtnLog.info({ component: COMPONENT, message: 'Mounting Point deleted: ' + nodeId });
+              $mwtnLog.info({ component: COMPONENT, message: 'Mounting Point deleted 1117: ' + nodeId });
               deferred.resolve(success.data);
             },
             function (error) {
@@ -1395,7 +1395,58 @@ define(
         );
         return deferred.promise;
       };
+      //Neetha
+      service.getMaintenanceNetworkElements = function (complete) {
+        var sort = [{ _id: { order: 'asc' } }];;
+        var query = {
+          match_all: {
+            //required: true
+          }
+        };
+        var deferred = $q.defer();
+        $mwtnDatabase.getFilteredSortedData('mwtn', 'maintenancemode', 0, 10000, sort, query).then(
+          function (success) {
+            if (complete) {
+              deferred.resolve(success.data.hits.hits);
+            }
+            var result = success.data.hits.hits.map(function (ne) {
+              var yangifiedObj = service.yangifyObject(ne._source);
+              console.log("yangifiedObj: ",yangifiedObj);
+              var currentdate2 = new Date(new Date().toDateString() + ' ' + new Date().toTimeString()).toISOString();
+              
+              if(yangifiedObj.filter[0].start>currentdate2 || yangifiedObj.filter[0].end < currentdate2 ){
+                var setmode = false;
+              }
+              else{
+                  var setmode=true;
+              }
 
+              if (yangifiedObj.active === false) {
+                var newact = 'Inactive';
+                var setmode = false;
+              }
+              else {
+                var newact = 'Active';
+              }
+
+              return {
+                name: yangifiedObj['node'],
+                maintenancemode: setmode,
+                startdate: yangifiedObj.filter[0].start,
+                enddate: yangifiedObj.filter[0].end,
+                actstate: newact
+              };
+            });
+            deferred.resolve(result);
+          },
+          function (error) {
+            $mwtnLog.error({ component: COMPONENT, message: 'Problems in retrieving required network elements.' });
+            deferred.reject(error);
+          }
+        );
+        return deferred.promise;
+      };
+    
       service.getConnectionStatus = function (neId) {
         var url = service.base + service.url.connectionStatus(neId);
         var request = {
@@ -2362,8 +2413,8 @@ define(
       };
 
       var saveRequiredNetworkElement = function (requiredNode) {
-        var url = [$mwtnDatabase.base, $mwtnDatabase.index, 'required-networkelement',
-        requiredNode.nodeId].join('/');
+        console.log("Required saveRequiredNetworkElement: ", requiredNode, $mwtnDatabase.base, $mwtnDatabase.index);
+        var url = [$mwtnDatabase.base, $mwtnDatabase.index, 'required-networkelement',requiredNode.nodeId].join('/');
         var bodyString = JSON.stringify(requiredNode);
         var headers = {
           'Content-Type': 'application/json',
@@ -2389,12 +2440,107 @@ define(
         return deferred.promise;
       };
 
+      service.addMountNeToRequiredNes = function (netconfServer) {
+        // var maintenancemode; 
+        //  if (!netconfServer.maintenancemode)
+        //    maintenancemode = false;
+        //  else
+        //   maintenancemode = true;
+
+        var requiredNode = {
+          nodeId: netconfServer.name,
+          siteRef: netconfServer.site,
+          required : netconfServer.required, //Neetha
+          onfCoreModelRevision: netconfServer.onfCoreModelRevision,
+          onfAirInterfaceRevision: netconfServer.onfAirInterfaceRevision,
+          //maintenancemode: maintenancemode, 
+          // startdate: netconfServer.manage_mm_startdate,
+          // enddate: netconfServer.manage_mm_enddate,
+          connect: {
+            mountId: netconfServer.name,
+            host: netconfServer.ipaddress,
+            port: netconfServer.port,
+            username: netconfServer.username,
+            password: netconfServer.password
+          },
+          'core-model:network-element': {},
+        };
+
+        var deferred = $q.defer();
+        saveRequiredNetworkElement(requiredNode).then(function (success) {
+          deferred.resolve(success);
+        }, function (error) {
+          $mwtnLog.error({ component: '$mwtnCommons.saveRequiredNetworkElement', message: JSON.stringify(error.data) });
+          deferred.reject(error);
+        });
+        return deferred.promise;
+      };
+
+        //Neetha3
+
+        var saveMaintenanceMode = function (requiredNodes) {
+          console.log("Required save maintenance mode: ", requiredNodes, $mwtnDatabase.base, $mwtnDatabase.index);
+          var url = [$mwtnDatabase.base, $mwtnDatabase.index, 'maintenancemode',requiredNodes.node].join('/');
+          var bodyString = JSON.stringify(requiredNodes);
+          var headers = {
+            'Content-Type': 'application/json',
+            'Content-Length': bodyString.length
+          };
+          var request = {
+            method: 'PUT',
+            url: url,
+            data: requiredNodes
+          };
+  
+          var deferred = $q.defer();
+          console.time('database:' + url);
+          console.log("before saving to database", request);
+          $http(request).then(function (success) {
+            console.timeEnd('database:' + url);
+            // console.log(JSON.stringify(success));
+            console.log("after saving to database", success);
+            deferred.resolve(success);
+          }, function (error) {
+            console.log("saving error", error);
+            console.timeEnd('database:' + url);
+            $mwtnLog.error({ component: '$mwtnCommons.saveMaintenaceMode', message: JSON.stringify(error.data) });
+            deferred.reject(error);
+          });
+          return deferred.promise;
+        };
+        
+        service.addMountNeToMaintenance = function (netconfServer) {
+          var updstartdate = new Date(netconfServer.manage_mm_startdate.toDateString() + " " + netconfServer.manage_mm_starttime.toTimeString()).toISOString();
+          var updenddate =new Date(netconfServer.manage_mm_enddate.toDateString() + " " + netconfServer.manage_mm_endtime.toTimeString()).toISOString();
+
+          var updstartdatenew = updstartdate.replace(/\.[0-9]{3}/,'');
+          var updenddatenew = updenddate.replace(/\.[0-9]{3}/,'');
+          var requiredNodes = {
+            node: netconfServer.name,            
+            filter: [{
+              start: updstartdatenew,
+              end: updenddatenew
+            }],
+            active : netconfServer.maintenancemode,
+          };
+
+          var deferred = $q.defer();
+          saveMaintenanceMode(requiredNodes).then(function (success) {
+            deferred.resolve(success);
+          }, function (error) {
+            $mwtnLog.error({ component: '$mwtnCommons.saveMaintenanceMode', message: JSON.stringify(error.data) });
+            deferred.reject(error);
+          });
+          return deferred.promise;
+        };
+
       /**
        * A function which inquires data from a netconf server and stores it in a database.
        * @param {{'node-id': string, ipAddress: string, port: number, username: string, password: string, site:string, onfCoreModelRevision: string, onfAirInterfaceRevision: string}} netconfServer - A netConf server object with all connectivity parameters.
        */
       service.addRequiredNetworkElement = function (netconfServer) {
         /** {Object} requiredNode - Data set to be stored in database */
+
         var requiredNode = {
           nodeId: netconfServer['node-id'],
           siteRef: netconfServer.site,
@@ -2973,7 +3119,6 @@ define(
             query: query
           };
           service.genericRequest(databaseRequest).then(function (success) {
-            // console.log('getAllData', success);
             deferred.resolve(success);
           }, function (error) {
             deferred.reject(error);
@@ -3104,10 +3249,10 @@ define(
         return deferred.promise;
       };
 
-      /**
+      /** 
        * A promise, creating or updateing a single document of the database.
        * @param {string} functionId - An identifier of an SDN function (e.g 'mwtn').
-       * @param {string} docType - The document type of the document to be deleted.
+       * @param {string} docType - The document type of the document to be created.
        * @param {string} id - An identifier of the document to be deleted.
        * @param {Object} data - A json object to be stored in the database
        */

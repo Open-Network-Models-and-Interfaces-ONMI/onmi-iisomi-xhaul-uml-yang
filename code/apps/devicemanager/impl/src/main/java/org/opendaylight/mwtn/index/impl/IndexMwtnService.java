@@ -16,7 +16,7 @@ public class IndexMwtnService implements AutoCloseable {
     private static final Logger LOG = LoggerFactory.getLogger(IndexMwtnService.class);
 
     /** Index name to be used */
-    private static final String INDEX = "mwtn";
+    public static final String INDEX = "mwtn";
     /** Location of mapping data **/
     private static final String MAPPING = "/elasticsearch/index/mwtn/mwtnMapping.json";
     /** Location of configuration data **/
@@ -35,6 +35,16 @@ public class IndexMwtnService implements AutoCloseable {
     	client = clientBuilder.create(database);
     	LOG.info("Create {} finished. DB Service {} started.", this.getClass().getSimpleName(),  client != null ? "sucessfully" : "not" );
     }
+
+    /**
+     * Get client to be used in other services
+     * @return
+     */
+	public HtDatabaseClientAbstract getClient() {
+		return client;
+	}
+
+
 
 	@Override
 	public void close() throws Exception {

@@ -51,32 +51,6 @@ public class IndexClientBuilder implements AutoCloseable {
     	return(this);
     }
 
-    /*
-    public IndexClientBuilder setDatabase(HtDatabaseNode database) {
-     	this.database = database;
-    	return(this);
-    }
-    */
-
-    public HtDatabaseClientAbstract create(String esNodeserverName, String esClusterName,String esNodeName) {
-    	LOG.info("Create {} start with name parameters server/cluster/node {} {} {}",
-    			this.getClass().getSimpleName(), esNodeserverName, esClusterName, esNodeName);
-
-    	client = null;
-
-    	try {
-    		// Create control structure
-    		client = new HtDatabaseClientAbstract(index, esNodeserverName, esClusterName, esNodeName);
-    		setupIndex();
-    	} catch (Exception e) {
-    		LOG.error("Can not start database client. Exception: {} {}", e.getMessage(), e.toString());
-    	}
-
-    	LOG.info("Create {} finished. DB Service {} started.", this.getClass().getSimpleName(),  client != null ? "sucessfully" : "not" );
-    	return(client);
-
-    }
-
     public HtDatabaseClientAbstract create(HtDatabaseNode database) {
 		LOG.info("Create {} start with node", this.getClass().getSimpleName() );
      	this.database = database;

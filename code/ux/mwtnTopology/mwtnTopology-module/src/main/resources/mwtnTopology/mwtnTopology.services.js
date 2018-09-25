@@ -1007,7 +1007,9 @@ define(['app/mwtnTopology/mwtnTopology.module'], function (mwtnTopologyApp) {
       callbackScript.appendChild(document.createTextNode("function googleMapsApiLoadedCallback() { window.dispatchEvent(window.googleMapsApiLoadedEvent); };"));
 
       var googleScript = document.createElement('script');
-      googleScript.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBWyNNhRUhXxQpvR7i-Roh23PaWqi-kNdQ&callback=googleMapsApiLoadedCallback";
+      // Andreas googleScript.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBWyNNhRUhXxQpvR7i-Roh23PaWqi-kNdQ&callback=googleMapsApiLoadedCallback";
+      // Martin 
+      googleScript.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCr4F8BoSJWfDYzq_IxdLU5d7ulIskDIPo&callback=googleMapsApiLoadedCallback";
 
       head.appendChild(callbackScript);
       head.appendChild(googleScript);

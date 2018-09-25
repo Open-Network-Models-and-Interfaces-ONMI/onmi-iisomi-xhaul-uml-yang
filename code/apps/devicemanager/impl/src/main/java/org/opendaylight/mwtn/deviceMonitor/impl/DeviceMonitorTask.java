@@ -11,10 +11,11 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
-import org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElementRepresentation;
+import org.opendaylight.mwtn.base.netconf.NetconfTimeStamp;
 import org.opendaylight.mwtn.devicemanager.impl.listener.ODLEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,12 +33,12 @@ public class DeviceMonitorTask implements Runnable {
     private int tickCounter; //Added for each tick. Not relevant for internal status
 
     private ScheduledFuture<?> taskHandle;
-    private final Object lockNe = new Object();    //USe top lock access to member ne
-    private @Nullable ONFCoreNetworkElementRepresentation ne; //Indication if in status connect or disconnect
+    private final Object lock = new Object();    //USe top lock access to member ne
+    private @Nullable DeviceMonitoredNe ne; //Indication if in status connect or disconnect
+    private @Nonnull Boolean mountpointConnectingStateSupervision; //Indication of mountpoint supervision
+
     private Integer disconnectSupervisionTickout; //Tickcounter of task ticks for "not connected indication"
     private Set<DeviceMonitorProblems> currentProblems; //List with actual problems. Synchronized by itself
-
-
 
     /*------------------------------------------------------------
      * Construction
@@ -45,6 +46,7 @@ public class DeviceMonitorTask implements Runnable {
 
     /**
      * Setup monitoring task
+     * @param mountpointService
      * @param mountPointName to monitor
      * @param odlEventListener to forward problems to
      */
@@ -57,8 +59,9 @@ public class DeviceMonitorTask implements Runnable {
         this.checkConnectionToMediator = new Checker() {
             @Override
             boolean isReachableOnce() {
-                synchronized(lockNe) {
-                    //If ne is not connected anymore clear alarms
+                synchronized(lock) {
+                	//mountpoint state "Connected"
+                    //If for any reason the mountpoint is Connected, but Notconf messages are not received
                     return ne == null ? true : ne.checkAndConnectionToMediatorIsOk();
                 }
             }
@@ -66,8 +69,10 @@ public class DeviceMonitorTask implements Runnable {
         this.checkConnectionToNe = new Checker() {
             @Override
             boolean isReachableOnce() {
-                synchronized(lockNe) {
-                    //If ne is not connected anymore clear alarms
+                synchronized(lock) {
+                	//mountpoint state "Connected"
+                    //If netconf mediator (netconf application software for NE) has connection loss to managed device.
+                	//The networkelement object is available, but there is no interfacepack available.
                     return ne == null ? true : ne.checkAndConnectionToNeIsOk();
                 }
             }
@@ -77,6 +82,7 @@ public class DeviceMonitorTask implements Runnable {
         this.taskHandle = null;
         this.tickCounter = 0;
         this.ne = null;
+        this.mountpointConnectingStateSupervision = false;
         this.currentProblems = Collections.synchronizedSet(EnumSet.noneOf(DeviceMonitorProblems.class));
         this.disconnectSupervisionTickout = 0;
 
@@ -101,34 +107,39 @@ public class DeviceMonitorTask implements Runnable {
     }
 
     /**
-     * Call after NE change state to connected
+     * Call after NE change state to connected.
+     * Mountpoint exists. Status is Connecting.
      * @param neParam that connected
      */
 
-    public void deviceConnectIndication(ONFCoreNetworkElementRepresentation neParam) {
+    public void deviceConnectIndication(DeviceMonitoredNe neParam) {
         LOG.info("{} {} Connect {} and stop.", LOGMARKER, tickCounter, mountPointName);
         clear(DeviceMonitorProblems.connectionLossOAM);
-        synchronized(lockNe) {
+        synchronized(lock) {
             this.ne = neParam;
+            this.mountpointConnectingStateSupervision = false;
         }
         stopDisconnectSupervision();
     }
 
     /**
      * If ne is disconnected do the related actions.
+     * - Mountpoint exists. Status is Connecting or UnableToConnect
      */
 
     public void deviceDisconnectIndication() {
         LOG.info("{} {} Disconnect {} and start.", LOGMARKER, tickCounter, mountPointName);
         clear(DeviceMonitorProblems.connectionLossOAM);
-        synchronized(lockNe) {
+        synchronized(lock) {
             this.ne = null;
+            this.mountpointConnectingStateSupervision = true;
         }
         startDisconnectSupervision();
     }
 
     /**
      * Do all actions to clean up the log if mountpoint has been deleted.
+     * - Mountpoint removed
      * Prepare cancellation of the task and cancel task
      */
 
@@ -145,8 +156,22 @@ public class DeviceMonitorTask implements Runnable {
          }
     }
 
+    /**
+     * Referesh Alarms
+     */
+    public void refreshAlarms() {
+        LOG.debug("{} Start refresh of all problems",LOGMARKER);
+    	synchronized(currentProblems) {
+	    	for (DeviceMonitorProblems problem :	currentProblems) {
+	            LOG.debug("{} Refresh problem {} Raised-status {}",LOGMARKER, problem.name(), currentProblems.contains(problem));
+	            odlEventListener.onProblemNotification(mountPointName, problem.name(), problem.getSeverity());
+	    	}
+    	}
+        LOG.debug("{} Finish refresh of all problems",LOGMARKER);
+    }
+
     /*------------------------------------------------------------
-     * Functions
+     * Functions to clear/raise alarm
      */
 
     /**
@@ -161,7 +186,6 @@ public class DeviceMonitorTask implements Runnable {
                 odlEventListener.onProblemNotification(mountPointName, problem.name(), problem.getSeverity());
             }
         }
-
     }
 
     /**
@@ -193,6 +217,9 @@ public class DeviceMonitorTask implements Runnable {
         LOG.debug("{} check end {} problem {} Raised-status {}",LOGMARKER, tickCounter, problem.name(), currentProblems.contains(problem));
     }
 
+    /*------------------------------------------------------------
+     * Functions to start/stop
+     */
 
     private void startDisconnectSupervision() {
         synchronized(disconnectSupervisionTickout) {
@@ -229,35 +256,46 @@ public class DeviceMonitorTask implements Runnable {
     public void run() {
 
         try {
-            boolean neNullIndicator;
-            synchronized (lockNe) {
-                neNullIndicator = ne == null;
-            }
-            LOG.debug("{} START mountpoint {} tick {} ne==null {} tickout {}",LOGMARKER, mountPointName, tickCounter, neNullIndicator, disconnectSupervisionTickout);
-            if (neNullIndicator) { //NE not connected
-                LOG.debug("{} {} NE disconnected check {}", LOGMARKER, tickCounter, disconnectSupervisionTickout);
-                if (processDisconnectSupervisionAndCheckExceeded()) {
-                    raise(DeviceMonitorProblems.connectionLossOAM);
-                }
-            } else {
-                clear(DeviceMonitorProblems.connectionLossOAM); //Always cleared never raised
-                LOG.debug("{} {} Prepare check", LOGMARKER, tickCounter);
-                ne.prepareCheck();  // Prepare ne check
-                // Mediator check
-                LOG.debug("{} {} Mediator check", LOGMARKER, tickCounter);
-                clearRaiseIfConnected(checkConnectionToMediator, DeviceMonitorProblems.connectionLossMediator);
+            LOG.debug("{} UTCTime {} START mountpoint {} tick {} connecting supervision {} tickout {}",
+            		LOGMARKER,
+            		NetconfTimeStamp.getTimeStamp(),
+            		mountPointName,
+            		tickCounter,
+            		mountpointConnectingStateSupervision,
+            		disconnectSupervisionTickout);
 
-                // NE check
-                LOG.debug("{} {} Ne check", LOGMARKER, tickCounter);
-                clearRaiseIfConnected(checkConnectionToNe, DeviceMonitorProblems.connectionLossNeOAM);
-            }
+           	if (mountpointConnectingStateSupervision) {
+   				LOG.debug("{} {} Mountpoint supervision {}", LOGMARKER, tickCounter, mountPointName);
+   				if (processDisconnectSupervisionAndCheckExceeded()) {
+   					raise(DeviceMonitorProblems.connectionLossOAM);
+   				}
+
+           	} else synchronized (lock) {
+           		if (ne != null) {
+           			//checks during "Connected"
+           			clear(DeviceMonitorProblems.connectionLossOAM); //Always cleared never raised
+           			LOG.debug("{} {} Prepare check", LOGMARKER, tickCounter);
+           			ne.prepareCheck();  // Prepare ne check
+           			// Mediator check
+           			LOG.debug("{} {} Mediator check", LOGMARKER, tickCounter);
+           			clearRaiseIfConnected(checkConnectionToMediator, DeviceMonitorProblems.connectionLossMediator);
+
+           			// NE check
+           			LOG.debug("{} {} Ne check", LOGMARKER, tickCounter);
+           			clearRaiseIfConnected(checkConnectionToNe, DeviceMonitorProblems.connectionLossNeOAM);
+           		} else {
+           			//Monitor switch off.
+           			LOG.debug("{} {} Monitor switch off state", LOGMARKER, tickCounter);
+           			clear(DeviceMonitorProblems.connectionLossOAM); //Always cleared never raised
+           			clear(DeviceMonitorProblems.connectionLossMediator); //Always cleared never raised
+           			clear(DeviceMonitorProblems.connectionLossNeOAM); //Always cleared never raised
+           		}
+           	}
         } catch (Exception e) {
             //Prevent stopping the task
-            LOG.warn("{} {} (..something..) failed",LOGMARKER, tickCounter, e);
+            LOG.warn("{} {} During DeviceMontoring task",LOGMARKER, tickCounter, e);
         }
         LOG.debug("{} {} END", LOGMARKER, tickCounter++);
 
     }
-
-
 }
