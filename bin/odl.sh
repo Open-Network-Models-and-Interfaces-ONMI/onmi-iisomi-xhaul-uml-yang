@@ -202,7 +202,7 @@ karaf_startifnotrunning() {
 }
 
 
-# Start all servies
+# Start all services
 # see beginning of this script
 
 #Param1 Optional Param2 Optional
@@ -908,6 +908,7 @@ case "$1" in
     echo " im          for install from M2-directory"
     echo " imd         for install from M2-directory. Delete logs before start command"
     echo " it fn       install tar file to container"
+    echo " ib nostart  install only"
     echo " karafclean  start clean and install apps on karaf"
     echo " kill        hard termination of ODL instance"
     echo " log         vi karaf.log"

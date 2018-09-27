@@ -1,12 +1,84 @@
-#Setting up Carbon SR1 development environment
+# Setting up CENTENNIAL environment for Opendaylight Carbon SR1
 
-HINT1: Not all applications, available under code/apps are integrated into code-Carbon-SR1/apps.
-HINT2: Modify the code under the *code* subdirectory. Modify in a way that it can be used in Boron and Carbon.
+This *code-Carbon-SR1* folder does compile the sources from *code* in a Opendaylight Carbon SR1 context.
+Mainly all the pom.xml files are adapted to refer to the Carbon SR1 related version numbers.
+Sources are used from source directory under the *code*-tree, referenced by symbolic links.
 
-This *code-Carbon-SR1* folder does compile the sources from *code* in a Opendayligh Cabron SR1 context.
-Mainly the pom.xml files are adapted. Sources are used from *code* referenced by a symbolic link.
+  * Section A: **Download, extract and run Opendaylight**
+  * Section B: **Development environment**
 
-##Recommended structure
+HINTs
+
+  - HINT 1: Not all applications, available under code/apps are integrated into code-Carbon-SR1/apps.
+  - HINT 2: Modify the code under the *code* subdirectory. Modify in a way that it can be used in Boron and Carbon.
+
+## A. Download, extract and run Opendaylight
+
+Directory structure
+
+  - $HOME
+    - Downloads
+    - odl
+      - distribution-karaf-0.6.1-Carbon-poc5
+
+Server prerequirements: VM (CPU:4Core, Ram:4Gig, HD:16Gig), Ubuntu 16.04 or 18.04 Server or Desktop, openJdk 8
+
+#### The steps to install and run Opendaylight Carbon SR1 are
+
+##### Step1: Download prepared Karaf/ODL/CENTENIAL Apps - tar.gz file (500 MB)
+
+	cd ~/Downloads
+	wget https://cloud-highstreet-technologies.com/nextcloud/index.php/s/JrnsGcnHHDXd8Rt/download -O distribution-karaf-0.6.1-Carbon-poc5.001.003.tar.gz
+
+##### Step2: Extract tar.gz
+
+Unpack karaf and included odl micro apps. (No karaf is running on server)
+
+    cd ~/odl
+    tar -xzf ../Downloads/distribution-karaf-0.6.1-Carbon-poc5.001.003.tar.gz
+
+##### Step3: Run Opendaylight
+
+Optional: Start Sim2230 as NETCONF device for test purpose.
+
+     cd ~/odl/distribution-karaf-0.6.1-Carbon-poc5/Sim2230/build
+     noYuma_p2230.sh 2&>1 ../sim2230output.log &
+
+
+Start Opendaylight.
+
+     cd ~/odl/distribution-karaf-0.6.1-Carbon-poc5
+     ./odl karafclean
+
+Give 1/2 minute for startup.
+
+##### Have fun
+
+With client browser connect to URL and login with admin / admin
+
+     http://<ip/name>:8181/index.html
+
+You can see the Opendaylight DLUX interface in the browser with applications.
+Use connect UX applicaton to connect to simulator by creating a mountpoint
+
+     Name: Sim2230
+     IP Address: 127.0.0.1
+     port: 2230
+     Username: admin
+     Password: admin
+     Required: check
+
+  - See connected Sim2230 in connect app/Required network elements
+  - See in fault app two alarms active for Sim2230
+
+
+
+
+## B. Development environment
+
+### Recommended directory structure
+
+Directory structure for development or compilation of Opendaylight apps in a clone of CENTENNIAL repository. The structure is used by scripts to provide creation of a running Opendaylight instance running CENTENNIAL apps as server component or for DLUX.
 
    - $HOME/Downloads
    - $HOME/odl
@@ -14,12 +86,14 @@ Mainly the pom.xml files are adapted. Sources are used from *code* referenced by
       - CENTENNIAL [from here: git](https://github.com/OpenNetworkingFoundation/CENTENNIAL.git)
 
 
-Working location for compiling Carbon code and managing the Carbon karaf container is here: **$HOME/odl/CENTENNIAL/code-Carbon-SR1**
-Working directory for source code editing for Boron base is here: **$HOME/odl/CENTENNIAL/code**
+Working locations:
 
-## Steps
+  - for compiling Carbon code and managing the Carbon karaf container is here: **$HOME/odl/CENTENNIAL/code-Carbon-SR1**
+  - Working directory for source code editing for Boron base is here: **$HOME/odl/CENTENNIAL/code**
 
-### 0. Do the installation of Java, maven, git npm and so on form the Boron/code description
+### Steps
+
+#### 0. Do the installation of Java, maven, git npm and so on form the Boron/code description
 
 Versions of tools that we use today (April 2018):
   - Apache Maven 3.3.9
@@ -35,12 +109,12 @@ Versions of tools that we use today (April 2018):
   - bower 1.8.0
 
 
-### 1. Download Carbon SR1 container
+#### 1. Download Carbon SR1 container
 
     cd $HOME/Downloads
     wget Carbon tar https://nexus.opendaylight.org/content/groups/public/org/opendaylight/integration/distribution-karaf/0.6.1-Carbon/distribution-karaf-0.6.1-Carbon.tar.gz
 
-### 2. Creating dist.conf file
+#### 2. Creating dist.conf file
 
     cd $HOME/odl/CENTENNIAL/code-Carbon-SR1
 
@@ -59,14 +133,14 @@ Create the file "dist.conf" with VI or any editor. Adapt template:
     ODL_KARAF_STARTUP_SCRIPT="karaf_startup_all"
 
 
-### 3. Compile everything to m2
+#### 3. Compile everything to m2
 
     cd $HOME/odl/CENTENNIAL/code-Carbon-SR1
     mvn clean install -DskipTests
 
 Should end without error indication
 
-### 4. Prepare container
+#### 4. Prepare container
 
 The *odl* script is replacing the older "install.sh" script collection. It will use the local settings, specified in dist.conf and can manage the karaf container specified by the configuration file. .
 
@@ -80,14 +154,14 @@ Execute prepare:
      cd $HOME/odl/CENTENNIAL/code-Carbon-SR1
      ./odl prepare
 
-### 5. Install the apps and Start the container
+#### 5. Install the apps and Start the container
 
 Install from $HOME/.m2/repository into dist/system and install features.
 
     ./odl im
 
 
-### Further commands of odl script
+#### Further commands of odl script
 
 List of all ./odl commands:
 ```
