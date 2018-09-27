@@ -28,7 +28,7 @@ Server prerequirements: VM (CPU:4Core, Ram:4Gig, HD:16Gig), Ubuntu 16.04 or 18.0
 ##### Step1: Download prepared Karaf/ODL/CENTENIAL Apps - tar.gz file (500 MB)
 
 	cd ~/Downloads
-	wget https://cloud-highstreet-technologies.com/nextcloud/index.php/s/JrnsGcnHHDXd8Rt/download -O distribution-karaf-0.6.1-Carbon-poc5.001.003.tar.gz
+	wget https://cloud-highstreet-technologies.com/nextcloud/index.php/s/9GLwSkXZxkKBXT3/download -O distribution-karaf-0.6.1-Carbon-poc5.001.003.tar.gz
 
 ##### Step2: Extract tar.gz
 
