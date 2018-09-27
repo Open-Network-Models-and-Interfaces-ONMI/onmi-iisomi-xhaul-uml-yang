@@ -24,7 +24,7 @@
 #        Add parent version variable ODLPARENT
 #   2.20 Added parameter KARAFSLEEPFORSTART
 #   2.21 Typos fixed
-Version=2.21
+Version=2.22
 
 # ----- Constants not depending on variables specified by $CONFIG
 ODLPARENT="0.5.1-SNAPSHOT"
@@ -207,6 +207,9 @@ karaf_startifnotrunning() {
 
 #Param1 Optional Param2 Optional
 karaf_cleanstart() {
+	if [ "$1" = "nostart" ] ;  then
+		return 0
+	fi
     echo "start karaf clean with parameters $1 $2"
     if [ -f "$ODL_KARAF_HOME/etc/opendaylight" ]
     then
