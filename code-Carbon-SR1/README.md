@@ -39,20 +39,23 @@ Unpack karaf and included odl micro apps. (No karaf is running on server)
 
 ##### Step3: Run Opendaylight
 
-Optional: Start Sim2230 as NETCONF device for test purpose.
-
-     cd ~/odl/distribution-karaf-0.6.1-Carbon-poc5/Sim2230/build
-     noYuma_p2230.sh 2&>1 ../sim2230output.log &
-
-
-Start Opendaylight.
+Start Opendaylight. Give about 1-2 minute to startup.
 
      cd ~/odl/distribution-karaf-0.6.1-Carbon-poc5
      ./odl karafclean
 
-Give 1/2 minute for startup.
 
 ##### Have fun
+
+Sim2230 is part of the delivery. Start Sim2230 as NETCONF device for test purpose.
+
+     cd ~/odl/distribution-karaf-0.6.1-Carbon-poc5/Sim2230/build
+     ./noYuma_p2230.sh
+
+HINT for Sim2230
+  * Let this session OPEN to see the connect and message exchange
+  * Simulator Sim2230 runns only if session stays open and running
+  * Stop and leave Sim2230 with *quit<enter>*
 
 With client browser connect to URL and login with admin / admin
 
@@ -68,11 +71,35 @@ Use connect UX applicaton to connect to simulator by creating a mountpoint
      Password: admin
      Required: check
 
+What you see
+
   - See connected Sim2230 in connect app/Required network elements
   - See in fault app two alarms active for Sim2230
+  - Correct Sim2230 output looks like this
 
+```
+     20180927T183108 NE:Network element root: //data/network-element
+     20180927T183108 NE:device info uuid'NE-12'
+     20180927T183108 Configuring server...
+     20180927T183108 Host: '0.0.0.0', listenig port: 2230
+     20180927T183108 Server configured.
+     20180927T183108 Starting server...
+     20180927T183108 Server started.
+     20180927T183935 Register user command listener: 24772884
+     20180927T183935 MP875071020:Hello
+     20180927T183935 MP875071020:Get[m-0]  matches netconf-state: schemas:
+     20180927T183935 MP875071020:get-schema [m-1] message
+     20180927T183935 NE:Load schema: ../yang/yangNeModel/iana-crypt-hash@2014-04-04.yang
+     20180927T183936 MP875071020:CreateSubscription[m-0]create-subscription: stream:NETCONF
+     20180927T183936 MP875071020:Get[m-1]  matches network-element:
+     20180927T183936 MP875071020:Get[m-2]  matches mw-pure-ethernet-structure-pac: layer-protocol:LP-MWS-RADIO pure-ethernet-structure-current-problems:
+     20180927T183936 MP875071020:Get[m-3]  matches mw-air-interface-pac: layer-protocol:LP-MWPS-TTP-RADIO air-interface-current-problems:
+```
 
+##### Further commands
 
+  * Stop container: ./odl stop
+  * Get version and run status: ./odl status
 
 ## B. Development environment
 
