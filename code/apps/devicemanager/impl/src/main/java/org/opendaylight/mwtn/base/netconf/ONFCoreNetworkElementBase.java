@@ -10,7 +10,6 @@ import javax.annotation.Nullable;
 
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.mwtn.base.internalTypes.InventoryInformation;
-import org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.networkelement.currentproblemlist.rev161120.NetworkElementCurrentProblems;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +38,7 @@ public abstract class ONFCoreNetworkElementBase implements ONFCoreNetworkElement
         this.netconfNodeDataBroker = netconfNodeDataBroker;
         this.capabilities = capabilities;
 
-        this.isNetworkElementCurrentProblemsSupporting10 = capabilities.isSupportingNamespace(NetworkElementCurrentProblems.QNAME);
+        this.isNetworkElementCurrentProblemsSupporting10 = false;
 
     }
 

@@ -47,7 +47,8 @@ public class ONFCoreNetworkElementFactory {
                         Capabilities capabilities = new Capabilities(nnode);
                         LOG.info("Mountpoint {} capabilities {}",mountPointNodeName, capabilities);
 
-                        res = ONFCoreNetworkElement10.build(mountPointNodeName, capabilities, mountpointDataBroker, webSocketService, databaseService, dcaeProvider,aotsmClient,maintenanceService,notificationDelayService);
+//                        res = ONFCoreNetworkElement10.build(mountPointNodeName, capabilities, mountpointDataBroker, webSocketService, databaseService, dcaeProvider,aotsmClient,maintenanceService,notificationDelayService);
+                        res = null;
                         if (res == null) {
                             res = ONFCoreNetworkElement12.build(mountPointNodeName, capabilities, mountpointDataBroker, webSocketService, databaseService, dcaeProvider,aotsmClient,maintenanceService,notificationDelayService);
                         }

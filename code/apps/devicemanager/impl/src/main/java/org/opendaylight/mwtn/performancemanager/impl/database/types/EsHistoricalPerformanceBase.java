@@ -3,9 +3,6 @@ package org.opendaylight.mwtn.performancemanager.impl.database.types;
 import org.opendaylight.mwtn.base.database.EsObject;
 import org.opendaylight.mwtn.base.netconf.LinkIdentifyingObject;
 import org.opendaylight.mwtn.base.netconf.NetconfTimeStamp;
-import org.opendaylight.yang.gen.v1.uri.onf.coremodel.corenetworkmodule.objectclasses.rev160811.logicalterminationpoint.LpList;
-import org.opendaylight.yang.gen.v1.uri.onf.g_874_1_model.object_classes.rev160710.OTNHistoryData;
-import org.opendaylight.yang.gen.v1.uri.onf.g_874_1_model.type_definitions.rev160710.GranularityPeriodType;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.logical.termination.point.g.Lp;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.g._874._1.model.rev170320.OtnHistoryDataG;
 import org.slf4j.Logger;
@@ -30,42 +27,11 @@ public class EsHistoricalPerformanceBase extends EsObject {
     @JsonIgnore private Object performanceData = null;
 
 
-    public EsHistoricalPerformanceBase(String nodeName, LpList actualInterface) {
-        this.nodeName = nodeName;
-        this.uuidInterface = actualInterface.getUuid().getValue();
-        this.layerProtocolName = actualInterface.getLayerProtocolName().getValue();
-
-    }
-
     public EsHistoricalPerformanceBase(String nodeName, Lp actualInterface) {
         this.nodeName = nodeName;
         this.uuidInterface = actualInterface.getUuid().getValue();
         this.layerProtocolName = actualInterface.getLayerProtocolName().getValue();
 
-    }
-
-
-    protected <T extends OTNHistoryData> void set(T record) {
-        if (record == null) {
-            LOG.warn("PM Record: null record. Can not handle");
-            return;
-        }
-
-        if (LOG.isTraceEnabled()) {
-            LOG.trace("PM Record: class {} '{}' ", record.getClass().getSimpleName(), record);
-        }
-
-        timeStamp = NetconfTimeStamp.getTimeStampFromNetconf(record.getPeriodEndTime().getValue());
-        suspectIntervalFlag = record.isSuspectIntervalFlag();
-        granularityPeriod = getYangGranularityPeriodString( record.getGranularityPeriod() );
-        scannerId = record.getHistoryDataId();
-
-        if (record instanceof LinkIdentifyingObject) {
-            radioSignalId = ((LinkIdentifyingObject) record).getSignalId();
-        }
-
-        performanceData = new EsPerformanceData10( record );
-        setEsId(genSpecificEsId(record.getPeriodEndTime().getValue()));
     }
 
     protected <T extends OtnHistoryDataG> void set(T record) {
@@ -141,16 +107,6 @@ public class EsHistoricalPerformanceBase extends EsObject {
 
     //Adapt JSON Text
     //@JsonGetter("granularityPeriod")
-    private static String getYangGranularityPeriodString(GranularityPeriodType yangGanularityPeriod) {
-        switch(yangGanularityPeriod == null ? GranularityPeriodType.UNKNOWN : yangGanularityPeriod) {
-            case PERIOD15MIN:
-                return "PERIOD_15MIN";
-            case PERIOD24HOURS:
-                return "PERIOD_24HOURS";
-            default:
-                return "PERIOD_UNKOWN";
-        }
-    }
 
     private static String getYangGranularityPeriodString(org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.g._874._1.model.rev170320.GranularityPeriodType yangGanularityPeriod) {
         switch(yangGanularityPeriod == null ? org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.g._874._1.model.rev170320.GranularityPeriodType.Unknown : yangGanularityPeriod) {

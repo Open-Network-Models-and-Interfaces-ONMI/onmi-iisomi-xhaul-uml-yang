@@ -26,10 +26,6 @@ public enum ONFLayerProtocolName {
         return myLayerProtocolName.equals(onfName.getValue());
     }
 
-    public boolean is( org.opendaylight.yang.gen.v1.uri.onf.coremodel.corenetworkmodule.typedefinitions.rev160710.LayerProtocolName onfName ) {
-        return myLayerProtocolName.equals(onfName.getValue());
-    }
-
     public static ONFLayerProtocolName valueOf( org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.LayerProtocolName onfName ) {
         for (ONFLayerProtocolName protocol : ONFLayerProtocolName.values()) {
             if (protocol.is(onfName)) {
@@ -40,14 +36,5 @@ public enum ONFLayerProtocolName {
         return Unknown;
     }
 
-    public static ONFLayerProtocolName valueOf( org.opendaylight.yang.gen.v1.uri.onf.coremodel.corenetworkmodule.typedefinitions.rev160710.LayerProtocolName onfName ) {
-        for (ONFLayerProtocolName protocol : ONFLayerProtocolName.values()) {
-            if (protocol.is(onfName)) {
-                return protocol;
-            }
-        }
-        LOG.info("Can not map {}. Use Unknown",onfName.getValue() );
-        return Unknown;
-    }
 }
 

@@ -621,13 +621,6 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
 		}
 
 		// Step 2.4: Read other problems from mountpoint
-		if (isNetworkElementCurrentProblemsSupporting10) {
-			idxStart = resultList.size();
-			readNetworkElementCurrentProblems10(resultList);
-			debugResultList("CurrentProblems10", resultList, idxStart);
-		}
-
-		// Step 2.5: Read other problems from mountpoint
 		if (isNetworkElementCurrentProblemsSupporting12) {
 			idxStart = resultList.size();
 			readNetworkElementCurrentProblems12(resultList);
@@ -1027,44 +1020,6 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
 	/*------------------------------------------------------------
 	 * private function to access database
 	 */
-
-	/*-----------------------------------------------------------------------------
-	 * Reading problems for the networkElement V1.0
-	 */
-
-	private List<ProblemNotificationXml> readNetworkElementCurrentProblems10(List<ProblemNotificationXml> resultList) {
-
-		LOG.info("DBRead Get {} NetworkElementCurrentProblems", mountPointNodeName);
-
-		InstanceIdentifier<org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.networkelement.currentproblemlist.rev161120.NetworkElementCurrentProblems> networkElementCurrentProblemsIID = InstanceIdentifier
-				.builder(
-						org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.networkelement.currentproblemlist.rev161120.NetworkElementCurrentProblems.class)
-				.build();
-
-		// Step 2.3: read to the config data store
-		org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.networkelement.currentproblemlist.rev161120.NetworkElementCurrentProblems problems;
-		try {
-			problems = GenericTransactionUtils.readData(netconfNodeDataBroker, LogicalDatastoreType.OPERATIONAL,
-					networkElementCurrentProblemsIID);
-			if (problems == null) {
-				LOG.debug("DBRead no NetworkElementCurrentProblems");
-			} else if (problems.getCurrentProblemList() == null) {
-				LOG.debug("DBRead empty CurrentProblemList");
-			} else {
-				for (org.opendaylight.yang.gen.v1.uri.onf.microwavemodel.networkelement.currentproblemlist.rev161120.GenericCurrentProblemType problem : problems
-						.getCurrentProblemList()) {
-					resultList.add(new ProblemNotificationXml(mountPointNodeName, problem.getObjectIdRef(),
-							problem.getProblemName(), InternalSeverity.valueOf(problem.getProblemSeverity()),
-							problem.getSequenceNumber().toString(),
-							InternalDateAndTime.valueOf(problem.getTimeStamp())));
-				}
-			}
-		} catch (Exception e) {
-			LOG.warn("DBRead {} NetworkElementCurrentProblems not supported. Message '{}' ", mountPointNodeName,
-					e.getMessage());
-		}
-		return resultList;
-	}
 
 	/*-----------------------------------------------------------------------------
 	 * Reading problems for the networkElement V1.0
