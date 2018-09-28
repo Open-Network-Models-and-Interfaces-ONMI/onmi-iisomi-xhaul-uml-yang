@@ -36,7 +36,9 @@ HINT: if the structure is different adapt the *dist.conf* file in the root-direc
 
 #### The steps to install and run Opendaylight Carbon SR1 are
 
-##### Step1: Download prepared Karaf/ODL/CENTENIAL Apps - tar.gz file (500 MB)
+##### Step1: Download Karaf/ODL/CENTENIAL Apps - tar.gz file (500 MB)
+
+Actual Version: 015.004 (28.09.2018)
 
 	cd ~/Downloads
     wget https://cloud-highstreet-technologies.com/nextcloud/index.php/s/7E88GLpPMwwPaDz/download  -O distribution-karaf-0.6.1-Carbon-poc5.015.004.tar.gz
