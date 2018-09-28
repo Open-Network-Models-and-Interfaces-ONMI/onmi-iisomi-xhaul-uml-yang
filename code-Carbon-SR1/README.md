@@ -14,7 +14,7 @@ HINTs
 
 ## A. Download, extract and run Opendaylight
 
-Directory structure
+Directory structure for preconfigured download package
 
   - $HOME
     - Downloads
@@ -23,19 +23,34 @@ Directory structure
 
 Server prerequirements: VM (CPU:4Core, Ram:4Gig, HD:16Gig), Ubuntu 16.04 or 18.04 Server or Desktop, openJdk 8
 
+HINT: if the structure is different adapt the *dist.conf* file in the root-directory of the container.
+
+     #PoC5 configuration
+     ODL_KARAF_DIST="distribution-karaf-0.6.1-Carbon-poc5"
+     ODL_KARAF_HOME=$HOME/odl/$ODL_KARAF_DIST
+     ODL_KARAF_DISTGZ="$HOME/Downloads/"$ODL_KARAF_DIST".tar.gz"
+     export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
+
+     ODL_KARAF_STARTUP_SCRIPT="karaf_startup_all"
+
+
 #### The steps to install and run Opendaylight Carbon SR1 are
 
 ##### Step1: Download prepared Karaf/ODL/CENTENIAL Apps - tar.gz file (500 MB)
 
 	cd ~/Downloads
-	wget https://cloud-highstreet-technologies.com/nextcloud/index.php/s/9GLwSkXZxkKBXT3/download -O distribution-karaf-0.6.1-Carbon-poc5.001.003.tar.gz
+    wget https://cloud-highstreet-technologies.com/nextcloud/index.php/s/7E88GLpPMwwPaDz  -O distribution-karaf-0.6.1-Carbon-poc5.015.004.tar.gz
+
+Older downloads:
+  * 001.003: <code>wget https://cloud-highstreet-technologies.com/nextcloud/index.php/s/9GLwSkXZxkKBXT3/download -O distribution-karaf-0.6.1-Carbon-poc5.001.003.tar.gz</code>
+
 
 ##### Step2: Extract tar.gz
 
-Unpack karaf and included odl micro apps. (No karaf is running on server)
+Unpack karaf and included odl micro apps. (No karaf is running on server ./odl/)
 
     cd ~/odl
-    tar -xzf ../Downloads/distribution-karaf-0.6.1-Carbon-poc5.001.003.tar.gz
+    tar -xzf ../Downloads/distribution-karaf-0.6.1-Carbon-poc5.015.004.tar.gz
 
 ##### Step3: Run Opendaylight
 
