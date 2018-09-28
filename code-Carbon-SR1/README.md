@@ -39,7 +39,7 @@ HINT: if the structure is different adapt the *dist.conf* file in the root-direc
 ##### Step1: Download prepared Karaf/ODL/CENTENIAL Apps - tar.gz file (500 MB)
 
 	cd ~/Downloads
-    wget https://cloud-highstreet-technologies.com/nextcloud/index.php/s/7E88GLpPMwwPaDz  -O distribution-karaf-0.6.1-Carbon-poc5.015.004.tar.gz
+    wget https://cloud-highstreet-technologies.com/nextcloud/index.php/s/7E88GLpPMwwPaDz/download  -O distribution-karaf-0.6.1-Carbon-poc5.015.004.tar.gz
 
 Older downloads:
   * 001.003: <code>wget https://cloud-highstreet-technologies.com/nextcloud/index.php/s/9GLwSkXZxkKBXT3/download -O distribution-karaf-0.6.1-Carbon-poc5.001.003.tar.gz</code>
