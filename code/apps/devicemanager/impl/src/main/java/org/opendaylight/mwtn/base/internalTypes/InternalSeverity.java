@@ -48,28 +48,7 @@ public enum InternalSeverity {
      * @param problemSeverity as input
      * @return String with related output
      */
-    public static InternalSeverity valueOf(
-    		org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.SeverityType problemSeverity ) {
-    	switch( problemSeverity ) {
-	    	case NonAlarmed:
-	    		return InternalSeverity.NonAlarmed;
-	    	case Warning:
-	    		return InternalSeverity.Warning;
-	    	case Minor:
-	    		return InternalSeverity.Minor;
-	    	case Major:
-	    		return InternalSeverity.Major;
-	    	case Critical:
-	    		return InternalSeverity.Critical;
-    	}
-    	return null;
-    }
 
-    /**
-     *
-     * @param problemSeverity
-     * @return
-     */
     public static InternalSeverity valueOf(
     		org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180927.SeverityType problemSeverity) {
     	switch( problemSeverity ) {

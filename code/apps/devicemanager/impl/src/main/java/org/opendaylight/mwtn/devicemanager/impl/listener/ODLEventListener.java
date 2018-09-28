@@ -20,7 +20,7 @@ import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectDeletionNotificationXm
 import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.WebSocketServiceClient;
 import org.opendaylight.mwtn.maintenance.MaintenaceService;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.ProblemNotification;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180927.ProblemNotification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
