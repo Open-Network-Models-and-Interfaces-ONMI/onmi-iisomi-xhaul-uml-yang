@@ -26,10 +26,10 @@ define(['angularAMD',
     NavHelperProvider.addToMenu('mwtnTest', {
      "link" : "#/mwtnTest/",
      "active" : "main.mwtnTest",
-     "title" : "LTE RAN Test",
+     "title" : "Test",
      "icon" : "fa fa-check-square-o",  // Add navigation icon css class here
      "page" : {
-        "title" : "LTE RAN Test",
+        "title" : "Test",
         "description" : "mwtnTest"
      }
     });

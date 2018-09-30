@@ -1,22 +1,23 @@
 #!/bin/bash
 
 # build ux
-mvn clean install -DskipTests
+# cd mvn clean install -DskipTests
+export ODL_KARAF_HOME=$HOME/apps/odl/distribution-karaf-0.6.1-Carbon
 
 # clean
 rm -rf ~/.m2/repository/com/highstreet/technologies/odl/app/closedLoopAutomation-karaf/
 rm -rf ~/.m2/repository/com/highstreet/technologies/odl/app/spectrum/scheduler-karaf/
 find ~/.m2/repository/org/opendaylight/mwtn/* -type d -name "*-module" -exec rm -rf {} \;
 find ~/.m2/repository/com/highstreet/* -type d -name "*-module" -exec rm -rf {} \;
-rm -rf ../dist/cache/schema/tailf*.yang
-rm -rf ../dist/cache/schema/yuma*.yang
-# rm -rf ../dist/data/log/*
-rm -rf ../dist/system/org/opendaylight/mwtn
-rm -rf ../dist/system/com/highstreet 
+rm -rf $ODL_KARAF_HOME/cache/schema/tailf*.yang
+rm -rf $ODL_KARAF_HOME/cache/schema/yuma*.yang
+# rm -rf $ODL_KARAF_HOME/data/log/*
+rm -rf $ODL_KARAF_HOME/system/org/opendaylight/mwtn
+rm -rf $ODL_KARAF_HOME/system/com/highstreet 
 
 # deploy
-cp -R ~/.m2/repository/org/opendaylight/mwtn ../dist/system/org/opendaylight 
-cp -R ~/.m2/repository/com/highstreet ../dist/system/com
+cp -R ~/.m2/repository/org/opendaylight/mwtn $ODL_KARAF_HOME/system/org/opendaylight 
+cp -R ~/.m2/repository/com/highstreet $ODL_KARAF_HOME/system/com
 
 # uninstall bundles
 ## declare array of bundleNames
@@ -32,10 +33,13 @@ declare -a bundleNames=(
     "ONF :: Wireless :: mwtnCompare-bundle"
     "ONF :: Wireless :: mwtnTdm-bundle"
     "ONF :: Wireless :: mwtnTopology-bundle"
+    "ONF :: Wireless :: emergency-bundle"
     "ONF :: Wireless :: mwtnInventory-bundle"
+    "ONF :: Wireless :: security-bundle"
     "ONF :: Wireless :: mwtnPerformanceLink-bundle"
     "ONF :: Wireless :: mwtnPerformanceHistory-bundle"
     "ONF :: Wireless :: mwtnPerformanceCurrent-bundle"
+    "ONF :: Wireless :: maintenancemode-bundle"
     "ONF :: Wireless :: mwtnFault-bundle"
     "ONF :: Wireless :: mwtnBrowser-bundle"
     "ONF :: Wireless :: otnBrowser-bundle"
@@ -53,7 +57,7 @@ for bundleName in "${bundleNames[@]}"
 do
    names+="\"$bundleName\" "
 done
-../dist/bin/client -u karaf "bundle:uninstall $names"
+$ODL_KARAF_HOME/bin/client -u karaf "bundle:uninstall $names"
 
 # install bundles
 ## declare array of bundleNames
@@ -75,16 +79,16 @@ declare -a bundles=(
     mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceLink-bundle/0.5.1-SNAPSHOT
     mvn:com.highstreet.technologies.odl.dlux/mwtnInventory-bundle/0.5.1-SNAPSHOT 
     mvn:com.highstreet.technologies.odl.dlux/mwtnTopology-bundle/0.5.1-SNAPSHOT 
-    # mvn:com.highstreet.technologies.odl.dlux/mwtnTdm-bundle/0.5.1-SNAPSHOT 
+    mvn:com.highstreet.technologies.odl.dlux/mwtnTdm-bundle/0.5.1-SNAPSHOT 
     # mvn:com.highstreet.technologies.odl.dlux/mwtnCompare-bundle/0.5.1-SNAPSHOT 
     # mvn:cn.com.zte.odl.dlux/mwtnSpectrum-bundle/0.5.1-SNAPSHOT
     # mvn:com.highstreet.technologies.odl.dlux/mwtnClosedLoop-bundle/0.5.1-SNAPSHOT 
-    # mvn:com.highstreet.technologies.odl.dlux/mwtnEvents-bundle/0.5.1-SNAPSHOT 
-    # mvn:com.highstreet.technologies.odl.dlux/mwtnTest-bundle/0.5.1-SNAPSHOT
+    mvn:com.highstreet.technologies.odl.dlux/mwtnEvents-bundle/0.5.1-SNAPSHOT 
+    mvn:com.highstreet.technologies.odl.dlux/mwtnTest-bundle/0.5.1-SNAPSHOT
     mvn:com.highstreet.technologies.odl.dlux/mwtnMediator-bundle/0.5.1-SNAPSHOT
     mvn:com.highstreet.technologies.odl.dlux/help-bundle/0.5.1-SNAPSHOT
-    # mvn:com.highstreet.technologies.odl.dlux/mwtnLog-bundle/0.5.1-SNAPSHOT 
-    # mvn:com.highstreet.technologies.odl.dlux/odlChat-bundle/0.5.1-SNAPSHOT
+    mvn:com.highstreet.technologies.odl.dlux/mwtnLog-bundle/0.5.1-SNAPSHOT 
+    mvn:com.highstreet.technologies.odl.dlux/odlChat-bundle/0.5.1-SNAPSHOT
 )
 
 ## execute bundle uninstall 
@@ -93,7 +97,7 @@ for bundle in "${bundles[@]}"
 do
    bundleMvns+="$bundle "
 done
-../dist/bin/client -u karaf "bundle:install -s $bundleMvns"
+$ODL_KARAF_HOME/bin/client -u karaf "bundle:install -s $bundleMvns"
 
 # open brwoser
 x-www-browser http://localhost:8181/index.html
