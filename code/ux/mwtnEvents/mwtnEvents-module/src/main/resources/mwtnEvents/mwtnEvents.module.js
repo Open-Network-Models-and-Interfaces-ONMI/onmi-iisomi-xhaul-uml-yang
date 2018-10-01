@@ -24,7 +24,7 @@ define([ 'angularAMD', 'app/routingConfig', 'app/core/core.services',
 
     NavHelperProvider.addControllerUrl('app/mwtnEvents/mwtnEvents.controller');
     NavHelperProvider.addToMenu('mwtnEvents', {
-      "link" : "#/pnfEvents",
+      "link" : "#/events",
       "active" : "main.mwtnEvents",
       "title" : "Events",
       "icon" : "fa fa-flash", // Add navigation icon css class here
@@ -37,7 +37,7 @@ define([ 'angularAMD', 'app/routingConfig', 'app/core/core.services',
     var access = routingConfig.accessLevels;
 
     $stateProvider.state('main.mwtnEvents', {
-      url : 'mwtnEvents',
+      url : 'events',
       access : access.admin,
       views : {
         'content' : {
