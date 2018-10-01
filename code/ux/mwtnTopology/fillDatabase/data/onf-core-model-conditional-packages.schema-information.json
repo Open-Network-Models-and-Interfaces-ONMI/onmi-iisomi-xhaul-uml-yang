@@ -1,0 +1,337 @@
+{
+ "schema-information": {
+  "network-element-pac": {
+   "id": "network-element-pac",
+   "uml-id": "_RamCUPaMEeaW9u5N6usiTA",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "NetworkElement_Pac"
+  },
+  "network-element": {
+   "id": "network-element",
+   "uml-id": "_5z06cPaNEeaW9u5N6usiTA",
+   "uml-type": "ownedAttribute",
+   "type": "../OnfModel/CoreModel.uml#_oGqnr1LNEeO75dO39GbF8Q",
+   "order-number": 1,
+   "is-read-only": false,
+   "uml-name": "_networkElement"
+  },
+  "network-element-capability": {
+   "id": "network-element-capability",
+   "uml-id": "_1_TVYPaMEeaW9u5N6usiTA",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "NetworkElementCapability"
+  },
+  "network-element-configuration": {
+   "id": "network-element-configuration",
+   "uml-id": "_Pu6HIPaNEeaW9u5N6usiTA",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "NetworkElementConfiguration"
+  },
+  "network-element-status": {
+   "id": "network-element-status",
+   "uml-id": "_g5u0YPaNEeaW9u5N6usiTA",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "NetworkElementStatus"
+  },
+  "network-element-current-problems": {
+   "id": "network-element-current-problems",
+   "uml-id": "_Pu6HIfaNEeaW9u5N6usiTA",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "NetworkElementCurrentProblems"
+  },
+  "supported-alarms": {
+   "id": "supported-alarms",
+   "uml-id": "_444DuBd_EeegALpYen9G6g",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 1,
+   "is-read-only": true,
+   "description": [
+    "Available alarms to be listed. Names are to be separated by commas."
+   ],
+   "uml-name": "supportedAlarms",
+   "controlType": "text"
+  },
+  "problem-type-severity": {
+   "id": "problem-type-severity",
+   "uml-id": "_rvDABPasEeaW9u5N6usiTA",
+   "uml-type": "ownedAttribute",
+   "type": "../OnfModel-MicrowaveTransportNetwork/MicrowaveModel.uml#_eIml0JH1EeWUdbnmmNiTAA",
+   "order-number": 2,
+   "is-read-only": false,
+   "description": [
+    "Severity of this type of alarm."
+   ],
+   "uml-name": "problemTypeSeverity"
+  },
+  "trigger-refresh": {
+   "id": "trigger-refresh",
+   "uml-id": "_F6C-8Pm7EeaOH6heSczBpQ",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 2,
+   "is-read-only": false,
+   "description": [
+    "A trigger to instuct the netconf server to refresh its internal database/cache. It is primary used for alarms status, but could used for anything else too. It is assumed that the refresh mechanismn takes somes time. In order to indictate the process to the controller a refreshStatus attribute is used."
+   ],
+   "uml-name": "triggerRefresh",
+   "controlType": "checkbox"
+  },
+  "refresh-status": {
+   "id": "refresh-status",
+   "uml-id": "_w0x8wPm3EeaOH6heSczBpQ",
+   "uml-type": "ownedAttribute",
+   "type": "_7HZcEPm3EeaOH6heSczBpQ",
+   "order-number": 1,
+   "is-read-only": true,
+   "uml-name": "refreshStatus",
+   "controlType": [
+    "done",
+    "processing"
+   ]
+  },
+  "current-problem-list": {
+   "id": "current-problem-list",
+   "uml-id": "_444DwRd_EeegALpYen9G6g",
+   "uml-type": "ownedAttribute",
+   "type": "_TBaooPasEeaW9u5N6usiTA",
+   "order-number": 1,
+   "is-read-only": true,
+   "uml-name": "currentProblemList"
+  },
+  "equipment-pac": {
+   "id": "equipment-pac",
+   "uml-id": "_VtO8MPaMEeaW9u5N6usiTA",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "Equipment_Pac"
+  },
+  "equipment": {
+   "id": "equipment",
+   "uml-id": "_92PqMfaREeaW9u5N6usiTA",
+   "uml-type": "ownedAttribute",
+   "type": "../OnfModel/CoreModel.uml#_8SXNej-HEeaRI-H69PghuA",
+   "order-number": 1,
+   "is-read-only": false,
+   "is-key": 1,
+   "uml-name": "_equipment"
+  },
+  "equipment-capability": {
+   "id": "equipment-capability",
+   "uml-id": "_g5u0YfaNEeaW9u5N6usiTA",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "EquipmentCapability"
+  },
+  "equipment-configuration": {
+   "id": "equipment-configuration",
+   "uml-id": "_OGWN4PaNEeaW9u5N6usiTA",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "EquipmentConfiguration"
+  },
+  "equipment-status": {
+   "id": "equipment-status",
+   "uml-id": "_gJH6APaREeaW9u5N6usiTA",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "EquipmentStatus"
+  },
+  "equipment-current-problems": {
+   "id": "equipment-current-problems",
+   "uml-id": "_kRHqIPaREeaW9u5N6usiTA",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "EquipmentCurrentProblems"
+  },
+  "holder-pac": {
+   "id": "holder-pac",
+   "uml-id": "_dECKoPaMEeaW9u5N6usiTA",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "Holder_Pac"
+  },
+  "holder": {
+   "id": "holder",
+   "uml-id": "_TNk0IfaSEeaW9u5N6usiTA",
+   "uml-type": "ownedAttribute",
+   "type": "../OnfModel/CoreModel.uml#_8SXNjj-HEeaRI-H69PghuA",
+   "order-number": 1,
+   "is-read-only": false,
+   "is-key": 1,
+   "uml-name": "_holder"
+  },
+  "holder-capability": {
+   "id": "holder-capability",
+   "uml-id": "_gtTvsPaSEeaW9u5N6usiTA",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "HolderCapability"
+  },
+  "holder-configuration": {
+   "id": "holder-configuration",
+   "uml-id": "_g8TN8PaSEeaW9u5N6usiTA",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "HolderConfiguration"
+  },
+  "holder-status": {
+   "id": "holder-status",
+   "uml-id": "_hDSmwPaSEeaW9u5N6usiTA",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "HolderStatus"
+  },
+  "holder-current-problems": {
+   "id": "holder-current-problems",
+   "uml-id": "_hJQE0PaSEeaW9u5N6usiTA",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "HolderCurrentProblems"
+  },
+  "connector-pac": {
+   "id": "connector-pac",
+   "uml-id": "_444DsRd_EeegALpYen9G6g",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "Connector_Pac"
+  },
+  "connector": {
+   "id": "connector",
+   "uml-id": "_eDZ5QBeDEeegALpYen9G6g",
+   "uml-type": "ownedAttribute",
+   "type": "../OnfModel/CoreModel.uml#_8SXNcD-HEeaRI-H69PghuA",
+   "order-number": 1,
+   "is-read-only": false,
+   "is-key": 1,
+   "uml-name": "_connector"
+  },
+  "connector-capability": {
+   "id": "connector-capability",
+   "uml-id": "_444Dtxd_EeegALpYen9G6g",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "ConnectorCapability"
+  },
+  "connector-configuration": {
+   "id": "connector-configuration",
+   "uml-id": "_444Duhd_EeegALpYen9G6g",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "ConnectorConfiguration"
+  },
+  "connector-status": {
+   "id": "connector-status",
+   "uml-id": "_444Dvxd_EeegALpYen9G6g",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "ConnectorStatus"
+  },
+  "connector-current-problems": {
+   "id": "connector-current-problems",
+   "uml-id": "_444DwBd_EeegALpYen9G6g",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "ConnectorCurrentProblems"
+  },
+  "remote-end-point": {
+   "id": "remote-end-point",
+   "uml-id": "_RDCPsBeCEeegALpYen9G6g",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 2,
+   "is-read-only": false,
+   "description": [
+    "A network wide identifier of the remote connector. The value is used for topology discovery. Please see also ConnectorStatus::localEndPoint."
+   ],
+   "uml-name": "remoteEndPoint",
+   "controlType": "text"
+  },
+  "local-end-point": {
+   "id": "local-end-point",
+   "uml-id": "_NZGKABeBEeegALpYen9G6g",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 1,
+   "is-read-only": false,
+   "description": [
+    "A network wide global identifier of the this connector, which can be used to discover the physical connectivitiy. The value should contain the network element name, because the network element software can assume that the network element name is unique in the network. The value should be formated: <connector:uuid>@<network-element-name> Please see also ConnectorConfiguration::remoteEndPoint"
+   ],
+   "uml-name": "localEndPoint",
+   "controlType": "text"
+  },
+  "current-problem-type": {
+   "id": "current-problem-type",
+   "uml-id": "_TBaooPasEeaW9u5N6usiTA",
+   "uml-type": "uml:DataType",
+   "uml-name": "CurrentProblemType"
+  },
+  "problem-name": {
+   "id": "problem-name",
+   "uml-id": "_0XQ-UvmyEeaOH6heSczBpQ",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 1,
+   "is-read-only": true,
+   "description": [
+    "Name of the alarm according capability::supportedAlarms."
+   ],
+   "uml-name": "problemName",
+   "controlType": "text"
+  },
+  "network-element-current-problem-type": {
+   "id": "network-element-current-problem-type",
+   "uml-id": "_0XQ-UPmyEeaOH6heSczBpQ",
+   "uml-type": "uml:DataType",
+   "uml-name": "NetworkElementCurrentProblemType"
+  },
+  "object-reference": {
+   "id": "object-reference",
+   "uml-id": "_BW8g0PmzEeaOH6heSczBpQ",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 2,
+   "is-read-only": true,
+   "description": [
+    "An explaining string of the related object class. This is necesseary, because the current problem list of the NetworkElement object class acts as a container for all alarms, where its object classes are not modeled."
+   ],
+   "uml-name": "objectReference",
+   "controlType": "text"
+  },
+  "problem-severity-type": {
+   "id": "problem-severity-type",
+   "uml-id": "_rvDAAPasEeaW9u5N6usiTA",
+   "uml-type": "uml:DataType",
+   "uml-name": "ProblemSeverityType"
+  },
+  "problem-type-name": {
+   "id": "problem-type-name",
+   "uml-id": "_rvDAAfasEeaW9u5N6usiTA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 1,
+   "is-read-only": false,
+   "is-key": 1,
+   "description": [
+    "Name of the alarm according to Capability::supportedAlarms"
+   ],
+   "uml-name": "problemTypeName",
+   "controlType": "text"
+  },
+  "7-h-zc-e-pm3-eea-oh6-he-scz-bp-q": {
+   "id": "7-h-zc-e-pm3-eea-oh6-he-scz-bp-q",
+   "uml-id": "_7HZcEPm3EeaOH6heSczBpQ",
+   "enum": [
+    "DONE",
+    "PROCESSING"
+   ],
+   "is-read-only": false,
+   "uml-name": "_7HZcEPm3EeaOH6heSczBpQ"
+  }
+ }
+}

@@ -1,0 +1,602 @@
+{
+ "schema-information": {
+  "otn-current-data": {
+   "id": "otn-current-data",
+   "uml-id": "_OxyHAOGJEeGhaeLtr7IxXg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "This object class is an abstract class from which the OTN layer-specific CurrentData object classes are inherited. This object class is a subclass of the Q.822 CurrentData object class, which in turn is a subclass of X.739 Scanner object class. It inherits the following attributes: scannerId, operationalState, granularityPeriod, administrativeState, suspectIntervalFlag, elapsedTime, observedObjectClass, and observedObjectInstance."
+   ],
+   "uml-name": "OTN_CurrentData"
+  },
+  "timestamp": {
+   "id": "timestamp",
+   "uml-id": "_bGwfoOGJEeGhaeLtr7IxXg",
+   "uml-type": "ownedAttribute",
+   "type": "_X-HZUNwbEeGoneTbGt8X0A",
+   "order-number": 1,
+   "is-read-only": false,
+   "description": [
+    "The timestamp associated with when the current data was collected."
+   ],
+   "uml-name": "timestamp"
+  },
+  "otn-history-data": {
+   "id": "otn-history-data",
+   "uml-id": "_dQ2mYOGOEeGhaeLtr7IxXg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "This object class is an abstract class from which the OTN layer-specific HistoryData object classes are inherited."
+   ],
+   "uml-name": "OTN_HistoryData"
+  },
+  "suspect-interval-flag": {
+   "id": "suspect-interval-flag",
+   "uml-id": "_M8IDNceIEeSfd5vyUJsimg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 1,
+   "is-read-only": false,
+   "description": [
+    "This attribute is used to indicate that the performance data for the current period may not be reliable. Some reasons for this to occur are:- Suspect data were detected by the actual resource doing data collection.- Transition of the administrativeState attribute to/from the 'lock' state.- Transition of the operationalState to/from the 'disabled' state.- Scheduler setting that inhibits the collection function.- The performance counters were reset during the interval.- The currentData (or subclass) object instance was created during the monitoring period."
+   ],
+   "uml-name": "suspectIntervalFlag",
+   "controlType": "checkbox"
+  },
+  "«q.822»-current-data": {
+   "id": "«q.822»-current-data",
+   "uml-id": "_M8IDMceIEeSfd5vyUJsimg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "«Q.822»-CurrentData"
+  },
+  "elapsed-time": {
+   "id": "elapsed-time",
+   "uml-id": "_M8IDOMeIEeSfd5vyUJsimg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 2,
+   "is-read-only": false,
+   "uml-name": "elapsedTime",
+   "controlType": "number"
+  },
+  "«q.822»-history-data": {
+   "id": "«q.822»-history-data",
+   "uml-id": "_M8IDVMeIEeSfd5vyUJsimg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "«Q.822»-HistoryData"
+  },
+  "history-data-id": {
+   "id": "history-data-id",
+   "uml-id": "_M8IDWMeIEeSfd5vyUJsimg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 1,
+   "is-read-only": false,
+   "uml-name": "historyDataId",
+   "controlType": "text"
+  },
+  "period-end-time": {
+   "id": "period-end-time",
+   "uml-id": "_M8IDWceIEeSfd5vyUJsimg",
+   "uml-type": "ownedAttribute",
+   "type": "../OnfModel-CoreModel/CoreModel.uml#_oGqi1lLNEeO75dO39GbF8Q",
+   "order-number": 2,
+   "is-read-only": false,
+   "uml-name": "periodEndTime"
+  },
+  "granularity-period": {
+   "id": "granularity-period",
+   "uml-id": "_M8IDWseIEeSfd5vyUJsimg",
+   "uml-type": "ownedAttribute",
+   "type": "_Y6WUEEamEeabNPX3o7rjtw",
+   "order-number": 2,
+   "is-read-only": false,
+   "uml-name": "granularityPeriod",
+   "controlType": [
+    "unknown",
+    "period-15-min",
+    "period-24-hours"
+   ]
+  },
+  "«x.739»-scanner": {
+   "id": "«x.739»-scanner",
+   "uml-id": "_7wb90ceIEeSfd5vyUJsimg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "«X.739»-Scanner"
+  },
+  "scanner-id": {
+   "id": "scanner-id",
+   "uml-id": "_7wb91ceIEeSfd5vyUJsimg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 1,
+   "is-read-only": false,
+   "uml-name": "scannerId",
+   "controlType": "text"
+  },
+  "administrative-state": {
+   "id": "administrative-state",
+   "uml-id": "_7wb92seIEeSfd5vyUJsimg",
+   "uml-type": "ownedAttribute",
+   "type": "../OnfModel-CoreModel/CoreModel.uml#_KSKOYLEuEeSZUdYfPSdgew",
+   "order-number": 3,
+   "is-read-only": false,
+   "uml-name": "administrativeState"
+  },
+  "«x.721»-top": {
+   "id": "«x.721»-top",
+   "uml-id": "_BMJ0EceTEeS6-cawxfHpnA",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "This is the top level of managed object class hierarchy and every other managed object class is a specialization of either this generic class (top) or a specialization of subclass of top. The parameter miscellaneousError is to be used when a processing failure has occurred and the error condition encountered does not match any of object's defined specific error types."
+   ],
+   "uml-name": "«X.721»-Top"
+  },
+  "object-class": {
+   "id": "object-class",
+   "uml-id": "_BMJ0FceTEeS6-cawxfHpnA",
+   "uml-type": "ownedAttribute",
+   "type": "_ltGzFMeUEeS6-cawxfHpnA",
+   "order-number": 1,
+   "is-read-only": false,
+   "description": [
+    "ObjectClass ::= CHOICE{ globalForm [0] OBJECT IDENTIFIER, localForm [1] INTEGER}"
+   ],
+   "uml-name": "objectClass"
+  },
+  "name-binding": {
+   "id": "name-binding",
+   "uml-id": "_BMJ0F8eTEeS6-cawxfHpnA",
+   "uml-type": "ownedAttribute",
+   "type": "_ltGzFMeUEeS6-cawxfHpnA",
+   "order-number": 2,
+   "is-read-only": false,
+   "uml-name": "nameBinding"
+  },
+  "date-and-time": {
+   "id": "date-and-time",
+   "uml-id": "_X-HZUNwbEeGoneTbGt8X0A",
+   "uml-type": "uml:DataType",
+   "description": [
+    "This primitive type defines the date and time according to the following structure:  yyyyMMddhhmmss.s[Z|{+|-}HHMm]  where: yyyy  0000 .. 9999  year MM  01 .. 12  month dd  01 .. 31  day hh  00 .. 23  hour mm  00 .. 59  minute ss  00 .. 59  second s  .0 .. .9  tenth of second (set to  .0  if EMS or NE cannot support this granularity) Z  Z  indicates UTC (rather than local time) {+|-}  +  or  -  delta from UTC HH  00 .. 23  time zone difference in hours Mm  00 .. 59  time zone difference in minutes."
+   ],
+   "uml-name": "DateAndTime"
+  },
+  "5-g6-yq-oo-ee-cj-nnlz-cc6-mew": {
+   "id": "5-g6-yq-oo-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_5G6YQOo-EeCjNNLZCc6mew",
+   "enum": [
+    "SINK",
+    "SOURCE",
+    "BIDIRECTIONAL"
+   ],
+   "is-read-only": false,
+   "description": [
+    "The enumeration with the options for directionality of the termination point."
+   ],
+   "uml-name": "_5G6YQOo-EeCjNNLZCc6mew"
+  },
+  "r-u8-a-m-opf-ee-cj-nnlz-cc6-mew": {
+   "id": "r-u8-a-m-opf-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_rU8aMOpfEeCjNNLZCc6mew",
+   "enum": [
+    "GCC1",
+    "GCC2",
+    "GCC1_AND_GCC2"
+   ],
+   "is-read-only": false,
+   "description": [
+    "This enumeration indicates the GCC access represented by the entity."
+   ],
+   "uml-name": "_rU8aMOpfEeCjNNLZCc6mew"
+  },
+  "w7-1-o-opi-ee-cj-nnlz-cc6-mew": {
+   "id": "w7-1-o-opi-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_W7-1oOpiEeCjNNLZCc6mew",
+   "enum": [
+    "ENABLED",
+    "DISABLED"
+   ],
+   "is-read-only": false,
+   "description": [
+    "The list of valid operational states for the connection."
+   ],
+   "uml-name": "_W7-1oOpiEeCjNNLZCc6mew"
+  },
+  "g0-z-cs-os-d-ee-cj-nnlz-cc6-mew": {
+   "id": "g0-z-cs-os-d-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_g0zCsOsDEeCjNNLZCc6mew",
+   "enum": [
+    "REVERTIVE",
+    "NON-REVERTIVE"
+   ],
+   "is-read-only": false,
+   "description": [
+    "The operation type associated with the protection mechanism (either non-revertive or revertive)."
+   ],
+   "uml-name": "_g0zCsOsDEeCjNNLZCc6mew"
+  },
+  "jl09-g-os-k-ee-cj-nnlz-cc6-mew": {
+   "id": "jl09-g-os-k-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_Jl09gOsKEeCjNNLZCc6mew",
+   "enum": [
+    "EXERCISE",
+    "MANUAL_SWITCH",
+    "FORCED_SWITCH",
+    "LOCKOUT",
+    "RELEASE_OF_MANUAL_SWITCH",
+    "RELEASE_OF_FORCED_SWITCH",
+    "RELEASE_OF_LOCKOUT"
+   ],
+   "is-read-only": false,
+   "description": [
+    "This enumeration contains the options for the actions that instruct the protection system for performing specific protection switching operations."
+   ],
+   "uml-name": "_Jl09gOsKEeCjNNLZCc6mew"
+  },
+  "bwx-bq-ow5-ee-cj-nnlz-cc6-mew": {
+   "id": "bwx-bq-ow5-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_bwxBQOw5EeCjNNLZCc6mew",
+   "enum": [
+    "UNLOCKED",
+    "LOCKED",
+    "SHUTTING_DOWN"
+   ],
+   "is-read-only": false,
+   "description": [
+    "For more information on Administrative State, See ITU-T Recs. X.731 and M.3100."
+   ],
+   "uml-name": "_bwxBQOw5EeCjNNLZCc6mew"
+  },
+  "ch-q5-o-ow-ee-cj-nnlz-cc6-mew": {
+   "id": "ch-q5-o-ow-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_ChQ5oOw-EeCjNNLZCc6mew",
+   "enum": [
+    "2.5_G",
+    "10_G",
+    "40_G",
+    "100_G"
+   ],
+   "is-read-only": false,
+   "description": [
+    "Provides an enumeration with the meaning of each  k  value."
+   ],
+   "uml-name": "_ChQ5oOw-EeCjNNLZCc6mew"
+  },
+  "z-bty-u-ow-ee-cj-nnlz-cc6-mew": {
+   "id": "z-bty-u-ow-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_ZBtyUOw_EeCjNNLZCc6mew",
+   "enum": [
+    "DAPI",
+    "SAPI",
+    "BOTH"
+   ],
+   "is-read-only": false,
+   "description": [
+    "List of modes for trace identifier mismatch detection."
+   ],
+   "uml-name": "_ZBtyUOw_EeCjNNLZCc6mew"
+  },
+  "hf864-ox-a-ee-cj-nnlz-cc6-mew": {
+   "id": "hf864-ox-a-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_HF864OxAEeCjNNLZCc6mew",
+   "enum": [
+    "LOS_P",
+    "OCI",
+    "SSF_P",
+    "SSF_O",
+    "SSF",
+    "TIM",
+    "DEG",
+    "BDI"
+   ],
+   "is-read-only": false,
+   "description": [
+    "The valid list of problems for the entity."
+   ],
+   "uml-name": "_HF864OxAEeCjNNLZCc6mew"
+  },
+  "w-po-no-o3-e-ee-cj-nnlz-cc6-mew": {
+   "id": "w-po-no-o3-e-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_WPoNoO3eEeCjNNLZCc6mew",
+   "enum": [
+    "INTRUSIVE",
+    "NON-INTRUSIVE"
+   ],
+   "is-read-only": false,
+   "description": [
+    "Monitoring types for the tandem connection monitoring function."
+   ],
+   "uml-name": "_WPoNoO3eEeCjNNLZCc6mew"
+  },
+  "oi-7-w-o6-q-ee-cj-nnlz-cc6-mew": {
+   "id": "oi-7-w-o6-q-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_OI-7wO6QEeCjNNLZCc6mew",
+   "enum": [
+    "OPERATIONAL",
+    "TRANSPARENT",
+    "MONITOR"
+   ],
+   "is-read-only": false,
+   "description": [
+    "List of value modes for the sink side of the tandem connection monitoring function."
+   ],
+   "uml-name": "_OI-7wO6QEeCjNNLZCc6mew"
+  },
+  "zn-m8-c-o6-z-ee-cj-nnlz-cc6-mew": {
+   "id": "zn-m8-c-o6-z-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_ZnM8cO6ZEeCjNNLZCc6mew",
+   "enum": [
+    "40_G",
+    "100_G"
+   ],
+   "is-read-only": false,
+   "description": [
+    "Provides an enumeration with the meaning of each  k  value."
+   ],
+   "uml-name": "_ZnM8cO6ZEeCjNNLZCc6mew"
+  },
+  "p-v-f8-o6-a-ee-cj-nnlz-cc6-mew": {
+   "id": "p-v-f8-o6-a-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_pV-F8O6aEeCjNNLZCc6mew",
+   "enum": [
+    "LOS",
+    "LOL"
+   ],
+   "is-read-only": false,
+   "description": [
+    "The valid list of problems for the entity."
+   ],
+   "uml-name": "_pV-F8O6aEeCjNNLZCc6mew"
+  },
+  "qw1-syo6-b-ee-cj-nnlz-cc6-mew": {
+   "id": "qw1-syo6-b-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_QW1SYO6bEeCjNNLZCc6mew",
+   "enum": [
+    "LOS"
+   ],
+   "is-read-only": false,
+   "description": [
+    "The valid list of problems for the entity."
+   ],
+   "uml-name": "_QW1SYO6bEeCjNNLZCc6mew"
+  },
+  "o-ouk-o6-b-ee-cj-nnlz-cc6-mew": {
+   "id": "o-ouk-o6-b-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_o-oukO6bEeCjNNLZCc6mew",
+   "enum": [
+    "2.5_G",
+    "10_G",
+    "40_G",
+    "2.5_10_G",
+    "10_40_G",
+    "2.5_10_40_G"
+   ],
+   "is-read-only": false,
+   "description": [
+    "Provides an enumeration with the meaning of each  k  value."
+   ],
+   "uml-name": "_o-oukO6bEeCjNNLZCc6mew"
+  },
+  "krcg4-o6-d-ee-cj-nnlz-cc6-mew": {
+   "id": "krcg4-o6-d-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_KRCG4O6dEeCjNNLZCc6mew",
+   "enum": [
+    "INTRA_DOMAIN",
+    "INTER_DOMAIN"
+   ],
+   "is-read-only": false,
+   "description": [
+    "This enumeration provides the options for the interface associated with OTMn."
+   ],
+   "uml-name": "_KRCG4O6dEeCjNNLZCc6mew"
+  },
+  "eo-py-io6-q-ee-cj-nnlz-cc6-mew": {
+   "id": "eo-py-io6-q-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_EOPyIO6qEeCjNNLZCc6mew",
+   "enum": [
+    "INTRA_OFFICE",
+    "SHORTHAUL",
+    "LONGHAUL"
+   ],
+   "is-read-only": false,
+   "description": [
+    "The valid options for reach of the optical cable."
+   ],
+   "uml-name": "_EOPyIO6qEeCjNNLZCc6mew"
+  },
+  "6-bt3-qo6-q-ee-cj-nnlz-cc6-mew": {
+   "id": "6-bt3-qo6-q-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_6Bt3QO6qEeCjNNLZCc6mew",
+   "enum": [
+    "ON",
+    "OFF"
+   ],
+   "is-read-only": false,
+   "description": [
+    "The enumeration of the options for the Automatic Power Reduction Status."
+   ],
+   "uml-name": "_6Bt3QO6qEeCjNNLZCc6mew"
+  },
+  "f-lz-nqo6-v-ee-cj-nnlz-cc6-mew": {
+   "id": "f-lz-nqo6-v-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_FLzNQO6vEeCjNNLZCc6mew",
+   "enum": [
+    "BDI_P",
+    "BDI_O",
+    "BDI",
+    "TIM",
+    "LOS_P",
+    "LOS_O",
+    "LOS"
+   ],
+   "is-read-only": false,
+   "description": [
+    "The valid list of problems for the entity."
+   ],
+   "uml-name": "_FLzNQO6vEeCjNNLZCc6mew"
+  },
+  "na-el-yo6-w-ee-cj-nnlz-cc6-mew": {
+   "id": "na-el-yo6-w-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_NAElYO6wEeCjNNLZCc6mew",
+   "enum": [
+    "REGULAR",
+    "NONE",
+    "VENDOR_SPECIFIC",
+    "FUNCTIONALLY_STANDARDIZED"
+   ],
+   "is-read-only": false,
+   "description": [
+    "The adaptation options for OTUk_ConnectionTermationPoints."
+   ],
+   "uml-name": "_NAElYO6wEeCjNNLZCc6mew"
+  },
+  "wg-r-hc-o6-w-ee-cj-nnlz-cc6-mew": {
+   "id": "wg-r-hc-o6-w-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_wgRHcO6wEeCjNNLZCc6mew",
+   "enum": [
+    "2.5_G",
+    "10_G",
+    "40_G",
+    "100_G"
+   ],
+   "is-read-only": false,
+   "description": [
+    "Provides an enumeration with the meaning of each  k  value."
+   ],
+   "uml-name": "_wgRHcO6wEeCjNNLZCc6mew"
+  },
+  "6-y-g-eo6-w-ee-cj-nnlz-cc6-mew": {
+   "id": "6-y-g-eo6-w-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_6Y_gEO6wEeCjNNLZCc6mew",
+   "enum": [
+    "LOF",
+    "AIS",
+    "LOM"
+   ],
+   "is-read-only": false,
+   "description": [
+    "The valid list of problems for the entity."
+   ],
+   "uml-name": "_6Y_gEO6wEeCjNNLZCc6mew"
+  },
+  "x-hnwmo6-x-ee-cj-nnlz-cc6-mew": {
+   "id": "x-hnwmo6-x-ee-cj-nnlz-cc6-mew",
+   "uml-id": "_xHNWMO6xEeCjNNLZCc6mew",
+   "enum": [
+    "TIM",
+    "DEG",
+    "BDI",
+    "SSF"
+   ],
+   "is-read-only": false,
+   "description": [
+    "The valid list of problems for the entity."
+   ],
+   "uml-name": "_xHNWMO6xEeCjNNLZCc6mew"
+  },
+  "krq3-mk8-k-ee-g-z-yhf-u3-o-m-yg": {
+   "id": "krq3-mk8-k-ee-g-z-yhf-u3-o-m-yg",
+   "uml-id": "_KRQ3MK8KEeG_zYhfU3oMYg",
+   "enum": [
+    "SINK",
+    "SOURCE"
+   ],
+   "is-read-only": false,
+   "description": [
+    "The enumeration with the options for directionality for nonintrusive monitoring."
+   ],
+   "uml-name": "_KRQ3MK8KEeG_zYhfU3oMYg"
+  },
+  "q-bme4-lu-y-ee-geq-z-lpdv-u3-ba": {
+   "id": "q-bme4-lu-y-ee-geq-z-lpdv-u3-ba",
+   "uml-id": "_qBme4LuYEeGeqZLpdvU3BA",
+   "enum": [
+    "PERCENTAGE",
+    "NUMBER_ERRORED_BLOCKS"
+   ],
+   "is-read-only": false,
+   "description": [
+    "<p>The value of the threshold can be provisioned in terms of number of errored blocks or in terms of percentage of errored blocks. For percentage-based specification, in order to support provision of less than 1%, the specification consists of two fields. The first field indicates the granularity of percentage. For examples, in 1%, in 0.1%, or in 0.01%, etc. The second field indicates the multiple of the granularity. For number of errored block based, the value is a positive integer.</p>"
+   ],
+   "uml-name": "_qBme4LuYEeGeqZLpdvU3BA"
+  },
+  "parz8-nw-a-ee-gone-tb-gt8-x0-a": {
+   "id": "parz8-nw-a-ee-gone-tb-gt8-x0-a",
+   "uml-id": "_Parz8NwAEeGoneTbGt8X0A",
+   "enum": [
+    "DWDM",
+    "CWDM",
+    "NO_WDM"
+   ],
+   "is-read-only": false,
+   "uml-name": "_Parz8NwAEeGoneTbGt8X0A"
+  },
+  "v1-tu-a-nw-a-ee-gone-tb-gt8-x0-a": {
+   "id": "v1-tu-a-nw-a-ee-gone-tb-gt8-x0-a",
+   "uml-id": "_V1TuANwAEeGoneTbGt8X0A",
+   "enum": [
+    "STANDARD",
+    "PROPRIETARY"
+   ],
+   "is-read-only": false,
+   "uml-name": "_V1TuANwAEeGoneTbGt8X0A"
+  },
+  "yt7-s4-pzg-ee-g3-u-a-qk-ii-ctg": {
+   "id": "yt7-s4-pzg-ee-g3-u-a-qk-ii-ctg",
+   "uml-id": "_yt7S4PzgEeG3u-aQKIiCtg",
+   "enum": [
+    "PATH",
+    "TCM1",
+    "TCM2",
+    "TCM3",
+    "TCM4",
+    "TCM5",
+    "TCM6",
+    "SECTION"
+   ],
+   "is-read-only": false,
+   "uml-name": "_yt7S4PzgEeG3u-aQKIiCtg"
+  },
+  "lg3-y-qovv-ee-ky-u85-edu-w-r-a": {
+   "id": "lg3-y-qovv-ee-ky-u85-edu-w-r-a",
+   "uml-id": "_LG3yQOVVEeKyU85eduW_rA",
+   "enum": [
+    "CONTROLLER",
+    "RESPONDER"
+   ],
+   "is-read-only": false,
+   "uml-name": "_LG3yQOVVEeKyU85eduW_rA"
+  },
+  "7-fy9-s-jsc-ee-o-lx-kcui-ytz-cg": {
+   "id": "7-fy9-s-jsc-ee-o-lx-kcui-ytz-cg",
+   "uml-id": "_7fy9sJSCEeOLxKCUIYtzCg",
+   "enum": [
+    "INCREASE_BW",
+    "DECREASE_BW"
+   ],
+   "is-read-only": false,
+   "uml-name": "_7fy9sJSCEeOLxKCUIYtzCg"
+  },
+  "y6-wue-eam-eeab-npx3-o7-rjtw": {
+   "id": "y6-wue-eam-eeab-npx3-o7-rjtw",
+   "uml-id": "_Y6WUEEamEeabNPX3o7rjtw",
+   "enum": [
+    "UNKNOWN",
+    "PERIOD_15MIN",
+    "PERIOD_24HOURS"
+   ],
+   "is-read-only": false,
+   "description": [
+    "The enumeration with the options for granularity period of the performance data."
+   ],
+   "uml-name": "_Y6WUEEamEeabNPX3o7rjtw"
+  }
+ }
+}

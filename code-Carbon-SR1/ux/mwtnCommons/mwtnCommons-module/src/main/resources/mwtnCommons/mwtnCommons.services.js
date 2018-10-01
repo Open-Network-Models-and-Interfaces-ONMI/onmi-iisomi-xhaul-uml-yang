@@ -545,14 +545,8 @@ define(
           if (a.id > b.id) return 1;
           return 0;
         });
-
         
         $scope.networkElement = undefined;
-        if ($state.params.nodeId) {
-          
-        }
-        
-        console.error('nodeId', $state.params.nodeId);
 
         // select one of the nodes
         /* dont do it in field applications!!!! 

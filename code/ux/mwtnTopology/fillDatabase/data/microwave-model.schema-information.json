@@ -1,0 +1,3161 @@
+{
+ "schema-information": {
+  "mw-air-interface-pac": {
+   "id": "mw-air-interface-pac",
+   "uml-id": "__1kQ0Hf4EeW-M8kopGJqEA",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "MW_AirInterface_Pac"
+  },
+  "layer-protocol": {
+   "id": "layer-protocol",
+   "uml-id": "_m_QIglpKEeax66gMnmfzpQ",
+   "uml-type": "ownedAttribute",
+   "type": "../OnfModel-CoreModel/CoreModel.uml#_gROecFYXEeOVGaP4lO41SQ",
+   "order-number": 1,
+   "is-read-only": false,
+   "is-key": 1,
+   "description": [
+    "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid"
+   ],
+   "uml-name": "_layerProtocol"
+  },
+  "air-interface-capability-list": {
+   "id": "air-interface-capability-list",
+   "uml-id": "_-LlKoIejEeWaZYk7gpuOtw",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Describes the 'analog' capabilities of modem and transmitter of the microwave device. Value ranges of attributes are not independently (e.g. min. and max. transmit power depends on modulation). Legal combinations of values are expressed in transmissionModeTypes."
+   ],
+   "uml-name": "AirInterfaceCapability"
+  },
+  "air-interface-configuration": {
+   "id": "air-interface-configuration",
+   "uml-id": "_KOcsUIe0EeWnUdmvl3PBkw",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Configuration of the radio link."
+   ],
+   "uml-name": "AirInterfaceConfiguration"
+  },
+  "air-interface-status": {
+   "id": "air-interface-status",
+   "uml-id": "_iCTioHmIEeWRAfnL3fvovg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Measurements of current values on the air interface and operational status of the device."
+   ],
+   "uml-name": "AirInterfaceStatus"
+  },
+  "air-interface-current-problems": {
+   "id": "air-interface-current-problems",
+   "uml-id": "_UF8VcHmIEeWRAfnL3fvovg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "AirInterfaceCurrentProblems"
+  },
+  "air-interface-current-performance": {
+   "id": "air-interface-current-performance",
+   "uml-id": "_CX-iIKS6EeWyu_jasKgNwA",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Aggregated performance information of the air interface at a particular moment."
+   ],
+   "uml-name": "AirInterfaceCurrentPerformance"
+  },
+  "air-interface-historical-performances": {
+   "id": "air-interface-historical-performances",
+   "uml-id": "_fChNMHmHEeWRAfnL3fvovg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Aggregated performance information of the air interface for a pre-defined measurement interval."
+   ],
+   "uml-name": "AirInterfaceHistoricalPerformances"
+  },
+  "type-of-equipment": {
+   "id": "type-of-equipment",
+   "uml-id": "_gK4jMJUBEeWIaZzoaYJ6_A",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 1,
+   "is-read-only": true,
+   "description": [
+    "This parameter indicates the equipment type. Instead of uploading the complete set of capabilities, capabilities of the same equipment type could be reused. Should be unique for a combination of modem, radio and their respective firmware."
+   ],
+   "uml-name": "typeOfEquipment",
+   "controlType": "text"
+  },
+  "tx-frequency-min": {
+   "id": "tx-frequency-min",
+   "uml-id": "_90Xe0HfcEeW-h9gN8LYm4Q",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 2,
+   "is-read-only": true,
+   "unit": "kHz",
+   "description": [
+    "Value of the minimum transmit frequency tunable at the air interface."
+   ],
+   "uml-name": "txFrequencyMin",
+   "controlType": "number"
+  },
+  "tx-frequency-max": {
+   "id": "tx-frequency-max",
+   "uml-id": "_-1ztsHfcEeW-h9gN8LYm4Q",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 3,
+   "is-read-only": true,
+   "unit": "kHz",
+   "description": [
+    "Value of the maximum transmit frequency tunable at the air interface."
+   ],
+   "uml-name": "txFrequencyMax",
+   "controlType": "number"
+  },
+  "rx-frequency-min": {
+   "id": "rx-frequency-min",
+   "uml-id": "_BLqx0HfdEeW-h9gN8LYm4Q",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 4,
+   "is-read-only": true,
+   "unit": "kHz",
+   "description": [
+    "Value of the minimum receive frequency tunable at the air interface."
+   ],
+   "uml-name": "rxFrequencyMin",
+   "controlType": "number"
+  },
+  "rx-frequency-max": {
+   "id": "rx-frequency-max",
+   "uml-id": "_CSBV4HfdEeW-h9gN8LYm4Q",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 5,
+   "is-read-only": true,
+   "unit": "kHz",
+   "description": [
+    "Value of the maximum receive frequency tunable at the air interface."
+   ],
+   "uml-name": "rxFrequencyMax",
+   "controlType": "number"
+  },
+  "adaptive-modulation-is-avail": {
+   "id": "adaptive-modulation-is-avail",
+   "uml-id": "_ClmuUHffEeW-h9gN8LYm4Q",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 6,
+   "is-read-only": true,
+   "description": [
+    "In case the device is capable of adaptive modulation, this field shall contain a 'true'."
+   ],
+   "uml-name": "adaptiveModulationIsAvail",
+   "controlType": "checkbox"
+  },
+  "mimo-is-avail": {
+   "id": "mimo-is-avail",
+   "uml-id": "_qXBrkH2eEeWaPP5xsIT8pQ",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 7,
+   "is-read-only": true,
+   "description": [
+    "In case the device is capable of MIMO, this field shall contain a 'true'."
+   ],
+   "uml-name": "mimoIsAvail",
+   "controlType": "checkbox"
+  },
+  "mimo-channels": {
+   "id": "mimo-channels",
+   "uml-id": "_qysT4H2eEeWaPP5xsIT8pQ",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 8,
+   "is-read-only": true,
+   "unit": "channels",
+   "description": [
+    "Maximum number (n) of spatial multiplexing streams that can be conveyed by an n x n MIMO configuration."
+   ],
+   "uml-name": "mimoChannels",
+   "controlType": "number"
+  },
+  "alic-is-avail": {
+   "id": "alic-is-avail",
+   "uml-id": "_a3HgMIL9EeWMcJAvkeTn2w",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 9,
+   "is-read-only": true,
+   "description": [
+    "In case the microwave radio is capable of Adjacent Link Interference Cancelation (canceling of interference cause by transmitters located at the same site), this field shall contain a 'true'."
+   ],
+   "uml-name": "alicIsAvail",
+   "controlType": "checkbox"
+  },
+  "atpc-is-avail": {
+   "id": "atpc-is-avail",
+   "uml-id": "_iRRtgHftEeW-h9gN8LYm4Q",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 10,
+   "is-read-only": true,
+   "description": [
+    "In case the microwave radio is capable of ATPC, this field shall contain a 'true'."
+   ],
+   "uml-name": "atpcIsAvail",
+   "controlType": "checkbox"
+  },
+  "atpc-range": {
+   "id": "atpc-range",
+   "uml-id": "_ErwNYHfdEeW-h9gN8LYm4Q",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 11,
+   "is-read-only": true,
+   "unit": "dB",
+   "description": [
+    "Extent of the ATPC range."
+   ],
+   "uml-name": "atpcRange",
+   "controlType": "number"
+  },
+  "encryption-is-avail": {
+   "id": "encryption-is-avail",
+   "uml-id": "_4uPM8E58EeaCk6G-lyG1OQ",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 10,
+   "is-read-only": true,
+   "description": [
+    "Shall be marked 'true', if Ethernet payload encryption is available."
+   ],
+   "uml-name": "encryptionIsAvail",
+   "controlType": "checkbox"
+  },
+  "transmission-mode-list": {
+   "id": "transmission-mode-list",
+   "uml-id": "_nwbvcPXREeW9zIqh2WHHww",
+   "uml-type": "ownedAttribute",
+   "type": "_zG34sPXQEeW9zIqh2WHHww",
+   "order-number": 5,
+   "is-read-only": true,
+   "uml-name": "transmissionModeList"
+  },
+  "maintenance-timer-range": {
+   "id": "maintenance-timer-range",
+   "uml-id": "_I1FYsMWZEeW3xsRKtpCLuA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 14,
+   "is-read-only": true,
+   "unit": "s",
+   "description": [
+    "Available time periods for maintenance configurations (e.g. the loop back of microwave header information) to be described. Concrete values shall be separated by commas (e.g. '10, 60, 360'). Ranges shall be expressed as two values separated by a minus (e.g. '10-360')."
+   ],
+   "uml-name": "maintenanceTimerRange",
+   "controlType": "text"
+  },
+  "supported-alarms": {
+   "id": "supported-alarms",
+   "uml-id": "_ecCeb0aqEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 2,
+   "is-read-only": true,
+   "description": [
+    "Available alarms to be listed. Mandatory:'framingIsFaulty' and 'containerIsDown'. Further alarms might be added by the device."
+   ],
+   "uml-name": "supportedAlarms",
+   "controlType": "text"
+  },
+  "supported-channel-plan-list": {
+   "id": "supported-channel-plan-list",
+   "uml-id": "_8gpNIHfcEeW-h9gN8LYm4Q",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 1,
+   "is-read-only": true,
+   "is-key": 1,
+   "description": [
+    "Unique name (e.g. ECC/REC/(01)04_Annex 5) of a document, which describes a frequency grid that can be adjusted at the air interface. Corresponding channel plans to be delivered by the hardware vendor and to be stored by the operator in an controller/application attached database."
+   ],
+   "uml-name": "supportedChannelPlan",
+   "controlType": "text"
+  },
+  "air-interface-name": {
+   "id": "air-interface-name",
+   "uml-id": "_XMDggIL5EeWMcJAvkeTn2w",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 1,
+   "is-read-only": false,
+   "description": [
+    "Operator specific microwave link ID (often used for coding area, type of element and sequential number)."
+   ],
+   "uml-name": "airInterfaceName",
+   "controlType": "text"
+  },
+  "radio-signal-id": {
+   "id": "radio-signal-id",
+   "uml-id": "_QY9KoHf5EeW-M8kopGJqEA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 2,
+   "is-read-only": false,
+   "description": [
+    "The radioSignalId is transmitted on the air interface so the remote site of the link synchronizes on the correct transmitter. The local radio MUST NOT synchronize on a radio signal with a different radioSignalId. The link ID is neither an ID necessary to span the model nor an ID referencing external data. It is just some sort of name of the link transmitted so the correct remote site can be identified in an interference situation. The value zero might be used to make the microwave to disable the link ID check."
+   ],
+   "uml-name": "radioSignalID",
+   "controlType": "text"
+  },
+  "tx-frequency": {
+   "id": "tx-frequency",
+   "uml-id": "_UNE8gHf5EeW-M8kopGJqEA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 3,
+   "is-read-only": false,
+   "unit": "kHz",
+   "description": [
+    "Center frequency of the transmit channel. The values to be configured have to exactly match the values listed in the international agreement referenced in channelPlanID. In case of automated selection of the transmit frequency this field shall describe the lowest center frequency selectable."
+   ],
+   "uml-name": "txFrequency",
+   "controlType": "number"
+  },
+  "rx-frequency": {
+   "id": "rx-frequency",
+   "uml-id": "_W7ayEHf5EeW-M8kopGJqEA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 4,
+   "is-read-only": false,
+   "unit": "kHz",
+   "description": [
+    "Center frequency of the receive channel."
+   ],
+   "uml-name": "rxFrequency",
+   "controlType": "number"
+  },
+  "tx-channel-bandwidth": {
+   "id": "tx-channel-bandwidth",
+   "uml-id": "_bhAdIHf5EeW-M8kopGJqEA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 5,
+   "is-read-only": false,
+   "unit": "kHz",
+   "description": [
+    "Bandwidth of the transmit channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;"
+   ],
+   "uml-name": "txChannelBandwidth",
+   "controlType": "number"
+  },
+  "rx-channel-bandwidth": {
+   "id": "rx-channel-bandwidth",
+   "uml-id": "_eKIbgHf5EeW-M8kopGJqEA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 6,
+   "is-read-only": false,
+   "unit": "kHz",
+   "description": [
+    "Bandwidth of the receive channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;"
+   ],
+   "uml-name": "rxChannelBandwidth",
+   "controlType": "number"
+  },
+  "polarization": {
+   "id": "polarization",
+   "uml-id": "_bVebEI99EeWFluv9KLLl5A",
+   "uml-type": "ownedAttribute",
+   "type": "_e85NsI99EeWFluv9KLLl5A",
+   "order-number": 7,
+   "is-read-only": false,
+   "description": [
+    "Allows documenting the polarization of the air interface."
+   ],
+   "uml-name": "polarization",
+   "controlType": [
+    "not-specified",
+    "horizontal",
+    "vertical"
+   ]
+  },
+  "power-is-on": {
+   "id": "power-is-on",
+   "uml-id": "_p4eR8Hf5EeW-M8kopGJqEA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 8,
+   "is-read-only": false,
+   "description": [
+    "Power ON. Activation of the entire radio in a split mount configuration shall be expressed as a 'true'."
+   ],
+   "uml-name": "powerIsOn",
+   "controlType": "checkbox"
+  },
+  "transmitter-is-on": {
+   "id": "transmitter-is-on",
+   "uml-id": "_uYVvgHf5EeW-M8kopGJqEA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 9,
+   "is-read-only": false,
+   "description": [
+    "Activation of the transmitter inside the radio shall be expressed as a 'true'."
+   ],
+   "uml-name": "transmitterIsOn",
+   "controlType": "checkbox"
+  },
+  "receiver-is-on": {
+   "id": "receiver-is-on",
+   "uml-id": "_q_XcwEgnEeathrAE0htMiA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 10,
+   "is-read-only": false,
+   "description": [
+    "Maintenance Feature. Activation of the receiver inside the radio shall be expressed as a 'true'. Attribute shall also be used for RX main and RX diversity squelches in case of diversity configurations."
+   ],
+   "uml-name": "receiverIsOn",
+   "controlType": "checkbox"
+  },
+  "tx-power": {
+   "id": "tx-power",
+   "uml-id": "_ZEXmIHf6EeW-M8kopGJqEA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 11,
+   "is-read-only": false,
+   "unit": "dBm",
+   "description": [
+    "Transmit power to be configured on the microwave link. Signed Byte is required. The actually operated transmit power might be lower depending on adaptive modulation and ATPC."
+   ],
+   "uml-name": "txPower",
+   "controlType": "number"
+  },
+  "adaptive-modulation-is-on": {
+   "id": "adaptive-modulation-is-on",
+   "uml-id": "_0jhfYHf5EeW-M8kopGJqEA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 12,
+   "is-read-only": false,
+   "description": [
+    "Adaptive Modulation. Activation of adaptive modulation shall be expressed as a 'true'."
+   ],
+   "uml-name": "adaptiveModulationIsOn",
+   "controlType": "checkbox"
+  },
+  "modulation-min": {
+   "id": "modulation-min",
+   "uml-id": "_dM_BUHf6EeW-M8kopGJqEA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 13,
+   "is-read-only": false,
+   "unit": "symbols",
+   "description": [
+    "Minimum modulation to be configured (in case adaptive modulation is not used, this value represents also the fixed modulation). The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme."
+   ],
+   "uml-name": "modulationMin",
+   "controlType": "number"
+  },
+  "modulation-max": {
+   "id": "modulation-max",
+   "uml-id": "_gAHQQHf6EeW-M8kopGJqEA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 14,
+   "is-read-only": false,
+   "unit": "symbols",
+   "description": [
+    "Maximum modulation to be configured. The value of this field is only relevant, if Adaptive Modulation has been activated. The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme."
+   ],
+   "uml-name": "modulationMax",
+   "controlType": "number"
+  },
+  "xpic-is-on": {
+   "id": "xpic-is-on",
+   "uml-id": "_4hi0IHf5EeW-M8kopGJqEA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 15,
+   "is-read-only": false,
+   "description": [
+    "Activation of Cross Polarization Interference Cancelation shall be expressed as a 'true'. In case XPIC is not available for the current combination of channel bandwidth and modulation or the hardware in general, this parameter shall always be set to 'false'."
+   ],
+   "uml-name": "xpicIsOn",
+   "controlType": "checkbox"
+  },
+  "mimo-is-on": {
+   "id": "mimo-is-on",
+   "uml-id": "_7t4fIH2dEeWaPP5xsIT8pQ",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 16,
+   "is-read-only": false,
+   "description": [
+    "Activation of Multiple Input Multiple Output (MIMO) shall be expressed as a 'true'."
+   ],
+   "uml-name": "mimoIsOn",
+   "controlType": "checkbox"
+  },
+  "alic-is-on": {
+   "id": "alic-is-on",
+   "uml-id": "_FmWHMHf6EeW-M8kopGJqEA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 17,
+   "is-read-only": false,
+   "description": [
+    "Activation of Adjacent Link Interference Cancelation (ALIC) shall be expressed as a 'true'."
+   ],
+   "uml-name": "alicIsOn",
+   "controlType": "checkbox"
+  },
+  "atpc-is-on": {
+   "id": "atpc-is-on",
+   "uml-id": "_9Hz0oHf5EeW-M8kopGJqEA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 18,
+   "is-read-only": false,
+   "description": [
+    "ATPC. Activation of Automated Transmit Power Control shall be expressed as a 'true'."
+   ],
+   "uml-name": "atpcIsOn",
+   "controlType": "checkbox"
+  },
+  "atpc-thresh-upper": {
+   "id": "atpc-thresh-upper",
+   "uml-id": "_pR7yMHgAEeW-M8kopGJqEA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 19,
+   "is-read-only": false,
+   "unit": "dBm",
+   "description": [
+    "If the receive level is higher than the upper threshold value, the transmitter is notified to decrease transmit power."
+   ],
+   "uml-name": "atpcThreshUpper",
+   "controlType": "number"
+  },
+  "atpc-thresh-lower": {
+   "id": "atpc-thresh-lower",
+   "uml-id": "_sIlPMHgAEeW-M8kopGJqEA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 20,
+   "is-read-only": false,
+   "unit": "dBm",
+   "description": [
+    "If the receive level is lower than the lower threshold value, the transmitter is notified to increase transmit power."
+   ],
+   "uml-name": "atpcThreshLower",
+   "controlType": "number"
+  },
+  "auto-freq-select-is-on": {
+   "id": "auto-freq-select-is-on",
+   "uml-id": "_dG5VAIL-EeWMcJAvkeTn2w",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 21,
+   "is-read-only": false,
+   "description": [
+    "Activation of automatically selecting the transmit frequency in unlicensed bands shall be expressed as a 'true'."
+   ],
+   "uml-name": "autoFreqSelectIsOn",
+   "controlType": "checkbox"
+  },
+  "auto-freq-select-range": {
+   "id": "auto-freq-select-range",
+   "uml-id": "_yH9XMIMCEeWMcJAvkeTn2w",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 22,
+   "is-read-only": false,
+   "unit": "channels",
+   "description": [
+    "Number of transmit channels (starting at the center frequency defined in txFrequency and with channel bandwidth according to txChannelBandwidth) that define the range within the transmit frequency can automatically been chosen."
+   ],
+   "uml-name": "autoFreqSelectRange",
+   "controlType": "number"
+  },
+  "modulation-is-on": {
+   "id": "modulation-is-on",
+   "uml-id": "_kxXzwIMGEeWMcJAvkeTn2w",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 23,
+   "is-read-only": false,
+   "description": [
+    "Maintenance Feature. De-activation of the modulation of the carrier signal for fault management shall be expressed as a 'false'."
+   ],
+   "uml-name": "modulationIsOn",
+   "controlType": "checkbox"
+  },
+  "encryption-is-on": {
+   "id": "encryption-is-on",
+   "uml-id": "_uI7bIE58EeaCk6G-lyG1OQ",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 11,
+   "is-read-only": false,
+   "description": [
+    "Activates encryption of the Ethernet payload."
+   ],
+   "uml-name": "encryptionIsOn",
+   "controlType": "checkbox"
+  },
+  "cryptographic-key": {
+   "id": "cryptographic-key",
+   "uml-id": "_psRpoE58EeaCk6G-lyG1OQ",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 12,
+   "is-read-only": false,
+   "description": [
+    "Key for transforming plaintext into cipher text data."
+   ],
+   "uml-name": "cryptographicKey",
+   "controlType": "text"
+  },
+  "loop-back-kind-on": {
+   "id": "loop-back-kind-on",
+   "uml-id": "_PyRvsHf6EeW-M8kopGJqEA",
+   "uml-type": "ownedAttribute",
+   "type": "_3CZ3UIsDEead4ersMrOjBQ",
+   "order-number": 26,
+   "is-read-only": false,
+   "description": [
+    "Maintenance Feature. The currently configured type of looping back of the air interface header shall be expressed here. The received header is returned to the remote site."
+   ],
+   "uml-name": "loopBackKindOn",
+   "controlType": [
+    "none",
+    "if",
+    "rf"
+   ]
+  },
+  "maintenance-timer": {
+   "id": "maintenance-timer",
+   "uml-id": "_7-oTwCd5EeaJA6AVLNrv_w",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 27,
+   "is-read-only": false,
+   "unit": "s",
+   "description": [
+    "Time of existence of any maintenance configuration (e.g. the loop back of microwave header information). Valid values are defined in AirInterface::AirInterfaceCapability::maintenanceTimerRange."
+   ],
+   "uml-name": "maintenanceTimer",
+   "controlType": "number"
+  },
+  "problem-kind-severity-list": {
+   "id": "problem-kind-severity-list",
+   "uml-id": "_OMQH02z0Eeaf-__BRLM84g",
+   "uml-type": "ownedAttribute",
+   "type": "_eIml0JH1EeWUdbnmmNiTAA",
+   "order-number": 2,
+   "is-read-only": false,
+   "description": [
+    "Severity of this type of alarm."
+   ],
+   "uml-name": "problemKindSeverity",
+   "controlType": [
+    "non-alarmed",
+    "warning",
+    "minor",
+    "major",
+    "critical"
+   ]
+  },
+  "tx-frequency-cur": {
+   "id": "tx-frequency-cur",
+   "uml-id": "_YZq7gK4tEeWXs6m-9H3KvA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 1,
+   "is-read-only": true,
+   "unit": "kHz",
+   "description": [
+    "Center frequency of the currently operated transmit channel."
+   ],
+   "uml-name": "txFrequencyCur",
+   "controlType": "number"
+  },
+  "rx-frequency-cur": {
+   "id": "rx-frequency-cur",
+   "uml-id": "_33IdUIL-EeWMcJAvkeTn2w",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 2,
+   "is-read-only": true,
+   "unit": "kHz",
+   "description": [
+    "Center frequency of the currently operated receive channel."
+   ],
+   "uml-name": "rxFrequencyCur",
+   "controlType": "number"
+  },
+  "tx-level-cur": {
+   "id": "tx-level-cur",
+   "uml-id": "_L3B5wHgIEeWfutScSwFT9A",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 3,
+   "is-read-only": true,
+   "unit": "dBm",
+   "description": [
+    "Current transmit level."
+   ],
+   "uml-name": "txLevelCur",
+   "controlType": "number"
+  },
+  "rx-level-cur": {
+   "id": "rx-level-cur",
+   "uml-id": "_OHN9AHizEeWfutScSwFT9A",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 4,
+   "is-read-only": true,
+   "unit": "dBm",
+   "description": [
+    "Current receive level."
+   ],
+   "uml-name": "rxLevelCur",
+   "controlType": "number"
+  },
+  "modulation-cur": {
+   "id": "modulation-cur",
+   "uml-id": "_RBMa0HizEeWfutScSwFT9A",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 5,
+   "is-read-only": true,
+   "unit": "symbols",
+   "description": [
+    "Currently operated modulation on transmit path. The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK->'2' or 256QAM->'256'). Allowed values are defined in TypeDefinitions::transmissionModeType::modulationScheme."
+   ],
+   "uml-name": "modulationCur",
+   "controlType": "number"
+  },
+  "code-rate-cur": {
+   "id": "code-rate-cur",
+   "uml-id": "_UYyBsHizEeWfutScSwFT9A",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 6,
+   "is-read-only": true,
+   "unit": "%",
+   "description": [
+    "Code rate of the currently operated coding scheme (Net bit rate ≤ Gross bit rate · code rate)."
+   ],
+   "uml-name": "codeRateCur",
+   "controlType": "number"
+  },
+  "snir-cur": {
+   "id": "snir-cur",
+   "uml-id": "_B7G0AEzvEeaRytIQfQ43Wg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 1,
+   "is-read-only": true,
+   "unit": "dB",
+   "description": [
+    "Currently measured signal to (noise+interference) ratio of the combined signals."
+   ],
+   "uml-name": "snirCur",
+   "controlType": "number"
+  },
+  "xpd-cur": {
+   "id": "xpd-cur",
+   "uml-id": "_Z7NvgHizEeWfutScSwFT9A",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 8,
+   "is-read-only": true,
+   "unit": "dB",
+   "description": [
+    "Currently measured cross polarization discrimination."
+   ],
+   "uml-name": "xpdCur",
+   "controlType": "number"
+  },
+  "rf-temp-cur": {
+   "id": "rf-temp-cur",
+   "uml-id": "_d6wuQHizEeWfutScSwFT9A",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 9,
+   "is-read-only": true,
+   "unit": "Celsius",
+   "description": [
+    "Current temperature (in degree Celsius) of the radio module inside the outdoor unit."
+   ],
+   "uml-name": "rfTempCur",
+   "controlType": "number"
+  },
+  "last-status-change": {
+   "id": "last-status-change",
+   "uml-id": "_ecCetEaqEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "../OnfModel-CoreModel/CoreModel.uml#_oGqi1lLNEeO75dO39GbF8Q",
+   "order-number": 1,
+   "is-read-only": true,
+   "description": [
+    "Time the Container entered its current operational status. _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' month; dd='01'..'31' day; hh='00'..'23' hour; mm='00'..'59' minute; ss='00'..'59' second; s='.0'..'.9'tenth of second (set to '.0' if EMS or NE cannot support this granularity); Z='Z' indicates UTC (rather than local time); {+|-}='+' or '-' delta from UTC; HH='00'..'23' time zone difference in hours; Mm='00'..'59' time zone difference in minutes."
+   ],
+   "uml-name": "lastStatusChange"
+  },
+  "radio-power-is-up": {
+   "id": "radio-power-is-up",
+   "uml-id": "_sFKXcHizEeWfutScSwFT9A",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 11,
+   "is-read-only": true,
+   "description": [
+    "If the radio unit has power and is switched on, this shall be expressed as a 'true'."
+   ],
+   "uml-name": "radioPowerIsUp",
+   "controlType": "checkbox"
+  },
+  "link-is-up": {
+   "id": "link-is-up",
+   "uml-id": "_5JBPUHizEeWfutScSwFT9A",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 12,
+   "is-read-only": true,
+   "description": [
+    "If connection is established to the remote site with the same linkID, this shall be expressed as a 'true'."
+   ],
+   "uml-name": "linkIsUp",
+   "controlType": "checkbox"
+  },
+  "xpic-is-up": {
+   "id": "xpic-is-up",
+   "uml-id": "_ESRbsHi0EeWfutScSwFT9A",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 13,
+   "is-read-only": true,
+   "description": [
+    "If XPIC is currently actually working (not just configured), this shall be expressed as a 'true'."
+   ],
+   "uml-name": "xpicIsUp",
+   "controlType": "checkbox"
+  },
+  "mimo-is-up": {
+   "id": "mimo-is-up",
+   "uml-id": "_DVaQwIL6EeWMcJAvkeTn2w",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 14,
+   "is-read-only": true,
+   "description": [
+    "If MIMO is currently actually working (not just configured), this shall be expressed as a 'true'."
+   ],
+   "uml-name": "mimoIsUp",
+   "controlType": "checkbox"
+  },
+  "alic-is-up": {
+   "id": "alic-is-up",
+   "uml-id": "_Hte-UHi0EeWfutScSwFT9A",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 15,
+   "is-read-only": true,
+   "description": [
+    "If Adjacent Link Interference Cancelation (ALIC) is currently actually working (not just configured), this shall be expressed as a 'true'."
+   ],
+   "uml-name": "alicIsUp",
+   "controlType": "checkbox"
+  },
+  "atpc-is-up": {
+   "id": "atpc-is-up",
+   "uml-id": "_VimCgMjNEeWYRsWW_rqpgw",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 16,
+   "is-read-only": true,
+   "description": [
+    "If ATPC is currently actually working (not just configured), this shall be expressed as a 'true'."
+   ],
+   "uml-name": "atpcIsUp",
+   "controlType": "checkbox"
+  },
+  "auto-freq-select-is-up": {
+   "id": "auto-freq-select-is-up",
+   "uml-id": "_-PXKsIL-EeWMcJAvkeTn2w",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 17,
+   "is-read-only": true,
+   "description": [
+    "If automated frequency selection is currently actually working (not just configured), this shall be expressed as a 'true'."
+   ],
+   "uml-name": "autoFreqSelectIsUp",
+   "controlType": "checkbox"
+  },
+  "loop-back-kind-up": {
+   "id": "loop-back-kind-up",
+   "uml-id": "_S9prAHi0EeWfutScSwFT9A",
+   "uml-type": "ownedAttribute",
+   "type": "_3CZ3UIsDEead4ersMrOjBQ",
+   "order-number": 18,
+   "is-read-only": true,
+   "description": [
+    "The currently active (not just configured) type of looping back of the air interface header shall be expressed here. The received header is returned to the remote site."
+   ],
+   "uml-name": "loopBackKindUp",
+   "controlType": [
+    "none",
+    "if",
+    "rf"
+   ]
+  },
+  "local-end-point-id": {
+   "id": "local-end-point-id",
+   "uml-id": "_pEsgcFQHEeaCXY7nSBqs6w",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 19,
+   "is-read-only": true,
+   "description": [
+    "The value of the localEndPointId is a vendor specific identifier of the air interface, used by the node to discover a microwave radio link."
+   ],
+   "uml-name": "localEndPointId",
+   "controlType": "text"
+  },
+  "remote-end-point-id": {
+   "id": "remote-end-point-id",
+   "uml-id": "_r3cU4FQHEeaCXY7nSBqs6w",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 20,
+   "is-read-only": true,
+   "description": [
+    "The value of the remoteEndPointId is a vendor specific identifier or the airinterface at the remote side, used to by the node to discover a microwave radio link."
+   ],
+   "uml-name": "remoteEndPointId",
+   "controlType": "text"
+  },
+  "current-problem-list": {
+   "id": "current-problem-list",
+   "uml-id": "_ecCewEaqEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "__h1n4MXpEeWJ6KZuc0h_vw",
+   "order-number": 1,
+   "is-read-only": true,
+   "uml-name": "currentProblemList"
+  },
+  "current-performance-data-list": {
+   "id": "current-performance-data-list",
+   "uml-id": "_ecCexkaqEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "_pA5AQGz6Eeaf-__BRLM84g",
+   "order-number": 1,
+   "is-read-only": true,
+   "description": [
+    "At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too."
+   ],
+   "uml-name": "currentPerformanceDataList"
+  },
+  "historical-performance-data-list": {
+   "id": "historical-performance-data-list",
+   "uml-id": "_ecCeykaqEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "_pTaToGz6Eeaf-__BRLM84g",
+   "order-number": 1,
+   "is-read-only": true,
+   "uml-name": "historicalPerformanceDataList"
+  },
+  "co-channel-group": {
+   "id": "co-channel-group",
+   "uml-id": "_XBs2YJQrEeWOu_cDl8dd7w",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Required for configuring XPIC, MIMO and ALIC."
+   ],
+   "uml-name": "CoChannelGroup"
+  },
+  "co-channel-group-id": {
+   "id": "co-channel-group-id",
+   "uml-id": "_pIjBgEy7EeaRytIQfQ43Wg",
+   "uml-type": "ownedAttribute",
+   "type": "../OnfModel-CoreModel/CoreModel.uml#_SU3Q4I30EeO38ZmbECnvbg",
+   "order-number": 1,
+   "is-read-only": false,
+   "is-key": 1,
+   "uml-name": "coChannelGroupId"
+  },
+  "air-interface-list": {
+   "id": "air-interface-list",
+   "uml-id": "_tIadUCJeEeaCUo1MUtSuEg",
+   "uml-type": "ownedAttribute",
+   "type": "../OnfModel-CoreModel/CoreModel.uml#_eEpDMFX4EeOVGaP4lO41SQ",
+   "order-number": 2,
+   "is-read-only": false,
+   "description": [
+    "List of air interfaces, which are part of the co-channel (XPIC, MIMO, ALIC) group."
+   ],
+   "uml-name": "_airInterfaceList"
+  },
+  "sort-of-co-channel-group": {
+   "id": "sort-of-co-channel-group",
+   "uml-id": "_ZrjZcJRrEeWIaZzoaYJ6_A",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 3,
+   "is-read-only": false,
+   "description": [
+    "Type of group of air interfaces with the same transmit and receive frequency. The values shall be chosen from the following _list:'XPIC', 'MIMO', 'ALIC';"
+   ],
+   "uml-name": "sortOfCoChannelGroup",
+   "controlType": "text"
+  },
+  "logical-termination-point": {
+   "id": "logical-termination-point",
+   "uml-id": "_8QgfIKwZEeaK38AermeaCw",
+   "uml-type": "ownedAttribute",
+   "type": "../OnfModel-CoreModel/CoreModel.uml#_eEpDMFX4EeOVGaP4lO41SQ",
+   "order-number": 4,
+   "is-read-only": false,
+   "uml-name": "_logicalTerminationPoint"
+  },
+  "mw-air-interface-hsb-end-point-pac": {
+   "id": "mw-air-interface-hsb-end-point-pac",
+   "uml-id": "_CXKgMJRbEeWMYJZn43K_Aw",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "The EndPoint (EP) object class models the access to the FC function. Each EndPoint instance has a role (e.g., working, protection, protected, hub, spoke, leaf, root, etc.) with respect to the FC function. The association of the FC to LTPs is made via EndPoints (essentially the ports of the FC) where each EndPoint (EP) of the FC has a role in the context of the FC. The traffic forwarding between the associated End PointsEPs of the FC depends upon the type of FC and may be associated with FCSwitch object instances. In cases where there is protection conveys the protecting role of the access to the FC. The EP replaces the Protection Unit of a traditional protection model. It represents a protected (resilient/reliable) point or a protecting (unreliable working or protection) point."
+   ],
+   "uml-name": "MW_AirInterfaceHsbEndPoint_Pac"
+  },
+  "role": {
+   "id": "role",
+   "uml-id": "_CXKgNpRbEeWMYJZn43K_Aw",
+   "uml-type": "ownedAttribute",
+   "type": "_01_dYJReEeWxIPEwZQ_gmw",
+   "order-number": 1,
+   "is-read-only": false,
+   "uml-name": "role",
+   "controlType": [
+    "working",
+    "protection",
+    "protected"
+   ]
+  },
+  "endpoint": {
+   "id": "endpoint",
+   "uml-id": "_dglVQLYgEeWOio-Gg6Q2sw",
+   "uml-type": "ownedAttribute",
+   "type": "../OnfModel-CoreModel/CoreModel.uml#_b_lUAFYgEeOVGaP4lO41SQ",
+   "order-number": 2,
+   "is-read-only": false,
+   "is-key": 1,
+   "uml-name": "_endpoint"
+  },
+  "mw-air-interface-hsb-fc-switch-pac": {
+   "id": "mw-air-interface-hsb-fc-switch-pac",
+   "uml-id": "_CXNjgJRbEeWMYJZn43K_Aw",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Represents and defines a protection switch structure encapsulated in the forwarding construct. Essentially performs the function of Protection Group. Associates to 2 or more Endpoints each playing the role of a Protection Unit. One or more protection EndPoints (standby/backup) provide protection for one or more working (i.e. regular/main/preferred) Endpoints where either protection or working can feed one or more protected Endpoint. May be used in revertive or non-revertive (symmetric) mode. When in revertive mode may define waitToRestore time. May be used in one of several modes including source switch, destination switched, source and destination switched etc (covering cases such as 1+1 ane 1:1). May be lockout (prevented from switching), force switched or manual switched. Will indicate switch state and change of state."
+   ],
+   "uml-name": "MW_AirInterfaceHsbFcSwitch_Pac"
+  },
+  "prot-type": {
+   "id": "prot-type",
+   "uml-id": "_CXNjiJRbEeWMYJZn43K_Aw",
+   "uml-type": "ownedAttribute",
+   "type": "_DaB5IJRgEeWxIPEwZQ_gmw",
+   "order-number": 1,
+   "is-read-only": false,
+   "description": [
+    "Indicates the protection scheme that is used for the ProtectionGroup."
+   ],
+   "uml-name": "protType",
+   "controlType": [
+    "hsb"
+   ]
+  },
+  "air-interface-hsb-configuration-is-faulty-severity": {
+   "id": "air-interface-hsb-configuration-is-faulty-severity",
+   "uml-id": "_80BlAJ2gEeWSuvrh9KcclQ",
+   "uml-type": "ownedAttribute",
+   "type": "_eIml0JH1EeWUdbnmmNiTAA",
+   "order-number": 2,
+   "is-read-only": false,
+   "description": [
+    "The level of severity of an airInterfaceHsbConfigurationIsFaulty alarm shall be chosen from an enumeration."
+   ],
+   "uml-name": "airInterfaceHsbConfigurationIsFaultySeverity",
+   "controlType": [
+    "non-alarmed",
+    "warning",
+    "minor",
+    "major",
+    "critical"
+   ]
+  },
+  "air-interface-hsb-is-partly-down-severity": {
+   "id": "air-interface-hsb-is-partly-down-severity",
+   "uml-id": "_r382sJ2mEeWSuvrh9KcclQ",
+   "uml-type": "ownedAttribute",
+   "type": "_eIml0JH1EeWUdbnmmNiTAA",
+   "order-number": 3,
+   "is-read-only": false,
+   "description": [
+    "The level of severity for one link out of the HSB configuration being down shall be chosen from an enumeration."
+   ],
+   "uml-name": "airInterfaceHsbIsPartlyDownSeverity",
+   "controlType": [
+    "non-alarmed",
+    "warning",
+    "minor",
+    "major",
+    "critical"
+   ]
+  },
+  "air-interface-hsb-is-down-severity": {
+   "id": "air-interface-hsb-is-down-severity",
+   "uml-id": "_sRGWgJ2mEeWSuvrh9KcclQ",
+   "uml-type": "ownedAttribute",
+   "type": "_eIml0JH1EeWUdbnmmNiTAA",
+   "order-number": 4,
+   "is-read-only": false,
+   "description": [
+    "The level of severity of the total HSB configuration being down shall be chosen from an enumeration."
+   ],
+   "uml-name": "airInterfaceHsbIsDownSeverity",
+   "controlType": [
+    "non-alarmed",
+    "warning",
+    "minor",
+    "major",
+    "critical"
+   ]
+  },
+  "fcswitch": {
+   "id": "fcswitch",
+   "uml-id": "_FS83ILYhEeWOio-Gg6Q2sw",
+   "uml-type": "ownedAttribute",
+   "type": "../OnfModel-CoreModel/CoreModel.uml#_a97NQFYhEeOVGaP4lO41SQ",
+   "order-number": 5,
+   "is-read-only": false,
+   "is-key": 1,
+   "uml-name": "_fcswitch"
+  },
+  "mw-air-interface-diversity-pac": {
+   "id": "mw-air-interface-diversity-pac",
+   "uml-id": "_WbgFcHgFEeWfutScSwFT9A",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "MW_AirInterfaceDiversity_Pac"
+  },
+  "air-interface-diversity-capability": {
+   "id": "air-interface-diversity-capability",
+   "uml-id": "_vxH2wIekEeWaZYk7gpuOtw",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Describes the capabilities in implementing different types of air interface diversity."
+   ],
+   "uml-name": "AirInterfaceDiversityCapability"
+  },
+  "air-interface-diversity-configuration": {
+   "id": "air-interface-diversity-configuration",
+   "uml-id": "_43RTMIe1EeWnUdmvl3PBkw",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "AirInterfaceDiversityConfiguration"
+  },
+  "air-interface-diversity-status": {
+   "id": "air-interface-diversity-status",
+   "uml-id": "_EKZYcJOXEeWz-6sqLzUedw",
+   "uml-type": "ownedAttribute",
+   "type": "_DUJs8JOXEeWz-6sqLzUedw",
+   "order-number": 2,
+   "is-read-only": true,
+   "description": [
+    "Status of the air interface bundle."
+   ],
+   "uml-name": "airInterfaceDiversityStatus",
+   "controlType": [
+    "group-down",
+    "not-all-ai-active",
+    "all-ai-active"
+   ]
+  },
+  "air-interface-diversity-current-problems": {
+   "id": "air-interface-diversity-current-problems",
+   "uml-id": "_CAvhEHvtEeWzooKF5kx0aw",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "AirInterfaceDiversityCurrentProblems"
+  },
+  "air-interface-diversity-current-performance": {
+   "id": "air-interface-diversity-current-performance",
+   "uml-id": "_GIsAQKjDEeWlgMiFXLmCIQ",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Aggregated performance information of the air interface diversity configuration at a particular moment."
+   ],
+   "uml-name": "AirInterfaceDiversityCurrentPerformance"
+  },
+  "air-interface-diversity-historical-performances": {
+   "id": "air-interface-diversity-historical-performances",
+   "uml-id": "_8IIu8HvsEeWzooKF5kx0aw",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Aggregated performance information of the air interface diversity configuration for a pre-defined measurement interval."
+   ],
+   "uml-name": "AirInterfaceDiversityHistoricalPerformances"
+  },
+  "available-kinds-of-diversity": {
+   "id": "available-kinds-of-diversity",
+   "uml-id": "_luAGENyVEeW-SfXlFFFI0Q",
+   "uml-type": "ownedAttribute",
+   "type": "_pTliINyUEeW-SfXlFFFI0Q",
+   "order-number": 1,
+   "is-read-only": true,
+   "description": [
+    "Available types of diversity to be listed."
+   ],
+   "uml-name": "availableKindsOfDiversity"
+  },
+  "air-interface-diversity": {
+   "id": "air-interface-diversity",
+   "uml-id": "_hynTIHi_EeWfutScSwFT9A",
+   "uml-type": "ownedAttribute",
+   "type": "_pTliINyUEeW-SfXlFFFI0Q",
+   "order-number": 1,
+   "is-read-only": false,
+   "description": [
+    "Type of air interface diversity configured at the link."
+   ],
+   "uml-name": "airInterfaceDiversity"
+  },
+  "air-interface-ltp-list": {
+   "id": "air-interface-ltp-list",
+   "uml-id": "_xRMKgNyXEeW-SfXlFFFI0Q",
+   "uml-type": "ownedAttribute",
+   "type": "../OnfModel-CoreModel/CoreModel.uml#_eEpDMFX4EeOVGaP4lO41SQ",
+   "order-number": 2,
+   "is-read-only": false,
+   "description": [
+    "_multiplicity:2-ThisAirInterfaceDiversity::AirInterfaceDiversityConfiguration::airInterfaceDiversity::diversityType::numberOfAirInterfacesMax"
+   ],
+   "uml-name": "_airInterfaceLtpList"
+  },
+  "mw-pure-ethernet-structure-pac": {
+   "id": "mw-pure-ethernet-structure-pac",
+   "uml-id": "__OTQ0UaeEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "The pureEthernetStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting Ethernet traffic only."
+   ],
+   "uml-name": "MW_PureEthernetStructure_Pac"
+  },
+  "pure-ethernet-structure-capability-list": {
+   "id": "pure-ethernet-structure-capability-list",
+   "uml-id": "__OTQ4EaeEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Describes the logical structuring of the physical capacity provided by a pure Ethernet microwave device. Segmentation is not available. No fixed segment size. No TDM transport."
+   ],
+   "uml-name": "PureEthernetStructureCapability"
+  },
+  "pure-ethernet-structure-configuration": {
+   "id": "pure-ethernet-structure-configuration",
+   "uml-id": "__OTQ8UaeEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "PureEthernetStructureConfiguration"
+  },
+  "pure-ethernet-structure-status": {
+   "id": "pure-ethernet-structure-status",
+   "uml-id": "__OTQ_UaeEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "PureEthernetStructureStatus"
+  },
+  "pure-ethernet-structure-current-problems": {
+   "id": "pure-ethernet-structure-current-problems",
+   "uml-id": "__OTRCUaeEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "PureEthernetStructureCurrentProblems"
+  },
+  "pure-ethernet-structure-current-performance": {
+   "id": "pure-ethernet-structure-current-performance",
+   "uml-id": "__OTRD0aeEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Aggregated performance information of the structure of an pure Ethernet microwave at a particular moment."
+   ],
+   "uml-name": "PureEthernetStructureCurrentPerformance"
+  },
+  "pure-ethernet-structure-historical-performances": {
+   "id": "pure-ethernet-structure-historical-performances",
+   "uml-id": "__OTRE0aeEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Aggregated performance information of the structure of an pure Ethernet microwave for a pre-defined measurement interval."
+   ],
+   "uml-name": "PureEthernetStructureHistoricalPerformances"
+  },
+  "structure-id": {
+   "id": "structure-id",
+   "uml-id": "_Bzxo5EagEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "../OnfModel-CoreModel/CoreModel.uml#_SU3Q4I30EeO38ZmbECnvbg",
+   "order-number": 1,
+   "is-read-only": true,
+   "is-key": 1,
+   "description": [
+    "Identifies the Structure for bundling and container."
+   ],
+   "uml-name": "structureId"
+  },
+  "segment-status-list": {
+   "id": "segment-status-list",
+   "uml-id": "_BzxpAEagEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "_KwZVcMUCEeW3xsRKtpCLuA",
+   "order-number": 1,
+   "is-read-only": true,
+   "description": [
+    "Status of each segment (all TDM and one Ethernet). Multiplicity = HybridMwStructure::StructureConfiguration::tdmReservedNumberOfSegments + 1"
+   ],
+   "uml-name": "segmentStatusList"
+  },
+  "mw-hybrid-mw-structure-pac": {
+   "id": "mw-hybrid-mw-structure-pac",
+   "uml-id": "_Bzxo0UagEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "The HybridMwStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting TDM and Ethernet traffic."
+   ],
+   "uml-name": "MW_HybridMwStructure_Pac"
+  },
+  "hybrid-mw-structure-capability": {
+   "id": "hybrid-mw-structure-capability",
+   "uml-id": "_Bzxo4EagEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Describes the logical structuring of the physical capacity provided by a hybrid microwave device (TDM + Ethernet). Segmentation is available. TDM transport is available."
+   ],
+   "uml-name": "HybridMwStructureCapability"
+  },
+  "hybrid-mw-structure-configuration": {
+   "id": "hybrid-mw-structure-configuration",
+   "uml-id": "_Bzxo8UagEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "HybridMwStructureConfiguration"
+  },
+  "hybrid-mw-structure-status": {
+   "id": "hybrid-mw-structure-status",
+   "uml-id": "_Bzxo_UagEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "HybridMwStructureStatus"
+  },
+  "hybrid-mw-structure-current-problems": {
+   "id": "hybrid-mw-structure-current-problems",
+   "uml-id": "_BzxpCUagEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "HybridMwStructureCurrentProblems"
+  },
+  "hybrid-mw-structure-current-performance": {
+   "id": "hybrid-mw-structure-current-performance",
+   "uml-id": "_BzxpD0agEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Aggregated performance information of the structure of a hybrid microwave at a particular moment."
+   ],
+   "uml-name": "HybridMwStructureCurrentPerformance"
+  },
+  "hybrid-mw-structure-historical-performances": {
+   "id": "hybrid-mw-structure-historical-performances",
+   "uml-id": "_BzxpE0agEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Aggregated performance information of the structure of a hybrid microwave for a pre-defined measurement interval."
+   ],
+   "uml-name": "HybridMwStructureHistoricalPerformances"
+  },
+  "supported-tdm-structure-types-list": {
+   "id": "supported-tdm-structure-types-list",
+   "uml-id": "_tA-uQEduEeax2rWez10Siw",
+   "uml-type": "ownedAttribute",
+   "type": "_jRAQsEdoEeax2rWez10Siw",
+   "order-number": 2,
+   "is-read-only": true,
+   "description": [
+    "Lists the TDM frame types that are supported."
+   ],
+   "uml-name": "supportedTdmStructureTypesList"
+  },
+  "structure-type": {
+   "id": "structure-type",
+   "uml-id": "_cduh4EdvEeax2rWez10Siw",
+   "uml-type": "ownedAttribute",
+   "type": "_jRAQsEdoEeax2rWez10Siw",
+   "order-number": 1,
+   "is-read-only": false,
+   "description": [
+    "TDM frame to be applied."
+   ],
+   "uml-name": "structureType"
+  },
+  "number-of-tdm-segments-to-be-reserved": {
+   "id": "number-of-tdm-segments-to-be-reserved",
+   "uml-id": "_Bzxo9EagEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 2,
+   "is-read-only": false,
+   "description": [
+    "Allows to configure the number of segments reserved for TDM frames of the type specified in HybridMwStructure::HybridMwStructureConfiguration::structureType"
+   ],
+   "uml-name": "numberOfTdmSegmentsToBeReserved",
+   "controlType": "number"
+  },
+  "mw-ethernet-container-pac": {
+   "id": "mw-ethernet-container-pac",
+   "uml-id": "_4uEBgUafEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "MW_EthernetContainer_Pac"
+  },
+  "ethernet-container-capability": {
+   "id": "ethernet-container-capability",
+   "uml-id": "_4uEBmEafEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "EthernetContainerCapability"
+  },
+  "ethernet-container-configuration": {
+   "id": "ethernet-container-configuration",
+   "uml-id": "_4uEBwUafEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "EthernetContainerConfiguration"
+  },
+  "ethernet-container-status": {
+   "id": "ethernet-container-status",
+   "uml-id": "_4uECAUafEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "EthernetContainerStatus"
+  },
+  "ethernet-container-current-problems": {
+   "id": "ethernet-container-current-problems",
+   "uml-id": "_4uECDUafEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "EthernetContainerCurrentProblems"
+  },
+  "ethernet-container-current-performance": {
+   "id": "ethernet-container-current-performance",
+   "uml-id": "_4uECE0afEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Aggregated performance information of the Ethernet container at a particular moment."
+   ],
+   "uml-name": "EthernetContainerCurrentPerformance"
+  },
+  "ethernet-container-historical-performances": {
+   "id": "ethernet-container-historical-performances",
+   "uml-id": "_4uECF0afEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Aggregated performance information of the Ethernet container for a pre-defined measurement interval."
+   ],
+   "uml-name": "EthernetContainerHistoricalPerformances"
+  },
+  "bundling-is-avail": {
+   "id": "bundling-is-avail",
+   "uml-id": "_IzCGMNyCEeW-SfXlFFFI0Q",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 4,
+   "is-read-only": true,
+   "description": [
+    "If it is possible to combine transport resources of several radio links to transport this container type, this attribute shall be set to '1'."
+   ],
+   "uml-name": "bundlingIsAvail",
+   "controlType": "checkbox"
+  },
+  "packet-compression-is-avail": {
+   "id": "packet-compression-is-avail",
+   "uml-id": "_4uEBp0afEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 2,
+   "is-read-only": true,
+   "description": [
+    "In case packet compression can be activated, but not configured to a certain type, packetCompressionAvail shall be set on 'true', but none of the compression level specific booleans."
+   ],
+   "uml-name": "packetCompressionIsAvail",
+   "controlType": "checkbox"
+  },
+  "layer2-compression-is-avail": {
+   "id": "layer2-compression-is-avail",
+   "uml-id": "_4uEBqkafEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 3,
+   "is-read-only": true,
+   "description": [
+    "Packet compression on layer 2 available at the device."
+   ],
+   "uml-name": "layer2CompressionIsAvail",
+   "controlType": "checkbox"
+  },
+  "vlan-compression-is-avail": {
+   "id": "vlan-compression-is-avail",
+   "uml-id": "_4uEBrUafEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 4,
+   "is-read-only": true,
+   "description": [
+    "Packet compression on VLAN layer available at the device."
+   ],
+   "uml-name": "vlanCompressionIsAvail",
+   "controlType": "checkbox"
+  },
+  "q-in-q-compression-is-avail": {
+   "id": "q-in-q-compression-is-avail",
+   "uml-id": "_4uEBsEafEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 5,
+   "is-read-only": true,
+   "description": [
+    "Packet compression on layer of a second VLAN available at the device."
+   ],
+   "uml-name": "qInQCompressionIsAvail",
+   "controlType": "checkbox"
+  },
+  "mpls-compression-is-avail": {
+   "id": "mpls-compression-is-avail",
+   "uml-id": "_4uEBs0afEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 6,
+   "is-read-only": true,
+   "description": [
+    "Packet compression on mpls layer available at the device."
+   ],
+   "uml-name": "mplsCompressionIsAvail",
+   "controlType": "checkbox"
+  },
+  "ipv4-compression-is-avail": {
+   "id": "ipv4-compression-is-avail",
+   "uml-id": "_4uEBtkafEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 7,
+   "is-read-only": true,
+   "description": [
+    "Packet compression on layer 3 for IPv4 available at the device."
+   ],
+   "uml-name": "ipv4CompressionIsAvail",
+   "controlType": "checkbox"
+  },
+  "ipv6-compression-is-avail": {
+   "id": "ipv6-compression-is-avail",
+   "uml-id": "_4uEBuUafEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 8,
+   "is-read-only": true,
+   "description": [
+    "Packet compression on layer 3 for IPv6 available at the device."
+   ],
+   "uml-name": "ipv6CompressionIsAvail",
+   "controlType": "checkbox"
+  },
+  "layer4-compression-is-avail": {
+   "id": "layer4-compression-is-avail",
+   "uml-id": "_4uEBvEafEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 9,
+   "is-read-only": true,
+   "description": [
+    "Packet compression on layer 4 (TCP and UDP header) available at the device."
+   ],
+   "uml-name": "layer4CompressionIsAvail",
+   "controlType": "checkbox"
+  },
+  "container-id": {
+   "id": "container-id",
+   "uml-id": "_ecCeS0aqEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 1,
+   "is-read-only": false,
+   "description": [
+    "ContainterID in Netconf must be the same as TDM Flow ID so a connection can be made between the two items, which separately exist in the controller."
+   ],
+   "uml-name": "containerID",
+   "controlType": "text"
+  },
+  "segments-id-list": {
+   "id": "segments-id-list",
+   "uml-id": "_4uEBy0afEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "_Nd1F4MKuEeWwLJhHQlOGSQ",
+   "order-number": 2,
+   "is-read-only": false,
+   "description": [
+    "Lists the segments used for transporting this Ethernet container. In case EthernetContainer::ContainerCapability::bundlingIsAvail==0, all TypeDefinitions::segmentIdType::structureId must be identical in the list."
+   ],
+   "uml-name": "segmentsIdList"
+  },
+  "packet-compression-is-on": {
+   "id": "packet-compression-is-on",
+   "uml-id": "_4uEB1UafEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 3,
+   "is-read-only": false,
+   "description": [
+    "In case packet compression is activated, but no type is activated, it is assumed that the device chooses the optimum."
+   ],
+   "uml-name": "packetCompressionIsOn",
+   "controlType": "checkbox"
+  },
+  "layer2-compression-is-on": {
+   "id": "layer2-compression-is-on",
+   "uml-id": "_4uEB2kafEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 4,
+   "is-read-only": false,
+   "description": [
+    "Packet compression on layer 2 configured at the device."
+   ],
+   "uml-name": "layer2CompressionIsOn",
+   "controlType": "checkbox"
+  },
+  "vlan-compression-is-on": {
+   "id": "vlan-compression-is-on",
+   "uml-id": "_4uEB30afEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 5,
+   "is-read-only": false,
+   "description": [
+    "Packet compression on VLAN layer configured at the device."
+   ],
+   "uml-name": "vlanCompressionIsOn",
+   "controlType": "checkbox"
+  },
+  "q-in-q-compression-is-on": {
+   "id": "q-in-q-compression-is-on",
+   "uml-id": "_4uEB5EafEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 6,
+   "is-read-only": false,
+   "description": [
+    "Packet compression on layer of a second VLAN configured at the device."
+   ],
+   "uml-name": "qInQCompressionIsOn",
+   "controlType": "checkbox"
+  },
+  "mpls-compression-is-on": {
+   "id": "mpls-compression-is-on",
+   "uml-id": "_4uEB6UafEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 7,
+   "is-read-only": false,
+   "description": [
+    "Packet compression on MPLS layer configured at the device."
+   ],
+   "uml-name": "mplsCompressionIsOn",
+   "controlType": "checkbox"
+  },
+  "ipv4-compression-is-on": {
+   "id": "ipv4-compression-is-on",
+   "uml-id": "_4uEB7kafEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 8,
+   "is-read-only": false,
+   "description": [
+    "Packet compression on layer 3 for IPv4 configured at the device."
+   ],
+   "uml-name": "ipv4CompressionIsOn",
+   "controlType": "checkbox"
+  },
+  "ipv6-compression-is-on": {
+   "id": "ipv6-compression-is-on",
+   "uml-id": "_4uEB80afEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 9,
+   "is-read-only": false,
+   "description": [
+    "Packet compression on layer 3 for IPv6 configured at the device."
+   ],
+   "uml-name": "ipv6CompressionIsOn",
+   "controlType": "checkbox"
+  },
+  "layer4-compression-is-on": {
+   "id": "layer4-compression-is-on",
+   "uml-id": "_4uEB-EafEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 10,
+   "is-read-only": false,
+   "description": [
+    "Packet compression on layer 4 (TCP and UDP header) configured at the device."
+   ],
+   "uml-name": "layer4CompressionIsOn",
+   "controlType": "checkbox"
+  },
+  "mw-tdm-container-pac": {
+   "id": "mw-tdm-container-pac",
+   "uml-id": "_ecCeMUaqEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "MW_TdmContainer_Pac"
+  },
+  "tdm-container-capability": {
+   "id": "tdm-container-capability",
+   "uml-id": "_ecCeSEaqEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Bundling is not available."
+   ],
+   "uml-name": "TdmContainerCapability"
+  },
+  "tdm-container-configuration": {
+   "id": "tdm-container-configuration",
+   "uml-id": "_ecCecUaqEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "TdmContainerConfiguration"
+  },
+  "tdm-container-status": {
+   "id": "tdm-container-status",
+   "uml-id": "_ecCesUaqEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "TdmContainerStatus"
+  },
+  "tdm-container-current-problems": {
+   "id": "tdm-container-current-problems",
+   "uml-id": "_ecCevUaqEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "TdmContainerCurrentProblems"
+  },
+  "tdm-container-current-performance": {
+   "id": "tdm-container-current-performance",
+   "uml-id": "_ecCew0aqEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Aggregated performance information of the TDM container at a particular moment."
+   ],
+   "uml-name": "TdmContainerCurrentPerformance"
+  },
+  "tdm-container-historical-performances": {
+   "id": "tdm-container-historical-performances",
+   "uml-id": "_ecCex0aqEeas2eqI3oKNtg",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "description": [
+    "Aggregated performance information of the TDM container for a pre-defined measurement interval."
+   ],
+   "uml-name": "TdmContainerHistoricalPerformances"
+  },
+  "supported-tdm-container-types-list": {
+   "id": "supported-tdm-container-types-list",
+   "uml-id": "_R5hG0EdwEeax2rWez10Siw",
+   "uml-type": "ownedAttribute",
+   "type": "_rgbigEdjEeax2rWez10Siw",
+   "order-number": 1,
+   "is-read-only": true,
+   "description": [
+    "Lists the TDM containers that are supported."
+   ],
+   "uml-name": "supportedTdmContainerTypesList"
+  },
+  "container-type": {
+   "id": "container-type",
+   "uml-id": "_be7AoMWkEeW3xsRKtpCLuA",
+   "uml-type": "uml:DataType",
+   "uml-name": "ContainerType"
+  },
+  "segment-id": {
+   "id": "segment-id",
+   "uml-id": "_ecCee0aqEeas2eqI3oKNtg",
+   "uml-type": "ownedAttribute",
+   "type": "_Nd1F4MKuEeWwLJhHQlOGSQ",
+   "order-number": 3,
+   "is-read-only": false,
+   "description": [
+    "Multiplicity = 1; One segment per TDM container; Type of segment must match type of container;"
+   ],
+   "uml-name": "segmentID"
+  },
+  "mw-current-problem": {
+   "id": "mw-current-problem",
+   "uml-id": "_LKRM4JNQEeWuAeXkr703BA",
+   "uml-type": "uml:Class",
+   "is-read-only": false,
+   "uml-name": "MwCurrentProblem"
+  },
+  "sequence-number": {
+   "id": "sequence-number",
+   "uml-id": "_YadH4CJbEeaHpPYk5sscIg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 1,
+   "is-read-only": true,
+   "is-key": 1,
+   "description": [
+    "Unique sequence number of the current problem object."
+   ],
+   "uml-name": "sequenceNumber",
+   "controlType": "number"
+  },
+  "time-stamp": {
+   "id": "time-stamp",
+   "uml-id": "_lB4EQJN1EeWuAeXkr703BA",
+   "uml-type": "ownedAttribute",
+   "type": "../OnfModel-CoreModel/CoreModel.uml#_oGqi1lLNEeO75dO39GbF8Q",
+   "order-number": 2,
+   "is-read-only": true,
+   "description": [
+    "Time and date of the problem. _format:yyyyMMddhhmmss.s[Z|{+|-}HHMm]; yyyy='0000'..'9999' year; MM='01'..'12' month; dd='01'..'31' day; hh='00'..'23' hour; mm='00'..'59' minute; ss='00'..'59' second; s='.0'..'.9'tenth of second (set to '.0' if EMS or NE cannot support this granularity); Z='Z' indicates UTC (rather than local time); {+|-}='+' or '-' delta from UTC; HH='00'..'23' time zone difference in hours; Mm='00'..'59' time zone difference in minutes."
+   ],
+   "uml-name": "timeStamp"
+  },
+  "problem-severity": {
+   "id": "problem-severity",
+   "uml-id": "_qInZ8KT4EeapooeghKN-dA",
+   "uml-type": "ownedAttribute",
+   "type": "_eIml0JH1EeWUdbnmmNiTAA",
+   "order-number": 3,
+   "is-read-only": true,
+   "description": [
+    "Severity of the alarm."
+   ],
+   "uml-name": "problemSeverity",
+   "controlType": [
+    "non-alarmed",
+    "warning",
+    "minor",
+    "major",
+    "critical"
+   ]
+  },
+  "channel-plan-type": {
+   "id": "channel-plan-type",
+   "uml-id": "_oQf6IPXSEeW9zIqh2WHHww",
+   "uml-type": "uml:DataType",
+   "uml-name": "ChannelPlanType"
+  },
+  "duplex-distance-is-variable": {
+   "id": "duplex-distance-is-variable",
+   "uml-id": "_OPxkQK42EeWxIavXll_b0A",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 2,
+   "is-read-only": true,
+   "description": [
+    "To be set on 'true', if the distance between transmitted and received frequency is variable."
+   ],
+   "uml-name": "duplexDistanceIsVariable",
+   "controlType": "checkbox"
+  },
+  "duplex-distance": {
+   "id": "duplex-distance",
+   "uml-id": "_BEr_wIMEEeWMcJAvkeTn2w",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 3,
+   "is-read-only": true,
+   "unit": "kHz",
+   "description": [
+    "Distance between transmitted and received frequency."
+   ],
+   "uml-name": "duplexDistance",
+   "controlType": "number"
+  },
+  "auto-freq-select-is-avail": {
+   "id": "auto-freq-select-is-avail",
+   "uml-id": "_te6XMIL8EeWMcJAvkeTn2w",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 4,
+   "is-read-only": true,
+   "description": [
+    "In case the microwave radio is capable of automatically selecting the transmit frequency in unlicensed bands, this field shall contain a 'true'."
+   ],
+   "uml-name": "autoFreqSelectIsAvail",
+   "controlType": "checkbox"
+  },
+  "transmission-mode-type": {
+   "id": "transmission-mode-type",
+   "uml-id": "_zG34sPXQEeW9zIqh2WHHww",
+   "uml-type": "uml:DataType",
+   "uml-name": "TransmissionModeType"
+  },
+  "transmission-mode-id": {
+   "id": "transmission-mode-id",
+   "uml-id": "_afdYoNumEeWHIeLurhMv0A",
+   "uml-type": "ownedAttribute",
+   "type": "../OnfModel-CoreModel/CoreModel.uml#_SU3Q4I30EeO38ZmbECnvbg",
+   "order-number": 1,
+   "is-read-only": true,
+   "is-key": 1,
+   "description": [
+    "Indentifies the transmissionMode for internal reference."
+   ],
+   "uml-name": "transmissionModeId"
+  },
+  "channel-bandwidth": {
+   "id": "channel-bandwidth",
+   "uml-id": "_FteJEHfdEeW-h9gN8LYm4Q",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 2,
+   "is-read-only": true,
+   "unit": "kHz",
+   "description": [
+    "Bandwidth of the transmit channel. The value shall be expressed explicitly (means in kHz) not as a reference to an international agreement. The values shall be chosen from the following _list: 3.500, 7.000, 14.000, 27.500, 28.000, 29.000, 29.650, 30.000, 40.000, 50.000, 55.000, 56.000, 59.300, 60.000, 80.000, 100.000, 112.000, 120.000, 150.000, 200.000, 250.000, 500.000, 750.000, 1.000.000, 1.250.000, 1.500.000, 1.750.000, 2.000.000;"
+   ],
+   "uml-name": "channelBandwidth",
+   "controlType": "number"
+  },
+  "modulation-scheme": {
+   "id": "modulation-scheme",
+   "uml-id": "_G4H-UHfdEeW-h9gN8LYm4Q",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 3,
+   "is-read-only": true,
+   "unit": "symbols",
+   "description": [
+    "Modulation scheme, which is base to the other characteristics described in the same transmissionModeType data type. The modulation scheme shall be described by the number of states in the phase diagram (e.g. BPSK->'2' or 256QAM->'256')."
+   ],
+   "uml-name": "modulationScheme",
+   "controlType": "number"
+  },
+  "code-rate": {
+   "id": "code-rate",
+   "uml-id": "_jE7-EHf4EeW-h9gN8LYm4Q",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 4,
+   "is-read-only": true,
+   "unit": "%",
+   "description": [
+    "Code rate of the coding scheme in % (Net bit rate ≤ Gross bit rate · code rate)."
+   ],
+   "uml-name": "codeRate",
+   "controlType": "number"
+  },
+  "tx-power-min": {
+   "id": "tx-power-min",
+   "uml-id": "_I3nJ0HfdEeW-h9gN8LYm4Q",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 5,
+   "is-read-only": true,
+   "unit": "dBm",
+   "description": [
+    "Value of the minimum transmit power the modem can operate in dBm."
+   ],
+   "uml-name": "txPowerMin",
+   "controlType": "number"
+  },
+  "tx-power-max": {
+   "id": "tx-power-max",
+   "uml-id": "_KB7A0HfdEeW-h9gN8LYm4Q",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 6,
+   "is-read-only": true,
+   "unit": "dBm",
+   "description": [
+    "Value of the maximum transmit power the modem can operate in dBm."
+   ],
+   "uml-name": "txPowerMax",
+   "controlType": "number"
+  },
+  "rx-threshold": {
+   "id": "rx-threshold",
+   "uml-id": "_LCr6QHfdEeW-h9gN8LYm4Q",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 7,
+   "is-read-only": true,
+   "unit": "dBm",
+   "description": [
+    "Value of the receive level required to decode the received signal with a Bit Error Rate of 1e-6 or less."
+   ],
+   "uml-name": "rxThreshold",
+   "controlType": "number"
+  },
+  "am-upshift-level": {
+   "id": "am-upshift-level",
+   "uml-id": "_MGguwHfdEeW-h9gN8LYm4Q",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 8,
+   "is-read-only": true,
+   "unit": "dBm",
+   "description": [
+    "Value of the receive level that has to be exceeded to shift into a higher modulation scheme."
+   ],
+   "uml-name": "amUpshiftLevel",
+   "controlType": "number"
+  },
+  "am-downshift-level": {
+   "id": "am-downshift-level",
+   "uml-id": "_NIvAwHfdEeW-h9gN8LYm4Q",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 9,
+   "is-read-only": true,
+   "unit": "dBm",
+   "description": [
+    "Value of the receive level that has to be exceeded for not shifting into a lower modulation scheme."
+   ],
+   "uml-name": "amDownshiftLevel",
+   "controlType": "number"
+  },
+  "xpic-is-avail": {
+   "id": "xpic-is-avail",
+   "uml-id": "_QHd9kHfvEeW-h9gN8LYm4Q",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 10,
+   "is-read-only": true,
+   "description": [
+    "In case this air interface type is capable of XPIC, this field shall contain a 'true'. This information shall purely relate to capabilities of the equipment type, but not to the operational capability of a specific hardware composition on site. Means for example that this attribute might contain a 'true' statement, even if an additional cable would have been required to actually operate XPIC in a specific case."
+   ],
+   "uml-name": "xpicIsAvail",
+   "controlType": "checkbox"
+  },
+  "air-interface-problem-severity-type": {
+   "id": "air-interface-problem-severity-type",
+   "uml-id": "_ZKdWgGnuEeaZwMagYjVCHQ",
+   "uml-type": "uml:DataType",
+   "uml-name": "AirInterfaceProblemSeverityType"
+  },
+  "problem-kind-name": {
+   "id": "problem-kind-name",
+   "uml-id": "_OMQH0Gz0Eeaf-__BRLM84g",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 1,
+   "is-read-only": false,
+   "is-key": 1,
+   "description": [
+    "Name of the alarm according to Container::ContainerCapability::supportedAlarms"
+   ],
+   "uml-name": "problemKindName",
+   "controlType": "text"
+  },
+  "air-interface-current-problem-type": {
+   "id": "air-interface-current-problem-type",
+   "uml-id": "_umuZUMXjEeW3xsRKtpCLuA",
+   "uml-type": "uml:DataType",
+   "uml-name": "AirInterfaceCurrentProblemType"
+  },
+  "problem-name": {
+   "id": "problem-name",
+   "uml-id": "__h1n4cXpEeWJ6KZuc0h_vw",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 1,
+   "is-read-only": true,
+   "description": [
+    "Name of the alarm according to Container::ContainerCapability::supportedAlarms"
+   ],
+   "uml-name": "problemName",
+   "controlType": "text"
+  },
+  "air-interface-performance-type": {
+   "id": "air-interface-performance-type",
+   "uml-id": "_OvFYwEQbEea3g-FxAUaYRg",
+   "uml-type": "uml:DataType",
+   "description": [
+    "Consolidated performance information of the air interface."
+   ],
+   "uml-name": "AirInterfacePerformanceType"
+  },
+  "es": {
+   "id": "es",
+   "uml-id": "_DbVzpUQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 1,
+   "is-read-only": true,
+   "unit": "s",
+   "description": [
+    "Number of errored seconds."
+   ],
+   "uml-name": "es",
+   "controlType": "number"
+  },
+  "ses": {
+   "id": "ses",
+   "uml-id": "_DbVzqUQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 2,
+   "is-read-only": true,
+   "unit": "s",
+   "description": [
+    "Number of severely errored seconds."
+   ],
+   "uml-name": "ses",
+   "controlType": "number"
+  },
+  "cses": {
+   "id": "cses",
+   "uml-id": "_DbVzrUQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 3,
+   "is-read-only": true,
+   "unit": "s",
+   "description": [
+    "Number of consecutive severely errored seconds."
+   ],
+   "uml-name": "cses",
+   "controlType": "number"
+  },
+  "unavailability": {
+   "id": "unavailability",
+   "uml-id": "_DbVzsUQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 4,
+   "is-read-only": true,
+   "unit": "s",
+   "description": [
+    "Total time of unavailability in seconds."
+   ],
+   "uml-name": "unavailability",
+   "controlType": "number"
+  },
+  "tx-level-min": {
+   "id": "tx-level-min",
+   "uml-id": "_DbVztUQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 5,
+   "is-read-only": true,
+   "unit": "dBm",
+   "description": [
+    "Minimum transmit power. Signed integers are required."
+   ],
+   "uml-name": "txLevelMin",
+   "controlType": "number"
+  },
+  "tx-level-max": {
+   "id": "tx-level-max",
+   "uml-id": "_DbVzuUQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 6,
+   "is-read-only": true,
+   "unit": "dBm",
+   "description": [
+    "Maximum transmit power. Signed integers are required."
+   ],
+   "uml-name": "txLevelMax",
+   "controlType": "number"
+  },
+  "tx-level-avg": {
+   "id": "tx-level-avg",
+   "uml-id": "_DbVzvUQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 7,
+   "is-read-only": true,
+   "unit": "dBm",
+   "description": [
+    "Averaged transmit power. Signed integers are required."
+   ],
+   "uml-name": "txLevelAvg",
+   "controlType": "number"
+  },
+  "rx-level-min": {
+   "id": "rx-level-min",
+   "uml-id": "_DbVzwUQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 8,
+   "is-read-only": true,
+   "unit": "dBm",
+   "description": [
+    "Minimum receive level. Signed integers are required."
+   ],
+   "uml-name": "rxLevelMin",
+   "controlType": "number"
+  },
+  "rx-level-max": {
+   "id": "rx-level-max",
+   "uml-id": "_DbVzxUQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 9,
+   "is-read-only": true,
+   "unit": "dBm",
+   "description": [
+    "Maximum receive level. Signed integers are required."
+   ],
+   "uml-name": "rxLevelMax",
+   "controlType": "number"
+  },
+  "rx-level-avg": {
+   "id": "rx-level-avg",
+   "uml-id": "_DbVzyUQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 10,
+   "is-read-only": true,
+   "unit": "dBm",
+   "description": [
+    "Averaged receive level. Signed integers are required."
+   ],
+   "uml-name": "rxLevelAvg",
+   "controlType": "number"
+  },
+  "time2-states": {
+   "id": "time2-states",
+   "uml-id": "_DbVzzUQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 11,
+   "is-read-only": true,
+   "unit": "s",
+   "description": [
+    "Sum of all seconds the transmitter operated in e.g. BPSK."
+   ],
+   "uml-name": "time2States",
+   "controlType": "number"
+  },
+  "time4-states-s": {
+   "id": "time4-states-s",
+   "uml-id": "_DbVz0kQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 12,
+   "is-read-only": true,
+   "unit": "s",
+   "uml-name": "time4StatesS",
+   "controlType": "number"
+  },
+  "time4-states": {
+   "id": "time4-states",
+   "uml-id": "_DbVz2EQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 13,
+   "is-read-only": true,
+   "unit": "s",
+   "uml-name": "time4States",
+   "controlType": "number"
+  },
+  "time8-states": {
+   "id": "time8-states",
+   "uml-id": "_DbVz3UQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 14,
+   "is-read-only": true,
+   "unit": "s",
+   "uml-name": "time8States",
+   "controlType": "number"
+  },
+  "time16-states-s": {
+   "id": "time16-states-s",
+   "uml-id": "_DbVz4kQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 15,
+   "is-read-only": true,
+   "unit": "s",
+   "uml-name": "time16StatesS",
+   "controlType": "number"
+  },
+  "time16-states": {
+   "id": "time16-states",
+   "uml-id": "_DbVz50QbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 16,
+   "is-read-only": true,
+   "unit": "s",
+   "uml-name": "time16States",
+   "controlType": "number"
+  },
+  "time32-states": {
+   "id": "time32-states",
+   "uml-id": "_DbVz7EQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 17,
+   "is-read-only": true,
+   "unit": "s",
+   "uml-name": "time32States",
+   "controlType": "number"
+  },
+  "time64-states": {
+   "id": "time64-states",
+   "uml-id": "_DbVz8UQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 18,
+   "is-read-only": true,
+   "unit": "s",
+   "uml-name": "time64States",
+   "controlType": "number"
+  },
+  "time128-states": {
+   "id": "time128-states",
+   "uml-id": "_DbVz9kQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 19,
+   "is-read-only": true,
+   "unit": "s",
+   "uml-name": "time128States",
+   "controlType": "number"
+  },
+  "time256-states": {
+   "id": "time256-states",
+   "uml-id": "_DbVz-0QbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 20,
+   "is-read-only": true,
+   "unit": "s",
+   "uml-name": "time256States",
+   "controlType": "number"
+  },
+  "time512-states": {
+   "id": "time512-states",
+   "uml-id": "_DbV0AEQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 21,
+   "is-read-only": true,
+   "unit": "s",
+   "uml-name": "time512States",
+   "controlType": "number"
+  },
+  "time512-states-l": {
+   "id": "time512-states-l",
+   "uml-id": "_DbV0BUQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 22,
+   "is-read-only": true,
+   "unit": "s",
+   "uml-name": "time512StatesL",
+   "controlType": "number"
+  },
+  "time1024-states": {
+   "id": "time1024-states",
+   "uml-id": "_DbV0CkQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 23,
+   "is-read-only": true,
+   "unit": "s",
+   "uml-name": "time1024States",
+   "controlType": "number"
+  },
+  "time1024-states-l": {
+   "id": "time1024-states-l",
+   "uml-id": "_DbV0D0QbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 24,
+   "is-read-only": true,
+   "unit": "s",
+   "uml-name": "time1024StatesL",
+   "controlType": "number"
+  },
+  "time2048-states": {
+   "id": "time2048-states",
+   "uml-id": "_DbV0FEQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 25,
+   "is-read-only": true,
+   "unit": "s",
+   "uml-name": "time2048States",
+   "controlType": "number"
+  },
+  "time2048-states-l": {
+   "id": "time2048-states-l",
+   "uml-id": "_DbV0GUQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 26,
+   "is-read-only": true,
+   "unit": "s",
+   "uml-name": "time2048StatesL",
+   "controlType": "number"
+  },
+  "time4096-states": {
+   "id": "time4096-states",
+   "uml-id": "_DbV0HkQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 27,
+   "is-read-only": true,
+   "unit": "s",
+   "uml-name": "time4096States",
+   "controlType": "number"
+  },
+  "time4096-states-l": {
+   "id": "time4096-states-l",
+   "uml-id": "_DbV0I0QbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 28,
+   "is-read-only": true,
+   "unit": "s",
+   "uml-name": "time4096StatesL",
+   "controlType": "number"
+  },
+  "time8192-states": {
+   "id": "time8192-states",
+   "uml-id": "_DbV0KEQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 29,
+   "is-read-only": true,
+   "unit": "s",
+   "uml-name": "time8192States",
+   "controlType": "number"
+  },
+  "time8192-states-l": {
+   "id": "time8192-states-l",
+   "uml-id": "_DbV0LUQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 30,
+   "is-read-only": true,
+   "unit": "s",
+   "uml-name": "time8192StatesL",
+   "controlType": "number"
+  },
+  "snir-min": {
+   "id": "snir-min",
+   "uml-id": "_nG-NsEzvEeaRytIQfQ43Wg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 1,
+   "is-read-only": true,
+   "unit": "dB",
+   "description": [
+    "Minimum signal to (noise+interference) ratio of the combined signals."
+   ],
+   "uml-name": "snirMin",
+   "controlType": "number"
+  },
+  "snir-max": {
+   "id": "snir-max",
+   "uml-id": "_n_OEUEzvEeaRytIQfQ43Wg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 2,
+   "is-read-only": true,
+   "unit": "dB",
+   "description": [
+    "Maximum signal to (noise+interference) ratio of the combined signals."
+   ],
+   "uml-name": "snirMax",
+   "controlType": "number"
+  },
+  "snir-avg": {
+   "id": "snir-avg",
+   "uml-id": "_oU3kMEzvEeaRytIQfQ43Wg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 3,
+   "is-read-only": true,
+   "unit": "dB",
+   "description": [
+    "Average signal to (noise+interference) ratio of the combined signals."
+   ],
+   "uml-name": "snirAvg",
+   "controlType": "number"
+  },
+  "xpd-min": {
+   "id": "xpd-min",
+   "uml-id": "_DbV0PkQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 34,
+   "is-read-only": true,
+   "unit": "dB",
+   "description": [
+    "Minimum cross polarization discrimination."
+   ],
+   "uml-name": "xpdMin",
+   "controlType": "number"
+  },
+  "xpd-max": {
+   "id": "xpd-max",
+   "uml-id": "_DbV0QkQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 35,
+   "is-read-only": true,
+   "unit": "dB",
+   "description": [
+    "Maximum cross polarization discrimination."
+   ],
+   "uml-name": "xpdMax",
+   "controlType": "number"
+  },
+  "xpd-avg": {
+   "id": "xpd-avg",
+   "uml-id": "_DbV0RkQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 36,
+   "is-read-only": true,
+   "unit": "dB",
+   "description": [
+    "Averaged cross polarization discrimination."
+   ],
+   "uml-name": "xpdAvg",
+   "controlType": "number"
+  },
+  "rf-temp-min": {
+   "id": "rf-temp-min",
+   "uml-id": "_DbV0SkQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 37,
+   "is-read-only": true,
+   "unit": "C",
+   "description": [
+    "Lowest temperature (in degree Celsius) of the radio module inside the outdoor unit."
+   ],
+   "uml-name": "rfTempMin",
+   "controlType": "number"
+  },
+  "rf-temp-max": {
+   "id": "rf-temp-max",
+   "uml-id": "_DbV0TkQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 38,
+   "is-read-only": true,
+   "unit": "C",
+   "description": [
+    "Highest temperature (in degree Celsius) of the radio module inside the outdoor unit."
+   ],
+   "uml-name": "rfTempMax",
+   "controlType": "number"
+  },
+  "rf-temp-avg": {
+   "id": "rf-temp-avg",
+   "uml-id": "_DbV0UkQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 39,
+   "is-read-only": true,
+   "unit": "C",
+   "description": [
+    "Averaged temperature (in degree Celsius) of the radio module inside the outdoor unit."
+   ],
+   "uml-name": "rfTempAvg",
+   "controlType": "number"
+  },
+  "defect-blocks-sum": {
+   "id": "defect-blocks-sum",
+   "uml-id": "_DbV0VkQbEea3g-FxAUaYRg",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 40,
+   "is-read-only": true,
+   "unit": "blocks",
+   "description": [
+    "Total number of blocks that were defect after receiving and could not be corrected by the FEC."
+   ],
+   "uml-name": "defectBlocksSum",
+   "controlType": "number"
+  },
+  "time-period": {
+   "id": "time-period",
+   "uml-id": "_Nyme4H1IEeWHjMaYlqnBcw",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 4,
+   "is-read-only": true,
+   "unit": "s",
+   "description": [
+    "Total length of the measurement period in seconds."
+   ],
+   "uml-name": "timePeriod",
+   "controlType": "number"
+  },
+  "air-interface-current-performance-type": {
+   "id": "air-interface-current-performance-type",
+   "uml-id": "_pQ_y4GoHEeaZwMagYjVCHQ",
+   "uml-type": "uml:DataType",
+   "description": [
+    "Turns performance information into current performance information by inheriting from OTN_CurrentData."
+   ],
+   "uml-name": "AirInterfaceCurrentPerformanceType"
+  },
+  "performance-data": {
+   "id": "performance-data",
+   "uml-id": "_i5STYGz7Eeaf-__BRLM84g",
+   "uml-type": "ownedAttribute",
+   "type": "_U9tW0EQeEea3g-FxAUaYRg",
+   "order-number": 1,
+   "is-read-only": true,
+   "uml-name": "performanceData"
+  },
+  "air-interface-historical-performance-type": {
+   "id": "air-interface-historical-performance-type",
+   "uml-id": "_t18kwGoHEeaZwMagYjVCHQ",
+   "uml-type": "uml:DataType",
+   "description": [
+    "Turns performance information into historical performance information by inheriting from OTN_HistoryData."
+   ],
+   "uml-name": "AirInterfaceHistoricalPerformanceType"
+  },
+  "diversity-type": {
+   "id": "diversity-type",
+   "uml-id": "_pTliINyUEeW-SfXlFFFI0Q",
+   "uml-type": "uml:DataType",
+   "uml-name": "DiversityType"
+  },
+  "diversity-name": {
+   "id": "diversity-name",
+   "uml-id": "_uYhboNyUEeW-SfXlFFFI0Q",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 1,
+   "is-read-only": true,
+   "is-key": 1,
+   "description": [
+    "Names to be chosen from the following list: 'spaceDiversity', 'frequencyDiversity'"
+   ],
+   "uml-name": "diversityName",
+   "controlType": "text"
+  },
+  "number-of-air-interfaces-max": {
+   "id": "number-of-air-interfaces-max",
+   "uml-id": "_wKDDoNyUEeW-SfXlFFFI0Q",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 2,
+   "is-read-only": true,
+   "unit": "air interfaces",
+   "description": [
+    "Maximum number of air interfaces that could be part of this kind of diversity."
+   ],
+   "uml-name": "numberOfAirInterfacesMax",
+   "controlType": "number"
+  },
+  "air-interface-diversity-problem-severity-type": {
+   "id": "air-interface-diversity-problem-severity-type",
+   "uml-id": "_2kMRYGzzEeaf-__BRLM84g",
+   "uml-type": "uml:DataType",
+   "uml-name": "AirInterfaceDiversityProblemSeverityType"
+  },
+  "air-interface-diversity-current-problem-type": {
+   "id": "air-interface-diversity-current-problem-type",
+   "uml-id": "_z1XWgMXlEeWJ6KZuc0h_vw",
+   "uml-type": "uml:DataType",
+   "uml-name": "AirInterfaceDiversityCurrentProblemType"
+  },
+  "air-interface-diversity-performance-type": {
+   "id": "air-interface-diversity-performance-type",
+   "uml-id": "_EH3QgEQdEea3g-FxAUaYRg",
+   "uml-type": "uml:DataType",
+   "description": [
+    "Consolidated performance information of the air interface diversity group."
+   ],
+   "uml-name": "AirInterfaceDiversityPerformanceType"
+  },
+  "air-interface-diversity-current-performance-type": {
+   "id": "air-interface-diversity-current-performance-type",
+   "uml-id": "_n4wTgGz6Eeaf-__BRLM84g",
+   "uml-type": "uml:DataType",
+   "description": [
+    "Turns performance information into current performance information by inheriting from OTN_CurrentData."
+   ],
+   "uml-name": "AirInterfaceDiversityCurrentPerformanceType"
+  },
+  "air-interface-diversity-historical-performance-type": {
+   "id": "air-interface-diversity-historical-performance-type",
+   "uml-id": "_pG0pIGz6Eeaf-__BRLM84g",
+   "uml-type": "uml:DataType",
+   "description": [
+    "Turns performance information into historical performance information by inheriting from OTN_HistoryData."
+   ],
+   "uml-name": "AirInterfaceDiversityHistoricalPerformanceType"
+  },
+  "tdm-structure-type": {
+   "id": "tdm-structure-type",
+   "uml-id": "_jRAQsEdoEeax2rWez10Siw",
+   "uml-type": "uml:DataType",
+   "uml-name": "TdmStructureType"
+  },
+  "tdm-structure-name": {
+   "id": "tdm-structure-name",
+   "uml-id": "_1bJF4EdoEeax2rWez10Siw",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 1,
+   "is-read-only": true,
+   "is-key": 1,
+   "description": [
+    "Names to be chosen from the following list: 'e1','t1','j1','e3','ds3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'"
+   ],
+   "uml-name": "tdmStructureName",
+   "controlType": "text"
+  },
+  "tdm-segment-size": {
+   "id": "tdm-segment-size",
+   "uml-id": "_hPq1oEdpEeax2rWez10Siw",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 2,
+   "is-read-only": true,
+   "unit": "kbit/s",
+   "description": [
+    "Size of the TDM segment in kbit/s. Values to be chosen from the following list: '2048','1544','34000','44736 ','155520','614400','1228800','2457600','3072000','4915200','6144000' or '9830400;"
+   ],
+   "uml-name": "tdmSegmentSize",
+   "controlType": "number"
+  },
+  "max-number-of-segments-reservable": {
+   "id": "max-number-of-segments-reservable",
+   "uml-id": "_EJnsgEdpEeax2rWez10Siw",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 3,
+   "is-read-only": true,
+   "unit": "segments",
+   "description": [
+    "Device specific maximum number of segments (not depending on current air interface configuration) that can be reserved for this type of segment on a single air interface."
+   ],
+   "uml-name": "maxNumberOfSegmentsReservable",
+   "controlType": "number"
+  },
+  "structure-problem-severity-type": {
+   "id": "structure-problem-severity-type",
+   "uml-id": "_LPgp4Gz0Eeaf-__BRLM84g",
+   "uml-type": "uml:DataType",
+   "uml-name": "StructureProblemSeverityType"
+  },
+  "structure-current-problem-type": {
+   "id": "structure-current-problem-type",
+   "uml-id": "_UC0gAMXnEeWJ6KZuc0h_vw",
+   "uml-type": "uml:DataType",
+   "uml-name": "StructureCurrentProblemType"
+  },
+  "structure-performance-type": {
+   "id": "structure-performance-type",
+   "uml-id": "_kzEicEQdEea3g-FxAUaYRg",
+   "uml-type": "uml:DataType",
+   "description": [
+    "Consolidated performance information of the Structure."
+   ],
+   "uml-name": "StructurePerformanceType"
+  },
+  "structure-current-performance-type": {
+   "id": "structure-current-performance-type",
+   "uml-id": "_o7jNQGz6Eeaf-__BRLM84g",
+   "uml-type": "uml:DataType",
+   "description": [
+    "Turns performance information into current performance information by inheriting from OTN_CurrentData."
+   ],
+   "uml-name": "StructureCurrentPerformanceType"
+  },
+  "structure-historical-performance-type": {
+   "id": "structure-historical-performance-type",
+   "uml-id": "_pNAJoGz6Eeaf-__BRLM84g",
+   "uml-type": "uml:DataType",
+   "description": [
+    "Turns performance information into historical performance information by inheriting from OTN_HistoryData."
+   ],
+   "uml-name": "StructureHistoricalPerformanceType"
+  },
+  "container-name": {
+   "id": "container-name",
+   "uml-id": "_o0IuQMWkEeW3xsRKtpCLuA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 1,
+   "is-read-only": true,
+   "is-key": 1,
+   "description": [
+    "Names to be chosen from the following list: 'ethernet','e1','t1','j1','e3','ds3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'"
+   ],
+   "uml-name": "containerName",
+   "controlType": "text"
+  },
+  "number-of-time-slots-required": {
+   "id": "number-of-time-slots-required",
+   "uml-id": "_sZ82MMXXEeW3xsRKtpCLuA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 2,
+   "is-read-only": true,
+   "unit": "timeslots",
+   "description": [
+    "Number of time slots required for transporting this type of container. Value must be calculated by the vendor after defining the timeSlotCapacity. For containers of fixed size: numberOfTimeSlotsRequired = required bandwidth of the container divided by timeSlotCapacity. For containers of variable size the minimum (most probably 1) is to be stated."
+   ],
+   "uml-name": "numberOfTimeSlotsRequired",
+   "controlType": "number"
+  },
+  "tdm-time-slots-is-required": {
+   "id": "tdm-time-slots-is-required",
+   "uml-id": "_hIagINrWEeWcA7plcJPZ7A",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 3,
+   "is-read-only": true,
+   "description": [
+    "Shall be set to '1', if this container type requires bandwidth (times slots) reserved for TDM transport."
+   ],
+   "uml-name": "tdmTimeSlotsIsRequired",
+   "controlType": "checkbox"
+  },
+  "tdm-container-type": {
+   "id": "tdm-container-type",
+   "uml-id": "_rgbigEdjEeax2rWez10Siw",
+   "uml-type": "uml:DataType",
+   "uml-name": "TdmContainerType"
+  },
+  "tdm-container-name": {
+   "id": "tdm-container-name",
+   "uml-id": "_rgbigkdjEeax2rWez10Siw",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String",
+   "order-number": 1,
+   "is-read-only": true,
+   "is-key": 1,
+   "description": [
+    "Names to be chosen from the following list: 'e1','t1','j1','e3','t3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'"
+   ],
+   "uml-name": "tdmContainerName",
+   "controlType": "text"
+  },
+  "tdm-container-size": {
+   "id": "tdm-container-size",
+   "uml-id": "_rgbihEdjEeax2rWez10Siw",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 2,
+   "is-read-only": true,
+   "unit": "kbit/s",
+   "description": [
+    "Capacity required for transporting this type of container (in kbit/s). Values to be chosen from the following list: '2048','1544','34000','44736 ','155520','614400','1228800','2457600','3072000','4915200','6144000' or '9830400;"
+   ],
+   "uml-name": "tdmContainerSize",
+   "controlType": "number"
+  },
+  "segment-id-type": {
+   "id": "segment-id-type",
+   "uml-id": "_Nd1F4MKuEeWwLJhHQlOGSQ",
+   "uml-type": "uml:DataType",
+   "description": [
+    "Identifies the segments, which are used to transport the container."
+   ],
+   "uml-name": "SegmentIDType"
+  },
+  "structure-id-ref": {
+   "id": "structure-id-ref",
+   "uml-id": "_N4GKkMKvEeWwLJhHQlOGSQ",
+   "uml-type": "ownedAttribute",
+   "type": "../OnfModel-CoreModel/CoreModel.uml#_SU3Q4I30EeO38ZmbECnvbg",
+   "order-number": 1,
+   "is-read-only": false,
+   "is-key": 1,
+   "uml-name": "structureIdRef"
+  },
+  "segment-id-ref": {
+   "id": "segment-id-ref",
+   "uml-id": "_nVubgMKvEeWwLJhHQlOGSQ",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 2,
+   "is-read-only": false,
+   "is-key": 2,
+   "description": [
+    "Combinations of structureId and segmentId must be unique inside the device to assure that every resource is used just once."
+   ],
+   "uml-name": "segmentIdRef",
+   "controlType": "number"
+  },
+  "segment-status-type": {
+   "id": "segment-status-type",
+   "uml-id": "_KwZVcMUCEeW3xsRKtpCLuA",
+   "uml-type": "uml:DataType",
+   "uml-name": "SegmentStatusType"
+  },
+  "segment-status-type-id": {
+   "id": "segment-status-type-id",
+   "uml-id": "_7JBAYOLbEeWM2vUDE3Xqhw",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 1,
+   "is-read-only": true,
+   "is-key": 1,
+   "uml-name": "segmentStatusTypeId",
+   "controlType": "number"
+  },
+  "segment-is-reserved-for-tdm": {
+   "id": "segment-is-reserved-for-tdm",
+   "uml-id": "__1DMwMUCEeW3xsRKtpCLuA",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean",
+   "order-number": 2,
+   "is-read-only": true,
+   "description": [
+    "The number of segments, which is configured by Structure::StructureConfiguration::tdmReservedNumberOfSegements, has to be reserved for TDM. Starting from the lowest index value, these segments have to be marked with a 'true' in segmentIsReservedForTdm."
+   ],
+   "uml-name": "segmentIsReservedForTdm",
+   "controlType": "checkbox"
+  },
+  "operational-status": {
+   "id": "operational-status",
+   "uml-id": "_ZA94EMUCEeW3xsRKtpCLuA",
+   "uml-type": "ownedAttribute",
+   "type": "../OnfModel-CoreModel/CoreModel.uml#_lNclkLEtEeSZUdYfPSdgew",
+   "order-number": 3,
+   "is-read-only": true,
+   "description": [
+    "Current operational status of each segment."
+   ],
+   "uml-name": "operationalStatus"
+  },
+  "obsolete-priority-class": {
+   "id": "obsolete-priority-class",
+   "uml-id": "_ebslwMnAEeWYRsWW_rqpgw",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 4,
+   "is-read-only": true,
+   "description": [
+    "PriorityClass as inherited from the associated Container::ContainerConfiguration::priorityClass. In case the device is capable of adapting the sequence, in which segments are being dropped in case of decreasing capacity of the air interface, priorityClass shall be considered, while calculating the dropOrderRank."
+   ],
+   "uml-name": "obsoletePriorityClass",
+   "controlType": "number"
+  },
+  "obsolete-drop-order-rank": {
+   "id": "obsolete-drop-order-rank",
+   "uml-id": "_DbJpMMnDEeWYRsWW_rqpgw",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 5,
+   "is-read-only": true,
+   "description": [
+    "In case the device is NOT capable of adapting the sequence, in which segments are being dropped in case of decreasing capacity of the air interface, dropOrderRank is number of segments minus sequence number of the segment. In case the device is capable of adapting the sequence, dropOrderRank has to be calculated by the device in dependency to the assigned priorityClass. _unique: within Structure::StructureStatus::segmentStatusList"
+   ],
+   "uml-name": "obsoleteDropOrderRank",
+   "controlType": "number"
+  },
+  "container-problem-severity-type": {
+   "id": "container-problem-severity-type",
+   "uml-id": "_OMPgwGz0Eeaf-__BRLM84g",
+   "uml-type": "uml:DataType",
+   "uml-name": "ContainerProblemSeverityType"
+  },
+  "container-current-problem-type": {
+   "id": "container-current-problem-type",
+   "uml-id": "__h1n4MXpEeWJ6KZuc0h_vw",
+   "uml-type": "uml:DataType",
+   "uml-name": "ContainerCurrentProblemType"
+  },
+  "container-performance-type": {
+   "id": "container-performance-type",
+   "uml-id": "_U9tW0EQeEea3g-FxAUaYRg",
+   "uml-type": "uml:DataType",
+   "description": [
+    "Consolidated performance information of the Container."
+   ],
+   "uml-name": "ContainerPerformanceType"
+  },
+  "tx-ethernet-bytes-max-s": {
+   "id": "tx-ethernet-bytes-max-s",
+   "uml-id": "_MaHB8H1IEeWHjMaYlqnBcw",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 1,
+   "is-read-only": true,
+   "unit": "Bytes/s",
+   "description": [
+    "Counts the number of Bytes of Ethernet traffic (before header compression) transmitted within a second and keeps the highest value within the measurement period. Field to be left blank for all types of TDM containers."
+   ],
+   "uml-name": "txEthernetBytesMaxS",
+   "controlType": "number"
+  },
+  "tx-ethernet-bytes-max-m": {
+   "id": "tx-ethernet-bytes-max-m",
+   "uml-id": "_M3NNoH1IEeWHjMaYlqnBcw",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 2,
+   "is-read-only": true,
+   "unit": "Bytes/min",
+   "description": [
+    "Counts the number of Bytes of Ethernet traffic (before header compression) transmitted within a minute and keeps the highest value with in the measurement period. Field to be left blank for all types of TDM containers."
+   ],
+   "uml-name": "txEthernetBytesMaxM",
+   "controlType": "number"
+  },
+  "tx-ethernet-bytes-sum": {
+   "id": "tx-ethernet-bytes-sum",
+   "uml-id": "_NWtNEH1IEeWHjMaYlqnBcw",
+   "uml-type": "ownedAttribute",
+   "type": "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer",
+   "order-number": 3,
+   "is-read-only": true,
+   "unit": "Bytes",
+   "description": [
+    "Total number of Bytes of Ethernet traffic (before header compression) transmitted (in direction out of the device) during the measurement period. Field to be left blank for all types of TDM containers."
+   ],
+   "uml-name": "txEthernetBytesSum",
+   "controlType": "number"
+  },
+  "container-current-performance-type": {
+   "id": "container-current-performance-type",
+   "uml-id": "_pA5AQGz6Eeaf-__BRLM84g",
+   "uml-type": "uml:DataType",
+   "description": [
+    "Turns performance information into current performance information by inheriting from OTN_CurrentData."
+   ],
+   "uml-name": "ContainerCurrentPerformanceType"
+  },
+  "container-historical-performance-type": {
+   "id": "container-historical-performance-type",
+   "uml-id": "_pTaToGz6Eeaf-__BRLM84g",
+   "uml-type": "uml:DataType",
+   "description": [
+    "Turns performance information into historical performance information by inheriting from OTN_HistoryData."
+   ],
+   "uml-name": "ContainerHistoricalPerformanceType"
+  },
+  "3-cz3-u-is-d-eead4-ers-mr-oj-bq": {
+   "id": "3-cz3-u-is-d-eead4-ers-mr-oj-bq",
+   "uml-id": "_3CZ3UIsDEead4ersMrOjBQ",
+   "enum": [
+    "NON",
+    "IF",
+    "RF"
+   ],
+   "is-read-only": false,
+   "uml-name": "_3CZ3UIsDEead4ersMrOjBQ"
+  },
+  "e-iml0-jh1-ee-w-udbnmm-ni-taa": {
+   "id": "e-iml0-jh1-ee-w-udbnmm-ni-taa",
+   "uml-id": "_eIml0JH1EeWUdbnmmNiTAA",
+   "enum": [
+    "NON_ALARMED",
+    "WARNING",
+    "MINOR",
+    "MAJOR",
+    "CRITICAL"
+   ],
+   "is-read-only": false,
+   "description": [
+    "According to ITU-T M.3160"
+   ],
+   "uml-name": "_eIml0JH1EeWUdbnmmNiTAA"
+  },
+  "e85-ns-i99-ee-w-fluv9-kl-ll5-a": {
+   "id": "e85-ns-i99-ee-w-fluv9-kl-ll5-a",
+   "uml-id": "_e85NsI99EeWFluv9KLLl5A",
+   "enum": [
+    "NOT_SPECIFIED",
+    "HORIZONTAL",
+    "VERTICAL"
+   ],
+   "is-read-only": false,
+   "uml-name": "_e85NsI99EeWFluv9KLLl5A"
+  },
+  "da-b5-ij-rg-ee-wx-ip-ew-zq-gmw": {
+   "id": "da-b5-ij-rg-ee-wx-ip-ew-zq-gmw",
+   "uml-id": "_DaB5IJRgEeWxIPEwZQ_gmw",
+   "enum": [
+    "HSB"
+   ],
+   "is-read-only": false,
+   "uml-name": "_DaB5IJRgEeWxIPEwZQ_gmw"
+  },
+  "01-d-yj-re-ee-wx-ip-ew-zq-gmw": {
+   "id": "01-d-yj-re-ee-wx-ip-ew-zq-gmw",
+   "uml-id": "_01_dYJReEeWxIPEwZQ_gmw",
+   "enum": [
+    "WORKING",
+    "PROTECTION",
+    "PROTECTED"
+   ],
+   "is-read-only": false,
+   "uml-name": "_01_dYJReEeWxIPEwZQ_gmw"
+  },
+  "du-js8-jox-ee-wz-6-sq-lz-uedw": {
+   "id": "du-js8-jox-ee-wz-6-sq-lz-uedw",
+   "uml-id": "_DUJs8JOXEeWz-6sqLzUedw",
+   "enum": [
+    "GROUP_DOWN",
+    "NOT_ALL_AI_ACTIVE",
+    "ALL_AI_ACTIVE"
+   ],
+   "is-read-only": false,
+   "uml-name": "_DUJs8JOXEeWz-6sqLzUedw"
+  }
+ }
+}

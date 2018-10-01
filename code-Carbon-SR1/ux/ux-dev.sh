@@ -1,8 +1,10 @@
 #!/bin/bash
 
-# build ux
-# cd mvn clean install -DskipTests
-export ODL_KARAF_HOME=$HOME/apps/odl/distribution-karaf-0.6.1-Carbon
+################################################################################
+# Please ensure that your ODL_KARAF_HOME enviroment variable is set correctly
+#
+# ODL_KARAF_HOME=$HOME/odl/distribution-karaf-0.6.1-Carbon
+UX_VERSION=0.5.1-SNAPSHOT;
 
 # clean
 rm -rf ~/.m2/repository/com/highstreet/technologies/odl/app/closedLoopAutomation-karaf/
@@ -44,7 +46,7 @@ declare -a bundleNames=(
     "ONF :: Wireless :: mwtnBrowser-bundle"
     "ONF :: Wireless :: otnBrowser-bundle"
     "ONF :: Wireless :: ethService-bundle"
-    "ONF :: Wireless :: onapMso-bundle"
+    "ONF :: Wireless :: onapSo-bundle"
     "ONF :: Wireless :: onapDcae-bundle"
     "ONF :: Wireless :: onapAai-bundle"
     "ONF :: Wireless :: mwtnConnect-bundle"
@@ -62,33 +64,36 @@ $ODL_KARAF_HOME/bin/client -u karaf "bundle:uninstall $names"
 # install bundles
 ## declare array of bundleNames
 declare -a bundles=(
-    mvn:com.highstreet.technologies.odl.dlux/mwtnCommons-bundle/0.5.1-SNAPSHOT 
-    mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/0.5.1-SNAPSHOT 
+    mvn:com.highstreet.technologies.odl.dlux/mwtnCommons-bundle/$UX_VERSION 
+    mvn:com.highstreet.technologies.odl.dlux/mwtnConnect-bundle/$UX_VERSION 
 
-    mvn:com.highstreet.technologies.odl.dlux/onapAai-bundle/0.5.1-SNAPSHOT 
-    mvn:com.highstreet.technologies.odl.dlux/onapDcae-bundle/0.5.1-SNAPSHOT 
-    mvn:com.highstreet.technologies.odl.dlux/onapMso-bundle/0.5.1-SNAPSHOT 
+    mvn:com.highstreet.technologies.odl.dlux/onapAai-bundle/$UX_VERSION 
+    mvn:com.highstreet.technologies.odl.dlux/onapDcae-bundle/$UX_VERSION 
+    mvn:com.highstreet.technologies.odl.dlux/onapSo-bundle/$UX_VERSION 
 
-    # mvn:com.highstreet.technologies.odl.dlux/ethService-bundle/0.5.1-SNAPSHOT
-    # mvn:com.highstreet.technologies.odl.dlux/otnBrowser-bundle/0.5.1-SNAPSHOT
+    # mvn:com.highstreet.technologies.odl.dlux/ethService-bundle/$UX_VERSION
+    # mvn:com.highstreet.technologies.odl.dlux/otnBrowser-bundle/$UX_VERSION
 
-    mvn:com.highstreet.technologies.odl.dlux/mwtnFault-bundle/0.5.1-SNAPSHOT
-    mvn:com.highstreet.technologies.odl.dlux/mwtnBrowser-bundle/0.5.1-SNAPSHOT 
-    mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceCurrent-bundle/0.5.1-SNAPSHOT 
-    mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceHistory-bundle/0.5.1-SNAPSHOT 
-    mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceLink-bundle/0.5.1-SNAPSHOT
-    mvn:com.highstreet.technologies.odl.dlux/mwtnInventory-bundle/0.5.1-SNAPSHOT 
-    mvn:com.highstreet.technologies.odl.dlux/mwtnTopology-bundle/0.5.1-SNAPSHOT 
-    mvn:com.highstreet.technologies.odl.dlux/mwtnTdm-bundle/0.5.1-SNAPSHOT 
-    # mvn:com.highstreet.technologies.odl.dlux/mwtnCompare-bundle/0.5.1-SNAPSHOT 
-    # mvn:cn.com.zte.odl.dlux/mwtnSpectrum-bundle/0.5.1-SNAPSHOT
-    # mvn:com.highstreet.technologies.odl.dlux/mwtnClosedLoop-bundle/0.5.1-SNAPSHOT 
-    mvn:com.highstreet.technologies.odl.dlux/mwtnEvents-bundle/0.5.1-SNAPSHOT 
-    mvn:com.highstreet.technologies.odl.dlux/mwtnTest-bundle/0.5.1-SNAPSHOT
-    mvn:com.highstreet.technologies.odl.dlux/mwtnMediator-bundle/0.5.1-SNAPSHOT
-    mvn:com.highstreet.technologies.odl.dlux/help-bundle/0.5.1-SNAPSHOT
-    mvn:com.highstreet.technologies.odl.dlux/mwtnLog-bundle/0.5.1-SNAPSHOT 
-    mvn:com.highstreet.technologies.odl.dlux/odlChat-bundle/0.5.1-SNAPSHOT
+    mvn:com.highstreet.technologies.odl.dlux/mwtnFault-bundle/$UX_VERSION
+    mvn:com.highstreet.technologies.odl.dlux/maintenancemode-bundle/$UX_VERSION
+    mvn:com.highstreet.technologies.odl.dlux/mwtnBrowser-bundle/$UX_VERSION 
+    mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceCurrent-bundle/$UX_VERSION 
+    mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceHistory-bundle/$UX_VERSION 
+    mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceLink-bundle/$UX_VERSION
+    mvn:com.highstreet.technologies.odl.dlux/security-bundle/$UX_VERSION
+    mvn:com.highstreet.technologies.odl.dlux/mwtnInventory-bundle/$UX_VERSION 
+    mvn:com.highstreet.technologies.odl.dlux/mwtnTopology-bundle/$UX_VERSION 
+    mvn:com.highstreet.technologies.odl.dlux/emergency-bundle/$UX_VERSION 
+    mvn:com.highstreet.technologies.odl.dlux/mwtnTdm-bundle/$UX_VERSION 
+    # mvn:com.highstreet.technologies.odl.dlux/mwtnCompare-bundle/$UX_VERSION 
+    # mvn:cn.com.zte.odl.dlux/mwtnSpectrum-bundle/$UX_VERSION
+    # mvn:com.highstreet.technologies.odl.dlux/mwtnClosedLoop-bundle/$UX_VERSION 
+    mvn:com.highstreet.technologies.odl.dlux/mwtnEvents-bundle/$UX_VERSION 
+    mvn:com.highstreet.technologies.odl.dlux/mwtnTest-bundle/$UX_VERSION
+    mvn:com.highstreet.technologies.odl.dlux/mwtnMediator-bundle/$UX_VERSION
+    mvn:com.highstreet.technologies.odl.dlux/mwtnLog-bundle/$UX_VERSION 
+    mvn:com.highstreet.technologies.odl.dlux/odlChat-bundle/$UX_VERSION
+    mvn:com.highstreet.technologies.odl.dlux/help-bundle/$UX_VERSION
 )
 
 ## execute bundle uninstall 
@@ -99,9 +104,4 @@ do
 done
 $ODL_KARAF_HOME/bin/client -u karaf "bundle:install -s $bundleMvns"
 
-# open brwoser
-x-www-browser http://localhost:8181/index.html
-
-# remove target folders for easy search functionality
-mvn clean
-find * -type d -name "target-ide" -exec rm -rf {} \;
+echo "ux-dev done!";
