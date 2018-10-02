@@ -14,18 +14,17 @@
     <!-- <name> formatting is used by autorelease to parse and notify projects on
          build failure. Please do not modify this unless you have a good reason. -->
     <name>${prefix} ${project.artifactId}</name>
-    <version>0.5.1-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
             <groupId>org.opendaylight.dlux</groupId>
             <artifactId>loader</artifactId>
-            <version>0.5.1-Carbon</version>
+            <version>${dlux.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.onap.sdnc.dluxapps</groupId>
+            <groupId>com.highstreet.technologies.odl.dlux</groupId>
             <artifactId>security-module</artifactId>
-            <version>0.5.1</version>
+            <version>0.5.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

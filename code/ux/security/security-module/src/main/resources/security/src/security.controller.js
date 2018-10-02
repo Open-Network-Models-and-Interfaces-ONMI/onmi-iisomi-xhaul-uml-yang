@@ -101,21 +101,97 @@ define( ["require", "exports", "security.service"], function (require, exports) 
         }
         return UserDetailsCtrl;
     }());
-    security.controller('userDetailsCtrl', ['$rootScope', '$scope', '$uibModalInstance', 'userid', 'roles', UserDetailsCtrl]);
+    security.controller('userDetailsCtrl', ['$scope', '$uibModalInstance', 'userid', 'roles', UserDetailsCtrl]);
     var SecurityCtrl = /** @class */ (function () {
-        function SecurityCtrl($rootScope, $scope, $timeout, $q, $uibModal, $document, $mwtnCommons, securityService) {
+        function SecurityCtrl($scope, $timeout, $q, $uibModal, $document, $mwtnCommons, securityService) {
             this.$q = $q;
             this.$uibModal = $uibModal;
             this.$document = $document;
             this.securityService = securityService;
-            $rootScope.section_logo = 'src/app/security/src/images/security.png'; 
+
+            $scope.highlightFilteredHeader = $mwtnCommons.highlightFilteredHeader;
+            $scope.oneAtATime = true;
+            $scope.status = { user: true };
+            $scope.spinner = {};
+            $scope.spinner.TEST = true;
+
+            var nameCellTemplates = [
+                '<div class="ui-grid-cell-contents">',
+                '  <a href="{{row.entity.webUri}}" target="_blank" title="Access NE web application" ng-show="row.entity.webUri">',
+                '    <i class="fa fa-external-link" aria-hidden="true"></i>',
+                '    <span>{{grid.getCellValue(row, col)}}</span>',
+                '  </a>',
+                '  <span ng-show="!row.entity.webUri">{{grid.getCellValue(row, col)}}</span>',
+                '</div>'].join('');
+
+                
+            var actionsTemplate = [
+                '<span>&nbsp;&nbsp;</span>',
+                '<div class="btn-group">',
+                '<button class="btn btn-success" ng-click="grid.appScope.getCurrentUserById(row.entity.userid)">Info</button>',
+                '<div class="btn-group">',
+                '<span>&nbsp;</span>'].join('');
+
+            $scope.userDetailsGridOptions = JSON.parse(JSON.stringify($mwtnCommons.gridOptions));
+            $scope.userDetailsGridOptions.rowHeight = 44;
+            $scope.userDetailsGridOptions.columnDefs = [
+              {
+                field: 'userid',
+                type: 'string', 
+                displayName: 'User Id',
+                headerCellClass: $scope.highlightFilteredHeader, 
+                width: 230,
+                cellTemplate: nameCellTemplates,
+                pinnedLeft: true,
+                sort: {
+                  ignoreSort: false,
+                  priority: 0
+                },
+                enableCellEdit: false
+              },
+              { field: 'name', type: 'string', displayName: 'User Name', headerCellClass: $scope.highlightFilteredHeader, width: 180, enableCellEdit: false },
+              { field: 'description', type: 'string', displayName: 'Description', headerCellClass: $scope.highlightFilteredHeader, width: 140, enableCellEdit: false },
+              { field: 'enabled', type: 'boolean', displayName: 'Enabled', headerCellClass: $scope.highlightFilteredHeader, width: 140, enableCellEdit: false },
+              { field: 'email', type: 'string', displayName: 'Email Id', headerCellClass: $scope.highlightFilteredHeader, width: 140, enableCellEdit: false },
+              { field: 
+                'domainid', type: 'string', displayName: 'Domain Id', headerCellClass: $scope.highlightFilteredHeader, width: 140, enableCellEdit: false },
+              {
+                name: 'Actions',
+                enableSorting: false,
+                enableFiltering: false,
+                cellTemplate: actionsTemplate,
+                width: 300,
+                pinnedRight: false
+              }
+            ];
+
+            $scope.roleDetailsGridOptions = JSON.parse(JSON.stringify($mwtnCommons.gridOptions));
+            $scope.roleDetailsGridOptions.rowHeight = 44;
+            $scope.roleDetailsGridOptions.columnDefs = [
+              {
+                field: 'roleid',
+                type: 'string', 
+                displayName: 'Role Id',
+                headerCellClass: $scope.highlightFilteredHeader, 
+                width: 230,
+                pinnedLeft: true,
+                sort: {
+                  ignoreSort: false,
+                  priority: 0
+                },
+                enableCellEdit: false
+              },
+              { field: 'name', type: 'string', displayName: 'Role Name', headerCellClass: $scope.highlightFilteredHeader, width: 180, enableCellEdit: false },
+              { field: 'description', type: 'string', displayName: 'Description', headerCellClass: $scope.highlightFilteredHeader, width: 180, enableCellEdit: false },
+              { field: 'domainid', type: 'string', displayName: 'Domain Id', headerCellClass: $scope.highlightFilteredHeader, width: 180, enableCellEdit: false }
+            ];
             $scope.message = "Empty";
             $scope.users = [];
             $scope.roles = [];
-            $scope.currentUser = {};
+            $scope.currentUser = {}; 
             $scope.getCurrentUserById = function (id) {
                 id !== null && securityService.getRolesForDomainUser(id).then(function (roles) {
-                    var parentElem = angular.element($document[0].querySelector('#security'));
+                //    var parentElem = angular.element($document[0].querySelector('#security'));
                     var modalInstance = $uibModal.open({
                         animation: true,
                         ariaLabelledBy: 'modal-title',
@@ -123,7 +199,7 @@ define( ["require", "exports", "security.service"], function (require, exports) 
                         templateUrl: 'src/app/security/templates/userDetails.html',
                         controller: 'userDetailsCtrl',
                         controllerAs: 'vm',
-                        appendTo: parentElem,
+                        //appendTo: parentElem,
                         size: 'sm',
                         resolve: {
                             roles: function () { return roles; },
@@ -139,7 +215,9 @@ define( ["require", "exports", "security.service"], function (require, exports) 
                 ]).then(function (_a) {
                     var users = _a[0], roles = _a[1];
                     $scope.users = users;
+                    $scope.userDetailsGridOptions.data = users;
                     $scope.roles = roles;
+                    $scope.roleDetailsGridOptions.data = roles;
                 });
             });
         }

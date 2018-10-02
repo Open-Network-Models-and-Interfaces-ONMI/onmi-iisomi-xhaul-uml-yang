@@ -24,14 +24,14 @@ security.controller('userDetailsCtrl', ['$scope', '$uibModalInstance', 'userid',
 
 class SecurityCtrl {
   constructor($scope, $timeout, private $q: ng.IQService, private $uibModal, private $document : ng.IDocumentService,  $mwtnCommons, private securityService: SecurityService) {
-$rootScope    $scope.message = "Empty";
+    $scope.message = "Empty";
     $scope.users = [];
     $scope.roles = [];
     $scope.currentUser = {};
 
     $scope.getCurrentUserById = function (id: string) {
       id !== null && securityService.getRolesForDomainUser(id).then(roles => {
-        const parentElem = angular.element($document[0].querySelector('#security'));
+       // const parentElem = angular.element($document[0].querySelector('#security'));
         const modalInstance = $uibModal.open({
           animation: true,
           ariaLabelledBy: 'modal-title',
@@ -39,7 +39,7 @@ $rootScope    $scope.message = "Empty";
           templateUrl: 'src/app/security/templates/userDetails.html',
           controller: 'userDetailsCtrl',
           controllerAs: 'vm',
-          appendTo: parentElem,
+         // appendTo: parentElem,
           size: 'sm',
           resolve: {
             roles: () => roles,
