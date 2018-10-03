@@ -130,7 +130,7 @@ define( ["require", "exports", "security.service"], function (require, exports) 
             var actionsTemplate = [
                 '<span>&nbsp;&nbsp;</span>',
                 '<div class="btn-group">',
-                '<button class="btn btn-success" ng-click="grid.appScope.getCurrentUserById(row.entity.userid)">Info</button>',
+                '<button class="btn btn-success" ng-click="grid.appScope.getCurrentUserById(row.entity.userid)" title="Information"><i class="fa fa-info-circle" aria-hidden="true"></i></button>',
                 '<div class="btn-group">',
                 '<span>&nbsp;</span>'].join('');
 
