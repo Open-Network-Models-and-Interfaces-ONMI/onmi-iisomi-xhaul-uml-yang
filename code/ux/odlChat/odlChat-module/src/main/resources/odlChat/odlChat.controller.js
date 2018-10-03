@@ -16,7 +16,7 @@ define(
      
         $scope.collection = [];
         $scope.chat = {
-          nickname : 'anonymous',
+          nickname : localStorage.odlUser,
           message : "Hey, what's up?!"
         };
 
@@ -52,6 +52,13 @@ define(
           } catch (e) {
             alert("Error when creating WebSocket" + e);
           }
+
+          $odlChat.send({
+            nickname : localStorage.odlUser,
+            message : "... has entered the ODL chat."
+          }, function(info) {
+            console.info(info);
+          });
         };
 
         $scope.send = function(chat) {
@@ -64,6 +71,7 @@ define(
         $odlChat.register(path, function(socketLocation) {
           listenToNotifications(socketLocation);
         });
+
       };
 
       odlChatApp.register.controller('odlChatCtrl', [ '$scope', '$rootScope',
