@@ -3,7 +3,7 @@
 ################################################################################
 # Please ensure that your ODL_KARAF_HOME enviroment variable is set correctly
 #
-# ODL_KARAF_HOME=$HOME/odl/distribution-karaf-0.6.1-Carbon
+ODL_KARAF_HOME=$HOME/odl/distribution-karaf-0.6.1-Carbon
 UX_VERSION=0.5.1-SNAPSHOT;
 
 # clean
@@ -38,6 +38,7 @@ declare -a bundleNames=(
     "ONF :: Wireless :: emergency-bundle"
     "ONF :: Wireless :: mwtnInventory-bundle"
     "ONF :: Wireless :: security-bundle"
+    "ONF :: Wireless :: protection-bundle"
     "ONF :: Wireless :: mwtnPerformanceLink-bundle"
     "ONF :: Wireless :: mwtnPerformanceHistory-bundle"
     "ONF :: Wireless :: mwtnPerformanceCurrent-bundle"
@@ -81,6 +82,7 @@ declare -a bundles=(
     mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceHistory-bundle/$UX_VERSION 
     mvn:com.highstreet.technologies.odl.dlux/mwtnPerformanceLink-bundle/$UX_VERSION
     mvn:com.highstreet.technologies.odl.dlux/security-bundle/$UX_VERSION
+    mvn:com.highstreet.technologies.odl.dlux/protection-bundle/$UX_VERSION
     mvn:com.highstreet.technologies.odl.dlux/mwtnInventory-bundle/$UX_VERSION 
     mvn:com.highstreet.technologies.odl.dlux/mwtnTopology-bundle/$UX_VERSION 
     mvn:com.highstreet.technologies.odl.dlux/emergency-bundle/$UX_VERSION 
@@ -104,4 +106,9 @@ do
 done
 $ODL_KARAF_HOME/bin/client -u karaf "bundle:install -s $bundleMvns"
 
-echo "ux-dev done!";
+# open brwoser
+x-www-browser http://localhost:8181/index.html
+
+# remove target folders for easy search functionality
+mvn clean
+find * -type d -name "target-ide" -exec rm -rf {} \;
