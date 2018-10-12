@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.onap.sdnc.dluxapps</groupId>
+        <groupId>com.highstreet.technologies.odl.dlux</groupId>
         <artifactId>security</artifactId>
-        <version>0.5.1</version>
+        <version>0.5.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.onap.sdnc.dluxapps</groupId>
+    <groupId>com.highstreet.technologies.odl.dlux</groupId>
     <artifactId>security-bundle</artifactId>
     <packaging>bundle</packaging>
     <!-- <name> formatting is used by autorelease to parse and notify projects on
@@ -19,12 +19,12 @@
         <dependency>
             <groupId>org.opendaylight.dlux</groupId>
             <artifactId>loader</artifactId>
-            <version>0.5.1-Carbon</version>
+            <version>${dlux.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.onap.sdnc.dluxapps</groupId>
+            <groupId>com.highstreet.technologies.odl.dlux</groupId>
             <artifactId>security-module</artifactId>
-            <version>0.5.1</version>
+            <version>0.5.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

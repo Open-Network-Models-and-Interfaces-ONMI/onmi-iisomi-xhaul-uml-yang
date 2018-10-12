@@ -9,9 +9,7 @@
 package org.opendaylight.mwtn.devicemanager.impl.listener;
 
 import java.util.List;
-
 import javax.annotation.Nullable;
-
 import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
 import org.opendaylight.mwtn.base.toggleAlarmFilter.NotificationDelayFilter;
@@ -24,13 +22,13 @@ import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectCreationNotificationXm
 import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectDeletionNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.WebSocketServiceClient;
-import org.opendaylight.mwtn.maintenance.MaintenaceService;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180927.AttributeValueChangedNotification;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180927.MicrowaveModelListener;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180927.ObjectCreationNotification;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180927.ObjectDeletionNotification;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180927.ProblemNotification;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180927.SeverityType;
+import org.opendaylight.mwtn.maintenance.MaintenanceService;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.AttributeValueChangedNotification;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.MicrowaveModelListener;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.ObjectCreationNotification;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.ObjectDeletionNotification;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.ProblemNotification;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.SeverityType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,14 +47,14 @@ public class MicrowaveEventListener12 implements MicrowaveModelListener, Notific
     //private final XmlMapper xmlMapper;
     private final HtDatabaseEventsService databaseService;
     private final ProviderClient dcaeProvider;
-	private final @Nullable ProviderClient aotsmClient;
+    private final @Nullable ProviderClient aotsmClient;
 
-	private final MaintenaceService maintenanceService;
+    private final MaintenanceService maintenanceService;
 
-	private final NotificationDelayFilter<ProblemNotification> delayFilter;
+    private final NotificationDelayFilter<ProblemNotification> delayFilter;
 
     public MicrowaveEventListener12(String nodeName, WebSocketServiceClient webSocketService,
-            HtDatabaseEventsService databaseService, ProviderClient dcaeProvider,@Nullable ProviderClient aotsmClient, MaintenaceService maintenanceService2,NotificationDelayService notificationDelayService) {
+            HtDatabaseEventsService databaseService, ProviderClient dcaeProvider,@Nullable ProviderClient aotsmClient, MaintenanceService maintenanceService2,NotificationDelayService notificationDelayService) {
         super();
         this.nodeName = nodeName;
         //this.websocketmanagerService = websocketmanagerService;
@@ -65,8 +63,8 @@ public class MicrowaveEventListener12 implements MicrowaveModelListener, Notific
         this.databaseService = databaseService;
         this.dcaeProvider = dcaeProvider;
         this.aotsmClient = aotsmClient;
-    	this.maintenanceService=maintenanceService2;
-    	this.delayFilter=notificationDelayService.getInstance12(nodeName,this);
+        this.maintenanceService=maintenanceService2;
+        this.delayFilter=notificationDelayService.getInstance12(nodeName, this);//12(nodeName,this);
     }
 
     @Override
@@ -126,16 +124,17 @@ public class MicrowaveEventListener12 implements MicrowaveModelListener, Notific
 
         //ToggleAlarmFilter functionality
         if(NotificationDelayFilter.isEnabled())
-    	{
-    		if(notification.getSeverity()== SeverityType.NonAlarmed)
-				delayFilter.clearAlarmNotification(notification.getProblem(), notification);
-			else
-				delayFilter.pushAlarmNotification(notification.getProblem(), notification);
-    	}
-    	else
-    	{
-    		 this.pushAlarmIfNotInMaintenance(notificationXml);
-    	}
+        {
+            if(notification.getSeverity()== SeverityType.NonAlarmed) {
+                delayFilter.clearAlarmNotification(notification.getProblem(), notification);
+            } else {
+                delayFilter.pushAlarmNotification(notification.getProblem(), notification);
+            }
+        }
+        else
+        {
+             this.pushAlarmIfNotInMaintenance(notificationXml);
+        }
         //end of ToggleAlarmFilter
 
         this.webSocketService.sendViaWebsockets(nodeName, notificationXml);
@@ -143,36 +142,38 @@ public class MicrowaveEventListener12 implements MicrowaveModelListener, Notific
     }
 
     @Override
-	public void onNotificationDelay(ProblemNotification notification) {
+    public void onNotificationDelay(ProblemNotification notification) {
 
-    	LOG.debug("Got delayed event of type :: {}", ProblemNotification.class.getSimpleName());
+        LOG.debug("Got delayed event of type :: {}", ProblemNotification.class.getSimpleName());
 
          ProblemNotificationXml notificationXml = new ProblemNotificationXml(nodeName, notification.getObjectIdRef().getValue(),
                  notification.getProblem(), InternalSeverity.valueOf(notification.getSeverity()),
                  notification.getCounter().toString(), InternalDateAndTime.valueOf(notification.getTimeStamp()));
          this.pushAlarmIfNotInMaintenance(notificationXml);
 
-	}
+    }
     private void pushAlarmIfNotInMaintenance(ProblemNotificationXml notificationXml)
     {
-    	 if(!this.maintenanceService.isONFObjectInMaintenance(nodeName, notificationXml.getObjectId(), notificationXml.getProblem()))
+         if(!this.maintenanceService.isONFObjectInMaintenance(nodeName, notificationXml.getObjectId(), notificationXml.getProblem()))
          {
- 	        this.dcaeProvider.sendProblemNotification(nodeName, notificationXml);
- 	        if(this.aotsmClient!=null)
- 	        	this.aotsmClient.sendProblemNotification(nodeName, notificationXml);
+             this.dcaeProvider.sendProblemNotification(nodeName, notificationXml);
+             if(this.aotsmClient!=null) {
+                this.aotsmClient.sendProblemNotification(nodeName, notificationXml);
+            }
          }
          else
- 		{
- 			LOG.debug("Notification will not be sent to external services. Device "+this.nodeName+" is in maintenance mode");
- 		}
+         {
+             LOG.debug("Notification will not be sent to external services. Device "+this.nodeName+" is in maintenance mode");
+         }
     }
     private void initCurrentProblem(ProblemNotificationXml notificationXml) {
         databaseService.updateFaultCurrent(notificationXml);
         //to prevent push alarms on reconnect
         //=> only pushed alarms are forwared to dcae
         //dcaeProvider.sendProblemNotification(nodeName, notificationXml);
-        if(aotsmClient!=null)
-        	aotsmClient.sendProblemNotification(this.nodeName, notificationXml);
+        if(aotsmClient!=null) {
+            aotsmClient.sendProblemNotification(this.nodeName, notificationXml);
+        }
     }
 
     /**

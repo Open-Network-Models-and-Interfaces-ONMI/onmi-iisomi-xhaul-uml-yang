@@ -634,7 +634,6 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
     }
 
     // get important infromation from yang modules
-    console.error('help');
     $mwtnBrowser.getModules().then(function(success){
 
       var pacOrder = [
@@ -682,6 +681,7 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
               return success[module][pacName][conditionalPackage]['local-name'];
             });
           }
+          // $scope.parts = ["capability","configuration","status","current-problems","current-performance","historical-performances"];
         });
       });
     }, function(error){

@@ -26,27 +26,18 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/odlChat/odlChat.module'],func
 
     var service = {
       base : window.location.origin + "/restconf/",
+      nodeId: 'ODL-Chat-1a'
     };
     
 
-    service.getData = function(event, callback) {
+    service.getData = function() {
 
       var request = {
         method : 'GET',
         url : [ service.base,
-            'config/opendaylight-inventory:nodes/node/odlChat/' ].join('')
+            'config/opendaylight-inventory:nodes/node/', service.nodeId, '/' ].join('')
       };
-      $http(request).then(function successCallback(response) {
-        tweet = {
-          nickname : response.data.node[0]['flow-node-inventory:manufacturer'],
-          message : response.data.node[0]['flow-node-inventory:description'],
-          time : JSON.stringify(new Date()).split('T')[1].substring(0, 5)
-        };
-        callback('', tweet);
-      }, function errorCallback(response) {
-        console.error(JSON.stringify(response));
-        callback('ERROR while sending ;(');
-      });
+      return $http(request);
 
     };
 
@@ -76,19 +67,26 @@ define(['app/mwtnCommons/mwtnCommons.module', 'app/odlChat/odlChat.module'],func
     };
 
     service.send = function(chat, callback) {
-      var request = {
+
+      var tweet = {
+        nickname: chat.nickname,
+        message: chat.message
+      };
+      var request = {      
         method : 'PUT',
         url : [ service.base,
-            'config/opendaylight-inventory:nodes/node/odlChat' ].join(''),
+            'config/opendaylight-inventory:nodes/node/', service.nodeId ].join(''),
         data : {
-          "node" : [ {
-            "id" : "odlChat",
-            "flow-node-inventory:manufacturer" : chat.nickname,
-            "flow-node-inventory:software" : "",
-            "flow-node-inventory:serial-number" : "",
-            "flow-node-inventory:hardware" : "",
-            "flow-node-inventory:description" : chat.message
-          } ]
+          "opendaylight-inventory:node": [
+            {
+              "opendaylight-inventory:netconf-node-inventory:connected": "true",
+              "opendaylight-inventory:netconf-node-inventory:pass-through": {},
+              "opendaylight-inventory:netconf-node-inventory:current-capability": [JSON.stringify(tweet)],
+              "opendaylight-inventory:node-connector": [],
+              "opendaylight-inventory:id": service.nodeId,
+              "opendaylight-inventory:netconf-node-inventory:initial-capability": []
+            }
+          ]
         }
       };
       $http(request).then(function successCallback(response) {

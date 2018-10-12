@@ -12,11 +12,11 @@ define(
 
       var main = function($scope, $rootScope, $odlChat) {
 
-        $rootScope.section_logo = 'src/app/odlChat/odlChat.png';
+        $rootScope.section_logo = 'src/app/odlChat/logo_chat.gif';
      
         $scope.collection = [];
         $scope.chat = {
-          nickname : 'anonymous',
+          nickname : localStorage.odlUser,
           message : "Hey, what's up?!"
         };
 
@@ -26,41 +26,52 @@ define(
 
             notificatinSocket.onmessage = function(event) {
               // we process our received event here
-              $odlChat.getData(event, function(info, tweet) {
+              $odlChat.getData().then(response => {
+                tweet = JSON.parse(response.data.node[0]['netconf-node-inventory:current-capability'][0]) || {};
+                tweet.time = JSON.stringify(new Date()).split('T')[1].substring(0, 5);
                 $scope.collection.push(tweet);
                 if ($scope.collection.length > 20) {
                   $scope.collection.shift();
                 }
-                
-                $scope.chat.message = info;
+              }, response => {
+                console.error(JSON.stringify(response));
+                $scope.chat.message = "Error while reading message ;(";
               });
             };
             notificatinSocket.onerror = function(error) {
-              console.log("Socket error: " + JSON.stringify(error));
+              console.info("Socket error: " + JSON.stringify(error));
             };
             notificatinSocket.onopen = function(event) {
-              console.log("Socket connection opened.");
+              console.info("Socket connection opened.");
             };
             notificatinSocket.onclose = function(event) {
-              console.log("Socket connection closed.");
+              console.info("Socket connection closed.");
             };
             // if there is a problem on socket creation we get
             // exception (i.e. when socket address is incorrect)
           } catch (e) {
             alert("Error when creating WebSocket" + e);
           }
+
+          $odlChat.send({
+            nickname : localStorage.odlUser,
+            message : "... has entered the ODL chat."
+          }, function(info) {
+            console.info(info);
+          });
         };
 
         $scope.send = function(chat) {
           $odlChat.send(chat, function(info) {
-            console.log(info);
+            console.info(info);
           });
         };
 
-        var path = "/opendaylight-inventory:nodes/opendaylight-inventory:node[opendaylight-inventory:id='odlChat']";
+        var path = "/opendaylight-inventory:nodes/opendaylight-inventory:node[opendaylight-inventory:id='" + $odlChat.nodeId + "']";
         $odlChat.register(path, function(socketLocation) {
           listenToNotifications(socketLocation);
         });
+
       };
 
       odlChatApp.register.controller('odlChatCtrl', [ '$scope', '$rootScope',

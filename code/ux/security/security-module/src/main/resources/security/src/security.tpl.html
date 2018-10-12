@@ -1,4 +1,36 @@
-<div id="security">
+
+<ht-header help-link='sdnr/security/0.4.0/README.md'></ht-header>
+
+<uib-accordion close-others="oneAtATime">
+
+	<div uib-accordion-group class="panel-primary" is-open="status.user">
+		<uib-accordion-heading>
+			<i class="pull-left fa" ng-class="{'fa-chevron-down': status.user, 'fa-chevron-right': !status.user}"></i>
+			<span>Users</span>
+		</uib-accordion-heading>
+		<div id="userGrid" ui-grid="userDetailsGridOptions" ui-grid-exporter ui-grid-edit ui-grid-selection ui-grid-pinning
+		 ui-grid-resize-columns ui-grid-move-columns class="userGrid">
+		</div>
+	</div>
+
+	<div uib-accordion-group class="panel-primary" is-open="status.role">
+		<uib-accordion-heading>
+			<i class="pull-left fa" ng-class="{'fa-chevron-down': status.role, 'fa-chevron-right': !status.role}"></i>
+			<span>Roles</span>
+		</uib-accordion-heading>
+		<div id="roleGrid" ui-grid="roleDetailsGridOptions" ui-grid-exporter ui-grid-edit ui-grid-selection ui-grid-pinning
+		 ui-grid-resize-columns ui-grid-move-columns class="roleGrid">
+		</div>
+	</div>
+
+</uib-accordion>
+
+<hr />
+<div class="owl">
+	<span class="white">ONAP SDN-R | ONF Wireless for @distversion@ - Build: @buildtime@</span>
+</div>
+
+<!-- <div id="security">
    <h2>Users</h2>
    <table class="table">
      <thead>
@@ -34,7 +66,6 @@
 			<th>Name</th>
 			<th>Description</th>
 			<th>Domain</th>
-			<!-- <th>Actions</th> -->
 		</tr>
 	</thead>
 	<tbody>
@@ -43,8 +74,7 @@
 			<td>{{role.name}}</td>
 			<td>{{role.description}}</td>
 			<td>{{role.domainid}}</td>
-			<!-- <td><button class="btn btn-sm btn-success">Info</button></td> -->
 		</tr>
 	</tbody>
 </table>
-</div>
+</div> -->

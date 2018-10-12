@@ -19,8 +19,8 @@ import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectCreationNotificationXm
 import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectDeletionNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.WebSocketServiceClient;
-import org.opendaylight.mwtn.maintenance.MaintenaceService;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180927.ProblemNotification;
+import org.opendaylight.mwtn.maintenance.MaintenanceService;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.ProblemNotification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,165 +37,160 @@ import org.slf4j.LoggerFactory;
 
 public class ODLEventListener {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ODLEventListener.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ODLEventListener.class);
 
-	private final String ownKeyName;
+    private final String ownKeyName;
 
-	private final WebSocketServiceClient webSocketService;
-	private final HtDatabaseEventsService databaseService;
-	private final ProviderClient dcaeProvider;
-	private final ProviderClient aotsMProvider;
-	private int eventNumber;
-	private final MaintenaceService maintenanceService;
-	/*---------------------------------------------------------------
-	 * Construct
-	 */
+    private final WebSocketServiceClient webSocketService;
+    private final HtDatabaseEventsService databaseService;
+    private final ProviderClient dcaeProvider;
+    private final ProviderClient aotsMProvider;
+    private int eventNumber;
+    private final MaintenanceService maintenanceService;
+    /*---------------------------------------------------------------
+     * Construct
+     */
 
-	/**
-	 * Create a Service to document events to clients and within a database
-	 *
-	 * @param ownKeyName
-	 *            The name of this service, that is used in the database as
-	 *            identification key.
-	 * @param webSocketService
-	 *            service to direct messages to clients
-	 * @param databaseService
-	 *            service to write to the database
-	 * @param dcaeProvider
-	 *            to deliver problems to
-	 * @param maintenanceService2
-	 */
-	public ODLEventListener(String ownKeyName, WebSocketServiceClient webSocketService,
-			HtDatabaseEventsService databaseService, ProviderClient dcaeProvider,
-			@Nullable ProviderClient aotsMProvider, MaintenaceService maintenanceService) {
-		super();
+    /**
+     * Create a Service to document events to clients and within a database
+     *
+     * @param ownKeyName          The name of this service, that is used in the
+     *                            database as identification key.
+     * @param webSocketService    service to direct messages to clients
+     * @param databaseService     service to write to the database
+     * @param dcaeProvider        to deliver problems to
+     * @param maintenanceService2
+     */
+    @SuppressWarnings("javadoc")
+    public ODLEventListener(String ownKeyName, WebSocketServiceClient webSocketService,
+            HtDatabaseEventsService databaseService, ProviderClient dcaeProvider,
+            @Nullable ProviderClient aotsMProvider, MaintenanceService maintenanceService) {
+        super();
 
-		this.ownKeyName = ownKeyName;
-		this.webSocketService = webSocketService;
+        this.ownKeyName = ownKeyName;
+        this.webSocketService = webSocketService;
 
-		this.databaseService = databaseService;
-		this.dcaeProvider = dcaeProvider;
-		this.aotsMProvider = aotsMProvider;
+        this.databaseService = databaseService;
+        this.dcaeProvider = dcaeProvider;
+        this.aotsMProvider = aotsMProvider;
 
-		this.eventNumber = 0;
-		this.maintenanceService=maintenanceService;
+        this.eventNumber = 0;
+        this.maintenanceService = maintenanceService;
 
-	}
+    }
 
-	/*---------------------------------------------------------------
-	 * Functions
-	 */
+    /*---------------------------------------------------------------
+     * Functions
+     */
 
-	/**
-	 * A registration of a mountpoint occured.
-	 *
-	 * @param registrationName
-	 *            Name of the event that is used as key in the database.
-	 */
+    /**
+     * A registration of a mountpoint occured.
+     *
+     * @param registrationName Name of the event that is used as key in the
+     *                         database.
+     */
 
-	public void registration(String registrationName) {
+    public void registration(String registrationName) {
 
-		ObjectCreationNotificationXml cNotificationXml = new ObjectCreationNotificationXml(ownKeyName,
-				popEvntNumberAsString(), InternalDateAndTime.valueOf(NetconfTimeStamp.getTimeStamp()),
-				registrationName);
+        ObjectCreationNotificationXml cNotificationXml = new ObjectCreationNotificationXml(ownKeyName,
+                popEvntNumberAsString(), InternalDateAndTime.valueOf(NetconfTimeStamp.getTimeStamp()),
+                registrationName);
 
-		// Write first to prevent missing entries
-		databaseService.writeEventLog(cNotificationXml);
+        // Write first to prevent missing entries
+        databaseService.writeEventLog(cNotificationXml);
 
-		webSocketService.sendViaWebsockets(registrationName, cNotificationXml);
+        webSocketService.sendViaWebsockets(registrationName, cNotificationXml);
 
-	}
+    }
 
-	/**
-	 * A deregistration of a mountpoint occured.
-	 *
-	 * @param registrationName
-	 *            Name of the event that is used as key in the database.
-	 */
+    /**
+     * A deregistration of a mountpoint occured.
+     *
+     * @param registrationName Name of the event that is used as key in the
+     *                         database.
+     */
 
-	public void deRegistration(String registrationName) {
+    public void deRegistration(String registrationName) {
 
-		ObjectDeletionNotificationXml dNotificationXml = new ObjectDeletionNotificationXml(ownKeyName,
-				popEvntNumberAsString(), InternalDateAndTime.valueOf(NetconfTimeStamp.getTimeStamp()),
-				registrationName);
+        ObjectDeletionNotificationXml dNotificationXml = new ObjectDeletionNotificationXml(ownKeyName,
+                popEvntNumberAsString(), InternalDateAndTime.valueOf(NetconfTimeStamp.getTimeStamp()),
+                registrationName);
 
-		// Write first to prevent missing entries
-		databaseService.writeEventLog(dNotificationXml);
+        // Write first to prevent missing entries
+        databaseService.writeEventLog(dNotificationXml);
 
-		webSocketService.sendViaWebsockets(registrationName, dNotificationXml);
+        webSocketService.sendViaWebsockets(registrationName, dNotificationXml);
 
-	}
+    }
 
-	/**
-	 * At a mountpoint a problem situation is indicated
-	 *
-	 * @param registrationName
-	 *            indicating object within SDN controller, normally the
-	 *            mountpointName
-	 * @param problemName
-	 *            that changed
-	 * @param problemSeverity
-	 *            of the problem according to NETCONF/YANG
-	 */
+    /**
+     * At a mountpoint a problem situation is indicated
+     *
+     * @param registrationName indicating object within SDN controller, normally the
+     *                         mountpointName
+     * @param problemName      that changed
+     * @param problemSeverity  of the problem according to NETCONF/YANG
+     */
 
-	public void onProblemNotification(String registrationName, String problemName, InternalSeverity problemSeverity) {
-		LOG.debug("Got event of type :: {}", ProblemNotification.class.getSimpleName());
-		// notification
+    public void onProblemNotification(String registrationName, String problemName, InternalSeverity problemSeverity) {
+        LOG.debug("Got event of type :: {} or {}", ProblemNotification.class.getSimpleName(),
+                org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180927.ProblemNotification.class
+                        .getSimpleName());
+        // notification
 
-		ProblemNotificationXml notificationXml = new ProblemNotificationXml(ownKeyName, registrationName, problemName,
-				problemSeverity,
-				// popEvntNumberAsString(), InternalDateAndTime.TESTPATTERN );
-				popEvntNumberAsString(), InternalDateAndTime.valueOf(NetconfTimeStamp.getTimeStamp()));
+        ProblemNotificationXml notificationXml = new ProblemNotificationXml(ownKeyName, registrationName, problemName,
+                problemSeverity,
+                // popEvntNumberAsString(), InternalDateAndTime.TESTPATTERN );
+                popEvntNumberAsString(), InternalDateAndTime.valueOf(NetconfTimeStamp.getTimeStamp()));
 
-		databaseService.writeFaultLog(notificationXml);
-		databaseService.updateFaultCurrent(notificationXml);
+        databaseService.writeFaultLog(notificationXml);
+        databaseService.updateFaultCurrent(notificationXml);
 
-		if(!maintenanceService.isONFObjectInMaintenance(registrationName, notificationXml.getObjectId(), notificationXml.getProblem()))
-		{
-			dcaeProvider.sendProblemNotification(ownKeyName, notificationXml);
-			if (aotsMProvider != null)
-				aotsMProvider.sendProblemNotification(ownKeyName, notificationXml, false);// not a nealarm, its a
-		}// sdncontroller alarm
-		else
-		{
-			LOG.debug("Notification will not be sent to external services. Device "+registrationName+" is in maintenance mode");
-		}
+        if (!maintenanceService.isONFObjectInMaintenance(registrationName, notificationXml.getObjectId(),
+                notificationXml.getProblem())) {
+            dcaeProvider.sendProblemNotification(ownKeyName, notificationXml);
+            if (aotsMProvider != null) {
+                aotsMProvider.sendProblemNotification(ownKeyName, notificationXml, false);// not a nealarm, its a
+            }
+        } // sdncontroller alarm
+        else {
+            LOG.debug("Notification will not be sent to external services. Device " + registrationName
+                    + " is in maintenance mode");
+        }
 
-		webSocketService.sendViaWebsockets(registrationName, notificationXml);
-	}
+        webSocketService.sendViaWebsockets(registrationName, notificationXml);
+    }
 
-	/**
-	 * Called on exit to remove everything for a node from the current list.
-	 *
-	 * @param nodeName
-	 *            to remove all problems for
-	 * @return Number of deleted objects
-	 */
-	public int removeAllCurrentProblemsOfNode(String nodeName) {
-		return databaseService.clearFaultsCurrentOfNodeWithObjectId(ownKeyName, nodeName);
-	}
+    /**
+     * Called on exit to remove everything for a node from the current list.
+     *
+     * @param nodeName to remove all problems for
+     * @return Number of deleted objects
+     */
+    public int removeAllCurrentProblemsOfNode(String nodeName) {
+        return databaseService.clearFaultsCurrentOfNodeWithObjectId(ownKeyName, nodeName);
+    }
 
-	/*---------------------------------------------------------------
-	 * Get/Set
-	 */
+    /*---------------------------------------------------------------
+     * Get/Set
+     */
 
-	/**
-	 * @return the ownKeyName
-	 */
-	public String getOwnKeyName() {
-		return ownKeyName;
-	}
+    /**
+     * @return the ownKeyName
+     */
+    public String getOwnKeyName() {
+        return ownKeyName;
+    }
 
-	/*---------------------------------------------------------------
-	 * Private
-	 */
+    /*---------------------------------------------------------------
+     * Private
+     */
 
-	private String popEvntNumberAsString() {
-		return String.valueOf(popEvntNumber());
-	}
+    private String popEvntNumberAsString() {
+        return String.valueOf(popEvntNumber());
+    }
 
-
-	private int popEvntNumber() {
-		return eventNumber++;
-	}
+    private int popEvntNumber() {
+        return eventNumber++;
+    }
 }

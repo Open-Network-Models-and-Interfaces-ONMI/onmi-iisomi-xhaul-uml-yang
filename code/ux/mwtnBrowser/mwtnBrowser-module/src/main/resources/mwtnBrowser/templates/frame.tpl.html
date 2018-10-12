@@ -147,7 +147,6 @@
               <i class="fa fa-spinner fa-pulse" ng-show="spinner[ [orderedPac, pac['layer-protocol'], pac[part].id].join(separator) ]"></i>
             </uib-accordion-heading>
 
-
             <!-- current-problem-list -->
             <mwtn-grid network-element="networkElement" data="pac[part].data['current-problem-list']" ng-if="pac[part].data['current-problem-list'] && !spinner[ [orderedPac, pac['layer-protocol'], pac[part].id].join(separator) ]"></mwtn-grid>
             <div ng-if="pac[part].data['current-problem-list'].length === 0">Alarm free ;)</div>

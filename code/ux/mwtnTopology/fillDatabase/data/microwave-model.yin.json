@@ -1,0 +1,223 @@
+{
+	"module": {
+		"name": "microwave-model",
+		"microwave-model": {
+			"mw-air-interface-pac": {
+				"type": "list",
+				"key": "layer-protocol",
+				"air-interface-capability": {
+					"name": "air-interface-capability",
+					"local-name": "capability",
+					"type": "container"
+				},
+				"air-interface-configuration": {
+					"name": "air-interface-configuration",
+					"local-name": "configuration",
+					"type": "container"
+				},
+				"air-interface-status": {
+					"name": "air-interface-status",
+					"local-name": "status",
+					"type": "container"
+				},
+				"air-interface-current-problems": {
+					"name": "air-interface-current-problems",
+					"local-name": "current-problems",
+					"type": "container"
+				},
+				"air-interface-current-performance": {
+					"name": "air-interface-current-performance",
+					"local-name": "current-performance",
+					"type": "container"
+				},
+				"air-interface-historical-performances": {
+					"name": "air-interface-historical-performances",
+					"local-name": "historical-performances",
+					"type": "container"
+				}
+			},
+			"co-channel-group": {
+				"type": "list",
+				"key": "co-channel-group-id"
+			},
+			"mw-air-interface-hsb-end-point-pac": {
+				"type": "list",
+				"key": "endpoint"
+			},
+			"mw-air-interface-hsb-fc-switch-pac": {
+				"type": "list",
+				"key": "fcswitch"
+			},
+			"mw-air-interface-diversity-pac": {
+				"type": "list",
+				"key": "layer-protocol",
+				"air-interface-diversity-capability": {
+					"name": "air-interface-diversity-capability",
+					"local-name": "capability",
+					"type": "container"
+				},
+				"air-interface-diversity-configuration": {
+					"name": "air-interface-diversity-configuration",
+					"local-name": "configuration",
+					"type": "container"
+				},
+				"air-interface-diversity-status": {
+					"name": "air-interface-diversity-status",
+					"local-name": "status",
+					"type": "container"
+				},
+				"air-interface-diversity-current-problems": {
+					"name": "air-interface-diversity-current-problems",
+					"local-name": "current-problems",
+					"type": "container"
+				},
+				"air-interface-diversity-current-performance": {
+					"name": "air-interface-diversity-current-performance",
+					"local-name": "current-performance",
+					"type": "container"
+				},
+				"air-interface-diversity-historical-performances": {
+					"name": "air-interface-diversity-historical-performances",
+					"local-name": "historical-performances",
+					"type": "container"
+				}
+			},
+			"mw-pure-ethernet-structure-pac": {
+				"type": "list",
+				"key": "layer-protocol",
+				"pure-ethernet-structure-capability": {
+					"name": "pure-ethernet-structure-capability",
+					"local-name": "capability",
+					"type": "container"
+				},
+				"pure-ethernet-structure-configuration": {
+					"name": "pure-ethernet-structure-configuration",
+					"local-name": "configuration",
+					"type": "container"
+				},
+				"pure-ethernet-structure-status": {
+					"name": "pure-ethernet-structure-status",
+					"local-name": "status",
+					"type": "container"
+				},
+				"pure-ethernet-structure-current-problems": {
+					"name": "pure-ethernet-structure-current-problems",
+					"local-name": "current-problems",
+					"type": "container"
+				},
+				"pure-ethernet-structure-current-performance": {
+					"name": "pure-ethernet-structure-current-performance",
+					"local-name": "current-performance",
+					"type": "container"
+				},
+				"pure-ethernet-structure-historical-performances": {
+					"name": "pure-ethernet-structure-historical-performances",
+					"local-name": "historical-performances",
+					"type": "container"
+				}
+			},
+			"mw-hybrid-mw-structure-pac": {
+				"type": "list",
+				"key": "layer-protocol",
+				"hybrid-mw-structure-capability": {
+					"name": "hybrid-mw-structure-capability",
+					"local-name": "capability",
+					"type": "container"
+				},
+				"hybrid-mw-structure-configuration": {
+					"name": "hybrid-mw-structure-configuration",
+					"local-name": "configuration",
+					"type": "container"
+				},
+				"hybrid-mw-structure-status": {
+					"name": "hybrid-mw-structure-status",
+					"local-name": "status",
+					"type": "container"
+				},
+				"hybrid-mw-structure-current-problems": {
+					"name": "hybrid-mw-structure-current-problems",
+					"local-name": "current-problems",
+					"type": "container"
+				},
+				"hybrid-mw-structure-current-performance": {
+					"name": "hybrid-mw-structure-current-performance",
+					"local-name": "current-performance",
+					"type": "container"
+				},
+				"hybrid-mw-structure-historical-performances": {
+					"name": "hybrid-mw-structure-historical-performances",
+					"local-name": "historical-performances",
+					"type": "container"
+				}
+			},
+			"mw-ethernet-container-pac": {
+				"type": "list",
+				"key": "layer-protocol",
+				"ethernet-container-capability": {
+					"name": "ethernet-container-capability",
+					"local-name": "capability",
+					"type": "container"
+				},
+				"ethernet-container-configuration": {
+					"name": "ethernet-container-configuration",
+					"local-name": "configuration",
+					"type": "container"
+				},
+				"ethernet-container-status": {
+					"name": "ethernet-container-status",
+					"local-name": "status",
+					"type": "container"
+				},
+				"ethernet-container-current-problems": {
+					"name": "ethernet-container-current-problems",
+					"local-name": "current-problems",
+					"type": "container"
+				},
+				"ethernet-container-current-performance": {
+					"name": "ethernet-container-current-performance",
+					"local-name": "current-performance",
+					"type": "container"
+				},
+				"ethernet-container-historical-performances": {
+					"name": "ethernet-container-historical-performances",
+					"local-name": "historical-performances",
+					"type": "container"
+				}
+			},
+			"mw-tdm-container-pac": {
+				"type": "list",
+				"key": "layer-protocol",
+				"tdm-container-capability": {
+					"name": "tdm-container-capability",
+					"local-name": "capability",
+					"type": "container"
+				},
+				"tdm-container-configuration": {
+					"name": "tdm-container-configuration",
+					"local-name": "configuration",
+					"type": "container"
+				},
+				"tdm-container-status": {
+					"name": "tdm-container-status",
+					"local-name": "status",
+					"type": "container"
+				},
+				"tdm-container-current-problems": {
+					"name": "tdm-container-current-problems",
+					"local-name": "current-problems",
+					"type": "container"
+				},
+				"tdm-container-current-performance": {
+					"name": "tdm-container-current-performance",
+					"local-name": "current-performance",
+					"type": "container"
+				},
+				"tdm-container-historical-performances": {
+					"name": "tdm-container-historical-performances",
+					"local-name": "historical-performances",
+					"type": "container"
+				}
+			}
+		}
+	}
+}
