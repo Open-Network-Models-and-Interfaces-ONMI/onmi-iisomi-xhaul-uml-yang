@@ -15,8 +15,8 @@ import com.highstreet.technologies.odl.app.impl.tools.MountPointServiceHolder;
 import com.highstreet.technologies.odl.app.impl.tools.NeExecutor;
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180927.mw.air._interface.pac.AirInterfaceConfiguration;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180927.mw.air._interface.pac.AirInterfaceStatus;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180907.mw.air._interface.pac.AirInterfaceConfiguration;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180907.mw.air._interface.pac.AirInterfaceStatus;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.*;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.fc_desc.Fc;
 import org.opendaylight.yangtools.yang.common.RpcResult;
@@ -58,7 +58,7 @@ public class RouteRPC implements RouteService
     }
 
     private final DataBroker dataBroker;
-    private FC2Executor fc2Executor;
+    private final FC2Executor fc2Executor;
 
     @Override
     public Future<RpcResult<Void>> readAirInterface(

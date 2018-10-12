@@ -23,12 +23,12 @@ import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectDeletionNotificationXm
 import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.WebSocketServiceClient;
 import org.opendaylight.mwtn.maintenance.MaintenanceService;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180907.AttributeValueChangedNotification;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180907.MicrowaveModelListener;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180907.ObjectCreationNotification;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180907.ObjectDeletionNotification;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180907.ProblemNotification;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180907.SeverityType;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.AttributeValueChangedNotification;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.MicrowaveModelListener;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.ObjectCreationNotification;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.ObjectDeletionNotification;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.ProblemNotification;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.SeverityType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,9 +37,9 @@ import org.slf4j.LoggerFactory;
  * @author herbert
  *
  */
-public class MicrowaveEventListener1211 implements MicrowaveModelListener, NotificationDelayedListener<ProblemNotification> {
+public class MicrowaveEventListener1211p implements MicrowaveModelListener, NotificationDelayedListener<ProblemNotification> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(MicrowaveEventListener1211.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MicrowaveEventListener1211p.class);
 
     private final String nodeName;
     private final WebSocketServiceClient webSocketService;
@@ -53,7 +53,7 @@ public class MicrowaveEventListener1211 implements MicrowaveModelListener, Notif
 
     private final NotificationDelayFilter<ProblemNotification> delayFilter;
 
-    public MicrowaveEventListener1211(String nodeName, WebSocketServiceClient webSocketService,
+    public MicrowaveEventListener1211p(String nodeName, WebSocketServiceClient webSocketService,
             HtDatabaseEventsService databaseService, ProviderClient dcaeProvider,@Nullable ProviderClient aotsmClient, MaintenanceService maintenanceService2,NotificationDelayService notificationDelayService) {
         super();
         this.nodeName = nodeName;
@@ -64,7 +64,7 @@ public class MicrowaveEventListener1211 implements MicrowaveModelListener, Notif
         this.dcaeProvider = dcaeProvider;
         this.aotsmClient = aotsmClient;
         this.maintenanceService=maintenanceService2;
-        this.delayFilter=notificationDelayService.getInstance1211(nodeName, this);//12(nodeName,this);
+        this.delayFilter=notificationDelayService.getInstance1211p(nodeName, this);//12(nodeName,this);
     }
 
     @Override

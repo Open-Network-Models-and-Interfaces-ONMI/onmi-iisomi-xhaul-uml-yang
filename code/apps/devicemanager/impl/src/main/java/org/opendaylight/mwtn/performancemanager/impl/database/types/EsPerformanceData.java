@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.opendaylight.mwtn.base.netconf.ExtendedAirInterfaceHistoricalPerformanceType12;
 import org.opendaylight.mwtn.base.netconf.ExtendedAirInterfaceHistoricalPerformanceType1211;
+import org.opendaylight.mwtn.base.netconf.ExtendedAirInterfaceHistoricalPerformanceType1211p;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.g._874._1.model.rev170320.OtnHistoryDataG;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.AirInterfaceHistoricalPerformanceTypeG;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.AirInterfacePerformanceTypeG;
@@ -29,9 +30,14 @@ public class EsPerformanceData {
     private ContainerPerformanceTypeG dataEthContainer12 = null;
 
     @JsonIgnore
-    private org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180927.AirInterfacePerformanceTypeG dataAirInterface1211 = null;
+    private org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180907.AirInterfacePerformanceTypeG dataAirInterface1211 = null;
     @JsonIgnore
-    private org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180927.ContainerPerformanceTypeG dataEthContainer1211 = null;
+    private org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180907.ContainerPerformanceTypeG dataEthContainer1211 = null;
+
+    @JsonIgnore
+    private org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.AirInterfacePerformanceTypeG dataAirInterface1211p = null;
+    @JsonIgnore
+    private org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.ContainerPerformanceTypeG dataEthContainer1211p = null;
 
     public <T extends OtnHistoryDataG> EsPerformanceData(T otnHistoryData) {
 
@@ -42,14 +48,23 @@ public class EsPerformanceData {
         } else if (otnHistoryData instanceof ExtendedAirInterfaceHistoricalPerformanceType1211) {
             this.dataAirInterface12 = ((ExtendedAirInterfaceHistoricalPerformanceType12) otnHistoryData)
                     .getAirInterfaceHistoricalPerformanceType().getPerformanceData();
-        } else if (otnHistoryData instanceof org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180927.AirInterfaceHistoricalPerformanceTypeG) {
-            this.dataAirInterface1211 = ((org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180927.AirInterfaceHistoricalPerformanceTypeG) otnHistoryData)
+        } else if (otnHistoryData instanceof org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180907.AirInterfaceHistoricalPerformanceTypeG) {
+            this.dataAirInterface1211 = ((org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180907.AirInterfaceHistoricalPerformanceTypeG) otnHistoryData)
                     .getPerformanceData();
         } else if (otnHistoryData instanceof ContainerHistoricalPerformanceTypeG) {
-            this.dataEthContainer1211 = ((org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180927.ContainerHistoricalPerformanceTypeG) otnHistoryData)
+            this.dataEthContainer1211 = ((org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180907.ContainerHistoricalPerformanceTypeG) otnHistoryData)
                     .getPerformanceData();
         } else if (otnHistoryData instanceof ExtendedAirInterfaceHistoricalPerformanceType1211) {
             this.dataAirInterface1211 = ((ExtendedAirInterfaceHistoricalPerformanceType1211) otnHistoryData)
+                    .getAirInterfaceHistoricalPerformanceType().getPerformanceData();
+        } else if (otnHistoryData instanceof org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180907.AirInterfaceHistoricalPerformanceTypeG) {
+            this.dataAirInterface1211p = ((org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.AirInterfaceHistoricalPerformanceTypeG) otnHistoryData)
+                    .getPerformanceData();
+        } else if (otnHistoryData instanceof ContainerHistoricalPerformanceTypeG) {
+            this.dataEthContainer1211p = ((org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.ContainerHistoricalPerformanceTypeG) otnHistoryData)
+                    .getPerformanceData();
+        } else if (otnHistoryData instanceof ExtendedAirInterfaceHistoricalPerformanceType1211p) {
+            this.dataAirInterface1211p = ((ExtendedAirInterfaceHistoricalPerformanceType1211p) otnHistoryData)
                     .getAirInterfaceHistoricalPerformanceType().getPerformanceData();
         } else {
             LOG.warn("Can not assign historical performance type {}", otnHistoryData.getClass().getName());
@@ -59,283 +74,333 @@ public class EsPerformanceData {
     @JsonGetter("es")
     public java.lang.Integer getEs() {
         return dataAirInterface12 != null ? dataAirInterface12.getEs()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getEs() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getEs()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getEs() : null;
     }
 
     @JsonGetter("ses")
     java.lang.Integer getSes() {
         return dataAirInterface12 != null ? dataAirInterface12.getSes()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getSes() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getSes()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getSes() : null;
     }
 
     @JsonGetter("cses")
     java.lang.Integer getCses() {
         return dataAirInterface12 != null ? dataAirInterface12.getCses()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getCses() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getCses()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getCses() : null;
     }
 
     @JsonGetter("unavailability")
     java.lang.Integer getUnavailability() {
         return dataAirInterface12 != null ? dataAirInterface12.getUnavailability()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getUnavailability() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getUnavailability()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getUnavailability() : null;
     }
 
     @JsonGetter("tx-level-min")
     java.lang.Byte getTxLevelMin() {
         return dataAirInterface12 != null ? dataAirInterface12.getTxLevelMin()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTxLevelMin() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTxLevelMin()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTxLevelMin() : null;
     }
 
     @JsonGetter("tx-level-max")
     java.lang.Byte getTxLevelMax() {
-        return dataAirInterface12 != null ? dataAirInterface12.getTxLevelMin()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTxLevelMin() : null;
+        return dataAirInterface12 != null ? dataAirInterface12.getTxLevelMax()
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTxLevelMax()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTxLevelMax() : null;
     }
 
     @JsonGetter("tx-level-avg")
     java.lang.Byte getTxLevelAvg() {
-        return dataAirInterface12 != null ? dataAirInterface12.getTxLevelMin()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTxLevelMin() : null;
+        return dataAirInterface12 != null ? dataAirInterface12.getTxLevelAvg()
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTxLevelAvg()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTxLevelAvg() : null;
     }
 
     @JsonGetter("rx-level-min")
     java.lang.Byte getRxLevelMin() {
-        return dataAirInterface12 != null ? dataAirInterface12.getTxLevelMin()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTxLevelMin() : null;
+        return dataAirInterface12 != null ? dataAirInterface12.getRxLevelMin()
+                : dataAirInterface1211 != null ? dataAirInterface1211.getRxLevelMin()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getRxLevelMin() : null;
     }
 
     @JsonGetter("rx-level-max")
     java.lang.Byte getRxLevelMax() {
         return dataAirInterface12 != null ? dataAirInterface12.getRxLevelMax()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getRxLevelMax() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getRxLevelMax()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getRxLevelMax() : null;
     }
 
     @JsonGetter("rx-level-avg")
     java.lang.Byte getRxLevelAvg() {
         return dataAirInterface12 != null ? dataAirInterface12.getRxLevelAvg()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getRxLevelAvg() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getRxLevelAvg()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getRxLevelAvg() : null;
     }
 
     @SuppressWarnings("deprecation")
     @JsonGetter("time2-states")
     java.lang.Integer getTime2States() {
         return dataAirInterface12 != null ? dataAirInterface12.getTime2States()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTime2States() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTime2States()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTime2States() : null;
     }
 
+    @SuppressWarnings("deprecation")
     @JsonGetter("time4-states-s")
     java.lang.Integer getTime4StatesS() {
         return dataAirInterface12 != null ? dataAirInterface12.getTime4StatesS()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTime4StatesS() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTime4StatesS()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTime4StatesS() : null;
     }
 
     @SuppressWarnings("deprecation")
     @JsonGetter("time4-states")
     java.lang.Integer getTime4States() {
         return dataAirInterface12 != null ? dataAirInterface12.getTime4States()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTime4States() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTime4States()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTime4States() : null;
     }
 
     @SuppressWarnings("deprecation")
     @JsonGetter("time8-states")
     java.lang.Integer getTime8States() {
         return dataAirInterface12 != null ? dataAirInterface12.getTime8States()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTime8States() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTime8States()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTime8States() : null;
     }
 
     @SuppressWarnings("deprecation")
     @JsonGetter("time16-states-s")
     java.lang.Integer getTime16StatesS() {
         return dataAirInterface12 != null ? dataAirInterface12.getTime16StatesS()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTime16StatesS() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTime16StatesS()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTime16StatesS() : null;
     }
 
     @SuppressWarnings("deprecation")
     @JsonGetter("time16-states")
     java.lang.Integer getTime16States() {
         return dataAirInterface12 != null ? dataAirInterface12.getTime16States()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTime16States() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTime16States()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTime16States() : null;
     }
 
     @SuppressWarnings("deprecation")
     @JsonGetter("time32-states")
     java.lang.Integer getTime32States() {
         return dataAirInterface12 != null ? dataAirInterface12.getTime32States()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTime32States() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTime32States()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTime32States() : null;
     }
 
+    @SuppressWarnings("deprecation")
     @JsonGetter("time64-states")
     java.lang.Integer getTime64States() {
         return dataAirInterface12 != null ? dataAirInterface12.getTime64States()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTime64States() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTime64States()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTime64States() : null;
     }
 
     @SuppressWarnings("deprecation")
     @JsonGetter("time128-states")
     java.lang.Integer getTime128States() {
         return dataAirInterface12 != null ? dataAirInterface12.getTime128States()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTime128States() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTime128States()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTime128States() : null;
     }
 
     @SuppressWarnings("deprecation")
     @JsonGetter("time256-states")
     java.lang.Integer getTime256States() {
         return dataAirInterface12 != null ? dataAirInterface12.getTime256States()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTime256States() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTime256States()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTime256States() : null;
     }
 
     @SuppressWarnings("deprecation")
     @JsonGetter("time512-states")
     java.lang.Integer getTime512States() {
         return dataAirInterface12 != null ? dataAirInterface12.getTime512States()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTime512States() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTime512States()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTime512States() : null;
     }
 
     @SuppressWarnings("deprecation")
     @JsonGetter("time512-states-l")
     java.lang.Integer getTime512StatesL() {
         return dataAirInterface12 != null ? dataAirInterface12.getTime512StatesL()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTime512StatesL() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTime512StatesL()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTime512StatesL() : null;
     }
 
     @SuppressWarnings("deprecation")
     @JsonGetter("time1024-states")
     java.lang.Integer getTime1024States() {
         return dataAirInterface12 != null ? dataAirInterface12.getTime1024States()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTime1024States() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTime1024States()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTime1024States() : null;
     }
 
+    @SuppressWarnings("deprecation")
     @JsonGetter("time1024-states-l")
     java.lang.Integer getTime1024StatesL() {
         return dataAirInterface12 != null ? dataAirInterface12.getTime1024StatesL()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTime1024StatesL() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTime1024StatesL()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTime1024StatesL() : null;
     }
 
     @SuppressWarnings("deprecation")
     @JsonGetter("time2048-states")
     java.lang.Integer getTime2048States() {
         return dataAirInterface12 != null ? dataAirInterface12.getTime2048States()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTime2048States() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTime2048States()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTime2048States() : null;
     }
 
+    @SuppressWarnings("deprecation")
     @JsonGetter("time2048-states-l")
     java.lang.Integer getTime2048StatesL() {
         return dataAirInterface12 != null ? dataAirInterface12.getTime2048StatesL()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTime2048StatesL() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTime2048StatesL()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTime2048StatesL() : null;
     }
 
     @SuppressWarnings("deprecation")
     @JsonGetter("time4096-states")
     java.lang.Integer getTime4096States() {
         return dataAirInterface12 != null ? dataAirInterface12.getTime4096States()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTime4096States() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTime4096States()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTime4096States() : null;
     }
 
     @SuppressWarnings("deprecation")
     @JsonGetter("time4096-states-l")
     java.lang.Integer getTime4096StatesL() {
         return dataAirInterface12 != null ? dataAirInterface12.getTime4096StatesL()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTime4096StatesL() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTime4096StatesL()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTime4096StatesL() : null;
     }
 
     @SuppressWarnings("deprecation")
     @JsonGetter("time8192-states")
     java.lang.Integer getTime8192States() {
         return dataAirInterface12 != null ? dataAirInterface12.getTime8192States()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTime8192States() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTime8192States()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTime8192States() : null;
     }
 
     @SuppressWarnings("deprecation")
     @JsonGetter("time8192-states-l")
     java.lang.Integer getTime8192StatesL() {
         return dataAirInterface12 != null ? dataAirInterface12.getTime8192StatesL()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTime8192StatesL() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getTime8192StatesL()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getEs() : null;
     }
 
     @JsonGetter("snir-min")
     java.lang.Byte getSnirMin() {
         return dataAirInterface12 != null ? dataAirInterface12.getSnirMin()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getSnirMin() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getSnirMin()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getSnirMin() : null;
     }
 
     @JsonGetter("snir-max")
     java.lang.Byte getSnirMax() {
         return dataAirInterface12 != null ? dataAirInterface12.getSnirMax()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getSnirMax() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getSnirMax()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getSnirMax() : null;
     }
 
     @JsonGetter("snir-avg")
     java.lang.Byte getSnirAvg() {
         return dataAirInterface12 != null ? dataAirInterface12.getSnirAvg()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getSnirAvg() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getSnirAvg()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getSnirAvg() : null;
     }
 
     @JsonGetter("xpd-min")
     java.lang.Byte getXpdMin() {
         return dataAirInterface12 != null ? dataAirInterface12.getXpdMin()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getXpdMin() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getXpdMin()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getXpdMin() : null;
     }
 
     @JsonGetter("xpd-max")
     java.lang.Byte getXpdMax() {
         return dataAirInterface12 != null ? dataAirInterface12.getXpdMax()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getXpdMax() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getXpdMax()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getXpdMax() : null;
     }
 
     @JsonGetter("xpd-avg")
     java.lang.Byte getXpdAvg() {
         return dataAirInterface12 != null ? dataAirInterface12.getXpdAvg()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getXpdAvg() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getXpdAvg()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getXpdAvg() : null;
     }
 
     @JsonGetter("rf-temp-min")
     java.lang.Byte getRfTempMin() {
         return dataAirInterface12 != null ? dataAirInterface12.getRfTempMin()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getRfTempMin() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getRfTempMin()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getRfTempMin() : null;
     }
 
     @JsonGetter("rf-temp-max")
     java.lang.Byte getRfTempMax() {
         return dataAirInterface12 != null ? dataAirInterface12.getRfTempMax()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getRfTempMax() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getRfTempMax()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getRfTempMax() : null;
     }
 
     @JsonGetter("rf-temp-avg")
     java.lang.Byte getRfTempAvg() {
         return dataAirInterface12 != null ? dataAirInterface12.getRfTempAvg()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getRfTempAvg() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getRfTempAvg()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getRfTempAvg() : null;
     }
 
     @JsonGetter("defect-blocks-sum")
     java.lang.Short getDefectBlocksSum() {
         return dataAirInterface12 != null ? dataAirInterface12.getDefectBlocksSum()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getDefectBlocksSum() : null;
+                : dataAirInterface1211 != null ? dataAirInterface1211.getDefectBlocksSum()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getDefectBlocksSum() : null;
     }
 
     @JsonGetter("time-period")
     java.lang.Integer getTimePeriod() {
         return dataAirInterface12 != null ? dataAirInterface12.getTimePeriod()
                 : dataEthContainer12 != null ? dataEthContainer12.getTimePeriod()
-                : dataAirInterface1211 != null ? dataAirInterface1211.getTimePeriod()
-                   : dataEthContainer1211 != null ? dataEthContainer1211.getTimePeriod() : null;
+                        : dataAirInterface1211 != null ? dataAirInterface1211.getTimePeriod()
+                                : dataEthContainer1211 != null ? dataEthContainer1211.getTimePeriod()
+                                        : dataAirInterface1211p != null ? dataAirInterface1211p.getTimePeriod()
+                                                : dataEthContainer1211p != null ? dataEthContainer1211p.getTimePeriod()
+                                                        : null;
     }
 
     @JsonGetter("tx-ethernet-bytes-max-s")
     java.lang.Integer getTxEthernetBytesMaxS() {
         return dataEthContainer12 != null ? dataEthContainer12.getTxEthernetBytesMaxS()
-                : dataEthContainer1211 != null ? dataEthContainer1211.getTxEthernetBytesMaxS() : null;
+                : dataEthContainer1211 != null ? dataEthContainer1211.getTxEthernetBytesMaxS()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getEs() : null;
     }
 
     @JsonGetter("tx-ethernet-bytes-max-m")
     java.lang.Long getTxEthernetBytesMaxM() {
         return dataEthContainer12 != null ? dataEthContainer12.getTxEthernetBytesMaxM()
-                : dataEthContainer1211 != null ? dataEthContainer1211.getTxEthernetBytesMaxM() : null;
+                : dataEthContainer1211 != null ? dataEthContainer1211.getTxEthernetBytesMaxM()
+                        : dataAirInterface1211p != null ? dataAirInterface1211p.getEs() : null;
     }
 
     @JsonGetter("tx-ethernet-bytes-sum")
     java.lang.Long getTxEthernetBytesSum() {
         return dataEthContainer12 != null ? dataEthContainer12.getTxEthernetBytesSum()
-                : dataEthContainer1211 != null ? dataEthContainer1211.getTxEthernetBytesSum() : null;
+                : dataEthContainer1211 != null ? dataEthContainer1211.getTxEthernetBytesSum()
+                        : dataEthContainer1211p != null ? dataEthContainer1211p.getTxEthernetBytesSum() : null;
     }
 
     @Override

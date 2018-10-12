@@ -26,8 +26,8 @@ import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.network.element.LtpBuilder;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.network.element.LtpKey;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.ltp.path.rev170526.ltp.path.ltp.path.list.LogicalTerminationPointList;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180927.MwAirInterfacePac;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180927.MwAirInterfacePacKey;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180907.MwAirInterfacePac;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180907.MwAirInterfacePacKey;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.RestoreFollowTopoInputBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.SwitchFollowTopoInputBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.route.rev150105.fc_desc.Fc;
@@ -74,8 +74,9 @@ public class NeExecutor
     {
         try
         {
-            if (isBroken)
-                return new ArrayList<>();
+            if (isBroken) {
+				return new ArrayList<>();
+			}
             getNe();
 
             // start the creation of fc
@@ -85,8 +86,9 @@ public class NeExecutor
 
             // add fc into fd
             FdBuilder fdBuilder = new FdBuilder(neBuilder.getFd().remove(0));
-            if (fdBuilder.getFc() == null)
-                fdBuilder.setFc(new ArrayList<>());
+            if (fdBuilder.getFc() == null) {
+				fdBuilder.setFc(new ArrayList<>());
+			}
 
             fdBuilder.getFc().add(new UniversalId(buildFcName(ltp)));
 
@@ -147,8 +149,9 @@ public class NeExecutor
 
         LtpBuilder serverBuilder = new LtpBuilder(serverLTP);
 
-        if (serverBuilder.getClientLtp() == null)
-            serverBuilder.setClientLtp(new ArrayList<>());
+        if (serverBuilder.getClientLtp() == null) {
+			serverBuilder.setClientLtp(new ArrayList<>());
+		}
         serverBuilder.getClientLtp().add(new UniversalId(clientLtpName));
 
         // add client ltp to ltps
@@ -212,7 +215,7 @@ public class NeExecutor
     private static boolean IS_MAIN = true;
     private DataBroker dataBroker;
     private Integer vlanId;
-    private ArrayList<LogicalTerminationPointList> ltp = new ArrayList<>();
+    private final ArrayList<LogicalTerminationPointList> ltp = new ArrayList<>();
     private NetworkElementBuilder neBuilder;
     private NetworkElement oldNe;
 
@@ -313,8 +316,9 @@ public class NeExecutor
         }
         for (UniversalId clientID : airInterface.getClientLtp())
         {
-            if (clientID.getValue().equalsIgnoreCase(ethLtpName))
-                return true;
+            if (clientID.getValue().equalsIgnoreCase(ethLtpName)) {
+				return true;
+			}
             if (belongTo(getLtpByName(clientID), ethLtpName))
             {
                 return true;

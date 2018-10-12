@@ -4,16 +4,16 @@ import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.yang.types.
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.g._874._1.model.rev170320.GranularityPeriodType;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.g._874._1.model.rev170320.ObjectIdentifier;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.g._874._1.model.rev170320.OtnHistoryDataG;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180907.AirInterfaceConfigurationG;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180907.AirInterfaceHistoricalPerformanceTypeG;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.AirInterfaceConfigurationG;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.AirInterfaceHistoricalPerformanceTypeG;
 import org.opendaylight.yangtools.yang.binding.DataContainer;
 
-public class ExtendedAirInterfaceHistoricalPerformanceType1211 implements OtnHistoryDataG, LinkIdentifyingObject {
+public class ExtendedAirInterfaceHistoricalPerformanceType1211p implements OtnHistoryDataG, LinkIdentifyingObject {
 
     private final AirInterfaceHistoricalPerformanceTypeG airInterfaceHistoricalPerformanceType;
     private final AirInterfaceConfigurationG airInterfaceConfiguration;
 
-    public ExtendedAirInterfaceHistoricalPerformanceType1211(AirInterfaceHistoricalPerformanceTypeG data, AirInterfaceConfigurationG conf) {
+    public ExtendedAirInterfaceHistoricalPerformanceType1211p(AirInterfaceHistoricalPerformanceTypeG data, AirInterfaceConfigurationG conf) {
         this.airInterfaceHistoricalPerformanceType = data;
         this.airInterfaceConfiguration = conf;
     }

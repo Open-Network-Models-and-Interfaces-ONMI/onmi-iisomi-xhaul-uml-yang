@@ -133,8 +133,10 @@ public class ODLEventListener {
      */
 
     public void onProblemNotification(String registrationName, String problemName, InternalSeverity problemSeverity) {
-        LOG.debug("Got event of type :: {} or {}", ProblemNotification.class.getSimpleName(),
-                org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180927.ProblemNotification.class
+        LOG.debug("Got event of type :: {} or {} or {}", ProblemNotification.class.getSimpleName(),
+                org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev180907.ProblemNotification.class
+                        .getSimpleName(),
+                org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.ProblemNotification.class
                         .getSimpleName());
         // notification
 
