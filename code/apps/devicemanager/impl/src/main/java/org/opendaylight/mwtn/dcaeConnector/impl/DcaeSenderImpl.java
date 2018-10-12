@@ -23,9 +23,7 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
-
 import javax.net.ssl.SSLContext;
-
 import org.opendaylight.mwtn.base.http.BaseHTTPClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,24 +37,24 @@ public class DcaeSenderImpl implements DcaeSender {
     private final String urlString;
     private final String basicAuth;
 
-	private SSLContext sc = null;
+    private SSLContext sc = null;
     private URL url = null;
     private HttpURLConnection connection = null;
 
     public DcaeSenderImpl( String url, String userCredentials)  {
 
-    	LOG.info("DcaeSenderImpl setup start with {} {}", url, userCredentials);
+        LOG.info("DcaeSenderImpl setup start with {} {}", url, userCredentials);
 
         this.urlString = url;
         this.basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));
 
         if (urlString != null && !urlString.equals("off")) {
-        	try {
-        		this.url = new URL(url);
-        		sc = BaseHTTPClient.setupSsl(true);
-        	} catch (KeyManagementException | NoSuchAlgorithmException | UnrecoverableKeyException | CertificateException | KeyStoreException | InvalidKeySpecException | IOException e) {
-        		LOG.warn("SSL setup failed: {}", e.getMessage());
-        	}
+            try {
+                this.url = new URL(url);
+                sc = BaseHTTPClient.setupSsl(true);
+            } catch (KeyManagementException | NoSuchAlgorithmException | UnrecoverableKeyException | CertificateException | KeyStoreException | InvalidKeySpecException | IOException e) {
+                LOG.warn("SSL setup failed: {}", e.getMessage());
+            }
         }
         LOG.info("DcaeSenderImpl setup ends");
     }
@@ -74,7 +72,7 @@ public class DcaeSenderImpl implements DcaeSender {
                 if (connection != null) {
                     return processPost(connection, body);
                 } else {
-        			LOG.warn("No SSL context available");
+                    LOG.warn("No SSL context available");
                 }
             } catch (IOException e) {
                 LOG.warn("Dcae post failed {}", e.getMessage());
@@ -139,7 +137,7 @@ public class DcaeSenderImpl implements DcaeSender {
 
         LOG.debug("Post message: {}", connection.getURL().toString());
         if (LOG.isTraceEnabled()) {
-        	LOG.trace("Body: {} ", body);
+            LOG.trace("Body: {} ", body);
         }
 
         //Send the message to destination
@@ -148,36 +146,37 @@ public class DcaeSenderImpl implements DcaeSender {
         }
 
         //Receive answer
-		try {
-			int responseCode = connection.getResponseCode();
-		    LOG.debug("Response code: {}", String.valueOf(responseCode));
+        try {
+            int responseCode = connection.getResponseCode();
+            LOG.debug("Response code: {}", String.valueOf(responseCode));
 
-		    InputStream response= null;
-			if (responseCode >= 200 && responseCode < 300)
+            InputStream response= null;
+            if (responseCode >= 200 && responseCode < 300) {
 				response = connection.getInputStream();
-			else {
-				response = connection.getErrorStream();
-				if (response == null)
+			} else {
+                response = connection.getErrorStream();
+                if (response == null) {
 					response = connection.getInputStream();
-			}
+				}
+            }
 
-			if (response != null) {
-			    BufferedReader rd = new BufferedReader(new InputStreamReader(response));
-			    String line;
-			    StringBuilder result = new StringBuilder();
-			    while ((line = rd.readLine()) != null) {
-			     	result.append(line);
-			    }
-			    rd.close();
-			    if (LOG.isTraceEnabled()) {
-			      	LOG.trace("Result: {} ", result.toString());
-			    }
-			    return result.toString();
-			}
-		} catch (IOException e) {
-			LOG.debug("No response received: {}", e.getMessage());
-		}
- 		return EMPTY;
+            if (response != null) {
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response));
+                String line;
+                StringBuilder result = new StringBuilder();
+                while ((line = rd.readLine()) != null) {
+                     result.append(line);
+                }
+                rd.close();
+                if (LOG.isTraceEnabled()) {
+                      LOG.trace("Result: {} ", result.toString());
+                }
+                return result.toString();
+            }
+        } catch (IOException e) {
+            LOG.debug("No response received: {}", e.getMessage());
+        }
+         return EMPTY;
     }
 
 

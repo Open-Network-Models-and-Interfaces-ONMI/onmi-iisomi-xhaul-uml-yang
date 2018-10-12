@@ -4,7 +4,7 @@
  * @author herbert
  *
  */
-package org.opendaylight.mwtn.deviceMonitor.impl;
+package org.opendaylight.mwtn.devicemonitor.impl;
 
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
 

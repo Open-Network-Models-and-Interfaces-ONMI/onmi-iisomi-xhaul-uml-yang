@@ -18,9 +18,7 @@ package org.opendaylight.mwtn.devicemanager.impl.database.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.Nonnull;
-
 import org.opendaylight.mwtn.base.database.HtDataBaseReaderAndWriter;
 import org.opendaylight.mwtn.base.database.HtDatabaseClientAbstract;
 import org.opendaylight.mwtn.base.database.HtDatabaseNode;
@@ -60,22 +58,22 @@ public class HtDatabaseEventsService {
 
     public HtDatabaseEventsService(HtDatabaseNode database) {
 
-    	LOG.info("Create {} start", HtDatabaseEventsService.class);
+        LOG.info("Create {} start", HtDatabaseEventsService.class);
 
-    	try {
-    		// Create control structure
-    		IndexClientBuilder clientBuilder = IndexClientBuilder.getBuilder(INDEX).setMappingSettingJsonFileName(MAPPING);
-    		client = clientBuilder.create(database);
+        try {
+            // Create control structure
+            IndexClientBuilder clientBuilder = IndexClientBuilder.getBuilder(INDEX).setMappingSettingJsonFileName(MAPPING);
+            client = clientBuilder.create(database);
 
-    		eventRWEventLog = new HtDataBaseReaderAndWriter<>(client, EsEventBase.ESDATATYPENAME, EsEventBase.class);
-    		eventRWFaultLog = new HtDataBaseReaderAndWriter<>(client, EsFaultLog.ESDATATYPENAME, EsFaultLog.class);
-    		eventRWFaultCurrent = new HtDataBaseReaderAndWriter<>(client, EsFaultCurrent.ESDATATYPENAME, EsFaultCurrent.class);
+            eventRWEventLog = new HtDataBaseReaderAndWriter<>(client, EsEventBase.ESDATATYPENAME, EsEventBase.class);
+            eventRWFaultLog = new HtDataBaseReaderAndWriter<>(client, EsFaultLog.ESDATATYPENAME, EsFaultLog.class);
+            eventRWFaultCurrent = new HtDataBaseReaderAndWriter<>(client, EsFaultCurrent.ESDATATYPENAME, EsFaultCurrent.class);
 
 
-    	} catch (Exception e) {
-    		LOG.error("Can not start database client. Exception: {}", e.getMessage());
-    	}
-    	LOG.info("Create {} finished. DB Service {} started.", HtDatabaseEventsService.class,  client != null ? "sucessfully" : "not" );
+        } catch (Exception e) {
+            LOG.error("Can not start database client. Exception: {}", e.getMessage());
+        }
+        LOG.info("Create {} finished. DB Service {} started.", HtDatabaseEventsService.class,  client != null ? "sucessfully" : "not" );
     }
 
     // --- Function
@@ -123,18 +121,18 @@ public class HtDatabaseEventsService {
         }
 
         if (!fault.isNotManagedAsCurrentProblem()) {
-        	EsFaultCurrent eventProblem = new EsFaultCurrent();
-        	eventProblem.setProblem(fault);
+            EsFaultCurrent eventProblem = new EsFaultCurrent();
+            eventProblem.setProblem(fault);
 
-        	if (eventProblem.isNoAlarmIndication()) {
-        		LOG.debug("Remove from currentFaults: {}",fault.toString());
-        		eventRWFaultCurrent.doRemove(eventProblem);
-        	} else {
-        		LOG.debug("Write to currentFaults: {}",fault.toString());
-        		eventRWFaultCurrent.doWrite(eventProblem);
-        	}
+            if (eventProblem.isNoAlarmIndication()) {
+                LOG.debug("Remove from currentFaults: {}",fault.toString());
+                eventRWFaultCurrent.doRemove(eventProblem);
+            } else {
+                LOG.debug("Write to currentFaults: {}",fault.toString());
+                eventRWFaultCurrent.doWrite(eventProblem);
+            }
         } else {
-    		LOG.debug("Ingnore for currentFaults: {}",fault.toString());
+            LOG.debug("Ingnore for currentFaults: {}",fault.toString());
         }
     }
 
@@ -172,22 +170,22 @@ public class HtDatabaseEventsService {
      * Deliver list with all mountpoint/node-names in the database.
      * @return List of all mountpoint/node-names the had active alarms.
      */
-	public @Nonnull List<String> getAllNodesWithCurrentAlarms() {
-		if (client == null) {
-			LOG.debug("No DB, can not delete for all nodes");
-			return new ArrayList<String>();
-		}
-		LOG.debug("Remove from currentFaults faults for all node");
-		List<String> nodeNames = new ArrayList<String>();
+    public @Nonnull List<String> getAllNodesWithCurrentAlarms() {
+        if (client == null) {
+            LOG.debug("No DB, can not delete for all nodes");
+            return new ArrayList<>();
+        }
+        LOG.debug("Remove from currentFaults faults for all node");
+        List<String> nodeNames = new ArrayList<>();
 
-		for (EsFaultCurrent fault : eventRWFaultCurrent.doReadAll()) {
-			String nodeName = fault.getProblem().getNodeName();
-			if (!nodeNames.contains(nodeName)) {
-				//this.clearFaultsCurrentOfNode(nodeName); -> Function shifted
-				nodeNames.add(nodeName);
-			}
-		}
-		return nodeNames;
-	}
+        for (EsFaultCurrent fault : eventRWFaultCurrent.doReadAll()) {
+            String nodeName = fault.getProblem().getNodeName();
+            if (!nodeNames.contains(nodeName)) {
+                //this.clearFaultsCurrentOfNode(nodeName); -> Function shifted
+                nodeNames.add(nodeName);
+            }
+        }
+        return nodeNames;
+    }
 
 }

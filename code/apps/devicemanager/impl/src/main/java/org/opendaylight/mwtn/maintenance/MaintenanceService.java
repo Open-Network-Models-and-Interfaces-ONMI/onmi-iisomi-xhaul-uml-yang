@@ -1,6 +1,6 @@
 package org.opendaylight.mwtn.maintenance;
 
-public interface MaintenaceService {
+public interface MaintenanceService {
 
 	/**
 	 * Verify maintenance state of given object according to the filter settings.

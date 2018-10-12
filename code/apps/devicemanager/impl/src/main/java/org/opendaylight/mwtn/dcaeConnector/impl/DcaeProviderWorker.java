@@ -4,7 +4,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-
 import org.opendaylight.mwtn.config.impl.DcaeConfig;
 import org.opendaylight.mwtn.devicemanager.impl.DeviceManagerImpl;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
@@ -28,8 +27,8 @@ class DcaeProviderWorker implements AutoCloseable {
         LOG.info("Configuration: "+configuration);
         int heartbeatSeconds = configuration.getTimerPeriodSeconds();
         if ( heartbeatSeconds < MIN_HEARTBEAT_TIME_SECONDS ) {
-        	heartbeatSeconds = MIN_HEARTBEAT_TIME_SECONDS;
-        	LOG.info("Adjust heartbeat intervall to minimum of { } seconds.",heartbeatSeconds);
+            heartbeatSeconds = MIN_HEARTBEAT_TIME_SECONDS;
+            LOG.info("Adjust heartbeat intervall to minimum of { } seconds.",heartbeatSeconds);
         }
 
         dcaepClient = new DcaeSenderImpl(configuration.getEventReveicerUrl(), configuration.getUserCredentials());
@@ -49,16 +48,16 @@ class DcaeProviderWorker implements AutoCloseable {
         LOG.debug("Notification answer: {}", dcaeMessages.postNotification(mountPointName, notification));
     }
 
-	@Override
-	public void close() {
-		this.taskReference.cancel(false);
-		try {
-			this.scheduler.shutdown();
-			this.scheduler.awaitTermination(5, TimeUnit.SECONDS);
-		} catch (InterruptedException | SecurityException e) {
-			LOG.debug("Schedler shutdown interrupted with exception: ",e);
-		}
-	}
+    @Override
+    public void close() {
+        this.taskReference.cancel(false);
+        try {
+            this.scheduler.shutdown();
+            this.scheduler.awaitTermination(5, TimeUnit.SECONDS);
+        } catch (InterruptedException | SecurityException e) {
+            LOG.debug("Schedler shutdown interrupted with exception: ",e);
+        }
+    }
 
 
 }

@@ -7,12 +7,12 @@ import javax.annotation.Nullable;
 
 public interface ResyncNetworkElementsListener
 {
-	/**
-	 * Handle API Request and clean up current alarms according to the list of mountpoint id's/devices
-	 * Implement RPC function "clear-current-fault-by-nodename"
-	 * @return List with
-	 * @throws IllegalStateException
-	 */
-	public @Nonnull List<String> doClearCurrentFaultByNodename(@Nullable List<String> nodeNamesInput) throws IllegalStateException;
+    /**
+     * Handle API Request and clean up current alarms according to the list of mountpoint id's/devices
+     * Implement RPC function "clear-current-fault-by-nodename"
+     * @return List with
+     * @throws IllegalStateException Illegal state exception
+     */
+    public @Nonnull List<String> doClearCurrentFaultByNodename(@Nullable List<String> nodeNamesInput) throws IllegalStateException;
 
 }

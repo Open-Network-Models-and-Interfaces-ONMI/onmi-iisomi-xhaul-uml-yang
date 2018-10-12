@@ -4,7 +4,6 @@
 package org.opendaylight.mwtn.devicemanager.impl.xml;
 
 import java.util.concurrent.Future;
-
 import org.opendaylight.mwtn.devicemanager.impl.listener.ODLEventListener;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.websocketmanager.rev150105.WebsocketEventInputBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.websocketmanager.rev150105.WebsocketEventOutput;

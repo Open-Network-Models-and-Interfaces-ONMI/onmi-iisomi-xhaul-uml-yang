@@ -33,14 +33,14 @@ public class EsFaultCurrent extends EsObject {
 
     /**
      * TODO: termquery to matchquery, termquery with scoring, not exact matching
-     * @param nodeName
-     * @return
+     * @param nodeName name of the node
+     * @return query builder
      */
     public static QueryBuilder getQueryForOneNode( String nodeName) {
         return QueryBuilders.termQuery("faultCurrent.nodeName", nodeName);
     }
     public static QueryBuilder getQueryForAll() {
-    	return QueryBuilders.matchAllQuery();
+        return QueryBuilders.matchAllQuery();
     }
 
     public static QueryBuilder getQueryForOneNodeAndObjectId( String nodeName, String objectId) {

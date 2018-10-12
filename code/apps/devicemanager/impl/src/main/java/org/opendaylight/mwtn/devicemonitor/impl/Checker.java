@@ -1,7 +1,7 @@
 /**
  * (c) highstreet technologies GmbH
  */
-package org.opendaylight.mwtn.deviceMonitor.impl;
+package org.opendaylight.mwtn.devicemonitor.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

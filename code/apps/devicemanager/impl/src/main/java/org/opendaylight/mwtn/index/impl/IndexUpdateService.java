@@ -17,83 +17,79 @@ import org.slf4j.LoggerFactory;
 
 public class IndexUpdateService implements AutoCloseable {
 
-	private static final Logger LOG = LoggerFactory.getLogger(IndexUpdateService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(IndexUpdateService.class);
 
-	protected static final String FILENAME = "etc/elasticsearch_update.zip";
+    protected static final String FILENAME = "etc/elasticsearch_update.zip";
 
-	private final HtDatabaseWebAPIClient webClient;
+    private final HtDatabaseWebAPIClient webClient;
 
-	private final boolean autoremove=true;
+    private final boolean autoremove=true;
 
-	@SuppressWarnings("unused")
+    @SuppressWarnings("unused")
     private ScheduledFuture<?> taskHandle;
-	private final ScheduledExecutorService scheduler;
-	private final HtDatabaseNode database;
+    private final ScheduledExecutorService scheduler;
+    @SuppressWarnings("unused")
+    private final HtDatabaseNode database;
 
-	private final FileReadCallback onReadUpdateFile = new FileReadCallback()
-	{
-		@Override
-		public void read(EsUpdateObject obj,String filename) {
-			try {
-				IndexUpdateService.this.webClient.sendRequest(obj.Uri, obj.Method, obj.Body);
-				LOG.info("run database update file "+filename);
-			} catch (IOException e) {
-				LOG.warn("problem for request "+obj.Uri);
-			}
-		}
+    private final FileReadCallback onReadUpdateFile = new FileReadCallback()
+    {
+        @Override
+        public void read(EsUpdateObject obj,String filename) {
+            try {
+                IndexUpdateService.this.webClient.sendRequest(obj.Uri, obj.Method, obj.Body);
+                LOG.info("run database update file "+filename);
+            } catch (IOException e) {
+                LOG.warn("problem for request "+obj.Uri);
+            }
+        }
 
-		@Override
-		public void onerror(String filename,IOException e) {
-			LOG.warn("problem reading content file "+filename+ " :"+e.getMessage());
-		}
+        @Override
+        public void onerror(String filename,IOException e) {
+            LOG.warn("problem reading content file "+filename+ " :"+e.getMessage());
+        }
 
-	};
-	private final Runnable checkForUpdateTask = new Runnable() {
+    };
+    private final Runnable checkForUpdateTask = () -> {
+	    File f=new File(FILENAME);
+	    if(f.exists())
+	    {
+	        LOG.debug("found update file "+f.getAbsolutePath());
+	        try {
+	            HtDatabaseUpdateFile updateFile=new HtDatabaseUpdateFile(FILENAME);
+	            if(updateFile.readFiles(onReadUpdateFile))
+	            {
+	                LOG.info("update successful");
+	            }
+	            updateFile.close();
+	            if(IndexUpdateService.this.autoremove)
+	            {
+	                LOG.debug("autodelete updatefile");
+	                f.delete();
+	            }
 
-		@Override
-		public void run() {
-			File f=new File(FILENAME);
-			if(f.exists())
-			{
-				LOG.debug("found update file "+f.getAbsolutePath());
-				try {
-					HtDatabaseUpdateFile updateFile=new HtDatabaseUpdateFile(FILENAME);
-					if(updateFile.readFiles(onReadUpdateFile))
-					{
-						LOG.info("update successful");
-					}
-					updateFile.close();
-					if(IndexUpdateService.this.autoremove)
-					{
-						LOG.debug("autodelete updatefile");
-						f.delete();
-					}
-
-				} catch (IOException e) {
-					LOG.warn("problem with update file:"+e.getMessage());
-				}
-			}
-		}
-
+	        } catch (IOException e) {
+	            LOG.warn("problem with update file:"+e.getMessage());
+	        }
+	    }
 	};
 
 
 
-	public IndexUpdateService(HtDatabaseNode database, String esNodeserverName, String esClusterName, String esNodeName) {
-		this.database = database;
-		this.webClient = new HtDatabaseWebAPIClient();
-		this.scheduler = Executors.newSingleThreadScheduledExecutor();
-	}
-	public void start()
-	{
-		this.taskHandle = this.scheduler.scheduleAtFixedRate(checkForUpdateTask, 0, 120, TimeUnit.SECONDS);
-	}
-	public void stop()
-	{
-		this.scheduler.shutdown();
-	}
-	@Override
-	public void close() throws Exception {
-		stop();
-	}
+    public IndexUpdateService(HtDatabaseNode database, String esNodeserverName, String esClusterName, String esNodeName) {
+        this.database = database;
+        this.webClient = new HtDatabaseWebAPIClient();
+        this.scheduler = Executors.newSingleThreadScheduledExecutor();
+    }
+    public void start()
+    {
+        this.taskHandle = this.scheduler.scheduleAtFixedRate(checkForUpdateTask, 0, 120, TimeUnit.SECONDS);
+    }
+    public void stop()
+    {
+        this.scheduler.shutdown();
+    }
+    @Override
+    public void close() throws Exception {
+        stop();
+    }
 }

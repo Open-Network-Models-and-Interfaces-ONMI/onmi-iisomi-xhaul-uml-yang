@@ -7,7 +7,7 @@ public enum ONFLayerProtocolName {
 
     MWAirInterface("MWPS"),                    //V1.0 + V1.2
     EthernetContainer10("ETH-CTP"),            //V1.0
-    EthernetContainer12("ETC"),                //V1.2
+    EthernetContainer12("ETC"),                //V1.2 + V1.2.1.1
     EthernetPhysical("ETY"),                //V1.2
     TDMContainer("TDM"),                    //V1.2
     Structure("MWS"),                        //V1.0 + V1.2

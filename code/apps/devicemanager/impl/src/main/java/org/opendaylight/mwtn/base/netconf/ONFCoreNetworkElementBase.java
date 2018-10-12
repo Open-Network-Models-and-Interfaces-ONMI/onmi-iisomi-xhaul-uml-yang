@@ -4,10 +4,7 @@
 package org.opendaylight.mwtn.base.netconf;
 
 import java.util.List;
-
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.mwtn.base.internalTypes.InventoryInformation;
 import org.slf4j.Logger;
@@ -47,11 +44,13 @@ public abstract class ONFCoreNetworkElementBase implements ONFCoreNetworkElement
         return mountPointNodeName;
     }
 
-    public InventoryInformation getInventoryInformation() {
+    @Override
+	public InventoryInformation getInventoryInformation() {
     	return getInventoryInformation(null);
     }
 
-    public InventoryInformation getInventoryInformation(String layerProtocolFilter) {
+    @Override
+	public InventoryInformation getInventoryInformation(String layerProtocolFilter) {
     	InventoryInformation res = new InventoryInformation(inventoryInformation);
     	res.setInterfaceUuidList(getFilteredInterfaceUuidsAsStringList(layerProtocolFilter));
 

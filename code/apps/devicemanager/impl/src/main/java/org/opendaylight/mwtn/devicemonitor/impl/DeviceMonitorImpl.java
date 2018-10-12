@@ -2,19 +2,13 @@
  * (c) 2017 highstreet technologies GmbH
  */
 
-package org.opendaylight.mwtn.deviceMonitor.impl;
+package org.opendaylight.mwtn.devicemonitor.impl;
 
 import java.util.Enumeration;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-
-import org.apache.lucene.analysis.util.CharArrayMap.EntrySet;
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
-import org.opendaylight.controller.md.sal.binding.api.MountPoint;
-import org.opendaylight.mwtn.base.internalTypes.InventoryInformation;
-import org.opendaylight.mwtn.base.netconf.AllPm;
-import org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElementRepresentation;
 import org.opendaylight.mwtn.devicemanager.impl.listener.ODLEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,7 +52,7 @@ public class DeviceMonitorImpl implements AutoCloseable {
     private final ScheduledExecutorService scheduler;
     private final ODLEventListener odlEventListener;
     @SuppressWarnings("unused")
-	private final DataBroker dataBroker; //Future usage
+    private final DataBroker dataBroker; //Future usage
 
     /*-------------------------------------------------------------
      * Construction/ destruction of service
@@ -98,15 +92,15 @@ public class DeviceMonitorImpl implements AutoCloseable {
 
     /**
      * Notify of device state changes to "connected" for slave nodes
-     * @param mountPointNodeName name of mountpoint
+     * @param mountPointNodeName name of mount point
      */
     synchronized public void deviceConnectSlaveIndication(String mountPointNodeName) {
-    	deviceConnectMasterIndication(mountPointNodeName, null);
+        deviceConnectMasterIndication(mountPointNodeName, null);
     }
 
     /**
      * Notify of device state changes to "connected"
-     * @param mountPointNodeName name of mountpoint
+     * @param mountPointNodeName name of mount point
      * @param ne to monitor
      */
     synchronized public void deviceConnectMasterIndication(String mountPointNodeName, DeviceMonitoredNe ne) {
@@ -123,7 +117,7 @@ public class DeviceMonitorImpl implements AutoCloseable {
 
    /**
     * Notify of device state change to "disconnected"
-    * Mountpoint supervision
+    * Mount point supervision
     * @param mountPointNodeName to deregister
     */
     synchronized public void deviceDisconnectIndication(String mountPointNodeName) {
@@ -160,13 +154,13 @@ public class DeviceMonitorImpl implements AutoCloseable {
     /**
      * Referesh database by raising all alarms again.
      */
-	public void refreshAlarmsInDb() {
-		synchronized(queue) {
-			for (DeviceMonitorTask task : queue.values()) {
-				task.refreshAlarms();
-			}
-		}
-	}
+    public void refreshAlarmsInDb() {
+        synchronized(queue) {
+            for (DeviceMonitorTask task : queue.values()) {
+                task.refreshAlarms();
+            }
+        }
+    }
 
     /*-------------------------------------------------------------
      * Private functions
@@ -178,18 +172,18 @@ public class DeviceMonitorImpl implements AutoCloseable {
      */
     synchronized private DeviceMonitorTask createMonitoringTask(String mountPointNodeName) {
 
-    	DeviceMonitorTask task;
+        DeviceMonitorTask task;
         LOG.debug("Register for monitoring {} {}",mountPointNodeName, mountPointNodeName.hashCode());
 
         if (queue.containsKey(mountPointNodeName)) {
-        	LOG.info("Monitoring task exists");
-        	task = queue.get(mountPointNodeName);
+            LOG.info("Monitoring task exists");
+            task = queue.get(mountPointNodeName);
         } else {
-        	LOG.info("Do start of DeviceMonitor task");
-        	//Runnable task = new PerformanceManagerTask(queue, databaseService);
-        	task = new DeviceMonitorTask(mountPointNodeName, this.odlEventListener);
-        	queue.put(mountPointNodeName, task);
-        	task.start(scheduler);
+            LOG.info("Do start of DeviceMonitor task");
+            //Runnable task = new PerformanceManagerTask(queue, databaseService);
+            task = new DeviceMonitorTask(mountPointNodeName, this.odlEventListener);
+            queue.put(mountPointNodeName, task);
+            task.start(scheduler);
         }
         return task;
     }

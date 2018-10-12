@@ -8,26 +8,24 @@
 
 package org.opendaylight.mwtn.devicemanager.impl.xml;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
 import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @XmlRootElement(name = "ProblemNotification")
 public class ProblemNotificationXml extends MwtNotificationBase implements GetEventType {
 
-    private static String EVENTTYPE =  "ProblemNotification";
+    private static String EVENTTYPE = "ProblemNotification";
     private static final Pattern pattern = Pattern.compile(".*\\[layerProtocol=(.*)\\]");
     /**
-     * The leading indication for notification or events that are not in the currentProblem data of the ONF Coremodel
+     * The leading indication for notification or events that are not in the
+     * currentProblem data of the ONF Coremodel
      */
     private static final String NOCURRENTPROBLEMINDICATION = "#";
 
@@ -42,17 +40,18 @@ public class ProblemNotificationXml extends MwtNotificationBase implements GetEv
     }
 
     /**
-     * Generic Problem.
-     * All the parameters are of type Strings according to YANG specification.
-     * @param nodeName Name of mountpoint
-     * @param uuId Name of Interface Pac
-     * @param problemNameString Name of the problem
-     * @param problemSeverityString Severitycode of the problem
-     * @param counterString Counter from device
+     * Generic Problem. All the parameters are of type Strings according to YANG
+     * specification.
+     *
+     * @param nodeName                Name of mountpoint
+     * @param uuId                    Name of Interface Pac
+     * @param problemNameString       Name of the problem
+     * @param problemSeverityString   Severitycode of the problem
+     * @param counterString           Counter from device
      * @param internaltimeStampString Timestamp according to internal format.
      */
-    public ProblemNotificationXml(String nodeName, String uuId, String problemNameString, InternalSeverity problemSeverityString,
-            String counterString, InternalDateAndTime internaltimeStampString) {
+    public ProblemNotificationXml(String nodeName, String uuId, String problemNameString,
+            InternalSeverity problemSeverityString, String counterString, InternalDateAndTime internaltimeStampString) {
         super(nodeName, counterString, internaltimeStampString, uuId);
         this.problem = problemNameString;
         this.severity = problemSeverityString;
@@ -67,12 +66,12 @@ public class ProblemNotificationXml extends MwtNotificationBase implements GetEv
     }
 
     public boolean isNotManagedAsCurrentProblem() {
-    	return problem.startsWith(NOCURRENTPROBLEMINDICATION);
+        return problem.startsWith(NOCURRENTPROBLEMINDICATION);
     }
 
     /**
      * Create a specific ES id for the current log.
-     * @param fault is the input.
+     *
      * @return a string with the generated ES Id
      */
     @JsonIgnore
@@ -96,7 +95,6 @@ public class ProblemNotificationXml extends MwtNotificationBase implements GetEv
         return strBuf.toString();
     }
 
-
     @Override
     public String toString() {
         return "ProblemNotificationXml [problem=" + problem + ", severity=" + severity + ", toString()="
@@ -110,8 +108,8 @@ public class ProblemNotificationXml extends MwtNotificationBase implements GetEv
 
     @JsonIgnore
     public String getTimeStampOffset(int off) {
-    	Instant instant=Instant.parse(this.getTimeStamp());
-    	return instant.truncatedTo(ChronoUnit.SECONDS).plusSeconds(off*60).toString();
-}
+        Instant instant = Instant.parse(this.getTimeStamp());
+        return instant.truncatedTo(ChronoUnit.SECONDS).plusSeconds(off * 60).toString();
+    }
 
 }

@@ -14,14 +14,12 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
-
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLPeerUnverifiedException;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-
 import org.opendaylight.mwtn.dcaeConnector.impl.DcaeProviderClient;
 
 /**
@@ -70,7 +68,7 @@ public class HttpsClient{
             SSLContext ctx = SSLContext.getInstance("TLS");
             ctx.init(null, tml, null);
             @SuppressWarnings("unused")
-			SSLSocketFactory sslF = ctx.getSocketFactory();
+            SSLSocketFactory sslF = ctx.getSocketFactory();
 
         } catch (NoSuchAlgorithmException | KeyManagementException e) {
             e.printStackTrace();

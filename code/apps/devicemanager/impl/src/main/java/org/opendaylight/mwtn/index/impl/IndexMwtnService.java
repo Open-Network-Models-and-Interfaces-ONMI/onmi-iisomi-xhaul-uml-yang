@@ -22,32 +22,32 @@ public class IndexMwtnService implements AutoCloseable {
     /** Location of configuration data **/
     private static final String MODELDATA = "/elasticsearch/index/mwtn/modelDescription";
 
-    private HtDatabaseClientAbstract client;
+    private final HtDatabaseClientAbstract client;
 
     // --- Construct and initialize
 
     public IndexMwtnService(HtDatabaseNode database) {
-    	LOG.info("Create {} start", this.getClass().getSimpleName());
+        LOG.info("Create {} start", this.getClass().getSimpleName());
 
-    	IndexClientBuilder clientBuilder = IndexClientBuilder.getBuilder(INDEX)
-    			.setMappingSettingJsonFileName(MAPPING)
-    			.setModelDataDirectory(MODELDATA);
-    	client = clientBuilder.create(database);
-    	LOG.info("Create {} finished. DB Service {} started.", this.getClass().getSimpleName(),  client != null ? "sucessfully" : "not" );
+        IndexClientBuilder clientBuilder = IndexClientBuilder.getBuilder(INDEX)
+                .setMappingSettingJsonFileName(MAPPING)
+                .setModelDataDirectory(MODELDATA);
+        client = clientBuilder.create(database);
+        LOG.info("Create {} finished. DB Service {} started.", this.getClass().getSimpleName(),  client != null ? "sucessfully" : "not" );
     }
 
     /**
      * Get client to be used in other services
-     * @return
+     * @return client
      */
-	public HtDatabaseClientAbstract getClient() {
-		return client;
-	}
+    public HtDatabaseClientAbstract getClient() {
+        return client;
+    }
 
 
 
-	@Override
-	public void close() throws Exception {
-		client.close();
-	}
+    @Override
+    public void close() throws Exception {
+        client.close();
+    }
 }

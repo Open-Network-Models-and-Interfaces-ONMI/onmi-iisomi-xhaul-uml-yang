@@ -6,7 +6,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-
 import org.opendaylight.mwtn.base.netconf.AllPm;
 import org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElementRepresentation;
 import org.opendaylight.mwtn.performancemanager.impl.database.service.MicrowaveHistoricalPerformanceWriterService;
@@ -23,7 +22,7 @@ public class PerformanceManagerTask implements Runnable {
     private final ConcurrentHashMap<String, ONFCoreNetworkElementRepresentation> queue = new ConcurrentHashMap<>();
     private final MicrowaveHistoricalPerformanceWriterService databaseService;
     private final ScheduledExecutorService scheduler;
-    private long seconds;
+    private final long seconds;
 
     private ScheduledFuture<?> taskHandle = null;
     private Iterator<ONFCoreNetworkElementRepresentation> neIterator = null;
@@ -74,7 +73,7 @@ public class PerformanceManagerTask implements Runnable {
      * @param ne that is connected to the mountpoint
      */
     public void registration(String mountPointNodeName, ONFCoreNetworkElementRepresentation ne) {
-    	queue.put(mountPointNodeName, ne);
+        queue.put(mountPointNodeName, ne);
     }
 
     /**
@@ -104,36 +103,36 @@ public class PerformanceManagerTask implements Runnable {
 
         LOG.debug("{} start {} Start with mountpoint {}",LOGMARKER, tickCounter, actualNE == null ? "No NE" : actualNE.getMountPointNodeName());
 
-		//Proceed to next NE/Interface
-		getNextInterface();
+        //Proceed to next NE/Interface
+        getNextInterface();
 
-		LOG.debug("{} {} Next interface to handle {}", LOGMARKER, tickCounter,
-		        actualNE == null ? "No NE/IF" : actualNE.getMountPointNodeName() + " " + actualNE.pmStatusToString());
+        LOG.debug("{} {} Next interface to handle {}", LOGMARKER, tickCounter,
+                actualNE == null ? "No NE/IF" : actualNE.getMountPointNodeName() + " " + actualNE.pmStatusToString());
 
-		if (actualNE != null) {
-		    try {
-		        LOG.debug("{} Start to read PM from NE ({})", LOGMARKER, tickCounter);
-		        AllPm allPm = actualNE.getHistoricalPM();
-		        LOG.debug("{} {} Got PM list. Start write to DB", LOGMARKER, tickCounter);
-		        databaseService.writePM(allPm);
-		        LOG.debug("{} {} PM List end.", LOGMARKER, tickCounter);
-		    } catch (Exception e) {
-		        LOG.warn("{} {} PM read/write failed. Write log entry {}", LOGMARKER, tickCounter, e);
-		        String msg = e.getMessage();
-		        if (msg == null || msg.isEmpty()) {
-		            if (e.getCause() != null) {
-		                msg = e.getCause().toString();
-		            }
-		            if (msg == null || msg.isEmpty()){
-		                msg = "No message or cause";
-		            }
-		        }
-		        databaseService.writePMLog(actualNE.getMountPointNodeName(), actualNE.pmStatusToString(), msg);
-		    }
-		}
+        if (actualNE != null) {
+            try {
+                LOG.debug("{} Start to read PM from NE ({})", LOGMARKER, tickCounter);
+                AllPm allPm = actualNE.getHistoricalPM();
+                LOG.debug("{} {} Got PM list. Start write to DB", LOGMARKER, tickCounter);
+                databaseService.writePM(allPm);
+                LOG.debug("{} {} PM List end.", LOGMARKER, tickCounter);
+            } catch (Exception e) {
+                LOG.warn("{} {} PM read/write failed. Write log entry {}", LOGMARKER, tickCounter, e);
+                String msg = e.getMessage();
+                if (msg == null || msg.isEmpty()) {
+                    if (e.getCause() != null) {
+                        msg = e.getCause().toString();
+                    }
+                    if (msg == null || msg.isEmpty()){
+                        msg = "No message or cause";
+                    }
+                }
+                databaseService.writePMLog(actualNE.getMountPointNodeName(), actualNE.pmStatusToString(), msg);
+            }
+        }
 
-		LOG.debug("{} end {}",LOGMARKER, tickCounter);
-		tickCounter++;
+        LOG.debug("{} end {}",LOGMARKER, tickCounter);
+        tickCounter++;
     }
 
     /**
@@ -156,64 +155,64 @@ public class PerformanceManagerTask implements Runnable {
 
         LOG.debug("{} {} getNextInterface enter. Queue size {} ", LOGMARKER, tickCounter, queue.size());
 
-        if ((actualNE != null) && !queue.containsValue(actualNE)) {
-    		LOG.debug("{} {} NE Removed duringprocessing A",LOGMARKER, tickCounter);
-        	resetQueue();
+        if (actualNE != null && !queue.containsValue(actualNE)) {
+            LOG.debug("{} {} NE Removed duringprocessing A",LOGMARKER, tickCounter);
+            resetQueue();
         }
 
         while (true) {
 
-        	if (loopCounter++ >= 1000) {
-        		LOG.error("{} {} Problem in PM iteration. endless condition reached", LOGMARKER, tickCounter);
-            	resetQueue();
-        		break;
-        	}
+            if (loopCounter++ >= 1000) {
+                LOG.error("{} {} Problem in PM iteration. endless condition reached", LOGMARKER, tickCounter);
+                resetQueue();
+                break;
+            }
 
-        	LOG.debug("{} {} Loop ne {}:neiterator {}:Interfaceiterator:{} Loop:{}",
-        			LOGMARKER,
-        			tickCounter,
-        			actualNE == null? "null" : actualNE.getMountPointNodeName(),
-        			neIterator == null ? "null" : neIterator.hasNext(),
-        			actualNE == null ? "null" : actualNE.hasNext(),
-        			loopCounter);
+            LOG.debug("{} {} Loop ne {}:neiterator {}:Interfaceiterator:{} Loop:{}",
+                    LOGMARKER,
+                    tickCounter,
+                    actualNE == null? "null" : actualNE.getMountPointNodeName(),
+                    neIterator == null ? "null" : neIterator.hasNext(),
+                    actualNE == null ? "null" : actualNE.hasNext(),
+                    loopCounter);
 
-        	if (actualNE != null && actualNE.hasNext()) {
-        		// Yes, there is an interface, deliver back
-        		LOG.debug("{} {} getNextInterface yes A",LOGMARKER, tickCounter);
-        		actualNE.next();
-        		break;
+            if (actualNE != null && actualNE.hasNext()) {
+                // Yes, there is an interface, deliver back
+                LOG.debug("{} {} getNextInterface yes A",LOGMARKER, tickCounter);
+                actualNE.next();
+                break;
 
-        	} else {
-        		// No element in neInterfaceInterator .. get next NE and try
-        		if (neIterator != null && neIterator.hasNext()) {
-        			// Set a new NE
-        			LOG.debug("{} {} Next NE A",LOGMARKER, tickCounter);
-        			actualNE = neIterator.next();
-        			actualNE.resetPMIterator();
+            } else {
+                // No element in neInterfaceInterator .. get next NE and try
+                if (neIterator != null && neIterator.hasNext()) {
+                    // Set a new NE
+                    LOG.debug("{} {} Next NE A",LOGMARKER, tickCounter);
+                    actualNE = neIterator.next();
+                    actualNE.resetPMIterator();
 
-        		} else {
-        			// Goto start condition 1) first entry 2) end of queue reached
-        			LOG.debug("{} {} Reset",LOGMARKER, tickCounter);
-        			resetQueue();
+                } else {
+                    // Goto start condition 1) first entry 2) end of queue reached
+                    LOG.debug("{} {} Reset",LOGMARKER, tickCounter);
+                    resetQueue();
 
-        			if (queue.isEmpty()) {
-        				LOG.debug("{} {} no nextInterfac. queue empty",LOGMARKER, tickCounter);
-        				break;
-        			} else if (!started){
-        				LOG.debug("{} {} getNextInterface start condition. Get interator.",LOGMARKER, tickCounter);
-        				neIterator = queue.values().iterator();
-        				started = true;
-        			} else {
-        				LOG.debug("{} {} no nextInterface",LOGMARKER, tickCounter);
-        				break;
-        			}
-        		}
-        	}
+                    if (queue.isEmpty()) {
+                        LOG.debug("{} {} no nextInterfac. queue empty",LOGMARKER, tickCounter);
+                        break;
+                    } else if (!started){
+                        LOG.debug("{} {} getNextInterface start condition. Get interator.",LOGMARKER, tickCounter);
+                        neIterator = queue.values().iterator();
+                        started = true;
+                    } else {
+                        LOG.debug("{} {} no nextInterface",LOGMARKER, tickCounter);
+                        break;
+                    }
+                }
+            }
         } //while
 
-        if ((actualNE != null) && !queue.containsValue(actualNE)) {
-    		LOG.debug("{} {} NE Removed duringprocessing B",LOGMARKER, tickCounter);
-        	resetQueue();
+        if (actualNE != null && !queue.containsValue(actualNE)) {
+            LOG.debug("{} {} NE Removed duringprocessing B",LOGMARKER, tickCounter);
+            resetQueue();
         }
 
     }

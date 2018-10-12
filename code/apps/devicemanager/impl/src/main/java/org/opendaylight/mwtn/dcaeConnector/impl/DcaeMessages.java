@@ -12,13 +12,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
-
 import javax.annotation.Nullable;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
 import org.opendaylight.mwtn.base.internalTypes.InventoryInformation;
 import org.opendaylight.mwtn.base.netconf.NetconfTimeStamp;
@@ -30,7 +27,7 @@ import org.slf4j.LoggerFactory;
 
 public class DcaeMessages {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DcaeSenderImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DcaeSenderImpl.class);
 
     private static final String DCAE_NORMAL =  "NORMAL";
     private static final String DCAE_MINOR =  "MINOR";
@@ -44,13 +41,9 @@ public class DcaeMessages {
 
     private static final String charset = "UTF-8";
 
-	private static final HostnameVerifier allHostsValid = new HostnameVerifier() {
-		public boolean verify(String hostname, SSLSession session) {
-			return true;
-		}
-	};
+    private static final HostnameVerifier allHostsValid = (hostname, session) -> true;
 
-	private static final String CONTENT_TYPE_APPJSON = "application/json";
+    private static final String CONTENT_TYPE_APPJSON = "application/json";
 
     //Configurable parameters
     private final DcaeSender dcaeSender;
@@ -75,9 +68,9 @@ public class DcaeMessages {
     public String postHeartBeat() {
         String epochTimeMicrosecondsString = getEpochTimeMicroseconds();
         String body = assembleHeartbeatFromTemplate(null,
-        		epochTimeMicrosecondsString,
-        		heartbeatsequence++,
-        		NetconfTimeStamp.getTimeStampAsNetconfString()).toString();
+                epochTimeMicrosecondsString,
+                heartbeatsequence++,
+                NetconfTimeStamp.getTimeStampAsNetconfString()).toString();
         return dcaeSender.sendDcaePost( body);
     }
 
@@ -117,34 +110,34 @@ public class DcaeMessages {
         //Prepare the connection
         HttpURLConnection newHttpConnection = null;
         {
-        	URLConnection newConnection = url.openConnection();
-        	if (newConnection instanceof HttpURLConnection) {
+            URLConnection newConnection = url.openConnection();
+            if (newConnection instanceof HttpURLConnection) {
                 LOG.debug("Setup connection to {} ", url.toString());
 
-        		newHttpConnection = (HttpURLConnection)newConnection;
+                newHttpConnection = (HttpURLConnection)newConnection;
 
                 newHttpConnection.setDoOutput(true); // Triggers POST.
                 newHttpConnection.setRequestProperty("Accept-Charset", charset);
                 if (basicAuth != null) {
-                	newHttpConnection.setRequestProperty("Authorization", basicAuth);
+                    newHttpConnection.setRequestProperty("Authorization", basicAuth);
                 }
                 if (insertContentHeader) {
-                	newHttpConnection.setRequestProperty("Content-Type", CONTENT_TYPE_APPJSON);
+                    newHttpConnection.setRequestProperty("Content-Type", CONTENT_TYPE_APPJSON);
                 }
 
                 if (newHttpConnection instanceof HttpsURLConnection) {
-                	LOG.debug("SSL connection setup with trust all.");
-            		HttpsURLConnection newHttpsConnection = (HttpsURLConnection)newHttpConnection;
-                	if (sc != null) {
-                		newHttpsConnection.setSSLSocketFactory(sc.getSocketFactory());
-                	} else {
-                		LOG.warn("No SSL Contect available");
-                	}
-                	newHttpsConnection.setHostnameVerifier(allHostsValid);
+                    LOG.debug("SSL connection setup with trust all.");
+                    HttpsURLConnection newHttpsConnection = (HttpsURLConnection)newHttpConnection;
+                    if (sc != null) {
+                        newHttpsConnection.setSSLSocketFactory(sc.getSocketFactory());
+                    } else {
+                        LOG.warn("No SSL Contect available");
+                    }
+                    newHttpsConnection.setHostnameVerifier(allHostsValid);
                 }
-        	} else {
-        		LOG.warn("URL not a HTTP protocol: {}", url);
-        	}
+            } else {
+                LOG.warn("URL not a HTTP protocol: {}", url);
+            }
         }
         return newHttpConnection;
     }
@@ -171,10 +164,10 @@ public class DcaeMessages {
      * @return StringBuffer with result
      */
     private StringBuffer assembleHeartbeatFromTemplate(
-    		     StringBuffer sb,
-    		     String epochTimeMicrosecondsString,
-    		     int sequence,
-    		     String eventTimeValueNetconfFormatString) {
+                 StringBuffer sb,
+                 String epochTimeMicrosecondsString,
+                 int sequence,
+                 String eventTimeValueNetconfFormatString) {
 
         if (sb == null) {
           sb = new StringBuffer();

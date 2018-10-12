@@ -2,7 +2,7 @@
  * @author herbert
  *
  */
-package org.opendaylight.mwtn.deviceMonitor.impl;
+package org.opendaylight.mwtn.devicemonitor.impl;
 
 import java.util.Collections;
 import java.util.EnumSet;
@@ -46,7 +46,6 @@ public class DeviceMonitorTask implements Runnable {
 
     /**
      * Setup monitoring task
-     * @param mountpointService
      * @param mountPointName to monitor
      * @param odlEventListener to forward problems to
      */
@@ -60,9 +59,9 @@ public class DeviceMonitorTask implements Runnable {
             @Override
             boolean isReachableOnce() {
                 synchronized(lock) {
-                	//mountpoint state "Connected"
+                    //mountpoint state "Connected"
                     //If for any reason the mountpoint is Connected, but Notconf messages are not received
-                    return ne == null ? true : ne.checkAndConnectionToMediatorIsOk();
+                    return ne == null ? true : ne.checkIfConnectionToMediatorIsOk();
                 }
             }
         };
@@ -70,10 +69,10 @@ public class DeviceMonitorTask implements Runnable {
             @Override
             boolean isReachableOnce() {
                 synchronized(lock) {
-                	//mountpoint state "Connected"
+                    //mountpoint state "Connected"
                     //If netconf mediator (netconf application software for NE) has connection loss to managed device.
-                	//The networkelement object is available, but there is no interfacepack available.
-                    return ne == null ? true : ne.checkAndConnectionToNeIsOk();
+                    //The networkelement object is available, but there is no interfacepack available.
+                    return ne == null ? true : ne.checkIfConnectionToNeIsOk();
                 }
             }
         };
@@ -161,12 +160,12 @@ public class DeviceMonitorTask implements Runnable {
      */
     public void refreshAlarms() {
         LOG.debug("{} Start refresh of all problems",LOGMARKER);
-    	synchronized(currentProblems) {
-	    	for (DeviceMonitorProblems problem :	currentProblems) {
-	            LOG.debug("{} Refresh problem {} Raised-status {}",LOGMARKER, problem.name(), currentProblems.contains(problem));
-	            odlEventListener.onProblemNotification(mountPointName, problem.name(), problem.getSeverity());
-	    	}
-    	}
+        synchronized(currentProblems) {
+            for (DeviceMonitorProblems problem :    currentProblems) {
+                LOG.debug("{} Refresh problem {} Raised-status {}",LOGMARKER, problem.name(), currentProblems.contains(problem));
+                odlEventListener.onProblemNotification(mountPointName, problem.name(), problem.getSeverity());
+            }
+        }
         LOG.debug("{} Finish refresh of all problems",LOGMARKER);
     }
 
@@ -257,40 +256,42 @@ public class DeviceMonitorTask implements Runnable {
 
         try {
             LOG.debug("{} UTCTime {} START mountpoint {} tick {} connecting supervision {} tickout {}",
-            		LOGMARKER,
-            		NetconfTimeStamp.getTimeStamp(),
-            		mountPointName,
-            		tickCounter,
-            		mountpointConnectingStateSupervision,
-            		disconnectSupervisionTickout);
+                    LOGMARKER,
+                    NetconfTimeStamp.getTimeStamp(),
+                    mountPointName,
+                    tickCounter,
+                    mountpointConnectingStateSupervision,
+                    disconnectSupervisionTickout);
 
-           	if (mountpointConnectingStateSupervision) {
-   				LOG.debug("{} {} Mountpoint supervision {}", LOGMARKER, tickCounter, mountPointName);
-   				if (processDisconnectSupervisionAndCheckExceeded()) {
-   					raise(DeviceMonitorProblems.connectionLossOAM);
-   				}
+               if (mountpointConnectingStateSupervision) {
+                   LOG.debug("{} {} Mountpoint supervision {}", LOGMARKER, tickCounter, mountPointName);
+                   if (processDisconnectSupervisionAndCheckExceeded()) {
+                       raise(DeviceMonitorProblems.connectionLossOAM);
+                   }
 
-           	} else synchronized (lock) {
-           		if (ne != null) {
-           			//checks during "Connected"
-           			clear(DeviceMonitorProblems.connectionLossOAM); //Always cleared never raised
-           			LOG.debug("{} {} Prepare check", LOGMARKER, tickCounter);
-           			ne.prepareCheck();  // Prepare ne check
-           			// Mediator check
-           			LOG.debug("{} {} Mediator check", LOGMARKER, tickCounter);
-           			clearRaiseIfConnected(checkConnectionToMediator, DeviceMonitorProblems.connectionLossMediator);
+               } else {
+				synchronized (lock) {
+				       if (ne != null) {
+				           //checks during "Connected"
+				           clear(DeviceMonitorProblems.connectionLossOAM); //Always cleared never raised
+				           LOG.debug("{} {} Prepare check", LOGMARKER, tickCounter);
+				           ne.prepareCheck();  // Prepare ne check
+				           // Mediator check
+				           LOG.debug("{} {} Mediator check", LOGMARKER, tickCounter);
+				           clearRaiseIfConnected(checkConnectionToMediator, DeviceMonitorProblems.connectionLossMediator);
 
-           			// NE check
-           			LOG.debug("{} {} Ne check", LOGMARKER, tickCounter);
-           			clearRaiseIfConnected(checkConnectionToNe, DeviceMonitorProblems.connectionLossNeOAM);
-           		} else {
-           			//Monitor switch off.
-           			LOG.debug("{} {} Monitor switch off state", LOGMARKER, tickCounter);
-           			clear(DeviceMonitorProblems.connectionLossOAM); //Always cleared never raised
-           			clear(DeviceMonitorProblems.connectionLossMediator); //Always cleared never raised
-           			clear(DeviceMonitorProblems.connectionLossNeOAM); //Always cleared never raised
-           		}
-           	}
+				           // NE check
+				           LOG.debug("{} {} Ne check", LOGMARKER, tickCounter);
+				           clearRaiseIfConnected(checkConnectionToNe, DeviceMonitorProblems.connectionLossNeOAM);
+				       } else {
+				           //Monitor switch off.
+				           LOG.debug("{} {} Monitor switch off state", LOGMARKER, tickCounter);
+				           clear(DeviceMonitorProblems.connectionLossOAM); //Always cleared never raised
+				           clear(DeviceMonitorProblems.connectionLossMediator); //Always cleared never raised
+				           clear(DeviceMonitorProblems.connectionLossNeOAM); //Always cleared never raised
+				       }
+				   }
+			}
         } catch (Exception e) {
             //Prevent stopping the task
             LOG.warn("{} {} During DeviceMontoring task",LOGMARKER, tickCounter, e);
