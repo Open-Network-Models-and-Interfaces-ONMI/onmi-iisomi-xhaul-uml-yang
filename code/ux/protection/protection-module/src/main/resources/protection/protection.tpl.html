@@ -1,20 +1,234 @@
 <ht-header help-link='sdnr/protection/0.4.0/README.md'></ht-header>
 
-<uib-accordion close-others="oneAtATime">
 
-	<div uib-accordion-group class="panel-primary" is-open="status.requiredNes">
-		<uib-accordion-heading>
-			<i class="pull-left fa" ng-class="{'fa-chevron-down': status.requiredNes, 'fa-chevron-right': !status.requiredNes}"></i>
-			<span>Protection</span>
-		</uib-accordion-heading>
-		<div id="requiredNesGrid" ui-grid="protectionGridOptions" ui-grid-exporter ui-grid-edit ui-grid-selection ui-grid-pinning
-		 ui-grid-resize-columns ui-grid-move-columns class="requiredNesGrid">
+<article id="odlux-app-protection">
+	<header>
+		<div>Protection groups</div>
+	</header>
+
+	<main>
+		<nav>
+			<ul>
+				<li>
+					<a href="#">app part#1</a>
+				</li>
+				<li>
+					<a href="#">app part#1</a>
+				</li>
+				<li>
+					<a href="#">app part#1</a>
+				</li>
+			</ul>
+		</nav>
+		<section class="protection-group">
+			<mwtn-select-network-element></mwtn-select-network-element>
+			<div class="flex-row">
+				<div class="flex-column">
+					<div class="table">
+						<div class="table-caption text-right">Shelf-#001-Slot-port-#001</div>
+						<div class="table-row">
+							<div class="table-cell text-right">123.123</div>
+							<div class="table-cell text-left unit">km</div>
+						</div>
+						<div class="table-row">
+							<div class="table-cell text-right">234.3</div>
+							<div class="table-cell text-left unit">dB</div>
+						</div>
+						<div class="table-row">
+							<div class="table-cell text-right">34.300</div>
+							<div class="table-cell text-left unit">MBit/s</div>
+						</div>
+					</div>
+				</div>
+				<div class="flex-column" style="max-width: 150px;">
+					<svg width="150" height="130" viewBox="0 0 150 130" xmlns:xlink="http://www.w3.org/1999/xlink">
+						<defs>
+							<path id="working" d="M0,0 h+30 l+40,-40 h+30" />
+							<path id="protecting" d="M0,0 h+30 l+40,+40 h+30" />
+						</defs>
+						<g id="protectionGroup">
+							<use xlink:href="#working" x="25" y="65"/>
+							<use xlink:href="#protecting" x="25" y="65"/>
+							<g id="activeTraffic">
+								<path id="activeTxProtecting" d="M25,65 h+30 l+40+40 h+30" class="active">
+									<animate attributeName="stroke-dashoffset" dur="1s" to="-15" repeatCount="indefinite"/>
+								</path>
+								<!--
+								<path id="activeTxWorking" d="M25,61 h+30 l+40-40 h+30" class="active">
+									<animate attributeName="stroke-dashoffset" dur="1s" to="-15" repeatCount="indefinite"/>
+								</path>
+								<path id="activeRxWorking" d="M25,69 h+30 l+40-40 h+30" class="active">
+									<animate attributeName="stroke-dashoffset" dur="1s" to="15" repeatCount="indefinite"/>
+								</path>
+								<path id="activeRxProtecting" d="M25,69 h+30 l+40+40 h+30" class="active">
+									<animate attributeName="stroke-dashoffset" dur="1s" to="15" repeatCount="indefinite"/>
+								</path> -->
+							</g>
+							<g id="protected" transform="translate(25,65)">
+								<circle r="20"/>
+								<title>Protected</title>
+							</g>
+							<g id="working" transform="translate(125,25)">
+								<circle r="20"/>
+								<text text-anchor="middle" dy=".3em">w</text>
+								<title>Working</title>
+							</g>
+							<g id="protecting" transform="translate(125,105)">
+								<circle r="20"/>
+								<text text-anchor="middle" dy=".3em">p</text>
+								<title>Protection</title>
+							</g>
+						</g>
+					</svg>
+				</div>
+				<div class="flex-column">
+					<div class="table">
+						<div class="table-caption">Shelf-#001-Slot-port-#001</div>
+						<div class="table-row" title="attribute1">
+							<div class="table-cell text-right value">123.123</div>
+							<div class="table-cell text-left">km</div>
+						</div>
+						<div class="table-row">
+							<div class="table-cell text-right value">234.3</div>
+							<div class="table-cell text-left">dB</div>
+						</div>
+						<div class="table-row">
+							<div class="table-cell text-right value">34.300</div>
+							<div class="table-cell text-left">MBit/s</div>
+						</div>
+						<div class="table-row">
+							<hr/>
+						</div>
+						<div class="table-row">
+							<div class="table-cell text-right value">34.300</div>
+							<div class="table-cell text-left">MBit/s</div>
+						</div>
+						<div class="table-row">
+							<div class="table-cell text-right value">234.3</div>
+							<div class="table-cell text-left">dB</div>
+						</div>
+						<div class="table-row">
+							<div class="table-cell text-right value">123.123</div>
+							<div class="table-cell text-left">km</div>
+						</div>
+						<div class="table-footer">Shelf-#001-Slot-port-#001</div>
+					</div>
+				</div>
+			</div>
+			<div class="flex-row">
+				<div class="flex-column">
+					<div class="table">
+						<div class="table-caption text-right">Shelf-#001-Slot-port-#001</div>
+						<div class="table-row">
+							<div class="table-cell text-right">123.123</div>
+							<div class="table-cell text-left unit">km</div>
+						</div>
+						<div class="table-row">
+							<div class="table-cell text-right">234.3</div>
+							<div class="table-cell text-left unit">dB</div>
+						</div>
+						<div class="table-row">
+							<div class="table-cell text-right">34.300</div>
+							<div class="table-cell text-left unit">MBit/s</div>
+						</div>
+					</div>
+				</div>
+				<div class="flex-column" style="max-width: 150px;">
+					<svg width="150" height="130" viewBox="0 0 150 130" xmlns:xlink="http://www.w3.org/1999/xlink">
+						<defs>
+							<path id="working" d="M0,0 h+30 l+40,-40 h+30" class="bidirectional"/>
+							<path id="protecting" d="M0,0 h+30 l+40,+40 h+30" class="bidirectional"/>
+						</defs>
+						<g id="protectionGroup">
+							<use xlink:href="#working" x="25" y="65"/>
+							<use xlink:href="#protecting" x="25" y="65"/>
+							<g id="activeTraffic">
+								<!--
+								<path id="activeTxProtecting" d="M25,61 h+30 l+40+40 h+30" class="active">
+									<animate attributeName="stroke-dashoffset" dur="1s" to="-15" repeatCount="indefinite"/>
+								</path>
+								<path id="activeTxWorking" d="M25,61 h+30 l+40-40 h+30" class="active">
+									<animate attributeName="stroke-dashoffset" dur="1s" to="-15" repeatCount="indefinite"/>
+								</path>
+								<path id="activeRxProtecting" d="M25,69 h+30 l+40+40 h+30" class="active">
+									<animate attributeName="stroke-dashoffset" dur="1s" to="15" repeatCount="indefinite"/>
+								</path> -->
+								<path id="activeRxWorking" d="M25,65 h+30 l+40-40 h+30" class="active">
+									<animate attributeName="stroke-dashoffset" dur="0.5s" to="15" repeatCount="indefinite"/>
+								</path>
+							</g>
+							<g id="protected" transform="translate(25,65)">
+								<circle r="20"/>
+								<title>Protected</title>
+							</g>
+							<g id="working" transform="translate(125,25)">
+								<circle r="20"/>
+								<text text-anchor="middle" dy=".3em">w</text>
+								<title>Working</title>
+							</g>
+							<g id="protecting" transform="translate(125,105)">
+								<circle r="20"/>
+								<text text-anchor="middle" dy=".3em">p</text>
+								<title>Protection</title>
+							</g>
+						</g>
+					</svg>
+				</div>
+				<div class="flex-column">
+					<div class="table">
+						<div class="table-caption">Shelf-#001-Slot-port-#001</div>
+						<div class="table-row" title="attribute1">
+							<div class="table-cell text-right value">123.123</div>
+							<div class="table-cell text-left">km</div>
+						</div>
+						<div class="table-row">
+							<div class="table-cell text-right value">234.3</div>
+							<div class="table-cell text-left">dB</div>
+						</div>
+						<div class="table-row">
+							<div class="table-cell text-right value">34.300</div>
+							<div class="table-cell text-left">MBit/s</div>
+						</div>
+						<div class="table-row">
+							<hr/>
+						</div>
+						<div class="table-row">
+							<div class="table-cell text-right value">34.300</div>
+							<div class="table-cell text-left">MBit/s</div>
+						</div>
+						<div class="table-row">
+							<div class="table-cell text-right value">234.3</div>
+							<div class="table-cell text-left">dB</div>
+						</div>
+						<div class="table-row">
+							<div class="table-cell text-right value">123.123</div>
+							<div class="table-cell text-left">km</div>
+						</div>
+						<div class="table-footer">Shelf-#001-Slot-port-#001</div>
+					</div>
+				</div>
+			</div>
+			<uib-accordion close-others="oneAtATime">
+
+				<div uib-accordion-group class="panel-primary" is-open="status.requiredNes">
+					<uib-accordion-heading>
+						<i class="pull-left fa" ng-class="{'fa-chevron-down': status.requiredNes, 'fa-chevron-right': !status.requiredNes}"></i>
+						<span>Protection</span>
+					</uib-accordion-heading>
+					<div id="requiredNesGrid" ui-grid="protectionGridOptions" ui-grid-exporter ui-grid-edit ui-grid-selection ui-grid-pinning
+					 ui-grid-resize-columns ui-grid-move-columns class="requiredNesGrid">
+					</div>
+				</div>
+			
+			</uib-accordion>
+    	</section>
+	</main>
+	<footer>
+		<div class="owl">
+			<span class="white">ONAP SDN-R | ONF Wireless for @distversion@</span>
 		</div>
-	</div>
-
-</uib-accordion>
-
-<hr />
-<div class="owl">
-	<span class="white">ONAP SDN-R | ONF Wireless for @distversion@ - Build: @buildtime@</span>
-</div>
+		<div class="owl">
+			<span class="white">Build: @buildtime@</span>
+		</div>
+	</footer>
+</article>

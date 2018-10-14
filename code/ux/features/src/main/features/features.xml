@@ -19,8 +19,8 @@
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnFault-bundle/${project.version}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/maintenancemode-bundle/${project.version}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnBrowser-bundle/${project.version}</bundle>
-    <bundle>mvn:com.highstreet.technologies.odl.dlux/security-bundle/${project.version}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/protection-bundle/${project.version}</bundle>
+    <bundle>mvn:com.highstreet.technologies.odl.dlux/security-bundle/${project.version}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnInventory-bundle/${project.version}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/emergency-bundle/${project.version}</bundle>
     <bundle>mvn:com.highstreet.technologies.odl.dlux/mwtnMediator-bundle/${project.version}</bundle>
@@ -41,9 +41,9 @@
     <feature version="${project.version}">odl-mwtn-ux-fault</feature>
     <feature version="${project.version}">odl-mwtn-ux-maintenancemode</feature>
     <feature version="${project.version}">odl-mwtn-ux-config</feature>
+    <feature version="${project.version}">odl-mwtn-ux-protection</feature>
     <feature version="${project.version}">odl-mwtn-ux-performance</feature>
     <feature version="${project.version}">odl-mwtn-ux-security</feature>
-    <feature version="${project.version}">odl-mwtn-ux-protection</feature>
     <feature version="${project.version}">odl-mwtn-ux-inventory</feature>
     <feature version="${project.version}">odl-mwtn-ux-topology</feature>
     <feature version="${project.version}">odl-mwtn-ux-emergency</feature>
@@ -81,9 +81,9 @@
     <feature version="${project.version}">onap-sdnr-aai-ux</feature>
     <feature version="${project.version}">odl-mwtn-ux-fault</feature>
     <feature version="${project.version}">odl-mwtn-ux-config</feature>
+    <feature version="${project.version}">odl-mwtn-ux-protection</feature>
     <feature version="${project.version}">odl-mwtn-ux-performance</feature>
     <feature version="${project.version}">odl-mwtn-ux-security</feature>
-    <feature version="${project.version}">odl-mwtn-ux-protection</feature>
     <feature version="${project.version}">odl-mwtn-ux-inventory</feature>
     <feature version="${project.version}">odl-mwtn-ux-topology</feature>
     <feature version="${project.version}">odl-mwtn-ux-mediator</feature>
@@ -102,9 +102,9 @@
     <feature version="${project.version}">odl-mwtn-ux-fault</feature>
     <feature version="${project.version}">odl-mwtn-ux-maintenancemode</feature>
     <feature version="${project.version}">odl-mwtn-ux-config</feature>
+    <feature version="${project.version}">odl-mwtn-ux-protection</feature>
     <feature version="${project.version}">odl-mwtn-ux-performance</feature>
     <feature version="${project.version}">odl-mwtn-ux-security</feature>
-    <feature version="${project.version}">odl-mwtn-ux-protection</feature>
     <feature version="${project.version}">odl-mwtn-ux-inventory</feature>
     <feature version="${project.version}">odl-mwtn-ux-topology</feature>
     <feature version="${project.version}">odl-mwtn-ux-emergency</feature>

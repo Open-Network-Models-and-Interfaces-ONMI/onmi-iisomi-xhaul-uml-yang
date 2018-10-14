@@ -11,11 +11,9 @@ define(['angularAMD',
     'app/core/core.services',
     'common/config/env.module',
     'app/mwtnCommons/mwtnCommons.module'], function (ng) {
-        var protectionApp = angular.module('app.protection', ['ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit',
+        var protectionApp = angular.module('app.protection', [
             'ui.bootstrap', 'app.core',
-            'ui.router.state', 'config', 'ui.grid.exporter',
-            'ui.grid.moveColumns', 'ui.grid.pinning', 'ui.grid.selection',
-            'ui.grid.resizeColumns', 'angular-clipboard']);
+            'ui.router.state', 'config', 'angular-clipboard']);
 
         protectionApp.config(function ($stateProvider, $compileProvider, $controllerProvider, $provide, NavHelperProvider, $translateProvider) {
 

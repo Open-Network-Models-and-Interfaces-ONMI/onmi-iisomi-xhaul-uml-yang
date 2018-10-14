@@ -3,83 +3,169 @@
  *  width: 1260px;
  */
 
- .modal-dialog {
-  width: 690px;
-  margin: 30px auto;
-}
+ header {
+   background: #dddddd;
+   padding: 5px;
+   max-height: 50px;
+ }
+ 
+ footer {
+   background: #aaaaaa;
+   padding: 5px;
+   height: 50px;
+ }
+ 
+ main {
+   background: #ffffff;
+ }
+ 
+ main footer {
+   background: #dddddd;
+ }
+ 
+ nav {
+   background: #eeeeee;
+   padding: 5px;
+ }
+ 
+ article, section {
+   flex-grow: 2;
+   flex-shrink: 1;
+   background: red;
+ }
+  
+ #odlux-app-protection {
+   display: flex;
+   flex-direction: column;
+ }
+ 
+ #odlux-app-protection > footer {
+   display: flex;
+   justify-content: space-between;
+   align-items: flex-end;
+ }
+ 
+ #odlux-app-protection > main {
+   height: 100%;
+   display: flex;
+   flex-direction: row;
+ }
+ 
+ .table { 
+    display: table;
+ }
 
-.modal-dialog .modal-lg {
-  min-width: 690px;
-  width: 690px;
-}
-
-.requiredNesGrid span {
-color: #393939;
-}
-.mwtn-form-control {
-  font-family:'Courier New';
-  /* display: block; */
-  width: 600px;
-  height: 34px;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.428571429;
-  color: #000000;
-  vertical-align: middle;
-  background-color: #eeeeee;
-  background-image: none;
-  border: 1px solid #d5d5d5;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  -webkit-transition: all border-color ease-in-out .15s, box-shadow ease-in-out .15s linear;
-  -moz-transition: all border-color ease-in-out .15s, box-shadow ease-in-out .15s linear;
-  -ms-transition: all border-color ease-in-out .15s, box-shadow ease-in-out .15s linear;
-  -o-transition: all border-color ease-in-out .15s, box-shadow ease-in-out .15s linear;
-  transition: all border-color ease-in-out .15s, box-shadow ease-in-out .15s linear;
-}
-
-
-.green {
-color: darkgreen;
-}
-.green span {
-color: darkgreen;
-}
-
-h3.modal-title {
-color: #393939;
-}
-
-.modal-body span {
-color: #393939;
-}
-
-.modal-body h3 {
-color: #393939;
-}
-
-.modal-body .green span {
-color: darkgreen;
-}
-
-.requiredNesGrid {
-height: 600px;
-background-color: white;
-}
-
-.unknownNesGrid {
-height: 600px;
-background-color: white;
-}
-
-.unknownNesGrid .ui-grid-cell-contents span {
-color: #393939;
-}
-
-.yangCapabilitiesGrid {
-height: 300px;
-background-color: white;
-}
+ .table-caption {
+   display: table-caption;
+   background: #ffffff;
+   font-weight:bold;
+  }
+ 
+ .table-footer {
+   display: table-caption;
+   caption-side: bottom;
+   background: #ffffff;
+   font-weight:bold;
+ }
+   .table-row{
+     display: table-row;
+   }
+     .table-cell, .table-head{
+       display: table-cell;
+       padding: 1px 2px;
+     }
+     .table-head{
+         font-weight:bold;
+     }
+ 
+ .unit {
+   width: 50px;
+ }
+ 
+ .value {
+   width: 100px;
+ }
+ 
+ .flex-row {
+   display: flex;
+   flex-wrap: wrap;
+   flex-direction: row;
+ }
+ 
+ .flex-row > div {
+   flex-grow: 1;
+ }
+ 
+ .flex-column {
+   display: flex;
+   flex-wrap: wrap;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+ }
+ 
+ .flex-column > div {
+   flex-grow: 1;
+ }
+ 
+ .protection-group {
+   
+ }
+ 
+ .protection-group .flex-column-label-left {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+ }
+ 
+ .protection-group .flex-column-label-right {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   align-items: center;
+ }
+ 
+ .protection-group svg {
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   margin: auto;
+ }
+ .protection-group svg path {
+   fill: red;
+   fill-opacity: 0.0;
+   stroke-linecap: round;
+   stroke: #ddeedd;
+   stroke-width: 6;
+ }
+ .protection-group svg path.active {
+   stroke-dasharray: 3,12;
+   stroke:#008800;
+ }
+ .protection-group svg path.bidirectional {
+   stroke-width: 12;
+ }
+ .protection-group use.active {
+   stroke-dasharray: 3,12;
+   stroke:#008800;
+ fill:blue;
+ }
+ 
+ .protection-group svg text {
+  font: "12px arial, sans-serif";
+  stroke: #008800;
+  stroke-width: 1;
+  fill: #008800;
+ }
+ 
+ .protection-group svg circle {
+   fill: #ffff88;	
+   stroke: #008800;
+   stroke-width: 3;
+ }
+ .protection-group svg circle:hover {
+   stroke-width: 5;
+ }
+ 
