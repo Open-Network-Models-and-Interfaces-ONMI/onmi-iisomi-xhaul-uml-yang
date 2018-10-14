@@ -35,7 +35,7 @@ Editors:  Thorsten Heinze
     <text>This module contains a collection of YANG definitions for managing wireless networks.
 This model is for vendor agnostic management of wireless network elements.</text>
   </description>
-  <revision date="2018-09-05">
+  <revision date="2018-10-10">
     <description>
       <text>Version 1.1</text>
     </description>
@@ -74,7 +74,6 @@ This model is for vendor agnostic management of wireless network elements.</text
         </description>
       </enum>
       <enum name="none">
-        <status value="deprecated"/>
         <description>
           <text>none</text>
         </description>
@@ -521,6 +520,7 @@ This model is for vendor agnostic management of wireless network elements.</text
       </description>
     </leaf>
     <list name="time-x-states-list">
+      <key value="transmission-mode"/>
       <config value="false"/>
       <min-elements value="1"/>
       <uses name="time-x-states-type-g"/>
@@ -543,6 +543,7 @@ This model is for vendor agnostic management of wireless network elements.</text
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>none</text>
       </description>
@@ -602,6 +603,7 @@ This model is for vendor agnostic management of wireless network elements.</text
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>none</text>
       </description>
@@ -661,6 +663,7 @@ This model is for vendor agnostic management of wireless network elements.</text
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>none</text>
       </description>
@@ -680,6 +683,7 @@ This model is for vendor agnostic management of wireless network elements.</text
       <units name="s"/>
       <default value="-1"/>
       <config value="false"/>
+      <status value="deprecated"/>
       <description>
         <text>none</text>
       </description>
@@ -1405,6 +1409,1045 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
       <text>Turns performance information into historical performance information by inheriting from OTN_HistoryData.</text>
     </description>
   </grouping>
+  <typedef name="mii-kind-type">
+    <type name="enumeration">
+      <enum name="gbic">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="soldered-connector">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="sfp-sfp-plus-sfp28">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="xbi-300-pin">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="xenpak">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="xfp">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="xfp-e">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="xpak">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="x2">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="dwdm-sfp-sfp-plus">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="qsfp">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="qsfp-plus">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="cxp">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="shielded-mini-multilane-hd-4-x">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="shielded-mini-multilane-hd-8-x">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="qsfp28">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="cxp2">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="cdfp-style1-style2">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="shielded-mini-multilane-hd-4-x-fan-out">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="shielded-mini-multilane-hd-8-x-fan-out">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="cdfp-style3">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="qsfp-micro">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="qsfp-dd">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="qsfp-plus-rate-select-v1">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="qsfp-plus-rate-select-v2">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="not-yet-defined">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="mdi-kind-type">
+    <type name="enumeration">
+      <enum name="sc">
+        <description>
+          <text>Subscriber Connector</text>
+        </description>
+      </enum>
+      <enum name="fibre-channel-style-1">
+        <description>
+          <text>Copper connector</text>
+        </description>
+      </enum>
+      <enum name="fibre-channel-style-2">
+        <description>
+          <text>Copper connector</text>
+        </description>
+      </enum>
+      <enum name="bnc-tnc">
+        <description>
+          <text>Bayonet/Threaded Neill-Concelman</text>
+        </description>
+      </enum>
+      <enum name="fc">
+        <description>
+          <text>Fibre Channel coax headers</text>
+        </description>
+      </enum>
+      <enum name="fiber-jack">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="lc">
+        <description>
+          <text>Lucent Connector</text>
+        </description>
+      </enum>
+      <enum name="mt-rj">
+        <description>
+          <text>Mechanical Transfer - Registered Jack</text>
+        </description>
+      </enum>
+      <enum name="mu">
+        <description>
+          <text>Multiple Optical</text>
+        </description>
+      </enum>
+      <enum name="sg">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="optical-pigtail">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="mpo1-x12">
+        <description>
+          <text>Multifiber Parallel Optic</text>
+        </description>
+      </enum>
+      <enum name="mpo2-x16">
+        <description>
+          <text>Multifiber Parallel Optic</text>
+        </description>
+      </enum>
+      <enum name="hssdc-ii">
+        <description>
+          <text>High Speed Serial Data Connector</text>
+        </description>
+      </enum>
+      <enum name="copper-pigtail">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="rj45">
+        <description>
+          <text>8P8C, according to Clause 3 and Figures 1 through 5 of IEC 60603-7</text>
+        </description>
+      </enum>
+      <enum name="no-seperable-connector">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="mxc2-x16">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="st">
+        <description>
+          <text>according to IEC 60874-10:1992, also often called BFOC/2.5</text>
+        </description>
+      </enum>
+      <enum name="not-yet-defined">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="medium-kind-type">
+    <type name="enumeration">
+      <enum name="tp-cat3">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="tp-cat5">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="tp-cat6">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="tp-cat8">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="single-mode">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="multi-mode">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="not-yet-defined">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="pmd-name-type">
+    <type name="enumeration">
+      <enum name="10-base5">
+        <description>
+          <text>Thick coax Medium Attachment Unit (MAU) as specified in 802.3 Clause 8</text>
+        </description>
+      </enum>
+      <enum name="foirl">
+        <description>
+          <text>FOIRL Medium Attachment Unit (MAU) as specified in 802.3 Clause 9.9</text>
+        </description>
+      </enum>
+      <enum name="10-base2">
+        <description>
+          <text>Thin coax Medium Attachment Unit (MAU) as specified in 802.3 Clause 10</text>
+        </description>
+      </enum>
+      <enum name="10-broad36">
+        <description>
+          <text>Broadband DTE Medium Attachment Unit (MAU) as specified in 802.3 Clause 11</text>
+        </description>
+      </enum>
+      <enum name="10-base-t">
+        <description>
+          <text>Twisted-pair cabling Medium Attachment Unit (MAU) as specified in 802.3 Clause 14. Only to be applied when duplex mode unknown</text>
+        </description>
+      </enum>
+      <enum name="10-base-thd">
+        <description>
+          <text>Twisted-pair cabling Medium Attachment Unit (MAU) as specified in 802.3 Clause 14 in half duplex mode</text>
+        </description>
+      </enum>
+      <enum name="10-base-tfd">
+        <description>
+          <text>Twisted-pair cabling Medium Attachment Unit (MAU) as specified in 802.3 Clause 14 in full duplex mode</text>
+        </description>
+      </enum>
+      <enum name="10-base-fp">
+        <description>
+          <text>Passive fiber Medium Attachment Unit (MAU) as specified in 802.3 Clause 16</text>
+        </description>
+      </enum>
+      <enum name="10-base-fb">
+        <description>
+          <text>Synchronous fiber Medium Attachment Unit (MAU) as specified in 802.3 Clause 17</text>
+        </description>
+      </enum>
+      <enum name="10-base-fl">
+        <description>
+          <text>Asynchronous fiber Medium Attachment Unit (MAU) as specified in 802.3 Clause 18. Only to be applied when duplex mode unknown</text>
+        </description>
+      </enum>
+      <enum name="10-base-flhd">
+        <description>
+          <text>Asynchronous fiber Medium Attachment Unit (MAU) as specified in 802.3 Clause 18 in half duplex mode</text>
+        </description>
+      </enum>
+      <enum name="10-base-flfd">
+        <description>
+          <text>Asynchronous fiber Medium Attachment Unit (MAU) as specified in 802.3 Clause 18 in full duplex mode</text>
+        </description>
+      </enum>
+      <enum name="100-base-t4">
+        <description>
+          <text>Four-pair Category 3 twisted-pair cabling as specified in 802.3 Clause 23</text>
+        </description>
+      </enum>
+      <enum name="100-base-tx">
+        <description>
+          <text>Two-pair Category 5 twisted-pair cabling as specified in 802.3 Clause 25. Only to be applied when duplex mode unknown</text>
+        </description>
+      </enum>
+      <enum name="100-base-txhd">
+        <description>
+          <text>Two-pair Category 5 twisted-pair cabling as specified in 802.3 Clause 25 in half duplex mode</text>
+        </description>
+      </enum>
+      <enum name="100-base-txfd">
+        <description>
+          <text>Two-pair Category 5 twisted-pair cabling as specified in 802.3 Clause 25 in full duplex mode</text>
+        </description>
+      </enum>
+      <enum name="100-base-bx10-d">
+        <description>
+          <text>One single-mode fiber Optical Line Terminal (OLT=&gt;office side) Physical layer entity (PHY) as specified in 802.3 Clause 58</text>
+        </description>
+      </enum>
+      <enum name="100-base-bx10-u">
+        <description>
+          <text>One single-mode fiber Optical Network Unit (ONU=&gt;customer side) Physical layer entity (PHY) as specified in 802.3 Clause 58</text>
+        </description>
+      </enum>
+      <enum name="100-base-fx">
+        <description>
+          <text>X fiber over Physical Medium Dependent (PMD) as specified in 802.3 Clause 26. Only to be applied when duplex mode unknown</text>
+        </description>
+      </enum>
+      <enum name="100-base-fxhd">
+        <description>
+          <text>X fiber over Physical Medium Dependent (PMD) as specified in 802.3 Clause 26 in half duplex mode</text>
+        </description>
+      </enum>
+      <enum name="100-base-fxfd">
+        <description>
+          <text>X fiber over Physical Medium Dependent (PMD) as specified in 802.3 Clause 26 in full duplex mode</text>
+        </description>
+      </enum>
+      <enum name="100-base-lx10">
+        <description>
+          <text>Two fiber Physical layer entity (PHY) as specified in 802.3 Clause 58</text>
+        </description>
+      </enum>
+      <enum name="100-base-t2">
+        <description>
+          <text>Two-pair Category 3 twisted-pair cabling as specified in 802.3 Clause 32. Only to be applied when duplex mode unknown</text>
+        </description>
+      </enum>
+      <enum name="100-base-t2-hd">
+        <description>
+          <text>Two-pair Category 3 twisted-pair cabling as specified in 802.3 Clause 32 in half duplex mode</text>
+        </description>
+      </enum>
+      <enum name="100-base-t2-fd">
+        <description>
+          <text>Two-pair Category 3 twisted-pair cabling as specified in 802.3 Clause 32 in full duplex mode</text>
+        </description>
+      </enum>
+      <enum name="1000-base-x">
+        <description>
+          <text>X  as specified in 802.3 Clause 36 over undefined Physical Medium Dependent (PMD). Not to be configured and only to be returned when underlying PMD and duplex mode unknown</text>
+        </description>
+      </enum>
+      <enum name="1000-base-bx10-d">
+        <description>
+          <text>One single-mode fiber Optical Line Terminal (OLT=&gt;office side) Physical layer entity (PHY) as specified in 802.3 Clause 59</text>
+        </description>
+      </enum>
+      <enum name="1000-base-bx10-u">
+        <description>
+          <text>One single-mode fiber Optical Network Unit (ONU=&gt;customer side) Physical layer entity (PHY) as specified in 802.3 Clause 59</text>
+        </description>
+      </enum>
+      <enum name="1000-base-xhd">
+        <description>
+          <text>X Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) as specified in 802.3 Clause 36 over undefined Physical Medium Dependent (PMD) in half duplex mode. Not to be configured and only to be returned when underlying PMD unknown</text>
+        </description>
+      </enum>
+      <enum name="1000-base-xfd">
+        <description>
+          <text>X Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) as specified in 802.3 Clause 36 over undefined Physical Medium Dependent (PMD) in full duplex mode. Not to be configured and only to be returned when underlying PMD unknown</text>
+        </description>
+      </enum>
+      <enum name="1000-base-lx">
+        <description>
+          <text>X fiber over long-wavelength laser Physical Medium Dependent (PMD) as specified in 802.3 Clause 38. Only to be applied when duplex mode unknown</text>
+        </description>
+      </enum>
+      <enum name="1000-base-lxhd">
+        <description>
+          <text>X fiber over long-wavelength laser Physical Medium Dependent (PMD) as specified in 802.3 Clause 38 in half duplex mode</text>
+        </description>
+      </enum>
+      <enum name="1000-base-lxfd">
+        <description>
+          <text>X fiber over long-wavelength laser Physical Medium Dependent (PMD) as specified in 802.3 Clause 38 in full duplex mode</text>
+        </description>
+      </enum>
+      <enum name="1000-base-lx10">
+        <description>
+          <text>Two fiber 10km Physical layer entity (PHY) as specified in 802.3 Clause 59</text>
+        </description>
+      </enum>
+      <enum name="1000-base-sx">
+        <description>
+          <text>X fiber over short-wavelength laser Physical Medium Dependent (PMD) as specified in 802.3 Clause 38. Only to be applied when duplex mode unknown</text>
+        </description>
+      </enum>
+      <enum name="1000-base-sxhd">
+        <description>
+          <text>X fiber over short-wavelength laser Physical Medium Dependent (PMD) as specified in 802.3 Clause 38 in half duplex mode</text>
+        </description>
+      </enum>
+      <enum name="1000-base-sxfd">
+        <description>
+          <text>X fiber over short-wavelength laser Physical Medium Dependent (PMD) as specified in 802.3 Clause 38 in full duplex mode</text>
+        </description>
+      </enum>
+      <enum name="1000-base-cx">
+        <description>
+          <text>X copper over 150-Ohm balanced cable Physical Medium Dependent (PMD) as specified in 802.3 Clause 39. Only to be applied when duplex mode unknown</text>
+        </description>
+      </enum>
+      <enum name="1000-base-cxhd">
+        <description>
+          <text>X copper over 150-Ohm balanced cable Physical Medium Dependent (PMD) as specified in 802.3 Clause 39 in half duplex mode</text>
+        </description>
+      </enum>
+      <enum name="1000-base-cxfd">
+        <description>
+          <text>X copper over 150-Ohm balanced cable Physical Medium Dependent (PMD) as specified in 802.3 Clause 39 in full duplex mode</text>
+        </description>
+      </enum>
+      <enum name="1000-base-kx">
+        <description>
+          <text>X Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) over an electrical backplane Physical Medium Dependent (PMD) as specified in 802.3 Clause 70</text>
+        </description>
+      </enum>
+      <enum name="1000-base-t">
+        <description>
+          <text>Four-pair Category 5 twisted-pair cabling Physical layer entity (PHY) as specified in 802.3 Clause 40. Only to be applied when duplex mode unknown</text>
+        </description>
+      </enum>
+      <enum name="1000-base-thd">
+        <description>
+          <text>Four-pair Category 5 twisted-pair cabling Physical layer entity (PHY) as specified in 802.3 Clause 40 in half duplex mode</text>
+        </description>
+      </enum>
+      <enum name="1000-base-tfd">
+        <description>
+          <text>Four-pair Category 5 twisted-pair cabling Physical layer entity (PHY) as specified in 802.3 Clause 40 in full duplex mode</text>
+        </description>
+      </enum>
+      <enum name="10-gbase-x">
+        <description>
+          <text>X Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) as specified in 802.3 Clause 48 over undefined Physical Medium Dependent (PMD). Not to be configured and only to be returned when underlying PMD unknown</text>
+        </description>
+      </enum>
+      <enum name="10-gbase-lx4">
+        <description>
+          <text>X fiber over 4 lane 1310nm optics as specified in 802.3 Clause 53</text>
+        </description>
+      </enum>
+      <enum name="10-gbase-cx4">
+        <description>
+          <text>X copper over 8 pair 100-Ohm balanced cable as specified in 802.3 Clause 54</text>
+        </description>
+      </enum>
+      <enum name="10-gbase-kx4">
+        <description>
+          <text>X Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) over an electrical backplane Physical Medium Dependent (PMD) as specified in 802.3 Clause 71</text>
+        </description>
+      </enum>
+      <enum name="10-gbase-r">
+        <description>
+          <text>R Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) as specified in 802.3 Clause 49 over undefined Physical Medium Dependent (PMD). Not to be configured and only to be returned when underlying PMD unknown</text>
+        </description>
+      </enum>
+      <enum name="10-gbase-er">
+        <description>
+          <text>R fiber over 1550nm optics as specified in 802.3 Clause 52</text>
+        </description>
+      </enum>
+      <enum name="10-gbase-lr">
+        <description>
+          <text>R fiber over 1310nm optics as specified in 802.3 Clause 52</text>
+        </description>
+      </enum>
+      <enum name="10-gbase-sr">
+        <description>
+          <text>R fiber over 850nm optics as specified in 802.3 Clause 52</text>
+        </description>
+      </enum>
+      <enum name="10-gbase-lrm">
+        <description>
+          <text>R fiber over 1310 nm optics as specified in 802.3 Clause 68</text>
+        </description>
+      </enum>
+      <enum name="10-gbase-kr">
+        <description>
+          <text>R Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) over an electrical backplane Physical Medium Dependent (PMD) as specified in 802.3 Clause 72</text>
+        </description>
+      </enum>
+      <enum name="10-gbase-t">
+        <description>
+          <text>Four-pair twisted-pair balanced copper cabling Physical layer entity (PHY) as specified in 802.3 Clause 55</text>
+        </description>
+      </enum>
+      <enum name="10-gbase-pr-d1">
+        <description>
+          <text>One single-mode fiber 10.3125 GBd continuous downstream / burst mode upstream Optical Line Terminal (OLT=&gt;office side) Physical layer entity (PHY) as specified in 802.3 Clause 75</text>
+        </description>
+      </enum>
+      <enum name="10-gbase-pr-d2">
+        <description>
+          <text>One single-mode fiber 10.3125 GBd continuous downstream / burst mode upstream Optical Line Terminal (OLT=&gt;office side) Physical layer entity (PHY) as specified in 802.3 Clause 75</text>
+        </description>
+      </enum>
+      <enum name="10-gbase-pr-d3">
+        <description>
+          <text>One single-mode fiber 10.3125 GBd continuous downstream / burst mode upstream Optical Line Terminal (OLT=&gt;office side) Physical layer entity (PHY) as specified in 802.3 Clause 75</text>
+        </description>
+      </enum>
+      <enum name="10-gbase-pr-d4">
+        <description>
+          <text>One single-mode fiber 10.3125 GBd continuous downstream / burst mode upstream Optical Line Terminal (OLT=&gt;office side) Physical layer entity (PHY) as specified in 802.3 Clause 75</text>
+        </description>
+      </enum>
+      <enum name="10-gbase-pr-u1">
+        <description>
+          <text>One single-mode fiber 10.3125 GBd continuous downstream / burst mode upstream Optical Network Unit (ONU=&gt;customer side) Physical layer entity (PHY) as specified in 802.3 Clause 75</text>
+        </description>
+      </enum>
+      <enum name="10-gbase-pr-u2">
+        <description>
+          <text>One single-mode fiber 10.3125 GBd continuous downstream / burst mode upstream Optical Network Unit (ONU=&gt;customer side) Physical layer entity (PHY) as specified in 802.3 Clause 75</text>
+        </description>
+      </enum>
+      <enum name="10-gbase-pr-u3">
+        <description>
+          <text>One single-mode fiber 10.3125 GBd continuous downstream / burst mode upstream Optical Network Unit (ONU=&gt;customer side) Physical layer entity (PHY) as specified in 802.3 Clause 75</text>
+        </description>
+      </enum>
+      <enum name="10-gbase-pr-u4">
+        <description>
+          <text>One single-mode fiber 10.3125 GBd continuous downstream / burst mode upstream Optical Network Unit (ONU=&gt;customer side) Physical layer entity (PHY) as specified in 802.3 Clause 75</text>
+        </description>
+      </enum>
+      <enum name="40-gbase-r">
+        <description>
+          <text>Multi-lane PCS as specified in 802.3 Clause 82 over undefined Physical Medium Attachment (PMA) and Physical Medium Dependent (PMD). Not to be configured and only to be returned when underlying PMD unknown</text>
+        </description>
+      </enum>
+      <enum name="40-gbase-kr4">
+        <description>
+          <text>40GBASE-R Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) over an electrical backplane Physical Medium Dependent (PMD) as specified in 802.3 Clause 84</text>
+        </description>
+      </enum>
+      <enum name="40-gbase-cr4">
+        <description>
+          <text>40GBASE-R Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) over 4 lane shielded copper balanced cable Physical Medium Dependent (PMD) as specified in 802.3 Clause 85</text>
+        </description>
+      </enum>
+      <enum name="40-gbase-sr4">
+        <description>
+          <text>40GBASE-R Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) over 4 lane multimode fiber Physical Medium Dependent (PMD) as specified in 802.3 Clause 86</text>
+        </description>
+      </enum>
+      <enum name="4-x10-gbase-sr">
+        <description>
+          <text>4 times 10GBASE-S compatible to 802.3 Clause 52 over 4 lane multimode fiber</text>
+        </description>
+      </enum>
+      <enum name="40-gbase-lr4">
+        <description>
+          <text>40GBASE-R Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) over 4 WDM lane single mode fiber Physical Medium Dependent (PMD), with long reach, as specified in 802.3 Clause 87</text>
+        </description>
+      </enum>
+      <enum name="40-gbase-er4">
+        <description>
+          <text>40GBASE-R Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) over 4 WDM lane single mode fiber Physical Medium Dependent (PMD), with extended reach, as specified in 802.3 Clause 87</text>
+        </description>
+      </enum>
+      <enum name="40-gbase-fr">
+        <description>
+          <text>40GBASE-R Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) over single mode fiber Physical Medium Dependent (PMD) as specified in 802.3 Clause 89</text>
+        </description>
+      </enum>
+      <enum name="100-gbase-r">
+        <description>
+          <text>Multi-lane PCS as specified in 802.3 Clause 82 over undefined 100GBASE-R or 100GBASE-P Physical Medium Attachment (PMA) and Physical Medium Dependent (PMD). Not to be configured and only to be returned when underlying PMD unknown</text>
+        </description>
+      </enum>
+      <enum name="100-gbase-cr4">
+        <description>
+          <text>100GBASE-R Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) over 4 lane shielded copper balanced cable Physical Medium Dependent (PMD) as specified in 802.3 Clause 92</text>
+        </description>
+      </enum>
+      <enum name="100-gbase-kr4">
+        <description>
+          <text>100GBASE-R Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) over an electrical backplane Physical Medium Dependent (PMD) as specified in 802.3 Clause 93</text>
+        </description>
+      </enum>
+      <enum name="100-gbase-kp4">
+        <description>
+          <text>100GBASE-P Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) over an electrical backplane Physical Medium Dependent (PMD) as specified in 802.3 Clause 94</text>
+        </description>
+      </enum>
+      <enum name="100-gbase-cr10">
+        <description>
+          <text>100GBASE-R Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) over 10 lane shielded copper balanced cable Physical Medium Dependent (PMD) as specified in 802.3 Clause 85</text>
+        </description>
+      </enum>
+      <enum name="100-gbase-sr4">
+        <description>
+          <text>100GBASE-R Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) over 4 lane multimode fiber Physical Medium Dependent (PMD) as specified in 802.3 Clause 95</text>
+        </description>
+      </enum>
+      <enum name="100-gbase-sr10">
+        <description>
+          <text>100GBASE-R Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) over 10 lane multimode fiber Physical Medium Dependent (PMD) as specified in 802.3 Clause 86</text>
+        </description>
+      </enum>
+      <enum name="2-x40-gbase-sr">
+        <description>
+          <text>2 times 40GBASE-S compatible to 802.3 Clause 86 over 10 lane multimode fiber</text>
+        </description>
+      </enum>
+      <enum name="10-x10-gbase-sr">
+        <description>
+          <text>10 times 10GBASE-S compatible to 802.3 Clause 52 over 10 lane multimode fiber</text>
+        </description>
+      </enum>
+      <enum name="12-x10-gbase-sr">
+        <description>
+          <text>12 times 10GBASE-S compatible to 802.3 Clause 52 over 12 lane multimode fiber</text>
+        </description>
+      </enum>
+      <enum name="100-gbase-lr4">
+        <description>
+          <text>100GBASE-R Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) over 4 WDM lane single mode fiber Physical Medium Dependent (PMD), with long reach, as specified in 802.3 Clause 88</text>
+        </description>
+      </enum>
+      <enum name="100-gbase-er4">
+        <description>
+          <text>100GBASE-R Physical Coding Sublayer (PCS) and Physical Medium Attachment (PMA) over 4 WDM lane single mode fiber Physical Medium Dependent (PMD), with extended reach, as specified in 802.3 Clause 88</text>
+        </description>
+      </enum>
+      <enum name="not-yet-defined">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <grouping name="signal-ordering-type-g">
+    <leaf name="signal-ordering-kind-name">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>To be filled according to TR-541. Must be unique for referencing during configuration of the interface.</text>
+      </description>
+    </leaf>
+    <leaf-list name="signal-list">
+      <type name="string"/>
+      <config value="false"/>
+      <min-elements value="2"/>
+      <description>
+        <text>Desciption of the signals on the Media Dependent Interface (MDI), might be e.g. 'TX+' in case of e.g. 10BASE-T, might be e.g. '1,295.56 nm' in case of e.g. 100GBASE-LR4</text>
+      </description>
+    </leaf-list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="mau-type-g">
+    <leaf name="mau-id">
+      <type name="core-model:universal-id"/>
+      <config value="false"/>
+      <description>
+        <text>802.3 according to 30.5.1.1.1 aMAUID
+Unique identifier of the Medium Attachment Unit (MAU) instance within the data about the device</text>
+      </description>
+    </leaf>
+    <leaf name="mii-kind">
+      <type name="mii-kind-type"/>
+      <default value="not-yet-defined"/>
+      <config value="false"/>
+      <description>
+        <text>SFF8472_SFF8636
+Kind of Medium Independent Interface (MII) provided by this Medium Attachment Unit (MAU) (e.g. SFP, moldered port)</text>
+      </description>
+    </leaf>
+    <leaf name="mdi-kind">
+      <type name="mdi-kind-type"/>
+      <default value="not-yet-defined"/>
+      <config value="false"/>
+      <description>
+        <text>Kind of Medium Dependent Interface (MDI) provided by this Medium Attachment Unit (MAU)</text>
+      </description>
+    </leaf>
+    <leaf name="required-medium-kind">
+      <type name="medium-kind-type"/>
+      <default value="not-yet-defined"/>
+      <config value="false"/>
+      <description>
+        <text>Kind of medium required for operating this Medium Attachment Unit (MAU), more like an information field</text>
+      </description>
+    </leaf>
+    <leaf-list name="wavelength-min">
+      <type name="int32"/>
+      <units name="pm"/>
+      <config value="false"/>
+      <max-elements value="3"/>
+      <description>
+        <text>SFF-8690
+Minimum laser wavelength in pico meter, -1 = not applicable, 0 = not known, wavelengthMax = wavelength cannot be configured; multiplicity=0..3 for 10GBASE-LX4 according to 802.3 53.5</text>
+      </description>
+    </leaf-list>
+    <leaf-list name="wavelength-max">
+      <type name="int32"/>
+      <units name="pm"/>
+      <config value="false"/>
+      <max-elements value="3"/>
+      <description>
+        <text>Maximum laser wavelength in pico meter, -1 = not applicable, 0 = not known, wavelengthMin = wavelength cannot be configured; multiplicity=0..3 for 10GBASE-LX4 according to 802.3 53.5
+SFF-8690</text>
+      </description>
+    </leaf-list>
+    <leaf name="wavelength-grid-min">
+      <type name="int32"/>
+      <units name="pm"/>
+      <default value="-1"/>
+      <config value="false"/>
+      <description>
+        <text>Minimum grid spacing supported by the transceiver, -1 = not applicable, 0 = not known
+SFF-8690</text>
+      </description>
+    </leaf>
+    <leaf name="link-length-max">
+      <type name="int32"/>
+      <units name="m"/>
+      <default value="-1"/>
+      <config value="false"/>
+      <description>
+        <text>Indicates the maximum link length that is supported by the transceiver on the medium, which is specified in the standard referenced in TypeDefinitions::phyType::phyKind.</text>
+      </description>
+    </leaf>
+    <leaf name="vendor-name">
+      <type name="string"/>
+      <default value="NOT_YET_DEFINED"/>
+      <config value="false"/>
+      <description>
+        <text>Name of the vendor of the transceiver
+Will be moved to CoreModel::CorePhysicalModel-Initial::EquipmentDetail::ObjectClasses::InvariantDetails::ManufacturerProperties::manufacturerName</text>
+      </description>
+    </leaf>
+    <leaf name="vendor-oui">
+      <type name="string"/>
+      <default value="NOT_YET_DEFINED"/>
+      <config value="false"/>
+      <description>
+        <text>Describes the IEEE Company identifier of the vendor of the transceiver (1st part of 802.3 ResourceTypeID)
+802.3 22.2.4.3.1 PHY Identifier; also referenced in 45.2.1.13 PMA/PMD package identifier
+Will be moved to CoreModel::CorePhysicalModel-Initial::EquipmentDetail::ObjectClasses::InvariantDetails::ManufacturerProperties::manufacturerIdentifier</text>
+      </description>
+    </leaf>
+    <leaf name="part-number">
+      <type name="string"/>
+      <default value="NOT_YET_DEFINED"/>
+      <config value="false"/>
+      <description>
+        <text>802.3 22.2.4.3.1 PHY Identifier; also referenced in 45.2.1.13 PMA/PMD package identifier as six bit model number
+Uniquely identifies the transceiver in the vendor's product lists
+Will be moved to CoreModel::CorePhysicalModel-Initial::EquipmentDetail::ObjectClasses::InvariantDetails::EquipmentType::partTypeIdentifier</text>
+      </description>
+    </leaf>
+    <leaf name="revision-number">
+      <type name="string"/>
+      <default value="NOT_YET_DEFINED"/>
+      <config value="false"/>
+      <description>
+        <text>Identifies the revision number of the transceiver (3rd part of 802.3 ResourceTypeID)
+802.3 22.2.4.3.1 PHY Identifier; also referenced in 45.2.1.13 PMA/PMD package identifier as four-bit revision number
+Will be moved to CoreModel::CorePhysicalModel-Initial::EquipmentDetail::ObjectClasses::InvariantDetails::EquipmentType::version</text>
+      </description>
+    </leaf>
+    <leaf name="serial-number">
+      <type name="string"/>
+      <default value="NOT_YET_DEFINED"/>
+      <config value="false"/>
+      <description>
+        <text>Vendor's serial number for the transceiver. 0 = not applicable
+Will be moved to CoreModel::CorePhysicalModel-Initial::EquipmentDetail::ObjectClasses::InvariantDetails::EquipmentInstance::serialNumber</text>
+      </description>
+    </leaf>
+    <leaf name="date-code">
+      <type name="string"/>
+      <default value="NOT_YET_DEFINED"/>
+      <config value="false"/>
+      <description>
+        <text>Vendor's date code for the transceiver
+Will be moved to CoreModel::CorePhysicalModel-Initial::EquipmentDetail::ObjectClasses::InvariantDetails::EquipmentInstance::manufactureDate</text>
+      </description>
+    </leaf>
+    <leaf-list name="pmd-list">
+      <type name="pmd-name-type"/>
+      <config value="false"/>
+      <min-elements value="1"/>
+      <description>
+        <text>List of Physical Medium Dependent (PMD) that can be operated
+*** In case ordering of the signals depends on the PMD, pmdList has to be put into the datatype for the signal ordering ***</text>
+      </description>
+    </leaf-list>
+    <list name="signal-ordering-list">
+      <key value="signal-ordering-kind-name"/>
+      <config value="false"/>
+      <min-elements value="1"/>
+      <uses name="signal-ordering-type-g"/>
+      <description>
+        <text>Describes the different (e.g. MDI, MDI-X) ways of ordering the signals on the physical medium</text>
+      </description>
+    </list>
+    <leaf name="auto-signal-ordering-is-avail">
+      <type name="boolean"/>
+      <default value="false"/>
+      <config value="false"/>
+      <description>
+        <text>1 = there is a mechanism for automatically crossing over tx and rx implemented</text>
+      </description>
+    </leaf>
+    <leaf name="short-reach-mode-is-avail">
+      <type name="boolean"/>
+      <default value="false"/>
+      <config value="false"/>
+      <description>
+        <text>1 = Indicates that Short Reach Mode for 10GBASE-T according to 802.3 45.2.1.64 is available</text>
+      </description>
+    </leaf>
+    <leaf name="eee-is-avail">
+      <type name="boolean"/>
+      <default value="false"/>
+      <config value="false"/>
+      <description>
+        <text>1 = Indicates that Energy-Efficient Ethernet (EEE) is available at the device.</text>
+      </description>
+    </leaf>
+    <leaf name="unidirectional-operation-is-avail">
+      <type name="boolean"/>
+      <default value="false"/>
+      <config value="false"/>
+      <description>
+        <text>1 = Medium Attachment Unit (MAU) able to transmit from Media Independent Interface (MII) regardless of whether the MAU has determined that a valid link has been established, 0 = MAU able to transmit from MII only when the MAU has determined that a valid link has been established
+802.3</text>
+      </description>
+    </leaf>
+    <leaf-list name="supported-alarms">
+      <type name="string"/>
+      <config value="false"/>
+      <min-elements value="6"/>
+      <description>
+        <text>MW IM
+Available alarms to be listed. Mandatory:'txFault', 'rxLos', 'tempHigh', 'tempLow', 'rxLevelHigh', 'rxLevelLow'. Optional:'vccHigh', 'vccLow', 'txBiasHigh', 'txBiasLow', 'txPowerHigh', 'txPowerLow', 'laserTempHigh', 'laserTempLow', 'tecCurrentHigh', 'tecCurrentLow'. Further alarms might be added by the device. Names are to be separated by commas.</text>
+      </description>
+    </leaf-list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="wire-interface-problem-severity-type-g">
+    <leaf name="problem-kind-name">
+      <type name="string"/>
+      <description>
+        <text>Name of the alarm according to WireInterface::WireInterfaceCapability::supportedAlarms</text>
+      </description>
+    </leaf>
+    <leaf name="problem-kind-severity">
+      <type name="severity-type"/>
+      <default value="warning"/>
+      <description>
+        <text>Severity of this type of alarm.</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="wire-interface-current-problem-type-g">
+    <leaf name="problem-name">
+      <type name="string"/>
+      <default value="Problem name not specified."/>
+      <config value="false"/>
+      <description>
+        <text>Name of the alarm according to WireInterface::WireInterfaceCapability::supportedAlarms</text>
+      </description>
+    </leaf>
+    <uses name="mw-current-problem-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="wire-interface-performance-type-g">
+    <leaf name="es">
+      <type name="int32"/>
+      <units name="s"/>
+      <default value="-1"/>
+      <config value="false"/>
+      <description>
+        <text>802.3 30.8.1.1.13 aLineESs
+Number of errored seconds</text>
+      </description>
+    </leaf>
+    <leaf name="ses">
+      <type name="int32"/>
+      <units name="s"/>
+      <default value="-1"/>
+      <config value="false"/>
+      <description>
+        <text>802.3 30.8.1.1.12 aLineSESs
+Number of severely errored seconds</text>
+      </description>
+    </leaf>
+    <leaf name="symbol-error-during-carrier">
+      <type name="int32"/>
+      <default value="-1"/>
+      <config value="false"/>
+      <description>
+        <text>802.3 according to 30.3.2.1.5 aSymbolErrorDuringCarrier
+Number of times when valid carrier was present and an invalid data symbol occured.</text>
+      </description>
+    </leaf>
+    <leaf name="low-power-idle-transmitter-ms">
+      <type name="int32"/>
+      <units name="ms"/>
+      <default value="-1"/>
+      <config value="false"/>
+      <description>
+        <text>802.3 similar to 30.3.2.1.8 aTransmitLPIMicroseconds
+Number of milliseconds (original counter expresses microseconds), during which the transmitter was in power save mode</text>
+      </description>
+    </leaf>
+    <leaf name="low-power-idle-receiver-ms">
+      <type name="int32"/>
+      <units name="ms"/>
+      <default value="-1"/>
+      <config value="false"/>
+      <description>
+        <text>802.3 similar to 30.3.2.1.9 aReceiveLPIMicroseconds
+Number of milliseconds (original counter expresses microseconds), during which the receiver was in power save mode</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="wire-interface-current-performance-type-g">
+    <container name="performance-data">
+      <config value="false"/>
+      <uses name="wire-interface-performance-type-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <uses name="g:otn-current-data-g"/>
+    <description>
+      <text>Turns performance information into current performance information by inheriting from OTN_CurrentData.</text>
+    </description>
+  </grouping>
+  <grouping name="wire-interface-historical-performance-type-g">
+    <container name="performance-data">
+      <config value="false"/>
+      <uses name="wire-interface-performance-type-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <uses name="g:otn-history-data-g"/>
+    <description>
+      <text>Turns performance information into historical performance information by inheriting from OTN_HistoryData.</text>
+    </description>
+  </grouping>
   <list name="mw-air-interface-pac">
     <key value="layer-protocol"/>
     <leaf name="layer-protocol">
@@ -1922,7 +2965,7 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     </leaf>
     <leaf name="transmission-mode-cur">
       <type name="leafref">
-        <path value="../../air-interface-capability/supported-channel-plan-list/transmission-mode-list/transmission-mode-id"/>
+        <path value="/mw-air-interface-pac/air-interface-capability/supported-channel-plan-list/transmission-mode-list/transmission-mode-id"/>
       </type>
       <config value="false"/>
       <description>
@@ -3283,6 +4326,454 @@ _unique: within Structure::StructureStatus::segmentStatusList</text>
     </list>
     <description>
       <text>Aggregated performance information of the TDM container for a pre-defined measurement interval.</text>
+    </description>
+  </grouping>
+  <list name="wire-interface-pac">
+    <key value="layer-protocol"/>
+    <leaf name="layer-protocol">
+      <type name="leafref">
+        <path value="/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid"/>
+      </type>
+      <description>
+        <text>CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid</text>
+      </description>
+    </leaf>
+    <container name="wirebased-interface-capability">
+      <config value="false"/>
+      <uses name="wire-interface-capability-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="wirebased-interface-configuration">
+      <uses name="wire-interface-configuration-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="wirebased-interface-status">
+      <config value="false"/>
+      <uses name="wire-interface-status-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="wirebased-interface-current-problems">
+      <config value="false"/>
+      <uses name="wire-interface-current-problems-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="wirebased-interface-current-performance">
+      <config value="false"/>
+      <uses name="wire-interface-current-performance-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="wirebased-interface-historical-performances">
+      <config value="false"/>
+      <uses name="wire-interface-historical-performances-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <description>
+      <text>none</text>
+    </description>
+  </list>
+  <grouping name="wire-interface-capability-g">
+    <list name="available-mau-list">
+      <key value="mau-id"/>
+      <config value="false"/>
+      <uses name="mau-type-g"/>
+      <description>
+        <text>List of Medium Attachment Units (MAUs) that are available for being selected. If rate and service configuration (e.g. SFF-8079) are not supported, the MAU determined by hardware shall be described.
+</text>
+      </description>
+    </list>
+    <leaf name="auto-pmd-negotiation-is-avail">
+      <type name="boolean"/>
+      <default value="false"/>
+      <config value="false"/>
+      <description>
+        <text>Parameter
+1 = Indicates that device is supporting Auto-negotiation</text>
+      </description>
+    </leaf>
+    <leaf name="auto-pmd-negotiation-max-is-avail">
+      <type name="boolean"/>
+      <default value="false"/>
+      <config value="false"/>
+      <description>
+        <text>1 = Indicates that device is supporting definition of the maximum speed/Medium Attached Unit (MAU) automatically chosen when (autoNegotiationIsOn=1)</text>
+      </description>
+    </leaf>
+    <leaf-list name="supported-loop-back-kind-list">
+      <type name="loop-back-type"/>
+      <config value="false"/>
+      <min-elements value="1"/>
+      <max-elements value="5"/>
+      <description>
+        <text>List of supported kinds of looping back of header information to the remote site.
+802.3 45.2.1.12.1 PMA remote loopback ability</text>
+      </description>
+    </leaf-list>
+    <leaf name="maintenance-timer-range">
+      <type name="string"/>
+      <units name="Byte"/>
+      <default value="Range of the maintenance timer not yet defined."/>
+      <config value="false"/>
+      <description>
+        <text>MW IM
+Available time periods for maintenance configurations (e.g. the loop back) to be described. Concrete values shall be separated by commas (e.g. '10, 60, 360'). Ranges shall be expressed as two values separated by a minus (e.g. '10-360').</text>
+      </description>
+    </leaf>
+    <leaf-list name="supported-alarm-list">
+      <type name="string"/>
+      <config value="false"/>
+      <min-elements value="6"/>
+      <description>
+        <text>Available alarms to be listed. Mandatory:'txFault', 'rxLos', 'tempHigh', 'tempLow', 'rxLevelHigh', 'rxLevelLow'. Optional:'vccHigh', 'vccLow', 'txBiasHigh', 'txBiasLow', 'txPowerHigh', 'txPowerLow', 'laserTempHigh', 'laserTempLow', 'tecCurrentHigh', 'tecCurrentLow'. Further alarms might be added by the device. Names are to be separated by commas.</text>
+      </description>
+    </leaf-list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="wire-interface-configuration-g">
+    <leaf name="wire-interface-name">
+      <type name="string"/>
+      <default value="Not yet defined."/>
+      <description>
+        <text>Text field for the wire interface being named by the operator. Ideally used for entering unique numbers or names for unambiguously identifying the connection within the network
+Parameter</text>
+      </description>
+    </leaf>
+    <leaf name="remote-wire-interface-name">
+      <type name="string"/>
+      <default value="Not yet defined."/>
+      <description>
+        <text>Learning from MW IM
+Text field for defining the wire interface this one is connected with. Ideally used for entering unique numbers or names for unambiguously identifying the connection within the network</text>
+      </description>
+    </leaf>
+    <leaf name="interface-is-on">
+      <type name="boolean"/>
+      <default value="true"/>
+      <description>
+        <text>1 = Activation of the interface (it gets powered and can be managed even if the transceiver is not yet transmitting or receiving). In case there is no Medium Attachment Unit (MAU) (e.g. no SFP in the cage) SETting (interfaceIsOn=1) must be ignored and GETing must return (interfaceIsOn=0)
+802.3 according 30.3.2.2.1 acPhyAdminControl</text>
+      </description>
+    </leaf>
+    <leaf-list name="transceiver-is-on-list">
+      <type name="boolean"/>
+      <min-elements value="1"/>
+      <max-elements value="11"/>
+      <description>
+        <text>802.3 22.?.? and additionally 802.3 45.2.1.8 PMD transmit disable register (Register 1.9)
+1 = Activation of the transmitter and receiver (e.g. laser) of the PHY; transceiverIsOnList[0]:total interface; transceiverIsOnList[1..10] different lanes of a multilane Medium Attachment Unit (MAU)</text>
+      </description>
+    </leaf-list>
+    <leaf name="auto-pmd-negotiation-is-on">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>Parameter
+1 = Auto-negotiation is switched on</text>
+      </description>
+    </leaf>
+    <leaf name="fixed-pmd">
+      <type name="pmd-name-type"/>
+      <default value="not-yet-defined"/>
+      <description>
+        <text>If (autoPmdNegotiationIsOn=0) configuration of the concrete kind of Physical Medium Dependent (PMD). If (autoNegotiationIsOn=1) value of this field becomes irrelevant</text>
+      </description>
+    </leaf>
+    <leaf name="auto-pmd-negotiation-max">
+      <type name="pmd-name-type"/>
+      <default value="not-yet-defined"/>
+      <description>
+        <text>Parameter
+If (autoNegotiationIsOn=1) AND (autoNegotiationMauMaxIsAvail=1) configuration of the maximum speed/Physical Medium Dependent (PMD), which is automatically chosen by Auto-negotiation</text>
+      </description>
+    </leaf>
+    <leaf name="auto-signal-ordering-is-on">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>1 = e.g. auto-MDI-X is switched on</text>
+      </description>
+    </leaf>
+    <leaf name="fixed-signal-ordering">
+      <type name="core-model:universal-id"/>
+      <description>
+        <text>If (autoSignalOrderingIsOn=0) configuration of the concrete kind of signal ordering on the media (e.g. MDI, or MDI-X). If (autoSignalOrderingIsOn=1) value of this field becomes irrelevant</text>
+      </description>
+    </leaf>
+    <leaf name="short-reach-mode-is-on">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>Activation of the Short Reach Mode for 10GBASE-T according to 802.3 45.2.1.64</text>
+      </description>
+    </leaf>
+    <leaf name="unidirectional-operation-is-on">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>If (autoNegotiationIsOn=1) OR manualDuplexSelection=0 (=half duplex), this bit is ignored. When autoNegotiationIsOn=0 AND manualDuplexSelection=1 (=full duplex):  1 = Enable transmit from media independent interface regardless of whether the PHY has determined that a valid link has been established, 0 = Enable transmit from media independent interface only when the PHY has determined that a valid link has been established
+802.3
+Parameter</text>
+      </description>
+    </leaf>
+    <leaf-list name="wavelength-list">
+      <type name="int32"/>
+      <units name="pm"/>
+      <max-elements value="4"/>
+      <description>
+        <text>Wavelength of the signal of laser in pico meter; multiplicity=0..3 for 10GBASE-LX4 according to 802.3 53.5
+SFF-8690</text>
+      </description>
+    </leaf-list>
+    <leaf name="temperature-high-threshold">
+      <type name="int8"/>
+      <units name="Celsius"/>
+      <default value="-99"/>
+      <description>
+        <text>Threshold for alarming high temperature values.
+Will move to somewhere in the Physical Segment of the Core IM</text>
+      </description>
+    </leaf>
+    <leaf name="temperature-low-threshold">
+      <type name="int8"/>
+      <units name="Celsius"/>
+      <default value="-99"/>
+      <description>
+        <text>Threshold for alarming low temperature values.
+Will move to somewhere in the Physical Segment of the Core IM</text>
+      </description>
+    </leaf>
+    <leaf name="rxlevel-high-threshold">
+      <type name="int8"/>
+      <units name="dBm"/>
+      <default value="99"/>
+      <description>
+        <text>Threshold for alarming high RX levels.</text>
+      </description>
+    </leaf>
+    <leaf name="rxlevel-low-threshold">
+      <type name="int8"/>
+      <units name="dBm"/>
+      <default value="99"/>
+      <description>
+        <text>Threshold for alarming low RX levels.</text>
+      </description>
+    </leaf>
+    <leaf name="loop-back-kind-on">
+      <type name="string"/>
+      <description>
+        <text>Parameter
+802.3 according 22.2.4.1.2 Loopback
+Maintenance Feature. The currently configured type of looping back of the wire interface header shall be expressed here. The received header is returned to the remote site.
+Activation of local loopback mode on physical layer</text>
+      </description>
+    </leaf>
+    <leaf name="isolation-is-on">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>1 = Activation of the separation of the PHY from higher network layers
+802.3</text>
+      </description>
+    </leaf>
+    <leaf name="restart-pmd-negotiation-is-on">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>Restarts the auto negotiation process
+802.3</text>
+      </description>
+    </leaf>
+    <leaf name="reset-mau-is-on">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>802.3
+Resets the entire Medium Access Unit (MAU)</text>
+      </description>
+    </leaf>
+    <leaf name="maintenance-timer">
+      <type name="int32"/>
+      <default value="-1"/>
+      <description>
+        <text>Parameter and MW IM
+Time of existence of any maintenance configuration (e.g. the loop back). Valid values are defined in WireInterface::WireInterfaceCapability::maintenanceTimerRange</text>
+      </description>
+    </leaf>
+    <list name="problem-kind-severity-list">
+      <key value="problem-kind-name"/>
+      <min-elements value="6"/>
+      <uses name="wire-interface-problem-severity-type-g"/>
+      <description>
+        <text>Severity of the problem to be configured.</text>
+      </description>
+    </list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="wire-interface-status-g">
+    <leaf name="interface-is-up">
+      <type name="boolean"/>
+      <default value="false"/>
+      <config value="false"/>
+      <description>
+        <text>802.3 according 30.3.2.1.7 aPhyAdminState
+1 = A Physical layer entity (PHY) exists (including Medium Attachment Unit (e.g. SFP) ) and it is powered and can be managed</text>
+      </description>
+    </leaf>
+    <leaf-list name="receive-signal-is-detected">
+      <type name="boolean"/>
+      <config value="false"/>
+      <min-elements value="1"/>
+      <max-elements value="11"/>
+      <description>
+        <text>802.3 45.2.1.9 PMD receive signal detect
+1 = Receiver (e.g. laser) detects signal; receiveSignalIsDetected[0]:total interface; receiveSignalIsDetected[1..10] different lanes of a multilane Medium Attachment Unit (MAU)</text>
+      </description>
+    </leaf-list>
+    <leaf name="pmd-is-up">
+      <type name="boolean"/>
+      <default value="false"/>
+      <config value="false"/>
+      <description>
+        <text>Inverse of 802.3 45.2.1.2.3 Fault (1.1.7)
+If (interfaceIsUp=1) BUT 0 = there is a fault in either transmit or receive path</text>
+      </description>
+    </leaf>
+    <leaf name="pmd-cur">
+      <type name="pmd-name-type"/>
+      <default value="not-yet-defined"/>
+      <config value="false"/>
+      <description>
+        <text>Indicates the kind of Physical Medium Dependent (PMD) currently operated at this interface</text>
+      </description>
+    </leaf>
+    <container name="signal-ordering-kind-cur">
+      <config value="false"/>
+      <uses name="signal-ordering-type-g"/>
+      <description>
+        <text>Reference on a SignalOrderingType for expressing the currently active way of ordering the signals on the physical medium. Must contain a value as defined in TypeDefinitions::SignalOrderingType::signalOrderingKindName</text>
+      </description>
+    </container>
+    <leaf name="eee-is-up">
+      <type name="boolean"/>
+      <default value="false"/>
+      <config value="false"/>
+      <description>
+        <text>1 = Energy Efficient Ethernet is supported at both ends of the link and it is activated</text>
+      </description>
+    </leaf>
+    <leaf name="link-is-up">
+      <type name="boolean"/>
+      <default value="false"/>
+      <config value="false"/>
+      <description>
+        <text>Parameter
+1 = (transceiverIsUp=1) AND communication is established to the remote site</text>
+      </description>
+    </leaf>
+    <leaf name="link-is-idle">
+      <type name="boolean"/>
+      <default value="false"/>
+      <config value="false"/>
+      <description>
+        <text>1 = (linkIsUp=1) AND (eeeIsAvail=1) AND (eeeIsOn=1) AND link is currently in idle mode. If Energy Efficient Ethernet is not supported or switched off, this attribute must be 0.</text>
+      </description>
+    </leaf>
+    <leaf name="tx-level-cur">
+      <type name="int8"/>
+      <units name="dBm"/>
+      <default value="99"/>
+      <config value="false"/>
+      <description>
+        <text>Current transmit power</text>
+      </description>
+    </leaf>
+    <leaf-list name="rx-level-cur">
+      <type name="int8"/>
+      <units name="dBm"/>
+      <config value="false"/>
+      <min-elements value="1"/>
+      <max-elements value="4"/>
+      <description>
+        <text>Current receive power; Also used for receive signal power measured at the Medium Dependent Interface (MDI) of 10GBASE-T during training as described in 802.3 55.4.3.1</text>
+      </description>
+    </leaf-list>
+    <leaf name="temp-cur">
+      <type name="int8"/>
+      <units name="Celsius"/>
+      <default value="-99"/>
+      <config value="false"/>
+      <description>
+        <text>Current temperature (in degree Celsius) inside the transceiver
+To be moved to CoreModel::CorePhysicalModel-Initial::EquipmentDetail::ObjectClasses::DynamicDetails::PhysicalProperties </text>
+      </description>
+    </leaf>
+    <leaf name="loop-back-kind-up">
+      <type name="loop-back-type"/>
+      <default value="none"/>
+      <config value="false"/>
+      <description>
+        <text>Paramter and MW IM
+The currently active (not just configured) type of looping back of the wire interface header shall be expressed here. The received header is returned to the remote site.</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="wire-interface-current-problems-g">
+    <list name="current-problem-list">
+      <key value="sequence-number"/>
+      <config value="false"/>
+      <uses name="wire-interface-current-problem-type-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="wire-interface-current-performance-g">
+    <list name="current-performance-data-list">
+      <key value="scanner-id"/>
+      <config value="false"/>
+      <min-elements value="1"/>
+      <max-elements value="2"/>
+      <uses name="wire-interface-current-performance-type-g"/>
+      <description>
+        <text>At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.</text>
+      </description>
+    </list>
+    <description>
+      <text>Aggregated performance information of the air interface at a particular moment.</text>
+    </description>
+  </grouping>
+  <grouping name="wire-interface-historical-performances-g">
+    <list name="historical-performance-data-list">
+      <key value="history-data-id"/>
+      <config value="false"/>
+      <uses name="wire-interface-historical-performance-type-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <description>
+      <text>Aggregated performance information of the air interface for a pre-defined measurement interval.</text>
     </description>
   </grouping>
   <grouping name="mw-current-problem-g">

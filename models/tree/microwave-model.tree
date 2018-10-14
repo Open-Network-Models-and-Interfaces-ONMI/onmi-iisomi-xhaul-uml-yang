@@ -85,7 +85,7 @@ module: microwave-model
   |  |  +--ro rx-frequency-cur?         int32
   |  |  +--ro tx-level-cur?             int8
   |  |  +--ro rx-level-cur?             int8
-  |  |  +--ro transmission-mode-cur?    -> ../../air-interface-capability/supported-channel-plan-list/transmission-mode-list/transmission-mode-id
+  |  |  +--ro transmission-mode-cur?    -> /mw-air-interface-pac/air-interface-capability/supported-channel-plan-list/transmission-mode-list/transmission-mode-id
   |  |  x--ro modulation-cur?           int16
   |  |  x--ro code-rate-cur?            int8
   |  |  +--ro received-signal-id?       int16
@@ -122,25 +122,25 @@ module: microwave-model
   |  |     |  +--ro rx-level-min?         int8
   |  |     |  +--ro rx-level-max?         int8
   |  |     |  +--ro rx-level-avg?         int8
-  |  |     |  +--ro time-x-states-list* []
-  |  |     |  |  +--ro transmission-mode?   -> /mw-air-interface-pac/air-interface-capability/supported-channel-plan-list/transmission-mode-list/transmission-mode-id
+  |  |     |  +--ro time-x-states-list* [transmission-mode]
+  |  |     |  |  +--ro transmission-mode    -> /mw-air-interface-pac/air-interface-capability/supported-channel-plan-list/transmission-mode-list/transmission-mode-id
   |  |     |  |  +--ro time?                int32
   |  |     |  x--ro time2-states?         int32
-  |  |     |  +--ro time4-states-s?       int32
+  |  |     |  x--ro time4-states-s?       int32
   |  |     |  x--ro time4-states?         int32
   |  |     |  x--ro time8-states?         int32
   |  |     |  x--ro time16-states-s?      int32
   |  |     |  x--ro time16-states?        int32
   |  |     |  x--ro time32-states?        int32
-  |  |     |  +--ro time64-states?        int32
+  |  |     |  x--ro time64-states?        int32
   |  |     |  x--ro time128-states?       int32
   |  |     |  x--ro time256-states?       int32
   |  |     |  x--ro time512-states?       int32
   |  |     |  x--ro time512-states-l?     int32
   |  |     |  x--ro time1024-states?      int32
-  |  |     |  +--ro time1024-states-l?    int32
+  |  |     |  x--ro time1024-states-l?    int32
   |  |     |  x--ro time2048-states?      int32
-  |  |     |  +--ro time2048-states-l?    int32
+  |  |     |  x--ro time2048-states-l?    int32
   |  |     |  x--ro time4096-states?      int32
   |  |     |  x--ro time4096-states-l?    int32
   |  |     |  x--ro time8192-states?      int32
@@ -177,25 +177,25 @@ module: microwave-model
   |        |  +--ro rx-level-min?         int8
   |        |  +--ro rx-level-max?         int8
   |        |  +--ro rx-level-avg?         int8
-  |        |  +--ro time-x-states-list* []
-  |        |  |  +--ro transmission-mode?   -> /mw-air-interface-pac/air-interface-capability/supported-channel-plan-list/transmission-mode-list/transmission-mode-id
+  |        |  +--ro time-x-states-list* [transmission-mode]
+  |        |  |  +--ro transmission-mode    -> /mw-air-interface-pac/air-interface-capability/supported-channel-plan-list/transmission-mode-list/transmission-mode-id
   |        |  |  +--ro time?                int32
   |        |  x--ro time2-states?         int32
-  |        |  +--ro time4-states-s?       int32
+  |        |  x--ro time4-states-s?       int32
   |        |  x--ro time4-states?         int32
   |        |  x--ro time8-states?         int32
   |        |  x--ro time16-states-s?      int32
   |        |  x--ro time16-states?        int32
   |        |  x--ro time32-states?        int32
-  |        |  +--ro time64-states?        int32
+  |        |  x--ro time64-states?        int32
   |        |  x--ro time128-states?       int32
   |        |  x--ro time256-states?       int32
   |        |  x--ro time512-states?       int32
   |        |  x--ro time512-states-l?     int32
   |        |  x--ro time1024-states?      int32
-  |        |  +--ro time1024-states-l?    int32
+  |        |  x--ro time1024-states-l?    int32
   |        |  x--ro time2048-states?      int32
-  |        |  +--ro time2048-states-l?    int32
+  |        |  x--ro time2048-states-l?    int32
   |        |  x--ro time4096-states?      int32
   |        |  x--ro time4096-states-l?    int32
   |        |  x--ro time8192-states?      int32
@@ -495,40 +495,147 @@ module: microwave-model
   |        +--ro object-class?            object-identifier
   |        +--ro name-binding?            object-identifier
   +--rw mw-tdm-container-pac* [layer-protocol] {hybrid-microwave}?
-     +--rw layer-protocol                           -> /core-model:network-element/ltp/lp/uuid
-     +--ro tdm-container-capability
-     |  +--ro supported-tdm-container-types-list* [tdm-container-name]
-     |  |  +--ro tdm-container-name    string
-     |  |  +--ro tdm-container-size?   int32
-     |  +--ro supported-alarm-list*                 string
-     |  x--ro supported-alarms?                     string
-     +--rw tdm-container-configuration
-     |  +--rw container-id?                              string
-     |  +--rw container-type
-     |  |  +--ro tdm-container-name?   string
-     |  |  +--ro tdm-container-size?   int32
-     |  +--rw segment-id
-     |  |  +--rw structure-id-ref?   core-model:universal-id
-     |  |  +--rw segment-id-ref?     int16
-     |  +--rw performance-monitoring-collection-is-on?   boolean
+  |  +--rw layer-protocol                           -> /core-model:network-element/ltp/lp/uuid
+  |  +--ro tdm-container-capability
+  |  |  +--ro supported-tdm-container-types-list* [tdm-container-name]
+  |  |  |  +--ro tdm-container-name    string
+  |  |  |  +--ro tdm-container-size?   int32
+  |  |  +--ro supported-alarm-list*                 string
+  |  |  x--ro supported-alarms?                     string
+  |  +--rw tdm-container-configuration
+  |  |  +--rw container-id?                              string
+  |  |  +--rw container-type
+  |  |  |  +--ro tdm-container-name?   string
+  |  |  |  +--ro tdm-container-size?   int32
+  |  |  +--rw segment-id
+  |  |  |  +--rw structure-id-ref?   core-model:universal-id
+  |  |  |  +--rw segment-id-ref?     int16
+  |  |  +--rw performance-monitoring-collection-is-on?   boolean
+  |  |  +--rw problem-kind-severity-list* [problem-kind-name]
+  |  |     +--rw problem-kind-name        string
+  |  |     +--rw problem-kind-severity?   severity-type
+  |  +--ro tdm-container-status
+  |  |  +--ro last-status-change?   yang:date-and-time
+  |  +--ro tdm-container-current-problems
+  |  |  +--ro current-problem-list* [sequence-number]
+  |  |     +--ro problem-name?       string
+  |  |     +--ro sequence-number     int32
+  |  |     +--ro time-stamp?         yang:date-and-time
+  |  |     +--ro problem-severity?   severity-type
+  |  +--ro tdm-container-current-performance
+  |  |  +--ro current-performance-data-list* [scanner-id]
+  |  |     +--ro performance-data
+  |  |     |  +--ro tx-ethernet-bytes-max-s?   int32
+  |  |     |  +--ro tx-ethernet-bytes-max-m?   int64
+  |  |     |  +--ro tx-ethernet-bytes-sum?     int64
+  |  |     |  +--ro time-period?               int32
+  |  |     +--ro timestamp?               date-and-time
+  |  |     +--ro suspect-interval-flag?   boolean
+  |  |     +--ro elapsed-time?            int64
+  |  |     +--ro scanner-id               string
+  |  |     +--ro granularity-period?      granularity-period-type
+  |  |     +--ro administrative-state?    core-model:administrative-state
+  |  |     +--ro object-class?            object-identifier
+  |  |     +--ro name-binding?            object-identifier
+  |  +--ro tdm-container-historical-performances
+  |     +--ro historical-performance-data-list* [history-data-id]
+  |        +--ro performance-data
+  |        |  +--ro tx-ethernet-bytes-max-s?   int32
+  |        |  +--ro tx-ethernet-bytes-max-m?   int64
+  |        |  +--ro tx-ethernet-bytes-sum?     int64
+  |        |  +--ro time-period?               int32
+  |        +--ro suspect-interval-flag?   boolean
+  |        +--ro history-data-id          string
+  |        +--ro period-end-time?         yang:date-and-time
+  |        +--ro granularity-period?      granularity-period-type
+  |        +--ro object-class?            object-identifier
+  |        +--ro name-binding?            object-identifier
+  +--rw wire-interface-pac* [layer-protocol]
+     +--rw layer-protocol                                 -> /core-model:network-element/ltp/lp/uuid
+     +--ro wirebased-interface-capability
+     |  +--ro available-mau-list* [mau-id]
+     |  |  +--ro mau-id                               core-model:universal-id
+     |  |  +--ro mii-kind?                            mii-kind-type
+     |  |  +--ro mdi-kind?                            mdi-kind-type
+     |  |  +--ro required-medium-kind?                medium-kind-type
+     |  |  +--ro wavelength-min*                      int32
+     |  |  +--ro wavelength-max*                      int32
+     |  |  +--ro wavelength-grid-min?                 int32
+     |  |  +--ro link-length-max?                     int32
+     |  |  +--ro vendor-name?                         string
+     |  |  +--ro vendor-oui?                          string
+     |  |  +--ro part-number?                         string
+     |  |  +--ro revision-number?                     string
+     |  |  +--ro serial-number?                       string
+     |  |  +--ro date-code?                           string
+     |  |  +--ro pmd-list*                            pmd-name-type
+     |  |  +--ro signal-ordering-list* [signal-ordering-kind-name]
+     |  |  |  +--ro signal-ordering-kind-name    string
+     |  |  |  +--ro signal-list*                 string
+     |  |  +--ro auto-signal-ordering-is-avail?       boolean
+     |  |  +--ro short-reach-mode-is-avail?           boolean
+     |  |  +--ro eee-is-avail?                        boolean
+     |  |  +--ro unidirectional-operation-is-avail?   boolean
+     |  |  +--ro supported-alarms*                    string
+     |  +--ro auto-pmd-negotiation-is-avail?       boolean
+     |  +--ro auto-pmd-negotiation-max-is-avail?   boolean
+     |  +--ro supported-loop-back-kind-list*       loop-back-type
+     |  +--ro maintenance-timer-range?             string
+     |  +--ro supported-alarm-list*                string
+     +--rw wirebased-interface-configuration
+     |  +--rw wire-interface-name?              string
+     |  +--rw remote-wire-interface-name?       string
+     |  +--rw interface-is-on?                  boolean
+     |  +--rw transceiver-is-on-list*           boolean
+     |  +--rw auto-pmd-negotiation-is-on?       boolean
+     |  +--rw fixed-pmd?                        pmd-name-type
+     |  +--rw auto-pmd-negotiation-max?         pmd-name-type
+     |  +--rw auto-signal-ordering-is-on?       boolean
+     |  +--rw fixed-signal-ordering?            core-model:universal-id
+     |  +--rw short-reach-mode-is-on?           boolean
+     |  +--rw unidirectional-operation-is-on?   boolean
+     |  +--rw wavelength-list*                  int32
+     |  +--rw temperature-high-threshold?       int8
+     |  +--rw temperature-low-threshold?        int8
+     |  +--rw rxlevel-high-threshold?           int8
+     |  +--rw rxlevel-low-threshold?            int8
+     |  +--rw loop-back-kind-on?                string
+     |  +--rw isolation-is-on?                  boolean
+     |  +--rw restart-pmd-negotiation-is-on?    boolean
+     |  +--rw reset-mau-is-on?                  boolean
+     |  +--rw maintenance-timer?                int32
      |  +--rw problem-kind-severity-list* [problem-kind-name]
      |     +--rw problem-kind-name        string
      |     +--rw problem-kind-severity?   severity-type
-     +--ro tdm-container-status
-     |  +--ro last-status-change?   yang:date-and-time
-     +--ro tdm-container-current-problems
+     +--ro wirebased-interface-status
+     |  +--ro interface-is-up?              boolean
+     |  +--ro receive-signal-is-detected*   boolean
+     |  +--ro pmd-is-up?                    boolean
+     |  +--ro pmd-cur?                      pmd-name-type
+     |  +--ro signal-ordering-kind-cur
+     |  |  +--ro signal-ordering-kind-name?   string
+     |  |  +--ro signal-list*                 string
+     |  +--ro eee-is-up?                    boolean
+     |  +--ro link-is-up?                   boolean
+     |  +--ro link-is-idle?                 boolean
+     |  +--ro tx-level-cur?                 int8
+     |  +--ro rx-level-cur*                 int8
+     |  +--ro temp-cur?                     int8
+     |  +--ro loop-back-kind-up?            loop-back-type
+     +--ro wirebased-interface-current-problems
      |  +--ro current-problem-list* [sequence-number]
      |     +--ro problem-name?       string
      |     +--ro sequence-number     int32
      |     +--ro time-stamp?         yang:date-and-time
      |     +--ro problem-severity?   severity-type
-     +--ro tdm-container-current-performance
+     +--ro wirebased-interface-current-performance
      |  +--ro current-performance-data-list* [scanner-id]
      |     +--ro performance-data
-     |     |  +--ro tx-ethernet-bytes-max-s?   int32
-     |     |  +--ro tx-ethernet-bytes-max-m?   int64
-     |     |  +--ro tx-ethernet-bytes-sum?     int64
-     |     |  +--ro time-period?               int32
+     |     |  +--ro es?                              int32
+     |     |  +--ro ses?                             int32
+     |     |  +--ro symbol-error-during-carrier?     int32
+     |     |  +--ro low-power-idle-transmitter-ms?   int32
+     |     |  +--ro low-power-idle-receiver-ms?      int32
      |     +--ro timestamp?               date-and-time
      |     +--ro suspect-interval-flag?   boolean
      |     +--ro elapsed-time?            int64
@@ -537,13 +644,14 @@ module: microwave-model
      |     +--ro administrative-state?    core-model:administrative-state
      |     +--ro object-class?            object-identifier
      |     +--ro name-binding?            object-identifier
-     +--ro tdm-container-historical-performances
+     +--ro wirebased-interface-historical-performances
         +--ro historical-performance-data-list* [history-data-id]
            +--ro performance-data
-           |  +--ro tx-ethernet-bytes-max-s?   int32
-           |  +--ro tx-ethernet-bytes-max-m?   int64
-           |  +--ro tx-ethernet-bytes-sum?     int64
-           |  +--ro time-period?               int32
+           |  +--ro es?                              int32
+           |  +--ro ses?                             int32
+           |  +--ro symbol-error-during-carrier?     int32
+           |  +--ro low-power-idle-transmitter-ms?   int32
+           |  +--ro low-power-idle-receiver-ms?      int32
            +--ro suspect-interval-flag?   boolean
            +--ro history-data-id          string
            +--ro period-end-time?         yang:date-and-time
