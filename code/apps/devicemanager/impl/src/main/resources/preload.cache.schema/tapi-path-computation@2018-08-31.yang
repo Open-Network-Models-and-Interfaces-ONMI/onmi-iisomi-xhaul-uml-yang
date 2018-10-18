@@ -66,10 +66,10 @@ module tapi-path-computation {
 
     /***********************
     * package object-classes
-    **********************/ 
+    **********************/
         grouping path-g {
             list link {
-                uses tapi-topology:link-ref;
+                uses tapi-topology:link-ref-g;
                 key 'topology-uuid link-uuid';
                 config false;
                 min-elements 1;
@@ -94,7 +94,7 @@ module tapi-path-computation {
         }
         grouping path-service-end-point-g {
             container service-interface-point {
-            	uses tapi-common:service-interface-point-ref-g;
+                uses tapi-common:service-interface-point-ref-g;
                 config false;
                 description "none";
             }
@@ -123,11 +123,11 @@ module tapi-path-computation {
             }
             uses tapi-common:local-class-g;
             description "The association of the FC to LTPs is made via EndPoints.
-                The EndPoint (EP) object class models the access to the FC function. 
-                The traffic forwarding between the associated EPs of the FC depends upon the type of FC and may be associated with FcSwitch object instances.  
-                In cases where there is resilience the EndPoint may convey the resilience role of the access to the FC. 
+                The EndPoint (EP) object class models the access to the FC function.
+                The traffic forwarding between the associated EPs of the FC depends upon the type of FC and may be associated with FcSwitch object instances.
+                In cases where there is resilience the EndPoint may convey the resilience role of the access to the FC.
                 It can represent a protected (resilient/reliable) point or a protecting (unreliable working or protection) point.
-                The EP replaces the Protection Unit of a traditional protection model. 
+                The EP replaces the Protection Unit of a traditional protection model.
                 The ForwadingConstruct can be considered as a component and the EndPoint as a Port on that component";
         }
         grouping path-computation-service-g {
@@ -205,17 +205,17 @@ module tapi-path-computation {
         grouping routing-constraint-g {
             list cost-characteristic {
                 key 'cost-name';
-                uses tapi-topology:cost-characteristic;
+                uses tapi-topology:cost-characteristic-g;
                 description "The list of costs where each cost relates to some aspect of the TopologicalEntity.";
             }
             list latency-characteristic {
                 key 'traffic-property-name';
-                uses tapi-topology:latency-characteristic;
+                uses tapi-topology:latency-characteristic-g;
                 description "The effect on the latency of a queuing process. This only has significant effect for packet based systems and has a complex characteristic.";
             }
             list risk-diversity-characteristic {
                 key 'risk-characteristic-name';
-                uses tapi-topology:risk-characteristic;
+                uses tapi-topology:risk-characteristic-g;
                 description "none";
             }
             leaf diversity-policy {
@@ -253,13 +253,13 @@ module tapi-path-computation {
         }
         grouping topology-constraint-g {
             list include-topology {
-                uses tapi-topology:topology-ref;
+                uses tapi-topology:topology-ref-g;
                 key 'topology-uuid';
                 config false;
                 description "none";
             }
             list avoid-topology {
-                uses tapi-topology:topology-ref;
+                uses tapi-topology:topology-ref-g;
                 key 'topology-uuid';
                 config false;
                 description "none";
@@ -277,25 +277,25 @@ module tapi-path-computation {
                 description "none";
             }
             list include-link {
-                uses tapi-topology:link-ref;
+                uses tapi-topology:link-ref-g;
                 key 'topology-uuid link-uuid';
                 config false;
                 description "This is a loose constraint - that is it is unordered and could be a partial list ";
             }
             list exclude-link {
-                uses tapi-topology:link-ref;
+                uses tapi-topology:link-ref-g;
                 key 'topology-uuid link-uuid';
                 config false;
                 description "none";
             }
             list include-node {
-                uses tapi-topology:node-ref;
+                uses tapi-topology:node-ref-g;
                 key 'topology-uuid node-uuid';
                 config false;
                 description "This is a loose constraint - that is it is unordered and could be a partial list";
             }
             list exclude-node {
-                uses tapi-topology:node-ref;
+                uses tapi-topology:node-ref-g;
                 key 'topology-uuid node-uuid';
                 config false;
                 description "none";
@@ -310,7 +310,7 @@ module tapi-path-computation {
 
     /***********************
     * package type-definitions
-    **********************/ 
+    **********************/
         typedef route-objective-function {
             type enumeration {
                 enum MIN_WORK_ROUTE_HOP {
@@ -360,7 +360,7 @@ module tapi-path-computation {
 
     /***********************
     * package interfaces
-    **********************/ 
+    **********************/
         rpc compute-p-2-p-path {
             description "none";
             input {
