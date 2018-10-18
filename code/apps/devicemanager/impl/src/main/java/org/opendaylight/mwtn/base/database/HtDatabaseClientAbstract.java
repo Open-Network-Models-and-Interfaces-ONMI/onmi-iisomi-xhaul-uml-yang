@@ -20,6 +20,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -305,32 +307,49 @@ public class HtDatabaseClientAbstract implements HtDataBase, AutoCloseable {
 
             //Create index with mapping
             CreateIndexRequestBuilder createIndexRequestBuilder = client.admin().indices().prepareCreate(esIndexName);
-
-            if(jsonIndexMappingSetting!=null) {
-                // Handle optional mappings if requested
-            	JSONObject jsonMapping = jsonIndexMappingSetting.optJSONObject("mappings");
-            	if (jsonMapping != null) {
-            		log.debug("Set mapping for index {} {}", esIndexAlias, jsonMapping);
-            		Set<?> keys = jsonMapping.keySet();
-            		log.debug("Found length:"+jsonMapping.length()+" keys:"+keys.size());
-            		for (Object key : keys) {
-            			String docType = (String)key;
-            			log.debug("Doctype:{} mapping:{}",docType,jsonMapping.getJSONObject(docType).toString());
-            			createIndexRequestBuilder.addMapping(docType, jsonMapping.getJSONObject(docType).toString());
-            		}
-            	} else {
-            		log.debug("No mapping requested for index {}", esIndexAlias);
-            	}
-                // Handle optional settings if requested
-            	JSONObject jsonSettings = jsonIndexMappingSetting.optJSONObject("settings");
-            	if (jsonSettings != null) {
-            		log.debug("Set setting for index {} {}", esIndexAlias, jsonSettings);
-            		createIndexRequestBuilder.setSettings(Settings.settingsBuilder().loadFromSource(jsonSettings.toString()));
-            	} else {
-            		log.debug("No settings requested for index {}", esIndexAlias);
-            	}
+            if (createIndexRequestBuilder == null) {
+            	throw new RuntimeException("No client. Can not create index "+esIndexAlias);
             }
 
+            try {
+				if(jsonIndexMappingSetting!=null) {
+				    // Handle optional mappings if requested
+					JSONObject jsonMapping = jsonIndexMappingSetting.optJSONObject("mappings");
+					if (jsonMapping != null) {
+						log.debug("Set mapping for index {} {}", esIndexAlias, jsonMapping);
+
+						//For any reason the function below was not working=> replaced by iterator
+						//Set<?> keys = jsonMapping.keySet();
+
+						Set<String> keys = getStringKeySet(jsonMapping);
+						log.debug("Found length:"+jsonMapping.length() + " keys:"+(keys == null ? "null" : keys.size()));
+						for (String docType : keys) {
+							JSONObject jsonObject = jsonMapping.getJSONObject(docType);
+							if (jsonObject != null) {
+								String jsonObjectString = jsonObject.toString();
+								log.debug("Doctype:{} mapping:{}",docType,jsonObjectString);
+								createIndexRequestBuilder.addMapping(docType, jsonObjectString);
+								log.debug("Mapping created Doctype:{}",docType);
+							} else
+								log.debug("No jsonObject for docType "+docType);
+						}
+					} else {
+						log.debug("No mapping requested for index {}", esIndexAlias);
+					}
+				    // Handle optional settings if requested
+					log.debug("Handle settings");
+					JSONObject jsonSettings = jsonIndexMappingSetting.optJSONObject("settings");
+					if (jsonSettings != null) {
+						log.debug("Set setting for index {} {}", esIndexAlias, jsonSettings);
+						createIndexRequestBuilder.setSettings(Settings.settingsBuilder().loadFromSource(jsonSettings.toString()));
+					} else {
+						log.debug("No settings requested for index {}", esIndexAlias);
+					}
+					log.debug("leave doCreateIndexWithMapping");
+				}
+			} catch (RuntimeException e) {
+				e.printStackTrace();
+			}
 
             CreateIndexResponse createResponse = createIndexRequestBuilder.execute().actionGet();
             log.debug("CreateIndex response {}",createResponse);
@@ -342,7 +361,6 @@ public class HtDatabaseClientAbstract implements HtDataBase, AutoCloseable {
             		.execute().actionGet();
             log.debug("CreateIndex response {}",setAliasResponse);
             }
-
         } catch (ElasticsearchException e) {
         	log.warn("ElasticsearchException: {}",e.getDetailedMessage());
         }
@@ -542,19 +560,16 @@ public class HtDatabaseClientAbstract implements HtDataBase, AutoCloseable {
      */
 	public void doWriteJSONObject(JSONObject json) {
 
-		Set<?> docTypes = json.keySet();
+		Set<String> docTypes = getStringKeySet(json);
 		log.debug("Found number of keys:"+json.length()+" keys:"+docTypes.size());
-		for (Object docTypeKey : docTypes) {
-			String docType = (String)docTypeKey;
+		for (String docType : docTypes) {
 			JSONObject objects = json.optJSONObject(docType);
 			if (objects == null) {
 				log.debug("Skip json {} with class {}",docType, json.get(docType).getClass());
 			} else {
-				Set<?> ids = objects.keySet();
+				Set<String> ids = getStringKeySet(objects);
 				log.debug("write doctype {} with elements {}",docType,ids.size());
-				for (Object idKey : ids) {
-					String id = (String)idKey;
-
+				for (String id : ids) {
 					JSONObject jsonIdObject = objects.optJSONObject(id);
 					if (jsonIdObject == null) {
 						log.debug("Skip jsonsub {} with class {}",id, objects.get(id).getClass());
@@ -703,6 +718,18 @@ public class HtDatabaseClientAbstract implements HtDataBase, AutoCloseable {
 
     @Override
     public void closeDb() {
+    }
+
+
+	//For any reason the function json.keySet() was not working in Oxygen => replaced by iterator
+    //  Set<?> keys = jsonMapping.keySet();
+    public static Set<String> getStringKeySet( JSONObject json ) {
+    	Set<String> keys = new HashSet<String>();
+    	Iterator<?> iterator = json.keys();
+    	while (iterator.hasNext()) {
+    		keys.add((String)iterator.next());
+    	}
+    	return keys;
     }
 
 }
