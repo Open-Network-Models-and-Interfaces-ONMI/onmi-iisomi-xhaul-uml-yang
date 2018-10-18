@@ -1,0 +1,39 @@
+{
+  "name": "mwtn-commons",
+  "homepage": "https://github.com/OpenNetworkingFoundation/CENTENNIAL/tree/master/03-WTP-PoC/code",
+  "authors": [
+    "Martin Skorupski <martin.skorupski@highstreet-technologies.com>"
+  ],
+  "description": "bower components for microwave transport network specific opendaylight dlux applications",
+  "main": "",
+  "version": "0.5.1-SNAPSHOT",
+  "dependencies": {
+    "bootstrap": "~3.3.7",
+    "font-awesome": "~4.6.3",
+    "angular-ui-grid": "3.2.9",
+    "angular-clipboard": "~1.5.0",
+    "angular-chart.js": "~1.1.1",
+    "chart.js": "^2.5.0",
+    "lodash": "^4.17.4",
+    "json-formatter": "^0.6.0",
+    "cytoscape": "^3.1.1"
+  },
+  "keywords": [
+    "Microwave",
+    "Millimeterwave",
+    "MWTN",
+    "ONF",
+    "SDN",
+    "Transport",
+    "Wireless",
+    "xHaul"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

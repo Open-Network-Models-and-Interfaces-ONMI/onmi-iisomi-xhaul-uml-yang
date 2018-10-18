@@ -1,0 +1,108 @@
+/**
+ *  Add your application related css here
+ */
+ .ht-header {
+    display: block;
+    height: 32px;
+}
+.ht-header-right {
+    float: right;
+}
+
+.owl {
+    padding:5px;
+}
+.owl-dark {
+    color: #414042;
+}
+
+.owl .owl-dark {
+    color: #414042;
+}
+
+.owl span {
+    color: white;
+}
+
+.owl a span {
+    color: white;
+}
+
+.owl .panel-default span {
+    color: #414042;
+}
+
+.owl .panel-default a span.owl-dark {
+    color: #414042;
+}
+
+.owl .panel-default .mwtn-json-viewer span.owl-dark {
+    color: #414042;
+} 
+
+.owl .panel-default .json-formatter-row .string{color:green;white-space:pre;word-wrap:break-word}
+.owl .panel-default .json-formatter-row .number{color:#00f}
+.owl .panel-default .json-formatter-row .boolean{color:red}
+.owl .panel-default .json-formatter-row .null{color:#855A00}
+.owl .panel-default .json-formatter-row .undefined{color:#ca0b69}
+.owl .panel-default .json-formatter-row .function{color:#FF20ED}
+.owl .panel-default .json-formatter-row .date{background-color:rgba(0,0,0,.05)}
+.owl .panel-default .json-formatter-row .url{text-decoration:underline;color:#00f;cursor:pointer}
+.owl .panel-default .json-formatter-row a span.bracket{color:#00f}
+.owl .panel-default .json-formatter-row a span.key{color:#00008B;cursor:pointer}
+.owl .panel-default .json-formatter-row a span.constructor-name{color: #888888; cursor:pointer}
+
+.mwtn-grid {
+  background-color: white;
+  color:black;
+}
+
+@media (min-width: 1296px) {
+  .modal-huge {
+    width: 1200px;
+  }
+}
+
+
+.form-group span.mwtnError {
+   color: red;
+}
+ 
+.mwtnLight {
+   color: white;
+}
+
+.panel-group .panel-default span .mwtnError {
+	color: red;
+}
+
+.mwtnSuccess {
+   color: darkgreen;
+}
+
+.panel-group .panel-default span .mwtnSuccess {
+	color: darkgreen;
+}
+
+.number {
+    text-align: right;
+}
+
+.rotated {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+
+.vCenter {
+    margin: 5px 30px 5px 0px;
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+a.vCenter {
+    text-decoration: none;
+}

@@ -1,0 +1,32 @@
+<li class="grey">
+    <a data-toggle="dropdown" class="dropdown-toggle" href="">
+        <i class="icon-tasks"></i>
+        <span class="badge badge-grey">{{ tasks.count }}</span>
+    </a>
+
+    <ul class="dropdown-menu dropdown-tasks">
+        <li ng-repeat="task in tasks.latest">
+            <a href="#">
+                <div>
+                    <p><strong>{{ task.title }}</strong>
+                    <span class="pull-right text-muted">{{ task.percentage }}%</span></p>
+                </div>
+                <div class="progress progress-striped active">
+
+                    <div class="progress progress-mini {{task.progressClass}}">
+                        <div style="width:{{task.percentage}}%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="{{task.percentage}}" role="progressbar" class="progress-bar {{task.progressBarClass}}">
+                            <span class="sr-only">{{task.percentage}}% Complete</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </li>
+
+        <li>
+            <a href="#">
+                See tasks with details
+                <i class="icon-arrow-right"></i>
+            </a>
+        </li>
+    </ul>
+</li>
