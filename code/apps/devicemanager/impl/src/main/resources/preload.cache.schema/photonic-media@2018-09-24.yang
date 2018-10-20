@@ -6,19 +6,19 @@ module photonic-media {
     import core-model {
         prefix core-model;
     }
-        
+
     import tapi-photonic-media{
-    	prefix tapi-photonic-media;
-    } 
-    
-    import tapi-oam{
-    	 prefix tapi-oam;
+        prefix tapi-photonic-media;
     }
-    
+
+    import tapi-oam{
+         prefix tapi-oam;
+    }
+
     import ietf-yang-types {
         prefix yang;
     }
-        
+
     organization "ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project";
     contact "WG Web: <https://www.opennetworking.org/software-defined-standards/models-apis/>
              WG List:  <mailto:wireless-transport@login.opennetworking.org>
@@ -29,7 +29,7 @@ module photonic-media {
              Editors:  Thorsten Heinze
                        <mailto:thorsten.heinze@telefonica.com>
                        Shrikanth Malavalli Divakar
-                       <mailto:shrikanth.divakar@wipro.com>";					   
+                       <mailto:shrikanth.divakar@wipro.com>";
     description "This module contains a collection of YANG definitions for managing Optical networks.
         This model is for vendor agnostic management of Optical Transport.";
 
@@ -37,10 +37,10 @@ module photonic-media {
         description "Version 1.0";
         reference "ONF TR-XXX: A YANG Data Model for Optical Transport.";
     }
-    
+
     /***********************
     * package type-definitions
-    **********************/ 
+    **********************/
     typedef severity-type {
         type enumeration {
             enum non-alarmed {
@@ -63,13 +63,13 @@ module photonic-media {
     }
 
 
-	grouping otsi-interface-performance-type-g{
-		container fec-properties-pac{
-			uses tapi-photonic-media:fec-properties-pac;
-			description "none";	
-		}
-		description "none";
-	}
+    grouping otsi-interface-performance-type-g{
+        container fec-properties-pac{
+            uses tapi-photonic-media:fec-properties-pac-g;
+            description "none";
+        }
+        description "none";
+    }
 
     grouping otsi-interface-current-performance-type-g {
         container performance-data {
@@ -80,7 +80,7 @@ module photonic-media {
         uses tapi-oam:pm-current-data-g;
         description "Turns performance information into current performance information by inheriting from TAPI OAM current  data.";
     }
-    
+
     grouping otsi-interface-historical-performance-type-g {
         container performance-data {
             config false;
@@ -89,8 +89,8 @@ module photonic-media {
         }
         uses tapi-oam:pm-history-data-g;
         description "Turns performance information into historical performance information by inheriting from TAPI OAM History data.";
-    }    
-    
+    }
+
     grouping otsi-interface-current-performance-g {
         list current-performance-data-list {
             key 'local-id';
@@ -102,7 +102,7 @@ module photonic-media {
         }
         description "Aggregated performance information of the air interface at a particular moment.";
     }
-  
+
     grouping otsi-interface-historical-performances-g {
         list historical-performance-data-list {
             key 'local-id';
@@ -111,8 +111,8 @@ module photonic-media {
             description "none";
         }
         description "Aggregated performance information of the air interface for a pre-defined measurement interval.";
-    } 
-    
+    }
+
     grouping otsi-interface-current-problem-type-g {
         leaf problem-name {
             type string;
@@ -122,8 +122,8 @@ module photonic-media {
         }
         uses otsi-current-problem-g;
         description "none";
-    }    
-    
+    }
+
     grouping otsi-interface-current-problems-g {
         list current-problem-list {
             key 'sequence-number';
@@ -132,14 +132,14 @@ module photonic-media {
             description "none";
         }
         description "none";
-    }    
-       
+    }
+
     /***********************
     * package object-classes
-    **********************/ 
+    **********************/
     /***********************
     * package otsi-interface
-    **********************/ 
+    **********************/
     list otsi-interface-pac {
         key 'layer-protocol';
         leaf layer-protocol {
@@ -150,16 +150,16 @@ module photonic-media {
         }
         container otsi-interface-capability {
             config false;
-         	uses tapi-photonic-media:otsi-capability-pac;     
+             uses tapi-photonic-media:otsi-capability-pac-g;
             description "none";
         }
         container otsi-interface-configuration {
-         	uses tapi-photonic-media:otsi-termination-config-pac;  
+             uses tapi-photonic-media:otsi-termination-config-pac-g;
             description "none";
         }
         container otsi-interface-status {
             config false;
-            uses tapi-photonic-media:otsi-termination-pac;
+            uses tapi-photonic-media:otsi-termination-pac-g;
             description "none";
         }
         container otsi-interface-current-problems {
@@ -178,11 +178,11 @@ module photonic-media {
             description "none";
         }
         description "none";
-    }    
-    
+    }
+
     /***********************
     * package super-classes
-    **********************/ 
+    **********************/
         grouping otsi-current-problem-g {
             leaf sequence-number {
                 type int32;
@@ -202,6 +202,6 @@ module photonic-media {
                 description "Severity of the alarm.";
             }
             description "none";
-        }    
-   
-}    
+        }
+
+}

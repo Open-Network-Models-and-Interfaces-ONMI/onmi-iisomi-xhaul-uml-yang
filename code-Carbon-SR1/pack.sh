@@ -8,7 +8,9 @@
 # 3.3 ln -s bin/odl.sh odl
 # 4. cd ..
 # 5. mv distribut.... distribution...-poc5
-# 6. tar -xzf ~/odl/Next../delivery/poc/poc5/distributionXYZ-poc5.015.006.tar.gz distribution
+# 6. tar -czf ~/odl/Next../delivery/poc/poc5/distributionXYZ-poc5.015.006.tar.gz distribution
+
+# 7. tar -xzf ... to extract later
 
 
 

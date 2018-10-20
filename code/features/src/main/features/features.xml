@@ -89,9 +89,9 @@
   </feature>
 
   <!-- DLUX Core packages. Have to be started before MWTN -->
-  <feature name="odl-dlux-preparation" description="MicrowaveTransportNetwork :: Dlux preparation">
+  <feature name="odl-dlux-preparation" version="${project.version}" description="MicrowaveTransportNetwork :: Dlux preparation">
     <feature>odl-dlux-core</feature>
-    <feature>odl-dluxapps-nodes</feature>
+    <feature>odl-dluxapps-yangui</feature>
   </feature>
 
   <!-- All apps, but no UX GUI. -->

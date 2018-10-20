@@ -1,0 +1,110 @@
+<div class="owl">
+  <div class="row text-right" >
+    <div class="form-group" ng-if="noButtons !== true">
+      <button class="btn btn-default" type="button" clipboard supported="myClipboard.supported" text="myClipboard.getJson()"
+        on-copied="myClipboard.copyToClipboard()" on-error="myClipboard.error(err)">
+        <i class="fa fa-clipboard" aria-hidden="true"></i>
+      </button>
+      <button class="btn btn-default" type="button" ng-if="replace"  ng-click="openConfigView()">
+        <i class="fa fa-pencil-square-o pointer" aria-hidden="true" ></i>
+      </button>
+    <div>
+  </div>
+</div>
+<div class="owl">
+
+  <div ng-if="info !== false">
+      <span class="owl-dark">{{info}}</span>
+  </div>
+
+  <div class="row" ng-repeat="(key, value) in viewData track by $index" ng-show="value.value !== undefined">
+
+    <!-- type- default -->
+    <div class="col col-md-4 text-right" title="{{value.description}}" ng-if="value.type !== 'array' && value.visible === true">
+      <span class="owl-dark">{{value.labelId | translate}}</span>
+    </div>
+    <div class="col col-md-4 text-left" ng-if="value.type !== 'boolean' && value.type !== 'number' && value.type !== 'object' && value.type !== 'array' && value.visible === true">
+      <b>{{value.value}}</b>
+    </div>
+
+    <!-- type-boolean -->
+    
+    <div class="col col-md-2" ng-if="value.type === 'boolean' && value.visible === true">
+      <i class="fa" ng-class="{'fa-square-o': value.value === false, 'fa-check-square-o green': value.value === true}" aria-hidden="true"></i>
+    </div>
+
+    <!-- type- number -->
+    <div class="col col-md-2 number" ng-if="value.type === 'number' && value.visible === true">
+      <b>{{value.value}}</b>
+    </div>
+    <div class="col col-md-2 text-left" ng-if="value.unit && value.visible === true">
+      <span class="owl-dark">{{value.unit}}</span>
+    </div>
+
+    <!-- type- array of objects -->
+    <div class="col col-md-12" ng-if="value.type === 'array' && value.value.length !== 0 && getType(value.value[0]) === 'object'">
+      <span class="owl-dark text-right" style="margin-top: 5px;">{{value.labelId | translate}}</span><br/>
+      <mwtn-grid network-element="networkElement" data="value.value" path="path"></mwtn-grid>
+    </div>
+    <!-- type- array of non objects -->
+    <div class="col col-md-4 text-right" title="{{value.description}}" ng-if="value.type === 'array' && value.value.length !== 0 && getType(value.value[0]) !== 'object'">
+      <span class="owl-dark">{{value.labelId | translate}}</span>
+    </div>
+    <div class="col col-md-8 text-left" ng-if="value.type === 'array' && value.value.length !== 0 && getType(value.value[0]) !== 'object'">
+      <b>{{value.value}}</b>
+    </div>
+
+    <!-- type- object -->
+    <div class="col col-md-7" ng-if="value.type === 'object'">
+
+<!--      <pre>{{value | json}}</pre>
+      ###
+      <hr>
+<mwtn-json-viewer data="value.value"></mwtn-json-viewer>
+      <hr>
+      ### -->
+
+      <div class="owl">
+
+        <!-- TODO exception case: current pm -->
+        <div class="row" ng-repeat="(oKey, oValue) in value.value track by $index" ng-if="oValue.value === undefined">
+          <div class="col col-md-3 text-right">
+            <span class="owl-dark">{{oKey | translate}}</span>
+          </div>
+          <div class="col col-md-4  text-right" ng-if="oValue.type !== 'object'">
+            <b>{{oValue | json}}</b>
+          </div>
+        </div>
+
+        <!-- expected case: -->
+       <div class="row" ng-repeat="(oKey, oValue) in value.value track by $index" ng-if="oValue.value !== undefined">
+          <!-- oValue.type !== 'object'' && oValue.type !== 'array' -->
+          <div class="col col-md-3 text-right" ng-if="oValue.type !== 'object' && oValue.type !== 'array'">
+            <span class="owl-dark">{{oValue.labelId || oKey.replace('onf-ptp-dataset:' ,'') | translate}}</span>
+          </div>
+          <div class="col col-md-4  text-right" ng-if="oValue.type !== 'object' && oValue.type !== 'array'">
+            <b>{{oValue.value || oValue}}</b>
+          </div>
+
+
+          <!-- oValue.type === 'array'' -->
+          <div class="col col-md-3 text-right" ng-if="oValue.type === 'array'">
+            <span class="owl-dark">{{oValue.labelId || oKey.replace('onf-ptp-dataset:' ,'') | translate}}</span>
+          </div>
+          <div class="col col-md-4" ng-if="oValue.type === 'array'">
+            <json-formatter json="oValue.value" open="1"></json-formatter>
+          </div>
+
+          <!-- oValue.type === 'object' -->
+          <div class="col col-md-3 text-right" ng-if="oValue.type === 'object'">
+            <span class="owl-dark">{{oValue.labelId || oKey.replace('onf-ptp-dataset:' ,'') | translate}}</span>
+          </div>
+          <div class="col col-md-4" ng-if="oValue.type === 'object'">
+            <json-formatter json="oValue.value" open="1"></json-formatter>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </div>
+
+</div>

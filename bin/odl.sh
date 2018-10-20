@@ -24,7 +24,9 @@
 #        Add parent version variable ODLPARENT
 #   2.20 Added parameter KARAFSLEEPFORSTART
 #   2.21 Typos fixed
-Version=2.22
+#   2.21 TARFILE_DLUXLOADER definition conditional
+#   2.23 nostart option added
+Version=2.23
 
 # ----- Constants not depending on variables specified by $CONFIG
 ODLPARENT="0.5.1-SNAPSHOT"
@@ -107,7 +109,8 @@ karaf_enable_logs() {
 
 karafcmd() {
    echo "$@"
-   $ODL_KARAF_HOME/bin/client -u karaf "$@" 2> /dev/null
+#   $ODL_KARAF_HOME/bin/client -u karaf "$@" 2> /dev/null
+   $ODL_KARAF_HOME/bin/client "$@" 2> /dev/null
    if [ ! -z "$ODL_KARAF_AFTERCMD_DELAY_SECONDS" ] ; then
      echo "Pause $ODL_KARAF_AFTERCMD_DELAY_SECONDS seconds"
      sleep "$ODL_KARAF_AFTERCMD_DELAY_SECONDS"
@@ -202,15 +205,16 @@ karaf_startifnotrunning() {
 }
 
 
-# Start all services
+# Start all servies
 # see beginning of this script
 
 #Param1 Optional Param2 Optional
 karaf_cleanstart() {
-	if [ "$1" = "nostart" ] ;  then
-		return 0
-	fi
     echo "start karaf clean with parameters $1 $2"
+    if [ "$1" = "nostart" ] ; then
+       echo "nostart option selected"
+       return
+    fi
     if [ -f "$ODL_KARAF_HOME/etc/opendaylight" ]
     then
        echo "Remove old ODL configuration"
@@ -688,7 +692,9 @@ fi
 #   exit 1
 #fi
 
-TARFILE_DLUXLOADER="apps/dlux/$ODL_KARAF_DIST.dluxloader.tar.gz"
+if [ -z "$TARFILE_DLUXLOADER" ] ; then
+     TARFILE_DLUXLOADER="apps/dlux/$ODL_KARAF_DIST.dluxloader.tar.gz"
+fi
 echo "Karaf home: $ODL_KARAF_HOME"
 
 here=$(pwd)
@@ -904,11 +910,10 @@ case "$1" in
     echo " distremove  remove existing karaf distribution"
     echo " dlux        install DLUX patch. Use dlux [m2|tar|create] to install from m2-repository or install tar file or create tar file"
     echo " help        List this help"
-    echo " ib          for install from Build-directory"
-    echo " im          for install from M2-directory"
-    echo " imd         for install from M2-directory. Delete logs before start command"
+    echo " ib [nostart] for install from Build-directory"
+    echo " im [nostart] for install from M2-directory"
+    echo " imd [nostart] for install from M2-directory. Delete logs before start command"
     echo " it fn       install tar file to container"
-    echo " ib nostart  install only"
     echo " karafclean  start clean and install apps on karaf"
     echo " kill        hard termination of ODL instance"
     echo " log         vi karaf.log"

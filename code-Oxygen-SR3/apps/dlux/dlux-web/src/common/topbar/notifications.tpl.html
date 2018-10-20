@@ -1,0 +1,25 @@
+<li class="dropdown">
+    <a data-toggle="dropdown" class="dropdown-toggle" href="">
+        <i class="icon-bell-alt icon-animated-bell"></i>
+        <span class="badge badge-important">{{ notifs.count }}</span>
+    </a>
+    <ul class="dropdown-menu dropdown-alerts">
+        <li ng-repeat="notif in notifs.latest">
+            <a href="#">
+                
+                <div>
+                    <i class="btn btn-xs no-hover {{notif.iconClass}} {{notif.icon}}"></i>{{notif.title}}
+                    <span class="pull-right text-muted small">4 minutes ago</span>                 
+                </div>
+            </a>
+        </li>
+
+
+        <li>
+            <a href="#" class="text-center">
+                <strong>See all notifications</strong>
+                <i class="icon-arrow-right"></i>
+            </a>
+        </li>
+    </ul>
+</li>
