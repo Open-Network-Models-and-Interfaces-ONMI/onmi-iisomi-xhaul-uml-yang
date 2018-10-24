@@ -99,6 +99,29 @@
         
             </div>
 
+            <div uib-accordion-group class="panel-default" is-open="status.protectionGroups" ng-show="protectionGroups">
+              <uib-accordion-heading>
+                <i class="fa" ng-class="{'fa-chevron-down': status.protectionGroups, 'fa-chevron-right': !status.protectionGroups}"></i>
+                <span>{{'MWTN_PROTECTION_GROUPS' | translate}}</span>
+                <i class="fa fa-spinner fa-pulse" ng-show="spinner.protectionGroups"></i>
+              </uib-accordion-heading>
+
+              <mwtn-json-viewer network-element="networkElement" data="protectionGroups" ng-if="status.protectionGroups"></mwtn-json-viewer>
+
+              <uib-accordion close-others="oneAtATime">
+                <div ng-repeat="pg in pgList" uib-accordion-group class="panel-default" is-open="status['pg' + separator + pg.uuid]" ng-show="protectionGroups">
+                  <uib-accordion-heading>
+                    <i class="fa" ng-class="{'fa-chevron-down': status['pg' + separator + pg.uuid], 'fa-chevron-right': !status['pg' + separator + pg.uuid]}"></i>
+                    <span>{{'MWTN_PROTECTION_GROUP' | translate}} ID: {{pg.uuid}}</span>
+                    <i class="fa fa-spinner fa-pulse" ng-show="spinner['pg' + separator + pg.uuid]"></i>
+                  </uib-accordion-heading>
+    
+                  <mwtn-json-viewer network-element="networkElement" data="pg" ng-if="status['pg' + separator + pg.uuid]"></mwtn-json-viewer>
+                </div>
+              </uib-accordion>
+            </div>
+
+
             <div ng-repeat="ltp in onfLtps" ng-show="status.ne" uib-accordion-group class="panel-default" is-open="status['ltp' + separator + ltp.getData().uuid]">
               <uib-accordion-heading>
                 <i class="fa" ng-class="{'fa-chevron-down': status['ltp' + separator + ltp.getData().uuid], 'fa-chevron-right': !status['ltp' + separator + ltp.getData().uuid]}"></i>

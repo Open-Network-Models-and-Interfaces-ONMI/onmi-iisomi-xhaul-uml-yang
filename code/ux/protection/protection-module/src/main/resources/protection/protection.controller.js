@@ -13,11 +13,19 @@ function (protectionApp) {
       $rootScope.section_logo = 'src/app/protection/images/protection.png'; // Add your topbar logo location here such as 'assets/images/logo_topology.gif'
       
       var init = function() {
-        $scope.oneAtATime = true;
-        $scope.connectedNetworkElements = [];
-  
+        $scope.oneAtATime = false;
+        $scope.protectionGroups = [{uuid:'1.23.4 RX'},{uuid:'1.23.4 TX'}];
       };
       init();
 
+      $scope.$watch(function(scope) { return scope.networkElement },
+        function(newValue, oldValue) {
+          if (newValue && newValue !== oldValue) {
+            init();
+          }
+          console.info(newValue, oldValue, newValue !== oldValue);
+        }
+      );
+        
     }]);
 });

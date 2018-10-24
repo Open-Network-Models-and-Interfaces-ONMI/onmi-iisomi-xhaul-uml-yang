@@ -708,10 +708,13 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
         case '2016-08-11':
         case '2017-02-17':
         case '2017-03-20':
+        case '2017-03-24':
         case '2017-10-20':
         // console.log(JSON.stringify(data));        
           $scope.onfNetworkElement = new OnfNetworkElement(data['network-element']);
-          var fd = $scope.onfNetworkElement.getForwardingDomain();
+          
+          // Ethernet switching
+          var fd = $scope.onfNetworkElement.getEthSwitch();
           $scope.forwardingDomain = undefined;
           $scope.forwardingConstructs = undefined;
           if (fd && fd.length > 0) {
@@ -738,6 +741,21 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
               });
             }
           }
+
+          // Protection
+          $scope.protectionGroups = $scope.onfNetworkElement.getProtectionGroups()[0];
+          $scope.pgList = []; 
+          $scope.protectionGroups.fc.map(pg => {
+            return $mwtnBrowser.getForwardingConstruct($scope.networkElement, pg).then(function(fc){
+console.info(JSON.stringify(fc));
+              // TODO make robust
+              if (fc['forwarding-construct'] && fc['forwarding-construct'][0]) {
+                $scope.pgList.push(fc['forwarding-construct'][0]);
+              }
+            }) 
+          });
+
+          // Technology termination points
           $scope.onfLtps = $scope.onfNetworkElement.getLogicalTerminationPoints();
           // $scope.onfNetworkElement.ltp = undefined;
           break;

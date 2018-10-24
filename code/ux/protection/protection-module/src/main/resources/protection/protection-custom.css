@@ -3,36 +3,41 @@
  *  width: 1260px;
  */
 
- header {
-   background: #dddddd;
-   padding: 5px;
-   max-height: 50px;
- }
- 
- footer {
-   background: #aaaaaa;
-   padding: 5px;
-   height: 50px;
- }
- 
- main {
+.odlux-app header {
+  height: 70px;
+  border-bottom: #ffffff 1px solid;
+  margin-bottom: 10px;
+} 
+.odlux-app footer {
+  height: 36px;
+  border-top: #ffffff 1px solid;
+  margin-top: 10px;
+}
+
+/*
+ .odlux-app  main {
    background: #ffffff;
  }
  
- main footer {
+ .odlux-app  main footer {
    background: #dddddd;
  }
  
- nav {
+ .odlux-app  nav {
    background: #eeeeee;
    padding: 5px;
  }
+ */
  
- article, section {
+ .odlux-app article {
    flex-grow: 2;
    flex-shrink: 1;
-   background: red;
  }
+
+ .odlux-app section {
+  flex-grow: 2;
+  flex-shrink: 1;
+}
   
  #odlux-app-protection {
    display: flex;
@@ -102,6 +107,7 @@
    flex-direction: column;
    justify-content: center;
    align-items: center;
+   padding: 5px;
  }
  
  .flex-column > div {
@@ -112,6 +118,13 @@
    
  }
  
+ .protection-group hr {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 0;
+  border-top: 1px solid #888888;
+}
+
  .protection-group .flex-column-label-left {
    display: flex;
    flex-direction: column;
@@ -132,12 +145,14 @@
    left: 0;
    right: 0;
    margin: auto;
+   background: none;
+   border: none;
  }
  .protection-group svg path {
    fill: red;
    fill-opacity: 0.0;
    stroke-linecap: round;
-   stroke: #ddeedd;
+   stroke: #bbeebb;
    stroke-width: 6;
  }
  .protection-group svg path.active {

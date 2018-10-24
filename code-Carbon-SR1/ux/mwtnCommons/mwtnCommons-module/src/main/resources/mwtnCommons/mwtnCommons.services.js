@@ -721,8 +721,14 @@ define(
           'ETY': 2,
           'ETH-CTP': 1,
           'ETH': 1,
+          'OTSi': 1,
+          'OTSiA': 1,
+          'PHOTONIC_MEDIA': 1
         }
       };
+
+      // comment the following line for production environment
+      // service.base = service.base.replace('192.168.178.148', '10.10.240.80'); //  http://10.10.240.80:8181/index.html#/connect
 
       service.getOrderNumber = function(proposal, item){
         var result = proposal;
@@ -1217,6 +1223,7 @@ define(
             break;
           case 'mountpoint':
           case 'forwardingConstructs':
+          case 'protectionGroups':
             // not needed (currently)
             deferred.resolve();
             break;
@@ -1659,7 +1666,8 @@ define(
           return 'operational/network-topology:network-topology/topology/topology-netconf/node/' + neId + '/yang-ext:mount/core-model:network-element/fd/' +fdUuid;
         },
         forwardingConstruct: function (neId, fcUuid) {
-          return 'operational/network-topology:network-topology/topology/topology-netconf/node/' + neId + '/yang-ext:mount/core-model:forwarding-construct/' +fcUuid;
+          console.info('###', neId, fcUuid);
+          return 'config/network-topology:network-topology/topology/topology-netconf/node/' + neId + '/yang-ext:mount/core-model:forwarding-construct/' +fcUuid;
         },
         clock: function (neId, revision) {
           return 'operational/network-topology:network-topology/topology/topology-netconf/node/' + neId + '/yang-ext:mount/ietf-ptp-dataset:instance-list/1';
@@ -3789,6 +3797,31 @@ define(
         };
         this.getForwardingDomain = function () {
           return this.getData().fd;
+        };
+        this.getProtectionGroups = function () {
+          var fd = this.getForwardingDomain();
+          if (fd && fd.length > 0) {
+            return fd.filter(item => {
+              return item['layer-protocol-name'] && 
+                     item['layer-protocol-name']
+                     .filter(e => e !== 'MWS')
+                     .filter(e => e !== 'MWPS').length === 0;
+            });
+          }
+          return null;
+        };
+        this.getEthSwitch = function () {
+          var fd = this.getForwardingDomain();
+          if (fd && fd.length > 0) {
+            return fd.filter(item => {
+              return item['layer-protocol-name'] && 
+                     item['layer-protocol-name']
+                     .filter(e => e !== 'ETH')
+                     .filter(e => e !== 'ETC')
+                     .filter(e => e !== 'ETY').length === 0;
+            });
+          }
+          return null;
         };
         this.getName = function () {
           return this.getData().name[0].value || this.getData().uuid;
