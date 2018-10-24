@@ -62,7 +62,7 @@ public class NetconfChangeListener implements ClusteredDataTreeChangeListener<No
     }
 
     @Override
-	public void close() {
+    public void close() {
         if (dlcReg != null) {
             dlcReg.close();
         }
@@ -83,7 +83,7 @@ public class NetconfChangeListener implements ClusteredDataTreeChangeListener<No
             final DataObjectModification<Node> root = change.getRootNode();
             final ModificationType modificationType = root.getModificationType();
             if (LOG.isTraceEnabled()) {
-                LOG.trace("Handle this modificatoinType:{} path:{} root:{}", modificationType, change.getRootPath(), root);
+                LOG.trace("Handle this modificationType:{} path:{} root:{}", modificationType, change.getRootPath(), root);
             }
             switch (modificationType) {
                 case SUBTREE_MODIFIED:
