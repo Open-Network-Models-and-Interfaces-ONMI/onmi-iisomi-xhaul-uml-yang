@@ -47,15 +47,21 @@ public class ONFCoreNetworkElementFactory {
                     if (csts == ConnectionStatus.Connected) {
                         Capabilities capabilities = new Capabilities(nnode);
                         LOG.info("Mountpoint {} capabilities {}", mountPointNodeName, capabilities);
-
                         res = ONFCoreNetworkElement12.build(mountPointNodeName, capabilities, mountpointDataBroker,
                                 webSocketService, databaseService, dcaeProvider, aotsmClient, maintenanceService,
                                 notificationDelayService);
-                        LOG.info("ONFCoreNetworkElementRepresentation value is not null? " + (res != null));
+                        LOG.info("ONFCoreNetworkElementRepresentation12 value is not null? " + (res != null));
                         if (res == null) {
                             res = ONFCoreNetworkElement1211.build(mountPointNodeName, capabilities,
                                     mountpointDataBroker, webSocketService, databaseService, dcaeProvider, aotsmClient,
                                     maintenanceService, notificationDelayService);
+                            LOG.info("ONFCoreNetworkElementRepresentation1211 value is not null? " + (res != null));
+                        }
+                        if (res == null) {
+                            res = ONFCoreNetworkElement1211p.build(mountPointNodeName, capabilities,
+                                    mountpointDataBroker, webSocketService, databaseService, dcaeProvider,
+                                    aotsmClient, maintenanceService, notificationDelayService);
+                            LOG.info("ONFCoreNetworkElementRepresentation1211p value is not null? " + (res != null));
                         }
                     }
                 }

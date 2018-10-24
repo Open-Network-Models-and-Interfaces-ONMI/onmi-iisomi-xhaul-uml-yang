@@ -147,30 +147,24 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
     /**
      * Constructor
      *
-     * @param mountPointNodeName
-     *            as String
-     * @param capabilities
-     *            of the specific network element
-     * @param netconfNodeDataBroker
-     *            for the network element specific data
-     * @param webSocketService
-     *            to forward event notifications
-     * @param databaseService
-     *            to access the database
-     * @param dcaeProvider
-     *            to forward problem / change notifications
+     * @param mountPointNodeName    as String
+     * @param capabilities          of the specific network element
+     * @param netconfNodeDataBroker for the network element specific data
+     * @param webSocketService      to forward event notifications
+     * @param databaseService       to access the database
+     * @param dcaeProvider          to forward problem / change notifications
      */
     private ONFCoreNetworkElement12(String mountPointNodeName, Capabilities capabilities,
             DataBroker netconfNodeDataBroker, WebSocketServiceClient webSocketService,
-            HtDatabaseEventsService databaseService, ProviderClient dcaeProvider,
-            @Nullable ProviderClient aotsmClient, MaintenanceService maintenanceService, NotificationDelayService notificationDelayService) {
+            HtDatabaseEventsService databaseService, ProviderClient dcaeProvider, @Nullable ProviderClient aotsmClient,
+            MaintenanceService maintenanceService, NotificationDelayService notificationDelayService) {
 
         super(mountPointNodeName, netconfNodeDataBroker, capabilities);
 
         // Create MicrowaveService here
         this.microwaveEventListener = new MicrowaveEventListener12(mountPointNodeName, webSocketService,
                 databaseService, dcaeProvider, aotsmClient, maintenanceService, notificationDelayService);
-        this.isNetworkElementCurrentProblemsSupporting12 = capabilities.isSupportingNamespace(NetworkElementPac.QNAME);
+        this.isNetworkElementCurrentProblemsSupporting12 = capabilities.isSupportingNamespaceAndRevision(NetworkElementPac.QNAME);
         LOG.debug("support necurrent-problem-list=" + this.isNetworkElementCurrentProblemsSupporting12);
         LOG.info("Create NE instance {}", InstanceList.QNAME.getLocalName());
     }
@@ -179,24 +173,18 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
      * Check capabilities are matching the this specific implementation and create
      * network element representation if so.
      *
-     * @param mountPointNodeName
-     *            as String
-     * @param capabilities
-     *            of the specific network element
-     * @param netconfNodeDataBroker
-     *            for the network element specific data
-     * @param webSocketService
-     *            to forward event notifications
-     * @param databaseService
-     *            to access the database
-     * @param dcaeProvider
-     *            to forward problem / change notifications
+     * @param mountPointNodeName    as String
+     * @param capabilities          of the specific network element
+     * @param netconfNodeDataBroker for the network element specific data
+     * @param webSocketService      to forward event notifications
+     * @param databaseService       to access the database
+     * @param dcaeProvider          to forward problem / change notifications
      * @return created Object if conditions are OK or null if not.
      */
     public static @Nullable ONFCoreNetworkElement12 build(String mountPointNodeName, Capabilities capabilities,
             DataBroker netconfNodeDataBroker, WebSocketServiceClient webSocketService,
-            HtDatabaseEventsService databaseService, ProviderClient dcaeProvider,
-            @Nullable ProviderClient aotsmClient, MaintenanceService maintenanceService, NotificationDelayService notificationDelayService) {
+            HtDatabaseEventsService databaseService, ProviderClient dcaeProvider, @Nullable ProviderClient aotsmClient,
+            MaintenanceService maintenanceService, NotificationDelayService notificationDelayService) {
         return checkType(capabilities)
                 ? new ONFCoreNetworkElement12(mountPointNodeName, capabilities, netconfNodeDataBroker, webSocketService,
                         databaseService, dcaeProvider, aotsmClient, maintenanceService, notificationDelayService)
@@ -208,7 +196,8 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
      */
 
     private static boolean checkType(Capabilities capabilities) {
-        return capabilities.isSupportingNamespace(NetworkElement.QNAME);
+        return capabilities.isSupportingNamespaceAndRevision(NetworkElement.QNAME)
+                && capabilities.isSupportingNamespaceAndRevision(MwAirInterfacePac.QNAME);
     }
 
     /**
@@ -375,115 +364,90 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
         LOG.info("Found info at {} for device {} number of problems: {}", mountPointNodeName, getUuId(),
                 resultList.size());
     }
+
     @Override
     public InventoryInformation getInventoryInformation() {
         return this.getInventoryInformation(null);
     }
+
     @Override
     public @Nonnull InventoryInformation getInventoryInformation(String layerProtocolFilter) {
 
         List<String> uuids = new ArrayList<>();
-        String type=InventoryInformation.UNKNOWN;
-        String model=InventoryInformation.UNKNOWN;
-        String vendor=InventoryInformation.UNKNOWN;
-        String ipv4=InventoryInformation.UNKNOWN;
-        String ipv6=InventoryInformation.UNKNOWN;
-        LOG.debug("request inventory information. filter:"+layerProtocolFilter);
+        String type = InventoryInformation.UNKNOWN;
+        String model = InventoryInformation.UNKNOWN;
+        String vendor = InventoryInformation.UNKNOWN;
+        String ipv4 = InventoryInformation.UNKNOWN;
+        String ipv6 = InventoryInformation.UNKNOWN;
+        LOG.debug("request inventory information. filter:" + layerProtocolFilter);
         if (optionalNe != null) {
 
-            //uuids
-            for(Lp lp : this.interfaceList)
-            {
-                if(layerProtocolFilter==null || layerProtocolFilter.isEmpty()) {
+            // uuids
+            for (Lp lp : this.interfaceList) {
+                if (layerProtocolFilter == null || layerProtocolFilter.isEmpty()) {
                     uuids.add(lp.getUuid().getValue());
-                } else if(lp.getLayerProtocolName()!=null &&
-                        lp.getLayerProtocolName().getValue()!=null &&
-                        lp.getLayerProtocolName().getValue().equals(layerProtocolFilter)) {
+                } else if (lp.getLayerProtocolName() != null && lp.getLayerProtocolName().getValue() != null
+                        && lp.getLayerProtocolName().getValue().equals(layerProtocolFilter)) {
                     uuids.add(lp.getUuid().getValue());
                 }
             }
-            LOG.debug("uuids found: {}",uuids);
-            //type
+            LOG.debug("uuids found: {}", uuids);
+            // type
             List<Extension> extensions = optionalNe.getExtension();
-            if(extensions!=null)
-            {
-                String topLevelEqUuid=null;
-                for(Extension e: extensions)
-                {
-                    if(e.getValueName()!=null)
-                    {
-                        if(e.getValueName().equals("top-level-equipment") && e.getValue()!=null)
-                        {
-                            topLevelEqUuid=e.getValue();
-                            LOG.debug("top level equipment found: "+topLevelEqUuid);
-                        }
-                        else if(e.getValueName().equals("neIpAddress") && e.getValue()!=null)
-                        {
-                            ipv4=e.getValue();
-                            LOG.debug("ip information found: "+ipv4);
+            if (extensions != null) {
+                String topLevelEqUuid = null;
+                for (Extension e : extensions) {
+                    if (e.getValueName() != null) {
+                        if (e.getValueName().equals("top-level-equipment") && e.getValue() != null) {
+                            topLevelEqUuid = e.getValue();
+                            LOG.debug("top level equipment found: " + topLevelEqUuid);
+                        } else if (e.getValueName().equals("neIpAddress") && e.getValue() != null) {
+                            ipv4 = e.getValue();
+                            LOG.debug("ip information found: " + ipv4);
                         }
                     }
                 }
-                if(ipv4==InventoryInformation.UNKNOWN)
-                {
+                if (ipv4 == InventoryInformation.UNKNOWN) {
                     LOG.debug("no ip information found");
                 }
-                if(topLevelEqUuid!=null)
-                {
+                if (topLevelEqUuid != null) {
                     Equipment e = this.readEquipmentPac(topLevelEqUuid);
-                    if(e!=null)
-                    {
-                        if( e.getManufacturedThing()!=null &&
-                                e.getManufacturedThing().getEquipmentType()!=null &&
-                                e.getManufacturedThing().getEquipmentType().getTypeName()!=null)
-                        {
+                    if (e != null) {
+                        if (e.getManufacturedThing() != null && e.getManufacturedThing().getEquipmentType() != null
+                                && e.getManufacturedThing().getEquipmentType().getTypeName() != null) {
                             type = e.getManufacturedThing().getEquipmentType().getTypeName();
-                            LOG.debug("equipment type found: "+type);
-                        }
-                        else
-                        {
+                            LOG.debug("equipment type found: " + type);
+                        } else {
                             LOG.debug("no equipment type found");
                         }
-                        if( e.getManufacturedThing()!=null &&
-                                e.getManufacturedThing().getEquipmentType()!=null &&
-                                e.getManufacturedThing().getEquipmentType().getModelIdentifier()!=null)
-                        {
-                            model=e.getManufacturedThing().getEquipmentType().getModelIdentifier();
-                            LOG.debug("model identifier found:"+model);
-                        }
-                        else
-                        {
+                        if (e.getManufacturedThing() != null && e.getManufacturedThing().getEquipmentType() != null
+                                && e.getManufacturedThing().getEquipmentType().getModelIdentifier() != null) {
+                            model = e.getManufacturedThing().getEquipmentType().getModelIdentifier();
+                            LOG.debug("model identifier found:" + model);
+                        } else {
                             LOG.debug("no model identifier found");
                         }
-                        if(e.getManufacturedThing()!=null &&
-                                e.getManufacturedThing().getManufacturerProperties()!=null &&
-                                e.getManufacturedThing().getManufacturerProperties().getManufacturerIdentifier()!=null)
-                        {
+                        if (e.getManufacturedThing() != null
+                                && e.getManufacturedThing().getManufacturerProperties() != null
+                                && e.getManufacturedThing().getManufacturerProperties()
+                                        .getManufacturerIdentifier() != null) {
                             vendor = e.getManufacturedThing().getManufacturerProperties().getManufacturerIdentifier();
-                            LOG.debug("manifacturer found: "+ vendor);
-                        }
-                        else
-                        {
+                            LOG.debug("manifacturer found: " + vendor);
+                        } else {
                             LOG.debug("no manifacturer found");
                         }
                     }
-                }
-                else
-                {
+                } else {
                     LOG.debug("no top level equipment found");
                 }
-            }
-            else
-            {
+            } else {
                 LOG.debug("extension list is null");
             }
         }
 
         return new InventoryInformation(type, model, vendor, ipv4, ipv6, uuids);
 
-
     }
-
 
     /**
      * LOG the newly added problems of the interface pac
@@ -668,8 +632,7 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
      * Get from LayProtocolExtensions the related generated ONF Interface PAC class
      * which represents it.
      *
-     * @param ltp
-     *            logical termination point
+     * @param ltp logical termination point
      * @return Class of InterfacePac
      */
     @Nullable
@@ -733,8 +696,7 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
     /**
      * Read element from class that could be not available
      *
-     * @param ltp
-     *            layer termination point
+     * @param ltp layer termination point
      * @return List with extension parameters or empty list
      */
     @Nonnull
@@ -757,8 +719,7 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
      * MWS, LTP(MWS-TTP), ,MicrowaveModel-ObjectClasses-HybridMwStructure<br>
      * MWS, LTP(MWS-TTP), ,MicrowaveModel-ObjectClasses-PureEthernetStructure<br>
      *
-     * @param ne
-     *            Networkelement
+     * @param ne Networkelement
      * @return Id List, never null.
      */
     private static List<Lp> getLtpList(@Nullable NetworkElement ne) {
@@ -1104,8 +1065,7 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
     /**
      * Generate ID
      *
-     * @param interfacePacUuid
-     *            for airinterface
+     * @param interfacePacUuid for airinterface
      * @return AirInterfaceCurrentProblemsIID
      */
     private InstanceIdentifier<AirInterfaceCurrentProblems> getMWAirInterfacePacIId(UniversalId interfacePacUuid) {
@@ -1118,8 +1078,7 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
     /**
      * Read problems of specific interfaces
      *
-     * @param uuId
-     *            Universal Id String of the interface
+     * @param uuId Universal Id String of the interface
      * @return number of alarms
      */
     private List<ProblemNotificationXml> readTheFaultsOfMwAirInterfacePac(UniversalId interfacePacUuid,
@@ -1161,8 +1120,7 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
     /**
      * Read problems of specific interfaces
      *
-     * @param uuId
-     *            Universal index of Interfacepac
+     * @param uuId Universal index of Interfacepac
      * @return number of alarms
      */
     private List<ProblemNotificationXml> readTheFaultsOfMwEthernetContainerPac(UniversalId interfacePacUuid,
@@ -1202,8 +1160,7 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
     /**
      * Read problems of specific interfaces
      *
-     * @param uuId
-     *            Universal index of Interfacepac
+     * @param uuId Universal index of Interfacepac
      * @return number of alarms
      */
     private List<ProblemNotificationXml> readTheFaultsOfMwAirInterfaceDiversityPac(UniversalId interfacePacUuid,
@@ -1241,8 +1198,7 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
     /**
      * Read problems of specific interfaces
      *
-     * @param uuId
-     *            Universal index of Interfacepac
+     * @param uuId Universal index of Interfacepac
      * @return number of alarms
      */
     private List<ProblemNotificationXml> readTheFaultsOfMwPureEthernetStructurePac(UniversalId interfacePacUuid,
@@ -1280,8 +1236,7 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
     /**
      * Read problems of specific interfaces
      *
-     * @param uuId
-     *            Universal index of Interfacepac
+     * @param uuId Universal index of Interfacepac
      * @return number of alarms
      */
     private List<ProblemNotificationXml> readTheFaultsOfMwHybridMwStructurePac(UniversalId interfacePacUuid,
@@ -1321,8 +1276,7 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
      * without usage of explicit new. Key is generated by newInstance() function
      * here to verify this approach.
      *
-     * @param uuId
-     *            Universal index of Interfacepac
+     * @param uuId Universal index of Interfacepac
      * @return number of alarms
      * @throws SecurityException
      * @throws NoSuchMethodException
@@ -1380,8 +1334,7 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
     /**
      * Read problems of specific interfaces
      *
-     * @param interfacePacUuid
-     *            Universal index of Equipmentpac
+     * @param interfacePacUuid Universal index of Equipmentpac
      * @return Equipment or null
      */
     private @Nullable Equipment readEquipmentPac(UniversalId interfacePacUuid) {
@@ -1423,31 +1376,30 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElementBase {
                 mountPoint.getIdentifier().toString(), optionalNotificationService, listenerRegistrationresult);
     }
 
-    /* (non-Javadoc)
-     * @see org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElementBase#getFilteredInterfaceUuidsAsStringList(java.lang.String)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElementBase#
+     * getFilteredInterfaceUuidsAsStringList(java.lang.String)
      */
     @Override
     protected List<String> getFilteredInterfaceUuidsAsStringList(String layerProtocolFilter) {
         List<String> uuids = new ArrayList<>();
 
-        LOG.debug("request inventory information. filter:"+layerProtocolFilter);
+        LOG.debug("request inventory information. filter:" + layerProtocolFilter);
         if (optionalNe != null) {
-            //uuids
-            for(Lp lp : this.interfaceList)
-            {
-                if(layerProtocolFilter==null || layerProtocolFilter.isEmpty()) {
+            // uuids
+            for (Lp lp : this.interfaceList) {
+                if (layerProtocolFilter == null || layerProtocolFilter.isEmpty()) {
                     uuids.add(lp.getUuid().getValue());
-                } else if(lp.getLayerProtocolName()!=null &&
-                        lp.getLayerProtocolName().getValue()!=null &&
-                        lp.getLayerProtocolName().getValue().equals(layerProtocolFilter)) {
+                } else if (lp.getLayerProtocolName() != null && lp.getLayerProtocolName().getValue() != null
+                        && lp.getLayerProtocolName().getValue().equals(layerProtocolFilter)) {
                     uuids.add(lp.getUuid().getValue());
                 }
             }
         }
-           LOG.debug("uuids found: {}",uuids);
-           return uuids;
+        LOG.debug("uuids found: {}", uuids);
+        return uuids;
     }
-
-
 
 }
