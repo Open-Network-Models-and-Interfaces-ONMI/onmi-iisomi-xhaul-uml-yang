@@ -3790,6 +3790,32 @@ define(
         this.getForwardingDomain = function () {
           return this.getData().fd;
         };
+        this.getEthSwitch = function () {
+          const fds = this.getForwardingDomain();
+          if (fds) {
+            const ethSwitch = this.getForwardingDomain().filter((item) => {
+              return true;
+            });
+            if (ethSwitch.length > 0) {
+              return ethSwitch[0];
+            };
+          } else {
+            return [];
+          }
+        };
+        this.getProtectionGroups = function () {
+          const fds = this.getForwardingDomain();
+          if (fds) {
+            const pgs = this.getForwardingDomain().filter((item) => {
+              return true;
+            });
+            if (pgs.length > 0) {
+              return pgs[0];
+            };
+          } else {
+            return [];
+          }
+        };
         this.getName = function () {
           return this.getData().name[0].value || this.getData().uuid;
         };
