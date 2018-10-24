@@ -745,15 +745,18 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
           // Protection
           $scope.protectionGroups = $scope.onfNetworkElement.getProtectionGroups()[0];
           $scope.pgList = []; 
-          $scope.protectionGroups.fc.map(pg => {
-            return $mwtnBrowser.getForwardingConstruct($scope.networkElement, pg).then(function(fc){
-console.info(JSON.stringify(fc));
-              // TODO make robust
-              if (fc['forwarding-construct'] && fc['forwarding-construct'][0]) {
-                $scope.pgList.push(fc['forwarding-construct'][0]);
-              }
-            }) 
-          });
+
+          if ($scope.protectionGroups && $scope.protectionGroups.fc) {
+            $scope.protectionGroups.fc.map(pg => {
+              return $mwtnBrowser.getForwardingConstruct($scope.networkElement, pg).then(function(fc){
+                console.info(JSON.stringify(fc));
+                // TODO make robust
+                if (fc['forwarding-construct'] && fc['forwarding-construct'][0]) {
+                  $scope.pgList.push(fc['forwarding-construct'][0]);
+                }
+              }) 
+            });
+          }
 
           // Technology termination points
           $scope.onfLtps = $scope.onfNetworkElement.getLogicalTerminationPoints();
