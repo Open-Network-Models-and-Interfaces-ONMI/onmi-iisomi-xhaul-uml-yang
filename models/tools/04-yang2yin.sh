@@ -18,9 +18,27 @@
 # limitations under the License.
 # 
 
-processor="./src/main/resources/lib/saxon9he.jar";
-       in="./src/main/resources/TR-512_v1._3_Publish/OnfModel/CoreModel.uml";
-     xslt="./src/main/prune-and-refactor/prune-and-refactor.xslt";
-      out="./src/main/resources/EAGLE-Open-Model-Profile-and-Tools/UmlYangTools/xmi2yang/project/CoreModel.xml";
+# parameters
+yangs="./src/main/yang";
+ yins="./src/main/yin";
 
-java -jar $processor -s:"$in" -xsl:"$xslt" -o:"$out";
+# methods
+function filename {
+    x=${1%.*}
+    y=${x/$yins/\.\/$2}
+    echo $y"."$2;
+}  
+
+function convert {
+    FILENAME=$(filename $1 $2);
+    pyang --path "$yangs:$yangs/ietf" --format $2 --output $FILENAME $1;
+}  
+
+# process
+mkdir $yins;
+for yang in $yangs/*.yang; do
+    echo "convert file: "$yang;
+    $(convert $yang "yin");
+    echo "done!";
+    echo;
+done

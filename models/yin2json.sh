@@ -18,9 +18,23 @@
 # limitations under the License.
 # 
 
-processor="./src/main/resources/lib/saxon9he.jar";
-       in="./src/main/resources/TR-512_v1._3_Publish/OnfModel/CoreModel.uml";
-     xslt="./src/main/prune-and-refactor/prune-and-refactor.xslt";
-      out="./src/main/resources/EAGLE-Open-Model-Profile-and-Tools/UmlYangTools/xmi2yang/project/CoreModel.xml";
+yins="./yin";
+mkdir -f "./json";
 
-java -jar $processor -s:"$in" -xsl:"$xslt" -o:"$out";
+function filename {
+    x=${1%.*}
+    y=${x/$yins/\.\/$2}
+    echo $y"."$2;
+}  
+
+function convert {
+    FILENAME=$(filename $1 $2);
+    # xslt
+}  
+
+for yin in $yins/*.yin; do
+    echo "convert file: "$yin;
+    $(convert $yang "json");
+    echo "done!";
+    echo;
+done

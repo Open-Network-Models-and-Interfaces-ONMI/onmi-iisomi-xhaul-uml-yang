@@ -1,0 +1,207 @@
+module photonic-media {
+
+    namespace "urn:onf:params:xml:ns:yang:otsi-interface";
+    prefix otsi-interface;
+
+    import core-model {
+        prefix core-model;
+    }
+
+    import tapi-photonic-media{
+        prefix tapi-photonic-media;
+    }
+
+    import tapi-oam{
+         prefix tapi-oam;
+    }
+
+    import ietf-yang-types {
+        prefix yang;
+    }
+
+    organization "ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project";
+    contact "WG Web: <https://www.opennetworking.org/software-defined-standards/models-apis/>
+             WG List:  <mailto:wireless-transport@login.opennetworking.org>
+             WG Chair: Lyndon Ong
+                       <mailto:lyong@ciena.com>
+             WG Chair: Giorgio Cazzaniga
+                       <mailto:giorgio.cazzaniga@sm-optics.com>
+             Editors:  Thorsten Heinze
+                       <mailto:thorsten.heinze@telefonica.com>
+                       Shrikanth Malavalli Divakar
+                       <mailto:shrikanth.divakar@wipro.com>";
+    description "This module contains a collection of YANG definitions for managing Optical networks.
+        This model is for vendor agnostic management of Optical Transport.";
+
+    revision 2018-09-24 {
+        description "Version 1.0";
+        reference "ONF TR-XXX: A YANG Data Model for Optical Transport.";
+    }
+
+    /***********************
+    * package type-definitions
+    **********************/
+    typedef severity-type {
+        type enumeration {
+            enum non-alarmed {
+                description "none";
+            }
+            enum warning {
+                description "none";
+            }
+            enum minor {
+                description "none";
+            }
+            enum major {
+                description "none";
+            }
+            enum critical {
+                description "none";
+            }
+        }
+        description "According to ITU-T M.3160";
+    }
+
+
+    grouping otsi-interface-performance-type-g{
+        container fec-properties-pac{
+            uses tapi-photonic-media:fec-properties-pac-g;
+            description "none";
+        }
+        description "none";
+    }
+
+    grouping otsi-interface-current-performance-type-g {
+        container performance-data {
+            config false;
+            uses otsi-interface-performance-type-g;
+            description "none";
+        }
+        uses tapi-oam:pm-current-data-g;
+        description "Turns performance information into current performance information by inheriting from TAPI OAM current  data.";
+    }
+
+    grouping otsi-interface-historical-performance-type-g {
+        container performance-data {
+            config false;
+            uses otsi-interface-performance-type-g;
+            description "none";
+        }
+        uses tapi-oam:pm-history-data-g;
+        description "Turns performance information into historical performance information by inheriting from TAPI OAM History data.";
+    }
+
+    grouping otsi-interface-current-performance-g {
+        list current-performance-data-list {
+            key 'local-id';
+            config false;
+            min-elements 1;
+            max-elements 2;
+            uses otsi-interface-current-performance-type-g;
+            description "At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.";
+        }
+        description "Aggregated performance information of the air interface at a particular moment.";
+    }
+
+    grouping otsi-interface-historical-performances-g {
+        list historical-performance-data-list {
+            key 'local-id';
+            config false;
+            uses otsi-interface-historical-performance-type-g;
+            description "none";
+        }
+        description "Aggregated performance information of the air interface for a pre-defined measurement interval.";
+    }
+
+    grouping otsi-interface-current-problem-type-g {
+        leaf problem-name {
+            type string;
+            default "Problem name not specified.";
+            config false;
+            description "Name of the alarm according to AirInterface::AirInterfaceCapability::supportedAlarms";
+        }
+        uses otsi-current-problem-g;
+        description "none";
+    }
+
+    grouping otsi-interface-current-problems-g {
+        list current-problem-list {
+            key 'sequence-number';
+            config false;
+            uses otsi-interface-current-problem-type-g;
+            description "none";
+        }
+        description "none";
+    }
+
+    /***********************
+    * package object-classes
+    **********************/
+    /***********************
+    * package otsi-interface
+    **********************/
+    list otsi-interface-pac {
+        key 'layer-protocol';
+        leaf layer-protocol {
+            type leafref {
+                path '/core-model:network-element/core-model:ltp/core-model:lp/core-model:uuid';
+            }
+            description "CoreModel-CoreNetworkModule-ObjectClasses:NetworkElement/_ltpRefList/_lpList/uuid";
+        }
+        container otsi-interface-capability {
+            config false;
+             uses tapi-photonic-media:otsi-capability-pac-g;
+            description "none";
+        }
+        container otsi-interface-configuration {
+             uses tapi-photonic-media:otsi-termination-config-pac-g;
+            description "none";
+        }
+        container otsi-interface-status {
+            config false;
+            uses tapi-photonic-media:otsi-termination-pac-g;
+            description "none";
+        }
+        container otsi-interface-current-problems {
+            config false;
+            uses otsi-interface-current-problems-g;
+            description "none";
+        }
+        container otsi-interface-current-performance {
+            config false;
+            uses otsi-interface-current-performance-g;
+            description "none";
+        }
+        container otsi-interface-historical-performances {
+            config false;
+            uses otsi-interface-historical-performances-g;
+            description "none";
+        }
+        description "none";
+    }
+
+    /***********************
+    * package super-classes
+    **********************/
+        grouping otsi-current-problem-g {
+            leaf sequence-number {
+                type int32;
+                config false;
+                description "Unique sequence number of the current problem object.";
+            }
+            leaf time-stamp {
+                type yang:date-and-time;
+                default "2017-01-01T00:00:00.0Z";
+                config false;
+                description "Time and date of the problem.  ";
+            }
+            leaf problem-severity {
+                type severity-type;
+                default warning;
+                config false;
+                description "Severity of the alarm.";
+            }
+            description "none";
+        }
+
+}

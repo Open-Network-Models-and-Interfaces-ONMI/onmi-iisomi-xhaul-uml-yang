@@ -1,0 +1,1007 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="tapi-odu"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:tapi-odu="urn:onf:otcc:yang:tapi-odu"
+        xmlns:tapi-common="urn:onf:otcc:yang:tapi-common"
+        xmlns:tapi-connectivity="urn:onf:otcc:yang:tapi-connectivity"
+        xmlns:tapi-topology="urn:onf:otcc:yang:tapi-topology"
+        xmlns:tapi-oam="urn:onf:otcc:yang:tapi-oam"
+        xmlns:tapi-dsr="urn:onf:otcc:yang:tapi-dsr">
+  <namespace uri="urn:onf:otcc:yang:tapi-odu"/>
+  <prefix value="tapi-odu"/>
+  <import module="tapi-common">
+    <prefix value="tapi-common"/>
+  </import>
+  <import module="tapi-connectivity">
+    <prefix value="tapi-connectivity"/>
+  </import>
+  <import module="tapi-topology">
+    <prefix value="tapi-topology"/>
+  </import>
+  <import module="tapi-oam">
+    <prefix value="tapi-oam"/>
+  </import>
+  <import module="tapi-dsr">
+    <prefix value="tapi-dsr"/>
+  </import>
+  <organization>
+    <text>ONF OTCC (Open Transport Configuration &amp; Control) Project</text>
+  </organization>
+  <contact>
+    <text>
+Project Web: &lt;https://wiki.opennetworking.org/display/OTCC/TAPI&gt;
+Project List: &lt;mailto:transport-api@opennetworking.org&gt;
+Editor: Karthik Sethuraman
+   &lt;mailto:karthik.sethuraman@necam.com&gt;</text>
+  </contact>
+  <description>
+    <text>
+This module contains TAPI Odu Model definitions.
+Source: TapiOdu.uml
+Copyright (c) 2018 Open Networking Foundation (ONF). All rights reserved.
+License: This module is distributed under the Apache License 2.0</text>
+  </description>
+  <revision date="2018-08-31">
+    <description>
+      <text>ONF Transport API version 2.1.0
+This YANG module has been generated from the TAPI UML Model using the IISOMI-Eagle xmi2yang mapping tool.
+Changes in this revision: &lt;https://github.com/OpenNetworkingFoundation/TAPI/blob/develop/CHANGE_LOG/change-log.2.1.0.md&gt;</text>
+    </description>
+    <reference>
+      <text>ONF-TR-527, ONF-TR-512, ONF-TR-531, RFC 6020, RFC 6087 and ONF TAPI UML model
+&lt;https://github.com/OpenNetworkingFoundation/TAPI/tree/v2.1.0/UML&gt;</text>
+    </reference>
+  </revision>
+  <revision date="2018-03-07">
+    <description>
+      <text>ONF Transport API version 2.0.2
+This YANG module has been generated from the TAPI UML Model using the IISOMI-Eagle xmi2yang mapping tool.
+Changes in this revision: &lt;https://github.com/OpenNetworkingFoundation/TAPI/blob/develop/CHANGE_LOG/change-log.2.0.2.md&gt;</text>
+    </description>
+    <reference>
+      <text>ONF-TR-527, ONF-TR-512, ONF-TR-531, RFC 6020, RFC 6087 and ONF TAPI UML model
+&lt;https://github.com/OpenNetworkingFoundation/TAPI/tree/v2.0.2/UML&gt;</text>
+    </reference>
+  </revision>
+  <revision date="2018-02-16">
+    <description>
+      <text>ONF Transport API version 2.0.1
+This YANG module has been generated from the TAPI UML Model using the IISOMI-Eagle xmi2yang mapping tool.
+Changes in this revision: &lt;https://github.com/OpenNetworkingFoundation/TAPI/blob/develop/CHANGE_LOG/change-log.2.0.1.md&gt;</text>
+    </description>
+    <reference>
+      <text>ONF-TR-527, ONF-TR-512, ONF-TR-531, RFC 6020, RFC 6087 and ONF TAPI UML model
+&lt;https://github.com/OpenNetworkingFoundation/TAPI/tree/v2.0.1/UML&gt;</text>
+    </reference>
+  </revision>
+  <revision date="2018-01-02">
+    <description>
+      <text>ONF Transport API version 2.0.0
+This YANG module has been generated from the TAPI UML Model using the IISOMI-Eagle xmi2yang mapping tool.
+Changes in this revision: &lt;https://github.com/OpenNetworkingFoundation/TAPI/blob/develop/CHANGE_LOG/change-log.2.0.0.md&gt;</text>
+    </description>
+    <reference>
+      <text>ONF-TR-527, ONF-TR-512, ONF-TR-531, RFC 6020, RFC 6087 and ONF TAPI UML model
+&lt;https://github.com/OpenNetworkingFoundation/TAPI/tree/v2.0.0/UML&gt;</text>
+    </reference>
+  </revision>
+  <augment target-node="/tapi-common:context/tapi-topology:topology/tapi-topology:node/tapi-topology:owned-node-edge-point">
+    <uses name="odu-node-edge-point-spec-g"/>
+    <description>
+      <text>Augments the base LayerProtocol information in NodeEdgePoint with ODU-specific information</text>
+    </description>
+  </augment>
+  <augment target-node="/tapi-common:context/tapi-topology:topology/tapi-topology:node/tapi-topology:owned-node-edge-point/tapi-connectivity:connection-end-point">
+    <uses name="odu-connection-end-point-spec-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </augment>
+  <augment target-node="/tapi-common:context/tapi-oam:meg/tapi-oam:mep">
+    <uses name="odu-connection-end-point-spec-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </augment>
+  <augment target-node="/tapi-common:context/tapi-oam:meg/tapi-oam:mip">
+    <uses name="odu-mip-spec-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </augment>
+  <grouping name="odu-termination-and-client-adaptation-pac-g">
+    <leaf name="opu-tributary-slot-size">
+      <type name="odu-slot-size"/>
+      <config value="false"/>
+      <description>
+        <text>This attribute is applicable for ODU2 and ODU3 CTP only. It indicates the slot size of the ODU CTP.</text>
+      </description>
+    </leaf>
+    <leaf name="auto-payload-type">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>This attribute is applicable when the ODU CTP object instance represents a lower order ODU CTP Source at the client layer of the ODUP/ODUj-21 adaptation function. The value of true of this attribute configures that the adaptation source function shall fall back to the payload type PT=20 if the conditions specified in 14.3.10.1/G.798 are satisfied. </text>
+      </description>
+    </leaf>
+    <leaf name="configured-client-type">
+      <type name="tapi-dsr:digital-signal-type"/>
+      <config value="false"/>
+      <description>
+        <text>This attribute configures the type of the client CTP of the server ODU TTP.</text>
+      </description>
+    </leaf>
+    <leaf name="configured-mapping-type">
+      <type name="mapping-type"/>
+      <config value="false"/>
+      <description>
+        <text>This attributes indicates the configured mapping type.</text>
+      </description>
+    </leaf>
+    <container name="accepted-payload-type">
+      <config value="false"/>
+      <uses name="odu-payload-type-g"/>
+      <description>
+        <text>This attribute is applicable when the ODU CTP object instance represents a lower order ODU CTP Sink at the client layer of the ODUP/ODU[i]j or ODUP/ODUj-21 adaptation function.
+This attribute is a 2-digit Hex code that indicates the new accepted payload type.
+Valid values are defined in Table 15-8 of ITU-T Recommendation G.709 with one additional value UN_INTERPRETABLE.</text>
+      </description>
+    </container>
+    <description>
+      <text>This Pac contains the attributes associated with the client adaptation function of the server layer TTP
+It is present only if the CEP contains a TTP</text>
+    </description>
+  </grouping>
+  <grouping name="odu-connection-end-point-spec-g">
+    <container name="odu-common">
+      <uses name="odu-common-pac-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="odu-term-and-adapter">
+      <config value="false"/>
+      <uses name="odu-termination-and-client-adaptation-pac-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="odu-ctp">
+      <config value="false"/>
+      <uses name="odu-ctp-pac-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="odu-protection">
+      <config value="false"/>
+      <uses name="odu-protection-pac-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="odu-pool-pac-g">
+    <leaf name="client-capacity">
+      <type name="uint64"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="max-client-instances">
+      <type name="uint64"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="max-client-size">
+      <type name="uint64"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="odu-node-edge-point-spec-g">
+    <container name="odu-pool">
+      <config value="false"/>
+      <uses name="odu-pool-pac-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="odu-ctp-pac-g">
+    <leaf-list name="tributary-slot-list">
+      <type name="uint64"/>
+      <config value="false"/>
+      <description>
+        <text>This attribute contains a set of distinct (i.e. unique) integers (e.g. 2, 3, 5, 9, 15 representing the tributary slots TS2, TS3, TS5, TS9 and TS15) which represents the resources occupied by the Low Order ODU Link Connection (e.g. carrying an ODUflex with a bit rate of 6.25G).
+This attribute applies when the LO ODU_ ConnectionTerminationPoint connects with an HO ODU_TrailTerminationPoint object.
+It will not apply if this ODU_ ConnectionTerminationPoint object directly connects to an OTU_TrailTerminationPoint object (i.e. OTU has no trib slots).
+The upper bound of the integer allowed in this set is a function of the HO-ODU server layer to which the ODU connection has been mapped (adapted).
+Thus, for example, M=8/32/80 for ODU2/ODU3/ODU4 server layers (respectively). Note that the value of this attribute can be changed only in the case of ODUflex and has to be through specific operations (i.e. not be changing the attribute tributarySlotList directly).</text>
+      </description>
+    </leaf-list>
+    <leaf name="tributary-port-number">
+      <type name="uint64"/>
+      <config value="false"/>
+      <description>
+        <text>This attribute identifies the tributary port number that is associated with the ODU CTP.
+range of type : The value range depends on the size of the Tributary Port Number (TPN) field used which depends on th server-layer ODU or OTU.
+In case of ODUk mapping into OTUk, there is no TPN field, so the tributaryPortNumber shall be zero.
+In case of LO ODUj mapping over ODU1, ODU2 or ODU3, the TPN is encoded in a 6-bit field so the value range is 0-63. See clause 14.4.1/G.709-2016.
+In case of LO ODUj mapping over ODU4, the TPN is encoded in a 7-bit field so the value range is 0-127. See clause 14.4.1.4/G.709-2016.
+In case of ODUk mapping over ODUCn, the TPN is encoded in a 14-bit field so the value range is 0-16383. See clause 20.4.1.1/G.709-2016.
+</text>
+      </description>
+    </leaf>
+    <leaf name="accepted-msi">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>This attribute is applicable when the ODU CTP object instance represents a lower order ODU1 or ODU2 CTP Sink at the client layer of the ODU3P/ODU12 adaptation function or represents a lower order ODUj CTP Sink at the client layer of the ODUP/ODUj-21 adaptation function. This attribute is a 1-byte field that represents the accepted multiplex structure of the adaptation function. </text>
+      </description>
+    </leaf>
+    <description>
+      <text>This Pac contains the attributes associated with the CTP
+It is present only if the CEP contains a CTP</text>
+    </description>
+  </grouping>
+  <grouping name="odu-mep-spec-g">
+    <container name="odu-mep">
+      <uses name="odu-mep-pac-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="odu-ncm">
+      <config value="false"/>
+      <uses name="odu-ncm-pac-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="odu-tcm">
+      <config value="false"/>
+      <uses name="odu-tcm-mep-pac-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="odu-defect">
+      <uses name="odu-defect-pac-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="odu-pm">
+      <uses name="odu-pm-pac-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="odu-protection-pac-g">
+    <leaf name="aps-enable">
+      <type name="boolean"/>
+      <default value="true"/>
+      <description>
+        <text>This attribute is for enabling/disabling the automatic protection switching (APS) capability at the transport adaptation function that is represented by the ODU_ConnectionTerminationPoint object class. It triggers the MI_APS_EN signal to the transport adaptation function.</text>
+      </description>
+    </leaf>
+    <leaf name="aps-level">
+      <type name="uint64"/>
+      <description>
+        <text>This attribute is for configuring the automatic protection switching (APS) level that should operate at the transport adaptation function that is represented by the ODU_ConnectionTerminationPoint object class. It triggers the MI_APS_LVL signal to the transport adaptation function. The value 0 means path and the values 1 through 6 mean TCM level 1 through 6 respectively.</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="odu-ncm-pac-g">
+    <leaf-list name="tcm-fields-in-use">
+      <type name="uint64"/>
+      <config value="false"/>
+      <description>
+        <text>This attribute indicates the used TCM fields of the ODU OH.</text>
+      </description>
+    </leaf-list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="odu-tcm-mep-pac-g">
+    <leaf name="tcm-extension">
+      <type name="tcm-extension"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="tcm-mode">
+      <type name="tcm-mode"/>
+      <description>
+        <text>This attribute specifies the TCM mode at the entity. Valid values are: Operational, Monitor, and Transparent.</text>
+      </description>
+    </leaf>
+    <leaf name="codirectional">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>This attribute specifies the directionality of the ODUT MEP with respect to the associated ODU CEP. The value of TRUE means that the sink part of the ODUT MEP terminates the same signal direction as the sink part of the ODU CEP. The Source part behaves similarly. This attribute is meaningful only on objects instantiated under ODU CEP, and at least one among ODU CEP and the subordinate object is bidirectional.</text>
+      </description>
+    </leaf>
+    <leaf name="ac-status-source">
+      <type name="tcm-status"/>
+      <config value="false"/>
+      <description>
+        <text>This attribute indicates the status of the accepted TCM. </text>
+      </description>
+    </leaf>
+    <leaf name="ac-status-sink">
+      <type name="tcm-status"/>
+      <config value="false"/>
+      <description>
+        <text>This attribute indicates the status of the accepted TCM. </text>
+      </description>
+    </leaf>
+    <leaf name="admin-state-source">
+      <type name="tapi-common:administrative-state"/>
+      <description>
+        <text>This attribute provides the capability to provision the LOCK signal at the source, which is one of the ODU maintenance signals.  When a Tandem Connection endpoint is set to admin state locked, it will insert the ODU-LCK signal in the source direction.</text>
+      </description>
+    </leaf>
+    <leaf name="admin-state-sink">
+      <type name="tapi-common:administrative-state"/>
+      <description>
+        <text>This attribute provides the capability to provision the LOCK signal at the sink, which is one of the ODU maintenance signals. When a Tandem Connection endpoint is set to admin state locked, it will insert the ODU-LCK signal in the downstream direction.</text>
+      </description>
+    </leaf>
+    <uses name="odu-tcm-mip-pac-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="odu-mip-spec-g">
+    <container name="odu-mip">
+      <config value="false"/>
+      <uses name="odu-mip-pac-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="odu-ncm">
+      <config value="false"/>
+      <uses name="odu-ncm-pac-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="odu-tcm">
+      <config value="false"/>
+      <uses name="odu-tcm-mip-pac-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="odu-pm">
+      <uses name="odu-pm-pac-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="odu-defect">
+      <uses name="odu-defect-pac-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="odu-mip-pac-g">
+    <leaf name="acti">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>The Trail Trace Identifier (TTI) information recovered (Accepted) from the TTI overhead position at the sink of a trail.</text>
+      </description>
+    </leaf>
+    <leaf name="ex-dapi">
+      <type name="string"/>
+      <description>
+        <text>The Expected Destination Access Point Identifier (ExDAPI), provisioned by the managing system, to be compared with the TTI accepted at the overhead position of the sink for the purpose of checking the integrity of connectivity.</text>
+      </description>
+    </leaf>
+    <leaf name="ex-sapi">
+      <type name="string"/>
+      <description>
+        <text>The Expected Source Access Point Identifier (ExSAPI), provisioned by the managing system, to be compared with the TTI accepted at the overhead position of the sink for the purpose of checking the integrity of connectivity.
+</text>
+      </description>
+    </leaf>
+    <leaf name="tim-act-disabled">
+      <type name="boolean"/>
+      <default value="true"/>
+      <description>
+        <text>This attribute provides the control capability for the managing system to enable or disable the Consequent Action function when detecting Trace Identifier Mismatch (TIM) at the trail termination sink.</text>
+      </description>
+    </leaf>
+    <leaf name="tim-det-mode">
+      <type name="tim-det-mo"/>
+      <description>
+        <text>This attribute indicates the mode of the Trace Identifier Mismatch (TIM) Detection function allowed values: OFF, SAPIonly, DAPIonly, SAPIandDAPI</text>
+      </description>
+    </leaf>
+    <leaf name="deg-m">
+      <type name="uint64"/>
+      <description>
+        <text>This attribute indicates the threshold level for declaring a Degraded Signal defect (dDEG). A dDEG shall be declared if DegM consecutive bad PM Seconds are detected.</text>
+      </description>
+    </leaf>
+    <container name="deg-thr">
+      <uses name="deg-thr-g"/>
+      <description>
+        <text>This attribute indicates the threshold level for declaring a performance monitoring (PM) Second to be bad. The value of the threshold can be provisioned in terms of number of errored blocks or in terms of percentage of errored blocks. For percentage-based specification, in order to support provision of less than 1%, the specification consists of two fields. The first field indicates the granularity of percentage. For examples, in 1%, in 0.1%, or in 0.01%, etc. The second field indicates the multiple of the granularity. For number of errored block based, the value is a positive integer.</text>
+      </description>
+    </container>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="odu-tcm-mip-pac-g">
+    <leaf name="tcm-field">
+      <type name="uint64"/>
+      <config value="false"/>
+      <description>
+        <text>This attribute indicates the tandem connection monitoring field of the ODU OH.</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="odu-mep-pac-g">
+    <leaf name="dm-source">
+      <type name="boolean"/>
+      <description>
+        <text>This attribute is for configuring the delay measurement process at the trail termination function represented by the subject TTP object class. It models the MI_DM_Source MI signal. If MI_DM_Source is false, then the value of the DMp bit is determined by the RI_DM. If MI_DM_Source is true, then the value of the DMp bit is set to MI_DMValue.</text>
+      </description>
+    </leaf>
+    <leaf name="dm-value">
+      <type name="boolean"/>
+      <description>
+        <text>This attribute is for setting the DMp and DMti bits of the delay measurement process. The value of 'true' sets the DMp and DMti bits to 0 and the value of 'false' to 1.</text>
+      </description>
+    </leaf>
+    <leaf name="txti">
+      <type name="string"/>
+      <description>
+        <text>The Trail Trace Identifier (TTI) information, provisioned by the managing system at the termination source, to be placed in the TTI overhead position of the source of a trail for transmission.
+</text>
+      </description>
+    </leaf>
+    <uses name="odu-mip-pac-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="odu-common-pac-g">
+    <leaf name="odu-type">
+      <type name="odu-type"/>
+      <config value="false"/>
+      <description>
+        <text>This attribute specifies the type of the ODU termination point.</text>
+      </description>
+    </leaf>
+    <leaf name="odu-rate">
+      <type name="uint64"/>
+      <config value="false"/>
+      <description>
+        <text>This attribute indicates the rate of the ODU terminatino point.
+This attribute is Set at create; i.e., once created it cannot be changed directly.
+In case of resizable ODU flex, its value can be changed via HAO (not directly on the attribute).
+</text>
+      </description>
+    </leaf>
+    <leaf name="odu-rate-tolerance">
+      <type name="uint64"/>
+      <config value="false"/>
+      <description>
+        <text>This attribute indicates the rate tolerance of the ODU termination point.
+Valid values are real value in the unit of ppm.
+Standardized values are defined in Table 7-2/G.709.</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="odu-pm-pac-g">
+    <leaf name="n-bbe">
+      <type name="uint64"/>
+      <description>
+        <text>Near-end Background Block Error</text>
+      </description>
+    </leaf>
+    <leaf name="f-bbe">
+      <type name="uint64"/>
+      <config value="false"/>
+      <description>
+        <text>Far-end Background Block Error</text>
+      </description>
+    </leaf>
+    <leaf name="n-ses">
+      <type name="uint64"/>
+      <description>
+        <text>Near-end Severely Errored Second</text>
+      </description>
+    </leaf>
+    <leaf name="f-ses">
+      <type name="uint64"/>
+      <description>
+        <text>Far-end Severely Errored Second</text>
+      </description>
+    </leaf>
+    <container name="uas">
+      <uses name="uas-choice-g"/>
+      <description>
+        <text>UnAvailable Second</text>
+      </description>
+    </container>
+    <description>
+      <text>Instance of this object class contains the ODUP layer-specific Current Data. This object class is a subclass of the OTN_CurrentData object class.
+PM data attributes: fBbe, fSes, nBbe, nSes. uas</text>
+    </description>
+  </grouping>
+  <grouping name="odu-defect-pac-g">
+    <leaf name="bdi">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Backward Defect Indication</text>
+      </description>
+    </leaf>
+    <leaf name="deg">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Signal Degraded</text>
+      </description>
+    </leaf>
+    <leaf name="lck">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Locked</text>
+      </description>
+    </leaf>
+    <leaf name="oci">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Open Connection Indicator</text>
+      </description>
+    </leaf>
+    <leaf name="ssf">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Server Signal Failure</text>
+      </description>
+    </leaf>
+    <leaf name="tim">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Trail Trace Identifier Mismatch</text>
+      </description>
+    </leaf>
+    <description>
+      <text>The valid list of defects raised on the entity. If the value of any attribute is true, then the corresponding defect is raised.</text>
+    </description>
+  </grouping>
+  <identity name="ODU_TYPE">
+    <base name="tapi-common:LAYER_PROTOCOL_QUALIFIER"/>
+    <description>
+      <text>none</text>
+    </description>
+  </identity>
+  <identity name="ODU_TYPE_ODU0">
+    <base name="ODU_TYPE"/>
+    <description>
+      <text>none</text>
+    </description>
+  </identity>
+  <identity name="ODU_TYPE_ODU1">
+    <base name="ODU_TYPE"/>
+    <description>
+      <text>none</text>
+    </description>
+  </identity>
+  <identity name="ODU_TYPE_ODU2">
+    <base name="ODU_TYPE"/>
+    <description>
+      <text>none</text>
+    </description>
+  </identity>
+  <identity name="ODU_TYPE_ODU2E">
+    <base name="ODU_TYPE"/>
+    <description>
+      <text>none</text>
+    </description>
+  </identity>
+  <identity name="ODU_TYPE_ODU3">
+    <base name="ODU_TYPE"/>
+    <description>
+      <text>none</text>
+    </description>
+  </identity>
+  <identity name="ODU_TYPE_ODU4">
+    <base name="ODU_TYPE"/>
+    <description>
+      <text>none</text>
+    </description>
+  </identity>
+  <identity name="ODU_TYPE_ODU_FLEX">
+    <base name="ODU_TYPE"/>
+    <description>
+      <text>none</text>
+    </description>
+  </identity>
+  <identity name="ODU_TYPE_ODU_CN">
+    <base name="ODU_TYPE"/>
+    <description>
+      <text>none</text>
+    </description>
+  </identity>
+  <typedef name="odu-type">
+    <type name="identityref">
+      <base name="ODU_TYPE"/>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="mapping-type">
+    <type name="enumeration">
+      <enum name="AMP">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="BMP">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="GFP-F">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="GMP">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="TTP_GFP_BMP">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="NULL">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="tim-det-mo">
+    <type name="enumeration">
+      <enum name="DAPI">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="SAPI">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="BOTH">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="OFF">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>List of modes for trace identifier mismatch detection.</text>
+    </description>
+  </typedef>
+  <typedef name="odu-slot-size">
+    <type name="enumeration">
+      <enum name="1G25">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="2G5">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <grouping name="odu-payload-type-g">
+    <leaf name="named-payload-type">
+      <type name="odu-named-payload-type"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="hex-payload-type">
+      <type name="uint64"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <typedef name="odu-named-payload-type">
+    <type name="enumeration">
+      <enum name="UNKNOWN">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="UNINTERPRETABLE">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <grouping name="deg-thr-g">
+    <leaf name="deg-thr-value">
+      <type name="uint64"/>
+      <description>
+        <text>Percentage of detected errored blocks</text>
+      </description>
+    </leaf>
+    <leaf name="deg-thr-type">
+      <type name="deg-thr-type"/>
+      <description>
+        <text>Number of errored blocks</text>
+      </description>
+    </leaf>
+    <leaf name="percentage-granularity">
+      <type name="percentage-granularity"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>Degraded Threshold, specify either the percentage or the number of Errored Blocks in the defined interval.
+degThrValue when type is PERCENTAGE:
+percentageGranularity is used to indicate the number of decimal points
+So if percentageGranularity is ones, a value of 1 in degThrValue would indicate 1%, a value of 10 = 10%, a value of 100 = 100%
+So if percentageGranularity is thousandths a value of 1 in degThrValue would indicate 0.001%, a value of 1000 = 1%, a value of 1000000 = 100%
+degThrValue when type is NUMBER_ERROR_BLOCKS:
+Number of Errored Blocks is captured in an integer value.</text>
+    </description>
+  </grouping>
+  <typedef name="deg-thr-type">
+    <type name="enumeration">
+      <enum name="PERCENTAGE">
+        <description>
+          <text>Choice of % or Number of errored blocks</text>
+        </description>
+      </enum>
+      <enum name="NUMBER_ERRORED_BLOCKS">
+        <description>
+          <text>Number of % or blocks</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The value of the threshold can be provisioned in terms of number of errored blocks or in terms of percentage of errored blocks. For percentage-based specification, in order to support provision of less than 1%, the specification consists of two fields. The first field indicates the granularity of percentage. For examples, in 1%, in 0.1%, or in 0.01%, etc. The second field indicates the multiple of the granularity. For number of errored block based, the value is a positive integer.</text>
+    </description>
+  </typedef>
+  <typedef name="tcm-status">
+    <type name="enumeration">
+      <enum name="NO_SOURCE_TC">
+        <description>
+          <text>TCM byte 3 (bits 6 7 8) -- 0 0 0, No source Tandem Connection</text>
+        </description>
+      </enum>
+      <enum name="IN_USE_WITHOUT_IAE">
+        <description>
+          <text>TCM byte 3 (bits 6 7 8) -- 0 0 1,  In use without IAE (Incoming Alignment Error)</text>
+        </description>
+      </enum>
+      <enum name="IN_USE_WITH_IAE">
+        <description>
+          <text>TCM byte 3 (bits 6 7 8) -- 0 1 0, In use with IAE (Incoming Alignment Error)</text>
+        </description>
+      </enum>
+      <enum name="RESERVED_1">
+        <description>
+          <text>TCM byte 3 (bits 6 7 8) -- 0 1 1, Reserved for future international standardization</text>
+        </description>
+      </enum>
+      <enum name="RESERVED_2">
+        <description>
+          <text>TCM byte 3 (bits 6 7 8) -- 1 0 0, Reserved for future international standardization</text>
+        </description>
+      </enum>
+      <enum name="LCK">
+        <description>
+          <text>TCM byte 3 (bits 6 7 8) -- 1 0 1, Maintenance signal: ODU-LCK</text>
+        </description>
+      </enum>
+      <enum name="OCI">
+        <description>
+          <text>TCM byte 3 (bits 6 7 8) -- 1 1 0, Maintenance signal: ODU-OCI</text>
+        </description>
+      </enum>
+      <enum name="AIS">
+        <description>
+          <text>TCM byte 3 (bits 6 7 8) -- 1 1 1, Maintenance signal: ODU-AIS</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>See Table 15-5/G.709/Y.1331 </text>
+    </description>
+  </typedef>
+  <typedef name="tcm-mode">
+    <type name="enumeration">
+      <enum name="OPERATIONAL">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="TRANSPARENT">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="MONITOR">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>List of value modes for the sink side of the tandem connection monitoring function.</text>
+    </description>
+  </typedef>
+  <typedef name="tcm-monitoring">
+    <type name="enumeration">
+      <enum name="INTRUSIVE">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="NON-INTRUSIVE">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Monitoring types for the tandem connection monitoring function.</text>
+    </description>
+  </typedef>
+  <typedef name="tcm-extension">
+    <type name="enumeration">
+      <enum name="NORMAL">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="PASS-THROUGH">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="ERASE">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="percentage-granularity">
+    <type name="enumeration">
+      <enum name="ONES">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="ONE_TENTHS">
+        <description>
+          <text>value * (1/10)</text>
+        </description>
+      </enum>
+      <enum name="ONE_HUNDREDTHS">
+        <description>
+          <text>value * (1/100)</text>
+        </description>
+      </enum>
+      <enum name="ONE_THOUSANDTHS">
+        <description>
+          <text>value * (1/1000)</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <grouping name="uas-choice-g">
+    <leaf name="bidirectional">
+      <type name="boolean"/>
+      <default value="true"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="uas">
+      <type name="uint64"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="nuas">
+      <type name="uint64"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="fuas">
+      <type name="uint64"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>If bidirectional is TRUE then use the uas attribute, if bidirectional is FALSE use the nuas, and fuas attributes</text>
+    </description>
+  </grouping>
+</module>

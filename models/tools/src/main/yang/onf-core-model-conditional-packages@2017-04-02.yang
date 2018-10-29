@@ -1,0 +1,350 @@
+module onf-core-model-conditional-packages {
+    namespace "urn:onf:params:xml:ns:yang:onf-core-model-conditional-packages";
+    prefix onf-core-model-conditional-packages;
+    import core-model {
+        prefix core-model;
+    }
+    import microwave-model {
+        prefix microwave-model;
+    }
+    organization "ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project";
+    contact "WG Web: <https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport>
+             WG List:  <mailto:wireless-transport@login.opennetworking.org>
+             WG Chair: Lyndon Ong
+                       <mailto:lyong@ciena.com>
+             WG Chair: Giorgio Cazzaniga
+                       <mailto:giorgio.cazzaniga@sm-optics.com>
+             Editors:  Thorsten Heinze
+                       <mailto:thorsten.heinze@telefonica.com>
+                       Martin Skorupski
+                       <mailto:martin.skorupski@highstreet-technologies.com>";
+    description "This model adds conditional packages to the ONF CoreModel in order to support fault management for object classes NetworkElement, Equipment and Holder.";
+    revision 2017-04-02 {
+        description "Initial version";
+        reference "ONF TR 532: A YANG Data Model for Wireless Networks.";
+    }
+    /***********************
+    * package type-definitions
+    **********************/ 
+        grouping current-problem-type-g {
+            leaf problem-name {
+                type string;
+                default "not-specified";
+                config false;
+                description "Name of the alarm according capability::supportedAlarms.";
+            }
+            uses microwave-model:mw-current-problem-g;
+            description "none";
+        }
+        grouping network-element-current-problem-type-g {
+            leaf problem-name {
+                type string;
+                default "not-specified";
+                config false;
+                description "Name of the alarm according capability::supportedAlarms.";
+            }
+            leaf object-reference {
+                type string;
+                config false;
+                description "An explaining string of the related object class. This is necesseary, because the current problem list of the NetworkElement object class acts as a container for all alarms, where its object classes are not modeled.";
+            }
+            uses microwave-model:mw-current-problem-g;
+            description "none";
+        }
+        grouping problem-severity-type-g {
+            leaf problem-type-name {
+                type string;
+                description "Name of the alarm according to Capability::supportedAlarms";
+            }
+            leaf problem-type-severity {
+                type microwave-model:severity-type;
+                description "Severity of this type of alarm.";
+            }
+            description "none";
+        }
+        typedef processing-type {
+            type enumeration {
+                enum done {
+                    description "none";
+                }
+                enum processing {
+                    description "none";
+                }
+            }
+            description "none";
+        }
+
+    /***********************
+    * package object-classes
+    **********************/ 
+        /***********************
+        * package network-element
+        **********************/ 
+            container network-element-pac {
+                leaf network-element {
+                    type leafref {
+                        path '/core-model:network-element/core-model:uuid';
+                    }
+                    description "none";
+                }
+                container network-element-capability {
+                    config false;
+                    uses network-element-capability-g;
+                    description "none";
+                }
+                container network-element-configuration {
+                    uses network-element-configuration-g;
+                    description "none";
+                }
+                container network-element-status {
+                    config false;
+                    uses network-element-status-g;
+                    description "none";
+                }
+                container network-element-current-problems {
+                    config false;
+                    uses network-element-current-problems-g;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping network-element-capability-g {
+                leaf-list supported-alarms {
+                    type string;
+                    config false;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping network-element-configuration-g {
+                list problem-type-severity-list {
+                    key 'problem-type-name';
+                    uses problem-severity-type-g;
+                    description "Severity of the problem to be configured.";
+                }
+                leaf trigger-refresh {
+                    type boolean;
+                    description "A trigger to instruct the netconf server to refresh its internal database/cache. 
+                                 It is primary used for alarms status, but could be used for anything else too. 
+                                 It is assumed that the refresh mechanism takes some time. 
+                                 In order to indicate the process to the controller a refreshStatus attribute is used.";
+                }
+                description "none";
+            }
+            grouping network-element-status-g {
+                leaf refresh-status {
+                    type processing-type;
+                    config false;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping network-element-current-problems-g {
+                list current-problem-list {
+                    key 'sequence-number';
+                    config false;
+                    uses network-element-current-problem-type-g;
+                    description "none";
+                }
+                description "none";
+            }
+
+        /***********************
+        * package equipment
+        **********************/ 
+            list equipment-pac {
+                key 'equipment';
+                leaf equipment {
+                    type leafref {
+                        path '/core-model:equipment/core-model:uuid';
+                    }
+                    description "none";
+                }
+                container equipment-capability {
+                    config false;
+                    uses equipment-capability-g;
+                    description "none";
+                }
+                container equipment-configuration {
+                    uses equipment-configuration-g;
+                    description "none";
+                }
+                container equipment-status {
+                    config false;
+                    uses equipment-status-g;
+                    description "none";
+                }
+                container equipment-current-problems {
+                    config false;
+                    uses equipment-current-problems-g;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping equipment-capability-g {
+                leaf-list supported-alarms {
+                    type string;
+                    config false;
+                    description "Available alarms to be listed. Names are to be separated by commas.";
+                }
+                description "none";
+            }
+            grouping equipment-configuration-g {
+                list problem-type-severity-list {
+                    key 'problem-type-name';
+                    uses problem-severity-type-g;
+                    description "Severity of the problem to be configured.";
+                }
+                description "none";
+            }
+            grouping equipment-status-g {
+                description "none";
+            }
+            grouping equipment-current-problems-g {
+                list current-problem-list {
+                    key 'sequence-number';
+                    config false;
+                    uses current-problem-type-g;
+                    description "none";
+                }
+                description "none";
+            }
+
+        /***********************
+        * package holder
+        **********************/ 
+            list holder-pac {
+                key 'holder';
+                leaf holder {
+                    type leafref {
+                        path '/core-model:equipment/core-model:contained-holder/core-model:uuid';
+                    }
+                    description "none";
+                }
+                container holder-capability {
+                    config false;
+                    uses holder-capability-g;
+                    description "none";
+                }
+                container holder-configuration {
+                    uses holder-configuration-g;
+                    description "none";
+                }
+                container holder-status {
+                    config false;
+                    uses holder-status-g;
+                    description "none";
+                }
+                container holder-current-problems {
+                    config false;
+                    uses holder-current-problems-g;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping holder-capability-g {
+                leaf-list supported-alarms {
+                    type string;
+                    config false;
+                    description "Available alarms to be listed. Names are to be separated by commas.";
+                }
+                description "none";
+            }
+            grouping holder-configuration-g {
+                list problem-type-severity-list {
+                    key 'problem-type-name';
+                    uses problem-severity-type-g;
+                    description "Severity of the problem to be configured.";
+                }
+                description "none";
+            }
+            grouping holder-status-g {
+                description "none";
+            }
+            grouping holder-current-problems-g {
+                list current-problem-list {
+                    key 'sequence-number';
+                    config false;
+                    uses current-problem-type-g;
+                    description "none";
+                }
+                description "none";
+            }
+
+        /***********************
+        * package connector
+        **********************/ 
+            list connector-pac {
+                key 'connector';
+                leaf connector {
+                    type leafref {
+                        path '/core-model:equipment/core-model:exposed-cable/core-model:connector/core-model:uuid';
+                    }
+                    description "none";
+                }
+                container connector-capability {
+                    config false;
+                    uses connector-capability-g;
+                    description "none";
+                }
+                container connector-configuration {
+                    uses connector-configuration-g;
+                    description "none";
+                }
+                container connector-status {
+                    config false;
+                    uses connector-status-g;
+                    description "none";
+                }
+                container connector-current-problems {
+                    config false;
+                    uses connector-current-problems-g;
+                    description "none";
+                }
+                description "none";
+            }
+            grouping connector-capability-g {
+                leaf-list supported-alarms {
+                    type string;
+                    config false;
+                    description "Available alarms to be listed. Names are to be separated by commas.";
+                }
+                description "none";
+            }
+            grouping connector-configuration-g {
+                list problem-type-severity-list {
+                    key 'problem-type-name';
+                    uses problem-severity-type-g;
+                    description "Severity of the problem to be configured.";
+                }
+                leaf remote-end-point {
+                    type string;
+                    description "A network wide identifier of the remote connector. The value is used for topology discovery. 
+Please see also ConnectorStatus::localEndPoint.";
+                }
+                description "none";
+            }
+            grouping connector-status-g {
+                leaf local-end-point {
+                    type string;
+                    description "A network wide global identifier of the this connector, which can be used to discover the physical connectivitiy.
+The value should contain the network element name, because the network element software can assume that the network element name is unique in the network. 
+The value should be formated:
+<connector:uuid>@<network-element-name>
+
+Please see also ConnectorConfiguration::remoteEndPoint";
+                }
+                description "none";
+            }
+            grouping connector-current-problems-g {
+                list current-problem-list {
+                    key 'sequence-number';
+                    config false;
+                    uses current-problem-type-g;
+                    description "none";
+                }
+                description "none";
+            }
+
+
+}

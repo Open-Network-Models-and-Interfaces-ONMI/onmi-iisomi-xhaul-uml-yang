@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="ietf-yang-library"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:yanglib="urn:ietf:params:xml:ns:yang:ietf-yang-library"
+        xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types"
+        xmlns:inet="urn:ietf:params:xml:ns:yang:ietf-inet-types">
+  <namespace uri="urn:ietf:params:xml:ns:yang:ietf-yang-library"/>
+  <prefix value="yanglib"/>
+  <import module="ietf-yang-types">
+    <prefix value="yang"/>
+  </import>
+  <import module="ietf-inet-types">
+    <prefix value="inet"/>
+  </import>
+  <organization>
+    <text>IETF NETCONF (Network Configuration) Working Group</text>
+  </organization>
+  <contact>
+    <text>WG Web:   &lt;http://tools.ietf.org/wg/netconf/&gt;
+WG List:  &lt;mailto:netconf@ietf.org&gt;
+
+WG Chair: Mehmet Ersue
+          &lt;mailto:mehmet.ersue@nsn.com&gt;
+
+WG Chair: Mahesh Jethanandani
+          &lt;mailto:mjethanandani@gmail.com&gt;
+
+Editor:   Andy Bierman
+          &lt;mailto:andy@yumaworks.com&gt;
+
+Editor:   Martin Bjorklund
+          &lt;mailto:mbj@tail-f.com&gt;
+
+Editor:   Kent Watsen
+          &lt;mailto:kwatsen@juniper.net&gt;</text>
+  </contact>
+  <description>
+    <text>This module contains monitoring information about the YANG
+modules and submodules that are used within a YANG-based
+server.
+
+Copyright (c) 2016 IETF Trust and the persons identified as
+authors of the code.  All rights reserved.
+
+Redistribution and use in source and binary forms, with or
+without modification, is permitted pursuant to, and subject
+to the license terms contained in, the Simplified BSD License
+set forth in Section 4.c of the IETF Trust's Legal Provisions
+Relating to IETF Documents
+(http://trustee.ietf.org/license-info).
+
+This version of this YANG module is part of RFC XXXX; see
+the RFC itself for full legal notices.</text>
+  </description>
+  <revision date="2016-04-09">
+    <description>
+      <text>Initial revision.</text>
+    </description>
+    <reference>
+      <text>RFC XXXX: YANG Module Library.</text>
+    </reference>
+  </revision>
+  <typedef name="optional-revision">
+    <type name="union">
+      <type name="revision-identifier"/>
+      <type name="string">
+        <length value="0"/>
+      </type>
+    </type>
+    <description>
+      <text>The YANG module or submodule revision date.
+A zero-length string is used if no revision statement
+is present in the YANG module or submodule.</text>
+    </description>
+  </typedef>
+  <typedef name="revision-identifier">
+    <type name="string">
+      <pattern value="\d{4}-\d{2}-\d{2}"/>
+    </type>
+    <description>
+      <text>Represents a specific date in YYYY-MM-DD format.</text>
+    </description>
+  </typedef>
+  <grouping name="module-list">
+    <description>
+      <text>The module data structure is represented as a grouping
+so it can be reused in configuration or another monitoring
+data structure.</text>
+    </description>
+    <grouping name="common-leafs">
+      <description>
+        <text>Common parameters for YANG modules and submodules.</text>
+      </description>
+      <leaf name="name">
+        <type name="yang:yang-identifier"/>
+        <description>
+          <text>The YANG module or submodule name.</text>
+        </description>
+      </leaf>
+      <leaf name="revision">
+        <type name="optional-revision"/>
+      </leaf>
+    </grouping>
+    <grouping name="schema-leaf">
+      <description>
+        <text>Common schema leaf parameter for modules and submodules.</text>
+      </description>
+      <leaf name="schema">
+        <type name="inet:uri"/>
+        <description>
+          <text>Contains a URL that represents the YANG schema
+resource for this module or submodule.
+
+This leaf will only be present if there is a URL
+available for retrieval of the schema for this entry.</text>
+        </description>
+      </leaf>
+    </grouping>
+    <list name="module">
+      <key value="name revision"/>
+      <description>
+        <text>Each entry represents one revision of one module
+currently supported by the server.</text>
+      </description>
+      <uses name="common-leafs"/>
+      <uses name="schema-leaf"/>
+      <leaf name="namespace">
+        <type name="inet:uri"/>
+        <mandatory value="true"/>
+        <description>
+          <text>The XML namespace identifier for this module.</text>
+        </description>
+      </leaf>
+      <leaf-list name="feature">
+        <type name="yang:yang-identifier"/>
+        <description>
+          <text>List of YANG feature names from this module that are
+supported by the server, regardless whether they are
+defined in the module or any included submodule.</text>
+        </description>
+      </leaf-list>
+      <list name="deviation">
+        <key value="name revision"/>
+        <description>
+          <text>List of YANG deviation module names and revisions
+used by this server to modify the conformance of
+the module associated with this entry.  Note that
+the same module can be used for deviations for
+multiple modules, so the same entry MAY appear
+within multiple 'module' entries.
+
+The deviation module MUST be present in the 'module'
+list, with the same name and revision values.
+The 'conformance-type' value will be 'implement' for
+the deviation module.</text>
+        </description>
+        <uses name="common-leafs"/>
+      </list>
+      <leaf name="conformance-type">
+        <type name="enumeration">
+          <enum name="implement">
+            <description>
+              <text>Indicates that the server implements one or more
+protocol-accessible objects defined in the YANG module
+identified in this entry.  This includes deviation
+statements defined in the module.
+
+For YANG version 1.1 modules, there is at most one
+module entry with conformance type 'implement' for a
+particular module name, since YANG 1.1 requires that
+at most one revision of a module is implemented.
+
+For YANG version 1 modules, there SHOULD NOT be more
+than one module entry for a particular module name.</text>
+            </description>
+          </enum>
+          <enum name="import">
+            <description>
+              <text>Indicates that the server imports reusable definitions
+from the specified revision of the module, but does
+not implement any protocol accessible objects from
+this revision.
+
+Multiple module entries for the same module name MAY
+exist. This can occur if multiple modules import the
+same module, but specify different revision-dates in
+the import statements.</text>
+            </description>
+          </enum>
+        </type>
+        <mandatory value="true"/>
+        <description>
+          <text>Indicates the type of conformance the server is claiming
+for the YANG module identified by this entry.</text>
+        </description>
+      </leaf>
+      <container name="submodules">
+        <description>
+          <text>Contains information about all the submodules used
+by the parent module entry</text>
+        </description>
+        <list name="submodule">
+          <key value="name revision"/>
+          <description>
+            <text>Each entry represents one submodule within the
+parent module.</text>
+          </description>
+          <uses name="common-leafs"/>
+          <uses name="schema-leaf"/>
+        </list>
+      </container>
+    </list>
+  </grouping>
+  <container name="modules-state">
+    <config value="false"/>
+    <description>
+      <text>Contains YANG module monitoring information.</text>
+    </description>
+    <leaf name="module-set-id">
+      <type name="string"/>
+      <mandatory value="true"/>
+      <description>
+        <text>Contains a server-specific identifier representing
+the current set of modules and submodules.  The
+server MUST change the value of this leaf if the
+information represented by the 'module' list instances
+has changed.</text>
+      </description>
+    </leaf>
+    <uses name="module-list"/>
+  </container>
+  <notification name="yang-library-change">
+    <description>
+      <text>Generated when the set of modules and submodules supported
+by the server has changed.</text>
+    </description>
+    <leaf name="module-set-id">
+      <type name="leafref">
+        <path value="/yanglib:modules-state/yanglib:module-set-id"/>
+      </type>
+      <mandatory value="true"/>
+      <description>
+        <text>Contains the module-set-id value representing the
+set of modules and submodules supported at the server at
+the time the notification is generated.</text>
+      </description>
+    </leaf>
+  </notification>
+</module>

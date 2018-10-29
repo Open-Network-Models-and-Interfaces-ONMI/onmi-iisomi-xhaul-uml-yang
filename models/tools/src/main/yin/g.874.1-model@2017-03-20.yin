@@ -1,0 +1,949 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="g.874.1-model"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:g.874.1-model="urn:onf:params:xml:ns:yang:g.874.1-model"
+        xmlns:core-model="urn:onf:params:xml:ns:yang:core-model"
+        xmlns:yang="urn:ietf:params:xml:ns:yang:ietf-yang-types">
+  <namespace uri="urn:onf:params:xml:ns:yang:g.874.1-model"/>
+  <prefix value="g.874.1-model"/>
+  <import module="core-model">
+    <prefix value="core-model"/>
+  </import>
+  <import module="ietf-yang-types">
+    <prefix value="yang"/>
+  </import>
+  <organization>
+    <text>ONF (Open Networking Foundation) Open Transport Working Group - Wireless Transport Project</text>
+  </organization>
+  <contact>
+    <text>WG Web: &lt;https://www.opennetworking.org/technical-communities/areas/specification/1931-optical-transport&gt;
+WG List:  &lt;mailto:wireless-transport@login.opennetworking.org&gt;
+WG Chair: Lyndon Ong
+          &lt;mailto:lyong@ciena.com&gt;
+WG Chair: Giorgio Cazzaniga
+          &lt;mailto:giorgio.cazzaniga@sm-optics.com&gt;
+Editors:  Thorsten Heinze
+          &lt;mailto:thorsten.heinze@telefonica.com&gt;
+          Martin Skorupski
+          &lt;mailto:martin.skorupski@highstreet-technologies.com&gt;</text>
+  </contact>
+  <description>
+    <text>&lt;p&gt;Version 2.02; outcome of the 10/2013 Nuremberg meeting.&lt;br&gt;Version 2.03; updates for Geneva 03-2014&lt;br&gt;Version 2.04; updates for Shanghai 09-2014&lt;br&gt;Version 2.05; input to Geneva 11-2014&lt;br&gt;Version 2.06; output from Geneva 11-2014&lt;br&gt;Version 2.07; using OpenProfile 3-2015&lt;br&gt;Version 2.08; output from Geneva 06-2015&lt;/p&gt;</text>
+  </description>
+  <revision date="2017-03-20">
+    <description>
+      <text>Initial version</text>
+    </description>
+    <reference>
+      <text>ONF TR 532: A YANG Data Model for Wireless Networks.</text>
+    </reference>
+  </revision>
+  <grouping name="otn-current-data-g">
+    <leaf name="timestamp">
+      <type name="date-and-time"/>
+      <description>
+        <text>The timestamp associated with when the current data was collected.</text>
+      </description>
+    </leaf>
+    <uses name="q.822-current-data-g"/>
+    <description>
+      <text>This object class is an abstract class from which the OTN layer-specific CurrentData object classes are inherited. This object class is a subclass of the Q.822 CurrentData object class, which in turn is a subclass of X.739 Scanner object class. It inherits the following attributes: scannerId, operationalState, granularityPeriod, administrativeState, suspectIntervalFlag, elapsedTime, observedObjectClass, and observedObjectInstance.</text>
+    </description>
+  </grouping>
+  <grouping name="otn-history-data-g">
+    <leaf name="suspect-interval-flag">
+      <type name="boolean"/>
+      <default value="false"/>
+      <description>
+        <text>This attribute indicates that the data collected during the interval is suspect.</text>
+      </description>
+    </leaf>
+    <uses name="q.822-history-data-g"/>
+    <description>
+      <text>This object class is an abstract class from which the OTN layer-specific HistoryData object classes are inherited. </text>
+    </description>
+  </grouping>
+  <typedef name="directionality">
+    <type name="enumeration">
+      <enum name="sink">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="source">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="bidirectional">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The enumeration with the options for directionality of the termination point.</text>
+    </description>
+  </typedef>
+  <typedef name="gcc-access">
+    <type name="enumeration">
+      <enum name="gcc1">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="gcc2">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="gcc1-and-gcc2">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>This enumeration indicates the GCC access represented by the entity.</text>
+    </description>
+  </typedef>
+  <typedef name="operational-state">
+    <type name="enumeration">
+      <enum name="enabled">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="disabled">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The list of valid operational states for the connection.</text>
+    </description>
+  </typedef>
+  <typedef name="oper-type">
+    <type name="enumeration">
+      <enum name="revertive">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="non-revertive">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The operation type associated with the protection mechanism (either non-revertive or revertive).</text>
+    </description>
+  </typedef>
+  <typedef name="ext-cmd-operation">
+    <type name="enumeration">
+      <enum name="exercise">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="manual-switch">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="forced-switch">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="lockout">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="release-of-manual-switch">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="release-of-forced-switch">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="release-of-lockout">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>This enumeration contains the options for the actions that instruct the protection system for performing specific protection switching operations.</text>
+    </description>
+  </typedef>
+  <typedef name="administrative-state">
+    <type name="enumeration">
+      <enum name="unlocked">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="locked">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="shutting-down">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>For more information on Administrative State, See ITU-T Recs. X.731 and M.3100.</text>
+    </description>
+  </typedef>
+  <typedef name="oc-tk-nim-k-bit-rate">
+    <type name="enumeration">
+      <enum name="2.5-g">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="10-g">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="40-g">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="100-g">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Provides an enumeration with the meaning of each 'k' value.</text>
+    </description>
+  </typedef>
+  <typedef name="tim-det-mo">
+    <type name="enumeration">
+      <enum name="dapi">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="sapi">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="both">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>List of modes for trace identifier mismatch detection.</text>
+    </description>
+  </typedef>
+  <typedef name="oc-tk-nim-problem-list">
+    <type name="enumeration">
+      <enum name="los-p">
+        <description>
+          <text>Loss of Signal -- Payload</text>
+        </description>
+      </enum>
+      <enum name="oci">
+        <description>
+          <text>Open Connection Indicator</text>
+        </description>
+      </enum>
+      <enum name="ssf-p">
+        <description>
+          <text>Server Signal Failure -- Payload -- can not co-exist with SSF or SSF-O</text>
+        </description>
+      </enum>
+      <enum name="ssf-o">
+        <description>
+          <text>Server Signal Failure -- Overhead; can not co-exist with SSF or SSF-P</text>
+        </description>
+      </enum>
+      <enum name="ssf">
+        <description>
+          <text>Server Signal Failure; can not co-exist with SSF-P or SSF-O</text>
+        </description>
+      </enum>
+      <enum name="tim">
+        <description>
+          <text>Trail Trace Identifier Mismatch</text>
+        </description>
+      </enum>
+      <enum name="deg">
+        <description>
+          <text>Signal Degraded</text>
+        </description>
+      </enum>
+      <enum name="bdi">
+        <description>
+          <text>Backward Defect Indication</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The valid list of problems for the entity.</text>
+    </description>
+  </typedef>
+  <typedef name="tcm-monitoring">
+    <type name="enumeration">
+      <enum name="intrusive">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="non-intrusive">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Monitoring types for the tandem connection monitoring function.</text>
+    </description>
+  </typedef>
+  <typedef name="tcm-mode">
+    <type name="enumeration">
+      <enum name="operational">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="transparent">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="monitor">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>List of value modes for the sink side of the tandem connection monitoring function.</text>
+    </description>
+  </typedef>
+  <typedef name="ops-mnk-ttp-k-bit-rate">
+    <type name="enumeration">
+      <enum name="40-g">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="100-g">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Provides an enumeration with the meaning of each 'k' value.</text>
+    </description>
+  </typedef>
+  <typedef name="ops-mnk-ttp-problem-list">
+    <type name="enumeration">
+      <enum name="los">
+        <description>
+          <text>Loss of Signal</text>
+        </description>
+      </enum>
+      <enum name="lol">
+        <description>
+          <text>Loss of Lane Alignment</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The valid list of problems for the entity.</text>
+    </description>
+  </typedef>
+  <typedef name="op-sn-ttp-problem-list">
+    <type name="enumeration">
+      <enum name="los">
+        <description>
+          <text>Loss of Signal</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The valid list of problems for the entity.</text>
+    </description>
+  </typedef>
+  <typedef name="otm-n-k-bit-rates">
+    <type name="enumeration">
+      <enum name="2.5-g">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="10-g">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="40-g">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="2.5-10-g">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="10-40-g">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="2.5-10-40-g">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Provides an enumeration with the meaning of each 'k' value.</text>
+    </description>
+  </typedef>
+  <typedef name="domain-interface">
+    <type name="enumeration">
+      <enum name="intra-domain">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="inter-domain">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>This enumeration provides the options for the interface associated with OTMn.</text>
+    </description>
+  </typedef>
+  <typedef name="otm-n-optical-reach">
+    <type name="enumeration">
+      <enum name="intra-office">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="shorthaul">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="longhaul">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The valid options for reach of the optical cable.</text>
+    </description>
+  </typedef>
+  <typedef name="apr-status">
+    <type name="enumeration">
+      <enum name="on">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="off">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The enumeration of the options for the Automatic Power Reduction Status.</text>
+    </description>
+  </typedef>
+  <typedef name="ot-sn-ttp-problem-list">
+    <type name="enumeration">
+      <enum name="bdi-p">
+        <description>
+          <text>BDI-P (Backward Defect Indication - Payload); not co-exist with BDI-O or BDI</text>
+        </description>
+      </enum>
+      <enum name="bdi-o">
+        <description>
+          <text>BDI-O (Backward Defect Indication - Overhead); not co-exist with BDI-P or BDI</text>
+        </description>
+      </enum>
+      <enum name="bdi">
+        <description>
+          <text>BDI (Backward Defect Indication); not co-exist with BDI-P or BDI-O</text>
+        </description>
+      </enum>
+      <enum name="tim">
+        <description>
+          <text>TIM (Trail Trace Identifier Mismatch);</text>
+        </description>
+      </enum>
+      <enum name="los-p">
+        <description>
+          <text>-P (Loss of Signal - Payload); not co-exist with LOS-O or LOS</text>
+        </description>
+      </enum>
+      <enum name="los-o">
+        <description>
+          <text>LOS-O (Loss of Signal - Overhead); not co-exist with LOS-P or LOS</text>
+        </description>
+      </enum>
+      <enum name="los">
+        <description>
+          <text>LOS (Loss of Signal); not co-exist with LOS-P or LOS-O. </text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The valid list of problems for the entity.</text>
+    </description>
+  </typedef>
+  <typedef name="ot-uk-ctp-adaptation">
+    <type name="enumeration">
+      <enum name="regular">
+        <description>
+          <text>i.e. OPSM/OTUk-a, OCh[r]/OTUk-a</text>
+        </description>
+      </enum>
+      <enum name="none">
+        <description>
+          <text>i.e. OPSM/OTUk-b, OCh[r]/OTUk-b</text>
+        </description>
+      </enum>
+      <enum name="vendor-specific">
+        <description>
+          <text>i.e. OCh[r]/OTUk-v</text>
+        </description>
+      </enum>
+      <enum name="functionally-standardized">
+        <description>
+          <text>i.e. OCh[r]/OTUkV</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The adaptation options for OTUk_ConnectionTermationPoints.</text>
+    </description>
+  </typedef>
+  <typedef name="ot-uk-ctp-k-bit-rate">
+    <type name="enumeration">
+      <enum name="2.5-g">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="10-g">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="40-g">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="100-g">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Provides an enumeration with the meaning of each 'k' value.</text>
+    </description>
+  </typedef>
+  <typedef name="ot-uk-ctp-problem-list">
+    <type name="enumeration">
+      <enum name="lof">
+        <description>
+          <text>Loss of Frame</text>
+        </description>
+      </enum>
+      <enum name="ais">
+        <description>
+          <text>Alarm Indication Signal</text>
+        </description>
+      </enum>
+      <enum name="lom">
+        <description>
+          <text>Loss of MultiFrame</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The valid list of problems for the entity.</text>
+    </description>
+  </typedef>
+  <typedef name="ot-uk-ttp-problem-list">
+    <type name="enumeration">
+      <enum name="tim">
+        <description>
+          <text>Trail Trace Identifier Mismatch</text>
+        </description>
+      </enum>
+      <enum name="deg">
+        <description>
+          <text>Signal Degraded</text>
+        </description>
+      </enum>
+      <enum name="bdi">
+        <description>
+          <text>Backward Defect Indication</text>
+        </description>
+      </enum>
+      <enum name="ssf">
+        <description>
+          <text>Server Signal Failure</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The valid list of problems for the entity.</text>
+    </description>
+  </typedef>
+  <typedef name="monitored-direction">
+    <type name="enumeration">
+      <enum name="sink">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="source">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The enumeration with the options for directionality for nonintrusive monitoring.</text>
+    </description>
+  </typedef>
+  <typedef name="deg-thr-type">
+    <type name="enumeration">
+      <enum name="percentage">
+        <description>
+          <text>&lt;p&gt;Choice of % or Number of errored blocks&lt;/p&gt;</text>
+        </description>
+      </enum>
+      <enum name="number-errored-blocks">
+        <description>
+          <text>&lt;p&gt;Number of % or blocks&lt;/p&gt;</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>&lt;p&gt;The value of the threshold can be provisioned in terms of number of errored blocks or in terms of percentage of errored blocks. For percentage-based specification, in order to support provision of less than 1%, the specification consists of two fields. The first field indicates the granularity of percentage. For examples, in 1%, in 0.1%, or in 0.01%, etc. The second field indicates the multiple of the granularity. For number of errored block based, the value is a positive integer.&lt;/p&gt;</text>
+    </description>
+  </typedef>
+  <typedef name="link-type">
+    <type name="enumeration">
+      <enum name="dwdm">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="cwdm">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="no-wdm">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="application-identifier-type">
+    <type name="enumeration">
+      <enum name="standard">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="proprietary">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="printable-string">
+    <type name="string"/>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="date-and-time">
+    <type name="string"/>
+    <description>
+      <text>This primitive type defines the date and time according to the following structure:
+'yyyyMMddhhmmss.s[Z|{+|-}HHMm]' where:
+yyyy    '0000'..'9999'    year
+MM        '01'..'12'            month
+dd        '01'..'31'            day
+hh        '00'..'23'            hour
+mm        '00'..'59'            minute
+ss        '00'..'59'            second
+s        '.0'..'.9'            tenth of second (set to '.0' if EMS or NE cannot support this granularity)
+Z        'Z'                    indicates UTC (rather than local time)
+{+|-}    '+' or '-'            delta from UTC
+HH        '00'..'23'            time zone difference in hours
+Mm        '00'..'59'            time zone difference in minutes.</text>
+    </description>
+  </typedef>
+  <typedef name="aps-channel">
+    <type name="enumeration">
+      <enum name="path">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="tcm1">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="tcm2">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="tcm3">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="tcm4">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="tcm5">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="tcm6">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="section">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="bit-string">
+    <type name="string"/>
+    <description>
+      <text>This primitive type defines a bit oriented string.
+The size of the BitString will be defined in the valueRange property of the attribute; according to ASN.1 (X.680).
+The semantic of each bit position will be defined in the Documentation field of the attribute.</text>
+    </description>
+  </typedef>
+  <typedef name="delay-measurement-role">
+    <type name="enumeration">
+      <enum name="controller">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="responder">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="resize-operation-type">
+    <type name="enumeration">
+      <enum name="increase-bw">
+        <description>
+          <text>Increase Bandwidth</text>
+        </description>
+      </enum>
+      <enum name="decrease-bw">
+        <description>
+          <text>Decrease Bandwidth</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="granularity-period-type">
+    <type name="enumeration">
+      <enum name="unknown">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="period-15-min">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="period-24-hours">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The enumeration with the options for granularity period of the performance data.</text>
+    </description>
+  </typedef>
+  <grouping name="q.822-current-data-g">
+    <leaf name="suspect-interval-flag">
+      <type name="boolean"/>
+      <description>
+        <text>This attribute is used to indicate that the performance data for the current period may not be reliable. Some reasons for this to occur are:- Suspect data were detected by the actual resource doing data collection.- Transition of the administrativeState attribute to/from the 'lock' state.- Transition of the operationalState to/from the 'disabled' state.- Scheduler setting that inhibits the collection function.- The performance counters were reset during the interval.- The currentData (or subclass) object instance was created during the monitoring period.</text>
+      </description>
+    </leaf>
+    <leaf name="elapsed-time">
+      <type name="int64"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <uses name="x.739-scanner-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="q.822-history-data-g">
+    <leaf name="history-data-id">
+      <type name="string"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="period-end-time">
+      <type name="yang:date-and-time"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="granularity-period">
+      <type name="granularity-period-type"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <uses name="x.721-top-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="x.739-scanner-g">
+    <leaf name="scanner-id">
+      <type name="string"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="granularity-period">
+      <type name="granularity-period-type"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="administrative-state">
+      <type name="core-model:administrative-state"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <uses name="x.721-top-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="x.721-top-g">
+    <leaf name="object-class">
+      <type name="object-identifier"/>
+      <description>
+        <text>ObjectClass ::= CHOICE{    globalForm    [0] OBJECT IDENTIFIER,
+localForm    [1] INTEGER}</text>
+      </description>
+    </leaf>
+    <leaf name="name-binding">
+      <type name="object-identifier"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>This is the top level of managed object class hierarchy and every other managed object class is a specialization of either this generic class (top) or a specialization of subclass of top. The parameter miscellaneousError is to be used when a processing failure has occurred and the error condition encountered does not match any of object's defined specific error types.</text>
+    </description>
+  </grouping>
+  <typedef name="object-instance">
+    <type name="string"/>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="name">
+    <type name="string"/>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="object-identifier">
+    <type name="string"/>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="generalized-time">
+    <type name="string"/>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="time-period">
+    <type name="string"/>
+    <description>
+      <text>This primitive Type is imported from X.739.</text>
+    </description>
+  </typedef>
+</module>

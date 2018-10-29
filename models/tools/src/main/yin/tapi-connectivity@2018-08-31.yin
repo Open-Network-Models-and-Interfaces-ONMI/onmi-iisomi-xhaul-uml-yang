@@ -1,0 +1,1003 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="tapi-connectivity"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:tapi-connectivity="urn:onf:otcc:yang:tapi-connectivity"
+        xmlns:tapi-common="urn:onf:otcc:yang:tapi-common"
+        xmlns:tapi-topology="urn:onf:otcc:yang:tapi-topology"
+        xmlns:tapi-path-computation="urn:onf:otcc:yang:tapi-path-computation">
+  <namespace uri="urn:onf:otcc:yang:tapi-connectivity"/>
+  <prefix value="tapi-connectivity"/>
+  <import module="tapi-common">
+    <prefix value="tapi-common"/>
+  </import>
+  <import module="tapi-topology">
+    <prefix value="tapi-topology"/>
+  </import>
+  <import module="tapi-path-computation">
+    <prefix value="tapi-path-computation"/>
+  </import>
+  <organization>
+    <text>ONF OTCC (Open Transport Configuration &amp; Control) Project</text>
+  </organization>
+  <contact>
+    <text>
+Project Web: &lt;https://wiki.opennetworking.org/display/OTCC/TAPI&gt;
+Project List: &lt;mailto:transport-api@opennetworking.org&gt;
+Editor: Karthik Sethuraman
+   &lt;mailto:karthik.sethuraman@necam.com&gt;</text>
+  </contact>
+  <description>
+    <text>
+This module contains TAPI Connectivity Model definitions.
+Source: TapiConnectivity.uml
+Copyright (c) 2018 Open Networking Foundation (ONF). All rights reserved.
+License: This module is distributed under the Apache License 2.0</text>
+  </description>
+  <revision date="2018-08-31">
+    <description>
+      <text>ONF Transport API version 2.1.0
+This YANG module has been generated from the TAPI UML Model using the IISOMI-Eagle xmi2yang mapping tool.
+Changes in this revision: &lt;https://github.com/OpenNetworkingFoundation/TAPI/blob/develop/CHANGE_LOG/change-log.2.1.0.md&gt;</text>
+    </description>
+    <reference>
+      <text>ONF-TR-527, ONF-TR-512, ONF-TR-531, RFC 6020, RFC 6087 and ONF TAPI UML model
+&lt;https://github.com/OpenNetworkingFoundation/TAPI/tree/v2.1.0/UML&gt;</text>
+    </reference>
+  </revision>
+  <revision date="2018-03-07">
+    <description>
+      <text>ONF Transport API version 2.0.2
+This YANG module has been generated from the TAPI UML Model using the IISOMI-Eagle xmi2yang mapping tool.
+Changes in this revision: &lt;https://github.com/OpenNetworkingFoundation/TAPI/blob/develop/CHANGE_LOG/change-log.2.0.2.md&gt;</text>
+    </description>
+    <reference>
+      <text>ONF-TR-527, ONF-TR-512, ONF-TR-531, RFC 6020, RFC 6087 and ONF TAPI UML model
+&lt;https://github.com/OpenNetworkingFoundation/TAPI/tree/v2.0.2/UML&gt;</text>
+    </reference>
+  </revision>
+  <revision date="2018-02-16">
+    <description>
+      <text>ONF Transport API version 2.0.1
+This YANG module has been generated from the TAPI UML Model using the IISOMI-Eagle xmi2yang mapping tool.
+Changes in this revision: &lt;https://github.com/OpenNetworkingFoundation/TAPI/blob/develop/CHANGE_LOG/change-log.2.0.1.md&gt;</text>
+    </description>
+    <reference>
+      <text>ONF-TR-527, ONF-TR-512, ONF-TR-531, RFC 6020, RFC 6087 and ONF TAPI UML model
+&lt;https://github.com/OpenNetworkingFoundation/TAPI/tree/v2.0.1/UML&gt;</text>
+    </reference>
+  </revision>
+  <revision date="2018-01-02">
+    <description>
+      <text>ONF Transport API version 2.0.0
+This YANG module has been generated from the TAPI UML Model using the IISOMI-Eagle xmi2yang mapping tool.
+Changes in this revision: &lt;https://github.com/OpenNetworkingFoundation/TAPI/blob/develop/CHANGE_LOG/change-log.2.0.0.md&gt;</text>
+    </description>
+    <reference>
+      <text>ONF-TR-527, ONF-TR-512, ONF-TR-531, RFC 6020, RFC 6087 and ONF TAPI UML model
+&lt;https://github.com/OpenNetworkingFoundation/TAPI/tree/v2.0.0/UML&gt;</text>
+    </reference>
+  </revision>
+  <augment target-node="/tapi-common:context">
+    <uses name="connectivity-context-g"/>
+    <description>
+      <text>Augments the base TAPI Context with ConnectivityService information</text>
+    </description>
+  </augment>
+  <augment target-node="/tapi-common:context/tapi-topology:topology/tapi-topology:node/tapi-topology:owned-node-edge-point">
+    <uses name="cep-list-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </augment>
+  <grouping name="connectivity-service-ref-g">
+    <leaf name="connectivity-service-uuid">
+      <type name="leafref">
+        <path value="/tapi-common:context/tapi-connectivity:connectivity-service/tapi-connectivity:uuid"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="connectivity-service-end-point-ref-g">
+    <uses name="connectivity-service-ref-g"/>
+    <leaf name="connectivity-service-end-point-local-id">
+      <type name="leafref">
+        <path value="/tapi-common:context/tapi-connectivity:connectivity-service/tapi-connectivity:end-point/tapi-connectivity:local-id"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="connection-end-point-ref-g">
+    <uses name="tapi-topology:node-edge-point-ref-g"/>
+    <leaf name="connection-end-point-uuid">
+      <type name="leafref">
+        <path value="/tapi-common:context/tapi-topology:topology/tapi-topology:node/tapi-topology:owned-node-edge-point/tapi-connectivity:connection-end-point/tapi-connectivity:uuid"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="connection-ref-g">
+    <leaf name="connection-uuid">
+      <type name="leafref">
+        <path value="/tapi-common:context/tapi-connectivity:connection/tapi-connectivity:uuid"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="switch-control-ref-g">
+    <uses name="connection-ref-g"/>
+    <leaf name="switch-control-uuid">
+      <type name="leafref">
+        <path value="/tapi-common:context/tapi-connectivity:connection/tapi-connectivity:switch-control/tapi-connectivity:uuid"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="route-ref-g">
+    <uses name="connection-ref-g"/>
+    <leaf name="route-local-id">
+      <type name="leafref">
+        <path value="/tapi-common:context/tapi-connectivity:connection/tapi-connectivity:route/tapi-connectivity:local-id"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="connection-g">
+    <list name="connection-end-point">
+      <uses name="connection-end-point-ref-g"/>
+      <key value="topology-uuid node-uuid node-edge-point-uuid connection-end-point-uuid"/>
+      <config value="false"/>
+      <min-elements value="2"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <list name="lower-connection">
+      <uses name="connection-ref-g"/>
+      <key value="connection-uuid"/>
+      <config value="false"/>
+      <description>
+        <text>An Connection object supports a recursive aggregation relationship such that the internal construction of an Connection can be exposed as multiple lower level Connection objects (partitioning).
+Aggregation is used as for the Node/Topology  to allow changes in hierarchy.
+Connection aggregation reflects Node/Topology aggregation.
+The FC represents a Cross-Connection in an NE. The Cross-Connection in an NE is not necessarily the lowest level of FC partitioning.</text>
+      </description>
+    </list>
+    <list name="supported-client-link">
+      <uses name="tapi-topology:link-ref-g"/>
+      <key value="topology-uuid link-uuid"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <list name="route">
+      <key value="local-id"/>
+      <config value="false"/>
+      <uses name="route-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <list name="switch-control">
+      <key value="uuid"/>
+      <config value="false"/>
+      <uses name="switch-control-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <leaf name="direction">
+      <type name="tapi-common:forwarding-direction"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="layer-protocol-name">
+      <type name="tapi-common:layer-protocol-name"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <uses name="tapi-common:resource-spec-g"/>
+    <uses name="tapi-common:operational-state-pac-g"/>
+    <description>
+      <text>The ForwardingConstruct (FC) object class models enabled potential for forwarding between two or more LTPs and like the LTP supports any transport protocol including all circuit and packet forms.
+At the lowest level of recursion, a FC represents a cross-connection within an NE.</text>
+    </description>
+  </grouping>
+  <grouping name="connection-end-point-g">
+    <leaf name="layer-protocol-name">
+      <type name="tapi-common:layer-protocol-name"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="layer-protocol-qualifier">
+      <type name="tapi-common:layer-protocol-qualifier"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <container name="parent-node-edge-point">
+      <uses name="tapi-topology:node-edge-point-ref-g"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <list name="client-node-edge-point">
+      <uses name="tapi-topology:node-edge-point-ref-g"/>
+      <key value="topology-uuid node-uuid node-edge-point-uuid"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <list name="aggregated-connection-end-point">
+      <uses name="connection-end-point-ref-g"/>
+      <key value="topology-uuid node-uuid node-edge-point-uuid connection-end-point-uuid"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <leaf name="connection-port-direction">
+      <type name="tapi-common:port-direction"/>
+      <config value="false"/>
+      <description>
+        <text>The orientation of defined flow at the EndPoint.</text>
+      </description>
+    </leaf>
+    <leaf name="connection-port-role">
+      <type name="tapi-common:port-role"/>
+      <config value="false"/>
+      <description>
+        <text>Each EP of the FC has a role (e.g., working, protection, protected, symmetric, hub, spoke, leaf, root)  in the context of the FC with respect to the FC function. </text>
+      </description>
+    </leaf>
+    <uses name="tapi-common:resource-spec-g"/>
+    <uses name="tapi-common:operational-state-pac-g"/>
+    <uses name="tapi-common:termination-pac-g"/>
+    <description>
+      <text>The LogicalTerminationPoint (LTP) object class encapsulates the termination and adaptation functions of one or more transport layers.
+The structure of LTP supports all transport protocols including circuit and packet forms.</text>
+    </description>
+  </grouping>
+  <grouping name="connectivity-constraint-g">
+    <leaf name="service-layer">
+      <type name="tapi-common:layer-protocol-name"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="service-type">
+      <type name="service-type"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="service-level">
+      <type name="string"/>
+      <description>
+        <text>An abstract value the meaning of which is mutually agreed – typically represents metrics such as - Class of service, priority, resiliency, availability</text>
+      </description>
+    </leaf>
+    <container name="requested-capacity">
+      <uses name="tapi-common:capacity-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <leaf name="connectivity-direction">
+      <type name="tapi-common:forwarding-direction"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <container name="schedule">
+      <uses name="tapi-common:time-range-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="coroute-inclusion">
+      <uses name="connectivity-service-ref-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <list name="diversity-exclusion">
+      <uses name="connectivity-service-ref-g"/>
+      <key value="connectivity-service-uuid"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="connectivity-service-g">
+    <list name="end-point">
+      <key value="local-id"/>
+      <min-elements value="2"/>
+      <uses name="connectivity-service-end-point-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <list name="connection">
+      <uses name="connection-ref-g"/>
+      <key value="connection-uuid"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <uses name="tapi-common:service-spec-g"/>
+    <uses name="connectivity-constraint-g"/>
+    <uses name="tapi-path-computation:routing-constraint-g"/>
+    <uses name="tapi-path-computation:topology-constraint-g"/>
+    <uses name="resilience-constraint-g"/>
+    <uses name="tapi-common:admin-state-pac-g"/>
+    <description>
+      <text>The ForwardingConstruct (FC) object class models enabled potential for forwarding between two or more LTPs and like the LTP supports any transport protocol including all circuit and packet forms.
+At the lowest level of recursion, a FC represents a cross-connection within an NE.</text>
+    </description>
+  </grouping>
+  <grouping name="connectivity-service-end-point-g">
+    <leaf name="layer-protocol-name">
+      <type name="tapi-common:layer-protocol-name"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="layer-protocol-qualifier">
+      <type name="tapi-common:layer-protocol-qualifier"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <container name="service-interface-point">
+      <uses name="tapi-common:service-interface-point-ref-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <list name="connection-end-point">
+      <uses name="connection-end-point-ref-g"/>
+      <key value="topology-uuid node-uuid node-edge-point-uuid connection-end-point-uuid"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <container name="capacity">
+      <uses name="tapi-common:capacity-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <leaf name="direction">
+      <type name="tapi-common:port-direction"/>
+      <description>
+        <text>The orientation of defined flow at the EndPoint.</text>
+      </description>
+    </leaf>
+    <leaf name="role">
+      <type name="tapi-common:port-role"/>
+      <description>
+        <text>Each EP of the FC has a role (e.g., working, protection, protected, symmetric, hub, spoke, leaf, root)  in the context of the FC with respect to the FC function. </text>
+      </description>
+    </leaf>
+    <leaf name="protection-role">
+      <type name="protection-role"/>
+      <description>
+        <text>To specify the protection role of this Port when create or update ConnectivityService.</text>
+      </description>
+    </leaf>
+    <uses name="tapi-common:local-class-g"/>
+    <uses name="tapi-common:admin-state-pac-g"/>
+    <description>
+      <text>The association of the FC to LTPs is made via EndPoints.
+The EndPoint (EP) object class models the access to the FC function.
+The traffic forwarding between the associated EPs of the FC depends upon the type of FC and may be associated with FcSwitch object instances.
+In cases where there is resilience the EndPoint may convey the resilience role of the access to the FC.
+It can represent a protected (resilient/reliable) point or a protecting (unreliable working or protection) point.
+The EP replaces the Protection Unit of a traditional protection model.
+The ForwadingConstruct can be considered as a component and the EndPoint as a Port on that component</text>
+    </description>
+  </grouping>
+  <grouping name="route-g">
+    <list name="connection-end-point">
+      <uses name="connection-end-point-ref-g"/>
+      <key value="topology-uuid node-uuid node-edge-point-uuid connection-end-point-uuid"/>
+      <config value="false"/>
+      <min-elements value="2"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <uses name="tapi-common:local-class-g"/>
+    <description>
+      <text>The FC Route (FcRoute) object class models the individual routes of an FC.
+The route of an FC object is represented by a list of FCs at a lower level.
+Note that depending on the service supported by an FC, an the FC can have multiple routes.</text>
+    </description>
+  </grouping>
+  <grouping name="connectivity-context-g">
+    <list name="connectivity-service">
+      <key value="uuid"/>
+      <uses name="connectivity-service-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <list name="connection">
+      <key value="uuid"/>
+      <config value="false"/>
+      <uses name="connection-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="switch-g">
+    <list name="selected-connection-end-point">
+      <uses name="connection-end-point-ref-g"/>
+      <key value="topology-uuid node-uuid node-edge-point-uuid connection-end-point-uuid"/>
+      <min-elements value="1"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <list name="selected-route">
+      <uses name="route-ref-g"/>
+      <key value="connection-uuid route-local-id"/>
+      <min-elements value="1"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <leaf name="selection-control">
+      <type name="selection-control"/>
+      <description>
+        <text>Degree of administrative control applied to the switch selection.</text>
+      </description>
+    </leaf>
+    <leaf name="selection-reason">
+      <type name="selection-reason"/>
+      <config value="false"/>
+      <description>
+        <text>The reason for the current switch selection.</text>
+      </description>
+    </leaf>
+    <leaf name="switch-direction">
+      <type name="tapi-common:port-direction"/>
+      <description>
+        <text>Indicates whether the switch selects from ingress to the FC or to egress of the FC, or both.</text>
+      </description>
+    </leaf>
+    <uses name="tapi-common:local-class-g"/>
+    <description>
+      <text>The class models the switched forwarding of traffic (traffic flow) between FcPorts (ConnectionEndPoints) and is present where there is protection functionality in the FC (Connection).
+If an FC exposes protection (having two or more FcPorts that provide alternative identical inputs/outputs), the FC will have one or more associated FcSwitch objects to represent the alternative flow choices visible at the edge of the FC.
+The FC switch represents and defines a protection switch structure encapsulated in the FC.
+Essentially performs one of the functions of the Protection Group in a traditional model. It associates to 2 or more FcPorts each playing the role of a Protection Unit.
+One or more protection, i.e. standby/backup, FcPorts provide protection for one or more working (i.e. regular/main/preferred) FcPorts where either protection or working can feed one or more protected FcPort.
+The switch may be used in revertive or non-revertive (symmetric) mode. When in revertive mode it may define a waitToRestore time.
+It may be used in one of several modes including source switch, destination switched, source and destination switched etc (covering cases such as 1+1 and 1:1).
+It may be locked out (prevented from switching), force switched or manual switched.
+It will indicate switch state and change of state.
+The switch can be switched away from all sources such that it becomes open and hence two coordinated switches can both feed the same LTP so long as at least one of the two is switched away from all sources (is 'open').
+The ability for a Switch to be 'high impedance' allows bidirectional ForwardingConstructs to be overlaid on the same bidirectional LTP where the appropriate control is enabled to prevent signal conflict.
+This ability allows multiple alternate routes to be present that otherwise would be in conflict.</text>
+    </description>
+  </grouping>
+  <grouping name="switch-control-g">
+    <list name="sub-switch-control">
+      <uses name="switch-control-ref-g"/>
+      <key value="connection-uuid switch-control-uuid"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <list name="switch">
+      <key value="local-id"/>
+      <uses name="switch-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <uses name="tapi-common:resource-spec-g"/>
+    <uses name="resilience-constraint-g"/>
+    <description>
+      <text>Represents the capability to control and coordinate switches, to add/delete/modify FCs and to add/delete/modify LTPs/LPs so as to realize a protection scheme.</text>
+    </description>
+  </grouping>
+  <grouping name="resilience-constraint-g">
+    <container name="resilience-type">
+      <uses name="tapi-topology:resilience-type-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <leaf name="restoration-coordinate-type">
+      <type name="coordinate-type"/>
+      <description>
+        <text> The coordination mechanism between multi-layers.</text>
+      </description>
+    </leaf>
+    <leaf name="restore-priority">
+      <type name="uint64"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="reversion-mode">
+      <type name="reversion-mode"/>
+      <description>
+        <text>Indcates whether the protection scheme is revertive or non-revertive.</text>
+      </description>
+    </leaf>
+    <leaf name="wait-to-revert-time">
+      <type name="uint64"/>
+      <default value="15"/>
+      <description>
+        <text>If the protection system is revertive, this attribute specifies the time, in minutes, to wait after a fault clears on a higher priority (preferred) resource before reverting to the preferred resource.</text>
+      </description>
+    </leaf>
+    <leaf name="hold-off-time">
+      <type name="uint64"/>
+      <description>
+        <text>This attribute indicates the time, in milliseconds, between declaration of signal degrade or signal fail, and the initialization of the protection switching algorithm.</text>
+      </description>
+    </leaf>
+    <leaf name="is-lock-out">
+      <type name="boolean"/>
+      <description>
+        <text>The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of.
+This overrides all other protection control states including forced.
+If the item is locked out then it cannot be used under any circumstances.
+Note: Only relevant when part of a protection scheme.</text>
+      </description>
+    </leaf>
+    <leaf name="is-frozen">
+      <type name="boolean"/>
+      <description>
+        <text>Temporarily prevents any switch action to be taken and, as such, freezes the current state.
+Until the freeze is cleared, additional near-end external commands are rejected and fault condition changes and received APS messages are ignored.
+All administrative controls of any aspect of protection are rejected.</text>
+      </description>
+    </leaf>
+    <leaf name="is-coordinated-switching-both-ends">
+      <type name="boolean"/>
+      <description>
+        <text>Is operating such that switching at both ends of each flow acorss the FC is coordinated at both ingress and egress ends.</text>
+      </description>
+    </leaf>
+    <leaf name="max-switch-times">
+      <type name="uint64"/>
+      <description>
+        <text>Used to limit the maximum swtich times. When work fault disappears , and traffic return to the original work path, switch counter reset.</text>
+      </description>
+    </leaf>
+    <leaf-list name="preferred-restoration-layer">
+      <type name="tapi-common:layer-protocol-name"/>
+      <description>
+        <text>Indicate which layer this resilience parameters package configured for.</text>
+      </description>
+    </leaf-list>
+    <description>
+      <text>A list of control parameters to apply to a switch.</text>
+    </description>
+  </grouping>
+  <grouping name="cep-list-g">
+    <list name="connection-end-point">
+      <key value="uuid"/>
+      <uses name="connection-end-point-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <typedef name="service-type">
+    <type name="enumeration">
+      <enum name="POINT_TO_POINT_CONNECTIVITY">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="POINT_TO_MULTIPOINT_CONNECTIVITY">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="MULTIPOINT_CONNECTIVITY">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="ROOTED_MULTIPOINT_CONNECTIVITY">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="reversion-mode">
+    <type name="enumeration">
+      <enum name="REVERTIVE">
+        <description>
+          <text>An FC switched to a lower priority (non-preferred) resource will revert to a higher priority (preferred) resource when that recovers (potentially after some hold-off time).</text>
+        </description>
+      </enum>
+      <enum name="NON-REVERTIVE">
+        <description>
+          <text>An FC switched to a lower priority (non-preferred) resource will not revert to a higher priority (preferred) resource when that recovers.</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The reversion mode associated with protection.</text>
+    </description>
+  </typedef>
+  <typedef name="selection-control">
+    <type name="enumeration">
+      <enum name="LOCK_OUT">
+        <description>
+          <text>The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of.
+This overrides all other protection control states including forced.
+If the item is locked out then it cannot be used under any circumstances.
+Note: Only relevant when part of a protection scheme.</text>
+        </description>
+      </enum>
+      <enum name="NORMAL">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="MANUAL">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="FORCED">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>Possible degrees of administrative control applied to the Route selection.</text>
+    </description>
+  </typedef>
+  <typedef name="selection-reason">
+    <type name="enumeration">
+      <enum name="LOCKOUT">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="NORMAL">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="MANUAL">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="FORCED">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="WAIT_TO_REVERT">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="SIGNAL_DEGRADE">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="SIGNAL_FAIL">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The cause of the current route selection.</text>
+    </description>
+  </typedef>
+  <typedef name="coordinate-type">
+    <type name="enumeration">
+      <enum name="NO_COORDINATE">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="HOLD_OFF_TIME">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="WAIT_FOR_NOTIFICATION">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="protection-role">
+    <type name="enumeration">
+      <enum name="WORK">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="PROTECT">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="PROTECTED">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="NA">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="WORK_RESTORE">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="PROTECT_RESTORE">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <rpc name="get-connection-details">
+    <description>
+      <text>none</text>
+    </description>
+    <input>
+      <leaf name="service-id-or-name">
+        <type name="string"/>
+        <description>
+          <text>none</text>
+        </description>
+      </leaf>
+      <leaf name="connection-id-or-name">
+        <type name="string"/>
+        <description>
+          <text>none</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <container name="connection">
+        <uses name="connection-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+    </output>
+  </rpc>
+  <rpc name="get-connectivity-service-list">
+    <description>
+      <text>none</text>
+    </description>
+    <output>
+      <list name="service">
+        <uses name="connectivity-service-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </list>
+    </output>
+  </rpc>
+  <rpc name="get-connectivity-service-details">
+    <description>
+      <text>none</text>
+    </description>
+    <input>
+      <leaf name="service-id-or-name">
+        <type name="string"/>
+        <description>
+          <text>none</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <container name="service">
+        <uses name="connectivity-service-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+    </output>
+  </rpc>
+  <rpc name="create-connectivity-service">
+    <description>
+      <text>none</text>
+    </description>
+    <input>
+      <list name="end-point">
+        <key value="local-id"/>
+        <min-elements value="2"/>
+        <uses name="connectivity-service-end-point-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </list>
+      <container name="connectivity-constraint">
+        <uses name="connectivity-constraint-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+      <container name="routing-constraint">
+        <uses name="tapi-path-computation:routing-constraint-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+      <container name="topology-constraint">
+        <uses name="tapi-path-computation:topology-constraint-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+      <list name="resilience-constraint">
+        <uses name="resilience-constraint-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </list>
+      <leaf name="state">
+        <type name="string"/>
+        <description>
+          <text>none</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <container name="service">
+        <uses name="connectivity-service-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+    </output>
+  </rpc>
+  <rpc name="update-connectivity-service">
+    <description>
+      <text>none</text>
+    </description>
+    <input>
+      <leaf name="service-id-or-name">
+        <type name="string"/>
+        <description>
+          <text>none</text>
+        </description>
+      </leaf>
+      <container name="end-point">
+        <uses name="connectivity-service-end-point-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+      <container name="connectivity-constraint">
+        <uses name="connectivity-constraint-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+      <container name="routing-constraint">
+        <uses name="tapi-path-computation:routing-constraint-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+      <container name="topology-constraint">
+        <uses name="tapi-path-computation:topology-constraint-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+      <list name="resilience-constraint">
+        <uses name="resilience-constraint-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </list>
+      <leaf name="state">
+        <type name="string"/>
+        <description>
+          <text>none</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <container name="service">
+        <uses name="connectivity-service-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+    </output>
+  </rpc>
+  <rpc name="delete-connectivity-service">
+    <description>
+      <text>none</text>
+    </description>
+    <input>
+      <leaf name="service-id-or-name">
+        <type name="string"/>
+        <description>
+          <text>none</text>
+        </description>
+      </leaf>
+    </input>
+  </rpc>
+</module>

@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="tapi-path-computation"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:tapi-path-computation="urn:onf:otcc:yang:tapi-path-computation"
+        xmlns:tapi-topology="urn:onf:otcc:yang:tapi-topology"
+        xmlns:tapi-common="urn:onf:otcc:yang:tapi-common">
+  <namespace uri="urn:onf:otcc:yang:tapi-path-computation"/>
+  <prefix value="tapi-path-computation"/>
+  <import module="tapi-topology">
+    <prefix value="tapi-topology"/>
+  </import>
+  <import module="tapi-common">
+    <prefix value="tapi-common"/>
+  </import>
+  <organization>
+    <text>ONF OTCC (Open Transport Configuration &amp; Control) Project</text>
+  </organization>
+  <contact>
+    <text>
+Project Web: &lt;https://wiki.opennetworking.org/display/OTCC/TAPI&gt;
+Project List: &lt;mailto:transport-api@opennetworking.org&gt;
+Editor: Karthik Sethuraman
+   &lt;mailto:karthik.sethuraman@necam.com&gt;</text>
+  </contact>
+  <description>
+    <text>
+This module contains TAPI Path Computation Model definitions.
+Source: TapiPathComputation.uml
+Copyright (c) 2018 Open Networking Foundation (ONF). All rights reserved.
+License: This module is distributed under the Apache License 2.0</text>
+  </description>
+  <revision date="2018-08-31">
+    <description>
+      <text>ONF Transport API version 2.1.0
+This YANG module has been generated from the TAPI UML Model using the IISOMI-Eagle xmi2yang mapping tool.
+Changes in this revision: &lt;https://github.com/OpenNetworkingFoundation/TAPI/blob/develop/CHANGE_LOG/change-log.2.1.0.md&gt;</text>
+    </description>
+    <reference>
+      <text>ONF-TR-527, ONF-TR-512, ONF-TR-531, RFC 6020, RFC 6087 and ONF TAPI UML model
+&lt;https://github.com/OpenNetworkingFoundation/TAPI/tree/v2.1.0/UML&gt;</text>
+    </reference>
+  </revision>
+  <revision date="2018-03-07">
+    <description>
+      <text>ONF Transport API version 2.0.2
+This YANG module has been generated from the TAPI UML Model using the IISOMI-Eagle xmi2yang mapping tool.
+Changes in this revision: &lt;https://github.com/OpenNetworkingFoundation/TAPI/blob/develop/CHANGE_LOG/change-log.2.0.2.md&gt;</text>
+    </description>
+    <reference>
+      <text>ONF-TR-527, ONF-TR-512, ONF-TR-531, RFC 6020, RFC 6087 and ONF TAPI UML model
+&lt;https://github.com/OpenNetworkingFoundation/TAPI/tree/v2.0.2/UML&gt;</text>
+    </reference>
+  </revision>
+  <revision date="2018-02-16">
+    <description>
+      <text>ONF Transport API version 2.0.1
+This YANG module has been generated from the TAPI UML Model using the IISOMI-Eagle xmi2yang mapping tool.
+Changes in this revision: &lt;https://github.com/OpenNetworkingFoundation/TAPI/blob/develop/CHANGE_LOG/change-log.2.0.1.md&gt;</text>
+    </description>
+    <reference>
+      <text>ONF-TR-527, ONF-TR-512, ONF-TR-531, RFC 6020, RFC 6087 and ONF TAPI UML model
+&lt;https://github.com/OpenNetworkingFoundation/TAPI/tree/v2.0.1/UML&gt;</text>
+    </reference>
+  </revision>
+  <revision date="2018-01-02">
+    <description>
+      <text>ONF Transport API version 2.0.0
+This YANG module has been generated from the TAPI UML Model using the IISOMI-Eagle xmi2yang mapping tool.
+Changes in this revision: &lt;https://github.com/OpenNetworkingFoundation/TAPI/blob/develop/CHANGE_LOG/change-log.2.0.0.md&gt;</text>
+    </description>
+    <reference>
+      <text>ONF-TR-527, ONF-TR-512, ONF-TR-531, RFC 6020, RFC 6087 and ONF TAPI UML model
+&lt;https://github.com/OpenNetworkingFoundation/TAPI/tree/v2.0.0/UML&gt;</text>
+    </reference>
+  </revision>
+  <augment target-node="/tapi-common:context">
+    <uses name="path-computation-context-g"/>
+    <description>
+      <text>Augments the base TAPI Context with PathComputationService information</text>
+    </description>
+  </augment>
+  <grouping name="path-ref-g">
+    <leaf name="path-uuid">
+      <type name="leafref">
+        <path value="/tapi-common:context/tapi-path-computation:path/tapi-path-computation:uuid"/>
+      </type>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="path-g">
+    <list name="link">
+      <uses name="tapi-topology:link-ref-g"/>
+      <key value="topology-uuid link-uuid"/>
+      <config value="false"/>
+      <min-elements value="1"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <container name="routing-constraint">
+      <config value="false"/>
+      <uses name="routing-constraint-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <leaf name="direction">
+      <type name="tapi-common:forwarding-direction"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="layer-protocol-name">
+      <type name="tapi-common:layer-protocol-name"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <uses name="tapi-common:resource-spec-g"/>
+    <description>
+      <text>Path is described by an ordered list of TE Links. A TE Link is defined by a pair of Node/NodeEdgePoint IDs. A Connection is realized by concatenating link resources (associated with a Link) and the lower-level connections (cross-connections) in the different nodes</text>
+    </description>
+  </grouping>
+  <grouping name="path-service-end-point-g">
+    <container name="service-interface-point">
+      <uses name="tapi-common:service-interface-point-ref-g"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <leaf name="layer-protocol-name">
+      <type name="tapi-common:layer-protocol-name"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="layer-protocol-qualifier">
+      <type name="tapi-common:layer-protocol-qualifier"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <container name="capacity">
+      <uses name="tapi-common:capacity-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <leaf name="role">
+      <type name="tapi-common:port-role"/>
+      <config value="false"/>
+      <description>
+        <text>Each EP of the FC has a role (e.g., working, protection, protected, symmetric, hub, spoke, leaf, root)  in the context of the FC with respect to the FC function. </text>
+      </description>
+    </leaf>
+    <leaf name="direction">
+      <type name="tapi-common:port-direction"/>
+      <config value="false"/>
+      <description>
+        <text>The orientation of defined flow at the EndPoint.</text>
+      </description>
+    </leaf>
+    <uses name="tapi-common:local-class-g"/>
+    <description>
+      <text>The association of the FC to LTPs is made via EndPoints.
+The EndPoint (EP) object class models the access to the FC function.
+The traffic forwarding between the associated EPs of the FC depends upon the type of FC and may be associated with FcSwitch object instances.
+In cases where there is resilience the EndPoint may convey the resilience role of the access to the FC.
+It can represent a protected (resilient/reliable) point or a protecting (unreliable working or protection) point.
+The EP replaces the Protection Unit of a traditional protection model.
+The ForwadingConstruct can be considered as a component and the EndPoint as a Port on that component</text>
+    </description>
+  </grouping>
+  <grouping name="path-computation-service-g">
+    <list name="path">
+      <uses name="path-ref-g"/>
+      <key value="path-uuid"/>
+      <config value="false"/>
+      <min-elements value="1"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <list name="end-point">
+      <key value="local-id"/>
+      <min-elements value="2"/>
+      <max-elements value="2"/>
+      <uses name="path-service-end-point-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <container name="routing-constraint">
+      <uses name="routing-constraint-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="topology-constraint">
+      <uses name="topology-constraint-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="objective-function">
+      <uses name="path-objective-function-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="optimization-constraint">
+      <uses name="path-optimization-constraint-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <uses name="tapi-common:service-spec-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="path-objective-function-g">
+    <leaf name="bandwidth-optimization">
+      <type name="tapi-common:directive-value"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="concurrent-paths">
+      <type name="tapi-common:directive-value"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="cost-optimization">
+      <type name="tapi-common:directive-value"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="link-utilization">
+      <type name="tapi-common:directive-value"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="resource-sharing">
+      <type name="tapi-common:directive-value"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <uses name="tapi-common:local-class-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="path-optimization-constraint-g">
+    <leaf name="traffic-interruption">
+      <type name="tapi-common:directive-value"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <uses name="tapi-common:local-class-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="routing-constraint-g">
+    <list name="cost-characteristic">
+      <key value="cost-name"/>
+      <uses name="tapi-topology:cost-characteristic-g"/>
+      <description>
+        <text>The list of costs where each cost relates to some aspect of the TopologicalEntity.</text>
+      </description>
+    </list>
+    <list name="latency-characteristic">
+      <key value="traffic-property-name"/>
+      <uses name="tapi-topology:latency-characteristic-g"/>
+      <description>
+        <text>The effect on the latency of a queuing process. This only has significant effect for packet based systems and has a complex characteristic.</text>
+      </description>
+    </list>
+    <list name="risk-diversity-characteristic">
+      <key value="risk-characteristic-name"/>
+      <uses name="tapi-topology:risk-characteristic-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <leaf name="diversity-policy">
+      <type name="diversity-policy"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="route-objective-function">
+      <type name="route-objective-function"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="route-direction">
+      <type name="tapi-common:forwarding-direction"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="is-exclusive">
+      <type name="boolean"/>
+      <default value="true"/>
+      <description>
+        <text>To distinguish if the resources are to be exclusive to the service</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="path-computation-context-g">
+    <list name="path-comp-service">
+      <key value="uuid"/>
+      <uses name="path-computation-service-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <list name="path">
+      <key value="uuid"/>
+      <config value="false"/>
+      <uses name="path-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="topology-constraint-g">
+    <list name="include-topology">
+      <uses name="tapi-topology:topology-ref-g"/>
+      <key value="topology-uuid"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <list name="avoid-topology">
+      <uses name="tapi-topology:topology-ref-g"/>
+      <key value="topology-uuid"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <list name="include-path">
+      <uses name="tapi-path-computation:path-ref-g"/>
+      <key value="path-uuid"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <list name="exclude-path">
+      <uses name="tapi-path-computation:path-ref-g"/>
+      <key value="path-uuid"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <list name="include-link">
+      <uses name="tapi-topology:link-ref-g"/>
+      <key value="topology-uuid link-uuid"/>
+      <config value="false"/>
+      <description>
+        <text>This is a loose constraint - that is it is unordered and could be a partial list </text>
+      </description>
+    </list>
+    <list name="exclude-link">
+      <uses name="tapi-topology:link-ref-g"/>
+      <key value="topology-uuid link-uuid"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <list name="include-node">
+      <uses name="tapi-topology:node-ref-g"/>
+      <key value="topology-uuid node-uuid"/>
+      <config value="false"/>
+      <description>
+        <text>This is a loose constraint - that is it is unordered and could be a partial list</text>
+      </description>
+    </list>
+    <list name="exclude-node">
+      <uses name="tapi-topology:node-ref-g"/>
+      <key value="topology-uuid node-uuid"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <leaf-list name="preferred-transport-layer">
+      <type name="tapi-common:layer-protocol-name"/>
+      <config value="false"/>
+      <description>
+        <text>soft constraint requested by client to indicate the layer(s) of transport connection that it prefers to carry the service. This could be same as the service layer or one of the supported server layers</text>
+      </description>
+    </leaf-list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <typedef name="route-objective-function">
+    <type name="enumeration">
+      <enum name="MIN_WORK_ROUTE_HOP">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="MIN_WORK_ROUTE_COST">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="MIN_WORK_ROUTE_LATENCY">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="MIN_SUM_OF_WORK_AND_PROTECTION_ROUTE_HOP">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="MIN_SUM_OF_WORK_AND_PROTECTION_ROUTE_COST">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="MIN_SUM_OF_WORK_AND_PROTECTION_ROUTE_LATENCY">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="LOAD_BALANCE_MAX_UNUSED_CAPACITY">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="diversity-policy">
+    <type name="enumeration">
+      <enum name="SRLG">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="SRNG">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="SNG">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="NODE">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="LINK">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <rpc name="compute-p-2-p-path">
+    <description>
+      <text>none</text>
+    </description>
+    <input>
+      <list name="sep">
+        <min-elements value="2"/>
+        <max-elements value="2"/>
+        <uses name="path-service-end-point-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </list>
+      <container name="routing-constraint">
+        <uses name="routing-constraint-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+      <container name="topology-constraint">
+        <uses name="topology-constraint-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+      <container name="objective-function">
+        <uses name="path-objective-function-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+    </input>
+    <output>
+      <container name="service">
+        <uses name="path-computation-service-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+    </output>
+  </rpc>
+  <rpc name="optimize-p-2-p-path">
+    <description>
+      <text>none</text>
+    </description>
+    <input>
+      <leaf name="path-id-or-name">
+        <type name="string"/>
+        <description>
+          <text>none</text>
+        </description>
+      </leaf>
+      <container name="routing-constraint">
+        <uses name="routing-constraint-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+      <container name="optimization-constraint">
+        <uses name="path-optimization-constraint-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+      <container name="objective-function">
+        <uses name="path-objective-function-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+    </input>
+    <output>
+      <container name="service">
+        <uses name="path-computation-service-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+    </output>
+  </rpc>
+  <rpc name="delete-p-2-p-path">
+    <description>
+      <text>none</text>
+    </description>
+    <input>
+      <leaf name="path-id-or-name">
+        <type name="string"/>
+        <description>
+          <text>none</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <container name="service">
+        <uses name="path-computation-service-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+    </output>
+  </rpc>
+</module>

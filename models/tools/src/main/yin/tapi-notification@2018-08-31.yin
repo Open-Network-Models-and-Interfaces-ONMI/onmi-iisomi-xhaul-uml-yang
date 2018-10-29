@@ -1,0 +1,853 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="tapi-notification"
+        xmlns="urn:ietf:params:xml:ns:yang:yin:1"
+        xmlns:tapi-notification="urn:onf:otcc:yang:tapi-notification"
+        xmlns:tapi-common="urn:onf:otcc:yang:tapi-common">
+  <namespace uri="urn:onf:otcc:yang:tapi-notification"/>
+  <prefix value="tapi-notification"/>
+  <import module="tapi-common">
+    <prefix value="tapi-common"/>
+  </import>
+  <organization>
+    <text>ONF OTCC (Open Transport Configuration &amp; Control) Project</text>
+  </organization>
+  <contact>
+    <text>
+Project Web: &lt;https://wiki.opennetworking.org/display/OTCC/TAPI&gt;
+Project List: &lt;mailto:transport-api@opennetworking.org&gt;
+Editor: Karthik Sethuraman
+   &lt;mailto:karthik.sethuraman@necam.com&gt;</text>
+  </contact>
+  <description>
+    <text>
+This module contains TAPI Notification Model definitions.
+Source: TapiNotification.uml
+Copyright (c) 2018 Open Networking Foundation (ONF). All rights reserved.
+License: This module is distributed under the Apache License 2.0</text>
+  </description>
+  <revision date="2018-08-31">
+    <description>
+      <text>ONF Transport API version 2.1.0
+This YANG module has been generated from the TAPI UML Model using the IISOMI-Eagle xmi2yang mapping tool.
+Changes in this revision: &lt;https://github.com/OpenNetworkingFoundation/TAPI/blob/develop/CHANGE_LOG/change-log.2.1.0.md&gt;</text>
+    </description>
+    <reference>
+      <text>ONF-TR-527, ONF-TR-512, ONF-TR-531, RFC 6020, RFC 6087 and ONF TAPI UML model
+&lt;https://github.com/OpenNetworkingFoundation/TAPI/tree/v2.1.0/UML&gt;</text>
+    </reference>
+  </revision>
+  <revision date="2018-03-07">
+    <description>
+      <text>ONF Transport API version 2.0.2
+This YANG module has been generated from the TAPI UML Model using the IISOMI-Eagle xmi2yang mapping tool.
+Changes in this revision: &lt;https://github.com/OpenNetworkingFoundation/TAPI/blob/develop/CHANGE_LOG/change-log.2.0.2.md&gt;</text>
+    </description>
+    <reference>
+      <text>ONF-TR-527, ONF-TR-512, ONF-TR-531, RFC 6020, RFC 6087 and ONF TAPI UML model
+&lt;https://github.com/OpenNetworkingFoundation/TAPI/tree/v2.0.2/UML&gt;</text>
+    </reference>
+  </revision>
+  <revision date="2018-02-16">
+    <description>
+      <text>ONF Transport API version 2.0.1
+This YANG module has been generated from the TAPI UML Model using the IISOMI-Eagle xmi2yang mapping tool.
+Changes in this revision: &lt;https://github.com/OpenNetworkingFoundation/TAPI/blob/develop/CHANGE_LOG/change-log.2.0.1.md&gt;</text>
+    </description>
+    <reference>
+      <text>ONF-TR-527, ONF-TR-512, ONF-TR-531, RFC 6020, RFC 6087 and ONF TAPI UML model
+&lt;https://github.com/OpenNetworkingFoundation/TAPI/tree/v2.0.1/UML&gt;</text>
+    </reference>
+  </revision>
+  <revision date="2018-01-02">
+    <description>
+      <text>ONF Transport API version 2.0.0
+This YANG module has been generated from the TAPI UML Model using the IISOMI-Eagle xmi2yang mapping tool.
+Changes in this revision: &lt;https://github.com/OpenNetworkingFoundation/TAPI/blob/develop/CHANGE_LOG/change-log.2.0.0.md&gt;</text>
+    </description>
+    <reference>
+      <text>ONF-TR-527, ONF-TR-512, ONF-TR-531, RFC 6020, RFC 6087 and ONF TAPI UML model
+&lt;https://github.com/OpenNetworkingFoundation/TAPI/tree/v2.0.0/UML&gt;</text>
+    </reference>
+  </revision>
+  <augment target-node="/tapi-common:context">
+    <uses name="notification-context-g"/>
+    <description>
+      <text>Augments the base TAPI Context with NotificationService information</text>
+    </description>
+  </augment>
+  <grouping name="notification-subscription-service-g">
+    <list name="notification">
+      <key value="uuid"/>
+      <config value="false"/>
+      <uses name="notification-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <container name="notification-channel">
+      <uses name="notification-channel-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="subscription-filter">
+      <uses name="subscription-filter-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <leaf name="subscription-state">
+      <type name="subscription-state"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf-list name="supported-notification-types">
+      <type name="notification-type"/>
+      <config value="false"/>
+      <min-elements value="1"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf-list>
+    <leaf-list name="supported-object-types">
+      <type name="object-type"/>
+      <config value="false"/>
+      <min-elements value="1"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf-list>
+    <uses name="tapi-common:service-spec-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="subscription-filter-g">
+    <leaf-list name="requested-notification-types">
+      <type name="notification-type"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf-list>
+    <leaf-list name="requested-object-types">
+      <type name="object-type"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf-list>
+    <leaf-list name="requested-layer-protocols">
+      <type name="tapi-common:layer-protocol-name"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf-list>
+    <leaf-list name="requested-object-identifier">
+      <type name="tapi-common:uuid"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf-list>
+    <leaf name="include-content">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>Indicates whether the published Notification includes content or just the Notification Id (which enables retrieval of the notification at the later stage)</text>
+      </description>
+    </leaf>
+    <uses name="tapi-common:local-class-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <notification name="notification">
+    <uses name="notification-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </notification>
+  <grouping name="notification-g">
+    <leaf name="notification-type">
+      <type name="notification-type"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="target-object-type">
+      <type name="object-type"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="target-object-identifier">
+      <type name="tapi-common:uuid"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <list name="target-object-name">
+      <key value="value-name"/>
+      <min-elements value="1"/>
+      <uses name="tapi-common:name-and-value-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <leaf name="event-time-stamp">
+      <type name="tapi-common:date-and-time"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="sequence-number">
+      <type name="uint64"/>
+      <config value="false"/>
+      <description>
+        <text>A monotonous increasing sequence number associated with the notification.
+The exact semantics of how this sequence number is assigned (per channel or subscription or source or system) is left undefined.</text>
+      </description>
+    </leaf>
+    <leaf name="source-indicator">
+      <type name="source-indicator"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="layer-protocol-name">
+      <type name="tapi-common:layer-protocol-name"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <list name="changed-attributes">
+      <key value="value-name"/>
+      <uses name="name-and-value-change-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <list name="additional-info">
+      <key value="value-name"/>
+      <uses name="tapi-common:name-and-value-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <leaf name="additional-text">
+      <type name="string"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <container name="tca-info">
+      <uses name="tca-info-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <container name="alarm-info">
+      <uses name="alarm-info-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </container>
+    <uses name="tapi-common:resource-spec-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="notification-channel-g">
+    <leaf name="stream-address">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>The address/location/URI of the channel/stream to which the subscribed notifications are published.
+This specifics of this is typically dependent on the implementation protocol &amp; mechanism and hence is typed as a string.</text>
+      </description>
+    </leaf>
+    <leaf name="next-sequence-no">
+      <type name="uint64"/>
+      <config value="false"/>
+      <description>
+        <text>The sequence number of the next notification that will be published on the channel</text>
+      </description>
+    </leaf>
+    <uses name="tapi-common:local-class-g"/>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="notification-context-g">
+    <list name="notif-subscription">
+      <key value="uuid"/>
+      <uses name="notification-subscription-service-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <list name="notification">
+      <key value="uuid"/>
+      <config value="false"/>
+      <uses name="notification-g"/>
+      <description>
+        <text>none</text>
+      </description>
+    </list>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="alarm-info-g">
+    <leaf name="is-transient">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="perceived-severity">
+      <type name="perceived-severity-type"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="probable-cause">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="service-affecting">
+      <type name="service-affecting"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="tca-info-g">
+    <leaf name="is-transient">
+      <type name="boolean"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="threshold-crossing">
+      <type name="threshold-crossing-type"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="threshold-parameter">
+      <type name="string"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="threshold-value">
+      <type name="uint64"/>
+      <config value="false"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="perceived-severity">
+      <type name="perceived-tca-severity"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="measurement-interval">
+      <type name="tapi-common:date-and-time"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <leaf name="suspect-interval-flag">
+      <type name="boolean"/>
+      <description>
+        <text>none</text>
+      </description>
+    </leaf>
+    <description>
+      <text>none</text>
+    </description>
+  </grouping>
+  <grouping name="name-and-value-change-g">
+    <leaf name="value-name">
+      <type name="string"/>
+      <description>
+        <text>The name of the value. The value need not have a name.</text>
+      </description>
+    </leaf>
+    <leaf name="old-value">
+      <type name="string"/>
+      <description>
+        <text>The value</text>
+      </description>
+    </leaf>
+    <leaf name="new-value">
+      <type name="string"/>
+      <description>
+        <text>The value</text>
+      </description>
+    </leaf>
+    <description>
+      <text>A scoped name-value triple, including old value and new value</text>
+    </description>
+  </grouping>
+  <typedef name="notification-type">
+    <type name="enumeration">
+      <enum name="OBJECT_CREATION">
+        <description>
+          <text>Not a normal state. The system is unable to determine the correct value.</text>
+        </description>
+      </enum>
+      <enum name="OBJECT_DELETION">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="ATTRIBUTE_VALUE_CHANGE">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="ALARM_EVENT">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="THRESHOLD_CROSSING_ALERT">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>List of supported Notifications types.</text>
+    </description>
+  </typedef>
+  <typedef name="object-type">
+    <type name="enumeration">
+      <enum name="TOPOLOGY">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="NODE">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="LINK">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="CONNECTION">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="PATH">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="CONNECTIVITY_SERVICE">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="VIRTUAL_NETWORK_SERVICE">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="PATH_COMPUTATION_SERVICE">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="NODE_EDGE_POINT">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="SERVICE_INTERFACE_POINT">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="CONNECTION_END_POINT">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="MAINTENANCE_ENTITY_GROUP">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="MAINTENANCE_ENTITY">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="MEG_END_POINT">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="MEG_INTERMEDIATE_POINT">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="SWITCH_CONTROL">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="SWITCH">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="ROUTE">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="NODE_RULE_GROUP">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="INTER_RULE_GROUP">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="RULE">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="OAM_JOB">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>The list of TAPI Global Object Class types on which Notifications can be raised.</text>
+    </description>
+  </typedef>
+  <typedef name="source-indicator">
+    <type name="enumeration">
+      <enum name="RESOURCE_OPERATION">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="MANAGEMENT_OPERATION">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="UNKNOWN">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="subscription-state">
+    <type name="enumeration">
+      <enum name="SUSPENDED">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="ACTIVE">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="perceived-severity-type">
+    <type name="enumeration">
+      <enum name="CRITICAL">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="MAJOR">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="MINOR">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="WARNING">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="CLEARED">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="threshold-crossing-type">
+    <type name="enumeration">
+      <enum name="THRESHOLD_ABOVE">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="THRESHOLD_BELOW">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="CLEARED">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="service-affecting">
+    <type name="enumeration">
+      <enum name="SERVICE_AFFECTING">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="NOT_SERVICE_AFFECTING">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="UNKNOWN">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <typedef name="perceived-tca-severity">
+    <type name="enumeration">
+      <enum name="WARNING">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+      <enum name="CLEAR">
+        <description>
+          <text>none</text>
+        </description>
+      </enum>
+    </type>
+    <description>
+      <text>none</text>
+    </description>
+  </typedef>
+  <rpc name="get-supported-notification-types">
+    <description>
+      <text>none</text>
+    </description>
+    <output>
+      <leaf-list name="supported-notification-types">
+        <type name="notification-type"/>
+        <min-elements value="1"/>
+        <description>
+          <text>none</text>
+        </description>
+      </leaf-list>
+      <leaf-list name="supported-object-types">
+        <type name="object-type"/>
+        <min-elements value="1"/>
+        <description>
+          <text>none</text>
+        </description>
+      </leaf-list>
+    </output>
+  </rpc>
+  <rpc name="create-notification-subscription-service">
+    <description>
+      <text>none</text>
+    </description>
+    <input>
+      <container name="subscription-filter">
+        <uses name="subscription-filter-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+      <leaf name="subscription-state">
+        <type name="subscription-state"/>
+        <description>
+          <text>none</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <container name="subscription-service">
+        <uses name="notification-subscription-service-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+    </output>
+  </rpc>
+  <rpc name="update-notification-subscription-service">
+    <description>
+      <text>none</text>
+    </description>
+    <input>
+      <leaf name="subscription-id-or-name">
+        <type name="string"/>
+        <description>
+          <text>none</text>
+        </description>
+      </leaf>
+      <container name="subscription-filter">
+        <uses name="subscription-filter-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+      <leaf name="subscription-state">
+        <type name="subscription-state"/>
+        <description>
+          <text>none</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <container name="subscription-service">
+        <uses name="notification-subscription-service-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+    </output>
+  </rpc>
+  <rpc name="delete-notification-subscription-service">
+    <description>
+      <text>none</text>
+    </description>
+    <input>
+      <leaf name="subscription-id-or-name">
+        <type name="string"/>
+        <description>
+          <text>none</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <container name="subscription-service">
+        <uses name="notification-subscription-service-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+    </output>
+  </rpc>
+  <rpc name="get-notification-subscription-service-details">
+    <description>
+      <text>none</text>
+    </description>
+    <input>
+      <leaf name="subscription-id-or-name">
+        <type name="string"/>
+        <description>
+          <text>none</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <container name="subscription-service">
+        <uses name="notification-subscription-service-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </container>
+    </output>
+  </rpc>
+  <rpc name="get-notification-subscription-service-list">
+    <description>
+      <text>none</text>
+    </description>
+    <output>
+      <list name="subscription-service">
+        <uses name="notification-subscription-service-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </list>
+    </output>
+  </rpc>
+  <rpc name="get-notification-list">
+    <description>
+      <text>none</text>
+    </description>
+    <input>
+      <leaf name="subscription-id-or-name">
+        <type name="string"/>
+        <description>
+          <text>none</text>
+        </description>
+      </leaf>
+      <leaf name="time-period">
+        <type name="string"/>
+        <description>
+          <text>none</text>
+        </description>
+      </leaf>
+    </input>
+    <output>
+      <list name="notification">
+        <uses name="notification-g"/>
+        <description>
+          <text>none</text>
+        </description>
+      </list>
+    </output>
+  </rpc>
+</module>
