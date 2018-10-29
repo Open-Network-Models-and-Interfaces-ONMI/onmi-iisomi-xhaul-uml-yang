@@ -743,7 +743,11 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
           }
 
           // Protection
-          $scope.protectionGroups = $scope.onfNetworkElement.getProtectionGroups()[0];
+          $scope.protectionGroups = [];
+          if ($scope.onfNetworkElement.getProtectionGroups() && $scope.onfNetworkElement.getProtectionGroups().length > 0) {
+            $scope.protectionGroups = $scope.onfNetworkElement.getProtectionGroups()[0];
+          }
+
           $scope.pgList = []; 
 
           if ($scope.protectionGroups && $scope.protectionGroups.fc) {
