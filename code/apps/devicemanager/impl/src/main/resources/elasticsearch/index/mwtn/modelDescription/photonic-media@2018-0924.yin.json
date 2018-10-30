@@ -1,0 +1,41 @@
+{
+	"module": {
+		"name": "photonic-media",
+		"photonic-media": {
+			"otsi-interface-pac": {
+				"type": "list",
+				"key": "layer-protocol",
+				"otsi-interface-capability": {
+					"name": "otsi-interface-capability",
+					"local-name": "capability",
+					"type": "container"
+				},
+				"otsi-interface-configuration": {
+					"name": "otsi-interface-configuration",
+					"local-name": "configuration",
+					"type": "container"
+				},
+				"otsi-interface-status": {
+					"name": "otsi-interface-status",
+					"local-name": "status",
+					"type": "container"
+				},
+				"otsi-interface-current-problems": {
+					"name": "otsi-interface-current-problems",
+					"local-name": "current-problems",
+					"type": "container"
+				},
+				"otsi-interface-current-performance": {
+					"name": "otsi-interface-current-performance",
+					"local-name": "current-performance",
+					"type": "container"
+				},
+				"otsi-interface-historical-performances": {
+					"name": "otsi-interface-historical-performances",
+					"local-name": "historical-performances",
+					"type": "container"
+				}
+			}
+		}
+	}
+}

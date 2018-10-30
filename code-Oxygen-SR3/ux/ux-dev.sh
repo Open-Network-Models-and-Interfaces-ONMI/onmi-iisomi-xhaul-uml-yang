@@ -3,7 +3,7 @@
 ################################################################################
 # Please ensure that your ODL_KARAF_HOME enviroment variable is set correctly
 #
-# ODL_KARAF_HOME=$HOME/odl/apps/distribution-karaf-0.6.1-Carbon
+ODL_KARAF_HOME=$HOME/odl/karaf-0.8.3
 UX_VERSION=0.7.3-SNAPSHOT;
 
 # clean

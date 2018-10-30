@@ -1,0 +1,53 @@
+{ "schmea-information": {
+
+"onf-ptp-dataset": {
+"id": "onf-ptp-dataset", 
+"is-read-only": false, 
+"description": ["This module contains a collection of YANG definitions to extent ptp-dataset."]
+},
+"local-priority": {
+"id": "local-priority", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"max-steps-removed": {
+"id": "max-steps-removed", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"multicast-mac-address": {
+"id": "multicast-mac-address", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"designated-enabled": {
+"id": "designated-enabled", 
+"is-read-only": false, 
+"description": ["A PTP Clock needs to be enabled by management."]
+},
+"master-only": {
+"id": "master-only", 
+"is-read-only": false, 
+"description": ["Indicates that port can only be a master."]
+},
+"local-priority": {
+"id": "local-priority", 
+"is-read-only": false, 
+"description": ["Local priority as used for alternate BMCA"]
+},
+"designated-enabled": {
+"id": "designated-enabled", 
+"is-read-only": false, 
+"description": ["A PTP Port needs to be enabled by management."]
+},
+"delay-asymmetry": {
+"id": "delay-asymmetry", 
+"is-read-only": false, 
+"description": ["As per PTP Known path asymmetry in ns."]
+},
+"logical-termination-point": {
+"id": "logical-termination-point", 
+"is-read-only": false, 
+"description": ["A reference to a LTP of layer-protocol-name 'ETY' or 'MWPS', which is used to discover the PTP topology."]
+}}
+}

@@ -1,0 +1,693 @@
+{ "schmea-information": {
+
+"tapi-connectivity": {
+"id": "tapi-connectivity", 
+"is-read-only": false, 
+"description": ["This module contains TAPI Connectivity Model definitions. Source: TapiConnectivity.uml Copyright (c) 2018 Open Networking Foundation (ONF). All rights reserved. License: This module is distributed under the Apache License 2.0"]
+},
+"connectivity-service-uuid": {
+"id": "connectivity-service-uuid", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connectivity-service-ref-g": {
+"id": "connectivity-service-ref-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connectivity-service-end-point-local-id": {
+"id": "connectivity-service-end-point-local-id", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connectivity-service-end-point-ref-g": {
+"id": "connectivity-service-end-point-ref-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connection-end-point-uuid": {
+"id": "connection-end-point-uuid", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connection-end-point-ref-g": {
+"id": "connection-end-point-ref-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connection-uuid": {
+"id": "connection-uuid", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connection-ref-g": {
+"id": "connection-ref-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"switch-control-uuid": {
+"id": "switch-control-uuid", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"switch-control-ref-g": {
+"id": "switch-control-ref-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"route-local-id": {
+"id": "route-local-id", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"route-ref-g": {
+"id": "route-ref-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connection-end-point": {
+"id": "connection-end-point", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"lower-connection": {
+"id": "lower-connection", 
+"is-read-only": false, 
+"description": ["An Connection object supports a recursive aggregation relationship such that the internal construction of an Connection can be exposed as multiple lower level Connection objects (partitioning). Aggregation is used as for the Node/Topology to allow changes in hierarchy. Connection aggregation reflects Node/Topology aggregation. The FC represents a Cross-Connection in an NE. The Cross-Connection in an NE is not necessarily the lowest level of FC partitioning."]
+},
+"supported-client-link": {
+"id": "supported-client-link", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"route": {
+"id": "route", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"switch-control": {
+"id": "switch-control", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"direction": {
+"id": "direction", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"layer-protocol-name": {
+"id": "layer-protocol-name", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connection-g": {
+"id": "connection-g", 
+"is-read-only": false, 
+"description": ["The ForwardingConstruct (FC) object class models enabled potential for forwarding between two or more LTPs and like the LTP supports any transport protocol including all circuit and packet forms. At the lowest level of recursion, a FC represents a cross-connection within an NE."]
+},
+"layer-protocol-name": {
+"id": "layer-protocol-name", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"layer-protocol-qualifier": {
+"id": "layer-protocol-qualifier", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"parent-node-edge-point": {
+"id": "parent-node-edge-point", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"client-node-edge-point": {
+"id": "client-node-edge-point", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"aggregated-connection-end-point": {
+"id": "aggregated-connection-end-point", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connection-port-direction": {
+"id": "connection-port-direction", 
+"is-read-only": false, 
+"description": ["The orientation of defined flow at the EndPoint."]
+},
+"connection-port-role": {
+"id": "connection-port-role", 
+"is-read-only": false, 
+"description": ["Each EP of the FC has a role (e.g., working, protection, protected, symmetric, hub, spoke, leaf, root) in the context of the FC with respect to the FC function."]
+},
+"connection-end-point-g": {
+"id": "connection-end-point-g", 
+"is-read-only": false, 
+"description": ["The LogicalTerminationPoint (LTP) object class encapsulates the termination and adaptation functions of one or more transport layers. The structure of LTP supports all transport protocols including circuit and packet forms."]
+},
+"service-layer": {
+"id": "service-layer", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"service-type": {
+"id": "service-type", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"service-level": {
+"id": "service-level", 
+"is-read-only": false, 
+"description": ["An abstract value the meaning of which is mutually agreed – typically represents metrics such as - Class of service, priority, resiliency, availability"]
+},
+"requested-capacity": {
+"id": "requested-capacity", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connectivity-direction": {
+"id": "connectivity-direction", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"schedule": {
+"id": "schedule", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"coroute-inclusion": {
+"id": "coroute-inclusion", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"diversity-exclusion": {
+"id": "diversity-exclusion", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connectivity-constraint-g": {
+"id": "connectivity-constraint-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"end-point": {
+"id": "end-point", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connection": {
+"id": "connection", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connectivity-service-g": {
+"id": "connectivity-service-g", 
+"is-read-only": false, 
+"description": ["The ForwardingConstruct (FC) object class models enabled potential for forwarding between two or more LTPs and like the LTP supports any transport protocol including all circuit and packet forms. At the lowest level of recursion, a FC represents a cross-connection within an NE."]
+},
+"layer-protocol-name": {
+"id": "layer-protocol-name", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"layer-protocol-qualifier": {
+"id": "layer-protocol-qualifier", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"service-interface-point": {
+"id": "service-interface-point", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connection-end-point": {
+"id": "connection-end-point", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"capacity": {
+"id": "capacity", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"direction": {
+"id": "direction", 
+"is-read-only": false, 
+"description": ["The orientation of defined flow at the EndPoint."]
+},
+"role": {
+"id": "role", 
+"is-read-only": false, 
+"description": ["Each EP of the FC has a role (e.g., working, protection, protected, symmetric, hub, spoke, leaf, root) in the context of the FC with respect to the FC function."]
+},
+"protection-role": {
+"id": "protection-role", 
+"is-read-only": false, 
+"description": ["To specify the protection role of this Port when create or update ConnectivityService."]
+},
+"connectivity-service-end-point-g": {
+"id": "connectivity-service-end-point-g", 
+"is-read-only": false, 
+"description": ["The association of the FC to LTPs is made via EndPoints. The EndPoint (EP) object class models the access to the FC function. The traffic forwarding between the associated EPs of the FC depends upon the type of FC and may be associated with FcSwitch object instances. In cases where there is resilience the EndPoint may convey the resilience role of the access to the FC. It can represent a protected (resilient/reliable) point or a protecting (unreliable working or protection) point. The EP replaces the Protection Unit of a traditional protection model. The ForwadingConstruct can be considered as a component and the EndPoint as a Port on that component"]
+},
+"connection-end-point": {
+"id": "connection-end-point", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"route-g": {
+"id": "route-g", 
+"is-read-only": false, 
+"description": ["The FC Route (FcRoute) object class models the individual routes of an FC. The route of an FC object is represented by a list of FCs at a lower level. Note that depending on the service supported by an FC, an the FC can have multiple routes."]
+},
+"connectivity-service": {
+"id": "connectivity-service", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connection": {
+"id": "connection", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connectivity-context-g": {
+"id": "connectivity-context-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"selected-connection-end-point": {
+"id": "selected-connection-end-point", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"selected-route": {
+"id": "selected-route", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"selection-control": {
+"id": "selection-control", 
+"is-read-only": false, 
+"description": ["Degree of administrative control applied to the switch selection."]
+},
+"selection-reason": {
+"id": "selection-reason", 
+"is-read-only": false, 
+"description": ["The reason for the current switch selection."]
+},
+"switch-direction": {
+"id": "switch-direction", 
+"is-read-only": false, 
+"description": ["Indicates whether the switch selects from ingress to the FC or to egress of the FC, or both."]
+},
+"switch-g": {
+"id": "switch-g", 
+"is-read-only": false, 
+"description": ["The class models the switched forwarding of traffic (traffic flow) between FcPorts (ConnectionEndPoints) and is present where there is protection functionality in the FC (Connection). If an FC exposes protection (having two or more FcPorts that provide alternative identical inputs/outputs), the FC will have one or more associated FcSwitch objects to represent the alternative flow choices visible at the edge of the FC. The FC switch represents and defines a protection switch structure encapsulated in the FC. Essentially performs one of the functions of the Protection Group in a traditional model. It associates to 2 or more FcPorts each playing the role of a Protection Unit. One or more protection, i.e. standby/backup, FcPorts provide protection for one or more working (i.e. regular/main/preferred) FcPorts where either protection or working can feed one or more protected FcPort. The switch may be used in revertive or non-revertive (symmetric) mode. When in revertive mode it may define a waitToRestore time. It may be used in one of several modes including source switch, destination switched, source and destination switched etc (covering cases such as 1+1 and 1:1). It may be locked out (prevented from switching), force switched or manual switched. It will indicate switch state and change of state. The switch can be switched away from all sources such that it becomes open and hence two coordinated switches can both feed the same LTP so long as at least one of the two is switched away from all sources (is 'open'). The ability for a Switch to be 'high impedance' allows bidirectional ForwardingConstructs to be overlaid on the same bidirectional LTP where the appropriate control is enabled to prevent signal conflict. This ability allows multiple alternate routes to be present that otherwise would be in conflict."]
+},
+"sub-switch-control": {
+"id": "sub-switch-control", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"switch": {
+"id": "switch", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"switch-control-g": {
+"id": "switch-control-g", 
+"is-read-only": false, 
+"description": ["Represents the capability to control and coordinate switches, to add/delete/modify FCs and to add/delete/modify LTPs/LPs so as to realize a protection scheme."]
+},
+"resilience-type": {
+"id": "resilience-type", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"restoration-coordinate-type": {
+"id": "restoration-coordinate-type", 
+"is-read-only": false, 
+"description": ["The coordination mechanism between multi-layers."]
+},
+"restore-priority": {
+"id": "restore-priority", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"reversion-mode": {
+"id": "reversion-mode", 
+"is-read-only": false, 
+"description": ["Indcates whether the protection scheme is revertive or non-revertive."]
+},
+"wait-to-revert-time": {
+"id": "wait-to-revert-time", 
+"is-read-only": false, 
+"description": ["If the protection system is revertive, this attribute specifies the time, in minutes, to wait after a fault clears on a higher priority (preferred) resource before reverting to the preferred resource."]
+},
+"hold-off-time": {
+"id": "hold-off-time", 
+"is-read-only": false, 
+"description": ["This attribute indicates the time, in milliseconds, between declaration of signal degrade or signal fail, and the initialization of the protection switching algorithm."]
+},
+"is-lock-out": {
+"id": "is-lock-out", 
+"is-read-only": false, 
+"description": ["The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of. This overrides all other protection control states including forced. If the item is locked out then it cannot be used under any circumstances. Note: Only relevant when part of a protection scheme."]
+},
+"is-frozen": {
+"id": "is-frozen", 
+"is-read-only": false, 
+"description": ["Temporarily prevents any switch action to be taken and, as such, freezes the current state. Until the freeze is cleared, additional near-end external commands are rejected and fault condition changes and received APS messages are ignored. All administrative controls of any aspect of protection are rejected."]
+},
+"is-coordinated-switching-both-ends": {
+"id": "is-coordinated-switching-both-ends", 
+"is-read-only": false, 
+"description": ["Is operating such that switching at both ends of each flow acorss the FC is coordinated at both ingress and egress ends."]
+},
+"max-switch-times": {
+"id": "max-switch-times", 
+"is-read-only": false, 
+"description": ["Used to limit the maximum swtich times. When work fault disappears , and traffic return to the original work path, switch counter reset."]
+},
+"preferred-restoration-layer": {
+"id": "preferred-restoration-layer", 
+"is-read-only": false, 
+"description": ["Indicate which layer this resilience parameters package configured for."]
+},
+"resilience-constraint-g": {
+"id": "resilience-constraint-g", 
+"is-read-only": false, 
+"description": ["A list of control parameters to apply to a switch."]
+},
+"connection-end-point": {
+"id": "connection-end-point", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"cep-list-g": {
+"id": "cep-list-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"POINT_TO_POINT_CONNECTIVITY": {
+"id": "POINT_TO_POINT_CONNECTIVITY", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"POINT_TO_MULTIPOINT_CONNECTIVITY": {
+"id": "POINT_TO_MULTIPOINT_CONNECTIVITY", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"MULTIPOINT_CONNECTIVITY": {
+"id": "MULTIPOINT_CONNECTIVITY", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"ROOTED_MULTIPOINT_CONNECTIVITY": {
+"id": "ROOTED_MULTIPOINT_CONNECTIVITY", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"service-type": {
+"id": "service-type", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"REVERTIVE": {
+"id": "REVERTIVE", 
+"is-read-only": false, 
+"description": ["An FC switched to a lower priority (non-preferred) resource will revert to a higher priority (preferred) resource when that recovers (potentially after some hold-off time)."]
+},
+"NON-REVERTIVE": {
+"id": "NON-REVERTIVE", 
+"is-read-only": false, 
+"description": ["An FC switched to a lower priority (non-preferred) resource will not revert to a higher priority (preferred) resource when that recovers."]
+},
+"reversion-mode": {
+"id": "reversion-mode", 
+"is-read-only": false, 
+"description": ["The reversion mode associated with protection."]
+},
+"LOCK_OUT": {
+"id": "LOCK_OUT", 
+"is-read-only": false, 
+"description": ["The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of. This overrides all other protection control states including forced. If the item is locked out then it cannot be used under any circumstances. Note: Only relevant when part of a protection scheme."]
+},
+"NORMAL": {
+"id": "NORMAL", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"MANUAL": {
+"id": "MANUAL", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"FORCED": {
+"id": "FORCED", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"selection-control": {
+"id": "selection-control", 
+"is-read-only": false, 
+"description": ["Possible degrees of administrative control applied to the Route selection."]
+},
+"LOCKOUT": {
+"id": "LOCKOUT", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"NORMAL": {
+"id": "NORMAL", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"MANUAL": {
+"id": "MANUAL", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"FORCED": {
+"id": "FORCED", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"WAIT_TO_REVERT": {
+"id": "WAIT_TO_REVERT", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"SIGNAL_DEGRADE": {
+"id": "SIGNAL_DEGRADE", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"SIGNAL_FAIL": {
+"id": "SIGNAL_FAIL", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"selection-reason": {
+"id": "selection-reason", 
+"is-read-only": false, 
+"description": ["The cause of the current route selection."]
+},
+"NO_COORDINATE": {
+"id": "NO_COORDINATE", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"HOLD_OFF_TIME": {
+"id": "HOLD_OFF_TIME", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"WAIT_FOR_NOTIFICATION": {
+"id": "WAIT_FOR_NOTIFICATION", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"coordinate-type": {
+"id": "coordinate-type", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"WORK": {
+"id": "WORK", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"PROTECT": {
+"id": "PROTECT", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"PROTECTED": {
+"id": "PROTECTED", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"NA": {
+"id": "NA", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"WORK_RESTORE": {
+"id": "WORK_RESTORE", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"PROTECT_RESTORE": {
+"id": "PROTECT_RESTORE", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"protection-role": {
+"id": "protection-role", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"get-connection-details": {
+"id": "get-connection-details", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"service-id-or-name": {
+"id": "service-id-or-name", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connection-id-or-name": {
+"id": "connection-id-or-name", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connection": {
+"id": "connection", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"get-connectivity-service-list": {
+"id": "get-connectivity-service-list", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"service": {
+"id": "service", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"get-connectivity-service-details": {
+"id": "get-connectivity-service-details", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"service-id-or-name": {
+"id": "service-id-or-name", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"service": {
+"id": "service", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"create-connectivity-service": {
+"id": "create-connectivity-service", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"end-point": {
+"id": "end-point", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connectivity-constraint": {
+"id": "connectivity-constraint", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"routing-constraint": {
+"id": "routing-constraint", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"topology-constraint": {
+"id": "topology-constraint", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"resilience-constraint": {
+"id": "resilience-constraint", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"state": {
+"id": "state", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"service": {
+"id": "service", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"update-connectivity-service": {
+"id": "update-connectivity-service", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"service-id-or-name": {
+"id": "service-id-or-name", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"end-point": {
+"id": "end-point", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"connectivity-constraint": {
+"id": "connectivity-constraint", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"routing-constraint": {
+"id": "routing-constraint", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"topology-constraint": {
+"id": "topology-constraint", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"resilience-constraint": {
+"id": "resilience-constraint", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"state": {
+"id": "state", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"service": {
+"id": "service", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"delete-connectivity-service": {
+"id": "delete-connectivity-service", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"service-id-or-name": {
+"id": "service-id-or-name", 
+"is-read-only": false, 
+"description": ["none"]
+}}
+}

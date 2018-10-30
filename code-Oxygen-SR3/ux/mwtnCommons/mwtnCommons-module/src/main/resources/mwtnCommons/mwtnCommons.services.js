@@ -715,6 +715,7 @@ define(
         modules: {},
         layerProtocolNameOrder: {
           'MWPS': 6,
+          'PHOTONIC_MEDIA': 6,
           'MWS': 5,
           'ETC': 4,
           'TDM': 3,
@@ -1195,9 +1196,12 @@ define(
           // PoC 4.1
           case 'onf-otn-odu-conditional-packages:otn-odu-connection-pac':
           case 'onf-otn-odu-conditional-packages:otn-odu-termination-pac':
+          // PoC 5
+          case 'photonic-media:otsi-interface-pac':
             if (spec.partId) {
               service.getConditionalPackagePart(spec).then(function (success) {
                 success.layerProtocol = spec.layerProtocolId;
+                console.log('###', JSON.stringify(success));
                 deferred.resolve(success);
               }, function (error) {
                 $mwtnLog.error({ component: COMPONENT, message: 'Requesting conditional package of ' + JSON.stringify(spec) + ' failed!' });
@@ -1264,6 +1268,8 @@ define(
           // PoC 4.1
           case 'onf-otn-odu-conditional-packages:otn-odu-connection-pac':
           case 'onf-otn-odu-conditional-packages:otn-odu-termination-pac':
+          // PoC 5
+          case 'photonic-media:otsi-interface-pac':
               service.setConditionalPackagePart(spec, data).then(function (success) {
                 deferred.resolve(success);
               }, function (error) {
@@ -1315,7 +1321,9 @@ define(
           // PoC 4.1
           case 'onf-otn-odu-conditional-packages:otn-odu-connection-pac':
           case 'onf-otn-odu-conditional-packages:otn-odu-termination-pac':
-          service.setConditionalPackagePartList(spec, listData).then(function (success) {
+          // PoC 5
+          case 'photonic-media:otsi-interface-pac':
+            service.setConditionalPackagePartList(spec, listData).then(function (success) {
                 deferred.resolve(success);
               }, function (error) {
                 $mwtnLog.error({ component: COMPONENT, message: 'Modification of ' + JSON.stringify(spec) + ' failed!' });
@@ -2082,9 +2090,13 @@ define(
                 pacId = 'MicrowaveModel-ObjectClasses-EthernetContainer:MW_EthernetContainer_Pac';
                 partId = 'ethernetContainer' + partId;
                 break;
-              case 'TDM':
+                case 'TDM':
                 pacId = 'microwave-model:mw-tdm-container-pac';
                 partId = 'tdm-container-' + service.yangify(partId);
+                break;
+              case 'PHOTONIC_MEDIA':
+                pacId = 'photonic-media:otsi-interface-pac';
+                partId = 'otsi-interface-' + service.yangify(partId);
                 break;
             }
         }
@@ -3305,14 +3317,7 @@ define(
       var inquireModuleInformation = function () {
         var deferred = $q.defer();
         service.getBase('mwtn').then(function (success) {
-          var databaseRequest = {
-            method: 'GET',
-            base: success.base,
-            index: success.index,
-            from: 0,
-            size: 999
-          };
-          service.getAllData('mwtn', 'module', 0, 999, undefined).then(function (success) {
+          service.getAllData('mwtn', 'module', 0, 9999, undefined).then(function (success) {
             // console.log(JSON.stringify(data.data.hits.hits));
             moduleInformation = {};
             success.data.hits.hits.map(function (hit) {
@@ -3881,6 +3886,9 @@ define(
           return this.getLogicalTerminationPoints().filter(function (ltp) {
             return ltp.getLayer() === layerProtocolName;
           });
+        };
+        this.getLTPPhotonicMediaList = function () {
+          return this.getLtpsByLayer('PHOTONIC_MEDIA');
         };
         this.getLTPMwpsList = function () {
           return this.getLtpsByLayer('MWPS');

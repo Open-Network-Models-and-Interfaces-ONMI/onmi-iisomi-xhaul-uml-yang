@@ -1,0 +1,793 @@
+{ "schmea-information": {
+
+"tapi-photonic-media": {
+"id": "tapi-photonic-media", 
+"is-read-only": false, 
+"description": ["This module contains TAPI PhotonicMedia Model definitions. Source: TapiPhotonicMedia.uml Copyright (c) 2018 Open Networking Foundation (ONF). All rights reserved. License: This module is distributed under the Apache License 2.0"]
+},
+"number-of-otsi": {
+"id": "number-of-otsi", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otsi-gserver-adaptation-pac-g": {
+"id": "otsi-gserver-adaptation-pac-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otsi-termination": {
+"id": "otsi-termination", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otsi-connection-end-point-spec-g": {
+"id": "otsi-connection-end-point-spec-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"selected-central-frequency": {
+"id": "selected-central-frequency", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"selected-application-identifier": {
+"id": "selected-application-identifier", 
+"is-read-only": false, 
+"description": ["This attribute indicates the selected Application Identifier that is used by the OCh trail termination function. The syntax of ApplicationIdentifier is a pair {ApplicationIdentifierType, PrintableString}. The value of ApplicationIdentifierType is either STANDARD or PROPRIETARY. The value of PrintableString represents the standard application code as defined in the ITU-T Recommendations or a vendor-specific proprietary code. If the ApplicationIdentifierType is STANDARD the value of PrintableString represents a standard application code as defined in the ITU-T Recommendations. If the ApplicationIdentifierType is PROPRIETARY, the first six characters of the PrintableString must contain the Hexadecimal representation of an OUI assigned to the vendor whose implementation generated the Application Identifier; the remaining octets of the PrintableString are unspecified. The value of this attribute of an object instance has to be one of the values identified in the attribute SupportableApplicationIdentifierList of the same object instance. The values and value ranges of the optical interface parameters of a standard application code must be consistent with those values specified in the ITU-T Recommendation for that application code."]
+},
+"selected-modulation": {
+"id": "selected-modulation", 
+"is-read-only": false, 
+"description": ["This parameter defines the modulation used at the source"]
+},
+"selected-spectrum": {
+"id": "selected-spectrum", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"transmited-power": {
+"id": "transmited-power", 
+"is-read-only": false, 
+"description": ["Measured power at the Transmitter."]
+},
+"received-power": {
+"id": "received-power", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"laser-properties": {
+"id": "laser-properties", 
+"is-read-only": false, 
+"description": ["Laser properties."]
+},
+"otsi-termination-pac-g": {
+"id": "otsi-termination-pac-g", 
+"is-read-only": false, 
+"description": ["Provides status information only."]
+},
+"supportable-spectrum": {
+"id": "supportable-spectrum", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"available-spectrum": {
+"id": "available-spectrum", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"occupied-spectrum": {
+"id": "occupied-spectrum", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"media-channel-pool-capability-pac-g": {
+"id": "media-channel-pool-capability-pac-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"mc-pool": {
+"id": "mc-pool", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"media-channel-node-edge-point-spec-g": {
+"id": "media-channel-node-edge-point-spec-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"optical-routing-strategy": {
+"id": "optical-routing-strategy", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otsi-routing-spec-g": {
+"id": "otsi-routing-spec-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"occupied-spectrum": {
+"id": "occupied-spectrum", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"measured-power-ingress": {
+"id": "measured-power-ingress", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"measured-power-egress": {
+"id": "measured-power-egress", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"media-channel-properties-pac-g": {
+"id": "media-channel-properties-pac-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otsi-adapter": {
+"id": "otsi-adapter", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"fec-parameters": {
+"id": "fec-parameters", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otsi-assembly-connection-end-point-spec-g": {
+"id": "otsi-assembly-connection-end-point-spec-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"supportable-lower-central-frequency": {
+"id": "supportable-lower-central-frequency", 
+"is-read-only": false, 
+"description": ["The lower frequency of the channel spectrum"]
+},
+"supportable-upper-central-frequency": {
+"id": "supportable-upper-central-frequency", 
+"is-read-only": false, 
+"description": ["The Upper frequency of the channel spectrum"]
+},
+"supportable-application-identifier": {
+"id": "supportable-application-identifier", 
+"is-read-only": false, 
+"description": ["The list of supportable ApplicationIdentifiers."]
+},
+"supportable-modulation": {
+"id": "supportable-modulation", 
+"is-read-only": false, 
+"description": ["This parameter defines the modulation used at the source"]
+},
+"total-power-warn-threshold": {
+"id": "total-power-warn-threshold", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otsi-capability-pac-g": {
+"id": "otsi-capability-pac-g", 
+"is-read-only": false, 
+"description": ["Can read the status of the warning for the upper value that the power can reach."]
+},
+"otsi-capability": {
+"id": "otsi-capability", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otsi-service-interface-point-spec-g": {
+"id": "otsi-service-interface-point-spec-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otsi-config": {
+"id": "otsi-config", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"nmc-config": {
+"id": "nmc-config", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otsi-connectivity-service-end-point-spec-g": {
+"id": "otsi-connectivity-service-end-point-spec-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"central-frequency": {
+"id": "central-frequency", 
+"is-read-only": false, 
+"description": ["The central frequency of the laser. It is the oscillation frequency of the corresponding electromagnetic wave"]
+},
+"application-identifier": {
+"id": "application-identifier", 
+"is-read-only": false, 
+"description": ["This attribute indicates the selected Application Identifier."]
+},
+"modulation": {
+"id": "modulation", 
+"is-read-only": false, 
+"description": ["The modulation techniqu selected at the source."]
+},
+"laser-control": {
+"id": "laser-control", 
+"is-read-only": false, 
+"description": ["Laser control can be FORCED-ON, FORCED-OFF or AUTOMATIC-LASER-SHUTDOWN"]
+},
+"transmit-power": {
+"id": "transmit-power", 
+"is-read-only": false, 
+"description": ["Transmit power as requested."]
+},
+"total-power-warn-threshold-upper": {
+"id": "total-power-warn-threshold-upper", 
+"is-read-only": false, 
+"description": ["Configure the Max, Default and Min values for the Upper power threshold."]
+},
+"total-power-warn-threshold-lower": {
+"id": "total-power-warn-threshold-lower", 
+"is-read-only": false, 
+"description": ["Configure Max, Default and Min values for lower power threshold."]
+},
+"otsi-termination-config-pac-g": {
+"id": "otsi-termination-config-pac-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"pre-fec-ber": {
+"id": "pre-fec-ber", 
+"is-read-only": false, 
+"description": ["counter: bit error rate before correction by FEC"]
+},
+"post-fec-ber": {
+"id": "post-fec-ber", 
+"is-read-only": false, 
+"description": ["counter: bit error rate after correction by FEC"]
+},
+"corrected-bytes": {
+"id": "corrected-bytes", 
+"is-read-only": false, 
+"description": ["Bytes corrected between those that were received corrupted"]
+},
+"corrected-bits": {
+"id": "corrected-bits", 
+"is-read-only": false, 
+"description": ["Bits corrected between those that were received corrupted"]
+},
+"uncorrectable-bytes": {
+"id": "uncorrectable-bytes", 
+"is-read-only": false, 
+"description": ["Bytes that could not be corrected by FEC"]
+},
+"uncorrectable-bits": {
+"id": "uncorrectable-bits", 
+"is-read-only": false, 
+"description": ["Bits that could not be corrected by FEC"]
+},
+"fec-properties-pac-g": {
+"id": "fec-properties-pac-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"mc-pool": {
+"id": "mc-pool", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"media-channel-service-interface-point-spec-g": {
+"id": "media-channel-service-interface-point-spec-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"mc-config": {
+"id": "mc-config", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"media-channel-connectivity-service-end-point-spec-g": {
+"id": "media-channel-connectivity-service-end-point-spec-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"spectrum": {
+"id": "spectrum", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"media-channel-config-pac-g": {
+"id": "media-channel-config-pac-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"media-channel": {
+"id": "media-channel", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"media-channel-connection-end-point-spec-g": {
+"id": "media-channel-connection-end-point-spec-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"ots-media-channel": {
+"id": "ots-media-channel", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"ots-connection-end-point-spec-g": {
+"id": "ots-connection-end-point-spec-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"media-channel-assembly-spec-g": {
+"id": "media-channel-assembly-spec-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"laser-status": {
+"id": "laser-status", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"laser-application-type": {
+"id": "laser-application-type", 
+"is-read-only": false, 
+"description": ["The type of laser, its operational wavelengths, and its applications. String size 255."]
+},
+"laser-bias-current": {
+"id": "laser-bias-current", 
+"is-read-only": false, 
+"description": ["The Bias current of the laser that is the medium polarization current of the laser."]
+},
+"laser-temperature": {
+"id": "laser-temperature", 
+"is-read-only": false, 
+"description": ["The temperature of the laser"]
+},
+"laser-properties-pac-g": {
+"id": "laser-properties-pac-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"total-power": {
+"id": "total-power", 
+"is-read-only": false, 
+"description": ["The total power at any point in a channel specified in dBm. range of type : -99.000..99.000"]
+},
+"power-spectral-density": {
+"id": "power-spectral-density", 
+"is-read-only": false, 
+"description": ["This describes how power of a signal is distributed over frequency specified in nW/MHz range of type : -2147483648..2147483648"]
+},
+"power-properties-pac-g": {
+"id": "power-properties-pac-g", 
+"is-read-only": false, 
+"description": ["Indication with severity warning raised when a total power value measured is above the threshold."]
+},
+"total-power-upper-warn-threshold-default": {
+"id": "total-power-upper-warn-threshold-default", 
+"is-read-only": false, 
+"description": ["Can read the value of the default threshold that was set"]
+},
+"total-power-upper-warn-threshold-min": {
+"id": "total-power-upper-warn-threshold-min", 
+"is-read-only": false, 
+"description": ["Can read the value of the lower threshold that was set"]
+},
+"total-power-upper-warn-threshold-max": {
+"id": "total-power-upper-warn-threshold-max", 
+"is-read-only": false, 
+"description": ["Can read the value of the upper threshold that was set"]
+},
+"total-power-lower-warn-threshold-default": {
+"id": "total-power-lower-warn-threshold-default", 
+"is-read-only": false, 
+"description": ["Can read the value of the default threshold that was set"]
+},
+"total-power-lower-warn-threshold-max": {
+"id": "total-power-lower-warn-threshold-max", 
+"is-read-only": false, 
+"description": ["Can read the value of the upper threshold that was set"]
+},
+"total-power-lower-warn-threshold-min": {
+"id": "total-power-lower-warn-threshold-min", 
+"is-read-only": false, 
+"description": ["Can read the value of the lower threshold that was set"]
+},
+"total-power-threshold-pac-g": {
+"id": "total-power-threshold-pac-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"SPECTRUM_TYPE": {
+"id": "SPECTRUM_TYPE", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"SPECTRUM_TYPE_OTSi": {
+"id": "SPECTRUM_TYPE_OTSi", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"SPECTRUM_TYPE_OTSiA": {
+"id": "SPECTRUM_TYPE_OTSiA", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"SPECTRUM_TYPE_OTSiG": {
+"id": "SPECTRUM_TYPE_OTSiG", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"SPECTRUM_TYPE_NMC": {
+"id": "SPECTRUM_TYPE_NMC", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"SPECTRUM_TYPE_NMCA": {
+"id": "SPECTRUM_TYPE_NMCA", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"SPECTRUM_TYPE_SMC": {
+"id": "SPECTRUM_TYPE_SMC", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"SPECTRUM_TYPE_SMCA": {
+"id": "SPECTRUM_TYPE_SMCA", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"SPECTRUM_TYPE_OCH": {
+"id": "SPECTRUM_TYPE_OCH", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"SPECTRUM_TYPE_OMS": {
+"id": "SPECTRUM_TYPE_OMS", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"SPECTRUM_TYPE_OTS": {
+"id": "SPECTRUM_TYPE_OTS", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"application-identifier-type": {
+"id": "application-identifier-type", 
+"is-read-only": false, 
+"description": ["The ITU-T recommendation which defines the application code format."]
+},
+"application-code": {
+"id": "application-code", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"application-identifier-g": {
+"id": "application-identifier-g", 
+"is-read-only": false, 
+"description": ["The syntax of ApplicationIdentifier is a pair {ApplicationIdentifierType, PrintableString}. The value of ApplicationIdentifierType is either STANDARD or PROPRIETARY. The value of PrintableString represents the standard application code as defined in the ITU-T Recommendations or a vendor-specific proprietary code. If the ApplicationIdentifierType is STANDARD the value of PrintableString represents a standard application code as defined in the ITU-T Recommendations. If the ApplicationIdentifierType is PROPRIETARY, the first six characters of the PrintableString must contain the Hexadecimal representation of an OUI assigned to the vendor whose implementation generated the Application Identifier; the remaining octets of the PrintableString are unspecified. The value of this attribute of an object instance has to be one of the values identified in the attribute SupportableApplicationIdentifierList of the same object instance. The values and value ranges of the optical interface parameters of a standard application code must be consistent with those values specified in the ITU-T Recommendation for that application code."]
+},
+"grid-type": {
+"id": "grid-type", 
+"is-read-only": false, 
+"description": ["Specifies the frequency grid standard used to determine the nominal central frequency and frequency slot width"]
+},
+"adjustment-granularity": {
+"id": "adjustment-granularity", 
+"is-read-only": false, 
+"description": ["Adjustment granularity in Gigahertz. As per ITU-T G.694.1, it is used to calculate nominal central frequency (in THz)"]
+},
+"central-frequency": {
+"id": "central-frequency", 
+"is-read-only": false, 
+"description": ["The central frequency of the laser specified in MHz. It is the oscillation frequency of the corresponding electromagnetic wave."]
+},
+"channel-number": {
+"id": "channel-number", 
+"is-read-only": false, 
+"description": ["As per ITU-T G.694.1, this attribute is denoted as 'n' and is used to calculate the nominal central frequency (in THz) as follows: 193.1 + <channelNumber> × <adjustmentGranularity> where channelNumber is a positive or negative integer including 0 and adjustment_granularity is the nominal central frequency granularity in THz"]
+},
+"central-frequency-or-wavelength-g": {
+"id": "central-frequency-or-wavelength-g", 
+"is-read-only": false, 
+"description": ["This data-type holds the central frequency directly or optionally the information to determine the nominal central frequency of a FIXED grid (DWDM or CWDM) and FLEX grid type systems. As per ITU-T G.694.1, the nominal central frequency (in THz) is calculated as follows: 193.1 + <channelNumber> × <adjustmentGranularity> where channelNumber is a positive or negative integer including 0 and <adjustment_granularity> is the nominal central frequency granularity in THz For FIXED grid types, the adjustmentGranularity is one of (0.1/0.05/0.025/0.0125) THz corresponding to channel spacing of one of (100/50/25/12.5) GHz For FLEX grid type, the adjusmentGranularity is 0.00625 THz and the slot width is variable in increments of 12.5 GHz"]
+},
+"OPTIMAL_OSNR": {
+"id": "OPTIMAL_OSNR", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"NO_RELAY": {
+"id": "NO_RELAY", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"MIN_RELAY": {
+"id": "MIN_RELAY", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"PREFERRED_NO_CHANGE_WAVELENGTH_AS_RESTORE": {
+"id": "PREFERRED_NO_CHANGE_WAVELENGTH_AS_RESTORE", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"PREFERRED_NO_SKIPPING_WAVELENGTH": {
+"id": "PREFERRED_NO_SKIPPING_WAVELENGTH", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"optical-routing-strategy": {
+"id": "optical-routing-strategy", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"PROPRIETARY": {
+"id": "PROPRIETARY", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"ITUT_G959_1": {
+"id": "ITUT_G959_1", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"ITUT_G698_1": {
+"id": "ITUT_G698_1", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"ITUT_G698_2": {
+"id": "ITUT_G698_2", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"ITUT_G696_1": {
+"id": "ITUT_G696_1", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"ITUT_G695": {
+"id": "ITUT_G695", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"application-identifier-type": {
+"id": "application-identifier-type", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"DWDM": {
+"id": "DWDM", 
+"is-read-only": false, 
+"description": ["Fixed frequency grid in C & L bands as specified in ITU-T G.694.1"]
+},
+"CWDM": {
+"id": "CWDM", 
+"is-read-only": false, 
+"description": ["Fixed frequency grid as specified in ITU-T G.694.2"]
+},
+"FLEX": {
+"id": "FLEX", 
+"is-read-only": false, 
+"description": ["Flexible frequency grid as specified in ITU-T G.694.1. In this case, - the allowed frequency slots have a nominal central frequency (in THz) defined by: 193.1 + n × 0.00625 where n is a positive or negative integer including 0 and 0.00625 is the nominal central frequency granularity in THz - and a slot width defined by: 12.5 × m where m is a positive integer and 12.5 is the slot width granularity in GHz. Any combination of frequency slots is allowed as long as no two frequency slots overlap."]
+},
+"GRIDLESS": {
+"id": "GRIDLESS", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"UNSPECIFIED": {
+"id": "UNSPECIFIED", 
+"is-read-only": false, 
+"description": ["Unspecified/proprietary frequency grid"]
+},
+"grid-type": {
+"id": "grid-type", 
+"is-read-only": false, 
+"description": ["The frequency grid standard that specify reference set of frequencies used to denote allowed nominal central frequencies that may be used for defining applications."]
+},
+"G_100GHZ": {
+"id": "G_100GHZ", 
+"is-read-only": false, 
+"description": ["100000 MHz"]
+},
+"G_50GHZ": {
+"id": "G_50GHZ", 
+"is-read-only": false, 
+"description": ["50000 MHz"]
+},
+"G_25GHZ": {
+"id": "G_25GHZ", 
+"is-read-only": false, 
+"description": ["25000 MHz"]
+},
+"G_12_5GHZ": {
+"id": "G_12_5GHZ", 
+"is-read-only": false, 
+"description": ["12500 MHz"]
+},
+"G_6_25GHZ": {
+"id": "G_6_25GHZ", 
+"is-read-only": false, 
+"description": ["6250 MHz"]
+},
+"G_3_125GHZ": {
+"id": "G_3_125GHZ", 
+"is-read-only": false, 
+"description": ["3125 MHz"]
+},
+"UNCONSTRAINED": {
+"id": "UNCONSTRAINED", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"adjustment-granularity": {
+"id": "adjustment-granularity", 
+"is-read-only": false, 
+"description": ["Adjustment granularity in Gigahertz. As per ITU-T G.694.1, it is used to calculate nominal central frequency"]
+},
+"upper-frequency": {
+"id": "upper-frequency", 
+"is-read-only": false, 
+"description": ["The upper frequency bound of the media channel spectrum specified in MHz"]
+},
+"lower-frequency": {
+"id": "lower-frequency", 
+"is-read-only": false, 
+"description": ["The lower frequency bound of the media channel spectrum specified in MHz"]
+},
+"frequency-slot": {
+"id": "frequency-slot", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"spectrum-g": {
+"id": "spectrum-g", 
+"is-read-only": false, 
+"description": ["This data-type holds the spectrum information in termsof upper/lower frequency directly or optionally the information to determin this in terms of the nominal central frequency and spectral width for a FIXED grid (DWDM or CWDM) and FLEX grid type systems."]
+},
+"RZ": {
+"id": "RZ", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"NRZ": {
+"id": "NRZ", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"BPSK": {
+"id": "BPSK", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"DPSK": {
+"id": "DPSK", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"QPSK": {
+"id": "QPSK", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"8QAM": {
+"id": "8QAM", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"16QAM": {
+"id": "16QAM", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"UNDEFINED": {
+"id": "UNDEFINED", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"modulation-technique": {
+"id": "modulation-technique", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"central-frequency": {
+"id": "central-frequency", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"spectral-width": {
+"id": "spectral-width", 
+"is-read-only": false, 
+"description": ["Width of the media channel spectrum specified in MHz"]
+},
+"slot-width-number": {
+"id": "slot-width-number", 
+"is-read-only": false, 
+"description": ["As per ITU-T G.694.1, this attribute is denoted as 'm' and is used to calculate the slot width (in GHz) as follows: 12.5 × m where m is a positive integer and 12.5 is the slot width granularity in GHz."]
+},
+"frequency-slot-g": {
+"id": "frequency-slot-g", 
+"is-read-only": false, 
+"description": ["The frequency range allocated to a slot and unavailable to other slots within a flexible grid. A frequency slot is defined by its nominal central frequency. As per ITU-T G.694.1 the slot width is calculated as follows: 12.5 × <slotWidthNumber> where slotWidthNumber is a positive integer and 12.5 is the slot width granularity in GHz"]
+},
+"PUMP": {
+"id": "PUMP", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"MODULATED": {
+"id": "MODULATED", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"PULSE": {
+"id": "PULSE", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"laser-type": {
+"id": "laser-type", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"spectrum-type": {
+"id": "spectrum-type", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"FORCED-ON": {
+"id": "FORCED-ON", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"FORCED-OFF": {
+"id": "FORCED-OFF", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"AUTOMATIC-LASER-SHUTDOWN": {
+"id": "AUTOMATIC-LASER-SHUTDOWN", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"UNDEFINED": {
+"id": "UNDEFINED", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"laser-control-type": {
+"id": "laser-control-type", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"ON": {
+"id": "ON", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"OFF": {
+"id": "OFF", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"PULSING": {
+"id": "PULSING", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"UNDEFINED": {
+"id": "UNDEFINED", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"laser-control-status-type": {
+"id": "laser-control-status-type", 
+"is-read-only": false, 
+"description": ["none"]
+}}
+}

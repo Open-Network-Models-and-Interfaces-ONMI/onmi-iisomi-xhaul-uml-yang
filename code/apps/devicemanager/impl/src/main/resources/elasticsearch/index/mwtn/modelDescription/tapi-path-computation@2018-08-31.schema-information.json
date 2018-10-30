@@ -1,0 +1,403 @@
+{ "schama-information": {
+
+"tapi-path-computation": {
+"id": "tapi-path-computation", 
+"is-read-only": false, 
+"description": ["This module contains TAPI Path Computation Model definitions. Source: TapiPathComputation.uml Copyright (c) 2018 Open Networking Foundation (ONF). All rights reserved. License: This module is distributed under the Apache License 2.0"]
+},
+"path-uuid": {
+"id": "path-uuid", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"path-ref-g": {
+"id": "path-ref-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"link": {
+"id": "link", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"routing-constraint": {
+"id": "routing-constraint", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"direction": {
+"id": "direction", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"layer-protocol-name": {
+"id": "layer-protocol-name", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"path-g": {
+"id": "path-g", 
+"is-read-only": false, 
+"description": ["Path is described by an ordered list of TE Links. A TE Link is defined by a pair of Node/NodeEdgePoint IDs. A Connection is realized by concatenating link resources (associated with a Link) and the lower-level connections (cross-connections) in the different nodes"]
+},
+"service-interface-point": {
+"id": "service-interface-point", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"layer-protocol-name": {
+"id": "layer-protocol-name", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"layer-protocol-qualifier": {
+"id": "layer-protocol-qualifier", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"capacity": {
+"id": "capacity", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"role": {
+"id": "role", 
+"is-read-only": false, 
+"description": ["Each EP of the FC has a role (e.g., working, protection, protected, symmetric, hub, spoke, leaf, root) in the context of the FC with respect to the FC function."]
+},
+"direction": {
+"id": "direction", 
+"is-read-only": false, 
+"description": ["The orientation of defined flow at the EndPoint."]
+},
+"path-service-end-point-g": {
+"id": "path-service-end-point-g", 
+"is-read-only": false, 
+"description": ["The association of the FC to LTPs is made via EndPoints. The EndPoint (EP) object class models the access to the FC function. The traffic forwarding between the associated EPs of the FC depends upon the type of FC and may be associated with FcSwitch object instances. In cases where there is resilience the EndPoint may convey the resilience role of the access to the FC. It can represent a protected (resilient/reliable) point or a protecting (unreliable working or protection) point. The EP replaces the Protection Unit of a traditional protection model. The ForwadingConstruct can be considered as a component and the EndPoint as a Port on that component"]
+},
+"path": {
+"id": "path", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"end-point": {
+"id": "end-point", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"routing-constraint": {
+"id": "routing-constraint", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"topology-constraint": {
+"id": "topology-constraint", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"objective-function": {
+"id": "objective-function", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"optimization-constraint": {
+"id": "optimization-constraint", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"path-computation-service-g": {
+"id": "path-computation-service-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"bandwidth-optimization": {
+"id": "bandwidth-optimization", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"concurrent-paths": {
+"id": "concurrent-paths", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"cost-optimization": {
+"id": "cost-optimization", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"link-utilization": {
+"id": "link-utilization", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"resource-sharing": {
+"id": "resource-sharing", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"path-objective-function-g": {
+"id": "path-objective-function-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"traffic-interruption": {
+"id": "traffic-interruption", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"path-optimization-constraint-g": {
+"id": "path-optimization-constraint-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"cost-characteristic": {
+"id": "cost-characteristic", 
+"is-read-only": false, 
+"description": ["The list of costs where each cost relates to some aspect of the TopologicalEntity."]
+},
+"latency-characteristic": {
+"id": "latency-characteristic", 
+"is-read-only": false, 
+"description": ["The effect on the latency of a queuing process. This only has significant effect for packet based systems and has a complex characteristic."]
+},
+"risk-diversity-characteristic": {
+"id": "risk-diversity-characteristic", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"diversity-policy": {
+"id": "diversity-policy", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"route-objective-function": {
+"id": "route-objective-function", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"route-direction": {
+"id": "route-direction", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"is-exclusive": {
+"id": "is-exclusive", 
+"is-read-only": false, 
+"description": ["To distinguish if the resources are to be exclusive to the service"]
+},
+"routing-constraint-g": {
+"id": "routing-constraint-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"path-comp-service": {
+"id": "path-comp-service", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"path": {
+"id": "path", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"path-computation-context-g": {
+"id": "path-computation-context-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"include-topology": {
+"id": "include-topology", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"avoid-topology": {
+"id": "avoid-topology", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"include-path": {
+"id": "include-path", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"exclude-path": {
+"id": "exclude-path", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"include-link": {
+"id": "include-link", 
+"is-read-only": false, 
+"description": ["This is a loose constraint - that is it is unordered and could be a partial list"]
+},
+"exclude-link": {
+"id": "exclude-link", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"include-node": {
+"id": "include-node", 
+"is-read-only": false, 
+"description": ["This is a loose constraint - that is it is unordered and could be a partial list"]
+},
+"exclude-node": {
+"id": "exclude-node", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"preferred-transport-layer": {
+"id": "preferred-transport-layer", 
+"is-read-only": false, 
+"description": ["soft constraint requested by client to indicate the layer(s) of transport connection that it prefers to carry the service. This could be same as the service layer or one of the supported server layers"]
+},
+"topology-constraint-g": {
+"id": "topology-constraint-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"MIN_WORK_ROUTE_HOP": {
+"id": "MIN_WORK_ROUTE_HOP", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"MIN_WORK_ROUTE_COST": {
+"id": "MIN_WORK_ROUTE_COST", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"MIN_WORK_ROUTE_LATENCY": {
+"id": "MIN_WORK_ROUTE_LATENCY", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"MIN_SUM_OF_WORK_AND_PROTECTION_ROUTE_HOP": {
+"id": "MIN_SUM_OF_WORK_AND_PROTECTION_ROUTE_HOP", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"MIN_SUM_OF_WORK_AND_PROTECTION_ROUTE_COST": {
+"id": "MIN_SUM_OF_WORK_AND_PROTECTION_ROUTE_COST", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"MIN_SUM_OF_WORK_AND_PROTECTION_ROUTE_LATENCY": {
+"id": "MIN_SUM_OF_WORK_AND_PROTECTION_ROUTE_LATENCY", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"LOAD_BALANCE_MAX_UNUSED_CAPACITY": {
+"id": "LOAD_BALANCE_MAX_UNUSED_CAPACITY", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"route-objective-function": {
+"id": "route-objective-function", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"SRLG": {
+"id": "SRLG", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"SRNG": {
+"id": "SRNG", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"SNG": {
+"id": "SNG", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"NODE": {
+"id": "NODE", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"LINK": {
+"id": "LINK", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"diversity-policy": {
+"id": "diversity-policy", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"compute-p-2-p-path": {
+"id": "compute-p-2-p-path", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"sep": {
+"id": "sep", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"routing-constraint": {
+"id": "routing-constraint", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"topology-constraint": {
+"id": "topology-constraint", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"objective-function": {
+"id": "objective-function", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"service": {
+"id": "service", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"optimize-p-2-p-path": {
+"id": "optimize-p-2-p-path", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"path-id-or-name": {
+"id": "path-id-or-name", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"routing-constraint": {
+"id": "routing-constraint", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"optimization-constraint": {
+"id": "optimization-constraint", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"objective-function": {
+"id": "objective-function", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"service": {
+"id": "service", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"delete-p-2-p-path": {
+"id": "delete-p-2-p-path", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"path-id-or-name": {
+"id": "path-id-or-name", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"service": {
+"id": "service", 
+"is-read-only": false, 
+"description": ["none"]
+}}
+}

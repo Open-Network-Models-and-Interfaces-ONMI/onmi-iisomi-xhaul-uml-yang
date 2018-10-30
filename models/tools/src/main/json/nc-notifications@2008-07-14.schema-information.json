@@ -1,0 +1,53 @@
+{ "schmea-information": {
+
+"nc-notifications": {
+"id": "nc-notifications", 
+"is-read-only": false, 
+"description": ["Conversion of the 'manageEvent' XSD in the NETCONF Notifications RFC."]
+},
+"netconf": {
+"id": "netconf", 
+"is-read-only": false, 
+"description": ["Top-level element in the notification namespace"]
+},
+"streams": {
+"id": "streams", 
+"is-read-only": false, 
+"description": ["The list of event streams supported by the system. When a query is issued, the returned set of streams is determined based on user privileges."]
+},
+"stream": {
+"id": "stream", 
+"is-read-only": false, 
+"description": ["Stream name, description and other information."]
+},
+"name": {
+"id": "name", 
+"is-read-only": false, 
+"description": ["The name of the event stream. If this is the default NETCONF stream, this must have the value 'NETCONF'."]
+},
+"description": {
+"id": "description", 
+"is-read-only": false, 
+"description": ["A description of the event stream, including such information as the type of events that are sent over this stream."]
+},
+"replaySupport": {
+"id": "replaySupport", 
+"is-read-only": false, 
+"description": ["A description of the event stream, including such information as the type of events that are sent over this stream."]
+},
+"replayLogCreationTime": {
+"id": "replayLogCreationTime", 
+"is-read-only": false, 
+"description": ["The timestamp of the creation of the log used to support the replay function on this stream. Note that this might be earlier then the earliest available notification in the log. This object is updated if the log resets for some reason. This object MUST be present if replay is supported."]
+},
+"replayComplete": {
+"id": "replayComplete", 
+"is-read-only": false, 
+"description": ["This notification is sent to signal the end of a replay portion of a subscription."]
+},
+"notificationComplete": {
+"id": "notificationComplete", 
+"is-read-only": false, 
+"description": ["This notification is sent to signal the end of a notification subscription. It is sent in the case that stopTime was specified during the creation of the subscription.."]
+}}
+}

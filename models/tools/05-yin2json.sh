@@ -28,8 +28,8 @@ mkdir $jsons;
 function filename {
     x=${1%.*}
     y=${x/$yins/\.\/$2}
-    echo $y"."$2;
-}  
+    echo $y".schema-information."$2;
+}
 
 function convert {
     FILENAME=$(filename $1 $2);

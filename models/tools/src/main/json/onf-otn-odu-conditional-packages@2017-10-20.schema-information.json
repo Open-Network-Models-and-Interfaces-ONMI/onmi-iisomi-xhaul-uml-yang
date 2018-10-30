@@ -1,0 +1,328 @@
+{ "schmea-information": {
+
+"onf-otn-odu-conditional-packages": {
+"id": "onf-otn-odu-conditional-packages", 
+"is-read-only": false, 
+"description": ["This model adds conditional packages to the ONF CoreModel 1.2 in order address OTN ODU use cases. It is a temorary model for demontration purposes and bases on the ideas an concepts of TAPI. However, modifications for a pure southbound were nessesary."]
+},
+"amp": {
+"id": "amp", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"bmp": {
+"id": "bmp", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"gfp-f": {
+"id": "gfp-f", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"gmp": {
+"id": "gmp", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"ttp-gfp-bmp": {
+"id": "ttp-gfp-bmp", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"null": {
+"id": "null", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"mapping-type": {
+"id": "mapping-type", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"unknown": {
+"id": "unknown", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"uninterpretable": {
+"id": "uninterpretable", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"odu-named-payload-type": {
+"id": "odu-named-payload-type", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"1-g-25": {
+"id": "1-g-25", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"2-g-5": {
+"id": "2-g-5", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"odu-slot-size": {
+"id": "odu-slot-size", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"odu-0": {
+"id": "odu-0", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"odu-1": {
+"id": "odu-1", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"odu-2": {
+"id": "odu-2", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"odu-2-e": {
+"id": "odu-2-e", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"odu-3": {
+"id": "odu-3", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"odu-4": {
+"id": "odu-4", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"odu-flex": {
+"id": "odu-flex", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"odu-cn": {
+"id": "odu-cn", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"odu-type": {
+"id": "odu-type", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"named-payload-type": {
+"id": "named-payload-type", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"hex-payload-type": {
+"id": "hex-payload-type", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"odu-payload-type-g": {
+"id": "odu-payload-type-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"layer-protocol": {
+"id": "layer-protocol", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-connection-capability": {
+"id": "otn-odu-connection-capability", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-connection-configuration": {
+"id": "otn-odu-connection-configuration", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-connection-status": {
+"id": "otn-odu-connection-status", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-connection-current-problems": {
+"id": "otn-odu-connection-current-problems", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-connection-current-performance": {
+"id": "otn-odu-connection-current-performance", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-connection-historical-performances": {
+"id": "otn-odu-connection-historical-performances", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-connection-pac": {
+"id": "otn-odu-connection-pac", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"accepted-payload-type": {
+"id": "accepted-payload-type", 
+"is-read-only": false, 
+"description": ["This attribute is applicable when the ODU CTP object instance represents a lower order ODU CTP Sink at the client layer of the ODUP/ODU[i]j or ODUP/ODUj-21 adaptation function. This attribute is a 2-digit Hex code that indicates the new accepted payload type. Valid values are defined in Table 15-8 of ITU-T Recommendation G.709 with one additional value UN_INTERPRETABLE."]
+},
+"otn-odu-connection-capability-g": {
+"id": "otn-odu-connection-capability-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"tributary-slot-list": {
+"id": "tributary-slot-list", 
+"is-read-only": false, 
+"description": ["This attribute contains a set of distinct (i.e. unique) integers (e.g. 2, 3, 5, 9, 15 representing the tributary slots TS2, TS3, TS5, TS9 and TS15) which represents the resources occupied by the Low Order ODU Link Connection (e.g. carrying an ODUflex with a bit rate of 6.25G). This attribute applies when the LO ODU_ConnectionTerminationPoint connects with an HO ODU_TrailTerminationPoint object. It will not apply if this ODU_ConnectionTerminationPoint object directly connects to an OTU_TrailTerminationPoint object (i.e. OTU has no trib slots). The upper bound of the integer allowed in this set is a function of the HO-ODU server layer to which the ODU connection has been mapped (adapted). Thus, for example, M=8/32/80 for ODU2/ODU3/ODU4 server layers (respectively). Note that the value of this attribute can be changed only in the case of ODUflex and has to be through specific operations (i.e. not be changing the attribute tributarySlotList directly)."]
+},
+"tributary-port-number": {
+"id": "tributary-port-number", 
+"is-read-only": false, 
+"description": ["This attribute identifies the tributary port number that is associated with the ODU CTP. range of type : The value range depends on the size of the Tributary Port Number (TPN) field used which depends on th server-layer ODU or OTU. In case of ODUk mapping into OTUk, there is no TPN field, so the tributaryPortNumber shall be zero. In case of LO ODUj mapping over ODU1, ODU2 or ODU3, the TPN is encoded in a 6-bit field so the value range is 0-63. See clause 14.4.1/G.709-2016. In case of LO ODUj mapping over ODU4, the TPN is encoded in a 7-bit field so the value range is 0-127. See clause 14.4.1.4/G.709-2016. In case of ODUk mapping over ODUCn, the TPN is encoded in a 14-bit field so the value range is 0-16383. See clause 20.4.1.1/G.709-2016."]
+},
+"accepted-m-si": {
+"id": "accepted-m-si", 
+"is-read-only": false, 
+"description": ["This attribute is applicable when the ODU CTP object instance represents a lower order ODU1 or ODU2 CTP Sink at the client layer of the ODU3P/ODU12 adaptation function or represents a lower order ODUj CTP Sink at the client layer of the ODUP/ODUj-21 adaptation function. This attribute is a 1-byte field that represents the accepted multiplex structure of the adaptation function."]
+},
+"opu-tributary-slot-size": {
+"id": "opu-tributary-slot-size", 
+"is-read-only": false, 
+"description": ["This attribute is applicable for ODU2 and ODU3 CTP only. [sko] Why that? It indicates the slot size of the ODU CTP."]
+},
+"auto-payload-type": {
+"id": "auto-payload-type", 
+"is-read-only": false, 
+"description": ["This attribute is applicable when the ODU CTP object instance represents a lower order ODU CTP Source at the client layer of the ODUP/ODUj-21 adaptation function. The value of true of this attribute configures that the adaptation source function shall fall back to the payload type PT=20 if the conditions specified in 14.3.10.1/G.798 are satisfied."]
+},
+"configured-mapping-type": {
+"id": "configured-mapping-type", 
+"is-read-only": false, 
+"description": ["This attributes indicates the configured mapping type."]
+},
+"configured-client-type": {
+"id": "configured-client-type", 
+"is-read-only": false, 
+"description": ["This attribute configures the type of the client CTP of the server ODU TTP."]
+},
+"otn-odu-connection-configuration-g": {
+"id": "otn-odu-connection-configuration-g", 
+"is-read-only": false, 
+"description": ["This Pac contains the attributes associated with the ODU-CTP."]
+},
+"otn-odu-connection-status-g": {
+"id": "otn-odu-connection-status-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-connection-current-problems-g": {
+"id": "otn-odu-connection-current-problems-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-connection-current-performance-g": {
+"id": "otn-odu-connection-current-performance-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-connection-historical-performances-g": {
+"id": "otn-odu-connection-historical-performances-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"layer-protocol": {
+"id": "layer-protocol", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-termination-capability": {
+"id": "otn-odu-termination-capability", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-termination-configuration": {
+"id": "otn-odu-termination-configuration", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-termination-status": {
+"id": "otn-odu-termination-status", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-termination-current-problems": {
+"id": "otn-odu-termination-current-problems", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-termination-current-performance": {
+"id": "otn-odu-termination-current-performance", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-termination-historical-performances": {
+"id": "otn-odu-termination-historical-performances", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-termination-pac": {
+"id": "otn-odu-termination-pac", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-termination-capability-g": {
+"id": "otn-odu-termination-capability-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"odu-type": {
+"id": "odu-type", 
+"is-read-only": false, 
+"description": ["This attribute specifies the type of the ODU termination point."]
+},
+"odu-rate": {
+"id": "odu-rate", 
+"is-read-only": false, 
+"description": ["This attribute indicates the rate of the ODU terminatinon point. This attribute is Set at create; i.e., once created it cannot be changed directly. In case of resizable ODU flex, its value can be changed via HAO (not directly on the attribute)."]
+},
+"odu-rate-tolerance": {
+"id": "odu-rate-tolerance", 
+"is-read-only": false, 
+"description": ["This attribute indicates the rate tolerance of the ODU termination point. Valid values are real value in the unit of ppm. Standardized values are defined in Table 7-2/G.709."]
+},
+"otn-odu-termination-configuration-g": {
+"id": "otn-odu-termination-configuration-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-termination-status-g": {
+"id": "otn-odu-termination-status-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-termination-current-problems-g": {
+"id": "otn-odu-termination-current-problems-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-termination-current-performance-g": {
+"id": "otn-odu-termination-current-performance-g", 
+"is-read-only": false, 
+"description": ["none"]
+},
+"otn-odu-termination-historical-performances-g": {
+"id": "otn-odu-termination-historical-performances-g", 
+"is-read-only": false, 
+"description": ["none"]
+}}
+}
