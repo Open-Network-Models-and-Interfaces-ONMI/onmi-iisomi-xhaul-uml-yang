@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
-import org.opendaylight.mwtn.base.netconf.NetconfTimeStamp;
+import org.opendaylight.mwtn.base.netconf.util.NetconfTimeStamp;
 import org.opendaylight.mwtn.devicemanager.impl.listener.ODLEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

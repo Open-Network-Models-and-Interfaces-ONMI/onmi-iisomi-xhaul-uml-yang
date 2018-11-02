@@ -1,7 +1,7 @@
 /**
  *
  */
-package org.opendaylight.mwtn.base.netconf;
+package org.opendaylight.mwtn.base.netconf.container;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,16 +16,16 @@ import org.opendaylight.mwtn.performancemanager.impl.database.types.EsHistorical
 
 public class AllPm {
 
-    static AllPm EMPTY = new AllPm();
+    public static AllPm EMPTY = new AllPm();
 
     private final List<EsHistoricalPerformance15Minutes> pm15 = new ArrayList<>();
     private final List<EsHistoricalPerformance24Hours> pm24 = new ArrayList<>();
 
-    void add(EsHistoricalPerformance15Minutes pm) {
+    public void add(EsHistoricalPerformance15Minutes pm) {
         pm15.add(pm);
     }
 
-    void add(EsHistoricalPerformance24Hours pm) {
+    public void add(EsHistoricalPerformance24Hours pm) {
         pm24.add(pm);
     }
 

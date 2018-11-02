@@ -25,6 +25,11 @@ import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
 import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
 import org.opendaylight.mwtn.base.internalTypes.InventoryInformation;
+import org.opendaylight.mwtn.base.netconf.container.AllPm;
+import org.opendaylight.mwtn.base.netconf.container.Capabilities;
+import org.opendaylight.mwtn.base.netconf.container.ExtendedAirInterfaceHistoricalPerformanceType1211p;
+import org.opendaylight.mwtn.base.netconf.container.ONFLayerProtocolName;
+import org.opendaylight.mwtn.base.netconf.util.GenericTransactionUtils;
 import org.opendaylight.mwtn.base.toggleAlarmFilter.NotificationDelayService;
 import org.opendaylight.mwtn.devicemanager.impl.ProviderClient;
 import org.opendaylight.mwtn.devicemanager.impl.database.service.HtDatabaseEventsService;
@@ -99,6 +104,7 @@ import org.slf4j.LoggerFactory;
  * @author herbert
  *
  */
+@Deprecated
 public class ONFCoreNetworkElement1211p extends ONFCoreNetworkElementBase {
 
     private static final Logger LOG = LoggerFactory.getLogger(ONFCoreNetworkElement1211p.class);

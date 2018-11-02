@@ -1,4 +1,4 @@
-package org.opendaylight.mwtn.base.netconf;
+package org.opendaylight.mwtn.base.netconf.container;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

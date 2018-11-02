@@ -6,6 +6,7 @@ import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.binding.api.ReadTransaction;
 import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
 import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
+import org.opendaylight.mwtn.base.netconf.container.Capabilities;
 import org.opendaylight.mwtn.base.toggleAlarmFilter.NotificationDelayService;
 import org.opendaylight.mwtn.devicemanager.impl.ProviderClient;
 import org.opendaylight.mwtn.devicemanager.impl.database.service.HtDatabaseEventsService;

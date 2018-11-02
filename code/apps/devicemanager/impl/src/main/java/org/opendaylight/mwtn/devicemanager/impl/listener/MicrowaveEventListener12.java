@@ -180,7 +180,7 @@ public class MicrowaveEventListener12 implements MicrowaveModelListener, Notific
      * Called to initialize with the current status and notify the clients
      * @param notificationXmlList List with problems
      */
-    public void initCurrentProblem(List<ProblemNotificationXml> notificationXmlList) {
+    public void initCurrentProblemStatus(List<ProblemNotificationXml> notificationXmlList) {
 
         for (ProblemNotificationXml notificationXml : notificationXmlList) {
             initCurrentProblem(notificationXml);
@@ -196,7 +196,5 @@ public class MicrowaveEventListener12 implements MicrowaveModelListener, Notific
         int deleted = databaseService.clearFaultsCurrentOfNode(nodeName);
         return deleted;
     }
-
-
 
 }

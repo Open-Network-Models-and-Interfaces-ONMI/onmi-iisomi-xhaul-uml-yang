@@ -1,5 +1,6 @@
-package org.opendaylight.mwtn.base.netconf;
+package org.opendaylight.mwtn.base.netconf.container;
 
+import org.opendaylight.mwtn.base.netconf.util.LinkIdentifyingObject;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.yang.types.rev130715.DateAndTime;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.g._874._1.model.rev170320.GranularityPeriodType;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.g._874._1.model.rev170320.ObjectIdentifier;

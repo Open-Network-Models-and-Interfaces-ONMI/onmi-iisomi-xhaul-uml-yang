@@ -2,17 +2,22 @@
  * Convert capabilities of netconfnode into internal format.
  * Boron and Carbon are providing different versions
  */
-package org.opendaylight.mwtn.base.netconf;
+package org.opendaylight.mwtn.base.netconf.container;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.NetconfNode;
 import org.opendaylight.yangtools.yang.common.QName;
+import org.opendaylight.yangtools.yang.common.Revision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +27,10 @@ public class Capabilities {
     private static final String INTERFACE_AVAILABLECAPABILITY = "org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.netconf.node.connection.status.available.capabilities.AvailableCapability";
 
     private final List<String> capabilities = new ArrayList<>();
+
+    public Capabilities() {
+
+    }
 
     public Capabilities(NetconfNode nnode) {
         LOG.info("Create Capabilities constructor");
@@ -87,9 +96,26 @@ public class Capabilities {
      * @param qCapability capability from the model
      * @return true if supporting the model
      */
+    private DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
     public boolean isSupportingNamespaceAndRevision(QName qCapability) {
         String namespace = qCapability.getNamespace().toString();
-        String revision = qCapability.getRevision().get().toString();
+        String revision;
+        Object revisionObject = qCapability.getRevision();
+        if (revisionObject instanceof Optional){
+        	if (((Optional<?>)revisionObject).isPresent()) {
+	        	revisionObject = ((Optional<?>)revisionObject).get();
+	        	LOG.info("Unwrapp Optional: {}",revisionObject.getClass());
+        	}
+        }
+        if (revisionObject instanceof String) {
+        	revision = (String)revisionObject;
+        } else if (revisionObject instanceof Date) {
+        	revision = formatter.format((Date)revisionObject);
+        } else {
+        	revision = revisionObject.toString();
+        	LOG.warn("Revision number type not supported. Class:{} String:{}", revisionObject.getClass().getName(), revisionObject);
+        }
         for (String capability : capabilities) {
             if (capability.contains(namespace) && capability.contains(revision)) {
                 LOG.trace("Model namespace {}?[revision {}]", namespace, revision);
@@ -97,6 +123,11 @@ public class Capabilities {
             }
         }
         return false;
+    }
+
+
+    public void add(String qname) {
+    	capabilities.add(qname);
     }
 
     @Override
