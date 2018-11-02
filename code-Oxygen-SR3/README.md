@@ -60,7 +60,7 @@ HINT: if the structure is different adapt the *dist.conf* file in the root-direc
 Actual Version: 016.006 (02.11.2018)
 
 	cd ~/Downloads
-    wget https://cloud-highstreet-technologies.com/nextcloud/index.php/s/amsdZjTALwsxRXE/download -O karaf-0.8.3-poc5.016.006.tar.gz
+    wget https://cloud-highstreet-technologies.com/nextcloud/index.php/s/sgJoLHG8wBrzEmD/download -O karaf-0.8.3-poc5.016.006.tar.gz
 
 ##### Step2: Extract tar.gz
 
