@@ -26,7 +26,8 @@
 #   2.21 Typos fixed
 #   2.21 TARFILE_DLUXLOADER definition conditional
 #   2.23 nostart option added
-Version=2.23
+#   2.24 verify location
+Version=2.24
 
 # ----- Constants not depending on variables specified by $CONFIG
 ODLPARENT="0.5.1-SNAPSHOT"
@@ -187,6 +188,14 @@ karaf_waittillstopped() {
     fi
 }
 
+karaf_start() {
+    if [ ! -f "$ODL_KARAF_HOME/bin/start" ] ; then
+       echo "Karaf location check failed. Verify ODL_KARAF_HOME setting in $CONFIG: $ODL_KARAF_HOME"
+       exit 1
+    fi
+    $ODL_KARAF_HOME/bin/start $1
+}
+
 karaf_startifnotrunning() {
 
     karaf_checkrunning
@@ -195,10 +204,10 @@ karaf_startifnotrunning() {
        echo "Can not start, karaf is already running. Reason: $reason"
     else
        if [ "$1" = "clean" ] ; then
-          $ODL_KARAF_HOME/bin/start clean
+          karaf_start clean
           echo "Started with clean"
        else
-          $ODL_KARAF_HOME/bin/start
+          karaf_start clean
           echo "Started"
        fi
     fi
@@ -221,7 +230,7 @@ karaf_cleanstart() {
        rm -r $ODL_KARAF_HOME/etc/opendaylight
     fi
     echo "Start karaf"
-    $ODL_KARAF_HOME/bin/start clean
+    karaf_start clean
     echo "Wait $KARAFSLEEPFORSTART s till karaf and ssh is in a working level"
     sleep $KARAFSLEEPFORSTART
     netstat -ant | grep 8101
@@ -709,6 +718,7 @@ then
 else
   script_command="ok"
 fi
+
 
 #echo "Command: $script_command"
 
