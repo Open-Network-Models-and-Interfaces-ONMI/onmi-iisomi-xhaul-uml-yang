@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
+import org.opendaylight.yangtools.yang.binding.NotificationListener;
 import org.opendaylight.yangtools.yang.common.QName;
 import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
 
@@ -22,6 +23,7 @@ import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.r
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.AirInterfaceHistoricalPerformanceTypeG;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.ContainerCurrentProblemTypeG;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.ContainerHistoricalPerformanceTypeG;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.MicrowaveModelListener;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.MwAirInterfaceDiversityPac;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.MwAirInterfaceDiversityPacKey;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.MwAirInterfacePac;
@@ -44,6 +46,10 @@ import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.r
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.mw.hybrid.mw.structure.pac.HybridMwStructureCurrentProblems;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.mw.pure.ethernet.structure.pac.PureEthernetStructureCurrentProblems;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.mw.tdm.container.pac.TdmContainerCurrentProblems;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.AttributeValueChangedNotification;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.ObjectCreationNotification;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.ObjectDeletionNotification;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev181010.ProblemNotification;
 
 import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
@@ -52,10 +58,13 @@ import org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElement12;
 import org.opendaylight.mwtn.base.netconf.container.ExtendedAirInterfaceHistoricalPerformanceType1211p;
 import org.opendaylight.mwtn.base.netconf.container.ONFLayerProtocolName;
 import org.opendaylight.mwtn.base.netconf.util.GenericTransactionUtils;
+import org.opendaylight.mwtn.devicemanager.impl.xml.AttributeValueChangedNotificationXml;
+import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectCreationNotificationXml;
+import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectDeletionNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
 
 
-public class WrapperMicrowaveModelRev181010 implements OnfMicrowaveModel {
+public class WrapperMicrowaveModelRev181010 implements OnfMicrowaveModel, MicrowaveModelListener {
 
     private static final Logger LOG = LoggerFactory.getLogger(ONFCoreNetworkElement12.class);
 
@@ -64,6 +73,7 @@ public class WrapperMicrowaveModelRev181010 implements OnfMicrowaveModel {
 
     private ONFCOreNetworkElementCoreData coreData;
 
+	private OnfMicrowaveModelNotification microwaveModelListener;
 
     /*-----------------------------------------------------------------------------
      * Setter/Getter
@@ -75,6 +85,17 @@ public class WrapperMicrowaveModelRev181010 implements OnfMicrowaveModel {
 
 	public ONFCOreNetworkElementCoreData getCoreData() {
 		return coreData;
+	}
+
+	@Override
+	public void setOnfMicrowaveModelListener(OnfMicrowaveModelNotification microwaveModelListener) {
+		this.microwaveModelListener = microwaveModelListener;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T extends NotificationListener> T getNotificationListener() {
+		return (T) this;
 	}
 
     /*-----------------------------------------------------------------------------
@@ -509,5 +530,49 @@ public class WrapperMicrowaveModelRev181010 implements OnfMicrowaveModel {
         LOG.debug("DBRead {} Id {} Records result: {}", myName, ethContainerPacuuId, resultList.size());
         return resultList;
     }
+
+    public void onObjectCreationNotification(ObjectCreationNotification notification) {
+        LOG.debug("Got event of type :: {}", ObjectCreationNotification.class.getSimpleName());
+
+        ObjectCreationNotificationXml notificationXml = new ObjectCreationNotificationXml(coreData.getMountpoint(),
+                notification.getCounter().toString(),
+                InternalDateAndTime.valueOf(notification.getTimeStamp()),
+                notification.getObjectIdRef().getValue());
+        microwaveModelListener.onObjectCreationNotification(notificationXml);
+	}
+
+    @Override
+    public void onObjectDeletionNotification(ObjectDeletionNotification notification) {
+        LOG.debug("Got event of type :: {}", ObjectDeletionNotification.class.getSimpleName());
+
+        ObjectDeletionNotificationXml notificationXml = new ObjectDeletionNotificationXml(coreData.getMountpoint(),
+                notification.getCounter().toString(),
+                InternalDateAndTime.valueOf(notification.getTimeStamp()),
+                notification.getObjectIdRef().getValue()
+                );
+        microwaveModelListener.onObjectDeletionNotification(notificationXml);
+	}
+
+    public void onProblemNotification(ProblemNotification notification) {
+
+        LOG.debug("Got event of type :: {}", ProblemNotification.class.getSimpleName());
+
+        ProblemNotificationXml notificationXml = new ProblemNotificationXml(coreData.getMountpoint(), notification.getObjectIdRef().getValue(),
+                notification.getProblem(), InternalSeverity.valueOf(notification.getSeverity()),
+                notification.getCounter().toString(), InternalDateAndTime.valueOf(notification.getTimeStamp()));
+
+        microwaveModelListener.onProblemNotification(notificationXml);
+	}
+
+    @Override
+    public void onAttributeValueChangedNotification(AttributeValueChangedNotification notification) {
+        LOG.debug("Got event of type :: {}", AttributeValueChangedNotification.class.getSimpleName());
+
+        AttributeValueChangedNotificationXml notificationXml = new AttributeValueChangedNotificationXml(coreData.getMountpoint(),
+                String.valueOf(notification.getCounter()), InternalDateAndTime.valueOf(notification.getTimeStamp()),
+                notification.getObjectIdRef().getValue(), notification.getAttributeName(), notification.getNewValue());
+
+        microwaveModelListener.onAttributeValueChangedNotification(notificationXml);
+	}
 
 }

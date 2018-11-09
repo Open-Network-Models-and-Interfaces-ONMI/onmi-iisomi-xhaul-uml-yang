@@ -46,6 +46,7 @@ import org.opendaylight.mwtn.devicemanager.api.DeviceManagerService;
 import org.opendaylight.mwtn.devicemanager.impl.database.service.HtDatabaseEventsService;
 import org.opendaylight.mwtn.devicemanager.impl.listener.NetconfChangeListener;
 import org.opendaylight.mwtn.devicemanager.impl.listener.ODLEventListener;
+import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.WebSocketServiceClient;
 import org.opendaylight.mwtn.devicemanager.impl.xml.XmlMapper;
 import org.opendaylight.mwtn.devicemonitor.impl.DeviceMonitorImpl;
@@ -114,7 +115,7 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
     private HtDatabaseNode htDatabase;
     private Boolean initialized = false;
     private MaintenanceServiceImpl maintenanceService;
-    private NotificationDelayService notificationDelayService;
+    private NotificationDelayService<ProblemNotificationXml> notificationDelayService;
     private Thread threadDoClearCurrentFaultByNodename = null;
     private int refreshCounter = 0;
     private AkkaConfig akkaConfig;
@@ -160,7 +161,7 @@ public class DeviceManagerImpl implements DeviceManagerService, BindingAwareProv
             LOG.info("single node mode detected");
         }
 
-        this.notificationDelayService=new NotificationDelayService(config);
+        this.notificationDelayService=new NotificationDelayService<ProblemNotificationXml>(config);
 
         EsConfig dbConfig = config.getEs();
         LOG.debug("esConfig=" + dbConfig.toString());

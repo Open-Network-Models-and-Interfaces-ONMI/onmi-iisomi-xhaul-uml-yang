@@ -9,9 +9,12 @@
 package org.opendaylight.mwtn.devicemanager.impl.listener;
 
 import java.util.List;
+
 import javax.annotation.Nullable;
-import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
+
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
+import org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElementCallback;
+import org.opendaylight.mwtn.base.netconf.wrapperc.OnfMicrowaveModelNotification;
 import org.opendaylight.mwtn.base.toggleAlarmFilter.NotificationDelayFilter;
 import org.opendaylight.mwtn.base.toggleAlarmFilter.NotificationDelayService;
 import org.opendaylight.mwtn.base.toggleAlarmFilter.NotificationDelayedListener;
@@ -23,12 +26,7 @@ import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectDeletionNotificationXm
 import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.WebSocketServiceClient;
 import org.opendaylight.mwtn.maintenance.MaintenanceService;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.AttributeValueChangedNotification;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.MicrowaveModelListener;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.ObjectCreationNotification;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.ObjectDeletionNotification;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.ProblemNotification;
-import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.microwave.model.rev170324.SeverityType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,8 +34,8 @@ import org.slf4j.LoggerFactory;
  * Important: Websocket notification must be the last action.
  * @author herbert
  *
- */
-public class MicrowaveEventListener12 implements MicrowaveModelListener, NotificationDelayedListener<ProblemNotification> {
+ */ //OnfMicrowaveModelNotification  //
+public class MicrowaveEventListener12 implements OnfMicrowaveModelNotification, NotificationDelayedListener<ProblemNotificationXml> {
 
     private static final Logger LOG = LoggerFactory.getLogger(MicrowaveEventListener12.class);
 
@@ -51,10 +49,13 @@ public class MicrowaveEventListener12 implements MicrowaveModelListener, Notific
 
     private final MaintenanceService maintenanceService;
 
-    private final NotificationDelayFilter<ProblemNotification> delayFilter;
+    private final NotificationDelayFilter<ProblemNotificationXml> delayFilter;
+    private final ONFCoreNetworkElementCallback ne;
 
     public MicrowaveEventListener12(String nodeName, WebSocketServiceClient webSocketService,
-            HtDatabaseEventsService databaseService, ProviderClient dcaeProvider,@Nullable ProviderClient aotsmClient, MaintenanceService maintenanceService2,NotificationDelayService notificationDelayService) {
+            HtDatabaseEventsService databaseService, ProviderClient dcaeProvider,@Nullable ProviderClient aotsmClient,
+            MaintenanceService maintenanceService2,NotificationDelayService<ProblemNotificationXml> notificationDelayService,
+            ONFCoreNetworkElementCallback ne) {
         super();
         this.nodeName = nodeName;
         //this.websocketmanagerService = websocketmanagerService;
@@ -64,30 +65,24 @@ public class MicrowaveEventListener12 implements MicrowaveModelListener, Notific
         this.dcaeProvider = dcaeProvider;
         this.aotsmClient = aotsmClient;
         this.maintenanceService=maintenanceService2;
-        this.delayFilter=notificationDelayService.getInstance12(nodeName, this);//12(nodeName,this);
+        this.delayFilter=notificationDelayService.getInstance(nodeName, this);//12(nodeName,this);
+        this.ne = ne;
     }
 
-    @Override
-    public void onAttributeValueChangedNotification(AttributeValueChangedNotification notification) {
-        LOG.debug("Got event of type :: {}", AttributeValueChangedNotification.class.getSimpleName());
 
-        AttributeValueChangedNotificationXml notificationXml = new AttributeValueChangedNotificationXml(nodeName,
-                String.valueOf(notification.getCounter()), InternalDateAndTime.valueOf(notification.getTimeStamp()),
-                notification.getObjectIdRef().getValue(), notification.getAttributeName(), notification.getNewValue());
+	@Override
+	public void onAttributeValueChangedNotification(AttributeValueChangedNotificationXml notificationXml) {
+
+		ne.notificationFromNeListener(notificationXml);
 
         databaseService.writeEventLog(notificationXml);
 
         webSocketService.sendViaWebsockets(nodeName, notificationXml);
     }
 
-    @Override
-    public void onObjectCreationNotification(ObjectCreationNotification notification) {
-        LOG.debug("Got event of type :: {}", ObjectCreationNotification.class.getSimpleName());
 
-        ObjectCreationNotificationXml notificationXml = new ObjectCreationNotificationXml(    nodeName,
-                notification.getCounter().toString(),
-                InternalDateAndTime.valueOf(notification.getTimeStamp()),
-                notification.getObjectIdRef().getValue());
+	@Override
+	public void onObjectCreationNotification(ObjectCreationNotificationXml notificationXml) {
 
         databaseService.writeEventLog(notificationXml);
 
@@ -96,14 +91,7 @@ public class MicrowaveEventListener12 implements MicrowaveModelListener, Notific
     }
 
     @Override
-    public void onObjectDeletionNotification(ObjectDeletionNotification notification) {
-        LOG.debug("Got event of type :: {}", ObjectDeletionNotification.class.getSimpleName());
-
-        ObjectDeletionNotificationXml notificationXml = new ObjectDeletionNotificationXml(nodeName,
-                notification.getCounter().toString(),
-                InternalDateAndTime.valueOf(notification.getTimeStamp()),
-                notification.getObjectIdRef().getValue()
-                );
+    public void onObjectDeletionNotification(ObjectDeletionNotificationXml notificationXml) {
 
         databaseService.writeEventLog(notificationXml);
 
@@ -111,13 +99,7 @@ public class MicrowaveEventListener12 implements MicrowaveModelListener, Notific
     }
 
     @Override
-    public void onProblemNotification(ProblemNotification notification) {
-
-        LOG.debug("Got event of type :: {}", ProblemNotification.class.getSimpleName());
-
-        ProblemNotificationXml notificationXml = new ProblemNotificationXml(nodeName, notification.getObjectIdRef().getValue(),
-                notification.getProblem(), InternalSeverity.valueOf(notification.getSeverity()),
-                notification.getCounter().toString(), InternalDateAndTime.valueOf(notification.getTimeStamp()));
+    public void onProblemNotification(ProblemNotificationXml notificationXml) {
 
         databaseService.writeFaultLog(notificationXml);
         databaseService.updateFaultCurrent(notificationXml);
@@ -125,10 +107,10 @@ public class MicrowaveEventListener12 implements MicrowaveModelListener, Notific
         //ToggleAlarmFilter functionality
         if(NotificationDelayFilter.isEnabled())
         {
-            if(notification.getSeverity()== SeverityType.NonAlarmed) {
-                delayFilter.clearAlarmNotification(notification.getProblem(), notification);
+            if(notificationXml.getSeverity() == InternalSeverity.NonAlarmed) {
+                delayFilter.clearAlarmNotification(notificationXml.getProblem(), notificationXml);
             } else {
-                delayFilter.pushAlarmNotification(notification.getProblem(), notification);
+                delayFilter.pushAlarmNotification(notificationXml.getProblem(), notificationXml);
             }
         }
         else
@@ -142,14 +124,10 @@ public class MicrowaveEventListener12 implements MicrowaveModelListener, Notific
     }
 
     @Override
-    public void onNotificationDelay(ProblemNotification notification) {
+    public void onNotificationDelay(ProblemNotificationXml notificationXml) {
 
         LOG.debug("Got delayed event of type :: {}", ProblemNotification.class.getSimpleName());
-
-         ProblemNotificationXml notificationXml = new ProblemNotificationXml(nodeName, notification.getObjectIdRef().getValue(),
-                 notification.getProblem(), InternalSeverity.valueOf(notification.getSeverity()),
-                 notification.getCounter().toString(), InternalDateAndTime.valueOf(notification.getTimeStamp()));
-         this.pushAlarmIfNotInMaintenance(notificationXml);
+        this.pushAlarmIfNotInMaintenance(notificationXml);
 
     }
     private void pushAlarmIfNotInMaintenance(ProblemNotificationXml notificationXml)
@@ -197,4 +175,14 @@ public class MicrowaveEventListener12 implements MicrowaveModelListener, Notific
         return deleted;
     }
 
-}
+    /**
+     * Called on exit to remove for one Object-Pac from the current list.
+     * @param objectId uuid of the interface-pac or equipment-pac
+     * @return Number of deleted objects
+     */
+    public int removeObjectsCurrentProblemsOfNode(String objectId) {
+        int deleted = databaseService.clearFaultsCurrentOfNodeWithObjectId(nodeName, objectId);
+        return deleted;
+    }
+
+ }

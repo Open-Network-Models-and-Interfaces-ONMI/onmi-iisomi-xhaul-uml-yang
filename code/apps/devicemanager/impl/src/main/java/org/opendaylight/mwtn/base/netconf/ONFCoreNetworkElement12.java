@@ -33,6 +33,7 @@ import org.opendaylight.mwtn.base.toggleAlarmFilter.NotificationDelayService;
 import org.opendaylight.mwtn.devicemanager.impl.ProviderClient;
 import org.opendaylight.mwtn.devicemanager.impl.database.service.HtDatabaseEventsService;
 import org.opendaylight.mwtn.devicemanager.impl.listener.MicrowaveEventListener12;
+import org.opendaylight.mwtn.devicemanager.impl.xml.AttributeValueChangedNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.WebSocketServiceClient;
 import org.opendaylight.mwtn.maintenance.MaintenanceService;
@@ -49,6 +50,7 @@ import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.onf.core.model.co
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.onf.core.model.conditional.packages.rev170402.network.element.pac.NetworkElementCurrentProblems;
 import org.opendaylight.yangtools.concepts.ListenerRegistration;
 import org.opendaylight.yangtools.yang.binding.InstanceIdentifier;
+import org.opendaylight.yangtools.yang.binding.NotificationListener;
 import org.opendaylight.yangtools.yang.common.QName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,18 +72,16 @@ import com.google.common.base.Optional;
  * @author herbert
  *
  */
-public class ONFCoreNetworkElement12 extends ONFCoreNetworkElement12Base {
+public class ONFCoreNetworkElement12 extends ONFCoreNetworkElement12Base implements ONFCoreNetworkElementCallback, NotificationActor<AttributeValueChangedNotificationXml> {
 
     private static final Logger LOG = LoggerFactory.getLogger(ONFCoreNetworkElement12.class);
 
     /*-----------------------------------------------------------------------------
      * Class members
      */
-
     private final @Nonnull MicrowaveEventListener12 microwaveEventListener;
-
-    private ListenerRegistration<MicrowaveEventListener12> listenerRegistrationresult;
-    private OnfMicrowaveModel microwaveModel;
+    private final @Nonnull OnfMicrowaveModel microwaveModel;
+    private final NotificationWorker<AttributeValueChangedNotificationXml> notificationQueue;
 
     /*-----------------------------------------------------------------------------
      * Construction
@@ -100,16 +100,20 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElement12Base {
     private ONFCoreNetworkElement12(String mountPointNodeName, Capabilities capabilities,
             DataBroker netconfNodeDataBroker, WebSocketServiceClient webSocketService,
             HtDatabaseEventsService databaseService, ProviderClient dcaeProvider, @Nullable ProviderClient aotsmClient,
-            MaintenanceService maintenanceService, NotificationDelayService notificationDelayService, OnfMicrowaveModel onfMicrowaveModel) {
+            MaintenanceService maintenanceService, NotificationDelayService<ProblemNotificationXml> notificationDelayService,
+            OnfMicrowaveModel onfMicrowaveModel) {
 
         super(mountPointNodeName, netconfNodeDataBroker, capabilities);
 
-        onfMicrowaveModel.setCoreData(this);
         this.microwaveModel = onfMicrowaveModel;
+        this.microwaveModel.setCoreData(this);
 
         // Create MicrowaveService here
         this.microwaveEventListener = new MicrowaveEventListener12(mountPointNodeName, webSocketService,
-                databaseService, dcaeProvider, aotsmClient, maintenanceService, notificationDelayService);
+                databaseService, dcaeProvider, aotsmClient, maintenanceService, notificationDelayService, this);
+        this.microwaveModel.setOnfMicrowaveModelListener(microwaveEventListener);
+
+        this.notificationQueue = new NotificationWorker<>(1,100, this);
 
         //->Below shifted to super class
         //this.isNetworkElementCurrentProblemsSupporting12 = capabilities.isSupportingNamespaceAndRevision(NetworkElementPac.QNAME);
@@ -133,7 +137,7 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElement12Base {
     public static @Nullable ONFCoreNetworkElement12 build(String mountPointNodeName, Capabilities capabilities,
             DataBroker netconfNodeDataBroker, WebSocketServiceClient webSocketService,
             HtDatabaseEventsService databaseService, ProviderClient dcaeProvider, @Nullable ProviderClient aotsmClient,
-            MaintenanceService maintenanceService, NotificationDelayService notificationDelayService) {
+            MaintenanceService maintenanceService, NotificationDelayService<ProblemNotificationXml> notificationDelayService) {
 
     	if (capabilities.isSupportingNamespaceAndRevision(NetworkElement.QNAME)) {
     		OnfMicrowaveModel onfMicrowaveModel = null;
@@ -187,6 +191,62 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElement12Base {
     // private InstanceList readPTPClockInstances() -> Shifted to super class
 
     /*-----------------------------------------------------------------------------
+     * Services for NE/Device synchronization
+     */
+
+    /**
+     * Handling of specific Notifications from NE, indicating changes and need for synchronization.
+     *
+     *	<attribute-value-changed-notification xmlns="urn:onf:params:xml:ns:yang:microwave-model">
+	 *		<attribute-name>/equipment-pac/equipment-current-problems</attribute-name>
+	 *		<object-id-ref>CARD-1.1.1.0</object-id-ref>
+	 *		<new-value></new-value>
+	 *	</attribute-value-changed-notification>
+	 *	<attribute-value-changed-notification xmlns="urn:onf:params:xml:ns:yang:microwave-model">
+	 *		<attribute-name>/network-element/extension[value-name="top-level-equipment"]/value</attribute-name>
+	 *		<object-id-ref>Hybrid-Z</object-id-ref>
+	 *		<new-value>SHELF-1.1.0.0,IDU-1.55.0.0,ODU-1.56.0.0,IDU-1.65.0.0</new-value>
+	 *	</attribute-value-changed-notification>
+     */
+
+
+	@Override
+	public void notificationFromNeListener(AttributeValueChangedNotificationXml notificationXml) {
+		notificationQueue.put(notificationXml);
+	}
+
+	@Override
+	public void notificationActor(AttributeValueChangedNotificationXml notificationXml) {
+
+		LOG.debug("Enter change notification listener");
+		if (LOG.isTraceEnabled()) {
+			LOG.trace("Notification: {}",notificationXml);
+		}
+		if (notificationXml.getAttributeName().equals("/equipment-pac/equipment-current-problems")) {
+			syncEquipmentPac(notificationXml.getObjectId());
+		} else if (notificationXml.getAttributeName().equals("/network-element/extension[value-name=\"top-level-equipment\"]/value")) {
+			initialReadFromNetworkElement();
+		}
+		LOG.debug("Leave change notification listener");
+	}
+
+	/**
+	 * Synchronize problems for a specific equipment-pac
+	 * @param uuidString of the equipment-pac
+	 */
+	private synchronized void syncEquipmentPac( String uuidString ) {
+
+        int problems = microwaveEventListener.removeObjectsCurrentProblemsOfNode(uuidString);
+        LOG.debug("Removed {} problems for uuid {}", problems, uuidString);
+
+        List<ProblemNotificationXml> resultList = equipment.addProblemsofNodeObject(uuidString);
+        microwaveEventListener.initCurrentProblemStatus(resultList);
+        LOG.debug("Added {} problems for uuid {}", resultList.size(), uuidString);
+
+	}
+
+
+    /*-----------------------------------------------------------------------------
      * Problem/Fault related functions
      */
 
@@ -194,7 +254,7 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElement12Base {
      * Read during startup all relevant structure and status parameters from device
      */
     @Override
-    public void initialReadFromNetworkElement() {
+    public synchronized void initialReadFromNetworkElement() {
         // optionalNe.getLtp().get(0).getLp();
         LOG.debug("Get info about {}", mountPointNodeName);
 
@@ -217,7 +277,6 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElement12Base {
         LOG.info("Found info at {} for device {} number of problems: {}", mountPointNodeName, getUuId(),
                 resultList.size());
     }
-
 
     /**
      * LOG the newly added problems of the interface pac
@@ -763,12 +822,9 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElement12Base {
                 .getService(NotificationService.class);
         final NotificationService notificationService = optionalNotificationService.get();
         // notificationService.registerNotificationListener(microwaveEventListener);
-        listenerRegistrationresult = notificationService.registerNotificationListener(microwaveEventListener);
+        ListenerRegistration<NotificationListener> listenerRegistrationresult = notificationService.registerNotificationListener(microwaveModel.getNotificationListener());
         LOG.info("End registration listener for Mountpoint {} Listener: {} Result: {}",
                 mountPoint.getIdentifier().toString(), optionalNotificationService, listenerRegistrationresult);
     }
-
-
-    //protected List<String> getFilteredInterfaceUuidsAsStringList(String layerProtocolFilter)  => shifted to Base
 
 }
