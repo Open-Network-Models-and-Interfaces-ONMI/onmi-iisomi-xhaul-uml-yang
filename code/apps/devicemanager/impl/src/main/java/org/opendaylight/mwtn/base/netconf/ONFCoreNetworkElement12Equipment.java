@@ -63,6 +63,15 @@ public class ONFCoreNetworkElement12Equipment {
 		resultList.addAll(problemList);
 	}
 
+	public List<ProblemNotificationXml> addProblemsofNodeObject(String uuidString) {
+		List<ProblemNotificationXml> res = new ArrayList<>();
+
+   		if (this.equipmentPac != null) {
+   			this.equipmentPac.readTheFaults(new UniversalId(uuidString), res);
+   		}
+		return res;
+	}
+
     public @Nonnull InventoryInformation getInventoryInformation(List<String> uuids) {
     	return getInventoryInformation(this.extensions, uuids);
     }
@@ -136,6 +145,7 @@ public class ONFCoreNetworkElement12Equipment {
     		}
     	}
     }
+
 
 
     private @Nonnull InventoryInformation getInventoryInformation(ValueNameList extensions, List<String> uuids) {

@@ -2,8 +2,10 @@ package org.opendaylight.mwtn.base.netconf.wrapperc;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.slf4j.Logger;
@@ -43,7 +45,7 @@ public class WrapperEquipmentPacRev170402 implements OnfInterfacePac {
      * @return list of alarms
      */
     public List<ProblemNotificationXml> readTheFaults(UniversalId interfacePacUuid,
-            List<ProblemNotificationXml> resultList) {
+            @Nonnull List<ProblemNotificationXml> resultList) {
 
         final Class<EquipmentPac> clazzPac = EquipmentPac.class;
         final Class<EquipmentPacKey> clazzPacKey = EquipmentPacKey.class;
@@ -55,6 +57,9 @@ public class WrapperEquipmentPacRev170402 implements OnfInterfacePac {
         		coreData.getMountpoint(), interfacePacUuid.getValue());
 
         try {
+        	if (resultList == null) {
+        		resultList = new ArrayList<>();
+        	}
             // -- Specific part 1
             Constructor<EquipmentPacKey> cons = clazzPacKey.getConstructor(UniversalId.class); // Avoid new()
             InstanceIdentifier<EquipmentCurrentProblems>interfaceIID = InstanceIdentifier
