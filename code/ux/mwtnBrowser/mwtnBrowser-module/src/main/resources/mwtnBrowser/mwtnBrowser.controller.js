@@ -804,7 +804,7 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
                 $scope.pacs[conditionalPackage] = [];
               }
               $scope.pacs[conditionalPackage].push(template);
-              console.error(conditionalPackage, JSON.stringify(template));
+              // console.error(conditionalPackage, JSON.stringify(template));
             } else {
               $mwtnLog.info({component: COMPONENT, message: 'No conditional package for  ' + ltp.getLabel() });
             }
