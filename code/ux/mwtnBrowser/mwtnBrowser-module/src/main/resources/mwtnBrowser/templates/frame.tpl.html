@@ -99,7 +99,7 @@
         
             </div>
 
-            <div uib-accordion-group class="panel-default" is-open="status.protectionGroups" ng-show="protectionGroups">
+            <div uib-accordion-group class="panel-default" is-open="status.protectionGroups" ng-show="protectionGroups && protectionGroups.lenght > 0">
               <uib-accordion-heading>
                 <i class="fa" ng-class="{'fa-chevron-down': status.protectionGroups, 'fa-chevron-right': !status.protectionGroups}"></i>
                 <span>{{'MWTN_PROTECTION_GROUPS' | translate}}</span>

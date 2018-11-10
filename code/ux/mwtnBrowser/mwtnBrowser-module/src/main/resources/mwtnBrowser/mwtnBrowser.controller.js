@@ -657,13 +657,11 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
         'photonic-media:otsi-interface-pac',
         'MicrowaveModel-ObjectClasses-AirInterface:MW_AirInterface_Pac'
       ];
-      console.log('###', JSON.stringify(success));
       $scope.modules = success;
       $scope.orderedPacs = [];
       $scope.parts = [];
       Object.keys(success).map(function(module){
         Object.keys(success[module]).filter(function(key){
-          if (key.contains('otsi')) console.log('###', key);
           return key.endsWith('-pac') || key.endsWith('_Pac');
         }).map(function(pacName){
           $scope.orderedPacs.push([module, pacName].join(':'));
@@ -686,7 +684,6 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
           // $scope.parts = ["capability","configuration","status","current-problems","current-performance","historical-performances"];
         });
       });
-      console.log('###', JSON.stringify($scope.orderedPacs));
     }, function(error){
       $scope.modules = undefined;
       $scope.orderedPacs = undefined;
@@ -837,7 +834,6 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
 
     var updateLtp = function(data) {
       $scope.onfLtps.map(function(ltp){
-        console.log('###', ltp.getData().uuid)
         if (ltp.getData().uuid === data.data.ltp[0].uuid) {
           ltp = new LogicalTerminationPoint(data.data.ltp[0]);
         }
