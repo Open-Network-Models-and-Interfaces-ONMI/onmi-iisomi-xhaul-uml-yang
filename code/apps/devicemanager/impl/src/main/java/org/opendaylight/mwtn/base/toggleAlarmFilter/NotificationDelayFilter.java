@@ -13,66 +13,6 @@ public class NotificationDelayFilter<T> implements AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(NotificationDelayFilter.class);
 
-    private class NotificationWithServerTimeStamp<T2> {
-        private final T2 alarmNotification;
-        private T2 contraAlarmNotification;
-        private final long timestampStart;
-        private long timestamp;
-
-        public NotificationWithServerTimeStamp(T2 n) {
-            this(n, System.currentTimeMillis());
-        }
-
-        public NotificationWithServerTimeStamp(T2 n, long ts) {
-            this.alarmNotification = n;
-            this.contraAlarmNotification = null;
-            this.timestamp = ts;
-            this.timestampStart=ts;
-        }
-
-        @SuppressWarnings("unused")
-        public long getStartTime() {
-            return this.timestampStart;
-        }
-        public void refresh() {
-            this.refresh(System.currentTimeMillis());
-        }
-
-        public void refresh(long ts) {
-            this.timestamp = ts;
-        }
-
-        public void setContraEvent(T2 notification) {
-            this.contraAlarmNotification = notification;
-            this.refresh();
-        }
-
-        public void clrContraEvent() {
-            this.contraAlarmNotification = null;
-            this.refresh();
-        }
-
-        public boolean isStable(long now) {
-            return this.timestamp + NotificationDelayFilter.delay < now;
-        }
-
-        @SuppressWarnings("unused")
-        public T2 getAlarmNotification() {
-            return this.alarmNotification;
-        }
-
-        public T2 getContraAlarmNotification() {
-            return this.contraAlarmNotification;
-        }
-
-        @Override
-        public String toString() {
-            return "NotificationWithServerTimeStamp [alarmNotification=" + alarmNotification
-                    + ", contraAlarmNotification=" + contraAlarmNotification + ", timestampStart=" + timestampStart
-                    + ", timestamp=" + timestamp + "]";
-        }
-    }
-
     private final ConcurrentHashMap <String, NotificationWithServerTimeStamp<T>> problemItems;
 //    private final HashMap<String, NotificationWithServerTimeStamp<T>> nonProblemItems;
     private final NotificationDelayedListener<T> timeoutListener;
@@ -111,18 +51,16 @@ public class NotificationDelayFilter<T> implements AutoCloseable {
 
     /**
      * Push notification with a specific severity (everything except non-alarmed)
-     *
-     * @param problemName
-     * @param notification
+     * @param problemName key
+     * @param notification related notification
      */
-    @SuppressWarnings("javadoc")
     public void pushAlarmNotification(String problemName, T notification) {
         synchronized (problemItems) {
 
             boolean cp = this.problemItems.containsKey(problemName);
             if (!cp) {
                 // no alarm in entries => create entry and push the alarm currently
-                NotificationDelayFilter<T>.NotificationWithServerTimeStamp<T> item = new NotificationWithServerTimeStamp<>(
+                NotificationWithServerTimeStamp<T> item = new NotificationWithServerTimeStamp<>(
                         notification);
                 LOG.debug("add event into list for node " + this.nodeName + " for alarm " + problemName + ": "
                         + item.toString());
@@ -140,11 +78,9 @@ public class NotificationDelayFilter<T> implements AutoCloseable {
 
     /**
      * Push notification with severity non-alarmed
-     *
-     * @param problemName
-     * @param notification
+     * @param problemName key
+     * @param notification related notification
      */
-    @SuppressWarnings("javadoc")
     public void clearAlarmNotification(String problemName, T notification) {
         synchronized (problemItems) {
 
@@ -178,7 +114,7 @@ public class NotificationDelayFilter<T> implements AutoCloseable {
 
             synchronized (problemItems) {
 
-                for (Entry<String, NotificationDelayFilter<T>.NotificationWithServerTimeStamp<T>> entry : problemItems
+                for (Entry<String, NotificationWithServerTimeStamp<T>> entry : problemItems
                         .entrySet()) {
                     NotificationWithServerTimeStamp<T> value = entry.getValue();
                     if (value.isStable(now)) {

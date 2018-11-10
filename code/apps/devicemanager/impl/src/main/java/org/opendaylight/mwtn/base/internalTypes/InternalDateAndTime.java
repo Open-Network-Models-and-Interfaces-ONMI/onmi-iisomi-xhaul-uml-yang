@@ -3,7 +3,7 @@
  */
 package org.opendaylight.mwtn.base.internalTypes;
 
-import org.opendaylight.mwtn.base.netconf.NetconfTimeStamp;
+import org.opendaylight.mwtn.base.netconf.util.NetconfTimeStamp;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.DateAndTime;
 
 /**

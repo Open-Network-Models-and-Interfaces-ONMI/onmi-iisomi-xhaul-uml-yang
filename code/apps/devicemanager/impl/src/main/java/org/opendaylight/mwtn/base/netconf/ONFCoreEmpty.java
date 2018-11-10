@@ -5,6 +5,7 @@ package org.opendaylight.mwtn.base.netconf;
 
 import org.opendaylight.controller.md.sal.binding.api.MountPoint;
 import org.opendaylight.mwtn.base.internalTypes.InventoryInformation;
+import org.opendaylight.mwtn.base.netconf.container.AllPm;
 
 /**
  * @author herbert

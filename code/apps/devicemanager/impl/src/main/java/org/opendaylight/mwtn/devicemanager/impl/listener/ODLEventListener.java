@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 
 import org.opendaylight.mwtn.base.internalTypes.InternalDateAndTime;
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
-import org.opendaylight.mwtn.base.netconf.NetconfTimeStamp;
+import org.opendaylight.mwtn.base.netconf.util.NetconfTimeStamp;
 import org.opendaylight.mwtn.devicemanager.impl.ProviderClient;
 import org.opendaylight.mwtn.devicemanager.impl.database.service.HtDatabaseEventsService;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectCreationNotificationXml;

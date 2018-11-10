@@ -6,8 +6,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import org.opendaylight.mwtn.base.netconf.AllPm;
+
 import org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElementRepresentation;
+import org.opendaylight.mwtn.base.netconf.container.AllPm;
 import org.opendaylight.mwtn.performancemanager.impl.database.service.MicrowaveHistoricalPerformanceWriterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

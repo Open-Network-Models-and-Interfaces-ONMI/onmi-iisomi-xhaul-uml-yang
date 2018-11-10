@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.mwtn.base.internalTypes.InventoryInformation;
+import org.opendaylight.mwtn.base.netconf.container.Capabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,6 +58,16 @@ public abstract class ONFCoreNetworkElementBase implements ONFCoreNetworkElement
     	return res;
     }
 
+    /*---------------------------------------------------------------
+     * Getter/ Setter
+     */
+
+	public String getMountpoint() {
+		return mountPointNodeName;
+	}
+	public DataBroker getDataBroker() {
+		return netconfNodeDataBroker;
+	}
 
     /*-----------------------------------------------------------------------------
      * Sychronization

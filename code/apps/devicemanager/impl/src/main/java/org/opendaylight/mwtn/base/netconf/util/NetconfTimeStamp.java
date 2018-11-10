@@ -1,4 +1,4 @@
-package org.opendaylight.mwtn.base.netconf;
+package org.opendaylight.mwtn.base.netconf.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

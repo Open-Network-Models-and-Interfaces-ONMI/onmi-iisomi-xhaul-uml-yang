@@ -6,9 +6,11 @@ import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.md.sal.binding.api.ReadTransaction;
 import org.opendaylight.controller.md.sal.common.api.data.LogicalDatastoreType;
 import org.opendaylight.controller.md.sal.common.api.data.ReadFailedException;
+import org.opendaylight.mwtn.base.netconf.container.Capabilities;
 import org.opendaylight.mwtn.base.toggleAlarmFilter.NotificationDelayService;
 import org.opendaylight.mwtn.devicemanager.impl.ProviderClient;
 import org.opendaylight.mwtn.devicemanager.impl.database.service.HtDatabaseEventsService;
+import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.WebSocketServiceClient;
 import org.opendaylight.mwtn.maintenance.MaintenanceService;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.netconf.node.topology.rev150114.NetconfNode;
@@ -32,7 +34,7 @@ public class ONFCoreNetworkElementFactory {
             WebSocketServiceClient webSocketService, HtDatabaseEventsService databaseService,
             InstanceIdentifier<Node> instanceIdentifier, DataBroker mountpointDataBroker, ProviderClient dcaeProvider,
             @Nullable ProviderClient aotsmClient, MaintenanceService maintenanceService,
-            NotificationDelayService notificationDelayService) {
+            NotificationDelayService<ProblemNotificationXml> notificationDelayService) {
 
         ReadTransaction tx = dataBroker.newReadOnlyTransaction();
         ONFCoreNetworkElementRepresentation res = null;
@@ -51,18 +53,6 @@ public class ONFCoreNetworkElementFactory {
                                 webSocketService, databaseService, dcaeProvider, aotsmClient, maintenanceService,
                                 notificationDelayService);
                         LOG.info("ONFCoreNetworkElementRepresentation12 value is not null? " + (res != null));
-                        if (res == null) {
-                            res = ONFCoreNetworkElement1211.build(mountPointNodeName, capabilities,
-                                    mountpointDataBroker, webSocketService, databaseService, dcaeProvider, aotsmClient,
-                                    maintenanceService, notificationDelayService);
-                            LOG.info("ONFCoreNetworkElementRepresentation1211 value is not null? " + (res != null));
-                        }
-                        if (res == null) {
-                            res = ONFCoreNetworkElement1211p.build(mountPointNodeName, capabilities,
-                                    mountpointDataBroker, webSocketService, databaseService, dcaeProvider,
-                                    aotsmClient, maintenanceService, notificationDelayService);
-                            LOG.info("ONFCoreNetworkElementRepresentation1211p value is not null? " + (res != null));
-                        }
                     }
                 }
             }

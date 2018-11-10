@@ -1,8 +1,8 @@
 package org.opendaylight.mwtn.performancemanager.impl.database.types;
 
 import org.opendaylight.mwtn.base.database.EsObject;
-import org.opendaylight.mwtn.base.netconf.LinkIdentifyingObject;
-import org.opendaylight.mwtn.base.netconf.NetconfTimeStamp;
+import org.opendaylight.mwtn.base.netconf.util.LinkIdentifyingObject;
+import org.opendaylight.mwtn.base.netconf.util.NetconfTimeStamp;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.logical.termination.point.g.Lp;
 import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.g._874._1.model.rev170320.OtnHistoryDataG;
 import org.slf4j.Logger;

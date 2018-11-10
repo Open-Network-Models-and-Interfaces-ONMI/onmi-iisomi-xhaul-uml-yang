@@ -100,7 +100,10 @@ public class InventoryInformation {
 		return this;
 	}
 
-
-
+	@Override
+	public String toString() {
+		return "InventoryInformation [type=" + type + ", model=" + model + ", vendor=" + vendor + ", deviceIpv4="
+				+ deviceIpv4 + ", deviceIpv6=" + deviceIpv6 + ", interfaceUuidList=" + interfaceUuidList + "]";
+	}
 
 }
