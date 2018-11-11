@@ -637,9 +637,10 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
     $mwtnBrowser.getModules().then(function(success){
 
       var pacOrder = [
+        'microwave-model:wire-interface-pac',
+        'onf-ethernet-conditional-packages:ethernet-pac',
         'onf-otn-odu-conditional-packages:otn-odu-termination-pac',
         'onf-otn-odu-conditional-packages:otn-odu-connection-pac',
-        'onf-ethernet-conditional-packages:ethernet-pac',
         'microwave-model:mw-air-interface-diversity-pac',
         'microwave-model:mw-air-interface-hsb-end-point-pac',
         'microwave-model:mw-air-interface-hsb-fc-switch-pac',
@@ -996,6 +997,7 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
         case 'microwave-model:mw-ethernet-container-pac':
         case 'onf-ethernet-conditional-packages:ethernet-pac':
         // PoC 5
+        case 'microwave-model:wire-interface-pac':
         case 'photonic-media:otsi-interface-pac':
           if (!spec.partId) {
             initPac(spec);
@@ -1055,6 +1057,7 @@ define(['app/mwtnBrowser/mwtnBrowser.module',
         $scope.structures = [];
         $scope.containers = [];
         $scope.onfLtps = [];
+        // $scope.orderedPacs = [];
         $scope.clock = undefined;
 
         $scope.networkElementId = neId;

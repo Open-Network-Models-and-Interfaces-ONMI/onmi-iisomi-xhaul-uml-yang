@@ -1197,6 +1197,7 @@ define(
           case 'onf-otn-odu-conditional-packages:otn-odu-connection-pac':
           case 'onf-otn-odu-conditional-packages:otn-odu-termination-pac':
           // PoC 5
+          case 'microwave-model:wire-interface-pac':
           case 'photonic-media:otsi-interface-pac':
             if (spec.partId) {
               service.getConditionalPackagePart(spec).then(function (success) {
@@ -1269,6 +1270,7 @@ define(
           case 'onf-otn-odu-conditional-packages:otn-odu-connection-pac':
           case 'onf-otn-odu-conditional-packages:otn-odu-termination-pac':
           // PoC 5
+          case 'microwave-model:wire-interface-pac':
           case 'photonic-media:otsi-interface-pac':
               service.setConditionalPackagePart(spec, data).then(function (success) {
                 deferred.resolve(success);
@@ -1322,6 +1324,7 @@ define(
           case 'onf-otn-odu-conditional-packages:otn-odu-connection-pac':
           case 'onf-otn-odu-conditional-packages:otn-odu-termination-pac':
           // PoC 5
+          case 'microwave-model:wire-interface-pac':
           case 'photonic-media:otsi-interface-pac':
             service.setConditionalPackagePartList(spec, listData).then(function (success) {
                 deferred.resolve(success);
@@ -2093,6 +2096,10 @@ define(
                 case 'TDM':
                 pacId = 'microwave-model:mw-tdm-container-pac';
                 partId = 'tdm-container-' + service.yangify(partId);
+                break;
+              case 'ETY':
+                pacId = 'microwave-model:wire-interface-pac';
+                partId = 'wirebased-interface-' + service.yangify(partId);
                 break;
               case 'PHOTONIC_MEDIA':
                 pacId = 'photonic-media:otsi-interface-pac';

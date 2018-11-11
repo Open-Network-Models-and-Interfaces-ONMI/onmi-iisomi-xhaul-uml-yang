@@ -2,6 +2,40 @@
 	"module": {
 		"name": "microwave-model",
 		"microwave-model": {
+			"wire-interface-pac": {
+				"type": "list",
+				"key": "layer-protocol",
+				"wirebased-interface-capability": {
+					"name": "wirebased-interface-capability",
+					"local-name": "capability",
+					"type": "container"
+				},
+				"wirebased-interface-configuration": {
+					"name": "wirebased-interface-configuration",
+					"local-name": "configuration",
+					"type": "container"
+				},
+				"wirebased-interface-status": {
+					"name": "wirebased-interface-status",
+					"local-name": "status",
+					"type": "container"
+				},
+				"wirebased-interface-current-problems": {
+					"name": "wirebased-interface-current-problems",
+					"local-name": "current-problems",
+					"type": "container"
+				},
+				"wirebased-interface-current-performance": {
+					"name": "wirebased-interface-current-performance",
+					"local-name": "current-performance",
+					"type": "container"
+				},
+				"wirebased-interface-historical-performances": {
+					"name": "wirebased-interface-historical-performances",
+					"local-name": "historical-performances",
+					"type": "container"
+				}
+			},
 			"mw-air-interface-pac": {
 				"type": "list",
 				"key": "layer-protocol",
