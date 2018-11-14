@@ -11,8 +11,8 @@
   <div class="row">
     <div class="col-md-3"><span>DeviceType:</div>
     <div class="col-md-9">
-    	<select class="form-control" ng-model="mediator.devicetype" >
-    		<option ng-repeat="option in options.nedevicetype" value="{{option.Value}}">{{option.Name}}</option>
+    	<select class="form-control" ng-model="mediator.devicetype" ng-change="devicechange()">
+    		<option ng-repeat="option in options.nedevicetype" value="{{option.Id}}">{{option.GetFullName()}}</option>
     	</select>
     </div>
   </div>
@@ -37,7 +37,7 @@
     <input type="number" class="form-control" ng-model="mediator.ncport" />
     </div>
   </div>
-  <div class="row">
+  <div class="row" ng-show="{{options.shownemodels}}">
     <div class="col-md-3"><span>NeModel:</div>
     <div class="col-md-9">
     	<select class="form-control" ng-model="mediator.nexml">
@@ -48,9 +48,9 @@
   <hr class="row" />
   <div class="row">
 	<uib-accordion close-others="oneAtATime">
-		<div uib-accordion-group class="panel-default"	is-open="false">
+		<div uib-accordion-group class="panel-default"	is-open="true">
 		<uib-accordion-heading>
-		    <i class="pull-left fa" ng-class="{'fa-chevron-down': false, 'fa-chevron-right': true}"></i>
+		    <i class="pull-left fa" ng-class="{'fa-chevron-down': true, 'fa-chevron-right': false}"></i>
 		    <span>{{'ODL Connection Config' | translate}}</span>
 		</uib-accordion-heading>
 		<div class="" style="position:relative;">
