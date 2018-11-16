@@ -28,6 +28,7 @@ HINT: if the structure is different adapt the *dist.conf* file in the root-direc
      ODL_KARAF_DIST="karaf-0.8.3-poc5"
      ODL_KARAF_HOME=$HOME/odl/$ODL_KARAF_DIST
      ODL_KARAF_DISTGZ="$HOME/Downloads/"$ODL_KARAF_DIST".tar.gz"
+     ODLPARENT="0.7.3-SNAPSHOT"
      export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
 
      ODL_KARAF_STARTUP_SCRIPT="karaf_startup_dev"
