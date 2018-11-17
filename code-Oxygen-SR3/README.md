@@ -58,17 +58,17 @@ HINT: if the structure is different adapt the *dist.conf* file in the root-direc
 
 ##### Step1: Download Karaf/ODL/CENTENIAL Apps - tar.gz file (411 MB)
 
-Actual Version: 016.007 (09.11.2018)
+Actual Version: 016.008 (17.11.2018)https://cloud-highstreet-technologies.com/nextcloud/index.php/s/24fdqRLwmwzoZNe
 
 	cd ~/Downloads
-    wget https://cloud-highstreet-technologies.com/nextcloud/index.php/s/bbyoNMw3n88FSWB/download -O karaf-0.8.3-poc5.016.007.tar.gz
+    wget https://cloud-highstreet-technologies.com/nextcloud/index.php/s/24fdqRLwmwzoZNe/download -O karaf-0.8.3-poc5.016.008.tar.gz
 
 ##### Step2: Extract tar.gz
 
 Unpack karaf and included odl micro apps. (No karaf is running on server ./odl/)
 
     cd ~/odl
-    tar -xzf ../Downloads/karaf-0.8.3-poc5.016.007.tar.gz
+    tar -xzf ../Downloads/karaf-0.8.3-poc5.016.008.tar.gz
 
 ##### Step3: Run Opendaylight
 
