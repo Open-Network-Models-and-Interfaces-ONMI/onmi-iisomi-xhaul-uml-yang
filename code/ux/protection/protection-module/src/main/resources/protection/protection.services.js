@@ -16,6 +16,10 @@ define(['app/protection/protection.module', 'app/mwtnCommons/mwtnCommons.service
     var service = {};
 
     service.gridOptions = $mwtnCommons.gridOptions;
+    service.getForwardingConstruct = $mwtnCommons.getForwardingConstruct;
+    service.getPacParts = $mwtnCommons.getPacParts;
+    service.layerProtocolNameOrder = $mwtnCommons.layerProtocolNameOrder;
+    service.yangifyObject = $mwtnCommons.yangifyObject;
 
     return service;
   });

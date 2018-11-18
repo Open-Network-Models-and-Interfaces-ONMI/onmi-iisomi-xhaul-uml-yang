@@ -1,0 +1,38 @@
+<svg viewBox="0 0 150 130" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <path id="working" d="M0,0 h+30 l+40,-40 h+30" />
+    <path id="protecting" d="M0,0 h+30 l+40,+40 h+30" />
+  </defs>
+  <g id="protectionGroup">
+    <use xlink:href="#working" x="25" y="65" />
+    <use xlink:href="#protecting" x="25" y="65" />
+    <g id="activeTraffic">
+      <path id="activeTxProtecting" d="M25,65 h+30 l+40+40 h+30" class="active" ng-if="data.position === 'protection' && data.direction === 'tx'">
+        <animate attributeName="stroke-dashoffset" dur="1s" to="-30" repeatCount="indefinite" />
+      </path>
+      <path id="activeTxWorking" d="M25,65 h+30 l+40-40 h+30" class="active"  ng-if="data.position === 'working' && data.direction === 'tx'">
+        <animate attributeName="stroke-dashoffset" dur="1s" to="-30" repeatCount="indefinite" />
+      </path>
+      <path id="activeRxWorking" d="M25,65 h+30 l+40-40 h+30" class="active" ng-if="data.position === 'working' && data.direction === 'rx'"">
+        <animate attributeName="stroke-dashoffset" dur="1s" to="30" repeatCount="indefinite" />
+      </path>
+      <path id="activeRxProtecting" d="M25,65 h+30 l+40+40 h+30" class="active" ng-if="data.position === 'protection' && data.direction === 'rx'">
+        <animate attributeName="stroke-dashoffset" dur="1s" to="30" repeatCount="indefinite" />
+      </path>
+    </g>
+    <g id="protected" transform="translate(25,65)">
+      <circle r="16" />
+      <title>Protected</title>
+    </g>
+    <g id="working" transform="translate(125,25)">
+      <circle r="16" />
+      <text text-anchor="middle" dy=".3em">w</text>
+      <title>Working</title>
+    </g>
+    <g id="protecting" transform="translate(125,105)">
+      <circle r="16" />
+      <text text-anchor="middle" dy=".3em">p</text>
+      <title>Protection</title>
+    </g>
+  </g>
+</svg>

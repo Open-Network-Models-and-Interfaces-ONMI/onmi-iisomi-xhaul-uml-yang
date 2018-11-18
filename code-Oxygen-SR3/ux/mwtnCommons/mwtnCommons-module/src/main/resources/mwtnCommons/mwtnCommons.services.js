@@ -624,9 +624,18 @@ define(
         return ['mwtn', string].join('_').replaceAll('-', '_').toUpperCase();
       };
 
-      var isIntesting = function(key) {
-        var instesting = ['name', 'local-id', 'label', 'extension', 'physical-port-reference', 'lp', 'server-ltp', 'client-ltp', 'layer-protocol-name'];
-        return instesting.contains(key);
+      var isInteresting = function(key) {
+        return [
+          'name', 
+          'local-id', 
+          'label', 
+          'extension', 
+          'physical-port-reference', 
+          'lp', 
+          'server-ltp', 
+          'client-ltp', 
+          'layer-protocol-name'
+        ].contains(key);
       }
       /**
        * Returns a simplfies json  for display
@@ -655,7 +664,7 @@ define(
                 viewData[item['value-name']] = { value: item.value, type: 'string', labelId:service.getLabelId(item['value-name']) };
               });
               viewData[key] = undefined;
-            } else if (viewValue.value.length === 1 && isIntesting(key)) {
+            } else if (viewValue.value.length === 1 && isInteresting(key)) {
               // console.warn(key, JSON.stringify(viewData[key]));
               var valueType = service.getType(viewValue.value[0]);
               viewData[key].value = viewValue.value[0];
@@ -724,6 +733,8 @@ define(
           'ETH': 1,
         }
       };
+
+      // service.base = service.base.replace('192.168.178.148', '10.10.240.80');
 
       service.getOrderNumber = function(proposal, item){
         var result = proposal;
@@ -993,41 +1004,6 @@ define(
       service.mount = function (mp) {
         // mp: mounting point
         var url = [service.base, service.url.mount(mp.name)].join('');
-        /* deprecated 
-        var xml = [
-          '<module xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">',
-          '<type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">prefix:sal-netconf-connector</type>',
-          '<name>{0}</name>',
-          '<address xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">{1}</address>',
-          '<port xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">{2}</port>',
-          '<username xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">{3}</username>',
-          '<password xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">{4}</password>',
-          '<tcp-only xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">false</tcp-only>',
-          '<event-executor xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">',
-          '  <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:netty">prefix:netty-event-executor</type>',
-          '  <name>global-event-executor</name>',
-          '</event-executor>',
-          '<binding-registry xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">',
-          '  <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding">prefix:binding-broker-osgi-registry</type>',
-          '  <name>binding-osgi-broker</name>',
-          '</binding-registry>',
-          '<dom-registry xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">',
-          '  <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:md:sal:dom">prefix:dom-broker-osgi-registry</type>',
-          '  <name>dom-broker</name>',
-          '</dom-registry>',
-          '<client-dispatcher xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">',
-          '  <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:config:netconf">prefix:netconf-client-dispatcher</type>',
-          '  <name>global-netconf-dispatcher</name>',
-          '</client-dispatcher>',
-          '<processing-executor xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">',
-          '  <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:threadpool">prefix:threadpool</type>',
-          '  <name>global-netconf-processing-executor</name>',
-          '</processing-executor>',
-          '<keepalive-executor xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">',
-          '  <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:threadpool">prefix:scheduled-threadpool</type>',
-          '  <name>global-netconf-ssh-scheduled-executor</name>',
-          '</keepalive-executor>', 
-          '</module>' ].join('').format(mp.name, mp.ipaddress, mp.port, mp.username, mp.password); */
         var xml = [
           '<node xmlns="urn:TBD:params:xml:ns:yang:network-topology">',
           '  <node-id>{0}</node-id>',
@@ -1202,7 +1178,6 @@ define(
             if (spec.partId) {
               service.getConditionalPackagePart(spec).then(function (success) {
                 success.layerProtocol = spec.layerProtocolId;
-                console.log('###', JSON.stringify(success));
                 deferred.resolve(success);
               }, function (error) {
                 $mwtnLog.error({ component: COMPONENT, message: 'Requesting conditional package of ' + JSON.stringify(spec) + ' failed!' });
@@ -1220,6 +1195,7 @@ define(
               deferred.reject(error);
             });
             break;
+          case 'protectionGroups':
           case 'mountpoint':
           case 'forwardingConstructs':
             // not needed (currently)
@@ -1934,7 +1910,7 @@ define(
         service.url.forwardingConstruct(neId, fcUuid)].join('');
         var request = {
           method: 'GET',
-          url: url
+          url: url.replace('/operational/', '/config/')
         };
         var taskId = [neId, fcUuid, 'ONF:ForwardingConstruct received'].join(' ');
 
@@ -2578,84 +2554,6 @@ define(
           deferred.reject(error);
         });
 
-        // [sko] much simplified du to ONAP concepts,  no device configuration needs to be stored in database.
-
-        // // get NetworkElement object from node
-        // var spec = {
-        //   nodeId: requiredNode.nodeId,
-        //   revision: requiredNode.onfCoreModelRevision,
-        //   pacId: 'ne'
-        // };
-
-        // var updatePart = function (spec, data) {
-        //   data.layerProtocol = spec.layerProtocolId;
-        //   requiredNode[spec.pacId].push(data);
-        // };
-
-        // var numberOfLtps = -1;
-        // var processLTPs = function (item, i, callback) {
-        //   var ltp = new LogicalTerminationPoint(item);
-        //   ltp.getLayerProtocols().map(
-        //     /**
-        //      * A function processing a layer-protocol object
-        //      * @param {LayerProtocol} lp A layer-protocol object
-        //      */
-        //     function (lp) {
-        //       var conditionalPackage = lp.getConditionalPackage(true);
-        //       if (conditionalPackage !== '') {
-        //         if (requiredNode[conditionalPackage] === undefined) {
-        //           // create missing pac array
-        //           requiredNode[conditionalPackage] = [];
-        //         }
-        //         var spec = {
-        //           nodeId: requiredNode.nodeId,
-        //           revision: requiredNode.onfCoreModelRevision,
-        //           pacId: conditionalPackage,
-        //           layer: lp.getLayer(),
-        //           layerProtocolId: lp.getId()
-        //         };
-        //         spec.partId = service.getPartGlobalId(spec, 'configuration');
-        //         // console.info(JSON.stringify(spec));
-        //         service.getPacParts(spec).then(function (success) {
-        //           // console.log(JSON.stringify(success));
-        //           spec.message = ['Process LTP', i+1, 'of', numberOfLtps].join(' ');
-        //           $notifying.notify(spec);
-        //           updatePart(spec, service.yangifyObject(success));
-        //           return callback();
-        //         }, function (error) {
-        //           spec.message = ['Process LTP', i+1, 'of', numberOfLtps].join(' ');
-        //           $notifying.notify(spec);
-        //           $mwtnLog.error({ component: '$mwtnCommons.processLTPs bad data', message: JSON.stringify(error) });
-        //           return callback();
-        //         });
-        //       } else {
-        //         $mwtnLog.info({ component: COMPONENT, message: 'No condtional package found: ' + ltp.getId() });
-        //         return callback();
-        //       }
-        //     });
-
-        //   // console.log(JSON.stringify(ltp.getData()));
-        // };
-
-        // service.getPacParts(spec).then(function (success) {
-        //   success = service.yangifyObject(success);
-        //   requiredNode['core-model:network-element'] = success['network-element'];
-        //   var id = success['network-element']['node-id'];
-        //   numberOfLtps = success['network-element'].ltp.length; 
-        //   doSynchronousLoop(success['network-element'].ltp, processLTPs, function () {
-        //     saveRequiredNetworkElement(requiredNode).then(function (success) {
-        //       $notifying.notify( { nodeId: id, message: 'finish'} );
-        //       deferred.resolve(success);
-        //     }, function (error) {
-        //       $mwtnLog.error({ component: '$mwtnCommons.saveRequiredNetworkElement', message: JSON.stringify(error.data) });
-        //       deferred.reject(error);
-        //     });
-        //   });
-
-        // }, function (error) {
-        //   $mwtnLog.error({ component: '$mwtnCommons.getPacParts', message: JSON.stringify(error.data) });
-        //   deferred.reject(error);
-        // });
         return deferred.promise;
       };
 
@@ -3661,6 +3559,12 @@ define(
         };
         this.getLabel = function () {
           return ['LTP(', this.getLayerProtocols()[0].getItuLabel(true).toUpperCase(), '): ', this.getId()].join('');
+        };
+        this.getPhyiscalPortReference = function () {
+          return this.getData()['physical-port-reference'];
+        };
+        this.getPortLabel = function () {
+          return this.getPhyiscalPortReference() || this.getName();
         };
         this.getLayerProtocols = function () {
           return this.layerProtocols;
