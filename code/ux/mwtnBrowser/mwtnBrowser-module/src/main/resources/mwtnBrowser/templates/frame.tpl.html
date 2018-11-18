@@ -99,7 +99,7 @@
         
             </div>
 
-            <div uib-accordion-group class="panel-default" is-open="status.protectionGroups" ng-show="protectionGroups && protectionGroups.lenght > 0">
+            <div uib-accordion-group class="panel-default" is-open="status.protectionGroups" ng-show="protectionGroups && protectionGroups.uuid">
               <uib-accordion-heading>
                 <i class="fa" ng-class="{'fa-chevron-down': status.protectionGroups, 'fa-chevron-right': !status.protectionGroups}"></i>
                 <span>{{'MWTN_PROTECTION_GROUPS' | translate}}</span>
@@ -112,7 +112,7 @@
                 <div ng-repeat="pg in pgList" uib-accordion-group class="panel-default" is-open="status['pg' + separator + pg.uuid]" ng-show="protectionGroups">
                   <uib-accordion-heading>
                     <i class="fa" ng-class="{'fa-chevron-down': status['pg' + separator + pg.uuid], 'fa-chevron-right': !status['pg' + separator + pg.uuid]}"></i>
-                    <span>{{'MWTN_PROTECTION_GROUP' | translate}} ID: {{pg.uuid}}</span>
+                    <span>{{'MWTN_PROTECTION_GROUP_ID' | translate}}: {{pg.uuid}}</span>
                     <i class="fa fa-spinner fa-pulse" ng-show="spinner['pg' + separator + pg.uuid]"></i>
                   </uib-accordion-heading>
     

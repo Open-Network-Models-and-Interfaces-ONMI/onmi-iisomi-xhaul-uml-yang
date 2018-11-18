@@ -60,7 +60,7 @@ for bundleName in "${bundleNames[@]}"
 do
    names+="\"$bundleName\" "
 done
-$ODL_KARAF_HOME/bin/client -u karaf "bundle:uninstall $names"
+$ODL_KARAF_HOME/bin/client "bundle:uninstall $names"
 
 # install bundles
 ## declare array of bundleNames
@@ -104,6 +104,6 @@ for bundle in "${bundles[@]}"
 do
    bundleMvns+="$bundle "
 done
-$ODL_KARAF_HOME/bin/client -u karaf "bundle:install -s $bundleMvns"
+$ODL_KARAF_HOME/bin/client "bundle:install -s $bundleMvns"
 
 echo "Done! - Please press F5 to refresh your browser."
