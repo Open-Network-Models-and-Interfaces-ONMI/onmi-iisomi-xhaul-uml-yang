@@ -13,6 +13,19 @@ define(['app/mwtnMediator/mwtnMediator.module',
 
   var mediatorServer;
   var autoRefresh;
+  var refresh = function(s)
+	{
+		try{
+			//	s.$apply();
+			var phase = s.$root.$$phase;
+			if(phase == '$apply' || phase == '$digest') {
+			 
+			} else {
+			  s.$apply();
+			}
+		}
+		catch(e){console.log("catched error:"+e);}
+	}
   mwtnMediatorApp.register.controller('mwtnMediatorCtrl', ['$scope', '$rootScope','$uibModal', '$mwtnLog', '$mwtnMediator',
     function($scope, $rootScope, $uibModal, $mwtnLog, $mwtnMediator) {
 	autoRefresh=false;
@@ -89,15 +102,23 @@ define(['app/mwtnMediator/mwtnMediator.module',
     	{
     		mediatorServer.LoadConfigs(function(configs){
 			   $scope.data = configs;
-			   $scope.$apply();
+			   refresh($scope);
 			   i.removeClass("fa-spin");
 		    },
 			function(err){
 				$scope.data = [];
-				$scope.$apply();
+				refresh($scope);
 			    i.removeClass("fa-spin");
 			  	console.log("cannot reach mediatorserver:"+err);
 			});
+    		mediatorServer.LoadVersion(function(versions){
+    			mediatorServer.LoadSupportedDevices(function(){},function(err2){
+        			console.log("cannot reach mediatorserver:"+err2);
+    			});
+    		},function(err3){
+    			
+    			console.log("cannot reach mediatorserver:"+err3);
+    		});
 		}
     }
     var refreshMediator = function(name)
@@ -106,7 +127,7 @@ define(['app/mwtnMediator/mwtnMediator.module',
     	if(mediatorServer!==undefined)
     	{
     		mediatorServer.ReloadConfig(name,function(changes){
-			   $scope.$apply();
+			   refresh($scope);
 			},
 			function(err){
 				console.log("cannot reach mediatorserver:"+err);
@@ -304,19 +325,19 @@ define(['app/mwtnMediator/mwtnMediator.module',
     	{
     		$scope.statusmessage='';
         	$scope.errormessage=msg;
-        	$scope.$apply();
+        	refresh($scope);
     	}
     	var status = function(msg)
     	{
     		$scope.statusmessage=msg;
         	$scope.errormessage='';
-        	$scope.$apply();
+        	refresh($scope);
     	}
     	var reloadDelayed = function()
     	{
     		setTimeout(function(){
 	    		mediatorServer.ReloadConfig(element.Name,function(res){
-	    			$scope.$apply();
+	    			refresh($scope);
 	    		},function(err){error(err);});
     		},1000);
     	}
@@ -324,11 +345,11 @@ define(['app/mwtnMediator/mwtnMediator.module',
     	{
     		mediatorServer.LoadLogs(currentElement.Name,function(res){
     			$scope.logdata=res;
-    			$scope.$apply();
+    			refresh($scope);
 
     		},function(err){
     			$scope.logdata=[];
-    			$scope.$apply();
+    			refresh($scope);
     		});
     	}
     	$scope.statusmessage='';
@@ -343,7 +364,8 @@ define(['app/mwtnMediator/mwtnMediator.module',
 
 	      ];
 	    $scope.logGridOptions.data = 'logdata';
-    	// $mwtnLog.info({component: COMPONENT, message: 'MediatorDetailsCtrl started!'});
+		// $mwtnLog.info({component: COMPONENT, message: 'MediatorDetailsCtrl started!'});
+		currentElement.RefreshDeviceName(mediatorServer);
 		$scope.data = {
 			el:currentElement
 		};
@@ -430,17 +452,19 @@ define(['app/mwtnMediator/mwtnMediator.module',
     	{
     		$scope.statusmessage=msg;
 			$scope.errormessage="";
-			$scope.$apply();
+			refresh($scope);
     	}
     	var error = function(msg)
     	{
     		$scope.statusmessage="";
 			$scope.errormessage=msg;
-			$scope.$apply();
-    	}
+			refresh($scope);
+		}
+		
     	$scope.options={
     		nexmlmodel:[],
-    		nedevicetype:MediatorConfig.DeviceTypes
+			nedevicetype:mediatorServer.GetSupportedDevices(),
+			shownemodels:mediatorServer.SupportsAutoDevice()
     	};
     	$scope.mediator={name:'',devicetype:0,remoteip:'',remoteport:161,trapsport:0,ncport:0,nexml:''};
     	$scope.odlconfig=mediatorServer.GetDefaultODLConfig();
@@ -449,7 +473,7 @@ define(['app/mwtnMediator/mwtnMediator.module',
     	//=======load data
     	mediatorServer.LoadNetworkElementXMLFiles(function(xmlNames){
     		$scope.options.nexmlmodel=xmlNames;
-    		$scope.$apply();
+    		refresh($scope);
     	},function(err){
     		error(err);
     	});
@@ -465,16 +489,28 @@ define(['app/mwtnMediator/mwtnMediator.module',
     			$scope.mediator.trapsport = portValues[0];
     		}
     	},function(err){error(err);});
-
+		mediatorServer.LoadSupportedDevices(function(devices){
+			$scope.options.nedevicetype=devices;
+			refresh($scope);
+		},function(err){error(err);});
 
     	$scope.errormessage='';
     	$scope.statusmessage='';
-
-    	//====handle events========
+		
+		//====handle events========
+		$scope.devicechange = function(){
+			var x=$scope.mediator.devicetype;
+			var xml=mediatorServer.GetXmlByType(x);
+			if(xml!==undefined && xml!="null")
+			{
+				$scope.mediator.nexml=xml;
+				refresh($scope);
+			}
+		}
     	$scope.odledit = function(){
     		$scope.odlsavebtn.enabled=true;
     		console.log("enable odl configs")
-    		$scope.$apply();
+    		refresh($scope);
     	}
     	$scope.odlsave = function(){
     		mediatorServer.SetDefaultODLConfig($scope.odlconfig);

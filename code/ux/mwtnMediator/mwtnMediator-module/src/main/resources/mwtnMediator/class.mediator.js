@@ -1,4 +1,44 @@
-function MediatorConfig(obj) {
+function DeviceInfo(obj){
+	if(obj !== undefined) {
+		this.Id = obj.id;
+		this.Vendor = obj.vendor;
+		this.Device = obj.device;
+		this.Version = obj.version;
+		this.Xml = obj.xml;
+	}
+	else
+		{
+		this.Id = 0;
+		this.Vendor = "unknown";
+		this.Device = "unknown";
+		this.Version = "0.0.0";
+		this.Xml = "unknown.xml";		
+		}
+
+}
+DeviceInfo.prototype.GetFullName = function()
+{
+	return this.Vendor + " "+ this.Device+" ("+this.Version+")";
+}
+function Version(str){
+	var x=str.split('.');
+	this.Main = parseInt(x[0]);
+	this.Major = parseInt(x[1]);;
+	this.Minor = parseInt(x[2]);;
+}
+Version.prototype.isBiggerThan = function(s)
+{
+	if(typeof(s)==='string')
+		s=new Version(s);
+	if(this.Main>s.Main)
+		return true;
+	if(this.Major>s.Major)
+		return true;
+	if(this.Minor>s.Minor)
+		return true;
+	return false;
+}
+function MediatorConfig(obj,server) {
 	if (obj !== undefined) {
 		this.Name = obj.Name;
 		this.DeviceType = obj.DeviceType;
@@ -32,13 +72,13 @@ function MediatorConfig(obj) {
 		this.FirewallRuleActive = false;
 		this.OpenDaylightConfigs=[];
 	}
-	this.DeviceTypeString = this.getDeviceTypeString();
+	this.DeviceTypeString = server.getDeviceTypeString(this.DeviceType);
 	var n=this.NetconfConnections===undefined?"0":this.NetconfConnections.length;
 	var o=this.OpenDaylightConfigs===undefined?"0":this.OpenDaylightConfigs.length;
 	this.ConnectionStatus = {Netconf:this.IsNetConfConnected,NetworkElement:this.IsNetworkElementConnected,NetconfConnetionsString:""+n+"/"+o}
 
 }
-MediatorConfig.prototype.refreshData = function(obj)
+MediatorConfig.prototype.refreshData = function(obj,server)
 {
 	if(obj!==undefined)
 	{
@@ -58,23 +98,16 @@ MediatorConfig.prototype.refreshData = function(obj)
 		this.FirewallRuleActive = obj.fwactive;
 		this.OpenDaylightConfigs = obj.ODLConfig;
 	}
-	this.DeviceTypeString = this.getDeviceTypeString();
+	this.DeviceTypeString = server.getDeviceTypeString(this.DeviceType);
 	var n=this.NetconfConnections===undefined?"0":this.NetconfConnections.length;
 	var o=this.OpenDaylightConfigs===undefined?"0":this.OpenDaylightConfigs.length;
 	this.ConnectionStatus = {Netconf:this.IsNetConfConnected,NetworkElement:this.IsNetworkElementConnected,NetconfConnetionsString:""+n+"/"+o}
 
 }
-MediatorConfig.prototype.getDeviceTypeString = function()
+MediatorConfig.prototype.RefreshDeviceName = function(server)
 {
-	var i;
-	for(i=0;i<MediatorConfig.DeviceTypes.length;i++)
-	{
-		if(MediatorConfig.DeviceTypes[i].Value==this.DeviceType)
-			return MediatorConfig.DeviceTypes[i].Name;
-	}
-	return "unknown";
+	this.DeviceTypeString = server.getDeviceTypeString(this.DeviceType);
 }
-MediatorConfig.DEVICETYPE_SIMULATOR =0;
 
 function MediatorConfigStatus(obj){
 	this.Status=obj.Status;
@@ -91,9 +124,9 @@ MediatorConfigStatus.StatusTypes=[
 	{Value:MediatorConfigStatus.STATUS_REPAIRED,Name:"Repaired"}
 ];
 
-MediatorConfig.DeviceTypes=[
-{Value:MediatorConfig.DEVICETYPE_SIMULATOR,Name:"Simulator"}];
-
+MediatorConfig.DefaultDeviceInfos=[{
+	id:0,vendor:"OpenSource",device:"Simulator",version:"1.0.0",xml:"DVM_MWCore12_BasicAir.xml"
+}];
 MediatorConfig.prototype.IsRunning = function() {
 	return this.PID > 0;
 }
@@ -181,8 +214,11 @@ function MediatorServer(url) {
 	this._root = this._root + "/";
 	this._mediatorConfigs = [];
 	this._neXMLFilenames = undefined;
-	this.defaultODLConfig = {Server:"sendateodl5.fritz.box",Port:8181,User:"admin",Password:"admin"};
-
+	this._supportedDevices = [];
+	this.defaultODLConfig = {Server:location.hostname,Port:8181,User:"admin",Password:"admin"};
+	this._serverVersion=undefined;
+	this._mediatorVersion=undefined;
+	this._autoDeviceSupported=false;
 }
 MediatorServer.prototype.getConfigs = function(){return this._mediatorConfigs;}
 
@@ -193,6 +229,50 @@ MediatorServer.prototype.SetDefaultODLConfig = function(cfg)
 MediatorServer.prototype.GetDefaultODLConfig = function()
 {
 	return this.defaultODLConfig;
+}
+MediatorServer.prototype.GetSupportedDevices = function()
+{
+	return this._supportedDevices;
+}
+MediatorServer.prototype.SupportsAutoDevice = function()
+{
+	return this._autoDeviceSupported;
+}
+MediatorServer.prototype.GetXmlByType = function(devType)
+{
+	var xml=undefined;
+	if(this._supportedDevices!==undefined && this._supportedDevices.length>0)
+	{
+		for(var i=0;i<this._supportedDevices.length;i++)
+		{
+			if(this._supportedDevices[i].Id==devType)
+			{
+				xml=this._supportedDevices[i].Xml;
+				break;
+			}
+		}
+	}
+	return xml;
+}
+MediatorServer.prototype.getDeviceTypeString = function(deviceType)
+{
+	var i;
+	if(this._supportedDevices!==undefined)
+	{
+		for(i=0;i<this._supportedDevices.length;i++)
+		{
+			if(this._supportedDevices[i].Id==deviceType)
+				return this._supportedDevices[i].GetFullName();
+		}
+	}
+	for(i=0;i<MediatorConfig.DefaultDeviceInfos.length;i++)
+	{
+		if(MediatorConfig.DefaultDeviceInfos[i].id==deviceType)
+		{
+			return new DeviceInfo(MediatorConfig.DefaultDeviceInfos[i]).GetFullName();
+		}
+	}
+	return "unknown";
 }
 MediatorServer.prototype.refreshConfig = function(configs,cb)
 {
@@ -214,7 +294,7 @@ MediatorServer.prototype.refreshConfig = function(configs,cb)
 				if(this._mediatorConfigs[j].Name==configs[i].Name)
 				{
 					//refresh data
-					this._mediatorConfigs[j].refreshData(configs[i]);
+					this._mediatorConfigs[j].refreshData(configs[i],mediatorServer);
 					changed.push(configs[i]);
 					break;
 				}
@@ -227,14 +307,66 @@ MediatorServer.prototype.refreshConfig = function(configs,cb)
 MediatorServer.prototype.onConfigsReceived = function(configJSONArray) {
 	this._mediatorConfigs = [];
 	for (var i = 0; i < configJSONArray.length; i++) {
-		var c = new MediatorConfig(configJSONArray[i]);
+		var c = new MediatorConfig(configJSONArray[i],this);
 		this._mediatorConfigs.push(c);
 	}
 }
 MediatorServer.prototype.onNeXMLReceived = function(neXMLFilenamesArray) {
 	this._neXMLFilenames = neXMLFilenamesArray;
 }
-
+MediatorServer.prototype.onSupportedDevicesReceived = function(devicesArray){
+	this._supportedDevices = [];
+	if(devicesArray!==undefined)
+	{
+		for(var i=0;i<devicesArray.length;i++)
+		this._supportedDevices.push(new DeviceInfo(devicesArray[i]));
+	}
+}
+MediatorServer.prototype.LoadSupportedDevices = function(cb,cbError) {
+	if(this._supportedDevices!==undefined && this._supportedDevices.length>0)
+	{
+		if(cb!==undefined)
+			cb(this._supportedDevices);
+	}
+	else
+	{
+		if(this._serverVersion!==undefined)
+		{
+			if(this._serverVersion.isBiggerThan("1.0.4"))
+			{
+				var _self = this;
+				this.post("getdevices", function(response) {
+					if (response.code == 1) {
+						_self.onSupportedDevicesReceived(response.data);
+						this._autoDeviceSupported=true;
+						if (cb !== undefined)
+							cb(_self._neXMLFilenames);
+					} else
+					{
+						_self.log(response.data);
+						if(cbError!==undefined)
+							cbError(response.data);
+					}
+				},function(err){
+					if(cbError!==undefined)
+						cbError(err);
+				});
+			}
+			else
+			{
+				this.onSupportedDevicesReceived(MediatorConfig.DefaultDeviceInfos);
+				this._autoDeviceSupported=false;
+			}
+		}
+		else
+		{
+			var _self = this;
+			this.LoadVersion(function(){
+				_self.LoadSupportedDevices(cb,cbError);
+			});
+		}
+	}
+}
 MediatorServer.prototype.LoadNetworkElementXMLFiles = function(cb,cbError) {
 	var _self = this;
 	this.post("getnemodels", function(response) {
@@ -397,6 +529,7 @@ MediatorServer.prototype.LoadVersion = function(cb,cbError)
 	var _self = this;
 	this.post("version", function(response) {
 		if (response.code == 1) {
+			_self.onVersionsReceived(response.data);
 			if (cb !== undefined)
 				cb(response.data);
 		} else {
@@ -407,6 +540,10 @@ MediatorServer.prototype.LoadVersion = function(cb,cbError)
 		if(cbError!==undefined)
 			cbError(err);
 	});
+}
+MediatorServer.prototype.onVersionsReceived = function(versions){
+	this._serverVersion = new Version(versions.server);
+	this._mediatorVersion = new Version(versions.mediator);
 }
 /*
  * name: <String> deviceType: <int> deviceip: <Ipv4-String> trapsPort:<int>
@@ -425,7 +562,7 @@ MediatorServer.prototype.CreateMediator = function(name,devicetype,deviceip,devi
 			TrapPort:trapsPort,
 			NeXMLFile:nexml,
 			NcPort:ncport
-		});
+		},this);
 		obj.TestParams();
 	}
 	catch(e)
