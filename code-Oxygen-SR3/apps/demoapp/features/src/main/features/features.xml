@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vi: set et smarttab sw=4 tabstop=4: -->
+<!--
+Copyright © 2018 sendate.eu and others. All rights reserved.
+
+This program and the accompanying materials are made available under the
+terms of the Eclipse Public License v1.0 which accompanies this distribution,
+and is available at http://www.eclipse.org/legal/epl-v10.html
+-->
+<features name="odl-demoapp-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
+  <repository>mvn:org.opendaylight.yangtools/features-yangtools/2.0.6.1/xml/features</repository>
+  <repository>mvn:org.opendaylight.controller/features-mdsal/1.7.3/xml/features</repository>
+  <repository>mvn:org.opendaylight.mdsal.model/features-mdsal-model/0.12.3/xml/features</repository>
+  <!-- repository>mvn:org.opendaylight.odlparent/features-odlparent/1.9.0/xml/features</repository -->
+  <repository>mvn:org.opendaylight.netconf/features-restconf/1.7.3/xml/features</repository>
+  <repository>mvn:org.opendaylight.dlux/features-dlux/0.7.3/xml/features</repository>
+
+  <feature name="odl-demoapp" version="${project.version}" description="Workshop 20181205 :: Demo App">
+    <bundle>mvn:org.opendaylight.mwtn/demoapp-api/{{VERSION}}</bundle>
+    <bundle>mvn:org.opendaylight.mwtn/demoapp-impl/{{VERSION}}</bundle>
+    <configfile finalname="${configfile.directory}/demoapp.xml">mvn:org.opendaylight.mwtn/demoapp-impl/${project.version}/xml/config</configfile>
+  </feature>
+
+</features>
