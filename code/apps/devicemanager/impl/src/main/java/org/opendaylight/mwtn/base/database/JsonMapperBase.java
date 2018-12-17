@@ -53,16 +53,48 @@ public class JsonMapperBase extends ObjectMapper {
         getFactory().configure(Feature.ESCAPE_NON_ASCII, true);
     }
 
+    public JsonMapperBase(int t) {
+
+    	switch(t) {
+    		case 0:
+    			break;
+	    	case 1:
+	    		setVisibility(PropertyAccessor.ALL, Visibility.NONE);
+	    		setVisibility(PropertyAccessor.FIELD, Visibility.DEFAULT);
+	    		break;
+	    	case 2:
+	    		setVisibility(PropertyAccessor.ALL, Visibility.NONE);
+	    		setVisibility(PropertyAccessor.FIELD, Visibility.PROTECTED_AND_PUBLIC);
+	    		break;
+	    	case 3:
+	    		setVisibility(PropertyAccessor.ALL, Visibility.NONE);
+	    		setVisibility(PropertyAccessor.GETTER, Visibility.ANY);
+	    		setVisibility(PropertyAccessor.IS_GETTER, Visibility.ANY);
+	    		break;
+	    	default:
+	    		setVisibility(PropertyAccessor.ALL, Visibility.NONE);
+	            setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
+	    		break;
+
+    	}
+
+        // Deserialization
+        configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true);
+
+        // Serialization
+        configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        getFactory().configure(Feature.ESCAPE_NON_ASCII, true);
+    }
+
+
 
     public String objectToJson( Object object ) {
         String res = null;
 
         try {
 
-            StringWriter stringEmp = new StringWriter();
-            writeValue(stringEmp, object);
-            res = stringEmp.toString();
-            stringEmp.close();
+        	res = writeValueAsString(object);
 
         } catch (JsonGenerationException e) {
             LOG.debug(e.toString());

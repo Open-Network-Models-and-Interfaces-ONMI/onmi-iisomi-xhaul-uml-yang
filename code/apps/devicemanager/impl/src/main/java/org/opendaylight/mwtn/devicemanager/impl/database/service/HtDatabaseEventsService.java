@@ -16,21 +16,37 @@
 
 package org.opendaylight.mwtn.devicemanager.impl.database.service;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Nonnull;
+import javax.management.InvalidApplicationException;
+
 import org.opendaylight.mwtn.base.database.HtDataBaseReaderAndWriter;
 import org.opendaylight.mwtn.base.database.HtDatabaseClientAbstract;
 import org.opendaylight.mwtn.base.database.HtDatabaseNode;
 import org.opendaylight.mwtn.base.database.IndexClientBuilder;
+import org.opendaylight.mwtn.base.database.JsonMapperBase;
+import org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElement12Equipment;
 import org.opendaylight.mwtn.devicemanager.impl.database.types.EsEventBase;
 import org.opendaylight.mwtn.devicemanager.impl.database.types.EsFaultCurrent;
 import org.opendaylight.mwtn.devicemanager.impl.database.types.EsFaultLog;
+import org.opendaylight.mwtn.devicemanager.impl.database.types.equipment.EsEquipment;
+import org.opendaylight.mwtn.devicemanager.impl.database.types.equipment.EsToplevelEquipment;
+import org.opendaylight.mwtn.devicemanager.impl.database.types.equipment.ExtendedEquipment;
 import org.opendaylight.mwtn.devicemanager.impl.xml.AttributeValueChangedNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.MwtNotificationBase;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectCreationNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ObjectDeletionNotificationXml;
 import org.opendaylight.mwtn.devicemanager.impl.xml.ProblemNotificationXml;
+import org.opendaylight.yang.gen.v1.urn.onf.params.xml.ns.yang.core.model.rev170320.Equipment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,6 +68,8 @@ public class HtDatabaseEventsService {
     private HtDataBaseReaderAndWriter<EsEventBase> eventRWEventLog;
     private HtDataBaseReaderAndWriter<EsFaultCurrent> eventRWFaultCurrent;
     private HtDataBaseReaderAndWriter<EsFaultLog> eventRWFaultLog;
+    private HtDataBaseReaderAndWriter<EsEquipment> eventRWEquipment;
+    private HtDataBaseReaderAndWriter<EsToplevelEquipment> eventRWToplevelEquipment;
 
 
     // --- Construct and initialize
@@ -68,6 +86,8 @@ public class HtDatabaseEventsService {
             eventRWEventLog = new HtDataBaseReaderAndWriter<>(client, EsEventBase.ESDATATYPENAME, EsEventBase.class);
             eventRWFaultLog = new HtDataBaseReaderAndWriter<>(client, EsFaultLog.ESDATATYPENAME, EsFaultLog.class);
             eventRWFaultCurrent = new HtDataBaseReaderAndWriter<>(client, EsFaultCurrent.ESDATATYPENAME, EsFaultCurrent.class);
+            eventRWToplevelEquipment = new HtDataBaseReaderAndWriter<>(client, EsToplevelEquipment.ESDATATYPENAME, EsToplevelEquipment.class);
+            eventRWEquipment = new HtDataBaseReaderAndWriter<>(client, EsEquipment.ESDATATYPENAME, EsEquipment.class);
 
 
         } catch (Exception e) {
@@ -187,5 +207,32 @@ public class HtDatabaseEventsService {
         }
         return nodeNames;
     }
+
+
+    /**
+     * Write inventory to DB
+     * @param equipment all equipment of network element
+     */
+    public void writeInventory(ONFCoreNetworkElement12Equipment equipment) {
+        if (client == null) {
+            LOG.debug("No DB, can not write for mountpoint: {}",equipment.getMountpoint());
+            return;
+        }
+
+        LOG.debug("Write inventory to database for mountpoint: {}",equipment.getMountpoint());
+
+        EsToplevelEquipment esToplevelEquipment = new EsToplevelEquipment();
+        esToplevelEquipment.set(equipment);
+        eventRWToplevelEquipment.doWrite(esToplevelEquipment);
+
+        List<ExtendedEquipment> equipmentList = equipment.getEquipmentList();
+        EsEquipment esEquipment;
+        for (ExtendedEquipment equipment1 : equipmentList) {
+            esEquipment = new EsEquipment();
+            esEquipment.set(equipment.getMountpoint(), equipment1);
+            eventRWEquipment.doWrite(esEquipment);
+        }
+    }
+
 
 }

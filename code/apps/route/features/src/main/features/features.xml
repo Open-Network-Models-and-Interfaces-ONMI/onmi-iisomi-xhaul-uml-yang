@@ -10,11 +10,11 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
 <features name="odl-route-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
-    <repository>mvn:org.opendaylight.yangtools/features-yangtools/{{VERSION}}/xml/features</repository>
-    <repository>mvn:org.opendaylight.controller/features-mdsal/{{VERSION}}/xml/features</repository>
-    <repository>mvn:org.opendaylight.mdsal.model/features-mdsal-model/{{VERSION}}/xml/features</repository>
-    <repository>mvn:org.opendaylight.netconf/features-restconf/{{VERSION}}/xml/features</repository>
-    <repository>mvn:org.opendaylight.dlux/features-dlux/{{VERSION}}/xml/features</repository>
+    <repository>mvn:org.opendaylight.yangtools/features-yangtools/${yangtools.version}/xml/features</repository>
+    <repository>mvn:org.opendaylight.controller/features-mdsal/${mdsal.version}/xml/features</repository>
+    <repository>mvn:org.opendaylight.mdsal.model/features-mdsal-model/${mdsal.model.version}/xml/features</repository>
+    <repository>mvn:org.opendaylight.netconf/features-restconf/${restconf.version}/xml/features</repository>
+    <repository>mvn:org.opendaylight.dlux/features-dlux/${dlux.version}/xml/features</repository>
     <feature name='odl-route' version='${project.version}' description='OpenDaylight :: route'>
         <feature version="${restconf.version}">odl-mdsal-apidocs</feature>
         <feature version="${mdsal.version}">odl-mdsal-xsql</feature>
@@ -24,8 +24,8 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
         <feature version="${restconf.version}">odl-restconf</feature>
         <bundle>mvn:net.iharder/base64/2.3.9</bundle>
         <bundle>mvn:com.github.briandilley.jsonrpc4j/jsonrpc4j/1.2.0</bundle>
-        <bundle>mvn:org.opendaylight.mwtn/devicemodel/{{VERSION}}</bundle>
-        <bundle>mvn:com.highstreet.technologies.odl.app/route-api/{{VERSION}}</bundle>
-        <bundle>mvn:com.highstreet.technologies.odl.app/route-impl/{{VERSION}}</bundle>
+        <bundle>mvn:org.opendaylight.mwtn/devicemodel/${project.version}</bundle>
+        <bundle>mvn:com.highstreet.technologies.odl.app/route-api/${project.version}</bundle>
+        <bundle>mvn:com.highstreet.technologies.odl.app/route-impl/${project.version}</bundle>
     </feature>
 </features>
