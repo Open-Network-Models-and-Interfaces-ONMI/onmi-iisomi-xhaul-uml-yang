@@ -71,7 +71,7 @@ public class IndexClientBuilder implements AutoCloseable {
 
     private void setupIndex() {
 		if (! client.isExistsIndex()) {
-			LOG.info("Index not existing ... create index");
+			LOG.info("Index not existing ... create index {}",index);
 
 			// Initialisation 1
 			if (mappingSettingFileName != null) {

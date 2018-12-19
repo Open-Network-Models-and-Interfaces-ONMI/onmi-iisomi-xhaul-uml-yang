@@ -111,6 +111,18 @@
 		},
 		"inventoryequipment": {
 			"properties": {
+				"parentUuid": {
+					"index": "not_analyzed",
+					"type": "string"
+				},
+				"manufacturerName":{
+					"index": "not_analyzed",
+					"type": "string"
+				},
+				"manufacturerIdentifier": {
+					"index": "not_analyzed",
+					"type": "string"
+				},
 				"date": {
 					"index": "not_analyzed",
 					"type": "string"
