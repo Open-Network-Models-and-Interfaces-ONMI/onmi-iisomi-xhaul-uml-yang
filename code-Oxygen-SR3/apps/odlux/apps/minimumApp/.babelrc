@@ -1,0 +1,17 @@
+{
+  "presets": [
+    ["@babel/preset-react"],
+    ["@babel/preset-env", {
+      "targets": {
+        "chrome": "66"
+      },
+      "spec": true,
+      "loose": false,
+      "modules": false,
+      "debug": false,
+      "useBuiltIns": "usage",
+      "forceAllTransforms": true
+    }]
+  ],
+  "plugins": []
+}

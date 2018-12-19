@@ -30,7 +30,7 @@
 Version=2.24
 
 # ----- Constants not depending on variables specified by $CONFIG
-ODLPARENT="0.5.1-SNAPSHOT"
+ODLPARENT="0.7.3-SNAPSHOT"
 STARTFEATURE="odl-dev-all"
 KARAFSLEEPFORSTART=30
 ODLBIN=../bin

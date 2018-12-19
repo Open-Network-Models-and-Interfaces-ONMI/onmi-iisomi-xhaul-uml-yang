@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "outDir": "./dist",
+    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": false,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "pretty": true,
+    "newLine": "LF",
+    "module": "es2015",
+    "target": "es2016",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "jsx": "preserve",
+    "lib": [
+      "dom",
+      "es2015",
+      "es2016"
+    ],
+    "types": [
+      "prop-types",
+      "react",
+      "react-dom"
+    ]
+  },
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
+}
