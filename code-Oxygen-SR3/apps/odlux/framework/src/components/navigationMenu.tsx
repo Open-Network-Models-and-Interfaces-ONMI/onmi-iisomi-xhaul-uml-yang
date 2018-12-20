@@ -50,8 +50,8 @@ export const NavigationMenu = withStyles(styles)(connect()(({ classes, state }: 
           }) || null
         }
         <Divider />
-       <ListItemLink to="/about" primary="About" icon={ <FontAwesomeIcon icon={ faAddressBook } /> } />
-       </List>
+        <ListItemLink to="/about" primary="About" icon={ <FontAwesomeIcon icon={ faAddressBook } /> } />
+      </List>
       {/* <Divider />
             <List>
               <ListItemLink to="/inbox" primary="Inbox" icon={ <InboxIcon /> } />

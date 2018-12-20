@@ -132,8 +132,8 @@ module.exports = (env) => [{
       colors: true
     },
     proxy: {
-      "/database": {
-        target: "http://localhost:8181",
+      "/api": {
+        target: "http://localhost:3001",
         secure: false
       }
     }

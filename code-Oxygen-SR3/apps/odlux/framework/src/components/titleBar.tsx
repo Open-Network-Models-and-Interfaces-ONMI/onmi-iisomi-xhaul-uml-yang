@@ -11,6 +11,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Logo from './logo';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -29,10 +30,11 @@ const styles = (theme: Theme) => createStyles({
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20,
+    marginRight: 12,
   },
   icon: {
-    marginRight: 12
+    marginLeft: 24,
+    marginRight: 8,
   }
 });
 
@@ -64,6 +66,7 @@ class TitleBarComponent extends React.Component<TitleBarProps, { anchorEl: HTMLE
           <IconButton className={ classes.menuButton } color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
+          <Logo />
           <Typography variant="title" color="inherit" className={ classes.grow }>
             { state.framework.applicationState.icon
               ? (<FontAwesomeIcon className={ classes.icon } icon={ state.framework.applicationState.icon } />)

@@ -9,7 +9,6 @@
 const webpack = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const requirejsPlugin = require('requirejs-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const path = require("path");
 const process = require("process");
@@ -18,14 +17,16 @@ const autoprefixer = require("autoprefixer");
 // const __dirname = (path => path.replace(/^([a-z]\:)/, c => c.toUpperCase()))(process.__dirname());
 
 module.exports = (env) => [{
-  name: "Client",
+  name: "App",
+
   mode: "none", //disable default behavior
+
   target: "web",
 
   context: path.resolve(__dirname, "src"),
 
   entry: {
-    app: ["./app.tsx", "./services/applicationManager","./components/material-table"],
+    connectApp: ["./plugin.tsx"]
   },
 
   devtool: env === "release" ? false : "source-map",
@@ -36,12 +37,11 @@ module.exports = (env) => [{
 
   output: {
     path: path.resolve(__dirname, "dist"),
-    library: "[name]", // related to webpack.DllPlugin::name
-    libraryTarget: "umd2",
     filename: "[name].js",
+    library: "[name]",
+    libraryTarget: "umd2",
     chunkFilename: "[name].js"
   },
-
   module: {
     rules: [{
       test: /\.tsx?$/,
@@ -62,47 +62,23 @@ module.exports = (env) => [{
 
   optimization: {
     noEmitOnErrors: true,
-    namedModules: true,
+    namedModules: env !== "release"
   },
 
   plugins: [
-    new CopyWebpackPlugin([{
-      from: '../../node_modules/requirejs/require.js',
-      to: '.'
-    }, {
-      from: './favicon.ico',
-      to: '.'
-    }, {
-      from: './index.html',
-      to: '.'
-    }]),
-    new requirejsPlugin({
-      path: path.join(__dirname, 'dist'),
-      filename: 'config.js',
-      baseUrl: '',
-      pathUrl: '',
-      processOutput: function (assets) {
-        return 'require.config(' + JSON.stringify(assets,null,2) + ')';
-      }
-    }),
-    // new HtmlWebpackPlugin({
-    //   filename: "index.html",
-    //   template: "./index.html",
-    //   inject: "head"
-    // }),
-    // new HtmlWebpackIncludeAssetsPlugin({
-    //    assets: ['vendor.js'],
-    //    append: false
-    // }),
+    //  new CopyWebpackPlugin([{
+    //    from: '../../../framework/dist/**.*',
+    //    to: path.resolve(__dirname, "dist")
+    //  }]),
     new webpack.DllReferencePlugin({
-      context: path.resolve(__dirname, "src"),
-      manifest: require("./dist/vendor-manifest.json"),
+      context: path.resolve(__dirname, "../../framework/src"),
+      manifest: require("../../framework/dist/vendor-manifest.json"),
       sourceType: "umd2"
     }),
-    new webpack.DllPlugin({
-      context: path.resolve(__dirname, "src"),
-      name: "[name]",
-      path: path.resolve(__dirname, "dist", "[name]-manifest.json")
+    new webpack.DllReferencePlugin({
+      context: path.resolve(__dirname, "../../framework/src"),
+      manifest: require("../../framework/dist/app-manifest.json"),
+      sourceType: "umd2"
     }),
     ...(env === "release") ? [
       new webpack.DefinePlugin({
@@ -111,36 +87,35 @@ module.exports = (env) => [{
           VERSION: JSON.stringify(require("./package.json").version)
         }
       }),
-     new UglifyJsPlugin({
-       sourceMap: true,
-       uglifyOptions: {
-         mangle: true,
-         compress: {
-           drop_console: true,
-           drop_debugger: true,
-           warnings: true
-         },
-         warnings: true
-       }
-     })
+      new UglifyJsPlugin({
+        sourceMap: true,
+        uglifyOptions: {
+          mangle: true,
+          compress: {
+            drop_console: true,
+            drop_debugger: true,
+            warnings: true
+          },
+          warnings: true
+        }
+      })
     ] : [
-      new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({
         "process.env": {
           NODE_ENV: "'development'",
           VERSION: JSON.stringify(require("./package.json").version)
         }
       }),
-      new webpack.WatchIgnorePlugin([
-        /css\.d\.ts$/,
-        /less\.d\.ts$/
-      ])
+      new CopyWebpackPlugin([{
+        from: 'index.html',
+        to: path.resolve(__dirname, "dist")
+      }]),
     ]
   ],
 
   devServer: {
     public: "http://localhost:3100",
-    contentBase: path.resolve(__dirname, "dist"),
+    contentBase: path.resolve(__dirname, "../../framework/dist/"),
 
     compress: true,
     headers: {
@@ -157,11 +132,10 @@ module.exports = (env) => [{
       colors: true
     },
     proxy: {
-      "/api/**/*": {
+      "/api": {
         target: "http://localhost:3001",
         secure: false
       }
     }
   }
-
 }];

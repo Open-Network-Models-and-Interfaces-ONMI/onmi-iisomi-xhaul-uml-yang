@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Button from '@material-ui/core/Button';
+import Logo from '../components/logo';
 
 class BuggyCounter extends React.Component<{}, {counter:number}> {
   constructor(props: {}) {
@@ -31,6 +32,7 @@ export const Home = (props: React.Props<any>) => {
         Throw an Error1
       </Button>
       <BuggyCounter />
+      <Logo />
     </div>
   )
 }
