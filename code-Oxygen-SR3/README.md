@@ -139,6 +139,12 @@ With the equipment simulator you can see a first eqample of the new "O D L UX" u
   * Connect the ODL to the running simulator using the DLUX/Connect app http://localhost:8181/index.html#/connect and the Mount NETCONF Servers (devices, nodes, mediators, controllers, ...) folder.
   * If connected open the url http://<ip/name>:8181/index2.html#/inventoryApp
 
+Commands to start "O D L UX" added at the end of ```dist.conf``` ```to karaf_startup_dev()``` function:
+
+    karafcmd "repo-add mvn:com.highstreet.technologies.odlux/odlux-core-features/$ODLPARENT/xml/features"
+    karafcmd "feature:install odl-ht-odlux"
+
+
 
 ##### Further commands of odl script
 
