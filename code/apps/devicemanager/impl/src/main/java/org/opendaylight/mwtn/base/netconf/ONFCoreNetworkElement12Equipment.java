@@ -49,10 +49,10 @@ public class ONFCoreNetworkElement12Equipment {
     	this.coreData = coreData;
         if (capabilities.isSupportingNamespaceAndRevision(WrapperEquipmentPacRev170402.QNAME)) {
         	this.equipmentPac = new WrapperEquipmentPacRev170402(coreData);
-        	LOG.debug("Equipement pac supported {}", WrapperEquipmentPacRev170402.QNAME);
+        	LOG.debug("Equipment pac supported {}", WrapperEquipmentPacRev170402.QNAME);
         } else {
         	this.equipmentPac = null;
-        	LOG.debug("Equipement pac not supported {}", WrapperEquipmentPacRev170402.QNAME);
+        	LOG.debug("Equipment pac not supported {}", WrapperEquipmentPacRev170402.QNAME);
         }
 
         extensions = new ValueNameList();
