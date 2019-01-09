@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.opensymphony.xwork2.util.ClassLoaderUtil;
-
 public class IndexServlet  extends HttpServlet {
 	/**
 	 * 
@@ -25,17 +23,20 @@ public class IndexServlet  extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		LOG.debug("req in indexservlet :"+req.getRequestURI());
-		URL url = ClassLoaderUtil.getResource("index.html", this.getClass());
-		String fileContent = this.loadFileContent(url);
-		if (fileContent != null) {
-			LOG.debug("found file in res. write to output stream");
-			resp.setStatus(200);
-			resp.getOutputStream().write(fileContent.getBytes(java.nio.charset.StandardCharsets.UTF_8));
-		} else {
-			LOG.debug("no file found in res.");
-			resp.setStatus(404);
-		}
+		LOG.debug("redirect to odlux/index.html");
+		resp.sendRedirect("odlux/index.html");
+//		
+//		LOG.debug("req in indexservlet :"+req.getRequestURI());
+//		URL url = ClassLoaderUtil.getResource("index.html", this.getClass());
+//		String fileContent = this.loadFileContent(url);
+//		if (fileContent != null) {
+//			LOG.debug("found file in res. write to output stream");
+//			resp.setStatus(200);
+//			resp.getOutputStream().write(fileContent.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+//		} else {
+//			LOG.debug("no file found in res.");
+//			resp.setStatus(404);
+//		}
 	}
 	private String loadFileContent(URL url) {
 		StringBuilder sb = new StringBuilder();

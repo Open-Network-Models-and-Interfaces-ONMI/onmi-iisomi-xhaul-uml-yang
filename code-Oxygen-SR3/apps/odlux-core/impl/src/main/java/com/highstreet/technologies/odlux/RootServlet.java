@@ -24,6 +24,5 @@ public class RootServlet extends HttpServlet {
 		
 		LOG.debug("redirect to index2.html");
 		resp.sendRedirect("index2.html");
-		super.doGet(req, resp);
 	}
 }
