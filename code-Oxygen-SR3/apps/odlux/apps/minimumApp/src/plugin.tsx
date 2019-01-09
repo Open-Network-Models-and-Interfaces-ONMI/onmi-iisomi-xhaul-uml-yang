@@ -17,12 +17,12 @@ const App = (props: AppProps) => (
 ); 
  
 const FinalApp = withRouter(connect()(App)); 
-
-applicationManager.registerApplication({ 
-  name: "minimumApp",
-  icon: faLock,
-  rootComponent: FinalApp,
-  rootActionHandler: minimumAppRootHandler,
-  menuEntry: "Minimum App"
-});
-
+export function register(){
+	applicationManager.registerApplication({ 
+	  name: "minimumApp",
+	  icon: faLock,
+	  rootComponent: FinalApp,
+	  rootActionHandler: minimumAppRootHandler,
+	  menuEntry: "Minimum App"
+	});
+};
