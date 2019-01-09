@@ -1,5 +1,6 @@
 {
   "private": true,
+  "version": "0.1.0",
   "workspaces": ["framework", "apps/*"],
   "scripts": {
     "init": "lerna bootstrap --hoist"
@@ -21,7 +22,9 @@
     "@fortawesome/fontawesome-svg-core": "1.2.4",
     "@fortawesome/free-solid-svg-icons": "5.3.1",
     "jsonwebtoken": "8.3.0",
-    "@types/jsonwebtoken": "7.2.8"
+    "@types/jsonwebtoken": "7.2.8",
+    "x2js": "3.2.3",
+    "@types/x2js": "3.1.0"
   },
   "devDependencies": {
     "@babel/core": "7.1.0",
@@ -44,7 +47,7 @@
     "sass-loader": "7.1.0",
     "node-sass": "4.9.3",
     "ts-loader": "5.2.1",
-    "typescript": "3.1.1",
+    "typescript": "3.2.2",
     "extract-text-webpack-plugin": "next",
     "typings-for-css-modules-loader": "1.7.0",
     "uglifyjs-webpack-plugin": "2.0.1",

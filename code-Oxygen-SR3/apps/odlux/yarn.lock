@@ -817,6 +817,13 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
+"@types/x2js@3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@types/x2js/-/x2js-3.1.0.tgz#d809ef1ace1a8b55b3e8cb6a1a0b282af66475be"
+  integrity sha1-2AnvGs4ai1Wz6MtqGgsoKvZkdb4=
+  dependencies:
+    x2js "*"
+
 "@webassemblyjs/ast@1.7.8":
   version "1.7.8"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.7.8.tgz#f31f480debeef957f01b623f27eabc695fa4fe8f"
@@ -6459,10 +6466,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.1.1.tgz#3362ba9dd1e482ebb2355b02dfe8bcd19a2c7c96"
-  integrity sha512-Veu0w4dTc/9wlWNf2jeRInNodKlcdLgemvPsrNpfu5Pq39sgfFjvIIgTsvUHCoLBnMhPoUA+tFxsXjU6VexVRQ==
+typescript@3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.2.2.tgz#fe8101c46aa123f8353523ebdcf5730c2ae493e5"
+  integrity sha512-VCj5UiSyHBjwfYacmDuc/NOk4QQixbE+Wn7MFJuS0nRuPQbof132Pw4u53dm264O8LPc2MVsc7RJNml5szurkg==
 
 typings-for-css-modules-loader@1.7.0:
   version "1.7.0"
@@ -6917,6 +6924,18 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
   integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
+
+x2js@*, x2js@3.2.3:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/x2js/-/x2js-3.2.3.tgz#b59c0c5f18d36c7391b8a1db068e2bc10132c960"
+  integrity sha512-LJNWWp+WFOdsrp2nfTuC6+erPjZSNfeHsrdWPGpesj5g0gj2WwsedsqbN33wZWf/3loQA0jIR58jrx5Cyj7G/Q==
+  dependencies:
+    xmldom "^0.1.19"
+
+xmldom@^0.1.19:
+  version "0.1.27"
+  resolved "https://registry.yarnpkg.com/xmldom/-/xmldom-0.1.27.tgz#d501f97b3bdb403af8ef9ecc20573187aadac0e9"
+  integrity sha1-1QH5ezvbQDr4757MIFcxh6rawOk=
 
 xregexp@4.0.0:
   version "4.0.0"
