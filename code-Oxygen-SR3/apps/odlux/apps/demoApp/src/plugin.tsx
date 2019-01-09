@@ -24,13 +24,14 @@ const App = (props: AppProps) => (
 ); 
  
 const FinalApp = withRouter(connect()(App)); 
+export function register(){
 
-applicationManager.registerApplication({ 
-  name: "demoApp",
-  icon: faAddressBook,
-  rootComponent: FinalApp,
-  rootActionHandler: demoAppRootHandler,
-  exportedComponents: { counter: Counter },
-  menuEntry: "Demo App"
-});
-
+	applicationManager.registerApplication({ 
+	  name: "demoApp",
+	  icon: faAddressBook,
+	  rootComponent: FinalApp,
+	  rootActionHandler: demoAppRootHandler,
+	  exportedComponents: { counter: Counter },
+	  menuEntry: "Demo App"
+	});
+};
