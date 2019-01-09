@@ -25,12 +25,12 @@ const FinalApp = withRouter(connect((state) => ({
 }), (dispatcher => ({
   requestModules: () => { dispatcher.dispatch(new ApiAction('restconf/modules', ModulesRequestSuccess, true)) }
 })))(App));
-
-applicationManager.registerApplication({
-  name: "apiDemo",
-  icon: faNewspaper,
-  rootComponent: FinalApp,
-  rootActionHandler: apiDemoRootHandler,
-  menuEntry: "API Demo"
-});
-
+export function register(){
+	applicationManager.registerApplication({
+	  name: "apiDemo",
+	  icon: faNewspaper,
+	  rootComponent: FinalApp,
+	  rootActionHandler: apiDemoRootHandler,
+	  menuEntry: "API Demo"
+	});
+};
