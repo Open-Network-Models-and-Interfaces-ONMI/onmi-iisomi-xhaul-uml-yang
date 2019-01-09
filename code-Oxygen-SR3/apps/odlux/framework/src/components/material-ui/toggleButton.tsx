@@ -98,7 +98,7 @@ interface IToggleButtonProps extends WithStyles<typeof styles> {
     onChange?: (event: React.FormEvent<HTMLElement>, value?: any) => void;
 }
 
-class ToggleButton extends React.Component<IToggleButtonProps> {
+class ToggleButtonComponent extends React.Component<IToggleButtonProps> {
     handleChange = (event: React.FormEvent<HTMLElement>) => {
         const { onChange, onClick, value } = this.props;
 
@@ -155,4 +155,5 @@ class ToggleButton extends React.Component<IToggleButtonProps> {
     public static muiName = 'ToggleButton';
 }
 
-export default withStyles(styles, { name: 'MuiToggleButton' })(ToggleButton);
+export const ToggleButton = withStyles(styles, { name: 'MuiToggleButton' })(ToggleButtonComponent);
+export default ToggleButton;

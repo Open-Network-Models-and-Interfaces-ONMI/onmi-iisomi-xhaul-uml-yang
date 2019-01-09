@@ -1,5 +1,7 @@
 import { ApplicationInfo } from '../models/applicationInfo';
-import { Event } from "../common/event";
+import { Event } from '../common/event';
+
+import { applicationApi } from './applicationApi';
 
 /** Represents registry to manage all applications. */
 class ApplicationManager {
@@ -17,9 +19,10 @@ class ApplicationManager {
   public changed: Event<void>;
 
   /** Registers a new application. */
-  public registerApplication(applicationInfo: ApplicationInfo): void {
+  public registerApplication(applicationInfo: ApplicationInfo) {
     this._applications[applicationInfo.name] = applicationInfo;
     this.changed.invoke();
+    return applicationApi;
   }
 
   /** Gets all registered applications. */

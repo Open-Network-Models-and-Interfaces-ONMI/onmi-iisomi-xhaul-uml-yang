@@ -25,7 +25,13 @@ module.exports = (env) => [{
   context: path.resolve(__dirname, "src"),
 
   entry: {
-    app: ["./app.tsx", "./services/applicationManager","./components/material-table"],
+    app: [
+      "./app.tsx",
+      "./services", 
+      "./components/material-table", 
+      "./components/material-ui",
+      "./utilities/elasticSearch",
+      "./models"],
   },
 
   devtool: env === "release" ? false : "source-map",
@@ -82,7 +88,7 @@ module.exports = (env) => [{
       baseUrl: '',
       pathUrl: '',
       processOutput: function (assets) {
-        return 'require.config(' + JSON.stringify(assets,null,2) + ')';
+        return 'require.config(' + JSON.stringify(assets, null, 2) + ')';
       }
     }),
     // new HtmlWebpackPlugin({

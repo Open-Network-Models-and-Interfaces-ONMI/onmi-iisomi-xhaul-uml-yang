@@ -11,7 +11,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import Logo from './logo';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -20,6 +19,7 @@ import ToggleButton from '../components/material-ui/toggleButton';
 import { UpdateAuthentication } from '../actions/authentication';
 
 import connect, { Connect, IDispatcher } from '../flux/connect';
+import Logo from './logo';
 
 const styles = (theme: Theme) => createStyles({
   appBar: {
@@ -30,11 +30,10 @@ const styles = (theme: Theme) => createStyles({
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 12,
+    marginRight: 20,
   },
   icon: {
-    marginLeft: 24,
-    marginRight: 8,
+    marginRight: 12
   }
 });
 

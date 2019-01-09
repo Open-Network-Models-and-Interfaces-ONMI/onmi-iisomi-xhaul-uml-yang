@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { ColumnModel } from './columnModel';
+import { ColumnModel, ColumnType } from './columnModel';
 import { withStyles, WithStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 
@@ -44,7 +44,7 @@ class EnhancedTableFilterComponent extends React.Component<IEnhancedTableFilterC
               padding={ col.disablePadding ? 'none' : 'default' }
               style={ style }
             >
-              { col.disableFilter ? null : <Input
+              { col.disableFilter || (col.type === ColumnType.custom) ? null : <Input
                 className={ classes.input }
                 inputProps={ {
                   'aria-label': 'Filter',

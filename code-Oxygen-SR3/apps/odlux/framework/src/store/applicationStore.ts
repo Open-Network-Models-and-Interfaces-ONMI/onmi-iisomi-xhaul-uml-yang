@@ -8,6 +8,8 @@ import { applicationRegistryHandler, IApplicationRegistration } from '../handler
 import { authenticationStateHandler, IAuthenticationState } from '../handlers/authenticationHandler';
 import { applicationStateHandler, IApplicationState } from '../handlers/applicationStateHandler';
 
+import { setApplicationStore } from '../services/applicationApi';
+
 import api from '../middleware/api';
 import thunk from '../middleware/thunk';
 import logger from '../middleware/logger';
@@ -42,7 +44,9 @@ export const applicationStoreCreator = (): ApplicationStore => {
     return acc;
   }, { framework: frameworkHandlers } as any);
 
-  return new ApplicationStore(combineActionHandler(actionHandlers), chainMiddleware(logger, thunk, api, ...middlewares));
+  const applicationStore = new ApplicationStore(combineActionHandler(actionHandlers), chainMiddleware(logger, thunk, api, ...middlewares));
+  setApplicationStore(applicationStore);
+  return applicationStore;
 }
 
 export default applicationStoreCreator;

@@ -13,13 +13,14 @@ import { TableToolbar } from './tableToolbar';
 import { EnhancedTableHead } from './tableHead';
 import { EnhancedTableFilter } from './tableFilter';
 
-import { ColumnModel } from './columnModel';
-export { ColumnModel } from './columnModel';
+import { ColumnModel, ColumnType } from './columnModel';
+export { ColumnModel, ColumnType } from './columnModel';
 
 type propType = string | number | null | undefined | (string|number)[];
 type dataType = { [prop: string]: propType };
+type resultType<TData = dataType> = { page: number, rowCount: number, rows: TData[] };
 
-export type DataCallback = (page?: number, rowsPerPage?: number, orderBy?: string | null, order?: 'asc' | 'desc' | null, filter?: { [property: string]: string }) => Promise<{ page: number, rowCount: number, rows: dataType[] }>;
+export type DataCallback<TData = dataType> = (page?: number, rowsPerPage?: number, orderBy?: string | null, order?: 'asc' | 'desc' | null, filter?: { [property: string]: string }) =>resultType<TData> | Promise<resultType<TData>>;
 
 function desc(a: dataType, b: dataType, orderBy: string) {
   if ((b[orderBy] || "") < (a[orderBy] || "") ) {
@@ -58,17 +59,7 @@ const styles = (theme: Theme) => createStyles({
   },
 });
 
-interface IMaterialTableComponentProps extends WithStyles<typeof styles> {
-  columns: ColumnModel[];
-  rows?: {}[];
-  onRequestData?: DataCallback;
-  idProperty: string | ((data: any) => React.Key);
-  title?: string;
-  disableSorting?: boolean;
-  disableFilter?: boolean;
-}
-
-interface IMaterialTableComponentState {
+type MaterialTableComponentState = {
   order: 'asc' | 'desc';
   orderBy: string | null;
   selected: any[] | null;
@@ -79,40 +70,90 @@ interface IMaterialTableComponentState {
   loading: boolean;
   showFilter: boolean;
   filter: { [property: string]: string };
+};
+
+export type TableApi = { forceRefresh?: () => Promise<void> };
+
+type MaterialTableComponentBaseProps = WithStyles<typeof styles> & {
+  columns: ColumnModel[];
+  idProperty: string | ((data: any) => React.Key);
+  title?: string;
+  disableSorting?: boolean;
+  disableFilter?: boolean;
+  onHandleClick?(event: React.MouseEvent<HTMLTableRowElement>, id: string | number): void; 
+};
+
+type MaterialTableComponentPropsWithRows = MaterialTableComponentBaseProps & { rows: {}[]; asynchronus?: boolean; };
+type MaterialTableComponentPropsWithRequestData = MaterialTableComponentBaseProps & { onRequestData: DataCallback; tableApi?: TableApi; };
+type MaterialTableComponentPropsWithExternalState = MaterialTableComponentBaseProps & MaterialTableComponentState & {
+  onToggleFilter: () => void;
+  onFilterChanged: (property: string, filterTerm: string) => void;
+  onHandleChangePage: (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => void;
+  onHandleChangeRowsPerPage: (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>, rowsPerPage: number | null) => void;
+  onHandleRequestSort: (event: React.SyntheticEvent, property: string) => void;
+};
+
+type MaterialTableComponentProps =
+  MaterialTableComponentPropsWithRows |
+  MaterialTableComponentPropsWithRequestData |
+  MaterialTableComponentPropsWithExternalState;
+
+function isMaterialTableComponentPropsWithRows(props: MaterialTableComponentProps): props is MaterialTableComponentPropsWithRows {
+  return (props as MaterialTableComponentPropsWithRows).rows !== undefined && (props as MaterialTableComponentPropsWithRows).rows instanceof Array;
 }
 
-class MaterialTableComponent<TData extends {} = {}> extends React.Component<IMaterialTableComponentProps, IMaterialTableComponentState> {
+function isMaterialTableComponentPropsWithRequestData(props: MaterialTableComponentProps): props is MaterialTableComponentPropsWithRequestData {
+  return (props as MaterialTableComponentPropsWithRequestData).onRequestData !== undefined && (props as MaterialTableComponentPropsWithRequestData).onRequestData instanceof Function;
+}
 
-  constructor(props: IMaterialTableComponentProps) {
+function isMaterialTableComponentPropsWithRowsAndRequestData(props: MaterialTableComponentProps): props is MaterialTableComponentPropsWithExternalState {
+  const propsWithExternalState = (props as MaterialTableComponentPropsWithExternalState)
+  return propsWithExternalState.onFilterChanged instanceof Function &&
+    propsWithExternalState.onHandleChangePage instanceof Function && 
+    propsWithExternalState.onHandleChangeRowsPerPage instanceof Function &&
+    propsWithExternalState.onToggleFilter instanceof Function &&
+    propsWithExternalState.onHandleRequestSort instanceof Function
+}
+
+class MaterialTableComponent<TData extends {} = {}> extends React.Component<MaterialTableComponentProps, MaterialTableComponentState> {
+
+  constructor(props: MaterialTableComponentProps) {
     super(props);
 
-    const page = 0;
-    const rowsPerPage = 10;
+    const page = isMaterialTableComponentPropsWithRowsAndRequestData(this.props) ? this.props.page : 0;
+    const rowsPerPage = isMaterialTableComponentPropsWithRowsAndRequestData(this.props) ? this.props.rowsPerPage || 10 : 10;
 
     this.state = {
-      filter: {},
-      showFilter: false,
-      loading: false,
-      order: 'asc',
-      orderBy: null,
-      selected: null,
-      rows: this.props.rows && this.props.rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) || [],
-      rowCount: this.props.rows && this.props.rows.length || 0,
+      filter: isMaterialTableComponentPropsWithRowsAndRequestData(this.props) ? this.props.filter || {} : {},
+      showFilter: isMaterialTableComponentPropsWithRowsAndRequestData(this.props) ? this.props.showFilter : false,
+      loading: isMaterialTableComponentPropsWithRowsAndRequestData(this.props) ? this.props.loading : false,
+      order: isMaterialTableComponentPropsWithRowsAndRequestData(this.props) ? this.props.order : 'asc',
+      orderBy: isMaterialTableComponentPropsWithRowsAndRequestData(this.props) ? this.props.orderBy : null,
+      selected: isMaterialTableComponentPropsWithRowsAndRequestData(this.props) ? this.props.selected : null,
+      rows: isMaterialTableComponentPropsWithRows(this.props) && this.props.rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) || [],
+      rowCount: isMaterialTableComponentPropsWithRows(this.props) && this.props.rows.length || 0,
       page,
-      rowsPerPage
+      rowsPerPage,
     };
 
-    if (typeof this.props.onRequestData === "function") this.update();
+    if (isMaterialTableComponentPropsWithRequestData(this.props)) {
+      this.update();
+    
+      if (this.props.tableApi) {
+        this.props.tableApi.forceRefresh = () => this.update();
+      }
+    }
   }
   render(): JSX.Element {
     const { classes, columns } = this.props;
     const { rows, rowCount, order, orderBy, selected, rowsPerPage, page, showFilter, filter } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rowCount - page * rowsPerPage);
     const getId = typeof this.props.idProperty === "string" ? (data: TData) => ((data as any)[this.props.idProperty as string] as string | number) : this.props.idProperty;
+    const toggleFilter = isMaterialTableComponentPropsWithRowsAndRequestData(this.props) ? this.props.onToggleFilter : () => { !this.props.disableFilter && this.setState({ showFilter: !showFilter }, this.update) }
     return (
       <Paper className={ classes.root }>
         <TableToolbar numSelected={ selected && selected.length } title={ this.props.title } onExportToCsv={ this.exportToCsv }
-                      onToggleFilter={ () => { !this.props.disableFilter && this.setState({ showFilter: !showFilter }, this.update) } } />
+          onToggleFilter={ toggleFilter } />
         <div className={ classes.tableWrapper }>
           <Table className={ classes.table } aria-labelledby="tableTitle">
             <EnhancedTableHead
@@ -127,7 +168,7 @@ class MaterialTableComponent<TData extends {} = {}> extends React.Component<IMat
             <TableBody>
               { showFilter && <EnhancedTableFilter columns={ columns } filter={ filter } onFilterChanged={ this.onFilterChanged } /> || null }
               { rows // may need ordering here 
-                .map((entry: any) => {
+                .map((entry: { [key: string]: any }) => {
                   const isSelected = this.isSelected(getId(entry));
                   return (
                     <TableRow
@@ -142,16 +183,18 @@ class MaterialTableComponent<TData extends {} = {}> extends React.Component<IMat
                       <TableCell padding="checkbox" style={ { width: "50px" } }>
                         <Checkbox checked={ isSelected } />
                       </TableCell>
-                      
                       {
                         this.props.columns.map(
                           col => {
                             const style = col.width ? { width: col.width } : {};
                             return (
-                              <TableCell key={ col.property } numeric={ col.numeric || false } style={ style }>
-                                { entry[col.property] }
+                              <TableCell key={ col.property } numeric={ col.type === ColumnType.numeric } style={ style }>
+                                { col.type === ColumnType.custom && col.customControl
+                                  ? <col.customControl rowData={ entry } />
+                                  : entry[col.property]
+                                }
                               </TableCell>
-                            )
+                            );
                           }
                         )
                       }
@@ -185,52 +228,69 @@ class MaterialTableComponent<TData extends {} = {}> extends React.Component<IMat
     );
   }
 
-  // static getDerivedStateFromProps(props: IMaterialTableComponentProps, state: IMaterialTableComponentState) : IMaterialTableComponentState {
-  //    // How to behave in case of properties changes from outside ?
-  //   return state;
-  // }
+  static getDerivedStateFromProps(props: MaterialTableComponentProps, state: MaterialTableComponentState & { _rawRows: {}[] }): MaterialTableComponentState & { _rawRows: {}[] } {
+    if (isMaterialTableComponentPropsWithRows(props) && props.asynchronus && state._rawRows !== props.rows) {
+      const newState = MaterialTableComponent.updateRows(props, state);
+      return {
+        ...state,
+        ...newState,
+        _rawRows: props.rows || []
+      };
+    }
+    return state;
+  }
 
-  private async update() {
-    const { page, rowsPerPage, order, orderBy, filter } = this.state;
+  private static updateRows(props: MaterialTableComponentPropsWithRows, state: MaterialTableComponentState): { rows: {}[], rowCount: number } {
     try {
-
-      if (this.props.onRequestData && typeof this.props.onRequestData === "function") {
-        const response = await this.props.onRequestData(page, rowsPerPage, orderBy, order, filter);
-        this.setState(response);
-      } else {
-        let data: dataType[] = this.props.rows || [];
-        let filtered = false;
-        if (this.state.showFilter) {
-          Object.keys(filter).forEach(prop => {
-            const exp = filter[prop];
-            filtered = filtered || !!exp;
-            data = exp ? data.filter((val) => {
-              const value = val[prop];
-              return value && value.toString().indexOf(exp) > -1;
-            }) : data;
-          });
-        }
-
-        const rowCount = data.length;
-
-        data = (orderBy && order
-          ? stableSort(data, getSorting(order, orderBy))
-          : data).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
-    
-        this.setState({
-          rows: data,
-          rowCount
+      const { page, rowsPerPage, order, orderBy, filter } = state;
+      let data: dataType[] = props.rows || [];
+      let filtered = false;
+      if (state.showFilter) {
+        Object.keys(filter).forEach(prop => {
+          const exp = filter[prop];
+          filtered = filtered || !!exp;
+          data = exp ? data.filter((val) => {
+            const value = val[prop];
+            return value && value.toString().indexOf(exp) > -1;
+          }) : data;
         });
       }
-    } catch (ex) {
-      this.setState({
+
+      const rowCount = data.length;
+
+      data = (orderBy && order
+        ? stableSort(data, getSorting(order, orderBy))
+        : data).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+
+      return {
+        rows: data,
+        rowCount
+      };
+    } catch{
+      return {
         rows: [],
         rowCount: 0
-      });
+      }
+    }
+  }
+
+  private async update() {
+    if (isMaterialTableComponentPropsWithRequestData(this.props)) {
+      const response = await Promise.resolve(
+        this.props.onRequestData(
+          this.state.page, this.state.rowsPerPage, this.state.orderBy, this.state.order, this.state.showFilter && this.state.filter || {})
+      );
+      this.setState(response);
+    } else {
+      this.setState(MaterialTableComponent.updateRows(this.props, this.state));
     }
   }
 
   private onFilterChanged = (property: string, filterTerm: string) => {
+    if (isMaterialTableComponentPropsWithRowsAndRequestData(this.props)) {
+      this.props.onFilterChanged(property, filterTerm);
+      return;
+    }
     if (this.props.disableFilter) return;
     const colDefinition = this.props.columns && this.props.columns.find(col => col.property === property);
     if (colDefinition && colDefinition.disableFilter) return;
@@ -242,6 +302,10 @@ class MaterialTableComponent<TData extends {} = {}> extends React.Component<IMat
   };
 
   private onHandleRequestSort = (event: React.SyntheticEvent, property: string) => {
+    if (isMaterialTableComponentPropsWithRowsAndRequestData(this.props)) {
+      this.props.onHandleRequestSort(event, property);
+      return;
+    }
     if (this.props.disableSorting) return;
     const colDefinition = this.props.columns && this.props.columns.find(col => col.property === property);
     if (colDefinition && colDefinition.disableSorting) return;
@@ -257,12 +321,20 @@ class MaterialTableComponent<TData extends {} = {}> extends React.Component<IMat
   handleSelectAllClick: () => {};
  
   private onHandleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => {
+    if (isMaterialTableComponentPropsWithRowsAndRequestData(this.props)) {
+      this.props.onHandleChangePage(event, page);
+      return;
+    }
     this.setState({
       page
     }, this.update);
   };
 
   private onHandleChangeRowsPerPage = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    if (isMaterialTableComponentPropsWithRowsAndRequestData(this.props)) {
+      this.props.onHandleChangeRowsPerPage(event, +(event && event.target.value));
+      return;
+    }
     const rowsPerPage = +(event && event.target.value);
     if (rowsPerPage && rowsPerPage > 0) {
       this.setState({
@@ -278,6 +350,10 @@ class MaterialTableComponent<TData extends {} = {}> extends React.Component<IMat
   }
 
   private handleClick(event: React.MouseEvent<HTMLTableRowElement>, id: string | number): void {
+    if (this.props.onHandleClick instanceof Function) {
+      this.props.onHandleClick(event, id);
+      return;
+    }
     let selected = this.state.selected || [];
     const selectedIndex = selected.indexOf(id);
     if (selectedIndex > -1) {
