@@ -1,10 +1,28 @@
 import * as React from "react";
 import Button from "@material-ui/core/Button";
-import Modal from 'react-responsive-modal';
+import Modal from '@material-ui/core/Modal';
 import { IUnknownNetworkElementsExtended } from '../models/unknownNetworkElements';
 import { withStyles, Theme, WithStyles, createStyles } from '@material-ui/core/styles';
 
+function getModalStyle() {
+  const top = 50;
+  const left = 50;
+
+  return {
+    top: `${ top }%`,
+    left: `${ left }%`,
+    transform: `translate(-${ top }%, -${ left }%)`,
+  };
+}
+
 const actionsStyles = (theme: Theme) => createStyles({
+  paper: {
+    position: 'absolute',
+    width: theme.spacing.unit * 50,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing.unit * 4,
+  },
   root: {
     marginTop: "24px",
     display: "table",
@@ -29,8 +47,8 @@ const actionsStyles = (theme: Theme) => createStyles({
     borderRadius: "4px"
   },
   addButtonColor: {
-    color: '#ffffff',
-    background: '#f0ad4e',
+    color: theme.palette.primary.main,
+    background: theme.palette.secondary.dark,
     bordercolor: '#eea236',
     minWidth: 40,
     width: "350px",
@@ -40,8 +58,8 @@ const actionsStyles = (theme: Theme) => createStyles({
     textTransform:'none'
   },
   reqButtonColor: {
-    color: '#ffffff',
-    background: '#428bca',
+    color: theme.palette.primary.main,
+    background: theme.palette.secondary.dark,
     bordercolor: '#357ebd',
     minWidth: 40,
     width: "150px",
@@ -51,8 +69,8 @@ const actionsStyles = (theme: Theme) => createStyles({
     textTransform:'none'
   },
   closeButtonColor: {
-    color: '#ffffff',
-    background: '#428bca',
+    color: theme.palette.primary.main,
+    background: theme.palette.secondary.dark,
     bordercolor: '#357ebd',
     minWidth: 40,
     width: "90px",
@@ -63,7 +81,7 @@ const actionsStyles = (theme: Theme) => createStyles({
   }
 });
 
-export class AddToRequired extends React.Component<{ onAddFunction: Function, onUnmountFunction:Function, rowElement: IUnknownNetworkElementsExtended }, {}> {
+export class AddToRequired extends React.Component<{ onAddFunction: Function, onUnmountFunction: Function, rowElement: IUnknownNetworkElementsExtended }, {}> {
   constructor(props: { onAddFunction: Function, onUnmountFunction:Function, rowElement: IUnknownNetworkElementsExtended }) {
     super(props);
   }
@@ -86,7 +104,8 @@ export class AddToRequired extends React.Component<{ onAddFunction: Function, on
       <div>
         <Button className={ classes.closeButtonColor } onClick={this.unmountUnknown} >Unmount</Button>
         <Button className={ classes.reqButtonColor } onClick={ this.onOpenAddModal }>To required NEs...</Button>
-        <Modal open={ openAddModal } onClose={ this.onCloseAddModal } center>
+        <Modal open={ openAddModal } onClose={ this.onCloseAddModal }>
+          <div style={ getModalStyle() } className={ classes.paper }>
           <h2>Add to Required network elements</h2>
           <form action="">
             <p>
@@ -122,7 +141,8 @@ export class AddToRequired extends React.Component<{ onAddFunction: Function, on
               <Button className={ classes.addButtonColor } onClick={ this.addNE } >Add to Required network elements</Button>
               <Button className={ classes.closeButtonColor } onClick={ this.onCloseAddModal } >Cancel</Button>
             </div>
-          </form>
+            </form>
+            </div>
         </Modal>
       </div>
     );

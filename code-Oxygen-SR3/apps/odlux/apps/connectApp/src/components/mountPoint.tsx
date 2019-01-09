@@ -31,6 +31,17 @@ const actionsStyles = (theme: Theme) => createStyles({
     background: "#ffffff",
     border: "2px solid #d5d5d5",
     borderRadius: "4px"
+  },
+  buttonColor :{
+    color: theme.palette.primary.main,
+    backgroundColor: theme.palette.secondary.dark, 
+    bordercolor: '#357ebd',
+    minWidth: 40,
+    width: "90px",
+    margin: "10px",
+    size: 5,
+    padding: "4px",
+    textTransform:'none'
   }
 });
 
@@ -41,7 +52,7 @@ class MountPoints extends React.Component<any, IMountPointViewState> {
     let view = {
       mountId: "new-netconf-server",
       host: "127.0.0.1",
-      port: "12600",
+      port: "2230",
       username: "admin",
       password: "admin",
       required: false,
@@ -92,7 +103,7 @@ class MountPoints extends React.Component<any, IMountPointViewState> {
             <input id="maintenancemode" type="checkbox" checked={ this.state.mountview.maintenancemode } onChange={ this.handleChange } />
           </div>
           <div className={ classes.margin }>
-            <button type="submit" value="Submit" onClick={ this.showMessage }>Mount</button>
+            <button className={ classes.buttonColor } type="submit" value="Submit" onClick={ this.showMessage }>Mount</button>
           </div>
         </div>
         <div className={ classes.margin }>

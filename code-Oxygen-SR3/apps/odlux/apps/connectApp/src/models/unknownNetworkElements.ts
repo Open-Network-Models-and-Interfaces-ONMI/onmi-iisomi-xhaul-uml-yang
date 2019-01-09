@@ -13,5 +13,4 @@ export interface IUnknownNetworkElementsExtended {
 
 export interface IUnknownNetworkElements {
   unknownNetworkElements: IUnknownNetworkElementsExtended[],
-  search: string
 }

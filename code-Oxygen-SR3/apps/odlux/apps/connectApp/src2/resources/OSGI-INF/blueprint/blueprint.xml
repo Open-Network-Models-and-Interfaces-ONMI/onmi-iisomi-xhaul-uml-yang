@@ -1,0 +1,15 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    <reference id="httpService" availability="mandatory" activation="eager" interface="org.osgi.service.http.HttpService"/>
+    <reference id="loader" availability="mandatory" activation="eager" interface="com.highstreet.technologies.odlux.loader.ODluxModuleLoader"/>
+
+    <bean id="bundle" init-method="initialize" destroy-method="clean" class="com.highstreet.technologies.dlux.loader.ODluxModule">
+        <property name="httpService" ref="httpService"/>
+        <property name="loader" ref="loader"/>
+        <property name="moduleName" value="connectApp"/>
+        <property name="cssDependencies">
+            <list>
+                <value>src/app/mwtnMediator/mwtnMediator-custom.css</value>
+            </list>
+        </property>
+    </bean>
+</blueprint>

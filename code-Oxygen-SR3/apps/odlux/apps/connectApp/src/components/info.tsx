@@ -1,6 +1,6 @@
 import * as React from "react";
 import Button from "@material-ui/core/Button";
-import Modal from 'react-responsive-modal';
+import Modal from '@material-ui/core/Modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfo } from "@fortawesome/free-solid-svg-icons";
 import { IRequiredNetworkElementExtended } from '../models/requiredNetworkElements';
@@ -9,7 +9,25 @@ import { deleteRequiredNetworkElement } from '../actions/requiredNetworkElements
 import { IRequiredNetworkElement, IDataConnectExtended } from '../models/requiredNetworkElements';
 import { insertRequiredNetworkElement } from '../actions/requiredNetworkElementsActions';
 
+function getModalStyle() {
+  const top = 50;
+  const left = 50;
+
+  return {
+    top: `${ top }%`,
+    left: `${ left }%`,
+    transform: `translate(-${ top }%, -${ left }%)`,
+  };
+}
+
 const actionsStyles = (theme: Theme) => createStyles({
+  paper: {
+    position: 'absolute',
+    width: theme.spacing.unit * 50,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing.unit * 4,
+  },
   iconStyle: {
     color: 'white'
   },
@@ -55,8 +73,8 @@ const actionsStyles = (theme: Theme) => createStyles({
   },
 });
 
-export class Info extends React.Component<{ onClickFunction: Function, onHideOrDelete: Function, rowElement: IRequiredNetworkElementExtended }, {}> {
-  constructor(props: { onClickFunction: Function, onHideOrDelete: Function, rowElement: IRequiredNetworkElementExtended }) {
+export class Info extends React.Component<{ onHideOrDelete: Function, rowElement: IRequiredNetworkElementExtended }, {}> {
+  constructor(props: { onHideOrDelete: Function, rowElement: IRequiredNetworkElementExtended }) {
     super(props);
   }
   state = {
@@ -88,8 +106,9 @@ export class Info extends React.Component<{ onClickFunction: Function, onHideOrD
   onCloseHideModal = () => {
     this.setState({ openHideModal: false });
   };
-  render() {
 
+
+  render() {
     const { openInfoModal, openDeleteModal, openHideModal } = this.state;
     const { classes }: any = this.props;
     return (
@@ -98,7 +117,8 @@ export class Info extends React.Component<{ onClickFunction: Function, onHideOrD
           <FontAwesomeIcon className={ classes.iconStyle } icon={ faInfo } />
         </Button>
 
-        <Modal open={ openInfoModal } onClose={ this.onCloseInfoModal } center>
+        <Modal open={ openInfoModal } onClose={ this.onCloseInfoModal }>
+          <div style={ getModalStyle() } className={ classes.paper }>
           <h2>{ this.props.rowElement.mountId }</h2>
           <form action="">
             <p>
@@ -107,42 +127,47 @@ export class Info extends React.Component<{ onClickFunction: Function, onHideOrD
             <p>
               The network element does not support a native terminal or console application.>
              </p>
-            <Button className={ classes.deleteButtonColor } onClick={ this.onOpenDeleteModal} >Delete</Button>
+            <Button className={ classes.deleteButtonColor } onClick={ this.onOpenDeleteModal } >Delete</Button>
             <Button className={ classes.hideButtonColor } onClick={ this.onOpenHideModal }  >Hide</Button>
-            <Button className={ classes.closeButtonColor } onClick={ this.onCloseInfoModal } >Close</Button>
+              <Button className={ classes.closeButtonColor } onClick={ this.onCloseInfoModal } >Close</Button>
+              
           </form>
-
-        </Modal>
-        <Modal open={ openDeleteModal} onClose={ this.onCloseDeleteModal } center> 
-          <div>
-            <h1> Delete </h1>
-            <br />
-            <span>Delete { this.props.rowElement.mountId } from the planning database.</span>
-            <br />
-            <br /><br />
-            <span>All the planning data for this network element will be lost.</span>
-            <br />
-            <br />
-            <br />
           </div>
-          <Button className={ classes.deleteButtonColor } onClick={ this.deleteNE }>Delete</Button>
-          <Button className={ classes.closeButtonColor } onClick={ this.onCloseDeleteModal } >Cancel</Button>
+        </Modal>
+        <Modal open={ openDeleteModal } onClose={ this.onCloseDeleteModal }>
+          <div style={ getModalStyle() } className={ classes.paper }>
+            <div>
+              <h1> Delete </h1>
+              <br />
+              <span>Delete { this.props.rowElement.mountId } from the planning database.</span>
+              <br />
+              <br /><br />
+              <span>All the planning data for this network element will be lost.</span>
+              <br />
+              <br />
+              <br />
+            </div>
+            <Button className={ classes.deleteButtonColor } onClick={ this.deleteNE }>Delete</Button>
+            <Button className={ classes.closeButtonColor } onClick={ this.onCloseDeleteModal } >Cancel</Button>
+          </div>
         </Modal>
 
-        <Modal open={ openHideModal } onClose={ this.onCloseHideModal } center>
-          <div>
-            <h1> Hide </h1>
-            <br />
-            <span>Remove { this.props.rowElement.mountId } from the list of required network elements..</span>
-            <br />
-            <br /><br />
-            <span>All the planning data for this network element will be lost.</span>
-            <br />
-            <br />
-            <br />
+        <Modal open={ openHideModal } onClose={ this.onCloseHideModal }>
+          <div style={ getModalStyle() } className={ classes.paper }>
+            <div>
+              <h1> Hide </h1>
+              <br />
+              <span>Remove { this.props.rowElement.mountId } from the list of required network elements..</span>
+              <br />
+              <br /><br />
+              <span>All the planning data for this network element will be lost.</span>
+              <br />
+              <br />
+              <br />
+            </div>
+            <Button className={ classes.deleteButtonColor } onClick={ this.hideNE }>Hide</Button>
+            <Button className={ classes.closeButtonColor } onClick={ this.onCloseHideModal } >Cancel</Button>
           </div>
-          <Button className={ classes.deleteButtonColor } onClick={ this.hideNE }>Hide</Button>
-          <Button className={ classes.closeButtonColor } onClick={ this.onCloseHideModal } >Cancel</Button>
         </Modal>
       </div>
     );
@@ -151,7 +176,7 @@ export class Info extends React.Component<{ onClickFunction: Function, onHideOrD
   /**
   * Delete device from Required network elements.
   */
-  private deleteNE = (event: React.MouseEvent<HTMLElement>) => {
+  private deleteNE = async (event: React.MouseEvent<HTMLElement>) => {
 
     const url = 'http://localhost:8181/database/mwtn/required-networkelement/' + this.props.rowElement.mountId;
     let request = {
@@ -163,16 +188,22 @@ export class Info extends React.Component<{ onClickFunction: Function, onHideOrD
         'Accept': 'application/json'
       }
     };
-    deleteRequiredNetworkElement(request);
-    this.props.onHideOrDelete(this.props.rowElement);
-    this.setState({ openInfoModal: false });
-    this.setState({ openDeleteModal: false });
+    let _this = this;
+
+    await deleteRequiredNetworkElement(request).then(success => {
+      console.log("171 success: ", success);
+      setTimeout(() => {
+        _this.props.onHideOrDelete();
+        _this.setState({ openInfoModal: false });
+        _this.setState({ openDeleteModal: false });
+      }, 1000);
+    });
   }
 
   /**
     * Hide device from Required network elements. 
     */
-  private hideNE = (event: React.MouseEvent<HTMLElement>) => {
+  private hideNE = async (event: React.MouseEvent<HTMLElement>) => {
     let view = this.props.rowElement;
 
     var base_url = "http://localhost:8181/database";
@@ -205,14 +236,18 @@ export class Info extends React.Component<{ onClickFunction: Function, onHideOrD
       },
       data: jsonifiedData
     };
-    insertRequiredNetworkElement(request);
 
-    this.setState({ openInfoModal: false });
-    this.setState({ openHideModal: false });
-    this.props.onHideOrDelete(this.props.rowElement);
+    let _this = this;
+    await insertRequiredNetworkElement(request).then(success => {
+      console.log("171 success: ", success);
+      setTimeout(() => {
+        _this.props.onHideOrDelete();
+        _this.setState({ openInfoModal: false });
+        _this.setState({ openHideModal: false });
+      }, 1000);
+    });
   }
 }
-
 
 export default withStyles(actionsStyles)(Info);
 

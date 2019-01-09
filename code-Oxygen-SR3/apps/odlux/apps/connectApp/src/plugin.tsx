@@ -16,12 +16,12 @@ const App = (props: AppProps) => (
 
 
 const FinalApp = withRouter(connect()(App));
-
-applicationManager.registerApplication({  
-  name: "connectApp",
-  icon: faPlug,
-  rootComponent: FinalApp,
-  rootActionHandler: connectAppRootHandler,
-  menuEntry: "Connect App"
+export function register(){
+	applicationManager.registerApplication({  
+	  name: "connectApp",
+	  icon: faPlug,
+	  rootComponent: FinalApp,
+	  rootActionHandler: connectAppRootHandler,
+	  menuEntry: "Connect App"
 }); 
-                                                                     
+};                                                            

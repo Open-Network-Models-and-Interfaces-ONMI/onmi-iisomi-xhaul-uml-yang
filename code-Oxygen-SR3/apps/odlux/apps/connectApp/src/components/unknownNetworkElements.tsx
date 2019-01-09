@@ -1,156 +1,42 @@
 import * as React from 'react';
-import TablePagination from "@material-ui/core/TablePagination";
-import EnhancedTableHeader from '../components/enhancedTableHeader';
-import PaginationActions from '../components/tablePaginationActions';
-import AddToRequired from '../components/addToRequired'
-import { Table, TableBody, TableCell, TableRow, TableFooter } from '@material-ui/core/';
-import { IHeaderCell, IEnhancedTableHeader } from '../models/enhancedTableHeader'
-import { IEnhancedTablePage } from '../models/tablePagination';
+import { fetchRequiredNetworkElements, connectNE, getConnectionStatus } from '../actions/requiredNetworkElementsActions';
+import { MaterialTable, DataCallback , ColumnType} from '../../../../framework/src/components/material-table';
 import { IUnknownNetworkElements, IUnknownNetworkElementsExtended } from '../models/unknownNetworkElements';
 import { disconnectNE } from '../actions/requiredNetworkElementsActions'
 import { IRequiredNetworkElement, IDataConnectExtended } from '../models/requiredNetworkElements';
 import { insertRequiredNetworkElement } from '../actions/requiredNetworkElementsActions';
+import AddToRequired from '../components/addToRequired';
+import { TableApi } from '../../../../framework/src/components/material-table';
 
 interface IUnknownNetworkElementsProps {
   unknownNetworkElements: IUnknownNetworkElementsExtended[],
   busy: boolean,
-  onLoadUnknownNetworkElements: () => void
 }
 
 interface IComponentState {
   init: boolean
 }
 
-function desc(a: IUnknownNetworkElementsExtended, b: IUnknownNetworkElementsExtended, orderBy: string) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function stableSort(array: IUnknownNetworkElementsExtended[], cmp: Function) {
-  array.sort((a, b) => {
-    return cmp(a, b);
-  });
-  return array;
-}
-
-function getSorting(order: "asc" | "desc" | undefined, orderBy: string) {
-  return order === "desc"
-    ? (a: IUnknownNetworkElementsExtended, b: IUnknownNetworkElementsExtended) => desc(a, b, orderBy)
-    : (a: IUnknownNetworkElementsExtended, b: IUnknownNetworkElementsExtended) => -desc(a, b, orderBy);
-}
-
-function searchingFor(search: string) {
-  return function (x: any) {
-    return x.name.includes(search) ;
-  }
-
-}
-
-const columns_unknown: IHeaderCell[] = [
-  {
-    id: "name",
-    numeric: false,
-    label: "Name"
-  },
-  {
-    id: "ipaddress",
-    numeric: false,
-    label: "IP address"
-  },
-  {
-    id: "netConfPort",
-    numeric: false,
-    label: "NetConf port"
-  },
-  {
-    id: "coreModel",
-    numeric: true,
-    label: "CoreModel revision"
-  },
-  {
-    id: "airInterface",
-    numeric: false,
-    label: "AirInterface revision"
-  },
-  {
-    id: "unknownConnectionStatus",
-    numeric: false,
-    label: "Connection status"
-  },
-  {
-    id: "actions",
-    numeric: false,
-    label: "Actions"
-  }
-];
-
-
-
-export class UnknownNetworkElementsListComponent extends React.Component<IUnknownNetworkElementsProps, IUnknownNetworkElements & IEnhancedTableHeader & IEnhancedTablePage & IComponentState> {
-  constructor(props: IUnknownNetworkElementsProps, state: IUnknownNetworkElements & IEnhancedTableHeader & IEnhancedTablePage & IComponentState) {
+export class UnknownNetworkElementsListComponent extends React.Component<IUnknownNetworkElementsProps, IUnknownNetworkElements & IComponentState> {
+  constructor(props: IUnknownNetworkElementsProps, state: IUnknownNetworkElements & IComponentState) {
     super(props, state);
     console.log("Props on 26: ", props);
     this.state = {
       unknownNetworkElements: [],
-      onRequestSort: () => { },
-      onChangePage: () => { },
-      order: undefined,
-      orderBy: "",
-      headerColumns: [],
-      rowsPerPage: 5,
-      page: 0,
-      count: 0,
-      theme: [],
-      classes: '',
-      search: '',
       init: false
     };
-    this.searchHandler = this.searchHandler.bind(this);
   }
 
-  public searchHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ search: event.target.value });
-  };
-
-  public handleChangePage = (event: React.MouseEvent<HTMLButtonElement>, page: number) => {
-    this.setState({ page });
-  };
-
-  public handleChangeRowsPerPage = (event: any) => {
-    this.setState({ rowsPerPage: event.target.value });
-  };
-
-  public handleRequestSort = (event: React.MouseEvent<HTMLElement>, property: string) => {
-    const orderBy = property;
-    if (this.state.orderBy === property && this.state.order === "desc") {
-      this.setState({
-        order: "asc",
-        orderBy: orderBy
-      });
-    } else {
-      this.setState({
-        order: "desc",
-        orderBy: orderBy
-      });
-    }
-  };
-
+  private readonly updateTableapi : TableApi ={};
 
   render(): JSX.Element {
     const {
       unknownNetworkElements,
       busy
     } = this.props;
-    console.log("props here: ", this.props);
-    const { rowsPerPage, page, search } = this.state;
-    const { order, orderBy } = this.state;
 
-    console.log("my data 270:", unknownNetworkElements);
+    this.updateTableapi.forceRefresh && this.updateTableapi.forceRefresh();
+    console.log("my data 150:", unknownNetworkElements);
     var unknownNetworkElementsList: IUnknownNetworkElementsExtended[];
     if (this.state.unknownNetworkElements.length > 0 || this.state.init) {
       unknownNetworkElementsList = this.state.unknownNetworkElements;
@@ -158,55 +44,29 @@ export class UnknownNetworkElementsListComponent extends React.Component<IUnknow
       unknownNetworkElementsList = unknownNetworkElements;
     }
 
+    let unknownNetworkElementsRows = unknownNetworkElementsList.map(row => {
+      return { ...row, _id: row.name };
+    });
 
+  this.updateTableapi.forceRefresh && this.updateTableapi.forceRefresh();
     return (
       <div>
-        <Table >
-          <div>
-            Search: <input type="text"
-              onChange={ this.searchHandler }
-              value={ this.state.search }
-            />
-          </div>
-          <EnhancedTableHeader
-            onRequestSort={ this.handleRequestSort }
-            order={ order }
-            orderBy={ orderBy }
-            headerColumns={ columns_unknown }
-          />
-
-          <TableBody>
-            { stableSort(unknownNetworkElementsList, getSorting(order, orderBy))
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .filter(searchingFor(this.state.search))
-              .map(element => (
-                <TableRow>
-                  <TableCell>{ element.name }</TableCell>
-                  <TableCell>{ element.host }</TableCell>
-                  <TableCell>{ element.netConfPort }</TableCell>
-                  <TableCell>{ element.coreModel }</TableCell>
-                  <TableCell>{ element.airInterface }</TableCell>
-                  <TableCell>{ element.unknownConnectionStatus }</TableCell>
-                  <TableCell>
-                  <AddToRequired onAddFunction= {this.addToRequiredNE} onUnmountFunction = {this.unmount} rowElement={element} />
-                    </TableCell>
-                </TableRow>
-              )) }
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                colSpan={ 3 }
-                count={ unknownNetworkElementsList.length }
-                rowsPerPage={ rowsPerPage }
-                page={ page }
-                onChangePage={ this.handleChangePage }
-                onChangeRowsPerPage={ this.handleChangeRowsPerPage }
-                ActionsComponent={ PaginationActions }
-              />
-            </TableRow>
-          </TableFooter>
-        </Table>
+        <MaterialTable asynchronus rows={unknownNetworkElementsRows} columns={[
+          { property: "name", title: "Name", type: ColumnType.text },
+          { property: "host", title: "Host", type: ColumnType.text },
+          { property: "netConfPort", title: "Netconf port", type: ColumnType.text },
+          { property: "coreModel", title: "Core Model", type: ColumnType.text },
+          { property: "airInterface", title: "Air interface", type: ColumnType.text },
+          { property: "unknownConnectionStatus", title: "Connection Status", type: ColumnType.text },
+          {
+            property: "actions", title: "Actions", type: ColumnType.custom, customControl: (props) => (
+              <div>
+                <AddToRequired onAddFunction= {this.addToRequiredNE} onUnmountFunction = {this.unmount} rowElement={props.rowData as IUnknownNetworkElementsExtended} />
+              </div>
+            )
+          },
+        ]} idProperty="_id" tableApi= { this.updateTableapi } >
+        </MaterialTable>
       </div>
     );
   };

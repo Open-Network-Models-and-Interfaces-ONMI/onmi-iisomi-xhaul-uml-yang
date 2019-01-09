@@ -6,7 +6,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { withStyles, Theme, WithStyles } from '@material-ui/core/styles';
-import { IEnhancedTablePage } from '../models/tablePagination'
+import { IEnhancedTablePage } from '../models/tablePagination';
 
 const actionsStyles = (theme: Theme) => ({
   root: {
@@ -14,8 +14,11 @@ const actionsStyles = (theme: Theme) => ({
     width: '100%',
     paddingLeft: theme.spacing.unit,
     flexShrink: 0,
-    color: 'theme.palette.text.secondary',
-    marginLeft: theme.spacing.unit * 3
+    marginLeft: theme.spacing.unit * 3,
+    color: theme.palette.common.black,
+  },
+  text :{
+    color: theme.palette.common.black,
   }
 });
 
@@ -49,28 +52,28 @@ export class TablePaginationActions extends React.Component<IEnhancedTablePage, 
 
     return (
       <div className={ classes.root }>
-        <IconButton
+        <IconButton className={ classes.text }
           onClick={ this.handleFirstPageButtonClick }
           disabled={ page === 0 }
           aria-label="First Page"
         >
-          { theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon /> }
+          { theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon/> }
         </IconButton>
-        <IconButton
+        <IconButton  className={ classes.text }
           onClick={ this.handleBackButtonClick }
           disabled={ page === 0 }
           aria-label="Previous Page"
         >
           { theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft /> }
         </IconButton>
-        <IconButton
+        <IconButton  className={ classes.text }
           onClick={ this.handleNextButtonClick }
           disabled={ page >= Math.ceil(count / rowsPerPage) - 1 }
           aria-label="Next Page"
         >
           { theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight /> }
         </IconButton>
-        <IconButton
+        <IconButton  className={ classes.text }
           onClick={ this.handleLastPageButtonClick }
           disabled={ page >= Math.ceil(count / rowsPerPage) - 1 }
           aria-label="Last Page"

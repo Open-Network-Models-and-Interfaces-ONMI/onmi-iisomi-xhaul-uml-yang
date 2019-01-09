@@ -38,7 +38,7 @@ export const loadAllUnknownNetworkElementsAsync = (dispatch: Dispatch) => {
       'Authorization': 'Basic YWRtaW46YWRtaW4='
     }
   };
-  connectService.getUnknownConnectionStatusNew(request).then(data => {
+  connectService.getUnknownNetworkElementsList(request).then(data => {
     let result: IUnknownNetworkElementsExtended[] = [];
     connectService.getAllRequiredNetworkElements().then(elements => {
       console.log("get all required network elements: ", elements);

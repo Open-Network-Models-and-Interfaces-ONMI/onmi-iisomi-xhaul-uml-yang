@@ -4,9 +4,19 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Tooltip from "@material-ui/core/Tooltip";
-import { IEnhancedTableHeader } from '../models/enhancedTableHeader'
+import { IEnhancedTableHeader } from '../models/enhancedTableHeader';
+import { withStyles, Theme, WithStyles } from '@material-ui/core/styles';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-class EnhancedTableHeader extends React.Component<IEnhancedTableHeader> {
+const actionsStyles = (theme: Theme) => ({
+  text :{
+    color: theme.palette.common.black,
+  }
+});
+
+type PageProps = RouteComponentProps<{classes: any}> & WithStyles<typeof actionsStyles>;
+
+class EnhancedTableHeader extends React.Component<IEnhancedTableHeader,PageProps> {
   constructor(props: IEnhancedTableHeader) {
     super(props);
   }
@@ -18,25 +28,26 @@ class EnhancedTableHeader extends React.Component<IEnhancedTableHeader> {
     const {
       order,
       orderBy,
-      headerColumns
+      headerColumns,
+      classes
     } = this.props;
 
     return (
-      <TableHead>
-        <TableRow>
+      <TableHead className={classes.text}>
+        <TableRow className={classes.text}>
           { headerColumns.map(column => { 
             return (
-              <TableCell
+              <TableCell  className={classes.text}
                 key={ column.id }
                 numeric={ column.numeric }
                 sortDirection={ orderBy === column.id ? order : false }
               >
-                <Tooltip
+                <Tooltip  className={classes.text}
                   title={ order !== undefined ? "Sort " + order : "Sort" }
                   placement={ column.numeric ? "bottom-end" : "bottom-start" }
                   enterDelay={ 300 }
                 >
-                  <TableSortLabel
+                  <TableSortLabel  className={classes.text}
                     active={ orderBy === column.id }
                     direction={ order }
                     onClick={ this.createSortHandler(column.id) }
@@ -53,5 +64,9 @@ class EnhancedTableHeader extends React.Component<IEnhancedTableHeader> {
     );
   }
 }
+
+// const EnhancedTableHeader = withStyles(actionsStyles, { withTheme: true })(
+//   EnhancedTableHeaders,
+// );
 
 export default EnhancedTableHeader;

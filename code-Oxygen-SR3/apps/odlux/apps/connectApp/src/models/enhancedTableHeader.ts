@@ -14,5 +14,6 @@ export interface IEnhancedTableHeader {
   onRequestSort: Function,
   order: 'asc' | 'desc' | undefined,
   orderBy: string,
-  headerColumns: IHeaderCell[]
+  headerColumns: IHeaderCell[],
+  classes:any
 }

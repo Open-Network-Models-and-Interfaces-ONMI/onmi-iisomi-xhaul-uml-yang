@@ -4,8 +4,8 @@ import { listLogHandler, ILogListRequired } from './connectionStatusLogHandler';
 import { listUnknownHandler, IUnknownList} from './unknownNetworkElementsHandler';
 
 export interface IConnectAppStoreState {
-  listRequired: IListRequired;
-  listLog: ILogListRequired;
+ // listRequired: IListRequired;
+ // listLog: ILogListRequired;
   listUnknown: IUnknownList;
 }
 
@@ -16,8 +16,8 @@ declare module '../../../../framework/src/store/applicationStore' {
 }
 
 const actionHandlers = {
-  listRequired: listRequiredHandler,
-  listLog: listLogHandler,
+ // listRequired: listRequiredHandler,
+ // listLog: listLogHandler,
   listUnknown: listUnknownHandler
 };
 

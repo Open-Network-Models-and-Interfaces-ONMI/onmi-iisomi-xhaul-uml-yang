@@ -5,25 +5,26 @@ import MountPoints from '../components/mountPoint'
 import { withStyles, Theme, WithStyles, createStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Typography } from '@material-ui/core';
-import { loadAllRequiredNetworkElementsAsync } from '../actions/requiredNetworkElementsActions';
-import { loadConnectionStatusLogAsync } from '../actions/connectionStatusLogActions';
-import { loadAllUnknownNetworkElementsAsync } from '../actions/unknownNetworkElementsActions';
+import { loadAllUnknownNetworkElementsAsync, LoadAllUnknownNetworkElementsAction } from '../actions/unknownNetworkElementsActions';
 import { RequiredNetworkElementsListComponent } from '../components/requiredNetworkElements';
 import { ConnectionStatusLogComponent } from '../components/connectionStatusLog';
 import { UnknownNetworkElementsListComponent } from '../components/unknownNetworkElements';
-  
+import { TableApi } from '../../../../framework/src/components/material-table';
 
-const actionStyles = (theme: Theme) => createStyles({ 
+
+const actionStyles = (theme: Theme) => createStyles({
   accordion: {
-    background: '#428bca'
+    background: theme.palette.secondary.dark,
+    color: theme.palette.primary.main
   },
   detail: {
-    background: "white"
+    background: theme.palette.primary.main,
+    color: theme.palette.common.black,
   },
   textcolor: {
-    color: "white",
+    color: theme.palette.common.white,
     fontSize: "1rem"
-  }
+  },
 });
 
 class ConnectApplicationComponent extends React.Component<any, any>{
@@ -35,13 +36,16 @@ class ConnectApplicationComponent extends React.Component<any, any>{
     this.setState({
       expanded: expanded ? panel : false
     }, () => {
-      if (expanded) { 
+      if (expanded) {
         switch (panel) {
           case 'panel1':
-            this.props.onLoadAllRequiredNetworkElements();
+         //   this.updateTableapi.forceRefresh && this.updateTableapi.forceRefresh();
             break;
           case 'panel2':
-            this.props.onLoadUnknownNetworkElements();
+          this.props.onLoadUnknownNetworkElements();
+            break;
+          case 'panel4':
+         //   this.updateTableapi.forceRefresh && this.updateTableapi.forceRefresh();
             break;
         }
       }
@@ -49,67 +53,57 @@ class ConnectApplicationComponent extends React.Component<any, any>{
     );
   }
 
+
   render(): JSX.Element {
-    const { networkelements,
+    const {
       busy,
-      onLoadAllRequiredNetworkElements,
-      connectionLog,
-      onLoadConnectionStatusLog,
       unknownNetworkElements,
-      onLoadUnknownNetworkElements,
       classes
     }: any = this.props;
     const { expanded } = this.state;
 
+
     return (
       <div>
-        <ExpansionPanel className={ classes.accordion } expanded={expanded==='panel1'} onChange ={this.handleChange('panel1')} >
-          <ExpansionPanelSummary expandIcon={ <ExpandMoreIcon /> }>
-            <Typography className={ classes.textcolor } >Required Network Elements</Typography>
+        <ExpansionPanel className={classes.accordion} expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')} >
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography className={classes.textcolor} >Required Network Elements</Typography>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails className={ classes.detail }>
-            <RequiredNetworkElementsListComponent networkElements={ networkelements } busy={ busy }
-              onLoadAllRequiredNetworkElements={ onLoadAllRequiredNetworkElements }
-            />
+          <ExpansionPanelDetails className={classes.detail}>
+            <RequiredNetworkElementsListComponent />
           </ExpansionPanelDetails>
         </ExpansionPanel>
- 
-        <ExpansionPanel className={ classes.accordion } expanded={expanded==='panel2'} onChange ={this.handleChange('panel2')} >
-          <ExpansionPanelSummary expandIcon={ <ExpandMoreIcon /> }>
-            <Typography className={ classes.textcolor } >Unknown Network Elements</Typography>
+        <ExpansionPanel className={classes.accordion} expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')} >
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography className={classes.textcolor} >Unknown Network Elements</Typography>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails className={ classes.detail } >
-            <UnknownNetworkElementsListComponent unknownNetworkElements ={ unknownNetworkElements } busy ={ busy }
-            onLoadUnknownNetworkElements={ onLoadUnknownNetworkElements } />
+          <ExpansionPanelDetails className={classes.detail} >
+            <UnknownNetworkElementsListComponent unknownNetworkElements={unknownNetworkElements} busy={busy} />
           </ExpansionPanelDetails>
         </ExpansionPanel>
 
-        <ExpansionPanel className={ classes.accordion } expanded={expanded==='panel3'} onChange ={this.handleChange('panel3')} >
-          <ExpansionPanelSummary expandIcon={ <ExpandMoreIcon /> }>
-            <Typography className={ classes.textcolor } >Mount NETCONF Servers (devices, nodes, mediators, controllers, ...)</Typography>
+        <ExpansionPanel className={classes.accordion} expanded={expanded === 'panel3'} onChange={this.handleChange('panel3')} >
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography className={classes.textcolor} >Mount NETCONF Servers (devices, nodes, mediators, controllers, ...)</Typography>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails className={ classes.detail } >
+          <ExpansionPanelDetails className={classes.detail} >
             <MountPoints />
           </ExpansionPanelDetails>
         </ExpansionPanel>
- 
-        <ExpansionPanel className={ classes.accordion } expanded={expanded==='panel4'} onChange ={this.handleChange('panel4')} >
-          <ExpansionPanelSummary expandIcon={ <ExpandMoreIcon /> }>
-            <Typography className={ classes.textcolor } >Connection Status Log</Typography>
+
+        <ExpansionPanel className={classes.accordion} expanded={expanded === 'panel4'} onChange={this.handleChange('panel4')} >
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography className={classes.textcolor} >Connection Status Log</Typography>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails className={ classes.detail } >
-            <ConnectionStatusLogComponent connectionLog={ connectionLog } busy={ busy }
-              onLoadConnectionStatusLog={ onLoadConnectionStatusLog }
-            />
+          <ExpansionPanelDetails className={classes.detail} >
+            <ConnectionStatusLogComponent />
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>
     );
   };
   public componentDidMount() {
-    this.props.onLoadAllRequiredNetworkElements();
     this.props.onLoadUnknownNetworkElements();
-    this.props.onLoadConnectionStatusLog();
   }
 }
 
@@ -117,21 +111,11 @@ class ConnectApplicationComponent extends React.Component<any, any>{
 export const ConnectApplication = withRouter(
   connect(
     ({ connectApp: state }) => ({
-      networkelements: state.listRequired.networkelements,
-      connectionLog: state.listLog.connectionLog,
       unknownNetworkElements: state.listUnknown.unknownNetworkElements,
-      busy: state.listRequired.busy
     }),
     (dispatcher) => ({
-      onLoadAllRequiredNetworkElements: () => {
-        console.log('dispatcher: ', dispatcher);
-        dispatcher.dispatch(loadAllRequiredNetworkElementsAsync);
-      },
       onLoadUnknownNetworkElements: () => {
         dispatcher.dispatch(loadAllUnknownNetworkElementsAsync);
-      },
-      onLoadConnectionStatusLog: () => {
-        dispatcher.dispatch(loadConnectionStatusLogAsync);
       }
     }))(ConnectApplicationComponent));
 

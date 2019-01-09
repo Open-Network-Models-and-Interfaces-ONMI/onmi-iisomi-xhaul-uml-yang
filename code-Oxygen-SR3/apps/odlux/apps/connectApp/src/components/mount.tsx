@@ -32,8 +32,8 @@ export class Mount extends React.Component<{ onClickFunction: Function, rowEleme
     const { classes }: any = this.props;
 
     return (
-      <Button onClick={ this.mountDevice } title="Mount" className={ classes.ButtonColor }>
-        <FontAwesomeIcon icon={ faLink } className={ classes.iconStyle } />
+      <Button onClick={this.mountDevice} title="Mount" className={classes.ButtonColor}>
+        <FontAwesomeIcon icon={faLink} className={classes.iconStyle} />
       </Button>
     );
   }
@@ -41,8 +41,9 @@ export class Mount extends React.Component<{ onClickFunction: Function, rowEleme
   /**
   * Connect/mount the device
   */
-  private mountDevice = (event: React.MouseEvent<HTMLElement>) => {
-    this.props.rowElement.connectionStatus = "connected";
+  private mountDevice = async (event: React.MouseEvent<HTMLElement>) => {
+    console.log(this.props.rowElement);
+    this.props.rowElement.connectionStatus='connecting..'
     this.props.onClickFunction(this.props.rowElement);
   }
 

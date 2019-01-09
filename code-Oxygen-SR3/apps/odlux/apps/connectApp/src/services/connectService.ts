@@ -34,7 +34,12 @@ class ConnectService {
     */
   public insertRequiredNetworkElement(request: IRequiredNetworkElementExtended): Promise<IRequiredNetworkElementExtended> {
     return new Promise((resolve: (value: any) => void, reject: (err: any) => void) => {
-      $.ajax(request).then((success) => { console.log(success); });
+      $.ajax(request).then((success) => { 
+        console.log('im in 38:',success); 
+        resolve(success);
+      }, (error) => {
+        reject(error);
+      });
     });
   }
 
@@ -72,7 +77,7 @@ class ConnectService {
   /**
     * Gets Unknown network elements from restConf api.
     */
-  public getUnknownConnectionStatusNew(request: any): Promise<IUnknownNetworkElementsExtended[]> {
+  public getUnknownNetworkElementsList(request: any): Promise<IUnknownNetworkElementsExtended[]> {
     return new Promise((resolve: (value: any) => void, reject: (err: any) => void) => {
       $.ajax(request).then((success) => {
         console.log('getUnknown request: ', success);
