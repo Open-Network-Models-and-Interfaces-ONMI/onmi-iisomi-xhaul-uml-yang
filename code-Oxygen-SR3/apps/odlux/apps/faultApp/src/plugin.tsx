@@ -33,11 +33,12 @@ export function register(){
 	  rootActionHandler: faultAppRootHandler,
 	  menuEntry: "Fault"
 	});
+
+	// subscribe to the websocket notifications
+	subscribe<Fault & IFormatedMessage>("ProblemNotification", (fault  => {
+	  const store = applicationApi && applicationApi.applicationStore;
+	  if (fault && store) {
+	    store.dispatch(new AddFaultNotificationAction(fault));
+	  }
+	}));
 };
-// subscribe to the websocket notifications
-subscribe<Fault & IFormatedMessage>("ProblemNotification", (fault  => {
-  const store = applicationApi && applicationApi.applicationStore;
-  if (fault && store) {
-    store.dispatch(new AddFaultNotificationAction(fault));
-  }
-}));
