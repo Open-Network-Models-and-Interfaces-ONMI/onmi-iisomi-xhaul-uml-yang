@@ -14,7 +14,7 @@ public class LoadResourcesTest {
 	public void test() {
 		ResFilesServlet servlet = new ResFilesServlet();
 		String indexhtml=null;
-		indexhtml=servlet.loadFileContent(ClassLoaderUtil.getResource("odlux/index.html", this.getClass()));
+		indexhtml=servlet.loadFileContent("odlux/index.html");
 		assertNotNull(indexhtml);
 		final String regex = "require\\(\\[\"app\".*\\]";
 		final Pattern pattern = Pattern.compile(regex,Pattern.MULTILINE);

@@ -15,6 +15,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>odlux-core-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
@@ -29,29 +34,21 @@
 			<artifactId>odlux-framework</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>odlux-app-connectApp</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>odlux-app-faultApp</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>odlux-app-inventoryApp</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.osgi</groupId>
-			<artifactId>org.osgi.compendium</artifactId>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>${project.groupId}</groupId> -->
+<!-- 			<artifactId>odlux-app-connectApp</artifactId> -->
+<!-- 			<version>${project.version}</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>${project.groupId}</groupId> -->
+<!-- 			<artifactId>odlux-app-faultApp</artifactId> -->
+<!-- 			<version>${project.version}</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>${project.groupId}</groupId> -->
+<!-- 			<artifactId>odlux-app-inventoryApp</artifactId> -->
+<!-- 			<version>${project.version}</version> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -70,18 +67,26 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Import-Package>com.highstreet.technologies.odlux;resolution:=optional,*;
+						<Import-Package>com.highstreet.technologies.odlux.*;resolution:=optional,*;
 						</Import-Package>
-						<Embed-Dependency>odlux-framework;inline=true,
-							odlux-app-connectApp;inline=true,
-							odlux-app-faultApp;inline=true,
-							odlux-app-inventoryApp;inline=true</Embed-Dependency>
+						<Embed-Dependency>odlux-framework;inline=true</Embed-Dependency>
+<!-- 						<Embed-Dependency>odlux-framework;inline=true, -->
+<!-- 							odlux-app-connectApp;inline=true, -->
+<!-- 							odlux-app-faultApp;inline=true, -->
+<!-- 							odlux-app-inventoryApp;inline=true</Embed-Dependency> -->
 						<Embed-Transitive>true</Embed-Transitive>
+						<Export-Package>${project.groupId}.*</Export-Package>
 					</instructions>
 				</configuration>
 			</plugin>

@@ -33,4 +33,8 @@ xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs">
             <entry key="alias" value="/odlux" />
         </service-properties>
     </service>
+    
+    <bean id="loadersvc" class="com.highstreet.technologies.odlux.api.bundles.OdluxBundleLoaderImpl"/>
+    <service id="serviceRegistration" interface="com.highstreet.technologies.odlux.api.bundles.OdluxBundleLoader" ref="loadersvc"/>
+    
 </blueprint>
