@@ -3,13 +3,25 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+	<parent>
+		<groupId>com.highstreet.technologies.odlux</groupId>
+		<artifactId>odlux-parent</artifactId>
+		<version>0.7.3-SNAPSHOT</version>
+		<relativePath></relativePath>
+	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.highstreet.technologies.odlux</groupId>
 	<artifactId>odlux-app-minimumApp</artifactId>
-	<version>0.7.3-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>bundle</packaging>
 	<name>odlux-app-minimumApp</name>
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>odlux-core-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
 	<build>
+		<sourceDirectory>src2/main/java</sourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -18,7 +30,7 @@
 				<executions>
 					<execution>
 						<id>build with yarn</id>
-						<phase>compile</phase>
+						<phase>initialize</phase>
 						<goals>
 							<goal>exec</goal>
 						</goals>
@@ -38,11 +50,25 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Import-Package>com.highstreet.technologies.odlux.api.*,com.opensymphony.*</Import-Package>
+						<Private-Package></Private-Package>
+					</instructions>
+				</configuration>
+			</plugin>
 		</plugins>
 		<resources>
 			<resource>
 				<directory>dist</directory>
 				<targetPath>odlux</targetPath>
+			</resource>
+			<resource>
+				<directory>src2/main/resources</directory>
 			</resource>
 		</resources>
 	</build>
