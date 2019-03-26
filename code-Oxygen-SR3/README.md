@@ -58,17 +58,18 @@ HINT: if the structure is different adapt the *dist.conf* file in the root-direc
 
 ##### Step1: Download Karaf/ODL/CENTENIAL Apps - tar.gz file (411 MB)
 
-Actual Version: 016.008 (17.11.2018)https://cloud-highstreet-technologies.com/nextcloud/index.php/s/24fdqRLwmwzoZNe
+Actual Version: 016.015 (20.12.2018)
+
 
 	cd ~/Downloads
-    wget https://cloud-highstreet-technologies.com/nextcloud/index.php/s/24fdqRLwmwzoZNe/download -O karaf-0.8.3-poc5.016.008.tar.gz
+    wget https://cloud-highstreet-technologies.com/nextcloud/index.php/s/G2BgQXbD8gNYdHN/download -O karaf-0.8.3-poc5.016.015.tar.gz
 
 ##### Step2: Extract tar.gz
 
 Unpack karaf and included odl micro apps. (No karaf is running on server ./odl/)
 
     cd ~/odl
-    tar -xzf ../Downloads/karaf-0.8.3-poc5.016.008.tar.gz
+    tar -xzf ../Downloads/karaf-0.8.3-poc5.016.015.tar.gz
 
 ##### Step3: Run Opendaylight
 
@@ -90,7 +91,7 @@ HINT for Sim2230
   * Simulator Sim2230 runns only if session stays open and running
   * Stop and leave Sim2230 with *quit<enter>*
 
-With client browser connect to URL and login with admin / admin
+With client browser connect to URL and login with admin / admin (<ip/name> = "localhost" if you are on the same VM)
 
      http://<ip/name>:8181/index.html
 
@@ -128,6 +129,22 @@ What you see
      20180927T183936 MP875071020:Get[m-2]  matches mw-pure-ethernet-structure-pac: layer-protocol:LP-MWS-RADIO pure-ethernet-structure-current-problems:
      20180927T183936 MP875071020:Get[m-3]  matches mw-air-interface-pac: layer-protocol:LP-MWPS-TTP-RADIO air-interface-current-problems:
 ```
+##### Inventory
+
+With the equipment simulator you can see a first eqample of the new "O D L UX" user interface.
+
+  * Clone WirelessTransportEmulator project https://github.com/Melacon/WirelessTransportEmulator.git
+  * In ubuntu start a command line and cd to ```WirelessTransportEmulator/NetconfServerSimulator/build```
+  * Run the simulator ```./nesim_onf12_equipment_p12600.sh```
+  * Connect the ODL to the running simulator using the DLUX/Connect app http://localhost:8181/index.html#/connect and the Mount NETCONF Servers (devices, nodes, mediators, controllers, ...) folder.
+  * If connected open the url http://<ip/name>:8181/index2.html#/inventoryApp
+
+Commands to start "O D L UX" added at the end of ```dist.conf``` ```to karaf_startup_dev()``` function:
+
+    karafcmd "repo-add mvn:com.highstreet.technologies.odlux/odlux-core-features/$ODLPARENT/xml/features"
+    karafcmd "feature:install odl-ht-odlux"
+
+
 
 ##### Further commands of odl script
 

@@ -13,6 +13,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import org.opendaylight.mwtn.base.internalTypes.InternalSeverity;
+import org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElement12Equipment;
 import org.opendaylight.mwtn.base.netconf.ONFCoreNetworkElementCallback;
 import org.opendaylight.mwtn.base.netconf.wrapperc.OnfMicrowaveModelNotification;
 import org.opendaylight.mwtn.base.toggleAlarmFilter.NotificationDelayFilter;
@@ -183,6 +184,14 @@ public class MicrowaveEventListener12 implements OnfMicrowaveModelNotification, 
     public int removeObjectsCurrentProblemsOfNode(String objectId) {
         int deleted = databaseService.clearFaultsCurrentOfNodeWithObjectId(nodeName, objectId);
         return deleted;
+    }
+
+    /**
+     * Write equipment data to database
+     * @param equipment
+     */
+    public void writeEquipment(ONFCoreNetworkElement12Equipment equipment) {
+    	databaseService.writeInventory(equipment);
     }
 
  }

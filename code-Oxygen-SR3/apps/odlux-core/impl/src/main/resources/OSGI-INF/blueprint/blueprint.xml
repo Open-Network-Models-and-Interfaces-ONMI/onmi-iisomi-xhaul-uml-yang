@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs">
+
+    <bean id="indexServlet"
+        class="com.highstreet.technologies.odlux.IndexServlet">
+    </bean>
+
+   <service interface="javax.servlet.http.HttpServlet" ref="indexServlet">
+        <service-properties>
+            <entry key="alias" value="/index2.html" />
+        </service-properties>
+    </service>
+    
+<!--     <bean id="rootServlet" -->
+<!--         class="com.highstreet.technologies.odlux.RootServlet"> -->
+<!--     </bean> -->
+
+<!--    <service interface="javax.servlet.http.HttpServlet" ref="rootServlet"> -->
+<!--         <service-properties> -->
+<!--             <entry key="alias" value="/" /> -->
+<!--         </service-properties> -->
+<!--     </service> -->
+
+    <bean id="resFilesServlet"
+        class="com.highstreet.technologies.odlux.ResFilesServlet">
+    </bean>
+
+   <service interface="javax.servlet.http.HttpServlet" ref="resFilesServlet">
+        <service-properties>
+            <entry key="alias" value="/odlux" />
+        </service-properties>
+    </service>
+    
+    <bean id="loadersvc" class="com.highstreet.technologies.odlux.api.bundles.OdluxBundleLoaderImpl"/>
+    <service id="serviceRegistration" interface="com.highstreet.technologies.odlux.api.bundles.OdluxBundleLoader" ref="loadersvc"/>
+    
+</blueprint>

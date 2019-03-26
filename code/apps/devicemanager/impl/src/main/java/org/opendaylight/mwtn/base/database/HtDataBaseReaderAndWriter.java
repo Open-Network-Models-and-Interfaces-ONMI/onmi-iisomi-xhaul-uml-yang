@@ -98,7 +98,15 @@ public class HtDataBaseReaderAndWriter<T extends IsEsObject> {
         return idx;
     }
 
-
+    /**
+     * Do the mapping for test prupose
+     * @param object
+     * @return json String
+     */
+    public String getJson( T object ) {
+    	String json = mapper.objectToJson(object);
+    	return json;
+    }
 
     /**
      * Write one object into Database
@@ -107,9 +115,21 @@ public class HtDataBaseReaderAndWriter<T extends IsEsObject> {
      */
     public T doWrite( T object) {
 
+        String json = mapper.objectToJson(object);
+        return doWrite(object, json);
+
+    }
+
+    /**
+     * Write one object into Database
+     * @param object Object with content
+     * @param json
+     * @return This object for chained call pattern.
+     */
+    public T doWrite( T object, String json) {
+
         log.debug("doWrite {} {}",object.getClass().getSimpleName(), object.getEsId());
 
-        String json = mapper.objectToJson(object);
         if (json != null) {
             String esId = db.doWrite(dataTypeName, object, json);
             object.setEsId(esId);
@@ -121,6 +141,7 @@ public class HtDataBaseReaderAndWriter<T extends IsEsObject> {
         }
 
     }
+
 
     /**
      * Write a list of Objects to the database.

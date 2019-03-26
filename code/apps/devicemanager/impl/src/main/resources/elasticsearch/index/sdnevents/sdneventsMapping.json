@@ -95,6 +95,75 @@
 					}
 				}
 			}
+		},
+
+		"inventorytoplevel": {
+			"properties": {
+				"uuidList": {
+					"index": "not_analyzed",
+					"type": "string"
+				},
+				"mountpoint": {
+					"index": "not_analyzed",
+					"type": "string"
+				}
+			}
+		},
+		"inventoryequipment": {
+			"properties": {
+				"parentUuid": {
+					"index": "not_analyzed",
+					"type": "string"
+				},
+				"manufacturerName":{
+					"index": "not_analyzed",
+					"type": "string"
+				},
+				"manufacturerIdentifier": {
+					"index": "not_analyzed",
+					"type": "string"
+				},
+				"date": {
+					"index": "not_analyzed",
+					"type": "string"
+				},
+				"modelIdentifier": {
+					"index": "not_analyzed",
+					"type": "string"
+				},
+				"partTypeId": {
+					"index": "not_analyzed",
+					"type": "string"
+				},
+				"serial": {
+					"index": "not_analyzed",
+					"type": "string"
+				},
+				"typeName": {
+					"index": "not_analyzed",
+					"type": "string"
+				},
+				"description": {
+					"index": "not_analyzed",
+					"type": "string"
+				},
+				"uuid": {
+					"index": "not_analyzed",
+					"type": "string"
+				},
+				"version": {
+					"index": "not_analyzed",
+					"type": "string"
+				},
+				"containedHolder": {
+					"index": "not_analyzed",
+					"type": "string"
+				},
+				"mountpoint": {
+					"index": "not_analyzed",
+					"type": "string"
+				}
+			}
 		}
 	}
 }

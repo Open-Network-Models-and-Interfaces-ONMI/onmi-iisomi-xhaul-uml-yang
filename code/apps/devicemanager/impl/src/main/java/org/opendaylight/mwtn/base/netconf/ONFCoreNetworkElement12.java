@@ -274,6 +274,8 @@ public class ONFCoreNetworkElement12 extends ONFCoreNetworkElement12Base impleme
 
         microwaveEventListener.initCurrentProblemStatus(resultList);
 
+        microwaveEventListener.writeEquipment(equipment);
+
         LOG.info("Found info at {} for device {} number of problems: {}", mountPointNodeName, getUuId(),
                 resultList.size());
     }

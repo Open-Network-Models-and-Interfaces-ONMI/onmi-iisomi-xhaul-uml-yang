@@ -134,7 +134,7 @@ createBuildFiles() {
 
   cd $HERE
 
-  rm -r $TMPVERSIONPATH
+  #rm -r $TMPVERSIONPATH
 
 }
 
