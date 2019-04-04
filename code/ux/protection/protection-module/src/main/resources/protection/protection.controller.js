@@ -193,7 +193,7 @@ define(['app/protection/protection.module',
           $scope.protectionGroups = null;
 
           if ($scope.networkElement) {
-            $scope.status = 'loading';
+            $scope.processing = true;
             $scope.revision = $scope.mountPoints.filter((mountpoint) => {
               return mountpoint['node-id'] === $scope.networkElement;
             }).map((mountpoint) => {
@@ -208,11 +208,11 @@ define(['app/protection/protection.module',
             };
             $protection.getPacParts(spec).then(
               (success) => {
-                $scope.status = 'loaded';
+                $scope.processing = false;
                 updateNe($protection.yangifyObject(success));
               },
               (error) => {
-                $scope.status = 'loaded';
+                $scope.processing = false;
                 updateNe(error);
               });
           }

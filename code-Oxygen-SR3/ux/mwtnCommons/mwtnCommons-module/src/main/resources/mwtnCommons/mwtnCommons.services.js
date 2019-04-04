@@ -734,7 +734,7 @@ define(
         }
       };
 
-      // service.base = service.base.replace('192.168.178.148', '10.10.240.80');
+      service.base = service.base.replace('192.168.178.148', '10.10.240.80');
 
       service.getOrderNumber = function(proposal, item){
         var result = proposal;

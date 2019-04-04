@@ -26,7 +26,7 @@
 		<section class="protection-group">
 			<mwtn-select-network-element></mwtn-select-network-element>
 
-			<h3 ng-if="status === 'loading'">
+			<h3 ng-if="processing">
 				<i class="fa fa-spinner fa-pulse"></i>
 				<span> Loading ...</span>
 			</h3>
@@ -34,7 +34,7 @@
 					<i class="fa fa-exclamation-triangle Critical"></i>
 					<span>{{ protectionGroups.error }}</span>
 			</h3>
-			<h3 ng-if="status !== 'loading' && !protectionGroups.error && networkElement && !protectionGroups.fc">
+			<h3 ng-if="!processing && !protectionGroups.error && networkElement && !protectionGroups.fc">
 					<i class="fa fa-info-circle Warning"></i>
 					<span>No 1+1 protection group configured.</span>
 			</h3>

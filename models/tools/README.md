@@ -79,6 +79,11 @@ The following commands was used to install UnZip.
 sudo apt-get install unzip
 ```
 
+### graphviz
+```
+sudo apt-get install graphviz
+```
+
 ## Process
 
 The way and steps which needs to be taken to get a valid Yang module from and UML model is called "Process". 
