@@ -297,15 +297,13 @@ module microwave-model {
         }
         grouping time-x-states-type-g {
             leaf transmission-mode {
-				type leafref{
-					path '/mw-air-interface-pac/air-interface-capability/supported-channel-plan-list/transmission-mode-list/transmission-mode-id';
-				}
-                if-feature revision1_1;
+		type leafref{
+		    path '/mw-air-interface-pac/air-interface-capability/supported-channel-plan-list/transmission-mode-list/transmission-mode-id';
+	        }
 		config false;
                 description "Operated transmission mode.";
             }
             leaf time {
-                if-feature revision1_1;
                 type int32;
                 units "s";
                 default -1;
