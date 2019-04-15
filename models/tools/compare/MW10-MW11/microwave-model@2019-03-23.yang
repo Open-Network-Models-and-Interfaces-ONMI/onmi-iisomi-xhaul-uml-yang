@@ -385,6 +385,7 @@ module microwave-model {
             }
             list time-x-states-list {
                 if-feature revision1_1;
+		key 'transmission-mode';
                 config false;
                 min-elements 1;
                 uses time-x-states-type-g;
@@ -1412,7 +1413,7 @@ All artifacts, which have been added in release TR-532 v1.1, have to be marked w
                 leaf transmission-mode-cur {
 					if-feature revision1_1;
 					type leafref {
-						path '../../air-interface-capability/supported-channel-plan-list/transmission-mode-list/transmission-mode-id';
+						path '/mw-air-interface-pac/air-interface-capability/supported-channel-plan-list/transmission-mode-list/transmission-mode-id';
 					}    
 					config false;
                     description "Currently operated transmission mode according to definitions in Capabilities.";
