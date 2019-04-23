@@ -1,6 +1,0 @@
-<div class="sidebar-collapse">
-  <ul id="side-menu" class="nav">
-    <li ng-class="{ active: (isState(item.active) && !isValid(item.submenu))}" ng-controller="NavItemCtrl" ng-repeat="item in navList" ng-include="'src/common/navigation/nav_item_template.tpl.html'" ng-type="{{item.id}}">
-    </li>
-  </ul>
-</div>

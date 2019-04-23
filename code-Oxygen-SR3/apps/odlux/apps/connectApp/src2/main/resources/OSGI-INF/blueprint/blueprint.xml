@@ -1,8 +1,0 @@
-<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
-    <reference id="loadersvc" availability="mandatory" activation="eager" interface="com.highstreet.technologies.odlux.api.bundles.OdluxBundleLoader"/>
-
-    <bean id="bundle" init-method="initialize" destroy-method="clean" class="com.highstreet.technologies.odlux.bundles.MyOdluxBundle">
-        <property name="loader" ref="loadersvc"/>
-        <property name="bundleName" value="connectApp"/>
-    </bean>
-</blueprint>
