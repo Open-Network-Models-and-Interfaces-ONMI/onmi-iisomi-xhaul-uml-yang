@@ -1,3 +1,3 @@
 # 5G xHaul
 
-ONF %G xHaul (front, mid, back, self) PoC Applications
+ONF 5G xHaul (front, mid, back, self) PoC Applications
