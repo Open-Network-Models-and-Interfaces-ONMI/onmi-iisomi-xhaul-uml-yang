@@ -1,3 +1,3 @@
-# CENTENNIAL
+# 5G xHaul
 
-ONF Microwave and Millimeterwave PoC Applications
+ONF %G xHaul (front, mid, back, self) PoC Applications
