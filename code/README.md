@@ -1,6 +1,6 @@
 # Code
 
-Please place code for ONF Centennial apps and microservices here.
+Please place code for ONF 5G-xHaul apps and microservices here.
 
 ## Note
 
