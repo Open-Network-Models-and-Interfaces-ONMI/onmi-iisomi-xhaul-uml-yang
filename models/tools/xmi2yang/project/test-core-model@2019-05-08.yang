@@ -1,0 +1,101 @@
+module test-core-model {
+    namespace "urn:onf:yang:test-core-model";
+    prefix test-core-model;
+    organization "OpenNetworkingFoundation (ONF)";
+    contact "ONF";
+    description "none";
+    revision 2019-05-08 {
+        description "Test project to check UML-to-YANG tool.";
+        reference "ONF-TR-512, ONF-TR-532, ONF-TR-541, ONF-TR-545, RFC 6020 and RFC 6087";
+    }
+    /********************************************
+    * grouping statements for object references
+    ********************************************/ 
+        grouping test-logical-termination-point-ref {
+            leaf test-logical-termination-point-uuid {
+                type leafref {
+                    path '/test-core-model:test-control-construct/test-core-model:test-logical-termination-point/test-core-model:uuid';
+                }
+                description "none";
+            }
+            description "none";
+        }
+        grouping test-layer-protocol-ref {
+            leaf test-layer-protocol-local-id {
+                type leafref {
+                    path '/test-core-model:test-control-construct/test-core-model:test-logical-termination-point/test-core-model:test-layer-protocol/test-core-model:local-id';
+                }
+                description "none";
+            }
+            uses test-logical-termination-point-ref;
+            description "none";
+        }
+
+/****************************************
+* typedef statements
+**************************************/ 
+
+/*********************************************
+* grouping statements for complex data types
+*******************************************/ 
+        grouping yang-augmenting-conditional-packages {
+            leaf yang-capability {
+                type string;
+                description "none";
+            }
+            leaf yang-revision {
+                type string;
+                description "none";
+            }
+            leaf conditional-package-name {
+                type string;
+                description "none";
+            }
+            description "none";
+        }
+
+    /****************************************
+    * grouping statements for object classes
+    **************************************/ 
+        container test-control-construct {
+            uses test-control-construct;
+            description "none";
+        }
+        grouping test-control-construct {
+            leaf uuid {
+                type string;
+                description "none";
+            }
+            list test-logical-termination-point {
+                key 'uuid';
+                uses test-logical-termination-point;
+                description "none";
+            }
+            description "none";
+        }
+        grouping test-logical-termination-point {
+            leaf uuid {
+                type string;
+                description "none";
+            }
+            list test-layer-protocol {
+                key 'local-id';
+                min-elements 1;
+                uses test-layer-protocol;
+                description "none";
+            }
+            description "none";
+        }
+        grouping test-layer-protocol {
+            leaf local-id {
+                type string;
+                description "none";
+            }
+            container augmentation {
+                uses yang-augmenting-conditional-packages;
+                description "none";
+            }
+            description "none";
+        }
+
+}
