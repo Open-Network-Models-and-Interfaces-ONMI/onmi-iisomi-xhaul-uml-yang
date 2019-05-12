@@ -1,0 +1,33 @@
+module: test-core-model
+  +--rw test-control-construct
+     +--rw uuid?                             string
+     +--rw test-logical-termination-point* [uuid]
+        +--rw uuid                   string
+        +--rw test-layer-protocol* [local-id]
+           +--rw local-id                                                string
+           +--rw augmentation
+           |  +--rw yang-capability?            string
+           |  +--rw yang-revision?              string
+           |  +--rw conditional-package-name?   string
+           +--rw test-another-pac:another-pac
+           |  +--rw test-another-pac:test-another-pac-attribute?   string
+           |  +--ro test-another-pac:test-another-capability
+           |  |  +--ro test-another-pac:capability-1?   string
+           |  |  +--ro test-another-pac:capability-2?   string
+           |  +--rw test-another-pac:test-another-configuration
+           |  |  +--rw test-another-pac:configuration-1?   string
+           |  |  +--rw test-another-pac:configuration-2?   string
+           |  +--ro test-another-pac:test-another-status
+           |     +--ro test-another-pac:status-1?   string
+           |     +--ro test-another-pac:status-2?   string
+           +--rw test-technology-specific-pac:technology-specific-pac
+              +--rw test-technology-specific-pac:technology-specific-attribute?   string
+              +--ro test-technology-specific-pac:test-capability
+              |  +--ro test-technology-specific-pac:capability-1?   string
+              |  +--ro test-technology-specific-pac:capability-2?   string
+              +--rw test-technology-specific-pac:test-configuration
+              |  +--rw test-technology-specific-pac:configuration-1?   string
+              |  +--rw test-technology-specific-pac:configuration-2?   string
+              +--ro test-technology-specific-pac:test-status
+                 +--ro test-technology-specific-pac:status-1?   string
+                 +--ro test-technology-specific-pac:status-2?   string
