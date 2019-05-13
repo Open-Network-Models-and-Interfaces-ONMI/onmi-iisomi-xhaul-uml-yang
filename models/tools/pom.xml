@@ -92,6 +92,20 @@
         <version>${exec.maven.plugin.version}</version>
         <executions>
           <execution>
+            <id>install-uml-to-yang</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>npm</executable>
+              <arguments>
+                <argument>install</argument>
+                <argument>${basedir}/xmi2yang</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
             <id>converting-uml</id>
             <phase>generate-sources</phase>
             <goals>
