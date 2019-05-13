@@ -3,7 +3,7 @@
 A project that converts xmi (papyrus uml) into other formats, with focus on yang.
 The current version is experimental and used to understand and improve IISOMI UML-Guidelines, UML-YANG-Guidelines and the UML-YANG-Tools.
 
-For the translation of Papyrus UML in xmi format to yang the [EagleUmlYang](https://github.com/OpenNetworkingFoundation/EagleUmlYang) tool was copied. All modifications made here should be contributed back.
+For the translation of Papyrus UML in xmi format to yang the [EagleUmlYang](https://github.com/OpenNetworkingFoundation/EagleUmlYang) tool was copied (commit 7db0e718daba597cd0654adb2eb873505be48fa6). All modifications made here should be contributed back.
 
 ## How to get here
 
