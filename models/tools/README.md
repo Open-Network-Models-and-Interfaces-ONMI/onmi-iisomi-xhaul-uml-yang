@@ -5,6 +5,19 @@ The current version is experimental and used to understand and improve IISOMI UM
 
 For the translation of Papyrus UML in xmi format to yang the [EagleUmlYang](https://github.com/OpenNetworkingFoundation/EagleUmlYang) tool was copied. All modifications made here should be contributed back.
 
+## How to get here
+
+This project is under the branch "experimental" of https://github.com/OpenNetworkingFoundation/5G-xHaul.
+
+```bash
+mkdir -p $HOME/workspace
+cd $HOME/workspace
+git clone https://github.com/OpenNetworkingFoundation/5G-xHaul
+cd 5G-xHaul
+git checkout experimental
+cd models/tools
+```
+
 ## Prerequisites
 
 In order to run the UML-TO-YANG tool and verify the generated yang modules, the following tools and applications are required.
@@ -28,6 +41,14 @@ Please install Apache Maven and verify its successful installation.
 sudo apt update
 udo apt install maven
 mvn --version
+```
+
+The following step is optional but used for ONAP and OpenDaylight development.
+
+```bash
+mkdir -p $HOME/.m2
+if [ -e $HOME/.m2/settings.xml ] ; then cp -n $HOME//.m2/settings.xml{,.orig} ; fi
+wget -q -O - https://git.onap.org/oparent/plain/settings.xml > $HOME/.m2/settings.xml
 ```
 
 ### git
