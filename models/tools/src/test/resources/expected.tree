@@ -5,10 +5,6 @@ module: test-core-model
         +--rw uuid                   string
         +--rw test-layer-protocol* [local-id]
            +--rw local-id                                                string
-           +--rw augmentation
-           |  +--rw yang-capability?            string
-           |  +--rw yang-revision?              string
-           |  +--rw conditional-package-name?   string
            +--rw test-another-pac:another-pac
            |  +--rw test-another-pac:test-another-pac-attribute?   string
            |  +--ro test-another-pac:test-another-capability

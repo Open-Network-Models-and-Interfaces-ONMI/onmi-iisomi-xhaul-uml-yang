@@ -31,29 +31,6 @@ module test-core-model {
             description "none";
         }
 
-/****************************************
-* typedef statements
-**************************************/ 
-
-/*********************************************
-* grouping statements for complex data types
-*******************************************/ 
-        grouping yang-augmenting-conditional-packages {
-            leaf yang-capability {
-                type string;
-                description "none";
-            }
-            leaf yang-revision {
-                type string;
-                description "none";
-            }
-            leaf conditional-package-name {
-                type string;
-                description "none";
-            }
-            description "none";
-        }
-
     /****************************************
     * grouping statements for object classes
     **************************************/ 
@@ -89,10 +66,6 @@ module test-core-model {
         grouping test-layer-protocol {
             leaf local-id {
                 type string;
-                description "none";
-            }
-            container augmentation {
-                uses yang-augmenting-conditional-packages;
                 description "none";
             }
             description "none";

@@ -2,19 +2,7 @@
 <xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9 ../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29 ../OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ">
   <uml:Model xmi:id="0B_17MG9FEembcsaJa33rBA" name="TestCoreModel">
     <packagedElement xmi:type="uml:Package" xmi:id="_sNVw0G9HEem24uNCwfOIBg" name="imports"/>
-    <packagedElement xmi:type="uml:Package" xmi:id="_czmooHJmEemHoZj0yu-6dg" name="TypeDefinitions">
-      <packagedElement xmi:type="uml:DataType" xmi:id="_uVDGIHJmEemHoZj0yu-6dg" name="YangAugmentingConditionalPackages" visibility="protected">
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_keAWQHJrEemHoZj0yu-6dg" name="yangCapability">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_spxd0HJrEemHoZj0yu-6dg" name="yangRevision">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_z1oAgHJrEemHoZj0yu-6dg" name="conditionalPackageName">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </ownedAttribute>
-      </packagedElement>
-    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_czmooHJmEemHoZj0yu-6dg" name="TypeDefinitions"/>
     <packagedElement xmi:type="uml:Package" xmi:id="_TZjHEG9HEem24uNCwfOIBg" name="ObjectClasses">
       <packagedElement xmi:type="uml:Class" xmi:id="_GbQ-UHMOEemHoZj0yu-6dg" name="TestControlConstruct">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_GbQ-UXMOEemHoZj0yu-6dg" name="uuid">
@@ -38,13 +26,6 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="_qKPRQHFjEemHoZj0yu-6dg" name="localId">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_3kvHgHFjEemHoZj0yu-6dg" name="augmentation" type="_uVDGIHJmEemHoZj0yu-6dg"/>
-        <nestedClassifier xmi:type="uml:Class" xmi:id="_0FIQcHP9EemHoZj0yu-6dg" name="TestLayerProtocol">
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_0FIQcXP9EemHoZj0yu-6dg" name="localId">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_0FIQcnP9EemHoZj0yu-6dg" name="augmentation" type="_uVDGIHJmEemHoZj0yu-6dg"/>
-        </nestedClassifier>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_kmamQG9IEemHoZj0yu-6dg" name="Associations">
@@ -118,16 +99,8 @@ Type definitionas are not subject of this example.</body>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_kH8-sHFjEemHoZj0yu-6dg" base_Property="_kH8XoHFjEemHoZj0yu-6dg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_qKPRQXFjEemHoZj0yu-6dg" base_StructuralFeature="_qKPRQHFjEemHoZj0yu-6dg" partOfObjectKey="1"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_qKP4UHFjEemHoZj0yu-6dg" base_Property="_qKPRQHFjEemHoZj0yu-6dg"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_3kvHgXFjEemHoZj0yu-6dg" base_StructuralFeature="_3kvHgHFjEemHoZj0yu-6dg"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_3kvukHFjEemHoZj0yu-6dg" base_Property="_3kvHgHFjEemHoZj0yu-6dg"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_ZLXfQG9IEemHoZj0yu-6dg" base_Class="_eNLowG9HEem24uNCwfOIBg"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_ZLAS4G9IEemHoZj0yu-6dg" base_Class="_eNLowG9HEem24uNCwfOIBg"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_keAWQXJrEemHoZj0yu-6dg" base_StructuralFeature="_keAWQHJrEemHoZj0yu-6dg"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_keA9UHJrEemHoZj0yu-6dg" base_Property="_keAWQHJrEemHoZj0yu-6dg"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_spxd0XJrEemHoZj0yu-6dg" base_StructuralFeature="_spxd0HJrEemHoZj0yu-6dg"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_spyE4HJrEemHoZj0yu-6dg" base_Property="_spxd0HJrEemHoZj0yu-6dg"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_z1onkHJrEemHoZj0yu-6dg" base_StructuralFeature="_z1oAgHJrEemHoZj0yu-6dg"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_z1onkXJrEemHoZj0yu-6dg" base_Property="_z1oAgHJrEemHoZj0yu-6dg"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_GbQ-VXMOEemHoZj0yu-6dg" base_Class="_GbQ-UHMOEemHoZj0yu-6dg"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_GbQ-VnMOEemHoZj0yu-6dg" base_Class="_GbQ-UHMOEemHoZj0yu-6dg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_GbQ-V3MOEemHoZj0yu-6dg" base_StructuralFeature="_GbQ-UXMOEemHoZj0yu-6dg"/>
@@ -137,10 +110,4 @@ Type definitionas are not subject of this example.</body>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_03LYUXMUEemHoZj0yu-6dg" base_Property="_03KxQHMUEemHoZj0yu-6dg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_03MmcnMUEemHoZj0yu-6dg" base_StructuralFeature="_03MmcXMUEemHoZj0yu-6dg"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_03Mmc3MUEemHoZj0yu-6dg" base_Property="_03MmcXMUEemHoZj0yu-6dg"/>
-  <OpenModel_Profile:OpenModelClass xmi:id="_0FI3gHP9EemHoZj0yu-6dg" base_Class="_0FIQcHP9EemHoZj0yu-6dg"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_0cGmAHP9EemHoZj0yu-6dg" base_Class="_0FIQcHP9EemHoZj0yu-6dg"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_0cGmAXP9EemHoZj0yu-6dg" base_StructuralFeature="_0FIQcXP9EemHoZj0yu-6dg" partOfObjectKey="1"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_0cGmAnP9EemHoZj0yu-6dg" base_Property="_0FIQcXP9EemHoZj0yu-6dg"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_0cHNEHP9EemHoZj0yu-6dg" base_StructuralFeature="_0FIQcnP9EemHoZj0yu-6dg"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_0cHNEXP9EemHoZj0yu-6dg" base_Property="_0FIQcnP9EemHoZj0yu-6dg"/>
 </xmi:XMI>
