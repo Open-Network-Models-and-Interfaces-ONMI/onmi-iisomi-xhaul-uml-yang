@@ -69,6 +69,7 @@ Please install nodejs and verify its successful installation.
 sudo apt update
 sudo apt install nodejs npm
 nodejs --version
+npm --version
 ```
 
 ### pyang
