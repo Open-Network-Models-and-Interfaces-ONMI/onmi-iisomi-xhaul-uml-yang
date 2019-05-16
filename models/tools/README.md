@@ -39,7 +39,7 @@ Please install Apache Maven and verify its successful installation.
 
 ```bash
 sudo apt update
-udo apt install maven
+sudo apt install maven
 mvn --version
 ```
 
