@@ -10,7 +10,7 @@
  * The above copyright information should be included in all distribution, reproduction or derivative works of this software.
  *
  ****************************************************************************************************/
-function OpenModelObject(id, type, vr, cond, sup, inv, avcNot, dNot, cNot, passBR, opex, opid, ato, key, units, fileName){
+function OpenModelObject(id, type, vr, cond, sup, inv, avcNot, dNot, cNot, passBR, opex, opid, ato, key, units, unsigned, writeAllowed, bitLength, encoding, fileName){
     this.id = id;
     this.type = type;
     this.valueRange = vr;
@@ -27,6 +27,10 @@ function OpenModelObject(id, type, vr, cond, sup, inv, avcNot, dNot, cNot, passB
     this.isOperationIdempotent = opid;
     this.isAtomic = ato;
     this.units = units;
+    this.unsigned = unsigned;
+    this.writeAllowed = writeAllowed;
+    this.bitLength = bitLength;
+    this.encoding = encoding;
     this.fileName = fileName;
 }
 module.exports=OpenModelObject;

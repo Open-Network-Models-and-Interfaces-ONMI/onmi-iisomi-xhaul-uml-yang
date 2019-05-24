@@ -53,6 +53,7 @@ module.exports = {
         }
     },
     processFeat:function(ele,store,config){
+
         var feat = [];
         for(var i = 0; i < ele.length; i++){
             var obj;
@@ -217,8 +218,6 @@ module.exports = {
                             var oma = store.openModelAtt[k];
 
                             if (oma.id == ele[i].attribute[j].id) {
-                                units = oma.units;
-                                vr = oma.valueRange;
                                 if (oma.condition && !config.suppressIfFeatureGen) {
                                     for (var m = 0; m < feat.length; m++) {
                                         if (feat[m].name == oma.condition && feat[m].fileName == oma.fileName) {
@@ -232,18 +231,19 @@ module.exports = {
                                         ele[i].attribute[j].support = feat[m].name;
                                     }
                                 }
-                                if (oma.status) {
-                                    ele[i].attribute[j].status = oma.status;
-                                }
                                 if (oma.passedByReference) {
                                     ele[i].attribute[j].isleafRef = true;
                                 }
-                                if (oma.units) {
-                                    ele[i].attribute[j].units = oma.units;
-                                }
-                                if (oma.valueRange) {
-                                    ele[i].attribute[j].valueRange = oma.valueRange;
-                                }
+
+                                if (oma.id === "_G0HjwH1BEemg07MSqaqjCw") console.log("[sko] #############################################");
+                                if (oma.id === "_G0HjwH1BEemg07MSqaqjCw") console.log("[sko] ##00# oma", JSON.stringify(oma, null, ' '));
+                                ["status", "units", "valueRange", "attributeValueChangeNotification","unsigned", "writeAllowed", "bitLength", "encoding"]
+                                .forEach(function(field) {
+                                    
+                                    if (oma[field] !== undefined) {
+                                        ele[i].attribute[j][field] = oma[field];
+                                    }
+                                });
                                 break;
                             }
                         }
@@ -338,7 +338,7 @@ module.exports = {
                         if (ele[i].attribute[j].type.split("+")[0] === "leafref") {
                             ele[i].attribute[j].type = new yangModels.Type("leafref", ele[i].attribute[j].id, ele[i].attribute[j].type.split("+")[1], vr, "", "", ele[i].fileName);
                         } else if (ele[i].attribute[j].nodeType === "leaf" || ele[i].attribute[j].nodeType === "leaf-list") {
-                            ele[i].attribute[j].type = new yangModels.Type(ele[i].attribute[j].type, ele[i].attribute[j].id, undefined, vr, "", "", ele[i].fileName);
+                            ele[i].attribute[j].type = new yangModels.Type(ele[i].attribute[j].type, ele[i].attribute[j].id, undefined, vr, "", "", ele[i].fileName, ele[i].attribute[j].unsigned, ele[i].attribute[j].units);
                         }
 
                         if (ele[i].attribute[j].type.range) {
@@ -497,6 +497,7 @@ module.exports = {
                                 ele[i].attribute[j].keyid = clazz.keyid;
                                 ele[i].attribute[j].keyvalue = clazz.keyvalue;
                             }
+                            if (ele[i].attribute[j].id === "_G0HjwH1BEemg07MSqaqjCw") console.log("[sko] ##12#", JSON.stringify(ele[i].attribute[j], null, ' ')); 
                             obj.buildChild(ele[i].attribute[j], ele[i].attribute[j].nodeType);//create the subnode to obj
                         }
                     }

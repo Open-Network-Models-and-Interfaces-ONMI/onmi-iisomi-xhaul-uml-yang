@@ -48,6 +48,25 @@
       <ownedAttribute xmi:type="uml:Property" xmi:id="_n2TywnMDEemHoZj0yu-6dg" name="status2" isReadOnly="true">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_8rIhkH1AEemg07MSqaqjCw" name="signedInteger32">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_U9x7MH1DEemg07MSqaqjCw">
+          <body>Expected type int32 with unit dbm/10 and default -99.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_dF0ZUH1DEemg07MSqaqjCw" name="Minus99-10th-dBm" value="-99"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_CibsIH1BEemg07MSqaqjCw" name="unsingedInteger8">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_MQbwkH1DEemg07MSqaqjCw">
+          <body>Expected type uin8 with unit kbit/s.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_G0HjwH1BEemg07MSqaqjCw" name="unsignedInteger64">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_IB2QQH1DEemg07MSqaqjCw">
+          <body>Expected type uin64 with unit s and value range 1...max.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_kmamQG9IEemHoZj0yu-6dg" name="Associations">
       <packagedElement xmi:type="uml:Abstraction" xmi:id="_vbyHwHGBEemHoZj0yu-6dg" name="PacAugmentsLp" client="1ljZzwHP6EemHoZj0yu-6dg">
@@ -77,7 +96,7 @@
         <body>Reference to spcified PAC should be added by &quot;pruning and refactoring&quot;</body>
       </ownedComment>
       <packagedElement xmi:type="uml:Class" xmi:id="1ljZzwHP6EemHoZj0yu-6dg" name="TechnologySpecificLpSpec">
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_3lOacXP6EemHoZj0yu-6dg" name="_technologySpecificPac" type="1eZbfkG9IEemHoZj0yu-6dg" association="_3lNMUHP6EemHoZj0yu-6dg">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_3lOacXP6EemHoZj0yu-6dg" name="_technologySpecificPac" type="1eZbfkG9IEemHoZj0yu-6dg" aggregation="composite" association="_3lNMUHP6EemHoZj0yu-6dg">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3lPBgHP6EemHoZj0yu-6dg" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3lPBgXP6EemHoZj0yu-6dg" value="1"/>
         </ownedAttribute>
@@ -173,4 +192,10 @@
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_3lOac3P6EemHoZj0yu-6dg" base_Property="_3lOacXP6EemHoZj0yu-6dg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_3lPokHP6EemHoZj0yu-6dg" base_StructuralFeature="_3lPBgnP6EemHoZj0yu-6dg"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_3lPokXP6EemHoZj0yu-6dg" base_Property="_3lPBgnP6EemHoZj0yu-6dg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_8rJIoH1AEemg07MSqaqjCw" base_StructuralFeature="_8rIhkH1AEemg07MSqaqjCw" unit="dbm/10"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_8rK90H1AEemg07MSqaqjCw" base_Property="_8rIhkH1AEemg07MSqaqjCw" attributeValueChangeNotification="YES" bitLength="LENGTH_32_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_CibsIX1BEemg07MSqaqjCw" base_StructuralFeature="_CibsIH1BEemg07MSqaqjCw" unsigned="true" unit="kbit/s"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_CicTMH1BEemg07MSqaqjCw" base_Property="_CibsIH1BEemg07MSqaqjCw" writeAllowed="CREATE_ONLY" bitLength="LENGTH_8_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_G0IK0H1BEemg07MSqaqjCw" base_StructuralFeature="_G0HjwH1BEemg07MSqaqjCw" valueRange="1...max" unsigned="true" unit="s" support="OPTIONAL"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_G0IK0X1BEemg07MSqaqjCw" base_Property="_G0HjwH1BEemg07MSqaqjCw" writeAllowed="CREATE_ONLY" bitLength="LENGTH_64_BIT"/>
 </xmi:XMI>

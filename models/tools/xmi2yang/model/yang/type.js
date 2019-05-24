@@ -13,7 +13,7 @@
 
 var Util = require('./util.js');
 
-function type(name, id, path, range, length, descrip, fileName, unsigned) {
+function type(name, id, path, range, length, descrip, fileName, unsigned, units) {
     this.name = name;
     this.id = id;
     this.description = descrip;
@@ -21,7 +21,7 @@ function type(name, id, path, range, length, descrip, fileName, unsigned) {
     this.range = range;
     this.length = length;
     this.children = [];
-    //this.units = units;
+    this.units = units;
     this.fileName = fileName;
     this.unsigned = unsigned;
 }
@@ -35,7 +35,7 @@ type.prototype.getTypeName = function() {
     } else {
       result = result + '64';
     }
-    if (this.unsinged === true) {
+    if (this.unsigned === true) {
         result = 'u' + result;
     }
     return result;

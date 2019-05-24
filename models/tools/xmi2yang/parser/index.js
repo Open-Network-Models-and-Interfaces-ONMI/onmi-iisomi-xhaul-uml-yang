@@ -103,6 +103,7 @@ function parseModule(file){
                 var obj;
                 for(var key in xmi){                            //key:the child node of xmi
                     switch(key.split(":")[1]){
+                        case "OpenInterfaceModelAttribute":
                         case "OpenModelAttribute":
                             newxmi = xmi[key].array ? xmi[key].array : xmi[key];      //newxmi: the array in OpenModel_Profile:OpenModelAttribute
                             var len = xmi[key].array ? xmi[key].array.length : 1;     //OpenModel_Profile:the number of array object in OpenModelAttribute
@@ -111,6 +112,7 @@ function parseModule(file){
                                 parsers.parseOpenModelatt(obj,store);
                             }
                             break;
+                        case "OpenInterfaceModelClass":
                         case "OpenModelClass":
                             newxmi = xmi[key].array ? xmi[key].array : xmi[key];
                             var len = xmi[key].array ? xmi[key].array.length : 1;
@@ -235,7 +237,13 @@ function parseModule(file){
                                 parsers.parseExtendedCom(obj,store);
                             }
                             break;
+                        case undefined:
+                        case "undefined":
+                        case "Model":
+                            // ignore by intention
+                            break;
                         default :
+                            console.warn("[WARN] Please implement:", key, key.split(":")[1], JSON.stringify(xmi[key]));
                             break;
                     }
                 }

@@ -19,11 +19,13 @@ function leaf(name, id, config, value, descrip, type, feature, status, fileName)
     this.config = config;
     this.status = status;
     this.defaultValue = value;
+    
     this.description = descrip;
     this["if-feature"] = feature;
     this.type = type;
     this.units = this.type.units;
     this.fileName = fileName;
+    if (this.id === "_G0HjwH1BEemg07MSqaqjCw") console.log("[sko] ##14# leaf", JSON.stringify(this, null, ' '));
 }
 leaf.prototype.writeNode = function (layer) {
     var PRE = '';

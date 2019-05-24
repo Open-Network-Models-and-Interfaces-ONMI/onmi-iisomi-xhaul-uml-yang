@@ -56,15 +56,16 @@ Node.prototype.buildChild = function (att, type) {
          break;
          }*/
         if(att.type && typeof att.type == "object"){
-            if(att.type.name == "integer"){
-                att.type.name = "uint64";
-            }
+            // if(att.type.name == "integer"){
+            //     att.type.name = "uint64";
+            // }
             if(att.type.name == "integer"){
                 if (att.bitLength) {
                     att.type.length = att.bitLength.replace(/[^0-9]/g, '');
                 }
                 att.type.unsigned = att.unsigned;
                 att.type.name = att.type.getTypeName();
+                if (att.id === "_G0HjwH1BEemg07MSqaqjCw") console.log("[sko] ##13# node.buildChild", JSON.stringify(att, null, ' '));
             }
         }
 

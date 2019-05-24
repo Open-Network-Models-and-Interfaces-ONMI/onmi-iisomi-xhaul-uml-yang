@@ -34,6 +34,8 @@
 
     <exec.maven.plugin.version>1.6.0</exec.maven.plugin.version>
     <maven.resources.plugin.version>3.1.0</maven.resources.plugin.version>
+    <xml.maven.plugin.version>1.0.1</xml.maven.plugin.version>
+    <saxon.he.version>9.9.1-2</saxon.he.version>
 
 
     <maven.compiler.source>1.7</maven.compiler.source>
@@ -62,6 +64,61 @@
     <plugins>
 
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>xml-maven-plugin</artifactId>
+        <version>${xml.maven.plugin.version}</version>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>transform</goal>
+            </goals>
+          </execution>
+        </executions>
+        
+        <configuration>
+          <transformationSets>
+          
+            <transformationSet>
+              <dir>${basedir}/src/main/resources/papyrus/onf-core-information-model-v1.4</dir>
+              <includes>
+                <include>CoreModel.uml</include>
+              </includes>
+              <stylesheet>${basedir}/src/main/resources/xslt/prune-and-refactor-core-model.xslt</stylesheet>
+              <outputDir>${basedir}/xmi2yang/project</outputDir>
+              <fileMappers>
+                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+                  <targetExtension>.uml</targetExtension>
+                </fileMapper>
+              </fileMappers>
+            </transformationSet> 
+
+            <transformationSet>
+              <dir>${basedir}/src/main/resources/papyrus/IpInterface_1.0.0-tsp.d.t</dir>
+              <includes>
+                <include>IpInterface.uml</include>
+              </includes>
+              <stylesheet>${basedir}/src/main/resources/xslt/prune-and-refactor-ip-interface.xslt</stylesheet>
+              <outputDir>${basedir}/xmi2yang/project</outputDir>
+              <fileMappers>
+                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+                  <targetExtension>.uml</targetExtension>
+                </fileMapper>
+              </fileMappers>
+            </transformationSet> 
+
+          </transformationSets>
+        </configuration> 
+        <dependencies>
+          <dependency>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>Saxon-HE</artifactId>
+            <version>${saxon.he.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
+      <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <version>${maven.resources.plugin.version}</version>
         <executions>
@@ -77,7 +134,7 @@
                 <resource>
                   <directory>${basedir}/src/main/resources/papyrus/test-xmi-to-yang</directory>
                   <includes>
-                   <include>**/*.uml</include>
+                    <include>**/*.uml</include>
                   </includes>
                   <filtering>true</filtering>
                 </resource>
@@ -86,6 +143,26 @@
           </execution>
         </executions>
       </plugin>
+
+      <plugin>
+        <groupId>com.coderplus.maven.plugins</groupId>
+        <artifactId>copy-rename-maven-plugin</artifactId>
+        <version>1.0.1</version>
+        <executions>
+          <execution>
+            <id>copy-and-rename-file</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>rename</goal>
+            </goals>
+            <configuration>
+              <sourceFile>${basedir}/xmi2yang/project/CoreModel.uml</sourceFile>
+              <destinationFile>${basedir}/xmi2yang/project/CoreNetworkFunction.uml</destinationFile>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
@@ -126,7 +203,7 @@
           </execution>
           <execution>
             <id>pyang-check</id>
-            <phase>generate-sources</phase>
+            <phase>test</phase>
             <goals>
               <goal>exec</goal>
             </goals>
@@ -149,10 +226,11 @@
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>exec-maven-plugin</artifactId>
           <version>${exec.maven.plugin.version}</version>
+
           <executions>
-           <execution>
+            <execution>
               <id>install-uml-to-yang</id>
-              <phase>generate-sources</phase>
+              <phase>test</phase>
               <goals>
                 <goal>exec</goal>
               </goals>
@@ -185,7 +263,7 @@
             </execution>
             <execution>
               <id>pyang-check</id>
-              <phase>generate-sources</phase>
+              <phase>test</phase>
               <goals>
                 <goal>exec</goal>
               </goals>
