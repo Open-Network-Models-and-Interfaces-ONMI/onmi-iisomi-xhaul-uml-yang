@@ -40,17 +40,17 @@ var parsers = {
             flag:0,
             id:undefined,
             condition:undefined,
-            support:"OPTIONAL",
+            support:undefined,
             valueRange:undefined,
             units:undefined,
             key:undefined,
             isInvariant:false,
-            attributeValueChangeNotification:"NO",
+            attributeValueChangeNotification:undefined,
             passBR:xmi.psBR,
-            unsigned:false,
-            writeAllowed:"CREATE_AND_UPDATE",
-            bitLength:"LENGTH_32_BIT",
-            encoding: "NA"
+            unsigned:undefined,
+            writeAllowed:undefined,
+            bitLength:undefined,
+            encoding: undefined
         };
 
         if(props.passBR){
@@ -64,7 +64,6 @@ var parsers = {
                 return false;
             }
         });
-        if (props.id === "_G0HjwH1BEemg07MSqaqjCw") console.log("[sko] ##00#", JSON.stringify(xmi.attributes()));
 
         if(!props.id){
             return;
@@ -88,12 +87,17 @@ var parsers = {
             props.flag = 1;
         }
 
+        if(xmi.attributes()["unsigned"]){
+            props.unsigned = xmi.attributes()["unsigned"] === "true" || xmi.attributes()["unsigned"] === true;
+            props.flag = 1;
+        }
+
         if(xmi.attributes()["partOfObjectKey"] && xmi.attributes()["partOfObjectKey"] != "0"){
             props.key = xmi.attributes()["partOfObjectKey"];
             props.flag = 1;
         }
 
-        ["key", "isInvariant", "unsigned", "attributeValueChangeNotification", "writeAllowed", "bitLength", "encoding" ]
+        ["key", "isInvariant", "attributeValueChangeNotification", "writeAllowed", "bitLength", "encoding" ]
         .forEach(function(field) {
             if(xmi.attributes()[field]){
                 props[field] = xmi.attributes()[field];
@@ -102,7 +106,6 @@ var parsers = {
         });
 
         if(props.flag){
-            if (props.id === "_G0HjwH1BEemg07MSqaqjCw") console.log("[sko] ##0#", JSON.stringify(props));
             transformers.transOpenModelAtt(store.openModelAtt, props, store);
         }
         return true;

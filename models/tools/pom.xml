@@ -80,6 +80,20 @@
           <transformationSets>
           
             <transformationSet>
+              <dir>${basedir}/src/main/resources/papyrus/test-xmi-to-yang</dir>
+              <includes>
+                <include>Test*.uml</include>
+              </includes>
+              <stylesheet>${basedir}/src/main/resources/xslt/prune-and-refactor-test-model.xslt</stylesheet>
+              <outputDir>${basedir}/xmi2yang/project</outputDir>
+              <fileMappers>
+                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+                  <targetExtension>.uml</targetExtension>
+                </fileMapper>
+              </fileMappers>
+            </transformationSet> 
+
+            <transformationSet>
               <dir>${basedir}/src/main/resources/papyrus/onf-core-information-model-v1.4</dir>
               <includes>
                 <include>CoreModel.uml</include>
@@ -116,32 +130,6 @@
             <version>${saxon.he.version}</version>
           </dependency>
         </dependencies>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>${maven.resources.plugin.version}</version>
-        <executions>
-          <execution>
-            <id>copy-resources</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${basedir}/xmi2yang/project</outputDirectory>
-              <resources>
-                <resource>
-                  <directory>${basedir}/src/main/resources/papyrus/test-xmi-to-yang</directory>
-                  <includes>
-                    <include>**/*.uml</include>
-                  </includes>
-                  <filtering>true</filtering>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
 
       <plugin>

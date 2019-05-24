@@ -42,18 +42,13 @@ var transformers = {
             if(openModelAttArray[i].id == props.id){
                 _.forOwn(props,function(val,key){
                     if(val !== undefined && val !== null){
-                        if (props.id === "_G0HjwH1BEemg07MSqaqjCw") console.log("[sko] ##333# ", props.id, val, key);
                         openModelAttArray[i][key] = val;
-                    } else {
-                        if (props.id === "_G0HjwH1BEemg07MSqaqjCw") console.log("[sko] ##444# ", props.id, val, key);
-                        openModelAttArray[i][key] = null;
                     }
                 });
             }
         }
         if(i === openModelAttArray.length){
             var att = new models.OpenModelObject(props.id, "attribute", props.valueRange, props.condition, props.support, props.isInvariant, props.attributeValueChangeNotification, undefined, undefined, props.passBR, undefined, undefined, undefined, props.key, props.units, props.unsigned, props.writeAllowed, props.bitLength, props.encoding, currentFilename);
-            if (props.id === "_G0HjwH1BEemg07MSqaqjCw") console.log("[sko] ##01#", JSON.stringify(att));
             openModelAttArray.push(att);
         }
     },

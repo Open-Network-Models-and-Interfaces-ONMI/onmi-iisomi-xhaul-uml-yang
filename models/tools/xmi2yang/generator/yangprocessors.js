@@ -235,8 +235,6 @@ module.exports = {
                                     ele[i].attribute[j].isleafRef = true;
                                 }
 
-                                if (oma.id === "_G0HjwH1BEemg07MSqaqjCw") console.log("[sko] #############################################");
-                                if (oma.id === "_G0HjwH1BEemg07MSqaqjCw") console.log("[sko] ##00# oma", JSON.stringify(oma, null, ' '));
                                 ["status", "units", "valueRange", "attributeValueChangeNotification","unsigned", "writeAllowed", "bitLength", "encoding"]
                                 .forEach(function(field) {
                                     
@@ -497,7 +495,6 @@ module.exports = {
                                 ele[i].attribute[j].keyid = clazz.keyid;
                                 ele[i].attribute[j].keyvalue = clazz.keyvalue;
                             }
-                            if (ele[i].attribute[j].id === "_G0HjwH1BEemg07MSqaqjCw") console.log("[sko] ##12#", JSON.stringify(ele[i].attribute[j], null, ' ')); 
                             obj.buildChild(ele[i].attribute[j], ele[i].attribute[j].nodeType);//create the subnode to obj
                         }
                     }

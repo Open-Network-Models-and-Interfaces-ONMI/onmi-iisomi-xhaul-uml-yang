@@ -155,7 +155,7 @@ module ip-interface-1.0.-0-tsp.d.t {
         **************************************/ 
             grouping current-problem {
                 leaf sequence-number {
-                    type int32 {
+                    type int16 {
                     }
                     config false;
                     description "Unique sequence number of the current problem object.";
@@ -192,7 +192,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                         – The currentData (or subclass) object instance was created during the monitoring period.";
                 }
                 leaf elapsed-time {
-                    type int32 {
+                    type int64 {
                     }
                     units "s";
                     default "-1";
@@ -319,8 +319,7 @@ module ip-interface-1.0.-0-tsp.d.t {
         }
         grouping ip-interface-capability {
             leaf maximum-number-of-ip-v-4-addresses {
-                type int32 {
-                }
+                type int64;
                 default "-1";
                 config false;
                 description "Maximum number of IP addresses at this IP interface (translates into maximum multiplicity of IpInterfaceConfiguration::fixedIpV4AddressList)";
@@ -336,7 +335,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 description "1 = Default route per IP Interface can be configuered, 0 if multiple Default routes are not supported";
             }
             leaf maximum-transmission-unit-min {
-                type int32 {
+                type int16 {
                 }
                 units "Byte";
                 default "-1";
@@ -344,7 +343,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 description "Minimum layer 3 MTU size configurable.";
             }
             leaf maximum-transmission-unit-max {
-                type int32 {
+                type int16 {
                 }
                 units "Byte";
                 default "-1";
@@ -388,7 +387,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 description "Only relevant if (egressShapingIsAvail==1): Maximum configurable throuput in kbit/s.";
             }
             leaf burst-size-min {
-                type int32 {
+                type int16 {
                 }
                 units "kByte";
                 default "-1";
@@ -396,7 +395,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 description "Only relevant if (egressShapingIsAvail==1): Minimum configurable value for the number of kBytes, which could be sent in a single burst.";
             }
             leaf burst-size-max {
-                type int32 {
+                type int16 {
                 }
                 units "kByte";
                 default "-1";
@@ -455,7 +454,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 description "Only relevant if (dhcpClientIsOn==0). Secondary IP addresses.";
             }
             leaf maximum-transmission-unit-ip {
-                type int32 {
+                type int16 {
                 }
                 units "Byte";
                 default "-1";
@@ -481,7 +480,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 description "Only relevant if (egressShapingIsAvail==1): Limits the throughput on the egress.";
             }
             leaf maximum-burst-size {
-                type int32 {
+                type int16 {
                 }
                 units "kByte";
                 default "-1";
@@ -878,7 +877,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 description "IPv4 address fixed assigned to this interface. The format is e.g. 172.168.0.5";
             }
             leaf fixed-ip-v-4-address-prefix-length {
-                type int32 {
+                type int8 {
                 }
                 default "-1";
                 description "Fixed assigned routing prefix (sub network) length (e.g. for 198.51.100.0/24 the fixedIpV4AddressPrefixLength would be 24).
@@ -969,7 +968,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 description "Sent data volume in kByte.";
             }
             leaf total-packets-input {
-                type int32 {
+                type int64 {
                 }
                 units "packets";
                 default "-1";
@@ -977,7 +976,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 description "The total number of IP packets received for the specified address family, including those received in error";
             }
             leaf total-packets-output {
-                type int32 {
+                type int64 {
                 }
                 units "packets";
                 default "-1";
@@ -1003,7 +1002,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                     ";
             }
             leaf forwarded-packets-input {
-                type int32 {
+                type int64 {
                 }
                 units "packets";
                 default "-1";
@@ -1011,7 +1010,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 description "The number of input packets for which the device was not their final IP destination and for which the device attempted to find a route to forward them to that final destination.";
             }
             leaf forwarded-packets-output {
-                type int32 {
+                type int64 {
                 }
                 units "packets";
                 default "-1";
@@ -1019,7 +1018,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 description "The number of packets for which this entity was not their final IP destination and for which it was successful in finding a path to their final destination. ";
             }
             leaf unicast-packets-input {
-                type int32 {
+                type int64 {
                 }
                 units "packets";
                 default "-1";
@@ -1027,7 +1026,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 description "Total number of received unicast packets.";
             }
             leaf unicast-packets-output {
-                type int32 {
+                type int64 {
                 }
                 units "packets";
                 default "-1";
@@ -1099,7 +1098,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 description "Total number of packets dropped at the receiver. The number of input IP packets for the specified address family, for which no problems were encountered to prevent their continued processing, but were discarded (e.g., for lack of buffer space).";
             }
             leaf dropped-packets-output {
-                type int32 {
+                type uint32 {
                 }
                 units "packets";
                 default "-1";

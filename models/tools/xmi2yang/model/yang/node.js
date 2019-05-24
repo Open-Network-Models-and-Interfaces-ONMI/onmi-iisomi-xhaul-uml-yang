@@ -65,7 +65,7 @@ Node.prototype.buildChild = function (att, type) {
                 }
                 att.type.unsigned = att.unsigned;
                 att.type.name = att.type.getTypeName();
-                if (att.id === "_G0HjwH1BEemg07MSqaqjCw") console.log("[sko] ##13# node.buildChild", JSON.stringify(att, null, ' '));
+                att.type.range = att.valueRange;
             }
         }
 
@@ -402,7 +402,7 @@ Node.prototype.writeNode = function (layer) {
             this.uses+="-g";
         }
         uses = PRE + "\tuses " + this.uses +";\r\n";
-    } else if (typeof this.uses[i] === "object") { // [sko] i out of scope; can this line and the next be deleted?
+    } else if (typeof this.uses[i] === "object") { // [sko] is out of scope; can this line and the next be deleted?
         this.uses[i].writeNode(layer + 1);
     }
 
