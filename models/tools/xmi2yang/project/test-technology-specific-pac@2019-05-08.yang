@@ -88,7 +88,7 @@ module test-technology-specific-pac {
             type int32 {
             }
             units "dbm/10";
-            default "-99";
+            default -99;
             description "Expected type int32 with unit dbm/10 and default -99.";
         }
         leaf unsinged-integer-8 {

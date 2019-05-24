@@ -51,7 +51,7 @@ leaf.prototype.writeNode = function (layer) {
     var status = this.status ? PRE + "\tstatus " + this.status + ";\r\n" : "";
     
     var defvalue;
-    if(typeof this.defaultValue == 'number'){
+    if(isNaN(this.defaultValue) === false){
         defvalue = this.defaultValue ? PRE + "\tdefault " + this.defaultValue + ";\r\n" : "";
     }else {
         defvalue = this.defaultValue ? PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : "";
