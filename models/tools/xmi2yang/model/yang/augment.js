@@ -12,7 +12,7 @@
  ****************************************************************************************************/
 var Util = require('./util.js');
 
-function Augment( id,client,  supplier, comment, fileName) {
+function Augment( id, client, supplier, comment, fileName) {
     this.client = client;
     this.id = id;
     this.supplier =Util.yangifyName(supplier);

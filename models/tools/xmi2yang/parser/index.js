@@ -237,13 +237,18 @@ function parseModule(file){
                                 parsers.parseExtendedCom(obj,store);
                             }
                             break;
+                        case "OpenModelStatement":
+                            // merge model header information from config.json and 
+                            // OpenModelStatement.
+                            parsers.parseOpenModelStatement(xmi[key], config, store);
+                            break;
                         case undefined:
                         case "undefined":
                         case "Model":
                             // ignore by intention
                             break;
                         default :
-                            console.warn("[WARN] Please implement:", key, key.split(":")[1], JSON.stringify(xmi[key]));
+                            console.warn("[WARN] Please implement:", key, key.split(":")[1], xmi[key]);
                             break;
                     }
                 }

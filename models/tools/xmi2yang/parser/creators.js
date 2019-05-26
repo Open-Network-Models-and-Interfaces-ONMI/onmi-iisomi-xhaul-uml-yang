@@ -188,21 +188,38 @@ var creators = {
             comment = parsers.parseComment(obj,store);
         }
 
+        /**
+         * Helper to convert a specify target into an xPath string.
+         * Due to a convention a target must start with a root element.
+         * Therefore the return string start with "/".
+         * XML namespace prefixes are derived from openModelSteatment.
+         * 
+         * @param {*} target: As given in the specify assozation 
+         * @returns an xPath string beginning with a root element.
+         */
+        var getSupplier = function(target) {
+            return [""].concat(target.filter(function(item,index) {
+                return index !== 0;
+            }).map(function(item) {
+                var temp = item.split(":");
+                var prefix = temp[0];
+                if (store.openModelStatement.prefix && store.openModelStatement.prefix[temp[0]]) {
+                    prefix = store.openModelStatement.prefix[temp[0]]
+                }
+
+                var classRef = temp[2];                
+                if (temp[1] == "RootElement") {
+                    classRef = "root-instance";
+                }
+                return [prefix, classRef].join(':');
+            })).join("/");
+        };
+
         for (var k = 0; k < store.specify.length; k++) {
             if (store.specify[k].id == id && store.specify[k].fileName == currentFilename ) {
                 if (store.specify[k].target && store.specify[k].target.length > 0) {
-                    var tar = store.specify[k].target;
-                    var temparr = tar.split("/");
-                    for (var j = 1; j < temparr.length; j++) {
-                        var temp = temparr[j].split(":");
-                        var tempsup;
-                        if (temp[1] == "RootElement") {
-                            tempsup = "/" + temp[0] + ":root-instance";
-                        } else {
-                            tempsup = "/" + temp[0] + ":" + temp[2];
-                        }
-                        supplier += tempsup;
-                    }
+                    var temparr = store.specify[k].target.split("/");
+                    supplier = getSupplier(temparr);
                     temp = new yangModels.Abstraction(id, clientid, supplier, comment, currentFilename);
                     store.abstraction.push(temp);
                     supplier = "";
@@ -211,17 +228,8 @@ var creators = {
                     var tempcom = comment.split("\r\r\n");
                     for (var i = 1; i < tempcom.length; i++) {
                         var temparr = tempcom[i].split("/");
-                        for (var j = 1; j < temparr.length; j++) {
-                            var temp = temparr[j].split(":");
-                            var tempsup;
-                            if (temp[1] == "RootElement") {
-                                tempsup = "/" + temp[0] + ":root-instance";
-                            } else {
-                                tempsup = "/" + temp[0] + ":" + temp[2];
-                            }
-                            supplier += tempsup;
-                        }
-                        //supplier.replace(/[\r\n]/g,'');
+                        supplier = getSupplier(temparr);
+                           //supplier.replace(/[\r\n]/g,'');
                         temp = new yangModels.Abstraction(id, clientid, supplier, comment, currentFileName);
                         store.abstraction.push(temp);
                         supplier = "";

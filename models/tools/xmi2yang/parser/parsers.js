@@ -1,3 +1,19 @@
+/*******************************************************************************
+ * Copyright 2019 Open Networking Foundation (ONF). All rights reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 var _            = require('lodash'),
     transformers = require('./transformers');
 
@@ -172,6 +188,42 @@ var parsers = {
         }
         store.openModelnotification.push(id);
     },
+    /**
+     * parseOpenModelStatement:
+     * A function to merge from uml (OpenModelStatement) and config 
+     * the model header information and adding them to the "store".
+     * Please note that config will overwrite OpenModelStatement.
+     * 
+     * @param {*} modelHeaderInformation: 
+     *            An xml element converted into json by xmlReader 
+     *            containing the OpenModelStatement which defines
+     *            header infromation of the model .
+     * @param {*} config: 
+     *            An object with the current configuration.
+     * @param {*} store: In memory object with pre-converted xmi information.
+     */
+    parseOpenModelStatement:function(modelHeaderInformation, config, store){
+        // create empty object for OpenModelStatements
+        store.openModelStatement = {};
+        // add all values from UML OpenModelStatement
+        Object.keys(modelHeaderInformation.attributes()).forEach(function(key) {
+            store.openModelStatement[key] = modelHeaderInformation.attributes()[key];
+        });
+        Object.keys(modelHeaderInformation).forEach(function(key) {
+            // TODO Implement proper parsing of "revision" and "contact"
+            //      Current workaround: Info will be overwritten by config
+            store.openModelStatement[key] = modelHeaderInformation[key];
+        });
+        // merge configuration into it
+        Object.keys(config).forEach(function(key) {
+            if (store.openModelStatement[key] !== undefined) {
+                console.warn("[WARN]", key, "will be overwritten by tool configuration");
+                console.warn("[WARN-info]", "Previous value", JSON.stringify(store.openModelStatement[key]));
+                console.warn("[WARN-info]", "     New value", JSON.stringify(config[key]));
+            }
+            store.openModelStatement[key] = config[key];
+        });
+    },
     parseSpecify:function(xmi,store){
         var props = {
             id:undefined,
@@ -300,14 +352,17 @@ var parsers = {
         }
 
     },
-    parseUmlModel:function(xmi, filename,store){
+    parseUmlModel:function(xmi, filename, store){
+
+    },
+    parseUmlModel:function(xmi, filename, store){
         var props = {
             mainmod:undefined,
-            comment:"",
+            comment:"\n",
             namespace:"",
             prefix:"",
             pre:[],
-            pre0:""
+            // pre0:"" [sko] commented, due to never used.
         };
 
         if(xmi.attributes().name){
@@ -318,22 +373,40 @@ var parsers = {
 
         props.mainmod = props.mainmod.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g, "");   //remove the special character in the end
         props.mainmod = props.mainmod.replace(/[^\w\.-]+/g, '_');                              //not "A-Za-z0-9"->"_"
-
         store.modName.push(props.mainmod);
         if (xmi.ownedComment) {
-            props.comment = parsers.parseComment(xmi,store);
+            props.comment += parsers.parseComment(xmi, store);
         }
+        props.comment = [props.comment, 
+            store.openModelStatement.copyright, 
+            store.openModelStatement.license
+        ].join('\n\n');
+        props.comment = props.comment.split("\n").join('\n\t\t');
 
         props.namespace = _.clone(config.namespace) + store.modName.join("-");
 
         props.pre = store.modName.join("-");
-        props.pre0 = Util.yangifyName(props.pre);
+        // props.pre0 = Util.yangifyName(props.pre);
 
-        if(props.prefix==""){
-            props.prefix = Util.yangifyName(props.pre);
-        }
+        // if (props.prefix === ""){ // [sko] Q: this is always the case - why if?
+        //     // props.prefix = Util.yangifyName(props.pre); // [sko] dont get the logic behind
+        // }
+        props.prefix = Util.yangifyName(props.pre); // [sko] dont get the logic behind;
+        if (store.openModelStatement.prefix && store.openModelStatement.prefix[props.mainmod] !== undefined) {
+            props.prefix = store.openModelStatement.prefix[props.mainmod];
+        } 
 
-        var yangModule = new yangModels.Module(store.modName.join("-"), props.namespace, "", props.prefix, config.organization, config.contact, config.revision, props.comment, currentFilename);
+        var yangModule = new yangModels.Module(
+            store.modName.join("-"), 
+            props.namespace, 
+            "", 
+            props.prefix, 
+            store.openModelStatement.organization, 
+            [""].concat(store.openModelStatement.contact).join("\n\t\t"), 
+            store.openModelStatement.revision, 
+            props.comment, 
+            currentFilename
+        );
         store.modName.pop();
 
         var element = {
@@ -373,6 +446,7 @@ module.exports = {
     parseOpenModelatt:parsers.parseOpenModelatt,
     parseOpenModelclass:parsers.parseOpenModelclass,
     parseOpenModelnotification:parsers.parseOpenModelnotification,
+    parseOpenModelStatement:parsers.parseOpenModelStatement,
     parseSpecify:parsers.parseSpecify,
     parseComment:parsers.parseComment,
     parseRootElement:parsers.parseRootElement,

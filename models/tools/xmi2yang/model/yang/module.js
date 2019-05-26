@@ -24,7 +24,6 @@ function Module(name, namespace, imp, pref, org, contact, revis, descrp, fileNam
     this.fileName = fileName;
     this.children = [];
     this.augment = [];
-
 }
 
 Module.prototype.writeNode = function (store,layer) {
@@ -41,7 +40,8 @@ Module.prototype.writeNode = function (store,layer) {
     } else {
         for (var i = 0; i < this.import.length; i++) {
             var impname = Util.yangifyName(this.import[i]);
-            imp += PRE + "\timport " + impname + " {\r\n" + PRE + "\t\tprefix " + impname + ";\r\n" + PRE + "\t}\r\n";
+            var impPrefix = store.openModelStatement.prefix[this.import[i]];
+            imp += PRE + "\timport " + impname + " {\r\n" + PRE + "\t\tprefix " + impPrefix + ";\r\n" + PRE + "\t}\r\n";
         }
     }
     var pref = !this.prefix || this.prefix === "" ? PRE + "\tprefix ;\r\n" : PRE + "\tprefix " + this.prefix + ";\r\n";

@@ -1,17 +1,23 @@
 module test-another-pac {
     namespace "urn:onf:yang:test-another-pac";
-    prefix test-another-pac;
+    prefix tap;
     import test-core-model {
-        prefix test-core-model;
+        prefix tcm;
     }
     organization "OpenNetworkingFoundation (ONF)";
-    contact "ONF";
-    description "none";
-    revision 2019-05-08 {
+    contact "
+        ONF Test";
+    description "
+        
+        
+        
+        
+        ";
+    revision 2019-05-25 {
         description "Test project to check UML-to-YANG tool.";
-        reference "ONF-TR-512, ONF-TR-532, ONF-TR-541, ONF-TR-545, RFC 6020 and RFC 6087";
+        reference "ONF-TR-512, RFC 6020 and RFC 6087";
     }
-    augment "/test-core-model:test-control-construct/test-core-model:test-logical-termination-point/test-core-model:test-layer-protocol"{
+    augment "/tcm:test-control-construct/tcm:test-logical-termination-point/tcm:test-layer-protocol"{
         uses another-lp-spec;
         description "none";
     }

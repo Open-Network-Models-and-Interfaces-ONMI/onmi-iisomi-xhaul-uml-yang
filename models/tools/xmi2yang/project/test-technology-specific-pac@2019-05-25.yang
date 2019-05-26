@@ -1,17 +1,42 @@
 module test-technology-specific-pac {
     namespace "urn:onf:yang:test-technology-specific-pac";
-    prefix test-technology-specific-pac;
+    prefix ttsp;
     import test-core-model {
-        prefix test-core-model;
+        prefix tcm;
     }
-    organization "OpenNetworkingFoundation (ONF)";
-    contact "ONF";
-    description "none";
-    revision 2019-05-08 {
+    organization "Open Networking Foundation (ONF)";
+    contact "
+        WG Web  : <https://wiki.opennetworking.org/pages/viewpage.action?pageId=262963204>
+        WG List : <mailto:information-modeling@opennetworking.org>
+        WG Chair: Nigel Davis
+                    <mailto:ndavis@ciena.com>
+        WG Chair: Hing-Kam Lam
+                    <mailto:kamlam@fiberhome.com>
+        Editor  : Thorsten Heinze
+                    <mailto:thorsten.heinze@telefonica.com>
+        Editor  : Martin Skorupski
+                    <mailto:martin.skorupski@highstreet-technologies.com>";
+    description "
+        This is a test Papyrus UML project to check the beauty of the EagelUmlYang tool.
+        
+        Copyright 2019 Open Networking Foundation (ONF). All rights reserved.
+        
+        Licensed under the Apache License, Version 2.0 (the 'License');
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at
+        
+            http://www.apache.org/licenses/LICENSE-2.0
+        
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an 'AS IS' BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.";
+    revision 2019-05-25 {
         description "Test project to check UML-to-YANG tool.";
-        reference "ONF-TR-512, ONF-TR-532, ONF-TR-541, ONF-TR-545, RFC 6020 and RFC 6087";
+        reference "ONF-TR-512, RFC 6020 and RFC 6087";
     }
-    augment "/test-core-model:test-control-construct/test-core-model:test-logical-termination-point/test-core-model:test-layer-protocol"{
+    augment "/tcm:test-control-construct/tcm:test-logical-termination-point/tcm:test-layer-protocol"{
         uses technology-specific-lp-spec;
         description "none";
     }
