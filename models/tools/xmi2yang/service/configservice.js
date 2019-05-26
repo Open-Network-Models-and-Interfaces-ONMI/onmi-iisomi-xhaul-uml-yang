@@ -44,15 +44,17 @@ function validateConfig(config){
     //traverse object and replace <br> with "\r\n"
     parseHtml(config);
     var dateFormat = 'YYYY-MM-DD';
-    if(config.revision.date) {
-        var date = moment(config.revision.date);
-        if(!date.isValid()){
-            var errMsg = "The revision date provided is invalid. Please correct date to be in the format of YYYY-MM-DD";
-            console.error(errMsg);
-            throw (errMsg);
+    if (config.revision) {
+        if (config.revision.date) {
+            var date = moment(config.revision.date);
+            if (!date.isValid()) {
+                var errMsg = "The revision date provided is invalid. Please correct date to be in the format of YYYY-MM-DD";
+                console.error(errMsg);
+                throw (errMsg);
+            }
+        } else {
+            config.revision.date = moment().format(dateFormat);
         }
-    } else {
-        config.revision.date = moment().format(dateFormat);
     }
 }
 

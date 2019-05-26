@@ -205,15 +205,62 @@ var parsers = {
     parseOpenModelStatement:function(modelHeaderInformation, config, store){
         // create empty object for OpenModelStatements
         store.openModelStatement = {};
+        // Helpers
+        var openModelStatementChildrenParser = {
+            /**
+             * Converting the uml open model statement contact in a string list
+             * @param {*} jsonObject as given from UML 
+             * @returns An json object representing a yang revision
+             */
+            contact: function(jsonObject) {
+                return [
+                        "WG Web : " + jsonObject.projectWeb,
+                        "WG List: " + jsonObject.projectEmail,
+                        "Editor : " + jsonObject.editorName,
+                        "         " + jsonObject.editorEmail,
+                ];
+            },
+            /**
+             * Converting the uml open model statement revsion in a yang revision
+             * @param {*} jsonObject as given from UML 
+             * @returns An json object representing a yang revision
+             */
+            revision: function(jsonObject) {
+                var PRE = "\t\t\t"; // [sko] Formating must not happen here, but ...
+                return {
+                    date: jsonObject.date,
+                    description: ["",
+                        PRE + jsonObject.description,
+                        PRE + ["Please view", jsonObject.changeLog, "for changes."].join(" "),
+                        PRE + ["Additional information:", jsonObject.additionalChanges].join(" ")
+                    ].join("\n"),
+                    reference: jsonObject.reference
+                }
+            }
+        }
         // add all values from UML OpenModelStatement
         Object.keys(modelHeaderInformation.attributes()).forEach(function(key) {
             store.openModelStatement[key] = modelHeaderInformation.attributes()[key];
         });
-        Object.keys(modelHeaderInformation).forEach(function(key) {
-            // TODO Implement proper parsing of "revision" and "contact"
-            //      Current workaround: Info will be overwritten by config
-            store.openModelStatement[key] = modelHeaderInformation[key];
+
+        var excludeXmlReaderKeys = ['attributes', 'parent', 'count', 'at', 'each', 'text'];
+        Object.keys(modelHeaderInformation).filter(function(key){
+            return excludeXmlReaderKeys.indexOf(key) === -1;
+        }).forEach(function(key){
+            var array = [];
+            modelHeaderInformation[key].each(function (index, item){
+                if (openModelStatementChildrenParser[key]) {
+                    array.push(openModelStatementChildrenParser[key](item.attributes()));
+                } else {
+                    console.warn("[WARN]", "Implement a parser for", key);
+                }
+            });
+            store.openModelStatement[key] = array;
+            if (key === "contact") {
+                store.openModelStatement[key] = array[0];
+            }
         });
+
         // merge configuration into it
         Object.keys(config).forEach(function(key) {
             if (store.openModelStatement[key] !== undefined) {

@@ -248,7 +248,7 @@ function parseModule(file){
                             // ignore by intention
                             break;
                         default :
-                            console.warn("[WARN] Please implement:", key, key.split(":")[1], xmi[key]);
+                            console.warn("[WARN] Please implement:", key, key.split(":")[1]);
                             break;
                     }
                 }

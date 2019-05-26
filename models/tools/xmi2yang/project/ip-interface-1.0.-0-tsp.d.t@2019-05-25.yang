@@ -2,17 +2,23 @@ module ip-interface-1.0.-0-tsp.d.t {
     namespace "urn:onf:yang:ip-interface-1.0.-0-tsp.d.t";
     prefix ip-interface-1.0.-0-tsp.d.t;
     import implementation-common-data-types {
-        prefix implementation-common-data-types;
+        prefix undefined;
     }
     import umlprimitive-types {
-        prefix umlprimitive-types;
+        prefix undefined;
     }
-    organization "OpenNetworkingFoundation (ONF)";
-    contact "ONF";
-    description "none";
-    revision 2019-05-08 {
+    organization "Open Networking Foundation (ONF)";
+    contact "
+        ONF";
+    description "
+        
+        
+        
+        
+        ";
+    revision 2019-05-25 {
         description "Test project to check UML-to-YANG tool.";
-        reference "ONF-TR-512, ONF-TR-532, ONF-TR-541, ONF-TR-545, RFC 6020 and RFC 6087";
+        reference "ONF-TR-512, RFC 6020 and RFC 6087";
     }
     /********************************************
     * grouping statements for object references
@@ -195,7 +201,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                     type int64 {
                     }
                     units "s";
-                    default "-1";
+                    default -1;
                     config false;
                     description "Number of seconds that elapsed since the last reset of the counter.";
                 }
@@ -320,7 +326,7 @@ module ip-interface-1.0.-0-tsp.d.t {
         grouping ip-interface-capability {
             leaf maximum-number-of-ip-v-4-addresses {
                 type int64;
-                default "-1";
+                default -1;
                 config false;
                 description "Maximum number of IP addresses at this IP interface (translates into maximum multiplicity of IpInterfaceConfiguration::fixedIpV4AddressList)";
             }
@@ -338,7 +344,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int16 {
                 }
                 units "Byte";
-                default "-1";
+                default -1;
                 config false;
                 description "Minimum layer 3 MTU size configurable.";
             }
@@ -346,7 +352,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int16 {
                 }
                 units "Byte";
-                default "-1";
+                default -1;
                 config false;
                 description "Maximum layer 3 MTU size configurable.";
             }
@@ -374,7 +380,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int32 {
                 }
                 units "kbit/s";
-                default "-1";
+                default -1;
                 config false;
                 description "Only relevant if (egressShapingIsAvail==1): Minimum configurable throuput in kbit/s.";
             }
@@ -382,7 +388,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int32 {
                 }
                 units "kbit/s";
-                default "-1";
+                default -1;
                 config false;
                 description "Only relevant if (egressShapingIsAvail==1): Maximum configurable throuput in kbit/s.";
             }
@@ -390,7 +396,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int16 {
                 }
                 units "kByte";
-                default "-1";
+                default -1;
                 config false;
                 description "Only relevant if (egressShapingIsAvail==1): Minimum configurable value for the number of kBytes, which could be sent in a single burst.";
             }
@@ -398,7 +404,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int16 {
                 }
                 units "kByte";
-                default "-1";
+                default -1;
                 config false;
                 description "Only relevant if (egressShapingIsAvail==1): Maximum configurable value for the number of kBytes, which could be sent in a single burst.";
             }
@@ -457,7 +463,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int16 {
                 }
                 units "Byte";
-                default "-1";
+                default -1;
                 description "Layer 3 maximum transmission unit size in Byte. The MTU describes the maximum IP packet size that can be put into the Ethernet frame before sending";
             }
             leaf arp-proxy {
@@ -476,14 +482,14 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int32 {
                 }
                 units "kbit/s";
-                default "-1";
+                default -1;
                 description "Only relevant if (egressShapingIsAvail==1): Limits the throughput on the egress.";
             }
             leaf maximum-burst-size {
                 type int16 {
                 }
                 units "kByte";
-                default "-1";
+                default -1;
                 description "Only relevant if (egressShapingIsAvail==1): Limits the number of kBytes, which are sent in a single burst.";
             }
             container vpn-profile {
@@ -501,7 +507,7 @@ module ip-interface-1.0.-0-tsp.d.t {
             leaf maintenance-timer {
                 type int32 {
                 }
-                default "-1";
+                default -1;
                 description "Time of existence of any maintenance configuration. Valid values are defined in *Capability::maintenanceTimerRange.";
             }
             leaf statistics-is-on {
@@ -879,7 +885,7 @@ module ip-interface-1.0.-0-tsp.d.t {
             leaf fixed-ip-v-4-address-prefix-length {
                 type int8 {
                 }
-                default "-1";
+                default -1;
                 description "Fixed assigned routing prefix (sub network) length (e.g. for 198.51.100.0/24 the fixedIpV4AddressPrefixLength would be 24).
                     ";
             }
@@ -923,7 +929,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int32 {
                 }
                 units "kbit/s";
-                default "-1";
+                default -1;
                 config false;
                 description "Data receive rate over the last 10 second interval in kbit/s.";
             }
@@ -931,7 +937,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int32 {
                 }
                 units "kbit/s";
-                default "-1";
+                default -1;
                 config false;
                 description "Data transmit rate over the last 10 second interval in kbit/s.";
             }
@@ -939,7 +945,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int32 {
                 }
                 units "packet/s";
-                default "-1";
+                default -1;
                 config false;
                 description "Packet receive rate over the last 10 second interval.";
             }
@@ -947,7 +953,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int32 {
                 }
                 units "packet/s";
-                default "-1";
+                default -1;
                 config false;
                 description "Packet transmit rate over the last 10 second interval.";
             }
@@ -955,7 +961,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int32 {
                 }
                 units "kByte";
-                default "-1";
+                default -1;
                 config false;
                 description "Received data volume in kByte.";
             }
@@ -963,7 +969,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int32 {
                 }
                 units "kByte";
-                default "-1";
+                default -1;
                 config false;
                 description "Sent data volume in kByte.";
             }
@@ -971,7 +977,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int64 {
                 }
                 units "packets";
-                default "-1";
+                default -1;
                 config false;
                 description "The total number of IP packets received for the specified address family, including those received in error";
             }
@@ -979,7 +985,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int64 {
                 }
                 units "packets";
-                default "-1";
+                default -1;
                 config false;
                 description "The total number of IP packets for the specified address family that the device supplied to the lower layers for transmission.This includes packets generated locally and those forwarded by the device.";
             }
@@ -987,7 +993,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int32 {
                 }
                 units "kByte";
-                default "-1";
+                default -1;
                 config false;
                 description "The number of octets received in input IP packets for the specified address family for which the device was not their final IP destination and for which the device attempted to find a route to forward them to that final destination.
                     ";
@@ -996,7 +1002,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int32 {
                 }
                 units "kByte";
-                default "-1";
+                default -1;
                 config false;
                 description "The number of octets in packets for which this entity was not their final IP destination and for which it was successful in finding a path to their final destination.
                     ";
@@ -1005,7 +1011,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int64 {
                 }
                 units "packets";
-                default "-1";
+                default -1;
                 config false;
                 description "The number of input packets for which the device was not their final IP destination and for which the device attempted to find a route to forward them to that final destination.";
             }
@@ -1013,7 +1019,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int64 {
                 }
                 units "packets";
-                default "-1";
+                default -1;
                 config false;
                 description "The number of packets for which this entity was not their final IP destination and for which it was successful in finding a path to their final destination. ";
             }
@@ -1021,7 +1027,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int64 {
                 }
                 units "packets";
-                default "-1";
+                default -1;
                 config false;
                 description "Total number of received unicast packets.";
             }
@@ -1029,7 +1035,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int64 {
                 }
                 units "packets";
-                default "-1";
+                default -1;
                 config false;
                 description "Total number of sent unicast packets.";
             }
@@ -1037,7 +1043,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int32 {
                 }
                 units "packets";
-                default "-1";
+                default -1;
                 config false;
                 description "Total number of received multicast packets.";
             }
@@ -1045,7 +1051,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int32 {
                 }
                 units "packets";
-                default "-1";
+                default -1;
                 config false;
                 description "Total number of sent multicast packets.";
             }
@@ -1053,7 +1059,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int32 {
                 }
                 units "packets";
-                default "-1";
+                default -1;
                 config false;
                 description "Total number of received broadcast packets.";
             }
@@ -1061,7 +1067,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int32 {
                 }
                 units "packets";
-                default "-1";
+                default -1;
                 config false;
                 description "Total number of sent broadcast packets.";
             }
@@ -1069,7 +1075,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int32 {
                 }
                 units "packets";
-                default "-1";
+                default -1;
                 config false;
                 description "Total number of received fragmented packets.";
             }
@@ -1077,7 +1083,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int32 {
                 }
                 units "packets";
-                default "-1";
+                default -1;
                 config false;
                 description "Total number of received errored packets.";
             }
@@ -1085,7 +1091,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int32 {
                 }
                 units "packets";
-                default "-1";
+                default -1;
                 config false;
                 description "Number of IP packets for the specified address family locally generated and discarded due to errors, including no route found to the IP destination.";
             }
@@ -1093,7 +1099,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type int32 {
                 }
                 units "packets";
-                default "-1";
+                default -1;
                 config false;
                 description "Total number of packets dropped at the receiver. The number of input IP packets for the specified address family, for which no problems were encountered to prevent their continued processing, but were discarded (e.g., for lack of buffer space).";
             }
@@ -1101,7 +1107,7 @@ module ip-interface-1.0.-0-tsp.d.t {
                 type uint32 {
                 }
                 units "packets";
-                default "-1";
+                default -1;
                 config false;
                 description "The number of output IP packets for the specified address family for which no problem was encountered to prevent their transmission to their destination, but were discarded (e.g., for lack of buffer space).";
             }

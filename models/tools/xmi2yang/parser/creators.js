@@ -204,7 +204,7 @@ var creators = {
                 var temp = item.split(":");
                 var prefix = temp[0];
                 if (store.openModelStatement.prefix && store.openModelStatement.prefix[temp[0]]) {
-                    prefix = store.openModelStatement.prefix[temp[0]]
+                    prefix = store.openModelStatement.prefix[temp[0]];
                 }
 
                 var classRef = temp[2];                
