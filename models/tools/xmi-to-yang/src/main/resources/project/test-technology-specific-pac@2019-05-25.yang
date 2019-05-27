@@ -1,0 +1,134 @@
+module test-technology-specific-pac {
+    namespace "urn:onf:yang:test-technology-specific-pac";
+    prefix ttsp;
+    import test-core-model {
+        prefix tcm;
+    }
+    organization "Open Networking Foundation (ONF)";
+    contact "
+        WG Web  : <https://wiki.opennetworking.org/pages/viewpage.action?pageId=262963204>
+        WG List : <mailto:information-modeling@opennetworking.org>
+        WG Chair: Nigel Davis
+                    <mailto:ndavis@ciena.com>
+        WG Chair: Hing-Kam Lam
+                    <mailto:kamlam@fiberhome.com>
+        Editor  : Thorsten Heinze
+                    <mailto:thorsten.heinze@telefonica.com>
+        Editor  : Martin Skorupski
+                    <mailto:martin.skorupski@highstreet-technologies.com>";
+    description "
+        This is a test Papyrus UML project to check the beauty of the EagelUmlYang tool.
+        
+        Copyright 2019 Open Networking Foundation (ONF). All rights reserved.
+        
+        Licensed under the Apache License, Version 2.0 (the 'License');
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at
+        
+            http://www.apache.org/licenses/LICENSE-2.0
+        
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an 'AS IS' BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.";
+    revision 2019-05-25 {
+        description "Test project to check UML-to-YANG tool.";
+        reference "ONF-TR-512, RFC 6020 and RFC 6087";
+    }
+    augment "/tcm:test-control-construct/tcm:test-logical-termination-point/tcm:test-layer-protocol"{
+        uses technology-specific-lp-spec;
+        description "none";
+    }
+    /****************************************
+    * grouping statements for object classes
+    **************************************/ 
+        grouping technology-specific-pac {
+            leaf technology-specific-attribute {
+                type string;
+                description "none";
+            }
+            container test-capability {
+                config false;
+                uses test-capability-ref;
+                description "none";
+            }
+            container test-configuration {
+                uses test-configuration-ref;
+                description "none";
+            }
+            container test-status {
+                config false;
+                uses test-status-ref;
+                description "none";
+            }
+            description "none";
+        }
+
+    /****************************************
+    * package diagrams
+    **************************************/ 
+        grouping technology-specific-lp-spec {
+            container technology-specific-pac {
+                uses technology-specific-pac;
+                description "none";
+            }
+            description "none";
+        }
+
+    grouping test-capability-ref {
+        leaf capability-1 {
+            type string;
+            description "none";
+        }
+        leaf capability-2 {
+            type string;
+            description "none";
+        }
+        description "none";
+    }
+    grouping test-configuration-ref {
+        leaf configuration-1 {
+            type string;
+            description "none";
+        }
+        leaf configuration-2 {
+            type string;
+            description "none";
+        }
+        description "none";
+    }
+    grouping test-status-ref {
+        leaf status-1 {
+            type string;
+            config false;
+            description "none";
+        }
+        leaf status-2 {
+            type string;
+            config false;
+            description "none";
+        }
+        leaf signed-integer-32 {
+            type int32 {
+            }
+            units "dbm/10";
+            default -99;
+            description "Expected type int32 with unit dbm/10 and default -99.";
+        }
+        leaf unsinged-integer-8 {
+            type uint8 {
+            }
+            units "kbit/s";
+            description "Expected type uin8 with unit kbit/s.";
+        }
+        leaf unsigned-integer-64 {
+            type uint64 {
+                range "1..max";
+            }
+            units "s";
+            description "Expected type uin64 with unit s and value range 1...max.";
+        }
+        description "none";
+    }
+}

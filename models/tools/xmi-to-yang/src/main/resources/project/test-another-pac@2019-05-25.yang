@@ -1,0 +1,95 @@
+module test-another-pac {
+    namespace "urn:onf:yang:test-another-pac";
+    prefix tap;
+    import test-core-model {
+        prefix tcm;
+    }
+    organization "OpenNetworkingFoundation (ONF)";
+    contact "
+        ONF Test";
+    description "
+        
+        
+        
+        
+        ";
+    revision 2019-05-25 {
+        description "Test project to check UML-to-YANG tool.";
+        reference "ONF-TR-512, RFC 6020 and RFC 6087";
+    }
+    augment "/tcm:test-control-construct/tcm:test-logical-termination-point/tcm:test-layer-protocol"{
+        uses another-lp-spec;
+        description "none";
+    }
+    /****************************************
+    * grouping statements for object classes
+    **************************************/ 
+        grouping test-another-pac {
+            leaf test-another-pac-attribute {
+                type string;
+                description "none";
+            }
+            container test-another-capability {
+                config false;
+                uses test-another-capability-ref;
+                description "none";
+            }
+            container test-another-configuration {
+                uses test-another-configuration-ref;
+                description "none";
+            }
+            container test-another-status {
+                config false;
+                uses test-another-status-ref;
+                description "none";
+            }
+            description "none";
+        }
+
+    /****************************************
+    * package diagrams
+    **************************************/ 
+        grouping another-lp-spec {
+            container another-pac {
+                uses test-another-pac;
+                description "none";
+            }
+            description "none";
+        }
+
+    grouping test-another-capability-ref {
+        leaf capability-1 {
+            type string;
+            description "none";
+        }
+        leaf capability-2 {
+            type string;
+            description "none";
+        }
+        description "none";
+    }
+    grouping test-another-configuration-ref {
+        leaf configuration-1 {
+            type string;
+            description "none";
+        }
+        leaf configuration-2 {
+            type string;
+            description "none";
+        }
+        description "none";
+    }
+    grouping test-another-status-ref {
+        leaf status-1 {
+            type string;
+            config false;
+            description "none";
+        }
+        leaf status-2 {
+            type string;
+            config false;
+            description "none";
+        }
+        description "none";
+    }
+}
