@@ -17,6 +17,7 @@
 # Author: martin.skorupski@highstreet-technologies.com
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-pyang -f tree ${DIR}/test-*.yang
-pyang -f tree ${DIR}/core-*.yang
-pyang -f tree ${DIR}/ip-*.yang
+if [ $# -gt 0 ]; then
+    DIR=$1;
+fi
+pyang -f tree -p ${DIR} ${DIR}/*.yang

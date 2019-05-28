@@ -74,7 +74,7 @@
           </execution>
           <execution>
             <id>converting-uml</id>
-            <phase>generate-sources</phase>
+            <phase>compile</phase>
             <goals>
               <goal>exec</goal>
             </goals>
@@ -85,9 +85,9 @@
                 <argument>-c</argument>
                 <argument>${basedir}/src/main/resources/project/config.json</argument>
                 <argument>-d</argument>
-                <argument>${basedir}/src/main/resources/project</argument>
+                <argument>${basedir}/../pruning-and-refactoring/target</argument>
                 <argument>-o</argument>
-                <argument>${basedir}/src/main/resources/project</argument>
+                <argument>${project.build.directory}/yang</argument>
               </arguments>
             </configuration>
           </execution>
@@ -98,7 +98,10 @@
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>${basedir}/src/main/resources/project/pyang-check.sh</executable>
+              <executable>${basedir}/src/main/bash/pyang-check.sh</executable>
+              <arguments>
+                <argument>${project.build.directory}/yang</argument>
+              </arguments>
             </configuration>
           </execution>
         </executions>

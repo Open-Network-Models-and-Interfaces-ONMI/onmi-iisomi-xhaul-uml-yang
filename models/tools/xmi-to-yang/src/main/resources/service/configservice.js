@@ -110,6 +110,12 @@ function processArgs(opts){
         if(_.isString(argv["o"])){
             opts.yangDir = argv["o"];
         }
+
+        // create yangDir if not exists
+        if (!fs.existsSync(opts.yangDir)) {
+            fs.mkdirSync(opts.yangDir);
+        }
+
         console.log("------------------------");
         console.log("Project Directory:",opts.projectDir);
         console.log("Configuration Path:",opts.config);

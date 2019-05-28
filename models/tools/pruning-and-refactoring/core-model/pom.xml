@@ -78,7 +78,7 @@
               <outputDir>${project.build.directory}/generated-sources</outputDir>
               <fileMappers>
                 <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
-                  <targetExtension>.uml</targetExtension>
+                  <targetExtension>.pnr.uml</targetExtension>
                 </fileMapper>
               </fileMappers>
             </transformationSet>
@@ -106,10 +106,36 @@
               <goal>rename</goal>
             </goals>
             <configuration>
-              <sourceFile>${project.build.directory}/generated-sources/CoreModel.uml</sourceFile>
-              <destinationFile>${project.build.directory}/generated-sources/CoreNetworkFunction.uml</destinationFile>
+              <sourceFile>${project.build.directory}/generated-sources/CoreModel.pnr.uml</sourceFile>
+              <destinationFile>${project.build.directory}/generated-sources/CoreNetworkFunction.pnr.uml</destinationFile>
             </configuration>
           </execution> 
+        </executions>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven.resources.plugin.version}</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/../target</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.build.directory}/generated-sources</directory>
+                  <filtering>true</filtering>
+                  <includes>
+                    <include>**/*.pnr.uml</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
 

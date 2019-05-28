@@ -70,15 +70,15 @@
           <transformationSets>
 
             <transformationSet>
-              <dir>${basedir}/src/main/resources/papyrus/IpInterface_1.0.0-tsp.d.t</dir>
+              <dir>${basedir}/src/main/resources/IpInterface_1.0.0-tsp.d.t</dir>
               <includes>
-                <include>IpInterface.uml</include>
+                <include>*.uml</include>
               </includes>
               <stylesheet>${basedir}/src/main/resources/xslt/prune-and-refactor-ip-interface.xslt</stylesheet>
               <outputDir>${project.build.directory}/generated-sources</outputDir>
               <fileMappers>
                 <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
-                  <targetExtension>.uml</targetExtension>
+                  <targetExtension>.pnr.uml</targetExtension>
                 </fileMapper>
               </fileMappers>
             </transformationSet>
@@ -92,6 +92,32 @@
             <version>${saxon.he.version}</version>
           </dependency>
         </dependencies>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven.resources.plugin.version}</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/../target</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.build.directory}/generated-sources</directory>
+                  <filtering>true</filtering>
+                  <includes>
+                    <include>**/*.pnr.uml</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
 
     </plugins>
