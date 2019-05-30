@@ -9,7 +9,20 @@
         <importedPackage xmi:type="uml:Model" href="TestCoreModel.uml#0B_17MG9FEembcsaJa33rBA"/>
       </packageImport>
     </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_jULD0ILnEemHhKupNRpLhQ" name="TypeDefinitions">
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="__H-XYILmEemHhKupNRpLhQ" name="TestEnum">
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_GBd-wILnEemHhKupNRpLhQ" name="EnumValue1"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_HZIVQILnEemHhKupNRpLhQ" name="EnumValue2"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_I1aGAILnEemHhKupNRpLhQ" name="EnumValue3"/>
+      </packagedElement>
+    </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_ZnXUMG9HEem24uNCwfOIBg" name="ObjectClasses">
+      <packagedElement xmi:type="uml:Class" xmi:id="1ljZzwHP6EemHoZj0yu-6dg" name="TechnologySpecificLpSpec">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_3lOacXP6EemHoZj0yu-6dg" name="_technologySpecificPac" type="1eZbfkG9IEemHoZj0yu-6dg" aggregation="composite" association="_3lNMUHP6EemHoZj0yu-6dg">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3lPBgHP6EemHoZj0yu-6dg" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3lPBgXP6EemHoZj0yu-6dg" value="1"/>
+        </ownedAttribute>
+      </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="1eZbfkG9IEemHoZj0yu-6dg" name="TechnologySpecificPac">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_WSBE0G9OEemHoZj0yu-6dg" name="technologySpecificAttribute">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
@@ -27,49 +40,50 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_p4TJkXMMEemHoZj0yu-6dg" value="1"/>
         </ownedAttribute>
       </packagedElement>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="1APM9kHJyEemHoZj0yu-6dg" name="TestCapability">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_CRMyoHMDEemHoZj0yu-6dg" name="capability1">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_FPHVQHMDEemHoZj0yu-6dg" name="capability2">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="1WNwnsHMDEemHoZj0yu-6dg" name="TestConfiguration">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_WNwnsXMDEemHoZj0yu-6dg" name="configuration1">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_WNwnsnMDEemHoZj0yu-6dg" name="configuration2">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="1n2TywHMDEemHoZj0yu-6dg" name="TestStatus">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_n2TywXMDEemHoZj0yu-6dg" name="status1" isReadOnly="true">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_n2TywnMDEemHoZj0yu-6dg" name="status2" isReadOnly="true">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_8rIhkH1AEemg07MSqaqjCw" name="signedInteger32">
-        <ownedComment xmi:type="uml:Comment" xmi:id="_U9x7MH1DEemg07MSqaqjCw">
-          <body>Expected type int32 with unit dbm/10 and default -99.</body>
-        </ownedComment>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-        <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_dF0ZUH1DEemg07MSqaqjCw" name="Minus99-10th-dBm" value="-99"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_CibsIH1BEemg07MSqaqjCw" name="unsingedInteger8">
-        <ownedComment xmi:type="uml:Comment" xmi:id="_MQbwkH1DEemg07MSqaqjCw">
-          <body>Expected type uin8 with unit kbit/s.</body>
-        </ownedComment>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_G0HjwH1BEemg07MSqaqjCw" name="unsignedInteger64">
-        <ownedComment xmi:type="uml:Comment" xmi:id="_IB2QQH1DEemg07MSqaqjCw">
-          <body>Expected type uin64 with unit s and value range 1...max.</body>
-        </ownedComment>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-      </ownedAttribute>
+      <packagedElement xmi:type="uml:Class" xmi:id="1APM9kHJyEemHoZj0yu-6dg" name="TestCapability">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_CRMyoHMDEemHoZj0yu-6dg" name="capability1">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_FPHVQHMDEemHoZj0yu-6dg" name="capability2">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="1WNwnsHMDEemHoZj0yu-6dg" name="TestConfiguration">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_WNwnsXMDEemHoZj0yu-6dg" name="configuration1">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_WNwnsnMDEemHoZj0yu-6dg" name="configuration2">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="1n2TywHMDEemHoZj0yu-6dg" name="TestStatus">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_n2TywXMDEemHoZj0yu-6dg" name="status1" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_n2TywnMDEemHoZj0yu-6dg" name="status2" isReadOnly="true">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_8rIhkH1AEemg07MSqaqjCw" name="signedInteger32">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_U9x7MH1DEemg07MSqaqjCw">
+            <body>Expected type int32 with unit dbm/10 and default -99.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_dF0ZUH1DEemg07MSqaqjCw" name="Minus99-10th-dBm" value="-99"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_CibsIH1BEemg07MSqaqjCw" name="unsingedInteger8">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_MQbwkH1DEemg07MSqaqjCw">
+            <body>Expected type uin8 with unit kbit/s.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_G0HjwH1BEemg07MSqaqjCw" name="unsignedInteger64">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_IB2QQH1DEemg07MSqaqjCw">
+            <body>Expected type uin64 with unit s and value range 1...max.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_5PpSEILmEemHhKupNRpLhQ" name="enumAttribute" type="__H-XYILmEemHhKupNRpLhQ" isReadOnly="true"/>
+      </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_kmamQG9IEemHoZj0yu-6dg" name="Associations">
       <packagedElement xmi:type="uml:Abstraction" xmi:id="_vbyHwHGBEemHoZj0yu-6dg" name="PacAugmentsLp" client="1ljZzwHP6EemHoZj0yu-6dg">
@@ -93,23 +107,18 @@
         </eAnnotations>
         <ownedEnd xmi:type="uml:Property" xmi:id="_p4TJknMMEemHoZj0yu-6dg" name="_technologySpecificPac" type="1eZbfkG9IEemHoZj0yu-6dg" association="_p4QtUHMMEemHoZj0yu-6dg"/>
       </packagedElement>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Package" xmi:id="_sYe0YG9IEemHoZj0yu-6dg" name="Diagrams">
-      <ownedComment xmi:type="uml:Comment" xmi:id="_ptfmEG9OEemHoZj0yu-6dg">
-        <body>Reference to spcified PAC should be added by &quot;pruning and refactoring&quot;</body>
-      </ownedComment>
-      <packagedElement xmi:type="uml:Class" xmi:id="1ljZzwHP6EemHoZj0yu-6dg" name="TechnologySpecificLpSpec">
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_3lOacXP6EemHoZj0yu-6dg" name="_technologySpecificPac" type="1eZbfkG9IEemHoZj0yu-6dg" aggregation="composite" association="_3lNMUHP6EemHoZj0yu-6dg">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3lPBgHP6EemHoZj0yu-6dg" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3lPBgXP6EemHoZj0yu-6dg" value="1"/>
-        </ownedAttribute>
-      </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_3lNMUHP6EemHoZj0yu-6dg" name="LpSpceHasPac" memberEnd="_3lOacXP6EemHoZj0yu-6dg _3lPBgnP6EemHoZj0yu-6dg">
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_3lNzYHP6EemHoZj0yu-6dg" source="org.eclipse.papyrus">
           <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_3lOacHP6EemHoZj0yu-6dg" key="nature" value="UML_Nature"/>
         </eAnnotations>
         <ownedEnd xmi:type="uml:Property" xmi:id="_3lPBgnP6EemHoZj0yu-6dg" name="_technologySpecificLpSpec" type="1ljZzwHP6EemHoZj0yu-6dg" association="_3lNMUHP6EemHoZj0yu-6dg"/>
       </packagedElement>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_y_9AMILnEemHhKupNRpLhQ" client="1n2TywHMDEemHoZj0yu-6dg" supplier="__H-XYILmEemHhKupNRpLhQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_sYe0YG9IEemHoZj0yu-6dg" name="Diagrams">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_ptfmEG9OEemHoZj0yu-6dg">
+        <body>Reference to spcified PAC should be added by &quot;pruning and refactoring&quot;</body>
+      </ownedComment>
     </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_ZK4-IG9IEemHoZj0yu-6dg">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ZLCIEG9IEemHoZj0yu-6dg" source="PapyrusVersion">
@@ -205,4 +214,6 @@
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_CicTMH1BEemg07MSqaqjCw" base_Property="_CibsIH1BEemg07MSqaqjCw" writeAllowed="CREATE_ONLY" bitLength="LENGTH_8_BIT"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_G0IK0H1BEemg07MSqaqjCw" base_StructuralFeature="_G0HjwH1BEemg07MSqaqjCw" valueRange="1..max" unsigned="true" unit="s" support="OPTIONAL"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_G0IK0X1BEemg07MSqaqjCw" base_Property="_G0HjwH1BEemg07MSqaqjCw" writeAllowed="CREATE_ONLY" bitLength="LENGTH_64_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_5Pp5IILmEemHhKupNRpLhQ" base_StructuralFeature="_5PpSEILmEemHhKupNRpLhQ"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_5PrHQILmEemHhKupNRpLhQ" base_Property="_5PpSEILmEemHhKupNRpLhQ"/>
 </xmi:XMI>
