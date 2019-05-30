@@ -208,7 +208,7 @@ Node.prototype.writeNode = function (layer) {
                 break;
         }
     }
-    if(this.nodeType !== "enum" && this.nodeType !== "identity"  && this.nodeType !== "base" && this.nodeType !== "typedef") {
+    if(this.nodeType !== "enum" && this.nodeType !== "identity"  && this.nodeType !== "base") { // [sko] also typedef must be yangified: && this.nodeType !== "typedef") {
         var name = this.nodeType + " " + Util.yangifyName(this.name);
     //}else if(this.nodeType == "base" ){
         //this.name+="-id";
