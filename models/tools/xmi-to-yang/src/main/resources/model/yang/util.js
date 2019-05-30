@@ -41,4 +41,13 @@ Util.typeifyName = function(str) {
         .replace( /([0-9])\.-([0-9])/g, '$1.$2');
 };
 
+Util.handleNamespacePrefix = function(path, prefixes) {
+    console.warn("[sko] ##util#", path, prefixes);
+    var result = path;
+    Object.keys(prefixes).forEach(function(key) {
+        result = result.replace(new RegExp(key, "g"),prefixes[key]);
+    });
+    return result;
+}
+
 module.exports = Util;

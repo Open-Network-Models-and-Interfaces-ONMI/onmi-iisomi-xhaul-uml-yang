@@ -109,7 +109,7 @@ function parseModule(file){
                             var len = xmi[key].array ? xmi[key].array.length : 1;     //OpenModel_Profile:the number of array object in OpenModelAttribute
                             for(var i = 0; i < len; i++){
                                 obj = len === 1 ? newxmi : newxmi[i];
-                                parsers.parseOpenModelatt(obj,store);
+                                parsers.parseOpenModelatt(obj, store);
                             }
                             break;
                         case "OpenInterfaceModelClass":

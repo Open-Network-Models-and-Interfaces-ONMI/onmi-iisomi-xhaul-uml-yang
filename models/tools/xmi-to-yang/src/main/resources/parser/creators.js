@@ -22,7 +22,7 @@ var yangModels = {
     Augment     : require('../model/yang/augment.js')
 };
 
-var config = {}
+var config = {};
 function setConfig(cfg){
     config = cfg;
 }

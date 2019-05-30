@@ -307,7 +307,7 @@ Node.prototype.writeNode = function (layer) {
                 }
             }
         }else{
-            console.warn("Warning: There is no key in the node " + this.name + " in \'" + this.fileName + "\'!");
+            console.warn("[WARN]: There is no key in the node " + this.name + " in \'" + this.fileName + "\'! (" + this.id + ")");
         }
 
     } else {

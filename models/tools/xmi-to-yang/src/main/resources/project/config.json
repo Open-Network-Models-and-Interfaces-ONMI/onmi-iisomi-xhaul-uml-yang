@@ -33,9 +33,14 @@
   },
   "TestCoreModel": {
     "namespace": "urn:onf:yang:",
-    "organization": "OpenNetworkingFoundation (ONF)",
-    "contact": "ONF Test",
-    "withSuffix": false,
+    "prefix": {
+      "TestCoreModel": "tcm",
+      "test-core-model": "tcm",
+      "TestAnotherPac": "tap",
+      "TestTechnologySpecificPac": "ttsp"
+    },
+    "organization": "Open Networking Foundation (ONF)",
+    "contact": "ONF Test CoreModel Team",
     "revision": [
       {
         "date": "2019-05-25",
@@ -51,7 +56,7 @@
       "TestAnotherPac": "tap",
       "TestTechnologySpecificPac": "ttsp"
     },
-    "organization": "OpenNetworkingFoundation (ONF)",
+    "organization": "Open Networking Foundation (ONF)",
     "contact": "ONF Test",
     "withSuffix": false,
     "revision": [

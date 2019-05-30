@@ -377,9 +377,9 @@ module.exports = {
                             //add uses of objectclasses
                             if(ele[i].attribute[j].isleafRef == true ){
                                 if(ele[i].fileName == clazz.fileName){
-                                    ele[i].attribute[j].isUses = clazz.name + "-ref";
+                                    ele[i].attribute[j].isUses = clazz.name; // [sko] + "-ref";
                                 }else{
-                                    ele[i].attribute[j].isUses = clazz.fileName.replace(".uml","") + ":" + clazz.name + "-ref";
+                                    ele[i].attribute[j].isUses = clazz.fileName.replace(".uml","") + ":" + clazz.name; // [sko] + "-ref";
                                 }
                             }else{
                                 if(ele[i].fileName == clazz.fileName){
@@ -417,7 +417,8 @@ module.exports = {
                                             }
                                         }
                                         if(kpath == ""){
-                                            kpath = "path '" + "/" + Util.yangifyName(ele[i].instancePath);
+                                            var temporaryPath = Util.handleNamespacePrefix(ele[i].instancePath, store.openModelStatement.prefix);
+                                            kpath = "path '" + "/" + Util.yangifyName(temporaryPath);
                                         }
                                         kpath += "'";
                                         var newType = new yangModels.Type("leafref", '', kpath, "", "", "", ele[i].fileName);
@@ -446,7 +447,8 @@ module.exports = {
                                             }
                                         }
                                         if(kpath == ""){
-                                            kpath = "path '" + "/" + Util.yangifyName(ele[i].instancePath);
+                                            var temporaryPath = Util.handleNamespacePrefix(ele[i].instancePath, store.openModelStatement.prefix);
+                                            kpath = "path '" + "/" + Util.yangifyName(temporaryPath);
                                         }
                                         kpath += "'";
                                         var newType = new yangModels.Type("leafref", '', kpath, "", "", "", ele[i].fileName);
@@ -472,7 +474,8 @@ module.exports = {
                                                 }
                                             }
                                             if(kpath == ""){
-                                                kpath = "path '" + "/" + Util.yangifyName(ele[i].instancePath);
+                                                var temporaryPath = Util.handleNamespacePrefix(ele[i].instancePath, store.openModelStatement.prefix);
+                                                kpath = "path '" + "/" + Util.yangifyName(temporaryPath);
                                             }
                                             kpath += "'";
                                             var newType = new yangModels.Type("leafref", '', kpath, "", "", "", ele[i].fileName);
@@ -483,9 +486,7 @@ module.exports = {
                                         store.References.push(newObj);
                                     }
                                 }
-
                             }
-
                         }
 
                         if (ele[i].attribute[j].isSpecTarget === false && ele[i].attribute[j].isSpecReference === false
