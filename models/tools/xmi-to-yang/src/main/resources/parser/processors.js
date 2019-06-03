@@ -80,10 +80,12 @@ var processors = {
                             var tempName = props.att.attributes().name;
                             tempName = tempName.replace(/^[^A-Za-z|_]+|[^A-Za-z|_\d]+$/g, "");
                             tempName = tempName.replace(/[^\w\.-]+/g, '_');
-                            node.key.push(tempName);
-                            node.keyid.push(props.att.attributes()["xmi:id"]);
-                            node.keyvalue.push(store.openModelAtt[k].key);
-                            node.attribute[i].keyvalue = store.openModelAtt[k].key;
+                            if (node.key.indexOf(tempName) === -1) {
+                                node.key.push(tempName);
+                                node.keyid.push(props.att.attributes()["xmi:id"]);
+                                node.keyvalue.push(store.openModelAtt[k].key);
+                                node.attribute[i].keyvalue = store.openModelAtt[k].key;
+                            }
                         }
                     }
                 }
@@ -97,10 +99,12 @@ var processors = {
                             var tempName = props.att.attributes().name;
                             tempName = tempName.replace(/^[^A-Za-z|_]+|[^A-Za-z|_\d]+$/g, "");
                             tempName = tempName.replace(/[^\w\.-]+/g, '_');
-                            node.key.push(tempName);
-                            node.keyid.push(props.att.attributes()["xmi:id"]);
-                            node.keyvalue.push(store.openModelAtt[k].key);
-                            node.attribute[i].keyvalue = store.openModelAtt[k].key;
+                            if (node.key.indexOf(tempName) === -1) {
+                                node.key.push(tempName);
+                                node.keyid.push(props.att.attributes()["xmi:id"]);
+                                node.keyvalue.push(store.openModelAtt[k].key);
+                                node.attribute[i].keyvalue = store.openModelAtt[k].key;
+                            }
                         }
                     }
                 }

@@ -42,10 +42,11 @@ Util.typeifyName = function(str) {
 };
 
 Util.handleNamespacePrefix = function(path, prefixes) {
-    console.warn("[sko] ##util#", path, prefixes);
     var result = path;
     Object.keys(prefixes).forEach(function(key) {
-        result = result.replace(new RegExp(key, "g"),prefixes[key]);
+        // replace example: "/IpInterface:" by "/ipif:" and also leading "ipInterface:" by "ipif:"
+        result = result.replace(new RegExp("^" + key + ":", "g"), prefixes[key] + ":");
+        result = result.replace(new RegExp("/" + key + ":", "g"), "/" + prefixes[key] + ":");
     });
     return result;
 }
