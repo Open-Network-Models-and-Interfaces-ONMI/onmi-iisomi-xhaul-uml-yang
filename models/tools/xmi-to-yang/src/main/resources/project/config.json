@@ -12,6 +12,21 @@
       }
     ]
   },
+  "EthernetContainer": {
+    "namespace": "urn:onf:yang:",
+    "withSuffix": false,
+    "prefix": {
+      "EthernetContainer": "ethc",
+      "EthernetContainer_2.0.0-tsp.d.t": "ethc"
+    },
+    "revision": [
+      {
+        "date": "2019-05-27",
+        "description": "Add nice text here!",
+        "reference": "ONF-TR-512, RFC 6020 and RFC 6087"
+      }
+    ]
+  },
   "IpInterface": {
     "namespace": "urn:onf:yang:",
     "withSuffix": false,
@@ -29,7 +44,10 @@
   },
   "CoreNetworkFunction": {
     "namespace": "urn:onf:yang:",
-    "withSuffix": false
+    "withSuffix": false,
+    "prefix": {
+      "CoreNetworkFunction": "core-nf"
+    }
   },
   "TestCoreModel": {
     "namespace": "urn:onf:yang:",
