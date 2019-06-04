@@ -6,6 +6,7 @@ var config = {}, configs = {};
 var currentFilename = "";
 
 var store = {
+    openModelStatement:[],
     openModelAtt:[],
     openModelclass:[],
     openModelnotification:[],
@@ -26,7 +27,6 @@ var store = {
     rootElement:[],
     generalization:[],
     augment:[]
-
 };
 
 var yangProcessors = require("../generator/yangprocessors"),

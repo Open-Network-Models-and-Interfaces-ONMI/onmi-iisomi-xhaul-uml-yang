@@ -203,8 +203,10 @@ var parsers = {
      * @param {*} store: In memory object with pre-converted xmi information.
      */
     parseOpenModelStatement:function(modelHeaderInformation, config, store){
-        // create empty object for OpenModelStatements
-        store.openModelStatement = {};
+        
+        // create store for current file
+        store.openModelStatement[currentFilename] = {};
+
         // Helpers
         var openModelStatementChildrenParser = {
             /**
@@ -240,7 +242,7 @@ var parsers = {
         }
         // add all values from UML OpenModelStatement
         Object.keys(modelHeaderInformation.attributes()).forEach(function(key) {
-            store.openModelStatement[key] = modelHeaderInformation.attributes()[key];
+            store.openModelStatement[currentFilename][key] = modelHeaderInformation.attributes()[key];
         });
 
         var excludeXmlReaderKeys = ['attributes', 'parent', 'count', 'at', 'each', 'text'];
@@ -255,20 +257,20 @@ var parsers = {
                     console.warn("[WARN]", "Implement a parser for", key);
                 }
             });
-            store.openModelStatement[key] = array;
+            store.openModelStatement[currentFilename][key] = array;
             if (key === "contact") {
-                store.openModelStatement[key] = array[0];
+                store.openModelStatement[currentFilename][key] = array[0];
             }
         });
 
         // merge configuration into it
         Object.keys(config).forEach(function(key) {
-            if (store.openModelStatement[key] !== undefined) {
+            if (store.openModelStatement[currentFilename][key] !== undefined) {
                 console.warn("[WARN]", key, "will be overwritten by tool configuration");
                 console.warn("[WARN-info]", "Previous value", JSON.stringify(store.openModelStatement[key]));
                 console.warn("[WARN-info]", "     New value", JSON.stringify(config[key]));
             }
-            store.openModelStatement[key] = config[key];
+            store.openModelStatement[currentFilename][key] = config[key];
         });
     },
     parseSpecify:function(xmi,store){
@@ -400,9 +402,6 @@ var parsers = {
 
     },
     parseUmlModel:function(xmi, filename, store){
-
-    },
-    parseUmlModel:function(xmi, filename, store){
         var props = {
             mainmod:undefined,
             comment:"\n",
@@ -421,12 +420,13 @@ var parsers = {
         props.mainmod = props.mainmod.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g, "");   //remove the special character in the end
         props.mainmod = props.mainmod.replace(/[^\w\.-]+/g, '_');                              //not "A-Za-z0-9"->"_"
         store.modName.push(props.mainmod);
+        console.info("[sko] parseUmlModel, modName", store.modName);
         if (xmi.ownedComment) {
             props.comment += parsers.parseComment(xmi, store);
         }
         props.comment = [props.comment, 
-            store.openModelStatement.copyright, 
-            store.openModelStatement.license
+            store.openModelStatement[currentFilename].copyright, 
+            store.openModelStatement[currentFilename].license
         ].join('\n\n');
         props.comment = props.comment.split("\n").join('\n\t\t');
 
@@ -439,8 +439,8 @@ var parsers = {
         //     // props.prefix = Util.yangifyName(props.pre); // [sko] dont get the logic behind
         // }
         props.prefix = Util.yangifyName(props.pre); // [sko] dont get the logic behind;
-        if (store.openModelStatement.prefix && store.openModelStatement.prefix[props.mainmod] !== undefined) {
-            props.prefix = store.openModelStatement.prefix[props.mainmod];
+        if (store.openModelStatement[currentFilename].prefix && store.openModelStatement[currentFilename].prefix[props.mainmod] !== undefined) {
+            props.prefix = store.openModelStatement[currentFilename].prefix[props.mainmod];
         } 
 
         var yangModule = new yangModels.Module(
@@ -448,12 +448,14 @@ var parsers = {
             props.namespace, 
             "", 
             props.prefix, 
-            store.openModelStatement.organization, 
-            [""].concat(store.openModelStatement.contact).join("\n\t\t"), 
-            store.openModelStatement.revision, 
+            store.openModelStatement[currentFilename].organization, 
+            [""].concat(store.openModelStatement[currentFilename].contact).join("\n\t\t"), 
+            store.openModelStatement[currentFilename].revision, 
             props.comment, 
             currentFilename
         );
+        console.info("[sko] #oms#prefix", props.mainmod, store.modName,  props.prefix, JSON.stringify(
+            store.openModelStatement[currentFilename].prefix));
         store.modName.pop();
 
         var element = {

@@ -42,6 +42,8 @@ Util.typeifyName = function(str) {
 };
 
 Util.handleNamespacePrefix = function(path, prefixes) {
+    if (!prefixes) return path;
+
     var result = path;
     Object.keys(prefixes).forEach(function(key) {
         // replace example: "/IpInterface:" by "/ipif:" and also leading "ipInterface:" by "ipif:"
