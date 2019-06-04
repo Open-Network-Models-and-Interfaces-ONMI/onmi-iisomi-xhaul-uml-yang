@@ -420,7 +420,7 @@ var parsers = {
         props.mainmod = props.mainmod.replace(/^[^A-Za-z0-9]+|[^A-Za-z0-9\d]+$/g, "");   //remove the special character in the end
         props.mainmod = props.mainmod.replace(/[^\w\.-]+/g, '_');                              //not "A-Za-z0-9"->"_"
         store.modName.push(props.mainmod);
-        console.info("[sko] parseUmlModel, modName", store.modName);
+        
         if (xmi.ownedComment) {
             props.comment += parsers.parseComment(xmi, store);
         }
@@ -454,8 +454,6 @@ var parsers = {
             props.comment, 
             currentFilename
         );
-        console.info("[sko] #oms#prefix", props.mainmod, store.modName,  props.prefix, JSON.stringify(
-            store.openModelStatement[currentFilename].prefix));
         store.modName.pop();
 
         var element = {
