@@ -399,94 +399,95 @@ module.exports = {
                              }
 
                             //add reference
-                            if(ele[i].key.length > 0 && j == 0){
+                            // [sko] why? such grouping are never referenced by yang -> commanded
+                            // if(ele[i].key.length > 0 && j == 0){
 
-                                if(ele[i].isUsedRef.length == 0 || ele[i].isUsedRef.length == 1){
-                                    var newObj = new yangModels.Node(ele[i].name + '-ref', undefined, "grouping", undefined, undefined, obj.id + '_ref', undefined, undefined, undefined, undefined, ele[i].fileName);
-                                    for(var kk = 0; kk < ele[i].key.length; kk++){
-                                        var mypath = "";
-                                        var kpath = "";
-                                        for(var aa = 0; aa < store.augment.length; aa++){
-                                            var mystr = ele[i].instancePath.split("/");
-                                            mypath = mystr[0].substring(mystr[0].length - store.augment[aa].client.length);
-                                            if(mypath == store.augment[aa].client){
-                                                kpath = "path '" + store.augment[aa].supplier;
-                                                for(var mm = 1; mm < mystr.length; mm++){
-                                                    kpath = kpath + "/" + Util.yangifyName(mystr[mm]);
-                                                }
-                                            }
-                                        }
-                                        if(kpath == ""){
-                                            var temporaryPath = Util.handleNamespacePrefix(ele[i].instancePath, store.openModelStatement.prefix);
-                                            kpath = "path '" + "/" + Util.yangifyName(temporaryPath);
-                                        }
-                                        kpath += "'";
-                                        var newType = new yangModels.Type("leafref", '', kpath, "", "", "", ele[i].fileName);
-                                        var newAtt = new yangModels.Leaf(ele[i].name + "-" + ele[i].key[kk], '', undefined, undefined, undefined, newType, undefined, undefined, ele[i].fileName);
-                                        newObj.children.push(newAtt);
-                                    }
-                                    if(ele[i].isUsedRef.length == 1){
-                                        newObj.uses.push(ele[ele[i].isUsedRef[0]].name + "-ref");
-                                    }
-                                    store.References.push(newObj);
-                                }
+                            //     if(ele[i].isUsedRef.length == 0 || ele[i].isUsedRef.length == 1){
+                            //         var newObj = new yangModels.Node(ele[i].name + '-ref', undefined, "grouping", undefined, undefined, obj.id + '_ref', undefined, undefined, undefined, undefined, ele[i].fileName);
+                            //         for(var kk = 0; kk < ele[i].key.length; kk++){
+                            //             var mypath = "";
+                            //             var kpath = "";
+                            //             for(var aa = 0; aa < store.augment.length; aa++){
+                            //                 var mystr = ele[i].instancePath.split("/");
+                            //                 mypath = mystr[0].substring(mystr[0].length - store.augment[aa].client.length);
+                            //                 if(mypath == store.augment[aa].client){
+                            //                     kpath = "path '" + store.augment[aa].supplier;
+                            //                     for(var mm = 1; mm < mystr.length; mm++){
+                            //                         kpath = kpath + "/" + Util.yangifyName(mystr[mm]);
+                            //                     }
+                            //                 }
+                            //             }
+                            //             if(kpath == ""){
+                            //                 var temporaryPath = Util.handleNamespacePrefix(ele[i].instancePath, store.openModelStatement[ele[i].fileName].prefix);
+                            //                 kpath = "path '" + "/" + Util.yangifyName(temporaryPath);
+                            //             }
+                            //             kpath += "'";
+                            //             var newType = new yangModels.Type("leafref", '', kpath, "", "", "", ele[i].fileName);
+                            //             var newAtt = new yangModels.Leaf(ele[i].name + "-" + ele[i].key[kk], '', undefined, undefined, undefined, newType, undefined, undefined, ele[i].fileName);
+                            //             newObj.children.push(newAtt);
+                            //         }
+                            //         if(ele[i].isUsedRef.length == 1){
+                            //             newObj.uses.push(ele[ele[i].isUsedRef[0]].name + "-ref");
+                            //         }
+                            //         store.References.push(newObj);
+                            //     }
 
-                                if(ele[i].isUsedRef.length > 1){
-                                    var newObj = new yangModels.Node(ele[i].name + '-ref-1', undefined, "grouping", undefined, undefined, obj.id + '_ref', undefined, undefined, undefined, undefined, ele[i].fileName);
-                                    for(var kk = 0; kk < ele[i].key.length; kk++){
-                                        var mypath = "";
-                                        var kpath = "";
-                                        for(var aa = 0; aa < store.augment.length; aa++){
-                                            var mystr = ele[i].instancePath.split("/");
-                                            mypath = mystr[0].substring(mystr[0].length - store.augment[aa].client.length);
-                                            if(mypath == store.augment[aa].client){
-                                                kpath = "path '" + store.augment[aa].supplier;
-                                                for(var mm = 1; mm < mystr.length; mm++){
-                                                    kpath = kpath + "/" + Util.yangifyName(mystr[mm]);
-                                                }
-                                            }
-                                        }
-                                        if(kpath == ""){
-                                            var temporaryPath = Util.handleNamespacePrefix(ele[i].instancePath, store.openModelStatement.prefix);
-                                            kpath = "path '" + "/" + Util.yangifyName(temporaryPath);
-                                        }
-                                        kpath += "'";
-                                        var newType = new yangModels.Type("leafref", '', kpath, "", "", "", ele[i].fileName);
-                                        var newAtt = new yangModels.Leaf(ele[i].name + "-" + ele[i].key[kk], '', undefined, undefined, undefined, newType, undefined, undefined, ele[i].fileName);
-                                        newObj.children.push(newAtt);
-                                    }
-                                    newObj.uses.push(ele[ele[i].isUsedRef[0]].name + "-ref");
-                                    store.References.push(newObj);
+                            //     if(ele[i].isUsedRef.length > 1){
+                            //         var newObj = new yangModels.Node(ele[i].name + '-ref-1', undefined, "grouping", undefined, undefined, obj.id + '_ref', undefined, undefined, undefined, undefined, ele[i].fileName);
+                            //         for(var kk = 0; kk < ele[i].key.length; kk++){
+                            //             var mypath = "";
+                            //             var kpath = "";
+                            //             for(var aa = 0; aa < store.augment.length; aa++){
+                            //                 var mystr = ele[i].instancePath.split("/");
+                            //                 mypath = mystr[0].substring(mystr[0].length - store.augment[aa].client.length);
+                            //                 if(mypath == store.augment[aa].client){
+                            //                     kpath = "path '" + store.augment[aa].supplier;
+                            //                     for(var mm = 1; mm < mystr.length; mm++){
+                            //                         kpath = kpath + "/" + Util.yangifyName(mystr[mm]);
+                            //                     }
+                            //                 }
+                            //             }
+                            //             if(kpath == ""){
+                            //                 var temporaryPath = Util.handleNamespacePrefix(ele[i].instancePath, store.openModelStatement[ele[i].fileName].prefix);
+                            //                 kpath = "path '" + "/" + Util.yangifyName(temporaryPath);
+                            //             }
+                            //             kpath += "'";
+                            //             var newType = new yangModels.Type("leafref", '', kpath, "", "", "", ele[i].fileName);
+                            //             var newAtt = new yangModels.Leaf(ele[i].name + "-" + ele[i].key[kk], '', undefined, undefined, undefined, newType, undefined, undefined, ele[i].fileName);
+                            //             newObj.children.push(newAtt);
+                            //         }
+                            //         newObj.uses.push(ele[ele[i].isUsedRef[0]].name + "-ref");
+                            //         store.References.push(newObj);
 
-                                    for(var k = 1; k < ele[i].isUsedRef.length; k++){
-                                        var newObj = new yangModels.Node(ele[i].name + '-ref-' + (k+1), undefined, "grouping", undefined, undefined, obj.id + '_ref', undefined, undefined, undefined, undefined, ele[i].fileName);
-                                        for(var kk = 0; kk < ele[i].key.length; kk++){
-                                            var mypath = "";
-                                            var kpath = "";
-                                            for(var aa = 0; aa < store.augment.length; aa++){
-                                                var mystr = ele[i].instancePath.split("/");
-                                                mypath = mystr[0].substring(mystr[0].length - store.augment[aa].client.length);
-                                                if(mypath == store.augment[aa].client){
-                                                    kpath = "path '" + store.augment[aa].supplier;
-                                                    for(var mm = 1; mm < mystr.length; mm++){
-                                                        kpath = kpath + "/" + Util.yangifyName(mystr[mm]);
-                                                    }
-                                                }
-                                            }
-                                            if(kpath == ""){
-                                                var temporaryPath = Util.handleNamespacePrefix(ele[i].instancePath, store.openModelStatement.prefix);
-                                                kpath = "path '" + "/" + Util.yangifyName(temporaryPath);
-                                            }
-                                            kpath += "'";
-                                            var newType = new yangModels.Type("leafref", '', kpath, "", "", "", ele[i].fileName);
-                                            var newAtt = new yangModels.Leaf(ele[i].name + "-" + ele[i].key[kk], '', undefined, undefined, undefined, newType, undefined, undefined, ele[i].fileName);
-                                            newObj.children.push(newAtt);
-                                        }
-                                        newObj.uses.push(ele[ele[i].isUsedRef[k]].name + "-ref");
-                                        store.References.push(newObj);
-                                    }
-                                }
-                            }
+                            //         for(var k = 1; k < ele[i].isUsedRef.length; k++){
+                            //             var newObj = new yangModels.Node(ele[i].name + '-ref-' + (k+1), undefined, "grouping", undefined, undefined, obj.id + '_ref', undefined, undefined, undefined, undefined, ele[i].fileName);
+                            //             for(var kk = 0; kk < ele[i].key.length; kk++){
+                            //                 var mypath = "";
+                            //                 var kpath = "";
+                            //                 for(var aa = 0; aa < store.augment.length; aa++){
+                            //                     var mystr = ele[i].instancePath.split("/");
+                            //                     mypath = mystr[0].substring(mystr[0].length - store.augment[aa].client.length);
+                            //                     if(mypath == store.augment[aa].client){
+                            //                         kpath = "path '" + store.augment[aa].supplier;
+                            //                         for(var mm = 1; mm < mystr.length; mm++){
+                            //                             kpath = kpath + "/" + Util.yangifyName(mystr[mm]);
+                            //                         }
+                            //                     }
+                            //                 }
+                            //                 if(kpath == ""){
+                            //                     var temporaryPath = Util.handleNamespacePrefix(ele[i].instancePath, store.openModelStatement[ele[i].fileName].prefix);
+                            //                     kpath = "path '" + "/" + Util.yangifyName(temporaryPath);
+                            //                 }
+                            //                 kpath += "'";
+                            //                 var newType = new yangModels.Type("leafref", '', kpath, "", "", "", ele[i].fileName);
+                            //                 var newAtt = new yangModels.Leaf(ele[i].name + "-" + ele[i].key[kk], '', undefined, undefined, undefined, newType, undefined, undefined, ele[i].fileName);
+                            //                 newObj.children.push(newAtt);
+                            //             }
+                            //             newObj.uses.push(ele[ele[i].isUsedRef[k]].name + "-ref");
+                            //             store.References.push(newObj);
+                            //         }
+                            //     }
+                            // }
                         }
 
                         if (ele[i].attribute[j].isSpecTarget === false && ele[i].attribute[j].isSpecReference === false
