@@ -154,15 +154,13 @@ var builders = {
         console.info("[sko] #");
 
         for(var i = 0; i < abstraction.length; i++) {
-            // console.info("[sko] #1", JSON.stringify(abstraction[i]));
             for (var j = 0; j < store.Class.length; j++) {
                 var clazz = store.Class[j];
                 if (abstraction[i].clientid == clazz.id && abstraction[i].fileName == clazz.fileName) {
                     clientid = abstraction[i].id;
                     clientname = clazz.name;
                 }
-                // console.info("[sko] #", clazz.fileName, abstraction[i].supplier,  currentFilename, store.openModelStatement[clazz.fileName]);
-                supplier = Util.handleNamespacePrefix(abstraction[i].supplier, store.openModelStatement[clazz.fileName]); 
+                supplier = Util.handleNamespacePrefix(abstraction[i].supplier, store.openModelStatement[clazz.fileName].prefix); 
                 currentFilename = abstraction[i].fileName;
                 comment = abstraction[i].comment;
             }

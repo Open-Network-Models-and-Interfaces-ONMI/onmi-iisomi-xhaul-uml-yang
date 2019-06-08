@@ -15,7 +15,7 @@ var Util = require('./util.js');
 function Augment( id, client, supplier, comment, fileName) {
     this.client = client;
     this.id = id;
-    this.supplier =Util.yangifyName(supplier);
+    this.supplier = Util.yangifyName(supplier);
     this.description = comment;
     this.fileName = fileName;
 }
