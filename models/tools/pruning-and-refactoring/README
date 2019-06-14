@@ -1,0 +1,38 @@
+UML to YANG Conversion
+1) Check your current origin
+  login to git
+  git status
+
+2) pull current version
+  e.g. git pull origin experimental
+3) Edit pom.xml file
+3.1 cd models/tools/pruning-and-refactoring/
+3.2 edit pom.xml
+3.3 add new module e.g. "hybrid-mw-structure"
+4) create a new directory with the same name as the module name "hybrid-mw-structure"
+4.1) cd models/tools/pruning-and-refactoring/
+e.g. mkdir "hybrid-mw-structure"
+5) Add resource for the given module
+5.1) go to the resource directory <module-directory>/src/main/resources
+e.g. /5G-xHaul/models/tools/pruning-and-refactoring/hybrid-mw-structure/src/main/resources
+5.2) create a new Directory. Please keep the name the file from ZIP
+  e.g. filename: HybridMwStructure_2.0.0-tsp.190613.1830.zip
+  mkdir HybridMwStructure
+5.3) copy files and directories of the zip file under the newly created folder
+5.4) Add resource path and the xslt in the pom file 
+- go to module directory
+e.g. /5G-xHaul/models/tools/pruning-and-refactoring/hybrid-mw-structure
+- edit the pom.xml file
+- under <transformationSet> add the path of 
+     --> resource directory
+     --> xslt directory
+     
+e.g. 
+   <dir>${basedir}/src/main/resources/HybridMwStructure</dir>
+   <stylesheet>${basedir}/src/main/resources/xslt/prune-and-refactor-hybrid-mw-structure.xslt</stylesheet>
+ 5.5) mvn clean compile 
+ - go to the tools directory "/5G-xHaul/models/tools"
+ - execute "mvn clean compile"
+ if the complilation is successfull, find the the output under /5G-xHaul/models/tools/xmi-to-yang/target/yang
+ 
+ 
