@@ -33,5 +33,5 @@ NOTE: the name of the UML file.
    <stylesheet>${basedir}/src/main/resources/xslt/prune-and-refactor-hybrid-mw-structure.xslt</stylesheet>
  5) convert UML to YANG 
 - go to the tools directory "/5G-xHaul/models/tools"
- - execute "mvn clean compile"
+ - execute "mvn clean install"
  if the complilation is successfull, find the the output under /5G-xHaul/models/tools/xmi-to-yang/target/yang
