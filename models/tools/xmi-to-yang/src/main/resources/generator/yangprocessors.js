@@ -264,30 +264,31 @@ module.exports = {
                                     ele[i].attribute[j].key = clazz.key;
                                     ele[i].attribute[j].keyid = clazz.keyid;
                                     ele[i].attribute[j].keyvalue = clazz.keyvalue;
+                                    var yangPathStatement = Util.handleNamespacePrefix(clazz.instancePath, store.openModelStatement[ele[i].fileName].prefix)
                                     if (i == k) {
                                         if (clazz.instancePath[0] == "/") {
-                                            ele[i].attribute[j].type = "leafref+path '" + clazz.instancePath + "'";
+                                            ele[i].attribute[j].type = "leafref+path '" + yangPathStatement + "'";
                                         }
                                         else {
-                                            ele[i].attribute[j].type = "leafref+path '/" + clazz.instancePath + "'";
+                                            ele[i].attribute[j].type = "leafref+path '/" + yangPathStatement + "'";
                                         }
                                         if (clazz.isAbstract) {
                                             ele[i].attribute[j].type = "string";
                                         }
                                         if (ele[i].attribute[j].nodeType == "list") {
-                                            //ele[i].attribute[j].nodeType = "leaf-list";
+                                            ele[i].attribute[j].nodeType = "leaf-list";
                                         }
                                         else if (ele[i].attribute[j].nodeType == "container") {
-                                            //ele[i].attribute[j].nodeType = "leaf";
+                                            ele[i].attribute[j].nodeType = "leaf";
                                         }
                                         break;
                                     }
                                     else {
                                         if (ele[i].attribute[j].isleafRef) {
                                             if (clazz.instancePath[0] === "/") {
-                                                ele[i].attribute[j].type = "leafref+path '" + clazz.instancePath + "'";
+                                                ele[i].attribute[j].type = "leafref+path '" + yangPathStatement + "'";
                                             } else {
-                                                ele[i].attribute[j].type = "leafref+path '/" + clazz.instancePath + "'";
+                                                ele[i].attribute[j].type = "leafref+path '/" + yangPathStatement + "'";
                                             }
 
                                             if (ele[i].attribute[j].nodeType === "list") {
@@ -596,7 +597,8 @@ module.exports = {
                                     pValue.isGrouping = true;
                                 }
                                 if(i === k){
-                                    pValue.type = "leafref+path '/" + clazz.instancePath.split(":")[1] + "'";
+                                    var yangPathStatement = Util.handleNamespacePrefix(clazz.instancePath.split(":")[1], store.openModelStatement[ele[i].fileName].prefix)
+                                    pValue.type = "leafref+path '/" + yangPathStatement + "'";
                                     if(clazz.isGrouping){
                                         pValue.type = "string";
                                     }

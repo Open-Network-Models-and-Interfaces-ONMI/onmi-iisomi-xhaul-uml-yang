@@ -151,14 +151,12 @@ var builders = {
         var supplier,comment;
         var currentFilename;
 
-        console.info("[sko] #");
-
         for(var i = 0; i < abstraction.length; i++) {
             for (var j = 0; j < store.Class.length; j++) {
                 var clazz = store.Class[j];
                 if (abstraction[i].clientid == clazz.id && abstraction[i].fileName == clazz.fileName) {
                     clientid = abstraction[i].id;
-                    clientname = clazz.name;
+                    clientname = Util.handleNamespacePrefix(clazz.name, store.openModelStatement[clazz.fileName].prefix);
                 }
                 supplier = Util.handleNamespacePrefix(abstraction[i].supplier, store.openModelStatement[clazz.fileName].prefix); 
                 currentFilename = abstraction[i].fileName;

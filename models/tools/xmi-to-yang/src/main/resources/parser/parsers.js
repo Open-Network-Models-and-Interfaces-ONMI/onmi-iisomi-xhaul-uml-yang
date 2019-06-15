@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-var _            = require('lodash'),
-    transformers = require('./transformers');
-
-
-var Util      = require('../model/yang/util');
+var _            = require('lodash');
+var transformers = require('./transformers');
+var creators     = require('./creators');
+var Util         = require('../model/yang/util');
 
 var models = {
     Clazz           : require('../model/ObjectClass.js'),
@@ -396,7 +395,6 @@ var parsers = {
             }
 
         }else{
-            creators     = require('./creators');
             creators.createElement(xmi,undefined,store);
         }
 
@@ -412,7 +410,7 @@ var parsers = {
         };
 
         if(xmi.attributes().name){
-            props.mainmod = xmi.attributes().name
+            props.mainmod = xmi.attributes().name;
         } else {
             console.error("ERROR:The attribute 'name' of tag 'xmi:id=" + xmi.attributes()["xmi:id"] + "' in " + filename + " is empty!");
         }
