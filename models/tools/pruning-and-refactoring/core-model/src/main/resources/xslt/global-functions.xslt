@@ -48,7 +48,7 @@
         </xsl:for-each>	
 	</xsl:template>
 	<!-- functions -->
-	<xsl:template name="removed">
+	<xsl:template name="pruned">
 		<xsl:param name="object"></xsl:param>
 		<xsl:call-template name="log">
 			<xsl:with-param name="message">

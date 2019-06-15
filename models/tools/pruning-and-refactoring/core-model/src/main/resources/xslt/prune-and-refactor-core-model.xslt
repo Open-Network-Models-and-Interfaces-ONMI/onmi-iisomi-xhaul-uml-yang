@@ -18,6 +18,23 @@
 # 
 -->
 <!-- A stylesheet to prune and refactor the ONF Core Model 1.4 for a configuration API between network functions and SDN-Controllers -->
+<!-- additional changes for CoreModel 1.4
+       - remove package CoreModel::ExampleFragments 
+       - remove package CoreModel::ExplanatoryFiguresUsedInDocumentsAndSlides
+       - remove package CoreModel::GeneralControllerModel
+       - remove package CoreModel::ProcessingConstructModel
+       - remove package CoreModel::InformationArchitectureAndPatterns
+       - remove package CoreModel::CoreInteractionModel
+       - remove package CoreModel::Z.AssociationsOutOfPlace
+
+       - add prefix "_" where missing for attribute names
+
+       - centralized TypeDefinitions
+       - rename CoreModel to CoreNetworkFunction
+       - add OpenModelStatement
+       - add Rootelement steriotype to ControlConstruct
+       - add generalization to GlobalClass, StatePac from ControlConstruct
+-->
 <!-- Changes made on the ONF Core Model 1.1 -> 1.2 -> 1.4
        - remove package CoreModel::ExplanatoryFiguresUsedIndDocumentsAndSlides
        - remove package CoreModel::CoreModelEnhancements
@@ -69,11 +86,6 @@
        - remove FruNonFruRules
 	   - add high-level description
 -->
-<!-- additional changes for CoreModel 1.4
-       - remove package CoreModel::ExampleFragments 
-       - rename CoreModel to CoreNetworkFunction
-       - add OpenModelStatement
- -->
 <xsl:stylesheet version="2.0" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_aG1hkAPxEeewDI5jM-81FA/21" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9" xmlns:RootElement="http:///schemas/RootElement/_B4YnAGFbEeeiJ9-h1KDHig/45" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <!-- imports -->
   <xsl:import href="./global-functions.xslt"/>
@@ -84,223 +96,156 @@
   <xsl:key name="ownedAttributeRef" match="ownedAttribute" use="@xmi:id"/>
   <xsl:key name="keyRef" match="key" use="@base_StructuralFeature"/>
   <xsl:key name="yangFeatures" match="yang-feature" use="@id"/>
-
+  <xsl:key name="prunedElementById" match="*" use="@id"/>
+    <xsl:key name="packageByName" match="package" use="@name"/>
+    <xsl:key name="classByName" match="class" use="@name"/>
+    <xsl:key name="attributeRef" match="attribute" use="@id"/>
+  <!-- parameters -->
   <xsl:variable name="keyLookupDoc" select="fn:document('keys.xml')"/>
   <xsl:variable name="thisLookupDoc" select="fn:document('../onf-core-information-model-v1.4/CoreModel.uml')"/>
   <xsl:variable name="yangFeaturesLookupDoc" select="fn:document('yang-features.xml')"/>
-  <!-- tempates -->
-  <xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'ExampleFragments' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
+  <xsl:variable name="pruningLookupDoc" select="fn:document('pruning-control.xml')"/>
+    <xsl:variable name="packagesToRemoveLookupDoc" select="fn:document('packages-to-remove.xml')"/>
+    <xsl:variable name="classesToRemoveLookupDoc" select="fn:document('classes-to-remove.xml')"/>
+  <!-- templates -->
+  <xsl:template match="packagedElement[@xmi:type='uml:Package']">
+    <xsl:choose>
+      <xsl:when test="key('packageByName', @name, $packagesToRemoveLookupDoc)">
+        <xsl:call-template name="pruned">
+          <xsl:with-param name="object" select="."/>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:copy>
+          <xsl:apply-templates select="@*|node()|comment()"/>
+        </xsl:copy>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'ExplanatoryFiguresUsedIndDocumentsAndSlides' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
+  <xsl:template match="packagedElement[@xmi:type='uml:Class']">
+    <xsl:choose>
+      <xsl:when test="key('classByName', @name, $classesToRemoveLookupDoc)">
+        <xsl:call-template name="pruned">
+          <xsl:with-param name="object" select="."/>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:copy>
+          <xsl:apply-templates select="@*|node()|comment()"/>
+        </xsl:copy>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'CoreModelEnhancements' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'Topology' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'Examples' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'FruNonFruRules' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'EquipmentToFunction' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'EquipmentSpecification' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Package' and @name = 'CoreSpecificationModel' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
+
+
+
+
+
+
   <xsl:template match="packagedElement[@xmi:type='uml:Enumeration' and @name = 'OperationalState' and fn:starts-with( ./ownedComment/body, 'OBSOLETE' )]">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="packagedElement[@xmi:type='uml:Enumeration' and @name = 'Directionality' and fn:starts-with( ./ownedComment/body, 'OBSOLETE' )]">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="ownedAttribute[@name = '_ltppList' and fn:starts-with( ./ownedComment/body, 'OBSOLETE' )]">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'SdnController' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'NetworkControlDomain' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'Link' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'LinkPort' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'FcRoute' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'Address' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'DesiredOutcomeConstraints' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'ElementConstraints' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'OutcomeElementConstraints' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'SpecificClassStructure' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'SpecificPattern' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'Ltp' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'FdAndLinkRuleSet' ]">
-    <xsl:call-template name="removed">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
+
+
   <xsl:template match="packagedElement[@xmi:type='uml:Association' and @name = 'NcdControlsNes' ]">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="ownedAttribute[@name = '_nameAndValueAuthorityRef']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="ownedAttribute[@name = '_globalClassRef']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="ownedAttribute[@name = '_localClassRef']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="ownedAttribute[@name = '_linkRefList']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="ownedAttribute[@name = '_fcRouteRefList']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="ownedAttribute[@name = '_configurationAndSwitchControlList']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="ownedAttribute[@name = '_fcSpecRef']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="ownedAttribute[@name = '_configurationAndSwitchControlRef']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="ownedAttribute[@name = '_configurationAndSwitchControl']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="ownedAttribute[@name = '_profileProxyRefList']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="ownedAttribute[@name = 'abortAfterDurationWithActionRule']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="ownedAttribute[@name = '_ownedMappingInteractionRule']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="packagedElement[@xmi:type='uml:DataType' and @name = 'NameAndValue']/ownedAttribute[@name = '_nameAndValueAuthority' or @name = '_globalClass' or @name = '_localClass']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="ownedAttribute[@name = '_port']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="ownedAttribute[@name = '_address']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="ownedAttribute[@name = '_desiredOutcomeConstraints']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="ownedAttribute[@name = '_fdRuleSet']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
@@ -320,28 +265,28 @@
   </xsl:template>
   <!-- modifications in equipement model -->
   <xsl:template match="ownedAttribute[@name = '_addressedByHolder']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="ownedAttribute[@name = '_encapsulatedNonFru']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="ownedAttribute[@name = '_nonFruSupportPosition']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <xsl:template match="ownedAttribute[@name = '_supportConstraints']">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
   <!-- remove spec model -->
   <xsl:template match="*[fn:ends-with(@name, 'Spec')]">
-    <xsl:call-template name="removed">
+    <xsl:call-template name="pruned">
       <xsl:with-param name="object" select="."/>
     </xsl:call-template>
   </xsl:template>
@@ -393,63 +338,44 @@
   <xsl:template match="/xmi:XMI">
     <xsl:copy>
       <xsl:apply-templates select="* | @* | text()"/>
-   <OpenModel_Profile:OpenModelStatement xmi:id="{@xmi:id}-open-model-statement"
-                                         base_Model="{@xmi:id}"
-                                         namespace="urn:onf:yang:core-network-function"
-                                         organization="Open Networking Foundation (ONF)"
-                                         description="This model defines a technology agnostic core model for network functions."
-                                         copyright="Copyright 2019 Open Networking Foundation (ONF). All rights reserved."
-                                         license="Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);&#xA;you may not use this file except in compliance with the License.&#xA;You may obtain a copy of the License at&#xA;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xA;&#xA;Unless required by applicable law or agreed to in writing, software&#xA;distributed under the License is distributed on an &#34;AS IS&#34; BASIS,&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xA;See the License for the specific language governing permissions and&#xA;limitations under the License.">
-      <contact xmi:type="OpenModel_Profile:Contact"
-               xmi:id="onf-core-nf-contact"
-               projectWeb="https://wiki.opennetworking.org/pages/viewpage.action?pageId=262963204"
-               projectEmail="&lt;mailto:information-modeling@opennetworking.org&gt;"
-               editorName="Nigel Davis"
-               editorEmail="&lt;mailto:ndavis@ciena.com&gt;"/>
-      <revision xmi:type="OpenModel_Profile:Revision"
-                xmi:id="onf-core-nf-revision-2019-05-25"
-                date="2019-05-25"
-                version="v1.4"
-                description="Initial version derived from ONF-TR-512 v1.4"
-                changeLog="https://github.com/OpenNetworkingFoundation/5G-xHaul/tree/experimental/models/tools"
-                additionalChanges="Additional manual changes"
-                reference="ONF-TR-512, RFC 6020 and RFC 6087"/>
-      <revision xmi:type="OpenModel_Profile:Revision"
-                xmi:id="onf-core-nf-revision-2019-05-05"
-                date="2019-05-05"
-                version="v0.0"
-                description="Initial version"
-                changeLog="https://github.com/OpenNetworkingFoundation/5G-xHaul/tree/experimental/models/tools"
-                additionalChanges="Initial version"
-                reference="ONF-TR-512, RFC 6020 and RFC 6087"/>
-    </OpenModel_Profile:OpenModelStatement>
+      <packagedElement xmi:type="uml:Package" xmi:id="core-model-type-definitions" name="TypeDefinitions">
+        <xsl:apply-templates select="//packagedElement[@xmi:type='uml:Package' and @name='TypeDefinitions']/node()"/>
+      </packagedElement>
+      <OpenModel_Profile:OpenModelStatement xmi:id="{@xmi:id}-open-model-statement" base_Model="{@xmi:id}" namespace="urn:onf:yang:core-network-function" organization="Open Networking Foundation (ONF)" description="This model defines a technology agnostic core model for network functions." copyright="Copyright 2019 Open Networking Foundation (ONF). All rights reserved." license="Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);&#xA;you may not use this file except in compliance with the License.&#xA;You may obtain a copy of the License at&#xA;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xA;&#xA;Unless required by applicable law or agreed to in writing, software&#xA;distributed under the License is distributed on an &#34;AS IS&#34; BASIS,&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xA;See the License for the specific language governing permissions and&#xA;limitations under the License.">
+        <contact xmi:type="OpenModel_Profile:Contact" xmi:id="onf-core-nf-contact" projectWeb="https://wiki.opennetworking.org/pages/viewpage.action?pageId=262963204" projectEmail="&lt;mailto:information-modeling@opennetworking.org&gt;" editorName="Nigel Davis" editorEmail="&lt;mailto:ndavis@ciena.com&gt;"/>
+        <revision xmi:type="OpenModel_Profile:Revision" xmi:id="onf-core-nf-revision-2019-05-25" date="2019-05-25" version="v1.4" description="Initial version derived from ONF-TR-512 v1.4" changeLog="https://github.com/OpenNetworkingFoundation/5G-xHaul/tree/experimental/models/tools" additionalChanges="Additional manual changes" reference="ONF-TR-512, RFC 6020 and RFC 6087"/>
+        <revision xmi:type="OpenModel_Profile:Revision" xmi:id="onf-core-nf-revision-2019-05-05" date="2019-05-05" version="v0.0" description="Initial version" changeLog="https://github.com/OpenNetworkingFoundation/5G-xHaul/tree/experimental/models/tools" additionalChanges="Initial version" reference="ONF-TR-512, RFC 6020 and RFC 6087"/>
+      </OpenModel_Profile:OpenModelStatement>
       <xsl:for-each select="$keyLookupDoc/keys/key">
         <xsl:if test="fn:not( key('openAttributeRef', @id, $thisLookupDoc) )">
           <OpenModel_Profile:OpenModelAttribute xmi:id="{@id}" base_StructuralFeature="{@base_StructuralFeature}" partOfObjectKey="{@value}"/>
         </xsl:if>
       </xsl:for-each>
+      <!-- add Rootelement steriotype to ControlConstruct -->
+      <OpenInterfaceModel_Profile:RootElement xmi:id="_FeKXkI-DEempwbJEMKKhVw" base_Class="_Vuh_EJmhEeWTOvbfd7_4-A"/>
     </xsl:copy>
+  </xsl:template>
+  <!-- add generalization to GlobalClass, StatePac from ControlConstruct -->
+  <xsl:template match="packagedElement[@xmi:id='_Vuh_EJmhEeWTOvbfd7_4-A']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
+ 
+          <generalization xmi:type="uml:Generalization" xmi:id="_Vg9XsI-BEempwbJEMKKhVw" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
+          <generalization xmi:type="uml:Generalization" xmi:id="_yKRaII-EEempwbJEMKKhVw" general="_RG6VILEtEeSZUdYfPSdgew"/>
+      <xsl:apply-templates select="node() | text()"/>
+      </xsl:copy>
   </xsl:template>
   <!-- 
     add feature names for "conditions" if not exists -->
-
-<xsl:template match="OpenModel_Profile:OpenModelAttribute[@condition and  @condition != '']">
+  <xsl:template match="OpenModel_Profile:OpenModelAttribute[@condition and  @condition != '']">
     <xsl:copy>
-
       <xsl:apply-templates select="@*"/>
-
       <xsl:choose>
         <xsl:when test="fn:key('yangFeatures', @xmi:id , $yangFeaturesLookupDoc)">
-          <xsl:attribute name="condition">
-            <xsl:value-of select="fn:key('yangFeatures', @xmi:id , $yangFeaturesLookupDoc)/@name" />
-            <xsl:text>&#xD;</xsl:text>
-            <xsl:value-of select="/@condition" />
-          </xsl:attribute>
+          <xsl:attribute name="condition"><xsl:value-of select="fn:key('yangFeatures', @xmi:id , $yangFeaturesLookupDoc)/@name"/><xsl:text>&#xD;</xsl:text><xsl:value-of select="/@condition"/></xsl:attribute>
         </xsl:when>
       </xsl:choose>
-
       <xsl:apply-templates select="node()|comment()"/>
-
     </xsl:copy>
 
 
