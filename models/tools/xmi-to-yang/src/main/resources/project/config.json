@@ -67,6 +67,21 @@
       "CoreNetworkFunction": "core-nf"
     }
   },
+  "ProfilesAndTemplates": {
+    "namespace": "urn:onf:yang:",
+    "withSuffix": false,
+    "prefix": {
+      "CoreNetworkFunction": "core-nf",
+      "ProfilesAndTemplates": "profile"
+    },
+    "revision": [
+      {
+        "date": "2019-05-16",
+        "description": "Initial version! (DARFT)",
+        "reference": "ONF-TR-512, RFC 6020 and RFC 6087"
+      }
+    ]
+  },
   "TestCoreModel": {
     "namespace": "urn:onf:yang:",
     "prefix": {

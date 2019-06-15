@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26 UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_S32LgD8HEeiIisB6uOvKFA">
+  <uml:Model xmi:id="_nrQksGG9Eemrw9dHM7ymiw" name="ProfilesAndTemplates">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_nzabIGG9Eemrw9dHM7ymiw">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="_3SBeMGG9Eemrw9dHM7ymiw" name="Diagrams">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_HPdyUGG-Eemrw9dHM7ymiw">
+        <body>UUID&#xD;
+Name&#xD;
+Purpose&#xD;
+Version</body>
+      </ownedComment>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_90aqoGaTEemRDKXaAompzQ">
+        <body>Simple Augment.</body>
+      </ownedComment>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_7363gGpeEemRDKXaAompzQ">
+        <body>Dynamic augment per instance.</body>
+      </ownedComment>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_rgHRQHcEEemRDKXaAompzQ">
+        <body>Specify should be removed&#xD;
+Association should be made navigable from the LTP, LP etc.</body>
+      </ownedComment>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_ajlCMHcFEemRDKXaAompzQ">
+        <body>Full LP spec produced and then further pruned into two or more. One for the LP and the rest for Profiles</body>
+      </ownedComment>
+      <packagedElement xmi:type="uml:Class" xmi:id="_Acr28GG-Eemrw9dHM7ymiw" name="Profile">
+        <generalization xmi:type="uml:Generalization" xmi:id="_NHT1oGaDEemRDKXaAompzQ">
+          <general xmi:type="uml:Class" href="CoreModel.uml#_iVJ1kI2wEeO38ZmbECnvbg"/>
+        </generalization>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_7BClEGaIEemRDKXaAompzQ" name="definitionVersion">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4icUkHcDEemRDKXaAompzQ" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4kKy4HcDEemRDKXaAompzQ" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_Dy-UwGaJEemRDKXaAompzQ" name="lifecycleStage" type="_qJmpwHbiEemRDKXaAompzQ">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_H21rsHcEEemRDKXaAompzQ"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_H4ppkHcEEemRDKXaAompzQ" value="1"/>
+          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_Hpbk0HbjEemRDKXaAompzQ" type="_qJmpwHbiEemRDKXaAompzQ" instance="_wKZukHbiEemRDKXaAompzQ"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_HKmX4GaJEemRDKXaAompzQ" name="overridePriority">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_bl2M8HcEEemRDKXaAompzQ"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_bnfywHcEEemRDKXaAompzQ" value="1"/>
+          <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_P0SGYHbjEemRDKXaAompzQ"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_JURaIGaJEemRDKXaAompzQ" name="visibility" type="_NhR5QHb0EemRDKXaAompzQ">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_fFkcIHcEEemRDKXaAompzQ"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_fHJwgHcEEemRDKXaAompzQ" value="1"/>
+          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_hW0gUHb0EemRDKXaAompzQ" type="_NhR5QHb0EemRDKXaAompzQ" instance="_TZozwHb0EemRDKXaAompzQ"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_NsW0sGaJEemRDKXaAompzQ" name="applicationRole" type="_lbDKwHb0EemRDKXaAompzQ">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_hYI7sHcEEemRDKXaAompzQ"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_hZ-HsHcEEemRDKXaAompzQ" value="1"/>
+          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_6vQIMHb0EemRDKXaAompzQ" type="_lbDKwHb0EemRDKXaAompzQ" instance="_sVWDYHb0EemRDKXaAompzQ"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_ROiiAGaJEemRDKXaAompzQ" name="targetOverrideCapability" type="_-fnmAHb1EemRDKXaAompzQ">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jWRcUHcEEemRDKXaAompzQ"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jX0UcHcEEemRDKXaAompzQ" value="1"/>
+          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_zqk5oHb2EemRDKXaAompzQ" type="_-fnmAHb1EemRDKXaAompzQ" instance="_H0oNkHb2EemRDKXaAompzQ"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_VYFxUGaJEemRDKXaAompzQ" name="adjustmentMode" type="_6Gq94Hb3EemRDKXaAompzQ">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lYhA4HcEEemRDKXaAompzQ"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lay40HcEEemRDKXaAompzQ" value="1"/>
+          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_bDb54Hb4EemRDKXaAompzQ" type="_6Gq94Hb3EemRDKXaAompzQ" instance="_GXQlwHb4EemRDKXaAompzQ"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_zk7WQm2CEemRDKXaAompzQ" name="_attributeCollection:ClassRef" type="_c3p3oG2DEemRDKXaAompzQ" association="_zk6vMG2CEemRDKXaAompzQ">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_zk79UG2CEemRDKXaAompzQ" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_zk79UW2CEemRDKXaAompzQ" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_U5p_kHb1EemRDKXaAompzQ" name="applicationMode" type="_bAn90Hb1EemRDKXaAompzQ">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qlO9YHcEEemRDKXaAompzQ"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qm7mgHcEEemRDKXaAompzQ" value="1"/>
+          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_8jAvYHb1EemRDKXaAompzQ" type="_bAn90Hb1EemRDKXaAompzQ" instance="_kHYuAHb1EemRDKXaAompzQ"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_H5Q4IHcFEemRDKXaAompzQ" name="definitionName">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_kqJHoGG-Eemrw9dHM7ymiw" name="LtpHasProfile" memberEnd="_kqNZEGG-Eemrw9dHM7ymiw _kqNZE2G-Eemrw9dHM7ymiw" navigableOwnedEnd="_kqNZE2G-Eemrw9dHM7ymiw">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_kqLj4GG-Eemrw9dHM7ymiw" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_kqMK8GG-Eemrw9dHM7ymiw" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_kqNZE2G-Eemrw9dHM7ymiw" name="_profile" type="_Acr28GG-Eemrw9dHM7ymiw" association="_kqJHoGG-Eemrw9dHM7ymiw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9HoKMGG-Eemrw9dHM7ymiw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9IUGsGG-Eemrw9dHM7ymiw" value="*"/>
+        </ownedEnd>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_kqNZEGG-Eemrw9dHM7ymiw" name="logicalterminationpoint" association="_kqJHoGG-Eemrw9dHM7ymiw">
+          <type xmi:type="uml:Class" href="CoreModel.uml#_eEpDMFX4EeOVGaP4lO41SQ"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kqNZEWG-Eemrw9dHM7ymiw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kqNZEmG-Eemrw9dHM7ymiw" value="*"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_5TgYUGG-Eemrw9dHM7ymiw" name="FcHasProfile" memberEnd="_5Tg_YmG-Eemrw9dHM7ymiw _5ThmcmG-Eemrw9dHM7ymiw" navigableOwnedEnd="_5ThmcmG-Eemrw9dHM7ymiw">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_5Tg_YGG-Eemrw9dHM7ymiw" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_5Tg_YWG-Eemrw9dHM7ymiw" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_5ThmcmG-Eemrw9dHM7ymiw" name="_profile" type="_Acr28GG-Eemrw9dHM7ymiw" association="_5TgYUGG-Eemrw9dHM7ymiw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-wXpoGG-Eemrw9dHM7ymiw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-wmTIGG-Eemrw9dHM7ymiw" value="*"/>
+        </ownedEnd>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_5Tg_YmG-Eemrw9dHM7ymiw" name="forwardingconstruct" association="_5TgYUGG-Eemrw9dHM7ymiw">
+          <type xmi:type="uml:Class" href="CoreModel.uml#_oGqmC1LNEeO75dO39GbF8Q"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5ThmcGG-Eemrw9dHM7ymiw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5ThmcWG-Eemrw9dHM7ymiw" value="*"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_6QaFcGG-Eemrw9dHM7ymiw" name="LpHasProfile" memberEnd="_6QasgmG-Eemrw9dHM7ymiw _6QashWG-Eemrw9dHM7ymiw" navigableOwnedEnd="_6QashWG-Eemrw9dHM7ymiw">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6QasgGG-Eemrw9dHM7ymiw" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6QasgWG-Eemrw9dHM7ymiw" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_6QashWG-Eemrw9dHM7ymiw" name="_profile" type="_Acr28GG-Eemrw9dHM7ymiw" association="_6QaFcGG-Eemrw9dHM7ymiw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_AK7jIGG_Eemrw9dHM7ymiw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ALHwYGG_Eemrw9dHM7ymiw" value="*"/>
+        </ownedEnd>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_6QasgmG-Eemrw9dHM7ymiw" name="layerprotocol" association="_6QaFcGG-Eemrw9dHM7ymiw">
+          <type xmi:type="uml:Class" href="CoreModel.uml#_gROecFYXEeOVGaP4lO41SQ"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6Qasg2G-Eemrw9dHM7ymiw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6QashGG-Eemrw9dHM7ymiw" value="*"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Abstraction" xmi:id="_-zknQGHBEemrw9dHM7ymiw" client="_c3p3oG2DEemRDKXaAompzQ" supplier="_Acr28GG-Eemrw9dHM7ymiw"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="_bOIM4GZjEemRDKXaAompzQ" name="Source">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_FZMUYGZ4EemRDKXaAompzQ" name="test">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_nChoAGZjEemRDKXaAompzQ" client="_c3p3oG2DEemRDKXaAompzQ">
+        <supplier xmi:type="uml:Class" href="CoreModel.uml#_FU2nYBiSEeSh8KVgZCMyDw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Realization" xmi:id="_gP3UgGZ7EemRDKXaAompzQ" client="_MUddYGZ4EemRDKXaAompzQ" supplier="_FZMUYGZ4EemRDKXaAompzQ"/>
+      <packagedElement xmi:type="uml:Abstraction" xmi:id="_plbfQGaHEemRDKXaAompzQ" client="_Acr28GG-Eemrw9dHM7ymiw">
+        <supplier xmi:type="uml:Class" href="CoreModel.uml#_eEpDMFX4EeOVGaP4lO41SQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Abstraction" xmi:id="_yonXAGaHEemRDKXaAompzQ" client="_Acr28GG-Eemrw9dHM7ymiw">
+        <supplier xmi:type="uml:Class" href="CoreModel.uml#_oGqmC1LNEeO75dO39GbF8Q"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Abstraction" xmi:id="_7OBGkGaHEemRDKXaAompzQ" client="_Acr28GG-Eemrw9dHM7ymiw">
+        <supplier xmi:type="uml:Class" href="CoreModel.uml#_gROecFYXEeOVGaP4lO41SQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_M2ixkGaKEemRDKXaAompzQ" memberEnd="_M2jYomaKEemRDKXaAompzQ _M2kmwWaKEemRDKXaAompzQ" navigableOwnedEnd="_M2kmwWaKEemRDKXaAompzQ">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_M2jYoGaKEemRDKXaAompzQ" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_M2jYoWaKEemRDKXaAompzQ" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_M2kmwWaKEemRDKXaAompzQ" name="_lpSpecReference:ClassRef" association="_M2ixkGaKEemRDKXaAompzQ">
+          <type xmi:type="uml:Class" href="CoreModel.uml#_FU2nYBiSEeSh8KVgZCMyDw"/>
+        </ownedEnd>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_M2jYomaKEemRDKXaAompzQ" name="layerprotocol" association="_M2ixkGaKEemRDKXaAompzQ">
+          <type xmi:type="uml:Class" href="CoreModel.uml#_gROecFYXEeOVGaP4lO41SQ"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_M2j_sGaKEemRDKXaAompzQ"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_M2kmwGaKEemRDKXaAompzQ" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_zk6vMG2CEemRDKXaAompzQ" memberEnd="_zk7WQm2CEemRDKXaAompzQ _zk79Um2CEemRDKXaAompzQ">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zk7WQG2CEemRDKXaAompzQ" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_zk7WQW2CEemRDKXaAompzQ" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_zk79Um2CEemRDKXaAompzQ" name="profile" type="_Acr28GG-Eemrw9dHM7ymiw" association="_zk6vMG2CEemRDKXaAompzQ">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-jp4MG2DEemRDKXaAompzQ"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-kHLMG2DEemRDKXaAompzQ" value="*"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_c3p3oG2DEemRDKXaAompzQ" name="AttributeCollection">
+        <generalization xmi:type="uml:Generalization" xmi:id="_E-Yf8G2EEemRDKXaAompzQ">
+          <general xmi:type="uml:Class" href="CoreModel.uml#_iVJ1kI2wEeO38ZmbECnvbg"/>
+        </generalization>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_mV24sGpoEemRDKXaAompzQ" name="collectionName">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_MUddYGZ4EemRDKXaAompzQ" name="test" isUnique="false" redefinedProperty="_FZMUYGZ4EemRDKXaAompzQ">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_JQZk8HVqEemRDKXaAompzQ" name="ProfileCollection">
+        <generalization xmi:type="uml:Generalization" xmi:id="_u1IaMHbhEemRDKXaAompzQ">
+          <general xmi:type="uml:Class" href="CoreModel.uml#_iVJ1kI2wEeO38ZmbECnvbg"/>
+        </generalization>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_e7WOcnVqEemRDKXaAompzQ" name="_profile" type="_Acr28GG-Eemrw9dHM7ymiw" aggregation="composite" association="_e7VAUHVqEemRDKXaAompzQ">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_e7eKQHVqEemRDKXaAompzQ"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_e7sMsHVqEemRDKXaAompzQ" value="*"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_e7VAUHVqEemRDKXaAompzQ" name="ProflleCollectionOwnsProfiles" memberEnd="_e7WOcnVqEemRDKXaAompzQ _e719sHVqEemRDKXaAompzQ">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_e7WOcHVqEemRDKXaAompzQ" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_e7WOcXVqEemRDKXaAompzQ" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_e719sHVqEemRDKXaAompzQ" name="profilecollection" type="_JQZk8HVqEemRDKXaAompzQ" association="_e7VAUHVqEemRDKXaAompzQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="_qJmpwHbiEemRDKXaAompzQ" name="LifecycleState">
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_tbq3cHbiEemRDKXaAompzQ" name="DRAFT"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_wKZukHbiEemRDKXaAompzQ" name="DEFINED"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="_NhR5QHb0EemRDKXaAompzQ" name="Visibility">
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_TZozwHb0EemRDKXaAompzQ" name="VISIBLE"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_WMof0Hb0EemRDKXaAompzQ" name="INVISIBLE"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="_lbDKwHb0EemRDKXaAompzQ" name="ApplicationRole">
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_n-PgQHb0EemRDKXaAompzQ" name="INITIALIZATION"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_sVWDYHb0EemRDKXaAompzQ" name="ABSOLUTE_VALUE"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_wPMCwHb0EemRDKXaAompzQ" name="CONSTRAINT"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="_bAn90Hb1EemRDKXaAompzQ" name="ApplcationMode">
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_kHYuAHb1EemRDKXaAompzQ" name="BEST_EFFORT"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_nVawQHb1EemRDKXaAompzQ" name="EXACT_MATCH"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="_-fnmAHb1EemRDKXaAompzQ" name="TargetOverrideCapability">
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_H0oNkHb2EemRDKXaAompzQ" name="PROPERTIES_NOT_VISIBLE_IN_TARGET"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_MtINkHb2EemRDKXaAompzQ" name="PROPERTIES_VISIBLE_READ_ONLY"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_RISKQHb2EemRDKXaAompzQ" name="PROPERTIES_CHANGEABLE_WITHIN_PROFILE_BOUNDARY"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_dQU6IHb2EemRDKXaAompzQ" name="PROPERTIES_CHANGEABLE_BEYOND_PROFILE_BOUNDARY"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="_6Gq94Hb3EemRDKXaAompzQ" name="AdjustmentMode">
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_GXQlwHb4EemRDKXaAompzQ" name="INVARIANT"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_LLhmAHb4EemRDKXaAompzQ" name="VALUE_CHANGE"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_N1vJgHb4EemRDKXaAompzQ" name="EXTEND_AND_SHRINK"/>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_XHnqgGZjEemRDKXaAompzQ">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_XHrU4GZjEemRDKXaAompzQ" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_XHrU4WZjEemRDKXaAompzQ" key="Version" value="0.2.14"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_XHrU4mZjEemRDKXaAompzQ" key="Comment" value="New stereotype OpenModelStatement added. It contains the generic information of the model and extends the Metaclass &quot;Model&quot;."/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_XHrU42ZjEemRDKXaAompzQ" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_XHrU5GZjEemRDKXaAompzQ" key="Date" value="2018-04-13"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_XHrU5WZjEemRDKXaAompzQ" key="Author" value="IISOMI"/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_XHo4oGZjEemRDKXaAompzQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_S32LgD8HEeiIisB6uOvKFA"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
+    </profileApplication>
+  </uml:Model>
+  <OpenModel_Profile:OpenModelStatement xmi:id="_XHpfsGZjEemRDKXaAompzQ" base_Model="_nrQksGG9Eemrw9dHM7ymiw"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_XHqGwGZjEemRDKXaAompzQ" base_Class="_Acr28GG-Eemrw9dHM7ymiw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_XHqGwWZjEemRDKXaAompzQ" base_StructuralFeature="_kqNZEGG-Eemrw9dHM7ymiw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_XHqGwmZjEemRDKXaAompzQ" base_StructuralFeature="_5Tg_YmG-Eemrw9dHM7ymiw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_XHqt0GZjEemRDKXaAompzQ" base_StructuralFeature="_6QasgmG-Eemrw9dHM7ymiw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_XHqt0WZjEemRDKXaAompzQ" base_StructuralFeature="_kqNZE2G-Eemrw9dHM7ymiw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_XHqt0mZjEemRDKXaAompzQ" base_StructuralFeature="_5ThmcmG-Eemrw9dHM7ymiw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_XHqt02ZjEemRDKXaAompzQ" base_StructuralFeature="_6QashWG-Eemrw9dHM7ymiw"/>
+  <OpenModel_Profile:Specify xmi:id="_ZyG60GZjEemRDKXaAompzQ" base_Abstraction="_-zknQGHBEemrw9dHM7ymiw"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_bOIM4WZjEemRDKXaAompzQ" base_Class="_bOIM4GZjEemRDKXaAompzQ"/>
+  <OpenModel_Profile:PruneAndRefactor xmi:id="_lkTyAGZtEemRDKXaAompzQ" base_Realization="_nChoAGZjEemRDKXaAompzQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FZM7cGZ4EemRDKXaAompzQ" base_StructuralFeature="_FZMUYGZ4EemRDKXaAompzQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_MUddYWZ4EemRDKXaAompzQ" base_StructuralFeature="_MUddYGZ4EemRDKXaAompzQ"/>
+  <OpenModel_Profile:PruneAndRefactor xmi:id="_kjSRgGZ7EemRDKXaAompzQ" base_Realization="_gP3UgGZ7EemRDKXaAompzQ"/>
+  <OpenModel_Profile:Specify xmi:id="_vL_fIGaHEemRDKXaAompzQ" base_Abstraction="_plbfQGaHEemRDKXaAompzQ"/>
+  <OpenModel_Profile:Specify xmi:id="_1ztaAGaHEemRDKXaAompzQ" base_Abstraction="_yonXAGaHEemRDKXaAompzQ"/>
+  <OpenModel_Profile:Specify xmi:id="__Cqc4GaHEemRDKXaAompzQ" base_Abstraction="_7OBGkGaHEemRDKXaAompzQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_7BClEWaIEemRDKXaAompzQ" base_StructuralFeature="_7BClEGaIEemRDKXaAompzQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Dy-UwWaJEemRDKXaAompzQ" base_StructuralFeature="_Dy-UwGaJEemRDKXaAompzQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_HKmX4WaJEemRDKXaAompzQ" base_StructuralFeature="_HKmX4GaJEemRDKXaAompzQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_JURaIWaJEemRDKXaAompzQ" base_StructuralFeature="_JURaIGaJEemRDKXaAompzQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_NsXbwGaJEemRDKXaAompzQ" base_StructuralFeature="_NsW0sGaJEemRDKXaAompzQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_ROjJEGaJEemRDKXaAompzQ" base_StructuralFeature="_ROiiAGaJEemRDKXaAompzQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_VYFxUWaJEemRDKXaAompzQ" base_StructuralFeature="_VYFxUGaJEemRDKXaAompzQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_M2jYo2aKEemRDKXaAompzQ" base_StructuralFeature="_M2jYomaKEemRDKXaAompzQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_M2kmwmaKEemRDKXaAompzQ" base_StructuralFeature="_M2kmwWaKEemRDKXaAompzQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_mV24sWpoEemRDKXaAompzQ" base_StructuralFeature="_mV24sGpoEemRDKXaAompzQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_zk7WQ22CEemRDKXaAompzQ" base_StructuralFeature="_zk7WQm2CEemRDKXaAompzQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_zk8kYG2CEemRDKXaAompzQ" base_StructuralFeature="_zk79Um2CEemRDKXaAompzQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_c3p3oW2DEemRDKXaAompzQ" base_Class="_c3p3oG2DEemRDKXaAompzQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_JQZk8XVqEemRDKXaAompzQ" base_Class="_JQZk8HVqEemRDKXaAompzQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_e7W1gHVqEemRDKXaAompzQ" base_StructuralFeature="_e7WOcnVqEemRDKXaAompzQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_e719sXVqEemRDKXaAompzQ" base_StructuralFeature="_e719sHVqEemRDKXaAompzQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_U5p_kXb1EemRDKXaAompzQ" base_StructuralFeature="_U5p_kHb1EemRDKXaAompzQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_H5Q4IXcFEemRDKXaAompzQ" base_StructuralFeature="_H5Q4IHcFEemRDKXaAompzQ"/>
+</xmi:XMI>
