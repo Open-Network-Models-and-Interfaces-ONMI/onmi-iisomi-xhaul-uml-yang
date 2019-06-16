@@ -127,9 +127,7 @@ Class.prototype.buildIdentityref = function(obj) {
     var INode = new Node(name,undefined, "base");
     INode.fileName = this.fileName;
     node.children.push(INode);
-
     this.attribute.push(node);
-
 };
 
 Class.prototype.buildAttribute = function(att){

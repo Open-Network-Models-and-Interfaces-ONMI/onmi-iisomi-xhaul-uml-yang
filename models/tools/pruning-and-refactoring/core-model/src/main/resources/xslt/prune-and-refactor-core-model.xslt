@@ -34,6 +34,7 @@
        - add Rootelement steriotype to ControlConstruct
        - add generalization to GlobalClass from ControlConstruct
        - add generalization to GlobalClass from CascPort
+       - avoiding naming confilcts for class and data-type "Address"
 -->
 <!-- Changes made on the ONF Core Model 1.1 -> 1.2 -> 1.4
        - remove package CoreModel::ExplanatoryFiguresUsedIndDocumentsAndSlides
@@ -315,12 +316,35 @@
       </xsl:copy>
   </xsl:template>
 
+  <!-- avoiding naming confilcts for class and data-type "Address" -->
+  <xsl:template match="packagedElement[@xmi:id='_A15msMDaEeWbqPZwR-Ot6A']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/> 
+      <xsl:attribute name="name">dtAddress</xsl:attribute>
+      <xsl:apply-templates select="node() | text()"/>
+      </xsl:copy>
+  </xsl:template>
+  
 <!-- temporary -->
   <xsl:template match="body">
-  <body>replaced</body>
+    <body>
+      <xsl:value-of select="text()"/>
+      <xsl:text>&#xA;</xsl:text>
+      <xsl:text>&#xA;</xsl:text>
+      <xsl:text>uml:identifier = &quot;</xsl:text>
+      <xsl:value-of select="../../@xmi:id"/>
+      <xsl:text>&quot;</xsl:text>
+      <xsl:text>&#xA;</xsl:text>
+      <xsl:text>uml:reference  = &quot;</xsl:text>
+      <xsl:for-each select="ancestor::*">
+        <xsl:if test="@name">
+          <xsl:text>/</xsl:text>
+          <xsl:value-of select="@name"/>
+        </xsl:if>
+      </xsl:for-each>
+      <xsl:text>&quot;</xsl:text>
+    </body>
   </xsl:template>
-
-
 
   <!-- functions -->
   <xsl:template name="pruneIfDefined">
