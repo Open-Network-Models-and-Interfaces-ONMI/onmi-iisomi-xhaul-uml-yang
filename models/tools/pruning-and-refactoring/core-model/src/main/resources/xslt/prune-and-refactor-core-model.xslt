@@ -21,7 +21,6 @@
 <!-- additional changes for CoreModel 1.4
        - remove package CoreModel::ExampleFragments 
        - remove package CoreModel::ExplanatoryFiguresUsedInDocumentsAndSlides
-       - remove package CoreModel::GeneralControllerModel
        - remove package CoreModel::ProcessingConstructModel
        - remove package CoreModel::InformationArchitectureAndPatterns
        - remove package CoreModel::CoreInteractionModel
@@ -34,6 +33,7 @@
        - add OpenModelStatement
        - add Rootelement steriotype to ControlConstruct
        - add generalization to GlobalClass, StatePac from ControlConstruct
+       - add generalization to GlobalClass from CascPort
 -->
 <!-- Changes made on the ONF Core Model 1.1 -> 1.2 -> 1.4
        - remove package CoreModel::ExplanatoryFiguresUsedIndDocumentsAndSlides
@@ -90,209 +90,128 @@
   <!-- imports -->
   <xsl:import href="./global-functions.xslt"/>
   <!-- output defintions -->
-  <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
+  <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
   <!-- key definitions -->
   <xsl:key name="openAttributeRef" match="OpenModel_Profile:OpenModelAttribute" use="@xmi:id"/>
   <xsl:key name="ownedAttributeRef" match="ownedAttribute" use="@xmi:id"/>
   <xsl:key name="keyRef" match="key" use="@base_StructuralFeature"/>
   <xsl:key name="yangFeatures" match="yang-feature" use="@id"/>
   <xsl:key name="prunedElementById" match="*" use="@id"/>
-    <xsl:key name="packageByName" match="package" use="@name"/>
-    <xsl:key name="classByName" match="class" use="@name"/>
     <xsl:key name="attributeRef" match="attribute" use="@id"/>
   <!-- parameters -->
   <xsl:variable name="keyLookupDoc" select="fn:document('keys.xml')"/>
   <xsl:variable name="thisLookupDoc" select="fn:document('../onf-core-information-model-v1.4/CoreModel.uml')"/>
   <xsl:variable name="yangFeaturesLookupDoc" select="fn:document('yang-features.xml')"/>
   <xsl:variable name="pruningLookupDoc" select="fn:document('pruning-control.xml')"/>
-    <xsl:variable name="packagesToRemoveLookupDoc" select="fn:document('packages-to-remove.xml')"/>
-    <xsl:variable name="classesToRemoveLookupDoc" select="fn:document('classes-to-remove.xml')"/>
+
+  <!-- pruning by pruning-control-xml -->
+  <xsl:template match="*[@xmi:id]" priority="-6">
+    <xsl:call-template name="pruneIfDefined">
+      <xsl:with-param name="id" select="@xmi:id"/>
+    </xsl:call-template>
+  </xsl:template>
+  <xsl:template match="*[@base_Abstraction]" priority="-5">
+    <xsl:call-template name="pruneIfDefined">
+      <xsl:with-param name="id" select="@base_Abstraction"/>
+    </xsl:call-template>
+  </xsl:template>
+  <xsl:template match="*[@base_Association]" priority="-5">
+    <xsl:call-template name="pruneIfDefined">
+      <xsl:with-param name="id" select="@base_Association"/>
+    </xsl:call-template>
+  </xsl:template>
+  <xsl:template match="*[@base_Class]" priority="-5">
+    <xsl:call-template name="pruneIfDefined">
+      <xsl:with-param name="id" select="@base_Class"/>
+    </xsl:call-template>
+  </xsl:template>
+  <xsl:template match="*[@base_DataType]" priority="-5">
+    <xsl:call-template name="pruneIfDefined">
+      <xsl:with-param name="id" select="@base_DataType"/>
+    </xsl:call-template>
+  </xsl:template>
+  <xsl:template match="*[@base_Element]" priority="-5">
+    <xsl:call-template name="pruneIfDefined">
+      <xsl:with-param name="id" select="@base_Element"/>
+    </xsl:call-template>
+  </xsl:template>
+  <xsl:template match="*[@base_Generalization]" priority="-5">
+    <xsl:call-template name="pruneIfDefined">
+      <xsl:with-param name="id" select="@base_Generalization"/>
+    </xsl:call-template>
+  </xsl:template>
+  <xsl:template match="*[@base_Interface]" priority="-5">
+    <xsl:call-template name="pruneIfDefined">
+      <xsl:with-param name="id" select="@base_Interface"/>
+    </xsl:call-template>
+  </xsl:template>
+  <xsl:template match="*[@base_Operation]" priority="-5">
+    <xsl:call-template name="pruneIfDefined">
+      <xsl:with-param name="id" select="@base_Operation"/>
+    </xsl:call-template>
+  </xsl:template>
+  <xsl:template match="*[@base_Parameter]" priority="-5">
+    <xsl:call-template name="pruneIfDefined">
+      <xsl:with-param name="id" select="@base_Parameter"/>
+    </xsl:call-template>
+  </xsl:template>
+  <xsl:template match="*[@base_Realization]" priority="-5">
+    <xsl:call-template name="pruneIfDefined">
+      <xsl:with-param name="id" select="@base_Realization"/>
+    </xsl:call-template>
+  </xsl:template>
+  <xsl:template match="*[@base_Signal]" priority="-5">
+    <xsl:call-template name="pruneIfDefined">
+      <xsl:with-param name="id" select="@base_Signal"/>
+    </xsl:call-template>
+  </xsl:template>
+  <xsl:template match="*[@base_Slot]" priority="-5">
+    <xsl:call-template name="pruneIfDefined">
+      <xsl:with-param name="id" select="@base_Slot"/>
+    </xsl:call-template>
+  </xsl:template>
+  <xsl:template match="*[@base_StructuralFeature]" priority="-5">
+    <xsl:call-template name="pruneIfDefined">
+      <xsl:with-param name="id" select="@base_StructuralFeature"/>
+    </xsl:call-template>
+  </xsl:template>
+  <xsl:template match="*[@base_Type]" priority="-5">
+    <xsl:call-template name="pruneIfDefined">
+      <xsl:with-param name="id" select="@base_Type"/>
+    </xsl:call-template>
+  </xsl:template> 
+  <xsl:template match="RootElement:RuntimeTypeExtension[@base_PrimitiveType]" priority="-4">
+    <xsl:call-template name="pruneIfDefined">
+      <xsl:with-param name="id" select="@base_PrimitiveType"/>
+    </xsl:call-template>
+  </xsl:template>
+  <xsl:template match="RootElement:ControlledString[@base_Enumeration]" priority="-4">
+    <xsl:call-template name="pruneIfDefined">
+      <xsl:with-param name="id" select="@base_Enumeration"/>
+    </xsl:call-template>
+  </xsl:template>
+
+
   <!-- templates -->
-  <xsl:template match="packagedElement[@xmi:type='uml:Package']">
-    <xsl:choose>
-      <xsl:when test="key('packageByName', @name, $packagesToRemoveLookupDoc)">
-        <xsl:call-template name="pruned">
-          <xsl:with-param name="object" select="."/>
-        </xsl:call-template>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:copy>
-          <xsl:apply-templates select="@*|node()|comment()"/>
-        </xsl:copy>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Class']">
-    <xsl:choose>
-      <xsl:when test="key('classByName', @name, $classesToRemoveLookupDoc)">
-        <xsl:call-template name="pruned">
-          <xsl:with-param name="object" select="."/>
-        </xsl:call-template>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:copy>
-          <xsl:apply-templates select="@*|node()|comment()"/>
-        </xsl:copy>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
+ 
 
-
-
-
-
-
-  <xsl:template match="packagedElement[@xmi:type='uml:Enumeration' and @name = 'OperationalState' and fn:starts-with( ./ownedComment/body, 'OBSOLETE' )]">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:Enumeration' and @name = 'Directionality' and fn:starts-with( ./ownedComment/body, 'OBSOLETE' )]">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="ownedAttribute[@name = '_ltppList' and fn:starts-with( ./ownedComment/body, 'OBSOLETE' )]">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-
-
-  <xsl:template match="packagedElement[@xmi:type='uml:Association' and @name = 'NcdControlsNes' ]">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="ownedAttribute[@name = '_nameAndValueAuthorityRef']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="ownedAttribute[@name = '_globalClassRef']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="ownedAttribute[@name = '_localClassRef']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="ownedAttribute[@name = '_linkRefList']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="ownedAttribute[@name = '_fcRouteRefList']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="ownedAttribute[@name = '_configurationAndSwitchControlList']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="ownedAttribute[@name = '_fcSpecRef']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="ownedAttribute[@name = '_configurationAndSwitchControlRef']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="ownedAttribute[@name = '_configurationAndSwitchControl']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="ownedAttribute[@name = '_profileProxyRefList']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="ownedAttribute[@name = 'abortAfterDurationWithActionRule']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="ownedAttribute[@name = '_ownedMappingInteractionRule']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="packagedElement[@xmi:type='uml:DataType' and @name = 'NameAndValue']/ownedAttribute[@name = '_nameAndValueAuthority' or @name = '_globalClass' or @name = '_localClass']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="ownedAttribute[@name = '_port']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="ownedAttribute[@name = '_address']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="ownedAttribute[@name = '_desiredOutcomeConstraints']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="ownedAttribute[@name = '_fdRuleSet']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
   <!-- rename CoreModel to CoreNetworkFunctions -->
-  <xsl:template match="@name[. = 'CoreModel']">
+  <xsl:template match="@name[. = 'CoreModel']" >
     <xsl:attribute name="name">CoreNetworkFunction</xsl:attribute>
   </xsl:template>
   <!-- add high-level description -->
-  <xsl:template match="uml:Package[@xmi:id = '_oGqilVLNEeO75dO39GbF8Q']">
+  <xsl:template match="uml:Package[@xmi:id = '_oGqilVLNEeO75dO39GbF8Q']" >
     <xsl:copy>
       <xsl:apply-templates select="@*"/>
       <ownedComment xmi:type="uml:Comment" xmi:id="_uHEawDdIEeOHDrwRRcUeVQ" annotatedElement="../@xmi:id">
-        <body>This module contains a collection of YANG definitions for managmeent and control of network fuctions.</body>
+        <body>This module contains a collection of YANG definitions for management and control of network fuctions.</body>
       </ownedComment>
       <xsl:apply-templates select="node() | text()"/>
     </xsl:copy>
   </xsl:template>
-  <!-- modifications in equipement model -->
-  <xsl:template match="ownedAttribute[@name = '_addressedByHolder']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="ownedAttribute[@name = '_encapsulatedNonFru']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="ownedAttribute[@name = '_nonFruSupportPosition']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <xsl:template match="ownedAttribute[@name = '_supportConstraints']">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
-  <!-- remove spec model -->
-  <xsl:template match="*[fn:ends-with(@name, 'Spec')]">
-    <xsl:call-template name="pruned">
-      <xsl:with-param name="object" select="."/>
-    </xsl:call-template>
-  </xsl:template>
   <!-- 
     define type for CoreModel::CoreNetworkModule::ObjectClasses::LayerProtocol::terminationState - set to Boolean -->
-  <xsl:template match="ownedAttribute[@name = 'terminationState' ]">
+  <xsl:template match="ownedAttribute[@name = 'terminationState' ]" >
     <xsl:copy>
       <xsl:apply-templates select="* | @* | text()"/>
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
@@ -300,7 +219,7 @@
   </xsl:template>
   <!-- 
     define type for CoreModel::CoreNetworkModule::ObjectClasses::LayerProtocol::configuredClientCapacity - set to String -->
-  <xsl:template match="ownedAttribute[@name = 'configuredClientCapacity' ]">
+  <xsl:template match="ownedAttribute[@name = 'configuredClientCapacity' ]" >
     <xsl:copy>
       <xsl:apply-templates select="* | @* | text()"/>
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
@@ -308,7 +227,7 @@
   </xsl:template>
   <!--
     add attribute uuid to CoreModel::CoreFoundationModule::SuperClassesAndCommonPackages::ObjectClasses::LocalClass used at yang key -->
-  <xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'LocalClass' ]">
+  <xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'LocalClass' ]" >
     <xsl:copy>
       <xsl:apply-templates select="* | @* | text() "/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_dCWWgOLVEeWM2vUDE3Xqhw" name="uuid" type="_SU3Q4I30EeO38ZmbECnvbg">
@@ -356,7 +275,7 @@
     </xsl:copy>
   </xsl:template>
   <!-- add generalization to GlobalClass, StatePac from ControlConstruct -->
-  <xsl:template match="packagedElement[@xmi:id='_Vuh_EJmhEeWTOvbfd7_4-A']">
+  <xsl:template match="packagedElement[@xmi:id='_Vuh_EJmhEeWTOvbfd7_4-A']" >
     <xsl:copy>
       <xsl:apply-templates select="@*"/>
  
@@ -365,9 +284,11 @@
       <xsl:apply-templates select="node() | text()"/>
       </xsl:copy>
   </xsl:template>
+
+
   <!-- 
     add feature names for "conditions" if not exists -->
-  <xsl:template match="OpenModel_Profile:OpenModelAttribute[@condition and  @condition != '']">
+  <xsl:template match="OpenModel_Profile:OpenModelAttribute[@condition and  @condition != '']" >
     <xsl:copy>
       <xsl:apply-templates select="@*"/>
       <xsl:choose>
@@ -377,91 +298,34 @@
       </xsl:choose>
       <xsl:apply-templates select="node()|comment()"/>
     </xsl:copy>
-
-
-name="{fn:key('feature-description',  fn:substring(@condition,0,20), $featureNameLookupDoc)/@name}" condition="{@condition}"/>
   </xsl:template>
-  <!-- 
-    correct CoreModel::CoreFoundationModel::StateModel::ObjectClasses::State_Pac::adminsatratveState -> administrativeState -->
-  <xsl:template match="ownedAttribute[@name = 'adminsatratveState' ]">
+
+
+  <!-- add generalization to GlobalClass from CascPort -->
+  <xsl:template match="packagedElement[@name='CascPort']">
     <xsl:copy>
-      <xsl:apply-templates select="@*"/>
-      <xsl:attribute name="name">administrativeState</xsl:attribute>
-      <xsl:apply-templates select="* | text()"/>
-    </xsl:copy>
+      <xsl:apply-templates select="@*"/> 
+            <generalization xmi:type="uml:Generalization" xmi:id="_b0yxAI_0EemsmLFVZ2jgzQ" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
+      <xsl:apply-templates select="node() | text()"/>
+      </xsl:copy>
   </xsl:template>
-  <!-- 
-    rename CoreModel to CoreModelForMicrowave 
-	<xsl:template match="@name[. = 'CoreModel']">
-		<xsl:attribute name="name">CoreModelForMicrowave</xsl:attribute>
-	</xsl:template> -->
-  <!-- 
-    check for wrong charset  -->
-  <xsl:template match="body">
-    <xsl:variable name="data" select="."/>
-    <xsl:variable name="analyse">
-      <xsl:analyze-string select="." regex=".">
-        <xsl:matching-substring>
-          <xsl:choose>
-            <xsl:when test="fn:string-to-codepoints(.) = 8220">
-              <xsl:text>'</xsl:text>
-            </xsl:when>
-            <xsl:when test="fn:string-to-codepoints(.) = 8221">
-              <xsl:text>'</xsl:text>
-            </xsl:when>
-            <xsl:when test="fn:string-to-codepoints(.) = 8211">
-              <xsl:text>-</xsl:text>
-            </xsl:when>
-            <xsl:when test="fn:string-to-codepoints(.) > 128">
-              <xsl:text>?</xsl:text>
-              <xsl:message>
-                <xsl:text>Char of code:  </xsl:text>
-                <xsl:value-of select="fn:string-to-codepoints(.)"/>
-                <xsl:text> not supported. Replaced by '?'. </xsl:text>
-                <xsl:value-of select="$data"/>
-              </xsl:message>
-            </xsl:when>
-          </xsl:choose>
-        </xsl:matching-substring>
-      </xsl:analyze-string>
-    </xsl:variable>
+
+
+
+  <!-- functions -->
+  <xsl:template name="pruneIfDefined">
+    <xsl:param name="id"/>
     <xsl:choose>
-      <xsl:when test="$analyse = ''">
-        <xsl:copy>
-          <xsl:apply-templates select="* | @* | text() "/>
-        </xsl:copy>
+      <xsl:when test="fn:key('prunedElementById', $id, $pruningLookupDoc)/@prune = fn:true()">
+        <xsl:call-template name="pruned">
+          <xsl:with-param name="object" select="."/>
+        </xsl:call-template>
       </xsl:when>
       <xsl:otherwise>
-        <body>
-          <xsl:analyze-string select="." regex=".">
-            <xsl:matching-substring>
-              <xsl:choose>
-                <xsl:when test="fn:string-to-codepoints(.) = 8220">
-                  <xsl:text>'</xsl:text>
-                </xsl:when>
-                <xsl:when test="fn:string-to-codepoints(.) = 8221">
-                  <xsl:text>'</xsl:text>
-                </xsl:when>
-                <xsl:when test="fn:string-to-codepoints(.) = 8211">
-                  <xsl:text>-</xsl:text>
-                </xsl:when>
-                <xsl:when test="fn:string-to-codepoints(.) > 128">
-                  <xsl:text>?</xsl:text>
-                  <xsl:message>
-                    <xsl:text>Char of code:  </xsl:text>
-                    <xsl:value-of select="fn:string-to-codepoints(.)"/>
-                    <xsl:text> not supported. Replaced by '?'. </xsl:text>
-                    <xsl:value-of select="$data"/>
-                  </xsl:message>
-                </xsl:when>
-                <xsl:otherwise>
-                  <xsl:value-of select="."/>
-                </xsl:otherwise>
-              </xsl:choose>
-            </xsl:matching-substring>
-          </xsl:analyze-string>
-        </body>
+      <xsl:copy>
+          <xsl:apply-templates select="@*|node()|comment()"/>
+      </xsl:copy>
       </xsl:otherwise>
     </xsl:choose>
-  </xsl:template>
-</xsl:stylesheet>
+  </xsl:template> 
+  </xsl:stylesheet>
