@@ -347,7 +347,7 @@ var parsers = {
         }
         store.extendedComposite.push(id);
     },
-    parsePackage:function(xmi, filename,store){
+    parsePackage:function(xmi, filename, store){
         var props = {
             len:undefined,
             newxmi:undefined,

@@ -302,7 +302,9 @@ Node.prototype.writeNode = function (layer) {
                         myKey[i]=Util.yangifyName(myUses[myUses.length-1].replace("ref",""))+this.key[i];
                     }
                     Key = PRE + "\tkey '" + myKey.join(" ") + "';\r\n";
-                }else{
+                } else if (this.key.indexOf('uuid') !== -1) {
+                    Key = PRE + "\tkey 'uuid';\r\n";
+                } else {
                     Key = PRE + "\tkey '" + this.key.join(" ") + "';\r\n";
                 }
             }

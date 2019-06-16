@@ -36,15 +36,15 @@
     <association id="_ZiZEEEdtEeasL6dcjI1vEA" name="AggregateFunctionIsFunctionBlock" prune="false"/>
     <association id="_BiX2APzaEea2KOb10ZFHOw" name="AggregateFunctionViewedAsOpaqueAtomicFunction" prune="false"/>
     <association id="_IvQ9wEdwEeasL6dcjI1vEA" name="AtomicFunctionIsViewOfAggregateFunction" prune="false"/>
-    <association id="_So3u4FRREeiyzdV8zVsJ_w" name="CableBundlesCable" prune="false"/>
-    <association id="_A77lUFRMEeiyzdV8zVsJ_w" name="CableBundlesStrands" prune="false"/>
-    <association id="_KCSYEEOPEeasL6dcjI1vEA" name="CableConnectroToEquipmentConnector" prune="false"/>
-    <association id="_l9sIcEOOEeasL6dcjI1vEA" name="CableHasConnector" prune="false"/>
-    <association id="_8SXM4j-HEeaRI-H69PghuA" name="CableHasConnector" prune="false"/>
-    <association id="_dUZ6MERZEeasL6dcjI1vEA" name="CableHasMechanicalFeatures" prune="false"/>
-    <association id="_bfN6MERZEeasL6dcjI1vEA" name="CableHasPhyscalCharacteristics" prune="false"/>
-    <association id="_omqq4ERUEeasL6dcjI1vEA" name="CableIsAManufacturedThing" prune="false"/>
-    <association id="_gCsscERZEeasL6dcjI1vEA" name="CableTypeHasSpatialProperties" prune="false"/>
+    <association id="_So3u4FRREeiyzdV8zVsJ_w" name="CableBundlesCable" prune="true"/>
+    <association id="_A77lUFRMEeiyzdV8zVsJ_w" name="CableBundlesStrands" prune="true"/>
+    <association id="_KCSYEEOPEeasL6dcjI1vEA" name="CableConnectroToEquipmentConnector" prune="true"/>
+    <association id="_l9sIcEOOEeasL6dcjI1vEA" name="CableHasConnector" prune="true"/>
+    <association id="_8SXM4j-HEeaRI-H69PghuA" name="CableHasConnector" prune="true"/>
+    <association id="_dUZ6MERZEeasL6dcjI1vEA" name="CableHasMechanicalFeatures" prune="true"/>
+    <association id="_bfN6MERZEeasL6dcjI1vEA" name="CableHasPhyscalCharacteristics" prune="true"/>
+    <association id="_omqq4ERUEeasL6dcjI1vEA" name="CableIsAManufacturedThing" prune="true"/>
+    <association id="_gCsscERZEeasL6dcjI1vEA" name="CableTypeHasSpatialProperties" prune="true"/>
     <association id="_j88mMPjcEeaAw4wsR4LIsQ" name="CascEncapsulatesCasc" prune="false"/>
     <association id="_x-uHAGhREeaD1OSapW1qFw" name="CascHasCascSpec" prune="true"/>
     <association id="_rAOFkBBEEeS-tqfHkf_O5w" name="CascHasEgressSwitchSelection" prune="false"/>
@@ -70,7 +70,7 @@
     <association id="_O6WjkOktEea0ZYSsp-EUkw" name="CdConstrainsPc" prune="false"/>
     <association id="_eKlUwD7rEei6HehkJk8P-g" name="CdConstrainsRunningOs" prune="false"/>
     <association id="_oAMBwFnjEeiyzdV8zVsJ_w" name="CdConstrainsRunningSoftwareApplication" prune="false"/>
-    <association id="_t3u_gN5fEeiZPI_W1X8mWw" name="CdConstrainsVmf" prune="false"/>
+    <association id="_t3u_gN5fEeiZPI_W1X8mWw" name="CdConstrainsVmf" prune="true"/>
     <association id="_vr7_wOksEea0ZYSsp-EUkw" name="CdHasCdPorts" prune="false"/>
     <association id="_5DwBsPzKEea2KOb10ZFHOw" name="CdPortAllowsPcPort" prune="false"/>
     <association id="_uggHYOksEea0ZYSsp-EUkw" name="CdPortBoundToCdPort" prune="false"/>
@@ -119,7 +119,7 @@
     <association id="_8_BgcJpDEeOyHKqw-cQ_eg" name="ControlChoosesSwitchPosition" prune="false"/>
     <association id="_vqIqEFfnEeeKHrjbk_yQ_w" name="ControlConstructControlsControlConstructInContext" prune="false"/>
     <association id="_vD3z8MAzEeWbqPZwR-Ot6A" name="ControlConstructExposesControlledEntiyView" prune="false"/>
-    <association id="_NHEmAMAtEeWbqPZwR-Ot6A" name="ControlConstructExposesExposureContext" prune="false"/>
+    <association id="_NHEmAMAtEeWbqPZwR-Ot6A" name="ControlConstructExposesExposureContext" prune="true"/>
     <association id="_XFoS9xbsEeitqc-Dc8Gf8A" name="ControlConstructHasInterfaceTasks" prune="false"/>
     <association id="_Byn0EMAeEeWbqPZwR-Ot6A" name="ControlConstructHasPorts" prune="false"/>
     <association id="_panQ8FpREee0ZvXJLxwizg" name="ControlConstructHasViewMappings" prune="false"/>
@@ -151,13 +151,13 @@
     <association id="__XpVwJgMEeSjhfRBVH9_gQ" name="EntityInstaneCapabilityExtendedBySpecInstance" prune="false"/>
     <association id="_knGQcGIZEeerc4Zz6ufSeg" name="EntitySpecHasPartSpec" prune="true"/>
     <association id="_SlvTkEg0EeasL6dcjI1vEA" name="EquipmentBlocksHolder" prune="false"/>
-    <association id="_Fy3bUD-fEeaRI-H69PghuA" name="EquipmentEncapsuatesCableEndAndExposesCable" prune="false"/>
+    <association id="_Fy3bUD-fEeaRI-H69PghuA" name="EquipmentEncapsuatesCableEndAndExposesCable" prune="true"/>
     <association id="_2coDYD-ZEeaRI-H69PghuA" name="EquipmentEncapsulatesNonFru" prune="false"/>
     <association id="_W2eCMFmrEeiyzdV8zVsJ_w" name="EquipmentFunctionalBoundaryRepresentedByCd" prune="false"/>
     <association id="_8SXM9D-HEeaRI-H69PghuA" name="EquipmentGivesRiseToFunctionBlock" prune="false"/>
     <association id="_x24E0EmgEeaDccCv6BIgdg" name="EquipmentHasActualProperties" prune="false"/>
     <association id="_8SXNIz-HEeaRI-H69PghuA" name="EquipmentHasConnector" prune="false"/>
-    <association id="_9H2ZwEPBEeasL6dcjI1vEA" name="EquipmentHasConnectorForCable" prune="false"/>
+    <association id="_9H2ZwEPBEeasL6dcjI1vEA" name="EquipmentHasConnectorForCable" prune="true"/>
     <association id="_7ZcXMEPBEeasL6dcjI1vEA" name="EquipmentHasConnectorToConnectInHiolder" prune="false"/>
     <association id="_rGMxgEdLEeasL6dcjI1vEA" name="EquipmentHasEnvironmentalRatings" prune="false"/>
     <association id="_xLIZIEmgEeaDccCv6BIgdg" name="EquipmentHasExpectationConstraints" prune="false"/>
@@ -179,7 +179,7 @@
     <association id="_8UUhcPHQEea2l9FuDSKfDQ" name="ExposedViewIncludesExposedViewOfControlledEntities" prune="false"/>
     <association id="_GuYJIMAuEeWbqPZwR-Ot6A" name="ExposedViewOfControlEntitiesIsAccessedViaPort" prune="false"/>
     <association id="_GB3BYMAuEeWbqPZwR-Ot6A" name="ExposedViewOfControlledEntitiesAccessedViaPort" prune="false"/>
-    <association id="_gAg5IFY4EeiyzdV8zVsJ_w" name="ExposureContextDefinedByCd" prune="false"/>
+    <association id="_gAg5IFY4EeiyzdV8zVsJ_w" name="ExposureContextDefinedByCd" prune="true"/>
     <association id="_6otCQGIgEeerc4Zz6ufSeg" name="ExtensionContainerExtendedBySpec" prune="true"/>
     <association id="_ag2zDk2UEeaGxdXEiNf4tA" name="ExtractClassType" prune="false"/>
     <association id="_CthdQE2QEeaGxdXEiNf4tA" name="ExtractClassType" prune="false"/>
@@ -198,7 +198,7 @@
     <association id="_Cakh4FaSEeOVGaP4lO41SQ" name="FcRouteIsDescribedByFcs" prune="false"/>
     <association id="_JEqKEPLGEea2l9FuDSKfDQ" name="FcRouteIsDescribedByLinks" prune="false"/>
     <association id="_nbScAFYGEeW5zoktRlwOmg" name="FcSupportedByFcInOtherView" prune="false"/>
-    <association id="_sPEUEFSgEeiyzdV8zVsJ_w" name="FcSupportedByMultipleStrandSpan" prune="false"/>
+    <association id="_sPEUEFSgEeiyzdV8zVsJ_w" name="FcSupportedByMultipleStrandSpan" prune="true"/>
     <association id="_Gko5oFYHEeW5zoktRlwOmg" name="FcSupportsFcInOtherView" prune="false"/>
     <association id="_01bfwFHnEeaDuo8VlVeg_g" name="FcSupportsLink" prune="false"/>
     <association id="_1EVGUJo5EeOyHKqw-cQ_eg" name="FcSwitchCoordinatedByControl" prune="false"/>
@@ -291,7 +291,7 @@
     <association id="_6iAJj_y_Eea2KOb10ZFHOw" name="HypergraphViewedAsOpaqueHyperEdge" prune="false"/>
     <association id="_PeLtQNvjEeaL7dYp0KdCwA" name="IndivisibleFlowPortBindsToIndivisbleFlowPort" prune="false"/>
     <association id="_iG7fINvlEeaL7dYp0KdCwA" name="IndivisiblePortHasRoleProperties" prune="false"/>
-    <association id="_XFoS8RbsEeitqc-Dc8Gf8A" name="InputReferencesExposureContext" prune="false"/>
+    <association id="_XFoS8RbsEeitqc-Dc8Gf8A" name="InputReferencesExposureContext" prune="true"/>
     <association id="_x9yAQD4sEei6HehkJk8P-g" name="InstalledSoftwareComponentInstalledFeatures" prune="false"/>
     <association id="_pFlQ0IM9EeePYJZQb-Dcag" name="InstanceOfManufacturedThingHasOperatorAugmentation" prune="false"/>
     <association id="_XFoTmxbsEeitqc-Dc8Gf8A" name="InterfaceAssociatesClientRole" prune="false"/>
@@ -361,7 +361,7 @@
     <association id="_pGQEgERBEeasL6dcjI1vEA" name="ManufacturedThigHasManufcturerProperties" prune="false"/>
     <association id="_CE4FQERCEeasL6dcjI1vEA" name="ManufacturedThingHasInstanceDetails" prune="false"/>
     <association id="_1KerYERBEeasL6dcjI1vEA" name="ManufacturedThingHasTypeDetails" prune="false"/>
-    <association id="_QMXFoFRQEeiyzdV8zVsJ_w" name="MssAggregatesStrands" prune="false"/>
+    <association id="_QMXFoFRQEeiyzdV8zVsJ_w" name="MssAggregatesStrands" prune="true"/>
     <association id="_D2uTgMrVEeOt57ZaJqAnzg" name="MsufEgressPortSet" prune="false"/>
     <association id="_rBjUQMrVEeOt57ZaJqAnzg" name="MsufHasCasc" prune="false"/>
     <association id="_DDgt4MrVEeOt57ZaJqAnzg" name="MsufHasIngressPortSet" prune="false"/>
@@ -391,8 +391,8 @@
     <association id="_ag2ywk2UEeaGxdXEiNf4tA" name="OutcomeHasElements" prune="false"/>
     <association id="_7AaMED0yEeaRI-H69PghuA" name="OutcomeHasElements" prune="false"/>
     <association id="_XFoTBBbsEeitqc-Dc8Gf8A" name="OutputReferencesControlTask" prune="false"/>
-    <association id="_XFoS_hbsEeitqc-Dc8Gf8A" name="OutputReferencesExposureContext" prune="false"/>
-    <association id="_xJVScFRPEeiyzdV8zVsJ_w" name="ParrallelStrandSpanJoinsAccessPorts" prune="false"/>
+    <association id="_XFoS_hbsEeitqc-Dc8Gf8A" name="OutputReferencesExposureContext" prune="true"/>
+    <association id="_xJVScFRPEeiyzdV8zVsJ_w" name="ParrallelStrandSpanJoinsAccessPorts" prune="true"/>
     <association id="_mFbQ4N2ZEeaL7dYp0KdCwA" name="PcBoundedByLtp" prune="false"/>
     <association id="_iW6nYKR4Eea-zNDndPZCDg" name="PcContainsFd" prune="false"/>
     <association id="_W_VmkGVtEeiITeAcFBk32A" name="PcEmergentFromRunningEquipment" prune="false"/>
@@ -409,7 +409,7 @@
     <association id="_gz8c8BiWEeSh8KVgZCMyDw" name="PoolPropertySpecAffectedByMappingInteractionRule" prune="false"/>
     <association id="_ps3wABiXEeSh8KVgZCMyDw" name="PoolPropertySpecGovernedByAdapterPropertySpec" prune="true"/>
     <association id="_tYwd0BiVEeSh8KVgZCMyDw" name="PoolPropertySpecScalesClientSpec" prune="true"/>
-    <association id="_EplJoFdSEeev6YvG59B3Sg" name="PortAccessesExposureContext" prune="false"/>
+    <association id="_EplJoFdSEeev6YvG59B3Sg" name="PortAccessesExposureContext" prune="true"/>
     <association id="_kAQHUNvcEeaL7dYp0KdCwA" name="PortBindsToComponent" prune="false"/>
     <association id="_RhK6A9zBEeaL7dYp0KdCwA" name="PortBindsToPort" prune="false"/>
     <association id="_rujukIWhEeiXzpgfQWpR-Q" name="PortBindsToPort" prune="false"/>
@@ -453,9 +453,9 @@
     <association id="_AdfsECbJEeim1bq3iEzqlg" name="SpecClockEncompassesClock" prune="false"/>
     <association id="_PNGEIJgQEeSeO5hX75xH1g" name="SpecEntityInstanceConformsToSpecClass" prune="false"/>
     <association id="_XyxRwJgWEeSeO5hX75xH1g" name="SpecInstaceAbidesByClassOfEntityInstanceToWhichItApplies" prune="false"/>
-    <association id="_zWcxoFRMEeiyzdV8zVsJ_w" name="StrandIsSeriesOfStrands" prune="false"/>
-    <association id="_yoKkwFRLEeiyzdV8zVsJ_w" name="StrandJoinsPins" prune="false"/>
-    <association id="_CwsSEFRNEeiyzdV8zVsJ_w" name="StrandSplicedToStrand" prune="false"/>
+    <association id="_zWcxoFRMEeiyzdV8zVsJ_w" name="StrandIsSeriesOfStrands" prune="true"/>
+    <association id="_yoKkwFRLEeiyzdV8zVsJ_w" name="StrandJoinsPins" prune="true"/>
+    <association id="_CwsSEFRNEeiyzdV8zVsJ_w" name="StrandSplicedToStrand" prune="true"/>
     <association id="_vqpKAEgwEeasL6dcjI1vEA" name="SupportedFruDetails" prune="false"/>
     <association id="_ZPe2cEguEeasL6dcjI1vEA" name="SupportedNonFruDetails" prune="false"/>
     <association id="_8HGBUD4mEei6HehkJk8P-g" name="SymbolicLinkRefersToFileSystemEntry" prune="false"/>
@@ -482,13 +482,13 @@
     <association id="_EhE3sNytEeaL7dYp0KdCwA" name="VertexOpportunityBindsToVertexOpportunity" prune="false"/>
     <association id="_6iAJk_y_Eea2KOb10ZFHOw" name="VertexOpportunityBindsToVertexOpportunity" prune="false"/>
     <association id="_-VhDcBihEeSh8KVgZCMyDw" name="ViewAbstractionRuleExplainssHowLtpRelatestToLtpInOtherView" prune="false"/>
-    <association id="_rXkJAMAtEeWbqPZwR-Ot6A" name="ViewMappingMapsExposureContexts" prune="false"/>
+    <association id="_rXkJAMAtEeWbqPZwR-Ot6A" name="ViewMappingMapsExposureContexts" prune="true"/>
     <association id="_qz5bQMAtEeWbqPZwR-Ot6A" name="ViewMappingMapsToInternalView" prune="false"/>
-    <association id="_ocWCUGmGEeio5tbL36vGKA" name="VmfGovernsCdConstraintSet" prune="false"/>
-    <association id="_VTEg0GmFEeio5tbL36vGKA" name="VmfHasVmfPort" prune="false"/>
-    <association id="_I65YUGmHEeio5tbL36vGKA" name="VmfMapsFromCdConstraintSet" prune="false"/>
-    <association id="_7tUZMGmFEeio5tbL36vGKA" name="VmfPortBoundToVmfPort" prune="false"/>
-    <association id="_RSJ7sD7pEei6HehkJk8P-g" name="VmmInvokesVm" prune="false"/>
+    <association id="_ocWCUGmGEeio5tbL36vGKA" name="VmfGovernsCdConstraintSet" prune="true"/>
+    <association id="_VTEg0GmFEeio5tbL36vGKA" name="VmfHasVmfPort" prune="true"/>
+    <association id="_I65YUGmHEeio5tbL36vGKA" name="VmfMapsFromCdConstraintSet" prune="true"/>
+    <association id="_7tUZMGmFEeio5tbL36vGKA" name="VmfPortBoundToVmfPort" prune="true"/>
+    <association id="_RSJ7sD7pEei6HehkJk8P-g" name="VmmInvokesVm" prune="true"/>
   </association-list>
   <association-class-list count="2">
     <association-class id="_Q575MBBEEeS-tqfHkf_O5w" name="EgressSwitchSelection" prune="false"/>
@@ -507,7 +507,7 @@
     <class id="_frIgsJgMEeSjhfRBVH9_gQ" name="AnyEntityInstance" prune="false"/>
     <class id="_8SXNaT-HEeaRI-H69PghuA" name="AtomicFunction" prune="false"/>
     <class id="_MZH0gFZ4EeOVGaP4lO41SQ" name="AttributePackage" prune="false"/>
-    <class id="_8SXNbD-HEeaRI-H69PghuA" name="Cable" prune="false"/>
+    <class id="_8SXNbD-HEeaRI-H69PghuA" name="Cable" prune="true"/>
     <class id="_a5CfsItDEeiF9qdS0TxlAA" name="CascOccurrenceInFcSpec" prune="true"/>
     <class id="_QDijcNvrEeaL7dYp0KdCwA" name="CascPort" prune="false"/>
     <class id="_Zx0Y8ItDEeiF9qdS0TxlAA" name="CascPortOccurrenceInFcSpec" prune="true"/>
@@ -531,7 +531,7 @@
     <class id="_8SXNcD-HEeaRI-H69PghuA" name="Connector" prune="false"/>
     <class id="_6hyUEEONEeasL6dcjI1vEA" name="ConnectorCableEnd" prune="true"/>
     <class id="_o366YEONEeasL6dcjI1vEA" name="ConnectorInHolder" prune="true"/>
-    <class id="_1OKeUEONEeasL6dcjI1vEA" name="ConnectorOnEquipmentForCable" prune="false"/>
+    <class id="_1OKeUEONEeasL6dcjI1vEA" name="ConnectorOnEquipmentForCable" prune="true"/>
     <class id="_s5FpwEONEeasL6dcjI1vEA" name="ConnectorOnEquipmentForHolder" prune="false"/>
     <class id="_yonHidyPEeaL7dYp0KdCwA" name="ConstrainedHyperEdge" prune="false"/>
     <class id="_VMFT6NyWEeaL7dYp0KdCwA" name="ConstrainedHyperEdge" prune="false"/>
@@ -575,7 +575,7 @@
     <class id="_oAKEsPHQEea2l9FuDSKfDQ" name="ExposedView" prune="false"/>
     <class id="_wZ2-MMAtEeWbqPZwR-Ot6A" name="ExposedViewOfControlEntities" prune="false"/>
     <class id="_zAuSwMAtEeWbqPZwR-Ot6A" name="ExposedViewOfControlledEntities" prune="false"/>
-    <class id="_5LsaEFY2EeiyzdV8zVsJ_w" name="ExposureContext" prune="false"/>
+    <class id="_5LsaEFY2EeiyzdV8zVsJ_w" name="ExposureContext" prune="true"/>
     <class id="_bCi74I22EeO38ZmbECnvbg" name="Extension" prune="false"/>
     <class id="_NVYdcGIZEeerc4Zz6ufSeg" name="ExtensionContainer" prune="false"/>
     <class id="_b_lUAFYgEeOVGaP4lO41SQ" name="FcPort" prune="false"/>
@@ -602,7 +602,7 @@
     <class id="_iVJ1kI2wEeO38ZmbECnvbg" name="GlobalClass" prune="false"/>
     <class id="_OKBSlT39EeaRI-H69PghuA" name="GlobalClass" prune="true"/>
     <class id="_uMSwAEdcEeasL6dcjI1vEA" name="GroupOfPins" prune="true"/>
-    <class id="_GJbLoFRREeiyzdV8zVsJ_w" name="GroupOfStrands" prune="false"/>
+    <class id="_GJbLoFRREeiyzdV8zVsJ_w" name="GroupOfStrands" prune="true"/>
     <class id="_8SXNjj-HEeaRI-H69PghuA" name="Holder" prune="false"/>
     <class id="_5vdx8EQfEeasL6dcjI1vEA" name="HolderMonitor" prune="false"/>
     <class id="_0U3TwEc7EeasL6dcjI1vEA" name="HolderStructure" prune="false"/>
@@ -644,11 +644,11 @@
     <class id="_KxkFYEQ-EeasL6dcjI1vEA" name="MechanicalFunctions" prune="false"/>
     <class id="_z6fSQNvjEeaL7dYp0KdCwA" name="MultiFlowPort" prune="false"/>
     <class id="_nzCmUMrUEeOt57ZaJqAnzg" name="MultiSwitchedUniFlow" prune="false"/>
-    <class id="_qCBY4FRMEeiyzdV8zVsJ_w" name="MultipleStrandSpan" prune="false"/>
+    <class id="_qCBY4FRMEeiyzdV8zVsJ_w" name="MultipleStrandSpan" prune="true"/>
     <class id="_BUcVEI2tEeO38ZmbECnvbg" name="Name" prune="false"/>
     <class id="_ulDtsI3AEeO38ZmbECnvbg" name="NameAndValueAuthority" prune="false"/>
     <class id="_J_v_YD0WEeaRI-H69PghuA" name="NecessaryInitialConditionConstraints" prune="false"/>
-    <class id="_oGqneFLNEeO75dO39GbF8Q" name="NetworkControlDomain" prune="false"/>
+    <class id="_oGqneFLNEeO75dO39GbF8Q" name="NetworkControlDomain" prune="true"/>
     <class id="_oGqnr1LNEeO75dO39GbF8Q" name="NetworkElement" prune="true"/>
     <class id="_w-HB8DLEEea40e5DA9KE3w" name="NetworkSchemeSpecification" prune="false"/>
     <class id="_8SXNmT-HEeaRI-H69PghuA" name="NonFieldReplaceable" prune="false"/>
@@ -697,7 +697,7 @@
     <class id="_m2K6AD4pEei6HehkJk8P-g" name="RunningSoftwareProcess" prune="false"/>
     <class id="_-jakoD7oEei6HehkJk8P-g" name="RunningVirtualMachine" prune="false"/>
     <class id="_xb6_AD6dEei6HehkJk8P-g" name="RunningVirtualMachineMonitor" prune="false"/>
-    <class id="_oGqoB1LNEeO75dO39GbF8Q" name="SdnController" prune="false"/>
+    <class id="_oGqoB1LNEeO75dO39GbF8Q" name="SdnController" prune="true"/>
     <class id="_MVTuMBiZEeSh8KVgZCMyDw" name="ServerSpec" prune="true"/>
     <class id="_8SXNqz-HEeaRI-H69PghuA" name="SignalRefPt" prune="false"/>
     <class id="_8SXNrT-HEeaRI-H69PghuA" name="SignalRefPtGroup" prune="false"/>
@@ -711,7 +711,7 @@
     <class id="_ag2zWk2UEeaGxdXEiNf4tA" name="SpecificPattern" prune="false"/>
     <class id="_dHJ4kD3bEeaRI-H69PghuA" name="SpecificPattern" prune="false"/>
     <class id="_RG6VILEtEeSZUdYfPSdgew" name="State_Pac" prune="false"/>
-    <class id="_2ti7MFRKEeiyzdV8zVsJ_w" name="Strand" prune="false"/>
+    <class id="_2ti7MFRKEeiyzdV8zVsJ_w" name="Strand" prune="true"/>
     <class id="_FVMhgPHQEea2l9FuDSKfDQ" name="SubordinateExposedView" prune="false"/>
     <class id="_uYW4MEgvEeasL6dcjI1vEA" name="SupportConstraints" prune="false"/>
     <class id="_Ghvk8EguEeasL6dcjI1vEA" name="SupportedEquipmentType" prune="false"/>
@@ -741,7 +741,7 @@
     <class id="_KXePoCQEEee9I5wuRX6wwQ" name="View:SdnControllerViewedFromManager" prune="true"/>
     <class id="_9bj8oBihEeSh8KVgZCMyDw" name="ViewAbstractionRules" prune="true"/>
     <class id="_U928EMAtEeWbqPZwR-Ot6A" name="ViewMappingFunction" prune="true"/>
-    <class id="_SdUbsGmFEeio5tbL36vGKA" name="VmfPort" prune="false"/>
+    <class id="_SdUbsGmFEeio5tbL36vGKA" name="VmfPort" prune="true"/>
   </class-list>
   <comment-list count="994">
     <comment id="_pp9rwGapEeWrX_JIGzXlSg" name="" prune="false"/>
@@ -1743,10 +1743,10 @@
     <constraint id="_sFFq8NyhEeaL7dYp0KdCwA" name="" prune="false"/>
     <constraint id="_8SDrEHk5EeO5z_IJj67BhQ" name="AlternativeFcParent" prune="false"/>
     <constraint id="_eiKr8HoDEeO2-YDhAjVilg" name="AlternativeLtpPeerAssociations" prune="false"/>
-    <constraint id="_pSri4D-fEeaRI-H69PghuA" name="CableConnectorConstraint" prune="false"/>
+    <constraint id="_pSri4D-fEeaRI-H69PghuA" name="CableConnectorConstraint" prune="true"/>
     <constraint id="_8SXNmj-HEeaRI-H69PghuA" name="CompositionConstraint" prune="false"/>
     <constraint id="_8SXNcT-HEeaRI-H69PghuA" name="ConnectorOwner" prune="false"/>
-    <constraint id="_nrf7oENuEeasL6dcjI1vEA" name="ConnnectorWithCableConstraint" prune="false"/>
+    <constraint id="_nrf7oENuEeasL6dcjI1vEA" name="ConnnectorWithCableConstraint" prune="true"/>
     <constraint id="_ozvkENyjEeaL7dYp0KdCwA" name="Constraint1" prune="false"/>
     <constraint id="_pnipgdysEeaL7dYp0KdCwA" name="Constraint1" prune="false"/>
     <constraint id="_gKPMENytEeaL7dYp0KdCwA" name="Constraint1" prune="false"/>
@@ -2224,13 +2224,13 @@
     <enumeration id="_-xPeALEvEeSZUdYfPSdgew" name="AdministrativeControl" prune="false"/>
     <enumeration id="_KSKOYLEuEeSZUdYfPSdgew" name="AdministrativeState" prune="false"/>
     <enumeration id="_zMwrsMjVEeWSlYzRfsq8lQ" name="BlockDirection" prune="false"/>
-    <enumeration id="_y2WM8EQ-EeasL6dcjI1vEA" name="ConnectorAndPinOrientation" prune="false"/>
+    <enumeration id="_y2WM8EQ-EeasL6dcjI1vEA" name="ConnectorAndPinOrientation" prune="true"/>
     <enumeration id="_R3JD0PzAEea2KOb10ZFHOw" name="Direction" prune="false"/>
-    <enumeration id="_mMOBgEQvEeasL6dcjI1vEA" name="EquipmentCategory" prune="false"/>
+    <enumeration id="_mMOBgEQvEeasL6dcjI1vEA" name="EquipmentCategory" prune="true"/>
     <enumeration id="_T5GykEDNEeWQeOKbNUpP9A" name="ExtendedTerminationDirection" prune="false"/>
     <enumeration id="_dV67AEC8EeWxhL2B6Peg6A" name="ForwardingDirection" prune="false"/>
     <enumeration id="_E1O1wL43EeW6upS9HpMrJw" name="ForwardingRule" prune="false"/>
-    <enumeration id="_0K-KoERLEeasL6dcjI1vEA" name="HolderCategory" prune="false"/>
+    <enumeration id="_0K-KoERLEeasL6dcjI1vEA" name="HolderCategory" prune="true"/>
     <enumeration id="_MbUkMIQ4EeiXzpgfQWpR-Q" name="LayerProtocolName" prune="false"/>
     <enumeration id="_YSsboGgiEeWmgIwAIZlYKQ" name="LifecycleState" prune="false"/>
     <enumeration id="_lNclkLEtEeSZUdYfPSdgew" name="OperationalState" prune="false"/>
@@ -4856,9 +4856,9 @@
     <package id="_yonHgNyPEeaL7dYp0KdCwA" name="ConstrainedHypergraph" prune="false"/>
     <package id="_PdbFAGulEeaBUOurxzA2sw" name="Constraints" prune="false"/>
     <package id="_3q4S4EdzEeasL6dcjI1vEA" name="Constraints" prune="false"/>
-    <package id="_0e5S8BbsEeitqc-Dc8Gf8A" name="ControlPortInterfacing" prune="false"/>
-    <package id="_npYzsGrsEeiRh-lc79MSRw" name="ControlPortInterfacing" prune="false"/>
-    <package id="_3zx-sGrsEeiRh-lc79MSRw" name="ControlPortInterfacing" prune="false"/>
+    <package id="_0e5S8BbsEeitqc-Dc8Gf8A" name="ControlPortInterfacing" prune="true"/>
+    <package id="_npYzsGrsEeiRh-lc79MSRw" name="ControlPortInterfacing" prune="true"/>
+    <package id="_3zx-sGrsEeiRh-lc79MSRw" name="ControlPortInterfacing" prune="true"/>
     <package id="_SQqTgBizEeSh8KVgZCMyDw" name="CoreFoundationModel" prune="false"/>
     <package id="_mYNA8CwoEei0dKiW7-KXiw" name="CoreInteractionModel" prune="true"/>
     <package id="_15jvAE-wEeSGXqgORzeAvQ" name="CoreManagementControlConstructModel" prune="false"/>
@@ -5195,7 +5195,7 @@
     <property id="_NOyVUsDiEeWbqPZwR-Ot6A" name="_address" prune="false"/>
     <property id="_SlO1XT4EEeaRI-H69PghuA" name="_address" prune="false"/>
     <property id="_9OaEwD-PEeaRI-H69PghuA" name="_addressedByHolder" prune="true"/>
-    <property id="_zWdYslRMEeiyzdV8zVsJ_w" name="_adjacentstrand" prune="false"/>
+    <property id="_zWdYslRMEeiyzdV8zVsJ_w" name="_adjacentstrand" prune="true"/>
     <property id="_VHOWskglEeasL6dcjI1vEA" name="_aggregateFunction" prune="false"/>
     <property id="_IvRk0kdwEeasL6dcjI1vEA" name="_aggregateFunction" prune="false"/>
     <property id="_i3B7YkdxEeasL6dcjI1vEA" name="_aggregateFunction" prune="false"/>
@@ -5218,7 +5218,7 @@
     <property id="_5XTV4om3EeiF9qdS0TxlAA" name="_boundToLpPortOccurrence" prune="false"/>
     <property id="_rudn-oWhEeiXzpgfQWpR-Q" name="_boundaryPort" prune="false"/>
     <property id="_rukVp4WhEeiXzpgfQWpR-Q" name="_boundaryPort" prune="false"/>
-    <property id="_So4V8lRREeiyzdV8zVsJ_w" name="_bundledCable" prune="false"/>
+    <property id="_So4V8lRREeiyzdV8zVsJ_w" name="_bundledCable" prune="true"/>
     <property id="_zevjAMrVEeOt57ZaJqAnzg" name="_casc" prune="false"/>
     <property id="_sseEoBBHEeS-tqfHkf_O5w" name="_cascInDomain" prune="false"/>
     <property id="_DwWZ8otQEeiF9qdS0TxlAA" name="_cascOccurrenceInFcSpec" prune="true"/>
@@ -5261,10 +5261,10 @@
     <property id="_8SXNdD-HEeaRI-H69PghuA" name="_connector" prune="false"/>
     <property id="_8SXNez-HEeaRI-H69PghuA" name="_connector" prune="false"/>
     <property id="_8SXNkj-HEeaRI-H69PghuA" name="_connector" prune="false"/>
-    <property id="_KCS_IkOPEeasL6dcjI1vEA" name="_connectorCableEnd" prune="false"/>
+    <property id="_KCS_IkOPEeasL6dcjI1vEA" name="_connectorCableEnd" prune="true"/>
     <property id="_-zMBkkO-EeasL6dcjI1vEA" name="_connectorInHolder" prune="false"/>
-    <property id="_iRWXMJSdEei_9c44xHCpzQ" name="_connectorOnCableEnd" prune="false"/>
-    <property id="_KCVbYEOPEeasL6dcjI1vEA" name="_connectorOnEquipmentForCable" prune="false"/>
+    <property id="_iRWXMJSdEei_9c44xHCpzQ" name="_connectorOnCableEnd" prune="true"/>
+    <property id="_KCVbYEOPEeasL6dcjI1vEA" name="_connectorOnEquipmentForCable" prune="true"/>
     <property id="_-zMooEO-EeasL6dcjI1vEA" name="_connectorOnEquipmentForHolder" prune="false"/>
     <property id="_kpqBckgzEeasL6dcjI1vEA" name="_constrainedSupportedFruType" prune="false"/>
     <property id="_2UUCIkgvEeasL6dcjI1vEA" name="_constrainedSupportedNonFruType" prune="false"/>
@@ -5291,7 +5291,7 @@
     <property id="_GB42kMAuEeWbqPZwR-Ot6A" name="_controlPort" prune="false"/>
     <property id="_XFoTVRbsEeitqc-Dc8Gf8A" name="_controlTask" prune="false"/>
     <property id="_XFoTJRbsEeitqc-Dc8Gf8A" name="_controlTask" prune="false"/>
-    <property id="_XFoS-xbsEeitqc-Dc8Gf8A" name="_controlTasks" prune="false"/>
+    <property id="_XFoS-xbsEeitqc-Dc8Gf8A" name="_controlTasks" prune="true"/>
     <property id="_vD4bAsAzEeWbqPZwR-Ot6A" name="_controlledExposedView" prune="false"/>
     <property id="_9tStssAuEeWbqPZwR-Ot6A" name="_controllerControlView" prune="false"/>
     <property id="_o3NZwPHWEea2l9FuDSKfDQ" name="_controllerInternalView" prune="false"/>
@@ -5299,7 +5299,7 @@
     <property id="_QRnFkdv0EeaL7dYp0KdCwA" name="_coordinatedFc" prune="false"/>
     <property id="_gQy-gBiUEeSh8KVgZCMyDw" name="_cpAndAdapterSpec" prune="true"/>
     <property id="_MX4rUok-EeiF9qdS0TxlAA" name="_cpForwardingPort" prune="false"/>
-    <property id="_KHKRIPHPEea2l9FuDSKfDQ" name="_definingViewMapping" prune="false"/>
+    <property id="_KHKRIPHPEea2l9FuDSKfDQ" name="_definingViewMapping" prune="true"/>
     <property id="_LA8AgD0fEeaRI-H69PghuA" name="_desiredOutcomeConstraints" prune="false"/>
     <property id="_Q4JwgBBEEeS-tqfHkf_O5w" name="_egressFcPortSet" prune="false"/>
     <property id="_D2itUMrVEeOt57ZaJqAnzg" name="_egressPortSet" prune="false"/>
@@ -5330,14 +5330,14 @@
     <property id="_mkkXMD4qEei6HehkJk8P-g" name="_executable" prune="false"/>
     <property id="_xLQU8EmgEeaDccCv6BIgdg" name="_expectedEquipment" prune="false"/>
     <property id="_Ve5tMUmhEeaDccCv6BIgdg" name="_expectedHolder" prune="false"/>
-    <property id="_Fy4CYj-fEeaRI-H69PghuA" name="_exposedCable" prune="false"/>
+    <property id="_Fy4CYj-fEeaRI-H69PghuA" name="_exposedCable" prune="true"/>
     <property id="_7XZmMPHQEea2l9FuDSKfDQ" name="_exposedViewOfControlEntities" prune="false"/>
     <property id="_8UVvkPHQEea2l9FuDSKfDQ" name="_exposedViewOfControlledEntities" prune="false"/>
-    <property id="_NHFNEcAtEeWbqPZwR-Ot6A" name="_exposureContext" prune="false"/>
-    <property id="_Ep4roFdSEeev6YvG59B3Sg" name="_exposureContext" prune="false"/>
-    <property id="_rXl-MMAtEeWbqPZwR-Ot6A" name="_exposureContext" prune="false"/>
-    <property id="_XFoTKRbsEeitqc-Dc8Gf8A" name="_exposureContext" prune="false"/>
-    <property id="_XFoTLhbsEeitqc-Dc8Gf8A" name="_exposureContext" prune="false"/>
+    <property id="_NHFNEcAtEeWbqPZwR-Ot6A" name="_exposureContext" prune="true"/>
+    <property id="_Ep4roFdSEeev6YvG59B3Sg" name="_exposureContext" prune="true"/>
+    <property id="_rXl-MMAtEeWbqPZwR-Ot6A" name="_exposureContext" prune="true"/>
+    <property id="_XFoTKRbsEeitqc-Dc8Gf8A" name="_exposureContext" prune="true"/>
+    <property id="_XFoTLhbsEeitqc-Dc8Gf8A" name="_exposureContext" prune="true"/>
     <property id="_il-GMGIZEeerc4Zz6ufSeg" name="_extensionContainer" prune="false"/>
     <property id="_oGql_1LNEeO75dO39GbF8Q" name="_fc" prune="false"/>
     <property id="_VVZ8IgxaEeaoNYuBimvyxQ" name="_fc" prune="false"/>
@@ -5389,9 +5389,9 @@
     <property id="_8SXNqj-HEeaRI-H69PghuA" name="_functionBlock" prune="false"/>
     <property id="_1vzsYERJEeasL6dcjI1vEA" name="_functionEnablers" prune="false"/>
     <property id="_e2gXEY31EeO38ZmbECnvbg" name="_gLobalIdAuthority" prune="false"/>
-    <property id="_bhg_8Y3vEeO38ZmbECnvbg" name="_globalClass" prune="false"/>
-    <property id="_mZyWYY21EeO38ZmbECnvbg" name="_globalClass" prune="false"/>
-    <property id="_kWeS4MOxEeWwZ527PhfFSA" name="_global_Pac" prune="false"/>
+    <property id="_bhg_8Y3vEeO38ZmbECnvbg" name="_globalClass" prune="true"/>
+    <property id="_mZyWYY21EeO38ZmbECnvbg" name="_globalClass" prune="true"/>
+    <property id="_kWeS4MOxEeWwZ527PhfFSA" name="_global_Pac" prune="true"/>
     <property id="_ocWCU2mGEeio5tbL36vGKA" name="_governedCdPort" prune="false"/>
     <property id="_8SXNhT-HEeaRI-H69PghuA" name="_holder" prune="false"/>
     <property id="_Slv6oEg0EeasL6dcjI1vEA" name="_holder" prune="false"/>
@@ -5428,9 +5428,9 @@
     <property id="_oGqnllLNEeO75dO39GbF8Q" name="_linkPort" prune="false"/>
     <property id="_MUIBEolaEeahttOwTtJ6Iw" name="_linkSpec" prune="true"/>
     <property id="_wL2cYGFxEeerc4Zz6ufSeg" name="_linkSpecReference:ClassRef" prune="false"/>
-    <property id="_NIlTsI28EeO38ZmbECnvbg" name="_localClass" prune="false"/>
-    <property id="_mZnXQI21EeO38ZmbECnvbg" name="_localClass" prune="false"/>
-    <property id="_d9q9wMOxEeWwZ527PhfFSA" name="_local_Pac" prune="false"/>
+    <property id="_NIlTsI28EeO38ZmbECnvbg" name="_localClass" prune="true"/>
+    <property id="_mZnXQI21EeO38ZmbECnvbg" name="_localClass" prune="true"/>
+    <property id="_d9q9wMOxEeWwZ527PhfFSA" name="_local_Pac" prune="true"/>
     <property id="_lNf7kHpKEeaVjtpstJMDXA" name="_location" prune="false"/>
     <property id="_lvO_QVYXEeOVGaP4lO41SQ" name="_logicalTerminationPoint" prune="false"/>
     <property id="_i7UzkFYfEeOVGaP4lO41SQ" name="_lowerLevelFc" prune="false"/>
@@ -5488,7 +5488,7 @@
     <property id="_olsu0tvkEeaL7dYp0KdCwA" name="_multiFlowPort" prune="false"/>
     <property id="_lyVdYMrVEeOt57ZaJqAnzg" name="_multiSwitchedUniFlow" prune="false"/>
     <property id="_d8DKUc96EeOwEItOulyh6w" name="_multiSwitchedUniFlow" prune="false"/>
-    <property id="_sPE7IlSgEeiyzdV8zVsJ_w" name="_multipleStrandSpan" prune="false"/>
+    <property id="_sPE7IlSgEeiyzdV8zVsJ_w" name="_multipleStrandSpan" prune="true"/>
     <property id="_oGqn2FLNEeO75dO39GbF8Q" name="_nE" prune="false"/>
     <property id="_pXXx8Y3uEeO38ZmbECnvbg" name="_nameAndValueAuthority" prune="true"/>
     <property id="_oGqn0FLNEeO75dO39GbF8Q" name="_ncd" prune="false"/>
@@ -5588,9 +5588,9 @@
     <property id="_ag2zI02UEeaGxdXEiNf4tA" name="_specificClassStructure" prune="false"/>
     <property id="_7jGIgD3ZEeaRI-H69PghuA" name="_specificClassStructure" prune="false"/>
     <property id="_kTotYT3bEeaRI-H69PghuA" name="_specificPattern" prune="false"/>
-    <property id="_Cws5IlRNEeiyzdV8zVsJ_w" name="_splicedStrand" prune="false"/>
-    <property id="_A78MYlRMEeiyzdV8zVsJ_w" name="_strand" prune="false"/>
-    <property id="_QMXssVRQEeiyzdV8zVsJ_w" name="_strand" prune="false"/>
+    <property id="_Cws5IlRNEeiyzdV8zVsJ_w" name="_splicedStrand" prune="true"/>
+    <property id="_A78MYlRMEeiyzdV8zVsJ_w" name="_strand" prune="true"/>
+    <property id="_QMXssVRQEeiyzdV8zVsJ_w" name="_strand" prune="true"/>
     <property id="_jbGZ8Ec-EeasL6dcjI1vEA" name="_structure" prune="false"/>
     <property id="_OjA04MQlEeWlWIVxswb46A" name="_subordinateControl" prune="false"/>
     <property id="_vqLGUFfnEeeKHrjbk_yQ_w" name="_subordinateControlConstructContext" prune="false"/>
@@ -5628,11 +5628,11 @@
     <property id="_daz7khdVEeitqc-Dc8Gf8A" name="_userRole" prune="false"/>
     <property id="_XFoTcRbsEeitqc-Dc8Gf8A" name="_userRole" prune="false"/>
     <property id="_h8bfkJ2LEeSQBuaNnP_LbA" name="_validation_Pac" prune="false"/>
-    <property id="_pbJccFpREee0ZvXJLxwizg" name="_viewMapping" prune="false"/>
+    <property id="_pbJccFpREee0ZvXJLxwizg" name="_viewMapping" prune="true"/>
     <property id="_Dm-Ioj7qEei6HehkJk8P-g" name="_vmBoundary" prune="false"/>
-    <property id="_t4GL4N5fEeiZPI_W1X8mWw" name="_vmfInDomain" prune="false"/>
-    <property id="_VTHkIGmFEeio5tbL36vGKA" name="_vmfPort" prune="false"/>
-    <property id="_7tVAQWmFEeio5tbL36vGKA" name="_vmfPort" prune="false"/>
+    <property id="_t4GL4N5fEeiZPI_W1X8mWw" name="_vmfInDomain" prune="true"/>
+    <property id="_VTHkIGmFEeio5tbL36vGKA" name="_vmfPort" prune="true"/>
+    <property id="_7tVAQWmFEeio5tbL36vGKA" name="_vmfPort" prune="true"/>
     <property id="_AAjAwD0VEeaRI-H69PghuA" name="abortAfterDurationWithActionRule" prune="false"/>
     <property id="_o3OA0PHWEea2l9FuDSKfDQ" name="abstractview" prune="false"/>
     <property id="_aOvCB02MEeaGxdXEiNf4tA" name="actionVerb" prune="false"/>
@@ -5664,7 +5664,7 @@
     <property id="_ZiaSMUdtEeasL6dcjI1vEA" name="aggregatefunction" prune="false"/>
     <property id="_BiZrMPzaEea2KOb10ZFHOw" name="aggregatefunction" prune="false"/>
     <property id="_8SXNaz-HEeaRI-H69PghuA" name="aggregateresouce" prune="false"/>
-    <property id="_72w00JwzEea1Nbypr6RfLw" name="applicableSignalValue" prune="false"/>
+    <property id="_72w00JwzEea1Nbypr6RfLw" name="applicableSignalValue" prune="true"/>
     <property id="_nPsCsMDzEeWbqPZwR-Ot6A" name="arbitraryElement" prune="false"/>
     <property id="_SlO1YD4EEeaRI-H69PghuA" name="arbitraryElement" prune="false"/>
     <property id="_8REBAD4JEeaRI-H69PghuA" name="arbitraryElement" prune="false"/>
@@ -5678,14 +5678,14 @@
     <property id="_ceuGwBdVEeitqc-Dc8Gf8A" name="asyncquerystructurestatedefinedbyconstraint" prune="false"/>
     <property id="_IvSL4EdwEeasL6dcjI1vEA" name="atomicfunction" prune="false"/>
     <property id="_INhcAKQbEeS9Obpdy8FCjA" name="availableCapacity" prune="false"/>
-    <property id="_l-INUEOOEeasL6dcjI1vEA" name="cable" prune="false"/>
-    <property id="_omrR8kRUEeasL6dcjI1vEA" name="cable" prune="false"/>
-    <property id="_dUdkkERZEeasL6dcjI1vEA" name="cable" prune="false"/>
-    <property id="_bfXrMERZEeasL6dcjI1vEA" name="cable" prune="false"/>
-    <property id="_gCw94ERZEeasL6dcjI1vEA" name="cable" prune="false"/>
-    <property id="_8SXM5T-HEeaRI-H69PghuA" name="cable" prune="false"/>
-    <property id="_So4V9FRREeiyzdV8zVsJ_w" name="cable" prune="false"/>
-    <property id="_A78zcVRMEeiyzdV8zVsJ_w" name="cable" prune="false"/>
+    <property id="_l-INUEOOEeasL6dcjI1vEA" name="cable" prune="true"/>
+    <property id="_omrR8kRUEeasL6dcjI1vEA" name="cable" prune="true"/>
+    <property id="_dUdkkERZEeasL6dcjI1vEA" name="cable" prune="true"/>
+    <property id="_bfXrMERZEeasL6dcjI1vEA" name="cable" prune="true"/>
+    <property id="_gCw94ERZEeasL6dcjI1vEA" name="cable" prune="true"/>
+    <property id="_8SXM5T-HEeaRI-H69PghuA" name="cable" prune="true"/>
+    <property id="_So4V9FRREeiyzdV8zVsJ_w" name="cable" prune="true"/>
+    <property id="_A78zcVRMEeiyzdV8zVsJ_w" name="cable" prune="true"/>
     <property id="_Nhv4QK3rEeSXJ6XI-2nsRw" name="capacityAssignedToUserView" prune="false"/>
     <property id="_kZMnkKQbEeS9Obpdy8FCjA" name="capacityInteractionAlgorithm" prune="false"/>
     <property id="_oRThVItDEeiF9qdS0TxlAA" name="cascoccurrenceinfcspec" prune="false"/>
@@ -5741,11 +5741,11 @@
     <property id="_8SXNID-HEeaRI-H69PghuA" name="connector" prune="false"/>
     <property id="_Eaxu8EdeEeasL6dcjI1vEA" name="connector" prune="false"/>
     <property id="_8SXNDD-HEeaRI-H69PghuA" name="connector" prune="false"/>
-    <property id="_l-G_MEOOEeasL6dcjI1vEA" name="connectorCableEnd" prune="false"/>
+    <property id="_l-G_MEOOEeasL6dcjI1vEA" name="connectorCableEnd" prune="true"/>
     <property id="_w3R1cUPAEeasL6dcjI1vEA" name="connectorInHolder" prune="false"/>
     <property id="_NBXLMEgXEeasL6dcjI1vEA" name="connectorType" prune="false"/>
-    <property id="_iRWXMpSdEei_9c44xHCpzQ" name="connectorcableend" prune="false"/>
-    <property id="_9H42AEPBEeasL6dcjI1vEA" name="connectoronequipmentforcable" prune="false"/>
+    <property id="_iRWXMpSdEei_9c44xHCpzQ" name="connectorcableend" prune="true"/>
+    <property id="_9H42AEPBEeasL6dcjI1vEA" name="connectoronequipmentforcable" prune="true"/>
     <property id="_7ZdlUEPBEeasL6dcjI1vEA" name="connectoronequipmentforholder" prune="false"/>
     <property id="_yonHg9yPEeaL7dYp0KdCwA" name="constrainedHyperEdge" prune="false"/>
     <property id="_yonHjtyPEeaL7dYp0KdCwA" name="constrainedHyperEdge" prune="false"/>
@@ -5885,7 +5885,7 @@
     <property id="_8UWWoPHQEea2l9FuDSKfDQ" name="exposedview" prune="false"/>
     <property id="_GB3ocsAuEeWbqPZwR-Ot6A" name="exposedviewofcontrolledentities" prune="false"/>
     <property id="_GuZ-UMAuEeWbqPZwR-Ot6A" name="exposedviewofcontroller" prune="false"/>
-    <property id="_gAhgMlY4EeiyzdV8zVsJ_w" name="exposurecontext" prune="false"/>
+    <property id="_gAhgMlY4EeiyzdV8zVsJ_w" name="exposurecontext" prune="true"/>
     <property id="_uQqu4I28EeO38ZmbECnvbg" name="extension" prune="false"/>
     <property id="_6owsoGIgEeerc4Zz6ufSeg" name="extensioncontainer" prune="false"/>
     <property id="_sGF3EIp-EeiF9qdS0TxlAA" name="externalAccess" prune="false"/>
@@ -6119,7 +6119,7 @@
     <property id="_DDgt4crVEeOt57ZaJqAnzg" name="multiSwitchedUniFlow" prune="false"/>
     <property id="_2uVS4dvjEeaL7dYp0KdCwA" name="multiflowport" prune="false"/>
     <property id="_oltV4dvkEeaL7dYp0KdCwA" name="multiflowport" prune="false"/>
-    <property id="_QMY60FRQEeiyzdV8zVsJ_w" name="multiplestrandspan" prune="false"/>
+    <property id="_QMY60FRQEeiyzdV8zVsJ_w" name="multiplestrandspan" prune="true"/>
     <property id="_Q575MRBEEeS-tqfHkf_O5w" name="multiswitcheduniflow" prune="false"/>
     <property id="_XSH4cOIqEeaIF9qlsz32ng" name="multiswitcheduniflow" prune="false"/>
     <property id="_ajjMYI2uEeO38ZmbECnvbg" name="name" prune="false"/>
@@ -6160,7 +6160,7 @@
     <property id="_XFoTLRbsEeitqc-Dc8Gf8A" name="outcomeConstraint" prune="false"/>
     <property id="_XFoTOhbsEeitqc-Dc8Gf8A" name="outputSignalBody" prune="false"/>
     <property id="_uO89sL48EeW5ArTxQk6v5w" name="overridePriority" prune="false"/>
-    <property id="_xJXHoFRPEeiyzdV8zVsJ_w" name="parallelstrandspan" prune="false"/>
+    <property id="_xJXHoFRPEeiyzdV8zVsJ_w" name="parallelstrandspan" prune="true"/>
     <property id="_3VYB8T4qEei6HehkJk8P-g" name="parentSoftwareProcess" prune="false"/>
     <property id="_3ypNAEQsEeasL6dcjI1vEA" name="partTypeIdentifier" prune="false"/>
     <property id="_fYax8Ip7EeiF9qdS0TxlAA" name="partner" prune="false"/>
@@ -6286,10 +6286,10 @@
     <property id="_V7LYMGFhEeeiJ9-h1KDHig" name="specTargetClass" prune="false"/>
     <property id="_B-kEQGIbEeerc4Zz6ufSeg" name="specTargetClass" prune="false"/>
     <property id="_Bz2MkGIcEeerc4Zz6ufSeg" name="specTargetClass" prune="false"/>
-    <property id="_CwtgMVRNEeiyzdV8zVsJ_w" name="splicedStrand" prune="false"/>
-    <property id="_zWd_wFRMEeiyzdV8zVsJ_w" name="strand" prune="false"/>
-    <property id="_yon3wFRLEeiyzdV8zVsJ_w" name="strand" prune="false"/>
-    <property id="_f5PqsFRPEeiyzdV8zVsJ_w" name="strandMediaCharacteristics" prune="false"/>
+    <property id="_CwtgMVRNEeiyzdV8zVsJ_w" name="splicedStrand" prune="true"/>
+    <property id="_zWd_wFRMEeiyzdV8zVsJ_w" name="strand" prune="true"/>
+    <property id="_yon3wFRLEeiyzdV8zVsJ_w" name="strand" prune="true"/>
+    <property id="_f5PqsFRPEeiyzdV8zVsJ_w" name="strandMediaCharacteristics" prune="true"/>
     <property id="_XFoTKBbsEeitqc-Dc8Gf8A" name="structureConstraint" prune="false"/>
     <property id="_SgAZIPHUEea2l9FuDSKfDQ" name="subordinateExposedView" prune="false"/>
     <property id="_0IenwPHYEea2l9FuDSKfDQ" name="subordinateExposedView" prune="false"/>
@@ -6391,10 +6391,10 @@
     <property id="_RhK559zBEeaL7dYp0KdCwA" name="viewPort" prune="false"/>
     <property id="_qz6CUsAtEeWbqPZwR-Ot6A" name="viewmapping" prune="false"/>
     <property id="_rXkwEsAtEeWbqPZwR-Ot6A" name="viewmapping" prune="false"/>
-    <property id="_VTILMGmFEeio5tbL36vGKA" name="viewmappingfunction" prune="false"/>
-    <property id="_ocWpYWmGEeio5tbL36vGKA" name="vmfport" prune="false"/>
-    <property id="_I65_YWmHEeio5tbL36vGKA" name="vmfport" prune="false"/>
-    <property id="_7tVAQ2mFEeio5tbL36vGKA" name="vmfport" prune="false"/>
+    <property id="_VTILMGmFEeio5tbL36vGKA" name="viewmappingfunction" prune="true"/>
+    <property id="_ocWpYWmGEeio5tbL36vGKA" name="vmfport" prune="true"/>
+    <property id="_I65_YWmHEeio5tbL36vGKA" name="vmfport" prune="true"/>
+    <property id="_7tVAQ2mFEeio5tbL36vGKA" name="vmfport" prune="true"/>
     <property id="_oGqn5lLNEeO75dO39GbF8Q" name="waitToRestoreTime" prune="false"/>
     <property id="_eSxzEJ4IEeOO3om500DFKg" name="waitToRevertTime" prune="false"/>
     <property id="_ZID8gKNVEeS9Obpdy8FCjA" name="wanderCharacteristic" prune="false"/>

@@ -44,7 +44,7 @@ var creators = {
         };
 
         if(obj.attributes().name) {
-            props.name = obj.attributes().name
+            props.name = obj.attributes().name;
             props.name = props.name.replace(/^[^A-Za-z0-9|_]+|[^A-Za-z0-9|_\d]+$/g, "");
             props.name = props.name.replace(/[^\w\.-]+/g, '_');
         } else {
@@ -52,7 +52,7 @@ var creators = {
         }
 
         if(obj.attributes().isReadOnly){ props.config = false; }
-        if(obj.attributes().isOrdered){ props.isOrdered = obj.attributes().isOrdered }
+        if(obj.attributes().isOrdered){ props.isOrdered = obj.attributes().isOrdered; }
 
         props.path = store.modName.join("-");
         if (obj.ownedComment) {

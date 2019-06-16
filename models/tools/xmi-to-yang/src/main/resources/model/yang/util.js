@@ -51,10 +51,13 @@ Util.handleNamespacePrefix = function(path, prefixes) {
         result = result.replace(new RegExp("/" + key + ":", "g"), "/" + prefixes[key] + ":");
     });
     // [sko] hack, works for now but not sure what would be the right logic ;(
-    if (result.indexOf(',') !== -1) {
-        console.warn("[WARN]", "Please check", result)
-        result = result.substring(0, result.indexOf(','));
-    }
+    var searchList = ['name,uuid', 'uuid,name'];
+    searchList.forEach(function(search) {
+        if (result.indexOf(search) !== -1) {
+            console.warn("[WARN]", "Please check", result)
+            result = result.replace(search, 'uuid');
+        }
+    });
     return result;
 }
 

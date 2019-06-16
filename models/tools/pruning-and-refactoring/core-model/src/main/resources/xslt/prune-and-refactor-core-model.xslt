@@ -32,7 +32,7 @@
        - rename CoreModel to CoreNetworkFunction
        - add OpenModelStatement
        - add Rootelement steriotype to ControlConstruct
-       - add generalization to GlobalClass, StatePac from ControlConstruct
+       - add generalization to GlobalClass from ControlConstruct
        - add generalization to GlobalClass from CascPort
 -->
 <!-- Changes made on the ONF Core Model 1.1 -> 1.2 -> 1.4
@@ -199,13 +199,16 @@
   <xsl:template match="@name[. = 'CoreModel']" >
     <xsl:attribute name="name">CoreNetworkFunction</xsl:attribute>
   </xsl:template>
-  <!-- add high-level description -->
+  <!-- add high-level description and centralized TypeDefinitions-->
   <xsl:template match="uml:Package[@xmi:id = '_oGqilVLNEeO75dO39GbF8Q']" >
     <xsl:copy>
       <xsl:apply-templates select="@*"/>
       <ownedComment xmi:type="uml:Comment" xmi:id="_uHEawDdIEeOHDrwRRcUeVQ" annotatedElement="../@xmi:id">
         <body>This module contains a collection of YANG definitions for management and control of network fuctions.</body>
       </ownedComment>
+      <packagedElement xmi:type="uml:Package" xmi:id="core-model-type-definitions" name="TypeDefinitions">
+        <xsl:apply-templates select="//packagedElement[@xmi:type='uml:Package' and @name='TypeDefinitions']/node()"/>
+      </packagedElement>
       <xsl:apply-templates select="node() | text()"/>
     </xsl:copy>
   </xsl:template>
@@ -256,10 +259,7 @@
   <!-- ... for existing OpenModel_Profile:OpenModelAttribute -->
   <xsl:template match="/xmi:XMI">
     <xsl:copy>
-      <xsl:apply-templates select="* | @* | text()"/>
-      <packagedElement xmi:type="uml:Package" xmi:id="core-model-type-definitions" name="TypeDefinitions">
-        <xsl:apply-templates select="//packagedElement[@xmi:type='uml:Package' and @name='TypeDefinitions']/node()"/>
-      </packagedElement>
+      <xsl:apply-templates select="@* | node() | text()"/>
       <OpenModel_Profile:OpenModelStatement xmi:id="{@xmi:id}-open-model-statement" base_Model="{@xmi:id}" namespace="urn:onf:yang:core-network-function" organization="Open Networking Foundation (ONF)" description="This model defines a technology agnostic core model for network functions." copyright="Copyright 2019 Open Networking Foundation (ONF). All rights reserved." license="Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);&#xA;you may not use this file except in compliance with the License.&#xA;You may obtain a copy of the License at&#xA;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xA;&#xA;Unless required by applicable law or agreed to in writing, software&#xA;distributed under the License is distributed on an &#34;AS IS&#34; BASIS,&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xA;See the License for the specific language governing permissions and&#xA;limitations under the License.">
         <contact xmi:type="OpenModel_Profile:Contact" xmi:id="onf-core-nf-contact" projectWeb="https://wiki.opennetworking.org/pages/viewpage.action?pageId=262963204" projectEmail="&lt;mailto:information-modeling@opennetworking.org&gt;" editorName="Nigel Davis" editorEmail="&lt;mailto:ndavis@ciena.com&gt;"/>
         <revision xmi:type="OpenModel_Profile:Revision" xmi:id="onf-core-nf-revision-2019-05-25" date="2019-05-25" version="v1.4" description="Initial version derived from ONF-TR-512 v1.4" changeLog="https://github.com/OpenNetworkingFoundation/5G-xHaul/tree/experimental/models/tools" additionalChanges="Additional manual changes" reference="ONF-TR-512, RFC 6020 and RFC 6087"/>
@@ -274,17 +274,6 @@
       <OpenInterfaceModel_Profile:RootElement xmi:id="_FeKXkI-DEempwbJEMKKhVw" base_Class="_Vuh_EJmhEeWTOvbfd7_4-A"/>
     </xsl:copy>
   </xsl:template>
-  <!-- add generalization to GlobalClass, StatePac from ControlConstruct -->
-  <xsl:template match="packagedElement[@xmi:id='_Vuh_EJmhEeWTOvbfd7_4-A']" >
-    <xsl:copy>
-      <xsl:apply-templates select="@*"/>
- 
-          <generalization xmi:type="uml:Generalization" xmi:id="_Vg9XsI-BEempwbJEMKKhVw" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
-          <generalization xmi:type="uml:Generalization" xmi:id="_yKRaII-EEempwbJEMKKhVw" general="_RG6VILEtEeSZUdYfPSdgew"/>
-      <xsl:apply-templates select="node() | text()"/>
-      </xsl:copy>
-  </xsl:template>
-
 
   <!-- 
     add feature names for "conditions" if not exists -->
@@ -301,6 +290,14 @@
   </xsl:template>
 
 
+  <!-- add generalization to GlobalClass from ControlConstruct -->
+  <xsl:template match="packagedElement[@name='ControlConstruct']" >
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
+          <generalization xmi:type="uml:Generalization" xmi:id="_Vg9XsI-BEempwbJEMKKhVw" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
+      <xsl:apply-templates select="node() | text()"/>
+      </xsl:copy>
+  </xsl:template>
   <!-- add generalization to GlobalClass from CascPort -->
   <xsl:template match="packagedElement[@name='CascPort']">
     <xsl:copy>
@@ -308,6 +305,19 @@
             <generalization xmi:type="uml:Generalization" xmi:id="_b0yxAI_0EemsmLFVZ2jgzQ" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
       <xsl:apply-templates select="node() | text()"/>
       </xsl:copy>
+  </xsl:template>
+  <!-- add generalization to GlobalClass from ControlPort -->
+  <xsl:template match="packagedElement[@name='ControlPort']">
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/> 
+            <generalization xmi:type="uml:Generalization" xmi:id="_b0yxAI_0EemsmLFVZ2jgzQ" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
+      <xsl:apply-templates select="node() | text()"/>
+      </xsl:copy>
+  </xsl:template>
+
+<!-- temporary -->
+  <xsl:template match="body">
+  <body>replaced</body>
   </xsl:template>
 
 
