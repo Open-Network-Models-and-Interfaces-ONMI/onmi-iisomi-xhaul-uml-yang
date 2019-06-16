@@ -83,16 +83,21 @@ type.prototype.writeNode = function (layer) {
     }
 
     var p = /int[0-9]/;
-    if(p.test(this.name)){
-        var name = "type " + this.name;
-    }else{
-        var name = "type " + Util.typeifyName(this.name);
+    var name = "type " + this.name;
+    if (p.test(this.name)){
+        name = "type " + this.name;
+    } else if (this.name === "real" || this.name === "decimal64") {
+        name = "type decimal64";
+    } else {
+        name = "type " + Util.typeifyName(this.name);
     }
    /* if (this.name !== "enumeration") {
         name += ";";
     }*/
     var s = "";
-    if(this.path || this.range || this.length || this.children.length){
+    if (this.name === "real" || this.name === "decimal64") {
+        s = "{ fraction-digits 3; }";
+    } else if (this.path || this.range || this.length || this.children.length){
         s = " {\r\n";
         var regex  = /[^0-9/./*]/;
         if(this.range){
