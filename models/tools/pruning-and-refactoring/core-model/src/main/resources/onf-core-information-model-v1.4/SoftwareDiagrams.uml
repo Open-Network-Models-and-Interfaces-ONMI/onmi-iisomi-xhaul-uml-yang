@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26 UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_S32LgD8HEeiIisB6uOvKFA">
+  <uml:Package xmi:id="_5niG8F0xEemrw9dHM7ymiw" name="SoftwareDiagrams">
+    <packagedElement xmi:type="uml:Package" xmi:id="_y5Yk8D3AEei6HehkJk8P-g" name="Diagrams">
+      <packagedElement xmi:type="uml:Package" xmi:id="_IQd8AD4pEei6HehkJk8P-g" name="FileSystem"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_NyW3QD4pEei6HehkJk8P-g" name="RunningSoftware">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_3WQEUD4tEei6HehkJk8P-g">
+          <annotatedElement xmi:type="uml:Association" href="CoreModel.uml#_VufDgD4tEei6HehkJk8P-g"/>
+          <body>Easier to list a directory than each single file.&#xD;
+</body>
+        </ownedComment>
+        <ownedComment xmi:type="uml:Comment" xmi:id="_yld14D4tEei6HehkJk8P-g">
+          <annotatedElement xmi:type="uml:Class" href="CoreModel.uml#_5bj14D4rEei6HehkJk8P-g"/>
+          <body>From OS install manager</body>
+        </ownedComment>
+        <ownedComment xmi:type="uml:Comment" xmi:id="_RnJlQD4uEei6HehkJk8P-g">
+          <annotatedElement xmi:type="uml:Association" href="CoreModel.uml#_W_9kYD4rEei6HehkJk8P-g"/>
+          <body>The process may open/lock existing files or create new ones (including temporary files).</body>
+        </ownedComment>
+        <ownedComment xmi:type="uml:Comment" xmi:id="_IQUc4D7rEei6HehkJk8P-g" annotatedElement="_y5Yk8D3AEei6HehkJk8P-g">
+          <body>Special cases only including RunningNativeVmm</body>
+        </ownedComment>
+        <ownedComment xmi:type="uml:Comment" xmi:id="_LPY6cFnkEeiyzdV8zVsJ_w">
+          <annotatedElement xmi:type="uml:Class" href="CoreModel.uml#_m2K6AD4pEei6HehkJk8P-g"/>
+          <body>RunningSoftwareProcess consumes capacity of CPU, GPU, memory, disk IO, networ IO</body>
+        </ownedComment>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Package" xmi:id="_i1_zoD7uEei6HehkJk8P-g" name="VirtualMachine"/>
+      <packagedElement xmi:type="uml:Package" xmi:id="_ZX5PkD7wEei6HehkJk8P-g" name="SoftwareContainer">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_CpBPIGToEeiITeAcFBk32A">
+          <annotatedElement xmi:type="uml:Association" href="CoreModel.uml#_oAMBwFnjEeiyzdV8zVsJ_w"/>
+          <body>Special cases only</body>
+        </ownedComment>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_OHpfkF0zEemrw9dHM7ymiw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_OHpfkV0zEemrw9dHM7ymiw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_S32LgD8HEeiIisB6uOvKFA"/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_OHqGoF0zEemrw9dHM7ymiw" source="duplicatedProfile"/>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_OHqGoV0zEemrw9dHM7ymiw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_MGGQUJGxEemIv9iw4JXc9w" source="PapyrusVersion">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_MGGQUZGxEemIv9iw4JXc9w" key="Version" value="0.0.47"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_MGGQUpGxEemIv9iw4JXc9w" key="Comment" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_MGGQU5GxEemIv9iw4JXc9w" key="Copyright" value=""/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_MGGQVJGxEemIv9iw4JXc9w" key="Date" value="2019-06-17"/>
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_MGGQVZGxEemIv9iw4JXc9w" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_OHqGol0zEemrw9dHM7ymiw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="UmlProfiles/Experimental.profile.uml#_unEcAJDrEemIv9iw4JXc9w"/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_OHqtsF0zEemrw9dHM7ymiw" source="duplicatedProfile"/>
+      <appliedProfile xmi:type="uml:Profile" href="UmlProfiles/Experimental.profile.uml#_EDtRcAH_Eea6DZDQ0h6cdQ"/>
+    </profileApplication>
+  </uml:Package>
+  <OpenModel_Profile:Experimental xmi:id="_196s8D3AEei6HehkJk8P-g" base_Element="_y5Yk8D3AEei6HehkJk8P-g"/>
+  <OpenModel_Profile:Experimental xmi:id="_K_ZAYD4pEei6HehkJk8P-g" base_Element="_IQd8AD4pEei6HehkJk8P-g"/>
+  <OpenModel_Profile:Experimental xmi:id="_Q8eC0D4pEei6HehkJk8P-g" base_Element="_NyW3QD4pEei6HehkJk8P-g"/>
+  <OpenModel_Profile:Experimental xmi:id="_Kan_AD7wEei6HehkJk8P-g" base_Element="_i1_zoD7uEei6HehkJk8P-g"/>
+  <OpenModel_Profile:Experimental xmi:id="_ZX52oD7wEei6HehkJk8P-g" base_Element="_ZX5PkD7wEei6HehkJk8P-g"/>
+</xmi:XMI>
