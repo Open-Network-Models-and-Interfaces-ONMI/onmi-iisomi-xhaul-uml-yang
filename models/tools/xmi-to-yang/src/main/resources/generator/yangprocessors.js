@@ -97,10 +97,18 @@ module.exports = {
                     for(var j = 0; j < ele[i].generalization.length; j++) {
                         for (var k = 0; k < store.Typedef.length; k++) {
                             var typeDef = store.Typedef[k];
+                            
+                            /* This part is causing multiple base under the indentityref, which is not yang conform, that why commented out.
+                            Martin & Waseem
+                            
                             if(ele[i].generalization[j] == typeDef.id){
-                                ele[i].attribute[0].children = typeDef.attribute[0].children.concat(ele[i].attribute[0].children);
+
+                                console.info("\nchildren before:\t"+JSON.stringify(ele[i].attribute[0].children));
+                                //ele[i].attribute[0].children = typeDef.attribute[0].children.concat(ele[i].attribute[0].children);
+                                console.info("\nchildren after:\t"+JSON.stringify(ele[i].attribute[0].children));
                                 break;
                             }
+                            */
                         }
                     }
                     ele[i].generalization = [];
