@@ -32,7 +32,6 @@
        - rename CoreModel to CoreNetworkFunction
        - add OpenModelStatement
        - add Rootelement steriotype to ControlConstruct
-       - add generalization to GlobalClass from ControlConstruct
        - add generalization to GlobalClass from CascPort
        - avoiding naming confilcts for class and data-type "Address"
 -->
@@ -290,15 +289,6 @@
     </xsl:copy>
   </xsl:template>
 
-
-  <!-- add generalization to GlobalClass from ControlConstruct -->
-  <xsl:template match="packagedElement[@name='ControlConstruct']" >
-    <xsl:copy>
-      <xsl:apply-templates select="@*"/>
-          <generalization xmi:type="uml:Generalization" xmi:id="_Vg9XsI-BEempwbJEMKKhVw" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
-      <xsl:apply-templates select="node() | text()"/>
-      </xsl:copy>
-  </xsl:template>
   <!-- add generalization to GlobalClass from CascPort -->
   <xsl:template match="packagedElement[@name='CascPort']">
     <xsl:copy>
