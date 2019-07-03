@@ -29,11 +29,13 @@
        - add prefix "_" where missing for attribute names
 
        - centralized TypeDefinitions
-       - rename CoreModel to CoreNetworkFunction
+       - rename CoreModel to CoreNetworkFunction (reverted)
        - add OpenModelStatement
        - add Rootelement steriotype to ControlConstruct
        - add generalization to GlobalClass from CascPort
        - avoiding naming confilcts for class and data-type "Address"
+       - modify type for CoreModel::CoreNetworkModule::ObjectClasses::GlobalClass::localId - set to String
+       - modify type for LayerProtocol::layerProtocolName - set to extensible ENUM
 -->
 <!-- Changes made on the ONF Core Model 1.1 -> 1.2 -> 1.4
        - remove package CoreModel::ExplanatoryFiguresUsedIndDocumentsAndSlides
@@ -195,10 +197,10 @@
   <!-- templates -->
  
 
-  <!-- rename CoreModel to CoreNetworkFunctions -->
+  <!-- rename CoreModel to CoreNetworkFunctions (reverted)
   <xsl:template match="@name[. = 'CoreModel']" >
     <xsl:attribute name="name">CoreNetworkFunction</xsl:attribute>
-  </xsl:template>
+  </xsl:template> -->
   <!-- add high-level description and centralized TypeDefinitions-->
   <xsl:template match="uml:Package[@xmi:id = '_oGqilVLNEeO75dO39GbF8Q']" >
     <xsl:copy>
@@ -210,6 +212,22 @@
         <xsl:apply-templates select="//packagedElement[@xmi:type='uml:Package' and @name='TypeDefinitions']/node()"/>
       </packagedElement>
       <xsl:apply-templates select="node() | text()"/>
+    </xsl:copy>
+  </xsl:template>
+  <!-- 
+    modify type for CoreModel::CoreNetworkModule::ObjectClasses::GlobalClass::localId - set to String -->
+  <xsl:template match="ownedAttribute[@name = 'localId' ]" >
+    <xsl:copy>
+      <xsl:apply-templates select="* | @*[fn:not(fn:name(.) = 'type')] | text()"/>
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    </xsl:copy>
+  </xsl:template>
+  <!-- 
+    modify type for LayerProtocol::layerProtocolName - set to extensible ENUM -->
+  <xsl:template match="ownedAttribute[@name = 'layerProtocolName' ]" >
+    <xsl:copy>
+<xsl:attribute name="type">_MbUkMIQ4EeiXzpgfQWpR-Q</xsl:attribute>
+      <xsl:apply-templates select="*[fn:not(fn:name(.) = 'type')] | @* | text()"/>
     </xsl:copy>
   </xsl:template>
   <!-- 

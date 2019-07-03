@@ -12,17 +12,16 @@
       }
     ]
   },
+  "CoreModel": {
+    "namespace": "urn:onf:yang:",
+    "withSuffix": false
+  },
  "HybridMwStructure": {
     "namespace": "urn:onf:yang:",
     "withSuffix": false,
-    "prefix": {
-      "CoreNetworkFunction": "core-nf",
-      "HybridMwStructure": "hmws",
-      "HybridMwStructure_2.0.0-tsp.d.t": "hmws"
-    },
     "revision": [
       {
-        "date": "2019-06-12",
+        "date": "2019-07-05",
         "description": "Add nice text here!",
         "reference": "ONF-TR-512, RFC 6020 and RFC 6087"
       }
@@ -31,14 +30,9 @@
   "EthernetContainer": {
     "namespace": "urn:onf:yang:",
     "withSuffix": false,
-    "prefix": {
-      "CoreNetworkFunction": "core-nf",
-      "EthernetContainer": "ethc",
-      "EthernetContainer_2.0.0-tsp.d.t": "ethc"
-    },
     "revision": [
       {
-        "date": "2019-05-27",
+        "date": "2019-07-05",
         "description": "Add nice text here!",
         "reference": "ONF-TR-512, RFC 6020 and RFC 6087"
       }
@@ -47,14 +41,9 @@
   "IpInterface": {
     "namespace": "urn:onf:yang:",
     "withSuffix": false,
-    "prefix": {
-      "CoreNetworkFunction": "core-nf",
-      "IpInterface": "ipif",
-      "IpInterface_1.0.0-tsp.d.t": "ipif"
-    },
     "revision": [
       {
-        "date": "2019-05-27",
+        "date": "2019-07-05",
         "description": "Add nice text here!",
         "reference": "ONF-TR-512, RFC 6020 and RFC 6087"
       }
@@ -62,21 +51,14 @@
   },
   "CoreNetworkFunction": {
     "namespace": "urn:onf:yang:",
-    "withSuffix": false,
-    "prefix": {
-      "CoreNetworkFunction": "core-nf"
-    }
+    "withSuffix": false
   },
   "ProfilesAndTemplates": {
     "namespace": "urn:onf:yang:",
     "withSuffix": false,
-    "prefix": {
-      "CoreNetworkFunction": "core-nf",
-      "ProfilesAndTemplates": "profile"
-    },
     "revision": [
       {
-        "date": "2019-05-16",
+        "date": "2019-07-05",
         "description": "Initial version! (DARFT)",
         "reference": "ONF-TR-512, RFC 6020 and RFC 6087"
       }
@@ -85,16 +67,16 @@
   "TestCoreModel": {
     "namespace": "urn:onf:yang:",
     "prefix": {
-      "TestCoreModel": "tcm",
-      "test-core-model": "tcm",
-      "TestAnotherPac": "tap",
-      "TestTechnologySpecificPac": "ttsp"
+      "TestCoreModel": "test-core-model",
+      "test-core-model": "test-core-model",
+      "TestAnotherPac": "test-another-pac",
+      "TestTechnologySpecificPac": "test-technology-specific-pac"
     },
     "organization": "Open Networking Foundation (ONF)",
     "contact": "ONF Test CoreModel Team",
     "revision": [
       {
-        "date": "2019-05-25",
+        "date": "2019-07-02",
         "description": "Test project to check UML-to-YANG tool.",
         "reference": "ONF-TR-512, RFC 6020 and RFC 6087"
       }
@@ -103,16 +85,16 @@
   "TestAnotherPac": {
     "namespace": "urn:onf:yang:",
     "prefix": {
-      "TestCoreModel": "tcm",
-      "TestAnotherPac": "tap",
-      "TestTechnologySpecificPac": "ttsp"
+      "TestCoreModel": "test-core-model",
+      "TestAnotherPac": "test-another-pac",
+      "TestTechnologySpecificPac": "test-technology-specific-pac"
     },
     "organization": "Open Networking Foundation (ONF)",
     "contact": "ONF Test",
     "withSuffix": false,
     "revision": [
       {
-        "date": "2019-05-25",
+        "date": "2019-07-02",
         "description": "Test project to check UML-to-YANG tool.",
         "reference": "ONF-TR-512, RFC 6020 and RFC 6087"
       }
@@ -121,9 +103,9 @@
   "TestTechnologySpecificPac": {
     "namespace": "urn:onf:yang:",
     "prefix": {
-      "TestCoreModel": "tcm",
-      "TestAnotherPac": "tap",
-      "TestTechnologySpecificPac": "ttsp"
+      "TestCoreModel": "test-core-model",
+      "TestAnotherPac": "test-another-pac",
+      "TestTechnologySpecificPac": "test-technology-specific-pac"
     },
     "organization": "Open Networking Foundation (ONF)",
     "contact": [
@@ -141,7 +123,7 @@
     "withSuffix": false,
     "revision": [
       {
-        "date": "2019-05-25",
+        "date": "2019-07-02",
         "description": "Test project to check UML-to-YANG tool.",
         "reference": "ONF-TR-512, RFC 6020 and RFC 6087"
       }
