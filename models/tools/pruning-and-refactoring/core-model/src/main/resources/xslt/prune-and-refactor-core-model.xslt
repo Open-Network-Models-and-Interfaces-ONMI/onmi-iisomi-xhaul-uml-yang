@@ -32,6 +32,7 @@
        - rename CoreModel to CoreNetworkFunction (reverted)
        - add OpenModelStatement
        - add Rootelement steriotype to ControlConstruct
+       - add generalization to GlobalClass from ControlConstruct
        - add generalization to GlobalClass from CascPort
        - avoiding naming confilcts for class and data-type "Address"
        - modify type for CoreModel::CoreNetworkModule::ObjectClasses::GlobalClass::localId - set to String
@@ -197,10 +198,10 @@
   <!-- templates -->
  
 
-  <!-- rename CoreModel to CoreNetworkFunctions (reverted)
+  <!-- rename CoreModel to CoreNetworkFunctions -->
   <xsl:template match="@name[. = 'CoreModel']" >
     <xsl:attribute name="name">CoreNetworkFunction</xsl:attribute>
-  </xsl:template> -->
+  </xsl:template>
   <!-- add high-level description and centralized TypeDefinitions-->
   <xsl:template match="uml:Package[@xmi:id = '_oGqilVLNEeO75dO39GbF8Q']" >
     <xsl:copy>
@@ -215,7 +216,7 @@
     </xsl:copy>
   </xsl:template>
   <!-- 
-    modify type for CoreModel::CoreNetworkModule::ObjectClasses::GlobalClass::localId - set to String -->
+     modify type for CoreModel::CoreNetworkModule::ObjectClasses::GlobalClass::localId - set to String -->
   <xsl:template match="ownedAttribute[@name = 'localId' ]" >
     <xsl:copy>
       <xsl:apply-templates select="* | @*[fn:not(fn:name(.) = 'type')] | text()"/>
@@ -231,7 +232,7 @@
     </xsl:copy>
   </xsl:template>
   <!-- 
-    define type for CoreModel::CoreNetworkModule::ObjectClasses::LayerProtocol::terminationState - set to Boolean -->
+   define type for CoreModel::CoreNetworkModule::ObjectClasses::LayerProtocol::terminationState - set to Boolean -->
   <xsl:template match="ownedAttribute[@name = 'terminationState' ]" >
     <xsl:copy>
       <xsl:apply-templates select="* | @* | text()"/>
@@ -307,6 +308,15 @@
     </xsl:copy>
   </xsl:template>
 
+
+  <!-- add generalization to GlobalClass from ControlConstruct -->
+  <xsl:template match="packagedElement[@name='ControlConstruct']" >
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
+          <generalization xmi:type="uml:Generalization" xmi:id="_Vg9XsI-BEempwbJEMKKhVw" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
+      <xsl:apply-templates select="node() | text()"/>
+      </xsl:copy>
+  </xsl:template>
   <!-- add generalization to GlobalClass from CascPort -->
   <xsl:template match="packagedElement[@name='CascPort']">
     <xsl:copy>
