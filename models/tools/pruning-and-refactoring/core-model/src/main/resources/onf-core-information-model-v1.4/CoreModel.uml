@@ -2849,6 +2849,14 @@ The remainder of the structure has the reference for the shelf.
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_1FNoEMDzEeWbqPZwR-Ot6A"/>
             </ownedAttribute>
           </packagedElement>
+          <packagedElement xmi:type="uml:DataType" xmi:id="_3EHRQJ1WEemVGaFq9YMDhg" name="ExternalManagedUniversalId">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_3EHRQZ1WEemVGaFq9YMDhg" name="managerIdentifier" visibility="public">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_3EHRQp1WEemVGaFq9YMDhg" name="externalManagedUuid">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedAttribute>
+          </packagedElement>
         </packagedElement>
         <packagedElement xmi:type="uml:Package" xmi:id="_Eh1WkBi0EeSh8KVgZCMyDw" name="Assocations">
           <packagedElement xmi:type="uml:Association" xmi:id="_mZyWYI21EeO38ZmbECnvbg" name="LocalClassInstanceIsLifecycleBoundedByGlobalClassInstance" memberEnd="_mZyWYY21EeO38ZmbECnvbg _mZnXQI21EeO38ZmbECnvbg" navigableOwnedEnd="_mZyWYY21EeO38ZmbECnvbg">

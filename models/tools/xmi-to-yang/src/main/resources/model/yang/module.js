@@ -69,6 +69,17 @@ Module.prototype.writeNode = function (store,layer) {
     this.contact = this.contact.replace(/\r\n/g, '\r\n' + PRE + '\t\t');
     contact = PRE + "\tcontact \"" + this.contact + "\";\r\n";
     var revision_stmt = "";
+    
+    if (!this.revision) {
+        this.revision = [
+            {
+              "date": "1970-01-01",
+              "description": "Revision definition missing in papyrus uml.",
+              "reference": "ONF-TR-512, RFC 6020 and RFC 6087"
+            }
+          ]
+    }
+
     for(var indx=0; indx<this.revision.length; indx++){
     var revis;
     //var date=new Date();
