@@ -141,7 +141,9 @@ var processors = {
 
                 if (props.r !== "basicType") {
                     processors.clazz.basicTypes(props,obj,node, i, store);
-
+                   // if(node.id =="_X1q3Qj-QEeaRI-H69PghuA"){
+                     //   console.info("processors.js \t"+ node.name);
+                    //}
                     if(!node.attribute[i].isleafRef && node.type == "Class"){
                         var instance = {};
                         instance.id = props.r;
@@ -185,14 +187,22 @@ var processors = {
                     store.Typedef.push(node);
                 } else{
                     node.buildIdentityref(obj);
+
+                    //console.info ("processors.js - node\t"+JSON.stringify(node));
                     store.Typedef.push(node);
 
                     global.name=global.name.replace(/-t$/g,"");
                     global.name=yangModels.Util.typeifyName(global.name);
                     global.name=global.name.replace(/-/g,"_");
                     global.name=global.name.toUpperCase();
+                   // if(global.name==='ROUTE_SELECTION_CONTROL'||'SWITCH_CONTROL'){
+                        //console.info ("ROUTE_SELECTION_CONTROL found");
+                     //   console.info ("Node:\t"+JSON.stringify(node));
+                    //}
                     var nodeI = new yangModels.Node(global.name,"","identity");
+                   // console.info ("processors.js - nodeI\t"+JSON.stringify(nodeI));
                     nodeI.fileName=node.fileName;
+
                     store.Identity.push(nodeI);
                     var vals = {
                         enumComment:undefined,
@@ -225,8 +235,10 @@ var processors = {
 
                             var baseNode = new yangModels.Node(global.name, "", "base");
                             vals.enumNode.fileName = node.fileName;
+                            
                             vals.enumNode.children.push(baseNode);
                             store.Identity.push(vals.enumNode);
+                           // console.info("processors - store.identity\n"+JSON.stringify(store.Identity));    
                         }
                     } else {
                         vals.enumValue = vals.literal.attributes().name;
@@ -248,9 +260,14 @@ var processors = {
                         vals.enumValue=global.name+"_"+vals.enumValue;
                         vals.enumValue = vals.enumValue.replace(/[^\w\.-]+/g,'_');
                         vals.enumNode = new yangModels.Node(vals.enumValue, vals.enumComment, "identity");
+                        
                         var baseNode=new yangModels.Node(global.name, "", "base");
+                        
                         vals.enumNode.fileName = node.fileName;
                         vals.enumNode.children.push(baseNode);
+
+                        //console.info("\nprocessors.js - ELSE vals.enumNode :\t"+vals.enumNode);
+
                         store.Identity.push(vals.enumNode);
                     }
                 }

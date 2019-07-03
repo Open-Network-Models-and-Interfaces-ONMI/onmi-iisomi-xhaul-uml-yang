@@ -101,8 +101,7 @@ module.exports = {
                             /* This part is causing multiple base under the indentityref, which is not yang conform, that why commented out.
                             Martin & Waseem
                             
-                            if(ele[i].generalization[j] == typeDef.id){
-
+                            if(ele[i].generalization[j] == typeDef.id) {
                                 console.info("\nchildren before:\t"+JSON.stringify(ele[i].attribute[0].children));
                                 //ele[i].attribute[0].children = typeDef.attribute[0].children.concat(ele[i].attribute[0].children);
                                 console.info("\nchildren after:\t"+JSON.stringify(ele[i].attribute[0].children));

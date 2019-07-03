@@ -324,9 +324,14 @@ function buildResult(opts,cb){
 
     for(var i = 0; i < store.Identity.length; i++){
         var identity = store.Identity[i];
+        //console.info("index.js - identity\t"+JSON.stringify(identity));
         for(var  j = 0; j < store.packages.length; j++){
             var package = store.packages[j];
+            
             if(identity.fileName == package.fileName && package.name.toLowerCase()=="typedefinitions"){
+                //console.info("\nindex.js\t - Packages\t"+ package.name);
+                //console.info("\nindex.js\t - Identity\t"+ JSON.stringify(identity));
+                
                 package.children.push(identity);
             }
         }

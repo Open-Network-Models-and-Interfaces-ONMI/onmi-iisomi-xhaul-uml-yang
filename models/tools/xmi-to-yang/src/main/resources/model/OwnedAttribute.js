@@ -66,6 +66,7 @@ ownedAttribute.prototype.giveValue = function(obj){
     this['min-elements'] = obj.lowerValue ? obj.lowerValue.attributes().value : null;
     this['max-elements'] = obj.upperValue ? obj.upperValue.attributes().value : null;
 };
+
 ownedAttribute.prototype.giveNodeType = function(isLeaf){
     var isList;
     if(parseInt(this['max-elements']) > 1 || this['max-elements'] == "*"){

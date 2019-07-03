@@ -276,7 +276,12 @@ var builders = {
                             store.Typedef.push(clazz);
                         } else {
                             if (!(clazz.attribute[0].nodeType === "list" || clazz.attribute[0].nodeType === "container")) {
-                                var t = builders.datatypeExe(clazz.attribute[0].type);
+                                //provided store as a parameter as well
+                                
+                                var t = builders.datatypeExe(clazz.attribute[0].type, store);
+                                
+                                console.info("builder.js \t"+JSON.stringify(t));
+
                                 switch (t.split(",")[0]) {
                                     case "enumeration":
                                         clazz.attribute = Class[t.split(",")[1]].attribute;

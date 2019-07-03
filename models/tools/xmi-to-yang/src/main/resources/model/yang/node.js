@@ -218,6 +218,7 @@ Node.prototype.writeNode = function (layer) {
         //keep literal names as they are in UML file
         //var name = this.nodeType + " " + Util.typeifyName(this.name);
         var name = this.nodeType + " " + this.name;
+       // console.info("node.js\t"+name);
     }
     if(!this.description ){
         this.description = "none";

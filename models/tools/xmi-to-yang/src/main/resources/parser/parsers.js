@@ -208,18 +208,22 @@ var parsers = {
 
         // Helpers
         var openModelStatementChildrenParser = {
-            /**
-             * Converting the uml open model statement contact in a string list
-             * @param {*} jsonObject as given from UML 
-             * @returns An json object representing a yang revision
-             */
-            contact: function(jsonObject) {
+            _contact: function (jsonObject) {
+
+                console.info("processors.js \t"+JSON.stringify(jsonObject));
+                
                 return [
-                        "WG Web : " + jsonObject.projectWeb,
-                        "WG List: " + jsonObject.projectEmail,
-                        "Editor : " + jsonObject.editorName,
-                        "         " + jsonObject.editorEmail,
+                    "WG Web : " + jsonObject.projectWeb,
+                    "WG List: " + jsonObject.projectEmail,
+                    "Editor : " + jsonObject.editorName,
+                    "         " + jsonObject.editorEmail,
                 ];
+            },
+            get contact() {
+                return this._contact;
+            },
+            set contact(value) {
+                this._contact = value;
             },
             /**
              * Converting the uml open model statement revsion in a yang revision

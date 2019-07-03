@@ -118,16 +118,16 @@ Class.prototype.buildEnum = function(obj) {
 };
 
 Class.prototype.buildIdentityref = function(obj) {
-    var node = new Type("identityref");
+    var node = new Type("identityref");  
     node.fileName = this.fileName;
     var name=this.name.replace(/-t$/g,"");
     name=Util.typeifyName(name);
     name=name.replace(/-/g,"_");
     name=name.toUpperCase();
-    var INode = new Node(name,undefined, "base");
+    var INode = new Node(name,undefined, "base");    
     INode.fileName = this.fileName;
-    node.children.push(INode);
-    this.attribute.push(node);
+        node.children.push(INode);     
+        this.attribute.push(node);
 };
 
 Class.prototype.buildAttribute = function(att){
@@ -162,7 +162,19 @@ Class.prototype.buildAttribute = function(att){
     att.attributes().isOrdered ? isOrdered = att.attributes().isOrdered : isOrdered = false;
     var type;
     var isLeaf;
+
+    // [sko] TODO: Remove, when not needed anymore.
+    if (att.attributes().name=="_occupyingFru"){
+    // if(att.attributes().name=="_controlPort"){   
+        console.info("ObjectClass: att\t"+JSON.stringify(att.attributes()));
+        console.info("objectclass - isLeafRef "+att.attributes().isLeafRef);
+        console.info("ObjectClass - Type\t"+att['type']);
+    }
+
+    
+    
     if(att.attributes().type){
+        //console.info()
         type = att.attributes().type;
         isLeaf = false;
     }
@@ -184,10 +196,20 @@ Class.prototype.buildAttribute = function(att){
         type = "string";
         isLeaf = true;
     }
+
     var attribute = new Attribute(id, name, type, comment, association, isReadOnly, isOrdered, this.fileName);//build a attribute
+    
+    // [sko] TODO: this is a hack, but what is reh right procedure?
+    // set isLeaf to avoid occupying-fru, access-port 
+    if(id == "_X1q3Qj-QEeaRI-H69PghuA" || id =="_8SXNmD-HEeaRI-H69PghuA"|| id =="_ZysIUHXFEeeqyuooNTTDCg"){
+      isLeaf = true;
+    // console.info("ObjectClass - name:\t"+this.name);
+    // console.info("ObjectClass: attribute\t" + JSON.stringify(attribute));
+    }   
     if(att.attributes().aggregation && att.attributes().aggregation == "composite"){
         attribute.isleafRef = false;
     }
+    //isLeaf = attribute.isleafRef;
     attribute.giveValue(att);
     attribute.giveNodeType(isLeaf);
     this.attribute.push(attribute);
@@ -213,6 +235,11 @@ Class.prototype.buildOperate = function(para){
     var output = [];
     var id = para.attributes()['xmi:id'];
     var name = para.attributes().name;
+
+    // [sko] TODO: remove, when not needed anymore
+    if(para.attributes().type =="_nYoCou-3Eea2l9FuDSKfDQ"){
+        console.info("ObjectClass: para.attributes().type \t"+para.attributes().type);
+    }
     if(para.attributes().type){
         type = para.attributes().type;
         isLeaf = false;
