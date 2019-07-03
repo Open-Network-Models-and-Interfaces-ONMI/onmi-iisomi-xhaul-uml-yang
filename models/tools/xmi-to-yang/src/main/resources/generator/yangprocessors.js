@@ -272,7 +272,7 @@ module.exports = {
                                     ele[i].attribute[j].key = clazz.key;
                                     ele[i].attribute[j].keyid = clazz.keyid;
                                     ele[i].attribute[j].keyvalue = clazz.keyvalue;
-                                    var yangPathStatement = Util.handleNamespacePrefix(clazz.instancePath, store.openModelStatement[ele[i].fileName].prefix)
+                                    var yangPathStatement = Util.handleNamespacePrefix(clazz.instancePath, store.openModelStatement[ele[i].fileName].prefix);
                                     if (i == k) {
                                         if (clazz.instancePath[0] == "/") {
                                             ele[i].attribute[j].type = "leafref+path '" + yangPathStatement + "'";

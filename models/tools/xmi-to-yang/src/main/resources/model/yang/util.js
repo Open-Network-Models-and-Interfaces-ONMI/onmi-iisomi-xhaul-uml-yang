@@ -42,15 +42,17 @@ Util.typeifyName = function(str) {
 };
 
 Util.handleNamespacePrefix = function(path, prefixes) {
-    if (!prefixes) return path;
-
+    
     var result = path;
-    Object.keys(prefixes).forEach(function(key) {
-        // replace example: "/IpInterface:" by "/ipif:" and also leading "ipInterface:" by "ipif:"
-        result = result.replace(new RegExp("^" + key + ":", "g"), prefixes[key] + ":");
-        result = result.replace(new RegExp("/" + key + ":", "g"), "/" + prefixes[key] + ":");
-    });
-    // [sko] hack, works for now but not sure what would be the right logic ;(
+    if (typeof prefixes === 'array') {
+        Object.keys(prefixes).forEach(function(key) {
+            // replace example: "/IpInterface:" by "/ipif:" and also leading "ipInterface:" by "ipif:"
+            result = result.replace(new RegExp("^" + key + ":", "g"), prefixes[key] + ":");
+            result = result.replace(new RegExp("/" + key + ":", "g"), "/" + prefixes[key] + ":");
+        });
+    }
+    
+    // [sko] hack, works for now, but not sure what would be the right logic ;(
     var searchList = ['name,uuid', 'uuid,name'];
     searchList.forEach(function(search) {
         if (result.indexOf(search) !== -1) {

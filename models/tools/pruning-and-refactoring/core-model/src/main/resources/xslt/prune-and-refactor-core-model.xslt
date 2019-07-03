@@ -198,10 +198,10 @@
   <!-- templates -->
  
 
-  <!-- rename CoreModel to CoreNetworkFunctions -->
+  <!-- rename CoreModel to CoreNetworkFunctions 
   <xsl:template match="@name[. = 'CoreModel']" >
     <xsl:attribute name="name">CoreNetworkFunction</xsl:attribute>
-  </xsl:template>
+  </xsl:template>-->
   <!-- add high-level description and centralized TypeDefinitions-->
   <xsl:template match="uml:Package[@xmi:id = '_oGqilVLNEeO75dO39GbF8Q']" >
     <xsl:copy>
