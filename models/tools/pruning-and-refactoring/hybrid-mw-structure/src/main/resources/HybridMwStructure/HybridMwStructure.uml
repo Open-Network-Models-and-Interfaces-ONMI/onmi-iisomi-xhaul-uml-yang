@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9 UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29 UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ">
-  <uml:Model xmi:id="_Imk30GyUEee0HrHFgb9oqw" name="HybridMwStructure_2.0.0-tsp.d.t" URI="">
+  <uml:Model xmi:id="_Imk30GyUEee0HrHFgb9oqw" name="HybridMwStructure" URI="">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_HXz04JaWEemr0eqK-WuR6Q" annotatedElement="_Imk30GyUEee0HrHFgb9oqw">
+      <body>Technology specific interface definition for a hybrid microwave structure on a physical media</body>
+    </ownedComment>
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_MS9XMI35EemgKMYrwonbOw">
+      <importedPackage xmi:type="uml:Package" href="../OnfModel/CoreModel.uml#_oGqilVLNEeO75dO39GbF8Q"/>
+    </packageImport>
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_INk-lV-IEemI8ps-yiNc8Q">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_INk-lF-IEemI8ps-yiNc8Q">
+      <importedPackage xmi:type="uml:Model" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_-lRh4FDNEeWpFusmeDrF3w"/>
+    </packageImport>
     <packagedElement xmi:type="uml:Package" xmi:id="_INk-kV-IEemI8ps-yiNc8Q" name="Associations">
+      <packagedElement xmi:type="uml:Abstraction" xmi:id="_MDGQUJc7EemlEoOPrSSr0g" client="_0AS0EJc5EemlEoOPrSSr0g">
+        <supplier xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_gROecFYXEeOVGaP4lO41SQ"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_OD8jMJc6EemlEoOPrSSr0g" name="HybridMwStructureLpSpecHas_Pac" memberEnd="_OEFGEJc6EemlEoOPrSSr0g _OEMa0Jc6EemlEoOPrSSr0g">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_OED38Jc6EemlEoOPrSSr0g" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_OEEfAJc6EemlEoOPrSSr0g" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_OEMa0Jc6EemlEoOPrSSr0g" name="hybridmwstructurelpspec" type="_0AS0EJc5EemlEoOPrSSr0g" association="_OD8jMJc6EemlEoOPrSSr0g"/>
+      </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_WKgrNV-SEemI8ps-yiNc8Q" name="HybridMwStructureHasCapabilities" memberEnd="_WKgpjV-SEemI8ps-yiNc8Q _WKgrOF-SEemI8ps-yiNc8Q">
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_WKgrNl-SEemI8ps-yiNc8Q" source="org.eclipse.papyrus">
           <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_WKgrN1-SEemI8ps-yiNc8Q" key="nature" value="UML_Nature"/>
@@ -52,17 +73,7 @@
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_INk-kl-IEemI8ps-yiNc8Q" name="Diagrams"/>
-    <packagedElement xmi:type="uml:Package" xmi:id="_INk-k1-IEemI8ps-yiNc8Q" name="Imports">
-      <packageImport xmi:type="uml:PackageImport" xmi:id="_INk-lF-IEemI8ps-yiNc8Q">
-        <importedPackage xmi:type="uml:Model" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_-lRh4FDNEeWpFusmeDrF3w"/>
-      </packageImport>
-      <packageImport xmi:type="uml:PackageImport" xmi:id="_INk-lV-IEemI8ps-yiNc8Q">
-        <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
-      </packageImport>
-      <packageImport xmi:type="uml:PackageImport" xmi:id="_MS9XMI35EemgKMYrwonbOw">
-        <importedPackage xmi:type="uml:Package" href="../OnfModel/CoreModel.uml#_oGqilVLNEeO75dO39GbF8Q"/>
-      </packageImport>
-    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_INk-k1-IEemI8ps-yiNc8Q" name="Imports"/>
     <packagedElement xmi:type="uml:Package" xmi:id="_INk-ll-IEemI8ps-yiNc8Q" name="Interfaces"/>
     <packagedElement xmi:type="uml:Package" xmi:id="_INk-l1-IEemI8ps-yiNc8Q" name="Notifications">
       <packagedElement xmi:type="uml:Signal" xmi:id="_n_ZNkI3vEemgKMYrwonbOw" name="ObjectCreationNotification">
@@ -182,19 +193,21 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           <defaultValue xmi:type="uml:LiteralString" xmi:id="_n_mo-43vEemgKMYrwonbOw" value="Problem name not specified."/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_n_mo_I3vEemgKMYrwonbOw" name="severity" isUnique="false" isReadOnly="true">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_n_mo_I3vEemgKMYrwonbOw" name="severity" type="_WKgA8V-SEemI8ps-yiNc8Q" isUnique="false" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_n_mo_Y3vEemgKMYrwonbOw" annotatedElement="_n_mo_I3vEemgKMYrwonbOw">
             <body>Severity of the problem according to AirInterface::AirInterfaceConfiguration::problemSeverityList, AirInterfaceDiversity::AirInterfaceDiversityConfiguration::problemSeverityList, Structure::StructureConfiguration::problemSeverityList, PureEthernetStructure::PureEthernetStructureConfiguration::problemSeverityList, HybridMwStructure::HybridMwStructureConfiguration::problemSeverityList, Container::ContainerConfiguration::problemSeverityList, EthernetContainer::EthernetContainerConfiguration::problemSeverityList or TdmContainer::TdmContainerConfiguration::problemSeverityList</body>
           </ownedComment>
-          <type xmi:type="uml:Enumeration" href="../IpInterface_1.0.0-tsp.d.t/IpInterface.uml#_w-HIsHVaEeeW3Oi1c80JQQ"/>
-          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_n_mo_o3vEemgKMYrwonbOw">
-            <type xmi:type="uml:Enumeration" href="../IpInterface_1.0.0-tsp.d.t/IpInterface.uml#_w-HIsHVaEeeW3Oi1c80JQQ"/>
-            <instance xmi:type="uml:EnumerationLiteral" href="../IpInterface_1.0.0-tsp.d.t/IpInterface.uml#_9BjFYHVaEeeW3Oi1c80JQQ"/>
-          </defaultValue>
+          <defaultValue xmi:type="uml:InstanceValue" xmi:id="_bkrWkJc1EemlEoOPrSSr0g" type="_WKgA8V-SEemI8ps-yiNc8Q" instance="_WKgA9F-SEemI8ps-yiNc8Q"/>
         </ownedAttribute>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_INk-mF-IEemI8ps-yiNc8Q" name="ObjectClasses">
+      <packagedElement xmi:type="uml:Class" xmi:id="_0AS0EJc5EemlEoOPrSSr0g" name="HybridMwStructureLpSpec">
+        <ownedComment xmi:type="uml:Comment" xmi:id="_0AS0EZc5EemlEoOPrSSr0g" annotatedElement="_0AS0EJc5EemlEoOPrSSr0g">
+          <body>The HybridMwStructureLpSpec and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting TDM and Ethernet traffic.</body>
+        </ownedComment>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_OEFGEJc6EemlEoOPrSSr0g" name="_hybridMwStructure_Pac" type="_WKgpiV-SEemI8ps-yiNc8Q" isReadOnly="true" aggregation="composite" association="_OD8jMJc6EemlEoOPrSSr0g"/>
+      </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_WKgpiV-SEemI8ps-yiNc8Q" name="HybridMwStructure_Pac">
         <ownedComment xmi:type="uml:Comment" xmi:id="_WKgpil-SEemI8ps-yiNc8Q" annotatedElement="_WKgpiV-SEemI8ps-yiNc8Q">
           <body>The HybridMwStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting TDM and Ethernet traffic.</body>
@@ -220,7 +233,7 @@
           <ownedComment xmi:type="uml:Comment" xmi:id="_JnCG8GBbEemttdJfSvwReA" annotatedElement="__cGkAWBaEemttdJfSvwReA">
             <body>Lists the TDM frame types that are supported.</body>
           </ownedComment>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_BH6lkGBbEemttdJfSvwReA" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_BH6lkGBbEemttdJfSvwReA"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_BIBTQGBbEemttdJfSvwReA" value="*"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_WKgpn1-SEemI8ps-yiNc8Q" name="supportedAlarmList" isUnique="false" isReadOnly="true">
@@ -307,7 +320,7 @@
           <ownedComment xmi:type="uml:Comment" xmi:id="_WKgpx1-SEemI8ps-yiNc8Q" annotatedElement="_WKgpxl-SEemI8ps-yiNc8Q">
             <body>At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.</body>
           </ownedComment>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WKgpyF-SEemI8ps-yiNc8Q" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WKgpyF-SEemI8ps-yiNc8Q"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WKgpyV-SEemI8ps-yiNc8Q" value="2"/>
         </ownedAttribute>
       </packagedElement>
@@ -452,7 +465,6 @@
               <body>Time when the counter values have been recorded and the counter reset.</body>
             </ownedComment>
             <type xmi:type="uml:PrimitiveType" href="CommonDataTypes/ImplementationCommonDataTypes.uml#_iP8kJfZaEeWhRf3FikFX5w"/>
-            <defaultValue xmi:type="uml:LiteralString" xmi:id="_UrSmX2adEemaCpXjwie7xQ" value="2010-11-20T14:00:00+01:00"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_UrSmYGadEemaCpXjwie7xQ" name="granularityPeriod" type="_UrSnAWadEemaCpXjwie7xQ" isUnique="false" isReadOnly="true">
             <ownedComment xmi:type="uml:Comment" xmi:id="_UrSmYWadEemaCpXjwie7xQ" annotatedElement="_UrSmYGadEemaCpXjwie7xQ">
@@ -487,9 +499,6 @@
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_UrSmb2adEemaCpXjwie7xQ" value="*"/>
           </ownedAttribute>
         </packagedElement>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Abstraction" xmi:id="_bPNeoI36EemgKMYrwonbOw" client="_WKgpiV-SEemI8ps-yiNc8Q">
-        <supplier xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_gROecFYXEeOVGaP4lO41SQ"/>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_INk-ml-IEemI8ps-yiNc8Q" name="Rules"/>
@@ -765,8 +774,8 @@
     </profileApplication>
   </uml:Model>
   <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:hybrid-mw-structure" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM.&#xD;&#xA;It is for structuring a microwave radio interface into multiple TDM and a single Ethernet segment." copyright="Copyright 2019 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
-    <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_C5migI32EemgKMYrwonbOw" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="Thorsten.Heinze@openBackhaul.com" editorName="Thorsten Heinze"/>
-    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_wNUNEI32EemgKMYrwonbOw" date="2019-06-13" version="2.0.0-tsp.190613.1830" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/hybridMwStructure/issues" reference="https://github.com/openBackhaul/hybridMwStructure/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
+    <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_C5migI32EemgKMYrwonbOw" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="HybridMwStructure@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_wNUNEI32EemgKMYrwonbOw" date="2019-06-25" version="2.0.0-tsp.190625.1320" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/hybridMwStructure/issues" reference="https://github.com/openBackhaul/hybridMwStructure/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
   </OpenModel_Profile:OpenModelStatement>
   <OpenModel_Profile:Obsolete xmi:id="_INoo8F-IEemI8ps-yiNc8Q" base_Element="_INlloF-IEemI8ps-yiNc8Q"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_WK3NQl-SEemI8ps-yiNc8Q" base_Property="_WKgCNl-SEemI8ps-yiNc8Q" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
@@ -987,7 +996,13 @@
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_JUAvQI34EemgKMYrwonbOw" base_Property="_JT-6EI34EemgKMYrwonbOw" attributeValueChangeNotification="YES"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_mWgOEI34EemgKMYrwonbOw" base_StructuralFeature="_mWfnAI34EemgKMYrwonbOw"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_mWhcMI34EemgKMYrwonbOw" base_Property="_mWfnAI34EemgKMYrwonbOw" attributeValueChangeNotification="YES"/>
-  <OpenModel_Profile:Specify xmi:id="_dRYxwI36EemgKMYrwonbOw" base_Abstraction="_bPNeoI36EemgKMYrwonbOw">
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_0AUCMJc5EemlEoOPrSSr0g" objectCreationNotification="YES" objectDeletionNotification="YES" base_Class="_0AS0EJc5EemlEoOPrSSr0g"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_0AV3YJc5EemlEoOPrSSr0g" base_Class="_0AS0EJc5EemlEoOPrSSr0g" support="CONDITIONAL_MANDATORY" condition="hybrid-microwave"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_OEFtIJc6EemlEoOPrSSr0g" base_Property="_OEFGEJc6EemlEoOPrSSr0g" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_OEG7QJc6EemlEoOPrSSr0g" base_StructuralFeature="_OEFGEJc6EemlEoOPrSSr0g" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_OENB4Jc6EemlEoOPrSSr0g" base_Property="_OEMa0Jc6EemlEoOPrSSr0g"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_OENB4Zc6EemlEoOPrSSr0g" base_StructuralFeature="_OEMa0Jc6EemlEoOPrSSr0g"/>
+  <OpenModel_Profile:Specify xmi:id="_N35OwJc7EemlEoOPrSSr0g" base_Abstraction="_MDGQUJc7EemlEoOPrSSr0g">
     <target>/CoreModel:ControlConstruct:ControlConstruct/CoreModel:LogicalTerminationPoint:LogicalTerminationPoint/CoreModel:LogicalTerminationPoint:LayerProtocol</target>
   </OpenModel_Profile:Specify>
 </xmi:XMI>
