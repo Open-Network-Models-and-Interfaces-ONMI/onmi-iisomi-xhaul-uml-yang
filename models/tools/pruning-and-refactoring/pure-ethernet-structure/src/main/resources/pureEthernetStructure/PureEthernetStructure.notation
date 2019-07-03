@@ -1,0 +1,1734 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:css="http://www.eclipse.org/papyrus/infra/gmfdiag/css" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:style="http://www.eclipse.org/papyrus/infra/viewpoints/policy/style" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <css:ModelStyleSheets xmi:id="_NiLtUHBREee5JrMEVVqNzQ">
+    <stylesheets xmi:type="css:StyleSheetReference" xmi:id="_dI9v0GtvEemNXpySPcMTAQ" path="/PureEthernetStructure_2.0.0-tsp.d.t/UmlProfiles/ClassDiagramStyleSheet.css"/>
+  </css:ModelStyleSheets>
+  <notation:Diagram xmi:id="_jbLNwF-HEemI8ps-yiNc8Q" type="PapyrusUMLClassDiagram" name="PESInt" measurementUnit="Pixel">
+    <children xmi:type="notation:Shape" xmi:id="_jbL1Fl-HEemI8ps-yiNc8Q" type="Class_Shape" fillColor="12632256">
+      <children xmi:type="notation:DecorationNode" xmi:id="_jbL1F1-HEemI8ps-yiNc8Q" type="Class_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_jbL1GF-HEemI8ps-yiNc8Q" type="Class_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_jbL1GV-HEemI8ps-yiNc8Q" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_jbL1Gl-HEemI8ps-yiNc8Q" type="Class_AttributeCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_jbL1G1-HEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_jbL1HF-HEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_jbL1HV-HEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_jbL1Hl-HEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_jbL1H1-HEemI8ps-yiNc8Q" type="Class_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_jbL1IF-HEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_jbL1IV-HEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_jbL1Il-HEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_jbL1I1-HEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_jbL1JF-HEemI8ps-yiNc8Q" type="Class_NestedClassifierCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_jbL1JV-HEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_jbL1Jl-HEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_jbL1J1-HEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_jbL1KF-HEemI8ps-yiNc8Q"/>
+      </children>
+      <element xmi:type="uml:Class" href="PureEthernetStructure.uml#_ja3sUF-HEemI8ps-yiNc8Q"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_jbL1KV-HEemI8ps-yiNc8Q" x="-83" y="-44"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_jbL1Kl-HEemI8ps-yiNc8Q" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_jbL1K1-HEemI8ps-yiNc8Q"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_jbL1LF-HEemI8ps-yiNc8Q" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_ja3sUF-HEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_jbL1LV-HEemI8ps-yiNc8Q" x="200"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_jbL1Rl-HEemI8ps-yiNc8Q" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_jbL1R1-HEemI8ps-yiNc8Q"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_jbL1SF-HEemI8ps-yiNc8Q" name="BASE_ELEMENT"/>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_jbL1SV-HEemI8ps-yiNc8Q" x="605" y="-12"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_8EdlwF-JEemI8ps-yiNc8Q" type="Class_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_8Edlwl-JEemI8ps-yiNc8Q" type="Class_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_8EeM0F-JEemI8ps-yiNc8Q" type="Class_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_8EeM0V-JEemI8ps-yiNc8Q" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_8EeM0l-JEemI8ps-yiNc8Q" type="Class_AttributeCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_8EeM01-JEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_8EeM1F-JEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_8EeM1V-JEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8EeM1l-JEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_8EeM11-JEemI8ps-yiNc8Q" type="Class_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_8EeM2F-JEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_8EeM2V-JEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_8EeM2l-JEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8EeM21-JEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_8EeM3F-JEemI8ps-yiNc8Q" type="Class_NestedClassifierCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_8EeM3V-JEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_8EeM3l-JEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_8EeM31-JEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8EeM4F-JEemI8ps-yiNc8Q"/>
+      </children>
+      <element xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9D-V-IEemI8ps-yiNc8Q"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8EdlwV-JEemI8ps-yiNc8Q" x="-83" y="323"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_8Emvs1-JEemI8ps-yiNc8Q" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_8EmvtF-JEemI8ps-yiNc8Q"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_8EnWwF-JEemI8ps-yiNc8Q" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9D-V-IEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8EmvtV-JEemI8ps-yiNc8Q" x="200"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_9AAA8F-JEemI8ps-yiNc8Q" type="Class_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_9AAA8l-JEemI8ps-yiNc8Q" type="Class_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_9AAA81-JEemI8ps-yiNc8Q" type="Class_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_9AAA9F-JEemI8ps-yiNc8Q" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_9AAA9V-JEemI8ps-yiNc8Q" type="Class_AttributeCompartment">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_aXGy8F-MEemI8ps-yiNc8Q" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_aXHaAF-MEemI8ps-yiNc8Q" key="collapsed" value="true"/>
+        </eAnnotations>
+        <children xmi:type="notation:Shape" xmi:id="_CuhRUGtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9EC1-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CuhRUWtvEemNXpySPcMTAQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_9AAA9l-JEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_9AAA91-JEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_9AAA-F-JEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_9AAA-V-JEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_9AAA-l-JEemI8ps-yiNc8Q" type="Class_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_9AAA-1-JEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_9AAA_F-JEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_9AAA_V-JEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_9AAA_l-JEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_9AAA_1-JEemI8ps-yiNc8Q" type="Class_NestedClassifierCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_9AABAF-JEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_9AABAV-JEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_9AABAl-JEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_9AABA1-JEemI8ps-yiNc8Q"/>
+      </children>
+      <element xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9EB1-IEemI8ps-yiNc8Q"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_9AAA8V-JEemI8ps-yiNc8Q" x="344" y="-43"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_9AIj01-JEemI8ps-yiNc8Q" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_9AIj1F-JEemI8ps-yiNc8Q"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_9AJK4F-JEemI8ps-yiNc8Q" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9EB1-IEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_9AIj1V-JEemI8ps-yiNc8Q" x="200"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="__Z-wEF-JEemI8ps-yiNc8Q" type="Class_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="__Z-wEl-JEemI8ps-yiNc8Q" type="Class_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="__Z-wE1-JEemI8ps-yiNc8Q" type="Class_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="__Z-wFF-JEemI8ps-yiNc8Q" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="__Z-wFV-JEemI8ps-yiNc8Q" type="Class_AttributeCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_CujtkGtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9EL1-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CujtkWtvEemNXpySPcMTAQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="__Z-wFl-JEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="__Z-wF1-JEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="__Z-wGF-JEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="__Z-wGV-JEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="__Z-wGl-JEemI8ps-yiNc8Q" type="Class_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="__Z-wG1-JEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="__Z-wHF-JEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="__Z-wHV-JEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="__Z-wHl-JEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="__Z-wH1-JEemI8ps-yiNc8Q" type="Class_NestedClassifierCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="__Z-wIF-JEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="__Z-wIV-JEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="__Z-wIl-JEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="__Z-wI1-JEemI8ps-yiNc8Q"/>
+      </children>
+      <element xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9ELV-IEemI8ps-yiNc8Q"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="__Z-wEV-JEemI8ps-yiNc8Q" x="340" y="1326"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="__aGE01-JEemI8ps-yiNc8Q" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="__aGE1F-JEemI8ps-yiNc8Q"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="__aGE1l-JEemI8ps-yiNc8Q" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9ELV-IEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="__aGE1V-JEemI8ps-yiNc8Q" x="200"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_CixtAF-KEemI8ps-yiNc8Q" type="Class_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_CixtAl-KEemI8ps-yiNc8Q" type="Class_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_CixtA1-KEemI8ps-yiNc8Q" type="Class_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_CixtBF-KEemI8ps-yiNc8Q" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_CiyUEF-KEemI8ps-yiNc8Q" type="Class_AttributeCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_CukUoGtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9EFF-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CukUoWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CuliwGtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9EF1-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CuliwWtvEemNXpySPcMTAQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_CiyUEV-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_CiyUEl-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_CiyUE1-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_CiyUFF-KEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_CiyUFV-KEemI8ps-yiNc8Q" type="Class_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_CiyUFl-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_CiyUF1-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_CiyUGF-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_CiyUGV-KEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_CiyUGl-KEemI8ps-yiNc8Q" type="Class_NestedClassifierCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_CiyUG1-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_CiyUHF-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_CiyUHV-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_CiyUHl-KEemI8ps-yiNc8Q"/>
+      </children>
+      <element xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9EE1-IEemI8ps-yiNc8Q"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_CixtAV-KEemI8ps-yiNc8Q" x="345" y="116"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_Ci5o01-KEemI8ps-yiNc8Q" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_Ci5o1F-KEemI8ps-yiNc8Q"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_Ci6P4F-KEemI8ps-yiNc8Q" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9EE1-IEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Ci5o1V-KEemI8ps-yiNc8Q" x="200"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_DGMjIF-KEemI8ps-yiNc8Q" type="Class_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_DGMjIl-KEemI8ps-yiNc8Q" type="Class_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_DGMjI1-KEemI8ps-yiNc8Q" type="Class_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_DGMjJF-KEemI8ps-yiNc8Q" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_DGMjJV-KEemI8ps-yiNc8Q" type="Class_AttributeCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_Cumw4GtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9EHF-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cumw4WtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cumw4mtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9EIF-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CunX8GtvEemNXpySPcMTAQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_DGMjJl-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_DGMjJ1-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_DGMjKF-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DGMjKV-KEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_DGMjKl-KEemI8ps-yiNc8Q" type="Class_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_DGMjK1-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_DGMjLF-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_DGMjLV-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DGMjLl-KEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_DGMjL1-KEemI8ps-yiNc8Q" type="Class_NestedClassifierCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_DGMjMF-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_DGMjMV-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_DGMjMl-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DGMjM1-KEemI8ps-yiNc8Q"/>
+      </children>
+      <element xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9EG1-IEemI8ps-yiNc8Q"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DGMjIV-KEemI8ps-yiNc8Q" x="344" y="258"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_DGVGA1-KEemI8ps-yiNc8Q" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_DGVGBF-KEemI8ps-yiNc8Q"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_DGVGBl-KEemI8ps-yiNc8Q" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9EG1-IEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DGVGBV-KEemI8ps-yiNc8Q" x="200"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_EWz2cF-KEemI8ps-yiNc8Q" type="Class_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_EWz2cl-KEemI8ps-yiNc8Q" type="Class_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_EWz2c1-KEemI8ps-yiNc8Q" type="Class_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EWz2dF-KEemI8ps-yiNc8Q" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_EW0dgF-KEemI8ps-yiNc8Q" type="Class_AttributeCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_CunX8WtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9EJF-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CunX8mtvEemNXpySPcMTAQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_EW0dgV-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_EW0dgl-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_EW0dg1-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_EW0dhF-KEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_EW0dhV-KEemI8ps-yiNc8Q" type="Class_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_EW0dhl-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_EW0dh1-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_EW0diF-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_EW0diV-KEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_EW0dil-KEemI8ps-yiNc8Q" type="Class_NestedClassifierCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_EW0di1-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_EW0djF-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_EW0djV-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_EW0djl-KEemI8ps-yiNc8Q"/>
+      </children>
+      <element xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9EI1-IEemI8ps-yiNc8Q"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_EWz2cV-KEemI8ps-yiNc8Q" x="344" y="412"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_EW7LMF-KEemI8ps-yiNc8Q" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_EW7LMV-KEemI8ps-yiNc8Q"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_EW7LM1-KEemI8ps-yiNc8Q" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9EI1-IEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_EW7LMl-KEemI8ps-yiNc8Q" x="200"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_FATfYF-KEemI8ps-yiNc8Q" type="Class_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_FATfYl-KEemI8ps-yiNc8Q" type="Class_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_FATfY1-KEemI8ps-yiNc8Q" type="Class_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_FATfZF-KEemI8ps-yiNc8Q" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_FATfZV-KEemI8ps-yiNc8Q" type="Class_AttributeCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_Cun_AGtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9EKV-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cun_AWtvEemNXpySPcMTAQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_FATfZl-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_FATfZ1-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_FATfaF-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FATfaV-KEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_FATfal-KEemI8ps-yiNc8Q" type="Class_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_FATfa1-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_FATfbF-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_FATfbV-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FATfbl-KEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_FATfb1-KEemI8ps-yiNc8Q" type="Class_NestedClassifierCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_FATfcF-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_FATfcV-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_FATfcl-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FATfc1-KEemI8ps-yiNc8Q"/>
+      </children>
+      <element xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9EJ1-IEemI8ps-yiNc8Q"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FATfYV-KEemI8ps-yiNc8Q" x="341" y="817"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_FAa0I1-KEemI8ps-yiNc8Q" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_FAa0JF-KEemI8ps-yiNc8Q"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_FAa0Jl-KEemI8ps-yiNc8Q" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9EJ1-IEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FAa0JV-KEemI8ps-yiNc8Q" x="200"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_JQQ4sF-KEemI8ps-yiNc8Q" type="Enumeration_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_JQQ4sl-KEemI8ps-yiNc8Q" type="Enumeration_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_JQQ4s1-KEemI8ps-yiNc8Q" type="Enumeration_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_JQQ4tF-KEemI8ps-yiNc8Q" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_JQRfwF-KEemI8ps-yiNc8Q" type="Enumeration_LiteralCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_Cun_AmtvEemNXpySPcMTAQ" type="EnumerationLiteral_LiteralLabel">
+          <element xmi:type="uml:EnumerationLiteral" href="PureEthernetStructure.uml#_rQ8aw1-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cun_A2tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CuomEGtvEemNXpySPcMTAQ" type="EnumerationLiteral_LiteralLabel">
+          <element xmi:type="uml:EnumerationLiteral" href="PureEthernetStructure.uml#_rQ8axF-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CuomEWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CuomEmtvEemNXpySPcMTAQ" type="EnumerationLiteral_LiteralLabel">
+          <element xmi:type="uml:EnumerationLiteral" href="PureEthernetStructure.uml#_rQ8axV-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CuomE2tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CuomFGtvEemNXpySPcMTAQ" type="EnumerationLiteral_LiteralLabel">
+          <element xmi:type="uml:EnumerationLiteral" href="PureEthernetStructure.uml#_rQ8axl-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CuomFWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CupNIGtvEemNXpySPcMTAQ" type="EnumerationLiteral_LiteralLabel">
+          <element xmi:type="uml:EnumerationLiteral" href="PureEthernetStructure.uml#_rQ8ax1-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CupNIWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CupNImtvEemNXpySPcMTAQ" type="EnumerationLiteral_LiteralLabel">
+          <element xmi:type="uml:EnumerationLiteral" href="PureEthernetStructure.uml#_kJss0GZ7EemrzeoMa-WOOQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CupNI2tvEemNXpySPcMTAQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_JQRfwV-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_JQRfwl-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_JQRfw1-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_JQRfxF-KEemI8ps-yiNc8Q"/>
+      </children>
+      <element xmi:type="uml:Enumeration" href="PureEthernetStructure.uml#_rQ8awV-IEemI8ps-yiNc8Q"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_JQQ4sV-KEemI8ps-yiNc8Q" x="1444" y="49"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_LvbCwF-KEemI8ps-yiNc8Q" type="DataType_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_LvbCwl-KEemI8ps-yiNc8Q" type="DataType_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_LvbCw1-KEemI8ps-yiNc8Q" type="DataType_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_LvbCxF-KEemI8ps-yiNc8Q" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_LvbCxV-KEemI8ps-yiNc8Q" type="DataType_AttributeCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_CuqbQGtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9Bwl-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CuqbQWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cus3gGtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9BxF-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cus3gWtvEemNXpySPcMTAQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_LvbCxl-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_LvbCx1-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_LvbCyF-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_LvbCyV-KEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_Lvbp0F-KEemI8ps-yiNc8Q" type="DataType_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_Lvbp0V-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_Lvbp0l-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_Lvbp01-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Lvbp1F-KEemI8ps-yiNc8Q"/>
+      </children>
+      <element xmi:type="uml:DataType" href="PureEthernetStructure.uml#_rQ9BwV-IEemI8ps-yiNc8Q"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_LvbCwV-KEemI8ps-yiNc8Q" x="922" y="-44"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_M2c8QF-KEemI8ps-yiNc8Q" type="DataType_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_M2c8Ql-KEemI8ps-yiNc8Q" type="DataType_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_M2c8Q1-KEemI8ps-yiNc8Q" type="DataType_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_M2c8RF-KEemI8ps-yiNc8Q" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_M2c8RV-KEemI8ps-yiNc8Q" type="DataType_AttributeCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_CutekGtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9ByV-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CutekWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CuuFoGtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_Hh4ikGahEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CuuFoWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CuuFomtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gr-WadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CuuFo2tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CuussGtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9FR1-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CuussWtvEemNXpySPcMTAQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_M2c8Rl-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_M2c8R1-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_M2c8SF-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_M2c8SV-KEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_M2c8Sl-KEemI8ps-yiNc8Q" type="DataType_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_M2c8S1-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_M2c8TF-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_M2c8TV-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_M2c8Tl-KEemI8ps-yiNc8Q"/>
+      </children>
+      <element xmi:type="uml:DataType" href="PureEthernetStructure.uml#_rQ9Bx1-IEemI8ps-yiNc8Q"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_M2c8QV-KEemI8ps-yiNc8Q" x="920" y="391"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_Nm3skF-KEemI8ps-yiNc8Q" type="DataType_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_Nm4ToF-KEemI8ps-yiNc8Q" type="DataType_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_Nm4ToV-KEemI8ps-yiNc8Q" type="DataType_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Nm4Tol-KEemI8ps-yiNc8Q" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_Nm4To1-KEemI8ps-yiNc8Q" type="DataType_AttributeCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_CuvTwGtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_prw4IGtmEemYRbAOzjCk8w"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CuvTwWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CuvTwmtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9CAF-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CuvTw2tvEemNXpySPcMTAQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_Nm4TpF-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_Nm4TpV-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_Nm4Tpl-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Nm4Tp1-KEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_Nm4TqF-KEemI8ps-yiNc8Q" type="DataType_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_Nm4TqV-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_Nm4Tql-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_Nm4Tq1-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Nm4TrF-KEemI8ps-yiNc8Q"/>
+      </children>
+      <element xmi:type="uml:DataType" href="PureEthernetStructure.uml#_rQ9B-V-IEemI8ps-yiNc8Q"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Nm3skV-KEemI8ps-yiNc8Q" x="922" y="99"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_QzqYsF-KEemI8ps-yiNc8Q" type="DataType_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_QzqYsl-KEemI8ps-yiNc8Q" type="DataType_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_Qzq_wF-KEemI8ps-yiNc8Q" type="DataType_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Qzq_wV-KEemI8ps-yiNc8Q" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_Qzq_wl-KEemI8ps-yiNc8Q" type="DataType_AttributeCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_Cuv60GtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9Bzl-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cuv60WtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cuwh4GtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9B0V-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cuwh4WtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cuwh4mtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9B1F-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cuwh42tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CuxI8GtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9B11-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CuxI8WtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CuxwAGtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9B2l-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CuxwAWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CuxwAmtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9B3V-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CuxwA2tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CuyXEGtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9B4F-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CuyXEWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cuy-IGtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9B41-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cuy-IWtvEemNXpySPcMTAQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_Qzq_w1-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_Qzq_xF-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_Qzq_xV-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Qzq_xl-KEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_Qzq_x1-KEemI8ps-yiNc8Q" type="DataType_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_Qzq_yF-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_Qzq_yV-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_Qzq_yl-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Qzq_y1-KEemI8ps-yiNc8Q"/>
+      </children>
+      <element xmi:type="uml:DataType" href="PureEthernetStructure.uml#_rQ9BzF-IEemI8ps-yiNc8Q"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QzqYsV-KEemI8ps-yiNc8Q" x="1444" y="1120"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_RTLmQF-KEemI8ps-yiNc8Q" type="DataType_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_RTLmQl-KEemI8ps-yiNc8Q" type="DataType_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_RTLmQ1-KEemI8ps-yiNc8Q" type="DataType_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_RTLmRF-KEemI8ps-yiNc8Q" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_RTLmRV-KEemI8ps-yiNc8Q" type="DataType_AttributeCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_Cuy-ImtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9B6V-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cuy-I2tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CuzlMGtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsAGadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CuzlMWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CuzlMmtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsA2adEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CuzlM2tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu0MQGtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsBmadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu0MQWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu0zUGtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsCWadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu0zUWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu0zUmtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsC2adEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu0zU2tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu1aYGtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsDWadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu1aYWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu1aYmtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsEmadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu1aY2tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu2BcGtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsFGadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu2BcWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu2ogGtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsFmadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu2ogWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu3PkGtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsF2adEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu3PkWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu4dsGtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsHGadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu4dsWtvEemNXpySPcMTAQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_RTLmRl-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_RTLmR1-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_RTLmSF-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RTLmSV-KEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_RTLmSl-KEemI8ps-yiNc8Q" type="DataType_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_RTLmS1-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_RTLmTF-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_RTLmTV-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RTLmTl-KEemI8ps-yiNc8Q"/>
+      </children>
+      <element xmi:type="uml:DataType" href="PureEthernetStructure.uml#_rQ9B5l-IEemI8ps-yiNc8Q"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RTLmQV-KEemI8ps-yiNc8Q" x="916" y="819"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_Rt7okF-KEemI8ps-yiNc8Q" type="DataType_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_Rt7okl-KEemI8ps-yiNc8Q" type="DataType_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_Rt7ok1-KEemI8ps-yiNc8Q" type="DataType_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Rt7olF-KEemI8ps-yiNc8Q" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_Rt7olV-KEemI8ps-yiNc8Q" type="DataType_AttributeCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_Cu4dsmtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9B7V-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu4ds2tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu5EwGtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsImadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu5EwWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu5r0GtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsJWadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu5r0WtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu5r0mtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsJ2adEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu5r02tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu6S4GtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsKmadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu6S4WtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu6S4mtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsLWadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu6S42tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu658GtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsL2adEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu658WtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu658mtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsMGadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu6582tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu7hAGtvEemNXpySPcMTAQ" type="Property_DataTypeAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsNWadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu7hAWtvEemNXpySPcMTAQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_Rt7oll-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_Rt7ol1-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_Rt7omF-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Rt7omV-KEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_Rt7oml-KEemI8ps-yiNc8Q" type="DataType_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_Rt7om1-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_Rt7onF-KEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_Rt7onV-KEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Rt7onl-KEemI8ps-yiNc8Q"/>
+      </children>
+      <element xmi:type="uml:DataType" href="PureEthernetStructure.uml#_rQ9B6l-IEemI8ps-yiNc8Q"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Rt7okV-KEemI8ps-yiNc8Q" x="917" y="1327"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_aMjTUF-NEemI8ps-yiNc8Q" type="Class_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_aMjTUl-NEemI8ps-yiNc8Q" type="Class_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_aMjTU1-NEemI8ps-yiNc8Q" type="Class_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_aMjTVF-NEemI8ps-yiNc8Q" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_aMjTVV-NEemI8ps-yiNc8Q" type="Class_AttributeCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_Cu7hAmtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_Hh4ikGahEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu7hA2tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu8IEGtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gr-WadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu8IEWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu8vIGtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_rQ9FR1-IEemI8ps-yiNc8Q"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu8vIWtvEemNXpySPcMTAQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_aMjTVl-NEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_aMjTV1-NEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_aMjTWF-NEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_aMjTWV-NEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_aMj6YF-NEemI8ps-yiNc8Q" type="Class_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_aMj6YV-NEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_aMj6Yl-NEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_aMj6Y1-NEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_aMj6ZF-NEemI8ps-yiNc8Q"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_aMj6ZV-NEemI8ps-yiNc8Q" type="Class_NestedClassifierCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_aMj6Zl-NEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_aMj6Z1-NEemI8ps-yiNc8Q"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_aMj6aF-NEemI8ps-yiNc8Q"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_aMj6aV-NEemI8ps-yiNc8Q"/>
+      </children>
+      <element xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9FQV-IEemI8ps-yiNc8Q"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_aMjTUV-NEemI8ps-yiNc8Q" x="983" y="262"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_aMr2M1-NEemI8ps-yiNc8Q" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_aMr2NF-NEemI8ps-yiNc8Q"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_aMr2Nl-NEemI8ps-yiNc8Q" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9FQV-IEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_aMr2NV-NEemI8ps-yiNc8Q" x="200"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_D3y0kGBNEemttdJfSvwReA" type="Class_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_D3y0kmBNEemttdJfSvwReA" type="Class_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_D3y0k2BNEemttdJfSvwReA" type="Class_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_D3y0lGBNEemttdJfSvwReA" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_D3y0lWBNEemttdJfSvwReA" type="Class_AttributeCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_Cu8vImtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsAGadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu8vI2tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu9WMGtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsA2adEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu9WMWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu9WMmtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsBmadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu9WM2tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu99QGtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsCWadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu99QWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu-kUGtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsC2adEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu-kUWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu-kUmtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsDWadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu-kU2tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu_LYGtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsEmadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu_LYWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_Cu_LYmtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsFGadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Cu_LY2tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CvBAkGtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsFmadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvBAkWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CvBnoGtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsF2adEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvBnoWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CvBnomtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsHGadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvBno2tvEemNXpySPcMTAQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_D3y0lmBNEemttdJfSvwReA"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_D3y0l2BNEemttdJfSvwReA"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_D3y0mGBNEemttdJfSvwReA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_D3y0mWBNEemttdJfSvwReA"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_D3y0mmBNEemttdJfSvwReA" type="Class_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_D3y0m2BNEemttdJfSvwReA"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_D3y0nGBNEemttdJfSvwReA"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_D3y0nWBNEemttdJfSvwReA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_D3y0nmBNEemttdJfSvwReA"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_D3y0n2BNEemttdJfSvwReA" type="Class_NestedClassifierCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_D3y0oGBNEemttdJfSvwReA"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_D3y0oWBNEemttdJfSvwReA"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_D3y0omBNEemttdJfSvwReA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_D3y0o2BNEemttdJfSvwReA"/>
+      </children>
+      <element xmi:type="uml:Class" href="PureEthernetStructure.uml#_wPoiMGBMEemttdJfSvwReA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_D3y0kWBNEemttdJfSvwReA" x="980" y="562"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_D36wY2BNEemttdJfSvwReA" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_D36wZGBNEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_D36wZmBNEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_wPoiMGBMEemttdJfSvwReA"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_D36wZWBNEemttdJfSvwReA" x="200"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_ETpDEGBNEemttdJfSvwReA" type="Class_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_ETpDEmBNEemttdJfSvwReA" type="Class_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_ETpDE2BNEemttdJfSvwReA" type="Class_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_ETpDFGBNEemttdJfSvwReA" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_ETpDFWBNEemttdJfSvwReA" type="Class_AttributeCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_CvCOsGtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsImadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvCOsWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CvCOsmtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsJWadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvCOs2tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CvCOtGtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsJ2adEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvCOtWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CvC1wGtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsKmadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvC1wWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CvC1wmtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsLWadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvC1w2tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CvDc0GtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsL2adEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvDc0WtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CvDc0mtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsMGadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvDc02tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CvED4GtvEemNXpySPcMTAQ" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="PureEthernetStructure.uml#_k0gsNWadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvED4WtvEemNXpySPcMTAQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_ETpDFmBNEemttdJfSvwReA"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_ETpDF2BNEemttdJfSvwReA"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_ETpDGGBNEemttdJfSvwReA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ETpDGWBNEemttdJfSvwReA"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_ETpDGmBNEemttdJfSvwReA" type="Class_OperationCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_ETpDG2BNEemttdJfSvwReA"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_ETpDHGBNEemttdJfSvwReA"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_ETpDHWBNEemttdJfSvwReA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ETpDHmBNEemttdJfSvwReA"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_ETpqIGBNEemttdJfSvwReA" type="Class_NestedClassifierCompartment">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_ETpqIWBNEemttdJfSvwReA"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_ETpqImBNEemttdJfSvwReA"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_ETpqI2BNEemttdJfSvwReA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ETpqJGBNEemttdJfSvwReA"/>
+      </children>
+      <element xmi:type="uml:Class" href="PureEthernetStructure.uml#_wP5n8GBMEemttdJfSvwReA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ETpDEWBNEemttdJfSvwReA" x="978" y="1110"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_ET0pQ2BNEemttdJfSvwReA" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_ET0pRGBNEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_ET1QUGBNEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_wP5n8GBMEemttdJfSvwReA"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ET0pRWBNEemttdJfSvwReA" x="200"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_SD21MGBOEemttdJfSvwReA" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_SD21MWBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_SD21M2BOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_nGQRAF-KEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_SD21MmBOEemttdJfSvwReA" x="545" y="16"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_TD25omBOEemttdJfSvwReA" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_TD25o2BOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_TD3gsGBOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_n4dKAF-KEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TD25pGBOEemttdJfSvwReA" x="544" y="158"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_T1-6I2BOEemttdJfSvwReA" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_T1-6JGBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_T1_hMGBOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_qXk30F-KEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_T1-6JWBOEemttdJfSvwReA" x="541" y="717"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_Uk7q02BOEemttdJfSvwReA" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_Uk7q1GBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_Uk7q1mBOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_pJiXYF-KEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Uk7q1WBOEemttdJfSvwReA" x="544" y="312"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_VNii8GBOEemttdJfSvwReA" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_VNii8WBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_VNii82BOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_rxR1sF-KEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_VNii8mBOEemttdJfSvwReA" x="1117" y="1227"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_V5Lg8GBOEemttdJfSvwReA" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_V5Lg8WBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_V5Lg82BOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_rRvaAF-KEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_V5Lg8mBOEemttdJfSvwReA" x="540" y="1226"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_WlLrUGBOEemttdJfSvwReA" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_WlLrUWBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_WlMSYGBOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_sYHzQF-KEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WlLrUmBOEemttdJfSvwReA" x="1116" y="719"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_XOtJc2BOEemttdJfSvwReA" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_XOtJdGBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_XOtJdmBOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_trHFIF-KEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_XOtJdWBOEemttdJfSvwReA" x="1122" y="-144"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_X3UBkmBOEemttdJfSvwReA" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_X3UBk2BOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_X3UBlWBOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_IDrpcF-NEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_X3UBlGBOEemttdJfSvwReA" x="1122" y="-1"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_ZBOP82BOEemttdJfSvwReA" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_ZBOP9GBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_ZBO3AGBOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_ulaxQF-KEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ZBOP9WBOEemttdJfSvwReA" x="1183" y="162"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_ZqE_sGBOEemttdJfSvwReA" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_ZqE_sWBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_ZqE_s2BOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_8P4LgGBNEemttdJfSvwReA"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ZqE_smBOEemttdJfSvwReA" x="1180" y="462"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_aQdqQGBOEemttdJfSvwReA" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_aQdqQWBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_aQdqQ2BOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_-4QjAGBNEemttdJfSvwReA"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_aQdqQmBOEemttdJfSvwReA" x="1180" y="462"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_a6oooGBOEemttdJfSvwReA" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_a6oooWBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_a6ooo2BOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_JucpcGBOEemttdJfSvwReA"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_a6ooomBOEemttdJfSvwReA" x="1178" y="1010"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_7wsB4GafEemaCpXjwie7xQ" type="Enumeration_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_7wsB4mafEemaCpXjwie7xQ" type="Enumeration_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_7wsB42afEemaCpXjwie7xQ" type="Enumeration_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_7wsB5GafEemaCpXjwie7xQ" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_7wso8GafEemaCpXjwie7xQ" type="Enumeration_LiteralCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_CvED4mtvEemNXpySPcMTAQ" type="EnumerationLiteral_LiteralLabel">
+          <element xmi:type="uml:EnumerationLiteral" href="PureEthernetStructure.uml#_k0gsPmadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvED42tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CvEq8GtvEemNXpySPcMTAQ" type="EnumerationLiteral_LiteralLabel">
+          <element xmi:type="uml:EnumerationLiteral" href="PureEthernetStructure.uml#_k0gsP2adEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvEq8WtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CvEq8mtvEemNXpySPcMTAQ" type="EnumerationLiteral_LiteralLabel">
+          <element xmi:type="uml:EnumerationLiteral" href="PureEthernetStructure.uml#_k0gsQGadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvEq82tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CvEq9GtvEemNXpySPcMTAQ" type="EnumerationLiteral_LiteralLabel">
+          <element xmi:type="uml:EnumerationLiteral" href="PureEthernetStructure.uml#_k0gsQWadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvEq9WtvEemNXpySPcMTAQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_7wso8WafEemaCpXjwie7xQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_7wso8mafEemaCpXjwie7xQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_7wso82afEemaCpXjwie7xQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7wso9GafEemaCpXjwie7xQ"/>
+      </children>
+      <element xmi:type="uml:Enumeration" href="PureEthernetStructure.uml#_k0gsPGadEemaCpXjwie7xQ"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7wsB4WafEemaCpXjwie7xQ" x="1444" y="656"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_7z9YUGafEemaCpXjwie7xQ" type="Enumeration_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_7z9_YGafEemaCpXjwie7xQ" type="Enumeration_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_7z9_YWafEemaCpXjwie7xQ" type="Enumeration_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_7z9_YmafEemaCpXjwie7xQ" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_7z9_Y2afEemaCpXjwie7xQ" type="Enumeration_LiteralCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_CvFSAGtvEemNXpySPcMTAQ" type="EnumerationLiteral_LiteralLabel">
+          <element xmi:type="uml:EnumerationLiteral" href="PureEthernetStructure.uml#_k0gsX2adEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvFSAWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CvFSAmtvEemNXpySPcMTAQ" type="EnumerationLiteral_LiteralLabel">
+          <element xmi:type="uml:EnumerationLiteral" href="PureEthernetStructure.uml#_k0gsYGadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvFSA2tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CvFSBGtvEemNXpySPcMTAQ" type="EnumerationLiteral_LiteralLabel">
+          <element xmi:type="uml:EnumerationLiteral" href="PureEthernetStructure.uml#_k0gsYWadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvFSBWtvEemNXpySPcMTAQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_7z9_ZGafEemaCpXjwie7xQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_7z9_ZWafEemaCpXjwie7xQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_7z9_ZmafEemaCpXjwie7xQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7z9_Z2afEemaCpXjwie7xQ"/>
+      </children>
+      <element xmi:type="uml:Enumeration" href="PureEthernetStructure.uml#_k0gsXWadEemaCpXjwie7xQ"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7z9YUWafEemaCpXjwie7xQ" x="1444" y="304"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_72pf8GafEemaCpXjwie7xQ" type="Enumeration_Shape">
+      <children xmi:type="notation:DecorationNode" xmi:id="_72pf8mafEemaCpXjwie7xQ" type="Enumeration_NameLabel"/>
+      <children xmi:type="notation:DecorationNode" xmi:id="_72pf82afEemaCpXjwie7xQ" type="Enumeration_FloatingNameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_72pf9GafEemaCpXjwie7xQ" y="5"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_72pf9WafEemaCpXjwie7xQ" type="Enumeration_LiteralCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_CvF5EGtvEemNXpySPcMTAQ" type="EnumerationLiteral_LiteralLabel">
+          <element xmi:type="uml:EnumerationLiteral" href="PureEthernetStructure.uml#_k0gsZGadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvF5EWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CvF5EmtvEemNXpySPcMTAQ" type="EnumerationLiteral_LiteralLabel">
+          <element xmi:type="uml:EnumerationLiteral" href="PureEthernetStructure.uml#_k0gsZWadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvF5E2tvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CvGgIGtvEemNXpySPcMTAQ" type="EnumerationLiteral_LiteralLabel">
+          <element xmi:type="uml:EnumerationLiteral" href="PureEthernetStructure.uml#_k0gsZmadEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvGgIWtvEemNXpySPcMTAQ"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CvGgImtvEemNXpySPcMTAQ" type="EnumerationLiteral_LiteralLabel">
+          <element xmi:type="uml:EnumerationLiteral" href="PureEthernetStructure.uml#_k0gsZ2adEemaCpXjwie7xQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CvGgI2tvEemNXpySPcMTAQ"/>
+        </children>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_72pf9mafEemaCpXjwie7xQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_72pf92afEemaCpXjwie7xQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_72pf-GafEemaCpXjwie7xQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_72pf-WafEemaCpXjwie7xQ"/>
+      </children>
+      <element xmi:type="uml:Enumeration" href="PureEthernetStructure.uml#_k0gsYmadEemaCpXjwie7xQ"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_72pf8WafEemaCpXjwie7xQ" x="1444" y="800"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_ntsLIGfzEemHIN8XirGEHw" type="StereotypeComment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_ntsLIWfzEemHIN8XirGEHw"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_ntsLI2fzEemHIN8XirGEHw" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Abstraction" href="PureEthernetStructure.uml#_muuBcGfzEemHIN8XirGEHw"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ntsLImfzEemHIN8XirGEHw" x="117" y="223"/>
+    </children>
+    <styles xmi:type="notation:StringValueStyle" xmi:id="_jbL1Ul-HEemI8ps-yiNc8Q" name="diagram_compatibility_version" stringValue="1.2.0"/>
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_jbL1U1-HEemI8ps-yiNc8Q"/>
+    <styles xmi:type="style:PapyrusViewStyle" xmi:id="_jbL1VF-HEemI8ps-yiNc8Q">
+      <owner xmi:type="uml:Package" href="PureEthernetStructure.uml#_ja3r3l-HEemI8ps-yiNc8Q"/>
+    </styles>
+    <element xmi:type="uml:Package" href="PureEthernetStructure.uml#_ja3r3l-HEemI8ps-yiNc8Q"/>
+    <edges xmi:type="notation:Connector" xmi:id="_jbL2eV-HEemI8ps-yiNc8Q" type="StereotypeCommentLink" source="_jbL1Fl-HEemI8ps-yiNc8Q" target="_jbL1Kl-HEemI8ps-yiNc8Q">
+      <styles xmi:type="notation:FontStyle" xmi:id="_jbL2el-HEemI8ps-yiNc8Q"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_jbL2e1-HEemI8ps-yiNc8Q" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_ja3sUF-HEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_jbL2fF-HEemI8ps-yiNc8Q" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_jbL2fV-HEemI8ps-yiNc8Q"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_jbL2fl-HEemI8ps-yiNc8Q"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_8EnWwV-JEemI8ps-yiNc8Q" type="StereotypeCommentLink" source="_8EdlwF-JEemI8ps-yiNc8Q" target="_8Emvs1-JEemI8ps-yiNc8Q">
+      <styles xmi:type="notation:FontStyle" xmi:id="_8EnWwl-JEemI8ps-yiNc8Q"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_8EnWxl-JEemI8ps-yiNc8Q" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9D-V-IEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_8EnWw1-JEemI8ps-yiNc8Q" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_8EnWxF-JEemI8ps-yiNc8Q"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_8EnWxV-JEemI8ps-yiNc8Q"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_9AJK4V-JEemI8ps-yiNc8Q" type="StereotypeCommentLink" source="_9AAA8F-JEemI8ps-yiNc8Q" target="_9AIj01-JEemI8ps-yiNc8Q">
+      <styles xmi:type="notation:FontStyle" xmi:id="_9AJK4l-JEemI8ps-yiNc8Q"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_9AJK5l-JEemI8ps-yiNc8Q" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9EB1-IEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_9AJK41-JEemI8ps-yiNc8Q" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_9AJK5F-JEemI8ps-yiNc8Q"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_9AJK5V-JEemI8ps-yiNc8Q"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="__aGE11-JEemI8ps-yiNc8Q" type="StereotypeCommentLink" source="__Z-wEF-JEemI8ps-yiNc8Q" target="__aGE01-JEemI8ps-yiNc8Q">
+      <styles xmi:type="notation:FontStyle" xmi:id="__aGE2F-JEemI8ps-yiNc8Q"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="__aGE3F-JEemI8ps-yiNc8Q" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9ELV-IEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="__aGE2V-JEemI8ps-yiNc8Q" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="__aGE2l-JEemI8ps-yiNc8Q"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="__aGE21-JEemI8ps-yiNc8Q"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_Ci6P4V-KEemI8ps-yiNc8Q" type="StereotypeCommentLink" source="_CixtAF-KEemI8ps-yiNc8Q" target="_Ci5o01-KEemI8ps-yiNc8Q">
+      <styles xmi:type="notation:FontStyle" xmi:id="_Ci6P4l-KEemI8ps-yiNc8Q"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_Ci6P5l-KEemI8ps-yiNc8Q" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9EE1-IEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Ci6P41-KEemI8ps-yiNc8Q" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Ci6P5F-KEemI8ps-yiNc8Q"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Ci6P5V-KEemI8ps-yiNc8Q"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_DGVGB1-KEemI8ps-yiNc8Q" type="StereotypeCommentLink" source="_DGMjIF-KEemI8ps-yiNc8Q" target="_DGVGA1-KEemI8ps-yiNc8Q">
+      <styles xmi:type="notation:FontStyle" xmi:id="_DGVGCF-KEemI8ps-yiNc8Q"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_DGVGDF-KEemI8ps-yiNc8Q" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9EG1-IEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_DGVGCV-KEemI8ps-yiNc8Q" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_DGVGCl-KEemI8ps-yiNc8Q"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_DGVGC1-KEemI8ps-yiNc8Q"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_EW7LNF-KEemI8ps-yiNc8Q" type="StereotypeCommentLink" source="_EWz2cF-KEemI8ps-yiNc8Q" target="_EW7LMF-KEemI8ps-yiNc8Q">
+      <styles xmi:type="notation:FontStyle" xmi:id="_EW7LNV-KEemI8ps-yiNc8Q"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_EW7LOV-KEemI8ps-yiNc8Q" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9EI1-IEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_EW7LNl-KEemI8ps-yiNc8Q" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_EW7LN1-KEemI8ps-yiNc8Q"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_EW7LOF-KEemI8ps-yiNc8Q"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_FAa0J1-KEemI8ps-yiNc8Q" type="StereotypeCommentLink" source="_FATfYF-KEemI8ps-yiNc8Q" target="_FAa0I1-KEemI8ps-yiNc8Q">
+      <styles xmi:type="notation:FontStyle" xmi:id="_FAa0KF-KEemI8ps-yiNc8Q"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_FAa0LF-KEemI8ps-yiNc8Q" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9EJ1-IEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_FAa0KV-KEemI8ps-yiNc8Q" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_FAa0Kl-KEemI8ps-yiNc8Q"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_FAa0K1-KEemI8ps-yiNc8Q"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_VU-nwF-KEemI8ps-yiNc8Q" type="Association_Edge" source="_8EdlwF-JEemI8ps-yiNc8Q" target="_9AAA8F-JEemI8ps-yiNc8Q">
+      <children xmi:type="notation:DecorationNode" xmi:id="_VU-nw1-KEemI8ps-yiNc8Q" visible="false" type="Association_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4hOTEF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VU-nxF-KEemI8ps-yiNc8Q" x="-1" y="-17"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VU-nxV-KEemI8ps-yiNc8Q" visible="false" type="Association_NameLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4h5ogF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VU-nxl-KEemI8ps-yiNc8Q" y="19"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VU-nx1-KEemI8ps-yiNc8Q" visible="false" type="Association_TargetRoleLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4ih6oF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VU-nyF-KEemI8ps-yiNc8Q" x="189" y="-17"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VU-nyV-KEemI8ps-yiNc8Q" visible="false" type="Association_SourceRoleLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4jI-oF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VU-nyl-KEemI8ps-yiNc8Q" x="-189" y="19"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VU-ny1-KEemI8ps-yiNc8Q" type="Association_SourceMultiplicityLabel">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_98RxEF-LEemI8ps-yiNc8Q" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_98RxEV-LEemI8ps-yiNc8Q" key="visible" value="true"/>
+        </eAnnotations>
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4jxQwF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VU-nzF-KEemI8ps-yiNc8Q" x="25" y="-18"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VU-nzV-KEemI8ps-yiNc8Q" type="Association_TargetMultiplicityLabel">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_98RxEl-LEemI8ps-yiNc8Q" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_98RxE1-LEemI8ps-yiNc8Q" key="visible" value="true"/>
+        </eAnnotations>
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4kYUwF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VU-nzl-KEemI8ps-yiNc8Q" x="-16" y="-18"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_VU-nwV-KEemI8ps-yiNc8Q"/>
+      <element xmi:type="uml:Association" href="PureEthernetStructure.uml#_rQ9pF1-IEemI8ps-yiNc8Q"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_VU-nwl-KEemI8ps-yiNc8Q" points="[186, 566, -643984, -643984]$[580, 73, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_44yegl-KEemI8ps-yiNc8Q" id="(1.0,0.07)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_44yeg1-KEemI8ps-yiNc8Q" id="(0.0,0.11403508771929824)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_VV7qAF-KEemI8ps-yiNc8Q" type="Association_Edge" source="_8EdlwF-JEemI8ps-yiNc8Q" target="_CixtAF-KEemI8ps-yiNc8Q">
+      <children xmi:type="notation:DecorationNode" xmi:id="_VV7qA1-KEemI8ps-yiNc8Q" visible="false" type="Association_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4lAm4F-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VV7qBF-KEemI8ps-yiNc8Q" x="1" y="-18"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VV7qBV-KEemI8ps-yiNc8Q" visible="false" type="Association_NameLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4lqHIF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VV7qBl-KEemI8ps-yiNc8Q" x="1" y="18"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VV7qB1-KEemI8ps-yiNc8Q" visible="false" type="Association_TargetRoleLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4mRyMF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VV7qCF-KEemI8ps-yiNc8Q" x="72" y="-17"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VV7qCV-KEemI8ps-yiNc8Q" visible="false" type="Association_SourceRoleLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4m5dQF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VV7qCl-KEemI8ps-yiNc8Q" x="-72" y="18"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VV7qC1-KEemI8ps-yiNc8Q" type="Association_SourceMultiplicityLabel">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_98RxHl-LEemI8ps-yiNc8Q" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_98RxH1-LEemI8ps-yiNc8Q" key="visible" value="true"/>
+        </eAnnotations>
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4nsugF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VV7qDF-KEemI8ps-yiNc8Q" x="23"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VV7qDV-KEemI8ps-yiNc8Q" type="Association_TargetMultiplicityLabel">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_98RxHF-LEemI8ps-yiNc8Q" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_98RxHV-LEemI8ps-yiNc8Q" key="visible" value="true"/>
+        </eAnnotations>
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4oVnsF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VV7qDl-KEemI8ps-yiNc8Q" x="-15" y="-22"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_VV7qAV-KEemI8ps-yiNc8Q"/>
+      <element xmi:type="uml:Association" href="PureEthernetStructure.uml#_rQ9pG1-IEemI8ps-yiNc8Q"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_VV7qAl-KEemI8ps-yiNc8Q" points="[240, 576, -643984, -643984]$[464, 481, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_44zFkl-KEemI8ps-yiNc8Q" id="(1.0,0.19)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_44zFk1-KEemI8ps-yiNc8Q" id="(0.0,0.18)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_VXAoEF-KEemI8ps-yiNc8Q" type="Association_Edge" source="_8EdlwF-JEemI8ps-yiNc8Q" target="_DGMjIF-KEemI8ps-yiNc8Q">
+      <children xmi:type="notation:DecorationNode" xmi:id="_VXAoE1-KEemI8ps-yiNc8Q" visible="false" type="Association_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4o_H8F-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VXAoFF-KEemI8ps-yiNc8Q" x="1" y="-18"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VXAoFV-KEemI8ps-yiNc8Q" visible="false" type="Association_NameLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4p3RsF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VXAoFl-KEemI8ps-yiNc8Q" y="18"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VXAoF1-KEemI8ps-yiNc8Q" visible="false" type="Association_TargetRoleLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4qfj0F-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VXAoGF-KEemI8ps-yiNc8Q" x="56" y="-17"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VXAoGV-KEemI8ps-yiNc8Q" visible="false" type="Association_SourceRoleLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4rGn0F-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VXAoGl-KEemI8ps-yiNc8Q" x="-57" y="18"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VXAoG1-KEemI8ps-yiNc8Q" type="Association_SourceMultiplicityLabel">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_98SYJV-LEemI8ps-yiNc8Q" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_98SYJl-LEemI8ps-yiNc8Q" key="visible" value="true"/>
+        </eAnnotations>
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4ru58F-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VXAoHF-KEemI8ps-yiNc8Q" x="21" y="4"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VXAoHV-KEemI8ps-yiNc8Q" type="Association_TargetMultiplicityLabel">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_98SYIV-LEemI8ps-yiNc8Q" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_98SYIl-LEemI8ps-yiNc8Q" key="visible" value="true"/>
+        </eAnnotations>
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4scroF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VXAoHl-KEemI8ps-yiNc8Q" x="-19" y="-18"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_VXAoEV-KEemI8ps-yiNc8Q"/>
+      <element xmi:type="uml:Association" href="PureEthernetStructure.uml#_rQ9pH1-IEemI8ps-yiNc8Q"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_VXAoEl-KEemI8ps-yiNc8Q" points="[240, 649, -643984, -643984]$[417, 713, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_44yegF-KEemI8ps-yiNc8Q" id="(1.0,0.29)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_44yegV-KEemI8ps-yiNc8Q" id="(0.0,0.08)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_VX1HcF-KEemI8ps-yiNc8Q" type="Association_Edge" source="_8EdlwF-JEemI8ps-yiNc8Q" target="_EWz2cF-KEemI8ps-yiNc8Q">
+      <children xmi:type="notation:DecorationNode" xmi:id="_VX1Hc1-KEemI8ps-yiNc8Q" visible="false" type="Association_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4tIBEF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VX1HdF-KEemI8ps-yiNc8Q" x="1" y="-20"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VX1HdV-KEemI8ps-yiNc8Q" visible="false" type="Association_NameLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4tvsIF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VX1Hdl-KEemI8ps-yiNc8Q" x="-1" y="18"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VX1Hd1-KEemI8ps-yiNc8Q" visible="false" type="Association_TargetRoleLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4uWwIF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VX1HeF-KEemI8ps-yiNc8Q" x="150" y="-18"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VX1HeV-KEemI8ps-yiNc8Q" visible="false" type="Association_SourceRoleLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4u_CQF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VX1Hel-KEemI8ps-yiNc8Q" x="-150" y="18"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VX1He1-KEemI8ps-yiNc8Q" type="Association_SourceMultiplicityLabel">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_98RxIF-LEemI8ps-yiNc8Q" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_98SYIF-LEemI8ps-yiNc8Q" key="visible" value="true"/>
+        </eAnnotations>
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4vn7cF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VX1HfF-KEemI8ps-yiNc8Q" x="11" y="8"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VX1HfV-KEemI8ps-yiNc8Q" type="Association_TargetMultiplicityLabel">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_98RxFF-LEemI8ps-yiNc8Q" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_98RxFV-LEemI8ps-yiNc8Q" key="visible" value="true"/>
+        </eAnnotations>
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4wPmgF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VX1Hfl-KEemI8ps-yiNc8Q" x="-34" y="-14"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_VX1HcV-KEemI8ps-yiNc8Q"/>
+      <element xmi:type="uml:Association" href="PureEthernetStructure.uml#_rQ9pI1-IEemI8ps-yiNc8Q"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_VX1Hcl-KEemI8ps-yiNc8Q" points="[184, 666, -643984, -643984]$[482, 1068, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_44yehF-KEemI8ps-yiNc8Q" id="(1.0,0.35)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_44yehV-KEemI8ps-yiNc8Q" id="(0.0,0.14)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_VYtRMF-KEemI8ps-yiNc8Q" type="Association_Edge" source="_8EdlwF-JEemI8ps-yiNc8Q" target="_FATfYF-KEemI8ps-yiNc8Q">
+      <children xmi:type="notation:DecorationNode" xmi:id="_VYtRM1-KEemI8ps-yiNc8Q" visible="false" type="Association_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4w6U4F-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VYtRNF-KEemI8ps-yiNc8Q" y="-19"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VYtRNV-KEemI8ps-yiNc8Q" visible="false" type="Association_NameLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4xjOEF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VYtRNl-KEemI8ps-yiNc8Q" x="-1" y="18"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VYtRN1-KEemI8ps-yiNc8Q" visible="false" type="Association_TargetRoleLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4yMHQF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VYtROF-KEemI8ps-yiNc8Q" x="246" y="-17"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VYtROV-KEemI8ps-yiNc8Q" visible="false" type="Association_SourceRoleLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4yzyUF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VYtROl-KEemI8ps-yiNc8Q" x="-247" y="17"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VYtRO1-KEemI8ps-yiNc8Q" type="Association_SourceMultiplicityLabel">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_98RxGF-LEemI8ps-yiNc8Q" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_98RxGV-LEemI8ps-yiNc8Q" key="visible" value="true"/>
+        </eAnnotations>
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_4zbdYF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VYtRPF-KEemI8ps-yiNc8Q" x="17" y="9"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VYtRPV-KEemI8ps-yiNc8Q" type="Association_TargetMultiplicityLabel">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_98RxGl-LEemI8ps-yiNc8Q" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_98RxG1-LEemI8ps-yiNc8Q" key="visible" value="true"/>
+        </eAnnotations>
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_40DvgF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VYtRPl-KEemI8ps-yiNc8Q" x="-2" y="23"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_VYtRMV-KEemI8ps-yiNc8Q"/>
+      <element xmi:type="uml:Association" href="PureEthernetStructure.uml#_rQ9pKV-IEemI8ps-yiNc8Q"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_VYtRMl-KEemI8ps-yiNc8Q" points="[173, 666, -643984, -643984]$[562, 1396, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_44zFlF-KEemI8ps-yiNc8Q" id="(1.0,0.49)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_44zFlV-KEemI8ps-yiNc8Q" id="(0.0,0.07)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_VZxBIF-KEemI8ps-yiNc8Q" type="Association_Edge" source="_8EdlwF-JEemI8ps-yiNc8Q" target="__Z-wEF-JEemI8ps-yiNc8Q">
+      <children xmi:type="notation:DecorationNode" xmi:id="_VZxoMF-KEemI8ps-yiNc8Q" visible="false" type="Association_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_40sosF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VZxoMV-KEemI8ps-yiNc8Q" x="1" y="-18"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VZxoMl-KEemI8ps-yiNc8Q" visible="false" type="Association_NameLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_41WI8F-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VZxoM1-KEemI8ps-yiNc8Q" x="-1" y="18"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VZxoNF-KEemI8ps-yiNc8Q" visible="false" type="Association_TargetRoleLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_41-bEF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VZxoNV-KEemI8ps-yiNc8Q" x="414" y="-18"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VZxoNl-KEemI8ps-yiNc8Q" visible="false" type="Association_SourceRoleLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_42mGIF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VZxoN1-KEemI8ps-yiNc8Q" x="-415" y="18"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VZxoOF-KEemI8ps-yiNc8Q" type="Association_SourceMultiplicityLabel">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_98RKAl-LEemI8ps-yiNc8Q" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_98RKA1-LEemI8ps-yiNc8Q" key="visible" value="true"/>
+        </eAnnotations>
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_43NxMF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VZxoOV-KEemI8ps-yiNc8Q" x="22" y="12"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_VZxoOl-KEemI8ps-yiNc8Q" type="Association_TargetMultiplicityLabel">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_98P74F-LEemI8ps-yiNc8Q" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_98Qi8F-LEemI8ps-yiNc8Q" key="visible" value="true"/>
+        </eAnnotations>
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_434fkF-KEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_VZxoO1-KEemI8ps-yiNc8Q" x="-3" y="28"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_VZxBIV-KEemI8ps-yiNc8Q"/>
+      <element xmi:type="uml:Association" href="PureEthernetStructure.uml#_rQ9pLV-IEemI8ps-yiNc8Q"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_VZxBIl-KEemI8ps-yiNc8Q" points="[162, 666, -643984, -643984]$[594, 1976, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_44zFkF-KEemI8ps-yiNc8Q" id="(1.0,0.29)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_44zFkV-KEemI8ps-yiNc8Q" id="(0.0,0.14)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_nGSGMF-KEemI8ps-yiNc8Q" type="Usage_Edge" source="_CixtAF-KEemI8ps-yiNc8Q" target="_LvbCwF-KEemI8ps-yiNc8Q">
+      <children xmi:type="notation:DecorationNode" xmi:id="_nGStQF-KEemI8ps-yiNc8Q" visible="false" type="Usage_NameLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_BAovYF-LEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_nGStQV-KEemI8ps-yiNc8Q" y="39"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_nGStQl-KEemI8ps-yiNc8Q" visible="false" type="Usage_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_BBQacF-LEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_nGStQ1-KEemI8ps-yiNc8Q" y="59"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_nGSGMV-KEemI8ps-yiNc8Q"/>
+      <element xmi:type="uml:Usage" href="PureEthernetStructure.uml#_nGQRAF-KEemI8ps-yiNc8Q"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_nGSGMl-KEemI8ps-yiNc8Q" points="[708, 398, -643984, -643984]$[1066, 40, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_nH_9cF-KEemI8ps-yiNc8Q" id="(1.0,0.37333333333333335)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_nH_9cV-KEemI8ps-yiNc8Q" id="(0.0,0.24)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_n4e_MF-KEemI8ps-yiNc8Q" type="Usage_Edge" source="_DGMjIF-KEemI8ps-yiNc8Q" target="_Nm3skF-KEemI8ps-yiNc8Q">
+      <children xmi:type="notation:DecorationNode" xmi:id="_n4e_M1-KEemI8ps-yiNc8Q" visible="false" type="Usage_NameLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_GBsOcF-LEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_n4fmQF-KEemI8ps-yiNc8Q" y="39"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_n4fmQV-KEemI8ps-yiNc8Q" visible="false" type="Usage_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_GCUgkF-LEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_n4fmQl-KEemI8ps-yiNc8Q" x="1" y="58"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_n4e_MV-KEemI8ps-yiNc8Q"/>
+      <element xmi:type="uml:Usage" href="PureEthernetStructure.uml#_n4dKAF-KEemI8ps-yiNc8Q"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_n4e_Ml-KEemI8ps-yiNc8Q" points="[670, 730, -643984, -643984]$[1122, 314, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_n6FhsF-KEemI8ps-yiNc8Q" id="(1.0,0.34)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_n6GIwF-KEemI8ps-yiNc8Q" id="(0.0,0.09)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_pJjlgF-KEemI8ps-yiNc8Q" type="Usage_Edge" source="_EWz2cF-KEemI8ps-yiNc8Q" target="_M2c8QF-KEemI8ps-yiNc8Q">
+      <children xmi:type="notation:DecorationNode" xmi:id="_pJkMkF-KEemI8ps-yiNc8Q" visible="false" type="Usage_NameLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Hi47cF-LEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_pJkMkV-KEemI8ps-yiNc8Q" y="38"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_pJkMkl-KEemI8ps-yiNc8Q" visible="false" type="Usage_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_HjhNkF-LEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_pJkMk1-KEemI8ps-yiNc8Q" x="1" y="58"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_pJjlgV-KEemI8ps-yiNc8Q"/>
+      <element xmi:type="uml:Usage" href="PureEthernetStructure.uml#_pJiXYF-KEemI8ps-yiNc8Q"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_pJjlgl-KEemI8ps-yiNc8Q" points="[634, 1088, -643984, -643984]$[1068, 668, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_pLW8UF-KEemI8ps-yiNc8Q" id="(1.0,0.36)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_pLW8UV-KEemI8ps-yiNc8Q" id="(0.0,0.13076923076923078)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_qXmtAF-KEemI8ps-yiNc8Q" type="Usage_Edge" source="_FATfYF-KEemI8ps-yiNc8Q" target="_RTLmQF-KEemI8ps-yiNc8Q">
+      <children xmi:type="notation:DecorationNode" xmi:id="_qXnUEF-KEemI8ps-yiNc8Q" visible="false" type="Usage_NameLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_ILelcF-LEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_qXnUEV-KEemI8ps-yiNc8Q" y="39"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_qXnUEl-KEemI8ps-yiNc8Q" visible="false" type="Usage_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_IMIswF-LEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_qXnUE1-KEemI8ps-yiNc8Q" y="58"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_qXmtAV-KEemI8ps-yiNc8Q"/>
+      <element xmi:type="uml:Usage" href="PureEthernetStructure.uml#_qXk30F-KEemI8ps-yiNc8Q"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_qXmtAl-KEemI8ps-yiNc8Q" points="[740, 1520, -643984, -643984]$[1122, 1200, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qZh_oF-KEemI8ps-yiNc8Q" id="(1.0,0.31)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qZh_oV-KEemI8ps-yiNc8Q" id="(0.0,0.17)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_rRwoIF-KEemI8ps-yiNc8Q" type="Usage_Edge" source="__Z-wEF-JEemI8ps-yiNc8Q" target="_Rt7okF-KEemI8ps-yiNc8Q">
+      <children xmi:type="notation:DecorationNode" xmi:id="_rRwoI1-KEemI8ps-yiNc8Q" visible="false" type="Usage_NameLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_IqKFgF-LEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_rRxPMF-KEemI8ps-yiNc8Q" y="39"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_rRxPMV-KEemI8ps-yiNc8Q" visible="false" type="Usage_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Iq5FUF-LEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_rRxPMl-KEemI8ps-yiNc8Q" y="59"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_rRwoIV-KEemI8ps-yiNc8Q"/>
+      <element xmi:type="uml:Usage" href="PureEthernetStructure.uml#_rRvaAF-KEemI8ps-yiNc8Q"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_rRwoIl-KEemI8ps-yiNc8Q" points="[768, 2292, -643984, -643984]$[1202, 1730, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_rTQc8F-KEemI8ps-yiNc8Q" id="(1.0,0.3)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_rTQc8V-KEemI8ps-yiNc8Q" id="(0.0,0.06190476190476191)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_rxTD0F-KEemI8ps-yiNc8Q" type="Usage_Edge" source="_Rt7okF-KEemI8ps-yiNc8Q" target="_QzqYsF-KEemI8ps-yiNc8Q">
+      <children xmi:type="notation:DecorationNode" xmi:id="_rxTD01-KEemI8ps-yiNc8Q" visible="false" type="Usage_NameLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_YzPB4F-LEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_rxTD1F-KEemI8ps-yiNc8Q" y="39"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_rxTD1V-KEemI8ps-yiNc8Q" visible="false" type="Usage_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Yz5wQF-LEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_rxTD1l-KEemI8ps-yiNc8Q" x="-1" y="59"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_rxTD0V-KEemI8ps-yiNc8Q"/>
+      <element xmi:type="uml:Usage" href="PureEthernetStructure.uml#_rxR1sF-KEemI8ps-yiNc8Q"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_rxTD0l-KEemI8ps-yiNc8Q" points="[1453, 1659, -643984, -643984]$[1617, 1581, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ry178F-KEemI8ps-yiNc8Q" id="(0.9965753424657534,0.23333333333333334)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ry178V-KEemI8ps-yiNc8Q" id="(0.0,0.16494845360824742)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_sYJBYF-KEemI8ps-yiNc8Q" type="Usage_Edge" source="_RTLmQF-KEemI8ps-yiNc8Q" target="_QzqYsF-KEemI8ps-yiNc8Q">
+      <children xmi:type="notation:DecorationNode" xmi:id="_sYJBY1-KEemI8ps-yiNc8Q" visible="false" type="Usage_NameLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_X1lt4F-LEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_sYJBZF-KEemI8ps-yiNc8Q" x="1" y="38"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_sYJBZV-KEemI8ps-yiNc8Q" visible="false" type="Usage_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_X2S4gF-LEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_sYJBZl-KEemI8ps-yiNc8Q" x="1" y="58"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_sYJBYV-KEemI8ps-yiNc8Q"/>
+      <element xmi:type="uml:Usage" href="PureEthernetStructure.uml#_sYHzQF-KEemI8ps-yiNc8Q"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_sYJBYl-KEemI8ps-yiNc8Q" points="[1374, 1240, -643984, -643984]$[1618, 1452, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_sZivkF-KEemI8ps-yiNc8Q" id="(1.0,0.17829457364341086)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_sZivkV-KEemI8ps-yiNc8Q" id="(0.0,0.020618556701030927)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_trITQF-KEemI8ps-yiNc8Q" type="Usage_Edge" source="_LvbCwF-KEemI8ps-yiNc8Q" target="_JQQ4sF-KEemI8ps-yiNc8Q">
+      <children xmi:type="notation:DecorationNode" xmi:id="_trITQ1-KEemI8ps-yiNc8Q" visible="false" type="Usage_NameLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Qy9_sF-LEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_trITRF-KEemI8ps-yiNc8Q" x="-1" y="39"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_trITRV-KEemI8ps-yiNc8Q" visible="false" type="Usage_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_QzsYcF-LEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_trITRl-KEemI8ps-yiNc8Q" y="59"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_trITQV-KEemI8ps-yiNc8Q"/>
+      <element xmi:type="uml:Usage" href="PureEthernetStructure.uml#_trHFIF-KEemI8ps-yiNc8Q"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_trITQl-KEemI8ps-yiNc8Q" points="[1330, 66, -643984, -643984]$[1628, 44, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_tskdsF-KEemI8ps-yiNc8Q" id="(1.0,0.44)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_tskdsV-KEemI8ps-yiNc8Q" id="(0.0,0.1450381679389313)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_ulb_YF-KEemI8ps-yiNc8Q" type="Usage_Edge" source="_aMjTUF-NEemI8ps-yiNc8Q" target="_JQQ4sF-KEemI8ps-yiNc8Q">
+      <children xmi:type="notation:DecorationNode" xmi:id="_ulcmcl-KEemI8ps-yiNc8Q" visible="false" type="Usage_NameLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_XBf-gF-LEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_ulcmc1-KEemI8ps-yiNc8Q" y="39"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_ulcmdF-KEemI8ps-yiNc8Q" visible="false" type="Usage_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_XCOXQF-LEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_ulcmdV-KEemI8ps-yiNc8Q" y="59"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_ulcmcF-KEemI8ps-yiNc8Q"/>
+      <element xmi:type="uml:Usage" href="PureEthernetStructure.uml#_ulaxQF-KEemI8ps-yiNc8Q"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ulcmcV-KEemI8ps-yiNc8Q" points="[1360, 658, -643984, -643984]$[1628, 68, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_um_ekF-KEemI8ps-yiNc8Q" id="(0.996969696969697,0.5087719298245614)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_um_ekV-KEemI8ps-yiNc8Q" id="(0.0,0.3282442748091603)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_IDsQgF-NEemI8ps-yiNc8Q" type="Usage_Edge" source="_Nm3skF-KEemI8ps-yiNc8Q" target="_7z9YUGafEemaCpXjwie7xQ">
+      <children xmi:type="notation:DecorationNode" xmi:id="_IDs3kF-NEemI8ps-yiNc8Q" visible="false" type="Usage_NameLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_dWNL4F-NEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_IDs3kV-NEemI8ps-yiNc8Q" x="1" y="39"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_IDs3kl-NEemI8ps-yiNc8Q" visible="false" type="Usage_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_dW3TMF-NEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_IDs3k1-NEemI8ps-yiNc8Q" y="59"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_IDsQgV-NEemI8ps-yiNc8Q"/>
+      <element xmi:type="uml:Usage" href="PureEthernetStructure.uml#_IDrpcF-NEemI8ps-yiNc8Q"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_IDsQgl-NEemI8ps-yiNc8Q" points="[1292, 192, -643984, -643984]$[1444, 252, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_IFPIoF-NEemI8ps-yiNc8Q" id="(1.0,0.33)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_IFPIoV-NEemI8ps-yiNc8Q" id="(0.0,0.08)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_aMsdQF-NEemI8ps-yiNc8Q" type="StereotypeCommentLink" source="_aMjTUF-NEemI8ps-yiNc8Q" target="_aMr2M1-NEemI8ps-yiNc8Q">
+      <styles xmi:type="notation:FontStyle" xmi:id="_aMsdQV-NEemI8ps-yiNc8Q"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_aMsdRV-NEemI8ps-yiNc8Q" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_rQ9FQV-IEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_aMsdQl-NEemI8ps-yiNc8Q" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_aMsdQ1-NEemI8ps-yiNc8Q"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_aMsdRF-NEemI8ps-yiNc8Q"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_k5mE0F-NEemI8ps-yiNc8Q" type="Generalization_Edge" source="_M2c8QF-KEemI8ps-yiNc8Q" target="_aMjTUF-NEemI8ps-yiNc8Q">
+      <children xmi:type="notation:DecorationNode" xmi:id="_k5mr4F-NEemI8ps-yiNc8Q" type="Generalization_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_oGVtoF-NEemI8ps-yiNc8Q" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_k5mr4V-NEemI8ps-yiNc8Q" y="39"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_k5mE0V-NEemI8ps-yiNc8Q"/>
+      <element xmi:type="uml:Generalization" href="PureEthernetStructure.uml#_rQ9ByF-IEemI8ps-yiNc8Q"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_k5mE0l-NEemI8ps-yiNc8Q" points="[956, 390, -643984, -643984]$[1025, 276, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_k7h-gF-NEemI8ps-yiNc8Q" id="(0.10843373493975904,0.0)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_k7h-gV-NEemI8ps-yiNc8Q" id="(0.0,0.4473684210526316)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_D36wZ2BNEemttdJfSvwReA" type="StereotypeCommentLink" source="_D3y0kGBNEemttdJfSvwReA" target="_D36wY2BNEemttdJfSvwReA">
+      <styles xmi:type="notation:FontStyle" xmi:id="_D36waGBNEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_D37XcmBNEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_wPoiMGBMEemttdJfSvwReA"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_D36waWBNEemttdJfSvwReA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_D37XcGBNEemttdJfSvwReA"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_D37XcWBNEemttdJfSvwReA"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_ET1QUWBNEemttdJfSvwReA" type="StereotypeCommentLink" source="_ETpDEGBNEemttdJfSvwReA" target="_ET0pQ2BNEemttdJfSvwReA">
+      <styles xmi:type="notation:FontStyle" xmi:id="_ET1QUmBNEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_ET1QVmBNEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Class" href="PureEthernetStructure.uml#_wP5n8GBMEemttdJfSvwReA"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ET1QU2BNEemttdJfSvwReA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ET1QVGBNEemttdJfSvwReA"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ET1QVWBNEemttdJfSvwReA"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_G9D8YGBNEemttdJfSvwReA" type="Generalization_Edge" source="_RTLmQF-KEemI8ps-yiNc8Q" target="_D3y0kGBNEemttdJfSvwReA">
+      <children xmi:type="notation:DecorationNode" xmi:id="_G9D8Y2BNEemttdJfSvwReA" type="Generalization_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_H3TXEGBNEemttdJfSvwReA" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_G9D8ZGBNEemttdJfSvwReA" y="39"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_G9D8YWBNEemttdJfSvwReA"/>
+      <element xmi:type="uml:Generalization" href="PureEthernetStructure.uml#_G8PdAGBNEemttdJfSvwReA"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_G9D8YmBNEemttdJfSvwReA" points="[929, 730, -643984, -643984]$[1047, 594, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_G-uwUGBNEemttdJfSvwReA" id="(0.10273972602739725,0.0)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_G-uwUWBNEemttdJfSvwReA" id="(0.0,0.2396694214876033)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_mA62AGBNEemttdJfSvwReA" type="Generalization_Edge" source="_Rt7okF-KEemI8ps-yiNc8Q" target="_ETpDEGBNEemttdJfSvwReA">
+      <children xmi:type="notation:DecorationNode" xmi:id="_mA62A2BNEemttdJfSvwReA" type="Generalization_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_shUn8GBNEemttdJfSvwReA" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_mA62BGBNEemttdJfSvwReA" y="39"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_mA62AWBNEemttdJfSvwReA"/>
+      <element xmi:type="uml:Generalization" href="PureEthernetStructure.uml#_l_0CwGBNEemttdJfSvwReA"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_mA62AmBNEemttdJfSvwReA" points="[935, 1332, -643984, -643984]$[979, 1154, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_mDEyIGBNEemttdJfSvwReA" id="(0.05821917808219178,0.0)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_mDEyIWBNEemttdJfSvwReA" id="(0.0,0.1958762886597938)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_8P6nwGBNEemttdJfSvwReA" type="Usage_Edge" source="_D3y0kGBNEemttdJfSvwReA" target="_7z9YUGafEemaCpXjwie7xQ">
+      <children xmi:type="notation:DecorationNode" xmi:id="_8P6nw2BNEemttdJfSvwReA" visible="false" type="Usage_NameLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Cht_MGBdEemttdJfSvwReA" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_8P7O0GBNEemttdJfSvwReA" x="-1" y="39"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_8P7O0WBNEemttdJfSvwReA" visible="false" type="Usage_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Ci0ycGBdEemttdJfSvwReA" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_8P7O0mBNEemttdJfSvwReA" y="59"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_8P6nwWBNEemttdJfSvwReA"/>
+      <element xmi:type="uml:Usage" href="PureEthernetStructure.uml#_8P4LgGBNEemttdJfSvwReA"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_8P6nwmBNEemttdJfSvwReA" points="[1259, 656, -643984, -643984]$[1444, 557, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_8Sid8GBNEemttdJfSvwReA" id="(1.0,0.3884297520661157)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_8Sid8WBNEemttdJfSvwReA" id="(0.0,0.2)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_-4RKEGBNEemttdJfSvwReA" type="Usage_Edge" source="_D3y0kGBNEemttdJfSvwReA" target="_7wsB4GafEemaCpXjwie7xQ">
+      <children xmi:type="notation:DecorationNode" xmi:id="_-4RxIGBNEemttdJfSvwReA" visible="false" type="Usage_NameLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_N2ES4GagEemaCpXjwie7xQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_-4RxIWBNEemttdJfSvwReA" x="1" y="39"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_-4RxImBNEemttdJfSvwReA" visible="false" type="Usage_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_N3cy8GagEemaCpXjwie7xQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_-4RxI2BNEemttdJfSvwReA" y="59"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_-4RKEWBNEemttdJfSvwReA"/>
+      <element xmi:type="uml:Usage" href="PureEthernetStructure.uml#_-4QjAGBNEemttdJfSvwReA"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_-4RKEmBNEemttdJfSvwReA" points="[1259, 668, -643984, -643984]$[1444, 691, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-6rk4GBNEemttdJfSvwReA" id="(1.0,0.4380165289256198)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-6rk4WBNEemttdJfSvwReA" id="(0.0,0.10434782608695652)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_JueeoGBOEemttdJfSvwReA" type="Usage_Edge" source="_ETpDEGBNEemttdJfSvwReA" target="_7wsB4GafEemaCpXjwie7xQ">
+      <children xmi:type="notation:DecorationNode" xmi:id="_Jueeo2BOEemttdJfSvwReA" visible="false" type="Usage_NameLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_NzbOkGagEemaCpXjwie7xQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_JueepGBOEemttdJfSvwReA" y="39"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_JueepWBOEemttdJfSvwReA" visible="false" type="Usage_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_N0vdMGagEemaCpXjwie7xQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_JueepmBOEemttdJfSvwReA" y="59"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_JueeoWBOEemttdJfSvwReA"/>
+      <element xmi:type="uml:Usage" href="PureEthernetStructure.uml#_JucpcGBOEemttdJfSvwReA"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_JueeomBOEemttdJfSvwReA" points="[1245, 1150, -643984, -643984]$[1444, 701, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_JxNCgGBOEemttdJfSvwReA" id="(1.0,0.38144329896907214)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_JxNCgWBOEemttdJfSvwReA" id="(0.0,0.17391304347826086)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_SD21NGBOEemttdJfSvwReA" type="StereotypeCommentLink" source="_nGSGMF-KEemI8ps-yiNc8Q" target="_SD21MGBOEemttdJfSvwReA">
+      <styles xmi:type="notation:FontStyle" xmi:id="_SD21NWBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_SD21OWBOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_nGQRAF-KEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_SD21NmBOEemttdJfSvwReA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_SD21N2BOEemttdJfSvwReA"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_SD21OGBOEemttdJfSvwReA"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_TD3gsWBOEemttdJfSvwReA" type="StereotypeCommentLink" source="_n4e_MF-KEemI8ps-yiNc8Q" target="_TD25omBOEemttdJfSvwReA">
+      <styles xmi:type="notation:FontStyle" xmi:id="_TD3gsmBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_TD3gtmBOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_n4dKAF-KEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_TD3gs2BOEemttdJfSvwReA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_TD3gtGBOEemttdJfSvwReA"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_TD3gtWBOEemttdJfSvwReA"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_T1_hMWBOEemttdJfSvwReA" type="StereotypeCommentLink" source="_qXmtAF-KEemI8ps-yiNc8Q" target="_T1-6I2BOEemttdJfSvwReA">
+      <styles xmi:type="notation:FontStyle" xmi:id="_T1_hMmBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_T1_hNmBOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_qXk30F-KEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_T1_hM2BOEemttdJfSvwReA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_T1_hNGBOEemttdJfSvwReA"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_T1_hNWBOEemttdJfSvwReA"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_Uk7q12BOEemttdJfSvwReA" type="StereotypeCommentLink" source="_pJjlgF-KEemI8ps-yiNc8Q" target="_Uk7q02BOEemttdJfSvwReA">
+      <styles xmi:type="notation:FontStyle" xmi:id="_Uk7q2GBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_Uk8R4GBOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_pJiXYF-KEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Uk7q2WBOEemttdJfSvwReA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Uk7q2mBOEemttdJfSvwReA"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Uk7q22BOEemttdJfSvwReA"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_VNii9GBOEemttdJfSvwReA" type="StereotypeCommentLink" source="_rxTD0F-KEemI8ps-yiNc8Q" target="_VNii8GBOEemttdJfSvwReA">
+      <styles xmi:type="notation:FontStyle" xmi:id="_VNii9WBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_VNii-WBOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_rxR1sF-KEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_VNii9mBOEemttdJfSvwReA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VNii92BOEemttdJfSvwReA"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VNii-GBOEemttdJfSvwReA"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_V5Lg9GBOEemttdJfSvwReA" type="StereotypeCommentLink" source="_rRwoIF-KEemI8ps-yiNc8Q" target="_V5Lg8GBOEemttdJfSvwReA">
+      <styles xmi:type="notation:FontStyle" xmi:id="_V5Lg9WBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_V5Lg-WBOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_rRvaAF-KEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_V5Lg9mBOEemttdJfSvwReA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_V5Lg92BOEemttdJfSvwReA"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_V5Lg-GBOEemttdJfSvwReA"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_WlMSYWBOEemttdJfSvwReA" type="StereotypeCommentLink" source="_sYJBYF-KEemI8ps-yiNc8Q" target="_WlLrUGBOEemttdJfSvwReA">
+      <styles xmi:type="notation:FontStyle" xmi:id="_WlMSYmBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_WlMSZmBOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_sYHzQF-KEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_WlMSY2BOEemttdJfSvwReA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_WlMSZGBOEemttdJfSvwReA"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_WlMSZWBOEemttdJfSvwReA"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_XOtwgGBOEemttdJfSvwReA" type="StereotypeCommentLink" source="_trITQF-KEemI8ps-yiNc8Q" target="_XOtJc2BOEemttdJfSvwReA">
+      <styles xmi:type="notation:FontStyle" xmi:id="_XOtwgWBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_XOtwhWBOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_trHFIF-KEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_XOtwgmBOEemttdJfSvwReA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_XOtwg2BOEemttdJfSvwReA"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_XOtwhGBOEemttdJfSvwReA"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_X3UBlmBOEemttdJfSvwReA" type="StereotypeCommentLink" source="_IDsQgF-NEemI8ps-yiNc8Q" target="_X3UBkmBOEemttdJfSvwReA">
+      <styles xmi:type="notation:FontStyle" xmi:id="_X3UBl2BOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_X3UBm2BOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_IDrpcF-NEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_X3UBmGBOEemttdJfSvwReA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_X3UBmWBOEemttdJfSvwReA"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_X3UBmmBOEemttdJfSvwReA"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_ZBO3AWBOEemttdJfSvwReA" type="StereotypeCommentLink" source="_ulb_YF-KEemI8ps-yiNc8Q" target="_ZBOP82BOEemttdJfSvwReA">
+      <styles xmi:type="notation:FontStyle" xmi:id="_ZBO3AmBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_ZBO3BmBOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_ulaxQF-KEemI8ps-yiNc8Q"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ZBO3A2BOEemttdJfSvwReA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ZBO3BGBOEemttdJfSvwReA"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ZBO3BWBOEemttdJfSvwReA"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_ZqE_tGBOEemttdJfSvwReA" type="StereotypeCommentLink" source="_8P6nwGBNEemttdJfSvwReA" target="_ZqE_sGBOEemttdJfSvwReA">
+      <styles xmi:type="notation:FontStyle" xmi:id="_ZqE_tWBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_ZqE_uWBOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_8P4LgGBNEemttdJfSvwReA"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ZqE_tmBOEemttdJfSvwReA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ZqE_t2BOEemttdJfSvwReA"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ZqE_uGBOEemttdJfSvwReA"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_aQdqRGBOEemttdJfSvwReA" type="StereotypeCommentLink" source="_-4RKEGBNEemttdJfSvwReA" target="_aQdqQGBOEemttdJfSvwReA">
+      <styles xmi:type="notation:FontStyle" xmi:id="_aQdqRWBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_aQdqSWBOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_-4QjAGBNEemttdJfSvwReA"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_aQdqRmBOEemttdJfSvwReA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_aQdqR2BOEemttdJfSvwReA"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_aQdqSGBOEemttdJfSvwReA"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_a6oopGBOEemttdJfSvwReA" type="StereotypeCommentLink" source="_JueeoGBOEemttdJfSvwReA" target="_a6oooGBOEemttdJfSvwReA">
+      <styles xmi:type="notation:FontStyle" xmi:id="_a6oopWBOEemttdJfSvwReA"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_a6ooqWBOEemttdJfSvwReA" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Usage" href="PureEthernetStructure.uml#_JucpcGBOEemttdJfSvwReA"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_a6oopmBOEemttdJfSvwReA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_a6oop2BOEemttdJfSvwReA"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_a6ooqGBOEemttdJfSvwReA"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_muxEwGfzEemHIN8XirGEHw" type="Abstraction_Edge" source="_8EdlwF-JEemI8ps-yiNc8Q" target="_jbL1Fl-HEemI8ps-yiNc8Q">
+      <children xmi:type="notation:DecorationNode" xmi:id="_muxr0mfzEemHIN8XirGEHw" type="Abstraction_NameLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_muxr02fzEemHIN8XirGEHw" y="40"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_muxr1GfzEemHIN8XirGEHw" type="Abstraction_StereotypeLabel">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_muxr1WfzEemHIN8XirGEHw" x="2" y="-31"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_muxr0GfzEemHIN8XirGEHw"/>
+      <element xmi:type="uml:Abstraction" href="PureEthernetStructure.uml#_muuBcGfzEemHIN8XirGEHw"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_muxr0WfzEemHIN8XirGEHw" points="[-40, 322, -643984, -643984]$[-40, 56, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_mxuSIGfzEemHIN8XirGEHw" id="(0.2670807453416149,0.0)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_mxuSIWfzEemHIN8XirGEHw" id="(0.43,1.0)"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_ntsLJGfzEemHIN8XirGEHw" type="StereotypeCommentLink" source="_muxEwGfzEemHIN8XirGEHw" target="_ntsLIGfzEemHIN8XirGEHw">
+      <styles xmi:type="notation:FontStyle" xmi:id="_ntsLJWfzEemHIN8XirGEHw"/>
+      <styles xmi:type="notation:EObjectValueStyle" xmi:id="_ntsLKWfzEemHIN8XirGEHw" name="BASE_ELEMENT">
+        <eObjectValue xmi:type="uml:Abstraction" href="PureEthernetStructure.uml#_muuBcGfzEemHIN8XirGEHw"/>
+      </styles>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ntsLJmfzEemHIN8XirGEHw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ntsLJ2fzEemHIN8XirGEHw"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ntsLKGfzEemHIN8XirGEHw"/>
+    </edges>
+  </notation:Diagram>
+</xmi:XMI>
