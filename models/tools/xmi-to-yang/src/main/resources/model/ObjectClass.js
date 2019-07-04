@@ -178,7 +178,7 @@ Class.prototype.buildAttribute = function(att){
         type = att.attributes().type;
         isLeaf = false;
     }
-    else if(att['type']){
+    else if(att['type'] && att['type'].attributes) {
         type = att['type'].attributes();
         if (type['xmi:type'] == 'uml:PrimitiveType') {
             type = type.href.split('#')[1].toLocaleLowerCase() ;

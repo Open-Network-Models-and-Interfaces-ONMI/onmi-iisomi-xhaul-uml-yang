@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26" xmlns:RootElement="http:///schemas/RootElement/_unAKkJDrEemIv9iw4JXc9w/46" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26 UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_S32LgD8HEeiIisB6uOvKFA http:///schemas/RootElement/_unAKkJDrEemIv9iw4JXc9w/46 UmlProfiles/Experimental.profile.uml#_unEcAJDrEemIv9iw4JXc9w">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26" xmlns:OpenModel_Profile_1="http:///schemas/OpenModel_Profile/_aG1hkAPxEeewDI5jM-81FA/21" xmlns:RootElement="http:///schemas/RootElement/_unAKkJDrEemIv9iw4JXc9w/46" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26 UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml http:///schemas/OpenModel_Profile/_aG1hkAPxEeewDI5jM-81FA/21 OpenModel_Profile.profile.uml#_aG-rgAPxEeewDI5jM-81FA http:///schemas/RootElement/_unAKkJDrEemIv9iw4JXc9w/46 UmlProfiles/Experimental.profile.uml">
   <uml:Package xmi:id="_oGqilVLNEeO75dO39GbF8Q" name="CoreModel">
     <packageImport xmi:type="uml:PackageImport" xmi:id="_8Q4ecKxrEeS5HuAudtqItw">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -1937,6 +1937,18 @@ For asymmetric FDs, the association to the LTP is via the FdPort.</body>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_fEr5AIDfEeeGAbqDM4f-JQ" value="2"/>
           </ownedAttribute>
         </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_GLZy4J47Eemkbek818V8NQ" name="ProfileCollection">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_OryDEJ48Eemkbek818V8NQ" name="_profile" type="_GLc2MJ47Eemkbek818V8NQ" aggregation="composite" association="_Orr8cJ48Eemkbek818V8NQ">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_OryqIJ48Eemkbek818V8NQ"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OrzRMJ48Eemkbek818V8NQ" value="*"/>
+          </ownedAttribute>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_GLc2MJ47Eemkbek818V8NQ" name="Profile">
+          <generalization xmi:type="uml:Generalization" xmi:id="_jiXs4J47Eemkbek818V8NQ" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_GLc2NZ47Eemkbek818V8NQ" name="profileName">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          </ownedAttribute>
+        </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_oGqwB1LNEeO75dO39GbF8Q" name="Diagrams">
         <ownedComment xmi:type="uml:Comment" xmi:id="_OdhAUJozEeOyHKqw-cQ_eg">
@@ -1983,6 +1995,38 @@ Suggest adding CONTRA_DIRECTION_SINK and CONTRA_DIRECTION_SOURCE to TerminationD
           </ownedComment>
         </packagedElement>
         <packagedElement xmi:type="uml:Package" xmi:id="_og-pEHXCEeeqyuooNTTDCg" name="Timing"/>
+        <packagedElement xmi:type="uml:Package" xmi:id="_3RUOoJ45Eemkbek818V8NQ" name="pnrDeviceModel">
+          <packagedElement xmi:type="uml:Association" xmi:id="_Orr8cJ48Eemkbek818V8NQ" name="hasProfiles" memberEnd="_OryDEJ48Eemkbek818V8NQ _OrzRMZ48Eemkbek818V8NQ">
+            <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Orw08J48Eemkbek818V8NQ" source="org.eclipse.papyrus">
+              <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Orw08Z48Eemkbek818V8NQ" key="nature" value="UML_Nature"/>
+            </eAnnotations>
+            <ownedEnd xmi:type="uml:Property" xmi:id="_OrzRMZ48Eemkbek818V8NQ" name="_profileCollection" type="_GLZy4J47Eemkbek818V8NQ" association="_Orr8cJ48Eemkbek818V8NQ"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:Association" xmi:id="_0pFO0J4-Eemkbek818V8NQ" name="ControlConstructHasProfileCollection" memberEnd="_0pHrEJ4-Eemkbek818V8NQ _0pI5MJ4-Eemkbek818V8NQ">
+            <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_0pHEAJ4-Eemkbek818V8NQ" source="org.eclipse.papyrus">
+              <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_0pHEAZ4-Eemkbek818V8NQ" key="nature" value="UML_Nature"/>
+            </eAnnotations>
+            <ownedEnd xmi:type="uml:Property" xmi:id="_0pI5MJ4-Eemkbek818V8NQ" name="_controlConstruct" type="_Vuh_EJmhEeWTOvbfd7_4-A" association="_0pFO0J4-Eemkbek818V8NQ"/>
+          </packagedElement>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_dbO9QJ5AEemkbek818V8NQ" name="ControlConstructHasEquipment" memberEnd="_dbQycp5AEemkbek818V8NQ _dbSAkp5AEemkbek818V8NQ">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_dbQycJ5AEemkbek818V8NQ" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_dbQycZ5AEemkbek818V8NQ" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_dbSAkp5AEemkbek818V8NQ" name="_controlConstruct" type="_Vuh_EJmhEeWTOvbfd7_4-A" association="_dbO9QJ5AEemkbek818V8NQ"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_ugAF0J5AEemkbek818V8NQ" name="ControlConstructHasLtp" memberEnd="_ugCiEp5AEemkbek818V8NQ _ugDwMJ5AEemkbek818V8NQ">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ugCiEJ5AEemkbek818V8NQ" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_ugCiEZ5AEemkbek818V8NQ" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_ugDwMJ5AEemkbek818V8NQ" name="_controlConstruct" type="_Vuh_EJmhEeWTOvbfd7_4-A" association="_ugAF0J5AEemkbek818V8NQ"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="___65UJ5AEemkbek818V8NQ" name="ControlConstructHasForwrdingDomains" memberEnd="___8ugp5AEemkbek818V8NQ ___9Vkp5AEemkbek818V8NQ">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="___8ugJ5AEemkbek818V8NQ" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="___8ugZ5AEemkbek818V8NQ" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="___9Vkp5AEemkbek818V8NQ" name="_controlConstruct" type="_Vuh_EJmhEeWTOvbfd7_4-A" association="___65UJ5AEemkbek818V8NQ"/>
+        </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_tyBQYBirEeSh8KVgZCMyDw" name="Associations">
         <packagedElement xmi:type="uml:Association" xmi:id="_oGqm3FLNEeO75dO39GbF8Q" name="FdSupportsFcs" memberEnd="_oGql_1LNEeO75dO39GbF8Q _oGqm31LNEeO75dO39GbF8Q">
@@ -2585,15 +2629,6 @@ Entity: Has identity, defined boundary, properties, functionality and lifecycle 
             <generalization xmi:type="uml:Generalization" xmi:id="_hPrzkI22EeO38ZmbECnvbg" general="_bCi74I22EeO38ZmbECnvbg"/>
             <generalization xmi:type="uml:Generalization" xmi:id="_hNiEULE2EeSZUdYfPSdgew" general="_RG6VILEtEeSZUdYfPSdgew"/>
             <generalization xmi:type="uml:Generalization" xmi:id="_SjNfgMDmEeWbqPZwR-Ot6A" general="_CDLtoMDkEeWbqPZwR-Ot6A"/>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_w39joI3wEeO38ZmbECnvbg" name="localId" visibility="public" type="_y7oy8I3tEeO38ZmbECnvbg">
-              <ownedComment xmi:type="uml:Comment" xmi:id="_TzLZ0GgWEeWmgIwAIZlYKQ" annotatedElement="_w39joI3wEeO38ZmbECnvbg">
-                <body>An identifier that is unique in the context of some scope that is less than the global scope.&#xD;
-&#xD;
-(This should be considered in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)</body>
-              </ownedComment>
-              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xTUC4I3wEeO38ZmbECnvbg"/>
-              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xT__YI3wEeO38ZmbECnvbg" value="*"/>
-            </ownedAttribute>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_IEiZwI22EeO38ZmbECnvbg" name="uuid" visibility="public" type="_SU3Q4I30EeO38ZmbECnvbg">
               <ownedComment xmi:type="uml:Comment" xmi:id="_ZiNZMGgWEeWmgIwAIZlYKQ" annotatedElement="_IEiZwI22EeO38ZmbECnvbg">
                 <body>UUID: An identifier that is universally unique&#xD;
@@ -2603,6 +2638,20 @@ The uuid should be treated as opaque by the user.</body>
               </ownedComment>
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_IpxNwI22EeO38ZmbECnvbg" value="1"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_IqKPUI22EeO38ZmbECnvbg" value="1"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_w39joI3wEeO38ZmbECnvbg" name="localId" visibility="public" type="_y7oy8I3tEeO38ZmbECnvbg">
+              <ownedComment xmi:type="uml:Comment" xmi:id="_TzLZ0GgWEeWmgIwAIZlYKQ" annotatedElement="_w39joI3wEeO38ZmbECnvbg">
+                <body>An identifier that is unique in the context of some scope that is less than the global scope.&#xD;
+&#xD;
+(This should be considered in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)</body>
+              </ownedComment>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xTUC4I3wEeO38ZmbECnvbg"/>
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xT__YI3wEeO38ZmbECnvbg" value="*"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_5-IdYJ49Eemkbek818V8NQ" name="externalManagedId" type="_3EHRQJ1WEemVGaFq9YMDhg">
+              <ownedComment xmi:type="uml:Comment" xmi:id="_5-IdYZ49Eemkbek818V8NQ">
+                <body>A list of external managed universal identifiers, set by an external tool. There must not be any function implemented on the ControlConstruct itself next to updating the list on request and storing it persitenly. </body>
+              </ownedComment>
             </ownedAttribute>
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_k5nWYI2wEeO38ZmbECnvbg" name="LocalClass" isAbstract="true">
@@ -2618,14 +2667,15 @@ The mandatory LocalId of the LocalClass instance is unique in the context of the
             <generalization xmi:type="uml:Generalization" xmi:id="_69cLMI22EeO38ZmbECnvbg" general="_bCi74I22EeO38ZmbECnvbg"/>
             <generalization xmi:type="uml:Generalization" xmi:id="_gigKULE2EeSZUdYfPSdgew" general="_RG6VILEtEeSZUdYfPSdgew"/>
             <generalization xmi:type="uml:Generalization" xmi:id="_Rgca8MDmEeWbqPZwR-Ot6A" general="_CDLtoMDkEeWbqPZwR-Ot6A"/>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_RMJegI22EeO38ZmbECnvbg" name="localId" visibility="public" type="_y7oy8I3tEeO38ZmbECnvbg">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_RMJegI22EeO38ZmbECnvbg" name="localId" visibility="public">
               <ownedComment xmi:type="uml:Comment" xmi:id="_kBhQsGgWEeWmgIwAIZlYKQ" annotatedElement="_RMJegI22EeO38ZmbECnvbg">
                 <body>An identifier that is unique in the context of some scope that is less than the global scope.&#xD;
 &#xD;
 (This should be considered in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)</body>
               </ownedComment>
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_GzHo0I3wEeO38ZmbECnvbg" value="1"/>
-              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_GzfcQI3wEeO38ZmbECnvbg" value="*"/>
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_GzfcQI3wEeO38ZmbECnvbg" value="1"/>
             </ownedAttribute>
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_u0HQoI2wEeO38ZmbECnvbg" name="Label" isAbstract="true">
@@ -8236,6 +8286,22 @@ This specific model follows a subset of the Component-System Pattern. &#xD;
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XFoS_BbsEeitqc-Dc8Gf8A"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XFoS_RbsEeitqc-Dc8Gf8A" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_0pHrEJ4-Eemkbek818V8NQ" name="_profileCollection" type="_GLZy4J47Eemkbek818V8NQ" aggregation="composite" association="_0pFO0J4-Eemkbek818V8NQ">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_0pISIJ4-Eemkbek818V8NQ"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_0pISIZ4-Eemkbek818V8NQ" value="1"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_dbQycp5AEemkbek818V8NQ" name="_equipment" type="_8SXNej-HEeaRI-H69PghuA" aggregation="composite" association="_dbO9QJ5AEemkbek818V8NQ">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dbSAkJ5AEemkbek818V8NQ"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dbSAkZ5AEemkbek818V8NQ" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_ugCiEp5AEemkbek818V8NQ" name="_ltp" type="_eEpDMFX4EeOVGaP4lO41SQ" aggregation="composite" association="_ugAF0J5AEemkbek818V8NQ">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ugDJIJ5AEemkbek818V8NQ"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ugDJIZ5AEemkbek818V8NQ" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="___8ugp5AEemkbek818V8NQ" name="_forwardingDomain" type="_oGql-FLNEeO75dO39GbF8Q" aggregation="composite" association="___65UJ5AEemkbek818V8NQ">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="___9VkJ5AEemkbek818V8NQ"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="___9VkZ5AEemkbek818V8NQ" value="*"/>
           </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_D5kTMJmiEeWTOvbfd7_4-A" name="ControlPort">
@@ -15643,4 +15709,20 @@ Significant definition is required here.</body>
   <OpenModel_Profile:Experimental xmi:id="_U7jl4FJwEeaDuo8VlVeg_g" base_Element="_8SXNFj-HEeaRI-H69PghuA"/>
   <OpenModel_Profile:Experimental xmi:id="_abwa4FJ3EeaDuo8VlVeg_g" base_Element="_k_CVUEQyEeasL6dcjI1vEA"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_Q3vPpVN3EeaDuo8VlVeg_g" base_StructuralFeature="_k_CVUEQyEeasL6dcjI1vEA"/>
+  <OpenModel_Profile_1:OpenModelClass xmi:id="_GLZy6J47Eemkbek818V8NQ" base_Class="_GLZy4J47Eemkbek818V8NQ"/>
+  <OpenModel_Profile_1:OpenModelClass xmi:id="_GLddQJ47Eemkbek818V8NQ" base_Class="_GLc2MJ47Eemkbek818V8NQ"/>
+  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_GLeEUJ47Eemkbek818V8NQ" base_StructuralFeature="_GLc2NZ47Eemkbek818V8NQ"/>
+  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_OryDEZ48Eemkbek818V8NQ" base_StructuralFeature="_OryDEJ48Eemkbek818V8NQ"/>
+  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_OrzRMp48Eemkbek818V8NQ" base_StructuralFeature="_OrzRMZ48Eemkbek818V8NQ"/>
+  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_aIPp4J49Eemkbek818V8NQ" base_StructuralFeature="_IEiZwI22EeO38ZmbECnvbg"/>
+  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_aIQQ8J49Eemkbek818V8NQ" base_StructuralFeature="_w39joI3wEeO38ZmbECnvbg"/>
+  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_5-IdYp49Eemkbek818V8NQ" base_StructuralFeature="_5-IdYJ49Eemkbek818V8NQ"/>
+  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_0pHrEZ4-Eemkbek818V8NQ" base_StructuralFeature="_0pHrEJ4-Eemkbek818V8NQ"/>
+  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_0pI5MZ4-Eemkbek818V8NQ" base_StructuralFeature="_0pI5MJ4-Eemkbek818V8NQ"/>
+  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_dbRZgJ5AEemkbek818V8NQ" base_StructuralFeature="_dbQycp5AEemkbek818V8NQ"/>
+  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_dbSnoJ5AEemkbek818V8NQ" base_StructuralFeature="_dbSAkp5AEemkbek818V8NQ"/>
+  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_ugCiE55AEemkbek818V8NQ" base_StructuralFeature="_ugCiEp5AEemkbek818V8NQ"/>
+  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_ugDwMZ5AEemkbek818V8NQ" base_StructuralFeature="_ugDwMJ5AEemkbek818V8NQ"/>
+  <OpenModel_Profile_1:OpenModelAttribute xmi:id="___8ug55AEemkbek818V8NQ" base_StructuralFeature="___8ugp5AEemkbek818V8NQ"/>
+  <OpenModel_Profile_1:OpenModelAttribute xmi:id="___98oJ5AEemkbek818V8NQ" base_StructuralFeature="___9Vkp5AEemkbek818V8NQ"/>
 </xmi:XMI>
