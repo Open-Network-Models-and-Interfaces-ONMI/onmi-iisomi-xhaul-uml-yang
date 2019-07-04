@@ -32,11 +32,11 @@
        - rename CoreModel to CoreNetworkFunction (reverted)
        - add OpenModelStatement
        - add Rootelement steriotype to ControlConstruct
-       - add generalization to GlobalClass from ControlConstruct
        - add generalization to GlobalClass from CascPort
        - avoiding naming confilcts for class and data-type "Address"
        - modify type for CoreModel::CoreNetworkModule::ObjectClasses::GlobalClass::localId - set to String
        - modify type for LayerProtocol::layerProtocolName - set to extensible ENUM
+       - add reference to uml, for ownedAttributes, in case no comment is provided by UML
 -->
 <!-- Changes made on the ONF Core Model 1.1 -> 1.2 -> 1.4
        - remove package CoreModel::ExplanatoryFiguresUsedIndDocumentsAndSlides
@@ -67,7 +67,6 @@
        - remove attribute CoreModel::CoreNetworkModule::ObjectClasses::LayerProtocol::_lpSpec, because LP capabilities are described for Microwave another way.
        - define type for CoreModel::CoreNetworkModule::ObjectClasses::LayerProtocol::terminationState - set to Boolean
        - define type for CoreModel::CoreNetworkModule::ObjectClasses::LayerProtocol::configuredClientCapacity - set to String
-       - add attribute uuid to CoreModel::CoreFoundationModule::SuperClassesAndCommonPackages::ObjectClasses::LocalClass used at yang key
        - correct CoreModel::CoreFoundationModel::StateModel::ObjectClasses::State_Pac::adminsatratveState -> administrativeState
        - add yang key definitions according to keys.xml
 -->
@@ -89,7 +88,7 @@
        - remove FruNonFruRules
 	   - add high-level description
 -->
-<xsl:stylesheet version="2.0" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_aG1hkAPxEeewDI5jM-81FA/21" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9" xmlns:RootElement="http:///schemas/RootElement/_B4YnAGFbEeeiJ9-h1KDHig/45" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<xsl:stylesheet version="2.0" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_aG1hkAPxEeewDI5jM-81FA/21" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9" xmlns:RootElement="http:///schemas/RootElement/_B4YnAGFbEeeiJ9-h1KDHig/45" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exclude-result-prefixes="fn onap">
   <!-- imports -->
   <xsl:import href="./global-functions.xslt"/>
   <!-- output defintions -->
@@ -216,6 +215,22 @@
     </xsl:copy>
   </xsl:template>
   <!-- 
+     add reference to uml, for ownedAttributes, in case no comment is provided by UML -->
+  <xsl:template match="ownedAttribute[fn:not(ownedComment) and fn:not(fn:key('prunedElementById', @xmi:id, $pruningLookupDoc)/@prune = fn:true())]">
+    <xsl:copy>
+      <xsl:apply-templates select="* | @*[fn:not(fn:name(.) = 'type')] | text()"/>
+      <ownedComment xmi:type="uml:Comment" xmi:id="{fn:generate-id(.)}" annotatedElement="{../@xmi:id}">
+        <body>
+          <xsl:text>Please add a comment to UML.</xsl:text>
+          <xsl:call-template name="addUmlReference">
+            <xsl:with-param name="node" select="."/>
+            <xsl:with-param name="visible" select="fn:true()"/>
+          </xsl:call-template>
+        </body>
+      </ownedComment>
+    </xsl:copy>
+  </xsl:template>
+  <!-- 
      modify type for CoreModel::CoreNetworkModule::ObjectClasses::GlobalClass::localId - set to String -->
   <xsl:template match="ownedAttribute[@name = 'localId' ]" >
     <xsl:copy>
@@ -245,18 +260,6 @@
     <xsl:copy>
       <xsl:apply-templates select="* | @* | text()"/>
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-    </xsl:copy>
-  </xsl:template>
-  <!--
-    add attribute uuid to CoreModel::CoreFoundationModule::SuperClassesAndCommonPackages::ObjectClasses::LocalClass used at yang key -->
-  <xsl:template match="packagedElement[@xmi:type='uml:Class' and @name = 'LocalClass' ]" >
-    <xsl:copy>
-      <xsl:apply-templates select="* | @* | text() "/>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_dCWWgOLVEeWM2vUDE3Xqhw" name="uuid" type="_SU3Q4I30EeO38ZmbECnvbg">
-        <ownedComment xmi:type="uml:Comment" xmi:id="_qn2i4OLVEeWM2vUDE3Xqhw" annotatedElement="_dCWWgOLVEeWM2vUDE3Xqhw">
-          <body>A global identifier for the LocalClass, which is used as reference.</body>
-        </ownedComment>
-      </ownedAttribute>
     </xsl:copy>
   </xsl:template>
   <!-- 
@@ -308,15 +311,6 @@
     </xsl:copy>
   </xsl:template>
 
-
-  <!-- add generalization to GlobalClass from ControlConstruct -->
-  <xsl:template match="packagedElement[@name='ControlConstruct']" >
-    <xsl:copy>
-      <xsl:apply-templates select="@*"/>
-          <generalization xmi:type="uml:Generalization" xmi:id="_Vg9XsI-BEempwbJEMKKhVw" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
-      <xsl:apply-templates select="node() | text()"/>
-      </xsl:copy>
-  </xsl:template>
   <!-- add generalization to GlobalClass from CascPort -->
   <xsl:template match="packagedElement[@name='CascPort']">
     <xsl:copy>
@@ -344,23 +338,33 @@
   </xsl:template>
   
 <!-- temporary -->
-  <xsl:template match="body">
-    <body>
-      <xsl:value-of select="text()"/>
+  <xsl:template name="addUmlReference">
+    <xsl:param name="node"/>
+    <xsl:param name="visible"/>
+    <xsl:if test="$visible = fn:true()">
       <xsl:text>&#xA;</xsl:text>
       <xsl:text>&#xA;</xsl:text>
       <xsl:text>uml:identifier = &quot;</xsl:text>
-      <xsl:value-of select="../../@xmi:id"/>
+      <xsl:value-of select="$node/@xmi:id"/>
       <xsl:text>&quot;</xsl:text>
       <xsl:text>&#xA;</xsl:text>
       <xsl:text>uml:reference  = &quot;</xsl:text>
-      <xsl:for-each select="ancestor::*">
+      <xsl:for-each select="$node/ancestor::*">
         <xsl:if test="@name">
           <xsl:text>/</xsl:text>
           <xsl:value-of select="@name"/>
         </xsl:if>
       </xsl:for-each>
       <xsl:text>&quot;</xsl:text>
+    </xsl:if>
+  </xsl:template>
+  <xsl:template match="body">
+    <body>
+      <xsl:value-of select="text()"/>
+      <xsl:call-template name="addUmlReference">
+        <xsl:with-param name="node" select="../.."/>
+        <xsl:with-param name="visible" select="fn:true()"/>
+      </xsl:call-template>
     </body>
   </xsl:template>
 

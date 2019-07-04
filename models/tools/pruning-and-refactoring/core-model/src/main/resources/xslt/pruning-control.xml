@@ -26,7 +26,7 @@
     <association id="_iRSs0JSdEei_9c44xHCpzQ" name="" prune="false"/>
     <association id="_o3MLoPHWEea2l9FuDSKfDQ" name="AbstractViewIsInternalViewThatHasMapping" prune="false"/>
     <association id="_c1ENAEmiEeaDccCv6BIgdg" name="ActualEquipmentHasActualHolder" prune="false"/>
-    <association id="_Yib8oIk-EeiF9qdS0TxlAA" name="AdapterBoundToTerminationAccessPort" prune="false"/>
+    <association id="_Yib8oIk-EeiF9qdS0TxlAA" name="AdapterBoundToTerminationAccessPort" prune="true"/>
     <association id="_izo5QBiVEeSh8KVgZCMyDw" name="AdapterPropertySpecConstrainedByMappingInteractionRule" prune="false"/>
     <association id="_GubFkBiWEeSh8KVgZCMyDw" name="AdapterPropertySpecHasMappingInteractionRule" prune="false"/>
     <association id="_9OYPkD-PEeaRI-H69PghuA" name="AddressedInTheContextOfHolder" prune="false"/>
@@ -60,7 +60,7 @@
     <association id="_s-6LMPPUEea2l9FuDSKfDQ" name="CdBoundedByLtp" prune="false"/>
     <association id="_ss6wkBBHEeS-tqfHkf_O5w" name="CdConstrainsCasc" prune="false"/>
     <association id="_kdfesPdAEea2l9FuDSKfDQ" name="CdConstrainsCd" prune="false"/>
-    <association id="_MX1kUBe5Eeitqc-Dc8Gf8A" name="CdConstrainsControlConstruct" prune="false"/>
+    <association id="_MX1kUBe5Eeitqc-Dc8Gf8A" name="CdConstrainsControlConstruct" prune="true"/>
     <association id="_RCmXoFsqEee0ZvXJLxwizg" name="CdConstrainsEquipment" prune="false"/>
     <association id="_3w83wFsqEee0ZvXJLxwizg" name="CdConstrainsFc" prune="false"/>
     <association id="_6iUMIFsqEee0ZvXJLxwizg" name="CdConstrainsFd" prune="false"/>
@@ -117,20 +117,20 @@
     <association id="_iJNpUD7yEei6HehkJk8P-g" name="ContainerEngineInvokesRunningContainer" prune="false"/>
     <association id="_9tSGoMAuEeWbqPZwR-Ot6A" name="ControlCapabilityIsExposedThroughView" prune="false"/>
     <association id="_8_BgcJpDEeOyHKqw-cQ_eg" name="ControlChoosesSwitchPosition" prune="false"/>
-    <association id="_vqIqEFfnEeeKHrjbk_yQ_w" name="ControlConstructControlsControlConstructInContext" prune="false"/>
-    <association id="_vD3z8MAzEeWbqPZwR-Ot6A" name="ControlConstructExposesControlledEntiyView" prune="false"/>
+    <association id="_vqIqEFfnEeeKHrjbk_yQ_w" name="ControlConstructControlsControlConstructInContext" prune="true"/>
+    <association id="_vD3z8MAzEeWbqPZwR-Ot6A" name="ControlConstructExposesControlledEntiyView" prune="true"/>
     <association id="_NHEmAMAtEeWbqPZwR-Ot6A" name="ControlConstructExposesExposureContext" prune="true"/>
-    <association id="_XFoS9xbsEeitqc-Dc8Gf8A" name="ControlConstructHasInterfaceTasks" prune="false"/>
-    <association id="_Byn0EMAeEeWbqPZwR-Ot6A" name="ControlConstructHasPorts" prune="false"/>
-    <association id="_panQ8FpREee0ZvXJLxwizg" name="ControlConstructHasViewMappings" prune="false"/>
-    <association id="_x7FZAMAwEeWbqPZwR-Ot6A" name="ControlConstructRepresentedByControlFunctionAbstraction" prune="false"/>
+    <association id="_XFoS9xbsEeitqc-Dc8Gf8A" name="ControlConstructHasInterfaceTasks" prune="true"/>
+    <association id="_Byn0EMAeEeWbqPZwR-Ot6A" name="ControlConstructHasPorts" prune="true"/>
+    <association id="_panQ8FpREee0ZvXJLxwizg" name="ControlConstructHasViewMappings" prune="true"/>
+    <association id="_x7FZAMAwEeWbqPZwR-Ot6A" name="ControlConstructRepresentedByControlFunctionAbstraction" prune="true"/>
     <association id="_dovy8DLIEea40e5DA9KE3w" name="ControlDefinedBySchemeSpec" prune="true"/>
     <association id="__CaGgMAuEeWbqPZwR-Ot6A" name="ControlFunctionAbstractionInView" prune="false"/>
     <association id="_Oi-_sMQlEeWlWIVxswb46A" name="ControlGovernsControl" prune="false"/>
-    <association id="_nYnbkO-3Eea2l9FuDSKfDQ" name="ControlPortBoundToControlPort" prune="false"/>
-    <association id="_5DX8UPzMEea2KOb10ZFHOw" name="ControlPortBoundToLtp" prune="false"/>
-    <association id="_XFoTehbsEeitqc-Dc8Gf8A" name="ControlPortHasProviderRole" prune="false"/>
-    <association id="_XFoTgRbsEeitqc-Dc8Gf8A" name="ControlPortHasUserRole" prune="false"/>
+    <association id="_nYnbkO-3Eea2l9FuDSKfDQ" name="ControlPortBoundToControlPort" prune="true"/>
+    <association id="_5DX8UPzMEea2KOb10ZFHOw" name="ControlPortBoundToLtp" prune="true"/>
+    <association id="_XFoTehbsEeitqc-Dc8Gf8A" name="ControlPortHasProviderRole" prune="true"/>
+    <association id="_XFoTgRbsEeitqc-Dc8Gf8A" name="ControlPortHasUserRole" prune="true"/>
     <association id="_XFoS5RbsEeitqc-Dc8Gf8A" name="ControlTaskDependsOnControlTask" prune="false"/>
     <association id="_XFoS6xbsEeitqc-Dc8Gf8A" name="ControlViewExposesViewMapping" prune="false"/>
     <association id="_KhweQPHWEea2l9FuDSKfDQ" name="ControllerControlledViewIncludesAbstractView" prune="false"/>
@@ -334,7 +334,7 @@
     <association id="_MX4EQIk-EeiF9qdS0TxlAA" name="LpSpecPortAccessesCpForwardingPort" prune="false"/>
     <association id="_QwNWcIk-EeiF9qdS0TxlAA" name="LpSpecPortAccessesPoolForClient" prune="false"/>
     <association id="_o0P5cImaEeiF9qdS0TxlAA" name="LpSpecPortAccessesServerForProvider" prune="false"/>
-    <association id="_-xABcImWEeiF9qdS0TxlAA" name="LpSpecPortAccessesTerminationAccessPort" prune="false"/>
+    <association id="_-xABcImWEeiF9qdS0TxlAA" name="LpSpecPortAccessesTerminationAccessPort" prune="true"/>
     <association id="_LnB2IIk-EeiF9qdS0TxlAA" name="LpSpecPortAccessesTerminationForwardingPort" prune="false"/>
     <association id="_PWw3QIk-EeiF9qdS0TxlAA" name="LpSpecPortAccessesViewPresentation" prune="false"/>
     <association id="_ywtSQIk8EeiF9qdS0TxlAA" name="LpSpecPortIsInternalForwardingSpecPort" prune="false"/>
@@ -352,7 +352,7 @@
     <association id="_FDiZ8GGTEeerc4Zz6ufSeg" name="LtpIsInFdRuleGroup" prune="false"/>
     <association id="_-pgTgImwEeiF9qdS0TxlAA" name="LtpPortExposesLpPort" prune="false"/>
     <association id="_vrCogBigEeSh8KVgZCMyDw" name="LtpRelatestToLtpInOtherView" prune="false"/>
-    <association id="_8SXNPz-HEeaRI-H69PghuA" name="LtpSignalUsesAccessPort" prune="false"/>
+    <association id="_8SXNPz-HEeaRI-H69PghuA" name="LtpSignalUsesAccessPort" prune="true"/>
     <association id="_HP3B4BiaEeSh8KVgZCMyDw" name="LtpSpecArrangesLpSpec" prune="true"/>
     <association id="__l3OEImwEeiF9qdS0TxlAA" name="LtpSpecHasLpOccurrence" prune="false"/>
     <association id="_OTaSgImvEeiF9qdS0TxlAA" name="LtpSpecHasLtpPortSpec" prune="true"/>
@@ -440,7 +440,7 @@
     <association id="_XFoTpxbsEeitqc-Dc8Gf8A" name="SignalFromProviderRole" prune="false"/>
     <association id="_ayGM4BdVEeitqc-Dc8Gf8A" name="SignalFromUserRole" prune="false"/>
     <association id="_dazUgBdVEeitqc-Dc8Gf8A" name="SignalFromUserRole" prune="false"/>
-    <association id="_8SXNDT-HEeaRI-H69PghuA" name="SignalGroupCorrespondsToAccessPort" prune="false"/>
+    <association id="_8SXNDT-HEeaRI-H69PghuA" name="SignalGroupCorrespondsToAccessPort" prune="true"/>
     <association id="_8SXNFj-HEeaRI-H69PghuA" name="SignalRefPtCorrespondsToLtp" prune="false"/>
     <association id="_8SXNGT-HEeaRI-H69PghuA" name="SignalRefPtGroupGroupsSignalRefPts" prune="false"/>
     <association id="_HoKGYEddEeasL6dcjI1vEA" name="SignalRefPtHasElementalSignals" prune="false"/>
@@ -497,7 +497,7 @@
   <class-list count="247">
     <class id="" name="" prune="false"/>
     <class id="_08BE4PHVEea2l9FuDSKfDQ" name="AbstractView" prune="false"/>
-    <class id="_8SXNpD-HEeaRI-H69PghuA" name="AccessPort" prune="false"/>
+    <class id="_8SXNpD-HEeaRI-H69PghuA" name="AccessPort" prune="true"/>
     <class id="_8SXNZD-HEeaRI-H69PghuA" name="ActualEquipment" prune="false"/>
     <class id="_NwJ40EmhEeaDccCv6BIgdg" name="ActualHolder" prune="false"/>
     <class id="_OGNS0BiTEeSh8KVgZCMyDw" name="AdapterPropertySpec" prune="true"/>
@@ -551,7 +551,7 @@
     <class id="_Kgd6sMAuEeWbqPZwR-Ot6A" name="ControlFunctionAbstraction" prune="false"/>
     <class id="_T5-osJ4HEeOO3om500DFKg" name="ControlParameters_Pac" prune="false"/>
     <class id="_biaCMJmhEeWTOvbfd7_4-A" name="ControlPolicies" prune="false"/>
-    <class id="_D5kTMJmiEeWTOvbfd7_4-A" name="ControlPort" prune="false"/>
+    <class id="_D5kTMJmiEeWTOvbfd7_4-A" name="ControlPort" prune="true"/>
     <class id="_BC32YMrWEeOt57ZaJqAnzg" name="ControlRule" prune="false"/>
     <class id="_XFoTTxbsEeitqc-Dc8Gf8A" name="ControlTask" prune="false"/>
     <class id="_4me1YJmhEeWTOvbfd7_4-A" name="ControlledEntity" prune="false"/>
@@ -5183,9 +5183,9 @@
     <property id="_LXPWMFZ3EeOVGaP4lO41SQ" name="Role" prune="false"/>
     <property id="_-VM6YBihEeSh8KVgZCMyDw" name="__ltpRelatestToLtpInOtherView" prune="false"/>
     <property id="_KhxFUvHWEea2l9FuDSKfDQ" name="_abstractView" prune="false"/>
-    <property id="_8SXNmD-HEeaRI-H69PghuA" name="_accessPort" prune="false"/>
-    <property id="_8SXNrj-HEeaRI-H69PghuA" name="_accessPort" prune="false"/>
-    <property id="_xJV5gVRPEeiyzdV8zVsJ_w" name="_accessPort" prune="false"/>
+    <property id="_8SXNmD-HEeaRI-H69PghuA" name="_accessPort" prune="true"/>
+    <property id="_8SXNrj-HEeaRI-H69PghuA" name="_accessPort" prune="true"/>
+    <property id="_xJV5gVRPEeiyzdV8zVsJ_w" name="_accessPort" prune="true"/>
     <property id="_x24r4UmgEeaDccCv6BIgdg" name="_actualEquipment" prune="false"/>
     <property id="_WUOLoEmhEeaDccCv6BIgdg" name="_actualHolder" prune="false"/>
     <property id="_DYs8YBiVEeSh8KVgZCMyDw" name="_adapterPropertySpec" prune="true"/>
@@ -5256,7 +5256,7 @@
     <property id="_o5PVMMrbEeOt57ZaJqAnzg" name="_configurationGroupSpecSpec" prune="true"/>
     <property id="_CHM6YFYYEeOVGaP4lO41SQ" name="_connectedLtp" prune="false"/>
     <property id="_CHToEVYYEeOVGaP4lO41SQ" name="_connectingLtp" prune="false"/>
-    <property id="_ZVrwID-eEeaRI-H69PghuA" name="_connector" prune="false"/>
+    <property id="_ZVrwID-eEeaRI-H69PghuA" name="_connector" prune="true"/>
     <property id="_8SXNbT-HEeaRI-H69PghuA" name="_connector" prune="false"/>
     <property id="_8SXNdD-HEeaRI-H69PghuA" name="_connector" prune="false"/>
     <property id="_8SXNez-HEeaRI-H69PghuA" name="_connector" prune="false"/>
@@ -5275,20 +5275,20 @@
     <property id="_i7cIUVYfEeOVGaP4lO41SQ" name="_containingFc" prune="false"/>
     <property id="_Tk5gUVYYEeOVGaP4lO41SQ" name="_containingPeerLtp" prune="false"/>
     <property id="_3ZB88VYWEeOVGaP4lO41SQ" name="_containingServerLtp" prune="false"/>
-    <property id="_ByppQMAeEeWbqPZwR-Ot6A" name="_controlConstruct" prune="false"/>
-    <property id="_MX1kUxe5Eeitqc-Dc8Gf8A" name="_controlConstructInDomain" prune="false"/>
-    <property id="_Sf_yEPHUEea2l9FuDSKfDQ" name="_controlExposedView" prune="false"/>
-    <property id="_x7HOMMAwEeWbqPZwR-Ot6A" name="_controlFunctionAbstraction" prune="false"/>
-    <property id="__CatksAuEeWbqPZwR-Ot6A" name="_controlFunctionAbstraction" prune="false"/>
-    <property id="_n0H3cMAtEeWbqPZwR-Ot6A" name="_controlInternalView" prune="false"/>
+    <property id="_ByppQMAeEeWbqPZwR-Ot6A" name="_controlConstruct" prune="true"/>
+    <property id="_MX1kUxe5Eeitqc-Dc8Gf8A" name="_controlConstructInDomain" prune="true"/>
+    <property id="_Sf_yEPHUEea2l9FuDSKfDQ" name="_controlExposedView" prune="true"/>
+    <property id="_x7HOMMAwEeWbqPZwR-Ot6A" name="_controlFunctionAbstraction" prune="true"/>
+    <property id="__CatksAuEeWbqPZwR-Ot6A" name="_controlFunctionAbstraction" prune="true"/>
+    <property id="_n0H3cMAtEeWbqPZwR-Ot6A" name="_controlInternalView" prune="true"/>
     <property id="_YzzeYJ4HEeOO3om500DFKg" name="_controlParameters" prune="false"/>
     <property id="_k40wIVJKEeaDuo8VlVeg_g" name="_controlParameters" prune="false"/>
     <property id="_xZiBgJ4IEeOO3om500DFKg" name="_controlParameters" prune="false"/>
-    <property id="_Ep1oUFdSEeev6YvG59B3Sg" name="_controlPort" prune="false"/>
-    <property id="_ByobIsAeEeWbqPZwR-Ot6A" name="_controlPort" prune="false"/>
-    <property id="_nYoCou-3Eea2l9FuDSKfDQ" name="_controlPort" prune="false"/>
-    <property id="_GuZXQMAuEeWbqPZwR-Ot6A" name="_controlPort" prune="false"/>
-    <property id="_GB42kMAuEeWbqPZwR-Ot6A" name="_controlPort" prune="false"/>
+    <property id="_Ep1oUFdSEeev6YvG59B3Sg" name="_controlPort" prune="true"/>
+    <property id="_ByobIsAeEeWbqPZwR-Ot6A" name="_controlPort" prune="true"/>
+    <property id="_nYoCou-3Eea2l9FuDSKfDQ" name="_controlPort" prune="true"/>
+    <property id="_GuZXQMAuEeWbqPZwR-Ot6A" name="_controlPort" prune="true"/>
+    <property id="_GB42kMAuEeWbqPZwR-Ot6A" name="_controlPort" prune="true"/>
     <property id="_XFoTVRbsEeitqc-Dc8Gf8A" name="_controlTask" prune="false"/>
     <property id="_XFoTJRbsEeitqc-Dc8Gf8A" name="_controlTask" prune="false"/>
     <property id="_XFoS-xbsEeitqc-Dc8Gf8A" name="_controlTasks" prune="true"/>
@@ -5453,9 +5453,9 @@
     <property id="_fva4Ux6YEee9I5wuRX6wwQ" name="_lpSpec" prune="true"/>
     <property id="_HPhqsBiaEeSh8KVgZCMyDw" name="_lpSpec" prune="true"/>
     <property id="_VQMpAYmwEeiF9qdS0TxlAA" name="_lpSpec" prune="true"/>
-    <property id="_n0WVAWFoEeeiJ9-h1KDHig" name="_lpSpecReference:ClassRef" prune="false"/>
-    <property id="_1yhwEIqSEeiF9qdS0TxlAA" name="_lpSpecReference:ClassRef" prune="false"/>
-    <property id="_jgCas4qTEeiF9qdS0TxlAA" name="_lpSpecReference:ClassRef" prune="false"/>
+    <property id="_n0WVAWFoEeeiJ9-h1KDHig" name="_lpSpecReference:ClassRef" prune="true"/>
+    <property id="_1yhwEIqSEeiF9qdS0TxlAA" name="_lpSpecReference:ClassRef" prune="true"/>
+    <property id="_jgCas4qTEeiF9qdS0TxlAA" name="_lpSpecReference:ClassRef" prune="true"/>
     <property id="_2ES2QFYkEeOVGaP4lO41SQ" name="_ltp" prune="false"/>
     <property id="_DyAG8FYmEeOVGaP4lO41SQ" name="_ltp" prune="false"/>
     <property id="_IxS2AFYnEeOVGaP4lO41SQ" name="_ltp" prune="false"/>
@@ -5551,7 +5551,7 @@
     <property id="_ta7icJgVEeSeO5hX75xH1g" name="_profileClass" prune="false"/>
     <property id="_Ec0FMJ4JEeOO3om500DFKg" name="_profileProxy" prune="false"/>
     <property id="_DEWvsJozEeOyHKqw-cQ_eg" name="_profileProxy" prune="false"/>
-    <property id="_yclZAMAvEeWbqPZwR-Ot6A" name="_protectingControlPort" prune="false"/>
+    <property id="_yclZAMAvEeWbqPZwR-Ot6A" name="_protectingControlPort" prune="true"/>
     <property id="_o0QggYmaEeiF9qdS0TxlAA" name="_providerAccess" prune="false"/>
     <property id="_XFoTfhbsEeitqc-Dc8Gf8A" name="_providerRole" prune="false"/>
     <property id="_XFoTOxbsEeitqc-Dc8Gf8A" name="_providerRole" prune="false"/>
@@ -5593,7 +5593,7 @@
     <property id="_QMXssVRQEeiyzdV8zVsJ_w" name="_strand" prune="true"/>
     <property id="_jbGZ8Ec-EeasL6dcjI1vEA" name="_structure" prune="false"/>
     <property id="_OjA04MQlEeWlWIVxswb46A" name="_subordinateControl" prune="false"/>
-    <property id="_vqLGUFfnEeeKHrjbk_yQ_w" name="_subordinateControlConstructContext" prune="false"/>
+    <property id="_vqLGUFfnEeeKHrjbk_yQ_w" name="_subordinateControlConstructContext" prune="true"/>
     <property id="__ujhwfHSEea2l9FuDSKfDQ" name="_subordinateExposedView" prune="false"/>
     <property id="_GkqHwFYHEeW5zoktRlwOmg" name="_suportedFcInOtherView" prune="false"/>
     <property id="_3XeIQEgvEeasL6dcjI1vEA" name="_supportConstraints" prune="true"/>
@@ -5611,8 +5611,8 @@
     <property id="_eej4UMrWEeOt57ZaJqAnzg" name="_switchControlRule" prune="false"/>
     <property id="_ZysIUHXFEeeqyuooNTTDCg" name="_syncLtp" prune="false"/>
     <property id="_rukVsIWhEeiXzpgfQWpR-Q" name="_systemPort" prune="false"/>
-    <property id="_Yicjsok-EeiF9qdS0TxlAA" name="_terminationAccessPort" prune="false"/>
-    <property id="_-xAogomWEeiF9qdS0TxlAA" name="_terminationAccessPort" prune="false"/>
+    <property id="_Yicjsok-EeiF9qdS0TxlAA" name="_terminationAccessPort" prune="true"/>
+    <property id="_-xAogomWEeiF9qdS0TxlAA" name="_terminationAccessPort" prune="true"/>
     <property id="_LnCdMok-EeiF9qdS0TxlAA" name="_terminationForwardingPort" prune="false"/>
     <property id="_stER8BiUEeSh8KVgZCMyDw" name="_terminationSpec" prune="true"/>
     <property id="_hfZVge0yEea2l9FuDSKfDQ" name="_transferCapacity_Pac" prune="false"/>
@@ -5818,12 +5818,12 @@
     <property id="_KHK4MPHPEea2l9FuDSKfDQ" name="controllerfunction" prune="false"/>
     <property id="__ukI0PHSEea2l9FuDSKfDQ" name="controllerinternalview" prune="false"/>
     <property id="_doy2QDLIEea40e5DA9KE3w" name="controlparameters_pac" prune="false"/>
-    <property id="_nYopse-3Eea2l9FuDSKfDQ" name="controlport" prune="false"/>
-    <property id="_5DZKcfzMEea2KOb10ZFHOw" name="controlport" prune="false"/>
-    <property id="_yckx8cAvEeWbqPZwR-Ot6A" name="controlport" prune="false"/>
-    <property id="_XFoTfRbsEeitqc-Dc8Gf8A" name="controlport" prune="false"/>
-    <property id="_XFoThBbsEeitqc-Dc8Gf8A" name="controlport" prune="false"/>
-    <property id="_XFoS6BbsEeitqc-Dc8Gf8A" name="controltask" prune="false"/>
+    <property id="_nYopse-3Eea2l9FuDSKfDQ" name="controlport" prune="true"/>
+    <property id="_5DZKcfzMEea2KOb10ZFHOw" name="controlport" prune="true"/>
+    <property id="_yckx8cAvEeWbqPZwR-Ot6A" name="controlport" prune="true"/>
+    <property id="_XFoTfRbsEeitqc-Dc8Gf8A" name="controlport" prune="true"/>
+    <property id="_XFoThBbsEeitqc-Dc8Gf8A" name="controlport" prune="true"/>
+    <property id="_XFoS6BbsEeitqc-Dc8Gf8A" name="controltask" prune="true"/>
     <property id="_SI-YgKQbEeS9Obpdy8FCjA" name="costAlgorithm" prune="false"/>
     <property id="_y7uSYKNWEeS9Obpdy8FCjA" name="costCharacteristic" prune="false"/>
     <property id="_FVmMsKNXEeS9Obpdy8FCjA" name="costName" prune="false"/>
