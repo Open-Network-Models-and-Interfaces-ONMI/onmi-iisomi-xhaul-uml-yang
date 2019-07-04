@@ -1,0 +1,145 @@
+
+module: wire-interface
+  augment /core-model:control-construct/core-model:logical-termination-point/core-model:lp/core-model:local-id:
+    +--ro wire-interface-pac
+       +--ro wire-interface-capability
+       |  +--ro supported-pmd-kind-list* [pmd-name]
+       |  |  +--ro pmd-name    string
+       |  |  +--ro speed?      string
+       |  |  +--ro duplex?     duplex-type
+       |  +--ro auto-pmd-negotiation-is-avail?                            boolean
+       |  +--ro auto-negotiation-pmd-selection-is-avail?                  boolean
+       |  +--ro supported-signal-ordering-kind-list*                      signal-ordering-kind-type
+       |  +--ro auto-signal-ordering-is-avail?                            boolean
+       |  +--ro configuration-of-rx-sync-preference-is-avail?             boolean
+       |  +--ro mii-kind?                                                 mii-kind-type
+       |  +--ro mdi-kind?                                                 mdi-kind-type
+       |  +--ro required-medium-kind?                                     medium-kind-type
+       |  +--ro wavelength-min*                                           int32
+       |  +--ro wavelength-max*                                           int32
+       |  +--ro wavelength-grid-min?                                      int32
+       |  +--ro short-reach-mode-is-avail?                                boolean
+       |  +--ro eee-is-avail?                                             boolean
+       |  +--ro unidirectional-operation-is-avail?                        boolean
+       |  +--ro rxlevel-low-threshold?                                    int8
+       |  +--ro rxlevel-high-threshold?                                   int8
+       |  +--ro temperature-low-threshold?                                int8
+       |  +--ro temperature-high-threshold?                               int8
+       |  +--ro configuration-of-number-of-bip-errors-per-ses-is-avail?   boolean
+       |  +--ro statistics-is-avail?                                      boolean
+       |  +--ro performance-monitoring-is-avail?                          boolean
+       |  +--ro supported-loop-back-kind-list*                            loop-back-type
+       |  +--ro maintenance-timer-range?                                  string
+       |  +--ro supported-alarm-list*                                     string
+       +--ro wire-interface-configuration
+       |  +--ro interface-name?                            string
+       |  +--ro interface-is-on?                           boolean
+       |  +--ro remote-wire-interface-name?                string
+       |  +--ro transceiver-is-on-list*                    boolean
+       |  +--ro auto-pmd-negotiation-is-on?                boolean
+       |  +--ro fixed-pmd-kind
+       |  |  +--ro pmd-name?   string
+       |  |  +--ro speed?      string
+       |  |  +--ro duplex?     duplex-type
+       |  +--ro auto-negotiation-pmd-list* [pmd-name]
+       |  |  +--ro pmd-name    string
+       |  |  +--ro speed?      string
+       |  |  +--ro duplex?     duplex-type
+       |  +--ro auto-signal-ordering-is-on?                boolean
+       |  +--ro fixed-signal-ordering-kind?                signal-ordering-kind-type
+       |  +--ro wavelength-list*                           int32
+       |  +--ro rx-sync-preference?                        rx-sync-preference-type
+       |  +--ro short-reach-mode-is-on?                    boolean
+       |  +--ro eee-is-on?                                 boolean
+       |  +--ro unidirectional-operation-is-on?            boolean
+       |  +--ro number-of-bip-errors-per-ses?              int16
+       |  +--ro restart-pmd-negotiation-is-on?             boolean
+       |  +--ro statistics-is-on?                          boolean
+       |  +--ro performance-monitoring-collection-is-on?   boolean
+       |  +--ro isolation-is-on?                           boolean
+       |  +--ro loop-back-kind-on?                         loop-back-type
+       |  +--ro maintenance-timer?                         int32
+       |  +--ro problem-kind-severity-list* [problem-kind-name]
+       |     +--ro problem-kind-name        string
+       |     +--ro problem-kind-severity?   severity-type
+       +--ro wire-interface-status
+       |  +--ro interface-status?             interface-status-type
+       |  +--ro receive-signal-is-detected*   boolean
+       |  +--ro pmd-negotiation-state?        pmd-negotiation-state-type
+       |  +--ro pmd-is-up?                    boolean
+       |  +--ro pmd-kind-cur
+       |  |  +--ro pmd-name?   string
+       |  |  +--ro speed?      string
+       |  |  +--ro duplex?     duplex-type
+       |  +--ro signal-ordering-kind-cur?     signal-ordering-kind-type
+       |  +--ro rx-sync-role?                 rx-sync-role-type
+       |  +--ro eee-is-up?                    boolean
+       |  +--ro link-is-up?                   boolean
+       |  +--ro link-is-idle?                 boolean
+       |  +--ro tx-level-cur?                 int8
+       |  +--ro rx-level-cur*                 int8
+       |  +--ro loop-back-kind-up?            loop-back-type
+       +--ro wire-interface-current-problems
+       |  +--ro current-problem-list* [sequence-number]
+       |     +--ro problem-name?       string
+       |     +--ro sequence-number     int16
+       |     +--ro time-stamp?         string
+       |     +--ro problem-severity?   severity-type
+       +--ro wire-interface-current-performance
+       |  +--ro current-performance-data-list* [granularity-period]
+       |     +--ro performance-data
+       |     |  +--ro es?                              int32
+       |     |  +--ro ses?                             int32
+       |     |  +--ro symbol-error-during-carrier?     int32
+       |     |  +--ro low-power-idle-transmitter-ms?   int32
+       |     |  +--ro low-power-idle-receiver-ms?      int32
+       |     +--ro timestamp?               string
+       |     +--ro suspect-interval-flag?   boolean
+       |     +--ro elapsed-time?            int64
+       |     +--ro scanner-id?              string
+       |     +--ro operational-state?       operational-state-type
+       |     +--ro granularity-period       granularity-period-type
+       |     +--ro administrative-state?    administrative-state-type
+       |     +--ro object-class?            string
+       |     +--ro name-binding?            string
+       |     +--ro packages?                string
+       |     +--ro allomorphs?              string
+       +--ro wire-interface-historical-performances
+          +--ro historical-performance-data-list* [period-end-time]
+             +--ro performance-data
+             |  +--ro es?                              int32
+             |  +--ro ses?                             int32
+             |  +--ro symbol-error-during-carrier?     int32
+             |  +--ro low-power-idle-transmitter-ms?   int32
+             |  +--ro low-power-idle-receiver-ms?      int32
+             +--ro suspect-interval-flag?   boolean
+             +--ro history-data-id?         string
+             +--ro period-end-time          string
+             +--ro granularity-period?      granularity-period-type
+             +--ro object-class?            string
+             +--ro name-binding?            string
+             +--ro packages?                string
+             +--ro allomorphs?              string
+
+  notifications:
+    +---n object-creation-notification
+    |  +--ro counter?         int32
+    |  +--ro time-stamp?      string
+    |  +--ro object-id-ref?   string
+    |  +--ro object-type?     string
+    +---n object-deletion-notification
+    |  +--ro counter?         int32
+    |  +--ro time-stamp?      string
+    |  +--ro object-id-ref?   string
+    +---n attribute-value-changed-notification
+    |  +--ro counter?          int32
+    |  +--ro time-stamp?       string
+    |  +--ro object-id-ref?    string
+    |  +--ro attribute-name?   string
+    |  +--ro new-value?        string
+    +---n problem-notification
+       +--ro counter?         int32
+       +--ro time-stamp?      string
+       +--ro object-id-ref?   string
+       +--ro problem?         string
+       +--ro severity?        severity-type

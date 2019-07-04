@@ -1,0 +1,933 @@
+module hybrid-mw-structure {
+  yang-version 1.1;
+  namespace "urn:onf:yang:hybrid-mw-structure";
+  prefix hybrid-mw-structure;
+
+  import core-model {
+    prefix core-model;
+  }
+
+  organization
+    "openBackhaul.com proposal to Open Networking Foundation (ONF)";
+  contact
+    "WG Web : https://github.com/openBackhaul/Overview
+     WG List: HybridMwStructure@openBackhaul.com
+     Editor : Thorsten Heinze
+              Thorsten.Heinze@openBackhaul.com";
+  description
+    "Technology specific interface definition for a hybrid microwave structure on a physical media
+
+     Copyright 2019 openBackhaul.com
+
+     Licensed under the Apache License, Version 2.0 (the 'License');
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+     http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an 'AS IS' BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.";
+
+  revision 2019-06-25 {
+    description
+      "Model for the Transport SDN Pilot at Telefonica Germany.
+       Please view https://github.com/openBackhaul/hybridMwStructure/issues for changes.
+       Additional information: ";
+    reference
+      "https://github.com/openBackhaul/hybridMwStructure/tree/tsp: Model definition
+       https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
+  }
+
+  identity LAYER_PROTOCOL_NAME_HYBRID_MW_STRUCTURE {
+    base core-model:LAYER_PROTOCOL_NAME;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct/core-model:logical-termination-point/core-model:lp/core-model:local-id" {
+    when "derived-from-or-self(./core-model:layer-protocol-name, 'hybrid-mw-structure:LAYER_PROTOCOL_NAME_HYBRID_MW_STRUCTURE')";
+    uses hybrid-mw-structure-lp-spec;
+    description
+      "none";
+  }
+
+  notification object-creation-notification {
+    uses object-creation-notification;
+    description
+      "none";
+  }
+
+  grouping object-creation-notification {
+    leaf counter {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Counts object creation notifications.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "ID of the affected MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac.";
+    }
+    leaf object-type {
+      type string;
+      default "Type of created object not specified.";
+      config false;
+      description
+        "Type of Object to be chosen from the following list of values: 'MW_AirInterface_Pac', 'MW_AirInterfaceDiversity_Pac', 'MW_Structure_Pac', 'MW_PureEthernetStructure_Pac', 'MW_HybridMwStructure_Pac', 'MW_Container_Pac', 'MW_EthernetContainer_Pac' or 'MW_TdmContainer_Pac'.";
+    }
+    description
+      "To be sent when a new MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac has to be instancieted in the controller.";
+  }
+
+  notification object-deletion-notification {
+    uses object-deletion-notification;
+    description
+      "none";
+  }
+
+  grouping object-deletion-notification {
+    leaf counter {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Counts object deletion notifications.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "ID of the affected MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac.";
+    }
+    description
+      "To be sent when a new MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac instance has to be deleted in the controller.";
+  }
+
+  notification attribute-value-changed-notification {
+    uses attribute-value-changed-notification;
+    description
+      "none";
+  }
+
+  grouping attribute-value-changed-notification {
+    leaf counter {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Counts attribute value changed notifications.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "ID of the affected MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac.";
+    }
+    leaf attribute-name {
+      type string;
+      default "Attribute name not specified.";
+      config false;
+      description
+        "Name of the attribute that has been changed.";
+    }
+    leaf new-value {
+      type string;
+      default "New value not specified.";
+      config false;
+      description
+        "Attribute value converted to a string (xml, json, ...)";
+    }
+    description
+      "To be sent when an attribute has changed and one or more controllers have to update their data.";
+  }
+
+  notification problem-notification {
+    uses problem-notification;
+    description
+      "none";
+  }
+
+  grouping problem-notification {
+    leaf counter {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Counts problem notifications";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "ID of the affected MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac.";
+    }
+    leaf problem {
+      type string;
+      default "Problem name not specified.";
+      config false;
+      description
+        "Name of the problem according to AirInterface::AirInterfaceCapability::supportedAlarms or AirInterfaceDiversity::AirInterfaceDiversityCapability::supportedAlarms or Structure::StructureCapability::supportedAlarms or PureEthernetStructure::PureEthernetStructureCapability::supportedAlarms or HybridMwStructure::HybridMwStructureCapability::supportedAlarms or Container::ContainerCapability::supportedAlarms or EthernetContainer::EthernetContainerCapability::supportedAlarms or TdmContainer::TdmContainerCapability::supportedAlarms.";
+    }
+    leaf severity {
+      type severity-type;
+      config false;
+      description
+        "Severity of the problem according to AirInterface::AirInterfaceConfiguration::problemSeverityList, AirInterfaceDiversity::AirInterfaceDiversityConfiguration::problemSeverityList, Structure::StructureConfiguration::problemSeverityList, PureEthernetStructure::PureEthernetStructureConfiguration::problemSeverityList, HybridMwStructure::HybridMwStructureConfiguration::problemSeverityList, Container::ContainerConfiguration::problemSeverityList, EthernetContainer::EthernetContainerConfiguration::problemSeverityList or TdmContainer::TdmContainerConfiguration::problemSeverityList";
+    }
+    description
+      "To be sent when a problem occurs at a MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac.";
+  }
+
+  grouping current-problem {
+    leaf sequence-number {
+      type int16;
+      config false;
+      description
+        "Unique sequence number of the current problem object.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf problem-severity {
+      type severity-type;
+      config false;
+      description
+        "Severity of the alarm.";
+    }
+    description
+      "none";
+  }
+
+  grouping current-performance {
+    leaf timestamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "The timestamp associated with when the current data was collected.";
+    }
+    leaf suspect-interval-flag {
+      type boolean;
+      config false;
+      description
+        "This attribute is used to indicate that the performance data for the current period may not be reliable. Some reasons for this to occur are:
+         – Suspect data were detected by the actual resource doing data collection.
+         – Transition of the administrativeState attribute to/from the 'lock' state.
+         – Transition of the operationalState to/from the 'disabled' state.
+         – Scheduler setting that inhibits the collection function.
+         – The performance counters were reset during the interval.
+         – The currentData (or subclass) object instance was created during the monitoring period.";
+    }
+    leaf elapsed-time {
+      type int64;
+      units "s";
+      default "-1";
+      config false;
+      description
+        "Number of seconds that elapsed since the last reset of the counter.";
+    }
+    leaf scanner-id {
+      type string;
+      default "Scanner ID not defined.";
+      config false;
+      description
+        "none";
+    }
+    leaf operational-state {
+      type operational-state;
+      config false;
+      description
+        "none";
+    }
+    leaf granularity-period {
+      type granularity-period-type;
+      config false;
+      description
+        "Time period between reset of the underlying counter.";
+    }
+    leaf administrative-state {
+      type administrative-state;
+      config false;
+      description
+        "none";
+    }
+    leaf object-class {
+      type string;
+      config false;
+      description
+        "ObjectClass ::= CHOICE{    globalForm    [0] OBJECT IDENTIFIER,
+         localForm    [1] INTEGER}";
+    }
+    leaf name-binding {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf packages {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf allomorphs {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping historical-performance {
+    leaf suspect-interval-flag {
+      type boolean;
+      config false;
+      description
+        "This attribute indicates that the data collected during the interval is suspect.";
+    }
+    leaf history-data-id {
+      type string;
+      default "History Data ID not defined.";
+      config false;
+      description
+        "none";
+    }
+    leaf period-end-time {
+      type string;
+      config false;
+      description
+        "Time when the counter values have been recorded and the counter reset.";
+    }
+    leaf granularity-period {
+      type granularity-period-type;
+      config false;
+      description
+        "Time period between reset of the underlying counter.";
+    }
+    leaf object-class {
+      type string;
+      config false;
+      description
+        "ObjectClass ::= CHOICE{    globalForm    [0] OBJECT IDENTIFIER,
+         localForm    [1] INTEGER}";
+    }
+    leaf name-binding {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf packages {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf allomorphs {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping hybrid-mw-structure-lp-spec {
+    container hybrid-mw-structure-pac {
+      config false;
+      uses hybrid-mw-structure-pac;
+      description
+        "none";
+    }
+    description
+      "The HybridMwStructureLpSpec and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting TDM and Ethernet traffic.";
+  }
+
+  grouping hybrid-mw-structure-pac {
+    container hybrid-mw-structure-capability {
+      config false;
+      uses hybrid-mw-structure-capability;
+      description
+        "none";
+    }
+    container hybrid-mw-structure-configuration {
+      config false;
+      uses hybrid-mw-structure-configuration;
+      description
+        "none";
+    }
+    container hybrid-mw-structure-status {
+      config false;
+      uses hybrid-mw-structure-status;
+      description
+        "none";
+    }
+    container hybrid-mw-structure-current-problems {
+      config false;
+      uses hybrid-mw-structure-current-problems;
+      description
+        "none";
+    }
+    container hybrid-mw-structure-current-performance {
+      config false;
+      uses hybrid-mw-structure-current-performance;
+      description
+        "none";
+    }
+    container hybrid-mw-structure-historical-performances {
+      config false;
+      uses hybrid-mw-structure-historical-performances;
+      description
+        "none";
+    }
+    description
+      "The HybridMwStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting TDM and Ethernet traffic.";
+  }
+
+  grouping hybrid-mw-structure-capability {
+    list supported-tdm-structure-kind-list {
+      key "tdm-structure-name";
+      config false;
+      uses tdm-structure-kind;
+      description
+        "Lists the TDM frame types that are supported.";
+    }
+    leaf-list supported-alarm-list {
+      type string;
+      config false;
+      description
+        "Available alarms to be listed. Mandatory:non. Names are to be separated by commas. Further alarms might be added by the vendor.";
+    }
+    leaf performance-monitoring-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Collection and aggregation of performance values is available.";
+    }
+    description
+      "Describes the logical structuring of the physical capacity provided by a hybrid microwave device (TDM + Ethernet). Segmentation is available. TDM transport is available.";
+  }
+
+  grouping hybrid-mw-structure-configuration {
+    container tdm-structure-kind {
+      uses tdm-structure-kind;
+      description
+        "TDM frame to be applied.";
+    }
+    leaf number-of-tdm-segments-to-be-reserved {
+      type int8;
+      default "-1";
+      description
+        "Allows to configure the number of segments reserved for TDM frames of the type specified in HybridMwStructure::HybridMwStructureConfiguration::structureType";
+    }
+    leaf performance-monitoring-collection-is-on {
+      type boolean;
+      description
+        "Enables measurement, collection, storage and access to performance data.";
+    }
+    list g-826-threshold-cross-alarm-list {
+      max-elements 6;
+      uses g-826-threshold-cross-alarm-type;
+      description
+        "List of G826 related threshold cross alarms to be configured.";
+    }
+    leaf clearing-threshold-cross-alarms-is-on {
+      type boolean;
+      description
+        "Setting this bit is clearing all the currently active threshold cross alarms.";
+    }
+    list problem-kind-severity-list {
+      key "problem-kind-name";
+      uses problem-kind-severity-type;
+      description
+        "Severity of the type of problem to be configured.";
+    }
+    description
+      "none";
+  }
+
+  grouping hybrid-mw-structure-status {
+    list segment-status-list {
+      key "segment-status-type-id";
+      config false;
+      uses segment-status-type;
+      description
+        "Status of each segment (all TDM and one Ethernet). Multiplicity = HybridMwStructure::StructureConfiguration::tdmReservedNumberOfSegments + 1";
+    }
+    description
+      "none";
+  }
+
+  grouping hybrid-mw-structure-current-problems {
+    list current-problem-list {
+      key "sequence-number";
+      config false;
+      uses structure-current-problem-type;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping hybrid-mw-structure-current-performance {
+    list current-performance-data-list {
+      key "granularity-period";
+      config false;
+      max-elements 2;
+      uses structure-current-performance-type;
+      description
+        "At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.";
+    }
+    description
+      "Aggregated performance information of the structure of a hybrid microwave at a particular moment.";
+  }
+
+  grouping hybrid-mw-structure-historical-performances {
+    list historical-performance-data-list {
+      key "period-end-time";
+      config false;
+      uses structure-historical-performance-type;
+      description
+        "none";
+    }
+    description
+      "Aggregated performance information of the structure of a hybrid microwave for a pre-defined measurement interval.";
+  }
+
+  grouping tdm-structure-kind {
+    leaf tdm-structure-name {
+      type string;
+      config false;
+      description
+        "Names to be chosen from the following list: 'e1','t1','j1','e3','ds3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'";
+    }
+    leaf tdm-segment-size {
+      type int32;
+      units "kbit/s";
+      default "-1";
+      config false;
+      description
+        "Size of the TDM segment in kbit/s. Values to be chosen from the following list: '2048','1544','34000','44736 ','155520','614400','1228800','2457600','3072000','4915200','6144000' or '9830400;";
+    }
+    leaf max-number-of-segments-reservable {
+      type int8;
+      units "segments";
+      default "-1";
+      config false;
+      description
+        "Device specific maximum number of segments (not depending on current air interface configuration) that can be reserved for this type of segment on a single air interface.";
+    }
+    description
+      "none";
+  }
+
+  typedef g-826-type {
+    type identityref {
+      base G_826_TYPE;
+    }
+    description
+      "none";
+  }
+
+  identity G_826_TYPE {
+    description
+      "none";
+  }
+
+  identity G_826_TYPE_ES {
+    base G_826_TYPE;
+    description
+      "Errored Seconds. Threshold cross alarm will relate to TypeDefinitions::AirInterfacePerformanceType::es .";
+  }
+
+  identity G_826_TYPE_SES {
+    base G_826_TYPE;
+    description
+      "Severely Errored Seconds. Threshold cross alarm will relate to TypeDefinitions::AirInterfacePerformanceType::ses .";
+  }
+
+  identity G_826_TYPE_CSES {
+    base G_826_TYPE;
+    description
+      "Consecutive Severely Errored Seconds. Threshold cross alarm will relate to TypeDefinitions::AirInterfacePerformanceType::cses .";
+  }
+
+  identity G_826_TYPE_UAS {
+    base G_826_TYPE;
+    description
+      "Unavailable Seconds. Threshold cross alarm will relate to TypeDefinitions::AirInterfacePerformanceType::unavailability.";
+  }
+
+  identity G_826_TYPE_NOT_SPECIFIED {
+    base G_826_TYPE;
+    description
+      "none";
+  }
+
+  identity GRANULARITY_PERIOD_TYPE {
+    description
+      "none";
+  }
+
+  identity GRANULARITY_PERIOD_TYPE_UNKNOWN {
+    base GRANULARITY_PERIOD_TYPE;
+    description
+      "none";
+  }
+
+  identity GRANULARITY_PERIOD_TYPE_PERIOD-15-MIN {
+    base GRANULARITY_PERIOD_TYPE;
+    description
+      "none";
+  }
+
+  identity GRANULARITY_PERIOD_TYPE_PERIOD-24-HOURS {
+    base GRANULARITY_PERIOD_TYPE;
+    description
+      "none";
+  }
+
+  identity GRANULARITY_PERIOD_TYPE_NOT_YET_DEFINED {
+    base GRANULARITY_PERIOD_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE {
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_NON_ALARMED {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_WARNING {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_MINOR {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_MAJOR {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_CRITICAL {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_NOT_YET_DEFINED {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity OPERATIONAL_STATE {
+    description
+      "none";
+  }
+
+  identity OPERATIONAL_STATE_ENABLED {
+    base OPERATIONAL_STATE;
+    description
+      "none";
+  }
+
+  identity OPERATIONAL_STATE_DISABLED {
+    base OPERATIONAL_STATE;
+    description
+      "none";
+  }
+
+  identity OPERATIONAL_STATE_NOT_YET_DEFINED {
+    base OPERATIONAL_STATE;
+    description
+      "none";
+  }
+
+  identity ADMINISTRATIVE_STATE {
+    description
+      "none";
+  }
+
+  identity ADMINISTRATIVE_STATE_UNLOCKED {
+    base ADMINISTRATIVE_STATE;
+    description
+      "none";
+  }
+
+  identity ADMINISTRATIVE_STATE_LOCKED {
+    base ADMINISTRATIVE_STATE;
+    description
+      "none";
+  }
+
+  identity ADMINISTRATIVE_STATE_SHUTTING_DOWN {
+    base ADMINISTRATIVE_STATE;
+    description
+      "none";
+  }
+
+  identity ADMINISTRATIVE_STATE_NOT_YET_DEFINED {
+    base ADMINISTRATIVE_STATE;
+    description
+      "none";
+  }
+
+  typedef granularity-period-type {
+    type identityref {
+      base GRANULARITY_PERIOD_TYPE;
+    }
+    description
+      "The enumeration with the options for granularity period of the performance data.";
+  }
+
+  typedef severity-type {
+    type identityref {
+      base SEVERITY_TYPE;
+    }
+    description
+      "According to ITU-T M.3160";
+  }
+
+  typedef operational-state {
+    type identityref {
+      base OPERATIONAL_STATE;
+    }
+    description
+      "The list of valid operational states for the connection.";
+  }
+
+  typedef administrative-state {
+    type identityref {
+      base ADMINISTRATIVE_STATE;
+    }
+    description
+      "For more information on Administrative State, See ITU-T Recs. X.731 and M.3100.";
+  }
+
+  grouping problem-kind-severity-type {
+    leaf problem-kind-name {
+      type string;
+      description
+        "Name of the alarm according to supportedAlarmList";
+    }
+    leaf problem-kind-severity {
+      type severity-type;
+      description
+        "Severity of this type of alarm.";
+    }
+    description
+      "none";
+  }
+
+  grouping g-826-threshold-cross-alarm-type {
+    leaf g-826-value-kind {
+      type g-826-type;
+      description
+        "Kind of performance value that shall be equipped with a threshold alarm.";
+    }
+    leaf alarm-raising-threshold {
+      type int32;
+      units "s";
+      default "-1";
+      description
+        "Number of events required for raising the threshold cross alarm.";
+    }
+    leaf alarm-clearing-threshold {
+      type int32;
+      units "s";
+      default "-1";
+      description
+        "Number of events required for clearing the threshold cross alarm.";
+    }
+    leaf granularity-period {
+      type granularity-period-type;
+      description
+        "Period of the performance data collection.";
+    }
+    description
+      "Allows defining a threshold cross alarm.\n";
+  }
+
+  grouping segment-status-type {
+    leaf segment-status-type-id {
+      type int16;
+      config false;
+      description
+        "none";
+    }
+    leaf segment-is-reserved-for-tdm {
+      type boolean;
+      config false;
+      description
+        "The number of segments, which is configured by Structure::StructureConfiguration::tdmReservedNumberOfSegements, has to be reserved for TDM. Starting from the lowest index value, these segments have to be marked with a 'true' in segmentIsReservedForTdm.\n";
+    }
+    leaf operational-status {
+      type operational-state;
+      config false;
+      description
+        "Current operational status of each segment.";
+    }
+    description
+      "none";
+  }
+
+  grouping structure-current-problem-type {
+    leaf problem-name {
+      type string;
+      default "Problem name not specified.";
+      config false;
+      description
+        "Name of the alarm according to Structure::StructureCapability::supportedAlarms";
+    }
+    uses current-problem;
+    description
+      "none";
+  }
+
+  grouping structure-performance-type {
+    leaf time-period {
+      type int32;
+      units "s";
+      default "-1";
+      config false;
+      description
+        "Total length of the measurement period in seconds.";
+    }
+    leaf es {
+      type int32;
+      units "s";
+      default "-1";
+      config false;
+      description
+        "Number of errored seconds. 1+0: Same value as for single air interface. 1+1 and Diversity: Value representing the combined signals.";
+    }
+    leaf ses {
+      type int32;
+      units "s";
+      default "-1";
+      config false;
+      description
+        "Number of severely errored seconds. 1+0: Same value as for single air interface. 1+1 and Diversity: Value representing the combined signals.";
+    }
+    leaf cses {
+      type int32;
+      units "s";
+      default "-1";
+      config false;
+      description
+        "Number of consecutive severely errored seconds. 1+0: Same value as for single air interface. 1+1 and Diversity: Value representing the combined signals.";
+    }
+    leaf unavailability {
+      type int32;
+      units "s";
+      default "-1";
+      config false;
+      description
+        "Total time of unavailability in seconds. 1+0: Same value as for single air interface. 1+1 and Diversity: Value representing the combined signals.";
+    }
+    leaf rx-level-min {
+      type int8;
+      units "dBm";
+      default "99";
+      config false;
+      description
+        "Minimum receive level. 1+0: Same value as for single air interface. 1+1: Value representing the combined signals. Diversity: To be left on default value.";
+    }
+    leaf rx-level-max {
+      type int8;
+      units "dBm";
+      default "99";
+      config false;
+      description
+        "Maximum receive level. 1+0: Same value as for single air interface. 1+1: Value representing the combined signals. Diversity: To be left on default value.";
+    }
+    leaf rx-level-avg {
+      type int8;
+      units "dBm";
+      default "99";
+      config false;
+      description
+        "Averaged receive level. 1+0: Same value as for single air interface. 1+1: Value representing the combined signals. Diversity: To be left on default value.";
+    }
+    description
+      "Consolidated performance information of the Structure.";
+  }
+
+  grouping structure-current-performance-type {
+    container performance-data {
+      config false;
+      uses structure-performance-type;
+      description
+        "none";
+    }
+    uses current-performance;
+    description
+      "Turns performance information into current performance information by inheriting from OTN_CurrentData.";
+  }
+
+  grouping structure-historical-performance-type {
+    container performance-data {
+      config false;
+      uses structure-performance-type;
+      description
+        "none";
+    }
+    uses historical-performance;
+    description
+      "Turns performance information into historical performance information by inheriting from OTN_HistoryData.";
+  }
+}

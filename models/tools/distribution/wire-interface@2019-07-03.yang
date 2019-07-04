@@ -1,0 +1,1786 @@
+module wire-interface {
+  yang-version 1.1;
+  namespace "urn:onf:yang:wire-interface";
+  prefix wire-interface;
+
+  import core-model {
+    prefix core-model;
+  }
+
+  organization
+    "openBackhaul.com proposal to Open Networking Foundation (ONF)";
+  contact
+    "WG Web : https://github.com/openBackhaul/Overview
+     WG List: WireInterface@openBackhaul.com
+     Editor : Thorsten Heinze
+         Thorsten.Heinze@openBackhaul.com";
+  description
+    "This model is for vendor agnostic management of Ethernet PHY interfaces.
+     Supported: '10BASE5', 'FOIRL', '10BASE2', '10BROAD36', '10BASE-T', '10BASE-FP', '10BASE-FB', '10BASE-FL', '100BASE-T4', '100BASE-TX', '100BASE-BX10D', '100BASE-BX10U', '100BASE-FX', '100BASE-LX10', '100BASE-T2', '1000BASE-X', '1000BASE-BX10D', '1000BASE-BX10U', '1000BASE-LX', '1000BASE-LX10', '1000BASE-SX', '1000BASE-CX', '1000BASE-KX', '1000BASE-T', '10GBASE-X', '10GBASE-LX4', '10GBASE-KX4', '10GBASE-R', '10GBASE-ER', '10GBASE-LR', '10GBASE-SR', '10GBASE-LRM', '10GBASE-KR', '10GBASE-T', '10GBASE-PR-D1', '10GBASE-PR-D2', '10GBASE-PR-D3', '10GBASE-PR-D4', '10GBASE-PR-U1', '10GBASE-PR-U2', '10GBASE-PR-U3', '10GBASE-PR-U4', '40GBASE-R', '40GBASE-KR4', '40GBASE-CR4', '40GBASE-SR4', '4x10GBASE-SR', '40GBASE-LR4', '40GBASE-ER4', '40GBASE-FR', '100GBASE-R', '100GBASE-CR4', '100GBASE-KR4', '100GBASE-KP4', '100GBASE-CR10', '100GBASE-SR4', '100GBASE-SR10', '2x40GBASE-SR', '10x10GBASE-SR', '12x10GBASE-SR', '100GBASE-LR4', '100GBASE-ER4' and 'NOT_YET_DEFINED.
+     NOT supported: '2BASE-TL', '10PASS-TS', '1000BASE-PX10-D', '1000BASE-PX10-U', '1000BASE-PX20-D', '1000BASE-PX20-U', '1000BASE-PX30-D', '1000BASE-PX30-U', '1000BASE-PX40-D', '1000BASE-PX40-U', '10GBASE-W', '10GBASE-EW', '10GBASE-LW', '10GBASE-SW', '10/1GBASE-PRX-D1', '10/1GBASE-PRX-D2', '10/1GBASE-PRX-D3', '10/1GBASE-PRX-D4', '10/1GBASE-PRX-U1', '10/1GBASE-PRX-U2', '10/1GBASE-PRX-U3' and '10/1GBASE-PRX-U4'.
+
+     Copyright 2019 openBackhaul.com
+
+     Licensed under the Apache License, Version 2.0 (the 'License');
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+     http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an 'AS IS' BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.";
+
+  revision 2019-07-03 {
+    description
+      "Model for the Transport SDN Pilot at Telefonica Germany.
+       Please view https://github.com/openBackhaul/wireInterface/issues for changes.
+       Additional information: ";
+    reference
+      "https://github.com/openBackhaul/wireInterface/tree/tsp: Model definition
+       https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
+  }
+
+  identity LAYER_PROTOCOL_NAME_WIRE_INTERFACE {
+    base core-model:LAYER_PROTOCOL_NAME;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct/core-model:logical-termination-point/core-model:lp/core-model:local-id" {
+    when "derived-from-or-self(./core-model:layer-protocol-name, 'wire-interface:LAYER_PROTOCOL_NAME_WIRE_INTERFACE')";
+    uses wire-interface-lp-spec;
+    description
+      "none";
+  }
+
+  notification object-creation-notification {
+    uses object-creation-notification;
+    description
+      "none";
+  }
+
+  grouping object-creation-notification {
+    leaf counter {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Counts object creation notifications.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf object-type {
+      type string;
+      default "Type of created object not specified.";
+      config false;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  notification object-deletion-notification {
+    uses object-deletion-notification;
+    description
+      "none";
+  }
+
+  grouping object-deletion-notification {
+    leaf counter {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Counts object deletion notifications.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  notification attribute-value-changed-notification {
+    uses attribute-value-changed-notification;
+    description
+      "none";
+  }
+
+  grouping attribute-value-changed-notification {
+    leaf counter {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Counts attribute value changed notifications.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf attribute-name {
+      type string;
+      default "Attribute name not specified.";
+      config false;
+      description
+        "Name of the attribute that has been changed.";
+    }
+    leaf new-value {
+      type string;
+      default "New value not specified.";
+      config false;
+      description
+        "Attribute value converted to a string (xml, json, ...)";
+    }
+    description
+      "none";
+  }
+
+  notification problem-notification {
+    uses problem-notification;
+    description
+      "none";
+  }
+
+  grouping problem-notification {
+    leaf counter {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Counts problem notifications";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf problem {
+      type string;
+      default "Problem name not specified.";
+      config false;
+      description
+        "Name of the problem according to supportedAlarmList";
+    }
+    leaf severity {
+      type severity-type;
+      config false;
+      description
+        "Severity of the problem according to problemKindSeverity";
+    }
+    description
+      "none";
+  }
+
+  grouping current-problem {
+    leaf sequence-number {
+      type int16;
+      config false;
+      description
+        "Unique sequence number of the current problem object.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf problem-severity {
+      type severity-type;
+      config false;
+      description
+        "Severity of the alarm.";
+    }
+    description
+      "none";
+  }
+
+  grouping current-performance {
+    leaf timestamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "The timestamp associated with when the current data was collected.";
+    }
+    leaf suspect-interval-flag {
+      type boolean;
+      config false;
+      description
+        "This attribute is used to indicate that the performance data for the current period may not be reliable. Some reasons for this to occur are:
+         – Suspect data were detected by the actual resource doing data collection.
+         – Transition of the administrativeState attribute to/from the 'lock' state.
+         – Transition of the operationalState to/from the 'disabled' state.
+         – Scheduler setting that inhibits the collection function.
+         – The performance counters were reset during the interval.
+         – The currentData (or subclass) object instance was created during the monitoring period.";
+    }
+    leaf elapsed-time {
+      type int64;
+      units "s";
+      default "-1";
+      config false;
+      description
+        "Number of seconds that elapsed since the last reset of the counter.";
+    }
+    leaf scanner-id {
+      type string;
+      default "Scanner ID not defined.";
+      config false;
+      description
+        "none";
+    }
+    leaf operational-state {
+      type operational-state-type;
+      config false;
+      description
+        "none";
+    }
+    leaf granularity-period {
+      type granularity-period-type;
+      config false;
+      description
+        "Time period between reset of the underlying counter.";
+    }
+    leaf administrative-state {
+      type administrative-state-type;
+      config false;
+      description
+        "none";
+    }
+    leaf object-class {
+      type string;
+      config false;
+      description
+        "ObjectClass ::= CHOICE{    globalForm    [0] OBJECT IDENTIFIER,
+         localForm    [1] INTEGER}";
+    }
+    leaf name-binding {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf packages {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf allomorphs {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping historical-performance {
+    leaf suspect-interval-flag {
+      type boolean;
+      config false;
+      description
+        "This attribute indicates that the data collected during the interval is suspect.";
+    }
+    leaf history-data-id {
+      type string;
+      default "History Data ID not defined.";
+      config false;
+      description
+        "none";
+    }
+    leaf period-end-time {
+      type string;
+      config false;
+      description
+        "Time when the counter values have been recorded and the counter reset.";
+    }
+    leaf granularity-period {
+      type granularity-period-type;
+      config false;
+      description
+        "Time period between reset of the underlying counter.";
+    }
+    leaf object-class {
+      type string;
+      config false;
+      description
+        "ObjectClass ::= CHOICE{    globalForm    [0] OBJECT IDENTIFIER,
+         localForm    [1] INTEGER}";
+    }
+    leaf name-binding {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf packages {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf allomorphs {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping wire-interface-lp-spec {
+    container wire-interface-pac {
+      config false;
+      uses wire-interface-pac;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping wire-interface-pac {
+    container wire-interface-capability {
+      config false;
+      uses wire-interface-capability;
+      description
+        "none";
+    }
+    container wire-interface-configuration {
+      uses wire-interface-configuration;
+      description
+        "none";
+    }
+    container wire-interface-status {
+      config false;
+      uses wire-interface-status;
+      description
+        "none";
+    }
+    container wire-interface-current-problems {
+      config false;
+      uses wire-interface-current-problems;
+      description
+        "none";
+    }
+    container wire-interface-current-performance {
+      config false;
+      uses wire-interface-current-performance;
+      description
+        "none";
+    }
+    container wire-interface-historical-performances {
+      config false;
+      uses wire-interface-historical-performances;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping wire-interface-capability {
+    list supported-pmd-kind-list {
+      key "pmd-name";
+      config false;
+      uses pmd-kind;
+      description
+        "List of Physical Medium Dependent (PMD) that can be operated";
+    }
+    leaf auto-pmd-negotiation-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = device is supporting auto-negotiation";
+    }
+    leaf auto-negotiation-pmd-selection-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = device is supporting restricting auto-negotiation on a pre-defined list of PMDs";
+    }
+    leaf-list supported-signal-ordering-kind-list {
+      type signal-ordering-kind-type;
+      config false;
+      description
+        "Describes the different (e.g. MDI, MDI-X) ways of ordering the signals on the physical medium";
+    }
+    leaf auto-signal-ordering-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = there is a mechanism for automatically crossing over tx and rx implemented";
+    }
+    leaf configuration-of-rx-sync-preference-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Configuration of the behavior during the synchronization of transmitter and receiver is available. This attribute has nothing to do with clock signals.";
+    }
+    leaf mii-kind {
+      type mii-kind-type;
+      config false;
+      description
+        "Kind of Medium Independent Interface (MII) provided by this Medium Attachment Unit (MAU) (e.g. SFP, moldered port)";
+    }
+    leaf mdi-kind {
+      type mdi-kind-type;
+      config false;
+      description
+        "Kind of Medium Dependent Interface (MDI) provided by this Medium Attachment Unit (MAU)";
+    }
+    leaf required-medium-kind {
+      type medium-kind-type;
+      config false;
+      description
+        "Kind of medium required for operating this Medium Attachment Unit (MAU), more like an information field";
+    }
+    leaf-list wavelength-min {
+      type int32;
+      units "pm";
+      config false;
+      max-elements 3;
+      description
+        "Source: SFF-8690. Minimum laser wavelength in pico meter, -1 = not applicable, 0 = not known, if (wavelengthMin==wavelengthMax): wavelength cannot be configured; multiplicity=0..3 for 10GBASE-LX4 according to 802.3 53.5. Value to be read from the EPROM of the SFP.";
+    }
+    leaf-list wavelength-max {
+      type int32;
+      units "pm";
+      config false;
+      max-elements 3;
+      description
+        "Source: SFF-8690. Maximum laser wavelength in pico meter, -1 = not applicable, 0 = not known, if (wavelengthMax==wavelengthMin): wavelength cannot be configured; multiplicity=0..3 for 10GBASE-LX4 according to 802.3 53.5. Value to be read from the EPROM of the SFP.";
+    }
+    leaf wavelength-grid-min {
+      type int32;
+      units "pm";
+      default "-1";
+      config false;
+      description
+        "Source: SFF-8690. Minimum grid spacing supported by the transceiver, -1 = not applicable, 0 = not known";
+    }
+    leaf short-reach-mode-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Indicates that Short Reach Mode for 10GBASE-T according to 802.3 45.2.1.64 is available";
+    }
+    leaf eee-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Indicates that Energy-Efficient Ethernet (EEE) is available at the device.";
+    }
+    leaf unidirectional-operation-is-avail {
+      type boolean;
+      config false;
+      description
+        "Source: 802.3. 1 = Medium Attachment Unit (MAU) able to transmit from Media Independent Interface (MII) regardless of whether the MAU has determined that a valid link has been established, 0 = MAU able to transmit from MII only when the MAU has determined that a valid link has been established";
+    }
+    leaf rxlevel-low-threshold {
+      type int8;
+      units "dBm";
+      default "99";
+      config false;
+      description
+        "Threshold for alarming low RX levels. Value pre-defined by SFP manufacturer (SFF- 8472)";
+    }
+    leaf rxlevel-high-threshold {
+      type int8;
+      units "dBm";
+      default "99";
+      config false;
+      description
+        "Threshold for alarming high RX levels. Value pre-defined by SFP manufacturer (SFF- 8472)";
+    }
+    leaf temperature-low-threshold {
+      type int8;
+      units "Celsius";
+      default "-99";
+      config false;
+      description
+        "Threshold for alarming low temperature values. Value pre-defined by SFP manufacturer (SFF- 8472)
+         Might move to somewhere in the Physical Segment of the Core IM";
+    }
+    leaf temperature-high-threshold {
+      type int8;
+      units "Celsius";
+      default "-99";
+      config false;
+      description
+        "Threshold for alarming high temperature values. Value pre-defined by SFP manufacturer (SFF- 8472)
+         Might move to somewhere in the Physical Segment of the Core IM";
+    }
+    leaf configuration-of-number-of-bip-errors-per-ses-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = SET operation on the Line SES threshold defined by aLineSESThreshold in 30.8.1.1.11 of 802.3-2015 is available.";
+    }
+    leaf statistics-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Continuous statistics counters are available.";
+    }
+    leaf performance-monitoring-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Collection and aggregation of performance values is available.";
+    }
+    leaf-list supported-loop-back-kind-list {
+      type loop-back-type;
+      config false;
+      max-elements 5;
+      description
+        "Source: 802.3 45.2.1.12.1 PMA remote loopback ability. List of supported kinds of looping back of header information to the remote site.";
+    }
+    leaf maintenance-timer-range {
+      type string;
+      default "Range of the maintenance timer not yet defined.";
+      config false;
+      description
+        "Available time periods for maintenance configurations (e.g. the loop back) to be described. Concrete values shall be separated by commas (e.g. '10, 60, 360'). Ranges shall be expressed as two values separated by a minus (e.g. '10-360').";
+    }
+    leaf-list supported-alarm-list {
+      type string;
+      config false;
+      description
+        "Available alarms to be listed. Mandatory: 'rxLos'. Optional: 'txFault', 'tempHigh', 'tempLow', 'rxLevelHigh', 'rxLevelLow', 'vccHigh', 'vccLow', 'txBiasHigh', 'txBiasLow', 'txPowerHigh', 'txPowerLow', 'laserTempHigh', 'laserTempLow', 'tecCurrentHigh', 'tecCurrentLow'. Further alarms might be added by the device.";
+    }
+    description
+      "none";
+  }
+
+  grouping wire-interface-configuration {
+    leaf interface-name {
+      type string;
+      default "Interface name not yet defined.";
+      description
+        "Description of the interface, could be a name, could be a number. Free text field to be filled by the operator.";
+    }
+    leaf interface-is-on {
+      type boolean;
+      description
+        "Source: 802.3 according 30.3.2.2.1 acPhyAdminControl. 1 = Activation of the interface (it gets powered and can be managed even if the transceiver is not yet transmitting or receiving). In case there is no Medium Attachment Unit (MAU) (e.g. no SFP in the cage) SETting (interfaceIsOn=1) must be ignored and GETing must return (interfaceIsOn=0)";
+    }
+    leaf remote-wire-interface-name {
+      type string;
+      default "Remote wire interface name not yet defined.";
+      description
+        "Text field for defining the wire interface this one is connected with. Ideally used for entering unique numbers or names for unambiguously identifying the connection within the network";
+    }
+    leaf-list transceiver-is-on-list {
+      type boolean;
+      min-elements 1;
+      max-elements 11;
+      description
+        "Source: 802.3 45.2.1.8 PMD transmit disable register (Register 1.9). 1 = Activation of the transmitter and receiver (e.g. laser) of the PHY; transceiverIsOnList[0]:total interface; transceiverIsOnList[1..10] different lanes of a multilane Medium Attachment Unit (MAU)";
+    }
+    leaf auto-pmd-negotiation-is-on {
+      type boolean;
+      description
+        "Only relevant if (autoPmdNegotiationIsAvail == 1). 1 = Auto-negotiation is switched on";
+    }
+    container fixed-pmd-kind {
+      uses pmd-kind;
+      description
+        "If (autoPmdNegotiationIsOn==0) : Configuration of the concrete kind of Physical Medium Dependent (PMD). If (autoNegotiationIsOn=1) value of this field becomes irrelevant";
+    }
+    list auto-negotiation-pmd-list {
+      key "pmd-name";
+      min-elements 1;
+      uses pmd-kind;
+      description
+        "If (autoPmdNegotiationIsOn==1) AND (autoNegotiationPmdSelectionIsAvail==1), this list defines the selection of PMDs the automated negotiation process is allowed to choose from. If no entry, the automated negotiation process is allowed to choose from all available PMDs.";
+    }
+    leaf auto-signal-ordering-is-on {
+      type boolean;
+      description
+        "Only relevant if (autoSignalOrderingIsAvail == 1). 1 = e.g. auto-MDI-X is switched on";
+    }
+    leaf fixed-signal-ordering-kind {
+      type signal-ordering-kind-type;
+      description
+        "If (autoSignalOrderingIsOn==0) configuration of the concrete kind of signal ordering on the media (e.g. MDI, or MDI-X). If (autoSignalOrderingIsOn=1) value of this field becomes irrelevant";
+    }
+    leaf-list wavelength-list {
+      type int32;
+      units "pm";
+      max-elements 3;
+      description
+        "Source: SFF-8690. Wavelength of the signal of laser in pico meter; multiplicity=0..3 for 10GBASE-LX4 according to 802.3 53.5";
+    }
+    leaf rx-sync-preference {
+      type rx-sync-preference-type;
+      description
+        "Source: 802.3. Only relevant if (configurationOfRxSyncPreferenceIsAvail == 1). Configuration of the behavior during the negotiation of the wire interface (master), which is sending a continuous stream of symbols for the remote site (slave) to synchronize its receiver on it. This attribute is for synchronizing transmitter and receiver and has nothing to do with clock signals.";
+    }
+    leaf short-reach-mode-is-on {
+      type boolean;
+      description
+        "Only relevant if (shortReachModeIsAvail == 1). Activation of the Short Reach Mode for 10GBASE-T according to 802.3 45.2.1.64";
+    }
+    leaf eee-is-on {
+      type boolean;
+      description
+        "Only relevant if (eeeIsAvail == 1). 1 = Energy Efficient Ethernet is activated\n";
+    }
+    leaf unidirectional-operation-is-on {
+      type boolean;
+      description
+        "Source: 802.3. Only relevant if (unidirectionalOperationIsAvail == 1). 1 = Enable transmit from media independent interface regardless of whether the PHY has determined that a valid link has been established, 0 = Enable transmit from media independent interface only when the PHY has determined that a valid link has been established";
+    }
+    leaf number-of-bip-errors-per-ses {
+      type int16;
+      default "-1";
+      description
+        "Only relevant if (configurationOfNumberOfBipErrorsPerSesIsAvail == 1). SET operation on the Line SES threshold defined by aLineSESThreshold in 30.8.1.1.11 of 802.3-2015. This attribute configures the minimum number of BIP errors that have to occur in one second to count this second as a SES instead of an ES. According to 802.3, a value of 9835 should be the hardware default value, which should also apply after restarting the interface.";
+    }
+    leaf restart-pmd-negotiation-is-on {
+      type boolean;
+      description
+        "Source: 802.3. Restarts the auto negotiation process";
+    }
+    leaf statistics-is-on {
+      type boolean;
+      description
+        "Only relevant if (statisticsIsAvail==1). 1 = Continuous statistics counters are switched on.";
+    }
+    leaf performance-monitoring-collection-is-on {
+      type boolean;
+      description
+        "Only relevant if (performanceMonitoringIsAvail==1). 1 = Collection and aggregation of performance values is switched on.";
+    }
+    leaf isolation-is-on {
+      type boolean;
+      description
+        "Maintenance Feature. Source: 802.3. 1 = Activation of the separation of the PHY from higher network layers. Maintenance feature.";
+    }
+    leaf loop-back-kind-on {
+      type loop-back-type;
+      description
+        "Maintenance Feature. Source:802.3 according 22.2.4.1.2 Loopback. The currently configured type of looping back of the wire interface header shall be expressed here. The received header is returned to the remote site.";
+    }
+    leaf maintenance-timer {
+      type int32;
+      units "s";
+      default "-1";
+      description
+        "Time of existence of any maintenance configuration (e.g. the loop back). Valid values are defined in WireInterface::WireInterfaceCapability::maintenanceTimerRange. In case the hardware would implement just a single timer for maintenance at all kinds and instances of interfaces, this attribute should affect this single timer.";
+    }
+    list problem-kind-severity-list {
+      key "problem-kind-name";
+      min-elements 1;
+      uses problem-kind-severity-type;
+      description
+        "Severity of the problem to be configured.";
+    }
+    description
+      "none";
+  }
+
+  grouping wire-interface-status {
+    leaf interface-status {
+      type interface-status-type;
+      config false;
+      description
+        "Source: 802.3 according 30.3.2.1.7 aPhyAdminState. 1 = A Physical layer entity (PHY) exists (including Medium Attachment Unit (e.g. SFP) ) and it is powered and can be managed";
+    }
+    leaf-list receive-signal-is-detected {
+      type boolean;
+      config false;
+      max-elements 11;
+      description
+        "Source: 802.3 45.2.1.9 PMD receive signal detect. 1 = Receiver (e.g. laser) detects signal; receiveSignalIsDetected[0]:total interface; receiveSignalIsDetected[1..10] different lanes of a multilane Medium Attachment Unit (MAU)";
+    }
+    leaf pmd-negotiation-state {
+      type pmd-negotiation-state-type;
+      config false;
+      description
+        "Source: 802.3. Status of the Physical Medium Dependent (PMD) negotiation process (auto-neg)";
+    }
+    leaf pmd-is-up {
+      type boolean;
+      config false;
+      description
+        "Source: Inverse of 802.3 45.2.1.2.3 Fault (1.1.7). If (interfaceIsUp==1) BUT (pmdIsUp==0) : there is a fault in either transmit or receive path";
+    }
+    container pmd-kind-cur {
+      config false;
+      uses pmd-kind;
+      description
+        "Indicates the kind of Physical Medium Dependent (PMD) currently operated at this interface";
+    }
+    leaf signal-ordering-kind-cur {
+      type signal-ordering-kind-type;
+      config false;
+      description
+        "Reference on a SignalOrderingType for expressing the currently active way of ordering the signals on the physical medium.";
+    }
+    leaf rx-sync-role {
+      type rx-sync-role-type;
+      config false;
+      description
+        "Indicates the result of the negotiation of the wire interface (master), which is sending a continuous stream of symbols for the remote site (slave) synchronizing its receiver on it";
+    }
+    leaf eee-is-up {
+      type boolean;
+      config false;
+      description
+        "1 = Energy Efficient Ethernet is supported at both ends of the link and it is activated";
+    }
+    leaf link-is-up {
+      type boolean;
+      config false;
+      description
+        "If (transceiverIsUp==1) AND (linkIsUp==1) : communication is established to the remote site";
+    }
+    leaf link-is-idle {
+      type boolean;
+      config false;
+      description
+        "If (linkIsUp==1) AND (eeeIsAvail==1) AND (eeeIsOn==1) AND (linkIsIdle==1) : link is currently in idle mode. If Energy Efficient Ethernet is not supported or switched off, this attribute must be 0.";
+    }
+    leaf tx-level-cur {
+      type int8;
+      units "dBm";
+      default "99";
+      config false;
+      description
+        "Current transmit power";
+    }
+    leaf-list rx-level-cur {
+      type int8;
+      units "dBm";
+      config false;
+      max-elements 4;
+      description
+        "Current receive power; Also used for receive signal power measured at the Medium Dependent Interface (MDI) of 10GBASE-T during training as described in 802.3 55.4.3.1";
+    }
+    leaf loop-back-kind-up {
+      type loop-back-type;
+      config false;
+      description
+        "The currently active (not just configured) type of looping back of the wire interface header shall be expressed here. The received header is returned to the remote site.";
+    }
+    description
+      "none";
+  }
+
+  grouping wire-interface-current-problems {
+    list current-problem-list {
+      key "sequence-number";
+      config false;
+      uses wire-interface-current-problem-type;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping wire-interface-current-performance {
+    list current-performance-data-list {
+      key "granularity-period";
+      config false;
+      max-elements 2;
+      uses wire-interface-current-performance-type;
+      description
+        "At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.";
+    }
+    description
+      "Aggregated performance information of the air interface at a particular moment.";
+  }
+
+  grouping wire-interface-historical-performances {
+    list historical-performance-data-list {
+      key "period-end-time";
+      config false;
+      uses wire-interface-historical-performance-type;
+      description
+        "none";
+    }
+    description
+      "Aggregated performance information of the air interface for a pre-defined measurement interval.";
+  }
+
+  grouping pmd-kind {
+    leaf pmd-name {
+      type string;
+      config false;
+      description
+        "To be chosen from the following list of PMD names according to IEEE 802.3 '10BASE5', 'FOIRL', '10BASE2', '10BROAD36', '10BASE-T', '10BASE-FP', '10BASE-FB', '10BASE-FL', '100BASE-T4', '100BASE-TX', '100BASE-BX10D', '100BASE-BX10U', '100BASE-FX', '100BASE-LX10', '100BASE-T2', '1000BASE-X', '1000BASE-BX10D', '1000BASE-BX10U', '1000BASE-LX', '1000BASE-LX10', '1000BASE-SX', '1000BASE-CX', '1000BASE-KX', '1000BASE-T', '10GBASE-X', '10GBASE-LX4', '10GBASE-KX4', '10GBASE-R', '10GBASE-ER', '10GBASE-LR', '10GBASE-SR', '10GBASE-LRM', '10GBASE-KR', '10GBASE-T', '10GBASE-PR-D1', '10GBASE-PR-D2', '10GBASE-PR-D3', '10GBASE-PR-D4', '10GBASE-PR-U1', '10GBASE-PR-U2', '10GBASE-PR-U3', '10GBASE-PR-U4', '40GBASE-R', '40GBASE-KR4', '40GBASE-CR4', '40GBASE-SR4', '4x10GBASE-SR', '40GBASE-LR4', '40GBASE-ER4', '40GBASE-FR', '100GBASE-R', '100GBASE-CR4', '100GBASE-KR4', '100GBASE-KP4', '100GBASE-CR10', '100GBASE-SR4', '100GBASE-SR10', '2x40GBASE-SR', '10x10GBASE-SR', '12x10GBASE-SR', '100GBASE-LR4', '100GBASE-ER4' and 'NOT_YET_DEFINED'";
+    }
+    leaf speed {
+      type string;
+      default "NOT_YET_DEFINED";
+      description
+        "Line speed of the PMD. Value to be chosen from '2Mbit/s', '10Mbit/s', '100Mbit/s', '1000Mbit/s', '10Gbit/s', '40Gbit/s', '100Gbit/s' or 'NOT_YET_DEFINED'.";
+    }
+    leaf duplex {
+      type duplex-type;
+      description
+        "To be expressed, whether the PMD is full duplex or just half duplex";
+    }
+    description
+      "none";
+  }
+
+  typedef loop-back-type {
+    type identityref {
+      base LOOP_BACK_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef rx-sync-preference-type {
+    type identityref {
+      base RX_SYNC_PREFERENCE_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef rx-sync-role-type {
+    type identityref {
+      base RX_SYNC_ROLE_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef mii-kind-type {
+    type identityref {
+      base MII_KIND_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef mdi-kind-type {
+    type identityref {
+      base MDI_KIND_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef medium-kind-type {
+    type identityref {
+      base MEDIUM_KIND_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef duplex-type {
+    type identityref {
+      base DUPLEX_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef signal-ordering-kind-type {
+    type identityref {
+      base SIGNAL_ORDERING_KIND_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef pmd-negotiation-state-type {
+    type identityref {
+      base PMD_NEGOTIATION_STATE_TYPE;
+    }
+    description
+      "none";
+  }
+
+  identity LOOP_BACK_TYPE {
+    description
+      "none";
+  }
+
+  identity LOOP_BACK_TYPE_NONE {
+    base LOOP_BACK_TYPE;
+    description
+      "none";
+  }
+
+  identity LOOP_BACK_TYPE_EXTERNAL {
+    base LOOP_BACK_TYPE;
+    description
+      "Parameter
+       If the internal loopback test succeeds but the external loopback fails, the Medium Attachment Unit (MAU) is faulty (e.g. SFP has to be replaced)";
+  }
+
+  identity LOOP_BACK_TYPE_INTERNAL {
+    base LOOP_BACK_TYPE;
+    description
+      "Parameter
+       If the internal loopback test fails, the Data Terminal Equipment (DTE) is faulty (e.g. board has to be replaced)";
+  }
+
+  identity LOOP_BACK_TYPE_NOT_YET_DEFINED {
+    base LOOP_BACK_TYPE;
+    description
+      "none";
+  }
+
+  identity RX_SYNC_PREFERENCE_TYPE {
+    description
+      "none";
+  }
+
+  identity RX_SYNC_PREFERENCE_TYPE_AUTO_MULTIPORT_DEVICE {
+    base RX_SYNC_PREFERENCE_TYPE;
+    description
+      "Master/Slave relation is determined by auto-negotiation and this device has a preference for being Master";
+  }
+
+  identity RX_SYNC_PREFERENCE_TYPE_AUTO_SINGLE_PORT_DEVICE {
+    base RX_SYNC_PREFERENCE_TYPE;
+    description
+      "Master/Slave relation is determined by auto-negotiation and this device has a preference for being Slave";
+  }
+
+  identity RX_SYNC_PREFERENCE_TYPE_MANUAL_MASTER {
+    base RX_SYNC_PREFERENCE_TYPE;
+    description
+      "Master/Slave relation is determined by manual configuration and this device shall be Master";
+  }
+
+  identity RX_SYNC_PREFERENCE_TYPE_MANUAL_SLAVE {
+    base RX_SYNC_PREFERENCE_TYPE;
+    description
+      "Master/Slave relation is determined by manual configuration and this device shall be Slave";
+  }
+
+  identity RX_SYNC_PREFERENCE_TYPE_NOT_YET_DEFINED {
+    base RX_SYNC_PREFERENCE_TYPE;
+    description
+      "none";
+  }
+
+  identity RX_SYNC_ROLE_TYPE {
+    description
+      "none";
+  }
+
+  identity RX_SYNC_ROLE_TYPE_MASTER {
+    base RX_SYNC_ROLE_TYPE;
+    description
+      "none";
+  }
+
+  identity RX_SYNC_ROLE_TYPE_SLAVE {
+    base RX_SYNC_ROLE_TYPE;
+    description
+      "none";
+  }
+
+  identity RX_SYNC_ROLE_TYPE_FAULT {
+    base RX_SYNC_ROLE_TYPE;
+    description
+      "none";
+  }
+
+  identity RX_SYNC_ROLE_TYPE_NOT_YET_DEFINED {
+    base RX_SYNC_ROLE_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE {
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_GBIC {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_SOLDERED_CONNECTOR {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_SFP_SFP__SFP28 {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_XBI_300_PIN {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_XENPAK {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_XFP {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_XFP_E {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_XPAK {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_X2 {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_DWDM_SFP_SFP_ {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_QSFP {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_QSFP_ {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_CXP {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_SHIELDED_MINI_MULTILANE_HD_4X {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_SHIELDED_MINI_MULTILANE_HD__X {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_QSFP28 {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_CXP2 {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_CDFP_STYLE1_STYLE2 {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_SHIELDED_MINI_MULTILANE_HD_4X_FAN_OUT {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_SHIELDED_MINI_MULTILANE_HD_8X_FAN_OUT {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_CDFP_STYLE3 {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_QSFP_MICRO {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_QSFP_DD {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_QSFP__RATE_SELECT_V1 {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_QSFP__RATE_SELECT_V2 {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MII_KIND_TYPE_NOT_YET_DEFINED {
+    base MII_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MDI_KIND_TYPE {
+    description
+      "none";
+  }
+
+  identity MDI_KIND_TYPE_SC {
+    base MDI_KIND_TYPE;
+    description
+      "Subscriber Connector";
+  }
+
+  identity MDI_KIND_TYPE_FIBRE_CHANNEL_STYLE_1 {
+    base MDI_KIND_TYPE;
+    description
+      "Copper connector";
+  }
+
+  identity MDI_KIND_TYPE_FIBRE_CHANNEL_STYLE_2 {
+    base MDI_KIND_TYPE;
+    description
+      "Copper connector";
+  }
+
+  identity MDI_KIND_TYPE_BNC_TNC {
+    base MDI_KIND_TYPE;
+    description
+      "Bayonet/Threaded Neill-Concelman";
+  }
+
+  identity MDI_KIND_TYPE_FC {
+    base MDI_KIND_TYPE;
+    description
+      "Fibre Channel coax headers";
+  }
+
+  identity MDI_KIND_TYPE_FIBER_JACK {
+    base MDI_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MDI_KIND_TYPE_LC {
+    base MDI_KIND_TYPE;
+    description
+      "Lucent Connector";
+  }
+
+  identity MDI_KIND_TYPE_MT_RJ {
+    base MDI_KIND_TYPE;
+    description
+      "Mechanical Transfer - Registered Jack";
+  }
+
+  identity MDI_KIND_TYPE_MU {
+    base MDI_KIND_TYPE;
+    description
+      "Multiple Optical";
+  }
+
+  identity MDI_KIND_TYPE_SG {
+    base MDI_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MDI_KIND_TYPE_OPTICAL_PIGTAIL {
+    base MDI_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MDI_KIND_TYPE_MPO1x12 {
+    base MDI_KIND_TYPE;
+    description
+      "Multifiber Parallel Optic";
+  }
+
+  identity MDI_KIND_TYPE_MPO2x16 {
+    base MDI_KIND_TYPE;
+    description
+      "Multifiber Parallel Optic";
+  }
+
+  identity MDI_KIND_TYPE_HSSDC_II {
+    base MDI_KIND_TYPE;
+    description
+      "High Speed Serial Data Connector";
+  }
+
+  identity MDI_KIND_TYPE_COPPER_PIGTAIL {
+    base MDI_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MDI_KIND_TYPE_RJ45 {
+    base MDI_KIND_TYPE;
+    description
+      "8P8C, according to Clause 3 and Figures 1 through 5 of IEC 60603-7";
+  }
+
+  identity MDI_KIND_TYPE_NO_SEPERABLE_CONNECTOR {
+    base MDI_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MDI_KIND_TYPE_MXC2x16 {
+    base MDI_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MDI_KIND_TYPE_ST {
+    base MDI_KIND_TYPE;
+    description
+      "according to IEC 60874-10:1992, also often called BFOC/2.5";
+  }
+
+  identity MDI_KIND_TYPE_NOT_YET_DEFINED {
+    base MDI_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MEDIUM_KIND_TYPE {
+    description
+      "none";
+  }
+
+  identity MEDIUM_KIND_TYPE_TP_CAT3 {
+    base MEDIUM_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MEDIUM_KIND_TYPE_TP_CAT5 {
+    base MEDIUM_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MEDIUM_KIND_TYPE_TP_CAT6 {
+    base MEDIUM_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MEDIUM_KIND_TYPE_TP_CAT8 {
+    base MEDIUM_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MEDIUM_KIND_TYPE_SINGLE_MODE {
+    base MEDIUM_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MEDIUM_KIND_TYPE_MULTI_MODE {
+    base MEDIUM_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity MEDIUM_KIND_TYPE_NOT_YET_DEFINED {
+    base MEDIUM_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity DUPLEX_TYPE {
+    description
+      "none";
+  }
+
+  identity DUPLEX_TYPE_HALF_DUPLEX {
+    base DUPLEX_TYPE;
+    description
+      "none";
+  }
+
+  identity DUPLEX_TYPE_FULL_DUPLEX {
+    base DUPLEX_TYPE;
+    description
+      "none";
+  }
+
+  identity DUPLEX_TYPE_NOT_YET_DEFINED {
+    base DUPLEX_TYPE;
+    description
+      "none";
+  }
+
+  identity SIGNAL_ORDERING_KIND_TYPE {
+    description
+      "none";
+  }
+
+  identity SIGNAL_ORDERING_KIND_TYPE_MDI {
+    base SIGNAL_ORDERING_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity SIGNAL_ORDERING_KIND_TYPE_MDI_X {
+    base SIGNAL_ORDERING_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity SIGNAL_ORDERING_KIND_TYPE_NOT_YET_DEFINED {
+    base SIGNAL_ORDERING_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity PMD_NEGOTIATION_STATE_TYPE {
+    description
+      "none";
+  }
+
+  identity PMD_NEGOTIATION_STATE_TYPE_NONE {
+    base PMD_NEGOTIATION_STATE_TYPE;
+    description
+      "Device does not support auto negotiation";
+  }
+
+  identity PMD_NEGOTIATION_STATE_TYPE_DISABLED {
+    base PMD_NEGOTIATION_STATE_TYPE;
+    description
+      "Auto negotiation is disabled.";
+  }
+
+  identity PMD_NEGOTIATION_STATE_TYPE_ENABLED {
+    base PMD_NEGOTIATION_STATE_TYPE;
+    description
+      "Auto negotiation is enabled, but currently nothing is connected";
+  }
+
+  identity PMD_NEGOTIATION_STATE_TYPE_IN_PROGRESS {
+    base PMD_NEGOTIATION_STATE_TYPE;
+    description
+      "The auto-negotiation protocol is running and negotiation is currently in-progress";
+  }
+
+  identity PMD_NEGOTIATION_STATE_TYPE_COMPLETE {
+    base PMD_NEGOTIATION_STATE_TYPE;
+    description
+      "The auto-negotation protocol has completed successfully";
+  }
+
+  identity PMD_NEGOTIATION_STATE_TYPE_FAILED {
+    base PMD_NEGOTIATION_STATE_TYPE;
+    description
+      "The auto-negotation protocol has failed";
+  }
+
+  identity PMD_NEGOTIATION_STATE_TYPE_NOT_YET_DEFINED {
+    base PMD_NEGOTIATION_STATE_TYPE;
+    description
+      "Device supports autonegotiation, but state is currently unknown, e.g. because device just booted";
+  }
+
+  identity GRANULARITY_PERIOD_TYPE {
+    description
+      "none";
+  }
+
+  identity GRANULARITY_PERIOD_TYPE_UNKNOWN {
+    base GRANULARITY_PERIOD_TYPE;
+    description
+      "none";
+  }
+
+  identity GRANULARITY_PERIOD_TYPE_PERIOD-15-MIN {
+    base GRANULARITY_PERIOD_TYPE;
+    description
+      "none";
+  }
+
+  identity GRANULARITY_PERIOD_TYPE_PERIOD-24-HOURS {
+    base GRANULARITY_PERIOD_TYPE;
+    description
+      "none";
+  }
+
+  identity GRANULARITY_PERIOD_TYPE_NOT_YET_DEFINED {
+    base GRANULARITY_PERIOD_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE {
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_NON_ALARMED {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_WARNING {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_MINOR {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_MAJOR {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_CRITICAL {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_NOT_YET_DEFINED {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity INTERFACE_STATUS_TYPE {
+    description
+      "none";
+  }
+
+  identity INTERFACE_STATUS_TYPE_UP {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Ready to pass packets.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_DOWN {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "The interface does not pass any packets.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_TESTING {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "In some test mode.  No operational packets can be passed.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_UNKNOWN {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Status cannot be determined for some reason.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_DORMANT {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Waiting for some external event.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_NOT_PRESENT {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Some component (typically hardware) is missing.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_LOWER_LAYER_DOWN {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Down due to state of lower-layer interface(s).";
+  }
+
+  identity INTERFACE_STATUS_TYPE_ADMIN_DOWN {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Down due to configuration.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_NOT_YET_DEFINED {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "none";
+  }
+
+  identity OPERATIONAL_STATE_TYPE {
+    description
+      "none";
+  }
+
+  identity OPERATIONAL_STATE_TYPE_ENABLED {
+    base OPERATIONAL_STATE_TYPE;
+    description
+      "none";
+  }
+
+  identity OPERATIONAL_STATE_TYPE_DISABLED {
+    base OPERATIONAL_STATE_TYPE;
+    description
+      "none";
+  }
+
+  identity OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED {
+    base OPERATIONAL_STATE_TYPE;
+    description
+      "none";
+  }
+
+  identity ADMINISTRATIVE_STATE_TYPE {
+    description
+      "none";
+  }
+
+  identity ADMINISTRATIVE_STATE_TYPE_UNLOCKED {
+    base ADMINISTRATIVE_STATE_TYPE;
+    description
+      "none";
+  }
+
+  identity ADMINISTRATIVE_STATE_TYPE_LOCKED {
+    base ADMINISTRATIVE_STATE_TYPE;
+    description
+      "none";
+  }
+
+  identity ADMINISTRATIVE_STATE_TYPE_SHUTTING_DOWN {
+    base ADMINISTRATIVE_STATE_TYPE;
+    description
+      "none";
+  }
+
+  identity ADMINISTRATIVE_STATE_TYPE_NOT_YET_DEFINED {
+    base ADMINISTRATIVE_STATE_TYPE;
+    description
+      "none";
+  }
+
+  typedef granularity-period-type {
+    type identityref {
+      base GRANULARITY_PERIOD_TYPE;
+    }
+    description
+      "The enumeration with the options for granularity period of the performance data.";
+  }
+
+  typedef severity-type {
+    type identityref {
+      base SEVERITY_TYPE;
+    }
+    description
+      "According to ITU-T M.3160";
+  }
+
+  typedef interface-status-type {
+    type identityref {
+      base INTERFACE_STATUS_TYPE;
+    }
+    description
+      "Current Interface Status";
+  }
+
+  typedef operational-state-type {
+    type identityref {
+      base OPERATIONAL_STATE_TYPE;
+    }
+    description
+      "The list of valid operational states for the connection.";
+  }
+
+  typedef administrative-state-type {
+    type identityref {
+      base ADMINISTRATIVE_STATE_TYPE;
+    }
+    description
+      "For more information on Administrative State, See ITU-T Recs. X.731 and M.3100.";
+  }
+
+  grouping problem-kind-severity-type {
+    leaf problem-kind-name {
+      type string;
+      description
+        "Name of the alarm according to supportedAlarmList";
+    }
+    leaf problem-kind-severity {
+      type severity-type;
+      description
+        "Severity of this type of alarm.";
+    }
+    description
+      "none";
+  }
+
+  grouping wire-interface-current-problem-type {
+    leaf problem-name {
+      type string;
+      default "Problem name not specified.";
+      config false;
+      description
+        "Name of the alarm according to supportedAlarmList attribute in MauType datatype";
+    }
+    uses current-problem;
+    description
+      "none";
+  }
+
+  grouping wire-interface-performance-type {
+    leaf es {
+      type int32;
+      units "s";
+      default "-1";
+      config false;
+      description
+        "Number of errored seconds according to 802.3 30.8.1.1.13 aLineESs";
+    }
+    leaf ses {
+      type int32;
+      units "s";
+      default "-1";
+      config false;
+      description
+        "Number of severely errored seconds according to 802.3 30.8.1.1.12 aLineSESs";
+    }
+    leaf symbol-error-during-carrier {
+      type int32;
+      units "symbol";
+      default "-1";
+      config false;
+      description
+        "Source: 802.3 according to 30.3.2.1.5 aSymbolErrorDuringCarrier. Number of times when valid carrier was present and an invalid data symbol occured.";
+    }
+    leaf low-power-idle-transmitter-ms {
+      type int32;
+      units "ms";
+      default "-1";
+      config false;
+      description
+        "Source: 802.3 similar to 30.3.2.1.8 aTransmitLPIMicroseconds. Number of milliseconds (original counter expresses microseconds), during which the transmitter was in power save mode";
+    }
+    leaf low-power-idle-receiver-ms {
+      type int32;
+      units "ms";
+      default "-1";
+      config false;
+      description
+        "Source: 802.3 similar to 30.3.2.1.9 aReceiveLPIMicroseconds. Number of milliseconds (original counter expresses microseconds), during which the receiver was in power save mode";
+    }
+    description
+      "none";
+  }
+
+  grouping wire-interface-current-performance-type {
+    container performance-data {
+      config false;
+      uses wire-interface-performance-type;
+      description
+        "none";
+    }
+    uses current-performance;
+    description
+      "Turns performance information into current performance information by inheriting from OTN_CurrentData.";
+  }
+
+  grouping wire-interface-historical-performance-type {
+    container performance-data {
+      config false;
+      uses wire-interface-performance-type;
+      description
+        "none";
+    }
+    uses historical-performance;
+    description
+      "Turns performance information into historical performance information by inheriting from OTN_HistoryData.";
+  }
+}
