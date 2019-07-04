@@ -218,7 +218,7 @@
      add reference to uml, for ownedAttributes, in case no comment is provided by UML -->
   <xsl:template match="ownedAttribute[fn:not(ownedComment) and fn:not(fn:key('prunedElementById', @xmi:id, $pruningLookupDoc)/@prune = fn:true())]">
     <xsl:copy>
-      <xsl:apply-templates select="* | @*[fn:not(fn:name(.) = 'type')] | text()"/>
+      <xsl:apply-templates select="* | @* | text()"/>
       <ownedComment xmi:type="uml:Comment" xmi:id="{fn:generate-id(.)}" annotatedElement="{../@xmi:id}">
         <body>
           <xsl:text>Please add a comment to UML.</xsl:text>
