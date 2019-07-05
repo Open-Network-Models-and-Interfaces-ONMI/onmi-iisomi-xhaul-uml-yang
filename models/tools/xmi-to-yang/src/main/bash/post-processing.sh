@@ -37,7 +37,10 @@ do
 
   sed -i -e "s/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:embedded-clock\/core-model:encapsulated-fc\/core-model:fc-port\/core-model:local-id/\/core-model:control-construct\/core-model:forwarding-domain\/core-model:fc\/core-model:fc-port\/core-model:local-id/g" $yang
 
+  core="${yang%%@*}"
+
   pyang -f yang -p $DIR -o $yang $yang 
-  pyang -f tree -p $DIR -o $yang.tree $yang 
+  pyang -f yang -p $DIR -o ${core}.yang $yang 
+  pyang -f tree -p $DIR -o ${core}.tree $yang 
 
 done
