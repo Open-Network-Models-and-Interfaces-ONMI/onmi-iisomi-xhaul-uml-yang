@@ -267,7 +267,7 @@ module: core-model
      |  +--rw lifecycle-state?                 lifecycle-state
      |  +--rw address*                         dt-address
      +--rw logical-termination-point* [uuid]
-     |  +--rw lp* [local-id]
+     |  +--rw layer-protocol* [local-id]
      |  |  +--rw layer-protocol-name
      |  |  |  +--rw layer-protocol-qualifier?   string
      |  |  |  +--rw layer-protocol-name?        layer-protocol-name
@@ -316,7 +316,7 @@ module: core-model
      |  |  |  |  +--rw ltp*                             -> /control-construct/logical-termination-point/uuid
      |  |  |  |  +--rw role?                            port-role
      |  |  |  |  +--rw fc-port-direction?               port-direction
-     |  |  |  |  +--rw is-protection-lock-out?          boolean {in-protection-context-where-the-fcport-is-to-be-excluded-from-use-for-protection}?
+     |  |  |  |  +--rw is-protection-lock-out?          boolean {fcportisprotectionlockout}?
      |  |  |  |  +--rw selection-priority?              int64
      |  |  |  |  +--ro is-internal-port?                boolean
      |  |  |  |  +--rw fc-route-feeds-fc-port-egress*   string
@@ -339,7 +339,7 @@ module: core-model
      |  |  |  |  +--rw address*                         dt-address
      |  |  |  +--rw fc-switch*                          string
      |  |  |  +--rw configuration-and-switch-control*   string
-     |  |  |  +--rw is-protection-lock-out?             boolean {in-protection-context-if-server-of-protection-where-entire-server-is-to-be-excluded-from-use-for-protection}?
+     |  |  |  +--rw is-protection-lock-out?             boolean {forwardingconstructisprotectionlockout}?
      |  |  |  +--rw service-priority?                   int64
      |  |  |  +--rw supported-link*                     string
      |  |  |  +--rw supporting-pc?                      string
@@ -415,7 +415,7 @@ module: core-model
      |  |  |  +--rw ltp*                             -> /control-construct/logical-termination-point/uuid
      |  |  |  +--rw role?                            port-role
      |  |  |  +--rw fc-port-direction?               port-direction
-     |  |  |  +--rw is-protection-lock-out?          boolean {in-protection-context-where-the-fcport-is-to-be-excluded-from-use-for-protection}?
+     |  |  |  +--rw is-protection-lock-out?          boolean {fcportisprotectionlockout}?
      |  |  |  +--rw selection-priority?              int64
      |  |  |  +--ro is-internal-port?                boolean
      |  |  |  +--rw fc-route-feeds-fc-port-egress*   string
@@ -438,7 +438,7 @@ module: core-model
      |  |  |  +--rw address*                         dt-address
      |  |  +--rw fc-switch*                          string
      |  |  +--rw configuration-and-switch-control*   string
-     |  |  +--rw is-protection-lock-out?             boolean {in-protection-context-if-server-of-protection-where-entire-server-is-to-be-excluded-from-use-for-protection}?
+     |  |  +--rw is-protection-lock-out?             boolean {forwardingconstructisprotectionlockout}?
      |  |  +--rw service-priority?                   int64
      |  |  +--rw supported-link*                     string
      |  |  +--rw supporting-pc?                      string

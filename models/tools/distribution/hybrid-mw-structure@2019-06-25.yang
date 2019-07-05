@@ -13,7 +13,7 @@ module hybrid-mw-structure {
     "WG Web : https://github.com/openBackhaul/Overview
      WG List: HybridMwStructure@openBackhaul.com
      Editor : Thorsten Heinze
-              Thorsten.Heinze@openBackhaul.com";
+     Email  : Thorsten.Heinze@openBackhaul.com";
   description
     "Technology specific interface definition for a hybrid microwave structure on a physical media
 
@@ -32,21 +32,20 @@ module hybrid-mw-structure {
   revision 2019-06-25 {
     description
       "Model for the Transport SDN Pilot at Telefonica Germany.
-       Please view https://github.com/openBackhaul/hybridMwStructure/issues for changes.
-       Additional information: ";
+       Please view https://github.com/openBackhaul/hybridMwStructure/issues for changes.";
     reference
       "https://github.com/openBackhaul/hybridMwStructure/tree/tsp: Model definition
        https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
   }
 
-  identity LAYER_PROTOCOL_NAME_HYBRID_MW_STRUCTURE {
+  identity LAYER_PROTOCOL_NAME_MWS {
     base core-model:LAYER_PROTOCOL_NAME;
     description
       "none";
   }
 
-  augment "/core-model:control-construct/core-model:logical-termination-point/core-model:lp/core-model:local-id" {
-    when "derived-from-or-self(./core-model:layer-protocol-name, 'hybrid-mw-structure:LAYER_PROTOCOL_NAME_HYBRID_MW_STRUCTURE')";
+  augment "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol" {
+    when "derived-from-or-self(./core-model:layer-protocol-name, 'hybrid-mw-structure:LAYER_PROTOCOL_NAME_MWS')";
     uses hybrid-mw-structure-lp-spec;
     description
       "none";

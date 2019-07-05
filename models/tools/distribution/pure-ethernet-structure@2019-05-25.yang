@@ -13,7 +13,7 @@ module pure-ethernet-structure {
     "WG Web : https://github.com/openBackhaul/Overview
      WG List: HybridMwStructure@openBackhaul.com
      Editor : Thorsten Heinze
-              Thorsten.Heinze@openBackhaul.com";
+     Email  : Thorsten.Heinze@openBackhaul.com";
   description
     "Technology specific interface definition for a pure Ethernet structure on a physical media
 
@@ -42,7 +42,7 @@ module pure-ethernet-structure {
       "none";
   }
 
-  augment "/core-model:control-construct/core-model:logical-termination-point/core-model:lp/core-model:local-id" {
+  augment "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol" {
     when "derived-from-or-self(./core-model:layer-protocol-name, 'pure-ethernet-structure:LAYER_PROTOCOL_NAME_PURE_ETHERNET_STRUCTURE')";
     uses pure-ethernet-structure-lp-spec;
     description

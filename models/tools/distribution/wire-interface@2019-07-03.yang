@@ -13,7 +13,7 @@ module wire-interface {
     "WG Web : https://github.com/openBackhaul/Overview
      WG List: WireInterface@openBackhaul.com
      Editor : Thorsten Heinze
-         Thorsten.Heinze@openBackhaul.com";
+     Email  : Thorsten.Heinze@openBackhaul.com";
   description
     "This model is for vendor agnostic management of Ethernet PHY interfaces.
      Supported: '10BASE5', 'FOIRL', '10BASE2', '10BROAD36', '10BASE-T', '10BASE-FP', '10BASE-FB', '10BASE-FL', '100BASE-T4', '100BASE-TX', '100BASE-BX10D', '100BASE-BX10U', '100BASE-FX', '100BASE-LX10', '100BASE-T2', '1000BASE-X', '1000BASE-BX10D', '1000BASE-BX10U', '1000BASE-LX', '1000BASE-LX10', '1000BASE-SX', '1000BASE-CX', '1000BASE-KX', '1000BASE-T', '10GBASE-X', '10GBASE-LX4', '10GBASE-KX4', '10GBASE-R', '10GBASE-ER', '10GBASE-LR', '10GBASE-SR', '10GBASE-LRM', '10GBASE-KR', '10GBASE-T', '10GBASE-PR-D1', '10GBASE-PR-D2', '10GBASE-PR-D3', '10GBASE-PR-D4', '10GBASE-PR-U1', '10GBASE-PR-U2', '10GBASE-PR-U3', '10GBASE-PR-U4', '40GBASE-R', '40GBASE-KR4', '40GBASE-CR4', '40GBASE-SR4', '4x10GBASE-SR', '40GBASE-LR4', '40GBASE-ER4', '40GBASE-FR', '100GBASE-R', '100GBASE-CR4', '100GBASE-KR4', '100GBASE-KP4', '100GBASE-CR10', '100GBASE-SR4', '100GBASE-SR10', '2x40GBASE-SR', '10x10GBASE-SR', '12x10GBASE-SR', '100GBASE-LR4', '100GBASE-ER4' and 'NOT_YET_DEFINED.
@@ -34,21 +34,20 @@ module wire-interface {
   revision 2019-07-03 {
     description
       "Model for the Transport SDN Pilot at Telefonica Germany.
-       Please view https://github.com/openBackhaul/wireInterface/issues for changes.
-       Additional information: ";
+       Please view https://github.com/openBackhaul/wireInterface/issues for changes.";
     reference
       "https://github.com/openBackhaul/wireInterface/tree/tsp: Model definition
        https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
   }
 
-  identity LAYER_PROTOCOL_NAME_WIRE_INTERFACE {
+  identity LAYER_PROTOCOL_NAME_WIRE_LAYER {
     base core-model:LAYER_PROTOCOL_NAME;
     description
       "none";
   }
 
-  augment "/core-model:control-construct/core-model:logical-termination-point/core-model:lp/core-model:local-id" {
-    when "derived-from-or-self(./core-model:layer-protocol-name, 'wire-interface:LAYER_PROTOCOL_NAME_WIRE_INTERFACE')";
+  augment "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol" {
+    when 'derived-from-or-self(./core-model:layer-protocol-name, "wire-interface:LAYER_PROTOCOL_NAME_WIRE_LAYER")';
     uses wire-interface-lp-spec;
     description
       "none";
