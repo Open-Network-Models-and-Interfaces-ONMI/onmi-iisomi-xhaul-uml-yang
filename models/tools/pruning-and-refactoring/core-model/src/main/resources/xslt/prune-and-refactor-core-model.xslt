@@ -221,10 +221,10 @@
       <xsl:apply-templates select="* | @* | text()"/>
       <ownedComment xmi:type="uml:Comment" xmi:id="{fn:generate-id(.)}" annotatedElement="{../@xmi:id}">
         <body>
-          <xsl:text>Please add a comment to UML.</xsl:text>
+          <xsl:text>none</xsl:text>
           <xsl:call-template name="addUmlReference">
             <xsl:with-param name="node" select="."/>
-            <xsl:with-param name="visible" select="fn:true()"/>
+            <xsl:with-param name="visible" select="fn:false()"/>
           </xsl:call-template>
         </body>
       </ownedComment>

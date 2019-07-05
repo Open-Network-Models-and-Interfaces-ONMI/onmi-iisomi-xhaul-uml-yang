@@ -174,7 +174,6 @@ Class.prototype.buildAttribute = function(att){
     
     
     if(att.attributes().type){
-        //console.info()
         type = att.attributes().type;
         isLeaf = false;
     }
@@ -199,17 +198,30 @@ Class.prototype.buildAttribute = function(att){
 
     var attribute = new Attribute(id, name, type, comment, association, isReadOnly, isOrdered, this.fileName);//build a attribute
     
-    // [sko] TODO: this is a hack, but what is reh right procedure?
-    // set isLeaf to avoid occupying-fru, access-port 
-    if(id == "_X1q3Qj-QEeaRI-H69PghuA" || id =="_8SXNmD-HEeaRI-H69PghuA"|| id =="_ZysIUHXFEeeqyuooNTTDCg"){
-      isLeaf = true;
-    // console.info("ObjectClass - name:\t"+this.name);
-    // console.info("ObjectClass: attribute\t" + JSON.stringify(attribute));
-    }   
-    if(att.attributes().aggregation && att.attributes().aggregation == "composite"){
+    if (att.attributes().aggregation && att.attributes().aggregation == "composite"){
         attribute.isleafRef = false;
+    } else if (att.attributes().aggregation && att.attributes().aggregation == "shared") {
+        attribute.isleafRef = true;
+        isLeaf = true;
     }
-    //isLeaf = attribute.isleafRef;
+
+    // [sko] TODO hack - force to be leaf and leafref
+    var leafs = [
+        '_ZysIUHXFEeeqyuooNTTDCg', '_IxS2AFYnEeOVGaP4lO41SQs', '_IxS2AFYnEeOVGaP4lO41SQ', '_FDjBAmGTEeerc4Zz6ufSeg'
+    ];
+    if (leafs.indexOf(id) !== -1) { // contains
+        isLeaf = true;
+    }
+
+    // [sko] TODO hack - force to be leaf and leafref
+    var nonLeafs = [
+        '_oGql_1LNEeO75dO39GbF8Q'
+    ];
+    if (nonLeafs.indexOf(id) !== -1) { // contains
+        isLeaf = false;
+    }
+
+
     attribute.giveValue(att);
     attribute.giveNodeType(isLeaf);
     this.attribute.push(attribute);
