@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26" xmlns:OpenModel_Profile_1="http:///schemas/OpenModel_Profile/_aG1hkAPxEeewDI5jM-81FA/21" xmlns:RootElement="http:///schemas/RootElement/_unAKkJDrEemIv9iw4JXc9w/46" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26 UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml http:///schemas/OpenModel_Profile/_aG1hkAPxEeewDI5jM-81FA/21 OpenModel_Profile.profile.uml#_aG-rgAPxEeewDI5jM-81FA http:///schemas/RootElement/_unAKkJDrEemIv9iw4JXc9w/46 UmlProfiles/Experimental.profile.uml">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26"  xmlns:RootElement="http:///schemas/RootElement/_unAKkJDrEemIv9iw4JXc9w/46" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26 UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml http:///schemas/OpenModel_Profile/_aG1hkAPxEeewDI5jM-81FA/21 OpenModel_Profile.profile.uml#_aG-rgAPxEeewDI5jM-81FA http:///schemas/RootElement/_unAKkJDrEemIv9iw4JXc9w/46 UmlProfiles/Experimental.profile.uml">
   <uml:Package xmi:id="_oGqilVLNEeO75dO39GbF8Q" name="CoreModel">
     <packageImport xmi:type="uml:PackageImport" xmi:id="_8Q4ecKxrEeS5HuAudtqItw">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -166,7 +166,7 @@ For the PHOTONIC_MEDIA, qualifiers may include OMS (Optical Multiplex Section), 
             <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="__nr5oYQ3EeiXzpgfQWpR-Q"/>
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_Cvms0IQ4EeiXzpgfQWpR-Q" name="layerProtocolName">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_Cvms0IQ4EeiXzpgfQWpR-Q" name="layerProtocolName" type="_MbUkMIQ4EeiXzpgfQWpR-Q">
             <ownedComment xmi:type="uml:Comment" xmi:id="_WtzrMIQ5EeiXzpgfQWpR-Q" annotatedElement="_Cvms0IQ4EeiXzpgfQWpR-Q">
               <body>The name of the LayerProtocol chosen from a controlled list.&#xD;
 LayerProtocol names include:&#xD;
@@ -174,7 +174,6 @@ LayerProtocol names include:&#xD;
 - ODU&#xD;
 - ETHERNET</body>
             </ownedComment>
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:DataType" xmi:id="_DUU_sGZ_EeWrX_JIGzXlSg" name="PortRole">
@@ -544,21 +543,6 @@ For asymmetric FDs, the association to the LTP is via the FdPort.</body>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2ES2QVYkEeOVGaP4lO41SQ"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2ES2QlYkEeOVGaP4lO41SQ" value="*"/>
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_dm_ngBiQEeSh8KVgZCMyDw" name="_lowerLevelLink" type="_oGqnjVLNEeO75dO39GbF8Q" aggregation="shared" association="_dnWM0BiQEeSh8KVgZCMyDw">
-            <ownedComment xmi:type="uml:Comment" xmi:id="_WI_Q0GY4EeWrX_JIGzXlSg" annotatedElement="_dm_ngBiQEeSh8KVgZCMyDw">
-              <body>The FD encompasses Links that interconnect lower level FDs and collect Links that are wholly within the bounds of the FD.&#xD;
-See also _lowerLevelFd.</body>
-            </ownedComment>
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dm_ngRiQEeSh8KVgZCMyDw"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dm_nghiQEeSh8KVgZCMyDw" value="*"/>
-          </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_bvcHsL43EeW6upS9HpMrJw" name="_fdRuleSet" type="_89oAUL42EeW6upS9HpMrJw" aggregation="shared" association="_bvRvoL43EeW6upS9HpMrJw">
-            <ownedComment xmi:type="uml:Comment" xmi:id="_ds1VgDkaEeaHY8ihI-WgZg" annotatedElement="_bvcHsL43EeW6upS9HpMrJw">
-              <body>The rules related to an FD.</body>
-            </ownedComment>
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_l537YL43EeW6upS9HpMrJw"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_l58M0L43EeW6upS9HpMrJw" value="1"/>
-          </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_JyOPkIlbEeahttOwTtJ6Iw" name="_fdSpec" type="_oGql-FLNEeO75dO39GbF8Q" association="_JyNBcIlbEeahttOwTtJ6Iw">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2RIOMGGVEeerc4Zz6ufSeg"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2RNtwGGVEeerc4Zz6ufSeg" value="*"/>
@@ -593,6 +577,16 @@ A flow/wave cannot propagate in the absence of a FC instance.</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_oGqmF1LNEeO75dO39GbF8Q" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_oGqmFlLNEeO75dO39GbF8Q" value="1"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_9_yMUEDAEeWQeOKbNUpP9A" name="forwardingDirection" visibility="public" type="_dV67AEC8EeWxhL2B6Peg6A">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_VWLLwGdUEeWmgIwAIZlYKQ" annotatedElement="_9_yMUEDAEeWQeOKbNUpP9A">
+              <body>The directionality of the ForwardingConstruct. &#xD;
+Is applicable to simple ForwardingConstructs where all FcPorts are BIDIRECTIONAL (the ForwardingConstruct will be BIDIRECTIONAL) or UNIDIRECTIONAL (the ForwardingConstruct will be UNIDIRECTIONAL). &#xD;
+Is not present in more complex cases.&#xD;
+In the case of media the FcPorts and FC may also be omni-directional.</body>
+            </ownedComment>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-XpSsEDAEeWQeOKbNUpP9A"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-X6YcEDAEeWQeOKbNUpP9A" value="1"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_i7UzkFYfEeOVGaP4lO41SQ" name="_lowerLevelFc" type="_oGqmC1LNEeO75dO39GbF8Q" aggregation="shared" association="_i7cIUFYfEeOVGaP4lO41SQ">
             <ownedComment xmi:type="uml:Comment" xmi:id="_lXFJEGXfEeWrX_JIGzXlSg" annotatedElement="_i7UzkFYfEeOVGaP4lO41SQ">
@@ -636,16 +630,6 @@ The controller coordinates multiple switches in the same FC.</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_v6GHsZ4LEeOO3om500DFKg"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_v6GHsp4LEeOO3om500DFKg" value="*"/>
-          </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_9_yMUEDAEeWQeOKbNUpP9A" name="forwardingDirection" visibility="public" type="_dV67AEC8EeWxhL2B6Peg6A">
-            <ownedComment xmi:type="uml:Comment" xmi:id="_VWLLwGdUEeWmgIwAIZlYKQ" annotatedElement="_9_yMUEDAEeWQeOKbNUpP9A">
-              <body>The directionality of the ForwardingConstruct. &#xD;
-Is applicable to simple ForwardingConstructs where all FcPorts are BIDIRECTIONAL (the ForwardingConstruct will be BIDIRECTIONAL) or UNIDIRECTIONAL (the ForwardingConstruct will be UNIDIRECTIONAL). &#xD;
-Is not present in more complex cases.&#xD;
-In the case of media the FcPorts and FC may also be omni-directional.</body>
-            </ownedComment>
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-XpSsEDAEeWQeOKbNUpP9A"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-X6YcEDAEeWQeOKbNUpP9A" value="1"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_7jInkMOBEeWwZ527PhfFSA" name="isProtectionLockOut">
             <ownedComment xmi:type="uml:Comment" xmi:id="_SjwLYDKPEea40e5DA9KE3w" annotatedElement="_7jInkMOBEeWwZ527PhfFSA">
@@ -1035,6 +1019,27 @@ The encapsulated transport layers have a simple fixed 1:1 client-server relation
 The structure of LTP supports all transport protocols including analogue, circuit and packet forms.</body>
           </ownedComment>
           <generalization xmi:type="uml:Generalization" xmi:id="_4XUzoI2tEeO38ZmbECnvbg" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_lvFOQFYXEeOVGaP4lO41SQ" name="_layerProtocol" type="_gROecFYXEeOVGaP4lO41SQ" isOrdered="true" aggregation="composite" association="_lvO_QFYXEeOVGaP4lO41SQ">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_cEQPAGYwEeWrX_JIGzXlSg" annotatedElement="_lvFOQFYXEeOVGaP4lO41SQ">
+              <body>Ordered list of LayerProtocols that this LTP is comprised of where the first entry in the list is the lowest server layer (e.g. physical).</body>
+            </ownedComment>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lvFOQVYXEeOVGaP4lO41SQ" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lvFOQlYXEeOVGaP4lO41SQ" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_S811EEDBEeWQeOKbNUpP9A" name="ltpDirection" visibility="public" type="_RWILYEDAEeWQeOKbNUpP9A">
+            <ownedComment xmi:type="uml:Comment" xmi:id="_g606sGdUEeWmgIwAIZlYKQ" annotatedElement="_S811EEDBEeWQeOKbNUpP9A">
+              <body>The overall directionality of the LTP. &#xD;
+- A BIDIRECTIONAL LTP must have at least some LPs that are BIDIRECTIONAL but may also have some SINK and/or SOURCE LPs.&#xD;
+- A SINK LTP can only contain SINK LPs&#xD;
+- A SOURCE LTP can only contain SOURCE LPs</body>
+            </ownedComment>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_TbSEkEDBEeWQeOKbNUpP9A" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TbijQEDBEeWQeOKbNUpP9A" value="1"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_ekADsJ5iEemkbek818V8NQ" name="_physicalPortReference" type="_8SXNej-HEeaRI-H69PghuA" aggregation="shared" association="_ej9ncJ5iEemkbek818V8NQ">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ekAqwJ5iEemkbek818V8NQ"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ekAqwZ5iEemkbek818V8NQ" value="*"/>
+          </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_D4N9IFX5EeOVGaP4lO41SQ" name="_serverLtp" type="_eEpDMFX4EeOVGaP4lO41SQ" aggregation="shared" association="_D4V48FX5EeOVGaP4lO41SQ">
             <ownedComment xmi:type="uml:Comment" xmi:id="_otFNMGYvEeWrX_JIGzXlSg" annotatedElement="_D4N9IFX5EeOVGaP4lO41SQ">
               <body>References contained LTPs representing servers of this LTP in an inverse multiplexing configuration (e.g. VCAT).</body>
@@ -1048,13 +1053,6 @@ The structure of LTP supports all transport protocols including analogue, circui
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3Y4zAVYWEeOVGaP4lO41SQ"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3Y4zAlYWEeOVGaP4lO41SQ" value="*"/>
-          </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_lvFOQFYXEeOVGaP4lO41SQ" name="_lp" type="_gROecFYXEeOVGaP4lO41SQ" isOrdered="true" aggregation="composite" association="_lvO_QFYXEeOVGaP4lO41SQ">
-            <ownedComment xmi:type="uml:Comment" xmi:id="_cEQPAGYwEeWrX_JIGzXlSg" annotatedElement="_lvFOQFYXEeOVGaP4lO41SQ">
-              <body>Ordered list of LayerProtocols that this LTP is comprised of where the first entry in the list is the lowest server layer (e.g. physical).</body>
-            </ownedComment>
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lvFOQVYXEeOVGaP4lO41SQ" value="1"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lvFOQlYXEeOVGaP4lO41SQ" value="*"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_CHM6YFYYEeOVGaP4lO41SQ" name="_connectedLtp" type="_eEpDMFX4EeOVGaP4lO41SQ" association="_CHToEFYYEeOVGaP4lO41SQ">
             <ownedComment xmi:type="uml:Comment" xmi:id="_qRR48GYxEeWrX_JIGzXlSg" annotatedElement="_CHM6YFYYEeOVGaP4lO41SQ">
@@ -1071,15 +1069,6 @@ Reduces clutter removing the need for two additional LTPs and an FC with a pair 
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_TkuhMVYYEeOVGaP4lO41SQ"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TkuhMlYYEeOVGaP4lO41SQ" value="1"/>
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_RLDi4BieEeSh8KVgZCMyDw" name="physicalPortReference" visibility="public">
-            <ownedComment xmi:type="uml:Comment" xmi:id="_88FkIGXiEeWrX_JIGzXlSg" annotatedElement="_RLDi4BieEeSh8KVgZCMyDw">
-              <body>One or more text labels for the unmodeled physical port associated with the LTP.&#xD;
-In many cases there is no associated physical port.</body>
-            </ownedComment>
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_R6bxYBieEeSh8KVgZCMyDw"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_R61aABieEeSh8KVgZCMyDw" value="*"/>
-          </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_vq1NIBigEeSh8KVgZCMyDw" name="_ltpInOtherView" type="_eEpDMFX4EeOVGaP4lO41SQ" association="_vrCogBigEeSh8KVgZCMyDw">
             <ownedComment xmi:type="uml:Comment" xmi:id="_qvPK0GYyEeWrX_JIGzXlSg" annotatedElement="_vq1NIBigEeSh8KVgZCMyDw">
               <body>References one or more LTPs in other views that represent this LTP. &#xD;
@@ -1087,16 +1076,6 @@ The referencing LTP is the provider of capability.</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_vq1NIRigEeSh8KVgZCMyDw"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vq1NIhigEeSh8KVgZCMyDw" value="*"/>
-          </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_S811EEDBEeWQeOKbNUpP9A" name="ltpDirection" visibility="public" type="_RWILYEDAEeWQeOKbNUpP9A">
-            <ownedComment xmi:type="uml:Comment" xmi:id="_g606sGdUEeWmgIwAIZlYKQ" annotatedElement="_S811EEDBEeWQeOKbNUpP9A">
-              <body>The overall directionality of the LTP. &#xD;
-- A BIDIRECTIONAL LTP must have at least some LPs that are BIDIRECTIONAL but may also have some SINK and/or SOURCE LPs.&#xD;
-- A SINK LTP can only contain SINK LPs&#xD;
-- A SOURCE LTP can only contain SOURCE LPs</body>
-            </ownedComment>
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_TbSEkEDBEeWQeOKbNUpP9A" value="1"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TbijQEDBEeWQeOKbNUpP9A" value="1"/>
           </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_8SXNmD-HEeaRI-H69PghuA" name="_accessPort" type="_8SXNpD-HEeaRI-H69PghuA" association="_8SXNPz-HEeaRI-H69PghuA">
             <ownedComment xmi:type="uml:Comment" xmi:id="_JE6fsIGHEeeGAbqDM4f-JQ" annotatedElement="_8SXNmD-HEeaRI-H69PghuA">
@@ -1133,16 +1112,16 @@ An instance of LTP will reference a class (by a universally unique id) that prov
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_UYqe8GGVEeerc4Zz6ufSeg"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_UYv-gGGVEeerc4Zz6ufSeg" value="*"/>
           </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_sAdD0XXGEeeqyuooNTTDCg" name="_embeddedClock" type="_8lP6kHXAEeeqyuooNTTDCg" aggregation="composite" association="_sAb1sHXGEeeqyuooNTTDCg">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_vxH5EHXGEeeqyuooNTTDCg"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vxP04HXGEeeqyuooNTTDCg" value="*"/>
-          </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_VHY7glwWEee0ZvXJLxwizg" name="_supportingPc" type="_P1YSAKFbEea-zNDndPZCDg" association="_VHS04FwWEee0ZvXJLxwizg">
             <ownedComment xmi:type="uml:Comment" xmi:id="_x4gqwGjWEeiITeAcFBk32A" annotatedElement="_VHY7glwWEee0ZvXJLxwizg">
               <body>The functionality supporting this entity.</body>
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ej1n4GVvEeiITeAcFBk32A"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ej4EIGVvEeiITeAcFBk32A" value="1"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_sAdD0XXGEeeqyuooNTTDCg" name="_embeddedClock" type="_8lP6kHXAEeeqyuooNTTDCg" aggregation="composite" association="_sAb1sHXGEeeqyuooNTTDCg">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_vxH5EHXGEeeqyuooNTTDCg"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_vxP04HXGEeeqyuooNTTDCg" value="*"/>
           </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_H7c0oIgjEeOIkJV2fkx5ZA" name="LinkPort">
@@ -2013,7 +1992,10 @@ Suggest adding CONTRA_DIRECTION_SINK and CONTRA_DIRECTION_SOURCE to TerminationD
           <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_dbQycJ5AEemkbek818V8NQ" source="org.eclipse.papyrus">
             <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_dbQycZ5AEemkbek818V8NQ" key="nature" value="UML_Nature"/>
           </eAnnotations>
-          <ownedEnd xmi:type="uml:Property" xmi:id="_dbSAkp5AEemkbek818V8NQ" name="_controlConstruct" type="_Vuh_EJmhEeWTOvbfd7_4-A" association="_dbO9QJ5AEemkbek818V8NQ"/>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_dbSAkp5AEemkbek818V8NQ" name="_controlConstruct" type="_Vuh_EJmhEeWTOvbfd7_4-A" association="_dbO9QJ5AEemkbek818V8NQ">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qME1sJ5EEemkbek818V8NQ" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qMIgEJ5EEemkbek818V8NQ" value="1"/>
+          </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_ugAF0J5AEemkbek818V8NQ" name="ControlConstructHasLtp" memberEnd="_ugCiEp5AEemkbek818V8NQ _ugDwMJ5AEemkbek818V8NQ">
           <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ugCiEJ5AEemkbek818V8NQ" source="org.eclipse.papyrus">
@@ -2026,6 +2008,18 @@ Suggest adding CONTRA_DIRECTION_SINK and CONTRA_DIRECTION_SOURCE to TerminationD
             <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="___8ugZ5AEemkbek818V8NQ" key="nature" value="UML_Nature"/>
           </eAnnotations>
           <ownedEnd xmi:type="uml:Property" xmi:id="___9Vkp5AEemkbek818V8NQ" name="_controlConstruct" type="_Vuh_EJmhEeWTOvbfd7_4-A" association="___65UJ5AEemkbek818V8NQ"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_TwKTMJ5NEemkbek818V8NQ" name="ControlConstructPointsToTopLevelEquipment" memberEnd="_TwNWgZ5NEemkbek818V8NQ _TwXHgJ5NEemkbek818V8NQ">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_TwMvcJ5NEemkbek818V8NQ" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_TwNWgJ5NEemkbek818V8NQ" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_TwXHgJ5NEemkbek818V8NQ" name="_controlConstruct" type="_Vuh_EJmhEeWTOvbfd7_4-A" association="_TwKTMJ5NEemkbek818V8NQ"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_ej9ncJ5iEemkbek818V8NQ" name="LtpReferencesEquipment" memberEnd="_ekADsJ5iEemkbek818V8NQ _ekAqwp5iEemkbek818V8NQ">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ej_coJ5iEemkbek818V8NQ" source="org.eclipse.papyrus">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_ej_coZ5iEemkbek818V8NQ" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:type="uml:Property" xmi:id="_ekAqwp5iEemkbek818V8NQ" name="_logicalTerminationPoint" type="_eEpDMFX4EeOVGaP4lO41SQ" association="_ej9ncJ5iEemkbek818V8NQ"/>
         </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_tyBQYBirEeSh8KVgZCMyDw" name="Associations">
@@ -2114,12 +2108,6 @@ Suggest adding CONTRA_DIRECTION_SINK and CONTRA_DIRECTION_SOURCE to TerminationD
           <ownedEnd xmi:type="uml:Property" xmi:id="_buzL4RNjEeS1heseQTA6lw" name="linkPort" type="_H7c0oIgjEeOIkJV2fkx5ZA" association="_buzL4BNjEeS1heseQTA6lw">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_buzL4hNjEeS1heseQTA6lw"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_buzL4xNjEeS1heseQTA6lw" value="*"/>
-          </ownedEnd>
-        </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_dnWM0BiQEeSh8KVgZCMyDw" name="FdEncompassesLowerLevelLinks" memberEnd="_dnWM0RiQEeSh8KVgZCMyDw _dm_ngBiQEeSh8KVgZCMyDw">
-          <ownedEnd xmi:type="uml:Property" xmi:id="_dnWM0RiQEeSh8KVgZCMyDw" name="forwardingDomain" type="_oGql-FLNEeO75dO39GbF8Q" association="_dnWM0BiQEeSh8KVgZCMyDw">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dnWM0hiQEeSh8KVgZCMyDw"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dnWM0xiQEeSh8KVgZCMyDw" value="*"/>
           </ownedEnd>
         </packagedElement>
         <packagedElement xmi:type="uml:Dependency" xmi:id="_zPk24JzREeSaHrTY93cYuA" name="LinkPortIsToLp" client="_H7c0oIgjEeOIkJV2fkx5ZA" supplier="_gROecFYXEeOVGaP4lO41SQ"/>
@@ -2756,7 +2744,7 @@ The mandatory LocalId of the LocalClass instance is unique in the context of the
                 <body>The name of the value. The value need not have a name.</body>
               </ownedComment>
               <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_8XjTwI3tEeO38ZmbECnvbg"/>
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_8XjTwI3tEeO38ZmbECnvbg" value="1"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_8X2OsI3tEeO38ZmbECnvbg" value="1"/>
             </ownedAttribute>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_ZUyfII3uEeO38ZmbECnvbg" name="value" visibility="public">
@@ -3394,10 +3382,10 @@ Not all parameters need be selected and applied.</body>
               </ownedComment>
               <specification xmi:type="uml:LiteralString" xmi:id="_r7_c4CeTEeSiY-Znd5RVtA" value="alternativeNavigation"/>
             </packagedElement>
-            <packagedElement xmi:type="uml:Constraint" xmi:id="_79te4J2FEeSQBuaNnP_LbA" name="FdEncompassesFdsAndLinks" constrainedElement="_oGqoD1LNEeO75dO39GbF8Q _dnWM0BiQEeSh8KVgZCMyDw">
+            <packagedElement xmi:type="uml:Constraint" xmi:id="_79te4J2FEeSQBuaNnP_LbA" name="FdEncompassesFdsAndLinks" constrainedElement="_oGqoD1LNEeO75dO39GbF8Q">
               <specification xmi:type="uml:LiteralString" xmi:id="_79_ywJ2FEeSQBuaNnP_LbA" value="Encompassed links and ForwardingDomains form a mesh"/>
             </packagedElement>
-            <packagedElement xmi:type="uml:Constraint" xmi:id="_kvovgCRUEeSaIcETw2aroA" name="LinkFd" constrainedElement="_dnWM0BiQEeSh8KVgZCMyDw _oGqnu1LNEeO75dO39GbF8Q">
+            <packagedElement xmi:type="uml:Constraint" xmi:id="_kvovgCRUEeSaIcETw2aroA" name="LinkFd" constrainedElement="_oGqnu1LNEeO75dO39GbF8Q">
               <specification xmi:type="uml:LiteralString" xmi:id="_kwE0YCRUEeSaIcETw2aroA" value="noLoop"/>
             </packagedElement>
             <packagedElement xmi:type="uml:Constraint" xmi:id="_QBaoYCeTEeSiY-Znd5RVtA" name="LinkToLtp" constrainedElement="_eEpDMFX4EeOVGaP4lO41SQ _oGqnjVLNEeO75dO39GbF8Q _2EZj8FYkEeOVGaP4lO41SQ _buzL4BNjEeS1heseQTA6lw _oGqnwVLNEeO75dO39GbF8Q _oGqnu1LNEeO75dO39GbF8Q _f_9d0CeVEeSiY-Znd5RVtA">
@@ -4666,6 +4654,14 @@ Can be either field replaceable or not field replaceable.&#xD;
 Note: The model is currently constrained to inside plant.</body>
             </ownedComment>
             <generalization xmi:type="uml:Generalization" xmi:id="_RuNsQEQvEeasL6dcjI1vEA" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_xLQU8EmgEeaDccCv6BIgdg" name="_expectedEquipment" type="_8SXNfz-HEeaRI-H69PghuA" aggregation="composite" association="_xLIZIEmgEeaDccCv6BIgdg">
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kvT_YEmlEeaDccCv6BIgdg"/>
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kvY34EmlEeaDccCv6BIgdg" value="*"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_x24r4UmgEeaDccCv6BIgdg" name="_actualEquipment" type="_8SXNZD-HEeaRI-H69PghuA" aggregation="composite" association="_x24E0EmgEeaDccCv6BIgdg">
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_zvd2wEmjEeaDccCv6BIgdg"/>
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_zviIMEmjEeaDccCv6BIgdg" value="1"/>
+            </ownedAttribute>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_8SXNez-HEeaRI-H69PghuA" name="_connector" type="_8SXNcD-HEeaRI-H69PghuA" aggregation="composite" association="_8SXNIz-HEeaRI-H69PghuA">
               <ownedComment xmi:type="uml:Comment" xmi:id="_-duIAC8HEeexxefg2F1i1Q" annotatedElement="_8SXNez-HEeaRI-H69PghuA">
                 <body>A Connector on the Equipment.</body>
@@ -4718,14 +4714,6 @@ For example:&#xD;
             <ownedAttribute xmi:type="uml:Property" xmi:id="_8SXNfj-HEeaRI-H69PghuA" name="_functionBlock" type="_8SXNiz-HEeaRI-H69PghuA" aggregation="composite" association="_8SXM9D-HEeaRI-H69PghuA">
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_t6bRAEdpEeasL6dcjI1vEA"/>
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_t6dtQEdpEeasL6dcjI1vEA" value="*"/>
-            </ownedAttribute>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_xLQU8EmgEeaDccCv6BIgdg" name="_expectedEquipment" type="_8SXNfz-HEeaRI-H69PghuA" aggregation="composite" association="_xLIZIEmgEeaDccCv6BIgdg">
-              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kvT_YEmlEeaDccCv6BIgdg"/>
-              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kvY34EmlEeaDccCv6BIgdg" value="*"/>
-            </ownedAttribute>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_x24r4UmgEeaDccCv6BIgdg" name="_actualEquipment" type="_8SXNZD-HEeaRI-H69PghuA" aggregation="composite" association="_x24E0EmgEeaDccCv6BIgdg">
-              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_zvd2wEmjEeaDccCv6BIgdg"/>
-              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_zviIMEmjEeaDccCv6BIgdg" value="1"/>
             </ownedAttribute>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_W2eCM1mrEeiyzdV8zVsJ_w" name="_equipmentFunctionalBoundary" type="_RcjQAOksEea0ZYSsp-EUkw" association="_W2eCMFmrEeiyzdV8zVsJ_w">
               <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5He0UFmrEeiyzdV8zVsJ_w"/>
@@ -6539,15 +6527,6 @@ No capacity statement means no capacity restrictions.&#xD;
               <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2vJPYL43EeW6upS9HpMrJw" value="*"/>
             </ownedEnd>
           </packagedElement>
-          <packagedElement xmi:type="uml:Association" xmi:id="_bvRvoL43EeW6upS9HpMrJw" name="FdHasFdRuleSet" memberEnd="_bvcHsL43EeW6upS9HpMrJw _bvcuwL43EeW6upS9HpMrJw">
-            <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_bvTk0L43EeW6upS9HpMrJw" source="org.eclipse.papyrus">
-              <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_bvTk0b43EeW6upS9HpMrJw" key="nature" value="UML_Nature"/>
-            </eAnnotations>
-            <ownedEnd xmi:type="uml:Property" xmi:id="_bvcuwL43EeW6upS9HpMrJw" name="forwardingdomain" type="_oGql-FLNEeO75dO39GbF8Q" association="_bvRvoL43EeW6upS9HpMrJw">
-              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nBcncL43EeW6upS9HpMrJw"/>
-              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nBfqwL43EeW6upS9HpMrJw" value="*"/>
-            </ownedEnd>
-          </packagedElement>
           <packagedElement xmi:type="uml:Association" xmi:id="_enPbQL43EeW6upS9HpMrJw" name="LinkHasLinkRuleSet" memberEnd="_enQpYL43EeW6upS9HpMrJw _enRQcL43EeW6upS9HpMrJw">
             <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_enQCUL43EeW6upS9HpMrJw" source="org.eclipse.papyrus">
               <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_enQCUb43EeW6upS9HpMrJw" key="nature" value="UML_Nature"/>
@@ -8244,7 +8223,30 @@ The ControlConstruct applies to all Control/Management cases including:&#xD;
 This specific model follows a subset of the Component-System Pattern. &#xD;
 </body>
           </ownedComment>
+          <ownedComment xmi:type="uml:Comment" xmi:id="_RlPRwJ5jEemkbek818V8NQ">
+            <body>Root element for controller southbound APIs.</body>
+          </ownedComment>
           <generalization xmi:type="uml:Generalization" xmi:id="_mSS8kJJjEemFdrga_Zy80Q" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_TwNWgZ5NEemkbek818V8NQ" name="_topLevelEquipment" type="_8SXNej-HEeaRI-H69PghuA" aggregation="shared" association="_TwKTMJ5NEemkbek818V8NQ">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_TwRA4J5NEemkbek818V8NQ"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TwUrQJ5NEemkbek818V8NQ" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_dbQycp5AEemkbek818V8NQ" name="_equipment" type="_8SXNej-HEeaRI-H69PghuA" aggregation="composite" association="_dbO9QJ5AEemkbek818V8NQ">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dbSAkJ5AEemkbek818V8NQ"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dbSAkZ5AEemkbek818V8NQ" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_ugCiEp5AEemkbek818V8NQ" name="_logicalTerminationPoint" type="_eEpDMFX4EeOVGaP4lO41SQ" aggregation="composite" association="_ugAF0J5AEemkbek818V8NQ">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ugDJIJ5AEemkbek818V8NQ"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ugDJIZ5AEemkbek818V8NQ" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="___8ugp5AEemkbek818V8NQ" name="_forwardingDomain" type="_oGql-FLNEeO75dO39GbF8Q" aggregation="composite" association="___65UJ5AEemkbek818V8NQ">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="___9VkJ5AEemkbek818V8NQ"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="___9VkZ5AEemkbek818V8NQ" value="*"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_0pHrEJ4-Eemkbek818V8NQ" name="_profileCollection" type="_GLZy4J47Eemkbek818V8NQ" aggregation="composite" association="_0pFO0J4-Eemkbek818V8NQ">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_0pISIJ4-Eemkbek818V8NQ"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_0pISIZ4-Eemkbek818V8NQ" value="1"/>
+          </ownedAttribute>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_NHFNEcAtEeWbqPZwR-Ot6A" name="_exposureContext" type="_5LsaEFY2EeiyzdV8zVsJ_w" aggregation="shared" association="_NHEmAMAtEeWbqPZwR-Ot6A">
             <ownedComment xmi:type="uml:Comment" xmi:id="_7CTlQGqhEeiRh-lc79MSRw" annotatedElement="_NHFNEcAtEeWbqPZwR-Ot6A">
               <body>A view supported by the ControlConstruct that may be exposed at a ControlPort of the ControlConstruct.</body>
@@ -8286,22 +8288,6 @@ This specific model follows a subset of the Component-System Pattern. &#xD;
             </ownedComment>
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XFoS_BbsEeitqc-Dc8Gf8A"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XFoS_RbsEeitqc-Dc8Gf8A" value="*"/>
-          </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_0pHrEJ4-Eemkbek818V8NQ" name="_profileCollection" type="_GLZy4J47Eemkbek818V8NQ" aggregation="composite" association="_0pFO0J4-Eemkbek818V8NQ">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_0pISIJ4-Eemkbek818V8NQ"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_0pISIZ4-Eemkbek818V8NQ" value="1"/>
-          </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_dbQycp5AEemkbek818V8NQ" name="_equipment" type="_8SXNej-HEeaRI-H69PghuA" aggregation="composite" association="_dbO9QJ5AEemkbek818V8NQ">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dbSAkJ5AEemkbek818V8NQ"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dbSAkZ5AEemkbek818V8NQ" value="*"/>
-          </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_ugCiEp5AEemkbek818V8NQ" name="_ltp" type="_eEpDMFX4EeOVGaP4lO41SQ" aggregation="composite" association="_ugAF0J5AEemkbek818V8NQ">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ugDJIJ5AEemkbek818V8NQ"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ugDJIZ5AEemkbek818V8NQ" value="*"/>
-          </ownedAttribute>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="___8ugp5AEemkbek818V8NQ" name="_forwardingDomain" type="_oGql-FLNEeO75dO39GbF8Q" aggregation="composite" association="___65UJ5AEemkbek818V8NQ">
-            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="___9VkJ5AEemkbek818V8NQ"/>
-            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="___9VkZ5AEemkbek818V8NQ" value="*"/>
           </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_D5kTMJmiEeWTOvbfd7_4-A" name="ControlPort">
@@ -15709,20 +15695,83 @@ Significant definition is required here.</body>
   <OpenModel_Profile:Experimental xmi:id="_U7jl4FJwEeaDuo8VlVeg_g" base_Element="_8SXNFj-HEeaRI-H69PghuA"/>
   <OpenModel_Profile:Experimental xmi:id="_abwa4FJ3EeaDuo8VlVeg_g" base_Element="_k_CVUEQyEeasL6dcjI1vEA"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_Q3vPpVN3EeaDuo8VlVeg_g" base_StructuralFeature="_k_CVUEQyEeasL6dcjI1vEA"/>
-  <OpenModel_Profile_1:OpenModelClass xmi:id="_GLZy6J47Eemkbek818V8NQ" base_Class="_GLZy4J47Eemkbek818V8NQ"/>
-  <OpenModel_Profile_1:OpenModelClass xmi:id="_GLddQJ47Eemkbek818V8NQ" base_Class="_GLc2MJ47Eemkbek818V8NQ"/>
-  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_GLeEUJ47Eemkbek818V8NQ" base_StructuralFeature="_GLc2NZ47Eemkbek818V8NQ"/>
-  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_OryDEZ48Eemkbek818V8NQ" base_StructuralFeature="_OryDEJ48Eemkbek818V8NQ"/>
-  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_OrzRMp48Eemkbek818V8NQ" base_StructuralFeature="_OrzRMZ48Eemkbek818V8NQ"/>
-  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_aIPp4J49Eemkbek818V8NQ" base_StructuralFeature="_IEiZwI22EeO38ZmbECnvbg"/>
-  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_aIQQ8J49Eemkbek818V8NQ" base_StructuralFeature="_w39joI3wEeO38ZmbECnvbg"/>
-  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_5-IdYp49Eemkbek818V8NQ" base_StructuralFeature="_5-IdYJ49Eemkbek818V8NQ"/>
-  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_0pHrEZ4-Eemkbek818V8NQ" base_StructuralFeature="_0pHrEJ4-Eemkbek818V8NQ"/>
-  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_0pI5MZ4-Eemkbek818V8NQ" base_StructuralFeature="_0pI5MJ4-Eemkbek818V8NQ"/>
-  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_dbRZgJ5AEemkbek818V8NQ" base_StructuralFeature="_dbQycp5AEemkbek818V8NQ"/>
-  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_dbSnoJ5AEemkbek818V8NQ" base_StructuralFeature="_dbSAkp5AEemkbek818V8NQ"/>
-  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_ugCiE55AEemkbek818V8NQ" base_StructuralFeature="_ugCiEp5AEemkbek818V8NQ"/>
-  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_ugDwMZ5AEemkbek818V8NQ" base_StructuralFeature="_ugDwMJ5AEemkbek818V8NQ"/>
-  <OpenModel_Profile_1:OpenModelAttribute xmi:id="___8ug55AEemkbek818V8NQ" base_StructuralFeature="___8ugp5AEemkbek818V8NQ"/>
-  <OpenModel_Profile_1:OpenModelAttribute xmi:id="___98oJ5AEemkbek818V8NQ" base_StructuralFeature="___9Vkp5AEemkbek818V8NQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_GLZy6J47Eemkbek818V8NQ" base_Class="_GLZy4J47Eemkbek818V8NQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_GLddQJ47Eemkbek818V8NQ" base_Class="_GLc2MJ47Eemkbek818V8NQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_GLeEUJ47Eemkbek818V8NQ" base_StructuralFeature="_GLc2NZ47Eemkbek818V8NQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_OryDEZ48Eemkbek818V8NQ" base_StructuralFeature="_OryDEJ48Eemkbek818V8NQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_OrzRMp48Eemkbek818V8NQ" base_StructuralFeature="_OrzRMZ48Eemkbek818V8NQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_aIPp4J49Eemkbek818V8NQ" base_StructuralFeature="_IEiZwI22EeO38ZmbECnvbg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_aIQQ8J49Eemkbek818V8NQ" base_StructuralFeature="_w39joI3wEeO38ZmbECnvbg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_5-IdYp49Eemkbek818V8NQ" base_StructuralFeature="_5-IdYJ49Eemkbek818V8NQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_0pHrEZ4-Eemkbek818V8NQ" base_StructuralFeature="_0pHrEJ4-Eemkbek818V8NQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_0pI5MZ4-Eemkbek818V8NQ" base_StructuralFeature="_0pI5MJ4-Eemkbek818V8NQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_dbRZgJ5AEemkbek818V8NQ" base_StructuralFeature="_dbQycp5AEemkbek818V8NQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_dbSnoJ5AEemkbek818V8NQ" base_StructuralFeature="_dbSAkp5AEemkbek818V8NQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_ugCiE55AEemkbek818V8NQ" base_StructuralFeature="_ugCiEp5AEemkbek818V8NQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_ugDwMZ5AEemkbek818V8NQ" base_StructuralFeature="_ugDwMJ5AEemkbek818V8NQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="___8ug55AEemkbek818V8NQ" base_StructuralFeature="___8ugp5AEemkbek818V8NQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="___98oJ5AEemkbek818V8NQ" base_StructuralFeature="___9Vkp5AEemkbek818V8NQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_UG_DUJ5DEemkbek818V8NQ" base_Class="_oGql-FLNEeO75dO39GbF8Q"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_Wd2NAJ5DEemkbek818V8NQ" base_Class="_eEpDMFX4EeOVGaP4lO41SQ"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_Y269MJ5DEemkbek818V8NQ" base_Class="_8SXNej-HEeaRI-H69PghuA"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_cMB30J5DEemkbek818V8NQ" base_Class="_Vuh_EJmhEeWTOvbfd7_4-A"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_fyuRsJ5DEemkbek818V8NQ" base_Class="_iVJ1kI2wEeO38ZmbECnvbg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_k4w-cJ5DEemkbek818V8NQ" base_StructuralFeature="_ajjMYI2uEeO38ZmbECnvbg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_m4nWUJ5DEemkbek818V8NQ" base_StructuralFeature="_olrqYI2uEeO38ZmbECnvbg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_oRKdoJ5DEemkbek818V8NQ" base_StructuralFeature="_uQqu4I28EeO38ZmbECnvbg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_qLFMoJ5DEemkbek818V8NQ" base_StructuralFeature="_dO6owLEtEeSZUdYfPSdgew"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_sEpWUJ5DEemkbek818V8NQ" base_StructuralFeature="_7gqwALEtEeSZUdYfPSdgew"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_tyVnMJ5DEemkbek818V8NQ" base_StructuralFeature="_AjGvILEuEeSZUdYfPSdgew"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_vUq8oJ5DEemkbek818V8NQ" base_StructuralFeature="_PzqZ0GgiEeWmgIwAIZlYKQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_ye3AsJ5DEemkbek818V8NQ" base_StructuralFeature="_IXrxkMDkEeWbqPZwR-Ot6A"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_UgqDYJ5KEemkbek818V8NQ" base_StructuralFeature="_RMJegI22EeO38ZmbECnvbg" partOfObjectKey="1"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_TwNWgp5NEemkbek818V8NQ" base_StructuralFeature="_TwNWgZ5NEemkbek818V8NQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_TwXHgZ5NEemkbek818V8NQ" base_StructuralFeature="_TwXHgJ5NEemkbek818V8NQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_lXPrYJ5dEemkbek818V8NQ" base_StructuralFeature="_77PyQI3tEeO38ZmbECnvbg" partOfObjectKey="1"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_v05OoJ5gEemkbek818V8NQ" base_StructuralFeature="_Cvms0IQ4EeiXzpgfQWpR-Q" partOfObjectKey="1"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_ekADsZ5iEemkbek818V8NQ" base_StructuralFeature="_ekADsJ5iEemkbek818V8NQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_ekBR0J5iEemkbek818V8NQ" base_StructuralFeature="_ekAqwp5iEemkbek818V8NQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_zeOzMJ5oEemkbek818V8NQ" base_StructuralFeature="_NHFNEcAtEeWbqPZwR-Ot6A"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_zePaQJ5oEemkbek818V8NQ" base_StructuralFeature="_KHKRIPHPEea2l9FuDSKfDQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_zePaQZ5oEemkbek818V8NQ" base_StructuralFeature="_ByobIsAeEeWbqPZwR-Ot6A"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_zePaQp5oEemkbek818V8NQ" base_StructuralFeature="_vqLGUFfnEeeKHrjbk_yQ_w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_zeQBUJ5oEemkbek818V8NQ" base_StructuralFeature="_pbJccFpREee0ZvXJLxwizg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_zeQBUZ5oEemkbek818V8NQ" base_StructuralFeature="_XFoS-xbsEeitqc-Dc8Gf8A"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FQfT4J5pEemkbek818V8NQ" base_StructuralFeature="_oGqmFVLNEeO75dO39GbF8Q"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FQf68J5pEemkbek818V8NQ" base_StructuralFeature="_i7UzkFYfEeOVGaP4lO41SQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FQgiAJ5pEemkbek818V8NQ" base_StructuralFeature="_A8SFwFYgEeOVGaP4lO41SQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FQgiAZ5pEemkbek818V8NQ" base_StructuralFeature="_gqUk0FYgEeOVGaP4lO41SQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FQgiAp5pEemkbek818V8NQ" base_StructuralFeature="_d_droFYhEeOVGaP4lO41SQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FQhJEJ5pEemkbek818V8NQ" base_StructuralFeature="_9_yMUEDAEeWQeOKbNUpP9A"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FQhJEZ5pEemkbek818V8NQ" base_StructuralFeature="_v6GHsJ4LEeOO3om500DFKg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FQhJEp5pEemkbek818V8NQ" base_StructuralFeature="_7jInkMOBEeWwZ527PhfFSA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FQhwIJ5pEemkbek818V8NQ" base_StructuralFeature="_3co20MOCEeWwZ527PhfFSA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FQhwIZ5pEemkbek818V8NQ" base_StructuralFeature="_xZ8AIGFxEeerc4Zz6ufSeg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FQhwIp5pEemkbek818V8NQ" base_StructuralFeature="_0172EFHnEeaDuo8VlVeg_g"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FQiXMJ5pEemkbek818V8NQ" base_StructuralFeature="_sPE7IlSgEeiyzdV8zVsJ_w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FQiXMZ5pEemkbek818V8NQ" base_StructuralFeature="_1OENg1yZEee0ZvXJLxwizg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Usfu4J5pEemkbek818V8NQ" base_StructuralFeature="_8SXNez-HEeaRI-H69PghuA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_UsgV8J5pEemkbek818V8NQ" base_StructuralFeature="_ayDQMj-NEeaRI-H69PghuA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Usg9AJ5pEemkbek818V8NQ" base_StructuralFeature="_9OaEwD-PEeaRI-H69PghuA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Usg9AZ5pEemkbek818V8NQ" base_StructuralFeature="_2coqcj-ZEeaRI-H69PghuA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Usg9Ap5pEemkbek818V8NQ" base_StructuralFeature="_Fy4CYj-fEeaRI-H69PghuA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_UshkEJ5pEemkbek818V8NQ" base_StructuralFeature="_bhVDgEdNEeasL6dcjI1vEA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_UshkEZ5pEemkbek818V8NQ" base_StructuralFeature="_f1p94D-WEeaRI-H69PghuA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_UshkEp5pEemkbek818V8NQ" base_StructuralFeature="_xLQU8EmgEeaDccCv6BIgdg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_UsiLIJ5pEemkbek818V8NQ" base_StructuralFeature="_8SXNfj-HEeaRI-H69PghuA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_UsiLIZ5pEemkbek818V8NQ" base_StructuralFeature="_x24r4UmgEeaDccCv6BIgdg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_UsiLIp5pEemkbek818V8NQ" base_StructuralFeature="_W2eCM1mrEeiyzdV8zVsJ_w"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="__n4asJ5qEemkbek818V8NQ" base_StructuralFeature="_D4N9IFX5EeOVGaP4lO41SQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="__n5BwJ5qEemkbek818V8NQ" base_StructuralFeature="_lvFOQFYXEeOVGaP4lO41SQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="__n5BwZ5qEemkbek818V8NQ" base_StructuralFeature="_3Y4zAFYWEeOVGaP4lO41SQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="__n5o0J5qEemkbek818V8NQ" base_StructuralFeature="_CHM6YFYYEeOVGaP4lO41SQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="__n5o0Z5qEemkbek818V8NQ" base_StructuralFeature="_TkuhMFYYEeOVGaP4lO41SQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="__n5o0p5qEemkbek818V8NQ" base_StructuralFeature="_vq1NIBigEeSh8KVgZCMyDw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="__n6P4J5qEemkbek818V8NQ" base_StructuralFeature="_S811EEDBEeWQeOKbNUpP9A"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="__n6P4Z5qEemkbek818V8NQ" base_StructuralFeature="_8SXNmD-HEeaRI-H69PghuA"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="__n6P4p5qEemkbek818V8NQ" base_StructuralFeature="_hfZVge0yEea2l9FuDSKfDQ"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="__n628J5qEemkbek818V8NQ" base_StructuralFeature="_TNTy0GFYEeeiJ9-h1KDHig"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="__n628Z5qEemkbek818V8NQ" base_StructuralFeature="_FDjBAmGTEeerc4Zz6ufSeg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="__n628p5qEemkbek818V8NQ" base_StructuralFeature="_sAdD0XXGEeeqyuooNTTDCg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="__n7eAJ5qEemkbek818V8NQ" base_StructuralFeature="_VHY7glwWEee0ZvXJLxwizg"/>
 </xmi:XMI>
