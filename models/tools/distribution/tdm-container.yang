@@ -1,0 +1,922 @@
+module tdm-container {
+  yang-version 1.1;
+  namespace "urn:onf:yang:tdm-container";
+  prefix tdm-container;
+
+  import core-model {
+    prefix core-model;
+  }
+
+  organization
+    "openBackhaul.com proposal to Open Networking Foundation (ONF)";
+  contact
+    "WG Web : https://github.com/openBackhaul/Overview
+     WG List: TdmContainer@openBackhaul.com
+     Editor : Thorsten Heinze
+     Email  : Thorsten.Heinze@openBackhaul.com";
+  description
+    "This model is a technology specific amendment to the LayerProtocol class of the ONF Core IM for managing TDM interfaces (e.g. E1, STM-1).
+
+     Copyright 2019 openBackhaul.com
+
+     Licensed under the Apache License, Version 2.0 (the 'License');
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+     http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an 'AS IS' BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.";
+
+  revision 2019-07-05 {
+    description
+      "Model for the Transport SDN Pilot at Telefonica Germany.
+       Please view https://github.com/openBackhaul/tdmContainer/issues for changes.";
+    reference
+      "https://github.com/openBackhaul/tdmContainer/tree/tsp: Model definition
+       https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
+  }
+
+  identity LAYER_PROTOCOL_NAME_TDM {
+    base core-model:LAYER_PROTOCOL_NAME;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol" {
+    when 'derived-from-or-self(./core-model:layer-protocol-name, "tdm-container:LAYER_PROTOCOL_NAME_TDM_LAYER")';
+    uses tdm-container-lp-spec;
+    description
+      "none";
+  }
+
+  notification object-creation-notification {
+    uses object-creation-notification;
+    description
+      "none";
+  }
+
+  grouping object-creation-notification {
+    leaf counter {
+      type int64;
+      default "-1";
+      config false;
+      description
+        "Counts object creation notifications.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf object-type {
+      type string;
+      default "Type of created object not specified.";
+      config false;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  notification object-deletion-notification {
+    uses object-deletion-notification;
+    description
+      "none";
+  }
+
+  grouping object-deletion-notification {
+    leaf counter {
+      type int64;
+      default "-1";
+      config false;
+      description
+        "Counts object deletion notifications.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  notification attribute-value-changed-notification {
+    uses attribute-value-changed-notification;
+    description
+      "none";
+  }
+
+  grouping attribute-value-changed-notification {
+    leaf counter {
+      type int64;
+      default "-1";
+      config false;
+      description
+        "Counts attribute value changed notifications.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf attribute-name {
+      type string;
+      default "Attribute name not specified.";
+      config false;
+      description
+        "Name of the attribute that has been changed.";
+    }
+    leaf new-value {
+      type string;
+      default "New value not specified.";
+      config false;
+      description
+        "Attribute value converted to a string (xml, json, ...)";
+    }
+    description
+      "none";
+  }
+
+  notification problem-notification {
+    uses problem-notification;
+    description
+      "none";
+  }
+
+  grouping problem-notification {
+    leaf counter {
+      type int64;
+      default "-1";
+      config false;
+      description
+        "Counts problem notifications";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf problem {
+      type string;
+      default "Problem name not specified.";
+      config false;
+      description
+        "Name of the problem according to supportedAlarmList";
+    }
+    leaf severity {
+      type severity-type;
+      config false;
+      description
+        "Severity of the problem according to problemKindSeverity";
+    }
+    description
+      "none";
+  }
+
+  grouping current-problem {
+    leaf sequence-number {
+      type int16;
+      config false;
+      description
+        "Unique sequence number of the current problem object.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf problem-severity {
+      type severity-type;
+      config false;
+      description
+        "Severity of the alarm.";
+    }
+    description
+      "none";
+  }
+
+  grouping current-performance {
+    leaf timestamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "The timestamp associated with when the current data was collected.";
+    }
+    leaf suspect-interval-flag {
+      type boolean;
+      config false;
+      description
+        "This attribute is used to indicate that the performance data for the current period may not be reliable. Some reasons for this to occur are:
+         – Suspect data were detected by the actual resource doing data collection.
+         – Transition of the administrativeState attribute to/from the 'lock' state.
+         – Transition of the operationalState to/from the 'disabled' state.
+         – Scheduler setting that inhibits the collection function.
+         – The performance counters were reset during the interval.
+         – The currentData (or subclass) object instance was created during the monitoring period.";
+    }
+    leaf elapsed-time {
+      type int64;
+      units "s";
+      default "-1";
+      config false;
+      description
+        "Number of seconds that elapsed since the last reset of the counter.";
+    }
+    leaf scanner-id {
+      type string;
+      default "Scanner ID not defined.";
+      config false;
+      description
+        "none";
+    }
+    leaf operational-state {
+      type operational-state-type;
+      config false;
+      description
+        "none";
+    }
+    leaf granularity-period {
+      type granularity-period-type;
+      config false;
+      description
+        "Time period between reset of the underlying counter.";
+    }
+    leaf administrative-state {
+      type administrative-state-type;
+      config false;
+      description
+        "none";
+    }
+    leaf object-class {
+      type string;
+      config false;
+      description
+        "ObjectClass ::= CHOICE{    globalForm    [0] OBJECT IDENTIFIER,
+         localForm    [1] INTEGER}";
+    }
+    leaf name-binding {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf packages {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf allomorphs {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping historical-performance {
+    leaf suspect-interval-flag {
+      type boolean;
+      config false;
+      description
+        "This attribute indicates that the data collected during the interval is suspect.";
+    }
+    leaf history-data-id {
+      type string;
+      default "History Data ID not defined.";
+      config false;
+      description
+        "none";
+    }
+    leaf period-end-time {
+      type string;
+      config false;
+      description
+        "Time when the counter values have been recorded and the counter reset.";
+    }
+    leaf granularity-period {
+      type granularity-period-type;
+      config false;
+      description
+        "Time period between reset of the underlying counter.";
+    }
+    leaf object-class {
+      type string;
+      config false;
+      description
+        "ObjectClass ::= CHOICE{    globalForm    [0] OBJECT IDENTIFIER,
+         localForm    [1] INTEGER}";
+    }
+    leaf name-binding {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf packages {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf allomorphs {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping tdm-container-lp-spec {
+    container tdm-container-pac {
+      config false;
+      uses tdm-container-pac;
+      description
+        "none";
+    }
+    description
+      "The TdmContainerLpSpec and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting TDM traffic.";
+  }
+
+  grouping tdm-container-pac {
+    container tdm-container-capability {
+      config false;
+      uses tdm-container-capability;
+      description
+        "none";
+    }
+    container tdm-container-configuration {
+      uses tdm-container-configuration;
+      description
+        "none";
+    }
+    container tdm-container-status {
+      config false;
+      uses tdm-container-status;
+      description
+        "none";
+    }
+    container tdm-container-current-problems {
+      config false;
+      uses tdm-container-current-problems;
+      description
+        "none";
+    }
+    container tdm-container-current-performance {
+      config false;
+      uses tdm-container-current-performance;
+      description
+        "none";
+    }
+    container tdm-container-historical-performances {
+      config false;
+      uses tdm-container-historical-performances;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping tdm-container-capability {
+    list supported-tdm-container-kind-list {
+      key "tdm-container-name";
+      config false;
+      min-elements 1;
+      uses tdm-container-kind;
+      description
+        "Lists the TDM containers that are supported.";
+    }
+    leaf admin-shut-down-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Manual switching on and off of the interface without deleting it (underlying OSI network layers are also not affected) is available.";
+    }
+    leaf-list supported-loop-back-kind-list {
+      type loop-back-type;
+      config false;
+      min-elements 1;
+      max-elements 3;
+      description
+        "List of supported kinds of looping back.";
+    }
+    leaf maintenance-timer-range {
+      type string;
+      default "Range of the maintenance timer not yet defined.";
+      config false;
+      description
+        "Available time periods for maintenance configurations to be described. Concrete values shall be separated by commas (e.g. '10, 60, 360'). Ranges shall be expressed as two values separated by a minus (e.g. '10-360').";
+    }
+    leaf-list supported-alarm-list {
+      type string;
+      config false;
+      min-elements 2;
+      description
+        "Available alarms to be listed. Mandatory:'framingIsFaulty' and 'containerIsDown'. Further alarms might be added by the vendor.";
+    }
+    leaf performance-monitoring-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Collection and aggregation of performance values is available.";
+    }
+    description
+      "none";
+  }
+
+  grouping tdm-container-configuration {
+    leaf interface-name {
+      type string;
+      default "Interface name not yet defined.";
+      description
+        "Description of the interface, could be a name, could be a number. Free text field to be filled by the operator.";
+    }
+    leaf interface-is-on {
+      type boolean;
+      description
+        "Only relevant if (adminShutDownIsAvail==1). 1 = Activation of the interface. 0 = De-activation of the interface without deleting it (underlying OSI network layers are not affected).";
+    }
+    container tdm-container-kind {
+      uses tdm-container-kind;
+      description
+        "Type of TDM container.";
+    }
+    leaf segment-number {
+      type int16;
+      description
+        "Serving TDM structure is identified by LogicalTerminationPoint::_serverLtpRefList (Multiplicity = 1; One segment per TDM container). Serving Segment is identified by segmentID attribute. Type of segment must match type of container.";
+    }
+    leaf loop-back-kind-on {
+      type loop-back-type;
+      description
+        "Maintenance Feature. Configuration of a loop back of TDM time slots on this interface.";
+    }
+    leaf maintenance-timer {
+      type int32;
+      units "s";
+      default "-1";
+      description
+        "Time of existence of any maintenance configuration. 0 = maintenance timer is switched off. Valid values are defined in *Capability::maintenanceTimerRange.";
+    }
+    list problem-kind-severity-list {
+      key "problem-kind-name";
+      min-elements 2;
+      uses problem-kind-severity-type;
+      description
+        "Severity of the problem to be configured.";
+    }
+    leaf performance-monitoring-collection-is-on {
+      type boolean;
+      description
+        "Enables measurement, collection, storage and access to performance data.";
+    }
+    description
+      "none";
+  }
+
+  grouping tdm-container-status {
+    leaf interface-status {
+      type interface-status-type;
+      config false;
+      description
+        "Operational status of the interface.";
+    }
+    leaf loop-back-kind-up {
+      type loop-back-type;
+      config false;
+      description
+        "The currently active (not just configured) type of loop back.";
+    }
+    leaf statistics-is-up {
+      type boolean;
+      config false;
+      description
+        "1 = Statistics are currently collected and aggregated.";
+    }
+    leaf performance-monitoring-is-up {
+      type boolean;
+      config false;
+      description
+        "1 = Performance values are currently collected and aggregated.";
+    }
+    description
+      "none";
+  }
+
+  grouping tdm-container-current-problems {
+    list current-problem-list {
+      key "sequence-number";
+      config false;
+      uses container-current-problem-type;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping tdm-container-current-performance {
+    list current-performance-data-list {
+      key "granularity-period";
+      config false;
+      min-elements 1;
+      max-elements 2;
+      uses container-current-performance-type;
+      description
+        "At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.";
+    }
+    description
+      "Aggregated performance information of the TDM container at a particular moment.";
+  }
+
+  grouping tdm-container-historical-performances {
+    list historical-performance-data-list {
+      key "period-end-time";
+      config false;
+      uses container-historical-performance-type;
+      description
+        "none";
+    }
+    description
+      "Aggregated performance information of the TDM container for a pre-defined measurement interval.";
+  }
+
+  grouping tdm-container-kind {
+    leaf tdm-container-name {
+      type string;
+      config false;
+      description
+        "Names to be chosen from the following list: 'e1','t1','j1','e3','t3','stm1','cpri1','cpri2','cpri3','cpri4','cpri5','cpri6' or 'cpri7'";
+    }
+    leaf tdm-container-size {
+      type int32;
+      units "kbit/s";
+      default "-1";
+      config false;
+      description
+        "Capacity required for transporting this type of container (in kbit/s). Values to be chosen from the following list: '2048','1544','34000','44736 ','155520','614400','1228800','2457600','3072000','4915200','6144000' or '9830400;";
+    }
+    description
+      "none";
+  }
+
+  typedef loop-back-type {
+    type identityref {
+      base LOOP_BACK_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef container-performance-type {
+    type string;
+    description
+      "none";
+  }
+
+  identity LOOP_BACK_TYPE {
+    description
+      "none";
+  }
+
+  identity LOOP_BACK_TYPE_NONE {
+    base LOOP_BACK_TYPE;
+    description
+      "none";
+  }
+
+  identity LOOP_BACK_TYPE_BACK_TO_LOCAL {
+    base LOOP_BACK_TYPE;
+    description
+      "Returning the TDM time slots of the local site on the outgoing interface back to the local site.";
+  }
+
+  identity LOOP_BACK_TYPE_BACK_TO_REMOTE {
+    base LOOP_BACK_TYPE;
+    description
+      "Returning the incoming TDM time slots back to the remote site.";
+  }
+
+  identity LOOP_BACK_TYPE_NOT_YET_DEFINED {
+    base LOOP_BACK_TYPE;
+    description
+      "none";
+  }
+
+  identity GRANULARITY_PERIOD_TYPE {
+    description
+      "none";
+  }
+
+  identity GRANULARITY_PERIOD_TYPE_UNKNOWN {
+    base GRANULARITY_PERIOD_TYPE;
+    description
+      "none";
+  }
+
+  identity GRANULARITY_PERIOD_TYPE_PERIOD-15-MIN {
+    base GRANULARITY_PERIOD_TYPE;
+    description
+      "none";
+  }
+
+  identity GRANULARITY_PERIOD_TYPE_PERIOD-24-HOURS {
+    base GRANULARITY_PERIOD_TYPE;
+    description
+      "none";
+  }
+
+  identity GRANULARITY_PERIOD_TYPE_NOT_YET_DEFINED {
+    base GRANULARITY_PERIOD_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE {
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_NON_ALARMED {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_WARNING {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_MINOR {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_MAJOR {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_CRITICAL {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_NOT_YET_DEFINED {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity INTERFACE_STATUS_TYPE {
+    description
+      "none";
+  }
+
+  identity INTERFACE_STATUS_TYPE_UP {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Ready to pass packets.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_DOWN {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "The interface does not pass any packets.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_TESTING {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "In some test mode.  No operational packets can be passed.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_UNKNOWN {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Status cannot be determined for some reason.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_DORMANT {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Waiting for some external event.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_NOT_PRESENT {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Some component (typically hardware) is missing.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_LOWER_LAYER_DOWN {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Down due to state of lower-layer interface(s).";
+  }
+
+  identity INTERFACE_STATUS_TYPE_ADMIN_DOWN {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Down due to configuration.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_NOT_YET_DEFINED {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "none";
+  }
+
+  identity OPERATIONAL_STATE_TYPE {
+    description
+      "none";
+  }
+
+  identity OPERATIONAL_STATE_TYPE_ENABLED {
+    base OPERATIONAL_STATE_TYPE;
+    description
+      "none";
+  }
+
+  identity OPERATIONAL_STATE_TYPE_DISABLED {
+    base OPERATIONAL_STATE_TYPE;
+    description
+      "none";
+  }
+
+  identity OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED {
+    base OPERATIONAL_STATE_TYPE;
+    description
+      "none";
+  }
+
+  identity ADMINISTRATIVE_STATE_TYPE {
+    description
+      "none";
+  }
+
+  identity ADMINISTRATIVE_STATE_TYPE_UNLOCKED {
+    base ADMINISTRATIVE_STATE_TYPE;
+    description
+      "none";
+  }
+
+  identity ADMINISTRATIVE_STATE_TYPE_LOCKED {
+    base ADMINISTRATIVE_STATE_TYPE;
+    description
+      "none";
+  }
+
+  identity ADMINISTRATIVE_STATE_TYPE_SHUTTING_DOWN {
+    base ADMINISTRATIVE_STATE_TYPE;
+    description
+      "none";
+  }
+
+  identity ADMINISTRATIVE_STATE_TYPE_NOT_YET_DEFINED {
+    base ADMINISTRATIVE_STATE_TYPE;
+    description
+      "none";
+  }
+
+  typedef granularity-period-type {
+    type identityref {
+      base GRANULARITY_PERIOD_TYPE;
+    }
+    description
+      "The enumeration with the options for granularity period of the performance data.";
+  }
+
+  typedef severity-type {
+    type identityref {
+      base SEVERITY_TYPE;
+    }
+    description
+      "According to ITU-T M.3160";
+  }
+
+  typedef interface-status-type {
+    type identityref {
+      base INTERFACE_STATUS_TYPE;
+    }
+    description
+      "Current Interface Status";
+  }
+
+  typedef operational-state-type {
+    type identityref {
+      base OPERATIONAL_STATE_TYPE;
+    }
+    description
+      "The list of valid operational states for the connection.";
+  }
+
+  typedef administrative-state-type {
+    type identityref {
+      base ADMINISTRATIVE_STATE_TYPE;
+    }
+    description
+      "For more information on Administrative State, See ITU-T Recs. X.731 and M.3100.";
+  }
+
+  grouping problem-kind-severity-type {
+    leaf problem-kind-name {
+      type string;
+      description
+        "Name of the alarm according to supportedAlarmList";
+    }
+    leaf problem-kind-severity {
+      type severity-type;
+      description
+        "Severity of this type of alarm.";
+    }
+    description
+      "none";
+  }
+
+  grouping container-current-problem-type {
+    leaf problem-name {
+      type string;
+      default "Problem name not specified.";
+      config false;
+      description
+        "Name of the alarm according to Container::ContainerCapability::supportedAlarms";
+    }
+    uses current-problem;
+    description
+      "none";
+  }
+
+  grouping container-current-performance-type {
+    leaf performance-data {
+      type container-performance-type;
+      config false;
+      description
+        "none";
+    }
+    uses current-performance;
+    description
+      "Turns performance information into current performance information by inheriting from OTN_CurrentData.";
+  }
+
+  grouping container-historical-performance-type {
+    leaf performance-data {
+      type container-performance-type;
+      config false;
+      description
+        "none";
+    }
+    uses historical-performance;
+    description
+      "Turns performance information into historical performance information by inheriting from OTN_HistoryData.";
+  }
+}

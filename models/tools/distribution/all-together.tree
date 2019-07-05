@@ -566,6 +566,65 @@ module: core-model
      |  |  |        +--ro pure-ethernet-structure:name-binding?            string
      |  |  |        +--ro pure-ethernet-structure:packages?                string
      |  |  |        +--ro pure-ethernet-structure:allomorphs?              string
+     |  |  +--ro tdm-container:tdm-container-pac
+     |  |  |  +--ro tdm-container:tdm-container-capability
+     |  |  |  |  +--ro tdm-container:supported-tdm-container-kind-list* [tdm-container-name]
+     |  |  |  |  |  +--ro tdm-container:tdm-container-name    string
+     |  |  |  |  |  +--ro tdm-container:tdm-container-size?   int32
+     |  |  |  |  +--ro tdm-container:admin-shut-down-is-avail?            boolean
+     |  |  |  |  +--ro tdm-container:supported-loop-back-kind-list*       loop-back-type
+     |  |  |  |  +--ro tdm-container:maintenance-timer-range?             string
+     |  |  |  |  +--ro tdm-container:supported-alarm-list*                string
+     |  |  |  |  +--ro tdm-container:performance-monitoring-is-avail?     boolean
+     |  |  |  +--ro tdm-container:tdm-container-configuration
+     |  |  |  |  +--ro tdm-container:interface-name?                            string
+     |  |  |  |  +--ro tdm-container:interface-is-on?                           boolean
+     |  |  |  |  +--ro tdm-container:tdm-container-kind
+     |  |  |  |  |  +--ro tdm-container:tdm-container-name?   string
+     |  |  |  |  |  +--ro tdm-container:tdm-container-size?   int32
+     |  |  |  |  +--ro tdm-container:segment-number?                            int16
+     |  |  |  |  +--ro tdm-container:loop-back-kind-on?                         loop-back-type
+     |  |  |  |  +--ro tdm-container:maintenance-timer?                         int32
+     |  |  |  |  +--ro tdm-container:problem-kind-severity-list* [problem-kind-name]
+     |  |  |  |  |  +--ro tdm-container:problem-kind-name        string
+     |  |  |  |  |  +--ro tdm-container:problem-kind-severity?   severity-type
+     |  |  |  |  +--ro tdm-container:performance-monitoring-collection-is-on?   boolean
+     |  |  |  +--ro tdm-container:tdm-container-status
+     |  |  |  |  +--ro tdm-container:interface-status?               interface-status-type
+     |  |  |  |  +--ro tdm-container:loop-back-kind-up?              loop-back-type
+     |  |  |  |  +--ro tdm-container:statistics-is-up?               boolean
+     |  |  |  |  +--ro tdm-container:performance-monitoring-is-up?   boolean
+     |  |  |  +--ro tdm-container:tdm-container-current-problems
+     |  |  |  |  +--ro tdm-container:current-problem-list* [sequence-number]
+     |  |  |  |     +--ro tdm-container:problem-name?       string
+     |  |  |  |     +--ro tdm-container:sequence-number     int16
+     |  |  |  |     +--ro tdm-container:time-stamp?         string
+     |  |  |  |     +--ro tdm-container:problem-severity?   severity-type
+     |  |  |  +--ro tdm-container:tdm-container-current-performance
+     |  |  |  |  +--ro tdm-container:current-performance-data-list* [granularity-period]
+     |  |  |  |     +--ro tdm-container:performance-data?        container-performance-type
+     |  |  |  |     +--ro tdm-container:timestamp?               string
+     |  |  |  |     +--ro tdm-container:suspect-interval-flag?   boolean
+     |  |  |  |     +--ro tdm-container:elapsed-time?            int64
+     |  |  |  |     +--ro tdm-container:scanner-id?              string
+     |  |  |  |     +--ro tdm-container:operational-state?       operational-state-type
+     |  |  |  |     +--ro tdm-container:granularity-period       granularity-period-type
+     |  |  |  |     +--ro tdm-container:administrative-state?    administrative-state-type
+     |  |  |  |     +--ro tdm-container:object-class?            string
+     |  |  |  |     +--ro tdm-container:name-binding?            string
+     |  |  |  |     +--ro tdm-container:packages?                string
+     |  |  |  |     +--ro tdm-container:allomorphs?              string
+     |  |  |  +--ro tdm-container:tdm-container-historical-performances
+     |  |  |     +--ro tdm-container:historical-performance-data-list* [period-end-time]
+     |  |  |        +--ro tdm-container:performance-data?        container-performance-type
+     |  |  |        +--ro tdm-container:suspect-interval-flag?   boolean
+     |  |  |        +--ro tdm-container:history-data-id?         string
+     |  |  |        +--ro tdm-container:period-end-time          string
+     |  |  |        +--ro tdm-container:granularity-period?      granularity-period-type
+     |  |  |        +--ro tdm-container:object-class?            string
+     |  |  |        +--ro tdm-container:name-binding?            string
+     |  |  |        +--ro tdm-container:packages?                string
+     |  |  |        +--ro tdm-container:allomorphs?              string
      |  |  +--ro wire-interface:wire-interface-pac
      |  |     +--ro wire-interface:wire-interface-capability
      |  |     |  +--ro wire-interface:supported-pmd-kind-list* [pmd-name]
@@ -997,6 +1056,30 @@ module: mac-interface
        +--ro problem?         string
        +--ro severity?        severity-type
 module: pure-ethernet-structure
+
+  notifications:
+    +---n object-creation-notification
+    |  +--ro counter?         int64
+    |  +--ro time-stamp?      string
+    |  +--ro object-id-ref?   string
+    |  +--ro object-type?     string
+    +---n object-deletion-notification
+    |  +--ro counter?         int64
+    |  +--ro time-stamp?      string
+    |  +--ro object-id-ref?   string
+    +---n attribute-value-changed-notification
+    |  +--ro counter?          int64
+    |  +--ro time-stamp?       string
+    |  +--ro object-id-ref?    string
+    |  +--ro attribute-name?   string
+    |  +--ro new-value?        string
+    +---n problem-notification
+       +--ro counter?         int64
+       +--ro time-stamp?      string
+       +--ro object-id-ref?   string
+       +--ro problem?         string
+       +--ro severity?        severity-type
+module: tdm-container
 
   notifications:
     +---n object-creation-notification
