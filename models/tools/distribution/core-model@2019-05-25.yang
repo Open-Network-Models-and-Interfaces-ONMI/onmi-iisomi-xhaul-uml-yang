@@ -1710,7 +1710,7 @@ module core-model {
          uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/ForwardingConstruct'";
     }
     leaf is-protection-lock-out {
-      if-feature "in-protection-context-if-server-of-protection-where-entire-server-is-to-be-excluded-from-use-for-protection";
+      if-feature "forwardingconstructisprotectionlockout";
       type boolean;
       description
         "The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of.
@@ -1803,7 +1803,7 @@ module core-model {
          uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/FcPort'";
     }
     leaf is-protection-lock-out {
-      if-feature "in-protection-context-where-the-fcport-is-to-be-excluded-from-use-for-protection";
+      if-feature "fcportisprotectionlockout";
       type boolean;
       description
         "The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of.
@@ -1961,7 +1961,7 @@ module core-model {
   }
 
   grouping logical-termination-point {
-    list lp {
+    list layer-protocol {
       key "local-id";
       min-elements 1;
       uses layer-protocol;
@@ -2170,12 +2170,12 @@ module core-model {
       "none";
   }
 
-  feature in-protection-context-if-server-of-protection-where-entire-server-is-to-be-excluded-from-use-for-protection {
+  feature forwardingconstructisprotectionlockout {
     description
       "none";
   }
 
-  feature in-protection-context-where-the-fcport-is-to-be-excluded-from-use-for-protection {
+  feature fcportisprotectionlockout {
     description
       "none";
   }
@@ -3290,6 +3290,7 @@ module core-model {
   }
 
   container control-construct {
+    presence "Enables SDN";
     uses control-construct;
     description
       "none";
