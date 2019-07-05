@@ -1,0 +1,1503 @@
+module mac-interface {
+  yang-version 1.1;
+  namespace "urn:onf:yang:mac-interface";
+  prefix mac-interface;
+
+  import core-model {
+    prefix core-model;
+  }
+
+  organization
+    "openBackhaul.com proposal to Open Networking Foundation (ONF)";
+  contact
+    "
+     WG Web : https://github.com/openBackhaul/Overview
+     WG List: MacInterface@openBackhaul.com
+     Editor : Thorsten Heinze
+     Email  : Thorsten.Heinze@openBackhaul.com";
+  description
+    "Technology specific interface definition for Ethernet MAC interfaces according to IEEE 802.1
+
+     Copyright 2019 openBackhaul.com
+
+     Licensed under the Apache License, Version 2.0 (the 'License');
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+     http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an 'AS IS' BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.";
+
+  revision 2019-07-04 {
+    description
+      "Model for the Transport SDN Pilot at Telefonica Germany.
+       Please view https://github.com/openBackhaul/macInterface/issues for changes.";
+    reference
+      "https://github.com/openBackhaul/macInterface/tree/tsp: Model definition
+       https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
+  }
+
+  identity LAYER_PROTOCOL_NAME_MAC_LAYER {
+    base core-model:LAYER_PROTOCOL_NAME;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol" {
+    when "derived-from-or-self(./core-model:layer-protocol-name, 'mac-interface:LAYER_PROTOCOL_NAME_MAC_LAYER')";
+    uses mac-interface-lp-spec;
+    description
+      "none";
+  }
+
+  notification object-creation-notification {
+    uses object-creation-notification;
+    description
+      "none";
+  }
+
+  grouping object-creation-notification {
+    leaf counter {
+      type int64;
+      default "-1";
+      config false;
+      description
+        "Counts object creation notifications.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf object-type {
+      type string;
+      default "Type of created object not specified.";
+      config false;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  notification object-deletion-notification {
+    uses object-deletion-notification;
+    description
+      "none";
+  }
+
+  grouping object-deletion-notification {
+    leaf counter {
+      type int64;
+      default "-1";
+      config false;
+      description
+        "Counts object deletion notifications.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  notification attribute-value-changed-notification {
+    uses attribute-value-changed-notification;
+    description
+      "none";
+  }
+
+  grouping attribute-value-changed-notification {
+    leaf counter {
+      type int64;
+      default "-1";
+      config false;
+      description
+        "Counts attribute value changed notifications.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf attribute-name {
+      type string;
+      default "Attribute name not specified.";
+      config false;
+      description
+        "Name of the attribute that has been changed.";
+    }
+    leaf new-value {
+      type string;
+      default "New value not specified.";
+      config false;
+      description
+        "Attribute value converted to a string (xml, json, ...)";
+    }
+    description
+      "none";
+  }
+
+  notification problem-notification {
+    uses problem-notification;
+    description
+      "none";
+  }
+
+  grouping problem-notification {
+    leaf counter {
+      type int64;
+      default "-1";
+      config false;
+      description
+        "Counts problem notifications";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf problem {
+      type string;
+      default "Problem name not specified.";
+      config false;
+      description
+        "Name of the problem according to supportedAlarmList";
+    }
+    leaf severity {
+      type severity-type;
+      config false;
+      description
+        "Severity of the problem according to problemKindSeverity";
+    }
+    description
+      "none";
+  }
+
+  grouping current-problem {
+    leaf sequence-number {
+      type int16;
+      config false;
+      description
+        "Unique sequence number of the current problem object.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf problem-severity {
+      type severity-type;
+      config false;
+      description
+        "Severity of the alarm.";
+    }
+    description
+      "none";
+  }
+
+  grouping current-performance {
+    leaf timestamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "The timestamp associated with when the current data was collected.";
+    }
+    leaf suspect-interval-flag {
+      type boolean;
+      config false;
+      description
+        "This attribute is used to indicate that the performance data for the current period may not be reliable. Some reasons for this to occur are:
+         – Suspect data were detected by the actual resource doing data collection.
+         – Transition of the administrativeState attribute to/from the 'lock' state.
+         – Transition of the operationalState to/from the 'disabled' state.
+         – Scheduler setting that inhibits the collection function.
+         – The performance counters were reset during the interval.
+         – The currentData (or subclass) object instance was created during the monitoring period.";
+    }
+    leaf elapsed-time {
+      type int64;
+      units "s";
+      default "-1";
+      config false;
+      description
+        "Number of seconds that elapsed since the last reset of the counter.";
+    }
+    leaf scanner-id {
+      type string;
+      default "Scanner ID not defined.";
+      config false;
+      description
+        "none";
+    }
+    leaf operational-state {
+      type operational-state-type;
+      config false;
+      description
+        "none";
+    }
+    leaf granularity-period {
+      type granularity-period-type;
+      config false;
+      description
+        "Time period between reset of the underlying counter.";
+    }
+    leaf administrative-state {
+      type administrative-state-type;
+      config false;
+      description
+        "none";
+    }
+    leaf object-class {
+      type string;
+      config false;
+      description
+        "ObjectClass ::= CHOICE{    globalForm    [0] OBJECT IDENTIFIER,
+         localForm    [1] INTEGER}";
+    }
+    leaf name-binding {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf packages {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf allomorphs {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping historical-performance {
+    leaf suspect-interval-flag {
+      type boolean;
+      config false;
+      description
+        "This attribute indicates that the data collected during the interval is suspect.";
+    }
+    leaf history-data-id {
+      type string;
+      default "History Data ID not defined.";
+      config false;
+      description
+        "none";
+    }
+    leaf period-end-time {
+      type string;
+      config false;
+      description
+        "Time when the counter values have been recorded and the counter reset.";
+    }
+    leaf granularity-period {
+      type granularity-period-type;
+      config false;
+      description
+        "Time period between reset of the underlying counter.";
+    }
+    leaf object-class {
+      type string;
+      config false;
+      description
+        "ObjectClass ::= CHOICE{    globalForm    [0] OBJECT IDENTIFIER,
+         localForm    [1] INTEGER}";
+    }
+    leaf name-binding {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf packages {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf allomorphs {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping mac-interface-lp-spec {
+    container mac-interface-pac {
+      config false;
+      uses mac-interface-pac;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping mac-interface-pac {
+    container macinterfacecapability {
+      uses mac-interface-capability;
+      description
+        "none";
+    }
+    container macinterfaceconfiguration {
+      uses mac-interface-configuration;
+      description
+        "none";
+    }
+    container macinterfacestatus {
+      uses mac-interface-status;
+      description
+        "none";
+    }
+    container macinterfacecurrentproblem {
+      uses mac-interface-current-problem;
+      description
+        "none";
+    }
+    container macinterfacecurrentperformance {
+      uses mac-interface-current-performance;
+      description
+        "none";
+    }
+    container macinterfacehistoricalpeformance {
+      uses mac-interface-historical-peformance;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping mac-interface-capability {
+    leaf hardware-mac-address {
+      type string;
+      default "00:00:00:00:00:00";
+      config false;
+      description
+        "Hardware MAC address of the interface.";
+    }
+    leaf mac-address-configuration-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Device supports overwriting the hardware MAC address.";
+    }
+    leaf maximum-frame-size-min {
+      type int16;
+      units "s";
+      default "-1";
+      config false;
+      description
+        "Minimum configurable value of the maximum Ethernet frame size in Byte.";
+    }
+    leaf maximum-frame-size-max {
+      type int16;
+      units "s";
+      default "-1";
+      config false;
+      description
+        "Maximum configurable value of the maximum Ethernet frame size in Byte.";
+    }
+    leaf-list supported-frame-format-list {
+      type frame-format-type;
+      config false;
+      min-elements 1;
+      description
+        "List of supported Ethernet frame formats";
+    }
+    leaf-list supported-flow-control-mode-list {
+      type flow-control-mode-type;
+      config false;
+      min-elements 1;
+      max-elements 5;
+      description
+        "List of potential configurations of the Flow Control.";
+    }
+    leaf link-loss-forwarding-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Sending a Link Loss message in case of link failure is supported by the device.";
+    }
+    leaf broadcast-frame-suppression-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Interface is supporting limiting the maximum share of broadcast frames.";
+    }
+    leaf ingress-shaping-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Shaping on the ingress is available at this interface.";
+    }
+    leaf egress-shaping-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Shaping on the egress is available at this interface.";
+    }
+    leaf loop-port-shut-down-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Device is supporting automated shut down of ports, which are affected by an Ethernet loop.";
+    }
+    leaf loop-detection-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Device is supporting a feature for detecting Ethernet loops on this interface.";
+    }
+    leaf admin-shut-down-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Manual switching on and off of the interface without deleting it (underlying OSI network layers are also not affected) is available.";
+    }
+    leaf-list supported-loop-back-kind-list {
+      type loop-back-type;
+      config false;
+      min-elements 1;
+      max-elements 3;
+      description
+        "List of supported kinds of looping back.";
+    }
+    leaf maintenance-timer-range {
+      type string;
+      default "Range of the maintenance timer not yet defined.";
+      config false;
+      description
+        "Available time periods for maintenance configurations to be described. Concrete values shall be separated by commas (e.g. '10, 60, 360'). Ranges shall be expressed as two values separated by a minus (e.g. '10-360').";
+    }
+    leaf statistics-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Continuous statistics counters are available.";
+    }
+    leaf-list supported-alarm-list {
+      type string;
+      config false;
+      min-elements 2;
+      description
+        "Available alarms to be listed. Mandatory: 'MacInterfaceDown' and 'FrameSizeMissmatch'. Further alarms might be added by the device vendors.";
+    }
+    leaf performance-monitoring-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Collection and aggregation of performance values is available.";
+    }
+    description
+      "none";
+  }
+
+  grouping mac-interface-configuration {
+    leaf interface-name {
+      type string;
+      default "Interface name not yet defined.";
+      description
+        "Description of the interface, could be a name, could be a number. Free text field to be filled by the operator.";
+    }
+    leaf interface-is-on {
+      type boolean;
+      description
+        "Only relevant if (adminShutDownIsAvail==1). 1 = Activation of the interface. 0 = De-activation of the interface without deleting it (underlying OSI network layers are not affected).";
+    }
+    leaf mac-address-configuration-is-on {
+      type boolean;
+      description
+        "Only relevant if (macAddressConfigurationIsAvail==1). 1 = Activates overwriting the hardware MAC address by MacInterfaceConfiguration::configuredMacAddress.";
+    }
+    leaf configured-mac-address {
+      type string;
+      default "00:00:00:00:00:00";
+      description
+        "Only relevant if (macAddressConfigurationIsAvail==1 AND macAddressConfigurationIsOn==1). Overwriting the hardware MAC address with the configured value.";
+    }
+    leaf maximum-frame-size {
+      type int16;
+      units "Byte";
+      default "-1";
+      description
+        "This value describes the maximum size of the Ethernet frame (in Byte) before sending.";
+    }
+    leaf fragmentation-allowed {
+      type fragmentation-type;
+      description
+        "none";
+    }
+    leaf transmitted-frame-format {
+      type frame-format-type;
+      description
+        "Configuration of the format of the transmitted Ethernet frames.";
+    }
+    leaf flow-control-mode {
+      type flow-control-mode-type;
+      description
+        "Configures the mode of operation of Flow Control according to IEEE 802.3x on this interface.";
+    }
+    leaf link-loss-forwarding-is-on {
+      type boolean;
+      description
+        "1 = Sending a Link Loss message in case of link failure is activated.";
+    }
+    leaf link-loss-forwarding-delay {
+      type int8;
+      units "100ms";
+      default "-1";
+      description
+        "Delay (in 100ms steps) between a detected link failure and sending of a Link Loss message. In case of 1+1 hot stand by protection of a microwave, make sure configured value is higher than 5 (500ms).";
+    }
+    leaf broadcast-frame-suppression-is-on {
+      type boolean;
+      description
+        "1 = Limiting the share of broadcast frames is activated.";
+    }
+    leaf maximum-share-of-broadcast-frames {
+      type int8;
+      units "%";
+      default "-1";
+      description
+        "Threshold for Broadcast frames becoming discarded in %. Value range from 0 to 100.";
+    }
+    leaf loop-port-shut-down-is-on {
+      type boolean;
+      description
+        "1 = Feature for automated shut down in case of an Ethernet loop is activated on this interface.";
+    }
+    leaf loop-detection-is-on {
+      type boolean;
+      description
+        "Maintenance Feature. 1 = Checking for Ethernet loops on this interface is currently switched on.";
+    }
+    leaf loop-back-kind-on {
+      type loop-back-type;
+      description
+        "Maintenance Feature. Configuration of a loop back of Ethernet frames on this interface.";
+    }
+    leaf maintenance-timer {
+      type int32;
+      default "-1";
+      description
+        "Time of existence of any maintenance configuration. 0 = maintenance timer is switched off. Valid values are defined in *Capability::maintenanceTimerRange.";
+    }
+    leaf statistics-is-on {
+      type boolean;
+      description
+        "Only relevant if (statisticsIsAvail==1). 1 = Continuous statistics counters are switched on.";
+    }
+    list problem-kind-severity-list {
+      key "problem-kind-name";
+      min-elements 2;
+      uses problem-kind-severity-type;
+      description
+        "Severity of each entry of the SupportedAlarmList to be configured.";
+    }
+    leaf performance-monitoring-collection-is-on {
+      type boolean;
+      description
+        "Only relevant if (performanceMonitoringIsAvail==1). 1 = Collection and aggregation of performance values is switched on.";
+    }
+    description
+      "none";
+  }
+
+  grouping mac-interface-status {
+    leaf interface-status {
+      type interface-status-type;
+      config false;
+      description
+        "Operational status of the interface.";
+    }
+    leaf mac-address-cur {
+      type string;
+      default "00:00:00:00:00:00";
+      config false;
+      description
+        "If (macAddressConfigurationIsAvail==0), maxAddressCur = MacInterfaceCapability::hardwareMacAddress. If (macAddressConfigurationIsAvail==1 AND macAddressConfigurationIsOn==1), maxAddressCur = MacInterfaceConfiguration::configuredMacAddress.";
+    }
+    leaf received-ethernet-frame-format-cur {
+      type frame-format-type;
+      config false;
+      description
+        "Ethernet frame format of the currently received frames.";
+    }
+    leaf flow-control-mode-cur {
+      type flow-control-mode-type;
+      config false;
+      description
+        "Currently operative mode (none, send, receive, both) of operation of the Flow Control according to IEEE 802.3x on this interface.";
+    }
+    leaf loop-detection-result {
+      type loop-detection-result-type;
+      config false;
+      description
+        "Result of the Ethernet loop detection feature.";
+    }
+    leaf loop-back-kind-up {
+      type loop-back-type;
+      config false;
+      description
+        "The currently active (not just configured) type of loop back.";
+    }
+    leaf statistics-is-up {
+      type boolean;
+      config false;
+      description
+        "1 = Statistics are currently collected and aggregated.";
+    }
+    leaf performance-monitoring-is-up {
+      type boolean;
+      config false;
+      description
+        "1 = Performance values are currently collected and aggregated.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf last-10-sec-frame-input-rate {
+      type int32;
+      units "frame/s";
+      default "-1";
+      config false;
+      description
+        "Frame receive rate at this MAC interface over the last 10 second interval.";
+    }
+    leaf last-10-sec-frame-output-rate {
+      type int32;
+      units "frame/s";
+      default "-1";
+      config false;
+      description
+        "Frame transmit rate at this MAC interface over the last 10 second interval.";
+    }
+    leaf total-fames-input {
+      type int64;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "The total number of Ethernet frames received at this MAC interface, including those received in error";
+    }
+    leaf total-frames-output {
+      type int64;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "The total number of Ethernet frames sent from this MAC interface.";
+    }
+    leaf forwarded-frames-input {
+      type int64;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Number of input frames, for which the device was not their final destination and for which the device attempted to find a route to forward them to that final destination.";
+    }
+    leaf forwarded-frames-output {
+      type int64;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Number of frames, for which the device was not their final destination and for which it was successful in finding a path to their final destination. ";
+    }
+    leaf unicast-frames-input {
+      type int64;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Total number of received unicast frames.";
+    }
+    leaf unicast-frames-output {
+      type int64;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Total number of sent unicast frames.";
+    }
+    leaf multicast-frames-input {
+      type int32;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Total number of received multicast frames.";
+    }
+    leaf multicast-frames-output {
+      type int32;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Total number of sent multicast frames.";
+    }
+    leaf broadcast-frames-input {
+      type int32;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Total number of received broadcast frames.";
+    }
+    leaf broadcast-frames-output {
+      type int32;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Total number of sent broadcast frames.";
+    }
+    leaf fragmented-frames-input {
+      type int32;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Total number of received fragmented frames.";
+    }
+    leaf errored-frames-input {
+      type int32;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Total number of received errored frames.";
+    }
+    leaf errored-frames-output {
+      type int32;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Number of Ethernet frames, which were locally generated and discarded due to errors, including no route found to the destination.";
+    }
+    leaf dropped-frames-input {
+      type int32;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Total number of Ethernet frames dropped at the receiver. The number of input Ethernet frames, for which no problems were encountered to prevent their continued processing, but were discarded (e.g., for lack of buffer space).";
+    }
+    leaf dropped-frames-output {
+      type int32;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "The number of output Ethernet frames, for which no problem was encountered to prevent their transmission to their destination, but were discarded (e.g., for lack of buffer space).";
+    }
+    description
+      "none";
+  }
+
+  grouping mac-interface-current-problem {
+    list current-problem-list {
+      key "sequence-number";
+      config false;
+      uses mac-interface-current-problem-type;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping mac-interface-current-performance {
+    list current-performance-data-list {
+      key "granularity-period";
+      config false;
+      min-elements 1;
+      max-elements 2;
+      uses mac-interface-current-performance-type;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping mac-interface-historical-peformance {
+    list historical-performace-data {
+      key "period-end-time";
+      config false;
+      uses mac-interface-historical-performance-type;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  typedef loop-back-type {
+    type identityref {
+      base LOOP_BACK_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef fragmentation-type {
+    type identityref {
+      base FRAGMENTATION_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef frame-format-type {
+    type identityref {
+      base FRAME_FORMAT_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef flow-control-mode-type {
+    type identityref {
+      base FLOW_CONTROL_MODE_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef loop-detection-result-type {
+    type identityref {
+      base LOOP_DETECTION_RESULT_TYPE;
+    }
+    description
+      "none";
+  }
+
+  identity LOOP_BACK_TYPE {
+    description
+      "none";
+  }
+
+  identity LOOP_BACK_TYPE_NONE {
+    base LOOP_BACK_TYPE;
+    description
+      "none";
+  }
+
+  identity LOOP_BACK_TYPE_BACK_TO_LOCAL {
+    base LOOP_BACK_TYPE;
+    description
+      "Returning Ethernet frames of the local site on the Ethernet MAC interface back to the local site.";
+  }
+
+  identity LOOP_BACK_TYPE_BACK_TO_REMOTE {
+    base LOOP_BACK_TYPE;
+    description
+      "Returning Ethernet frames of the remote site on the Ethernet MAC interface back to the remote site.";
+  }
+
+  identity LOOP_BACK_TYPE_NOT_YET_DEFINED {
+    base LOOP_BACK_TYPE;
+    description
+      "none";
+  }
+
+  identity FRAGMENTATION_TYPE {
+    description
+      "none";
+  }
+
+  identity FRAGMENTATION_TYPE_DISABLE {
+    base FRAGMENTATION_TYPE;
+    description
+      "none";
+  }
+
+  identity FRAGMENTATION_TYPE_ENABLE_256_BYTE {
+    base FRAGMENTATION_TYPE;
+    description
+      "none";
+  }
+
+  identity FRAGMENTATION_TYPE_ENABLE_512_BYTE {
+    base FRAGMENTATION_TYPE;
+    description
+      "none";
+  }
+
+  identity FRAGMENTATION_TYPE_NOT_YET_DEFINED {
+    base FRAGMENTATION_TYPE;
+    description
+      "none";
+  }
+
+  identity FRAME_FORMAT_TYPE {
+    description
+      "none";
+  }
+
+  identity FRAME_FORMAT_TYPE_ETHERNET_2 {
+    base FRAME_FORMAT_TYPE;
+    description
+      "none";
+  }
+
+  identity FRAME_FORMAT_TYPE_802.2_SNAP {
+    base FRAME_FORMAT_TYPE;
+    description
+      "none";
+  }
+
+  identity FRAME_FORMAT_TYPE_802.2_LLC {
+    base FRAME_FORMAT_TYPE;
+    description
+      "none";
+  }
+
+  identity FRAME_FORMAT_TYPE_802.3 {
+    base FRAME_FORMAT_TYPE;
+    description
+      "none";
+  }
+
+  identity FRAME_FORMAT_TYPE_NOT_YET_DEFINED {
+    base FRAME_FORMAT_TYPE;
+    description
+      "none";
+  }
+
+  identity FLOW_CONTROL_MODE_TYPE {
+    description
+      "none";
+  }
+
+  identity FLOW_CONTROL_MODE_TYPE_NONE {
+    base FLOW_CONTROL_MODE_TYPE;
+    description
+      "Flow Control is switched off.";
+  }
+
+  identity FLOW_CONTROL_MODE_TYPE_SEND_ONLY {
+    base FLOW_CONTROL_MODE_TYPE;
+    description
+      "Only sending of pause frames according to IEEE 802.3x (Ethernet Flow Control).";
+  }
+
+  identity FLOW_CONTROL_MODE_TYPE_RECEIVE_ONLY {
+    base FLOW_CONTROL_MODE_TYPE;
+    description
+      "Only listening for incoming pause frames according to IEEE 802.3x (Ethernet Flow Control).";
+  }
+
+  identity FLOW_CONTROL_MODE_TYPE_SEND_AND_RECEIVE {
+    base FLOW_CONTROL_MODE_TYPE;
+    description
+      "Sending and listening for pause frames according to IEEE 802.3x (Ethernet Flow Control).";
+  }
+
+  identity FLOW_CONTROL_MODE_TYPE_AUTO_NEGOTIATION {
+    base FLOW_CONTROL_MODE_TYPE;
+    description
+      "none";
+  }
+
+  identity FLOW_CONTROL_MODE_TYPE_NOT_YET_DEFINED {
+    base FLOW_CONTROL_MODE_TYPE;
+    description
+      "none";
+  }
+
+  identity LOOP_DETECTION_RESULT_TYPE {
+    description
+      "none";
+  }
+
+  identity LOOP_DETECTION_RESULT_TYPE_LOOP_DETECTED {
+    base LOOP_DETECTION_RESULT_TYPE;
+    description
+      "none";
+  }
+
+  identity LOOP_DETECTION_RESULT_TYPE_NO_LOOP_DETECTED {
+    base LOOP_DETECTION_RESULT_TYPE;
+    description
+      "none";
+  }
+
+  identity LOOP_DETECTION_RESULT_TYPE_DETECTION_SWITCHED_OFF {
+    base LOOP_DETECTION_RESULT_TYPE;
+    description
+      "none";
+  }
+
+  identity LOOP_DETECTION_RESULT_TYPE_NOT_YET_DEFINED {
+    base LOOP_DETECTION_RESULT_TYPE;
+    description
+      "none";
+  }
+
+  identity GRANULARITY_PERIOD_TYPE {
+    description
+      "none";
+  }
+
+  identity GRANULARITY_PERIOD_TYPE_UNKNOWN {
+    base GRANULARITY_PERIOD_TYPE;
+    description
+      "none";
+  }
+
+  identity GRANULARITY_PERIOD_TYPE_PERIOD-15-MIN {
+    base GRANULARITY_PERIOD_TYPE;
+    description
+      "none";
+  }
+
+  identity GRANULARITY_PERIOD_TYPE_PERIOD-24-HOURS {
+    base GRANULARITY_PERIOD_TYPE;
+    description
+      "none";
+  }
+
+  identity GRANULARITY_PERIOD_TYPE_NOT_YET_DEFINED {
+    base GRANULARITY_PERIOD_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE {
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_NON-ALARMED {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_WARNING {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_MAJOR {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_MINOR {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_CRITICAL {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_NOT_YET_DEFINED {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity INTERFACE_STATUS_TYPE {
+    description
+      "none";
+  }
+
+  identity INTERFACE_STATUS_TYPE_UP {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Ready to pass packets.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_DOWN {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "The interface does not pass any packets.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_SHUT_DUE_LOOP {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Only relevant if (loopPortShutDownIsAvail==1) AND (loopPortShutDownIsOn==1). 1 = port has been automatically shut down, because an Ethernet loop has been detected on this interface.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_TESTING {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "In some test mode.  No operational packets can be passed.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_UNKNOWN {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Status cannot be determined for some reason.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_DORMANT {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Waiting for some external event.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_NOT_PRESENT {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Some component (typically hardware) is missing.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_LOWER_LAYER_DOWN {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Down due to state of lower-layer interface(s).";
+  }
+
+  identity INTERFACE_STATUS_TYPE_ADMIN_DOWN {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Down due to configuration.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_NOT_YET_DEFINED {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "none";
+  }
+
+  identity OPERATIONAL_STATE_TYPE {
+    description
+      "none";
+  }
+
+  identity OPERATIONAL_STATE_TYPE_ENABLED {
+    base OPERATIONAL_STATE_TYPE;
+    description
+      "none";
+  }
+
+  identity OPERATIONAL_STATE_TYPE_DISABLED {
+    base OPERATIONAL_STATE_TYPE;
+    description
+      "none";
+  }
+
+  identity OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED {
+    base OPERATIONAL_STATE_TYPE;
+    description
+      "none";
+  }
+
+  identity ADMINISTRATIVE_STATE_TYPE {
+    description
+      "none";
+  }
+
+  identity ADMINISTRATIVE_STATE_TYPE_UNLOCKED {
+    base ADMINISTRATIVE_STATE_TYPE;
+    description
+      "none";
+  }
+
+  identity ADMINISTRATIVE_STATE_TYPE_LOCKED {
+    base ADMINISTRATIVE_STATE_TYPE;
+    description
+      "none";
+  }
+
+  identity ADMINISTRATIVE_STATE_TYPE_SHUTTING_DOWN {
+    base ADMINISTRATIVE_STATE_TYPE;
+    description
+      "none";
+  }
+
+  identity ADMINISTRATIVE_STATE_TYPE_NOT_YET_DEFINED {
+    base ADMINISTRATIVE_STATE_TYPE;
+    description
+      "none";
+  }
+
+  typedef granularity-period-type {
+    type identityref {
+      base GRANULARITY_PERIOD_TYPE;
+    }
+    description
+      "The enumeration with the options for granularity period of the performance data.";
+  }
+
+  typedef severity-type {
+    type identityref {
+      base SEVERITY_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef interface-status-type {
+    type identityref {
+      base INTERFACE_STATUS_TYPE;
+    }
+    description
+      "Current Interface Status";
+  }
+
+  typedef operational-state-type {
+    type identityref {
+      base OPERATIONAL_STATE_TYPE;
+    }
+    description
+      "The list of valid operational states for the connection.";
+  }
+
+  typedef administrative-state-type {
+    type identityref {
+      base ADMINISTRATIVE_STATE_TYPE;
+    }
+    description
+      "For more information on Administrative State, See ITU-T Recs. X.731 and M.3100.";
+  }
+
+  grouping problem-kind-severity-type {
+    leaf problem-kind-name {
+      type string;
+      description
+        "Name of the alarm according to SupportedAlarmList";
+    }
+    leaf problem-kind-severity {
+      type severity-type;
+      description
+        "Severity of this type of alarm.";
+    }
+    description
+      "none";
+  }
+
+  grouping mac-interface-current-problem-type {
+    leaf problem-name {
+      type string;
+      description
+        "Name of the alarm according to SupportedAlarmList";
+    }
+    uses current-problem;
+    description
+      "none";
+  }
+
+  grouping mac-interface-performance-type {
+    leaf mac-control-frames-ingress {
+      type int32;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "MAC layer control frames received on the interface.";
+    }
+    leaf mac-pause-frames-ingress {
+      type int32;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "MAC layer Pause frames received on the interface.";
+    }
+    leaf oversized-frames-ingress {
+      type int32;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "The total number of frames received that were longer than 1518 octets (excluding framing bits, but including FCS octets) and were otherwise well formed.";
+    }
+    leaf undersized-frames-ingress {
+      type int32;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "The total number of frames received that were less than 64 octets long (excluding framing bits, but including FCS octets) and were otherwise well formed.";
+    }
+    leaf jabber-frames-ingres {
+      type int32;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Number of jabber frames received on the interface.  Jabber frames are typically defined as oversize frames which also have a bad CRC.  Implementations may use slightly different definitions of what constitutes a jabber frame.  Often indicative of a NIC hardware problem.";
+    }
+    leaf fragmented-frames-ingress {
+      type int64;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "The total number of frames received that were less than 64 octets in length (excluding framing bits but including FCS octets) and had either a bad Frame Check Sequence (FCS) with an integral number of octets (FCS Error) or a bad FCS with a non-integral number of octets (Alignment Error).";
+    }
+    leaf tagged-frames-ingress {
+      type int64;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Number of 802.1q tagged frames received on the interface.";
+    }
+    leaf mac-control-frames-egress {
+      type int32;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "MAC layer control frames sent on the interface.";
+    }
+    leaf mac-pause-frames-egress {
+      type int32;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "MAC layer Pause frames sent on the interface.";
+    }
+    leaf tagged-frames-egress {
+      type int64;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Number of 802.1q tagged frames sent on the interface.";
+    }
+    leaf frames-of-64-byte {
+      type int64;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Number of packets (including bad packets) received that were 64 bytes in length (excluding framing bits but including FCS bytes).";
+    }
+    leaf frames-of-65-to-127-byte {
+      type int64;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Number of good and bad packets received that were between 65 and 127 bytes in length (excluding framing bits but including FCS bytes).";
+    }
+    leaf frames-of-128-to-255-byte {
+      type int64;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Number of good and bad packets received that were between 128 and 255 bytes in length inclusive (excluding framing bits but including FCS bytes).";
+    }
+    leaf frames-of-256-to-511-byte {
+      type int64;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Number of good and bad packets received that were between 256 and 511 bytes in length inclusive (excluding framing bits but including FCS bytes).";
+    }
+    leaf frames-of-512-to-1023-byte {
+      type int64;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Number of good and bad packets received that were between 512 and 1023 bytes in length inclusive (excluding framing bits but including FCS bytes).";
+    }
+    leaf frames-of-1024-to-1518-byte {
+      type int64;
+      units "frame";
+      default "-1";
+      config false;
+      description
+        "Number of good and bad packets received that were between 1024 and 1518 bytes in length inclusive (excluding framing bits but including FCS bytes).";
+    }
+    description
+      "none";
+  }
+
+  grouping mac-interface-current-performance-type {
+    container performance-data {
+      config false;
+      uses mac-interface-performance-type;
+      description
+        "none";
+    }
+    uses current-performance;
+    description
+      "none";
+  }
+
+  grouping mac-interface-historical-performance-type {
+    container performance-data {
+      config false;
+      uses mac-interface-performance-type;
+      description
+        "none";
+    }
+    uses historical-performance;
+    description
+      "none";
+  }
+}

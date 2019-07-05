@@ -1,5 +1,5 @@
 module: core-model
-  +--rw control-construct
+  +--rw control-construct!
      +--rw top-level-equipment*         -> /control-construct/equipment/uuid
      +--rw equipment* [uuid]
      |  +--rw expected-equipment* [local-id]
@@ -267,7 +267,7 @@ module: core-model
      |  +--rw lifecycle-state?                 lifecycle-state
      |  +--rw address*                         dt-address
      +--rw logical-termination-point* [uuid]
-     |  +--rw lp* [local-id]
+     |  +--rw layer-protocol* [local-id]
      |  |  +--rw layer-protocol-name
      |  |  |  +--rw layer-protocol-qualifier?   string
      |  |  |  +--rw layer-protocol-name?        layer-protocol-name
@@ -278,267 +278,6 @@ module: core-model
      |  |  +--rw is-protection-lock-out?             boolean
      |  |  +--rw fc-blocks-signal-to-lp?             string
      |  |  +--rw local-id                            string
-     |  |  |  +--ro hybrid-mw-structure:hybrid-mw-structure-pac
-     |  |  |  |  +--ro hybrid-mw-structure:hybrid-mw-structure-capability
-     |  |  |  |  |  +--ro hybrid-mw-structure:supported-tdm-structure-kind-list* [tdm-structure-name]
-     |  |  |  |  |  |  +--ro hybrid-mw-structure:tdm-structure-name                   string
-     |  |  |  |  |  |  +--ro hybrid-mw-structure:tdm-segment-size?                    int32
-     |  |  |  |  |  |  +--ro hybrid-mw-structure:max-number-of-segments-reservable?   int8
-     |  |  |  |  |  +--ro hybrid-mw-structure:supported-alarm-list*                string
-     |  |  |  |  |  +--ro hybrid-mw-structure:performance-monitoring-is-avail?     boolean
-     |  |  |  |  +--ro hybrid-mw-structure:hybrid-mw-structure-configuration
-     |  |  |  |  |  +--ro hybrid-mw-structure:tdm-structure-kind
-     |  |  |  |  |  |  +--ro hybrid-mw-structure:tdm-structure-name?                  string
-     |  |  |  |  |  |  +--ro hybrid-mw-structure:tdm-segment-size?                    int32
-     |  |  |  |  |  |  +--ro hybrid-mw-structure:max-number-of-segments-reservable?   int8
-     |  |  |  |  |  +--ro hybrid-mw-structure:number-of-tdm-segments-to-be-reserved?     int8
-     |  |  |  |  |  +--ro hybrid-mw-structure:performance-monitoring-collection-is-on?   boolean
-     |  |  |  |  |  +--ro hybrid-mw-structure:g-826-threshold-cross-alarm-list* []
-     |  |  |  |  |  |  +--ro hybrid-mw-structure:g-826-value-kind?           g-826-type
-     |  |  |  |  |  |  +--ro hybrid-mw-structure:alarm-raising-threshold?    int32
-     |  |  |  |  |  |  +--ro hybrid-mw-structure:alarm-clearing-threshold?   int32
-     |  |  |  |  |  |  +--ro hybrid-mw-structure:granularity-period?         granularity-period-type
-     |  |  |  |  |  +--ro hybrid-mw-structure:clearing-threshold-cross-alarms-is-on?     boolean
-     |  |  |  |  |  +--ro hybrid-mw-structure:problem-kind-severity-list* [problem-kind-name]
-     |  |  |  |  |     +--ro hybrid-mw-structure:problem-kind-name        string
-     |  |  |  |  |     +--ro hybrid-mw-structure:problem-kind-severity?   severity-type
-     |  |  |  |  +--ro hybrid-mw-structure:hybrid-mw-structure-status
-     |  |  |  |  |  +--ro hybrid-mw-structure:segment-status-list* [segment-status-type-id]
-     |  |  |  |  |     +--ro hybrid-mw-structure:segment-status-type-id         int16
-     |  |  |  |  |     +--ro hybrid-mw-structure:segment-is-reserved-for-tdm?   boolean
-     |  |  |  |  |     +--ro hybrid-mw-structure:operational-status?            operational-state
-     |  |  |  |  +--ro hybrid-mw-structure:hybrid-mw-structure-current-problems
-     |  |  |  |  |  +--ro hybrid-mw-structure:current-problem-list* [sequence-number]
-     |  |  |  |  |     +--ro hybrid-mw-structure:problem-name?       string
-     |  |  |  |  |     +--ro hybrid-mw-structure:sequence-number     int16
-     |  |  |  |  |     +--ro hybrid-mw-structure:time-stamp?         string
-     |  |  |  |  |     +--ro hybrid-mw-structure:problem-severity?   severity-type
-     |  |  |  |  +--ro hybrid-mw-structure:hybrid-mw-structure-current-performance
-     |  |  |  |  |  +--ro hybrid-mw-structure:current-performance-data-list* [granularity-period]
-     |  |  |  |  |     +--ro hybrid-mw-structure:performance-data
-     |  |  |  |  |     |  +--ro hybrid-mw-structure:time-period?      int32
-     |  |  |  |  |     |  +--ro hybrid-mw-structure:es?               int32
-     |  |  |  |  |     |  +--ro hybrid-mw-structure:ses?              int32
-     |  |  |  |  |     |  +--ro hybrid-mw-structure:cses?             int32
-     |  |  |  |  |     |  +--ro hybrid-mw-structure:unavailability?   int32
-     |  |  |  |  |     |  +--ro hybrid-mw-structure:rx-level-min?     int8
-     |  |  |  |  |     |  +--ro hybrid-mw-structure:rx-level-max?     int8
-     |  |  |  |  |     |  +--ro hybrid-mw-structure:rx-level-avg?     int8
-     |  |  |  |  |     +--ro hybrid-mw-structure:timestamp?               string
-     |  |  |  |  |     +--ro hybrid-mw-structure:suspect-interval-flag?   boolean
-     |  |  |  |  |     +--ro hybrid-mw-structure:elapsed-time?            int64
-     |  |  |  |  |     +--ro hybrid-mw-structure:scanner-id?              string
-     |  |  |  |  |     +--ro hybrid-mw-structure:operational-state?       operational-state
-     |  |  |  |  |     +--ro hybrid-mw-structure:granularity-period       granularity-period-type
-     |  |  |  |  |     +--ro hybrid-mw-structure:administrative-state?    administrative-state
-     |  |  |  |  |     +--ro hybrid-mw-structure:object-class?            string
-     |  |  |  |  |     +--ro hybrid-mw-structure:name-binding?            string
-     |  |  |  |  |     +--ro hybrid-mw-structure:packages?                string
-     |  |  |  |  |     +--ro hybrid-mw-structure:allomorphs?              string
-     |  |  |  |  +--ro hybrid-mw-structure:hybrid-mw-structure-historical-performances
-     |  |  |  |     +--ro hybrid-mw-structure:historical-performance-data-list* [period-end-time]
-     |  |  |  |        +--ro hybrid-mw-structure:performance-data
-     |  |  |  |        |  +--ro hybrid-mw-structure:time-period?      int32
-     |  |  |  |        |  +--ro hybrid-mw-structure:es?               int32
-     |  |  |  |        |  +--ro hybrid-mw-structure:ses?              int32
-     |  |  |  |        |  +--ro hybrid-mw-structure:cses?             int32
-     |  |  |  |        |  +--ro hybrid-mw-structure:unavailability?   int32
-     |  |  |  |        |  +--ro hybrid-mw-structure:rx-level-min?     int8
-     |  |  |  |        |  +--ro hybrid-mw-structure:rx-level-max?     int8
-     |  |  |  |        |  +--ro hybrid-mw-structure:rx-level-avg?     int8
-     |  |  |  |        +--ro hybrid-mw-structure:suspect-interval-flag?   boolean
-     |  |  |  |        +--ro hybrid-mw-structure:history-data-id?         string
-     |  |  |  |        +--ro hybrid-mw-structure:period-end-time          string
-     |  |  |  |        +--ro hybrid-mw-structure:granularity-period?      granularity-period-type
-     |  |  |  |        +--ro hybrid-mw-structure:object-class?            string
-     |  |  |  |        +--ro hybrid-mw-structure:name-binding?            string
-     |  |  |  |        +--ro hybrid-mw-structure:packages?                string
-     |  |  |  |        +--ro hybrid-mw-structure:allomorphs?              string
-     |  |  |  +--ro pure-ethernet-structure:pure-ethernet-structure-pac
-     |  |  |  |  +--ro pure-ethernet-structure:pure-ethernet-structure-capability
-     |  |  |  |  |  +--ro pure-ethernet-structure:supported-alarm-list*              string
-     |  |  |  |  |  +--ro pure-ethernet-structure:performance-monitoring-is-avail?   boolean
-     |  |  |  |  +--ro pure-ethernet-structure:pure-ethernet-structure-configuration
-     |  |  |  |  |  +--ro pure-ethernet-structure:g-826-threshold-cross-alarm-list* []
-     |  |  |  |  |  |  +--ro pure-ethernet-structure:g-826-value-kind?           g-826-type
-     |  |  |  |  |  |  +--ro pure-ethernet-structure:alarm-raising-threshold?    int32
-     |  |  |  |  |  |  +--ro pure-ethernet-structure:alarm-clearing-threshold?   int32
-     |  |  |  |  |  |  +--ro pure-ethernet-structure:granularity-period?         granularity-period-type
-     |  |  |  |  |  +--ro pure-ethernet-structure:clearing-threshold-cross-alarms-is-on?     boolean
-     |  |  |  |  |  +--ro pure-ethernet-structure:performance-monitoring-collection-is-on?   boolean
-     |  |  |  |  |  +--ro pure-ethernet-structure:problem-kind-severity-list* [problem-kind-name]
-     |  |  |  |  |     +--ro pure-ethernet-structure:problem-kind-name        string
-     |  |  |  |  |     +--ro pure-ethernet-structure:problem-kind-severity?   severity-type
-     |  |  |  |  +--ro pure-ethernet-structure:pure-ethernet-structure-status
-     |  |  |  |  |  +--ro pure-ethernet-structure:segment-status-list* [segment-status-type-id]
-     |  |  |  |  |     +--ro pure-ethernet-structure:segment-status-type-id    int16
-     |  |  |  |  |     +--ro pure-ethernet-structure:operational-status?       operational-state-type
-     |  |  |  |  +--ro pure-ethernet-structure:pure-ethernet-structure-current-problems
-     |  |  |  |  |  +--ro pure-ethernet-structure:current-problem-list* [sequence-number]
-     |  |  |  |  |     +--ro pure-ethernet-structure:problem-name?       string
-     |  |  |  |  |     +--ro pure-ethernet-structure:sequence-number     int16
-     |  |  |  |  |     +--ro pure-ethernet-structure:time-stamp?         string
-     |  |  |  |  |     +--ro pure-ethernet-structure:problem-severity?   severity-type
-     |  |  |  |  +--ro pure-ethernet-structure:pure-ethernet-structure-current-performance
-     |  |  |  |  |  +--ro pure-ethernet-structure:current-performance-data-list* [granularity-period]
-     |  |  |  |  |     +--ro pure-ethernet-structure:performance-data
-     |  |  |  |  |     |  +--ro pure-ethernet-structure:time-period?      int32
-     |  |  |  |  |     |  +--ro pure-ethernet-structure:es?               int32
-     |  |  |  |  |     |  +--ro pure-ethernet-structure:ses?              int32
-     |  |  |  |  |     |  +--ro pure-ethernet-structure:cses?             int32
-     |  |  |  |  |     |  +--ro pure-ethernet-structure:unavailability?   int32
-     |  |  |  |  |     |  +--ro pure-ethernet-structure:rx-level-min?     int8
-     |  |  |  |  |     |  +--ro pure-ethernet-structure:rx-level-max?     int8
-     |  |  |  |  |     |  +--ro pure-ethernet-structure:rx-level-avg?     int8
-     |  |  |  |  |     +--ro pure-ethernet-structure:timestamp?               string
-     |  |  |  |  |     +--ro pure-ethernet-structure:suspect-interval-flag?   boolean
-     |  |  |  |  |     +--ro pure-ethernet-structure:elapsed-time?            int64
-     |  |  |  |  |     +--ro pure-ethernet-structure:scanner-id?              string
-     |  |  |  |  |     +--ro pure-ethernet-structure:operational-state?       operational-state-type
-     |  |  |  |  |     +--ro pure-ethernet-structure:granularity-period       granularity-period-type
-     |  |  |  |  |     +--ro pure-ethernet-structure:administrative-state?    administrative-state-type
-     |  |  |  |  |     +--ro pure-ethernet-structure:object-class?            string
-     |  |  |  |  |     +--ro pure-ethernet-structure:name-binding?            string
-     |  |  |  |  |     +--ro pure-ethernet-structure:packages?                string
-     |  |  |  |  |     +--ro pure-ethernet-structure:allomorphs?              string
-     |  |  |  |  +--ro pure-ethernet-structure:pure-ethernet-structure-historical-performances
-     |  |  |  |     +--ro pure-ethernet-structure:historical-performance-data-list* [period-end-time]
-     |  |  |  |        +--ro pure-ethernet-structure:performance-data
-     |  |  |  |        |  +--ro pure-ethernet-structure:time-period?      int32
-     |  |  |  |        |  +--ro pure-ethernet-structure:es?               int32
-     |  |  |  |        |  +--ro pure-ethernet-structure:ses?              int32
-     |  |  |  |        |  +--ro pure-ethernet-structure:cses?             int32
-     |  |  |  |        |  +--ro pure-ethernet-structure:unavailability?   int32
-     |  |  |  |        |  +--ro pure-ethernet-structure:rx-level-min?     int8
-     |  |  |  |        |  +--ro pure-ethernet-structure:rx-level-max?     int8
-     |  |  |  |        |  +--ro pure-ethernet-structure:rx-level-avg?     int8
-     |  |  |  |        +--ro pure-ethernet-structure:suspect-interval-flag?   boolean
-     |  |  |  |        +--ro pure-ethernet-structure:history-data-id?         string
-     |  |  |  |        +--ro pure-ethernet-structure:period-end-time          string
-     |  |  |  |        +--ro pure-ethernet-structure:granularity-period?      granularity-period-type
-     |  |  |  |        +--ro pure-ethernet-structure:object-class?            string
-     |  |  |  |        +--ro pure-ethernet-structure:name-binding?            string
-     |  |  |  |        +--ro pure-ethernet-structure:packages?                string
-     |  |  |  |        +--ro pure-ethernet-structure:allomorphs?              string
-     |  |  |  +--ro wire-interface:wire-interface-pac
-     |  |  |     +--ro wire-interface:wire-interface-capability
-     |  |  |     |  +--ro wire-interface:supported-pmd-kind-list* [pmd-name]
-     |  |  |     |  |  +--ro wire-interface:pmd-name    string
-     |  |  |     |  |  +--ro wire-interface:speed?      string
-     |  |  |     |  |  +--ro wire-interface:duplex?     duplex-type
-     |  |  |     |  +--ro wire-interface:auto-pmd-negotiation-is-avail?                            boolean
-     |  |  |     |  +--ro wire-interface:auto-negotiation-pmd-selection-is-avail?                  boolean
-     |  |  |     |  +--ro wire-interface:supported-signal-ordering-kind-list*                      signal-ordering-kind-type
-     |  |  |     |  +--ro wire-interface:auto-signal-ordering-is-avail?                            boolean
-     |  |  |     |  +--ro wire-interface:configuration-of-rx-sync-preference-is-avail?             boolean
-     |  |  |     |  +--ro wire-interface:mii-kind?                                                 mii-kind-type
-     |  |  |     |  +--ro wire-interface:mdi-kind?                                                 mdi-kind-type
-     |  |  |     |  +--ro wire-interface:required-medium-kind?                                     medium-kind-type
-     |  |  |     |  +--ro wire-interface:wavelength-min*                                           int32
-     |  |  |     |  +--ro wire-interface:wavelength-max*                                           int32
-     |  |  |     |  +--ro wire-interface:wavelength-grid-min?                                      int32
-     |  |  |     |  +--ro wire-interface:short-reach-mode-is-avail?                                boolean
-     |  |  |     |  +--ro wire-interface:eee-is-avail?                                             boolean
-     |  |  |     |  +--ro wire-interface:unidirectional-operation-is-avail?                        boolean
-     |  |  |     |  +--ro wire-interface:rxlevel-low-threshold?                                    int8
-     |  |  |     |  +--ro wire-interface:rxlevel-high-threshold?                                   int8
-     |  |  |     |  +--ro wire-interface:temperature-low-threshold?                                int8
-     |  |  |     |  +--ro wire-interface:temperature-high-threshold?                               int8
-     |  |  |     |  +--ro wire-interface:configuration-of-number-of-bip-errors-per-ses-is-avail?   boolean
-     |  |  |     |  +--ro wire-interface:statistics-is-avail?                                      boolean
-     |  |  |     |  +--ro wire-interface:performance-monitoring-is-avail?                          boolean
-     |  |  |     |  +--ro wire-interface:supported-loop-back-kind-list*                            loop-back-type
-     |  |  |     |  +--ro wire-interface:maintenance-timer-range?                                  string
-     |  |  |     |  +--ro wire-interface:supported-alarm-list*                                     string
-     |  |  |     +--ro wire-interface:wire-interface-configuration
-     |  |  |     |  +--ro wire-interface:interface-name?                            string
-     |  |  |     |  +--ro wire-interface:interface-is-on?                           boolean
-     |  |  |     |  +--ro wire-interface:remote-wire-interface-name?                string
-     |  |  |     |  +--ro wire-interface:transceiver-is-on-list*                    boolean
-     |  |  |     |  +--ro wire-interface:auto-pmd-negotiation-is-on?                boolean
-     |  |  |     |  +--ro wire-interface:fixed-pmd-kind
-     |  |  |     |  |  +--ro wire-interface:pmd-name?   string
-     |  |  |     |  |  +--ro wire-interface:speed?      string
-     |  |  |     |  |  +--ro wire-interface:duplex?     duplex-type
-     |  |  |     |  +--ro wire-interface:auto-negotiation-pmd-list* [pmd-name]
-     |  |  |     |  |  +--ro wire-interface:pmd-name    string
-     |  |  |     |  |  +--ro wire-interface:speed?      string
-     |  |  |     |  |  +--ro wire-interface:duplex?     duplex-type
-     |  |  |     |  +--ro wire-interface:auto-signal-ordering-is-on?                boolean
-     |  |  |     |  +--ro wire-interface:fixed-signal-ordering-kind?                signal-ordering-kind-type
-     |  |  |     |  +--ro wire-interface:wavelength-list*                           int32
-     |  |  |     |  +--ro wire-interface:rx-sync-preference?                        rx-sync-preference-type
-     |  |  |     |  +--ro wire-interface:short-reach-mode-is-on?                    boolean
-     |  |  |     |  +--ro wire-interface:eee-is-on?                                 boolean
-     |  |  |     |  +--ro wire-interface:unidirectional-operation-is-on?            boolean
-     |  |  |     |  +--ro wire-interface:number-of-bip-errors-per-ses?              int16
-     |  |  |     |  +--ro wire-interface:restart-pmd-negotiation-is-on?             boolean
-     |  |  |     |  +--ro wire-interface:statistics-is-on?                          boolean
-     |  |  |     |  +--ro wire-interface:performance-monitoring-collection-is-on?   boolean
-     |  |  |     |  +--ro wire-interface:isolation-is-on?                           boolean
-     |  |  |     |  +--ro wire-interface:loop-back-kind-on?                         loop-back-type
-     |  |  |     |  +--ro wire-interface:maintenance-timer?                         int32
-     |  |  |     |  +--ro wire-interface:problem-kind-severity-list* [problem-kind-name]
-     |  |  |     |     +--ro wire-interface:problem-kind-name        string
-     |  |  |     |     +--ro wire-interface:problem-kind-severity?   severity-type
-     |  |  |     +--ro wire-interface:wire-interface-status
-     |  |  |     |  +--ro wire-interface:interface-status?             interface-status-type
-     |  |  |     |  +--ro wire-interface:receive-signal-is-detected*   boolean
-     |  |  |     |  +--ro wire-interface:pmd-negotiation-state?        pmd-negotiation-state-type
-     |  |  |     |  +--ro wire-interface:pmd-is-up?                    boolean
-     |  |  |     |  +--ro wire-interface:pmd-kind-cur
-     |  |  |     |  |  +--ro wire-interface:pmd-name?   string
-     |  |  |     |  |  +--ro wire-interface:speed?      string
-     |  |  |     |  |  +--ro wire-interface:duplex?     duplex-type
-     |  |  |     |  +--ro wire-interface:signal-ordering-kind-cur?     signal-ordering-kind-type
-     |  |  |     |  +--ro wire-interface:rx-sync-role?                 rx-sync-role-type
-     |  |  |     |  +--ro wire-interface:eee-is-up?                    boolean
-     |  |  |     |  +--ro wire-interface:link-is-up?                   boolean
-     |  |  |     |  +--ro wire-interface:link-is-idle?                 boolean
-     |  |  |     |  +--ro wire-interface:tx-level-cur?                 int8
-     |  |  |     |  +--ro wire-interface:rx-level-cur*                 int8
-     |  |  |     |  +--ro wire-interface:loop-back-kind-up?            loop-back-type
-     |  |  |     +--ro wire-interface:wire-interface-current-problems
-     |  |  |     |  +--ro wire-interface:current-problem-list* [sequence-number]
-     |  |  |     |     +--ro wire-interface:problem-name?       string
-     |  |  |     |     +--ro wire-interface:sequence-number     int16
-     |  |  |     |     +--ro wire-interface:time-stamp?         string
-     |  |  |     |     +--ro wire-interface:problem-severity?   severity-type
-     |  |  |     +--ro wire-interface:wire-interface-current-performance
-     |  |  |     |  +--ro wire-interface:current-performance-data-list* [granularity-period]
-     |  |  |     |     +--ro wire-interface:performance-data
-     |  |  |     |     |  +--ro wire-interface:es?                              int32
-     |  |  |     |     |  +--ro wire-interface:ses?                             int32
-     |  |  |     |     |  +--ro wire-interface:symbol-error-during-carrier?     int32
-     |  |  |     |     |  +--ro wire-interface:low-power-idle-transmitter-ms?   int32
-     |  |  |     |     |  +--ro wire-interface:low-power-idle-receiver-ms?      int32
-     |  |  |     |     +--ro wire-interface:timestamp?               string
-     |  |  |     |     +--ro wire-interface:suspect-interval-flag?   boolean
-     |  |  |     |     +--ro wire-interface:elapsed-time?            int64
-     |  |  |     |     +--ro wire-interface:scanner-id?              string
-     |  |  |     |     +--ro wire-interface:operational-state?       operational-state-type
-     |  |  |     |     +--ro wire-interface:granularity-period       granularity-period-type
-     |  |  |     |     +--ro wire-interface:administrative-state?    administrative-state-type
-     |  |  |     |     +--ro wire-interface:object-class?            string
-     |  |  |     |     +--ro wire-interface:name-binding?            string
-     |  |  |     |     +--ro wire-interface:packages?                string
-     |  |  |     |     +--ro wire-interface:allomorphs?              string
-     |  |  |     +--ro wire-interface:wire-interface-historical-performances
-     |  |  |        +--ro wire-interface:historical-performance-data-list* [period-end-time]
-     |  |  |           +--ro wire-interface:performance-data
-     |  |  |           |  +--ro wire-interface:es?                              int32
-     |  |  |           |  +--ro wire-interface:ses?                             int32
-     |  |  |           |  +--ro wire-interface:symbol-error-during-carrier?     int32
-     |  |  |           |  +--ro wire-interface:low-power-idle-transmitter-ms?   int32
-     |  |  |           |  +--ro wire-interface:low-power-idle-receiver-ms?      int32
-     |  |  |           +--ro wire-interface:suspect-interval-flag?   boolean
-     |  |  |           +--ro wire-interface:history-data-id?         string
-     |  |  |           +--ro wire-interface:period-end-time          string
-     |  |  |           +--ro wire-interface:granularity-period?      granularity-period-type
-     |  |  |           +--ro wire-interface:object-class?            string
-     |  |  |           +--ro wire-interface:name-binding?            string
-     |  |  |           +--ro wire-interface:packages?                string
-     |  |  |           +--ro wire-interface:allomorphs?              string
      |  |  +--rw name* [value-name]
      |  |  |  +--rw value-name    string
      |  |  |  +--rw value?        string
@@ -553,6 +292,138 @@ module: core-model
      |  |  +--ro administrative-state?               administrative-state
      |  |  +--rw lifecycle-state?                    lifecycle-state
      |  |  +--rw address*                            dt-address
+     |  |  +--ro mac-interface:mac-interface-pac
+     |  |     +--ro mac-interface:macinterfacecapability
+     |  |     |  +--ro mac-interface:hardware-mac-address?                   string
+     |  |     |  +--ro mac-interface:mac-address-configuration-is-avail?     boolean
+     |  |     |  +--ro mac-interface:maximum-frame-size-min?                 int16
+     |  |     |  +--ro mac-interface:maximum-frame-size-max?                 int16
+     |  |     |  +--ro mac-interface:supported-frame-format-list*            frame-format-type
+     |  |     |  +--ro mac-interface:supported-flow-control-mode-list*       flow-control-mode-type
+     |  |     |  +--ro mac-interface:link-loss-forwarding-is-avail?          boolean
+     |  |     |  +--ro mac-interface:broadcast-frame-suppression-is-avail?   boolean
+     |  |     |  +--ro mac-interface:ingress-shaping-is-avail?               boolean
+     |  |     |  +--ro mac-interface:egress-shaping-is-avail?                boolean
+     |  |     |  +--ro mac-interface:loop-port-shut-down-is-avail?           boolean
+     |  |     |  +--ro mac-interface:loop-detection-is-avail?                boolean
+     |  |     |  +--ro mac-interface:admin-shut-down-is-avail?               boolean
+     |  |     |  +--ro mac-interface:supported-loop-back-kind-list*          loop-back-type
+     |  |     |  +--ro mac-interface:maintenance-timer-range?                string
+     |  |     |  +--ro mac-interface:statistics-is-avail?                    boolean
+     |  |     |  +--ro mac-interface:supported-alarm-list*                   string
+     |  |     |  +--ro mac-interface:performance-monitoring-is-avail?        boolean
+     |  |     +--ro mac-interface:macinterfaceconfiguration
+     |  |     |  +--ro mac-interface:interface-name?                            string
+     |  |     |  +--ro mac-interface:interface-is-on?                           boolean
+     |  |     |  +--ro mac-interface:mac-address-configuration-is-on?           boolean
+     |  |     |  +--ro mac-interface:configured-mac-address?                    string
+     |  |     |  +--ro mac-interface:maximum-frame-size?                        int16
+     |  |     |  +--ro mac-interface:fragmentation-allowed?                     fragmentation-type
+     |  |     |  +--ro mac-interface:transmitted-frame-format?                  frame-format-type
+     |  |     |  +--ro mac-interface:flow-control-mode?                         flow-control-mode-type
+     |  |     |  +--ro mac-interface:link-loss-forwarding-is-on?                boolean
+     |  |     |  +--ro mac-interface:link-loss-forwarding-delay?                int8
+     |  |     |  +--ro mac-interface:broadcast-frame-suppression-is-on?         boolean
+     |  |     |  +--ro mac-interface:maximum-share-of-broadcast-frames?         int8
+     |  |     |  +--ro mac-interface:loop-port-shut-down-is-on?                 boolean
+     |  |     |  +--ro mac-interface:loop-detection-is-on?                      boolean
+     |  |     |  +--ro mac-interface:loop-back-kind-on?                         loop-back-type
+     |  |     |  +--ro mac-interface:maintenance-timer?                         int32
+     |  |     |  +--ro mac-interface:statistics-is-on?                          boolean
+     |  |     |  +--ro mac-interface:problem-kind-severity-list* [problem-kind-name]
+     |  |     |  |  +--ro mac-interface:problem-kind-name        string
+     |  |     |  |  +--ro mac-interface:problem-kind-severity?   severity-type
+     |  |     |  +--ro mac-interface:performance-monitoring-collection-is-on?   boolean
+     |  |     +--ro mac-interface:macinterfacestatus
+     |  |     |  +--ro mac-interface:interface-status?                     interface-status-type
+     |  |     |  +--ro mac-interface:mac-address-cur?                      string
+     |  |     |  +--ro mac-interface:received-ethernet-frame-format-cur?   frame-format-type
+     |  |     |  +--ro mac-interface:flow-control-mode-cur?                flow-control-mode-type
+     |  |     |  +--ro mac-interface:loop-detection-result?                loop-detection-result-type
+     |  |     |  +--ro mac-interface:loop-back-kind-up?                    loop-back-type
+     |  |     |  +--ro mac-interface:statistics-is-up?                     boolean
+     |  |     |  +--ro mac-interface:performance-monitoring-is-up?         boolean
+     |  |     |  +--ro mac-interface:time-stamp?                           string
+     |  |     |  +--ro mac-interface:last-10-sec-frame-input-rate?         int32
+     |  |     |  +--ro mac-interface:last-10-sec-frame-output-rate?        int32
+     |  |     |  +--ro mac-interface:total-fames-input?                    int64
+     |  |     |  +--ro mac-interface:total-frames-output?                  int64
+     |  |     |  +--ro mac-interface:forwarded-frames-input?               int64
+     |  |     |  +--ro mac-interface:forwarded-frames-output?              int64
+     |  |     |  +--ro mac-interface:unicast-frames-input?                 int64
+     |  |     |  +--ro mac-interface:unicast-frames-output?                int64
+     |  |     |  +--ro mac-interface:multicast-frames-input?               int32
+     |  |     |  +--ro mac-interface:multicast-frames-output?              int32
+     |  |     |  +--ro mac-interface:broadcast-frames-input?               int32
+     |  |     |  +--ro mac-interface:broadcast-frames-output?              int32
+     |  |     |  +--ro mac-interface:fragmented-frames-input?              int32
+     |  |     |  +--ro mac-interface:errored-frames-input?                 int32
+     |  |     |  +--ro mac-interface:errored-frames-output?                int32
+     |  |     |  +--ro mac-interface:dropped-frames-input?                 int32
+     |  |     |  +--ro mac-interface:dropped-frames-output?                int32
+     |  |     +--ro mac-interface:macinterfacecurrentproblem
+     |  |     |  +--ro mac-interface:current-problem-list* [sequence-number]
+     |  |     |     +--ro mac-interface:problem-name?       string
+     |  |     |     +--ro mac-interface:sequence-number     int16
+     |  |     |     +--ro mac-interface:time-stamp?         string
+     |  |     |     +--ro mac-interface:problem-severity?   severity-type
+     |  |     +--ro mac-interface:macinterfacecurrentperformance
+     |  |     |  +--ro mac-interface:current-performance-data-list* [granularity-period]
+     |  |     |     +--ro mac-interface:performance-data
+     |  |     |     |  +--ro mac-interface:mac-control-frames-ingress?    int32
+     |  |     |     |  +--ro mac-interface:mac-pause-frames-ingress?      int32
+     |  |     |     |  +--ro mac-interface:oversized-frames-ingress?      int32
+     |  |     |     |  +--ro mac-interface:undersized-frames-ingress?     int32
+     |  |     |     |  +--ro mac-interface:jabber-frames-ingres?          int32
+     |  |     |     |  +--ro mac-interface:fragmented-frames-ingress?     int64
+     |  |     |     |  +--ro mac-interface:tagged-frames-ingress?         int64
+     |  |     |     |  +--ro mac-interface:mac-control-frames-egress?     int32
+     |  |     |     |  +--ro mac-interface:mac-pause-frames-egress?       int32
+     |  |     |     |  +--ro mac-interface:tagged-frames-egress?          int64
+     |  |     |     |  +--ro mac-interface:frames-of-64-byte?             int64
+     |  |     |     |  +--ro mac-interface:frames-of-65-to-127-byte?      int64
+     |  |     |     |  +--ro mac-interface:frames-of-128-to-255-byte?     int64
+     |  |     |     |  +--ro mac-interface:frames-of-256-to-511-byte?     int64
+     |  |     |     |  +--ro mac-interface:frames-of-512-to-1023-byte?    int64
+     |  |     |     |  +--ro mac-interface:frames-of-1024-to-1518-byte?   int64
+     |  |     |     +--ro mac-interface:timestamp?               string
+     |  |     |     +--ro mac-interface:suspect-interval-flag?   boolean
+     |  |     |     +--ro mac-interface:elapsed-time?            int64
+     |  |     |     +--ro mac-interface:scanner-id?              string
+     |  |     |     +--ro mac-interface:operational-state?       operational-state-type
+     |  |     |     +--ro mac-interface:granularity-period       granularity-period-type
+     |  |     |     +--ro mac-interface:administrative-state?    administrative-state-type
+     |  |     |     +--ro mac-interface:object-class?            string
+     |  |     |     +--ro mac-interface:name-binding?            string
+     |  |     |     +--ro mac-interface:packages?                string
+     |  |     |     +--ro mac-interface:allomorphs?              string
+     |  |     +--ro mac-interface:macinterfacehistoricalpeformance
+     |  |        +--ro mac-interface:historical-performace-data* [period-end-time]
+     |  |           +--ro mac-interface:performance-data
+     |  |           |  +--ro mac-interface:mac-control-frames-ingress?    int32
+     |  |           |  +--ro mac-interface:mac-pause-frames-ingress?      int32
+     |  |           |  +--ro mac-interface:oversized-frames-ingress?      int32
+     |  |           |  +--ro mac-interface:undersized-frames-ingress?     int32
+     |  |           |  +--ro mac-interface:jabber-frames-ingres?          int32
+     |  |           |  +--ro mac-interface:fragmented-frames-ingress?     int64
+     |  |           |  +--ro mac-interface:tagged-frames-ingress?         int64
+     |  |           |  +--ro mac-interface:mac-control-frames-egress?     int32
+     |  |           |  +--ro mac-interface:mac-pause-frames-egress?       int32
+     |  |           |  +--ro mac-interface:tagged-frames-egress?          int64
+     |  |           |  +--ro mac-interface:frames-of-64-byte?             int64
+     |  |           |  +--ro mac-interface:frames-of-65-to-127-byte?      int64
+     |  |           |  +--ro mac-interface:frames-of-128-to-255-byte?     int64
+     |  |           |  +--ro mac-interface:frames-of-256-to-511-byte?     int64
+     |  |           |  +--ro mac-interface:frames-of-512-to-1023-byte?    int64
+     |  |           |  +--ro mac-interface:frames-of-1024-to-1518-byte?   int64
+     |  |           +--ro mac-interface:suspect-interval-flag?   boolean
+     |  |           +--ro mac-interface:history-data-id?         string
+     |  |           +--ro mac-interface:period-end-time          string
+     |  |           +--ro mac-interface:granularity-period?      granularity-period-type
+     |  |           +--ro mac-interface:object-class?            string
+     |  |           +--ro mac-interface:name-binding?            string
+     |  |           +--ro mac-interface:packages?                string
+     |  |           +--ro mac-interface:allomorphs?              string
      |  +--rw ltp-direction?             termination-direction
      |  +--rw physical-port-reference*   -> /control-construct/equipment/uuid
      |  +--rw server-ltp*                -> /control-construct/logical-termination-point/uuid
@@ -577,7 +448,7 @@ module: core-model
      |  |  |  |  +--rw ltp*                             -> /control-construct/logical-termination-point/uuid
      |  |  |  |  +--rw role?                            port-role
      |  |  |  |  +--rw fc-port-direction?               port-direction
-     |  |  |  |  +--rw is-protection-lock-out?          boolean {in-protection-context-where-the-fcport-is-to-be-excluded-from-use-for-protection}?
+     |  |  |  |  +--rw is-protection-lock-out?          boolean {fcportisprotectionlockout}?
      |  |  |  |  +--rw selection-priority?              int64
      |  |  |  |  +--ro is-internal-port?                boolean
      |  |  |  |  +--rw fc-route-feeds-fc-port-egress*   string
@@ -600,7 +471,7 @@ module: core-model
      |  |  |  |  +--rw address*                         dt-address
      |  |  |  +--rw fc-switch*                          string
      |  |  |  +--rw configuration-and-switch-control*   string
-     |  |  |  +--rw is-protection-lock-out?             boolean {in-protection-context-if-server-of-protection-where-entire-server-is-to-be-excluded-from-use-for-protection}?
+     |  |  |  +--rw is-protection-lock-out?             boolean {forwardingconstructisprotectionlockout}?
      |  |  |  +--rw service-priority?                   int64
      |  |  |  +--rw supported-link*                     string
      |  |  |  +--rw supporting-pc?                      string
@@ -676,7 +547,7 @@ module: core-model
      |  |  |  +--rw ltp*                             -> /control-construct/logical-termination-point/uuid
      |  |  |  +--rw role?                            port-role
      |  |  |  +--rw fc-port-direction?               port-direction
-     |  |  |  +--rw is-protection-lock-out?          boolean {in-protection-context-where-the-fcport-is-to-be-excluded-from-use-for-protection}?
+     |  |  |  +--rw is-protection-lock-out?          boolean {fcportisprotectionlockout}?
      |  |  |  +--rw selection-priority?              int64
      |  |  |  +--ro is-internal-port?                boolean
      |  |  |  +--rw fc-route-feeds-fc-port-egress*   string
@@ -699,7 +570,7 @@ module: core-model
      |  |  |  +--rw address*                         dt-address
      |  |  +--rw fc-switch*                          string
      |  |  +--rw configuration-and-switch-control*   string
-     |  |  +--rw is-protection-lock-out?             boolean {in-protection-context-if-server-of-protection-where-entire-server-is-to-be-excluded-from-use-for-protection}?
+     |  |  +--rw is-protection-lock-out?             boolean {forwardingconstructisprotectionlockout}?
      |  |  +--rw service-priority?                   int64
      |  |  +--rw supported-link*                     string
      |  |  +--rw supporting-pc?                      string
@@ -816,31 +687,7 @@ module: core-model
        |  +---w input-constraint-structure?   string
        +--ro output
           +--ro output-constraint-structure?   string
-module: hybrid-mw-structure
-
-  notifications:
-    +---n object-creation-notification
-    |  +--ro counter?         int32
-    |  +--ro time-stamp?      string
-    |  +--ro object-id-ref?   string
-    |  +--ro object-type?     string
-    +---n object-deletion-notification
-    |  +--ro counter?         int32
-    |  +--ro time-stamp?      string
-    |  +--ro object-id-ref?   string
-    +---n attribute-value-changed-notification
-    |  +--ro counter?          int32
-    |  +--ro time-stamp?       string
-    |  +--ro object-id-ref?    string
-    |  +--ro attribute-name?   string
-    |  +--ro new-value?        string
-    +---n problem-notification
-       +--ro counter?         int32
-       +--ro time-stamp?      string
-       +--ro object-id-ref?   string
-       +--ro problem?         string
-       +--ro severity?        severity-type
-module: pure-ethernet-structure
+module: mac-interface
 
   notifications:
     +---n object-creation-notification
@@ -860,30 +707,6 @@ module: pure-ethernet-structure
     |  +--ro new-value?        string
     +---n problem-notification
        +--ro counter?         int64
-       +--ro time-stamp?      string
-       +--ro object-id-ref?   string
-       +--ro problem?         string
-       +--ro severity?        severity-type
-module: wire-interface
-
-  notifications:
-    +---n object-creation-notification
-    |  +--ro counter?         int32
-    |  +--ro time-stamp?      string
-    |  +--ro object-id-ref?   string
-    |  +--ro object-type?     string
-    +---n object-deletion-notification
-    |  +--ro counter?         int32
-    |  +--ro time-stamp?      string
-    |  +--ro object-id-ref?   string
-    +---n attribute-value-changed-notification
-    |  +--ro counter?          int32
-    |  +--ro time-stamp?       string
-    |  +--ro object-id-ref?    string
-    |  +--ro attribute-name?   string
-    |  +--ro new-value?        string
-    +---n problem-notification
-       +--ro counter?         int32
        +--ro time-stamp?      string
        +--ro object-id-ref?   string
        +--ro problem?         string

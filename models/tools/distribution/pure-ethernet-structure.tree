@@ -1,5 +1,5 @@
 module: core-model
-  +--rw control-construct
+  +--rw control-construct!
      +--rw top-level-equipment*         -> /control-construct/equipment/uuid
      +--rw equipment* [uuid]
      |  +--rw expected-equipment* [local-id]
@@ -271,13 +271,13 @@ module: core-model
      |  |  +--rw layer-protocol-name
      |  |  |  +--rw layer-protocol-qualifier?   string
      |  |  |  +--rw layer-protocol-name?        layer-protocol-name
-     |  |  +--rw configured-client-capacity?         string
-     |  |  +--rw lp-direction?                       termination-direction
-     |  |  +--rw termination-state?                  termination-state
-     |  |  +--rw configuration-and-switch-control*   string
-     |  |  +--rw is-protection-lock-out?             boolean
-     |  |  +--rw fc-blocks-signal-to-lp?             string
-     |  |  +--rw local-id                            string
+     |  |  +--rw configured-client-capacity?                            string
+     |  |  +--rw lp-direction?                                          termination-direction
+     |  |  +--rw termination-state?                                     termination-state
+     |  |  +--rw configuration-and-switch-control*                      string
+     |  |  +--rw is-protection-lock-out?                                boolean
+     |  |  +--rw fc-blocks-signal-to-lp?                                string
+     |  |  +--rw local-id                                               string
      |  |  +--rw name* [value-name]
      |  |  |  +--rw value-name    string
      |  |  |  +--rw value?        string
@@ -287,11 +287,77 @@ module: core-model
      |  |  +--rw extension* [value-name]
      |  |  |  +--rw value-name    string
      |  |  |  +--rw value?        string
-     |  |  +--ro operational-state?                  operational-state
-     |  |  +--rw administrative-control?             administrative-control
-     |  |  +--ro administrative-state?               administrative-state
-     |  |  +--rw lifecycle-state?                    lifecycle-state
-     |  |  +--rw address*                            dt-address
+     |  |  +--ro operational-state?                                     operational-state
+     |  |  +--rw administrative-control?                                administrative-control
+     |  |  +--ro administrative-state?                                  administrative-state
+     |  |  +--rw lifecycle-state?                                       lifecycle-state
+     |  |  +--rw address*                                               dt-address
+     |  |  +--ro pure-ethernet-structure:pure-ethernet-structure-pac
+     |  |     +--ro pure-ethernet-structure:pure-ethernet-structure-capability
+     |  |     |  +--ro pure-ethernet-structure:supported-alarm-list*              string
+     |  |     |  +--ro pure-ethernet-structure:performance-monitoring-is-avail?   boolean
+     |  |     +--ro pure-ethernet-structure:pure-ethernet-structure-configuration
+     |  |     |  +--ro pure-ethernet-structure:g-826-threshold-cross-alarm-list* []
+     |  |     |  |  +--ro pure-ethernet-structure:g-826-value-kind?           g-826-type
+     |  |     |  |  +--ro pure-ethernet-structure:alarm-raising-threshold?    int32
+     |  |     |  |  +--ro pure-ethernet-structure:alarm-clearing-threshold?   int32
+     |  |     |  |  +--ro pure-ethernet-structure:granularity-period?         granularity-period-type
+     |  |     |  +--ro pure-ethernet-structure:clearing-threshold-cross-alarms-is-on?     boolean
+     |  |     |  +--ro pure-ethernet-structure:performance-monitoring-collection-is-on?   boolean
+     |  |     |  +--ro pure-ethernet-structure:problem-kind-severity-list* [problem-kind-name]
+     |  |     |     +--ro pure-ethernet-structure:problem-kind-name        string
+     |  |     |     +--ro pure-ethernet-structure:problem-kind-severity?   severity-type
+     |  |     +--ro pure-ethernet-structure:pure-ethernet-structure-status
+     |  |     |  +--ro pure-ethernet-structure:segment-status-list* [segment-status-type-id]
+     |  |     |     +--ro pure-ethernet-structure:segment-status-type-id    int16
+     |  |     |     +--ro pure-ethernet-structure:operational-status?       operational-state-type
+     |  |     +--ro pure-ethernet-structure:pure-ethernet-structure-current-problems
+     |  |     |  +--ro pure-ethernet-structure:current-problem-list* [sequence-number]
+     |  |     |     +--ro pure-ethernet-structure:problem-name?       string
+     |  |     |     +--ro pure-ethernet-structure:sequence-number     int16
+     |  |     |     +--ro pure-ethernet-structure:time-stamp?         string
+     |  |     |     +--ro pure-ethernet-structure:problem-severity?   severity-type
+     |  |     +--ro pure-ethernet-structure:pure-ethernet-structure-current-performance
+     |  |     |  +--ro pure-ethernet-structure:current-performance-data-list* [granularity-period]
+     |  |     |     +--ro pure-ethernet-structure:performance-data
+     |  |     |     |  +--ro pure-ethernet-structure:time-period?      int32
+     |  |     |     |  +--ro pure-ethernet-structure:es?               int32
+     |  |     |     |  +--ro pure-ethernet-structure:ses?              int32
+     |  |     |     |  +--ro pure-ethernet-structure:cses?             int32
+     |  |     |     |  +--ro pure-ethernet-structure:unavailability?   int32
+     |  |     |     |  +--ro pure-ethernet-structure:rx-level-min?     int8
+     |  |     |     |  +--ro pure-ethernet-structure:rx-level-max?     int8
+     |  |     |     |  +--ro pure-ethernet-structure:rx-level-avg?     int8
+     |  |     |     +--ro pure-ethernet-structure:timestamp?               string
+     |  |     |     +--ro pure-ethernet-structure:suspect-interval-flag?   boolean
+     |  |     |     +--ro pure-ethernet-structure:elapsed-time?            int64
+     |  |     |     +--ro pure-ethernet-structure:scanner-id?              string
+     |  |     |     +--ro pure-ethernet-structure:operational-state?       operational-state-type
+     |  |     |     +--ro pure-ethernet-structure:granularity-period       granularity-period-type
+     |  |     |     +--ro pure-ethernet-structure:administrative-state?    administrative-state-type
+     |  |     |     +--ro pure-ethernet-structure:object-class?            string
+     |  |     |     +--ro pure-ethernet-structure:name-binding?            string
+     |  |     |     +--ro pure-ethernet-structure:packages?                string
+     |  |     |     +--ro pure-ethernet-structure:allomorphs?              string
+     |  |     +--ro pure-ethernet-structure:pure-ethernet-structure-historical-performances
+     |  |        +--ro pure-ethernet-structure:historical-performance-data-list* [period-end-time]
+     |  |           +--ro pure-ethernet-structure:performance-data
+     |  |           |  +--ro pure-ethernet-structure:time-period?      int32
+     |  |           |  +--ro pure-ethernet-structure:es?               int32
+     |  |           |  +--ro pure-ethernet-structure:ses?              int32
+     |  |           |  +--ro pure-ethernet-structure:cses?             int32
+     |  |           |  +--ro pure-ethernet-structure:unavailability?   int32
+     |  |           |  +--ro pure-ethernet-structure:rx-level-min?     int8
+     |  |           |  +--ro pure-ethernet-structure:rx-level-max?     int8
+     |  |           |  +--ro pure-ethernet-structure:rx-level-avg?     int8
+     |  |           +--ro pure-ethernet-structure:suspect-interval-flag?   boolean
+     |  |           +--ro pure-ethernet-structure:history-data-id?         string
+     |  |           +--ro pure-ethernet-structure:period-end-time          string
+     |  |           +--ro pure-ethernet-structure:granularity-period?      granularity-period-type
+     |  |           +--ro pure-ethernet-structure:object-class?            string
+     |  |           +--ro pure-ethernet-structure:name-binding?            string
+     |  |           +--ro pure-ethernet-structure:packages?                string
+     |  |           +--ro pure-ethernet-structure:allomorphs?              string
      |  +--rw ltp-direction?             termination-direction
      |  +--rw physical-port-reference*   -> /control-construct/equipment/uuid
      |  +--rw server-ltp*                -> /control-construct/logical-termination-point/uuid
@@ -555,3 +621,27 @@ module: core-model
        |  +---w input-constraint-structure?   string
        +--ro output
           +--ro output-constraint-structure?   string
+module: pure-ethernet-structure
+
+  notifications:
+    +---n object-creation-notification
+    |  +--ro counter?         int64
+    |  +--ro time-stamp?      string
+    |  +--ro object-id-ref?   string
+    |  +--ro object-type?     string
+    +---n object-deletion-notification
+    |  +--ro counter?         int64
+    |  +--ro time-stamp?      string
+    |  +--ro object-id-ref?   string
+    +---n attribute-value-changed-notification
+    |  +--ro counter?          int64
+    |  +--ro time-stamp?       string
+    |  +--ro object-id-ref?    string
+    |  +--ro attribute-name?   string
+    |  +--ro new-value?        string
+    +---n problem-notification
+       +--ro counter?         int64
+       +--ro time-stamp?      string
+       +--ro object-id-ref?   string
+       +--ro problem?         string
+       +--ro severity?        severity-type

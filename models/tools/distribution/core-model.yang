@@ -28,10 +28,18 @@ module core-model {
      See the License for the specific language governing permissions and
      limitations under the License.";
 
+  revision 2019-07-05 {
+    description
+      "Corrected version derived from ONF-TR-512 v1.4
+       - renaming of attribute lp to layer-protocol
+       - presence statement in root container according to RFC8407 4.10. Top-Level Data Definitions
+       - Feature names introduced";
+    reference
+      "ONF-TR-512, RFC 6020 and RFC 6087";
+  }
   revision 2019-05-25 {
     description
-      "
-       Initial version derived from ONF-TR-512 v1.4
+      "Initial version derived from ONF-TR-512 v1.4
        Please view https://github.com/OpenNetworkingFoundation/5G-xHaul/tree/experimental/models/tools for changes.
        Additional information: Additional manual changes";
     reference
@@ -39,8 +47,7 @@ module core-model {
   }
   revision 2019-05-05 {
     description
-      "
-       Initial version
+      "Initial version
        Please view https://github.com/OpenNetworkingFoundation/5G-xHaul/tree/experimental/models/tools for changes.
        Additional information: Initial version";
     reference
