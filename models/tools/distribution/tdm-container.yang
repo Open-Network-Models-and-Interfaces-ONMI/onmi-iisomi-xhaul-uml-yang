@@ -45,7 +45,7 @@ module tdm-container {
   }
 
   augment "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol" {
-    when 'derived-from-or-self(./core-model:layer-protocol-name, "tdm-container:LAYER_PROTOCOL_NAME_TDM_LAYER")';
+    when 'derived-from-or-self(./core-model:layer-protocol-name, "tdm-container:LAYER_PROTOCOL_NAME_TDM")';
     uses tdm-container-lp-spec;
     description
       "none";
