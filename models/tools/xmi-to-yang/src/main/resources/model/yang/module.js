@@ -33,6 +33,7 @@ Module.prototype.writeNode = function (store,layer) {
         PRE += '\t';
     }
     var name = "module " + this.name;
+    var yangVersion = PRE + "\tyang-version 1.1;";
     var namespace = !this.namespace || this.namespace === "" ? PRE + "\tnamespace ;\r\n" : PRE + "\tnamespace \"" + Util.yangifyName(this.namespace) + "\";\r\n";
     var imp = "";
     if (!this.import || this.import === []) {
@@ -46,7 +47,7 @@ Module.prototype.writeNode = function (store,layer) {
             if (store.openModelStatement[this.fileName] && store.openModelStatement[this.fileName].prefix && store.openModelStatement[this.fileName].prefix[this.import[i]] !== undefined) {
                 impPrefix = store.openModelStatement[this.fileName].prefix[this.import[i]];
             }
-            var impPrefix = store.openModelStatement[this.fileName].prefix[this.import[i]];
+            // var impPrefix = store.openModelStatement[this.fileName].prefix[this.import[i]];
             imp += PRE + "\timport " + impname + " {\r\n" + PRE + "\t\tprefix " + impPrefix + ";\r\n" + PRE + "\t}\r\n";
         }
     }
@@ -164,6 +165,7 @@ Module.prototype.writeNode = function (store,layer) {
         }
     }
     st = PRE + name + " {\r\n" +
+        yangVersion +
         namespace +
         pref +
         imp +

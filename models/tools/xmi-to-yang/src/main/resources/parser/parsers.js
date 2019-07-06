@@ -216,7 +216,7 @@ var parsers = {
                     "WG Web : " + jsonObject.projectWeb,
                     "WG List: " + jsonObject.projectEmail,
                     "Editor : " + jsonObject.editorName,
-                    "         " + jsonObject.editorEmail,
+                    "Email  : " + jsonObject.editorEmail,
                 ];
             },
             get contact() {
@@ -231,14 +231,23 @@ var parsers = {
              * @returns An json object representing a yang revision
              */
             revision: function(jsonObject) {
-                var PRE = "\t\t\t"; // [sko] Formating must not happen here, but ...
+                var changeLog;
+                if (jsonObject.changeLog && jsonObject.changeLog !== "") {
+                    changeLog = ["Please view", jsonObject.changeLog, "for changes."].join(" ");
+                }
+
+                var additionalChanges;
+                if (jsonObject.additionalChanges && jsonObject.additionalChanges !== "") {
+                    additionalChanges = ["Additional information:", jsonObject.additionalChanges].join(" ");
+                }
+
                 return {
                     date: jsonObject.date,
-                    description: ["",
-                        PRE + jsonObject.description,
-                        PRE + ["Please view", jsonObject.changeLog, "for changes."].join(" "),
-                        PRE + ["Additional information:", jsonObject.additionalChanges].join(" ")
-                    ].join("\n"),
+                    description: [
+                        jsonObject.description,
+                        changeLog,
+                        additionalChanges
+                    ].join("\n").trim(),
                     reference: jsonObject.reference
                 }
             }
@@ -398,7 +407,8 @@ var parsers = {
                 }
             }
 
-        }else{
+        } else {
+            creators = require('./creators'); // [sko] TODO I have seen this workaround some lines above, why is this needed?
             creators.createElement(xmi,undefined,store);
         }
 
@@ -423,13 +433,25 @@ var parsers = {
         props.mainmod = props.mainmod.replace(/[^\w\.-]+/g, '_');                              //not "A-Za-z0-9"->"_"
         store.modName.push(props.mainmod);
         
+
+        if (!store.openModelStatement[currentFilename]) {
+            store.openModelStatement[currentFilename] = {
+                organization: "",
+                contact: [],
+                revision: "",
+                prefix: undefined,
+                copyright: undefined,
+                license: undefined
+            };
+        }
         if (xmi.ownedComment) {
             props.comment += parsers.parseComment(xmi, store);
         }
-        props.comment = [props.comment, 
+        props.comment = [
+            props.comment, 
             store.openModelStatement[currentFilename].copyright, 
             store.openModelStatement[currentFilename].license
-        ].join('\n\n');
+        ].join('\n\n').trim();
         props.comment = props.comment.split("\n").join('\n\t\t');
 
         props.namespace = _.clone(config.namespace) + store.modName.join("-");
@@ -441,7 +463,9 @@ var parsers = {
         //     // props.prefix = Util.yangifyName(props.pre); // [sko] dont get the logic behind
         // }
         props.prefix = Util.yangifyName(props.pre); // [sko] dont get the logic behind;
-        if (store.openModelStatement[currentFilename].prefix && store.openModelStatement[currentFilename].prefix[props.mainmod] !== undefined) {
+        if (store.openModelStatement[currentFilename] && 
+            store.openModelStatement[currentFilename].prefix && 
+            store.openModelStatement[currentFilename].prefix[props.mainmod] !== undefined) {
             props.prefix = store.openModelStatement[currentFilename].prefix[props.mainmod];
         } 
 
@@ -451,7 +475,7 @@ var parsers = {
             "", 
             props.prefix, 
             store.openModelStatement[currentFilename].organization, 
-            [""].concat(store.openModelStatement[currentFilename].contact).join("\n\t\t"), 
+            store.openModelStatement[currentFilename].contact.join("\n\t\t"), 
             store.openModelStatement[currentFilename].revision, 
             props.comment, 
             currentFilename

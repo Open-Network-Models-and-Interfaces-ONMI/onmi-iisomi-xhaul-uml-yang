@@ -24,6 +24,8 @@ fi
 for yang in $DIR/*.yang
 do
 	echo "Post processing $yang"
+
+  # find/replace in core-model
   sed -i -e "s/name local\-id/local-id/g" $yang
   sed -i -e "s/local\-id name/local-id/g" $yang
   sed -i -e "s/name,local\-id/local-id/g" $yang
@@ -37,10 +39,10 @@ do
 
   sed -i -e "s/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:embedded-clock\/core-model:encapsulated-fc\/core-model:fc-port\/core-model:local-id/\/core-model:control-construct\/core-model:forwarding-domain\/core-model:fc\/core-model:fc-port\/core-model:local-id/g" $yang
 
-  core="${yang%%@*}"
-
+  # find/replace in wire-interface
+  sed -i -e "s/pmd\-kindpmd\-name/pmd-name/g" $yang
+  
+  # format
   pyang -f yang -p $DIR -o $yang $yang 
-  pyang -f yang -p $DIR -o ${core}.yang $yang 
-  pyang -f tree -p $DIR -o ${core}.tree $yang 
-
+  
 done

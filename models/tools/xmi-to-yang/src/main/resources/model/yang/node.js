@@ -416,7 +416,11 @@ Node.prototype.writeNode = function (layer) {
     var child = "";
     if (this.children) {
         this.children.map(function(item) {
-            child += item.writeNode(layer + 1);
+            if (item.writeNode) {
+                child += item.writeNode(layer + 1);
+            } else {
+                console.info("[WARN] Can't write node:", JSON.stringify(item));
+            }
         });
     }
     var s;
