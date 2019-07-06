@@ -17,9 +17,9 @@
 # Author: martin.skorupski@highstreet-technologies.com
 # 
 -->
-<!-- A stylesheet to prune and refactor the IP Interface for YANG generation -->
-<!-- Changes made on the IP INterface Model 0.1
-- ignore all package-imports
+<!-- A stylesheet to prune and refactor for YANG generation -->
+<!-- Changes made on this Model
+- ignore common imports
 - modify invalid default for ipv4
 - droppedPacketsOutput gets "unsigned = false"
  -->
@@ -30,7 +30,7 @@
   <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
   <!-- key definitions -->
   <!-- templates -->
-  <xsl:template match="packagedElement[@name = 'Imports']"/>
+  <xsl:template match="packageImport[importedPackage/@xmi:type = 'uml:Model']"/>
   <xsl:template match="defaultValue[@value = '-1.-1.-1.-1']">
     <xsl:copy>
       <xsl:apply-templates select="@*"/>

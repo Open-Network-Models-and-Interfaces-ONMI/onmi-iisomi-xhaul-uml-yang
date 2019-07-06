@@ -18,7 +18,7 @@
 # 
 -->
 <!-- A stylesheet to prune and refactor the ethernet container for YANG generation -->
-<!-- Changes made on the IP INterface Model 0.1
+<!-- Changes made on the Wire Interface Model
 - ignore all package-imports
 
  -->
@@ -29,5 +29,5 @@
   <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes"/>
   <!-- key definitions -->
   <!-- templates -->
-  <xsl:template match="packagedElement[@name = 'Imports']"/>
+  <xsl:template match="packageImport[importedPackage/@xmi:type = 'uml:Model']"/>
 </xsl:stylesheet>
