@@ -39,6 +39,9 @@ do
 
   sed -i -e "s/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:embedded-clock\/core-model:encapsulated-fc\/core-model:fc-port\/core-model:local-id/\/core-model:control-construct\/core-model:forwarding-domain\/core-model:fc\/core-model:fc-port\/core-model:local-id/g" $yang
 
+  # find/replace in hybrid-microwave-structure
+  sed -i -e "s/\/hybrid-mw-structure:hybrid-mw-structure-lp-spec/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/g" $yang
+
   # find/replace in wire-interface
   sed -i -e "s/pmd\-kindpmd\-name/pmd-name/g" $yang
   
