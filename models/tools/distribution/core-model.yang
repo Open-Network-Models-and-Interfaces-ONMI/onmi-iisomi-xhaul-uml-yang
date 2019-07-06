@@ -1,18 +1,17 @@
 module core-model {
+  yang-version 1.1;
   namespace "urn:onf:yang:core-model";
   prefix core-model;
 
   organization
     "Open Networking Foundation (ONF)";
   contact
-    "
-     WG Web : https://wiki.opennetworking.org/pages/viewpage.action?pageId=262963204
+    "WG Web : https://wiki.opennetworking.org/pages/viewpage.action?pageId=262963204
      WG List: <mailto:information-modeling@opennetworking.org>
      Editor : Nigel Davis
-         <mailto:ndavis@ciena.com>";
+     Email  : <mailto:ndavis@ciena.com>";
   description
-    "
-     This module contains a collection of YANG definitions for management and control of network fuctions.
+    "This module contains a collection of YANG definitions for management and control of network fuctions.
 
      Copyright 2019 Open Networking Foundation (ONF). All rights reserved.
 
