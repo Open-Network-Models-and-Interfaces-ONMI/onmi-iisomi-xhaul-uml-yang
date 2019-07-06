@@ -441,7 +441,8 @@ var parsers = {
                 revision: "",
                 prefix: undefined,
                 copyright: undefined,
-                license: undefined
+                license: undefined,
+                namespace: _.clone(config.namespace) + store.modName.join("-")
             };
         }
         if (xmi.ownedComment) {
@@ -454,7 +455,7 @@ var parsers = {
         ].join('\n\n').trim();
         props.comment = props.comment.split("\n").join('\n\t\t');
 
-        props.namespace = _.clone(config.namespace) + store.modName.join("-");
+        props.namespace = store.openModelStatement[currentFilename].namespace;
 
         props.pre = store.modName.join("-");
         // props.pre0 = Util.yangifyName(props.pre);
