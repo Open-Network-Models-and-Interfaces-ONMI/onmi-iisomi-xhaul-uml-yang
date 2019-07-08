@@ -34,5 +34,5 @@ for yang in $DIR/*.yang
 do
   filename=${yang#*$DIR/};
 	echo "package ${filename%%.*}"
-  zip ${yang%%.*}.yang.0.zip core-model.yang ${filename%%.*}.tree $filename ${filename%%.*}.tree.diff.txt $filename.diff.txt 
+  zip ${yang%%.*}+yang.1.zip core-model.yang ${filename%%.*}.tree $filename # ${filename%%.*}.tree.diff.txt $filename.diff.txt 
 done
