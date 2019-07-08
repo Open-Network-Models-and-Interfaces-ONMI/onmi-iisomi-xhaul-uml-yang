@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9 UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29 UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ">
   <uml:Model xmi:id="_Imk30GyUEee0HrHFgb9oqw" name="HybridMwStructure" URI="">
     <ownedComment xmi:type="uml:Comment" xmi:id="_HXz04JaWEemr0eqK-WuR6Q" annotatedElement="_Imk30GyUEee0HrHFgb9oqw">
@@ -190,7 +190,7 @@
           <body>The HybridMwStructure_Pac and its attached classes MUST be provided on management interfaces of microwave devices, which are transporting TDM and Ethernet traffic.</body>
         </ownedComment>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_WKgpjV-SEemI8ps-yiNc8Q" name="_hybridMwStructureCapability" type="_WKgpl1-SEemI8ps-yiNc8Q" isReadOnly="true" aggregation="composite" association="_WKgrNV-SEemI8ps-yiNc8Q"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_WKgpjl-SEemI8ps-yiNc8Q" name="_hybridMwStructureConfiguration" type="_WKgpp1-SEemI8ps-yiNc8Q" isReadOnly="true" aggregation="composite" association="_WKgrOV-SEemI8ps-yiNc8Q"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_WKgpjl-SEemI8ps-yiNc8Q" name="_hybridMwStructureConfiguration" type="_WKgpp1-SEemI8ps-yiNc8Q" isReadOnly="false" aggregation="composite" association="_WKgrOV-SEemI8ps-yiNc8Q"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_WKgpj1-SEemI8ps-yiNc8Q" name="_hybridMwStructureStatus" type="_WKgpuF-SEemI8ps-yiNc8Q" isReadOnly="true" aggregation="composite" association="_WKgrPV-SEemI8ps-yiNc8Q"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_WKgpkF-SEemI8ps-yiNc8Q" name="_hybridMwStructureCurrentProblems" type="_WKgpwF-SEemI8ps-yiNc8Q" isReadOnly="true" aggregation="composite" association="_WKgrQV-SEemI8ps-yiNc8Q">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_WKgpkV-SEemI8ps-yiNc8Q" value="1"/>
@@ -760,7 +760,7 @@
   </uml:Model>
   <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:hybrid-mw-structure" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM.&#xD;&#xA;It is for structuring a microwave radio interface into multiple TDM and a single Ethernet segment." copyright="Copyright 2019 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
     <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_C5migI32EemgKMYrwonbOw" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="HybridMwStructure@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
-    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_wNUNEI32EemgKMYrwonbOw" date="2019-07-08" version="2.0.0-tsp.190708.1210" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/hybridMwStructure/issues" reference="https://github.com/openBackhaul/hybridMwStructure/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_wNUNEI32EemgKMYrwonbOw" date="2019-07-08" version="2.0.0-tsp.190708.1400" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/hybridMwStructure/issues" reference="https://github.com/openBackhaul/hybridMwStructure/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
   </OpenModel_Profile:OpenModelStatement>
   <OpenModel_Profile:Obsolete xmi:id="_INoo8F-IEemI8ps-yiNc8Q" base_Element="_INlloF-IEemI8ps-yiNc8Q"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_WK3NQl-SEemI8ps-yiNc8Q" base_Property="_WKgCNl-SEemI8ps-yiNc8Q" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
@@ -867,8 +867,6 @@
   <OpenModel_Profile:Obsolete xmi:id="_K2LggGtlEemYRbAOzjCk8w" base_Element="_pgfdwGBZEemttdJfSvwReA"/>
   <OpenModel_Profile:Obsolete xmi:id="_Li9G8GtlEemYRbAOzjCk8w" base_Element="_stovMGBZEemttdJfSvwReA"/>
   <OpenModel_Profile:Obsolete xmi:id="_MQtk0GtlEemYRbAOzjCk8w" base_Element="_w3O6cGBcEemttdJfSvwReA"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_FU_6cGtmEemYRbAOzjCk8w" base_StructuralFeature="_FU_TYGtmEemYRbAOzjCk8w" partOfObjectKey="1" isInvariant="true"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_FVBIkGtmEemYRbAOzjCk8w" base_Property="_FU_TYGtmEemYRbAOzjCk8w" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_16_BIT"/>
   <OpenModel_Profile:OpenModelNotification xmi:id="_n_dfAI3vEemgKMYrwonbOw" base_Signal="_n_ZNkI3vEemgKMYrwonbOw"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_n_eGEI3vEemgKMYrwonbOw" base_StructuralFeature="_n_ZNko3vEemgKMYrwonbOw" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_n_eGEY3vEemgKMYrwonbOw" base_Property="_n_ZNko3vEemgKMYrwonbOw" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_32_BIT"/>
@@ -968,8 +966,8 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="_f2M_Q433EemgKMYrwonbOw" base_StructuralFeature="_f2LxJ433EemgKMYrwonbOw" unit="s"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_f2M_Qo33EemgKMYrwonbOw" base_Property="_f2LxJI33EemgKMYrwonbOw" attributeValueChangeNotification="YES" bitLength="LENGTH_32_BIT"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_f2M_QY33EemgKMYrwonbOw" base_StructuralFeature="_f2LxJI33EemgKMYrwonbOw" unit="s"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_f2M_QI33EemgKMYrwonbOw" base_Property="_f2LxIo33EemgKMYrwonbOw" attributeValueChangeNotification="YES"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_f2MYMI33EemgKMYrwonbOw" base_StructuralFeature="_f2LxIo33EemgKMYrwonbOw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_f2M_QI33EemgKMYrwonbOw" base_Property="_f2LxIo33EemgKMYrwonbOw" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_f2MYMI33EemgKMYrwonbOw" base_StructuralFeature="_f2LxIo33EemgKMYrwonbOw" partOfObjectKey="1" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_34mrU6FeEemVbrnVheF5aQ" base_Property="_34mrUKFeEemVbrnVheF5aQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="YES"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_34n5cKFeEemVbrnVheF5aQ" base_StructuralFeature="_34mrUKFeEemVbrnVheF5aQ"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_WLdDIF-SEemI8ps-yiNc8Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_WKgpiV-SEemI8ps-yiNc8Q"/>
@@ -992,4 +990,6 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="_Dfcn4GahEemaCpXjwie7xQ" base_StructuralFeature="_DfcA0GahEemaCpXjwie7xQ" partOfObjectKey="1" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Ur2mVmadEemaCpXjwie7xQ" base_Property="_UrSmL2adEemaCpXjwie7xQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_Ur2mVWadEemaCpXjwie7xQ" base_StructuralFeature="_UrSmL2adEemaCpXjwie7xQ" isInvariant="true"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_FVBIkGtmEemYRbAOzjCk8w" base_Property="_FU_TYGtmEemYRbAOzjCk8w" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO" bitLength="LENGTH_16_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_FU_6cGtmEemYRbAOzjCk8w" base_StructuralFeature="_FU_TYGtmEemYRbAOzjCk8w" partOfObjectKey="1" isInvariant="true"/>
 </xmi:XMI>

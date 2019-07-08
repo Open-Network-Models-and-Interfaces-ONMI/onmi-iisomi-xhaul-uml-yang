@@ -9,7 +9,7 @@
         <supplier xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_gROecFYXEeOVGaP4lO41SQ"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Constraint" xmi:id="_XzHLkJzqEemX7plL9q9caA" name="When" constrainedElement="_2ZetYJzpEemX7plL9q9caA">
-        <specification xmi:type="uml:LiteralString" xmi:id="_XzIZsJzqEemX7plL9q9caA" name="constraintSpec" value="layerProtocolName='PURE_ETHERNET_STRUCTURE'"/>
+        <specification xmi:type="uml:LiteralString" xmi:id="_XzIZsJzqEemX7plL9q9caA" name="constraintSpec" value="layerProtocolName='LAYER_PROTOCOL_NAME_PURE_ETHERNET_STRUCTURE_LAYER'"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_CmHz8JzrEemX7plL9q9caA" memberEnd="_CmJCEpzrEemX7plL9q9caA _CmPIsJzrEemX7plL9q9caA">
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CmJCEJzrEemX7plL9q9caA" source="org.eclipse.papyrus">
@@ -215,6 +215,13 @@
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_rQ9EE1-IEemI8ps-yiNc8Q" name="PureEthernetStructureConfiguration">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_rQ9EF1-IEemI8ps-yiNc8Q" name="problemKindSeverityList" type="_rQ9BwV-IEemI8ps-yiNc8Q" isUnique="false">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_rQ9EGF-IEemI8ps-yiNc8Q" annotatedElement="_rQ9EF1-IEemI8ps-yiNc8Q">
+            <body>Severity of the type of problem to be configured.</body>
+          </ownedComment>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rQ9EGV-IEemI8ps-yiNc8Q"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rQ9EGl-IEemI8ps-yiNc8Q" value="*"/>
+        </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_gitnsJzkEemX7plL9q9caA" name="g826ThresholdCrossAlarmList" type="_Xst-wJzhEemX7plL9q9caA" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_gitnsZzkEemX7plL9q9caA" annotatedElement="_gitnsJzkEemX7plL9q9caA">
             <body>List of G826 related threshold cross alarms to be configured.</body>
@@ -229,19 +236,12 @@
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_kU440pzkEemX7plL9q9caA"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_rQ9EFF-IEemI8ps-yiNc8Q" name="performanceMonitoringCollectionIsOn" isUnique="false">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_rQ9EFF-IEemI8ps-yiNc8Q" name="performanceMonitoringIsOn" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_rQ9EFV-IEemI8ps-yiNc8Q" annotatedElement="_rQ9EFF-IEemI8ps-yiNc8Q">
             <body>Enables measurement, collection, storage and access to performance data.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
           <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_rQ9EFl-IEemI8ps-yiNc8Q"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_rQ9EF1-IEemI8ps-yiNc8Q" name="problemKindSeverityList" type="_rQ9BwV-IEemI8ps-yiNc8Q" isUnique="false">
-          <ownedComment xmi:type="uml:Comment" xmi:id="_rQ9EGF-IEemI8ps-yiNc8Q" annotatedElement="_rQ9EF1-IEemI8ps-yiNc8Q">
-            <body>Severity of the type of problem to be configured.</body>
-          </ownedComment>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rQ9EGV-IEemI8ps-yiNc8Q"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rQ9EGl-IEemI8ps-yiNc8Q" value="*"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_rQ9EG1-IEemI8ps-yiNc8Q" name="PureEthernetStructureStatus">
@@ -249,8 +249,15 @@
           <ownedComment xmi:type="uml:Comment" xmi:id="_rQ9EHV-IEemI8ps-yiNc8Q" annotatedElement="_rQ9EHF-IEemI8ps-yiNc8Q">
             <body>Status of the Ethernet transport segment. Always just one segment.</body>
           </ownedComment>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rQ9EHl-IEemI8ps-yiNc8Q"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rQ9EHl-IEemI8ps-yiNc8Q" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rQ9EH1-IEemI8ps-yiNc8Q" value="*"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_jYfNgKFvEemzvL4RFb-48A" name="performanceMonitoringIsUp" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_jYfNgaFvEemzvL4RFb-48A" annotatedElement="_jYfNgKFvEemzvL4RFb-48A">
+            <body>1 = Performance values are currently collected and aggregated.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_jYfNgqFvEemzvL4RFb-48A"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_rQ9EI1-IEemI8ps-yiNc8Q" name="PureEthernetStructureCurrentProblems">
@@ -267,7 +274,7 @@
           <ownedComment xmi:type="uml:Comment" xmi:id="_rQ9EKl-IEemI8ps-yiNc8Q" annotatedElement="_rQ9EKV-IEemI8ps-yiNc8Q">
             <body>At least values of the counters, which are reset every 15 minutes, are to be provided. If available, the current values of the counters, which are reset every 24 hour, can be provided, too.</body>
           </ownedComment>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Ty5zkJzsEemX7plL9q9caA"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Ty5zkJzsEemX7plL9q9caA" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rQ9ELF-IEemI8ps-yiNc8Q" value="2"/>
         </ownedAttribute>
       </packagedElement>
@@ -691,7 +698,7 @@
   </uml:Model>
   <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:pure-ethernet-structure" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM.&#xD;&#xA;It is for structuring a physical transport resource into a single Ethernet segment." copyright="Copyright 2019 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
     <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_yNCv4JzuEemX7plL9q9caA" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="PureEthernetStructure@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
-    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_UkvY0JzvEemX7plL9q9caA" date="2019-07-02" version="2.0.0-tsp.190702.1950" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/pureEthernetStructure/issues" reference="https://github.com/openBackhaul/pureEthernetStructure/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_UkvY0JzvEemX7plL9q9caA" date="2019-07-08" version="2.0.0-tsp.190708.1345" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/pureEthernetStructure/issues" reference="https://github.com/openBackhaul/pureEthernetStructure/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
   </OpenModel_Profile:OpenModelStatement>
   <OpenModel_Profile:Obsolete xmi:id="_jb1VEF-HEemI8ps-yiNc8Q" base_Element="_ja3sT1-HEemI8ps-yiNc8Q"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_rRWDVl-IEemI8ps-yiNc8Q" base_Property="_rQ9Bwl-IEemI8ps-yiNc8Q" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO"/>
@@ -722,8 +729,6 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="_rRYflF-IEemI8ps-yiNc8Q" base_StructuralFeature="_rQ9B7V-IEemI8ps-yiNc8Q" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_rRZttF-IEemI8ps-yiNc8Q" base_Property="_rQ9CAF-IEemI8ps-yiNc8Q" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="YES"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_rRZttV-IEemI8ps-yiNc8Q" base_StructuralFeature="_rQ9CAF-IEemI8ps-yiNc8Q"/>
-  <OpenModel_Profile:OpenModelClass xmi:id="_rRyIM1-IEemI8ps-yiNc8Q" base_Class="_rQ9D-V-IEemI8ps-yiNc8Q" support="CONDITIONAL_MANDATORY" condition="pure-ethernet"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_rRyINF-IEemI8ps-yiNc8Q" objectCreationNotification="YES" objectDeletionNotification="YES" base_Class="_rQ9D-V-IEemI8ps-yiNc8Q"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_rRyIN1-IEemI8ps-yiNc8Q" base_Property="_rQ9D_V-IEemI8ps-yiNc8Q" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_rRyvQF-IEemI8ps-yiNc8Q" base_StructuralFeature="_rQ9D_V-IEemI8ps-yiNc8Q" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_rRyvQV-IEemI8ps-yiNc8Q" base_Property="_rQ9D_l-IEemI8ps-yiNc8Q" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
@@ -736,30 +741,18 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="_rRzWUF-IEemI8ps-yiNc8Q" base_StructuralFeature="_rQ9EA1-IEemI8ps-yiNc8Q" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_rRzWUV-IEemI8ps-yiNc8Q" base_Property="_rQ9EBF-IEemI8ps-yiNc8Q" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_rRzWUl-IEemI8ps-yiNc8Q" base_StructuralFeature="_rQ9EBF-IEemI8ps-yiNc8Q" isInvariant="true"/>
-  <OpenModel_Profile:OpenModelClass xmi:id="_rRzWU1-IEemI8ps-yiNc8Q" base_Class="_rQ9EB1-IEemI8ps-yiNc8Q"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_rRzWVF-IEemI8ps-yiNc8Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_rQ9EB1-IEemI8ps-yiNc8Q"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_rRzWV1-IEemI8ps-yiNc8Q" base_Property="_rQ9EC1-IEemI8ps-yiNc8Q" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_rRzWWF-IEemI8ps-yiNc8Q" base_StructuralFeature="_rQ9EC1-IEemI8ps-yiNc8Q" isInvariant="true"/>
-  <OpenModel_Profile:OpenModelClass xmi:id="_rRz9Yl-IEemI8ps-yiNc8Q" base_Class="_rQ9EE1-IEemI8ps-yiNc8Q"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_rRz9Y1-IEemI8ps-yiNc8Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_rQ9EE1-IEemI8ps-yiNc8Q"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_rRz9ZF-IEemI8ps-yiNc8Q" base_Property="_rQ9EFF-IEemI8ps-yiNc8Q" attributeValueChangeNotification="YES"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_rRz9ZV-IEemI8ps-yiNc8Q" base_StructuralFeature="_rQ9EFF-IEemI8ps-yiNc8Q"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_rRz9Zl-IEemI8ps-yiNc8Q" base_Property="_rQ9EF1-IEemI8ps-yiNc8Q" attributeValueChangeNotification="YES"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_rRz9Z1-IEemI8ps-yiNc8Q" base_StructuralFeature="_rQ9EF1-IEemI8ps-yiNc8Q"/>
-  <OpenModel_Profile:OpenModelClass xmi:id="_rR0kcF-IEemI8ps-yiNc8Q" base_Class="_rQ9EG1-IEemI8ps-yiNc8Q"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_rR0kcV-IEemI8ps-yiNc8Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_rQ9EG1-IEemI8ps-yiNc8Q"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_rR0kcl-IEemI8ps-yiNc8Q" base_Property="_rQ9EHF-IEemI8ps-yiNc8Q" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="YES"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_rR0kc1-IEemI8ps-yiNc8Q" base_StructuralFeature="_rQ9EHF-IEemI8ps-yiNc8Q"/>
-  <OpenModel_Profile:OpenModelClass xmi:id="_rR0kdl-IEemI8ps-yiNc8Q" base_Class="_rQ9EI1-IEemI8ps-yiNc8Q"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_rR1LgF-IEemI8ps-yiNc8Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_rQ9EI1-IEemI8ps-yiNc8Q"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_rR1LgV-IEemI8ps-yiNc8Q" base_Property="_rQ9EJF-IEemI8ps-yiNc8Q" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_rR1Lgl-IEemI8ps-yiNc8Q" base_StructuralFeature="_rQ9EJF-IEemI8ps-yiNc8Q"/>
-  <OpenModel_Profile:OpenModelClass xmi:id="_rR1Lg1-IEemI8ps-yiNc8Q" base_Class="_rQ9EJ1-IEemI8ps-yiNc8Q"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_rR1LhF-IEemI8ps-yiNc8Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_rQ9EJ1-IEemI8ps-yiNc8Q"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_rR1LhV-IEemI8ps-yiNc8Q" base_Property="_rQ9EKV-IEemI8ps-yiNc8Q" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_rR1Lhl-IEemI8ps-yiNc8Q" base_StructuralFeature="_rQ9EKV-IEemI8ps-yiNc8Q"/>
-  <OpenModel_Profile:OpenModelClass xmi:id="_rR1Lh1-IEemI8ps-yiNc8Q" base_Class="_rQ9ELV-IEemI8ps-yiNc8Q"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_rR1ykF-IEemI8ps-yiNc8Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_rQ9ELV-IEemI8ps-yiNc8Q"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_rR1ykV-IEemI8ps-yiNc8Q" base_Property="_rQ9EL1-IEemI8ps-yiNc8Q" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_rR1ykl-IEemI8ps-yiNc8Q" base_StructuralFeature="_rQ9EL1-IEemI8ps-yiNc8Q"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_rSG4Vl-IEemI8ps-yiNc8Q" base_Class="_rQ9FQV-IEemI8ps-yiNc8Q"/>
@@ -835,8 +828,8 @@
   <OpenModel_Profile:Obsolete xmi:id="_a40DsGBOEemttdJfSvwReA" base_Element="_JucpcGBOEemttdJfSvwReA"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_JPeSEJzhEemX7plL9q9caA" base_Property="_JPcc4JzhEemX7plL9q9caA" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_JPijgJzhEemX7plL9q9caA" base_StructuralFeature="_JPcc4JzhEemX7plL9q9caA" isInvariant="true"/>
-  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Xsul0JzhEemX7plL9q9caA" base_Property="_Xst-wpzhEemX7plL9q9caA" attributeValueChangeNotification="YES"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_Xsvz8JzhEemX7plL9q9caA" base_StructuralFeature="_Xst-wpzhEemX7plL9q9caA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Xsul0JzhEemX7plL9q9caA" base_Property="_Xst-wpzhEemX7plL9q9caA" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_Xsvz8JzhEemX7plL9q9caA" base_StructuralFeature="_Xst-wpzhEemX7plL9q9caA" partOfObjectKey="1" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_Xsvz8ZzhEemX7plL9q9caA" base_Property="_Xst-xJzhEemX7plL9q9caA" attributeValueChangeNotification="YES" bitLength="LENGTH_32_BIT"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_XswbAJzhEemX7plL9q9caA" base_StructuralFeature="_Xst-xJzhEemX7plL9q9caA" unit="s"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_XswbAZzhEemX7plL9q9caA" base_Property="_Xst-x5zhEemX7plL9q9caA" attributeValueChangeNotification="YES" bitLength="LENGTH_32_BIT"/>
@@ -900,4 +893,20 @@
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CmK3QJzrEemX7plL9q9caA" base_StructuralFeature="_CmJCEpzrEemX7plL9q9caA" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_CmPIsZzrEemX7plL9q9caA" base_Property="_CmPIsJzrEemX7plL9q9caA"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CmPIspzrEemX7plL9q9caA" base_StructuralFeature="_CmPIsJzrEemX7plL9q9caA"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_rR1ykF-IEemI8ps-yiNc8Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_rQ9ELV-IEemI8ps-yiNc8Q"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_rR1Lh1-IEemI8ps-yiNc8Q" base_Class="_rQ9ELV-IEemI8ps-yiNc8Q"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_rR1LhF-IEemI8ps-yiNc8Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_rQ9EJ1-IEemI8ps-yiNc8Q"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_rR1Lg1-IEemI8ps-yiNc8Q" base_Class="_rQ9EJ1-IEemI8ps-yiNc8Q"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_rR1LgF-IEemI8ps-yiNc8Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_rQ9EI1-IEemI8ps-yiNc8Q"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_rR0kdl-IEemI8ps-yiNc8Q" base_Class="_rQ9EI1-IEemI8ps-yiNc8Q"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_rR0kcV-IEemI8ps-yiNc8Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_rQ9EG1-IEemI8ps-yiNc8Q"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_rR0kcF-IEemI8ps-yiNc8Q" base_Class="_rQ9EG1-IEemI8ps-yiNc8Q"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_rRz9Y1-IEemI8ps-yiNc8Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_rQ9EE1-IEemI8ps-yiNc8Q"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_rRz9Yl-IEemI8ps-yiNc8Q" base_Class="_rQ9EE1-IEemI8ps-yiNc8Q"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_rRzWVF-IEemI8ps-yiNc8Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_rQ9EB1-IEemI8ps-yiNc8Q"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_rRzWU1-IEemI8ps-yiNc8Q" base_Class="_rQ9EB1-IEemI8ps-yiNc8Q"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_rRyINF-IEemI8ps-yiNc8Q" objectCreationNotification="NO" objectDeletionNotification="NO" base_Class="_rQ9D-V-IEemI8ps-yiNc8Q"/>
+  <OpenModel_Profile:OpenModelClass xmi:id="_rRyIM1-IEemI8ps-yiNc8Q" base_Class="_rQ9D-V-IEemI8ps-yiNc8Q" support="CONDITIONAL_MANDATORY" condition="pure-ethernet"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_jYhCsKFvEemzvL4RFb-48A" base_Property="_jYfNgKFvEemzvL4RFb-48A" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="YES"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_jYkGAKFvEemzvL4RFb-48A" base_StructuralFeature="_jYfNgKFvEemzvL4RFb-48A"/>
 </xmi:XMI>
