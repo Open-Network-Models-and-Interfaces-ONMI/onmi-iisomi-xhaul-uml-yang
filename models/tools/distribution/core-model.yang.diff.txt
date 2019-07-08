@@ -1,0 +1,22 @@
+diff --git a/models/tools/distribution/core-model.yang b/models/tools/distribution/core-model.yang
+index 41fd9af5..b8ec0140 100644
+--- a/models/tools/distribution/core-model.yang
++++ b/models/tools/distribution/core-model.yang
+@@ -27,7 +27,7 @@ module core-model {
+      See the License for the specific language governing permissions and
+      limitations under the License.";
+ 
+-  revision 2019-07-05 {
++    revision 2019-07-08 {
+     description
+       "Corrected version derived from ONF-TR-512 v1.4
+        - renaming of attribute lp to layer-protocol
+@@ -1400,7 +1400,7 @@ module core-model {
+          uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience/CascPort'";
+     }
+     list ltp {
+-      key "logical-termination-pointuuid logical-termination-pointname";
++      key "uuid";
+       uses logical-termination-point;
+       description
+         "The LTP that conveys the messages related to the port and/or is subject to control action and/or provides indications of state etc.

@@ -1400,7 +1400,7 @@ module core-model {
          uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience/CascPort'";
     }
     list ltp {
-      key "logical-termination-pointuuid logical-termination-pointname";
+      key "uuid";
       uses logical-termination-point;
       description
         "The LTP that conveys the messages related to the port and/or is subject to control action and/or provides indications of state etc.

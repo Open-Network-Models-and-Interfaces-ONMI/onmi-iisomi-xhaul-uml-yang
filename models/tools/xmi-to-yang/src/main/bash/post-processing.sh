@@ -32,6 +32,7 @@ do
   sed -i -e "s/local\-id,name/local-id/g" $yang
 
   sed -i -e "s/forwarding-constructuuid forwarding-constructname/uuid/g" $yang
+  sed -i -e "s/logical-termination-pointuuid logical-termination-pointname/uuid/g" $yang
 
   sed -i -e "s/path '\/core-model:logical-termination-point\/core-model:peer-ltp\/core-model:/path '\/core-model:control-construct\/core-model:logical-termination-point\/core-model:/g" $yang
 
