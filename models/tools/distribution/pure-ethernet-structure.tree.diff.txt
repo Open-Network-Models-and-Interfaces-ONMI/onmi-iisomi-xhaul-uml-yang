@@ -1,0 +1,35 @@
+diff --git a/models/tools/distribution/pure-ethernet-structure.tree b/models/tools/distribution/pure-ethernet-structure.tree
+index 930db219..8ad10481 100644
+--- a/models/tools/distribution/pure-ethernet-structure.tree
++++ b/models/tools/distribution/pure-ethernet-structure.tree
+@@ -297,20 +297,21 @@ module: core-model
+      |  |     |  +--ro pure-ethernet-structure:supported-alarm-list*              string
+      |  |     |  +--ro pure-ethernet-structure:performance-monitoring-is-avail?   boolean
+      |  |     +--ro pure-ethernet-structure:pure-ethernet-structure-configuration
+-     |  |     |  +--ro pure-ethernet-structure:g-826-threshold-cross-alarm-list* []
+-     |  |     |  |  +--ro pure-ethernet-structure:g-826-value-kind?           g-826-type
++     |  |     |  +--ro pure-ethernet-structure:problem-kind-severity-list* [problem-kind-name]
++     |  |     |  |  +--ro pure-ethernet-structure:problem-kind-name        string
++     |  |     |  |  +--ro pure-ethernet-structure:problem-kind-severity?   severity-type
++     |  |     |  +--ro pure-ethernet-structure:g-826-threshold-cross-alarm-list* [g-826-value-kind]
++     |  |     |  |  +--ro pure-ethernet-structure:g-826-value-kind            g-826-type
+      |  |     |  |  +--ro pure-ethernet-structure:alarm-raising-threshold?    int32
+      |  |     |  |  +--ro pure-ethernet-structure:alarm-clearing-threshold?   int32
+      |  |     |  |  +--ro pure-ethernet-structure:granularity-period?         granularity-period-type
+-     |  |     |  +--ro pure-ethernet-structure:clearing-threshold-cross-alarms-is-on?     boolean
+-     |  |     |  +--ro pure-ethernet-structure:performance-monitoring-collection-is-on?   boolean
+-     |  |     |  +--ro pure-ethernet-structure:problem-kind-severity-list* [problem-kind-name]
+-     |  |     |     +--ro pure-ethernet-structure:problem-kind-name        string
+-     |  |     |     +--ro pure-ethernet-structure:problem-kind-severity?   severity-type
++     |  |     |  +--ro pure-ethernet-structure:clearing-threshold-cross-alarms-is-on?   boolean
++     |  |     |  +--ro pure-ethernet-structure:performance-monitoring-is-on?            boolean
+      |  |     +--ro pure-ethernet-structure:pure-ethernet-structure-status
+      |  |     |  +--ro pure-ethernet-structure:segment-status-list* [segment-status-type-id]
+-     |  |     |     +--ro pure-ethernet-structure:segment-status-type-id    int16
+-     |  |     |     +--ro pure-ethernet-structure:operational-status?       operational-state-type
++     |  |     |  |  +--ro pure-ethernet-structure:segment-status-type-id    int16
++     |  |     |  |  +--ro pure-ethernet-structure:operational-status?       operational-state-type
++     |  |     |  +--ro pure-ethernet-structure:performance-monitoring-is-up?   boolean
+      |  |     +--ro pure-ethernet-structure:pure-ethernet-structure-current-problems
+      |  |     |  +--ro pure-ethernet-structure:current-problem-list* [sequence-number]
+      |  |     |     +--ro pure-ethernet-structure:problem-name?       string

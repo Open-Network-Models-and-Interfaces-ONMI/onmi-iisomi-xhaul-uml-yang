@@ -21,17 +21,18 @@ if [ $# -gt 0 ]; then
   DIR=$1;
 fi
 
+pyang --lint *.yang
 pyang -f tree -p $DIR -o all-together.tree *.yang
 for yang in $DIR/*.yang
 do
-  pyang -f tree -p $DIR -o ${yang%%.*}.tree core-model.yang $yang 
+  pyang -f tree -p $DIR -o ${yang%%.*}.tree core-model.yang $yang
+  git diff $yang > $yang.diff.txt
+  git diff ${yang%%.*}.tree > ${yang%%.*}.tree.diff.txt
 done
 
 for yang in $DIR/*.yang
 do
   filename=${yang#*$DIR/};
 	echo "package ${filename%%.*}"
-  zip ${yang%%.*}.yang.0.zip core-model.yang ${filename%%.*}.tree $filename 
+  zip ${yang%%.*}.yang.0.zip core-model.yang ${filename%%.*}.tree $filename ${filename%%.*}.tree.diff.txt $filename.diff.txt 
 done
-
-# mv core-model.zip 

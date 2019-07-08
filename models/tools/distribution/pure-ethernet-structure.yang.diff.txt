@@ -1,0 +1,90 @@
+diff --git a/models/tools/distribution/pure-ethernet-structure.yang b/models/tools/distribution/pure-ethernet-structure.yang
+index 1b76fb23..4f004a71 100644
+--- a/models/tools/distribution/pure-ethernet-structure.yang
++++ b/models/tools/distribution/pure-ethernet-structure.yang
+@@ -11,7 +11,7 @@ module pure-ethernet-structure {
+     "openBackhaul.com proposal to Open Networking Foundation (ONF)";
+   contact
+     "WG Web : https://github.com/openBackhaul/Overview
+-     WG List: HybridMwStructure@openBackhaul.com
++     WG List: PureEthernetStructure@openBackhaul.com
+      Editor : Thorsten Heinze
+      Email  : Thorsten.Heinze@openBackhaul.com";
+   description
+@@ -29,11 +29,13 @@ module pure-ethernet-structure {
+      See the License for the specific language governing permissions and
+      limitations under the License.";
+ 
+-  revision 2019-05-25 {
++  revision 2019-07-08 {
+     description
+-      "Test project to check UML-to-YANG tool.";
++      "Model for the Transport SDN Pilot at Telefonica Germany.
++       Please view https://github.com/openBackhaul/pureEthernetStructure/issues for changes.";
+     reference
+-      "ONF-TR-512, RFC 6020 and RFC 6087";
++      "https://github.com/openBackhaul/pureEthernetStructure/tree/tsp: Model definition
++       https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
+   }
+ 
+   identity LAYER_PROTOCOL_NAME_PURE_ETHERNET_STRUCTURE {
+@@ -420,7 +422,14 @@ module pure-ethernet-structure {
+   }
+ 
+   grouping pure-ethernet-structure-configuration {
++    list problem-kind-severity-list {
++      key "problem-kind-name";
++      uses problem-kind-severity-type;
++      description
++        "Severity of the type of problem to be configured.";
++    }
+     list g-826-threshold-cross-alarm-list {
++      key "g-826-value-kind";
+       max-elements 6;
+       uses g-826-threshold-cross-alarm-type;
+       description
+@@ -431,17 +440,11 @@ module pure-ethernet-structure {
+       description
+         "Setting this bit is clearing all the currently active threshold cross alarms.";
+     }
+-    leaf performance-monitoring-collection-is-on {
++    leaf performance-monitoring-is-on {
+       type boolean;
+       description
+         "Enables measurement, collection, storage and access to performance data.";
+     }
+-    list problem-kind-severity-list {
+-      key "problem-kind-name";
+-      uses problem-kind-severity-type;
+-      description
+-        "Severity of the type of problem to be configured.";
+-    }
+     description
+       "none";
+   }
+@@ -450,10 +453,17 @@ module pure-ethernet-structure {
+     list segment-status-list {
+       key "segment-status-type-id";
+       config false;
++      min-elements 1;
+       uses segment-status-type;
+       description
+         "Status of the Ethernet transport segment. Always just one segment.";
+     }
++    leaf performance-monitoring-is-up {
++      type boolean;
++      config false;
++      description
++        "1 = Performance values are currently collected and aggregated.";
++    }
+     description
+       "none";
+   }
+@@ -474,6 +484,7 @@ module pure-ethernet-structure {
+     list current-performance-data-list {
+       key "granularity-period";
+       config false;
++      min-elements 1;
+       max-elements 2;
+       uses structure-current-performance-type;
+       description
