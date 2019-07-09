@@ -29,7 +29,7 @@ module mac-interface {
      See the License for the specific language governing permissions and
      limitations under the License.";
 
-  revision 2019-07-04 {
+  revision 2019-07-07 {
     description
       "Model for the Transport SDN Pilot at Telefonica Germany.
        Please view https://github.com/openBackhaul/macInterface/issues for changes.";
@@ -39,7 +39,7 @@ module mac-interface {
   }
 
   identity LAYER_PROTOCOL_NAME_MAC_LAYER {
-    base core-model:LAYER_PROTOCOL_NAME;
+    base core-model:LAYER_PROTOCOL_NAME_TYPE;
     description
       "none";
   }
@@ -627,6 +627,7 @@ module mac-interface {
     }
     leaf maintenance-timer {
       type int32;
+      units "s";
       default "-1";
       description
         "Time of existence of any maintenance configuration. 0 = maintenance timer is switched off. Valid values are defined in *Capability::maintenanceTimerRange.";

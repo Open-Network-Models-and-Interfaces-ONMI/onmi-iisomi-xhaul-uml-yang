@@ -36,3 +36,7 @@ do
 	echo "package ${filename%%.*}"
   zip ${yang%%.*}+yang.1.zip core-model.yang ${filename%%.*}.tree $filename # ${filename%%.*}.tree.diff.txt $filename.diff.txt 
 done
+
+unix2dos *.yang
+unix2dos *.tree
+unix2dos *.txt

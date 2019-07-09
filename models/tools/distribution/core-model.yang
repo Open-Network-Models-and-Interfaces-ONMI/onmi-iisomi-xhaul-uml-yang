@@ -32,6 +32,7 @@ module core-model {
       "Corrected version derived from ONF-TR-512 v1.4
        - Type of LayerProtocol/layerProtocolName simplfied to LayerProtocolNameType
        - Type of Profile/profileName changed to ProfileNameType (same concept as for layerProtocolName
+       - FcSwitch added.
        - remove references to UML model.";
     reference
       "ONF-TR-512, RFC 6020 and RFC 6087";
@@ -2609,6 +2610,7 @@ module core-model {
   }
 
   container control-construct {
+    presence "Enables SDN";
     uses control-construct;
     description
       "none";

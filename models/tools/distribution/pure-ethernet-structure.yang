@@ -39,7 +39,7 @@ module pure-ethernet-structure {
   }
 
   identity LAYER_PROTOCOL_NAME_PURE_ETHERNET_STRUCTURE_LAYER {
-    base core-model:LAYER_PROTOCOL_NAME;
+    base core-model:LAYER_PROTOCOL_NAME_TYPE;
     description
       "none";
   }

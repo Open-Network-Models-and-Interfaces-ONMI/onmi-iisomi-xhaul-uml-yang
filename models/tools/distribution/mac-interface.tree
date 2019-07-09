@@ -268,9 +268,7 @@ module: core-model
      |  +--rw address*                         dt-address
      +--rw logical-termination-point* [uuid]
      |  +--rw layer-protocol* [local-id]
-     |  |  +--rw layer-protocol-name
-     |  |  |  +--rw layer-protocol-qualifier?   string
-     |  |  |  +--rw layer-protocol-name?        layer-protocol-name
+     |  |  +--rw layer-protocol-name?                layer-protocol-name-type
      |  |  +--rw configured-client-capacity?         string
      |  |  +--rw lp-direction?                       termination-direction
      |  |  +--rw termination-state?                  termination-state
@@ -440,7 +438,7 @@ module: core-model
      |  |  +--rw encapsulated-fc* [uuid]
      |  |  |  +--rw layer-protocol-name
      |  |  |  |  +--rw layer-protocol-qualifier?   string
-     |  |  |  |  +--rw layer-protocol-name?        layer-protocol-name
+     |  |  |  |  +--rw layer-protocol-name?        layer-protocol-name-type
      |  |  |  +--rw forwarding-direction?               forwarding-direction
      |  |  |  +--rw lower-level-fc*                     -> /control-construct/forwarding-domain/fc/uuid
      |  |  |  +--rw fc-route?                           string
@@ -469,7 +467,63 @@ module: core-model
      |  |  |  |  +--ro administrative-state?            administrative-state
      |  |  |  |  +--rw lifecycle-state?                 lifecycle-state
      |  |  |  |  +--rw address*                         dt-address
-     |  |  |  +--rw fc-switch*                          string
+     |  |  |  +--rw fc-switch* [local-id]
+     |  |  |  |  +--rw hold-off-time?                               int64
+     |  |  |  |  +--rw prot-type?                                   protection-type
+     |  |  |  |  +--rw reversion-mode?                              reversion-mode
+     |  |  |  |  +--rw selected-fc-port* [local-id]
+     |  |  |  |  |  +--rw ltp*                             -> /control-construct/logical-termination-point/uuid
+     |  |  |  |  |  +--rw role?                            port-role
+     |  |  |  |  |  +--rw fc-port-direction?               port-direction
+     |  |  |  |  |  +--rw is-protection-lock-out?          boolean {fcportisprotectionlockout}?
+     |  |  |  |  |  +--rw selection-priority?              int64
+     |  |  |  |  |  +--ro is-internal-port?                boolean
+     |  |  |  |  |  +--rw fc-route-feeds-fc-port-egress*   string
+     |  |  |  |  |  +--rw fc-port*                         -> /control-construct/forwarding-domain/fc/fc-port/local-id
+     |  |  |  |  |  +--rw port-of-internal-fc*             -> /control-construct/forwarding-domain/fc/fc-port/local-id
+     |  |  |  |  |  +--rw local-id                         string
+     |  |  |  |  |  +--rw name* [value-name]
+     |  |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  |  +--rw value?        string
+     |  |  |  |  |  +--rw label* [value-name]
+     |  |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  |  +--rw value?        string
+     |  |  |  |  |  +--rw extension* [value-name]
+     |  |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  |  +--rw value?        string
+     |  |  |  |  |  +--ro operational-state?               operational-state
+     |  |  |  |  |  +--rw administrative-control?          administrative-control
+     |  |  |  |  |  +--ro administrative-state?            administrative-state
+     |  |  |  |  |  +--rw lifecycle-state?                 lifecycle-state
+     |  |  |  |  |  +--rw address*                         dt-address
+     |  |  |  |  +--rw profile-proxy*                               string
+     |  |  |  |  +--rw configuration-and-switch-control?            string
+     |  |  |  |  +--rw internal-configuration-and-switch-control?   string
+     |  |  |  |  +--rw switch-control?                              switch-control
+     |  |  |  |  +--rw switch-selects-ports?                        port-direction
+     |  |  |  |  +--ro switch-selection-reason?                     switch-state-reason
+     |  |  |  |  +--rw control-parameters
+     |  |  |  |  |  +--rw reversion-mode?                 reversion-mode
+     |  |  |  |  |  +--rw wait-to-revert-time?            int64
+     |  |  |  |  |  +--rw prot-type?                      protection-type
+     |  |  |  |  |  +--rw hold-off-time?                  int64
+     |  |  |  |  |  +--rw network-scheme-specification?   string
+     |  |  |  |  +--rw wait-to-restore-time?                        int64
+     |  |  |  |  +--rw local-id                                     string
+     |  |  |  |  +--rw name* [value-name]
+     |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  +--rw value?        string
+     |  |  |  |  +--rw label* [value-name]
+     |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  +--rw value?        string
+     |  |  |  |  +--rw extension* [value-name]
+     |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  +--rw value?        string
+     |  |  |  |  +--ro operational-state?                           operational-state
+     |  |  |  |  +--rw administrative-control?                      administrative-control
+     |  |  |  |  +--ro administrative-state?                        administrative-state
+     |  |  |  |  +--rw lifecycle-state?                             lifecycle-state
+     |  |  |  |  +--rw address*                                     dt-address
      |  |  |  +--rw configuration-and-switch-control*   string
      |  |  |  +--rw is-protection-lock-out?             boolean {forwardingconstructisprotectionlockout}?
      |  |  |  +--rw service-priority?                   int64
@@ -534,12 +588,12 @@ module: core-model
      +--rw forwarding-domain* [uuid]
      |  +--rw layer-protocol-name* [layer-protocol-name]
      |  |  +--rw layer-protocol-qualifier?   string
-     |  |  +--rw layer-protocol-name         layer-protocol-name
+     |  |  +--rw layer-protocol-name         layer-protocol-name-type
      |  +--rw lower-level-fd*           -> /control-construct/forwarding-domain/uuid
      |  +--rw fc* [uuid]
      |  |  +--rw layer-protocol-name
      |  |  |  +--rw layer-protocol-qualifier?   string
-     |  |  |  +--rw layer-protocol-name?        layer-protocol-name
+     |  |  |  +--rw layer-protocol-name?        layer-protocol-name-type
      |  |  +--rw forwarding-direction?               forwarding-direction
      |  |  +--rw lower-level-fc*                     -> /control-construct/forwarding-domain/fc/uuid
      |  |  +--rw fc-route?                           string
@@ -568,7 +622,63 @@ module: core-model
      |  |  |  +--ro administrative-state?            administrative-state
      |  |  |  +--rw lifecycle-state?                 lifecycle-state
      |  |  |  +--rw address*                         dt-address
-     |  |  +--rw fc-switch*                          string
+     |  |  +--rw fc-switch* [local-id]
+     |  |  |  +--rw hold-off-time?                               int64
+     |  |  |  +--rw prot-type?                                   protection-type
+     |  |  |  +--rw reversion-mode?                              reversion-mode
+     |  |  |  +--rw selected-fc-port* [local-id]
+     |  |  |  |  +--rw ltp*                             -> /control-construct/logical-termination-point/uuid
+     |  |  |  |  +--rw role?                            port-role
+     |  |  |  |  +--rw fc-port-direction?               port-direction
+     |  |  |  |  +--rw is-protection-lock-out?          boolean {fcportisprotectionlockout}?
+     |  |  |  |  +--rw selection-priority?              int64
+     |  |  |  |  +--ro is-internal-port?                boolean
+     |  |  |  |  +--rw fc-route-feeds-fc-port-egress*   string
+     |  |  |  |  +--rw fc-port*                         -> /control-construct/forwarding-domain/fc/fc-port/local-id
+     |  |  |  |  +--rw port-of-internal-fc*             -> /control-construct/forwarding-domain/fc/fc-port/local-id
+     |  |  |  |  +--rw local-id                         string
+     |  |  |  |  +--rw name* [value-name]
+     |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  +--rw value?        string
+     |  |  |  |  +--rw label* [value-name]
+     |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  +--rw value?        string
+     |  |  |  |  +--rw extension* [value-name]
+     |  |  |  |  |  +--rw value-name    string
+     |  |  |  |  |  +--rw value?        string
+     |  |  |  |  +--ro operational-state?               operational-state
+     |  |  |  |  +--rw administrative-control?          administrative-control
+     |  |  |  |  +--ro administrative-state?            administrative-state
+     |  |  |  |  +--rw lifecycle-state?                 lifecycle-state
+     |  |  |  |  +--rw address*                         dt-address
+     |  |  |  +--rw profile-proxy*                               string
+     |  |  |  +--rw configuration-and-switch-control?            string
+     |  |  |  +--rw internal-configuration-and-switch-control?   string
+     |  |  |  +--rw switch-control?                              switch-control
+     |  |  |  +--rw switch-selects-ports?                        port-direction
+     |  |  |  +--ro switch-selection-reason?                     switch-state-reason
+     |  |  |  +--rw control-parameters
+     |  |  |  |  +--rw reversion-mode?                 reversion-mode
+     |  |  |  |  +--rw wait-to-revert-time?            int64
+     |  |  |  |  +--rw prot-type?                      protection-type
+     |  |  |  |  +--rw hold-off-time?                  int64
+     |  |  |  |  +--rw network-scheme-specification?   string
+     |  |  |  +--rw wait-to-restore-time?                        int64
+     |  |  |  +--rw local-id                                     string
+     |  |  |  +--rw name* [value-name]
+     |  |  |  |  +--rw value-name    string
+     |  |  |  |  +--rw value?        string
+     |  |  |  +--rw label* [value-name]
+     |  |  |  |  +--rw value-name    string
+     |  |  |  |  +--rw value?        string
+     |  |  |  +--rw extension* [value-name]
+     |  |  |  |  +--rw value-name    string
+     |  |  |  |  +--rw value?        string
+     |  |  |  +--ro operational-state?                           operational-state
+     |  |  |  +--rw administrative-control?                      administrative-control
+     |  |  |  +--ro administrative-state?                        administrative-state
+     |  |  |  +--rw lifecycle-state?                             lifecycle-state
+     |  |  |  +--rw address*                                     dt-address
      |  |  +--rw configuration-and-switch-control*   string
      |  |  +--rw is-protection-lock-out?             boolean {forwardingconstructisprotectionlockout}?
      |  |  +--rw service-priority?                   int64
@@ -636,7 +746,7 @@ module: core-model
      |  +--rw address*                  dt-address
      +--rw profile-collection
      |  +--rw profile* [uuid]
-     |     +--rw profile-name?             string
+     |     +--rw profile-name?             profile-name-type
      |     +--rw uuid                      universal-id
      |     +--rw local-id*                 string
      |     +--rw external-managed-id

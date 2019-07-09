@@ -39,7 +39,7 @@ module tdm-container {
   }
 
   identity LAYER_PROTOCOL_NAME_TDM_CONTAINER_LAYER {
-    base core-model:LAYER_PROTOCOL_NAME;
+    base core-model:LAYER_PROTOCOL_NAME_TYPE;
     description
       "none";
   }

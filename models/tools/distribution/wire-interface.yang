@@ -31,7 +31,7 @@ module wire-interface {
      See the License for the specific language governing permissions and
      limitations under the License.";
 
-  revision 2019-07-03 {
+  revision 2019-07-07 {
     description
       "Model for the Transport SDN Pilot at Telefonica Germany.
        Please view https://github.com/openBackhaul/wireInterface/issues for changes.";
@@ -41,7 +41,7 @@ module wire-interface {
   }
 
   identity LAYER_PROTOCOL_NAME_WIRE_LAYER {
-    base core-model:LAYER_PROTOCOL_NAME;
+    base core-model:LAYER_PROTOCOL_NAME_TYPE;
     description
       "none";
   }
@@ -1056,7 +1056,7 @@ module wire-interface {
       "none";
   }
 
-  identity MII_KIND_TYPE_SFP_SFP__SFP28 {
+  identity MII_KIND_TYPE_SFP_SFP_PLUS_SFP28 {
     base MII_KIND_TYPE;
     description
       "none";
@@ -1098,7 +1098,7 @@ module wire-interface {
       "none";
   }
 
-  identity MII_KIND_TYPE_DWDM_SFP_SFP_ {
+  identity MII_KIND_TYPE_DWDM_SFP_SFP_PLUS {
     base MII_KIND_TYPE;
     description
       "none";
@@ -1110,7 +1110,7 @@ module wire-interface {
       "none";
   }
 
-  identity MII_KIND_TYPE_QSFP_ {
+  identity MII_KIND_TYPE_QSFP_PLUS {
     base MII_KIND_TYPE;
     description
       "none";
@@ -1182,13 +1182,13 @@ module wire-interface {
       "none";
   }
 
-  identity MII_KIND_TYPE_QSFP__RATE_SELECT_V1 {
+  identity MII_KIND_TYPE_QSFP_PLUS_RATE_SELECT_V1 {
     base MII_KIND_TYPE;
     description
       "none";
   }
 
-  identity MII_KIND_TYPE_QSFP__RATE_SELECT_V2 {
+  identity MII_KIND_TYPE_QSFP_PLUS_RATE_SELECT_V2 {
     base MII_KIND_TYPE;
     description
       "none";

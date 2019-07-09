@@ -288,6 +288,7 @@
         <revision xmi:type="OpenModel_Profile:Revision" xmi:id="onf-core-nf-revision-2019-07-09" date="2019-07-09" version="v1.4" description="Corrected version derived from ONF-TR-512 v1.4&#xA;
        - Type of LayerProtocol/layerProtocolName simplfied to LayerProtocolNameType &#xA;
        - Type of Profile/profileName changed to ProfileNameType (same concept as for layerProtocolName &#xA;
+       - FcSwitch added. &#xA;
        - remove references to UML model." additionalChanges="" reference="ONF-TR-512, RFC 6020 and RFC 6087"/>
 
         <revision xmi:type="OpenModel_Profile:Revision" xmi:id="onf-core-nf-revision-2019-07-05" date="2019-07-05" version="v1.4" description="Corrected version derived from ONF-TR-512 v1.4&#xA;
