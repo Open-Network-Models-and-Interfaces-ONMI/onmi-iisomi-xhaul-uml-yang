@@ -27,6 +27,15 @@ module core-model {
      See the License for the specific language governing permissions and
      limitations under the License.";
 
+  revision 2019-07-09 {
+    description
+      "Corrected version derived from ONF-TR-512 v1.4
+       - Type of LayerProtocol/layerProtocolName simplfied to LayerProtocolNameType
+       - Type of Profile/profileName changed to ProfileNameType (same concept as for layerProtocolName
+       - remove references to UML model.";
+    reference
+      "ONF-TR-512, RFC 6020 and RFC 6087";
+  }
   revision 2019-07-05 {
     description
       "Corrected version derived from ONF-TR-512 v1.4
@@ -56,10 +65,7 @@ module core-model {
   typedef port-role {
     type string;
     description
-      "The role of a port in the context of the function of the forwarding entity that it bounds.
-
-       uml:identifier = '_DUU_sGZ_EeWrX_JIGzXlSg'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions'";
+      "The role of a port in the context of the function of the forwarding entity that it bounds.";
   }
 
   typedef port-direction {
@@ -67,10 +73,7 @@ module core-model {
       base PORT_DIRECTION;
     }
     description
-      "The orientation of flow at the Port of a Forwarding entity.
-
-       uml:identifier = '_2WpC8EC7EeWxhL2B6Peg6A'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions'";
+      "The orientation of flow at the Port of a Forwarding entity.";
   }
 
   typedef forwarding-direction {
@@ -78,10 +81,7 @@ module core-model {
       base FORWARDING_DIRECTION;
     }
     description
-      "The directionality of a Forwarding entity.
-
-       uml:identifier = '_dV67AEC8EeWxhL2B6Peg6A'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions'";
+      "The directionality of a Forwarding entity.";
   }
 
   typedef termination-direction {
@@ -89,10 +89,7 @@ module core-model {
       base TERMINATION_DIRECTION;
     }
     description
-      "The directionality of a termination entity.
-
-       uml:identifier = '_RWILYEDAEeWQeOKbNUpP9A'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions'";
+      "The directionality of a termination entity.";
   }
 
   typedef termination-state {
@@ -101,21 +98,23 @@ module core-model {
     }
     description
       "Provides support for the range of behaviors and specific states that an LP can take with respect to termination of the signal.
-       Indicates to what degree the LayerTermination is terminated.
-
-       uml:identifier = '_6anG8GeEEeWmgIwAIZlYKQ'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions'";
+       Indicates to what degree the LayerTermination is terminated.";
   }
 
-  typedef layer-protocol-name {
+  typedef layer-protocol-name-type {
     type identityref {
-      base LAYER_PROTOCOL_NAME;
+      base LAYER_PROTOCOL_NAME_TYPE;
     }
     description
-      "A controlled list of LayerProtocol names.
+      "A controlled list of LayerProtocol names.";
+  }
 
-       uml:identifier = '_MbUkMIQ4EeiXzpgfQWpR-Q'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions'";
+  typedef profile-name-type {
+    type identityref {
+      base PROFILE_NAME_TYPE;
+    }
+    description
+      "A controlled list of LayerProtocol names.";
   }
 
   typedef bit-string {
@@ -123,38 +122,26 @@ module core-model {
     description
       "This primitive type defines a bit oriented string.
        The size of the BitString will be defined in the valueRange property of the attribute; according to ASN.1 (X.680).
-       The semantic of each bit position will be defined in the Documentation field of the attribute.
-
-       uml:identifier = '_oGqi2FLNEeO75dO39GbF8Q'
-       uml:reference  = '/CoreModel/CoreFoundationModel/TypeDefinitions'";
+       The semantic of each bit position will be defined in the Documentation field of the attribute.";
   }
 
   typedef printable-string {
     type string;
     description
-      "A string that only includes printable characters.
-
-       uml:identifier = '_oGqlf1LNEeO75dO39GbF8Q'
-       uml:reference  = '/CoreModel/CoreFoundationModel/TypeDefinitions'";
+      "A string that only includes printable characters.";
   }
 
   typedef universal-id {
     type string;
     description
       "The universal ID value where the mechanism for generation is defined by some authority not directly referenced in the structure.
-       An example structure is [IETF RFC4122].
-
-       uml:identifier = '_SU3Q4I30EeO38ZmbECnvbg'
-       uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/TypeDefinitions'";
+       An example structure is [IETF RFC4122].";
   }
 
   typedef dt-address {
     type string;
     description
-      "A description of location via a hierarchy of narrowing contexts.
-
-       uml:identifier = '_A15msMDaEeWbqPZwR-Ot6A'
-       uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/TypeDefinitions'";
+      "A description of location via a hierarchy of narrowing contexts.";
   }
 
   typedef operational-state {
@@ -162,10 +149,7 @@ module core-model {
       base OPERATIONAL_STATE;
     }
     description
-      "The operational state is used to indicate whether or not the resource is installed and working.
-
-       uml:identifier = '_lNclkLEtEeSZUdYfPSdgew'
-       uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/TypeDefinitions'";
+      "The operational state is used to indicate whether or not the resource is installed and working. ";
   }
 
   typedef administrative-state {
@@ -175,10 +159,7 @@ module core-model {
     description
       "The administrative state is used to show whether use of a resource is allowed or prohibited.
        The administrative state can be observed and directly controlled by certain operational roles.
-       Typically, only a user (in the provider context) with administrative privileges is allowed to write the administrative state, any other users are restricted to read only.
-
-       uml:identifier = '_KSKOYLEuEeSZUdYfPSdgew'
-       uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/TypeDefinitions'";
+       Typically, only a user (in the provider context) with administrative privileges is allowed to write the administrative state, any other users are restricted to read only.";
   }
 
   typedef administrative-control {
@@ -186,10 +167,7 @@ module core-model {
       base ADMINISTRATIVE_CONTROL;
     }
     description
-      "Reflects the current control action when the entity is not in the desired state.
-
-       uml:identifier = '_-xPeALEvEeSZUdYfPSdgew'
-       uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/TypeDefinitions'";
+      "Reflects the current control action when the entity is not in the desired state.";
   }
 
   typedef lifecycle-state {
@@ -197,10 +175,7 @@ module core-model {
       base LIFECYCLE_STATE;
     }
     description
-      "This state is used to track the planned deployment, allocation to clients and withdrawal of resources.
-
-       uml:identifier = '_YSsboGgiEeWmgIwAIZlYKQ'
-       uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/TypeDefinitions'";
+      "This state is used to track the planned deployment, allocation to clients and withdrawal of resources.";
   }
 
   typedef forwarding-rule {
@@ -208,10 +183,7 @@ module core-model {
       base FORWARDING_RULE;
     }
     description
-      "Rule that restricts the creation/deletion of an FC between points grouped by FD or related by the Link between FDs.
-
-       uml:identifier = '_E1O1wL43EeW6upS9HpMrJw'
-       uml:reference  = '/CoreModel/CoreSpecificationModel/ForwardingDomainAndLinkCapability/TypeDefinitions'";
+      "Rule that restricts the creation/deletion of an FC between points grouped by FD or related by the Link between FDs.";
   }
 
   typedef rule-type {
@@ -219,10 +191,7 @@ module core-model {
       base RULE_TYPE;
     }
     description
-      "Indicates the focus of the rule.
-
-       uml:identifier = '_EZ3vcL43EeW6upS9HpMrJw'
-       uml:reference  = '/CoreModel/CoreSpecificationModel/ForwardingDomainAndLinkCapability/TypeDefinitions'";
+      "Indicates the focus of the rule.";
   }
 
   typedef port-role-rule-option {
@@ -230,10 +199,7 @@ module core-model {
       base PORT_ROLE_RULE_OPTION;
     }
     description
-      "Indicates how to interpret the PortRole list.
-
-       uml:identifier = '_dcy30JxWEea1Nbypr6RfLw'
-       uml:reference  = '/CoreModel/CoreSpecificationModel/ForwardingDomainAndLinkCapability/TypeDefinitions'";
+      "Indicates how to interpret the PortRole list.";
   }
 
   typedef signal-property-value-rule {
@@ -258,37 +224,25 @@ module core-model {
   identity PORT_DIRECTION_BIDIRECTIONAL {
     base PORT_DIRECTION;
     description
-      "The Port has both an INPUT flow and an OUTPUT flow defined.
-
-       uml:identifier = '_6A9_oEC7EeWxhL2B6Peg6A'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/PortDirection'";
+      "The Port has both an INPUT flow and an OUTPUT flow defined.";
   }
 
   identity PORT_DIRECTION_INPUT {
     base PORT_DIRECTION;
     description
-      "The Port only has definition for a flow into the Forwarding entity (i.e. an ingress flow).
-
-       uml:identifier = '_7K6DMEC7EeWxhL2B6Peg6A'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/PortDirection'";
+      "The Port only has definition for a flow into the Forwarding entity (i.e. an ingress flow).";
   }
 
   identity PORT_DIRECTION_OUTPUT {
     base PORT_DIRECTION;
     description
-      "The Port only has definition for a flow out of the Forwarding entity (i.e. an egress flow).
-
-       uml:identifier = '_8qSLQEC7EeWxhL2B6Peg6A'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/PortDirection'";
+      "The Port only has definition for a flow out of the Forwarding entity (i.e. an egress flow).";
   }
 
   identity PORT_DIRECTION_UNIDENTIFIED_OR_UNKNOWN {
     base PORT_DIRECTION;
     description
-      "Not a normal state. The system is unable to determine the correct value.
-
-       uml:identifier = '_-ixW4EC7EeWxhL2B6Peg6A'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/PortDirection'";
+      "Not a normal state. The system is unable to determine the correct value.";
   }
 
   identity PORT_DIRECTION_OMNIDIRECTIONAL {
@@ -305,28 +259,19 @@ module core-model {
   identity FORWARDING_DIRECTION_BIDIRECTIONAL {
     base FORWARDING_DIRECTION;
     description
-      "The Forwarding entity supports both BIDIRECTIONAL flows at all Ports (i.e. all Ports have both an INPUT flow and an OUTPUT flow defined).
-
-       uml:identifier = '_fg49wEC8EeWxhL2B6Peg6A'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/ForwardingDirection'";
+      "The Forwarding entity supports both BIDIRECTIONAL flows at all Ports (i.e. all Ports have both an INPUT flow and an OUTPUT flow defined).";
   }
 
   identity FORWARDING_DIRECTION_UNIDIRECTIONAL {
     base FORWARDING_DIRECTION;
     description
-      "The Forwarding entity has Ports that are either INPUT or OUTPUT. It has no BIDIRECTIONAL Ports.
-
-       uml:identifier = '_gq9kMEC8EeWxhL2B6Peg6A'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/ForwardingDirection'";
+      "The Forwarding entity has Ports that are either INPUT or OUTPUT. It has no BIDIRECTIONAL Ports.";
   }
 
   identity FORWARDING_DIRECTION_UNDEFINED_OR_UNKNOWN {
     base FORWARDING_DIRECTION;
     description
-      "Not a normal state. The system is unable to determine the correct value.
-
-       uml:identifier = '_i4cvcEC8EeWxhL2B6Peg6A'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/ForwardingDirection'";
+      "Not a normal state. The system is unable to determine the correct value.";
   }
 
   identity FORWARDING_DIRECTION_OMNIDIRECTIONAL {
@@ -343,10 +288,7 @@ module core-model {
   identity TERMINATION_DIRECTION_BIDIRECTIONAL {
     base TERMINATION_DIRECTION;
     description
-      "A Termination with both SINK and SOURCE flows.
-
-       uml:identifier = '_VOHwoEDAEeWQeOKbNUpP9A'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/TerminationDirection'";
+      "A Termination with both SINK and SOURCE flows.";
   }
 
   identity TERMINATION_DIRECTION_SINK {
@@ -358,10 +300,7 @@ module core-model {
        - then will be decoded and deconstructed
        - then relevant parts of the flow will be sent out of the termination function (the client side) where it is essentially at an OUTPUT from the termination component
        A SINK termination is one that only supports a SINK flow.
-       A SINK termination can be bound to an OUTPUT Port of a Forwarding entity
-
-       uml:identifier = '_W4avQEDAEeWQeOKbNUpP9A'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/TerminationDirection'";
+       A SINK termination can be bound to an OUTPUT Port of a Forwarding entity";
   }
 
   identity TERMINATION_DIRECTION_SOURCE {
@@ -373,19 +312,13 @@ module core-model {
        - then will be assembled with various overheads etc. and will be coded
        - then coded form of the assembly of flow will be sent out of the termination function (the server side) where it is essentially at an OUTPUT from the termination component
        A SOURCE termination is one that only supports a SOURCE flow.
-       A SOURCE termination can be bound to an INPUT Port of a Forwarding entity
-
-       uml:identifier = '_XrdVwEDAEeWQeOKbNUpP9A'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/TerminationDirection'";
+       A SOURCE termination can be bound to an INPUT Port of a Forwarding entity";
   }
 
   identity TERMINATION_DIRECTION_UNDEFINED_OR_UNKNOWN {
     base TERMINATION_DIRECTION;
     description
-      "Not a normal state. The system is unable to determine the correct value.
-
-       uml:identifier = '_YcGIgEDAEeWQeOKbNUpP9A'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/TerminationDirection'";
+      "Not a normal state. The system is unable to determine the correct value.";
   }
 
   identity TERMINATION_STATE {
@@ -396,64 +329,43 @@ module core-model {
   identity TERMINATION_STATE_LP_CAN_NEVER_TERMINATE {
     base TERMINATION_STATE;
     description
-      "A non-flexible case that can never be terminated.
-
-       uml:identifier = '_fQ-KsGeFEeWmgIwAIZlYKQ'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/TerminationState'";
+      "A non-flexible case that can never be terminated.";
   }
 
   identity TERMINATION_STATE_LP_NOT_TERMINATED {
     base TERMINATION_STATE;
     description
-      "A flexible termination that can terminate but is currently not terminated.
-
-       uml:identifier = '_z8-fsGeFEeWmgIwAIZlYKQ'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/TerminationState'";
+      "A flexible termination that can terminate but is currently not terminated.";
   }
 
   identity TERMINATION_STATE_TERMINATED_SERVER_TO_CLIENT_FLOW {
     base TERMINATION_STATE;
     description
-      "A flexible termination that is currently terminated for server to client flow only.
-
-       uml:identifier = '_CYFeYGeGEeWmgIwAIZlYKQ'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/TerminationState'";
+      "A flexible termination that is currently terminated for server to client flow only.";
   }
 
   identity TERMINATION_STATE_TERMINATED_CLIENT_TO_SERVER_FLOW {
     base TERMINATION_STATE;
     description
-      "A flexible termination that is currently terminated for client to server flow only.
-
-       uml:identifier = '_LtQeAGeGEeWmgIwAIZlYKQ'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/TerminationState'";
+      "A flexible termination that is currently terminated for client to server flow only.";
   }
 
   identity TERMINATION_STATE_TERMINATED_BIDIRECTIONAL {
     base TERMINATION_STATE;
     description
-      "A flexible termination that is currently terminated in both directions of flow.
-
-       uml:identifier = '_YWtR0GeGEeWmgIwAIZlYKQ'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/TerminationState'";
+      "A flexible termination that is currently terminated in both directions of flow.";
   }
 
   identity TERMINATION_STATE_LP_PERMENANTLY_TERMINATED {
     base TERMINATION_STATE;
     description
-      "A non-flexible termination that is always terminated (in both directions of flow for a bidirectional case and in the one direction of flow for both unidirectional cases).
-
-       uml:identifier = '_gjpeEGeGEeWmgIwAIZlYKQ'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/TerminationState'";
+      "A non-flexible termination that is always terminated (in both directions of flow for a bidirectional case and in the one direction of flow for both unidirectional cases).";
   }
 
   identity TERMINATION_STATE_TERMINATION_STATE_UNKNOWN {
     base TERMINATION_STATE;
     description
-      "There TerminationState cannot be determined.
-
-       uml:identifier = '_ueUCIGeGEeWmgIwAIZlYKQ'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/TerminationState'";
+      "There TerminationState cannot be determined.";
   }
 
   identity PROTECTION_REASON {
@@ -464,28 +376,19 @@ module core-model {
   identity PROTECTION_REASON_WAIT_TO_REVERT {
     base PROTECTION_REASON;
     description
-      "The resource is selected as control is waiting to restore to a preferred resource.
-
-       uml:identifier = '_4AkeECi-EeaGGvAxxSe1uA'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/Resilience/ProtectionReason'";
+      "The resource is selected as control is waiting to restore to a preferred resource.";
   }
 
   identity PROTECTION_REASON_SIGNAL_DEGRADE {
     base PROTECTION_REASON;
     description
-      "The resource is selected as the best preferred resource is in signal degrade.
-
-       uml:identifier = '_4Am6UCi-EeaGGvAxxSe1uA'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/Resilience/ProtectionReason'";
+      "The resource is selected as the best preferred resource is in signal degrade.";
   }
 
   identity PROTECTION_REASON_SIGNAL_FAIL {
     base PROTECTION_REASON;
     description
-      "The resource is selected as the best preferred resource is in signal fail.
-
-       uml:identifier = '_4AoIcCi-EeaGGvAxxSe1uA'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/Resilience/ProtectionReason'";
+      "The resource is selected as the best preferred resource is in signal fail.";
   }
 
   identity ROUTE_SELECTION_CONTROL {
@@ -500,10 +403,7 @@ module core-model {
        This overrides all other protection control states including forced.
        If the item is locked out, then it cannot be used under any circumstances.
        Note: Only relevant when part of a protection scheme.
-       Note: if a protection process that has a relationship to the item (i.e. is one of the options the protection process may choose) is deactivated by being isFrozen = true) then the lockout request will be rejected.
-
-       uml:identifier = '_A41DcMOOEeWwZ527PhfFSA'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/Resilience/RouteSelectionControl'";
+       Note: if a protection process that has a relationship to the item (i.e. is one of the options the protection process may choose) is deactivated by being isFrozen = true) then the lockout request will be rejected. ";
   }
 
   identity ROUTE_SELECTION_REASON {
@@ -519,10 +419,7 @@ module core-model {
   identity SWITCH_CONTROL_NORMAL {
     base SWITCH_CONTROL;
     description
-      "No administrative control applied to the switch.
-
-       uml:identifier = '_iH8CwMOFEeWwZ527PhfFSA'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/Resilience/SwitchControl'";
+      "No administrative control applied to the switch.";
   }
 
   identity SWITCH_CONTROL_MANUAL {
@@ -537,10 +434,7 @@ module core-model {
        A manual switch/route that is selecting an FcPort, LTP, FC, Link or Route that is subsequently set to LOCK_OUT will have the manual removed (changed to NORMAL) and will switch away from the FcPort with LOCK_OUT to best available based upon normal rules.
        A manual switch that is selecting an FcPort that is subsequently selected by a Forced switch will be restored to normal operation and the manual will be removed.
        A manual switch/route that is selecting an FcPort, LTP, FC, Link or Route that is subsequently manual selected by another switch/route will have the manual removed and will switch away from the FcPort.
-       Can be returned to NORMAL by configuration action.
-
-       uml:identifier = '_r6PqUMOFEeWwZ527PhfFSA'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/Resilience/SwitchControl'";
+       Can be returned to NORMAL by configuration action.";
   }
 
   identity SWITCH_CONTROL_FORCED {
@@ -552,10 +446,7 @@ module core-model {
        If this resource fails it will NOT switch.
        If resource selected is shared and another FC requires the resource through a FORCE on that FC and the FC is of a higher FcPriority then the selection control on this FC will change to NORMAL and switch to best available based upon normal rules.
        If the resource selected is then set to LOCK_OUT then the selection control will change to NORMAL and switch to best available based upon normal rules.
-       Can be returned to NORMAL by configuration action.
-
-       uml:identifier = '_tj-BMMOFEeWwZ527PhfFSA'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/Resilience/SwitchControl'";
+       Can be returned to NORMAL by configuration action.";
   }
 
   identity SWITCH_STATE_REASON {
@@ -571,19 +462,13 @@ module core-model {
   identity REVERSION_MODE_REVERTIVE {
     base REVERSION_MODE;
     description
-      "An FC switched to a lower priority (non-preferred) resource will revert to a higher priority (preferred) resource when that recovers (potentially after some hold-off time).
-
-       uml:identifier = '_oGqjgVLNEeO75dO39GbF8Q'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/Resilience/ReversionMode'";
+      "An FC switched to a lower priority (non-preferred) resource will revert to a higher priority (preferred) resource when that recovers (potentially after some hold-off time).";
   }
 
   identity REVERSION_MODE_NON-REVERTIVE {
     base REVERSION_MODE;
     description
-      "An FC switched to a lower priority (non-preferred) resource will not revert to a higher priority (preferred) resource when that recovers.
-
-       uml:identifier = '_oGqjglLNEeO75dO39GbF8Q'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/Resilience/ReversionMode'";
+      "An FC switched to a lower priority (non-preferred) resource will not revert to a higher priority (preferred) resource when that recovers.";
   }
 
   identity RESILIENCE_CONTROL {
@@ -623,61 +508,54 @@ module core-model {
   identity RUN_MODE_FREE_RUN {
     base RUN_MODE;
     description
-      "The clock is not synchronized to another clock.
-
-       uml:identifier = '_uFkvgXXBEeeqyuooNTTDCg'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/Timing/RunMode'";
+      "The clock is not synchronized to another clock.";
   }
 
   identity RUN_MODE_LOCKED {
     base RUN_MODE;
     description
-      "The clock is synchronized to another clock.
-
-       uml:identifier = '_uFkvgnXBEeeqyuooNTTDCg'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/Timing/RunMode'";
+      "The clock is synchronized to another clock.";
   }
 
   identity RUN_MODE_HOLD_OVER {
     base RUN_MODE;
     description
       "The clock was previously synchronized to another clock but that timing input has been lost.
-       The clock is set to the last known synchronization.
-
-       uml:identifier = '_uFkvg3XBEeeqyuooNTTDCg'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/Timing/RunMode'";
+       The clock is set to the last known synchronization.";
   }
 
-  identity LAYER_PROTOCOL_NAME {
+  identity LAYER_PROTOCOL_NAME_TYPE {
     description
       "none";
   }
 
-  identity LAYER_PROTOCOL_NAME_PHOTONIC_MEDIA {
-    base LAYER_PROTOCOL_NAME;
+  identity LAYER_PROTOCOL_NAME_TYPE_PHOTONIC_MEDIA {
+    base LAYER_PROTOCOL_NAME_TYPE;
     description
-      "The characteristic information is that of a channel able to carry photons and of the photon source/sink.
-
-       uml:identifier = '_ce45AIQ5EeiXzpgfQWpR-Q'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/LayerProtocolName'";
+      "The characteristic information is that of a channel able to carry photons and of the photon source/sink.";
   }
 
-  identity LAYER_PROTOCOL_NAME_OTU_AND_ODU {
-    base LAYER_PROTOCOL_NAME;
+  identity LAYER_PROTOCOL_NAME_TYPE_OTU_AND_ODU {
+    base LAYER_PROTOCOL_NAME_TYPE;
     description
-      "The characteristic information is that of a channel able to carry ODU/OTU protocol (OTN) and of the ODU/OTU source/sink.
-
-       uml:identifier = '_n-4xcIQ5EeiXzpgfQWpR-Q'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/LayerProtocolName'";
+      "The characteristic information is that of a channel able to carry ODU/OTU protocol (OTN) and of the ODU/OTU source/sink.";
   }
 
-  identity LAYER_PROTOCOL_NAME_ETHERNET {
-    base LAYER_PROTOCOL_NAME;
+  identity LAYER_PROTOCOL_NAME_TYPE_ETHERNET {
+    base LAYER_PROTOCOL_NAME_TYPE;
     description
-      "The characteristic information is that of a channel able to carry Ethernet protocol and of the Ethernet protocol source/sink.
+      "The characteristic information is that of a channel able to carry Ethernet protocol and of the Ethernet protocol source/sink.";
+  }
 
-       uml:identifier = '_4GixgIQ5EeiXzpgfQWpR-Q'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/LayerProtocolName'";
+  identity PROFILE_NAME_TYPE {
+    description
+      "none";
+  }
+
+  identity PROFILE_NAME_TYPE_USER_PROFILE {
+    base PROFILE_NAME_TYPE;
+    description
+      "none";
   }
 
   identity OPERATIONAL_STATE {
@@ -689,19 +567,13 @@ module core-model {
     base OPERATIONAL_STATE;
     description
       "The resource is unable to meet the SLA of the user of the resource.
-       If no (explicit) SLA is defined the resource is disabled if it is totally inoperable and unable to provide service to the user.
-
-       uml:identifier = '_oVoegLEtEeSZUdYfPSdgew'
-       uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/TypeDefinitions/OperationalState'";
+       If no (explicit) SLA is defined the resource is disabled if it is totally inoperable and unable to provide service to the user.";
   }
 
   identity OPERATIONAL_STATE_ENABLED {
     base OPERATIONAL_STATE;
     description
-      "The resource is partially or fully operable and available for use.
-
-       uml:identifier = '_p90kULEtEeSZUdYfPSdgew'
-       uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/TypeDefinitions/OperationalState'";
+      "The resource is partially or fully operable and available for use.";
   }
 
   identity ADMINISTRATIVE_STATE {
@@ -712,19 +584,13 @@ module core-model {
   identity ADMINISTRATIVE_STATE_LOCKED {
     base ADMINISTRATIVE_STATE;
     description
-      "Users are administratively prohibited from making use of the resource.
-
-       uml:identifier = '_OLEZoLEuEeSZUdYfPSdgew'
-       uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/TypeDefinitions/AdministrativeState'";
+      "Users are administratively prohibited from making use of the resource.";
   }
 
   identity ADMINISTRATIVE_STATE_UNLOCKED {
     base ADMINISTRATIVE_STATE;
     description
-      "Users are allowed to use the resource.
-
-       uml:identifier = '_PIgSQLEuEeSZUdYfPSdgew'
-       uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/TypeDefinitions/AdministrativeState'";
+      "Users are allowed to use the resource.";
   }
 
   identity ADMINISTRATIVE_STATE_SHUTTING_DOWN {
@@ -733,10 +599,7 @@ module core-model {
       "The entity is administratively restricted to existing instances of use only. There may be specific actions to remove existing uses. No new instances of use can be enabled.
        The resource automatically transitions to “locked” when the last user quits.
        The administrative state is not visible in the client context.
-       The lifecycle state “pending removal” should be used to indicate to the client that the provider intends to remove the resource.
-
-       uml:identifier = '_QAuTsLEuEeSZUdYfPSdgew'
-       uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/TypeDefinitions/AdministrativeState'";
+       The lifecycle state “pending removal” should be used to indicate to the client that the provider intends to remove the resource.";
   }
 
   identity ADMINISTRATIVE_CONTROL {
@@ -748,49 +611,34 @@ module core-model {
     base ADMINISTRATIVE_CONTROL;
     description
       "The intention is for the entity to become unlocked.
-       The entity may already be UNLOCKED.
-
-       uml:identifier = '_vaxN0LEwEeSZUdYfPSdgew'
-       uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/TypeDefinitions/AdministrativeControl'";
+       The entity may already be UNLOCKED.";
   }
 
   identity ADMINISTRATIVE_CONTROL_LOCK_PASSIVE {
     base ADMINISTRATIVE_CONTROL;
     description
       "The intention is for the entity to become locked but no effort is expected to move to the Locked state (the state will be achieved once all users stop using the resource).
-       The entity may be LOCKED.
-
-       uml:identifier = '_NTzvkLEwEeSZUdYfPSdgew'
-       uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/TypeDefinitions/AdministrativeControl'";
+       The entity may be LOCKED.";
   }
 
   identity ADMINISTRATIVE_CONTROL_LOCK_ACTIVE {
     base ADMINISTRATIVE_CONTROL;
     description
       "The intention is for the entity to become locked and it is expected that effort will be made to move to the Locked state (users will be actively removed).
-       The entity may already be LOCKED.
-
-       uml:identifier = '_uWUxcLE0EeSZUdYfPSdgew'
-       uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/TypeDefinitions/AdministrativeControl'";
+       The entity may already be LOCKED.";
   }
 
   identity ADMINISTRATIVE_CONTROL_LOCK_IMMEDIATE {
     base ADMINISTRATIVE_CONTROL;
     description
       "The intention is for the entity to become locked and it is expected to move to the Locked state immediately (users will be force removed).
-       The entity may already be LOCKED.
-
-       uml:identifier = '_a69wUGggEeWmgIwAIZlYKQ'
-       uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/TypeDefinitions/AdministrativeControl'";
+       The entity may already be LOCKED.";
   }
 
   identity ADMINISTRATIVE_CONTROL_QUIESCENT {
     base ADMINISTRATIVE_CONTROL;
     description
-      "The administrative state is at a stable value (LOCKED/UNLOCKED) and no action is being taken.
-
-       uml:identifier = '_nXI-0GU9Eeerc4Zz6ufSeg'
-       uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/TypeDefinitions/AdministrativeControl'";
+      "The administrative state is at a stable value (LOCKED/UNLOCKED) and no action is being taken.";
   }
 
   identity LIFECYCLE_STATE {
@@ -802,10 +650,7 @@ module core-model {
     base LIFECYCLE_STATE;
     description
       "The resource is planned but is not present in the network.
-       Should include a 'time' when the resources are expected to be installed.
-
-       uml:identifier = '_9FvssGgiEeWmgIwAIZlYKQ'
-       uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/TypeDefinitions/LifecycleState'";
+       Should include a 'time' when the resources are expected to be installed.";
   }
 
   identity LIFECYCLE_STATE_POTENTIAL_AVAILABLE {
@@ -813,37 +658,25 @@ module core-model {
     description
       "The supporting resources are present in the network but are shared with other clients; or require further configuration before they can be used; or both.
        (1) When a potential resource is configured and allocated to a client it is moved to the INSTALLED state for that client.
-       (2) If the potential resource has been consumed (e.g. allocated to another client) it is moved to the POTENTIAL BUSY state for all other clients.
-
-       uml:identifier = '_DuF5sGgjEeWmgIwAIZlYKQ'
-       uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/TypeDefinitions/LifecycleState'";
+       (2) If the potential resource has been consumed (e.g. allocated to another client) it is moved to the POTENTIAL BUSY state for all other clients.";
   }
 
   identity LIFECYCLE_STATE_POTENTIAL_BUSY {
     base LIFECYCLE_STATE;
     description
-      "The supporting resources are present in the network but have been allocated to other clients.
-
-       uml:identifier = '_DCNRgDSHEeeKu4LrgaWt9A'
-       uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/TypeDefinitions/LifecycleState'";
+      "The supporting resources are present in the network but have been allocated to other clients.";
   }
 
   identity LIFECYCLE_STATE_INSTALLED {
     base LIFECYCLE_STATE;
     description
-      "The resource is present in the network and is capable of providing the service.
-
-       uml:identifier = '_Ql5SkGgjEeWmgIwAIZlYKQ'
-       uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/TypeDefinitions/LifecycleState'";
+      "The resource is present in the network and is capable of providing the service.";
   }
 
   identity LIFECYCLE_STATE_PENDING_REMOVAL {
     base LIFECYCLE_STATE;
     description
-      "The resource has been marked for removal. Should include a “time” when the resources are expected to be removed.
-
-       uml:identifier = '_XbZx0GgjEeWmgIwAIZlYKQ'
-       uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/TypeDefinitions/LifecycleState'";
+      "The resource has been marked for removal. Should include a “time” when the resources are expected to be removed.";
   }
 
   identity FORWARDING_RULE {
@@ -855,20 +688,14 @@ module core-model {
     base FORWARDING_RULE;
     description
       "LTPs referenced by the FD (or indirectly by the Link between FDs) cannot have FCs created between them.
-       This rule overrides all others.
-
-       uml:identifier = '_c2JJsL46EeW6upS9HpMrJw'
-       uml:reference  = '/CoreModel/CoreSpecificationModel/ForwardingDomainAndLinkCapability/TypeDefinitions/ForwardingRule'";
+       This rule overrides all others.";
   }
 
   identity FORWARDING_RULE_MUST_FORWARD_ACROSS_FD_LINK {
     base FORWARDING_RULE;
     description
       "LTPs referenced by the FD (or indirectly by the Link between FDs) MUST have FCs created between them.
-       This rule overrides all others except the CANNOT_FORWARD rule.
-
-       uml:identifier = '_hjH2ML46EeW6upS9HpMrJw'
-       uml:reference  = '/CoreModel/CoreSpecificationModel/ForwardingDomainAndLinkCapability/TypeDefinitions/ForwardingRule'";
+       This rule overrides all others except the CANNOT_FORWARD rule.";
   }
 
   identity FORWARDING_RULE_MAY_FORWARD_ACROSS_FD_LINK {
@@ -876,10 +703,7 @@ module core-model {
     description
       "LTPs referenced by the FD (or indirectly by the Link between FDs) may have FCs created between them.
        FCs may not be created between points that are not related by this rule either directly in an FD or indirectly via a Link linking two or more FDs.
-       For a Link points in an FD at one end of the Link can be connected to points in an FD at an other end of the Link.
-
-       uml:identifier = '_kXATEL46EeW6upS9HpMrJw'
-       uml:reference  = '/CoreModel/CoreSpecificationModel/ForwardingDomainAndLinkCapability/TypeDefinitions/ForwardingRule'";
+       For a Link points in an FD at one end of the Link can be connected to points in an FD at an other end of the Link.";
   }
 
   identity FORWARDING_RULE_NULL_FORWARDING_RULE {
@@ -896,28 +720,19 @@ module core-model {
   identity RULE_TYPE_FORWARDING {
     base RULE_TYPE;
     description
-      "The rule relates to creation of FCs.
-
-       uml:identifier = '_jvW5sL45EeW6upS9HpMrJw'
-       uml:reference  = '/CoreModel/CoreSpecificationModel/ForwardingDomainAndLinkCapability/TypeDefinitions/RuleType'";
+      "The rule relates to creation of FCs.";
   }
 
   identity RULE_TYPE_COST {
     base RULE_TYPE;
     description
-      "The rule relates to forwarding cost.
-
-       uml:identifier = '_nwga8L45EeW6upS9HpMrJw'
-       uml:reference  = '/CoreModel/CoreSpecificationModel/ForwardingDomainAndLinkCapability/TypeDefinitions/RuleType'";
+      "The rule relates to forwarding cost.";
   }
 
   identity RULE_TYPE_RISK {
     base RULE_TYPE;
     description
-      "The rule relates to forwarding risk.
-
-       uml:identifier = '_pB044L45EeW6upS9HpMrJw'
-       uml:reference  = '/CoreModel/CoreSpecificationModel/ForwardingDomainAndLinkCapability/TypeDefinitions/RuleType'";
+      "The rule relates to forwarding risk.";
   }
 
   identity RULE_TYPE_CAPACITY {
@@ -934,28 +749,19 @@ module core-model {
   identity PORT_ROLE_RULE_OPTION_SAME_ROLE {
     base PORT_ROLE_RULE_OPTION;
     description
-      "The ports to which the rule applies must have role from the list in PortRole.
-
-       uml:identifier = '_fKa3QJxWEea1Nbypr6RfLw'
-       uml:reference  = '/CoreModel/CoreSpecificationModel/ForwardingDomainAndLinkCapability/TypeDefinitions/PortRoleRuleOption'";
+      "The ports to which the rule applies must have role from the list in PortRole.";
   }
 
   identity PORT_ROLE_RULE_OPTION_DIFFERENT_ROLE {
     base PORT_ROLE_RULE_OPTION;
     description
-      "The ports to which the rule applies must not have a role from the list in PortRole.
-
-       uml:identifier = '_hZZ3UJxWEea1Nbypr6RfLw'
-       uml:reference  = '/CoreModel/CoreSpecificationModel/ForwardingDomainAndLinkCapability/TypeDefinitions/PortRoleRuleOption'";
+      "The ports to which the rule applies must not have a role from the list in PortRole.";
   }
 
   identity PORT_ROLE_RULE_OPTION_ANY_ROLE {
     base PORT_ROLE_RULE_OPTION;
     description
-      "The rule applies to any role of port.
-
-       uml:identifier = '_ySla8JxWEea1Nbypr6RfLw'
-       uml:reference  = '/CoreModel/CoreSpecificationModel/ForwardingDomainAndLinkCapability/TypeDefinitions/PortRoleRuleOption'";
+      "The rule applies to any role of port.";
   }
 
   identity SIGNAL_PROPERTY_VALUE_RULE {
@@ -983,29 +789,20 @@ module core-model {
   identity CONNECTOR_AND_PIN_ORIENTATION_MALE {
     base CONNECTOR_AND_PIN_ORIENTATION;
     description
-      "The connecting elements are dominantly protrusions.
-
-       uml:identifier = '_2g5MEEQ-EeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/DataTypes/ConnectorAndPinOrientation'";
+      "The connecting elements are dominantly protrusions.";
   }
 
   identity CONNECTOR_AND_PIN_ORIENTATION_FEMALE {
     base CONNECTOR_AND_PIN_ORIENTATION;
     description
-      "The connecting elements are dominantly indentations.
-
-       uml:identifier = '_4Mbg0EQ-EeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/DataTypes/ConnectorAndPinOrientation'";
+      "The connecting elements are dominantly indentations.";
   }
 
   identity CONNECTOR_AND_PIN_ORIENTATION_SYMMETRIC_NEUTRAL {
     base CONNECTOR_AND_PIN_ORIENTATION;
     description
       "The pin (and housing) orientation combination is such that it is symmetric so a connector is compatible with itself.
-       The connecting element may be a surface rather than protrusions or indentations.
-
-       uml:identifier = '_S_6mkGpAEeaBUOurxzA2sw'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/DataTypes/ConnectorAndPinOrientation'";
+       The connecting element may be a surface rather than protrusions or indentations.";
   }
 
   identity EQUIPMENT_CATEGORY {
@@ -1017,10 +814,7 @@ module core-model {
     base EQUIPMENT_CATEGORY;
     description
       "An assembly with holders designed to accommodate CIRCUIT_PACKs.
-       The assembly is designed to be mounted in a RACK.
-
-       uml:identifier = '_we-DsEQvEeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/DataTypes/EquipmentCategory'";
+       The assembly is designed to be mounted in a RACK.";
   }
 
   identity EQUIPMENT_CATEGORY_CIRCUIT_PACK {
@@ -1028,20 +822,14 @@ module core-model {
     description
       "An assembly with connectors compatible with those in a holder.
        The assembly is designed to be mounted in a holder (SLOT) of a SUBRACK.
-       May also support holders (SLOTs) for SMALL_FORMFACTOR_PLUGGABLEs.
-
-       uml:identifier = '_1QOzQEQvEeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/DataTypes/EquipmentCategory'";
+       May also support holders (SLOTs) for SMALL_FORMFACTOR_PLUGGABLEs.";
   }
 
   identity EQUIPMENT_CATEGORY_SMALL_FORMFACTOR_PLUGGABLE {
     base EQUIPMENT_CATEGORY;
     description
       "A small assembly (compared to a CIRCUIT_PACK) with connectors compatible with those in a holder.
-       The assembly is designed to be mounted in a holder (SLOT) of a CIRCUIT_PACK or STAND_ALONE_UNIT.
-
-       uml:identifier = '_7HuyIEQvEeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/DataTypes/EquipmentCategory'";
+       The assembly is designed to be mounted in a holder (SLOT) of a CIRCUIT_PACK or STAND_ALONE_UNIT.";
   }
 
   identity EQUIPMENT_CATEGORY_STAND_ALONE_UNIT {
@@ -1049,20 +837,14 @@ module core-model {
     description
       "An assembly with connectors for cabling and potentially with holders.
        The assembly is designed to be mounted in a freeform environment (on a table or simple mechanical cabinet).
-       May support holders (SLOTs) for CIRCUIT_PACKs or for SMALL_FORMFACTOR_PLUGGABLEs.
-
-       uml:identifier = '_-xiKYEQvEeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/DataTypes/EquipmentCategory'";
+       May support holders (SLOTs) for CIRCUIT_PACKs or for SMALL_FORMFACTOR_PLUGGABLEs.";
   }
 
   identity EQUIPMENT_CATEGORY_RACK {
     base EQUIPMENT_CATEGORY;
     description
       "A mechanical assembly with cabling and predefined mounting points for particular SUBRACK types.
-       The assembly is designed to be mounted on the floor in a row with other RACKs.
-
-       uml:identifier = '_YBF6EGpDEeaBUOurxzA2sw'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/DataTypes/EquipmentCategory'";
+       The assembly is designed to be mounted on the floor in a row with other RACKs.";
   }
 
   identity HOLDER_CATEGORY {
@@ -1074,10 +856,7 @@ module core-model {
     base HOLDER_CATEGORY;
     description
       "A guided holder with fixed connectors.
-       The guided holder is designed to take a particular form of CIRCUIT_PACK or SMALL_FORMFACTOR_PLUGGABLE
-
-       uml:identifier = '_3BcBcERLEeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/DataTypes/HolderCategory'";
+       The guided holder is designed to take a particular form of CIRCUIT_PACK or SMALL_FORMFACTOR_PLUGGABLE";
   }
 
   typedef protection-reason {
@@ -1085,10 +864,7 @@ module core-model {
       base PROTECTION_REASON;
     }
     description
-      "The cause of the current protection state.
-
-       uml:identifier = '_sthcgCi-EeaGGvAxxSe1uA'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/Resilience'";
+      "The cause of the current protection state.";
   }
 
   typedef route-selection-control {
@@ -1096,10 +872,7 @@ module core-model {
       base ROUTE_SELECTION_CONTROL;
     }
     description
-      "Possible degrees of administrative control applied to the Route selection.
-
-       uml:identifier = '_yIKvsMOGEeWwZ527PhfFSA'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/Resilience'";
+      "Possible degrees of administrative control applied to the Route selection.";
   }
 
   typedef route-selection-reason {
@@ -1107,10 +880,7 @@ module core-model {
       base ROUTE_SELECTION_REASON;
     }
     description
-      "The cause of the current route selection.
-
-       uml:identifier = '_cswHkCi-EeaGGvAxxSe1uA'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/Resilience'";
+      "The cause of the current route selection.";
   }
 
   typedef switch-control {
@@ -1126,10 +896,7 @@ module core-model {
       base SWITCH_STATE_REASON;
     }
     description
-      "Explains the reason for the current switch state.
-
-       uml:identifier = '_zRKlICi9EeaGGvAxxSe1uA'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/Resilience'";
+      "Explains the reason for the current switch state.";
   }
 
   typedef reversion-mode {
@@ -1137,19 +904,13 @@ module core-model {
       base REVERSION_MODE;
     }
     description
-      "The reversion mode associated with protection.
-
-       uml:identifier = '_oGqjf1LNEeO75dO39GbF8Q'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/Resilience'";
+      "The reversion mode associated with protection.";
   }
 
   typedef protection-type {
     type string;
     description
-      "Identifies the type of protection of an FcSwitch.
-
-       uml:identifier = '_c3Hu8Gb3EeWrX_JIGzXlSg'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/Resilience'";
+      "Identifies the type of protection of an FcSwitch.";
   }
 
   typedef resilience-control {
@@ -1174,22 +935,16 @@ module core-model {
       description
         "Qualifies the use of the LayerProtocol where the same LayerProtocol may be used recursively such that each recursion has the same characteristic information in the main traffic path but where there is some distinction in some other aspect.
          An example of use is in the case of the PHOTONIC_MEDIA LayerProtocol. All photonic media is of the same characteristic in the main traffic path, just a channel that enables the flow of photons, but may differ in overhead and with respect to level of nesting.
-         For the PHOTONIC_MEDIA, qualifiers may include OMS (Optical Multiplex Section), OTS (Optical Transmission Section) and NMCA (Network Media Channel Assembly).
-
-         uml:identifier = '__nr5oIQ3EeiXzpgfQWpR-Q'
-         uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/LayerProtocolNameAndQualifier'";
+         For the PHOTONIC_MEDIA, qualifiers may include OMS (Optical Multiplex Section), OTS (Optical Transmission Section) and NMCA (Network Media Channel Assembly).";
     }
     leaf layer-protocol-name {
-      type layer-protocol-name;
+      type layer-protocol-name-type;
       description
         "The name of the LayerProtocol chosen from a controlled list.
          LayerProtocol names include:
          - PHOTONIC_MEDIA
          - ODU
-         - ETHERNET
-
-         uml:identifier = '_Cvms0IQ4EeiXzpgfQWpR-Q'
-         uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions/LayerProtocolNameAndQualifier'";
+         - ETHERNET";
     }
     description
       "Provides a controlled list of layer protocol names and indicates the naming authority.
@@ -1197,56 +952,37 @@ module core-model {
        Layer protocol names include:
        -    Layer 1 (L1): OTU, ODU
        -    Layer 2 (L2): Carrier Grade Ethernet (ETY, ETH), MPLS-TP (MT)
-       uml:identifier = '_P-Hp8MD4EeSoNOrYOfaryg'
-       uml:reference  = '/CoreModel/CoreNetworkModel/TypeDefinitions'";
+      ";
   }
 
   grouping name-and-value {
     leaf value-name {
       type string;
       description
-        "The name of the value. The value need not have a name.
-
-         uml:identifier = '_77PyQI3tEeO38ZmbECnvbg'
-         uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/TypeDefinitions/NameAndValue'";
+        "The name of the value. The value need not have a name.";
     }
     leaf value {
       type string;
       description
-        "The value.
-
-         uml:identifier = '_ZUyfII3uEeO38ZmbECnvbg'
-         uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/TypeDefinitions/NameAndValue'";
+        "The value.";
     }
     description
-      "A scoped name-value pair.
-
-       uml:identifier = '_y7oy8I3tEeO38ZmbECnvbg'
-       uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/TypeDefinitions'";
+      "A scoped name-value pair.";
   }
 
   grouping local-id-and-class {
     leaf class-of-instance {
       type string;
       description
-        "The class to which the name refers.
-
-         uml:identifier = '_F1nxkMDxEeWbqPZwR-Ot6A'
-         uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/TypeDefinitions/LocalIdAndClass'";
+        "The class to which the name refers.";
     }
     leaf local-id {
       type string;
       description
-        "The localId of the entity.
-
-         uml:identifier = '_yRTdYMDwEeWbqPZwR-Ot6A'
-         uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/TypeDefinitions/LocalIdAndClass'";
+        "The localId of the entity.";
     }
     description
-      "The localId and the class of entity that it identifies.
-
-       uml:identifier = '_dCdzAMDuEeWbqPZwR-Ot6A'
-       uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/TypeDefinitions'";
+      "The localId and the class of entity that it identifies.";
   }
 
   grouping external-managed-universal-id {
@@ -1268,10 +1004,7 @@ module core-model {
     leaf-list port-role {
       type port-role;
       description
-        "The role of the port considered.
-
-         uml:identifier = '_GtCDcIlfEeahttOwTtJ6Iw'
-         uml:reference  = '/CoreModel/CoreSpecificationModel/ForwardingDomainAndLinkCapability/TypeDefinitions/PortRoleRule'";
+        "The role of the port considered.";
     }
     leaf-list port-role-rule {
       type port-role-rule-option;
@@ -1279,28 +1012,19 @@ module core-model {
         "none";
     }
     description
-      "Constrains which ports the rule applies to.
-
-       uml:identifier = '_kCGVcIleEeahttOwTtJ6Iw'
-       uml:reference  = '/CoreModel/CoreSpecificationModel/ForwardingDomainAndLinkCapability/TypeDefinitions'";
+      "Constrains which ports the rule applies to.";
   }
 
   grouping signal-property-rule {
     leaf signal-property-name {
       type string;
       description
-        "The name of the signal property to which the rule applies.
-
-         uml:identifier = '_MjTgEJwzEea1Nbypr6RfLw'
-         uml:reference  = '/CoreModel/CoreSpecificationModel/ForwardingDomainAndLinkCapability/TypeDefinitions/SignalPropertyRule'";
+        "The name of the signal property to which the rule applies.";
     }
     leaf signal-property-value-rule {
       type signal-property-value-rule;
       description
-        "Indicates whether signal properties should be accounted for or not.
-
-         uml:identifier = '_jx5GkJwzEea1Nbypr6RfLw'
-         uml:reference  = '/CoreModel/CoreSpecificationModel/ForwardingDomainAndLinkCapability/TypeDefinitions/SignalPropertyRule'";
+        "Indicates whether signal properties should be accounted for or not.";
     }
     description
       "none";
@@ -1310,10 +1034,7 @@ module core-model {
     leaf name {
       type metaclass-class-name;
       description
-        "The text name of the Class
-
-         uml:identifier = '_oIBGkGImEeerc4Zz6ufSeg'
-         uml:reference  = '/CoreModel/CoreSpecificationModel/TypeDefinitions/Metaclass:Class'";
+        "The text name of the Class";
     }
     description
       "This datatype represents the '<<Metaclass>> Class' from the UML metamodel.
@@ -1325,20 +1046,14 @@ module core-model {
        (2) provide definitions for attributes that are present in the instance that are not defined in the Class of the instance (these attribute may have been pruned and refactored from one or more external definition sources).
        (3) apply constraints to attributes in the instance that were defined in the class of the referencing instance.
        (4) replace attributes that were present in the class of the referencing instance by a new definition (same name).;
-
-
-       uml:identifier = '_APrrMGFYEeeiJ9-h1KDHig'
-       uml:reference  = '/CoreModel/CoreSpecificationModel/TypeDefinitions'";
+      ";
   }
 
   grouping control-parameters-pac {
     leaf reversion-mode {
       type reversion-mode;
       description
-        "Indicates whether the protection scheme is revertive or non-revertive.
-
-         uml:identifier = '_eSmM4J4IEeOO3om500DFKg'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience/ControlParameters_Pac'";
+        "Indicates whether the protection scheme is revertive or non-revertive.";
     }
     leaf wait-to-revert-time {
       type int64;
@@ -1346,26 +1061,17 @@ module core-model {
       description
         "If the protection system is revertive, this attribute specifies the time, in minutes, to wait after a fault clears on a higher priority (preferred) resource before switching to the preferred resource.
          If a further fault occurs on the preferred resource in the waitToRevertTime then the reversion attempt is cancelled.
-         The WTR timer is overridden by the needs of a higher priority signal. Depending upon which resource is requested this may simply cancel the attempt to revert of may cause immediate reversion.
-
-         uml:identifier = '_eSxzEJ4IEeOO3om500DFKg'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience/ControlParameters_Pac'";
+         The WTR timer is overridden by the needs of a higher priority signal. Depending upon which resource is requested this may simply cancel the attempt to revert of may cause immediate reversion.";
     }
     leaf prot-type {
       type protection-type;
       description
-        "Indicates the protection scheme that is used for the ProtectionGroup.
-
-         uml:identifier = '_eS7kEJ4IEeOO3om500DFKg'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience/ControlParameters_Pac'";
+        "Indicates the protection scheme that is used for the ProtectionGroup.";
     }
     leaf hold-off-time {
       type int64;
       description
-        "This attribute indicates the time, in milliseconds, between declaration of a switch trigger condition (e.g. signal degrade or signal fail), and the initialization of the protection switching algorithm.
-
-         uml:identifier = '_eTFVEJ4IEeOO3om500DFKg'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience/ControlParameters_Pac'";
+        "This attribute indicates the time, in milliseconds, between declaration of a switch trigger condition (e.g. signal degrade or signal fail), and the initialization of the protection switching algorithm.";
     }
     leaf network-scheme-specification {
       type string;
@@ -1373,10 +1079,90 @@ module core-model {
         "none";
     }
     description
-      "A list of control parameters to apply to a switch.
+      "A list of control parameters to apply to a switch.";
+  }
 
-       uml:identifier = '_T5-osJ4HEeOO3om500DFKg'
-       uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience'";
+  grouping fc-switch {
+    leaf hold-off-time {
+      type int64;
+      description
+        "Moved to ControlParameter_Pac. This attribute indicates the time, in seconds, between declaration of unacceptable quality of signal on the currently selected FcPort, and the initialization of the protection switching algorithm. ";
+    }
+    leaf prot-type {
+      type protection-type;
+      description
+        "Indicates the protection scheme that is used for the ProtectionGroup.";
+    }
+    leaf reversion-mode {
+      type reversion-mode;
+      description
+        "Moved to ControlParameter_Pac. This attribute whether or not the protection scheme is revertive or non-revertive. ";
+    }
+    list selected-fc-port {
+      key "local-id";
+      uses fc-port;
+      description
+        "Indicates which points are selected by the switch.
+         Depending on the switch spec (via FcSpec)
+         - more than one FcPort can be selected at any one time (e.g. egress switch, ingress packet switch)
+         - zero FcPorts can be selected. For an ingress switch this indicates that the switch common (egress) is 'high impedance'
+         .";
+    }
+    leaf-list profile-proxy {
+      type string;
+      description
+        "Provides a set of predefined values for switch control in place of the direct values available via the FcSwitch or via _configurationAndSwitchControl.";
+    }
+    leaf configuration-and-switch-control {
+      type string;
+      description
+        "A ConfigurationAndSwitchController that is external to the switch (it is coordinating many switches and hence cannot be encapsulated in the FcSwitch.";
+    }
+    leaf internal-configuration-and-switch-control {
+      type string;
+      description
+        "A ConfigurationAndSwitchController encapsulated in the FcSwitch that controls the FcSwitch alone.";
+    }
+    leaf switch-control {
+      type switch-control;
+      description
+        "Degree of administrative control applied to the switch selection.";
+    }
+    leaf switch-selects-ports {
+      type port-direction;
+      description
+        "Indicates whether the switch selects from ingress to the FC or to egress of the FC, or both.";
+    }
+    leaf switch-selection-reason {
+      type switch-state-reason;
+      config false;
+      description
+        "The reason for the current switch selection.";
+    }
+    container control-parameters {
+      uses control-parameters-pac;
+      description
+        "none";
+    }
+    leaf wait-to-restore-time {
+      type int64;
+      description
+        "Moved to ControlParameter_Pac and changed to waitToRevert. If the protection system is revertive, this attribute specifies the amount of time, in seconds, to wait after the preferred FcPort returns to an acceptable state of operation (e.g. a fault has cleared) before restoring traffic to that preferred FcPort.";
+    }
+    uses local-class;
+    description
+      "The FcSwitch class models the switched forwarding of traffic (traffic flow) between FcPorts and is present where there is protection functionality in the FC.
+       If an FC exposes protection (having two or more FcPorts that provide alternative identical inputs/outputs), the FC will have one or more associated FcSwitch objects to represent the alternative flow choices visible at the edge of the FC.
+       The FC switch represents and defines a protection switch structure encapsulated in the FC and essentially 'decorates' FCs that are involved in resilience schemes that use switching in a protection mechanism.
+       Essentially FcSwitch performs one of the functions of the Protection Group in a traditional model. It associates 2 or more FcPorts each playing the role of a Protection Unit.
+       One or more protection, i.e. standby/backup, FcPorts provide protection for one or more working (i.e. regular/main/preferred) FcPorts where either protection or working can feed one or more protected FcPort.
+       The switch may be used in revertive or non-revertive (symmetric) mode. When in revertive mode it may define a waitToRestore time.
+       It may be used in one of several modes including source switched, destination switched, source and destination switched etc. (covering cases such as 1+1 and 1:1).
+       It may be locked out (prevented from switching), force switched or manual switched.
+       It will indicate switch state and change of state.
+       The switch can be switched away from all sources such that it becomes open and hence two coordinated switches can both feed the same LTP so long as at least one of the two is switched away from all sources (is 'open').
+       The ability for a Switch to be 'high impedance' allows bidirectional ForwardingConstructs to be overlaid on the same bidirectional LTP where the appropriate control is enabled to prevent signal conflict.
+       This ability allows multiple alternate routes to be present that otherwise would be in conflict.";
   }
 
   grouping casc-port {
@@ -1386,18 +1172,12 @@ module core-model {
         "The role of the port of a C&SC.
          The interpretation of the role is provided by the C&SC spec.
          The C&SC spec will set out the role in the context of C&SC functions.
-         The role will indicate how the port relates to the associated entity, e.g. is conveying messages.
-
-         uml:identifier = '_C4GqoNvwEeaL7dYp0KdCwA'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience/CascPort'";
+         The role will indicate how the port relates to the associated entity, e.g. is conveying messages.";
     }
     container port-role-properties {
       uses casc-port-role-properties;
       description
-        "A link to properties associated with the port role as defined by the CascSpec.
-
-         uml:identifier = '_Uy3nENvwEeaL7dYp0KdCwA'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience/CascPort'";
+        "A link to properties associated with the port role as defined by the CascSpec.";
     }
     list ltp {
       key "uuid";
@@ -1405,20 +1185,14 @@ module core-model {
       description
         "The LTP that conveys the messages related to the port and/or is subject to control action and/or provides indications of state etc.
          For direct association, there may be up to 2 LTPs (to account for directionality differences).
-         In the specification representation, there may be a number rules that provide further LTP relationships that are implicit in the instantiated model.
-
-         uml:identifier = '_rlqM8dvxEeaL7dYp0KdCwA'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience/CascPort'";
+         In the specification representation, there may be a number rules that provide further LTP relationships that are implicit in the instantiated model.";
     }
     leaf encapsulating-casc-port {
       type leafref {
         path "/core-model:casc-port/core-model:uuid";
       }
       description
-        "In a case where there is nested C&SC the ports are also nested and this references the superior port.
-
-         uml:identifier = '_hcC-ovj7EeaAw4wsR4LIsQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience/CascPort'";
+        "In a case where there is nested C&SC the ports are also nested and this references the superior port.";
     }
     leaf is-related-control-flow-disabled {
       type boolean;
@@ -1427,10 +1201,7 @@ module core-model {
         "If TRUE, then any Control signal flow related to this controller (to, from or drop-and-continue) is prevented from passing through the related LTP carrying the signaling for this controller.
          This can be considered as being realized using an FcSwitch in an FC embedded in the LP at the layer of signaling to disconnect the FcPort bidirectionally.
          This FcSwitch should be represented in the LTP spec.
-         Note that the FcSwitch will be at the granularity of the relevant control signal and other flows may be passed uninterrupted.
-
-         uml:identifier = '_mEqq4BUbEee9I5wuRX6wwQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience/CascPort'";
+         Note that the FcSwitch will be at the granularity of the relevant control signal and other flows may be passed uninterrupted.";
     }
     leaf is-controlled-fc-port-disabled {
       type boolean;
@@ -1439,10 +1210,7 @@ module core-model {
          This is realized using an FcSwitch to disconnect the FcPort bidirectionally.
          Note that as the controller may control many FCs and may switch them all together as one, in an implementation the FcSwitch could be omitted from the FC instance model.
          Any omission should be explained by the FcSpec.
-         This is equivalent to a blocked indication on the LTP used in other representations.
-
-         uml:identifier = '_Eeq5wBUdEee9I5wuRX6wwQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience/CascPort'";
+         This is equivalent to a blocked indication on the LTP used in other representations.";
     }
     leaf is-protection-lock-out {
       type boolean;
@@ -1450,10 +1218,7 @@ module core-model {
         "The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of.
          This overrides all other protection control states including forced.
          If the item is locked out, then it cannot be used under any circumstances.
-         This causes isRelatedControlFlowDisabled to become TRUE and isControlledFcPortDisabled to become TRUE.
-
-         uml:identifier = '_fH9aoBUfEee9I5wuRX6wwQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience/CascPort'";
+         This causes isRelatedControlFlowDisabled to become TRUE and isControlledFcPortDisabled to become TRUE.";
     }
     uses global-class;
     description
@@ -1461,10 +1226,7 @@ module core-model {
        This can represent any combination of:
        - the conveying of messaging to/from the C&SC
        - the conveying of control action
-       - the providing of indications of state etc.
-
-       uml:identifier = '_QDijcNvrEeaL7dYp0KdCwA'
-       uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience'";
+       - the providing of indications of state etc.";
   }
 
   grouping casc-port-role-properties {
@@ -1472,34 +1234,22 @@ module core-model {
       type string;
       description
         "A reference to the definition of the signalling format used by the instance referenced by the related port.
-         This is a placeholder for a more sophisticated capability.
-
-         uml:identifier = '_WNkx0GCHEeeJH-mSlR-JCw'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience/CascPortRoleProperties'";
+         This is a placeholder for a more sophisticated capability.";
     }
     leaf monitoring-details {
       type string;
       description
         "Information on what is being monitored in the instance referenced by the related port.
-         This is a placeholder for a more sophisticated capability.
-
-         uml:identifier = '_kib-kGCHEeeJH-mSlR-JCw'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience/CascPortRoleProperties'";
+         This is a placeholder for a more sophisticated capability.";
     }
     leaf control-details {
       type string;
       description
         "Information on what is being controlled in the instance referenced by the related port.
-         This is a placeholder for a more sophisticated capability.
-
-         uml:identifier = '_wQGfkGCHEeeJH-mSlR-JCw'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience/CascPortRoleProperties'";
+         This is a placeholder for a more sophisticated capability.";
     }
     description
-      " Container for properties associated with the port role as defined by the CascSpec.
-
-       uml:identifier = '_RB-IUNvwEeaL7dYp0KdCwA'
-       uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Resilience'";
+      " Container for properties associated with the port role as defined by the CascSpec.";
   }
 
   grouping clock {
@@ -1507,67 +1257,46 @@ module core-model {
       type run-mode;
       config false;
       description
-        "The run-mode of the frequency system clock, such as free-run, locked, and holdover.
-
-         uml:identifier = '_MCMUQHXCEeeqyuooNTTDCg'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Timing/Clock'";
+        "The run-mode of the frequency system clock, such as free-run, locked, and holdover.";
     }
     leaf-list encompassed-clock {
       type leafref {
         path "/core-model:control-construct/core-model:logical-termination-point/core-model:embedded-clock/core-model:local-id";
       }
       description
-        "A clock may be emergent from and may effectively encompass several clocks in a resilient solution.
-
-         uml:identifier = '_KaAHEHXFEeeqyuooNTTDCg'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Timing/Clock'";
+        "A clock may be emergent from and may effectively encompass several clocks in a resilient solution.";
     }
     list encapsulated-fc {
       key "uuid";
       uses forwarding-construct;
       description
-        "A Clock may encapsulate an FC related to resilience where the clock provides an output that is essentially that of one of several other clocks in the resilience scheme.
-
-         uml:identifier = '_6W86MHXEEeeqyuooNTTDCg'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Timing/Clock'";
+        "A Clock may encapsulate an FC related to resilience where the clock provides an output that is essentially that of one of several other clocks in the resilience scheme.";
     }
     leaf-list sync-ltp {
       type leafref {
         path "/core-model:control-construct/core-model:logical-termination-point/core-model:uuid";
       }
       description
-        "A clock may feed one or more LTPs with timing information to propagate across the network (it may feed no LTPs).
-
-         uml:identifier = '_ZysIUHXFEeeqyuooNTTDCg'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Timing/Clock'";
+        "A clock may feed one or more LTPs with timing information to propagate across the network (it may feed no LTPs).";
     }
     leaf-list encapsulated-casc {
       type string;
       description
         "The clock may encapsulate a complex FC where there is a resilience mechanism active and that FC will need to be controlled.
-         The Casc to control the FC can be encapsulated in the Clock.
-
-         uml:identifier = '_UJ_6IXXIEeeqyuooNTTDCg'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Timing/Clock'";
+         The Casc to control the FC can be encapsulated in the Clock.";
     }
     leaf-list phase-aligned-clock {
       type leafref {
         path "/core-model:control-construct/core-model:logical-termination-point/core-model:embedded-clock/core-model:local-id";
       }
       description
-        "One or more clocks can be actively phase aligned (this is especially relevant in a hitless resilience scheme).
-
-         uml:identifier = '_eLjdoHXTEeenYIWe5nTMJg'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Timing/Clock'";
+        "One or more clocks can be actively phase aligned (this is especially relevant in a hitless resilience scheme).";
     }
     uses local-class;
     description
       "Clock function processes the input sync information (frequency and ssm or time stamp and PTP announce messages) and provides the modified sync information to the sync distribution function.
        If none of the inputs meet the quality defined by the controller the clock may enter a hold-over or free run mode.
-       The status of the clock will be reported to the controller.
-
-       uml:identifier = '_8lP6kHXAEeeqyuooNTTDCg'
-       uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/Timing'";
+       The status of the clock will be reported to the controller.";
   }
 
   grouping forwarding-domain {
@@ -1576,10 +1305,7 @@ module core-model {
       min-elements 1;
       uses layer-protocol-name-and-qualifier;
       description
-        "One or more protocol layers at which the FD represents the opportunity to enable forwarding between LTP that bound it.
-
-         uml:identifier = '_oGqmAlLNEeO75dO39GbF8Q'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/ForwardingDomain'";
+        "One or more protocol layers at which the FD represents the opportunity to enable forwarding between LTP that bound it.";
     }
     leaf-list lower-level-fd {
       type leafref {
@@ -1589,19 +1315,13 @@ module core-model {
         "The FD class supports a recursive aggregation relationship (HigherLevelFdEncompassesLowerLevelFds) such that the internal construction of an FD can be exposed as multiple lower level FDs and associated Links (partitioning).
          The aggregated FDs and Links form an interconnected topology that provides and describes the capability of the aggregating FD.
          Note that the model actually represents an aggregation of lower level FDs into higher level FDs as views rather than FD partition, and supports multiple views.
-         Aggregation allow reallocation of capacity from lower level FDs to different higher level FDs as if the network is reorganized (as the association is aggregation not composition).
-
-         uml:identifier = '_oGqmBVLNEeO75dO39GbF8Q'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/ForwardingDomain'";
+         Aggregation allow reallocation of capacity from lower level FDs to different higher level FDs as if the network is reorganized (as the association is aggregation not composition).";
     }
     list fc {
       key "uuid";
       uses forwarding-construct;
       description
-        "An FD aggregates one or more FCs. An aggregated FC connects LTPs that bound the FD.
-
-         uml:identifier = '_oGql_1LNEeO75dO39GbF8Q'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/ForwardingDomain'";
+        "An FD aggregates one or more FCs. An aggregated FC connects LTPs that bound the FD.";
     }
     leaf-list ltp {
       type leafref {
@@ -1610,19 +1330,13 @@ module core-model {
       description
         "An instance of FD is associated with zero or more LTP objects.
          The LTPs that bound the FD provide capacity for forwarding.
-         For asymmetric FDs, the association to the LTP is via the FdPort.
-
-         uml:identifier = '_2ES2QFYkEeOVGaP4lO41SQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/ForwardingDomain'";
+         For asymmetric FDs, the association to the LTP is via the FdPort.";
     }
     list fd-port {
       key "local-id";
       uses fd-port;
       description
-        "The association of the FD to LTPs is either made directly for symmetric FDs or via FdPort for asymmetric FDs.
-
-         uml:identifier = '_vXhvICT6Eee9I5wuRX6wwQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/ForwardingDomain'";
+        "The association of the FD to LTPs is either made directly for symmetric FDs or via FdPort for asymmetric FDs.";
     }
     uses global-class;
     description
@@ -1639,20 +1353,14 @@ module core-model {
        A routing fabric may be logically partitioned to represent connectivity constraints, hence the FD representing the routing fabric may be partitioned into a number of FDs representing the constraints.
        The FD represents a subnetwork [ITU-T G.800], FlowDomain [TMF 612] and a MultiLayerSubNetwork (MLSN) [TMF 612].
        As in the TMF concept of MLSN the FD can support more than one layer-protocol.
-       Note that the ITU-T G.800 subnetwork is a single layer entity.
-
-       uml:identifier = '_oGql-FLNEeO75dO39GbF8Q'
-       uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses'";
+       Note that the ITU-T G.800 subnetwork is a single layer entity.";
   }
 
   grouping forwarding-construct {
     container layer-protocol-name {
       uses layer-protocol-name-and-qualifier;
       description
-        "The layerProtocol at which the FC enables the potential for forwarding.
-
-         uml:identifier = '_oGqmFVLNEeO75dO39GbF8Q'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/ForwardingConstruct'";
+        "The layerProtocol at which the FC enables the potential for forwarding.";
     }
     leaf forwarding-direction {
       type forwarding-direction;
@@ -1660,10 +1368,7 @@ module core-model {
         "The directionality of the ForwardingConstruct.
          Is applicable to simple ForwardingConstructs where all FcPorts are BIDIRECTIONAL (the ForwardingConstruct will be BIDIRECTIONAL) or UNIDIRECTIONAL (the ForwardingConstruct will be UNIDIRECTIONAL).
          Is not present in more complex cases.
-         In the case of media the FcPorts and FC may also be omni-directional.
-
-         uml:identifier = '_9_yMUEDAEeWQeOKbNUpP9A'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/ForwardingConstruct'";
+         In the case of media the FcPorts and FC may also be omni-directional.";
     }
     leaf-list lower-level-fc {
       type leafref {
@@ -1674,16 +1379,12 @@ module core-model {
          Aggregation is used as for the FD to allow changes in hierarchy.
          FC aggregation reflects FD aggregation.
          For example a low level FC could represent what would have traditionally been considered as a 'Cross-Connection' in an 'NE'. The 'Cross-Connection' in an 'NE' is not necessarily the lowest level of FC partitioning.
-         uml:identifier = '_i7UzkFYfEeOVGaP4lO41SQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/ForwardingConstruct'";
+        ";
     }
     leaf fc-route {
       type string;
       description
-        "An FC object can have zero or more routes, each of which is defined as a list of lower level FC objects describing the flow across the network.
-
-         uml:identifier = '_A8SFwFYgEeOVGaP4lO41SQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/ForwardingConstruct'";
+        "An FC object can have zero or more routes, each of which is defined as a list of lower level FC objects describing the flow across the network.";
     }
     list fc-port {
       key "local-id";
@@ -1692,28 +1393,20 @@ module core-model {
       description
         "The FcPorts define the boundary of the FC.
          The FC is accessed via the FcPorts.
-         Flow within the FC is defined in terms of its FcPorts.
-
-         uml:identifier = '_gqUk0FYgEeOVGaP4lO41SQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/ForwardingConstruct'";
+         Flow within the FC is defined in terms of its FcPorts.";
     }
-    leaf-list fc-switch {
-      type string;
+    list fc-switch {
+      key "local-id";
+      uses fc-switch;
       description
         "If an FC exposes protection (having two FcPorts that provide alternative identical inputs/outputs), the FC will have one or more associated FcSwitch objects.
-         The arrangement of switches for a particular instance is described by a referenced FcSpec.
-
-         uml:identifier = '_d_droFYhEeOVGaP4lO41SQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/ForwardingConstruct'";
+         The arrangement of switches for a particular instance is described by a referenced FcSpec.";
     }
     leaf-list configuration-and-switch-control {
       type string;
       description
         "Reference to a ConfigurationAndSwitchController that coordinates switches encapsulated in the FC.
-         The controller coordinates multiple switches in the same FC.
-
-         uml:identifier = '_v6GHsJ4LEeOO3om500DFKg'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/ForwardingConstruct'";
+         The controller coordinates multiple switches in the same FC.";
     }
     leaf is-protection-lock-out {
       if-feature "forwardingconstructisprotectionlockout";
@@ -1722,10 +1415,7 @@ module core-model {
         "The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of.
          This overrides all other protection control states including forced.
          If the item is locked out then it cannot be used under any circumstances.
-         Note: Only relevant when part of a protection scheme.
-
-         uml:identifier = '_7jInkMOBEeWwZ527PhfFSA'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/ForwardingConstruct'";
+         Note: Only relevant when part of a protection scheme.";
     }
     leaf service-priority {
       type int64;
@@ -1734,26 +1424,17 @@ module core-model {
          Used to determine which signal FC is allocated resource.
          The priority of the 'service' with respect to other 'services'.
          Lower numeric value means higher priority.
-         Covers cases such as pre-emptible in a resilience solution.
-
-         uml:identifier = '_3co20MOCEeWwZ527PhfFSA'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/ForwardingConstruct'";
+         Covers cases such as pre-emptible in a resilience solution. ";
     }
     leaf-list supported-link {
       type string;
       description
-        "An FC that spans between LTPs that terminate the LayerProtocol usually supports one or more links in the client layer.
-
-         uml:identifier = '_0172EFHnEeaDuo8VlVeg_g'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/ForwardingConstruct'";
+        "An FC that spans between LTPs that terminate the LayerProtocol usually supports one or more links in the client layer.";
     }
     leaf supporting-pc {
       type string;
       description
-        "The functionality supporting this entity.
-
-         uml:identifier = '_1OENg1yZEee0ZvXJLxwizg'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/ForwardingConstruct'";
+        "The functionality supporting this entity.";
     }
     uses global-class;
     description
@@ -1767,10 +1448,7 @@ module core-model {
        The FC object can be used to represent many different structures including point-to-point (P2P), point-to-multipoint (P2MP), rooted-multipoint (RMP) and multipoint-to-multipoint (MP2MP) bridge and selector structures for linear, ring or mesh protection schemes.
        When applied to media, the FC represents the ability for a flow/wave (potentially containing information), to be propagated between FcPorts.
        The existence of a FC instance is independent of the presence (or absence) of a flow/wave (and any information encoded within it) where flow/wave covers the progressing of any analogue or digital (packet/frame etc.) structure.
-       A flow/wave cannot propagate in the absence of a FC instance.
-
-       uml:identifier = '_oGqmC1LNEeO75dO39GbF8Q'
-       uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses'";
+       A flow/wave cannot propagate in the absence of a FC instance.";
   }
 
   grouping fc-port {
@@ -1786,27 +1464,18 @@ module core-model {
          Zero LTP
          - BreakBeforeMake transition
          - Planned LTP not yet in place
-         - Off-network LTP referenced through other mechanism.
-
-         uml:identifier = '_IxS2AFYnEeOVGaP4lO41SQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/FcPort'";
+         - Off-network LTP referenced through other mechanism.";
     }
     leaf role {
       type port-role;
       description
         "Each FcPort of the FC has an assigned role (e.g., working, protection, protected, symmetric, hub, spoke, leaf, root) in the context of the FC with respect to the FC function.
-         The role is fixed by the referenced FcSpec.
-
-         uml:identifier = '_Ykm6QFeGEeOVGaP4lO41SQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/FcPort'";
+         The role is fixed by the referenced FcSpec.";
     }
     leaf fc-port-direction {
       type port-direction;
       description
-        "The orientation of the defined flow at the FcPort.
-
-         uml:identifier = '_1HbEgEDAEeWQeOKbNUpP9A'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/FcPort'";
+        "The orientation of the defined flow at the FcPort.";
     }
     leaf is-protection-lock-out {
       if-feature "fcportisprotectionlockout";
@@ -1815,10 +1484,7 @@ module core-model {
         "The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of.
          This overrides all other protection control states including forced.
          If the item is locked out, then it cannot be used under any circumstances.
-         Note: Only relevant when part of a protection scheme.
-
-         uml:identifier = '_RrjlUMOEEeWwZ527PhfFSA'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/FcPort'";
+         Note: Only relevant when part of a protection scheme.";
     }
     leaf selection-priority {
       type int64;
@@ -1835,28 +1501,19 @@ module core-model {
          This is equivalent to working/protection but allows for all static scheme types with n:m capability.
          In simple schemes 0 = working and 1 = protecting.
          If selection priority of an FcPort is increased in value and the FC is currently selecting this FcPort then if another FcPort of a lower selection priority value is available, the wait to restore process will come into action as if the other FcPort had just become available.
-         If selection priority of a FcPort is changed and the FC is not currently selecting this FcPort but is selecting an item that is now of a higher numeric value than the changed FcPort then the wait to restore process will come into action as if the other FcPort had just become available.
-
-         uml:identifier = '_02awkMOEEeWwZ527PhfFSA'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/FcPort'";
+         If selection priority of a FcPort is changed and the FC is not currently selecting this FcPort but is selecting an item that is now of a higher numeric value than the changed FcPort then the wait to restore process will come into action as if the other FcPort had just become available.";
     }
     leaf is-internal-port {
       type boolean;
       config false;
       description
         "The FcPort is not exposed and cannot have associated LTPs.
-         This form of FcPort is used to enable chaining of FcSwitches or FcRoutes in complex network protection scenarios.
-
-         uml:identifier = '_CSlIwNViEeWhfIeymCGl5Q'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/FcPort'";
+         This form of FcPort is used to enable chaining of FcSwitches or FcRoutes in complex network protection scenarios.";
     }
     leaf-list fc-route-feeds-fc-port-egress {
       type string;
       description
-        "Identifies which route(s) currently actively forward to the FcPort to exit the FC to an LTP (or for an internal FcPort to propagate to the next internal switch/route).
-
-         uml:identifier = '_xbsp8TLREea40e5DA9KE3w'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/FcPort'";
+        "Identifies which route(s) currently actively forward to the FcPort to exit the FC to an LTP (or for an internal FcPort to propagate to the next internal switch/route).";
     }
     leaf-list fc-port {
       type leafref {
@@ -1864,10 +1521,7 @@ module core-model {
       }
       max-elements 2;
       description
-        "An FcPort may have a direct association to another FcPort where there is a transition from one domain to another but where there has been no termination.
-
-         uml:identifier = '_Mt2Lodw7EeaL7dYp0KdCwA'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/FcPort'";
+        "An FcPort may have a direct association to another FcPort where there is a transition from one domain to another but where there has been no termination.";
     }
     leaf-list port-of-internal-fc {
       type leafref {
@@ -1885,29 +1539,20 @@ module core-model {
        In cases where there is resilience, the FcPort may convey the resilience role of the access to the FC.
        It can represent a protected (resilient/reliable) point or a protecting (unreliable working/main or protection/spare) point.
        The FcPort replaces the Protection Unit of a traditional protection model (e.g., ITU-T).
-       The ForwardingConstruct can be considered as a component and the FcPort as a Port on that component.
-
-       uml:identifier = '_b_lUAFYgEeOVGaP4lO41SQ'
-       uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses'";
+       The ForwardingConstruct can be considered as a component and the FcPort as a Port on that component.";
   }
 
   grouping layer-protocol {
-    container layer-protocol-name {
-      uses layer-protocol-name-and-qualifier;
+    leaf layer-protocol-name {
+      type layer-protocol-name-type;
       description
-        "Indicate the specific layer-protocol described by the LayerProtocol entity.
-
-         uml:identifier = '_OwauQFeEEeOVGaP4lO41SQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/LayerProtocol'";
+        "Indicate the specific layer-protocol described by the LayerProtocol entity.";
     }
     leaf configured-client-capacity {
       type string;
       description
         "Provides a summarized view of the client capacity that is configurable for use.
-         Note the client LTP association should provide all necessary detail hence this attribute is questionable.
-
-         uml:identifier = '_CUJD4BicEeSh8KVgZCMyDw'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/LayerProtocol'";
+         Note the client LTP association should provide all necessary detail hence this attribute is questionable.";
     }
     leaf lp-direction {
       type termination-direction;
@@ -1915,27 +1560,18 @@ module core-model {
         "The overall directionality of the LP.
          - A BIDIRECTIONAL LP will have some SINK and/or SOURCE flows.
          - A SINK LP can only contain elements with SINK flows or CONTRA_DIRECTION_SOURCE flows
-         - A SOURCE LP can only contain SOURCE flows or CONTRA_DIRECTION_SINK flows
-
-         uml:identifier = '_GuuSYEDBEeWQeOKbNUpP9A'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/LayerProtocol'";
+         - A SOURCE LP can only contain SOURCE flows or CONTRA_DIRECTION_SINK flows";
     }
     leaf termination-state {
       type termination-state;
       description
-        "Indicates whether the layer is terminated and if so how.
-
-         uml:identifier = '_p2YfoGeEEeWmgIwAIZlYKQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/LayerProtocol'";
+        "Indicates whether the layer is terminated and if so how.";
     }
     leaf-list configuration-and-switch-control {
       type string;
       description
         "A switch controller external to the LayerProtocol.
-         The controller will coordinate one or more switches in one or more FCs related to the LayerProtocol
-
-         uml:identifier = '_d6vwsMQhEeWlWIVxswb46A'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/LayerProtocol'";
+         The controller will coordinate one or more switches in one or more FCs related to the LayerProtocol";
     }
     leaf is-protection-lock-out {
       type boolean;
@@ -1943,27 +1579,18 @@ module core-model {
         "The resource is configured to temporarily not be available for use in the protection scheme(s) it is part of.
          This overrides all other protection control states including forced.
          If the item is locked out, then it cannot be used under any circumstances.
-         Note: Only relevant when part of a protection scheme.
-
-         uml:identifier = '_ls-wcMN9EeWwZ527PhfFSA'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/LayerProtocol'";
+         Note: Only relevant when part of a protection scheme.";
     }
     leaf fc-blocks-signal-to-lp {
       type string;
       description
-        "Indicates whether the associated FC is blocking signal to/from the LTP.
-
-         uml:identifier = '_OW-PsMjVEeWSlYzRfsq8lQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/LayerProtocol'";
+        "Indicates whether the associated FC is blocking signal to/from the LTP.";
     }
     uses local-class;
     description
       "The projection of an LTP into each transport layer is represented by a LayerProtocol (LP) instance. A LayerProtocol instance can be used for controlling termination and monitoring functionality.
        It can also be used for controlling the adaptation (i.e. aggregation, encapsulation and/or multiplexing of client signal), tandem connection monitoring, traffic conditioning and/or shaping functionality at an intermediate point along a connection.
-       Where the client – server relationship is fixed 1:1 and immutable, the layers can be encapsulated in a single LTP instance. Where there is a n:1 relationship between client and server, the layers must be split over two separate instances of LTP.
-
-       uml:identifier = '_gROecFYXEeOVGaP4lO41SQ'
-       uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses'";
+       Where the client – server relationship is fixed 1:1 and immutable, the layers can be encapsulated in a single LTP instance. Where there is a n:1 relationship between client and server, the layers must be split over two separate instances of LTP. ";
   }
 
   grouping logical-termination-point {
@@ -1972,10 +1599,7 @@ module core-model {
       min-elements 1;
       uses layer-protocol;
       description
-        "Ordered list of LayerProtocols that this LTP is comprised of where the first entry in the list is the lowest server layer (e.g. physical).
-
-         uml:identifier = '_lvFOQFYXEeOVGaP4lO41SQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/LogicalTerminationPoint'";
+        "Ordered list of LayerProtocols that this LTP is comprised of where the first entry in the list is the lowest server layer (e.g. physical).";
     }
     leaf ltp-direction {
       type termination-direction;
@@ -1983,10 +1607,7 @@ module core-model {
         "The overall directionality of the LTP.
          - A BIDIRECTIONAL LTP must have at least some LPs that are BIDIRECTIONAL but may also have some SINK and/or SOURCE LPs.
          - A SINK LTP can only contain SINK LPs
-         - A SOURCE LTP can only contain SOURCE LPs
-
-         uml:identifier = '_S811EEDBEeWQeOKbNUpP9A'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/LogicalTerminationPoint'";
+         - A SOURCE LTP can only contain SOURCE LPs";
     }
     leaf-list physical-port-reference {
       type leafref {
@@ -2000,20 +1621,14 @@ module core-model {
         path "/core-model:control-construct/core-model:logical-termination-point/core-model:uuid";
       }
       description
-        "References contained LTPs representing servers of this LTP in an inverse multiplexing configuration (e.g. VCAT).
-
-         uml:identifier = '_D4N9IFX5EeOVGaP4lO41SQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/LogicalTerminationPoint'";
+        "References contained LTPs representing servers of this LTP in an inverse multiplexing configuration (e.g. VCAT).";
     }
     leaf-list client-ltp {
       type leafref {
         path "/core-model:control-construct/core-model:logical-termination-point/core-model:uuid";
       }
       description
-        "References contained LTPs representing client traffic of this LTP for normal cases of multiplexing.
-
-         uml:identifier = '_3Y4zAFYWEeOVGaP4lO41SQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/LogicalTerminationPoint'";
+        "References contained LTPs representing client traffic of this LTP for normal cases of multiplexing.";
     }
     leaf connected-ltp {
       type leafref {
@@ -2021,20 +1636,14 @@ module core-model {
       }
       description
         "Applicable in a simple context where two LTPs are associated via a non-adjustable enabled forwarding.
-         Reduces clutter removing the need for two additional LTPs and an FC with a pair of FcPorts.
-
-         uml:identifier = '_CHM6YFYYEeOVGaP4lO41SQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/LogicalTerminationPoint'";
+         Reduces clutter removing the need for two additional LTPs and an FC with a pair of FcPorts.";
     }
     leaf peer-ltp {
       type leafref {
         path "/core-model:control-construct/core-model:logical-termination-point/core-model:uuid";
       }
       description
-        "References contained LTPs representing the reversal of orientation of flow where two LTPs are associated via a non-adjustable enabled forwarding and where the referenced LTP is fully dependent on this LTP.
-
-         uml:identifier = '_TkuhMFYYEeOVGaP4lO41SQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/LogicalTerminationPoint'";
+        "References contained LTPs representing the reversal of orientation of flow where two LTPs are associated via a non-adjustable enabled forwarding and where the referenced LTP is fully dependent on this LTP.";
     }
     leaf-list ltp-in-other-view {
       type leafref {
@@ -2042,10 +1651,7 @@ module core-model {
       }
       description
         "References one or more LTPs in other views that represent this LTP.
-         The referencing LTP is the provider of capability.
-
-         uml:identifier = '_vq1NIBigEeSh8KVgZCMyDw'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/LogicalTerminationPoint'";
+         The referencing LTP is the provider of capability.";
     }
     leaf transfer-capacity-pac {
       type string;
@@ -2053,28 +1659,19 @@ module core-model {
         "The LTP has as an inherent capacity derived from underlying capability.
          The capacity of a particular LTP may be dependent upon other uses of resource in the device and hence it may vary over time.
          The capacity of a Link is dependent upon the capacity of the LTPs at its ends.
-         An LTP may be an abstraction and virtualization of a subset of the underlying capability offered in a view or may be directly reflecting the underlying realization.
-
-         uml:identifier = '_hfZVge0yEea2l9FuDSKfDQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/LogicalTerminationPoint'";
+         An LTP may be an abstraction and virtualization of a subset of the underlying capability offered in a view or may be directly reflecting the underlying realization.";
     }
     leaf-list fd-rule-group {
       type leafref {
         path "/core-model:control-construct/core-model:forwarding-domain/core-model:uuid";
       }
       description
-        "An LTP can reference FD rules that the FD that aggregates it also references so that the rules can then apply to the LTP.
-
-         uml:identifier = '_FDjBAmGTEeerc4Zz6ufSeg'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/LogicalTerminationPoint'";
+        "An LTP can reference FD rules that the FD that aggregates it also references so that the rules can then apply to the LTP.";
     }
     leaf supporting-pc {
       type string;
       description
-        "The functionality supporting this entity.
-
-         uml:identifier = '_VHY7glwWEee0ZvXJLxwizg'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/LogicalTerminationPoint'";
+        "The functionality supporting this entity.";
     }
     list embedded-clock {
       key "local-id";
@@ -2086,10 +1683,7 @@ module core-model {
     description
       "The LogicalTerminationPoint (LTP) class encapsulates the termination and adaptation functions of one or more transport layers represented by instances of LayerProtocol.
        The encapsulated transport layers have a simple fixed 1:1 client-server relationship defined by association end ordering.
-       The structure of LTP supports all transport protocols including analogue, circuit and packet forms.
-
-       uml:identifier = '_eEpDMFX4EeOVGaP4lO41SQ'
-       uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses'";
+       The structure of LTP supports all transport protocols including analogue, circuit and packet forms.";
   }
 
   grouping fd-port {
@@ -2101,36 +1695,24 @@ module core-model {
       description
         "An instance of FD is associated with zero or more LTP objects.
          The LTPs that bound the FD provide capacity for forwarding.
-         For asymmetric FDs, the association to the LTP is via the FdPort.
-
-         uml:identifier = '__aYkMCT5Eee9I5wuRX6wwQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/FdPort'";
+         For asymmetric FDs, the association to the LTP is via the FdPort.";
     }
     leaf role {
       type port-role;
       description
-        "Each FdPort of the FD has a role (e.g., symmetric, hub, spoke, leaf, root) in the context of the FD with respect to the FD capability.
-
-         uml:identifier = '_eVOPQCT7Eee9I5wuRX6wwQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/FdPort'";
+        "Each FdPort of the FD has a role (e.g., symmetric, hub, spoke, leaf, root) in the context of the FD with respect to the FD capability. ";
     }
     leaf fd-port-direction {
       type port-direction;
       description
-        "The orientation of the defined flow at the FdPort.
-
-         uml:identifier = '_fxO6QCT7Eee9I5wuRX6wwQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/FdPort'";
+        "The orientation of the defined flow at the FdPort.";
     }
     leaf-list fc-port {
       type leafref {
         path "/core-model:control-construct/core-model:forwarding-domain/core-model:fc/core-model:fc-port/core-model:local-id";
       }
       description
-        "Where an FD is asymmetric and hence has FdPorts and where that FD and supports FCs, appropriate FdPorts of that FD support the corresponding FcPorts.
-
-         uml:identifier = '_WDjzsST-Eee9I5wuRX6wwQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/FdPort'";
+        "Where an FD is asymmetric and hence has FdPorts and where that FD and supports FCs, appropriate FdPorts of that FD support the corresponding FcPorts.";
     }
     leaf-list fd-port {
       type leafref {
@@ -2138,20 +1720,14 @@ module core-model {
       }
       max-elements 2;
       description
-        "An FdPort may have a direct association to another FdPort where there is a transition from one domain to another but where there has been no termination.
-
-         uml:identifier = '_WkBfgIDfEeeGAbqDM4f-JQ'
-         uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses/FdPort'";
+        "An FdPort may have a direct association to another FdPort where there is a transition from one domain to another but where there has been no termination.";
     }
     uses local-class;
     description
       "The association of the FD to LTPs may be direct for symmetric FDs and may be via FdPort for asymmetric FDs.
        The FdPort class models the role of the access to the FD function.
        The capability to set up FCs between the associated FdPorts of the FD depends upon the type of FD. It is asymmetry in this capability that brings the need for FdPort.
-       The FD can be considered as a component and the FdPort as a Port on that component.
-
-       uml:identifier = '_-pQ7MCT3Eee9I5wuRX6wwQ'
-       uml:reference  = '/CoreModel/CoreNetworkModel/ObjectClasses'";
+       The FD can be considered as a component and the FdPort as a Port on that component.";
   }
 
   grouping profile-collection {
@@ -2167,7 +1743,7 @@ module core-model {
 
   grouping profile {
     leaf profile-name {
-      type string;
+      type profile-name-type;
       description
         "none";
     }
@@ -2192,16 +1768,10 @@ module core-model {
       min-elements 1;
       uses name-and-value;
       description
-        "List of names.
-
-         uml:identifier = '_ajjMYI2uEeO38ZmbECnvbg'
-         uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/ObjectClasses/Name'";
+        "List of names.";
     }
     description
-      "Name: A property of an entity with a value that is unique in some namespace but may change during the life of the entity. A name carries no semantics with respect to the purpose of the entity.
-
-       uml:identifier = '_BUcVEI2tEeO38ZmbECnvbg'
-       uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/ObjectClasses'";
+      "Name: A property of an entity with a value that is unique in some namespace but may change during the life of the entity. A name carries no semantics with respect to the purpose of the entity.";
   }
 
   grouping global-class {
@@ -2210,27 +1780,18 @@ module core-model {
       description
         "UUID: An identifier that is universally unique
          (This should be considered in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself globally unique, and immutable. An identifier carries no semantics with respect to the purpose or state of the entity)
-         The uuid should be treated as opaque by the user.
-
-         uml:identifier = '_IEiZwI22EeO38ZmbECnvbg'
-         uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/ObjectClasses/GlobalClass'";
+         The uuid should be treated as opaque by the user.";
     }
     leaf-list local-id {
       type string;
       description
         "An identifier that is unique in the context of some scope that is less than the global scope.
-         (This should be considered in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)
-
-         uml:identifier = '_w39joI3wEeO38ZmbECnvbg'
-         uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/ObjectClasses/GlobalClass'";
+         (This should be considered in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)";
     }
     container external-managed-id {
       uses external-managed-universal-id;
       description
-        "A list of external managed universal identifiers, set by an external tool. There must not be any function implemented on the ControlConstruct itself next to updating the list on request and storing it persitenly.
-
-         uml:identifier = '_5-IdYJ49Eemkbek818V8NQ'
-         uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/ObjectClasses/GlobalClass'";
+        "A list of external managed universal identifiers, set by an external tool. There must not be any function implemented on the ControlConstruct itself next to updating the list on request and storing it persitenly. ";
     }
     uses name;
     uses label;
@@ -2240,10 +1801,7 @@ module core-model {
     description
       "Represents a type of thing (an Entity) that has instances which can exist in their own right (independently of any others).
        Entity: Has identity, defined boundary, properties, functionality and lifecycle in a global context.
-       (This should be considered in the context of a Class: (usage) The representation of a thing that may be an entity or an inseparable Entity Feature).
-
-       uml:identifier = '_iVJ1kI2wEeO38ZmbECnvbg'
-       uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/ObjectClasses'";
+       (This should be considered in the context of a Class: (usage) The representation of a thing that may be an entity or an inseparable Entity Feature).";
   }
 
   grouping local-class {
@@ -2251,10 +1809,7 @@ module core-model {
       type string;
       description
         "An identifier that is unique in the context of some scope that is less than the global scope.
-         (This should be considered in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)
-
-         uml:identifier = '_RMJegI22EeO38ZmbECnvbg'
-         uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/ObjectClasses/LocalClass'";
+         (This should be considered in the context of Identifier: A property of an entity/role with a value that is unique within an identifier space, where the identifier space is itself unique, and immutable. The identifier therefore represents the identity of the entity/role. An identifier carries no semantics with respect to the purpose of the entity.)";
     }
     uses name;
     uses label;
@@ -2266,8 +1821,7 @@ module core-model {
        Feature of an Entity: An inseparable, externally distinguishable part of an entity.
        The mandatory LocalId of the LocalClass instance is unique in the context of the GlobalClass from which it is inseparable.
        (This should be considered in the context of a Class: (usage) The representation of a thing that may be an entity or an inseparable feature of an entity.)
-       uml:identifier = '_k5nWYI2wEeO38ZmbECnvbg'
-       uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/ObjectClasses'";
+      ";
   }
 
   grouping label {
@@ -2275,16 +1829,10 @@ module core-model {
       key "value-name";
       uses name-and-value;
       description
-        "List of labels.
-
-         uml:identifier = '_olrqYI2uEeO38ZmbECnvbg'
-         uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/ObjectClasses/Label'";
+        "List of labels.";
     }
     description
-      "A property of an entity with a value that is not expected to be unique and is allowed to change. A label carries no semantics with respect to the purpose of the entity and has no effect on the entity behavior or state.
-
-       uml:identifier = '_u0HQoI2wEeO38ZmbECnvbg'
-       uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/ObjectClasses'";
+      "A property of an entity with a value that is not expected to be unique and is allowed to change. A label carries no semantics with respect to the purpose of the entity and has no effect on the entity behavior or state.";
   }
 
   grouping extension {
@@ -2292,74 +1840,47 @@ module core-model {
       key "value-name";
       uses name-and-value;
       description
-        "List of simple name-value extensions.
-
-         uml:identifier = '_uQqu4I28EeO38ZmbECnvbg'
-         uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/ObjectClasses/Extension'";
+        "List of simple name-value extensions.";
     }
     description
-      "Extension provides an opportunity to define properties not declared in the class that extend the class enabling a realization with simple ad-hoc extension of standard classes to be conformant.
-
-       uml:identifier = '_bCi74I22EeO38ZmbECnvbg'
-       uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/ObjectClasses'";
+      "Extension provides an opportunity to define properties not declared in the class that extend the class enabling a realization with simple ad-hoc extension of standard classes to be conformant.";
   }
 
   grouping universal-id-authority {
     leaf uuid {
       type universal-id;
       description
-        "The UUID for the UUID authority.
-
-         uml:identifier = '__JGxMI30EeO38ZmbECnvbg'
-         uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/ObjectClasses/UniversalIdAuthority'";
+        "The UUID for the UUID authority.";
     }
     description
-      "Represents the authority that controls the allocation of UUIDs.
-
-       uml:identifier = '_StA-4I23EeO38ZmbECnvbg'
-       uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/ObjectClasses'";
+      "Represents the authority that controls the allocation of UUIDs.";
   }
 
   grouping name-and-value-authority {
     leaf uuid {
       type universal-id;
       description
-        "The UUID for the NameAndValueAuthority.
-
-         uml:identifier = '_U1tnkI31EeO38ZmbECnvbg'
-         uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/ObjectClasses/NameAndValueAuthority'";
+        "The UUID for the NameAndValueAuthority.";
     }
     description
-      "Represents the authority that controls the legal values for the names and values of a name/value attribute.
-
-       uml:identifier = '_ulDtsI3AEeO38ZmbECnvbg'
-       uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/ObjectClasses'";
+      "Represents the authority that controls the legal values for the names and values of a name/value attribute.";
   }
 
   grouping conditional-package {
     uses extension;
     uses label;
     description
-      "The base class for conditional packages.
-
-       uml:identifier = '_-ZWVQJP0EeOqfpp-ZJSmaA'
-       uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/ObjectClasses'";
+      "The base class for conditional packages.";
   }
 
   grouping address {
     leaf-list address {
       type dt-address;
       description
-        "One or more descriptions of the location.
-
-         uml:identifier = '_IXrxkMDkEeWbqPZwR-Ot6A'
-         uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/ObjectClasses/Address'";
+        "One or more descriptions of the location.";
     }
     description
-      "Provides an opportunity to state the location of the entity via one or more hierarchies of narrowing contexts.
-
-       uml:identifier = '_CDLtoMDkEeWbqPZwR-Ot6A'
-       uml:reference  = '/CoreModel/CoreFoundationModel/SuperClassesAndCommonPackages/ObjectClasses'";
+      "Provides an opportunity to state the location of the entity via one or more hierarchies of narrowing contexts.";
   }
 
   grouping state-pac {
@@ -2367,43 +1888,28 @@ module core-model {
       type operational-state;
       config false;
       description
-        "The operational state is used to indicate whether or not the resource is installed and working.
-
-         uml:identifier = '_dO6owLEtEeSZUdYfPSdgew'
-         uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/ObjectClasses/State_Pac'";
+        "The operational state is used to indicate whether or not the resource is installed and working.";
     }
     leaf administrative-control {
       type administrative-control;
       description
         "The administrativeControl state provides control of the availability of specific resources without modification to the provisioning of those resources.
-         The value is the current control target. The actual administrativeState may or may not be at target.
-
-         uml:identifier = '_7gqwALEtEeSZUdYfPSdgew'
-         uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/ObjectClasses/State_Pac'";
+         The value is the current control target. The actual administrativeState may or may not be at target.";
     }
     leaf administrative-state {
       type administrative-state;
       config false;
       description
         "Shows whether or not the client has permission to use or has a prohibition against using the resource.
-         The administrative state expresses usage permissions for specific resources without modification to the provisioning of those resources.
-
-         uml:identifier = '_AjGvILEuEeSZUdYfPSdgew'
-         uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/ObjectClasses/State_Pac'";
+         The administrative state expresses usage permissions for specific resources without modification to the provisioning of those resources.";
     }
     leaf lifecycle-state {
       type lifecycle-state;
       description
-        "Used to track the planned deployment, allocation to clients and withdrawal of resources.
-
-         uml:identifier = '_PzqZ0GgiEeWmgIwAIZlYKQ'
-         uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/ObjectClasses/State_Pac'";
+        "Used to track the planned deployment, allocation to clients and withdrawal of resources.";
     }
     description
-      "Provides general state attributes.
-
-       uml:identifier = '_RG6VILEtEeSZUdYfPSdgew'
-       uml:reference  = '/CoreModel/CoreFoundationModel/StateModel/ObjectClasses'";
+      "Provides general state attributes.";
   }
 
   grouping field-replaceable {
@@ -2428,10 +1934,7 @@ module core-model {
     description
       "A rule class (an abstract specialization of Equipment) that represents an equipment that can be replaced in the field.
        May plug in to a holder in another equipment (if not stand-alone).
-       Realization could use an FRU Boolean on Equipment.
-
-       uml:identifier = '_8SXNgD-HEeaRI-H69PghuA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/RuleModels/FruNonFruRules/ObjectClasses'";
+       Realization could use an FRU Boolean on Equipment.";
   }
 
   grouping non-field-replaceable {
@@ -2441,25 +1944,18 @@ module core-model {
        Is simply a subordinate part of an FRU (or another NFRU – where there must be an FRU at the top of the hierarchy).
        Does not have any exposed holders (any associated holders are assumed to belong to the containing FRU).
        Does not have any connectors (any associated connectors are assumed to belong to the containing FRU).
-       uml:identifier = '_8SXNmT-HEeaRI-H69PghuA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/RuleModels/FruNonFruRules/ObjectClasses'";
+      ";
   }
 
   grouping connector-on-equipment-for-holder {
     leaf connector-in-holder {
       type string;
       description
-        "The equipment connector is plugged into the referenced holder connector.
-
-         uml:identifier = '_-zMBkkO-EeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/RuleModels/ConnectorRules/ObjectClasses/ConnectorOnEquipmentForHolder'";
+        "The equipment connector is plugged into the referenced holder connector.";
     }
     uses connector;
     description
-      "A rule class (an abstract specialization of Connector) that represents a connector on an equipment that is intended to mate with a connector in a holder.
-
-       uml:identifier = '_s5FpwEONEeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/RuleModels/ConnectorRules/ObjectClasses'";
+      "A rule class (an abstract specialization of Connector) that represents a connector on an equipment that is intended to mate with a connector in a holder.";
   }
 
   grouping function-enablers {
@@ -2468,16 +1964,10 @@ module core-model {
       description
         "The state of the power being supplied to the equipment.
          Note that this attribute summarizes the power state.
-         Full details on the actual power system would be provided from a number of PC instances representing the relevant parts of the Power function (e.g. different voltage supplies).
-
-         uml:identifier = '_Q9fSkEQyEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/DynamicDetails/FunctionEnablers'";
+         Full details on the actual power system would be provided from a number of PC instances representing the relevant parts of the Power function (e.g. different voltage supplies).";
     }
     description
-      "Represents the dynamic aspects of the properties that relate to the motive force that directly enable functionality to emerge from the equipment.
-
-       uml:identifier = '_N-qJ8EQyEeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/DynamicDetails'";
+      "Represents the dynamic aspects of the properties that relate to the motive force that directly enable functionality to emerge from the equipment.";
   }
 
   grouping mechanical-functions {
@@ -2487,10 +1977,7 @@ module core-model {
         "none";
     }
     description
-      "Represents the dynamic aspects of the mechanical functions of the equipment.
-
-       uml:identifier = '_KxkFYEQ-EeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/DynamicDetails'";
+      "Represents the dynamic aspects of the mechanical functions of the equipment.";
   }
 
   grouping physical-properties {
@@ -2500,10 +1987,7 @@ module core-model {
         "none";
     }
     description
-      "Represents the dynamic aspects of the physical environmental properties of the equipment.
-
-       uml:identifier = '_QloVwEQ-EeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/DynamicDetails'";
+      "Represents the dynamic aspects of the physical environmental properties of the equipment.";
   }
 
   grouping location {
@@ -2518,106 +2002,67 @@ module core-model {
         "none";
     }
     description
-      "Represents where the equipment is.
-
-       uml:identifier = '_bh_VAHpJEeaVjtpstJMDXA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/DynamicDetails'";
+      "Represents where the equipment is.";
   }
 
   grouping equipment-structure {
     leaf category {
       type equipment-category;
       description
-        "This attribute provides the identifier for a category of equipments regarded as having particular shared characteristics.
-
-         uml:identifier = '_gLJ28EQvEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/EquipmentStructure'";
+        "This attribute provides the identifier for a category of equipments regarded as having particular shared characteristics.";
     }
     description
-      "Represents the form of the equipment.
-
-       uml:identifier = '_WCZv8Ec9EeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails'";
+      "Represents the form of the equipment.";
   }
 
   grouping equipment-instance {
     leaf manufacture-date {
       type string;
       description
-        "This attribute represents the date on which this instance is manufactured.
-
-         uml:identifier = '_YrPlQEQuEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/EquipmentInstance'";
+        "This attribute represents the date on which this instance is manufactured.";
     }
     leaf serial-number {
       type string;
       description
-        "This attribute represents the serial number of this instance.
-
-         uml:identifier = '_cpqioEQuEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/EquipmentInstance'";
+        "This attribute represents the serial number of this instance.";
     }
     leaf asset-instance-identifier {
       type string;
       description
-        "This attribute represents the asset identifier of this instance from the manufacturer's perspective.
-
-         uml:identifier = '_yWCIcEQuEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/EquipmentInstance'";
+        "This attribute represents the asset identifier of this instance from the manufacturer's perspective.";
     }
     description
-      "Represents the per instance invariant properties of the equipment.
-
-       uml:identifier = '_UB7QwEQuEeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails'";
+      "Represents the per instance invariant properties of the equipment.";
   }
 
   grouping equipment-type {
     leaf description {
       type string;
       description
-        "Text describing the type of Equipment.
-
-         uml:identifier = '_-5svQEQsEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/EquipmentType'";
+        "Text describing the type of Equipment.";
     }
     leaf model-identifier {
       type string;
       description
-        "This attribute identifies the model of the equipment.
-
-         uml:identifier = '_oUmxsEQsEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/EquipmentType'";
+        "This attribute identifies the model of the equipment.";
     }
     leaf part-type-identifier {
       type string;
       description
-        "This attribute identifies the part type of the equipment.
-
-         uml:identifier = '_3ypNAEQsEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/EquipmentType'";
+        "This attribute identifies the part type of the equipment.";
     }
     leaf type-name {
       type string;
       description
-        "This attribute identifies the type of the equipment.
-
-         uml:identifier = '_j105QEQsEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/EquipmentType'";
+        "This attribute identifies the type of the equipment.";
     }
     leaf version {
       type string;
       description
-        "This attribute identifies the version of the equipment.
-
-         uml:identifier = '_mig3EEQuEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/EquipmentType'";
+        "This attribute identifies the version of the equipment.";
     }
     description
-      "Represents the invariant properties of the equipment that define and characterize the type.
-
-       uml:identifier = '_BP8YcEQuEeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails'";
+      "Represents the invariant properties of the equipment that define and characterize the type.";
   }
 
   grouping holder-structure {
@@ -2634,10 +2079,7 @@ module core-model {
     leaf is-guided {
       type boolean;
       description
-        "This attribute indicates whether the holder has guides that constrain the position of the equipment in the holder or not.
-
-         uml:identifier = '_-1CEIERMEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/HolderStructure'";
+        "This attribute indicates whether the holder has guides that constrain the position of the equipment in the holder or not.";
     }
     leaf is-quantised-space {
       type boolean;
@@ -2645,10 +2087,7 @@ module core-model {
         "none";
     }
     description
-      "Represents the form of the holder.
-
-       uml:identifier = '_0U3TwEc7EeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails'";
+      "Represents the form of the holder.";
   }
 
   grouping manufactured-thing {
@@ -2678,10 +2117,7 @@ module core-model {
         "none";
     }
     description
-      "Collects all invariant aspects of a manufactured thing.
-
-       uml:identifier = '_GgBQUERBEeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails'";
+      "Collects all invariant aspects of a manufactured thing.";
   }
 
   grouping manufacturer-properties {
@@ -2696,18 +2132,12 @@ module core-model {
         "none";
     }
     description
-      "Represents the properties of the manufacturer.
-
-       uml:identifier = '_gdoY8EQtEeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails'";
+      "Represents the properties of the manufacturer.";
   }
 
   grouping mechanical-features {
     description
-      "Represents the invariant characteristics of dynamic mechanical features of a physical thing.
-
-       uml:identifier = '_qZGr8EQfEeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails'";
+      "Represents the invariant characteristics of dynamic mechanical features of a physical thing.";
   }
 
   grouping operator-augmented-equipment-type {
@@ -2717,10 +2147,7 @@ module core-model {
         "none";
     }
     description
-      "Represents the invariant properties of the equipment asset allocated by the operator that define and characterize the type.
-
-       uml:identifier = '_Yw99EEc_EeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails'";
+      "Represents the invariant properties of the equipment asset allocated by the operator that define and characterize the type.";
   }
 
   grouping physical-characteristics {
@@ -2740,44 +2167,29 @@ module core-model {
         "none";
     }
     description
-      "Represents the invariant physical characteristics (including composition and physical robustness) of the type.
-
-       uml:identifier = '_TsDsQEQfEeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails'";
+      "Represents the invariant physical characteristics (including composition and physical robustness) of the type.";
   }
 
   grouping environmental-rating {
     container thermal-rating {
       uses thermal-rating;
       description
-        "This attribute represents the thermal characteristics (preferred maximum/minimum, absolute maximum/minimum etc) that the entity can tolerate.
-
-         uml:identifier = '_fDkGEEdLEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/EnvironmentalRating'";
+        "This attribute represents the thermal characteristics (preferred maximum/minimum, absolute maximum/minimum etc) that the entity can tolerate.";
     }
     container power-rating {
       uses power-rating;
       description
         "This attribute represents the power chracteristics (peak and mean per power source) of the entity.
          For an Equipment this is the power consumption.
-         For a Holder this is the power that can be conveyed.
-
-         uml:identifier = '_i-N9wEdLEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/EnvironmentalRating'";
+         For a Holder this is the power that can be conveyed.";
     }
     leaf humidity-rating {
       type string;
       description
-        "This attribute represents the humidity characteristics (preferred maximum/minimum, absolute maximum/minimum etc.) that the entity can tolerate.
-
-         uml:identifier = '_8GdBEIM6EeePYJZQb-Dcag'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/EnvironmentalRating'";
+        "This attribute represents the humidity characteristics (preferred maximum/minimum, absolute maximum/minimum etc.) that the entity can tolerate.";
     }
     description
-      "Represents the invariant physical operational boundaries for the equipment/holder type.
-
-       uml:identifier = '_SRtkMEdLEeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails'";
+      "Represents the invariant physical operational boundaries for the equipment/holder type.";
   }
 
   grouping position {
@@ -2787,10 +2199,7 @@ module core-model {
         "none";
     }
     description
-      "Represents the invariant relative position of the holder (with respect to some frame of reference in an equipment) or connector on an equipment or pin in a connector.
-
-       uml:identifier = '_FWDLAERWEeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails'";
+      "Represents the invariant relative position of the holder (with respect to some frame of reference in an equipment) or connector on an equipment or pin in a connector.";
   }
 
   grouping spatial-properties-of-type {
@@ -2810,10 +2219,7 @@ module core-model {
         "none";
     }
     description
-      "Represents the basic invariant spatial properties of a physical thing.
-
-       uml:identifier = '_LAvh8EQfEeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails'";
+      "Represents the basic invariant spatial properties of a physical thing.";
   }
 
   grouping swappability {
@@ -2824,26 +2230,17 @@ module core-model {
         "none";
     }
     description
-      "Represents the degree of field replacement that is possible for the equipment type.
-
-       uml:identifier = '_kr_E8Ec8EeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails'";
+      "Represents the degree of field replacement that is possible for the equipment type.";
   }
 
   grouping operator-augmented-equipment-instance {
     leaf asset-instance-identifier {
       type string;
       description
-        "This attribute represents the asset identifier of this instance from the operator's perspective.
-
-         uml:identifier = '_87VIs4M8EeePYJZQb-Dcag'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails/OperatorAugmentedEquipmentInstance'";
+        "This attribute represents the asset identifier of this instance from the operator's perspective.";
     }
     description
-      "Represents the invariant properties of the equipment asset allocated by the operator that define and characterize the type.
-
-       uml:identifier = '_87VIsIM8EeePYJZQb-Dcag'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/ObjectClasses/InvariantDetails'";
+      "Represents the invariant properties of the equipment asset allocated by the operator that define and characterize the type.";
   }
 
   grouping cable-details {
@@ -2977,46 +2374,31 @@ module core-model {
     leaf thermal-rating-name {
       type string;
       description
-        "Name of the rating property, e.g. Absolute.
-
-         uml:identifier = '_r6BzkGsaEeiRh-lc79MSRw'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/DataTypes/ThermalRating'";
+        "Name of the rating property, e.g. Absolute.";
     }
     leaf maximum-temperature {
       type decimal64 {
         fraction-digits 3;
       }
       description
-        "The maximum temperature in Celsius.
-
-         uml:identifier = '_-8q-EGsaEeiRh-lc79MSRw'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/DataTypes/ThermalRating'";
+        "The maximum temperature in Celsius.";
     }
     leaf minimum-temperature {
       type decimal64 {
         fraction-digits 3;
       }
       description
-        "The minimum temperature in Celsius.
-
-         uml:identifier = '_fFTHYGsbEeiRh-lc79MSRw'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/DataTypes/ThermalRating'";
+        "The minimum temperature in Celsius.";
     }
     description
-      "A thermal rating value range.
-
-       uml:identifier = '_mBTFoGsaEeiRh-lc79MSRw'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/DataTypes'";
+      "A thermal rating value range.";
   }
 
   grouping power-rating {
     leaf power-rating-name {
       type string;
       description
-        "Name of the rating property, e.g. Absolute.
-
-         uml:identifier = '_g6bmkGsnEeiRh-lc79MSRw'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentDetail/DataTypes/PowerRating'";
+        "Name of the rating property, e.g. Absolute.";
     }
     leaf power-rating-value {
       type string;
@@ -3032,18 +2414,12 @@ module core-model {
       type string;
       description
         "The Connector that is attached to this Connector so as to join the Equipment/Cable with this Connector to another Equipment/Cable.
-         This may provide physical support and/or allow signal flow.
-
-         uml:identifier = '_8SXNdD-HEeaRI-H69PghuA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Connector'";
+         This may provide physical support and/or allow signal flow.";
     }
     leaf orientation {
       type connector-and-pin-orientation;
       description
-        "The physical orientation of the connector, such as whether it is a male, or female, or neutral structure.
-
-         uml:identifier = '_r6M6MEQ-EeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Connector'";
+        "The physical orientation of the connector, such as whether it is a male, or female, or neutral structure.";
     }
     leaf pin-layout {
       type string;
@@ -3053,26 +2429,17 @@ module core-model {
     leaf connector-type {
       type string;
       description
-        "The type of the connector.
-
-         uml:identifier = '_NBXLMEgXEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Connector'";
+        "The type of the connector.";
     }
     leaf role {
       type string;
       description
-        "The purpose of the Connector in the physical space and the functional space.
-
-         uml:identifier = '_Y4R7QC8IEeexxefg2F1i1Q'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Connector'";
+        "The purpose of the Connector in the physical space and the functional space.";
     }
     uses local-class;
     description
       "Represents a connector that may be fully exposed (e.g. to plug in a cable or on the end of a cable) or partially exposed (e.g. backplane to plug in another piece of equipment such as a module).
-       A physical port on the Equipment. A place where signals produced by the functionality of the Equipment may be accessed.
-
-       uml:identifier = '_8SXNcD-HEeaRI-H69PghuA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses'";
+       A physical port on the Equipment. A place where signals produced by the functionality of the Equipment may be accessed.";
   }
 
   grouping equipment {
@@ -3091,10 +2458,7 @@ module core-model {
       key "local-id";
       uses connector;
       description
-        "A Connector on the Equipment.
-
-         uml:identifier = '_8SXNez-HEeaRI-H69PghuA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Equipment'";
+        "A Connector on the Equipment.";
     }
     list contained-holder {
       key "local-id";
@@ -3103,20 +2467,14 @@ module core-model {
         "References the Holder in an Equipment that is available to take other Equipments.
          For example:
          - Slot in a sub-rack
-         - Slot in a Field Replaceable Unit that can take a small form-factor pluggable.
-
-         uml:identifier = '_ayDQMj-NEeaRI-H69PghuA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Equipment'";
+         - Slot in a Field Replaceable Unit that can take a small form-factor pluggable.";
     }
     leaf is-field-replaceable {
       type boolean;
       default "true";
       config false;
       description
-        "Indicates whether or not the equipment can be removed and replaced 'in the field' (i.e. in a deployment) by normal operations personnel.
-
-         uml:identifier = '_f1p94D-WEeaRI-H69PghuA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Equipment'";
+        "Indicates whether or not the equipment can be removed and replaced 'in the field' (i.e. in a deployment) by normal operations personnel.";
     }
     leaf-list function-block {
       type string;
@@ -3132,10 +2490,7 @@ module core-model {
     description
       "Represents any relevant physical thing.
        Can be either field replaceable or not field replaceable.
-       Note: The model is currently constrained to inside plant.
-
-       uml:identifier = '_8SXNej-HEeaRI-H69PghuA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses'";
+       Note: The model is currently constrained to inside plant.";
   }
 
   grouping holder {
@@ -3146,27 +2501,18 @@ module core-model {
       description
         "The FRU that is occupying the holder.
          A holder may be unoccupied.
-         An FRU may occupy more hat one holder (using or blocking are intentionally not distinguished here).
-
-         uml:identifier = '_X1q3Qj-QEeaRI-H69PghuA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Holder'";
+         An FRU may occupy more hat one holder (using or blocking are intentionally not distinguished here).";
     }
     leaf holder-location {
       type dt-address;
       description
-        "The relative position of the holder in the context of its containing equipment along with the position of that containing Equipment (and further recursion).
-
-         uml:identifier = '_l6LE4ERTEeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Holder'";
+        "The relative position of the holder in the context of its containing equipment along with the position of that containing Equipment (and further recursion).";
     }
     leaf-list supported-equipment-type {
       type string;
       min-elements 1;
       description
-        "An Equipment type that the Holder can accommodate (is compatible with).
-
-         uml:identifier = '_RKzmokg0EeasL6dcjI1vEA'
-         uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses/Holder'";
+        "An Equipment type that the Holder can accommodate (is compatible with).";
     }
     container expected-holder {
       uses expected-holder;
@@ -3180,10 +2526,7 @@ module core-model {
     }
     uses local-class;
     description
-      "Represents a space in an equipment in which another equipment can be fitted in the field.
-
-       uml:identifier = '_8SXNjj-HEeaRI-H69PghuA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/ObjectClasses'";
+      "Represents a space in an equipment in which another equipment can be fitted in the field.";
   }
 
   typedef connector-and-pin-orientation {
@@ -3192,10 +2535,7 @@ module core-model {
     }
     description
       "Most connector schemes are asymmetric such that there are two orientations of the connector where a mating is only possible between two connectors of different orientations.
-       A multi-pin connector may have a mix of pin orientations. In this case, it is expected that the dominant orientation of pin is chosen for the connector orientation.
-
-       uml:identifier = '_y2WM8EQ-EeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/DataTypes'";
+       A multi-pin connector may have a mix of pin orientations. In this case, it is expected that the dominant orientation of pin is chosen for the connector orientation.";
   }
 
   typedef equipment-category {
@@ -3203,10 +2543,7 @@ module core-model {
       base EQUIPMENT_CATEGORY;
     }
     description
-      "The form of equipment.
-
-       uml:identifier = '_mMOBgEQvEeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/DataTypes'";
+      "The form of equipment.";
   }
 
   typedef holder-category {
@@ -3214,38 +2551,26 @@ module core-model {
       base HOLDER_CATEGORY;
     }
     description
-      "The form of holder.
-
-       uml:identifier = '_0K-KoERLEeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/EquipmentPatternStructure/DataTypes'";
+      "The form of holder.";
   }
 
   grouping actual-holder {
     uses holder-details;
     description
-      "A holder in the ActualEquipment.
-
-       uml:identifier = '_NwJ40EmhEeaDccCv6BIgdg'
-       uml:reference  = '/CoreModel/CorePhysicalModel/ExpectedAndActual/ObjectClasses'";
+      "A holder in the ActualEquipment.";
   }
 
   grouping expected-holder {
     uses holder-details;
     description
-      "A definition of a holder expected in the ActualEquipment (i.e. an ActualHolder) as part of the constraints provided by the ExpectedEquipment.
-
-       uml:identifier = '_MEUpIEmhEeaDccCv6BIgdg'
-       uml:reference  = '/CoreModel/CorePhysicalModel/ExpectedAndActual/ObjectClasses'";
+      "A definition of a holder expected in the ActualEquipment (i.e. an ActualHolder) as part of the constraints provided by the ExpectedEquipment.";
   }
 
   grouping actual-equipment {
     uses equipment-detail;
     description
       "The equipment that is actually present in the physical network.
-       It will expose all dynamic properties and some critical static properties.
-
-       uml:identifier = '_8SXNZD-HEeaRI-H69PghuA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/ExpectedAndActual/ObjectClasses'";
+       It will expose all dynamic properties and some critical static properties.";
   }
 
   grouping expected-equipment {
@@ -3253,10 +2578,7 @@ module core-model {
     description
       "A definition of the restrictions on the equipment that is expected to be present in the physical network at a particular 'place'.
        The expected equipment will state the type and may constrain any other invariant properties.
-       It may also provide desired ranges for dynamic properties.
-
-       uml:identifier = '_8SXNfz-HEeaRI-H69PghuA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/ExpectedAndActual/ObjectClasses'";
+       It may also provide desired ranges for dynamic properties.";
   }
 
   grouping signal-ref-pt {
@@ -3272,31 +2594,21 @@ module core-model {
         "none";
     }
     description
-      "A single coherent signal as processed by a single LTP.
-
-       uml:identifier = '_8SXNqz-HEeaRI-H69PghuA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/ConnectorAndPin/ObjectClasses'";
+      "A single coherent signal as processed by a single LTP.";
   }
 
   grouping signal-ref-pt-group {
     description
       "A conceptual access for a group of signals (where that group of signals cannot be separated).
-       A physical indivisible group of signals.
-
-       uml:identifier = '_8SXNrT-HEeaRI-H69PghuA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/ConnectorAndPin/ObjectClasses'";
+       A physical indivisible group of signals.";
   }
 
   grouping elemental-signals {
     description
-      "The elemental (sub-atomic) parts of an 'indivisible' signal where processing in the LTP is required to extract the elemental signals.
-
-       uml:identifier = '_B4oXwEddEeasL6dcjI1vEA'
-       uml:reference  = '/CoreModel/CorePhysicalModel/ConnectorAndPin/ObjectClasses'";
+      "The elemental (sub-atomic) parts of an 'indivisible' signal where processing in the LTP is required to extract the elemental signals.";
   }
 
   container control-construct {
-    presence "Enables SDN";
     uses control-construct;
     description
       "none";
@@ -3343,46 +2655,29 @@ module core-model {
        - an EMS.
        - an NMS.
        This specific model follows a subset of the Component-System Pattern.
-       uml:identifier = '_Vuh_EJmhEeWTOvbfd7_4-A'
-       uml:reference  = '/CoreModel/GeneralControllerModel/ObjectClasses'
-       Root element for controller southbound APIs.
-
-       uml:identifier = '_Vuh_EJmhEeWTOvbfd7_4-A'
-       uml:reference  = '/CoreModel/GeneralControllerModel/ObjectClasses'";
+       Root element for controller southbound APIs.";
   }
 
   grouping control-port {
     container ltp {
       uses logical-termination-point;
       description
-        "The LTP through which the control messaging/signaling flows.
-
-         uml:identifier = '_5DYjYvzMEea2KOb10ZFHOw'
-         uml:reference  = '/CoreModel/GeneralControllerModel/ObjectClasses/ControlPort'";
+        "The LTP through which the control messaging/signaling flows.";
     }
     leaf provider-role {
       type string;
       description
-        "Properties relevant when the ControlPort is exposing the ControlConstruct as a provider of capability.
-
-         uml:identifier = '_XFoTfhbsEeitqc-Dc8Gf8A'
-         uml:reference  = '/CoreModel/GeneralControllerModel/ObjectClasses/ControlPort'";
+        "Properties relevant when the ControlPort is exposing the ControlConstruct as a provider of capability.";
     }
     leaf user-role {
       type string;
       description
-        "Properties relevant when the ControlPort is exposing the ControlConstruct as a user of capability.
-
-         uml:identifier = '_XFoThRbsEeitqc-Dc8Gf8A'
-         uml:reference  = '/CoreModel/GeneralControllerModel/ObjectClasses/ControlPort'";
+        "Properties relevant when the ControlPort is exposing the ControlConstruct as a user of capability.";
     }
     uses global-class;
     description
       "The access to the ControlConstruct following the normal Component-Port pattern (i.e., the functions of a component are accessed via ports).
-       Is assumed to usually be bidirectional.
-
-       uml:identifier = '_D5kTMJmiEeWTOvbfd7_4-A'
-       uml:reference  = '/CoreModel/GeneralControllerModel/ObjectClasses'";
+       Is assumed to usually be bidirectional.";
   }
 
   rpc apply-system-structure-state-defined-by-constraint {
@@ -3427,360 +2722,228 @@ module core-model {
     leaf size {
       type string;
       description
-        "The size of the File, in bytes.
-
-         uml:identifier = '_2lnLMD4lEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/FileSystem/File'";
+        "The size of the File, in bytes.";
     }
     leaf last-modify-time {
       type string;
       description
-        "The date time that the File was last modified.
-
-         uml:identifier = '_QdB_sD4nEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/FileSystem/File'";
+        "The date time that the File was last modified.";
     }
     leaf checksum {
       type string;
       description
-        "A checksum that can be used to validate the contents of the File (in case of corruption or malicious changes) using a hashing algorithm like MD5 or SHA1.
-
-         uml:identifier = '_UWPF4D4nEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/FileSystem/File'";
+        "A checksum that can be used to validate the contents of the File (in case of corruption or malicious changes) using a hashing algorithm like MD5 or SHA1.";
     }
     uses file-system-entry;
     description
-      "A File is a data structure used to store information (user data, commands, software etc.) in a computer system. Note that in this CIM class, we are only storing the metadata associated with the File, not the actual contents of the File.
-
-       uml:identifier = '_vkJTkD4lEei6HehkJk8P-g'
-       uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/FileSystem'";
+      "A File is a data structure used to store information (user data, commands, software etc.) in a computer system. Note that in this CIM class, we are only storing the metadata associated with the File, not the actual contents of the File.";
   }
 
   grouping file-system {
     list file-system-entry {
       uses file-system-entry;
       description
-        "The root FileSystem entries, which can be Files or Directories.
-
-         uml:identifier = '_saA4Uj3BEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/FileSystem/FileSystem'";
+        "The root FileSystem entries, which can be Files or Directories.";
     }
     description
-      "A FileSystem organizes the data on a storage system so that it can be easily created, updated and accessed. It manages the Directories and also the metadata for the Files.
-
-       uml:identifier = '_CP_ikD3BEei6HehkJk8P-g'
-       uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/FileSystem'";
+      "A FileSystem organizes the data on a storage system so that it can be easily created, updated and accessed. It manages the Directories and also the metadata for the Files.";
   }
 
   grouping file-system-entry {
     leaf is-read-only {
       type boolean;
       description
-        "If the File contents can be modified or not.
-
-         uml:identifier = '_A15GoD3CEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/FileSystem/FileSystemEntry'";
+        "If the File contents can be modified or not.";
     }
     leaf is-hidden {
       type boolean;
       description
-        "If the File is hidden by the FileSystem.
-
-         uml:identifier = '_NdUhMD3CEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/FileSystem/FileSystemEntry'";
+        "If the File is hidden by the FileSystem.";
     }
     leaf path-name {
       type string;
       description
-        "The full pathname of the entry, back to the root Directory.
-
-         uml:identifier = '_ZbaD0D3CEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/FileSystem/FileSystemEntry'";
+        "The full pathname of the entry, back to the root Directory.";
     }
     leaf local-name {
       type string;
       description
-        "The name of the entry in its Directory.
-
-         uml:identifier = '_ejfX8D3CEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/FileSystem/FileSystemEntry'";
+        "The name of the entry in its Directory.";
     }
     leaf create-date {
       type string;
       description
-        "The date that the entry was created.
-
-         uml:identifier = '_in2m0D4mEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/FileSystem/FileSystemEntry'";
+        "The date that the entry was created.";
     }
     description
-      "FileSystemEntry is an abstraction of File and Directory, useful when there is a need to reference both classes. It also allows for an easy representation of a hierarchical filesystem.
-
-       uml:identifier = '_nq6r8D3BEei6HehkJk8P-g'
-       uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/FileSystem'";
+      "FileSystemEntry is an abstraction of File and Directory, useful when there is a need to reference both classes. It also allows for an easy representation of a hierarchical filesystem.";
   }
 
   grouping symbolic-link {
     container file-system-entry {
       uses file-system-entry;
       description
-        "The FileSystemEntry that this SymbolicLink refers to.
-
-         uml:identifier = '_8HGoYT4mEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/FileSystem/SymbolicLink'";
+        "The FileSystemEntry that this SymbolicLink refers to.";
     }
     uses file;
     description
-      "A SymbolicLink is a File that contains a path reference to a File or a Directory.
-
-       uml:identifier = '_ploRQD4mEei6HehkJk8P-g'
-       uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/FileSystem'";
+      "A SymbolicLink is a File that contains a path reference to a File or a Directory.";
   }
 
   grouping directory {
     list file-system-entry {
       uses file-system-entry;
       description
-        "Directory entry, which can be a File or another Directory.
-
-         uml:identifier = '_pZROsj3CEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/FileSystem/Directory'";
+        "Directory entry, which can be a File or another Directory.";
     }
     uses file-system-entry;
     description
-      "A Directory is a collection of Files and other Directories. Because a Directory can contain other Directories, this allows a hierarchical file system to be represented.
-
-       uml:identifier = '_l-4ygD3CEei6HehkJk8P-g'
-       uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/FileSystem'";
+      "A Directory is a collection of Files and other Directories. Because a Directory can contain other Directories, this allows a hierarchical file system to be represented.";
   }
 
   grouping installed-software-component {
     leaf name {
       type string;
       description
-        "The name of the installed component as returned by the operating system.
-
-         uml:identifier = '_JopIgD4sEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware/InstalledSoftwareComponent'";
+        "The name of the installed component as returned by the operating system.";
     }
     leaf version {
       type string;
       description
-        "The version of the installed component as returned by the operating system.
-
-         uml:identifier = '_KBj-0D4sEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware/InstalledSoftwareComponent'";
+        "The version of the installed component as returned by the operating system.";
     }
     leaf serial-number {
       type string;
       description
-        "As part of software licensing, a serial number may be available for the installation.
-
-         uml:identifier = '_Ka32sD4sEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware/InstalledSoftwareComponent'";
+        "As part of software licensing, a serial number may be available for the installation.";
     }
     container installation-file {
       uses file;
       description
-        "If available, the File that the installation was from.
-
-         uml:identifier = '_bI89kz4sEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware/InstalledSoftwareComponent'";
+        "If available, the File that the installation was from.";
     }
     leaf-list child-installed-software-component {
       type leafref {
         path "/core-model:installed-software-component/core-model:child-installed-software-component/core-model:serial-number";
       }
       description
-        "References to any child installations.
-
-         uml:identifier = '_x9ynUj4sEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware/InstalledSoftwareComponent'";
+        "References to any child installations.";
     }
     list installed-file-system-entry {
       uses file-system-entry;
       description
-        "References to any Directories or Files created or used by the installation. Note that installations may share files. So installation 1 may create key.dll in a common area, and installation 2 would create this if it wasn’t present. Because it is already present, installation 2 just references the file. Now if installation 1 is uninstalled, key.dll is not removed as there is still a reference to it.
-
-         uml:identifier = '_Vufqkj4tEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware/InstalledSoftwareComponent'";
+        "References to any Directories or Files created or used by the installation. Note that installations may share files. So installation 1 may create key.dll in a common area, and installation 2 would create this if it wasn’t present. Because it is already present, installation 2 just references the file. Now if installation 1 is uninstalled, key.dll is not removed as there is still a reference to it.";
     }
     description
-      "InstalledSoftwareComponent is part of the software inventory. It represents an application or an application suite or an application (feature) option. It is the unit of installation. Note that this is operating system dependent. For example, Microsoft DOS 3.3 didn’t have an installation manager.
-
-       uml:identifier = '_5bj14D4rEei6HehkJk8P-g'
-       uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware'";
+      "InstalledSoftwareComponent is part of the software inventory. It represents an application or an application suite or an application (feature) option. It is the unit of installation. Note that this is operating system dependent. For example, Microsoft DOS 3.3 didn’t have an installation manager.";
   }
 
   grouping running-software-process {
     leaf process-id {
       type string;
       description
-        "The identifier provided by the operating system.
-
-         uml:identifier = '_ubjXAD4pEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware/RunningSoftwareProcess'";
+        "The identifier provided by the operating system.";
     }
     leaf priority {
       type string;
       description
-        "The process priority which is used by a multi-tasking operating system to assign resource allocations for the different running software processes.
-
-         uml:identifier = '_u54RwD4pEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware/RunningSoftwareProcess'";
+        "The process priority which is used by a multi-tasking operating system to assign resource allocations for the different running software processes.";
     }
     leaf invoking-user {
       type string;
       description
-        "The username of the account that invoked the process.
-
-         uml:identifier = '_vUB3ID4pEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware/RunningSoftwareProcess'";
+        "The username of the account that invoked the process.";
     }
     leaf invoking-command {
       type string;
       description
-        "The command string that invoked the process.
-
-         uml:identifier = '_v6c98D4pEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware/RunningSoftwareProcess'";
+        "The command string that invoked the process.";
     }
     leaf time-invoked {
       type string;
       description
-        "The date time when the process was invoked.
-
-         uml:identifier = '_wyWPQD4pEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware/RunningSoftwareProcess'";
+        "The date time when the process was invoked.";
     }
     leaf run-state {
       type string;
       description
-        "The current run state. A software process may be actively running or suspended (or some other state supported by the operating system).
-
-         uml:identifier = '_xaU1QD4pEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware/RunningSoftwareProcess'";
+        "The current run state. A software process may be actively running or suspended (or some other state supported by the operating system).";
     }
     leaf name {
       type string;
       description
-        "The name of the process as assigned by the operating system.
-
-         uml:identifier = '_xlPEwD4pEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware/RunningSoftwareProcess'";
+        "The name of the process as assigned by the operating system.";
     }
     leaf description {
       type string;
       description
-        "The description of the process as assigned by the operating system.
-
-         uml:identifier = '_ydEEoD4pEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware/RunningSoftwareProcess'";
+        "The description of the process as assigned by the operating system.";
     }
     container executable {
       uses file;
       description
-        "A reference to the executable file (invoked via the invokingCommand). Note that the invoking command may not list the full file path.
-
-         uml:identifier = '_mkkXMD4qEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware/RunningSoftwareProcess'";
+        "A reference to the executable file (invoked via the invokingCommand). Note that the invoking command may not list the full file path.";
     }
     leaf-list child-software-process {
       type string;
       description
-        "References to a software process’s subprocesses and threads.
-
-         uml:identifier = '_3VXa4z4qEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware/RunningSoftwareProcess'";
+        "References to a software process’s subprocesses and threads.";
     }
     list open-file {
       uses file;
       description
-        "References to any files opened and/or locked by the running process.
-
-         uml:identifier = '_W_-Lcj4rEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware/RunningSoftwareProcess'";
+        "References to any files opened and/or locked by the running process.";
     }
     description
-      "This is the unit of software execution. It could be a running application or a thread (the smallest level of software execution).
-
-       uml:identifier = '_m2K6AD4pEei6HehkJk8P-g'
-       uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware'";
+      "This is the unit of software execution. It could be a running application or a thread (the smallest level of software execution).";
   }
 
   grouping running-operating-system {
     list running-software-process {
       uses running-software-process;
       description
-        "The software processes running under this operating system.
-
-         uml:identifier = '_G6vtgz6dEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware/RunningOperatingSystem'";
+        "The software processes running under this operating system.";
     }
     list running-container-engine {
       uses running-container-engine;
       description
-        "The running container engines supported by the running operating system.
-
-         uml:identifier = '_xkNpoj7wEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware/RunningOperatingSystem'";
+        "The running container engines supported by the running operating system.";
     }
     leaf-list running-host-os-vmm {
       type string;
       description
-        "The host OS VMMs running under this operating system.
-
-         uml:identifier = '_NDZ_QGlaEeiITeAcFBk32A'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware/RunningOperatingSystem'";
+        "The host OS VMMs running under this operating system.";
     }
     uses running-software-process;
     description
-      "An operating system is a running software process that enables software applications to utilize the computer’s hardware.
-
-       uml:identifier = '_C8gWUD6dEei6HehkJk8P-g'
-       uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware'";
+      "An operating system is a running software process that enables software applications to utilize the computer’s hardware.";
   }
 
   grouping running-software-application {
     uses running-software-process;
     description
-      "This covers generic software processes that don’t have a special subclass (operating system, virtual machine and container special cases have their own specific subclasses).
-
-       uml:identifier = '_AHxXsFniEeiyzdV8zVsJ_w'
-       uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/RunningSoftware'";
+      "This covers generic software processes that don’t have a special subclass (operating system, virtual machine and container special cases have their own specific subclasses).";
   }
 
   grouping running-container {
     leaf container-boundary {
       type string;
       description
-        "The constraints defining the boundary of the Container.
-
-         uml:identifier = '_SWZjcmTnEeiITeAcFBk32A'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/SoftwareContainer/RunningContainer'";
+        "The constraints defining the boundary of the Container.";
     }
     uses running-software-process;
     description
-      "A container that has been activated by its container engine and hence can provide and consume resources.
-
-       uml:identifier = '_yfUKgD7xEei6HehkJk8P-g'
-       uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/SoftwareContainer'";
+      "A container that has been activated by its container engine and hence can provide and consume resources.";
   }
 
   grouping running-container-engine {
     list running-container {
       uses running-container;
       description
-        "The containers running in this container engine.
-
-         uml:identifier = '_iJNpUz7yEei6HehkJk8P-g'
-         uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/SoftwareContainer/RunningContainerEngine'";
+        "The containers running in this container engine.";
     }
     uses running-software-process;
     description
-      "A software process that abstracts running applications from the operating system. It provides some level of isolation, but not as much as a hypervisor.
-
-       uml:identifier = '_ru8fYD7wEei6HehkJk8P-g'
-       uml:reference  = '/CoreModel/CoreSoftwareModel/ObjectClasses/SoftwareContainer'";
+      "A software process that abstracts running applications from the operating system. It provides some level of isolation, but not as much as a hypervisor.";
   }
 }

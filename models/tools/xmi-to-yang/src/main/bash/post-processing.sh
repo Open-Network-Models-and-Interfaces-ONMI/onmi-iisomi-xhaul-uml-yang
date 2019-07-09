@@ -33,6 +33,9 @@ do
 
   sed -i -e "s/forwarding-constructuuid forwarding-constructname/uuid/g" $yang
   sed -i -e "s/logical-termination-pointuuid logical-termination-pointname/uuid/g" $yang
+  sed -i -e "s/fc-routeuuid fc-routename/uuid/g" $yang
+  
+  sed -i -e "s/fc-portlocal-id fc-portname/local-id/g" $yang
 
   sed -i -e "s/path '\/core-model:logical-termination-point\/core-model:peer-ltp\/core-model:/path '\/core-model:control-construct\/core-model:logical-termination-point\/core-model:/g" $yang
 
@@ -47,6 +50,7 @@ do
   sed -i -e "s/pmd\-kindpmd\-name/pmd-name/g" $yang
   
   # format
-  pyang -f yang -p $DIR -o $yang $yang 
+  pyang -f yang -p $DIR -o $yang $yang
+  unix2dos $yang
   
 done

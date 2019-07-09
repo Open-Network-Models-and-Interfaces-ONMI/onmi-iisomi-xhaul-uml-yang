@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26"  xmlns:RootElement="http:///schemas/RootElement/_unAKkJDrEemIv9iw4JXc9w/46" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26 UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml http:///schemas/OpenModel_Profile/_aG1hkAPxEeewDI5jM-81FA/21 OpenModel_Profile.profile.uml#_aG-rgAPxEeewDI5jM-81FA http:///schemas/RootElement/_unAKkJDrEemIv9iw4JXc9w/46 UmlProfiles/Experimental.profile.uml">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26" xmlns:RootElement="http:///schemas/RootElement/_unAKkJDrEemIv9iw4JXc9w/46" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26 UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml http:///schemas/RootElement/_unAKkJDrEemIv9iw4JXc9w/46 UmlProfiles/Experimental.profile.uml">
   <uml:Package xmi:id="_oGqilVLNEeO75dO39GbF8Q" name="CoreModel">
     <packageImport xmi:type="uml:PackageImport" xmi:id="_8Q4ecKxrEeS5HuAudtqItw">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -469,7 +469,7 @@ The clock is set to the last known synchronization.</body>
             </ownedLiteral>
           </packagedElement>
         </packagedElement>
-        <packagedElement xmi:type="uml:Enumeration" xmi:id="_MbUkMIQ4EeiXzpgfQWpR-Q" name="LayerProtocolName">
+        <packagedElement xmi:type="uml:Enumeration" xmi:id="_MbUkMIQ4EeiXzpgfQWpR-Q" name="LayerProtocolNameType">
           <ownedComment xmi:type="uml:Comment" xmi:id="_aw00sIQ5EeiXzpgfQWpR-Q" annotatedElement="_MbUkMIQ4EeiXzpgfQWpR-Q">
             <body>A controlled list of LayerProtocol names.</body>
           </ownedComment>
@@ -488,6 +488,12 @@ The clock is set to the last known synchronization.</body>
               <body>The characteristic information is that of a channel able to carry Ethernet protocol and of the Ethernet protocol source/sink.</body>
             </ownedComment>
           </ownedLiteral>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Enumeration" xmi:id="_jMtRsKInEem1L6jqz3rbgg" name="ProfileNameType" isAbstract="true">
+          <ownedComment xmi:type="uml:Comment" xmi:id="_jMt4wKInEem1L6jqz3rbgg" annotatedElement="_jMtRsKInEem1L6jqz3rbgg">
+            <body>A controlled list of LayerProtocol names.</body>
+          </ownedComment>
+          <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_x95OEKInEem1L6jqz3rbgg" name="USER_PROFILE"/>
         </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_oGqltlLNEeO75dO39GbF8Q" name="ObjectClasses">
@@ -948,7 +954,7 @@ It can also be used for controlling the adaptation (i.e. aggregation, encapsulat
 Where the client – server relationship is fixed 1:1 and immutable, the layers can be encapsulated in a single LTP instance. Where there is a n:1 relationship between client and server, the layers must be split over two separate instances of LTP. </body>
           </ownedComment>
           <generalization xmi:type="uml:Generalization" xmi:id="_XUDNsI2yEeO38ZmbECnvbg" general="_k5nWYI2wEeO38ZmbECnvbg"/>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_OwauQFeEEeOVGaP4lO41SQ" name="layerProtocolName" visibility="public" type="_P-Hp8MD4EeSoNOrYOfaryg">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_OwauQFeEEeOVGaP4lO41SQ" name="layerProtocolName" visibility="public" type="_MbUkMIQ4EeiXzpgfQWpR-Q">
             <ownedComment xmi:type="uml:Comment" xmi:id="_hDARUGXKEeWWhJGy6csBUQ" annotatedElement="_OwauQFeEEeOVGaP4lO41SQ">
               <body>Indicate the specific layer-protocol described by the LayerProtocol entity.</body>
             </ownedComment>
@@ -1924,9 +1930,7 @@ For asymmetric FDs, the association to the LTP is via the FdPort.</body>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_GLc2MJ47Eemkbek818V8NQ" name="Profile">
           <generalization xmi:type="uml:Generalization" xmi:id="_jiXs4J47Eemkbek818V8NQ" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
-          <ownedAttribute xmi:type="uml:Property" xmi:id="_GLc2NZ47Eemkbek818V8NQ" name="profileName">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_GLc2NZ47Eemkbek818V8NQ" name="profileName" type="_jMtRsKInEem1L6jqz3rbgg"/>
         </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="_oGqwB1LNEeO75dO39GbF8Q" name="Diagrams">
