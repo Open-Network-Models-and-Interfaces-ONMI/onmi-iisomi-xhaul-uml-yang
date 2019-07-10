@@ -290,6 +290,148 @@ module: core-model
      |  |  +--ro administrative-state?                                  administrative-state
      |  |  +--rw lifecycle-state?                                       lifecycle-state
      |  |  +--rw address*                                               dt-address
+     |  |  +--ro ethernet-container:ethernet-container-pac
+     |  |  |  +--ro ethernet-container:ethernet-container-capability
+     |  |  |  |  +--ro ethernet-container:available-queue-list* [queue-name]
+     |  |  |  |  |  +--ro ethernet-container:queue-name                                       queue-name-type
+     |  |  |  |  |  +--ro ethernet-container:max-queue-depth?                                 int32
+     |  |  |  |  |  +--ro ethernet-container:queue-depth-configuration-is-avail?              boolean
+     |  |  |  |  |  +--ro ethernet-container:available-dropping-behavior-kind-list*           dropping-behavior-kind-type
+     |  |  |  |  |  +--ro ethernet-container:available-drop-precedence-kind-list*             drop-precedence-type
+     |  |  |  |  |  +--ro ethernet-container:wred-profile-per-drop-precedence-is-available?   boolean
+     |  |  |  |  |  +--ro ethernet-container:available-scheduling-kind-list*                  scheduler-kind-type
+     |  |  |  |  +--ro ethernet-container:explicit-congestion-notification-is-avail?                boolean
+     |  |  |  |  +--ro ethernet-container:ingress-policing-is-avail?                                boolean
+     |  |  |  |  +--ro ethernet-container:egress-shaping-is-avail?                                  boolean
+     |  |  |  |  +--ro ethernet-container:information-rate-min?                                     int32
+     |  |  |  |  +--ro ethernet-container:information-rate-max?                                     int32
+     |  |  |  |  +--ro ethernet-container:burst-size-min?                                           int16
+     |  |  |  |  +--ro ethernet-container:burst-size-max?                                           int16
+     |  |  |  |  +--ro ethernet-container:bundling-is-avail?                                        boolean
+     |  |  |  |  +--ro ethernet-container:bundling-group-size-max?                                  int8
+     |  |  |  |  +--ro ethernet-container:support-of-management-frames-without-preamble-is-avail?   boolean
+     |  |  |  |  +--ro ethernet-container:supported-header-compression-kind-list* [header-compression-name]
+     |  |  |  |  |  +--ro ethernet-container:header-compression-name           string
+     |  |  |  |  |  +--ro ethernet-container:header-compression-mode?          header-compression-mode-type
+     |  |  |  |  |  +--ro ethernet-container:compressed-protocol-layer-list*   protocol-layer-type
+     |  |  |  |  |  +--ro ethernet-container:mpls-payload-kind*                mpls-payload-kind-type
+     |  |  |  |  |  +--ro ethernet-container:compressed-header-length?         int16
+     |  |  |  |  +--ro ethernet-container:fec-is-avail?                                             boolean
+     |  |  |  |  +--ro ethernet-container:fec-word-size-max?                                        int16
+     |  |  |  |  +--ro ethernet-container:supported-fec-redundancy-size-list*                       fec-redundancy-size-type
+     |  |  |  |  +--ro ethernet-container:supported-fec-interleaver-kind-list*                      fec-interleaver-kind-type
+     |  |  |  |  +--ro ethernet-container:supported-fec-interleaver-depth-list*                     fec-interleaver-depth-type
+     |  |  |  |  +--ro ethernet-container:encryption-is-avail?                                      boolean
+     |  |  |  |  +--ro ethernet-container:admin-shut-down-is-avail?                                 boolean
+     |  |  |  |  +--ro ethernet-container:supported-loop-back-kind-list*                            loop-back-type
+     |  |  |  |  +--ro ethernet-container:maintenance-timer-range?                                  string
+     |  |  |  |  +--ro ethernet-container:statistics-is-avail?                                      boolean
+     |  |  |  |  +--ro ethernet-container:supported-alarm-list*                                     string
+     |  |  |  |  +--ro ethernet-container:performance-monitoring-is-avail?                          boolean
+     |  |  |  +--ro ethernet-container:ethernet-container-configuration
+     |  |  |  |  +--ro ethernet-container:interface-name?                           string
+     |  |  |  |  +--ro ethernet-container:interface-is-on?                          boolean
+     |  |  |  |  +--ro ethernet-container:queue-behavior-list* [queue-name]
+     |  |  |  |  |  +--ro ethernet-container:queue-name                queue-name-type
+     |  |  |  |  |  +--ro ethernet-container:queue-depth?              int32
+     |  |  |  |  |  +--ro ethernet-container:dropping-behavior-kind?   dropping-behavior-kind-type
+     |  |  |  |  |  +--ro ethernet-container:wred-behavior-list* [affected-drop-precedence affected-protocol]
+     |  |  |  |  |  |  +--ro ethernet-container:affected-drop-precedence    drop-precedence-type
+     |  |  |  |  |  |  +--ro ethernet-container:affected-protocol           protocol-layer-type
+     |  |  |  |  |  |  +--ro ethernet-container:wred-profile?               -> /core-model:control-construct/profile-collection/profile/uuid
+     |  |  |  |  |  +--ro ethernet-container:scheduler-kind?           scheduler-kind-type
+     |  |  |  |  |  +--ro ethernet-container:weighting?                int8
+     |  |  |  |  +--ro ethernet-container:explicit-congestion-notification-is-on?   boolean
+     |  |  |  |  +--ro ethernet-container:ingress-policing-profile?                 -> /core-model:control-construct/profile-collection/profile/uuid
+     |  |  |  |  +--ro ethernet-container:egress-shaping-is-on?                     boolean
+     |  |  |  |  +--ro ethernet-container:maximum-information-rate?                 int32
+     |  |  |  |  +--ro ethernet-container:maximum-burst-size?                       int16
+     |  |  |  |  +--ro ethernet-container:bundling-is-on?                           boolean
+     |  |  |  |  +--ro ethernet-container:header-compression-kind
+     |  |  |  |  |  +--ro ethernet-container:header-compression-name?          string
+     |  |  |  |  |  +--ro ethernet-container:header-compression-mode?          header-compression-mode-type
+     |  |  |  |  |  +--ro ethernet-container:compressed-protocol-layer-list*   protocol-layer-type
+     |  |  |  |  |  +--ro ethernet-container:mpls-payload-kind*                mpls-payload-kind-type
+     |  |  |  |  |  +--ro ethernet-container:compressed-header-length?         int16
+     |  |  |  |  +--ro ethernet-container:fec-is-on?                                boolean
+     |  |  |  |  +--ro ethernet-container:fec-word-size?                            int16
+     |  |  |  |  +--ro ethernet-container:fec-redundancy-size?                      fec-redundancy-size-type
+     |  |  |  |  +--ro ethernet-container:fec-interleaver-kind?                     fec-interleaver-kind-type
+     |  |  |  |  +--ro ethernet-container:fec-interleaver-depth?                    fec-interleaver-depth-type
+     |  |  |  |  +--ro ethernet-container:encryption-is-on?                         boolean
+     |  |  |  |  +--ro ethernet-container:cryptographic-key?                        string
+     |  |  |  |  +--ro ethernet-container:loop-back-kind-on?                        loop-back-type
+     |  |  |  |  +--ro ethernet-container:maintenance-timer?                        int32
+     |  |  |  |  +--ro ethernet-container:statistics-is-on?                         boolean
+     |  |  |  |  +--ro ethernet-container:problem-kind-severity-list* [problem-kind-name]
+     |  |  |  |  |  +--ro ethernet-container:problem-kind-name        string
+     |  |  |  |  |  +--ro ethernet-container:problem-kind-severity?   severity-type
+     |  |  |  |  +--ro ethernet-container:performance-monitoring-is-on?             boolean
+     |  |  |  +--ro ethernet-container:ethernet-container-status
+     |  |  |  |  +--ro ethernet-container:interface-status?               interface-status-type
+     |  |  |  |  +--ro ethernet-container:bundling-is-up?                 boolean
+     |  |  |  |  +--ro ethernet-container:remote-site-is-faulty?          boolean
+     |  |  |  |  +--ro ethernet-container:loop-back-kind-up?              loop-back-type
+     |  |  |  |  +--ro ethernet-container:statistics-is-up?               boolean
+     |  |  |  |  +--ro ethernet-container:performance-monitoring-is-up?   boolean
+     |  |  |  |  +--ro ethernet-container:time-stamp?                     string
+     |  |  |  |  +--ro ethernet-container:last-10-sec-data-input-rate?    int32
+     |  |  |  |  +--ro ethernet-container:last-10-sec-data-output-rate?   int32
+     |  |  |  |  +--ro ethernet-container:total-bytes-input?              uint64
+     |  |  |  |  +--ro ethernet-container:total-bytes-output?             uint64
+     |  |  |  |  +--ro ethernet-container:forwarded-bytes-input?          uint64
+     |  |  |  |  +--ro ethernet-container:forwarded-bytes-output?         uint64
+     |  |  |  +--ro ethernet-container:ethernet-container-current-problems
+     |  |  |  |  +--ro ethernet-container:current-problem-list* [sequence-number]
+     |  |  |  |     +--ro ethernet-container:problem-name?       string
+     |  |  |  |     +--ro ethernet-container:sequence-number     int16
+     |  |  |  |     +--ro ethernet-container:time-stamp?         string
+     |  |  |  |     +--ro ethernet-container:problem-severity?   severity-type
+     |  |  |  +--ro ethernet-container:ethernet-container-current-performance
+     |  |  |  |  +--ro ethernet-container:current-performance-data-list* [granularity-period]
+     |  |  |  |     +--ro ethernet-container:performance-data
+     |  |  |  |     |  +--ro ethernet-container:tx-ethernet-bytes-max-s?    int32
+     |  |  |  |     |  +--ro ethernet-container:tx-ethernet-bytes-max-m?    int64
+     |  |  |  |     |  +--ro ethernet-container:tx-ethernet-bytes-sum?      int64
+     |  |  |  |     |  +--ro ethernet-container:queue-utilization-list* [queue-name]
+     |  |  |  |     |  |  +--ro ethernet-container:queue-name          queue-name-type
+     |  |  |  |     |  |  +--ro ethernet-container:max-queue-length?   int32
+     |  |  |  |     |  |  +--ro ethernet-container:avg-queue-length?   int32
+     |  |  |  |     |  +--ro ethernet-container:fec-corrected-blocks?       int32
+     |  |  |  |     |  +--ro ethernet-container:fec-uncorrectable-blocks?   int32
+     |  |  |  |     |  +--ro ethernet-container:time-period?                int32
+     |  |  |  |     +--ro ethernet-container:timestamp?               string
+     |  |  |  |     +--ro ethernet-container:suspect-interval-flag?   boolean
+     |  |  |  |     +--ro ethernet-container:elapsed-time?            int64
+     |  |  |  |     +--ro ethernet-container:scanner-id?              string
+     |  |  |  |     +--ro ethernet-container:operational-state?       operational-state-type
+     |  |  |  |     +--ro ethernet-container:granularity-period       granularity-period-type
+     |  |  |  |     +--ro ethernet-container:administrative-state?    administrative-state-type
+     |  |  |  |     +--ro ethernet-container:object-class?            string
+     |  |  |  |     +--ro ethernet-container:name-binding?            string
+     |  |  |  |     +--ro ethernet-container:packages?                string
+     |  |  |  |     +--ro ethernet-container:allomorphs?              string
+     |  |  |  +--ro ethernet-container:ethernet-container-historical-performances
+     |  |  |     +--ro ethernet-container:historical-performance-data-list* [period-end-time]
+     |  |  |        +--ro ethernet-container:performance-data
+     |  |  |        |  +--ro ethernet-container:tx-ethernet-bytes-max-s?    int32
+     |  |  |        |  +--ro ethernet-container:tx-ethernet-bytes-max-m?    int64
+     |  |  |        |  +--ro ethernet-container:tx-ethernet-bytes-sum?      int64
+     |  |  |        |  +--ro ethernet-container:queue-utilization-list* [queue-name]
+     |  |  |        |  |  +--ro ethernet-container:queue-name          queue-name-type
+     |  |  |        |  |  +--ro ethernet-container:max-queue-length?   int32
+     |  |  |        |  |  +--ro ethernet-container:avg-queue-length?   int32
+     |  |  |        |  +--ro ethernet-container:fec-corrected-blocks?       int32
+     |  |  |        |  +--ro ethernet-container:fec-uncorrectable-blocks?   int32
+     |  |  |        |  +--ro ethernet-container:time-period?                int32
+     |  |  |        +--ro ethernet-container:suspect-interval-flag?   boolean
+     |  |  |        +--ro ethernet-container:history-data-id?         string
+     |  |  |        +--ro ethernet-container:period-end-time          string
+     |  |  |        +--ro ethernet-container:granularity-period?      granularity-period-type
+     |  |  |        +--ro ethernet-container:object-class?            string
+     |  |  |        +--ro ethernet-container:name-binding?            string
+     |  |  |        +--ro ethernet-container:packages?                string
+     |  |  |        +--ro ethernet-container:allomorphs?              string
      |  |  +--ro hybrid-mw-structure:hybrid-mw-structure-pac
      |  |  |  +--ro hybrid-mw-structure:hybrid-mw-structure-capability
      |  |  |  |  +--ro hybrid-mw-structure:supported-tdm-structure-kind-list* [tdm-structure-name]
@@ -364,6 +506,93 @@ module: core-model
      |  |  |        +--ro hybrid-mw-structure:name-binding?            string
      |  |  |        +--ro hybrid-mw-structure:packages?                string
      |  |  |        +--ro hybrid-mw-structure:allomorphs?              string
+     |  |  +--ro ip-interface:ip-interface-pac
+     |  |  |  +--ro ip-interface:ip-interface-capability
+     |  |  |  |  +--ro ip-interface:maximum-number-of-ip-v-4-addresses?             int16
+     |  |  |  |  +--ro ip-interface:dhcp-client-is-avail?                           boolean
+     |  |  |  |  +--ro ip-interface:fixed-default-gateway-configuration-is-avail?   boolean
+     |  |  |  |  +--ro ip-interface:maximum-transmission-unit-min?                  int16
+     |  |  |  |  +--ro ip-interface:maximum-transmission-unit-max?                  int16
+     |  |  |  |  +--ro ip-interface:ip-v-6-is-avail?                                boolean
+     |  |  |  |  +--ro ip-interface:arp-proxy-is-avail?                             boolean
+     |  |  |  |  +--ro ip-interface:ingress-policing-is-avail?                      boolean
+     |  |  |  |  +--ro ip-interface:egress-shaping-is-avail?                        boolean
+     |  |  |  |  +--ro ip-interface:information-rate-min?                           int32
+     |  |  |  |  +--ro ip-interface:information-rate-max?                           int32
+     |  |  |  |  +--ro ip-interface:burst-size-min?                                 int16
+     |  |  |  |  +--ro ip-interface:burst-size-max?                                 int16
+     |  |  |  |  +--ro ip-interface:vpn-binding-is-avail?                           boolean
+     |  |  |  |  +--ro ip-interface:admin-shut-down-is-avail?                       boolean
+     |  |  |  |  +--ro ip-interface:supported-loop-back-kind-list*                  loop-back-type
+     |  |  |  |  +--ro ip-interface:maintenance-timer-range?                        string
+     |  |  |  |  +--ro ip-interface:statistics-is-avail?                            boolean
+     |  |  |  |  +--ro ip-interface:supported-alarm-list*                           string
+     |  |  |  +--ro ip-interface:ip-interface-configuration
+     |  |  |  |  +--ro ip-interface:interface-name?                 string
+     |  |  |  |  +--ro ip-interface:interface-is-on?                boolean
+     |  |  |  |  +--ro ip-interface:dhcp-client-is-on?              boolean
+     |  |  |  |  +--ro ip-interface:fixed-ip-v-4-address-list* [fixed-ip-v-4-address fixed-ip-v-4-address-prefix-length]
+     |  |  |  |  |  +--ro ip-interface:fixed-ip-v-4-address                    string
+     |  |  |  |  |  +--ro ip-interface:fixed-ip-v-4-address-prefix-length      int8
+     |  |  |  |  |  +--ro ip-interface:fixed-default-gateway-ip-v-4-address?   string
+     |  |  |  |  +--ro ip-interface:maximum-transmission-unit-ip?   int16
+     |  |  |  |  +--ro ip-interface:arp-proxy?                      arp-proxy-type
+     |  |  |  |  +--ro ip-interface:ingress-policing-profile?       -> /core-model:control-construct/profile-collection/profile/uuid
+     |  |  |  |  +--ro ip-interface:egress-shaping-is-on?           boolean
+     |  |  |  |  +--ro ip-interface:maximum-information-rate?       int32
+     |  |  |  |  +--ro ip-interface:maximum-burst-size?             int16
+     |  |  |  |  +--ro ip-interface:vpn-profile?                    -> /core-model:control-construct/profile-collection/profile/uuid
+     |  |  |  |  +--ro ip-interface:qos-profile?                    -> /core-model:control-construct/profile-collection/profile/uuid
+     |  |  |  |  +--ro ip-interface:loop-back-kind-on?              loop-back-type
+     |  |  |  |  +--ro ip-interface:maintenance-timer?              int32
+     |  |  |  |  +--ro ip-interface:statistics-is-on?               boolean
+     |  |  |  |  +--ro ip-interface:problem-kind-severity-list* [problem-kind-name]
+     |  |  |  |     +--ro ip-interface:problem-kind-name        string
+     |  |  |  |     +--ro ip-interface:problem-kind-severity?   severity-type
+     |  |  |  +--ro ip-interface:ip-interface-status
+     |  |  |  |  +--ro ip-interface:interface-status?                 interface-status-type
+     |  |  |  |  +--ro ip-interface:ip-v-4-address-cur-list* [fixed-ip-v-4-address fixed-ip-v-4-address-prefix-length]
+     |  |  |  |  |  +--ro ip-interface:fixed-ip-v-4-address                    string
+     |  |  |  |  |  +--ro ip-interface:fixed-ip-v-4-address-prefix-length      int8
+     |  |  |  |  |  +--ro ip-interface:fixed-default-gateway-ip-v-4-address?   string
+     |  |  |  |  +--ro ip-interface:ip-address-origin?                ip-address-origin-type
+     |  |  |  |  +--ro ip-interface:neighbor-list* [neighbor-mac-address]
+     |  |  |  |  |  +--ro ip-interface:neighbor-mac-address       string
+     |  |  |  |  |  +--ro ip-interface:neighbor-ip-v-4-address?   string
+     |  |  |  |  |  +--ro ip-interface:neighbor-origin?           neighbor-origin-type
+     |  |  |  |  +--ro ip-interface:vpn-binding-is-up?                boolean
+     |  |  |  |  +--ro ip-interface:loop-back-kind-up?                loop-back-type
+     |  |  |  |  +--ro ip-interface:statistics-is-up?                 boolean
+     |  |  |  |  +--ro ip-interface:timestamp?                        string
+     |  |  |  |  +--ro ip-interface:last-10-sec-data-input-rate?      int32
+     |  |  |  |  +--ro ip-interface:last-10-sec-data-output-rate?     int32
+     |  |  |  |  +--ro ip-interface:last-10-sec-packet-input-rate?    int32
+     |  |  |  |  +--ro ip-interface:last-10-sec-packet-output-rate?   int32
+     |  |  |  |  +--ro ip-interface:data-volume-input?                int32
+     |  |  |  |  +--ro ip-interface:data-volume-output?               int32
+     |  |  |  |  +--ro ip-interface:total-packets-input?              int64
+     |  |  |  |  +--ro ip-interface:total-packets-output?             int64
+     |  |  |  |  +--ro ip-interface:forwarded-data-volume-input?      int32
+     |  |  |  |  +--ro ip-interface:forwarded-data-volume-output?     int32
+     |  |  |  |  +--ro ip-interface:forwarded-packets-input?          int64
+     |  |  |  |  +--ro ip-interface:forwarded-packets-output?         int64
+     |  |  |  |  +--ro ip-interface:unicast-packets-input?            int64
+     |  |  |  |  +--ro ip-interface:unicast-packets-output?           int64
+     |  |  |  |  +--ro ip-interface:multicast-packets-input?          int32
+     |  |  |  |  +--ro ip-interface:multicast-packets-output?         int32
+     |  |  |  |  +--ro ip-interface:broadcast-packets-input?          int32
+     |  |  |  |  +--ro ip-interface:broadcast-packets-output?         int32
+     |  |  |  |  +--ro ip-interface:fragmented-packets-input?         int32
+     |  |  |  |  +--ro ip-interface:errored-packets-input?            int32
+     |  |  |  |  +--ro ip-interface:errored-packets-output?           int32
+     |  |  |  |  +--ro ip-interface:dropped-packets-input?            int32
+     |  |  |  |  +--ro ip-interface:dropped-packets-output?           int32
+     |  |  |  +--ro ip-interface:ip-interface-current-problems
+     |  |  |     +--ro ip-interface:current-problem-list* [sequence-number]
+     |  |  |        +--ro ip-interface:problem-name?       string
+     |  |  |        +--ro ip-interface:sequence-number     int16
+     |  |  |        +--ro ip-interface:time-stamp?         string
+     |  |  |        +--ro ip-interface:problem-severity?   severity-type
      |  |  +--ro mac-interface:mac-interface-pac
      |  |  |  +--ro mac-interface:macinterfacecapability
      |  |  |  |  +--ro mac-interface:hardware-mac-address?                   string
@@ -1116,7 +1345,55 @@ module: core-model
        |  +---w input-constraint-structure?   string
        +--ro output
           +--ro output-constraint-structure?   string
+module: ethernet-container
+
+  notifications:
+    +---n object-creation-notification
+    |  +--ro counter?         int64
+    |  +--ro time-stamp?      string
+    |  +--ro object-id-ref?   string
+    |  +--ro object-type?     string
+    +---n object-deletion-notification
+    |  +--ro counter?         int64
+    |  +--ro time-stamp?      string
+    |  +--ro object-id-ref?   string
+    +---n attribute-value-changed-notification
+    |  +--ro counter?          int64
+    |  +--ro time-stamp?       string
+    |  +--ro object-id-ref?    string
+    |  +--ro attribute-name?   string
+    |  +--ro new-value?        string
+    +---n problem-notification
+       +--ro counter?         int64
+       +--ro time-stamp?      string
+       +--ro object-id-ref?   string
+       +--ro problem?         string
+       +--ro severity?        severity-type
 module: hybrid-mw-structure
+
+  notifications:
+    +---n object-creation-notification
+    |  +--ro counter?         int32
+    |  +--ro time-stamp?      string
+    |  +--ro object-id-ref?   string
+    |  +--ro object-type?     string
+    +---n object-deletion-notification
+    |  +--ro counter?         int32
+    |  +--ro time-stamp?      string
+    |  +--ro object-id-ref?   string
+    +---n attribute-value-changed-notification
+    |  +--ro counter?          int32
+    |  +--ro time-stamp?       string
+    |  +--ro object-id-ref?    string
+    |  +--ro attribute-name?   string
+    |  +--ro new-value?        string
+    +---n problem-notification
+       +--ro counter?         int32
+       +--ro time-stamp?      string
+       +--ro object-id-ref?   string
+       +--ro problem?         string
+       +--ro severity?        severity-type
+module: ip-interface
 
   notifications:
     +---n object-creation-notification

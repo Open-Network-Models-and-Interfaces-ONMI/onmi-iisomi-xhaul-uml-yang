@@ -1,0 +1,1113 @@
+module ip-interface {
+  yang-version 1.1;
+  namespace "urn:onf:yang:ip-interface";
+  prefix ip-interface;
+
+  import core-model {
+    prefix core-model;
+  }
+
+  organization
+    "openBackhaul.com proposal to Open Networking Foundation (ONF)";
+  contact
+    "WG Web : https://github.com/openBackhaul/Overview
+     WG List: Thorsten.Heinze@openBackhaul.com
+     Editor : Thorsten Heinze
+     Email  : Thorsten.Heinze@openBackhaul.com";
+  description
+    "Technology specific amendment to the LayerProtocol class for an IPv4 interface according to IETF RFC 791.
+
+     Copyright 2019 openBackhaul.com
+
+     Licensed under the Apache License, Version 2.0 (the 'License');
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+     http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an 'AS IS' BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.";
+
+  revision 2019-07-09 {
+    description
+      "Model for the Transport SDN Pilot at Telefonica Germany
+       Please view https://github.com/openBackhaul/ipInterface/issues for changes.";
+    reference
+      "https://github.com/openBackhaul/ipInterface/tree/tsp: Model definition
+       https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
+  }
+
+  identity LAYER_PROTOCOL_NAME_TYPE_IP_LAYER {
+    base core-model:LAYER_PROTOCOL_NAME_TYPE;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol" {
+    when 'derived-from-or-self(./core-model:layer-protocol-name, "ip-interface:LAYER_PROTOCOL_NAME_TYPE_IP_LAYER")';
+    uses ip-interface-lp-spec;
+    description
+      "none";
+  }
+
+  notification object-creation-notification {
+    uses object-creation-notification;
+    description
+      "none";
+  }
+
+  grouping object-creation-notification {
+    leaf counter {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Counts object creation notifications.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf object-type {
+      type string;
+      default "Type of created object not specified.";
+      config false;
+      description
+        "Type of created object not specified.";
+    }
+    description
+      "To be sent when a new MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac has to be instancieted in the controller.";
+  }
+
+  notification object-deletion-notification {
+    uses object-deletion-notification;
+    description
+      "none";
+  }
+
+  grouping object-deletion-notification {
+    leaf counter {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Counts object deletion notifications.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    description
+      "To be sent when a new MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac instance has to be deleted in the controller.";
+  }
+
+  notification attribute-value-changed-notification {
+    uses attribute-value-changed-notification;
+    description
+      "none";
+  }
+
+  grouping attribute-value-changed-notification {
+    leaf counter {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Counts attribute value changed notifications.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf attribute-name {
+      type string;
+      default "Attribute name not specified.";
+      config false;
+      description
+        "Name of the attribute that has been changed.";
+    }
+    leaf new-value {
+      type string;
+      default "New value not specified.";
+      config false;
+      description
+        "Attribute value converted to a string (xml, json, ...)";
+    }
+    description
+      "To be sent when an attribute has changed and one or more controllers have to update their data.";
+  }
+
+  notification problem-notification {
+    uses problem-notification;
+    description
+      "none";
+  }
+
+  grouping problem-notification {
+    leaf counter {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Counts problem notifications";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf problem {
+      type string;
+      default "Problem name not specified.";
+      config false;
+      description
+        "Name of the problem according to supportedAlarmList";
+    }
+    leaf severity {
+      type severity-type;
+      config false;
+      description
+        "Severity of the problem according to problemKindSeverity";
+    }
+    description
+      "To be sent when a problem occurs at a MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac.";
+  }
+
+  grouping current-problem {
+    leaf sequence-number {
+      type int16;
+      config false;
+      description
+        "Unique sequence number of the current problem object.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf problem-severity {
+      type severity-type;
+      config false;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping ip-interface-lp-spec {
+    container ip-interface-pac {
+      config false;
+      uses ip-interface-pac;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping ip-interface-pac {
+    container ip-interface-capability {
+      config false;
+      uses ip-interface-capability;
+      description
+        "none";
+    }
+    container ip-interface-configuration {
+      uses ip-interface-configuration;
+      description
+        "none";
+    }
+    container ip-interface-status {
+      config false;
+      uses ip-interface-status;
+      description
+        "none";
+    }
+    container ip-interface-current-problems {
+      config false;
+      uses ip-interface-current-problems;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping ip-interface-capability {
+    leaf maximum-number-of-ip-v-4-addresses {
+      type int16;
+      default "-1";
+      config false;
+      description
+        "Maximum number of IP addresses at this IP interface (translates into maximum multiplicity of IpInterfaceConfiguration::fixedIpV4AddressList)";
+    }
+    leaf dhcp-client-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Interface is able to operate as a DHCP client.";
+    }
+    leaf fixed-default-gateway-configuration-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Default route per IP Interface can be configuered, 0 if multiple Default routes are not supported";
+    }
+    leaf maximum-transmission-unit-min {
+      type int16;
+      units "Byte";
+      default "-1";
+      config false;
+      description
+        "Minimum layer 3 MTU size configurable.";
+    }
+    leaf maximum-transmission-unit-max {
+      type int16;
+      units "Byte";
+      default "-1";
+      config false;
+      description
+        "Maximum layer 3 MTU size configurable.";
+    }
+    leaf ip-v-6-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = interface supports IPv6 (even if not yet supported by this information model).";
+    }
+    leaf arp-proxy-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Interface is able to forward ARP requests.";
+    }
+    leaf ingress-policing-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Shaping on the ingress is available at this interface.";
+    }
+    leaf egress-shaping-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = This interface supports shaping.";
+    }
+    leaf information-rate-min {
+      type int32;
+      units "kbit/s";
+      default "-1";
+      config false;
+      description
+        "Only relevant if (egressShapingIsAvail==1): Minimum configurable throuput in kbit/s.";
+    }
+    leaf information-rate-max {
+      type int32;
+      units "kbit/s";
+      default "-1";
+      config false;
+      description
+        "Only relevant if (egressShapingIsAvail==1): Maximum configurable throuput in kbit/s.";
+    }
+    leaf burst-size-min {
+      type int16;
+      units "kByte";
+      default "-1";
+      config false;
+      description
+        "Only relevant if (egressShapingIsAvail==1): Minimum configurable value for the number of kBytes, which could be sent in a single burst.";
+    }
+    leaf burst-size-max {
+      type int16;
+      units "kByte";
+      default "-1";
+      config false;
+      description
+        "Only relevant if (egressShapingIsAvail==1): Maximum configurable value for the number of kBytes, which could be sent in a single burst.";
+    }
+    leaf vpn-binding-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Interface supports being part of a Virtual Private Network.";
+    }
+    leaf admin-shut-down-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Manual switching on and off of the interface without deleting it (underlying OSI network layers are also not affected) is available.";
+    }
+    leaf-list supported-loop-back-kind-list {
+      type loop-back-type;
+      config false;
+      min-elements 1;
+      max-elements 3;
+      description
+        "List of supported kinds of looping back.";
+    }
+    leaf maintenance-timer-range {
+      type string;
+      default "Range of the maintenance timer not yet defined.";
+      config false;
+      description
+        "Available time periods for maintenance configurations to be described. Concrete values shall be separated by commas (e.g. '10, 60, 360'). Ranges shall be expressed as two values separated by a minus (e.g. '10-360').";
+    }
+    leaf statistics-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Statistics collection and aggregation is supported on this interface.";
+    }
+    leaf-list supported-alarm-list {
+      type string;
+      config false;
+      min-elements 2;
+      description
+        "Available alarms to be listed. Mandatory: 'IpInterfaceDown' and 'MtuMissmatch'. Further alarms might be added by the device vendors.";
+    }
+    description
+      "none";
+  }
+
+  grouping ip-interface-configuration {
+    leaf interface-name {
+      type string;
+      default "Interface name not yet defined.";
+      description
+        "Description of the interface, could be a name, could be a number. Free text field to be filled by the operator.";
+    }
+    leaf interface-is-on {
+      type boolean;
+      description
+        "Only relevant if (adminShutDownIsAvail==1). 1 = Activation of the interface. 0 = De-activation of the interface without deleting it (underlying OSI network layers are not affected).";
+    }
+    leaf dhcp-client-is-on {
+      type boolean;
+      description
+        "Only relevant if (dhcpClientIsAvail==1). 1 = Activation of a DHCP client on the interface.";
+    }
+    list fixed-ip-v-4-address-list {
+      key "fixed-ip-v-4-address fixed-ip-v-4-address-prefix-length";
+      min-elements 1;
+      uses ip-v-4-address-type;
+      description
+        "Only relevant if (dhcpClientIsOn==0). Secondary IP addresses.";
+    }
+    leaf maximum-transmission-unit-ip {
+      type int16;
+      units "Byte";
+      default "-1";
+      description
+        "Layer 3 maximum transmission unit size in Byte. The MTU describes the maximum IP packet size that can be put into the Ethernet frame before sending";
+    }
+    leaf arp-proxy {
+      type arp-proxy-type;
+      description
+        "openconfig-if-ip. Only relevant if (arpProxyIsAvail == 1). If set to a value different from 'DISABLE', the local system should respond to ARP requests that are for target addresses other than those that are configured on the local subinterface using its own MAC address as the target hardware address. If configured to 'REMOTE_ONLY', replies are only sent when the target address falls outside the locally configured subnets on the interface. If configured to 'ALL', all requests regardless of their target address are answered.";
+    }
+    leaf ingress-policing-profile {
+      type leafref {
+        path "/core-model:control-construct/core-model:profile-collection/core-model:profile/core-model:uuid";
+      }
+      description
+        "Only relevant if (ingressPolicingIsAvail ==1). Reference to the definition of a policing profile.";
+    }
+    leaf egress-shaping-is-on {
+      type boolean;
+      description
+        "1 = Shaping on the egress is activated.";
+    }
+    leaf maximum-information-rate {
+      type int32;
+      units "kbit/s";
+      default "-1";
+      description
+        "Only relevant if (egressShapingIsAvail==1): Limits the throughput on the egress.";
+    }
+    leaf maximum-burst-size {
+      type int16;
+      units "kByte";
+      default "-1";
+      description
+        "Only relevant if (egressShapingIsAvail==1): Limits the number of kBytes, which are sent in a single burst.";
+    }
+    leaf vpn-profile {
+      type leafref {
+        path "/core-model:control-construct/core-model:profile-collection/core-model:profile/core-model:uuid";
+      }
+      description
+        "Reference to the definition of a Virtual Private Network, to which this interface belongs to.";
+    }
+    leaf qos-profile {
+      type leafref {
+        path "/core-model:control-construct/core-model:profile-collection/core-model:profile/core-model:uuid";
+      }
+      description
+        "Reference to the definition of the QoS profile, which shall be applied on this interface.";
+    }
+    leaf loop-back-kind-on {
+      type loop-back-type;
+      description
+        "Maintenance Feature. Configuration of a loop back of Ethernet frames on this interface.";
+    }
+    leaf maintenance-timer {
+      type int32;
+      units "s";
+      default "-1";
+      description
+        "Time of existence of any maintenance configuration. Valid values are defined in *Capability::maintenanceTimerRange.";
+    }
+    leaf statistics-is-on {
+      type boolean;
+      description
+        "Only relevant if (FlowStatisticsIsAvail==1). 1 = Collection and aggregation of statistics is switched on.";
+    }
+    list problem-kind-severity-list {
+      key "problem-kind-name";
+      uses problem-kind-severity-type;
+      description
+        "Severity of each entry of the SupportedAlarmList to be configured.";
+    }
+    description
+      "none";
+  }
+
+  grouping ip-interface-status {
+    leaf interface-status {
+      type interface-status-type;
+      config false;
+      description
+        "Operational status of the interface.";
+    }
+    list ip-v-4-address-cur-list {
+      key "fixed-ip-v-4-address fixed-ip-v-4-address-prefix-length";
+      config false;
+      min-elements 1;
+      uses ip-v-4-address-type;
+      description
+        "IPv4 address, which is currently active on this interface. The format is IPv4, e.g. 172.168.0.5\n";
+    }
+    leaf ip-address-origin {
+      type ip-address-origin-type;
+      config false;
+      description
+        "openconfig-if-ip. Describes the origin of the currently active IP address information, e.g. statically configured, assigned by DHCP, etc..";
+    }
+    list neighbor-list {
+      key "neighbor-mac-address";
+      config false;
+      uses neighbor-type;
+      description
+        "openconfig-if-ip. Current IP and MAC addresses of the remote site of the IP link.";
+    }
+    leaf vpn-binding-is-up {
+      type boolean;
+      config false;
+      description
+        "1 = Binding to a VPN definition is currently effective.";
+    }
+    leaf loop-back-kind-up {
+      type loop-back-type;
+      config false;
+      description
+        "The currently active (not just configured) type of looping back of the air interface header shall be expressed here. The received header is returned to the remote site.";
+    }
+    leaf statistics-is-up {
+      type boolean;
+      config false;
+      description
+        "1 = Statistics are currently counted";
+    }
+    leaf timestamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "The timestamp associated with when the current data was collected.";
+    }
+    leaf last-10-sec-data-input-rate {
+      type int32;
+      units "kbit/s";
+      default "-1";
+      config false;
+      description
+        "Data receive rate over the last 10 second interval in kbit/s.";
+    }
+    leaf last-10-sec-data-output-rate {
+      type int32;
+      units "kbit/s";
+      default "-1";
+      config false;
+      description
+        "Data transmit rate over the last 10 second interval in kbit/s.";
+    }
+    leaf last-10-sec-packet-input-rate {
+      type int32;
+      units "packet/s";
+      default "-1";
+      config false;
+      description
+        "Packet receive rate over the last 10 second interval.";
+    }
+    leaf last-10-sec-packet-output-rate {
+      type int32;
+      units "packet/s";
+      default "-1";
+      config false;
+      description
+        "Packet transmit rate over the last 10 second interval.";
+    }
+    leaf data-volume-input {
+      type int32;
+      units "kByte";
+      default "-1";
+      config false;
+      description
+        "Received data volume in kByte.";
+    }
+    leaf data-volume-output {
+      type int32;
+      units "kByte";
+      default "-1";
+      config false;
+      description
+        "Sent data volume in kByte.";
+    }
+    leaf total-packets-input {
+      type int64;
+      units "packets";
+      default "-1";
+      config false;
+      description
+        "The total number of IP packets received for the specified address family, including those received in error";
+    }
+    leaf total-packets-output {
+      type int64;
+      units "packets";
+      default "-1";
+      config false;
+      description
+        "The total number of IP packets for the specified address family that the device supplied to the lower layers for transmission.This includes packets generated locally and those forwarded by the device.";
+    }
+    leaf forwarded-data-volume-input {
+      type int32;
+      units "kByte";
+      default "-1";
+      config false;
+      description
+        "The number of octets received in input IP packets for the specified address family for which the device was not their final IP destination and for which the device attempted to find a route to forward them to that final destination.\n";
+    }
+    leaf forwarded-data-volume-output {
+      type int32;
+      units "kByte";
+      default "-1";
+      config false;
+      description
+        "The number of octets in packets for which this entity was not their final IP destination and for which it was successful in finding a path to their final destination.\n";
+    }
+    leaf forwarded-packets-input {
+      type int64;
+      units "packets";
+      default "-1";
+      config false;
+      description
+        "The number of input packets for which the device was not their final IP destination and for which the device attempted to find a route to forward them to that final destination.";
+    }
+    leaf forwarded-packets-output {
+      type int64;
+      units "packets";
+      default "-1";
+      config false;
+      description
+        "The number of packets for which this entity was not their final IP destination and for which it was successful in finding a path to their final destination. ";
+    }
+    leaf unicast-packets-input {
+      type int64;
+      units "packets";
+      default "-1";
+      config false;
+      description
+        "Total number of received unicast packets.";
+    }
+    leaf unicast-packets-output {
+      type int64;
+      units "packets";
+      default "-1";
+      config false;
+      description
+        "Total number of sent unicast packets.";
+    }
+    leaf multicast-packets-input {
+      type int32;
+      units "packets";
+      default "-1";
+      config false;
+      description
+        "Total number of received multicast packets.";
+    }
+    leaf multicast-packets-output {
+      type int32;
+      units "packets";
+      default "-1";
+      config false;
+      description
+        "Total number of sent multicast packets.";
+    }
+    leaf broadcast-packets-input {
+      type int32;
+      units "packets";
+      default "-1";
+      config false;
+      description
+        "Total number of received broadcast packets.";
+    }
+    leaf broadcast-packets-output {
+      type int32;
+      units "packets";
+      default "-1";
+      config false;
+      description
+        "Total number of sent broadcast packets.";
+    }
+    leaf fragmented-packets-input {
+      type int32;
+      units "packets";
+      default "-1";
+      config false;
+      description
+        "Total number of received fragmented packets.";
+    }
+    leaf errored-packets-input {
+      type int32;
+      units "packets";
+      default "-1";
+      config false;
+      description
+        "Total number of received errored packets.";
+    }
+    leaf errored-packets-output {
+      type int32;
+      units "packets";
+      default "-1";
+      config false;
+      description
+        "Number of IP packets for the specified address family locally generated and discarded due to errors, including no route found to the IP destination.";
+    }
+    leaf dropped-packets-input {
+      type int32;
+      units "packets";
+      default "-1";
+      config false;
+      description
+        "Total number of packets dropped at the receiver. The number of input IP packets for the specified address family, for which no problems were encountered to prevent their continued processing, but were discarded (e.g., for lack of buffer space).";
+    }
+    leaf dropped-packets-output {
+      type int32;
+      units "packets";
+      default "-1";
+      config false;
+      description
+        "The number of output IP packets for the specified address family for which no problem was encountered to prevent their transmission to their destination, but were discarded (e.g., for lack of buffer space).";
+    }
+    description
+      "none";
+  }
+
+  grouping ip-interface-current-problems {
+    list current-problem-list {
+      key "sequence-number";
+      config false;
+      uses ip-interface-current-problem-type;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  typedef loop-back-type {
+    type identityref {
+      base LOOP_BACK_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef arp-proxy-type {
+    type identityref {
+      base ARP_PROXY_TYPE;
+    }
+    description
+      "openconfig-if-ip. ";
+  }
+
+  typedef ip-address-origin-type {
+    type identityref {
+      base IP_ADDRESS_ORIGIN_TYPE;
+    }
+    description
+      "openconfig-if-ip. The origin of the interface's own IP address.";
+  }
+
+  typedef neighbor-origin-type {
+    type identityref {
+      base NEIGHBOR_ORIGIN_TYPE;
+    }
+    description
+      "openconfig-if-ip. The origin of a neighbor entry.";
+  }
+
+  identity LOOP_BACK_TYPE {
+    description
+      "none";
+  }
+
+  identity LOOP_BACK_TYPE_NONE {
+    base LOOP_BACK_TYPE;
+    description
+      "none";
+  }
+
+  identity LOOP_BACK_TYPE_BACK_TO_LOCAL {
+    base LOOP_BACK_TYPE;
+    description
+      "Returning Ethernet frames of the local site on the Ethernet MAC interface back to the local site.";
+  }
+
+  identity LOOP_BACK_TYPE_BACK_TO_REMOTE {
+    base LOOP_BACK_TYPE;
+    description
+      "Returning Ethernet frames of the remote site on the Ethernet MAC interface back to the remote site.";
+  }
+
+  identity LOOP_BACK_TYPE_NOT_YET_DEFINED {
+    base LOOP_BACK_TYPE;
+    description
+      "none";
+  }
+
+  identity ARP_PROXY_TYPE {
+    description
+      "none";
+  }
+
+  identity ARP_PROXY_TYPE_DISABLE {
+    base ARP_PROXY_TYPE;
+    description
+      "The system should not respond to ARP requests that do not specify an IP address configured on the local subinterface as the target address.";
+  }
+
+  identity ARP_PROXY_TYPE_REMOTE_ONLY {
+    base ARP_PROXY_TYPE;
+    description
+      "The system responds to ARP requests only when the sender and target IP addresses are in different subnets.";
+  }
+
+  identity ARP_PROXY_TYPE_ALL {
+    base ARP_PROXY_TYPE;
+    description
+      "The system responds to ARP requests where the sender and target IP addresses are in different subnets, as well as those where they are in the same subnet.";
+  }
+
+  identity ARP_PROXY_TYPE_NOT_YET_DEFINED {
+    base ARP_PROXY_TYPE;
+    description
+      "none";
+  }
+
+  identity IP_ADDRESS_ORIGIN_TYPE {
+    description
+      "none";
+  }
+
+  identity IP_ADDRESS_ORIGIN_TYPE_OTHER {
+    base IP_ADDRESS_ORIGIN_TYPE;
+    description
+      "None of the following.";
+  }
+
+  identity IP_ADDRESS_ORIGIN_TYPE_STATIC {
+    base IP_ADDRESS_ORIGIN_TYPE;
+    description
+      "Indicates that the address has been statically configured - for example, using NETCONF or a Command Line Interface.";
+  }
+
+  identity IP_ADDRESS_ORIGIN_TYPE_DHCP {
+    base IP_ADDRESS_ORIGIN_TYPE;
+    description
+      "Indicates an address that has been assigned to this system by a DHCP server.";
+  }
+
+  identity IP_ADDRESS_ORIGIN_TYPE_LINK_LAYER {
+    base IP_ADDRESS_ORIGIN_TYPE;
+    description
+      "Indicates an address created by IPv6 stateless autoconfiguration that embeds a link-layer address in its interface identifier.";
+  }
+
+  identity IP_ADDRESS_ORIGIN_TYPE_RANDOM {
+    base IP_ADDRESS_ORIGIN_TYPE;
+    description
+      "Indicates an address chosen by the system at random, e.g., an IPv4 address within 169.254/16, an RFC 4941 temporary address, or an RFC 7217 semantically opaque address.";
+  }
+
+  identity IP_ADDRESS_ORIGIN_TYPE_NOT_YET_DEFINED {
+    base IP_ADDRESS_ORIGIN_TYPE;
+    description
+      "none";
+  }
+
+  identity NEIGHBOR_ORIGIN_TYPE {
+    description
+      "none";
+  }
+
+  identity NEIGHBOR_ORIGIN_TYPE_OTHER {
+    base NEIGHBOR_ORIGIN_TYPE;
+    description
+      "None of the following.";
+  }
+
+  identity NEIGHBOR_ORIGIN_TYPE_STATIC {
+    base NEIGHBOR_ORIGIN_TYPE;
+    description
+      "Indicates that the mapping has been statically configured - for example, using NETCONF or a Command Line Interface.";
+  }
+
+  identity NEIGHBOR_ORIGIN_TYPE_DYNAMIC {
+    base NEIGHBOR_ORIGIN_TYPE;
+    description
+      "Indicates that the mapping has been dynamically resolved using, e.g., IPv4 ARP.";
+  }
+
+  identity NEIGHBOR_ORIGIN_TYPE_NOT_YET_DEFINED {
+    base NEIGHBOR_ORIGIN_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE {
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_NON-ALARMED {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_WARNING {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_MAJOR {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_MINOR {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_CRITICAL {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity SEVERITY_TYPE_NOT_YET_DEFINED {
+    base SEVERITY_TYPE;
+    description
+      "none";
+  }
+
+  identity INTERFACE_STATUS_TYPE {
+    description
+      "none";
+  }
+
+  identity INTERFACE_STATUS_TYPE_UP {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Ready to pass packets.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_DOWN {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "The interface does not pass any packets.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_TESTING {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "In some test mode.  No operational packets can be passed.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_UNKNOWN {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Status cannot be determined for some reason.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_DORMANT {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Waiting for some external event.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_NOT_PRESENT {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Some component (typically hardware) is missing.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_LOWER_LAYER_DOWN {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Down due to state of lower-layer interface(s).";
+  }
+
+  identity INTERFACE_STATUS_TYPE_ADMIN_DOWN {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "Down due to configuration.";
+  }
+
+  identity INTERFACE_STATUS_TYPE_NOT_YET_DEFINED {
+    base INTERFACE_STATUS_TYPE;
+    description
+      "none";
+  }
+
+  typedef severity-type {
+    type identityref {
+      base SEVERITY_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef interface-status-type {
+    type identityref {
+      base INTERFACE_STATUS_TYPE;
+    }
+    description
+      "Current Operational Interface Status";
+  }
+
+  grouping problem-kind-severity-type {
+    leaf problem-kind-name {
+      type string;
+      description
+        "Name of the alarm according to SupportedAlarmList";
+    }
+    leaf problem-kind-severity {
+      type severity-type;
+      description
+        "Severity of this type of alarm.";
+    }
+    description
+      "none";
+  }
+
+  grouping ip-v-4-address-type {
+    leaf fixed-ip-v-4-address {
+      type string;
+      description
+        "IPv4 address fixed assigned to this interface. The format is e.g. 172.168.0.5";
+    }
+    leaf fixed-ip-v-4-address-prefix-length {
+      type int8;
+      description
+        "Fixed assigned routing prefix (sub network) length (e.g. for 198.51.100.0/24 the fixedIpV4AddressPrefixLength would be 24).\n";
+    }
+    leaf fixed-default-gateway-ip-v-4-address {
+      type string;
+      default "0.0.0.0";
+      description
+        "Only relevant if ( (dhcpClientIsOn==0) AND (fixedDefaultGatewayConfigurationIsAvail==1) ). Fixed assigned IPv4 address of the default gateway.";
+    }
+    description
+      "none";
+  }
+
+  grouping neighbor-type {
+    leaf neighbor-mac-address {
+      type string;
+      config false;
+      description
+        "MAC address of the neighbor node. The format is e.g. 00:80:41:ae:fd:7e";
+    }
+    leaf neighbor-ip-v-4-address {
+      type string;
+      default "0.0.0.0";
+      config false;
+      description
+        "IPv4 address of the neighbor node. The format is IPv4, e.g. 172.168.0.5";
+    }
+    leaf neighbor-origin {
+      type neighbor-origin-type;
+      config false;
+      description
+        "The origin of a neighbor entry.";
+    }
+    description
+      "openconfig-if-ip. Neighbor entries are analagous to static ARP entries, i.e. they create a correspondence between IP and link-layer addresses.";
+  }
+
+  grouping ip-interface-current-problem-type {
+    leaf problem-name {
+      type string;
+      description
+        "Name of the alarm according to SupportedAlarmList";
+    }
+    uses current-problem;
+    description
+      "none";
+  }
+}
