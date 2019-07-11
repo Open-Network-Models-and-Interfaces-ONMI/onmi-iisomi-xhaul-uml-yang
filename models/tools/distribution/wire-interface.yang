@@ -47,7 +47,7 @@ module wire-interface {
   }
 
   augment "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol" {
-    when 'derived-from-or-self(./core-model:layer-protocol-name, "wire-interface:LAYER_PROTOCOL_NAME_WIRE_LAYER")';
+    when "derived-from-or-self(./core-model:layer-protocol-name, 'wire-interface:LAYER_PROTOCOL_NAME_WIRE_LAYER')";
     uses wire-interface-lp-spec;
     description
       "none";
