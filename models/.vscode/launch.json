@@ -1,0 +1,22 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+    {
+    "type": "node",
+    "request": "launch",
+    "name": "Launch Program",
+    "program": "${workspaceFolder}/xmi-to-yang/src/main/resources/main.js",
+    "args": [
+    "-c",
+    "${workspaceFolder}/xmi-to-yang/src/main/resources/project/config.json",
+    "-d",
+    "${workspaceFolder}/pruning-and-refactoring/target",
+    "-o",
+    "${workspaceFolder}/xmi-to-yang/target/yang"
+    ]
+    }
+    ]
+    }
