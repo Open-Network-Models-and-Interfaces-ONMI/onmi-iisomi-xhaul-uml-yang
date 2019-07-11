@@ -92,6 +92,19 @@
             </configuration>
           </execution>
           <execution>
+            <id>post-processing</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${basedir}/src/main/bash/post-processing.sh</executable>
+              <arguments>
+                <argument>${project.build.directory}/yang</argument>
+              </arguments>
+            </configuration>
+          </execution>
+          <execution>
             <id>pyang-check</id>
             <phase>test</phase>
             <goals>
