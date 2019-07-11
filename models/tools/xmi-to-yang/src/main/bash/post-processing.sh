@@ -21,6 +21,30 @@ if [ $# -gt 0 ]; then
     DIR=$1;
 fi
 
+declare -A namespace
+namespace=(
+  [core-model]=core-model
+  [ethernet-container]=ethernet-container
+  [hybrid-mw-structure]=hybrid-mw-structure
+  [ip-interface]=ip-interface
+  [mac-interface]=mac-interface
+  [pure-ethernet-structure]=pure-ethernet-structure
+  [tdm-container]=tdm-container
+  [wire-interface]=wire-interface
+);
+
+declare -A layer
+layer=(
+  [core-model]=COMMON_LAYER
+  [ethernet-container]=LAYER_PROTOCOL_NAME_TYPE_ETHERNET_CONTAINER_LAYER
+  [hybrid-mw-structure]=LAYER_PROTOCOL_NAME_HYBRID_MW_STRUCTURE_LAYER
+  [ip-interface]=LAYER_PROTOCOL_NAME_TYPE_IP_LAYER
+  [mac-interface]=LAYER_PROTOCOL_NAME_MAC_LAYER
+  [pure-ethernet-structure]=LAYER_PROTOCOL_NAME_PURE_ETHERNET_STRUCTURE_LAYER
+  [tdm-container]=LAYER_PROTOCOL_NAME_TDM_CONTAINER_LAYER
+  [wire-interface]=LAYER_PROTOCOL_NAME_WIRE_LAYER
+);
+
 for yang in $DIR/*.yang
 do
 	echo "Post processing $yang"
@@ -48,7 +72,19 @@ do
 
   # find/replace in wire-interface
   sed -i -e "s/pmd\-kindpmd\-name/pmd-name/g" $yang
-  
+
+  # technology specific augmentation
+  filename=${yang#*$DIR/};
+  index=${filename%%.*};
+
+  find="augment \"\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol\"{";
+
+  identity="identity ${layer[$index]} {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
+  when="when \"derived-from-or-self(.\/core-model:layer-protocol-name, '${namespace[$index]}:${layer[$index]}')\";"
+  replace=" $identity \n $find \n $when";
+
+  sed -i -e "s/$find/$replace/g" $yang;
+
   # format
   pyang -f yang -p $DIR -o $yang $yang
   unix2dos $yang
