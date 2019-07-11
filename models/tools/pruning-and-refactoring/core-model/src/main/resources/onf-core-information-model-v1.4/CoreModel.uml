@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26" xmlns:RootElement="http:///schemas/RootElement/_unAKkJDrEemIv9iw4JXc9w/46" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26 UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml http:///schemas/RootElement/_unAKkJDrEemIv9iw4JXc9w/46 UmlProfiles/Experimental.profile.uml">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26" xmlns:OpenModel_Profile_1="http:///schemas/OpenModel_Profile/_aG1hkAPxEeewDI5jM-81FA/21" xmlns:RootElement="http:///schemas/RootElement/_unAKkJDrEemIv9iw4JXc9w/46" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenModel_Profile/_S30WUD8HEeiIisB6uOvKFA/26 UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml http:///schemas/OpenModel_Profile/_aG1hkAPxEeewDI5jM-81FA/21 OpenModel_Profile.profile.uml#_aG-rgAPxEeewDI5jM-81FA http:///schemas/RootElement/_unAKkJDrEemIv9iw4JXc9w/46 UmlProfiles/Experimental.profile.uml">
   <uml:Package xmi:id="_oGqilVLNEeO75dO39GbF8Q" name="CoreModel">
     <packageImport xmi:type="uml:PackageImport" xmi:id="_8Q4ecKxrEeS5HuAudtqItw">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -1923,6 +1923,7 @@ For asymmetric FDs, the association to the LTP is via the FdPort.</body>
           </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_GLZy4J47Eemkbek818V8NQ" name="ProfileCollection">
+          <generalization xmi:type="uml:Generalization" xmi:id="_NiCEIKPLEem1L6jqz3rbgg" general="_iVJ1kI2wEeO38ZmbECnvbg"/>
           <ownedAttribute xmi:type="uml:Property" xmi:id="_OryDEJ48Eemkbek818V8NQ" name="_profile" type="_GLc2MJ47Eemkbek818V8NQ" aggregation="composite" association="_Orr8cJ48Eemkbek818V8NQ">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_OryqIJ48Eemkbek818V8NQ"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_OrzRMJ48Eemkbek818V8NQ" value="*"/>
@@ -15778,4 +15779,5 @@ Significant definition is required here.</body>
   <OpenModel_Profile:OpenModelAttribute xmi:id="__n628Z5qEemkbek818V8NQ" base_StructuralFeature="_FDjBAmGTEeerc4Zz6ufSeg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="__n628p5qEemkbek818V8NQ" base_StructuralFeature="_sAdD0XXGEeeqyuooNTTDCg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="__n7eAJ5qEemkbek818V8NQ" base_StructuralFeature="_VHY7glwWEee0ZvXJLxwizg"/>
+  <OpenModel_Profile_1:OpenModelAttribute xmi:id="_VcH3wKPJEem1L6jqz3rbgg" base_StructuralFeature="_GLc2NZ47Eemkbek818V8NQ" isInvariant="true"/>
 </xmi:XMI>
