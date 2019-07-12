@@ -49,6 +49,10 @@ module air-interface {
       "none";
   }
 
+  /****************************************
+   * package notifications
+   **************************************/ 
+
   notification object-creation-notification {
     uses object-creation-notification;
     description
@@ -206,6 +210,13 @@ module air-interface {
     description
       "To be sent when a problem occurs at a MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac.";
   }
+
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
+  /****************************************
+   * package super-classes
+   **************************************/ 
 
   grouping current-problem {
     leaf sequence-number {
@@ -1097,6 +1108,10 @@ module air-interface {
       "none";
   }
 
+  /****************************************
+   * typedef statements
+   **************************************/ 
+
   typedef radio-signal-id-datatype-type {
     type identityref {
       base RADIO_SIGNAL_ID_DATATYPE_TYPE;
@@ -1128,6 +1143,10 @@ module air-interface {
     description
       "According to ETSI EN 301 129 V1.1.2 (1999-05) chapter B.1.1";
   }
+
+  /*********************************************
+   * grouping statements for complex data types
+   *******************************************/ 
 
   identity RADIO_SIGNAL_ID_DATATYPE_TYPE {
     description
@@ -1425,6 +1444,10 @@ module air-interface {
     description
       "none";
   }
+
+  /****************************************
+   * package super-types
+   **************************************/ 
 
   typedef granularity-period-type {
     type identityref {

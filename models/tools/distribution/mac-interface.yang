@@ -29,7 +29,7 @@ module mac-interface {
      See the License for the specific language governing permissions and
      limitations under the License.";
 
-  revision 2019-07-07 {
+  revision 2019-07-11 {
     description
       "Model for the Transport SDN Pilot at Telefonica Germany.
        Please view https://github.com/openBackhaul/macInterface/issues for changes.";
@@ -50,6 +50,10 @@ module mac-interface {
     description
       "none";
   }
+
+  /****************************************
+   * package notifications
+   **************************************/ 
 
   notification object-creation-notification {
     uses object-creation-notification;
@@ -208,6 +212,13 @@ module mac-interface {
     description
       "none";
   }
+
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
+  /****************************************
+   * package super-classes
+   **************************************/ 
 
   grouping current-problem {
     leaf sequence-number {
@@ -383,6 +394,7 @@ module mac-interface {
 
   grouping mac-interface-pac {
     container macinterfacecapability {
+      config false;
       uses mac-interface-capability;
       description
         "none";
@@ -393,21 +405,25 @@ module mac-interface {
         "none";
     }
     container macinterfacestatus {
+      config false;
       uses mac-interface-status;
       description
         "none";
     }
     container macinterfacecurrentproblem {
+      config false;
       uses mac-interface-current-problem;
       description
         "none";
     }
     container macinterfacecurrentperformance {
+      config false;
       uses mac-interface-current-performance;
       description
         "none";
     }
     container macinterfacehistoricalpeformance {
+      config false;
       uses mac-interface-historical-peformance;
       description
         "none";
@@ -644,7 +660,7 @@ module mac-interface {
       description
         "Severity of each entry of the SupportedAlarmList to be configured.";
     }
-    leaf performance-monitoring-collection-is-on {
+    leaf performance-monitoring-is-on {
       type boolean;
       description
         "Only relevant if (performanceMonitoringIsAvail==1). 1 = Collection and aggregation of performance values is switched on.";
@@ -888,6 +904,10 @@ module mac-interface {
       "none";
   }
 
+  /****************************************
+   * typedef statements
+   **************************************/ 
+
   typedef loop-back-type {
     type identityref {
       base LOOP_BACK_TYPE;
@@ -927,6 +947,10 @@ module mac-interface {
     description
       "none";
   }
+
+  /*********************************************
+   * grouping statements for complex data types
+   *******************************************/ 
 
   identity LOOP_BACK_TYPE {
     description
@@ -1277,6 +1301,10 @@ module mac-interface {
     description
       "none";
   }
+
+  /****************************************
+   * package super-types
+   **************************************/ 
 
   typedef granularity-period-type {
     type identityref {

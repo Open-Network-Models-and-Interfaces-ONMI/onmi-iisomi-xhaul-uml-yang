@@ -63,6 +63,10 @@ module core-model {
       "ONF-TR-512, RFC 6020 and RFC 6087";
   }
 
+  /****************************************
+   * typedef statements
+   **************************************/ 
+
   typedef port-role {
     type string;
     description
@@ -216,6 +220,10 @@ module core-model {
     description
       "none";
   }
+
+  /*********************************************
+   * grouping statements for complex data types
+   *******************************************/ 
 
   identity PORT_DIRECTION {
     description
@@ -860,6 +868,10 @@ module core-model {
        The guided holder is designed to take a particular form of CIRCUIT_PACK or SMALL_FORMFACTOR_PLUGGABLE";
   }
 
+  /****************************************
+   * package resilience
+   **************************************/ 
+
   typedef protection-reason {
     type identityref {
       base PROTECTION_REASON;
@@ -921,6 +933,10 @@ module core-model {
     description
       "none";
   }
+
+  /****************************************
+   * package timing
+   **************************************/ 
 
   typedef run-mode {
     type identityref {
@@ -1049,6 +1065,16 @@ module core-model {
        (4) replace attributes that were present in the class of the referencing instance by a new definition (same name).;
       ";
   }
+
+  /****************************************
+   * package core-network-model
+   **************************************/ 
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
+  /****************************************
+   * package resilience
+   **************************************/ 
 
   grouping control-parameters-pac {
     leaf reversion-mode {
@@ -1252,6 +1278,10 @@ module core-model {
     description
       " Container for properties associated with the port role as defined by the CascSpec.";
   }
+
+  /****************************************
+   * package timing
+   **************************************/ 
 
   grouping clock {
     leaf run-mode {
@@ -1763,6 +1793,19 @@ module core-model {
       "none";
   }
 
+  /****************************************
+   * package associations
+   **************************************/ 
+  /****************************************
+   * package core-foundation-model
+   **************************************/ 
+  /****************************************
+   * package super-classes-and-common-packages
+   **************************************/ 
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
+
   grouping name {
     list name {
       key "value-name";
@@ -1884,6 +1927,13 @@ module core-model {
       "Provides an opportunity to state the location of the entity via one or more hierarchies of narrowing contexts.";
   }
 
+  /****************************************
+   * package state-model
+   **************************************/ 
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
+
   grouping state-pac {
     leaf operational-state {
       type operational-state;
@@ -1912,6 +1962,22 @@ module core-model {
     description
       "Provides general state attributes.";
   }
+
+  /****************************************
+   * package state-machines
+   **************************************/ 
+  /****************************************
+   * package core-physical-model
+   **************************************/ 
+  /****************************************
+   * package rule-models
+   **************************************/ 
+  /****************************************
+   * package fru-non-fru-rules
+   **************************************/ 
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
 
   grouping field-replaceable {
     list equipment-non-fru {
@@ -1948,6 +2014,13 @@ module core-model {
       ";
   }
 
+  /****************************************
+   * package connector-rules
+   **************************************/ 
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
+
   grouping connector-on-equipment-for-holder {
     leaf connector-in-holder {
       type string;
@@ -1958,6 +2031,16 @@ module core-model {
     description
       "A rule class (an abstract specialization of Connector) that represents a connector on an equipment that is intended to mate with a connector in a holder.";
   }
+
+  /****************************************
+   * package equipment-detail
+   **************************************/ 
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
+  /****************************************
+   * package dynamic-details
+   **************************************/ 
 
   grouping function-enablers {
     leaf power-state {
@@ -2005,6 +2088,10 @@ module core-model {
     description
       "Represents where the equipment is.";
   }
+
+  /****************************************
+   * package invariant-details
+   **************************************/ 
 
   grouping equipment-structure {
     leaf category {
@@ -2244,6 +2331,10 @@ module core-model {
       "Represents the invariant properties of the equipment asset allocated by the operator that define and characterize the type.";
   }
 
+  /****************************************
+   * package pattern-classes
+   **************************************/ 
+
   grouping cable-details {
     container spatial-properties-of-type {
       uses spatial-properties-of-type;
@@ -2371,6 +2462,10 @@ module core-model {
       "none";
   }
 
+  /****************************************
+   * package data-types
+   **************************************/ 
+
   grouping thermal-rating {
     leaf thermal-rating-name {
       type string;
@@ -2409,6 +2504,13 @@ module core-model {
     description
       "none";
   }
+
+  /****************************************
+   * package equipment-pattern-structure
+   **************************************/ 
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
 
   grouping connector {
     leaf connector {
@@ -2530,6 +2632,10 @@ module core-model {
       "Represents a space in an equipment in which another equipment can be fitted in the field.";
   }
 
+  /****************************************
+   * package data-types
+   **************************************/ 
+
   typedef connector-and-pin-orientation {
     type identityref {
       base CONNECTOR_AND_PIN_ORIENTATION;
@@ -2554,6 +2660,13 @@ module core-model {
     description
       "The form of holder.";
   }
+
+  /****************************************
+   * package expected-and-actual
+   **************************************/ 
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
 
   grouping actual-holder {
     uses holder-details;
@@ -2582,6 +2695,13 @@ module core-model {
        It may also provide desired ranges for dynamic properties.";
   }
 
+  /****************************************
+   * package connector-and-pin
+   **************************************/ 
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
+
   grouping signal-ref-pt {
     container ltp {
       uses logical-termination-point;
@@ -2608,6 +2728,16 @@ module core-model {
     description
       "The elemental (sub-atomic) parts of an 'indivisible' signal where processing in the LTP is required to extract the elemental signals.";
   }
+
+  /****************************************
+   * package general-controller-model
+   **************************************/ 
+  /****************************************
+   * package associations
+   **************************************/ 
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
 
   container control-construct {
     presence "Enables SDN";
@@ -2682,6 +2812,10 @@ module core-model {
        Is assumed to usually be bidirectional.";
   }
 
+  /****************************************
+   * package interfaces
+   **************************************/ 
+
   rpc apply-system-structure-state-defined-by-constraint {
     description
       "none";
@@ -2719,6 +2853,16 @@ module core-model {
       }
     }
   }
+
+  /****************************************
+   * package core-software-model
+   **************************************/ 
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
+  /****************************************
+   * package file-system
+   **************************************/ 
 
   grouping file {
     leaf size {
@@ -2802,6 +2946,10 @@ module core-model {
     description
       "A Directory is a collection of Files and other Directories. Because a Directory can contain other Directories, this allows a hierarchical file system to be represented.";
   }
+
+  /****************************************
+   * package running-software
+   **************************************/ 
 
   grouping installed-software-component {
     leaf name {
@@ -2927,6 +3075,10 @@ module core-model {
       "This covers generic software processes that don’t have a special subclass (operating system, virtual machine and container special cases have their own specific subclasses).";
   }
 
+  /****************************************
+   * package software-container
+   **************************************/ 
+
   grouping running-container {
     leaf container-boundary {
       type string;
@@ -2948,4 +3100,8 @@ module core-model {
     description
       "A software process that abstracts running applications from the operating system. It provides some level of isolation, but not as much as a hypervisor.";
   }
+
+  /****************************************
+   * package associations
+   **************************************/ 
 }

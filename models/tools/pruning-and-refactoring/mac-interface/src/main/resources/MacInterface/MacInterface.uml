@@ -9,7 +9,7 @@
         <supplier xmi:type="uml:Class" href="../OnfModel/CoreModel.uml#_gROecFYXEeOVGaP4lO41SQ"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Constraint" xmi:id="_WmYhUJ5sEemxJoxK-03g3w" name="When" constrainedElement="_vzkX8J5rEemxJoxK-03g3w">
-        <specification xmi:type="uml:LiteralString" xmi:id="_WmZvcJ5sEemxJoxK-03g3w" name="constraintSpec" value="layerProtocolName='LAYER_PROTOCOL_NAME_MAC_LAYER'"/>
+        <specification xmi:type="uml:LiteralString" xmi:id="_WmZvcJ5sEemxJoxK-03g3w" name="constraintSpec" value="layerProtocolName='LAYER_PROTOCOL_NAME_TYPE_MAC_LAYER'"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_2BCC8J5vEemxJoxK-03g3w" memberEnd="_2BJ-wJ5vEemxJoxK-03g3w _2BPeUJ5vEemxJoxK-03g3w">
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_2BGUYJ5vEemxJoxK-03g3w" source="org.eclipse.papyrus">
@@ -171,12 +171,12 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="_2BJ-wJ5vEemxJoxK-03g3w" name="_macInterface_Pac" type="_e9fHk1E7Eembl8KFq0LDlA" isReadOnly="true" aggregation="composite" association="_2BCC8J5vEemxJoxK-03g3w"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_e9fHk1E7Eembl8KFq0LDlA" name="MacInterface_Pac">
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_e9fHlFE7Eembl8KFq0LDlA" name="_macinterfacecapability" type="_e9fHmlE7Eembl8KFq0LDlA" aggregation="composite" association="_e9bdMVE7Eembl8KFq0LDlA"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_e9fHlFE7Eembl8KFq0LDlA" name="_macinterfacecapability" type="_e9fHmlE7Eembl8KFq0LDlA" isReadOnly="true" aggregation="composite" association="_e9bdMVE7Eembl8KFq0LDlA"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_e9fHlVE7Eembl8KFq0LDlA" name="_macinterfaceconfiguration" type="_e9fHsFE7Eembl8KFq0LDlA" aggregation="composite" association="_e9bdNVE7Eembl8KFq0LDlA"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_e9fHllE7Eembl8KFq0LDlA" name="_macinterfacestatus" type="_e9fHt1E7Eembl8KFq0LDlA" aggregation="composite" association="_e9bdOVE7Eembl8KFq0LDlA"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_e9fHl1E7Eembl8KFq0LDlA" name="_macinterfacecurrentproblem" type="_e9fuoVE7Eembl8KFq0LDlA" aggregation="composite" association="_e9bdPVE7Eembl8KFq0LDlA"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_e9fHmFE7Eembl8KFq0LDlA" name="_macinterfacecurrentperformance" type="_e9fuolE7Eembl8KFq0LDlA" aggregation="composite" association="_e9bdQVE7Eembl8KFq0LDlA"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_e9fHmVE7Eembl8KFq0LDlA" name="_macinterfacehistoricalpeformance" type="_e9fuplE7Eembl8KFq0LDlA" aggregation="composite" association="_e9bdRVE7Eembl8KFq0LDlA"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_e9fHllE7Eembl8KFq0LDlA" name="_macinterfacestatus" type="_e9fHt1E7Eembl8KFq0LDlA" isReadOnly="true" aggregation="composite" association="_e9bdOVE7Eembl8KFq0LDlA"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_e9fHl1E7Eembl8KFq0LDlA" name="_macinterfacecurrentproblem" type="_e9fuoVE7Eembl8KFq0LDlA" isReadOnly="true" aggregation="composite" association="_e9bdPVE7Eembl8KFq0LDlA"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_e9fHmFE7Eembl8KFq0LDlA" name="_macinterfacecurrentperformance" type="_e9fuolE7Eembl8KFq0LDlA" isReadOnly="true" aggregation="composite" association="_e9bdQVE7Eembl8KFq0LDlA"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_e9fHmVE7Eembl8KFq0LDlA" name="_macinterfacehistoricalpeformance" type="_e9fuplE7Eembl8KFq0LDlA" isReadOnly="true" aggregation="composite" association="_e9bdRVE7Eembl8KFq0LDlA"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_e9fHmlE7Eembl8KFq0LDlA" name="MacInterfaceCapability">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_EuKBMFFtEembl8KFq0LDlA" name="hardwareMacAddress" isUnique="false" isReadOnly="true">
@@ -435,7 +435,7 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_hFPA8lFsEembl8KFq0LDlA" value="2"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_hFPA81FsEembl8KFq0LDlA" value="*"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_hFLWkFFsEembl8KFq0LDlA" name="performanceMonitoringCollectionIsOn" isUnique="false">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_hFLWkFFsEembl8KFq0LDlA" name="performanceMonitoringIsOn" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_hFLWkVFsEembl8KFq0LDlA" annotatedElement="_hFLWkFFsEembl8KFq0LDlA">
             <body>Only relevant if (performanceMonitoringIsAvail==1). 1 = Collection and aggregation of performance values is switched on.</body>
           </ownedComment>
@@ -1143,7 +1143,7 @@
   </uml:Model>
   <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GQ" base_Model="_Imk30GyUEee0HrHFgb9oqw" namespace="urn:onf:yang:mac-interface" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM. It is for managing Ethernet MAC interfaces according to IEEE 802.1." copyright="Copyright 2019 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
     <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_tJVNAJ5wEemxJoxK-03g3w" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="MacInterface@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
-    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_ZPeRMJ5xEemxJoxK-03g3w" date="2019-07-07" version="1.0.0-tsp.190707.1350" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/macInterface/issues" reference="https://github.com/openBackhaul/macInterface/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_ZPeRMJ5xEemxJoxK-03g3w" date="2019-07-11" version="1.0.0-tsp.190711.1725" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/macInterface/issues" reference="https://github.com/openBackhaul/macInterface/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
   </OpenModel_Profile:OpenModelStatement>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_e9cEQFE7Eembl8KFq0LDlA" base_StructuralFeature="_e9bdNFE7Eembl8KFq0LDlA"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_e9crUFE7Eembl8KFq0LDlA" base_Property="_e9bdNFE7Eembl8KFq0LDlA"/>
