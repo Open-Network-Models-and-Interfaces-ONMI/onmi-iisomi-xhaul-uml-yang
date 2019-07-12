@@ -31,7 +31,7 @@ module wire-interface {
      See the License for the specific language governing permissions and
      limitations under the License.";
 
-  revision 2019-07-07 {
+  revision 2019-07-11 {
     description
       "Model for the Transport SDN Pilot at Telefonica Germany.
        Please view https://github.com/openBackhaul/wireInterface/issues for changes.";
@@ -40,14 +40,14 @@ module wire-interface {
        https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
   }
 
-  identity LAYER_PROTOCOL_NAME_WIRE_LAYER {
+  identity LAYER_PROTOCOL_NAME_TYPE_WIRE_LAYER {
     base core-model:LAYER_PROTOCOL_NAME_TYPE;
     description
       "none";
   }
 
   augment "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol" {
-    when "derived-from-or-self(./core-model:layer-protocol-name, 'wire-interface:LAYER_PROTOCOL_NAME_WIRE_LAYER')";
+    when "derived-from-or-self(./core-model:layer-protocol-name, 'wire-interface:LAYER_PROTOCOL_NAME_TYPE_WIRE_LAYER')";
     uses wire-interface-lp-spec;
     description
       "none";
@@ -427,6 +427,7 @@ module wire-interface {
     list supported-pmd-kind-list {
       key "pmd-name";
       config false;
+      min-elements 1;
       uses pmd-kind;
       description
         "List of Physical Medium Dependent (PMD) that can be operated";
@@ -446,6 +447,7 @@ module wire-interface {
     leaf-list supported-signal-ordering-kind-list {
       type signal-ordering-kind-type;
       config false;
+      min-elements 1;
       description
         "Describes the different (e.g. MDI, MDI-X) ways of ordering the signals on the physical medium";
     }
@@ -561,21 +563,16 @@ module wire-interface {
       description
         "1 = SET operation on the Line SES threshold defined by aLineSESThreshold in 30.8.1.1.11 of 802.3-2015 is available.";
     }
-    leaf statistics-is-avail {
+    leaf admin-shut-down-is-avail {
       type boolean;
       config false;
       description
-        "1 = Continuous statistics counters are available.";
-    }
-    leaf performance-monitoring-is-avail {
-      type boolean;
-      config false;
-      description
-        "1 = Collection and aggregation of performance values is available.";
+        "1 = Manual switching on and off of the interface without deleting it (underlying OSI network layers are also not affected) is available.";
     }
     leaf-list supported-loop-back-kind-list {
       type loop-back-type;
       config false;
+      min-elements 1;
       max-elements 5;
       description
         "Source: 802.3 45.2.1.12.1 PMA remote loopback ability. List of supported kinds of looping back of header information to the remote site.";
@@ -590,8 +587,15 @@ module wire-interface {
     leaf-list supported-alarm-list {
       type string;
       config false;
+      min-elements 1;
       description
         "Available alarms to be listed. Mandatory: 'rxLos'. Optional: 'txFault', 'tempHigh', 'tempLow', 'rxLevelHigh', 'rxLevelLow', 'vccHigh', 'vccLow', 'txBiasHigh', 'txBiasLow', 'txPowerHigh', 'txPowerLow', 'laserTempHigh', 'laserTempLow', 'tecCurrentHigh', 'tecCurrentLow'. Further alarms might be added by the device.";
+    }
+    leaf performance-monitoring-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Collection and aggregation of performance values is available.";
     }
     description
       "none";
@@ -687,16 +691,6 @@ module wire-interface {
       description
         "Source: 802.3. Restarts the auto negotiation process";
     }
-    leaf statistics-is-on {
-      type boolean;
-      description
-        "Only relevant if (statisticsIsAvail==1). 1 = Continuous statistics counters are switched on.";
-    }
-    leaf performance-monitoring-collection-is-on {
-      type boolean;
-      description
-        "Only relevant if (performanceMonitoringIsAvail==1). 1 = Collection and aggregation of performance values is switched on.";
-    }
     leaf isolation-is-on {
       type boolean;
       description
@@ -720,6 +714,11 @@ module wire-interface {
       uses problem-kind-severity-type;
       description
         "Severity of the problem to be configured.";
+    }
+    leaf performance-monitoring-is-on {
+      type boolean;
+      description
+        "Only relevant if (performanceMonitoringIsAvail==1). 1 = Collection and aggregation of performance values is switched on.";
     }
     description
       "none";
@@ -787,6 +786,18 @@ module wire-interface {
       description
         "If (linkIsUp==1) AND (eeeIsAvail==1) AND (eeeIsOn==1) AND (linkIsIdle==1) : link is currently in idle mode. If Energy Efficient Ethernet is not supported or switched off, this attribute must be 0.";
     }
+    leaf loop-back-kind-up {
+      type loop-back-type;
+      config false;
+      description
+        "The currently active (not just configured) type of looping back of the wire interface header shall be expressed here. The received header is returned to the remote site.";
+    }
+    leaf performance-monitoring-is-up {
+      type boolean;
+      config false;
+      description
+        "1 = Performance values are currently collected and aggregated.";
+    }
     leaf tx-level-cur {
       type int8;
       units "dBm";
@@ -802,12 +813,6 @@ module wire-interface {
       max-elements 4;
       description
         "Current receive power; Also used for receive signal power measured at the Medium Dependent Interface (MDI) of 10GBASE-T during training as described in 802.3 55.4.3.1";
-    }
-    leaf loop-back-kind-up {
-      type loop-back-type;
-      config false;
-      description
-        "The currently active (not just configured) type of looping back of the wire interface header shall be expressed here. The received header is returned to the remote site.";
     }
     description
       "none";
@@ -829,6 +834,7 @@ module wire-interface {
     list current-performance-data-list {
       key "granularity-period";
       config false;
+      min-elements 1;
       max-elements 2;
       uses wire-interface-current-performance-type;
       description

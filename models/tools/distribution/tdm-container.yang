@@ -38,14 +38,14 @@ module tdm-container {
        https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
   }
 
-  identity LAYER_PROTOCOL_NAME_TDM_CONTAINER_LAYER {
+  identity LAYER_PROTOCOL_NAME_TYPE_TDM_CONTAINER_LAYER {
     base core-model:LAYER_PROTOCOL_NAME_TYPE;
     description
       "none";
   }
 
   augment "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol" {
-    when "derived-from-or-self(./core-model:layer-protocol-name, 'tdm-container:LAYER_PROTOCOL_NAME_TDM_CONTAINER_LAYER')";
+    when "derived-from-or-self(./core-model:layer-protocol-name, 'tdm-container:LAYER_PROTOCOL_NAME_TYPE_TDM_CONTAINER_LAYER')";
     uses tdm-container-lp-spec;
     description
       "none";

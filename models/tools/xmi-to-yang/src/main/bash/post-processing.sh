@@ -23,6 +23,7 @@ fi
 
 declare -A namespace
 namespace=(
+  [air-interface]=air-interface
   [core-model]=core-model
   [ethernet-container]=ethernet-container
   [hybrid-mw-structure]=hybrid-mw-structure
@@ -35,14 +36,15 @@ namespace=(
 
 declare -A layer
 layer=(
+  [air-interface]=LAYER_PROTOCOL_NAME_TYPE_AIR_LAYER
   [core-model]=COMMON_LAYER
   [ethernet-container]=LAYER_PROTOCOL_NAME_TYPE_ETHERNET_CONTAINER_LAYER
-  [hybrid-mw-structure]=LAYER_PROTOCOL_NAME_HYBRID_MW_STRUCTURE_LAYER
+  [hybrid-mw-structure]=LAYER_PROTOCOL_NAME_TYPE_HYBRID_MW_STRUCTURE_LAYER
   [ip-interface]=LAYER_PROTOCOL_NAME_TYPE_IP_LAYER
-  [mac-interface]=LAYER_PROTOCOL_NAME_MAC_LAYER
-  [pure-ethernet-structure]=LAYER_PROTOCOL_NAME_PURE_ETHERNET_STRUCTURE_LAYER
-  [tdm-container]=LAYER_PROTOCOL_NAME_TDM_CONTAINER_LAYER
-  [wire-interface]=LAYER_PROTOCOL_NAME_WIRE_LAYER
+  [mac-interface]=LAYER_PROTOCOL_NAME_TYPE_MAC_LAYER
+  [pure-ethernet-structure]=LAYER_PROTOCOL_NAME_TYPE_PURE_ETHERNET_STRUCTURE_LAYER
+  [tdm-container]=LAYER_PROTOCOL_NAME_TYPE_TDM_CONTAINER_LAYER
+  [wire-interface]=LAYER_PROTOCOL_NAME_TYPE_WIRE_LAYER
 );
 
 for yang in $DIR/*.yang
@@ -58,7 +60,9 @@ do
   sed -i -e "s/forwarding-constructuuid forwarding-constructname/uuid/g" $yang
   sed -i -e "s/logical-termination-pointuuid logical-termination-pointname/uuid/g" $yang
   sed -i -e "s/fc-routeuuid fc-routename/uuid/g" $yang
-  
+
+  sed -i -e "s/container control-construct {/container control-construct {\npresence \"Enables SDN\";/g" $yang
+
   sed -i -e "s/fc-portlocal-id fc-portname/local-id/g" $yang
 
   sed -i -e "s/path '\/core-model:logical-termination-point\/core-model:peer-ltp\/core-model:/path '\/core-model:control-construct\/core-model:logical-termination-point\/core-model:/g" $yang
@@ -66,6 +70,9 @@ do
   sed -i -e "s/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:embedded-clock\/core-model:encapsulated-fc\/core-model:uuid/\/core-model:control-construct\/core-model:forwarding-domain\/core-model:fc\/core-model:uuid/g" $yang
 
   sed -i -e "s/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:embedded-clock\/core-model:encapsulated-fc\/core-model:fc-port\/core-model:local-id/\/core-model:control-construct\/core-model:forwarding-domain\/core-model:fc\/core-model:fc-port\/core-model:local-id/g" $yang
+
+  # find/replace in air-interface
+  sed -i -e "s/\/air-interface:air-interface-lp-spec/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/g" $yang
 
   # find/replace in hybrid-microwave-structure
   sed -i -e "s/\/hybrid-mw-structure:hybrid-mw-structure-lp-spec/\/core-model:control-construct\/core-model:logical-termination-point\/core-model:layer-protocol/g" $yang

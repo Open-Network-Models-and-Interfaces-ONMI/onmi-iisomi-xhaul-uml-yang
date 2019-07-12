@@ -38,14 +38,14 @@ module pure-ethernet-structure {
        https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
   }
 
-  identity LAYER_PROTOCOL_NAME_PURE_ETHERNET_STRUCTURE_LAYER {
+  identity LAYER_PROTOCOL_NAME_TYPE_PURE_ETHERNET_STRUCTURE_LAYER {
     base core-model:LAYER_PROTOCOL_NAME_TYPE;
     description
       "none";
   }
 
   augment "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol" {
-    when "derived-from-or-self(./core-model:layer-protocol-name, 'pure-ethernet-structure:LAYER_PROTOCOL_NAME_PURE_ETHERNET_STRUCTURE_LAYER')";
+    when "derived-from-or-self(./core-model:layer-protocol-name, 'pure-ethernet-structure:LAYER_PROTOCOL_NAME_TYPE_PURE_ETHERNET_STRUCTURE_LAYER')";
     uses pure-ethernet-structure-lp-spec;
     description
       "none";

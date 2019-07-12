@@ -50,12 +50,20 @@ leaf.prototype.writeNode = function (layer) {
     }
     var status = this.status ? PRE + "\tstatus " + this.status + ";\r\n" : "";
     
-    var defvalue;
-    if(isNaN(this.defaultValue) === false){
-        defvalue = this.defaultValue ? PRE + "\tdefault " + this.defaultValue + ";\r\n" : "";
-    }else {
-        defvalue = this.defaultValue ? PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : "";
-    }
+
+    /*
+    RFC7950:
+    [...]
+    7.3.4.  The typedef's "default" Statement
+
+    The "default" statement takes as an argument a string that contains a
+    default value for the new type.
+    [...]
+    >> even number are presented as string (e.g.: default "-1";)
+    */
+    var defvalue = "";
+    defvalue = this.defaultValue ? PRE + "\tdefault \"" + this.defaultValue + "\";\r\n" : "";
+
     var type = "";
     if (this.type instanceof Type) {
         type = this.type.writeNode(layer + 1);
