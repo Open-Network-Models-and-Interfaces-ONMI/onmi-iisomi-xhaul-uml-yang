@@ -1,0 +1,456 @@
+module l-3vpn-profile {
+  yang-version 1.1;
+  namespace "urn:onf:yang:l-3vpn-profile";
+  prefix l-3vpn-profile;
+
+  import core-model {
+    prefix core-model;
+  }
+
+  organization
+    "openBackhaul.com proposal to Open Networking Foundation (ONF)";
+  contact
+    "WG Web : https://github.com/openBackhaul/Overview
+     WG List: L3vpnProfile@openBackhaul.com
+     Editor : Thorsten Heinze
+     Email  : Thorsten.Heinze@openBackhaul.com";
+  description
+    "Technology specific profile definition for Layer 3 Virtual Private Networks
+
+     Copyright 2019 openBackhaul.com
+
+     Licensed under the Apache License, Version 2.0 (the 'License');
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+     http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an 'AS IS' BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.";
+
+  revision 2019-07-12 {
+    description
+      "Model for the Transport SDN Pilot at Telefonica Germany.
+       Please view https://github.com/openBackhaul/l3vpnProfile/issues for changes.";
+    reference
+      "https://github.com/openBackhaul/l3vpnProfile/tree/tsp: Model definition
+       https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
+  }
+
+  identity PROFILE_NAME_TYPE_L3VPN_PROFILE {
+    base core-model:PROFILE_NAME_TYPE;
+    description
+      "none";
+  }
+  
+  augment "/core-model:control-construct/core-model:profile-collection/core-model:profile" {
+    when "derived-from-or-self(./core-model:profile-name, 'l-3vpn-profile:PROFILE_NAME_TYPE_L3VPN_PROFILE')";
+    uses l-3vpn-profile-spec;
+    description
+      "none";
+  }
+
+  notification object-creation-notification {
+    uses object-creation-notification;
+    description
+      "none";
+  }
+
+  grouping object-creation-notification {
+    leaf counter {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Counts object creation notifications.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf object-type {
+      type string;
+      default "Type of created object not specified.";
+      config false;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  notification object-deletion-notification {
+    uses object-deletion-notification;
+    description
+      "none";
+  }
+
+  grouping object-deletion-notification {
+    leaf counter {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Counts object deletion notifications.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping l-3vpn-profile-spec {
+    container l-3vpn-pac {
+      config false;
+      uses l-3vpn-pac;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping l-3vpn-pac {
+    container l-3vpn-capability {
+      config false;
+      uses l-3vpn-capability;
+      description
+        "none";
+    }
+    container l-3vpn-configuration {
+      config false;
+      uses l-3vpn-configuration;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping l-3vpn-capability {
+    leaf profile-naming-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = There is a free text field available for naming the profile.";
+    }
+    leaf l-3vpn-based-on-ip-v-6-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = Virtual Private Networks based on IP v6 addresses is available at the device.";
+    }
+    description
+      "none";
+  }
+
+  grouping l-3vpn-configuration {
+    leaf profile-name {
+      type string;
+      default "Name of profile not yet defined.";
+      description
+        "Identifier of the profile. Could be a name, could be a number. Free text field to be filled by the operator.";
+    }
+    leaf l-3vpn-description {
+      type string;
+      default "VPN description not yet defined.";
+      description
+        "Short description of the VPN.";
+    }
+    list l-3vpn-configuration-list {
+      key "label-mode";
+      min-elements 1;
+      max-elements 2;
+      uses l-3vpn-configuration-type;
+      description
+        "L3 VPN instance Configuration.";
+    }
+    description
+      "none";
+  }
+
+  typedef label-mode-type {
+    type identityref {
+      base LABEL_MODE_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef device-identifier-kind-type {
+    type identityref {
+      base DEVICE_IDENTIFIER_KIND_TYPE;
+    }
+    description
+      "none";
+  }
+
+  typedef address-family-type {
+    type identityref {
+      base ADDRESS_FAMILY_TYPE;
+    }
+    description
+      "Address family of the VRF IPv4/IPV6.";
+  }
+
+  typedef route-pritority-type {
+    type identityref {
+      base ROUTE_PRITORITY_TYPE;
+    }
+    description
+      "The priority of the Route";
+  }
+
+  typedef route-state-type {
+    type identityref {
+      base ROUTE_STATE_TYPE;
+    }
+    description
+      "The state of the route as per the routing table. It is a combination of the one or more of the following states: ADV, NOADV,ACTIVE, INACTIVE, RELIED.";
+  }
+
+  typedef route-flag-type {
+    type identityref {
+      base ROUTE_FLAG_TYPE;
+    }
+    description
+      "Indicates the route flag, that is, Route Flags in the heading of the routing table displayed. It is a combination of one or more of the following flags: D and,R Meaning of each of the flag is availble under corresponding flag value.";
+  }
+
+  identity LABEL_MODE_TYPE {
+    description
+      "none";
+  }
+
+  identity LABEL_MODE_TYPE_PER_INSTANCE {
+    base LABEL_MODE_TYPE;
+    description
+      "Labels are assigned to VPN instances in one label per instance mode, that is, all routes in a VPN instance are assigned with the same label.";
+  }
+
+  identity LABEL_MODE_TYPE_PER_ROUTE {
+    base LABEL_MODE_TYPE;
+    description
+      "Labels are assigned to routes in the 'one label per route' mode, that is, each route is assigned with one label.";
+  }
+
+  identity DEVICE_IDENTIFIER_KIND_TYPE {
+    description
+      "none";
+  }
+
+  identity DEVICE_IDENTIFIER_KIND_TYPE_LOOP_BACK_IP_ADDRESS {
+    base DEVICE_IDENTIFIER_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity DEVICE_IDENTIFIER_KIND_TYPE_AS_NUMBER {
+    base DEVICE_IDENTIFIER_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity DEVICE_IDENTIFIER_KIND_TYPE_NOT_YET_DEFINED {
+    base DEVICE_IDENTIFIER_KIND_TYPE;
+    description
+      "none";
+  }
+
+  identity ADDRESS_FAMILY_TYPE {
+    description
+      "none";
+  }
+
+  identity ADDRESS_FAMILY_TYPE_IPV4-FAMILY {
+    base ADDRESS_FAMILY_TYPE;
+    description
+      "none";
+  }
+
+  identity ADDRESS_FAMILY_TYPE_IPV6-FAMILY {
+    base ADDRESS_FAMILY_TYPE;
+    description
+      "none";
+  }
+
+  identity ADDRESS_FAMILY_TYPE_UNKNOWN {
+    base ADDRESS_FAMILY_TYPE;
+    description
+      "none";
+  }
+
+  identity ROUTE_PRITORITY_TYPE {
+    description
+      "none";
+  }
+
+  identity ROUTE_PRITORITY_TYPE_CRITICAL {
+    base ROUTE_PRITORITY_TYPE;
+    description
+      "Highest protocol priority.";
+  }
+
+  identity ROUTE_PRITORITY_TYPE_HIGH {
+    base ROUTE_PRITORITY_TYPE;
+    description
+      "High protocol priority";
+  }
+
+  identity ROUTE_PRITORITY_TYPE_MEDIUM {
+    base ROUTE_PRITORITY_TYPE;
+    description
+      "Medium protocol priority.";
+  }
+
+  identity ROUTE_PRITORITY_TYPE_LOW {
+    base ROUTE_PRITORITY_TYPE;
+    description
+      "Low protocol priority.";
+  }
+
+  identity ROUTE_STATE_TYPE {
+    description
+      "none";
+  }
+
+  identity ROUTE_STATE_TYPE_ACTIVE_ADV {
+    base ROUTE_STATE_TYPE;
+    description
+      "The route state is active and advertised.";
+  }
+
+  identity ROUTE_STATE_TYPE_ACTIVE_NOADV {
+    base ROUTE_STATE_TYPE;
+    description
+      "The route state is active and not advertised.";
+  }
+
+  identity ROUTE_STATE_TYPE_ACTIVE_ADV_RELIED {
+    base ROUTE_STATE_TYPE;
+    description
+      "The route state is active, advertised, and relied.";
+  }
+
+  identity ROUTE_STATE_TYPE_ACTIVE_NOADV_RELIED {
+    base ROUTE_STATE_TYPE;
+    description
+      "The route state is active, not advertised, and relied.";
+  }
+
+  identity ROUTE_STATE_TYPE_INVALID_NOADV {
+    base ROUTE_STATE_TYPE;
+    description
+      "The route state is invalid and not advertised.";
+  }
+
+  identity ROUTE_STATE_TYPE_INACTIVE_NOADV {
+    base ROUTE_STATE_TYPE;
+    description
+      "The route state is inactive and not advertised.";
+  }
+
+  identity ROUTE_FLAG_TYPE {
+    description
+      "none";
+  }
+
+  identity ROUTE_FLAG_TYPE_D {
+    base ROUTE_FLAG_TYPE;
+    description
+      "A route is advertised to the Forwarding Information Base table.";
+  }
+
+  identity ROUTE_FLAG_TYPE_RD {
+    base ROUTE_FLAG_TYPE;
+    description
+      "A route is an iterated route and needs to be advertised to the FIB table.";
+  }
+
+  identity ROUTE_FLAG_TYPE_R {
+    base ROUTE_FLAG_TYPE;
+    description
+      "A route is an iterated route.";
+  }
+
+  grouping route-distinguisher-and-target-type {
+    leaf vpn-number {
+      type uint32;
+      description
+        "Identifier of the VPN, which is unique in the entire network";
+    }
+    leaf device-identifier-kind {
+      type device-identifier-kind-type;
+      description
+        "none";
+    }
+    leaf loop-back-ip-address {
+      type string;
+      default "-1.-1.-1.-1";
+      description
+        "Only relevant if (deviceIdentifierKind==LOOP_BACK_IP_ADDRESS). Loop back address of the device.";
+    }
+    leaf as-number {
+      type uint32;
+      description
+        "Only relevant if (deviceIdentifierKind==AS_NUMBER). Autonomous System number of the device.";
+    }
+    description
+      "none";
+  }
+
+  grouping l-3vpn-configuration-type {
+    leaf label-mode {
+      type label-mode-type;
+      description
+        "Label model used by the VPN.";
+    }
+    container route-distinguisher {
+      uses route-distinguisher-and-target-type;
+      description
+        "The route distinguisher that should be used for the local VRF or VSI instance when it is signalled via BGP.";
+    }
+    list route-target-import {
+      key "vpn-number";
+      min-elements 1;
+      uses route-distinguisher-and-target-type;
+      description
+        "Route targets that will be imported to this VPN ";
+    }
+    list route-target-export {
+      key "vpn-number";
+      min-elements 1;
+      uses route-distinguisher-and-target-type;
+      description
+        "Route targets that will be tagged to outgoing routes";
+    }
+    leaf address-family {
+      type address-family-type;
+      description
+        "Address family type for each the VPN instance is created";
+    }
+    description
+      "L3 VPN instance configuration information.";
+  }
+}

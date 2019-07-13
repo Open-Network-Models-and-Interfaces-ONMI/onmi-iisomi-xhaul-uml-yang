@@ -51,10 +51,6 @@ module hybrid-mw-structure {
       "none";
   }
 
-  /****************************************
-   * package notifications
-   **************************************/ 
-
   notification object-creation-notification {
     uses object-creation-notification;
     description
@@ -212,13 +208,6 @@ module hybrid-mw-structure {
     description
       "none";
   }
-
-  /****************************************
-   * grouping statements for object classes
-   **************************************/ 
-  /****************************************
-   * package super-classes
-   **************************************/ 
 
   grouping current-problem {
     leaf sequence-number {
@@ -583,10 +572,6 @@ module hybrid-mw-structure {
       "none";
   }
 
-  /****************************************
-   * typedef statements
-   **************************************/ 
-
   typedef g-826-type {
     type identityref {
       base G_826_TYPE;
@@ -594,10 +579,6 @@ module hybrid-mw-structure {
     description
       "none";
   }
-
-  /*********************************************
-   * grouping statements for complex data types
-   *******************************************/ 
 
   identity G_826_TYPE {
     description
@@ -755,10 +736,6 @@ module hybrid-mw-structure {
     description
       "none";
   }
-
-  /****************************************
-   * package super-types
-   **************************************/ 
 
   typedef granularity-period-type {
     type identityref {

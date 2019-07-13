@@ -51,10 +51,6 @@ module tdm-container {
       "none";
   }
 
-  /****************************************
-   * package notifications
-   **************************************/ 
-
   notification object-creation-notification {
     uses object-creation-notification;
     description
@@ -212,13 +208,6 @@ module tdm-container {
     description
       "none";
   }
-
-  /****************************************
-   * grouping statements for object classes
-   **************************************/ 
-  /****************************************
-   * package super-classes
-   **************************************/ 
 
   grouping current-problem {
     leaf sequence-number {
@@ -615,10 +604,6 @@ module tdm-container {
       "none";
   }
 
-  /****************************************
-   * typedef statements
-   **************************************/ 
-
   typedef loop-back-type {
     type identityref {
       base LOOP_BACK_TYPE;
@@ -632,10 +617,6 @@ module tdm-container {
     description
       "none";
   }
-
-  /*********************************************
-   * grouping statements for complex data types
-   *******************************************/ 
 
   identity LOOP_BACK_TYPE {
     description
@@ -846,10 +827,6 @@ module tdm-container {
     description
       "none";
   }
-
-  /****************************************
-   * package super-types
-   **************************************/ 
 
   typedef granularity-period-type {
     type identityref {

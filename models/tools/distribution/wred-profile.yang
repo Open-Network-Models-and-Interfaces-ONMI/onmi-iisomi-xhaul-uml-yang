@@ -1,0 +1,249 @@
+module wred-profile {
+  yang-version 1.1;
+  namespace "urn:onf:yang:wred-profile";
+  prefix wred-profile;
+
+  import core-model {
+    prefix core-model;
+  }
+
+  organization
+    "openBackhaul.com proposal to Open Networking Foundation (ONF)";
+  contact
+    "WG Web : https://github.com/openBackhaul/Overview
+     WG List: WredProfile@openBackhaul.com
+     Editor : Thorsten Heinze
+     Email  : Thorsten.Heinze@openBackhaul.com";
+  description
+    "Technology specific definition for WRED (Weighted Random Early Detection) profiles that can be referenced by multiple interface instances.
+
+     Copyright 2019 openBackhaul.com
+
+     Licensed under the Apache License, Version 2.0 (the 'License');
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+     http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an 'AS IS' BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.";
+
+  revision 2019-07-12 {
+    description
+      "Model for the Transport SDN Pilot at Telefonica Germany.
+       Please view https://github.com/openBackhaul/wredProfile/issues for changes.";
+    reference
+      "https://github.com/openBackhaul/wredProfile/tree/tsp: Model definition
+       https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
+  }
+
+  identity PROFILE_NAME_TYPE_WRED_PROFILE {
+    base core-model:PROFILE_NAME_TYPE;
+    description
+      "none";
+  }
+
+  augment "/core-model:control-construct/core-model:profile-collection/core-model:profile" {
+    when "derived-from-or-self(./core-model:profile-name, 'wred-profile:PROFILE_NAME_TYPE_WRED_PROFILE')";
+    uses wred-profile-spec;
+    description
+      "none";
+  }
+
+  notification object-creation-notification {
+    uses object-creation-notification;
+    description
+      "none";
+  }
+
+  grouping object-creation-notification {
+    leaf counter {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Counts object creation notifications.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    leaf object-type {
+      type string;
+      default "Type of created object not specified.";
+      config false;
+      description
+        "none";
+    }
+    description
+      "To be sent when a new MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac has to be instancieted in the controller.";
+  }
+
+  notification object-deletion-notification {
+    uses object-deletion-notification;
+    description
+      "none";
+  }
+
+  grouping object-deletion-notification {
+    leaf counter {
+      type int32;
+      default "-1";
+      config false;
+      description
+        "Counts object deletion notifications.";
+    }
+    leaf time-stamp {
+      type string;
+      default "2010-11-20T14:00:00+01:00";
+      config false;
+      description
+        "none";
+    }
+    leaf object-id-ref {
+      type string;
+      config false;
+      description
+        "none";
+    }
+    description
+      "To be sent when a new MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac instance has to be deleted in the controller.";
+  }
+
+  grouping wred-profile-spec {
+    container wred-profile-pac {
+      config false;
+      uses wred-profile-pac;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping wred-profile-pac {
+    container wred-profile-capability {
+      config false;
+      uses wred-profile-capability;
+      description
+        "none";
+    }
+    container wred-profile-configuration {
+      uses wred-profile-configuration;
+      description
+        "none";
+    }
+    description
+      "none";
+  }
+
+  grouping wred-profile-capability {
+    leaf available-buffer-size {
+      type int32;
+      units "Byte";
+      default "-1";
+      config false;
+      description
+        "Maximum value that could be configured as thresholdHigh in Byte.";
+    }
+    leaf drop-probability-at-threshold-low-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = It is possible to set a drop probability at the lower threshold.";
+    }
+    leaf gentle-wred-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = The device allows activating a linear increase of drop probability between dropProbabilityAtThresholdHigh and 100% at thresholdGentle (usually drop probability jumps to 100% at thresholdHigh).";
+    }
+    leaf sensitivity-setting-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = It is possible to set the sensitivity for the burst size.";
+    }
+    leaf coloring-is-avail {
+      type boolean;
+      config false;
+      description
+        "1 = The device allows marking exceeding packets yellow instead of immediately discarding them.";
+    }
+    description
+      "none";
+  }
+
+  grouping wred-profile-configuration {
+    leaf profile-name {
+      type string;
+      default "Name of profile not yet defined.";
+      description
+        "Identifier of the profile. Could be a name, could be a number. Free text field to be filled by the operator.";
+    }
+    leaf threshold-low {
+      type int32;
+      units "Byte";
+      default "-1";
+      description
+        "Defines the lower threshold in Byte. When average queue content is exceeding this value, packets start getting dropped. Probability of dropping is linear increasing until it reaches the value configured in dropProbabilityAtThresholdHigh when average queue content reaches thresholdHigh.";
+    }
+    leaf drop-probability-at-threshold-low {
+      type int8;
+      units "%";
+      default "-1";
+      description
+        "Only relevant if (dropProbabilityAtLowThresholdIsAvail==1). Defines the probability (as a percentage) of an incoming packet getting dropped when the content of the queue reaches the low threshold.";
+    }
+    leaf threshold-high {
+      type int32;
+      units "Byte";
+      default "-1";
+      description
+        "Defines the upper threshold in Byte.  When average queue content is reaching this value, incoming packets are dropped with the probability configured in dropProbabilityAtThresholdHigh. When average queue content is exceeding this value, all incoming packets get dropped.";
+    }
+    leaf drop-probability-at-threshold-high {
+      type int8;
+      units "%";
+      default "-1";
+      description
+        "Defines the probability (as a percentage) of an incoming packet getting dropped when the content of the queue reaches the upper threshold.";
+    }
+    leaf gentle-wred-is-on {
+      type boolean;
+      description
+        "Only relevant if (gentleWredIsAvail==1). 1 = The drop probability is linear increasing between dropProbabilityAtThresholdHigh and 100% at thresholdGentle (otherwise drop probability jumps to 100% at thresholdHigh).";
+    }
+    leaf threshold-gentle {
+      type int32;
+      units "Byte";
+      default "-1";
+      description
+        "Only relevant if (gentleWredIsAvail==1) AND (gentleWredIsOn==1). Defines the 100% dropping threshold for gentle WRED in Byte.  When average queue content reaches or exceeds this value, incoming packets get dropped with 100% probability.";
+    }
+    leaf sensitivity {
+      type int8;
+      units "%";
+      default "-1";
+      description
+        "Only relevant if (sensitivitySettingIsAvail==1). Defines how sensitive WRED reacts on traffic burst. low values = WRED reacts quickly and is sensitive to short bursts. high values = WRED reacts slowly on short bursts, which could result in buffer overflow and tail drop. Values between 0 and 15.";
+    }
+    leaf coloring-is-on {
+      type boolean;
+      description
+        "Only relevant if (colloringIsAvail==1). 1 = Exceeding packets are marked yellow instead of being immediately discarded.";
+    }
+    description
+      "none";
+  }
+}

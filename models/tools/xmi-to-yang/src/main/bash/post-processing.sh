@@ -28,10 +28,13 @@ namespace=(
   [ethernet-container]=ethernet-container
   [hybrid-mw-structure]=hybrid-mw-structure
   [ip-interface]=ip-interface
+  [l-3vpn-profile]=l-3vpn-profile
   [mac-interface]=mac-interface
   [pure-ethernet-structure]=pure-ethernet-structure
+  [qos-profile]=qos-profile
   [tdm-container]=tdm-container
   [wire-interface]=wire-interface
+  [wred-profile]=wred-profile
 );
 
 declare -A layer
@@ -45,6 +48,13 @@ layer=(
   [pure-ethernet-structure]=LAYER_PROTOCOL_NAME_TYPE_PURE_ETHERNET_STRUCTURE_LAYER
   [tdm-container]=LAYER_PROTOCOL_NAME_TYPE_TDM_CONTAINER_LAYER
   [wire-interface]=LAYER_PROTOCOL_NAME_TYPE_WIRE_LAYER
+);
+
+declare -A profile
+profile=(
+  [l-3vpn-profile]=PROFILE_NAME_TYPE_L3VPN_PROFILE
+  [qos-profile]=PROFILE_NAME_TYPE_QOS_PROFILE
+  [wred-profile]=PROFILE_NAME_TYPE_WRED_PROFILE
 );
 
 for yang in $DIR/*.yang
@@ -81,6 +91,7 @@ do
   sed -i -e "s/pmd\-kindpmd\-name/pmd-name/g" $yang
 
   # technology specific augmentation
+  ## layer protocol name
   filename=${yang#*$DIR/};
   index=${filename%%.*};
 
@@ -88,6 +99,15 @@ do
 
   identity="identity ${layer[$index]} {\n base core-model:LAYER_PROTOCOL_NAME_TYPE; \n description \"none\"; \n}\n";
   when="when \"derived-from-or-self(.\/core-model:layer-protocol-name, '${namespace[$index]}:${layer[$index]}')\";"
+  replace=" $identity \n $find \n $when";
+
+  sed -i -e "s/$find/$replace/g" $yang;
+
+  ## profile name
+  find="augment \"\/core-model:control-construct\/core-model:profile-collection\/core-model:profile\"{";
+
+  identity="identity ${profile[$index]} {\n base core-model:PROFILE_NAME_TYPE; \n description \"none\"; \n}\n";
+  when="when \"derived-from-or-self(.\/core-model:profile-name, '${namespace[$index]}:${profile[$index]}')\";"
   replace=" $identity \n $find \n $when";
 
   sed -i -e "s/$find/$replace/g" $yang;

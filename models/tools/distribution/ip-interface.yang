@@ -51,10 +51,6 @@ module ip-interface {
       "none";
   }
 
-  /****************************************
-   * package notifications
-   **************************************/ 
-
   notification object-creation-notification {
     uses object-creation-notification;
     description
@@ -212,13 +208,6 @@ module ip-interface {
     description
       "To be sent when a problem occurs at a MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac.";
   }
-
-  /****************************************
-   * grouping statements for object classes
-   **************************************/ 
-  /****************************************
-   * package super-classes
-   **************************************/ 
 
   grouping current-problem {
     leaf sequence-number {
@@ -775,10 +764,6 @@ module ip-interface {
       "none";
   }
 
-  /****************************************
-   * typedef statements
-   **************************************/ 
-
   typedef loop-back-type {
     type identityref {
       base LOOP_BACK_TYPE;
@@ -810,10 +795,6 @@ module ip-interface {
     description
       "openconfig-if-ip. The origin of a neighbor entry.";
   }
-
-  /*********************************************
-   * grouping statements for complex data types
-   *******************************************/ 
 
   identity LOOP_BACK_TYPE {
     description
@@ -1042,10 +1023,6 @@ module ip-interface {
     description
       "none";
   }
-
-  /****************************************
-   * package super-types
-   **************************************/ 
 
   typedef severity-type {
     type identityref {

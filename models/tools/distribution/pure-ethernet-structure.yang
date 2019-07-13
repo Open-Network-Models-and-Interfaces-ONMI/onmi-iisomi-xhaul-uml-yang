@@ -51,10 +51,6 @@ module pure-ethernet-structure {
       "none";
   }
 
-  /****************************************
-   * package notifications
-   **************************************/ 
-
   notification object-creation-notification {
     uses object-creation-notification;
     description
@@ -195,13 +191,6 @@ module pure-ethernet-structure {
     description
       "none";
   }
-
-  /****************************************
-   * grouping statements for object classes
-   **************************************/ 
-  /****************************************
-   * package super-classes
-   **************************************/ 
 
   grouping current-problem {
     leaf sequence-number {
@@ -517,10 +506,6 @@ module pure-ethernet-structure {
       "Aggregated performance information of the structure of an pure Ethernet microwave for a pre-defined measurement interval.";
   }
 
-  /****************************************
-   * typedef statements
-   **************************************/ 
-
   typedef g-826-type {
     type identityref {
       base G_826_TYPE;
@@ -528,10 +513,6 @@ module pure-ethernet-structure {
     description
       "none";
   }
-
-  /*********************************************
-   * grouping statements for complex data types
-   *******************************************/ 
 
   identity G_826_TYPE {
     description
@@ -689,10 +670,6 @@ module pure-ethernet-structure {
     description
       "none";
   }
-
-  /****************************************
-   * package super-types
-   **************************************/ 
 
   typedef granularity-period-type {
     type identityref {
