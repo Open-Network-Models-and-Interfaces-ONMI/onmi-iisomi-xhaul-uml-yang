@@ -38,18 +38,29 @@ module wred-profile {
        https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
   }
 
-  identity PROFILE_NAME_TYPE_WRED_PROFILE {
+
+  identity PROFILE_NAME_TYPE_WRED_PROFIL {
+
     base core-model:PROFILE_NAME_TYPE;
+
     description
+
       "none";
+
   }
 
+
+
   augment "/core-model:control-construct/core-model:profile-collection/core-model:profile" {
-    when "derived-from-or-self(./core-model:profile-name, 'wred-profile:PROFILE_NAME_TYPE_WRED_PROFILE')";
+    when "derived-from-or-self(./core-model:layer-protocol-name, 'wred-profilE:PROFILE_NAME_TYPE_WRED_PROFIL')";
     uses wred-profile-spec;
     description
       "none";
   }
+
+  /****************************************
+   * package notifications
+   **************************************/ 
 
   notification object-creation-notification {
     uses object-creation-notification;
@@ -119,6 +130,10 @@ module wred-profile {
     description
       "To be sent when a new MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac instance has to be deleted in the controller.";
   }
+
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
 
   grouping wred-profile-spec {
     container wred-profile-pac {
