@@ -36,7 +36,14 @@ module qos-profile {
        https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
   }
 
+  identity PROFILE_NAME_TYPE_QOS_PROFILE {
+    base core-model:PROFILE_NAME_TYPE;
+    description
+      "none";
+  }
+
   augment "/core-model:control-construct/core-model:profile-collection/core-model:profile" {
+    when "derived-from-or-self(./core-model:profile-name, 'qos-profile:PROFILE_NAME_TYPE_QOS_PROFILE')";
     uses qos-profile-spec;
     description
       "none";
@@ -224,7 +231,7 @@ module qos-profile {
         "1 = Original content of 802.1p bits is overwritten with local per hop behavior.";
     }
     list egress-per-hop-behavior-to-8021p-mapping-list {
-      key "per-hop-behavior";
+      key "mapping-number";
       max-elements 24;
       uses egress-per-hop-behavior-to-priority-bits-mapping-type;
       description
@@ -236,7 +243,7 @@ module qos-profile {
         "1 = Original content of MPLS EXP bits is overwritten with local per hop behavior.";
     }
     list egress-per-hop-behavior-to-mpls-exp-mapping-list {
-      key "per-hop-behavior";
+      key "mapping-number";
       max-elements 24;
       uses egress-per-hop-behavior-to-priority-bits-mapping-type;
       description
@@ -248,7 +255,7 @@ module qos-profile {
         "1 = Original content of IP DSCP bits is overwritten with local per hop behavior.";
     }
     list egress-per-hop-behavior-to-ip-dscp-mapping-list {
-      key "per-hop-behavior";
+      key "mapping-number";
       max-elements 24;
       uses egress-per-hop-behavior-to-priority-bits-mapping-type;
       description
@@ -452,6 +459,11 @@ module qos-profile {
   }
 
   grouping egress-per-hop-behavior-to-priority-bits-mapping-type {
+    leaf mapping-number {
+      type int16;
+      description
+        "none";
+    }
     container per-hop-behavior {
       uses per-hop-behavior-type;
       description

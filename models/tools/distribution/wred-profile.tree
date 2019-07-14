@@ -290,196 +290,6 @@ module: core-model
      |  |  +--ro administrative-state?               administrative-state
      |  |  +--rw lifecycle-state?                    lifecycle-state
      |  |  +--rw address*                            dt-address
-     |  |  +--ro air-interface:air-interface-pac
-     |  |     +--ro air-interface:air-interface-capability
-     |  |     |  +--ro air-interface:type-of-equipment?                             string
-     |  |     |  +--ro air-interface:tx-frequency-min?                              int32
-     |  |     |  +--ro air-interface:tx-frequency-max?                              int32
-     |  |     |  +--ro air-interface:rx-frequency-min?                              int32
-     |  |     |  +--ro air-interface:rx-frequency-max?                              int32
-     |  |     |  +--ro air-interface:transmission-mode-list* [transmission-mode-name]
-     |  |     |  |  +--ro air-interface:transmission-mode-name              string
-     |  |     |  |  +--ro air-interface:transmission-mode-rank?             int32
-     |  |     |  |  +--ro air-interface:channel-bandwidth?                  int32
-     |  |     |  |  +--ro air-interface:modulation-scheme?                  int16
-     |  |     |  |  +--ro air-interface:code-rate?                          int8
-     |  |     |  |  +--ro air-interface:symbol-rate-reduction-factor?       int8
-     |  |     |  |  +--ro air-interface:tx-power-min?                       int8
-     |  |     |  |  +--ro air-interface:tx-power-max?                       int8
-     |  |     |  |  +--ro air-interface:rx-threshold?                       int16
-     |  |     |  |  +--ro air-interface:am-upshift-level?                   int8
-     |  |     |  |  +--ro air-interface:am-downshift-level?                 int8
-     |  |     |  |  +--ro air-interface:xpic-is-avail?                      boolean
-     |  |     |  |  +--ro air-interface:supported-as-fixed-configuration?   boolean
-     |  |     |  +--ro air-interface:duplex-distance-is-freely-configurable?        boolean
-     |  |     |  +--ro air-interface:duplex-distance-list*                          int32
-     |  |     |  +--ro air-interface:auto-freq-select-is-avail?                     boolean
-     |  |     |  +--ro air-interface:adaptive-modulation-is-avail?                  boolean
-     |  |     |  +--ro air-interface:mimo-is-avail?                                 boolean
-     |  |     |  +--ro air-interface:mimo-channels?                                 int8
-     |  |     |  +--ro air-interface:alic-is-avail?                                 boolean
-     |  |     |  +--ro air-interface:atpc-is-avail?                                 boolean
-     |  |     |  +--ro air-interface:atpc-range?                                    int8
-     |  |     |  +--ro air-interface:supported-radio-signal-id-datatype?            radio-signal-id-datatype-type
-     |  |     |  +--ro air-interface:supported-radio-signal-id-length?              int16
-     |  |     |  +--ro air-interface:expected-equals-transmitted-radio-signal-id?   boolean
-     |  |     |  +--ro air-interface:encryption-is-avail?                           boolean
-     |  |     |  +--ro air-interface:supported-loop-back-kind-list*                 loop-back-type
-     |  |     |  +--ro air-interface:maintenance-timer-range?                       string
-     |  |     |  +--ro air-interface:supported-alarm-list*                          string
-     |  |     |  +--ro air-interface:performance-monitoring-is-avail?               boolean
-     |  |     +--ro air-interface:air-interface-configuration
-     |  |     |  +--ro air-interface:air-interface-name?                      string
-     |  |     |  +--ro air-interface:remote-air-interface-name?               string
-     |  |     |  +--ro air-interface:transmitted-radio-signal-id?             radio-signal-id-datatype-type
-     |  |     |  +--ro air-interface:expected-radio-signal-id?                radio-signal-id-datatype-type
-     |  |     |  +--ro air-interface:tx-frequency?                            int32
-     |  |     |  +--ro air-interface:rx-frequency?                            int32
-     |  |     |  +--ro air-interface:transmission-mode-min?                   -> /core-model:control-construct/logical-termination-point/layer-protocol/air-interface:air-interface-pac/air-interface-capability/transmission-mode-list/transmission-mode-name
-     |  |     |  +--ro air-interface:transmission-mode-max?                   -> /core-model:control-construct/logical-termination-point/layer-protocol/air-interface:air-interface-pac/air-interface-capability/transmission-mode-list/transmission-mode-name
-     |  |     |  +--ro air-interface:rx-channel-bandwidth?                    int32
-     |  |     |  +--ro air-interface:power-is-on?                             boolean
-     |  |     |  +--ro air-interface:transmitter-is-on?                       boolean
-     |  |     |  +--ro air-interface:receiver-is-on?                          boolean
-     |  |     |  +--ro air-interface:tx-power?                                int8
-     |  |     |  +--ro air-interface:adaptive-modulation-is-on?               boolean
-     |  |     |  +--ro air-interface:xpic-is-on?                              boolean
-     |  |     |  +--ro air-interface:mimo-is-on?                              boolean
-     |  |     |  +--ro air-interface:alic-is-on?                              boolean
-     |  |     |  +--ro air-interface:atpc-is-on?                              boolean
-     |  |     |  +--ro air-interface:atpc-thresh-upper?                       int16
-     |  |     |  +--ro air-interface:atpc-thresh-lower?                       int16
-     |  |     |  +--ro air-interface:atpc-tx-power-min?                       int8
-     |  |     |  +--ro air-interface:auto-freq-select-is-on?                  boolean
-     |  |     |  +--ro air-interface:auto-freq-select-range?                  int8
-     |  |     |  +--ro air-interface:modulation-is-on?                        boolean
-     |  |     |  +--ro air-interface:encryption-is-on?                        boolean
-     |  |     |  +--ro air-interface:cryptographic-key?                       string
-     |  |     |  +--ro air-interface:loop-back-kind-on?                       loop-back-type
-     |  |     |  +--ro air-interface:maintenance-timer?                       int32
-     |  |     |  +--ro air-interface:problem-kind-severity-list* [problem-kind-name]
-     |  |     |  |  +--ro air-interface:problem-kind-name        string
-     |  |     |  |  +--ro air-interface:problem-kind-severity?   severity-type
-     |  |     |  +--ro air-interface:g-826-threshold-cross-alarm-list* [g-826-value-kind]
-     |  |     |  |  +--ro air-interface:g-826-value-kind            g-826-type
-     |  |     |  |  +--ro air-interface:alarm-raising-threshold?    int32
-     |  |     |  |  +--ro air-interface:alarm-clearing-threshold?   int32
-     |  |     |  |  +--ro air-interface:granularity-period?         granularity-period-type
-     |  |     |  +--ro air-interface:xlts-threshold-cross-alarm-list* [level-threshold-second-kind xlts-level]
-     |  |     |  |  +--ro air-interface:level-threshold-second-kind    xlevel-threshold-second-kind-type
-     |  |     |  |  +--ro air-interface:xlts-level                     int8
-     |  |     |  |  +--ro air-interface:amount-of-seconds?             int16
-     |  |     |  |  +--ro air-interface:granularity-period?            granularity-period-type
-     |  |     |  +--ro air-interface:acm-threshold-cross-alarm-list* [acm-threshold-cross-alarm-definition-number]
-     |  |     |  |  +--ro air-interface:acm-threshold-cross-alarm-definition-number    int8
-     |  |     |  |  +--ro air-interface:transmission-mode?                             -> /core-model:control-construct/logical-termination-point/layer-protocol/air-interface:air-interface-pac/air-interface-capability/transmission-mode-list/transmission-mode-name
-     |  |     |  |  +--ro air-interface:amount-of-seconds?                             int16
-     |  |     |  |  +--ro air-interface:granularity-period?                            granularity-period-type
-     |  |     |  +--ro air-interface:clearing-threshold-cross-alarms-is-on?   boolean
-     |  |     |  +--ro air-interface:performance-monitoring-is-on?            boolean
-     |  |     +--ro air-interface:air-interface-status
-     |  |     |  +--ro air-interface:interface-status?               interface-status-type
-     |  |     |  +--ro air-interface:tx-frequency-cur?               int32
-     |  |     |  +--ro air-interface:rx-frequency-cur?               int32
-     |  |     |  +--ro air-interface:transmission-mode-cur?          -> /core-model:control-construct/logical-termination-point/layer-protocol/air-interface:air-interface-pac/air-interface-capability/transmission-mode-list/transmission-mode-name
-     |  |     |  +--ro air-interface:received-radio-signal-id?       radio-signal-id-datatype-type
-     |  |     |  +--ro air-interface:radio-power-is-up?              boolean
-     |  |     |  +--ro air-interface:link-is-up?                     boolean
-     |  |     |  +--ro air-interface:xpic-is-up?                     boolean
-     |  |     |  +--ro air-interface:mimo-is-up?                     boolean
-     |  |     |  +--ro air-interface:alic-is-up?                     boolean
-     |  |     |  +--ro air-interface:atpc-is-up?                     boolean
-     |  |     |  +--ro air-interface:auto-freq-select-is-up?         boolean
-     |  |     |  +--ro air-interface:local-end-point-id?             string
-     |  |     |  +--ro air-interface:remote-end-point-id?            string
-     |  |     |  +--ro air-interface:loop-back-kind-up?              loop-back-type
-     |  |     |  +--ro air-interface:performance-monitoring-is-up?   boolean
-     |  |     |  +--ro air-interface:rx-level-cur?                   int8
-     |  |     |  +--ro air-interface:tx-level-cur?                   int8
-     |  |     |  +--ro air-interface:snir-cur?                       int8
-     |  |     |  +--ro air-interface:xpd-cur?                        int8
-     |  |     |  +--ro air-interface:rf-temp-cur?                    int8
-     |  |     +--ro air-interface:air-interface-current-problems
-     |  |     |  +--ro air-interface:current-problem-list* [sequence-number]
-     |  |     |     +--ro air-interface:problem-name?       string
-     |  |     |     +--ro air-interface:sequence-number     int16
-     |  |     |     +--ro air-interface:time-stamp?         string
-     |  |     |     +--ro air-interface:problem-severity?   severity-type
-     |  |     +--ro air-interface:air-interface-current-performance
-     |  |     |  +--ro air-interface:current-performance-data-list* [granularity-period]
-     |  |     |     +--ro air-interface:performance-data
-     |  |     |     |  +--ro air-interface:es?                  int32
-     |  |     |     |  +--ro air-interface:ses?                 int32
-     |  |     |     |  +--ro air-interface:cses?                int32
-     |  |     |     |  +--ro air-interface:unavailability?      int32
-     |  |     |     |  +--ro air-interface:tx-level-min?        int8
-     |  |     |     |  +--ro air-interface:tx-level-max?        int8
-     |  |     |     |  +--ro air-interface:tx-level-avg?        int8
-     |  |     |     |  +--ro air-interface:rx-level-min?        int8
-     |  |     |     |  +--ro air-interface:rx-level-max?        int8
-     |  |     |     |  +--ro air-interface:rx-level-avg?        int8
-     |  |     |     |  +--ro air-interface:time-xstates-list* [time-xstate-sequence-number]
-     |  |     |     |  |  +--ro air-interface:time-xstate-sequence-number    int8
-     |  |     |     |  |  +--ro air-interface:transmission-mode?             -> /core-model:control-construct/logical-termination-point/layer-protocol/air-interface:air-interface-pac/air-interface-capability/transmission-mode-list/transmission-mode-name
-     |  |     |     |  |  +--ro air-interface:time?                          int32
-     |  |     |     |  +--ro air-interface:snir-min?            int8
-     |  |     |     |  +--ro air-interface:snir-max?            int8
-     |  |     |     |  +--ro air-interface:snir-avg?            int8
-     |  |     |     |  +--ro air-interface:xpd-min?             int8
-     |  |     |     |  +--ro air-interface:xpd-max?             int8
-     |  |     |     |  +--ro air-interface:xpd-avg?             int8
-     |  |     |     |  +--ro air-interface:rf-temp-min?         int8
-     |  |     |     |  +--ro air-interface:rf-temp-max?         int8
-     |  |     |     |  +--ro air-interface:rf-temp-avg?         int8
-     |  |     |     |  +--ro air-interface:defect-blocks-sum?   int16
-     |  |     |     |  +--ro air-interface:time-period?         int32
-     |  |     |     +--ro air-interface:timestamp?               string
-     |  |     |     +--ro air-interface:suspect-interval-flag?   boolean
-     |  |     |     +--ro air-interface:elapsed-time?            int64
-     |  |     |     +--ro air-interface:scanner-id?              string
-     |  |     |     +--ro air-interface:operational-state?       operational-state
-     |  |     |     +--ro air-interface:granularity-period       granularity-period-type
-     |  |     |     +--ro air-interface:administrative-state?    administrative-state
-     |  |     |     +--ro air-interface:object-class?            string
-     |  |     |     +--ro air-interface:name-binding?            string
-     |  |     |     +--ro air-interface:packages?                string
-     |  |     |     +--ro air-interface:allomorphs?              string
-     |  |     +--ro air-interface:air-interface-historical-performances
-     |  |        +--ro air-interface:historical-performance-data-list* [period-end-time]
-     |  |           +--ro air-interface:performance-data
-     |  |           |  +--ro air-interface:es?                  int32
-     |  |           |  +--ro air-interface:ses?                 int32
-     |  |           |  +--ro air-interface:cses?                int32
-     |  |           |  +--ro air-interface:unavailability?      int32
-     |  |           |  +--ro air-interface:tx-level-min?        int8
-     |  |           |  +--ro air-interface:tx-level-max?        int8
-     |  |           |  +--ro air-interface:tx-level-avg?        int8
-     |  |           |  +--ro air-interface:rx-level-min?        int8
-     |  |           |  +--ro air-interface:rx-level-max?        int8
-     |  |           |  +--ro air-interface:rx-level-avg?        int8
-     |  |           |  +--ro air-interface:time-xstates-list* [time-xstate-sequence-number]
-     |  |           |  |  +--ro air-interface:time-xstate-sequence-number    int8
-     |  |           |  |  +--ro air-interface:transmission-mode?             -> /core-model:control-construct/logical-termination-point/layer-protocol/air-interface:air-interface-pac/air-interface-capability/transmission-mode-list/transmission-mode-name
-     |  |           |  |  +--ro air-interface:time?                          int32
-     |  |           |  +--ro air-interface:snir-min?            int8
-     |  |           |  +--ro air-interface:snir-max?            int8
-     |  |           |  +--ro air-interface:snir-avg?            int8
-     |  |           |  +--ro air-interface:xpd-min?             int8
-     |  |           |  +--ro air-interface:xpd-max?             int8
-     |  |           |  +--ro air-interface:xpd-avg?             int8
-     |  |           |  +--ro air-interface:rf-temp-min?         int8
-     |  |           |  +--ro air-interface:rf-temp-max?         int8
-     |  |           |  +--ro air-interface:rf-temp-avg?         int8
-     |  |           |  +--ro air-interface:defect-blocks-sum?   int16
-     |  |           |  +--ro air-interface:time-period?         int32
-     |  |           +--ro air-interface:suspect-interval-flag?   boolean
-     |  |           +--ro air-interface:history-data-id?         string
-     |  |           +--ro air-interface:period-end-time          string
-     |  |           +--ro air-interface:granularity-period?      granularity-period-type
-     |  |           +--ro air-interface:object-class?            string
-     |  |           +--ro air-interface:name-binding?            string
-     |  |           +--ro air-interface:packages?                string
-     |  |           +--ro air-interface:allomorphs?              string
      |  +--rw ltp-direction?             termination-direction
      |  +--rw physical-port-reference*   -> /control-construct/equipment/uuid
      |  +--rw server-ltp*                -> /control-construct/logical-termination-point/uuid
@@ -804,9 +614,9 @@ module: core-model
      |  +--rw address*                  dt-address
      +--rw profile-collection
      |  +--rw profile* [uuid]
-     |     +--rw profile-name?             profile-name-type
-     |     +--rw uuid                      universal-id
-     |     +--rw local-id*                 string
+     |     +--rw profile-name?                    profile-name-type
+     |     +--rw uuid                             universal-id
+     |     +--rw local-id*                        string
      |     +--rw external-managed-id
      |     |  +--rw manager-identifier?      string
      |     |  +--rw external-managed-uuid?   string
@@ -819,11 +629,28 @@ module: core-model
      |     +--rw extension* [value-name]
      |     |  +--rw value-name    string
      |     |  +--rw value?        string
-     |     +--ro operational-state?        operational-state
-     |     +--rw administrative-control?   administrative-control
-     |     +--ro administrative-state?     administrative-state
-     |     +--rw lifecycle-state?          lifecycle-state
-     |     +--rw address*                  dt-address
+     |     +--ro operational-state?               operational-state
+     |     +--rw administrative-control?          administrative-control
+     |     +--ro administrative-state?            administrative-state
+     |     +--rw lifecycle-state?                 lifecycle-state
+     |     +--rw address*                         dt-address
+     |     +--ro wred-profile:wred-profile-pac
+     |        +--ro wred-profile:wred-profile-capability
+     |        |  +--ro wred-profile:available-buffer-size?                        int32
+     |        |  +--ro wred-profile:drop-probability-at-threshold-low-is-avail?   boolean
+     |        |  +--ro wred-profile:gentle-wred-is-avail?                         boolean
+     |        |  +--ro wred-profile:sensitivity-setting-is-avail?                 boolean
+     |        |  +--ro wred-profile:coloring-is-avail?                            boolean
+     |        +--ro wred-profile:wred-profile-configuration
+     |           +--ro wred-profile:profile-name?                         string
+     |           +--ro wred-profile:threshold-low?                        int32
+     |           +--ro wred-profile:drop-probability-at-threshold-low?    int8
+     |           +--ro wred-profile:threshold-high?                       int32
+     |           +--ro wred-profile:drop-probability-at-threshold-high?   int8
+     |           +--ro wred-profile:gentle-wred-is-on?                    boolean
+     |           +--ro wred-profile:threshold-gentle?                     int32
+     |           +--ro wred-profile:sensitivity?                          int8
+     |           +--ro wred-profile:coloring-is-on?                       boolean
      +--rw uuid?                        universal-id
      +--rw local-id*                    string
      +--rw external-managed-id
@@ -855,7 +682,7 @@ module: core-model
        |  +---w input-constraint-structure?   string
        +--ro output
           +--ro output-constraint-structure?   string
-module: air-interface
+module: wred-profile
 
   notifications:
     +---n object-creation-notification
@@ -864,18 +691,6 @@ module: air-interface
     |  +--ro object-id-ref?   string
     |  +--ro object-type?     string
     +---n object-deletion-notification
-    |  +--ro counter?         int32
-    |  +--ro time-stamp?      string
-    |  +--ro object-id-ref?   string
-    +---n attribute-value-changed-notification
-    |  +--ro counter?          int32
-    |  +--ro time-stamp?       string
-    |  +--ro object-id-ref?    string
-    |  +--ro attribute-name?   string
-    |  +--ro new-value?        string
-    +---n problem-notification
        +--ro counter?         int32
        +--ro time-stamp?      string
        +--ro object-id-ref?   string
-       +--ro problem?         string
-       +--ro severity?        severity-type

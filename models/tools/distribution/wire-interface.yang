@@ -47,15 +47,11 @@ module wire-interface {
   }
 
   augment "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol" {
-    when 'derived-from-or-self(./core-model:layer-protocol-name, "wire-interface:LAYER_PROTOCOL_NAME_TYPE_WIRE_LAYER")';
+    when "derived-from-or-self(./core-model:layer-protocol-name, 'wire-interface:LAYER_PROTOCOL_NAME_TYPE_WIRE_LAYER')";
     uses wire-interface-lp-spec;
     description
       "none";
   }
-
-  /****************************************
-   * package notifications
-   **************************************/ 
 
   notification object-creation-notification {
     uses object-creation-notification;
@@ -214,13 +210,6 @@ module wire-interface {
     description
       "none";
   }
-
-  /****************************************
-   * grouping statements for object classes
-   **************************************/ 
-  /****************************************
-   * package super-classes
-   **************************************/ 
 
   grouping current-problem {
     leaf sequence-number {
@@ -889,10 +878,6 @@ module wire-interface {
       "none";
   }
 
-  /****************************************
-   * typedef statements
-   **************************************/ 
-
   typedef loop-back-type {
     type identityref {
       base LOOP_BACK_TYPE;
@@ -964,10 +949,6 @@ module wire-interface {
     description
       "none";
   }
-
-  /*********************************************
-   * grouping statements for complex data types
-   *******************************************/ 
 
   identity LOOP_BACK_TYPE {
     description
@@ -1670,10 +1651,6 @@ module wire-interface {
     description
       "none";
   }
-
-  /****************************************
-   * package super-types
-   **************************************/ 
 
   typedef granularity-period-type {
     type identityref {

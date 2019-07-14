@@ -49,10 +49,6 @@ module air-interface {
       "none";
   }
 
-  /****************************************
-   * package notifications
-   **************************************/ 
-
   notification object-creation-notification {
     uses object-creation-notification;
     description
@@ -210,13 +206,6 @@ module air-interface {
     description
       "To be sent when a problem occurs at a MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac.";
   }
-
-  /****************************************
-   * grouping statements for object classes
-   **************************************/ 
-  /****************************************
-   * package super-classes
-   **************************************/ 
 
   grouping current-problem {
     leaf sequence-number {
@@ -631,13 +620,17 @@ module air-interface {
       description
         "Center frequency of the receive channel.";
     }
-    container transmission-mode-min {
-      uses transmission-mode;
+    leaf transmission-mode-min {
+      type leafref {
+        path "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol/air-interface:air-interface-pac/air-interface:air-interface-capability/air-interface:transmission-mode-list/air-interface:transmission-mode-name";
+      }
       description
         "Minimum transmission mode to be configured (in case adaptive modulation is not used, this value represents also the fixed transmission mode).";
     }
-    container transmission-mode-max {
-      uses transmission-mode;
+    leaf transmission-mode-max {
+      type leafref {
+        path "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol/air-interface:air-interface-pac/air-interface:air-interface-capability/air-interface:transmission-mode-list/air-interface:transmission-mode-name";
+      }
       description
         "Maximum transmission mode to be configured.";
     }
@@ -822,9 +815,11 @@ module air-interface {
       description
         "Center frequency of the currently operated receive channel.";
     }
-    container transmission-mode-cur {
+    leaf transmission-mode-cur {
+      type leafref {
+        path "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol/air-interface:air-interface-pac/air-interface:air-interface-capability/air-interface:transmission-mode-list/air-interface:transmission-mode-name";
+      }
       config false;
-      uses transmission-mode;
       description
         "Currently operated transmission mode according to definitions in Capabilities.";
     }
@@ -1108,10 +1103,6 @@ module air-interface {
       "none";
   }
 
-  /****************************************
-   * typedef statements
-   **************************************/ 
-
   typedef radio-signal-id-datatype-type {
     type identityref {
       base RADIO_SIGNAL_ID_DATATYPE_TYPE;
@@ -1143,10 +1134,6 @@ module air-interface {
     description
       "According to ETSI EN 301 129 V1.1.2 (1999-05) chapter B.1.1";
   }
-
-  /*********************************************
-   * grouping statements for complex data types
-   *******************************************/ 
 
   identity RADIO_SIGNAL_ID_DATATYPE_TYPE {
     description
@@ -1445,10 +1432,6 @@ module air-interface {
       "none";
   }
 
-  /****************************************
-   * package super-types
-   **************************************/ 
-
   typedef granularity-period-type {
     type identityref {
       base GRANULARITY_PERIOD_TYPE;
@@ -1586,7 +1569,7 @@ module air-interface {
     }
     leaf transmission-mode {
       type leafref {
-        path "/air-interface:air-interface-lp-spec/air-interface:air-interface-pac/air-interface:air-interface-capability/air-interface:transmission-mode-list/air-interface:transmission-mode-name";
+        path "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol/air-interface:air-interface-pac/air-interface:air-interface-capability/air-interface:transmission-mode-list/air-interface:transmission-mode-name";
       }
       description
         "none";
@@ -1629,7 +1612,7 @@ module air-interface {
     }
     leaf transmission-mode {
       type leafref {
-        path "/air-interface:air-interface-lp-spec/air-interface:air-interface-pac/air-interface:air-interface-capability/air-interface:transmission-mode-list/air-interface:transmission-mode-name";
+        path "/core-model:control-construct/core-model:logical-termination-point/core-model:layer-protocol/air-interface:air-interface-pac/air-interface:air-interface-capability/air-interface:transmission-mode-list/air-interface:transmission-mode-name";
       }
       config false;
       description

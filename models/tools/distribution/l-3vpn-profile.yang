@@ -38,21 +38,18 @@ module l-3vpn-profile {
        https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
   }
 
-identity PROFILE_NAME_TYPE_L3VPN_PROFILE {
+  identity PROFILE_NAME_TYPE_L3VPN_PROFILE {
     base core-model:PROFILE_NAME_TYPE;
     description
       "none";
   }
+
   augment "/core-model:control-construct/core-model:profile-collection/core-model:profile" {
-    when "derived-from-or-self(./core-model:layer-protocol-name, 'l-3vpn-profile:PROFILE_NAME_TYPE_L3VPN_PROFILE')";
+    when "derived-from-or-self(./core-model:profile-name, 'l-3vpn-profile:PROFILE_NAME_TYPE_L3VPN_PROFILE')";
     uses l-3vpn-profile-spec;
     description
       "none";
   }
-
-  /****************************************
-   * package notifications
-   **************************************/ 
 
   notification object-creation-notification {
     uses object-creation-notification;
@@ -122,10 +119,6 @@ identity PROFILE_NAME_TYPE_L3VPN_PROFILE {
     description
       "none";
   }
-
-  /****************************************
-   * grouping statements for object classes
-   **************************************/ 
 
   grouping l-3vpn-profile-spec {
     container l-3vpn-pac {
@@ -197,10 +190,6 @@ identity PROFILE_NAME_TYPE_L3VPN_PROFILE {
       "none";
   }
 
-  /****************************************
-   * typedef statements
-   **************************************/ 
-
   typedef label-mode-type {
     type identityref {
       base LABEL_MODE_TYPE;
@@ -248,10 +237,6 @@ identity PROFILE_NAME_TYPE_L3VPN_PROFILE {
     description
       "Indicates the route flag, that is, Route Flags in the heading of the routing table displayed. It is a combination of one or more of the following flags: D and,R Meaning of each of the flag is availble under corresponding flag value.";
   }
-
-  /*********************************************
-   * grouping statements for complex data types
-   *******************************************/ 
 
   identity LABEL_MODE_TYPE {
     description

@@ -104,8 +104,8 @@ do
   sed -i -e "s/$find/$replace/g" $yang;
 
   ## profile name
-  find="augment \"\/core-model:control-construct\/core-model:profile-collection\/core-model:profile\" {";
-
+  find="augment \"\/core-model:control-construct\/core-model:profile-collection\/core-model:profile\"{";
+  
   identity="identity ${profile[$index]} {\n base core-model:PROFILE_NAME_TYPE; \n description \"none\"; \n}\n";
   when="when \"derived-from-or-self(.\/core-model:profile-name, '${namespace[$index]}:${profile[$index]}')\";"
   replace=" $identity \n $find \n $when";

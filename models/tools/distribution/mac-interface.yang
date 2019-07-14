@@ -38,7 +38,7 @@ module mac-interface {
        https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition";
   }
 
- identity LAYER_PROTOCOL_NAME_TYPE_MAC_LAYER {
+  identity LAYER_PROTOCOL_NAME_TYPE_MAC_LAYER {
     base core-model:LAYER_PROTOCOL_NAME_TYPE;
     description
       "none";
@@ -50,10 +50,6 @@ module mac-interface {
     description
       "none";
   }
-
-  /****************************************
-   * package notifications
-   **************************************/ 
 
   notification object-creation-notification {
     uses object-creation-notification;
@@ -212,13 +208,6 @@ module mac-interface {
     description
       "none";
   }
-
-  /****************************************
-   * grouping statements for object classes
-   **************************************/ 
-  /****************************************
-   * package super-classes
-   **************************************/ 
 
   grouping current-problem {
     leaf sequence-number {
@@ -904,10 +893,6 @@ module mac-interface {
       "none";
   }
 
-  /****************************************
-   * typedef statements
-   **************************************/ 
-
   typedef loop-back-type {
     type identityref {
       base LOOP_BACK_TYPE;
@@ -947,10 +932,6 @@ module mac-interface {
     description
       "none";
   }
-
-  /*********************************************
-   * grouping statements for complex data types
-   *******************************************/ 
 
   identity LOOP_BACK_TYPE {
     description
@@ -1301,10 +1282,6 @@ module mac-interface {
     description
       "none";
   }
-
-  /****************************************
-   * package super-types
-   **************************************/ 
 
   typedef granularity-period-type {
     type identityref {
