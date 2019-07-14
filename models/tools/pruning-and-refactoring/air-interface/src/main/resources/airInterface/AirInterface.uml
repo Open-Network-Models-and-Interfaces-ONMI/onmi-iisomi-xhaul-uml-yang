@@ -480,14 +480,14 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Gsv8gF9MEemkV8c3A5D8-A" value="1"/>
           <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_Gsv8gV9MEemkV8c3A5D8-A" value="-1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_ww5H8F9WEemkV8c3A5D8-A" name="_transmissionModeMin" type="_i1uKYF9SEemkV8c3A5D8-A" isUnique="false" association="_ww350F9WEemkV8c3A5D8-A">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_ww5H8F9WEemkV8c3A5D8-A" name="_transmissionModeMin" type="_i1uKYF9SEemkV8c3A5D8-A" isUnique="false" aggregation="shared" association="_ww350F9WEemkV8c3A5D8-A">
           <ownedComment xmi:type="uml:Comment" xmi:id="_-lA_IF9WEemkV8c3A5D8-A" annotatedElement="_ww5H8F9WEemkV8c3A5D8-A">
             <body>Minimum transmission mode to be configured (in case adaptive modulation is not used, this value represents also the fixed transmission mode).</body>
           </ownedComment>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Tlg2EF9aEemkV8c3A5D8-A" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TlxUwF9aEemkV8c3A5D8-A" value="1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_ugxfcV9WEemkV8c3A5D8-A" name="_transmissionModeMax" type="_i1uKYF9SEemkV8c3A5D8-A" isUnique="false" association="_ugwRUF9WEemkV8c3A5D8-A">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_ugxfcV9WEemkV8c3A5D8-A" name="_transmissionModeMax" type="_i1uKYF9SEemkV8c3A5D8-A" isUnique="false" aggregation="shared" association="_ugwRUF9WEemkV8c3A5D8-A">
           <ownedComment xmi:type="uml:Comment" xmi:id="_3GqXMF9WEemkV8c3A5D8-A" annotatedElement="_ugxfcV9WEemkV8c3A5D8-A">
             <body>Maximum transmission mode to be configured.</body>
           </ownedComment>
@@ -741,7 +741,7 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Gsv9D19MEemkV8c3A5D8-A" value="1"/>
           <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_Gsv9EF9MEemkV8c3A5D8-A" value="-1"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_JjQ_8l9YEemkV8c3A5D8-A" name="_transmissionModeCur" type="_i1uKYF9SEemkV8c3A5D8-A" isUnique="false" isReadOnly="true" association="_JjPKwF9YEemkV8c3A5D8-A">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_JjQ_8l9YEemkV8c3A5D8-A" name="_transmissionModeCur" type="_i1uKYF9SEemkV8c3A5D8-A" isUnique="false" isReadOnly="true" aggregation="shared" association="_JjPKwF9YEemkV8c3A5D8-A">
           <ownedComment xmi:type="uml:Comment" xmi:id="_SSVo4F9YEemkV8c3A5D8-A" annotatedElement="_JjQ_8l9YEemkV8c3A5D8-A">
             <body>Currently operated transmission mode according to definitions in Capabilities.</body>
           </ownedComment>
@@ -1298,7 +1298,7 @@
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:DataType" xmi:id="_-wHZoII5EemBzPOx3Tebww" name="AcmThresholdCrossAlarmType">
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_3C85EKP4EemKe7OQLCUMsw" name="AcmThresholdCrossAlarmDefinitionNumber">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_3C85EKP4EemKe7OQLCUMsw" name="acmThresholdCrossAlarmDefinitionNumber">
           <ownedComment xmi:type="uml:Comment" xmi:id="_3C85EaP4EemKe7OQLCUMsw" annotatedElement="_3C85EKP4EemKe7OQLCUMsw">
             <body>Sequence number of the definitions.</body>
           </ownedComment>
@@ -1329,7 +1329,7 @@
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:DataType" xmi:id="_GsvVsF9MEemkV8c3A5D8-A" name="TimeXStatesType">
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_NOcD0KP5EemKe7OQLCUMsw" name="TimeXStateSequenceNumber" isReadOnly="true">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_NOcD0KP5EemKe7OQLCUMsw" name="timeXStateSequenceNumber" isReadOnly="true">
           <ownedComment xmi:type="uml:Comment" xmi:id="_NOcD0aP5EemKe7OQLCUMsw" annotatedElement="_NOcD0KP5EemKe7OQLCUMsw">
             <body>Sequence number of the performance value.</body>
           </ownedComment>
