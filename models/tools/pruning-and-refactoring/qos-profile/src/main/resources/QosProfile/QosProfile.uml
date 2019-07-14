@@ -268,6 +268,9 @@
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:DataType" xmi:id="_acAQIDEgEemIT48r1znVbQ" name="EgressPerHopBehaviorToPriorityBitsMappingType">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_a-2uYKS3Eemnq5QPV4L5rg" name="mappingNumber" isUnique="false">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_2dzG8DEgEemIT48r1znVbQ" name="perHopBehavior" type="_ifVq4DEUEemIT48r1znVbQ" isUnique="false">
           <ownedComment xmi:type="uml:Comment" xmi:id="_bLG8YDEhEemIT48r1znVbQ" annotatedElement="_2dzG8DEgEemIT48r1znVbQ">
             <body>Per hop behavior, which is to be translated into a p-bit entry in the VLAN, MPLS or IP header.</body>
@@ -361,7 +364,7 @@
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_eQgcgDEgEemIT48r1znVbQ" base_Property="_eQf1cDEgEemIT48r1znVbQ" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO" bitLength="LENGTH_8_BIT"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_eQgcgTEgEemIT48r1znVbQ" base_StructuralFeature="_eQf1cDEgEemIT48r1znVbQ" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_2dzuADEgEemIT48r1znVbQ" base_Property="_2dzG8DEgEemIT48r1znVbQ" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_2d0VEDEgEemIT48r1znVbQ" base_StructuralFeature="_2dzG8DEgEemIT48r1znVbQ" partOfObjectKey="1" isInvariant="true"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_2d0VEDEgEemIT48r1znVbQ" base_StructuralFeature="_2dzG8DEgEemIT48r1znVbQ" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_N21YAzEjEemIT48r1znVbQ" base_Property="_N21YADEjEemIT48r1znVbQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_N21_EDEjEemIT48r1znVbQ" base_StructuralFeature="_N21YADEjEemIT48r1znVbQ" isInvariant="true"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_vu9zQDEnEemIT48r1znVbQ" base_Property="_vu9MMDEnEemIT48r1znVbQ" writeAllowed="WRITE_NOT_ALLOWED" attributeValueChangeNotification="NO"/>
@@ -420,4 +423,6 @@
   <OpenModel_Profile:Specify xmi:id="_uadHEKSZEemtmrBOHy9wtw" base_Abstraction="_s5lKMKSZEemtmrBOHy9wtw">
     <target>/CoreModel:ControlConstruct:ControlConstruct/CoreModel:ProfileCollection:ProfileCollection/CoreModel:ProfileCollection:Profile</target>
   </OpenModel_Profile:Specify>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_bCxlEKS3Eemnq5QPV4L5rg" base_Property="_a-2uYKS3Eemnq5QPV4L5rg" writeAllowed="CREATE_ONLY" attributeValueChangeNotification="NO" bitLength="LENGTH_16_BIT"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_bC3EoKS3Eemnq5QPV4L5rg" base_StructuralFeature="_a-2uYKS3Eemnq5QPV4L5rg" partOfObjectKey="1" isInvariant="true"/>
 </xmi:XMI>
