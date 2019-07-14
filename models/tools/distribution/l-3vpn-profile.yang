@@ -43,7 +43,7 @@ module l-3vpn-profile {
     description
       "none";
   }
-  
+
   augment "/core-model:control-construct/core-model:profile-collection/core-model:profile" {
     when "derived-from-or-self(./core-model:profile-name, 'l-3vpn-profile:PROFILE_NAME_TYPE_L3VPN_PROFILE')";
     uses l-3vpn-profile-spec;
