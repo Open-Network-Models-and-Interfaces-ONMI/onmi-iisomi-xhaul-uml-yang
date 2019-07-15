@@ -1,26 +1,40 @@
-UML to YANG Conversion
-Following steps describes how to convert a uml module to yang
+#pruning-and-refactoring
+this is the place where the configuration of different UML modules take place, so that these modules are converted into YANG files through the 
+  automated uml2yang converter.
 
-Example: HybridMwStructure.uml
-1) Check your current origin
-- login to git
-- git status
-- git pull origin experimental
-2) Add a new UML module in the pom file
-- go to  models/tools/pruning-and-refactoring/
-- edit pom.xml
-- Add a new uml module e.g. "hybrid-mw-structure"
-NOTE: in pox file, the module names should be small letter and separated by “-“ 
-3) Create a new Directory for the newly created uml module 
- - go to models/tools/pruning-and-refactoring/
-- mkdir "hybrid-mw-structure"
-- cd models/tools/pruning-and-refactoring/hybrid-mw-structure
-- mkdir –R src/main/resources
-4) Add UML file and the other resources to the resources directory
-- cd models/tools/pruning-and-refactoring/hybrid-mw-structure/src/main/resources
-- mkdir “HybridMwStructure” 
-NOTE: the name of the UML file.
-- unzip the file HybridMwStructure_2.0.0-tsp.190613.1830.zip under “/hybrid-mw-structure/src/main/resources”
+##Create a new Module
+pull the latest version from github (experimental) if avaialble
+   git status
+   git pull origin experimental
+##create a new directory
+  $ cd models/tolls/pruning-and-refactoring
+  $ mkdir module-name
+    Note: Remember that the naming convenstion is important. e.g. IpInterface => ip-interface
+  $ cd <module-name>
+  $ mkdir –R src/main/resources
+  
+##add the newly created directory in pom.xml
+   <modules>
+     <module> module-name</module>
+   </modules>
+
+##Add UML file and the related resources
+  $ cd models/tools/pruning-and-refactoring/hybrid-mw-structure/src/main/resources
+  $ mkdir <UMLFileName> e.g. “HybridMwStructure” 
+  $ cd models/tools/pruning-and-refactoring/hybrid-mw-structure/src/main/resources/<UMLFileName>
+  past the following files and directories here. 
+   - CommonDataTyes
+   - Gendoc
+   - UmlProfiles
+   - <UMLFileName>.di 
+   - <UMLFileName>-notation
+   - <UMLFileName>.uml
+  ##Add a local pom.xml file
+  $ cd models/tools/pruning-and-refactoring/<uml-module>/src/main/resources
+  create a pom.xml file  (an existing local pom file from another module can be copied and edited)
+  
+  
+  - unzip the file HybridMwStructure_2.0.0-tsp.190613.1830.zip under “/hybrid-mw-structure/src/main/resources”
 - Add resource path and the xslt in the pom file 
 - go to module directory
  cd  /5G-xHaul/models/tools/pruning-and-refactoring/hybrid-mw-structure
