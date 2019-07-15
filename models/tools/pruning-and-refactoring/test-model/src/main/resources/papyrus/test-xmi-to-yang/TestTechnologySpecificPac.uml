@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9 ../OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29 ../OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:OpenInterfaceModel_Profile="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9" xmlns:OpenModel_Profile="http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http:///schemas/OpenInterfaceModel_Profile/_YFPa8LptEeiytveF7IdLXg/9 ../WireInterface_2.0.0-tsp.d.t/UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg http:///schemas/OpenModel_Profile/_FV6mYP4LEeiJYfiYi3RAYQ/29 ../WireInterface_2.0.0-tsp.d.t/UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ">
   <uml:Model xmi:id="1B_17MG9FEembcsaJa33rBA" name="TestTechnologySpecificPac">
     <ownedComment xmi:type="uml:Comment" xmi:id="_vx52UH72Eemg07MSqaqjCw">
       <body>This is a test Papyrus UML project to check the beauty of the EagelUmlYang tool.</body>
@@ -119,6 +119,9 @@
       <ownedComment xmi:type="uml:Comment" xmi:id="_ptfmEG9OEemHoZj0yu-6dg">
         <body>Reference to spcified PAC should be added by &quot;pruning and refactoring&quot;</body>
       </ownedComment>
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="_0norAKF4Eem1L6jqz3rbgg" name="LayerProtocolName">
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_24sHoKF4Eem1L6jqz3rbgg" name="TestLayer"/>
+      </packagedElement>
     </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_ZK4-IG9IEemHoZj0yu-6dg">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ZLCIEG9IEemHoZj0yu-6dg" source="PapyrusVersion">
@@ -159,11 +162,23 @@
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="../ProfileLifecycleProfile/ProfileLifecycle_Profile.profile.uml#_CBpGoEdZEearpawF38eisA"/>
     </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_q6rdgKF4Eem1L6jqz3rbgg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_q6wWAKF4Eem1L6jqz3rbgg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../WireInterface_2.0.0-tsp.d.t/UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_FV_e4P4LEeiJYfiYi3RAYQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../WireInterface_2.0.0-tsp.d.t/UmlProfiles/OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_tgykIKF4Eem1L6jqz3rbgg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_tgzLMKF4Eem1L6jqz3rbgg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../WireInterface_2.0.0-tsp.d.t/UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_YFTFULptEeiytveF7IdLXg"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="../WireInterface_2.0.0-tsp.d.t/UmlProfiles/OpenInterfaceModelProfile/OpenInterfaceModel_Profile.profile.uml#_UbM6ILbyEeaufdfMFhfy_A"/>
+    </profileApplication>
   </uml:Model>
   <OpenModel_Profile:OpenModelStatement xmi:id="_ZLVqEG9IEemHoZj0yu-6dg" base_Model="1B_17MG9FEembcsaJa33rBA" namespace="urn:onf:yang:test-technology-specific-pac" organization="Open Networking Foundation (ONF)" description="This model defines a technology agnostic core data model for network functions." copyright="Copyright 2019 Open Networking Foundation (ONF). All rights reserved." license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xA;you may not use this file except in compliance with the License.&#xA;You may obtain a copy of the License at&#xA;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xA;&#xA;Unless required by applicable law or agreed to in writing, software&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xA;See the License for the specific language governing permissions and&#xA;limitations under the License.">
-    <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_5f2I0H7WEemg07MSqaqjCw" projectWeb="https://wiki.opennetworking.org/pages/viewpage.action?pageId=262963204" projectEmail="&lt;mailto:information-modeling@opennetworking.org>" editorName="Martin Skorupski" editorEmail="&lt;mailto:martin.skorupski@highstreet-technologies.com>"/>
-    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_20s9wH7BEemg07MSqaqjCw" date="2019-05-25" version="v0.9" description="Test project to check UML-to-YANG tool." changeLog="https://github.com/OpenNetworkingFoundation/5G-xHaul/tree/experimental/models/tools" additionalChanges="Additional manual changes" reference="ONF-TR-512, RFC 6020 and RFC 6087"/>
-    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_D368cH7CEemg07MSqaqjCw" date="2019-05-05" version="v0.0" description="Initial version" changeLog="https://github.com/OpenNetworkingFoundation/5G-xHaul/tree/experimental/models/tools" additionalChanges="Iniitial version" reference="ONF-TR-512, RFC 6020 and RFC 6087"/>
+    <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_q6geYaF4Eem1L6jqz3rbgg" projectWeb="https://wiki.opennetworking.org/pages/viewpage.action?pageId=262963204" projectEmail="&lt;mailto:information-modeling@opennetworking.org>" editorName="Martin Skorupski" editorEmail="&lt;mailto:martin.skorupski@highstreet-technologies.com>"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_q6geYqF4Eem1L6jqz3rbgg" date="2019-05-25" version="v0.9" description="Test project to check UML-to-YANG tool." changeLog="https://github.com/OpenNetworkingFoundation/5G-xHaul/tree/experimental/models/tools" additionalChanges="Additional manual changes" reference="ONF-TR-512, RFC 6020 and RFC 6087"/>
+    <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_q6geY6F4Eem1L6jqz3rbgg" date="2019-05-05" version="v0.0" description="Initial version" changeLog="https://github.com/OpenNetworkingFoundation/5G-xHaul/tree/experimental/models/tools" additionalChanges="Iniitial version" reference="ONF-TR-512, RFC 6020 and RFC 6087"/>
   </OpenModel_Profile:OpenModelStatement>
   <OpenModel_Profile:OpenModelClass xmi:id="_eZbfkW9IEemHoZj0yu-6dg" base_Class="1eZbfkG9IEemHoZj0yu-6dg"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelClass xmi:id="_eZcGoG9IEemHoZj0yu-6dg" base_Class="1eZbfkG9IEemHoZj0yu-6dg"/>
@@ -216,4 +231,5 @@
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_G0IK0X1BEemg07MSqaqjCw" base_Property="_G0HjwH1BEemg07MSqaqjCw" writeAllowed="CREATE_ONLY" bitLength="LENGTH_64_BIT"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_5Pp5IILmEemHhKupNRpLhQ" base_StructuralFeature="_5PpSEILmEemHhKupNRpLhQ"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_5PrHQILmEemHhKupNRpLhQ" base_Property="_5PpSEILmEemHhKupNRpLhQ"/>
+  <OpenModel_Profile:Reference xmi:id="_IeaBIKF5Eem1L6jqz3rbgg" base_Element="_0norAKF4Eem1L6jqz3rbgg" reference="/ControlConstruct/LogicalTerminationPoint/LayerProtoclNameENUM"/>
 </xmi:XMI>
