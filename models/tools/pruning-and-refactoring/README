@@ -1,51 +1,68 @@
-#pruning-and-refactoring
-this is the place where the configuration of different UML modules take place, so that these modules are converted into YANG files through the 
-  automated uml2yang converter.
+#  pruning-and-refactoring
+this is the place where the configuration of different UML modules take place, so that these modules are converted into YANG files through the automated uml2yang converter.
 
-##Create a new Module
+# Step to follow
+
+## Rre-Requisits
+make your that xmi-converter is installed as mentioned in the README under the following link
+https://github.com/OpenNetworkingFoundation/5G-xHaul/tree/experimental/models/tools
+
+
+##  Create a new Module
 pull the latest version from github (experimental) if avaialble
-   git status
-   git pull origin experimental
-##create a new directory
-  $ cd models/tolls/pruning-and-refactoring
-  $ mkdir module-name
+  $ git status
+  $ git pull origin experimental
+  $ cd models/tools/pruning-and-refactoring
+  $ mkdir <module-name> e.g ip-interface
     Note: Remember that the naming convenstion is important. e.g. IpInterface => ip-interface
   $ cd <module-name>
   $ mkdir –R src/main/resources
+  $ mkdir <UMLFileName> e.g. "IpInterface"
+  $ mkdir "xslt"
+  - copy the existing xslts from another module under the "xslt" directory 
+  "global-functions.xslt" & prune-and-refactor-<module-name>.xsl
+  -  rename the existing module to "prune-and-refactor-<module-name>.xslt> to the given module name
+  e.g. prune-and-refactor-air-interface.xslt
   
-##add the newly created directory in pom.xml
+##  Enter details of the currently created module under the pom.xml 
+  $ cd models/tools/pruning-and-refactoring
+   edit the pom file
    <modules>
-     <module> module-name</module>
+     <module> <module-name></module>
+     e.g. <module> air-interface </module>
    </modules>
-
-##Add UML file and the related resources
+   <transformationSet>
+              <dir>${basedir}/src/main/resources/<UMLFileName></dir>
+              e.g. 
+              <dir>${basedir}/src/main/resources/HybridMwStructure</dir>
+    ....
+    </transformationSet>       
+    
+   add path of the xslt file  
+   <stylesheet>${basedir}/src/main/resources/xslt/prune-and-refactor-<module-name>.xslt</stylesheet>
+    e.g.
+       <stylesheet>${basedir}/src/main/resources/xslt/prune-and-refactor-air-interface.xslt</stylesheet>
+    
+## copy UML file and the related resources for the given module
   $ cd models/tools/pruning-and-refactoring/hybrid-mw-structure/src/main/resources
   $ mkdir <UMLFileName> e.g. “HybridMwStructure” 
   $ cd models/tools/pruning-and-refactoring/hybrid-mw-structure/src/main/resources/<UMLFileName>
-  past the following files and directories here. 
+  paste the following files and directories here. 
    - CommonDataTyes
    - Gendoc
    - UmlProfiles
    - <UMLFileName>.di 
    - <UMLFileName>-notation
    - <UMLFileName>.uml
-  ##Add a local pom.xml file
-  $ cd models/tools/pruning-and-refactoring/<uml-module>/src/main/resources
+  create a pom.xml file under the newly created module
+  $ cd models/tools/pruning-and-refactoring/<module-name>/src/main/resources
   create a pom.xml file  (an existing local pom file from another module can be copied and edited)
-  
-  
-  - unzip the file HybridMwStructure_2.0.0-tsp.190613.1830.zip under “/hybrid-mw-structure/src/main/resources”
-- Add resource path and the xslt in the pom file 
-- go to module directory
- cd  /5G-xHaul/models/tools/pruning-and-refactoring/hybrid-mw-structure
-- edit the pom.xml file
-- under <transformationSet> add the path of 
-     -> resource directory
-     -> xslt directory
-    e.g. 
-   <dir>${basedir}/src/main/resources/HybridMwStructure</dir>
-   <stylesheet>${basedir}/src/main/resources/xslt/prune-and-refactor-hybrid-mw-structure.xslt</stylesheet>
- 5) convert UML to YANG 
-- go to the tools directory "/5G-xHaul/models/tools"
- - execute "mvn clean install"
- if the complilation is successfull, find the the output under /5G-xHaul/models/tools/xmi-to-yang/target/yang
+  - add the <uml-module> as an artifact
+     <artifactId><module-name></artifactId>
+     e.g. <artifactId>air-interface</artifactId>
+
+## convert UML to YANG 
+  $ cd "/5G-xHaul/models/tools"
+  $ mvn clean install
+  In case of successful execution, go the to following directory to find the generated yang files and the yang trees.
+  $ cd /5G-xHaul/models/tools/distribution
