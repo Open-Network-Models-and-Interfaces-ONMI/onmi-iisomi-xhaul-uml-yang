@@ -10,59 +10,68 @@ https://github.com/OpenNetworkingFoundation/5G-xHaul/tree/experimental/models/to
 
 ##  Create a new Module
 pull the latest version from github (experimental) if avaialble
-  $ git status
-  $ git pull origin experimental
-  $ cd models/tools/pruning-and-refactoring
-  $ mkdir <module-name> e.g ip-interface
-    Note: Remember that the naming convenstion is important. e.g. IpInterface => ip-interface
-  $ cd <module-name>
-  $ mkdir –R src/main/resources
-  $ mkdir <UMLFileName> e.g. "IpInterface"
-  $ mkdir "xslt"
-  - copy the existing xslts from another module under the "xslt" directory 
-  "global-functions.xslt" & prune-and-refactor-<module-name>.xsl
-  -  rename the existing module to "prune-and-refactor-<module-name>.xslt> to the given module name
-  e.g. prune-and-refactor-air-interface.xslt
   
-##  Enter details of the currently created module under the pom.xml 
-  $ cd models/tools/pruning-and-refactoring
-   edit the pom file
+  1) $ git status
+  2) $ git pull origin experimental
+  3) $ cd models/tools/pruning-and-refactoring
+  4) $ mkdir <module-name> e.g ip-interface
+  5) $ cd <module-name>
+  6) $ mkdir –R src/main/resources
+  7) $ cd src/main/resources
+  8) $ mkdir <UMLFileName> e.g. "IpInterface"
+  9) $ mkdir "xslt"
+  10) copy the existing xslts from another module under the "xslt" directory 
+      "global-functions.xslt" & prune-and-refactor-<module-name>.xslt
+  11) rename the existing file name to "prune-and-refactor-<module-name>.xslt 
+      e.g. prune-and-refactor-ip-interface.xslt
+  
+##  Add a new module into the pom.xml file 
+  1) $ cd models/tools/pruning-and-refactoring
+  2) edit pom.xml and add the new module name
    <modules>
-     <module> <module-name></module>
-     e.g. <module> air-interface </module>
+     <module> <module-name> </module>
+     e.g. <module> ip-interface </module>
    </modules>
-   <transformationSet>
-              <dir>${basedir}/src/main/resources/<UMLFileName></dir>
-              e.g. 
-              <dir>${basedir}/src/main/resources/HybridMwStructure</dir>
-    ....
-    </transformationSet>       
-    
-   add path of the xslt file  
-   <stylesheet>${basedir}/src/main/resources/xslt/prune-and-refactor-<module-name>.xslt</stylesheet>
-    e.g.
-       <stylesheet>${basedir}/src/main/resources/xslt/prune-and-refactor-air-interface.xslt</stylesheet>
-    
+   
 ## copy UML file and the related resources for the given module
-  $ cd models/tools/pruning-and-refactoring/hybrid-mw-structure/src/main/resources
-  $ mkdir <UMLFileName> e.g. “HybridMwStructure” 
-  $ cd models/tools/pruning-and-refactoring/hybrid-mw-structure/src/main/resources/<UMLFileName>
-  paste the following files and directories here. 
+ 1) $ cd models/tools/pruning-and-refactoring/<module-name>/src/main/resources
+     e.g. <module-name --> ip-interface
+ 2) $ mkdir <UMLFileName> e.g. “IpInterface” 
+ 3) $ cd models/tools/pruning-and-refactoring/ip-interface/src/main/resources/<UMLFileName>
+ 4) paste the following files and directories downloaded from the openbackhaul github.
    - CommonDataTyes
    - Gendoc
    - UmlProfiles
    - <UMLFileName>.di 
-   - <UMLFileName>-notation
+   - <UMLFileName>.notation
    - <UMLFileName>.uml
-  create a pom.xml file under the newly created module
-  $ cd models/tools/pruning-and-refactoring/<module-name>/src/main/resources
-  create a pom.xml file  (an existing local pom file from another module can be copied and edited)
-  - add the <uml-module> as an artifact
+   e.g. IpInterface.di, IpInterface.notation, IpInterface.uml
+ 
+ ## edit the local pom.xml file
+ each module contains its local pom.xml file which contains the information about the resource path and the xslt file.
+  
+  1) $ cd models/tools/pruning-and-refactoring/<module-name>
+  2) copy an existing pom.xml from an existing module
+  3) edit the <module-name> as an artifact
      <artifactId><module-name></artifactId>
-     e.g. <artifactId>air-interface</artifactId>
+     e.g. <artifactId>ip-interface</artifactId>
+	
+	<artifactId><module-name></artifactId>
+	 e.g. ip-interface
+	<transformationSet>
+        <dir>${basedir}/src/main/resources/<UMLFileName></dir>
+        ....
+	</transformationSet>       
+	e.g. UMLFileName --> IpInterface
+    
+   4) add path of the xslt file  
+       <stylesheet>${basedir}/src/main/resources/xslt/prune-and-refactor-<module-name>.xslt</stylesheet>
+       e.g.
+      <stylesheet>${basedir}/src/main/resources/xslt/prune-and-refactor-ip-interface.xslt</stylesheet>
+  
 
 ## convert UML to YANG 
-  $ cd "/5G-xHaul/models/tools"
-  $ mvn clean install
-  In case of successful execution, go the to following directory to find the generated yang files and the yang trees.
+  1) $ cd "/5G-xHaul/models/tools"
+  2) $ mvn clean install
+  3) In case of successful execution, go the to following directory to find the generated yang files and the yang trees.
   $ cd /5G-xHaul/models/tools/distribution
