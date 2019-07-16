@@ -42,10 +42,10 @@ pull the latest version from github (experimental) if avaialble
    - CommonDataTyes
    - Gendoc
    - UmlProfiles
-   - <UMLFileName>.di 
+   - <UMLFileName>.di
    - <UMLFileName>.notation
    - <UMLFileName>.uml
-   e.g. IpInterface.di, IpInterface.notation, IpInterface.uml
+  e.g. IpInterface.di, IpInterface.notation, IpInterface.uml
  
  ## Edit the local pom.xml file
  each module contains its local pom.xml file which contains the information about the resource path and the xslt file.
