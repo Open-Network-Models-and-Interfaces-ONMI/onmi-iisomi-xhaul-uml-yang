@@ -51,6 +51,10 @@ module l-3vpn-profile {
       "none";
   }
 
+  /****************************************
+   * package notifications
+   **************************************/ 
+
   notification object-creation-notification {
     uses object-creation-notification;
     description
@@ -119,6 +123,10 @@ module l-3vpn-profile {
     description
       "none";
   }
+
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
 
   grouping l-3vpn-profile-spec {
     container l-3vpn-pac {
@@ -190,6 +198,10 @@ module l-3vpn-profile {
       "none";
   }
 
+  /****************************************
+   * typedef statements
+   **************************************/ 
+
   typedef label-mode-type {
     type identityref {
       base LABEL_MODE_TYPE;
@@ -237,6 +249,10 @@ module l-3vpn-profile {
     description
       "Indicates the route flag, that is, Route Flags in the heading of the routing table displayed. It is a combination of one or more of the following flags: D and,R Meaning of each of the flag is availble under corresponding flag value.";
   }
+
+  /*********************************************
+   * grouping statements for complex data types
+   *******************************************/ 
 
   identity LABEL_MODE_TYPE {
     description

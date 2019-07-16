@@ -51,6 +51,10 @@ module wred-profile {
       "none";
   }
 
+  /****************************************
+   * package notifications
+   **************************************/ 
+
   notification object-creation-notification {
     uses object-creation-notification;
     description
@@ -119,6 +123,10 @@ module wred-profile {
     description
       "To be sent when a new MW_AirInterface_Pac, MW_AirInterfaceDiversity_Pac, MW_Structure_Pac, MW_PureEthernetStructure_Pac, MW_HybridMwStructure_Pac, MW_Container_Pac, MW_EthernetContainer_Pac or MW_TdmContainer_Pac instance has to be deleted in the controller.";
   }
+
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
 
   grouping wred-profile-spec {
     container wred-profile-pac {
