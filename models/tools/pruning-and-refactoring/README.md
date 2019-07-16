@@ -4,9 +4,9 @@ this is the place where the configuration of different UML modules take place, s
 # Step to follow
 
 ## Rre-Requisits
-make your that xmi-converter is installed as mentioned in the README under the following link
+1) make your that xmi-converter is installed as mentioned in the README under the following link
 https://github.com/OpenNetworkingFoundation/5G-xHaul/tree/experimental/models/tools
-
+2) make sure that dos2unix is installed at your Linux/Unix environment
 
 ##  Create a new Module
 pull the latest version from github (experimental) if avaialble
