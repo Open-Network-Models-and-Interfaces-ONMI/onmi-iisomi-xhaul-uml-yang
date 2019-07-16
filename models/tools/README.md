@@ -92,6 +92,7 @@ Please note: in later releases the copy process fo the UML files will be replace
 A potential post-processing of the generated yang modules should be avoided. 
 
 ```bash
+cd: models/tools
 mvn clean install
 ```
 
