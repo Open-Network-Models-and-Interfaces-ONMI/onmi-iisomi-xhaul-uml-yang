@@ -33,7 +33,7 @@ pull the latest version from github (experimental) if avaialble
      e.g. <module> ip-interface </module>
    </modules>
    
-## copy UML file and the related resources for the given module
+## Copy UML file and the related resources for the given module
  1) $ cd models/tools/pruning-and-refactoring/<module-name>/src/main/resources
      e.g. <module-name --> ip-interface
  2) $ mkdir <UMLFileName> e.g. “IpInterface” 
@@ -47,7 +47,7 @@ pull the latest version from github (experimental) if avaialble
    - <UMLFileName>.uml
    e.g. IpInterface.di, IpInterface.notation, IpInterface.uml
  
- ## edit the local pom.xml file
+ ## Edit the local pom.xml file
  each module contains its local pom.xml file which contains the information about the resource path and the xslt file.
   
   1) $ cd models/tools/pruning-and-refactoring/<module-name>
@@ -70,7 +70,7 @@ pull the latest version from github (experimental) if avaialble
       <stylesheet>${basedir}/src/main/resources/xslt/prune-and-refactor-ip-interface.xslt</stylesheet>
   
 
-## convert UML to YANG 
+## Convert UML to YANG 
   1) $ cd "/5G-xHaul/models/tools"
   2) $ mvn clean install
   3) In case of successful execution, go the to following directory to find the generated yang files and the yang trees.
