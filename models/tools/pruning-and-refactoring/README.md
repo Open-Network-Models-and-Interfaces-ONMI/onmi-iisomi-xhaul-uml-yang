@@ -42,9 +42,9 @@ pull the latest version from github (experimental) if avaialble
    - CommonDataTyes
    - Gendoc
    - UmlProfiles
-   - <UMLFileName>.di
-   - <UMLFileName>.notation
-   - <UMLFileName>.uml
+   - "<UMLFileName>.di"
+   - "<UMLFileName>.notation"
+   - "<UMLFileName>.uml"
   e.g. IpInterface.di, IpInterface.notation, IpInterface.uml
  
  ## Edit the local pom.xml file
