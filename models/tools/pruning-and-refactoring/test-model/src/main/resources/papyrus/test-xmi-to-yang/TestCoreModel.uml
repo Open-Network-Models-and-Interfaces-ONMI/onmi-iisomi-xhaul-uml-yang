@@ -98,6 +98,10 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ZCfBAZyjEemVGaFq9YMDhg"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ZCfBApyjEemVGaFq9YMDhg" value="*"/>
         </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_jLgJoMc7EemUDOhmvQpsMw" name="neighbor" type="_qj1zIHFaEemHoZj0yu-6dg" aggregation="shared" association="_jLbRIMc7EemUDOhmvQpsMw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jLkbEMc7EemUDOhmvQpsMw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jLqhsMc7EemUDOhmvQpsMw" value="1"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_eNLowG9HEem24uNCwfOIBg" name="TestLayerProtocol">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_qKPRQHFjEemHoZj0yu-6dg" name="localId">
@@ -176,6 +180,12 @@ Type definitionas are not subject of this example.</body>
           <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_MbyDkZzBEemVGaFq9YMDhg" key="nature" value="UML_Nature"/>
         </eAnnotations>
         <ownedEnd xmi:type="uml:Property" xmi:id="_MbyqopzBEemVGaFq9YMDhg" name="testHolder" type="_IHOTkJzAEemVGaFq9YMDhg" association="_MbxcgJzBEemVGaFq9YMDhg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_jLbRIMc7EemUDOhmvQpsMw" name="hasNeighbor" memberEnd="_jLgJoMc7EemUDOhmvQpsMw _jLwBQMc7EemUDOhmvQpsMw">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_jLe7gMc7EemUDOhmvQpsMw" source="org.eclipse.papyrus">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_jLe7gcc7EemUDOhmvQpsMw" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:type="uml:Property" xmi:id="_jLwBQMc7EemUDOhmvQpsMw" name="_testLogicalterminationPoint" type="_qj1zIHFaEemHoZj0yu-6dg" association="_jLbRIMc7EemUDOhmvQpsMw"/>
       </packagedElement>
     </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_CyBh4McwEemD9ah8YIkhYw">
@@ -299,4 +309,8 @@ Type definitionas are not subject of this example.</body>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CyXgIccwEemD9ah8YIkhYw" base_StructuralFeature="_X95RUZzAEemVGaFq9YMDhg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CyXgIscwEemD9ah8YIkhYw" base_StructuralFeature="_MbyqopzBEemVGaFq9YMDhg"/>
   <OpenInterfaceModel_Profile:RootElement xmi:id="_qjsxIMc5EemUDOhmvQpsMw" base_Class="_GbQ-UHMOEemHoZj0yu-6dg"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_jLgJocc7EemUDOhmvQpsMw" base_Property="_jLgJoMc7EemUDOhmvQpsMw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_jLgwsMc7EemUDOhmvQpsMw" base_StructuralFeature="_jLgJoMc7EemUDOhmvQpsMw"/>
+  <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_jLwBQcc7EemUDOhmvQpsMw" base_Property="_jLwBQMc7EemUDOhmvQpsMw"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_jLwBQsc7EemUDOhmvQpsMw" base_StructuralFeature="_jLwBQMc7EemUDOhmvQpsMw"/>
 </xmi:XMI>
