@@ -238,9 +238,11 @@ function parseModule(file){
                             }
                             break;
                         case "OpenModelStatement":
-                            // merge model header information from config.json and 
-                            // OpenModelStatement.
-                            parsers.parseOpenModelStatement(xmi[key], config, store);
+                            if (!xmi[key].array) {
+                              parsers.parseOpenModelStatement(xmi[key], config, store);
+                            } else {
+                                console.error("Invalid UML! Only one OpenModelStatement is allowed.");
+                            }
                             break;
                         case undefined:
                         case "undefined":
