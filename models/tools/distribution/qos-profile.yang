@@ -49,6 +49,10 @@ module qos-profile {
       "none";
   }
 
+  /****************************************
+   * package notifications
+   **************************************/ 
+
   notification object-creation-notification {
     uses object-creation-notification;
     description
@@ -117,6 +121,10 @@ module qos-profile {
     description
       "none";
   }
+
+  /****************************************
+   * grouping statements for object classes
+   **************************************/ 
 
   grouping qos-profile-spec {
     container qos-profile-pac {
@@ -265,6 +273,10 @@ module qos-profile {
       "Defines the profile that will be used for mapping between header information and queues (next hop behavior).";
   }
 
+  /****************************************
+   * typedef statements
+   **************************************/ 
+
   typedef severity-type {
     type identityref {
       base SEVERITY_TYPE;
@@ -296,6 +308,10 @@ module qos-profile {
     description
       "none";
   }
+
+  /*********************************************
+   * grouping statements for complex data types
+   *******************************************/ 
 
   identity SEVERITY_TYPE {
     description
