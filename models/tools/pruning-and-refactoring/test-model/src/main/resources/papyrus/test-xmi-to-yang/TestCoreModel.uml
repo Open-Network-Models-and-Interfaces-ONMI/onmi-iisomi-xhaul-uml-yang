@@ -105,6 +105,28 @@
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_x7xoQJzDEemVGaFq9YMDhg" name="layerProtocolName" type="_UdrHIJylEemVGaFq9YMDhg"/>
       </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_-GnxUJy_EemVGaFq9YMDhg" name="TestEquipment">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_KMcToJzAEemVGaFq9YMDhg" name="uuid">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_KMc6sJzAEemVGaFq9YMDhg" name="externalManagedUuids" type="_tOkKsJyhEemVGaFq9YMDhg">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_KMc6sZzAEemVGaFq9YMDhg"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_KMc6spzAEemVGaFq9YMDhg" value="*"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_X94qQpzAEemVGaFq9YMDhg" name="_testHolder" type="_IHOTkJzAEemVGaFq9YMDhg" aggregation="composite" association="_X94DMJzAEemVGaFq9YMDhg">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_X94qQ5zAEemVGaFq9YMDhg"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_X95RUJzAEemVGaFq9YMDhg" value="*"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_IHOTkJzAEemVGaFq9YMDhg" name="TestHolder">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_MJ9JMJzAEemVGaFq9YMDhg" name="localId">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_MbyDkpzBEemVGaFq9YMDhg" name="_testEquipment" type="_-GnxUJy_EemVGaFq9YMDhg" aggregation="shared" association="_MbxcgJzBEemVGaFq9YMDhg">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MbyqoJzBEemVGaFq9YMDhg"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MbyqoZzBEemVGaFq9YMDhg" value="1"/>
+        </ownedAttribute>
+      </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_kmamQG9IEemHoZj0yu-6dg" name="Associations">
       <packagedElement xmi:type="uml:Association" xmi:id="_1kA8AHFaEemHoZj0yu-6dg" name="LtpHasLps" memberEnd="_1kCKIHFaEemHoZj0yu-6dg _1kO-cHFaEemHoZj0yu-6dg">
@@ -137,28 +159,6 @@
         <body>Please ignore the types := &quot;String&quot;.
 Type definitionas are not subject of this example.</body>
       </ownedComment>
-      <packagedElement xmi:type="uml:Class" xmi:id="_-GnxUJy_EemVGaFq9YMDhg" name="TestEquipment">
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_KMcToJzAEemVGaFq9YMDhg" name="uuid">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_KMc6sJzAEemVGaFq9YMDhg" name="externalManagedUuids" type="_tOkKsJyhEemVGaFq9YMDhg">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_KMc6sZzAEemVGaFq9YMDhg"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_KMc6spzAEemVGaFq9YMDhg" value="*"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_X94qQpzAEemVGaFq9YMDhg" name="_testHolder" type="_IHOTkJzAEemVGaFq9YMDhg" aggregation="composite" association="_X94DMJzAEemVGaFq9YMDhg">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_X94qQ5zAEemVGaFq9YMDhg"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_X95RUJzAEemVGaFq9YMDhg" value="*"/>
-        </ownedAttribute>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_IHOTkJzAEemVGaFq9YMDhg" name="TestHolder">
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_MJ9JMJzAEemVGaFq9YMDhg" name="localId">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_MbyDkpzBEemVGaFq9YMDhg" name="_testEquipment" type="_-GnxUJy_EemVGaFq9YMDhg" aggregation="shared" association="_MbxcgJzBEemVGaFq9YMDhg">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MbyqoJzBEemVGaFq9YMDhg"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MbyqoZzBEemVGaFq9YMDhg" value="1"/>
-        </ownedAttribute>
-      </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_O51P0JzAEemVGaFq9YMDhg" name="hasEquipment" memberEnd="_O52d8JzAEemVGaFq9YMDhg _O52d85zAEemVGaFq9YMDhg">
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_O5124JzAEemVGaFq9YMDhg" source="org.eclipse.papyrus">
           <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_O5124ZzAEemVGaFq9YMDhg" key="nature" value="UML_Nature"/>
@@ -218,7 +218,7 @@ Type definitionas are not subject of this example.</body>
       <appliedProfile xmi:type="uml:Profile" href="../OpenModelProfile/OpenModel_Profile.profile.uml#_m1xqsHBgEd6FKu9XX1078A"/>
     </profileApplication>
   </uml:Model>
-  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GA" base_Model="0B_17MG9FEembcsaJa33rBA" namespace="urn:onf:yang:air-interface" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM. It is for managing a microwave radio interface." copyright="Copyright 2019 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
+  <OpenModel_Profile:OpenModelStatement xmi:id="_i67NgCVJEemK9ptdIxz6GA" base_Model="0B_17MG9FEembcsaJa33rBA" namespace="urn:onf:yang:test-core-model" organization="openBackhaul.com proposal to Open Networking Foundation (ONF)" description="This model defines a technology specific extension to the ONF Core IM. It is for managing a microwave radio interface." copyright="Copyright 2019 openBackhaul.com" license="Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);&#xD;&#xA;you may not use this file except in compliance with the License.&#xD;&#xA;You may obtain a copy of the License at&#xD;&#xA;&#xD;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xD;&#xA;&#xD;&#xA;Unless required by applicable law or agreed to in writing, software&#xD;&#xA;distributed under the License is distributed on an &quot;AS IS&quot; BASIS,&#xD;&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xD;&#xA;See the License for the specific language governing permissions and&#xD;&#xA;limitations under the License.">
     <contact xmi:type="OpenModel_Profile:Contact" xmi:id="_DqkpUKMnEemOU89mRgVhCg" projectWeb="https://github.com/openBackhaul/Overview" projectEmail="AirInterface@openBackhaul.com" editorName="Thorsten Heinze" editorEmail="Thorsten.Heinze@openBackhaul.com"/>
     <revision xmi:type="OpenModel_Profile:Revision" xmi:id="_zw8owKMnEemOU89mRgVhCg" date="2019-07-11" version="2.0.0-tsp.190711.1825" description="Model for the Transport SDN Pilot at Telefonica Germany." changeLog="https://github.com/openBackhaul/airInterface/issues" reference="https://github.com/openBackhaul/airInterface/tree/tsp: Model definition&#xD;&#xA;https://github.com/openBackhaul/onfCoreIm/tree/tsp: ONF TR-512 Core IM incl. Profile and enhanced Equipment definition"/>
   </OpenModel_Profile:OpenModelStatement>
@@ -261,7 +261,7 @@ Type definitionas are not subject of this example.</body>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_CyKEwscwEemD9ah8YIkhYw" base_Property="_X95RUZzAEemVGaFq9YMDhg"/>
   <OpenInterfaceModel_Profile:OpenInterfaceModelAttribute xmi:id="_CyKEw8cwEemD9ah8YIkhYw" base_Property="_MbyqopzBEemVGaFq9YMDhg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CyRZgMcwEemD9ah8YIkhYw" base_StructuralFeature="_eRn00JyiEemVGaFq9YMDhg"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_CyRZgccwEemD9ah8YIkhYw" base_StructuralFeature="_kR-0wJyiEemVGaFq9YMDhg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_CyRZgccwEemD9ah8YIkhYw" base_StructuralFeature="_kR-0wJyiEemVGaFq9YMDhg" partOfObjectKey="1"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_CyRZgscwEemD9ah8YIkhYw" base_Class="_GbQ-UHMOEemHoZj0yu-6dg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CySAkMcwEemD9ah8YIkhYw" base_StructuralFeature="_GbQ-UXMOEemHoZj0yu-6dg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CySAkccwEemD9ah8YIkhYw" base_StructuralFeature="_4Wz1AJyiEemVGaFq9YMDhg"/>
@@ -270,32 +270,33 @@ Type definitionas are not subject of this example.</body>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CySnoccwEemD9ah8YIkhYw" base_StructuralFeature="_pMDJ8JzBEemVGaFq9YMDhg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CySnoscwEemD9ah8YIkhYw" base_StructuralFeature="_O52d8JzAEemVGaFq9YMDhg"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_CySno8cwEemD9ah8YIkhYw" base_Class="_UbzJwJyjEemVGaFq9YMDhg"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_CyTOsMcwEemD9ah8YIkhYw" base_StructuralFeature="_eJUX8JyjEemVGaFq9YMDhg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_CyTOsMcwEemD9ah8YIkhYw" base_StructuralFeature="_eJUX8JyjEemVGaFq9YMDhg" partOfObjectKey="1"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CyTOsccwEemD9ah8YIkhYw" base_StructuralFeature="_eJWNIJyjEemVGaFq9YMDhg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CyTOsscwEemD9ah8YIkhYw" base_StructuralFeature="_UYuyMpykEemVGaFq9YMDhg"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_CyT1wMcwEemD9ah8YIkhYw" base_Class="_lCWFQJyjEemVGaFq9YMDhg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CyT1wccwEemD9ah8YIkhYw" base_StructuralFeature="_rcHDsJyjEemVGaFq9YMDhg"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_CyT1wscwEemD9ah8YIkhYw" base_StructuralFeature="_rcI44JyjEemVGaFq9YMDhg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_CyT1wscwEemD9ah8YIkhYw" base_StructuralFeature="_rcI44JyjEemVGaFq9YMDhg" partOfObjectKey="1"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CyT1w8cwEemD9ah8YIkhYw" base_StructuralFeature="_QNx9QJy7EemVGaFq9YMDhg"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_CyUc0McwEemD9ah8YIkhYw" base_Class="_qj1zIHFaEemHoZj0yu-6dg"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_CyUc0ccwEemD9ah8YIkhYw" base_StructuralFeature="_kH8XoHFjEemHoZj0yu-6dg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_CyUc0ccwEemD9ah8YIkhYw" base_StructuralFeature="_kH8XoHFjEemHoZj0yu-6dg" partOfObjectKey="1"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CyUc0scwEemD9ah8YIkhYw" base_StructuralFeature="_1kCKIHFaEemHoZj0yu-6dg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CyUc08cwEemD9ah8YIkhYw" base_StructuralFeature="_ZCfBAJyjEemVGaFq9YMDhg"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_CyVD4McwEemD9ah8YIkhYw" base_Class="_eNLowG9HEem24uNCwfOIBg"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_CyVD4ccwEemD9ah8YIkhYw" base_StructuralFeature="_qKPRQHFjEemHoZj0yu-6dg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_CyVD4ccwEemD9ah8YIkhYw" base_StructuralFeature="_qKPRQHFjEemHoZj0yu-6dg" partOfObjectKey="1"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CyVD4scwEemD9ah8YIkhYw" base_StructuralFeature="_x7xoQJzDEemVGaFq9YMDhg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CyVq8McwEemD9ah8YIkhYw" base_StructuralFeature="_1kO-cHFaEemHoZj0yu-6dg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CyVq8ccwEemD9ah8YIkhYw" base_StructuralFeature="_03MmcXMUEemHoZj0yu-6dg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CyVq8scwEemD9ah8YIkhYw" base_StructuralFeature="_6c7-kpyjEemVGaFq9YMDhg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CyWSAMcwEemD9ah8YIkhYw" base_StructuralFeature="_UYwAUJykEemVGaFq9YMDhg"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_CyWSAccwEemD9ah8YIkhYw" base_Class="_-GnxUJy_EemVGaFq9YMDhg"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_CyWSAscwEemD9ah8YIkhYw" base_StructuralFeature="_KMcToJzAEemVGaFq9YMDhg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_CyWSAscwEemD9ah8YIkhYw" base_StructuralFeature="_KMcToJzAEemVGaFq9YMDhg" partOfObjectKey="1"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CyWSA8cwEemD9ah8YIkhYw" base_StructuralFeature="_KMc6sJzAEemVGaFq9YMDhg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CyW5EMcwEemD9ah8YIkhYw" base_StructuralFeature="_X94qQpzAEemVGaFq9YMDhg"/>
   <OpenModel_Profile:OpenModelClass xmi:id="_CyW5EccwEemD9ah8YIkhYw" base_Class="_IHOTkJzAEemVGaFq9YMDhg"/>
-  <OpenModel_Profile:OpenModelAttribute xmi:id="_CyW5EscwEemD9ah8YIkhYw" base_StructuralFeature="_MJ9JMJzAEemVGaFq9YMDhg"/>
+  <OpenModel_Profile:OpenModelAttribute xmi:id="_CyW5EscwEemD9ah8YIkhYw" base_StructuralFeature="_MJ9JMJzAEemVGaFq9YMDhg" partOfObjectKey="1"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CyW5E8cwEemD9ah8YIkhYw" base_StructuralFeature="_MbyDkpzBEemVGaFq9YMDhg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CyXgIMcwEemD9ah8YIkhYw" base_StructuralFeature="_O52d85zAEemVGaFq9YMDhg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CyXgIccwEemD9ah8YIkhYw" base_StructuralFeature="_X95RUZzAEemVGaFq9YMDhg"/>
   <OpenModel_Profile:OpenModelAttribute xmi:id="_CyXgIscwEemD9ah8YIkhYw" base_StructuralFeature="_MbyqopzBEemVGaFq9YMDhg"/>
+  <OpenInterfaceModel_Profile:RootElement xmi:id="_qjsxIMc5EemUDOhmvQpsMw" base_Class="_GbQ-UHMOEemHoZj0yu-6dg"/>
 </xmi:XMI>
