@@ -15,6 +15,8 @@
     <abstraction id="_Qmf-IIptEeiF9qdS0TxlAA" name="PorstSpecSetSpecifiesInternalForwardingSpecPort" prune="false"/>
     <abstraction id="_LlYX0BdlEeitqc-Dc8Gf8A" name="PotentialAssociationIsDerivedFromFc" prune="false"/>
   </abstraction-list>
+  
+  <!--
   <association-list count="473">
     <association id="_vFVskN4lEeaL7dYp0KdCwA" name="" prune="false"/>
     <association id="" name="" prune="false"/>
@@ -490,10 +492,13 @@
     <association id="_7tUZMGmFEeio5tbL36vGKA" name="VmfPortBoundToVmfPort" prune="true"/>
     <association id="_RSJ7sD7pEei6HehkJk8P-g" name="VmmInvokesVm" prune="true"/>
   </association-list>
+  
   <association-class-list count="2">
     <association-class id="_Q575MBBEEeS-tqfHkf_O5w" name="EgressSwitchSelection" prune="false"/>
     <association-class id="_d8DKUM96EeOwEItOulyh6w" name="IngressSwitchSelection" prune="false"/>
   </association-class-list>
+  -->
+
   <class-list count="247">
     <class id="" name="" prune="false"/>
     <class id="_08BE4PHVEea2l9FuDSKfDQ" name="AbstractView" prune="false"/>
@@ -5369,8 +5374,8 @@
     <property id="_WkBfgIDfEeeGAbqDM4f-JQ" name="_fdPort" prune="false"/>
     <property id="_cUnRUb43EeW6upS9HpMrJw" name="_fdRule" prune="false"/>
     <property id="_FDjBAmGTEeerc4Zz6ufSeg" name="_fdRuleGroup" prune="false"/>
-    <property id="_bvcHsL43EeW6upS9HpMrJw" name="_fdRuleSet" prune="false"/>
-    <property id="_enQpYL43EeW6upS9HpMrJw" name="_fdRuleSet" prune="false"/>
+    <property id="_bvcHsL43EeW6upS9HpMrJw" name="_fdRuleSet" prune="true"/>
+    <property id="_enQpYL43EeW6upS9HpMrJw" name="_fdRuleSet" prune="true"/>
     <property id="_JyOPkIlbEeahttOwTtJ6Iw" name="_fdSpec" prune="true"/>
     <property id="_saA4Uj3BEei6HehkJk8P-g" name="_fileSystemEntry" prune="false"/>
     <property id="_8HGoYT4mEei6HehkJk8P-g" name="_fileSystemEntry" prune="false"/>
@@ -5436,8 +5441,8 @@
     <property id="_i7UzkFYfEeOVGaP4lO41SQ" name="_lowerLevelFc" prune="false"/>
     <property id="_oGqmBVLNEeO75dO39GbF8Q" name="_lowerLevelFd" prune="false"/>
     <property id="_aDxZkjkZEeaHY8ihI-WgZg" name="_lowerLevelFd" prune="false"/>
-    <property id="_dm_ngBiQEeSh8KVgZCMyDw" name="_lowerLevelLink" prune="false"/>
-    <property id="_RtwvMKT3EeS9Obpdy8FCjA" name="_lowerLevelLink" prune="false"/>
+    <property id="_dm_ngBiQEeSh8KVgZCMyDw" name="_lowerLevelLink" prune="true"/>
+    <property id="_RtwvMKT3EeS9Obpdy8FCjA" name="_lowerLevelLink" prune="true"/>
     <property id="_lvFOQFYXEeOVGaP4lO41SQ" name="_lp" prune="false"/>
     <property id="__l3OE4mwEeiF9qdS0TxlAA" name="_lpOccurrence" prune="false"/>
     <property id="_C8hJQotQEeiF9qdS0TxlAA" name="_lpOccurrenceInFcSpec" prune="true"/>
