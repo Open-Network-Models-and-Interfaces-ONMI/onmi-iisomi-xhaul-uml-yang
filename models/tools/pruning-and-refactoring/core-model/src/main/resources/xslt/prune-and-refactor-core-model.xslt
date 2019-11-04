@@ -30,7 +30,7 @@
        - add prefix "_" where missing for attribute names
 
        - centralized TypeDefinitions
-       - rename CoreModel to CoreNetworkFunction (reverted)
+       - rename CoreModel to ExtensibleNetworkFunction
        - add OpenModelStatement
        - add Rootelement steriotype to ControlConstruct
        - add generalization to GlobalClass from CascPort
@@ -201,10 +201,10 @@
   <!-- templates -->
  
 
-  <!-- rename CoreModel to CoreNetworkFunctions 
+  <!-- rename CoreModel to CoreNetworkFunctions - ->
   <xsl:template match="@name[. = 'CoreModel']" >
-    <xsl:attribute name="name">CoreNetworkFunction</xsl:attribute>
-  </xsl:template>-->
+    <xsl:attribute name="name">ExtensibleNetworkFunction</xsl:attribute>
+  </xsl:template> -->
   <!-- add high-level description and centralized TypeDefinitions-->
   <xsl:template match="uml:Package[@xmi:id = '_oGqilVLNEeO75dO39GbF8Q']" >
     <xsl:copy>
@@ -244,7 +244,7 @@
           <xsl:text>none</xsl:text>
           <xsl:call-template name="addUmlReference">
             <xsl:with-param name="node" select="."/>
-            <xsl:with-param name="visible" select="fn:true()"/>
+            <xsl:with-param name="visible" select="fn:false()"/>
           </xsl:call-template>
         </body>
       </ownedComment>
@@ -429,11 +429,7 @@
     <xsl:copy>
       <xsl:apply-templates select="@* | node() | text()"/>
 
-
-
-
-
-      <OpenModel_Profile:OpenModelStatement xmi:id="{@xmi:id}-open-model-statement" base_Model="{@xmi:id}" namespace="urn:onf:yang:core-model" organization="Open Networking Foundation (ONF)" description="This model defines a technology agnostic core model for network functions." copyright="Copyright 2019 Open Networking Foundation (ONF). All rights reserved." license="Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);&#xA;you may not use this file except in compliance with the License.&#xA;You may obtain a copy of the License at&#xA;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xA;&#xA;Unless required by applicable law or agreed to in writing, software&#xA;distributed under the License is distributed on an &#34;AS IS&#34; BASIS,&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xA;See the License for the specific language governing permissions and&#xA;limitations under the License.">
+      <OpenModel_Profile:OpenModelStatement xmi:id="{@xmi:id}-open-model-statement" base_Model="{@xmi:id}" namespace="urn:onf:yang:extensible-network-function" organization="Open Networking Foundation (ONF)" description="This model defines a technology agnostic core model for network functions." copyright="Copyright 2019 Open Networking Foundation (ONF). All rights reserved." license="Licensed under the Apache License, Version 2.0 (the &#34;License&#34;);&#xA;you may not use this file except in compliance with the License.&#xA;You may obtain a copy of the License at&#xA;&#xA;    http://www.apache.org/licenses/LICENSE-2.0&#xA;&#xA;Unless required by applicable law or agreed to in writing, software&#xA;distributed under the License is distributed on an &#34;AS IS&#34; BASIS,&#xA;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.&#xA;See the License for the specific language governing permissions and&#xA;limitations under the License.">
         <contact xmi:type="OpenModel_Profile:Contact" xmi:id="onf-core-nf-contact" projectWeb="https://wiki.opennetworking.org/pages/viewpage.action?pageId=262963204" projectEmail="&lt;mailto:information-modeling@opennetworking.org&gt;" editorName="Nigel Davis" editorEmail="&lt;mailto:ndavis@ciena.com&gt;"/>
 
         <revision xmi:type="OpenModel_Profile:Revision" xmi:id="onf-core-nf-revision-2019-07-09" date="2019-07-09" version="v1.4" description="Corrected version derived from ONF-TR-512 v1.4&#xA;
@@ -511,9 +507,19 @@
       <xsl:apply-templates select="@*"/> 
       <xsl:attribute name="name">dtAddress</xsl:attribute>
       <xsl:apply-templates select="node() | text()"/>
-      </xsl:copy>
+    </xsl:copy>
   </xsl:template>
-  
+
+  <!-- see issue: https://github.com/openBackhaul/core/issues/2 -->
+  <xsl:template match="lowerValue[@xmi:id='_gqUk0VYgEeOVGaP4lO41SQ']">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_gqUk0VYgEeOVGaP4lO41SQ" value="0"/>
+  </xsl:template>
+
+  <!-- see issue: https://github.com/openBackhaul/core/issues/3 -->
+  <xsl:template match="lowerValue[@xmi:id='_csyJwI2uEeO38ZmbECnvbg']">
+    <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_csyJwI2uEeO38ZmbECnvbg" value="0"/>
+  </xsl:template>
+
   <!-- temporary -->
   <xsl:template name="addUmlReference">
     <xsl:param name="node"/>
